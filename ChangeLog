@@ -1,3 +1,7 @@
+2002-12-01  Christian Neumair  <chris@gnome-de.org>
+
+	* configure.in (ALL_LINGUAS): Added German (de).
+
 2002-11-22  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in (ALL_LINGUAS): Added "no".
