@@ -69,16 +69,22 @@ atk.defs atkmarshal.h :	  # never add deps here
 	test -f "$(srcdir)/$@" || touch $(srcdir)/$@
 
 $(srcdir)/stamp-atkmarshal.h: @REBUILD@ atkmarshal.list atkmarshal.h
-	cwd=`pwd` \
-	&& cd $(srcdir) \
-	&& $$cwd/@GLIB_GENMARSHAL@ --prefix=atk_marshal atkmarshal.list --header >> xgen-gmh \
-	&& (cmp -s xgen-gmh atkmarshal.h || cp xgen-gmh atkmarshal.h) \
-	&& rm -f xgen-gmh xgen-gmh~ \
+        case @GLIB_GENMARSHAL@ in							\
+           /*) glib_genmarshal=@GLIB_GENMARSHAL@ ;;					\
+            *) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;		\
+        esac;										\
+	cd $(srcdir)									\
+	&& $$glib_genmarshal --prefix=atk_marshal atkmarshal.list --header >> xgen-gmh	\
+	&& (cmp -s xgen-gmh atkmarshal.h || cp xgen-gmh atkmarshal.h)			\
+	&& rm -f xgen-gmh xgen-gmh~							\
 	&& echo timestamp > $(@F)
-$(srcdir)/atkmarshal.c: @REBUILD@ $(srcdir)/stamp-atkmarshal.h
-	cwd=`pwd` \
-	&& cd $(srcdir) \
-	&& $$cwd/@GLIB_GENMARSHAL@ --prefix=atk_marshal atkmarshal.list --body >> xgen-gmc \
-	&& cp xgen-gmc atkmarshal.c \
-	&& rm -f xgen-gmc xgen-gmc~
 
+$(srcdir)/atkmarshal.c: @REBUILD@ $(srcdir)/stamp-atkmarshal.h
+        case @GLIB_GENMARSHAL@ in							\
+           /*) glib_genmarshal=@GLIB_GENMARSHAL@ ;;					\
+            *) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;		\
+        esac;										\
+	cd $(srcdir)									\
+	&& $$glib_genmarshal --prefix=atk_marshal atkmarshal.list --body >> xgen-gmc	\
+	&& cp xgen-gmc atkmarshal.c							\
+	&& rm -f xgen-gmc xgen-gmc~

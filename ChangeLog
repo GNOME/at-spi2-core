@@ -1,5 +1,10 @@
 2001-06-07  Havoc Pennington  <hp@redhat.com>
 
+	* atk/Makefile.am ($(srcdir)/atkmarshal.c): fix up the
+	glib-genmarshal stuff
+
+2001-06-07  Havoc Pennington  <hp@redhat.com>
+
 	* atk/Makefile.am: use @GLIB_GENMARSHAL@ so we can use uninstalled
 	glib-genmarshal
 
