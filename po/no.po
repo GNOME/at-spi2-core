@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.5.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-30 14:30+0100\n"
-"PO-Revision-Date: 2004-01-30 14:30+0100\n"
+"POT-Creation-Date: 2004-07-31 11:32+0200\n"
+"PO-Revision-Date: 2004-07-31 11:32+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -347,67 +347,71 @@ msgstr "autofullfør"
 msgid "edit bar"
 msgstr "rediger linje"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "innebygget komponent"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Tilgjengelig navn"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Objektinstansens navn formattert for aksess via hjelpefunksjoner"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Tilgjengelig beskrivelse"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Beskrivelse av et objekt formattert for aksess via hjelpefunksjoner"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "Tilgjengelig opphav"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "Brukes til å varsle at opphavet er endret"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Tilgjengelig verdi"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "Brukes til å varsle at verdien er endret"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Tilgjengelig rolle"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "Tilgjengelig rolle for dette objektet"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "Tilgjengelig lag"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "Tilgjengelig lag for dette objektet"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "Tilgjengelig MDI-verdi"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "Tilgjengelig MDI-verdi for dette objektet"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "Tilgjengelig tabelltekst"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -415,58 +419,58 @@ msgstr ""
 "Brukes til å varsle at denne tabellteksten er endret; denne egenskapen bør "
 "ikke brukes. accessible-table-caption-object bør brukes i stedet"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "Topptekst for kolonne i tilgjengelig tabell"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "Brukes til å varsle at kolonnetopptekst for tabellen er endret"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "Tilgjengelig beskrivelse av kolonne i tabell"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "Brukes til å varsle at kolonnebeskrivelse for tabell er endret"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "Tilgjengelig topptekst for rad i tabell"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "Brukes til å varsle at radtopptekst for tabellen er endret"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "Tilgjengelig beskrivelse av rad i tabell"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "Brukes til å varsle at radbeskrivelse i tabell er endret"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "Tilgjengelig tabellsammendrag"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "Brukes til å varsle at tabellsammendrag er endret"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "Tilgjengelig objekt for tabelltekst"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "Brukes til å varsle at tabellteksten er endret"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "Antall tilgjengelige hypertekstlenker"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Antall lenker i aktiv AtkHypertext"
