@@ -1,0 +1,186 @@
+<!-- ##### SECTION Title ##### -->
+Registry queries
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM AccessibleKeySynthType ##### -->
+<para>
+
+</para>
+
+@SPI_KEY_PRESS: 
+@SPI_KEY_RELEASE: 
+@SPI_KEY_PRESSRELEASE: 
+@SPI_KEY_SYM: 
+
+<!-- ##### FUNCTION getDesktopCount ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION getDesktop ##### -->
+<para>
+
+</para>
+
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION getDesktopList ##### -->
+<para>
+
+</para>
+
+@list: 
+@Returns: 
+
+
+<!-- ##### TYPEDEF AccessibleKeystrokeListenerCB ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### TYPEDEF AccessibleKeyEventMask ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### TYPEDEF AccessibleKeyMaskType ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM AccessibleKeyEventType ##### -->
+<para>
+
+</para>
+
+@SPI_KEY_PRESSED: 
+@SPI_KEY_RELEASED: 
+
+<!-- ##### ENUM AccessibleKeyListenerSyncType ##### -->
+<para>
+
+</para>
+
+@SPI_KEYLISTENER_NOSYNC: 
+@SPI_KEYLISTENER_SYNCHRONOUS: 
+@SPI_KEYLISTENER_CANCONSUME: 
+@SPI_KEYLISTENER_ALL_WINDOWS: 
+
+<!-- ##### FUNCTION createAccessibleKeystrokeListener ##### -->
+<para>
+
+</para>
+
+@callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION registerGlobalEventListener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@eventType: 
+@Returns: 
+
+
+<!-- ##### FUNCTION deregisterGlobalEventListener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@eventType: 
+@Returns: 
+
+
+<!-- ##### FUNCTION deregisterGlobalEventListenerAll ##### -->
+<para>
+
+</para>
+
+@listener: 
+@Returns: 
+
+
+<!-- ##### FUNCTION registerAccessibleKeystrokeListener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@keys: 
+@modmask: 
+@eventmask: 
+@sync_type: 
+
+
+<!-- ##### FUNCTION deregisterAccessibleKeystrokeListener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@modmask: 
+
+
+<!-- ##### FUNCTION AccessibleKeystrokeListener_removeCallback ##### -->
+<para>
+
+</para>
+
+@listener: 
+@callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleKeystrokeListener_addCallback ##### -->
+<para>
+
+</para>
+
+@listener: 
+@callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION generateKeyEvent ##### -->
+<para>
+
+</para>
+
+@keyval: 
+@synth_type: 
+
+
+<!-- ##### FUNCTION generateMouseEvent ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+@name: 
+
+

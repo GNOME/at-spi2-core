@@ -1,0 +1,57 @@
+<!-- ##### SECTION Title ##### -->
+Event Listener Support
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### TYPEDEF AccessibleEvent ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### TYPEDEF AccessibleEventListenerCB ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION createAccessibleEventListener ##### -->
+<para>
+
+</para>
+
+@callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEventListener_addCallback ##### -->
+<para>
+
+</para>
+
+@listener: 
+@callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEventListener_removeCallback ##### -->
+<para>
+
+</para>
+
+@listener: 
+@callback: 
+@Returns: 
+
+

@@ -148,6 +148,9 @@ Makefile
 at-spi-1.0.pc
 po/Makefile.in
 docs/Makefile
+docs/reference/Makefile
+docs/reference/idl/Makefile
+docs/reference/cspi/Makefile
 idl/Makefile
 libspi/Makefile
 registryd/Makefile

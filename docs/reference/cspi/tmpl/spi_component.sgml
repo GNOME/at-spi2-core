@@ -1,0 +1,108 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleComponent Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM AccessibleCoordType ##### -->
+<para>
+
+</para>
+
+@SPI_COORD_TYPE_SCREEN: 
+@SPI_COORD_TYPE_WINDOW: 
+
+<!-- ##### FUNCTION AccessibleComponent_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_contains ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@ctype: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_getAccessibleAtPoint ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@ctype: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_getExtents ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@width: 
+@height: 
+@ctype: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_getPosition ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@ctype: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_getSize ##### -->
+<para>
+
+</para>
+
+@obj: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_grabFocus ##### -->
+<para>
+
+</para>
+
+@obj: 
+
+

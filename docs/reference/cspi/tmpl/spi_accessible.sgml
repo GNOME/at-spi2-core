@@ -1,0 +1,340 @@
+<!-- ##### SECTION Title ##### -->
+Accessible Objects
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION Accessible_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getName ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getDescription ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getParent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getChildCount ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getChildAtIndex ##### -->
+<para>
+
+</para>
+
+@obj: 
+@childIndex: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getIndexInParent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getRelationSet ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getRole ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getStateSet ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isAction ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isComponent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isEditableText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isHypertext ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isImage ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isTable ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getAction ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getComponent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getEditableText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getHypertext ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getImage ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getTable ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_queryInterface ##### -->
+<para>
+
+</para>
+
+@obj: 
+@interface_name: 
+@Returns: 
+
+
+<!-- ##### ENUM AccessibleRole ##### -->
+<para>
+
+</para>
+
+@SPI_ROLE_INVALID: 
+@SPI_ROLE_ALERT: 
+@SPI_ROLE_CANVAS: 
+@SPI_ROLE_CHECK_BOX: 
+@SPI_ROLE_COLOR_CHOOSER: 
+@SPI_ROLE_COLUMN_HEADER: 
+@SPI_ROLE_COMBO_BOX: 
+@SPI_ROLE_SPI_DESKTOP_ICON: 
+@SPI_ROLE_SPI_DESKTOP_FRAME: 
+@SPI_ROLE_DIALOG: 
+@SPI_ROLE_DIRECTORY_PANE: 
+@SPI_ROLE_FILE_CHOOSER: 
+@SPI_ROLE_FILLER: 
+@SPI_ROLE_FOCUS_TRAVERSABLE: 
+@SPI_ROLE_FRAME: 
+@SPI_ROLE_GLASS_PANE: 
+@SPI_ROLE_HTML_CONTAINER: 
+@SPI_ROLE_ICON: 
+@SPI_ROLE_INTERNAL_FRAME: 
+@SPI_ROLE_LABEL: 
+@SPI_ROLE_LAYERED_PANE: 
+@SPI_ROLE_LIST: 
+@SPI_ROLE_LIST_ITEM: 
+@SPI_ROLE_MENU: 
+@SPI_ROLE_MENU_BAR: 
+@SPI_ROLE_MENU_ITEM: 
+@SPI_ROLE_OPTION_PANE: 
+@SPI_ROLE_PAGE_TAB: 
+@SPI_ROLE_PAGE_TAB_LIST: 
+@SPI_ROLE_PANEL: 
+@SPI_ROLE_PASSWORD_TEXT: 
+@SPI_ROLE_POPUP_MENU: 
+@SPI_ROLE_PROGRESS_BAR: 
+@SPI_ROLE_PUSH_BUTTON: 
+@SPI_ROLE_RADIO_BUTTON: 
+@SPI_ROLE_ROOT_PANE: 
+@SPI_ROLE_ROW_HEADER: 
+@SPI_ROLE_SCROLL_BAR: 
+@SPI_ROLE_SCROLL_PANE: 
+@SPI_ROLE_SEPARATOR: 
+@SPI_ROLE_SLIDER: 
+@SPI_ROLE_SPLIT_PANE: 
+@SPI_ROLE_TABLE: 
+@SPI_ROLE_TABLE_CELL: 
+@SPI_ROLE_TABLE_COLUMN_HEADER: 
+@SPI_ROLE_TABLE_ROW_HEADER: 
+@SPI_ROLE_TEXT: 
+@SPI_ROLE_TOGGLE_BUTTON: 
+@SPI_ROLE_TOOL_BAR: 
+@SPI_ROLE_TOOL_TIP: 
+@SPI_ROLE_TREE: 
+@SPI_ROLE_UNKNOWN: 
+@SPI_ROLE_VIEWPORT: 
+@SPI_ROLE_WINDOW: 
+@SPI_ROLE_LAST_DEFINED: 
+
+<!-- ##### FUNCTION AccessibleRole_getName ##### -->
+<para>
+
+</para>
+
+@role: 
+@Returns: 
+
+

@@ -1,0 +1,243 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleTable Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleTable_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getAccessibleAt ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getCaption ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getColumnAtIndex ##### -->
+<para>
+
+</para>
+
+@obj: 
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getColumnDescription ##### -->
+<para>
+
+</para>
+
+@obj: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getColumnExtentAt ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getColumnHeader ##### -->
+<para>
+
+</para>
+
+@obj: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getIndexAt ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getNColumns ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getNRows ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getNSelectedColumns ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getNSelectedRows ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getRowAtIndex ##### -->
+<para>
+
+</para>
+
+@obj: 
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getRowDescription ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getRowExtentAt ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getRowHeader ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getSelectedRows ##### -->
+<para>
+
+</para>
+
+@obj: 
+@selectedRows: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getSelectedColumns ##### -->
+<para>
+
+</para>
+
+@obj: 
+@selectedColumns: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_getSummary ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_isColumnSelected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_isRowSelected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_isSelected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@column: 
+@Returns: 
+
+

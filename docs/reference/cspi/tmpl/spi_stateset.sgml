@@ -1,0 +1,125 @@
+<!-- ##### SECTION Title ##### -->
+State and StateSets
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM AccessibleState ##### -->
+<para>
+
+</para>
+
+@SPI_STATE_INVALID: 
+@SPI_STATE_ACTIVE: 
+@SPI_STATE_ARMED: 
+@SPI_STATE_BUSY: 
+@SPI_STATE_CHECKED: 
+@SPI_STATE_COLLAPSED: 
+@SPI_STATE_EDITABLE: 
+@SPI_STATE_EXPANDABLE: 
+@SPI_STATE_EXPANDED: 
+@SPI_STATE_FOCUSABLE: 
+@SPI_STATE_FOCUSED: 
+@SPI_STATE_HORIZONTAL: 
+@SPI_STATE_ICONIFIED: 
+@SPI_STATE_MODAL: 
+@SPI_STATE_MULTI_LINE: 
+@SPI_STATE_MULTISELECSPI_TABLE: 
+@SPI_STATE_OPAQUE: 
+@SPI_STATE_PRESSED: 
+@SPI_STATE_RESIZABLE: 
+@SPI_STATE_SELECSPI_TABLE: 
+@SPI_STATE_SELECTED: 
+@SPI_STATE_SENSITIVE: 
+@SPI_STATE_SHOWING: 
+@SPI_STATE_SINGLE_LINE: 
+@SPI_STATE_TRANSIENT: 
+@SPI_STATE_VERTICAL: 
+@SPI_STATE_VISIBLE: 
+@SPI_STATE_LAST_DEFINED: 
+
+<!-- ##### FUNCTION AccessibleStateSet_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_add ##### -->
+<para>
+
+</para>
+
+@obj: 
+@state: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_compare ##### -->
+<para>
+
+</para>
+
+@obj: 
+@obj2: 
+@differenceSet: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_contains ##### -->
+<para>
+
+</para>
+
+@obj: 
+@state: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_equals ##### -->
+<para>
+
+</para>
+
+@obj: 
+@obj2: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_isEmpty ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleStateSet_remove ##### -->
+<para>
+
+</para>
+
+@obj: 
+@state: 
+
+

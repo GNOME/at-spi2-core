@@ -1,0 +1,64 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleRelations and RelationSets
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM AccessibleRelationType ##### -->
+<para>
+
+</para>
+
+@SPI_RELATION_LABEL_FOR: 
+@SPI_RELATION_LABELED_BY: 
+@SPI_RELATION_CONTROLLER_FOR: 
+@SPI_RELATION_CONTROLLED_BY: 
+@SPI_RELATION_MEMBER_OF: 
+
+<!-- ##### FUNCTION AccessibleRelation_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleRelation_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleRelation_getTarget ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleRelation_getRelationType ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+

@@ -1,0 +1,111 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleEditableText Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleEditableText_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_copyText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@startPos: 
+@endPos: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_deleteText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@startPos: 
+@endPos: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_insertText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@text: 
+@length: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_cutText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@startPos: 
+@endPos: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_pasteText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_setTextContents ##### -->
+<para>
+
+</para>
+
+@obj: 
+@newContents: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEditableText_setAttributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@attributes: 
+@startOffset: 
+@endOffset: 
+@Returns: 
+
+

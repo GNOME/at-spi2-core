@@ -1,3 +1,25 @@
+2001-21-11  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	* docs/Makefile.am:
+	* docs/reference:
+	* docs/reference:Makefile.am:
+	* docs/reference/cspi:
+	* docs/reference/cspi:Makefile.am:
+	* docs/reference/cspi:tmpl:
+	* docs/reference/cspi:tmpl:*.sgml:
+	* docs/reference/idl:
+	* docs/reference/idl:Makefile.am:
+	* docs/reference/idl:at-spi-idl-sections.txt:
+	* docs/reference/idl:at-spi-idl-docs.sgml:
+	* docs/reference/idl:tmpl:
+	* docs/reference/idl:tmpl:*.sgml:
+
+	Restructured docs directory to allow separate 'reference' docs
+	section, and forked idl and cspi docs.  Added the sgml template
+	files to CVS.  Added the first sections/structural sgml for the
+	IDL docs.
+
 2001-11-21  Laszlo Peter  <laca@ireland.sun.com>
 
 	* configure.in, libspi/Makefile.am: find libXtst.

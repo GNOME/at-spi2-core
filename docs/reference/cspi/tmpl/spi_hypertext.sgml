@@ -1,0 +1,63 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleHypertext Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleHypertext_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHypertext_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHypertext_getNLinks ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHypertext_getLink ##### -->
+<para>
+
+</para>
+
+@obj: 
+@linkIndex: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHypertext_getLinkIndex ##### -->
+<para>
+
+</para>
+
+@obj: 
+@characterOffset: 
+@Returns: 
+
+

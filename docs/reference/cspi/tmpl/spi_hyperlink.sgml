@@ -1,0 +1,64 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleHyperlink Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleHyperlink_getNAnchors ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHyperlink_getIndexRange ##### -->
+<para>
+
+</para>
+
+@obj: 
+@startIndex: 
+@endIndex: 
+
+
+<!-- ##### FUNCTION AccessibleHyperlink_getObject ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHyperlink_getURI ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleHyperlink_isValid ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+

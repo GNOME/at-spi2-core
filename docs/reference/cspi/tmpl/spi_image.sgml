@@ -1,0 +1,64 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleImage Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleImage_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleImage_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleImage_getImageDescription ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleImage_getImageSize ##### -->
+<para>
+
+</para>
+
+@obj: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION AccessibleImage_getImagePosition ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@ctype: 
+
+

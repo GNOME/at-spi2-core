@@ -1,0 +1,83 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleAction Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleAction_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleAction_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleAction_getNActions ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleAction_doAction ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleAction_getKeyBinding ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleAction_getName ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleAction_getDescription ##### -->
+<para>
+
+</para>
+
+@obj: 
+@i: 
+@Returns: 
+
+

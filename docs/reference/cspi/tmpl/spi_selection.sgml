@@ -1,0 +1,100 @@
+<!-- ##### SECTION Title ##### -->
+AccessibleSelection Interface
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION AccessibleSelection_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_getNSelectedChildren ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_getSelectedChild ##### -->
+<para>
+
+</para>
+
+@obj: 
+@selectedChildIndex: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_selectChild ##### -->
+<para>
+
+</para>
+
+@obj: 
+@childIndex: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_isChildSelected ##### -->
+<para>
+
+</para>
+
+@obj: 
+@childIndex: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_deselectSelectedChild ##### -->
+<para>
+
+</para>
+
+@obj: 
+@selectedChildIndex: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_clearSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+
+
+<!-- ##### FUNCTION AccessibleSelection_selectAll ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
