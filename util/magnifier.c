@@ -127,6 +127,7 @@ int main (int argc, char** argv){
   /* TODO: finish replacing socket connection IPC with bonobo service. */
   Magnifier *magnifier;
   char * obj_id;
+  GdkGeometry geometry;
   
   x_cmap = NULL;
 
@@ -239,15 +240,22 @@ int main (int argc, char** argv){
   if (global_options.horizontal_split)
 	  magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display,screen_num)/2;
   else magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display, screen_num);
-  gtk_window_set_decorated(GTK_WINDOW (window), FALSE);
+  gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
+  
+  /* 
+   * this call prevents resizing, which is a bother, but required to 
+   * work around dtwm incompatibilities.  Perhaps a better workaround will
+   * be found, or we can make this a runtime option.
+   */ 
+  gtk_widget_set_size_request (window, 
+			       magnifier->mag_data->mag_width, 
+			       magnifier->mag_data->mag_height);
   gtk_widget_show_all (window);
   
   gdk_window_move(window->window,
 		  gdk_screen_width() - magnifier->mag_data->mag_width,
 		  gdk_screen_height() - magnifier->mag_data->mag_height);
-  g_print ("setting size to %d by %d pixels\n",
-	   magnifier->mag_data->mag_width, magnifier->mag_data->mag_height);
-  gdk_window_resize (window->window, magnifier->mag_data->mag_width, magnifier->mag_data->mag_height);
+
   magnifier->mag_data->output_window = window;
   if (global_options.fullscreen) gdk_window_stick (window->window);
   gdk_window_set_functions(window->window, 0);
