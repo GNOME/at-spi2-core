@@ -1,3 +1,7 @@
+Thu Jun  7 17:03:37 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* atk/Makefile.am: Really fix marshal generation.
+
 2001-06-07  Havoc Pennington  <hp@redhat.com>
 
 	* atk/Makefile.am ($(srcdir)/atkmarshal.c): fix up the

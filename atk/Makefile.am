@@ -26,11 +26,8 @@ libatk_la_SOURCES = 		\
 	atkutil.c		\
 	atkvalue.c
 
-ATK_MARSHALFILES = atkmarshal.h atkmarshal.list atkmarshal.c
-EXTRA_DIST += atkmarshal.c atkmarshal.list
+EXTRA_DIST += atkmarshal.list
 MAINTAINERCLEANFILES += atkmarshal.c
-
-Makefile: $(ATK_MARSHALFILES)
 
 INCLUDES = \
 	-I$(top_srcdir)		\
@@ -64,27 +61,28 @@ libatkinclude_HEADERS =	\
         atkutil.h		\
         atkvalue.h
 
-# initial creation of the real stamp-* files
-atk.defs atkmarshal.h :	  # never add deps here
-	test -f "$(srcdir)/$@" || touch $(srcdir)/$@
+$(libatk_la_OBJECTS): atkmarshal.c atkmarshal.h
 
-$(srcdir)/stamp-atkmarshal.h: @REBUILD@ atkmarshal.list atkmarshal.h
-        case @GLIB_GENMARSHAL@ in							\
-           /*) glib_genmarshal=@GLIB_GENMARSHAL@ ;;					\
-            *) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;		\
-        esac;										\
-	cd $(srcdir)									\
-	&& $$glib_genmarshal --prefix=atk_marshal atkmarshal.list --header >> xgen-gmh	\
-	&& (cmp -s xgen-gmh atkmarshal.h || cp xgen-gmh atkmarshal.h)			\
-	&& rm -f xgen-gmh xgen-gmh~							\
+atkmarshal.h: @REBUILD@ stamp-atkmarshal.h
+	@true
+stamp-atkmarshal.h: atkmarshal.list
+	case @GLIB_GENMARSHAL@ in									\
+	   .*) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;				\
+	   *) glib_genmarshal=@GLIB_GENMARSHAL@ ;;							\
+	esac;												\
+	$$glib_genmarshal --prefix=atk_marshal $(srcdir)/atkmarshal.list --header >> xgen-gmh		\
+	&& (cmp -s xgen-gmh $(srcdir)/atkmarshal.h || cp xgen-gmh $(srcdir)/atkmarshal.h)		\
+	&& rm -f xgen-gmh xgen-gmh~									\
 	&& echo timestamp > $(@F)
 
-$(srcdir)/atkmarshal.c: @REBUILD@ $(srcdir)/stamp-atkmarshal.h
-        case @GLIB_GENMARSHAL@ in							\
-           /*) glib_genmarshal=@GLIB_GENMARSHAL@ ;;					\
-            *) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;		\
-        esac;										\
-	cd $(srcdir)									\
-	&& $$glib_genmarshal --prefix=atk_marshal atkmarshal.list --body >> xgen-gmc	\
-	&& cp xgen-gmc atkmarshal.c							\
-	&& rm -f xgen-gmc xgen-gmc~
+atkmarshal.c: @REBUILD@ stamp-atkmarshal.c
+	@true
+stamp-atkmarshal.c: atkmarshal.list
+	case @GLIB_GENMARSHAL@ in									\
+	   .*) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;				\
+	   *) glib_genmarshal=@GLIB_GENMARSHAL@ ;;							\
+	esac;												\
+	$$glib_genmarshal --prefix=atk_marshal $(srcdir)/atkmarshal.list --body >> xgen-gmc		\
+	&& (cmp -s xgen-gmc $(srcdir)/atkmarshal.c || cp xgen-gmc $(srcdir)/atkmarshal.c)		\
+	&& rm -f xgen-gmc xgen-gmc~									\
+	&& echo timestamp > $(@F)
