@@ -1,3 +1,10 @@
+2002-01-28  Mark McLoughlin  <mark@skynet.ie>
+
+	* libspi/remoteobject.[ch]: make RemoteObject and interface rather
+	than an atk object.
+
+	* test/simple-at.c: include netinet/in.h.
+
 2002-01-24  Mark McLoughlin  <mark@skynet.ie>
 
 	* cspi/spi_accessible.c: (Accessible_getRelationSet):

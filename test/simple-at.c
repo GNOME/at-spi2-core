@@ -24,6 +24,7 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <netinet/in.h>
 #include <sys/un.h>
 #include "../util/mag_client.h"
 #include "../cspi/spi-private.h" /* A hack for now */

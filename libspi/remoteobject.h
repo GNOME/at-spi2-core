@@ -20,26 +20,24 @@
 #ifndef SPI_REMOTE_OBJECT_H_
 #define SPI_REMOTE_OBJECT_H_
 
-#include <atk/atk.h>
+#include <glib-object.h>
 #include <libspi/Accessibility.h>
 
 G_BEGIN_DECLS
 
-#define SPI_REMOTE_OBJECT_TYPE        (spi_remote_object_get_type ())
-#define SPI_REMOTE_OBJECT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REMOTE_OBJECT_TYPE, SpiRemoteObject))
-#define SPI_REMOTE_OBJECT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REMOTE_OBJECT_TYPE, SpiRemoteObjectClass))
-#define SPI_IS_REMOTE_OBJECT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_REMOTE_OBJECT_TYPE))
-#define SPI_IS_REMOTE_OBJECT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REMOTE_OBJECT_TYPE))
-#define SPI_REMOTE_OBJECT_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((o), SPI_REMOTE_OBJECT_TYPE, SpiRemoteObjectClass))
+#define SPI_TYPE_REMOTE_OBJECT         (spi_remote_object_get_type ())
+#define SPI_IS_REMOTE_OBJECT(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_TYPE_REMOTE_OBJECT))
+#define SPI_REMOTE_OBJECT(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_TYPE_REMOTE_OBJECT, SpiRemoteObject))
+#define SPI_REMOTE_OBJECT_GET_IFACE(o) (G_TYPE_INSTANCE_GET_INTERFACE ((o), SPI_TYPE_REMOTE_OBJECT, SpiRemoteObjectIface))
 
-typedef struct {
-	AtkObject parent;
-} SpiRemoteObject;
+typedef struct _SpiRemoteObject      SpiRemoteObject;
+typedef struct _SpiRemoteObjectIface SpiRemoteObjectIface;
 
-typedef struct {
-        AtkObjectClass parent_class;
+struct _SpiRemoteObjectIface {
+        GTypeInterface           base_iface;
+
 	Accessibility_Accessible (*get_accessible) (SpiRemoteObject *o);
-} SpiRemoteObjectClass;
+};
 
 GType                    spi_remote_object_get_type       (void);
 Accessibility_Accessible spi_remote_object_get_accessible (SpiRemoteObject   *o);

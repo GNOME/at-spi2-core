@@ -19,31 +19,20 @@
 
 #include "remoteobject.h"
 
-static Accessibility_Accessible
-impl_spi_remote_object_get_accessible (SpiRemoteObject *o) /* default impl */
-{
-  return CORBA_OBJECT_NIL;
-}
-
 Accessibility_Accessible
-spi_remote_object_get_accessible (SpiRemoteObject *o)
+spi_remote_object_get_accessible (SpiRemoteObject *remote)
 {
-  SpiRemoteObjectClass *klass;	
-  g_assert (SPI_IS_REMOTE_OBJECT (o));
-  
-  klass = SPI_REMOTE_OBJECT_GET_CLASS (o);
-  if (klass->get_accessible)
-    return (klass->get_accessible) (o);
-  else
-    return CORBA_OBJECT_NIL;
-}
+  SpiRemoteObjectIface *iface;	
 
-static void
-spi_remote_object_class_init (AtkObjectClass *klass)
-{
-  SpiRemoteObjectClass *parent_class = SPI_REMOTE_OBJECT_CLASS (klass);
-  parent_class->get_accessible = impl_spi_remote_object_get_accessible;
-} 
+  g_return_val_if_fail (SPI_IS_REMOTE_OBJECT (remote), CORBA_OBJECT_NIL);
+  
+  iface = SPI_REMOTE_OBJECT_GET_IFACE (remote);
+
+  if (!iface->get_accessible)
+    return CORBA_OBJECT_NIL;
+
+  return iface->get_accessible (remote);
+}
 
 GType
 spi_remote_object_get_type (void)
@@ -54,18 +43,17 @@ spi_remote_object_get_type (void)
     {
       static const GTypeInfo typeInfo =
       {
-        sizeof (SpiRemoteObjectClass),
+        sizeof (SpiRemoteObjectIface),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) spi_remote_object_class_init,
+        (GClassInitFunc) NULL,
         (GClassFinalizeFunc) NULL,
-        NULL,
-        sizeof (SpiRemoteObject),
-        0,
+        NULL, 0, 0,
         (GInstanceInitFunc) NULL,
-      } ;
-      type = g_type_register_static (ATK_TYPE_OBJECT, "SpiRemoteObject", &typeInfo, 0) ;
+      };
+
+      type = g_type_register_static (G_TYPE_INTERFACE, "SpiRemoteObject", &typeInfo, 0) ;
     }
+
   return type;
 }
-
