@@ -392,8 +392,8 @@ report_leaked_ref (gpointer key, gpointer val, gpointer user_data)
       role = NULL;
     }
 
-  fprintf (stderr, "leaked %d references to object %s, role %s\n",
-	   a->ref_count, name ? name : "<?>", role ? role : "<?>");
+  fprintf (stderr, "leaked %d references to object %s, role %s %p\n",
+	   a->ref_count, name ? name : "<?>", role ? role : "<?>", a);
 
   SPI_freeString (name);
 }

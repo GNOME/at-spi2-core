@@ -126,7 +126,7 @@ desktop_remove_application (SpiDesktop *desktop,
 static void
 spi_registry_object_finalize (GObject *object)
 {
-  printf ("spi_registry_object_finalize called\n");
+  fprintf (stderr, "spi_registry_object_finalize called\n");
 
   /* TODO: unref deviceeventcontroller, which disconnects key listener */
   G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
@@ -419,7 +419,7 @@ impl_accessibility_registry_deregister_global_event_listener_all (
 	CORBA_Environment          *ev)
 {
   int i;
-  GList **lists[2];
+  GList **lists[3];
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
 
   lists[0] = &registry->object_listeners;

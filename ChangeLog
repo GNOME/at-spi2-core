@@ -1,3 +1,15 @@
+2002-10-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* cspi/spi_main.c (report_leaked_ref): Report address of leaked
+	object.
+
+	* registryd/registry.c
+	(desktop_remove_application: Write diagnostic message to stderr for
+	consistency.
+
+	(impl_accessibility_registry_deregister_global_event_listener):
+	Correct size of lists array. This addresses bug #94555).
+
 2002-09-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* libspi/accessible.c (spi_init_role_lookup_table): Correct typos
