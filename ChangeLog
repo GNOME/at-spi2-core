@@ -1,3 +1,9 @@
+2004-12-09  Bill Haneman <billh@gnome.org>
+
+	* registryd/registry-main.c:
+	Added #define <string.h> for strrchr. (bug 160862).
+	Thanks to Vincent Berger for catching.
+	
 2004-12-09  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c (spi_atk_get_registry): Do not attempt to
