@@ -30,19 +30,21 @@ magnifier_SOURCES = magnifier.c \
 	Magnifier-common.c
 
 mag_control_SOURCES = mag_control.c \
-	mag_client.h\
+	mag_client.h		\
 	Magnifier-common.c	\
 	Magnifier-stubs.c
 
-INCLUDES =            \
-	   $(UTILS_CFLAGS) \
-	   -I$(top_srcdir)/util/idl
+INCLUDES = \
+	$(UTILS_CFLAGS)		\
+	-I$(top_srcdir)		\
+	-I$(top_builddir)	\
+	-I$(top_srcdir)/util/idl
 
 CFLAGS += $(UTILS_CFLAGS) 
 
 IDL_OUT = Magnifier.h Magnifier-skels.c Magnifier-stubs.c Magnifier-common.c
 
-IDL = $(idl_DATA)
+IDL = $(top_srcdir)/util/$(idl_DATA)
 
 BUILT_SOURCES = $(IDL_OUT)
 CLEANFILES+=$(IDL_OUT)
@@ -64,3 +66,10 @@ EXTRA_DIST = Accessibility_Util.server.in $(serverinfo_DATA) $(idl_DATA)
 
 $(IDL_OUT) : $(IDL) $(ORBIT_IDL)
 	$(ORBIT_IDL) $(IDLFLAGS) $(IDL)
+
+DONT_DIST_SOURCE = $(IDL_OUT)
+
+dist-hook:
+	for file in $(DONT_DIST_SOURCE) ; do \
+	    rm -f $(distdir)/$$file ; \
+	done

@@ -1,3 +1,13 @@
+2002-03-27  Michael Meeks  <michael@ximian.com>
+
+	* Version 0.10.0
+
+	* util/Makefile.am (INCLUDES): fix.
+	(DONT_DIST_SOURCE): don't distribute the
+	generated files.
+
+	* libspi/Makefile.am (dist-hook): ditto.
+
 2002-03-27  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* libspi/hypertext.c:

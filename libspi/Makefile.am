@@ -1,7 +1,7 @@
 lib_LTLIBRARIES = libspi.la
 
-INCLUDES = -I $(top_srcdir)           \
-           -I $(top_builddir)         \
+INCLUDES = -I$(top_srcdir)	\
+           -I$(top_builddir)	\
            $(LIBSPI_CFLAGS)
 
 LDFLAGS = $(LIBSPI_LIBS) $(XTST_LIBS) @LT_VERSION_INFO@
@@ -103,3 +103,10 @@ Accessibility_module_la_LDFLAGS = \
 	-export-dynamic -module
 Accessibility_module_la_SOURCES = \
 	Accessibility-imodule.c
+
+DONT_DIST_SOURCE = $(IDL_OUT)
+
+dist-hook:
+	for file in $(DONT_DIST_SOURCE) ; do \
+	    rm -f $(distdir)/$$file ; \
+	done
