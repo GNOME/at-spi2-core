@@ -1,3 +1,8 @@
+2003-01-21  Padraig O'Briain <padraig.obriain@sun.com
+
+	* registryd/deviceeventcontroller.c: Add include of <sys/time.h>
+	This fixes bug #102830.
+
 2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
 
 	* test/test-simple.c: Update to take account of fact that GailButton 

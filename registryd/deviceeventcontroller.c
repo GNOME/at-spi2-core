@@ -32,6 +32,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <sys/time.h>
 #include <bonobo/bonobo-exception.h>
 
 #include <X11/Xlib.h>
