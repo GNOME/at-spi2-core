@@ -1,3 +1,8 @@
+2002-10-08  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* cspi/spi-accessible.c: Correct names of roles returned by
+	AccessibleRole_getName(). Fixes bug #95055.
+
 2002-10-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* cspi/spi_main.c (report_leaked_ref): Report address of leaked
