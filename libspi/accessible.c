@@ -452,71 +452,79 @@ spi_accessible_new (AtkObject *o)
 	return retval;
       }
 
-    retval = g_object_new (SPI_ACCESSIBLE_TYPE, NULL);
+   else if (SPI_IS_REMOTE_OBJECT (o))
+     {
+       retval = spi_remote_object_get_accessible (o); 
+     }
+   else
+     {
+       retval = g_object_new (SPI_ACCESSIBLE_TYPE, NULL);
 
-    spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
+       spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
+
+       spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
+
+       /* aggregate appropriate SPI interfaces based on ATK interfaces */
+ 
+       if (ATK_IS_ACTION (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_action_interface_new (o)));
+         }
+
+       if (ATK_IS_COMPONENT (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_component_interface_new (o)));
+         }
+
+       if (ATK_IS_EDITABLE_TEXT (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT(spi_editable_text_interface_new (o)));
+         }
+
+       else if (ATK_IS_TEXT (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_text_interface_new (o)));
+         }
+
+       if (ATK_IS_HYPERTEXT (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_hypertext_interface_new (o)));
+         }
+
+       if (ATK_IS_IMAGE (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_image_interface_new (o)));
+	 }
+
+       if (ATK_IS_SELECTION (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_selection_interface_new (o)));
+	 }
+
+       if (ATK_IS_TABLE (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_table_interface_new (o)));
+	 }
+
+       if (ATK_IS_VALUE (o))
+         {
+           bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (spi_value_interface_new (o)));
+	 }
+     }
 
     g_hash_table_insert (get_public_refs (), o, retval);
     g_signal_connect (G_OBJECT (retval), "destroy",
 		      G_CALLBACK (de_register_public_ref),
 		      NULL);
-
-    /* aggregate appropriate SPI interfaces based on ATK interfaces */
-
-    if (ATK_IS_ACTION (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_action_interface_new (o)));
-      }
-
-    if (ATK_IS_COMPONENT (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_component_interface_new (o)));
-      }
-
-    if (ATK_IS_EDITABLE_TEXT (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT(spi_editable_text_interface_new (o)));
-      }
-
-    else if (ATK_IS_TEXT (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_text_interface_new (o)));
-      }
-
-    if (ATK_IS_HYPERTEXT (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_hypertext_interface_new (o)));
-      }
-
-    if (ATK_IS_IMAGE (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_image_interface_new (o)));
-      }
-
-    if (ATK_IS_SELECTION (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_selection_interface_new (o)));
-      }
-
-    if (ATK_IS_TABLE (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_table_interface_new (o)));
-      }
-
-    if (ATK_IS_VALUE (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_value_interface_new (o)));
-      }
-
     return retval;
 }
 

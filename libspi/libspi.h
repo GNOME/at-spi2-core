@@ -39,5 +39,6 @@
 #include <libspi/eventlistener.h>
 #include <libspi/keystrokelistener.h>
 #include <libspi/keymasks.h>
+#include <libspi/remoteobject.h>
 
 #endif /* LIBSPI_H_ */

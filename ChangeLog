@@ -1,4 +1,10 @@
-2002-01-01  Bill Haneman <bill.haneman@sun.com>
+2002-03-01  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c (spi_accessible_new ()) :
+	Added check to see if AtkObject is an SpiRemoteObject before
+	creating an SpiAccessible.
+	
+2002-02-01  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/remoteobject.h:
 	* libspi/remoteobject.c:
