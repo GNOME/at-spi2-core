@@ -257,11 +257,13 @@ int main (int argc, char** argv){
 
   if (! global_options.no_bonobo)
     {	  
-      bonobo_activation_active_server_register (
-	  obj_id,
-	  bonobo_object_corba_objref (bonobo_object (magnifier)));
+      int ret = bonobo_activation_active_server_register (
+	obj_id, BONOBO_OBJREF (magnifier));
 
-      bonobo_main ();
+      if (ret == Bonobo_ACTIVATION_REG_SUCCESS)
+        {
+          bonobo_main ();
+	}
     }
   else
     {
@@ -527,7 +529,7 @@ magnifier_get_type (void)
 }
 
 Magnifier *
-magnifier_new(int argc, char **argv)
+magnifier_new (int argc, char **argv)
 {
   poptContext ctx;	
   Magnifier *magnifier =
@@ -543,20 +545,3 @@ magnifier_new(int argc, char **argv)
 
   return magnifier;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-

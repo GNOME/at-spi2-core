@@ -125,654 +125,109 @@ typedef struct _AccessibleKeySet
 
 typedef unsigned long AccessibleKeyMaskType;
 
-/*
- *
- * Basic SPI initialization and event loop function prototypes
- *
- */
 
-int
-SPI_init (SPIBoolean isGNOMEApp);
+/* Basic SPI initialization and event loop function prototypes */
 
-/**
- * SPI_event_main:
- *
- * Starts/enters the main event loop for the SPI services.
- *
- * (NOTE: This method does not return control, it is exited via a call to exit()
- * from within an event handler).
- *
- **/
-void
-SPI_event_main (void);
+int              SPI_init         (void);
+void             SPI_event_main   (void);
+void             SPI_event_quit   (void);
+SPIBoolean       SPI_eventIsReady (void);
+AccessibleEvent *SPI_nextEvent    (SPIBoolean waitForEvent);
+int              SPI_exit         (void);
 
-/**
- * SPI_event_is_ready:
- *
- * Checks to see if an SPI event is waiting in the event queue.
- * Used by clients that don't wish to use SPI_event_main().
- * Not Yet Implemented.
- *
- * Returns: #TRUE if an event is waiting, otherwise #FALSE.
- *
- **/
-SPIBoolean
-SPI_eventIsReady ();
+/* Event Listener creation and support.  */
 
-/**
- * SPI_nextEvent:
- *
- * Gets the next event in the SPI event queue; blocks if no event
- * is pending.
- * Used by clients that don't wish to use SPI_event_main().
- * Not Yet Implemented.
- *
- * Returns: the next #AccessibleEvent in the SPI event queue.
- *
- **/
-AccessibleEvent *
-SPI_nextEvent (SPIBoolean waitForEvent);
-
-/**
- * SPI_exit:
- *
- * Disconnects from the Accessibility Registry and releases resources.
- *
- **/
-void
-SPI_exit (void);
-
-/*
- * Event Listener creation and support.
- */
-
-/**
- * createAccessibleEventListener:
- * @callback : an #AccessibleEventListenerCB callback function, or NULL.
- *
- * Create a new #AccessibleEventListener with a specified callback function.
- *
- * Returns: a pointer to a newly-created #AccessibleEventListener.
- *
- **/
 AccessibleEventListener *
-createAccessibleEventListener (AccessibleEventListenerCB callback,
-			       void                     *user_data);
+           createAccessibleEventListener          (AccessibleEventListenerCB callback,
+						   void                     *user_data);
+SPIBoolean AccessibleEventListener_addCallback    (AccessibleEventListener  *listener,
+						   AccessibleEventListenerCB callback,
+						   void                     *user_data);
+SPIBoolean AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
+						   AccessibleEventListenerCB callback);
+void       AccessibleEventListener_unref          (AccessibleEventListener  *listener);
 
-/**
- * AccessibleEventListener_addCallback:
- * @listener: the #AccessibleEventListener instance to modify.
- * @callback: an #AccessibleEventListenerCB function pointer.
- *
- * Add an in-process callback function to an existing AccessibleEventListener.
- *
- * Returns: #TRUE if successful, otherwise #FALSE.
- *
- **/
-SPIBoolean
-AccessibleEventListener_addCallback (AccessibleEventListener  *listener,
-				     AccessibleEventListenerCB callback,
-				     void                     *user_data);
+/* Keystroke Listener creation and support.  */
 
-/**
- * AccessibleEventListener_removeCallback:
- * @listener: the #AccessibleEventListener instance to modify.
- * @callback: an #AccessibleEventListenerCB function pointer.
- *
- * Remove an in-process callback function from an existing AccessibleEventListener.
- *
- * Returns: #TRUE if successful, otherwise #FALSE.
- *
- **/
-SPIBoolean
-AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
-					AccessibleEventListenerCB callback);
-
-/**
- * createAccessibleKeystrokeListener:
- * @callback : an #AccessibleKeystrokeListenerCB callback function, or NULL.
- *
- * Create a new #AccessibleKeystrokeListener with a specified callback function.
- *
- * Returns: a pointer to a newly-created #AccessibleKeystrokeListener.
- *
- **/
 AccessibleKeystrokeListener *
-createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
-				   void                         *user_data);
+           createAccessibleKeystrokeListener          (AccessibleKeystrokeListenerCB callback,
+						       void                         *user_data);
+SPIBoolean AccessibleKeystrokeListener_addCallback    (AccessibleKeystrokeListener  *listener,
+						       AccessibleKeystrokeListenerCB callback,
+						       void                         *user_data);
+SPIBoolean AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
+						       AccessibleKeystrokeListenerCB callback);
+void       AccessibleKeystrokeListener_unref         (AccessibleKeystrokeListener *listener);
 
-/**
- * KeystrokeListener_addCallback:
- * @listener: the #KeystrokeListener instance to modify.
- * @callback: an #KeystrokeListenerCB function pointer.
- *
- * Add an in-process callback function to an existing #KeystrokeListener.
- *
- * Returns: #TRUE if successful, otherwise #FALSE.
- *
- **/
-SPIBoolean
-AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener  *listener,
-					 AccessibleKeystrokeListenerCB callback,
-					 void                         *user_data);
+/* Global functions serviced by the registry */
 
-/**
- * AccessibleKeystrokeListener_removeCallback:
- * @listener: the #AccessibleKeystrokeListener instance to modify.
- * @callback: an #AccessibleKeystrokeListenerCB function pointer.
- *
- * Remove an in-process callback function from an existing #AccessibleKeystrokeListener.
- *
- * Returns: #TRUE if successful, otherwise #FALSE.
- *
- **/
-SPIBoolean
-AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
-					    AccessibleKeystrokeListenerCB callback);
+SPIBoolean  registerGlobalEventListener      (AccessibleEventListener *listener,
+					      const char              *eventType);
+SPIBoolean  deregisterGlobalEventListener    (AccessibleEventListener *listener,
+					      const char              *eventType);
+SPIBoolean  deregisterGlobalEventListenerAll (AccessibleEventListener *listener);
 
-void AccessibleKeystrokeListener_unref (AccessibleKeystrokeListener *listener);
+void        registerAccessibleKeystrokeListener (
+                                              AccessibleKeystrokeListener *listener,
+					      AccessibleKeySet             *keys,
+					      AccessibleKeyMaskType         modmask,
+					      AccessibleKeyEventMask        eventmask,
+					      AccessibleKeyListenerSyncType sync_type);
+void        deregisterAccessibleKeystrokeListener (
+                                              AccessibleKeystrokeListener *listener,
+					      AccessibleKeyMaskType        modmask);
 
-/*
- *
- * Global functions serviced by the registry
- *
- */
+int         getDesktopCount                  (void);
+Accessible *getDesktop                       (int i);
+int         getDesktopList                   (Accessible **list);
 
-/**
- * registerGlobalEventListener:
- * @listener: the #AccessibleEventListener to be registered against an event type.
- * @callback: a character string indicating the type of events for which
- *            notification is requested.  Format is
- *            EventClass:major_type:minor_type:detail
- *            where all subfields other than EventClass are optional.
- *            EventClasses include "Focus", "Window", "Mouse",
- *            and toolkit events (e.g. "Gtk", "AWT").
- *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
- *
- * NOTE: this string may be UTF-8, but should not contain byte value 56 (ascii ':'),
- *            except as a delimiter, since non-UTF-8 string delimiting
- *            functions are used internally.  In general, listening to
- *            toolkit-specific events is not recommended.
- *
- * Add an in-process callback function to an existing AccessibleEventListener.
- *
- * Returns: #TRUE if successful, otherwise #FALSE.
- *
- **/
-SPIBoolean
-registerGlobalEventListener (AccessibleEventListener *listener,
-                             char *eventType);
-SPIBoolean
-deregisterGlobalEventListener (AccessibleEventListener *listener,
-                               char *eventType);
-SPIBoolean
-deregisterGlobalEventListenerAll (AccessibleEventListener *listener);
+void        generateKeyEvent                 (long int                    keyval,
+					      AccessibleKeySynthType      synth_type);
+void        generateMouseEvent               (long int x, long int y, char *name);
 
+/* Accessible function prototypes  */
 
-/**
- * getDesktopCount:
- *
- * Get the number of virtual desktops.
- * NOTE: currently multiple virtual desktops are not implemented, this
- *       function always returns '1'.
- *
- * Returns: an integer indicating the number of active virtual desktops.
- *
- **/
-int
-getDesktopCount ();
-
-/**
- * getDesktop:
- * @i: an integer indicating which of the accessible desktops is to be returned.
- *
- * Get the virtual desktop indicated by index @i.
- * NOTE: currently multiple virtual desktops are not implemented, this
- *       function always returns '1'.
- *
- * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
- *
- **/
-Accessible*
-getDesktop (int i);
-
-/**
- * getDesktopList:
- * @list: a pointer to an array of #Accessible objects.
- *
- * Get the list of virtual desktops.  On return, @list will point
- *     to a newly-created array of virtual desktop pointers.
- *     It is the responsibility of the caller to free this array when
- *     it is no longer needed.
- *
- * Not Yet Implemented.
- *
- * Returns: an integer indicating how many virtual desktops have been
- *          placed in the list pointed to by parameter @list.
- **/
-int
-getDesktopList (Accessible **list);
-
-/**
- * registerAccessibleKeystrokeListener:
- * @listener: a pointer to the #AccessibleKeystrokeListener for which
- *            keystroke events are requested.
- *
- * [Partially Implemented.]
- *
- **/
-void
-registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-				     AccessibleKeySet *keys,
-				     AccessibleKeyMaskType modmask,
-				     AccessibleKeyEventMask eventmask,
-				     AccessibleKeyListenerSyncType sync_type);
-
-void
-deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-				       AccessibleKeyMaskType modmask);
-
-/**
- * generateKeyEvent:
- * @keyval: a #long integer indicating the keycode or keysym of the key event
- *           being synthesized.
- * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
- *           is to be interpreted as a keysym rather than a keycode
- *           (SPI_KEYSYM) and whether to synthesize
- *           SPI_KEY_PRESS, SPI_KEY_RELEASE, or both (SPI_KEY_PRESSRELEASE).
- *
- * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
- * current UI context).
- *
- **/
-void
-generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type);
-
-/**
- * generateMouseEvent:
- * @x: a #long int indicating the screen x coordinate of the mouse event.
- * @y: a #long int indicating the screen y coordinate of the mouse event.
- * @name: a string indicating which mouse event to be synthesized
- *        (e.g. "button1", "button2", "mousemove").
- *
- * Synthesize a mouse event at a specific screen coordinate.
- * Not Yet Implemented.
- *
- **/
-void
-generateMouseEvent (long int x, long int y, char *name);
-
-/*
- *
- * Accessible function prototypes
- *
- */
-
-/**
- * Accessible_ref:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Increment the reference count for an #Accessible object.
- *
- * Returns: (no return code implemented yet).
- *
- **/
-int
-Accessible_ref (Accessible *obj);
-
-/**
- * Accessible_unref:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Decrement the reference count for an #Accessible object.
- *
- * Returns: (no return code implemented yet).
- *
- **/
-int
-Accessible_unref (Accessible *obj);
-
-/**
- * Accessible_getName:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Get the name of an #Accessible object.
- *
- * Returns: a UTF-8 string indicating the name of the #Accessible object.
- *
- **/
-char *
-Accessible_getName (Accessible *obj);
-
-/**
- * Accessible_getDescription:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Get the description of an #Accessible object.
- *
- * Returns: a UTF-8 string describing the #Accessible object.
- *
- **/
-char *
-Accessible_getDescription (Accessible *obj);
-
-/**
- * Accessible_getParent:
- * @obj: a pointer to the #Accessible object to query.
- *
- * Get an #Accessible object's parent container.
- *
- * Returns: a pointer to the #Accessible object which contains the given
- *          #Accessible instance, or NULL if the @obj has no parent container.
- *
- **/
-Accessible *
-Accessible_getParent (Accessible *obj);
-
-/**
- * Accessible_getChildCount:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Get the number of children contained by an #Accessible object.
- *
- * Returns: a #long indicating the number of #Accessible children
- *          contained by an #Accessible object.
- *
- **/
-long
-Accessible_getChildCount (Accessible *obj);
-
-/**
- * Accessible_getChildAtIndex:
- *
- * @obj: a pointer to the #Accessible object on which to operate.
- * @childIndex: a #long indicating which child is specified.
- *
- * Get the #Accessible child of an #Accessible object at a given index.
- *
- * Returns: a pointer to the #Accessible child object at index
- *          @childIndex.
- *
- **/
-Accessible *
-Accessible_getChildAtIndex (Accessible *obj,
-                            long int childIndex);
-
-/**
- * Accessible_getIndexInParent:
- *
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Get the index of an #Accessible object in its containing #Accessible.
- *
- * Returns: a #long indicating the index of the #Accessible object
- *          in its parent (i.e. containing) #Accessible instance,
- *          or -1 if @obj has no containing parent.
- *
- **/
-long
-Accessible_getIndexInParent (Accessible *obj);
-
-/**
- * Accessible_getRelationSet:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Not Yet Implemented.
- *
- * Returns: a pointer to an array of #AccessibleRelations.
- *
- **/
-AccessibleRelation **
-Accessible_getRelationSet (Accessible *obj);
-
-/**
- * Accessible_getRole:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Get the UI role of an #Accessible object.
- *
- * Returns: a UTF-8 string indicating the UI role of the #Accessible object.
- *
- **/
-const char *
-Accessible_getRole (Accessible *obj);
-
-/**
- * Accessible_getStateSet:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Not Yet Implemented.
- *
- * Returns: a pointer to an #AccessibleStateSet representing the object's current state.
- *
- **/
-AccessibleStateSet *
-Accessible_getStateSet (Accessible *obj);
+int                  Accessible_ref              (Accessible *obj);
+int                  Accessible_unref            (Accessible *obj);
+char *               Accessible_getName          (Accessible *obj);
+char *               Accessible_getDescription   (Accessible *obj);
+Accessible *         Accessible_getParent        (Accessible *obj);
+long                 Accessible_getChildCount    (Accessible *obj);
+Accessible *         Accessible_getChildAtIndex  (Accessible *obj,
+						  long int    childIndex);
+long                 Accessible_getIndexInParent (Accessible *obj);
+AccessibleRelation **Accessible_getRelationSet   (Accessible *obj);
+const char *         Accessible_getRole          (Accessible *obj);
+AccessibleStateSet * Accessible_getStateSet      (Accessible *obj);
 
 /* Interface query methods */
 
-/**
- * Accessible_isAction:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleAction.
- *
- * Returns: #TRUE if @obj implements the #AccessibleAction interface,
- *          #FALSE otherwise.
- **/
-SPIBoolean
-Accessible_isAction (Accessible *obj);
+SPIBoolean Accessible_isAction       (Accessible *obj);
+SPIBoolean Accessible_isApplication  (Accessible *obj);
+SPIBoolean Accessible_isComponent    (Accessible *obj);
+SPIBoolean Accessible_isEditableText (Accessible *obj);
+SPIBoolean Accessible_isHypertext    (Accessible *obj);
+SPIBoolean Accessible_isImage        (Accessible *obj);
+SPIBoolean Accessible_isSelection    (Accessible *obj);
+SPIBoolean Accessible_isTable        (Accessible *obj);
+SPIBoolean Accessible_isText         (Accessible *obj);
+SPIBoolean Accessible_isValue        (Accessible *obj);
 
-/**
- * Accessible_isApplication:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleApplication.
- *
- * Returns: #TRUE if @obj implements the #AccessibleApplication interface,
- *          #FALSE otherwise.
- **/
-SPIBoolean
-Accessible_isApplication (Accessible *obj);
-
-/**
- * Accessible_isComponent:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleComponent.
- *
- * Returns: #TRUE if @obj implements the #AccessibleComponent interface,
- *          #FALSE otherwise.
- **/
-SPIBoolean
-Accessible_isComponent (Accessible *obj);
-
-/**
- * Accessible_isEditableText:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleEditableText.
- *
- * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
- *          #FALSE otherwise.
- **/
-SPIBoolean
-Accessible_isEditableText (Accessible *obj);
-
-/**
- * Accessible_isHypertext:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleHypertext.
- *
- * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
- *          #FALSE otherwise.
- **/
-SPIBoolean
-Accessible_isHypertext (Accessible *obj);
-
-/**
- * Accessible_isImage:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleImage.
- *
- * Returns: #TRUE if @obj implements the #AccessibleImage interface,
- *          #FALSE otherwise.
-**/
-SPIBoolean
-Accessible_isImage (Accessible *obj);
-
-/**
-  * Accessible_isSelection:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleSelection.
- *
- * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
- *          #FALSE otherwise.
-**/
-SPIBoolean
-Accessible_isSelection (Accessible *obj);
-
-/**
- * Accessible_isTable:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleTable.
- *
- * Returns: #TRUE if @obj implements the #AccessibleTable interface,
- *          #FALSE otherwise.
-**/
-SPIBoolean
-Accessible_isTable (Accessible *obj);
-
-/**
- * Accessible_isText:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Query whether the specified #Accessible implements #AccessibleText.
- *
- * Returns: #TRUE if @obj implements the #AccessibleText interface,
- *          #FALSE otherwise.
-**/
-SPIBoolean
-Accessible_isText (Accessible *obj);
-
-SPIBoolean
-Accessible_isValue (Accessible *obj);
-
-/**
- * Accessible_getAction:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Get the #AccessibleAction interface for an #Accessible.
- *
- * Returns: a pointer to an #AccessibleAction interface instance, or
- *          NULL if @obj does not implement #AccessibleAction.
- **/
-AccessibleAction *
-Accessible_getAction (Accessible *obj);
-
-/**
- * Accessible_getApplication:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Get the #AccessibleApplication interface for an #Accessible.
- *
- * Returns: a pointer to an #AccessibleApplication interface instance, or
- *          NULL if @obj does not implement #AccessibleApplication.
- **/
-AccessibleApplication *
-Accessible_getApplication (Accessible *obj);
-
-/**
- * Accessible_getComponent:
- * @obj: a pointer to the #Accessible instance to query.
- *
- * Get the #AccessibleComponent interface for an #Accessible.
- *
- * Returns: a pointer to an #AccessibleComponent interface instance, or
- *          NULL if @obj does not implement #AccessibleComponent.
- **/
-AccessibleComponent *
-Accessible_getComponent (Accessible *obj);
-
-/**
- * Accessible_getEditableText:
- *
- * Not Yet Implemented.
- *
- **/
-AccessibleEditableText *
-Accessible_getEditableText (Accessible *obj);
-
-/**
- * Accessible_getHypertext:
- *
- * Not Yet Implemented.
- *
- **/
-AccessibleHypertext *
-Accessible_getHypertext (Accessible *obj);
-
-/**
- * Accessible_getImage:
- *
- * Not Yet Implemented.
- *
- **/
-AccessibleImage *
-Accessible_getImage (Accessible *obj);
-
-/**
- * Accessible_getSelection:
- *
- * Not Yet Implemented.
- *
- **/
-AccessibleSelection *
-Accessible_getSelection (Accessible *obj);
-
-/**
- * Accessible_getTable:
- *
- * Not Yet Implemented.
- *
- **/
-AccessibleTable *
-Accessible_getTable (Accessible *obj);
-
-/**
- * Accessible_getText:
- *
- * Not Yet Implemented.
- *
- **/
-AccessibleText *
-Accessible_getText (Accessible *obj);
-
-AccessibleValue *
-Accessible_getValue (Accessible *obj);
-
-/**
- * Accessible_queryInterface:
- * @obj: a pointer to the #Accessible instance to query.
- * @interface_name: a UTF-8 character string specifiying the requested interface.
- *
- * Query an #Accessible object to for a named interface.
- *
- * Returns: an instance of the named interface object, if it is implemented
- *          by @obj, or NULL otherwise.
- *
- **/
-GenericInterface *
-Accessible_queryInterface (Accessible *obj, char *interface_name);
+AccessibleAction *       Accessible_getAction       (Accessible *obj);
+AccessibleApplication *  Accessible_getApplication  (Accessible *obj);
+AccessibleComponent *    Accessible_getComponent    (Accessible *obj);
+AccessibleEditableText * Accessible_getEditableText (Accessible *obj);
+AccessibleHypertext *    Accessible_getHypertext    (Accessible *obj);
+AccessibleImage *        Accessible_getImage        (Accessible *obj);
+AccessibleSelection *    Accessible_getSelection    (Accessible *obj);
+AccessibleTable *        Accessible_getTable        (Accessible *obj);
+AccessibleText *         Accessible_getText         (Accessible *obj);
+AccessibleValue *        Accessible_getValue        (Accessible *obj);
+GenericInterface *       Accessible_queryInterface  (Accessible *obj,
+						     const char *interface_name);
 
 /*
- *
  * AccessibleAction function prototypes
- *
  */
 
 int

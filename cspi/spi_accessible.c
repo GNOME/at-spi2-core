@@ -658,7 +658,8 @@ Accessible_getValue (Accessible *obj)
  *
  **/
 GenericInterface *
-Accessible_queryInterface (Accessible *obj, char *interface_name)
+Accessible_queryInterface (Accessible *obj,
+			   const char *interface_name)
 {
   Bonobo_Unknown iface;
   

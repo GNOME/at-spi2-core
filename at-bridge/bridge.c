@@ -122,8 +122,8 @@ register_atk_event_listeners (void)
    * kludge to make sure the Atk interface types are registered, otherwise
    * the AtkText signal handlers below won't get registered
    */
-
-  AtkObject *o = atk_no_op_object_new (g_object_new (ATK_TYPE_OBJECT, NULL));
+  GObject   *ao = g_object_new (ATK_TYPE_OBJECT, NULL);
+  AtkObject *bo = atk_no_op_object_new (ao);
   
   /* Register for focus event notifications, and register app with central registry  */
 
@@ -144,38 +144,48 @@ register_atk_event_listeners (void)
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:model-changed");
   atk_add_key_event_listener    (bridge_key_listener, NULL);
 
-/*  g_object_unref (o); */
+  g_object_unref (G_OBJECT (bo));
+  g_object_unref (ao);
 }
 
 static void
 bridge_exit_func (void)
 {
+  BonoboObject *app = (BonoboObject *) this_app;
+
   fprintf (stderr, "exiting bridge\n");
 
-/*
-  FIXME: this may be incorrect for apps that do their own bonobo shutdown,
-  until we can explicitly shutdown to get the ordering right. */
+  if (!app)
+    {
+      return;
+    }
+  this_app = NULL;
 
+  /*
+   *  FIXME: this may be incorrect for apps that do their own bonobo
+   *  shutdown, until we can explicitly shutdown to get the ordering
+   *  right.
+   */
   if (!bonobo_is_initialized ())
     {
-      g_warning ("Re-initializing bonobo\n");
+      fprintf (stderr, "Re-initializing bonobo\n");
       g_assert (bonobo_init (0, NULL));
       g_assert (bonobo_activate ());
-      registry = bonobo_activation_activate_from_id (
-	  "OAFIID:Accessibility_Registry:proto0.1", 0, NULL, &ev);
-      g_assert (registry);
-      g_assert (this_app);
     }
   
-  Accessibility_Registry_deregisterApplication (registry,
-						BONOBO_OBJREF (this_app),
-						&ev);
+  Accessibility_Registry_deregisterApplication (
+	  registry, BONOBO_OBJREF (app), &ev);
+
+  bonobo_object_release_unref (registry, &ev);
   
-  bonobo_object_unref (BONOBO_OBJECT (this_app));
+  bonobo_object_unref (app);
   
   fprintf (stderr, "bridge exit func complete.\n");
 
-  bonobo_debug_shutdown ();
+  if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
+    {
+      g_assert (!bonobo_debug_shutdown ());
+    }
 }
 
 static void
@@ -187,7 +197,7 @@ bridge_focus_tracker (AtkObject *object)
   source = spi_accessible_new (object);
 
   e.type = "focus:";
-  e.source = CORBA_Object_duplicate (BONOBO_OBJREF (source), &ev);
+  e.source = BONOBO_OBJREF (source);
   e.detail1 = 0;
   e.detail2 = 0;
 
@@ -230,7 +240,7 @@ emit_eventv (GObject      *gobject,
   if (source != NULL)
     {
       e.type = g_strdup_vprintf (format, args);
-      e.source = CORBA_Object_duplicate (BONOBO_OBJREF (source), &ev);
+      e.source = BONOBO_OBJREF (source);
       e.detail1 = detail1;
       e.detail2 = detail2;
 

@@ -1,3 +1,54 @@
+2001-12-08  Michael Meeks  <michael@ximian.com>
+
+	* at-bridge/bridge.c (bridge_focus_tracker),
+	(emit_eventv): fix the same ref. leak.
+	(register_atk_event_listeners): don't leak.
+
+	* cspi/spi-listener-impl.c (cspi_event): more 
+	protection from client code.
+
+	* test/test-simple.c (test_desktop): unref the app.
+
+	* test/Makefile.am: upd. TESTS.
+
+	* at-bridge/bridge.c (bridge_exit_func): release the registry.
+
+	* test/keysynth-demo.c (keysynth_exit): unref the listeners.
+
+	* cspi/spi_accessible.c (Accessible_queryInterface): constify.
+
+	* cspi/spi_registry.c: constify in strings.
+	(deregisterGlobalEventListenerAll): don't release the ref.
+
+	* cspi/spi.h: start removing redundant / conflicting
+	gtkdoc comments, making the API readable at a glance :-)
+	
+	* cspi/spi_event.c (AccessibleEventListener_unref): impl.
+
+	* test/keysynth-demo.c (keysynth_exit, main): upd.
+
+	* test/simple-at.c (main, simple_at_exit): upd.
+
+	* test/test-simple.c (unutterable_horror): kill.
+	(utterable_normal_derefs): kill.
+	(main): upd & do a setenv before gtk_init, so that we
+	can use memprof - and to save the pain of remembering
+	this, if we're running under memprof - don't exit.
+
+	* cspi/spi_main.c (SPI_exit): return exit status
+	for cspi.
+	(SPI_event_quit): impl.
+	(SPI_event_main): simplify.
+	(cspi_is_gnome_app): kill.
+	(SPI_init): kill isGNOMEapp arg.
+
+	* at-bridge/bridge.c (register_atk_event_listeners):
+	re-instate the unref.
+	(bridge_exit_func): don't re-activate the registry,
+	protect vs. theoretical re-entry, use the
+	AT_BRIDGE_SHUTDOWN env. var to determine whether to
+	assert a clean shutdown - for regression tests.
+
 2001-12-08  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Comment out dummy i18n support for now,
@@ -6,6 +57,8 @@
 	  EXTRA_DIST. They are missing in tarball.
 
 2001-12-07  Michael Meeks  <michael@ximian.com>
+
+	* util/magnifier.c: kill bonobo activation reg. race.
 
 	* libspi/component.c
 	(impl_accessibility_component_get_extents): make it match

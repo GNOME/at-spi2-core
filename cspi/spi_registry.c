@@ -20,19 +20,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+/* spi_registry.c: Global functions wrapping the registry */
+
 #include <cspi/spi-private.h>
-
-/*
- *
- * Global functions serviced by the registry
- *
- */
-
-#if 0
-/* static stuff used only by registry C bindings */
-static GList *key_listeners = NULL;
-static Display *display = NULL;
-#endif
 
 /**
  * registerGlobalEventListener:
@@ -93,7 +83,7 @@ static Display *display = NULL;
  **/
 SPIBoolean
 registerGlobalEventListener (AccessibleEventListener *listener,
-                             char *eventType)
+                             const char              *eventType)
 {
   SPIBoolean retval;
 
@@ -115,8 +105,9 @@ registerGlobalEventListener (AccessibleEventListener *listener,
  *            an event type.
  *
  * deregisters an AccessibleEventListener from the registry, for all
- *            event types it may be listening to.  Also unrefs the listener.
- *            The listener cannot subsequently be reused.
+ *            event types it may be listening to. Use
+ *            AccessibleEventListener_unref to release the
+ *            listener reference.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
@@ -128,10 +119,6 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
                          cspi_registry (),
 			 (Accessibility_EventListener) BONOBO_OBJREF (listener),
 			 cspi_ev ());
-  if (!cspi_exception ())
-    {
-      bonobo_object_unref (BONOBO_OBJECT (listener));	    
-    }
 
   return !cspi_exception ();
 }
@@ -149,7 +136,7 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
  **/
 SPIBoolean
 deregisterGlobalEventListener (AccessibleEventListener *listener,
-			       char *eventType)
+			       const char              *eventType)
 {
   Accessibility_Registry_deregisterGlobalEventListener (
 	  cspi_registry (),

@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* object.c: the base object managing an AtkObject proxy */
+/* base.c: the base object managing an AtkObject proxy */
 
 #include <config.h>
 #include <stdio.h>

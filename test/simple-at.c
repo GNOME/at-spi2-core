@@ -60,14 +60,14 @@ main (int argc, char **argv)
   Accessible *application;
   char *s;
 
-  if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
+  if ((argc > 1) && (!strncmp (argv[1], "-h", 2)))
   {
     printf ("Usage: simple-at\n");
     printf ("\tEnvironment variables used:\n\t\tFESTIVAL\n\t\tMAGNIFIER\n\t\tFESTIVAL_CHATTY\n");
-    exit(0);
+    exit (0);
   }
 
-  SPI_init(TRUE);
+  SPI_init ();
 
   focus_listener = createAccessibleEventListener (report_focus_event, NULL);
   property_listener = createAccessibleEventListener (check_property_change, NULL); 
@@ -120,9 +120,13 @@ main (int argc, char **argv)
 				      (unsigned long) ( KeyPress | KeyRelease),
 				      SPI_KEYLISTENER_NOSYNC);
 
-  get_environment_vars();
+  get_environment_vars ();
 
-  SPI_event_main();
+  SPI_event_main ();
+
+  setenv ("AT_BRIDGE_SHUTDOWN", "1", TRUE);
+
+  return SPI_exit ();
 }
 
 static void
@@ -265,16 +269,21 @@ static void
 simple_at_exit ()
 {
   deregisterGlobalEventListenerAll (focus_listener);
-  deregisterGlobalEventListenerAll (property_listener);
-  deregisterGlobalEventListenerAll (button_listener);
+  AccessibleEventListener_unref    (focus_listener);
 
-  deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT );
-  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED );
-  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT );
+  deregisterGlobalEventListenerAll (property_listener);
+  AccessibleEventListener_unref    (property_listener);
+
+  deregisterGlobalEventListenerAll (button_listener);
+  AccessibleEventListener_unref    (button_listener);
+
+  deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT);
+  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED);
+  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT);
   AccessibleKeystrokeListener_unref (command_key_listener);
   AccessibleKeystrokeListener_unref (ordinary_key_listener);
   
-  SPI_exit ();
+  SPI_event_quit ();
 }
 
 static SPIBoolean

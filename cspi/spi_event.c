@@ -69,6 +69,19 @@ AccessibleEventListener_addCallback (AccessibleEventListener *listener,
 }
 
 /**
+ * AccessibleEventListener_unref:
+ * @listener: a pointer to the #AccessibleEventListener being operated on.
+ *
+ * Decrements an #AccessibleEventListener's reference count.
+ **/
+void
+AccessibleEventListener_unref (AccessibleEventListener *listener)
+{
+  /* Would prefer this not to be bonobo api */
+  bonobo_object_unref (BONOBO_OBJECT (listener));
+}
+
+/**
  * AccessibleEventListener_removeCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.

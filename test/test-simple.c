@@ -24,10 +24,8 @@
  * ******** Do not copy this code as an example *********
  */
 
-/* UGLY HACK for (unutterable_horror) */
-#include <libspi/libspi.h>
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
 #include <cspi/spi.h>
@@ -132,6 +130,7 @@ test_desktop (void)
 
 	application = Accessible_getChildAtIndex (desktop, 0);
 	g_assert (application != NULL);
+	AccessibleApplication_unref (application);
 
 	Accessible_unref (desktop);
 }
@@ -430,65 +429,6 @@ test_misc (void)
 	SPI_freeString (NULL);
 }
 
-#ifdef UNUTTERABLY_HORRIFIC
-static void
-unutterable_horror (void)
-{
-	/* Brutal ugliness to de-register ourself and exit cleanly */
-	CORBA_Environment ev;
-	Accessible        *desktop;
-	Accessible        *app_access;
-	Accessibility_Accessible app;
-	Accessibility_Registry   registry;
-
-	fprintf (stderr, "Unutterable horror ...\n");
-
-	/* First get the application ! - gack */
-	desktop = getDesktop (0);
-	app_access = Accessible_getChildAtIndex (desktop, 0);
-
-	/* Good grief */
-	app = *(Accessibility_Accessible *) app_access;
-
-	CORBA_exception_init (&ev);
-
-	registry = bonobo_activation_activate_from_id (
-		"OAFIID:Accessibility_Registry:proto0.1", 0, NULL, &ev);
-
-	Accessibility_Registry_deregisterApplication (
-		registry, app, &ev);
-
-	bonobo_object_release_unref (registry, &ev); /* the original ref */
-	bonobo_object_release_unref (registry, &ev); /* taken by the bridge */
-	bonobo_object_release_unref (registry, &ev); /* taken by spi_main.c */
-
-	Accessible_unref (desktop);
-	Accessible_unref (app_access);
-
-	/* Urgh ! - get a pointer to app */
-	bonobo_object_unref (bonobo_object (ORBit_small_get_servant (app)));
-}
-#endif
-
-static void
-utterable_normal_derefs (void)
-{
-        /* Normal cleanup to exit cleanly */
-        CORBA_Environment ev;
-        Accessibility_Registry   registry;
-
-        CORBA_exception_init (&ev);
-
-        registry = bonobo_activation_activate_from_id (
-                "OAFIID:Accessibility_Registry:proto0.1", 0, NULL, &ev);
-
-        bonobo_object_release_unref (registry, &ev); /* the ref above */
-        bonobo_object_release_unref (registry, &ev); /* taken by spi_main.c */
-
-        /* Yes, it would be nicer to have both SPI_main_quit and SPI_shutdown,
-           then the above code could be dispensed with */
-}
-
 static void
 global_listener_cb (AccessibleEvent     *event,
 		    void                *user_data)
@@ -501,8 +441,6 @@ global_listener_cb (AccessibleEvent     *event,
 	g_assert (!strcmp (event->type, "focus:"));
 
 	fprintf (stderr, "Fielded focus event ...\n");
-
-	/* The application is now registered - this happens idly */
 
 	desktop = getDesktop (0);
 	application = Accessible_getChildAtIndex (desktop, 0);
@@ -524,18 +462,16 @@ global_listener_cb (AccessibleEvent     *event,
 int
 main (int argc, char **argv)
 {
+	int leaked;
 	TestWindow *win;
 	AccessibleEventListener *global_listener;
 
+	setenv ("GTK_MODULES", "gail:at-bridge", FALSE);
+
 	gtk_init (&argc, &argv);
 
-	if (!g_getenv ("GTK_MODULES") ||
-	    !strstr (g_getenv ("GTK_MODULES"), "gail:at-bridge")) {
-		g_error ("You need to export GTK_MODULES='gail:at-bridge'");
-	}
-
-	g_assert (!SPI_init (TRUE));
-	g_assert (SPI_init (TRUE));
+	g_assert (!SPI_init ());
+	g_assert (SPI_init ());
 	g_assert (getDesktopCount () == 1);
 
 	test_roles ();
@@ -550,18 +486,24 @@ main (int argc, char **argv)
 	fprintf (stderr, "Waiting for focus event ...\n");
 	gtk_main ();
 
-	/* First de-register myself - we only want the toplevel of ourself */
 	g_assert (deregisterGlobalEventListenerAll (global_listener));
+	AccessibleEventListener_unref (global_listener);
 
 	test_window_destroy (win);
 
-/* FIXME: we need to resolve the exit / quit mainloop function */
-/*	SPI_exit ();
-	SPI_exit (); */
-/*	unutterable_horror ();  ! */
-	utterable_normal_derefs ();
+	if ((leaked = SPI_exit ()))
+		g_error ("Leaked %d SPI handles", leaked);
+
+	g_assert (!SPI_exit ());
 
 	fprintf (stderr, "All tests passed\n");
 
-	return bonobo_debug_shutdown ();
+	if (g_getenv ("_MEMPROF_SOCKET")) {
+		fprintf (stderr, "Waiting for memprof\n");
+		gtk_main ();
+	}
+
+	setenv ("AT_BRIDGE_SHUTDOWN", "1", TRUE);
+
+	return 0;
 }

@@ -28,4 +28,4 @@ CFLAGS += $(TESTS_CFLAGS) $(DEBUG_CFLAGS)
 
 LDADD = ../util/libat-util.la ../libspi/libspi.la ../cspi/libcspi.la $(TESTS_LIBS)
 
-TESTS = test.sh
+TESTS = test-simple

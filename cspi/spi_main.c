@@ -11,7 +11,6 @@
 
 static CORBA_Environment ev = { 0 };
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
-static SPIBoolean is_gnome_app = TRUE;
 static GHashTable *live_refs = NULL;
 
 static guint
@@ -116,12 +115,6 @@ Accessibility_Registry
 cspi_registry (void)
 {
   return registry;
-}
-
-SPIBoolean
-cspi_is_gnome_app (void)
-{
-  return is_gnome_app;	
 }
 
 SPIBoolean
@@ -250,21 +243,16 @@ static gboolean SPI_inited = FALSE;
 
 /**
  * SPI_init:
- * @isGNOMEApp: a #SPIBoolean indicating whether the client of the SPI
- *              will use the Gnome event loop or not.  Clients that have
- *              their own GUIS will usually specify #TRUE here, and must
- *              do so if they use Gnome GUI components.
  *
  * Connects to the accessibility registry and initializes the SPI.
  *
  * Returns: 0 on success, otherwise an integer error code.
  **/
 int
-SPI_init (SPIBoolean isGNOMEApp)
+SPI_init (void)
 {
   int argc = 0;
   char *obj_id;
-  is_gnome_app = isGNOMEApp;
 
   if (SPI_inited)
     {
@@ -298,10 +286,7 @@ SPI_init (SPIBoolean isGNOMEApp)
 
   bonobo_activate ();
 
-  if (isGNOMEApp)
-    {
-      g_atexit (cspi_cleanup);
-    }
+  g_atexit (cspi_cleanup);
   
   return 0;
 }
@@ -311,23 +296,26 @@ SPI_init (SPIBoolean isGNOMEApp)
  *
  * Starts/enters the main event loop for the SPI services.
  *
- * (NOTE: This method does not return control, it is exited via a call
- * to SPI_exit() from within an event handler).
+ * (NOTE: This method does not return control, it is exited via a call to
+ *  SPI_event_quit () from within an event handler).
  *
  **/
 void
-SPI_event_main ()
+SPI_event_main (void)
 {
-  if (cspi_is_gnome_app ())
-    {
-      bonobo_main ();
-    }
-  else
-    {
-      /* TODO: install signal handlers to do cleanup */
-      CORBA_ORB_run (bonobo_orb (), cspi_ev ());
-      fprintf (stderr, "orb loop exited...\n");
-    }
+  bonobo_main ();
+}
+
+/**
+ * SPI_event_quit:
+ *
+ * Quits the last main event loop for the SPI services,
+ * see SPI_event_main
+ **/
+void
+SPI_event_quit (void)
+{
+  bonobo_main_quit ();
 }
 
 /**
@@ -369,28 +357,41 @@ SPI_nextEvent (SPIBoolean waitForEvent)
  * SPI_exit:
  *
  * Disconnects from the Accessibility Registry and releases 
- * any floating resources.
+ * any floating resources. Call only once at exit.
+ *
+ * Returns: 0 if there were no leaks, otherwise non zero.
  **/
-void
+int
 SPI_exit (void)
 {
+  int leaked;
+
   if (!SPI_inited)
     {
-      return;
+      return 0;
     }
 
   SPI_inited = FALSE;
 
-  cspi_cleanup ();
-
-  if (cspi_is_gnome_app ())
+  if (live_refs)
     {
-      bonobo_main_quit ();
+      leaked = g_hash_table_size (live_refs);
     }
   else
     {
-      CORBA_ORB_shutdown (bonobo_orb (), TRUE, cspi_ev ());	    
+      leaked = 0;
     }
-  fprintf (stderr, "bye-bye!\n");
-}
 
+#ifdef DEBUG_OBJECTS
+  if (leaked)
+    {
+      fprintf (stderr, "Leaked %d SPI handles\n", leaked);
+    }
+#endif
+
+  cspi_cleanup ();
+
+  fprintf (stderr, "bye-bye!\n");
+
+  return leaked;
+}

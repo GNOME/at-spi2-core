@@ -67,10 +67,13 @@ cspi_event (SpiEventListener    *listener,
 {
   GList *l;
   CSpiEventListener *clistener = (CSpiEventListener *) listener;
-  AccessibleEvent aevent;
+  AccessibleEvent    aevent;
+  Accessible        *source;
+
+  source = cspi_object_add_check (bonobo_object_dup_ref (event->source, cspi_ev ()));
 
   aevent.type    = event->type;
-  aevent.source  = cspi_object_add_check (bonobo_object_dup_ref (event->source, cspi_ev ()));
+  aevent.source  = source;
   aevent.detail1 = event->detail1;
   aevent.detail2 = event->detail2;
 
@@ -82,7 +85,7 @@ cspi_event (SpiEventListener    *listener,
       eh->cb.event (&aevent, eh->user_data);
     }
 
-  cspi_object_unref (aevent.source);
+  cspi_object_unref (source);
 }
 
 static void

@@ -278,11 +278,15 @@ toggle_shift_latch (GtkButton *button)
 }
 
 static void
-keysynth_exit()
+keysynth_exit (void)
 {
-  deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT );
-  deregisterAccessibleKeystrokeListener (switch_listener, SPI_KEYMASK_UNMODIFIED );
-  SPI_exit ();
+  deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT);
+  AccessibleKeystrokeListener_unref     (key_listener);
+
+  deregisterAccessibleKeystrokeListener (switch_listener, SPI_KEYMASK_UNMODIFIED);
+  AccessibleKeystrokeListener_unref     (switch_listener);
+
+  SPI_event_quit ();
 }
 
 static void
@@ -309,9 +313,9 @@ keysynth_realize (GtkWidget *widget)
 }
 
 static void
-button_exit(GtkButton *notused, void *alsonotused)
+button_exit (GtkButton *notused, void *alsonotused)
 {
-  keysynth_exit();
+  keysynth_exit ();
 }
 
 static SPIBoolean
@@ -321,7 +325,7 @@ is_command_key (AccessibleKeystroke *key, void *user_data)
     {
     case 'Q':
     case 'q':
-	    keysynth_exit(); 
+	    keysynth_exit (); 
 	    return TRUE; /* not reached */
     }
   return FALSE;
@@ -456,11 +460,11 @@ create_vkbd()
 }
 
 int
-main(int argc, char **argv)
+main (int argc, char **argv)
 {
   AccessibleKeySet switch_set;
   
-  if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
+  if ((argc > 1) && (!strncmp (argv[1], "-h", 2)))
     {
       printf ("Usage: keysynth-demo\n");
       exit (1);
@@ -468,7 +472,7 @@ main(int argc, char **argv)
 
   gtk_init (&argc, &argv); /* must call, because this program uses GTK+ */
 
-  SPI_init (TRUE);
+  SPI_init ();
 
   key_listener = createAccessibleKeystrokeListener (is_command_key, NULL);
   /* will listen only to Alt-key combinations */
@@ -499,5 +503,5 @@ main(int argc, char **argv)
   
   SPI_event_main ();
 
-  return 0;
+  return SPI_exit ();
 }
