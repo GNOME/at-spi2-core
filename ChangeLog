@@ -1,3 +1,7 @@
+2003-08-18  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* registryd/registryd.c: Remove this file.
+
 2003-08-17  Sanlig Badral  <badral@openmn.org>
 
 	* configure.in: Added mn to ALL_LINGUAS.
@@ -8,7 +12,7 @@
 
 2003-08-13  Padraig O'Briain <padraig.obriain@sun.com>
 
-	* test/event-listeber-test.c: Change active-descendant to 
+	* test/event-listener-test.c: Change active-descendant to 
 	active-descendant-changed.
 
 2003-08-10  Sami Pesonen  <sampeson@iki.fi>
