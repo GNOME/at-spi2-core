@@ -1,10 +1,14 @@
+2003-07-28  Ole Laursen  <olau@hardworking.dk>
+
+	* configure.in: Added "da" to the commented out ALL_LINGUAS.
+
 2003-07-27  Laurent Dhima  <laurenti@alblinux.net>
 
 	* configure.in: Added "sq" to ALL_LINGUAS.
 
 2003-07-27  Hasbullah Bin Pit  <sebol@ikhlas.com>
                                                                                 
-        * configue.in: Added 'ms' (Malay) in ALL_LINGUAS.
+	* configure.in: Added 'ms' (Malay) in ALL_LINGUAS.
 
 2003-07-24  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
