@@ -95,36 +95,36 @@ AC_SUBST(X_LIBS)
 dnl Checks for libraries
 PKG_CHECK_MODULES(LIBSPI, \
 	libbonobo-2.0 >= 1.107.0 \
-	atk >= 0.10 \
-	gtk+-2.0 >= 1.3.12 \
-	gail >= 0.11)
+	atk >= 1.0.2 \
+	gtk+-2.0 > 2.0.0 \
+	gail >= 0.16)
 AC_SUBST(LIBSPI_LIBS)
 AC_SUBST(LIBSPI_CFLAGS)
 
 PKG_CHECK_MODULES(REGISTRYD, \
 	libbonobo-2.0 >= 1.107.0 \
-	gtk+-2.0 \
-	atk >= 0.10)
+	gtk+-2.0 > 2.0.0 \
+	atk >= 1.0.2)
 AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)
 
 PKG_CHECK_MODULES(TESTS, \
 	libbonobo-2.0 >= 1.107.0 \
-	atk >= 0.10 \
-	gtk+-2.0 >= 2.0.0 \
-	gail >= 0.11)
+	atk >= 1.0.2 \
+	gtk+-2.0 > 2.0.0 \
+	gail >= 0.16)
 AC_SUBST(TESTS_LIBS)
 AC_SUBST(TESTS_CFLAGS)
 
 PKG_CHECK_MODULES(ATK_BRIDGE, \
 	libbonobo-2.0 >= 1.107.0 \
-	atk >= 0.10)
+	atk >= 1.0.2)
 AC_SUBST(ATK_BRIDGE_LIBS)
 AC_SUBST(ATK_BRIDGE_CFLAGS)
 
 PKG_CHECK_MODULES(LIBCSPI, \
 	libbonobo-2.0 >= 1.107.0 \
-	atk >= 1.0.0)
+	atk >= 1.0.2)
 AC_SUBST(LIBCSPI_LIBS)
 AC_SUBST(LIBCSPI_CFLAGS)
 

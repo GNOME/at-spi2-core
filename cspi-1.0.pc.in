@@ -9,4 +9,4 @@ Description: Accessibility Technology software simple client library
 Requires: libspi-1.0
 Version: @VERSION@
 Libs: -L${libdir} -lcspi
-Cflags: -I${includedir}/at-spi-1.0
+Cflags: -I${includedir}/at-spi-1.0 @X_CFLAGS@

@@ -1,3 +1,14 @@
+2002-07-31  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Update required versions of ATK, GTK+ and GAIL
+
+	* cspi-1.0.pc.in: Add dependency for X include files
+
+	* cspi/Makefile.am:
+	* cspi/bonobo/Makefile.am: 
+	Add $(X_CFLAGS) so that X include files 
+	are picked up even if not in standard place (bug #71686)
+
 2002-06-25  Bill Haneman  <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c: fix for 84261
