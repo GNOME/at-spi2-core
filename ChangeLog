@@ -1,5 +1,26 @@
 2002-01-16  Bill Haneman <bill.haneman@sun.com>
 
+	* registryd/deviceeventcontroller.c:
+	Regression fix for keylistener de-registration; global keygrabs
+	were not being released when deregisterKeystrokeListener was
+	called in cspi, since 
+	Accessibility_DeviceEventController_deregisterKeystrokeListener
+	was called with a zero-length keyset.  That is because the cspi
+	method, SPI_deregisterKeystrokeListener, does not take a keyset
+	parameter but instead should remove all the key grabs held be a
+	keystroke listener.  
+	The code in impl_deregister_keystroke_listener was changed to copy
+	the keylist from the listener instance previously registered with
+	the DeviceEventController before releasing the grabs.
+
+	* registryd/registry.c:
+	* registryd/deviceeventcontroller.c:
+	* libspi/spi-private.h:
+	* libspi/util.c:
+	Changed spelling of "re-enterant" to "re-entrant" globally.
+
+2002-01-16  Bill Haneman <bill.haneman@sun.com>
+
 	* test/test-simple.c:
 	Changed key listeners test - the test was slightly mis-using the
 	(admittedly poorly documented) SPI_generateKeyboardEvent API.

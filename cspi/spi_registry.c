@@ -416,7 +416,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
  **/
 SPIBoolean
 SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-					   AccessibleKeyMaskType modmask)
+					   AccessibleKeyMaskType        modmask)
 {
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_KeySet                key_set;

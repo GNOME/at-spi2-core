@@ -6,17 +6,17 @@
 G_BEGIN_DECLS
 
 typedef enum {
-	SPI_RE_ENTERANT_CONTINUE = 0,
-	SPI_RE_ENTERANT_TERMINATE
-} SpiReEnterantContinue;
+	SPI_RE_ENTRANT_CONTINUE = 0,
+	SPI_RE_ENTRANT_TERMINATE
+} SpiReEntrantContinue;
 
-typedef SpiReEnterantContinue (*SpiReEnterantFn) (GList * const *list,
-						  gpointer       user_data);
+typedef SpiReEntrantContinue (*SpiReEntrantFn) (GList * const *list,
+						gpointer       user_data);
 
-void spi_re_enterant_list_delete_link (GList * const *element_ptr);
-void spi_re_enterant_list_foreach     (GList         **list,
-				       SpiReEnterantFn func,
-				       gpointer        user_data);
+void spi_re_entrant_list_delete_link (GList * const  *element_ptr);
+void spi_re_entrant_list_foreach     (GList         **list,
+				      SpiReEntrantFn  func,
+				      gpointer        user_data);
 
 G_END_DECLS
 

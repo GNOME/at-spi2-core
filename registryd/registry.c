@@ -348,7 +348,7 @@ impl_accessibility_registry_register_global_event_listener (
     }
 }
 
-static SpiReEnterantContinue
+static SpiReEntrantContinue
 remove_listener_cb (GList * const *list, gpointer user_data)
 {
   SpiListenerStruct *ls = (SpiListenerStruct *) (*list)->data;
@@ -359,13 +359,13 @@ remove_listener_cb (GList * const *list, gpointer user_data)
 	
   if (CORBA_Object_is_equivalent (ls->listener, listener, &ev))
     {
-       spi_re_enterant_list_delete_link (list);
+       spi_re_entrant_list_delete_link (list);
        spi_listener_struct_free (ls, &ev);
     }
 
   CORBA_exception_free (&ev);
 
-  return SPI_RE_ENTERANT_CONTINUE;
+  return SPI_RE_ENTRANT_CONTINUE;
 }
 
 /*
@@ -387,7 +387,7 @@ impl_accessibility_registry_deregister_global_event_listener_all (
 
   for (i = 0; i < sizeof (lists) / sizeof (lists[0]); i++)
     {
-      spi_re_enterant_list_foreach (lists [i], remove_listener_cb, listener);
+      spi_re_entrant_list_foreach (lists [i], remove_listener_cb, listener);
     }
 }
 
@@ -409,7 +409,7 @@ impl_accessibility_registry_deregister_global_event_listener (
 
   parse_event_type (&etype, (char *) event_name);
 
-  spi_re_enterant_list_foreach (get_listener_list (registry, etype.type_cat),
+  spi_re_entrant_list_foreach (get_listener_list (registry, etype.type_cat),
 				remove_listener_cb, listener);
 }
 
@@ -506,7 +506,7 @@ typedef struct {
   Accessibility_Event e_out;
 } NotifyContext;
 
-static SpiReEnterantContinue
+static SpiReEntrantContinue
 notify_listeners_cb (GList * const *list, gpointer user_data)
 {
   SpiListenerStruct *ls;
@@ -535,7 +535,7 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
       ctx->e_out.source = bonobo_object_dup_ref (ctx->source, ctx->ev);
       if (BONOBO_EX (ctx->ev))
         {
-          return SPI_RE_ENTERANT_CONTINUE;;
+          return SPI_RE_ENTRANT_CONTINUE;;
 	}
 
       if ((*list) && (*list)->data == ls)
@@ -555,7 +555,7 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
 	}
     }  
 
-  return SPI_RE_ENTERANT_CONTINUE;
+  return SPI_RE_ENTRANT_CONTINUE;
 }
 
 static void
@@ -580,7 +580,7 @@ impl_registry_notify_event (PortableServer_Servant     servant,
       ctx.source = e->source;
       parse_event_type (&ctx.etype, e->type);
 
-      spi_re_enterant_list_foreach (list, notify_listeners_cb, &ctx);
+      spi_re_entrant_list_foreach (list, notify_listeners_cb, &ctx);
     }
 
   if (e->source != CORBA_OBJECT_NIL)

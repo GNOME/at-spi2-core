@@ -11,12 +11,12 @@ typedef struct {
 static GSList *working_list = NULL; /* of Iteration */
 
 /*
- *   deletes an element from the list - in a re-enterant
+ *   deletes an element from the list - in a re-entrant
  * safe fashion; advances the element pointer to the next
  * element.
  */
 void
-spi_re_enterant_list_delete_link (GList * const *element_ptr)
+spi_re_entrant_list_delete_link (GList * const *element_ptr)
 {
   GSList    *l;
   GList     *next;
@@ -52,9 +52,9 @@ spi_re_enterant_list_delete_link (GList * const *element_ptr)
 }
 
 void
-spi_re_enterant_list_foreach (GList         **list,
-			      SpiReEnterantFn func,
-			      gpointer        user_data)
+spi_re_entrant_list_foreach (GList         **list,
+			     SpiReEntrantFn  func,
+			     gpointer        user_data)
 {
 	Iteration i;
 

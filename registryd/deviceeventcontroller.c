@@ -709,7 +709,7 @@ typedef struct {
 	DEControllerKeyListener *key_listener;
 } RemoveKeyListenerClosure;
 
-static SpiReEnterantContinue
+static SpiReEntrantContinue
 remove_key_listener_cb (GList * const *list,
 			gpointer       user_data)
 {
@@ -719,11 +719,29 @@ remove_key_listener_cb (GList * const *list,
   if (CORBA_Object_is_equivalent (ctx->key_listener->listener.object,
 				  key_listener->listener.object, ctx->ev))
     {
-      spi_re_enterant_list_delete_link (list);
+      spi_re_entrant_list_delete_link (list);
       spi_dec_key_listener_free (key_listener, ctx->ev);
     }
 
-  return SPI_RE_ENTERANT_CONTINUE;
+  return SPI_RE_ENTRANT_CONTINUE;
+}
+
+static SpiReEntrantContinue
+copy_key_listener_cb (GList * const *list,
+		      gpointer       user_data)
+{
+  DEControllerKeyListener  *key_listener = (*list)->data;
+  RemoveKeyListenerClosure *ctx = user_data;
+
+  if (CORBA_Object_is_equivalent (ctx->key_listener->listener.object,
+				  key_listener->listener.object, ctx->ev))
+    {
+      /* TODO: FIXME aggregate keys in case the listener is registered twice */
+      CORBA_free (ctx->key_listener->keys);	    
+      ctx->key_listener->keys = ORBit_copy_value (key_listener->keys, TC_Accessibility_KeySet);
+    }
+
+  return SPI_RE_ENTRANT_CONTINUE;
 }
 
 /*
@@ -751,12 +769,19 @@ impl_deregister_keystroke_listener (PortableServer_Servant                  serv
 	   (void *) l, (unsigned long) mask->value);
 #endif
 
-  spi_controller_deregister_global_keygrabs (controller, key_listener);
-
   ctx.ev = ev;
   ctx.key_listener = key_listener;
 
-  spi_re_enterant_list_foreach (&controller->key_listeners,
+  /* special case, copy keyset from existing controller list entry */
+  if (keys->_length == 0) 
+    {
+      spi_re_entrant_list_foreach (&controller->key_listeners,
+				  copy_key_listener_cb, &ctx);
+    }
+  
+  spi_controller_deregister_global_keygrabs (controller, key_listener);
+
+  spi_re_entrant_list_foreach (&controller->key_listeners,
 				remove_key_listener_cb, &ctx);
 
   spi_dec_key_listener_free (key_listener, ev);
