@@ -85,19 +85,19 @@ impl_accessibility_application_get_version (PortableServer_Servant servant,
   return retval;
 }
 
-static CORBA_string
+static CORBA_long
 impl_accessibility_application_get_id (PortableServer_Servant servant,
-                                                 CORBA_Environment *ev)
+                                       CORBA_Environment *ev)
 {
-  CORBA_char *retval;
+  CORBA_long retval;
   Application *application = APPLICATION (bonobo_object_from_servant (servant));
-  retval = CORBA_string_dup (application->id);
+  retval = (CORBA_long) application->id;
   return retval;
 }
 
 static void
 impl_accessibility_application_set_id (PortableServer_Servant servant,
-                                       const CORBA_char *id,
+                                       const CORBA_long id,
                                        CORBA_Environment *ev)
 {
   Application *application = APPLICATION (bonobo_object_from_servant (servant));

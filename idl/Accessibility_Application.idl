@@ -48,7 +48,7 @@ module Accessibility {
      * Get the application instance's unique ID as assigned by the registry.
      *
      **/
-    attribute string id;
+    attribute long id;
 
     /**
      * Register with this application's toolkit for "toolkit" event notifications.

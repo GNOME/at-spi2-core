@@ -81,12 +81,14 @@ impl_notify_event (PortableServer_Servant     servant,
             CORBA_exception_id(ev));
     exit(-1);
   }
+  /*
   fprintf (stderr, "source is component ? : %s\n",
            Accessibility_Accessible_queryInterface (e->source,
                                                     "IDL:Accessibility/Component:1.0",
                                                     ev)
            ? "yes" : "no");
-
+  */
+  /* TODO: free/deref the returned interface! */
 #endif
   bonobo_object_release_unref (e->source, ev);
 

@@ -38,6 +38,7 @@
  * This pulls the definition for the BonoboObject (Gtk Type)
  */
 #include "component.h"
+#include "accessible.h"
 
 /*
  * Our parent Gtk object type
@@ -82,6 +83,82 @@ impl_accessibility_component_contains (PortableServer_Servant servant,
   return retval;
 }
 
+/*
+ * CORBA Accessibility::Component::getAccessibleAtPoint method implementation
+ */
+static Accessibility_Accessible
+impl_accessibility_component_get_accessible_at_point (PortableServer_Servant servant,
+                                                      const CORBA_long x,
+                                                      const CORBA_long y,
+                                                      CORBA_short coord_type,
+                                                      CORBA_Environment     *ev)
+{
+  Accessibility_Accessible retval;
+  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  AtkObject *child;
+  child = atk_component_ref_accessible_at_point (ATK_COMPONENT (component->atko),
+                                                  (gint) x, (gint) y,
+                                                  (AtkCoordType) coord_type);
+  retval = bonobo_object_corba_objref (bonobo_object (accessible_new (child)));
+  return retval;
+}
+
+/*
+ * CORBA Accessibility::Component::getExtents method implementation
+ */
+static void
+impl_accessibility_component_get_extents (PortableServer_Servant servant,
+                                          CORBA_long * x,
+                                          CORBA_long * y,
+                                          CORBA_long * width,
+                                          CORBA_long * height,
+                                          const CORBA_short coord_type,
+                                          CORBA_Environment     *ev)
+{
+  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  gint ix, iy, iw, ih;
+  atk_component_get_extents (ATK_COMPONENT (component->atko), &ix, &iy, &iw, &ih,
+                                  (AtkCoordType) coord_type);
+  *x = (CORBA_long) ix;
+  *y = (CORBA_long) iy;
+  *width = (CORBA_long) iw;
+  *height = (CORBA_long) ih;
+}
+
+/*
+ * CORBA Accessibility::Component::getPosition method implementation
+ */
+static void
+impl_accessibility_component_get_position (PortableServer_Servant servant,
+                                           CORBA_long * x,
+                                           CORBA_long * y,
+                                           const CORBA_short coord_type,
+                                           CORBA_Environment     *ev)
+{
+  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  gint ix, iy;
+  atk_component_get_position (ATK_COMPONENT (component->atko), &ix, &iy,
+                              (AtkCoordType) coord_type);
+  *x = (CORBA_long) ix;
+  *y = (CORBA_long) iy;
+}
+
+/*
+ * CORBA Accessibility::Component::getSize method implementation
+ */
+static void
+impl_accessibility_component_get_size (PortableServer_Servant servant,
+                                       CORBA_long * width,
+                                       CORBA_long * height,
+                                       CORBA_Environment     *ev)
+{
+  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  gint iw, ih;
+  atk_component_get_size (ATK_COMPONENT (component->atko), &iw, &ih);
+  *width = (CORBA_long) iw;
+  *height = (CORBA_long) ih;
+}
+
 static void
 accessibility_component_class_init (ComponentClass *klass)
 {
@@ -92,6 +169,10 @@ accessibility_component_class_init (ComponentClass *klass)
         object_class->finalize = accessibility_component_object_finalize;
 
         epv->contains = impl_accessibility_component_contains;
+        epv->getAccessibleAtPoint = impl_accessibility_component_get_accessible_at_point;
+        epv->getExtents = impl_accessibility_component_get_extents;
+        epv->getPosition = impl_accessibility_component_get_position;
+        epv->getSize = impl_accessibility_component_get_size;
 }
 
 static void

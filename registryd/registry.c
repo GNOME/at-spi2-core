@@ -74,9 +74,11 @@ typedef struct {
 } ListenerStruct;
 
 /* static function prototypes */
-static void registry_notify_listeners ( GList *listeners,
+static void _registry_notify_listeners ( GList *listeners,
                                         const Accessibility_Event *e,
                                         CORBA_Environment *ev);
+
+static long _get_unique_id();
 
 /*
  * Implemented GObject::finalize
@@ -113,8 +115,8 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
   registry->desktop->applications = g_list_append (registry->desktop->applications,
                                                    CORBA_Object_duplicate (application, ev));
 
-  /* TODO: create unique string here (with libuuid call ?) */
-  Accessibility_Application__set_id (application, "test-some-unique-string", ev);
+  /* TODO: create unique string here (with libuuid call ?) and hash ? */
+  Accessibility_Application__set_id (application, _get_unique_id(), ev);
 
   /*
    * TODO: change the implementation below to a WM-aware one;
@@ -450,13 +452,13 @@ impl_registry_notify_event (PortableServer_Servant servant,
   switch (etype.type_cat)
     {
     case (ETYPE_FOCUS) :
-      registry_notify_listeners (registry->focus_listeners, e, ev);
+      _registry_notify_listeners (registry->focus_listeners, e, ev);
       break;
     case (ETYPE_WINDOW) :
-      registry_notify_listeners (registry->window_listeners, e, ev);
+      _registry_notify_listeners (registry->window_listeners, e, ev);
       break;
     case (ETYPE_TOOLKIT) :
-      registry_notify_listeners (registry->toolkit_listeners, e, ev);
+      _registry_notify_listeners (registry->toolkit_listeners, e, ev);
       break;
     default:
       break;
@@ -464,8 +466,15 @@ impl_registry_notify_event (PortableServer_Servant servant,
   bonobo_object_release_unref (e->source, ev);
 }
 
+static long
+_get_unique_id ()
+{
+  static long id = 0;
+  return ++id;
+}
+
 static void
-registry_notify_listeners ( GList *listeners,
+_registry_notify_listeners ( GList *listeners,
                             const Accessibility_Event *e,
                             CORBA_Environment *ev)
 {

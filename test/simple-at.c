@@ -68,6 +68,16 @@ report_focus_event (void *p)
   AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
            Accessible_getName (&ev->source));
+  if (Accessible_isComponent (&ev->source))
+    {
+      long x, y, width, height;
+      AccessibleComponent *component = Accessible_getComponent (&ev->source);
+      fprintf (stderr, "Source implements IDL:Accessibility/Component:1.0\n");
+      AccessibleComponent_getExtents (component, &x, &y, &width, &height,
+                                      COORD_TYPE_SCREEN);
+      fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
+               x, y, x+width, y+height);
+    }
 }
 
 void

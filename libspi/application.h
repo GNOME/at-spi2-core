@@ -40,7 +40,7 @@ extern "C" {
 
 typedef struct {
         Accessible parent;
-        char *id;
+        long id;
 } Application;
 
 typedef struct {
@@ -49,7 +49,7 @@ typedef struct {
 } ApplicationClass;
 
 GType               application_get_type           (void);
-gboolean            *application_set_id            (AtkObject *app, char *id);
+gboolean            *application_set_id            (AtkObject *app, long id);
 Application         *application_new               (AtkObject *app_root);
 
 
