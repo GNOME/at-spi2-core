@@ -1,3 +1,8 @@
+Changes in version 1.0.1
+
+* Bug fixes, optimizations [Padraig O'Briain, Bill Haneman]
+* Fix Win32 DLL name [Tor Lillqvist]
+
 Changes in version 1.0.0
 
 * Build fixes [Padraig O'Briain, Tor Lillqvist, James Henstridge]

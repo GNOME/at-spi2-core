@@ -1,3 +1,11 @@
+Thu Mar 28 18:27:32 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* ===== Released 1.0.1 ======
+
+	* NEWS: Updates.
+
+	* configure.in: Version 1.0.1, interface, binary age 1.0.0.
+
 2002-03-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkutil.c (atk_focus_tracker_notify):
