@@ -88,6 +88,8 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @boundary_type: 
+@startOffset: 
+@endOffset: 
 @Returns: 
 
 
@@ -99,6 +101,8 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @boundary_type: 
+@startOffset: 
+@endOffset: 
 @Returns: 
 
 
@@ -110,6 +114,8 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @boundary_type: 
+@startOffset: 
+@endOffset: 
 @Returns: 
 
 
