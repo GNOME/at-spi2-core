@@ -19,11 +19,6 @@
 
 #include "atkeditabletext.h"
 
-enum {
-  TEXT_CHANGED,
-  CARET_MOVED,
-  LAST_SIGNAL
-};
 
 struct _AtkEditableTextIfaceClass
 {
@@ -31,13 +26,6 @@ struct _AtkEditableTextIfaceClass
 };
 
 typedef struct _AtkEditableTextIfaceClass AtkEditableTextIfaceClass;
-
-#if 0
-static void atk_editable_text_interface_init (AtkEditableTextIfaceClass *klass);
-
-static gpointer parent_class = NULL;
-#endif
-
 
 GType
 atk_editable_text_get_type ()
@@ -59,42 +47,6 @@ atk_editable_text_get_type ()
   return type;
 }
 
-/*
- * Additional GObject properties exported by AtkText:
- *    "accessible_text" (accessible text has changed)
- *    "accessible_caret" (accessible text cursor position changed:
- *                         editable text only)
- */
-
-#if 0
-static void
-atk_editable_text_interface_init (AtkEditableTextIfaceClass *klass)
-{
-  parent_class = g_type_class_ref (ATK_TYPE_EDITABLE_TEXT);
-
-  /* Note that text_changed signal supports details "insert", "delete", possibly "replace". */
-
-  atk_signals[TEXT_CHANGED] =
-    g_signal_newc ("text_changed",
-                   G_TYPE_FROM_CLASS (klass),
-                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-                   G_STRUCT_OFFSET (AtkEditableTextClass, text_changed), /* still need to declare and define this func */
-                   NULL,
-                   g_cclosure_marshal_VOID__UINT_POINTER,
-                   G_TYPE_NONE,
-                   2, G_TYPE_UINT, ATK_TYPE_OBJECT);
-
-  atk_signals[CARET_MOVED] =
-    g_signal_newc ("text_caret_moved",
-                   G_TYPE_FROM_CLASS (klass),
-                   G_SIGNAL_RUN_LAST,
-                   G_STRUCT_OFFSET (AtkTextClass, caret_changed), /* still need to declare and define this func */
-                   NULL,
-                   g_cclosure_marshal_VOID__UINT_POINTER,
-                   G_TYPE_NONE,
-                   2, G_TYPE_UINT, ATK_TYPE_OBJECT);
-}
-#endif
 
 void 
 atk_editable_text_select_text (AtkEditableText  *text,

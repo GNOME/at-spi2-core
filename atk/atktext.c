@@ -19,6 +19,12 @@
 
 #include "atktext.h"
 
+enum {
+  TEXT_CHANGED,
+  CARET_MOVED,
+  LAST_SIGNAL
+};
+
 struct _AtkTextIfaceClass
 {
   GObjectClass parent;
@@ -26,25 +32,71 @@ struct _AtkTextIfaceClass
 
 typedef struct _AtkTextIfaceClass AtkTextIfaceClass;
 
+static void atk_text_interface_init (AtkTextIfaceClass *klass);
+
+static gpointer parent_class = NULL;
+
+static guint atk_text_signals[LAST_SIGNAL] = { 0, 0, 0};
 
 GType
 atk_text_get_type ()
 {
   static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo =
+  if (!type) 
     {
-      sizeof (AtkTextIface),
-      NULL,
-      NULL,
+      static const GTypeInfo tinfo =
+      {
+        sizeof (AtkTextIface),
+        (GBaseInitFunc) NULL,
+        (GBaseFinalizeFunc) NULL,
+        (GClassInitFunc) atk_text_interface_init,
+        (GClassFinalizeFunc) NULL,
 
-    };
+      };
 
-    type = g_type_register_static (G_TYPE_INTERFACE, "AtkText", &tinfo, 0);
-  }
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkText", &tinfo, 0);
+    }
 
   return type;
+}
+
+/*
+ * Additional GObject properties exported by AtkText:
+ *    "accessible_text" (accessible text has changed)
+ *    "accessible_caret" (accessible text cursor position changed:
+ *                         editable text only)
+ */
+
+static void
+atk_text_interface_init (AtkTextIfaceClass *klass)
+{
+  parent_class = g_type_class_ref (G_TYPE_OBJECT);
+
+  /* 
+   * Note that text_changed signal supports details "insert", "delete", 
+   * possibly "replace". 
+   */
+
+  atk_text_signals[TEXT_CHANGED] =
+    g_signal_newc ("text_changed",
+                   G_TYPE_FROM_CLASS (klass),
+                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+                   G_STRUCT_OFFSET (AtkTextIface, text_changed), 
+                   NULL,
+                   g_cclosure_marshal_VOID__VOID,
+                   G_TYPE_NONE,
+                   0, G_TYPE_NONE);
+
+  atk_text_signals[CARET_MOVED] =
+    g_signal_newc ("text_caret_moved",
+                   G_TYPE_FROM_CLASS (klass),
+                   G_SIGNAL_RUN_LAST,
+                   G_STRUCT_OFFSET (AtkTextIface, caret_changed),
+                   NULL,
+                   g_cclosure_marshal_VOID__INT,
+                   G_TYPE_NONE,
+                   1, G_TYPE_INT);
 }
 
 gchar*

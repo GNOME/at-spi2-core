@@ -96,6 +96,9 @@ struct _AtkTextIface
                                                    gint             end_offset);
   gboolean       (* set_caret_offset)             (AtkText          *text,
                                                    gint             offset);
+  void		 (* text_changed)                 (AtkText          *text);
+  void           (* caret_changed)                (AtkText          *text,
+                                                   gint             location);
 };
 GType            atk_text_get_type (void);
 
