@@ -1,5 +1,17 @@
 2003-12-01  Bill Haneman <billh@gnome.org>
 
+	Fix for bug #116009.
+
+	* cspi/spi-roletypes.h: Add SPI_ROL_EEDITBAR.
+
+	* cspi/spi_accessible.c (cspi_init_role_table): Add SPI_ROLE_EDITBAR.
+
+	* docs/referecce/cspi/tmpl/spi-accessible.sgml: Add SPI_ROLE_EDITBAR
+
+	* idl/Accessibility_Role.idl: Add ROLE_EDITBAR.
+
+2003-12-01  Bill Haneman <billh@gnome.org>
+
 	Fix for bug/rfe #127463.
 	
 	* idl/Accessibility_Accessible.idl:

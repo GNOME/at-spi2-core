@@ -141,6 +141,8 @@ extern "C" {
  * @SPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items for 
  *                         insertion into an entry widget, for instance a list 
  *                          of words for completion of a text entry.
+ * @SPI_ROLE_EDITBAR: The object is an editable text object in a toolbar
+
  * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
  *
  * Describes the role of an object
@@ -227,6 +229,7 @@ typedef enum
   SPI_ROLE_RULER,
   SPI_ROLE_APPLICATION,
   SPI_ROLE_AUTOCOMPLETE,
+  SPI_ROLE_EDITBAR,
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
 

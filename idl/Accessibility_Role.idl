@@ -270,6 +270,10 @@ module Accessibility {
    * of a text entry.
    */
   ROLE_AUTOCOMPLETE,
+  /*
+   * The object is an editable text object in a toolbar.
+   */
+  ROLE_EDITBAR,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
   };
