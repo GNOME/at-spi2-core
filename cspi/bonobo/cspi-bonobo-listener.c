@@ -105,7 +105,8 @@ cspi_event (SpiEventListener    *listener,
   ievent->id            = _e_id++;
   ievent->magic         = SPI_INTERNAL_EVENT_MAGIC;
   ievent->ref_count     = 0;
-  ievent->data          = &event->any_data;
+  ievent->data          = CORBA_any__alloc ();
+  CORBA_any__copy (ievent->data, &event->any_data);
   aevent = (AccessibleEvent *)ievent;
   Accessible_ref (source);
   AccessibleEvent_ref (aevent);

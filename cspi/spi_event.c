@@ -708,6 +708,7 @@ AccessibleEvent_unref (const AccessibleEvent *e)
 	      cspi_internal_event_remove (event);
               g_free (e->type);
               Accessible_unref (e->source);
+              CORBA_free (event->data);
               g_free (e);
             }
 	}

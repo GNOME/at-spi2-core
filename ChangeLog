@@ -1,3 +1,12 @@
+2003-07-23  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi_event.c (AccessibleEvent_unref): Call CORBA_free for
+	event->data.
+	* cspi/bonobo/cspi-bonobo-listener.c (cspi_event): Call 
+	CORBA_any__alloc to allocate CORBA_Any in InternalEvent.
+
+	This fixes bug #116949.
+
 2003-07-22  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi_registry.c (SPI_registerAccessibleKeyStrokeListener):
