@@ -42,6 +42,7 @@ extern "C" {
 #define _TYPEDEF_ATK_SELECTION_
 typedef struct _AtkSelection AtkSelection;
 #endif
+typedef struct _AtkSelectionIface AtkSelectionIface;
 
 struct _AtkSelectionIface
 {

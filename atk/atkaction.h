@@ -44,6 +44,7 @@ extern "C" {
 #define _TYPEDEF_ATK_ACTION_
 typedef struct _AtkAction AtkAction;
 #endif
+typedef struct _AtkActionIface AtkActionIface;
 
 struct _AtkActionIface
 {
@@ -68,8 +69,8 @@ struct _AtkActionIface
   /*
    * Returns a keybinding associated with this action, if one exists.
    */
-  G_CONST_RETURN gchar*   (*get_keybinding)    (AtkAction          *action,
-                                                gint               i);
+  G_CONST_RETURN gchar*   (*get_keybinding)    (AtkAction         *action,
+                                                gint              i);
 
 };
 GType atk_action_get_type ();
@@ -89,6 +90,8 @@ void   atk_action_do_action                (AtkAction         *action,
                                             gint              i);
 gint   atk_action_get_n_actions            (AtkAction *action);
 G_CONST_RETURN gchar* atk_action_get_description  (AtkAction         *action,
+                                                   gint              i);
+G_CONST_RETURN gchar* atk_action_get_keybinding   (AtkAction         *action,
                                                    gint              i);
 
 

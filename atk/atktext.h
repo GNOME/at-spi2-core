@@ -38,6 +38,7 @@ extern "C" {
 #define _TYPEDEF_ATK_TEXT_
 typedef struct _AtkText AtkText;
 #endif
+typedef struct _AtkTextIface AtkTextIface;
 
 typedef enum {
   ATK_TEXT_BOUNDARY_CHAR,

@@ -41,6 +41,7 @@ extern "C" {
 #define _TYPEDEF_ATK_IMAGE_
 typedef struct _AtkImage AtkImage;
 #endif
+typedef struct _AtkImageIface AtkImageIface;
 
 typedef enum
 {

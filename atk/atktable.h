@@ -41,6 +41,7 @@ extern "C" {
 #define _TYPEDEF_ATK_TABLE_
 typedef struct _AtkTable AtkTable;
 #endif
+typedef struct _AtkTableIface AtkTableIface;
 
 struct _AtkTableIface
 {

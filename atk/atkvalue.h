@@ -43,6 +43,7 @@ extern "C" {
 #define _TYPEDEF_ATK_VALUE__
 typedef struct _AtkValue AtkValue;
 #endif
+typedef struct _AtkValueIface AtkValueIface;
 
 struct _AtkValueIface
 {

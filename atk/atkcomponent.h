@@ -42,6 +42,7 @@ extern "C" {
 #define _TYPEDEF_ATK_COMPONENT_
 typedef struct _AtkComponent AtkComponent;
 #endif
+typedef struct _AtkComponentIface  AtkComponentIface;
 
 typedef void (*AtkFocusHandler) (AtkObject*, gboolean);
 

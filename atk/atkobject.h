@@ -221,7 +221,7 @@ typedef enum
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
-AtkRole                  atk_role_register        (gchar *name);
+AtkRole                  atk_role_register        (const gchar *name);
 
 typedef enum
 {
@@ -302,7 +302,7 @@ typedef enum
   ATK_STATE_LAST_DEFINED
 } AtkStateType;
 
-AtkStateType               atk_state_type_register      (gchar *name);
+AtkStateType               atk_state_type_register      (const gchar *name);
 
 
 #define ATK_TYPE_OBJECT                           (atk_object_get_type ())
@@ -312,36 +312,25 @@ AtkStateType               atk_state_type_register      (gchar *name);
 #define ATK_IS_OBJECT_CLASS(klass)                (G_TYPE_CHECK_CLASS_TYPE ((klass), ATK_TYPE_OBJECT))
 #define ATK_OBJECT_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj), ATK_TYPE_OBJECT, AtkObjectClass))
 
-#define ATK_TYPE_OBJECT_IFACE                     (atk_object_iface_get_type ())
-#define ATK_OBJECT_GET_IFACE(obj)                 (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATK_TYPE_OBJECT_IFACE, AtkObjectIface))
+#define ATK_TYPE_IMPLEMENTOR                      (atk_implementor_get_type ())
+#define ATK_IS_IMPLEMENTOR(obj)                   G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_IMPLEMENTOR)
+#define ATK_IMPLEMENTOR(obj)                      G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_IMPLEMENTOR, AtkImplementor)
+#define ATK_IMPLEMENTOR_GET_IFACE(obj)            (G_TYPE_INSTANCE_GET_INTERFACE ((obj), ATK_TYPE_IMPLEMENTOR, AtkImplementorIface))
 
 
-/* Forward declarations of interface structures */
-
-typedef struct _AtkIfaceImplementor               AtkIfaceImplementor;
-
-typedef struct _AtkObjectIface                    AtkObjectIface;
-
-typedef struct _AtkActionIface                    AtkActionIface;
-typedef struct _AtkComponentIface                 AtkComponentIface;
-typedef struct _AtkEditableTextIface              AtkEditableTextIface;
-typedef struct _AtkHypertextIface                 AtkHypertextIface;
-typedef struct _AtkImageIface                     AtkImageIface;
-typedef struct _AtkSelectionIface                 AtkSelectionIface;
-typedef struct _AtkTableIface                     AtkTableIface;
-typedef struct _AtkTextIface                      AtkTextIface;
-typedef struct _AtkValueIface                     AtkValueIface;
+typedef struct _AtkImplementor            AtkImplementor; /* dummy typedef */
+typedef struct _AtkImplementorIface       AtkImplementorIface;
 
 
-typedef struct _AtkObject                         AtkObject;
-typedef struct _AtkObjectClass                    AtkObjectClass;
-typedef struct _AtkRelation                       AtkRelation;
-typedef struct _AtkRelationSet                    AtkRelationSet;
+typedef struct _AtkObject                 AtkObject;
+typedef struct _AtkObjectClass            AtkObjectClass;
+typedef struct _AtkRelation               AtkRelation;
+typedef struct _AtkRelationSet            AtkRelationSet;
 
-typedef guint64                                 AtkStateMask;
-typedef guint64                                 AtkState;
+typedef guint64                           AtkStateMask;
+typedef guint64                           AtkState;
 
-#define ATK_STATE(state_enum)                   ((AtkStateMask)(1 << ((guint64)(state_enum)%64)))
+#define ATK_STATE(state_enum)             ((AtkStateMask)(1 << ((guint64)(state_enum)%64)))
 
 struct _AtkPropertyValues
 {
@@ -350,7 +339,7 @@ struct _AtkPropertyValues
   GValue new_value;
 };
 
-typedef struct _AtkPropertyValues                AtkPropertyValues;
+typedef struct _AtkPropertyValues        AtkPropertyValues;
 
 /*
  * For most properties the old_value field of AtkPropertyValues will
@@ -467,17 +456,17 @@ void                      (* remove_property_change_handler)     (AtkObject
 };
 GType            atk_object_get_type   (void);
 
-struct _AtkObjectIface
+struct _AtkImplementorIface
 {
   GTypeInterface parent;
 
-  AtkObject*   (*ref_accessible) (AtkIfaceImplementor *accessible);
+  AtkObject*   (*ref_accessible) (AtkImplementor *implementor);
 };
-GType atk_object_iface_get_type (void);
+GType atk_implementor_get_type (void);
 
 /*
- * This method uses the ref_accessible method in AtkObjectIface,
- * if the object's class implements AtkObjectIface.
+ * This method uses the ref_accessible method in AtkImplementorIface,
+ * if the object's class implements AtkImplementorIface.
  * Otherwise it returns %NULL.
  *
  * IMPORTANT:
@@ -487,7 +476,7 @@ GType atk_object_iface_get_type (void);
  * program to unreference the object when no longer needed.
  * (c.f. gtk_widget_get_accessible() where this is not the case).
  */
-AtkObject*              atk_object_ref_accessible                 (AtkIfaceImplementor *accessible);
+AtkObject*              atk_implementor_ref_accessible            (AtkImplementor *implementor);
 
 /*
  * Properties directly supported by AtkObject
@@ -586,7 +575,7 @@ typedef enum
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 
-AtkRelationType atk_relation_type_register            (gchar *name);
+AtkRelationType atk_relation_type_register            (const gchar *name);
 
 /*
  * Create a new relation for the specified key and the specified list
@@ -635,8 +624,8 @@ AtkRelationType atk_relation_get_type                 (AtkRelation     *relation
  */
 GArray*         atk_relation_get_target               (AtkRelation     *relation);
 
-gchar*          atk_state_mask_get_name                  (AtkStateMask    state);
-AtkStateMask    atk_state_mask_for_name                  (gchar           *name);
+G_CONST_RETURN gchar* atk_state_mask_get_name         (AtkStateMask    state);
+AtkStateMask          atk_state_mask_for_name         (const gchar     *name);
 
 #ifdef __cplusplus
 }

@@ -41,6 +41,7 @@ extern "C" {
 #define _TYPEDEF_ATK_EDITABLE_TEXT_
 typedef struct _AtkEditableText AtkEditableText;
 #endif
+typedef struct _AtkEditableTextIface AtkEditableTextIface;
 
 struct _AtkEditableTextIface
 {

@@ -45,6 +45,7 @@ extern "C" {
 #define _TYPEDEF_ATK_HYPERTEXT_
 typedef struct _AtkHypertext AtkHypertext;
 #endif
+typedef struct _AtkHypertextIface AtkHypertextIface;
 
 typedef struct _AtkHyperLink  AtkHyperLink;
 

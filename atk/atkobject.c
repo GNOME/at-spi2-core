@@ -56,11 +56,6 @@ struct _AtkRelation
 };
 
 
-typedef struct
-{
-  GObject  object;
-} _AtkIfaceImplementor;
-
 static void            atk_object_class_init       (AtkObjectClass  *klass);
 static void            atk_object_init             (AtkObject       *accessible,
                                                     AtkObjectClass  *klass);
@@ -233,7 +228,7 @@ atk_object_init  (AtkObject        *accessible,
 }
 
 GType
-atk_object_iface_get_type (void)
+atk_implementor_get_type (void)
 {
   static GType type = 0;
 
@@ -241,12 +236,12 @@ atk_object_iface_get_type (void)
     {
       static const GTypeInfo typeInfo =
       {
-        sizeof (AtkObjectIface),
+        sizeof (AtkImplementorIface),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
       } ;
 
-      type = g_type_register_static (G_TYPE_INTERFACE, "AtkObjectIface", &typeInfo, 0) ;
+      type = g_type_register_static (G_TYPE_INTERFACE, "AtkImplementorIface", &typeInfo, 0) ;
     }
 
   return type;
@@ -257,7 +252,7 @@ atk_object_get_name (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), NULL);
+  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -272,7 +267,7 @@ atk_object_get_description (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), NULL);
+  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -287,7 +282,7 @@ atk_object_get_parent (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), NULL);
+  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -302,7 +297,7 @@ atk_object_get_n_accessible_children (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), 0);
+  g_return_val_if_fail (accessible != NULL, 0);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), 0);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -318,7 +313,7 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), NULL);
+  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -333,7 +328,7 @@ atk_object_get_relation_set (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), NULL);
+  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -344,7 +339,7 @@ atk_object_get_relation_set (AtkObject *accessible)
 }
 
 AtkRole
-atk_role_register (gchar *name)
+atk_role_register (const gchar *name)
 {
   /* TODO: associate name with new type */
   static guint type = ATK_ROLE_LAST_DEFINED;
@@ -355,7 +350,7 @@ AtkRole
 atk_object_get_role (AtkObject *accessible) {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), ATK_ROLE_UNKNOWN);
+  g_return_val_if_fail (accessible != NULL, ATK_ROLE_UNKNOWN);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), ATK_ROLE_UNKNOWN);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -366,7 +361,7 @@ atk_object_get_role (AtkObject *accessible) {
 }
 
 AtkStateType
-atk_state_type_register (gchar *name)
+atk_state_type_register (const gchar *name)
 {
   /* TODO: associate name with new type */
   static guint type = ATK_STATE_LAST_DEFINED;
@@ -380,7 +375,7 @@ AtkState
 atk_object_get_state (AtkObject *accessible) {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), 0);
+  g_return_val_if_fail (accessible != NULL, 0);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), 0);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -395,7 +390,7 @@ atk_object_get_index_in_parent (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), -1);
+  g_return_val_if_fail (accessible != NULL, -1);
   g_return_val_if_fail (ATK_OBJECT (accessible), -1);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -411,9 +406,9 @@ atk_object_set_name (AtkObject    *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail ((accessible != NULL));
+  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
-  g_return_if_fail ((name != NULL));
+  g_return_if_fail (name != NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_name)
@@ -429,9 +424,9 @@ atk_object_set_description (AtkObject   *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail ((accessible != NULL));
+  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
-  g_return_if_fail ((description != NULL));
+  g_return_if_fail (description != NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_description)
@@ -447,7 +442,7 @@ atk_object_set_parent (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail ((accessible != NULL));
+  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -461,7 +456,7 @@ atk_object_set_role (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail ((accessible != NULL));
+  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -475,7 +470,7 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail ((accessible != NULL), 0);
+  g_return_val_if_fail (accessible != NULL, 0);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), 0);
   g_return_val_if_fail ((handler != NULL), 0);
 
@@ -492,7 +487,7 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail ((accessible != NULL));
+  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -501,7 +496,7 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
 }
 
 AtkRelationType
-atk_relation_type_register (gchar *name)
+atk_relation_type_register (const gchar *name)
 {
   /* TODO: associate name with new type */
   static guint type = ATK_RELATION_LAST_DEFINED;
@@ -513,7 +508,7 @@ atk_relation_new (GArray          *target,
                   AtkRelationType relationship)
 {
   AtkRelation* relation;
-  g_return_val_if_fail ((target != NULL), NULL);
+  g_return_val_if_fail (target != NULL, NULL);
 
   relation = (AtkRelation *) g_malloc (sizeof (AtkRelation));
 
@@ -533,7 +528,7 @@ atk_relation_set_contains (AtkRelationSet   *set,
   AtkRelation *item;
   gint  i;
 
-  g_return_val_if_fail ((set != NULL), FALSE);
+  g_return_val_if_fail (set != NULL, FALSE);
 
   array_item = set->relations;
   if (array_item == NULL)
@@ -653,7 +648,7 @@ atk_relation_get_target (AtkRelation *relation)
   return relation->target;
 }
 
-gchar*
+G_CONST_RETURN gchar*
 atk_state_mask_get_name (AtkStateMask state)
 {
   gint n;
@@ -671,7 +666,7 @@ atk_state_mask_get_name (AtkStateMask state)
 }
 
 AtkStateMask
-atk_state_mask_for_name (gchar *name)
+atk_state_mask_for_name (const gchar *name)
 {
   gint i;
 
@@ -686,23 +681,26 @@ atk_state_mask_for_name (gchar *name)
 /**
  * Return a reference to an object's AtkObject implementation, if
  * the object implements AtkObjectIface.
- * @object: The GObject instance which should implement #AtkObjectIface
+ * @object: The GObject instance which should implement #AtkImplementorIface
  * if a non-null return value is required.
  */
 AtkObject *
-atk_object_ref_accessible (AtkIfaceImplementor *object)
+atk_implementor_ref_accessible (AtkImplementor *object)
 {
-  AtkObjectIface     *iface;
-  AtkObject          *accessible = NULL;
+  AtkImplementorIface *iface;
+  AtkObject           *accessible = NULL;
 
-  g_return_val_if_fail ((object != NULL), NULL);
-  g_return_val_if_fail ((iface = ATK_OBJECT_GET_IFACE (object)), NULL );
+  g_return_val_if_fail (object != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_IMPLEMENTOR (object), NULL);
 
-  if (iface != NULL) accessible =  (*(iface->ref_accessible)) (object) ;
+  iface = ATK_IMPLEMENTOR_GET_IFACE (object);
+
+  if (iface != NULL) 
+     accessible =  iface->ref_accessible (object);
 
   g_return_val_if_fail ((accessible != NULL), NULL);
 
-  return ATK_OBJECT (accessible) ;
+  return accessible;
 }
 
 AtkRelationSet*
@@ -713,9 +711,9 @@ atk_object_real_get_relation_set (AtkObject *accessible)
 
 static void
 atk_object_real_set_property (GObject      *object,
-                         guint         prop_id,
-                         const GValue *value,
-                         GParamSpec   *pspec)
+                              guint         prop_id,
+                              const GValue *value,
+                              GParamSpec   *pspec)
 {
   AtkObject *accessible;
 
