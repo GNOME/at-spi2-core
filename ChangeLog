@@ -1,3 +1,9 @@
+2001-11-17  Tor Lillqvist  <tml@iki.fi>
+
+	* atk-zip.sh.in: Build separate runtime and developer packages.
+
+	* atk/atk.def: Update.
+
 2001-11-14  Bill Haneman  <bill.haneman@sun.com>
 
 	* atk/atkutil.h :

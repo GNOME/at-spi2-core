@@ -8,6 +8,7 @@ EXPORTS
 	atk_action_set_description
 	atk_add_focus_tracker
 	atk_add_global_event_listener
+	atk_add_key_event_listener
 	atk_attribute_get_name
 	atk_attribute_get_value
 	atk_attribute_set_free
@@ -102,6 +103,7 @@ EXPORTS
 	atk_relation_type_register
 	atk_remove_focus_tracker
 	atk_remove_global_event_listener
+	atk_remove_key_event_listener
 	atk_role_register
 	atk_selection_add_selection
 	atk_selection_clear_selection

@@ -1,16 +1,19 @@
 #!/bin/sh
 
-# Build zipfile for ATK on Win32: both runtime and developer stuff
+# Build zipfiles for ATK on Win32
 
-# These two directory paths are obviously system-dependent. This is what tml
-# happens to use.
-ZIP=/g/tmp/atk-@ATK_VERSION@.zip
-cd /target
+ZIP=/tmp/atk-@ATK_VERSION@-`date +%Y%m%d`.zip
+DEVZIP=/tmp/atk-dev-@ATK_VERSION@-`date +%Y%m%d`.zip
+cd @prefix@
 
 rm $ZIP
 zip -r $ZIP -@ <<EOF
-include/atk-1.0
 lib/libatk-@LT_CURRENT_MINUS_AGE@.dll
+EOF
+
+rm $DEVZIP
+zip -r $DEVZIP -@ <<EOF
+include/atk-1.0
 lib/libatk.dll.a
 lib/atk.lib
 lib/pkgconfig/atk.pc
