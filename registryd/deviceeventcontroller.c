@@ -193,7 +193,7 @@ spi_dec_poll_mouse_moved (gpointer data)
 			   button_number);
 #endif
 		  snprintf (event_name, 22, "mouse:button:%dr", button_number);
-		  e.type = CORBA_string_dup (event_name);
+		  e.type = event_name;
 		  e.source = BONOBO_OBJREF (registry->desktop);
 		  e.detail1 = last_mouse_pos->x;
 		  e.detail2 = last_mouse_pos->y;
@@ -201,7 +201,6 @@ spi_dec_poll_mouse_moved (gpointer data)
 		  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 						      &e,
 						      &ev);
-		  g_free (e.type);
 	  }
 	  mouse_button_state = mask_return & mouse_button_mask;
   }
@@ -209,9 +208,9 @@ spi_dec_poll_mouse_moved (gpointer data)
 	  last_mouse_pos = g_new0 (GdkPoint, 1);
 	  last_mouse_pos->x = 0;
 	  last_mouse_pos->y = 0;
-	  e.type = g_strdup ("mouse:abs");
+	  e.type = "mouse:abs";
   } else {
-	  e.type = g_strdup ("mouse:rel");  
+	  e.type = "mouse:rel";  
   }
   if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
 	  e.source = BONOBO_OBJREF (registry->desktop);
@@ -223,10 +222,8 @@ spi_dec_poll_mouse_moved (gpointer data)
 	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 					      &e,
 					      &ev);
-	  g_free (e.type);
 	  return TRUE;
   }
-  g_free (e.type);
   return FALSE;
 }
 
