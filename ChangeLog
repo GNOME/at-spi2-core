@@ -1,3 +1,20 @@
+2003-06-25  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c:
+	(atk_bridge_init): Add signal handler for children-changed:remove on
+	root when in a BonoboComponent.
+	(spi_atk_bridge_toplevel_added): Call spi_atk_bridge_do_registration
+	for first toplevel only other incrememt variable toplevels.
+	(spi_atk_bridge_toplevel_removed): For last toplevel deregister 
+	application and remove listeners.
+	(spi_atk_bridge_get-registry): Change NULL to CORBA_OBJECT_NIL for
+	consistency.
+	(spi_atk_deregister_event_listeners): New function which removes
+	listeners.
+	(reinit_register_vars): New fuction which reinitializes variables.
+
+	This fixes bug #111578.
+
 2003-06-13  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: version 1.3.4.

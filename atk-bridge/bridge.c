@@ -48,7 +48,7 @@ static Accessibility_DeviceEventController device_event_controller = CORBA_OBJEC
 static SpiApplication *this_app = NULL;
 static gboolean registry_died = FALSE;
 static gboolean atk_listeners_registered = FALSE;
-static guint toplevel_handler;
+static gint toplevels = 0;
 
 static guint atk_signal_text_changed;
 static guint atk_signal_children_changed;
@@ -71,9 +71,13 @@ static void     spi_atk_bridge_do_registration         (void);
 static void     spi_atk_bridge_toplevel_added          (AtkObject             *object,
                                                         guint                 index,
                                                         AtkObject             *child);
+static void     spi_atk_bridge_toplevel_removed        (AtkObject             *object,
+                                                        guint                 index,
+                                                        AtkObject             *child);
 
 static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
+static void     spi_atk_deregister_event_listeners     (void);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
 static void     spi_atk_bridge_register_application    (Accessibility_Registry registry);
 static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
@@ -97,6 +101,8 @@ static gboolean spi_atk_bridge_signal_listener         (GSignalInvocationHint *s
 static gint     spi_atk_bridge_key_listener            (AtkKeyEventStruct     *event,
 							gpointer               data);
 static void     spi_atk_tidy_windows                   (void);
+static void     deregister_application                 (BonoboObject          *app);
+static void     reinit_register_vars                   (void);
 
 /* For automatic libgnome init */
 extern void gnome_accessibility_module_init     (void);
@@ -158,10 +164,14 @@ atk_bridge_init (gint *argc, gchar **argv[])
   if (bonobo_activation_iid_get ())
     {
       DBG (1, g_message ("Found Bonobo component\n"));
-      toplevel_handler = g_signal_connect (atk_get_root (), 
-                                           "children-changed::add",
-                                           (GCallback) spi_atk_bridge_toplevel_added, 
-                                           NULL);
+      g_signal_connect (atk_get_root (), 
+                        "children-changed::add",
+                        (GCallback) spi_atk_bridge_toplevel_added, 
+                        NULL);
+      g_signal_connect (atk_get_root (), 
+                        "children-changed::remove",
+                        (GCallback) spi_atk_bridge_toplevel_removed, 
+                        NULL);
     }
   else
     {
@@ -207,8 +217,30 @@ spi_atk_bridge_toplevel_added (AtkObject *object,
                                guint     index,
                                AtkObject *child)
 {
-  g_signal_handler_disconnect (object, toplevel_handler);
-  spi_atk_bridge_do_registration ();
+  if (toplevels == 0)
+    spi_atk_bridge_do_registration ();
+  toplevels++;
+}
+
+static void
+spi_atk_bridge_toplevel_removed (AtkObject *object,
+                                 guint     index,
+                                 AtkObject *child)
+{
+  BonoboObject *app = (BonoboObject *) this_app;
+
+  toplevels--;
+  if (toplevels == 0)
+    {
+      deregister_application (app);
+      spi_atk_deregister_event_listeners ();
+      reinit_register_vars ();
+    }
+  if (toplevels < 0)
+    {
+      g_warning ("More toplevels removed than added\n");
+      toplevels = 0;
+    }
 }
 
 static void
@@ -225,7 +257,7 @@ spi_atk_bridge_get_registry (void)
 {
   CORBA_Environment ev;
 
-  if (registry_died || (registry == NULL)) {
+  if (registry_died || (registry == CORBA_OBJECT_NIL)) {
 	  CORBA_exception_init (&ev);
 	  if (registry_died) 
 	    DBG (1, g_warning ("registry died! restarting..."));
@@ -369,6 +401,32 @@ spi_atk_register_event_listeners (void)
   
   g_object_unref (G_OBJECT (bo));
   g_object_unref (ao);
+}
+
+static void
+spi_atk_deregister_event_listeners (void)
+{
+  gint i;
+  guint id;
+
+  if (!atk_listeners_registered)
+    return;
+
+  atk_listeners_registered = FALSE;
+
+  for (i = 0; i < listener_ids->len; i++)
+    {
+      id = g_array_index (listener_ids, guint, i);
+      atk_remove_global_event_listener (id);   
+    }
+  g_array_free (listener_ids, TRUE);
+  listener_ids = NULL;
+
+  atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
+  atk_bridge_focus_tracker_id = 0;
+
+  atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
+  atk_bridge_key_event_listener_id = 0;
 }
 
 static void
@@ -984,3 +1042,12 @@ spi_atk_tidy_windows (void)
       g_object_unref (child);
     }
 }
+
+static void
+reinit_register_vars (void)
+{
+  registry = CORBA_OBJECT_NIL;
+  device_event_controller = CORBA_OBJECT_NIL;
+  this_app = NULL;
+}
+
