@@ -1,5 +1,9 @@
 2002-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
 
+	* cspi/spi_accessible.c: Made role names freeable with SPI_freeString ()
+
+	2002-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
+
 	* libspi/stateset.c: implemented Accessibility_StateSet_compare ()
 
 	* cspi/spi_accessible.c: Implemented c bindings for stateset support

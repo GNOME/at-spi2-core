@@ -252,7 +252,7 @@ AccessibleRole_getName (AccessibleRole role)
 {
   if (role < MAX_ROLES)
     {
-      return g_strdup (role_names [(int) role]);
+      return CORBA_string_dup (role_names [(int) role]);
     }
   else
     {
