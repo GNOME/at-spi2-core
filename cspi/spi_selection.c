@@ -6,8 +6,6 @@
  *
  * Increment the reference count for an #AccessibleSelection object.
  *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleSelection_ref (AccessibleSelection *obj)
@@ -20,8 +18,6 @@ AccessibleSelection_ref (AccessibleSelection *obj)
  * @obj: a pointer to the #AccessibleSelection implementor on which to operate. 
  *
  * Decrement the reference count for an #Accessible object.
- *
- * Returns: (no return code implemented yet).
  *
  **/
 void

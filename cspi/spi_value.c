@@ -6,8 +6,6 @@
  *
  * Increment the reference count for an #AccessibleValue object.
  *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleValue_ref (AccessibleValue *obj)
@@ -20,8 +18,6 @@ AccessibleValue_ref (AccessibleValue *obj)
  * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
  *
  * Decrement the reference count for an #AccessibleValue object.
- *
- * Returns: (no return code implemented yet).
  *
  **/
 void

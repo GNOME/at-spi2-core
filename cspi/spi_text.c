@@ -6,8 +6,6 @@
  *
  * Increment the reference count for an #AccessibleText object.
  *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleText_ref (AccessibleText *obj)
@@ -20,8 +18,6 @@ AccessibleText_ref (AccessibleText *obj)
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Decrement the reference count for an #AccessibleText object.
- *
- * Returns: (no return code implemented yet).
  *
  **/
 void

@@ -108,8 +108,6 @@ AccessibleRole_getName (AccessibleRole role)
  *
  * Increment the reference count for an #Accessible object.
  *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 Accessible_ref (Accessible *obj)
@@ -740,7 +738,6 @@ Accessible_queryInterface (Accessible *obj,
  *
  * Increment the reference count for an #AccessibleRelation object.
  *
- * Returns: (no return code implemented yet).
  **/
 void
 AccessibleRelation_ref (AccessibleRelation *obj)
@@ -754,7 +751,6 @@ AccessibleRelation_ref (AccessibleRelation *obj)
  *
  * Decrement the reference count for an #AccessibleRelation object.
  *
- * Returns: (no return code implemented yet).
  **/
 void
 AccessibleRelation_unref (AccessibleRelation *obj)
@@ -823,8 +819,6 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
  *
  * Increment the reference count for an #AccessibleStateSet object.
  *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleStateSet_ref (AccessibleStateSet *obj)
@@ -837,8 +831,6 @@ AccessibleStateSet_ref (AccessibleStateSet *obj)
  * @obj: a pointer to the #AccessibleStateSet object on which to operate.
  *
  * Decrement the reference count for an #AccessibleStateSet object.
- *
- * Returns: (no return code implemented yet).
  *
  **/
 void

@@ -1,3 +1,14 @@
+2001-12-10  Bill Haneman  <bill.haneman@sun.com>
+
+	* cspi/spi_action.c:
+	* cspi/spi_accessible.c:
+	* cspi/spi_application.c:
+	* cspi/spi_component.c:
+	* cspi/spi_selection.c:
+	* cspi/spi_text.c:
+	* cspi/spi_value.c:
+	Documentation fixes (removed return values from ref/unref methods).
+
 2001-12-10  Michael Meeks  <michael@ximian.com>
 
 	* cspi/spi_action.c: audit for exception handling,

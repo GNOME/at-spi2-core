@@ -12,7 +12,6 @@
  *
  * Increment the reference count for an #AccessibleApplication.
  *
- * Returns: (no return code implemented yet).
  **/
 void
 AccessibleApplication_ref (AccessibleApplication *obj)
@@ -26,7 +25,6 @@ AccessibleApplication_ref (AccessibleApplication *obj)
  *
  * Decrement the reference count for an #AccessibleApplication.
  *
- * Returns: (no return code implemented yet).
  **/
 void
 AccessibleApplication_unref (AccessibleApplication *obj)

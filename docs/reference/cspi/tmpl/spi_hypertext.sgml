@@ -20,6 +20,7 @@ AccessibleHypertext Interface
 </para>
 
 @obj: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -29,6 +30,7 @@ AccessibleHypertext Interface
 </para>
 
 @obj: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 

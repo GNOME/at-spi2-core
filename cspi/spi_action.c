@@ -6,8 +6,6 @@
  *
  * Increment the reference count for an #AccessibleAction.
  *
- * Returns: 0 (no return code implemented yet).
- *
  **/
 void
 AccessibleAction_ref (AccessibleAction *obj)
@@ -20,8 +18,6 @@ AccessibleAction_ref (AccessibleAction *obj)
  * @obj: a pointer to the #AccessibleAction on which to operate.
  *
  * Decrement the reference count for an #AccessibleAction.
- *
- * Returns: 0 (no return code implemented yet).
  *
  **/
 void
