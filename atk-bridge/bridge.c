@@ -329,7 +329,8 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   e.detail2 = 0;
 
   Accessibility_Registry_notifyEvent (registry, &e, &ev);
-
+  Accessibility_Accessible_unref (e.source, &ev);
+  
   CORBA_exception_free (&ev);
 }
 
@@ -382,6 +383,7 @@ spi_atk_emit_eventv (GObject      *gobject,
 #endif
 
       Accessibility_Registry_notifyEvent (registry, &e, &ev);
+      Accessibility_Accessible_unref (e.source, &ev);
 
       CORBA_exception_free (&ev);
 
@@ -389,6 +391,7 @@ spi_atk_emit_eventv (GObject      *gobject,
     }
 
   va_end (args);
+
 }
 
 static gboolean

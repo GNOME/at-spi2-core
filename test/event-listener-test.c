@@ -27,10 +27,13 @@ static void traverse_accessible_tree (Accessible *accessible);
 
 static void report_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
+static void timing_test_event (const AccessibleEvent *event, void *user_data);
 
 static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *specific_listener;
+static AccessibleEventListener *test_listener;
 static gint n_elements_traversed = 0;
+static GTimer *timer;
 
 int
 main (int argc, char **argv)
@@ -39,7 +42,6 @@ main (int argc, char **argv)
   int n_desktops;
   int n_apps;
   char *s;
-  GTimer *timer;
   gdouble elapsed_time;
   Accessible *desktop;
   Accessible *application;
@@ -51,6 +53,8 @@ main (int argc, char **argv)
 	  report_event, NULL); 
   specific_listener = SPI_createAccessibleEventListener (
 	  report_detail_event, NULL); 
+  test_listener = SPI_createAccessibleEventListener (
+	  timing_test_event, NULL);
 
   SPI_registerGlobalEventListener (generic_listener,
 				   "focus:");
@@ -111,6 +115,8 @@ main (int argc, char **argv)
 	                           "window:shade");
   SPI_registerGlobalEventListener (generic_listener,
 	                           "window:unshade");
+  SPI_registerGlobalEventListener (test_listener,
+				   "object:test");
 #ifdef NOT_YET_IMPLEMENTED
   /* event below possibly should just be property change? */
   SPI_registerGlobalEventListener (generic_listener,
@@ -133,7 +139,7 @@ main (int argc, char **argv)
   g_print ("[%f elements/sec, %f SPI calls/sec]\n", 
 	n_elements_traversed/g_timer_elapsed(timer, NULL),
 	(n_elements_traversed*8+1)/g_timer_elapsed(timer, NULL));
-  
+  g_timer_reset (timer);
   SPI_event_main ();
 
   putenv ("AT_BRIDGE_SHUTDOWN=1");
@@ -179,15 +185,39 @@ traverse_accessible_tree (Accessible *accessible)
 void
 report_event (const AccessibleEvent *event, void *user_data)
 {
+  static long count = 0;
   char *s = Accessible_getName (event->source);
   fprintf (stderr, "%s %s\n", event->type, s);
   if (s) SPI_freeString (s);
+  if (count == 0) {
+	  g_timer_reset (timer);
+	  g_timer_start (timer);
+  }
+  ++count;
+  if ((count % 100) == 0) {
+	  g_print ("%d events received, %f events/sec\n",
+		   count,
+		   count/g_timer_elapsed(timer, NULL));
+  }
 }
 
 void
 report_detail_event (const AccessibleEvent *event, void *user_data)
 {
   fprintf (stderr, "%s\n", event->type);
+}
+
+void
+timing_test_event (const AccessibleEvent *event, void *user_data)
+{
+	static long count = 0;
+	if (count == 0) g_timer_start (timer);
+	++count;
+	if ((count % 500) == 0) {
+		g_print ("%d events received, %f events/sec\n",
+			 count,
+			 count/g_timer_elapsed(timer, NULL));
+	}
 }
 
 void

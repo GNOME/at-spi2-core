@@ -73,7 +73,7 @@ main (int argc, char **argv)
 
 	source = spi_accessible_new (atko);
 	
-	e.type = "focus:";
+	e.type = "object:test";
 	e.source = BONOBO_OBJREF (source);
 	e.detail1 = 0;
 	e.detail2 = 0;
@@ -81,7 +81,7 @@ main (int argc, char **argv)
 	timer = g_timer_new ();
 	g_timer_start (timer);
 
-	for (i = 0; i < 10000; ++i) {
+	for (i = 0; i < 500; ++i) {
 		Accessibility_Accessible_ref (e.source, &ev);
 		Accessibility_Registry_notifyEvent (registry, &e, &ev);
 	}

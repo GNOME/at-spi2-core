@@ -650,6 +650,13 @@ global_listener_cb (const AccessibleEvent *event,
 
 	fprintf (stderr, "Fielded focus event ...\n");
 
+	/*
+	 * must ref before doing "direct pointer" identity comparisons,
+	 * e.g. "accessible == a".
+	 * Alternatively, one can use cspi_object_equal (a, b)
+	 */
+	Accessible_ref (event->source); 
+		
 	if (!do_poke) {
 		desktop = SPI_getDesktop (0);
 		application = Accessible_getChildAtIndex (desktop, 0);
@@ -661,13 +668,17 @@ global_listener_cb (const AccessibleEvent *event,
 		AccessibleApplication_unref (application);
 		
 		print_tree = FALSE;
+
 		validate_accessible (event->source, TRUE, TRUE);
 
+		fprintf (stderr, "quitting mainloop.\n");
 		gtk_main_quit ();
 	}
 
 	print_tree = TRUE;
 	validate_accessible (event->source, TRUE, TRUE);
+	
+	Accessible_unref (event->source);
 }
 
 static SPIBoolean

@@ -157,6 +157,30 @@ cspi_exception (void)
 }
 
 Accessible *
+cspi_object_new (CORBA_Object corba_object)
+{
+  Accessible *ref;
+
+  if (corba_object == CORBA_OBJECT_NIL)
+    {
+      ref = NULL;
+    }
+  else if (!cspi_check_ev ("pre method check: add"))
+    {
+      ref = NULL;
+    }
+  else
+    {
+      ref = malloc (sizeof (Accessible));
+//    ref->objref = CORBA_Object_duplicate (corba_object, cspi_ev ());
+      ref->objref = corba_object;
+      ref->ref_count = 1;
+    }
+
+  return ref;
+}
+
+Accessible *
 cspi_object_add (CORBA_Object corba_object)
 {
 	return cspi_object_add_ref (corba_object, FALSE);
@@ -189,21 +213,18 @@ cspi_object_add_ref (CORBA_Object corba_object, gboolean do_ref)
 	}
       else
         {
-          ref = malloc (sizeof (Accessible));
+	  ref = cspi_object_new (corba_object);
 
 #ifdef DEBUG_OBJECTS
-          g_print ("allocating %p => %p\n", ref, corba_object);
+          g_print ("allocated %p => %p\n", ref, corba_object);
 #endif
 	  if (do_ref) {
 #ifdef JAVA_BRIDGE_BUG_IS_FIXED
 		  g_assert (CORBA_Object_is_a (corba_object,
 						"IDL:Bonobo/Unknown:1.0", cspi_ev ()));
 #endif
-		  ref->objref = bonobo_object_dup_ref (corba_object, cspi_ev ());
-	  } else 
-		  ref->objref = corba_object;
-          ref->ref_count = 1;
-
+		  Bonobo_Unknown_ref (corba_object, cspi_ev ());
+	  }
           g_hash_table_insert (cspi_get_live_refs (), ref->objref, ref);
 	}
     }
@@ -216,7 +237,12 @@ cspi_object_ref (Accessible *accessible)
 {
   g_return_if_fail (accessible != NULL);
 
-  accessible->ref_count++;
+  if (g_hash_table_lookup (cspi_get_live_refs (), accessible->objref) == NULL) {
+	  accessible->objref = bonobo_object_dup_ref (accessible->objref, cspi_ev ());
+	  g_hash_table_insert (cspi_get_live_refs (), accessible->objref, accessible);	  
+  } else {
+	  accessible->ref_count++;
+  }
 }
 
 void
@@ -342,6 +368,21 @@ SPI_nextEvent (SPIBoolean waitForEvent)
   return NULL;
 }
 
+static void
+report_leaked_ref (gpointer key, gpointer val, gpointer user_data)
+{
+	Accessible *a = (Accessible *) val;
+	char *name, *role;
+	name = Accessible_getName (a);
+	if (cspi_exception ()) name = NULL;
+	role = Accessible_getRoleName (a);
+	if (cspi_exception ()) role = NULL;
+	fprintf (stderr, "leaked object %s, role %s\n", (name) ? name : "<?>",
+		 (role) ? role : "<?>");
+	if (name) SPI_freeString (name);
+}
+
+
 /**
  * SPI_exit:
  *
@@ -365,6 +406,10 @@ SPI_exit (void)
   if (live_refs)
     {
       leaked = g_hash_table_size (live_refs);
+#define PRINT_LEAKS
+#ifdef PRINT_LEAKS
+      g_hash_table_foreach (live_refs, report_leaked_ref, NULL);
+#endif
     }
   else
     {

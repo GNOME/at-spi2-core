@@ -37,7 +37,7 @@ module Accessibility
   };
 
   interface EventListener : Bonobo::Unknown {
-    oneway void notifyEvent (in Event e);
+    void notifyEvent (in Event e);
   };
 };
 

@@ -1,3 +1,91 @@
+2002-06-18  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	Revved version to 1.1.0 
+	(reserving the 1.0.X branch for gnome-2-0-0 branch, this
+	version is going to HEAD which will be used for gnome-2-0-1 and later.)
+	
+	* idl/Accessibility_Registry.idl:
+	(EventListener::notifyEvent):
+	Removed 'oneway' directive after extensive consulation with
+	ORBit2 team and others.  This means also that unref() of the event
+	source can and should be done synchronously after emission, rather
+	than remotely in the client, after servicing the notify call on
+	the listener side.
+
+	NOTE: This change speeds up listener performance considerably, but
+	introduces new latency on the application side.  We may want to
+	add an event queue to the atk-bridge.
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_focus_tracker):
+	Do a local unref() on the event source after emission.
+	
+	* registryd/registry.c:
+	(desktop_remove_application):
+	Do an unref() on the event source after emission.
+	(desktop_add_application):
+	Do an unref() on the event source after emission.
+	(notify_listeners_cb):
+	When relaying an event, don't automatically add the event source
+	to the local object cache, just CORBA_dup it instead.  Likewise,
+	if this method reenters, release the ref rather than calling
+	unref() as well.
+	(impl_registry_notify_event):
+	No longer call remote unref() on the event source after dispatch.
+
+	* libspi/eventlistener.c:
+	(impl_accessible_event_notify_event):
+	Removed remote unref ()
+	
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	(cspi_event):
+	We now call cspi_object_new() instead of cspi_object_add() on
+	receipt of an event; thus we only have an implicit object ref
+	while the cspi_event method is being executed.  If we need to keep
+	a reference to the object, the listener must call ref() on the
+	object.  Thus also we don't need to call cspi_object_unref() after
+	invoking the listener callbacks in this method.
+	
+	* cspi/spi_main.c:
+	(cspi_object_new):
+	New internal API for creating a new cspi object, without adding it
+	to the object cache.
+	(cspi_object_add):
+	Now uses cspi_object_new() to create the cspi object instance.
+	(cspi_object_ref):
+	Now checks to see if the object is in the internal object cache,
+	and adds it if necessary before incrementing its refcount (note
+	that new objects are added with a refcount of 1).
+	(report_leaked_ref):
+	New method which gives some information on leaked object instances
+	if leak detection is turned on.
+
+	* test/event-listener-test.c:
+	(timing_test_event):
+	New method, used for testing event delivery timing for special
+	events of type "object:test".  It reports elapsed time and
+	events/sec every 500 events.
+	(main):
+	Added a new listener, 'test listener', to check timing of event
+	receipt as noted above.
+	(report_event):
+	Added some timing output here also, reports elapsed time every 100
+	events.
+
+	* test/stress-test.c:
+	Emit events of type "object:test", for use with "event-listener-test".
+
+	* test/test-simple.c:
+	(global_listener_cb):
+	Call Accessible_ref() on the event source before calling
+	validate_accessible, since the validation process does pointer
+	comparisons on the event source, meaning that the event source
+	needs to be added to the local object cache first.  Any use of
+	such pointer comparisons between Accessible objects requires that
+	the caller hold an explicit reference to those objects.
+	We also must therefore call Accessible_unref() when leaving this method.
+
 2002-06-13  Bill Haneman  <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:

@@ -98,6 +98,7 @@ desktop_add_application (SpiDesktop *desktop,
   CORBA_exception_init (&ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
+  Accessibility_Desktop_unref (e.source, &ev);
   CORBA_exception_free (&ev);
 }
 
@@ -118,6 +119,7 @@ desktop_remove_application (SpiDesktop *desktop,
   CORBA_exception_init (&ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
+  Accessibility_Desktop_unref (e.source, &ev);
   CORBA_exception_free (&ev);
 }
 
@@ -568,26 +570,27 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
       CORBA_free (s);
 #endif
       
-      ctx->e_out.source = bonobo_object_dup_ref (ctx->source, ctx->ev);
+      ctx->e_out.source = CORBA_Object_duplicate (ctx->source, ctx->ev);
+
       if (BONOBO_EX (ctx->ev))
         {
           return SPI_RE_ENTRANT_CONTINUE;;
 	}
-
+      
       if ((*list) && (*list)->data == ls)
         {
           Accessibility_EventListener_notifyEvent (
             (Accessibility_EventListener) ls->listener, &ctx->e_out, ctx->ev);
-        if (ctx->ev->_major != CORBA_NO_EXCEPTION)
-          {
-            g_warning ("Accessibility app error: exception during "
-		       "event notification: %s\n",
-		       CORBA_exception_id (ctx->ev));
-	  }
+          if (ctx->ev->_major != CORBA_NO_EXCEPTION)
+            {
+              g_warning ("Accessibility app error: exception during "
+		        "event notification: %s\n",
+		        CORBA_exception_id (ctx->ev));
+	    }
 	}
       else /* dup re-entered */
         {
-          bonobo_object_release_unref (ctx->e_out.source, ctx->ev);
+          CORBA_Object_release (ctx->e_out.source, ctx->ev);
 	}
     }  
 
@@ -619,10 +622,6 @@ impl_registry_notify_event (PortableServer_Servant     servant,
       spi_re_entrant_list_foreach (list, notify_listeners_cb, &ctx);
     }
 
-  if (e->source != CORBA_OBJECT_NIL)
-    {
-      Accessibility_Accessible_unref (e->source, ev);
-    }
 }
 
 
