@@ -77,7 +77,7 @@ GType atk_action_get_type ();
  * provided in a support library
  */
 
-void   atk_action_do_action                (AtkAction         *action,
+gboolean   atk_action_do_action                (AtkAction         *action,
                                             gint              i);
 gint   atk_action_get_n_actions            (AtkAction *action);
 G_CONST_RETURN gchar* atk_action_get_description  (AtkAction         *action,

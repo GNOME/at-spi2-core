@@ -46,18 +46,20 @@ atk_action_get_type ()
  *
  * Perform the specified action on the object.
  **/
-void
+gboolean
 atk_action_do_action (AtkAction *obj,
                       gint      i)
 {
   AtkActionIface *iface;
 
-  g_return_if_fail (ATK_IS_ACTION (obj));
+  g_return_val_if_fail (ATK_IS_ACTION (obj), FALSE);
 
   iface = ATK_ACTION_GET_IFACE (obj);
 
   if (iface->do_action)
-    (iface->do_action) (obj, i);
+    return (iface->do_action) (obj, i);
+  else
+    return FALSE;
 }
 
 /**
