@@ -32,6 +32,14 @@ The AtkAction structure does not contain any fields.
 </para>
 
 
+<!-- ##### SIGNAL AtkSelection::selection-changed ##### -->
+<para>
+The "selection-changed" signal is emitted by an object which implements 
+AtkSelection interface when the selection changes.
+</para>
+
+@atkselection: the object which received the signal.
+
 <!-- ##### FUNCTION atk_selection_add_selection ##### -->
 <para>
 
@@ -98,12 +106,4 @@ The AtkAction structure does not contain any fields.
 @selection: 
 @Returns: 
 
-
-<!-- ##### SIGNAL AtkSelection::selection-changed ##### -->
-<para>
-The "selection-changed" signal is emitted by an object which implements 
-AtkSelection interface when the selection changes.
-</para>
-
-@atkselection: the object which received the signal.
 

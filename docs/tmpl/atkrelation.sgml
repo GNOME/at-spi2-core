@@ -26,6 +26,16 @@ The AtkRelation structure should not be accessed directly.
 </para>
 
 
+<!-- ##### ARG AtkRelation:relation-type ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkRelation:target ##### -->
+<para>
+
+</para>
+
 <!-- ##### ENUM AtkRelationType ##### -->
 <para>
 
@@ -101,14 +111,4 @@ The AtkRelation structure should not be accessed directly.
 @relation: 
 @Returns: 
 
-
-<!-- ##### ARG AtkRelation:relation-type ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkRelation:target ##### -->
-<para>
-
-</para>
 

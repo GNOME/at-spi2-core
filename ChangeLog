@@ -1,5 +1,13 @@
 2003-11-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	*  docs/tmpl/atkhyperlink.sgml, docs/tmp/atkhypertext.sgml,
+	docs/tmpl/atkobject.sgml, docs/tmpl/atkrelatiom.sgml,
+	docs/tmpl/atkselection.sgml, docs/tmpl/atktable.sgml,
+	docs/tmpl/atktext.sgml: Regenernate these files. The location of
+	signal information has changed.
+
+2003-11-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* ===== Released 1.5.0=====
 	
 	* configure.in: Version 1.5.0, interface age 0, binary age 400

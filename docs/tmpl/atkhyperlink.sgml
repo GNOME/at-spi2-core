@@ -22,6 +22,11 @@ The AtkHyperlink structure should not be accessed directly.
 </para>
 
 
+<!-- ##### ARG AtkHyperlink:selected-link ##### -->
+<para>
+
+</para>
+
 <!-- ##### ENUM AtkHyperlinkStateFlags ##### -->
 <para>
 
@@ -102,9 +107,4 @@ The AtkHyperlink structure should not be accessed directly.
 @link_: 
 @Returns: 
 
-
-<!-- ##### ARG AtkHyperlink:selected-link ##### -->
-<para>
-
-</para>
 
