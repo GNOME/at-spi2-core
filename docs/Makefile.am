@@ -11,10 +11,6 @@ DOC_MAIN_SGML_FILE=atk-docs.sgml
 # The directory containing the source code (if it contains documentation).
 DOC_SOURCE_DIR=../atk
 
-INSTALLDIR=$(prefix)/share/gtk-doc
-
-HTML_DIR = ${datadir}/gtk-doc/html
-
 # Header files to ignore when scanning
 IGNORE_HFILES =	atkmarshal.h atkintl.h
 

@@ -138,6 +138,16 @@ PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, , AC_M
 # Rerun PKG_CONFIG to add gthread-2.0 cflags, but not libs
 DEP_CFLAGS=`$PKG_CONFIG --cflags $GLIB_PACKAGES gthread-2.0`
 
+AC_ARG_WITH(html-dir, [	 --with-html-dir=PATH	 path to installed docs ])
+
+if test "x$with_html_dir" = "x" ; then
+  HTML_DIR='${datadir}/gtk-doc/html'
+else
+  HTML_DIR=$with_html_dir
+fi
+
+AC_SUBST(HTML_DIR)
+
 gtk_doc_min_version=0.9
 AC_CHECK_PROG(GTKDOC, gtkdoc-mkdb, true, false)
 

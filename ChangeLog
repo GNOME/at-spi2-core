@@ -1,3 +1,12 @@
+2003-01-06  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Add -with-html-dir option. (bug #102497)
+
+	* docs/Makefile.am: Remove INSTALLDIR and HTML_DIR
+
+	* docs/tmpl/atkobject.sgml: Update so property names are in
+	alphabetic order.
+
 2003-01-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.2.1=====
