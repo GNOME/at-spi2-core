@@ -2,6 +2,8 @@
 
 	* configure.in: Comment out dummy i18n support for now,
 	  otherwise it fails to build.
+	* idl/Makefile.am: Add Selection.idl and Hypertext.idl to
+	  EXTRA_DIST. They are missing in tarball.
 
 2001-12-07  Michael Meeks  <michael@ximian.com>
 
