@@ -1,3 +1,7 @@
+2001-06-07  Brian Cameron <brian.cameron@sun.com>
+	* docs/atk-api.sgml
+	Removed this file since it is not used.
+
 2001-06-06  Brian Cameron <brian.cameron@sun.com>
 	* atk/atktext.h atk/atktext.h
 	Updated to new atktext functions for getting attributes.
