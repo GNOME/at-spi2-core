@@ -1,3 +1,12 @@
+Thu May 31  Brian Cameron <brian.cameron@sun.com
+
+        * Makefile.am configure.in atk/Makefile.am atk/atktext.c
+	  atk/atkutil.c docs/Makefile.am atk/atkmarshal.list
+          Added atk_marshal_VOID__INT_INT marshaller.  Updated the
+          Makefiles so the proper marshall files get included in the
+          dist.  Updated the Makefiles and configure.in so that the
+          docs get included in the dist.
+
 Tue May 29 18:17:11 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* autogen.sh (have_libtool): Fix GNU sedism (#55430)
