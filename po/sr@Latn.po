@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the atk package.
 # 
 # Maintainer: Danilo Šegan <dsegan@gmx.net>
+# Reviewed on 2004-03-05 by Aleksandar Urošević <urke@users.sourceforge.net>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-27 12:28+0100\n"
-"PO-Revision-Date: 2004-01-27 12:29+0100\n"
+"POT-Creation-Date: 2004-03-07 15:43+0100\n"
+"PO-Revision-Date: 2004-03-05 19:32+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -284,7 +285,7 @@ msgstr "zaglavlje reda tabele"
 
 #: atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "otkidiva meni stavka"
+msgstr "odvojiva meni stavka"
 
 #: atk/atkobject.c:142
 msgid "terminal"
@@ -474,6 +475,3 @@ msgstr "Broj pristupačnih veza u nadtekstu"
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Koliko veza sadrži tekući AtkHypertext"
-
-#~ msgid "ruler"
-#~ msgstr "lenjir"

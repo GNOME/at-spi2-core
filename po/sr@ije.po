@@ -4,15 +4,14 @@
 # This file is distributed under the same license as the atk package.
 # 
 # Maintainer: Данило Шеган <dsegan@gmx.net>
-# Reviewed on 2004-03-05 by Александар Урошевић <urke@users.sourceforge.net>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-07 15:43+0100\n"
-"PO-Revision-Date: 2004-03-05 19:32+0100\n"
-"Last-Translator: Данило Шеган <danilo@prevod.org>\n"
+"POT-Creation-Date: 2004-03-07 15:46+0100\n"
+"PO-Revision-Date: 2004-03-07 15:44+0100\n"
+"Last-Translator: Bojan Suzic <bojans@teol.net>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +27,11 @@ msgstr "Одређује да ли је изабран AtkHyperlink објека
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "Број смерница"
+msgstr "Број смјерница"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "Број смерница AtkHyperlink објекта"
+msgstr "Број смјерница AtkHyperlink објекта"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -68,7 +67,7 @@ msgstr "анимација"
 
 #: atk/atkobject.c:86
 msgid "arrow"
-msgstr "стрела"
+msgstr "стријела"
 
 #: atk/atkobject.c:87
 msgid "calendar"
@@ -241,11 +240,11 @@ msgstr "заглавље реда"
 
 #: atk/atkobject.c:130
 msgid "scroll bar"
-msgstr "линија за померање"
+msgstr "линија за помјерање"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "плоча за померање"
+msgstr "плоча за помјерање"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -374,7 +373,7 @@ msgstr "Приступачан садржалац"
 
 #: atk/atkobject.c:310
 msgid "Is used to notify that the parent has changed"
-msgstr "Користи се за обавештавање да је садржалац измењен"
+msgstr "Користи се за обавјештавање да је садржалац измјењен"
 
 #: atk/atkobject.c:316
 msgid "Accessible Value"
@@ -382,7 +381,7 @@ msgstr "Приступачна вредност"
 
 #: atk/atkobject.c:317
 msgid "Is used to notify that the value has changed"
-msgstr "Користи се за обавештавање да је вредност измењена"
+msgstr "Користи се за обавјештавање да је вриједност измјењена"
 
 #: atk/atkobject.c:325
 msgid "Accessible Role"
@@ -402,11 +401,11 @@ msgstr "Слој приступачности овог објекта"
 
 #: atk/atkobject.c:343
 msgid "Accessible MDI Value"
-msgstr "Приступачна MDI вредност"
+msgstr "Приступачна MDI вриједност"
 
 #: atk/atkobject.c:344
 msgid "The accessible MDI value of this object"
-msgstr "Приступачна MDI вредност овог објекта"
+msgstr "Приступачна MDI вриједност овог објекта"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
@@ -417,7 +416,7 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Користи се за обавештавање да је измењен наслов табеле; не треба користити "
+"Користи се за обавјештавање да је измјењен наслов табеле; не треба користити "
 "ову особину, већ accessible-table-caption-object."
 
 #: atk/atkobject.c:359
@@ -426,7 +425,7 @@ msgstr "Приступачно заглавље колоне табеле"
 
 #: atk/atkobject.c:360
 msgid "Is used to notify that the table column header has changed"
-msgstr "Користи се за обавештавање да је измењено заглавље колоне у табели"
+msgstr "Користи се за обавјештавање да је измјењено заглавље колоне у табели"
 
 #: atk/atkobject.c:366
 msgid "Accessible Table Column Description"
@@ -434,7 +433,7 @@ msgstr "Приступачан опис колоне табеле"
 
 #: atk/atkobject.c:367
 msgid "Is used to notify that the table column description has changed"
-msgstr "Користи се за обавештавање да је измењен опис колоне у табели"
+msgstr "Користи се за обавјештавање да је измјењен опис колоне у табели"
 
 #: atk/atkobject.c:373
 msgid "Accessible Table Row Header"
@@ -442,7 +441,7 @@ msgstr "Приступачно заглавље реда табеле"
 
 #: atk/atkobject.c:374
 msgid "Is used to notify that the table row header has changed"
-msgstr "Користи се за обавештавање да је измењено заглавље реда у табели"
+msgstr "Користи се за обавјештавање да је измјењено заглавље реда у табели"
 
 #: atk/atkobject.c:380
 msgid "Accessible Table Row Description"
@@ -450,7 +449,7 @@ msgstr "Приступачан опис реда табеле"
 
 #: atk/atkobject.c:381
 msgid "Is used to notify that the table row description has changed"
-msgstr "Користи се за обавештавање да је измењен опис реда у табели"
+msgstr "Користи се за обавјештавање да је измјењен опис реда у табели"
 
 #: atk/atkobject.c:387
 msgid "Accessible Table Summary"
@@ -458,7 +457,7 @@ msgstr "Приступачан сажетак табеле"
 
 #: atk/atkobject.c:388
 msgid "Is used to notify that the table summary has changed"
-msgstr "Користи се за обавештавање да је измењен сажетак табеле"
+msgstr "Користи се за обавјештавање да је измјењен сажетак табеле"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
@@ -466,7 +465,7 @@ msgstr "Приступачан објекат наслова табеле"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr "Користи се за обавештавање да је измењен наслов табеле"
+msgstr "Користи се за обавјештавање да је измјењен наслов табеле"
 
 #: atk/atkobject.c:401
 msgid "Number of Accessible Hypertext Links"
