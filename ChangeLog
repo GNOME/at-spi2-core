@@ -3,7 +3,8 @@
 	atk/atkhyperlink.c atk/atkobject.c atk/atkregistry.c
 	atk/atkstate.c atk/atkstateset.c atk/atkstreamablecontent.c
 	atk/atktable.c atk/atktext.c atk/atkutil.c atk/atkvalue.c
-	Cleaned up docs.
+	atk/docs/tmpl/atkstreamablecontent.sgml
+	Cleaned up docs.  Added atkstreamablecontent.sgml
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	*atk/atktable.h, atk/atktable.c
