@@ -16,3 +16,4 @@ mkinstalldirs
 atk-uninstalled.pc
 sgml
 atk.spec
+autom4te.cache
