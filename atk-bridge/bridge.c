@@ -26,7 +26,6 @@
 #include <stdarg.h>
 #include <libbonobo.h>
 #include <orbit/orbit.h>
-#include <glib-object.h>
 #include <atk/atk.h>
 #include <atk/atkobject.h>
 #include <atk/atknoopobject.h>
@@ -140,7 +139,7 @@ extern void gnome_accessibility_module_init     (void);
 extern void gnome_accessibility_module_shutdown (void);
 
 static void
-spi_atk_bridge_init_event_type_consts ()
+atk_bridge_init_event_type_consts ()
 {
   atk_signal_child_changed = g_signal_lookup ("child_changed", 
 					      ATK_TYPE_OBJECT);
@@ -157,7 +156,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
     }
   atk_bridge_initialized = TRUE;
 
-  _dbg = (int) g_ascii_strtod (g_getenv ("AT_SPI_DEBUG"), NULL);
+  _dbg = g_ascii_digit_value (g_getenv ("AT_SPI_DEBUG"));
 
   if (!bonobo_init (argc, argv ? *argv : NULL))
     {
@@ -269,7 +268,7 @@ gtk_module_init (gint *argc, gchar **argv[])
 }
 
 static void
-spi_atk_bridge_add_signal_listener (const char *signal_name)
+add_signal_listener (const char *signal_name)
 {
   guint id;
 
@@ -324,19 +323,19 @@ spi_atk_register_event_listeners (void)
 				      "Gtk:AtkObject:state-change");
   g_array_append_val (listener_ids, id);
 
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkObject:children-changed");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkObject:visible-data-changed");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkSelection:selection-changed");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkText:text-selection-changed");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkText:text-changed");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkText:text-caret-moved");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:row-inserted");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:row-reordered");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:row-deleted");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:column-inserted");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:column-reordered");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:column-deleted");
-  spi_atk_bridge_add_signal_listener ("Gtk:AtkTable:model-changed");
+  add_signal_listener ("Gtk:AtkObject:children-changed");
+  add_signal_listener ("Gtk:AtkObject:visible-data-changed");
+  add_signal_listener ("Gtk:AtkSelection:selection-changed");
+  add_signal_listener ("Gtk:AtkText:text-selection-changed");
+  add_signal_listener ("Gtk:AtkText:text-changed");
+  add_signal_listener ("Gtk:AtkText:text-caret-moved");
+  add_signal_listener ("Gtk:AtkTable:row-inserted");
+  add_signal_listener ("Gtk:AtkTable:row-reordered");
+  add_signal_listener ("Gtk:AtkTable:row-deleted");
+  add_signal_listener ("Gtk:AtkTable:column-inserted");
+  add_signal_listener ("Gtk:AtkTable:column-reordered");
+  add_signal_listener ("Gtk:AtkTable:column-deleted");
+  add_signal_listener ("Gtk:AtkTable:model-changed");
 /*
  * May add the following listeners to implement preemptive key listening for GTK+
  *
@@ -351,7 +350,7 @@ spi_atk_register_event_listeners (void)
 }
 
 static void
-spi_atk_bridge_deregister_application (BonoboObject *app)
+deregister_application (BonoboObject *app)
 {
   Accessibility_Registry registry = spi_atk_bridge_get_registry ();	
   Accessibility_Registry_deregisterApplication (registry, BONOBO_OBJREF (app), &ev);
@@ -386,7 +385,7 @@ spi_atk_bridge_exit_func (void)
       g_assert (bonobo_activate ());
     }
   
-  spi_atk_bridge_deregister_application (app);
+  deregister_application (app);
 
   DBG (1, g_message ("bridge exit func complete.\n"));
 
@@ -434,8 +433,8 @@ gnome_accessibility_module_shutdown (void)
 }
 
 static void
-spi_atk_bridge_event_context_init (CORBA_any *any, 
-				   AtkBridgeEventContext *ctx)
+atk_bridge_event_context_init (CORBA_any *any, 
+			       AtkBridgeEventContext *ctx)
 {
   SpiAccessible *accessible;
   if (ctx) 
@@ -487,13 +486,10 @@ AtkBridgeEventContext *
 spi_atk_bridge_event_context_create (GObject *gobject, 
 				     long detail1, 
 				     long detail2, 
-				     GSignalQuery *signal_query)
+				     GSignalQuery *signal_query, 
+				     const gchar *detail)
 {
   AtkBridgeEventContext *ctx = g_new0 (AtkBridgeEventContext, 1);
-  /* don't free the context, it's on the stack */
-
-  /* if it's a window event, then marshal the window name */
-
   /*
   if (signal_query->signal_id == atk_signal_child_changed) 
     {  
@@ -501,7 +497,7 @@ spi_atk_bridge_event_context_create (GObject *gobject,
       ctx->_data.object = atk_object_ref_accessible_child (ATK_OBJECT (gobject),
 							   (gint) detail1);
     }
-  else */ if (signal_query && (signal_query->signal_id == atk_signal_text_changed))
+  else */ if (signal_query->signal_id == atk_signal_text_changed)
     {
       ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_STRING;
       ctx->_data.string = atk_text_get_text (ATK_TEXT (gobject),
@@ -523,31 +519,17 @@ spi_atk_bridge_event_context_free (AtkBridgeEventContext *ctx)
   g_free (ctx);
 }
 
-
-static void
-spi_atk_bridge_any_init ()
-{
-  AtkBridgeEventContext *ctx;
-  /* build some event context data, depending on the type */
-  ctx = spi_atk_bridge_event_context_create (gobject, 
-					     detail1, detail2, 
-					     signal_query);
-  spi_atk_bridge_event_context_init (&e.any_data, ctx); 
-  spi_atk_bridge_event_context_free (ctx);
-}
-
 static void
 spi_atk_emit_eventv (GObject               *gobject,
 		     unsigned long          detail1,
 		     unsigned long          detail2,
-		     GSignalQuery          *signal_query,
+		     AtkBridgeEventContext *context,
 		     const char   *format, ...)
 {
   va_list             args;
   Accessibility_Event e;
   SpiAccessible      *source;
   AtkObject          *aobject;
-  AtkBridgeEventContext *ctx;
 #ifdef SPI_BRIDGE_DEBUG
   CORBA_string s;
 #endif
@@ -585,10 +567,8 @@ spi_atk_emit_eventv (GObject               *gobject,
       CORBA_free (s);
 #endif
       CORBA_exception_init (&ev);
-      spi_atk_bridge_event_any_init (&e.any_data, gobject, 
-				     detail1, detail2, signal_query);
-      Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), 
-					  &e, &ev);
+      atk_bridge_event_context_init (&e.any_data, context); 
+      Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
       /* I haven't freed any_data._value when it's a char*, does it leak ? */
 #ifdef SPI_BRIDGE_DEBUG
       if (ev._major != CORBA_NO_EXCEPTION)
@@ -804,12 +784,21 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
     detail2 = g_value_get_int (param_values + 2);
 
+  /* build some event context data, depending on the type */
+  ctx = spi_atk_bridge_event_context_create (gobject, 
+					     detail1, detail2, 
+					     &signal_query, 
+					     detail);
+
   if (detail)
-    spi_atk_emit_eventv (gobject, detail1, detail2, &signal_query,
+    spi_atk_emit_eventv (gobject, detail1, detail2, ctx,
 			 "object:%s:%s", name, detail);
   else
-    spi_atk_emit_eventv (gobject, detail1, detail2, &signal_query,
+    spi_atk_emit_eventv (gobject, detail1, detail2, ctx,
 			 "object:%s", name);
+
+  if (ctx) 
+    spi_atk_bridge_event_context_free (ctx);
 
   return TRUE;
 }
@@ -841,7 +830,11 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 #endif
   
   gobject = g_value_get_object (param_values + 0);
-  spi_atk_emit_eventv (gobject, 0, 0, &signal_query, "window:%s", name);
-
+  ctx._type = ATK_BRIDGE_CONTEXT_TYPE_STRING;
+  s = atk_object_get_name (ATK_OBJECT (gobject));
+  ctx._data.string = (gchar *) s;
+  /* cast from const silences compiler */
+  spi_atk_emit_eventv (gobject, 0, 0, &ctx, "window:%s", name);
+  /* don't free the context, it's on the stack */
   return TRUE;
 }
