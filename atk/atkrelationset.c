@@ -197,7 +197,7 @@ atk_relation_set_get_relation (AtkRelationSet *set,
   GPtrArray *array_item;
   AtkRelation* item;
 
-  g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
+  g_return_val_if_fail (ATK_IS_RELATION_SET (set), NULL);
   g_return_val_if_fail (i >= 0, NULL);
 
   array_item = set->relations;
@@ -227,7 +227,7 @@ atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
   AtkRelation *item;
   gint i;
 
-  g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
+  g_return_val_if_fail (ATK_IS_RELATION_SET (set), NULL);
 
   array_item = set->relations;
   if (array_item == NULL)

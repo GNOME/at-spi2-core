@@ -267,8 +267,8 @@ atk_state_set_and_sets (AtkStateSet  *set,
   AtkStateSet *return_set = NULL;
   AtkState state;
 
-  g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
-  g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), FALSE);
+  g_return_val_if_fail (ATK_IS_STATE_SET (set), NULL);
+  g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), NULL);
 
   real_set = (AtkRealStateSet *)set;
   real_compare_set = (AtkRealStateSet *)compare_set;
@@ -300,8 +300,8 @@ atk_state_set_or_sets (AtkStateSet  *set,
   AtkStateSet *return_set = NULL;
   AtkState state;
 
-  g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
-  g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), FALSE);
+  g_return_val_if_fail (ATK_IS_STATE_SET (set), NULL);
+  g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), NULL);
 
   real_set = (AtkRealStateSet *)set;
   real_compare_set = (AtkRealStateSet *)compare_set;
@@ -334,8 +334,8 @@ atk_state_set_xor_sets (AtkStateSet  *set,
   AtkStateSet *return_set = NULL;
   AtkState state, state1, state2;
 
-  g_return_val_if_fail (ATK_IS_STATE_SET (set), FALSE);
-  g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), FALSE);
+  g_return_val_if_fail (ATK_IS_STATE_SET (set), NULL);
+  g_return_val_if_fail (ATK_IS_STATE_SET (compare_set), NULL);
 
   real_set = (AtkRealStateSet *)set;
   real_compare_set = (AtkRealStateSet *)compare_set;

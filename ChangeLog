@@ -1,3 +1,10 @@
+2003-03-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atk-relation.c
+	atk/atkrelationset.c
+	atk/atkstatset.c: Correct returning of FALSE to NULL in functions
+	which return pointer; (bug #107650) reported by Morten Welinder.
+
 2003-02-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* test/Makefile.am: Update to produce .so files

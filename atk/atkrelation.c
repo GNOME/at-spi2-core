@@ -285,7 +285,7 @@ atk_relation_get_relation_type (AtkRelation *relation)
 GPtrArray*
 atk_relation_get_target (AtkRelation *relation)
 {
-  g_return_val_if_fail (ATK_IS_RELATION (relation), FALSE);
+  g_return_val_if_fail (ATK_IS_RELATION (relation), NULL);
 
   return relation->target;
 }
