@@ -651,7 +651,7 @@ key_listener_cb (const AccessibleKeystroke *stroke,
 
 	*s = *stroke;
 
-	return FALSE;
+	return TRUE;
 }
 
 static void
@@ -679,15 +679,19 @@ test_keylisteners (void)
 	for (i = 0; i < 3; i++) {
 		memset (&stroke, 0, sizeof (AccessibleKeystroke));
 		g_assert (SPI_generateKeyboardEvent ('=', NULL, SPI_KEY_SYM));
-		while (stroke.type == 0)
+		while (!(stroke.type & SPI_KEY_PRESSED))
 			g_main_iteration (TRUE);
+		fprintf (stderr, "p");
+		while (!(stroke.type & SPI_KEY_RELEASED))
+			g_main_iteration (TRUE);
+		fprintf (stderr, "r ");
 	}
 
 	g_assert (SPI_deregisterAccessibleKeystrokeListener (key_listener, 0));
 	SPI_freeAccessibleKeySet (test_keyset);
 
-	/* FIXME: expand the validation here */
-	g_assert (stroke.type == SPI_KEY_PRESSRELEASE);
+	g_assert (!strcmp (stroke.keystring, "="));
+	fprintf (stderr, "\n");
 
 	AccessibleKeystrokeListener_unref (key_listener);
 }
@@ -733,6 +737,11 @@ main (int argc, char **argv)
 	AccessibleEventListener_unref (global_listener);
 
 	test_window_destroy (win);
+
+	/* Wait for any pending events from the registry */
+	g_usleep (500*1000);
+	for (i = 0; i < 100; i++)
+		linc_main_iteration (FALSE);
 
 	if ((leaked = SPI_exit ()))
 		g_error ("Leaked %d SPI handles", leaked);

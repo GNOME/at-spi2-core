@@ -89,12 +89,14 @@ static void     spi_controller_register_device_listener       (SpiDEController  
 static void     spi_device_event_controller_forward_key_event (SpiDEController           *controller,
 							       const XEvent              *event);
 
+#define spi_get_display() GDK_DISPLAY()
+
 /* Private methods */
 
 static KeyCode
 keycode_for_keysym (long keysym)
 {
-  return XKeysymToKeycode (GDK_DISPLAY (), (KeySym) keysym);
+  return XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
 }
 
 static DEControllerGrabMask *
@@ -213,7 +215,10 @@ _deregister_keygrab (SpiDEController      *controller,
       DEControllerGrabMask *cur_mask = l->data;
 
       cur_mask->ref_count--;
-      cur_mask->pending_remove = TRUE;
+      if (cur_mask->ref_count <= 0)
+        {
+          cur_mask->pending_remove = TRUE;
+	}
     }
   else
     {
@@ -245,7 +250,7 @@ handle_keygrab (SpiDEController         *controller,
 	  /* X Grabs require keycodes, not keysyms */
 	  if (key_val >= 0)
 	    {
-	      key_val = XKeysymToKeycode (GDK_DISPLAY (), (KeySym) key_val);
+	      key_val = XKeysymToKeycode (spi_get_display (), (KeySym) key_val);
 	    }
 	  grab_mask.key_val = key_val;
 
@@ -318,10 +323,11 @@ _spi_controller_device_error_handler (Display *display, XErrorEvent *error)
   if (error->error_code == BadAccess) 
     {  
       g_message ("Could not complete key grab: grab already in use.\n");
+      return 0;
     }
   else 
     {
-      (*x_default_error_handler) (display, error);
+      return (*x_default_error_handler) (display, error);
     }
 }
 
@@ -338,10 +344,6 @@ spi_controller_register_with_devices (SpiDEController *controller)
 			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
 
   x_default_error_handler = XSetErrorHandler (_spi_controller_device_error_handler);
-
-  XSelectInput (GDK_DISPLAY (),
-		DefaultRootWindow (GDK_DISPLAY ()),
-		KeyPressMask | KeyReleaseMask);
 }
 
 static gboolean
@@ -595,6 +597,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
       next = l->next;
 
       re_issue_grab = recv &&
+/*	      (recv->type == Accessibility_KEY_RELEASED) && - (?) */
 	      (recv->modifiers & grab_mask->mod_mask) &&
 	      (grab_mask->key_val == keycode_for_keysym (recv->id));
 
@@ -618,7 +621,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 #ifdef SPI_DEBUG
       fprintf (stderr, "ungrabbing, mask=%x\n", grab_mask->mod_mask);
 #endif
-	  XUngrabKey (GDK_DISPLAY (),
+	  XUngrabKey (spi_get_display (),
 		      grab_mask->key_val,
 		      grab_mask->mod_mask,
 		      gdk_x11_get_default_root_xwindow ());
@@ -631,7 +634,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 #ifdef SPI_DEBUG
 	  fprintf (stderr, "grab with mask %x\n", grab_mask->mod_mask);
 #endif
-          XGrabKey (GDK_DISPLAY (),
+          XGrabKey (spi_get_display (),
 		    grab_mask->key_val,
 		    grab_mask->mod_mask,
 		    gdk_x11_get_default_root_xwindow (),
@@ -673,7 +676,7 @@ spi_device_event_controller_object_finalize (GObject *object)
   fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
 #endif
   /* disconnect any special listeners, get rid of outstanding keygrabs */
-  XUngrabKey (GDK_DISPLAY (), AnyKey, AnyModifier, DefaultRootWindow (GDK_DISPLAY ()));
+  XUngrabKey (spi_get_display (), AnyKey, AnyModifier, DefaultRootWindow (spi_get_display ()));
 	
   spi_device_event_controller_parent_class->finalize (object);
 }
@@ -819,17 +822,17 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   switch (synth_type)
     {
       case Accessibility_KEY_PRESS:
-        XTestFakeKeyEvent (GDK_DISPLAY (), (unsigned int) keycode, True, CurrentTime);
+        XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
 	break;
       case Accessibility_KEY_PRESSRELEASE:
-	XTestFakeKeyEvent (GDK_DISPLAY (), (unsigned int) keycode, True, CurrentTime);
+	XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
       case Accessibility_KEY_RELEASE:
-	XTestFakeKeyEvent (GDK_DISPLAY (), (unsigned int) keycode, False, CurrentTime);
+	XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, False, CurrentTime);
 	break;
       case Accessibility_KEY_SYM:
 	key_synth_code = keycode_for_keysym (keycode);
-	XTestFakeKeyEvent (GDK_DISPLAY (), (unsigned int) key_synth_code, True, CurrentTime);
-	XTestFakeKeyEvent (GDK_DISPLAY (), (unsigned int) key_synth_code, False, CurrentTime);
+	XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, True, CurrentTime);
+	XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, False, CurrentTime);
 	break;
       case Accessibility_KEY_STRING:
 	fprintf (stderr, "Not yet implemented\n");
@@ -934,6 +937,9 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
   CORBA_exception_init (&ev);
 
   key_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);
+
+  spi_controller_update_key_grabs (controller, &key_event);
+
   /* relay to listeners, and decide whether to consume it or not */
   is_consumed = spi_notify_keylisteners (
     &controller->key_listeners, &key_event, CORBA_TRUE, &ev);
@@ -942,14 +948,12 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
 
   if (is_consumed)
     {
-      XAllowEvents (GDK_DISPLAY (), AsyncKeyboard, CurrentTime);
+      XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
     }
   else
     {
-      XAllowEvents (GDK_DISPLAY (), ReplayKeyboard, CurrentTime);
+      XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
     }
-
-  spi_controller_update_key_grabs (controller, &key_event);
 }
 
 SpiDEController *

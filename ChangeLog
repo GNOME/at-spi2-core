@@ -1,3 +1,41 @@
+2002-01-18  Michael Meeks  <michael@ximian.com>
+
+	* test/test-simple.c
+	(key_listener_cb): consume the key.
+	(test_keylisteners): update.
+	(main): wait for any pending unrefs on events.
+
+	* registryd/deviceeventcontroller.c
+	(spi_controller_update_key_grabs): only re-issue the
+	grab on a key release.
+	(spi_device_event_controller_forward_key_event):
+	refresh the keygrabs before we notify the listeners,
+	to reduce the X ungrab / re-grab race.
+	(spi_controller_register_with_devices): remove
+	XSelectInput - we do that with the gdk_window_ call.
+	(_spi_controller_device_error_handler): return a value.
+	s/GDK_DISPLAY/spi_get_display/
+
+2002-01-17  Michael Meeks  <michael@ximian.com>
+
+	* registryd/deviceeventcontroller.c
+	(_deregister_keygrab): don't blow out the later
+	assertion.
+
+	* test/test-simple.c (test_keylisteners): do a
+	more intelligent validation.
+
+2002-01-14  Michael Meeks  <michael@ximian.com>
+
+	* atk-bridge/bridge.c
+	(gnome_accessibility_module_init),
+	(gnome_accessibility_module_shutdown): impl.
+	(gtk_module_init): protect vs. double inits.
+	(add_signal_listener): impl.
+	(spi_atk_bridge_state_event_listener): kill
+	(deregister_application): split out of
+	(spi_atk_bridge_exit_func): here.
+
 2002-01-18  Bill Haneman <bill.haneman@sun.com>
 
         * test/simple-at.c:

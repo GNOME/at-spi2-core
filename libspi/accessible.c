@@ -376,9 +376,8 @@ static CORBA_char *
 impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
 					     CORBA_Environment     *ev)
 {
-  AtkRole            role;
-  Accessibility_Role retval;
-  AtkObject         *object = get_atkobject_from_servant (servant);
+  AtkRole    role;
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, 0);
 
