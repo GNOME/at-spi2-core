@@ -1,3 +1,16 @@
+2003-05-20  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi-statetypes.h, cspi/docs/tmpl/spi_stateset.sgml:
+	Add SPI_STATE_INDETERMINATE.
+
+	* cspi/spi_accessible.c (spi_state_to_corba): Add support for
+	INDETERMINATE.
+
+	* idl/Accessibility_State.idl: Add support for STATE_INDETERMINATE.
+
+	* libspi/stateset.c (init_state_type_tables): Add support for
+	INDETERMINATE.
+
 2003-05-19  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* configure: Update versions of atk and gail required.

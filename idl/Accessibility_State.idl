@@ -115,6 +115,10 @@ module Accessibility {
    * tables.
    */
   STATE_MANAGES_DESCENDANTS,
+  /*
+   * Indicates that a check box is in a state other than checked or not checked.
+   */
+  STATE_INDETERMINATE,
 
   STATE_LAST_DEFINED
   };

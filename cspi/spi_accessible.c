@@ -1146,6 +1146,7 @@ spi_state_to_corba (AccessibleState state)
       MAP_STATE (VERTICAL);
       MAP_STATE (VISIBLE);
       MAP_STATE (MANAGES_DESCENDANTS);
+      MAP_STATE (INDETERMINATE);
     default:
       return Accessibility_STATE_INVALID;
   }

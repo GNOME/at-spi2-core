@@ -114,6 +114,8 @@ spi_init_state_type_tables (void)
   atk_state_types[Accessibility_STATE_VISIBLE] = ATK_STATE_VISIBLE;
   accessible_state_types[ATK_STATE_MANAGES_DESCENDANTS] = Accessibility_STATE_MANAGES_DESCENDANTS;
   atk_state_types[Accessibility_STATE_MANAGES_DESCENDANTS] = ATK_STATE_MANAGES_DESCENDANTS;
+  accessible_state_types[ATK_STATE_INDETERMINATE] = Accessibility_STATE_INDETERMINATE;
+  atk_state_types[Accessibility_STATE_INDETERMINATE] = ATK_STATE_INDETERMINATE;
 
   return TRUE;
 }
@@ -353,6 +355,8 @@ impl_getStates (PortableServer_Servant servant,
     states = g_slist_append (states, (gpointer) Accessibility_STATE_VISIBLE);
   if (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
     states = g_slist_append (states, (gpointer) Accessibility_STATE_MANAGES_DESCENDANTS);
+  if (atk_state_set_contains_state (set, ATK_STATE_INDETERMINATE))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_INDETERMINATE);
 
   rv = Accessibility_StateSeq__alloc ();
   rv->_length = rv->_maximum = g_slist_length (states);

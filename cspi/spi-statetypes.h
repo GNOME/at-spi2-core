@@ -64,6 +64,7 @@ extern "C" {
  * event is sent when children become 'active' (i.e. are selected or navigated 
  * to onscreen).  Used to prevent need to enumerate all children in very large 
  * containers, like tables.
+ *@SPI_STATE_INDETERMINATE: Indicates that a check box is in a state other than checked or not checked.
  *@SPI_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possibles states of an object.
@@ -101,6 +102,7 @@ typedef enum
   SPI_STATE_VERTICAL,
   SPI_STATE_VISIBLE,
   SPI_STATE_MANAGES_DESCENDANTS, 
+  SPI_STATE_INDETERMINATE, 
   SPI_STATE_LAST_DEFINED
 } AccessibleState;
 
