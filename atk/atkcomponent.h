@@ -59,7 +59,7 @@ struct _AtkComponentIface
                                          gint                   y,
                                          AtkCoordType           coord_type);
 
-  AtkObject*    (* get_accessible_at_point)  (AtkComponent     *component,
+  AtkObject*    (* ref_accessible_at_point)  (AtkComponent     *component,
                                          gint                   x,
                                          gint                   y,
                                          AtkCoordType           coord_type);
@@ -104,7 +104,7 @@ gboolean              atk_component_contains               (AtkComponent    *com
                                                             gint            x,
                                                             gint            y,
                                                             AtkCoordType    coord_type);
-AtkObject*            atk_component_get_accessible_at_point(AtkComponent    *component,
+AtkObject*            atk_component_ref_accessible_at_point(AtkComponent    *component,
                                                             gint            x,
                                                             gint            y,
                                                             AtkCoordType    coord_type);

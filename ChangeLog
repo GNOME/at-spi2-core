@@ -1,3 +1,10 @@
+2001-08-13  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkcomponent.[c|h]
+	* docs/atk-sections.txt, docs/tmpl/atkcomponent.sgml
+	Change atk_component_get_accessible_at_point to 
+	atk_component_ref_accessible_at_point so it will work for flyweights
+
 Sun Aug 12 10:33:02 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* docs/Makefile.am: Set GPATH to fix srcdir != builddir problems

@@ -31,7 +31,7 @@ representation of an object.
 @parent: 
 @add_focus_handler: 
 @contains: 
-@get_accessible_at_point: 
+@ref_accessible_at_point: 
 @get_extents: 
 @get_position: 
 @get_size: 
@@ -52,18 +52,6 @@ representation of an object.
 
 
 <!-- ##### FUNCTION atk_component_contains ##### -->
-<para>
-
-</para>
-
-@component: 
-@x: 
-@y: 
-@coord_type: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_component_get_accessible_at_point ##### -->
 <para>
 
 </para>
@@ -115,6 +103,18 @@ representation of an object.
 </para>
 
 @component: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_component_ref_accessible_at_point ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+@coord_type: 
 @Returns: 
 
 

@@ -25,7 +25,7 @@ static gboolean   atk_component_real_contains                (AtkComponent *comp
                                                               gint         y,
                                                               AtkCoordType coord_type);
 
-static AtkObject* atk_component_real_get_accessible_at_point (AtkComponent *component,
+static AtkObject* atk_component_real_ref_accessible_at_point (AtkComponent *component,
                                                               gint         x,
                                                               gint         y,
                                                               AtkCoordType coord_type);
@@ -143,20 +143,20 @@ atk_component_contains (AtkComponent    *component,
 }
 
 /**
- * atk_component_get_accessible_at_point:
+ * atk_component_ref_accessible_at_point:
  * @component: the #AtkComponent
  * @x: x coordinate
  * @y: y coordinate
  * @coord_type: specifies whether the coordinates are relative to the screen
  * or to the components top level window
  *
- * Gets the accessible child, if one exists, contained at the
+ * Gets a reference to the accessible child, if one exists, at the
  * coordinate point specified by @x and @y.
  *
- * Returns: the accessible child, if one exists
+ * Returns: a reference to the accessible child, if one exists
  **/
 AtkObject*
-atk_component_get_accessible_at_point (AtkComponent    *component,
+atk_component_ref_accessible_at_point (AtkComponent    *component,
                                        gint            x,
                                        gint            y,
                                        AtkCoordType    coord_type)
@@ -166,14 +166,14 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
-  if (iface->get_accessible_at_point)
-    return (iface->get_accessible_at_point) (component, x, y, coord_type);
+  if (iface->ref_accessible_at_point)
+    return (iface->ref_accessible_at_point) (component, x, y, coord_type);
   else
   {
     /*
      * if this method is not overridden use the default implementation.
      */
-    return atk_component_real_get_accessible_at_point (component, x, y, coord_type);
+    return atk_component_real_ref_accessible_at_point (component, x, y, coord_type);
   }
 }
 
@@ -401,7 +401,7 @@ atk_component_real_contains (AtkComponent *component,
 }
 
 static AtkObject* 
-atk_component_real_get_accessible_at_point (AtkComponent *component,
+atk_component_real_ref_accessible_at_point (AtkComponent *component,
                                             gint         x,
                                             gint         y,
                                             AtkCoordType coord_type)
@@ -422,7 +422,6 @@ atk_component_real_get_accessible_at_point (AtkComponent *component,
     {
       if (atk_component_contains (ATK_COMPONENT (obj), x, y, coord_type))
       {
-        g_object_unref (obj);
         return obj;
       }
       else
