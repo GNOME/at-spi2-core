@@ -36,7 +36,7 @@ module Accessibility {
   interface Accessible : Bonobo::Unknown {
 
     /**
-     * #attribute description: a (short) @string representing the object's name.
+     * #attribute name: a (short) @string representing the object's name.
      **/
     attribute string name;
 

@@ -1,0 +1,14 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!entity at-spi-spi_main SYSTEM "sgml/spi_main.sgml">
+]>
+
+<book>
+  <bookinfo>
+    <title>AT-SPI Reference Manual</title>
+  </bookinfo>
+
+  <chapter id="at-spi">
+    <title>AT-SPI C Bindings</title>
+    &at-spi-spi_main;
+   </chapter>
+</book>

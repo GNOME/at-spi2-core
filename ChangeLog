@@ -1,5 +1,10 @@
 2001-08-20  Bill Haneman <bill.haneman@sun.com>
-	
+
+	* docs/Makefile.am:
+	* docs/at-spi-docs.sgml:
+	* docs/at-spi-sections.txt:
+	* configure.in:
+	Initial checkins/modifications for gtk-doc generation.
 	* cspi/spi.h:
 	* cspi/spi.c:
 	Added (missing) interface query methods to Accessible's C binding.
@@ -225,8 +230,10 @@
 	and we now relay those focus events to any "focus:" listeners.
 	This now works with the bridge as a GTK_MODULE when running test/at.
 	* libspi/registry.c :
-	* libspi/listener.c : now we ref event sources before propagating, and unref on receipt.
-	* libspi/registry.c : some changes to internal structs, to support event typestring hashes.
+	* libspi/listener.c : 
+	now we ref event sources before propagating, and unref on receipt.
+	* libspi/registry.c : 
+	some changes to internal structs, to support event typestring hashes.
 	* text/app.c : changed the way the appname is generated.
 	* cspi : added directory that will hold the C bindings library for 
 		non-CORBA/bonobo-savvy clients.
@@ -235,10 +242,6 @@
 		geometry-related calls.
 	* idl/Hyperlink.idl : added readonly n_links attribute
 	* idl/Image.idl : changed methods to attributes.
-	
-	KNOWN PROBLEMS:
-	poll() fails after a few event notifications, when the number of file descriptors
-	gets too large.  Investigating.
 	
 2001-08-15  Mark McLoughlin <mark@skynet.ie>
 

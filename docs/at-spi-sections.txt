@@ -1,0 +1,89 @@
+<SECTION>
+<FILE>spi_main</FILE>
+<TITLE>SPI main loop and initialization</TITLE>
+SPI_init
+SPI_event_main
+SPI_eventIsReady
+SPI_nextEvent
+SPI_exit
+<SUBSECTION Standard>
+</SECTION>
+
+<SECTION>
+<FILE>spi_main</FILE>
+<TITLE>Event Listener Support</TITLE>
+createEventListener
+EventListener_addCallback
+EventListener_removeCallback
+<SUBSECTION Standard>
+</SECTION>
+<SECTION>
+
+<FILE>spi_main</FILE>
+<TITLE>Registry queries</TITLE>
+getDesktopCount
+getDesktop
+getDesktopList
+<SUBSECTION Event Registration>
+registerGlobalEventListener
+registerKeystrokeListener
+generateKeyEvent
+generateMouseEvent
+</SECTION>
+
+<SECTION>
+<FILE>spi_main</FILE>
+<TITLE>Accessible Objects</TITLE>
+Accessible_ref
+Accessible_unref
+Accessible_getName
+Accessible_getDescription
+Accessible_getParent
+Accessible_getChildCount
+Accessible_getIndexInParent
+Accessible_getRelationSet
+Accessible_getRole
+Accessible_getStateSet
+<SUBSECTION Interface Queries>
+Accessible_isAction
+Accessible_isComponent
+Accessible_isEditableText
+Accessible_isHypertext
+Accessible_isImage
+Accessible_isSelection
+Accessible_isTable
+Accessible_isText
+Accessible_getAction
+Accessible_getComponent
+Accessible_getEditableText
+Accessible_getHypertext
+Accessible_getImage
+Accessible_getSelection
+Accessible_getTable
+Accessible_getText
+Accessible_queryInterface
+</SECTION>
+
+<SECTION>
+<FILE>spi_main</FILE>
+<TITLE>AccessibleApplication API</TITLE>
+AccessibleApplication_ref
+AccessibleApplication_unref
+AccessibleApplication_getToolkitName
+AccessibleApplication_getVersion
+AccessibleApplication_getID
+AccessibleApplication_pause
+AccessibleApplication_resume
+</SECTION><SECTION>
+
+<FILE>spi_main</FILE>
+<TITLE>AccessibleComponent Interface</TITLE>
+AccessibleComponent_ref
+AccessibleComponent_unref
+AccessibleComponent_contains
+AccessibleComponent_getAccessibleAtPoint
+AccessibleComponent_getExtents
+AccessibleComponent_getPosition
+AccessibleComponent_getSize
+AccessibleComponent_grabFocus
+</SECTION>
