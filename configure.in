@@ -154,11 +154,20 @@ AC_ARG_ENABLE(xevie, [  --enable-xevie  Build with XEViE support [default=yes]],
 
 if test x$enable_xevie = xyes ; then
 	have_xevie=
-	AC_CHECK_LIB(Xext, XevieQueryVersion, have_xevie="yes")
+	AC_CHECK_LIB(Xext, XevieStart, have_xevie="yes")
 
 	if test "x$have_xevie" = "xyes"; then
 		XEVIE_LIBS=-lXext
 		AC_DEFINE(HAVE_XEVIE)
+	else
+	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,-lXext)
+	   if test "x$have_xevie" = "xmaybe"; then
+	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xinput=yes)
+	      if test "x$have_xevie" = "xyes"; then
+	      	      XEVIE_LIBS=-lXext -lXevie	       
+		      AC_DEFINE(HAVE_XEVIE)
+	      fi
+	   fi	
 	fi
 	AC_SUBST(XEVIE_LIBS)
 fi

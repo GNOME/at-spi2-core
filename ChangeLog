@@ -1,3 +1,8 @@
+2005-03-29  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Improved check for HAVE_XEVIE, to detect 
+	presence on XOrg, where -lXevie is a separate library.
+
 2005-03-08  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in, NEWS, README: Revved to 1.6.3.
