@@ -2,8 +2,8 @@ AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=1
 AT_SPI_MINOR_VERSION=3
-AT_SPI_MICRO_VERSION=0
-AT_SPI_INTERFACE_AGE=0
+AT_SPI_MICRO_VERSION=1
+AT_SPI_INTERFACE_AGE=1
 AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
 AM_INIT_AUTOMAKE(at-spi, $AT_SPI_VERSION)
@@ -16,7 +16,7 @@ AC_SUBST(AT_SPI_BINARY_AGE)
 # libtool versioning
 LT_RELEASE=$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION
 LT_CURRENT=9
-LT_REVISION=0
+LT_REVISION=1
 LT_AGE=9
 LT_VERSION_INFO='-version-info ${LT_CURRENT}:${LT_REVISION}:${LT_AGE}'
 AC_SUBST(LT_VERSION_INFO)
@@ -99,6 +99,12 @@ else
 fi
 
 AC_SUBST(X_LIBS)
+
+dnl Check for obsolete (mis-numbered) versions of at-spi
+dnl oldlibs=`echo $(libdir)/libspi.so.1.*`
+dnl if test $$oldlibs != "$(libdir)/libspi.so.1.*" ; then
+dnl   AC_MSG_ERROR(Old libspi.1.x library found in $libdir. Please remove $(libdir)/libspi.so.1 and $$oldlibs)
+dnl fi
 
 dnl Checks for libraries
 PKG_CHECK_MODULES(LIBSPI, \
