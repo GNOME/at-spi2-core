@@ -1,3 +1,11 @@
+Changes in version 1.3.4
+========================
+* Add translations: Irish [Paul Duffy], Limburgish [Mathieu Van Woerkom]
+
+* Add new relation type ATK_RELATION_POPUP
+
+* Some win32 fixes [Tor Lillqvist]
+
 Changes in version 1.3.3
 ========================
 * Add translations: Welsh [Dafydd Harries], Arabic [Arafat Medini]
