@@ -1,3 +1,7 @@
+2005-01-15  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.skip: Add *.server.in file.
+
 2005-01-13  Alexander Winston  <alexander.winston@comcast.net>
 
 	* en_CA.po: Updated Canadian English translation.
