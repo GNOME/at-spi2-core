@@ -570,17 +570,25 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
 /**
  * Eventually we can use this to make the marshalling of mask types
  * more sane, but for now we just use this to detect 
- * the use of 'virtual' masks such as Mumlock and convert them to
+ * the use of 'virtual' masks such as numlock and convert them to
  * system-specific mask values (i.e. ModMask).
  * 
  **/
 static Accessibility_ControllerEventMask
 spi_dec_translate_mask (Accessibility_ControllerEventMask mask)
 {
-  if (mask == SPI_KEYMASK_NUMLOCK) {
-    mask = _numlock_physical_mask;
-  }
-  return mask;
+  Accessibility_ControllerEventMask tmp_mask;
+  gboolean has_numlock;
+
+  has_numlock = (mask & SPI_KEYMASK_NUMLOCK);
+  tmp_mask = mask;
+  if (has_numlock)
+    {
+      tmp_mask = mask ^ SPI_KEYMASK_NUMLOCK;
+      tmp_mask |= _numlock_physical_mask;
+    }
+
+  return tmp_mask;
 }
 
 static DEControllerKeyListener *

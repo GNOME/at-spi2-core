@@ -1,3 +1,9 @@
+2003-12-11  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* registryd/devieceventcontroller.c (spi_dec_translate_mask):
+	Allow for mask to contain values other than NumLock mask.
+	Fixes bug #129103.
+
 2003-12-10  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* registryd/devieceventcontroller.c:
