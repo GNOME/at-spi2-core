@@ -766,7 +766,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     detail2 = g_value_get_int (param_values + 2);
   
   spi_atk_signal_emit_event (gobject, &signal_query,
-			     detail2, detail2,
+			     detail1, detail2,
 			     name, detail);
   return TRUE;
 }
