@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-12-12 03:07+0100\n"
-"PO-Revision-Date: 2003-12-12 15:35+0100\n"
+"PO-Revision-Date: 2003-12-13 12:42+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -132,7 +132,7 @@ msgstr "seleccionador de archivos"
 
 #: atk/atkobject.c:102
 msgid "filler"
-msgstr "complementador"
+msgstr "completador"
 
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
@@ -345,7 +345,7 @@ msgstr "aplicación"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
-msgstr ""
+msgstr "autocompletado"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
@@ -401,49 +401,49 @@ msgstr "La capa de accesibilidad de este objeto"
 
 #: atk/atkobject.c:343
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "Valor MDI accesible"
 
 #: atk/atkobject.c:344
 msgid "The accessible MDI value of this object"
-msgstr ""
+msgstr "El valor accesible MDI de este objeto"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "Descripción acesible de la tabla"
 
 #: atk/atkobject.c:353
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr ""
+msgstr "Se usa para notificar que la descripción de la tabla ha cambiado; esta propiedad no debería ser usada. Debe usarse accesible-table-caption-object en su lugar"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
-msgstr ""
+msgstr "Cabecera de columna accesible de la tabla"
 
 #: atk/atkobject.c:360
 msgid "Is used to notify that the table column header has changed"
-msgstr ""
+msgstr "Se usa para notificar que la cabecera de columna de la tabla ha cambiado"
 
 #: atk/atkobject.c:366
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "Descripción accesible de la columna de la tabla"
 
 #: atk/atkobject.c:367
 msgid "Is used to notify that the table column description has changed"
-msgstr ""
+msgstr "Se usa para notificar que la descripción de la columna de la tabla ha cambiado"
 
 #: atk/atkobject.c:373
 msgid "Accessible Table Row Header"
-msgstr ""
+msgstr "Cabecera accesible de la fila de la tabla"
 
 #: atk/atkobject.c:374
 msgid "Is used to notify that the table row header has changed"
-msgstr ""
+msgstr "Se usa para notificar que la fila de la cabecera de la tabla ha cambiado"
 
 #: atk/atkobject.c:380
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "Descripción accesible de la fila de la tabla"
 
 #: atk/atkobject.c:381
 msgid "Is used to notify that the table row description has changed"
@@ -451,19 +451,19 @@ msgstr "Se usa para notificar que la fila de la descripción ha cambiado"
 
 #: atk/atkobject.c:387
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "Resumen accesible de la tabla"
 
 #: atk/atkobject.c:388
 msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgstr "Se usa para notificar que el resumen de la tabla ha cambiado"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "Objeto de título de la tabla accesible"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr "Se usa para notificar que la descripción de la tabla ha cambiado"
+msgstr "Se usa para notificar que el título de la tabla ha cambiado"
 
 #: atk/atkobject.c:401
 msgid "Accessible Hypertext Number of Links"
