@@ -33,17 +33,17 @@ atk_relation_set_get_type (void)
     {
       static const GTypeInfo typeInfo =
       {
-        sizeof (AtkObjectClass),
+        sizeof (AtkRelationSetClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
         (GClassInitFunc) atk_relation_set_class_init,
         (GClassFinalizeFunc) NULL,
         NULL,
-        sizeof (AtkObject),
+        sizeof (AtkRelationSet),
         0,
         (GInstanceInitFunc) NULL,
       } ;
-      type = g_type_register_static (G_TYPE_OBJECT, "AtkRelatioSet", &typeInfo, 0) ;
+      type = g_type_register_static (G_TYPE_OBJECT, "AtkRelationSet", &typeInfo, 0) ;
     }
   return type;
 }

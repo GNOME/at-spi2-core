@@ -33,13 +33,13 @@ atk_relation_get_type (void)
     {
       static const GTypeInfo typeInfo =
       {
-        sizeof (AtkObjectClass),
+        sizeof (AtkRelationClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
         (GClassInitFunc) atk_relation_class_init,
         (GClassFinalizeFunc) NULL,
         NULL,
-        sizeof (AtkObject),
+        sizeof (AtkRelation),
         0,
         (GInstanceInitFunc) NULL,
       } ;

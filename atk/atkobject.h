@@ -402,7 +402,7 @@ struct _AtkObjectClass
   /*
    * Gets the RelationSet associated with the object
    */
-  AtkRelationSet*         (* get_relation_set)    (AtkObject                 *accessible);
+  AtkRelationSet*         (* ref_relation_set)    (AtkObject                 *accessible);
   /*
    * Gets the role of the object
    */
@@ -487,7 +487,7 @@ AtkObject*              atk_object_get_parent                     (AtkObject *ac
 gint                    atk_object_get_n_accessible_children      (AtkObject *accessible);
 AtkObject*              atk_object_ref_accessible_child           (AtkObject *accessible,
                                                                    gint        i);
-AtkRelationSet*         atk_object_get_relation_set               (AtkObject *accessible);
+AtkRelationSet*         atk_object_ref_relation_set               (AtkObject *accessible);
 AtkRole                 atk_object_get_role                       (AtkObject *accessible);
 AtkState                atk_object_get_state                      (AtkObject *accessible);
 gint                    atk_object_get_index_in_parent            (AtkObject *accessible);

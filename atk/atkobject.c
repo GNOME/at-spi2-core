@@ -47,7 +47,7 @@ enum {
 static void            atk_object_class_init       (AtkObjectClass  *klass);
 static void            atk_object_init             (AtkObject       *accessible,
                                                     AtkObjectClass  *klass);
-static AtkRelationSet* atk_object_real_get_relation_set (AtkObject *accessible);
+static AtkRelationSet* atk_object_real_ref_relation_set (AtkObject *accessible);
 
 static void            atk_object_real_set_property(GObject         *object,
                                                     guint            prop_id,
@@ -106,7 +106,7 @@ atk_object_class_init (AtkObjectClass *klass)
   gobject_class->get_property = atk_object_real_get_property;
   gobject_class->finalize = atk_object_finalize;
 
-  klass->get_relation_set = atk_object_real_get_relation_set;
+  klass->ref_relation_set = atk_object_real_ref_relation_set;
 
   state_names[ATK_STATE_ARMED]           = "armed";
   state_names[ATK_STATE_BUSY]            = "busy";
@@ -232,6 +232,13 @@ atk_implementor_get_type (void)
   return type;
 }
 
+/**
+ * atk_object_get_name
+ * @accessible: a #AtkObject
+ * return values: a character string representing the accessible name of the object.
+ *
+ * Gets the accessible name of the accessible
+ **/
 G_CONST_RETURN gchar*
 atk_object_get_name (AtkObject *accessible)
 {
@@ -247,6 +254,13 @@ atk_object_get_name (AtkObject *accessible)
     return NULL;
 }
 
+/**
+ * atk_object_get_description
+ * @accessible: a #AtkObject
+ * return values: a character string representing the accessible description of the accessible.
+ *
+ * Gets the accessible description of the accessible
+ **/
 G_CONST_RETURN gchar*
 atk_object_get_description (AtkObject *accessible)
 {
@@ -262,6 +276,13 @@ atk_object_get_description (AtkObject *accessible)
     return NULL;
 }
 
+/**
+ * atk_object_get_parent
+ * @accessible: a #AtkObject
+ * return values: a #AtkObject representing the accessible parent of the accessible.
+ *
+ * Gets the accessible description of the accessible
+ **/
 AtkObject*
 atk_object_get_parent (AtkObject *accessible)
 {
@@ -277,6 +298,13 @@ atk_object_get_parent (AtkObject *accessible)
     return NULL;
 }
 
+/**
+ * atk_object_get_n_accessible_children
+ * @accessible: a #AtkObject
+ * return values: a gint representing the number of accessible children of the accessible.
+ *
+ * Gets the number of accessible children of the accessible
+ **/
 gint
 atk_object_get_n_accessible_children (AtkObject *accessible)
 {
@@ -292,6 +320,16 @@ atk_object_get_n_accessible_children (AtkObject *accessible)
     return 0;
 }
 
+/**
+ * atk_object_ref_accessible_child
+ * @accessible: a #AtkObject
+ * @i: a gint representing the position of the child, starting from 0
+ * return values: a #AtkObject representing the specified accessible child of the accessible.
+ *
+ * Returns a reference to the specified accessible child of the object.
+ * The accessible children are 0-based so the first accessible child is
+ * at index 0, the second at index 1 and so on.
+ **/
 AtkObject*
 atk_object_ref_accessible_child (AtkObject   *accessible,
                                  gint        i)
@@ -308,8 +346,15 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
     return NULL;
 }
 
+/**
+ * atk_object_ref_accessible_child
+ * @accessible: a #AtkObject
+ * return values: a #AtkRelationSet representing the relation set of the object.
+ *
+ * Returns a relation to the relation set associated of the accessible.
+ **/
 AtkRelationSet*
-atk_object_get_relation_set (AtkObject *accessible)
+atk_object_ref_relation_set (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
@@ -317,12 +362,19 @@ atk_object_get_relation_set (AtkObject *accessible)
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
-  if (klass->get_relation_set)
-    return (klass->get_relation_set) (accessible);
+  if (klass->ref_relation_set)
+    return (klass->ref_relation_set) (accessible);
   else
     return NULL;
 }
 
+/**
+ * atk_role_register
+ * @name: a character string describing the new role.
+ * return values: a #AtkRole value for the new role.
+ *
+ * Returns a #AtkRole value for the new role.
+ **/
 AtkRole
 atk_role_register (const gchar *name)
 {
@@ -331,6 +383,13 @@ atk_role_register (const gchar *name)
   return (++type);
 }
 
+/**
+ * atk_object_get_role
+ * @accessible: a #AtkObject
+ * return values: a #AtkRole which is the role of the accessible
+ *
+ * Gets the role of the accessible
+ **/
 AtkRole
 atk_object_get_role (AtkObject *accessible) {
   AtkObjectClass *klass;
@@ -345,6 +404,13 @@ atk_object_get_role (AtkObject *accessible) {
     return ATK_ROLE_UNKNOWN;
 }
 
+/**
+ * atk_state_register
+ * @name: a character string describing the new state.
+ * return values: a #AtkState value for the new state.
+ *
+ * Returns a #AtkState value for the new state.
+ **/
 AtkStateType
 atk_state_type_register (const gchar *name)
 {
@@ -356,6 +422,13 @@ atk_state_type_register (const gchar *name)
   return ATK_STATE_INVALID; /* caller needs to check */
 }
 
+/**
+ * atk_object_get_state
+ * @accessible: a #AtkObject
+ * return values: a #AtkState which is the state of the accessible
+ *
+ * Gets the state of the accessible
+ **/
 AtkState
 atk_object_get_state (AtkObject *accessible) {
   AtkObjectClass *klass;
@@ -370,6 +443,14 @@ atk_object_get_state (AtkObject *accessible) {
     return 0;
 }
 
+/**
+ * atk_object_get_index_in_parent
+ * @accessible: a #AtkObject
+ * return values: a gint which is the index of the accessible in its parent
+ *
+ * Gets the 0-based index of this accessible in its parent; returns -1 if the
+ * accessible does not have an accessible parent.
+ **/
 gint
 atk_object_get_index_in_parent (AtkObject *accessible)
 {
@@ -511,10 +592,11 @@ atk_state_mask_for_name (const gchar *name)
 }
 
 /**
- * Return a reference to an object's AtkObject implementation, if
- * the object implements AtkObjectIface.
+ * atk_implementor_ref_accessible
  * @object: The GObject instance which should implement #AtkImplementorIface
  * if a non-null return value is required.
+ * Return a reference to an object's AtkObject implementation, if
+ * the object implements AtkObjectIface.
  */
 AtkObject *
 atk_implementor_ref_accessible (AtkImplementor *object)
@@ -528,17 +610,20 @@ atk_implementor_ref_accessible (AtkImplementor *object)
   iface = ATK_IMPLEMENTOR_GET_IFACE (object);
 
   if (iface != NULL) 
-     accessible =  iface->ref_accessible (object);
+    accessible =  iface->ref_accessible (object);
 
   g_return_val_if_fail ((accessible != NULL), NULL);
 
   return accessible;
 }
 
-AtkRelationSet*
-atk_object_real_get_relation_set (AtkObject *accessible)
+static AtkRelationSet*
+atk_object_real_ref_relation_set (AtkObject *accessible)
 {
-    return accessible->relation_set;
+  if (accessible->relation_set)
+    g_object_ref (accessible->relation_set); 
+
+  return accessible->relation_set;
 }
 
 static void
