@@ -58,7 +58,7 @@ accessible_object_finalize (GObject *object)
         Accessible *accessible = ACCESSIBLE (object);
 
         printf("accessible_object_finalize called\n");
-        g_free (accessible->atko);
+        g_object_unref (accessible->atko);
 
         printf("atko freed, calling parent finalize\n");
         accessible_parent_class->finalize (object);
