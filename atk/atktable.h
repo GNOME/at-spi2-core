@@ -65,7 +65,7 @@ struct _AtkTableIface
   gint              (* get_row_extent_at)        (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
-  G_CONST_RETURN gchar*
+  AtkObject*
                     (* get_caption)              (AtkTable      *table);
   G_CONST_RETURN gchar*
                     (* get_column_description)   (AtkTable      *table,
@@ -79,7 +79,7 @@ struct _AtkTableIface
 						  gint		row);
   AtkObject*        (* get_summary)              (AtkTable      *table);
   void              (* set_caption)              (AtkTable      *table,
-                                                  const gchar   *caption);
+                                                  AtkObject     *caption);
   void              (* set_column_description)   (AtkTable      *table,
                                                   gint          column,
                                                   const gchar   *description);
@@ -153,7 +153,7 @@ gint              atk_table_get_column_extent_at (AtkTable         *table,
 gint              atk_table_get_row_extent_at    (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
-G_CONST_RETURN gchar*
+AtkObject*
                   atk_table_get_caption          (AtkTable         *table);
 G_CONST_RETURN gchar*
                   atk_table_get_column_description (AtkTable         *table,
@@ -167,7 +167,7 @@ AtkObject*        atk_table_get_row_header       (AtkTable         *table,
 						  gint		   row);
 AtkObject*        atk_table_get_summary          (AtkTable         *table);
 void              atk_table_set_caption          (AtkTable         *table,
-                                                  const gchar      *caption);
+                                                  AtkObject        *caption);
 void              atk_table_set_column_description 
                                                  (AtkTable         *table,
                                                   gint             column,

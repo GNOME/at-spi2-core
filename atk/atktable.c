@@ -170,10 +170,6 @@ atk_table_ref_at (AtkTable *table,
  *
  * Gets a #gint representing the index at the specified @row and @column,
  * or 0 if value does not implement this interface.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a #gint representing the index at specified position, or 0
  * if value does not implement this interface.
@@ -204,10 +200,6 @@ atk_table_get_index_at (AtkTable *table,
  *
  * Gets a #gint representing the row at the specified @index, or 0
  * if the value does not implement this interface
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the row at the specified  index, or 0
  * if value does not implement this interface.
@@ -235,10 +227,6 @@ atk_table_get_row_at_index (AtkTable *table,
  *
  * Gets a #gint representing the column at the specified @index, or 0
  * if the value does not implement this interface
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the column at the specified  index, or 0
  * if value does not implement this interface.
@@ -264,15 +252,11 @@ atk_table_get_column_at_index (AtkTable *table,
  * @table: a GObject instance that implements AtkTableInterface
  *
  * Gets the caption for the @table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
- * Returns: a gchar* representing the table caption, or %NULL
+ * Returns: a AtkObject* representing the table caption, or %NULL
  * if value does not implement this interface.
  **/
-G_CONST_RETURN gchar*
+AtkObject*
 atk_table_get_caption (AtkTable *table)
 {
   AtkTableIface *iface;
@@ -292,10 +276,6 @@ atk_table_get_caption (AtkTable *table)
  * @table: a GObject instance that implements AtkTableIface
  *
  * Gets the number of columns in the table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the number of columns, or 0
  * if value does not implement this interface.
@@ -321,10 +301,6 @@ atk_table_get_n_columns (AtkTable *table)
  * @column: a #gint representing a column in @table
  *
  * Gets the description text of the specified @column in the table
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gchar* representing the column description, or %NULL
  * if value does not implement this interface.
@@ -353,10 +329,6 @@ atk_table_get_column_description (AtkTable *table,
  *
  * Gets the number of columns occupied by the accessible object
  * at the specified @row and @column in the @table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the column extent at specified position, or 0
  * if value does not implement this interface.
@@ -384,10 +356,6 @@ atk_table_get_column_extent_at (AtkTable *table,
  * @column: a #gint representing a column in the table
  *
  * Gets the column header of a specified column in an accessible table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a AtkObject* representing the specified column header, or
  * %NULL if value does not implement this interface.
@@ -412,10 +380,6 @@ atk_table_get_column_header (AtkTable *table, gint column)
  * @table: a GObject instance that implements AtkTableIface
  *
  * Gets the number of rows in the table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the number of rows, or 0
  * if value does not implement this interface.
@@ -441,10 +405,6 @@ atk_table_get_n_rows (AtkTable *table)
  * @row: a #gint representing a row in @table
  *
  * Gets the description text of the specified row in the table
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gchar* representing the row description, or %NULL
  * if value does not implement this interface.
@@ -473,10 +433,6 @@ atk_table_get_row_description (AtkTable *table,
  *
  * Gets the number of rows occupied by the accessible object
  * at a specified @row and @column in the @table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the row extent at specified position, or 0
  * if value does not implement this interface.
@@ -504,10 +460,6 @@ atk_table_get_row_extent_at (AtkTable *table,
  * @row: a #gint representing a row in the table
  *
  * Gets the row header of a specified row in an accessible table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a AtkObject* representing the specified row header, or
  * %NULL if value does not implement this interface.
@@ -532,10 +484,6 @@ atk_table_get_row_header (AtkTable *table, gint row)
  * @table: a GObject instance that implements AtkTableIface
  *
  * Gets the summary description of the table.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a AtkObject* representing a summary description of the table,
  * or zero if value does not implement this interface.
@@ -562,10 +510,6 @@ atk_table_get_summary (AtkTable *table)
  *
  * Gets the selected rows of the table by initializing **selected with 
  * the selected row numbers. This array should be freed by the caller.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the number of selected rows,
  * or zero if value does not implement this interface.
@@ -592,10 +536,6 @@ atk_table_get_selected_rows (AtkTable *table, gint **selected)
  *
  * Gets the selected columns of the table by initializing **selected with 
  * the selected column numbers. This array should be freed by the caller.
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gint representing the number of selected columns,
  * or %0 if value does not implement this interface.
@@ -622,10 +562,6 @@ atk_table_get_selected_columns (AtkTable *table, gint **selected)
  *
  * Gets a boolean value indicating whether the specified @column
  * is selected
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if the column is selected, or 0
  * if value does not implement this interface.
@@ -653,10 +589,6 @@ atk_table_is_column_selected (AtkTable *table,
  *
  * Gets a boolean value indicating whether the specified @row
  * is selected
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if the row is selected, or 0
  * if value does not implement this interface.
@@ -685,10 +617,6 @@ atk_table_is_row_selected (AtkTable *table,
  *
  * Gets a boolean value indicating whether the accessible object
  * at the specified @row and @column is selected
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if the cell is selected, or 0
  * if value does not implement this interface.
@@ -716,10 +644,6 @@ atk_table_is_selected (AtkTable *table,
  * @row: a #gint representing a row in @table
  *
  * Adds the specified @row to the selection. 
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if row was successfully added to selection,
  * or 0 if value does not implement this interface.
@@ -745,10 +669,6 @@ atk_table_add_row_selection (AtkTable *table,
  * @row: a #gint representing a row in @table
  *
  * Removes the specified @row from the selection. 
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if the row was successfully removed from
  * the selection, or 0 if value does not implement this interface.
@@ -774,10 +694,6 @@ atk_table_remove_row_selection (AtkTable *table,
  * @column: a #gint representing a column in @table
  *
  * Adds the specified @column to the selection. 
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if the column was successfully added to 
  * the selection, or 0 if value does not implement this interface.
@@ -803,10 +719,6 @@ atk_table_add_column_selection (AtkTable *table,
  * @column: a #gint representing a column in @table
  *
  * Adds the specified @column to the selection. 
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
  *
  * Returns: a gboolean representing if the column was successfully removed from
  * the selection, or 0 if value does not implement this interface.
@@ -830,13 +742,13 @@ atk_table_remove_column_selection (AtkTable *table,
 /**
  * atk_table_set_caption:
  * @table: a GObject instance that implements AtkTableIface
- * @caption: a #gchar representing the caption to set for @table
+ * @caption: a #AtkObject representing the caption to set for @table
  *
  * Sets the caption for the table.
  **/
 void
 atk_table_set_caption (AtkTable       *table,
-                       const gchar    *caption)
+                       AtkObject      *caption)
 {
   AtkTableIface *iface;
 
