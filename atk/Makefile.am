@@ -26,7 +26,11 @@ libatk_la_SOURCES = 		\
 	atkvalue.c
 
 EXTRA_DIST += atkmarshal.list
-MAINTAINERCLEANFILES += atkmarshal.c
+MAINTAINERCLEANFILES += 	\
+	atkmarshal.c		\
+	atkmarshal.h		\
+	stamp-atkmarshal.c	\
+	stamp-atkmarshal.h
 
 INCLUDES = \
 	-I$(top_srcdir)		\

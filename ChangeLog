@@ -1,3 +1,9 @@
+2001-07-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/Makefile.am
+	Fix problem with ATK not building after running make maintainer-clean
+	and autogen.sh: add extra files to MAINTAINERCLEANFILES
+ 
 2001-07-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.[c|h]
