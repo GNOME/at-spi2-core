@@ -1,3 +1,7 @@
+2004-03-29  Manish Singh  <yosh@gimp.org>
+
+	* autogen.sh: use $ACLOCAL instead of aclocal-1.4 for --print-ac-dir.
+
 2004-03-23  Guntupalli Karunakar  <karunakar@freedomink.org>
 
         * configure.in: Added "pa" (Punjabi) to ALL_LINGUAS.
