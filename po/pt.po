@@ -1,0 +1,32 @@
+# at-spi Portuguese translation.
+# Copyright (C) 2003 at-spi
+# This file is distributed under the same license as the at-spi package.
+# Duarte Loreto <happyguy_pt@hotmail.com>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2,4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-07-15 19:52+0200\n"
+"PO-Revision-Date: 2003-07-15 02:35+0000\n"
+"Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
+"Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:311
+msgid "failure: no device event controller found.\n"
+msgstr "falha: nenhum dispositivo controlador de eventos encontrado.\n"
+
+#: atk-bridge/bridge.c:806
+msgid "WARNING: NULL key event reported."
+msgstr "AVISO: relatado evento de tecla NULA."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Registo AT-SPI"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Registo de Acessibilidade"
