@@ -1,313 +1,476 @@
 # translation of atk.HEAD.po to mongolian
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# Sanlig Badral <badral@chinggis.com>, 2003
-#
+# This file is distributed under the same license as the atk.HEAD package.
+# Copyright (C) 2004
+# Sanlig Badral <badral@openmn.org>, 2003
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-03 02:39+0100\n"
-"PO-Revision-Date: 2003-01-16 20:55+0100\n"
+"POT-Creation-Date: 2004-01-06 03:07+0100\n"
+"PO-Revision-Date: 2004-01-06 11:01+0100\n"
 "Last-Translator: Sanlig Badral <badral@chinggis.com>\n"
-"Language-Team: mongolian <mn@li.org>\n"
+"Language-Team: mongolian <openmn-translation@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.1\n"
+"Content-Transfer-Encoding: 8bit"
 
-#: atk/atkobject.c:1235
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "Сонгогдсон холбоос"
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "AtkHyperlink объект сонгогдох эсэхийг өгнө үү"
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "Анчорын тоо"
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "AtkHyperlink объекттой холбогдсон анчорын тоо"
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "Төгсгөл индекс"
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink объектын төгсгөл индекс"
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "Эхлэл индекс"
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink объектын эхлэл индекс"
+
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "хүчингүй"
 
-#: atk/atkobject.c:1238
-msgid "accel-label"
+#: atk/atkobject.c:83
+msgid "accelerator label"
 msgstr "товч-бичээс"
 
-#: atk/atkobject.c:1241
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "Сонордуулга"
 
-#: atk/atkobject.c:1244
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "Хөдөлгөөн"
 
-#: atk/atkobject.c:1247
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "Сум"
 
-#: atk/atkobject.c:1250
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "Календар"
 
-#: atk/atkobject.c:1253
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "зураг(canvas)"
 
-#: atk/atkobject.c:1256
-msgid "check-box"
+#: atk/atkobject.c:89
+msgid "check box"
 msgstr "хирээст талбар"
 
-#: atk/atkobject.c:1259
-msgid "check-menu-item"
-msgstr "удирдах-цэс-элемент"
+#: atk/atkobject.c:90
+msgid "check menu item"
+msgstr "хирээст цэсний элемент"
 
-#: atk/atkobject.c:1262
-msgid "color-chooser"
+#: atk/atkobject.c:91
+msgid "color chooser"
 msgstr "Өнгө сонгогч"
 
-#: atk/atkobject.c:1265
-msgid "column-header"
+#: atk/atkobject.c:92
+msgid "column header"
 msgstr "баганы толгой"
 
-#: atk/atkobject.c:1268
-msgid "combo-box"
+#: atk/atkobject.c:93
+msgid "combo box"
 msgstr "Унадаг талбар"
 
-#: atk/atkobject.c:1271
-msgid "date-editor"
+#: atk/atkobject.c:94
+msgid "dateeditor"
 msgstr "Огноо-засварлагч"
 
-#: atk/atkobject.c:1274
-msgid "desktop-icon"
-msgstr "Desktop-эмблем"
+#: atk/atkobject.c:95
+msgid "desktop icon"
+msgstr "Ажлын тавцангийн эмблем"
 
-#: atk/atkobject.c:1277
-msgid "desktop-frame"
-msgstr "Desktop-хүрээ"
+#: atk/atkobject.c:96
+msgid "desktop frame"
+msgstr "Ажлын тавцангийн хүрээ"
 
-#: atk/atkobject.c:1280
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "залгах"
 
-#: atk/atkobject.c:1283
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "диалог"
 
-#: atk/atkobject.c:1286
-msgid "directory-pane"
+#: atk/atkobject.c:99
+msgid "directory pane"
 msgstr "Лавлахын самбар"
 
-#: atk/atkobject.c:1289
-msgid "drawing-area"
+#: atk/atkobject.c:100
+msgid "drawing area"
 msgstr "Зурах талбар"
 
-#: atk/atkobject.c:1292
-msgid "file-chooser"
+#: atk/atkobject.c:101
+msgid "file chooser"
 msgstr "Файл сонгогч"
 
-#: atk/atkobject.c:1295
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "Дүүргэгч"
 
-#: atk/atkobject.c:1298
-msgid "font-chooser"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+msgid "fontchooser"
 msgstr "Бичиг сонгогч"
 
-#: atk/atkobject.c:1301
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "хүрээ"
 
-#: atk/atkobject.c:1304
-msgid "glass-pane"
-msgstr "шилний самбар"
+#: atk/atkobject.c:106
+msgid "glass pane"
+msgstr "шилэн самбар"
 
-#: atk/atkobject.c:1307
-msgid "html-container"
+#: atk/atkobject.c:107
+msgid "html container"
 msgstr "HTML-агуулах"
 
-#: atk/atkobject.c:1310
+#: atk/atkobject.c:108
 msgid "icon"
-msgstr "Эмблем"
+msgstr "эмблем"
 
-#: atk/atkobject.c:1313
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "Зураг"
 
-#: atk/atkobject.c:1316
-msgid "internal-frame"
+#: atk/atkobject.c:110
+msgid "internal frame"
 msgstr "дотоод хүрээ"
 
-#: atk/atkobject.c:1319
+#: atk/atkobject.c:111
 msgid "label"
-msgstr "Бичээс"
+msgstr "бичээс"
 
-#: atk/atkobject.c:1322
-msgid "layered-pane"
-msgstr "Үечлэлийн самбар"
+#: atk/atkobject.c:112
+msgid "layered pane"
+msgstr "үечилсэн самбар"
 
-#: atk/atkobject.c:1325
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "жигсаалт"
 
-#: atk/atkobject.c:1328
-msgid "list-item"
-msgstr "жигсаалт-элемент"
+#: atk/atkobject.c:114
+msgid "list item"
+msgstr "жагсаалт элемент"
 
-#: atk/atkobject.c:1331
+#: atk/atkobject.c:115
 msgid "menu"
-msgstr "Цэс"
+msgstr "цэс"
 
-#: atk/atkobject.c:1334
-msgid "menu-bar"
-msgstr "Цэс самбар"
+#: atk/atkobject.c:116
+msgid "menu bar"
+msgstr "цэс самбар"
 
-#: atk/atkobject.c:1337
-msgid "menu-item"
-msgstr "Цэсний элемент"
+#: atk/atkobject.c:117
+msgid "menu item"
+msgstr "цэсний элемент"
 
-#: atk/atkobject.c:1340
-msgid "option-pane"
-msgstr "Сонголт самбар"
+#: atk/atkobject.c:118
+msgid "option pane"
+msgstr "сонголт самбар"
 
-#: atk/atkobject.c:1343
-msgid "page-tab"
+#: atk/atkobject.c:119
+msgid "page tab"
 msgstr "хуудас-гогцоо"
 
-#: atk/atkobject.c:1346
-msgid "page-tab-list"
-msgstr "хуудас-гогцоо-жигсаалт"
+#: atk/atkobject.c:120
+msgid "page tab list"
+msgstr "хуудас-гогцоо-жагсаалт"
 
-#: atk/atkobject.c:1349
+#: atk/atkobject.c:121
 msgid "panel"
-msgstr "Хавтан"
+msgstr "Удирдах самбар"
 
-#: atk/atkobject.c:1352
-msgid "password-text"
+#: atk/atkobject.c:122
+msgid "password text"
 msgstr "нууц үг-текст"
 
-#: atk/atkobject.c:1355
-msgid "popup-menu"
+#: atk/atkobject.c:123
+msgid "popup menu"
 msgstr "Тагтан(Popup)-цэс"
 
-#: atk/atkobject.c:1358
-msgid "progress-bar"
+#: atk/atkobject.c:124
+msgid "progress bar"
 msgstr "прогресс самбар"
 
-#: atk/atkobject.c:1361
-msgid "push-button"
-msgstr "дардаг-товч"
+#: atk/atkobject.c:125
+msgid "push button"
+msgstr "товгор-товч"
 
-#: atk/atkobject.c:1364
-msgid "radio-button"
-msgstr "Радио товч"
+#: atk/atkobject.c:126
+msgid "radio button"
+msgstr "радио товч"
 
-#: atk/atkobject.c:1367
-msgid "radio-menu-item"
-msgstr "Радио-цэс-элемент"
+#: atk/atkobject.c:127
+msgid "radio menu item"
+msgstr "радио-цэс-элемент"
 
-#: atk/atkobject.c:1370
-msgid "root-pane"
+#: atk/atkobject.c:128
+msgid "root pane"
 msgstr "үндэс-самбар"
 
-#: atk/atkobject.c:1373
-msgid "row-header"
+#: atk/atkobject.c:129
+msgid "row header"
 msgstr "мөрийн толгой"
 
-#: atk/atkobject.c:1376
-msgid "scroll-bar"
-msgstr "Гүйдэг дөрвөлжин"
+#: atk/atkobject.c:130
+msgid "scroll bar"
+msgstr "гүйлгэгч"
 
-#: atk/atkobject.c:1379
-msgid "scroll-pane"
-msgstr "Гүйдэг самбар"
+#: atk/atkobject.c:131
+msgid "scroll pane"
+msgstr "гүйлгэгч самбар"
 
-#: atk/atkobject.c:1382
+#: atk/atkobject.c:132
 msgid "separator"
-msgstr "Тусгаарлагч шугам"
+msgstr "тусгаарлагч"
 
-#: atk/atkobject.c:1385
+#: atk/atkobject.c:133
 msgid "slider"
-msgstr "Гулсуур"
+msgstr "гулсуур"
 
-#: atk/atkobject.c:1388
-msgid "split-pane"
-msgstr "Хуваагдсан-самбарууд"
+#: atk/atkobject.c:134
+msgid "split pane"
+msgstr "хуваагдсан-самбарууд"
 
-#: atk/atkobject.c:1391
-msgid "spin-button"
-msgstr "Spin-товч"
+#: atk/atkobject.c:135
+msgid "spin button"
+msgstr "spin-товч"
 
-#: atk/atkobject.c:1394
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "Төлвийн сабар"
 
-#: atk/atkobject.c:1397
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "хүснэгт"
 
-#: atk/atkobject.c:1400
-msgid "table-cell"
-msgstr "хүснэгт-зай"
+#: atk/atkobject.c:138
+msgid "table cell"
+msgstr "хүснэгт-нүд"
 
-#: atk/atkobject.c:1403
-msgid "table-column-header"
+#: atk/atkobject.c:139
+msgid "table column header"
 msgstr "хүснэгтийн баганы толгой"
 
-#: atk/atkobject.c:1406
-msgid "table-row-header"
+#: atk/atkobject.c:140
+msgid "table row header"
 msgstr "хүснэгтийн мөрийн толгой"
 
-#: atk/atkobject.c:1409
-msgid "tear-off-menu-item"
+#: atk/atkobject.c:141
+msgid "tear off menu item"
 msgstr "тасархай-цэс элемент"
 
-#: atk/atkobject.c:1412
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "терминал"
 
-#: atk/atkobject.c:1415
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "текст"
 
-#: atk/atkobject.c:1418
-msgid "toggle-button"
+#: atk/atkobject.c:144
+msgid "toggle button"
 msgstr "эргэх товч"
 
-#: atk/atkobject.c:1421
-msgid "tool-bar"
+#: atk/atkobject.c:145
+msgid "tool bar"
 msgstr "багаж самбар"
 
-#: atk/atkobject.c:1424
-msgid "tool-tip"
-msgstr "Tooltip"
+#: atk/atkobject.c:146
+msgid "tool tip"
+msgstr "зөвлөмж"
 
-#: atk/atkobject.c:1427
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "Мод"
 
-#: atk/atkobject.c:1430
-msgid "tree-table"
+#: atk/atkobject.c:148
+msgid "tree table"
 msgstr "мод-хүснэгт"
 
-#: atk/atkobject.c:1433
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "тодорхогүй"
 
-#: atk/atkobject.c:1436
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "харах талбар"
 
-#: atk/atkobject.c:1439
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "Цонх"
 
-#: atk/atkobject.c:1442
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "толгой"
 
-#: atk/atkobject.c:1445
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "хөл"
 
-#: atk/atkobject.c:1448
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "Догол мөр"
 
-#: atk/atkobject.c:1451
-msgid "ruler"
-msgstr "Шугам"
-
-#: atk/atkobject.c:1454
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "х.программ"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr "Автомат-хөрвүүлэлт"
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr "Засвар цэс"
+
+#: atk/atkobject.c:295
+msgid "Accessible Name"
+msgstr "Чөлөөт нэр"
+
+#: atk/atkobject.c:296
+msgid "Object instance's name formatted for assistive technology access"
+msgstr "Туслагч-технологийн хандалтаар хэлбэржсэн объект инстантын нэр"
+
+#: atk/atkobject.c:302
+msgid "Accessible Description"
+msgstr "Чөлөөт тодорхойлолт"
+
+#: atk/atkobject.c:303
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "Туслагч-технологоор хэлбэржсэн объектын тодорхойлолт"
+
+#: atk/atkobject.c:309
+msgid "Accessible Parent"
+msgstr "Чөлөөт эцэг элемент"
+
+#: atk/atkobject.c:310
+msgid "Is used to notify that the parent has changed"
+msgstr "Эцэг элементийн утга өөрчлөлтийн сонордуулга хэрэглэгдэх үү"
+
+#: atk/atkobject.c:316
+msgid "Accessible Value"
+msgstr "Чөлөөт утга"
+
+#: atk/atkobject.c:317
+msgid "Is used to notify that the value has changed"
+msgstr "Утга өөрчлөлтийн сонордуулга хэрэглэгдэх үү"
+
+#: atk/atkobject.c:325
+msgid "Accessible Role"
+msgstr "Чөлөөт дүр"
+
+#: atk/atkobject.c:326
+msgid "The accessible role of this object"
+msgstr "Энэ объектийн чөлөөт дүр"
+
+#: atk/atkobject.c:334
+msgid "Accessible Layer"
+msgstr "Чөлөөт үе"
+
+#: atk/atkobject.c:335
+msgid "The accessible layer of this object"
+msgstr "Энэ объектын чөлөөт үе"
+
+#: atk/atkobject.c:343
+msgid "Accessible MDI Value"
+msgstr "Чөлөөт MDI утга"
+
+#: atk/atkobject.c:344
+msgid "The accessible MDI value of this object"
+msgstr "Энэ объектын чөлөөт MDI утга"
+
+#: atk/atkobject.c:352
+msgid "Accessible Table Caption"
+msgstr "Чөлөөт хүснэгтийн гарчиг"
+
+#: atk/atkobject.c:353
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr "Хүснэгийн гарчиг өөрчлөлтийн сонордуулга хэрэглэгдэх үү; энэ шинж "
+"чанарын оронд »accessible-table-caption-object« хэрэглэгдэх ёстой."
+
+#: atk/atkobject.c:359
+msgid "Accessible Table Column Header"
+msgstr "Чөлөөт хүснэгтийн баганы толгой"
+
+#: atk/atkobject.c:360
+msgid "Is used to notify that the table column header has changed"
+msgstr "Баганы толгой өөрчилөгдөхөд сонордуулга хэрэглэх үү"
+
+#: atk/atkobject.c:366
+msgid "Accessible Table Column Description"
+msgstr "Чөлөөт хүснэгтийн баганы гарчиг"
+
+#: atk/atkobject.c:367
+msgid "Is used to notify that the table column description has changed"
+msgstr "Хүснэгтийн баганы гарчиг өөрчилөгдөхөд сонордуулга хэрэглэх үү"
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Row Header"
+msgstr "Чөлөөт хүснэгтийн мөрийн толгой"
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table row header has changed"
+msgstr "Хүснэгтийн мөрийн толгой өөрчилөгдөхөд сонордуулга хэрэглэх үү"
+
+#: atk/atkobject.c:380
+msgid "Accessible Table Row Description"
+msgstr "Чөлөөт хүснэгтийн мөрийн гарчиг"
+
+#: atk/atkobject.c:381
+msgid "Is used to notify that the table row description has changed"
+msgstr "Хүснэгтийн мөрийн гарчиг өөрчилөгдөхөд сонордуулга хэрэглэх үү"
+
+#: atk/atkobject.c:387
+msgid "Accessible Table Summary"
+msgstr "Чөлөөт хүснэгтийн товчилол"
+
+#: atk/atkobject.c:388
+msgid "Is used to notify that the table summary has changed"
+msgstr "Хүснэгтийн товчилол өөрчилөгдөхөд сонордуулга хэрэглэх үү"
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Caption Object"
+msgstr "Чөлөөт хүснэгт тодорхойлох объект"
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table caption has changed"
+msgstr "Хүснэгтийн тодорхойлолт өөрчилөгдөхөд сонордуулага хэрэглэх үү"
+
+#: atk/atkobject.c:401
+msgid "Accessible Hypertext Number of Links"
+msgstr "Чөлөөт Hypertext холбоосын тоо"
+
+#: atk/atkobject.c:402
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Идэвхитэй AtkHypertext·дэх холбоосуудын тоо"
+
+#~ msgid "ruler"
+#~ msgstr "Шугам"
