@@ -9,6 +9,7 @@ aclocal.m4
 configure
 config.cache
 atk.pc
+atk-zip.sh
 missing
 install-sh
 mkinstalldirs
