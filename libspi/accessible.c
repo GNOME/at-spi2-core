@@ -276,12 +276,7 @@ spi_accessible_new (AtkObject *o)
     g_object_ref (o);
     retval->atko = ATK_OBJECT (o);
 
-    /*
-     * TODO: add interface containers/constructors for SPI_EDITABLE_TEXT, SPI_HYPERTEXT,
-     *  SPI_IMAGE, SPI_SELECTION, SPI_TABLE, SPI_TEXT, SPI_VALUE.
-     */
-
-    /* add appropriate ATK interfaces */
+    /* aggregate appropriate SPI interfaces based on ATK interfaces */
 
     if (ATK_IS_ACTION (o))
       {
