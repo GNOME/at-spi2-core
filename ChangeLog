@@ -1,10 +1,18 @@
+2003-05-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.3.2=====
+
+	* configure.in: Version 1.3.2, interface age 2, binary age 302
+
+	* NEWS: Updated.
+
 2003-05-09  Samúel Jón Gunnarsson  <sammi@techattack.nu>
 
 	* is.po: Added "is" into ALL_LINGUAS.
 
 2003-05-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	* configure.in: Make message when pkg-config fials to find glib-2.0.pc
+	* configure.in: Make message when pkg-config fails to find glib-2.0.pc
 	less cryptic.
 
 	* po/pl.po: Updated Polish translation from Artur Flinta.
