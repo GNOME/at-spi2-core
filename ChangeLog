@@ -1,3 +1,7 @@
+2003-08-22  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "nl" to ALL_LINGUAS.
+
 2003-08-19  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi-private.h: Add declaration for _cspi_exceptoin_throw
