@@ -223,7 +223,7 @@ struct _AtkTextIface
   void		 (* text_changed)                 (AtkText          *text,
                                                    gint             position,
                                                    gint             length);
-  void           (* caret_changed)                (AtkText          *text,
+  void           (* text_caret_moved)             (AtkText          *text,
                                                    gint             location);
   void           (* text_selection_changed)       (AtkText          *text);
 };

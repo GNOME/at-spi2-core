@@ -1,3 +1,14 @@
+2002-01-02  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkgobjectaccessible.h
+	Fixed typo in define (reported by Jeff Franks)
+
+	* atk/atktext.c atk/atktext.h
+	Change name of default signal handler for text_caret_moved signal
+	from caret_changed to text_caret_moved
+	Change enum CARET_MOVED to TEXT_CARET_MOVED
+	(both issues reported by Jeff Franks)
+
 2001-12-15  Michael Meeks  <michael@ximian.com>
 
 	* atk/atkrelation.c (atk_relation_class_init):

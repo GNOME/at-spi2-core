@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_GOBJECT_ACCESSIBLE__H__
-#define __ATK_GOBJECT_ACCESSIBLE__H__
+#ifndef __ATK_GOBJECT_ACCESSIBLE_H__
+#define __ATK_GOBJECT_ACCESSIBLE_H__
 
 #include <atk/atk.h>
 

@@ -27,7 +27,7 @@ GPtrArray *extra_attributes = NULL;
 
 enum {
   TEXT_CHANGED,
-  CARET_MOVED,
+  TEXT_CARET_MOVED,
   TEXT_SELECTION_CHANGED,
   LAST_SIGNAL
 };
@@ -113,11 +113,11 @@ atk_text_base_init (gpointer *g_class)
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
       
-      atk_text_signals[CARET_MOVED] =
+      atk_text_signals[TEXT_CARET_MOVED] =
 	g_signal_new ("text_caret_moved",
 		      ATK_TYPE_TEXT,
 		      G_SIGNAL_RUN_LAST,
-		      G_STRUCT_OFFSET (AtkTextIface, caret_changed),
+		      G_STRUCT_OFFSET (AtkTextIface, text_caret_moved),
 		      (GSignalAccumulator) NULL, NULL,
 		      g_cclosure_marshal_VOID__INT,
 		      G_TYPE_NONE,
