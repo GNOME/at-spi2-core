@@ -26,6 +26,7 @@
 #include <config.h>
 #include <stdio.h>
 #include <libspi/accessible.h>
+#include <libspi/component.h>
 #include <libspi/streamablecontent.h>
 
 /* Our parent Gtk object type */

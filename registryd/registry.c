@@ -773,7 +773,6 @@ static gboolean
 registry_filter_event (SpiRegistry *registry, NotifyContext *ctx,
 		       CORBA_Environment *ev)
 {
-  gboolean queue_is_empty = FALSE;
   g_assert (ctx != NULL);
 
   /* case #1 is not yet used */
@@ -823,7 +822,7 @@ impl_registry_notify_event (PortableServer_Servant     servant,
     if (ctx.etype.type_cat != ETYPE_MOUSE)
 {
       fprintf (stderr, "emit! %s level: %d\n", ctx.etype.event_name, level);
-      fprintf (stderr, "emit! %p %p\n", ctx.e_out, ctx.e_out.type);
+      fprintf (stderr, "emit! %p %x\n", ctx.e_out, ctx.e_out.type);
 }
 #endif    
     registry_emit_event (registry, &ctx);

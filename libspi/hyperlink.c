@@ -26,6 +26,7 @@
 #include <config.h>
 #include <stdio.h>
 #include <libspi/hyperlink.h>
+#include <libspi/action.h>
 #include <libspi/accessible.h>
 
 /* Static function declarations */
@@ -98,7 +99,7 @@ spi_hyperlink_new (AtkHyperlink *object)
   if (ATK_IS_ACTION (object))
     {
       bonobo_object_add_interface (bonobo_object (new_hyperlink),
-				   BONOBO_OBJECT (spi_action_interface_new (object)));
+				   BONOBO_OBJECT (spi_action_interface_new (ATK_OBJECT (object))));
     }
   return new_hyperlink;
 }

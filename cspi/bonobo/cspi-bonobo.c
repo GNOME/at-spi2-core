@@ -49,7 +49,7 @@ cspi_check_ev (const char *error_string)
 
       err = bonobo_exception_get_text (ev);
 
-      if (!_cspi_exception_throw (ev, error_string)) {
+      if (!_cspi_exception_throw (ev, (char *) error_string)) {
 	fprintf (stderr, "Warning: AT-SPI error: %s: %s\n",
 		 error_string, err);
       }

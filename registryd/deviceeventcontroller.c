@@ -568,8 +568,6 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
 static Accessibility_ControllerEventMask
 spi_dec_translate_mask (Accessibility_ControllerEventMask mask)
 {
-  DEControllerPrivateData *priv;
-
   if (mask == SPI_KEYMASK_NUMLOCK) {
     mask = _numlock_physical_mask;
   }
@@ -2003,6 +2001,7 @@ dec_synth_keysym (SpiDEController *controller, KeySym keysym)
 	modifiers = dec_get_modifier_state (controller);
 	/* side-effect; we may unset mousebutton modifiers here! */
 
+	lock_mods = 0;
 	if (synth_mods != modifiers) {
 		lock_mods = synth_mods & ~modifiers;
 		dec_lock_modifiers (controller, lock_mods);
