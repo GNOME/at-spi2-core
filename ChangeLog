@@ -1,3 +1,7 @@
+Wed Sep 19 10:46:44 2001  Tim Janik  <timj@gtk.org>
+
+	* Released 0.4.
+
 Tue Sep 18 23:41:32 2001  Tim Janik  <timj@gtk.org>
 
 	* configure.in (AM_INIT_AUTOMAKE): auto init from ATK_VERSION.
