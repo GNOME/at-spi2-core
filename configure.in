@@ -204,4 +204,4 @@ tests/Makefile
 docs/Makefile
 atk.spec
 atk-zip.sh
-])
+],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])

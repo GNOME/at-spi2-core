@@ -1,3 +1,8 @@
+2002-11-01  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Create po/Makefile; patch supplied by 
+	Dan Mills (thunder@ximain.com)
+	
 2002-10-31  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.1.1 =====
