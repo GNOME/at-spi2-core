@@ -25,6 +25,8 @@
 #include "atkmarshal.h"
 #include "atk-enum-types.h"
 
+GPtrArray *extra_roles = NULL;
+
 enum
 {
   PROP_0,  /* gobject convention */
@@ -521,9 +523,11 @@ atk_object_ref_relation_set (AtkObject *accessible)
 AtkRole
 atk_role_register (const gchar *name)
 {
-  /* TODO: associate name with new type */
-  static guint type = ATK_ROLE_LAST_DEFINED;
-  return (++type);
+  if (!extra_roles)
+    extra_roles = g_ptr_array_new ();
+
+  g_ptr_array_add (extra_roles, g_strdup (name));
+  return extra_roles->len + ATK_ROLE_LAST_DEFINED;
 }
 
 /**
@@ -1082,7 +1086,7 @@ atk_role_get_name (AtkRole role)
 {
   GTypeClass *type_class;
   GEnumValue *value;
-  gchar *name;
+  gchar *name = NULL;
 
   type_class = g_type_class_ref (ATK_TYPE_ROLE);
   g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
@@ -1091,12 +1095,19 @@ atk_role_get_name (AtkRole role)
 
   if (value)
     {
-      name = value->value_name;
+      name = value->value_nick;
     }
   else
     {
-      value = g_enum_get_value (G_ENUM_CLASS (type_class), ATK_ROLE_INVALID);
-      name = value->value_name;
+      if (extra_roles)
+        {
+          gint n = role;
+
+          n -= ATK_ROLE_LAST_DEFINED + 1;
+
+          if (n < extra_roles->len)
+            name = g_ptr_array_index (extra_roles, n);
+        }
     }
   g_type_class_unref (type_class);
   return name;
@@ -1117,14 +1128,14 @@ atk_role_for_name (const gchar *name)
 {
   GTypeClass *type_class;
   GEnumValue *value;
-  AtkRole role;
+  AtkRole role = ATK_ROLE_INVALID;
 
   g_return_val_if_fail (name, ATK_ROLE_INVALID);
 
   type_class = g_type_class_ref (ATK_TYPE_ROLE);
   g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), ATK_ROLE_INVALID);
 
-  value = g_enum_get_value_by_name (G_ENUM_CLASS (type_class), name);
+  value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
 
   if (value)
     {
@@ -1132,7 +1143,23 @@ atk_role_for_name (const gchar *name)
     }
   else
     {
-      role = ATK_ROLE_INVALID;
+     gint i;
+
+      if (extra_roles)
+        {
+          for (i = 0; i < extra_roles->len; i++)
+            {
+              gchar *extra_role = (gchar *)g_ptr_array_index (extra_roles, i);
+
+              g_return_val_if_fail (extra_role, ATK_ROLE_INVALID);
+
+              if (strcmp (name, extra_role) == 0)
+                {
+                  role = i + 1 + ATK_ROLE_LAST_DEFINED;
+                  break;
+                }
+            }
+        }
     }
   g_type_class_unref (type_class);
   

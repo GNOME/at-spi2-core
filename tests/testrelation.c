@@ -22,6 +22,7 @@
 #include <string.h>
 
 static gboolean  test_relation (void);
+static gboolean  test_role (void);
 
 static gboolean
 test_relation (void)
@@ -41,7 +42,7 @@ test_relation (void)
   g_return_val_if_fail (name, FALSE);
   if (strcmp (name, "node-child-of") != 0)
     {
-      g_print ("Unexpected name for ATK_STATE_MODAL %s\n", name);
+      g_print ("Unexpected name for ATK_RELATION_NODE_CHILD_OF %s\n", name);
       return FALSE;
     }
 
@@ -84,6 +85,67 @@ test_relation (void)
   return TRUE;
 }
 
+static gboolean
+test_role (void)
+{
+  AtkRole role1, role2;
+  G_CONST_RETURN gchar *name;
+
+  name = atk_role_get_name (ATK_ROLE_PAGE_TAB);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "page-tab") != 0)
+    {
+      g_print ("Unexpected name for ATK_ROLE_PAGE_TAB %s\n", name);
+      return FALSE;
+    }
+
+  name = atk_role_get_name (ATK_ROLE_LAYERED_PANE);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "layered-pane") != 0)
+    {
+      g_print ("Unexpected name for ATK_ROLE_LAYERED_PANE %s\n", name);
+      return FALSE;
+    }
+
+  role1 = atk_role_for_name ("list-item");
+  if (role1 != ATK_ROLE_LIST_ITEM)
+    {
+      g_print ("Unexpected role for list_item\n");
+      return FALSE;
+    }
+
+  role1 = atk_role_register ("test-role");
+  name = atk_role_get_name (role1);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "test-role") != 0)
+    {
+      g_print ("Unexpected name for test-role %s\n", name);
+      return FALSE;
+    }
+  role2 = atk_role_for_name ("test-role");
+  if (role1 != role2)
+  {
+    g_print ("Unexpected role for test-role\n");
+    return FALSE;
+  }
+  role2 = atk_role_for_name ("TEST_ROLE");
+  if (role2 != 0)
+    {
+      g_print ("Unexpected role for TEST_ROLE\n");
+      return FALSE;
+    }
+  /*
+   * Check that a non-existent type returns NULL
+   */
+  name = atk_role_get_name (ATK_ROLE_LAST_DEFINED + 2);
+  if (name)
+    {
+      g_print ("Unexpected name for undefined role %s\n", name);
+      return FALSE;
+    }
+  return TRUE;
+}
+
 int
 gtk_module_init (gint  argc, 
                  char* argv[])
@@ -97,5 +159,10 @@ gtk_module_init (gint  argc,
     g_print ("Relation tests succeeded\n");
   else
     g_print ("Relation tests failed\n");
+  b_ret = test_role ();
+  if (b_ret)
+    g_print ("Role tests succeeded\n");
+  else
+    g_print ("Role tests failed\n");
   return 0;
 }

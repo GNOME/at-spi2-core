@@ -1,3 +1,13 @@
+2001-12-04  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c:
+	Update atk_role_register() to allow extra roles to be defined
+	Update atk_role_get_name() and atk_role_for_name() for newly defined
+	roles
+
+	* tests/testrelation.c:
+	Add tests for roles
+
 2001-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkrelation.c:
