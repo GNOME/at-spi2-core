@@ -1,5 +1,62 @@
 #include <cspi/spi-private.h>
 
+static void
+svalue_set_from_float (Accessibility_SValue *sval, float newValue)
+{
+  switch (sval->_d)
+    {
+      case Accessibility_SHORTVAL:
+        sval->_u.val_short = CLAMP (newValue, G_MINSHORT, G_MAXSHORT);
+        break;
+      case Accessibility_USHORTVAL:	    
+        sval->_u.val_ushort = CLAMP (newValue, 0, G_MAXUSHORT);
+        break;
+      case Accessibility_LONGVAL:	    
+        sval->_u.val_long = CLAMP (newValue, G_MINLONG, G_MAXLONG);
+        break;
+      case Accessibility_ULONGVAL:	    
+        sval->_u.val_ulong = CLAMP (newValue, 0, G_MAXULONG);
+        break;
+      case Accessibility_FLOATVAL:	    
+        sval->_u.val_float = newValue;
+        break;
+      case Accessibility_DOUBLEVAL:	    
+        sval->_u.val_double = newValue;
+        break;
+    }
+}
+
+
+static float
+svalue_to_float (Accessibility_SValue *sval)
+{
+  float retval = 0.0;
+  switch (sval->_d)
+    {
+      case Accessibility_SHORTVAL:
+        retval = sval->_u.val_short;
+        break;
+      case Accessibility_USHORTVAL:	    
+        retval = sval->_u.val_ushort;
+        break;
+      case Accessibility_LONGVAL:	    
+        retval = sval->_u.val_long;
+        break;
+      case Accessibility_ULONGVAL:	    
+        retval = sval->_u.val_ulong;
+        break;
+      case Accessibility_FLOATVAL:	    
+        retval = sval->_u.val_float;
+        break;
+      case Accessibility_DOUBLEVAL:	    
+        retval = sval->_u.val_double;
+        break;
+    }
+
+  return retval;
+}
+
+
 /**
  * AccessibleValue_ref:
  * @obj: a pointer to the #AccessibleValue implementor on which to operate.
@@ -36,16 +93,16 @@ AccessibleValue_unref (AccessibleValue *obj)
 float
 AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
-  float retval;
+  Accessibility_SValue sval;
 
   cspi_return_val_if_fail (obj != NULL, 0.0);
 
-  retval = 
+  sval = 
     Accessibility_Value__get_minimumValue (CSPI_OBJREF (obj), cspi_ev ());
-
+  
   cspi_return_val_if_ev ("getMinimumValue", 0.0);
 
-  return retval;
+  return svalue_to_float (&sval);
 }
 
 /**
@@ -59,16 +116,16 @@ AccessibleValue_getMinimumValue (AccessibleValue *obj)
 float
 AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
-  float retval;
+  Accessibility_SValue sval;
 
   cspi_return_val_if_fail (obj != NULL, 0.0);
 
-  retval =
+  sval =
     Accessibility_Value__get_currentValue (CSPI_OBJREF (obj), cspi_ev ());
 
   cspi_return_val_if_ev ("getCurrentValue", 0.0);
 
-  return retval;
+  return svalue_to_float (&sval);
 }
 
 /**
@@ -82,16 +139,16 @@ AccessibleValue_getCurrentValue (AccessibleValue *obj)
 float
 AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
-  float retval;
+  Accessibility_SValue sval;
 
   cspi_return_val_if_fail (obj != NULL, 0.0);
 
-  retval =
+  sval =
     Accessibility_Value__get_maximumValue (CSPI_OBJREF (obj), cspi_ev ());
 
   cspi_return_val_if_ev ("getMaximumValue", 0.0);
 
-  return retval;
+  return svalue_to_float (&sval);
 }
 
 /**
@@ -108,10 +165,17 @@ SPIBoolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {
+  Accessibility_SValue sval;	
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
+  /* erk, this is ugly */
+  sval = Accessibility_Value__get_currentValue (
+    CSPI_OBJREF (obj), cspi_ev ());
+
+  svalue_set_from_float (&sval, newValue);
+  
   Accessibility_Value__set_currentValue (
-    CSPI_OBJREF (obj), (CORBA_float) newValue, cspi_ev ());
+    CSPI_OBJREF (obj), &sval, cspi_ev ());
 
   cspi_return_val_if_ev ("setCurrentValue", FALSE);
 

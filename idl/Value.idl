@@ -22,10 +22,28 @@
 
 module Accessibility {
 
+  enum ValueType {
+	  SHORTVAL, 
+	  USHORTVAL,
+	  LONGVAL,
+	  ULONGVAL,
+	  FLOATVAL,
+	  DOUBLEVAL
+  };
+
+  union SValue switch (ValueType) {
+	  case Accessibility::SHORTVAL:  short val_short;
+	  case Accessibility::USHORTVAL: unsigned short val_ushort;
+	  case Accessibility::LONGVAL:   long val_long;
+	  case Accessibility::ULONGVAL:  unsigned long val_ulong;
+	  case Accessibility::FLOATVAL:  float val_float;
+	  case Accessibility::DOUBLEVAL: double val_double;
+  };
+
   interface Value : Bonobo::Unknown {
-    readonly attribute float minimumValue;
-    readonly attribute float maximumValue;
-    readonly attribute float minimumIncrement;
-    attribute float currentValue;
+    readonly attribute SValue minimumValue;
+    readonly attribute SValue maximumValue;
+    readonly attribute SValue minimumIncrement;
+    attribute SValue currentValue;
   };
 };

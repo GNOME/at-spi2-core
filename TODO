@@ -1,9 +1,11 @@
 TODO:
 
 idl: 
-      possibly change Value.idl interface to return a value union. [Bill]
+      possibly change Value.idl interface to return a value
+union. [Bill] *DONE*
+
 cspi: 
-      API change required if above IDL change is made.
+      API change required if above IDL change is made. [Bill]
 
 libspi: 
 

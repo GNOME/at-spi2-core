@@ -1,4 +1,21 @@
+2001-12-11  Bill Haneman  <bill.haneman@sun.com>
 
+	* idl/Value.idl:
+	Changed Value interface to use SValue (scalars) rather than
+	assuming all values are floats.  This allows floats, doubles,
+	longs, shorts, and unsigned values to be manipulated.
+	Introduced Accessibility:SValue union.
+
+	* libspi/value.c:
+	Updated to use new API above, and to work correctly with GValues
+	of different types in AtkValue.
+
+	* cspi/spi_value.c:
+	Updated to use new API above.  cspi's API is as yet unchanged.
+
+	* TODO: 
+	Updated the Value revision action item.
+	
 2001-12-10  Bill Haneman  <bill.haneman@sun.com>
 
 	* test/test-simple.c:
