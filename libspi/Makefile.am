@@ -24,6 +24,7 @@ libspiinclude_HEADERS =		\
 	hyperlink.h		\
 	hypertext.h		\
 	image.h			\
+	devicelistener.h	\
 	keystrokelistener.h	\
 	keymasks.h		\
 	libspi.h		\
@@ -74,7 +75,7 @@ libspi_la_SOURCES =		\
 	hyperlink.c		\
 	hypertext.c		\
 	image.c			\
-	keystrokelistener.c	\
+	devicelistener.c	\
 	relation.c		\
 	remoteobject.c		\
 	selection.c		\

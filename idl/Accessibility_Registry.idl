@@ -153,6 +153,7 @@ module Accessibility {
 	void unImplemented2 ();
     };
 
+  /* Deprecated, DO NOT USE! */
   enum KeyEventType {
     KEY_PRESSED,
     KEY_RELEASED
@@ -160,7 +161,9 @@ module Accessibility {
 
   enum EventType {
     KEY_PRESSED_EVENT,
-    KEY_RELEASED_EVENT
+    KEY_RELEASED_EVENT,
+    BUTTON_PRESSED_EVENT,
+    BUTTON_RELEASED_EVENT
   };
 
   enum KeySynthType {
@@ -208,10 +211,15 @@ module Accessibility {
   };	
 
   typedef sequence< KeyDefinition > KeySet;
-  typedef sequence< KeyEventType > KeyEventTypeSeq;
+  typedef sequence< EventType > KeyEventTypeSeq;
+  typedef sequence< EventType > EventTypeSeq;
 
   interface DeviceEventListener : Bonobo::Unknown {
         boolean notifyEvent (in DeviceEvent event);
+        void    unImplemented__ ();
+        void    unImplemented_2_ ();
+        void    unImplemented_3_ ();
+        void    unImplemented_4_ ();
   };
 
   interface DeviceEventController : Bonobo::Unknown {
@@ -254,6 +262,34 @@ module Accessibility {
 					  in KeySet keys,
 					  in ControllerEventMask mask,
 					  in KeyEventTypeSeq type);
+    
+  	/**
+         * registerDeviceEventListener:
+         * @listener: a @DeviceEventListener which will intercept events.
+	 * @typeseq:  an @EventTypeSeq indicating which event types to listen for.
+	 * Returns: %true if successful, %false if not
+         *
+         * Register to intercept events, and either pass them on or
+         * consume them. To listen to keyboard events use registerKeystrokeListener
+	 * instead.
+         *
+	 **/
+        boolean registerDeviceEventListener (in DeviceEventListener listener,
+					     in EventTypeSeq typeseq);
+    
+  	/**
+         * deregisterDeviceEventListener:
+         * @listener: a @DeviceEventListener which will intercept events.
+	 * @typeseq:  an @EventTypeSeq indicating which event types to stop
+	 *            listening for.
+	 *
+	 * Returns: void
+         *
+         * De-register a previously registered keyboard eventlistener.
+         *
+	 **/
+        void deregisterDeviceEventListener (in DeviceEventListener listener,
+					    in EventTypeSeq typeseq);
     
         boolean notifyListenersSync (in DeviceEvent event);
 

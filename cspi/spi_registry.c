@@ -337,6 +337,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
   Accessibility_EventListenerMode     listener_mode;
+  Accessibility_KeyEventType          key_event_types [2];
   SPIBoolean                          retval = FALSE;
 
   if (!listener)
@@ -360,7 +361,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
 	  key_set._buffer[i].keysym = keys->keysyms[i];
 	  if (keys->keystrings && keys->keystrings[i]) 
 	    {
-	      key_set._buffer[i].keystring = keys->keystrings[i];
+	      key_set._buffer[i].keystring = CORBA_string_dup(keys->keystrings[i]);
 	    } 
           else 
             {
@@ -375,20 +376,8 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
     }
 	
   /* copy the event filter values from the C api into the CORBA KeyEventTypeSeq */
-  mask = 1;
   i = 0;
-  do
-    {
-      if (mask & eventmask)
-        {
-          ++i; 
-	}
-      mask <<= 1;
-    }
-  while (mask & 0xFFFF);
-  
-  key_events._buffer = Accessibility_KeyEventTypeSeq_allocbuf (i);
-  i = 0;
+  key_events._buffer = key_event_types;
   if (eventmask & SPI_KEY_PRESSED)
     {
       key_events._buffer[i++] = Accessibility_KEY_PRESSED;
@@ -416,6 +405,8 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
     &key_events,
     &listener_mode,
     cspi_ev ());
+
+  CORBA_free (key_set._buffer);
 
   cspi_return_val_if_ev ("registering keystroke listener", FALSE);
 
@@ -469,6 +460,111 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
     &key_set,
     controller_event_mask,
     &key_events,
+    cspi_ev ());
+
+  cspi_release_unref (device_event_controller);
+
+  return TRUE;
+}
+
+/**
+ * SPI_registerDeviceEventListener:
+ * @listener:  a pointer to the #AccessibleDeviceListener which requests
+ *             the events.
+ * @eventmask: an #AccessibleDeviceEventMask mask indicating which
+ *             types of key events are requested (#SPI_KEY_PRESSED, etc.).
+ *             
+ * Register a listener for device events, for instance button events.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ **/
+SPIBoolean
+SPI_registerDeviceEventListener (AccessibleDeviceListener  *listener,
+				 AccessibleDeviceEventMask  eventmask,
+				 void                      *filter)
+{
+  Accessibility_DeviceEventController device_event_controller;
+  SPIBoolean                          retval = FALSE;
+  Accessibility_EventTypeSeq          event_types;
+  Accessibility_EventType             event_type_buffer[2];
+  gint                                i, mask;
+
+  if (!listener)
+    {
+      return retval;
+    }
+
+  device_event_controller = 
+    Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
+
+  cspi_return_val_if_ev ("getting event controller", FALSE);
+
+  /* copy the event filter values from the C api into the CORBA KeyEventTypeSeq */
+  
+  event_types._buffer = event_type_buffer;
+  i = 0;
+
+  if (eventmask & SPI_BUTTON_PRESSED)
+    {
+      event_types._buffer[i++] = Accessibility_BUTTON_PRESSED_EVENT;
+    }
+  if (eventmask & SPI_BUTTON_RELEASED)
+    {
+      event_types._buffer[i++] = Accessibility_BUTTON_RELEASED_EVENT;
+    }
+
+  event_types._length = i;
+  
+  retval = Accessibility_DeviceEventController_registerDeviceEventListener (
+    device_event_controller,
+    cspi_event_listener_get_corba (listener),
+    &event_types,
+    cspi_ev ());
+
+  cspi_return_val_if_ev ("registering keystroke listener", FALSE);
+
+  cspi_release_unref (device_event_controller);
+
+  return retval;
+}
+
+/**
+ * SPI_deregisterDeviceEventListener:
+ * @listener: a pointer to the #AccessibleDeviceListener for which
+ *            device events are requested.
+ *
+ * Removes a device event listener from the registry's listener queue,
+ *            ceasing notification of events of the specified type.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ **/
+SPIBoolean
+SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
+				   void                     *filter)
+{
+  Accessibility_ControllerEventMask   controller_event_mask;
+  Accessibility_DeviceEventController device_event_controller;
+  Accessibility_EventTypeSeq       event_types;
+
+  if (!listener)
+    {
+      return FALSE;
+    }
+
+  device_event_controller = 
+    Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
+
+  cspi_return_val_if_ev ("getting keystroke listener", FALSE);
+
+  event_types._buffer = Accessibility_EventTypeSeq_allocbuf (2);
+  event_types._length = 2;
+  event_types._buffer[0] = Accessibility_BUTTON_PRESSED_EVENT;
+  event_types._buffer[1] = Accessibility_BUTTON_RELEASED_EVENT;
+
+  Accessibility_DeviceEventController_deregisterDeviceEventListener (
+    device_event_controller,
+    cspi_event_listener_get_corba (listener),
+    &event_types,    
     cspi_ev ());
 
   cspi_release_unref (device_event_controller);

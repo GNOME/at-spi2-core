@@ -49,7 +49,7 @@ static AccessibleKeySet            *tab_keyset;
 int
 main (int argc, char **argv)
 {
-  char *tab_strings[1];
+  const char *tab_strings[1] = {"Tab"};
   short keycodes[] = {65, 64, 23};
   SPIBoolean retval = FALSE;
 	
@@ -65,7 +65,6 @@ main (int argc, char **argv)
   command_keyset = SPI_createAccessibleKeySet (1, "q", NULL, NULL);
   async_keyset = SPI_createAccessibleKeySet (3, NULL, keycodes, NULL);
   sync_keyset = SPI_createAccessibleKeySet (3, "def", NULL, NULL);
-  tab_strings[0] = "Tab";
   tab_keyset = SPI_createAccessibleKeySet (1,  NULL, NULL, tab_strings);
   retval = SPI_registerAccessibleKeystrokeListener(command_key_listener,
 			       		  command_keyset,

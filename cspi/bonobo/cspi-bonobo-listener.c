@@ -3,6 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2002 Ximian Inc.
+ * Copyright 2002 Sun Microsystems, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,14 +30,14 @@ typedef struct
   union
     {
       AccessibleEventListenerCB     event;
-      AccessibleKeystrokeListenerCB key_event;
+      AccessibleDeviceListenerCB    device_event;
       gpointer                      method;
     } cb;
   gpointer user_data;
 } EventHandler;
 
 GObjectClass *event_parent_class;
-GObjectClass *keystroke_parent_class;
+GObjectClass *device_parent_class;
 
 /*
  * Misc. helpers.
@@ -175,55 +176,48 @@ cspi_event_listener_remove_cb (AccessibleEventListener  *al,
   listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, callback);
 }
 
-/*
- * Key event dispatcher
+/* 
+ * Device event handler
  */
 static gboolean
-cspi_key_event (SpiKeystrokeListener            *listener,
-		const Accessibility_DeviceEvent *keystroke)
+cspi_device_event (SpiDeviceListener               *listener,
+		   const Accessibility_DeviceEvent *event)
 {
   GList *l;
-  CSpiKeystrokeListener *clistener = (CSpiKeystrokeListener *) listener;
-  AccessibleKeystroke akeystroke;
+  CSpiDeviceListener *clistener = (CSpiDeviceListener *) listener;
+  AccessibleDeviceEvent anevent;
   gboolean handled = FALSE;
 
-#ifdef SPI_KEYEVENT_DEBUG
-  fprintf (stderr, "%s%c",
-	   (keystroke->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
-	   ((keystroke->modifiers & SPI_KEYMASK_SHIFT)^(keystroke->modifiers & SPI_KEYMASK_SHIFTLOCK))?
-	   (char) toupper((int) keystroke->keyID) : (char) tolower((int) keystroke->keyID));
-  
-  fprintf (stderr, "Key:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
-	   (long) keystroke->keyID,
-	   (unsigned int) keystroke->modifiers,
-	   (int) keystroke->keycode,
-	   (long int) keystroke->timestamp);
-#endif
-
-  switch (keystroke->type)
+  switch (event->type)
     {
-      case Accessibility_KEY_PRESSED:
-	akeystroke.type = SPI_KEY_PRESSED;
+      case Accessibility_KEY_PRESSED_EVENT:
+	anevent.type = SPI_KEY_PRESSED;
 	break;
-      case Accessibility_KEY_RELEASED:
-	akeystroke.type = SPI_KEY_RELEASED;
+      case Accessibility_KEY_RELEASED_EVENT:
+	anevent.type = SPI_KEY_RELEASED;
+	break;
+      case Accessibility_BUTTON_PRESSED_EVENT:
+	anevent.type = SPI_BUTTON_PRESSED;
+	break;
+      case Accessibility_BUTTON_RELEASED_EVENT:
+	anevent.type = SPI_BUTTON_RELEASED;
 	break;
       default:
-	akeystroke.type = 0;
+	anevent.type = 0;
 	break;
     }
-  akeystroke.keyID     = keystroke->id;
-  akeystroke.keycode   = keystroke->hw_code;
-  akeystroke.timestamp = keystroke->timestamp;
-  akeystroke.keystring = g_strdup (keystroke->event_string);
-  akeystroke.modifiers = keystroke->modifiers;
+  anevent.keyID     = event->id;
+  anevent.keycode   = event->hw_code;
+  anevent.timestamp = event->timestamp;
+  anevent.keystring = g_strdup (event->event_string);
+  anevent.modifiers = event->modifiers;
 
   /* FIXME: re-enterancy hazard on this list */
   for (l = clistener->callbacks; l; l = l->next)
     {
       EventHandler *eh = l->data;
 
-      if ((handled = eh->cb.key_event (&akeystroke, eh->user_data)))
+      if ((handled = eh->cb.device_event (&anevent, eh->user_data)))
         {
 	  break;
 	}
@@ -233,15 +227,14 @@ cspi_key_event (SpiKeystrokeListener            *listener,
 }
 
 static void
-cspi_keystroke_listener_init (CSpiKeystrokeListener *listener)
+cspi_device_listener_init (CSpiDeviceListener *listener)
 {
 }
 
-
 static void
-cspi_keystroke_listener_finalize (GObject *object)
+cspi_device_listener_finalize (GObject *object)
 {
-  CSpiKeystrokeListener *listener = (CSpiKeystrokeListener *) object;
+  CSpiDeviceListener *listener = (CSpiDeviceListener *) object;
   GList *l;
   
   for (l = listener->callbacks; l; l = l->next)
@@ -251,54 +244,52 @@ cspi_keystroke_listener_finalize (GObject *object)
   
   g_list_free (listener->callbacks);
 
-  keystroke_parent_class->finalize (object);
+  device_parent_class->finalize (object);
 }
 
 static void
-cspi_keystroke_listener_class_init (CSpiKeystrokeListenerClass *klass)
+cspi_device_listener_class_init (CSpiDeviceListenerClass *klass)
 {
   GObjectClass *object_class = (GObjectClass *) klass;
 
-  keystroke_parent_class = g_type_class_peek_parent (klass);
-  object_class->finalize = cspi_keystroke_listener_finalize;
+  device_parent_class = g_type_class_peek_parent (klass);
+  object_class->finalize = cspi_device_listener_finalize;
 
-  klass->key_event = cspi_key_event;
+  klass->device_event = cspi_device_event;
 }
 
-BONOBO_TYPE_FUNC (CSpiKeystrokeListener, 
-		  spi_keystroke_listener_get_type (),
-		  cspi_keystroke_listener);
+BONOBO_TYPE_FUNC (CSpiDeviceListener, 
+		  spi_device_listener_get_type (),
+		  cspi_device_listener);
 
 gpointer
-cspi_keystroke_listener_new (void)
+cspi_device_listener_new (void)
 {
-  CSpiEventListener *listener;
-
-  listener = g_object_new (cspi_keystroke_listener_get_type (), NULL);
+  CSpiEventListener *listener = g_object_new (cspi_device_listener_get_type (), NULL);
 
   return listener;
 }
 
 void
-cspi_keystroke_listener_add_cb (AccessibleKeystrokeListener  *al,
-				AccessibleKeystrokeListenerCB callback,
-				void                         *user_data)
+cspi_device_listener_add_cb (AccessibleDeviceListener  *al,
+			     AccessibleDeviceListenerCB callback,
+			     void                      *user_data)
 {
-  CSpiKeystrokeListener *listener = al;
+  CSpiDeviceListener *listener = al;
 
-  g_return_if_fail (CSPI_IS_KEYSTROKE_LISTENER (listener));
+  g_return_if_fail (CSPI_IS_DEVICE_LISTENER (listener));
 
   listener->callbacks = g_list_prepend (listener->callbacks,
 					cspi_event_handler_new (callback, user_data));
 }
 
 void
-cspi_keystroke_listener_remove_cb (AccessibleKeystrokeListener  *al,
-				   AccessibleKeystrokeListenerCB callback)
+cspi_device_listener_remove_cb (AccessibleDeviceListener  *al,
+				AccessibleDeviceListenerCB callback)
 {
-  CSpiKeystrokeListener *listener = al;
+  CSpiDeviceListener *listener = al;
 
-  g_return_if_fail (CSPI_IS_KEYSTROKE_LISTENER (listener));
+  g_return_if_fail (CSPI_IS_DEVICE_LISTENER (listener));
 
   listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, callback);
 }
@@ -310,7 +301,7 @@ cspi_event_listener_unref (AccessibleEventListener *listener)
 }
 
 void
-cspi_keystroke_listener_unref (AccessibleKeystrokeListener *listener)
+cspi_device_listener_unref (AccessibleDeviceListener *listener)
 {
   bonobo_object_unref (BONOBO_OBJECT (listener));
 }
@@ -323,7 +314,7 @@ cspi_event_listener_get_corba (AccessibleEventListener *listener)
 }
 
 CORBA_Object
-cspi_keystroke_listener_get_corba (AccessibleKeystrokeListener *listener)
+cspi_device_listener_get_corba (AccessibleDeviceListener *listener)
 {
   return BONOBO_OBJREF (listener);
 }

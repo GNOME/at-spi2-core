@@ -171,7 +171,6 @@ increment_scan (gpointer data)
       case SCAN_LINES_DONE:
       case SCAN_KEYS_DONE:
 	  return FALSE;
-      default:
     }
   return TRUE;
 }

@@ -104,6 +104,25 @@ AccessibleAction_getDescription (AccessibleAction *obj,
  *
  * Get the keybindings for the @i-th action invokable on an
  *      object implementing #AccessibleAction, if any are defined.
+ *      The keybindings string format is as follows:
+ *        there are multiple parts to a keybinding string (typically 3).
+ *        They are delimited with ";".  The first is the action's
+ *        keybinding which is usable if the object implementing the action
+ *        is currently posted to the screen, e.g. if a menu is posted 
+ *        then these keybindings for the corresponding menu-items are
+ *        available.  The second keybinding substring is the full key sequence
+ *        necessary to post the action's widget and activate it, e.g. for
+ *        a menu item such as "File->Open" it would both post the menu and
+ *        activate the item.  Thus the second keybinding string is available
+ *        during the lifetime of the containing toplevel window as a whole,
+ *        whereas the first keybinding string only works while the object
+ *        implementing AtkAction is posted.  The third (and optional)
+ *        keybinding string is the "keyboard shortcut" which invokes the 
+ *        action without posting any menus. 
+ *        Meta-keys are indicated by the conventional strings
+ *        "<Control>", "<Alt>", "<Shift>", "<Mod2>",
+ *        etc. (we use the same string as gtk_accelerator_name() in 
+ *        gtk+-2.X.
  *
  * Returns: a UTF-8 string which can be parsed to determine the @i-th
  *       invokable action's keybindings.

@@ -212,7 +212,7 @@ _string_from_attribute_set (AtkAttributeSet *set)
       tmp = g_strdup_printf ("%s%s:%s%s",
 			     ((GSList *)(set) == cur_attr) ? "" : " ",
 			     at->name, at->value,
-			     (cur_attr->next) ? ", " : "");
+			     (cur_attr->next) ? ";" : "");
       tmp2 = g_strconcat (attributes, tmp, NULL);
       g_free (tmp);
       g_free (attributes);

@@ -1,6 +1,6 @@
 NULL=
 
-noinst_PROGRAMS = test-simple at app simple-at stress-test keysynth-demo accessx-gui key-listener-test event-listener-test screen-review-test visual-bell
+noinst_PROGRAMS = test-simple at app simple-at stress-test keysynth-demo key-listener-test event-listener-test screen-review-test visual-bell
 
 key_listener_test_SOURCES = key-listener-test.c
 
@@ -19,8 +19,6 @@ app_SOURCES = app.c
 simple_at_SOURCES = simple-at.c 
 
 keysynth_demo_SOURCES = keysynth-demo.c 
-
-accessx_gui_SOURCES = accessx-gui.c 
 
 test_simple_SOURCES = test-simple.c 
 

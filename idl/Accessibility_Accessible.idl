@@ -124,6 +124,11 @@ module Accessibility {
      * Returns: a @StateSet encapsulating the currently true states of the object.
      **/
     StateSet	getState ();
+
+    void        unImplemented ();
+    void        unImplemented2 ();
+    void        unImplemented3 ();
+    void        unImplemented4 ();
   };
 };
 

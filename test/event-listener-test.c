@@ -30,10 +30,12 @@ static void traverse_accessible_tree (Accessible *accessible);
 static void report_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
 static void timing_test_event (const AccessibleEvent *event, void *user_data);
+static SPIBoolean report_mouse_event  (const AccessibleDeviceEvent *event, void *user_data);
 
 static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *specific_listener;
 static AccessibleEventListener *test_listener;
+static AccessibleDeviceListener *mouse_device_listener;
 static gint n_elements_traversed = 0;
 static GTimer *timer;
 
@@ -86,6 +88,8 @@ main (int argc, char **argv)
 	  report_detail_event, NULL); 
   test_listener = SPI_createAccessibleEventListener (
 	  timing_test_event, NULL);
+  mouse_device_listener = SPI_createAccessibleDeviceListener (
+          report_mouse_event, NULL);
 
   SPI_registerGlobalEventListener (generic_listener,
 				   "focus:");
@@ -97,6 +101,9 @@ main (int argc, char **argv)
       SPI_registerGlobalEventListener (specific_listener,
 				       "mouse:abs");
   }
+  SPI_registerDeviceEventListener (mouse_device_listener, 
+				   SPI_BUTTON_PRESSED | SPI_BUTTON_RELEASED,
+				   NULL);
   SPI_registerGlobalEventListener (specific_listener,
 				   "keyboard:modifiers");
   SPI_registerGlobalEventListener (generic_listener,
@@ -253,6 +260,17 @@ report_detail_event (const AccessibleEvent *event, void *user_data)
   fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
 	   event->detail1, event->detail2);
   if (s) SPI_freeString (s);
+}
+
+SPIBoolean
+report_mouse_event (const AccessibleDeviceEvent *event, void *user_data)
+{
+  fprintf (stderr, "mouse event %ld %d %x %x\n", 
+	   event->keyID, 
+	   (int) event->keycode,
+	   (unsigned) event->type,
+	   (unsigned) event->modifiers);
+  return FALSE;
 }
 
 void

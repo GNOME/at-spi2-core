@@ -631,7 +631,6 @@ impl_registry_notify_event (PortableServer_Servant     servant,
 
 }
 
-
 static void
 spi_registry_class_init (SpiRegistryClass *klass)
 {

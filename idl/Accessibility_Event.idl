@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface 
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -30,14 +30,18 @@ module Accessibility
   interface Accessible;
 
   struct Event {
-    string type;
+    string     type;
     Accessible source;
-    long detail1;
-    long detail2;
+    long       detail1;
+    long       detail2;
   };
 
   interface EventListener : Bonobo::Unknown {
     void notifyEvent (in Event e);
+    void unImplemented_ ();
+    void unImplemented2_ ();
+    void unImplemented3_ ();
+    void unImplemented4_ ();
   };
 };
 

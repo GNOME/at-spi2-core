@@ -129,7 +129,7 @@ create_test_window (void)
 					   GTK_ICON_SIZE_LARGE_TOOLBAR);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
-	widget = g_object_new (GTK_TYPE_RANGE, NULL);
+	widget = g_object_new (GTK_TYPE_HSCALE, NULL);
 	gtk_range_set_range (GTK_RANGE (widget), 0.0, 100.0);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
@@ -157,8 +157,8 @@ test_roles (void)
 	for (i = -1; i < 1000; i++)
 		g_assert (AccessibleRole_getName (i) != NULL);
 
-	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_FILE_CHOOSER), "file chooser"));
-	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_RADIO_BUTTON), "radiobutton"));
+	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_FILE_CHOOSER), "file-chooser"));
+	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_RADIO_BUTTON), "radio-button"));
 	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_TABLE), "table"));
 	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_WINDOW), "window"));
 }
@@ -692,7 +692,6 @@ key_listener_cb (const AccessibleKeystroke *stroke,
 static void
 test_keylisteners (void)
 {
-#ifdef BILL_MAKES_THIS_WORK_RELIABLY
 	int i;
 	AccessibleKeystroke stroke;
 	AccessibleKeystrokeListener *key_listener;
@@ -704,7 +703,7 @@ test_keylisteners (void)
 		key_listener_cb, &stroke);
 
 	test_keyset = SPI_createAccessibleKeySet (1, "=", NULL, NULL);
-	
+
 	g_assert (SPI_registerAccessibleKeystrokeListener (
 		key_listener,
 		test_keyset,
@@ -736,7 +735,6 @@ test_keylisteners (void)
         g_assert (SPI_generateMouseEvent (-50, -50, "rel"));		  
         g_assert (SPI_generateMouseEvent (-50, -50, "rel"));		  
         g_assert (SPI_generateMouseEvent (-1, -1, "b1c")); 
-#endif
 }
 
 int
@@ -771,6 +769,7 @@ main (int argc, char **argv)
 	win = create_test_window ();
 
 	global_listener = SPI_createAccessibleEventListener (global_listener_cb, win);
+
 	g_assert (SPI_registerGlobalEventListener (global_listener, "focus:"));
 
 	fprintf (stderr, "Waiting for focus event ...\n");

@@ -99,6 +99,11 @@ module Accessibility {
      * Returns: %true if the request succeeded, %false otherwise.
      **/
     boolean       resume ();
+
+    void          unImplemented_ ();
+    void          unImplemented2_ ();
+    void          unImplemented3_ ();
+    void          unImplemented4_ ();
   };
 };
 

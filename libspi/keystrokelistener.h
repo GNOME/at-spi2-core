@@ -24,35 +24,22 @@
 #ifndef SPI_KEYSTROKE_LISTENER_H_
 #define SPI_KEYSTROKE_LISTENER_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atkobject.h>
-#include <libspi/Accessibility.h>
-#include <libspi/keymasks.h>
-
 G_BEGIN_DECLS
 
-#define SPI_KEYSTROKE_LISTENER_TYPE        (spi_keystroke_listener_get_type ())
-#define SPI_KEYSTROKE_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_KEYSTROKE_LISTENER_TYPE, SpiKeystrokeListener))
-#define SPI_KEYSTROKE_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_KEYSTROKE_LISTENER_TYPE, SpiKeystrokeListenerClass))
+#include <libspi/devicelistener.h>
+
+#define SPI_KEYSTROKE_LISTENER_TYPE        SPI_DEVICE_LISTENER_TYPE
+#define SPI_KEYSTROKE_LISTENER(o)          SPI_DEVICE_LISTENER(o)
+#define SPI_KEYSTROKE_LISTENER_CLASS(k)    SPI_DEVICE_LISTENER_CLASS(k)
 #define SPI_IS_KEYSTROKE_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_KEYSTROKE_LISTENER_TYPE))
 #define SPI_IS_KEYSTROKE_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_KEYSTROKE_LISTENER_TYPE))
 
-typedef struct _SpiKeystrokeListener SpiKeystrokeListener;
+typedef struct _SpiDeviceListener SpiKeystrokeListener;
 
-struct _SpiKeystrokeListener {
-        BonoboObject parent;
-};
+typedef SpiDeviceListenerClass SpiKeystrokeListenerClass;
 
-typedef struct {
-        BonoboObjectClass parent_class;
-        POA_Accessibility_DeviceEventListener__epv epv;
-
-	gboolean (*key_event) (SpiKeystrokeListener *listener,
-			       const Accessibility_DeviceEvent *key);
-} SpiKeystrokeListenerClass;
-
-GType                  spi_keystroke_listener_get_type        (void);
-SpiKeystrokeListener  *spi_keystroke_listener_new             (void);
+#define spi_keystroke_listener_get_type spi_device_listener_get_type
+#define spi_keystroke_listener_new      spi_device_listener_new
 
 G_END_DECLS
 

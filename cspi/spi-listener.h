@@ -42,19 +42,24 @@ typedef struct {
 
 typedef enum {
   SPI_KEY_PRESSED  = 1<<0,
-  SPI_KEY_RELEASED = 1<<1
-} AccessibleKeyEventType;
+  SPI_KEY_RELEASED = 1<<1,
+  SPI_BUTTON_PRESSED = 1<<2,
+  SPI_BUTTON_RELEASED = 1<<3
+} AccessibleDeviceEventType;
 
+typedef AccessibleDeviceEventType AccessibleKeyEventType;
 
 typedef struct {
   long                   keyID;
   short                  keycode;
   char *                 keystring;
   long                   timestamp;
-  AccessibleKeyEventType type;
+  AccessibleDeviceEventType type;
   unsigned short         modifiers;
   SPIBoolean             is_text;	
-} AccessibleKeystroke;
+} AccessibleDeviceEvent;
+
+typedef AccessibleDeviceEvent AccessibleKeystroke;
 
 /*
  * Function prototype typedefs for Event Listener Callbacks.
@@ -68,6 +73,8 @@ typedef struct {
 typedef void       (*AccessibleEventListenerCB)     (const AccessibleEvent     *event,
 						     void                      *user_data);
 typedef SPIBoolean (*AccessibleKeystrokeListenerCB) (const AccessibleKeystroke *stroke,
+						     void                      *user_data);
+typedef SPIBoolean (*AccessibleDeviceListenerCB)    (const AccessibleDeviceEvent *stroke,
 						     void                      *user_data);
 
 #ifdef  __cplusplus

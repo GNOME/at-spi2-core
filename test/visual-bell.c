@@ -138,7 +138,6 @@ int main (int argc, char **argv)
 				/* flash something */
 				visual_bell_notify (xkb_ev);
 				break;
-			default:
 			}
 		}
 	}

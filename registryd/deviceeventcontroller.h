@@ -26,7 +26,7 @@
 
 #include <bonobo/bonobo-object.h>
 #include <libspi/Accessibility.h>
-#include <libspi/keystrokelistener.h>
+#include <libspi/devicelistener.h>
 
 typedef struct _SpiDEController SpiDEController;
 

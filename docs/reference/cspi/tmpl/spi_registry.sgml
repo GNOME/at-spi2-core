@@ -83,13 +83,11 @@ Registry queries
 </para>
 
 
-<!-- ##### ENUM AccessibleKeyEventType ##### -->
+<!-- ##### TYPEDEF AccessibleKeyEventType ##### -->
 <para>
 
 </para>
 
-@SPI_KEY_PRESSED: 
-@SPI_KEY_RELEASED: 
 
 <!-- ##### ENUM AccessibleKeyListenerSyncType ##### -->
 <para>

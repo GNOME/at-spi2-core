@@ -52,6 +52,7 @@ typedef Accessible AccessibilityRegistry;
 
 typedef void AccessibleEventListener;
 typedef void AccessibleKeystrokeListener;
+typedef void AccessibleDeviceListener;
 
 typedef unsigned int SPIBoolean;
 

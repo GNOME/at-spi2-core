@@ -24,7 +24,7 @@
 #define __SPI_LISTENER_IMP_H__
 
 #include <libspi/eventlistener.h>
-#include <libspi/keystrokelistener.h>
+#include <libspi/devicelistener.h>
 #include <cspi/spi-impl.h>
 #include <cspi/spi-listener.h>
 
@@ -44,19 +44,20 @@ typedef SpiEventListenerClass CSpiEventListenerClass;
 
 GType cspi_event_listener_get_type (void);
 
-#define CSPI_KEYSTROKE_LISTENER_TYPE        (cspi_keystroke_listener_get_type ())
-#define CSPI_KEYSTROKE_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), CSPI_KEYSTROKE_LISTENER_TYPE, CSpiKeystrokeListener))
-#define CSPI_KEYSTROKE_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), CSPI_KEYSTROKE_LISTENER_TYPE, CSpiKeystrokeListenerClass))
-#define CSPI_IS_KEYSTROKE_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSPI_KEYSTROKE_LISTENER_TYPE))
-#define CSPI_IS_KEYSTROKE_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), CSPI_KEYSTROKE_LISTENER_TYPE))
+#define CSPI_DEVICE_LISTENER_TYPE        (cspi_device_listener_get_type ())
+#define CSPI_DEVICE_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), CSPI_DEVICE_LISTENER_TYPE, CSpiDeviceListener))
+#define CSPI_DEVICE_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), CSPI_DEVICE_LISTENER_TYPE, CSpiDeviceListenerClass))
+#define CSPI_IS_DEVICE_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSPI_DEVICE_LISTENER_TYPE))
+#define CSPI_IS_DEVICE_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), CSPI_DEVICE_LISTENER_TYPE))
 
 typedef struct {
-	SpiKeystrokeListener parent;
-	GList               *callbacks;
-} CSpiKeystrokeListener;
-typedef SpiKeystrokeListenerClass CSpiKeystrokeListenerClass;
+	SpiDeviceListener parent;
+	GList            *callbacks;
+} CSpiDeviceListener;
+typedef SpiDeviceListenerClass CSpiDeviceListenerClass;
 
-GType cspi_keystroke_listener_get_type (void);
+GType cspi_device_listener_get_type (void);
+gpointer cspi_device_listener_new (void);
 
 G_END_DECLS
 

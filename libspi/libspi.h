@@ -41,7 +41,7 @@
 #include <libspi/value.h>
 #include <libspi/listener.h>
 #include <libspi/eventlistener.h>
-#include <libspi/keystrokelistener.h>
+#include <libspi/devicelistener.h>
 #include <libspi/keymasks.h>
 #include <libspi/remoteobject.h>
 

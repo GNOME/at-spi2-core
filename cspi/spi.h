@@ -100,6 +100,7 @@ typedef enum {
 } AccessibleKeyListenerSyncType;
 
 typedef unsigned long AccessibleKeyEventMask;
+typedef unsigned long AccessibleDeviceEventMask;
 
 /**
  * AccessibleComponentLayer:
@@ -155,8 +156,8 @@ typedef struct _AccessibleKeySet
  **/
 #define SPI_KEYSET_ALL_KEYS NULL
 
-typedef unsigned long AccessibleKeyMaskType;
-
+typedef unsigned long AccessibleModifierMaskType;
+typedef AccessibleModifierMaskType AccessibleKeyMaskType;
 
 /* Basic SPI initialization and event loop function prototypes */
 
@@ -189,7 +190,9 @@ SPIBoolean                AccessibleEventListener_removeCallback (
 void                      AccessibleEventListener_unref (
 	                                           AccessibleEventListener  *listener);
 
-/* Keystroke Listener creation and support.  */
+/* Device Event Listener creation and support.  */
+
+/* First four are deprecated in favor of the last four; really just a re-name */
 
 AccessibleKeystrokeListener * SPI_createAccessibleKeystrokeListener (
 	                                AccessibleKeystrokeListenerCB callback,
@@ -203,6 +206,19 @@ SPIBoolean                    AccessibleKeystrokeListener_removeCallback (
 					AccessibleKeystrokeListenerCB callback);
 void                          AccessibleKeystrokeListener_unref (
 	                                AccessibleKeystrokeListener *listener);
+
+AccessibleDeviceListener   * SPI_createAccessibleDeviceListener (
+	                                AccessibleDeviceListenerCB callback,
+					void                      *user_data);
+SPIBoolean                    AccessibleDeviceListener_addCallback (
+	                                AccessibleDeviceListener  *listener,
+					AccessibleDeviceListenerCB callback,
+					void                      *user_data);
+SPIBoolean                    AccessibleDeviceListener_removeCallback (
+	                                AccessibleDeviceListener  *listener,
+					AccessibleDeviceListenerCB callback);
+void                          AccessibleDeviceListener_unref (
+	                                AccessibleDeviceListener *listener);
 
 /* Global functions serviced by the registry */
 
@@ -223,6 +239,14 @@ SPIBoolean SPI_registerAccessibleKeystrokeListener   (
 SPIBoolean SPI_deregisterAccessibleKeystrokeListener (
 	                               AccessibleKeystrokeListener *listener,
 				       AccessibleKeyMaskType        modmask);
+
+SPIBoolean SPI_registerDeviceEventListener   (
+                                       AccessibleDeviceListener   *listener,
+				       AccessibleDeviceEventMask   eventmask,
+				       void                       *filter);
+SPIBoolean SPI_deregisterDeviceEventListener (
+				       AccessibleDeviceListener   *listener,
+				       void                       *filter);
 
 int         SPI_getDesktopCount                  (void);
 Accessible *SPI_getDesktop                       (int i);

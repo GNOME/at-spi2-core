@@ -2,9 +2,9 @@ AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=1
 AT_SPI_MINOR_VERSION=1
-AT_SPI_MICRO_VERSION=2
-AT_SPI_INTERFACE_AGE=2
-AT_SPI_BINARY_AGE=2
+AT_SPI_MICRO_VERSION=3
+AT_SPI_INTERFACE_AGE=0
+AT_SPI_BINARY_AGE=3
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
 AM_INIT_AUTOMAKE(at-spi, $AT_SPI_VERSION)
 AC_SUBST(AT_SPI_MAJOR_VERSION)
@@ -187,6 +187,15 @@ AC_TRY_CPP([#include <popt.h>
   AC_MSG_ERROR([A newer version of popt is required to build at-spi.
 You can download the latest version from ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/])
 ])
+
+REBUILD=\#
+if test "x$enable_rebuilds" = "xyes" && \
+	test -n "$PERL" && \
+	$PERL -e 'exit !($] >= 5.002)' > /dev/null 2>&1 && \
+     test -n "$AWK" ; then
+  REBUILD=
+fi
+AC_SUBST(REBUILD)
 
 AC_OUTPUT([
 Makefile

@@ -174,10 +174,14 @@ AccessibleText_getCaretOffset (AccessibleText *obj)
  *
  * Get the attributes applied to a range of text from an #AccessibleText
  *          object, and the bounds of the range.
+ *          The text attributes correspond to CSS attributes where possible,
+ *          keys and values are delimited from one another via ":", and
+ *          the delimiter between key/value pairs is ";". Thus 
+ *          "font-size:10;foreground-color:0,0,0" would be a valid
+ *          return string.
  *
  * Returns: a text string describing the attributes occurring within the
- *          attribute run containing @offset, encoded as UTF-8 and
- *          delimited by ':'
+ *          attribute run containing @offset, encoded as UTF-8.
  **/
 char *
 AccessibleText_getAttributes (AccessibleText *obj,

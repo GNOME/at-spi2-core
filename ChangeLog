@@ -1,3 +1,210 @@
+2002-11-17  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Revved to 1.1.3, interface-age=3, binary-age=3.
+	Added REBUILD macro.
+
+	* test/Makefile.am:
+	Removed accessx-gui from the tests, since we have a nice
+	keyboard accessibility capplet now :-)
+
+	* test/keysynth-demo.c:
+	(increment_scan): removed do-nothing default: case,
+	silences warning.
+
+	* test/visual-bell.c:
+	(main) : removed do-nothing default: case, 
+	silences warning.
+
+	* cspi/spi_action.c:
+	(AccessibleAction_getKeyBinding_): 
+	Documented keybinding string format.
+	FIX for bug 97916.
+
+	* cspi/spi_text.c:
+	(AccessibleText_getAttributes):
+	Documented the text attribute string format.
+	It's changed to use semicolon delimiters also,
+	to prevent clashes with CSS attributes, but the old
+	trick of looking for ", " strings will still work
+	(as unreliably as ever).  Fix for bug related to 97916.
+
+	* cspi/spi_event.c:
+	Include <cspi/bonobo/cspi-bonobo-listener.h>
+	Fixes build warning.
+	(SPI_freeAccessibleKeySet):
+	(AccessibleKeystrokeListener_addCallback):
+	(AccessibleKeystrokeListener_removeCallback):
+	Modify to use AccessibleDeviceListener API internally,
+	instead of AccessibleKeystrokeListener.
+	
+	* idl/Accessibility_Event.idl:
+	Added two more empty slots to EventListener (for a total of four).
+
+	* idl/Accessibility_Accessible.idl:
+	Added four empty slots to Accessible interface.
+
+	* idl/Accessibility_Accessible.idl:
+	Added four empty slots to Accessible interface.
+
+2002-11-15  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_Registry.idl:
+	(KeyEventType, EventType):
+	Marked KeyEventType as deprecated; it duplicates
+	functionality of EventType, which has been extended to
+	include Mouse-button events.
+	(KeyEventTypeSeq): defined in terms of EventType.
+	(registerDeviceEventListener, deregisterDeviceEventListener):
+	New methods, for managing listeners to device events,
+	which potentially may consume them.	
+	
+	* cspi/spi-impl.h:
+	Added definition for AccessibleDeviceListener.
+
+	* cspi/spi-listener.h:
+	(enum AccessibleDeviceEventType):
+	Added SPI_BUTTON_PRESSED and SPI_BUTTON_RELEASED.
+	Typedef'd AccessibleKeyEventType to AccessibleDeviceEventType
+	for backwards compat.
+	(AccessibleKeystroke): Renamed AccessibleKeystroke to AccessibleDeviceEvent,
+	and typedef'd AccessibleKeystroke to it for back-compat.
+	(AccessibleDeviceListenerCB):
+	New function prototype typedef.
+
+	* cspi/spi.h:
+	(AccessibleDeviceEventMask): New typedef.
+	(AccessibleModifierMaskType): New typedef (renamed from AccessibleKeyMaskType).
+	(AccessibleKeyMaskType): 
+	Set equivalent to AccessibleModifierMaskType for back-compat.	
+	(SPI_createAccessibleKeystrokeListener):
+	(AccessibleKeystrokeListener_unref):
+	Deprecated in favor of equivalent (better-named) new API below..
+	keystroke listeners are like all device listeners.
+	(SPI_createAccessibleDeviceListener, AccessibleDeviceListener_unref)
+	New API names for old features :-).
+	(AccessibleDeviceListener_addCallback):
+	(AccessibleDeviceListener_removeCallback): 
+	(SPI_registerDeviceEventListener): 
+	(SPI_deregisterDeviceEventListener): 
+	New methods.
+	
+	* cspi/spi_event.c:
+	(SPI_createAccessibleKeystrokeListener):
+	Use new preferred API, cspi_device_listener_new() and
+	cspi_device_listener_add_cb().
+	(AccessibleKeystrokeListener_removeCallback):
+	Use new preferred API, cspi_device_listener_remove_cb().
+	(AccessibleKeystrokeListener_unref):
+	Use new preferred API, cspi_device_listener_unref().
+	(SPI_createAccessibleDeviceListener):
+	(AccessibleDeviceListener_addCallback):
+	(AccessibleDeviceListener_removeCallback):
+	Implementation of new API.
+
+	* cspi/spi_registry.c:
+	(SPI_registerDeviceEventListener):
+	(SPI_deregisterDeviceEventListener):
+	Implementation of new API.  Fixed memory leak and removed need to
+	allocate EventTypeSeq (thanks Michael for catching this).
+	Squashed a wayward CORBA_exception_free that shouldn't get called.
+
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	(EventHandler):
+	Changed union (bin-and-api-compatibly) to refer to AccessibleDeviceListenerCB.
+	(cspi_key_event): renamed to cspi_device_event().
+	Internal use of CSpiKeystrokeListener changed to CSpiDeviceListener.
+	Extended to handle mouse button events as well as key events.
+	(CSpiKeystrokeListener):
+	Class superceded by CSpiDeviceListener.
+	(cspi_keystroke_listener_add_callback, cspi_keystroke_listener_get_corba):
+	These internal APIs changed to "*device_listener" from "*keystroke_listener".
+
+	* cspi/bonobo/cspi-bonobo-listener.h:
+	(CSpiKeystrokeListener):
+	Class superceded by CSpiDeviceListener.
+	(cspi_keystroke_listener_add_callback, cspi_keystroke_listener_get_corba):
+	These internal APIs changed to "*device_listener" from "*keystroke_listener".
+
+	* libspi/Makefile.am:
+	Replaced keystrokelistener.h and keystrokelistener.c
+	with devicelistener.h and devicelistener.c; keystrokelisener.h
+	stub retained for back-compat.
+
+	* libspi/keystrokelistener.c:
+	Removed file.
+
+	* libspi/libspi.h:
+	Replaced inclusion of keystrokelistener.h with devicelistener.h.	
+
+	* registryd/deviceeventcontroller.c:
+	(DEControllerListener): Added Accessibility_EventTypeSeq member.
+	(DEControllerKeyListener): Removed Accessibility_KeyEventTypeSeq member.
+	(DEControllerPrivateData): Added xkb settings data.
+	(spi_dec_poll_mouse_moved): Changed to dispatch device events for
+	button release events (which can't be captured via XGrabButton).
+	Don't dispatch via the 'normal' event mechanism if the device event was
+	consumed.
+	(spi_dec_key_listener_new, spi_key_listener_clone, spi_key_listener_data_free):
+	Handle the typeseq data in its new location (see above).
+	(spi_dec_listener_new, spi_listener_clone, spi_listener_clone_free):
+	New methods, for "generic" device listeners.
+	(spi_controller_register_device_listener):
+	Now handle mouse event listeners as well as key listeners.
+	(spi_controller_notify_mouselisteners):
+	New internal method.
+	(spi_device_event_controller_forward_mouse_event):
+	Now we notify mouse device listeners as well as generating the
+	non-consumable "mouse:" events.  
+	(global_filter_fn):
+	We must check and restore the XKB
+	modifier map if we consume the event, since the act of triggering
+	a mouse event will normally reset the XKB latch.  This is required for 
+	instance by GOK.
+	(spi_controller_register_with_devices):
+	Load the XKB settings when registering, and register for XKB 
+	state notify events. 
+	(spi_key_eventtype_seq_contains_event):
+	Renamed spi_eventtype_seq_contains_event, since it's used
+	internally for all device event types now.
+	(spi_key_event_matches_listener):
+	Uses spi_eventtype_seq_contains_event now.
+	(spi_device_event_controller_object_finalize):
+	Free the private data and the XkbKeyboard struct.
+	(impl_register_device_listener, impl_deregister_device_listener):
+	Implementation of new IDL.
+	(spi_deregister_controller_device_listener):
+	New internal method.
+	(dec_xkb_get_slowkeys_delay dec_xkb_get_bouncekeys_delay):
+	More efficient implementation, we don't have to create a new
+	XkbControls structure every time we query.
+	(spi_device_event_controller_class_init):
+	Initialize the epv entries for the new IDL.  Assign the 
+	"spi-dec-private" quark.
+	(spi_device_event_controller_init):
+	Initialize the private data.
+	(spi_device_event_controller_forward_key_event):
+	Removed a bogus CORBA_exception_free() call.
+	
+	* registryd/deviceeventcontroller.h:
+	Replaced inclusion of keystrokelistener.h with
+	devicelistener.h.
+
+	* test/event-listener-test.c:
+	(report_mouse_event):
+	New method.
+	(main):
+	Added mouse-event device listener.
+
+	* test/test-simple.c:
+	(create_test_window):
+	Fixed regression (we were instantiating a GtkRange,
+	which is now an abstract class).  Also fixed to match
+	existing AtkRole names, this seems to have changed in ATK
+	awhile ago; too late now I think, and the new
+	mechanism is at least elegant and consistent with the
+	glib enum "nick" APIs.	
+
 2002-11-15  Darren Kenny  <darren.kenny@sun.com>
 
 	* idl/Accessibility_Relation.idl:

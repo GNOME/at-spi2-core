@@ -22,8 +22,7 @@
  */
 
 #include <cspi/spi-private.h>
-
-
+#include <cspi/bonobo/cspi-bonobo-listener.h>
 
 /**
  * SPI_freeAccessibleKeySet:
@@ -198,10 +197,10 @@ AccessibleKeystrokeListener *
 SPI_createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
 				       void                         *user_data)
 {
-  AccessibleKeystrokeListener *listener = cspi_keystroke_listener_new ();
+  AccessibleDeviceListener *listener = cspi_device_listener_new ();
   if (callback)
     {
-      AccessibleKeystrokeListener_addCallback (listener, callback, user_data);
+      AccessibleDeviceListener_addCallback (listener, callback, user_data);
     }
   return listener;
 }
@@ -222,7 +221,7 @@ AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
 					 AccessibleKeystrokeListenerCB callback,
 					 void                         *user_data)
 {
-  cspi_keystroke_listener_add_cb (listener, callback, user_data);
+  cspi_device_listener_add_cb (listener, callback, user_data);
   return TRUE;
 }
 
@@ -240,7 +239,7 @@ SPIBoolean
 AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
 					    AccessibleKeystrokeListenerCB callback)
 {
-  cspi_keystroke_listener_remove_cb (listener, callback);
+  cspi_device_listener_remove_cb (listener, callback);
   return TRUE;
 }
 
@@ -253,5 +252,77 @@ AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listene
 void
 AccessibleKeystrokeListener_unref (AccessibleKeystrokeListener *listener)
 {
-  cspi_keystroke_listener_unref (listener);
+  cspi_device_listener_unref (listener);
+}
+
+/**
+ * SPI_createAccessibleDeviceListener:
+ * @callback : an #AccessibleDeviceListenerCB callback function, or NULL.
+ * @user_data: a pointer to data which will be passed to the callback when invoked.
+ *
+ * Create a new #AccessibleDeviceListener with a specified callback function.
+ *
+ * Returns: a pointer to a newly-created #AccessibleDeviceListener.
+ *
+ **/
+AccessibleDeviceListener *
+SPI_createAccessibleDeviceListener (AccessibleDeviceListenerCB callback,
+				       void                         *user_data)
+{
+  AccessibleDeviceListener *listener = cspi_device_listener_new ();
+  if (callback)
+    {
+      AccessibleDeviceListener_addCallback (listener, callback, user_data);
+    }
+  return listener;
+}
+
+/**
+ * AccessibleDeviceListener_addCallback:
+ * @listener: the #AccessibleDeviceListener instance to modify.
+ * @callback: an #AccessibleDeviceListenerCB function pointer.
+ * @user_data: a pointer to data which will be passed to the callback when invoked.
+ *
+ * Add an in-process callback function to an existing #AccessibleDeviceListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+SPIBoolean
+AccessibleDeviceListener_addCallback (AccessibleDeviceListener *listener,
+					 AccessibleDeviceListenerCB callback,
+					 void                         *user_data)
+{
+  cspi_device_listener_add_cb (listener, callback, user_data);
+  return TRUE;
+}
+
+/**
+ * AccessibleDeviceListener_removeCallback:
+ * @listener: the #AccessibleDeviceListener instance to modify.
+ * @callback: an #AccessibleDeviceListenerCB function pointer.
+ *
+ * Remove an in-process callback function from an existing #AccessibleDeviceListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+SPIBoolean
+AccessibleDeviceListener_removeCallback (AccessibleDeviceListener *listener,
+					    AccessibleDeviceListenerCB callback)
+{
+  cspi_device_listener_remove_cb (listener, callback);
+  return TRUE;
+}
+
+/**
+ * AccessibleDeviceListener_unref:
+ * @listener: a pointer to the #AccessibleDeviceListener being operated on.
+ *
+ * Decrements an #AccessibleDeviceListener's reference count.
+ **/
+void
+AccessibleDeviceListener_unref (AccessibleDeviceListener *listener)
+{
+  cspi_device_listener_unref (listener);
 }
