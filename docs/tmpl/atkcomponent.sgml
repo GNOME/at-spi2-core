@@ -32,6 +32,13 @@ The AtkComponent structure does not contain any fields.
 </para>
 
 
+<!-- ##### SIGNAL AtkComponent::bounds-changed ##### -->
+<para>
+
+</para>
+
+@atkcomponent: the object which received the signal.
+
 <!-- ##### FUNCTION atk_component_add_focus_handler ##### -->
 <para>
 

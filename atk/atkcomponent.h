@@ -47,6 +47,15 @@ typedef struct _AtkComponentIface  AtkComponentIface;
 
 typedef void (*AtkFocusHandler) (AtkObject*, gboolean);
 
+typedef struct _AtkRectangle       AtkRectangle;
+
+struct _AtkRectangle
+{
+  gint x;
+  gint y;
+  gint width;
+  gint height;
+};
 
 struct _AtkComponentIface
 {
@@ -97,7 +106,11 @@ struct _AtkComponentIface
   AtkLayer                 (* get_layer)        (AtkComponent   *component);
   gint                     (* get_mdi_zorder)   (AtkComponent   *component);
 
-  AtkFunction              pad1;
+  /*
+   * signal handlers
+   */
+  void                     (* bounds_changed)   (AtkComponent   *component,
+                                                 AtkRectangle   *bounds);
   AtkFunction              pad2;
 };
 

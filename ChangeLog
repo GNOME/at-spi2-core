@@ -1,3 +1,21 @@
+2004-04-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Increment version to 1.7.0.
+
+	* atk/atkcomponent.[ch]: Add new signal "bounds_changed". 
+	* docs/tmpl/atkcomponent.sgml: Add new signal "bounds_changed".
+
+	Fixes bug #140476.
+
+	* atk/atkrelationtype.h: Add new relation ATK_RELATION_PARENT_WINDOW_OF.
+	* atk/atkstate.h: Add new state ATK_STATE_TRUNCATED.
+	* docs/tmpl/atkrelation.sgml: Add new relation 
+	* docs/tmpl/atkstate.sgml: Add new state ATK_STATE_TRUNCATED 
+	 
+	Fixes bug #133375.
+
+	* atk/atktext.c: Make extra_attributes static.
+
 2004-04-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.6.1=====

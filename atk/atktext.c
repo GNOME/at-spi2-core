@@ -23,7 +23,7 @@
 
 #include <string.h>
 
-GPtrArray *extra_attributes = NULL;
+static GPtrArray *extra_attributes = NULL;
 
 enum {
   TEXT_CHANGED,

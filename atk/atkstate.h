@@ -61,6 +61,7 @@ extern "C" {
  * is sent when children become 'active' (i.e. are selected or navigated to onscreen).
  * Used to prevent need to enumerate all children in very large containers, like tables.
  *@ATK_STATE_INDETERMINATE: Indicates that a check box is in a state other than checked or not checked.
+ *@ATK_STATE_TRUNCATED: Indicates that an object is truncated, e.g. a text value in a speradsheet cell.
  *@ATK_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possible types of states of an object
@@ -98,6 +99,7 @@ typedef enum
   ATK_STATE_VISIBLE,
   ATK_STATE_MANAGES_DESCENDANTS,
   ATK_STATE_INDETERMINATE,
+  ATK_STATE_TRUNCATED,
   ATK_STATE_LAST_DEFINED
 } AtkStateType;
 

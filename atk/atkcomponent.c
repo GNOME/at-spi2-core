@@ -20,6 +20,11 @@
 
 #include "atkcomponent.h"
 
+enum {
+  BOUNDS_CHANGED,
+  LAST_SIGNAL
+};
+
 static void       atk_component_base_init (AtkComponentIface *class);
 
 static gboolean   atk_component_real_contains                (AtkComponent *component,
@@ -40,6 +45,8 @@ static void      atk_component_real_get_position             (AtkComponent *comp
 static void      atk_component_real_get_size                 (AtkComponent *component,
                                                               gint         *width,
                                                               gint         *height);
+
+static guint atk_component_signals[LAST_SIGNAL] = { 0 };
 
 GType
 atk_component_get_type (void)
@@ -72,6 +79,17 @@ atk_component_base_init (AtkComponentIface *class)
       class->contains = atk_component_real_contains;
       class->get_position = atk_component_real_get_position;
       class->get_size = atk_component_real_get_size;
+
+      atk_component_signals[BOUNDS_CHANGED] =
+        g_signal_new ("bounds_changed",
+                      ATK_TYPE_COMPONENT,
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (AtkComponentIface, bounds_changed),
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__BOXED,
+                      G_TYPE_NONE, 0);
+
+      initialized = TRUE;
     }
 }
 
