@@ -144,6 +144,10 @@ cspi_object_add (CORBA_Object corba_object)
     {
       ref = NULL;
     }
+  else if (!cspi_check_ev ("pre method check"))
+    {
+      ref = NULL;
+    }
   else
     {
       if ((ref = g_hash_table_lookup (get_live_refs (), corba_object)))
@@ -171,31 +175,6 @@ cspi_object_add (CORBA_Object corba_object)
     }
 
   return ref;
-}
-
-Accessible *
-cspi_object_add_check (CORBA_Object corba_object)
-{
-  Accessible *retval;
-
-  if (ev._major == CORBA_USER_EXCEPTION &&
-      !strcmp (ev._id, ex_Accessibility_ChildGone))
-    {
-      retval = NULL;
-    }
-  else if (ev._major != CORBA_NO_EXCEPTION)
-    {
-      cspi_check_ev (cspi_ev (), "pre method check");
-      retval = NULL;
-    }
-  else
-    {
-      retval = cspi_object_add (corba_object);
-
-      cspi_check_ev (cspi_ev (), "post method check");
-    }
-
-  return retval;
 }
 
 void

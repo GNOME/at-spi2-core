@@ -9,14 +9,11 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleValue_ref (AccessibleValue *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleValue_unref:
@@ -27,14 +24,11 @@ AccessibleValue_ref (AccessibleValue *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleValue_unref (AccessibleValue *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleValue_getMinimumValue:

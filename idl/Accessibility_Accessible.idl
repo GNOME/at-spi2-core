@@ -32,7 +32,6 @@
 module Accessibility {
   
   typedef sequence<Relation> RelationSet;
-  exception ChildGone {} ;
 
   struct BoundingBox {
 	  long x;
@@ -82,8 +81,7 @@ module Accessibility {
      *
      * Returns: the 'nth' @Accessible child of this object.
      **/
-    Accessible 	getChildAtIndex (in long index)
-	    raises (ChildGone);
+    Accessible 	getChildAtIndex (in long index);
 
     /**
      * getIndexInParent:

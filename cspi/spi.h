@@ -187,8 +187,8 @@ void        generateMouseEvent               (long int x, long int y, char *name
 
 /* Accessible function prototypes  */
 
-int                  Accessible_ref              (Accessible *obj);
-int                  Accessible_unref            (Accessible *obj);
+void                 Accessible_ref              (Accessible *obj);
+void                 Accessible_unref            (Accessible *obj);
 char *               Accessible_getName          (Accessible *obj);
 char *               Accessible_getDescription   (Accessible *obj);
 Accessible *         Accessible_getParent        (Accessible *obj);
@@ -230,12 +230,8 @@ GenericInterface *       Accessible_queryInterface  (Accessible *obj,
  * AccessibleAction function prototypes
  */
 
-int
-AccessibleAction_ref (AccessibleAction *obj);
-
-int
-AccessibleAction_unref (AccessibleAction *obj);
-
+void AccessibleAction_ref    (AccessibleAction *obj);
+void AccessibleAction_unref  (AccessibleAction *obj);
 long
 AccessibleAction_getNActions (AccessibleAction *obj);
 
@@ -303,7 +299,7 @@ AccessibleAction_getKeyBinding (AccessibleAction *obj,
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleApplication_ref (AccessibleApplication *obj);
 
 /**
@@ -315,7 +311,7 @@ AccessibleApplication_ref (AccessibleApplication *obj);
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleApplication_unref (AccessibleApplication *obj);
 
 /**
@@ -392,10 +388,10 @@ AccessibleApplication_resume (AccessibleApplication *obj);
  *
  */
 
-int
+void
 AccessibleComponent_ref (AccessibleComponent *obj);
 
-int
+void
 AccessibleComponent_unref (AccessibleComponent *obj);
 
 SPIBoolean
@@ -475,10 +471,10 @@ AccessibleComponent_grabFocus (AccessibleComponent *obj);
  *
  */
 
-int
+void
 AccessibleEditableText_ref (AccessibleEditableText *obj);
 
-int
+void
 AccessibleEditableText_unref (AccessibleEditableText *obj);
 
 SPIBoolean
@@ -547,10 +543,10 @@ AccessibleHyperlink_isValid (AccessibleHyperlink *obj);
  *
  */
 
-int
+void
 AccessibleHypertext_ref (AccessibleHypertext *obj);
 
-int
+void
 AccessibleHypertext_unref (AccessibleHypertext *obj);
 
 long
@@ -570,10 +566,10 @@ AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
  *
  */
 
-int
+void
 AccessibleImage_ref (AccessibleImage *obj);
 
-int
+void
 AccessibleImage_unref (AccessibleImage *obj);
 
 char *
@@ -603,11 +599,8 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
  *
  */
 
-int
-AccessibleRelation_ref (AccessibleRelation *obj);
-
-int
-AccessibleRelation_unref (AccessibleRelation *obj);
+void AccessibleRelation_ref   (AccessibleRelation *obj);
+void AccessibleRelation_unref (AccessibleRelation *obj);
 
 AccessibleRelationType
 AccessibleRelation_getRelationType (AccessibleRelation *obj);
@@ -625,11 +618,8 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i);
  *
  */
 
-int
-AccessibleSelection_ref (AccessibleSelection *obj);
-
-int
-AccessibleSelection_unref (AccessibleSelection *obj);
+void AccessibleSelection_ref   (AccessibleSelection *obj);
+void AccessibleSelection_unref (AccessibleSelection *obj);
 
 long
 AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj);
@@ -663,11 +653,8 @@ AccessibleSelection_clearSelection (AccessibleSelection *obj);
  *
  */
 
-int
-AccessibleStateSet_ref (AccessibleStateSet *obj);
-
-int
-AccessibleStateSet_unref (AccessibleStateSet *obj);
+void AccessibleStateSet_ref   (AccessibleStateSet *obj);
+void AccessibleStateSet_unref (AccessibleStateSet *obj);
 
 SPIBoolean
 AccessibleStateSet_contains (AccessibleStateSet *obj,
@@ -699,11 +686,8 @@ AccessibleStateSet_isEmpty (AccessibleStateSet *obj);
  *
  */
 
-int
-AccessibleTable_ref (AccessibleTable *obj);
-
-int
-AccessibleTable_unref (AccessibleTable *obj);
+void AccessibleTable_ref   (AccessibleTable *obj);
+void AccessibleTable_unref (AccessibleTable *obj);
 
 Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj);
@@ -794,11 +778,8 @@ AccessibleTable_isSelected (AccessibleTable *obj,
  *
  */
 
-int
-AccessibleText_ref (AccessibleText *obj);
-
-int
-AccessibleText_unref (AccessibleText *obj);
+void AccessibleText_ref   (AccessibleText *obj);
+void AccessibleText_unref (AccessibleText *obj);
 
 long
 AccessibleText_getCharacterCount (AccessibleText *obj);
@@ -893,11 +874,8 @@ AccessibleText_setSelection (AccessibleText *obj,
  *
  */
 
-int
-AccessibleValue_ref (AccessibleValue *obj);
-
-int
-AccessibleValue_unref (AccessibleValue *obj);
+void AccessibleValue_ref   (AccessibleValue *obj);
+void AccessibleValue_unref (AccessibleValue *obj);
 
 float
 AccessibleValue_getMinimumValue (AccessibleValue *obj);

@@ -94,8 +94,6 @@ impl_accessibility_component_get_extents (PortableServer_Servant servant,
   Accessibility_BoundingBox retval;
   AtkComponent *component = get_component_from_servant (servant);
 
-  g_return_if_fail (component != NULL);
-
   atk_component_get_extents (component, &ix, &iy, &iw, &ih,
 			     (AtkCoordType) coord_type);
 

@@ -9,14 +9,11 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleText_ref (AccessibleText *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleText_unref:
@@ -27,13 +24,11 @@ AccessibleText_ref (AccessibleText *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleText_unref (AccessibleText *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
-
 
 /**
  * AccessibleText_getCharacterCount:
@@ -50,16 +45,15 @@ AccessibleText_getCharacterCount (AccessibleText *obj)
 {
   long retval;
 
-  CORBA_exception_init (cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, -1);
+
   retval = (long)
     Accessibility_Text__get_characterCount (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_check_ev (cspi_ev (), "SpiAccessibleText_getCharacterCount");
+  cspi_return_val_if_ev ("_getCharacterCount", -1);
 
   return retval;
 }
-
-
 
 /**
  * AccessibleText_getText:

@@ -25,7 +25,6 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <cspi/spi.h>
 #include "../util/mag_client.h"
 #include "../cspi/spi-private.h" /* A hack for now */
 
@@ -58,16 +57,24 @@ main (int argc, char **argv)
   int i, j;
   int n_desktops;
   int n_apps;
+  char *s;
   Accessible *desktop;
   Accessible *application;
-  char *s;
+  const char *modules;
 
   if ((argc > 1) && (!strncmp (argv[1], "-h", 2)))
-  {
-    printf ("Usage: simple-at\n");
-    printf ("\tEnvironment variables used:\n\t\tFESTIVAL\n\t\tMAGNIFIER\n\t\tFESTIVAL_CHATTY\n");
-    exit (0);
-  }
+    {
+      printf ("Usage: simple-at\n");
+      printf ("\tEnvironment variables used:\n\t\tFESTIVAL\n\t\tMAGNIFIER\n\t\tFESTIVAL_CHATTY\n");
+      exit (0);
+    }
+
+  modules = g_getenv ("GTK_MODULES");
+  if (!modules || modules [0] == '\0')
+    {
+      putenv ("GTK_MODULES=gail:at-bridge");
+    }
+  modules = NULL;
 
   SPI_init ();
 
@@ -155,6 +162,15 @@ get_environment_vars (void)
       fprintf (stderr, "Using magnifier\n");
       use_magnifier = TRUE;
     }  
+  else
+    {
+      fprintf (stderr, "Not using magnifier\n");
+    }
+
+  if (!use_festival)
+    {
+      fprintf (stderr, "No speech output\n");
+    }
 }
 
 void
@@ -227,7 +243,7 @@ report_focus_event (AccessibleEvent *event, void *user_data)
   g_return_if_fail (event->source != NULL);
 
   s = Accessible_getName (event->source);
-  if (cspi_warn_ev (cspi_ev (), "Report focus event"))
+  if (s)
     {
       fprintf (stderr, "%s event from %s\n", event->type, s);
       SPI_freeString (s);

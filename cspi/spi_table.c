@@ -10,14 +10,11 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleTable_ref (AccessibleTable *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleTable_unref:
@@ -28,11 +25,10 @@ AccessibleTable_ref (AccessibleTable *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleTable_unref (AccessibleTable *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
 
 /**
@@ -51,8 +47,6 @@ AccessibleTable_getCaption (AccessibleTable *obj)
     Accessibility_Table__get_caption (CSPI_OBJREF (obj), cspi_ev ());
 }
 
-
-
 /**
  * AccessibleTable_getSummary:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
@@ -69,8 +63,6 @@ AccessibleTable_getSummary (AccessibleTable *obj)
   return (Accessible *)
     Accessibility_Table__get_summary (CSPI_OBJREF (obj), cspi_ev ());
 }
-
-
 
 /**
  * AccessibleTable_getNRows:
@@ -90,8 +82,6 @@ AccessibleTable_getNRows (AccessibleTable *obj)
     Accessibility_Table__get_nRows (CSPI_OBJREF (obj), cspi_ev ());
 }
 
-
-
 /**
  * AccessibleTable_getNColumns:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
@@ -109,7 +99,6 @@ AccessibleTable_getNColumns (AccessibleTable *obj)
   return (long)
     Accessibility_Table__get_nColumns (CSPI_OBJREF (obj), cspi_ev ());
 }
-
 
 /**
  * AccessibleTable_getAccessibleAt:
@@ -133,7 +122,6 @@ AccessibleTable_getAccessibleAt (AccessibleTable *obj,
     Accessibility_Table_getAccessibleAt (CSPI_OBJREF (obj),
 			       (CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }
-
 
 /**
  * AccessibleTable_getIndexAt:

@@ -2,10 +2,10 @@ prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
-idldir=@datadir@/idl/at-spi-2.0
+idldir=@datadir@/idl/at-spi-1.0
 
-Name: at-spi
-Description: Accessibility Technology software
+Name: libspi
+Description: Accessibility Technology software library
 Requires: libbonobo-2.0 atk gtk+-2.0
 Version: @VERSION@
 Libs: -L${libdir} -lspi

@@ -111,11 +111,10 @@ AccessibleRole_getName (AccessibleRole role)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 Accessible_ref (Accessible *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -124,14 +123,11 @@ Accessible_ref (Accessible *obj)
  *
  * Decrement the reference count for an #Accessible object.
  *
- * Returns: (no return code implemented yet).
- *
  **/
-int
+void
 Accessible_unref (Accessible *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
 
 /**
@@ -141,15 +137,20 @@ Accessible_unref (Accessible *obj)
  * Get the name of an #Accessible object.
  *
  * Returns: a UTF-8 string indicating the name of the #Accessible object.
- *
+ * or NULL on exception
  **/
 char *
 Accessible_getName (Accessible *obj)
 {
-  char *retval = 
-    (char *)
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = (char *)
     Accessibility_Accessible__get_name (CSPI_OBJREF (obj), cspi_ev ());
-  cspi_check_ev (cspi_ev (), "getName"); 
+
+  cspi_return_val_if_ev ("getName", NULL); 
+
   return retval;
 }
 
@@ -160,14 +161,21 @@ Accessible_getName (Accessible *obj)
  * Get the description of an #Accessible object.
  *
  * Returns: a UTF-8 string describing the #Accessible object.
- *
+ * or NULL on exception
  **/
 char *
 Accessible_getDescription (Accessible *obj)
 {
-  char *retval = (char *)
-    Accessibility_Accessible__get_description (CSPI_OBJREF (obj), cspi_ev ());
-  cspi_check_ev (cspi_ev (), "getDescription");
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = (char *)
+    Accessibility_Accessible__get_description (CSPI_OBJREF (obj),
+					       cspi_ev ());
+
+  cspi_return_val_if_ev ("getDescription", NULL); 
+
   return retval;
 }
 
@@ -184,9 +192,16 @@ Accessible_getDescription (Accessible *obj)
 Accessible *
 Accessible_getParent (Accessible *obj)
 {
-  Accessible *retval = 
-      cspi_object_add (Accessibility_Accessible__get_parent (CSPI_OBJREF (obj), cspi_ev ()));
-  cspi_check_ev (cspi_ev (), "getParent");
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = cspi_object_add (
+    Accessibility_Accessible__get_parent (CSPI_OBJREF (obj),
+					  cspi_ev ()));
+
+  cspi_return_val_if_ev ("getParent", NULL); 
+
   return retval;
 }
 
@@ -197,14 +212,22 @@ Accessible_getParent (Accessible *obj)
  * Get the number of children contained by an #Accessible object.
  *
  * Returns: a #long indicating the number of #Accessible children
- *          contained by an #Accessible object.
+ *          contained by an #Accessible object. or -1 on exception
  *
  **/
 long
 Accessible_getChildCount (Accessible *obj)
 {
-  long retval = (long) Accessibility_Accessible__get_childCount (CSPI_OBJREF (obj), cspi_ev ());
-  cspi_check_ev (cspi_ev (), "getChildCount");
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval = (long) 
+    Accessibility_Accessible__get_childCount (CSPI_OBJREF (obj),
+					      cspi_ev ());
+
+  cspi_return_val_if_ev ("getChildCount", -1); 
+
   return retval;
 }
 
@@ -216,14 +239,20 @@ Accessible_getChildCount (Accessible *obj)
  * Get the #Accessible child of an #Accessible object at a given index.
  *
  * Returns: a pointer to the #Accessible child object at index
- *          @childIndex.
- *
+ *          @childIndex. or NULL on exception
  **/
 Accessible *
 Accessible_getChildAtIndex (Accessible *obj,
-                            long int childIndex)
+                            long int    childIndex)
 {
-  Accessible *retval = cspi_object_add_check (Accessibility_Accessible_getChildAtIndex (CSPI_OBJREF (obj), childIndex, cspi_ev ()));
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = cspi_object_add (
+    Accessibility_Accessible_getChildAtIndex (CSPI_OBJREF (obj),
+					      childIndex, cspi_ev ()));
+
   return retval;
 }
 
@@ -235,14 +264,19 @@ Accessible_getChildAtIndex (Accessible *obj,
  *
  * Returns: a #long indicating the index of the #Accessible object
  *          in its parent (i.e. containing) #Accessible instance,
- *          or -1 if @obj has no containing parent.
- *
+ *          or -1 if @obj has no containing parent or on exception.
  **/
 long
 Accessible_getIndexInParent (Accessible *obj)
 {
-  long retval = (long) Accessibility_Accessible_getIndexInParent (CSPI_OBJREF (obj), cspi_ev ());
-  cspi_check_ev (cspi_ev (), "getIndexInParent");
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval = (long)
+    Accessibility_Accessible_getIndexInParent (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getIndexInparent", -1); 
   return retval;
 }
 
@@ -253,25 +287,31 @@ Accessible_getIndexInParent (Accessible *obj)
  * Get the set of #AccessibleRelation objects which describe this #Accessible object's
  *       relationships with other #Accessible objects.
  *
- * Returns: an array of #AccessibleRelation pointers.
- *
+ * Returns: an array of #AccessibleRelation pointers. or NULL on exception
  **/
 AccessibleRelation **
 Accessible_getRelationSet (Accessible *obj)
 {
-  AccessibleRelation **relations;
-  int n_relations;
   int i;
-  Accessibility_RelationSet *relation_set =	
-	  Accessibility_Accessible_getRelationSet (CSPI_OBJREF (obj), cspi_ev ());
+  int n_relations;
+  AccessibleRelation **relations;
+  Accessibility_RelationSet *relation_set;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  relation_set =
+    Accessibility_Accessible_getRelationSet (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getRelationSet", NULL); 
   
   /* this looks hack-ish, but it's based on the CORBA C bindings spec */
   n_relations = relation_set->_length;
   relations = malloc (sizeof (AccessibleRelation *) * n_relations);
   
-  for (i=0; i<n_relations; ++i)
+  for (i = 0; i < n_relations; ++i)
     {
-      relations[i] = cspi_object_add (CORBA_Object_duplicate (relation_set->_buffer[i], cspi_ev ()));
+      relations[i] = cspi_object_add (CORBA_Object_duplicate (
+	      relation_set->_buffer[i], cspi_ev ()));
     }
   relations[i] = CORBA_OBJECT_NIL;
 
@@ -292,9 +332,15 @@ Accessible_getRelationSet (Accessible *obj)
 const char *
 Accessible_getRole (Accessible *obj)
 {
-  const char *retval = AccessibleRole_getName (
-		  Accessibility_Accessible_getRole (CSPI_OBJREF (obj), cspi_ev ()));
-  cspi_check_ev (cspi_ev (), "getRole");
+  const char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = AccessibleRole_getName (
+    Accessibility_Accessible_getRole (CSPI_OBJREF (obj), cspi_ev ()));
+
+  cspi_return_val_if_ev ("getRole", NULL); 
+
   return retval;
 }
 
@@ -672,6 +718,9 @@ Accessible_queryInterface (Accessible *obj,
 						   interface_name,
 						   cspi_ev ());
 
+
+  cspi_return_val_if_ev ("queryInterface", NULL); 
+
   /*
    * FIXME: we need to be fairly sure that references are going
    * to mach up if we are going to expose QueryInterface, ie. we
@@ -692,13 +741,11 @@ Accessible_queryInterface (Accessible *obj,
  * Increment the reference count for an #AccessibleRelation object.
  *
  * Returns: (no return code implemented yet).
- *
  **/
-int
+void
 AccessibleRelation_ref (AccessibleRelation *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -708,13 +755,11 @@ AccessibleRelation_ref (AccessibleRelation *obj)
  * Decrement the reference count for an #AccessibleRelation object.
  *
  * Returns: (no return code implemented yet).
- *
  **/
-int
+void
 AccessibleRelation_unref (AccessibleRelation *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
 
 /**
@@ -730,6 +775,7 @@ AccessibleRelation_unref (AccessibleRelation *obj)
 AccessibleRelationType
 AccessibleRelation_getRelationType (AccessibleRelation *obj)
 {
+  cspi_return_val_if_fail (obj != NULL, -1);
   return 0;
 }
 
@@ -748,6 +794,7 @@ AccessibleRelation_getRelationType (AccessibleRelation *obj)
 int
 AccessibleRelation_getNTargets (AccessibleRelation *obj)
 {
+  cspi_return_val_if_fail (obj != NULL, -1);
   return 0;
 }
 
@@ -766,6 +813,7 @@ AccessibleRelation_getNTargets (AccessibleRelation *obj)
 Accessible *
 AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
 {
+  cspi_return_val_if_fail (obj != NULL, NULL);
   return NULL;
 }
 
@@ -778,11 +826,10 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleStateSet_ref (AccessibleStateSet *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -794,13 +841,11 @@ AccessibleStateSet_ref (AccessibleStateSet *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleStateSet_unref (AccessibleStateSet *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
-
 
 /**
  * AccessibleStateSet_contains:
@@ -819,8 +864,15 @@ SPIBoolean
 AccessibleStateSet_contains (AccessibleStateSet *obj,
 			     AccessibleState state)
 {
-  CORBA_boolean retval = Accessibility_StateSet_contains (CSPI_OBJREF (obj), state, cspi_ev ());
-  cspi_check_ev (cspi_ev (), "contains");
+  CORBA_boolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval = Accessibility_StateSet_contains (CSPI_OBJREF (obj),
+					    state, cspi_ev ());
+
+  cspi_return_val_if_ev ("contains", FALSE);
+
   return (SPIBoolean) retval;
 }
 
@@ -837,10 +889,11 @@ void
 AccessibleStateSet_add (AccessibleStateSet *obj,
 			AccessibleState state)
 {
-  Accessibility_StateSet_add (CSPI_OBJREF (obj), state, cspi_ev ());
-  cspi_check_ev (cspi_ev (), "contains");
-}
+  cspi_return_if_fail (obj != NULL);
 
+  Accessibility_StateSet_add (CSPI_OBJREF (obj), state, cspi_ev ());
+  cspi_check_ev ("add");
+}
 
 /**
  * AccessibleStateSet_remove:
@@ -855,8 +908,10 @@ void
 AccessibleStateSet_remove (AccessibleStateSet *obj,
 			   AccessibleState state)
 {
+  cspi_return_if_fail (obj != NULL);
+
   Accessibility_StateSet_remove (CSPI_OBJREF (obj), state, cspi_ev ());
-  cspi_check_ev (cspi_ev (), "contains");
+  cspi_check_ev ("remove");
 }
 
 /**
@@ -878,7 +933,16 @@ SPIBoolean
 AccessibleStateSet_equals (AccessibleStateSet *obj,
                            AccessibleStateSet *obj2)
 {
-  return Accessibility_StateSet_equals (CSPI_OBJREF (obj), CSPI_OBJREF (obj2), cspi_ev ());
+  if (obj == obj2)
+    {
+      return TRUE;
+    }
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+  cspi_return_val_if_fail (obj2 != NULL, FALSE);
+
+  return Accessibility_StateSet_equals (CSPI_OBJREF (obj),
+					CSPI_OBJREF (obj2), cspi_ev ());
 }
 
 /**
@@ -899,6 +963,8 @@ AccessibleStateSet *
 AccessibleStateSet_compare (AccessibleStateSet *obj,
                             AccessibleStateSet *obj2)
 {
+  cspi_return_val_if_fail (obj != NULL, NULL);
+  cspi_return_val_if_fail (obj2 != NULL, NULL);
   return NULL;	
 }
 
@@ -915,10 +981,9 @@ AccessibleStateSet_compare (AccessibleStateSet *obj,
 SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
 {
+  cspi_return_val_if_fail (obj != NULL, FALSE);
   return TRUE;	
   /*  return Accessibility_StateSet_isEmpty (CSPI_OBJREF (obj), cspi_ev ());*/
 }
-
-
 
 

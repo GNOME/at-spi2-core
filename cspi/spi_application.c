@@ -15,11 +15,10 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleApplication_ref (AccessibleApplication *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -31,11 +30,10 @@ AccessibleApplication_ref (AccessibleApplication *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleApplication_unref (AccessibleApplication *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
 
 /**

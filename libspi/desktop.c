@@ -94,9 +94,6 @@ impl_desktop_get_child_at_index (PortableServer_Servant servant,
       retval = bonobo_object_dup_ref (app->ref, ev);
       if (BONOBO_EX (ev))
         {
-          CORBA_exception_free (ev);
-	  CORBA_exception_set (ev, CORBA_USER_EXCEPTION,
-			       ex_Accessibility_ChildGone, NULL);
 	  retval = CORBA_OBJECT_NIL;
 	}
     }

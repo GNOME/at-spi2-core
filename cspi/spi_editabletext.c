@@ -11,14 +11,11 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleEditableText_ref (AccessibleEditableText *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleEditableText_unref:
@@ -31,14 +28,11 @@ AccessibleEditableText_ref (AccessibleEditableText *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleEditableText_unref (AccessibleEditableText *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleEditableText_setAttributes:

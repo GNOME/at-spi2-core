@@ -1,3 +1,50 @@
+2001-12-10  Michael Meeks  <michael@ximian.com>
+
+	* configure.in: use cspi/libspi.pc.in instead.
+
+	* Makefile.am (pkgconfig_DATA): upd. to match.
+
+	* test/simple-at.c (report_focus_event): kill hacks around
+	bad return values, use putenv not setenv
+
+	* libspi/desktop.c (impl_desktop_get_child_at_index): don't
+	fire ChildGone - I killed it.
+
+	* libspi/component.c
+	(impl_accessibility_component_get_extents): remove
+	bogus return.
+
+	* idl/Accessible.idl: kill ChildGone exception.
+
+	* cspi/*.[ch]: kill int return from ref / unref.
+	
+	* cspi/spi_main.c (cspi_object_add_check): fold into
+	(cspi_object_add): here.
+
+	* cspi/spi_component.c (AccessibleComponent_getExtents):
+	handle exceptions elegantly.
+
+	* cspi/spi-private.h (cspi_check_ev_return),
+	(cspi_return_if_fail): impl.
+
+	* cspi/spi_accessible.c: use extensively.
+	(AccessibleStateSet_equals): add direct compare check.
+
+	* cspi/spi_selection.c: tolerate NULL objs, and check
+	exceptions before return.
+
+	* cspi/spi-util.c (cspi_warn_ev): rename to
+	(cspi_check_ev): this & don't pass ev in; no point.
+
+2001-12-10  Michael Meeks  <michael@ximian.com>
+
+	* test/test-simple.c: use putenv not setenv
+	(get_environment_vars): more chatty if you're not using
+	the fun bits.
+
+	* test/simple-at.c: do the setenv so more people see the
+	nice demo easily.
+
 2001-12-10  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/registry.c:

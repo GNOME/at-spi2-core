@@ -9,14 +9,11 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleImage_ref (AccessibleImage *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleImage_unref:
@@ -27,11 +24,10 @@ AccessibleImage_ref (AccessibleImage *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleImage_unref (AccessibleImage *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
 
 

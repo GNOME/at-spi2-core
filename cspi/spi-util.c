@@ -17,8 +17,10 @@ SPI_freeString (char *s)
 }
 
 SPIBoolean
-cspi_warn_ev (CORBA_Environment *ev, const char *error_string)
+cspi_check_ev (const char *error_string)
 {
+  CORBA_Environment *ev = cspi_ev ();
+
   if (ev->_major != CORBA_NO_EXCEPTION)
     {
       char *err;
@@ -37,22 +39,5 @@ cspi_warn_ev (CORBA_Environment *ev, const char *error_string)
   else
     {
       return TRUE;
-    }
-}
-
-void
-cspi_check_ev (CORBA_Environment *ev, const char *error_string)
-{
-  if (ev->_major != CORBA_NO_EXCEPTION)
-    {
-      char *err;
-
-      err = bonobo_exception_get_text (ev);
-
-      g_warning ("AT-SPI error: %s: %s\n", error_string, err);
-
-      g_free (err);
-
-      CORBA_exception_free (ev);
     }
 }

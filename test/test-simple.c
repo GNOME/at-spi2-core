@@ -63,7 +63,6 @@ focus_me (GtkWidget *widget)
 	
 	g_object_unref (G_OBJECT (aobject));
 
-	/* Pull focus away and then back - thus sucks */
 	return FALSE;
 }
 
@@ -509,9 +508,13 @@ main (int argc, char **argv)
 {
 	int leaked;
 	TestWindow *win;
+	const char *modules, *tmp;
 	AccessibleEventListener *global_listener;
 
-	setenv ("GTK_MODULES", "gail:at-bridge", FALSE);
+	modules = g_getenv ("GTK_MODULES");
+	if (!modules || modules [0] == '\0')
+		putenv ("GTK_MODULES=gail:at-bridge");
+	modules = NULL;
 
 	gtk_init (&argc, &argv);
 
@@ -548,7 +551,7 @@ main (int argc, char **argv)
 		gtk_main ();
 	}
 
-	setenv ("AT_BRIDGE_SHUTDOWN", "1", TRUE);
+	putenv ("AT_BRIDGE_SHUTDOWN=1");
 
 	return 0;
 }

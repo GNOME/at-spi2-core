@@ -15,11 +15,10 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleComponent_ref (AccessibleComponent *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -31,11 +30,10 @@ AccessibleComponent_ref (AccessibleComponent *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleComponent_unref (AccessibleComponent *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
 
 /**
@@ -57,6 +55,8 @@ AccessibleComponent_contains (AccessibleComponent *obj,
                               long int y,
                               AccessibleCoordType ctype)
 {
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
   return Accessibility_Component_contains (CSPI_OBJREF (obj),
                                            (CORBA_long) x,
                                            (CORBA_long) y,
@@ -85,11 +85,13 @@ AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
 {
   Accessibility_Accessible child;
 
-  child = Accessibility_Component_getAccessibleAtPoint(CSPI_OBJREF (obj),
-                                                       (CORBA_long) x,
-                                                       (CORBA_long) y,
-                                                       ctype,
-                                                       cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  child = Accessibility_Component_getAccessibleAtPoint (CSPI_OBJREF (obj),
+							(CORBA_long) x,
+							(CORBA_long) y,
+							ctype,
+							cspi_ev ());
   return cspi_object_add (child);
 }
 
@@ -115,14 +117,23 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
                                 AccessibleCoordType ctype)
 {
   Accessibility_BoundingBox bbox;
+
+  cspi_return_if_fail (obj != NULL);
+
   bbox = Accessibility_Component_getExtents (CSPI_OBJREF (obj),
 					     ctype,
 					     cspi_ev ());
-  cspi_warn_ev (cspi_ev (), "AccessibleComponent_getExtents");
-  *x = bbox.x;
-  *y = bbox.y;
-  *width = bbox.width;
-  *height = bbox.height;
+  if (cspi_check_ev ("AccessibleComponent_getExtents"))
+    {
+      *x = *y = *width = *height = 0;    
+    }
+  else
+    {
+      *x = bbox.x;
+      *y = bbox.y;
+      *width = bbox.width;
+      *height = bbox.height;
+    }
 }
 
 /**

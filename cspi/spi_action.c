@@ -9,11 +9,10 @@
  * Returns: 0 (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleAction_ref (AccessibleAction *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -25,14 +24,11 @@ AccessibleAction_ref (AccessibleAction *obj)
  * Returns: 0 (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleAction_unref (AccessibleAction *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleAction_getNActions:

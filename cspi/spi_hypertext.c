@@ -11,13 +11,11 @@
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleHypertext_ref (AccessibleHypertext *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
 
 /**
  * AccessibleHypertext_unref:
@@ -30,14 +28,11 @@ AccessibleHypertext_ref (AccessibleHypertext *obj)
  * Returns: (no return code implemented yet).
  *
  **/
-int
+void
 AccessibleHypertext_unref (AccessibleHypertext *obj)
 {
   cspi_object_unref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleHypertext_getNLinks:

@@ -160,7 +160,14 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
 int
 getDesktopCount ()
 {
-  return Accessibility_Registry_getDesktopCount (cspi_registry (), cspi_ev ());
+  int retval;
+
+  retval = Accessibility_Registry_getDesktopCount (
+    cspi_registry (), cspi_ev ());
+
+  cspi_return_val_if_ev ("getDesktopCount", -1);
+
+  return retval;
 }
 
 /**
@@ -177,9 +184,9 @@ getDesktopCount ()
 Accessible*
 getDesktop (int i)
 {
-  return cspi_object_add_check (Accessibility_Registry_getDesktop (cspi_registry (),
-								   (CORBA_short) i,
-								   cspi_ev ()));
+  return cspi_object_add (Accessibility_Registry_getDesktop (cspi_registry (),
+							     (CORBA_short) i,
+							     cspi_ev ()));
 }
 
 /**
@@ -242,7 +249,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   device_event_controller = 
     Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  g_return_if_fail (cspi_warn_ev (cspi_ev (), "getting event controller"));
+  cspi_return_if_ev ("getting event controller");
 
   /* copy the keyval filter values from the C api into the CORBA KeySet */
   if (keys)
@@ -325,7 +332,7 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   device_event_controller = 
     Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  g_return_if_fail (cspi_warn_ev (cspi_ev (), "getting event controller"));
+  cspi_return_if_ev ("getting keystroke listener");
 
   controller_event_mask.value = (CORBA_unsigned_long) modmask;
   controller_event_mask.refcount = (CORBA_unsigned_short) 1;
@@ -370,7 +377,7 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  g_return_if_fail (cspi_warn_ev (cspi_ev (), "getting event controller"));
+  cspi_return_if_ev ("getting event controller");
 
   Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
 							keyval,
