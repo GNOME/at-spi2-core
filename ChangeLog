@@ -1,5 +1,9 @@
 2004-06-08  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* configure.in: Increment version to 1.7.2 and interface age to 2.
+
+2004-06-08  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* ===== Released Version 1.7.1, interface age 1, binary age 701 ====
 
 	* NEWS: Updated.
