@@ -7,9 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk Gnome 2.6\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-02-01 19:14+0100\n"
-"PO-Revision-Date: 2003-09-24 19:49+0300\n"
+"PO-Revision-Date: 2004-03-06 10:13+0300\n"
 "Last-Translator: Priit Laes <amd@tt.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +17,7 @@ msgstr ""
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
-msgstr ""
+msgstr "Valitud viit"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
@@ -89,9 +88,8 @@ msgid "color chooser"
 msgstr ""
 
 #: atk/atkobject.c:92
-#, fuzzy
 msgid "column header"
-msgstr "tabel-veerg-päis"
+msgstr "veeru päis"
 
 #: atk/atkobject.c:93
 msgid "combo box"
@@ -99,12 +97,11 @@ msgstr ""
 
 #: atk/atkobject.c:94
 msgid "dateeditor"
-msgstr ""
+msgstr "kuupäevaredaktor"
 
 #: atk/atkobject.c:95
-#, fuzzy
 msgid "desktop icon"
-msgstr "töölaua-ikoon"
+msgstr "töölaua ikoon"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
@@ -120,12 +117,11 @@ msgstr "dialoog"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
-msgstr ""
+msgstr "kataloogipaan"
 
 #: atk/atkobject.c:100
-#, fuzzy
 msgid "drawing area"
-msgstr "joonistamis-ala"
+msgstr "joonistamise ala"
 
 #: atk/atkobject.c:101
 msgid "file chooser"
@@ -135,7 +131,7 @@ msgstr ""
 msgid "filler"
 msgstr ""
 
-#. I know it looks wrong but that is what Java returns
+#  I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
 msgstr ""
@@ -146,7 +142,7 @@ msgstr ""
 
 #: atk/atkobject.c:106
 msgid "glass pane"
-msgstr ""
+msgstr "klaaspaan"
 
 #: atk/atkobject.c:107
 msgid "html container"
@@ -154,11 +150,11 @@ msgstr ""
 
 #: atk/atkobject.c:108
 msgid "icon"
-msgstr ""
+msgstr "ikoon"
 
 #: atk/atkobject.c:109
 msgid "image"
-msgstr ""
+msgstr "pilt"
 
 #: atk/atkobject.c:110
 msgid "internal frame"
@@ -166,57 +162,55 @@ msgstr ""
 
 #: atk/atkobject.c:111
 msgid "label"
-msgstr ""
+msgstr "silt"
 
 #: atk/atkobject.c:112
 msgid "layered pane"
-msgstr ""
+msgstr "kihiline paan"
 
 #: atk/atkobject.c:113
 msgid "list"
-msgstr ""
+msgstr "nimekiri"
 
 #: atk/atkobject.c:114
 msgid "list item"
-msgstr ""
+msgstr "nimekirja element"
 
 #: atk/atkobject.c:115
 msgid "menu"
-msgstr ""
+msgstr "menüü"
 
 #: atk/atkobject.c:116
 msgid "menu bar"
-msgstr ""
+msgstr "menüüriba"
 
 #: atk/atkobject.c:117
 msgid "menu item"
-msgstr ""
+msgstr "menüüelement"
 
 #: atk/atkobject.c:118
 msgid "option pane"
-msgstr ""
+msgstr "valikupaan"
 
 #: atk/atkobject.c:119
 msgid "page tab"
-msgstr ""
+msgstr "leheküljesakk"
 
 #: atk/atkobject.c:120
 msgid "page tab list"
-msgstr ""
+msgstr "leheküljesakkide nimekiri"
 
 #: atk/atkobject.c:121
 msgid "panel"
 msgstr "paneel"
 
 #: atk/atkobject.c:122
-#, fuzzy
 msgid "password text"
-msgstr "parool-tekst"
+msgstr "parooli tekst"
 
 #: atk/atkobject.c:123
-#, fuzzy
 msgid "popup menu"
-msgstr "hüpik-menüü"
+msgstr "hüpikmenüü"
 
 #: atk/atkobject.c:124
 msgid "progress bar"
@@ -236,20 +230,19 @@ msgstr ""
 
 #: atk/atkobject.c:128
 msgid "root pane"
-msgstr ""
+msgstr "põhipaan"
 
 #: atk/atkobject.c:129
-#, fuzzy
 msgid "row header"
-msgstr "päis"
+msgstr "rea päis"
 
 #: atk/atkobject.c:130
 msgid "scroll bar"
-msgstr ""
+msgstr "kerimisriba"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr ""
+msgstr "kerimispaan"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -269,30 +262,27 @@ msgstr ""
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr ""
+msgstr "olekuriba"
 
 #: atk/atkobject.c:137
 msgid "table"
 msgstr "tabel"
 
 #: atk/atkobject.c:138
-#, fuzzy
 msgid "table cell"
-msgstr "tabel-lahter"
+msgstr "tabeli lahter"
 
 #: atk/atkobject.c:139
-#, fuzzy
 msgid "table column header"
-msgstr "tabel-veerg-päis"
+msgstr "tabeli veerupäis"
 
 #: atk/atkobject.c:140
-#, fuzzy
 msgid "table row header"
-msgstr "tabel-rida-päis"
+msgstr "tabeli reapäis"
 
 #: atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr ""
+msgstr "rebi-küljest menüüelement"
 
 #: atk/atkobject.c:142
 msgid "terminal"
@@ -307,9 +297,8 @@ msgid "toggle button"
 msgstr ""
 
 #: atk/atkobject.c:145
-#, fuzzy
 msgid "tool bar"
-msgstr "tööriista-riba"
+msgstr "tööriistariba"
 
 #: atk/atkobject.c:146
 msgid "tool tip"
@@ -320,9 +309,8 @@ msgid "tree"
 msgstr "puu"
 
 #: atk/atkobject.c:148
-#, fuzzy
 msgid "tree table"
-msgstr "tabel"
+msgstr ""
 
 #: atk/atkobject.c:149
 msgid "unknown"
@@ -358,7 +346,7 @@ msgstr ""
 
 #: atk/atkobject.c:157
 msgid "edit bar"
-msgstr ""
+msgstr "redigeerimisriba"
 
 #: atk/atkobject.c:295
 msgid "Accessible Name"
@@ -421,9 +409,7 @@ msgid "Accessible Table Caption"
 msgstr ""
 
 #: atk/atkobject.c:353
-msgid ""
-"Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
+msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
 #: atk/atkobject.c:359
@@ -482,5 +468,3 @@ msgstr ""
 msgid "The number of links which the current AtkHypertext has"
 msgstr ""
 
-#~ msgid "ruler"
-#~ msgstr "joonlaud"
