@@ -1,0 +1,300 @@
+<!-- ##### SECTION Title ##### -->
+AtkTable
+
+<!-- ##### SECTION Short_Description ##### -->
+a user-interface component that presents data in two-dimensional table format
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+AtkTable describes a user-interface component that presents data in
+two-dimensional table format.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AtkTable ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkTableIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@ref_at: 
+@get_index_at: 
+@get_row_at_index: 
+@get_column_at_index: 
+@get_caption: 
+@get_n_columns: 
+@get_column_description: 
+@get_column_extent_at: 
+@get_column_header: 
+@get_n_rows: 
+@get_row_description: 
+@get_row_extent_at: 
+@get_row_header: 
+@get_summary: 
+@get_selected_columns: 
+@get_selected_rows: 
+@is_column_selected: 
+@is_row_selected: 
+@is_selected: 
+@set_caption: 
+@set_column_description: 
+@set_column_header: 
+@set_row_description: 
+@set_row_header: 
+@set_summary: 
+
+<!-- ##### FUNCTION atk_table_ref_at ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_index_at ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_row_at_index ##### -->
+<para>
+
+</para>
+
+@table: 
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_column_at_index ##### -->
+<para>
+
+</para>
+
+@table: 
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_caption ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_n_columns ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_column_description ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_column_extent_at ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_column_header ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_n_rows ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_row_description ##### -->
+<para>
+
+</para>
+
+@table: 
+@r: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_row_extent_at ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_row_header ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_summary ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_selected_columns ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_selected_rows ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_is_column_selected ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_is_row_selected ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_is_selected ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_set_caption ##### -->
+<para>
+
+</para>
+
+@table: 
+@accessible: 
+
+
+<!-- ##### FUNCTION atk_table_set_column_description ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@accessible: 
+
+
+<!-- ##### FUNCTION atk_table_set_column_header ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@header: 
+
+
+<!-- ##### FUNCTION atk_table_set_row_description ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@accessible: 
+
+
+<!-- ##### FUNCTION atk_table_set_row_header ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@header: 
+
+
+<!-- ##### FUNCTION atk_table_set_summary ##### -->
+<para>
+
+</para>
+
+@table: 
+@accessible: 
+
+

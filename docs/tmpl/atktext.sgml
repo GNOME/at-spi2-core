@@ -1,0 +1,218 @@
+<!-- ##### SECTION Title ##### -->
+AtkText
+
+<!-- ##### SECTION Short_Description ##### -->
+accessibility interface for text widgets
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+AtkText provides an accessibility interface for text widgets
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AtkText ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkTextIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@get_text: 
+@get_text_after_offset: 
+@get_text_at_offset: 
+@get_character_at_offset: 
+@get_text_before_offset: 
+@get_caret_offset: 
+@get_row_col_at_offset: 
+@get_range_attributes: 
+@get_character_extents: 
+@get_character_count: 
+@get_offset_at_point: 
+@get_selected_text: 
+@get_selection_bounds: 
+@set_selection_bounds: 
+@set_caret_offset: 
+@text_changed: 
+@caret_changed: 
+
+<!-- ##### ENUM AtkTextBoundary ##### -->
+<para>
+
+</para>
+
+@ATK_TEXT_BOUNDARY_CHAR: 
+@ATK_TEXT_BOUNDARY_CURSOR_POS: 
+@ATK_TEXT_BOUNDARY_WORD_START: 
+@ATK_TEXT_BOUNDARY_WORD_END: 
+@ATK_TEXT_BOUNDARY_SENTENCE_START: 
+@ATK_TEXT_BOUNDARY_SENTENCE_END: 
+@ATK_TEXT_BOUNDARY_LINE_START: 
+@ATK_TEXT_BOUNDARY_LINE_END: 
+
+<!-- ##### FUNCTION atk_text_get_text ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_character_at_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_text_after_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@boundary_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_text_at_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@boundary_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_text_before_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@boundary_type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_caret_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_row_col_at_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@row: 
+@col: 
+
+
+<!-- ##### FUNCTION atk_text_get_range_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_character_extents ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@x: 
+@y: 
+@length: 
+@width: 
+
+
+<!-- ##### FUNCTION atk_text_get_character_count ##### -->
+<para>
+
+</para>
+
+@text: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_offset_at_point ##### -->
+<para>
+
+</para>
+
+@text: 
+@x: 
+@y: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_selected_text ##### -->
+<para>
+
+</para>
+
+@text: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_selection_bounds ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+
+
+<!-- ##### FUNCTION atk_text_set_selection_bounds ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_set_caret_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@Returns: 
+
+

@@ -1,0 +1,24 @@
+<!-- ##### SECTION Title ##### -->
+AtkNoOpObjectFactory
+
+<!-- ##### SECTION Short_Description ##### -->
+an #AtkObjectFactory which creates non-functioning stub #AtkObjects
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+An #AtkObjectFactory which creates non-functioning stub #AtkObjects.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION atk_no_op_object_factory_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+

@@ -1,0 +1,67 @@
+<!-- ##### SECTION Title ##### -->
+AtkRelation
+
+<!-- ##### SECTION Short_Description ##### -->
+defines the functional relationship between two #AtkObjects
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+Defines the functional relationship between two #AtkObjects.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM AtkRelationType ##### -->
+<para>
+
+</para>
+
+@ATK_RELATION_NULL: 
+@ATK_RELATION_CONTROLLED_BY: 
+@ATK_RELATION_CONTROLLER_FOR: 
+@ATK_RELATION_LABEL_FOR: 
+@ATK_RELATION_LABELLED_BY: 
+@ATK_RELATION_MEMBER_OF: 
+@ATK_RELATION_LAST_DEFINED: 
+
+<!-- ##### FUNCTION atk_relation_type_register ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_relation_new ##### -->
+<para>
+
+</para>
+
+@targets: 
+@n_targets: 
+@relationship: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_relation_get_relation_type ##### -->
+<para>
+
+</para>
+
+@relation: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_relation_get_target ##### -->
+<para>
+
+</para>
+
+@relation: 
+@Returns: 
+
+

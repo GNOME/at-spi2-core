@@ -1,0 +1,35 @@
+<!-- ##### SECTION Title ##### -->
+AtkObjectFactory
+
+<!-- ##### SECTION Short_Description ##### -->
+factory for creating #AtkObjects
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+A factory for creating #AtkObjects.
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION atk_object_factory_create_accessible ##### -->
+<para>
+
+</para>
+
+@factory: 
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_factory_invalidate ##### -->
+<para>
+
+</para>
+
+@factory: 
+
+

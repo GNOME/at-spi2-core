@@ -1,0 +1,94 @@
+<!-- ##### SECTION Title ##### -->
+AtkImage
+
+<!-- ##### SECTION Short_Description ##### -->
+accessibility interface for objects that have an associated image
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+The AtkImage interface should be supported by any object that has an 
+associated image. This interface provides the standard mechanism for 
+an assistive technology to get descriptive information about images.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AtkImage ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkImageIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@get_storage_type: 
+@get_image_description: 
+@get_image_height: 
+@get_image_width: 
+@set_image_description: 
+
+<!-- ##### ENUM AtkImageType ##### -->
+<para>
+
+</para>
+
+@ATK_IMAGE_EMPTY: 
+@ATK_IMAGE_PIXMAP: 
+@ATK_IMAGE_IMAGE: 
+@ATK_IMAGE_PIXBUF: 
+@ATK_IMAGE_STOCK: 
+@ATK_IMAGE_ICON_SET: 
+
+<!-- ##### FUNCTION atk_image_get_storage_type ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_image_get_image_description ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_image_get_image_height ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_image_get_image_width ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_image_set_image_description ##### -->
+<para>
+
+</para>
+
+@image: 
+@description: 
+@Returns: 
+
+

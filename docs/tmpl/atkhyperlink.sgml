@@ -1,0 +1,73 @@
+<!-- ##### SECTION Title ##### -->
+AtkHyperlink
+
+<!-- ##### SECTION Short_Description ##### -->
+encapsulates a link or set of links in a hypertext document
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+AtkHyperLink encapsulates a link or set of links in a hypertext document.
+It implements the AtkAction interface.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION atk_hyperlink_get_uri ##### -->
+<para>
+
+</para>
+
+@link: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_hyperlink_get_object ##### -->
+<para>
+
+</para>
+
+@link: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_hyperlink_get_end_index ##### -->
+<para>
+
+</para>
+
+@link: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_hyperlink_get_start_index ##### -->
+<para>
+
+</para>
+
+@link: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_hyperlink_is_valid ##### -->
+<para>
+
+</para>
+
+@link: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_hyperlink_get_n_anchors ##### -->
+<para>
+
+</para>
+
+@link: 
+@Returns: 
+
+

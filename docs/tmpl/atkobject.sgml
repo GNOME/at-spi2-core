@@ -1,0 +1,297 @@
+<!-- ##### SECTION Title ##### -->
+AtkObject
+
+<!-- ##### SECTION Short_Description ##### -->
+represents the minimum information all accessable objects return
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+AtkObject represents the minimum information all accessible objects
+return. This information includes accessible name, accessible
+description, role and state of the object, as well information about
+its parent and children. It is also possible to obtain more specific
+accessibility information about a component if it supports one or more
+of the following interfaces:
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### ENUM AtkRole ##### -->
+<para>
+
+</para>
+
+@ATK_ROLE_INVALID: 
+@ATK_ROLE_ACCEL_LABEL: 
+@ATK_ROLE_ALERT: 
+@ATK_ROLE_ANIMATION: 
+@ATK_ROLE_ARROW: 
+@ATK_ROLE_CALENDAR: 
+@ATK_ROLE_CANVAS: 
+@ATK_ROLE_CHECK_BOX: 
+@ATK_ROLE_CHECK_MENU_ITEM: 
+@ATK_ROLE_COLOR_CHOOSER: 
+@ATK_ROLE_COLUMN_HEADER: 
+@ATK_ROLE_COMBO_BOX: 
+@ATK_ROLE_DATE_EDITOR: 
+@ATK_ROLE_DESKTOP_ICON: 
+@ATK_ROLE_DESKTOP_FRAME: 
+@ATK_ROLE_DIAL: 
+@ATK_ROLE_DIALOG: 
+@ATK_ROLE_DIRECTORY_PANE: 
+@ATK_ROLE_DRAWING_AREA: 
+@ATK_ROLE_FILE_CHOOSER: 
+@ATK_ROLE_FILLER: 
+@ATK_ROLE_FONT_CHOOSER: 
+@ATK_ROLE_FRAME: 
+@ATK_ROLE_GLASS_PANE: 
+@ATK_ROLE_HTML_CONTAINER: 
+@ATK_ROLE_ICON: 
+@ATK_ROLE_IMAGE: 
+@ATK_ROLE_INTERNAL_FRAME: 
+@ATK_ROLE_LABEL: 
+@ATK_ROLE_LAYERED_PANE: 
+@ATK_ROLE_LIST: 
+@ATK_ROLE_LIST_ITEM: 
+@ATK_ROLE_MENU: 
+@ATK_ROLE_MENU_BAR: 
+@ATK_ROLE_MENU_ITEM: 
+@ATK_ROLE_OPTION_PANE: 
+@ATK_ROLE_PAGE_TAB: 
+@ATK_ROLE_PAGE_TAB_LIST: 
+@ATK_ROLE_PANEL: 
+@ATK_ROLE_PASSWORD_TEXT: 
+@ATK_ROLE_POPUP_MENU: 
+@ATK_ROLE_PROGRESS_BAR: 
+@ATK_ROLE_PUSH_BUTTON: 
+@ATK_ROLE_RADIO_BUTTON: 
+@ATK_ROLE_RADIO_MENU_ITEM: 
+@ATK_ROLE_ROOT_PANE: 
+@ATK_ROLE_ROW_HEADER: 
+@ATK_ROLE_SCROLL_BAR: 
+@ATK_ROLE_SCROLL_PANE: 
+@ATK_ROLE_SEPARATOR: 
+@ATK_ROLE_SLIDER: 
+@ATK_ROLE_SPLIT_PANE: 
+@ATK_ROLE_SPIN_BUTTON: 
+@ATK_ROLE_STATUS_BAR: 
+@ATK_ROLE_TABLE: 
+@ATK_ROLE_TABLE_CELL: 
+@ATK_ROLE_TABLE_COLUMN_HEADER: 
+@ATK_ROLE_TABLE_ROW_HEADER: 
+@ATK_ROLE_TEAR_OFF_MENU_ITEM: 
+@ATK_ROLE_TEXT: 
+@ATK_ROLE_TOGGLE_BUTTON: 
+@ATK_ROLE_TOOL_BAR: 
+@ATK_ROLE_TOOL_TIP: 
+@ATK_ROLE_TREE: 
+@ATK_ROLE_UNKNOWN: 
+@ATK_ROLE_VIEWPORT: 
+@ATK_ROLE_WINDOW: 
+@ATK_ROLE_LAST_DEFINED: 
+
+<!-- ##### FUNCTION atk_role_register ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
+<!-- ##### STRUCT AtkImplementor ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkImplementorIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@ref_accessible: 
+
+<!-- ##### STRUCT AtkRelationSet ##### -->
+<para>
+
+</para>
+
+@parent: 
+@relations: 
+
+<!-- ##### STRUCT AtkStateSet ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### STRUCT AtkPropertyValues ##### -->
+<para>
+
+</para>
+
+@property_name: 
+@old_value: 
+@new_value: 
+
+<!-- ##### USER_FUNCTION AtkPropertyChangeHandler ##### -->
+<para>
+
+</para>
+
+@Param1: 
+@Param2: 
+
+
+<!-- ##### FUNCTION atk_implementor_ref_accessible ##### -->
+<para>
+
+</para>
+
+@implementor: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_name ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_description ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_parent ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_n_accessible_children ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_ref_accessible_child ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_ref_relation_set ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_role ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_ref_state_set ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_index_in_parent ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_set_name ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@name: 
+
+
+<!-- ##### FUNCTION atk_object_set_description ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@description: 
+
+
+<!-- ##### FUNCTION atk_object_set_parent ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@parent: 
+
+
+<!-- ##### FUNCTION atk_object_set_role ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@role: 
+
+
+<!-- ##### FUNCTION atk_object_connect_property_change_handler ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@handler: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_remove_property_change_handler ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@handler_id: 
+
+

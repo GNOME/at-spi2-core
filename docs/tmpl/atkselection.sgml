@@ -1,0 +1,103 @@
+<!-- ##### SECTION Title ##### -->
+atkselection
+
+<!-- ##### SECTION Short_Description ##### -->
+accessibility interface for determining what the current selected 
+children are, as well as modify the selection set
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+This AtkSelection interface provides the standard mechanism for an 
+assistive technology to determine what the current selected children are, 
+as well as modify the selection set. Any object that has children that 
+can be selected should support the AtkSelection interface.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AtkSelection ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkSelectionIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@add_selection: 
+@clear_selection: 
+@ref_selection: 
+@get_selection_count: 
+@is_child_selected: 
+@remove_selection: 
+@select_all_selection: 
+
+<!-- ##### FUNCTION atk_selection_add_selection ##### -->
+<para>
+
+</para>
+
+@selection: 
+@i: 
+
+
+<!-- ##### FUNCTION atk_selection_clear_selection ##### -->
+<para>
+
+</para>
+
+@selection: 
+
+
+<!-- ##### FUNCTION atk_selection_ref_selection ##### -->
+<para>
+
+</para>
+
+@selection: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_selection_get_selection_count ##### -->
+<para>
+
+</para>
+
+@selection: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_selection_is_child_selected ##### -->
+<para>
+
+</para>
+
+@selection: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_selection_remove_selection ##### -->
+<para>
+
+</para>
+
+@selection: 
+@i: 
+
+
+<!-- ##### FUNCTION atk_selection_select_all_selection ##### -->
+<para>
+
+</para>
+
+@selection: 
+
+

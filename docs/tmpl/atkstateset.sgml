@@ -1,0 +1,124 @@
+<!-- ##### SECTION Title ##### -->
+AtkStateSet
+
+<!-- ##### SECTION Short_Description ##### -->
+determines an object's state set
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+AtkStateSet determines an object's state set. The state set of an object 
+is a set of AtkState objects and describes the current 
+overall state of the object, such as whether it is active, has focus, etc. 
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION atk_state_set_new ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_is_empty ##### -->
+<para>
+
+</para>
+
+@set: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_add_state ##### -->
+<para>
+
+</para>
+
+@set: 
+@type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_add_states ##### -->
+<para>
+
+</para>
+
+@set: 
+@types: 
+@n_types: 
+
+
+<!-- ##### FUNCTION atk_state_set_clear_states ##### -->
+<para>
+
+</para>
+
+@set: 
+
+
+<!-- ##### FUNCTION atk_state_set_contains_state ##### -->
+<para>
+
+</para>
+
+@set: 
+@type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_contains_states ##### -->
+<para>
+
+</para>
+
+@set: 
+@types: 
+@n_types: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_remove_state ##### -->
+<para>
+
+</para>
+
+@set: 
+@type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_and_sets ##### -->
+<para>
+
+</para>
+
+@set: 
+@compare_set: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_or_sets ##### -->
+<para>
+
+</para>
+
+@set: 
+@compare_set: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_state_set_xor_sets ##### -->
+<para>
+
+</para>
+
+@set: 
+@compare_set: 
+@Returns: 
+
+

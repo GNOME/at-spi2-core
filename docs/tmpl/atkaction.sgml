@@ -1,0 +1,75 @@
+<!-- ##### SECTION Title ##### -->
+AtkAction
+
+<!-- ##### SECTION Short_Description ##### -->
+accessibility interface for objects that can perform actions
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+The interface AtkAction should be supported by any object that can 
+perform one or more actions. The interface provides the standard 
+mechanism for an assitive technology to determine what those actions 
+are as well as tell the object to perform them. Any object that can 
+be manipulated should support this interface.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AtkAction ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkActionIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@do_action: 
+@get_n_actions: 
+@get_description: 
+@get_keybinding: 
+
+<!-- ##### FUNCTION atk_action_do_action ##### -->
+<para>
+
+</para>
+
+@action: 
+@i: 
+
+
+<!-- ##### FUNCTION atk_action_get_n_actions ##### -->
+<para>
+
+</para>
+
+@action: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_action_get_description ##### -->
+<para>
+
+</para>
+
+@action: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_action_get_keybinding ##### -->
+<para>
+
+</para>
+
+@action: 
+@i: 
+@Returns: 
+
+

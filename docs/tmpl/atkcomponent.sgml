@@ -1,0 +1,176 @@
+<!-- ##### SECTION Title ##### -->
+AtkComponent
+
+<!-- ##### SECTION Short_Description ##### -->
+accessibility interface for objects that are rendered on the screen
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+The AtkComponent interface should be supported by any object that is 
+rendered on the screen. The interface provides the standard mechanism 
+for an assistive technology to determine and set the graphical
+representation of an object.
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### STRUCT AtkComponent ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkComponentIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@add_focus_handler: 
+@contains: 
+@get_accessible_at_point: 
+@get_extents: 
+@get_position: 
+@get_position_on_screen: 
+@get_size: 
+@grab_focus: 
+@remove_focus_handler: 
+@set_extents: 
+@set_position: 
+@set_size: 
+
+<!-- ##### USER_FUNCTION AtkFocusHandler ##### -->
+<para>
+
+</para>
+
+@Param1: 
+@Param2: 
+
+
+<!-- ##### FUNCTION atk_component_add_focus_handler ##### -->
+<para>
+
+</para>
+
+@component: 
+@handler: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_component_contains ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_component_get_accessible_at_point ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_component_get_extents ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION atk_component_get_position ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION atk_component_get_position_on_screen ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION atk_component_get_size ##### -->
+<para>
+
+</para>
+
+@component: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION atk_component_grab_focus ##### -->
+<para>
+
+</para>
+
+@component: 
+
+
+<!-- ##### FUNCTION atk_component_remove_focus_handler ##### -->
+<para>
+
+</para>
+
+@component: 
+@handler_id: 
+
+
+<!-- ##### FUNCTION atk_component_set_extents ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+@width: 
+@height: 
+
+
+<!-- ##### FUNCTION atk_component_set_position ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+
+
+<!-- ##### FUNCTION atk_component_set_size ##### -->
+<para>
+
+</para>
+
+@component: 
+@width: 
+@height: 
+
+
