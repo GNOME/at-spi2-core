@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-05 23:18+0900\n"
-"PO-Revision-Date: 2004-02-05 23:18+0900\n"
+"POT-Creation-Date: 2004-07-23 09:05+0900\n"
+"PO-Revision-Date: 2004-07-23 09:05+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -348,67 +348,71 @@ msgstr "自動補完"
 msgid "edit bar"
 msgstr "編集バー"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "組み込みコンポーネント"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "アクセシブルの名前"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "支援技術アクセス形式のオブジェクト・インスタンスの名前です"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "アクセシブルの説明"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "支援技術アクセス形式のオブジェクトの説明です"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "親アクセシブル"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "親が変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "アクセシブル値"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "値が変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "アクセイブル・ロール"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "このオブジェクトのアクセイブルの役割です"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "アクセシブル・レイヤ"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "このオブジェクトが定義されるアクセシブルのレイヤです"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "アクセシブル MDI 値"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "このオブジェクトのアクセシブル MDI の値です"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "アクセシブル表のタイトル"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -416,58 +420,58 @@ msgstr ""
 "表のタイトルが変更されたことを通知するのに使用します (このプロパティを使用せ"
 "ずに  accessible-table-caption-object を使用して下さい)"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "アクセシブル表の列ヘッダ"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "表の列のヘッダが変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "アクセシブル表の列の内容"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "表の列の内容が変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "アクセシブル表の行ヘッダ"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "表の行のヘッダが変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "アクセシブル表の行の内容"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "表の行の内容が変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "アクセシブル表のサマリ"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "表のサマリが変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "アクセシブル表のタイトル・オブジェクト"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "表のタイトルが変更されたことを通知するのに使用します"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "アクセシブル HyperText リンクの数"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "この AtkHypertext オブジェクトが持つリンクの数です"
