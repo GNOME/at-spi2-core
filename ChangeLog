@@ -1,5 +1,41 @@
 2002-11-19 Bill Haneman <bill.haneman@sun.com>
 
+        FIX for bug 99024.
+	
+	* libspi/spi-private.h:
+	Added DGB() macro, and extern int _dbg declaration.
+	
+	* registryd/registry.c:
+	(definitions) storage for _dbg.
+	(spi_registry_init):
+	Get environment variable "AT_SPI_DEBUG".
+	(spi_registry_set_debug):
+	New method, to initialize _dbg value.
+	(spi_listener_struct_new, spi_registry_object_finalize):
+	(notify_listeners_cb):
+	Changed fprintfs to use DBG and g_warning().
+
+	* registryd/deviceeventcontroller.c:
+	(_deregister_keygrab, spi_controller_register_device_listener):
+	Changed debug/warning messages to use DBG macro.
+
+	* libspi/listener.c:
+	(impl_notify_event):
+	Changed warning messages to use DBG macro and g_warning().
+
+	* atk-bridge/bridge.c:
+	(atk_bridge_init, spi_atk_bridge_get_registry):
+	(spi_atk_bridge_exit_func):
+	(spi_atk_bridge_property_event_listener):
+	Changed status, warning, and error messages to use
+	g_warning, g_message, and DBG macros.
+
+	(atk_bridge_init):
+	Read the state of the AT_SPI_DEBUG environment variable
+	and set a local '_dbg' accordingly.
+	
+2002-11-19 Bill Haneman <bill.haneman@sun.com>
+
         FIXES for 98836, 98842, other bugs.
 	
 	* configure.in:

@@ -507,7 +507,7 @@ _deregister_keygrab (SpiDEController      *controller,
     }
   else
     {
-      g_warning ("De-registering non-existant grab");
+      DBG (1, g_warning ("De-registering non-existant grab"));
     }
 }
 
@@ -595,7 +595,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
       break;
   default:
-      fprintf (stderr, "WARNING: listener registration for unknown device type.\n");
+      DBG (1, g_warning ("listener registration for unknown device type.\n"));
       break;
   }
   return FALSE; 
@@ -651,7 +651,7 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
       if (BONOBO_EX (ev))
         {
           is_consumed = FALSE;
-	  fprintf (stderr, "error notifying listener, removing it\n");
+	  DBG (2, g_warning ("error notifying listener, removing it\n"));
 	  spi_deregister_controller_device_listener (controller, listener,
 						     ev);
           CORBA_exception_free (ev);
@@ -830,7 +830,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 	    }
 	}
         else
-		fprintf (stderr, "XKB event %d\n", xkb_ev->xkb_type);
+	       DBG (2, g_warning ("XKB event %d\n", xkb_ev->xkb_type));
     }
   
   return GDK_FILTER_CONTINUE;
@@ -1690,7 +1690,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
     }
   if (gdk_error_trap_pop ())
     {
-      g_warning ("Error emitting keystroke");
+      DBG (-1, g_warning ("Error emitting keystroke"));
     }
 }
 

@@ -37,6 +37,10 @@
 
 #undef SPI_BRIDGE_DEBUG
 
+#define DBG(a,b) if(_dbg>=(a))b
+
+static int _dbg;
+
 static CORBA_Environment ev;
 static Accessibility_Registry registry = NULL;
 static SpiApplication *this_app = NULL;
@@ -152,6 +156,8 @@ atk_bridge_init (gint *argc, gchar **argv[])
     }
   atk_bridge_initialized = TRUE;
 
+  _dbg = g_ascii_digit_value (g_getenv ("AT_SPI_DEBUG"));
+
   if (!bonobo_init (argc, argv ? *argv : NULL))
     {
       g_error ("Could not initialize Bonobo");
@@ -165,7 +171,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
    */
   if (bonobo_activation_iid_get ())
     {
-      fprintf (stderr, "Found Bonobo component\n");
+      DBG (1, g_message ("Found Bonobo component\n"));
       toplevel_handler = g_signal_connect (atk_get_root (), 
                                            "children-changed::add",
                                            (GCallback) spi_atk_bridge_toplevel_added, 
@@ -199,13 +205,13 @@ spi_atk_bridge_do_registration (void)
 
   this_app = spi_application_new (atk_get_root ());
 
-  fprintf (stderr, "About to register application\n");
+  DBG (1, g_message ("About to register application\n"));
 
   spi_atk_bridge_register_application (spi_atk_bridge_get_registry ());
   
   g_atexit (spi_atk_bridge_exit_func);
 
-  fprintf (stderr, "Application registered & listening\n");
+  DBG (1, g_message ("Application registered & listening\n"));
 
 }
 
@@ -234,7 +240,8 @@ spi_atk_bridge_get_registry ()
 
   if (registry_died || (registry == NULL)) {
 	  CORBA_exception_init (&ev);
-	  if (registry_died) g_warning ("registry died! restarting...");
+	  if (registry_died) 
+	    DBG (1, g_warning ("registry died! restarting..."));
 	  registry = bonobo_activation_activate_from_id (
 		  "OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
 	  
@@ -358,7 +365,7 @@ spi_atk_bridge_exit_func (void)
 {
   BonoboObject *app = (BonoboObject *) this_app;
 
-  fprintf (stderr, "exiting bridge\n");
+  DBG (1, g_message ("exiting bridge\n"));
 
   if (!app)
     {
@@ -373,14 +380,14 @@ spi_atk_bridge_exit_func (void)
    */
   if (!bonobo_is_initialized ())
     {
-      fprintf (stderr, "Re-initializing bonobo\n");
+      DBG (1, g_warning ("Re-initializing bonobo\n"));
       g_assert (bonobo_init (0, NULL));
       g_assert (bonobo_activate ());
     }
   
   deregister_application (app);
 
-  fprintf (stderr, "bridge exit func complete.\n");
+  DBG (1, g_message ("bridge exit func complete.\n"));
 
   if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
     {
@@ -602,8 +609,8 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
   values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
-  fprintf (stderr, "Received (property) signal %s:%s:%s from object %s (gail %s)\n",
-	   g_type_name (signal_query.itype), name, values->property_name, s, s2);
+  DBG (2, g_message ("Received (property) signal %s:%s:%s from object %s (gail %s)\n",
+	   g_type_name (signal_query.itype), name, values->property_name, s, s2));
   
 #endif
 

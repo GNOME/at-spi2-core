@@ -41,6 +41,8 @@
 /* A pointer to our parent object class */
 static SpiListenerClass *spi_registry_parent_class;
 
+extern int _dbg = 0;
+
 typedef enum {
   ETYPE_FOCUS,
   ETYPE_OBJECT,
@@ -65,6 +67,13 @@ typedef struct {
   GQuark            event_type_quark;
   EventTypeCategory event_type_cat;
 } SpiListenerStruct;
+
+static void
+spi_registry_set_debug (char *debug_flag_string)
+{
+  if (debug_flag_string) 
+    _dbg = g_ascii_digit_value(debug_flag_string);
+}
 
 SpiListenerStruct *
 spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment *ev)
@@ -143,7 +152,7 @@ desktop_remove_application (SpiDesktop *desktop,
 static void
 spi_registry_object_finalize (GObject *object)
 {
-  fprintf (stderr, "spi_registry_object_finalize called\n");
+  DBG (1, g_warning ("spi_registry_object_finalize called\n"));
 
   /* TODO: unref deviceeventcontroller, which disconnects key listener */
   G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
@@ -606,9 +615,9 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
             (Accessibility_EventListener) ls->listener, &ctx->e_out, ctx->ev);
           if (ctx->ev->_major != CORBA_NO_EXCEPTION)
             {
-              g_warning ("Accessibility app error: exception during "
+              DBG (1, g_warning ("Accessibility app error: exception during "
 		        "event notification: %s\n",
-		        CORBA_exception_id (ctx->ev));
+		        CORBA_exception_id (ctx->ev)));
 	      if (ctx->ev->_major == CORBA_SYSTEM_EXCEPTION)
 		      CORBA_exception_init (ctx->ev);
 	      /* clear system exception on notify, it means listener is dead but
@@ -675,8 +684,7 @@ spi_registry_class_init (SpiRegistryClass *klass)
 static void
 spi_registry_init (SpiRegistry *registry)
 {
-  fprintf (stderr, "REGISTRY INITIALIZED: toolkit list = %p\n",
-	   &registry->toolkit_listeners);
+  spi_registry_set_debug (g_getenv ("AT_SPI_DEBUG"));
   registry->object_listeners = NULL;
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;

@@ -29,6 +29,10 @@
 
 G_BEGIN_DECLS
 
+#define DBG(a,b) if(_dbg>=(a))b
+
+extern int _dbg;
+
 typedef enum {
 	SPI_RE_ENTRANT_CONTINUE = 0,
 	SPI_RE_ENTRANT_TERMINATE
