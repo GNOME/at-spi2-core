@@ -1,8 +1,31 @@
+2002-12-02  Bill Haneman  <bill.haneman@sun.com>
+
+	Removed some of the more dangerous workarounds from
+	previous commit; they are only needed by GOK, which
+	in reality should be using another method to accomplish
+	the goals.  So on reconsideration some of the workarounds
+	need to be reverted:
+	
+	* registryd/deviceeventcontroller.c:
+	(spi_keycodes_contain, spi_dec_init_keycode_list): 
+	Removed these methods, used only by a nasty hack to try
+	and detect whether a key synthesis should be allowed
+	to reset the XKB latch state or not. This code was only
+	required to work around an interaction between GOK,
+	button events, and XKB.
+	(impl_generate_key_event):
+	Removed hack at end of key generation that tried to
+	"do the right thing" if XKB latch keys were generated
+	in the midst of button press/release pairs.  
+
+	* configure.in:
+	Added a check for HAVE_XINPUT.  Not normally used yet.
+
 2002-11-25  Bill Haneman  <bill.haneman@sun.com>
 
         Workarounds and fixes for mouse event/XKB interaction.
 	
-	* registryd/registry.c:
+	* registryd/deviceeventcontroller.c:
 	(spi_keycodes_contain, spi_dec_init_keycode_list): 
 	New internal methods.
 	(spi_dec_set_unlatch_pending):

@@ -105,7 +105,6 @@ typedef struct {
   int xkb_base_error_code;
   unsigned int xkb_latch_mask;
   unsigned int pending_xkb_mod_relatch_mask;
-  KeyCode *shift_keycodes;
   XkbDescPtr xkb_desc;
 } DEControllerPrivateData;
 
@@ -142,51 +141,6 @@ static KeyCode
 keycode_for_keysym (long keysym)
 {
   return XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
-}
-
-#define SPI_DEC_MAX_SHIFT_KEYSYMS 15
-static long _shift_keysyms[SPI_DEC_MAX_SHIFT_KEYSYMS] = 
-                                {XK_Shift_L, XK_Shift_R,
-				 XK_Control_L, XK_Control_R,
-				 XK_Caps_Lock, XK_Shift_Lock,
-				 XK_Alt_L, XK_Alt_R,
-				 XK_Meta_L, XK_Meta_R, 
-				 XK_Super_L, XK_Super_R,
-				 XK_Hyper_L, XK_Hyper_R,
-				 0};
-
-static gboolean
-spi_keycodes_contain (KeyCode keycodes[], KeyCode keycode)
-{
-  int i = 0;
-
-  if (keycode)
-    {
-      while (i < SPI_DEC_MAX_SHIFT_KEYSYMS)
-	{
-	  if (keycodes[i] == keycode) 
-	    return TRUE;
-	  ++i;
-	}
-    }
-  return FALSE;
-}
-
-static void
-spi_dec_init_keycode_list (SpiDEController *controller)
-{
-  DEControllerPrivateData *priv = 
-    g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
-  KeyCode keycode;
-  int i;
-  priv->shift_keycodes = g_malloc (sizeof (KeyCode) * 
-				   SPI_DEC_MAX_SHIFT_KEYSYMS);
-  for (i = 0; _shift_keysyms[i] != 0; ++i)
-    { 
-      keycode = keycode_for_keysym (_shift_keysyms [i]);
-      priv->shift_keycodes [i] = keycode;
-    }
-  priv->shift_keycodes [i] = 0; /* terminate the list */
 }
 
 static DEControllerGrabMask *
@@ -1888,26 +1842,6 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
     {
       DBG (-1, g_warning ("Error emitting keystroke"));
     }
-
-  /* now we must determine whether this keystroke is expected 
-   * to delatch XKB. This is a bit of a hack :-( */
-  priv =  g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
-  if (!priv->shift_keycodes) 
-    spi_dec_init_keycode_list (controller);
-  if (!spi_keycodes_contain (priv->shift_keycodes, key_synth_code)) 
-    {
-      priv->pending_xkb_mod_relatch_mask = 0;
-      priv->xkb_latch_mask = 0;
-      fprintf (stderr, "resetting the relatch masks.\n");
-    }
-  else
-    {
-      int x, y;
-      gboolean moved;
-      priv->pending_xkb_mod_relatch_mask = 
-	spi_dec_mouse_check (controller, &x, &y, &moved);
-      fprintf (stderr, "preparing to relatch %x\n");
-    }
 }
 
 /* Accessibility::DEController::generateMouseEvent */
@@ -2045,7 +1979,6 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
   g_object_set_qdata (G_OBJECT (device_event_controller),
 		      spi_dec_private_quark,
 		      private);
-  private->shift_keycodes = NULL;
   spi_controller_register_with_devices (device_event_controller);
 }
 
