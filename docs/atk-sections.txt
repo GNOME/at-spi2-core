@@ -82,9 +82,10 @@ atk_hypertext_get_type
 <TITLE>AtkImage</TITLE>
 AtkImage
 AtkImageIface
+atk_image_get_position
 atk_image_get_image_description
-atk_image_get_image_size
 atk_image_set_image_description
+atk_image_get_image_size
 <SUBSECTION Standard>
 ATK_IMAGE
 ATK_IS_IMAGE
