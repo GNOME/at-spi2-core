@@ -1,3 +1,15 @@
+Sat Sep 29 19:45:00 2001  Bill Haneman <bill.haneman@sun.com>
+	
+	* configure.in (ATK_MICRO_VERSION): Version 0.6
+	(because libglade will depend on a the small api addition below)
+
+	* atk/makefile.msc (PKG_VER): Version 0.6
+
+	* atk/atkrelation.h:
+	* atk/atkrelation.c: (AtkRelationType 
+	atk_relation_type_from_string (const gchar *name)): Added method.
+
+	
 Tue Sep 25 12:08:52 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* configure.in (ATK_MICRO_VERSION): Version 0.5

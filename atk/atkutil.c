@@ -20,6 +20,7 @@
 #include "atkutil.h"
 #include "atkmarshal.c"
 
+
 static void atk_util_class_init (AtkUtilClass *klass);
 
 GType
@@ -290,3 +291,4 @@ atk_get_toolkit_version(void)
       return NULL;
     }
 }
+

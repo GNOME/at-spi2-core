@@ -72,6 +72,22 @@ atk_relation_type_register (const gchar *name)
   return (++type);
 }
 
+AtkRelationType
+atk_relation_type_from_string (const gchar *name)
+{
+  /*
+   * TODO: implement properly,
+   *  checking type namelist in conjunction with above function.
+   */
+	if ( !strcmp (name, "controlled_by") ) return ATK_RELATION_CONTROLLED_BY;
+	else if (!strcmp (name, "controller_for")) return ATK_RELATION_CONTROLLER_FOR;
+	else if (!strcmp (name, "label_for")) return ATK_RELATION_LABEL_FOR;
+	else if (!strcmp (name, "labelled_by")) return ATK_RELATION_LABELLED_BY;
+	else if (!strcmp (name, "member_of")) return ATK_RELATION_MEMBER_OF;
+	else return ATK_RELATION_NULL;
+}
+
+
 /**
  * atk_relation_new:
  * @targets: an array of pointers to #AtkObjects  

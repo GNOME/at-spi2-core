@@ -76,6 +76,8 @@ GType atk_relation_get_type (void);
 
 AtkRelationType atk_relation_type_register            (const gchar *name);
 
+AtkRelationType atk_relation_type_from_string         (const gchar *name);
+
 /*
  * Create a new relation for the specified key and the specified list
  * of targets.
