@@ -8,6 +8,12 @@
 	* registryd/registry.h:
 	Squashed annoying warning.
 
+	* idl/Accessibility_Role.idl:
+	Extended range of available Accessibility_Role values.
+
+	* cspi/spi_accessible.c:
+	Re-ordered role names. 
+
 2001-12-12  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Value.idl:

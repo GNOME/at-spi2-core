@@ -4,12 +4,17 @@
 static const char *role_names [] =
 {
   "<invalid>",
+  "accelerator label",
   "alert",
+  "animation",
+  "arrow",
+  "calendar",
   "canvas",
   "check box",
   "color chooser",
   "column header",
   "combo box",
+  "date editor",
   "desktop icon",
   "desktop frame",
   "dialog",
@@ -17,10 +22,12 @@ static const char *role_names [] =
   "file chooser",
   "filler",
   "focus traversable",
+  "font chooser",
   "frame",
   "glass pane",
   "HTML container",
   "icon",
+  "image",
   "internal frame",
   "label",
   "layered pane",
@@ -38,17 +45,21 @@ static const char *role_names [] =
   "progress bar",
   "pushbutton",
   "radiobutton",
+  "radio menu item",
   "root pane",
   "row header",
   "scrollbar",
   "scrollpane",
   "separator",
   "slider",
+  "spin button",
   "split pane",
+  "status bar",
   "table",
   "table cell",
   "table column header",
   "table row header",
+  "tearoff menu item",
   "text",
   "toggle button",
   "toolbar",
@@ -58,24 +69,15 @@ static const char *role_names [] =
   "viewport",
   "window",
 
-  /* These have no equivalent AccessibleRole enum values */
-  "accelerator label",
-  "animation",
-  "arrow",
-  "calendar",
-  "menu item",
-  "date editor",
-  "dial",
-  "drawing area",
-  "font chooser",
-  "image",
-  "radio menu item",
-  "tearoff menu item",
-  "spin button",
-  "status bar",
 };
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
+
+static AccessibleRole
+cspi_role_from_spi_role (Accessibility_Role role)
+{
+  return role; /* FIXME: need to compare, equivalence not guaranteed */
+}
 
 /**
  * AccessibleRole_getName:
@@ -335,7 +337,7 @@ Accessible_getRole (Accessible *obj)
 
   cspi_return_val_if_ev ("getRole", SPI_ROLE_INVALID); 
 
-  return retval;
+  return cspi_role_from_spi_role (retval);
 }
 
 /**

@@ -27,8 +27,16 @@ module Accessibility {
 
   enum Role {
   ROLE_INVALID,
+  /* Object is a label indicating the keyboard accelerators for the parent  */
+  ROLE_ACCELERATOR_LABEL,
   /* Object is used to alert the user about something */
   ROLE_ALERT,
+  /* Object contains a dynamic or moving image of some kind */
+  ROLE_ANIMATION,
+  /* Object is a 2d directional indicator */
+  ROLE_ARROW,
+  /* Object contains one or more dates, usually arranged into a 2d list */
+  ROLE_CALENDAR,
   /* Object that can be drawn into and is used to trap events */
   ROLE_CANVAS,
   /*
@@ -42,6 +50,8 @@ module Accessibility {
   ROLE_COLUMN_HEADER,
   /* A list of choices the user can select from */
   ROLE_COMBO_BOX,
+  /* An object which allows entry of a date */
+  ROLE_DATE_EDITOR,
   /* An inconifed internal frame within a DESKTOP_PANE */
   ROLE_DESKTOP_ICON,
   /*
@@ -68,6 +78,8 @@ module Accessibility {
   ROLE_FILLER,
   /* XXX Don't know sure about this. */
   ROLE_FOCUS_TRAVERSABLE,
+  /* Allows selection of a display font */
+  ROLE_FONT_CHOOSER,
   /* A top level window with a title bar, border, menubar, etc. */
   ROLE_FRAME,
   /* A pane that is guaranteed to be painted on top of all panes beneath it */
@@ -79,6 +91,8 @@ module Accessibility {
   ROLE_HTML_CONTAINER,
   /* A small fixed size picture, typically used to decorate components */
   ROLE_ICON,
+  /* An image, typically static. */
+  ROLE_IMAGE,
   /* A frame-like object that is clipped by a desktop pane. */
   ROLE_INTERNAL_FRAME,
   /* An object used to present an icon or short string in an interface */
@@ -143,6 +157,8 @@ module Accessibility {
    * same group to become uncghecked when this one is checked.
    */
   ROLE_RADIO_BUTTON,
+  /* Object is both a menu item and a "radio button" (see ROLE_RADIO_BUTTON) */
+  ROLE_RADIO_MENU_ITEM,
   /*
    * A specialized pane that has a glass pane and a layered pane as its
    * children.
@@ -167,13 +183,22 @@ module Accessibility {
   ROLE_SEPARATOR,
   /* An object that allows the user to select from a bounded range */
   ROLE_SLIDER,
+  /* 
+   * An object which allows one of a set of choices to be selected, 
+   * and which displays the current choice.
+   */
+  ROLE_SPIN_BUTTON,
   /* A specialized panel that presents two other panels at the same time. */
   ROLE_SPLIT_PANE,
-  /* An object used to rpesent information in terms of rows and columns. */
+  /* Object displays non-quantitative status information (c.f. ROLE_PROGRESS_BAR) */
+  ROLE_STATUS_BAR,
+  /* An object used to repesent information in terms of rows and columns. */
   ROLE_TABLE,
   ROLE_TABLE_CELL,
   ROLE_TABLE_COLUMN_HEADER,
   ROLE_TABLE_ROW_HEADER,
+  /* Object allows menu to be removed from menubar and shown in its own window. */
+  ROLE_TEAROFF_MENU_ITEM,
   /* An object that presents text to the user */
   ROLE_TEXT,
   /*

@@ -8,8 +8,10 @@ cspi:
 	+ ensure spi-listener-impl's list notification methods don't
 	  have a re-enterancy hazard. [Michael]
 	+ namespace all methods missing a prepending Accessible
-	  or SPI_ prefix.
+	  or SPI_ prefix. [Bill]
 	+ Put LGPL headers everywhere.
+	+ Fix the conversion of Accessibility_Role CORBA enum to
+	AccessibleRole enums. [Bill]
 
 registry:
 	+ move code into here from libspi [Michael]
@@ -30,6 +32,8 @@ libspi:
 	StateSet, and export to cspi.
 	+ complete and test the pre-emptive key API so that we don't
 	always do AnyKey grabs. [Bill]
+	+ complete the conversion from AtkRoles to Accessibility_Role
+	enums. [Bill]
 
 test:
 	+ update test-simple to do complete API tests
