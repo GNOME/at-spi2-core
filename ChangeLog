@@ -1,3 +1,10 @@
+2001-12-10  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/value.c:
+	Fixes for spi_value, use G_TYPE_DOUBLE for atk_value values (as
+	used by all current implementors of AtkValue), and coerce to
+	CORBA_float. (Proper general case fix may require change to Value.idl).
+
 2001-12-09  Bill Haneman <bill.haneman@sun.com>
 
 	* cspi/spi.h:

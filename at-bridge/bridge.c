@@ -276,14 +276,15 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 #ifdef SPI_BRIDGE_DEBUG
   GSignalQuery signal_query;
   const gchar *name;
-  gchar *s;
+  gchar *s, *s2;
   
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
 
+  s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
-  fprintf (stderr, "Received (property) signal %s:%s from object %s\n",
-	   g_type_name (signal_query.itype), name, s);
+  fprintf (stderr, "Received (property) signal %s:%s from object %s (gail %s)\n",
+	   g_type_name (signal_query.itype), name, s, s2);
 #endif
 
   gobject = g_value_get_object (param_values + 0);
@@ -395,14 +396,19 @@ bridge_signal_listener (GSignalInvocationHint *signal_hint,
   GObject *gobject;
   GSignalQuery signal_query;
   const gchar *name;
+#ifdef SPI_BRIDGE_DEBUG
+  gchar *s, *s2;
+#endif
   
   g_signal_query (signal_hint->signal_id, &signal_query);
 
   name = signal_query.signal_name;
 
 #ifdef SPI_BRIDGE_DEBUG
-  fprintf (stderr, "Received signal %s:%s\n",
-	   g_type_name (signal_query.itype), name);
+  s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
+  s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
+  fprintf (stderr, "Received signal %s:%s from object %s (gail %s)\n",
+	   g_type_name (signal_query.itype), name, s, s2);
 #endif
 
   gobject = g_value_get_object (param_values + 0);

@@ -114,10 +114,10 @@ impl__get_minimumValue (PortableServer_Servant servant,
    * What we really need is a generic value API here
    */
 
-  g_value_init (&gvalue, G_TYPE_FLOAT);
+  g_value_init (&gvalue, G_TYPE_DOUBLE);
   atk_value_get_minimum_value (value, &gvalue);
 
-  return (CORBA_float) g_value_get_float (&gvalue);
+  return (CORBA_float) g_value_get_double (&gvalue);
 }
 
 
@@ -130,10 +130,10 @@ impl__get_maximumValue (PortableServer_Servant servant,
 
   g_return_val_if_fail (value != NULL, 0.0);
 
-  g_value_init (&gvalue, G_TYPE_FLOAT);
+  g_value_init (&gvalue, G_TYPE_DOUBLE);
   atk_value_get_maximum_value (value, &gvalue);
 
-  return (CORBA_float) g_value_get_float (&gvalue);
+  return (CORBA_float) g_value_get_double (&gvalue);
 }
 
 
@@ -146,10 +146,10 @@ impl__get_currentValue (PortableServer_Servant servant,
 
   g_return_val_if_fail (value != NULL, 0.0);
 
-  g_value_init (&gvalue, G_TYPE_FLOAT);
+  g_value_init (&gvalue, G_TYPE_DOUBLE);
   atk_value_get_current_value (value, &gvalue);
 
-  return (CORBA_float) g_value_get_float (&gvalue);
+  return (CORBA_float) g_value_get_double (&gvalue);
 }
 
 
@@ -163,8 +163,8 @@ impl__set_currentValue (PortableServer_Servant servant,
 
   g_return_if_fail (avalue != NULL);
 
-  g_value_init (&gvalue, G_TYPE_FLOAT);
-  g_value_set_float (&gvalue, (gfloat) value);
+  g_value_init (&gvalue, G_TYPE_DOUBLE);
+  g_value_set_float (&gvalue, (gdouble) value);
 
   atk_value_set_current_value (avalue, &gvalue);
 }
