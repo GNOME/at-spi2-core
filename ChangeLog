@@ -1,3 +1,7 @@
+2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
 2004-01-27  Brian Cameron <brian.cameron@sun.com>
 
 	* test/simple-at.c: Fixed null string problems that cause core
