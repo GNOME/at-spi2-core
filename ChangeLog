@@ -1,3 +1,14 @@
+2001-10-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.[c|], docs/atk-sections.txt,
+	docs/tmpl/atkobject.sgml:
+	Add convenience function atk_object_notify_state_change()
+	to generate property notification of state change.
+
+	* atk/atktext.c, docs/tmpl/atk-unused.sgml:
+	Correct comments on functions atk_attribute_get_name() and
+	atk_attribute_get_value()
+
 2001-10-17  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c:

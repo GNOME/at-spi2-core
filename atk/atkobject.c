@@ -629,10 +629,10 @@ atk_object_set_name (AtkObject    *accessible,
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_name)
-  {
-    (klass->set_name) (accessible, name);
-    g_object_notify (G_OBJECT (accessible), atk_object_name_property_name);
-  }
+    {
+      (klass->set_name) (accessible, name);
+      g_object_notify (G_OBJECT (accessible), atk_object_name_property_name);
+    }
 }
 
 /**
@@ -653,10 +653,10 @@ atk_object_set_description (AtkObject   *accessible,
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_description)
-  {
-    (klass->set_description) (accessible, description);
-    g_object_notify (G_OBJECT (accessible), atk_object_name_property_description);
-  }
+    {
+      (klass->set_description) (accessible, description);
+      g_object_notify (G_OBJECT (accessible), atk_object_name_property_description);
+    }
 }
 
 /**
@@ -746,6 +746,40 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
 }
 
 /**
+ * atk_object_notify_state_change:
+ * @accessible: an #AtkObject
+ * @state: an #AtkState whose state is changed
+ * @value : a gboolean which indicates whether the state is being set on or off
+ * 
+ * Emits a property_change signal for the specified state. 
+ * This signal is caught by an #AtkPropertyChangeHandler
+ **/
+void
+atk_object_notify_state_change (AtkObject *accessible,
+                                AtkState  state,
+                                gboolean  value)
+{
+  AtkPropertyValues  values;
+
+  memset (&values.old_value, 0, sizeof (GValue));
+  memset (&values.new_value, 0, sizeof (GValue));
+  values.property_name = atk_object_name_property_state;
+  if (value)
+    {
+       g_value_init (&values.new_value, G_TYPE_INT);
+       g_value_set_int (&values.new_value, state);
+    }
+    else
+    {
+       g_value_init (&values.old_value, G_TYPE_INT);
+       g_value_set_int (&values.old_value, state);
+    }
+  g_signal_emit (accessible, atk_object_signals[PROPERTY_CHANGE],
+                 g_quark_from_string (atk_object_name_property_state),
+                 &values, NULL);
+}
+
+/**
  * atk_implementor_ref_accessible:
  * @implementor: The #GObject instance which should implement #AtkImplementorIface
  * if a non-null return value is required.
@@ -793,7 +827,7 @@ atk_object_real_set_property (GObject      *object,
   accessible = ATK_OBJECT (object);
 
   switch (prop_id)
-  {
+    {
     case PROP_NAME:
       atk_object_set_name (accessible, g_value_get_string (value));
       break;
@@ -809,7 +843,7 @@ atk_object_real_set_property (GObject      *object,
       break;
     default:
       break;
-  }
+    }
 }
 
 static void
@@ -823,7 +857,7 @@ atk_object_real_get_property (GObject      *object,
   accessible = ATK_OBJECT (object);
 
   switch (prop_id)
-  {
+    {
     case PROP_NAME:
       g_value_set_string (value, atk_object_get_name (accessible));
       break;
@@ -836,7 +870,7 @@ atk_object_real_get_property (GObject      *object,
       break;
     default:
       break;
-  }
+    }
 }
 
 static void
@@ -897,23 +931,18 @@ atk_object_real_ref_state_set (AtkObject *accessible)
 
   ap = atk_object_get_parent (accessible);
   if (ap)
-  {
     if (ATK_IS_SELECTION (ap))
-    {
-      int i;
-
-      atk_state_set_add_state (state_set, ATK_STATE_SELECTABLE);
-
-      i = atk_object_get_index_in_parent (accessible);
-      if (i >= 0)
       {
-        if (atk_selection_is_child_selected(ATK_SELECTION (ap), i))
-        {
-          atk_state_set_add_state (state_set, ATK_STATE_SELECTED);
-        } 
+        int i;
+
+        atk_state_set_add_state (state_set, ATK_STATE_SELECTABLE);
+
+        i = atk_object_get_index_in_parent (accessible);
+        if (i >= 0)
+          if (atk_selection_is_child_selected(ATK_SELECTION (ap), i))
+            atk_state_set_add_state (state_set, ATK_STATE_SELECTED);
       } 
-    } 
-  }
+
   return state_set; 
 }
 
@@ -995,4 +1024,3 @@ atk_object_notify (GObject     *obj,
                  g_quark_from_string (pspec->name),
                  &values, NULL);
 }
-

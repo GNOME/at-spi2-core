@@ -891,7 +891,9 @@ atk_attribute_set_free(AtkAttributeSet *attrib_set)
  * atk_attribute_get_name:
  * @attr: The #AtkTextAttribute whose name is required
  *
- * Returns the name corresponding to the attr value.
+ * Gets the name corresponding to the #AtkTextAttribute
+ *
+ * Returns: a string containing the name; this string should not be freed
  **/
 G_CONST_RETURN gchar*
 atk_attribute_get_name (AtkTextAttribute attr)
@@ -905,7 +907,9 @@ atk_attribute_get_name (AtkTextAttribute attr)
  * @attr: The #AtkTextAttribute for which a value is required
  * @index: The index of the required value
  *
- * Returns the value corresponding to the attr value and index.
+ * Gets the value for the index of the #AtkTextAttribute
+ *
+ * Returns: a string containing the value; this string should not be freed;
  * NULL is returned if there are no values maintained for the attr value. 
  **/
 G_CONST_RETURN gchar*

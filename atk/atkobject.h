@@ -25,6 +25,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <glib-object.h>
+#include <atk/atkstate.h>
 
 /*
  * AtkObject represents the minimum information all accessible objects
@@ -399,9 +400,13 @@ void                    atk_object_set_role                       (AtkObject *ac
  */
 guint                atk_object_connect_property_change_handler  (AtkObject                      *accessible,
                                                                   AtkPropertyChangeHandler       *handler);
-void                 atk_object_remove_property_change_handler  (AtkObject                      *accessible,
-                                                                  guint                         handler_id);
+void                 atk_object_remove_property_change_handler   (AtkObject                      *accessible,
+                                                                  guint                          handler_id);
 
+void                 atk_object_notify_state_change              (AtkObject                      *accessible,
+                                                                  AtkState                       state,
+                                                                  gboolean                       value);
+                                    
 /*
  * Note: the properties which are registered with the GType
  *   property registry, for type ATK_TYPE_OBJECT, are as follows:
