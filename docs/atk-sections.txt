@@ -42,6 +42,7 @@ ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
 ATK_COMPONENT_GET_IFACE
 AtkFocusHandler
+AtkRectangle
 atk_component_get_type
 </SECTION>
 
