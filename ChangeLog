@@ -1,5 +1,8 @@
 2001-12-10  Bill Haneman  <bill.haneman@sun.com>
 
+	* TODO:
+	Added a TODO list (rough and short for now).
+
 	* cspi/spi_hyperlink.c:
 	* cspi/spi_hypertext.c:
 	Fixed macro name typos, and remove use of obsolete macro in 

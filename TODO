@@ -1,0 +1,25 @@
+TODO:
+
+idl: 
+      possibly change Value.idl interface to return a value union. [Bill]
+cspi: 
+      API change required if above IDL change is made.
+
+libspi: 
+
+      Change the weird string-hash event matching to something sane,
+using GQuark. [Bill]
+
+      Merge the DeviceEvent and KeyEvent structs to avoid the bogus casting of
+these back and forth.
+
+      Complete implementation of support for RelationSet and StateSet, and
+export to cspi. 
+
+      Complete and test the pre-emptive key API so that we don't always do
+AnyKey grabs. [Bill]
+
+test:
+
+      Add tests for AtkTable, and add table elements to the test window.
+
