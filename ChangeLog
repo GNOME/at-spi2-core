@@ -1,9 +1,26 @@
 2002-04-17  Bill Haneman <bill.haneman@sun.com>
 
+	* NEWS:
+	Started putting useful info in this file.
+	
+2002-04-17  Marc Mulcahy <marc.mulcahy@sun.com>
+ 
+	* atk-bridge/bridge.c: 
+	Propagate state-changed notifications to ATs
+ 
+	* cspi/spi_registry.c: update docs to reflect actual behavior of
+ 	state-change events.
+
+2002-04-17  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Incremented version to 0.12.1
+	
 	* util/mag_client.h:
 	Add missing declaration for magnifier_exit, 
 	used by mag_control.c - Forte compiler didn't like
 	the implicit redeclaration of the function :-(
+
 
 2002-04-16  Bill Haneman <bill.haneman@sun.com>
 

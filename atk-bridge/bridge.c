@@ -184,6 +184,7 @@ spi_atk_register_event_listeners (void)
 				      "Gtk:AtkObject:property-change");
   g_array_append_val (listener_ids, id);
 
+  add_signal_listener ("Gtk:AtkObject:state-change");
   add_signal_listener ("Gtk:AtkObject:children-changed");
   add_signal_listener ("Gtk:AtkObject:visible-data-changed");
   add_signal_listener ("Gtk:AtkSelection:selection-changed");

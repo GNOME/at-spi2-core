@@ -1,0 +1,32 @@
+What's new in at-spi-0.12.1:
+
+* fixes for bugzilla bugs 78249,68929,76615,71686,72300,78247,72300,78249
+  relating to build issues on some architectures (some of these were
+  fixed in 0.10 but additional fixes were included in 0.12.1).
+* added new test program for our key listener API.
+* added implementation of IDL 'exit' method to our
+  magnifier and mag_control client.
+* Badly broken AccessibleStateSet implementation fixed by
+  Marc.
+* Added implementation for AccessibleComponent_grabFocus method.
+* Improvements to documentation.
+
+API CHANGES:
+
+* Added missing seek_type param in
+  AccessibleStreamableContent_seek [78888], 
+  previously documented but not in signature;
+  this was unused API but needed fixing for the future.
+
+* Added API for AccessibleTable_selectRow and _selectColumn,
+  corresponding to similar API in ATK, and provided
+  implementation. [76201]
+
+* Added boolean return types to a number of IDL methods whose
+  corresponding cspi wrappers and ATK methods already had boolean
+  returns.
+
+* Made Accessibility_StateSet inherit from BonoboUnknown as it should;
+  this was the main existing breakage in StateSet.
+
+

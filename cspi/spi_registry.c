@@ -42,7 +42,6 @@
  *
  *            object:property-change
  *            object:property-change:accessible-name
- *            object:property-change:accessible-state
  *            object:property-change:accessible-description
  *            object:property-change:accessible-parent
  *            object:property-change:accessible-value
@@ -56,6 +55,7 @@
  *
  *    (other object events)
  *
+ *            object:state-changed 
  *            object:children-changed
  *            object:visible-data-changed
  *            object:selection-changed
