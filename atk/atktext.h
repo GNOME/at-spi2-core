@@ -40,6 +40,13 @@ typedef struct _AtkText AtkText;
 #endif
 typedef struct _AtkTextIface AtkTextIface;
 
+typedef GList AtkAttributeSet;
+
+typedef struct _AtkAttribute {
+  gchar* name;
+  gchar* value;
+}AtkAttribute;
+
 /**
  *AtkTextBoundary:
  *@ATK_TEXT_BOUNDARY_CHAR:
@@ -83,9 +90,10 @@ struct _AtkTextIface
                                                    gint             offset,
                                                    AtkTextBoundary  boundary_type);
   gint           (* get_caret_offset)             (AtkText          *text);
-  PangoAttrList* (* get_range_attributes)         (AtkText          *text,
-                                                   gint             start_offset,
-                                                   gint             end_offset);
+  AtkAttributeSet* (* ref_run_attributes)         (AtkText	    *text,
+						   gint	  	    offset,
+						   gint             *start_offset,
+						   gint	 	    *end_offset);
   void           (* get_character_extents)        (AtkText          *text,
                                                    gint             offset,
                                                    gint             *x,
@@ -112,6 +120,10 @@ struct _AtkTextIface
 						   gint		    end_offset);
   gboolean       (* set_caret_offset)             (AtkText          *text,
                                                    gint             offset);
+  gboolean       (* set_run_attributes)           (AtkText          *text,
+                                                   AtkAttributeSet  *attrib,
+                                                   gint		    start_offset,
+ 					 	   gint		    end_offset);
   void		 (* text_changed)                 (AtkText          *text);
   void           (* caret_changed)                (AtkText          *text,
                                                    gint             location);
@@ -141,15 +153,16 @@ gchar*        atk_text_get_text_before_offset             (AtkText          *tex
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type);
 gint          atk_text_get_caret_offset                   (AtkText          *text);
-PangoAttrList* atk_text_get_range_attributes              (AtkText          *text,
-                                                           gint             start_offset,
-                                                           gint             end_offset);
 void          atk_text_get_character_extents              (AtkText          *text,
                                                            gint             offset,
                                                            gint             *x,
                                                            gint             *y,
                                                            gint             *length,
                                                            gint             *width);
+AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,
+						           gint	  	    offset,
+						           gint             *start_offset,
+						           gint	 	    *end_offset);
 gint          atk_text_get_character_count                (AtkText          *text);
 gint          atk_text_get_offset_at_point                (AtkText          *text,
                                                            gint             x,
@@ -170,6 +183,10 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 							   gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
+gboolean      atk_text_set_run_attributes                 (AtkText          *text,
+                                                           AtkAttributeSet  *attrib,
+                                                           gint		    start_offset,
+ 					 	           gint		    end_offset);
 
 #ifdef __cplusplus
 }

@@ -280,35 +280,6 @@ atk_text_get_caret_offset (AtkText *text)
 }
 
 /**
- * atk_text_get_range_attributes
- * @text: an #AtkText
- * @start_offset: start position
- * @end_offset: end position
- *
- * Gets attributes over the specified range.
- *
- * Returns: a #PangoAttrList with the text attributes between the
- * @start_offset and the @end_offset.
- **/
-PangoAttrList*
-atk_text_get_range_attributes (AtkText *text,
-                               gint start_offset,
-                               gint end_offset)
-{
-  AtkTextIface *iface;
-
-  g_return_val_if_fail (text != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
-
-  iface = ATK_TEXT_GET_IFACE (text);
-
-  if (iface->get_range_attributes)
-    return (*(iface->get_range_attributes)) (text, start_offset, end_offset);
-  else
-    return NULL;
-}
-
-/**
  * atk_text_get_character_extents
  * @text: an #AtkText
  * @offset: position
@@ -344,6 +315,39 @@ atk_text_get_character_extents (AtkText *text,
       *length = 0;
       *width = 0;
     }
+}
+
+/**
+ *atk_text_ref_run_attributes:
+ *@text: an #AtkText
+ *@offset: the offset at which to get the attributes
+ *@start_offset: the address to put the start offset of the range
+ *@end_offset: the address to put the end offset of the range
+ *
+ *Creates an #AtkAttributeSet which consists of the attributes explicitly
+ *set at the position @offset in the text. @start_offset and @end_offset are
+ *set to the start and end of the range around @offset where the attributes are
+ *invariant.
+ *
+ *Returns: an #AtkAttributeSet which contains the attributes explicitly set
+ *at @offset
+ **/
+AtkAttributeSet* atk_text_ref_run_attributes              (AtkText          *text,
+                                                           gint             offset,
+                                                           gint             *start_offset,
+                                                           gint             *end_offset)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (text != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->ref_run_attributes)
+    return (*(iface->ref_run_attributes)) (text, offset, start_offset, end_offset);
+  else
+    return NULL;
 }
 
 /**
@@ -548,6 +552,41 @@ atk_text_set_selection (AtkText *text, gint selection_num,
   }
   else
     return FALSE;
+}
+
+/**
+ *atk_text_set_run_attributes:
+ *@text: an #AtkText
+ *@attrib: an #AtkAttributeSet
+ *@start_offset: start of range in which to set attributes
+ *@end_offset: end of range in which to set attributes
+ *
+ *Sets the attributes for a specified range
+ *
+ *Returns: %TRUE if attributes successfully set for the specified
+ *range, otherwise %FALSE
+ **/
+gboolean
+atk_text_set_run_attributes (AtkText *text,
+                             AtkAttributeSet *attrib,
+			     gint start_offset,
+                             gint end_offset)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (text != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->set_run_attributes)
+    {
+      return (*(iface->set_run_attributes)) (text, attrib, start_offset, end_offset);
+    }
+  else
+    {
+      return FALSE;
+    }
 }
 
 /**
