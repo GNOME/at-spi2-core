@@ -28,6 +28,7 @@ libspiinclude_HEADERS = Accessibility.h \
 			libspi.h \
                         listener.h \
 			relation.h \
+			remoteobject.h \
 			selection.h \
 			table.h \
 			text.h \
@@ -83,6 +84,8 @@ libspi_la_SOURCES = accessible.c         \
 		    keystrokelistener.h\
 		    relation.c\
 		    relation.h\
+		    remoteobject.c\
+		    remoteobject.h\
 		    selection.c\
 		    selection.h\
 		    table.c\
