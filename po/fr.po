@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.5.1\n"
+"Project-Id-Version: atk 1.5.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-03 13:54+0100\n"
-"PO-Revision-Date: 2004-01-03 12:51+0100\n"
+"POT-Creation-Date: 2004-02-08 16:38+0100\n"
+"PO-Revision-Date: 2004-02-08 16:32+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -103,7 +103,7 @@ msgstr "éditeur de dates"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "icône de bureau"
+msgstr "icône du bureau"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
@@ -115,7 +115,7 @@ msgstr "bouton de réglage"
 
 #: atk/atkobject.c:98
 msgid "dialog"
-msgstr "dialogue"
+msgstr "boîte de dialogue"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
@@ -387,11 +387,11 @@ msgstr "Est utilisé pour notifier que la valeur a changé"
 
 #: atk/atkobject.c:325
 msgid "Accessible Role"
-msgstr "Role accessible"
+msgstr "Rôle accessible"
 
 #: atk/atkobject.c:326
 msgid "The accessible role of this object"
-msgstr "Le role accessible de cet objet"
+msgstr "Le rôle accessible de cet objet"
 
 #: atk/atkobject.c:334
 msgid "Accessible Layer"
@@ -476,8 +476,8 @@ msgid "Is used to notify that the table caption has changed"
 msgstr "Est utilisé pour notifier que la légende du tableau a changé"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
-msgstr "Nombre de liens hypertextes accessible"
+msgid "Number of Accessible Hypertext Links"
+msgstr "Nombre de liens hypertextes accessibles"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
