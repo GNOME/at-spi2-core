@@ -1,5 +1,10 @@
 2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
 
+	* cpsi/spi_table.c (AccessibleTable_getNSelectedColumns): Fix
+	typo in documentation comments. Bug #94275.
+
+2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
+
 	* libspi/text.c (impl_getBoundedRanges): Bug fix.
 
 2003-01-10  Padraig O'Briain <padraig.obriain@sun.com

@@ -509,7 +509,7 @@ AccessibleTable_getSelectedRows (AccessibleTable *obj,
  * AccessibleTable_getNSelectedColumns:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
  *
- * Query a table to find out how many columnss are currently selected.  Not all tables
+ * Query a table to find out how many columns are currently selected.  Not all tables
  *  support column selection.
  *
  * Returns: a long integer indicating the number of columns currently selected.
