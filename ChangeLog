@@ -1,3 +1,8 @@
+2003-12-16	Mohammad DAMT  <mdamt@bisnisweb.com>
+
+	* configure.in: Added "id" in ALL_LINGUAS
+	* po/id.po: Indonesian translation by Ahmad Riza H Nst <ari@160c.afraid.org>
+
 2003-12-15  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* registryd/deviceeventcontroller.c (global_filter_fn):

@@ -1,0 +1,32 @@
+# Indonesian translation of at-spi.
+# Copyright (C) 2003 THE at-spi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi package.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi HEAD\n"
+"POT-Creation-Date: 2003-12-16 16:58+0700\n"
+"PO-Revision-Date: 2003-12-10 19:36+0700\n"
+"Last-Translator: Ahmad Riza H Nst <ari@160c.afraid.org>\n"
+"Language-Team: Indonesia <sukarelawan@gnome.linux.or.id>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
+
+#: atk-bridge/bridge.c:309
+msgid "failure: no device event controller found.\n"
+msgstr "kesalahan: tidak menemukan pengatur device event.\n"
+
+#: atk-bridge/bridge.c:778
+msgid "WARNING: NULL key event reported."
+msgstr "PERINGATAN: kunci event NULL ditemukan."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Registri AT-SPI"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Registri aksesibilitas"
