@@ -86,7 +86,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, ["$GETTEXT_PACKAGE"],
   [Define the gettext package to be used])
 
-ALL_LINGUAS="am az be bg bn ca cs da de en_GB el eo es fa fi fr he hu kn ko id it lv ml mk mn ms nl no pl pt_BR ro ru sk sq sv tr uk vi zh_CN zh_TW"
+ALL_LINGUAS="am az be bg bn ca cs da de en_GB el eo es fa fi fr he hu kn ko id it ja lv ml mk mn ms nl no pl pt_BR ro ru sk sq sv tr uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 GLIB_DEFINE_LOCALEDIR(atklocaledir)
