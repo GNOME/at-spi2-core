@@ -89,12 +89,13 @@ impl_key_event (PortableServer_Servant     servant,
   }
 #endif
   /* TODO: convert from the CORBA-based struct to a c-type-based one ? */
+#ifdef SPI_KEYSTROKE_DEBUG  
     fprintf (stderr, "Key:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
 	   (long) key->keyID,
 	   (unsigned int) key->modifiers,
 	   (int) key->keycode,
 	   (long int) key->timestamp);
-
+#endif
   while (callbacks)
   {
 	  BooleanKeystrokeListenerCB cb = (BooleanKeystrokeListenerCB) callbacks->data;

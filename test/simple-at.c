@@ -27,7 +27,8 @@
 
 static void report_focus_event (void *fp);
 static void report_button_press (void *fp);
-static boolean report_key_event (void *fp);
+static boolean report_command_key_event (void *fp);
+static boolean report_ordinary_key_event (void *fp);
 static void check_property_change (void *fp);
 static void get_environment_vars (void);
 
@@ -42,7 +43,8 @@ static boolean festival_chatty = FALSE;
 static AccessibleEventListener *focus_listener;
 static AccessibleEventListener *property_listener;
 static AccessibleEventListener *button_listener;
-static AccessibleKeystrokeListener *key_listener;
+static AccessibleKeystrokeListener *command_key_listener;
+static AccessibleKeystrokeListener *ordinary_key_listener;
 
 int
 main(int argc, char **argv)
@@ -84,13 +86,29 @@ main(int argc, char **argv)
     }
 
   /* prepare the keyboard snoopers */
-  key_listener = createAccessibleKeystrokeListener(report_key_event);
-  /* will listen only to Alt-key combinations */
-  registerAccessibleKeystrokeListener(key_listener,
+  command_key_listener = createAccessibleKeystrokeListener(report_command_key_event);
+  ordinary_key_listener = createAccessibleKeystrokeListener(report_ordinary_key_event);
+  
+  /* will listen only to Alt-key combinations, and only to KeyPress events */
+  registerAccessibleKeystrokeListener(command_key_listener,
 				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
 				      SPI_KEYMASK_ALT,
-				      (unsigned long) ( KeyPress | KeyRelease),
+				      (unsigned long) ( KeyPress ),
 				      SPI_KEYLISTENER_ALL_WINDOWS);
+  
+  /* will listen only to unshifted key events, both press and release */
+  registerAccessibleKeystrokeListener(ordinary_key_listener,
+				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+				      SPI_KEYMASK_UNMODIFIED,
+				      (unsigned long) ( KeyPress | KeyRelease),
+				      SPI_KEYLISTENER_NOSYNC);
+				      
+  /* will listen only to shifted key events, both press and release */
+  registerAccessibleKeystrokeListener(ordinary_key_listener,
+				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+				      SPI_KEYMASK_SHIFT,
+				      (unsigned long) ( KeyPress | KeyRelease),
+				      SPI_KEYLISTENER_NOSYNC);
 
   get_environment_vars();
 
@@ -206,7 +224,9 @@ simple_at_exit()
   deregisterGlobalEventListenerAll (focus_listener);
   deregisterGlobalEventListenerAll (property_listener);
   deregisterGlobalEventListenerAll (button_listener);
-  deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT );
+  deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT );
+  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED );
+  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT );
   
   SPI_exit ();
 }
@@ -234,20 +254,27 @@ is_command_key (AccessibleKeyStroke *key)
 }
 
 static boolean
-report_key_event (void *p)
+report_command_key_event (void *p)
 {
   AccessibleKeyStroke *key = (AccessibleKeyStroke *) p;
-  fprintf (stderr, "KeyEvent %s%c (keycode %d)\n",
+  fprintf (stderr, "Command KeyEvent %s%c (keycode %d)\n",
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
 	  ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
 	  (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID),
 	  (int) key->keycode);
-  fprintf (stderr, "Key:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
+  return is_command_key (key);
+}
+
+
+static boolean
+report_ordinary_key_event (void *p)
+{
+  AccessibleKeyStroke *key = (AccessibleKeyStroke *) p;
+  fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
 	   (long) key->keyID,
 	   (unsigned int) key->modifiers,
 	   (int) key->keycode,
 	   (long int) key->timestamp);
-  return is_command_key (key);
 }
 
 static int _festival_init ()

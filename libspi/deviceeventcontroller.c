@@ -153,14 +153,15 @@ controller_register_device_listener (SpiDeviceEventController *controller,
   case SPI_DEVICE_TYPE_KBD:
       key_listener = (DEControllerKeyListener *) listener;  	  
       controller->key_listeners = g_list_append (controller->key_listeners, key_listener);
-      
-      mask_ptr = (Accessibility_ControllerEventMask *)
+      if (key_listener->is_system_global)
+        {
+          mask_ptr = (Accessibility_ControllerEventMask *)
 	      g_list_find_custom (controller->keymask_list, (gpointer) key_listener->mask,
 				  _eventmask_compare_value);
-      if (mask_ptr)
+          if (mask_ptr)
 	      ++(mask_ptr->refcount);
-      else
-      {
+          else
+           {
 	      if (key_listener->mask->refcount != (CORBA_unsigned_short) 1)
 		      fprintf (stderr, "mask initial refcount is not 1!\n");
 	      if (key_listener->mask->value > (CORBA_unsigned_long) 2048)
@@ -174,7 +175,8 @@ controller_register_device_listener (SpiDeviceEventController *controller,
 	      mask_ptr->refcount = (CORBA_unsigned_short) 1;
 	      controller->keymask_list = g_list_append (controller->keymask_list,
 							(gpointer) mask_ptr);
-      }
+          }
+	}
       break;
   case SPI_DEVICE_TYPE_MOUSE:
 /*    controller->mouse_listeners = g_list_append (controller->mouse_listeners,
