@@ -1,3 +1,10 @@
+2001-06-26  Brian Cameron <brian.cameron@sun.com>
+	*atk/atkstate.h atk/atkstate.c
+	docs/tmpl/atk-unused.sgml docs/tmpl/atkselection.sgml
+	docs/tmpl/atkstate.sgml docs/tmpl/atktable.sgml
+	docs/tmpl/atktext.sgml
+	Added ATK_STATE_STALE.  Updated docs.
+
 2001-06-22  Lucy Brophy <lucy.brophy@sun.com>
 	*atk/atktext.h
 	Removed the macro ATK_TEXT_BOUNDARY_CURSOR_POS

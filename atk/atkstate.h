@@ -53,6 +53,7 @@ extern "C" {
  *@ATK_STATE_SENSITIVE: Indicates this object is sensitive
  *@ATK_STATE_SHOWING: Indicates this object, the object's parent, the object's parent's parent, and so on, are all visible
  *@ATK_STATE_SINGLE_LINE: Indicates this (text) object can contain only a single line of text
+ *@ATK_STATE_STALE: Indicates that the index associated with this object has changed since the user accessed the object.
  *@ATK_STATE_TRANSIENT: Indicates this object is transient
  *@ATK_STATE_VERTICAL: Indicates the orientation of this object is vertical
  *@ATK_STATE_VISIBLE: Indicates this object is visible
@@ -87,6 +88,7 @@ typedef enum
   ATK_STATE_SENSITIVE,
   ATK_STATE_SHOWING,
   ATK_STATE_SINGLE_LINE,
+  ATK_STATE_STALE,
   ATK_STATE_TRANSIENT,
   ATK_STATE_VERTICAL,
   ATK_STATE_VISIBLE,

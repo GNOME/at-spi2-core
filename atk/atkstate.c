@@ -38,7 +38,7 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
  "iconified",
  "modal",
  "multi-line",
- "multiselect,ble",
+ "multiselectable",
  "opaque",
  "pressed",
  "resizeable",
@@ -47,6 +47,7 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
  "sensitive",
  "showing",
  "single-line",
+ "stale",
  "transient",
  "vertical",
  "visible"

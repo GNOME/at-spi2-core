@@ -51,7 +51,6 @@ AtkText provides an accessibility interface for text widgets
 </para>
 
 @ATK_TEXT_BOUNDARY_CHAR: 
-@ATK_TEXT_BOUNDARY_CURSOR_POS: 
 @ATK_TEXT_BOUNDARY_WORD_START: 
 @ATK_TEXT_BOUNDARY_WORD_END: 
 @ATK_TEXT_BOUNDARY_SENTENCE_START: 
