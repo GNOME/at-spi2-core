@@ -1,3 +1,7 @@
+2004-09-03  Gora Mohanty  <gmohanty@cvs.gnome.org>
+ 
+	* configure.in: Added "or" to ALL_LINGUAS.
+
 2004-08-20  Bill Haneman    <bill.haneman@sun.com>
 
 	* configure.in, NEWS, README: Revved to 1.5.4.
