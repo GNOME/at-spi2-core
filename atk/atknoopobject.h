@@ -20,10 +20,7 @@
 #ifndef __ATK_NO_OP_OBJECT_H__
 #define __ATK_NO_OP_OBJECT_H__
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define ATK_TYPE_NO_OP_OBJECT                (atk_no_op_object_get_type ())
 #define ATK_NO_OP_OBJECT(obj)                (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_NO_OP_OBJECT, AtkNoOpObject))
@@ -40,7 +37,7 @@ struct _AtkNoOpObject
   AtkObject     parent;
 };
 
-GType agtk_widget_get_type (void);
+GType atk_no_op_object_get_type (void);
 
 struct _AtkNoOpObjectClass
 {
@@ -49,9 +46,6 @@ struct _AtkNoOpObjectClass
 
 AtkObject *atk_no_op_object_new (GObject  *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_NO_OP_OBJECT_H__ */

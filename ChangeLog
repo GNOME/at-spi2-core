@@ -1,3 +1,8 @@
+2001-06-20  Peter Williams  <peterw@ximian.com>
+	* atk/atknoopobject.h: Correct prototype name: agtk_widget_get_type ->
+	atk_no_op_object_get_type. Change #ifdef __cplusplus mess to nicer
+	G_{BEGIN,END}_DECLS.
+
 2001-06-20  Brian Cameron <brian.cameron@sun.com>
 	* atk/atktable.c, atk/atkmarshal.list
 	Removed needless marshal and updated signal handlers in
