@@ -1,3 +1,15 @@
+2001-11-13  Michael Meeks  <michael@ximian.com>
+
+	* Makefile.am: dist & install at-spi-1.0.pc
+
+	* libspi/Makefile.am: install into at-spi-1.0
+
+	* idl/Makefile.am (idldir): install into at-spi-1.0
+
+	* at-spi-1.0.pc.in: add.
+
+	* configure.in: build it.
+
 2001-11-12  Bill Haneman <bill.haneman@sun.com>
 
         * test/keysynth-demo.c:

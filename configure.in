@@ -126,6 +126,7 @@ AC_MSG_ERROR([You must have popt 1.5 or greater to compile the utilities.]))
 
 AC_OUTPUT([
 Makefile
+at-spi-1.0.pc
 po/Makefile.in
 docs/Makefile
 idl/Makefile

@@ -12,7 +12,7 @@ DEBUG_CFLAGS=-DSPI_DEBUG
 
 CFLAGS += $(DEBUG_CFLAGS)
 
-libspiincludedir = $(includedir)/libspi
+libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
 libspiinclude_HEADERS = accessible.h       \
 			action.h\

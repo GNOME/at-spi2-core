@@ -1,4 +1,4 @@
-idldir = $(datadir)/idl
+idldir = $(datadir)/idl/at-spi-1.0
 
 idl_DATA = Accessibility.idl\
 	   Accessible.idl   \
