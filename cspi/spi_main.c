@@ -157,6 +157,12 @@ cspi_get_live_refs (void)
 }
 
 CORBA_Environment *
+cspi_peek_ev (void)
+{
+  return &ev;
+}
+
+CORBA_Environment *
 cspi_ev (void)
 {
   CORBA_exception_init (&ev);

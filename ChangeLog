@@ -1,3 +1,9 @@
+2003-06-13  Michael Meeks  <michael@ximian.com>
+
+	* cspi/bonobo/cspi-bonobo.c (cspi_check_ev): use it.
+
+	* cspi/spi_main.c (cspi_peek_ev): impl.
+
 2003-06-11  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi-roletypes.h: Add role SPI_ROLE_AUTOCOMPLETE

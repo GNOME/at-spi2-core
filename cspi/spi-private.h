@@ -68,6 +68,7 @@ struct _SPIException {
 #define CSPI_OBJREF(a) (((Accessible *)(a))->objref)
 
 CORBA_Environment     *cspi_ev                (void);
+CORBA_Environment     *cspi_peek_ev           (void);
 SPIBoolean             cspi_exception         (void);
 Accessibility_Registry cspi_registry          (void);
 Accessible            *cspi_object_add        (CORBA_Object corba_object);

@@ -41,7 +41,7 @@ cspi_release_unref (CORBA_Object object)
 SPIBoolean
 cspi_check_ev (const char *error_string)
 {
-  CORBA_Environment *ev = cspi_ev ();
+  CORBA_Environment *ev = cspi_peek_ev ();
 
   if (ev->_major != CORBA_NO_EXCEPTION)
     {
