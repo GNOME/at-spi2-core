@@ -536,10 +536,14 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
   if (display)
     {
       if (XGrabButton (display, AnyButton, AnyModifier,
-		   gdk_x11_get_default_root_xwindow (),
-		   True, ButtonPressMask | ButtonReleaseMask,
-		   GrabModeSync, GrabModeAsync, None, None) != Success)
+		       gdk_x11_get_default_root_xwindow (),
+		       True, ButtonPressMask | ButtonReleaseMask,
+		       GrabModeSync, GrabModeAsync, None, None) != Success) {
+#ifdef SPI_DEBUG
 	fprintf (stderr, "WARNING: could not grab mouse buttons!\n");
+#endif
+	;
+      }
       XSync (display, False);
 #ifdef SPI_DEBUG
       fprintf (stderr, "mouse buttons grabbed\n");

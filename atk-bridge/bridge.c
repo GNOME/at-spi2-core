@@ -308,7 +308,7 @@ spi_atk_bridget_get_dec (void)
 
   if (BONOBO_EX (&ev))
     {
-      g_warning ("failure: no deviceeventcontroller found\n");
+      g_warning (_("failure: no device event controller found.\n"));
       registry_died = TRUE;
       device_event_controller = CORBA_OBJECT_NIL;
     }
@@ -803,7 +803,7 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 #endif
   if (!event)
     {
-      g_print ("WARNING: NULL key event!");
+      g_print (_("WARNING: NULL key event reported."));
     }
   
   keystroke->id        = (CORBA_long) event->keyval;
