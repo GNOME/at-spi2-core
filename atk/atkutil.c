@@ -18,6 +18,7 @@
  */
 
 #include "atkutil.h"
+#include "atkmarshal.c"
 
 /*
  * This file supports the addition and removal of multiple focus handlers

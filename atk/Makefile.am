@@ -25,6 +25,12 @@ libatk_la_SOURCES = 		\
 	atkutil.c		\
 	atkvalue.c
 
+ATK_MARSHALFILES = atkmarshal.h atkmarshal.list atkmarshal.c
+EXTRA_DIST += atkmarshal.c atkmarshal.list
+MAINTAINERCLEANFILES += atkmarshal.c
+
+Makefile: $(ATK_MARSHALFILES)
+
 INCLUDES = \
 	-I$(top_srcdir)		\
 	@DEP_CFLAGS@
@@ -55,3 +61,20 @@ libatkinclude_HEADERS =	\
         atktext.h		\
         atkutil.h		\
         atkvalue.h
+
+# initial creation of the real stamp-* files
+atk.defs atkmarshal.h :	  # never add deps here
+	test -f "$(srcdir)/$@" || touch $(srcdir)/$@
+
+$(srcdir)/stamp-atkmarshal.h: @REBUILD@ atkmarshal.list atkmarshal.h
+	cd $(srcdir) \
+	&& glib-genmarshal --prefix=atk_marshal atkmarshal.list --header >> xgen-gmh \
+	&& (cmp -s xgen-gmh atkmarshal.h || cp xgen-gmh atkmarshal.h) \
+	&& rm -f xgen-gmh xgen-gmh~ \
+	&& echo timestamp > $(@F)
+$(srcdir)/atkmarshal.c: @REBUILD@ $(srcdir)/stamp-atkmarshal.h
+	cd $(srcdir) \
+	&& glib-genmarshal --prefix=atk_marshal atkmarshal.list --body >> xgen-gmc \
+	&& cp xgen-gmc atkmarshal.c \
+	&& rm -f xgen-gmc xgen-gmc~
+

@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+EXTRA_DIST = Makefile.am atk-api.sgml atk-docs.sgml atk-sections.txt
+
 # The name of the module.
 DOC_MODULE=atk
 
@@ -37,4 +39,29 @@ install-data-local:
 	install -m 0644 html/index.sgml $(TARGET_DIR)
 	gtkdoc-fixxref --module=$(DOC_MODULE) --html-dir=$(HTML_DIR)
 
-.PHONY : html sgml templates scan
+#
+# Require gtk-doc when making dist
+#
+if ENABLE_GTK_DOC
+dist-check-gtkdoc:
+else
+dist-check-gtkdoc:
+	@echo "*** gtk-doc must be installed and enabled in order to make dist"
+	@false
+endif
+
+dist-hook: dist-check-gtkdoc dist-hook-local
+	mkdir $(distdir)/tmpl
+	mkdir $(distdir)/sgml
+	mkdir $(distdir)/html
+	-cp $(srcdir)/tmpl/*.sgml $(distdir)/tmpl
+	-cp $(srcdir)/sgml/*.sgml $(distdir)/sgml
+	-cp $(srcdir)/html/index.sgml $(distdir)/html
+	-cp $(srcdir)/html/*.html $(srcdir)/html/*.css $(distdir)/html
+
+	images=$(HTML_IMAGES) ;			\
+	for i in $$images ; do			\
+	  cp $(srcdir)/$$i $(distdir)/html ;  \
+	done
+
+.PHONY : html sgml templates scan dist-hook-local

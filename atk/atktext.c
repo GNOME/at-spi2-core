@@ -18,6 +18,7 @@
  */
 
 #include "atktext.h"
+#include "atkmarshal.h"
 
 enum {
   TEXT_CHANGED,
@@ -77,9 +78,9 @@ atk_text_base_init (gpointer *g_class)
                      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
                      G_STRUCT_OFFSET (AtkTextIface, text_changed), 
                      (GSignalAccumulator) NULL, NULL,
-                     g_cclosure_marshal_VOID__VOID,
+                     atk_marshal_VOID__INT_INT,
                      G_TYPE_NONE,
-                     0, G_TYPE_NONE);
+                     2, G_TYPE_INT, G_TYPE_INT);
 
     atk_text_signals[CARET_MOVED] =
       g_signal_newc ("text_caret_moved",

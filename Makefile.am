@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in.
 
-SUBDIRS=atk tests
+SUBDIRS=atk tests docs
 
 EXTRA_DIST = 		\
 	atk.pc.in
