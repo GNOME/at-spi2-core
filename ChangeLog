@@ -1,4 +1,12 @@
-2002-02-12 Bill Haneman <bill.haneman@sun.com>
+2002-02-26 Marc Mulcahy <marc.mulcahy@sun.com>
+
+	libspi/stateset.c libspi/stateset.h libspi/Makefile.am:
+	implemented stateset support
+
+	idl/Accessibility_State.idl: Made necessary changes to the IDL to
+	support state sets.
+
+	2002-02-12 Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:
 	Added implementation for generateMouseEvent.

@@ -37,8 +37,12 @@ module Accessibility {
   STATE_CHECKED,
   /* Indicates this object is collapsed */
   STATE_COLLAPSED,
+  /* Indicates that this object no longer contains a backing widget */
+  STATE_DEFUNCT,
   /* Indicates the user can change the contents of this object */
   STATE_EDITABLE,
+  /* Indicates that this object is enabled */
+  STATE_ENABLED,
   /* Indicates this object allows progressive disclosure of its children */
   STATE_EXPANDABLE,
   /* Indicates this object its expanded */
@@ -96,6 +100,8 @@ module Accessibility {
   STATE_SHOWING,
   /* Indicates this (text) object can contain only a single line of text */
   STATE_SINGLE_LINE,
+  /* Indicates that this object's index within parent information may be invalid */
+  STATE_STALE,
   /* Indicates this object is transient */
   STATE_TRANSIENT,
   /* Indicates the orientation of this object is vertical */
@@ -105,6 +111,8 @@ module Accessibility {
   STATE_LAST_DEFINED
   };
 
+  typedef sequence <StateType> StateSeq;
+
   interface StateSet {
     boolean 		contains (in StateType state);
     void		add (in StateType state);
@@ -113,6 +121,9 @@ module Accessibility {
     /* returns a 'difference set' */
     StateSet            compare (in StateSet compareState);
     boolean		isEmpty ();
+
+    /* Private */
+    StateSeq getStates ();
 
     /**
      * unImplemented:

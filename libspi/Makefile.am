@@ -78,7 +78,9 @@ libspi_la_SOURCES =		\
 	remoteobject.c		\
 	selection.c		\
 	spi-private.h		\
-	table.c			\
+	stateset.c\
+	stateset.h\
+table.c			\
 	text.c			\
 	util.c			\
 	value.c			\
