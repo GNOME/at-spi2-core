@@ -790,7 +790,7 @@ main (int argc, char **argv)
 	/* Wait for any pending events from the registry */
 	g_usleep (500*1000);
 	for (i = 0; i < 100; i++)
-		linc_main_iteration (FALSE);
+		CORBA_ORB_perform_work (NULL, NULL);
 
 	if ((leaked = SPI_exit ()))
 		g_error ("Leaked %d SPI handles", leaked);
