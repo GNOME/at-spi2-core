@@ -1,4 +1,22 @@
+2001-07-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.[c|h]
+	Move some implementation from GAIL:
+	Default implementations for some some functions
+	atk_object_real_get_name, atk_object_real_set_name,
+	atk_object_real_get_description, atk_object_real_set_description,
+	atk_object_real_get_parent, atk_object_real_set_parent,
+	atk_object_real_get_role,
+	atk_object_real_connect_property_change_handler,
+	atk_object_real_remove_property_change_handler,
+	atk_object_notify,
+	definition of property-changed signal.
+	Initialize pointers to NULL in atk_object_init().
+	Initialize uninitialized function pointers to NULL in 
+	atk_object_class_init().
+	
 2001-07-23  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkobject.c
 	Changed children_changed signal to allow NULL pointers
 	for the 2nd argument to the signal handler.
@@ -9,16 +27,19 @@
 	* atk/makefile.msc : updated win32 build
 
 2001-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkaction.[c|h], docs/atk-sections.txt, 
 	docs/tmpl/atkaction.sgml
 	Add atk_action_get_name() and atk_action_set_description()
 
 2001-07-18  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkstate.[c|h]
 	Add ATK_STATE_ENABLED so we can distinguish between a consistent
 	and inconsistent GtkToggleButton
 
 2001-07-16  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkeditabletext.c atk/atktext.c atk/atktext.h atk/atkutil.h
 	docs/atk-sections.txt docs/tmpl/atktext.sgml docs/tmpl/atkutil.sgml
 	gail_textattributes_update.pat is for gail/gail and integrates the 
@@ -40,14 +61,17 @@
 	configure file doesn't include AM_CONFIG_HEADER.
 
 2001-07-11  Brian Cameron <brian.cameron@sun.com>
+
 	* tmpl/atkdocument.sgml
 	Added new file for docs.
 
 2001-07-11  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkimage.c atk/atkutil.c
 	Changes to build with Sun's FORTE compiler.
 
 2001-07-10  Brian Cameron <brian.cameron@sun.com>
+
 	* tmpl/atk-unused.sgml tmpl/atkcomponent.sgml tmpl/atkeditabletext.sgml
 	tmpl/atkimage.sgml tmpl/atkselection.sgml tmpl/atkstate.sgml
 	tmpl/atkstreamablecontent.sgml tmpl/atktable.sgml
@@ -62,17 +86,20 @@ Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
 	to adapt to recent GSignal changes.
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkutil.c atk/atkutil.h docs/atk-sections.txt
 	docs/tmpl/atkutil.sgml
 	Added new functiosn to AtkUtil.
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/Makefile.am atk/atk.h atk/atkdocument.c atk/atkdocument.h
 	docs/atk-docs.sgml docs/atk-sections.txt docs/tmpl/atk-unused.sgml
 	docs/tmpl/atkobject.sgml
 	Added new atk document interface.
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkcomponent.c atk/atkcomponent.h atk/atkimage.c
 	atk/atkimage.h atk/atktext.c atk/atktext.h atk/atkutil.h
 	Updated so that functions that take screen coords as 
@@ -81,6 +108,7 @@ Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
 	Updated docs as well.
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+
 	*atk/atkaction.c atk/atkcomponent.c atk/atkeditabletext.c
 	atk/atkhyperlink.c atk/atkobject.c atk/atkregistry.c
 	atk/atkstate.c atk/atkstateset.c atk/atkstreamablecontent.c
@@ -89,14 +117,17 @@ Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
 	Cleaned up docs.  Added atkstreamablecontent.sgml
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+
 	*atk/atktable.h, atk/atktable.c
 	Updated signal handler definitions.
 
 2001-06-27  Brian Cameron <brian.cameron@sun.com>
+
 	*atk/atktext.h
 	Updated AtkXYCoords enum.
 
 2001-06-27  Brian Cameron <brian.cameron@sun.com>
+
 	*atk/atkaction.c atk/atkaction.h atk/atkcomponent.c
 	atk/atkcomponent.h atk/atkhyperlink.c atk/atkhypertext.c
 	atk/atkimage.c atk/atkimage.h atk/atkobject.c
@@ -109,11 +140,13 @@ Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
 	changes to the API.
 
 2001-06-27  Louise Miller <lousie.miller@sun.com>
+
 	*atk/atkselection.h, atk/atkselection.c
 	changed return type to gboolean for 
 	atk_selection_select_all_selection
 
 2001-06-26  Brian Cameron <brian.cameron@sun.com>
+
 	*atk/atkstate.h atk/atkstate.c
 	docs/tmpl/atk-unused.sgml docs/tmpl/atkselection.sgml
 	docs/tmpl/atkstate.sgml docs/tmpl/atktable.sgml
@@ -121,46 +154,55 @@ Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
 	Added ATK_STATE_STALE.  Updated docs.
 
 2001-06-22  Lucy Brophy <lucy.brophy@sun.com>
+
 	*atk/atktext.h
 	Removed the macro ATK_TEXT_BOUNDARY_CURSOR_POS
 
 2001-06-21  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkeditabletext.h, atk/atkobject.h,
 	atktext.[ch]
 	Added AtkAttributeSet_free() convenience
 	function.
 
 2001-06-20  Peter Williams  <peterw@ximian.com>
+
 	* atk/atknoopobject.h: Correct prototype name: agtk_widget_get_type ->
 	atk_no_op_object_get_type. Change #ifdef __cplusplus mess to nicer
 	G_{BEGIN,END}_DECLS.
 
 2001-06-20  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atktable.c, atk/atkmarshal.list
 	Removed needless marshal and updated signal handlers in
 	atktable.c
 
 2001-06-20  Louise Miller <louise.miller@sun.com>
+
 	*atk/atktable.h, atk/table.c, docs/tmpl/atktable.sgml	
 	Changed parameters for get_selected_rows/get_selected_columns
 	Added 4 new functions, add_row_selection, remove_row_selection,
 	add_column_selection, remove_column_selection
 
 2001-06-19  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atktable.c
 	Fixed minor bug with signals.
 
 2001-06-18  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atktable
 	Added signals.
 
 2001-06-15  Brian Cameron & Lucy Brophy  <brian.cameron@sun.com>
+
 	* atk/atkselection.h atk/atkselection.c
 	Now add_selection, clear_selection, and remove_selection 
 	return a boolean indicating SUCCESS/FAILURE to indicate
 	if the operation was successful.
 
 2001-06-13  Brian Cameron & Lucy Brophy  <brian.cameron@sun.com>
+
 	* atk/atktable.h atk/atktable.h
 	Updated so now the get_text_before|at|after functions
 	return the start & end offset of the string.  Updated the
@@ -256,6 +298,7 @@ Thu Jun  7 17:03:37 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* New files atk/atkstreamablecontent.[ch]
 	Updated files: atk/Makefile.am, atk/atk.h
+
 	* atk/atkvalue.c: Updated comments
 
 2001-06-06  Padraig O'Briain  <padraig.obriain@sun.com>
@@ -270,11 +313,13 @@ Thu Jun  7 17:03:37 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* atk/atkobject.c: Add support for setting and getting 
 	accessible-value property.
+
 	* atk/atkvalue.[ch] Make GValue in atk_value_set_current_value const
 
 Fri Jun 01  Brian Cameron <brian.cameron@sun.com>
 
         * atk/atkeditabletext.[ch], atk/atktext.[ch]
+
         * docs/atk-overrides.txt, docs/Makefile.am
           Updated the interface for dealing with selected
           text to handle multiple selected regions.  Removed
@@ -300,7 +345,9 @@ Tue May 29 18:17:11 2001  Owen Taylor  <otaylor@redhat.com>
 	accessible-caret, accessible-selection and accessible-value
 
 2001-05-29  Brian Cameron <brian.cameron@sun.com>
+
         * docs/atk-sections.txt
+
         * docs/tmpl/*
         Improved the layout/formatting of the atk docs.  Added docs/tmpl
         files.
@@ -327,6 +374,7 @@ Tue May 29 18:17:11 2001  Owen Taylor  <otaylor@redhat.com>
 2001-05-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.h: Correct naming of role for status bar
+
         * atk/atktext.c: 
 	Clarify behaviour of atk_text_get_text_after/at/before_offset
  

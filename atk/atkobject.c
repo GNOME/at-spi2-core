@@ -52,25 +52,52 @@ enum
 enum {
   CHILDREN_CHANGED,
   FOCUS_EVENT,
+  PROPERTY_CHANGE,
+
   LAST_SIGNAL
 };
 
-static void            atk_object_class_init       (AtkObjectClass  *klass);
-static void            atk_object_init             (AtkObject       *accessible,
-                                                    AtkObjectClass  *klass);
-static AtkRelationSet* atk_object_real_ref_relation_set (AtkObject *accessible);
+static void            atk_object_class_init        (AtkObjectClass  *klass);
+static void            atk_object_init              (AtkObject       *accessible,
+                                                     AtkObjectClass  *klass);
+static AtkRelationSet* atk_object_real_ref_relation_set 
+                                                    (AtkObject       *accessible);
 
-static void            atk_object_real_set_property(GObject         *object,
-                                                    guint            prop_id,
-                                                    const GValue    *value,
-                                                    GParamSpec      *pspec);
-static void            atk_object_real_get_property(GObject         *object,
-                                                    guint            prop_id,
-                                                    GValue          *value,
-                                                    GParamSpec      *pspec);
-static void            atk_object_finalize         (GObject         *object);
+static void            atk_object_real_set_property (GObject         *object,
+                                                     guint            prop_id,
+                                                     const GValue    *value,
+                                                     GParamSpec      *pspec);
+static void            atk_object_real_get_property (GObject         *object,
+                                                     guint            prop_id,
+                                                     GValue          *value,
+                                                     GParamSpec      *pspec);
+static void            atk_object_finalize          (GObject         *object);
+static G_CONST_RETURN gchar*
+                       atk_object_real_get_name     (AtkObject       *object);
+static G_CONST_RETURN gchar*
+                       atk_object_real_get_description    
+                                                   (AtkObject       *object);
+static AtkObject*      atk_object_real_get_parent  (AtkObject       *object);
+static AtkRole         atk_object_real_get_role    (AtkObject       *object);
+static void            atk_object_real_set_name    (AtkObject       *object,
+                                                    const gchar     *name);
+static void            atk_object_real_set_description
+                                                   (AtkObject       *object,
+                                                    const gchar     *description);
+static void            atk_object_real_set_parent  (AtkObject       *object,
+                                                    AtkObject       *parent);
 static void            atk_object_real_set_role    (AtkObject       *object,
                                                     AtkRole         role);
+static guint           atk_object_real_connect_property_change_handler
+                                                   (AtkObject       *obj,
+                                                    AtkPropertyChangeHandler
+                                                                    *handler);
+static void            atk_object_real_remove_property_change_handler
+                                                   (AtkObject       *obj,
+                                                    guint           handler_id);
+static void            atk_object_notify           (GObject         *obj,
+                                                    GParamSpec      *pspec);
+
 
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
 
@@ -129,15 +156,32 @@ atk_object_class_init (AtkObjectClass *klass)
   gobject_class->set_property = atk_object_real_set_property;
   gobject_class->get_property = atk_object_real_get_property;
   gobject_class->finalize = atk_object_finalize;
+  gobject_class->notify = atk_object_notify;
 
+  klass->get_name = atk_object_real_get_name;
+  klass->get_description = atk_object_real_get_description;
+  klass->get_parent = atk_object_real_get_parent;
+  klass->get_n_children = NULL;
+  klass->ref_child = NULL;
+  klass->get_index_in_parent = NULL;
   klass->ref_relation_set = atk_object_real_ref_relation_set;
+  klass->get_role = atk_object_real_get_role;
+  klass->ref_state_set = NULL;
+  klass->set_name = atk_object_real_set_name;
+  klass->set_description = atk_object_real_set_description;
+  klass->set_parent = atk_object_real_set_parent;
   klass->set_role = atk_object_real_set_role;
+  klass->connect_property_change_handler = 
+         atk_object_real_connect_property_change_handler;
+  klass->remove_property_change_handler = 
+         atk_object_real_remove_property_change_handler;
 
   /*
    * We do not define default signal handlers here
    */
-  klass->focus_event = NULL;
   klass->children_changed = NULL;
+  klass->focus_event = NULL;
+  klass->property_change = NULL;
 
   g_object_class_install_property (gobject_class,
                                    PROP_NAME,
@@ -302,12 +346,26 @@ atk_object_class_init (AtkObjectClass *klass)
 		  g_cclosure_marshal_VOID__BOOLEAN,
 		  G_TYPE_NONE,
 		  1, G_TYPE_BOOLEAN);
+  atk_object_signals[PROPERTY_CHANGE] =
+    g_signal_new ("property_change",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (AtkObjectClass, property_change),
+                  (GSignalAccumulator) NULL, NULL,
+                  g_cclosure_marshal_VOID__POINTER,
+                  G_TYPE_NONE, 1,
+                  G_TYPE_POINTER);
 }
 
 static void
 atk_object_init  (AtkObject        *accessible,
                   AtkObjectClass   *klass)
 {
+  accessible->name = NULL;
+  accessible->description = NULL;
+  accessible->accessible_parent = NULL;
+  accessible->relation_set = NULL;
+  accessible->role = ATK_ROLE_UNKNOWN;
 }
 
 GType
@@ -820,9 +878,101 @@ atk_object_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
+static G_CONST_RETURN gchar*
+atk_object_real_get_name (AtkObject *object)
+{
+  return object->name;
+}
+
+static G_CONST_RETURN gchar*
+atk_object_real_get_description (AtkObject *object)
+{
+  return object->description;
+}
+
+static AtkObject*
+atk_object_real_get_parent (AtkObject       *object)
+{
+  return object->accessible_parent;
+}
+
+static AtkRole
+atk_object_real_get_role (AtkObject       *object)
+{
+  return object->role;
+}
+
+static void
+atk_object_real_set_name (AtkObject       *object,
+                          const gchar     *name)
+{
+  g_free (object->name);
+  object->name = g_strdup (name);
+}
+
+static void
+atk_object_real_set_description (AtkObject       *object,
+                                 const gchar     *description)
+{
+  g_free (object->description);
+  object->description = g_strdup (description);
+}
+
+static void
+atk_object_real_set_parent (AtkObject       *object,
+                            AtkObject       *parent)
+{
+  object->accessible_parent = parent;
+
+}
+
 static void
 atk_object_real_set_role (AtkObject *object,
                           AtkRole   role)
 {
   object->role = role;
 }
+
+static guint
+atk_object_real_connect_property_change_handler (AtkObject                *obj,
+                                                 AtkPropertyChangeHandler *handler)
+{
+  return g_signal_connect_closure_by_id (obj,
+                                         atk_object_signals[PROPERTY_CHANGE],
+                                         0,
+                                         g_cclosure_new (
+                                         G_CALLBACK (handler), NULL,
+                                         (GClosureNotify) NULL),
+                                         FALSE);
+}
+
+static void
+atk_object_real_remove_property_change_handler (AtkObject           *obj,
+                                          guint               handler_id)
+{
+  g_signal_handler_disconnect (obj, handler_id);
+}
+
+/*
+ * This function is a signal handler for notify signal which gets emitted
+ * when a property changes value.
+ *
+ * It constructs an AtkPropertyValues structure and emits a "property_changed"
+ * signal which causes the user specified AtkPropertyChangeHandler
+ * to be called.
+ */
+static void
+atk_object_notify (GObject     *obj,
+                   GParamSpec  *pspec)
+{
+  AtkPropertyValues values;
+
+  memset (&values.old_value, 0, sizeof (GValue));
+  memset (&values.new_value, 0, sizeof (GValue));
+  g_value_init (&values.new_value, pspec->value_type);
+  g_object_get_property(obj, pspec->name, &values.new_value);
+  values.property_name = pspec->name;
+  g_signal_emit (obj, atk_object_signals[PROPERTY_CHANGE], 0,
+                 &values, NULL);
+}
+

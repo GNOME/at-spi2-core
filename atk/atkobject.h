@@ -333,6 +333,13 @@ void                      (* remove_property_change_handler)     (AtkObject
    */
   void                    (*focus_event)          (AtkObject                  *accessible,
                                                    gboolean                   focus_in);
+  /*
+   * The signal handler which is executed  when there is a property_change 
+   * signal for an object.
+   */
+  gint                    (*property_change)      (AtkObject                 *accessible,
+                                                   AtkPropertyValues         *values);
+
 };
 
 GType            atk_object_get_type   (void);
