@@ -1307,6 +1307,8 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
 void
 atk_text_free_ranges (AtkTextRange **ranges)
 {
+  AtkTextRange **first = ranges;
+
   if (ranges)
     {
       while (*ranges)
@@ -1316,8 +1318,8 @@ atk_text_free_ranges (AtkTextRange **ranges)
           range = *ranges;
           *ranges++;
           g_free (range->content);
-          g_free (ranges);
+          g_free (range);
         }
-      g_free (ranges);
+      g_free (first);
     }
 }

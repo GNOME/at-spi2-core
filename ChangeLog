@@ -1,3 +1,8 @@
+2004-01-02  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c (atk_text_free_ranges): Fix segfault (bug #129837)
+	Patch provided by Jeff Franks.
+
 2003-12-17  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: Change "accel label" to "accelerator label".
