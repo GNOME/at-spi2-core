@@ -102,7 +102,7 @@ impl__get_nActions (PortableServer_Servant servant,
 		    CORBA_Environment     *ev)
 {
   AtkAction *action = get_action_from_servant (servant);
-  return (CORBA_long) atk_action_get_n_actions (action);
+  return atk_action_get_n_actions (action);
 }
 
 static CORBA_boolean
@@ -110,7 +110,7 @@ impl_doAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev)
 {
   AtkAction *action = get_action_from_servant (servant);
-  return (CORBA_boolean) atk_action_do_action (action, (gint) index);
+  return atk_action_do_action (action, (gint) index);
 }
 
 static CORBA_string
@@ -121,7 +121,7 @@ impl_getDescription (PortableServer_Servant servant,
   AtkAction *action = get_action_from_servant (servant);
   const gchar *rv;
   
-  rv = atk_action_get_description (action, (gint) index);
+  rv = atk_action_get_description (action, index);
   if (rv)
     return CORBA_string_dup (rv);
   else
@@ -136,7 +136,7 @@ impl_getName (PortableServer_Servant servant,
   AtkAction *action = get_action_from_servant (servant);
   const gchar *rv;
   
-  rv = atk_action_get_name (action, (gint) index);
+  rv = atk_action_get_name (action, index);
   if (rv)
     return CORBA_string_dup (rv);
   else
@@ -151,7 +151,7 @@ impl_getKeyBinding (PortableServer_Servant servant,
   AtkAction *action = get_action_from_servant (servant);
   const gchar *rv;
   
-  rv = atk_action_get_keybinding (action, (gint) index);
+  rv = atk_action_get_keybinding (action, index);
   if (rv)
     return CORBA_string_dup (rv);
   else

@@ -142,7 +142,7 @@ impl_setTextContents (PortableServer_Servant servant,
 
   g_return_val_if_fail (editable != NULL, FALSE);
   
-  atk_editable_text_set_text_contents (editable, (gchar *) newContents);
+  atk_editable_text_set_text_contents (editable, newContents);
 
   return TRUE;
 }
@@ -156,13 +156,15 @@ impl_insertText (PortableServer_Servant servant,
 		 CORBA_Environment    *ev)
 {
   AtkEditableText *editable = get_editable_text_from_servant (servant);
+  gint ip;
 
   g_return_val_if_fail (editable != NULL, FALSE);
 
+  ip = position;
   atk_editable_text_insert_text (editable,
-				 (gchar *) text,
-				 (gint) length,
-				 (gint *) &position);
+				 text,
+				 length,
+				 &ip);
   return TRUE;
 }
 
@@ -176,7 +178,7 @@ impl_copyText (PortableServer_Servant servant,
 
   g_return_if_fail (editable != NULL);
 
-  atk_editable_text_copy_text (editable, (gint) startPos, (gint) endPos);
+  atk_editable_text_copy_text (editable, startPos, endPos);
   
 }
 

@@ -58,7 +58,7 @@ impl__get_nSelectedChildren (PortableServer_Servant servant,
 
   g_return_val_if_fail (selection != NULL, 0);
 
-  return (CORBA_long) atk_selection_get_selection_count (selection);
+  return atk_selection_get_selection_count (selection);
 }
 
 
@@ -77,7 +77,7 @@ impl_getSelectedChild (PortableServer_Servant servant,
 #endif
 
   atk_object = atk_selection_ref_selection (selection,
-					    (gint) selectedChildIndex);
+					    selectedChildIndex);
 
   g_return_val_if_fail (ATK_IS_OBJECT (atk_object), CORBA_OBJECT_NIL);
 
@@ -112,8 +112,7 @@ impl_deselectSelectedChild (PortableServer_Servant servant,
 
   g_return_val_if_fail (selection != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_selection_remove_selection (selection, (gint) selectedChildIndex);
+  return atk_selection_remove_selection (selection, selectedChildIndex);
 }
 
 

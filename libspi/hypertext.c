@@ -60,7 +60,7 @@ impl_getNLinks (PortableServer_Servant servant,
 
   g_return_val_if_fail (hypertext != NULL, 0);
 
-  return (CORBA_long) atk_hypertext_get_n_links (hypertext);
+  return atk_hypertext_get_n_links (hypertext);
 }
 
 
@@ -93,9 +93,8 @@ impl_getLinkIndex (PortableServer_Servant servant,
 
   g_return_val_if_fail (hypertext != NULL, 0);
 
-  return (CORBA_long)
-    atk_hypertext_get_link_index (hypertext,
-				  (gint) characterIndex);
+  return atk_hypertext_get_link_index (hypertext,
+				  characterIndex);
 }
 
 

@@ -54,12 +54,15 @@ impl_getImagePosition (PortableServer_Servant servant,
 		       CORBA_Environment *ev)
 {
   AtkImage *image = get_image_from_servant (servant);
+  gint ix, iy;
 
   g_return_if_fail (image != NULL);
 
   atk_image_get_image_position (image,
-				(gint *) x, (gint *) y,
+				&ix, &iy,
 				(AtkCoordType) coordType);
+  *x = ix;
+  *y = iy;
 }
 
 static void 
@@ -68,11 +71,14 @@ impl_getImageSize (PortableServer_Servant servant,
 		   CORBA_Environment *ev)
 {
   AtkImage *image = get_image_from_servant (servant);
-
+  gint iw, ih;
+  
   g_return_if_fail (image != NULL);
 
   atk_image_get_image_size (image,
-			    (gint *) width, (gint *) height);
+			    &iw, &ih);
+  *width = iw;
+  *height = ih;
 }
 
 static Accessibility_BoundingBox
@@ -84,15 +90,20 @@ impl_getImageExtents (PortableServer_Servant servant,
   gint x, y, width, height;
   Accessibility_BoundingBox bbox;
 
+  bbox.x = bbox.y = bbox.width = bbox.height = -1;
+
   image = get_image_from_servant (servant);
 
-  atk_image_get_image_size (image, &width, &height);
-  atk_image_get_image_position (image, &x, &y, coordType);
+  if (image)
+    {
+      atk_image_get_image_size (image, &width, &height);
+      atk_image_get_image_position (image, &x, &y, coordType);
 
-  bbox.x = x;
-  bbox.y = y;
-  bbox.width = width;
-  bbox.height = height;
+      bbox.x = x;
+      bbox.y = y;
+      bbox.width = width;
+      bbox.height = height;
+    }
 
   return bbox;
 }

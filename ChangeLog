@@ -1,3 +1,19 @@
+2002-05-02  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* libspi/accessible.c (impl_accessibility_accessible_get_role_name):
+	Fixed handling for NULL return value from ATK.
+
+	* libspi/action.c libspi/component.c libspi/editabletext.
+	libspi/hyperlink.c libspi/hypertext.c image.c libspi/selection.c
+	libspi/stateset.c libspi/table.c libspi/text.c libspi/value.c:
+	Removed redundant casts.
+	
+	* libspi/table.c (impl_getSelectedRows, impl_getSelectedColumns):
+	Fixed off by one bug.
+	
+	*libspi/text.c: removed impl_getRowColAtOffset (unimplemented
+	function not present in idl)
+	
 2002-05-02  jacob berkman  <jacob@ximian.com>
 
 	* atk-bridge/Makefile.am: make atk-bridge a real module

@@ -53,7 +53,7 @@ impl_getText (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
   
-  txt = atk_text_get_text (text, (gint) startOffset, (gint) endOffset);
+  txt = atk_text_get_text (text, startOffset, endOffset);
   if (txt)
     {
       rv = CORBA_string_dup (txt);
@@ -83,10 +83,10 @@ impl_getTextAfterOffset (PortableServer_Servant servant,
   g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
   txt = atk_text_get_text_after_offset (text,
-					(gint) offset, (AtkTextBoundary) type,
+					offset, (AtkTextBoundary) type,
 					&intStartOffset, &intEndOffset);
-  *startOffset = (CORBA_long) intStartOffset;
-  *endOffset = (CORBA_long) intEndOffset;
+  *startOffset = intStartOffset;
+  *endOffset = intEndOffset;
 
   if (txt)
     {
@@ -108,20 +108,20 @@ impl_getTextAtOffset (PortableServer_Servant servant,
 		      CORBA_long * endOffset,
 		      CORBA_Environment *ev)
 {
-  CORBA_char *txt;
+  gchar *txt;
   CORBA_char *rv;
   gint intStartOffset, intEndOffset;
   AtkText *text = get_text_from_servant (servant);
 
   g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
-  txt = (CORBA_char *) atk_text_get_text_at_offset (
+  txt = atk_text_get_text_at_offset (
 	  text,
-	  (gint) offset, (AtkTextBoundary) type,
+	  offset, (AtkTextBoundary) type,
 	  &intStartOffset, &intEndOffset);
 
-  *startOffset = (CORBA_long) intStartOffset;
-  *endOffset = (CORBA_long) intEndOffset;
+  *startOffset = intStartOffset;
+  *endOffset = intEndOffset;
 
   if (txt)
     {
@@ -144,8 +144,7 @@ impl_getCharacterAtOffset (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, 0);
 
-  return (CORBA_unsigned_long)
-    atk_text_get_character_at_offset (text, (gint) offset);
+  return atk_text_get_character_at_offset (text, offset);
 }
 
 
@@ -166,11 +165,11 @@ impl_getTextBeforeOffset (PortableServer_Servant servant,
   g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
   txt = atk_text_get_text_before_offset (text,
-					 (gint) offset, (AtkTextBoundary) type,
+					 offset, (AtkTextBoundary) type,
 					 &intStartOffset, &intEndOffset);
 
-  *startOffset = (CORBA_long) intStartOffset;
-  *endOffset = (CORBA_long) intEndOffset;
+  *startOffset = intStartOffset;
+  *endOffset = intEndOffset;
 
   if (txt)
     {
@@ -192,7 +191,7 @@ impl__get_caretOffset (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, -1);
 
-  return (CORBA_long) atk_text_get_caret_offset (text);
+  return atk_text_get_caret_offset (text);
 }
 
 
@@ -242,8 +241,8 @@ impl_getAttributes (PortableServer_Servant servant,
 
   set = atk_text_get_run_attributes (text, offset,
 				     &intstart_offset, &intend_offset);
-  *startOffset = (CORBA_long) intstart_offset;
-  *endOffset = (CORBA_long) intend_offset;
+  *startOffset = intstart_offset;
+  *endOffset = intend_offset;
   rv = _string_from_attribute_set (set);
   atk_attribute_set_free (set);
   return rv;  
@@ -259,14 +258,18 @@ impl_getCharacterExtents (PortableServer_Servant servant,
 			  CORBA_Environment *ev)
 {
   AtkText *text = get_text_from_servant (servant);
+  gint ix, iy, iw, ih;
 
   g_return_if_fail (text != NULL);
 
-  /* FIXME: Casting a CORBA_long to a gint * is inherantly risky */
   atk_text_get_character_extents (
-	  text, (gint) offset,
-	  (gint *) x, (gint *) y, (gint *) width, (gint *) height,
+	  text, offset,
+	  &ix, &iy, &iw, &ih,
 	  (AtkCoordType) coordType);
+  *x = ix;
+  *y = iy;
+  *width = iw;
+  *height = ih;
 }
 
 
@@ -274,14 +277,11 @@ static CORBA_long
 impl__get_characterCount (PortableServer_Servant servant,
 			  CORBA_Environment    *ev)
 {
-  CORBA_long retval;
   AtkText *text = get_text_from_servant (servant);
 
   g_return_val_if_fail (text != NULL, 0);
 
-  retval = (CORBA_long) atk_text_get_character_count (text);
-
-  return retval;
+  return atk_text_get_character_count (text);
 }
 
 
@@ -295,9 +295,8 @@ impl_getOffsetAtPoint (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, -1);
 
-  return (CORBA_long)
-    atk_text_get_offset_at_point (text,
-				  (gint) x, (gint) y,
+  return atk_text_get_offset_at_point (text,
+				  x, y,
 				  (AtkCoordType) coordType);
 }
 
@@ -310,7 +309,7 @@ impl_getNSelections (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, 0);
 
-  return (CORBA_long) atk_text_get_n_selections (text);
+  return atk_text_get_n_selections (text);
 }
 
 
@@ -321,11 +320,14 @@ impl_getSelection (PortableServer_Servant servant,
 		   CORBA_Environment *ev)
 {
   AtkText *text = get_text_from_servant (servant);
-
+  gint intStartOffset, intEndOffset;
+  
   g_return_if_fail (text != NULL);
 
-  atk_text_get_selection (text, (gint) selectionNum,
-			  (gint *) startOffset, (gint *) endOffset);
+  atk_text_get_selection (text, selectionNum,
+			  &intStartOffset, &intEndOffset);
+  *startOffset = intStartOffset;
+  *endOffset = intEndOffset;
 }
 
 
@@ -339,9 +341,8 @@ impl_addSelection (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_text_add_selection (text,
-			    (gint) startOffset, (gint) endOffset);
+  return atk_text_add_selection (text,
+			    startOffset, endOffset);
 }
 
 
@@ -354,8 +355,7 @@ impl_removeSelection (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_text_remove_selection (text, (gint) selectionNum);
+  return atk_text_remove_selection (text, selectionNum);
 }
 
 
@@ -370,9 +370,8 @@ impl_setSelection (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_text_set_selection (text,
-			    (gint) selectionNum, (gint) startOffset, (gint) endOffset);
+  return atk_text_set_selection (text,
+			    selectionNum, startOffset, endOffset);
 }
 
 
@@ -385,21 +384,7 @@ impl_setCaretOffset (PortableServer_Servant servant,
 
   g_return_val_if_fail (text != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_text_set_caret_offset (text, (gint) value);
-}
-
-
-static void 
-impl_getRowColAtOffset (PortableServer_Servant servant,
-			const CORBA_long offset, CORBA_long * row,
-			CORBA_long * column, CORBA_Environment *ev)
-{
-  AtkText *text = get_text_from_servant (servant);
-
-  g_return_if_fail (text != NULL);
-
-  g_print ("getRowColAtOffset not yet implemented\n");
+  return atk_text_set_caret_offset (text, value);
 }
 
 static void

@@ -167,8 +167,7 @@ impl_contains (PortableServer_Servant servant,
   AtkStateSet *set = atk_state_set_from_servant (servant);
 
   g_return_val_if_fail (set, FALSE);
-  return (CORBA_boolean)
-    atk_state_set_contains_state (set, atk_state_types[state]);
+  return atk_state_set_contains_state (set, atk_state_types[state]);
 }
 
 
@@ -217,8 +216,7 @@ impl_equals (PortableServer_Servant servant,
   g_object_unref (G_OBJECT(set2));
   if (return_set)
     {
-      rv = (CORBA_boolean)
-	atk_state_set_is_empty (return_set);
+      rv = atk_state_set_is_empty (return_set);
       g_object_unref (G_OBJECT(return_set));
     }
   else
@@ -257,8 +255,7 @@ impl_isEmpty (PortableServer_Servant servant,
   AtkStateSet *set = atk_state_set_from_servant (servant);
 
   g_return_val_if_fail (set, TRUE);
-  return (CORBA_boolean)
-    atk_state_set_is_empty (set);
+  return atk_state_set_is_empty (set);
 }
 
 

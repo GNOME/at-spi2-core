@@ -57,7 +57,7 @@ impl_accessibility_component_contains (PortableServer_Servant servant,
 
   g_return_val_if_fail (component != NULL, FALSE);
 
-  retval = atk_component_contains (component, (gint) x, (gint) y,
+  retval = atk_component_contains (component, x, y,
                                   (AtkCoordType) coord_type);
   return retval;
 }
@@ -78,7 +78,7 @@ impl_accessibility_component_get_accessible_at_point (PortableServer_Servant ser
   g_return_val_if_fail (component != NULL, FALSE);
 
   child = atk_component_ref_accessible_at_point (component,
-						 (gint) x, (gint) y,
+						 x, y,
 						 (AtkCoordType) coord_type);
   return spi_accessible_new_return (child, TRUE, ev);
 }
@@ -123,8 +123,8 @@ impl_accessibility_component_get_position (PortableServer_Servant servant,
 
   atk_component_get_position (component, &ix, &iy,
                               (AtkCoordType) coord_type);
-  *x = (CORBA_long) ix;
-  *y = (CORBA_long) iy;
+  *x = ix;
+  *y = iy;
 }
 
 /*
@@ -142,8 +142,8 @@ impl_accessibility_component_get_size (PortableServer_Servant servant,
   g_return_if_fail (component != NULL);
 
   atk_component_get_size (component, &iw, &ih);
-  *width = (CORBA_long) iw;
-  *height = (CORBA_long) ih;
+  *width = iw;
+  *height = ih;
 }
 
 static Accessibility_ComponentLayer
@@ -184,7 +184,7 @@ impl_accessibility_component_get_mdi_z_order (PortableServer_Servant servant,
 
   g_return_val_if_fail (component != NULL, -1);
 
-  return (CORBA_short) atk_component_get_mdi_zorder (component);
+  return atk_component_get_mdi_zorder (component);
 }
 
 static CORBA_boolean

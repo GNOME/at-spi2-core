@@ -90,7 +90,7 @@ impl__get_nRows (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, 0);
 
-  return (CORBA_long) atk_table_get_n_rows (table);
+  return atk_table_get_n_rows (table);
 }
 
 
@@ -102,7 +102,7 @@ impl__get_nColumns (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, 0);
 
-  return (CORBA_long) atk_table_get_n_columns (table);
+  return atk_table_get_n_columns (table);
 }
 
 
@@ -285,15 +285,15 @@ impl_getSelectedRows (PortableServer_Servant servant,
   bonobo_return_val_if_fail (length > 0, NULL, ev);
 
   retval = Accessibility_LongSeq__alloc ();
-  retval->_maximum = retval->_length = (CORBA_long) length;
+  retval->_maximum = retval->_length = length;
   retval->_buffer = Accessibility_LongSeq_allocbuf (length);
 
-  while (--length)
+  while (--length >= 0)
     {
-      retval->_buffer[length] = (CORBA_long) selectedRows[length];
+      retval->_buffer[length] = selectedRows[length];
     }
 
-  g_free ((gpointer) selectedRows);
+  g_free (selectedRows);
 
   return retval;
 }
@@ -315,15 +315,15 @@ impl_getSelectedColumns (PortableServer_Servant servant,
   bonobo_return_val_if_fail (length >= 0, NULL, ev);
 
   retval = Accessibility_LongSeq__alloc ();
-  retval->_maximum = retval->_length = (CORBA_long) length;
+  retval->_maximum = retval->_length = length;
   retval->_buffer = Accessibility_LongSeq_allocbuf (length);
 
-  while (--length)
+  while (--length >= 0)
     {
       retval->_buffer[length] = (CORBA_long) selectedColumns[length];
     }
 
-  g_free ((gpointer) selectedColumns);
+  g_free (selectedColumns);
 
   return retval;
 }

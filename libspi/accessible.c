@@ -384,6 +384,7 @@ static CORBA_char *
 impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
 					     CORBA_Environment     *ev)
 {
+  const gchar     *role_name;
   AtkRole    role;
   AtkObject *object = get_atkobject_from_servant (servant);
 
@@ -391,7 +392,11 @@ impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
 
   role = atk_object_get_role (object);
 
-  return CORBA_string_dup (atk_role_get_name (role));
+  role_name = atk_role_get_name (role);
+  if (role_name)
+    return CORBA_string_dup (role_name);
+  else
+    return CORBA_string_dup ("");
 }
 
 static void

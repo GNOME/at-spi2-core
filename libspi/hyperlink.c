@@ -113,7 +113,7 @@ impl__get_n_anchors (PortableServer_Servant servant,
 
   g_return_val_if_fail (link != NULL, 0);
 
-  return (CORBA_short) atk_hyperlink_get_n_anchors (link);
+  return atk_hyperlink_get_n_anchors (link);
 }
 
 
@@ -125,7 +125,7 @@ impl__get_startIndex (PortableServer_Servant servant,
 
   g_return_val_if_fail (link != NULL, -1);
 
-  return (CORBA_long) atk_hyperlink_get_start_index (link);
+  return atk_hyperlink_get_start_index (link);
 }
 
 
@@ -137,7 +137,7 @@ impl__get_endIndex (PortableServer_Servant servant,
 
   g_return_val_if_fail (link != NULL, -1);
 
-  return (CORBA_long) atk_hyperlink_get_end_index (link);
+  return atk_hyperlink_get_end_index (link);
 }
 
 
@@ -151,7 +151,7 @@ impl_getURI (PortableServer_Servant servant,
 
   g_return_val_if_fail (link != NULL, CORBA_string_dup (""));
 
-  uri = atk_hyperlink_get_uri (link, (gint) i);
+  uri = atk_hyperlink_get_uri (link, i);
   if (uri)
     {
       rv = CORBA_string_dup (uri);
@@ -174,7 +174,7 @@ impl_getObject (PortableServer_Servant servant,
 
   g_return_val_if_fail (link != NULL, CORBA_OBJECT_NIL);
 
-  atk_object = atk_hyperlink_get_object (link, (gint) i);
+  atk_object = atk_hyperlink_get_object (link, i);
 
   return spi_accessible_new_return (atk_object, FALSE, ev);
 }
@@ -188,6 +188,6 @@ impl_isValid (PortableServer_Servant servant,
 
   g_return_val_if_fail (link != NULL, TRUE);
 
-  return (CORBA_boolean) atk_hyperlink_is_valid (link);
+  return atk_hyperlink_is_valid (link);
 }
 
