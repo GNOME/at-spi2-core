@@ -1,0 +1,34 @@
+# translation of at-spi.HEAD.po to Mongolian
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2003
+# Sanlig Badral <badral@openmn.org>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-08-17 19:09+0200\n"
+"PO-Revision-Date: 2003-08-17 23:11+0200\n"
+"Last-Translator: Sanlig Badral <badral@openmn.org>\n"
+"Language-Team: Mongolian <openmn-linux@lists.sf.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.1\n"
+
+#: atk-bridge/bridge.c:311
+msgid "failure: no device event controller found.\n"
+msgstr "Алдаа: Төхөөрөмжийн үйлдэл хянагч одлсонгүй.\n"
+
+#: atk-bridge/bridge.c:806
+msgid "WARNING: NULL key event reported."
+msgstr "САНУУЛГА: »NULL« түлхүүр үйлдэл мэдээлэгдэв."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI бүртгэл"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Саад чөлөөлөх бүртгэл"
+
