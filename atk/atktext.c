@@ -50,8 +50,8 @@ static const gchar * text_attr_name[] = {
   "fg_stipple",
   "wrap_mode",
   "direction",
-  "stretch",
   "justification",
+  "stretch",
   "variant",
   "slant_style",
 };

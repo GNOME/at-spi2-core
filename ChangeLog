@@ -1,3 +1,8 @@
+2001-10-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c:
+	Correct order of attribute names in text_attr_name array.
+
 2001-10-12  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.[c|h]:
