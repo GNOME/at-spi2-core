@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"POT-Creation-Date: 2002-11-18 17:27+0000\n"
+"POT-Creation-Date: 2002-11-20 16:46+0000\n"
 "PO-Revision-Date: 2002-11-18 17:29+0000\n"
 "Last-Translator: Abi Brady <morwen@evilmagic.org>\n"
 "Language-Team: en_GB\n"
@@ -305,4 +305,8 @@ msgstr ""
 
 #: atk/atkobject.c:1399
 msgid "ruler"
+msgstr ""
+
+#: atk/atkobject.c:1402
+msgid "application"
 msgstr ""

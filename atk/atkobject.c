@@ -1398,6 +1398,9 @@ atk_role_get_localized_name (AtkRole role)
       case ATK_ROLE_RULER:
         name = _("ruler");
         break;
+      case ATK_ROLE_APPLICATION:
+        name = _("application");
+        break;
       default:
         name = atk_role_get_name (role);
         break;

@@ -1,3 +1,15 @@
+2002-11-20  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkobject.h:
+	Added ATK_ROLE_APPLICATION.
+
+	* atk/atkobject.c:
+	(atk_role_get_localized_name):
+	Added ATK_ROLE_APPLICATION case.	
+
+	* docs/atk-decl.txt:
+	Added ATK_ROLE_APPLICATION to docs.
+	
 2002-11-18  Abi Brady  <morwen@evilmagic.org>
 
 	* configure.in: Added "en_GB" to ALL_LINGUAS.
@@ -13,6 +25,7 @@
 	* docs/tmpl/atkhyperlink.sgml docs/tmpl/atkobject.sgml
 	Update docs.
 
+>>>>>>> 1.223
 2002-11-14  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:

@@ -113,6 +113,7 @@ extern "C" {
  *@ATK_ROLE_FOOTER: An object that serves as a document footer.
  *@ATK_ROLE_PARAGRAPH: An object which is contains a paragraph of text content.
  *@ATK_ROLE_RULER: An object which describes margins and tab stops, etc. for text objects which it controls (should have CONTROLLER_FOR relation to such).
+ *@ATK_ROLE_APPLICATION: The object is an application object, which may contain @ATK_ROLE_FRAME objects or other types of accessibles.
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of enumeration
  * 
  *Describes the role of an object
@@ -192,6 +193,7 @@ typedef enum
   ATK_ROLE_FOOTER,
   ATK_ROLE_PARAGRAPH,
   ATK_ROLE_RULER,
+  ATK_ROLE_APPLICATION,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
