@@ -1,0 +1,53 @@
+This is the Early Access Release of the 
+Assistive Technology Service Provider Interface (AT-SPI),
+part of the Gnome Accessibility Project.
+
+For information on installation, package contents, and
+where to go for more information, please see the 
+accompanying README file.
+
+---------
+
+Developers of Assistive Technology for Gnome :
+for technical assistance please contact
+
+gnome-accessibility-list@gnome.org,
+or bill.haneman@sun.com.
+
+Thanks for joining us! With your help we can enable more
+equal access to the Gnome desktop for everyone.
+
+- The (current core) Gnome Accessibility Engineering Team:
+
+  Bill Haneman <bill.haneman@sun.com>
+  Padraig O'Briain <padraig.obriain@sun.com>
+  Marc Mulcahy <marc.mulcahy@sun.com>
+
+  special thanks to
+
+  Brian Cameron 
+  Mark McLoughlin
+  Lucy Brophy
+  Niall Powers
+  Louise Miller
+  Sander Vesic
+  Michael Meeks
+  Owen Taylor
+  Johnathan Blandford
+  Tim Janik 
+  Havoc Pennington 
+  Peter Korn
+  Earl Johnson
+  Lynn Monsanto
+  Marney Beard
+  Leila Chucri
+  Anne Tirsell
+  James Cleere
+  Dierdre Williams
+  Hans Breuer
+  Peter Williams
+  Darin Adler
+  Jens Finke
+  Anders Carlsson
+
+  ... and many others!

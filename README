@@ -1,35 +1,128 @@
-This is the initial CVS checkin of the Gnome Accessibility Project's
+README
+
+This is the Early Access Release of the Gnome Accessibility Project's
 Assistive Technology Service Provider Interface.
 
-At the moment it does not include IDL for all of the SPI, but it does
-provide a prototype implementation of the core of the out-of-process
-accessibility service, the 'registry'.
+*** Welcome to the Gnome Accessibility Project! ***
 
-Accessible applications will register with this registry service (via OAF)
-and adaptive/assistive technologies will register with the service as
-well, to indicate their interest in receiving UI events.  ATs can also use
-the registry's services programmatically to query accessible applications.
+If you have not already done so, please visit 
 
+http://developer.gnome.org/projects/gap 
+
+for background information on accessibility, the Gnome 
+Accessibility Project, mailing list info, and project status.
+
+Contents of this package ==================================
+
+The directories within this package are arranged as follows:
+
+    idl : this directory contains the interface definitions
+	(in Interface Definition Language) for the
+	accessibility support interfaces exposed by
+	the AT central registry, accessible applications,
+	and UI components.
+	Though IDL is often associated with CORBA, and this
+	implementation of the at-spi is CORBA-based, these
+	interfaces are not CORBA-specific, rather they define
+	the abstract "contract" between accessible application
+	and client assistive technology.  
+
+	Assistive Technologies will not normally be concerned
+	with the underlying implementation details of the IDL.
+
+    libspi : this directory contains implementation-specific
+	code which connects the in-process ATK interfaces
+	(implemented by GTK+ and, potentially, by other 
+	native-code UI toolkits) to the interprocess SPI.
+	It also contains implementation code used by the
+	central accessibility registry. These sources are
+	used to build libspi.so, a shared object library which 
+	is used by accessibility clients and servers alike. 
+	This interfaces exposed in this library are ordinarily 
+	not directly used by AT, but are used by the C bindings,
+	thus AT must dynamically link to this library.
+
+    registryd : this directory contains code specific to the
+	central accessibility registry, and the registry
+	executable is built in this directory.
+
+    at-bridge : this directory contains code that bridges 
+	the at-spi to the GTK+ toolkit, and which is
+	loaded at runtime by GTK+-based Gnome applications.
+	The 'bridge' automatically registers GTK+-2.0
+	applications with the accessibility registry, 
+	and relays UI events from application to registry.
+	It is also responsible for servicing requests from
+	the registry to register handlers for specific event
+	types.
+
+    cspi : this directory contains the C bindings for use by
+	ATs, and the code which adapts the implementation-specific
+	code to the C bindings API.  The header file
+	"spi.h" contains the API declarations used by AT clients.
+
+    tests : this directory should be called 'examples', since
+	it contains not only test programs, but examples
+	of how to use the AT-SPI.  The sample program
+	"simple-at.c" is currently the primary example of
+	how the C bindings API should be used.
+
+    docs : this directory contains documentation for the AT-SPI.
+	Documentation is currently limited to API documentation
+	for the C bindings API, and is built from sources
+	via the 'gtk-doc' system.
+
+Building the documentation ============================
+
+Pre-built versions of the HTML documentation are available at 
+http://developer.gnome.org/projects/gap/tech-docs/at-spi-docs/book1.html.
+However the documentation in the docs directory is the most up-to-date.
+Building the docs requires docbook and jade, see the 'gtk-doc'
+package (from Gnome CVS) for more information.
+
+Use of the AT-SPI ======================================
+
+Accessible applications will register with this registry service 
+(via bonobo-activation) and adaptive/assistive technologies will 
+register with the service as well, to indicate their interest in 
+receiving UI events.  ATs can also use the registry's services 
+programmatically to query accessible applications.
 
 Running the test programs: ============================
 
-At the moment the only clients and 'apps' are the test at client and
-test app in the 'tests' subdirectory.
+At the moment the only clients and are two test at clients
+('at' and 'simple-at').  There is also a test app ('app) in 
+the 'tests' subdirectory.
 
-If you have a working ORBit2/OAF installation you can run the tests after
-adding the registryd directory to OAF's directory list with oaf-sysconf,
-or by installing Accessibility_Registry.oaf in your 'oafinfo' directory.
+If you have a working ORBit2/bonobo-activation installation you can 
+run the tests after adding the registryd directory to the 
+bonobo-activation directory list with bonobo-activation-sysconf,
+or by installing Accessibility_Registry.server in your 
+bonobo-activation 'servers' directory.
 
 You can then run './at' and './app' from the 'test' directory, to see
 'app' register as an application, and 'at' as a listening client.
-OAF should take care of the job of bootstrapping the registry daemon
-('registryd') for you.
+Bonobo should take care of the job of bootstrapping the registry daemon
+('registryd') for you.  These test programs use the bonobo/CORBA
+C bindings directly.  
 
-At the moment app and at deregistration are broken, so you are advised
-to kill the registry daemon if you exit either 'at' or 'app' instances.
-You may run as many instances of each as you like, concurrently - you
-may find it useful to do so in separate terminal windows.
+The third test program, "simple-at", is a better illustration of how 
+most actual AT should use the at-spi, via the C bindings library 
+(documented online at 
+http://developer.gnome.org/projects/gap/tech-docs/at-spi-docs/book1.html).
+Though 'simple-at' will work with the test application 'app', 
+a better demonstration of the AT-SPI can be made after installing
+libspi and libcspi (via 'make install').  If you set the GTK_MODULES
+environment variable to "libgail:libat-bridge", any GTK+2.0
+application run subsequently will register with the at-spi registry,
+and 'simple-at' will register for and receive focus and 
+buttonpress events from those applications.
 
+At the moment application and at deregistration are broken, so you are 
+advised to kill the registry daemon if you exit either 'at' or 'app' 
+instances, via the 'bonobo-slay' command. You may run as many instances 
+of each application or sample AT client as you like, concurrently - 
+you may find it useful to do so in separate terminal windows.  
 
 'at' connects to the registry as an event listener, then queries the
 service for the number of virtual desktops (currently always 0 or 1),
