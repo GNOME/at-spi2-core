@@ -1,3 +1,8 @@
+2002-05-31  Laszlo Peter  <laca@sun.com>
+
+	* configure.in: add the Xtst libdir to the runpath on Solaris,
+	since it's not in the default library search path.
+
 2002-05-29  jacob berkman  <jacob@ximian.com>
 
 	* registryd/Makefile.am (EXTRA_DIST): dist the .in.in

@@ -144,10 +144,13 @@ if test "x$XTST_LIBS" = x; then
   save_LIBS="$LIBS"
   for xtstpath in /usr/X11R6/lib /usr/openwin/lib; do
     LIBS="-L$xtstpath -lXtst"
+    case "$host" in
+    *solaris*) XTST_RPATH_FLAGS="-R$xtstpath" ;;
+    esac
     AC_MSG_CHECKING(for -lXtst in $xtstpath)
     AC_TRY_LINK([], [XTestFakeKeyEvent()], [
 	AC_MSG_RESULT(yes)
-	XTST_LIBS="-L$xtstpath -lXtst"
+	XTST_LIBS="$XTST_RPATH_FLAGS -L$xtstpath -lXtst"
         LIBS="$save_LIBS"
 	break],[AC_MSG_RESULT(no)])
   done
