@@ -447,7 +447,7 @@ atk_object_set_name (AtkObject    *accessible,
 }
 
 /**
- * atk_object_set_name
+ * atk_object_set_description
  * @accessible: a #AtkObject
  * @description : a character string to be set as the accessible description
  *
@@ -472,7 +472,7 @@ atk_object_set_description (AtkObject   *accessible,
 }
 
 /**
- * atk_object_set_name
+ * atk_object_set_parent
  * @accessible: a #AtkObject
  * @parent : a #AtkObject to be set as the accessible parent
  *
@@ -493,7 +493,7 @@ atk_object_set_parent (AtkObject *accessible,
 }
 
 /**
- * atk_object_set_name
+ * atk_object_set_role
  * @accessible: a #AtkObject
  * @role : a #AtkRole to be set as the role
  *
@@ -513,6 +513,14 @@ atk_object_set_role (AtkObject *accessible,
     (klass->set_role) (accessible, role);
 }
 
+/**
+ * atk_object_connect_property_change_handler
+ * @accessible: a #AtkObject
+ * @handler : a #AtkPropertyChangeHandler, a function to be called when a property changes its value
+ * return values: a guint which is the handler id used in atk_object_remove_property_change_handler
+ *
+ * Specifies a function to be called when a property changes value.
+ **/
 guint
 atk_object_connect_property_change_handler (AtkObject *accessible,
                                             AtkPropertyChangeHandler *handler)
@@ -530,6 +538,13 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
     return 0;
 }
 
+/**
+ * atk_object_remove_property_change_handler
+ * @accessible: a #AtkObject
+ * @handler_id : a guint which identifies the handler to be removed.
+ * 
+ * Removes a property change handler.
+ **/
 void
 atk_object_remove_property_change_handler  (AtkObject *accessible,
                                             guint      handler_id)

@@ -44,21 +44,33 @@ typedef enum
 typedef enum
 {
   ATK_ROLE_INVALID,
-  /* Object is used to alert the user about something */
+  /* A label which represents an accelerator */
+  ATK_ROLE_ACCEL_LABEL,
+  /* An object is used to alert the user about something */
   ATK_ROLE_ALERT,
-  /* Object that can be drawn into and is sued to trap events */
+  /* An object which is an animated image */
+  ATK_ROLE_ANIMATION,
+  /* An arrow in one of the four cardinal directoions */
+  ATK_ROLE_ARROW,
+  /* An object that displays a calendar and allows the user to select a date */
+  ATK_ROLE_CALENDAR,
+  /* An object that can be drawn into and is used to trap events */
   ATK_ROLE_CANVAS,
   /*
    * A choice that can be checked or unchecked and provides a separate
    * indicator for the current state.
    */
   ATK_ROLE_CHECK_BOX,
+  /* A menu item with a check box */
+  ATK_ROLE_CHECK_MENU_ITEM,
   /* A specialized dialog that lets the user choose a color. */
   ATK_ROLE_COLOR_CHOOSER,
   /* The header for a column of data */
   ATK_ROLE_COLUMN_HEADER,
   /* A list of choices the user can select from */
   ATK_ROLE_COMBO_BOX,
+  /* An object whose purpose is to allow a user to edit a date */
+  ATK_ROLE_DATE_EDITOR,
   /* An inconifed internal frame within a DESKTOP_PANE */
   ATK_ROLE_DESKTOP_ICON,
   /*
@@ -66,6 +78,8 @@ typedef enum
    * internal frames.
    */
   ATK_ROLE_DESKTOP_FRAME,
+  /* An object whose purpose is to allow a user to set a value */
+  ATK_ROLE_DIAL,
   /* A top level window with title bar and a border */
   ATK_ROLE_DIALOG,
   /*
@@ -78,13 +92,14 @@ typedef enum
    * the user select a file, browse a different directory, or specify a
    * filename.
    */
+  /* An object used for drawing custom user interface elements */
+  ATK_ROLE_DRAWING_AREA,
+  /* A specialized dialog that lets the user choose a file. */
   ATK_ROLE_FILE_CHOOSER,
-  /*
-   * A object that fills up space in a user interface
-   */
+  /* A object that fills up space in a user interface */
   ATK_ROLE_FILLER,
-  /* XXX Don't know sure about this. */
-  ATK_ROLE_FOCUS_TRAVERSABLE,
+  /* A specialized dialog that lets the user choose a font. */
+  ATK_ROLE_FONT_CHOOSER,
   /* A top level window with a title bar, border, menubar, etc. */
   ATK_ROLE_FRAME,
   /* A pane that is guaranteed to be painted on top of all panes beneath it */
@@ -96,6 +111,8 @@ typedef enum
   ATK_ROLE_HTML_CONTAINER,
   /* A small fixed size picture, typically used to decorate components */
   ATK_ROLE_ICON,
+  /* An object whose primary purpose is to display an image */
+  ATK_ROLE_IMAGE,
   /* A frame-like object that is clipped by a desktop pane. */
   ATK_ROLE_INTERNAL_FRAME,
   /* An object used to present an icon or short string in an interface */
@@ -160,6 +177,11 @@ typedef enum
    * same group to become uncghecked when this one is checked.
    */
   ATK_ROLE_RADIO_BUTTON,
+  /* 
+   * A check menu item which belongs to a group. At each instant exactly 
+   * one of the radio menu items from a group is selected
+   */
+  ATK_ROLE_RADIO_MENU_ITEM,
   /*
    * A specialized pane that has a glass pane and a layered pane as its
    * children.
@@ -186,11 +208,17 @@ typedef enum
   ATK_ROLE_SLIDER,
   /* A specialized panel that presents two other panels at the same time. */
   ATK_ROLE_SPLIT_PANE,
+  /* An object used to get an integer or floating point number from the user */
+  ATK_ROLE_SPIN_BUTTON,
+  /* An object which reports messages of minor importance to the user */
+  ATK_STATUS_BAR,
   /* An object used to rpesent information in terms of rows and columns. */
   ATK_ROLE_TABLE,
   ATK_ROLE_TABLE_CELL,
   ATK_ROLE_TABLE_COLUMN_HEADER,
   ATK_ROLE_TABLE_ROW_HEADER,
+  /* A menu item used to tear off and reattach its menu */
+  ATK_ROLE_TEAR_OFF_MENU_ITEM,
   /* An object that presents text to the user */
   ATK_ROLE_TEXT,
   /*
