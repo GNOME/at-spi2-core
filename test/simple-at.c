@@ -30,6 +30,7 @@
 #include "../cspi/spi-private.h" /* A hack for now */
 
 static void report_focus_event    (AccessibleEvent *event, void *user_data);
+static void report_generic_event  (AccessibleEvent *event, void *user_data);
 static void report_button_press   (AccessibleEvent *event, void *user_data);
 static void check_property_change (AccessibleEvent *event, void *user_data);
 static SPIBoolean report_command_key_event  (AccessibleKeystroke *stroke, void *user_data);
@@ -46,6 +47,7 @@ static SPIBoolean festival_chatty = FALSE;
 
 static AccessibleEventListener *focus_listener;
 static AccessibleEventListener *property_listener;
+static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *button_listener;
 static AccessibleKeystrokeListener *command_key_listener;
 static AccessibleKeystrokeListener *ordinary_key_listener;
@@ -71,9 +73,16 @@ main (int argc, char **argv)
 
   focus_listener = createAccessibleEventListener (report_focus_event, NULL);
   property_listener = createAccessibleEventListener (check_property_change, NULL); 
+  generic_listener = createAccessibleEventListener (report_generic_event, NULL); 
   button_listener = createAccessibleEventListener (report_button_press, NULL);
   registerGlobalEventListener (focus_listener, "focus:");
   registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
+  registerGlobalEventListener (generic_listener, "object:selection-changed"); 
+  registerGlobalEventListener (generic_listener, "object:children-changed"); 
+  registerGlobalEventListener (generic_listener, "object:visible-data-changed"); 
+  registerGlobalEventListener (generic_listener, "object:text-selection-changed"); 
+  registerGlobalEventListener (generic_listener, "object:text-caret-moved"); 
+  registerGlobalEventListener (generic_listener, "object:text-changed"); 
   registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
   n_desktops = getDesktopCount ();
 
@@ -154,14 +163,12 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
   char *s;
   int len;
 
-  g_warning ("Report focused !");
-
   if (use_festival)
     {
-    if (festival_chatty) 	    
-      {
-        _festival_say (Accessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
-      }
+      if (festival_chatty) 	    
+        {
+          _festival_say (Accessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
+        }
       fprintf (stderr, "getting Name\n");
       s = Accessible_getName (obj);
       _festival_say (s, "voice_kal_diphone",
@@ -180,6 +187,15 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
       if (use_magnifier) {
 	      magnifier_set_roi ((short) 0, x, y, width, height);
       }
+    }
+
+  if (Accessible_isValue (obj))
+    {
+      AccessibleValue *value = Accessible_getValue (obj);
+      fprintf (stderr, "Current value = %f, min = %f; max = %f\n",
+               AccessibleValue_getCurrentValue (value),
+               AccessibleValue_getMinimumValue (value),
+	       AccessibleValue_getMaximumValue (value));
     }
   /* if this is a text object, speak the first sentence. */
 
@@ -208,18 +224,22 @@ report_focus_event (AccessibleEvent *event, void *user_data)
 {
   char *s;
 
-  g_warning ("report focus event");
-
   g_return_if_fail (event->source != NULL);
 
   s = Accessible_getName (event->source);
-  if (cspi_warn_ev (cspi_ev (), "Foobar"))
+  if (cspi_warn_ev (cspi_ev (), "Report focus event"))
     {
       fprintf (stderr, "%s event from %s\n", event->type, s);
       SPI_freeString (s);
       report_focussed_accessible (event->source, TRUE);
     }
   Accessible_getParent (event->source);
+}
+
+void
+report_generic_event (AccessibleEvent *event, void *user_data)
+{
+  fprintf (stderr, "%s event received\n", event->type);
 }
 
 void
@@ -274,13 +294,17 @@ simple_at_exit ()
   deregisterGlobalEventListenerAll (property_listener);
   AccessibleEventListener_unref    (property_listener);
 
+  deregisterGlobalEventListenerAll (generic_listener);
+  AccessibleEventListener_unref    (generic_listener);
+
   deregisterGlobalEventListenerAll (button_listener);
   AccessibleEventListener_unref    (button_listener);
 
   deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT);
+  AccessibleKeystrokeListener_unref (command_key_listener);
+
   deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED);
   deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT);
-  AccessibleKeystrokeListener_unref (command_key_listener);
   AccessibleKeystrokeListener_unref (ordinary_key_listener);
   
   SPI_event_quit ();

@@ -58,7 +58,7 @@ LDADD = $(UTILS_LIBS) -L$(prefix)/lib -lgdk_pixbuf_xlib-1.3
 serverinfodir = $(libdir)/bonobo/servers
 serverinfo_DATA = Accessibility_Util.server
 
-@XML_I18N_MERGE_SERVER_RULE@
+@INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST = Accessibility_Util.server.in $(serverinfo_DATA) $(idl_DATA)
 

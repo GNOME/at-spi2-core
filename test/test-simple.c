@@ -210,6 +210,41 @@ test_text (AccessibleText *text)
 }
 
 static void
+test_value (AccessibleValue *value)
+{
+	char *str;
+	float original_value;
+	
+        /* Note: test_value assertions are known not to work as of Dec 09 */
+	
+	fprintf (stderr, "Testing value ...\n");
+
+	original_value = AccessibleValue_getCurrentValue (value);
+	
+	g_assert (AccessibleValue_getCurrentValue (value) <=
+		  AccessibleValue_getMaximumValue (value));
+
+	g_assert (AccessibleValue_getCurrentValue (value) >=
+		  AccessibleValue_getMinimumValue (value));
+
+	AccessibleValue_setCurrentValue (value, 
+		  AccessibleValue_getMinimumValue (value));
+	
+	g_assert (AccessibleValue_getCurrentValue (value) ==
+		  AccessibleValue_getMinimumValue (value));
+
+	AccessibleValue_setCurrentValue (value, 
+		  AccessibleValue_getMaximumValue (value));
+	
+	g_assert (AccessibleValue_getCurrentValue (value) ==
+		  AccessibleValue_getMaximumValue (value));
+
+	AccessibleValue_setCurrentValue (value, original_value);
+	
+	g_assert (AccessibleValue_getCurrentValue (value) == original_value);
+}
+
+static void
 test_component (AccessibleComponent *component)
 {
 	long x, y, width, height;
@@ -273,7 +308,7 @@ validate_tree (Accessible *accessible,
 		g_assert (parent != NULL);
 
 		index = Accessible_getIndexInParent (accessible);
-		g_assert (index >= 0);
+		g_assert (index >= 0); 
 
 		child_at_index = Accessible_getChildAtIndex (parent, index);
 
@@ -408,6 +443,16 @@ validate_accessible (Accessible *accessible,
 		else
 			test_text (tmp);
 		AccessibleText_unref (tmp);
+	}
+
+	if (Accessible_isValue (accessible)) {
+		tmp = Accessible_getValue (accessible);
+		g_assert (tmp != NULL);
+		if (print_tree)
+			fprintf (stderr, "Va");
+		else
+			; /* test_value (tmp); */
+		AccessibleValue_unref (tmp);
 	}
 
 	if (print_tree)
