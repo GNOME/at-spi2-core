@@ -248,13 +248,13 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	  is_down = True;
 	} 
       else if (!(mask_return & Button4Mask) &&
-	       (mouse_mask_state & Button1Mask)) 
+	       (mouse_mask_state & Button4Mask)) 
 	{
 	  mouse_mask_state &= ~Button4Mask;
 	  button_number = 4;
 	} 
       else if ((mask_return & Button4Mask) &&
-	       !(mouse_mask_state & Button1Mask)) 
+	       !(mouse_mask_state & Button4Mask)) 
 	{
 	  mouse_mask_state |= Button4Mask;
 	  button_number = 4;
