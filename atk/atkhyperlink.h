@@ -63,6 +63,7 @@ struct _AtkHyperlinkClass
    */
   GObject*         (* get_object)          (AtkHyperlink     *link,
                                             gint             i);
+  //gint	     (* get_end_actions)     (AtkHyperlink     *link);
   /*
    * Gets the index with the hypertext document at which this link ends
    */
@@ -88,6 +89,8 @@ GObject*         atk_hyperlink_get_object           (AtkHyperlink     *link,
                                                      gint             i);
 
 gint             atk_hyperlink_get_end_index        (AtkHyperlink     *link);
+
+//gint             atk_hyperlink_get_end_actions        (AtkHyperlink     *link);
 
 gint             atk_hyperlink_get_start_index      (AtkHyperlink     *link);
 

@@ -74,6 +74,17 @@ atk_hyperlink_init  (AtkHyperlink        *link,
 {
 }
 
+/**
+ *atk_hyperlink_get_anchor:
+ *@link: an #AtkHyperlink
+ *@i:
+ *
+ * Returns an object which represents the link anchor, as appropriate for 
+ * that link.
+ *
+ * Returns: an object which represents the link anchor, as appropriate for 
+ * that link.
+ **/
 GObject*
 atk_hyperlink_get_anchor (AtkHyperlink *link,
                           gint         i)
@@ -89,6 +100,17 @@ atk_hyperlink_get_anchor (AtkHyperlink *link,
   return (klass->get_anchor) (link, i);
 }
 
+/**
+ *atk_hyperlink_get_object:
+ *@link: an #AtkHyperlink
+ *@i:
+ *
+ * Returns an object which represents the link action, as appropriate for 
+ * that link.
+ *
+ * Returns: an object which represents the link action, as appropriate for 
+ * that link.
+ **/
 GObject*
 atk_hyperlink_get_object (AtkHyperlink *link,
                           gint         i)
@@ -104,6 +126,34 @@ atk_hyperlink_get_object (AtkHyperlink *link,
   return (klass->get_object) (link, i);
 }
 
+/**
+ *atk_hyperlink_get_end_actions:
+ *@link: an #AtkHyperlink
+ *
+ *
+ **/
+//gint
+//atk_hyperlink_get_end_actions (AtkHyperlink *link)
+//{
+//  AtkHyperlinkClass *klass;
+//
+//  g_return_val_if_fail ((link != NULL), 0);
+//  g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
+//
+//  klass = ATK_HYPERLINK_GET_CLASS (link);
+//  g_return_val_if_fail ((klass->get_end_index != NULL), 0);
+//
+//  return (klass->get_end_index) (link);
+//}
+
+/**
+ *atk_hyperlink_get_end_index:
+ *@link: an #AtkHyperlink
+ *
+ * Gets the index with the hypertext document at which this link ends
+ *
+ *Returns: the index with the hypertext document at which this link ends
+ **/
 gint
 atk_hyperlink_get_end_index (AtkHyperlink *link)
 {
@@ -118,6 +168,14 @@ atk_hyperlink_get_end_index (AtkHyperlink *link)
   return (klass->get_end_index) (link);
 }
 
+/**
+ *atk_hyperlink_get_start_index:
+ *@link: an #AtkHyperlink
+ *
+ * Gets the index with the hypertext document at which this link begins 
+ *
+ *Returns: the index with the hypertext document at which this link begins
+ **/
 gint
 atk_hyperlink_get_start_index (AtkHyperlink *link)
 {
@@ -132,8 +190,18 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
   return (klass->get_end_index) (link);
 }
 
+/**
+ *atk_hyperlink_is_valid:
+ *@link: an #AtkHyperlink
+ *
+ * Since the document a link is associated with may have changed, this 
+ * method returns whether or not this link is still valid (with respect
+ * to the document is references)
+ *
+ *Returns: whether or not this link is still valid.
+ **/
 gboolean
-atk_hyperlink_get_is_valid (AtkHyperlink *link)
+atk_hyperlink_get_valid (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 

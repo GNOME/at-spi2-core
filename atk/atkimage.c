@@ -41,11 +41,12 @@ atk_image_get_type ()
 
 /**
  * atk_image_get_storage_type:
- * @obj: a GObject instance that implements AtkImageIface
- * return values: a AtkStorageType representing the image storage type
+ * @image: a GObject instance that implements AtkImageIface
  *
+ * Gets the type of representation being used to store image data
  * [maybe this method will be replaced, watch this space.]
  *
+ * Returns: a AtkStorageType representing the image storage type
  **/
 AtkImageType
 atk_image_get_storage_type (AtkImage *obj)
@@ -69,10 +70,11 @@ atk_image_get_storage_type (AtkImage *obj)
 
 /**
  * atk_image_get_image_description:
- * @obj: a GObject instance that implements AtkImageIface
- * return values: a gchar* representing the image description
+ * @image: a GObject instance that implements AtkImageIface
  *
  * Get a textual description of this image.
+ *
+ * Returns: a gchar* representing the image description
  **/
 G_CONST_RETURN gchar*
 atk_image_get_image_description (AtkImage *obj)
@@ -96,11 +98,11 @@ atk_image_get_image_description (AtkImage *obj)
 
 /**
  * atk_image_get_image_height:
- * @obj: a GObject instance that implements AtkImageIface
- * return values: a gint representing the image height in pixel coords
+ * @image: a GObject instance that implements AtkImageIface
  *
  * Get the height, in pixels/screen coords, of this image.
  *
+ * Returns: a gint representing the image height in pixel coords
  **/
 gint
 atk_image_get_image_height (AtkImage *obj)
@@ -124,11 +126,11 @@ atk_image_get_image_height (AtkImage *obj)
 
 /**
  * atk_image_get_image_width:
- * @obj: a GObject instance that implements AtkImageIface
- * return values: a gint representing the image width
+ * @image: a GObject instance that implements AtkImageIface
  *
  * Get the width, in pixel/screen coords, of this image.
  *
+ * Returns: a gint representing the image width
  **/
 gint
 atk_image_get_image_width (AtkImage *obj)
@@ -152,12 +154,13 @@ atk_image_get_image_width (AtkImage *obj)
 
 /**
  * atk_image_set_image_description:
- * @obj: a GObject instance that implements AtkImageIface
- * return values: boolean TRUE, or FALSE if operation could
- * not be completed.
+ * @image: a GObject instance that implements AtkImageIface
+ * @description: a #gchar desciption to set for @image
  *
  * Sets the textual description for this image.
  *
+ * Returns: boolean TRUE, or FALSE if operation could
+ * not be completed.
  **/
 gboolean
 atk_image_set_image_description (AtkImage        *obj,

@@ -41,10 +41,11 @@ atk_value_get_type ()
 
 /**
  * atk_value_get_current_value:
- * @obj@: a GObject instance that implements AtkValueIface
+ * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the current accessible value
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the value of this object
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkValue is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
@@ -70,7 +71,8 @@ atk_value_get_current_value (AtkValue *obj,
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the maximum accessible value
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the maximum value of this object
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkValue is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
@@ -96,7 +98,8 @@ atk_value_get_maximum_value  (AtkValue *obj,
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the minimum accessible value
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the mimnimum value of this object
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkValue is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
@@ -121,7 +124,10 @@ atk_value_get_minimum_value (AtkValue *obj,
  * atk_value_set_current_value:
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue which is the desired new accessible value.
- * @return: %true if new value is successfully set, %false otherwise.
+ *
+ * Sets the value of this object
+ *
+ * Returns: %true if new value is successfully set, %false otherwise.
  **/
 gboolean
 atk_value_set_current_value (AtkValue *obj, 

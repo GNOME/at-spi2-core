@@ -45,7 +45,14 @@ atk_component_get_type ()
 }
 
 /**
+ *atk_component_add_focus_handler:
+ *@component: The #AtkComponent to attach the @handler to
+ *@handler: The #AtkFocusHandler to be attached to @component
  *
+ * Add the specified handler to the set of functions to be called 
+ * when this object receives focus (in or out) events.
+ *
+ * Returns:
  **/
 guint
 atk_component_add_focus_handler (AtkComponent    *component,
@@ -64,7 +71,13 @@ atk_component_add_focus_handler (AtkComponent    *component,
 }
 
 /**
+ *atk_component_remove_focus_handler:
+ *@component: the #AtkComponent to remove the focus handler from
+ *@handler_id: the handler id of the focus handler to be removed
+ * from @component
  *
+ * Remove the handler specified by @handler_id from the list of
+ * functions to be executed when this object receives focus (in or out)
  **/
 void
 atk_component_remove_focus_handler (AtkComponent    *component,
@@ -80,6 +93,19 @@ atk_component_remove_focus_handler (AtkComponent    *component,
     (iface->remove_focus_handler) (component, handler_id);
 }
 
+/**
+ *atk_component_contains:
+ *@component: the #AtkComponent
+ *@x: x coordinate relative to the coordinate system of @component
+ *@y: y coordinate relative to the coordinate system of @component
+ *
+ * Checks whether the specified point is within the extent of the @component,
+ * the points x and y coordinates are defined to be relative to the 
+ * coordinate system of the @component.
+ *
+ * Returns: a #gboolean indicating whether the specified point is within
+ *  the extent of the @component
+ **/
 gboolean
 atk_component_contains (AtkComponent    *component,
                         gint            x,
@@ -97,6 +123,18 @@ atk_component_contains (AtkComponent    *component,
     return FALSE;
 }
 
+/**
+ *atk_component_get_accessible_at_point:
+ *@component: the #AtkComponent
+ *@x: local x coordinate
+ *@y: local y coordinate
+ *
+ * Gets the accessible child, if one exists, contained at the local
+ * coordinate point specified by @x and @y.
+ *
+ *Returns: the accessible child, if one exists, contained at the local
+ * coordinate point specified by @x and @y.
+ **/
 AtkObject*
 atk_component_get_accessible_at_point (AtkComponent    *component,
                                        gint            x,
@@ -119,6 +157,17 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
   }
 }
 
+/**
+ *atk_component_get_extents:
+ *@component: an #AtkComponent
+ *@x: address of #gint to put x coordinate
+ *@y: address of #gint to put y coordinate
+ *@width: address of #gint to put width
+ *@height: address of #gint to put height
+ *
+ * Gets the rectangle which gives the extent of the @component.
+ *
+ **/
 void
 atk_component_get_extents    (AtkComponent    *component,
                               gint            *x,
@@ -136,6 +185,16 @@ atk_component_get_extents    (AtkComponent    *component,
     (iface->get_extents) (component, x, y, width, height);
 }
 
+/**
+ *atk_component_get_position:
+ *@component: an #AtkComponent
+ *@x: address of #gint to put x coordinate position
+ *@y: address of #gint to put y coordinate position
+ *
+ * Gets the position of @component relative to the parent in the form of 
+ * a point specifying @component's top-left corner in the screen's
+ * coordinate space.
+ **/
 void
 atk_component_get_position   (AtkComponent    *component,
                               gint            *x,
@@ -151,6 +210,14 @@ atk_component_get_position   (AtkComponent    *component,
     (iface->get_position) (component, x, y);
 }
 
+/**
+ *atk_component_get_position_on_screen:
+ *@component: an #AtkComponent
+ *@x: address of #gint to put x coordinate position
+ *@y: address of #gint to put y coordinate position
+ *
+ * Gets the position of the @component on the screen
+ **/
 void
 atk_component_get_position_on_screen (AtkComponent    *component,
                                       gint            *x,
@@ -166,6 +233,14 @@ atk_component_get_position_on_screen (AtkComponent    *component,
     return (iface->get_position_on_screen) (component, x, y);
 }
 
+/**
+ *atk_component_get_size:
+ *@component: an #AtkComponent
+ *@width: address of #gint to put width of @component
+ *@height: address of #gint to put height of @component
+ *
+ * Gets the size of the @component.
+ **/
 void
 atk_component_get_size       (AtkComponent    *component,
                               gint            *x,
@@ -181,6 +256,12 @@ atk_component_get_size       (AtkComponent    *component,
     (iface->get_size) (component, x, y);
 }
 
+/**
+ *atk_component_grab_focus:
+ *@component: an #AtkComponent
+ *
+ * Grabs focus for this @component
+ **/
 void
 atk_component_grab_focus (AtkComponent    *component)
 {
@@ -194,6 +275,16 @@ atk_component_grab_focus (AtkComponent    *component)
     (iface->grab_focus) (component);
 }
 
+/**
+ *atk_component_set_extents:
+ *@component: an #AtkComponent
+ *@x: x coordinate to set for @component
+ *@y: y coordinate to set for @component
+ *@width: width to set for @component
+ *@height: height to set for @component
+ *
+ * Sets the extents of @component
+ **/
 void
 atk_component_set_extents   (AtkComponent    *component,
                              gint            x,
@@ -211,6 +302,14 @@ atk_component_set_extents   (AtkComponent    *component,
     (iface->set_extents) (component, x, y, width, height);
 }
 
+/**
+ *atk_component_set_position:
+ *@component: an #AtkComponent
+ *@x: x coordinate
+ *@y: y coordinate
+ *
+ * Sets the postition of @component
+ **/
 void
 atk_component_set_position   (AtkComponent    *component,
                               gint            x,
@@ -226,6 +325,14 @@ atk_component_set_position   (AtkComponent    *component,
     (iface->set_position) (component, x, y);
 }
 
+/**
+ *atk_component_set_size:
+ *@component: an #AtkComponent
+ *@width: width to set for @component
+ *@height: height to set for @component
+ *
+ * Set the size of the @component
+ **/
 void
 atk_component_set_size       (AtkComponent    *component,
                               gint            x,

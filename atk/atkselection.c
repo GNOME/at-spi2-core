@@ -41,8 +41,11 @@ atk_selection_get_type ()
 
 /**
  * atk_selection_add_selection:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: void
+ * @selection: a GObject instance that implements AtkSelectionIface
+ * @i: a #gint specifying an accessible child of @selection 
+ *
+ * Adds the specified accessible child of the object to the
+ * object's selection.
  **/
 void
 atk_selection_add_selection (AtkSelection *obj,
@@ -61,8 +64,10 @@ atk_selection_add_selection (AtkSelection *obj,
 
 /**
  * atk_selection_clear_selection:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: void
+ * @selection: a GObject instance that implements AtkSelectionIface
+ *
+ * Clears the selection in the object so that no children in the object
+ * are selected.
  **/
 void
 atk_selection_clear_selection (AtkSelection *obj)
@@ -80,14 +85,18 @@ atk_selection_clear_selection (AtkSelection *obj)
 
 /**
  * atk_selection_ref_selection:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: a AtkObject* representing the selected accessible , or NULL
- * if value does not implement this interface.
+ * @selection: a GObject instance that implements AtkSelectionIface
+ * @i: a #gint specifying an accessible child of @selection 
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets a reference to the accessible object representing the specified 
+ * selected * child of the object.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
+ *
+ * Returns: a AtkObject* representing the selected accessible , or NULL
+ * if value does not implement this interface.
  **/
 AtkObject*
 atk_selection_ref_selection (AtkSelection *obj,
@@ -108,14 +117,16 @@ atk_selection_ref_selection (AtkSelection *obj,
 
 /**
  * atk_selection_get_selection_count:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: a gint representing the number of items selected, or 0
- * if value does not implement this interface.
+ * @selection: a GObject instance that implements AtkSelectionIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the number of accessible children currently selected.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
+ *
+ * Returns: a gint representing the number of items selected, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_selection_get_selection_count (AtkSelection *obj)
@@ -135,14 +146,17 @@ atk_selection_get_selection_count (AtkSelection *obj)
 
 /**
  * atk_selection_is_child_selected:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: a gboolean representing the specified child is selected, or 0
- * if value does not implement this interface.
+ * @selection: a GObject instance that implements AtkSelectionIface
+ * @i: a #gint specifying an accessible child of @selection 
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Determines if the current child of this object is selected
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_value() convenience method.
+ *
+ * Returns: a gboolean representing the specified child is selected, or 0
+ * if value does not implement this interface.
  **/
 gboolean
 atk_selection_is_child_selected (AtkSelection *obj,
@@ -163,8 +177,10 @@ atk_selection_is_child_selected (AtkSelection *obj,
 
 /**
  * atk_selection_remove_selection:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: void
+ * @selection: a GObject instance that implements AtkSelectionIface
+ * @i: a #gint specifying an accessible child of @selection 
+ *
+ * Removes the specified child of the object from the object's selection.
  **/
 void
 atk_selection_remove_selection (AtkSelection *obj,
@@ -183,8 +199,10 @@ atk_selection_remove_selection (AtkSelection *obj,
 
 /**
  * atk_selection_select_all_selection:
- * @value: a GObject instance that implements AtkSelectionIface
- * @return: void
+ * @selection: a GObject instance that implements AtkSelectionIface
+ *
+ * Causes every child of the object to be selected if the object
+ * supports multiple selections.
  **/
 void
 atk_selection_select_all_selection (AtkSelection *obj)

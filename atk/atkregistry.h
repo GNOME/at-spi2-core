@@ -53,7 +53,8 @@ typedef struct _AtkRegistryClass        AtkRegistryClass;
 void              atk_registry_set_factory_type (AtkRegistry *registry,
                                                  GType type,
                                                  GType factory_type);
-
+GType             atk_registry_get_factory_type (AtkRegistry *registry,
+						 GType type);
 AtkObjectFactory* atk_registry_get_factory      (AtkRegistry *registry,
                                                  GType type);
 

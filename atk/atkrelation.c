@@ -56,6 +56,14 @@ atk_relation_class_init (AtkRelationClass *klass)
   gobject_class->finalize = atk_relation_finalize;
 }
 
+/**
+ *atk_relation_type_register:
+ *@name: a #gchar name
+ *
+ * Associate @name with a new #AtkRelationType
+ *
+ *Returns: an #AtkRelationType associated with @name
+ **/
 AtkRelationType
 atk_relation_type_register (const gchar *name)
 {
@@ -64,6 +72,18 @@ atk_relation_type_register (const gchar *name)
   return (++type);
 }
 
+/**
+ *atk_relation_new:
+ *@targets: an array of pointers to #AtkObjects  
+ *@n_targets: number of #AtkObjects pointed to by @targets
+ *@relationship: an #AtkRelationType with which to create the new
+ *  #AtkRelation
+ *
+ * Create a new relation for the specified key and the specified list
+ * of targets.
+ *
+ * Returns: a pointer to a new #AtkRelation
+ **/
 AtkRelation*
 atk_relation_new (AtkObject       **targets,
                   gint            n_targets,
@@ -92,6 +112,14 @@ atk_relation_new (AtkObject       **targets,
   return relation;
 }
 
+/**
+ *atk_relation_get_relation_type:
+ *@relation: an #AtkRelation 
+ *
+ * Gets the type of @relation
+ *
+ *Returns: the type of @relation
+ **/
 AtkRelationType
 atk_relation_get_relation_type (AtkRelation *relation)
 {
@@ -101,6 +129,14 @@ atk_relation_get_relation_type (AtkRelation *relation)
   return relation->relationship;
 }
 
+/**
+ *atk_relation_get_target:
+ *@relation: an #AtkRelation
+ *
+ * Gets the target list of @relation
+ *
+ *Returns: the target list of @relation
+ **/
 GPtrArray*
 atk_relation_get_target (AtkRelation *relation)
 {

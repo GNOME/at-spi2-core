@@ -39,6 +39,15 @@ struct _FocusTracker {
 };
 typedef struct _FocusTracker FocusTracker;
   
+/**
+ *atk_focus_tracker_init:
+ *@add_function: Function to be called for focus tracker initialization
+ *
+ * Specifies the function to be called for focus tracker initialization.
+ * This function should be called by an implementation of the
+ * ATK interface if any specific work needs to be done to enable
+ * focus tracking.
+ **/
 void
 atk_focus_tracker_init (AtkFocusTrackerInit    init)
 {
@@ -46,6 +55,16 @@ atk_focus_tracker_init (AtkFocusTrackerInit    init)
     focus_tracker_init = init;
 }
 
+/**
+ *atk_add_focus_tracker:
+ *@focus_tracker: Function to be added to the list of functions to be called
+ * when an object receives focus. 
+ *
+ * Adds the specified function to the list of functions to be called
+ * when an object receives focus.
+ *
+ * Returns: added focus tracker id, or 0 on failure.
+ **/
 guint
 atk_add_focus_tracker (AtkFocusTracker   focus_tracker)
 {
@@ -75,6 +94,14 @@ atk_add_focus_tracker (AtkFocusTracker   focus_tracker)
   }
 }
 
+/**
+ *atk_remove_focus_tracker:
+ *@tracker_id: the id of the focus tracker to remove
+ *
+ * Removes the specified focus tracker from the list of functions
+ * to be called when any object receives focus
+ *
+ **/
 void
 atk_remove_focus_tracker (guint            tracker_id)
 {
@@ -98,6 +125,14 @@ atk_remove_focus_tracker (guint            tracker_id)
   }
 }
 
+/**
+ *atk_focus_tracker_notify:
+ *@object: an #AtkObject
+ *
+ * Cause the focus tracker functions which have been specified to be
+ * executed for the object.
+ *
+ **/
 void
 atk_focus_tracker_notify (AtkObject       *object)
 {

@@ -67,6 +67,14 @@ atk_no_op_object_factory_class_init (AtkNoOpObjectFactoryClass *klass)
   class->create_accessible = atk_no_op_object_factory_create_accessible;
 }
 
+/**
+ *atk_no_op_object_factory_new:
+ *
+ *Creates an instance of an #AtkObjectFactory which generates primitive
+ *(non-functioning) #AtkObjects. 
+ *
+ *Returns: an instance of an #AtkObjectFactory
+ **/
 AtkObjectFactory* 
 atk_no_op_object_factory_new ()
 {

@@ -41,11 +41,13 @@ atk_table_get_type ()
 
 /**
  * atk_table_ref_at:
- * @obj: a GObject instance that implements AtkTableIface
- * return values: a AtkObject* representing the referred to accessible
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @column: a #gint representing a column in @table
  *
- * Get a reference to the table cell at #row, #column
+ * Get a reference to the table cell at @row, @column
  *
+ * Returns: a AtkObject* representing the referred to accessible
  **/
 AtkObject*
 atk_table_ref_at (AtkTable *obj,
@@ -67,14 +69,19 @@ atk_table_ref_at (AtkTable *obj,
 
 /**
  * atk_table_get_index_at:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint representing the index at specified position, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @column: a #gint representing a column in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Returns a #gint representing the index at the specified @row and @column,
+ * or 0 if value does not implement this interface.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a #gint representing the index at specified position, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_index_at (AtkTable *obj,
@@ -96,14 +103,18 @@ atk_table_get_index_at (AtkTable *obj,
 
 /**
  * atk_table_get_row_at_index:
- * @value: a GObject instance that implements AtkTableInterface
- * @return: a gint representing the row at the specified  index, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableInterface
+ * @index: a #gint representing an index in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Returns a #gint representing the row at the specified @index, or 0
+ * if the value does not implement this interface
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint representing the row at the specified  index, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_row_at_index (AtkTable *obj,
@@ -124,14 +135,18 @@ atk_table_get_row_at_index (AtkTable *obj,
 
 /**
  * atk_table_get_column_at_index:
- * @value: a GObject instance that implements AtkTableInterface
- * @return: a gint representing the column at the specified  index, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableInterface
+ * @index: a #gint representing an index in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Returns a #gint representing the column at the specified @index, or 0
+ * if the value does not implement this interface
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint representing the column at the specified  index, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_column_at_index (AtkTable *obj,
@@ -152,14 +167,16 @@ atk_table_get_column_at_index (AtkTable *obj,
 
 /**
  * atk_table_get_caption:
- * @value: a GObject instance that implements AtkTableInterface
- * @return: a AtkObject* representing the table caption, or NULL
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableInterface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the caption for the @table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a AtkObject* representing the table caption, or %NULL
+ * if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_caption (AtkTable *obj)
@@ -179,14 +196,16 @@ atk_table_get_caption (AtkTable *obj)
 
 /**
  * atk_table_get_n_columns:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint representing the number of columns, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the number of columns in the table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint representing the number of columns, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_n_columns (AtkTable *obj)
@@ -206,14 +225,17 @@ atk_table_get_n_columns (AtkTable *obj)
 
 /**
  * atk_table_get_column_description:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a AtkObject* representing the table description, or NULL
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the description text of the specified @column in the table
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a AtkObject* representing the table description, or NULL
+ * if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_column_description (AtkTable *obj,
@@ -234,14 +256,19 @@ atk_table_get_column_description (AtkTable *obj,
 
 /**
  * atk_table_get_column_extent_at:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint representing the column extent at specified position, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @column: a #gint representing a column in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the number of columns occupied by the accessible object
+ * at the specified @row and @column in the @table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint representing the column extent at specified position, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_column_extent_at (AtkTable *obj,
@@ -263,14 +290,16 @@ atk_table_get_column_extent_at (AtkTable *obj,
 
 /**
  * atk_table_get_column_header:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a AtkObject* representing the column headers, or NULL
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the column headers of an accessible table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a AtkObject* representing the column headers, or %NULL
+ * if value does not implement this interface.
  **/
 AtkTable*
 atk_table_get_column_header (AtkTable *obj)
@@ -290,14 +319,16 @@ atk_table_get_column_header (AtkTable *obj)
 
 /**
  * atk_table_get_n_rows:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint representing the number of rows, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the number of rows in the table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint representing the number of rows, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_n_rows (AtkTable *obj)
@@ -317,14 +348,17 @@ atk_table_get_n_rows (AtkTable *obj)
 
 /**
  * atk_table_get_row_description:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a AtkObject* representing the table description, or NULL
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @r: a #gint representing a row in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the description text of the specified row in the table
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a AtkObject* representing the table description, or %NULL
+ * if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_row_description (AtkTable *obj,
@@ -345,14 +379,19 @@ atk_table_get_row_description (AtkTable *obj,
 
 /**
  * atk_table_get_row_extent_at:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint representing the row extent at specified position, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @column: a #gint representing a column in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the number of rows occupied by the accessible object
+ * at a specified @row and @column in the @table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint representing the row extent at specified position, or 0
+ * if value does not implement this interface.
  **/
 gint
 atk_table_get_row_extent_at (AtkTable *obj,
@@ -374,14 +413,16 @@ atk_table_get_row_extent_at (AtkTable *obj,
 
 /**
  * atk_table_get_row_header:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a AtkTable* representing the row headers, or NULL
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the row headers of an accessible table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a AtkTable* representing the row headers, or %NULL
+ * if value does not implement this interface.
  **/
 AtkTable*
 atk_table_get_row_header (AtkTable *obj)
@@ -401,14 +442,16 @@ atk_table_get_row_header (AtkTable *obj)
 
 /**
  * atk_table_get_summary:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a AtkObject* representing a sumary description of the table,
- * or NULL if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the summary description of the table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a AtkObject* representing a sumary description of the table,
+ * or %NULL if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_summary (AtkTable *obj)
@@ -428,14 +471,16 @@ atk_table_get_summary (AtkTable *obj)
 
 /**
  * atk_table_get_selected_rows:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint* representing the selected rows,
- * or NULL if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the selected rows of the table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint* representing the selected rows,
+ * or %NULL if value does not implement this interface.
  **/
 gint*
 atk_table_get_selected_rows (AtkTable *obj)
@@ -455,14 +500,17 @@ atk_table_get_selected_rows (AtkTable *obj)
 
 /**
  * atk_table_get_selected_columns:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gint* representing the selected columns,
- * or NULL if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets the selected columns of the table.
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gint* representing the selected columns,
+ * or %NULL if value does not implement this interface.
+ *
  **/
 gint*
 atk_table_get_selected_columns (AtkTable *obj)
@@ -482,14 +530,18 @@ atk_table_get_selected_columns (AtkTable *obj)
 
 /**
  * atk_table_is_column_selected:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gboolean representing the column is selected, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets a boolean value indicating whether the specified @column
+ * is selected
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if the column is selected, or 0
+ * if value does not implement this interface.
  **/
 gboolean
 atk_table_is_column_selected (AtkTable *obj,
@@ -510,14 +562,18 @@ atk_table_is_column_selected (AtkTable *obj,
 
 /**
  * atk_table_is_row_selected:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gboolean representing the row is selected, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets a boolean value indicating whether the specified @row
+ * is selected
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if the row is selected, or 0
+ * if value does not implement this interface.
  **/
 gboolean
 atk_table_is_row_selected (AtkTable *obj,
@@ -538,14 +594,19 @@ atk_table_is_row_selected (AtkTable *obj,
 
 /**
  * atk_table_is_selected:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a gboolean representing the cell is selected, or 0
- * if value does not implement this interface.
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @column: a #gint representing a column in @table
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
+ * Gets a boolean value indicating whether the acessible object
+ * at the specified @row and @column is selected
+ * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if the cell is selected, or 0
+ * if value does not implement this interface.
  **/
 gboolean
 atk_table_is_selected (AtkTable *obj,
@@ -567,8 +628,10 @@ atk_table_is_selected (AtkTable *obj,
 
 /**
  * atk_table_set_caption:
- * @value: a GObject instance that implements AtkTableIface
- * @return: void
+ * @table: a GObject instance that implements AtkTableIface
+ * @accessible: an #AtkObject representing the caption to set for @table
+ *
+ * Sets the caption for the table.
  **/
 void
 atk_table_set_caption (AtkTable       *obj,
@@ -587,8 +650,12 @@ atk_table_set_caption (AtkTable       *obj,
 
 /**
  * atk_table_set_column_description:
- * @value: a GObject instance that implements AtkTableIface
- * @return: void
+ * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in @table
+ * @accessible: an #AtkObject representing the description text
+ * to set for the specified @column of the @table
+ *
+ * Sets the description text for the specified @column of the @table.
  **/
 void
 atk_table_set_column_description (AtkTable       *obj,
@@ -608,8 +675,11 @@ atk_table_set_column_description (AtkTable       *obj,
 
 /**
  * atk_table_set_column_header:
- * @value: a GObject instance that implements AtkTableIface
- * @return: void
+ * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in @table
+ * @header: an #AtkTable
+ *
+ * Sets the specified column header to @header
  **/
 void
 atk_table_set_column_header (AtkTable *obj,
@@ -629,8 +699,12 @@ atk_table_set_column_header (AtkTable *obj,
 
 /**
  * atk_table_set_row_description:
- * @value: a GObject instance that implements AtkTableIface
- * @return: void
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @accessible: an #AtkObject representing the description text
+ * to set for the specified @row of @table
+ *
+ * Sets the description text for the specified @row of @table.
  **/
 void
 atk_table_set_row_description (AtkTable       *obj,
@@ -650,8 +724,11 @@ atk_table_set_row_description (AtkTable       *obj,
 
 /**
  * atk_table_set_row_header:
- * @value: a GObject instance that implements AtkTableIface
- * @return: void
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ * @header: an #AtkTable 
+ *
+ * Sets the specified row header to @header
  **/
 void
 atk_table_set_row_header (AtkTable *obj,
@@ -671,8 +748,11 @@ atk_table_set_row_header (AtkTable *obj,
 
 /**
  * atk_table_set_summary:
- * @value: a GObject instance that implements AtkTableIface
- * @return: void
+ * @table: a GObject instance that implements AtkTableIface
+ * @accessible: an #AtkObject representing the summary description
+ * to set for @table
+ *
+ * Sets the summary description of the table
  **/
 void
 atk_table_set_summary (AtkTable       *obj,

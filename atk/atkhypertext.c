@@ -61,6 +61,17 @@ atk_hypertext_interface_init (AtkHypertextIfaceClass *klass)
   parent_class = g_type_class_ref (ATK_TYPE_HYPERTEXT);
 }
 
+/**
+ *atk_hypertext_get_link:
+ *@hypertext: an #AtkHypertext
+ *@link_index: the index of the link to be returned
+ *
+ * Gets the link in this hypertext document at index 
+ * @link_index
+ *
+ *Returns: the link in this hypertext document at
+ * index @link_index
+ **/
 AtkHyperLink* 
 atk_hypertext_get_link (AtkHypertext  *hypertext,
                         gint          link_index)
@@ -78,6 +89,14 @@ atk_hypertext_get_link (AtkHypertext  *hypertext,
     return NULL;
 }
 
+/**
+ *atk_hypertext_get_n_links:
+ *@hypertext: an #AtkHypertext
+ *
+ * Gets the number of links within this hypertext document.
+ *
+ *Returns: the number of links within this hypertext document
+ **/
 gint 
 atk_hypertext_get_n_links (AtkHypertext  *hypertext)
 {
@@ -94,6 +113,19 @@ atk_hypertext_get_n_links (AtkHypertext  *hypertext)
     return 0;
 }
 
+/**
+ *atk_hypertext_get_link_index:
+ *@hypertext: an #AtkHypertext
+ *@char_index: a character index
+ *
+ * Gets the index into the array of hyperlinks that is associated with
+ * @char_index character index, or -1 if there is no hyperlink associated with
+ * @char_index.
+ *
+ * Returns: the index into the array of hyperlinks that is associated with
+ * @char_index character index, or -1 if there is no hyperlink associated with
+ * @char_index.
+ **/
 gint 
 atk_hypertext_get_link_index (AtkHypertext  *hypertext,
                               gint          char_index)

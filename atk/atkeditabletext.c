@@ -48,6 +48,14 @@ atk_editable_text_get_type ()
 }
 
 
+/**
+ *atk_editable_text_select_text:
+ *@text: an #AtkEditableText
+ *@start_pos: start position
+ *@end_pos: end position
+ *
+ *Select text between @start_pos and @end_pos
+ **/
 void 
 atk_editable_text_select_text (AtkEditableText  *text,
                                gint             start_pos,
@@ -64,6 +72,15 @@ atk_editable_text_select_text (AtkEditableText  *text,
     (*(iface->select_text)) (text, start_pos, end_pos);
 }
 
+/**
+ *atk_editable_text_set_attributes:
+ *@text: an #AtkEditableText
+ *@start_pos: start position
+ *@end_pos: end position
+ *@attributes: a #PangoAttrList to set for @text
+ *
+ *Set attributes for text between @start_pos and @end_pos
+ **/
 void 
 atk_editable_text_set_attributes (AtkEditableText  *text,
                                   gint             start_pos,
@@ -81,6 +98,13 @@ atk_editable_text_set_attributes (AtkEditableText  *text,
     (*(iface->set_attributes)) (text, start_pos, end_pos, attributes);
 }
 
+/**
+ *atk_editable_text_set_text_contents:
+ *@text: an #AtkEditableText
+ *@string: string to set for text contents of @text
+ *
+ *Set text contents of @text
+ **/
 void 
 atk_editable_text_set_text_contents (AtkEditableText  *text,
                                      const gchar      *string)
@@ -96,6 +120,16 @@ atk_editable_text_set_text_contents (AtkEditableText  *text,
     (*(iface->set_text_contents)) (text, string);
 }
 
+/**
+ *atk_editable_text_insert_text:
+ *@text: an #AtkEditableText
+ *@string: a #gchar string to insert
+ *@length: number of characters to insert @string
+ *@position: position at which to insert @string
+ *
+ *Insert @length characters of @string into text contents
+ * of @text at position @position 
+ **/
 void 
 atk_editable_text_insert_text (AtkEditableText  *text,
                                const gchar      *string,
@@ -113,6 +147,14 @@ atk_editable_text_insert_text (AtkEditableText  *text,
     (*(iface->insert_text)) (text, string, length, position);
 }
 
+/**
+ *atk_editable_text_copy_text:
+ *@text: an #AtkEditableText
+ *@start_pos: start position
+ *@end_pos: end position
+ *
+ * Copy text between @start_pos and @end_pos
+ **/
 void 
 atk_editable_text_copy_text (AtkEditableText  *text,
                              gint             start_pos,
@@ -129,6 +171,14 @@ atk_editable_text_copy_text (AtkEditableText  *text,
     (*(iface->copy_text)) (text, start_pos, end_pos);
 }
 
+/**
+ *atk_editable_text_cut_text:
+ *@text: an #AtkEditableText
+ *@start_pos: start position
+ *@end_pos: end position
+ *
+ * Cut text between @start_pos and @end_pos
+ **/
 void 
 atk_editable_text_cut_text  (AtkEditableText  *text,
                              gint             start_pos,
@@ -145,6 +195,14 @@ atk_editable_text_cut_text  (AtkEditableText  *text,
     (*(iface->cut_text)) (text, start_pos, end_pos);
 }
 
+/**
+ *atk_editable_text_delete_text:
+ *@text: an #AtkEditableText
+ *@start_pos: start position
+ *@end_pos: end position
+ *
+ * Delete text between @start_pos and @end_pos
+ **/
 void 
 atk_editable_text_delete_text (AtkEditableText  *text,
                                gint             start_pos,
@@ -161,6 +219,13 @@ atk_editable_text_delete_text (AtkEditableText  *text,
     (*(iface->delete_text)) (text, start_pos, end_pos);
 }
 
+/**
+ *atk_editable_text_paste_text:
+ *@text: an #AtkEditableText
+ *@position: position to paste
+ *
+ * Paste text at @position 
+ **/
 void 
 atk_editable_text_paste_text (AtkEditableText  *text,
                               gint             position)
