@@ -1,3 +1,7 @@
+2003-07-07  Pablo Gonzalo del Campo  <pablodc@bigfoot.com>
+
+	* configure.in (ALL_LINGUAS): Added "es" (Spanish).
+
 2003-07-07  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi_event.c (AccessibleEvent_unref): Update code to free
