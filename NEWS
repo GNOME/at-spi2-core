@@ -1,9 +1,17 @@
+Changes in version 1.3.3
+========================
+* Add translations: Welsh [Dafydd Harries], Arabic [Arafat Medini]
+
+* Update translations: Traditional Chinese [Abel Cheung]
+
+* Add new role ATK_ROLE_AUTOCOMPLETE and state ATK_STATE_INDETERMINATE.
+
 Changes in version 1.3.2
 ========================
 * Add translations: Serbian [Danilo \305\240egan], Portuguese [Duarte Loreto],
 Icelandic [Sam\303\272el J\303\263n Gunnarsson]
 
-Update translations: Traditional Chinese [Abel Cheung], Polish [Artur Flinta]
+* Update translations: Traditional Chinese [Abel Cheung], Polish [Artur Flinta]
 
 
 Changes in version 1.3.1

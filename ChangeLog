@@ -1,3 +1,11 @@
+2003-05-30  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.3.3=====
+
+	* configure.in: Version 1.3.3, interface age 3, binary age 303
+
+	* NEWS: Updated.
+
 2003-05-28  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.h docs/tmpl/atkobject.sgml: Add new role
