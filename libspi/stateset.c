@@ -45,13 +45,14 @@ spi_init_state_type_tables (void)
   g_return_val_if_fail (accessible_state_types, FALSE);
   g_return_val_if_fail (atk_state_types, FALSE);
   
-  accessible_state_types = g_new (Accessibility_StateType, ATK_STATE_LAST_DEFINED);
-  atk_state_types = g_new (AtkStateType, ATK_STATE_LAST_DEFINED);
-
   for (i = 0; i < ATK_STATE_LAST_DEFINED; i++)
     {
       atk_state_types[i] = ATK_STATE_INVALID;
-      accessible_state_types[i] = Accessibility_STATE_INVALID;
+    }
+
+  for (i=0; i < Accessibility_STATE_LAST_DEFINED; i++)
+    {
+      accessible_state_types[i] = Accessibility_STATE_INVALID;	
     }
 
   accessible_state_types[ATK_STATE_ACTIVE] = Accessibility_STATE_ACTIVE;
