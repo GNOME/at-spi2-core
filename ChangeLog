@@ -1,3 +1,7 @@
+2002-12-23  Nam SungHyun  <namsh@kldp.org>
+
+	* configure.in: Added Korean (ko) to ALL_LINGUAS
+
 2002-12-22  Artis Trops  <hornet@navigator.lv>
 
 	* configure.in: Added Latvian (lv) to ALL_LINGUAS.

@@ -1,0 +1,310 @@
+# atk ko.po
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Nam SungHyun <namsh@kldp.org>, 2002
+msgid ""
+msgstr ""
+"Project-Id-Version: atk 1.2.0\n"
+"POT-Creation-Date: 2002-12-23 09:50+0900\n"
+"PO-Revision-Date: 2002-12-23 10:05+0900\n"
+"Last-Translator: Nam SungHyun <namsh@kldp.org>\n"
+"Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "잘못됨"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "액셀-레이블"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "경보"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "에니메이션"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "화살표"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "달력"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "캔버스"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "확인-상자"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "확인-메뉴-항목"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "색-선택기"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "행-헤더"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "콤보-상자"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "날짜-편집기"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "데스크탑-아이콘"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "데스크탑-프레임"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "다이얼"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "대화상자"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "디렉토리-창"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "그리기-영역"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "파일-선택기"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "채우기"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "글꼴-선택기"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "프레임"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "글라스-창"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "html-컨테이너"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "아이콘"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "그림"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "내부-프레임"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "레이블"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "계층-창"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "목록"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "목록-항목"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "메뉴"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "메뉴-막대"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "메뉴-항목"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "옵션-창"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "페이지-탭"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "페이지-탭-목록"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "패널"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "비밀번호-텍스트"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "팝업-메뉴"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "진행-막대"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "푸쉬-단추"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "라디오-단추"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "라디오-메뉴-항목"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "루트-창"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "열-헤더"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "스크롤-막대"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "스크롤-창"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "분리기"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "슬라이더"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "나눔-창"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "스핀-단추"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "상태막대"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "테이블"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "테이블-셀"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "테이블-행-헤더"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "테이블-열-헤더"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "절취-메뉴-항목"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "터미널"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "텍스트"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "토글-단추"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "도구-막대"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "도구-팁"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "트리"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "트리-테이블"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "모름"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "뷰포트"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "창"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "머리글"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "바닥글"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "단락"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "룰러"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "응용프로그램"
