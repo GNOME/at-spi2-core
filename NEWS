@@ -1,3 +1,14 @@
+Changes in version 1.9.1
+========================
+
+* New locale, 'xh'
+
+* Fixed bug #168218 (spec-file ftp dir wrong)
+
+* Fixed #165288 in atk.def file.
+
+* Added description for ATK_RELATION_SUBWINDOW_OF (bug #161562).
+
 Changes in version 1.9.0
 ========================
 * Add new functions atk_relation_set_add_relation_by_type and

@@ -1,3 +1,9 @@
+2005-03-08  Bill Haneman <bill.haneman@sun.com>
+
+	* ===== Released 1.9.1=====
+
+	* configure.in, NEWS, README: Released 1.9.1.
+
 2005-02-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk.spec.in:  Corrected FTP directory. (bug #168218)
