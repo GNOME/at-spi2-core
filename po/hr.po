@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 0\n"
 "POT-Creation-Date: 2003-11-06 18:05+0100\n"
-"PO-Revision-Date: 2003-11-07 18:38+CET\n"
+"PO-Revision-Date: 2003-11-10 16:48+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -175,7 +175,7 @@ msgstr "tekst lozinke"
 
 #: atk/atkobject.c:1355
 msgid "popup-menu"
-msgstr "skočni izborniik"
+msgstr "skočni izbornik"
 
 #: atk/atkobject.c:1358
 msgid "progress-bar"
@@ -207,7 +207,7 @@ msgstr "klizač"
 
 #: atk/atkobject.c:1379
 msgid "scroll-pane"
-msgstr "klizeče okno"
+msgstr "klizuća ploča"
 
 #: atk/atkobject.c:1382
 msgid "separator"
