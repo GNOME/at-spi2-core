@@ -6,6 +6,10 @@ PRJ_TOP = ..
 PACKAGE = atk
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
+!IFNDEF PERL
+PERL = perl
+!ENDIF
+
 PKG_VER = 0.8
 
 top_srcdir = $(PRJ_TOP)
@@ -13,8 +17,8 @@ top_builddir = $(PRJ_TOP)
 includedir = $(PRJ_TOP)
 LT_RELEASE = $(PKG_VER)
 
-INCLUDES = \
-	-I$(top_srcdir) $(GLIB_CFLAGS) $(PANGO_CFLAGS)
+INCLUDES = -FImsvc_recommended_pragmas.h \
+	-I. -I$(top_srcdir) $(GLIB_CFLAGS) $(PANGO_CFLAGS)
 
 PKG_LINK = $(GLIB_LIBS) $(PANGO_LIBS)
 
@@ -22,10 +26,12 @@ MAINTAINERCLEANFILES = \
 	atkmarshal.c
 
 OBJECTS = \
+	atk-enum-types.obj \
 	atkaction.obj \
 	atkcomponent.obj \
 	atkdocument.obj \
 	atkeditabletext.obj \
+	atkgobjectaccessible.obj \
 	atkhyperlink.obj \
 	atkhypertext.obj \
 	atkimage.obj \
@@ -48,15 +54,13 @@ OBJECTS = \
 libatkincludedi = \
 	$(includedir)/atk-1.0/atk
 
-lib_LTLIBRARIES = \
-	libatk.la
-
-libatkinclude_HEADERS = \
+atk_headers = \
 	atk.h \
 	atkaction.h \
 	atkcomponent.h \
 	atkdocument.h \
 	atkeditabletext.h \
+	atkgobjectaccessible.h \
 	atkhyperlink.h \
 	atkhypertext.h \
 	atknoopobject.h \
@@ -90,6 +94,31 @@ atkmarshal.h : atkmarshal.list
 
 atkmarshal.c : atkmarshal.list
 	$(GLIB)\gobject\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body >atkmarshal.c
+
+#
+# atk-enum-types.h
+#
+atk-enum-types.h : $(atk_headers) makefile.msc
+	$(PERL) $(GLIB)\gobject\glib-mkenums \
+		--fhead "#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n" \
+		--fprod "/* enumerations from \"@filename@\" */\n" \
+		--vhead "GType @enum_name@_get_type (void);\n#define ATK_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n"         \
+		--ftail "#endif /* __ATK_ENUM_TYPES_H__ */" \
+		$(atk_headers) > atk-enum-types.h
+
+#
+# atk-enum-types.c
+#
+atk-enum-types.c: $(atk_headers) makefile.msc
+	$(PERL) $(GLIB)\gobject\glib-mkenums \
+		--fhead "#include <atk.h>" \
+		--fprod "\n/* enumerations from \"@filename@\" */" \
+		--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {"     \
+		--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+		--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
+		$(atk_headers) > atk-enum-types.c
+
+atk-enum-types.obj : atk-enum-types.h atk-enum-types.c
 
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h

@@ -1,3 +1,13 @@
+2002-01-05  Hans Breuer  <hans@breuer.org>
+
+	* atk/makefile.msc : generate atk-enum-types.[hc]
+	NOTE: the long comment in atkobject.h is crashing perl,
+	at least version 5.005_02 built for MSWin32-x86-object
+	Binary build 506 provided by ActiveState. Temporary
+	deleting the AtkRole comment allows to work-around.
+
+	atk/atk.def : updated externals
+
 2002-01-02  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkgobjectaccessible.h

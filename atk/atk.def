@@ -40,9 +40,9 @@ EXPORTS
 	atk_get_root
 	atk_get_toolkit_name
 	atk_get_toolkit_version
+	atk_gobject_accessible_for_object
 	atk_gobject_accessible_get_object
 	atk_gobject_accessible_get_type
-	atk_gobject_accessible_for_object
 	atk_hyperlink_get_end_index
 	atk_hyperlink_get_n_anchors
 	atk_hyperlink_get_object
@@ -54,7 +54,6 @@ EXPORTS
 	atk_hypertext_get_link_index
 	atk_hypertext_get_n_links
 	atk_hypertext_get_type
-	atk_key_event_type_get_type
 	atk_image_get_image_description
 	atk_image_get_image_position
 	atk_image_get_image_size
@@ -62,6 +61,7 @@ EXPORTS
 	atk_image_set_image_description
 	atk_implementor_get_type
 	atk_implementor_ref_accessible
+	atk_key_event_type_get_type
 	atk_layer_get_type
 	atk_no_op_object_factory_get_type
 	atk_no_op_object_factory_new
@@ -114,9 +114,9 @@ EXPORTS
 	atk_remove_focus_tracker
 	atk_remove_global_event_listener
 	atk_remove_key_event_listener
+	atk_role_for_name
 	atk_role_get_name
 	atk_role_get_type
-	atk_role_for_name
 	atk_role_register
 	atk_selection_add_selection
 	atk_selection_clear_selection
@@ -177,12 +177,13 @@ EXPORTS
 	atk_table_set_row_header
 	atk_table_set_summary
 	atk_text_add_selection
-	atk_text_get_caret_offset
+	atk_text_attribute_for_name
 	atk_text_attribute_get_name
 	atk_text_attribute_get_type
 	atk_text_attribute_get_value
-	atk_text_attribute_for_name
 	atk_text_attribute_register
+	atk_text_boundary_get_type
+	atk_text_get_caret_offset
 	atk_text_get_character_at_offset
 	atk_text_get_character_count
 	atk_text_get_character_extents
