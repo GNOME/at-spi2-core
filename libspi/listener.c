@@ -88,7 +88,7 @@ impl_notify_event (PortableServer_Servant     servant,
            ? "yes" : "no");
 
 #endif
-  Accessibility_Accessible_unref(e->target, ev);
+  bonobo_object_release_unref (e->target, ev);
 
 }
 

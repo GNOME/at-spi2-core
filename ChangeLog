@@ -21,6 +21,13 @@
 	* libspi/accessible.c :
 	Added implementations for Accessible:get_parent(),
 	Accessible:getChildCount(), and Accessible:getChildAtIndex().
+	* libspi/registry.c :
+	* libspi/listener.c :
+	Replaced calls to Accessibility_Accessible_ref() and
+	Accessibility_Accessible_unref() with 
+	calls to bonobo_object_dup_ref() and 
+	bonobo_object_release_unref(), so that the CORBA object
+	is dup-ed and released when relayed, as well as the bonobo object.
 
 2001-08-15  Mark McLoughlin <mark@skynet.ie>
 

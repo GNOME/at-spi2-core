@@ -68,6 +68,7 @@ typedef struct {
 typedef struct {
   Accessibility_EventListener listener;
   guint event_type_hash;
+  EventTypeMajor event_type_major;
 } ListenerStruct;
 
 /* static function prototypes */
@@ -127,6 +128,21 @@ compare_object_hash (gconstpointer p1, gconstpointer p2)
   long long diff = ((CORBA_Object_hash ((CORBA_Object) p2, (CORBA_unsigned_long) 0, &ev)) -
                     (CORBA_Object_hash ((CORBA_Object) p1, (CORBA_unsigned_long) 0, &ev)));
   return ((diff < 0) ? -1 : ((diff > 0) ? 1 : 0));
+}
+
+static gboolean
+toolkit_listener (GSignalInvocationHint *signal_hint, guint n_param_value,
+                  const GValue *param_values, gpointer data)
+{
+  ;
+  return FALSE;
+}
+
+static void
+register_with_toolkit (EventTypeStruct *etype)
+{
+  guint listener_id =
+  atk_add_global_event_listener (toolkit_listener, g_strconcat (etype->minor, etype->detail, NULL));
 }
 
 static gint
@@ -227,10 +243,7 @@ impl_accessibility_registry_register_global_event_listener
   /**
    *  TODO:
    *
-   *  distinguish between event types
    *  register with app toolkits only for requested event types
-   *  maintain list of requested types and number of listeners
-   *  find non-strcmp method of matching event types to listeners
    *
    **/
 
@@ -239,10 +252,12 @@ impl_accessibility_registry_register_global_event_listener
   ListenerStruct *ls = g_malloc (sizeof (ListenerStruct));
 
   EventTypeStruct etype;
-  parse_event_type (&etype, event_name);
-  ls->event_type_hash = etype.hash;
 
   /* parse, check major event type and add listener accordingly */
+  parse_event_type (&etype, event_name);
+  ls->event_type_hash = etype.hash;
+  ls->event_type_major = etype.major;
+
   switch (etype.major)
     {
     case (ETYPE_FOCUS) :
@@ -251,8 +266,13 @@ impl_accessibility_registry_register_global_event_listener
         g_list_append (registry->focus_listeners, ls);
       break;
     case (ETYPE_WINDOW) :
+      /* Support for Window Manager Events is not yet implemented */
       break;
     case (ETYPE_TOOLKIT) :
+      ls->listener = CORBA_Object_duplicate (listener, ev);
+      registry->toolkit_listeners =
+        g_list_append (registry->toolkit_listeners, ls);
+      register_with_toolkit (&etype);
       break;
     default:
       break;
@@ -270,11 +290,24 @@ impl_accessibility_registry_deregister_global_event_listener_all
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
   GList *list = g_list_find_custom (registry->focus_listeners, listener, compare_object_hash);
+
+  /*
+   * TODO : de-register with toolkit if the last instance of a listener
+   *        to a particular toolkit event type has been deregistered.
+   */
+
   while (list)
     {
       fprintf (stderr, "deregistering listener\n");
       registry->focus_listeners = g_list_delete_link (registry->focus_listeners, list);
       list = g_list_find_custom (registry->focus_listeners, listener, compare_object_hash);
+    }
+  list = g_list_find_custom (registry->toolkit_listeners, listener, compare_object_hash);
+  while (list)
+    {
+      fprintf (stderr, "deregistering listener\n");
+      registry->toolkit_listeners = g_list_delete_link (registry->toolkit_listeners, list);
+      list = g_list_find_custom (registry->toolkit_listeners, listener, compare_object_hash);
     }
 }
 
@@ -292,14 +325,32 @@ impl_accessibility_registry_deregister_global_event_listener
   ListenerStruct ls;
   EventTypeStruct etype;
   GList *list;
-  parse_event_type (&etype, event_name);
-  ls.event_type_hash = etype.hash;
-  list = g_list_find_custom (registry->focus_listeners, &ls, compare_listener_hash);
+  GList **listeners;
 
-  if (list)
+  parse_event_type (&etype, event_name);
+  switch (etype.major)
+    {
+    case (ETYPE_FOCUS) :
+      listeners = &registry->focus_listeners;
+      break;
+    case (ETYPE_WINDOW) :
+      /* Support for Window Manager Events is not yet implemented */
+      break;
+    case (ETYPE_TOOLKIT) :
+      listeners = &registry->toolkit_listeners;
+      break;
+    default:
+      break;
+    }
+
+  ls.event_type_hash = etype.hash;
+  list = g_list_find_custom (*listeners, &ls, compare_listener_hash);
+
+  while (list)
     {
       fprintf (stderr, "deregistering listener\n");
-      registry->applications = g_list_delete_link (registry->focus_listeners, list);
+      *listeners = g_list_delete_link (*listeners, list);
+      list = g_list_find_custom (*listeners, &ls, compare_listener_hash);
     }
 }
 
@@ -398,7 +449,7 @@ impl_registry_notify_event (PortableServer_Servant servant,
     default:
       break;
     }
-  Accessibility_Accessible_unref (e->target, ev);
+  bonobo_object_release_unref (e->target, ev);
 }
 
 static void
@@ -427,7 +478,7 @@ registry_notify_listeners ( GList *listeners,
           fprintf(stderr, "notifying listener #%d\n", n);
           fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->target, ev));
 #endif
-          Accessibility_Accessible_ref (e->target, ev);
+          bonobo_object_dup_ref ( e->target, ev);
           Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
                                                    e,
                                                    ev);
