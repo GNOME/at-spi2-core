@@ -1,15 +1,24 @@
-Changes in version 1.2.1
+Changes in version 1.2.2
+========================
+* Add translations: Simplified Chinese (zh_CN) [He Qiangqiang],
+Albanian [Laurent Dhima], Finnisg [Pauli Virtanen], 
+Italian [Alession Frusciante], Amharic [Daniel Yacob]
 
+* Allow changing of default installation directory for documentation.
+(bug 102497) [Padraig O'Briain].
+
+Changes in version 1.2.1
+========================
 * Add translations: Catalan [Jordi Mallach], French [Christophe Marlet],
-latvian [Artis Trops], Korean [Nam SungHyun], Polish [Zbigniew Vhyla],
+Latvian [Artis Trops], Korean [Nam SungHyun], Polish [Zbigniew Vhyla],
 Greek [Kostas Papadimas]
 
 Changes in version 1.2.0
-
+========================
 * Add translations: Russian [Dmitri G. Mastrukov], Ukranian [Yuriy Syrota]
 
 Changes in version 1.1.5
-
+========================
 * Correct return value for atk_text_get_caret_offset(). (Bug #101020)
 [Padraig O'Briain]
 * Add translations: Vietnamese, Hebrew, Dutch [Pablo Saratxaga], 
@@ -17,18 +26,18 @@ Hungarian [Andras Timar], Bulgarian [Yanko Kaneti]
 * Miscellaneous Fixes [Owen Taylor, manish Singh, Padraig]
 
 Changes in version 1.1.4
-
+========================
 * Add translations: Norwegian [Kjartan Maraas], German [Christian Neumair],
 Spanish [Pablo Gonzalo del Campo], Danish [Ole Laursen]
 
 Changes in version 1.1.3
-
+========================
 * Add new role ATK_ROLE_APPLICATION [Bill Haneman]
 * Add tranlatations: Malay language [Hasbullah BIn Pit]
 English [Abi Brady]
 
 Changes in version 1.1.2
-
+========================
 * Correct implementation of i18n support [Padraig O'Briain]
 * Add Swedish translations [Christian Rose]
 * Fix compiler warnings [Soeren Sandmann]
@@ -39,7 +48,7 @@ Changes in version 1.1.2
 * Update docs [Bill]
 
 Changes in version 1.1.1
-
+========================
 * Add new functions atk_object_add_relationship, atk_object_remove_relationship,
 atk_role_get_localized_name, atk_action_get_localized_name; add new roles,
 states and relationships; add text-attributes-changed signal for AtkText
@@ -49,7 +58,7 @@ interface. [Padraig O'Briain]
 return localized name [Padraig]
 
 Changes in version 1.1.0
-
+========================
 * Documentation improvements [Padraig O'Briain]
 * Update autogen.sh to get correct behaviour when both automake 1.4 and 1.6
 are installed [Havoc Pennington]
@@ -58,27 +67,27 @@ AtkNoOpObjectFactory [Padraig]
 * Add ATK_LAYER_WINDOW {Mark Mc Loughlin]
 
 Changes in version 1.0.3
-
+========================
 * Documentation improvements [Padraig O'Briain]
 * 64-bit bug fixes [George Lebl]
 
 Changes in version 1.0.2
-
+========================
 * Fixed bug with focus notification [Padraig O'Briain]
 * Fixed bug in atk_gobject_for_accessible [Padraig]
 
 Changes in version 1.0.1
-
+========================
 * Bug fixes, optimizations [Padraig O'Briain, Bill Haneman]
 * Fix Win32 DLL name [Tor Lillqvist]
 
 Changes in version 1.0.0
-
+========================
 * Build fixes [Padraig O'Briain, Tor Lillqvist, James Henstridge]
 * Add structure padding [Padraig]
 
 Changes in version 0.13
-
+========================
 * Add padding to class structures for future expansion [Padraig O'Briain]
 * Add include guards to atk.h [Morten Welinder]
 * Change argument of atk_component_get_layer(),atk_component_get_mdi_zorder()
@@ -86,7 +95,7 @@ Changes in version 0.13
 * Cleanups [Padraig]
 
 Changes in version 0.11 and 0.12
-
+================================
 * Ansi-fied function prototypes and definitions;
   i.e.  foo(void) instead of foo() [Jacob Berkman]
 * Deprecated the mis-located AtkObject API for getting
@@ -94,8 +103,8 @@ Changes in version 0.11 and 0.12
   and put this API into AtkComponent.
 
 Changes in version 0.9 and 0.10
-
-* Win32 build fixes [Hans Breuer]x
+===============================
+* Win32 build fixes [Hans Breuer]
 * Fix default signal handler name for text_caret_moved signal [Jeff Franks]
 * Doc improvements [Padraig O'Briain]
 * Fix signal prototypes in atkobject.h [Murray Cumming]
@@ -103,7 +112,7 @@ Changes in version 0.9 and 0.10
 * Bug fixes [Michael Meeks, Jeff]
 
 Changes in 0.8
-
+==============
 * Win32 build fixes [Hans Breuer]
 * Add atk_role_get_name()/atk_rule_for_name() [Padraig O'Briain]
 * Register types for ATK enumerations [Padraig]
@@ -116,7 +125,7 @@ Other contributors: Darin Adler, Bill Haneman, Xavier Ordoquy, Michael Meeks,
   Sebastian Wilhelmi
 
 Changes in 0.7
-
+==============
 * Some restructuring of how change notification works, use
   signals not properties in some cases. [Padraig O'Briain, Bill Haneman] 
 * Various small API fixes and improvements [Padraig]
@@ -126,7 +135,7 @@ Changes in 0.7
 * Bug fixes [Padraig, Bill]
 
 Changes in 0.6
-
+==============
 * Small improvements to AtkText, AtkRelation, AtkObject APIs. 
   [Padraig O'Briain, Bill Haneman]
 * Win32 build fixes [Tor Lillqvist]
@@ -135,15 +144,15 @@ Changes in 0.6
 * Doc improvements [Padraig]
 
 Changes in 0.5
-
+==============
 * Win32 updates and a small bug fix [Hans Breuer]
 
 Changes in 0.4
-
+==============
 * Miscellaneous cleanups and fixes.
 
 Changes in 0.3
-
+==============
 * API improvements to AtkTable, AtkSelection
 * Add AtkDocument interface
 * Rename AtkHyperLink to AtkHyperlink
@@ -154,10 +163,10 @@ Changes in 0.3
 * Add default implementations for important functions
 
 Changes in 0.2
-
+==============
 * Some API tweaks
 
 Changes in 0.1
-
+==============
 This is the initial release of ATK, the Accessibility Tookit, which will be
 used obtain accessibily information from GTK+ and GNOME widgets.
