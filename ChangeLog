@@ -1,3 +1,10 @@
+2004-07-28 Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_init_mouse_listener): Don't do XGrabButton, 
+	rely on timer-poll instead, to avoid conflict with 
+	xstroke.
+	
 2004-07-20  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Revved to 1.5.3.

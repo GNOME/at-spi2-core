@@ -620,6 +620,7 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
   Display *display = spi_get_display ();
   g_timeout_add (100, spi_dec_poll_mouse_idle, registry);
 
+#ifdef GRAB_BUTTON
   if (display)
     {
       if (XGrabButton (display, AnyButton, AnyModifier,
@@ -636,6 +637,7 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
       fprintf (stderr, "mouse buttons grabbed\n");
 #endif
     }
+#endif
 }
 
 /**
