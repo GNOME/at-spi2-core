@@ -1,4 +1,8 @@
 2001-06-18  Brian Cameron <brian.cameron@sun.com>
+	* atk/atktable.c
+	Fixed minor bug with signals.
+
+2001-06-18  Brian Cameron <brian.cameron@sun.com>
 	* atk/atktable
 	Added signals.
 

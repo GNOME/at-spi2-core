@@ -21,7 +21,6 @@
 #include "atkmarshal.h"
 
 enum {
-  MODEL_CHANGED,
   ROW_INSERTED,
   ROW_DELETED,
   COLUMN_INSERTED,
