@@ -116,6 +116,7 @@ The AtkObject structure should not be accessed directly.
 @ATK_ROLE_PARAGRAPH: 
 @ATK_ROLE_RULER: 
 @ATK_ROLE_APPLICATION: 
+@ATK_ROLE_AUTOCOMPLETE: 
 @ATK_ROLE_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_role_register ##### -->
