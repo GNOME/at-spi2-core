@@ -65,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/atk-1.0
 %{_datadir}/gtk-doc/html/atk
-${_datadir}/locale/*/*
+%{_datadir}/locale/*/*
 
 %changelog
 * Fri Jun 20 2003 James T. Richardson, Jr. <james@richardsons.us>
