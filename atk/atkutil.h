@@ -47,7 +47,7 @@ typedef struct _AtkKeyEventStruct AtkKeyEventStruct;
  */
 typedef void  (*AtkEventListener) (AtkObject*);
 typedef void  (*AtkEventListenerInit) (void);
-typedef gint  (*AtkKeySnoopFunc)  (AtkImplementor*, AtkKeyEventStruct *event,
+typedef gint  (*AtkKeySnoopFunc)  (AtkKeyEventStruct *event,
 				   gpointer func_data);
 
 struct _AtkKeyEventStruct {
