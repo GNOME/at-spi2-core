@@ -104,6 +104,7 @@ extern "C" {
  *@ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
  *@ATK_ROLE_TOOL_TIP: An object that provides information about another object
  *@ATK_ROLE_TREE: An object used to represent hierarchical information to the user
+ *@ATK_ROLE_TREE_TABLE: An object capable of expanding and collapsing rows as well as showing multiple columns of data
  *@ATK_ROLE_UNKNOWN: The object contains some Accessible information, but its role is not known
  *@ATK_ROLE_VIEWPORT: An object usually used in a scroll pane
  *@ATK_ROLE_WINDOW: A top level window with no title or border
@@ -178,6 +179,7 @@ typedef enum
   ATK_ROLE_TOOL_BAR,
   ATK_ROLE_TOOL_TIP,
   ATK_ROLE_TREE,
+  ATK_ROLE_TREE_TABLE,
   ATK_ROLE_UNKNOWN,
   ATK_ROLE_VIEWPORT,
   ATK_ROLE_WINDOW,

@@ -40,8 +40,7 @@ extern "C" {
  *@ATK_RELATION_LABEL_FOR: Indicates an object is a label for one or more target objects.
  *@ATK_RELATION_LABELLED_BY: Indicates an object is labelled by one or more target objects.
  *@ATK_RELATION_MEMBER_OF: Indicates an object is a member of a group of one or more target objects.
- *@ATK_RELATION_NODE_CHILDREN: Indicates an object is a node in a tree or table and a compound object which more than one subobject
- *@ATK_RELATION_NODE_PARENT: Indicates an object is a subobject of a compound object which is a node in a tree or table.
+ *@ATK_RELATION_NODE_CHILD_OF: Indicates an object is a cell in a treetable which is displayed because a cell in the same column is expanded and identifies that cell.
  *@ATK_RELATION_LAST_DEFINED:
  * 
  *Describes the type of the relation
@@ -54,8 +53,7 @@ typedef enum
   ATK_RELATION_LABEL_FOR,
   ATK_RELATION_LABELLED_BY,
   ATK_RELATION_MEMBER_OF,
-  ATK_RELATION_NODE_CHILDREN,
-  ATK_RELATION_NODE_PARENT,
+  ATK_RELATION_NODE_CHILD_OF,
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 

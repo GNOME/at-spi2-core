@@ -33,7 +33,9 @@ be manipulated should support this interface.
 @do_action: 
 @get_n_actions: 
 @get_description: 
+@get_name: 
 @get_keybinding: 
+@set_description: 
 
 <!-- ##### FUNCTION atk_action_do_action ##### -->
 <para>
@@ -42,7 +44,6 @@ be manipulated should support this interface.
 
 @action: 
 @i: 
-<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -65,6 +66,16 @@ be manipulated should support this interface.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_action_get_name ##### -->
+<para>
+
+</para>
+
+@action: 
+@i: 
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_action_get_keybinding ##### -->
 <para>
 
@@ -72,6 +83,17 @@ be manipulated should support this interface.
 
 @action: 
 @i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_action_set_description ##### -->
+<para>
+
+</para>
+
+@action: 
+@i: 
+@desc: 
 @Returns: 
 
 

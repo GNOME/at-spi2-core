@@ -83,11 +83,13 @@ of the other ATK interfaces:
 @ATK_ROLE_TABLE_COLUMN_HEADER: 
 @ATK_ROLE_TABLE_ROW_HEADER: 
 @ATK_ROLE_TEAR_OFF_MENU_ITEM: 
+@ATK_ROLE_TERMINAL: 
 @ATK_ROLE_TEXT: 
 @ATK_ROLE_TOGGLE_BUTTON: 
 @ATK_ROLE_TOOL_BAR: 
 @ATK_ROLE_TOOL_TIP: 
 @ATK_ROLE_TREE: 
+@ATK_ROLE_TREE_TABLE: 
 @ATK_ROLE_UNKNOWN: 
 @ATK_ROLE_VIEWPORT: 
 @ATK_ROLE_WINDOW: 
@@ -286,5 +288,15 @@ of the other ATK interfaces:
 
 @accessible: 
 @handler_id: 
+
+
+<!-- ##### FUNCTION atk_object_notify_state_change ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@state: 
+@value: 
 
 

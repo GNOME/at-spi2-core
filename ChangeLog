@@ -1,3 +1,21 @@
+2001-11-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.h:
+	Add role ATK_ROLE_TREE_TABLE
+
+	* atk/atkrelation.h:
+	Remove ATK_RELATION_NODE_CHILDREN and ATK_RELATION_NODE_PARENT
+	and added ATK_RELATION_NODE_CHILD_OF; this is for use by TreeTable
+
+	* docs/tmpl/atk-unused.sgml, docs/tmpl/atkaction.smgl,
+	docs/tmpl/atkcomponent.sgml, docs/tmpl/atkdocument.sgml,
+	docs/tmpl/atkeditabletext.tmpl, docs/tmpl/atkimage.tmpl,
+	docs/tmpl/atkobject.sgml, docs/tmpl/atkrelation.sgml,
+	docs/tmpl/atkselection.sgml, docs/tmpl/atkstate.sgml,
+	docs/tmpl/atkstreamablecontent.sgml, docs/tmpl/atktable.sgml,
+	docs/tmpl/atktext.sgml, docs/tmpl/atkutil.sgml:
+	Update to reflect the current state of the documentation in the code.
+
 2001-10-31  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/relation.h, docs/tmpl/atkrelation.sgml:
