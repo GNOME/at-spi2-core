@@ -50,6 +50,21 @@ struct _SpiStateSetClass {
 GType        spi_state_set_get_type (void);
 SpiStateSet *spi_state_set_new      (AtkStateSet *set);
 
+/* private - internal API to abstract away atk API */
+AtkStateSet *spi_state_set_cache_from_sequence(const Accessibility_StateSeq *seq);
+AtkState     spi_atk_state_from_spi_state     (Accessibility_StateType state);
+#define      spi_state_set_cache_ref(s)        g_object_ref (s)
+#define      spi_state_set_cache_unref(s)      g_object_unref (s)
+#define      spi_state_set_cache_new(seq)      spi_state_set_cache_from_sequence (seq)
+#define      spi_state_set_cache_contains(s,a) atk_state_set_contains_state (ATK_STATE_SET (s), \
+									     spi_atk_state_from_spi_state (a))
+#define      spi_state_set_cache_add(s,a)      atk_state_set_add_state (ATK_STATE_SET (s), \
+									     spi_atk_state_from_spi_state (a))
+#define      spi_state_set_cache_remove(s,a)   atk_state_set_remove_state (ATK_STATE_SET (s), \
+									     spi_atk_state_from_spi_state (a))
+#define      spi_state_set_cache_xor(a,b)      atk_state_set_xor_sets (ATK_STATE_SET (a), ATK_STATE_SET (b))
+#define      spi_state_set_cache_is_empty(a)   atk_state_set_is_empty (ATK_STATE_SET (a))
+
 G_END_DECLS
 
 #endif /* SPI_STATE_SET_H_ */

@@ -43,13 +43,13 @@ typedef Accessible AccessibleHypertext;
 typedef Accessible AccessibleImage;
 typedef Accessible AccessibleRelation;
 typedef Accessible AccessibleSelection;
-typedef Accessible AccessibleStateSet;
 typedef Accessible AccessibleStreamableContent;
 typedef Accessible AccessibleTable;
 typedef Accessible AccessibleText;
 typedef Accessible AccessibleValue;
 typedef Accessible AccessibilityRegistry;
 
+typedef void AccessibleStateSet;
 typedef void AccessibleEventListener;
 typedef void AccessibleKeystrokeListener;
 typedef void AccessibleDeviceListener;

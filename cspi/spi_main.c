@@ -126,6 +126,7 @@ cspi_get_live_refs (void)
 CORBA_Environment *
 cspi_ev (void)
 {
+  CORBA_exception_init (&ev);
   return &ev;
 }
 
@@ -248,15 +249,17 @@ cspi_object_take (CORBA_Object corba_object)
 {
   Accessible *accessible;
   accessible = cspi_object_borrow (corba_object);
-  cspi_object_ref (accessible->objref);
+
+  cspi_object_ref (accessible);
   /* 
    * if the remote object is dead, 
    * cspi_object_return will throw an exception. 
+   * FIXME: what clears that exception context ever ?
    */
-  cspi_object_return (accessible->objref);
+  cspi_object_return (accessible);
   if (cspi_exception ()) 
     {
-      cspi_object_unref (accessible->objref);
+      cspi_object_unref (accessible);
       accessible = NULL;
     }
   return accessible;

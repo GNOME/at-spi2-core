@@ -58,6 +58,8 @@ get_accessible_text_boundary_type (AccessibleTextBoundaryType type)
       return Accessibility_TEXT_BOUNDARY_CHAR;
       break;
     }
+  /* FIXME */
+  return Accessibility_TEXT_BOUNDARY_CHAR;
 }
 
 

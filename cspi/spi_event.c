@@ -354,9 +354,10 @@ static Accessible *
 cspi_internal_event_get_object (const InternalEvent *e)
 {
   CORBA_any *any;
-  Accessible *accessible;
+
   g_return_val_if_fail (e, NULL);
   g_return_val_if_fail (e->data, NULL);
+
   any = (CORBA_any *) e->data;
   if (CORBA_TypeCode_equal (any->_type, TC_CORBA_Object, cspi_ev()))
     return cspi_object_take (* (CORBA_Object *) any->_value);

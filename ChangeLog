@@ -1,3 +1,69 @@
+2002-12-16  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi_accessible.c (spi_state_to_corba): rename.
+
+	* libspi/stateset.c (state_spi_to_atk): split out
+	( fix several remote array bounds nasties )
+	(spi_atk_state_set_from_sequence, impl_contains, impl_add),
+	(impl_remove): make safe from array bounds issues.
+	(spi_atk_state_from_spi_state): impl.
+
+	* libspi/stateset.h (spi_state_set_cache_is_empty): 
+	add a set of wrapper defines to get layering right.
+
+	* cspi/spi_accessible.c: update state set stuff to
+	use it.
+
+2002-12-14  Michael Meeks  <michael@ximian.com>
+
+	* atk-bridge/bridge.c (spi_atk_bridget_get_dec): impl.
+	to avoid 2 roundtrips to the registry per key event
+	(spi_atk_bridge_key_listener): upd.
+	(deregister_application): release the dec.
+
+	* registryd/registry.c (notify_listeners_cb):
+	bin lots of re-enterant complexity - we no longer
+	do a round-trip bonobo ref here, ensure that a single
+	listener's exception failure won't poison all other
+	notifications.
+	(impl_registry_notify_event): bin obvious memory leak.
+
+2002-12-13  Michael Meeks  <michael@ximian.com>
+
+	* atk-bridge/bridge.c (spi_atk_bridge_focus_tracker):
+	init the ev so the error is meaningful.
+	(spi_atk_bridge_key_listener): ditto.
+
+	* cspi/spi_main.c (cspi_ev): init the ev so we start
+	with a clean slate, otherwise the first exception
+	kills us completely.
+
+	* cspi/spi_text.c (get_accessible_text_boundary_type): 
+	add a fallthrough for no warnings.
+
+	* cspi/spi_registry.c: prune unused warnings.
+
+	* cspi/spi_main.c (cspi_object_take): fix
+	mind-blowing brokenness ( by watching the compile
+	warnings )
+
+	* cspi/spi_accessible.c (Accessible_getStateSet):
+	re-impl. to use an AtkStateSet.
+	(spi_state_type_from_accessible_state),
+	(init_state_table): bin these.
+
+	* libspi/stateset.c (spi_atk_state_set_from_sequence):
+	split out from
+	(atk_state_set_from_accessibility_state_set): here.
+
+	* cspi/spi_accessible.c (spi_state_to_atk): impl.
+	(AccessibleStateSet_contains, AccessibleStateSet_ref),
+	(AccessibleStateSet_unref, AccessibleStateSet_contains),
+	(AccessibleStateSet_add, AccessibleStateSet_remove),
+	(AccessibleStateSet_equals, AccessibleStateSet_compare),
+	(AccessibleStateSet_isEmpty): re-write to use a local
+	AtkStateSet object.
+
 2002-12-13  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Revved to 1.1.7 (new keymask vals).

@@ -22,6 +22,7 @@
  */
 
 #include <stdlib.h> /* for malloc */
+#include <libspi/stateset.h>
 #include <cspi/spi-private.h>
 
 static const char *role_names [] =
@@ -212,68 +213,6 @@ cspi_role_from_spi_role (Accessibility_Role role)
     }
   return cspi_role; 
 }
-
-static SPIBoolean
-init_state_table (Accessibility_StateType *state_table)
-{
-  int i;
-
-  for (i = 0; i < Accessibility_STATE_LAST_DEFINED; i++)
-    state_table[i] = SPI_STATE_INVALID;
-
-  state_table[SPI_STATE_ACTIVE] = Accessibility_STATE_ACTIVE;
-  state_table[SPI_STATE_ARMED] = Accessibility_STATE_ARMED;
-  state_table[SPI_STATE_BUSY] = Accessibility_STATE_BUSY;
-  state_table[SPI_STATE_CHECKED] = Accessibility_STATE_CHECKED;
-  state_table[SPI_STATE_DEFUNCT] = Accessibility_STATE_DEFUNCT;
-  state_table[SPI_STATE_EDITABLE] = Accessibility_STATE_EDITABLE;
-  state_table[SPI_STATE_ENABLED] = Accessibility_STATE_ENABLED;
-  state_table[SPI_STATE_EXPANDABLE] = Accessibility_STATE_EXPANDABLE;
-  state_table[SPI_STATE_EXPANDED] = Accessibility_STATE_EXPANDED;
-  state_table[SPI_STATE_FOCUSABLE] = Accessibility_STATE_FOCUSABLE;
-  state_table[SPI_STATE_FOCUSED] = Accessibility_STATE_FOCUSED;
-  state_table[SPI_STATE_HORIZONTAL] = Accessibility_STATE_HORIZONTAL;
-  state_table[SPI_STATE_ICONIFIED] = Accessibility_STATE_ICONIFIED;
-  state_table[SPI_STATE_MODAL] = Accessibility_STATE_MODAL;
-  state_table[SPI_STATE_MULTI_LINE] = Accessibility_STATE_MULTI_LINE;
-  state_table[SPI_STATE_MULTISELECTABLE] = Accessibility_STATE_MULTISELECTABLE;
-  state_table[SPI_STATE_OPAQUE] = Accessibility_STATE_OPAQUE;
-  state_table[SPI_STATE_PRESSED] = Accessibility_STATE_PRESSED;
-  state_table[SPI_STATE_RESIZABLE] = Accessibility_STATE_RESIZABLE;
-  state_table[SPI_STATE_SELECTABLE] = Accessibility_STATE_SELECTABLE;
-  state_table[SPI_STATE_SELECTED] = Accessibility_STATE_SELECTED;
-  state_table[SPI_STATE_SENSITIVE] = Accessibility_STATE_SENSITIVE;
-  state_table[SPI_STATE_SHOWING] = Accessibility_STATE_SHOWING;
-  state_table[SPI_STATE_SINGLE_LINE] = Accessibility_STATE_SINGLE_LINE;
-  state_table[SPI_STATE_STALE] = Accessibility_STATE_STALE;
-  state_table[SPI_STATE_TRANSIENT] = Accessibility_STATE_TRANSIENT;
-  state_table[SPI_STATE_VERTICAL] = Accessibility_STATE_VERTICAL;
-  state_table[SPI_STATE_VISIBLE] = Accessibility_STATE_VISIBLE;
-  state_table[SPI_STATE_MANAGES_DESCENDANTS] = Accessibility_STATE_MANAGES_DESCENDANTS;
-
-  return TRUE;
-}
-
-
-
-static Accessibility_StateType
-spi_state_type_from_accessible_state (AccessibleState type)
-{
-  static Accessibility_StateType state_table[Accessibility_STATE_LAST_DEFINED];
-  static SPIBoolean table_initialized = FALSE;
-  Accessibility_StateType rv;
-  
-  if (!table_initialized)
-    table_initialized = init_state_table (state_table);  
-  if (type > SPI_STATE_INVALID && type < SPI_STATE_LAST_DEFINED)
-    rv = state_table[type];
-  else
-    rv = Accessibility_STATE_INVALID;
-  return rv;
-}
-
-
-
 
 /**
  * AccessibleRole_getName:
@@ -570,14 +509,23 @@ AccessibleStateSet *
 Accessible_getStateSet (Accessible *obj)
 {
   AccessibleStateSet *retval;
+  Accessibility_StateSet corba_stateset;
+  Accessibility_StateSeq *corba_seq;
 
   cspi_return_val_if_fail (obj != NULL, NULL);
 
-  retval = cspi_object_add (
-    Accessibility_Accessible_getState (CSPI_OBJREF (obj),
-					  cspi_ev ()));
-
+  corba_stateset = Accessibility_Accessible_getState (
+	  CSPI_OBJREF (obj), cspi_ev ());
   cspi_return_val_if_ev ("getState", NULL);
+
+  corba_seq = Accessibility_StateSet_getStates (corba_stateset, cspi_ev ());
+  cspi_return_val_if_ev ("getState", NULL);
+
+  retval = spi_state_set_cache_new (corba_seq);
+
+  CORBA_free (corba_seq);
+  cspi_release_unref (corba_stateset);
+
   return retval;
 }
 
@@ -1097,7 +1045,7 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
 void
 AccessibleStateSet_ref (AccessibleStateSet *obj)
 {
-  cspi_object_ref (obj);
+  spi_state_set_cache_ref (obj);
 }
 
 /**
@@ -1110,8 +1058,53 @@ AccessibleStateSet_ref (AccessibleStateSet *obj)
 void
 AccessibleStateSet_unref (AccessibleStateSet *obj)
 {
-  cspi_object_unref (obj);
+  spi_state_set_cache_unref (obj);
 }
+
+static Accessibility_StateType
+spi_state_to_corba (AccessibleState state)
+{
+#define MAP_STATE(a) \
+  case SPI_STATE_##a: \
+    return Accessibility_STATE_##a
+
+  switch (state)
+    {
+      MAP_STATE (INVALID);
+      MAP_STATE (ACTIVE);
+      MAP_STATE (ARMED);
+      MAP_STATE (BUSY);
+      MAP_STATE (CHECKED);
+      MAP_STATE (DEFUNCT);
+      MAP_STATE (EDITABLE);
+      MAP_STATE (ENABLED);
+      MAP_STATE (EXPANDABLE);
+      MAP_STATE (EXPANDED);
+      MAP_STATE (FOCUSABLE);
+      MAP_STATE (FOCUSED);
+      MAP_STATE (HORIZONTAL);
+      MAP_STATE (ICONIFIED);
+      MAP_STATE (MODAL);
+      MAP_STATE (MULTI_LINE);
+      MAP_STATE (MULTISELECTABLE);
+      MAP_STATE (OPAQUE);
+      MAP_STATE (PRESSED);
+      MAP_STATE (RESIZABLE);
+      MAP_STATE (SELECTABLE);
+      MAP_STATE (SELECTED);
+      MAP_STATE (SENSITIVE);
+      MAP_STATE (SHOWING);
+      MAP_STATE (SINGLE_LINE);
+      MAP_STATE (STALE);
+      MAP_STATE (TRANSIENT);
+      MAP_STATE (VERTICAL);
+      MAP_STATE (VISIBLE);
+      MAP_STATE (MANAGES_DESCENDANTS);
+    default:
+      return ATK_STATE_INVALID;
+  }
+#undef MAP_STATE
+}	      
 
 /**
  * AccessibleStateSet_contains:
@@ -1130,18 +1123,7 @@ SPIBoolean
 AccessibleStateSet_contains (AccessibleStateSet *obj,
 			     AccessibleState state)
 {
-  CORBA_boolean retval;
-  Accessibility_StateType spi_state;
-  
-  cspi_return_val_if_fail (obj != NULL, FALSE);
-
-  spi_state = spi_state_type_from_accessible_state (state);
-  retval = Accessibility_StateSet_contains (CSPI_OBJREF (obj),
-					    spi_state, cspi_ev ());
-
-  cspi_return_val_if_ev ("contains", FALSE);
-
-  return retval;
+  return spi_state_set_cache_contains (obj, spi_state_to_corba (state));
 }
 
 /**
@@ -1157,13 +1139,7 @@ void
 AccessibleStateSet_add (AccessibleStateSet *obj,
 			AccessibleState state)
 {
-  Accessibility_StateType spi_state;
-
-  cspi_return_if_fail (obj != NULL);
-
-  spi_state = spi_state_type_from_accessible_state (state);
-  Accessibility_StateSet_add (CSPI_OBJREF (obj), spi_state, cspi_ev ());
-  cspi_check_ev ("StateSet_add");
+  spi_state_set_cache_add (obj, spi_state_to_corba (state));
 }
 
 /**
@@ -1179,13 +1155,7 @@ void
 AccessibleStateSet_remove (AccessibleStateSet *obj,
 			   AccessibleState state)
 {
-  Accessibility_StateType spi_state;
-
-  cspi_return_if_fail (obj != NULL);
-
-  spi_state = spi_state_type_from_accessible_state (state);
-  Accessibility_StateSet_remove (CSPI_OBJREF (obj), spi_state, cspi_ev ());
-  cspi_check_ev ("StateSet_remove");
+  spi_state_set_cache_remove (obj, spi_state_to_corba (state));
 }
 
 /**
@@ -1207,16 +1177,19 @@ SPIBoolean
 AccessibleStateSet_equals (AccessibleStateSet *obj,
                            AccessibleStateSet *obj2)
 {
+  SPIBoolean   eq;
+  AtkStateSet *cmp;
+
   if (obj == obj2)
     {
       return TRUE;
     }
 
-  cspi_return_val_if_fail (obj != NULL, FALSE);
-  cspi_return_val_if_fail (obj2 != NULL, FALSE);
+  cmp = spi_state_set_cache_xor (obj, obj2);
+  eq = spi_state_set_cache_is_empty (cmp);
+  spi_state_set_cache_unref (cmp);
 
-  return Accessibility_StateSet_equals (CSPI_OBJREF (obj),
-					CSPI_OBJREF (obj2), cspi_ev ());
+  return eq;
 }
 
 /**
@@ -1237,15 +1210,7 @@ AccessibleStateSet *
 AccessibleStateSet_compare (AccessibleStateSet *obj,
                             AccessibleStateSet *obj2)
 {
-  AccessibleStateSet *retval;
-
-  cspi_return_val_if_fail (obj != NULL, NULL);
-  cspi_return_val_if_fail (obj2 != NULL, NULL);
-  retval = cspi_object_add (
-			 Accessibility_StateSet_compare (CSPI_OBJREF(obj), CSPI_OBJREF(obj2), cspi_ev ()));
-
-  cspi_return_val_if_ev ("compare", NULL);
-  return retval;
+  return spi_state_set_cache_xor (obj, obj2);
 }
 
 /**
@@ -1261,13 +1226,7 @@ AccessibleStateSet_compare (AccessibleStateSet *obj,
 SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
 {
-  CORBA_boolean retval;
-
-  cspi_return_val_if_fail (obj != NULL, FALSE);
-  retval = Accessibility_StateSet_isEmpty (CSPI_OBJREF (obj), cspi_ev ());
-
-  cspi_return_val_if_ev ("isEmpty", TRUE);
-  return retval;
+  return spi_state_set_cache_is_empty (obj);
 }
 
 

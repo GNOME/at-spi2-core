@@ -39,6 +39,11 @@ struct _Accessible {
 	guint        ref_count : 30;
 };
 
+struct _AccessibleStateSet {
+	guint   ref_count;
+	GArray *states;
+};
+
 #define SPI_INTERNAL_EVENT_MAGIC 0xc3
 /* 
  * For internal use by CSPI implementation only

@@ -1,3 +1,7 @@
+Optimisation:
+	+ async unref's ...
+	+ cache Role & queryInterface results ... [!]
+
 2.0.0:
 
 	+ fix bug #82509 which prevents return of boolean FALSE from 

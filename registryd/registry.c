@@ -580,9 +580,6 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
 {
   SpiListenerStruct *ls;
   NotifyContext     *ctx = user_data;
-#ifdef SPI_DEBUG
-  CORBA_string       s;
-#endif
 
   ls = (*list)->data;
 
@@ -590,23 +587,24 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
   fprintf (stderr, "event quarks: %lx %lx %lx\n", ls->event_type_quark, ctx->etype.major, ctx->etype.minor);
   fprintf (stderr, "event name: %s\n", ctx->etype.event_name);
 #endif
-
   if ((ls->event_type_quark == ctx->etype.major) ||
       (ls->event_type_quark == ctx->etype.minor))
     {
 #ifdef SPI_DEBUG
+      CORBA_string s;
       fprintf (stderr, "notifying listener %d\n", 0);
 /* g_list_index (list, l->data)); */
       s = Accessibility_Accessible__get_name (ctx->source, ctx->ev);
       fprintf (stderr, "event source name %s\n", s);
       CORBA_free (s);
-#endif
-      
-      ctx->e_out.source = CORBA_Object_duplicate (ctx->source, ctx->ev);
       if (BONOBO_EX (ctx->ev))
         {
+	  CORBA_exception_free (ctx->ev);
           return SPI_RE_ENTRANT_CONTINUE;
 	}
+#endif
+      
+      ctx->e_out.source = ctx->source;
       
       if ((*list) && (*list)->data == ls)
         {
@@ -617,15 +615,10 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
               DBG (1, g_warning ("Accessibility app error: exception during "
 		        "event notification: %s\n",
 		        CORBA_exception_id (ctx->ev)));
-	      if (ctx->ev->_major == CORBA_SYSTEM_EXCEPTION)
-		      CORBA_exception_init (ctx->ev);
-	      /* clear system exception on notify, it means listener is dead but
-	       * that's no concern of the event source :-) */
+	      CORBA_exception_free (ctx->ev);
+	      /* FIXME: check that this item is removed from the list
+	       * on system exception by a 'broken' listener */
 	    }
-	}
-      else /* dup re-entered */
-        {
-          CORBA_Object_release (ctx->e_out.source, ctx->ev);
 	}
     }  
 
@@ -651,7 +644,6 @@ impl_registry_notify_event (PortableServer_Servant     servant,
     {
       ctx.ev = ev;
       ctx.e_out = *e;
-      CORBA_any__copy (&ctx.e_out.any_data, &e->any_data);
       ctx.source = e->source;
       spi_re_entrant_list_foreach (list, notify_listeners_cb, &ctx);
     }

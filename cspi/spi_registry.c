@@ -332,7 +332,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
 					 AccessibleKeyEventMask        eventmask,
 					 AccessibleKeyListenerSyncType sync_type)
 {
-  gint                                i, mask;
+  gint                                i;
   Accessibility_KeySet                key_set;
   Accessibility_KeyEventTypeSeq       key_events;
   Accessibility_ControllerEventMask   controller_event_mask;
@@ -488,7 +488,7 @@ SPI_registerDeviceEventListener (AccessibleDeviceListener  *listener,
   SPIBoolean                          retval = FALSE;
   Accessibility_EventTypeSeq          event_types;
   Accessibility_EventType             event_type_buffer[2];
-  gint                                i, mask;
+  gint                                i;
 
   if (!listener)
     {
@@ -543,7 +543,6 @@ SPIBoolean
 SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
 				   void                     *filter)
 {
-  Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
   Accessibility_EventTypeSeq       event_types;
   Accessibility_EventType          event_type_buff[2];

@@ -118,7 +118,22 @@ spi_init_state_type_tables (void)
   return TRUE;
 }
 
+static inline AtkState
+state_spi_to_atk (Accessibility_StateType state)
+{
+  guint idx = state;
+  if (idx < Accessibility_STATE_LAST_DEFINED)
+    return atk_state_types [idx];
+  else
+    return ATK_STATE_INVALID;
+}
 
+AtkState
+spi_atk_state_from_spi_state (Accessibility_StateType state)
+{
+  spi_init_state_type_tables ();
+  return state_spi_to_atk (state);
+}
 
 static AtkStateSet *
 atk_state_set_from_servant (PortableServer_Servant servant)
@@ -129,27 +144,37 @@ atk_state_set_from_servant (PortableServer_Servant servant)
   return  ATK_STATE_SET(base->gobj);
 }
 
+AtkStateSet *
+spi_state_set_cache_from_sequence (const Accessibility_StateSeq *seq)
+{
+  int i;
+  AtkStateSet *set;
+  AtkStateType *states;
 
+  spi_init_state_type_tables ();
+  
+  states = g_newa (AtkStateType, seq->_length);
+  for (i = 0; i < seq->_length; i++)
+    states [i] = state_spi_to_atk (seq->_buffer [i]);
+
+  set = atk_state_set_new ();
+  atk_state_set_add_states (set, states, seq->_length);
+
+  return set;
+}
 
 static AtkStateSet *
 atk_state_set_from_accessibility_state_set (Accessibility_StateSet set, CORBA_Environment *ev)
 {
-  AtkStateType *states, *tmp;
   AtkStateSet *rv;
-  gint i;
   Accessibility_StateSeq *seq;
   
   seq = Accessibility_StateSet_getStates (set, ev);
-  states = tmp = g_new (AtkStateType, seq->_length);
-  for (i = 0; i < seq->_length; i++)
-    *tmp++ = atk_state_types[seq->_buffer[i]];
-  rv = atk_state_set_new ();
-  atk_state_set_add_states (rv, states, seq->_length);
+  rv = spi_state_set_cache_from_sequence (seq);
   CORBA_free (seq);
-  g_free (states);
+
   return rv;
 }
-
 
 
 SpiStateSet *
@@ -161,7 +186,6 @@ spi_state_set_new (AtkStateSet *obj)
 }
 
 
-
 static CORBA_boolean
 impl_contains (PortableServer_Servant servant,
 	       const Accessibility_StateType state,
@@ -170,22 +194,20 @@ impl_contains (PortableServer_Servant servant,
   AtkStateSet *set = atk_state_set_from_servant (servant);
 
   g_return_val_if_fail (set, FALSE);
-  return atk_state_set_contains_state (set, atk_state_types[state]);
+  return atk_state_set_contains_state (set, state_spi_to_atk (state));
 }
 
 
-
 static void 
-impl_add(PortableServer_Servant servant,
-    const Accessibility_StateType state,
-    CORBA_Environment * ev)
+impl_add (PortableServer_Servant servant,
+	  const Accessibility_StateType state,
+	  CORBA_Environment * ev)
 {
   AtkStateSet *set = atk_state_set_from_servant (servant);
 
   g_return_if_fail (set);
-  atk_state_set_add_state (set, atk_state_types[state]);
+  atk_state_set_add_state (set, state_spi_to_atk (state));
 }
-
 
 
 static void 
@@ -196,9 +218,8 @@ impl_remove (PortableServer_Servant servant,
   AtkStateSet *set = atk_state_set_from_servant (servant);
 
   g_return_if_fail (set);
-  atk_state_set_remove_state (set, atk_state_types[state]);
+  atk_state_set_remove_state (set, state_spi_to_atk (state));
 }
-
 
 
 static CORBA_boolean
@@ -228,7 +249,6 @@ impl_equals (PortableServer_Servant servant,
 }
 
 
-
 static Accessibility_StateSet
 impl_compare (PortableServer_Servant servant,
 	      const Accessibility_StateSet compareState,
@@ -250,7 +270,6 @@ impl_compare (PortableServer_Servant servant,
 }
 
 
-
 static CORBA_boolean
 impl_isEmpty (PortableServer_Servant servant,
 	      CORBA_Environment * ev)
@@ -260,7 +279,6 @@ impl_isEmpty (PortableServer_Servant servant,
   g_return_val_if_fail (set, TRUE);
   return atk_state_set_is_empty (set);
 }
-
 
 
 static Accessibility_StateSeq *
@@ -348,7 +366,6 @@ impl_getStates (PortableServer_Servant servant,
   g_slist_free (states);
   return rv;
 }
-
 
 
 static void

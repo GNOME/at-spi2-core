@@ -41,10 +41,9 @@
 #define DBG(a,b) if(_dbg>=(a))b
 
 static int _dbg = 0;
-static char *spi_nil_string = "";
-
 static CORBA_Environment ev;
-static Accessibility_Registry registry = NULL;
+static Accessibility_Registry registry = CORBA_OBJECT_NIL;
+static Accessibility_DeviceEventController device_event_controller = CORBA_OBJECT_NIL;
 static SpiApplication *this_app = NULL;
 static gboolean registry_died = FALSE;
 static gboolean atk_listeners_registered = FALSE;
@@ -225,7 +224,7 @@ spi_atk_bridge_register_application (Accessibility_Registry registry)
 }
 
 static Accessibility_Registry
-spi_atk_bridge_get_registry ()
+spi_atk_bridge_get_registry (void)
 {
   CORBA_Environment ev;
 
@@ -250,6 +249,34 @@ spi_atk_bridge_get_registry ()
 	  }
   }
   return registry;
+}
+
+static Accessibility_DeviceEventController
+spi_atk_bridget_get_dec (void)
+{
+  CORBA_Environment ev;
+
+  if (device_event_controller != CORBA_OBJECT_NIL)
+    {
+      if (ORBit_small_get_connection_status (device_event_controller)
+	  == ORBIT_CONNECTION_CONNECTED)
+        return device_event_controller;
+    }
+
+  CORBA_exception_init (&ev);
+
+  device_event_controller =
+    Accessibility_Registry_getDeviceEventController (
+	    spi_atk_bridge_get_registry (), &ev);
+
+  if (BONOBO_EX (&ev))
+    {
+      g_warning ("failure: no deviceeventcontroller found\n");
+      registry_died = TRUE;
+      device_event_controller = CORBA_OBJECT_NIL;
+    }
+
+  return device_event_controller;
 }
 
 int
@@ -352,6 +379,7 @@ deregister_application (BonoboObject *app)
   Accessibility_Registry registry = spi_atk_bridge_get_registry ();	
   Accessibility_Registry_deregisterApplication (registry, BONOBO_OBJREF (app), &ev);
 
+  device_event_controller = bonobo_object_release_unref (device_event_controller, &ev);
   registry = bonobo_object_release_unref (registry, &ev);
   
   app = bonobo_object_unref (app);
@@ -442,10 +470,13 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   e.detail1 = 0;
   e.detail2 = 0;
   spi_init_any_nil (&e.any_data);
+
+  CORBA_exception_init (&ev);
   Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
-  if (BONOBO_EX (&ev)) registry_died = TRUE;
-  
-  Accessibility_Accessible_unref (e.source, &ev);
+  if (BONOBO_EX (&ev))
+    registry_died = TRUE;
+
+  bonobo_object_unref (source);
   
   CORBA_exception_free (&ev);
 }
@@ -646,33 +677,15 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
   CORBA_boolean             result;
   Accessibility_DeviceEvent key_event;
-  Accessibility_DeviceEventController controller;
-	
-  if (BONOBO_EX (&ev))
-	g_warning ("failure: pre-listener get dec\n");
 
-  controller =
-    Accessibility_Registry_getDeviceEventController (
-	    spi_atk_bridge_get_registry (), &ev);
+  CORBA_exception_init (&ev);
 
-  if (BONOBO_EX (&ev))
-    {
-      g_warning ("failure: no deviceeventcontroller found\n");
-      CORBA_exception_free (&ev);
-      registry_died = TRUE;
-      result = FALSE;
-    }
-  else
-    {
+  spi_init_keystroke_from_atk_key_event (&key_event, event);
 
-      spi_init_keystroke_from_atk_key_event (&key_event, event);
+  result = Accessibility_DeviceEventController_notifyListenersSync (
+	  spi_atk_bridget_get_dec (), &key_event, &ev);
 
-      result = Accessibility_DeviceEventController_notifyListenersSync (
-        controller, &key_event, &ev);
-
-      bonobo_object_release_unref (controller, &ev);
-      CORBA_exception_free (&ev);
-    }
+  CORBA_exception_free (&ev);
 
   return result;
 }
