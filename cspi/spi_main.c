@@ -495,9 +495,14 @@ SPI_exit (void)
   if (live_refs)
     {
       leaked = g_hash_table_size (live_refs);
+#ifdef DEBUG_OBJECTS
+      fprintf (stderr, "Leaked %d SPI handles\n", leaked);
+
 #define PRINT_LEAKS
 #ifdef PRINT_LEAKS
       g_hash_table_foreach (live_refs, report_leaked_ref, NULL);
+#endif
+
 #endif
     }
   else
@@ -505,16 +510,7 @@ SPI_exit (void)
       leaked = 0;
     }
 
-#ifdef DEBUG_OBJECTS
-  if (leaked)
-    {
-      fprintf (stderr, "Leaked %d SPI handles\n", leaked);
-    }
-#endif
-
   cspi_cleanup ();
-
-  fprintf (stderr, "bye-bye!\n");
 
   return leaked;
 }

@@ -1,3 +1,11 @@
+2004-03-01  Bill Haneman <billh@gnome.org>
+
+	* cspi/spi_main.c:
+	(SPI_exit): Removed "bye-bye" exit message.
+	Moved "leak" report to happen before the
+	iteration over the leaked refs list.
+	Don't PRINT_LEAKS unless DEBUG_OBJECTS is also #defined.
+	
 2004-02-24  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Revved to 1.3.13.
