@@ -1,3 +1,16 @@
+2003-01-27  Padraig O'Briain <padraig.obriain@sun.com
+
+	* registryd/desktop.c: Implement AccessibleComponent for SpiDesktop.
+	This is done by implementing AtkComponent for SpiAtkDesktop, which is
+	the AtkObject within an SpiDesktop.
+	This addresses bug #101524.
+
+	* registryd/deviceeventcontroller.c (spi_device_event_controller_init):
+	Remove call to gdk_init().
+
+	* registryd/registry.c (spi_registry_init): Add call to gdk_init()
+	so that Display is set when SpiDesktop is created.
+
 2003-01-21  Padraig O'Briain <padraig.obriain@sun.com
 
 	* registryd/deviceeventcontroller.c: Add include of <sys/time.h>

@@ -27,6 +27,9 @@
 #include <stdio.h>
 #include <libbonobo.h>
 #include "desktop.h"
+#include <atk/atkcomponent.h>
+#include <gdk/gdkscreen.h>
+#include <gdk/gdkx.h>
 
 /* SpiDesktop signals */
 enum {
@@ -48,15 +51,104 @@ typedef struct {
 /* A pointer to our parent object class */
 static SpiAccessibleClass *parent_class;
 
+#define SPI_TYPE_ATK_DESKTOP		(spi_atk_desktop_get_type ())
+#define SPI_ATK_DESKTOP(o)		(G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_TYPE_ATK_DESKTOP, SpiAtkDesktop))
+#define SPI_IS_ATK_DESKTOP(o)		(G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_TYPE_ATK_DESKTOP))
+
+typedef struct {
+	AtkObject parent;
+
+	GdkScreen *screen;
+} SpiAtkDesktop;
+
+typedef struct {
+	AtkObjectClass parent;
+} SpiAtkDesktopClass;
+
+static void spi_atk_desktop_init (SpiAtkDesktop *desktop);
+static void atk_component_interface_init (AtkComponentIface *iface);
+static void spi_atk_desktop_get_extents	 (AtkComponent    *component,
+                                          gint            *x,
+                                          gint            *y,
+                                          gint            *width,
+                                          gint            *height,
+                                          AtkCoordType    coord_type);
+
+static GType 
+spi_atk_desktop_get_type ()
+{
+  static GType type = 0;
+
+  if (!type)
+    {
+      static const GTypeInfo typeInfo =
+      {
+  	sizeof (SpiAtkDesktopClass),
+  	(GBaseInitFunc) NULL,
+  	(GBaseFinalizeFunc) NULL,
+  	(GClassInitFunc) NULL,
+  	(GClassFinalizeFunc) NULL,
+  	NULL,
+  	sizeof (SpiAtkDesktop),
+  	0,
+  	(GInstanceInitFunc) spi_atk_desktop_init,
+      } ;
+      static const GInterfaceInfo atk_component_info =
+	{
+        (GInterfaceInitFunc) atk_component_interface_init,
+	(GInterfaceFinalizeFunc) NULL,
+	NULL
+      };
+
+      type = g_type_register_static (ATK_TYPE_OBJECT,
+                                     "SpiAtkDesktop", &typeInfo, 0);
+      g_type_add_interface_static (type, ATK_TYPE_COMPONENT,
+                                   &atk_component_info);
+    }
+  return type;
+}
+
+static void 
+spi_atk_desktop_init (SpiAtkDesktop *desktop)
+{
+  GdkDisplay *display;
+
+  atk_object_set_name (ATK_OBJECT (desktop), "main");
+  display = gdk_x11_lookup_xdisplay (GDK_DISPLAY ());
+  desktop->screen = gdk_display_get_default_screen (display);
+}
+
+static void
+atk_component_interface_init (AtkComponentIface *iface)
+{
+  g_return_if_fail (iface != NULL);
+
+  iface->get_extents = spi_atk_desktop_get_extents;
+}
+
+static void 
+spi_atk_desktop_get_extents (AtkComponent *component,
+                             gint         *x,
+                             gint	  *y,
+                             gint	  *width,
+                             gint	  *height,
+                             AtkCoordType coord_type)
+{
+  SpiAtkDesktop *desktop;
+
+  g_return_if_fail (SPI_IS_ATK_DESKTOP (component));
+  desktop = SPI_ATK_DESKTOP (component);
+  *x = 0;
+  *y = 0;
+  *width = gdk_screen_get_width (desktop->screen);
+  *height = gdk_screen_get_height (desktop->screen);
+}
+
 static void
 spi_desktop_init (SpiDesktop *desktop)
 {
-  spi_base_construct (SPI_BASE (desktop), g_object_new (ATK_TYPE_OBJECT, NULL));
-
   desktop->applications = NULL;
   bonobo_object_set_immortal (BONOBO_OBJECT (desktop), TRUE);
-
-  atk_object_set_name (ATK_OBJECT (SPI_BASE (desktop)->gobj), "main");
 }
 
 static void
@@ -158,9 +250,14 @@ BONOBO_TYPE_FUNC_FULL (SpiDesktop,
 SpiDesktop *
 spi_desktop_new (void)
 {
-  SpiDesktop *retval = g_object_new (SPI_DESKTOP_TYPE, NULL);
+  SpiDesktop *desktop; 
+  SpiAccessible *accessible; 
 
-  return retval;
+  accessible = spi_accessible_construct (SPI_DESKTOP_TYPE, g_object_new (SPI_TYPE_ATK_DESKTOP, NULL));
+  g_assert (SPI_IS_DESKTOP (accessible));
+  desktop = SPI_DESKTOP (accessible);
+
+  return desktop;
 }
 
 static void

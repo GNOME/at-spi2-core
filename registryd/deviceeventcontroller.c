@@ -1961,13 +1961,6 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
   device_event_controller->mouse_listeners = NULL;
   device_event_controller->keygrabs_list   = NULL;
 
-  /*
-   * TODO: fixme, this module makes the foolish assumptions that
-   * registryd uses the same display as the apps, and that the
-   * DISPLAY environment variable is set.
-   */
-  gdk_init (NULL, NULL);
-  
   private = g_new0 (DEControllerPrivateData, 1);
   gettimeofday (&private->last_press_time, NULL);
   gettimeofday (&private->last_release_time, NULL);

@@ -676,6 +676,13 @@ static void
 spi_registry_init (SpiRegistry *registry)
 {
   spi_registry_set_debug (g_getenv ("AT_SPI_DEBUG"));
+  /*
+   * TODO: fixme, this module makes the foolish assumptions that
+   * registryd uses the same display as the apps, and that the
+   * DISPLAY environment variable is set.
+   */
+  gdk_init (NULL, NULL);
+
   registry->object_listeners = NULL;
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
