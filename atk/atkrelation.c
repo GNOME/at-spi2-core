@@ -246,6 +246,7 @@ atk_relation_new (AtkObject       **targets,
     g_value_init (value, ATK_TYPE_OBJECT);
     g_value_set_object (value, targets[i]);
     array = g_value_array_append (array, value);
+    g_free (value);
   }
   
   relation =  g_object_new (ATK_TYPE_RELATION, 

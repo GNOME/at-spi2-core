@@ -1,3 +1,7 @@
+2003-10-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkrelation.c (atk_relation_new): Fix memory leak. (bug #124877)
+
 2003-10-09  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.4.1=====
@@ -8,7 +12,7 @@
 
 2003-09-28  Gediminas Paulauskas  <menesis@delfi.lt>
 
-    * configure.in: Added lt to ALL_LINGUAS.
+	* configure.in: Added lt to ALL_LINGUAS.
 
 2003-09-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
