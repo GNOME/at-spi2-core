@@ -52,46 +52,16 @@ struct _AtkRelationSetClass
 
 GType atk_relation_set_get_type (void);
 
-/*
- * Create a new relation set.
- */
-AtkRelationSet*    atk_relation_set_new               (void);
-/*
- * Returns whether the relation set contains a relation that matches the
- * specified type.
- */
+AtkRelationSet* atk_relation_set_new                  (void);
 gboolean        atk_relation_set_contains             (AtkRelationSet  *set,
                                                        AtkRelationType relationship);
-/*
- * Remove a relation from the relation set.
- *
- * This function unref's the AtkRelation so it will be deleted unless there
- * is another reference to it. 
- */
 void            atk_relation_set_remove               (AtkRelationSet  *set,
                                                        AtkRelation     *relation);
-/*
- * Add a new relation to the current relation set if it is not already
- * present.
- *
- * This function ref's the AtkRelation so the caller of this function 
- * should unref it to ensure that it will be destroyed when the AtkRelationSet
- * is destroyed.
- */
 void            atk_relation_set_add                  (AtkRelationSet  *set,
                                                        AtkRelation     *relation);
-/*
- * Returns the number of relations in a relation set.
- */
 gint            atk_relation_set_get_n_relations      (AtkRelationSet  *set);
-/*
- * Returns the relation at the specified position in the relation set.
- */
 AtkRelation*    atk_relation_set_get_relation         (AtkRelationSet  *set,
                                                        gint            i);
-/*
- * Returns a relation that matches the specified type.
- */
 AtkRelation*    atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
                                                        AtkRelationType relationship);
 

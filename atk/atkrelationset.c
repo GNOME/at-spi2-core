@@ -56,6 +56,12 @@ atk_relation_set_class_init (AtkRelationSetClass *klass)
   gobject_class->finalize = atk_relation_set_finalize;
 }
 
+/**
+ * atk_relation_set_new
+ * return values: a new #AtkRelationSet 
+ * 
+ * Creates a new empty relation set.
+ **/
 AtkRelationSet*
 atk_relation_set_new (void)
 {
@@ -65,6 +71,15 @@ atk_relation_set_new (void)
   return relation_set;
 }
 
+/**
+ * atk_relation_set_contains
+ * @set: a #AtkRelationSet
+ * @relationtype: a #AtkRelationType
+ * return values: %TRUE if @relationtype is the relationship type of a relation in @set.
+ *
+ * Determines whether the relation set contains a relation that matches the
+ * specified type.
+ **/
 gboolean
 atk_relation_set_contains (AtkRelationSet   *set,
                            AtkRelationType  relationship)
@@ -88,6 +103,16 @@ atk_relation_set_contains (AtkRelationSet   *set,
   return FALSE;
 }
 
+/**
+ * atk_relation_set_remove
+ * @set: a #AtkRelationSet
+ * @relation: a #AtkRelation
+ *
+ * Removes a relation from the relation set.
+ *
+ * This function unref's the AtkRelation so it will be deleted unless there
+ * is another reference to it.
+ **/
 void
 atk_relation_set_remove (AtkRelationSet *set,
                          AtkRelation    *relation)
@@ -108,6 +133,18 @@ atk_relation_set_remove (AtkRelationSet *set,
   }
 }
 
+/**
+ * atk_relation_set_add
+ * @set: a #AtkRelationSet
+ * @relation: a #AtkRelation
+ *
+ * Add a new relation to the current relation set if it is not already
+ * present.
+ *
+ * This function ref's the AtkRelation so the caller of this function
+ * should unref it to ensure that it will be destroyed when the AtkRelationSet
+ * is destroyed.
+ **/
 void
 atk_relation_set_add (AtkRelationSet *set,
                       AtkRelation    *relation)
@@ -124,6 +161,13 @@ atk_relation_set_add (AtkRelationSet *set,
   g_object_ref (relation);
 }
 
+/**
+ * atk_relation_set_get_n_relations
+ * @set: a #AtkRelationSet
+ * return values: a gint representing the number of relations in the set.
+ *
+ * Determines the number of relations in a relation set.
+ **/
 gint
 atk_relation_set_get_n_relations (AtkRelationSet *set)
 {
@@ -136,6 +180,14 @@ atk_relation_set_get_n_relations (AtkRelationSet *set)
   return set->relations->len;
 }
 
+/**
+ * atk_relation_set_get_relation
+ * @set: a #AtkRelationSet
+ * @i: a gint representing a position in the set, starting from 0.
+ * return values: a #AtkRelation, which is the relation at position i in the set.
+ *
+ * Determines the relation at the specified position in the relation set.
+ **/
 AtkRelation*
 atk_relation_set_get_relation (AtkRelationSet *set,
                                gint           i)
@@ -157,6 +209,14 @@ atk_relation_set_get_relation (AtkRelationSet *set,
   return item;
 }
 
+/**
+ * atk_relation_set_get_relation_type
+ * @set: a #AtkRelationSet
+ * @relationship: a #AtkRelationType
+ * return values: a #AtkRelation, which is a relation matching the specified type.
+ *
+ * Finds a relation that matches the specified type.
+ **/
 AtkRelation*
 atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
                                        AtkRelationType relationship)
