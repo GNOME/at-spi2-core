@@ -1,4 +1,9 @@
-2003-03-07  Padraig O'Briain <padraig.obriain@sun.com>
+2003-03-07  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: 1.1.9 release.
+	* NEWS: updated.
+	
+2003-03-07  Bill Haneman <bill.haneman@sun.com>
 
 	[needed by GOK, to fix bugs 107985 and 107988]
 	* registryd/deviceeventcontroller.c:

@@ -1,5 +1,14 @@
 (top)
 in HEAD:
+What's new in at-spi-1.1.9:
+
+* Fixes for 107985, 107988, 105291, 107256, 107254, 105836,
+  104622, 105291, 104744, 104741, 101524, 102830, 98120, 94275.
+
+* added support for mouse buttons 4 and 5.
+
+* compiler warning fixes.
+
 What's new in at-spi-1.1.8:
 
 * Added getRangeExtents() and getBoundedRanges() API for more
