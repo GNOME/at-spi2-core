@@ -1,3 +1,7 @@
+2002-12-21  Jordi Mallach  <jordi@sindominio.net>
+
+	* configure.in (ALL_LINGUAS): added Catalan (ca).
+
 2002-12-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
         * ===== Released 1.2.0 ======
