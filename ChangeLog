@@ -1,3 +1,8 @@
+2004-09-12  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Rev and re-dist, since the 1.5.4 tarball
+	was missing the HTML docs.
+
 2004-09-12  Tomasz Kłoczko <kloczek@pld.org.pl>
 
 	* configure.in: only cleanups:
