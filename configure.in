@@ -1,8 +1,8 @@
 AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=0
-AT_SPI_MINOR_VERSION=12
-AT_SPI_MICRO_VERSION=1
+AT_SPI_MINOR_VERSION=13
+AT_SPI_MICRO_VERSION=0
 AT_SPI_INTERFACE_AGE=0
 AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
@@ -116,14 +116,6 @@ PKG_CHECK_MODULES(TESTS, \
 AC_SUBST(TESTS_LIBS)
 AC_SUBST(TESTS_CFLAGS)
 
-PKG_CHECK_MODULES(UTILS, \
-	libbonobo-2.0 >= 1.107.0 \
-	gtk+-2.0 >= 2.0.0 \
-	gdk-pixbuf-2.0 >= 2.0.0
-	gdk-pixbuf-xlib-2.0 >= 2.0.0)
-AC_SUBST(UTILS_LIBS)
-AC_SUBST(UTILS_CFLAGS)
-
 PKG_CHECK_MODULES(ATK_BRIDGE, \
 	libbonobo-2.0 >= 1.107.0 \
 	atk >= 0.10)
@@ -198,8 +190,6 @@ atk-bridge/Makefile
 test/Makefile
 cspi/Makefile
 cspi/bonobo/Makefile
-util/Makefile
-util/Accessibility_Util.server
 ])
 
 echo "AT-SPI setup:

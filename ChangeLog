@@ -1,3 +1,68 @@
+2002-05-09  Bill Haneman <bill.haneman@sun.com>
+
+	* test/event-listener-test.c:
+	* test/Makefile.am:
+	Added new test, "event-listener-test"; 
+	this code does two things; it benchmarks traversal time 
+	for the accessible hierarchy for the first running accessible 
+	app, and it connects listeners for all supported event types.  
+	It is thus useful as an example event listener and for 
+	diagnostics/debugging of event generation.
+	
+2002-05-08  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: 
+	Removed util/Makefile from targets.
+
+	* Makefile.am:
+	Removed util subdir from SUBDIRS (temporarily, 
+	pending removal of magnifier-only code
+	from UTIL).
+
+	* test/simple-at.c:
+	#ifdef-ed out magnifier dependencies, since
+	magnifier IDL, headers, and binary now live in
+	module gnome-mag and we don't want at-spi to depend 
+	on gnome-mag.  A magnifier demo which can run alongside
+	simple-at is forthcoming in the gnome-mag module.
+	
+	NOTE: Split magnifier binary, IDL, and magnification
+	activation code from at-spi into module gnome-mag.
+
+2002-05-03  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Revved to version 0.13.0
+	
+	* idl/Accessibility_Registry.idl:
+	Changed definition of KeySet from sequence of longs to sequence of
+	KeyDefinitions, and added KeyDefinition struct.
+	Required for fix to bug 80616.
+
+	* cspi/spi_registry.c: SPI_registerAccessibleKeystrokeListener():
+	Changed AccessibleKeySet to Accessibility_KeySet marshalling code
+	to use new definition (see above).  
+
+	* registryd/deviceeventcontroller.c: handle_keygrab(), 
+	spi_keyset_contains_key():
+	Changed to make use of new struct; this allows matching based on
+	string key-name, for instance "Tab".  This also allows matching of
+	composed characters, non-alphanumeric characters in a way that
+	doesn't involve dependencies on X keysym codes directly, etc.
+	
+	* test/key-listener-test.c:
+	Added test for Alt-Tab key using "string" specification of keyset,
+	and modified one of the tests to use a keycode-based keyset.
+	Thus this test both tests and demonstrates the creation and use of
+	keysets of three forms:  specified via keycode array, 
+	keysym array, and string array. (The string case only contains a
+	single string, i.e. a string array of length 1).	
+
+	* test/simple-at.c:
+	Turned on PRINT_TREE option by default.  Also fixed a
+	string-freeing bug in the PRINT_TREE code.  
+	Added a listener to window:minimize events.
+	
 2002-05-08  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c:

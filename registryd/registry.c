@@ -558,8 +558,8 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
   ls = (*list)->data;
 
 #ifdef SPI_LISTENER_DEBUG
-  fprintf (stderr, "event quarks: %lx %lx %lx\n", ls->event_type_quark, etype.major, etype.minor);
-  fprintf (stderr, "event name: %s\n", etype.event_name);
+  fprintf (stderr, "event quarks: %lx %lx %lx\n", ls->event_type_quark, ctx->etype.major, ctx->etype.minor);
+  fprintf (stderr, "event name: %s\n", ctx->etype.event_name);
 #endif
 
   if ((ls->event_type_quark == ctx->etype.major) ||

@@ -80,8 +80,8 @@
  *            window:reparent
  *            window:desktop-create
  *            window:desktop-destroy
- *            window:focus-in
- *            window:focus-out
+ *            window:activate
+ *            window:deactivate
  *            window:raise
  *            window:lower
  *            window:move
@@ -346,10 +346,10 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
       key_set._buffer = Accessibility_KeySet_allocbuf (keys->len);
       for (i = 0; i < key_set._length; ++i)
         {
-          /* we overload the keyset long w/keycodes, the - bit acts as a flag */
-          key_set._buffer[i] = (keys->keysyms[i]) ? keys->keysyms[i] :
-		                                  - keys->keycodes[i];
-	  /* fprintf (stderr, "key-set %d = %d\n", i, (int) key_set->_buffer[i]); */
+          key_set._buffer[i].keycode = keys->keycodes[i];
+	  key_set._buffer[i].keysym = keys->keysyms[i];
+	  key_set._buffer[i].keystring = (keys->keystrings[i] != NULL) ?
+		  keys->keystrings[i] : CORBA_string_dup("");
         }
     }
   else

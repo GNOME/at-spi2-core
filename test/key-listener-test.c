@@ -32,29 +32,39 @@
 static SPIBoolean report_command_key_event  (const AccessibleKeystroke *stroke, void *user_data);
 static SPIBoolean report_ordinary_key_event (const AccessibleKeystroke *stroke, void *user_data);
 static SPIBoolean report_synchronous_key_event (const AccessibleKeystroke *stroke, void *user_data);
+static SPIBoolean report_tab_key_event (const AccessibleKeystroke *stroke, void *user_data);
+static SPIBoolean report_all_key_event (const AccessibleKeystroke *stroke, void *user_data);
 
 static AccessibleKeystrokeListener *command_key_listener;
 static AccessibleKeystrokeListener *ordinary_key_listener;
 static AccessibleKeystrokeListener *synchronous_key_listener;
+static AccessibleKeystrokeListener *tab_key_listener;
+static AccessibleKeystrokeListener *all_key_listener;
 static AccessibleKeySet            *command_keyset;
 static AccessibleKeySet            *async_keyset;
 static AccessibleKeySet            *sync_keyset;
+static AccessibleKeySet            *tab_keyset;
 
 int
 main (int argc, char **argv)
 {
-
+  char *tab_strings[1];
+  short keycodes[] = {65, 64, 23};
+	
   SPI_init ();
 
   /* prepare the keyboard snoopers */
   command_key_listener = SPI_createAccessibleKeystrokeListener (report_command_key_event, NULL);
   ordinary_key_listener = SPI_createAccessibleKeystrokeListener (report_ordinary_key_event, NULL);
   synchronous_key_listener = SPI_createAccessibleKeystrokeListener (report_synchronous_key_event, NULL);
-
-  command_keyset = SPI_createAccessibleKeySet (11, "q", NULL, NULL);
-  async_keyset = SPI_createAccessibleKeySet (11, "abc", NULL, NULL);
-  sync_keyset = SPI_createAccessibleKeySet (11, "def", NULL, NULL);
+  tab_key_listener = SPI_createAccessibleKeystrokeListener (report_tab_key_event, NULL);
+  all_key_listener = SPI_createAccessibleKeystrokeListener (report_all_key_event, NULL);
   
+  command_keyset = SPI_createAccessibleKeySet (1, "q", NULL, NULL);
+  async_keyset = SPI_createAccessibleKeySet (3, NULL, keycodes, NULL);
+  sync_keyset = SPI_createAccessibleKeySet (3, "def", NULL, NULL);
+  tab_strings[0] = "Tab";
+  tab_keyset = SPI_createAccessibleKeySet (1,  NULL, NULL, tab_strings);
   SPI_registerAccessibleKeystrokeListener(command_key_listener,
 					  command_keyset,
 					  SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL,
@@ -73,6 +83,18 @@ main (int argc, char **argv)
 					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_CANCONSUME);
 
+  SPI_registerAccessibleKeystrokeListener(tab_key_listener,
+					  tab_keyset,
+					  SPI_KEYMASK_ALT,
+					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
+					  SPI_KEYLISTENER_ALL_WINDOWS);
+
+  SPI_registerAccessibleKeystrokeListener(all_key_listener,
+					  SPI_KEYSET_ALL_KEYS,
+					  SPI_KEYMASK_UNMODIFIED,
+					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
+					  SPI_KEYLISTENER_CANCONSUME);
+
   SPI_event_main ();
 
   putenv ("AT_BRIDGE_SHUTDOWN=1");
@@ -87,13 +109,18 @@ simple_at_exit ()
   AccessibleKeystrokeListener_unref         (command_key_listener);
   SPI_freeAccessibleKeySet                  (command_keyset);
   
-  SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL);
+/*
+  SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL); */
   AccessibleKeystrokeListener_unref         (ordinary_key_listener);
   SPI_freeAccessibleKeySet                  (async_keyset);
   
-  SPI_deregisterAccessibleKeystrokeListener (synchronous_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL);
+/*  SPI_deregisterAccessibleKeystrokeListener (synchronous_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL); */
   AccessibleKeystrokeListener_unref         (synchronous_key_listener);
   SPI_freeAccessibleKeySet                  (sync_keyset);
+
+  SPI_deregisterAccessibleKeystrokeListener (tab_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL);
+  AccessibleKeystrokeListener_unref         (tab_key_listener);
+  SPI_freeAccessibleKeySet                  (tab_keyset);
 
   SPI_event_quit ();
 }
@@ -145,5 +172,19 @@ report_synchronous_key_event (const AccessibleKeystroke *key, void *user_data)
   /* consume 'd' key, let others pass through */	
   print_key_event (key, "synchronous (consumable) ");	
   return ( key->keyID == 'd' ) ? TRUE : FALSE;
+}
+
+static SPIBoolean
+report_tab_key_event (const AccessibleKeystroke *key, void *user_data)
+{
+  print_key_event (key, "[TAB]");	
+  return FALSE;
+}
+
+static SPIBoolean
+report_all_key_event (const AccessibleKeystroke *key, void *user_data)
+{
+  g_print("(%d)", key->keyID);
+  return FALSE;
 }
 

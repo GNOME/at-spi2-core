@@ -26,10 +26,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/un.h>
-#include "../util/mag_client.h"
+#undef MAGNIFIER_ENABLED
 #include "../cspi/spi-private.h" /* A hack for now */
 
-#undef PRINT_TREE
+#define PRINT_TREE
 
 static void report_focus_event    (const AccessibleEvent *event, void *user_data);
 static void report_generic_event  (const AccessibleEvent *event, void *user_data);
@@ -49,7 +49,10 @@ static void _festival_write (const char *buff, int fd);
 static void print_accessible_tree (Accessible *accessible, char *prefix);
 #endif
 
+#ifdef MAGNIFIER_ENABLED
 static SPIBoolean use_magnifier = FALSE;
+#endif
+
 static SPIBoolean use_festival = FALSE;
 static SPIBoolean festival_chatty = FALSE;
 static SPIBoolean name_changed = FALSE;
@@ -106,9 +109,9 @@ main (int argc, char **argv)
   SPI_registerGlobalEventListener (generic_listener, "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (generic_listener, "object:text-selection-changed"); 
   SPI_registerGlobalEventListener (text_listener, "object:text-caret-moved"); 
-  SPI_registerGlobalEventListener (generic_listener, "object:text-changed"); 
+  SPI_registerGlobalEventListener (text_listener, "object:text-changed"); 
   SPI_registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
-  SPI_registerGlobalEventListener (window_listener, "Gtk:GtkWidget:window-state-event");
+  SPI_registerGlobalEventListener (window_listener, "window:minimize");
   n_desktops = SPI_getDesktopCount ();
 
   for (i=0; i<n_desktops; ++i)
@@ -173,6 +176,7 @@ get_environment_vars (void)
           festival_chatty = TRUE;
 	}
     }
+#ifdef MAGNIFIER_ENABLED
   if (g_getenv ("MAGNIFIER"))
     {
       fprintf (stderr, "Using magnifier\n");
@@ -182,6 +186,7 @@ get_environment_vars (void)
     {
       fprintf (stderr, "Not using magnifier\n");
     }
+#endif
 
   if (!use_festival)
     {
@@ -197,8 +202,8 @@ print_accessible_tree (Accessible *accessible, char *prefix)
 	int i;
 	char *name;
 	char *role_name;
-	char *parent_name;
-	char *parent_role;
+	char *parent_name = NULL;
+	char *parent_role = NULL;
 	char child_prefix[100];
 	Accessible *child;
 	Accessible *parent;
@@ -210,15 +215,16 @@ print_accessible_tree (Accessible *accessible, char *prefix)
 	  {
 		parent_name = Accessible_getName (parent);
 		parent_role = Accessible_getRoleName (parent);
+	        Accessible_unref (parent);
 	  }
-	Accessible_unref (parent);
 	name = Accessible_getName (accessible);
 	role_name = Accessible_getRoleName (accessible);
-	fprintf (stdout, "%sAccessible [%s] \"%s\"; parent [%s] %s\n",
+	fprintf (stdout, "%sAccessible [%s] \"%s\"; parent [%s] %s.\n",
 		 prefix, role_name, name, parent_role, parent_name);
 	SPI_freeString (name);
 	SPI_freeString (role_name);
 	SPI_freeString (parent_name);
+	SPI_freeString (parent_role);
 	n_children = Accessible_getChildCount (accessible);
 	for (i = 0; i < n_children; ++i)
 	        {
@@ -277,10 +283,13 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
 		       x, y, x+width, y+height);
 	    }
 	}
+#ifdef MAGNIFIER_ENABLED
       if (use_magnifier) {
 	magnifier_set_roi ((short) 0, x, y, width, height);
       }
+#endif
     }
+
 
   if (Accessible_isValue (obj))
     {
@@ -346,6 +355,7 @@ report_text_event (const AccessibleEvent *event, void *user_data)
 {
   AccessibleText *text = Accessible_getText (event->source);
   fprintf (stderr, "%s event received\n", event->type);
+#ifdef MAGNIFIER_ENABLED
   if (use_magnifier && strcmp (event->type, "object:text-changed"))
     {
       long offset = AccessibleText_getCaretOffset (text);
@@ -356,12 +366,26 @@ report_text_event (const AccessibleEvent *event, void *user_data)
       fprintf (stderr, "new roi %d %d %d %d\n", (int) x, (int) y, (int) w, (int) h);
       magnifier_set_roi ((short) 0, x, y, w, h);
     }
+#endif
   if (!strcmp (event->type, "object:text-changed"))
     {
       long start, end;
-      char *new_text = AccessibleText_getTextAtOffset (text, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start, &end);
+      char *new_text = AccessibleText_getTextAtOffset (text, (long) event->detail1, SPI_TEXT_BOUNDARY_WORD_START, &start, &end);
       _festival_say (new_text, "voice_kal_diphone", FALSE);
+      fprintf (stderr, "text changed: %s", new_text ? new_text : "");
       SPI_freeString (new_text);
+    }
+  else
+    {
+      long start, end;
+      char *word_text = AccessibleText_getTextAtOffset (text, (long) event->detail1, SPI_TEXT_BOUNDARY_WORD_START, &start, &end);
+      char *sentence_text = AccessibleText_getTextAtOffset (text, (long) event->detail1, SPI_TEXT_BOUNDARY_SENTENCE_START, &start, &end);
+      fprintf (stderr, "text changed: word %s; sentence %s at %d",
+	       (word_text ? word_text : ""),
+      	       (sentence_text ? sentence_text : ""),
+	       event->detail1);
+      if (word_text) SPI_freeString (word_text);
+      if (sentence_text) SPI_freeString (sentence_text);
     }
 }
 
@@ -455,11 +479,13 @@ is_command_key (const AccessibleKeystroke *key)
     case 'q':
 	    simple_at_exit(); 
 	    return TRUE; /* not reached */
+#ifdef MAGNIFIER_ENABLED
     case 'M':
     case 'm':
 	    use_magnifier = ! use_magnifier;
             fprintf (stderr, "%ssing magnifier\n", use_magnifier ? "U" : "Not u");
 	    return TRUE;
+#endif
     case 'F':
     case 'f':
 	    use_festival = ! use_festival;

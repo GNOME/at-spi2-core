@@ -24,7 +24,8 @@
 
 #include <config.h>
 
-#define  SPI_DEBUG
+#undef  SPI_DEBUG
+#define  SPI_KEYEVENT_DEBUG
 
 #include <string.h>
 #include <ctype.h>
@@ -246,11 +247,20 @@ handle_keygrab (SpiDEController         *controller,
 
       for (i = 0; i < key_listener->keys->_length; ++i)
         {
-	  long int key_val = key_listener->keys->_buffer[i];
+	  Accessibility_KeyDefinition keydef = key_listener->keys->_buffer[i];	
+	  long int key_val = keydef.keysym;
 	  /* X Grabs require keycodes, not keysyms */
-	  if (key_val >= 0)
+	  if (keydef.keystring)
+	    {
+	      key_val = XStringToKeysym(keydef.keystring);		    
+	    }
+	  if (key_val > 0)
 	    {
 	      key_val = XKeysymToKeycode (spi_get_display (), (KeySym) key_val);
+	    }
+	  else
+	    {
+	      key_val = keydef.keycode;
 	    }
 	  grab_mask.key_val = key_val;
 
@@ -371,14 +381,19 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
     {
 #ifdef SPI_KEYEVENT_DEBUG	    
       g_print ("key_set[%d] = %d; key_event %d, code %d\n",
-	        i, (int) key_set->_buffer[i],
+	        i, (int) key_set->_buffer[i].keycode,
 	       (int) key_event->id, (int) key_event->hw_code); 
 #endif
-      if (key_set->_buffer[i] == (CORBA_long) key_event->id)
+      if (key_set->_buffer[i].keysym == (CORBA_long) key_event->id)
         {
           return TRUE;
 	}
-      if (key_set->_buffer[i] == (CORBA_long) -key_event->hw_code)
+      if (key_set->_buffer[i].keycode == (CORBA_long) key_event->hw_code)
+        {
+          return TRUE;
+	}
+      if (key_event->event_string && key_event->event_string[0] && !strcmp
+	  (key_set->_buffer[i].keystring, key_event->event_string))
         {
           return TRUE;
 	}
@@ -474,7 +489,7 @@ spi_notify_keylisteners (GList                          **key_listeners,
 #ifdef SPI_KEYEVENT_DEBUG
   if (!notify)
     {
-      g_print ("no match for listener %d\n", i);
+      g_print ("no match for event\n");
     }
 #endif
 
@@ -534,6 +549,9 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
         key_event.event_string = CORBA_string_dup ("space");
         break;
       case XK_Tab:
+#ifdef SPI_KEYEVENT_DEBUG
+	fprintf(stderr, "Tab\n");
+#endif
         key_event.event_string = CORBA_string_dup ("Tab");
 	break;
       case XK_BackSpace:

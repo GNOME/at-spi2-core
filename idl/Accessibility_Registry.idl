@@ -200,7 +200,14 @@ module Accessibility {
     boolean is_text;
   };
 
-  typedef sequence< long > KeySet;
+  struct KeyDefinition {
+    long keycode;
+    long keysym;
+    string keystring;
+    long unused;
+  };	
+
+  typedef sequence< KeyDefinition > KeySet;
   typedef sequence< KeyEventType > KeyEventTypeSeq;
 
   interface DeviceEventListener : Bonobo::Unknown {
