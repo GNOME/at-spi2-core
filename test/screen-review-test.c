@@ -107,7 +107,7 @@ typedef struct _BoundaryRect {
 
 typedef struct _TextChunk {
 	char           *string;
-	AccessibleText *source;
+	Accessible     *source;
 	int             start_offset;
 	int             end_offset;
 	BoundaryRect    clip_bounds;
@@ -142,7 +142,7 @@ main (int argc, char **argv)
 
   SPI_registerGlobalEventListener (mouseclick_listener,
 				   "Gtk:GtkWidget:button-press-event");
-#define JAVA_TEST_HACK
+#undef JAVA_TEST_HACK
 #ifdef JAVA_TEST_HACK /* Only use this to test Java apps */
   SPI_registerGlobalEventListener (mouseclick_listener,
 				   "object:text-caret-moved");
@@ -226,7 +226,7 @@ boundary_xclip_head (BoundaryRect *bounds, BoundaryRect *clipBounds)
 	int cx2 = clipBounds->x + clipBounds->width;
 	if (cx2 < bounds->x) return;
 	x2 = bounds->x + bounds->width;
-	if (cx2 < x2) bounds->x = cx2;
+	if (cx2 <= x2) bounds->x = cx2;
 	bounds->width = MAX (0, x2 - cx2);
 }
 
@@ -244,7 +244,7 @@ text_chunk_copy (TextChunk *chunk)
 	TextChunk *copy = g_new0 (TextChunk, 1);
 	*copy = *chunk;
 	if (chunk->string) copy->string = g_strdup (chunk->string);
-	if (copy->source) AccessibleText_ref (copy->source);
+	if (copy->source) Accessible_ref (copy->source);
 	return copy;
 }
 
@@ -310,7 +310,7 @@ text_chunk_split_insert (GList *chunk_list, GList *iter, TextChunk *chunk)
 
 /* #define PRINT_CHUNK_DEBUG(a, b, c, d) print_chunk_debug(a, b, c, d) */
 
-#define PRINT_CHUNK_DEBUG(a, b, c, d) 
+#define PRINT_CHUNK_DEBUG(a, b, c, d)
 
 #ifdef PRINT_CHUNK_DEBUG
 static void
@@ -337,8 +337,7 @@ text_chunk_list_head_clip (GList *text_chunk_list,
 		text_chunk_list =
 			g_list_insert_before (text_chunk_list, next, chunk);
 //	}
-	while (iter) {
-		if (CHUNK_BOUNDS_SPANS_END (chunk, (TextChunk *)iter->data)) {
+	while (iter && CHUNK_BOUNDS_SPANS_END (chunk, (TextChunk *)iter->data)) {
 #ifdef CLIP_DEBUG			
 			fprintf (stderr, "deleting %s\n",
 				 ((TextChunk *)iter->data)->string);
@@ -347,22 +346,19 @@ text_chunk_list_head_clip (GList *text_chunk_list,
 			iter = iter->next;
 			text_chunk_list =
 				g_list_delete_link (text_chunk_list, target);
-		} else {
-			if (!CHUNK_BOUNDS_END_BEFORE_START (chunk,
-						      (TextChunk *)iter->data)) {
-				text_chunk_head_clip ((TextChunk *)iter->data,
-						      chunk);
-			}
-			if (prev &&
-			    !CHUNK_BOUNDS_AFTER_END (
-				    chunk,
-				    (TextChunk *)prev->data)) {
-				text_chunk_tail_clip (
-					(TextChunk *)prev->data,
-					chunk);
-			}
-			break;
-		}
+	}
+	if (iter && !CHUNK_BOUNDS_END_BEFORE_START (chunk,
+						    (TextChunk *)iter->data)) {
+		text_chunk_head_clip ((TextChunk *)iter->data,
+				      chunk);
+	}
+	if (prev &&
+	    !CHUNK_BOUNDS_AFTER_END (
+		    chunk,
+		    (TextChunk *)prev->data)) {
+		text_chunk_tail_clip (
+			(TextChunk *)prev->data,
+			chunk);
 	}
 	
 	return text_chunk_list;
@@ -375,21 +371,21 @@ text_chunk_list_clip_and_insert (GList *text_chunk_list,
 				 GList *next)
 {
 #ifdef CLIP_DEBUG
-	if (chunk->string)
-		fprintf (stderr, "clip-and-insert for %s, between %s and %s\n",
+/*	if (chunk->string) */
+		fprintf (stderr, "clip-and-insert for %s, between %s (%d) and %s (%d)\n",
 			 chunk->string,
 		 	 (prev && ((TextChunk *)prev->data)->string ? ((TextChunk *)prev->data)->string : "<null>"),
-		 	 (next && ((TextChunk *)next->data)->string ? ((TextChunk *)next->data)->string : "<null>"));
+			 (prev ? ((TextChunk *)prev->data)->text_bounds.x : -1),
+		 	 (next && ((TextChunk *)next->data)->string ? ((TextChunk *)next->data)->string : "<null>"),
+ 			 (next ? ((TextChunk *)next->data)->text_bounds.x : -1));
 #endif
 	/* cases: */
 	if (!prev && !next) { /* first element in, no clip needed */
-//		if (chunk->string && strlen (chunk->string)) {
-			text_chunk_list =
-				g_list_append (text_chunk_list, chunk);
-			PRINT_CHUNK_DEBUG (chunk, "append",
-					   prev,
-					   NULL);
-//		}
+		text_chunk_list =
+			g_list_append (text_chunk_list, chunk);
+		PRINT_CHUNK_DEBUG (chunk, "append",
+				   prev,
+				   NULL);
 	} else { /* check for clip with prev */
 		/* if we split the prev */
 		if (prev &&
@@ -417,10 +413,8 @@ text_chunk_list_clip_and_insert (GList *text_chunk_list,
 						     (TextChunk *) prev->data)) {
 				text_chunk_tail_clip (prev->data, chunk);
 			}
-//			if (chunk->string && strlen (chunk->string)) {
-				text_chunk_list =
-					g_list_append (text_chunk_list, chunk);
-//			}
+			text_chunk_list =
+				g_list_append (text_chunk_list, chunk);
 		}
 	}
 	return text_chunk_list;
@@ -478,6 +472,8 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 	role = Accessible_getRole (accessible);
 	text_chunk = g_new0 (TextChunk, 1);
 	text_chunk->clip_bounds = *bounds;
+	text_chunk->source = accessible;
+	Accessible_ref (accessible);
 	if (Accessible_isText (accessible)) {
 		text = Accessible_getText (accessible);
 		offset = AccessibleText_getOffsetAtPoint (text,
@@ -534,30 +530,9 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 		text_chunk->text_bounds.height = y2 - text_chunk->text_bounds.y;
 		text_chunk->start_offset = start;
 		text_chunk->end_offset = end;
-		if (text_chunk->text_bounds.x < text_chunk->clip_bounds.x) {
-			text_chunk->text_bounds.x = text_chunk->clip_bounds.x;
-			text_chunk->text_bounds.isClipped = TRUE;
-		} 
-		if ((text_chunk->text_bounds.x +
-		     text_chunk->text_bounds.width)
-		    > (text_chunk->clip_bounds.x +
-		       text_chunk->clip_bounds.width)) {
-			text_chunk->text_bounds.width =
-				MAX (0, (text_chunk->clip_bounds.x +
-					 text_chunk->clip_bounds.width) -
-				     text_chunk->text_bounds.x);
-			text_chunk->text_bounds.isClipped = TRUE;
-		}
-		if (!BOUNDS_CONTAIN_Y (&text_chunk->text_bounds,
-				       screen_y)) {
-#ifdef CLIP_DEBUG			
-			fprintf (stderr, "%s out of bounds (%d-%d)\n", s,
-				 text_chunk->text_bounds.y,
-				 text_chunk->text_bounds.y +
-				 text_chunk->text_bounds.height);
-#endif			
-			s = NULL;
-		}
+		fprintf (stderr, "text at offset %d, %s, %d, %d\n",
+			 offset, s, start, end);
+		AccessibleText_unref (text);
 	} else {
 		if (role == SPI_ROLE_PUSH_BUTTON ||
 		    role == SPI_ROLE_CHECK_BOX ||
@@ -572,12 +547,36 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 			text_chunk->end_offset = strlen (s);
 		}
 	}
+	if (text_chunk->text_bounds.x < text_chunk->clip_bounds.x) {
+		text_chunk->text_bounds.x = text_chunk->clip_bounds.x;
+		text_chunk->text_bounds.isClipped = TRUE;
+	} 
+	if ((text_chunk->text_bounds.x +
+	     text_chunk->text_bounds.width)
+	    > (text_chunk->clip_bounds.x +
+	       text_chunk->clip_bounds.width)) {
+		text_chunk->text_bounds.width =
+			MAX (0, (text_chunk->clip_bounds.x +
+				 text_chunk->clip_bounds.width) -
+			     text_chunk->text_bounds.x);
+		text_chunk->text_bounds.isClipped = TRUE;
+	}
+	if (!BOUNDS_CONTAIN_Y (&text_chunk->text_bounds,
+			       screen_y)) {
+#ifdef CLIP_DEBUG			
+		fprintf (stderr, "%s out of bounds (%d-%d)\n", s,
+			 text_chunk->text_bounds.y,
+			 text_chunk->text_bounds.y +
+			 text_chunk->text_bounds.height);
+#endif			
+		s = NULL;
+		text_chunk->start_offset = offset;
+		text_chunk->end_offset = offset;
+	}
 	if (s && strlen (s)) {
 		if (s[strlen(s)-1] == '\n') s[strlen(s)-1] = ' ';
 		/* XXX: if last char is newline, aren't its bounds wrong now? */
 		text_chunk->string = s;
-		text_chunk->source = text;
-		if (text) AccessibleText_ref (text);
 #ifdef CLIP_DEBUG
 		fprintf (stderr, "%s, bounds %d-%d; clip %d-%d\n",
 			 s,
@@ -588,9 +587,7 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 #endif		
 	} else {
 		text_chunk->string = NULL;
-		text_chunk->source = NULL;
 	}
-	if (text) AccessibleText_unref (text);
 	return text_chunk;
 }
 
@@ -676,10 +673,12 @@ text_chunk_get_clipped_substring_by_char (TextChunk *chunk, int start, int end)
 {
 	BoundaryRect char_bounds;
 	int i;
+	char *s;
 	GString *string = g_string_new ("");
 	gunichar c;
+	AccessibleText *text = Accessible_getText (chunk->source);
 	for (i = start; i < end; ++i) {
-		AccessibleText_getCharacterExtents (chunk->source,
+		AccessibleText_getCharacterExtents (text,
 						    i,
 						    &char_bounds.x,
 						    &char_bounds.y,
@@ -695,16 +694,17 @@ text_chunk_get_clipped_substring_by_char (TextChunk *chunk, int start, int end)
 		if (BOUNDS_CONTAIN_X_BOUNDS (chunk->text_bounds,
 					     char_bounds)) {
 			c = AccessibleText_getCharacterAtOffset (
-				chunk->source, i);
+				text, i);
 #ifdef CLIP_DEBUG				
 			fprintf (stderr, "[%c]", c);
 #endif				
 			g_string_append_unichar (string, c);
 		}
 	}
-	return string->str;
-		g_string_free (string, FALSE);
-
+	AccessibleText_unref (text);
+	s = string->str;
+	g_string_free (string, FALSE);
+	return s;
 }
 
 
@@ -732,6 +732,40 @@ string_strip_newlines (char *s, long offset, long *start_offset, long *end_offse
 	return word_start;
 }
 
+static char *
+string_guess_clip (TextChunk *chunk)
+{
+	BoundaryRect b;
+	char *s = NULL, *sp = chunk->string, *ep;
+	long start_offset, end_offset, len;
+	if (sp) {
+		AccessibleComponent *component =
+			Accessible_getComponent (chunk->source);
+		ep = sp + (strlen (sp));
+		len = g_utf8_strlen (chunk->string, -1);
+		if (component) {
+			AccessibleComponent_getExtents (component,
+							&b.x, &b.y,
+							&b.width, &b.height,
+							SPI_COORD_TYPE_SCREEN);
+			/* TODO: finish this! */
+			start_offset = len * (chunk->text_bounds.x - b.x) / b.width;
+			end_offset = len * (chunk->text_bounds.x +
+					    chunk->text_bounds.width - b.x) / b.width;
+			fprintf (stderr, "String len %d, clipped to %d-%d\n",
+				 len, start_offset, end_offset);
+			len = end_offset - start_offset;
+			sp = g_utf8_offset_to_pointer (chunk->string, start_offset);
+			ep = g_utf8_offset_to_pointer (chunk->string, end_offset);
+		}
+		s = g_new0 (char, ep - sp + 1);
+		s = g_utf8_strncpy (s, sp, len);
+		s [sp - ep] = '\0';
+		g_assert (g_utf8_validate (s, -1, NULL));
+	}
+	return s;
+}
+
 static char*
 text_chunk_get_clipped_string (TextChunk *chunk)
 {
@@ -741,29 +775,30 @@ text_chunk_get_clipped_string (TextChunk *chunk)
 	long word_start, word_end, range_end;
 	BoundaryRect start_bounds, end_bounds;
 	gboolean start_inside, end_inside;
-	if (!chunk->text_bounds.isClipped)
+	if (!chunk->text_bounds.isClipped || !chunk->string)
 		string = chunk->string;
-	else if (chunk->source) {
+	else if (chunk->source && Accessible_isText (chunk->source)) {
+		/* while words at offset lie within the bounds, add them */
+		AccessibleText *text = Accessible_getText (chunk->source);
 #ifdef CLIP_DEBUG		
 		fprintf (stderr, "clipping %s\n", chunk->string);
 #endif
-		/* while words at offset lie within the bounds, add them */
 		do {
-		    s = AccessibleText_getTextAtOffset (chunk->source,
+		    s = AccessibleText_getTextAtOffset (text,
 							start,
 						SPI_TEXT_BOUNDARY_WORD_START,
 							&word_start,
 							&word_end);
 		    range_end = word_end;
 		    s = string_strip_newlines (s, start, &word_start, &word_end);
-		    AccessibleText_getCharacterExtents (chunk->source,
+		    AccessibleText_getCharacterExtents (text,
 							word_start,
 							&start_bounds.x,
 							&start_bounds.y,
 							&start_bounds.width,
 							&start_bounds.height,
 							SPI_COORD_TYPE_SCREEN);
-		    AccessibleText_getCharacterExtents (chunk->source,
+		    AccessibleText_getCharacterExtents (text,
 							word_end - 1,
 							&end_bounds.x,
 							&end_bounds.y,
@@ -790,8 +825,8 @@ text_chunk_get_clipped_string (TextChunk *chunk)
 		    start = range_end;
 		} while (start < chunk->end_offset);
 	} else { /* we're clipped, but don't implement AccessibleText :-( */
-		/* punt for now, maybe we can do betterc someday */
-		string = chunk->string;
+		/* guess for now, maybe we can do better someday */
+		string = string_guess_clip (chunk);
 	}
 	return string;
 }

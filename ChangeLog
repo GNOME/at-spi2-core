@@ -1,5 +1,16 @@
 2002-05-23  Bill Haneman  <bill.haneman@sun.com>
 
+	* text/screen-review-test.c:
+	(guess_string_clip):
+	New method which attempts a best-guess at clipping
+	text from components (like Java labels) which don't
+	actually implement AccessibleText.  This inaccurate
+	clip is based on the assumption that the label is
+	justified left-and-right, and monospaced.
+	(text_chunk_get_clipped_string):
+	We now call guess_string_clip() for text-containing
+	components that don't implement AccessibleText.
+
 	* test/screen-review-test.c:
 	(review_buffer_get_text_chunk):
 	We now pull "name" from labels if they do not implement
