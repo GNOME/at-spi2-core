@@ -1,17 +1,17 @@
 Name:		atk
-Summary:	Accessability Toolkit
+Summary:	Accessibility Toolkit
 Version:	@VERSION@
 Release:	1
 License:	LGPL
 Group:		Development/Libraries
-Source:		ftp://ftp.gimp.org/pub/gtk/v1.3/%{name}-%{version}.tar.gz
+Source:		ftp://ftp.gimp.org/pub/gtk/v2.6/%{name}-%{version}.tar.gz
 BuildRoot:	/var/tmp/%{name}-%{version}-root
 URL:		http://www.gtk.org
 Requires:	glib2 >= @GLIB_REQUIRED_VERSION@
 BuildRequires:	glib2-devel >= @GLIB_REQUIRED_VERSION@
 
 %description
-Handy library of accessability functions. Development libs and headers
+Handy library of accessibility functions. Development libs and headers
 are in atk-devel.
 
 %package devel
@@ -68,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale/*/*
 
 %changelog
+* Wed Feb 23 2005 Padraig O'Briain <padraig.obriain@sun.com>
+- Updated  version number in Source from 1.3 to 2.6.
+- Corrceted spelling of Accessibility
+
 * Fri Jun 20 2003 James T. Richardson, Jr. <james@richardsons.us>
 - Updated for atk-1.3.2
   added: {_datadir}/locale/*/*
