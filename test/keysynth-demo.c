@@ -20,6 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
@@ -313,9 +315,8 @@ button_exit(GtkButton *notused, void *alsonotused)
 }
 
 static boolean
-is_command_key (void *p)
+is_command_key (AccessibleKeystroke *key)
 {
-  AccessibleKeyStroke *key = (AccessibleKeyStroke *)p;
   switch (key->keyID)
     {
     case 'Q':
@@ -323,14 +324,14 @@ is_command_key (void *p)
 	    keysynth_exit(); 
 	    return TRUE; /* not reached */
     }
+  return FALSE;
 }
 
 static boolean
-switch_callback (void *p)
+switch_callback (AccessibleKeystroke *key)
 {
-  AccessibleKeyStroke *key = (AccessibleKeyStroke *)p;
-  static is_down = FALSE;
-  if (key->type == Accessibility_KEY_RELEASED)
+  static boolean is_down = FALSE;
+  if (key->type == SPI_KEY_RELEASED)
     {
       g_print ("spacebar up\n");
       is_down = FALSE;
@@ -376,7 +377,7 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
 static void
 create_vkbd()
 {
-  GtkWidget *window, *button, *container, *hbox;
+  GtkWidget *window, *container, *hbox;
   int i, j;
   KeyCode *keycodeptr, keycode = MIN_KEYCODE;
   static boolean true_val = True;
@@ -459,23 +460,23 @@ main(int argc, char **argv)
   AccessibleKeySet switch_set;
   
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
-  {
-    printf ("Usage: keysynth-demo\n");
-    exit(0);
-  }
+    {
+      printf ("Usage: keysynth-demo\n");
+      exit (1);
+    }
 
   gtk_init (&argc, &argv); /* must call, because this program uses GTK+ */
 
-  SPI_init();
+  SPI_init ();
 
-  key_listener = createAccessibleKeystrokeListener(is_command_key);
+  key_listener = createAccessibleKeystrokeListener (is_command_key);
   /* will listen only to Alt-key combinations */
-  registerAccessibleKeystrokeListener(key_listener,
-				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-				      SPI_KEYMASK_ALT,
-				      (unsigned long) ( KeyPress | KeyRelease),
-				      SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
-  create_vkbd();  
+  registerAccessibleKeystrokeListener (key_listener,
+				       (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+				       SPI_KEYMASK_ALT,
+				       (unsigned long) ( KeyPress | KeyRelease),
+				       SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
+  create_vkbd ();  
 
   /*
    * Register a listener on an 'unused' key, to serve as a 'single switch'.
@@ -488,12 +489,14 @@ main(int argc, char **argv)
   switch_set.len = 1;
   switch_set.keysyms[0] = (unsigned long) 0;
   switch_set.keycodes[0] = (unsigned short) 0;
-  switch_listener = createAccessibleKeystrokeListener(switch_callback);
-  registerAccessibleKeystrokeListener(switch_listener,
-				      &switch_set,
-				      SPI_KEYMASK_UNMODIFIED,
-				      (unsigned long) ( KeyPress | KeyRelease),
-				      SPI_KEYLISTENER_CANCONSUME);
+  switch_listener = createAccessibleKeystrokeListener (switch_callback);
+  registerAccessibleKeystrokeListener (switch_listener,
+				       &switch_set,
+				       SPI_KEYMASK_UNMODIFIED,
+				       (unsigned long) ( KeyPress | KeyRelease),
+				       SPI_KEYLISTENER_CANCONSUME);
   
-  SPI_event_main(TRUE);
+  SPI_event_main (TRUE);
+
+  return 0;
 }

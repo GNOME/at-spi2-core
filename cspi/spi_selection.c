@@ -12,7 +12,7 @@
 int
 AccessibleSelection_ref (AccessibleSelection *obj)
 {
-  Accessibility_Selection_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -29,7 +29,7 @@ AccessibleSelection_ref (AccessibleSelection *obj)
 int
 AccessibleSelection_unref (AccessibleSelection *obj)
 {
-  Accessibility_Selection_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -50,7 +50,7 @@ long
 AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj)
 {
   return (long)
-    Accessibility_Selection__get_nSelectedChildren (*obj, spi_ev ());
+    Accessibility_Selection__get_nSelectedChildren (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -76,11 +76,11 @@ AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long int selectedChildIndex)
 {
   Accessibility_Accessible child = 
-    Accessibility_Selection_getSelectedChild (*obj,
-					      (CORBA_long) selectedChildIndex, spi_ev ());
-  spi_warn_ev (spi_ev (), "getSelectedChild");
+    Accessibility_Selection_getSelectedChild (CSPI_OBJREF (obj),
+					      (CORBA_long) selectedChildIndex, cspi_ev ());
+  cspi_warn_ev (cspi_ev (), "getSelectedChild");
 
-  return (Accessible *) spi_object_add (child);
+  return (Accessible *) cspi_object_add (child);
 }
 
 /**
@@ -102,8 +102,8 @@ AccessibleSelection_selectChild (AccessibleSelection *obj,
                                  long int childIndex)
 {
   return (boolean)
-    Accessibility_Selection_selectChild (*obj,
-					 (CORBA_long) childIndex, spi_ev ());
+    Accessibility_Selection_selectChild (CSPI_OBJREF (obj),
+					 (CORBA_long) childIndex, cspi_ev ());
 }
 
 
@@ -127,7 +127,7 @@ AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
                                            long int selectedChildIndex)
 {
   return Accessibility_Selection_deselectSelectedChild (
-	  *obj, (CORBA_long) selectedChildIndex, spi_ev ());
+	  CSPI_OBJREF (obj), (CORBA_long) selectedChildIndex, cspi_ev ());
 }
 
 
@@ -150,8 +150,8 @@ AccessibleSelection_isChildSelected (AccessibleSelection *obj,
                                      long int childIndex)
 {
   return (boolean)
-    Accessibility_Selection_isChildSelected (*obj,
-					     (CORBA_long) childIndex, spi_ev ());
+    Accessibility_Selection_isChildSelected (CSPI_OBJREF (obj),
+					     (CORBA_long) childIndex, cspi_ev ());
 }
 
 
@@ -169,7 +169,7 @@ AccessibleSelection_isChildSelected (AccessibleSelection *obj,
 boolean
 AccessibleSelection_selectAll (AccessibleSelection *obj)
 {
-  Accessibility_Selection_selectAll (*obj, spi_ev ());
+  Accessibility_Selection_selectAll (CSPI_OBJREF (obj), cspi_ev ());
   return TRUE; /* TODO: change the bonobo method to return boolean */
 }
 
@@ -186,7 +186,7 @@ AccessibleSelection_selectAll (AccessibleSelection *obj)
 void
 AccessibleSelection_clearSelection (AccessibleSelection *obj)
 {
-  Accessibility_Selection_clearSelection (*obj, spi_ev ());
+  Accessibility_Selection_clearSelection (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 

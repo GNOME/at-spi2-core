@@ -57,12 +57,6 @@ typedef enum {
   SPI_COORD_TYPE_WINDOW
 } AccessibleCoordType;
 
-/* XXX: must be single bits since they are used as masks in keylistener API */
-typedef enum {
-  SPI_KEY_PRESSED = 1,
-  SPI_KEY_RELEASED = 2
-} AccessibleKeyEventType;
-
 typedef enum {
   SPI_KEY_PRESS,
   SPI_KEY_RELEASE, 
@@ -79,14 +73,6 @@ typedef enum {
 
 typedef unsigned long AccessibleKeyEventMask;
 
-typedef struct _AccessibleKeyStroke
-{
-	long keyID;
-	short keycode;
-	long timestamp;
-	AccessibleKeyEventType type;
-	unsigned short modifiers;
-} AccessibleKeyStroke;
 
 /**
  * AccessibleKeySet:

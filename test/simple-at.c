@@ -21,15 +21,18 @@
  */
 
 #include <stdlib.h>
+#include <ctype.h>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include "spi.h"
+#include <cspi/spi.h>
+#include "../util/mag_client.h"
 
-static void report_focus_event (void *fp);
-static void report_button_press (void *fp);
-static boolean report_command_key_event (void *fp);
-static boolean report_ordinary_key_event (void *fp);
-static void check_property_change (void *fp);
+static void report_focus_event    (AccessibleEvent *event);
+static void report_button_press   (AccessibleEvent *event);
+static void check_property_change (AccessibleEvent *event);
+static boolean report_command_key_event  (AccessibleKeystroke *stroke);
+static boolean report_ordinary_key_event (AccessibleKeystroke *stroke);
 static void get_environment_vars (void);
 
 static int _festival_init ();
@@ -83,11 +86,12 @@ main(int argc, char **argv)
           fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
 	  Accessible_unref (application);
         }
+      Accessible_unref (desktop);
     }
 
   /* prepare the keyboard snoopers */
-  command_key_listener = createAccessibleKeystrokeListener(report_command_key_event);
-  ordinary_key_listener = createAccessibleKeystrokeListener(report_ordinary_key_event);
+  command_key_listener = createAccessibleKeystrokeListener (report_command_key_event);
+  ordinary_key_listener = createAccessibleKeystrokeListener (report_ordinary_key_event);
   
   /* will listen only to Alt-key combinations, and only to KeyPress events */
   registerAccessibleKeystrokeListener(command_key_listener,
@@ -167,7 +171,7 @@ report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
      long start_offset, end_offset;
      char *first_sentence = "empty";
      text_interface = Accessible_getText (obj);
-     fprintf (stderr, "isText...%p %p\n", text_interface, (void *)*text_interface);
+     fprintf (stderr, "isText...%p\n", text_interface);
      first_sentence = AccessibleText_getTextAtOffset (
 	       text_interface, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
      if (first_sentence) _festival_say(first_sentence, "voice_don_diphone", FALSE);
@@ -176,44 +180,41 @@ report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
 }
 
 void
-report_focus_event (void *p)
+report_focus_event (AccessibleEvent *event)
 {
-  AccessibleEvent *ev = (AccessibleEvent *) p;
-  fprintf (stderr, "%s event from %s\n", ev->type,
-           Accessible_getName (&ev->source));
-  report_focussed_accessible (&ev->source, TRUE);
+  fprintf (stderr, "%s event from %s\n", event->type,
+           Accessible_getName (event->source));
+  report_focussed_accessible (event->source, TRUE);
 }
 
 void
-report_button_press (void *p)
+report_button_press (AccessibleEvent *event)
 {
-  AccessibleEvent *ev = (AccessibleEvent *) p;
-  fprintf (stderr, "%s event from %s\n", ev->type,
-           Accessible_getName (&ev->source));
+  fprintf (stderr, "%s event from %s\n", event->type,
+           Accessible_getName (event->source));
   fprintf (stderr, "Object description %s\n",
-           Accessible_getDescription (&ev->source));
+           Accessible_getDescription (event->source));
 }
 
 
 void
-check_property_change (void *p)
+check_property_change (AccessibleEvent *event)
 {
-  AccessibleEvent *ev = (AccessibleEvent *) p;
-  AccessibleSelection *selection = Accessible_getSelection (&ev->source);
+  AccessibleSelection *selection = Accessible_getSelection (event->source);
   int n_selections;
   int i;
   if (selection)
   {
     n_selections = (int) AccessibleSelection_getNSelectedChildren (selection);
-    fprintf (stderr, "(Property) %s event from %s, %d selected children\n", ev->type,
-           Accessible_getName (&ev->source), n_selections);
+    fprintf (stderr, "(Property) %s event from %s, %d selected children\n",
+	     event->type, Accessible_getName (event->source), n_selections);
   /* for now, speak entire selection set */
     for (i=0; i<n_selections; ++i)
-    {
-	  Accessible *obj = AccessibleSelection_getSelectedChild (selection, (long) i);
-	  g_return_if_fail (obj);
-          fprintf (stderr, "Child %d, name=%s\n", i, Accessible_getName (obj));
-	  report_focussed_accessible (obj, i==0);
+      {
+        Accessible *obj = AccessibleSelection_getSelectedChild (selection, (long) i);
+	g_return_if_fail (obj);
+	fprintf (stderr, "Child %d, name=%s\n", i, Accessible_getName (obj));
+	report_focussed_accessible (obj, i==0);
     }
   }
 }
@@ -224,15 +225,18 @@ simple_at_exit()
   deregisterGlobalEventListenerAll (focus_listener);
   deregisterGlobalEventListenerAll (property_listener);
   deregisterGlobalEventListenerAll (button_listener);
+
   deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT );
   deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED );
   deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT );
+  AccessibleKeystrokeListener_unref (command_key_listener);
+  AccessibleKeystrokeListener_unref (ordinary_key_listener);
   
   SPI_exit ();
 }
 
 static boolean
-is_command_key (AccessibleKeyStroke *key)
+is_command_key (AccessibleKeystroke *key)
 {
   switch (key->keyID)
     {
@@ -254,9 +258,8 @@ is_command_key (AccessibleKeyStroke *key)
 }
 
 static boolean
-report_command_key_event (void *p)
+report_command_key_event (AccessibleKeystroke *key)
 {
-  AccessibleKeyStroke *key = (AccessibleKeyStroke *) p;
   fprintf (stderr, "Command KeyEvent %s%c (keycode %d)\n",
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
 	  ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
@@ -267,14 +270,14 @@ report_command_key_event (void *p)
 
 
 static boolean
-report_ordinary_key_event (void *p)
+report_ordinary_key_event (AccessibleKeystroke *key)
 {
-  AccessibleKeyStroke *key = (AccessibleKeyStroke *) p;
   fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
 	   (long) key->keyID,
 	   (unsigned int) key->modifiers,
 	   (int) key->keycode,
 	   (long int) key->timestamp);
+  return FALSE;
 }
 
 static int _festival_init ()

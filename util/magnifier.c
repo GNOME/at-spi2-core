@@ -1,6 +1,6 @@
 #include <popt.h>
 #include <gdk/gdkwindow.h>
-#include <bonobo/Bonobo.h>
+#include <libbonobo.h>
 #include "magnifier.h"
 #include "mag_image.h"
 

@@ -12,7 +12,7 @@
 int
 AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -30,7 +30,7 @@ AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 int
 AccessibleHyperlink_unref (AccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_unref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -51,7 +51,7 @@ long
 AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
 {
   return (long)
-    Accessibility_Hyperlink__get_nAnchors (*obj, spi_ev ());
+    Accessibility_Hyperlink__get_nAnchors (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -70,8 +70,8 @@ AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
                             long int i)
 {
   return (char *)
-    Accessibility_Hyperlink_getURI (*obj,
-				    (CORBA_long) i, spi_ev ());
+    Accessibility_Hyperlink_getURI (CSPI_OBJREF (obj),
+				    (CORBA_long) i, cspi_ev ());
 }
 
 /**
@@ -89,9 +89,9 @@ Accessible*
 AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
                                long int i)
 {
-  return spi_object_add (
-    Accessibility_Hyperlink_getObject (*obj,
-				       (CORBA_long) i, spi_ev ()));
+  return cspi_object_add (
+    Accessibility_Hyperlink_getObject (CSPI_OBJREF (obj),
+				       (CORBA_long) i, cspi_ev ()));
 }
 
 /**
@@ -113,9 +113,9 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long int *endIndex)
 {
   *startIndex = (long)
-    Accessibility_Hyperlink__get_startIndex (*obj, spi_ev ());
+    Accessibility_Hyperlink__get_startIndex (CSPI_OBJREF (obj), cspi_ev ());
   *endIndex = (long)
-    Accessibility_Hyperlink__get_endIndex (*obj, spi_ev ());
+    Accessibility_Hyperlink__get_endIndex (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -135,7 +135,7 @@ boolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
 {
   return (boolean)
-    Accessibility_Hyperlink_isValid (*obj, spi_ev ());
+    Accessibility_Hyperlink_isValid (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 

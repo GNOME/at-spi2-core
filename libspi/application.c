@@ -70,6 +70,7 @@ static void
 spi_accessible_application_finalize (GObject *object)
 {
   /* TODO: any necessary cleanup */
+  g_print ("application finalize called\n");
   (G_OBJECT_CLASS (spi_application_parent_class))->finalize (object);
 }
 
@@ -341,6 +342,7 @@ SpiApplication *
 spi_application_new (AtkObject *app_root)
 {
     SpiApplication *retval = g_object_new (SPI_APPLICATION_TYPE, NULL);
+    g_object_unref (retval->parent.atko);
     retval->parent.atko = app_root;
     g_object_ref (G_OBJECT (app_root));
     return retval;

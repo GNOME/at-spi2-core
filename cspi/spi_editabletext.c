@@ -14,7 +14,7 @@
 int
 AccessibleEditableText_ref (AccessibleEditableText *obj)
 {
-  Accessibility_EditableText_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -34,7 +34,7 @@ AccessibleEditableText_ref (AccessibleEditableText *obj)
 int
 AccessibleEditableText_unref (AccessibleEditableText *obj)
 {
-  Accessibility_EditableText_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -61,10 +61,10 @@ AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
 				      long int endPos)
 {
   return (boolean)
-    Accessibility_EditableText_setAttributes (*obj,
+    Accessibility_EditableText_setAttributes (CSPI_OBJREF (obj),
 					      (CORBA_char *) attributes,
 					      (CORBA_long) startPos,
-					      (CORBA_long) endPos, spi_ev ());
+					      (CORBA_long) endPos, cspi_ev ());
 }
 
 
@@ -84,8 +84,8 @@ boolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents)
 {
-  Accessibility_EditableText_setTextContents (*obj,
-					      (CORBA_char *) newContents, spi_ev ());
+  Accessibility_EditableText_setTextContents (CSPI_OBJREF (obj),
+					      (CORBA_char *) newContents, cspi_ev ());
   return TRUE; /* TODO: make bonobo method return a boolean */
 }
 
@@ -113,9 +113,9 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    char *text,
                                    long int length)
 {
-  Accessibility_EditableText_insertText (*obj,
+  Accessibility_EditableText_insertText (CSPI_OBJREF (obj),
 					 (CORBA_long) position, (CORBA_char *) text,
-					 (CORBA_long) length, spi_ev ());
+					 (CORBA_long) length, cspi_ev ());
   return TRUE;
 }
 
@@ -141,8 +141,8 @@ AccessibleEditableText_copyText (AccessibleText *obj,
                                  long int startPos,
                                  long int endPos)
 {
-  Accessibility_EditableText_copyText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, spi_ev ());
+  Accessibility_EditableText_copyText (CSPI_OBJREF (obj),
+				       (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
   return TRUE;
 }
 
@@ -168,8 +168,8 @@ AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long int startPos,
                                 long int endPos)
 {
-  Accessibility_EditableText_cutText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, spi_ev ());
+  Accessibility_EditableText_cutText (CSPI_OBJREF (obj),
+				       (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
   return TRUE;
 }
 
@@ -196,8 +196,8 @@ AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long startPos,
                                    long endPos)
 {
-  Accessibility_EditableText_deleteText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, spi_ev ());
+  Accessibility_EditableText_deleteText (CSPI_OBJREF (obj),
+				       (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
   return TRUE;
 }
 
@@ -221,8 +221,8 @@ boolean
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long int position)
 {
-  Accessibility_EditableText_pasteText (*obj,
-					(CORBA_long) position, spi_ev ());
+  Accessibility_EditableText_pasteText (CSPI_OBJREF (obj),
+					(CORBA_long) position, cspi_ev ());
   return TRUE;
 }
 

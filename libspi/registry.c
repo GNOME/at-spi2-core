@@ -79,18 +79,31 @@ static long _get_unique_id();
 
 static gboolean _device_event_controller_hook (gpointer source);
 
-/*
- * Implemented GObject::finalize
- */
+SpiListenerStruct *
+spi_listener_struct_new (Accessibility_EventListener *listener, CORBA_Environment *ev)
+{
+  SpiListenerStruct *retval = g_malloc (sizeof (SpiListenerStruct));
+  retval->listener = bonobo_object_dup_ref (listener, ev);
+  return retval;
+}
+
+void
+spi_listener_struct_free (SpiListenerStruct *ls, CORBA_Environment *ev)
+{
+  /* TODO: sanity check for ls */
+  Accessibility_EventListener_unref (ls->listener, ev);
+  g_free (ls);
+}
+
+/* GObject::finalize */
 static void
 spi_registry_object_finalize (GObject *object)
 {
-/*        SpiRegistry *registry = SPI_REGISTRY (object); */
-        GObjectClass *object_class = G_OBJECT_GET_CLASS( object);
+        SpiRegistry *registry = SPI_REGISTRY (object);
 
         printf("spi_registry_object_finalize called\n");
-
-        object_class->finalize (object);
+	/* TODO: unref deviceeventcontroller, which disconnects key listener */
+        G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
 }
 
 /**
@@ -297,7 +310,7 @@ impl_accessibility_registry_register_global_event_listener (
                                              CORBA_Environment      *ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  SpiListenerStruct *ls = g_malloc (sizeof (SpiListenerStruct));
+  SpiListenerStruct *ls = spi_listener_struct_new (listener, ev);
   EventTypeStruct etype;
 
   fprintf(stderr, "registering for events of type %s\n", event_name);
@@ -312,20 +325,20 @@ impl_accessibility_registry_register_global_event_listener (
     case (ETYPE_FOCUS) :
     case (ETYPE_OBJECT) :
     case (ETYPE_PROPERTY) :
-      ls->listener = CORBA_Object_duplicate (listener, ev);
       registry->object_listeners =
         g_list_append (registry->object_listeners, ls);
       break;
     case (ETYPE_WINDOW) :
       /* Support for Window Manager Events is not yet implemented */
+      spi_listener_struct_free (ls, ev);
       break;
     case (ETYPE_TOOLKIT) :
-      ls->listener = CORBA_Object_duplicate (listener, ev);
       registry->toolkit_listeners =
         g_list_append (registry->toolkit_listeners, ls);
       register_with_toolkits (registry, &etype, ev);
       break;
     default:
+      spi_listener_struct_free (ls, ev);
       break;
     }
 }
@@ -340,9 +353,8 @@ impl_accessibility_registry_deregister_global_event_listener_all (
                                                     CORBA_Environment      *ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  SpiListenerStruct *ls = g_malloc (sizeof (SpiListenerStruct));
+  SpiListenerStruct *spi_listener_struct, *ls = spi_listener_struct_new (listener, ev);
   GList *list;
-  ls->listener = listener;  
   list = g_list_find_custom (registry->object_listeners, ls,
 			     compare_listener_corbaref);
 
@@ -353,17 +365,18 @@ impl_accessibility_registry_deregister_global_event_listener_all (
 
   while (list)
     {
-      fprintf (stderr, "deregistering listener\n");
+      spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
       registry->object_listeners = g_list_delete_link (registry->object_listeners, list);
       list = g_list_find_custom (registry->object_listeners, ls, compare_listener_corbaref);
     }
   list = g_list_find_custom (registry->toolkit_listeners, ls, compare_listener_corbaref);
   while (list)
     {
-      fprintf (stderr, "deregistering listener\n");
+      spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
       registry->toolkit_listeners = g_list_delete_link (registry->toolkit_listeners, list);
       list = g_list_find_custom (registry->toolkit_listeners, ls, compare_listener_corbaref);
     }
+  spi_listener_struct_free (ls, ev);
 }
 
 /*
@@ -377,7 +390,7 @@ impl_accessibility_registry_deregister_global_event_listener (
                                                     CORBA_Environment      *ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  SpiListenerStruct ls;
+  SpiListenerStruct ls, *spi_listener_struct;
   EventTypeStruct etype;
   GList *list;
   GList **listeners;
@@ -409,7 +422,7 @@ impl_accessibility_registry_deregister_global_event_listener (
 
   while (list)
     {
-      fprintf (stderr, "deregistering listener\n");
+      spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
       *listeners = g_list_delete_link (*listeners, list);
       list = g_list_find_custom (*listeners, &ls, compare_listener_hash);
     }
@@ -453,7 +466,7 @@ impl_accessibility_registry_get_desktop (PortableServer_Servant servant,
   if (n == 0)
     {
       return (Accessibility_Desktop)
-        CORBA_Object_duplicate (BONOBO_OBJREF (registry->desktop), ev);
+        bonobo_object_dup_ref (BONOBO_OBJREF (registry->desktop), ev);
     }
   else
     {
@@ -485,7 +498,7 @@ impl_accessibility_registry_get_device_event_controller (PortableServer_Servant 
   if (!registry->device_event_controller)
     registry->device_event_controller = spi_device_event_controller_new (registry);
 
-  return CORBA_Object_duplicate (BONOBO_OBJREF (registry->device_event_controller), ev);
+  return bonobo_object_dup_ref (BONOBO_OBJREF (registry->device_event_controller), ev);
 }
 
 static void
@@ -525,6 +538,8 @@ _get_unique_id ()
   return ++id;
 }
 
+#define SPI_DEBUG
+
 static void
 _registry_notify_listeners (GList *listeners,
                             const Accessibility_Event *e_in,
@@ -554,8 +569,7 @@ _registry_notify_listeners (GList *listeners,
           fprintf(stderr, "event source name %s\n", Accessibility_Accessible__get_name(e_in->source, ev));
 #endif
 	  e_out = ORBit_copy_value (e_in, TC_Accessibility_Event);
-	  e_out->source = CORBA_Object_duplicate (e_in->source, ev);
-          Accessibility_Accessible_ref ( e_out->source, ev);
+	  e_out->source = bonobo_object_dup_ref (e_in->source, ev);
           Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
                                                    e_out,
                                                    ev);

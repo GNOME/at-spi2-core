@@ -40,12 +40,10 @@ spi_accessible_object_finalize (GObject *object)
 {
         SpiAccessible *accessible = SPI_ACCESSIBLE (object);
 
-        printf("spi_accessible_object_finalize called\n");
 	ATK_OBJECT (accessible->atko); /* assertion */
         g_object_unref (G_OBJECT(accessible->atko));
         accessible->atko = NULL;
 
-        printf("atko freed, calling parent finalize\n");
         spi_accessible_parent_class->finalize (object);
 }
 
@@ -125,9 +123,7 @@ impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
   parent = atk_object_get_parent (accessible->atko);
   retval = BONOBO_OBJREF (spi_accessible_new (parent));
 
-  printf ("SpiAccessible get_parent called\n");
-
-  return CORBA_Object_duplicate (retval, ev);
+  return bonobo_object_dup_ref (retval, ev);
 }
 
 /*
@@ -170,8 +166,7 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
   SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
   AtkObject *child = atk_object_ref_accessible_child (accessible->atko, (gint) index);
   retval = BONOBO_OBJREF (spi_accessible_new (child));
-  printf ("SpiAccessible get_child_at_index called.\n");
-  return CORBA_Object_duplicate (retval, ev);
+  return bonobo_object_dup_ref (retval, ev);
 }
 
 /*
@@ -209,7 +204,7 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
   for (i=0; i<n_relations; ++i)
     {
       retval->_buffer[i] =
-	      CORBA_Object_duplicate (bonobo_object_corba_objref (
+	      bonobo_object_dup_ref (bonobo_object_corba_objref (
 		      BONOBO_OBJECT (spi_relation_new (atk_relation_set_get_relation (relation_set, i)))),
 				      ev);
     }

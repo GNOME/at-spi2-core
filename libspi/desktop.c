@@ -41,6 +41,12 @@ spi_desktop_init (SpiDesktop  *desktop)
   atk_object_set_name (ATK_OBJECT (SPI_ACCESSIBLE (desktop)->atko), "main");
 }
 
+static void
+spi_desktop_finalize (GObject *object)
+{
+  (G_OBJECT_CLASS (parent_class))->finalize (object); 
+}
+
 static CORBA_long
 impl_desktop_get_child_count (PortableServer_Servant servant,
                               CORBA_Environment * ev)
@@ -69,7 +75,7 @@ impl_desktop_get_child_at_index (PortableServer_Servant servant,
       /* */
       fprintf (stderr, "object address %p\n",
                g_list_nth_data (desktop->applications, index));
-      retval =  CORBA_Object_duplicate (
+      retval =  bonobo_object_dup_ref (
               (CORBA_Object) g_list_nth_data (desktop->applications, index), ev);
     }
   else
@@ -83,8 +89,11 @@ impl_desktop_get_child_at_index (PortableServer_Servant servant,
 static void
 spi_desktop_class_init (SpiDesktopClass  *klass)
 {
+        GObjectClass * object_class = (GObjectClass *) klass;
         SpiAccessibleClass * spi_accessible_class = (SpiAccessibleClass *) klass;
         POA_Accessibility_Accessible__epv *epv = &spi_accessible_class->epv;
+
+        object_class->finalize = spi_desktop_finalize;
 
         parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
 

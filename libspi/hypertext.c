@@ -34,9 +34,6 @@ static GObjectClass *parent_class;
 static void
 spi_hypertext_finalize (GObject *obj)
 {
-  SpiHypertext *hypertext = SPI_HYPERTEXT(obj);
-  g_object_unref (hypertext->atko);
-  hypertext->atko = NULL;
   parent_class->finalize (obj);
 }
 
@@ -44,7 +41,7 @@ SpiHypertext *
 spi_hypertext_interface_new (AtkObject *obj)
 {
   SpiHypertext *new_hypertext = g_object_new (SPI_HYPERTEXT_TYPE, NULL);
-  new_hypertext->atko = obj;
+  (SPI_TEXT (new_hypertext))->atko = obj;
   g_object_ref (obj);
   return new_hypertext;
 }
@@ -55,9 +52,9 @@ static CORBA_long
 impl_getNLinks (PortableServer_Servant _servant,
 		CORBA_Environment * ev)
 {
-  SpiHypertext *hypertext = SPI_HYPERTEXT(bonobo_object_from_servant(_servant));
+  SpiHypertext *hypertext = SPI_HYPERTEXT (bonobo_object_from_servant(_servant));
   return (CORBA_long)
-    atk_hypertext_get_n_links (ATK_HYPERTEXT(hypertext->atko));
+    atk_hypertext_get_n_links (ATK_HYPERTEXT ((SPI_TEXT (hypertext))->atko));
 }
 
 
@@ -74,7 +71,7 @@ impl_getLink (PortableServer_Servant servant,
   hypertext = SPI_HYPERTEXT (bonobo_object_from_servant (servant));
 
   link = atk_hypertext_get_link (
-	  ATK_HYPERTEXT (hypertext->atko), linkIndex);
+	  ATK_HYPERTEXT ((SPI_TEXT (hypertext))->atko), linkIndex);
 
   rv = bonobo_object_corba_objref (BONOBO_OBJECT (
 	  spi_hyperlink_new (ATK_OBJECT (link))));
@@ -91,7 +88,7 @@ impl_getLinkIndex (PortableServer_Servant _servant,
 {
   SpiHypertext *hypertext = SPI_HYPERTEXT(bonobo_object_from_servant(_servant));
   return (CORBA_long)
-    atk_hypertext_get_link_index (ATK_HYPERTEXT(hypertext->atko),
+    atk_hypertext_get_link_index (ATK_HYPERTEXT ((SPI_TEXT (hypertext))->atko),
 				  (gint) characterIndex);
 }
 

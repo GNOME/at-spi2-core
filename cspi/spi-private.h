@@ -1,20 +1,32 @@
-#ifndef __SPI_PRIVATE_H__
-#define __SPI_PRIVATE_H__
+#ifndef _SPI_PRIVATE_H_
+#define _SPI_PRIVATE_H_
 
+/*
+ * Private internal implementation details of at-spi.
+ */
+
+#include <libbonobo.h>
+#include <libspi/Accessibility.h>
 #include <cspi/spi.h>
+#include "cspi/spi-listener.h"
 
-G_BEGIN_DECLS
+struct _Accessible {
+	CORBA_Object objref;
+	/* And some other bits */
+	guint        ref_count;
+};
 
-CORBA_Environment      *spi_ev         (void);
-AccessibilityRegistry   spi_registry   (void);
+#define CSPI_OBJREF(a) (((Accessible *)(a))->objref)
 
-boolean                 spi_exception  (void);
+CORBA_Environment     *cspi_ev           (void);
+boolean                cspi_exception    (void);
+Accessibility_Registry cspi_registry     (void);
+Accessible            *cspi_object_add   (CORBA_Object         corba_object);
+void                   cspi_object_ref   (Accessible          *accessible);
+void                   cspi_object_unref (Accessible          *accessible);
+boolean                cspi_warn_ev      (CORBA_Environment   *ev,
+					  const char          *error_string);
+void                   cspi_check_ev     (CORBA_Environment   *ev,
+					  const char          *error_string);
 
-Accessible             *spi_object_add (Accessible corba_object);
-
-int                     SPI_init (void);
-void                    SPI_exit (void);
-
-G_END_DECLS
-
-#endif /* __SPI_PRIVATE_H__ */
+#endif /* _SPI_PRIVATE_H_ */

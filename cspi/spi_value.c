@@ -12,7 +12,7 @@
 int
 AccessibleValue_ref (AccessibleValue *obj)
 {
-  Accessibility_Value_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -30,7 +30,7 @@ AccessibleValue_ref (AccessibleValue *obj)
 int
 AccessibleValue_unref (AccessibleValue *obj)
 {
-  Accessibility_Value_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -49,7 +49,7 @@ float
 AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
   return (float)
-    Accessibility_Value__get_minimumValue (*obj, spi_ev ());
+    Accessibility_Value__get_minimumValue (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -67,7 +67,7 @@ float
 AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
   return (float)
-    Accessibility_Value__get_currentValue (*obj, spi_ev ());
+    Accessibility_Value__get_currentValue (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -85,7 +85,7 @@ float
 AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
   return (float)
-    Accessibility_Value__get_maximumValue (*obj, spi_ev ());
+    Accessibility_Value__get_maximumValue (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -105,8 +105,8 @@ boolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {
-  Accessibility_Value__set_currentValue (*obj,
-					 (CORBA_float) newValue, spi_ev ());
+  Accessibility_Value__set_currentValue (CSPI_OBJREF (obj),
+					 (CORBA_float) newValue, cspi_ev ());
   return TRUE;
 }
 

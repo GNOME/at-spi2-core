@@ -23,6 +23,7 @@
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+#include <libspi/text.h>
 
 G_BEGIN_DECLS
 
@@ -36,8 +37,7 @@ typedef struct _Hypertext SpiHypertext;
 typedef struct _HypertextClass SpiHypertextClass;
 
 struct _Hypertext {
-  BonoboObject parent;
-  AtkObject *atko;
+  SpiText parent;
 };
 
 struct _HypertextClass {

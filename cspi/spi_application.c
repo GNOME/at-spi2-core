@@ -18,7 +18,7 @@
 int
 AccessibleApplication_ref (AccessibleApplication *obj)
 {
-  Accessibility_Application_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -34,7 +34,7 @@ AccessibleApplication_ref (AccessibleApplication *obj)
 int
 AccessibleApplication_unref (AccessibleApplication *obj)
 {
-  Accessibility_Application_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -51,7 +51,7 @@ AccessibleApplication_unref (AccessibleApplication *obj)
 char *
 AccessibleApplication_getToolkitName (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_toolkitName (*obj, spi_ev ());
+  return Accessibility_Application__get_toolkitName (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 /**
@@ -68,7 +68,7 @@ AccessibleApplication_getToolkitName (AccessibleApplication *obj)
 char *
 AccessibleApplication_getVersion (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_version (*obj, spi_ev ());
+  return Accessibility_Application__get_version (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 /**
@@ -85,7 +85,7 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
 long
 AccessibleApplication_getID (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_id (*obj, spi_ev ());
+  return Accessibility_Application__get_id (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 /**

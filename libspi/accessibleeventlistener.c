@@ -34,15 +34,24 @@
 /* A pointer to our parent object class */
 static SpiListenerClass *spi_event_listener_parent_class;
 
+enum {
+	EVENT,
+	LAST_SIGNAL
+};
+static guint signals [LAST_SIGNAL];
+
 /*
  * Implemented GObject::finalize
  */
 static void
 spi_event_listener_object_finalize (GObject *object)
 {
+	SpiEventListener *listener = SPI_ACCESSIBLE_EVENT_SPI_LISTENER (object);
 #ifdef SPI_DEBUG
         fprintf(stderr, "spi_listener_object_finalize called\n");
 #endif
+	g_list_free (listener->callbacks);
+
         ((GObjectClass *) spi_event_listener_parent_class)->finalize (object);
 }
 
@@ -55,22 +64,21 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
                                     const Accessibility_Event *e,
                                     CORBA_Environment         *ev)
 {
-  int n;
-  int len;
+  GList *l;
   VoidSpiEventListenerCB cb;
   SpiEventListener *listener = SPI_ACCESSIBLE_EVENT_SPI_LISTENER (
                                        bonobo_object_from_servant (servant));
-  len = g_list_length (listener->callbacks);
 
-  for (n=0; n<len; ++n)
+  for (l = listener->callbacks; l; l = l->next)
     {
-      cb =  (VoidSpiEventListenerCB) g_list_nth_data (listener->callbacks, n);
+      cb = (VoidSpiEventListenerCB) l->data;
       if (cb)
         {
           (*cb) (e);
         }
     }
-  /* Accessibility_Accessible_unref (e->source, ev); */
+
+  g_signal_emit (G_OBJECT (listener), signals [EVENT], 0, e); 
 }
 
 static void
@@ -80,6 +88,15 @@ spi_event_listener_class_init (SpiEventListenerClass *klass)
         SpiListenerClass * spi_listener_class = (SpiListenerClass *) klass;
         POA_Accessibility_EventListener__epv *epv = &spi_listener_class->epv;
         spi_event_listener_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
+
+	signals [EVENT] = g_signal_new (
+		"event",
+		G_TYPE_FROM_CLASS (klass),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (SpiEventListenerClass, event),
+		NULL, NULL,
+		g_cclosure_marshal_VOID__POINTER,
+		G_TYPE_NONE, 1, G_TYPE_POINTER);
 
         object_class->finalize = spi_event_listener_object_finalize;
 
@@ -108,7 +125,7 @@ void
 spi_event_listener_add_callback (SpiEventListener *listener,
 				 VoidSpiEventListenerCB callback)
 {
-  listener->callbacks = g_list_append (listener->callbacks, callback);
+  listener->callbacks = g_list_prepend (listener->callbacks, callback);
 }
 
 void

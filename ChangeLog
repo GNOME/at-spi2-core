@@ -1,3 +1,158 @@
+2001-11-28  Bill Haneman  <bill.haneman@sun.com>
+
+	Merged Michael's branch (see his ChangeLog entries below).
+	
+	* at-bridge/bridge.c: Explicitly hold a ref to the registry while
+	bridge is alive, release on exit.
+	
+	* cspi/spi-listener-impl.c (cspi_event_listener_add_callback):
+	Fix type check macro.
+	
+	* cspi/spi_event.c:
+	Added AccessibleKeystrokeListener_unref() method to reduce leakage.
+	
+	* cspi/spi_main.c: 
+	Added is_gnome_app static, and method cspi_is_gnome_app(), 
+	so we can call the appropriate shutdown routine at exit in SPI_exit.
+	
+	* cspi/spi_main.c (cspi_object_ref):
+	Duplicate the corba object passed in, since we're keeping it around.
+	
+	* cspi/SPI_exit.c, cspi_cleanup:
+	Moved the releasing of the live refs to its own function, so we
+	can put it in g_atexit ().  Call the appropriate shutdown API
+	depending on whethe calling client is a gnome app or not
+	(bonobo_main_quit or CORBA_ORB_shutdown).
+	
+	* cspi/spi_registry.c (deregisterGlobalEventListenerAll):
+	Unref the listener when this method is called, after
+	deregistration.  Updated the API docs to note this behavior.
+
+	* libspi/accessible.c (impl_get_parent, impl_get_child_at_index):
+	Bugfixes: Ref the bonobo object when returning a parent or child 
+	reference, or an AccessibleRelation.  Generally made sure
+	BonoboObject refcount is incremented whenever we return an
+	Accessible.
+
+	* libspi/accessibleeventlistener.c (spi_event_listener_class_init):
+	Fixed typo/bug in signal declaration.
+	
+	* libspi/accessibleeventlistener.h:
+	Fixed a type macro.
+
+	* libspi/application.c (spi_application_new):
+	Fixed leak in initialization.
+
+	* libspi/desktop.c:
+	Remembered to increment bonobo-object refcount when returning
+	children (applications) from desktop object.
+	Added (empty) finalize method.
+
+	* libspi/deviceeventcontroller.c:
+	Hold a ref to listeners inside DEControllerKeyListeners.
+	Added dec_key_listener_free() method.  Use prepend instead of
+	append in key_listener list.  Fixed some refcount madness and
+	leaks in the listener registration/deregistration - deregistration
+	now calls dec_key_listener_free() on listeners, and on the
+	temporarily constructed dec_key_listener() used to perform the search/match.
+
+	* libspi/hypertext.c (spi_hypertest_finalize):
+	Fixed 'double unref' of AtkObject held by parent SpiAccessibleText
+	class.  Also fixed spi_hypertext_interface_new() and
+	SpiHypertextClass.  Fixed a couple of paren-whitespace formatting bugs.
+
+	* libspi/hypertext.h: 
+	Removed pointless and duplicate AtkObject pointer from
+	SpiHypertextClass.
+
+	* libspi/keystrokelistener.c:
+	Fixed incorrect type of keystroke_listener_parent_class,
+	renamed keystroke_listener_object_finalize to
+	spi_keystroke_listener_object_finalize.
+	Fixed typo in signal declaration
+	(spi_keystroke_listener_class_init).
+
+	* libspi/registry.c:
+	Added funcsions spi_listener_struct_new() and
+	spi_listener_struct_free() to help with memory management issues.
+	We also now use these methods instead of gnew + poking stuff into
+	the struct, and to decrement listener counts/free the listeners
+	when deregistering them.
+	Fix more refcount bugs in getDesktop() and
+	getDeviceEventController().  
+
+	* test/simple-at.c:
+	De-ref the desktop after enumerating the applications.  Explicitly
+	decrement the refcounts on the created listeners on exit (using
+	_unref for keystroke listeners, and via the
+	deregisterGlobalEventListenerAll command for other event
+	listeners).
+	
+2001-11-27  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi-listener.h: fixup enum.
+
+2001-11-27  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi-listener-impl.c (cspi_event_listener_new),
+	(cspi_keystroke_listener_new): Use the cspi variants.
+
+2001-11-26  Michael Meeks  <michael@ximian.com>
+
+	* test/keysynth-demo.c: fix 2 compile warnings, missing
+	type in decl. etc.
+
+	* test/simple-at.c (report_focussed_accessible),
+	(report_focus_event, report_button_press),
+	(check_property_change, is_command_key),
+	(report_ordinary_key_event, report_command_key_event): upd.
+
+	* util/mag_client.h: include pre-requisites.
+
+	* libspi/accessibleeventlistener.c
+	(spi_event_listener_object_finalize): free any lingering
+	callbacks.
+	
+	* libspi/keystrokelistener.c
+	(keystroke_listener_object_finalize): ditto.
+
+	* cspi/spi-listener-impl.[ch]: Add to implement cspi style
+	callbacks, with cspi types.
+	
+	* cspi/spi_event.c (createAccessibleEventListener): chain to
+	(AccessibleEventListener_addCallback): here.
+	(createAccessibleKeystrokeListener): chain to 
+	(AccessibleKeystrokeListener_addCallback): here.
+
+	* libspi/keystrokelistener.c
+	(spi_keystroke_listener_class_init): add signal.
+	(impl_key_event): emit the event.
+	(boolean_handled_accumulator): impl.
+	(marshal_BOOLEAN__POINTER): add, gack.
+
+	* libspi/accessibleeventlistener.c
+	(spi_event_listener_class_init): add signal.
+	(impl_accessible_event_notify_event): emit the signal &
+	make the loop efficient.
+	(spi_event_listener_add_callback): prepend the callback.
+
+	* libspi/accessibleeventlistener.h: add an 'event' signal,
+	decl type on callback.
+
+	* libspi/keystrokelistener.h: ditto.
+
+	* cspi/spi-listener.h: make methods typesafe and
+	make them use the new event typedefs.
+
+	* test/simple-at.c (report_focussed_accessible):
+	include mag_client.h
+	Use *(void *)text_interface not the other thing.
+	
+	* configure.in: add gtk to registryd bits - since we use
+	gdk there ( why ? )
+
+	* util/magnifier.c: include libbonobo.h
+	
 2001-11-25  Bill Haneman  <bill.haneman@sun.com>
 
 	* test/keysynth-demo.c:

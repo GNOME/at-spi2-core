@@ -26,25 +26,32 @@
 #ifdef SPI_DEBUG
 #  include <stdio.h>
 #endif
+#include <libspi/listener.h>
 #include <libspi/keystrokelistener.h>
 
 /* Our parent Gtk object type  */
 #define PARENT_TYPE BONOBO_TYPE_OBJECT
 
 /* A pointer to our parent object class */
-static GObjectClass *keystroke_listener_parent_class;
+static BonoboObjectClass *keystroke_listener_parent_class;
 
-/*
- * Implemented GObject::finalize
- */
+enum {
+	KEY_EVENT,
+	LAST_SIGNAL
+};
+static guint signals [LAST_SIGNAL];
+
+/* GObject::finalize */
 static void
-keystroke_listener_object_finalize (GObject *object)
+spi_keystroke_listener_object_finalize (GObject *object)
 {
+  SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (object);
 
+  g_list_free (listener->callbacks);
 #ifdef SPI_DEBUG
-        fprintf(stderr, "keystroke_listener_object_finalize called\n");
+  fprintf(stderr, "keystroke_listener_object_finalize called\n");
 #endif
-        keystroke_listener_parent_class->finalize (object);
+  ((GObjectClass *) keystroke_listener_parent_class)->finalize (object);
 }
 
 void   spi_keystroke_listener_add_callback (SpiKeystrokeListener *listener,
@@ -57,8 +64,9 @@ void   spi_keystroke_listener_add_callback (SpiKeystrokeListener *listener,
 #endif
 }
 
-void   spi_keystroke_listener_remove_callback (SpiKeystrokeListener *listener,
-					       BooleanKeystrokeListenerCB callback)
+void
+spi_keystroke_listener_remove_callback (SpiKeystrokeListener *listener,
+					BooleanKeystrokeListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);
 }
@@ -74,6 +82,13 @@ impl_key_event (PortableServer_Servant     servant,
   SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (bonobo_object_from_servant (servant));
   GList *callbacks = listener->callbacks;
   gboolean was_consumed = FALSE;
+
+  g_signal_emit (G_OBJECT (listener), signals [KEY_EVENT], 0, key, &was_consumed);
+  if (was_consumed)
+    {
+      return TRUE;
+    }
+
 #ifdef SPI_KEYEVENT_DEBUG
   if (ev->_major != CORBA_NO_EXCEPTION) {
     fprintf(stderr,
@@ -105,22 +120,86 @@ impl_key_event (PortableServer_Servant     servant,
   return was_consumed;
 }
 
+
+static gboolean
+boolean_handled_accumulator (GSignalInvocationHint *ihint,
+			     GValue                *return_accu,
+			     const GValue          *handler_return,
+			     gpointer               dummy)
+{
+  gboolean continue_emission;
+  gboolean signal_handled;
+  
+  signal_handled = g_value_get_boolean (handler_return);
+  g_value_set_boolean (return_accu, signal_handled);
+  continue_emission = !signal_handled;
+  
+  return continue_emission;
+}
+
+void
+marshal_BOOLEAN__POINTER (GClosure     *closure,
+			  GValue       *return_value,
+			  guint         n_param_values,
+			  const GValue *param_values,
+			  gpointer      invocation_hint,
+			  gpointer      marshal_data)
+{
+  typedef gboolean (*GMarshalFunc_BOOLEAN__POINTER) (gpointer     data1,
+                                                     gpointer     arg_1,
+                                                     gpointer     data2);
+  register GMarshalFunc_BOOLEAN__POINTER callback;
+  register GCClosure *cc = (GCClosure*) closure;
+  register gpointer data1, data2;
+  gboolean v_return;
+
+  g_return_if_fail (return_value != NULL);
+  g_return_if_fail (n_param_values == 2);
+
+  if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+      data1 = closure->data;
+      data2 = g_value_peek_pointer (param_values + 0);
+    }
+  else
+    {
+      data1 = g_value_peek_pointer (param_values + 0);
+      data2 = closure->data;
+    }
+  callback = (GMarshalFunc_BOOLEAN__POINTER) (marshal_data ? marshal_data : cc->callback);
+
+  v_return = callback (data1,
+                       g_value_get_pointer (param_values + 1),
+                       data2);
+
+  g_value_set_boolean (return_value, v_return);
+}
+
 static void
 spi_keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
 {
-        GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
-        keystroke_listener_parent_class = g_type_class_peek_parent (klass);
-
-        object_class->finalize = keystroke_listener_object_finalize;
-
-        epv->keyEvent = impl_key_event;
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
+  keystroke_listener_parent_class = g_type_class_peek_parent (klass);
+  
+  signals [KEY_EVENT] = g_signal_new (
+    "key_event",
+    G_TYPE_FROM_CLASS (klass),
+    G_SIGNAL_RUN_LAST,
+    G_STRUCT_OFFSET (SpiKeystrokeListenerClass, key_event),
+    boolean_handled_accumulator, NULL,
+    marshal_BOOLEAN__POINTER,
+    G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
+  
+  object_class->finalize = spi_keystroke_listener_object_finalize;
+  
+  epv->keyEvent = impl_key_event;
 }
 
 static void
 spi_keystroke_listener_init (SpiKeystrokeListener *keystroke_listener)
 {
-	keystroke_listener->callbacks = NULL;
+  keystroke_listener->callbacks = NULL;
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiKeystrokeListener,

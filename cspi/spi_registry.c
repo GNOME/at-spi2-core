@@ -28,9 +28,11 @@
  *
  */
 
+#if 0
 /* static stuff used only by registry C bindings */
 static GList *key_listeners = NULL;
 static Display *display = NULL;
+#endif
 
 /**
  * registerGlobalEventListener:
@@ -96,13 +98,13 @@ registerGlobalEventListener (AccessibleEventListener *listener,
   boolean retval;
 
   Accessibility_Registry_registerGlobalEventListener (
-                         spi_registry (),
+                         cspi_registry (),
                          (Accessibility_EventListener)
                             bonobo_object_corba_objref (bonobo_object (listener)),
                          eventType,
-                         spi_ev ());
+                         cspi_ev ());
 
-  retval = !spi_exception ();
+  retval = !cspi_exception ();
  
   return retval;
 }
@@ -113,7 +115,8 @@ registerGlobalEventListener (AccessibleEventListener *listener,
  *            an event type.
  *
  * deregisters an AccessibleEventListener from the registry, for all
- *            event types it may be listening to.
+ *            event types it may be listening to.  Also unrefs the listener.
+ *            The listener cannot subsequently be reused.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
@@ -122,14 +125,19 @@ boolean
 deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 {
   Accessibility_Registry_deregisterGlobalEventListenerAll (
-                         spi_registry (),
+                         cspi_registry (),
                          (Accessibility_EventListener)
                             CORBA_Object_duplicate (
 				    bonobo_object_corba_objref (
-					    bonobo_object (listener)), spi_ev ()),
-                         spi_ev ());
+					    bonobo_object (listener)), cspi_ev ()),
+                         cspi_ev ());
+  if (!cspi_exception ())
+    {
+      bonobo_object_unref (BONOBO_OBJECT (listener));	    
+      /* Would prefer that this were not a bonobo object: g_object_unref (listener);*/
+    }
 
-  return !spi_exception ();
+  return !cspi_exception ();
 }
 /**
  * deregisterGlobalEventListener:
@@ -148,14 +156,14 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
 			       char *eventType)
 {
   Accessibility_Registry_deregisterGlobalEventListener (
-	  spi_registry (),
+	  cspi_registry (),
 	  (Accessibility_EventListener)
 	  CORBA_Object_duplicate (
-		  bonobo_object_corba_objref (bonobo_object (listener)), spi_ev ()),
+		  bonobo_object_corba_objref (bonobo_object (listener)), cspi_ev ()),
 	  (CORBA_char *) eventType,
-	  spi_ev ());
+	  cspi_ev ());
 
-  return !spi_exception ();
+  return !cspi_exception ();
 }
 
 /**
@@ -171,8 +179,7 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
 int
 getDesktopCount ()
 {
-  return Accessibility_Registry_getDesktopCount (
-	  spi_registry (), spi_ev ());
+  return Accessibility_Registry_getDesktopCount (cspi_registry (), cspi_ev ());
 }
 
 /**
@@ -189,7 +196,9 @@ getDesktopCount ()
 Accessible*
 getDesktop (int i)
 {
-  return spi_object_add (Accessibility_Registry_getDesktop (spi_registry (), (CORBA_short) i, spi_ev ()));
+  return cspi_object_add (Accessibility_Registry_getDesktop (cspi_registry (),
+							     (CORBA_short) i,
+							     cspi_ev ()));
 }
 
 /**
@@ -214,6 +223,7 @@ getDesktopList (Accessible **list)
   return 0;
 }
 
+#if 0
 static gboolean
 key_event_source_func (void *p)
 {
@@ -233,13 +243,14 @@ key_event_source_func (void *p)
     }
   return TRUE;
 }
+#endif
 
 /**
  * registerAccessibleKeystrokeListener:
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
  *             keystroke events are requested.
  * @keys:      a pointer to the #AccessibleKeySet indicating which
- *             keystroke events are requested, or #SPI_KEYSET_ALL_KEYS.
+ *             keystroke events are requested, or #CSPI_KEYSET_ALL_KEYS.
  * @modmask:   an #AccessibleKeyMaskType mask indicating which
  *             key event modifiers must be set in combination with @keys,
  *             events will only be reported for key events for which all
@@ -252,8 +263,8 @@ key_event_source_func (void *p)
  *             the behavior of the notification/listener transaction.
  *             
  * Register a listener for keystroke events, either pre-emptively for
- *             all windows (SPI_KEYLISTENER_ALL_WINDOWS), or
- *             non-preemptively (SPI_KEYLISTENER_NOSYNC).
+ *             all windows (CSPI_KEYLISTENER_ALL_WINDOWS), or
+ *             non-preemptively (CSPI_KEYLISTENER_NOSYNC).
  *             ( Other sync_type values may be available in the future.)
  **/
 void
@@ -266,12 +277,12 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
   Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (spi_registry (), spi_ev ());
+	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
   Accessibility_KeySet *key_set = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
-  Accessibility_KeystrokeListener spi_listener_corba_ref;
+  Accessibility_KeystrokeListener cspi_listener_corba_ref;
   gint i, mask;
-  Accessibility_DeviceEventController_ref (device_event_controller, spi_ev ());
+  Accessibility_DeviceEventController_ref (device_event_controller, cspi_ev ());
 
   /* copy the keyval filter values from the C api into the CORBA KeySet */
   if (keys)
@@ -311,17 +322,17 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   controller_event_mask->value = (CORBA_unsigned_long) modmask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
-  spi_listener_corba_ref = (Accessibility_KeystrokeListener)
-	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), spi_ev ());
+  cspi_listener_corba_ref = (Accessibility_KeystrokeListener)
+	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), cspi_ev ());
   
 	  Accessibility_DeviceEventController_registerKeystrokeListener (
 	  device_event_controller,
-	  spi_listener_corba_ref,
+	  cspi_listener_corba_ref,
 	  key_set,
 	  controller_event_mask,
 	  key_events,
 	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
-	  spi_ev ());
+	  cspi_ev ());
 }
 
 /**
@@ -341,25 +352,25 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
   Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (spi_registry (), spi_ev ());
+	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
   Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
-  Accessibility_KeystrokeListener spi_listener_corba_ref;
-  Accessibility_DeviceEventController_unref (device_event_controller, spi_ev ());
+  Accessibility_KeystrokeListener cspi_listener_corba_ref;
+  Accessibility_DeviceEventController_unref (device_event_controller, cspi_ev ());
   controller_event_mask->value = (CORBA_unsigned_long) modmask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
-  spi_listener_corba_ref = (Accessibility_KeystrokeListener)
-	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), spi_ev ());
+  cspi_listener_corba_ref = (Accessibility_KeystrokeListener)
+	  CORBA_Object_duplicate (BONOBO_OBJREF(listener), cspi_ev ());
   
   Accessibility_DeviceEventController_deregisterKeystrokeListener (
 	  device_event_controller,
-	  spi_listener_corba_ref,
+	  cspi_listener_corba_ref,
 	  all_keys,
 	  controller_event_mask,
 	  key_events,
 	  (CORBA_boolean) TRUE,
-	  spi_ev ());
+	  cspi_ev ());
 }
 
 /**
@@ -368,7 +379,7 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  *           being synthesized.
  * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
  *           is to be interpreted as a keysym rather than a keycode
- *           (SPI_KEYSYM), or whether to synthesize
+ *           (CSPI_KEYSYM), or whether to synthesize
  *           SPI_KEY_PRESS, SPI_KEY_RELEASE, or both (SPI_KEY_PRESSRELEASE).
  *
  * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
@@ -382,11 +393,11 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
  *  send keycode to alter, if necessary
  */
   Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (spi_registry (), spi_ev ());
+	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
   Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
 							keyval,
 							(unsigned long) synth_type,
-							spi_ev ());
+							cspi_ev ());
 }
 
 /**

@@ -20,6 +20,7 @@ struct _CSpiEventListener {
 	SpiEventListener parent;
 	GSList          *callbacks;
 };
+
 typedef SpiEventListenerClass CSpiEventListenerClass;
 
 GType              cspi_event_listener_get_type        (void);

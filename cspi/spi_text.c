@@ -12,7 +12,7 @@
 int
 AccessibleText_ref (AccessibleText *obj)
 {
-  Accessibility_Text_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -30,7 +30,7 @@ AccessibleText_ref (AccessibleText *obj)
 int
 AccessibleText_unref (AccessibleText *obj)
 {
-  Accessibility_Text_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -50,11 +50,11 @@ AccessibleText_getCharacterCount (AccessibleText *obj)
 {
   long retval;
 
-  CORBA_exception_init (spi_ev ());
+  CORBA_exception_init (cspi_ev ());
   retval = (long)
-    Accessibility_Text__get_characterCount (*obj, spi_ev ());
+    Accessibility_Text__get_characterCount (CSPI_OBJREF (obj), cspi_ev ());
 
-  spi_check_ev (spi_ev (), "SpiAccessibleText_getCharacterCount");
+  cspi_check_ev (cspi_ev (), "SpiAccessibleText_getCharacterCount");
 
   return retval;
 }
@@ -81,8 +81,8 @@ AccessibleText_getText (AccessibleText *obj,
                         long int endOffset)
 {
   return (char *)
-    Accessibility_Text_getText (*obj,
-				(CORBA_long) startOffset, (CORBA_long) endOffset, spi_ev ());
+    Accessibility_Text_getText (CSPI_OBJREF (obj),
+				(CORBA_long) startOffset, (CORBA_long) endOffset, cspi_ev ());
 }
 
 /**
@@ -98,7 +98,7 @@ long
 AccessibleText_getCaretOffset (AccessibleText *obj)
 {
   return (long)
-    Accessibility_Text__get_caretOffset (*obj, spi_ev ());
+    Accessibility_Text__get_caretOffset (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -127,11 +127,11 @@ AccessibleText_getAttributes (AccessibleText *obj,
   CORBA_long retStartOffset, retEndOffset;
   char *retval;	
   retval = (char *)
-    Accessibility_Text_getAttributes (*obj,
+    Accessibility_Text_getAttributes (CSPI_OBJREF (obj),
 				      (CORBA_long) offset,
 				      &retStartOffset,
 				      &retEndOffset,
-				      spi_ev ());
+				      cspi_ev ());
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
   return retval;
@@ -154,8 +154,8 @@ AccessibleText_setCaretOffset (AccessibleText *obj,
                                long int newOffset)
 {
   return (boolean)
-    Accessibility_Text_setCaretOffset (*obj,
-				       (CORBA_long) newOffset, spi_ev ());
+    Accessibility_Text_setCaretOffset (CSPI_OBJREF (obj),
+				       (CORBA_long) newOffset, cspi_ev ());
 }
 
 /**
@@ -190,10 +190,10 @@ AccessibleText_getTextBeforeOffset (AccessibleText *obj,
   char *retval;
   CORBA_long retStartOffset, retEndOffset;
   retval = (char *)
-    Accessibility_Text_getTextBeforeOffset (*obj,
+    Accessibility_Text_getTextBeforeOffset (CSPI_OBJREF (obj),
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
-					   spi_ev ());
+					   cspi_ev ());
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
   return retval;
@@ -230,15 +230,15 @@ AccessibleText_getTextAtOffset (AccessibleText *obj,
   CORBA_long corbaStartOffset;
   CORBA_long corbaEndOffset;
   char *retval = "";
-  retval = Accessibility_Text_getTextAtOffset (*obj,
+  retval = Accessibility_Text_getTextAtOffset (CSPI_OBJREF (obj),
 					       (CORBA_long) offset,
 					       (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					       &corbaStartOffset,
 					       &corbaEndOffset,
-					       spi_ev ());
+					       cspi_ev ());
   *startOffset = (long) corbaStartOffset;
   *endOffset = (long) corbaEndOffset;
-#ifdef SPI_DEBUG
+#ifdef CSPI_DEBUG
   fprintf (stderr, "text offsets %ld to %ld\n", *startOffset, *endOffset);
 #endif
   return retval;
@@ -276,10 +276,10 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
   char *retval;
   CORBA_long retStartOffset, retEndOffset;
   retval = (char *)
-    Accessibility_Text_getTextAfterOffset (*obj,
+    Accessibility_Text_getTextAfterOffset (CSPI_OBJREF (obj),
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
-					   spi_ev ());
+					   cspi_ev ());
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
   return retval;
@@ -306,8 +306,8 @@ AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long int offset)
 {
   return (unsigned long)
-    Accessibility_Text_getCharacterAtOffset (*obj,
-					     (CORBA_long) offset, spi_ev ());
+    Accessibility_Text_getCharacterAtOffset (CSPI_OBJREF (obj),
+					     (CORBA_long) offset, cspi_ev ());
 }
 
 /**
@@ -340,13 +340,13 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
 				    AccessibleCoordType type)
 {
   CORBA_long retX, retY, retWidth, retHeight;
-  Accessibility_Text_getCharacterExtents (*obj,
+  Accessibility_Text_getCharacterExtents (CSPI_OBJREF (obj),
 					  (CORBA_long) offset,
 					  &retX,
 					  &retY,
 					  &retWidth,
 					  &retHeight,
-					  (CORBA_short) type, spi_ev ());
+					  (CORBA_short) type, cspi_ev ());
   *x = (long) retX;
   *y = (long) retY;
   *width = (long) retWidth;
@@ -375,8 +375,8 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
 				 AccessibleCoordType type)
 {
   return (long)
-    Accessibility_Text_getOffsetAtPoint (*obj,
-					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, spi_ev ());
+    Accessibility_Text_getOffsetAtPoint (CSPI_OBJREF (obj),
+					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, cspi_ev ());
 }
 
 
@@ -396,7 +396,7 @@ long
 AccessibleText_getNSelections (AccessibleText *obj)
 {
   return (long)
-    Accessibility_Text_getNSelections (*obj, spi_ev ());
+    Accessibility_Text_getNSelections (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -421,9 +421,9 @@ AccessibleText_getSelection (AccessibleText *obj,
 			     long int *endOffset)
 {
   CORBA_long retStartOffset, retEndOffset;
-  Accessibility_Text_getSelection (*obj,
+  Accessibility_Text_getSelection (CSPI_OBJREF (obj),
 				   (CORBA_long) selectionNum,
-				   &retStartOffset, &retEndOffset, spi_ev ());
+				   &retStartOffset, &retEndOffset, cspi_ev ());
   
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
@@ -447,9 +447,9 @@ AccessibleText_addSelection (AccessibleText *obj,
 			     long int startOffset, long int endOffset)
 {
   return (boolean)
-    Accessibility_Text_addSelection (*obj,
+    Accessibility_Text_addSelection (CSPI_OBJREF (obj),
 				     (CORBA_long) startOffset, (CORBA_long) endOffset,
-				     spi_ev ());
+				     cspi_ev ());
 }
 
 
@@ -469,8 +469,8 @@ AccessibleText_removeSelection (AccessibleText *obj,
 				long int selectionNum)
 {
   return (boolean)
-    Accessibility_Text_removeSelection (*obj,
-					(CORBA_long) selectionNum, spi_ev ());
+    Accessibility_Text_removeSelection (CSPI_OBJREF (obj),
+					(CORBA_long) selectionNum, cspi_ev ());
 }
 
 /**
@@ -493,10 +493,10 @@ AccessibleText_setSelection (AccessibleText *obj,
 			     long int endOffset)
 {
   return (boolean)
-    Accessibility_Text_setSelection (*obj,
+    Accessibility_Text_setSelection (CSPI_OBJREF (obj),
 				     (CORBA_long) selectionNum,
 				     (CORBA_long) startOffset,
-				     (CORBA_long) endOffset, spi_ev ());
+				     (CORBA_long) endOffset, cspi_ev ());
 }
 
 

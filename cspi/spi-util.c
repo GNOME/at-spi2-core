@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <libbonobo.h>
 #include <cspi/spi-private.h>
 
 void
@@ -9,7 +8,7 @@ spi_freeString (char *s)
 }
 
 boolean
-spi_warn_ev (CORBA_Environment *ev, const char *error_string)
+cspi_warn_ev (CORBA_Environment *ev, const char *error_string)
 {
   if (ev->_major != CORBA_NO_EXCEPTION)
     {
@@ -33,7 +32,7 @@ spi_warn_ev (CORBA_Environment *ev, const char *error_string)
 }
 
 void
-spi_check_ev (CORBA_Environment *ev, const char *error_string)
+cspi_check_ev (CORBA_Environment *ev, const char *error_string)
 {
   if (ev->_major != CORBA_NO_EXCEPTION)
     {

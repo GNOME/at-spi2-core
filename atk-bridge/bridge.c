@@ -103,7 +103,6 @@ bridge_register_app (gpointer gp)
             ("Accessibility app error: exception during registry activation from id: %s\n"),
             CORBA_exception_id(&ev));
     CORBA_exception_free(&ev);
-    exit(-1);
   }
 
   if (CORBA_Object_is_nil (oclient, &ev))
@@ -115,6 +114,8 @@ bridge_register_app (gpointer gp)
 
   fprintf(stderr, "About to register application\n");
 
+  Accessibility_Registry_ref (registry, &ev);
+  
   bonobo_activate ();
 
   Accessibility_Registry_registerApplication (registry,
@@ -164,6 +165,8 @@ static void bridge_exit_func()
   Accessibility_Registry_deregisterApplication (registry,
 						CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
 						&ev);
+  Accessibility_Registry_unref (registry, &ev);
+  
   fprintf (stderr, "bridge exit func complete.\n");
 }
 

@@ -14,7 +14,7 @@
 int
 AccessibleHypertext_ref (AccessibleHypertext *obj)
 {
-  Accessibility_Hypertext_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -33,7 +33,7 @@ AccessibleHypertext_ref (AccessibleHypertext *obj)
 int
 AccessibleHypertext_unref (AccessibleHypertext *obj)
 {
-  Accessibility_Hypertext_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -57,7 +57,7 @@ long
 AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
 {
   return (long)
-    Accessibility_Hypertext_getNLinks (*obj, spi_ev ());
+    Accessibility_Hypertext_getNLinks (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -76,8 +76,8 @@ AccessibleHypertext_getLink (AccessibleHypertext *obj,
                              long int linkIndex)
 {
   return (AccessibleHyperlink *)
-    Accessibility_Hypertext_getLink (*obj,
-				     (CORBA_long) linkIndex, spi_ev ());
+    Accessibility_Hypertext_getLink (CSPI_OBJREF (obj),
+				     (CORBA_long) linkIndex, cspi_ev ());
 }
 
 
@@ -99,8 +99,8 @@ AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
                                   long int characterOffset)
 {
   return (long)
-    Accessibility_Hypertext_getLinkIndex (*obj,
-					  (CORBA_long) characterOffset, spi_ev ());
+    Accessibility_Hypertext_getLinkIndex (CSPI_OBJREF (obj),
+					  (CORBA_long) characterOffset, cspi_ev ());
 }
 
 

@@ -20,6 +20,7 @@
 #ifndef MAG_CLIENT_H_
 #define MAG_CLIENT_H_
 
+#include "util/Magnifier.h"
 
 #ifdef __cplusplus
 extern "C" {

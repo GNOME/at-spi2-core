@@ -46,6 +46,9 @@ typedef struct {
 typedef struct {
         BonoboObjectClass parent_class;
         POA_Accessibility_KeystrokeListener__epv epv;
+
+	gboolean (*key_event) (SpiKeystrokeListener *listener,
+			       const Accessibility_KeyStroke *key);
 } SpiKeystrokeListenerClass;
 
 GType                  spi_keystroke_listener_get_type        (void);

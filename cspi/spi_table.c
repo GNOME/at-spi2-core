@@ -13,7 +13,7 @@
 int
 AccessibleTable_ref (AccessibleTable *obj)
 {
-  Accessibility_Table_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -31,7 +31,7 @@ AccessibleTable_ref (AccessibleTable *obj)
 int
 AccessibleTable_unref (AccessibleTable *obj)
 {
-  Accessibility_Table_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -48,7 +48,7 @@ Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj)
 {
   return (Accessible *)
-    Accessibility_Table__get_caption (*obj, spi_ev ());
+    Accessibility_Table__get_caption (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -67,7 +67,7 @@ Accessible *
 AccessibleTable_getSummary (AccessibleTable *obj)
 {
   return (Accessible *)
-    Accessibility_Table__get_summary (*obj, spi_ev ());
+    Accessibility_Table__get_summary (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -87,7 +87,7 @@ long
 AccessibleTable_getNRows (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table__get_nRows (*obj, spi_ev ());
+    Accessibility_Table__get_nRows (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -107,7 +107,7 @@ long
 AccessibleTable_getNColumns (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table__get_nColumns (*obj, spi_ev ());
+    Accessibility_Table__get_nColumns (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -130,8 +130,8 @@ AccessibleTable_getAccessibleAt (AccessibleTable *obj,
                                  long int column)
 {
   return (Accessible *)
-    Accessibility_Table_getAccessibleAt (*obj,
-			       (CORBA_long) row, (CORBA_long) column, spi_ev ());
+    Accessibility_Table_getAccessibleAt (CSPI_OBJREF (obj),
+			       (CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -156,8 +156,8 @@ AccessibleTable_getIndexAt (AccessibleTable *obj,
                             long int column)
 {
   return (long)
-    Accessibility_Table_getIndexAt (*obj,
-				    (CORBA_long) row, (CORBA_long) column, spi_ev ());
+    Accessibility_Table_getIndexAt (CSPI_OBJREF (obj),
+				    (CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -180,8 +180,8 @@ AccessibleTable_getRowAtIndex (AccessibleTable *obj,
                                long index)
 {
   return (long)
-    Accessibility_Table_getRowAtIndex (*obj,
-				       (CORBA_long) index, spi_ev ());
+    Accessibility_Table_getRowAtIndex (CSPI_OBJREF (obj),
+				       (CORBA_long) index, cspi_ev ());
 }
 
 
@@ -204,8 +204,8 @@ AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
                                   long index)
 {
   return (long)
-    Accessibility_Table_getColumnAtIndex (*obj,
-					  (CORBA_long) index, spi_ev ());
+    Accessibility_Table_getColumnAtIndex (CSPI_OBJREF (obj),
+					  (CORBA_long) index, cspi_ev ());
 }
 
 
@@ -226,8 +226,8 @@ AccessibleTable_getRowDescription (AccessibleTable *obj,
 				   long int row)
 {
   return (char *)
-    Accessibility_Table_getRowDescription (*obj,
-					   (CORBA_long) row, spi_ev ());
+    Accessibility_Table_getRowDescription (CSPI_OBJREF (obj),
+					   (CORBA_long) row, cspi_ev ());
 }
 
 
@@ -248,8 +248,8 @@ AccessibleTable_getColumnDescription (AccessibleTable *obj,
 				      long int column)
 {
   return (char *)
-    Accessibility_Table_getColumnDescription (*obj,
-					      (CORBA_long) column, spi_ev ());
+    Accessibility_Table_getColumnDescription (CSPI_OBJREF (obj),
+					      (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -272,8 +272,8 @@ AccessibleTable_getRowExtentAt (AccessibleTable *obj,
                                 long int column)
 {
   return (long)
-    Accessibility_Table_getRowExtentAt (*obj,
-					(CORBA_long) row, (CORBA_long) column, spi_ev ());
+    Accessibility_Table_getRowExtentAt (CSPI_OBJREF (obj),
+					(CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -296,8 +296,8 @@ AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
                                    long int column)
 {
   return (long)
-    Accessibility_Table_getColumnExtentAt (*obj,
-					(CORBA_long) row, (CORBA_long) column, spi_ev ());
+    Accessibility_Table_getColumnExtentAt (CSPI_OBJREF (obj),
+					(CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -317,8 +317,8 @@ AccessibleTable_getRowHeader (AccessibleTable *obj,
 			      long int row)
 {
   return (Accessible *)
-    Accessibility_Table_getRowHeader (*obj,
-				      (CORBA_long) row, spi_ev ());
+    Accessibility_Table_getRowHeader (CSPI_OBJREF (obj),
+				      (CORBA_long) row, cspi_ev ());
 }
 
 
@@ -339,8 +339,8 @@ AccessibleTable_getColumnHeader (AccessibleTable *obj,
 				 long int column)
 {
   return (Accessible *)
-    Accessibility_Table_getColumnHeader (*obj,
-				      (CORBA_long) column, spi_ev ());
+    Accessibility_Table_getColumnHeader (CSPI_OBJREF (obj),
+				      (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -357,7 +357,7 @@ long
 AccessibleTable_getNSelectedRows (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table__get_nSelectedRows (*obj, spi_ev ());
+    Accessibility_Table__get_nSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -376,7 +376,7 @@ long
 AccessibleTable_getSelectedRows (AccessibleTable *obj,
                                  long int **selectedRows)
 {
-  Accessibility_LongSeq *rows = Accessibility_Table_getSelectedRows (*obj, spi_ev ());
+  Accessibility_LongSeq *rows = Accessibility_Table_getSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
   CORBA_long *i;
   long *j;
   long length;
@@ -408,7 +408,7 @@ long
 AccessibleTable_getNSelectedColumns (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table__get_nSelectedColumns (*obj, spi_ev ());
+    Accessibility_Table__get_nSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -427,7 +427,7 @@ long
 AccessibleTable_getSelectedColumns (AccessibleTable *obj,
                                     long int **selectedColumns)
 {
-  Accessibility_LongSeq *columns = Accessibility_Table_getSelectedColumns (*obj, spi_ev ());
+  Accessibility_LongSeq *columns = Accessibility_Table_getSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
   CORBA_long *i;
   long *j;
   long length;
@@ -460,8 +460,8 @@ AccessibleTable_isRowSelected (AccessibleTable *obj,
                                long int row)
 {
   return (boolean)
-    Accessibility_Table_isRowSelected (*obj,
-				       (CORBA_long) row, spi_ev ());
+    Accessibility_Table_isRowSelected (CSPI_OBJREF (obj),
+				       (CORBA_long) row, cspi_ev ());
 }
 
 
@@ -482,8 +482,8 @@ AccessibleTable_isColumnSelected (AccessibleTable *obj,
                                   long int column)
 {
   return (boolean)
-    Accessibility_Table_isColumnSelected (*obj,
-				       (CORBA_long) column, spi_ev ());
+    Accessibility_Table_isColumnSelected (CSPI_OBJREF (obj),
+				       (CORBA_long) column, cspi_ev ());
 }
 
 
@@ -505,7 +505,7 @@ AccessibleTable_isSelected (AccessibleTable *obj,
                             long int column)
 {
   return (boolean)
-  Accessibility_Table_isSelected (*obj,
-				  (CORBA_long) row, (CORBA_long) column, spi_ev ());
+  Accessibility_Table_isSelected (CSPI_OBJREF (obj),
+				  (CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }
 

@@ -19,20 +19,22 @@ libcspi_HEADERS =		\
 	spi-statetypes.h
 
 libcspi_la_SOURCES =		\
-	spi_main.c		\
-	spi_event.c		\
-	spi_registry.c		\
-	spi-util.c		\
 	spi_accessible.c	\
 	spi_action.c		\
 	spi_application.c	\
 	spi_component.c		\
 	spi_editabletext.c	\
+	spi_event.c		\
 	spi_hyperlink.c		\
 	spi_hypertext.c		\
 	spi_image.c		\
+	spi-listener-impl.h	\
+	spi-listener-impl.c	\
+	spi_main.c		\
 	spi-private.h		\
+	spi_registry.c		\
 	spi_selection.c		\
 	spi_table.c		\
 	spi_text.c		\
+	spi-util.c		\
 	spi_value.c

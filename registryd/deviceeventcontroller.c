@@ -125,7 +125,7 @@ dec_key_listener_new (CORBA_Object l,
 		      CORBA_Environment *ev)
 {
   DEControllerKeyListener *key_listener = g_new0 (DEControllerKeyListener, 1);
-  key_listener->listener.object = CORBA_Object_duplicate (l, ev);
+  key_listener->listener.object = bonobo_object_dup_ref (l, ev);
   key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
   key_listener->keys = ORBit_copy_value (keys, TC_Accessibility_KeySet);
   key_listener->mask = ORBit_copy_value (mask, TC_Accessibility_ControllerEventMask);
@@ -142,6 +142,16 @@ dec_key_listener_new (CORBA_Object l,
 }
 
 static void
+dec_key_listener_free (DEControllerKeyListener *key_listener, CORBA_Environment *ev)
+{
+  bonobo_object_release_unref (key_listener->listener.object, ev);
+  CORBA_free (key_listener->typeseq);
+  CORBA_free (key_listener->mask);
+  CORBA_free (key_listener->keys);
+  g_free (key_listener);
+}
+
+static void
 controller_register_device_listener (SpiDeviceEventController *controller,
 				     DEControllerListener *listener,
 				     CORBA_Environment *ev)
@@ -152,7 +162,7 @@ controller_register_device_listener (SpiDeviceEventController *controller,
   switch (listener->type) {
   case SPI_DEVICE_TYPE_KBD:
       key_listener = (DEControllerKeyListener *) listener;  	  
-      controller->key_listeners = g_list_append (controller->key_listeners, key_listener);
+      controller->key_listeners = g_list_prepend (controller->key_listeners, key_listener);
       if (key_listener->is_system_global)
         {
           mask_ptr = (Accessibility_ControllerEventMask *)
@@ -194,14 +204,12 @@ controller_deregister_device_listener (SpiDeviceEventController *controller,
 {
   Accessibility_ControllerEventMask *mask_ptr;
   DEControllerKeyListener *key_listener;
+  DEControllerListener *dec_listener;
   GList *list_ptr;
   switch (listener->type) {
   case SPI_DEVICE_TYPE_KBD:
       key_listener = (DEControllerKeyListener *) listener;
-      list_ptr = g_list_find_custom (controller->key_listeners, listener, _compare_listeners);
-      /* TODO: need a different custom compare func */
-      if (list_ptr)
-	  controller->key_listeners = g_list_remove (controller->key_listeners, list_ptr);
+      /* first, deref matching event mask, if any */
       list_ptr = (GList *)
 	          g_list_find_custom (controller->keymask_list, (gpointer) key_listener->mask,
 				     _eventmask_compare_value);
@@ -213,9 +221,21 @@ controller_deregister_device_listener (SpiDeviceEventController *controller,
           if (!mask_ptr->refcount)
             {
 	      controller->keymask_list =
-		      g_list_remove (controller->keymask_list, mask_ptr);
+		      g_list_remove_link (controller->keymask_list, list_ptr);
 	      ;  /* TODO: release any key grabs that are in place for this key mask */
 	    }
+	}
+      /* now, remove this listener from the keylistener list */
+      list_ptr = g_list_find_custom (controller->key_listeners, listener, _compare_listeners);
+      if (list_ptr)
+        {
+	  dec_listener = (DEControllerListener *) list_ptr->data;
+#ifdef SPI_DEBUG	  
+	  g_print ("removing keylistener %p\n", dec_listener->object);
+#endif
+	  controller->key_listeners = g_list_remove_link (controller->key_listeners,
+							  list_ptr);
+	  dec_key_listener_free (dec_listener, ev);
 	}
       break;
   case SPI_DEVICE_TYPE_MOUSE:
@@ -476,6 +496,8 @@ spi_device_event_controller_object_finalize (GObject *object)
 #ifdef SPI_DEBUG
         fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
 #endif
+	/* disconnect any special listeners, get rid of outstanding keygrabs */
+	
         spi_device_event_controller_parent_class->finalize (object);
 }
 
@@ -524,13 +546,14 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 								      type,
 								      is_system_global,
 								      ev);
-#ifdef SPI_DEBUG
+#ifdef SPI_DEREGISTER_DEBUG
 	fprintf (stderr, "deregistering keystroke listener %p with maskVal %lu\n",
 		 (void *) l, (unsigned long) mask->value);
 #endif
 	controller_deregister_device_listener(controller,
 					      (DEControllerListener *) key_listener,
 					      ev);
+	dec_key_listener_free (key_listener, ev);
 }
 
 /*

@@ -10,10 +10,9 @@
  *
  **/
 int
-AccessibleAction_ref (
-                      AccessibleAction *obj)
+AccessibleAction_ref (AccessibleAction *obj)
 {
-  Accessibility_Action_ref (*obj, spi_ev ());
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -29,7 +28,7 @@ AccessibleAction_ref (
 int
 AccessibleAction_unref (AccessibleAction *obj)
 {
-  Accessibility_Action_unref (*obj, spi_ev ());
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -48,7 +47,7 @@ long
 AccessibleAction_getNActions (AccessibleAction *obj)
 {
   return (long)
-    Accessibility_Action__get_nActions (*obj, spi_ev ());
+    Accessibility_Action__get_nActions (CSPI_OBJREF (obj), cspi_ev ());
 }
 
 
@@ -68,9 +67,9 @@ AccessibleAction_getDescription (AccessibleAction *obj,
                                  long int i)
 {
   return (char *)
-    Accessibility_Action_getDescription (*obj,
+    Accessibility_Action_getDescription (CSPI_OBJREF (obj),
 					 (CORBA_long) i,
-					 spi_ev ());
+					 cspi_ev ());
 }
 
 /**
@@ -90,9 +89,9 @@ AccessibleAction_getKeyBinding (AccessibleAction *obj,
 				long int i)
 {
   return (char *) 
-    Accessibility_Action_getKeyBinding (*obj,
+    Accessibility_Action_getKeyBinding (CSPI_OBJREF (obj),
        (CORBA_long) i,
-       spi_ev ());
+       cspi_ev ());
 }
 
 
@@ -113,9 +112,9 @@ AccessibleAction_getName (AccessibleAction *obj,
 			  long int i)
 {
   return (char *)
-   Accessibility_Action_getName (*obj,
+   Accessibility_Action_getName (CSPI_OBJREF (obj),
 				 (CORBA_long) i,
-				 spi_ev ());
+				 cspi_ev ());
 }
 
 
@@ -134,9 +133,9 @@ AccessibleAction_doAction (AccessibleAction *obj,
                            long int i)
 {
   return (boolean)
-    Accessibility_Action_doAction (*obj,
+    Accessibility_Action_doAction (CSPI_OBJREF (obj),
 				   (CORBA_long) i,
-				   spi_ev ());
+				   cspi_ev ());
 }
 
 

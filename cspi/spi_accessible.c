@@ -103,8 +103,7 @@ AccessibleRole_getName (AccessibleRole role)
 int
 Accessible_ref (Accessible *obj)
 {
-  Accessibility_Accessible_ref (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "ref");
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -121,8 +120,7 @@ Accessible_ref (Accessible *obj)
 int
 Accessible_unref (Accessible *obj)
 {
-  Accessibility_Accessible_unref (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "unref");
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -140,8 +138,8 @@ Accessible_getName (Accessible *obj)
 {
   char *retval = 
     (char *)
-    Accessibility_Accessible__get_name (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "getName"); 
+    Accessibility_Accessible__get_name (CSPI_OBJREF (obj), cspi_ev ());
+  cspi_check_ev (cspi_ev (), "getName"); 
   return retval;
 }
 
@@ -158,8 +156,8 @@ char *
 Accessible_getDescription (Accessible *obj)
 {
   char *retval = (char *)
-    Accessibility_Accessible__get_description (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "getDescription");
+    Accessibility_Accessible__get_description (CSPI_OBJREF (obj), cspi_ev ());
+  cspi_check_ev (cspi_ev (), "getDescription");
   return retval;
 }
 
@@ -177,8 +175,8 @@ Accessible *
 Accessible_getParent (Accessible *obj)
 {
   Accessible *retval = 
-      spi_object_add (Accessibility_Accessible__get_parent (*obj, spi_ev ()));
-  spi_check_ev (spi_ev (), "getParent");
+      cspi_object_add (Accessibility_Accessible__get_parent (CSPI_OBJREF (obj), cspi_ev ()));
+  cspi_check_ev (cspi_ev (), "getParent");
   return retval;
 }
 
@@ -195,8 +193,8 @@ Accessible_getParent (Accessible *obj)
 long
 Accessible_getChildCount (Accessible *obj)
 {
-  long retval = (long) Accessibility_Accessible__get_childCount (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "getChildCount");
+  long retval = (long) Accessibility_Accessible__get_childCount (CSPI_OBJREF (obj), cspi_ev ());
+  cspi_check_ev (cspi_ev (), "getChildCount");
   return retval;
 }
 
@@ -215,8 +213,8 @@ Accessible *
 Accessible_getChildAtIndex (Accessible *obj,
                             long int childIndex)
 {
-  Accessible *retval = spi_object_add (Accessibility_Accessible_getChildAtIndex (*obj, childIndex, spi_ev ()));
-  spi_check_ev (spi_ev (), "getChildAtIndex");
+  Accessible *retval = cspi_object_add (Accessibility_Accessible_getChildAtIndex (CSPI_OBJREF (obj), childIndex, cspi_ev ()));
+  cspi_check_ev (cspi_ev (), "getChildAtIndex");
   return retval;
 }
 
@@ -234,8 +232,8 @@ Accessible_getChildAtIndex (Accessible *obj,
 long
 Accessible_getIndexInParent (Accessible *obj)
 {
-  long retval = (long) Accessibility_Accessible_getIndexInParent (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "getIndexInParent");
+  long retval = (long) Accessibility_Accessible_getIndexInParent (CSPI_OBJREF (obj), cspi_ev ());
+  cspi_check_ev (cspi_ev (), "getIndexInParent");
   return retval;
 }
 
@@ -256,7 +254,7 @@ Accessible_getRelationSet (Accessible *obj)
   int n_relations;
   int i;
   Accessibility_RelationSet *relation_set =	
-	  Accessibility_Accessible_getRelationSet (*obj, spi_ev ());
+	  Accessibility_Accessible_getRelationSet (CSPI_OBJREF (obj), cspi_ev ());
   
   /* this looks hack-ish, but it's based on the CORBA C bindings spec */
   n_relations = relation_set->_length;
@@ -264,7 +262,7 @@ Accessible_getRelationSet (Accessible *obj)
   
   for (i=0; i<n_relations; ++i)
     {
-      relations[i] = spi_object_add (relation_set->_buffer[i]);
+      relations[i] = cspi_object_add (relation_set->_buffer[i]);
     }
   relations[i] = CORBA_OBJECT_NIL;
 
@@ -284,8 +282,8 @@ char *
 Accessible_getRole (Accessible *obj)
 {
   char *retval = AccessibleRole_getName (
-		  Accessibility_Accessible_getRole (*obj, spi_ev ()));
-  spi_check_ev (spi_ev (), "getRole");
+		  Accessibility_Accessible_getRole (CSPI_OBJREF (obj), cspi_ev ()));
+  cspi_check_ev (cspi_ev (), "getRole");
   return retval;
 }
 
@@ -305,6 +303,36 @@ Accessible_getStateSet (Accessible *obj)
 
 /* Interface query methods */
 
+static boolean
+cspi_accessible_is_a (Accessible *obj,
+		     const char *interface_name)
+{
+  boolean        retval;
+  Bonobo_Unknown unknown;
+
+  unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (obj),
+					   interface_name, cspi_ev ());
+
+  if (BONOBO_EX (cspi_ev ()))
+    {
+      g_error ("Exception '%s' checking if is '%s'",
+	       bonobo_exception_get_text (cspi_ev ()),
+	       interface_name);
+    }
+
+  if (unknown != CORBA_OBJECT_NIL)
+    {
+      retval = TRUE;
+      bonobo_object_release_unref (unknown, NULL);
+    }
+  else
+    {
+      retval= FALSE;
+    }
+
+  return retval;
+}
+
 /**
  * Accessible_isAction:
  * @obj: a pointer to the #Accessible instance to query.
@@ -317,13 +345,8 @@ Accessible_getStateSet (Accessible *obj)
 boolean
 Accessible_isAction (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Action:1.0",
-                                             spi_ev ());
-  spi_warn_ev (spi_ev (), "isAction");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Action:1.0");
 }
 
 /**
@@ -338,13 +361,8 @@ Accessible_isAction (Accessible *obj)
 boolean
 Accessible_isComponent (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Component:1.0",
-                                             spi_ev ());
-  spi_warn_ev (spi_ev (), "isComponent");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Component:1.0");
 }
 
 /**
@@ -359,13 +377,8 @@ Accessible_isComponent (Accessible *obj)
 boolean
 Accessible_isEditableText (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/EditableText:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "isEditableText");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/EditableText:1.0");
 }
 
 /**
@@ -380,14 +393,8 @@ Accessible_isEditableText (Accessible *obj)
 boolean
 Accessible_isHypertext (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Hypertext:1.0",
-                                             spi_ev ());
-
-  spi_check_ev (spi_ev (), "isHypertext");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Hypertext:1.0");
 }
 
 /**
@@ -402,13 +409,8 @@ Accessible_isHypertext (Accessible *obj)
 boolean
 Accessible_isImage (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Image:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "isImage");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Image:1.0");
 }
 
 /**
@@ -423,14 +425,8 @@ Accessible_isImage (Accessible *obj)
 boolean
 Accessible_isSelection (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Selection:1.0",
-                                             spi_ev ());
-  spi_warn_ev (spi_ev (), "isSelection");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
-
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Selection:1.0");
 }
 
 /**
@@ -445,14 +441,8 @@ Accessible_isSelection (Accessible *obj)
 boolean
 Accessible_isTable (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Table:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "isTable");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
-
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Table:1.0");
 }
 
 /**
@@ -467,13 +457,8 @@ Accessible_isTable (Accessible *obj)
 boolean
 Accessible_isText (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Text:1.0",
-                                             spi_ev ());
-  spi_warn_ev (spi_ev (), "isText");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Text:1.0");
 }
 
 /**
@@ -488,13 +473,8 @@ Accessible_isText (Accessible *obj)
 boolean
 Accessible_isValue (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Value:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "isValue");
-
-  return (CORBA_Object_is_nil (iface, spi_ev ())) ? FALSE : TRUE;
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Value:1.0");
 }
 
 /**
@@ -509,13 +489,8 @@ Accessible_isValue (Accessible *obj)
 AccessibleAction *
 Accessible_getAction (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Action:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "getAction");
-
-  return (AccessibleAction *) spi_object_add (iface);
+  return (AccessibleAction *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Action:1.0");
 }
 
 /**
@@ -530,13 +505,8 @@ Accessible_getAction (Accessible *obj)
 AccessibleComponent *
 Accessible_getComponent (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Component:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "getComponent");
-
-  return (AccessibleComponent *) spi_object_add (iface);
+  return (AccessibleComponent *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Component:1.0");
 }
 
 /**
@@ -551,13 +521,8 @@ Accessible_getComponent (Accessible *obj)
 AccessibleEditableText *
 Accessible_getEditableText (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/EditableText:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "getEditableText");
-
-  return (AccessibleEditableText *) spi_object_add (iface);
+  return (AccessibleEditableText *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/EditableText:1.0");
 }
 
 
@@ -574,13 +539,8 @@ Accessible_getEditableText (Accessible *obj)
 AccessibleHypertext *
 Accessible_getHypertext (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Hypertext:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "getHypertext");
-
-  return (AccessibleHypertext *) spi_object_add (iface);
+  return (AccessibleHypertext *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Hypertext:1.0");
 }
 
 
@@ -597,13 +557,8 @@ Accessible_getHypertext (Accessible *obj)
 AccessibleImage *
 Accessible_getImage (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Image:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "getImage");
-
-  return (AccessibleImage *) spi_object_add (iface);
+  return (AccessibleImage *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Image:1.0");
 }
 
 
@@ -620,13 +575,8 @@ Accessible_getImage (Accessible *obj)
 AccessibleSelection *
 Accessible_getSelection (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Selection:1.0",
-                                             spi_ev ());
-  spi_warn_ev (spi_ev (), "getSelection");
-
-  return (AccessibleSelection *) spi_object_add (iface);
+  return (AccessibleSelection *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Selection:1.0");
 }
 
 
@@ -643,13 +593,8 @@ Accessible_getSelection (Accessible *obj)
 AccessibleTable *
 Accessible_getTable (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Table:1.0",
-                                             spi_ev ());
-  spi_check_ev (spi_ev (), "getTable");
-
-  return (AccessibleTable *) spi_object_add (iface);
+  return (AccessibleTable *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Table:1.0");
 }
 
 /**
@@ -664,14 +609,8 @@ Accessible_getTable (Accessible *obj)
 AccessibleText *
 Accessible_getText (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Text:1.0",
-                                             spi_ev ());
-
-  spi_check_ev (spi_ev (), "getText"); 
-
-  return (AccessibleText *) spi_object_add (iface);
+  return (AccessibleText *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Text:1.0");
 }
 
 
@@ -688,11 +627,8 @@ Accessible_getText (Accessible *obj)
 AccessibleValue *
 Accessible_getValue (Accessible *obj)
 {
-  Bonobo_Unknown iface =
-    Accessibility_Accessible_queryInterface (*obj,
-                                             "IDL:Accessibility/Value:1.0",
-                                             spi_ev ());
-  return (AccessibleValue *) spi_object_add (iface);
+  return (AccessibleValue *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Value:1.0");
 }
 
 
@@ -711,11 +647,22 @@ Accessible_getValue (Accessible *obj)
 GenericInterface *
 Accessible_queryInterface (Accessible *obj, char *interface_name)
 {
-  GenericInterface iface;
-  iface = Accessibility_Accessible_queryInterface (*obj,
-                                                    interface_name,
-                                                    spi_ev ());
-  return spi_object_add (iface);
+  Bonobo_Unknown iface;
+
+  iface = Accessibility_Accessible_queryInterface (CSPI_OBJREF (obj),
+						   interface_name,
+						   cspi_ev ());
+
+  /*
+   * FIXME: we need to be fairly sure that references are going
+   * to mach up if we are going to expose QueryInterface, ie. we
+   * can't allow people to do:
+   * b = a.qi ("b"); b.unref, b.unref to release a's reference.
+   * this should be no real problem though for this level of API
+   * user.
+   */
+
+  return cspi_object_add (iface);
 }
 
 
@@ -731,8 +678,7 @@ Accessible_queryInterface (Accessible *obj, char *interface_name)
 int
 AccessibleRelation_ref (AccessibleRelation *obj)
 {
-  Accessibility_Relation_ref (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "ref");
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -748,8 +694,7 @@ AccessibleRelation_ref (AccessibleRelation *obj)
 int
 AccessibleRelation_unref (AccessibleRelation *obj)
 {
-  Accessibility_Relation_unref (*obj, spi_ev ());
-  spi_check_ev (spi_ev (), "unref");
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -817,8 +762,7 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
 int
 AccessibleStateSet_ref (AccessibleStateSet *obj)
 {
-/*  Accessibility_StateSet_ref (*obj, spi_ev ()); */
-  spi_check_ev (spi_ev (), "ref");
+  cspi_object_ref (obj);
   return 0;
 }
 
@@ -834,8 +778,7 @@ AccessibleStateSet_ref (AccessibleStateSet *obj)
 int
 AccessibleStateSet_unref (AccessibleStateSet *obj)
 {
-/*  Accessibility_StateSet_unref (*obj, spi_ev ()); */
-  spi_check_ev (spi_ev (), "unref");
+  cspi_object_unref (obj);
   return 0;
 }
 
@@ -857,8 +800,8 @@ boolean
 AccessibleStateSet_contains (AccessibleStateSet *obj,
 			     AccessibleState state)
 {
-  CORBA_boolean retval = Accessibility_StateSet_contains (*obj, state, spi_ev ());
-  spi_check_ev (spi_ev (), "contains");
+  CORBA_boolean retval = Accessibility_StateSet_contains (CSPI_OBJREF (obj), state, cspi_ev ());
+  cspi_check_ev (cspi_ev (), "contains");
   return (boolean) retval;
 }
 
@@ -875,8 +818,8 @@ void
 AccessibleStateSet_add (AccessibleStateSet *obj,
 			AccessibleState state)
 {
-  Accessibility_StateSet_add (*obj, state, spi_ev ());
-  spi_check_ev (spi_ev (), "contains");
+  Accessibility_StateSet_add (CSPI_OBJREF (obj), state, cspi_ev ());
+  cspi_check_ev (cspi_ev (), "contains");
 }
 
 
@@ -893,8 +836,8 @@ void
 AccessibleStateSet_remove (AccessibleStateSet *obj,
 			   AccessibleState state)
 {
-  Accessibility_StateSet_remove (*obj, state, spi_ev ());
-  spi_check_ev (spi_ev (), "contains");
+  Accessibility_StateSet_remove (CSPI_OBJREF (obj), state, cspi_ev ());
+  cspi_check_ev (cspi_ev (), "contains");
 }
 
 /**
@@ -916,7 +859,7 @@ boolean
 AccessibleStateSet_equals (AccessibleStateSet *obj,
                            AccessibleStateSet *obj2)
 {
-  return Accessibility_StateSet_equals (*obj, *obj2, spi_ev ());
+  return Accessibility_StateSet_equals (CSPI_OBJREF (obj), CSPI_OBJREF (obj2), cspi_ev ());
 }
 
 /**
@@ -955,7 +898,7 @@ boolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
 {
   return TRUE;	
-  /*  return Accessibility_StateSet_isEmpty (*obj, spi_ev ());*/
+  /*  return Accessibility_StateSet_isEmpty (CSPI_OBJREF (obj), cspi_ev ());*/
 }
 
 
