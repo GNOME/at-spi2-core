@@ -1,3 +1,7 @@
+2001-12-17  Darin Adler  <darin@bentspoon.com>
+
+	* atk/atktext.c: Add missing #include <string.h>
+
 2001-12-13  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
 
 	* atk/Makefile.am, tests/Makefile.am: Compile with

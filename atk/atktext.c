@@ -21,6 +21,8 @@
 #include "atkmarshal.h"
 #include "atk-enum-types.h"
 
+#include <string.h>
+
 GPtrArray *extra_attributes = NULL;
 
 enum {
