@@ -34,7 +34,7 @@
 
 /* Known bugs */
 #undef  KEY_IMPL_WORKS
-#define WHOLE_STRING G_MAXINT
+#define WHOLE_STRING -1
 
 static void validate_accessible (Accessible *accessible,
 				 gboolean    has_parent,

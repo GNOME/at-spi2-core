@@ -1,3 +1,17 @@
+2002-03-07  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	Include gdk_pixbuf_x11-2.0 in UTILS_LIBS.
+
+	* util/Makefile.am:
+	Fix regression caused by hard-coding major
+	version of gdk_pixbuf_x11; now use $(UTILS_LIBS)
+	(see above change).
+	
+	* test/test-simple.c (test_editable_text),
+	(test_test): revert previous change (error was 
+	a regression in gail which is now fixed).
+	
 2002-03-04  Michael Meeks  <michael@ximian.com>
 
 	* test/test-simple.c (test_editable_text),

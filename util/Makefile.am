@@ -53,7 +53,7 @@ IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) 	\
 
 orbittypelibdir = $(libdir)/orbit
 
-LDADD = $(UTILS_LIBS) -L$(prefix)/lib -lgdk_pixbuf_xlib-1.3
+LDADD = $(UTILS_LIBS)
 
 serverinfodir = $(libdir)/bonobo/servers
 serverinfo_DATA = Accessibility_Util.server
