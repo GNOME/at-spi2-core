@@ -1,480 +1,311 @@
 # Translation of atk to Croatian
 # Copyright (C) Croatian team
 # Translators: Automatski Prijevod <>,Robert Sedak <robert.sedak@sk.tel.hr>,
-
-# Translation of atk to Croatian
-# Copyright (C) Croatian team
-# Translators: Automatski Prijevod <>,Robert Sedak <robert.sedak@sk.tel.hr>,
-# Translation of atk to Croatian
-# Copyright (C) Croatian team
-# Translators: Automatski Prijevod <>,Robert Sedak <robert.sedak@sk.tel.hr>,
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 0\n"
-"POT-Creation-Date: 2003-12-26 14:05+0100\n"
-"PO-Revision-Date: 2003-12-26 20:41+CET\n"
-"Last-Translator: Robert Sedak <robert.sedak@sk.tel.hr>\n"
+"POT-Creation-Date: 2003-11-06 18:05+0100\n"
+"PO-Revision-Date: 2003-12-30 19:28+CET\n"
+"Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: TransDict server\n"
 
-#: atk/atkhyperlink.c:103
-msgid "Selected Link"
-msgstr "Označena veza"
-
-#: atk/atkhyperlink.c:104
-msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "Određuje je li označen objekt AtkHyperlink"
-
-#: atk/atkhyperlink.c:110
-msgid "Number of Anchors"
-msgstr "Broj sidara"
-
-#: atk/atkhyperlink.c:111
-msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "Broj sidara povezanih s objektom AtkHyperlink"
-
-#: atk/atkhyperlink.c:119
-msgid "End index"
-msgstr "Završni indeks"
-
-#: atk/atkhyperlink.c:120
-msgid "The end index of the AtkHyperlink object"
-msgstr "Kraj indeksa za objekt AtkHyperlink"
-
-#: atk/atkhyperlink.c:128
-msgid "Start index"
-msgstr "Pokreni indeks"
-
-#: atk/atkhyperlink.c:129
-msgid "The start index of the AtkHyperlink object"
-msgstr "Početni indeks objekta AtkHyperlink"
-
-#: atk/atkobject.c:82
+#: atk/atkobject.c:1235
 msgid "invalid"
 msgstr "neispravno"
 
-#: atk/atkobject.c:83
-msgid "accelerator label"
-msgstr "oznaka ubrzivača"
+#: atk/atkobject.c:1238
+msgid "accel-label"
+msgstr "accel-oznaka"
 
-#: atk/atkobject.c:84
+#: atk/atkobject.c:1241
 msgid "alert"
 msgstr "upozorenje"
 
-#: atk/atkobject.c:85
+#: atk/atkobject.c:1244
 msgid "animation"
 msgstr "animacija"
 
-#: atk/atkobject.c:86
+#: atk/atkobject.c:1247
 msgid "arrow"
 msgstr "strelica"
 
-#: atk/atkobject.c:87
+#: atk/atkobject.c:1250
 msgid "calendar"
 msgstr "kalendar"
 
-#: atk/atkobject.c:88
+#: atk/atkobject.c:1253
 msgid "canvas"
 msgstr "platno"
 
-#: atk/atkobject.c:89
-msgid "check box"
+#: atk/atkobject.c:1256
+msgid "check-box"
 msgstr "potvrdni okvir"
 
-#: atk/atkobject.c:90
-msgid "check menu item"
+#: atk/atkobject.c:1259
+msgid "check-menu-item"
 msgstr "potvrdni okvir izbornika"
 
-#: atk/atkobject.c:91
-msgid "color chooser"
+#: atk/atkobject.c:1262
+msgid "color-chooser"
 msgstr "izbornik boja"
 
-#: atk/atkobject.c:92
-msgid "column header"
+#: atk/atkobject.c:1265
+msgid "column-header"
 msgstr "zaglavlje stupca"
 
-#: atk/atkobject.c:93
-msgid "combo box"
+#: atk/atkobject.c:1268
+msgid "combo-box"
 msgstr "padajući izbornik"
 
-#: atk/atkobject.c:94
-msgid "dateeditor"
+#: atk/atkobject.c:1271
+msgid "date-editor"
 msgstr "uređivač datuma"
 
-#: atk/atkobject.c:95
-msgid "desktop icon"
+#: atk/atkobject.c:1274
+msgid "desktop-icon"
 msgstr "sličica radne površine"
 
-#: atk/atkobject.c:96
-msgid "desktop frame"
+#: atk/atkobject.c:1277
+msgid "desktop-frame"
 msgstr "okvir radne površine"
 
-#: atk/atkobject.c:97
+#: atk/atkobject.c:1280
 msgid "dial"
 msgstr "biraj"
 
-#: atk/atkobject.c:98
+#: atk/atkobject.c:1283
 msgid "dialog"
 msgstr "dijalog"
 
-#: atk/atkobject.c:99
-msgid "directory pane"
+#: atk/atkobject.c:1286
+msgid "directory-pane"
 msgstr "ploča mape"
 
-#: atk/atkobject.c:100
-msgid "drawing area"
+#: atk/atkobject.c:1289
+msgid "drawing-area"
 msgstr "područje crtanja"
 
-#: atk/atkobject.c:101
-msgid "file chooser"
+#: atk/atkobject.c:1292
+msgid "file-chooser"
 msgstr "izbornik datoteka"
 
-#: atk/atkobject.c:102
+#: atk/atkobject.c:1295
 msgid "filler"
 msgstr "popunjivač"
 
-#. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:104
-msgid "fontchooser"
+#: atk/atkobject.c:1298
+msgid "font-chooser"
 msgstr "izbornik pisama"
 
-#: atk/atkobject.c:105
+#: atk/atkobject.c:1301
 msgid "frame"
 msgstr "okvir"
 
-#: atk/atkobject.c:106
-msgid "glass pane"
+#: atk/atkobject.c:1304
+msgid "glass-pane"
 msgstr "staklena površina"
 
-#: atk/atkobject.c:107
-msgid "html container"
+#: atk/atkobject.c:1307
+msgid "html-container"
 msgstr "spremnik html koda"
 
-#: atk/atkobject.c:108
+#: atk/atkobject.c:1310
 msgid "icon"
 msgstr "sličica"
 
-#: atk/atkobject.c:109
+#: atk/atkobject.c:1313
 msgid "image"
 msgstr "slika"
 
-#: atk/atkobject.c:110
-msgid "internal frame"
+#: atk/atkobject.c:1316
+msgid "internal-frame"
 msgstr "interni okvir"
 
-#: atk/atkobject.c:111
+#: atk/atkobject.c:1319
 msgid "label"
 msgstr "oznaka"
 
-#: atk/atkobject.c:112
-msgid "layered pane"
+#: atk/atkobject.c:1322
+msgid "layered-pane"
 msgstr "slojevita ploča"
 
-#: atk/atkobject.c:113
+#: atk/atkobject.c:1325
 msgid "list"
 msgstr "popis"
 
-#: atk/atkobject.c:114
-msgid "list item"
+#: atk/atkobject.c:1328
+msgid "list-item"
 msgstr "popis stavaka"
 
-#: atk/atkobject.c:115
+#: atk/atkobject.c:1331
 msgid "menu"
 msgstr "izbornik"
 
-#: atk/atkobject.c:116
-msgid "menu bar"
+#: atk/atkobject.c:1334
+msgid "menu-bar"
 msgstr "traka izbornika"
 
-#: atk/atkobject.c:117
-msgid "menu item"
+#: atk/atkobject.c:1337
+msgid "menu-item"
 msgstr "stavka izbornika"
 
-#: atk/atkobject.c:118
-msgid "option pane"
+#: atk/atkobject.c:1340
+msgid "option-pane"
 msgstr "ploča opcija"
 
-#: atk/atkobject.c:119
-msgid "page tab"
+#: atk/atkobject.c:1343
+msgid "page-tab"
 msgstr "stranica"
 
-#: atk/atkobject.c:120
-msgid "page tab list"
+#: atk/atkobject.c:1346
+msgid "page-tab-list"
 msgstr "popis stranica"
 
-#: atk/atkobject.c:121
+#: atk/atkobject.c:1349
 msgid "panel"
 msgstr "ploča"
 
-#: atk/atkobject.c:122
-msgid "password text"
+#: atk/atkobject.c:1352
+msgid "password-text"
 msgstr "tekst lozinke"
 
-#: atk/atkobject.c:123
-msgid "popup menu"
+#: atk/atkobject.c:1355
+msgid "popup-menu"
 msgstr "skočni izbornik"
 
-#: atk/atkobject.c:124
-msgid "progress bar"
+#: atk/atkobject.c:1358
+msgid "progress-bar"
 msgstr "traka napredovanja"
 
-#: atk/atkobject.c:125
-msgid "push button"
+#: atk/atkobject.c:1361
+msgid "push-button"
 msgstr "gum na pritisak"
 
-#: atk/atkobject.c:126
-msgid "radio button"
+#: atk/atkobject.c:1364
+msgid "radio-button"
 msgstr "radijski gumb"
 
-#: atk/atkobject.c:127
-msgid "radio menu item"
+#: atk/atkobject.c:1367
+msgid "radio-menu-item"
 msgstr "stavka radijskog gumba"
 
-#: atk/atkobject.c:128
-msgid "root pane"
+#: atk/atkobject.c:1370
+msgid "root-pane"
 msgstr "osnovna ploča"
 
-#: atk/atkobject.c:129
-msgid "row header"
+#: atk/atkobject.c:1373
+msgid "row-header"
 msgstr "zaglavlje redka"
 
-#: atk/atkobject.c:130
-msgid "scroll bar"
+#: atk/atkobject.c:1376
+msgid "scroll-bar"
 msgstr "klizač"
 
-#: atk/atkobject.c:131
-msgid "scroll pane"
+#: atk/atkobject.c:1379
+msgid "scroll-pane"
 msgstr "klizuća ploča"
 
-#: atk/atkobject.c:132
+#: atk/atkobject.c:1382
 msgid "separator"
 msgstr "razdjelnik"
 
-#: atk/atkobject.c:133
+#: atk/atkobject.c:1385
 msgid "slider"
 msgstr "klizač"
 
-#: atk/atkobject.c:134
-msgid "split pane"
+#: atk/atkobject.c:1388
+msgid "split-pane"
 msgstr "razdjeljena ploča"
 
-#: atk/atkobject.c:135
-msgid "spin button"
+#: atk/atkobject.c:1391
+msgid "spin-button"
 msgstr "okretajući gumb"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:1394
 msgid "statusbar"
 msgstr "statusna traka"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:1397
 msgid "table"
 msgstr "tablica"
 
-#: atk/atkobject.c:138
-msgid "table cell"
+#: atk/atkobject.c:1400
+msgid "table-cell"
 msgstr "ćelija tablice"
 
-#: atk/atkobject.c:139
-msgid "table column header"
+#: atk/atkobject.c:1403
+msgid "table-column-header"
 msgstr "zaglavlje stupca u tablici"
 
-#: atk/atkobject.c:140
-msgid "table row header"
+#: atk/atkobject.c:1406
+msgid "table-row-header"
 msgstr "zaglavlje redka u tablici"
 
-#: atk/atkobject.c:141
-msgid "tear off menu item"
+#: atk/atkobject.c:1409
+msgid "tear-off-menu-item"
 msgstr "stavka izbornika za odvajanje stavki"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:1412
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:1415
 msgid "text"
 msgstr "tekst"
 
-#: atk/atkobject.c:144
-msgid "toggle button"
+#: atk/atkobject.c:1418
+msgid "toggle-button"
 msgstr "preklopni gumb"
 
-#: atk/atkobject.c:145
-msgid "tool bar"
+#: atk/atkobject.c:1421
+msgid "tool-bar"
 msgstr "traka s alatima"
 
-#: atk/atkobject.c:146
-msgid "tool tip"
+#: atk/atkobject.c:1424
+msgid "tool-tip"
 msgstr "naziv alata"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:1427
 msgid "tree"
 msgstr "drvo"
 
-#: atk/atkobject.c:148
-msgid "tree table"
+#: atk/atkobject.c:1430
+msgid "tree-table"
 msgstr "tablica drveta"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:1433
 msgid "unknown"
 msgstr "nepoznato"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:1436
 msgid "viewport"
 msgstr "mjesto gledanja"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:1439
 msgid "window"
 msgstr "prozor"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:1442
 msgid "header"
 msgstr "zaglavlje"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:1445
 msgid "footer"
 msgstr "podnožje"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:1448
 msgid "paragraph"
 msgstr "odlomak"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:1451
+msgid "ruler"
+msgstr "ravnalo"
+
+#: atk/atkobject.c:1454
 msgid "application"
 msgstr "Program"
-
-#: atk/atkobject.c:156
-msgid "autocomplete"
-msgstr "samodopuna"
-
-#: atk/atkobject.c:157
-msgid "edit bar"
-msgstr "traka za uređivanje"
-
-#: atk/atkobject.c:295
-msgid "Accessible Name"
-msgstr "Dostupno ime"
-
-#: atk/atkobject.c:296
-msgid "Object instance's name formatted for assistive technology access"
-msgstr "Ime pojava objekta oblikovana za pristup pomoćnim tehnologijama"
-
-#: atk/atkobject.c:302
-msgid "Accessible Description"
-msgstr "Dostupan opis"
-
-#: atk/atkobject.c:303
-msgid "Description of an object, formatted for assistive technology access"
-msgstr "Opis objekta, oblikovan za pristup pomoćnim tehnologijama"
-
-#: atk/atkobject.c:309
-msgid "Accessible Parent"
-msgstr "Dostupan izvor"
-
-#: atk/atkobject.c:310
-msgid "Is used to notify that the parent has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjen izvor"
-
-#: atk/atkobject.c:316
-msgid "Accessible Value"
-msgstr "Dostupna vrijednost"
-
-#: atk/atkobject.c:317
-msgid "Is used to notify that the value has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjena vrijednost"
-
-#: atk/atkobject.c:325
-msgid "Accessible Role"
-msgstr "Dostupna usluga"
-
-#: atk/atkobject.c:326
-msgid "The accessible role of this object"
-msgstr "Dostupne funkcije za ovaj objekt"
-
-#: atk/atkobject.c:334
-msgid "Accessible Layer"
-msgstr "Dostupan sloj"
-
-#: atk/atkobject.c:335
-msgid "The accessible layer of this object"
-msgstr "Dostupni slojevi za ovaj objekt"
-
-#: atk/atkobject.c:343
-msgid "Accessible MDI Value"
-msgstr "Dostupna MDI vrijednost"
-
-#: atk/atkobject.c:344
-msgid "The accessible MDI value of this object"
-msgstr "Dostupne MDI vrijednosti za ovaj objekt"
-
-#: atk/atkobject.c:352
-msgid "Accessible Table Caption"
-msgstr "Dostupni naslov tablice"
-
-#: atk/atkobject.c:353
-msgid ""
-"Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
-msgstr "Koristi se za izvješćivanje da je promijenjen naslov tablice; ovo svojstvo se nebi trebalo korisiti. Umjesto toga bi trebalo koristiti accessible-table-caption-object  "
-
-#: atk/atkobject.c:359
-msgid "Accessible Table Column Header"
-msgstr "Dostupno zaglavlje stupca tablice"
-
-#: atk/atkobject.c:360
-msgid "Is used to notify that the table column header has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjeno zaglavlje stupca tablice"
-
-#: atk/atkobject.c:366
-msgid "Accessible Table Column Description"
-msgstr "Dostupan opis stupca tablice"
-
-#: atk/atkobject.c:367
-msgid "Is used to notify that the table column description has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjen opis stupca tablice"
-
-#: atk/atkobject.c:373
-msgid "Accessible Table Row Header"
-msgstr "Dostupno zaglavlje retka tablice"
-
-#: atk/atkobject.c:374
-msgid "Is used to notify that the table row header has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjeno zaglavlje retka tablice"
-
-#: atk/atkobject.c:380
-msgid "Accessible Table Row Description"
-msgstr "Dostupan opis retka tablice"
-
-#: atk/atkobject.c:381
-msgid "Is used to notify that the table row description has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjen opis retka tablice"
-
-#: atk/atkobject.c:387
-msgid "Accessible Table Summary"
-msgstr "Dostupan sažetak tablice"
-
-#: atk/atkobject.c:388
-msgid "Is used to notify that the table summary has changed"
-msgstr "Koristi se za izvješćivanje da je promijenjen sažetak tablice"
-
-#: atk/atkobject.c:394
-msgid "Accessible Table Caption Object"
-msgstr "Dostupan objekt naslova tablice"
-
-#: atk/atkobject.c:395
-msgid "Is used to notify that the table caption has changed"
-msgstr "Koristi se za itvješćivanje da je promijenjen naslov tablice"
-
-#: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
-msgstr "Dostupan broj hiperteksta za veze"
-
-#: atk/atkobject.c:402
-msgid "The number of links which the current AtkHypertext has"
-msgstr "Broj veza koje ima trenutni AtkHypertext"
-
-#~ msgid "ruler"
-#~ msgstr "ravnalo"
 
