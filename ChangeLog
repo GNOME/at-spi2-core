@@ -3,6 +3,21 @@
 	* libspi/value.h:
 	Fixed typo in header which was redefining SPI_ACTION_CLASS.
 
+	* cspi/spi_accessible.c:
+	Add a couple of missing enum initializations, and fix some enum
+	comments.
+
+	* cspi/spi_registry.c:
+	Add comment describing keystring parameter to SPI_generateKeyboardEvent.
+	
+	* docs/reference/cspi/at-spi-cspi-sections.txt:
+	Remove/fix a couple of broken document references.
+
+	* test/simple-at.c:
+	Minor tweaks to the demo.  We now (sigh) use Alt-SHIFTLOCK as well
+	as Alt-Control to listen for commands, since on some systems
+	Control-Alt may already be grabbed.
+
 2002-01-10  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:
@@ -16,7 +31,7 @@
 	Workaround for bug in some non-gnome-compliant window managers
 	which made magnifier resize improperly.
 
-2002-09-01  Bill Haneman <bill.haneman@sun.com>
+2002-01-09  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/accessible.c: (spi_accessible_new) :
 	Move the test for SPI_IS_REMOTE_OBJECT to
