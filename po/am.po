@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "POT-Creation-Date: 2003-01-06 05:49+0100\n"
-"PO-Revision-Date: 2003-01-07 10:33+EDT\n"
+"PO-Revision-Date: 2003-01-08 07:44+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: atk/atkobject.c:1231
 msgid "dialog"
-msgstr ""
+msgstr "መምረጫ"
 
 #: atk/atkobject.c:1234
 msgid "directory-pane"
@@ -189,11 +189,11 @@ msgstr ""
 
 #: atk/atkobject.c:1312
 msgid "radio-button"
-msgstr ""
+msgstr "ሬዲዮ-ቁልፍ"
 
 #: atk/atkobject.c:1315
 msgid "radio-menu-item"
-msgstr ""
+msgstr "ሬዲዮ-ሜኑ-ዕቃ"
 
 #: atk/atkobject.c:1318
 msgid "root-pane"
@@ -201,11 +201,11 @@ msgstr ""
 
 #: atk/atkobject.c:1321
 msgid "row-header"
-msgstr ""
+msgstr "ረድፍ-አናት"
 
 #: atk/atkobject.c:1324
 msgid "scroll-bar"
-msgstr ""
+msgstr "መሸብለል-ባር"
 
 #: atk/atkobject.c:1327
 msgid "scroll-pane"
@@ -261,15 +261,15 @@ msgstr "ጽሑፍ"
 
 #: atk/atkobject.c:1366
 msgid "toggle-button"
-msgstr ""
+msgstr "ቀያያር-ቁልፍ"
 
 #: atk/atkobject.c:1369
 msgid "tool-bar"
-msgstr ""
+msgstr "ቱል-ባር"
 
 #: atk/atkobject.c:1372
 msgid "tool-tip"
-msgstr ""
+msgstr "ቱል-ፍንጭ"
 
 #: atk/atkobject.c:1375
 msgid "tree"
