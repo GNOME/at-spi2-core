@@ -136,7 +136,7 @@ if test "x$have_xkb" = "xyes"; then
 fi
 
 have_xinput=
-AC_CHECK_LIB(Xi, XOpenDevice, XINPUT_LIBS=-lXi)
+AC_CHECK_LIB(Xi, XOpenDevice, XINPUT_LIBS=-lXi,,-lXext)
 if test "x$XINPUT_LIBS" = x; then
   AC_MSG_ERROR(Couldn't find the XInput library. Check config.log for details)
 fi			       
