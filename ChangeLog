@@ -1,3 +1,11 @@
+2001-09-21  Hans Breuer  <hans@breuer.org>
+
+	* atk/atk.def : updated externals
+	* atk/makefile.msc : version 0.4
+
+	* atk/atktext.c (atk_text_get_character_extents) : real_height
+	is a reference to int, so use &local_height
+
 Wed Sep 19 10:46:44 2001  Tim Janik  <timj@gtk.org>
 
 	* Released 0.4.

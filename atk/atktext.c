@@ -360,7 +360,7 @@ atk_text_get_character_extents (AtkText *text,
   if (height)
     real_height = height;
   else
-    real_height = local_height;
+    real_height = &local_height;
 
   iface = ATK_TEXT_GET_IFACE (text);
 

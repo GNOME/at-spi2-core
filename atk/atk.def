@@ -9,9 +9,9 @@ EXPORTS
 	atk_add_global_event_listener
 	atk_component_add_focus_handler
 	atk_component_contains
-	atk_component_get_accessible_at_point
 	atk_component_get_type
 	atk_component_grab_focus
+	atk_component_ref_accessible_at_point
 	atk_component_remove_focus_handler
 	atk_document_get_document
 	atk_document_get_document_type
@@ -38,8 +38,8 @@ EXPORTS
 	atk_hypertext_get_n_links
 	atk_hypertext_get_type
 	atk_image_get_image_description
+	atk_image_get_image_position
 	atk_image_get_image_size
-	atk_image_get_position
 	atk_image_get_type
 	atk_image_set_image_description
 	atk_implementor_get_type

@@ -4,8 +4,9 @@
 TOP = ..\..
 PRJ_TOP = ..
 PACKAGE = atk
-PKG_VER = 0.2
 !INCLUDE $(TOP)\build\win32\make.msc
+
+PKG_VER = 0.4
 
 top_srcdir = $(PRJ_TOP)
 top_builddir = $(PRJ_TOP)
@@ -13,9 +14,9 @@ includedir = $(PRJ_TOP)
 LT_RELEASE = $(PKG_VER)
 
 INCLUDES = \
-	-I$(top_srcdir) $(GLIB_CFLAGS)
+	-I$(top_srcdir) $(GLIB_CFLAGS) $(PANGO_CFLAGS)
 
-PKG_LINK = $(GLIB_LIBS)
+PKG_LINK = $(GLIB_LIBS) $(PANGO_LIBS)
 
 MAINTAINERCLEANFILES = \
 	atkmarshal.c
