@@ -1,0 +1,28 @@
+<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
+<!entity at-spi-idl-accessible SYSTEM "sgml/Accessible.sgml">
+<!entity at-spi-idl-registry SYSTEM "sgml/Registry.sgml">
+<!entity at-spi-idl-application SYSTEM "sgml/Application.sgml">
+<!entity at-spi-idl-action SYSTEM "sgml/Action.sgml">
+]>
+
+<book>
+  <bookinfo>
+    <title>AT-SPI Reference Manual : Basic Interface Definitions</title>
+  </bookinfo>
+   <chapter id="registry">
+    <title>The Accessibility Registry</title>
+    &at-spi-idl-registry;
+   </chapter>
+   <chapter id="accessible">
+    <title>Primary Accessibility Interface, Accessible</title>
+    &at-spi-idl-accessible;
+  </chapter>
+  <chapter id="application">
+    <title>Applications and Desktops</title>
+    &at-spi-idl-application;
+  </chapter>
+  <chapter id="action">
+    <title>Subinterfaces</title>
+    &at-spi-idl-action;
+  </chapter>
+</book>

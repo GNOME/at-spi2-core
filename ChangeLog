@@ -1,3 +1,19 @@
+2001-22-11  Bill Haneman  <bill.haneman@sun.com>
+
+	* docs/reference/idl/at-spi-idl-docs.sgml:
+	* docs/reference/idl/at-spi-idl-sections.txt:
+	* docs/reference/idl/at-spi-idl-overrides.txt:
+	Added missing files.
+
+	* docs/reference/Makefile.am:
+	removed idl from SUBDIRS until we can figure a way to get gtk-doc
+	to scan the IDL files :-(
+
+	* docs/reference:
+	* docs/cspi:
+	* docs/idl:
+	Added .cvsignore files.
+	
 2001-21-11  Bill Haneman  <bill.haneman@sun.com>
 
 	* libspi/deviceeventcontroller.c:
