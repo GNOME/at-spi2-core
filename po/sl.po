@@ -1,0 +1,321 @@
+# Slovenian translation file for atk.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# Andraz Tori <andraz.tori1@guest.arnes.si> 2002
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2002-06-16 15:37+0200\n"
+"PO-Revision-Date: 2001-07-29 12:32+0200\n"
+"Last-Translator: Andraz Tori <andraz.tori1@guest.arnes.si>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "neveljavno"	# G:3 K:0 O:0
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "označba-pospeševalnika"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "alarm"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "animacija"	# G:4 K:2 O:0
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "puščica"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "koledar"	# G:6 K:2 O:0
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "platno"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "škatlica-za-obkljukat"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "obkljukaj-predmet-menuja"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "izbirnik barv"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "glava-stolpca"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "kombinirani-seznam-combo-box"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "urejevalnik-datuma"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "ikona-namizja"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "okvir-namizja"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "pokliči"	# G:0 K:3 O:0
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialog"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "pult-imenika"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "risalna-površina"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "izbirnik-datotek"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "polnilnik"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "izbirnik-pisav"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "okvir"	# G:2 K:1 O:0
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "steklen-pult"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "vesbovalnik-html"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ikona"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "slika"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "notranji-okvir"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "oznaka"	# G:3 K:4 O:0
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "stopenjski-pult"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "seznam"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "predmet-seznama"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "menu"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "menujska-vrstica"	# G:2 K:0 O:0
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "predmet-menuja"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "pult-možnosti"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "uhelj-strani"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "seznam-strani-uhlja"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "pult"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "besedilo-gesla"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "vzklični-menu"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "kazalnik-poteka"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "potisni-gumb"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "radijski-gumb"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "predmet-radijskega-menuja"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "korenski-pult"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "glava-vrstice"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "drsnilnik"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "drsilni-pult"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "ločnica"	# G:3 K:1 O:0
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "drsnik"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "delilni-pult"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "vrtilni-gumb"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "vrstica-stanja"	# G:4 K:0 O:0
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tabela"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "celica-tabele"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "glava-stolpca-tabele"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "glava-vrstice-tabele"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "odtrgljiv-predmet-menuja"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminal"	# G:0 K:1 O:0
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "besedilo"	# G:1 K:1 O:0
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "preklopni-gumb"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "orodjarna"	# G:1 K:1 O:0
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "namig"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "drevo"	# G:7 K:1 O:0
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "drevesna-tabela"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "neznan"	# G:4 K:2 O:0
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "pogled"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "okno"	# G:7 K:6 O:0
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "glava"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "noga"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "odstavek"	# G:4 K:3 O:0
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "ravnilo"	# G:1 K:0 O:0
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "Program"	# G:0 K:1 O:0
+
+# Smart report:
+# Total untranslated messages in file: 74 
+# Translations made:
+# full: 19
+# smart: 0
+# cond: 42
+# total: 61 ; distinct: 38
+
+
