@@ -235,10 +235,12 @@ atk_remove_global_event_listener (guint listener_id)
 /**
  * atk_add_key_event_listener:
  * @listener: the listener to notify
- * @event_type: the type of event for which notification is requested
+ * @data: a #gpointer that points to a block of data that should be sent to the registered listeners,
+ *        along with the event notification, when it occurs.  
  *
  * Adds the specified function to the list of functions to be called
- * when an event of type event_type occurs.
+ *        when a key event occurs.  The @data element will be passed to the
+ *        #AtkKeySnoopFunc (@listener) as the @func_data param, on notification.
  *
  * Returns: added event listener id, or 0 on failure.
  **/

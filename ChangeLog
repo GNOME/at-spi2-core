@@ -1,3 +1,8 @@
+2001-11-22  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkutil.c (atk_add_key_event_listener):
+	Fix gtk-doc comment and clarify use of 'data' gpointer.
+
 2001-11-22  Michael Meeks  <michael@ximian.com>
 
 	* atk/atkutil.c (atk_add_key_event_listener): switch
