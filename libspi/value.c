@@ -164,7 +164,7 @@ impl__set_currentValue (PortableServer_Servant servant,
   g_return_if_fail (avalue != NULL);
 
   g_value_init (&gvalue, G_TYPE_DOUBLE);
-  g_value_set_float (&gvalue, (gdouble) value);
+  g_value_set_double (&gvalue, (gdouble) value);
 
   atk_value_set_current_value (avalue, &gvalue);
 }
