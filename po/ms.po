@@ -1,310 +1,315 @@
 # ATK
 # Jika takut risiko, Jangan bicara tentang Perjuangan
-# Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
+# Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002-2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2002-11-10 20:20+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-28 01:40+0800\n"
+"PO-Revision-Date: 2003-11-28 20:20+0800\n"
 "Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
 "Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkobject.c:81
 msgid "invalid"
-msgstr "Tidak sah"
+msgstr "tidak sah"
 
-#: atk/atkobject.c:1245
-msgid "accel-label"
-msgstr "label-pemecut"
+#: atk/atkobject.c:82
+msgid "accel label"
+msgstr "label pemecut"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:83
 msgid "alert"
 msgstr "Pemberitahuan"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:84
 msgid "animation"
-msgstr "Animasi"
+msgstr "animasi"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:85
 msgid "arrow"
-msgstr "Panah"
+msgstr "panah"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:86
 msgid "calendar"
 msgstr "kalendar"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:87
 msgid "canvas"
 msgstr "kanvas"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
-msgstr "Kekotak-semak"
+#: atk/atkobject.c:88
+msgid "check box"
+msgstr "Kekotak semak"
 
-#: atk/atkobject.c:1266
-msgid "check-menu-item"
-msgstr "item-menu-semak"
+#: atk/atkobject.c:89
+msgid "check menu item"
+msgstr "item menu semak"
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
-msgstr "pemilih-warna"
+#: atk/atkobject.c:90
+msgid "color chooser"
+msgstr "pemilih warna"
 
-#: atk/atkobject.c:1272
-msgid "column-header"
-msgstr "pengepala-kolum"
+#: atk/atkobject.c:91
+msgid "column header"
+msgstr "pengepala kolum"
 
-#: atk/atkobject.c:1275
-msgid "combo-box"
-msgstr "kekotak-kombo"
+#: atk/atkobject.c:92
+msgid "combo box"
+msgstr "kekotak kombo"
 
-#: atk/atkobject.c:1278
-msgid "date-editor"
-msgstr "editor-tarikh"
+#: atk/atkobject.c:93
+msgid "dateeditor"
+msgstr "editor tarikh"
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
-msgstr "ikon-desktop"
+#: atk/atkobject.c:94
+msgid "desktop icon"
+msgstr "ikon desktop"
 
-#: atk/atkobject.c:1284
-msgid "desktop-frame"
-msgstr "kerangka-desktop"
+#: atk/atkobject.c:95
+msgid "desktop frame"
+msgstr "kerangka desktop"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:96
 msgid "dial"
 msgstr "dial"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:97
 msgid "dialog"
 msgstr "dialog"
 
-#: atk/atkobject.c:1293
-msgid "directory-pane"
-msgstr "jendela-direktori"
+#: atk/atkobject.c:98
+msgid "directory pane"
+msgstr "jendela direktori"
 
-#: atk/atkobject.c:1296
-msgid "drawing-area"
-msgstr "kawasan-lukisan"
+#: atk/atkobject.c:99
+msgid "drawing area"
+msgstr "kawasan lukisan"
 
-#: atk/atkobject.c:1299
-msgid "file-chooser"
-msgstr "Pemilih-fail"
+#: atk/atkobject.c:100
+msgid "file chooser"
+msgstr "Pemilih fail"
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:101
 msgid "filler"
 msgstr "pengisi"
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
-msgstr "pemilih-font"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:103
+msgid "fontchooser"
+msgstr "pemilih font"
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:104
 msgid "frame"
 msgstr "kerangka"
 
-#: atk/atkobject.c:1311
-msgid "glass-pane"
-msgstr "jendela-gelas"
+#: atk/atkobject.c:105
+msgid "glass pane"
+msgstr "jendela gelas"
 
-#: atk/atkobject.c:1314
-msgid "html-container"
-msgstr "bekas-html"
+#: atk/atkobject.c:106
+msgid "html container"
+msgstr "bekas html"
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:107
 msgid "icon"
 msgstr "ikon"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:108
 msgid "image"
 msgstr "imej"
 
-#: atk/atkobject.c:1323
-msgid "internal-frame"
-msgstr "kerangka-dalaman"
+#: atk/atkobject.c:109
+msgid "internal frame"
+msgstr "kerangka dalaman"
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:110
 msgid "label"
 msgstr "label"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
-msgstr "jendela-berlapis"
+#: atk/atkobject.c:111
+msgid "layered pane"
+msgstr "jendela berlapis"
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:112
 msgid "list"
 msgstr "senarai"
 
-#: atk/atkobject.c:1335
-msgid "list-item"
-msgstr "item-senarai"
+#: atk/atkobject.c:113
+msgid "list item"
+msgstr "item senarai"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:114
 msgid "menu"
 msgstr "menu"
 
-#: atk/atkobject.c:1341
-msgid "menu-bar"
-msgstr "bar-menu"
+#: atk/atkobject.c:115
+msgid "menu bar"
+msgstr "bar menu"
 
-#: atk/atkobject.c:1344
-msgid "menu-item"
-msgstr "item-menu"
+#: atk/atkobject.c:116
+msgid "menu item"
+msgstr "item menu"
 
-#: atk/atkobject.c:1347
-msgid "option-pane"
-msgstr "jendela-opsyen"
+#: atk/atkobject.c:117
+msgid "option pane"
+msgstr "jendela opsyen"
 
-#: atk/atkobject.c:1350
-msgid "page-tab"
-msgstr "tab-halaman"
+#: atk/atkobject.c:118
+msgid "page tab"
+msgstr "tab halaman"
 
-#: atk/atkobject.c:1353
-msgid "page-tab-list"
-msgstr "senarai-tab-halaman"
+#: atk/atkobject.c:119
+msgid "page tab list"
+msgstr "senarai tab halaman"
 
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:120
 msgid "panel"
 msgstr "panel"
 
-#: atk/atkobject.c:1359
-msgid "password-text"
-msgstr "teks-katalaluan"
+#: atk/atkobject.c:121
+msgid "password text"
+msgstr "teks katalaluan"
 
-#: atk/atkobject.c:1362
-msgid "popup-menu"
-msgstr "menu-popup"
+#: atk/atkobject.c:122
+msgid "popup menu"
+msgstr "menu popup"
 
-#: atk/atkobject.c:1365
-msgid "progress-bar"
-msgstr "bar-progres"
+#: atk/atkobject.c:123
+msgid "progress bar"
+msgstr "bar progres"
 
-#: atk/atkobject.c:1368
-msgid "push-button"
-msgstr "butang-tekan"
+#: atk/atkobject.c:124
+msgid "push button"
+msgstr "butang tekan"
 
-#: atk/atkobject.c:1371
-msgid "radio-button"
-msgstr "butang-radio"
+#: atk/atkobject.c:125
+msgid "radio button"
+msgstr "butang radio"
 
-#: atk/atkobject.c:1374
-msgid "radio-menu-item"
-msgstr "item-menu-radio"
+#: atk/atkobject.c:126
+msgid "radio menu item"
+msgstr "item menu radio"
 
-#: atk/atkobject.c:1377
-msgid "root-pane"
-msgstr "jendela-root"
+#: atk/atkobject.c:127
+msgid "root pane"
+msgstr "jendela root"
 
-#: atk/atkobject.c:1380
-msgid "row-header"
-msgstr "pengepala-baris"
+#: atk/atkobject.c:128
+msgid "row header"
+msgstr "pengepala baris"
 
-#: atk/atkobject.c:1383
-msgid "scroll-bar"
-msgstr "bar-skrol"
+#: atk/atkobject.c:129
+msgid "scroll bar"
+msgstr "bar skrol"
 
-#: atk/atkobject.c:1386
-msgid "scroll-pane"
-msgstr "jendela-skrol"
+#: atk/atkobject.c:130
+msgid "scroll pane"
+msgstr "jendela skrol"
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:131
 msgid "separator"
 msgstr "pemisah"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:132
 msgid "slider"
 msgstr "penggelunsur"
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
-msgstr "jendela-terpisah"
+#: atk/atkobject.c:133
+msgid "split pane"
+msgstr "jendela terpisah"
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
-msgstr "butang-spin"
+#: atk/atkobject.c:134
+msgid "spin button"
+msgstr "butang spin"
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:135
 msgid "statusbar"
 msgstr "bar status"
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:136
 msgid "table"
 msgstr "jadual"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
-msgstr "sel-jadual"
+#: atk/atkobject.c:137
+msgid "table cell"
+msgstr "sel jadual"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
-msgstr "pengepala-kolum-jadual"
+#: atk/atkobject.c:138
+msgid "table column header"
+msgstr "pengepala kolum jadual"
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
-msgstr "pengepala-baris-jadual"
+#: atk/atkobject.c:139
+msgid "table row header"
+msgstr "pengepala baris jadual"
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
-msgstr "item-menu-tersiat"
+#: atk/atkobject.c:140
+msgid "tear off menu item"
+msgstr "item menu tersiat"
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:141
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:142
 msgid "text"
 msgstr "teks"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
-msgstr "butang-togol"
+#: atk/atkobject.c:143
+msgid "toggle button"
+msgstr "butang togol"
 
-#: atk/atkobject.c:1428
-msgid "tool-bar"
-msgstr "bar-radas"
+#: atk/atkobject.c:144
+msgid "tool bar"
+msgstr "bar alat"
 
-#: atk/atkobject.c:1431
-msgid "tool-tip"
-msgstr "tool-tip"
+#: atk/atkobject.c:145
+msgid "tool tip"
+msgstr "tool tip"
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:146
 msgid "tree"
 msgstr "pepohon"
 
-#: atk/atkobject.c:1437
-msgid "tree-table"
-msgstr "jadual-pepohon"
+#: atk/atkobject.c:147
+msgid "tree table"
+msgstr "jadual pepohon"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:148
 msgid "unknown"
 msgstr "entah"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:149
 msgid "viewport"
 msgstr "viewport"
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:150
 msgid "window"
 msgstr "tetingkap"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:151
 msgid "header"
 msgstr "pengepala"
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:152
 msgid "footer"
 msgstr "footer"
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:153
 msgid "paragraph"
 msgstr "perenggan"
 
-#: atk/atkobject.c:1458
-msgid "ruler"
-msgstr "ruler"
-
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:154
 msgid "application"
 msgstr "aplikasi"
+
+#: atk/atkobject.c:155
+msgid "autocomplete"
+msgstr "autosempurna"
+
+#~ msgid "ruler"
+#~ msgstr "ruler"
