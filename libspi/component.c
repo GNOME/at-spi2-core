@@ -28,7 +28,7 @@
 #include <libspi/component.h>
 
 /* Our parent Gtk object type */
-#define PARENT_TYPE BONOBO_OBJECT_TYPE
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
 /* A pointer to our parent object class */
 static GObjectClass *spi_component_parent_class;

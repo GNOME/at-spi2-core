@@ -20,32 +20,19 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * listener.c: test for accessibility implementation
- *
- */
+/* listener.c: implements the Listener interface */
 
 #ifdef SPI_DEBUG
 #include <stdio.h>
 #endif
 
 #include <config.h>
-#include <bonobo/Bonobo.h>
-#include <libspi/Accessibility.h>
+#include <libspi/listener.h>
 
-/*
- * This pulls the definition for the BonoboObject (GType)
- */
-#include "listener.h"
+/* Our parent Gtk object type */
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
-/*
- * Our parent Gtk object type
- */
-#define PARENT_TYPE BONOBO_OBJECT_TYPE
-
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static GObjectClass *spi_listener_parent_class;
 
 /*
@@ -97,7 +84,7 @@ spi_listener_class_init (SpiListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_EventListener__epv *epv = &klass->epv;
-        spi_listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
+        spi_listener_parent_class = g_type_class_peek_parent (klass);
 
         object_class->finalize = spi_listener_object_finalize;
 

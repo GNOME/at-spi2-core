@@ -20,33 +20,18 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * accessibleeventlistener.c: bonobo implementation of SpiListener.idl,
- *   with added ability to attach/remove in-process callbacks.
- *
- */
+/* accessibleeventlistener.c: implementation of SpiListener.idl */
 
+#include <config.h>
 #ifdef SPI_DEBUG
 #include <stdio.h>
 #endif
+#include <libspi/accessibleeventlistener.h>
 
-#include <config.h>
-#include <bonobo/Bonobo.h>
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition for the BonoboObject (GType)
- */
-#include "accessibleeventlistener.h"
-
-/*
- * Our parent Gtk object type
- */
+/* Our parent Gtk object type */
 #define PARENT_TYPE SPI_LISTENER_TYPE
 
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static SpiListenerClass *spi_event_listener_parent_class;
 
 /*
@@ -107,41 +92,9 @@ spi_event_listener_init (SpiEventListener *listener)
         listener->callbacks = NULL;
 }
 
-GType
-spi_event_listener_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiEventListenerClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_event_listener_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiListener),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_event_listener_init,
-                        NULL /* value table */
-                };
-                /*
-                 *   Here we use bonobo_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_EventListener__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiListenerClass, epv),
-                        &tinfo,
-                        "SpiEventListener");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC (SpiEventListener,
+		  PARENT_TYPE,
+		  spi_event_listener);
 
 SpiEventListener *
 spi_event_listener_new ()

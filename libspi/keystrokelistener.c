@@ -20,32 +20,18 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * listener.c: test for accessibility implementation
- *
- */
-
-#ifdef SPI_DEBUG
-#include <stdio.h>
-#endif
+/* keystrokelistener.c: implement the KeystrokeListener interface */
 
 #include <config.h>
-#include <bonobo/Bonobo.h>
-#include <libspi/Accessibility.h>
+#ifdef SPI_DEBUG
+#  include <stdio.h>
+#endif
+#include <libspi/keystrokelistener.h>
 
-/*
- * This pulls the definition for the BonoboObject (GType)
- */
-#include "keystrokelistener.h"
+/* Our parent Gtk object type  */
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
-/*
- * Our parent Gtk object type
- */
-#define PARENT_TYPE BONOBO_OBJECT_TYPE
-
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static GObjectClass *keystroke_listener_parent_class;
 
 /*
@@ -112,11 +98,11 @@ impl_key_event (PortableServer_Servant     servant,
 }
 
 static void
-keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
+spi_keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
-        keystroke_listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
+        keystroke_listener_parent_class = g_type_class_peek_parent (klass);
 
         object_class->finalize = keystroke_listener_object_finalize;
 
@@ -124,46 +110,15 @@ keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
 }
 
 static void
-keystroke_listener_init (SpiKeystrokeListener *keystroke_listener)
+spi_keystroke_listener_init (SpiKeystrokeListener *keystroke_listener)
 {
 	keystroke_listener->callbacks = NULL;
 }
 
-GType
-spi_keystroke_listener_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiKeystrokeListenerClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) keystroke_listener_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiKeystrokeListener),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) keystroke_listener_init,
-                        NULL /* value table */
-                };
-                /*
-                 *   Here we use bonobo_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_KeystrokeListener__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiKeystrokeListenerClass, epv),
-                        &tinfo,
-                        "SpiKeystrokeListener");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiKeystrokeListener,
+		       Accessibility_KeystrokeListener,
+		       BONOBO_TYPE_OBJECT,
+		       spi_keystroke_listener);
 
 SpiKeystrokeListener *
 spi_keystroke_listener_new (void)

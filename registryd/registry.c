@@ -20,20 +20,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * registry.c: the main accessibility service registry implementation
- */
+/* registry.c: the main accessibility service registry implementation */
 
-#ifdef SPI_DEBUG
-#include <stdio.h>
-#endif
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
-/*
- * This pulls the CORBA definitions for the "Accessibility::Registry" server
- */
-#include <libspi/Accessibility.h>
+#ifdef SPI_DEBUG
+#  include <stdio.h>
+#endif
 
 /*
  * We'd like to replace the dependance on X-isms with a wrapper layer,
@@ -43,19 +35,12 @@
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
-/*
- * This pulls the definition for the BonoboObject (GType)
- */
-#include "registry.h"
+#include <libspi/registry.h>
 
-/*
- * Our parent GObject type
- */
+/* Our parent GObject type  */
 #define PARENT_TYPE SPI_LISTENER_TYPE
 
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static SpiListenerClass *spi_registry_parent_class;
 
 typedef enum {

@@ -60,7 +60,7 @@ static GObjectClass *parent_class;
 
 BONOBO_TYPE_FUNC_FULL (SpiHyperlink,
 		       Accessibility_Hyperlink,
-		       BONOBO_OBJECT_TYPE,
+		       BONOBO_TYPE_OBJECT,
 		       spi_hyperlink);
 
 static void

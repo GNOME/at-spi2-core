@@ -26,14 +26,10 @@
 #include <stdio.h>
 #include <libspi/libspi.h>
 
-/*
- * Our parent Gtk object type
- */
-#define PARENT_TYPE BONOBO_OBJECT_TYPE
+/* Our parent Gtk object type  */
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static GObjectClass *spi_accessible_parent_class;
 
 /*

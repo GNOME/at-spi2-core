@@ -141,7 +141,7 @@ spi_table_get_type (void)
      * use bonobo_type_unique.
      */
     type = bonobo_type_unique (
-			       BONOBO_OBJECT_TYPE,
+			       BONOBO_TYPE_OBJECT,
 			       POA_Accessibility_Table__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiTableClass, epv),

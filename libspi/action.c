@@ -59,7 +59,7 @@ static GObjectClass *parent_class;
 
 BONOBO_TYPE_FUNC_FULL (SpiAction,
 		       Accessibility_Action,
-		       BONOBO_OBJECT_TYPE,
+		       BONOBO_TYPE_OBJECT,
 		       spi_action);
 
 static void

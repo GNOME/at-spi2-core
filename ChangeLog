@@ -1,5 +1,20 @@
 2001-11-20  Michael Meeks  <michael@ximian.com>
 
+	* libspi/deviceeventcontroller.c
+	(_controller_register_with_devices): use g_getenv,
+	kill stdlib.h include.
+
+	* libspi/keystrokelistener.c
+	(spi_keystroke_listener_get_type): kill
+	(spi_keystroke_listener_class_init),
+	(spi_keystroke_listener_init): rename to this.
+
+	* libspi/text.c (impl_getAttributes): fix warning / bug.
+
+	* libspi/*.[ch]: more headers, includes and over commenting.
+	
+2001-11-20  Michael Meeks  <michael@ximian.com>
+
 	* libspi/*.[ch]: fixup headers, includes and over commenting.
 
 	* libspi/image.c (impl__get_imageDescription): const

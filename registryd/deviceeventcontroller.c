@@ -20,37 +20,25 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * listener.c: test for accessibility implementation
- *
- */
+/* deviceeventcontroler.c: implement the DeviceEventController interface */
+
+#include <config.h>
 
 #ifdef SPI_DEBUG
-#include <stdio.h>
+#  include <stdio.h>
 #endif
 
-#include <stdlib.h> /* for getenv() */
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
-#include <config.h>
 #include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
 #include <gdk/gdkwindow.h>
-#include <bonobo/Bonobo.h>
-#include <libspi/Accessibility.h>
 
-/*
- * This pulls the definition for the BonoboObject (GType)
- */
-#include "deviceeventcontroller.h"
+#include <libspi/deviceeventcontroller.h>
 
-/*
- * Our parent Gtk object type
- */
-#define PARENT_TYPE BONOBO_OBJECT_TYPE
+/* Our parent Gtk object type */
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static GObjectClass *spi_device_event_controller_parent_class;
 
 static gboolean kbd_registered = FALSE;
@@ -60,24 +48,24 @@ static Display *display;
 static Window root_window;
 
 typedef enum {
-  SPI_DEVICE_TYPE_KBD,
-  SPI_DEVICE_TYPE_MOUSE,
-  SPI_DEVICE_TYPE_LAST_DEFINED
+	SPI_DEVICE_TYPE_KBD,
+	SPI_DEVICE_TYPE_MOUSE,
+	SPI_DEVICE_TYPE_LAST_DEFINED
 } SpiDeviceTypeCategory;
 
 struct _DEControllerListener {
-  CORBA_Object object;
-  SpiDeviceTypeCategory type;
+	CORBA_Object          object;
+	SpiDeviceTypeCategory type;
 };
 
 typedef struct _DEControllerListener DEControllerListener;
 
 struct _DEControllerKeyListener {
-  DEControllerListener listener;
-  Accessibility_KeySet *keys;
-  Accessibility_ControllerEventMask *mask;
-  Accessibility_KeyEventTypeSeq *typeseq;
-  gboolean is_system_global;	
+	DEControllerListener listener;
+	Accessibility_KeySet *keys;
+	Accessibility_ControllerEventMask *mask;
+	Accessibility_KeyEventTypeSeq *typeseq;
+	gboolean is_system_global;	
 };
 
 typedef struct _DEControllerKeyListener DEControllerKeyListener;
@@ -243,7 +231,7 @@ _controller_register_with_devices (SpiDeviceEventController *controller)
 	   (unsigned long) GDK_ROOT_WINDOW(), GDK_DISPLAY());
 #endif
   /* We must open a new connection to the server to avoid clashing with the GDK event loop */
-  display = XOpenDisplay (getenv ("DISPLAY"));
+  display = XOpenDisplay (g_getenv ("DISPLAY"));
   root_window = DefaultRootWindow (display);		
   XSelectInput (display,
 		root_window,
@@ -539,7 +527,7 @@ spi_device_event_controller_class_init (SpiDeviceEventControllerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_DeviceEventController__epv *epv = &klass->epv;
-        spi_device_event_controller_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
+        spi_device_event_controller_parent_class = g_type_class_peek_parent (klass);
 
         object_class->finalize = spi_device_event_controller_object_finalize;
 
@@ -560,7 +548,8 @@ spi_device_event_controller_init (SpiDeviceEventController *device_event_control
   kbd_registered = _controller_register_with_devices (device_event_controller);
 }
 
-gboolean spi_device_event_controller_check_key_event (SpiDeviceEventController *controller)
+gboolean
+spi_device_event_controller_check_key_event (SpiDeviceEventController *controller)
 {
 	SpiDeviceEventControllerClass *klass = SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS (controller);
 	if (klass->check_key_event)

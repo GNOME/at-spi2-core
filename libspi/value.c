@@ -20,28 +20,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* value.c : implements the Value interface */
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/value.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the SpiValue bonobo object
- */
-#include "value.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_value_class_init (SpiValueClass *klass);
@@ -68,41 +52,10 @@ impl__set_currentValue (PortableServer_Servant _servant,
 static GObjectClass *parent_class;
 
 
-GType
-spi_value_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiValueClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_value_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiValue),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_value_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_Value__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiValueClass, epv),
-			       &tinfo,
-			       "SpiAccessibleValue");
-  }
-
-  return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiValue,
+		       Accessibility_Value,
+		       BONOBO_TYPE_OBJECT,
+		       spi_value);
 
 static void
 spi_value_class_init (SpiValueClass *klass)

@@ -20,40 +20,20 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
-#include <config.h>
-#include <bonobo/Bonobo.h>
+/* text.c : implements the Text interface */
 
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <libspi/text.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
+/* Our parent Gtk object type */
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
-/*
- * This pulls the definition of the SpiText bonobo object
- */
-#include "text.h"
-
-/*
- * Our parent Gtk object type
- */
-#define PARENT_TYPE BONOBO_OBJECT_TYPE
-
-
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static GObjectClass *spi_text_parent_class;
 
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 accessibility_text_class_init (SpiTextClass *klass);
@@ -447,6 +427,8 @@ impl_getAttributes (PortableServer_Servant _servant,
   g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
 
   g_print ("getAttributes not yet implemented.\n");
+
+  return CORBA_string_dup ("");
 }
 
 static void 

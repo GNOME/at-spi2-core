@@ -94,7 +94,7 @@ spi_hypertext_get_type (void)
      * use bonobo_type_unique.
      */
     type = bonobo_type_unique (
-			       BONOBO_OBJECT_TYPE,
+			       BONOBO_TYPE_OBJECT,
 			       POA_Accessibility_Hypertext__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiHypertextClass, epv),
