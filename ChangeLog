@@ -1,3 +1,8 @@
+2002-01-28  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* configure.in:
+	Incremented revision for desktop alpha 2.
+
 2002-01-28  Mark McLoughlin  <mark@skynet.ie>
 
 	* libspi/remoteobject.[ch]: make RemoteObject and interface rather
