@@ -1,3 +1,9 @@
+2004-09-11  J.H.M. Dassen (Ray) <jdassen@debian.org>
+
+	* configure.in: libspi/accessible.c uses ATK_ROLE_EMBEDDED
+	(unconditionally) which was introduced in ATK 1.7.2. Bumped the
+	required ATK version accordingly.
+
 2004-09-03 Bill Haneman    <bill.haneman@sun.com>
 
 	* cspi/bonobo/cspi-bonobo.c:
