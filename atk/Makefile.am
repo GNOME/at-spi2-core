@@ -34,7 +34,8 @@ INCLUDES = \
 	@DEP_CFLAGS@
 
 LDFLAGS =  \
-	-no-undefined	\
+	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)	\
+	-no-undefined						\
 	@DEP_LIBS@
 
 libatkincludedir=$(includedir)/atk-1.0/atk
@@ -67,7 +68,7 @@ atkmarshal.h: @REBUILD@ stamp-atkmarshal.h
 	@true
 stamp-atkmarshal.h: atkmarshal.list
 	case @GLIB_GENMARSHAL@ in									\
-	   .*) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;				\
+	   .*) glib_genmarshal=`pwd`/@GLIB_GENMARSHAL@ ;;				\
 	   *) glib_genmarshal=@GLIB_GENMARSHAL@ ;;							\
 	esac;												\
 	$$glib_genmarshal --prefix=atk_marshal $(srcdir)/atkmarshal.list --header >> xgen-gmh		\
@@ -79,7 +80,7 @@ atkmarshal.c: @REBUILD@ stamp-atkmarshal.c
 	@true
 stamp-atkmarshal.c: atkmarshal.list
 	case @GLIB_GENMARSHAL@ in									\
-	   .*) glib_genmarshal=`cd $(top_builddir) && pwd`/@GLIB_GENMARSHAL@ ;;				\
+	   .*) glib_genmarshal=`pwd`/@GLIB_GENMARSHAL@ ;;				\
 	   *) glib_genmarshal=@GLIB_GENMARSHAL@ ;;							\
 	esac;												\
 	$$glib_genmarshal --prefix=atk_marshal $(srcdir)/atkmarshal.list --body >> xgen-gmc		\

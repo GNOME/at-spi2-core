@@ -1,2 +1,8 @@
+Changes in 0.2
+
+* Some API tweaks
+
+Changes in 0.1
+
 This is the initial release of ATK, the Accessibility Tookit, which will be
 used obtain accessibily information from GTK+ and GNOME widgets.

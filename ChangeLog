@@ -1,3 +1,14 @@
+2001-06-11  Havoc Pennington  <hp@redhat.com>
+
+	* NEWS: updated
+
+	* configure.in: bump version to 0.2 and add infrastructure for 
+	libtool version info. Assumes GTK versioning scheme (major.minor 
+	is binary compatible)
+	
+	* atk/Makefile.am (LDFLAGS): set version info
+	(stamp-atkmarshal.h): glib-genmarshal already includes top_builddir
+	
 2001-06-13  Brian Cameron <brian.cameron@sun.com>
 
 	* atk/atktable.h, atk/atktable.c
