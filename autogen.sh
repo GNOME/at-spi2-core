@@ -74,9 +74,6 @@ fi
 
 aclocal $ACLOCAL_FLAGS
 
-# optionally run autoheader
-(autoheader --version)  < /dev/null > /dev/null 2>&1 && autoheader
-
 automake -a $am_opt
 autoconf
 cd $ORIGDIR

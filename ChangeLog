@@ -1,3 +1,9 @@
+2001-07-13  Darin Adler  <darin@bentspoon.com>
+
+	* .cvsignore: Ignore some generated files.
+	* autogen.sh: Get rid of call to autoheader since the
+	configure file doesn't include AM_CONFIG_HEADER.
+
 2001-07-11  Brian Cameron <brian.cameron@sun.com>
 	* tmpl/atkdocument.sgml
 	Added new file for docs.
