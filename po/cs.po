@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-30 03:02+0100\n"
-"PO-Revision-Date: 2004-01-30 11:53+0100\n"
+"POT-Creation-Date: 2004-07-21 03:06+0200\n"
+"PO-Revision-Date: 2004-07-21 14:50+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -350,68 +350,72 @@ msgstr "autodoplnění"
 msgid "edit bar"
 msgstr "lišta úprav"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "vložená komponenta"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Zpřístupněný název"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "Název instance objektu formátovaný pro použití technologiemi zpřístupnění"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Zpřístupněný popis"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Popis objektu formátovaný pro použití technologiemi zpřístupnění"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "Zpřístupněný rodič"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "Používá se pro upozornění, že rodič byl změněn"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Zpřístupněná hodnota"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "Používá se pro upozornění, že hodnota byla změněna"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Zpřístupněná role"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "Zpřístupněná role tohoto objektu"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "Zpřístupněná vrstva"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "Zpřístupněná vrstva tohoto objektu"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "Zpřístupněná hodnota MDI"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "Zpřístupněná hodnota MDI tohoto objektu"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "Zpřístupněný nadpis tabulky"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -420,59 +424,59 @@ msgstr ""
 "se neměla používat. Místo toho by se mělo používat accessible-table-caption-"
 "object"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "Zpřístupněné záhlaví sloupce tabulky"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "Používá se pro upozornění, že záhlaví sloupce tabulky bylo změněno"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "Zpřístupněný popis sloupce tabulky"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "Používá se pro upozornění, že popis sloupce tabulky byl změněn"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "Zpřístupněné záhlaví řádku tabulky"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "Používá se pro upozornění, že záhlaví řádku tabulky bylo změněno"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "Zpřístupněný popis řádku tabulky"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "Používá se pro upozornění, že popis řádku tabulky byl změněn"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "Zpřístupněný souhrn tabulky"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "Používá se pro upozornění, že souhrn tabulky byl změněn"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "Zpřístupněný objekt nadpisu tabulky"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "Používá se pro upozornění, že nadpis tabulky byl změněn"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "Počet zpřístupněných odkazů hypertextu"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Počet odkazů, které má aktuální AtkHypertext"
 
