@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#ifndef SPI_COMPONENT_H_
+#define SPI_COMPONENT_H_
 
 
 #ifdef __cplusplus
@@ -29,27 +29,27 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define COMPONENT_TYPE        (accessibility_component_get_type ())
-#define COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), COMPONENT_TYPE, Component))
-#define COMPONENT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), COMPONENT_TYPE, ComponentClass))
-#define IS_COMPONENT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), COMPONENT_TYPE))
-#define IS_COMPONENT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), COMPONENT_TYPE))
+#define SPI_COMPONENT_TYPE        (accessibility_spi_component_get_type ())
+#define SPI_COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_COMPONENT_TYPE, SpiComponent))
+#define SPI_COMPONENT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_COMPONENT_TYPE, SpiComponentClass))
+#define IS_SPI_COMPONENT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_COMPONENT_TYPE))
+#define IS_SPI_COMPONENT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_COMPONENT_TYPE))
 
 typedef struct {
         BonoboObject parent;
         AtkObject *atko;
-} Component;
+} SpiComponent;
 
 typedef struct {
         BonoboObjectClass parent_class;
-        POA_Accessibility_Component__epv epv;
-} ComponentClass;
+        POA_Accessibility_SpiComponent__epv epv;
+} SpiComponentClass;
 
-GType                  accessibility_component_get_type   (void);
-Component              *component_interface_new       (AtkObject *o);
+GType                  accessibility_spi_component_get_type   (void);
+SpiComponent              *spi_component_interface_new       (AtkObject *o);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* COMPONENT_H_ */
+#endif /* SPI_COMPONENT_H_ */

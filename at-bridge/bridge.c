@@ -40,8 +40,8 @@ struct _ArgStruct {
 };
 
 static CORBA_Environment ev;
-static Accessibility_Registry registry;
-static Application *this_app;
+static Accessibility_SpiRegistry registry;
+static SpiApplication *this_app;
 
 static gboolean bridge_register_app (gpointer p);
 static void bridge_focus_tracker (AtkObject *object);
@@ -83,9 +83,9 @@ bridge_register_app (gpointer gp)
     }
 
   /* Create the accesssible application server object */
-  this_app = application_new(atk_get_root ());
+  this_app = spi_application_new(atk_get_root ());
 
-  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+  obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
 
   oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
   if (ev._major != CORBA_NO_EXCEPTION) {
@@ -101,13 +101,13 @@ bridge_register_app (gpointer gp)
       g_error ("Could not locate registry");
     }
 
-  registry = (Accessibility_Registry) oclient;
+  registry = (Accessibility_SpiRegistry) oclient;
 
   fprintf(stderr, "About to register application\n");
 
   bonobo_activate ();
 
-  Accessibility_Registry_registerApplication (registry,
+  Accessibility_SpiRegistry_registerSpiApplication (registry,
                                               CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
                                               &ev);
 
@@ -136,7 +136,7 @@ register_atk_event_listeners ()
 static void bridge_exit_func()
 {
   fprintf (stderr, "exiting bridge\n");
-  Accessibility_Registry_deregisterApplication (registry,
+  Accessibility_SpiRegistry_deregisterSpiApplication (registry,
 						CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
 						&ev);
   fprintf (stderr, "bridge exit func complete.\n");
@@ -146,10 +146,10 @@ static void bridge_focus_tracker (AtkObject *object)
 {
   Accessibility_Event *e = Accessibility_Event__alloc();
   e->type = CORBA_string_dup ("focus:");
-  e->source = CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (object)), &ev);
+  e->source = CORBA_Object_duplicate (BONOBO_OBJREF (spi_accessible_new (object)), &ev);
   e->detail1 = 0;
   e->detail2 = 0;
-  Accessibility_Registry_notifyEvent (registry, e, &ev);
+  Accessibility_SpiRegistry_notifyEvent (registry, e, &ev);
 }
 
 static gboolean
@@ -180,13 +180,13 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   if (ATK_IS_IMPLEMENTOR (gobject))
   {
     aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
-    source = CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (aobject)), &ev);
+    source = CORBA_Object_duplicate (BONOBO_OBJREF (spi_accessible_new (aobject)), &ev);
     g_object_unref (G_OBJECT(aobject));
   }
   else if (ATK_IS_OBJECT (gobject))
   {
     aobject = ATK_OBJECT (gobject);
-    source = CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (aobject)), &ev);
+    source = CORBA_Object_duplicate (BONOBO_OBJREF (spi_accessible_new (aobject)), &ev);
   }
   else
   {
@@ -199,7 +199,7 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   e->detail1 = 0;
   e->detail2 = 0;
   if (source)
-    Accessibility_Registry_notifyEvent (registry, e, &ev);
+    Accessibility_SpiRegistry_notifyEvent (registry, e, &ev);
   return TRUE;
 }
 
@@ -242,17 +242,17 @@ bridge_signal_listener (GSignalInvocationHint *signal_hint,
   }
 
   snprintf(sbuf, APP_STATIC_BUFF_SZ, "%s:%s", name, g_type_name (signal_query.itype));
-  source =  CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (aobject)), &ev);
+  source =  CORBA_Object_duplicate (BONOBO_OBJREF (spi_accessible_new (aobject)), &ev);
   e->type = CORBA_string_dup (sbuf);
   e->source = source;
   e->detail1 = 0;
   e->detail2 = 0;
-  Accessibility_Registry_notifyEvent (registry, e, &ev);
+  Accessibility_SpiRegistry_notifyEvent (registry, e, &ev);
   g_object_unref (aobject);
   return TRUE;
 }
 
-static Accessibility_Registry bridge_get_registry ()
+static Accessibility_SpiRegistry bridge_get_registry ()
 {
   return registry;
 }

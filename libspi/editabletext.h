@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef EDITABLE_TEXT_H_
-#define EDITABLE_TEXT_H_
+#ifndef SPI_EDITABLE_TEXT_H_
+#define SPI_EDITABLE_TEXT_H_
 
 
 #ifdef __cplusplus
@@ -30,32 +30,32 @@ extern "C" {
 #include <libspi/Accessibility.h>
 #include "text.h"
 
-#define EDITABLE_TEXT_TYPE        (editable_text_get_type ())
-#define EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), EDITABLE_TEXT_TYPE, EditableText))
-#define EDITABLE_TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), EDITABLE_TEXT_TYPE, EditableText))
-#define IS_EDITABLE_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EDITABLE_TEXT_TYPE))
-#define IS_EDITABLE_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EDITABLE_TEXT_TYPE))
+#define SPI_EDITABLE_TEXT_TYPE        (spi_editable_text_get_type ())
+#define SPI_EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_EDITABLE_TEXT_TYPE, SpiEditableText))
+#define SPI_EDITABLE_TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_EDITABLE_TEXT_TYPE, SpiEditableText))
+#define IS_SPI_EDITABLE_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_EDITABLE_TEXT_TYPE))
+#define IS_SPI_EDITABLE_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_EDITABLE_TEXT_TYPE))
 
-typedef struct _EditableText EditableText;
-typedef struct _EditableTextClass EditableTextClass;
+typedef struct _SpiEditableText SpiEditableText;
+typedef struct _SpiEditableTextClass SpiEditableTextClass;
 
-struct _EditableText {
-  Text parent;
+struct _SpiEditableText {
+  SpiText parent;
 };
 
-struct _EditableTextClass {
-  TextClass parent_class;
-  POA_Accessibility_EditableText__epv epv;
+struct _SpiEditableTextClass {
+  SpiTextClass parent_class;
+  POA_Accessibility_SpiEditableText__epv epv;
 };
 
 GType
-editable_text_get_type   (void);
+spi_editable_text_get_type   (void);
 
-EditableText *
-editable_text_interface_new       ( AtkObject *obj);
+SpiEditableText *
+spi_editable_text_interface_new       ( AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* EDITABLE_TEXT_H_ */
+#endif /* SPI_EDITABLE_TEXT_H_ */

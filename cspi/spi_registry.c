@@ -11,7 +11,7 @@ static Display *display = NULL;
 
 /**
  * registerGlobalEventListener:
- * @listener: the #AccessibleEventListener to be registered against an event type.
+ * @listener: the #SpiAccessibleEventListener to be registered against an event type.
  * @callback: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail
@@ -25,16 +25,16 @@ static Display *display = NULL;
  *            functions are used internally.  In general, listening to
  *            toolkit-specific events is not recommended.
  *
- * Add an in-process callback function to an existing AccessibleEventListener.
+ * Add an in-process callback function to an existing SpiAccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-registerGlobalEventListener (AccessibleEventListener *listener,
+registerGlobalEventListener (SpiAccessibleEventListener *listener,
                              char *eventType)
 {
-  Accessibility_Registry_registerGlobalEventListener (
+  Accessibility_SpiRegistry_registerGlobalEventListener (
                          registry,
                          (Accessibility_EventListener)
                             bonobo_object_corba_objref (bonobo_object (listener)),
@@ -53,17 +53,17 @@ registerGlobalEventListener (AccessibleEventListener *listener,
 
 /**
  * deregisterGlobalEventListener:
- * @listener: the #AccessibleEventListener to be registered against an event type.
+ * @listener: the #SpiAccessibleEventListener to be registered against an event type.
  *
- * deregisters an AccessibleEventListener from the registry, for all event types it may be listening to.
+ * deregisters an SpiAccessibleEventListener from the registry, for all event types it may be listening to.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
+deregisterGlobalEventListenerAll (SpiAccessibleEventListener *listener)
 {
-  Accessibility_Registry_deregisterGlobalEventListenerAll (
+  Accessibility_SpiRegistry_deregisterGlobalEventListenerAll (
                          registry,
                          (Accessibility_EventListener)
                             CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev),
@@ -92,7 +92,7 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 int
 getDesktopCount ()
 {
-  return Accessibility_Registry_getDesktopCount (registry, &ev);
+  return Accessibility_SpiRegistry_getDesktopCount (registry, &ev);
 }
 
 /**
@@ -103,18 +103,18 @@ getDesktopCount ()
  * NOTE: currently multiple virtual desktops are not implemented, this
  *       function always returns '1'.
  *
- * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
+ * Returns: a pointer to the 'i-th' virtual desktop's #SpiAccessible representation.
  *
  **/
-Accessible*
+SpiAccessible*
 getDesktop (int n)
 {
-  return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) n, &ev));
+  return Obj_Add (Accessibility_SpiRegistry_getDesktop (registry, (CORBA_short) n, &ev));
 }
 
 /**
  * getDesktopList:
- * @list: a pointer to an array of #Accessible objects.
+ * @list: a pointer to an array of #SpiAccessible objects.
  *
  * Get the list of virtual desktops.  On return, @list will point
  *     to a newly-created array of virtual desktop pointers.
@@ -127,7 +127,7 @@ getDesktop (int n)
  *          placed in the list pointed to by parameter @list.
  **/
 int
-getDesktopList (Accessible **list)
+getDesktopList (SpiAccessible **list)
 {
   *list = NULL;
   return 0;
@@ -194,29 +194,29 @@ registerKeystrokeListener (KeystrokeListener *listener,
 			   KeySet *keys,
 			   KeyMaskType modmask,
 			   KeyEventMask eventmask,
-			   KeyListenerSyncType sync_type)
+			   KeySpiListenerSyncType sync_type)
 {
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
-  Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+  Accessibility_SpiDeviceEventController device_event_controller = 
+	  Accessibility_SpiRegistry_getDeviceEventController (registry, &ev);
   Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
-  Accessibility_KeystrokeListener listener_corba_ref;
-  Accessibility_DeviceEventController_ref (device_event_controller, &ev);
+  Accessibility_KeystrokeListener spi_listener_corba_ref;
+  Accessibility_SpiDeviceEventController_ref (device_event_controller, &ev);
   controller_event_mask->value = (CORBA_unsigned_long) modmask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
-  listener_corba_ref = (Accessibility_KeystrokeListener)
+  spi_listener_corba_ref = (Accessibility_KeystrokeListener)
 	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev);
   
-	  Accessibility_DeviceEventController_registerKeystrokeListener (
+	  Accessibility_SpiDeviceEventController_registerKeystrokeListener (
 	  device_event_controller,
-	  listener_corba_ref,
+	  spi_listener_corba_ref,
 	  all_keys,
 	  controller_event_mask,
 	  key_events,
-	  (CORBA_boolean) ((sync_type | KEYLISTENER_CANCONSUME)!=0),
+	  (CORBA_boolean) ((sync_type | KEYSPI_LISTENER_CANCONSUME)!=0),
 	  &ev);
 }
 
@@ -231,21 +231,21 @@ deregisterKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
 {
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
-  Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+  Accessibility_SpiDeviceEventController device_event_controller = 
+	  Accessibility_SpiRegistry_getDeviceEventController (registry, &ev);
   Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
-  Accessibility_KeystrokeListener listener_corba_ref;
-  Accessibility_DeviceEventController_unref (device_event_controller, &ev);
+  Accessibility_KeystrokeListener spi_listener_corba_ref;
+  Accessibility_SpiDeviceEventController_unref (device_event_controller, &ev);
   controller_event_mask->value = (CORBA_unsigned_long) keymask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
-  listener_corba_ref = (Accessibility_KeystrokeListener)
+  spi_listener_corba_ref = (Accessibility_KeystrokeListener)
 	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev);
   
-  Accessibility_DeviceEventController_deregisterKeystrokeListener (
+  Accessibility_SpiDeviceEventController_deregisterKeystrokeListener (
 	  device_event_controller,
-	  listener_corba_ref,
+	  spi_listener_corba_ref,
 	  all_keys,
 	  controller_event_mask,
 	  key_events,
@@ -271,9 +271,9 @@ generateKeyEvent (long keyval, KeySynthType type)
 /* TODO: check current modifier status and
  *  send keycode to alter, if necessary
  */
-  Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (registry, &ev);
-  Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
+  Accessibility_SpiDeviceEventController device_event_controller = 
+	  Accessibility_SpiRegistry_getDeviceEventController (registry, &ev);
+  Accessibility_SpiDeviceEventController_generateKeyEvent (device_event_controller,
 							keyval,
 							(unsigned long) type,
 							&ev);

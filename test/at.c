@@ -50,11 +50,11 @@ main(int argc, char **argv)
         CORBA_short n_desktops;
         CORBA_long j;
         CORBA_long n_apps;
-        Accessibility_Desktop desktop;
-        Accessibility_Application app;
+        Accessibility_SpiDesktop desktop;
+        Accessibility_SpiApplication app;
 
-        Accessibility_Registry registry;
-        Listener *listener;
+        Accessibility_SpiRegistry registry;
+        SpiListener *listener;
 
         CORBA_exception_init(&ev);
 
@@ -63,7 +63,7 @@ main(int argc, char **argv)
             g_error ("Could not initialize Bonobo");
           }
 
-        obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+        obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
 
         oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {
@@ -81,18 +81,18 @@ main(int argc, char **argv)
 
         bonobo_activate ();
 
-        listener = listener_new ();
+        listener = spi_listener_new ();
 
-        registry = (Accessibility_Registry) oclient;
+        registry = (Accessibility_SpiRegistry) oclient;
 
-        Accessibility_Registry_registerGlobalEventListener
+        Accessibility_SpiRegistry_registerGlobalEventListener
                                    (registry,
                                     (Accessibility_EventListener)
                                          bonobo_object_corba_objref (bonobo_object (listener)),
                                     "focus:",
                                     &ev);
         check_ev (&ev, "register:focus");
-        Accessibility_Registry_registerGlobalEventListener
+        Accessibility_SpiRegistry_registerGlobalEventListener
                                    (registry,
                                     (Accessibility_EventListener)
                                          bonobo_object_corba_objref (bonobo_object (listener)),
@@ -101,23 +101,23 @@ main(int argc, char **argv)
         check_ev (&ev, "register:button_press");
         fprintf (stderr, "AT callback registered.\n");
 
-            n_desktops = Accessibility_Registry_getDesktopCount (registry, &ev);
+            n_desktops = Accessibility_SpiRegistry_getDesktopCount (registry, &ev);
 
             for (i=0; i<n_desktops; ++i)
               {
-                desktop = Accessibility_Registry_getDesktop (registry, i, &ev);
+                desktop = Accessibility_SpiRegistry_getDesktop (registry, i, &ev);
                 fprintf (stderr, "desktop %d name: %s\n", i,
-                         Accessibility_Desktop__get_name (desktop, &ev));
+                         Accessibility_SpiDesktop__get_name (desktop, &ev));
                 check_ev (&ev, "desktop:name");
-                n_apps = Accessibility_Desktop__get_childCount (desktop, &ev);
+                n_apps = Accessibility_SpiDesktop__get_childCount (desktop, &ev);
                 check_ev (&ev, "desktop:childCount");
                 fprintf (stderr, "desktop has %d apps:\n", n_apps);
                 for (j=0; j<n_apps; ++j)
                   {
-                    app = (Accessibility_Application) Accessibility_Desktop_getChildAtIndex (desktop, j, &ev);
+                    app = (Accessibility_SpiApplication) Accessibility_SpiDesktop_getChildAtIndex (desktop, j, &ev);
                     check_ev (&ev, "desktop:getChildAtIndex");
                     fprintf (stderr, "app %d name: %s\n", j,
-                             Accessibility_Application__get_name (app, &ev));
+                             Accessibility_SpiApplication__get_name (app, &ev));
                     check_ev (&ev, "app:getName");
                   }
               }

@@ -182,7 +182,7 @@ int main (int argc, char** argv){
   magnifier->mag_data->source_display = XOpenDisplay (global_options.source_display);
   magnifier->mag_data->target_display = GDK_DISPLAY();
 
-  image_root_window = RootWindow(magnifier->mag_data->source_display, screen_num);
+  spi_image_root_window = RootWindow(magnifier->mag_data->source_display, screen_num);
   gdk_pixbuf_xlib_init (magnifier->mag_data->source_display, screen_num);
   image = gdk_pixbuf_new        (GDK_COLORSPACE_RGB,FALSE, 8,
 				DisplayWidth (magnifier->mag_data->source_display,screen_num)/2,

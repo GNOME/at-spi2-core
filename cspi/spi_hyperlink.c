@@ -1,70 +1,70 @@
 int
-AccessibleHyperlink_ref (AccessibleHyperlink *obj)
+SpiAccessibleHyperlink_ref (SpiAccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_ref (*obj, &ev);
+  Accessibility_SpiHyperlink_ref (*obj, &ev);
   return 0;
 }
 
 
 
 int
-AccessibleHyperlink_unref (AccessibleHyperlink *obj)
+SpiAccessibleHyperlink_unref (SpiAccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_unref (*obj, &ev);
+  Accessibility_SpiHyperlink_unref (*obj, &ev);
   return 0;
 }
 
 
 
 long
-AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
+SpiAccessibleHyperlink_getNAnchors (SpiAccessibleHyperlink *obj)
 {
   return (long)
-    Accessibility_Hyperlink__get_nAnchors (*obj, &ev);
+    Accessibility_SpiHyperlink__get_nAnchors (*obj, &ev);
 }
 
 
 
 char *
-AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
+SpiAccessibleHyperlink_getURI (SpiAccessibleHyperlink *obj,
                             long i)
 {
   return (char *)
-    Accessibility_Hyperlink_getURI (*obj,
+    Accessibility_SpiHyperlink_getURI (*obj,
 				    (CORBA_long) i, &ev);
 }
 
 
 
-Accessible
-AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
+SpiAccessible
+SpiAccessibleHyperlink_getObject (SpiAccessibleHyperlink *obj,
                                long i)
 {
-  return (Accessible)
-    Accessibility_Hyperlink_getObject (*obj,
+  return (SpiAccessible)
+    Accessibility_SpiHyperlink_getObject (*obj,
 				       (CORBA_long) i, &ev);
 }
 
 
 
 void
-AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
+SpiAccessibleHyperlink_getIndexRange (SpiAccessibleHyperlink *obj,
                                    long *startIndex,
                                    long *endIndex)
 {
   *startIndex = (long)
-    Accessibility_Hyperlink__get_startIndex (*obj, &ev);
+    Accessibility_SpiHyperlink__get_startIndex (*obj, &ev);
   *endIndex = (long)
-    Accessibility_Hyperlink__get_endIndex (*obj, &ev);
+    Accessibility_SpiHyperlink__get_endIndex (*obj, &ev);
 }
 
 
 
 boolean
-AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
+SpiAccessibleHyperlink_isValid (SpiAccessibleHyperlink *obj)
 {
   return (boolean)
-    Accessibility_Hyperlink_isValid (*obj, &ev);
+    Accessibility_SpiHyperlink_isValid (*obj, &ev);
 }
 
 

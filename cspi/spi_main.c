@@ -26,7 +26,7 @@ SPI_init (void)
       g_error ("Could not initialize Bonobo");
     }
 
-  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+  obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
 
   oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
   if (ev._major != CORBA_NO_EXCEPTION) {
@@ -43,7 +43,7 @@ SPI_init (void)
       exit(-1);
     }
 
-  registry = (Accessibility_Registry) oclient;
+  registry = (Accessibility_SpiRegistry) oclient;
 
   bonobo_activate ();
 
@@ -99,10 +99,10 @@ SPI_eventIsReady ()
  * Used by clients that don't wish to use SPI_event_main().
  * Not Yet Implemented.
  *
- * Returns: the next #AccessibleEvent in the SPI event queue.
+ * Returns: the next #SpiAccessibleEvent in the SPI event queue.
  *
  **/
-AccessibleEvent *
+SpiAccessibleEvent *
 SPI_nextEvent (boolean waitForEvent)
 {
   return NULL;
@@ -111,7 +111,7 @@ SPI_nextEvent (boolean waitForEvent)
 /**
  * SPI_exit:
  *
- * Disconnects from the Accessibility Registry and releases resources.
+ * Disconnects from the Accessibility SpiRegistry and releases resources.
  * Not Yet Implemented.
  *
  **/

@@ -3,7 +3,7 @@
 
 /*
  *
- * Enumerated type for AccessibleRole
+ * Enumerated type for SpiAccessibleRole
  *
  */
 
@@ -25,13 +25,13 @@ typedef enum
   ROLE_COLUMN_HEADER,
   /* A list of choices the user can select from */
   ROLE_COMBO_BOX,
-  /* An inconifed internal frame within a DESKTOP_PANE */
-  ROLE_DESKTOP_ICON,
+  /* An inconifed internal frame within a SPI_DESKTOP_PANE */
+  ROLE_SPI_DESKTOP_ICON,
   /*
    * A pane that supports internal frames and iconified versions of those
    * internal frames.
    */
-  ROLE_DESKTOP_FRAME,
+  ROLE_SPI_DESKTOP_FRAME,
   /* A top level window with title bar and a border */
   ROLE_DIALOG,
   /*
@@ -175,7 +175,7 @@ typedef enum
   /* An object used to repsent hierarchical information to the user. */
   ROLE_TREE,
   /*
-   * The object contains some Accessible information, but its role is
+   * The object contains some SpiAccessible information, but its role is
    * not known.
    */
   ROLE_UNKNOWN,
@@ -185,6 +185,6 @@ typedef enum
   ROLE_WINDOW,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
-} ACCESSIBLE_ROLE;
+} SPI_ACCESSIBLE_ROLE;
 
 #endif

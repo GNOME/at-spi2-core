@@ -30,12 +30,12 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
+ * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
  */
 #include <libspi/Accessibility.h>
 
 /*
- * This pulls the definition of the Table bonobo object
+ * This pulls the definition of the SpiTable bonobo object
  */
 #include "table.h"
 
@@ -44,15 +44,15 @@
  */
 
 static void
-table_class_init (TableClass *klass);
+spi_table_class_init (SpiTableClass *klass);
 static void
-table_init (Table *table);
+spi_table_init (SpiTable *table);
 static void
-table_finalize (GObject *obj);
-static Accessibility_Accessible
+spi_table_finalize (GObject *obj);
+static Accessibility_SpiAccessible
 impl__get_caption (PortableServer_Servant _servant,
 		   CORBA_Environment * ev);
-static Accessibility_Accessible
+static Accessibility_SpiAccessible
 impl__get_summary (PortableServer_Servant _servant,
 		   CORBA_Environment * ev);
 static CORBA_long
@@ -64,7 +64,7 @@ impl__get_nRows (PortableServer_Servant _servant,
 static CORBA_long
 impl__get_nColumns (PortableServer_Servant _servant,
 		    CORBA_Environment * ev);
-static Accessibility_Accessible
+static Accessibility_SpiAccessible
 impl_getAccessibleAt (PortableServer_Servant _servant,
 		      const CORBA_long row,
 		      const CORBA_long column,
@@ -99,11 +99,11 @@ impl_getColumnExtentAt (PortableServer_Servant _servant,
 			const CORBA_long row,
 			const CORBA_long column,
 			CORBA_Environment * ev);
-static Accessibility_Table
+static Accessibility_SpiTable
 impl_getRowHeader (PortableServer_Servant _servant,
 		   const CORBA_long row,
 		   CORBA_Environment * ev);
-static        Accessibility_Table
+static        Accessibility_SpiTable
 impl_getColumnHeader (PortableServer_Servant _servant,
 		      const CORBA_long column,
 		      CORBA_Environment * ev);
@@ -131,21 +131,21 @@ impl_isSelected (PortableServer_Servant _servant,
 static GObjectClass *parent_class;
 
 GType
-table_get_type (void)
+spi_table_get_type (void)
 {
   static GType type = 0;
 
   if (!type) {
     static const GTypeInfo tinfo = {
-      sizeof (TableClass),
+      sizeof (SpiTableClass),
       (GBaseInitFunc) NULL,
       (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) table_class_init,
+      (GClassInitFunc) spi_table_class_init,
       (GClassFinalizeFunc) NULL,
       NULL, /* class data */
-      sizeof (Table),
+      sizeof (SpiTable),
       0, /* n preallocs */
-      (GInstanceInitFunc) table_init,
+      (GInstanceInitFunc) spi_table_init,
                         NULL /* value table */
     };
 
@@ -156,24 +156,24 @@ table_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_Table__init,
+			       POA_Accessibility_SpiTable__init,
 			       NULL,
-			       G_STRUCT_OFFSET (TableClass, epv),
+			       G_STRUCT_OFFSET (SpiTableClass, epv),
 			       &tinfo,
-			       "AccessibleTable");
+			       "SpiAccessibleTable");
   }
 
   return type;
 }
 
 static void
-table_class_init (TableClass *klass)
+spi_table_class_init (SpiTableClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Table__epv *epv = &klass->epv;
+  POA_Accessibility_SpiTable__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->finalize = table_finalize;
+  object_class->finalize = spi_table_finalize;
 
 
   /* Initialize epv table */
@@ -200,24 +200,24 @@ table_class_init (TableClass *klass)
 }
 
 static void
-table_init (Table *table)
+spi_table_init (SpiTable *table)
 {
 }
 
 static void
-table_finalize (GObject *obj)
+spi_table_finalize (GObject *obj)
 {
-  Table *table = TABLE (obj);
+  SpiTable *table = SPI_TABLE (obj);
   g_object_unref (table->atko);
   table->atko = NULL;  
   parent_class->finalize (obj);
 }
 
-Table *
-table_interface_new (AtkObject *obj)
+SpiTable *
+spi_table_interface_new (AtkObject *obj)
 {
-  Table *new_table =
-    TABLE(g_object_new (TABLE_TYPE, NULL));
+  SpiTable *new_table =
+    SPI_TABLE(g_object_new (SPI_TABLE_TYPE, NULL));
   new_table->atko = obj;
   g_object_ref (obj);
   return new_table;
@@ -225,31 +225,31 @@ table_interface_new (AtkObject *obj)
 
 
 
-static Accessibility_Accessible
+static Accessibility_SpiAccessible
 impl__get_caption (PortableServer_Servant _servant,
 		   CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   AtkObject *atk_object;
-  Accessibility_Accessible rv;
+  Accessibility_SpiAccessible rv;
 
   atk_object = atk_table_get_caption (ATK_TABLE(table-> atko));
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(atk_object)));
   return CORBA_Object_duplicate (rv, ev);
 }
 
 
 
-static Accessibility_Accessible
+static Accessibility_SpiAccessible
 impl__get_summary (PortableServer_Servant _servant,
 		   CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   AtkObject *atk_object;
-  Accessibility_Accessible rv;
+  Accessibility_SpiAccessible rv;
 
   atk_object = atk_table_get_summary (ATK_TABLE(table->atko));
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(atk_object)));
   return CORBA_Object_duplicate (rv, ev);
 }
 
@@ -259,7 +259,7 @@ static CORBA_long
 impl__get_nRows (PortableServer_Servant _servant,
 		 CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_n_rows (ATK_TABLE(table->atko) );
 }
@@ -270,26 +270,26 @@ static CORBA_long
 impl__get_nColumns (PortableServer_Servant _servant,
 		    CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_n_columns (ATK_TABLE(table->atko));
 }
 
 
 
-static Accessibility_Accessible
+static Accessibility_SpiAccessible
 impl_getAccessibleAt (PortableServer_Servant _servant,
 		      const CORBA_long row,
 		      const CORBA_long column,
 		      CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   AtkObject *atk_object;
-  Accessibility_Accessible rv;
+  Accessibility_SpiAccessible rv;
 
   atk_object = atk_table_ref_at (ATK_TABLE(table->atko),
 					     (gint) row, (gint) column);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(atk_object)));
   return CORBA_Object_duplicate (rv, ev);
 }
 
@@ -300,7 +300,7 @@ impl_getIndexAt (PortableServer_Servant _servant,
 		 const CORBA_long row, const CORBA_long column,
 		 CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_index_at (ATK_TABLE(table->atko),
 			    (gint) row, (gint) column);
@@ -313,7 +313,7 @@ impl_getRowAtIndex (PortableServer_Servant _servant,
 		    const CORBA_long index,
 		    CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_row_at_index (ATK_TABLE(table->atko), (gint) index);
 }
@@ -325,7 +325,7 @@ impl_getColumnAtIndex (PortableServer_Servant _servant,
 		       const CORBA_long index,
 		       CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_column_at_index (ATK_TABLE(table->atko), (gint) index);
 }
@@ -337,7 +337,7 @@ impl_getRowDescription (PortableServer_Servant _servant,
 			const CORBA_long row,
 			CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   CORBA_char *rv;
 
   rv = atk_table_get_row_description (ATK_TABLE(table->atko), (gint) row);
@@ -354,7 +354,7 @@ impl_getColumnDescription (PortableServer_Servant _servant,
 			   const CORBA_long column,
 			   CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   CORBA_char *rv;
 
   rv = atk_table_get_column_description (ATK_TABLE(table->atko), (gint) column);
@@ -372,7 +372,7 @@ impl_getRowExtentAt (PortableServer_Servant _servant,
 		     const CORBA_long column,
 		     CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_row_extent_at (ATK_TABLE(table->atko),
 				 (gint) row, (gint) column);
@@ -386,7 +386,7 @@ impl_getColumnExtentAt (PortableServer_Servant _servant,
 			const CORBA_long column,
 			CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
     atk_table_get_column_extent_at (ATK_TABLE(table->atko),
 				 (gint) row, (gint) column);
@@ -394,33 +394,33 @@ impl_getColumnExtentAt (PortableServer_Servant _servant,
 
 
 
-static Accessibility_Table
+static Accessibility_SpiTable
 impl_getRowHeader (PortableServer_Servant _servant,
 		   const CORBA_long row,
 		   CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   AtkObject *header;
-  Accessibility_Table rv;
+  Accessibility_SpiTable rv;
 
   header = atk_table_get_row_header (ATK_TABLE(table->atko), (gint) row);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(header)));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(header)));
   return CORBA_Object_duplicate (rv, ev);
 }
 
 
 
-static        Accessibility_Table
+static        Accessibility_SpiTable
 impl_getColumnHeader (PortableServer_Servant _servant,
 		      const CORBA_long column,
 		      CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   AtkObject *header;
-  Accessibility_Table rv;
+  Accessibility_SpiTable rv;
 
   header = atk_table_get_column_header (ATK_TABLE(table->atko), (gint) column);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(header)));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(header)));
   return CORBA_Object_duplicate (rv, ev);
 }
 
@@ -430,7 +430,7 @@ static Accessibility_LongSeq *
 impl_getSelectedRows (PortableServer_Servant _servant,
 		      CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   gint *selectedRows;
   gint length;
   Accessibility_LongSeq *retval;
@@ -454,7 +454,7 @@ static Accessibility_LongSeq *
 impl_getSelectedColumns (PortableServer_Servant _servant,
 			 CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   gint *selectedColumns;
   gint length;
   Accessibility_LongSeq *retval;
@@ -480,7 +480,7 @@ impl_isRowSelected (PortableServer_Servant _servant,
 		    const CORBA_long row,
 		    CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
     atk_table_is_row_selected (ATK_TABLE(table->atko), (gint) row);
 }
@@ -492,7 +492,7 @@ impl_isColumnSelected (PortableServer_Servant _servant,
 		       const CORBA_long column,
 		       CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
     atk_table_is_column_selected (ATK_TABLE(table->atko), (gint) column);
 }
@@ -505,7 +505,7 @@ impl_isSelected (PortableServer_Servant _servant,
 		 const CORBA_long column,
 		 CORBA_Environment * ev)
 {
-  Table *table = TABLE (bonobo_object_from_servant (_servant));
+  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
     atk_table_is_selected (ATK_TABLE(table->atko),
 			   (gint) row, (gint) column);

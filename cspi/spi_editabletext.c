@@ -1,28 +1,28 @@
 int
-AccessibleEditableText_ref (AccessibleEditableText *obj)
+SpiAccessibleEditableText_ref (SpiAccessibleEditableText *obj)
 {
-  Accessibility_EditableText_ref (*obj, &ev);
+  Accessibility_SpiEditableText_ref (*obj, &ev);
   return 0;
 }
 
 
 
 int
-AccessibleEditableText_unref (AccessibleEditableText *obj)
+SpiAccessibleEditableText_unref (SpiAccessibleEditableText *obj)
 {
-  Accessibility_EditableText_unref (*obj, &ev);
+  Accessibility_SpiEditableText_unref (*obj, &ev);
   return 0;
 }
 
 
 
 boolean
-AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
+SpiAccessibleEditableText_setAttributes (SpiAccessibleEditableText *obj,
 					 const char *attributes,
 					 long startPos, long endPos)
 {
   return (boolean)
-    Accessibility_EditableText_setAttributes (*obj,
+    Accessibility_SpiEditableText_setAttributes (*obj,
 						 (CORBA_char *) attributes,
 						 (CORBA_long) startPos, (CORBA_long) endPos, &ev);
 }
@@ -30,22 +30,22 @@ AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
 
 
 void
-AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
+SpiAccessibleEditableText_setTextContents (SpiAccessibleEditableText *obj,
                                         const char *newContents)
 {
-  Accessibility_EditableText_setTextContents (*obj,
+  Accessibility_SpiEditableText_setTextContents (*obj,
 					      (CORBA_char *) newContents, &ev);
 }
 
 
 
 void
-AccessibleEditableText_insertText (AccessibleEditableText *obj,
+SpiAccessibleEditableText_insertText (SpiAccessibleEditableText *obj,
                                    long position,
                                    char *text,
                                    long length)
 {
-  Accessibility_EditableText_insertText (*obj,
+  Accessibility_SpiEditableText_insertText (*obj,
 					 (CORBA_long) position, (CORBA_char *) text,
 					 (CORBA_long) length, &ev);
 }
@@ -53,43 +53,43 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
 
 
 void
-AccessibleEditableText_copyText (AccessibleText *obj,
+SpiAccessibleEditableText_copySpiText (SpiAccessibleText *obj,
                                  long startPos,
                                  long endPos)
 {
-  Accessibility_EditableText_copyText (*obj,
+  Accessibility_SpiEditableText_copySpiText (*obj,
 				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
 }
 
 
 
 void
-AccessibleEditableText_cutText (AccessibleEditableText *obj,
+SpiAccessibleEditableText_cutText (SpiAccessibleEditableText *obj,
                                 long startPos,
                                 long endPos)
 {
-  Accessibility_EditableText_cutText (*obj,
+  Accessibility_SpiEditableText_cutText (*obj,
 				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
 }
 
 
 
 void
-AccessibleEditableText_deleteText (AccessibleEditableText *obj,
+SpiAccessibleEditableText_deleteText (SpiAccessibleEditableText *obj,
                                    long startPos,
                                    long endPos)
 {
-  Accessibility_EditableText_deleteText (*obj,
+  Accessibility_SpiEditableText_deleteText (*obj,
 				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
 }
 
 
 
 void
-AccessibleEditableText_pasteText (AccessibleEditableText *obj,
+SpiAccessibleEditableText_pasteText (SpiAccessibleEditableText *obj,
                                   long position)
 {
-  Accessibility_EditableText_pasteText (*obj,
+  Accessibility_SpiEditableText_pasteText (*obj,
 					(CORBA_long) position, &ev);
 }
 

@@ -50,7 +50,7 @@
 /*
  * A pointer to our parent object class
  */
-static GObjectClass *device_event_controller_parent_class;
+static GObjectClass *spi_device_event_controller_parent_class;
 
 static gboolean kbd_registered = FALSE;
 
@@ -64,10 +64,10 @@ typedef enum {
   DEVICE_TYPE_LAST_DEFINED
 } DeviceTypeCategory;
 
-static gboolean _controller_register_with_devices (DeviceEventController *controller);
-static gboolean _controller_grab_keyboard (DeviceEventController *controller);
+static gboolean _controller_register_with_devices (SpiDeviceEventController *controller);
+static gboolean _controller_grab_keyboard (SpiDeviceEventController *controller);
 
-static void _controller_register_device_listener (DeviceEventController *controller,
+static void _controller_register_device_listener (SpiDeviceEventController *controller,
 						  const CORBA_Object l,
 						  const Accessibility_ControllerEventMask *mask,
 						  DeviceTypeCategory type,
@@ -105,7 +105,7 @@ _eventmask_compare_value (gconstpointer p1, gconstpointer p2)
 }
 
 static void
-_controller_register_device_listener (DeviceEventController *controller,
+_controller_register_device_listener (SpiDeviceEventController *controller,
 				      const CORBA_Object l,
 				      const Accessibility_ControllerEventMask *mask,
 				      DeviceTypeCategory type,
@@ -150,7 +150,7 @@ _controller_register_device_listener (DeviceEventController *controller,
 }
 
 static void
-_controller_deregister_device_listener (DeviceEventController *controller,
+_controller_deregister_device_listener (SpiDeviceEventController *controller,
 					const CORBA_Object l,
 					const Accessibility_ControllerEventMask *mask,
 					DeviceTypeCategory type,
@@ -189,7 +189,7 @@ _controller_deregister_device_listener (DeviceEventController *controller,
 }
 
 static gboolean
-_controller_register_with_devices (DeviceEventController *controller)
+_controller_register_with_devices (SpiDeviceEventController *controller)
 {
   gboolean retval = FALSE;
 
@@ -212,7 +212,7 @@ _controller_register_with_devices (DeviceEventController *controller)
 }
 
 static gboolean
-_check_key_event (DeviceEventController *controller)
+_check_key_event (SpiDeviceEventController *controller)
 {
 	static gboolean initialized = FALSE;
 	static gboolean is_active = FALSE;
@@ -289,7 +289,7 @@ _check_key_event (DeviceEventController *controller)
 }
 
 static gboolean
-_controller_grab_keyboard (DeviceEventController *controller)
+_controller_grab_keyboard (SpiDeviceEventController *controller)
 {
 	GList *maskList = controller->keymask_list;
 	int i;
@@ -336,17 +336,17 @@ _controller_grab_keyboard (DeviceEventController *controller)
  * Implemented GObject::finalize
  */
 static void
-device_event_controller_object_finalize (GObject *object)
+spi_device_event_controller_object_finalize (GObject *object)
 {
 
 #ifdef SPI_DEBUG
-        fprintf(stderr, "device_event_controller_object_finalize called\n");
+        fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
 #endif
-        device_event_controller_parent_class->finalize (object);
+        spi_device_event_controller_parent_class->finalize (object);
 }
 
 /*
- * CORBA Accessibility::DeviceEventController::registerKeystrokeListener
+ * CORBA Accessibility::SpiDeviceEventController::registerKeystrokeListener
  *     method implementation
  */
 static void
@@ -358,7 +358,7 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 				  const CORBA_boolean is_synchronous,
 				  CORBA_Environment         *ev)
 {
-	DeviceEventController *controller = DEVICE_EVENT_CONTROLLER (
+	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
 		bonobo_object_from_servant (servant));
 #ifdef SPI_DEBUG
 	fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
@@ -371,7 +371,7 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 	; /* register with toolkit instead */	
 }
 /*
- * CORBA Accessibility::DeviceEventController::deregisterKeystrokeListener
+ * CORBA Accessibility::SpiDeviceEventController::deregisterKeystrokeListener
  *     method implementation
  */
 static void
@@ -383,7 +383,7 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 				    const CORBA_boolean is_synchronous,
 				    CORBA_Environment         *ev)
 {
-	DeviceEventController *controller = DEVICE_EVENT_CONTROLLER (
+	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
 		bonobo_object_from_servant (servant));
 #ifdef SPI_DEBUG
 	fprintf (stderr, "deregistering keystroke listener %p with maskVal %lu\n",
@@ -393,7 +393,7 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 }
 
 /*
- * CORBA Accessibility::DeviceEventController::registerMouseListener
+ * CORBA Accessibility::SpiDeviceEventController::registerMouseListener
  *     method implementation
  */
 /*
@@ -402,7 +402,7 @@ impl_register_mouse_listener (PortableServer_Servant     servant,
 			      const Accessibility_MouseListener *l,
 			      CORBA_Environment         *ev)
 {
-	DeviceEventController *controller = DEVICE_EVENT_CONTROLLER (
+	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
 		bonobo_object_from_servant (servant));
 #ifdef SPI_DEBUG
 	fprintf (stderr, "registering mouse listener %p\n", l);
@@ -418,7 +418,7 @@ keycode_for_keysym (long keysym)
 }
 
 /*
- * CORBA Accessibility::DeviceEventController::registerKeystrokeListener
+ * CORBA Accessibility::SpiDeviceEventController::registerKeystrokeListener
  *     method implementation
  */
 static void
@@ -459,7 +459,7 @@ impl_generate_key_event (PortableServer_Servant     servant,
 }
 
 /*
- * CORBA Accessibility::DeviceEventController::generateMouseEvent
+ * CORBA Accessibility::SpiDeviceEventController::generateMouseEvent
  *     method implementation
  */
 static void
@@ -475,13 +475,13 @@ impl_generate_mouse_event (PortableServer_Servant     servant,
 }
 
 static void
-device_event_controller_class_init (DeviceEventControllerClass *klass)
+spi_device_event_controller_class_init (SpiDeviceEventControllerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_DeviceEventController__epv *epv = &klass->epv;
-        device_event_controller_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
+        POA_Accessibility_SpiDeviceEventController__epv *epv = &klass->epv;
+        spi_device_event_controller_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
 
-        object_class->finalize = device_event_controller_object_finalize;
+        object_class->finalize = spi_device_event_controller_object_finalize;
 
         epv->registerKeystrokeListener = impl_register_keystroke_listener;
         epv->deregisterKeystrokeListener = impl_deregister_keystroke_listener;
@@ -492,7 +492,7 @@ device_event_controller_class_init (DeviceEventControllerClass *klass)
 }
 
 static void
-device_event_controller_init (DeviceEventController *device_event_controller)
+spi_device_event_controller_init (SpiDeviceEventController *device_event_controller)
 {
   device_event_controller->key_listeners = NULL;
   device_event_controller->mouse_listeners = NULL;
@@ -500,29 +500,29 @@ device_event_controller_init (DeviceEventController *device_event_controller)
   kbd_registered = _controller_register_with_devices (device_event_controller);
 }
 
-gboolean device_event_controller_check_key_event (DeviceEventController *controller)
+gboolean spi_device_event_controller_check_key_event (SpiDeviceEventController *controller)
 {
-	DeviceEventControllerClass *klass = DEVICE_EVENT_CONTROLLER_GET_CLASS (controller);
+	SpiDeviceEventControllerClass *klass = SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS (controller);
 	if (klass->check_key_event)
 		return (klass->check_key_event) (controller);
 }
 
 GType
-device_event_controller_get_type (void)
+spi_device_event_controller_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (DeviceEventControllerClass),
+                        sizeof (SpiDeviceEventControllerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) device_event_controller_class_init,
+                        (GClassInitFunc) spi_device_event_controller_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (DeviceEventController),
+                        sizeof (SpiDeviceEventController),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) device_event_controller_init,
+                        (GInstanceInitFunc) spi_device_event_controller_init,
                         NULL /* value table */
                 };
                 /*
@@ -533,11 +533,11 @@ device_event_controller_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_DeviceEventController__init,
+                        POA_Accessibility_SpiDeviceEventController__init,
                         NULL,
-                        G_STRUCT_OFFSET (DeviceEventControllerClass, epv),
+                        G_STRUCT_OFFSET (SpiDeviceEventControllerClass, epv),
                         &tinfo,
-                        "DeviceEventController");
+                        "SpiDeviceEventController");
         }
 
         return type;

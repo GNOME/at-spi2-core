@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SELECTION_H_
-#define SELECTION_H_
+#ifndef SPI_SELECTION_H_
+#define SPI_SELECTION_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define SELECTION_TYPE        (selection_get_type ())
-#define SELECTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SELECTION_TYPE, Selection))
-#define SELECTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SELECTION_TYPE, SelectionClass))
-#define IS_SELECTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SELECTION_TYPE))
-#define IS_SELECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SELECTION_TYPE))
+#define SPI_SELECTION_TYPE        (spi_selection_get_type ())
+#define SPI_SELECTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_SELECTION_TYPE, SpiSelection))
+#define SPI_SELECTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_SELECTION_TYPE, SpiSelectionClass))
+#define IS_SPI_SELECTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_SELECTION_TYPE))
+#define IS_SPI_SELECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_SELECTION_TYPE))
 
-typedef struct _Selection Selection;
-typedef struct _SelectionClass SelectionClass;
+typedef struct _SpiSelection SpiSelection;
+typedef struct _SpiSelectionClass SpiSelectionClass;
 
-struct _Selection {
+struct _SpiSelection {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SelectionClass {
+struct _SpiSelectionClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Selection__epv epv;
+  POA_Accessibility_SpiSelection__epv epv;
 };
 
 GType
-selection_get_type   (void);
+spi_selection_get_type   (void);
 
-Selection *
-selection_interface_new       (AtkObject *obj);
+SpiSelection *
+spi_selection_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* SELECTION_H_ */
+#endif /* SPI_SELECTION_H_ */

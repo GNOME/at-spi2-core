@@ -20,8 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef REGISTRY_H_
-#define REGISTRY_H_
+#ifndef SPI_REGISTRY_H_
+#define SPI_REGISTRY_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,33 +33,33 @@ extern "C" {
 #include "desktop.h"
 #include "deviceeventcontroller.h"
 
-#define REGISTRY_TYPE        (registry_get_type ())
-#define REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), REGISTRY_TYPE, Registry))
-#define REGISTRY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), REGISTRY_TYPE, RegistryClass))
-#define IS_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), REGISTRY_TYPE))
-#define IS_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), REGISTRY_TYPE))
+#define SPI_REGISTRY_TYPE        (spi_registry_get_type ())
+#define SPI_REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTRY_TYPE, SpiRegistry))
+#define SPI_REGISTRY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REGISTRY_TYPE, SpiRegistryClass))
+#define IS_SPI_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
+#define IS_SPI_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
 
 typedef struct {
-  Listener parent;
+  SpiListener parent;
   GList *object_listeners;
   GList *window_listeners;
   GList *toolkit_listeners;
   GList *applications;
-  DeviceEventController *device_event_controller;
-  Desktop *desktop;
+  SpiDeviceEventController *device_event_controller;
+  SpiDesktop *desktop;
   gboolean (*kbd_event_hook) (gpointer source);
-} Registry;
+} SpiRegistry;
 
 typedef struct {
-        ListenerClass parent_class;
-        POA_Accessibility_Registry__epv epv;
-} RegistryClass;
+        SpiListenerClass parent_class;
+        POA_Accessibility_SpiRegistry__epv epv;
+} SpiRegistryClass;
 
-GType               registry_get_type   (void);
-Registry            *registry_new       (void);
+GType               spi_registry_get_type   (void);
+SpiRegistry            *spi_registry_new       (void);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* REGISTRY_H_ */
+#endif /* SPI_REGISTRY_H_ */

@@ -30,12 +30,12 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
+ * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
  */
 #include <libspi/Accessibility.h>
 
 /*
- * This pulls the definition of the Action bonobo object
+ * This pulls the definition of the SpiAction bonobo object
  */
 #include "action.h"
 
@@ -44,20 +44,20 @@
  */
 
 static void
-action_class_init (ActionClass *klass);
+spi_action_class_init (SpiActionClass *klass);
 static void
-action_init (Action *action);
+spi_action_init (SpiAction *action);
 static void
-action_finalize (GObject *obj);
+spi_action_finalize (GObject *obj);
 static CORBA_long
-impl__get_nActions(PortableServer_Servant servant,
+impl__get_nSpiActions(PortableServer_Servant servant,
 		 CORBA_Environment * ev);
 static CORBA_string
 impl_getDescription (PortableServer_Servant servant,
 		     const CORBA_long index,
 		     CORBA_Environment * ev);
 static CORBA_boolean 
-impl_doAction (PortableServer_Servant servant,
+impl_doSpiAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev);
 static CORBA_string
 impl_getName (PortableServer_Servant servant,
@@ -71,21 +71,21 @@ impl_getKeyBinding (PortableServer_Servant servant,
 static GObjectClass *parent_class;
 
 GType
-action_get_type (void)
+spi_action_get_type (void)
 {
   static GType type = 0;
 
   if (!type) {
     static const GTypeInfo tinfo = {
-      sizeof (ActionClass),
+      sizeof (SpiActionClass),
       (GBaseInitFunc) NULL,
       (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) action_class_init,
+      (GClassInitFunc) spi_action_class_init,
       (GClassFinalizeFunc) NULL,
       NULL, /* class data */
-      sizeof (Action),
+      sizeof (SpiAction),
       0, /* n preallocs */
-      (GInstanceInitFunc) action_init,
+      (GInstanceInitFunc) spi_action_init,
                         NULL /* value table */
     };
 
@@ -96,72 +96,72 @@ action_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_Action__init,
+			       POA_Accessibility_SpiAction__init,
 			       NULL,
-			       G_STRUCT_OFFSET (ActionClass, epv),
+			       G_STRUCT_OFFSET (SpiActionClass, epv),
 			       &tinfo,
-			       "AccessibleAction");
+			       "SpiAccessibleAction");
   }
 
   return type;
 }
 
 static void
-action_class_init (ActionClass *klass)
+spi_action_class_init (SpiActionClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Action__epv *epv = &klass->epv;
+  POA_Accessibility_SpiAction__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->finalize = action_finalize;
+  object_class->finalize = spi_action_finalize;
 
 
   /* Initialize epv table */
 
-  epv->_get_nActions = impl__get_nActions;
-  epv->doAction = impl_doAction;
+  epv->_get_nSpiActions = impl__get_nSpiActions;
+  epv->doSpiAction = impl_doSpiAction;
   epv->getDescription = impl_getDescription;
   epv->getName = impl_getName;
   epv->getKeyBinding = impl_getKeyBinding;
 }
 
 static void
-action_init (Action *action)
+spi_action_init (SpiAction *action)
 {
 }
 
 static void
-action_finalize (GObject *obj)
+spi_action_finalize (GObject *obj)
 {
-  Action *action = ACTION (obj);
+  SpiAction *action = SPI_ACTION (obj);
   g_object_unref (action->atko);
   action->atko = NULL;
   parent_class->finalize (obj);
 }
 
-Action *
-action_interface_new (AtkObject *obj)
+SpiAction *
+spi_action_interface_new (AtkObject *obj)
 {
-  Action *new_action = 
-    ACTION(g_object_new (ACTION_TYPE, NULL));
+  SpiAction *new_action = 
+    SPI_ACTION(g_object_new (SPI_ACTION_TYPE, NULL));
   new_action->atko = obj;
   g_object_ref (obj);
   return new_action;
 }
 
 static CORBA_long
-impl__get_nActions(PortableServer_Servant servant,
+impl__get_nSpiActions(PortableServer_Servant servant,
 	    CORBA_Environment * ev)
 {
-  Action *action = ACTION (bonobo_object_from_servant(servant));
+  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
   return (CORBA_long) atk_action_get_n_actions (ATK_ACTION(action->atko));
 }
 
 static CORBA_boolean
-impl_doAction (PortableServer_Servant servant,
+impl_doSpiAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev)
 {
-  Action *action = ACTION (bonobo_object_from_servant (servant));
+  SpiAction *action = SPI_ACTION (bonobo_object_from_servant (servant));
   return (CORBA_boolean) atk_action_do_action (ATK_ACTION(action->atko), (gint) index);
 }
 
@@ -171,7 +171,7 @@ impl_getDescription (PortableServer_Servant servant,
 		const CORBA_long index,
 		CORBA_Environment * ev)
 {
-  Action *action = ACTION (bonobo_object_from_servant(servant));
+  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
   CORBA_char *rv;
   
   rv = atk_action_get_description (ATK_ACTION(action->atko), (gint) index);
@@ -187,7 +187,7 @@ impl_getName (PortableServer_Servant servant,
 		const CORBA_long index,
 		CORBA_Environment * ev)
 {
-  Action *action = ACTION (bonobo_object_from_servant(servant));
+  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
   CORBA_char *rv;
   
   rv = atk_action_get_name (ATK_ACTION(action->atko), (gint) index);
@@ -202,7 +202,7 @@ impl_getKeyBinding (PortableServer_Servant servant,
 		    const CORBA_long index,
 		    CORBA_Environment * ev)
 {
-  Action *action = ACTION (bonobo_object_from_servant(servant));
+  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
   CORBA_char *rv;
   
   rv = atk_action_get_keybinding (ATK_ACTION(action->atko), (gint) index);

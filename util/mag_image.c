@@ -132,7 +132,7 @@ void update_image(MagnifierData *mag_data)
     Window root_return, child_return;
     int win_x_return,win_y_return;
     unsigned int mask_return;
-    XQueryPointer(mag_data->source_display,image_root_window,
+    XQueryPointer(mag_data->source_display,spi_image_root_window,
 		  &root_return,&child_return,
 		  &mag_data->center.x,&mag_data->center.y,
 		  &win_x_return,&win_y_return,&mask_return);
@@ -174,7 +174,7 @@ void update_image(MagnifierData *mag_data)
     old_factor_x = mag_data->factor_x;
     old_factor_y = mag_data->factor_y;
   }
-  get_root_image(image_root_window,
+  get_root_image(spi_image_root_window,
 		 image,
 		 x,
 		 y,
@@ -187,7 +187,7 @@ void expose_event(GtkWidget * w, GdkEventExpose *event, gpointer data){
 
 
 
-/* Image grabbing and convertion routines from gdk-pixbuf-xlib */
+/* SpiImage grabbing and convertion routines from gdk-pixbuf-xlib */
 /*
   convert 1 bits-pixel data
   no alpha
@@ -1188,7 +1188,7 @@ void get_root_image(Window src, GdkPixbuf *dest, int src_x, int src_y, Magnifier
 	int width = mag_data->mag_width/mag_data->factor_x;
 	int height = mag_data->mag_height/mag_data->factor_y;
 
-	/* Get Image in ZPixmap format (packed bits). */
+	/* Get SpiImage in ZPixmap format (packed bits). */
 	image = XGetImage (mag_data->source_display, src, src_x, src_y,
 			   width, height, AllPlanes, ZPixmap);
 	g_assert(image != NULL);

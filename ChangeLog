@@ -1,5 +1,9 @@
 2001-11-13  Michael Meeks  <michael@ximian.com>
 
+	* *.[ch] Namespace libspi into spi_ and Spi.
+
+2001-11-13  Michael Meeks  <michael@ximian.com>
+
 	* Makefile.am: dist & install at-spi-1.0.pc
 
 	* libspi/Makefile.am: install into at-spi-1.0

@@ -40,10 +40,10 @@ main(int argc, char **argv)
         char *obj_id;
         char sbuf[APP_STATIC_BUFF_SZ];
 
-        Accessibility_Registry registry;
+        Accessibility_SpiRegistry registry;
         Accessibility_Event e;
-        Accessible *accessible;
-        Application *app;
+        SpiAccessible *accessible;
+        SpiApplication *app;
 
         CORBA_exception_init(&ev);
 
@@ -58,16 +58,16 @@ main(int argc, char **argv)
         atko = g_object_new (atk_object_get_type(), NULL);
         atk_object_set_name (atko, sbuf);
         atk_object_set_description( atko, "test application for accessibility SPI");
-        app = application_new(atko);
+        app = spi_application_new(atko);
 
-        /* Create the Accessible 'source' for the event */
-        accessible = accessible_new (atko);
+        /* Create the SpiAccessible 'source' for the event */
+        accessible = spi_accessible_new (atko);
         fprintf(stderr, "accessible created.\n");
 
         e.source = bonobo_object_corba_objref ( bonobo_object (accessible));
         e.type = CORBA_string_dup ("focus:");
 
-        obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+        obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
 
         oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {
@@ -83,14 +83,14 @@ main(int argc, char **argv)
             g_error ("Could not locate registry");
           }
 
-        registry = (Accessibility_Registry) oclient;
+        registry = (Accessibility_SpiRegistry) oclient;
 
-        Accessibility_Registry_registerApplication (registry,
+        Accessibility_SpiRegistry_registerSpiApplication (registry,
                                                     bonobo_object_corba_objref (bonobo_object (app)),
                                                     &ev);
-        fprintf(stderr, "registerApplication has been called.\n");
+        fprintf(stderr, "registerSpiApplication has been called.\n");
 
-        Accessibility_Registry_notifyEvent (registry, &e, &ev);
+        Accessibility_SpiRegistry_notifyEvent (registry, &e, &ev);
         fprintf (stderr, "notify event has been called.\n");
 
         bonobo_main (); /* needed when app becomes a server ? */

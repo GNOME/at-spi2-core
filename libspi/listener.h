@@ -20,8 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef LISTENER_H_
-#define LISTENER_H_
+#ifndef SPI_LISTENER_H_
+#define SPI_LISTENER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,26 +31,26 @@ extern "C" {
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
 
-#define LISTENER_TYPE        (listener_get_type ())
-#define LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), LISTENER_TYPE, Listener))
-#define LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), LISTENER_TYPE, ListenerClass))
-#define IS_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), LISTENER_TYPE))
-#define IS_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), LISTENER_TYPE))
+#define SPI_LISTENER_TYPE        (spi_listener_get_type ())
+#define SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_LISTENER_TYPE, SpiListener))
+#define SPI_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_LISTENER_TYPE, SpiListenerClass))
+#define IS_SPI_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_LISTENER_TYPE))
+#define IS_SPI_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_LISTENER_TYPE))
 
 typedef struct {
         BonoboObject parent;
-} Listener;
+} SpiListener;
 
 typedef struct {
         BonoboObjectClass parent_class;
         POA_Accessibility_EventListener__epv epv;
-} ListenerClass;
+} SpiListenerClass;
 
-GType               listener_get_type   (void);
-Listener            *listener_new       (void);
+GType               spi_listener_get_type   (void);
+SpiListener            *spi_listener_new       (void);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* LISTENER_H_ */
+#endif /* SPI_LISTENER_H_ */

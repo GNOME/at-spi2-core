@@ -1,34 +1,34 @@
 int
-AccessibleAction_ref (
-                      AccessibleAction *obj)
+SpiAccessibleAction_ref (
+                      SpiAccessibleAction *obj)
 {
-  Accessibility_Action_ref (*obj, &ev);
+  Accessibility_SpiAction_ref (*obj, &ev);
   return 0;
 }
 
 int
-AccessibleAction_unref (AccessibleAction *obj)
+SpiAccessibleAction_unref (SpiAccessibleAction *obj)
 {
-  Accessibility_Action_unref (*obj, &ev);
+  Accessibility_SpiAction_unref (*obj, &ev);
   return 0;
 }
 
 
 
 long
-AccessibleAction_getNActions (AccessibleAction *obj)
+SpiAccessibleAction_getNSpiActions (SpiAccessibleAction *obj)
 {
   return (long)
-    Accessibility_Action__get_nActions (*obj, &ev);
+    Accessibility_SpiAction__get_nSpiActions (*obj, &ev);
 }
 
 
 /**
- * AccessibleAction_getDescription:
- * @obj: a pointer to the #AccessibleAction to query.
+ * SpiAccessibleAction_getDescription:
+ * @obj: a pointer to the #SpiAccessibleAction to query.
  *
  * Get the description of 'i-th' action invokable on an
- *      object implementing #AccessibleAction.
+ *      object implementing #SpiAccessibleAction.
  *
  * Not Yet Implemented.
  *
@@ -36,11 +36,11 @@ AccessibleAction_getNActions (AccessibleAction *obj)
  *
  **/
 char *
-AccessibleAction_getDescription (AccessibleAction *obj,
+SpiAccessibleAction_getDescription (SpiAccessibleAction *obj,
                                  long index)
 {
   return (char *)
-    Accessibility_Action_getDescription (*obj,
+    Accessibility_SpiAction_getDescription (*obj,
 					 (CORBA_long) index,
 					 &ev);
 }
@@ -48,11 +48,11 @@ AccessibleAction_getDescription (AccessibleAction *obj,
 
 
 char *
-AccessibleAction_getKeyBinding (AccessibleAction *obj,
+SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
 				long index)
 {
   return (char *) 
-    Accessibility_Action_getKeyBinding (*obj,
+    Accessibility_SpiAction_getKeyBinding (*obj,
        (CORBA_long) index,
        &ev);
 }
@@ -60,22 +60,22 @@ AccessibleAction_getKeyBinding (AccessibleAction *obj,
 
 
 char *
-AccessibleAction_getName (AccessibleAction *obj,
+SpiAccessibleAction_getName (SpiAccessibleAction *obj,
 			  long index)
 {
   return (char *)
-				   Accessibility_Action_getName (*obj,
+				   Accessibility_SpiAction_getName (*obj,
 								 (CORBA_long) index,
 								 &ev);
 }
 
 
 boolean
-AccessibleAction_doAction (AccessibleAction *obj,
+SpiAccessibleAction_doSpiAction (SpiAccessibleAction *obj,
                            long index)
 {
   return (boolean)
-    Accessibility_Action_doAction (*obj,
+    Accessibility_SpiAction_doSpiAction (*obj,
 				   (CORBA_long) index,
 				   &ev);
 }

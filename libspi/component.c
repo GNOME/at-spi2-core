@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
+ * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -48,29 +48,29 @@
 /*
  * A pointer to our parent object class
  */
-static GObjectClass *component_parent_class;
+static GObjectClass *spi_component_parent_class;
 
 /*
  * Implemented GObject::finalize
  */
 static void
-accessibility_component_object_finalize (GObject *object)
+accessibility_spi_component_object_finalize (GObject *object)
 {
-        Component *component = COMPONENT (object);
+        SpiComponent *component = SPI_COMPONENT (object);
 
-        printf("accessible_component_object_finalize called\n");
+        printf("spi_accessible_spi_component_object_finalize called\n");
         g_object_unref (component->atko);
 	component->atko = NULL;
 
         printf("component atko freed, calling parent finalize\n");
-        component_parent_class->finalize (object);
+        spi_component_parent_class->finalize (object);
 }
 
 /*
- * CORBA Accessibility::Component::contains method implementation
+ * CORBA Accessibility::SpiComponent::contains method implementation
  */
 static CORBA_boolean
-impl_accessibility_component_contains (PortableServer_Servant servant,
+impl_accessibility_spi_component_contains (PortableServer_Servant servant,
                                        const CORBA_long x,
                                        const CORBA_long y,
                                        CORBA_short coord_type,
@@ -78,11 +78,11 @@ impl_accessibility_component_contains (PortableServer_Servant servant,
 {
   CORBA_boolean retval;
   BonoboObject *obj;
-  Component *component;
+  SpiComponent *component;
 
   obj = bonobo_object_from_servant (servant);
-  g_return_val_if_fail (IS_COMPONENT(obj), FALSE);
-  component = COMPONENT (obj);
+  g_return_val_if_fail (IS_SPI_COMPONENT(obj), FALSE);
+  component = SPI_COMPONENT (obj);
   g_return_val_if_fail (ATK_IS_COMPONENT(component->atko), FALSE);
   retval = atk_component_contains (ATK_COMPONENT (component->atko), (gint) x, (gint) y,
                                   (AtkCoordType) coord_type);
@@ -90,37 +90,37 @@ impl_accessibility_component_contains (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::Component::getAccessibleAtPoint method implementation
+ * CORBA Accessibility::SpiComponent::getAccessibleAtPoint method implementation
  */
-static Accessibility_Accessible
-impl_accessibility_component_get_accessible_at_point (PortableServer_Servant servant,
+static Accessibility_SpiAccessible
+impl_accessibility_spi_component_get_accessible_at_point (PortableServer_Servant servant,
                                                       const CORBA_long x,
                                                       const CORBA_long y,
                                                       CORBA_short coord_type,
                                                       CORBA_Environment     *ev)
 {
   BonoboObject *obj;
-  Component *component;
-  Accessibility_Accessible retval;
+  SpiComponent *component;
+  Accessibility_SpiAccessible retval;
   AtkObject *child;
 
   obj = bonobo_object_from_servant (servant);
-  g_return_val_if_fail (IS_COMPONENT(obj), CORBA_OBJECT_NIL);
-  component = COMPONENT (obj);
+  g_return_val_if_fail (IS_SPI_COMPONENT(obj), CORBA_OBJECT_NIL);
+  component = SPI_COMPONENT (obj);
   g_return_val_if_fail (ATK_IS_COMPONENT(component->atko), CORBA_OBJECT_NIL);
 
   child = atk_component_ref_accessible_at_point (ATK_COMPONENT (component->atko),
                                                   (gint) x, (gint) y,
                                                   (AtkCoordType) coord_type);
-  retval = bonobo_object_corba_objref (bonobo_object (accessible_new (child)));
+  retval = bonobo_object_corba_objref (bonobo_object (spi_accessible_new (child)));
   return CORBA_Object_duplicate (retval, ev);
 }
 
 /*
- * CORBA Accessibility::Component::getExtents method implementation
+ * CORBA Accessibility::SpiComponent::getExtents method implementation
  */
 static void
-impl_accessibility_component_get_extents (PortableServer_Servant servant,
+impl_accessibility_spi_component_get_extents (PortableServer_Servant servant,
                                           CORBA_long * x,
                                           CORBA_long * y,
                                           CORBA_long * width,
@@ -129,12 +129,12 @@ impl_accessibility_component_get_extents (PortableServer_Servant servant,
                                           CORBA_Environment     *ev)
 {
   BonoboObject *obj;
-  Component *component;
+  SpiComponent *component;
   gint ix, iy, iw, ih;
 
   obj = bonobo_object_from_servant (servant);
-  g_return_if_fail (IS_COMPONENT(obj));
-  component = COMPONENT (obj);
+  g_return_if_fail (IS_SPI_COMPONENT(obj));
+  component = SPI_COMPONENT (obj);
   g_return_if_fail (ATK_IS_COMPONENT (component->atko));
 
   atk_component_get_extents (ATK_COMPONENT (component->atko), &ix, &iy, &iw, &ih,
@@ -146,21 +146,21 @@ impl_accessibility_component_get_extents (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::Component::getPosition method implementation
+ * CORBA Accessibility::SpiComponent::getPosition method implementation
  */
 static void
-impl_accessibility_component_get_position (PortableServer_Servant servant,
+impl_accessibility_spi_component_get_position (PortableServer_Servant servant,
                                            CORBA_long * x,
                                            CORBA_long * y,
                                            const CORBA_short coord_type,
                                            CORBA_Environment     *ev)
 {
   BonoboObject *obj = bonobo_object_from_servant (servant);
-  Component *component;
+  SpiComponent *component;
   gint ix, iy;
 
-  g_return_if_fail (IS_COMPONENT(obj));
-  component = COMPONENT(obj);
+  g_return_if_fail (IS_SPI_COMPONENT(obj));
+  component = SPI_COMPONENT(obj);
   g_return_if_fail (ATK_IS_COMPONENT(component->atko));
 
   atk_component_get_position (ATK_COMPONENT (component->atko), &ix, &iy,
@@ -170,20 +170,20 @@ impl_accessibility_component_get_position (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::Component::getSize method implementation
+ * CORBA Accessibility::SpiComponent::getSize method implementation
  */
 static void
-impl_accessibility_component_get_size (PortableServer_Servant servant,
+impl_accessibility_spi_component_get_size (PortableServer_Servant servant,
                                        CORBA_long * width,
                                        CORBA_long * height,
                                        CORBA_Environment     *ev)
 {
-  Component *component;
+  SpiComponent *component;
   BonoboObject *obj = bonobo_object_from_servant (servant);
   gint iw, ih;
 
-  g_return_if_fail (IS_COMPONENT(obj));
-  component = COMPONENT(obj);
+  g_return_if_fail (IS_SPI_COMPONENT(obj));
+  component = SPI_COMPONENT(obj);
   g_return_if_fail (ATK_IS_COMPONENT(component->atko));
   atk_component_get_size (ATK_COMPONENT (component->atko), &iw, &ih);
   *width = (CORBA_long) iw;
@@ -191,42 +191,42 @@ impl_accessibility_component_get_size (PortableServer_Servant servant,
 }
 
 static void
-accessibility_component_class_init (ComponentClass *klass)
+accessibility_spi_component_class_init (SpiComponentClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_Component__epv *epv = &klass->epv;
-        component_parent_class = g_type_class_peek_parent (klass);
+        POA_Accessibility_SpiComponent__epv *epv = &klass->epv;
+        spi_component_parent_class = g_type_class_peek_parent (klass);
 
-        object_class->finalize = accessibility_component_object_finalize;
+        object_class->finalize = accessibility_spi_component_object_finalize;
 
-        epv->contains = impl_accessibility_component_contains;
-        epv->getAccessibleAtPoint = impl_accessibility_component_get_accessible_at_point;
-        epv->getExtents = impl_accessibility_component_get_extents;
-        epv->getPosition = impl_accessibility_component_get_position;
-        epv->getSize = impl_accessibility_component_get_size;
+        epv->contains = impl_accessibility_spi_component_contains;
+        epv->getAccessibleAtPoint = impl_accessibility_spi_component_get_accessible_at_point;
+        epv->getExtents = impl_accessibility_spi_component_get_extents;
+        epv->getPosition = impl_accessibility_spi_component_get_position;
+        epv->getSize = impl_accessibility_spi_component_get_size;
 }
 
 static void
-accessibility_component_init (Component *component)
+accessibility_spi_component_init (SpiComponent *component)
 {
 }
 
 GType
-accessibility_component_get_type (void)
+accessibility_spi_component_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (ComponentClass),
+                        sizeof (SpiComponentClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) accessibility_component_class_init,
+                        (GClassInitFunc) accessibility_spi_component_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (Component),
+                        sizeof (SpiComponent),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) accessibility_component_init,
+                        (GInstanceInitFunc) accessibility_spi_component_init,
                         NULL /* value table */
                 };
                 /*
@@ -236,21 +236,21 @@ accessibility_component_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_Component__init,
+                        POA_Accessibility_SpiComponent__init,
                         NULL,
-                        G_STRUCT_OFFSET (ComponentClass, epv),
+                        G_STRUCT_OFFSET (SpiComponentClass, epv),
                         &tinfo,
-                        "AccessibleComponent");
+                        "SpiAccessibleComponent");
         }
 
         return type;
 }
 
-Component *
-component_interface_new (AtkObject *o)
+SpiComponent *
+spi_component_interface_new (AtkObject *o)
 {
-    Component *retval =
-               COMPONENT (g_object_new (accessibility_component_get_type (), NULL));
+    SpiComponent *retval =
+               SPI_COMPONENT (g_object_new (accessibility_spi_component_get_type (), NULL));
     retval->atko = o;
     g_object_ref (o);
     return retval;

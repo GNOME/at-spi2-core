@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef IMAGE_H_
-#define IMAGE_H_
+#ifndef SPI_IMAGE_H_
+#define SPI_IMAGE_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define IMAGE_TYPE        (image_get_type ())
-#define IMAGE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), IMAGE_TYPE, Image))
-#define IMAGE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), IMAGE_TYPE, ImageClass))
-#define IS_IMAGE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), IMAGE_TYPE))
-#define IS_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), IMAGE_TYPE))
+#define SPI_IMAGE_TYPE        (spi_image_get_type ())
+#define SPI_IMAGE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_IMAGE_TYPE, SpiImage))
+#define SPI_IMAGE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_IMAGE_TYPE, SpiImageClass))
+#define IS_SPI_IMAGE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_IMAGE_TYPE))
+#define IS_SPI_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_IMAGE_TYPE))
 
-typedef struct _Image Image;
-typedef struct _ImageClass ImageClass;
+typedef struct _SpiImage SpiImage;
+typedef struct _SpiImageClass SpiImageClass;
 
-struct _Image {
+struct _SpiImage {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _ImageClass {
+struct _SpiImageClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Image__epv epv;
+  POA_Accessibility_SpiImage__epv epv;
 };
 
 GType
-image_get_type   (void);
+spi_image_get_type   (void);
 
-Image *
-image_interface_new       (AtkObject *obj);
+SpiImage *
+spi_image_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* IMAGE_H_ */
+#endif /* SPI_IMAGE_H_ */

@@ -270,7 +270,7 @@ main(int argc, char **argv)
 			    (KeySet *) ALL_KEYS,
 			    KEYMASK_ALT,
 			    (unsigned long) ( KeyPress | KeyRelease),
-			    KEYLISTENER_CANCONSUME | KEYLISTENER_ALLWINDOWS);
+			    KEYSPI_LISTENER_CANCONSUME | KEYSPI_LISTENER_ALLWINDOWS);
   create_vkbd();  
 
   /* register a listener on the spacebar, to serve as a 'single switch' */
@@ -284,7 +284,7 @@ main(int argc, char **argv)
 			    &spacebar_set,
 			    KEYMASK_UNMODIFIED,
 			    (unsigned long) ( KeyPress | KeyRelease),
-			    KEYLISTENER_CANCONSUME);
+			    KEYSPI_LISTENER_CANCONSUME);
   */
   
   SPI_event_main(TRUE);

@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef TEXT_H_
-#define TEXT_H_
+#ifndef SPI_TEXT_H_
+#define SPI_TEXT_H_
 
 
 #ifdef __cplusplus
@@ -30,33 +30,33 @@ extern "C" {
 #include <libspi/Accessibility.h>
 #include "accessible.h"
 
-#define TEXT_TYPE        (accessibility_text_get_type ())
-#define TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEXT_TYPE, Text))
-#define TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), TEXT_TYPE, TextClass))
-#define IS_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEXT_TYPE))
-#define IS_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TEXT_TYPE))
+#define SPI_TEXT_TYPE        (accessibility_text_get_type ())
+#define SPI_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_TEXT_TYPE, SpiText))
+#define SPI_TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_TEXT_TYPE, SpiTextClass))
+#define IS_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_TEXT_TYPE))
+#define IS_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_TEXT_TYPE))
 
-typedef struct _Text Text;
-typedef struct _TextClass TextClass;
+typedef struct _SpiText SpiText;
+typedef struct _SpiTextClass SpiTextClass;
 
-struct _Text {
+struct _SpiText {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _TextClass {
+struct _SpiTextClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Text__epv epv;
+  POA_Accessibility_SpiText__epv epv;
 };
 
 GType
 accessibility_text_get_type   (void);
 
-Text *
-text_interface_new       (AtkObject *obj);
+SpiText *
+spi_text_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* TEXT_H_ */
+#endif /* SPI_TEXT_H_ */

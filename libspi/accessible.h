@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACCESSIBLE_H_
-#define ACCESSIBLE_H_
+#ifndef SPI_ACCESSIBLE_H_
+#define SPI_ACCESSIBLE_H_
 
 
 #ifdef __cplusplus
@@ -29,28 +29,28 @@ extern "C" {
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
 
-#define ACCESSIBLE_TYPE        (accessible_get_type ())
-#define ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ACCESSIBLE_TYPE, Accessible))
-#define ACCESSIBLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ACCESSIBLE_TYPE, AccessibleClass))
-#define IS_ACCESSIBLE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), ACCESSIBLE_TYPE))
-#define IS_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ACCESSIBLE_TYPE))
+#define SPI_ACCESSIBLE_TYPE        (spi_accessible_get_type ())
+#define SPI_ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_TYPE, SpiAccessible))
+#define SPI_ACCESSIBLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_TYPE, SpiAccessibleClass))
+#define IS_SPI_ACCESSIBLE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_ACCESSIBLE_TYPE))
+#define IS_SPI_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_TYPE))
 
 typedef struct {
         BonoboObject parent;
         AtkObject *atko;
-} Accessible;
+} SpiAccessible;
 
 typedef struct {
         BonoboObjectClass parent_class;
-        POA_Accessibility_Accessible__epv epv;
-} AccessibleClass;
+        POA_Accessibility_SpiAccessible__epv epv;
+} SpiAccessibleClass;
 
-GType                  accessible_get_type   (void);
-Accessible             *accessible_new       (AtkObject *o);
+GType                  spi_accessible_get_type   (void);
+SpiAccessible             *spi_accessible_new       (AtkObject *o);
 
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* ACCESSIBLE_H_ */
+#endif /* SPI_ACCESSIBLE_H_ */

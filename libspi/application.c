@@ -21,7 +21,7 @@
  */
 
 /*
- * application.c: implements Application.idl
+ * application.c: implements SpiApplication.idl
  *
  */
 #include <string.h>
@@ -30,7 +30,7 @@
 #include <atk/atkutil.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
+ * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -42,14 +42,14 @@
 /*
  * Our parent Gtk object type
  */
-#define PARENT_TYPE ACCESSIBLE_TYPE
+#define PARENT_TYPE SPI_ACCESSIBLE_TYPE
 
 /*
  * A pointer to our parent object class
  */
-static AccessibleClass *application_parent_class;
+static SpiAccessibleClass *spi_application_parent_class;
 
-static Application *the_app;
+static SpiApplication *the_app;
 
 /* static methods */
 
@@ -65,55 +65,55 @@ static char* reverse_lookup_name_for_toolkit_event (char *toolkit_name);
  * Implemented GObject::finalize
  */
 static void
-accessible_application_finalize (GObject *object)
+spi_accessible_spi_application_finalize (GObject *object)
 {
   /* TODO: any necessary cleanup */
-  (G_OBJECT_CLASS (application_parent_class))->finalize (object);
+  (G_OBJECT_CLASS (spi_application_parent_class))->finalize (object);
 }
 
 static CORBA_string
-impl_accessibility_application_get_toolkit_name (PortableServer_Servant servant,
+impl_accessibility_spi_application_get_toolkit_name (PortableServer_Servant servant,
                                                  CORBA_Environment *ev)
 {
   CORBA_char *retval;
-  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
   retval = CORBA_string_dup (atk_get_toolkit_name ());
   return retval;
 }
 
 static CORBA_string
-impl_accessibility_application_get_version (PortableServer_Servant servant,
+impl_accessibility_spi_application_get_version (PortableServer_Servant servant,
                                             CORBA_Environment *ev)
 {
   CORBA_char *retval;
-  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
   retval = CORBA_string_dup (atk_get_toolkit_version ());
   return retval;
 }
 
 static CORBA_long
-impl_accessibility_application_get_id (PortableServer_Servant servant,
+impl_accessibility_spi_application_get_id (PortableServer_Servant servant,
                                        CORBA_Environment *ev)
 {
   CORBA_long retval;
-  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
   retval = (CORBA_long) application->id;
   return retval;
 }
 
 static void
-impl_accessibility_application_set_id (PortableServer_Servant servant,
+impl_accessibility_spi_application_set_id (PortableServer_Servant servant,
                                        const CORBA_long id,
                                        CORBA_Environment *ev)
 {
-  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
   application->id = id;
 }
 
 #define APP_STATIC_BUFF_SZ 64
 
 static gboolean
-application_object_event_listener (GSignalInvocationHint *signal_hint,
+spi_application_object_event_listener (GSignalInvocationHint *signal_hint,
 				   guint n_param_values,
 				   const GValue *param_values,
 				   gpointer data)
@@ -121,7 +121,7 @@ application_object_event_listener (GSignalInvocationHint *signal_hint,
   Accessibility_Event *e = Accessibility_Event__alloc();
   AtkObject *aobject;
   GObject *gobject;
-  Accessible *source;
+  SpiAccessible *source;
   CORBA_Environment ev;
   GSignalQuery signal_query;
   gchar *name;
@@ -157,7 +157,7 @@ application_object_event_listener (GSignalInvocationHint *signal_hint,
   g_return_val_if_fail (generic_name, FALSE);
   if (generic_name)
     {
-        source = accessible_new (aobject);
+        source = spi_accessible_new (aobject);
 	e->type = CORBA_string_dup (generic_name);
 	e->source = BONOBO_OBJREF (source);
         /*
@@ -171,7 +171,7 @@ application_object_event_listener (GSignalInvocationHint *signal_hint,
         bonobo_object_release_unref (e->source, &ev); 
     }
   /* and, decrement the refcount on atkobject, incremented moments ago:
-   *  the call to accessible_new() above should have added an extra ref */
+   *  the call to spi_accessible_new() above should have added an extra ref */
   g_object_unref (G_OBJECT (aobject));
 
   return TRUE;
@@ -179,7 +179,7 @@ application_object_event_listener (GSignalInvocationHint *signal_hint,
 
 
 static gboolean
-application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
+spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
 				    guint n_param_values,
 				    const GValue *param_values,
 				    gpointer data)
@@ -187,7 +187,7 @@ application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
   Accessibility_Event *e = Accessibility_Event__alloc();
   AtkObject *aobject;
   GObject *gobject;
-  Accessible *source;
+  SpiAccessible *source;
   CORBA_Environment ev;
   GSignalQuery signal_query;
   gchar *name;
@@ -205,7 +205,7 @@ application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
   if (ATK_IS_IMPLEMENTOR (gobject))
     {
       aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
-      source = accessible_new (aobject);
+      source = spi_accessible_new (aobject);
       e->type = CORBA_string_dup (sbuf);
       e->source = BONOBO_OBJREF (source);
       e->detail1 = 0;
@@ -218,42 +218,42 @@ application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
 }
 
 static void
-impl_accessibility_application_register_toolkit_event_listener (PortableServer_Servant servant,
+impl_accessibility_spi_application_register_toolkit_event_listener (PortableServer_Servant servant,
 								Accessibility_EventListener listener,
                                                                 const CORBA_char *event_name,
                                                                 CORBA_Environment *ev)
 {
-  guint listener_id;
-  listener_id =
-     atk_add_global_event_listener (application_toolkit_event_listener, event_name);
+  guint spi_listener_id;
+  spi_listener_id =
+     atk_add_global_event_listener (spi_application_toolkit_event_listener, event_name);
   the_app->toolkit_listeners = g_list_append (the_app->toolkit_listeners,
 					      CORBA_Object_duplicate (listener, ev));
 #ifdef SPI_DEBUG
   fprintf (stderr, "registered %d for toolkit events named: %s\n",
-           listener_id,
+           spi_listener_id,
            event_name);
 #endif
 }
 
 static void
-impl_accessibility_application_register_object_event_listener (PortableServer_Servant servant,
+impl_accessibility_spi_application_register_object_event_listener (PortableServer_Servant servant,
 							       Accessibility_EventListener listener,
 							       const CORBA_char *event_name,
 							       CORBA_Environment *ev)
 {
-  guint listener_id;
+  guint spi_listener_id;
   char *toolkit_specific_event_name = lookup_toolkit_event_for_name (event_name);
   if (toolkit_specific_event_name)
   {
-    listener_id =
-       atk_add_global_event_listener (application_object_event_listener,
+    spi_listener_id =
+       atk_add_global_event_listener (spi_application_object_event_listener,
 				      CORBA_string_dup (toolkit_specific_event_name));
     the_app->toolkit_listeners = g_list_append (the_app->toolkit_listeners,
 					      CORBA_Object_duplicate (listener, ev));
   }
 #ifdef SPI_DEBUG
   fprintf (stderr, "registered %d for object events named: %s\n",
-           listener_id,
+           spi_listener_id,
            event_name);
 #endif
 }
@@ -281,7 +281,7 @@ static char *
 lookup_toolkit_event_for_name (char *generic_name)
 {
     char *toolkit_specific_name;
-    ApplicationClass *klass = g_type_class_peek (APPLICATION_TYPE);
+    SpiApplicationClass *klass = g_type_class_peek (SPI_APPLICATION_TYPE);
 #ifdef SPI_DEBUG
     fprintf (stderr, "looking for %s in hash table.\n", generic_name);
 #endif
@@ -297,7 +297,7 @@ static char *
 reverse_lookup_name_for_toolkit_event (char *toolkit_specific_name)
 {
     char *generic_name;
-    ApplicationClass *klass = g_type_class_peek (APPLICATION_TYPE);
+    SpiApplicationClass *klass = g_type_class_peek (SPI_APPLICATION_TYPE);
 #ifdef SPI_DEBUG
     fprintf (stderr, "(reverse lookup) looking for %s in hash table.\n", toolkit_specific_name);
 #endif
@@ -321,52 +321,52 @@ init_toolkit_names (GHashTable **generic_event_names, GHashTable **toolkit_event
 			     "Gtk:AtkObject:property-change",
 			     "object:property-change");
 #ifdef SPI_DEBUG
-	fprintf (stderr, "inserted selection_changed hash\n");
+	fprintf (stderr, "inserted spi_selection_changed hash\n");
 #endif
 }
 
 static void
-application_class_init (ApplicationClass *klass)
+spi_application_class_init (SpiApplicationClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Application__epv *epv = &klass->epv;
+  POA_Accessibility_SpiApplication__epv *epv = &klass->epv;
 
-  application_parent_class = g_type_class_ref (ACCESSIBLE_TYPE);
+  spi_application_parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
 
-  object_class->finalize = accessible_application_finalize;
+  object_class->finalize = spi_accessible_spi_application_finalize;
 
-  epv->_get_toolkitName = impl_accessibility_application_get_toolkit_name;
-  epv->_get_version = impl_accessibility_application_get_version;
-  epv->_get_id = impl_accessibility_application_get_id;
-  epv->_set_id = impl_accessibility_application_set_id;
-  epv->registerToolkitEventListener = impl_accessibility_application_register_toolkit_event_listener;
+  epv->_get_toolkitName = impl_accessibility_spi_application_get_toolkit_name;
+  epv->_get_version = impl_accessibility_spi_application_get_version;
+  epv->_get_id = impl_accessibility_spi_application_get_id;
+  epv->_set_id = impl_accessibility_spi_application_set_id;
+  epv->registerToolkitEventListener = impl_accessibility_spi_application_register_toolkit_event_listener;
   init_toolkit_names (&klass->generic_event_names, &klass->toolkit_event_names);
 }
 
 static void
-application_init (Application  *application)
+spi_application_init (SpiApplication  *application)
 {
-  ACCESSIBLE (application)->atko = g_object_new (atk_object_get_type(), NULL);
+  SPI_ACCESSIBLE (application)->atko = g_object_new (atk_object_get_type(), NULL);
   application->toolkit_listeners = (GList *) NULL;
   the_app = application;
 }
 
 GType
-application_get_type (void)
+spi_application_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (ApplicationClass),
+                        sizeof (SpiApplicationClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) application_class_init,
+                        (GClassInitFunc) spi_application_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (Application),
+                        sizeof (SpiApplication),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) application_init,
+                        (GInstanceInitFunc) spi_application_init,
                         NULL /* value table */
                 };
                 /*
@@ -376,22 +376,22 @@ application_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_Application__init,
+                        POA_Accessibility_SpiApplication__init,
                         NULL,
-                        G_STRUCT_OFFSET (ApplicationClass, epv),
+                        G_STRUCT_OFFSET (SpiApplicationClass, epv),
                         &tinfo,
-                        "Application");
+                        "SpiApplication");
         }
 
         return type;
 }
 
-Application *
-application_new (AtkObject *app_root)
+SpiApplication *
+spi_application_new (AtkObject *app_root)
 {
-    Application *retval =
-               APPLICATION (g_object_new (application_get_type (), NULL));
-    ACCESSIBLE (retval)->atko = app_root;
+    SpiApplication *retval =
+               SPI_APPLICATION (g_object_new (spi_application_get_type (), NULL));
+    SPI_ACCESSIBLE (retval)->atko = app_root;
     g_object_ref (G_OBJECT (app_root));
     return retval;
 }

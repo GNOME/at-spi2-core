@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
+ * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -44,11 +44,11 @@
  */
 
 static void
-image_class_init (ImageClass *klass);
+spi_image_class_init (SpiImageClass *klass);
 static void
-image_init (Image *image);
+spi_image_init (SpiImage *image);
 static void
-image_finalize (GObject *obj);
+spi_image_finalize (GObject *obj);
 static void 
 impl_getImagePosition (PortableServer_Servant _servant,
 		       CORBA_long * x, CORBA_long * y,
@@ -66,21 +66,21 @@ impl__get_imageDescription (PortableServer_Servant _servant,
 static GObjectClass *parent_class;
 
 GType
-image_get_type (void)
+spi_image_get_type (void)
 {
   static GType type = 0;
 
   if (!type) {
     static const GTypeInfo tinfo = {
-      sizeof (ImageClass),
+      sizeof (SpiImageClass),
       (GBaseInitFunc) NULL,
       (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) image_class_init,
+      (GClassInitFunc) spi_image_class_init,
       (GClassFinalizeFunc) NULL,
       NULL, /* class data */
-      sizeof (Image),
+      sizeof (SpiImage),
       0, /* n preallocs */
-      (GInstanceInitFunc) image_init,
+      (GInstanceInitFunc) spi_image_init,
                         NULL /* value table */
     };
 
@@ -91,24 +91,24 @@ image_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_Image__init,
+			       POA_Accessibility_SpiImage__init,
 			       NULL,
-			       G_STRUCT_OFFSET (ImageClass, epv),
+			       G_STRUCT_OFFSET (SpiImageClass, epv),
 			       &tinfo,
-			       "AccessibleImage");
+			       "SpiAccessibleImage");
   }
 
   return type;
 }
 
 static void
-image_class_init (ImageClass *klass)
+spi_image_class_init (SpiImageClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Image__epv *epv = &klass->epv;
+  POA_Accessibility_SpiImage__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
-  object_class->finalize = image_finalize;
+  object_class->finalize = spi_image_finalize;
 
 
   /* Initialize epv table */
@@ -119,24 +119,24 @@ image_class_init (ImageClass *klass)
 }
 
 static void
-image_init (Image *image)
+spi_image_init (SpiImage *image)
 {
 }
 
 static void
-image_finalize (GObject *obj)
+spi_image_finalize (GObject *obj)
 {
-  Image *image = IMAGE (obj);
+  SpiImage *image = SPI_IMAGE (obj);
   g_object_unref (image->atko);
   image->atko = NULL;
   parent_class->finalize (obj);
 }
 
-Image *
-image_interface_new (AtkObject *obj)
+SpiImage *
+spi_image_interface_new (AtkObject *obj)
 {
-  Image *new_image = 
-    IMAGE(g_object_new (IMAGE_TYPE, NULL));
+  SpiImage *new_image = 
+    SPI_IMAGE(g_object_new (SPI_IMAGE_TYPE, NULL));
   new_image->atko = obj;
   g_object_ref (obj);
   return new_image;
@@ -150,7 +150,7 @@ impl_getImagePosition (PortableServer_Servant _servant,
 		       const CORBA_short coordType,
 		       CORBA_Environment * ev)
 {
-  Image *image = IMAGE (bonobo_object_from_servant(_servant));
+  SpiImage *image = SPI_IMAGE (bonobo_object_from_servant(_servant));
   atk_image_get_image_position (ATK_IMAGE(image->atko),
 				(gint *) x, (gint *) y,
 				(AtkCoordType) coordType);
@@ -163,7 +163,7 @@ impl_getImageSize (PortableServer_Servant _servant,
 		   CORBA_long * width, CORBA_long * height,
 			    CORBA_Environment * ev)
 {
-  Image *image = IMAGE (bonobo_object_from_servant(_servant));
+  SpiImage *image = SPI_IMAGE (bonobo_object_from_servant(_servant));
   atk_image_get_image_size (ATK_IMAGE(image->atko),
 			    (gint *) width, (gint *) height);
 }
@@ -174,7 +174,7 @@ static CORBA_string
 impl__get_imageDescription (PortableServer_Servant _servant,
 			  CORBA_Environment * ev)
 {
-  Image *image = IMAGE (bonobo_object_from_servant(_servant));
+  SpiImage *image = SPI_IMAGE (bonobo_object_from_servant(_servant));
   CORBA_char *rv;
 
   rv = atk_image_get_image_description (ATK_IMAGE(image->atko));

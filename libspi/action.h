@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACTION_H_
-#define ACTION_H_
+#ifndef SPI_ACTION_H_
+#define SPI_ACTION_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define ACTION_TYPE        (action_get_type ())
-#define ACTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), ACTION_TYPE, Action))
-#define ACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), ACTION_TYPE, ActionClass))
-#define IS_ACTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ACTION_TYPE))
-#define IS_ACTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ACTION_TYPE))
+#define SPI_ACTION_TYPE        (spi_action_get_type ())
+#define SPI_ACTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_ACTION_TYPE, SpiAction))
+#define SPI_ACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_ACTION_TYPE, SpiActionClass))
+#define SPI_IS_ACTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_ACTION_TYPE))
+#define SPI_IS_ACTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_ACTION_TYPE))
 
-typedef struct _Action Action;
-typedef struct _ActionClass ActionClass;
+typedef struct _SpiAction SpiAction;
+typedef struct _SpiActionClass SpiActionClass;
 
-struct _Action {
+struct _SpiAction {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _ActionClass {
+struct _SpiActionClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Action__epv epv;
+  POA_Accessibility_SpiAction__epv epv;
 };
 
 GType
-action_get_type   (void);
+spi_action_get_type   (void);
 
-Action *
-action_interface_new       (AtkObject *obj);
+SpiAction *
+spi_action_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* ACTION_H_ */
+#endif /* SPI_ACTION_H_ */

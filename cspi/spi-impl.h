@@ -16,21 +16,21 @@
 
 typedef unsigned int boolean;
 
-typedef CORBA_Object Accessible;
-typedef CORBA_Object AccessibleAction;
-typedef CORBA_Object AccessibleApplication;
-typedef CORBA_Object AccessibleComponent;
-typedef CORBA_Object AccessibleEditableText;
-typedef CORBA_Object AccessibleHyperlink;
-typedef CORBA_Object AccessibleHypertext;
-typedef CORBA_Object AccessibleImage;
-typedef CORBA_Object AccessibleRelation;
-typedef CORBA_Object AccessibleSelection;
-typedef CORBA_Object AccessibleStateSet;
-typedef CORBA_Object AccessibleTable;
-typedef CORBA_Object AccessibleText;
-typedef CORBA_Object AccessibleValue;
-typedef CORBA_Object AccessibilityRegistry;
+typedef CORBA_Object SpiAccessible;
+typedef CORBA_Object SpiAccessibleAction;
+typedef CORBA_Object SpiAccessibleApplication;
+typedef CORBA_Object SpiAccessibleComponent;
+typedef CORBA_Object SpiAccessibleEditableText;
+typedef CORBA_Object SpiAccessibleHyperlink;
+typedef CORBA_Object SpiAccessibleHypertext;
+typedef CORBA_Object SpiAccessibleImage;
+typedef CORBA_Object SpiAccessibleRelation;
+typedef CORBA_Object SpiAccessibleSelection;
+typedef CORBA_Object SpiAccessibleStateSet;
+typedef CORBA_Object SpiAccessibleTable;
+typedef CORBA_Object SpiAccessibleText;
+typedef CORBA_Object SpiAccessibleValue;
+typedef CORBA_Object AccessibilitySpiRegistry;
 typedef CORBA_Object GenericInterface;
 
 #endif

@@ -49,7 +49,7 @@ typedef enum
    * Indicates this object allows more than one of its children to be
    * selected at the same time
    */
-  STATE_MULTISELECTABLE,
+  STATE_MULTISELECSPI_TABLE,
   /* Indicates this object paints every pixel within its rectangular region. */
   STATE_OPAQUE,
   /* Indicates this object is currently pressed */
@@ -61,7 +61,7 @@ typedef enum
    * children to be selected and that this child is one of those children
    * that can be selected.
    */
-  STATE_SELECTABLE,
+  STATE_SELECSPI_TABLE,
   /*
    * Indicates this object is the child of an object that allows its
    * children to be selected and that this child is one of those children
@@ -84,6 +84,6 @@ typedef enum
   /* Indicates this object is visible */
   STATE_VISIBLE,
   STATE_LAST_DEFINED
-} ACCESSIBLE_STATE;
+} SPI_ACCESSIBLE_STATE;
 
 #endif

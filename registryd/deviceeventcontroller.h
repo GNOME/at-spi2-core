@@ -20,8 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef DEVICE_EVENT_CONTROLLER_H_
-#define DEVICE_EVENT_CONTROLLER_H_
+#ifndef SPI_DEVICE_EVENT_CONTROLLER_H_
+#define SPI_DEVICE_EVENT_CONTROLLER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,27 +31,27 @@ extern "C" {
 #include <libspi/Accessibility.h>
 #include "keystrokelistener.h"
 
-#define DEVICE_EVENT_CONTROLLER_TYPE        (device_event_controller_get_type ())
-#define DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), DEVICE_EVENT_CONTROLLER_TYPE, DeviceEventController))
-#define DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), DEVICE_EVENT_CONTROLLER_TYPE, DeviceEventControllerClass))
-#define IS_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), DEVICE_EVENT_CONTROLLER_TYPE))
-#define IS_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), DEVICE_EVENT_CONTROLLER_TYPE))
-#define DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DEVICE_EVENT_CONTROLLER_TYPE, DeviceEventControllerClass))
+#define SPI_DEVICE_EVENT_CONTROLLER_TYPE        (spi_device_event_controller_get_type ())
+#define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventController))
+#define SPI_DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
+#define IS_SPI_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
+#define IS_SPI_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
+#define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
 
 typedef struct {
         BonoboObject parent;
         GList *key_listeners;
         GList *mouse_listeners;
 	GList *keymask_list;
-} DeviceEventController;
+} SpiDeviceEventController;
 
 typedef struct {
         BonoboObjectClass parent_class;
-        POA_Accessibility_DeviceEventController__epv epv;
-	gboolean (*check_key_event) (DeviceEventController *controller);
-} DeviceEventControllerClass;
+        POA_Accessibility_SpiDeviceEventController__epv epv;
+	gboolean (*check_key_event) (SpiDeviceEventController *controller);
+} SpiDeviceEventControllerClass;
 
-GType               device_event_controller_get_type   (void);
+GType               spi_device_event_controller_get_type   (void);
 
 #ifdef __cplusplus
 }

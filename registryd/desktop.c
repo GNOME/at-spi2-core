@@ -21,7 +21,7 @@
  */
 
 /*
- * desktop.c: implements Desktop.idl
+ * desktop.c: implements SpiDesktop.idl
  *
  */
 
@@ -31,7 +31,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
+ * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -43,26 +43,26 @@
 /*
  * Our parent Gtk object type
  */
-#define PARENT_TYPE ACCESSIBLE_TYPE
+#define PARENT_TYPE SPI_ACCESSIBLE_TYPE
 
 /*
  * A pointer to our parent object class
  */
-static AccessibleClass *parent_class;
+static SpiAccessibleClass *parent_class;
 
 static void
-desktop_init (Desktop  *desktop)
+spi_desktop_init (SpiDesktop  *desktop)
 {
-  ACCESSIBLE (desktop)->atko = g_object_new (atk_object_get_type(), NULL);
+  SPI_ACCESSIBLE (desktop)->atko = g_object_new (atk_object_get_type(), NULL);
   desktop->applications = NULL;
-  atk_object_set_name (ATK_OBJECT (ACCESSIBLE (desktop)->atko), "main");
+  atk_object_set_name (ATK_OBJECT (SPI_ACCESSIBLE (desktop)->atko), "main");
 }
 
 static CORBA_long
-impl_desktop_get_child_count (PortableServer_Servant servant,
+impl_spi_desktop_get_child_count (PortableServer_Servant servant,
                               CORBA_Environment * ev)
 {
-  Desktop *desktop = DESKTOP (bonobo_object_from_servant (servant));
+  SpiDesktop *desktop = SPI_DESKTOP (bonobo_object_from_servant (servant));
   if (desktop->applications)
     {
       return g_list_length (desktop->applications);
@@ -73,12 +73,12 @@ impl_desktop_get_child_count (PortableServer_Servant servant,
     }
 }
 
-static Accessibility_Accessible
-impl_desktop_get_child_at_index (PortableServer_Servant servant,
+static Accessibility_SpiAccessible
+impl_spi_desktop_get_child_at_index (PortableServer_Servant servant,
                                  const CORBA_long index,
                                  CORBA_Environment * ev)
 {
-  Desktop *desktop = DESKTOP (bonobo_object_from_servant (servant));
+  SpiDesktop *desktop = SPI_DESKTOP (bonobo_object_from_servant (servant));
   CORBA_Object retval;
   if ((desktop->applications) && (index < g_list_length (desktop->applications)))
     {
@@ -94,37 +94,37 @@ impl_desktop_get_child_at_index (PortableServer_Servant servant,
       fprintf (stderr, "no %ldth child\n", (long) index);
       retval = CORBA_OBJECT_NIL;
     }
-  return (Accessibility_Accessible) retval;
+  return (Accessibility_SpiAccessible) retval;
 }
 
 static void
-desktop_class_init (DesktopClass  *klass)
+spi_desktop_class_init (SpiDesktopClass  *klass)
 {
-        AccessibleClass * accessible_class = (AccessibleClass *) klass;
-        POA_Accessibility_Accessible__epv *epv = &accessible_class->epv;
+        SpiAccessibleClass * spi_accessible_class = (SpiAccessibleClass *) klass;
+        POA_Accessibility_SpiAccessible__epv *epv = &spi_accessible_class->epv;
 
-        parent_class = g_type_class_ref (ACCESSIBLE_TYPE);
+        parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
 
-        epv->_get_childCount = impl_desktop_get_child_count;
-        epv->getChildAtIndex = impl_desktop_get_child_at_index;
+        epv->_get_childCount = impl_spi_desktop_get_child_count;
+        epv->getChildAtIndex = impl_spi_desktop_get_child_at_index;
 }
 
 GType
-desktop_get_type (void)
+spi_desktop_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (DesktopClass),
+                        sizeof (SpiDesktopClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) desktop_class_init,
+                        (GClassInitFunc) spi_desktop_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (Desktop),
+                        sizeof (SpiDesktop),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) desktop_init,
+                        (GInstanceInitFunc) spi_desktop_init,
                         NULL /* value table */
                 };
                 /*
@@ -135,20 +135,20 @@ desktop_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_Desktop__init,
+                        POA_Accessibility_SpiDesktop__init,
                         NULL,
-                        G_STRUCT_OFFSET (DesktopClass, epv),
+                        G_STRUCT_OFFSET (SpiDesktopClass, epv),
                         &tinfo,
-                        "Desktop");
+                        "SpiDesktop");
         }
 
         return type;
 }
 
-Desktop *
-desktop_new (void)
+SpiDesktop *
+spi_desktop_new (void)
 {
-    Desktop *retval =
-               DESKTOP (g_object_new (desktop_get_type (), NULL));
+    SpiDesktop *retval =
+               SPI_DESKTOP (g_object_new (spi_desktop_get_type (), NULL));
     return retval;
 }

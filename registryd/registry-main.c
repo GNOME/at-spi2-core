@@ -32,7 +32,7 @@ int
 main (int argc,
       char **argv)
 {
-        Registry *registry;
+        SpiRegistry *registry;
 	GSource *keyevent_source;
         char *obj_id;
 
@@ -41,23 +41,23 @@ main (int argc,
             g_error ("Could not initialize oaf / Bonobo");
           }
 
-        obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+        obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
 
-        registry = registry_new ();
+        registry = spi_registry_new ();
 
         bonobo_activation_active_server_register (
                 obj_id,
                 bonobo_object_corba_objref (bonobo_object (registry)));
 
 #ifdef AT_SPI_DEBUG
-        fprintf (stderr, "Registry Message: Registry daemon is running.\n");
+        fprintf (stderr, "SpiRegistry Message: SpiRegistry daemon is running.\n");
 #endif
   
         gdk_init(&argc, &argv);
         g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 200, registry->kbd_event_hook, registry, NULL);
 /*	keyevent_source =
 		g_source_new (registry->kbd_event_hook, sizeof (GSourceFunc));
-		g_source_attach (keyevent_source, g_main_context_default());*/
+		g_source_attach (keyevent_source, g_main_conspi_text_default());*/
         bonobo_main ();
 
         return 0;

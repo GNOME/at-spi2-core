@@ -1,5 +1,5 @@
-#ifndef __MAGNIFIER_IMAGE_H__
-#define __MAGNIFIER_IMAGE_H__
+#ifndef __MAGNIFIER_SPI_IMAGE_H__
+#define __MAGNIFIER_SPI_IMAGE_H__
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -33,7 +33,7 @@ point	    center_position;
 point	    curpos; /* Position of the magnified cursor */
 GdkPixbuf*  image;
 GdkPixbuf*  scaled_image;
-Window	    image_root_window;
+Window	    spi_image_root_window;
 int	    screen_num;
 int         old_factor_x;
 int         old_factor_y;

@@ -20,8 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef APPLICATION_H_
-#define APPLICATION_H_
+#ifndef SPI_APPLICATION_H_
+#define SPI_APPLICATION_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,32 +32,32 @@ extern "C" {
 #include <application.h>
 #include <libspi/Accessibility.h>
 
-#define APPLICATION_TYPE        (application_get_type ())
-#define APPLICATION(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), APPLICATION_TYPE, Application))
-#define APPLICATION_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), APPLICATION_TYPE, ApplicationClass))
-#define IS_APPLICATION(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), APPLICATION_TYPE))
-#define IS_APPLICATION_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), APPLICATION_TYPE))
+#define SPI_APPLICATION_TYPE        (spi_application_get_type ())
+#define SPI_APPLICATION(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_APPLICATION_TYPE, SpiApplication))
+#define SPI_APPLICATION_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_APPLICATION_TYPE, SpiApplicationClass))
+#define IS_SPI_APPLICATION(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_APPLICATION_TYPE))
+#define IS_SPI_APPLICATION_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_APPLICATION_TYPE))
 
 typedef struct {
-        Accessible parent;
+        SpiAccessible parent;
         long id;
 	GList *toolkit_listeners;
-} Application;
+} SpiApplication;
 
 typedef struct {
-        AccessibleClass parent_class;
-        POA_Accessibility_Application__epv epv;
+        SpiAccessibleClass parent_class;
+        POA_Accessibility_SpiApplication__epv epv;
 	GHashTable *toolkit_event_names;
 	GHashTable *generic_event_names;
-} ApplicationClass;
+} SpiApplicationClass;
 
-GType               application_get_type           (void);
-gboolean            *application_set_id            (AtkObject *app, long id);
-Application         *application_new               (AtkObject *app_root);
+GType               spi_application_get_type           (void);
+gboolean            *spi_application_set_id            (AtkObject *app, long id);
+SpiApplication         *spi_application_new               (AtkObject *app_root);
 
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* APPLICATION_H_ */
+#endif /* SPI_APPLICATION_H_ */

@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef TABLE_H_
-#define TABLE_H_
+#ifndef SPI_TABLE_H_
+#define SPI_TABLE_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define TABLE_TYPE        (table_get_type ())
-#define TABLE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), TABLE_TYPE, Table))
-#define TABLE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), TABLE_TYPE, TableClass))
-#define IS_TABLE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), TABLE_TYPE))
-#define IS_TABLE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TABLE_TYPE))
+#define SPI_TABLE_TYPE        (spi_table_get_type ())
+#define SPI_TABLE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_TABLE_TYPE, SpiTable))
+#define SPI_TABLE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_TABLE_TYPE, SpiTableClass))
+#define IS_TABLE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_TABLE_TYPE))
+#define IS_TABLE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_TABLE_TYPE))
 
-typedef struct _Table Table;
-typedef struct _TableClass TableClass;
+typedef struct _SpiTable SpiTable;
+typedef struct _SpiTableClass SpiTableClass;
 
-struct _Table {
+struct _SpiTable {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _TableClass {
+struct _SpiTableClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Table__epv epv;
+  POA_Accessibility_SpiTable__epv epv;
 };
 
 GType
-table_get_type   (void);
+spi_table_get_type   (void);
 
-Table *
-table_interface_new       (AtkObject *obj);
+SpiTable *
+spi_table_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* TABLE_H_ */
+#endif /* SPI_TABLE_H_ */

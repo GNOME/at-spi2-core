@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef HYPERTEXT_H_
-#define HYPERTEXT_H_
+#ifndef SPI_HYPERTEXT_H_
+#define SPI_HYPERTEXT_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define HYPERTEXT_TYPE        (hypertext_get_type ())
-#define HYPERTEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), HYPERTEXT_TYPE, Hypertext))
-#define HYPERTEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), HYPERTEXT_TYPE, HypertextClass))
-#define IS_HYPERTEXT(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), HYPERTEXT_TYPE))
-#define IS_HYPETEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), HYPERTEXT_TYPE))
+#define SPI_HYPERTEXT_TYPE        (spi_hypertext_get_type ())
+#define SPI_HYPERTEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERTEXT_TYPE, SpiHypertext))
+#define SPI_HYPERTEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_HYPERTEXT_TYPE, SpiHypertextClass))
+#define IS_SPI_HYPERTEXT(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERTEXT_TYPE))
+#define IS_HYPESPI_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERTEXT_TYPE))
 
-typedef struct _Hypertext Hypertext;
-typedef struct _HypertextClass HypertextClass;
+typedef struct _SpiHypertext SpiHypertext;
+typedef struct _SpiHypertextClass SpiHypertextClass;
 
-struct _Hypertext {
+struct _SpiHypertext {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _HypertextClass {
+struct _SpiHypertextClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Hypertext__epv epv;
+  POA_Accessibility_SpiHyperspi_text__epv epv;
 };
 
 GType
-hypertext_get_type   (void);
+spi_hypertext_get_type   (void);
 
-Hypertext *
-hypertext_interface_new       (AtkObject *obj);
+SpiHypertext *
+spi_hypertext_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* HYPERTEXT_H_ */
+#endif /* SPI_HYPERTEXT_H_ */

@@ -20,8 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACCESSIBLE_EVENT_LISTENER_H_
-#define ACCESSIBLE_EVENT_LISTENER_H_
+#ifndef SPI_ACCESSIBLE_EVENT_SPI_LISTENER_H_
+#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,32 +29,32 @@ extern "C" {
 
 #include "listener.h"
 
-#define ACCESSIBLE_EVENT_LISTENER_TYPE        (accessible_event_listener_get_type ())
-#define ACCESSIBLE_EVENT_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ACCESSIBLE_EVENT_LISTENER_TYPE, AccessibleEventListener))
-#define ACCESSIBLE_EVENT_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ACCESSIBLE_EVENT_LISTENER_TYPE, AccessibleEventListenerClass))
-#define IS_ACCESSIBLE_EVENT_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), ACCESSIBLE_EVENT_LISTENER_TYPE))
-#define IS_ACCESSIBLE_EVENT_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ACCESSIBLE_EVENT_LISTENER_TYPE))
+#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE        (spi_accessible_event_spi_listener_get_type ())
+#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiAccessibleEventListener))
+#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiAccessibleEventListenerClass))
+#define IS_SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE))
+#define IS_SPI_ACCESSIBLE_EVENT_SPI_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE))
 
 typedef void (*VoidEventListenerCB) (gpointer event_ptr);
 
 typedef struct {
-  Listener parent;
+  SpiListener parent;
   GList *callbacks;
-} AccessibleEventListener;
+} SpiAccessibleEventListener;
 
 typedef struct {
-  ListenerClass parent_class;
-} AccessibleEventListenerClass;
+  SpiListenerClass parent_class;
+} SpiAccessibleEventListenerClass;
 
-GType                    accessible_event_listener_get_type     (void);
-AccessibleEventListener  *accessible_event_listener_new         (void);
-void   accessible_event_listener_add_callback (AccessibleEventListener *listener,
+GType                    spi_accessible_event_spi_listener_get_type     (void);
+SpiAccessibleEventListener  *spi_accessible_event_spi_listener_new         (void);
+void   spi_accessible_event_spi_listener_add_callback (SpiAccessibleEventListener *listener,
                                                VoidEventListenerCB callback);
-void   accessible_event_listener_remove_callback (AccessibleEventListener *listener,
+void   spi_accessible_event_spi_listener_remove_callback (SpiAccessibleEventListener *listener,
                                                   VoidEventListenerCB callback);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* ACCESSIBLE_EVENT_LISTENER_H_ */
+#endif /* SPI_ACCESSIBLE_EVENT_SPI_LISTENER_H_ */

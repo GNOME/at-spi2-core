@@ -1,5 +1,5 @@
-#ifndef _SPI_LISTENER_H_
-#define _SPI_LISTENER_H_
+#ifndef _SPI_SPI_LISTENER_H_
+#define _SPI_SPI_LISTENER_H_
 
 
 #ifdef __cplusplus
@@ -16,20 +16,20 @@ extern "C" {
  *
  */
 
-typedef Accessibility_Event AccessibleEvent;
+typedef Accessibility_Event SpiAccessibleEvent;
 
 /*
  *
- * Function prototype typedefs for Event Listener Callbacks.
+ * Function prototype typedefs for Event SpiListener Callbacks.
  * (see libspi/accessibleeventlistener.h for definition of VoidEventListenerCB).
  *
  * usage: signatures should be
- * void (*AccessibleEventListenerCB) (AccessibleEvent *event);
+ * void (*SpiAccessibleEventListenerCB) (SpiAccessibleEvent *event);
  *
  * boolean (*KeystrokeListenerCB) (KeystrokeEvent *Event);
  */
 
-typedef VoidEventListenerCB AccessibleEventListenerCB;
+typedef VoidEventListenerCB SpiAccessibleEventListenerCB;
 typedef BooleanKeystrokeListenerCB KeystrokeListenerCB;
 
 #ifdef __cplusplus

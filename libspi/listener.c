@@ -46,24 +46,24 @@
 /*
  * A pointer to our parent object class
  */
-static GObjectClass *listener_parent_class;
+static GObjectClass *spi_listener_parent_class;
 
 /*
  * Implemented GObject::finalize
  */
 static void
-listener_object_finalize (GObject *object)
+spi_listener_object_finalize (GObject *object)
 {
-/*        Listener *listener = LISTENER (object); */
+/*        SpiListener *listener = SPI_LISTENER (object); */
 
 #ifdef SPI_DEBUG
-        fprintf(stderr, "listener_object_finalize called\n");
+        fprintf(stderr, "spi_listener_object_finalize called\n");
 #endif
-        listener_parent_class->finalize (object);
+        spi_listener_parent_class->finalize (object);
 }
 
 /*
- * CORBA Accessibility::Listener::notifyEvent method implementation
+ * CORBA Accessibility::SpiListener::notifyEvent method implementation
  */
 
 static void
@@ -74,7 +74,7 @@ impl_notify_event (PortableServer_Servant     servant,
 #ifdef SPI_DEBUG
   fprintf (stderr, "notify %s...\n", e->type);
   fprintf (stderr, "source name: '%s'\n",
-           Accessibility_Accessible__get_name(e->source, ev));
+           Accessibility_SpiAccessible__get_name(e->source, ev));
   if (ev->_major != CORBA_NO_EXCEPTION) {
     fprintf(stderr,
             ("Accessibility app error: exception during event notification: %s\n"),
@@ -83,48 +83,48 @@ impl_notify_event (PortableServer_Servant     servant,
   }
   /*
   fprintf (stderr, "source is component ? : %s\n",
-           Accessibility_Accessible_queryInterface (e->source,
-                                                    "IDL:Accessibility/Component:1.0",
+           Accessibility_SpiAccessible_queryInterface (e->source,
+                                                    "IDL:Accessibility/SpiComponent:1.0",
                                                     ev)
            ? "yes" : "no");
   */
 #endif
-  Accessibility_Accessible_unref (e->source, ev);
+  Accessibility_SpiAccessible_unref (e->source, ev);
 }
 
 static void
-listener_class_init (ListenerClass *klass)
+spi_listener_class_init (SpiListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_EventListener__epv *epv = &klass->epv;
-        listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
+        spi_listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
 
-        object_class->finalize = listener_object_finalize;
+        object_class->finalize = spi_listener_object_finalize;
 
         epv->notifyEvent = impl_notify_event;
 }
 
 static void
-listener_init (Listener *listener)
+spi_listener_init (SpiListener *listener)
 {
 }
 
 GType
-listener_get_type (void)
+spi_listener_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (ListenerClass),
+                        sizeof (SpiListenerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) listener_class_init,
+                        (GClassInitFunc) spi_listener_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (Listener),
+                        sizeof (SpiListener),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) listener_init,
+                        (GInstanceInitFunc) spi_listener_init,
                         NULL /* value table */
                 };
                 /*
@@ -137,18 +137,18 @@ listener_get_type (void)
                         PARENT_TYPE,
                         POA_Accessibility_EventListener__init,
                         NULL,
-                        G_STRUCT_OFFSET (ListenerClass, epv),
+                        G_STRUCT_OFFSET (SpiListenerClass, epv),
                         &tinfo,
-                        "Listener");
+                        "SpiListener");
         }
 
         return type;
 }
 
-Listener *
-listener_new (void)
+SpiListener *
+spi_listener_new (void)
 {
-    Listener *retval =
-               LISTENER (g_object_new (listener_get_type (), NULL));
+    SpiListener *retval =
+               SPI_LISTENER (g_object_new (spi_listener_get_type (), NULL));
     return retval;
 }

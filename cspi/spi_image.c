@@ -1,48 +1,48 @@
 int
-AccessibleImage_ref (AccessibleImage *obj)
+SpiAccessibleImage_ref (SpiAccessibleImage *obj)
 {
-  Accessibility_Image_ref (*obj, &ev);
+  Accessibility_SpiImage_ref (*obj, &ev);
   return 0;
 }
 
 
 
 int
-AccessibleImage_unref (AccessibleImage *obj)
+SpiAccessibleImage_unref (SpiAccessibleImage *obj)
 {
-  Accessibility_Image_unref (*obj, &ev);
+  Accessibility_SpiImage_unref (*obj, &ev);
   return 0;
 }
 
 
 
 char *
-AccessibleImage_getImageDescription (AccessibleImage *obj)
+SpiAccessibleImage_getImageDescription (SpiAccessibleImage *obj)
 {
   return (char *)
-    Accessibility_Image__get_imageDescription (*obj, &ev);
+    Accessibility_SpiImage__get_imageDescription (*obj, &ev);
     }
 
 
 
 void
-AccessibleImage_getImageSize (AccessibleImage *obj,
+SpiAccessibleImage_getImageSize (SpiAccessibleImage *obj,
                               long *width,
                               long *height)
 {
-  Accessibility_Image_getImageSize (*obj,
+  Accessibility_SpiImage_getImageSize (*obj,
 				    (CORBA_long *) width, (CORBA_long *) height, &ev);
 }
 
 
 
 void
-AccessibleImage_getImagePosition (AccessibleImage *obj,
+SpiAccessibleImage_getImagePosition (SpiAccessibleImage *obj,
                                   long *x,
                                   long *y,
-                                  AccessibleCoordType ctype)
+                                  SpiAccessibleCoordType ctype)
 {
-  Accessibility_Image_getImagePosition (*obj,
+  Accessibility_SpiImage_getImagePosition (*obj,
 					(CORBA_long *) x, (CORBA_long *) y, (CORBA_short) ctype,
 					&ev);
 }

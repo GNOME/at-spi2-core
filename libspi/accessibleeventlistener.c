@@ -21,7 +21,7 @@
  */
 
 /*
- * accessibleeventlistener.c: bonobo implementation of Listener.idl,
+ * accessibleeventlistener.c: bonobo implementation of SpiListener.idl,
  *   with added ability to attach/remove in-process callbacks.
  *
  */
@@ -42,27 +42,27 @@
 /*
  * Our parent Gtk object type
  */
-#define PARENT_TYPE LISTENER_TYPE
+#define PARENT_TYPE SPI_LISTENER_TYPE
 
 /*
  * A pointer to our parent object class
  */
-static ListenerClass *accessible_event_listener_parent_class;
+static SpiListenerClass *spi_accessible_event_spi_listener_parent_class;
 
 /*
  * Implemented GObject::finalize
  */
 static void
-accessible_event_listener_object_finalize (GObject *object)
+spi_accessible_event_spi_listener_object_finalize (GObject *object)
 {
 #ifdef SPI_DEBUG
-        fprintf(stderr, "listener_object_finalize called\n");
+        fprintf(stderr, "spi_listener_object_finalize called\n");
 #endif
-        ((GObjectClass *) accessible_event_listener_parent_class)->finalize (object);
+        ((GObjectClass *) spi_accessible_event_spi_listener_parent_class)->finalize (object);
 }
 
 /*
- * CORBA Accessibility::Listener::notifyEvent method implementation
+ * CORBA Accessibility::SpiListener::notifyEvent method implementation
  */
 
 static void
@@ -73,7 +73,7 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
   int n;
   int len;
   VoidEventListenerCB cb;
-  AccessibleEventListener *listener = ACCESSIBLE_EVENT_LISTENER (
+  SpiAccessibleEventListener *listener = SPI_ACCESSIBLE_EVENT_SPI_LISTENER (
                                        bonobo_object_from_servant (servant));
   len = g_list_length (listener->callbacks);
 
@@ -85,44 +85,44 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
           (*cb) (e);
         }
     }
-  /* Accessibility_Accessible_unref (e->source, ev); */
+  /* Accessibility_SpiAccessible_unref (e->source, ev); */
 }
 
 static void
-accessible_event_listener_class_init (AccessibleEventListenerClass *klass)
+spi_accessible_event_spi_listener_class_init (SpiAccessibleEventListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
-        ListenerClass * listener_class = (ListenerClass *) klass;
-        POA_Accessibility_EventListener__epv *epv = &listener_class->epv;
-        accessible_event_listener_parent_class = g_type_class_ref (LISTENER_TYPE);
+        SpiListenerClass * spi_listener_class = (SpiListenerClass *) klass;
+        POA_Accessibility_EventListener__epv *epv = &spi_listener_class->epv;
+        spi_accessible_event_spi_listener_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
 
-        object_class->finalize = accessible_event_listener_object_finalize;
+        object_class->finalize = spi_accessible_event_spi_listener_object_finalize;
 
         epv->notifyEvent = impl_accessible_event_notify_event;
 }
 
 static void
-accessible_event_listener_init (AccessibleEventListener *listener)
+spi_accessible_event_spi_listener_init (SpiAccessibleEventListener *listener)
 {
         listener->callbacks = NULL;
 }
 
 GType
-accessible_event_listener_get_type (void)
+spi_accessible_event_spi_listener_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (AccessibleEventListenerClass),
+                        sizeof (SpiAccessibleEventListenerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) accessible_event_listener_class_init,
+                        (GClassInitFunc) spi_accessible_event_spi_listener_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (Listener),
+                        sizeof (SpiListener),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) accessible_event_listener_init,
+                        (GInstanceInitFunc) spi_accessible_event_spi_listener_init,
                         NULL /* value table */
                 };
                 /*
@@ -135,29 +135,29 @@ accessible_event_listener_get_type (void)
                         PARENT_TYPE,
                         POA_Accessibility_EventListener__init,
                         NULL,
-                        G_STRUCT_OFFSET (ListenerClass, epv),
+                        G_STRUCT_OFFSET (SpiListenerClass, epv),
                         &tinfo,
-                        "AccessibleEventListener");
+                        "SpiAccessibleEventListener");
         }
 
         return type;
 }
 
-AccessibleEventListener *
-accessible_event_listener_new ()
+SpiAccessibleEventListener *
+spi_accessible_event_spi_listener_new ()
 {
-    AccessibleEventListener *retval =
-    ACCESSIBLE_EVENT_LISTENER (g_object_new (accessible_event_listener_get_type (), NULL));
+    SpiAccessibleEventListener *retval =
+    SPI_ACCESSIBLE_EVENT_SPI_LISTENER (g_object_new (spi_accessible_event_spi_listener_get_type (), NULL));
     return retval;
 }
 
-void   accessible_event_listener_add_callback (AccessibleEventListener *listener,
+void   spi_accessible_event_spi_listener_add_callback (SpiAccessibleEventListener *listener,
                                                VoidEventListenerCB callback)
 {
   listener->callbacks = g_list_append (listener->callbacks, callback);
 }
 
-void   accessible_event_listener_remove_callback (AccessibleEventListener *listener,
+void   spi_accessible_event_spi_listener_remove_callback (SpiAccessibleEventListener *listener,
                                                   VoidEventListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);

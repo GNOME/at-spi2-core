@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef VALUE_H_
-#define VALUE_H_
+#ifndef SPI_VALUE_H_
+#define SPI_VALUE_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define VALUE_TYPE        (value_get_type ())
-#define VALUE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), VALUE_TYPE, Value))
-#define ACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), VALUE_TYPE, ValueClass))
-#define IS_VALUE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), VALUE_TYPE))
-#define IS_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), VALUE_TYPE))
+#define SPI_VALUE_TYPE        (spi_value_get_type ())
+#define SPI_VALUE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_VALUE_TYPE, SpiValue))
+#define SPI_ACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_VALUE_TYPE, SpiValueClass))
+#define IS_SPI_VALUE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_VALUE_TYPE))
+#define IS_SPI_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_VALUE_TYPE))
 
-typedef struct _Value Value;
-typedef struct _ValueClass ValueClass;
+typedef struct _SpiValue SpiValue;
+typedef struct _SpiValueClass SpiValueClass;
 
-struct _Value {
+struct _SpiValue {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _ValueClass {
+struct _SpiValueClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Value__epv epv;
+  POA_Accessibility_SpiValue__epv epv;
 };
 
 GType
-value_get_type   (void);
+spi_value_get_type   (void);
 
-Value *
-value_interface_new       (AtkObject *obj);
+SpiValue *
+spi_value_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* VALUE_H_ */
+#endif /* SPI_VALUE_H_ */

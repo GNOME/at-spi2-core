@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef HYPERLINK_H_
-#define HYPERLINK_H_
+#ifndef SPI_HYPERLINK_H_
+#define SPI_HYPERLINK_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +29,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define HYPERLINK_TYPE        (hyperlink_get_type ())
-#define HYPERLINK(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), HYPERLINK_TYPE, Hyperlink))
-#define HYPERLINK_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), HYPERLINK_TYPE, HyperlinkClass))
-#define IS_HYPERLINK(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), HYPERLINK_TYPE))
-#define IS_HYPERLINK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), HYPERLINK_TYPE))
+#define SPI_HYPERLINK_TYPE        (spi_hyperlink_get_type ())
+#define SPI_HYPERLINK(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERLINK_TYPE, SpiHyperlink))
+#define SPI_HYPERLINK_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_HYPERLINK_TYPE, SpiHyperlinkClass))
+#define IS_SPI_HYPERLINK(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERLINK_TYPE))
+#define IS_SPI_HYPERLINK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERLINK_TYPE))
 
-typedef struct _Hyperlink Hyperlink;
-typedef struct _HyperlinkClass HyperlinkClass;
+typedef struct _SpiHyperlink SpiHyperlink;
+typedef struct _SpiHyperlinkClass SpiHyperlinkClass;
 
-struct _Hyperlink {
+struct _SpiHyperlink {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _HyperlinkClass {
+struct _SpiHyperlinkClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Hyperlink__epv epv;
+  POA_Accessibility_SpiHyperlink__epv epv;
 };
 
 GType
-hyperlink_get_type   (void);
+spi_hyperlink_get_type   (void);
 
-Hyperlink *
-hyperlink_interface_new       (AtkObject *obj);
+SpiHyperlink *
+spi_hyperlink_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* HYPERLINK_H_ */
+#endif /* SPI_HYPERLINK_H_ */
