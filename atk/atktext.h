@@ -87,15 +87,21 @@ struct _AtkTextIface
                                                    gint             end_offset);
   gchar*         (* get_text_after_offset)        (AtkText          *text,
                                                    gint             offset,
-                                                   AtkTextBoundary  boundary_type);
+                                                   AtkTextBoundary  boundary_type,
+						   gint             *startOffset,
+						   gint             *endOffset);
   gchar*         (* get_text_at_offset)           (AtkText          *text,
                                                    gint             offset,
-                                                   AtkTextBoundary  boundary_type);
+                                                   AtkTextBoundary  boundary_type,
+						   gint             *startOffset,
+						   gint             *endOffset);
   gunichar       (* get_character_at_offset)      (AtkText          *text,
                                                    gint             offset);
   gchar*         (* get_text_before_offset)       (AtkText          *text,
                                                    gint             offset,
-                                                   AtkTextBoundary  boundary_type);
+                                                   AtkTextBoundary  boundary_type,
+ 						   gint             *startOffset,
+						   gint             *endOffset);
   gint           (* get_caret_offset)             (AtkText          *text);
   AtkAttributeSet* (* ref_run_attributes)         (AtkText	    *text,
 						   gint	  	    offset,
@@ -150,13 +156,19 @@ gunichar      atk_text_get_character_at_offset            (AtkText          *tex
                                                            gint             offset);
 gchar*        atk_text_get_text_after_offset              (AtkText          *text,
                                                            gint             offset,
-                                                           AtkTextBoundary  boundary_type);
+                                                           AtkTextBoundary  boundary_type,
+							   gint             *startOffset,
+							   gint	            *endOffset);
 gchar*        atk_text_get_text_at_offset                 (AtkText          *text,
                                                            gint             offset,
-                                                           AtkTextBoundary  boundary_type);
+                                                           AtkTextBoundary  boundary_type,
+							   gint             *startOffset,
+							   gint             *endOffset);
 gchar*        atk_text_get_text_before_offset             (AtkText          *text,
                                                            gint             offset,
-                                                           AtkTextBoundary  boundary_type);
+                                                           AtkTextBoundary  boundary_type,
+							   gint             *startOffset,
+							   gint	            *endOffset);
 gint          atk_text_get_caret_offset                   (AtkText          *text);
 void          atk_text_get_character_extents              (AtkText          *text,
                                                            gint             offset,

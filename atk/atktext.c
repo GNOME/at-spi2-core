@@ -170,7 +170,9 @@ atk_text_get_character_at_offset (AtkText      *text,
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
                                 gint             offset,
-                                AtkTextBoundary  boundary_type)
+                                AtkTextBoundary  boundary_type,
+ 				gint             *startOffset,
+				gint		 *endOffset)
 {
   AtkTextIface *iface;
 
@@ -180,7 +182,7 @@ atk_text_get_text_after_offset (AtkText          *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_after_offset)
-    return (*(iface->get_text_after_offset)) (text, offset, boundary_type);
+    return (*(iface->get_text_after_offset)) (text, offset, boundary_type, startOffset, endOffset);
   else
     return NULL;
 }
@@ -204,7 +206,9 @@ atk_text_get_text_after_offset (AtkText          *text,
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
                              gint             offset,
-                             AtkTextBoundary  boundary_type)
+                             AtkTextBoundary  boundary_type,
+			     gint             *startOffset,
+			     gint             *endOffset)
 {
   AtkTextIface *iface;
 
@@ -214,7 +218,7 @@ atk_text_get_text_at_offset (AtkText          *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_at_offset)
-    return (*(iface->get_text_at_offset)) (text, offset, boundary_type);
+    return (*(iface->get_text_at_offset)) (text, offset, boundary_type, startOffset, endOffset);
   else
     return NULL;
 }
@@ -239,7 +243,9 @@ atk_text_get_text_at_offset (AtkText          *text,
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
                                  gint             offset,
-                                 AtkTextBoundary  boundary_type)
+                                 AtkTextBoundary  boundary_type,
+				 gint             *startOffset,
+				 gint		  *endOffset)
 {
   AtkTextIface *iface;
 
@@ -249,7 +255,7 @@ atk_text_get_text_before_offset (AtkText          *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_before_offset)
-    return (*(iface->get_text_before_offset)) (text, offset, boundary_type);
+    return (*(iface->get_text_before_offset)) (text, offset, boundary_type, startOffset, endOffset);
   else
     return NULL;
 }
