@@ -74,8 +74,9 @@ AccessibleApplication_getVersion
 AccessibleApplication_getID
 AccessibleApplication_pause
 AccessibleApplication_resume
-</SECTION><SECTION>
+</SECTION>
 
+<SECTION>
 <FILE>spi_main</FILE>
 <TITLE>AccessibleComponent Interface</TITLE>
 AccessibleComponent_ref
