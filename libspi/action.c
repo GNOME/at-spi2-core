@@ -172,7 +172,7 @@ impl_getDescription (PortableServer_Servant servant,
 		CORBA_Environment * ev)
 {
   SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
-  CORBA_char *rv;
+  const gchar *rv;
   
   rv = atk_action_get_description (ATK_ACTION(action->atko), (gint) index);
   if (rv)
@@ -188,7 +188,7 @@ impl_getName (PortableServer_Servant servant,
 		CORBA_Environment * ev)
 {
   SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
-  CORBA_char *rv;
+  const gchar *rv;
   
   rv = atk_action_get_name (ATK_ACTION(action->atko), (gint) index);
   if (rv)
@@ -203,7 +203,7 @@ impl_getKeyBinding (PortableServer_Servant servant,
 		    CORBA_Environment * ev)
 {
   SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
-  CORBA_char *rv;
+  const gchar *rv;
   
   rv = atk_action_get_keybinding (ATK_ACTION(action->atko), (gint) index);
   if (rv)

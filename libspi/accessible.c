@@ -47,6 +47,7 @@
 #include "table.h"
 #include "text.h"
 #include "value.h"
+#include "action.h"
 
 /*
  * Our parent Gtk object type
@@ -142,11 +143,14 @@ impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
 {
   Accessibility_Accessible retval;
   SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
-  AtkObject *parent;
+  AtkObject     *parent;
+
   parent = atk_object_get_parent (accessible->atko);
   retval = BONOBO_OBJREF (spi_accessible_new (parent));
+
   printf ("SpiAccessible get_parent called\n");
-  return CORBA_Object_duplicate (retval, &ev);
+
+  return CORBA_Object_duplicate (retval, ev);
 }
 
 /*
@@ -190,7 +194,7 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
   AtkObject *child = atk_object_ref_accessible_child (accessible->atko, (gint) index);
   retval = BONOBO_OBJREF (spi_accessible_new (child));
   printf ("SpiAccessible get_child_at_index called.\n");
-  return CORBA_Object_duplicate (retval, &ev);
+  return CORBA_Object_duplicate (retval, ev);
 }
 
 /*
@@ -201,8 +205,8 @@ impl_accessibility_accessible_get_state (PortableServer_Servant servant,
 					 CORBA_Environment     *ev)
 {
   Accessibility_StateSet retval;
-  SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
-  AtkStateSet *state = atk_object_ref_state_set (accessible->atko);
+/*  SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
+    AtkStateSet *state = atk_object_ref_state_set (accessible->atko); */
   retval = CORBA_OBJECT_NIL;
   printf ("SpiAccessible get_state.\n");
   /* TODO: implement the bonobo stateset class */
@@ -217,8 +221,8 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
 						CORBA_Environment     *ev)
 {
   Accessibility_RelationSet *retval;
-  SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
-  AtkRelationSet *relation_set = atk_object_ref_relation_set (accessible->atko);
+/*  SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
+    AtkRelationSet *relation_set = atk_object_ref_relation_set (accessible->atko); */
   retval = CORBA_sequence_Accessibility_Relation__alloc ();
   /*
    *  TODO: fill the sequence with relation set objects, themselves

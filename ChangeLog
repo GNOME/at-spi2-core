@@ -1,5 +1,24 @@
 2001-11-13  Michael Meeks  <michael@ximian.com>
 
+	* libspi/application.c
+	(impl_accessibility_application_get_version),
+	(impl_accessibility_application_get_toolkit_name):
+	warning fixes.
+	(impl_accessibility_application_set_id),
+	(impl_accessibility_application_get_id): remove
+	redundant casting code.
+
+	* libspi/action.c (impl_getDescription): fix warnings.
+
+	* libspi/accessible.c
+	(impl_accessibility_accessible_get_parent),
+	(impl_accessibility_accessible_get_child_at_index),
+	(impl_accessibility_accessible_get_state),
+	(impl_accessibility_accessible_get_relation_set):
+	warning fixes & include action.h
+
+2001-11-13  Michael Meeks  <michael@ximian.com>
+
 	* *.[ch] fix bits I screwed up:
 
 		s/([^ \tb(\*\&\?\",])spi_/\1/g;

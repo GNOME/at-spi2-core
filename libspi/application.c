@@ -75,30 +75,23 @@ static CORBA_string
 impl_accessibility_application_get_toolkit_name (PortableServer_Servant servant,
                                                  CORBA_Environment *ev)
 {
-  CORBA_char *retval;
-  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
-  retval = CORBA_string_dup (atk_get_toolkit_name ());
-  return retval;
+	return CORBA_string_dup (atk_get_toolkit_name ());
 }
 
 static CORBA_string
 impl_accessibility_application_get_version (PortableServer_Servant servant,
                                             CORBA_Environment *ev)
 {
-  CORBA_char *retval;
-  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
-  retval = CORBA_string_dup (atk_get_toolkit_version ());
-  return retval;
+	return CORBA_string_dup (atk_get_toolkit_version ());
 }
 
 static CORBA_long
 impl_accessibility_application_get_id (PortableServer_Servant servant,
                                        CORBA_Environment *ev)
 {
-  CORBA_long retval;
-  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
-  retval = (CORBA_long) application->id;
-  return retval;
+	SpiApplication *application = SPI_APPLICATION (
+		bonobo_object_from_servant (servant));
+	return application->id;
 }
 
 static void
@@ -106,8 +99,9 @@ impl_accessibility_application_set_id (PortableServer_Servant servant,
                                        const CORBA_long id,
                                        CORBA_Environment *ev)
 {
-  SpiApplication *application = SPI_APPLICATION (bonobo_object_from_servant (servant));
-  application->id = id;
+	SpiApplication *application = SPI_APPLICATION (
+		bonobo_object_from_servant (servant));
+	application->id = id;
 }
 
 #define APP_STATIC_BUFF_SZ 64
