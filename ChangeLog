@@ -1,3 +1,10 @@
+2001-07/10  Brian Cameron <brian.cameron@sun.com>
+	* tmpl/atk-unused.sgml tmpl/atkcomponent.sgml tmpl/atkeditabletext.sgml
+	tmpl/atkimage.sgml tmpl/atkselection.sgml tmpl/atkstate.sgml
+	tmpl/atkstreamablecontent.sgml tmpl/atktable.sgml
+	tmpl/atktext.sgml tmpl/atkutil.sgml
+	Updated docs pages.
+
 Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
 
 	* atk/atktext.c (atk_text_base_init): 

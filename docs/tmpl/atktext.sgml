@@ -32,7 +32,7 @@ AtkText provides an accessibility interface for text widgets
 @get_character_at_offset: 
 @get_text_before_offset: 
 @get_caret_offset: 
-@get_range_attributes: 
+@ref_run_attributes: 
 @get_character_extents: 
 @get_character_count: 
 @get_offset_at_point: 
@@ -51,7 +51,6 @@ AtkText provides an accessibility interface for text widgets
 </para>
 
 @ATK_TEXT_BOUNDARY_CHAR: 
-@ATK_TEXT_BOUNDARY_CURSOR_POS: 
 @ATK_TEXT_BOUNDARY_WORD_START: 
 @ATK_TEXT_BOUNDARY_WORD_END: 
 @ATK_TEXT_BOUNDARY_SENTENCE_START: 
@@ -88,10 +87,9 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @boundary_type: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_at_offset ##### -->
@@ -102,10 +100,9 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @boundary_type: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_before_offset ##### -->
@@ -116,10 +113,9 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @boundary_type: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_caret_offset ##### -->
@@ -142,8 +138,19 @@ AtkText provides an accessibility interface for text widgets
 @y: 
 @length: 
 @width: 
-<!-- # Unused Parameters # -->
 @coords: 
+
+
+<!-- ##### FUNCTION atk_text_ref_run_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@start_offset: 
+@end_offset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_character_count ##### -->
@@ -163,9 +170,8 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @x: 
 @y: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @coords: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_n_selections ##### -->

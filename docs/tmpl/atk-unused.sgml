@@ -45,15 +45,6 @@ atk
 
 @parent: 
 
-<!-- ##### FUNCTION atk_add_global_event_listener ##### -->
-<para>
-
-</para>
-
-@listener: 
-@event_type: 
-@Returns: 
-
 <!-- ##### FUNCTION atk_component_get_position_on_screen ##### -->
 <para>
 
@@ -82,27 +73,6 @@ atk
 @end_pos: 
 @attributes: 
 
-<!-- ##### FUNCTION atk_get_root ##### -->
-<para>
-
-</para>
-
-@Returns: 
-
-<!-- ##### FUNCTION atk_get_toolkit_name ##### -->
-<para>
-
-</para>
-
-@Returns: 
-
-<!-- ##### FUNCTION atk_get_toolkit_version ##### -->
-<para>
-
-</para>
-
-@Returns: 
-
 <!-- ##### FUNCTION atk_image_get_image_height ##### -->
 <para>
 
@@ -110,15 +80,6 @@ atk
 
 @image: 
 @Returns: 
-
-<!-- ##### FUNCTION atk_image_get_image_size ##### -->
-<para>
-
-</para>
-
-@image: 
-@height: 
-@width: 
 
 <!-- ##### FUNCTION atk_image_get_image_width ##### -->
 <para>
@@ -128,16 +89,6 @@ atk
 @image: 
 @Returns: 
 
-<!-- ##### FUNCTION atk_image_get_position ##### -->
-<para>
-
-</para>
-
-@image: 
-@x: 
-@y: 
-@coord_type: 
-
 <!-- ##### FUNCTION atk_image_get_storage_type ##### -->
 <para>
 
@@ -145,13 +96,6 @@ atk
 
 @image: 
 @Returns: 
-
-<!-- ##### FUNCTION atk_remove_global_event_listener ##### -->
-<para>
-
-</para>
-
-@listener_id: 
 
 <!-- ##### FUNCTION atk_streamable_content_get_type ##### -->
 <para>
