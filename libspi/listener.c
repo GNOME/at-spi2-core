@@ -88,9 +88,8 @@ impl_notify_event (PortableServer_Servant     servant,
                                                     ev)
            ? "yes" : "no");
   */
-  /* TODO: free/deref the returned interface! */
 #endif
-  Bonobo_Unknown_unref (e->source, ev);
+  Accessibility_Accessible_unref (e->source, ev);
 }
 
 static void

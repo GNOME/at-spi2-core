@@ -85,7 +85,7 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
           (*cb) (e);
         }
     }
-  bonobo_object_release_unref (e->source, ev);
+  Accessibility_Accessible_unref (e->source, ev);
 }
 
 static void
@@ -102,8 +102,9 @@ accessible_event_listener_class_init (AccessibleEventListenerClass *klass)
 }
 
 static void
-accessible_event_listener_init (Listener *listener)
+accessible_event_listener_init (AccessibleEventListener *listener)
 {
+        listener->callbacks = NULL;
 }
 
 GType
