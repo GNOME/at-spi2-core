@@ -43,24 +43,6 @@ static void notify_listeners (GList *listeners,
 			      SpiAccessible *source,
 			      Accessibility_Event *e);
 
-static const char *reverse_lookup_name_for_toolkit_event (char *toolkit_name);
-
-static const char *
-lookup_toolkit_event_for_name (const char *generic_name)
-{
-  char *toolkit_specific_name;
-  SpiApplicationClass *klass = g_type_class_peek (SPI_APPLICATION_TYPE);
-#ifdef SPI_DEBUG
-  fprintf (stderr, "looking for %s in hash table.\n", generic_name);
-#endif
-  toolkit_specific_name =
-    (char *) g_hash_table_lookup (klass->toolkit_event_names, generic_name);
-#ifdef SPI_DEBUG
-  fprintf (stderr, "generic event %s converted to %s\n", generic_name, toolkit_specific_name);
-#endif
-  return toolkit_specific_name;
-}
-
 /*
  * Implemented GObject::finalize
  */
@@ -146,54 +128,6 @@ get_atk_object_ref (GObject *gobject)
 }
 
 static gboolean
-spi_application_object_event_listener (GSignalInvocationHint *signal_hint,
-				       guint                   n_param_values,
-				       const GValue           *param_values,
-				       gpointer                data)
-{
-  Accessibility_Event e;
-  AtkObject     *aobject;
-  SpiAccessible *source;
-  GSignalQuery   signal_query;
-  gchar         *event_name;
-  const char    *generic_name;
-
-  g_return_val_if_fail (the_app != NULL, FALSE);
-  
-  g_signal_query (signal_hint->signal_id, &signal_query);
-
-  /* TODO: move GTK reference out of app.c into bridge */
-  event_name = g_strdup_printf ("Gtk:%s:%s",
-				g_type_name (signal_query.itype),
-				signal_query.signal_name);
-
-  generic_name = reverse_lookup_name_for_toolkit_event (event_name);
-
-  fprintf (stderr, "Received (object) signal %s maps to '%s'\n",
-	   event_name, generic_name);
-
-  g_free (event_name);
-
-  g_return_val_if_fail (generic_name, FALSE);
-
-  aobject = get_atk_object_ref (g_value_get_object (param_values + 0));
-
-  source = spi_accessible_new (aobject);
-  e.type = CORBA_string_dup (generic_name);
-  e.source = CORBA_OBJECT_NIL;
-  e.detail1 = 0;
-  e.detail2 = 0;
-  spi_init_any_nil (&e.any_data);
-  notify_listeners (the_app->toolkit_listeners, source, &e);
-
-  bonobo_object_unref (BONOBO_OBJECT (source));
-
-  g_object_unref (G_OBJECT (aobject));
-
-  return TRUE;
-}
-
-static gboolean
 spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
 					guint                  n_param_values,
 					const GValue          *param_values,
@@ -255,30 +189,6 @@ impl_accessibility_application_register_toolkit_event_listener (PortableServer_S
 }
 
 static void
-impl_accessibility_application_register_object_event_listener (PortableServer_Servant servant,
-							       Accessibility_EventListener listener,
-							       const CORBA_char *event_name,
-							       CORBA_Environment *ev)
-{
-  guint spi_listener_id = 0;
-  const char *toolkit_specific_event_name =
-	  lookup_toolkit_event_for_name (event_name);
-  if (toolkit_specific_event_name)
-  {
-    spi_listener_id =
-       atk_add_global_event_listener (spi_application_object_event_listener,
-				      toolkit_specific_event_name);
-    the_app->toolkit_listeners = g_list_append (the_app->toolkit_listeners,
-					      CORBA_Object_duplicate (listener, ev));
-  }
-#ifdef SPI_DEBUG
-  fprintf (stderr, "registered %d for object events named: %s\n",
-           spi_listener_id,
-           event_name);
-#endif
-}
-
-static void
 notify_listeners (GList *listeners, SpiAccessible *source, Accessibility_Event *e)
 {
   GList *l;
@@ -299,22 +209,6 @@ notify_listeners (GList *listeners, SpiAccessible *source, Accessibility_Event *
        */
       CORBA_exception_free (&ev);
     }
-}
-
-static const char *
-reverse_lookup_name_for_toolkit_event (char *toolkit_specific_name)
-{
-    const char *generic_name;
-    SpiApplicationClass *klass = g_type_class_peek (SPI_APPLICATION_TYPE);
-#ifdef SPI_DEBUG
-    fprintf (stderr, "(reverse lookup) looking for %s in hash table.\n", toolkit_specific_name);
-#endif
-    generic_name =
-	    (const char *) g_hash_table_lookup (klass->generic_event_names, toolkit_specific_name);
-#ifdef SPI_DEBUG
-    fprintf (stderr, "toolkit event %s converted to %s\n", toolkit_specific_name, generic_name);
-#endif
-    return generic_name;
 }
 
 static void

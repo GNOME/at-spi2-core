@@ -446,6 +446,7 @@ spi_dec_poll_mouse_moving (gpointer data)
     }
 }
 
+#ifdef WE_NEED_UGRAB_MOUSE
 static int
 spi_dec_ungrab_mouse (gpointer data)
 {
@@ -457,6 +458,7 @@ spi_dec_ungrab_mouse (gpointer data)
 	  }
 	return FALSE;
 }
+#endif
 
 static void
 spi_dec_init_mouse_listener (SpiRegistry *registry)
@@ -1000,7 +1002,6 @@ spi_controller_register_with_devices (SpiDEController *controller)
 	  g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);	 
   /* FIXME: should check for extension first! */
   XTestGrabControl (spi_get_display (), True);
-  priv->xkb_desc = XkbGetMap (spi_get_display (), 0, XkbUseCoreKbd);
 
   /* calls to device-specific implementations and routines go here */
   /* register with: keyboard hardware code handler */
@@ -1012,10 +1013,12 @@ spi_controller_register_with_devices (SpiDEController *controller)
 				      &priv->xkb_base_error_code, NULL, NULL);
   if (priv->have_xkb)
     {
+      priv->xkb_desc = XkbGetMap (spi_get_display (), 0, XkbUseCoreKbd);
       XkbSelectEvents (spi_get_display (),
 		       XkbUseCoreKbd,
 		       XkbStateNotifyMask, XkbStateNotifyMask);	    
     }	
+
   gdk_window_add_filter (NULL, global_filter_fn, controller);
 
   gdk_window_set_events (gdk_get_default_root_window (),
@@ -1790,11 +1793,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 {
   SpiDEController *controller =
 	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
-  DEControllerPrivateData *priv;
   long key_synth_code;
-  unsigned int slow_keys_delay;
-  unsigned int press_time;
-  unsigned int release_time;
 
 #ifdef SPI_DEBUG
 	fprintf (stderr, "synthesizing keystroke %ld, type %d\n",
@@ -1847,7 +1846,7 @@ impl_generate_mouse_event (PortableServer_Servant servant,
 			   const CORBA_char      *eventName,
 			   CORBA_Environment     *ev)
 {
-  int button;
+  int button = 0;
   gboolean error = FALSE;
   Display *display = spi_get_display ();
 #ifdef SPI_DEBUG
@@ -1868,6 +1867,12 @@ impl_generate_mouse_event (PortableServer_Servant servant,
 		  break;
 	  case '3':
 	          button = 3;
+	          break;
+	  case '4':
+	          button = 4;
+	          break;
+	  case '5':
+	          button = 5;
 	          break;
 	  default:
 		  error = TRUE;
@@ -2005,7 +2010,6 @@ spi_device_event_controller_new (SpiRegistry *registry)
 {
   SpiDEController *retval = g_object_new (
     SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
-  DEControllerPrivateData *private;
   
   retval->registry = SPI_REGISTRY (bonobo_object_ref (
 	  BONOBO_OBJECT (registry)));

@@ -23,6 +23,7 @@
 
 /* value.c : implements the Value interface */
 #include <config.h>
+#include <math.h>
 #include <stdio.h>
 #include <libspi/value.h>
 

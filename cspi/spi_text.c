@@ -57,9 +57,10 @@ get_accessible_text_boundary_type (AccessibleTextBoundaryType type)
       /* Fixme */
       return Accessibility_TEXT_BOUNDARY_CHAR;
       break;
+    default:
+      /* FIXME */
+      return Accessibility_TEXT_BOUNDARY_CHAR;
     }
-  /* FIXME */
-  return Accessibility_TEXT_BOUNDARY_CHAR;
 }
 
 static Accessibility_TEXT_CLIP_TYPE
@@ -73,11 +74,12 @@ get_accessible_text_clip_type (AccessibleTextClipType type)
     case SPI_TEXT_CLIP_MIN:
       return Accessibility_TEXT_CLIP_MIN;
       break;
-    case SPI_TEXT_CLIP_MAX:
+    case SPI_TEXT_CLIP_MAX:      
       return Accessibility_TEXT_CLIP_MAX;
       break;
+    default:
+      return Accessibility_TEXT_CLIP_BOTH;
     }
-  return Accessibility_TEXT_CLIP_BOTH;
 }
 
 static AccessibleTextRange **

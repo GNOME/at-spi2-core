@@ -25,6 +25,7 @@
 #define SPI_REGISTRY_H_
 
 #include <glib/gmain.h>
+#include <gdk/gdk.h>
 #include <libspi/listener.h>
 
 typedef struct _SpiRegistry SpiRegistry;

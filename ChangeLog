@@ -1,3 +1,35 @@
+2003-02-24  Bill Haneman <bill.haneman@sun.com>
+
+	* cspi/spi_text.c:
+	(get_accessible_text_boundary_type):
+	Move default return value to (new) default case in switch.
+	(get_accessible_text_clip_type):
+	Move default return value to (new) default case in switch.
+	
+	* libspi/application.c:
+	(lookup_toolkit_event_for_name, reverse_lookup_name_for_toolkit_event):
+	Remove unused methods.
+	(impl_accessibility_application_register_object_event_listener):
+	Remove unused methods.
+
+	* libspi/value.c:
+	Added #include of <math.h>.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_ungrab_mouse): Bracketed with #ifdefs, since 
+	we don't currently use this method.
+	(spi_dec_init_mouse_listener): Don't call XkbGetMap unless
+	have_xkb is TRUE.
+	(impl_generate_key_event):
+	Remove unused variables.
+	(impl_generate_mouse_event):
+	Initialize button to zero, just in case we get an invalid
+	input.  Added support for mouse buttons 4 and 5.
+	(spi_device_event_controller_new):
+	Removed unused variable declaration for 'private'.
+	(registry.h):
+	Added #include of <gdk/gdk.h>
+
 2003-02-14  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* configure.in: Update to work when X is not installed in expected 
