@@ -48,6 +48,8 @@ typedef struct {
 	Accessibility_Application ref;
 } Application;
 
+static gboolean exiting = FALSE;
+
 /* A pointer to our parent object class */
 static SpiAccessibleClass *parent_class;
 
@@ -210,6 +212,12 @@ impl_desktop_get_child_at_index (PortableServer_Servant servant,
 }
 
 static void
+spi_desktop_exiting (void)
+{
+  exiting = TRUE;
+}
+
+static void
 spi_desktop_class_init (SpiDesktopClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
@@ -240,6 +248,7 @@ spi_desktop_class_init (SpiDesktopClass *klass)
 		  1, G_TYPE_UINT);
   epv->_get_childCount = impl_desktop_get_child_count;
   epv->getChildAtIndex = impl_desktop_get_child_at_index;
+  g_atexit (spi_desktop_exiting);
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiDesktop,
@@ -265,7 +274,8 @@ abnormal_application_termination (gpointer object, Application *app)
 {
   g_return_if_fail (SPI_IS_DESKTOP (app->desktop));
 
-  spi_desktop_remove_application (app->desktop, app->ref);
+  if (!exiting)
+    spi_desktop_remove_application (app->desktop, app->ref);
 }
 
 void

@@ -1,3 +1,9 @@
+2004-12-03  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* registryd/desktop.c: Add checking that we are not exiting before
+	calling spi_desktop_remove_application in 
+	abnormal_application_termination. Fix for bug #152147.
+
 2004-12-02  Bill Haneman <billh@gnome.org>
 
 	* configure.in, NEWS, README: Revved to 1.6.1.
