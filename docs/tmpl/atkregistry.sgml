@@ -20,9 +20,6 @@ object for an object of a particluar GType.
 
 </para>
 
-@parent: 
-@factory_type_registry: 
-@factory_singleton_cache: 
 
 <!-- ##### FUNCTION atk_registry_set_factory_type ##### -->
 <para>

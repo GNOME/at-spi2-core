@@ -20,7 +20,6 @@ It implements the AtkAction interface.
 
 </para>
 
-@parent: 
 
 <!-- ##### FUNCTION atk_hyperlink_get_uri ##### -->
 <para>

@@ -29,6 +29,8 @@
 #include <atk/atkhyperlink.h>
 #include <atk/atkhypertext.h>
 #include <atk/atkimage.h>
+#include <atk/atknoopobject.h>
+#include <atk/atknoopobjectfactory.h>
 #include <atk/atkobjectfactory.h>
 #include <atk/atkregistry.h>
 #include <atk/atkrelation.h>

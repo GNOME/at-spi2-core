@@ -366,3 +366,28 @@ glyph-to-offset mapping may be complex for languages which use ligatures.
 @Returns: 
 
 
+<!-- ##### SIGNAL AtkText::text-caret-moved ##### -->
+<para>
+
+</para>
+
+@atktext: the object which received the signal.
+@arg1: The new position of the text caret.
+
+<!-- ##### SIGNAL AtkText::text-changed ##### -->
+<para>
+This signal will have a detail which is either "insert" or "delete"
+which identifies whether the text change was an insertion or a deletion
+</para>
+
+@atktext: the object which received the signal.
+@arg1: The position of the insertion or deletion.
+@arg2: The length of text inserted or deleted.
+
+<!-- ##### SIGNAL AtkText::text-selection-changed ##### -->
+<para>
+
+</para>
+
+@atktext: the object which received the signal.
+

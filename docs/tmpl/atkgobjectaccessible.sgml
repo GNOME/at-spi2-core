@@ -24,7 +24,6 @@ for GnomeCanvasItem in the GAIL library.
 
 </para>
 
-@parent: 
 
 <!-- ##### FUNCTION atk_gobject_accessible_for_object ##### -->
 <para>

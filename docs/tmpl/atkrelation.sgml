@@ -24,9 +24,6 @@ are defined as an AtkRelationSet, which is a set of AtkRelations.
 
 </para>
 
-@parent: 
-@target: 
-@relationship: 
 
 <!-- ##### ENUM AtkRelationType ##### -->
 <para>

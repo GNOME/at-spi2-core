@@ -27,6 +27,23 @@ content_files =
 # Other files to distribute
 extra_files =
 
+# CFLAGS and LDFLAGS for compiling scan program. Only needed
+# if $(DOC_MODULE).types is non-empty.
+GTKDOC_CFLAGS = @STRIP_BEGIN@				\
+	@CFLAGS@					\
+	-I$(top_srcdir)					\
+	-I$(top_builddir)				\
+	@DEP_CFLAGS@					\
+@STRIP_END@
+
+GTKDOC_LIBS = @STRIP_BEGIN@						\
+	$(top_builddir)/atk/@atktargetlib@				\
+@STRIP_END@
+
+GTKDOC_CC=$(LIBTOOL) --mode=compile $(CC)
+GTKDOC_LD=$(LIBTOOL) --mode=link $(CC)
+
+
 dist-hook-local: all-local
 
 ####################################

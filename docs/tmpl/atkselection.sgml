@@ -115,3 +115,10 @@ selection/deselection of children.
 @Returns: 
 
 
+<!-- ##### SIGNAL AtkSelection::selection-changed ##### -->
+<para>
+
+</para>
+
+@atkselection: the object which received the signal.
+

@@ -383,3 +383,60 @@ implement other interfaces (#AtkText, #AtkImage, etc.) as appropriate.
 @Returns: 
 
 
+<!-- ##### SIGNAL AtkTable::column-deleted ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the first column deleted.
+@arg2: The number of columns deleted.
+
+<!-- ##### SIGNAL AtkTable::column-inserted ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the column inserted.
+@arg2: The number of colums inserteda.
+
+<!-- ##### SIGNAL AtkTable::column-reordered ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+
+<!-- ##### SIGNAL AtkTable::model-changed ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+
+<!-- ##### SIGNAL AtkTable::row-deleted ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the first row deleted.
+@arg2: The number of rows deleted.
+
+<!-- ##### SIGNAL AtkTable::row-inserted ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the first row deleted.
+@arg2: The number of rows deleted.
+
+<!-- ##### SIGNAL AtkTable::row-reordered ##### -->
+<para>
+
+</para>
+
+@atktable: the object which received the signal.
+

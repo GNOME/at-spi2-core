@@ -36,13 +36,6 @@ See also: #AtkObjectFactory, #AtkRegistry.
 
 </para>
 
-@parent: 
-@description: 
-@name: 
-@accessible_parent: 
-@role: 
-@relation_set: 
-@layer: 
 
 <!-- ##### ENUM AtkRole ##### -->
 <para>
@@ -167,8 +160,6 @@ provides ATK functionality.
 
 </para>
 
-@parent: 
-@relations: 
 
 <!-- ##### STRUCT AtkPropertyValues ##### -->
 <para>
@@ -397,4 +388,112 @@ provides ATK functionality.
 @name: 
 @Returns: 
 
+
+<!-- ##### SIGNAL AtkObject::children-changed ##### -->
+<para>
+The children_changed signal supports two details, "add" and "remove" which
+indicate whether a child was added or removed
+</para>
+
+@atkobject: the object which received the signal.
+@arg1: The index of the added or removed child
+@arg2: The child which was added or removed
+
+<!-- ##### SIGNAL AtkObject::focus-event ##### -->
+<para>
+
+</para>
+
+@atkobject: the object which received the signal.
+@arg1: A boolean value which indicates whether or not the focus event is is or out.
+
+<!-- ##### SIGNAL AtkObject::property-change ##### -->
+<para>
+This signal support a detail which identifies the property which has
+changed.
+</para>
+
+@atkobject: the object which received the signal.
+@arg1: The new value of the property which changed.
+
+<!-- ##### SIGNAL AtkObject::state-change ##### -->
+<para>
+This signal support, which may be any of the accessible state types.
+</para>
+
+@atkobject: the object which received the signal.
+@arg1: The name of the state which has changed
+@arg2: A boolean which indicates whether the state has been set or unset.
+
+<!-- ##### SIGNAL AtkObject::visible-data-changed ##### -->
+<para>
+
+</para>
+
+@atkobject: the object which received the signal.
+
+<!-- ##### ARG AtkObject:accessible-name ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-description ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-parent ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-value ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-role ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-component-layer ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-component-mdi-zorder ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-caption ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-column-description ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-column-header ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-row-description ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-row-header ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-summary ##### -->
+<para>
+
+</para>
 

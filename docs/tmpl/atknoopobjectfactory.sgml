@@ -21,7 +21,6 @@ create an accessible object of a particular type.
 
 </para>
 
-@parent: 
 
 <!-- ##### FUNCTION atk_no_op_object_factory_new ##### -->
 <para>

@@ -1,3 +1,32 @@
+2002-08-16  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	These changes improve the quality of the documentation by adding
+	information about properties and signals.
+
+	* configure.in:
+	Add atktargetlibi, STRIP_BEGIN, STRIP_END and STRIP_DUMMY for
+	use in docs Makefile.am
+
+	* atk/atk.h:
+	Add missing include files, atk/atknoopobject.h and 
+	atknoopobjectfactory.h
+
+	* docs/Makefile.am:
+	Add support for scan program
+
+	* docs/atk.types:
+	Added content to this file
+
+	* docs/tmpl/atkgobjectaccessible.sgml docs/tmpl/atkhyperlink.sgml
+	docs/tmpl/atknoopobject.sgml docs/tmpl/atknoopobjectfactory.sgml
+	docs/tmpl/atkobjectfactory.sgml docs/tmpl/atkregistry.sgml
+	docs/tmplatkutil.sgml:
+	Removed references to contents of object's data structure
+
+	* docs/tmpl/atkobject.sgml docs/tmpl/atkselection.sgml
+	docs/tmpl/atktable.sgml docs/tmpl/atktext.sgml:
+	Add references to signals and properties.
+
 Wed Jul 31 17:08:04 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* ===== Released 1.0.3 =====

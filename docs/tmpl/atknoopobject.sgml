@@ -21,7 +21,6 @@ object is requested for an object type for which no factory type is specified.
 
 </para>
 
-@parent: 
 
 <!-- ##### FUNCTION atk_no_op_object_new ##### -->
 <para>

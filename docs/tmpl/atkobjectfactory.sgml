@@ -25,7 +25,6 @@ AtkRegistry
 
 </para>
 
-@parent: 
 
 <!-- ##### FUNCTION atk_object_factory_create_accessible ##### -->
 <para>
