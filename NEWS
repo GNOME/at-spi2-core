@@ -1,7 +1,11 @@
 Changes in version 1.7.2
 ========================
+* Added new role ATK_ROLE_EMBEDDED.. (bug #147989)
 
-* Added ATK_ROLE_EMBEDDED. (bug #147989)
+* Add support for AtkRectangle and correct definition of
+"bounds-changed" signal.
+
+* Update translations: Nepali [Pawan Chitrakar], Albanian [Laurent Dhima]
 
 Changes in version 1.7.1
 ========================

@@ -1,3 +1,9 @@
+2004-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released Version 1.7.2, interface age 2, binary age 702 ====
+
+	* NEWS: Updated.
+	
 2004-07-20  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkobject.h, atkobject.c, atk-object-enum.c:
