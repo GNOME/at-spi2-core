@@ -180,6 +180,20 @@ fi
 AC_CHECK_HEADER(X11/extensions/XInput.h, have_xinput=yes)
 AC_SUBST(XINPUT_LIBS)
 
+dnl Allow disabling XEViE.
+AC_ARG_ENABLE(xevie, [  --enable-xevie  Build with XEViE support [default=yes]], enable_xevie="$enableval", enable_xevie=yes)
+
+if test x$enable_xevie = xyes ; then
+  have_xevie=
+    AC_CHECK_LIB(Xext, XevieQueryVersion, have_xevie="yes")
+
+  if test "x$have_xevie" = "xyes"; then
+    XEVIE_LIBS=-lXext
+    AC_DEFINE(HAVE_XEVIE)
+  fi
+  AC_SUBST(XEVIE_LIBS)
+fi
+
 dnl CFLAGS="$CFLAGS -Wall"
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)

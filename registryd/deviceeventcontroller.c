@@ -40,6 +40,13 @@
 #include <X11/XKBlib.h>
 #define XK_MISCELLANY
 #include <X11/keysymdef.h>
+
+#ifdef HAVE_XEVIE
+#include <X11/Xproto.h>
+#include <X11/X.h>
+#include <X11/extensions/Xevie.h>
+#endif /* HAVE_XEVIE */
+
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
 #include <gdk/gdkkeysyms.h>
@@ -116,7 +123,7 @@ static gboolean spi_controller_update_key_grabs               (SpiDEController  
 static gboolean spi_controller_register_device_listener       (SpiDEController           *controller,
 							       DEControllerListener      *l,
 							       CORBA_Environment         *ev);
-static void     spi_device_event_controller_forward_key_event (SpiDEController           *controller,
+static gboolean spi_device_event_controller_forward_key_event (SpiDEController           *controller,
 							       const XEvent              *event);
 static void     spi_deregister_controller_device_listener (SpiDEController            *controller,
 					                   DEControllerListener *listener,
@@ -771,7 +778,10 @@ spi_controller_register_global_keygrabs (SpiDEController         *controller,
 					 DEControllerKeyListener *key_listener)
 {
   handle_keygrab (controller, key_listener, _register_keygrab);
-  return spi_controller_update_key_grabs (controller, NULL);
+  if (controller->xevie_display == NULL)
+    return spi_controller_update_key_grabs (controller, NULL);
+  else
+    return TRUE;
 }
 
 static void
@@ -779,7 +789,8 @@ spi_controller_deregister_global_keygrabs (SpiDEController         *controller,
 					   DEControllerKeyListener *key_listener)
 {
   handle_keygrab (controller, key_listener, _deregister_keygrab);
-  spi_controller_update_key_grabs (controller, NULL);
+  if (controller->xevie_display == NULL)
+    spi_controller_update_key_grabs (controller, NULL);
 }
 
 static gboolean
@@ -821,6 +832,7 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
   GSList  *notify = NULL, *l2;
   GList  **listeners = &controller->mouse_listeners;
   gboolean is_consumed;
+  gboolean found = FALSE;
 
   if (!listeners)
     {
@@ -840,12 +852,13 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
 	       /* we clone (don't dup) the listener, to avoid refcount inc. */
 	       notify = g_slist_prepend (notify,
 					 spi_listener_clone (listener, ev));
+               found = TRUE;
 	     }
          }
     }
 
 #ifdef SPI_KEYEVENT_DEBUG
-  if (!notify)
+  if (!found)
     {
       g_print ("no match for event\n");
     }
@@ -992,7 +1005,17 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 
   if (xevent->type == KeyPress || xevent->type == KeyRelease)
     {
-      spi_device_event_controller_forward_key_event (controller, xevent);
+      if (controller->xevie_display == NULL)
+        {
+          gboolean is_consumed =
+            spi_device_event_controller_forward_key_event (controller, xevent);
+
+          if (is_consumed)
+            XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
+          else
+            XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
+        }
+
       return GDK_FILTER_CONTINUE;
     }
   if (xevent->type == ButtonPress || xevent->type == ButtonRelease)
@@ -1144,10 +1167,13 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
   for (i = 0; i < len; ++i)
     {
 #ifdef SPI_KEYEVENT_DEBUG	    
-      g_print ("key_set[%d] = %d; key_event %d, code %d, string %s\n",
-	        i, (int) key_set->_buffer[i].keycode,
-	       (int) key_event->id, (int) key_event->hw_code,
-	       key_event->event_string); 
+      g_print ("key_set[%d] event = %d, code = %d; key_event %d, code %d, string %s\n",
+                i,
+                (int)key_set->_buffer[i].keysym,
+                (int) key_set->_buffer[i].keycode,
+                (int) key_event->id,
+                (int) key_event->hw_code,
+                key_event->event_string); 
 #endif
       if (key_set->_buffer[i].keysym == (CORBA_long) key_event->id)
         {
@@ -1163,7 +1189,7 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
           return TRUE;
 	}
     }
-  
+
   return FALSE;
 }
 
@@ -1423,17 +1449,29 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
 
   key_event.timestamp = (CORBA_unsigned_long) x_key_event->time;
 #ifdef SPI_KEYEVENT_DEBUG
-  fprintf (stderr,
-	   "Key %lu pressed (%c), modifiers %d; string=%s [%x] %s\n",
-	   (unsigned long) keysym,
-	   keysym ? (int) keysym : '*',
-	   (int) x_key_event->state,
-	   key_event.event_string,
-	   key_event.event_string[0],
-	   (key_event.is_text == CORBA_TRUE) ? "(text)" : "(not text)");
+  {
+    char *pressed_str  = "pressed";
+    char *released_str = "released";
+    char *state_ptr;
+
+    if (key_event.type == Accessibility_KEY_PRESSED_EVENT)
+      state_ptr = pressed_str;
+    else
+      state_ptr = released_str;
+ 
+    fprintf (stderr,
+	     "Key %lu %s (%c), modifiers %d; string=%s [%x] %s\n",
+	     (unsigned long) keysym,
+	     state_ptr,
+	     keysym ? (int) keysym : '*',
+	     (int) x_key_event->state,
+	     key_event.event_string,
+	     key_event.event_string[0],
+	     (key_event.is_text == CORBA_TRUE) ? "(text)" : "(not text)");
+  }
 #endif
 #ifdef SPI_DEBUG
-  fprintf (stderr, "%s%c",
+  fprintf (stderr, "%s%c\n",
      (x_key_event->state & Mod1Mask)?"Alt-":"",
      ((x_key_event->state & ShiftMask)^(x_key_event->state & LockMask))?
      g_ascii_toupper (keysym) : g_ascii_tolower (keysym));
@@ -1552,6 +1590,14 @@ spi_device_event_controller_object_finalize (GObject *object)
 #endif
   /* disconnect any special listeners, get rid of outstanding keygrabs */
   XUngrabKey (spi_get_display (), AnyKey, AnyModifier, DefaultRootWindow (spi_get_display ()));
+
+  if (controller->xevie_display != NULL)
+    {
+      XevieEnd(controller->xevie_display);
+#ifdef SPI_KEYEVENT_DEBUG
+      printf("XevieEnd(dpy) finished \n");
+#endif
+    }
 
   private = g_object_get_data (G_OBJECT (controller), "spi-dec-private");
   if (private->xkb_desc)
@@ -1897,6 +1943,7 @@ dec_unlock_modifiers (SpiDEController *controller, unsigned modifiers)
 			  modifiers, 0);
 }
 
+static KeySym
 dec_keysym_for_unichar (SpiDEController *controller, gunichar unichar)
 {
 	/* TODO: table lookups within a range, for various code pages! */
@@ -2221,13 +2268,74 @@ spi_device_event_controller_class_init (SpiDEControllerClass *klass)
 	  spi_dec_private_quark = g_quark_from_static_string ("spi-dec-private");
 }
 
+#ifdef HAVE_XEVIE
+Bool isEvent(dpy,event,arg)
+     Display *dpy;
+     XEvent *event;
+     char *arg;
+{
+   return TRUE;
+}
+
+gboolean
+handle_io (GIOChannel *source,
+           GIOCondition condition,
+           gpointer data) 
+{
+  SpiDEController *controller = (SpiDEController *) data;
+  gboolean is_consumed = FALSE;
+  XEvent ev;
+
+  while (XCheckIfEvent(controller->xevie_display, &ev, isEvent, NULL))
+    {
+      if (ev.type == KeyPress || ev.type == KeyRelease)
+        is_consumed = spi_device_event_controller_forward_key_event (controller, &ev);
+
+      if (! is_consumed)
+        XevieSendEvent(controller->xevie_display, &ev, XEVIE_UNMODIFIED);
+    }
+
+  return TRUE;
+}
+#endif /* HAVE_XEVIE */
+
 static void
 spi_device_event_controller_init (SpiDEController *device_event_controller)
 {
+#ifdef HAVE_XEVIE
+  GIOChannel *ioc;
+  int fd;
+#endif /* HAVE_XEVIE */
+
   DEControllerPrivateData *private;	
   device_event_controller->key_listeners   = NULL;
   device_event_controller->mouse_listeners = NULL;
   device_event_controller->keygrabs_list   = NULL;
+  device_event_controller->xevie_display   = NULL;
+
+#ifdef HAVE_XEVIE
+  device_event_controller->xevie_display = XOpenDisplay(NULL);
+
+  if (XevieStart(device_event_controller->xevie_display) == TRUE)
+    {
+#ifdef SPI_KEYEVENT_DEBUG
+      fprintf (stderr, "XevieStart() success \n");
+#endif
+      XevieSelectInput(device_event_controller->xevie_display, KeyPressMask | KeyReleaseMask);
+
+      fd = ConnectionNumber(device_event_controller->xevie_display);
+      ioc = g_io_channel_unix_new (fd);
+      g_io_add_watch (ioc, G_IO_IN | G_IO_HUP, handle_io, device_event_controller);
+      g_io_channel_unref (ioc);
+    }
+  else
+    {
+      device_event_controller->xevie_display = NULL;
+#ifdef SPI_KEYEVENT_DEBUG
+      fprintf (stderr, "XevieStart() failed, only one client is allowed to do event int exception\n");
+#endif
+    }
+#endif /* HAVE_XEVIE */
 
   private = g_new0 (DEControllerPrivateData, 1);
   gettimeofday (&private->last_press_time, NULL);
@@ -2238,11 +2346,10 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
   spi_controller_register_with_devices (device_event_controller);
 }
 
-static void
+static gboolean
 spi_device_event_controller_forward_key_event (SpiDEController *controller,
 					       const XEvent    *event)
 {
-  gboolean is_consumed = FALSE;
   CORBA_Environment ev;
   Accessibility_DeviceEvent key_event;
 
@@ -2252,20 +2359,11 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
 
   key_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);
 
-  spi_controller_update_key_grabs (controller, &key_event);
+  if (controller->xevie_display == NULL)
+    spi_controller_update_key_grabs (controller, &key_event);
 
   /* relay to listeners, and decide whether to consume it or not */
-  is_consumed = spi_controller_notify_keylisteners (
-	  controller, &key_event, CORBA_TRUE, &ev);
-
-  if (is_consumed)
-    {
-      XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
-    }
-  else
-    {
-      XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
-    }
+  return spi_controller_notify_keylisteners (controller, &key_event, CORBA_TRUE, &ev);
 }
 
 SpiDEController *

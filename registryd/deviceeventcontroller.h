@@ -48,6 +48,7 @@ struct _SpiDEController {
 	GList       *key_listeners;
 	GList       *mouse_listeners;
 	GList       *keygrabs_list;
+	Display     *xevie_display;
 };
 
 typedef struct {
