@@ -1,5 +1,30 @@
 (top)
 in HEAD:
+What's new in at-spi-1.3.11:
+
+* Fix for docs bug #129728 (Sebastien Bacher).
+
+* Fix for bug #129479, allows distinction between
+  multiple DISPLAY instances of at-spi registry.
+
+* Fix for #124837, which could cause 'hang' interactions
+  between desktop and clients such as gnopernicus.
+
+* Fixes for NUMLOCK mask behavior, bug #129103.
+
+* Greatly improved key synthesis for non-Latin characters.
+  We can now synthesize any KeySym which is defined in the current
+  X keymap. (bug #128824).  Thanks to Marcus G Kuhn for
+  the public-domain code borrowed here.
+
+* Fixes for: 128912.
+
+* new languages: 
+  fa (Roozber Pournader), 
+  ar (Arafat Medini).
+  id (Ahmad Riza H Nst)
+
+
 What's new in at-spi-1.3.9:
 
 * New api:  AccessibleApplication_getLocale (app, type),

@@ -253,11 +253,18 @@ This is a synonym for AccessibleDeviceEvent.
 @Returns: 
 
 
-<!-- ##### TYPEDEF AccessibleDeviceEvent ##### -->
+<!-- ##### STRUCT AccessibleDeviceEvent ##### -->
 <para>
 AccessibleDeviceEvent is a struct which encapsulates a device event.
 </para>
 
+@keyID: 
+@keycode: 
+@keystring: 
+@timestamp: 
+@type: 
+@modifiers: 
+@is_text: 
 
 <!-- ##### TYPEDEF AccessibleDeviceEventMask ##### -->
 <para>
