@@ -1,4 +1,12 @@
-2002-03-13  Bill Haneman <bill.haneman@sun.com>
+2002-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* libspi/stateset.c: implemented Accessibility_StateSet_compare ()
+
+	* cspi/spi_accessible.c: Implemented c bindings for stateset support
+
+	* cspi/state-types.h: synched with IDL and ATK
+
+	2002-03-13  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/accessible.c 
 	(impl_accessibility_accessible_get_child_at_index):

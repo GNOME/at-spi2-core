@@ -177,6 +177,67 @@ cspi_role_from_spi_role (Accessibility_Role role)
   return cspi_role; 
 }
 
+static SPIBoolean
+init_state_table (Accessibility_StateType *state_table)
+{
+  int i;
+
+  for (i = 0; i < Accessibility_STATE_LAST_DEFINED; i++)
+    state_table[i] = SPI_STATE_INVALID;
+
+  state_table[SPI_STATE_ACTIVE] = Accessibility_STATE_ACTIVE;
+  state_table[SPI_STATE_ARMED] = Accessibility_STATE_ARMED;
+  state_table[SPI_STATE_BUSY] = Accessibility_STATE_BUSY;
+  state_table[SPI_STATE_CHECKED] = Accessibility_STATE_CHECKED;
+  state_table[SPI_STATE_DEFUNCT] = Accessibility_STATE_DEFUNCT;
+  state_table[SPI_STATE_EDITABLE] = Accessibility_STATE_EDITABLE;
+  state_table[SPI_STATE_ENABLED] = Accessibility_STATE_ENABLED;
+  state_table[SPI_STATE_EXPANDABLE] = Accessibility_STATE_EXPANDABLE;
+  state_table[SPI_STATE_EXPANDED] = Accessibility_STATE_EXPANDED;
+  state_table[SPI_STATE_FOCUSABLE] = Accessibility_STATE_FOCUSABLE;
+  state_table[SPI_STATE_FOCUSED] = Accessibility_STATE_FOCUSED;
+  state_table[SPI_STATE_HORIZONTAL] = Accessibility_STATE_HORIZONTAL;
+  state_table[SPI_STATE_ICONIFIED] = Accessibility_STATE_ICONIFIED;
+  state_table[SPI_STATE_MODAL] = Accessibility_STATE_MODAL;
+  state_table[SPI_STATE_MULTI_LINE] = Accessibility_STATE_MULTI_LINE;
+  state_table[SPI_STATE_MULTISELECTABLE] = Accessibility_STATE_MULTISELECTABLE;
+  state_table[SPI_STATE_OPAQUE] = Accessibility_STATE_OPAQUE;
+  state_table[SPI_STATE_PRESSED] = Accessibility_STATE_PRESSED;
+  state_table[SPI_STATE_RESIZABLE] = Accessibility_STATE_RESIZABLE;
+  state_table[SPI_STATE_SELECTABLE] = Accessibility_STATE_SELECTABLE;
+  state_table[SPI_STATE_SELECTED] = Accessibility_STATE_SELECTED;
+  state_table[SPI_STATE_SENSITIVE] = Accessibility_STATE_SENSITIVE;
+  state_table[SPI_STATE_SHOWING] = Accessibility_STATE_SHOWING;
+  state_table[SPI_STATE_SINGLE_LINE] = Accessibility_STATE_SINGLE_LINE;
+  state_table[SPI_STATE_STALE] = Accessibility_STATE_STALE;
+  state_table[SPI_STATE_TRANSIENT] = Accessibility_STATE_TRANSIENT;
+  state_table[SPI_STATE_VERTICAL] = Accessibility_STATE_VERTICAL;
+  state_table[SPI_STATE_VISIBLE] = Accessibility_STATE_VISIBLE;
+
+  return TRUE;
+}
+
+
+
+static Accessibility_StateType
+spi_state_type_from_accessible_state (AccessibleState type)
+{
+  static Accessibility_StateType state_table[Accessibility_STATE_LAST_DEFINED];
+  static SPIBoolean table_initialized = FALSE;
+  Accessibility_StateType rv;
+  
+  if (!table_initialized)
+    table_initialized = init_state_table (state_table);  
+  if (type > SPI_STATE_INVALID && type < SPI_STATE_LAST_DEFINED)
+    rv = state_table[type];
+  else
+    rv = Accessibility_STATE_INVALID;
+  return rv;
+}
+
+
+
+
 /**
  * AccessibleRole_getName:
  * @role: an #AccessibleRole object to query.
@@ -474,7 +535,15 @@ Accessible_getRoleName (Accessible *obj)
 AccessibleStateSet *
 Accessible_getStateSet (Accessible *obj)
 {
-  return NULL;
+  AccessibleStateSet *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = cspi_object_add (
+    Accessibility_Accessible_getState (CSPI_OBJREF (obj),
+					  cspi_ev ()));
+
+  return retval;
 }
 
 /* Interface query methods */
@@ -1028,11 +1097,13 @@ AccessibleStateSet_contains (AccessibleStateSet *obj,
 			     AccessibleState state)
 {
   CORBA_boolean retval;
-
+  Accessibility_StateType spi_state;
+  
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
+  spi_state = spi_state_type_from_accessible_state (state);
   retval = Accessibility_StateSet_contains (CSPI_OBJREF (obj),
-					    state, cspi_ev ());
+					    spi_state, cspi_ev ());
 
   cspi_return_val_if_ev ("contains", FALSE);
 
@@ -1052,9 +1123,12 @@ void
 AccessibleStateSet_add (AccessibleStateSet *obj,
 			AccessibleState state)
 {
+  Accessibility_StateType spi_state;
+
   cspi_return_if_fail (obj != NULL);
 
-  Accessibility_StateSet_add (CSPI_OBJREF (obj), state, cspi_ev ());
+  spi_state = spi_state_type_from_accessible_state (state);
+  Accessibility_StateSet_add (CSPI_OBJREF (obj), spi_state, cspi_ev ());
   cspi_check_ev ("add");
 }
 
@@ -1071,9 +1145,12 @@ void
 AccessibleStateSet_remove (AccessibleStateSet *obj,
 			   AccessibleState state)
 {
+  Accessibility_StateType spi_state;
+
   cspi_return_if_fail (obj != NULL);
 
-  Accessibility_StateSet_remove (CSPI_OBJREF (obj), state, cspi_ev ());
+  spi_state = spi_state_type_from_accessible_state (state);
+  Accessibility_StateSet_remove (CSPI_OBJREF (obj), spi_state, cspi_ev ());
   cspi_check_ev ("remove");
 }
 
@@ -1126,8 +1203,11 @@ AccessibleStateSet *
 AccessibleStateSet_compare (AccessibleStateSet *obj,
                             AccessibleStateSet *obj2)
 {
+  Accessibility_StateSet retval;
+
   cspi_return_val_if_fail (obj != NULL, NULL);
   cspi_return_val_if_fail (obj2 != NULL, NULL);
+  retval = Accessibility_StateSet_compare (CSPI_OBJREF(obj), CSPI_OBJREF(obj2), cspi_ev ());
   return NULL;	
 }
 
@@ -1144,9 +1224,11 @@ AccessibleStateSet_compare (AccessibleStateSet *obj,
 SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
 {
+  CORBA_boolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
-  return TRUE;	
-  /*  return Accessibility_StateSet_isEmpty (CSPI_OBJREF (obj), cspi_ev ());*/
+  retval = Accessibility_StateSet_isEmpty (CSPI_OBJREF (obj), cspi_ev ());
+  return (SPIBoolean) retval;
 }
 
 

@@ -20,8 +20,12 @@ typedef enum
   SPI_STATE_CHECKED,
   /* Indicates this object is collapsed */
   SPI_STATE_COLLAPSED,
+  /* Indicates the user interface object corresponding to this object no longer exists */
+  SPI_STATE_DEFUNCT,
   /* Indicates the user can change the contents of this object */
   SPI_STATE_EDITABLE,
+  /* Indicates that this object is enabled */
+  SPI_STATE_ENABLED,
   /* Indicates this object allows progressive disclosure of its children */
   SPI_STATE_EXPANDABLE,
   /* Indicates this object its expanded */
@@ -49,7 +53,7 @@ typedef enum
    * Indicates this object allows more than one of its children to be
    * selected at the same time
    */
-  SPI_STATE_MULTISELECSPI_TABLE,
+  SPI_STATE_MULTISELECTABLE,
   /* Indicates this object paints every pixel within its rectangular region. */
   SPI_STATE_OPAQUE,
   /* Indicates this object is currently pressed */
@@ -61,7 +65,7 @@ typedef enum
    * children to be selected and that this child is one of those children
    * that can be selected.
    */
-  SPI_STATE_SELECSPI_TABLE,
+  SPI_STATE_SELECTABLE,
   /*
    * Indicates this object is the child of an object that allows its
    * children to be selected and that this child is one of those children
@@ -77,6 +81,8 @@ typedef enum
   SPI_STATE_SHOWING,
   /* Indicates this (text) object can contain only a single line of text */
   SPI_STATE_SINGLE_LINE,
+  /* Indicates that the index associated with this object has changed since the user accessed the object. */
+  SPI_STATE_STALE,
   /* Indicates this object is transient */
   SPI_STATE_TRANSIENT,
   /* Indicates the orientation of this object is vertical */

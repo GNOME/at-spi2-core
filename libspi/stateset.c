@@ -48,8 +48,6 @@ spi_init_state_type_tables (void)
       accessible_state_types[i] = Accessibility_STATE_INVALID;
     }
 
-  accessible_state_types[ATK_STATE_INVALID] = Accessibility_STATE_INVALID;
-  atk_state_types [Accessibility_STATE_INVALID] = ATK_STATE_INVALID;
   accessible_state_types[ATK_STATE_ACTIVE] = Accessibility_STATE_ACTIVE;
   atk_state_types[Accessibility_STATE_ACTIVE] = ATK_STATE_ACTIVE;
   accessible_state_types[ATK_STATE_ARMED] = Accessibility_STATE_ARMED;
@@ -58,14 +56,12 @@ spi_init_state_type_tables (void)
   atk_state_types[Accessibility_STATE_BUSY] = ATK_STATE_BUSY;
   accessible_state_types[ATK_STATE_CHECKED] = Accessibility_STATE_CHECKED;
   atk_state_types[Accessibility_STATE_CHECKED] = ATK_STATE_CHECKED;
-  /*
-    types[ATK_STATE_DEFUNCT] = Accessibility_STATE_DEFUNCT;
-  */
+  accessible_state_types[ATK_STATE_DEFUNCT] = Accessibility_STATE_DEFUNCT;
+  atk_state_types[Accessibility_STATE_DEFUNCT] = ATK_STATE_DEFUNCT;
   accessible_state_types[ATK_STATE_EDITABLE] = Accessibility_STATE_EDITABLE;
   atk_state_types[Accessibility_STATE_EDITABLE] = ATK_STATE_EDITABLE;  
-  /*
-    types[ATK_STATE_ENABLED] = Accessibility_STATE_ENABLED;
-  */
+  accessible_state_types[ATK_STATE_ENABLED] = Accessibility_STATE_ENABLED;
+  atk_state_types[Accessibility_STATE_ENABLED] = ATK_STATE_ENABLED;  
   accessible_state_types[ATK_STATE_EXPANDABLE] = Accessibility_STATE_EXPANDABLE;
   atk_state_types[Accessibility_STATE_EXPANDABLE] = ATK_STATE_EXPANDABLE;
   accessible_state_types[ATK_STATE_EXPANDED] = Accessibility_STATE_EXPANDED;
@@ -100,9 +96,8 @@ spi_init_state_type_tables (void)
   atk_state_types[Accessibility_STATE_SHOWING] = ATK_STATE_SHOWING;
   accessible_state_types[ATK_STATE_SINGLE_LINE] = Accessibility_STATE_SINGLE_LINE;
   atk_state_types[Accessibility_STATE_SINGLE_LINE] = ATK_STATE_SINGLE_LINE;
-  /*
-    types[ATK_STATE_STALE] = Accessibility_STATE_STALE;
-  */
+  accessible_state_types[ATK_STATE_STALE] = Accessibility_STATE_STALE;
+  atk_state_types[Accessibility_STATE_STALE] = ATK_STATE_STALE;
   accessible_state_types[ATK_STATE_TRANSIENT] = Accessibility_STATE_TRANSIENT;
   atk_state_types[Accessibility_STATE_TRANSIENT] = ATK_STATE_TRANSIENT;
   accessible_state_types[ATK_STATE_VERTICAL] = Accessibility_STATE_VERTICAL;
@@ -217,7 +212,7 @@ impl_equals (PortableServer_Servant servant,
     {
       rv = (CORBA_boolean)
 	atk_state_set_is_empty (return_set);
-      g_object_unref (return_set);
+      g_object_unref (G_OBJECT(return_set));
     }
   else
     rv = FALSE;
@@ -228,14 +223,22 @@ impl_equals (PortableServer_Servant servant,
 
 static Accessibility_StateSet
 impl_compare (PortableServer_Servant servant,
-	      const Accessibility_StateSet
-	      compareState,
+	      const Accessibility_StateSet compareState,
 	      CORBA_Environment * ev)
 {
   AtkStateSet *set = atk_state_set_from_servant (servant);
+  AtkStateSet *set2, *return_set;
+  SpiStateSet *spi_set;
+  
+  g_return_val_if_fail (set, FALSE);
 
-  g_return_val_if_fail (set, CORBA_OBJECT_NIL);
+  set2 = atk_state_set_from_accessibility_state_set (compareState, ev);
+  g_return_val_if_fail (set2, CORBA_OBJECT_NIL);
 
+  return_set = atk_state_set_xor_sets (set, set2);
+  g_object_unref (G_OBJECT(set2));
+  spi_set = spi_state_set_new (return_set);
+  return bonobo_object_corba_objref (BONOBO_OBJECT(spi_set));
 }
 
 
