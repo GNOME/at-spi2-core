@@ -3,10 +3,11 @@
 #define _SPI_H
 
 /* Implementation private definitions */
+
 #include "spi-impl.h"
 
 /*
- * Definitions for SPI_ACCESSIBLE_STATE , SPI_ACCESSIBLE_ROLE, SpiAccessibleEvent,
+ * Definitions for  AccessibleRole, AccessibleState, AccessibleEvent,
  *      and event listeners.
  */
 
@@ -31,9 +32,7 @@ typedef enum
   SPI_TEXT_BOUNDARY_LINE_START,
   SPI_TEXT_BOUNDARY_LINE_END,
   SPI_TEXT_BOUNDARY_ATTRIBUTE_RANGE
-} SPI_TEXT_BOUNDARY_TYPE;
-
-
+} AccessibleTextBoundaryType;
 
 /*
  *
@@ -43,56 +42,57 @@ typedef enum
 
 typedef enum
 {
-  RELATION_LABEL_FOR,
-  RELATION_LABELED_BY,
-  RELATION_CONTROLLER_FOR,
-  RELATION_CONTROLLED_BY,
-  RELATION_MEMBER_OF
-} RELATION_TYPE;
+  SPI_RELATION_LABEL_FOR,
+  SPI_RELATION_LABELED_BY,
+  SPI_RELATION_CONTROLLER_FOR,
+  SPI_RELATION_CONTROLLED_BY,
+  SPI_RELATION_MEMBER_OF
+} AccessibleRelationType;
 
 
 /* don't change the order of these ! */
 typedef enum _AccessibleCoordType {
-  COORD_TYPE_SCREEN,
-  COORD_TYPE_WINDOW
-} SpiAccessibleCoordType;
+  SPI_COORD_TYPE_SCREEN,
+  SPI_COORD_TYPE_WINDOW
+} AccessibleCoordType;
 
-typedef enum _KeyEventType {
-  KEY_PRESSED,
-  KEY_RELEASED
-} KeyEventType;
+typedef enum _AccessibleKeyEventType {
+  SPI_KEY_PRESSED,
+  SPI_KEY_RELEASED
+} AccessibleKeyEventType;
 
-typedef enum _KeySynthType {
-  KEY_PRESS,
-  KEY_RELEASE, 
-  KEY_PRESSRELEASE,
-  KEY_SYM
-} KeySynthType;
+typedef enum _AccessibleKeySynthType {
+  SPI_KEY_PRESS,
+  SPI_KEY_RELEASE, 
+  SPI_KEY_PRESSRELEASE,
+  SPI_KEY_SYM
+} AccessibleKeySynthType;
 
-typedef enum _KeyListenerSyncType {
-  KEYSPI_LISTENER_SYNCHRONOUS = 1,
-  KEYSPI_LISTENER_CANCONSUME = 2,
-  KEYSPI_LISTENER_ALLWINDOWS = 4
-} KeyListenerSyncType;
+typedef enum _AccessibleKeyListenerSyncType {
+  SPI_KEYLISTENER_NOSYNC = 0,
+  SPI_KEYLISTENER_SYNCHRONOUS = 1,
+  SPI_KEYLISTENER_CANCONSUME = 2,
+  SPI_KEYLISTENER_ALL_WINDOWS = 4
+} AccessibleKeyListenerSyncType;
 
-typedef unsigned long KeyEventMask;
+typedef unsigned long AccessibleKeyEventMask;
 
-typedef struct _KeyStroke
+typedef struct _AccessibleKeyStroke
 {
 	long keyID;
 	short keycode;
-	KeyEventType type;
+	AccessibleKeyEventType type;
 	unsigned short modifiers;
-} KeyStroke;
+} AccessibleKeyStroke;
 
-typedef struct _KeySet
+typedef struct _AccessibleAccessibleKeySet
 {
 	unsigned long *keysyms;
 	unsigned short *keycodes;
 	short len;
-} KeySet;
+} AccessibleKeySet;
 
-#define ALL_KEYS ((void *)NULL)
+#define SPI_KEYSET_ALL_KEYS ((void *)NULL)
 
 /*
  *
@@ -148,13 +148,13 @@ SPI_eventIsReady ();
  * Returns: the next #AccessibleEvent in the SPI event queue.
  *
  **/
-SpiAccessibleEvent *
+AccessibleEvent *
 SPI_nextEvent (boolean waitForEvent);
 
 /**
  * SPI_exit:
  *
- * Disconnects from the Accessibility SpiRegistry and releases resources.
+ * Disconnects from the Accessibility Registry and releases resources.
  * Not Yet Implemented.
  *
  **/
@@ -162,7 +162,7 @@ void
 SPI_exit (void);
 
 /*
- * Event SpiListener creation and support.
+ * Event Listener creation and support.
  */
 
 /**
@@ -174,48 +174,48 @@ SPI_exit (void);
  * Returns: a pointer to a newly-created #AccessibleEventListener.
  *
  **/
-SpiAccessibleEventListener *
-createEventListener (SpiAccessibleEventListenerCB callback);
+AccessibleEventListener *
+createEventListener (AccessibleEventListenerCB callback);
 
 /**
  * EventListener_addCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.
  *
- * Add an in-process callback function to an existing SpiAccessibleEventListener.
+ * Add an in-process callback function to an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-EventListener_addCallback (SpiAccessibleEventListener *listener,
-                           SpiAccessibleEventListenerCB callback);
+AccessibleEventListener_addCallback (AccessibleEventListener *listener,
+				     AccessibleEventListenerCB callback);
 
 /**
- * EventListener_removeCallback:
+ * AccessibleEventListener_removeCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.
  *
- * Remove an in-process callback function from an existing SpiAccessibleEventListener.
+ * Remove an in-process callback function from an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-EventListener_removeCallback (SpiAccessibleEventListener *listener,
-                              SpiAccessibleEventListenerCB callback);
+AccessibleEventListener_removeCallback (AccessibleEventListener *listener,
+					AccessibleEventListenerCB callback);
 
 /**
- * createKeyListener:
- * @callback : an #KeystrokeListenerCB callback function, or NULL.
+ * createAccessibleKeystrokeListener:
+ * @callback : an #AccessibleKeystrokeListenerCB callback function, or NULL.
  *
- * Create a new #KeystrokeListener with a specified callback function.
+ * Create a new #AccessibleKeystrokeListener with a specified callback function.
  *
- * Returns: a pointer to a newly-created #KeystrokeListener.
+ * Returns: a pointer to a newly-created #AccessibleKeystrokeListener.
  *
  **/
-KeystrokeListener *
-createKeystrokeListener (KeystrokeListenerCB callback);
+AccessibleKeystrokeListener *
+createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback);
 
 /**
  * KeystrokeListener_addCallback:
@@ -228,22 +228,22 @@ createKeystrokeListener (KeystrokeListenerCB callback);
  *
  **/
 boolean
-KeystrokeListener_addCallback (KeystrokeListener *listener,
-			       KeystrokeListenerCB callback);
+AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
+					 AccessibleKeystrokeListenerCB callback);
 
 /**
- * KeystrokeListener_removeCallback:
- * @listener: the #KeystrokeListener instance to modify.
- * @callback: an #KeystrokeListenerCB function pointer.
+ * AccessibleKeystrokeListener_removeCallback:
+ * @listener: the #AccessibleKeystrokeListener instance to modify.
+ * @callback: an #AccessibleKeystrokeListenerCB function pointer.
  *
- * Remove an in-process callback function from an existing #KeystrokeListener.
+ * Remove an in-process callback function from an existing #AccessibleKeystrokeListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-KeystrokeListener_removeCallback (KeystrokeListener *listener,
-				  KeystrokeListenerCB callback);
+AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
+					    AccessibleKeystrokeListenerCB callback);
 
 /*
  *
@@ -267,13 +267,13 @@ KeystrokeListener_removeCallback (KeystrokeListener *listener,
  *            functions are used internally.  In general, listening to
  *            toolkit-specific events is not recommended.
  *
- * Add an in-process callback function to an existing SpiAccessibleEventListener.
+ * Add an in-process callback function to an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-registerGlobalEventListener (SpiAccessibleEventListener *listener,
+registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType);
 
 /**
@@ -300,7 +300,7 @@ getDesktopCount ();
  * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
  *
  **/
-SpiAccessible*
+Accessible*
 getDesktop (int n);
 
 /**
@@ -318,29 +318,33 @@ getDesktop (int n);
  *          placed in the list pointed to by parameter @list.
  **/
 int
-getDesktopList (SpiAccessible **list);
+getDesktopList (Accessible **list);
 
 /**
- * registerKeystrokeListener:
- * @listener: a pointer to the #KeystrokeListener for which
+ * registerAccessibleKeystrokeListener:
+ * @listener: a pointer to the #AccessibleKeystrokeListener for which
  *            keystroke events are requested.
  *
- * Not Yet Implemented.
+ * [Partially Implemented.]
  *
  **/
 void
-registerKeystrokeListener (KeystrokeListener *listener,
-			   KeySet *keys,
-			   KeyMaskType modmask,
-			   KeyEventMask eventmask,
-			   KeyListenerSyncType sync_type);
+registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
+				     AccessibleKeySet *keys,
+				     AccessibleKeyMaskType modmask,
+				     AccessibleKeyEventMask eventmask,
+				     AccessibleKeyListenerSyncType sync_type);
+
+void
+deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
+				       AccessibleKeyMaskType keymask);
 
 /**
  * generateKeyEvent:
  * @keycode: a #long indicating the keycode of the key event
  *           being synthesized.
- * @synth_type: a #KeySynthType indicating whether this should be a
- *        KEY_PRESS, KEY_RELEASE, both (KEY_PRESSRELEASE), or
+ * @synth_type: a #AccessibleKeySynthType indicating whether this should be a
+ *        SPI_KEY_PRESS, SPI_KEY_RELEASE, both (SPI_KEY_PRESSRELEASE), or
  *        a press/release pair for a KEYSYM.
  *
  * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
@@ -348,7 +352,7 @@ registerKeystrokeListener (KeystrokeListener *listener,
  *
  **/
 void
-generateKeyEvent (long keyCode, KeySynthType synth_type);
+generateKeyEvent (long keyCode, AccessibleKeySynthType synth_type);
 
 /**
  * generateMouseEvent:
@@ -366,12 +370,12 @@ generateMouseEvent (long x, long y, char *name);
 
 /*
  *
- * SpiAccessible function prototypes
+ * Accessible function prototypes
  *
  */
 
 /**
- * SpiAccessible_ref:
+ * Accessible_ref:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Increment the reference count for an #Accessible object.
@@ -380,10 +384,10 @@ generateMouseEvent (long x, long y, char *name);
  *
  **/
 int
-SpiAccessible_ref (SpiAccessible *obj);
+Accessible_ref (Accessible *obj);
 
 /**
- * SpiAccessible_unref:
+ * Accessible_unref:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Decrement the reference count for an #Accessible object.
@@ -392,10 +396,10 @@ SpiAccessible_ref (SpiAccessible *obj);
  *
  **/
 int
-SpiAccessible_unref (SpiAccessible *obj);
+Accessible_unref (Accessible *obj);
 
 /**
- * SpiAccessible_getName:
+ * Accessible_getName:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the name of an #Accessible object.
@@ -404,10 +408,10 @@ SpiAccessible_unref (SpiAccessible *obj);
  *
  **/
 char *
-SpiAccessible_getName (SpiAccessible *obj);
+Accessible_getName (Accessible *obj);
 
 /**
- * SpiAccessible_getDescription:
+ * Accessible_getDescription:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the description of an #Accessible object.
@@ -416,10 +420,10 @@ SpiAccessible_getName (SpiAccessible *obj);
  *
  **/
 char *
-SpiAccessible_getDescription (SpiAccessible *obj);
+Accessible_getDescription (Accessible *obj);
 
 /**
- * SpiAccessible_getParent:
+ * Accessible_getParent:
  * @obj: a pointer to the #Accessible object to query.
  *
  * Get an #Accessible object's parent container.
@@ -428,11 +432,11 @@ SpiAccessible_getDescription (SpiAccessible *obj);
  *          #Accessible instance, or NULL if the @obj has no parent container.
  *
  **/
-SpiAccessible *
-SpiAccessible_getParent (SpiAccessible *obj);
+Accessible *
+Accessible_getParent (Accessible *obj);
 
 /**
- * SpiAccessible_getChildCount:
+ * Accessible_getChildCount:
  *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
@@ -443,10 +447,10 @@ SpiAccessible_getParent (SpiAccessible *obj);
  *
  **/
 long
-SpiAccessible_getChildCount (SpiAccessible *obj);
+Accessible_getChildCount (Accessible *obj);
 
 /**
- * SpiAccessible_getChildAtIndex:
+ * Accessible_getChildAtIndex:
  *
  * @obj: a pointer to the #Accessible object on which to operate.
  * @childIndex: a #long indicating which child is specified.
@@ -457,12 +461,12 @@ SpiAccessible_getChildCount (SpiAccessible *obj);
  *          @childIndex.
  *
  **/
-SpiAccessible *
-SpiAccessible_getChildAtIndex (SpiAccessible *obj,
+Accessible *
+Accessible_getChildAtIndex (Accessible *obj,
                             long childIndex);
 
 /**
- * SpiAccessible_getIndexInParent:
+ * Accessible_getIndexInParent:
  *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
@@ -474,19 +478,19 @@ SpiAccessible_getChildAtIndex (SpiAccessible *obj,
  *
  **/
 long
-SpiAccessible_getIndexInParent (SpiAccessible *obj);
+Accessible_getIndexInParent (Accessible *obj);
 
 /**
- * SpiAccessible_getRelationSet:
+ * Accessible_getRelationSet:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleRelation **
-SpiAccessible_getRelationSet (SpiAccessible *obj);
+AccessibleRelation **
+Accessible_getRelationSet (Accessible *obj);
 
 /**
- * SpiAccessible_getRole:
+ * Accessible_getRole:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the UI role of an #Accessible object.
@@ -495,21 +499,21 @@ SpiAccessible_getRelationSet (SpiAccessible *obj);
  *
  **/
 char *
-SpiAccessible_getRole (SpiAccessible *obj);
+Accessible_getRole (Accessible *obj);
 
 /**
- * SpiAccessible_getStateSet:
+ * Accessible_getStateSet:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleStateSet *
-SpiAccessible_getStateSet (SpiAccessible *obj);
+AccessibleStateSet *
+Accessible_getStateSet (Accessible *obj);
 
 /* Interface query methods */
 
 /**
- * SpiAccessible_isAction:
+ * Accessible_isAction:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleAction.
@@ -519,10 +523,10 @@ SpiAccessible_getStateSet (SpiAccessible *obj);
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isAction (SpiAccessible *obj);
+Accessible_isAction (Accessible *obj);
 
 /**
- * SpiAccessible_isComponent:
+ * Accessible_isComponent:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleComponent.
@@ -531,10 +535,10 @@ SpiAccessible_isAction (SpiAccessible *obj);
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isComponent (SpiAccessible *obj);
+Accessible_isComponent (Accessible *obj);
 
 /**
- * SpiAccessible_isEditableText:
+ * Accessible_isEditableText:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleEditableText.
@@ -544,10 +548,10 @@ SpiAccessible_isComponent (SpiAccessible *obj);
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isEditableText (SpiAccessible *obj);
+Accessible_isEditableText (Accessible *obj);
 
 /**
- * SpiAccessible_isHypertext:
+ * Accessible_isHypertext:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleHypertext.
@@ -557,10 +561,10 @@ SpiAccessible_isEditableText (SpiAccessible *obj);
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isHypertext (SpiAccessible *obj);
+Accessible_isHypertext (Accessible *obj);
 
 /**
- * SpiAccessible_isImage:
+ * Accessible_isImage:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleImage.
@@ -570,10 +574,10 @@ SpiAccessible_isHypertext (SpiAccessible *obj);
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isImage (SpiAccessible *obj);
+Accessible_isImage (Accessible *obj);
 
 /**
-  * SpiAccessible_isSelection:
+  * Accessible_isSelection:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleSelection.
@@ -583,10 +587,10 @@ SpiAccessible_isImage (SpiAccessible *obj);
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSelection (SpiAccessible *obj);
+Accessible_isSelection (Accessible *obj);
 
 /**
- * SpiAccessible_isTable:
+ * Accessible_isTable:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleTable.
@@ -596,10 +600,10 @@ SpiAccessible_isSelection (SpiAccessible *obj);
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isTable (SpiAccessible *obj);
+Accessible_isTable (Accessible *obj);
 
 /**
- * SpiAccessible_isText:
+ * Accessible_isText:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleText.
@@ -609,19 +613,19 @@ SpiAccessible_isTable (SpiAccessible *obj);
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isText (SpiAccessible *obj);
+Accessible_isText (Accessible *obj);
 
 /**
- * SpiAccessible_getAction:
+ * Accessible_getAction:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleAction *
-SpiAccessible_getAction (SpiAccessible *obj);
+AccessibleAction *
+Accessible_getAction (Accessible *obj);
 
 /**
- * SpiAccessible_getComponent:
+ * Accessible_getComponent:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Get the #AccessibleComponent interface for an #Accessible.
@@ -629,65 +633,65 @@ SpiAccessible_getAction (SpiAccessible *obj);
  * Returns: a pointer to an #AccessibleComponent interface instance, or
  *          NULL if @obj does not implement #AccessibleComponent.
  **/
-SpiAccessibleComponent *
-SpiAccessible_getComponent (SpiAccessible *obj);
+AccessibleComponent *
+Accessible_getComponent (Accessible *obj);
 
 /**
- * SpiAccessible_getEditableText:
+ * Accessible_getEditableText:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleEditableText *
-SpiAccessible_getEditableText (SpiAccessible *obj);
+AccessibleEditableText *
+Accessible_getEditableText (Accessible *obj);
 
 /**
- * SpiAccessible_getHypertext:
+ * Accessible_getHypertext:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleHypertext *
-SpiAccessible_getHypertext (SpiAccessible *obj);
+AccessibleHypertext *
+Accessible_getHypertext (Accessible *obj);
 
 /**
- * SpiAccessible_getImage:
+ * Accessible_getImage:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleImage *
-SpiAccessible_getImage (SpiAccessible *obj);
+AccessibleImage *
+Accessible_getImage (Accessible *obj);
 
 /**
- * SpiAccessible_getSelection:
+ * Accessible_getSelection:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleSelection *
-SpiAccessible_getSelection (SpiAccessible *obj);
+AccessibleSelection *
+Accessible_getSelection (Accessible *obj);
 
 /**
- * SpiAccessible_getTable:
+ * Accessible_getTable:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleTable *
-SpiAccessible_getTable (SpiAccessible *obj);
+AccessibleTable *
+Accessible_getTable (Accessible *obj);
 
 /**
- * SpiAccessible_getText:
+ * Accessible_getText:
  *
  * Not Yet Implemented.
  *
  **/
-SpiAccessibleText *
-SpiAccessible_getText (SpiAccessible *obj);
+AccessibleText *
+Accessible_getText (Accessible *obj);
 
 /**
- * SpiAccessible_queryInterface:
+ * Accessible_queryInterface:
  * @obj: a pointer to the #Accessible instance to query.
  * @interface_name: a UTF-8 character string specifiying the requested interface.
  *
@@ -698,26 +702,25 @@ SpiAccessible_getText (SpiAccessible *obj);
  *
  **/
 GenericInterface *
-SpiAccessible_queryInterface (SpiAccessible *obj, char *interface_name);
+Accessible_queryInterface (Accessible *obj, char *interface_name);
 
 /*
  *
- * SpiAccessibleAction function prototypes
+ * AccessibleAction function prototypes
  *
  */
 
 int
-SpiAccessibleAction_ref (
-                      SpiAccessibleAction *obj);
+AccessibleAction_ref (AccessibleAction *obj);
 
 int
-SpiAccessibleAction_unref (SpiAccessibleAction *obj);
+AccessibleAction_unref (AccessibleAction *obj);
 
 long
-SpiAccessibleAction_getNActions (SpiAccessibleAction *obj);
+AccessibleAction_getNActions (AccessibleAction *obj);
 
 /**
- * SpiAccessibleAction_getDescription:
+ * AccessibleAction_getDescription:
  * @obj: a pointer to the #AccessibleAction to query.
  *
  * Get the description of 'i-th' action invokable on an
@@ -729,25 +732,25 @@ SpiAccessibleAction_getNActions (SpiAccessibleAction *obj);
  *
  **/
 char *
-SpiAccessibleAction_getDescription (SpiAccessibleAction *obj,
+AccessibleAction_getDescription (AccessibleAction *obj,
                                  long index);
 
 boolean
-SpiAccessibleAction_doAction (SpiAccessibleAction *obj,
+AccessibleAction_doAction (AccessibleAction *obj,
                            long index);
 
 char *
-SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
+AccessibleAction_getKeyBinding (AccessibleAction *obj,
                                 long index);
 
 /*
  *
- * SpiAccessibleApplication function prototypes
+ * AccessibleApplication function prototypes
  *
  */
 
 /**
- * SpiAccessibleApplication_unref:
+ * AccessibleApplication_unref:
  * @obj: a pointer to the #AccessibleApplication on which to operate.
  *
  * Decrement the reference count for an #AccessibleApplication.
@@ -756,10 +759,10 @@ SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
  *
  **/
 int
-SpiAccessibleApplication_ref (SpiAccessibleApplication *obj);
+AccessibleApplication_ref (AccessibleApplication *obj);
 
 /**
- * SpiAccessibleApplication_unref:
+ * AccessibleApplication_unref:
  * @obj: a pointer to the #AccessibleApplication object on which to operate.
  *
  * Decrement the reference count for an #AccessibleApplication.
@@ -768,10 +771,10 @@ SpiAccessibleApplication_ref (SpiAccessibleApplication *obj);
  *
  **/
 int
-SpiAccessibleApplication_unref (SpiAccessibleApplication *obj);
+AccessibleApplication_unref (AccessibleApplication *obj);
 
 /**
- * SpiAccessibleApplication_getToolkitName:
+ * AccessibleApplication_getToolkitName:
  * @obj: a pointer to the #AccessibleApplication to query.
  *
  * Get the name of the UI toolkit used by an #AccessibleApplication.
@@ -781,10 +784,10 @@ SpiAccessibleApplication_unref (SpiAccessibleApplication *obj);
  *
  **/
 char *
-SpiAccessibleApplication_getToolkitName (SpiAccessibleApplication *obj);
+AccessibleApplication_getToolkitName (AccessibleApplication *obj);
 
 /**
- * SpiAccessibleApplication_getVersion:
+ * AccessibleApplication_getVersion:
  * @obj: a pointer to the #AccessibleApplication being queried.
  *
  * Get the version of the at-spi bridge exported by an
@@ -795,24 +798,24 @@ SpiAccessibleApplication_getToolkitName (SpiAccessibleApplication *obj);
  *
  **/
 char *
-SpiAccessibleApplication_getVersion (SpiAccessibleApplication *obj);
+AccessibleApplication_getVersion (AccessibleApplication *obj);
 
 /**
- * SpiAccessibleApplication_getID:
+ * AccessibleApplication_getID:
  * @obj: a pointer to the #AccessibleApplication being queried.
  *
- * Get the unique ID assigned by the SpiRegistry to an
+ * Get the unique ID assigned by the Registry to an
  *      #AccessibleApplication instance.
  * (Not Yet Implemented by the registry).
  *
  * Returns: a unique #long integer associated with the application
- *          by the SpiRegistry, or 0 if the application is not registered.
+ *          by the Registry, or 0 if the application is not registered.
  **/
 long
-SpiAccessibleApplication_getID (SpiAccessibleApplication *obj);
+AccessibleApplication_getID (AccessibleApplication *obj);
 
 /**
- * SpiAccessibleApplication_pause:
+ * AccessibleApplication_pause:
  *
  * Attempt to pause the application (used when client event queue is
  *  over-full).
@@ -822,10 +825,10 @@ SpiAccessibleApplication_getID (SpiAccessibleApplication *obj);
  *
  **/
 boolean
-SpiAccessibleApplication_pause (SpiAccessibleApplication *obj);
+AccessibleApplication_pause (AccessibleApplication *obj);
 
 /**
- * SpiAccessibleApplication_pause:
+ * AccessibleApplication_pause:
  *
  * Attempt to resume the application (used after #AccessibleApplication_pause).
  * Not Yet Implemented.
@@ -834,34 +837,34 @@ SpiAccessibleApplication_pause (SpiAccessibleApplication *obj);
  *
  **/
 boolean
-SpiAccessibleApplication_resume (SpiAccessibleApplication *obj);
+AccessibleApplication_resume (AccessibleApplication *obj);
 
 /*
  *
- * SpiAccessibleComponent function prototypes
+ * AccessibleComponent function prototypes
  *
  */
 
 int
-SpiAccessibleComponent_ref (SpiAccessibleComponent *obj);
+AccessibleComponent_ref (AccessibleComponent *obj);
 
 int
-SpiAccessibleComponent_unref (SpiAccessibleComponent *obj);
+AccessibleComponent_unref (AccessibleComponent *obj);
 
 boolean
-SpiAccessibleComponent_contains (SpiAccessibleComponent *obj,
+AccessibleComponent_contains (AccessibleComponent *obj,
                               long x,
                               long y,
-                              SpiAccessibleCoordType ctype);
+                              AccessibleCoordType ctype);
 
-SpiAccessible *
-SpiAccessibleComponent_getAccessibleAtPoint (SpiAccessibleComponent *obj,
+Accessible *
+AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
                                           long x,
                                           long y,
-                                          SpiAccessibleCoordType ctype);
+                                          AccessibleCoordType ctype);
 
 /**
- * SpiAccessibleComponent_getExtents:
+ * AccessibleComponent_getExtents:
  * @obj: a pointer to the #AccessibleComponent to query.
  * @x: a pointer to a #long into which the minimum x coordinate will be returned.
  * @y: a pointer to a #long into which the minimum y coordinate will be returned.
@@ -874,451 +877,451 @@ SpiAccessibleComponent_getAccessibleAtPoint (SpiAccessibleComponent *obj,
  *
  **/
 void
-SpiAccessibleComponent_getExtents (SpiAccessibleComponent *obj,
+AccessibleComponent_getExtents (AccessibleComponent *obj,
                                 long *x,
                                 long *y,
                                 long *width,
                                 long *height,
-                                SpiAccessibleCoordType ctype);
+                                AccessibleCoordType ctype);
 
 void
-SpiAccessibleComponent_getPosition (SpiAccessibleComponent *obj,
+AccessibleComponent_getPosition (AccessibleComponent *obj,
                                  long *x,
                                  long *y,
-                                 SpiAccessibleCoordType ctype);
+                                 AccessibleCoordType ctype);
 
 void
-SpiAccessibleComponent_getSize (SpiAccessibleComponent *obj,
+AccessibleComponent_getSize (AccessibleComponent *obj,
                              long *width,
                              long *height);
 
 void
-SpiAccessibleComponent_grabFocus (SpiAccessibleComponent *obj);
+AccessibleComponent_grabFocus (AccessibleComponent *obj);
 
 /*
  *
- * SpiAccessibleEditableText function prototypes
+ * AccessibleEditableText function prototypes
  *
  */
 
 int
-SpiAccessibleEditableText_ref (SpiAccessibleEditableText *obj);
+AccessibleEditableText_ref (AccessibleEditableText *obj);
 
 int
-SpiAccessibleEditableText_unref (SpiAccessibleEditableText *obj);
+AccessibleEditableText_unref (AccessibleEditableText *obj);
 
 boolean
-SpiAccessibleEditableText_setRunAttributes (SpiAccessibleEditableText *obj,
+AccessibleEditableText_setRunAttributes (AccessibleEditableText *obj,
 					 const char *attributes,
 					 long startPos, long endPos);
 
 void
-SpiAccessibleEditableText_setTextContents (SpiAccessibleEditableText *obj,
+AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents);
 
 void
-SpiAccessibleEditableText_insertText (SpiAccessibleEditableText *obj,
+AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    long position,
                                    char *text,
                                    long length);
 
 void
-SpiAccessibleEditableText_copyText (SpiAccessibleText *obj,
+AccessibleEditableText_copyText (AccessibleText *obj,
                                  long startPos,
                                  long endPos);
 
 void
-SpiAccessibleEditableText_cutText (SpiAccessibleEditableText *obj,
+AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long startPos,
                                 long endPos);
 
 void
-SpiAccessibleEditableText_deleteText (SpiAccessibleEditableText *obj,
+AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long startPos,
                                    long endPos);
 
 void
-SpiAccessibleEditableText_pasteText (SpiAccessibleEditableText *obj,
+AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long position);
 
 /*
  *
- * SpiAccessibleHyperlink function prototypes
+ * AccessibleHyperlink function prototypes
  *
  */
 
 int
-SpiAccessibleHyperlink_ref (SpiAccessibleHyperlink *obj);
+AccessibleHyperlink_ref (AccessibleHyperlink *obj);
 
 int
-SpiAccessibleHyperlink_unref (SpiAccessibleHyperlink *obj);
+AccessibleHyperlink_unref (AccessibleHyperlink *obj);
 
 long
-SpiAccessibleHyperlink_getNAnchors (SpiAccessibleHyperlink *obj);
+AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj);
 
 char *
-SpiAccessibleHyperlink_getURI (SpiAccessibleHyperlink *obj,
+AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
                             long i);
 
-SpiAccessible
-SpiAccessibleHyperlink_getObject (SpiAccessibleHyperlink *obj,
+Accessible *
+AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
                                long i);
 
 void
-SpiAccessibleHyperlink_getIndexRange (SpiAccessibleHyperlink *obj,
+AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long *startIndex,
                                    long *endIndex);
 
 boolean
-SpiAccessibleHyperlink_isValid (SpiAccessibleHyperlink *obj);
+AccessibleHyperlink_isValid (AccessibleHyperlink *obj);
 
 /*
  *
- * SpiAccessibleHypertext function prototypes
+ * AccessibleHypertext function prototypes
  *
  */
 
 int
-SpiAccessibleHypertext_ref (SpiAccessibleHypertext *obj);
+AccessibleHypertext_ref (AccessibleHypertext *obj);
 
 int
-SpiAccessibleHypertext_unref (SpiAccessibleHypertext *obj);
+AccessibleHypertext_unref (AccessibleHypertext *obj);
 
 long
-SpiAccessibleHypertext_getNLinks (SpiAccessibleHypertext *obj);
+AccessibleHypertext_getNLinks (AccessibleHypertext *obj);
 
-SpiAccessibleHyperlink *
-SpiAccessibleHyperText_getLink (SpiAccessibleHypertext *obj,
+AccessibleHyperlink *
+AccessibleHyperText_getLink (AccessibleHypertext *obj,
                              long linkIndex);
 
 long
-SpiAccessibleHypertext_getLinkIndex (SpiAccessibleHypertext *obj,
+AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
                                   long characterIndex);
 
 /*
  *
- * SpiAccessibleImage function prototypes
+ * AccessibleImage function prototypes
  *
  */
 
 int
-SpiAccessibleImage_ref (SpiAccessibleImage *obj);
+AccessibleImage_ref (AccessibleImage *obj);
 
 int
-SpiAccessibleImage_unref (SpiAccessibleImage *obj);
+AccessibleImage_unref (AccessibleImage *obj);
 
 char *
-SpiAccessibleImage_getImageDescription (SpiAccessibleImage *obj);
+AccessibleImage_getImageDescription (AccessibleImage *obj);
 
 void
-SpiAccessibleImage_getImageSize (SpiAccessibleImage *obj,
+AccessibleImage_getImageSize (AccessibleImage *obj,
                               long *width,
                               long *height);
 
 void
-SpiAccessibleImage_getImagePosition (SpiAccessibleImage *obj,
+AccessibleImage_getImagePosition (AccessibleImage *obj,
                                   long *x,
                                   long *y,
-                                  SpiAccessibleCoordType ctype);
+                                  AccessibleCoordType ctype);
 
 /*
  *
- * SpiAccessibleRelation function prototypes
+ * AccessibleRelation function prototypes
  *
  */
 
 int
-SpiAccessibleRelation_ref (SpiAccessibleRelation *obj);
+AccessibleRelation_ref (AccessibleRelation *obj);
 
 int
-SpiAccessibleRelation_unref (SpiAccessibleRelation *obj);
+AccessibleRelation_unref (AccessibleRelation *obj);
 
-RELATION_TYPE
-SpiAccessibleRelation_getRelationType (SpiAccessibleRelation *obj);
+AccessibleRelationType
+AccessibleRelation_getRelationType (AccessibleRelation *obj);
 
-SpiAccessible *
-SpiAccessibleRelation_getTarget (SpiAccessibleRelation *obj);
-
+Accessible *
+AccessibleRelation_getTarget (AccessibleRelation *obj);
 
 
 /*
  *
- * SpiAccessibleSelection function prototypes
+ * AccessibleSelection function prototypes
  *
  */
 
 int
-SpiAccessibleSelection_ref (SpiAccessibleSelection *obj);
+AccessibleSelection_ref (AccessibleSelection *obj);
 
 int
-SpiAccessibleSelection_unref (SpiAccessibleSelection *obj);
+AccessibleSelection_unref (AccessibleSelection *obj);
 
 long
-SpiAccessibleSelection_getNSelectedChildren (SpiAccessibleSelection *obj);
+AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj);
 
-SpiAccessible *
-SpiAccessibleSelection_getSelectedChild (SpiAccessibleSelection *obj,
+Accessible *
+AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long selectedChildIndex);
 
 boolean
-SpiAccessibleSelection_selectChild (SpiAccessibleSelection *obj,
+AccessibleSelection_selectChild (AccessibleSelection *obj,
                                  long childIndex);
 
 boolean
-SpiAccessibleSelection_deselectSelectedChild (SpiAccessibleSelection *obj,
+AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
                                            long selectedChildIndex);
 
 boolean
-SpiAccessibleSelection_isChildSelected (SpiAccessibleSelection *obj,
+AccessibleSelection_isChildSelected (AccessibleSelection *obj,
                                      long childIndex);
 
 void
-SpiAccessibleSelection_selectAll (SpiAccessibleSelection *obj);
+AccessibleSelection_selectAll (AccessibleSelection *obj);
 
 void
-SpiAccessibleSelection_clearSelection (SpiAccessibleSelection *obj);
+AccessibleSelection_clearSelection (AccessibleSelection *obj);
 
 
 /*
  *
- * SpiAccessibleStateSet function prototypes
+ * AccessibleStateSet function prototypes
  *
  */
 
 int
-SpiAccessibleStateSet_ref (SpiAccessibleStateSet *obj);
+AccessibleStateSet_ref (AccessibleStateSet *obj);
 
 int
-SpiAccessibleStateSet_unref (SpiAccessibleStateSet *obj);
+AccessibleStateSet_unref (AccessibleStateSet *obj);
 
 boolean
-SpiAccessibleStateSet_contains (SpiAccessibleStateSet *obj,
-                             SPI_ACCESSIBLE_STATE state);
+AccessibleStateSet_contains (AccessibleStateSet *obj,
+                             AccessibleState state);
 
 void
-SpiAccessibleStateSet_add (SpiAccessibleStateSet *obj,
-                        SPI_ACCESSIBLE_STATE state);
+AccessibleStateSet_add (AccessibleStateSet *obj,
+                        AccessibleState state);
 
 void
-SpiAccessibleStateSet_remove (SpiAccessibleStateSet *obj,
-                           SPI_ACCESSIBLE_STATE state);
+AccessibleStateSet_remove (AccessibleStateSet *obj,
+                           AccessibleState state);
 
 boolean
-SpiAccessibleStateSet_equals (SpiAccessibleStateSet *obj,
-                           SpiAccessibleStateSet *obj2);
+AccessibleStateSet_equals (AccessibleStateSet *obj,
+                           AccessibleStateSet *obj2);
 
 void
-SpiAccessibleStateSet_compare (SpiAccessibleStateSet *obj,
-                            SpiAccessibleStateSet *obj2,
-                            SpiAccessibleStateSet **differenceSet);
+AccessibleStateSet_compare (AccessibleStateSet *obj,
+                            AccessibleStateSet *obj2,
+                            AccessibleStateSet **differenceSet);
 
 boolean
-SpiAccessibleStateSet_isEmpty (SpiAccessibleStateSet *obj);
+AccessibleStateSet_isEmpty (AccessibleStateSet *obj);
 
 
 /*
  *
- * SpiAccessibleTable function prototypes
+ * AccessibleTable function prototypes
  *
  */
 
 int
-SpiAccessibleTable_ref (SpiAccessibleTable *obj);
+AccessibleTable_ref (AccessibleTable *obj);
 
 int
-SpiAccessibleTable_unref (SpiAccessibleTable *obj);
+AccessibleTable_unref (AccessibleTable *obj);
 
-SpiAccessible *
-SpiAccessibleTable_getCaption (SpiAccessibleTable *obj);
+Accessible *
+AccessibleTable_getCaption (AccessibleTable *obj);
 
-SpiAccessible *
-SpiAccessibleTable_getSummary (SpiAccessibleTable *obj);
-
-long
-SpiAccessibleTable_getNRows (SpiAccessibleTable *obj);
+Accessible *
+AccessibleTable_getSummary (AccessibleTable *obj);
 
 long
-SpiAccessibleTable_getNColumns (SpiAccessibleTable *obj);
+AccessibleTable_getNRows (AccessibleTable *obj);
 
-SpiAccessible *
-SpiAccessibleTable_refAt (SpiAccessibleTable *obj,
+long
+AccessibleTable_getNColumns (AccessibleTable *obj);
+
+Accessible *
+AccessibleTable_refAt (AccessibleTable *obj,
                                  long row,
                                  long column);
 
 long
-SpiAccessibleTable_getIndexAt (SpiAccessibleTable *obj,
+AccessibleTable_getIndexAt (AccessibleTable *obj,
                             long row,
                             long column);
 
 long
-SpiAccessibleTable_getRowAtIndex (SpiAccessibleTable *obj,
+AccessibleTable_getRowAtIndex (AccessibleTable *obj,
                                long index);
 
 long
-SpiAccessibleTable_getColumnAtIndex (SpiAccessibleTable *obj,
+AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
                                   long index);
 
 char *
-SpiAccessibleTable_getRowDescription (SpiAccessibleTable *obj,
+AccessibleTable_getRowDescription (AccessibleTable *obj,
 				   long row);
 
 char *
-SpiAccessibleTable_getColumnDescription (SpiAccessibleTable *obj,
+AccessibleTable_getColumnDescription (AccessibleTable *obj,
 				      long column);
 
 long
-SpiAccessibleTable_getRowExtentAt (SpiAccessibleTable *obj,
+AccessibleTable_getRowExtentAt (AccessibleTable *obj,
                                 long row,
                                 long column);
 
 long
-SpiAccessibleTable_getColumnExtentAt (SpiAccessibleTable *obj,
+AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
                                    long row,
                                    long column);
 
-SpiAccessible *
-SpiAccessibleTable_getRowHeader (SpiAccessibleTable *obj,
+Accessible *
+AccessibleTable_getRowHeader (AccessibleTable *obj,
 			      long row);
 
-SpiAccessible *
-SpiAccessibleTable_getColumnHeader (SpiAccessibleTable *obj,
+Accessible *
+AccessibleTable_getColumnHeader (AccessibleTable *obj,
 				 long column);
 
 long
-SpiAccessibleTable_getNSelectedRows (SpiAccessibleTable *obj);
+AccessibleTable_getNSelectedRows (AccessibleTable *obj);
 
 long
-SpiAccessibleTable_getSelectedRows (SpiAccessibleTable *obj,
+AccessibleTable_getSelectedRows (AccessibleTable *obj,
                                  long **selectedRows);
 
 long
-SpiAccessibleTable_getNSelectedColumns (SpiAccessibleTable *obj);
+AccessibleTable_getNSelectedColumns (AccessibleTable *obj);
 
 long
-SpiAccessibleTable_getSelectedColumns (SpiAccessibleTable *obj,
+AccessibleTable_getSelectedColumns (AccessibleTable *obj,
                                     long **selectedColumns);
 
 boolean
-SpiAccessibleTable_isRowSelected (SpiAccessibleTable *obj,
+AccessibleTable_isRowSelected (AccessibleTable *obj,
                                long row);
 
 boolean
-SpiAccessibleTable_isColumnSelected (SpiAccessibleTable *obj,
+AccessibleTable_isColumnSelected (AccessibleTable *obj,
                                   long column);
 
 boolean
-SpiAccessibleTable_isSelected (SpiAccessibleTable *obj,
+AccessibleTable_isSelected (AccessibleTable *obj,
                             long row,
                             long column);
 
 /*
  *
- * SpiAccessibleText function prototypes
+ * AccessibleText function prototypes
  *
  */
 
 int
-SpiAccessibleText_ref (SpiAccessibleText *obj);
+AccessibleText_ref (AccessibleText *obj);
 
 int
-SpiAccessibleText_unref (SpiAccessibleText *obj);
+AccessibleText_unref (AccessibleText *obj);
 
 long
-SpiAccessibleText_getCharacterCount (SpiAccessibleText *obj);
+AccessibleText_getCharacterCount (AccessibleText *obj);
 
 char *
-SpiAccessibleText_getText (SpiAccessibleText *obj,
+AccessibleText_getText (AccessibleText *obj,
                         long startOffset,
                         long endOffset);
 
 long
-SpiAccessibleText_getCaretOffset (SpiAccessibleText *obj);
+AccessibleText_getCaretOffset (AccessibleText *obj);
 
 char *
-SpiAccessibleText_getAttributes (SpiAccessibleText *obj,
+AccessibleText_getAttributes (AccessibleText *obj,
 				 long offset,
 				 long *startOffset,
 				 long *endOfset);
 
 
 boolean
-SpiAccessibleText_setCaretOffset (SpiAccessibleText *obj,
+AccessibleText_setCaretOffset (AccessibleText *obj,
                                long newOffset);
 
 char *
-SpiAccessibleText_getTextBeforeOffset (SpiAccessibleText *obj,
+AccessibleText_getTextBeforeOffset (AccessibleText *obj,
                                     long offset,
-                                    SPI_TEXT_BOUNDARY_TYPE type,
+                                    AccessibleTextBoundaryType type,
 				    long *startOffset, long *endOffset);
 
 char *
-SpiAccessibleText_getTextAtOffset (SpiAccessibleText *obj,
+AccessibleText_getTextAtOffset (AccessibleText *obj,
                                     long offset,
-                                    SPI_TEXT_BOUNDARY_TYPE type,
-				long *startOffset, long *endOffset);
+				    AccessibleTextBoundaryType type,
+				    long *startOffset, long *endOffset);
 
 char *
-SpiAccessibleText_getTextAfterOffset (SpiAccessibleText *obj,
-                                    long offset,
-                                    SPI_TEXT_BOUNDARY_TYPE type,
+AccessibleText_getTextAfterOffset (AccessibleText *obj,
+				   long offset,
+				   AccessibleTextBoundaryType type,
 				   long *startOffset, long *endOffset);
+
 unsigned long
-SpiAccessibleText_getCharacterAtOffset (SpiAccessibleText *obj,
+AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long offset);
 
 void
-SpiAccessibleText_getCharacterExtents (SpiAccessibleText *obj,
+AccessibleText_getCharacterExtents (AccessibleText *obj,
                                     long offset,
                                     long *x,
                                     long *y,
                                     long *width,
-                                    long *height, SpiAccessibleCoordType type);
+                                    long *height, AccessibleCoordType type);
 
 long
-SpiAccessibleText_getOffsetAtPoint (SpiAccessibleText *obj,
+AccessibleText_getOffsetAtPoint (AccessibleText *obj,
                                  long x,
-                                 long y, SpiAccessibleCoordType type);
+                                 long y, AccessibleCoordType type);
 
 long
-SpiAccessibleText_getNSelections (SpiAccessibleText *obj);
+AccessibleText_getNSelections (AccessibleText *obj);
 
 void
-SpiAccessibleText_getSelection (SpiAccessibleText *obj,
+AccessibleText_getSelection (AccessibleText *obj,
 			     long selectionNum, long *startOffset,
 			     long *endOffset);
 
 
 boolean
-SpiAccessibleText_addSelection (SpiAccessibleText *obj,
+AccessibleText_addSelection (AccessibleText *obj,
 			     long startOffset, long endOffset);
 
 boolean
-SpiAccessibleText_removeSelection (SpiAccessibleText *obj,
+AccessibleText_removeSelection (AccessibleText *obj,
 				long selectionNum);
 
 boolean
-SpiAccessibleText_setSelection (SpiAccessibleText *obj,
+AccessibleText_setSelection (AccessibleText *obj,
 			     long selectionNum,
 			     long startOffset,
 			     long endOffset);
 
 /*
  *
- * SpiAccessibleValue Function Prototypes:
+ * AccessibleValue Function Prototypes:
  *
  */
 
 float
-SpiAccessibleValue_getMinimumValue (SpiAccessibleValue *value);
+AccessibleValue_getMinimumValue (AccessibleValue *value);
 
 float
-SpiAccessibleValue_getCurrentValue (SpiAccessibleValue *value);
+AccessibleValue_getCurrentValue (AccessibleValue *value);
 
 float
-SpiAccessibleValue_getMaximumValue (SpiAccessibleValue *value);
+AccessibleValue_getMaximumValue (AccessibleValue *value);
 
 boolean
-SpiAccessibleValue_setCurrentValue (SpiAccessibleValue *value,
+AccessibleValue_setCurrentValue (AccessibleValue *value,
                                  float newValue);
 
 void

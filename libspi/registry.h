@@ -45,7 +45,7 @@ typedef struct {
   GList *window_listeners;
   GList *toolkit_listeners;
   GList *applications;
-  SpiDeviceEventController *device_event_controller;
+  struct SpiDeviceEventController *device_event_controller;
   SpiDesktop *desktop;
   gboolean (*kbd_event_hook) (gpointer source);
 } SpiRegistry;

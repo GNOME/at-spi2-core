@@ -30,6 +30,7 @@ extern "C" {
 #include <bonobo/bonobo-object.h>
 #include <libspi/Accessibility.h>
 #include "keystrokelistener.h"
+#include "registry.h"
 
 #define SPI_DEVICE_EVENT_CONTROLLER_TYPE        (spi_device_event_controller_get_type ())
 #define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventController))
@@ -40,6 +41,7 @@ extern "C" {
 
 typedef struct {
         BonoboObject parent;
+	struct SpiRegistry *registry;
         GList *key_listeners;
         GList *mouse_listeners;
 	GList *keymask_list;
@@ -51,7 +53,8 @@ typedef struct {
 	gboolean (*check_key_event) (SpiDeviceEventController *controller);
 } SpiDeviceEventControllerClass;
 
-GType               spi_device_event_controller_get_type   (void);
+GType                     spi_device_event_controller_get_type   (void);
+SpiDeviceEventController *spi_device_event_controller_new        (void *registry);
 
 #ifdef __cplusplus
 }

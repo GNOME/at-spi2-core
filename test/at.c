@@ -52,7 +52,6 @@ main(int argc, char **argv)
         CORBA_long n_apps;
         Accessibility_Desktop desktop;
         Accessibility_Application app;
-
         Accessibility_Registry registry;
         SpiListener *listener;
 

@@ -1,5 +1,5 @@
 int
-SpiAccessibleSelection_ref (SpiAccessibleSelection *obj)
+AccessibleSelection_ref (AccessibleSelection *obj)
 {
   Accessibility_Selection_ref (*obj, &ev);
   return 0;
@@ -8,7 +8,7 @@ SpiAccessibleSelection_ref (SpiAccessibleSelection *obj)
 
 
 int
-SpiAccessibleSelection_unref (SpiAccessibleSelection *obj)
+AccessibleSelection_unref (AccessibleSelection *obj)
 {
   Accessibility_Selection_unref (*obj, &ev);
   return 0;
@@ -17,7 +17,7 @@ SpiAccessibleSelection_unref (SpiAccessibleSelection *obj)
 
 
 long
-SpiAccessibleSelection_getNSelectedChildren (SpiAccessibleSelection *obj)
+AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj)
 {
   return (long)
     Accessibility_Selection__get_nSelectedChildren (*obj, &ev);
@@ -25,8 +25,8 @@ SpiAccessibleSelection_getNSelectedChildren (SpiAccessibleSelection *obj)
 
 
 
-SpiAccessible *
-SpiAccessibleSelection_getSelectedChild (SpiAccessibleSelection *obj,
+Accessible *
+AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long selectedChildIndex)
 {
   Accessibility_Accessible child = 
@@ -34,11 +34,11 @@ SpiAccessibleSelection_getSelectedChild (SpiAccessibleSelection *obj,
 					      (CORBA_long) selectedChildIndex, &ev);
   spi_warn_ev (&ev, "getSelectedChild");
 
-  return (SpiAccessible *) ((CORBA_Object_is_nil (child, &ev)) ? NULL : Obj_Add (child));
+  return (Accessible *) ((CORBA_Object_is_nil (child, &ev)) ? NULL : Obj_Add (child));
 }
 
 boolean
-SpiAccessibleSelection_selectChild (SpiAccessibleSelection *obj,
+AccessibleSelection_selectChild (AccessibleSelection *obj,
                                  long childIndex)
 {
   return (boolean)
@@ -49,7 +49,7 @@ SpiAccessibleSelection_selectChild (SpiAccessibleSelection *obj,
 
 
 boolean
-SpiAccessibleSelection_deselectSelectedChild (SpiAccessibleSelection *obj,
+AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
                                            long selectedChildIndex)
 {
   Accessibility_Selection_deselectSelectedChild (*obj,
@@ -59,7 +59,7 @@ SpiAccessibleSelection_deselectSelectedChild (SpiAccessibleSelection *obj,
 
 
 boolean
-SpiAccessibleSelection_isChildSelected (SpiAccessibleSelection *obj,
+AccessibleSelection_isChildSelected (AccessibleSelection *obj,
                                      long childIndex)
 {
   return (boolean)
@@ -70,7 +70,7 @@ SpiAccessibleSelection_isChildSelected (SpiAccessibleSelection *obj,
 
 
 void
-SpiAccessibleSelection_selectAll (SpiAccessibleSelection *obj)
+AccessibleSelection_selectAll (AccessibleSelection *obj)
 {
   Accessibility_Selection_selectAll (*obj, &ev);
 }
@@ -78,7 +78,7 @@ SpiAccessibleSelection_selectAll (SpiAccessibleSelection *obj)
 
 
 void
-SpiAccessibleSelection_clearSelection (SpiAccessibleSelection *obj)
+AccessibleSelection_clearSelection (AccessibleSelection *obj)
 {
   Accessibility_Selection_clearSelection (*obj, &ev);
 }

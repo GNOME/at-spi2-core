@@ -54,7 +54,6 @@ static GObjectClass *keystroke_listener_parent_class;
 static void
 keystroke_listener_object_finalize (GObject *object)
 {
-/*        KeystrokeListener *keystroke_listener = KEYSTROKE_SPI_LISTENER (object); */
 
 #ifdef SPI_DEBUG
         fprintf(stderr, "keystroke_listener_object_finalize called\n");
@@ -62,8 +61,8 @@ keystroke_listener_object_finalize (GObject *object)
         keystroke_listener_parent_class->finalize (object);
 }
 
-void   keystroke_listener_add_callback (KeystrokeListener *listener,
-					BooleanKeystrokeListenerCB callback)
+void   spi_keystroke_listener_add_callback (SpiKeystrokeListener *listener,
+					    BooleanKeystrokeListenerCB callback)
 {
   listener->callbacks = g_list_append (listener->callbacks, callback);
 #ifdef SPI_DEBUG
@@ -72,7 +71,7 @@ void   keystroke_listener_add_callback (KeystrokeListener *listener,
 #endif
 }
 
-void   keystroke_listener_remove_callback (KeystrokeListener *listener,
+void   keystroke_listener_remove_callback (SpiKeystrokeListener *listener,
 					   BooleanKeystrokeListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);
@@ -86,7 +85,7 @@ impl_key_event (PortableServer_Servant     servant,
 		const Accessibility_KeyStroke *key,
 		CORBA_Environment         *ev)
 {
-  KeystrokeListener *listener = KEYSTROKE_SPI_LISTENER (bonobo_object_from_servant (servant));
+  SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (bonobo_object_from_servant (servant));
   GList *callbacks = listener->callbacks;
   gboolean was_consumed = FALSE;
 #ifdef SPI_KEYEVENT_DEBUG
@@ -98,8 +97,8 @@ impl_key_event (PortableServer_Servant     servant,
   }
   else {
     fprintf(stderr, "%s%c",
-	    (key->modifiers & KEYMASK_ALT)?"Alt-":"",
-	    ((key->modifiers & KEYMASK_SHIFT)^(key->modifiers & KEYMASK_SHIFTLOCK))?
+	    (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
+	    ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
 	    (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID));
   }
 #endif
@@ -113,7 +112,7 @@ impl_key_event (PortableServer_Servant     servant,
 }
 
 static void
-keystroke_listener_class_init (KeystrokeListenerClass *klass)
+keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
@@ -125,25 +124,25 @@ keystroke_listener_class_init (KeystrokeListenerClass *klass)
 }
 
 static void
-keystroke_listener_init (KeystrokeListener *keystroke_listener)
+keystroke_listener_init (SpiKeystrokeListener *keystroke_listener)
 {
 	keystroke_listener->callbacks = NULL;
 }
 
 GType
-keystroke_listener_get_type (void)
+spi_keystroke_listener_get_type (void)
 {
         static GType type = 0;
 
         if (!type) {
                 static const GTypeInfo tinfo = {
-                        sizeof (KeystrokeListenerClass),
+                        sizeof (SpiKeystrokeListenerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
                         (GClassInitFunc) keystroke_listener_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
-                        sizeof (KeystrokeListener),
+                        sizeof (SpiKeystrokeListener),
                         0, /* n preallocs */
                         (GInstanceInitFunc) keystroke_listener_init,
                         NULL /* value table */
@@ -158,18 +157,18 @@ keystroke_listener_get_type (void)
                         PARENT_TYPE,
                         POA_Accessibility_KeystrokeListener__init,
                         NULL,
-                        G_STRUCT_OFFSET (KeystrokeListenerClass, epv),
+                        G_STRUCT_OFFSET (SpiKeystrokeListenerClass, epv),
                         &tinfo,
-                        "KeystrokeListener");
+                        "SpiKeystrokeListener");
         }
 
         return type;
 }
 
-KeystrokeListener *
-keystroke_listener_new (void)
+SpiKeystrokeListener *
+spi_keystroke_listener_new (void)
 {
-    KeystrokeListener *retval =
-               KEYSTROKE_SPI_LISTENER (g_object_new (keystroke_listener_get_type (), NULL));
+    SpiKeystrokeListener *retval =
+               SPI_KEYSTROKE_LISTENER (g_object_new (spi_keystroke_listener_get_type (), NULL));
     return retval;
 }

@@ -1,5 +1,5 @@
 int
-SpiAccessibleTable_ref (SpiAccessibleTable *obj)
+AccessibleTable_ref (AccessibleTable *obj)
 {
   Accessibility_Table_ref (*obj, &ev);
   return 0;
@@ -8,7 +8,7 @@ SpiAccessibleTable_ref (SpiAccessibleTable *obj)
 
 
 int
-SpiAccessibleTable_unref (SpiAccessibleTable *obj)
+AccessibleTable_unref (AccessibleTable *obj)
 {
   Accessibility_Table_unref (*obj, &ev);
   return 0;
@@ -16,26 +16,26 @@ SpiAccessibleTable_unref (SpiAccessibleTable *obj)
 
 
 
-SpiAccessible *
-SpiAccessibleTable_getCaption (SpiAccessibleTable *obj)
+Accessible *
+AccessibleTable_getCaption (AccessibleTable *obj)
 {
-  return (SpiAccessible *)
+  return (Accessible *)
     Accessibility_Table__get_caption (*obj, &ev);
 }
 
 
 
-SpiAccessible *
-SpiAccessibleTable_getSummary (SpiAccessibleTable *obj)
+Accessible *
+AccessibleTable_getSummary (AccessibleTable *obj)
 {
-  return (SpiAccessible *)
+  return (Accessible *)
     Accessibility_Table__get_summary (*obj, &ev);
 }
 
 
 
 long
-SpiAccessibleTable_getNRows (SpiAccessibleTable *obj)
+AccessibleTable_getNRows (AccessibleTable *obj)
 {
   return (long)
     Accessibility_Table__get_nRows (*obj, &ev);
@@ -44,26 +44,26 @@ SpiAccessibleTable_getNRows (SpiAccessibleTable *obj)
 
 
 long
-SpiAccessibleTable_getNColumns (SpiAccessibleTable *obj)
+AccessibleTable_getNColumns (AccessibleTable *obj)
 {
   return (long)
     Accessibility_Table__get_nColumns (*obj, &ev);
 }
 
 
-SpiAccessible *
-SpiAccessibleTable_getAccessibleAt (SpiAccessibleTable *obj,
+Accessible *
+AccessibleTable_getAccessibleAt (AccessibleTable *obj,
                                  long row,
                                  long column)
 {
-  return (SpiAccessible *)
+  return (Accessible *)
     Accessibility_Table_getAccessibleAt (*obj,
 			       (CORBA_long) row, (CORBA_long) column, &ev);
 }
 
 
 long
-SpiAccessibleTable_getIndexAt (SpiAccessibleTable *obj,
+AccessibleTable_getIndexAt (AccessibleTable *obj,
                             long row,
                             long column)
 {
@@ -75,7 +75,7 @@ SpiAccessibleTable_getIndexAt (SpiAccessibleTable *obj,
 
 
 long
-SpiAccessibleTable_getRowAtIndex (SpiAccessibleTable *obj,
+AccessibleTable_getRowAtIndex (AccessibleTable *obj,
                                long index)
 {
   return (long)
@@ -86,7 +86,7 @@ SpiAccessibleTable_getRowAtIndex (SpiAccessibleTable *obj,
 
 
 long
-SpiAccessibleTable_getColumnAtIndex (SpiAccessibleTable *obj,
+AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
                                   long index)
 {
   return (long)
@@ -97,7 +97,7 @@ SpiAccessibleTable_getColumnAtIndex (SpiAccessibleTable *obj,
 
 
 char *
-SpiAccessibleTable_getRowDescription (SpiAccessibleTable *obj,
+AccessibleTable_getRowDescription (AccessibleTable *obj,
 				   long row)
 {
   return (char *)
@@ -108,7 +108,7 @@ SpiAccessibleTable_getRowDescription (SpiAccessibleTable *obj,
 
 
 char *
-SpiAccessibleTable_getColumnDescription (SpiAccessibleTable *obj,
+AccessibleTable_getColumnDescription (AccessibleTable *obj,
 				      long column)
 {
   return (char *)
@@ -119,7 +119,7 @@ SpiAccessibleTable_getColumnDescription (SpiAccessibleTable *obj,
 
 
 long
-SpiAccessibleTable_getRowExtentAt (SpiAccessibleTable *obj,
+AccessibleTable_getRowExtentAt (AccessibleTable *obj,
                                 long row,
                                 long column)
 {
@@ -131,7 +131,7 @@ SpiAccessibleTable_getRowExtentAt (SpiAccessibleTable *obj,
 
 
 long
-SpiAccessibleTable_getColumnExtentAt (SpiAccessibleTable *obj,
+AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
                                    long row,
                                    long column)
 {
@@ -142,22 +142,22 @@ SpiAccessibleTable_getColumnExtentAt (SpiAccessibleTable *obj,
 
 
 
-SpiAccessible *
-SpiAccessibleTable_getRowHeader (SpiAccessibleTable *obj,
+Accessible *
+AccessibleTable_getRowHeader (AccessibleTable *obj,
 			      long row)
 {
-  return (SpiAccessible *)
+  return (Accessible *)
     Accessibility_Table_getRowHeader (*obj,
 				      (CORBA_long) row, &ev);
 }
 
 
 
-SpiAccessible *
-SpiAccessibleTable_getColumnHeader (SpiAccessibleTable *obj,
+Accessible *
+AccessibleTable_getColumnHeader (AccessibleTable *obj,
 				 long column)
 {
-  return (SpiAccessible *)
+  return (Accessible *)
     Accessibility_Table_getColumnHeader (*obj,
 				      (CORBA_long) column, &ev);
 }
@@ -165,7 +165,7 @@ SpiAccessibleTable_getColumnHeader (SpiAccessibleTable *obj,
 
 
 long
-SpiAccessibleTable_getNSelectedRows (SpiAccessibleTable *obj)
+AccessibleTable_getNSelectedRows (AccessibleTable *obj)
 {
   return (long)
     Accessibility_Table__get_nSelectedRows (*obj, &ev);
@@ -174,7 +174,7 @@ SpiAccessibleTable_getNSelectedRows (SpiAccessibleTable *obj)
 
 
 long
-SpiAccessibleTable_getSelectedRows (SpiAccessibleTable *obj,
+AccessibleTable_getSelectedRows (AccessibleTable *obj,
                                  long **selectedRows)
 {
   Accessibility_LongSeq *rows = Accessibility_Table_getSelectedRows (*obj, &ev);
@@ -197,7 +197,7 @@ SpiAccessibleTable_getSelectedRows (SpiAccessibleTable *obj,
 
 
 long
-SpiAccessibleTable_getNSelectedColumns (SpiAccessibleTable *obj)
+AccessibleTable_getNSelectedColumns (AccessibleTable *obj)
 {
   return (long)
     Accessibility_Table__get_nSelectedColumns (*obj, &ev);
@@ -205,7 +205,7 @@ SpiAccessibleTable_getNSelectedColumns (SpiAccessibleTable *obj)
 
 
 long
-SpiAccessibleTable_getSelectedColumns (SpiAccessibleTable *obj,
+AccessibleTable_getSelectedColumns (AccessibleTable *obj,
                                     long **selectedColumns)
 {
   Accessibility_LongSeq *columns = Accessibility_Table_getSelectedColumns (*obj, &ev);
@@ -227,7 +227,7 @@ SpiAccessibleTable_getSelectedColumns (SpiAccessibleTable *obj,
 
 
 boolean
-SpiAccessibleTable_isRowSelected (SpiAccessibleTable *obj,
+AccessibleTable_isRowSelected (AccessibleTable *obj,
                                long row)
 {
   return (boolean)
@@ -238,7 +238,7 @@ SpiAccessibleTable_isRowSelected (SpiAccessibleTable *obj,
 
 
 boolean
-SpiAccessibleTable_isColumnSelected (SpiAccessibleTable *obj,
+AccessibleTable_isColumnSelected (AccessibleTable *obj,
                                   long column)
 {
   return (boolean)
@@ -249,7 +249,7 @@ SpiAccessibleTable_isColumnSelected (SpiAccessibleTable *obj,
 
 
 boolean
-SpiAccessibleTable_isSelected (SpiAccessibleTable *obj,
+AccessibleTable_isSelected (AccessibleTable *obj,
                             long row,
                             long column)
 {

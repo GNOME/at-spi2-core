@@ -102,7 +102,7 @@ SPI_eventIsReady ()
  * Returns: the next #AccessibleEvent in the SPI event queue.
  *
  **/
-SpiAccessibleEvent *
+AccessibleEvent *
 SPI_nextEvent (boolean waitForEvent)
 {
   return NULL;
@@ -111,7 +111,7 @@ SPI_nextEvent (boolean waitForEvent)
 /**
  * SPI_exit:
  *
- * Disconnects from the Accessibility SpiRegistry and releases resources.
+ * Disconnects from the Accessibility Registry and releases resources.
  * Not Yet Implemented.
  *
  **/

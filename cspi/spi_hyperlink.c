@@ -1,5 +1,5 @@
 int
-SpiAccessibleHyperlink_ref (SpiAccessibleHyperlink *obj)
+AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 {
   Accessibility_Hyperlink_ref (*obj, &ev);
   return 0;
@@ -8,7 +8,7 @@ SpiAccessibleHyperlink_ref (SpiAccessibleHyperlink *obj)
 
 
 int
-SpiAccessibleHyperlink_unref (SpiAccessibleHyperlink *obj)
+AccessibleHyperlink_unref (AccessibleHyperlink *obj)
 {
   Accessibility_Hyperlink_unref (*obj, &ev);
   return 0;
@@ -17,7 +17,7 @@ SpiAccessibleHyperlink_unref (SpiAccessibleHyperlink *obj)
 
 
 long
-SpiAccessibleHyperlink_getNAnchors (SpiAccessibleHyperlink *obj)
+AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
 {
   return (long)
     Accessibility_Hyperlink__get_nAnchors (*obj, &ev);
@@ -26,7 +26,7 @@ SpiAccessibleHyperlink_getNAnchors (SpiAccessibleHyperlink *obj)
 
 
 char *
-SpiAccessibleHyperlink_getURI (SpiAccessibleHyperlink *obj,
+AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
                             long i)
 {
   return (char *)
@@ -36,19 +36,19 @@ SpiAccessibleHyperlink_getURI (SpiAccessibleHyperlink *obj,
 
 
 
-SpiAccessible
-SpiAccessibleHyperlink_getObject (SpiAccessibleHyperlink *obj,
+Accessible*
+AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
                                long i)
 {
-  return (SpiAccessible)
+  return Obj_Add (
     Accessibility_Hyperlink_getObject (*obj,
-				       (CORBA_long) i, &ev);
+				       (CORBA_long) i, &ev));
 }
 
 
 
 void
-SpiAccessibleHyperlink_getIndexRange (SpiAccessibleHyperlink *obj,
+AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long *startIndex,
                                    long *endIndex)
 {
@@ -61,7 +61,7 @@ SpiAccessibleHyperlink_getIndexRange (SpiAccessibleHyperlink *obj,
 
 
 boolean
-SpiAccessibleHyperlink_isValid (SpiAccessibleHyperlink *obj)
+AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
 {
   return (boolean)
     Accessibility_Hyperlink_isValid (*obj, &ev);

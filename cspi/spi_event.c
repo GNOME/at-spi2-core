@@ -1,6 +1,27 @@
+/*
+ * AT-SPI - Assistive Technology Service Provider Interface
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2001 Sun Microsystems Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
 
 /**
- * createEventListener:
+ * createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.
  *
  * Create a new #AccessibleEventListener with a specified callback function.
@@ -8,10 +29,10 @@
  * Returns: a pointer to a newly-created #AccessibleEventListener.
  *
  **/
-SpiAccessibleEventListener *
-createEventListener (SpiAccessibleEventListenerCB callback)
+AccessibleEventListener *
+createAccessibleEventListener (AccessibleEventListenerCB callback)
 {
-  SpiAccessibleEventListener *listener = spi_accessible_event_listener_new ();
+  AccessibleEventListener *listener = spi_accessible_event_listener_new ();
   if (callback)
     {
       spi_accessible_event_listener_add_callback (listener, callback);
@@ -20,92 +41,92 @@ createEventListener (SpiAccessibleEventListenerCB callback)
 }
 
 /**
- * EventListener_addCallback:
+ * AccessibleEventListener_addCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.
  *
- * Add an in-process callback function to an existing SpiAccessibleEventListener.
+ * Add an in-process callback function to an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-EventListener_addCallback (SpiAccessibleEventListener *listener,
-                           SpiAccessibleEventListenerCB callback)
+AccessibleEventListener_addCallback (AccessibleEventListener *listener,
+				     AccessibleEventListenerCB callback)
 {
   spi_accessible_event_listener_add_callback (listener, callback);
   return TRUE;
 }
 
 /**
- * EventListener_removeCallback:
+ * AccessibleEventListener_removeCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.
  *
- * Remove an in-process callback function from an existing SpiAccessibleEventListener.
+ * Remove an in-process callback function from an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-EventListener_removeCallback (SpiAccessibleEventListener *listener,
-                           SpiAccessibleEventListenerCB callback)
+AccessibleEventListener_removeCallback (AccessibleEventListener *listener,
+					AccessibleEventListenerCB callback)
 {
   spi_accessible_event_listener_remove_callback (listener, callback);
   return TRUE;
 }
 
 /**
- * createKeystrokeListener:
- * @callback : an #KeystrokeListenerCB callback function, or NULL.
+ * createAccessibleKeystrokeListener:
+ * @callback : an #AccessibleKeystrokeListenerCB callback function, or NULL.
  *
- * Create a new #KeystrokeListener with a specified callback function.
+ * Create a new #AccessibleKeystrokeListener with a specified callback function.
  *
- * Returns: a pointer to a newly-created #KeystrokeListener.
+ * Returns: a pointer to a newly-created #AccessibleKeystrokeListener.
  *
  **/
-KeystrokeListener *
-createKeystrokeListener (KeystrokeListenerCB callback)
+AccessibleKeystrokeListener *
+createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback)
 {
-  KeystrokeListener *listener = keystroke_listener_new ();
+  SpiKeystrokeListener *listener = spi_keystroke_listener_new ();
   if (callback)
     {
-      keystroke_listener_add_callback (listener, callback);
+      spi_keystroke_listener_add_callback (listener, callback);
     }
-  return listener;
+  return (AccessibleKeystrokeListener *)listener;
 }
 
 /**
- * KeystrokeListener_addCallback:
- * @listener: the #KeystrokeListener instance to modify.
- * @callback: an #KeystrokeListenerCB function pointer.
+ * AccessibleKeystrokeListener_addCallback:
+ * @listener: the #AccessibleKeystrokeListener instance to modify.
+ * @callback: an #AccessibleKeystrokeListenerCB function pointer.
  *
- * Add an in-process callback function to an existing #KeystrokeListener.
+ * Add an in-process callback function to an existing #AccessibleKeystrokeListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-KeystrokeListener_addCallback (KeystrokeListener *listener,
-                           KeystrokeListenerCB callback)
+AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
+					 AccessibleKeystrokeListenerCB callback)
 {
-  keystroke_listener_add_callback (listener, callback);
+  spi_keystroke_listener_add_callback (listener, callback);
   return TRUE;
 }
 
 /**
- * KeystrokeListener_removeCallback:
- * @listener: the #KeystrokeListener instance to modify.
- * @callback: an #KeystrokeListenerCB function pointer.
+ * AccessibleKeystrokeListener_removeCallback:
+ * @listener: the #AccessibleKeystrokeListener instance to modify.
+ * @callback: an #AccessibleKeystrokeListenerCB function pointer.
  *
- * Remove an in-process callback function from an existing KeystrokeListener.
+ * Remove an in-process callback function from an existing #AccessibleKeystrokeListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-KeystrokeListener_removeCallback (KeystrokeListener *listener,
-				  KeystrokeListenerCB callback)
+AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
+					    AccessibleKeystrokeListenerCB callback)
 {
   keystroke_listener_remove_callback (listener, callback);
   return TRUE;

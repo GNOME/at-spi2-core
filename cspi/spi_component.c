@@ -1,11 +1,11 @@
 /*
  *
- * SpiAccessibleComponent function implementations
+ * AccessibleComponent function implementations
  *
  */
 
 /**
- * SpiAccessibleComponent_ref:
+ * AccessibleComponent_ref:
  * @obj: a pointer to an object implementing #AccessibleComponent on which to operate.
  *
  * Increment the reference count for an #AccessibleComponent.
@@ -14,14 +14,14 @@
  *
  **/
 int
-SpiAccessibleComponent_ref (SpiAccessibleComponent *obj)
+AccessibleComponent_ref (AccessibleComponent *obj)
 {
   Accessibility_Component_ref (*obj, &ev);
   return 0;
 }
 
 /**
- * SpiAccessibleComponent_unref:
+ * AccessibleComponent_unref:
  * @obj: a pointer to the object implementing #AccessibleComponent on which to operate.
  *
  * Decrement the reference count for an #AccessibleComponent.
@@ -30,28 +30,28 @@ SpiAccessibleComponent_ref (SpiAccessibleComponent *obj)
  *
  **/
 int
-SpiAccessibleComponent_unref (SpiAccessibleComponent *obj)
+AccessibleComponent_unref (AccessibleComponent *obj)
 {
   Accessibility_Component_unref (*obj, &ev);
   return 0;
 }
 
 /**
- * SpiAccessibleComponent_contains:
+ * AccessibleComponent_contains:
  * @obj: a pointer to the #AccessibleComponent to query.
  * @x: a #long specifying the x coordinate in question.
  * @y: a #long specifying the y coordinate in question.
  * @ctype: the desired coordinate system of the point (@x, @y)
- *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
+ *         (e.g. SPI_COORD_TYPE_WINDOW, SPI_COORD_TYPE_SCREEN).
  *
  * Query whether a given #AccessibleComponent contains a particular point.
  *
  **/
 boolean
-SpiAccessibleComponent_contains (SpiAccessibleComponent *obj,
+AccessibleComponent_contains (AccessibleComponent *obj,
                               long x,
                               long y,
-                              SpiAccessibleCoordType ctype)
+                              AccessibleCoordType ctype)
 {
   return Accessibility_Component_contains (*obj,
                                            (CORBA_long) x,
@@ -61,25 +61,25 @@ SpiAccessibleComponent_contains (SpiAccessibleComponent *obj,
 }
 
 /**
- * SpiAccessibleComponent_getAccessibleAtPoint:
+ * AccessibleComponent_getAccessibleAtPoint:
  * @obj: a pointer to the #AccessibleComponent to query.
  * @x: a #long specifying the x coordinate of the point in question.
  * @y: a #long specifying the y coordinate of the point in question.
  * @ctype: the coordinate system of the point (@x, @y)
- *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
+ *         (e.g. SPI_COORD_TYPE_WINDOW, SPI_COORD_TYPE_SCREEN).
  *
  * Get the accessible child at a given coordinate within an #AccessibleComponent.
  *
  * Returns: a pointer to an #Accessible child of the specified component which
  *          contains the point (@x, @y), or NULL of no child contains the point.
  **/
-SpiAccessible *
-SpiAccessibleComponent_getAccessibleAtPoint (SpiAccessibleComponent *obj,
+Accessible *
+AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
                                           long x,
                                           long y,
-                                          SpiAccessibleCoordType ctype)
+                                          AccessibleCoordType ctype)
 {
-  SpiAccessible child;
+  Accessible child;
   child = Accessibility_Component_getAccessibleAtPoint(*obj,
                                                        (CORBA_long) x,
                                                        (CORBA_long) y,
@@ -89,25 +89,25 @@ SpiAccessibleComponent_getAccessibleAtPoint (SpiAccessibleComponent *obj,
 }
 
 /**
- * SpiAccessibleComponent_getExtents:
+ * AccessibleComponent_getExtents:
  * @obj: a pointer to the #AccessibleComponent to query.
  * @x: a pointer to a #long into which the minimum x coordinate will be returned.
  * @y: a pointer to a #long into which the minimum y coordinate will be returned.
  * @width: a pointer to a #long into which the x extents (width) will be returned.
  * @height: a pointer to a #long into which the y extents (height) will be returned.
  * @ctype: the desired coordinate system into which to return the results,
- *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
+ *         (e.g. SPI_COORD_TYPE_WINDOW, SPI_COORD_TYPE_SCREEN).
  *
  * Get the bounding box of the specified #AccessibleComponent.
  *
  **/
 void
-SpiAccessibleComponent_getExtents (SpiAccessibleComponent *obj,
+AccessibleComponent_getExtents (AccessibleComponent *obj,
                                 long *x,
                                 long *y,
                                 long *width,
                                 long *height,
-                                SpiAccessibleCoordType ctype)
+                                AccessibleCoordType ctype)
 {
   CORBA_long cx, cy, cw, ch;	
   Accessibility_Component_getExtents (*obj,
@@ -117,7 +117,7 @@ SpiAccessibleComponent_getExtents (SpiAccessibleComponent *obj,
                                       &ch,
 				      ctype,
 				      &ev);
-  spi_warn_ev (&ev, "SpiAccessibleComponent_getExtents");
+  spi_warn_ev (&ev, "AccessibleComponent_getExtents");
   *x = (long) cx;
   *y = (long) cy;
   *width = (long) cw;
@@ -125,21 +125,21 @@ SpiAccessibleComponent_getExtents (SpiAccessibleComponent *obj,
 }
 
 /**
- * SpiAccessibleComponent_getPosition:
+ * AccessibleComponent_getPosition:
  * @obj: a pointer to the #AccessibleComponent to query.
  * @x: a pointer to a #long into which the minimum x coordinate will be returned.
  * @y: a pointer to a #long into which the minimum y coordinate will be returned.
  * @ctype: the desired coordinate system into which to return the results,
- *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
+ *         (e.g. SPI_COORD_TYPE_WINDOW, SPI_COORD_TYPE_SCREEN).
  *
  * Get the minimum x and y coordinates of the specified #AccessibleComponent.
  *
  **/
 void
-SpiAccessibleComponent_getPosition (SpiAccessibleComponent *obj,
+AccessibleComponent_getPosition (AccessibleComponent *obj,
                                  long *x,
                                  long *y,
-                                 SpiAccessibleCoordType ctype)
+                                 AccessibleCoordType ctype)
 {
   Accessibility_Component_getPosition (*obj,
                                        (CORBA_long *) x,
@@ -149,7 +149,7 @@ SpiAccessibleComponent_getPosition (SpiAccessibleComponent *obj,
 }
 
 /**
- * SpiAccessibleComponent_getSize:
+ * AccessibleComponent_getSize:
  * @obj: a pointer to the #AccessibleComponent to query.
  * @width: a pointer to a #long into which the x extents (width) will be returned.
  * @height: a pointer to a #long into which the y extents (height) will be returned.
@@ -158,7 +158,7 @@ SpiAccessibleComponent_getPosition (SpiAccessibleComponent *obj,
  *
  **/
 void
-SpiAccessibleComponent_getSize (SpiAccessibleComponent *obj,
+AccessibleComponent_getSize (AccessibleComponent *obj,
                              long *width,
                              long *height)
 {
@@ -170,7 +170,7 @@ SpiAccessibleComponent_getSize (SpiAccessibleComponent *obj,
 
 /* Not Yet Implemented */
 void
-SpiAccessibleComponent_grabFocus (SpiAccessibleComponent *obj)
+AccessibleComponent_grabFocus (AccessibleComponent *obj)
 {
   ;
 }

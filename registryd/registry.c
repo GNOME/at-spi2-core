@@ -314,7 +314,7 @@ impl_accessibility_registry_register_global_event_listener (
   fprintf(stderr, "registering for events of type %s\n", event_name);
 
   /* parse, check major event type and add listener accordingly */
-  parse_event_type (&etype, event_name);
+  parse_event_type (&etype, (char*) event_name);
   ls->event_type_hash = etype.hash;
   ls->event_type_cat = etype.type_cat;
 
@@ -393,7 +393,7 @@ impl_accessibility_registry_deregister_global_event_listener (
   GList *list;
   GList **listeners;
 
-  parse_event_type (&etype, event_name);
+  parse_event_type (&etype, (char *) event_name);
   switch (etype.type_cat)
     {
     case (ETYPE_OBJECT) :
@@ -490,7 +490,8 @@ impl_accessibility_registry_get_device_event_controller (PortableServer_Servant 
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
   if (!registry->device_event_controller)
-    registry->device_event_controller = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
+    registry->device_event_controller = spi_device_event_controller_new (registry);
+
   return CORBA_Object_duplicate (BONOBO_OBJREF (registry->device_event_controller), ev);
 }
 

@@ -1,5 +1,5 @@
 int
-SpiAccessibleText_ref (SpiAccessibleText *obj)
+AccessibleText_ref (AccessibleText *obj)
 {
   Accessibility_Text_ref (*obj, &ev);
   return 0;
@@ -8,7 +8,7 @@ SpiAccessibleText_ref (SpiAccessibleText *obj)
 
 
 int
-SpiAccessibleText_unref (SpiAccessibleText *obj)
+AccessibleText_unref (AccessibleText *obj)
 {
   Accessibility_Text_unref (*obj, &ev);
   return 0;
@@ -17,7 +17,7 @@ SpiAccessibleText_unref (SpiAccessibleText *obj)
 
 
 long
-SpiAccessibleText_getCharacterCount (SpiAccessibleText *obj)
+AccessibleText_getCharacterCount (AccessibleText *obj)
 {
   long retval;
 
@@ -33,7 +33,7 @@ SpiAccessibleText_getCharacterCount (SpiAccessibleText *obj)
 
 
 char *
-SpiAccessibleText_getText (SpiAccessibleText *obj,
+AccessibleText_getText (AccessibleText *obj,
                         long startOffset,
                         long endOffset)
 {
@@ -46,7 +46,7 @@ SpiAccessibleText_getText (SpiAccessibleText *obj,
 
 
 long
-SpiAccessibleText_getCaretOffset (SpiAccessibleText *obj)
+AccessibleText_getCaretOffset (AccessibleText *obj)
 {
   return (long)
     Accessibility_Text__get_caretOffset (*obj, &ev);
@@ -55,10 +55,10 @@ SpiAccessibleText_getCaretOffset (SpiAccessibleText *obj)
 
 
 char *
-SpiAccessibleText_getAttributes (SpiAccessibleText *obj,
-				 long offset,
-				 long *startOffset,
-				 long *endOffset)
+AccessibleText_getAttributes (AccessibleText *obj,
+			      long offset,
+			      long *startOffset,
+			      long *endOffset)
 {
   CORBA_long retStartOffset, retEndOffset;
   char *retval;	
@@ -76,7 +76,7 @@ SpiAccessibleText_getAttributes (SpiAccessibleText *obj,
 
 
 boolean
-SpiAccessibleText_setCaretOffset (SpiAccessibleText *obj,
+AccessibleText_setCaretOffset (AccessibleText *obj,
                                long newOffset)
 {
   return (boolean)
@@ -87,9 +87,9 @@ SpiAccessibleText_setCaretOffset (SpiAccessibleText *obj,
 
 
 char *
-SpiAccessibleText_getTextBeforeOffset (SpiAccessibleText *obj,
+AccessibleText_getTextBeforeOffset (AccessibleText *obj,
                                     long offset,
-                                    SPI_TEXT_BOUNDARY_TYPE type,
+                                    AccessibleTextBoundaryType type,
 				    long *startOffset, long *endOffset)
 {
   char *retval;
@@ -107,9 +107,9 @@ SpiAccessibleText_getTextBeforeOffset (SpiAccessibleText *obj,
 
 
 char *
-SpiAccessibleText_getTextAtOffset (SpiAccessibleText *obj,
+AccessibleText_getTextAtOffset (AccessibleText *obj,
 				long offset,
-				SPI_TEXT_BOUNDARY_TYPE type,
+				AccessibleTextBoundaryType type,
 				long *startOffset, long *endOffset)
 {
   CORBA_long corbaStartOffset;
@@ -132,10 +132,10 @@ SpiAccessibleText_getTextAtOffset (SpiAccessibleText *obj,
 
 
 char *
-SpiAccessibleText_getTextAfterOffset (SpiAccessibleText *obj,
-                                    long offset,
-                                    SPI_TEXT_BOUNDARY_TYPE type,
-				    long *startOffset, long *endOffset)
+AccessibleText_getTextAfterOffset (AccessibleText *obj,
+				   long offset,
+				   AccessibleTextBoundaryType type,
+				   long *startOffset, long *endOffset)
 {
   char *retval;
   CORBA_long retStartOffset, retEndOffset;
@@ -152,7 +152,7 @@ SpiAccessibleText_getTextAfterOffset (SpiAccessibleText *obj,
 
 
 unsigned long
-SpiAccessibleText_getCharacterAtOffset (SpiAccessibleText *obj,
+AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long offset)
 {
   return (unsigned long)
@@ -163,13 +163,13 @@ SpiAccessibleText_getCharacterAtOffset (SpiAccessibleText *obj,
 
 
 void
-SpiAccessibleText_getCharacterExtents (SpiAccessibleText *obj,
+AccessibleText_getCharacterExtents (AccessibleText *obj,
                                     long offset,
                                     long *x,
                                     long *y,
                                     long *width,
                                     long *height,
-				    SpiAccessibleCoordType type)
+				    AccessibleCoordType type)
 {
   CORBA_long retX, retY, retWidth, retHeight;
   Accessibility_Text_getCharacterExtents (*obj,
@@ -188,10 +188,10 @@ SpiAccessibleText_getCharacterExtents (SpiAccessibleText *obj,
 
 
 long
-SpiAccessibleText_getOffsetAtPoint (SpiAccessibleText *obj,
+AccessibleText_getOffsetAtPoint (AccessibleText *obj,
                                  long x,
                                  long y,
-				 SpiAccessibleCoordType type)
+				 AccessibleCoordType type)
 {
   return (long)
     Accessibility_Text_getOffsetAtPoint (*obj,
@@ -199,9 +199,8 @@ SpiAccessibleText_getOffsetAtPoint (SpiAccessibleText *obj,
 }
 
 
-
 long
-SpiAccessibleText_getNSelections (SpiAccessibleText *obj)
+AccessibleText_getNSelections (AccessibleText *obj)
 {
   return (long)
     Accessibility_Text_getNSelections (*obj, &ev);
@@ -210,7 +209,7 @@ SpiAccessibleText_getNSelections (SpiAccessibleText *obj)
 
 
 void
-SpiAccessibleText_getSelection (SpiAccessibleText *obj,
+AccessibleText_getSelection (AccessibleText *obj,
 			     long selectionNum, long *startOffset,
 			     long *endOffset)
 {
@@ -226,7 +225,7 @@ SpiAccessibleText_getSelection (SpiAccessibleText *obj,
 
 
 boolean
-SpiAccessibleText_addSelection (SpiAccessibleText *obj,
+AccessibleText_addSelection (AccessibleText *obj,
 			     long startOffset, long endOffset)
 {
   return (boolean)
@@ -236,9 +235,8 @@ SpiAccessibleText_addSelection (SpiAccessibleText *obj,
 }
 
 
-
 boolean
-SpiAccessibleText_removeSelection (SpiAccessibleText *obj,
+AccessibleText_removeSelection (AccessibleText *obj,
 				long selectionNum)
 {
   return (boolean)
@@ -249,7 +247,7 @@ SpiAccessibleText_removeSelection (SpiAccessibleText *obj,
 
 
 boolean
-SpiAccessibleText_setSelection (SpiAccessibleText *obj,
+AccessibleText_setSelection (AccessibleText *obj,
 			     long selectionNum,
 			     long startOffset,
 			     long endOffset)

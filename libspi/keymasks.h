@@ -7,16 +7,16 @@ extern "C" {
 
 #include <X11/Xlib.h>
 
-typedef unsigned long KeyMaskType;
+typedef unsigned long SpiKeyMaskType;
 
-#define KEYMASK_ALT       Mod1Mask
-#define KEYMASK_MOD1      Mod1Mask
-#define KEYMASK_MOD2      Mod2Mask
-#define KEYMASK_MOD3      Mod3Mask
-#define KEYMASK_CONTROL   ControlMask
-#define KEYMASK_SHIFT     ShiftMask
-#define KEYMASK_SHIFTLOCK LockMask
-#define KEYMASK_UNMODIFIED 0
+#define SPI_KEYMASK_ALT       Mod1Mask
+#define SPI_KEYMASK_MOD1      Mod1Mask
+#define SPI_KEYMASK_MOD2      Mod2Mask
+#define SPI_KEYMASK_MOD3      Mod3Mask
+#define SPI_KEYMASK_CONTROL   ControlMask
+#define SPI_KEYMASK_SHIFT     ShiftMask
+#define SPI_KEYMASK_SHIFTLOCK LockMask
+#define SPI_KEYMASK_UNMODIFIED 0
 
 #ifdef __cplusplus
 }

@@ -35,8 +35,8 @@
 #define MAX_ROWS 5
 #define MAX_COLUMNS 14
 
-static KeystrokeListener *key_listener;
-static KeystrokeListener *switch_listener;
+static AccessibleKeystrokeListener *key_listener;
+static AccessibleKeystrokeListener *switch_listener;
 
 static boolean shift_latched = False;
 static boolean caps_lock = False;
@@ -94,7 +94,7 @@ do_shift (GtkButton *button)
   if (!shift_keycode) shift_keycode = XKeysymToKeycode(GDK_DISPLAY(), (KeySym) 0xFFE1);
   /* Note: in a real onscreen keyboard shift keycode should not be hard-coded! */
   shift_latched = !shift_latched;
-  generateKeyEvent (shift_keycode, shift_latched ? KEY_PRESS : KEY_RELEASE);
+  generateKeyEvent (shift_keycode, shift_latched ? SPI_KEY_PRESS : SPI_KEY_RELEASE);
   if (buttons) label_buttons (caps_lock || shift_latched);
 }
 
@@ -102,8 +102,8 @@ static void
 keysynth_exit()
 {
   if (shift_latched) do_shift (NULL);
-  deregisterKeystrokeListener (key_listener, KEYMASK_ALT );
-  deregisterKeystrokeListener (switch_listener, KEYMASK_UNMODIFIED );
+  deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT );
+  deregisterAccessibleKeystrokeListener (switch_listener, SPI_KEYMASK_UNMODIFIED );
   SPI_exit ();
 }
 
@@ -139,7 +139,7 @@ button_exit(GtkButton *notused, void *alsonotused)
 static boolean
 is_command_key (void *p)
 {
-  KeyStroke *key = (KeyStroke *)p;
+  AccessibleKeyStroke *key = (AccessibleKeyStroke *)p;
   switch (key->keyID)
     {
     case 'Q':
@@ -166,7 +166,7 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
           caps_lock = !caps_lock;	     
           label_buttons (caps_lock || shift_latched);
         }
-      generateKeyEvent ((long) *keycode, KEY_PRESSRELEASE);
+      generateKeyEvent ((long) *keycode, SPI_KEY_PRESSRELEASE);
     }      
 }
 
@@ -252,7 +252,7 @@ create_vkbd()
 int
 main(int argc, char **argv)
 {
-  KeySet spacebar_set;
+  AccessibleKeySet spacebar_set;
   
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
   {
@@ -264,13 +264,13 @@ main(int argc, char **argv)
 
   SPI_init();
 
-  key_listener = createKeystrokeListener(is_command_key);
+  key_listener = createAccessibleKeystrokeListener(is_command_key);
   /* will listen only to Alt-key combinations */
-  registerKeystrokeListener(key_listener,
-			    (KeySet *) ALL_KEYS,
-			    KEYMASK_ALT,
-			    (unsigned long) ( KeyPress | KeyRelease),
-			    KEYSPI_LISTENER_CANCONSUME | KEYSPI_LISTENER_ALLWINDOWS);
+  registerAccessibleKeystrokeListener(key_listener,
+				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+				      SPI_KEYMASK_ALT,
+				      (unsigned long) ( KeyPress | KeyRelease),
+				      SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
   create_vkbd();  
 
   /* register a listener on the spacebar, to serve as a 'single switch' */
@@ -279,12 +279,12 @@ main(int argc, char **argv)
   spacebar_set.len = 1;
   spacebar_set.keysyms[0] = (unsigned long) ' ';
   spacebar_set.keycodes[0] = (unsigned short) 0;
-  switch_listener = createKeystrokeListener(switch_callback);
+  switch_listener = createAccessibleKeystrokeListener(switch_callback);
   /* registerKeystrokeListener(switch_listener,
 			    &spacebar_set,
-			    KEYMASK_UNMODIFIED,
+			    SPI_KEYMASK_UNMODIFIED,
 			    (unsigned long) ( KeyPress | KeyRelease),
-			    KEYSPI_LISTENER_CANCONSUME);
+			    SPI_KEYLISTENER_CANCONSUME);
   */
   
   SPI_event_main(TRUE);

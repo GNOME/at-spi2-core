@@ -1,23 +1,23 @@
 int
-SpiAccessibleValue_ref (SpiAccessibleValue *obj)
-     {
-       Accessibility_Value_ref (*obj, &ev);
-       return 0;
-     }
+AccessibleValue_ref (AccessibleValue *obj)
+{
+  Accessibility_Value_ref (*obj, &ev);
+  return 0;
+}
 
 
 
 int
-SpiAccessibleValue_unref (SpiAccessibleValue *obj)
-     {
-       Accessibility_Value_unref (*obj, &ev);
-       return 0;
-     }
+AccessibleValue_unref (AccessibleValue *obj)
+{
+  Accessibility_Value_unref (*obj, &ev);
+  return 0;
+}
 
 
 
 float
-SpiAccessibleValue_getMinimumValue (SpiAccessibleValue *obj)
+AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
   return (float)
     Accessibility_Value__get_minimumValue (*obj, &ev);
@@ -26,7 +26,7 @@ SpiAccessibleValue_getMinimumValue (SpiAccessibleValue *obj)
 
 
 float
-SpiAccessibleValue_getCurrentValue (SpiAccessibleValue *obj)
+AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
   return (float)
     Accessibility_Value__get_currentValue (*obj, &ev);
@@ -35,7 +35,7 @@ SpiAccessibleValue_getCurrentValue (SpiAccessibleValue *obj)
 
 
 float
-SpiAccessibleValue_getMaximumValue (SpiAccessibleValue *obj)
+AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
   return (float)
     Accessibility_Value__get_maximumValue (*obj, &ev);
@@ -44,7 +44,7 @@ SpiAccessibleValue_getMaximumValue (SpiAccessibleValue *obj)
 
 
 boolean
-SpiAccessibleValue_setCurrentValue (SpiAccessibleValue *obj,
+AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {
   Accessibility_Value__set_currentValue (*obj,

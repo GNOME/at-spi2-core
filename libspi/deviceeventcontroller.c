@@ -29,6 +29,7 @@
 #include <stdio.h>
 #endif
 
+#include <stdlib.h> /* for getenv() */
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
 #include <config.h>
@@ -69,8 +70,9 @@ static gboolean _controller_grab_keyboard (SpiDeviceEventController *controller)
 
 static void _controller_register_device_listener (SpiDeviceEventController *controller,
 						  const CORBA_Object l,
-						  const Accessibility_ControllerEventMask *mask,
 						  DeviceTypeCategory type,
+						  const Accessibility_KeySet *keys,
+						  const Accessibility_ControllerEventMask *mask,
 						  CORBA_Environment *ev);
 
 /*
@@ -107,8 +109,9 @@ _eventmask_compare_value (gconstpointer p1, gconstpointer p2)
 static void
 _controller_register_device_listener (SpiDeviceEventController *controller,
 				      const CORBA_Object l,
-				      const Accessibility_ControllerEventMask *mask,
 				      DeviceTypeCategory type,
+				      const Accessibility_KeySet *keys,
+				      const Accessibility_ControllerEventMask *mask,
 				      CORBA_Environment *ev)
 {
   Accessibility_ControllerEventMask *mask_ptr = NULL;
@@ -355,7 +358,7 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 				  const Accessibility_KeySet *keys,
 				  const Accessibility_ControllerEventMask *mask,
 				  const Accessibility_KeyEventTypeSeq *type,
-				  const CORBA_boolean is_synchronous,
+				  const CORBA_boolean is_system_global,
 				  CORBA_Environment         *ev)
 {
 	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
@@ -364,12 +367,13 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 	fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
 		 (void *) l, (unsigned long) mask->value);
 #endif
-        /* TODO: change this to an enum, indicating if event can be consumed */
-	if (is_synchronous)
-	_controller_register_device_listener(controller, l, mask, DEVICE_TYPE_KBD, ev);
+        /* TODO: change this to an enum, indicating if event is caught at OS level */
+	if (is_system_global)
+	_controller_register_device_listener(controller, l, DEVICE_TYPE_KBD, keys, mask, ev);
 	else
 	; /* register with toolkit instead */	
 }
+
 /*
  * CORBA Accessibility::DeviceEventController::deregisterKeystrokeListener
  *     method implementation
@@ -407,7 +411,7 @@ impl_register_mouse_listener (PortableServer_Servant     servant,
 #ifdef SPI_DEBUG
 	fprintf (stderr, "registering mouse listener %p\n", l);
 #endif
-	_controller_register_device_listener(controller, l, mask, DEVICE_TYPE_MOUSE, ev);
+	_controller_register_device_listener(controller, DEVICE_TYPE_MOUSE, l, keys, mask, ev);
 }
 */
 
@@ -424,7 +428,7 @@ keycode_for_keysym (long keysym)
 static void
 impl_generate_key_event (PortableServer_Servant     servant,
 			 const CORBA_long           keycode,
-			 const CORBA_long           synth_type,
+			 const Accessibility_KeySynthType synth_type,
 			 CORBA_Environment          *ev)
 {
 	long key_synth_code;
@@ -505,6 +509,17 @@ gboolean spi_device_event_controller_check_key_event (SpiDeviceEventController *
 	SpiDeviceEventControllerClass *klass = SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS (controller);
 	if (klass->check_key_event)
 		return (klass->check_key_event) (controller);
+}
+
+SpiDeviceEventController *
+spi_device_event_controller_new (void *registryp)
+{
+  SpiRegistry *registry = SPI_REGISTRY (registryp);	
+  SpiDeviceEventController *retval = 
+	  SPI_DEVICE_EVENT_CONTROLLER (g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL));
+  retval->registry = registry;
+  bonobo_object_ref (registry);
+  return retval;
 }
 
 GType

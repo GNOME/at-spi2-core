@@ -1,13 +1,13 @@
 int
-SpiAccessibleAction_ref (
-                      SpiAccessibleAction *obj)
+AccessibleAction_ref (
+                      AccessibleAction *obj)
 {
   Accessibility_Action_ref (*obj, &ev);
   return 0;
 }
 
 int
-SpiAccessibleAction_unref (SpiAccessibleAction *obj)
+AccessibleAction_unref (AccessibleAction *obj)
 {
   Accessibility_Action_unref (*obj, &ev);
   return 0;
@@ -16,7 +16,7 @@ SpiAccessibleAction_unref (SpiAccessibleAction *obj)
 
 
 long
-SpiAccessibleAction_getNActions (SpiAccessibleAction *obj)
+AccessibleAction_getNActions (AccessibleAction *obj)
 {
   return (long)
     Accessibility_Action__get_nActions (*obj, &ev);
@@ -24,19 +24,17 @@ SpiAccessibleAction_getNActions (SpiAccessibleAction *obj)
 
 
 /**
- * SpiAccessibleAction_getDescription:
+ * AccessibleAction_getDescription:
  * @obj: a pointer to the #AccessibleAction to query.
  *
  * Get the description of 'i-th' action invokable on an
  *      object implementing #AccessibleAction.
  *
- * Not Yet Implemented.
- *
  * Returns: a UTF-8 string describing the 'i-th' invokable action.
  *
  **/
 char *
-SpiAccessibleAction_getDescription (SpiAccessibleAction *obj,
+AccessibleAction_getDescription (AccessibleAction *obj,
                                  long index)
 {
   return (char *)
@@ -48,7 +46,7 @@ SpiAccessibleAction_getDescription (SpiAccessibleAction *obj,
 
 
 char *
-SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
+AccessibleAction_getKeyBinding (AccessibleAction *obj,
 				long index)
 {
   return (char *) 
@@ -60,18 +58,18 @@ SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
 
 
 char *
-SpiAccessibleAction_getName (SpiAccessibleAction *obj,
+AccessibleAction_getName (AccessibleAction *obj,
 			  long index)
 {
   return (char *)
-				   Accessibility_Action_getName (*obj,
-								 (CORBA_long) index,
-								 &ev);
+   Accessibility_Action_getName (*obj,
+				 (CORBA_long) index,
+				 &ev);
 }
 
 
 boolean
-SpiAccessibleAction_doAction (SpiAccessibleAction *obj,
+AccessibleAction_doAction (AccessibleAction *obj,
                            long index)
 {
   return (boolean)

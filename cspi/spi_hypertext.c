@@ -1,5 +1,5 @@
 int
-SpiAccessibleHypertext_ref (SpiAccessibleHypertext *obj)
+AccessibleHypertext_ref (AccessibleHypertext *obj)
 {
   Accessibility_Hypertext_ref (*obj, &ev);
   return 0;
@@ -8,7 +8,7 @@ SpiAccessibleHypertext_ref (SpiAccessibleHypertext *obj)
 
 
 int
-SpiAccessibleHypertext_unref (SpiAccessibleHypertext *obj)
+AccessibleHypertext_unref (AccessibleHypertext *obj)
 {
   Accessibility_Hypertext_unref (*obj, &ev);
   return 0;
@@ -17,18 +17,18 @@ SpiAccessibleHypertext_unref (SpiAccessibleHypertext *obj)
 
 
 long
-SpiAccessibleHypertext_getNLinks (SpiAccessibleHypertext *obj)
+AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
 {
   return (long)
     Accessibility_Hypertext_getNLinks (*obj, &ev);
 }
 
 
-SpiAccessibleHyperlink *
-SpiAccessibleHyperText_getLink (SpiAccessibleHypertext *obj,
+AccessibleHyperlink *
+AccessibleHyperText_getLink (AccessibleHypertext *obj,
                              long linkIndex)
 {
-  return (SpiAccessibleHyperlink *)
+  return (AccessibleHyperlink *)
     Accessibility_Hypertext_getLink (*obj,
 				     (CORBA_long) linkIndex, &ev);
 }
@@ -36,7 +36,7 @@ SpiAccessibleHyperText_getLink (SpiAccessibleHypertext *obj,
 
 
 long
-SpiAccessibleHypertext_getLinkIndex (SpiAccessibleHypertext *obj,
+AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
                                   long characterIndex)
 {
   return (long)

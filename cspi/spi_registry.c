@@ -25,13 +25,13 @@ static Display *display = NULL;
  *            functions are used internally.  In general, listening to
  *            toolkit-specific events is not recommended.
  *
- * Add an in-process callback function to an existing SpiAccessibleEventListener.
+ * Add an in-process callback function to an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-registerGlobalEventListener (SpiAccessibleEventListener *listener,
+registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType)
 {
   Accessibility_Registry_registerGlobalEventListener (
@@ -55,13 +55,13 @@ registerGlobalEventListener (SpiAccessibleEventListener *listener,
  * deregisterGlobalEventListener:
  * @listener: the #AccessibleEventListener to be registered against an event type.
  *
- * deregisters an SpiAccessibleEventListener from the registry, for all event types it may be listening to.
+ * deregisters an AccessibleEventListener from the registry, for all event types it may be listening to.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
-deregisterGlobalEventListenerAll (SpiAccessibleEventListener *listener)
+deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 {
   Accessibility_Registry_deregisterGlobalEventListenerAll (
                          registry,
@@ -106,7 +106,7 @@ getDesktopCount ()
  * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
  *
  **/
-SpiAccessible*
+Accessible*
 getDesktop (int n)
 {
   return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) n, &ev));
@@ -127,7 +127,7 @@ getDesktop (int n)
  *          placed in the list pointed to by parameter @list.
  **/
 int
-getDesktopList (SpiAccessible **list)
+getDesktopList (Accessible **list)
 {
   *list = NULL;
   return 0;
@@ -153,48 +153,18 @@ key_event_source_func (void *p)
   return TRUE;
 }
 
-void
-save_this_impl_registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
-{
-  static gboolean initialized = FALSE;
-  static Window grab_window;
-  XEvent *x_event = g_new0(XEvent, 1);
-  key_listeners = g_list_append (key_listeners, listener);
-  if (!initialized)
-    {
-      g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 200, key_event_source_func, key_listeners, NULL);
-      display = XOpenDisplay (getenv ("DISPLAY"));
-      grab_window = DefaultRootWindow (display);
-      XSelectInput (display, grab_window, KeyPress | KeyRelease);
-      initialized = TRUE;
-    }
-  /* */
-  XGrabKey (display,
-	    AnyKey,
-	    LockMask,
-	    grab_window,
-	    False,
-	    GrabModeAsync,
-	    GrabModeAsync);
-  while (0)
-  {
-	  XNextEvent (display, x_event);
-	  g_print ("foo!\n");
-  }
-}
- 
 /**
- * registerKeystrokeListener:
- * @listener: a pointer to the #KeystrokeListener for which
+ * registerAccessibleKeystrokeListener:
+ * @listener: a pointer to the #AccessibleKeystrokeListener for which
  *            keystroke events are requested.
  *
  **/
 void
-registerKeystrokeListener (KeystrokeListener *listener,
-			   KeySet *keys,
-			   KeyMaskType modmask,
-			   KeyEventMask eventmask,
-			   KeyListenerSyncType sync_type)
+registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
+				     AccessibleKeySet *keys,
+				     AccessibleKeyMaskType modmask,
+				     AccessibleKeyEventMask eventmask,
+				     AccessibleKeyListenerSyncType sync_type)
 {
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
@@ -216,18 +186,18 @@ registerKeystrokeListener (KeystrokeListener *listener,
 	  all_keys,
 	  controller_event_mask,
 	  key_events,
-	  (CORBA_boolean) ((sync_type | KEYSPI_LISTENER_CANCONSUME)!=0),
+	  (CORBA_boolean) ((sync_type | SPI_KEYLISTENER_ALL_WINDOWS)!=0),
 	  &ev);
 }
 
 /**
- * deregisterKeystrokeListener:
- * @listener: a pointer to the #KeystrokeListener for which
+ * deregisterAccessibleKeystrokeListener:
+ * @listener: a pointer to the #AccessibleKeystrokeListener for which
  *            keystroke events are requested.
  *
  **/
 void
-deregisterKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
+deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener, AccessibleKeyMaskType keymask)
 {
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
@@ -266,7 +236,7 @@ deregisterKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
  *
  **/
 void
-generateKeyEvent (long keyval, KeySynthType type)
+generateKeyEvent (long keyval, AccessibleKeySynthType type)
 {
 /* TODO: check current modifier status and
  *  send keycode to alter, if necessary

@@ -339,7 +339,7 @@ impl_getRowDescription (PortableServer_Servant _servant,
 {
   SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
   CORBA_char *rv;
-
+  
   rv = atk_table_get_row_description (ATK_TABLE(table->atko), (gint) row);
   if (rv)
     return CORBA_string_dup (rv);

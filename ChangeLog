@@ -1,4 +1,61 @@
-2001-11-13  Michael Meeks  <michael@ximian.com>
+2001-14-11  Bill Haneman <bill.haneman@sun.com>
+
+	* at-bridge/bridge.c:
+	Initial work for toolkit-level key snooper connection by bridge.
+
+	* cspi/spi-impl.h:
+	* cspi/spi_*.h:
+	* cspi/spi_*.c:
+	New typedefs and fixes to support new namespacing, and cleaner
+	separation of cspi bindings from libspi bonobo implementation.	
+	Removed inconsistent and extraneous Spi* namespace prefix that
+	had crept into cspi headers.
+	Lots of comment fixes that sed had missed.
+
+	* cspi/spi-roletypes.h:
+	* cspi/spi-statetypes.h:
+	Added SPI_ prefix to Role and State typedefs, and changed all-caps ROLE type
+	to AccessibleRoleType.
+	
+	* libspi/accessibleeventlistener.h:
+	Fixed minor namespacing weirdness.
+
+	* libspi/deviceeventcontroller.c:
+        Reordered some internal API for device listeners.
+	Changed the key registry final boolean to 'is_system_global'
+	rather than 'is_synchronous', which is more descriptive of its 
+	actual meaning.
+	Added spi_device_event_controller_new().
+	Added  SpiRegistry backpointer to SpiDeviceEventControllerClass.
+	 
+	* libspi/keystrokelistener.[ch]:
+	Namespaced KeystrokeListener to SpiKeystrokeListener.
+	Changed uses of keymasks to use SPI_ prefix, and did other
+	knock-on fixups.
+
+	* libspi/keymasks.h:
+	Namespaced keymask constants with SPI_ prefix.
+
+	* libspi/registry.c:
+	Some warning fixes, and knock-on fixes from namespace changes.
+
+	* test/Makefile.am:
+	Added rules for accessx-gui test program.
+
+	* test/accessx-gui.c:
+	Added a simple GUI program in GTK+-2.0 for the AccessX keyboard
+	utility.  It doesn't actually use at-spi, but it's still cool and
+	useful ;-)
+
+	* test/keysynth-demo.c:
+	* test/simple-at.c:
+	* test/at.c:
+	* test/app.c:
+	Fixes so that these test clients work properly with the namespaced
+	libraries. (Incompletely tested for technical reasons, fixes may follow)
+	
+
+2001-13-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/application.c
 	(impl_accessibility_application_get_version),
@@ -17,18 +74,18 @@
 	(impl_accessibility_accessible_get_relation_set):
 	warning fixes & include action.h
 
-2001-11-13  Michael Meeks  <michael@ximian.com>
+2001-13-11  Michael Meeks  <michael@ximian.com>
 
 	* *.[ch] fix bits I screwed up:
 
 		s/([^ \tb(\*\&\?\",])spi_/\1/g;
 		s/([^ \tb(\*\&\?\",])Spi/\1/g;
 	
-2001-11-13  Michael Meeks  <michael@ximian.com>
+2001-13-11  Michael Meeks  <michael@ximian.com>
 
 	* *.[ch] Namespace libspi into spi_ and Spi.
 
-2001-11-13  Michael Meeks  <michael@ximian.com>
+2001-13-11  Michael Meeks  <michael@ximian.com>
 
 	* Makefile.am: dist & install at-spi-1.0.pc
 
@@ -40,7 +97,7 @@
 
 	* configure.in: build it.
 
-2001-11-12  Bill Haneman <bill.haneman@sun.com>
+2001-12-11  Bill Haneman <bill.haneman@sun.com>
 
         * test/keysynth-demo.c:
         Use a 'realize' signal-handler to set the WM properties for

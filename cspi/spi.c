@@ -5,14 +5,14 @@
 static CORBA_Environment ev;
 static AccessibilityRegistry registry;
 
-static SpiAccessible *
-Obj_Add (SpiAccessible object)
+static Accessible *
+Obj_Add (Accessible object)
 {
   /* TODO: keep list of live object refs */
-  SpiAccessible *oref = NULL;
+  Accessible *oref = NULL;
   if (!CORBA_Object_is_nil (object, &ev))
   {
-	  oref = g_malloc (sizeof (SpiAccessible));
+	  oref = g_malloc (sizeof (Accessible));
 	  *oref = object;
   }
   return oref;

@@ -1,5 +1,5 @@
 int
-SpiAccessibleImage_ref (SpiAccessibleImage *obj)
+AccessibleImage_ref (AccessibleImage *obj)
 {
   Accessibility_Image_ref (*obj, &ev);
   return 0;
@@ -8,7 +8,7 @@ SpiAccessibleImage_ref (SpiAccessibleImage *obj)
 
 
 int
-SpiAccessibleImage_unref (SpiAccessibleImage *obj)
+AccessibleImage_unref (AccessibleImage *obj)
 {
   Accessibility_Image_unref (*obj, &ev);
   return 0;
@@ -17,16 +17,16 @@ SpiAccessibleImage_unref (SpiAccessibleImage *obj)
 
 
 char *
-SpiAccessibleImage_getImageDescription (SpiAccessibleImage *obj)
+AccessibleImage_getImageDescription (AccessibleImage *obj)
 {
   return (char *)
     Accessibility_Image__get_imageDescription (*obj, &ev);
-    }
+}
 
 
 
 void
-SpiAccessibleImage_getImageSize (SpiAccessibleImage *obj,
+AccessibleImage_getImageSize (AccessibleImage *obj,
                               long *width,
                               long *height)
 {
@@ -37,10 +37,10 @@ SpiAccessibleImage_getImageSize (SpiAccessibleImage *obj,
 
 
 void
-SpiAccessibleImage_getImagePosition (SpiAccessibleImage *obj,
+AccessibleImage_getImagePosition (AccessibleImage *obj,
                                   long *x,
                                   long *y,
-                                  SpiAccessibleCoordType ctype)
+                                  AccessibleCoordType ctype)
 {
   Accessibility_Image_getImagePosition (*obj,
 					(CORBA_long *) x, (CORBA_long *) y, (CORBA_short) ctype,

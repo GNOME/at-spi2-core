@@ -75,7 +75,7 @@ static char *role_names [MAX_ROLES] =
  * Returns a localizable string name for an AtkRole enumerated type.
  */
 char*
-SpiAccessible_Role_getName (Accessibility_Role role)
+Accessible_Role_getName (Accessibility_Role role)
 {
   if (role < MAX_ROLES) return role_names [(int) role];
   else return "";
@@ -84,7 +84,7 @@ SpiAccessible_Role_getName (Accessibility_Role role)
 
 
 /**
- * SpiAccessible_ref:
+ * Accessible_ref:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Increment the reference count for an #Accessible object.
@@ -93,7 +93,7 @@ SpiAccessible_Role_getName (Accessibility_Role role)
  *
  **/
 int
-SpiAccessible_ref (SpiAccessible *obj)
+Accessible_ref (Accessible *obj)
 {
   Accessibility_Accessible_ref (*obj, &ev);
   spi_check_ev (&ev, "ref");
@@ -102,7 +102,7 @@ SpiAccessible_ref (SpiAccessible *obj)
 
 
 /**
- * SpiAccessible_unref:
+ * Accessible_unref:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Decrement the reference count for an #Accessible object.
@@ -111,7 +111,7 @@ SpiAccessible_ref (SpiAccessible *obj)
  *
  **/
 int
-SpiAccessible_unref (SpiAccessible *obj)
+Accessible_unref (Accessible *obj)
 {
   Accessibility_Accessible_unref (*obj, &ev);
   spi_check_ev (&ev, "unref");
@@ -119,7 +119,7 @@ SpiAccessible_unref (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_getName:
+ * Accessible_getName:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the name of an #Accessible object.
@@ -128,7 +128,7 @@ SpiAccessible_unref (SpiAccessible *obj)
  *
  **/
 char *
-SpiAccessible_getName (SpiAccessible *obj)
+Accessible_getName (Accessible *obj)
 {
   char *retval = 
     (char *)
@@ -138,7 +138,7 @@ SpiAccessible_getName (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_getDescription:
+ * Accessible_getDescription:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the description of an #Accessible object.
@@ -147,7 +147,7 @@ SpiAccessible_getName (SpiAccessible *obj)
  *
  **/
 char *
-SpiAccessible_getDescription (SpiAccessible *obj)
+Accessible_getDescription (Accessible *obj)
 {
   char *retval = (char *)
     Accessibility_Accessible__get_description (*obj, &ev);
@@ -156,7 +156,7 @@ SpiAccessible_getDescription (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_getParent:
+ * Accessible_getParent:
  * @obj: a pointer to the #Accessible object to query.
  *
  * Get an #Accessible object's parent container.
@@ -165,17 +165,17 @@ SpiAccessible_getDescription (SpiAccessible *obj)
  *          #Accessible instance, or NULL if the @obj has no parent container.
  *
  **/
-SpiAccessible *
-SpiAccessible_getParent (SpiAccessible *obj)
+Accessible *
+Accessible_getParent (Accessible *obj)
 {
-  SpiAccessible *retval = 
+  Accessible *retval = 
       Obj_Add (Accessibility_Accessible__get_parent (*obj, &ev));
   spi_check_ev (&ev, "getParent");
   return retval;
 }
 
 /**
- * SpiAccessible_getChildCount:
+ * Accessible_getChildCount:
  *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
@@ -186,7 +186,7 @@ SpiAccessible_getParent (SpiAccessible *obj)
  *
  **/
 long
-SpiAccessible_getChildCount (SpiAccessible *obj)
+Accessible_getChildCount (Accessible *obj)
 {
   long retval = (long) Accessibility_Accessible__get_childCount (*obj, &ev);
   spi_check_ev (&ev, "getChildCount");
@@ -194,7 +194,7 @@ SpiAccessible_getChildCount (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_getChildAtIndex:
+ * Accessible_getChildAtIndex:
  *
  * @obj: a pointer to the #Accessible object on which to operate.
  * @childIndex: a #long indicating which child is specified.
@@ -205,17 +205,17 @@ SpiAccessible_getChildCount (SpiAccessible *obj)
  *          @childIndex.
  *
  **/
-SpiAccessible *
-SpiAccessible_getChildAtIndex (SpiAccessible *obj,
+Accessible *
+Accessible_getChildAtIndex (Accessible *obj,
                             long childIndex)
 {
-  SpiAccessible *retval = Obj_Add (Accessibility_Accessible_getChildAtIndex (*obj, childIndex, &ev));
+  Accessible *retval = Obj_Add (Accessibility_Accessible_getChildAtIndex (*obj, childIndex, &ev));
   spi_check_ev (&ev, "getChildAtIndex");
   return retval;
 }
 
 /**
- * SpiAccessible_getIndexInParent:
+ * Accessible_getIndexInParent:
  *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
@@ -227,7 +227,7 @@ SpiAccessible_getChildAtIndex (SpiAccessible *obj,
  *
  **/
 long
-SpiAccessible_getIndexInParent (SpiAccessible *obj)
+Accessible_getIndexInParent (Accessible *obj)
 {
   long retval = (long) Accessibility_Accessible_getIndexInParent (*obj, &ev);
   spi_check_ev (&ev, "getIndexInParent");
@@ -235,21 +235,21 @@ SpiAccessible_getIndexInParent (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_getRelationSet:
+ * Accessible_getRelationSet:
  *
  * Not Yet Implemented.
  *
  * Returns: a pointer to an array of #AccessibleRelations.
  *
  **/
-SpiAccessibleRelation **
-SpiAccessible_getRelationSet (SpiAccessible *obj)
+AccessibleRelation **
+Accessible_getRelationSet (Accessible *obj)
 {
   return NULL;
 }
 
 /**
- * SpiAccessible_getRole:
+ * Accessible_getRole:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the UI role of an #Accessible object.
@@ -258,23 +258,23 @@ SpiAccessible_getRelationSet (SpiAccessible *obj)
  *
  **/
 char *
-SpiAccessible_getRole (SpiAccessible *obj)
+Accessible_getRole (Accessible *obj)
 {
-  char *retval = SpiAccessible_Role_getName (
+  char *retval = Accessible_Role_getName (
 		  Accessibility_Accessible_getRole (*obj, &ev));
   spi_check_ev (&ev, "getRole");
   return retval;
 }
 
 /**
- * SpiAccessible_getStateSet:
+ * Accessible_getStateSet:
  *
  * Not Yet Implemented.
  *
  * Returns: a pointer to an #AccessibleStateSet representing the object's current state.
  **/
-SpiAccessibleStateSet *
-SpiAccessible_getStateSet (SpiAccessible *obj)
+AccessibleStateSet *
+Accessible_getStateSet (Accessible *obj)
 {
   return NULL;
 }
@@ -282,7 +282,7 @@ SpiAccessible_getStateSet (SpiAccessible *obj)
 /* Interface query methods */
 
 /**
- * SpiAccessible_isAction:
+ * Accessible_isAction:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleAction.
@@ -292,7 +292,7 @@ SpiAccessible_getStateSet (SpiAccessible *obj)
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isAction (SpiAccessible *obj)
+Accessible_isAction (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -304,7 +304,7 @@ SpiAccessible_isAction (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isComponent:
+ * Accessible_isComponent:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleComponent.
@@ -313,7 +313,7 @@ SpiAccessible_isAction (SpiAccessible *obj)
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isComponent (SpiAccessible *obj)
+Accessible_isComponent (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -325,7 +325,7 @@ SpiAccessible_isComponent (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isEditableText:
+ * Accessible_isEditableText:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleEditableText.
@@ -335,7 +335,7 @@ SpiAccessible_isComponent (SpiAccessible *obj)
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isEditableText (SpiAccessible *obj)
+Accessible_isEditableText (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -347,7 +347,7 @@ SpiAccessible_isEditableText (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isHypertext:
+ * Accessible_isHypertext:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleHypertext.
@@ -357,7 +357,7 @@ SpiAccessible_isEditableText (SpiAccessible *obj)
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isHypertext (SpiAccessible *obj)
+Accessible_isHypertext (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -370,7 +370,7 @@ SpiAccessible_isHypertext (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isImage:
+ * Accessible_isImage:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleImage.
@@ -380,7 +380,7 @@ SpiAccessible_isHypertext (SpiAccessible *obj)
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isImage (SpiAccessible *obj)
+Accessible_isImage (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -392,7 +392,7 @@ SpiAccessible_isImage (SpiAccessible *obj)
 }
 
 /**
-  * SpiAccessible_isSelection:
+ * Accessible_isSelection:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleSelection.
@@ -402,7 +402,7 @@ SpiAccessible_isImage (SpiAccessible *obj)
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSelection (SpiAccessible *obj)
+Accessible_isSelection (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -415,7 +415,7 @@ SpiAccessible_isSelection (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isTable:
+ * Accessible_isTable:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleTable.
@@ -425,7 +425,7 @@ SpiAccessible_isSelection (SpiAccessible *obj)
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isTable (SpiAccessible *obj)
+Accessible_isTable (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -438,7 +438,7 @@ SpiAccessible_isTable (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isText:
+ * Accessible_isText:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleText.
@@ -448,7 +448,7 @@ SpiAccessible_isTable (SpiAccessible *obj)
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isText (SpiAccessible *obj)
+Accessible_isText (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -460,17 +460,16 @@ SpiAccessible_isText (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_isValue:
+ * Accessible_isValue:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleValue.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleValue interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isValue (SpiAccessible *obj)
+Accessible_isValue (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -482,13 +481,12 @@ SpiAccessible_isValue (SpiAccessible *obj)
 }
 
 /**
- * SpiAccessible_getAction:
+ * Accessible_getAction:
  *
- * Not Yet Implemented.
  *
  **/
-SpiAccessibleAction *
-SpiAccessible_getAction (SpiAccessible *obj)
+AccessibleAction *
+Accessible_getAction (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -496,12 +494,12 @@ SpiAccessible_getAction (SpiAccessible *obj)
                                              &ev);
   spi_check_ev (&ev, "getAction");
 
-  return (SpiAccessibleAction *)
+  return (AccessibleAction *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 /**
- * SpiAccessible_getComponent:
+ * Accessible_getComponent:
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Get the #AccessibleComponent interface for an #Accessible.
@@ -509,8 +507,8 @@ SpiAccessible_getAction (SpiAccessible *obj)
  * Returns: a pointer to an #AccessibleComponent interface instance, or
  *          NULL if @obj does not implement #AccessibleComponent.
  **/
-SpiAccessibleComponent *
-SpiAccessible_getComponent (SpiAccessible *obj)
+AccessibleComponent *
+Accessible_getComponent (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -518,11 +516,11 @@ SpiAccessible_getComponent (SpiAccessible *obj)
                                              &ev);
   spi_check_ev (&ev, "getComponent");
 
-  return (SpiAccessibleComponent *) ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
+  return (AccessibleComponent *) ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
-SpiAccessibleEditableText *
-SpiAccessible_getEditableText (SpiAccessible *obj)
+AccessibleEditableText *
+Accessible_getEditableText (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -530,14 +528,14 @@ SpiAccessible_getEditableText (SpiAccessible *obj)
                                              &ev);
   spi_check_ev (&ev, "getEditableText");
 
-  return (SpiAccessibleEditableText *)
+  return (AccessibleEditableText *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 
 
-SpiAccessibleHypertext *
-SpiAccessible_getHypertext (SpiAccessible *obj)
+AccessibleHypertext *
+Accessible_getHypertext (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -545,14 +543,14 @@ SpiAccessible_getHypertext (SpiAccessible *obj)
                                              &ev);
   spi_check_ev (&ev, "getHypertext");
 
-  return (SpiAccessibleHypertext *)
+  return (AccessibleHypertext *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 
 
-SpiAccessibleImage *
-SpiAccessible_getImage (SpiAccessible *obj)
+AccessibleImage *
+Accessible_getImage (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -560,14 +558,14 @@ SpiAccessible_getImage (SpiAccessible *obj)
                                              &ev);
   spi_check_ev (&ev, "getImage");
 
-  return (SpiAccessibleImage *)
+  return (AccessibleImage *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 
 
-SpiAccessibleSelection *
-SpiAccessible_getSelection (SpiAccessible *obj)
+AccessibleSelection *
+Accessible_getSelection (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -575,14 +573,14 @@ SpiAccessible_getSelection (SpiAccessible *obj)
                                              &ev);
   spi_warn_ev (&ev, "getSelection");
 
-  return (SpiAccessibleSelection *)
+  return (AccessibleSelection *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 
 
-SpiAccessibleTable *
-SpiAccessible_getTable (SpiAccessible *obj)
+AccessibleTable *
+Accessible_getTable (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -590,12 +588,12 @@ SpiAccessible_getTable (SpiAccessible *obj)
                                              &ev);
   spi_check_ev (&ev, "getTable");
 
-  return (SpiAccessibleTable *)
+  return (AccessibleTable *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
-SpiAccessibleText *
-SpiAccessible_getText (SpiAccessible *obj)
+AccessibleText *
+Accessible_getText (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
@@ -604,27 +602,27 @@ SpiAccessible_getText (SpiAccessible *obj)
 
   spi_check_ev (&ev, "getText"); 
 
-  return (SpiAccessibleText *)
+  return (AccessibleText *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 
 
-SpiAccessibleValue *
-SpiAccessible_getValue (SpiAccessible *obj)
+AccessibleValue *
+Accessible_getValue (Accessible *obj)
 {
   Bonobo_Unknown iface =
     Accessibility_Accessible_queryInterface (*obj,
                                              "IDL:Accessibility/Value:1.0",
                                              &ev);
-  return (SpiAccessibleValue *)
+  return (AccessibleValue *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
 
 
 /**
- * SpiAccessible_queryInterface:
+ * Accessible_queryInterface:
  * @obj: a pointer to the #Accessible instance to query.
  * @interface_name: a UTF-8 character string specifiying the requested interface.
  *
@@ -635,7 +633,7 @@ SpiAccessible_getValue (SpiAccessible *obj)
  *
  **/
 GenericInterface *
-SpiAccessible_queryInterface (SpiAccessible *obj, char *interface_name)
+Accessible_queryInterface (Accessible *obj, char *interface_name)
 {
   GenericInterface iface;
   iface = Accessibility_Accessible_queryInterface (*obj,

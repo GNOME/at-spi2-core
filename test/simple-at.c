@@ -39,10 +39,10 @@ static boolean use_magnifier = FALSE;
 static boolean use_festival = FALSE;
 static boolean festival_chatty = FALSE;
 
-static SpiAccessibleEventListener *focus_listener;
-static SpiAccessibleEventListener *property_listener;
-static SpiAccessibleEventListener *button_listener;
-static KeystrokeListener *key_listener;
+static AccessibleEventListener *focus_listener;
+static AccessibleEventListener *property_listener;
+static AccessibleEventListener *button_listener;
+static AccessibleKeystrokeListener *key_listener;
 
 int
 main(int argc, char **argv)
@@ -50,8 +50,8 @@ main(int argc, char **argv)
   int i, j;
   int n_desktops;
   int n_apps;
-  SpiAccessible *desktop;
-  SpiAccessible *application;
+  Accessible *desktop;
+  Accessible *application;
 
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
   {
@@ -62,9 +62,9 @@ main(int argc, char **argv)
 
   SPI_init();
 
-  focus_listener = createEventListener (report_focus_event);
-  property_listener = createEventListener (check_property_change); 
-  button_listener = createEventListener (report_button_press);
+  focus_listener = createAccessibleEventListener (report_focus_event);
+  property_listener = createAccessibleEventListener (check_property_change); 
+  button_listener = createAccessibleEventListener (report_button_press);
   registerGlobalEventListener (focus_listener, "focus:");
   registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
   registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
@@ -73,24 +73,24 @@ main(int argc, char **argv)
   for (i=0; i<n_desktops; ++i)
     {
       desktop = getDesktop (i);
-      fprintf (stderr, "desktop %d name: %s\n", i, SpiAccessible_getName (desktop));
-      n_apps = SpiAccessible_getChildCount (desktop);
+      fprintf (stderr, "desktop %d name: %s\n", i, Accessible_getName (desktop));
+      n_apps = Accessible_getChildCount (desktop);
       for (j=0; j<n_apps; ++j)
         {
-          application = SpiAccessible_getChildAtIndex (desktop, j);
-          fprintf (stderr, "app %d name: %s\n", j, SpiAccessible_getName (application));
-	  SpiAccessible_unref (application);
+          application = Accessible_getChildAtIndex (desktop, j);
+          fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
+	  Accessible_unref (application);
         }
     }
 
   /* prepare the keyboard snoopers */
-  key_listener = createKeystrokeListener(report_key_event);
+  key_listener = createAccessibleKeystrokeListener(report_key_event);
   /* will listen only to Alt-key combinations */
-  registerKeystrokeListener(key_listener,
-			    (KeySet *) ALL_KEYS,
-			    KEYMASK_ALT,
-			    (unsigned long) ( KeyPress | KeyRelease),
-			    KEYSPI_LISTENER_CANCONSUME);
+  registerAccessibleKeystrokeListener(key_listener,
+				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+				      SPI_KEYMASK_ALT,
+				      (unsigned long) ( KeyPress | KeyRelease),
+				      SPI_KEYLISTENER_ALL_WINDOWS);
 
   get_environment_vars();
 
@@ -115,25 +115,25 @@ get_environment_vars()
 }
 
 void
-report_focussed_accessible (SpiAccessible *obj, boolean shutup_previous_speech)
+report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
 {
   if (use_festival)
     {
     if (festival_chatty) 	    
       {
-        _festival_say (SpiAccessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
+        _festival_say (Accessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
       }
       fprintf (stderr, "getting Name\n");
-      _festival_say (SpiAccessible_getName (obj), "voice_kal_diphone",
+      _festival_say (Accessible_getName (obj), "voice_kal_diphone",
 		     shutup_previous_speech || festival_chatty);
     }
   
-  if (SpiAccessible_isComponent (obj))
+  if (Accessible_isComponent (obj))
     {
       long x, y, width, height;
-      SpiAccessibleComponent *component = SpiAccessible_getComponent (obj);
-      SpiAccessibleComponent_getExtents (component, &x, &y, &width, &height,
-                                      COORD_TYPE_SCREEN);
+      AccessibleComponent *component = Accessible_getComponent (obj);
+      AccessibleComponent_getExtents (component, &x, &y, &width, &height,
+                                      SPI_COORD_TYPE_SCREEN);
       fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
                x, y, x+width, y+height);
       if (use_magnifier) {
@@ -141,15 +141,17 @@ report_focussed_accessible (SpiAccessible *obj, boolean shutup_previous_speech)
       }
     }
   /* if this is a text object, speak the first sentence. */
-  if (SpiAccessible_isText(obj))
+
+  if (Accessible_isText(obj))
+
   {
-     SpiAccessibleText *spi_text_interface;
+     AccessibleText *text_interface;
      long start_offset, end_offset;
      char *first_sentence = "empty";
-     spi_text_interface = SpiAccessible_getText (obj);
-     fprintf (stderr, "isText...%p %p\n", spi_text_interface, (void *)*spi_text_interface);
-     first_sentence = SpiAccessibleText_getTextAtOffset (
-	       spi_text_interface, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
+     text_interface = Accessible_getText (obj);
+     fprintf (stderr, "isText...%p %p\n", text_interface, (void *)*text_interface);
+     first_sentence = AccessibleText_getTextAtOffset (
+	       text_interface, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
      if (first_sentence) _festival_say(first_sentence, "voice_don_diphone", FALSE);
      fprintf (stderr, "done reporting on focussed object\n");
   }
@@ -158,39 +160,39 @@ report_focussed_accessible (SpiAccessible *obj, boolean shutup_previous_speech)
 void
 report_focus_event (void *p)
 {
-  SpiAccessibleEvent *ev = (SpiAccessibleEvent *) p;
+  AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
-           SpiAccessible_getName (&ev->source));
+           Accessible_getName (&ev->source));
   report_focussed_accessible (&ev->source, TRUE);
 }
 
 void
 report_button_press (void *p)
 {
-  SpiAccessibleEvent *ev = (SpiAccessibleEvent *) p;
+  AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
-           SpiAccessible_getName (&ev->source));
+           Accessible_getName (&ev->source));
 }
 
 
 void
 check_property_change (void *p)
 {
-  SpiAccessibleEvent *ev = (SpiAccessibleEvent *) p;
-  SpiAccessibleSelection *selection = SpiAccessible_getSelection (&ev->source);
+  AccessibleEvent *ev = (AccessibleEvent *) p;
+  AccessibleSelection *selection = Accessible_getSelection (&ev->source);
   int n_selections;
   int i;
   if (selection)
   {
-    n_selections = (int) SpiAccessibleSelection_getNSelectedChildren (selection);
+    n_selections = (int) AccessibleSelection_getNSelectedChildren (selection);
     fprintf (stderr, "(Property) %s event from %s, %d selected children\n", ev->type,
-           SpiAccessible_getName (&ev->source), n_selections);
+           Accessible_getName (&ev->source), n_selections);
   /* for now, speak entire selection set */
     for (i=0; i<n_selections; ++i)
     {
-	  SpiAccessible *obj = SpiAccessibleSelection_getSelectedChild (selection, (long) i);
+	  Accessible *obj = AccessibleSelection_getSelectedChild (selection, (long) i);
 	  g_return_if_fail (obj);
-          fprintf (stderr, "Child %d, name=%s\n", i, SpiAccessible_getName (obj));
+          fprintf (stderr, "Child %d, name=%s\n", i, Accessible_getName (obj));
 	  report_focussed_accessible (obj, i==0);
     }
   }
@@ -202,13 +204,13 @@ simple_at_exit()
   deregisterGlobalEventListenerAll (focus_listener);
   deregisterGlobalEventListenerAll (property_listener);
   deregisterGlobalEventListenerAll (button_listener);
-  deregisterKeystrokeListener (key_listener, KEYMASK_ALT );
+  deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT );
   
   SPI_exit ();
 }
 
 static boolean
-is_command_key (KeyStroke *key)
+is_command_key (AccessibleKeyStroke *key)
 {
   switch (key->keyID)
     {
@@ -232,10 +234,10 @@ is_command_key (KeyStroke *key)
 static boolean
 report_key_event (void *p)
 {
-  KeyStroke *key = (KeyStroke *) p;
+  AccessibleKeyStroke *key = (AccessibleKeyStroke *) p;
   fprintf(stderr, "KeyEvent %s%c (keycode %d)\n",
-	  (key->modifiers & KEYMASK_ALT)?"Alt-":"",
-	  ((key->modifiers & KEYMASK_SHIFT)^(key->modifiers & KEYMASK_SHIFTLOCK))?
+	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
+	  ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
 	  (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID),
 	  (int) key->keycode);
   return is_command_key (key);

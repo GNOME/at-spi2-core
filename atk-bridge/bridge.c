@@ -57,6 +57,10 @@ static gboolean bridge_signal_listener (GSignalInvocationHint *signal_hint,
 					const GValue *param_values,
 					gpointer data);
 
+static gint bridge_key_listener (AtkImplementor *atk_impl,
+				 AtkKeyEventStruct *event,
+				 gpointer data);
+
 int
 gtk_module_init(gint *argc, gchar **argv[])
 {
@@ -128,9 +132,10 @@ register_atk_event_listeners ()
 
   atk_add_focus_tracker (bridge_focus_tracker);
   atk_add_global_event_listener (bridge_property_event_listener, "Gtk:AtkObject:property-change");
-/*  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:children-changed");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:children-changed");
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-changed");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-caret-moved");*/
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-caret-moved");
+  atk_add_key_event_listener    (bridge_key_listener, NULL);
 }
 
 static void bridge_exit_func()
@@ -201,6 +206,12 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   if (source)
     Accessibility_Registry_notifyEvent (registry, e, &ev);
   return TRUE;
+}
+
+static gint
+bridge_key_listener (AtkImplementor *atk_impl, AtkKeyEventStruct *event, gpointer data)
+{
+  g_print ("bridge key listener!\n");
 }
 
 static gboolean
