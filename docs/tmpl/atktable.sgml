@@ -249,6 +249,8 @@ two-dimensional table format.
 </para>
 
 @table: 
+@caption: 
+<!-- # Unused Parameters # -->
 @accessible: 
 
 
@@ -259,6 +261,8 @@ two-dimensional table format.
 
 @table: 
 @column: 
+@description: 
+<!-- # Unused Parameters # -->
 @accessible: 
 
 
@@ -279,6 +283,8 @@ two-dimensional table format.
 
 @table: 
 @row: 
+@description: 
+<!-- # Unused Parameters # -->
 @accessible: 
 
 

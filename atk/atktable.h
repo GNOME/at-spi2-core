@@ -65,27 +65,27 @@ struct _AtkTableIface
   gint              (* get_row_extent_at)        (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
-  AtkObject*        (* get_caption)              (AtkTable      *table);
-  AtkObject*        (* get_column_description)   (AtkTable      *table,
+  gchar*            (* get_caption)              (AtkTable      *table);
+  gchar*            (* get_column_description)   (AtkTable      *table,
                                                   gint          column);
   AtkObject*        (* get_column_header)        (AtkTable      *table,
 						  gint		column);
-  AtkObject*        (* get_row_description)      (AtkTable      *table,
+  gchar* 	    (* get_row_description)      (AtkTable      *table,
                                                   gint          row);
   AtkObject*        (* get_row_header)           (AtkTable      *table,
 						  gint		row);
   AtkObject*        (* get_summary)              (AtkTable      *table);
   void              (* set_caption)              (AtkTable      *table,
-                                                  AtkObject     *accessible);
+                                                  gchar		*caption);
   void              (* set_column_description)   (AtkTable      *table,
                                                   gint          column,
-                                                  AtkObject     *accessible);
+                                                  gchar		*description);
   void              (* set_column_header)        (AtkTable      *table,
                                                   gint          column,
                                                   AtkObject     *header);
   void              (* set_row_description)      (AtkTable      *table,
                                                   gint          row,
-                                                  AtkObject     *accessible);
+                                                  gchar		*description);
   void              (* set_row_header)           (AtkTable      *table,
                                                   gint          row,
                                                   AtkObject     *header);
@@ -131,27 +131,27 @@ gint              atk_table_get_column_extent_at (AtkTable         *table,
 gint              atk_table_get_row_extent_at    (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
-AtkObject*        atk_table_get_caption          (AtkTable         *table);
-AtkObject*        atk_table_get_column_description (AtkTable         *table,
+gchar*            atk_table_get_caption          (AtkTable         *table);
+gchar*            atk_table_get_column_description (AtkTable         *table,
                                                     gint             column);
 AtkObject*        atk_table_get_column_header    (AtkTable         *table,
 						  gint		   column);
-AtkObject*        atk_table_get_row_description  (AtkTable         *table,
+gchar*            atk_table_get_row_description  (AtkTable         *table,
                                                   gint             r);
 AtkObject*        atk_table_get_row_header       (AtkTable         *table,
 						  gint		   row);
 AtkObject*        atk_table_get_summary          (AtkTable         *table);
 void              atk_table_set_caption          (AtkTable         *table,
-                                                  AtkObject        *accessible);
+                                                  gchar		   *caption);
 void              atk_table_set_column_description (AtkTable       *table,
                                                     gint           column,
-                                                    AtkObject      *accessible);
+                                                    gchar	   *description);
 void              atk_table_set_column_header    (AtkTable         *table,
                                                   gint             column,
                                                   AtkObject        *header);
 void              atk_table_set_row_description  (AtkTable         *table,
                                                   gint             row,
-                                                  AtkObject        *accessible);
+                                                  gchar		   *description);
 void              atk_table_set_row_header       (AtkTable         *table,
                                                   gint             row,
                                                   AtkObject        *header);

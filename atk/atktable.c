@@ -214,10 +214,10 @@ atk_table_get_column_at_index (AtkTable *obj,
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a AtkObject* representing the table caption, or %NULL
+ * Returns: a gchar* representing the table caption, or %NULL
  * if value does not implement this interface.
  **/
-AtkObject*
+gchar*
 atk_table_get_caption (AtkTable *obj)
 {
   AtkTableIface *iface;
@@ -273,10 +273,10 @@ atk_table_get_n_columns (AtkTable *obj)
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a AtkObject* representing the table description, or NULL
+ * Returns: a gchar* representing the column description, or %NULL
  * if value does not implement this interface.
  **/
-AtkObject*
+gchar*
 atk_table_get_column_description (AtkTable *obj,
                                   gint     column)
 {
@@ -397,10 +397,10 @@ atk_table_get_n_rows (AtkTable *obj)
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a AtkObject* representing the table description, or %NULL
+ * Returns: a gchar* representing the row description, or %NULL
  * if value does not implement this interface.
  **/
-AtkObject*
+gchar*
 atk_table_get_row_description (AtkTable *obj,
                                gint      row)
 {
@@ -670,13 +670,13 @@ atk_table_is_selected (AtkTable *obj,
 /**
  * atk_table_set_caption:
  * @table: a GObject instance that implements AtkTableIface
- * @accessible: an #AtkObject representing the caption to set for @table
+ * @caption: a #gchar representing the caption to set for @table
  *
  * Sets the caption for the table.
  **/
 void
 atk_table_set_caption (AtkTable       *obj,
-                       AtkObject      *accessible)
+                       gchar          *caption)
 {
   AtkTableIface *iface;
 
@@ -686,14 +686,14 @@ atk_table_set_caption (AtkTable       *obj,
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->set_caption)
-    (iface->set_caption) (obj, accessible);
+    (iface->set_caption) (obj, caption);
 }
 
 /**
  * atk_table_set_column_description:
  * @table: a GObject instance that implements AtkTableIface
  * @column: a #gint representing a column in @table
- * @accessible: an #AtkObject representing the description text
+ * @description: a #gchar representing the description text
  * to set for the specified @column of the @table
  *
  * Sets the description text for the specified @column of the @table.
@@ -701,7 +701,7 @@ atk_table_set_caption (AtkTable       *obj,
 void
 atk_table_set_column_description (AtkTable       *obj,
                                   gint           column,
-                                  AtkObject      *accessible)
+                                  gchar          *description)
 {
   AtkTableIface *iface;
 
@@ -711,7 +711,7 @@ atk_table_set_column_description (AtkTable       *obj,
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->set_column_description)
-    (iface->set_column_description) (obj, column, accessible);
+    (iface->set_column_description) (obj, column, description);
 }
 
 /**
@@ -742,7 +742,7 @@ atk_table_set_column_header (AtkTable  *obj,
  * atk_table_set_row_description:
  * @table: a GObject instance that implements AtkTableIface
  * @row: a #gint representing a row in @table
- * @accessible: an #AtkObject representing the description text
+ * @description: a #gchar representing the description text
  * to set for the specified @row of @table
  *
  * Sets the description text for the specified @row of @table.
@@ -750,7 +750,7 @@ atk_table_set_column_header (AtkTable  *obj,
 void
 atk_table_set_row_description (AtkTable       *obj,
                                gint           row,
-                               AtkObject      *accessible)
+                               gchar          *description)
 {
   AtkTableIface *iface;
 
@@ -760,7 +760,7 @@ atk_table_set_row_description (AtkTable       *obj,
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->set_row_description)
-    (iface->set_row_description) (obj, row, accessible);
+    (iface->set_row_description) (obj, row, description);
 }
 
 /**
