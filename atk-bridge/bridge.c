@@ -23,6 +23,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <libbonobo.h>
@@ -108,6 +109,7 @@ extern void gnome_accessibility_module_init     (void);
 extern void gnome_accessibility_module_shutdown (void);
 
 static int     atk_bridge_initialized = FALSE;
+static pid_t   atk_bridge_pid = 0;
 static guint   atk_bridge_focus_tracker_id = 0;
 static guint   atk_bridge_key_event_listener_id = 0;
 static GArray *listener_ids = NULL;
@@ -154,6 +156,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
       return 0;
     }
   atk_bridge_initialized = TRUE;
+  atk_bridge_pid = getpid ();
 
   if (g_getenv ("ATK_BRIDGE_REDIRECT_LOG"))
   {
@@ -484,6 +487,10 @@ spi_atk_bridge_exit_func (void)
       return;
     }
   this_app = NULL;
+  if (atk_bridge_pid != getpid ())
+    {
+      _exit (0);
+    }
 
   /*
    * Check whether we still have windows which have not been deleted.
