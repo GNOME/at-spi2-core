@@ -23,10 +23,6 @@
 
 #include "atk.h"
 
-#define NUM_POSSIBLE_STATES                     (sizeof(AtkStateMask)*8)
-
-#define ATK_STATE(state_enum)             ((AtkStateMask)(1 << ((guint64)(state_enum)%64)))
-
 /* New GObject properties registered by AtkObject */
 enum
 {
@@ -62,8 +58,6 @@ static void            atk_object_real_get_property(GObject         *object,
                                                     GValue          *value,
                                                     GParamSpec      *pspec);
 static void            atk_object_finalize         (GObject         *object);
-
-static gchar* state_names[NUM_POSSIBLE_STATES];
 
 #if 0
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
@@ -111,32 +105,6 @@ atk_object_class_init (AtkObjectClass *klass)
   gobject_class->finalize = atk_object_finalize;
 
   klass->ref_relation_set = atk_object_real_ref_relation_set;
-
-  state_names[ATK_STATE_ARMED]           = "armed";
-  state_names[ATK_STATE_BUSY]            = "busy";
-  state_names[ATK_STATE_CHECKED]         = "checked";
-  state_names[ATK_STATE_COLLAPSED]       = "collapsed";
-  state_names[ATK_STATE_EDITABLE]        = "editable";
-  state_names[ATK_STATE_EXPANDABLE]      = "expandable";
-  state_names[ATK_STATE_EXPANDED]        = "expanded";
-  state_names[ATK_STATE_FOCUSABLE]       = "focusable";
-  state_names[ATK_STATE_FOCUSED]         = "focused";
-  state_names[ATK_STATE_HORIZONTAL]      = "horizontal";
-  state_names[ATK_STATE_ICONIFIED]       = "iconified";
-  state_names[ATK_STATE_MODAL]           = "modal";
-  state_names[ATK_STATE_MULTI_LINE]      = "multi-line";
-  state_names[ATK_STATE_MULTISELECTABLE] = "multiselectable";
-  state_names[ATK_STATE_OPAQUE]          = "opaque";
-  state_names[ATK_STATE_PRESSED]         = "pressed";
-  state_names[ATK_STATE_RESIZABLE]       = "resizeable";
-  state_names[ATK_STATE_SELECTABLE]      = "selectable";
-  state_names[ATK_STATE_SELECTED]        = "selected";
-  state_names[ATK_STATE_SENSITIVE]       = "sensitive";
-  state_names[ATK_STATE_SHOWING]         = "showing";
-  state_names[ATK_STATE_SINGLE_LINE]     = "single-line";
-  state_names[ATK_STATE_TRANSIENT]       = "transient";
-  state_names[ATK_STATE_VERTICAL]        = "vertical";
-  state_names[ATK_STATE_VISIBLE]         = "visible";
 
   klass->children_changed = NULL;
 
@@ -409,24 +377,6 @@ atk_object_get_role (AtkObject *accessible) {
 }
 
 /**
- * atk_state_register
- * @name: a character string describing the new state.
- * return values: a #AtkState value for the new state.
- *
- * Returns a #AtkState value for the new state.
- **/
-AtkStateType
-atk_state_type_register (const gchar *name)
-{
-  /* TODO: associate name with new type */
-  static guint type = ATK_STATE_LAST_DEFINED;
-  if (type < NUM_POSSIBLE_STATES) {
-    return (++type);
-  }
-  return ATK_STATE_INVALID; /* caller needs to check */
-}
-
-/**
  * atk_object_ref_state_set
  * @accessible: a #AtkObject
  * return values: a reference to a #AtkStateSet which is the state set of the accessible
@@ -592,36 +542,6 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->remove_property_change_handler)
     (klass->remove_property_change_handler) (accessible, handler_id);
-}
-
-G_CONST_RETURN gchar*
-atk_state_mask_get_name (AtkStateMask state)
-{
-  gint n;
-
-  if (state == 0)
-    return NULL;
-
-  for (n=0; n<NUM_POSSIBLE_STATES; ++n)
-    {
-      /* fall through and return null if multiple bits are set */
-      if (state == (1 << n)) return state_names[n];
-    }
-
-  return NULL;
-}
-
-AtkStateMask
-atk_state_mask_for_name (const gchar *name)
-{
-  gint i;
-
-  g_return_val_if_fail ((strlen(name)>0), 0);
-  for (i=0; i<NUM_POSSIBLE_STATES; ++i)
-    {
-      if (!strcmp(name, state_names[i])) return ATK_STATE(i);
-    }
-  return 0;
 }
 
 /**

@@ -19,16 +19,17 @@
 
 #include <atk/atk.h>
 
-static gboolean  test_state_set();
+static gboolean  test_state_set ();
+static gboolean  test_state ();
 
 static gboolean
-test_state_set()
+test_state_set ()
 {
   AtkStateSet *state_set1, *state_set2, *state_set3;
   AtkStateType state_array[3];
   gboolean b_val;
 
-  state_set1 = atk_state_set_new();
+  state_set1 = atk_state_set_new ();
 
   b_val = atk_state_set_is_empty (state_set1);  
   if (b_val)
@@ -201,15 +202,76 @@ test_state_set()
 
 }
 
+static gboolean
+test_state ()
+{
+  AtkStateType type1, type2;
+  G_CONST_RETURN gchar *name;
+
+  name = atk_state_type_get_name (ATK_STATE_VISIBLE);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "visible") != 0)
+  {
+    g_print ("Unexpected name for ATK_STATE_VISIBLE %s\n", name);
+    return FALSE;
+  }
+
+  name = atk_state_type_get_name (ATK_STATE_MODAL);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "modal") != 0)
+  {
+    g_print ("Unexpected name for ATK_STATE_MODAL %s\n", name);
+    return FALSE;
+  }
+
+  type1 = atk_state_type_for_name ("focused");
+  if (type1 != ATK_STATE_FOCUSED)
+  {
+    g_print ("Unexpected type for focused\n");
+    return FALSE;
+  }
+
+  type1 = atk_state_type_register ("test_state");
+  name = atk_state_type_get_name (type1);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "test_state") != 0)
+  {
+    g_print ("Unexpected name for test_state %s\n", name);
+    return FALSE;
+  }
+  type2 = atk_state_type_for_name ("test_state");
+  g_return_val_if_fail (name, FALSE);
+  if (type1 != type2)
+  {
+    g_print ("Unexpected type for test_state\n");
+    return FALSE;
+  }
+  type2 = atk_state_type_for_name ("TEST-STATE");
+  if (type2 != 0)
+  {
+    g_print ("Unexpected type for TEST-STATE\n");
+    return FALSE;
+  }
+  /*
+   * Check that a non-existent type returns NULL
+   */
+  name = atk_state_type_get_name (ATK_STATE_LAST_DEFINED +2);
+  if (name)
+  {
+    g_print ("Unexpected name for undefined type\n");
+    return FALSE;
+  }
+  return TRUE;
+}
+
 int
-gtk_module_init(gint argc, char* argv[])
+gtk_module_init (gint argc, char* argv[])
 {
   gboolean b_ret;
 
   g_print("State Set test module loaded\n");
 
-  b_ret = test_state_set();
-
+  b_ret = test_state_set ();
   if (b_ret)
   {
     g_print ("State Set tests succeeded\n");
@@ -217,6 +279,15 @@ gtk_module_init(gint argc, char* argv[])
   else
   {
     g_print ("State Set tests failed\n");
+  }
+  b_ret = test_state ();
+  if (b_ret)
+  {
+    g_print ("State tests succeeded\n");
+  }
+  else
+  {
+    g_print ("State tests failed\n");
   }
   return 0;
 }

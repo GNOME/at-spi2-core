@@ -18,6 +18,7 @@ libatk_la_SOURCES = 		\
 	atkrelation.c		\
 	atkrelationset.c	\
 	atkselection.c		\
+	atkstate.c		\
 	atkstateset.c		\
 	atktable.c		\
 	atktext.c		\
@@ -48,6 +49,7 @@ libatkinclude_HEADERS =	\
         atkrelation.h		\
         atkrelationset.h	\
         atkselection.h		\
+        atkstate.h		\
         atkstateset.h		\
         atktable.h		\
         atktext.h		\

@@ -26,6 +26,7 @@ extern "C" {
 
 #include <glib-object.h>
 #include <atk/atkobject.h>
+#include <atk/atkstate.h>
 
 #define ATK_TYPE_STATE_SET                        (atk_state_set_get_type ())
 #define ATK_STATE_SET(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_STATE_SET, AtkStateSet))
