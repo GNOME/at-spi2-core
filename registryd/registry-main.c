@@ -34,8 +34,9 @@ int
 main (int argc, char **argv)
 {
   int          ret;
-  char        *obj_id;
+  char        *obj_id, *display_name;
   SpiRegistry *registry;
+  GSList      *reg_env = NULL;
 
   if (!bonobo_init (&argc, argv))
     {
@@ -46,9 +47,14 @@ main (int argc, char **argv)
 
   registry = spi_registry_new ();
 
-  ret = bonobo_activation_active_server_register (
+  display_name = gdk_display_get_name (gdk_display_get_default ());
+  reg_env = bonobo_activation_registration_env_set ( reg_env, "DISPLAY", 
+						     display_name);
+  ret = bonobo_activation_register_active_server (
 	  obj_id,
-	  bonobo_object_corba_objref (bonobo_object (registry)));
+	  bonobo_object_corba_objref (bonobo_object (registry)),
+	  reg_env);
+  bonobo_activation_registration_env_free (reg_env);
 
   if (ret != Bonobo_ACTIVATION_REG_SUCCESS)
     {

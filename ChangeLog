@@ -1,3 +1,10 @@
+2003-12-16	Bill Haneman <billh@gnome.org>
+
+	* registryd/registry-main.c:
+	(main):
+	Set the reg_env DISPLAY variable before registering the
+	activated registry service.  Fixes bug #129479.
+
 2003-12-16	Mohammad DAMT  <mdamt@bisnisweb.com>
 
 	* configure.in: Added "id" in ALL_LINGUAS
