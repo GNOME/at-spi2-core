@@ -8,310 +8,436 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-11-27 03:02+0100\n"
-"PO-Revision-Date: 2003-11-27 10:38+0100\n"
+"POT-Creation-Date: 2003-12-03 03:02+0100\n"
+"PO-Revision-Date: 2003-12-03 19:35+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:81
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "neplatný"
 
-#: atk/atkobject.c:82
+#: atk/atkobject.c:83
 msgid "accel label"
 msgstr "popisek se zkratkou"
 
-#: atk/atkobject.c:83
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "upozornění"
 
-#: atk/atkobject.c:84
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "animace"
 
-#: atk/atkobject.c:85
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "šipka"
 
-#: atk/atkobject.c:86
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "kalendář"
 
-#: atk/atkobject.c:87
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "plátno"
 
-#: atk/atkobject.c:88
+#: atk/atkobject.c:89
 msgid "check box"
 msgstr "zaškrtávací políčko"
 
-#: atk/atkobject.c:89
+#: atk/atkobject.c:90
 msgid "check menu item"
 msgstr "zaškrtávací položka menu"
 
-#: atk/atkobject.c:90
+#: atk/atkobject.c:91
 msgid "color chooser"
 msgstr "výběr barvy"
 
-#: atk/atkobject.c:91
+#: atk/atkobject.c:92
 msgid "column header"
 msgstr "záhlaví sloupce"
 
-#: atk/atkobject.c:92
+#: atk/atkobject.c:93
 msgid "combo box"
 msgstr "kombo box"
 
-#: atk/atkobject.c:93
+#: atk/atkobject.c:94
 msgid "dateeditor"
 msgstr "editor data"
 
-#: atk/atkobject.c:94
+#: atk/atkobject.c:95
 msgid "desktop icon"
 msgstr "ikona pracovní plochy"
 
-#: atk/atkobject.c:95
+#: atk/atkobject.c:96
 msgid "desktop frame"
 msgstr "rám pracovní plochy"
 
-#: atk/atkobject.c:96
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "vytáčení"
 
-#: atk/atkobject.c:97
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "dialog"
 
-#: atk/atkobject.c:98
+#: atk/atkobject.c:99
 msgid "directory pane"
 msgstr "panel adresářů"
 
-#: atk/atkobject.c:99
+#: atk/atkobject.c:100
 msgid "drawing area"
 msgstr "kreslicí oblast"
 
-#: atk/atkobject.c:100
+#: atk/atkobject.c:101
 msgid "file chooser"
 msgstr "výběr souboru"
 
-#: atk/atkobject.c:101
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "plnič"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:103
+#: atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "výběr písma"
 
-#: atk/atkobject.c:104
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "rám"
 
-#: atk/atkobject.c:105
+#: atk/atkobject.c:106
 msgid "glass pane"
 msgstr "skleněný panel"
 
-#: atk/atkobject.c:106
+#: atk/atkobject.c:107
 msgid "html container"
 msgstr "kontejner html"
 
-#: atk/atkobject.c:107
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "ikona"
 
-#: atk/atkobject.c:108
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "obrázek"
 
-#: atk/atkobject.c:109
+#: atk/atkobject.c:110
 msgid "internal frame"
 msgstr "interní rám"
 
-#: atk/atkobject.c:110
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "popisek"
 
-#: atk/atkobject.c:111
+#: atk/atkobject.c:112
 msgid "layered pane"
 msgstr "vrstvený panel"
 
-#: atk/atkobject.c:112
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "seznam"
 
-#: atk/atkobject.c:113
+#: atk/atkobject.c:114
 msgid "list item"
 msgstr "položka seznamu"
 
-#: atk/atkobject.c:114
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "menu"
 
-#: atk/atkobject.c:115
+#: atk/atkobject.c:116
 msgid "menu bar"
 msgstr "lišta menu"
 
-#: atk/atkobject.c:116
+#: atk/atkobject.c:117
 msgid "menu item"
 msgstr "položka menu"
 
-#: atk/atkobject.c:117
+#: atk/atkobject.c:118
 msgid "option pane"
 msgstr "panel voleb"
 
-#: atk/atkobject.c:118
+#: atk/atkobject.c:119
 msgid "page tab"
 msgstr "záložka stránky"
 
-#: atk/atkobject.c:119
+#: atk/atkobject.c:120
 msgid "page tab list"
 msgstr "seznam záložek stránky"
 
-#: atk/atkobject.c:120
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "panel"
 
-#: atk/atkobject.c:121
+#: atk/atkobject.c:122
 msgid "password text"
 msgstr "text hesla"
 
-#: atk/atkobject.c:122
+#: atk/atkobject.c:123
 msgid "popup menu"
 msgstr "vyskakovací menu"
 
-#: atk/atkobject.c:123
+#: atk/atkobject.c:124
 msgid "progress bar"
 msgstr "lišta průběhu"
 
-#: atk/atkobject.c:124
+#: atk/atkobject.c:125
 msgid "push button"
 msgstr "tlačítko"
 
-#: atk/atkobject.c:125
+#: atk/atkobject.c:126
 msgid "radio button"
 msgstr "rádiové tlačítko"
 
-#: atk/atkobject.c:126
+#: atk/atkobject.c:127
 msgid "radio menu item"
 msgstr "rádiová položka menu"
 
-#: atk/atkobject.c:127
+#: atk/atkobject.c:128
 msgid "root pane"
 msgstr "kořenový panel"
 
-#: atk/atkobject.c:128
+#: atk/atkobject.c:129
 msgid "row header"
 msgstr "záhlaví řádku"
 
-#: atk/atkobject.c:129
+#: atk/atkobject.c:130
 msgid "scroll bar"
 msgstr "posuvná lišta"
 
-#: atk/atkobject.c:130
+#: atk/atkobject.c:131
 msgid "scroll pane"
 msgstr "posuvný panel"
 
-#: atk/atkobject.c:131
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "oddělovač"
 
-#: atk/atkobject.c:132
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "posunovač"
 
-#: atk/atkobject.c:133
+#: atk/atkobject.c:134
 msgid "split pane"
 msgstr "oddělený panel"
 
-#: atk/atkobject.c:134
+#: atk/atkobject.c:135
 msgid "spin button"
 msgstr "otáčecí tlačítko"
 
-#: atk/atkobject.c:135
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "stavová-lišta"
 
-#: atk/atkobject.c:136
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "tabulka"
 
-#: atk/atkobject.c:137
+#: atk/atkobject.c:138
 msgid "table cell"
 msgstr "buňka tabulky"
 
-#: atk/atkobject.c:138
+#: atk/atkobject.c:139
 msgid "table column header"
 msgstr "záhlaví sloupce tabulky"
 
-#: atk/atkobject.c:139
+#: atk/atkobject.c:140
 msgid "table row header"
 msgstr "záhlaví řádku tabulky"
 
-#: atk/atkobject.c:140
+#: atk/atkobject.c:141
 msgid "tear off menu item"
 msgstr "odtrhávací položka menu"
 
-#: atk/atkobject.c:141
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "terminál"
 
-#: atk/atkobject.c:142
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "text"
 
-#: atk/atkobject.c:143
+#: atk/atkobject.c:144
 msgid "toggle button"
 msgstr "přepínač"
 
-#: atk/atkobject.c:144
+#: atk/atkobject.c:145
 msgid "tool bar"
 msgstr "nástrojová lišta"
 
-#: atk/atkobject.c:145
+#: atk/atkobject.c:146
 msgid "tool tip"
 msgstr "tip"
 
-#: atk/atkobject.c:146
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "strom"
 
-#: atk/atkobject.c:147
+#: atk/atkobject.c:148
 msgid "tree table"
 msgstr "stromová tabulka"
 
-#: atk/atkobject.c:148
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "neznámý"
 
-#: atk/atkobject.c:149
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "pohled"
 
-#: atk/atkobject.c:150
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "okno"
 
-#: atk/atkobject.c:151
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "záhlaví"
 
-#: atk/atkobject.c:152
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "zápatí"
 
-#: atk/atkobject.c:153
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "odstavec"
 
-#: atk/atkobject.c:154
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "aplikace"
 
-#: atk/atkobject.c:155
+#: atk/atkobject.c:156
 msgid "autocomplete"
 msgstr "autodoplnění"
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr "lišta úprav"
+
+#: atk/atkobject.c:295
+msgid "Accessible Name"
+msgstr "Zpřístupněný název"
+
+#: atk/atkobject.c:296
+msgid "Object instance's name formatted for assistive technology access"
+msgstr "Název instance objektu formátovaný pro použití technologiemi zpřístupnění"
+
+#: atk/atkobject.c:302
+msgid "Accessible Description"
+msgstr "Zpřístupněný popis"
+
+#: atk/atkobject.c:303
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "Popis objektu formátovaný pro použití technologiemi zpřístupnění"
+
+#: atk/atkobject.c:309
+msgid "Accessible Parent"
+msgstr "Zpřístupněný rodič"
+
+#: atk/atkobject.c:310
+msgid "Is used to notify that the parent has changed"
+msgstr "Používá se pro upozornění, že rodič byl změněn"
+
+#: atk/atkobject.c:316
+msgid "Accessible Value"
+msgstr "Zpřístupněná hodnota"
+
+#: atk/atkobject.c:317
+msgid "Is used to notify that the value has changed"
+msgstr "Používá se pro upozornění, že hodnota byla změněna"
+
+#: atk/atkobject.c:325
+msgid "Accessible Role"
+msgstr "Zpřístupněná role"
+
+#: atk/atkobject.c:326
+msgid "The accessible role of this object"
+msgstr "Zpřístupněná role tohoto objektu"
+
+#: atk/atkobject.c:334
+msgid "Accessible Layer"
+msgstr "Zpřístupněná vrstva"
+
+#: atk/atkobject.c:335
+msgid "The accessible layer of this object"
+msgstr "Zpřístupněná vrstva tohoto objektu"
+
+#: atk/atkobject.c:343
+msgid "Accessible MDI Value"
+msgstr "Zpřístupněná hodnota MDI"
+
+#: atk/atkobject.c:344
+msgid "The accessible MDI value of this object"
+msgstr "Zpřístupněná hodnota MDI tohoto objektu"
+
+#: atk/atkobject.c:352
+msgid "Accessible Table Caption"
+msgstr "Zpřístupněný nadpis tabulky"
+
+#: atk/atkobject.c:353
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr "Používá se pro upozornění, že nadpis tabulky byl změněn; tato vlastnost by se neměla používat. Místo toho by se mělo používat accessible-table-caption-object"
+
+#: atk/atkobject.c:359
+msgid "Accessible Table Column Header"
+msgstr "Zpřístupněné záhlaví sloupce tabulky"
+
+#: atk/atkobject.c:360
+msgid "Is used to notify that the table column header has changed"
+msgstr "Používá se pro upozornění, že záhlaví sloupce tabulky bylo změněno"
+
+#: atk/atkobject.c:366
+msgid "Accessible Table Column Description"
+msgstr "Zpřístupněný popis sloupce tabulky"
+
+#: atk/atkobject.c:367
+msgid "Is used to notify that the table column description has changed"
+msgstr "Používá se pro upozornění, že popis sloupce tabulky byl změněn"
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Row Header"
+msgstr "Zpřístupněné záhlaví řádku tabulky"
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table row header has changed"
+msgstr "Používá se pro upozornění, že záhlaví řádku tabulky bylo změněno"
+
+#: atk/atkobject.c:380
+msgid "Accessible Table Row Description"
+msgstr "Zpřístupněný popis řádku tabulky"
+
+#: atk/atkobject.c:381
+msgid "Is used to notify that the table row description has changed"
+msgstr "Používá se pro upozornění, že popis řádku tabulky byl změněn"
+
+#: atk/atkobject.c:387
+msgid "Accessible Table Summary"
+msgstr "Zpřístupněný souhrn tabulky"
+
+#: atk/atkobject.c:388
+msgid "Is used to notify that the table summary has changed"
+msgstr "Používá se pro upozornění, že sourhn tabulky byl změněn"
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Caption Object"
+msgstr "Zpřístupněný objekt nadpisu tabulky"
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table caption has changed"
+msgstr "Používá se pro upozornění, že nadpis tabulky byl změněm"
+
+#: atk/atkobject.c:401
+msgid "Accessible Hypertext Number of Links"
+msgstr "Zpřístupněný počet odkazů hypertextu"
+
+#: atk/atkobject.c:402
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Počet odkaů, které má aktuální AtkHypertext"
 
 #~ msgid "ruler"
 #~ msgstr "pravítko"
