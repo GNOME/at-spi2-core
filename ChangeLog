@@ -1,3 +1,24 @@
+2002-05-11  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/registry.c:
+	Fixed quarking bug in event string parsing; now events with
+	detail parameters get matched correctly to listeners.
+	[Bugzilla 80608].
+
+	* util/idl/Magnifier.idl: remove.
+	* util/idl: remove
+	* util/*.[ch]: Remove.
+	Magnification utilities and IDL are now in module gnome-mag.
+
+2002-05-10  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	Fixed bug in grab key conversion which was causing keycode grabs
+	to be converted to AnyKey grabs.
+
+	* NEWS:
+	updated NEWS file to reflect recent spin-off of gnome-mag.
+
 2002-05-09  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* cspi/spi_accessible.c: Added exception checks.  Fixed completely
@@ -25,25 +46,10 @@
 	on error which is technically valid-- changed these to return -1.
 	Added marshaller for text boundary types to fix bug with boundary
 	types being passed incorrectly to atk.
-		
-	
-2002-05-03  Marc Mulcahy <marc.mulcahy@sun.com>
-
-	* cspi/bonobo/cspi-bonobo.c cspi/bonobo/cspi-bonobo-listener.c
-	cspi/bonobo/cspi-bonobo-listener.h: Added copyright notice.
-
-2002-05-10  Bill Haneman <bill.haneman@sun.com>
-
-	* registryd/deviceeventcontroller.c:
-	Fixed bug in grab key conversion which was causing keycode grabs
-	to be converted to AnyKey grabs.
-
-	* NEWS:
-	updated NEWS file to reflect recent spin-off of gnome-mag.
-
-
+			
 2002-05-09  Bill Haneman <bill.haneman@sun.com>
 
+	
 	* cspi/spi_registry.c:
 	Fixed nasty bug in SPI_registerAccessibleKeystrokeListener
 	which was uncovered by the recent key changes.
@@ -87,6 +93,11 @@
 	NOTE: Split magnifier binary, IDL, and magnification
 	activation code from at-spi into module gnome-mag.
 
+2002-05-03  Marc Mulcahy <marc.mulcahy@sun.com>
+ 
+	* cspi/bonobo/cspi-bonobo.c cspi/bonobo/cspi-bonobo-listener.c
+ 	cspi/bonobo/cspi-bonobo-listener.h: Added copyright notice.
+ 
 2002-05-03  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:

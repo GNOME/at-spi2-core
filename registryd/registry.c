@@ -90,7 +90,7 @@ desktop_add_application (SpiDesktop *desktop,
   Accessibility_Event e;
   CORBA_Environment ev;
   
-  e.type = g_strdup ("object:children-changed::add");
+  e.type = g_strdup ("object:children-changed:add");
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
@@ -110,7 +110,7 @@ desktop_remove_application (SpiDesktop *desktop,
   Accessibility_Event e;
   CORBA_Environment ev;
   
-  e.type = g_strdup ("object:children-changed::remove");
+  e.type = g_strdup ("object:children-changed:remove");
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
@@ -261,6 +261,7 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
 
   if (split_string[1])
     {
+      etype->major = g_quark_from_string (split_string[1]);
       if (split_string[2])
         {
           etype->minor = g_quark_from_string (s = g_strconcat (split_string[1], split_string[2], NULL));
@@ -268,23 +269,16 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
           if (split_string[3])
             {
               etype->detail = g_quark_from_string (split_string[3]);
-	      s = g_strconcat (split_string[1], split_string[2], split_string[3], NULL);
-	      etype->major = g_quark_from_string (s);
-	      g_free (s);
             }
           else
             {
 	      etype->detail = g_quark_from_static_string ("");
-	      s = g_strconcat (split_string[1], split_string[2], NULL);
-	      etype->major = g_quark_from_string (s);
-	      g_free (s);
             }
         }
       else
         {
-          etype->major = g_quark_from_string (split_string[1]);
 	  etype->minor = etype->major;
-	  etype->detail = etype->major;
+	  etype->detail = g_quark_from_static_string (""); //etype->major;
         }
     }
   else
