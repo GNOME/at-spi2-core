@@ -9,9 +9,7 @@ libatk_la_SOURCES = 		\
 	atkhypertext.c		\
 	atkimage.c		\
 	atknoopobject.c		\
-        atknoopobject.h		\
 	atknoopobjectfactory.c	\
-        atknoopobjectfactory.h	\
 	atkobject.c		\
 	atkobjectfactory.c	\
 	atkregistry.c		\
@@ -47,6 +45,8 @@ libatkinclude_HEADERS =	\
         atkeditabletext.h	\
         atkhyperlink.h		\
         atkhypertext.h		\
+        atknoopobject.h		\
+        atknoopobjectfactory.h	\
         atkobject.h		\
 	atkobjectfactory.h	\
         atkimage.h		\
