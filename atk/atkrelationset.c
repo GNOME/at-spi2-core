@@ -275,6 +275,8 @@ atk_relation_set_finalize (GObject *object)
  * the current relation set if the relation set does not contain a relation
  * of that type. If it is does contain a relation of that typea the target
  * is added to the relation.
+ *
+ * Since: 1.9
  **/
 void
 atk_relation_set_add_relation_by_type (AtkRelationSet  *set,

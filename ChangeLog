@@ -1,3 +1,11 @@
+2005-04-04  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkrelation.c: Update doc to note that atk_relation_add_target
+	was added for version 1.9.
+
+	* atk/atkrelationset.c: Update doc to note that 
+	atk_relation_set_add_relation_by_type was added for version 1.9.
+
 2005-03-30  Steve Murphy  <murf@e-tools.com>
 
 	* configure.in: Added "rw" to ALL_LINGUAS.
@@ -52,10 +60,11 @@ Thu Nov 25 14:11:41 2004  Manish Singh  <yosh@gimp.org>
 	* docs/tmpl/atkrelation.sgml: Add atk_relation_add_target.
 
 	* atk/atkrelationset.[ch]:
-	* atk/tmpl/atkrelationset.sgml: Add atk_relation_add_relation_by_type.
+	* atk/tmpl/atkrelationset.sgml: 
+	Add atk_relation_set_add_relation_by_type.
 
 	* docs/atk-sections.txt: Add atk_relation_add_target and
-	atk_relation_add_relation_by_type.
+	atk_relation_set_add_relation_by_type.
 
 	Fixes bug #158722.
 
