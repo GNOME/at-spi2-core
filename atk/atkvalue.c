@@ -117,7 +117,7 @@ atk_value_get_minimum_value (AtkValue *obj,
   iface = ATK_VALUE_GET_IFACE (obj);
 
   if (iface->get_minimum_value)
-    return (iface->get_minimum_value) (obj, value);
+    (iface->get_minimum_value) (obj, value);
 }
 
 /**

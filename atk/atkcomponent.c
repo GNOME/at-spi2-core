@@ -230,7 +230,7 @@ atk_component_get_position_on_screen (AtkComponent    *component,
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_position_on_screen)
-    return (iface->get_position_on_screen) (component, x, y);
+    (iface->get_position_on_screen) (component, x, y);
 }
 
 /**

@@ -1,4 +1,9 @@
-2001-05-23  Padraig O'Briain  <padraigo@sun.com>
+2001-05-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkcomponent.c atk/atkvalue.c
+	Remove return calls in functions which return void
+	
+2001-05-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.h: Correct naming of role for status bar
         * atk/atktext.c: 
