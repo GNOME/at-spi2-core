@@ -1,3 +1,16 @@
+2003-07-07  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi_event.c (AccessibleEvent_unref): Update code to free
+	resources allocated for AccessibleEvent. See cspi_event().
+
+	* cspi/spi_streamablecontent.c (cspi_streams_close_all): Set
+	static variable streams to NULL.
+
+	* cspi/bonobo/cspi-bonobo-listener.c (cspi_event):
+	Update so that AcessibleEvent_ref will work.
+
+	This fixes bug #116624.
+
 2003-07-06  Jordi Mallach  <jordi@sindominio.net>
 
 	* configure.in (ALL_LINGUAS): Added "ca" (Catalan).

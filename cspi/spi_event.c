@@ -704,7 +704,12 @@ AccessibleEvent_unref (const AccessibleEvent *e)
 	{
 	  event->ref_count--;
 	  if (event->ref_count < 1)
-	    cspi_internal_event_remove (event);
+            {
+	      cspi_internal_event_remove (event);
+              g_free (e->type);
+              Accessible_unref (e->source);
+              g_free (e);
+            }
 	}
     }
 }

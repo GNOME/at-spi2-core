@@ -71,7 +71,11 @@ get_streams (void)
 void
 cspi_streams_close_all (void)
 {
-  g_hash_table_destroy (get_streams ());
+  if (streams)
+    {
+      g_hash_table_destroy (streams);
+      streams = NULL;
+    }
 }
 
 /**
