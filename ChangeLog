@@ -1,6 +1,12 @@
 2003-12-03  Padraig O'Briain <padraig.obriain@sun.com>
 
-	* atk-bridge.c: (atk_bridge_init): Create accessible application 
+	*registryd/deviceeventcontroller.c: Add an idle handler which polls
+	the keyboard on a timeout intil the key state goes from pressed to
+	released. Fixes bug #111429.
+
+2003-12-03  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c: (atk_bridge_init): Create accessible application 
 	root object so that it is present when a context menu in an 
 	out-of-process applet is popped up.
 	(spi_atk_bridge_do_registration): Create acceessible application root

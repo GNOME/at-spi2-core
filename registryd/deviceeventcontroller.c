@@ -55,6 +55,13 @@
 #include "../libspi/spi-private.h"
 #include "deviceeventcontroller.h"
 
+#define CHECK_RELEASE_DELAY 20
+#define BIT(c, x)       (c[x/8]&(1<<(x%8)))
+static guint check_release_handler = 0;
+static Accessibility_DeviceEvent pressed_event;
+static SpiDEController *saved_controller; 
+static void wait_for_release_event (GdkEvent *event, SpiDEController *controller);
+
 /* Our parent Gtk object type */
 #define PARENT_TYPE BONOBO_TYPE_OBJECT
 
@@ -1011,7 +1018,10 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
           if (is_consumed)
             XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
           else
-            XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
+            {
+              wait_for_release_event (event, controller);
+              XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
+            }
         }
 
       return GDK_FILTER_CONTINUE;
@@ -2379,6 +2389,46 @@ spi_device_event_controller_new (SpiRegistry *registry)
   spi_dec_init_mouse_listener (registry);
   /* TODO: kill mouse listener on finalize */  
   return retval;
+}
+
+static gboolean
+is_key_released (KeyCode code)
+{
+  char keys[32];
+  int down;
+  int i;
+
+  XQueryKeymap (spi_get_display (), keys);
+  down = BIT (keys, code);
+  return (down == 0);
+}
+
+static gboolean
+check_release (gpointer data)
+{
+  gboolean released;
+  Accessibility_DeviceEvent *event = (Accessibility_DeviceEvent *)data;
+  KeyCode code = event->hw_code;
+  CORBA_Environment ev;
+
+  released = is_key_released (code);
+
+  if (released)
+    {
+      check_release_handler = 0;
+      event->type = Accessibility_KEY_RELEASED_EVENT;
+      ev._major = CORBA_NO_EXCEPTION;
+      spi_controller_notify_keylisteners (saved_controller, event, CORBA_TRUE, &ev);
+    }
+  return (released == 0);
+}
+
+static void wait_for_release_event (GdkEvent        *event,
+                                    SpiDEController *controller)
+{
+  pressed_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);
+  saved_controller = controller;
+  check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiDEController,
