@@ -41,6 +41,7 @@ static void validate_accessible (Accessible *accessible,
 
 #define WINDOW_MAGIC 0x123456a
 #define TEST_STRING_A "A test string"
+#define TEST_STRING_A_OBJECT "A_test_string_object"
 #define TEST_STRING_B "Another test string"
 
 static int      print_tree_depth = 0;
@@ -105,6 +106,7 @@ create_test_window (void)
 {
 	TestWindow *win = g_new0 (TestWindow, 1);
 	GtkWidget  *widget, *vbox;
+	AtkObject *obj;
 
 	win->magic  = WINDOW_MAGIC;
 	win->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -117,6 +119,9 @@ create_test_window (void)
 
 	widget = gtk_entry_new ();
 	gtk_entry_set_text (GTK_ENTRY (widget), TEST_STRING_A);
+	obj = gtk_widget_get_accessible (widget);
+	atk_object_set_name (obj, TEST_STRING_A_OBJECT);
+
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
 	widget = gtk_button_new_with_label ("_Foobar");
@@ -600,8 +605,10 @@ validate_accessible (Accessible *accessible,
 		g_assert (tmp != NULL);
 		if (print_tree)
 			fprintf (stderr, "Te");
-		else
-			test_text (tmp);
+		else {
+			if (strcmp (name, TEST_STRING_A_OBJECT) == 0)	
+				test_text (tmp);
+		}
 		AccessibleText_unref (tmp);
 	}
 

@@ -1,5 +1,10 @@
 2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
 
+	* test/test-simple.c: Update to take account of fact that GailButton 
+	now implements AtkText.
+	(create_text_window): Set name on AtkObject for GtkEntry.
+	(validate_accessible): Check accessible name before calling test_text().
+
 	* libspi/Makefile.am: Fix problem with building outside of source
 	directory. Bug #98120.
 
