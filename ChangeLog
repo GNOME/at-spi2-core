@@ -1,11 +1,14 @@
 2001-12-03  Bill Haneman  <bill.haneman@sun.com>
 
-        * idl/Component.idl:
+	* idl/Component.idl:
 	Added two methods, getLayer () and getMDIZOrder (), to reflect
 	the new ATK methods atk_object_get_layer and
 	atk_object_get_mdi_z_order. (Which arguably should be part of the
 	AtkComponent API and AtkObject).  Also added an enum,
 	ComponentLayer, for the first method's return value.
+
+	* libspi/component.c:
+	Added implementations for these methods.
 
 	* cspi/spi_component.c:
 	* cspi/spi.h:

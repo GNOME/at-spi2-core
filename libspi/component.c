@@ -173,6 +173,51 @@ impl_accessibility_component_get_size (PortableServer_Servant servant,
   *height = (CORBA_long) ih;
 }
 
+static Accessibility_ComponentLayer
+impl_accessibility_component_get_layer (PortableServer_Servant servant,
+					CORBA_Environment     *ev)
+{
+  SpiComponent *component;
+  AtkLayer atklayer;
+  BonoboObject *obj = bonobo_object_from_servant (servant);
+
+  g_return_if_fail (IS_SPI_COMPONENT(obj));
+  component = SPI_COMPONENT(obj);
+  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
+  atklayer = atk_object_get_layer (ATK_OBJECT (component->atko));
+  switch (atklayer)
+    {
+      case ATK_LAYER_BACKGROUND:
+        return Accessibility_LAYER_BACKGROUND;
+      case ATK_LAYER_CANVAS:
+        return Accessibility_LAYER_CANVAS;
+      case ATK_LAYER_WIDGET:
+        return Accessibility_LAYER_WIDGET;
+      case ATK_LAYER_MDI:
+        return Accessibility_LAYER_MDI;
+      case ATK_LAYER_POPUP:
+        return Accessibility_LAYER_POPUP;
+      case ATK_LAYER_OVERLAY:
+        return Accessibility_LAYER_OVERLAY;
+      default:
+        break;      
+    }
+  return Accessibility_LAYER_INVALID;
+}
+
+static CORBA_short
+impl_accessibility_component_get_mdi_z_order (PortableServer_Servant servant,
+					      CORBA_Environment     *ev)
+{
+  SpiComponent *component;
+  BonoboObject *obj = bonobo_object_from_servant (servant);
+
+  g_return_if_fail (IS_SPI_COMPONENT(obj));
+  component = SPI_COMPONENT(obj);
+  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
+  return (CORBA_short) atk_object_get_mdi_zorder (ATK_OBJECT (component->atko));
+}
+
 static void
 spi_component_class_init (SpiComponentClass *klass)
 {
@@ -187,6 +232,8 @@ spi_component_class_init (SpiComponentClass *klass)
         epv->getExtents = impl_accessibility_component_get_extents;
         epv->getPosition = impl_accessibility_component_get_position;
         epv->getSize = impl_accessibility_component_get_size;
+	epv->getLayer = impl_accessibility_component_get_layer;
+	epv->getMDIZOrder = impl_accessibility_component_get_mdi_z_order;
 }
 
 static void
