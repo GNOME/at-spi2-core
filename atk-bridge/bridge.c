@@ -46,6 +46,7 @@ static CORBA_Environment ev;
 static Accessibility_Registry registry = NULL;
 static SpiApplication *this_app = NULL;
 static gboolean registry_died = FALSE;
+static gboolean atk_listeners_registered = FALSE;
 static guint toplevel_handler;
 
 /* NOT YET USED
@@ -274,7 +275,12 @@ spi_atk_register_event_listeners (void)
   guint      id;
   GObject   *ao = g_object_new (ATK_TYPE_OBJECT, NULL);
   AtkObject *bo = atk_no_op_object_new (ao);
-  
+
+
+  if (atk_listeners_registered) return;
+
+  atk_listeners_registered = TRUE;
+
   /* Register for focus event notifications, and register app with central registry  */
 
   listener_ids = g_array_sized_new (FALSE, TRUE, sizeof (guint), 16);

@@ -1,3 +1,31 @@
+2002-11-24  Bill Haneman  <bill.haneman@sun.com>
+
+        * NEWS: 
+	Updated NEWS (accidentally didn't make it into 1.1.5 tarball,
+	retagged).
+	
+	* atk-bridge/bridge.c:
+	(spi_atk_register_event_listeners):
+	Don't re-register for ATK events if the registry has died
+	and the app needs to re-register; the ATK listeners are in
+	process and doing so will cause duplicate emission.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_poll_mouse_moved):
+	Reformat the source, detect and emit multiple button-change
+	events (i.e. if multiple buttons have changed between poll
+	intervals).
+	Add code to detect mouse-down events even when the pointer
+	is grabbed; workaround for GOK bug 98420.
+	(spi_controller_register_with_devices):
+	Call XTestGrabControl with 'impervious' flag set to True,
+	allows us to synthesize events and query the pointer even during
+	an active grab by another client.
+	(spi_device_event_controller_forward_mouse_event):
+	Set the mouse_mask_state to the mouse_button_state from
+	the intercepted event, to synchronize the grab listener with
+	the poll state.
+	
 2002-11-20  Bill Haneman  <bill.haneman@sun.com>
 
 	* cspi/spi_accessible.c:

@@ -1,7 +1,43 @@
 (top)
 in HEAD:
 
-* bugfixes for: 84856
+What's new in at-spi-1.1.5:
+
+* event struct in libspi is bigger, increased unimplemented
+  slot count for sufficient future bincompatible expansion. 
+ (WARNING: breaks bincompat for direct CORBA clients. CSPI clients
+  not affected.)
+
+* New accessor methods allow state-coherent query of many
+  event types.
+
+* API Frozen for GNOME 2.2.
+
+* New role types: APPLICATION, HEADER, FOOTER, PARAGRAPH, RULER.
+
+* New relations, FLOWS_FROM, FLOWS_TO, EMBEDS, EMBEDDED_BY,
+	SUBWINDOW_OF.
+
+* New state, MANAGES_DESCENDANTS.  New event, "active-descendant-changed".
+
+* reduced debug output, unless you set AT_SPI_DEBUG environment
+  variable to string which parses to an integer value > 0.
+
+* added definitions for SPI_KEYMASK_BUTTON1, etc.
+
+* added SPI_LAYER_WINDOW.
+
+* Added ability to register 'device event listeners' which can
+  consume device events, such as mouse events.
+
+* Added support for mouse and key-modifier event notification.
+
+* deprecated KeyEventType in favor of EventType.
+
+* bugfixes for >50 bugs including: 98836, 98842, 97916, 95828, 
+	93592, 95940, 95517, 93658, 95055, 94555, 84856.
+
+* updated copyrights to include Ximian.
 
 What's new in at-spi-1.1.0:
 

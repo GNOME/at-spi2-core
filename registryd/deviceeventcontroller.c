@@ -1,5 +1,5 @@
-/*
- * AT-SPI - Assistive Technology Service Provider Interface
+/* AT-SPI - Assistive Technology Service Provider Interface
+ *
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2001, 2002 Sun Microsystems Inc.,
@@ -199,106 +199,170 @@ spi_dec_poll_mouse_moved (gpointer data)
   Display *display = spi_get_display ();
 
   if (display != NULL)
-	  XQueryPointer(display, DefaultRootWindow (display),
-		&root_return, &child_return,
-		&x, &y,
-		&win_x_return, &win_y_return, &mask_return);
+    XQueryPointer(display, DefaultRootWindow (display),
+		  &root_return, &child_return,
+		  &x, &y,
+		  &win_x_return, &win_y_return, &mask_return);
+  
+  /* 
+   * Since many clients grab the pointer, and X goes an automatic
+   * pointer grab on mouse-down, we often must detect mouse button events
+   * by polling rather than via a button grab. 
+   * The while loop (rather than if) is used since it's possible that 
+   * multiple buttons have changed state since we last checked.
+   */
+  if (mask_return != mouse_mask_state) 
+    {
+      while ((mask_return & mouse_button_mask) !=
+	     (mouse_mask_state & mouse_button_mask)) 
+	{
+	  int button_number = 0;
+	  gboolean is_down = False;
 
-  if (mask_return != mouse_mask_state) {
-	  if ((mask_return & mouse_button_mask) !=
-	      (mouse_mask_state & mouse_button_mask)) {
-		  int button_number = 0;
-		  if (!(mask_return & Button1Mask) &&
-		      (mouse_mask_state & Button1Mask)) {
-			  button_number = 1;
-		  } else if (!(mask_return & Button2Mask) &&
-			     (mouse_mask_state & Button2Mask)) {
-			  button_number = 2;
-		  } else if (!(mask_return & Button3Mask) &&
-			     (mouse_mask_state & Button3Mask)) {
-			  button_number = 3;
-		  } else if (!(mask_return & Button4Mask) &&
-			     (mouse_mask_state & Button1Mask)) {
-			  button_number = 4;
-		  } else if (!(mask_return & Button5Mask) &&
-			     (mouse_mask_state & Button5Mask)) {
-			  button_number = 5;
-		  }
-		  if (button_number) {
+	  if (!(mask_return & Button1Mask) &&
+	      (mouse_mask_state & Button1Mask)) 
+	    {
+	      mouse_mask_state &= ~Button1Mask;
+	      button_number = 1;
+	    } 
+	  else if ((mask_return & Button1Mask) &&
+	      !(mouse_mask_state & Button1Mask)) 
+	    {
+	      mouse_mask_state |= Button1Mask;
+	      button_number = 1;
+	      is_down = True;
+	    } 
+	  else if (!(mask_return & Button2Mask) &&
+		       (mouse_mask_state & Button2Mask)) 
+	    {
+	      mouse_mask_state &= ~Button2Mask;
+	      button_number = 2;
+	    } 
+	  else if ((mask_return & Button2Mask) &&
+		       !(mouse_mask_state & Button2Mask)) 
+	    {
+	      mouse_mask_state |= Button2Mask;
+	      button_number = 2;
+	      is_down = True;
+	    } 
+	  else if (!(mask_return & Button3Mask) &&
+		   (mouse_mask_state & Button3Mask)) 
+	    {
+	      mouse_mask_state &= ~Button3Mask;
+	      button_number = 3;
+	    } 
+	  else if ((mask_return & Button3Mask) &&
+		   !(mouse_mask_state & Button3Mask)) 
+	    {
+	      mouse_mask_state |= Button3Mask;
+	      button_number = 3;
+	      is_down = True;
+	    } 
+	  else if (!(mask_return & Button4Mask) &&
+		   (mouse_mask_state & Button1Mask)) 
+	    {
+	      mouse_mask_state &= ~Button4Mask;
+	      button_number = 4;
+	    } 
+	  else if ((mask_return & Button4Mask) &&
+		   !(mouse_mask_state & Button1Mask)) 
+	    {
+	      mouse_mask_state |= Button4Mask;
+	      button_number = 4;
+	      is_down = True;
+	    } 
+	  else if (!(mask_return & Button5Mask) &&
+		   (mouse_mask_state & Button5Mask)) 
+	    {
+	      mouse_mask_state &= ~Button5Mask;
+	      button_number = 5;
+	    }
+	  else if ((mask_return & Button5Mask) &&
+		   !(mouse_mask_state & Button5Mask)) 
+	    {
+	      mouse_mask_state |= Button5Mask;
+	      button_number = 5;
+	      is_down = True;
+	    }
+	  if (button_number) {
 #ifdef SPI_DEBUG		  
-			  fprintf (stderr, "Button %d Released\n",
-				   button_number);
+	    fprintf (stderr, "Button %d %s\n",
+		     button_number, (is_down) ? "Pressed" : "Released");
 #endif
-			  snprintf (event_name, 22, "mouse:button:%dr", button_number);
-			  /* TODO: distinguish between physical and 
-			   * logical buttons 
-			   */
-			  mouse_e.type      = Accessibility_BUTTON_RELEASED_EVENT;
-			  mouse_e.id        = button_number;
-			  mouse_e.hw_code   = button_number;
-                          mouse_e.modifiers = (CORBA_unsigned_short) 
-			                       mouse_mask_state; 
-			  mouse_e.timestamp = 0;
-			  mouse_e.event_string = "";
-			  mouse_e.is_text   = CORBA_FALSE;
-			  is_consumed = 
-			    spi_controller_notify_mouselisteners (controller, 
-								  &mouse_e, 
-								  &ev);
-			  e.type = event_name;
-			  e.source = BONOBO_OBJREF (registry->desktop);
-			  e.detail1 = last_mouse_pos->x;
-			  e.detail2 = last_mouse_pos->y;
-			  spi_init_any_nil (&e.any_data);
-			  CORBA_exception_init (&ev);
-			  if (!is_consumed)
-			    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-								&e,
-								&ev);  
-		  }
+	    snprintf (event_name, 22, "mouse:button:%d%c", button_number,
+		      (is_down) ? 'p' : 'r');
+	    /* TODO: distinguish between physical and 
+	     * logical buttons 
+	     */
+	    mouse_e.type      = (is_down) ? 
+	      Accessibility_BUTTON_PRESSED_EVENT :
+	      Accessibility_BUTTON_RELEASED_EVENT;
+	    mouse_e.id        = button_number;
+	    mouse_e.hw_code   = button_number;
+	    mouse_e.modifiers = (CORBA_unsigned_short) mouse_mask_state; 
+	    mouse_e.timestamp = 0;
+	    mouse_e.event_string = "";
+	    mouse_e.is_text   = CORBA_FALSE;
+	    is_consumed = 
+	      spi_controller_notify_mouselisteners (controller, 
+						    &mouse_e, 
+						    &ev);
+	    e.type = event_name;
+	    e.source = BONOBO_OBJREF (registry->desktop);
+	    e.detail1 = last_mouse_pos->x;
+	    e.detail2 = last_mouse_pos->y;
+	    spi_init_any_nil (&e.any_data);
+	    CORBA_exception_init (&ev);
+	    if (!is_consumed)
+	      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+						  &e,
+						  &ev);  
 	  }
-	  if ((mask_return & key_modifier_mask) !=
-	      (mouse_mask_state & key_modifier_mask)) {
+	}
+      
+      if ((mask_return & key_modifier_mask) !=
+      (mouse_mask_state & key_modifier_mask)) {
 #ifdef SPI_DEBUG
-		  fprintf (stderr, "MODIFIER CHANGE EVENT!\n");
+	fprintf (stderr, "MODIFIER CHANGE EVENT!\n");
 #endif
-		  e.type = "keyboard:modifiers";  
-		  e.source = BONOBO_OBJREF (registry->desktop);
-		  e.detail1 = mouse_mask_state;
-		  e.detail2 = mask_return;
-		  spi_init_any_nil (&e.any_data);
-		  CORBA_exception_init (&ev);
-		  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-						      &e,
-						      &ev);
-	  }
-	  mouse_mask_state = mask_return;
-  }
+	e.type = "keyboard:modifiers";  
+	e.source = BONOBO_OBJREF (registry->desktop);
+	e.detail1 = mouse_mask_state;
+	e.detail2 = mask_return;
+	spi_init_any_nil (&e.any_data);
+	CORBA_exception_init (&ev);
+	Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+					    &e,
+					    &ev);
+      }
+      mouse_mask_state = mask_return;
+    }  
+  
   if (poll_count++ == poll_count_modulus) {
-	  poll_count = 0;
-	  e.type = "mouse:abs";  
-	  e.source = BONOBO_OBJREF (registry->desktop);
-	  e.detail1 = x;
-	  e.detail2 = y;
-	  spi_init_any_nil (&e.any_data);
-	  CORBA_exception_init (&ev);
-	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-					      &e,
-					      &ev);
+    poll_count = 0;
+    e.type = "mouse:abs";  
+    e.source = BONOBO_OBJREF (registry->desktop);
+    e.detail1 = x;
+    e.detail2 = y;
+    spi_init_any_nil (&e.any_data);
+    CORBA_exception_init (&ev);
+    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+					&e,
+					&ev);
   }
   if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
-	  e.type = "mouse:rel";  
-	  e.source = BONOBO_OBJREF (registry->desktop);
-	  e.detail1 = x - last_mouse_pos->x;
-	  e.detail2 = y - last_mouse_pos->y;
-	  spi_init_any_nil (&e.any_data);
-	  CORBA_exception_init (&ev);
-	  last_mouse_pos->x = x;
-	  last_mouse_pos->y = y;
-	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-					      &e,
-					      &ev);
-	  return TRUE;
+    e.type = "mouse:rel";  
+    e.source = BONOBO_OBJREF (registry->desktop);
+    e.detail1 = x - last_mouse_pos->x;
+    e.detail2 = y - last_mouse_pos->y;
+    spi_init_any_nil (&e.any_data);
+    CORBA_exception_init (&ev);
+    last_mouse_pos->x = x;
+    last_mouse_pos->y = y;
+    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+					&e,
+					&ev);
+    return TRUE;
   }
   return FALSE;
 }
@@ -691,7 +755,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   int button = xbutton_event->button;
   
   unsigned int mouse_button_state = xbutton_event->state;
-
+  
   switch (button)
     {
     case 1:
@@ -732,22 +796,26 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   mouse_e.timestamp = (CORBA_unsigned_long) xbutton_event->time;
   mouse_e.event_string = "";
   mouse_e.is_text   = CORBA_FALSE;
-  is_consumed = spi_controller_notify_mouselisteners (controller, &mouse_e, &ev);
-
-  e.type = CORBA_string_dup (event_name);
-  e.source = BONOBO_OBJREF (controller->registry->desktop);
-  e.detail1 = last_mouse_pos->x;
-  e.detail2 = last_mouse_pos->y;
-  spi_init_any_nil (&e.any_data);
-  CORBA_exception_init (&ev);
-  
-  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-				      &e,
-				      &ev);
-
+  if ((mouse_button_state & mouse_button_mask) != 
+      (mouse_mask_state & mouse_button_mask)) 
+    { 
+      mouse_mask_state = mouse_button_state;
+      is_consumed = 
+	spi_controller_notify_mouselisteners (controller, &mouse_e, &ev);
+      e.type = CORBA_string_dup (event_name);
+      e.source = BONOBO_OBJREF (controller->registry->desktop);
+      e.detail1 = last_mouse_pos->x;
+      e.detail2 = last_mouse_pos->y;
+      spi_init_any_nil (&e.any_data);
+      CORBA_exception_init (&ev);
+      
+      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
+					  &e,
+					  &ev);
+    }
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
 			      xevent->type == ButtonRelease);
-  
+      
   /* if client wants to consume this event, and XKB latch state was
    *   unset by this button event, we reset it
    */
@@ -856,7 +924,8 @@ spi_controller_register_with_devices (SpiDEController *controller)
 {
   DEControllerPrivateData *priv = (DEControllerPrivateData *) 
 	  g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);	 
-
+  /* FIXME: should check for extension first! */
+  XTestGrabControl (spi_get_display (), True);
   priv->xkb_desc = XkbGetMap (spi_get_display (), 0, XkbUseCoreKbd);
 
   /* calls to device-specific implementations and routines go here */
