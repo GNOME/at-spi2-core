@@ -20,6 +20,8 @@
 
 #include "atkcomponent.h"
 
+static void       atk_component_base_init (AtkComponentIface *class);
+
 static gboolean   atk_component_real_contains                (AtkComponent *component,
                                                               gint         x,
                                                               gint         y,
@@ -48,7 +50,7 @@ atk_component_get_type (void)
     static const GTypeInfo tinfo =
     {
       sizeof (AtkComponentIface),
-      (GBaseInitFunc) NULL,
+      (GBaseInitFunc) atk_component_base_init,
       (GBaseFinalizeFunc) NULL,
 
     };
@@ -58,6 +60,21 @@ atk_component_get_type (void)
 
   return type;
 }
+
+static void
+atk_component_base_init (AtkComponentIface *class)
+{
+  static gboolean initialized = FALSE;
+
+  if (! initialized)
+    {
+      class->ref_accessible_at_point = atk_component_real_ref_accessible_at_point;
+      class->contains = atk_component_real_contains;
+      class->get_position = atk_component_real_get_position;
+      class->get_size = atk_component_real_get_size;
+    }
+}
+
 
 /**
  * atk_component_add_focus_handler:
@@ -136,12 +153,7 @@ atk_component_contains (AtkComponent    *component,
   if (iface->contains)
     return (iface->contains) (component, x, y, coord_type);
   else
-  {
-    /*
-     * if this method is not overridden use the default implementation.
-     */
-    return atk_component_real_contains (component, x, y, coord_type);
-  }
+    return FALSE;
 }
 
 /**
@@ -171,12 +183,7 @@ atk_component_ref_accessible_at_point (AtkComponent    *component,
   if (iface->ref_accessible_at_point)
     return (iface->ref_accessible_at_point) (component, x, y, coord_type);
   else
-  {
-    /*
-     * if this method is not overridden use the default implementation.
-     */
-    return atk_component_real_ref_accessible_at_point (component, x, y, coord_type);
-  }
+    return NULL;
 }
 
 /**
@@ -265,13 +272,6 @@ atk_component_get_position   (AtkComponent    *component,
 
   if (iface->get_position)
     (iface->get_position) (component, real_x, real_y, coord_type);
-  else
-  {
-    /*
-     * if this method is not overridden use the default implementation.
-     */
-    atk_component_real_get_position (component, real_x, real_y, coord_type);
-  }
 }
 
 /**
@@ -308,13 +308,6 @@ atk_component_get_size       (AtkComponent    *component,
 
   if (iface->get_size)
     (iface->get_size) (component, real_width, real_height);
-  else
-  {
-    /*
-     * if this method is not overridden use the default implementation.
-     */
-    atk_component_real_get_size (component, real_width, real_height);
-  }
 }
 
 /**

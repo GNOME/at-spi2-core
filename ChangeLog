@@ -1,5 +1,21 @@
 2003-01-21  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atktext.c
+	(atk_text_base_init): Set vtable entry for default implementations
+	(atk_text_get_range_extents): Omit calling default implementation
+	(atk_text_get_bounded_ranges): Omit calling default implementation
+
+	* atk/atkcomponent.c
+	(atk_component_base_init): New function to set vtable entry for 
+	default implementations
+	(atk_component_ref_accessible_at_point): Omit calling default 
+	implementation
+	(atk_component_contains): Omit calling default implementation
+	(atk_component_get_position): Omit calling default implementation
+	(atk_component_get_size): Omit calling default implementation
+
+2003-01-21  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkobject.c 
 	(atk_object_real_set_property): Add support for PROP_TABLE_SUMMARY 
 	and PROP_TABLE_CAPTION_OBJECT.

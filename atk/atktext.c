@@ -64,7 +64,7 @@ static const gchar *underline[] = {"none",
                                    "double",
                                    "low"};
 
-static void atk_text_base_init (gpointer *g_class);
+static void atk_text_base_init (AtkTextIface *class);
 
 static void atk_text_real_get_range_extents  (AtkText          *text,
                                               gint             start_offset,
@@ -104,7 +104,7 @@ atk_text_get_type ()
 }
 
 static void
-atk_text_base_init (gpointer *g_class)
+atk_text_base_init (AtkTextIface *class)
 {
   static gboolean initialized = FALSE;
   
@@ -114,7 +114,10 @@ atk_text_base_init (gpointer *g_class)
        * Note that text_changed signal supports details "insert", "delete", 
        * possibly "replace". 
        */
-      
+     
+      class->get_range_extents = atk_text_real_get_range_extents; 
+      class->get_bounded_ranges = atk_text_real_get_bounded_ranges; 
+
       atk_text_signals[TEXT_CHANGED] =
 	g_signal_new ("text_changed",
 		      ATK_TYPE_TEXT,
@@ -913,8 +916,6 @@ atk_text_get_range_extents (AtkText          *text,
 
   if (iface->get_range_extents)
     (*(iface->get_range_extents)) (text, start_offset, end_offset, coord_type, rect);
-  else
-    atk_text_real_get_range_extents (text, start_offset, end_offset, coord_type, rect);
 }
 
 /**
@@ -947,7 +948,7 @@ atk_text_get_bounded_ranges (AtkText          *text,
   if (iface->get_bounded_ranges)
     return (*(iface->get_bounded_ranges)) (text, rect, coord_type, x_clip_type, y_clip_type);
   else
-    return atk_text_real_get_bounded_ranges (text, rect, coord_type, x_clip_type, y_clip_type);
+    return NULL;
 }
 
 /**
