@@ -1,3 +1,7 @@
+2002-11-18  Abi Brady  <morwen@evilmagic.org>
+
+	* configure.in: Added "en_GB" to ALL_LINGUAS.
+
 2002-11-15  Hasbullah BIn Pit <sebol@ikhlas.com>
 
         * configure.in: Added "ms" to ALL_LINGUAS.
