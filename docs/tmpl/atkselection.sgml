@@ -45,6 +45,7 @@ can be selected should support the AtkSelection interface.
 
 @selection: 
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_selection_clear_selection ##### -->
@@ -53,6 +54,7 @@ can be selected should support the AtkSelection interface.
 </para>
 
 @selection: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_selection_ref_selection ##### -->
@@ -91,6 +93,7 @@ can be selected should support the AtkSelection interface.
 
 @selection: 
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_selection_select_all_selection ##### -->
