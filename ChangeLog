@@ -1,4 +1,16 @@
+2001-11-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.[c|h]:
+	Remove property accessible-state; use signal state-change instead
+	Change signature of state-change handler to take gboolean as argument
+	instead of AtkPropertyValues
+	Update atk_object_notify_state_change() to emit state-change signal
+
+	* atk/atkstate.[c|h], docs.atkstate.sgml:
+	Remove state ATK_STATE_COLLAPSED
+
 2001-11-19  Bill Haneman <bill.haneman@sun.com>
+
 	* atk/atkobject.c:
 	* atk/atkstate.c:
 	Added state-changed signal to atkobject, in anticipation of 

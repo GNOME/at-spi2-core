@@ -31,7 +31,6 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
  "armed",
  "busy",
  "checked",
- "collapsed",
  "defunct",
  "editable",
  "enabled",

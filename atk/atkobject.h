@@ -349,7 +349,7 @@ void                      (* remove_property_change_handler)     (AtkObject
    * signal for an object.
    */
   gint                    (*state_change)         (AtkObject                  *accessible,
-                                                   AtkPropertyValues          *values);
+                                                   gboolean                   state_set);
   /*
    * The signal handler which is executed when there is a change in the
    * visible data for an object

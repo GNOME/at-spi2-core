@@ -33,7 +33,6 @@ extern "C" {
  *@ATK_STATE_ARMED: Indicates that the object is armed
  *@ATK_STATE_BUSY: Indicates the current object is busy
  *@ATK_STATE_CHECKED: Indicates this object is currently checked
- *@ATK_STATE_COLLAPSED: Indicates this object is collapsed
  *@ATK_STATE_DEFUNCT: Indicates the user interface object corresponding to this object no longer exists
  *@ATK_STATE_EDITABLE: Indicates the user can change the contents of this object
  *@ATK_STATE_ENABLED: Indicates that this object is enabled
@@ -69,7 +68,6 @@ typedef enum
   ATK_STATE_ARMED,
   ATK_STATE_BUSY,
   ATK_STATE_CHECKED,
-  ATK_STATE_COLLAPSED,
   ATK_STATE_DEFUNCT,
   ATK_STATE_EDITABLE,
   ATK_STATE_ENABLED,

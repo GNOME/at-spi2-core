@@ -47,8 +47,8 @@ enum {
   CHILDREN_CHANGED,
   FOCUS_EVENT,
   PROPERTY_CHANGE,
-  VISIBLE_DATA_CHANGED,
   STATE_CHANGE,
+  VISIBLE_DATA_CHANGED,
   
   LAST_SIGNAL
 };
@@ -102,7 +102,6 @@ static guint atk_object_signals[LAST_SIGNAL] = { 0, };
 static gpointer parent_class = NULL;
 
 static const gchar* atk_object_name_property_name = "accessible-name";
-static const gchar* atk_object_name_property_state = "accessible-state";
 static const gchar* atk_object_name_property_description = "accessible-description";
 static const gchar* atk_object_name_property_parent = "accessible-parent";
 static const gchar* atk_object_name_property_value = "accessible-value";
@@ -191,16 +190,6 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         "Description of an object, formatted for "
                                                         "assistive technology access",
                                                         NULL,
-                                                        G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_STATE,
-                                   g_param_spec_int    (atk_object_name_property_state,
-                                                        "Accessible State Set",
-                                                        "The accessible state set of this object "
-                                                        "or its UI component",
-                                                        0,
-                                                        G_MAXINT,
-                                                        0,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_PARENT,
@@ -301,17 +290,19 @@ atk_object_class_init (AtkObjectClass *klass)
                   G_TYPE_NONE, 1,
                   G_TYPE_POINTER);
   /*
-   * The "state_change" signal supports details, one for each accessible state type
+   * The "state_change" signal supports details, one for each accessible 
+   * state type
    * (see atkstate.c).
    */
+  atk_object_signals[STATE_CHANGE] =
     g_signal_new ("state_change",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
                   G_STRUCT_OFFSET (AtkObjectClass, state_change),
                   (GSignalAccumulator) NULL, NULL,
-                  g_cclosure_marshal_VOID__POINTER,
+                  g_cclosure_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE, 1,
-                  G_TYPE_POINTER);
+                  G_TYPE_BOOLEAN);
   atk_object_signals[VISIBLE_DATA_CHANGED] =
     g_signal_new ("visible_data_changed",
                   G_TYPE_FROM_CLASS (klass),
@@ -724,47 +715,16 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
  * @state: an #AtkState whose state is changed
  * @value : a gboolean which indicates whether the state is being set on or off
  * 
- * Emits a property_change signal for the specified state. 
- * This signal is caught by an #AtkPropertyChangeHandler
+ * Emits a state-change signal for the specified state. 
  **/
 void
 atk_object_notify_state_change (AtkObject *accessible,
                                 AtkState  state,
                                 gboolean  value)
 {
-#define N_TOGGLE_STATES 2
-  AtkPropertyValues  values = { 0, };
-  AtkState toggle_states[N_TOGGLE_STATES] = { ATK_STATE_EXPANDED, 
-                                              ATK_STATE_COLLAPSED };
-  AtkState toggled_states[N_TOGGLE_STATES] = { ATK_STATE_COLLAPSED, 
-                                               ATK_STATE_EXPANDED };
-
-  values.property_name = atk_object_name_property_state;
-  if (value)
-    {
-       gint i;
-
-       g_value_init (&values.new_value, G_TYPE_INT);
-       g_value_set_int (&values.new_value, state);
-
-       for (i = 0; i < N_TOGGLE_STATES; i++)
-         {
-           if (toggle_states[i] == state)
-             {
-               g_value_init (&values.old_value, G_TYPE_INT);
-               g_value_set_int (&values.old_value, toggled_states[i]);
-               break;
-             }
-         }
-    }
-    else
-    {
-       g_value_init (&values.old_value, G_TYPE_INT);
-       g_value_set_int (&values.old_value, state);
-    }
-  g_signal_emit (accessible, atk_object_signals[PROPERTY_CHANGE],
-                 g_quark_from_string (atk_object_name_property_state),
-                 &values, NULL);
+  g_signal_emit (accessible, atk_object_signals[STATE_CHANGE],
+                 g_quark_from_string (atk_state_type_get_name (state)),
+                 value, NULL);
 }
 
 /**
