@@ -86,7 +86,7 @@ static void
 desktop_add_application (SpiDesktop *desktop,
 			 guint index, gpointer data)
 {
-  BonoboObject *registry = BONOBO_OBJECT(data);
+  BonoboObject *registry = BONOBO_OBJECT (data);
   Accessibility_Event e;
   CORBA_Environment ev;
   
@@ -95,7 +95,7 @@ desktop_add_application (SpiDesktop *desktop,
   e.detail1 = index;
   e.detail2 = 0;
   CORBA_exception_init (&ev);
-  Accessibility_Registry_notifyEvent (BONOBO_OBJREF(registry),
+  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
   CORBA_exception_free (&ev);
 }
@@ -106,7 +106,7 @@ static void
 desktop_remove_application (SpiDesktop *desktop,
 			    guint index, gpointer data)
 {
-  BonoboObject *registry = BONOBO_OBJECT(data);
+  BonoboObject *registry = BONOBO_OBJECT (data);
   Accessibility_Event e;
   CORBA_Environment ev;
   
@@ -115,7 +115,7 @@ desktop_remove_application (SpiDesktop *desktop,
   e.detail1 = index;
   e.detail2 = 0;
   CORBA_exception_init (&ev);
-  Accessibility_Registry_notifyEvent (BONOBO_OBJREF(registry),
+  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
   CORBA_exception_free (&ev);
 }
@@ -661,10 +661,15 @@ spi_registry_init (SpiRegistry *registry)
   registry->toolkit_listeners = NULL;
   registry->desktop = spi_desktop_new ();
   /* Register callback notification for application addition and removal */
-  g_signal_connect (G_OBJECT (registry->desktop), "application_added",
-			    G_CALLBACK(desktop_add_application), (gpointer)registry);
-  g_signal_connect (G_OBJECT (registry->desktop), "application_removed",
-			    G_CALLBACK(desktop_remove_application), (gpointer)registry);
+  g_signal_connect (G_OBJECT (registry->desktop),
+		    "application_added",
+		    G_CALLBACK (desktop_add_application),
+		    registry);
+
+  g_signal_connect (G_OBJECT (registry->desktop),
+		    "application_removed",
+		    G_CALLBACK (desktop_remove_application),
+		    registry);
 
   registry->de_controller = NULL;
 }

@@ -1,3 +1,14 @@
+2002-03-19  Michael Meeks  <michael@ximian.com>
+
+	* registryd/registry.c (desktop_remove_application),
+	(desktop_add_application): clean coding style.
+
+	* registryd/desktop.c (spi_desktop_remove_application),
+	(spi_desktop_add_application): kill re-enterency hazards.
+	(spi_desktop_dispose): remove bogus redundant cast
+	obscuring bug; fix bug too.
+	(spi_desktop_init): make the desktop object immortal.
+
 2002-03-16 Bill Haneman <bill.haneman@sun.com>
 
 	* test/simple-at.c:

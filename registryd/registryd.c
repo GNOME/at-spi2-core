@@ -35,6 +35,8 @@ main (int argc, char **argv)
   char        *obj_id;
   SpiRegistry *registry;
 
+  free (malloc (8)); /* -lefence */
+
   if (!bonobo_init (&argc, argv))
     {
       g_error ("Could not initialize oaf / Bonobo");

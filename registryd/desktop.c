@@ -53,6 +53,7 @@ spi_desktop_init (SpiDesktop *desktop)
   spi_base_construct (SPI_BASE (desktop), g_object_new (ATK_TYPE_OBJECT, NULL));
 
   desktop->applications = NULL;
+  bonobo_object_set_immortal (BONOBO_OBJECT (desktop), TRUE);
 
   atk_object_set_name (ATK_OBJECT (SPI_BASE (desktop)->gobj), "main");
 }
@@ -64,7 +65,8 @@ spi_desktop_dispose (GObject *object)
 
   while (desktop->applications)
     {
-      Application *app = (Application *) desktop->applications;
+      Application *app = desktop->applications->data;
+      g_assert (app->ref != CORBA_OBJECT_NIL);
       spi_desktop_remove_application (desktop, app->ref);
     }
 
@@ -191,10 +193,13 @@ spi_desktop_add_application (SpiDesktop *desktop,
       app->ref = ref;
 
       desktop->applications = g_list_append (desktop->applications, app);
-      g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_ADDED], 0,
-		     g_list_index (desktop->applications, app));
 
-      ORBit_small_listen_for_broken (app->ref, G_CALLBACK (abnormal_application_termination), app);
+      ORBit_small_listen_for_broken (
+	      app->ref, G_CALLBACK (abnormal_application_termination), app);
+
+      g_signal_emit (G_OBJECT (desktop),
+		     spi_desktop_signals[APPLICATION_ADDED], 0,
+		     g_list_index (desktop->applications, app));
     }
 
   CORBA_exception_free (&ev);
@@ -204,13 +209,16 @@ void
 spi_desktop_remove_application (SpiDesktop *desktop,
 				const Accessibility_Application app_ref)
 {
+  guint idx;
   GList *l;
   CORBA_Environment ev;
 
+  g_return_if_fail (app_ref != CORBA_OBJECT_NIL);
   g_return_if_fail (SPI_IS_DESKTOP (desktop));
 
   CORBA_exception_init (&ev);
 
+  idx = 0;
   for (l = desktop->applications; l; l = l->next)
     {
       Application *app = (Application *) l->data;
@@ -219,6 +227,7 @@ spi_desktop_remove_application (SpiDesktop *desktop,
         {
 	  break;
 	}
+      idx++;
     }
 
   CORBA_exception_free (&ev);
@@ -227,12 +236,12 @@ spi_desktop_remove_application (SpiDesktop *desktop,
     {
       Application *app = (Application *) l->data;
 
-      g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_REMOVED], 0,
-		     g_list_index (desktop->applications, l));
       desktop->applications = g_list_delete_link (desktop->applications, l);
 
       ORBit_small_unlisten_for_broken (app->ref, G_CALLBACK (abnormal_application_termination));
       bonobo_object_release_unref (app->ref, NULL);
       g_free (app);
+      
+      g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_REMOVED], 0, idx);
     }
 }
