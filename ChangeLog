@@ -1,3 +1,7 @@
+2001-07-11  Brian Cameron <brian.cameron@sun.com>
+	* tmpl/atkdocument.sgml
+	Added new file for docs.
+
 2001-07-11  Padraig O'Briain  <padraig.obriain@sun.com>
 	* atk/atkimage.c atk/atkutil.c
 	Changes to build with Sun's FORTE compiler.
