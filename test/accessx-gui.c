@@ -20,6 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
@@ -122,10 +123,11 @@ init_xkb ()
   return True;      
 }
 
-static AccessXControlStruct *control_struct_new (unsigned int mask,
-						 short int *val_ptr,
-						 char *label,
-						 char *val_label)
+static AccessXControlStruct *
+control_struct_new (unsigned int mask,
+		    short int *val_ptr,
+		    char *label,
+		    char *val_label)
 {
   AccessXControlStruct *control = g_new0 (AccessXControlStruct, 1);
   control->mask = mask;
@@ -242,7 +244,7 @@ basic_toggles_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -317,7 +319,7 @@ basic_toggles_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -351,7 +353,7 @@ basic_toggles_box ()
 static GtkWidget*
 repeat_keys_box ()
 {
-  GtkWidget *outer_hbox, *hbox, *vbox, *label, *button, *range, *frame;
+  GtkWidget *outer_hbox, *vbox, *label, *button, *range, *frame;
   GtkAdjustment *adjustment;
   AccessXControlStruct *control =
 	  control_struct_new (XkbRepeatKeysMask, &xkb->ctrls->repeat_delay, NULL, NULL);
@@ -392,7 +394,7 @@ repeat_keys_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -409,7 +411,7 @@ repeat_keys_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -438,7 +440,7 @@ repeat_keys_box ()
 static GtkWidget*
 mouse_keys_box ()
 {
-  GtkWidget *outer_hbox, *hbox, *vbox, *label, *button, *range, *frame;
+  GtkWidget *outer_hbox, *vbox, *label, *button, *range, *frame;
   GtkAdjustment *adjustment;
   AccessXControlStruct *control =
 	  control_struct_new (XkbMouseKeysMask, &xkb->ctrls->mk_delay, NULL, NULL);
@@ -480,7 +482,7 @@ mouse_keys_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -497,7 +499,7 @@ mouse_keys_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -514,7 +516,7 @@ mouse_keys_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -531,7 +533,7 @@ mouse_keys_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -576,7 +578,7 @@ mouse_keys_box ()
 static GtkWidget*
 timeout_box ()
 {
-  GtkWidget *outer_hbox, *hbox, *vbox, *label, *button, *range;
+  GtkWidget *hbox, *label, *button, *range;
   GtkAdjustment *adjustment;
   AccessXControlStruct *control =
 	  control_struct_new (XkbAccessXTimeoutMask, &xkb->ctrls->ax_timeout, NULL, NULL);
@@ -603,7 +605,7 @@ timeout_box ()
 					    "GtkScale::digits", 0,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, control,
 			    NULL);
   
@@ -671,7 +673,7 @@ create_gui ()
 static void
 create_gui_x ()
 {
-  GtkWidget *window, *button, *container, *hbox, *vbox, *range, *frame, *label;
+  GtkWidget *window, *button, *container, *hbox, *range;
   GtkAdjustment *adjustment;
   int i;
   static AccessXControlStruct* controls[N_CONTROLS];
@@ -691,6 +693,7 @@ create_gui_x ()
 			 "GtkWidget::visible", TRUE,
 			 NULL);
 
+  i = 0; /* FIXME: this looks bogus */
   button = g_object_connect (gtk_widget_new (gtk_check_button_get_type (),
 					     "GtkButton::label", "Access X Timeout",
 					     "GtkWidget::parent", hbox,
@@ -707,7 +710,7 @@ create_gui_x ()
 					    "GtkWidget::visible", TRUE,
 					    "GtkScale::adjustment", adjustment,
 					    NULL),
-			    "signal::spi_value_changed",
+			    "signal::value_changed",
 			    set_accessx_control_value, controls[i],
 			    NULL);
 	  
@@ -756,4 +759,6 @@ main(int argc, char **argv)
   create_gui ();
   
   gtk_main ();  
+
+  return 0;
 }

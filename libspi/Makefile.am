@@ -17,6 +17,7 @@ libspiinclude_HEADERS = Accessibility.h \
 			accessibleeventlistener.h \
 			action.h \
                         application.h \
+			base.h \
 			component.h \
                         desktop.h \
 			deviceeventcontroller.h	\
