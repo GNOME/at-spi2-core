@@ -1,5 +1,40 @@
 (top)
 in HEAD:
+What's new in at-spi-1.3.6:
+
+* Add XEvIE support for those systems which have XEvIE.
+
+* Correct values for MODIFIER_SHIFTLOCK and MODIFIER_ALT as part of fix
+for bug #118114.
+
+* Store event so that it can subsequently be referred to. Fixes bugs 
+#116949 and #116624.
+
+* Add support for AccessibleAction on hyperlink object.
+
+* Defer focus: events to reduce number of window switch events reported.
+This a partial fix for bug #108664.
+
+* Eliminate warning messages reported when out-of-process applet starts.
+Fixes bug #115014.
+
+* Register out-of-process applet as application only while it has top level
+window displayed. This fixes bug #111578.
+
+* Add translations: Simplified Chinese [Yi Yang],  Azerbaijani [Metin Amiroff],
+Icelandic [Richard Allen], Italian [Alessio Frusciante], 
+Korean [Changwoo Ryu], Danish [Ole Alursen], Albanian [Lauent Dhima],
+Malay [Hasbullah Bin Pit], Vietnamese [Pablo Saratxaga],
+Belarusian [Belarusian team <i18n@mova.org>], 
+Russian [Russian team <gnome-cyr@gnome.org>], Portuguese [Duarte Loreto], 
+Slovak [Marcel Telka], Serbian [Serbian team (Prevod.org)]
+Esperanto [Charles Voelger], Brazilian [Gustavo Noronha Silva], 
+Welsh [Dafydd Harries], Dutch [Vincent van Adrighem], 
+Spanish [Pablo Gonzalo del Campo], Polish [Artur Flinta], 
+Catalan [Jordi Mallach], French [Chistophe Marlet], 
+Hebrew [Gil "Dolfin" Osher], German [Christian Neumair], 
+Czech [Miloslav Trmac], Swedish [Christian Rose]
+
 What's new in at-spi-1.3.4:
 
 * require atk 1.3.4 throughout.
