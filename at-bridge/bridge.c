@@ -37,7 +37,11 @@ struct _ArgStruct {
   char **v;
 };
 
+static CORBA_Environment ev;
+static Accessibility_Registry registry;
+
 static gboolean bridge_register_app (gpointer p);
+static void bridge_focus_tracker (AtkObject *object);
 
 int
 gtk_module_init(gint argc, char* argv[])
@@ -51,19 +55,17 @@ gtk_module_init(gint argc, char* argv[])
 static gboolean
 bridge_register_app (gpointer gp)
 {
-  CORBA_Environment ev;
   CORBA_Object oclient;
   AtkObject *atko;
   char *obj_id;
   char sbuf[30];
   ArgStruct *args = (ArgStruct *)gp;
 
-  Accessibility_Registry registry;
   Application *app;
 
   CORBA_exception_init(&ev);
 
-  if (!bonobo_init (&args->c, &args->v))
+  if (!bonobo_init (&(args->c), args->v))
     {
       g_error ("Could not initialize Bonobo");
     }
@@ -91,10 +93,23 @@ bridge_register_app (gpointer gp)
 
   fprintf(stderr, "About to register application\n");
 
+  bonobo_activate ();
+
+  /* Register for focus event notifications, and register app with central registry  */
+  atk_add_focus_tracker (bridge_focus_tracker);
+
   Accessibility_Registry_registerApplication (registry,
                                               bonobo_object_corba_objref (bonobo_object (app)),
                                               &ev);
-  bonobo_activate ();
-  bonobo_main ();  /* because app is also a server */
   return FALSE;
+}
+
+static void bridge_focus_tracker (AtkObject *object)
+{
+  Accessibility_Event *e = g_new0(Accessibility_Event, 1);
+  e->type = CORBA_string_dup ("focus:");
+  e->target = bonobo_object_corba_objref (bonobo_object (accessible_new (object)));
+  e->detail1 = 0;
+  e->detail2 = 0;
+  Accessibility_Registry_notifyEvent (registry, e, &ev);
 }

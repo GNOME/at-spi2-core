@@ -1,3 +1,22 @@
+2001-08-15  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/registry.c : separated event listeners to use
+	3 separate lists (focus, window, toolkit).  Began testing
+	event names against hashes before relaying events.
+	* test/at.c : now register for events of type "focus:"
+	* test/app.c : now generate events of type "focus:"
+	* at-bridge/bridge.c : register with ATK for focus events,
+	and we now relay those focus events to any "focus:" listeners.
+	This now works with the bridge as a GTK_MODULE when running test/at.
+	* libspi/registry.c :
+	* libspi/listener.c : now we ref event sources before propagating, and unref on receipt.
+	* libspi/registry.c : some changes to internal structs, to support event typestring hashes.
+	* text/app.c : changed the way the appname is generated.
+	
+	KNOWN PROBLEMS:
+	poll() fails after a few event notifications, when the number of file descriptors
+	gets too large.  Investigating.
+	
 2001-08-15  Mark McLoughlin <mark@skynet.ie>
 
 	* at-bridge/Makefile.am: link against
