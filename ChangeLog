@@ -1,3 +1,7 @@
+2003-07-01  Miloslav Trmac  <mitr@volny.cz>
+
+	* configure.in: Addded "cs" to ALL_LINGUAS. Why is it commented out?
+
 2003-07-01  Artur Flinta  <aflinta@cvs.gnome.org>
 
 	* configure.in: Added "pl" to ALL_LINGUAS.
