@@ -25,12 +25,10 @@ module Accessibility {
   interface Action : Bonobo::Unknown {
 
     /**
-     * getNActions:
-     * return values: a @long containing the number of actions this object supports.
-     *
-     * Returns the number of actions supported by this object.
+     * nActionss: a @long containing the number of actions this object supports.
+     * 
      **/
-    long getNActions ();
+    readonly attribute long nActions;
 
     /**
      * getDescription:
@@ -80,3 +78,4 @@ module Accessibility {
     string getKeyBinding (in long index);
   };
 };
+

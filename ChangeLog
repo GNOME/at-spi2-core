@@ -1,3 +1,25 @@
+2001-09-04  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Action.idl:
+		Added (missing) getName() method. 
+		Made nActions an attribute.
+	* idl/EditableText.idl:
+		Changed order of params in setAttributes.
+	* idl/Hyperlink.idl:
+		Removed getAnchor, added getURI.
+	* idl/Image.idl:
+		Changed attributes to methods, for efficiency
+		(so that getting extents can be done in one call)
+	* idl/Selection.idl:
+		Changed nSelectedChildren to attribute, and re-indented.
+	* idl/Table.idl: changed nrows, ncolumns, caption, summary 
+		to attributes.
+	* idl/Text.idl: reformatted to match our coding style.
+		(temporarily?) removed getRowColumnAtOffset().
+		Changed text selection API to support multi-select and
+		non-contiguous selections, as in ATK.
+	* idl/Value.idl: changed some methods to attributes.
+
 2001-08-24  Mark McLoughlin <mark@skynet.ie>
 
 	* libspi/listener.c(impl_notify_event):
