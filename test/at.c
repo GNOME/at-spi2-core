@@ -23,8 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <libbonobo.h>
-#include "Registry.h"
-#include "Event.h"
+#include <libspi/Accessibility.h>
 #include "accessible.h"
 #include "listener.h"
 #include "desktop.h"

@@ -24,8 +24,7 @@
 #include <stdlib.h>
 #include <libbonobo.h>
 #include <atk/atkobject.h>
-#include "Registry.h"
-#include "Event.h"
+#include <libspi/Accessibility.h>
 #include "accessible.h"
 #include "atksimpleobject.h"
 #include "application.h"

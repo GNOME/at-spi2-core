@@ -23,15 +23,7 @@
 #ifndef _ACCESSIBILITY_ACCESSIBLE_IDL
 #define _ACCESSIBILITY_ACCESSIBLE_IDL
 
-
 #include <Bonobo.idl>
-
-#if !defined(__ACCESSIBILITY_ACCESSIBLE_COMPILATION) && defined(__ORBIT_IDL__)
-%{
-#pragma include_defs Accessible.h
-%}
-#pragma inhibit push
-#endif
 
 #include "Relation.idl"
 #include "State.idl"
@@ -113,10 +105,6 @@ module Accessibility {
     StateSet	getState ();
   };
 };
-
-#if !defined(__ACCESSIBILITY_ACCESSIBLE_COMPILATION) && defined(__ORBIT_IDL__)
-#pragma inhibit pop
-#endif
 
 #endif
 

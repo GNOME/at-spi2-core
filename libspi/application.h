@@ -30,7 +30,7 @@ extern "C" {
 #include <atk/atkobject.h>
 #include <accessible.h>
 #include <application.h>
-#include <Application.h>
+#include <libspi/Accessibility.h>
 
 #define APPLICATION_TYPE        (application_get_type ())
 #define APPLICATION(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), APPLICATION_TYPE, Application))

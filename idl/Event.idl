@@ -25,18 +25,6 @@
 
 #include <Bonobo.idl>
 
-#if !defined(__ACCESSIBILITY_EVENT_COMPILATION) && defined(__ORBIT_IDL__)
-%{
-#pragma include_defs Accessible.h
-#pragma include_defs Event.h
-%}
-#pragma inhibit push
-#endif
-
-#pragma inhibit push
-#include "Accessible.idl"
-#pragma inhibit pop
-
 module Accessibility
 {
   interface Accessible;
@@ -53,9 +41,5 @@ module Accessibility
   };
 
 };
-
-#if !defined(__ACCESSIBILITY_EVENT_COMPILATION) && defined(__ORBIT_IDL__)
-#pragma inhibit pop
-#endif
 
 #endif

@@ -23,13 +23,6 @@
 #ifndef _ACCESSIBILITY_RELATION_IDL
 #define _ACCESSIBILITY_RELATION_IDL
 
-#if !defined(__ACCESSIBILITY_RELATION_COMPILATION) && defined(__ORBIT_IDL__)
-%{
-#pragma include_defs Relation.h
-%}
-#pragma inhibit push
-#endif
-
 module Accessibility {
 
   enum RelationType {
@@ -41,9 +34,7 @@ module Accessibility {
   };
 
   /*
-   *
    * This interface inherits from a base class implementing ref counts.
-   *
    */
 
   interface Relation {
@@ -51,9 +42,5 @@ module Accessibility {
     Object		getTarget ();
   };
 };
-
-#if !defined(__ACCESSIBILITY_RELATION_COMPILATION) && defined(__ORBIT_IDL__)
-#pragma inhibit pop
-#endif
 
 #endif

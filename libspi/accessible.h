@@ -27,7 +27,7 @@ extern "C" {
 
 #include <bonobo/bonobo-xobject.h>
 #include <atk/atkobject.h>
-#include <Accessible.h>
+#include <libspi/Accessibility.h>
 
 #define ACCESSIBLE_TYPE        (accessible_get_type ())
 #define ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ACCESSIBLE_TYPE, Accessible))

@@ -32,7 +32,7 @@
 /*
  * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
-#include "Accessible.h"
+#include <libspi/Accessibility.h>
 
 /*
  * This pulls the definition for the BonoboObject (Gtk Type)

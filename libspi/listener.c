@@ -31,7 +31,7 @@
 
 #include <config.h>
 #include <bonobo/Bonobo.h>
-#include <Accessible.h>
+#include <libspi/Accessibility.h>
 
 /*
  * This pulls the definition for the BonoboObject (GType)

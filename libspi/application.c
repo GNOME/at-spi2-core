@@ -31,7 +31,7 @@
 /*
  * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
-#include "Desktop.h"
+#include <libspi/Accessibility.h>
 
 /*
  * This pulls the definition for the BonoboObject (GObject Type)

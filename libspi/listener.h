@@ -29,7 +29,7 @@ extern "C" {
 
 #include <bonobo/bonobo-xobject.h>
 #include <atk/atkobject.h>
-#include <Event.h>
+#include <libspi/Accessibility.h>
 
 #define LISTENER_TYPE        (listener_get_type ())
 #define LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), LISTENER_TYPE, Listener))

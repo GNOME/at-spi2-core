@@ -32,7 +32,7 @@ extern "C" {
 #include <atksimpleobject.h>
 #include <accessible.h>
 #include <application.h>
-#include <Desktop.h>
+#include <libspi/Accessibility.h>
 
 #define DESKTOP_TYPE        (desktop_get_type ())
 #define DESKTOP(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), DESKTOP_TYPE, Desktop))

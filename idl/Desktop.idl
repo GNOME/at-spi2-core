@@ -26,17 +26,6 @@
 #include <Bonobo.idl>
 #include <Accessible.idl>
 
-#if !defined(__ACCESSIBILITY_DESKTOP_COMPILATION) && defined(__ORBIT_IDL__)
-%{
-#pragma include_defs Desktop.h
-%}
-#pragma inhibit push
-#endif
-
-#pragma inhibit push
-#include "Accessible.idl"
-#pragma inhibit pop
-
 module Accessibility {
   interface Desktop : Accessible {
     /**
@@ -45,9 +34,5 @@ module Accessibility {
      **/
   };
 };
-
-#if !defined(__ACCESSIBILITY_DESKTOP_COMPILATION) && defined(__ORBIT_IDL__)
-#pragma inhibit pop
-#endif
 
 #endif

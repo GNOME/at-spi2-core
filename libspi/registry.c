@@ -34,7 +34,7 @@
 /*
  * This pulls the CORBA definitions for the "Accessibility::Registry" server
  */
-#include "Registry.h"
+#include <libspi/Accessibility.h>
 
 /*
  * This pulls the definition for the BonoboObject (GType)

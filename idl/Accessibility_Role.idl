@@ -21,14 +21,7 @@
  */
 
 #ifndef _ACCESSIBILITY_ROLE_IDL
-#define  _ACCESSIBILITY_ROLE_IDL
-
-#if !defined(__ACCESSIBILITY_ROLE_COMPILATION) && defined(__ORBIT_IDL__)
-%{
-#pragma include_defs Role.h
-%}
-#pragma inhibit push
-#endif
+#define _ACCESSIBILITY_ROLE_IDL
 
 module Accessibility {
 
@@ -211,8 +204,5 @@ module Accessibility {
   ROLE_LAST_DEFINED
   };
 };
-#if !defined(__ACCESSIBILITY_ROLE_COMPILATION) && defined(__ORBIT_IDL__)
-#pragma inhibit pop
-#endif
 
 #endif

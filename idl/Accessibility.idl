@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface 
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,26 +20,27 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ACCESSIBILITY_EVENT_DEFINED__
-#define __ACCESSIBILITY_EVENT_DEFINED__
+#ifndef _ACCESSIBILITY_IDL_
+#define _ACCESSIBILITY_IDL_
 
-#include <Bonobo.idl>
+#if !defined(__ACCESSIBILITY_COMPILATION__) && defined(__ORBIT_IDL__)
+%{
+#pragma include_defs Accessibility.h
+%}
+#pragma inhibit push
+#endif
 
-module Accessibility
-{
-  interface Accessible;
+#include <Accessible.idl>
+#include <Desktop.idl>
+#include <Relation.idl>
+#include <State.idl>
+#include <Application.idl>
+#include <Event.idl>
+#include <Registry.idl>
+#include <Role.idl>
 
-  struct Event {
-    string type;
-    Accessible target;
-    long detail1;
-    long detail2;
-  };
-
-  interface EventListener : Bonobo::Unknown {
-    oneway void notifyEvent (in Event e);
-  };
-
-};
+#if !defined(__ACCESSIBILITY_COMPILATION__) && defined(__ORBIT_IDL__)
+#pragma inhibit pop
+#endif
 
 #endif

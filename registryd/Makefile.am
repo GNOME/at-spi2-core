@@ -6,7 +6,7 @@ INCLUDES = -I$(top_srcdir)          \
            -I$(top_srcdir)/libspi   \
            $(REGISTRYD_CFLAGS)
 
-at_registryd_SOURCES = registryd.c
+registryd_SOURCES = registryd.c
 
 LDADD = ../libspi/libspi.la $(REGISTRYD_LIBS)
 

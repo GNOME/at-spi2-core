@@ -27,7 +27,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include <Registry.h>
+#include <libspi/Accessibility.h>
 #include "listener.h"
 #include "desktop.h"
 

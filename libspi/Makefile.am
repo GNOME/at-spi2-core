@@ -20,32 +20,23 @@ libspiinclude_HEADERS = accessible.h       \
                         desktop.h          \
                         listener.h         \
                         registry.h         \
-                        Accessible.h       \
-                        Application.h      \
-                        Desktop.h          \
-                        Event.h            \
-                        Registry.h         \
-                        Relation.h         \
-                        Role.h             \
-                        State.h
+                        Accessibility.h
 
-Accessible_IDLOUT = Accessible.h Accessible-stubs.c Accessible-skels.c Accessible-common.c
-Application_IDLOUT = Application.h Application-stubs.c Application-skels.c Application-common.c
-Desktop_IDLOUT = Desktop.h Desktop-stubs.c Desktop-skels.c Desktop-common.c
-Event_IDLOUT = Event.h Event-stubs.c Event-skels.c Event-common.c
-Registry_IDLOUT = Registry.h Registry-stubs.c Registry-skels.c Registry-common.c
-Relation_IDLOUT = Relation.h Relation-stubs.c Relation-skels.c Relation-common.c
-Role_IDLOUT = Role.h Role-stubs.c Role-skels.c Role-common.c
-State_IDLOUT = State.h State-stubs.c State-skels.c State-common.c
+IDL_OUT = Accessibility.h Accessibility-stubs.c Accessibility-skels.c Accessibility-common.c
 
-BUILT_SOURCES = $(Accessible_IDLOUT)     \
-                $(Application_IDLOUT)    \
-                $(Desktop_IDLOUT)        \
-                $(Event_IDLOUT)          \
-                $(Registry_IDLOUT)	 \
-                $(Relation_IDLOUT)       \
-                $(Role_IDLOUT)           \
-                $(State_IDLOUT)
+IDL = \
+	$(top_srcdir)/idl/Accessibility.idl \
+	$(top_srcdir)/idl/Accessible.idl    \
+	$(top_srcdir)/idl/Application.idl   \
+	$(top_srcdir)/idl/Desktop.idl       \
+	$(top_srcdir)/idl/Event.idl         \
+	$(top_srcdir)/idl/Registry.idl	    \
+	$(top_srcdir)/idl/Relation.idl      \
+	$(top_srcdir)/idl/Role.idl          \
+	$(top_srcdir)/idl/State.idl
+
+BUILT_SOURCES = $(IDL_OUT)
+CLEANFILES+=$(IDL_OUT)
 
 libspi_la_SOURCES = accessible.c         \
                     accessible.h         \
@@ -59,30 +50,20 @@ libspi_la_SOURCES = accessible.c         \
                     listener.h           \
                     registry.c           \
                     registry.h           \
-                    $(BUILT_SOURCES)
+                    $(IDL_OUT)
 
-IDLFLAGS = -I$(OAF_IDL_DIR) -I$(LIBBONOBO_IDL_DIR) -I$(top_srcdir)/idl --noimodule
+IDLFLAGS = -I$(OAF_IDL_DIR) -I$(LIBBONOBO_IDL_DIR) -I$(top_srcdir)/idl
 
-$(Accessible_IDLOUT): $(top_srcdir)/idl/Accessible.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_ACCESSIBLE_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Accessible.idl
+$(IDL_OUT) : $(IDL) $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) $(top_srcdir)/idl/Accessibility.idl
 
-$(Application_IDLOUT): $(top_srcdir)/idl/Application.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_APPLICATION_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Application.idl
+Accessibility-imodule.c : $(IDL) $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) --imodule $(top_srcdir)/idl/Accessibility.idl
 
-$(Desktop_IDLOUT): $(top_srcdir)/idl/Desktop.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_DESKTOP_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Desktop.idl
+orbittypelibdir = $(libdir)/orbit
+orbittypelib_LTLIBRARIES = Accessibility_module.la
 
-$(Event_IDLOUT): $(top_srcdir)/idl/Event.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_EVENT_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Event.idl
-
-$(Registry_IDLOUT): $(top_srcdir)/idl/Registry.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_REGISTRY_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Registry.idl
-
-$(Relation_IDLOUT): $(top_srcdir)/idl/Relation.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_RELATION_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Relation.idl
-
-$(Role_IDLOUT): $(top_srcdir)/idl/Role.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_ROLE_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Role.idl
-
-$(State_IDLOUT): $(top_srcdir)/idl/State.idl $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_STATE_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/State.idl
+Accessibility_module_la_LDFLAGS = \
+	-export-dynamic -module
+Accessibility_module_la_SOURCES = \
+	Accessibility-imodule.c

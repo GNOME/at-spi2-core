@@ -23,13 +23,6 @@
 #ifndef _ACCESSIBILITY_STATE_IDL
 #define _ACCESSIBILITY_STATE_IDL
 
-#if !defined(__ACCESSIBILITY_STATE_COMPILATION) && defined(__ORBIT_IDL__)
-%{
-#pragma include_defs State.h
-%}
-#pragma inhibit push
-#endif
-
 module Accessibility {
 
   enum StateType {
@@ -119,7 +112,5 @@ module Accessibility {
     boolean		isEmpty ();
   };
 };
-#if !defined(__ACCESSIBILITY_STATE_COMPILATION) && defined(__ORBIT_IDL__)
-#pragma inhibit pop
-#endif
+
 #endif

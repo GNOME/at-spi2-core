@@ -25,6 +25,9 @@
 #include <Application.idl>
 #include <Desktop.idl>
 
+#ifndef _ACCESSIBILITY_REGISTRY_IDL_
+#define _ACCESSIBILITY_REGISTRY_IDL_
+
 module Accessibility {
 
   typedef sequence<Desktop> DesktopSeq;
@@ -198,3 +201,5 @@ module Accessibility {
          void generateMouseEvent (in long x, in long y, in string eventName);
     }; 
 };
+
+#endif
