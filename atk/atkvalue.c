@@ -45,10 +45,6 @@ atk_value_get_type ()
  * @value: a #GValue representing the current accessible value
  *
  * Gets the value of this object
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkValue is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_value() convenience method.
  **/
 void
 atk_value_get_current_value (AtkValue *obj,
@@ -72,10 +68,6 @@ atk_value_get_current_value (AtkValue *obj,
  * @value: a #GValue representing the maximum accessible value
  *
  * Gets the maximum value of this object
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkValue is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_value() convenience method.
  **/
 void
 atk_value_get_maximum_value  (AtkValue *obj,
@@ -98,11 +90,7 @@ atk_value_get_maximum_value  (AtkValue *obj,
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the minimum accessible value
  *
- * Gets the mimnimum value of this object
- * Note: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkValue is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_value() convenience method.
+ * Gets the minimum value of this object
  **/
 void
 atk_value_get_minimum_value (AtkValue *obj,

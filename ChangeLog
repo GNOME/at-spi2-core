@@ -1,5 +1,11 @@
 2001-06-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* New files atk/atkstreamablecontent.[ch]
+	Updated files: atk/Makefile.am, atk/atk.h
+	* atk/atkvalue.c: Updated comments
+
+2001-06-06  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkregistry.h: Add declaration for atk_registry_get_type()
 
 2001-06-05  Padraig O'Briain  <padraig.obriain@sun.com>

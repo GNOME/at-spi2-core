@@ -20,6 +20,7 @@ libatk_la_SOURCES = 		\
 	atkselection.c		\
 	atkstate.c		\
 	atkstateset.c		\
+	atkstreamablecontent.c	\
 	atktable.c		\
 	atktext.c		\
 	atkutil.c		\
@@ -57,6 +58,7 @@ libatkinclude_HEADERS =	\
         atkselection.h		\
         atkstate.h		\
         atkstateset.h		\
+        atkstreamablecontent.h	\
         atktable.h		\
         atktext.h		\
         atkutil.h		\

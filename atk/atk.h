@@ -31,6 +31,7 @@
 #include <atk/atkselection.h>
 #include <atk/atkstate.h>
 #include <atk/atkstateset.h>
+#include <atk/atkstreamablecontent.h>
 #include <atk/atktable.h>
 #include <atk/atktext.h>
 #include <atk/atkutil.h>
