@@ -1,3 +1,12 @@
+2001-12-08  Michael Meeks  <michael@ximian.com>
+
+	* atk/atkregistry.c (atk_registry_class_init):
+	paranoia is not appropriate here, setup parent_class,
+	don't create a new default registry here - makes no
+	sense.
+	(atk_registry_finalize): chain to parent class, do
+	g_hash_table_destroys instead of g_frees.
+
 2001-12-07  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/Makefile.am:

@@ -123,7 +123,6 @@ void     atk_focus_tracker_init    (AtkEventListenerInit  add_function);
 
 /*
  * Cause the focus tracker functions which have been specified to be
-F
  * executed for the object.
  */
 void     atk_focus_tracker_notify  (AtkObject            *object);

@@ -143,7 +143,7 @@ atk_no_op_object_class_init (AtkNoOpObjectClass *klass)
 AtkObject*
 atk_no_op_object_new (GObject *obj)
 {
-  AtkObject* accessible;
+  AtkObject *accessible;
 
   g_return_val_if_fail (obj != NULL, NULL);
 

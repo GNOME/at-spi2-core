@@ -26,8 +26,9 @@ static void              atk_registry_init           (AtkRegistry      *instance
                                                       AtkRegistryClass *klass);
 static void              atk_registry_finalize       (GObject          *instance);
 static void              atk_registry_class_init     (AtkRegistryClass *klass);
+static AtkRegistry*      atk_registry_new            (void);
 
-static AtkRegistry*      atk_registry_new            ();
+GObjectClass *parent_class;
 
 GType
 atk_registry_get_type (void)
@@ -59,14 +60,11 @@ atk_registry_get_type (void)
 static void
 atk_registry_class_init (AtkRegistryClass *klass)
 {
-  GObjectClass *object_class;
+  GObjectClass *object_class = (GObjectClass *) klass;
 
-  /* is paranoia appropriate in a class initializer ? */
-  g_return_if_fail (G_IS_OBJECT_CLASS (klass));
+  parent_class = g_type_class_peek_parent (klass);
 
-  object_class = G_OBJECT_CLASS (klass);
   object_class->finalize = atk_registry_finalize;
-  default_registry = atk_registry_new ();
 }
 
 #if 0
@@ -79,7 +77,7 @@ atk_registry_class_finalize (GObjectClass *klass)
 {
   g_return_if_fail (ATK_IS_REGISTRY_CLASS (klass));
 
-  g_free (default_registry);
+  g_object_unref (G_OBJECT (default_registry));
 }
 #endif
 
@@ -92,8 +90,8 @@ atk_registry_init (AtkRegistry *instance, AtkRegistryClass *klass)
                                                         (GEqualFunc) NULL);
 }
 
-static AtkRegistry*
-atk_registry_new ()
+static AtkRegistry *
+atk_registry_new (void)
 {
   GObject *object;
 
@@ -105,14 +103,14 @@ atk_registry_new ()
 }
 
 static void
-atk_registry_finalize (GObject *instance)
+atk_registry_finalize (GObject *object)
 {
-  AtkRegistry *registry;
+  AtkRegistry *registry = ATK_REGISTRY (object);
 
-  g_return_if_fail (ATK_IS_REGISTRY (instance));
-  registry = ATK_REGISTRY (instance);
-  g_free (registry->factory_type_registry);
-  g_free (registry->factory_singleton_cache);
+  g_hash_table_destroy (registry->factory_type_registry);
+  g_hash_table_destroy (registry->factory_singleton_cache);
+
+  parent_class->finalize (object);
 }
 
 /**
@@ -263,11 +261,11 @@ atk_registry_get_factory (AtkRegistry *registry,
  * registry
  **/
 AtkRegistry*
-atk_get_default_registry ()
+atk_get_default_registry (void)
 {
   if (!default_registry)
-  {
-    default_registry = atk_registry_new();
-  }
+    {
+      default_registry = atk_registry_new ();
+    }
   return default_registry;
 }
