@@ -6,7 +6,7 @@ PRJ_TOP = ..
 PACKAGE = atk
 !INCLUDE $(TOP)\glib\build\win32\make.msc
 
-PKG_VER = 0.7
+PKG_VER = 0.8
 
 top_srcdir = $(PRJ_TOP)
 top_builddir = $(PRJ_TOP)

@@ -1,3 +1,16 @@
+Changes in 0.8
+
+* Win32 build fixes [Hans Breuer]
+* Add atk_role_get_name()/atk_rule_for_name() [Padraig O'Briain]
+* Register types for ATK enumerations [Padraig]
+* Allow registration of new txt attribute types [Padraig]
+* Miscellaneous small API additions [Padraig]
+* New test cases [Padraig]
+* Documentation improvements [Padraig]
+
+Other contributors: Darin Adler, Bill Haneman, Xavier Ordoquy, Michael Meeks, 
+  Sebastian Wilhelmi
+
 Changes in 0.7
 
 * Some restructuring of how change notification works, use

@@ -9,7 +9,7 @@ dnl it too, or it will never make it into the spec file!
 dnl
 dnl ==========================================================================
 
-GLIB_REQUIRED_VERSION=1.3.11
+GLIB_REQUIRED_VERSION=1.3.12
 AC_SUBST(GLIB_REQUIRED_VERSION)
 
 dnl ==========================================================================
@@ -26,7 +26,7 @@ dnl ==========================================================================
 
 ATK_MAJOR_VERSION=0
 ATK_MINOR_VERSION=0
-ATK_MICRO_VERSION=7
+ATK_MICRO_VERSION=8
 ATK_INTERFACE_AGE=0
 ATK_BINARY_AGE=0
 ## with 1.0 you'd insert MINOR_VERSION in here, i.e. 0.3->1.0.0->1.0.1->1.0.2
