@@ -1,3 +1,8 @@
+2004-12-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkrelationtype.h: Add description for ATK_RELATION_SUBWINDOW_OF.
+	Fixes bug #161562.
+
 2004-11-29  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.9.0=====
