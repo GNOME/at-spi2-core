@@ -153,6 +153,7 @@ AtkImplementor
 AtkImplementorIface
 AtkRelationSet
 AtkPropertyValues
+AtkFunction
 AtkPropertyChangeHandler
 atk_implementor_ref_accessible
 atk_object_get_name

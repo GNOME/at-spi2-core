@@ -1,3 +1,11 @@
+Sat Feb 23 23:02:23 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* configure.in: Version 0.13
+
+	* NEWS: Update for 0.13
+
+	* docs/atk-sections.txt: Update.
+
 2002-02-22  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkgobjectaccessible.c atk/atkhyperlink.c atk/atknoopobject.c

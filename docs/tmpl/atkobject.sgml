@@ -179,6 +179,15 @@ provides ATK functionality.
 @old_value: 
 @new_value: 
 
+<!-- ##### USER_FUNCTION AtkFunction ##### -->
+<para>
+
+</para>
+
+@data: 
+@Returns: 
+
+
 <!-- ##### USER_FUNCTION AtkPropertyChangeHandler ##### -->
 <para>
 

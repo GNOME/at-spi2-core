@@ -1,3 +1,11 @@
+Changes in version 0.13
+
+* Add padding to class structures for future expansion [Padraig O'Briain]
+* Add include guards to atk.h [Morten Welinder]
+* Change argument of atk_component_get_layer(),atk_component_get_mdi_zorder()
+  to be AtkComponent instead of AtkObject [Padraig]
+* Cleanups [Padraig]
+
 Changes in version 0.11 and 0.12
 
 * Ansi-fied function prototypes and definitions;
