@@ -47,6 +47,9 @@ struct _SpiRegistry {
   GList           *object_listeners;
   GList           *window_listeners;
   GList           *toolkit_listeners;
+  GQueue          *deferred_event_queue;
+  gboolean         is_queueing;
+  guint            exit_notify_timeout;
   SpiDEController *de_controller;
   SpiDesktop      *desktop;
 };

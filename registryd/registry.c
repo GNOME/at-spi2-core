@@ -25,6 +25,7 @@
 
 #undef SPI_LISTENER_DEBUG
 #undef SPI_DEBUG
+#undef SPI_QUEUE_DEBUG
 
 #include <config.h>
 #ifdef SPI_DEBUG
@@ -40,6 +41,10 @@
 
 /* A pointer to our parent object class */
 static SpiListenerClass *spi_registry_parent_class;
+
+static GQuark _deactivate_quark = 0;
+static GQuark _activate_quark = 0;
+static GQuark _state_quark = 0;
 
 int _dbg = 0;
 
@@ -626,27 +631,213 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
 }
 
 static void
+registry_emit_event (SpiRegistry *registry, NotifyContext *ctx)
+{
+  GList       **list = get_listener_list (registry, ctx->etype.type_cat);
+
+  if (list && *list)
+    {
+    
+      spi_re_entrant_list_foreach (list, notify_listeners_cb, ctx);
+    }
+}
+
+static NotifyContext*
+registry_clone_notify_context (NotifyContext *ctx)
+{
+  NotifyContext *new_ctx = g_new0 (NotifyContext, 1);
+
+  new_ctx->ev = NULL;
+  new_ctx->source = bonobo_object_dup_ref (ctx->source, NULL); 
+  new_ctx->etype.event_name = CORBA_string_dup (ctx->etype.event_name);
+  new_ctx->etype.type_cat = ctx->etype.type_cat;
+  new_ctx->etype.major = ctx->etype.major;
+  new_ctx->etype.minor = ctx->etype.minor;
+  new_ctx->etype.detail = ctx->etype.detail;
+  new_ctx->e_out.type = CORBA_string_dup (ctx->e_out.type);
+  new_ctx->e_out.source = ctx->e_out.source;
+  new_ctx->e_out.detail1 = ctx->e_out.detail1;
+  new_ctx->e_out.detail2 = ctx->e_out.detail2;
+  CORBA_any__copy (&(new_ctx->e_out.any_data), &(ctx->e_out.any_data));
+  return new_ctx;
+}
+
+static void
+registry_flush_event_queue (SpiRegistry       *registry,
+			    gboolean      discard,
+			    CORBA_Environment *ev)
+{
+  NotifyContext *q_ctx;
+  while (!g_queue_is_empty (registry->deferred_event_queue)) {
+    q_ctx = g_queue_pop_tail (registry->deferred_event_queue);
+#ifdef SPI_QUEUE_DEBUG
+    fprintf (stderr, "%s! %s [n=%d] %p\n", (discard ? "discard" : "start pop"), 
+	     q_ctx->etype.event_name, 
+	     (int) registry->deferred_event_queue->length, q_ctx);
+#endif
+    if (!discard)  {
+      q_ctx->ev = ev;
+      registry_emit_event (registry, q_ctx);
+      fprintf (stderr, "%s! %s [n=%d], %p\n", (discard ? "discard" : "end pop"), 
+  	     q_ctx->etype.event_name, 
+	     (int) registry->deferred_event_queue->length, q_ctx);
+    }
+    bonobo_object_release_unref (q_ctx->source, NULL);
+    CORBA_free ((void *)q_ctx->etype.event_name);
+    CORBA_free ((void *)q_ctx->e_out.type);
+#if 0
+    bonobo_object_release_unref (q_ctx->e_out.source, NULL);
+#endif
+    g_free (q_ctx);
+  }
+  registry->is_queueing = FALSE;
+}
+
+static gboolean
+registry_timeout_flush_queue (gpointer data)
+{
+  SpiRegistry *registry = data;
+  CORBA_Environment ev;
+#ifdef SPI_QUEUE_DEBUG
+  fprintf (stderr, "timeout! flushing queue...\n");
+#endif
+  CORBA_exception_init (&ev);
+  registry_flush_event_queue (registry, FALSE, &ev);
+  return FALSE;
+}
+
+static gboolean
+registry_discard_on_event (SpiRegistry *registry, NotifyContext *ctx)
+{
+  gboolean retval = FALSE;
+  NotifyContext *q_ctx = g_queue_peek_tail (registry->deferred_event_queue);
+  if ((q_ctx != NULL) &&
+      (ctx->etype.type_cat == ETYPE_WINDOW) && 
+      (ctx->etype.major == _activate_quark)) {
+    if (CORBA_Object_is_equivalent (ctx->source, q_ctx->source, NULL)) {
+      retval = TRUE;
+    }
+  }
+  return retval;
+}
+
+static gboolean
+registry_reset_on_event (SpiRegistry *registry, NotifyContext *ctx)
+{
+  return (ctx->etype.type_cat == ETYPE_WINDOW) ? TRUE : FALSE;
+}
+
+static void
+registry_start_queue (SpiRegistry *registry)
+{
+    g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 
+			registry->exit_notify_timeout,
+			registry_timeout_flush_queue, registry, 
+			NULL);
+    registry->is_queueing = 1;
+}
+
+static gboolean
+registry_defer_on_event (SpiRegistry *registry, NotifyContext *ctx)
+{
+  gboolean defer = FALSE;
+  if ((ctx->etype.type_cat == ETYPE_WINDOW) && 
+      (ctx->etype.major == _deactivate_quark)) {
+    defer = TRUE;
+    registry_start_queue (registry);
+  }
+  /* defer all object:state-change events after a window:deactivate */
+  else if ((ctx->etype.type_cat == ETYPE_OBJECT) && 
+	   (ctx->etype.major == _state_quark)) {
+    defer = TRUE;
+  }
+  return defer;
+}
+
+static void
+registry_queue_event (SpiRegistry *registry, NotifyContext *ctx)
+{
+  NotifyContext *q_ctx = registry_clone_notify_context (ctx);
+#ifdef SPI_QUEUE_DEBUG
+    if (q_ctx->etype.type_cat != ETYPE_MOUSE)
+      fprintf (stderr, "start push! %s %p\n", q_ctx->etype.event_name, q_ctx);
+#endif    
+  g_queue_push_head (registry->deferred_event_queue, q_ctx);
+#ifdef SPI_QUEUE_DEBUG
+    if (q_ctx->etype.type_cat != ETYPE_MOUSE)
+      fprintf (stderr, "end push! %s %p\n", q_ctx->etype.event_name, q_ctx);
+#endif    
+}
+
+/**
+ * Dispose of event in one of several ways:
+ * 1) discard;
+ * 2) initiate queuing and push onto queue (below)
+ * 3) push on existing queue to either pop on timeout or on subsequent event
+ * 4) pass-through immediately
+ * 5) pass-through, discarding queued events
+ * 6) emit queued events and then pass through
+ **/
+static gboolean
+registry_filter_event (SpiRegistry *registry, NotifyContext *ctx,
+		       CORBA_Environment *ev)
+{
+  gboolean queue_is_empty = FALSE;
+  g_assert (ctx != NULL);
+
+  /* case #1 is not yet used */
+  if (registry_defer_on_event (registry, ctx)) { /* #2, #3 */
+    if (registry->is_queueing) {
+      registry_queue_event (registry, ctx);
+      return FALSE;
+    }
+    else { /* #4a */
+      return TRUE;
+    }
+  } 
+  else if (registry_reset_on_event (registry, ctx)) { /* #5, #6 */
+    gboolean discard = registry_discard_on_event (registry, ctx);
+#ifdef SPI_QUEUE_DEBUG
+    fprintf (stderr, "event %s caused reset, discard=%d\n",
+	     ctx->etype.event_name, (int) discard);
+#endif    
+    registry_flush_event_queue (registry, discard, ev);
+    return (discard ? FALSE : TRUE);
+  }
+  else { /* #4b */
+    return TRUE;
+  }
+}
+
+static void
 impl_registry_notify_event (PortableServer_Servant     servant,
                             const Accessibility_Event *e,
                             CORBA_Environment         *ev)
 {
   SpiRegistry  *registry;
-  GList       **list;
   NotifyContext ctx;
+  static int level = 0;
 
+  level++;
   registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
 
   parse_event_type (&ctx.etype, e->type);
 
-  list = get_listener_list (registry, ctx.etype.type_cat);
+  ctx.ev = ev;
+  ctx.e_out = *e;
+  ctx.source = e->source;
 
-  if (list && *list)
-    {
-      ctx.ev = ev;
-      ctx.e_out = *e;
-      ctx.source = e->source;
-      spi_re_entrant_list_foreach (list, notify_listeners_cb, &ctx);
-    }
+  if (registry_filter_event (registry, &ctx, ev)) {
+#ifdef SPI_QUEUE_DEBUG
+    if (ctx.etype.type_cat != ETYPE_MOUSE)
+{
+      fprintf (stderr, "emit! %s level: %d\n", ctx.etype.event_name, level);
+      fprintf (stderr, "emit! %p %p\n", ctx.e_out, ctx.e_out.type);
+}
+#endif    
+    registry_emit_event (registry, &ctx);
+  }
+  level--;
 }
 
 static void
@@ -670,6 +861,9 @@ spi_registry_class_init (SpiRegistryClass *klass)
   epv->getDesktopCount                  = impl_accessibility_registry_get_desktop_count;
   epv->getDesktop                       = impl_accessibility_registry_get_desktop;
   epv->getDesktopList                   = impl_accessibility_registry_get_desktop_list;
+  _deactivate_quark = g_quark_from_static_string ("deactivate");
+  _activate_quark = g_quark_from_static_string ("activate");
+  _state_quark = g_quark_from_static_string ("state-changed");
 }
 
 static void
@@ -686,6 +880,8 @@ spi_registry_init (SpiRegistry *registry)
   registry->object_listeners = NULL;
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
+  registry->deferred_event_queue = g_queue_new ();
+  registry->exit_notify_timeout = 100;
   registry->desktop = spi_desktop_new ();
   /* Register callback notification for application addition and removal */
   g_signal_connect (G_OBJECT (registry->desktop),
