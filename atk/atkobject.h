@@ -205,8 +205,8 @@ typedef enum
   /* An object used to get an integer or floating point number from the user */
   ATK_ROLE_SPIN_BUTTON,
   /* An object which reports messages of minor importance to the user */
-  ATK_STATUS_BAR,
-  /* An object used to rpesent information in terms of rows and columns. */
+  ATK_ROLE_STATUSBAR,
+  /* An object used to represent information in terms of rows and columns. */
   ATK_ROLE_TABLE,
   ATK_ROLE_TABLE_CELL,
   ATK_ROLE_TABLE_COLUMN_HEADER,

@@ -151,6 +151,13 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @boundary_type: An #AtkTextBoundary
  *
  * Returns: the text after @offset up to the specified @boundary_type.
+ * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
+ * ATK_TEXT_BOUNDARY_WORD_END part of a word may be returned.
+ * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the start point 
+ * will be the offset and will continue to the start of the next sentence. 
+ * The first word may not be a complete word. Similarly for 
+ * ATK_TEXT_BOUNDARY_SENTENCE_END, ATK_TEXT_BOUNDARY_LINE_START and
+ * ATK_TEXT_BOUNDARY_LINE_END
  **/
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
@@ -177,6 +184,12 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @boundary_type: An #AtkTextBoundary
  *
  * Returns: the text at @offset up to the specified @boundary_type.
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START or 
+ * ATK_TEXT_BOUNDARY_WORD_END a complete word is returned; 
+ * if the boundary type is  ATK_TEXT_BOUNDARY_SENTENCE_START or 
+ * ATK_TEXT_BOUNDARY_SENTENCE_END a complete sentence
+ * is returned; if the boundary type is ATK_TEXT_BOUNDARY_LINE_START or
+ * ATK_TEXT_BOUNDARY_LINE_END a complete line is returned.
  **/
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
@@ -202,7 +215,14 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
  *
- * Returns: the text before @offset up to the specified @boundary_type.
+ * Returns: the text before @offset starting from the specified @boundary_type.
+ * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
+ * ATK_TEXT_BOUNDARY_WORD_END part of a word may be returned.
+ * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the start point 
+ * will be at the start of the sentence, and will continue to the offset. 
+ * The last word may not be a complete word. Similarly for 
+ * ATK_TEXT_BOUNDARY_SENTENCE_END, ATK_TEXT_BOUNDARY_LINE_START and
+ * ATK_TEXT_BOUNDARY_LINE_END
  **/
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
