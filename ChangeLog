@@ -1,3 +1,9 @@
+2003-04-01  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Fixed duplicate inclusion of -lspi.
+	* branched for gnome-2-2/HEAD.  
+	[created tag "gnome-2-2"]
+
 2003-03-07  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: 1.1.9 release.
