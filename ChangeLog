@@ -1,9 +1,27 @@
 2003-06-10  Padraig O'Briain <padraig.obriain@sun.com>
 
+	* cspi/spi.h: Add relation SPI_RELATION_POPUP_FOR
+
+	* cspi/spi_accessible.c (cspi_init_relation_type_table):
+	Add line for RELATION_POPUP_FOR
+
+	* docs/reference/cspi/tmpl/spi_relation.sgml: 
+	Add relation SPI_RELATION_POPUP_FOR
+
+	* docs/reference/cspi/tmpl/spi_stateset.sgml: 
+	Change state SPI_STATE_INCONSISTENT to SPI_STATE_INDETERMINATE 
+
+	* idl/Accessibility_Reloation.idl: Add RELATION_POPUP_FOR.
+
+	* libspi/relation.c (spi_init_relation_type_table): 
+	Add line for RELATION_POPUP_FOR
+
+2003-06-10  Padraig O'Briain <padraig.obriain@sun.com>
+
 	* cspi/atk-bridge/bridge.c (spi_atk_bridge_exit_func): Check if 
 	there are still windows which have not been deleted and emit 
 	window:deactivate, if necessary and window:destroy events.
-	This fixes bug #114370. The change on Junee 5th was not correct.
+	This fixes bug #114370. The change on June 5th was not correct.
 
 2003-06-09  Bill Haneman <bill.haneman@sun.com>
 

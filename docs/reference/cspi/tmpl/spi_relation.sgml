@@ -32,6 +32,7 @@ AccessibleRelations and RelationSets
 @SPI_RELATION_SUBWINDOW_OF: 
 @SPI_RELATION_EMBEDS: 
 @SPI_RELATION_EMBEDDED_BY: 
+@SPI_RELATION_POPUP_FOR: 
 @SPI_RELATION_LAST_DEFINED: 
 
 <!-- ##### FUNCTION AccessibleRelation_ref ##### -->

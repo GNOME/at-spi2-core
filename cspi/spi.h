@@ -107,6 +107,8 @@ more target objects.
  *  another's content.
  *@SPI_RELATION_EMBEDDED_BY: Inverse of %SPI_RELATION_EMBEDS, indicates that
  *  this object's content is visualy embedded in another object.
+ *@SPI_RELATION_POPUP_FOR: Indicates that an object is a popup for another objec
+t.
  *@SPI_RELATION_LAST_DEFINED:
  *
  *Describes the type of the relation
@@ -126,6 +128,7 @@ typedef enum
   SPI_RELATION_SUBWINDOW_OF,
   SPI_RELATION_EMBEDS,
   SPI_RELATION_EMBEDDED_BY,
+  SPI_RELATION_POPUP_FOR,
   SPI_RELATION_LAST_DEFINED
 } AccessibleRelationType;
 
