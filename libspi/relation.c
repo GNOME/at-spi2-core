@@ -27,13 +27,95 @@
 #include <libspi/relation.h>
 
 
+static gboolean
+spi_init_relation_type_table (Accessibility_RelationType *types)
+{
+  gint i;
+
+  for (i = 0; i < ATK_RELATION_LAST_DEFINED; i++)
+    types[i] = ATK_RELATION_NULL;
+
+  types[ATK_RELATION_CONTROLLED_BY] = Accessibility_RELATION_CONTROLLED_BY;
+  types[ATK_RELATION_CONTROLLER_FOR] = Accessibility_RELATION_CONTROLLER_FOR;
+  types[ATK_RELATION_LABEL_FOR] = Accessibility_RELATION_LABEL_FOR;
+  types[ATK_RELATION_LABELLED_BY] = Accessibility_RELATION_LABELLED_BY;
+  types[ATK_RELATION_MEMBER_OF] = Accessibility_RELATION_MEMBER_OF;
+  types[ATK_RELATION_NODE_CHILD_OF] = Accessibility_RELATION_NODE_CHILD_OF;
+  return TRUE;
+}
+
+
+
+static Accessibility_RelationType
+spi_relation_type_from_atk_relation_type (AtkRelationType type)
+{
+  static gboolean is_initialized = FALSE;
+  static Accessibility_RelationType spi_relation_type_table [ATK_RELATION_LAST_DEFINED];
+  Accessibility_RelationType spi_type;
+
+  if (!is_initialized)
+    is_initialized = spi_init_relation_type_table (spi_relation_type_table);	   
+
+  if (type > ATK_RELATION_NULL && type < ATK_RELATION_LAST_DEFINED)
+    spi_type = spi_relation_type_table[type];
+  else
+    spi_type = Accessibility_RELATION_EXTENDED;
+  return spi_type;
+}
+
+
+
+static AtkRelation *
+get_relation_from_servant (PortableServer_Servant servant)
+{
+  SpiBase *base = SPI_BASE (bonobo_object_from_servant(servant));
+
+  g_return_val_if_fail (base, NULL);
+  return  ATK_RELATION(base->gobj);
+}
+
+
+
+static Accessibility_RelationType
+impl_getRelationType (PortableServer_Servant servant,
+		      CORBA_Environment * ev)
+{
+  AtkRelation *relation = get_relation_from_servant (servant);
+  AtkRelationType type;
+
+  g_return_val_if_fail (relation, 0);
+  type = atk_relation_get_relation_type (relation);
+  return spi_relation_type_from_atk_relation_type (type);
+}
+
+
+
+static CORBA_short
+impl_getNTargets (PortableServer_Servant servant,
+		  CORBA_Environment * ev)
+{
+  AtkRelation *relation = get_relation_from_servant(servant);
+  g_return_val_if_fail (relation, 0);
+}
+
+
+
+static CORBA_Object
+impl_getTarget (PortableServer_Servant servant,
+		const CORBA_short index,
+		CORBA_Environment * ev)
+{
+  AtkRelation *relation = get_relation_from_servant (servant);
+  g_return_val_if_fail (relation, NULL);
+}
+
+
+
 SpiRelation *
 spi_relation_new (AtkRelation *obj)
 {
   SpiRelation *new_relation = g_object_new (SPI_RELATION_TYPE, NULL);
-
   spi_base_construct (SPI_BASE (new_relation), G_OBJECT (obj));
-
   return new_relation;
 }
 
@@ -43,9 +125,9 @@ spi_relation_class_init (SpiRelationClass *klass)
 {
   POA_Accessibility_Relation__epv *epv = &klass->epv;
 
-  epv->getRelationType  = NULL; /* TODO: finish me! */
-  epv->getNTargets      = NULL;
-  epv->getTarget        = NULL;
+  epv->getRelationType  = impl_getRelationType;  
+  epv->getNTargets      = impl_getNTargets;
+  epv->getTarget        = impl_getTarget;
 }
 
 

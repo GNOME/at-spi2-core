@@ -26,13 +26,16 @@
 module Accessibility {
 
   enum RelationType {
+    RELATION_NULL,
     RELATION_LABEL_FOR,
     RELATION_LABELLED_BY,
     RELATION_CONTROLLER_FOR,
     RELATION_CONTROLLED_BY,
     RELATION_MEMBER_OF,
     RELATION_TOOLTIP_FOR,
-    RELATION_LEAFNODE_OF
+    RELATION_NODE_CHILD_OF,
+    RELATION_EXTENDED,
+    RELATION_LAST_DEFINED
   };
 
   /*
@@ -41,6 +44,7 @@ module Accessibility {
 
   interface Relation : Bonobo::Unknown {
     RelationType        getRelationType ();
+    string getRelationTypeName ();
     short               getNTargets ();
     Object		getTarget (in short index);
     /* placeholders for future expansion */

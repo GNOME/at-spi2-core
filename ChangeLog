@@ -1,3 +1,17 @@
+2002-01-02 Marc Mulcahy  <marc.mulcahy@sun.com>
+
+	* cspi/spi.h: synched relation types with ATK
+
+	* cspi/spi_accessible.c: Added implementations of
+	AcccessibleRelation_* methods
+
+	* idl/Accessibility_Relation.idl: added getRelationTypeName
+	method.  Synched known relation types with ATK.  Allowed for
+	relation type extension with the RELATION_EXTENDED type.
+	
+	* libspi/relation.c: Provided implementations for
+	AccessibleRelation methods.
+
 2002-01-01  Bill Haneman <bill.haneman@sun.com>
 
 	API tweaks for today's API 'freeze'.

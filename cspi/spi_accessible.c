@@ -924,8 +924,13 @@ AccessibleRelation_unref (AccessibleRelation *obj)
 AccessibleRelationType
 AccessibleRelation_getRelationType (AccessibleRelation *obj)
 {
-  cspi_return_val_if_fail (obj != NULL, -1);
-  return 0;
+  AccessibleRelationType retval;
+  
+  cspi_return_val_if_fail (obj, SPI_RELATION_NULL);
+  retval =
+    Accessibility_Relation_getRelationType (CSPI_OBJREF (obj), cspi_ev());
+  cspi_return_val_if_ev ("getRelationType", SPI_RELATION_NULL);
+  return retval;
 }
 
 /**
@@ -943,8 +948,13 @@ AccessibleRelation_getRelationType (AccessibleRelation *obj)
 int
 AccessibleRelation_getNTargets (AccessibleRelation *obj)
 {
-  cspi_return_val_if_fail (obj != NULL, -1);
-  return 0;
+  int retval;
+  
+  cspi_return_val_if_fail (obj, -1);
+  retval = (int)
+    Accessibility_Relation_getNTargets (CSPI_OBJREF (obj), cspi_ev());
+  cspi_return_val_if_ev ("getNTargets", -1);
+  return retval;
 }
 
 /**
@@ -962,8 +972,15 @@ AccessibleRelation_getNTargets (AccessibleRelation *obj)
 Accessible *
 AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
 {
-  cspi_return_val_if_fail (obj != NULL, NULL);
-  return NULL;
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj, NULL);
+
+  retval = cspi_object_add (
+			 Accessibility_Relation_getTarget (CSPI_OBJREF(obj),
+							   (CORBA_short) i, cspi_ev()));
+  cspi_return_val_if_ev ("getTarget", NULL);
+  return retval;
 }
 
 /**
