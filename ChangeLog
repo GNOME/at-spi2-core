@@ -1,3 +1,22 @@
+2002-04-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* cspi/cspi-lowlevel.h cspi/spi-impl.h cspi/spi-listener.h 
+	cspi/spi-private.h cspi/spi-roletypes.h cspi/spi-statetype.h
+	cspi/spi.h cspi/spi_accessible.c cspi/spi_action.c 
+	cspi/spi_application.c cspi/spi_component.c cspi/spi_editabletext.c
+	cspi/spi_hyperlink.c cspi/spi_hypertext.c cspi/spi_image.c
+	cspi/spimain.c cspi/spi_selection.c cspi/spi_streamablecontent.c
+	cspi/spi_table.c cspi/spi_text.c cspi/spi_value.c
+	libspi/accessible.h libspi/accessible.h libspi/base.h 
+	libspi/component.h libspi/editabletext.h libspi/hyperlink.h 
+	libspi/hypertext.h libspi/image.h libspi/keymasks.h libspi/libspi.h
+	libspi/relation.h libspi/remoteobject.h libspi/selection.h 
+	libspi/spi-private.h libspi/statetset.h libspi/table.h
+	libspi/text.h libspi/util.h libspi/value.h util/mag_client.c
+	util/mag_client.h util/mag_control.c util/mag_image.c
+	util/mag_image.h util/magnifier.c util/magnifier.h: 
+	Add missing file headers; standardize existing ones
+
 2002-04-18  Marc Mulcahy  <marc.mulcahy@sun.com>
 
         * atk-bridge/bridge.c: Added window event support.
