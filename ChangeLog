@@ -1,3 +1,8 @@
+2002-08-19  Bill Haneman <bill.haneman@sun.com>
+
+	* AUTHORS: 
+	Small revision to author acknowledgement.
+
 2002-08-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c (spi_atk_bridge_signal_listener):
