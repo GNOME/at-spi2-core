@@ -1,5 +1,11 @@
 2001-10-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atkobject;c:
+	Change "property-change" signal to allow detail (i.e. property name) 
+	and add detail in atk_object_notify().
+
+2001-10-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atktext.c:
 	Correct order of attribute names in text_attr_name array.
 

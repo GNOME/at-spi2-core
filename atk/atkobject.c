@@ -347,7 +347,7 @@ atk_object_class_init (AtkObjectClass *klass)
   atk_object_signals[PROPERTY_CHANGE] =
     g_signal_new ("property_change",
                   G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
                   G_STRUCT_OFFSET (AtkObjectClass, property_change),
                   (GSignalAccumulator) NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER,
@@ -991,7 +991,8 @@ atk_object_notify (GObject     *obj,
   g_value_init (&values.new_value, pspec->value_type);
   g_object_get_property(obj, pspec->name, &values.new_value);
   values.property_name = pspec->name;
-  g_signal_emit (obj, atk_object_signals[PROPERTY_CHANGE], 0,
+  g_signal_emit (obj, atk_object_signals[PROPERTY_CHANGE],
+                 g_quark_from_string (pspec->name),
                  &values, NULL);
 }
 
