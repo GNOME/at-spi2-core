@@ -1,4 +1,4 @@
-SUBDIRS = po docs idl libspi registryd at-bridge cspi util test
+SUBDIRS = docs idl libspi registryd at-bridge cspi util test
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = at-spi-1.0.pc
