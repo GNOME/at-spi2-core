@@ -1154,6 +1154,17 @@ G_CONST_RETURN gchar*
 atk_role_get_localized_name (AtkRole role)
 {
   G_CONST_RETURN gchar *name;
+  gboolean gettext_initialized = FALSE;
+
+#ifdef ENABLE_NLS
+  if (!gettext_initialized)
+    {
+      bindtextdomain (GETTEXT_PACKAGE, ATKLOCALEDIR);
+#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
+      bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#endif
+    }
+#endif
 
   switch (role)
     {

@@ -69,6 +69,13 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
 ALL_LINGUAS=""
 AM_GLIB_GNU_GETTEXT
 
+# AM_GLIB_GNU_GETTEXT above substs $DATADIRNAME
+# this is the directory where the *.{mo,gmo} files are installed
+atklocaledir='${prefix}/${DATADIRNAME}/locale'
+AC_SUBST(atklocaledir)
+
+AC_CHECK_FUNCS(bind_textdomain_codeset)
+
 AC_PROG_CC
 AM_DISABLE_STATIC
 AC_LIBTOOL_WIN32_DLL
@@ -204,4 +211,4 @@ tests/Makefile
 docs/Makefile
 atk.spec
 atk-zip.sh
-],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
+])

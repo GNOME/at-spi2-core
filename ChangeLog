@@ -1,3 +1,19 @@
+2002-11-04  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* acinclude.m4: New file
+
+	* autogen.sh: Add i18n support (copied from gtk+).
+
+	* configure.in: Add definition for atklocaledir and check for
+	bind_textdomain_codeset()
+
+	* atk/Makefile.am: Add DEfininition of ATKLOCALEDIR to INCLUDES
+
+	* atk/atkobject.c (atk_role_get_localized_name): Add code to
+	initialize i18n.
+	
+	* po/.cvsignore: Add extra files.
+
 2002-11-01  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Create po/Makefile; patch supplied by 

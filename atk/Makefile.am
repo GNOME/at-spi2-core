@@ -74,7 +74,8 @@ MAINTAINERCLEANFILES += 	\
 INCLUDES = \
 	-I$(top_srcdir)		\
 	-DG_DISABLE_DEPRECATED	\
-	@DEP_CFLAGS@
+	@DEP_CFLAGS@		\
+	-DATKLOCALEDIR=\""$(atklocaledir)"\"
 
 LDFLAGS =  					\
 	-version-info $(LT_VERSION_INFO)	\

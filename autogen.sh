@@ -72,6 +72,26 @@ if test -z "$AUTOGEN_SUBDIR_MODE"; then
         fi
 fi
 
+
+if test -z "$ACLOCAL_FLAGS"; then
+
+	acdir=`aclocal-1.4 --print-ac-dir`
+	m4list="glib-2.0.m4 glib-gettext.m4"
+
+	for file in $m4list
+	do
+          	if [ ! -f "$acdir/$file" ]; then
+			echo "WARNING: aclocal's directory is $acdir, but..."
+			echo "		no file $acdir/$file"
+			echo "		You may see fatal macro warnings below."
+			echo "		If these files are installed in /some/dir, set the ACLOCAL_FLAGS "
+                        echo "		environment variable to \"-I /some/dir\", or install"
+            		echo "		$acdir/$file."
+			echo ""
+		fi
+	done
+fi
+
 aclocal-1.4 $ACLOCAL_FLAGS
 
 automake-1.4 -a $am_opt
