@@ -1,3 +1,12 @@
+2005-04-05  Bill Haneman <bill.haneman@sun.com>
+
+	* atk-bridge/bridge.c: 
+	(spi_atk_bridge_signal_listener):
+	Free the any._value if any._release is TRUE,
+	since the ORB won't do it for us in this case
+	[because this method is not a skel].
+	Fix for bug #168679.	
+	
 2005-03-30  Steve Murphy  <murf@e-tools.com>
 
 	* configure.in: Added "rw" to ALL_LINGUAS.

@@ -1041,6 +1041,8 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
   if (sp)
     g_free (sp);
+  if (any._release)
+    CORBA_free (any._value);
 
   return TRUE;
 }
