@@ -50,6 +50,7 @@ main (int argc, char **argv)
 {
   char *tab_strings[1];
   short keycodes[] = {65, 64, 23};
+  SPIBoolean retval = FALSE;
 	
   SPI_init ();
 
@@ -65,35 +66,45 @@ main (int argc, char **argv)
   sync_keyset = SPI_createAccessibleKeySet (3, "def", NULL, NULL);
   tab_strings[0] = "Tab";
   tab_keyset = SPI_createAccessibleKeySet (1,  NULL, NULL, tab_strings);
-  SPI_registerAccessibleKeystrokeListener(command_key_listener,
-					  command_keyset,
+  retval = SPI_registerAccessibleKeystrokeListener(command_key_listener,
+			       		  command_keyset,
 					  SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL,
 					  (unsigned long) ( SPI_KEY_PRESSED ),
 					  SPI_KEYLISTENER_ALL_WINDOWS);
-
-  SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
+  fprintf (stderr, "Command key registry: result %s\n", retval ? "succeeded" : 
+	"failed");
+  retval = SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
 					  async_keyset,
 					  SPI_KEYMASK_UNMODIFIED,
 					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_NOSYNC);
 
-  SPI_registerAccessibleKeystrokeListener(synchronous_key_listener,
+  retval = SPI_registerAccessibleKeystrokeListener(synchronous_key_listener,
 					  sync_keyset,
 					  SPI_KEYMASK_UNMODIFIED,
 					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_CANCONSUME);
 
-  SPI_registerAccessibleKeystrokeListener(tab_key_listener,
+  retval = SPI_registerAccessibleKeystrokeListener(tab_key_listener,
 					  tab_keyset,
 					  SPI_KEYMASK_ALT,
 					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_ALL_WINDOWS);
+  fprintf (stderr, "tab listener registry: %s\n", retval ? "succeeded" : "failed");
+
+  retval = SPI_registerAccessibleKeystrokeListener(all_key_listener,
+					  SPI_KEYSET_ALL_KEYS,
+					  SPI_KEYMASK_CONTROL,
+					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
+					  SPI_KEYLISTENER_ALL_WINDOWS);
+	
+  fprintf (stderr, "all key registry: %s\n", retval ? "succeeded" : "failed" );
 
   SPI_registerAccessibleKeystrokeListener(all_key_listener,
-					  SPI_KEYSET_ALL_KEYS,
-					  SPI_KEYMASK_UNMODIFIED,
-					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
-					  SPI_KEYLISTENER_CANCONSUME);
+					 SPI_KEYSET_ALL_KEYS,
+					 SPI_KEYMASK_UNMODIFIED,
+					 (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
+					 SPI_KEYLISTENER_NOSYNC);
 
   SPI_event_main ();
 

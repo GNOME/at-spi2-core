@@ -70,6 +70,7 @@ main (int argc, char **argv)
 				   "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:text-selection-changed"); 
+
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:text-caret-moved"); 
   SPI_registerGlobalEventListener (generic_listener,
@@ -100,7 +101,6 @@ main (int argc, char **argv)
 	                           "window:deactivate");
   SPI_registerGlobalEventListener (generic_listener,
 	                           "window:close");
-#ifdef NOT_YET_IMPLEMENTED
   SPI_registerGlobalEventListener (generic_listener,
 	                           "window:lower");
   SPI_registerGlobalEventListener (generic_listener,
@@ -111,6 +111,7 @@ main (int argc, char **argv)
 	                           "window:shade");
   SPI_registerGlobalEventListener (generic_listener,
 	                           "window:unshade");
+#ifdef NOT_YET_IMPLEMENTED
   /* event below possibly should just be property change? */
   SPI_registerGlobalEventListener (generic_listener,
 	                           "window:restyle"); 
@@ -178,7 +179,9 @@ traverse_accessible_tree (Accessible *accessible)
 void
 report_event (const AccessibleEvent *event, void *user_data)
 {
-  fprintf (stderr, "%s\n", event->type);
+  char *s = Accessible_getName (event->source);
+  fprintf (stderr, "%s %s\n", event->type, s);
+  if (s) SPI_freeString (s);
 }
 
 void
