@@ -142,7 +142,7 @@ register_with_toolkits (Registry *registry_bonobo_object, EventTypeStruct *etype
   Accessibility_Registry registry;
   registry  = bonobo_object_corba_objref (bonobo_object (registry_bonobo_object));
 
-  /* for each app in each desktop, call bridge_register_toolkit_event */
+  /* for each app in each desktop, call ...Application_registerToolkitEventListener */
 
   n_desktops = Accessibility_Registry_getDesktopCount (registry, ev);
 
@@ -155,6 +155,7 @@ register_with_toolkits (Registry *registry_bonobo_object, EventTypeStruct *etype
           app = (Accessibility_Application) Accessibility_Desktop_getChildAtIndex (desktop,
                                                                                    j,
                                                                                    ev);
+          /* TODO: should we be ref-ing the registry object before each call ? */
           Accessibility_Application_registerToolkitEventListener (app,
                                                                   registry,
                                                                   CORBA_string_dup (etype->event_name),

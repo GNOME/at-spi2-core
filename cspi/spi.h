@@ -7,6 +7,7 @@
 /* definitions for ACCESSIBLE_STATE */
 #include "spi-roletypes.h"
 #include "spi-statetypes.h"
+#include "spi-listener.h"
 
 /*
  *
@@ -46,33 +47,10 @@ typedef enum
 
 
 
-/*
- *
- * Structure used to encapsulate event information
- *
- */
-
-typedef struct _AccessibleEvent {
-  Accessible *source;
-  char *type;
-  char *detail1;
-  char *detail2;
-} AccessibleEvent;
-
 typedef enum _AccessibleCoordType {
   COORD_TYPE_WINDOW,
   COORD_TYPE_SCREEN
 } AccessibleCoordType;
-
-/*
- *
- * Function prototype typedef for AccessibleEventListener
- *
- */
-
-typedef void (*AccessibleEventListener) (AccessibleEvent *e);
-typedef void (*KeystrokeListener) (AccessibleEvent *e);
-
 
 
 /*
@@ -97,13 +75,28 @@ void
 SPI_exit (void);
 
 /*
+ * Event Listener creation and support.
+ */
+
+AccessibleEventListener *
+createEventListener (AccessibleEventListenerCB callback);
+
+boolean
+EventListener_addCallback (AccessibleEventListener *listener,
+                           AccessibleEventListenerCB callback);
+
+boolean
+EventListener_removeCallback (AccessibleEventListener *listener,
+                              AccessibleEventListenerCB callback);
+
+/*
  *
  * Global functions serviced by the registry
  *
  */
 
 boolean
-RegisterGlobalEventListener (AccessibleEventListener listener,
+RegisterGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType);
 
 int

@@ -55,6 +55,10 @@ PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0
 AC_SUBST(LIBSPI_LIBS)
 AC_SUBST(LIBSPI_CFLAGS)
 
+PKG_CHECK_MODULES(LIBCSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
+AC_SUBST(LIBCSPI_LIBS)
+AC_SUBST(LIBCSPI_CFLAGS)
+
 PKG_CHECK_MODULES(REGISTRYD, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 atk >= 0.2)
 AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)
@@ -91,6 +95,7 @@ registryd/Makefile
 registryd/Accessibility_Registry.server
 at-bridge/Makefile
 test/Makefile
+cspi/Makefile
 ])
 
 echo "AT-SPI setup:

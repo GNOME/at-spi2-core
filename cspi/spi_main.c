@@ -1,9 +1,9 @@
-/* #include <libbonobo.h> */
+#include <libbonobo.h>
 #include <stdio.h>
 #include "spi.h"
 
 static CORBA_Environment ev;
-static Accessibility_Registry registry;
+static AccessibilityRegistry registry;
 
 Accessible *
 Obj_Add (Accessible object)
@@ -24,9 +24,10 @@ int
 SPI_init (void)
 {
   int argc = 0;
-  CORBA_exception_init(&ev);
   CORBA_Object oclient;
   char *obj_id;
+
+  CORBA_exception_init(&ev);
 
   if (!bonobo_init (&argc, NULL))
     {
@@ -84,6 +85,32 @@ SPI_exit (void)
   exit(0);
 }
 
+AccessibleEventListener *
+CreateEventListener (AccessibleEventListenerCB callback)
+{
+  AccessibleEventListener *listener = accessible_event_listener_new ();
+  if (callback)
+    {
+      accessible_event_listener_add_callback (listener, callback);
+    }
+}
+
+boolean
+EventListener_addCallback (AccessibleEventListener *listener,
+                           AccessibleEventListenerCB callback)
+{
+  accessible_event_listener_add_callback (listener, callback);
+  return TRUE;
+}
+
+boolean
+EventListener_removeCallback (AccessibleEventListener *listener,
+                           AccessibleEventListenerCB callback)
+{
+  accessible_event_listener_remove_callback (listener, callback);
+  return TRUE;
+}
+
 /*
  *
  * Global functions serviced by the registry
@@ -96,7 +123,8 @@ RegisterGlobalEventListener (AccessibleEventListener *listener,
 {
   Accessibility_Registry_registerGlobalEventListener (
                          registry,
-                         *listener,
+                         (Accessibility_EventListener)
+                            bonobo_object_corba_objref (bonobo_object (listener)),
                          eventType,
                          &ev);
 
@@ -119,7 +147,7 @@ GetDesktopCount ()
 Accessible
 *getDesktop (int n)
 {
-  return Obj_Add (Accessibility_Registry_getDesktop (registry, n, &ev));
+  return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) n, &ev));
 }
 
 int
@@ -159,14 +187,16 @@ generateMouseEvent (long x, long y, char *name)
 int
 Accessible_ref (Accessible *obj)
 {
-  return Accessibility_Accessible_ref (*obj, &ev);
+  Accessibility_Accessible_ref (*obj, &ev);
+  return 0;
 }
 
 
 int
 Accessible_unref (Accessible *obj)
 {
-  return Accessibility_Accessible_unref (*obj, &ev);
+  Accessibility_Accessible_unref (*obj, &ev);
+  return 0;
 }
 
 char *
@@ -237,25 +267,27 @@ Accessible_getStateSet (Accessible *obj)
 int
 AccessibleApplication_ref (AccessibleApplication *obj)
 {
-  return Accessibility_Application_ref (*obj, &ev);
+  Accessibility_Application_ref (*obj, &ev);
+  return 0;
 }
 
 int
 AccessibleApplication_unref (AccessibleApplication *obj)
 {
-  return Accessibility_Application_unref (*obj, &ev);
+  Accessibility_Application_unref (*obj, &ev);
+  return 0;
 }
 
 char *
 AccessibleApplication_getToolkitName (AccessibleApplication *obj)
 {
-  return Accessibility_Application__getToolkitName (*obj, &ev);
+  return Accessibility_Application__get_toolkitName (*obj, &ev);
 }
 
 char *
 AccessibleApplication_getVersion (AccessibleApplication *obj)
 {
-  return Accessibility_Application__getVersion (*obj, &ev);
+  return Accessibility_Application__get_version (*obj, &ev);
 }
 
 long

@@ -1,5 +1,26 @@
 2001-08-18  Bill Haneman <bill.haneman@sun.com>
 
+	* Makefile.am: 
+	* configure.in :
+	* cspi/Makefile.am :
+	Added makefile support for at-spi/cspi directory.
+	* cspi/spi.h : 
+	* cspi/spi-impl.h :
+	* cspi/spi-listener.h : (NEW FILE)
+	Added support for/use of spi-listener.h.
+	* cspi/spi_main.c :
+	C bindings now build successfully, with no warnings.
+	* libspi/accessibleeventlistener.h : (NEW FILE)
+	* libspi/accessibleeventlistener.c : (NEW FILE)
+	* libspi/Makefile.am :
+	Added new object type "AccessibleEventListener"
+	which inherits from Listener, and allows attachment
+	of in-process callbacks (so that a client with a listening
+	object instance can add functionality to the local 
+	implementation, dynamically).
+
+2001-08-18  Bill Haneman <bill.haneman@sun.com>
+
 	* libspi/accessible.c: 
 	Add implementation for get_index_in_parent().
 	* cspi/spi.h : 

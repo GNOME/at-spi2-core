@@ -19,6 +19,7 @@ libspiinclude_HEADERS = accessible.h       \
                         application.h      \
                         desktop.h          \
                         listener.h         \
+			accessibleeventlistener.h	\
                         registry.h         \
                         Accessibility.h
 
@@ -48,6 +49,8 @@ libspi_la_SOURCES = accessible.c         \
                     desktop.h            \
                     listener.c           \
                     listener.h           \
+		    accessibleeventlistener.c	\
+		    accessibleeventlistener.h	\
                     registry.c           \
                     registry.h           \
                     $(IDL_OUT)
