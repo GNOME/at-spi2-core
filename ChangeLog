@@ -1,16 +1,12 @@
 <2001-09-30  Bill Haneman <bill.haneman@sun.com>
-
+	
 	* libspi/accessible.c:
 		Stubbed-in the implementations for
 			Accessibility_Accessible_getState and
 			Accessibility_Accessible_getRelationSet.
 	* libspi/registry.c:
 		Improved de-registration process and fixed some bugs, 
-			deregistration should work correctly
-			once the compare_object_func()'s CORBA_Object_hash
-			usage is fixed (currently still broken).
-		(Probably the event listener registration still needs
-			fixing.)
+			deregistration now works correctly.
 	* libspi/desktop.c:
 		Added initialization of applications list (to NULL).
 	* util/magnifier.c:

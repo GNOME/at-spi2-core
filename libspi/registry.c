@@ -127,18 +127,15 @@ static gint
 compare_object_hash (gconstpointer p1, gconstpointer p2)
 {
   CORBA_Environment ev;
-  long long diff = ((CORBA_Object_hash ((CORBA_Object) p2, (CORBA_unsigned_long) 0, &ev)) -
-                    (CORBA_Object_hash ((CORBA_Object) p1, (CORBA_unsigned_long) 0, &ev)));
+  gint retval;
+  retval = !CORBA_Object_is_equivalent ((CORBA_Object) p1, (CORBA_Object) p2, &ev);
 
 #ifdef SPI_DEBUG
-  fprintf (stderr, "comparing %p to %p, via hashes %ld and %ld; diff %ld\n",
+  fprintf (stderr, "comparing %p to %p; result %d\n",
 	   p1, p2,
-	   CORBA_Object_hash ((CORBA_Object) p1, (CORBA_unsigned_long) 0, &ev),
-	   CORBA_Object_hash ((CORBA_Object) p2, (CORBA_unsigned_long) 0, &ev),
-	   (long) diff);
+	   retval);
 #endif
-  
-  return ((diff < 0) ? -1 : ((diff > 0) ? 1 : 0));
+  return retval;  
 }
 
 static void

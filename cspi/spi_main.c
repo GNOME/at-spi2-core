@@ -64,8 +64,15 @@ SPI_init (void)
 void
 SPI_event_main (boolean isGNOMEApp)
 {
-  if (isGNOMEApp) bonobo_main();
-  else CORBA_ORB_run (bonobo_orb(), &ev);
+  if (isGNOMEApp) {
+    g_atexit(SPI_exit);
+    bonobo_main();
+  }
+  else {
+    /* TODO: install signal handlers to do cleanup */
+    CORBA_ORB_run (bonobo_orb(), &ev);
+    fprintf (stderr, "orb loop exited...\n");
+  }
 }
 
 /**
@@ -111,6 +118,7 @@ SPI_nextEvent (boolean waitForEvent)
 void
 SPI_exit (void)
 {
+  fprintf (stderr, "bye-bye!\n");	
   exit(0);
 }
 
