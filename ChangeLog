@@ -1,3 +1,7 @@
+2003-07-16  Duarte Loreto <happyguy_pt@hotmail.com>
+
+        * configure.in: Added Portuguese (pt) to ALL_LINGUAS.
+
 2003-07-14  Danilo Šegan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr" and "sr@Latn" (Serbian) to ALL_LINGUAS.
