@@ -1,0 +1,310 @@
+# traditional Chinese translation of atk.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Abel Cheung <maddog@linux.org.hk>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk 1.2.2\n"
+"POT-Creation-Date: 2003-01-19 19:58+0100\n"
+"PO-Revision-Date: 2003-01-23 15:53+0800\n"
+"Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "無效"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr ""
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "提示訊息"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "動畫"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "箭頭"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "日曆"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr ""
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "多重選擇按鈕"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "顏色選擇窗"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr ""
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "選擇項目清單"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr ""
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "桌面圖示"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr ""
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr ""
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "對話窗"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr ""
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr ""
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "檔案選擇窗"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "填充元件"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "字型選擇窗"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr ""
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr ""
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "HTML 容器元件"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "圖示"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "圖像"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr ""
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr ""
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr ""
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "清單"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "清單項目"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "選單"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "選單列"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "選單項目"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr ""
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr ""
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr ""
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "面板"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "密碼"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr ""
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "進度列"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr ""
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "單項選擇按鈕"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr ""
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr ""
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "捲動列"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr ""
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr ""
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr ""
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr ""
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr ""
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "狀態列"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "表格"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr ""
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr ""
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr ""
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "終端機"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "文字"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr ""
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "工具列"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "工具列提示"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr ""
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr ""
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "不明"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr ""
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "視窗"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr ""
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr ""
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "段落"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "間尺"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "程式"
