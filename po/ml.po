@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.2.x\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2003-03-05 10:29+0530\n"
+"Project-Id-Version:atk.HEAD\n"
+"POT-Creation-Date: 2003-06-06 03:42+0200\n"
+"PO-Revision-Date: 2003-07-05 10:29+0530\n"
 "Last-Translator: FSF-India <locale@gnu.org.in>\n"
 "Language-Team: Malayalam <locale@gnu.org.in>\n"
 "MIME-Version: 1.0\n"
@@ -205,9 +205,8 @@ msgid "push-button"
 msgstr ""
 
 #: atk/atkobject.c:1371
-#, fuzzy
 msgid "radio-button"
-msgstr "പരമ്പരാഗത"
+msgstr ""
 
 #: atk/atkobject.c:1374
 msgid "radio-menu-item"
@@ -245,9 +244,8 @@ msgid "split-pane"
 msgstr ""
 
 #: atk/atkobject.c:1398
-#, fuzzy
 msgid "spin-button"
-msgstr "വ്യഞ്ജനബിന്ദു"
+msgstr ""
 
 #: atk/atkobject.c:1401
 #, fuzzy
@@ -281,9 +279,8 @@ msgid "terminal"
 msgstr "ടെ‍ര്മിനല്"
 
 #: atk/atkobject.c:1422
-#, fuzzy
 msgid "text"
-msgstr "അടുത്തത്"
+msgstr "വാക്യം"
 
 #: atk/atkobject.c:1425
 msgid "toggle-button"
