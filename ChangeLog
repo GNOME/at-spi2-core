@@ -1,3 +1,7 @@
+2005-02-16  Adi Attar  <aattar@cvs.gnome.org>
+
+	* configure.in: Added "xh" to ALL_LINGUAS.
+
 2005-02-07  Bill Haneman <bill.haneman@sun.com>
 
 	* atk-bridge/bridge.c: 
