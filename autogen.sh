@@ -38,7 +38,7 @@ fi
 }
 
 have_automake=false
-if automake --version < /dev/null > /dev/null 2>&1 ; then
+if automake-1.4 --version < /dev/null > /dev/null 2>&1 ; then
 	automake_version=`automake --version | grep 'automake (GNU automake)' | sed 's/^[^0-9]*\(.*\)/\1/'`
 	case $automake_version in
 	   1.2*|1.3*|1.4) 
@@ -72,9 +72,9 @@ if test -z "$AUTOGEN_SUBDIR_MODE"; then
         fi
 fi
 
-aclocal $ACLOCAL_FLAGS
+aclocal-1.4 $ACLOCAL_FLAGS
 
-automake -a $am_opt
+automake-1.4 -a $am_opt
 autoconf
 cd $ORIGDIR
 
