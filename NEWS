@@ -1,3 +1,14 @@
+Changes in version 1.1.2
+
+* Correct implementation of i18n support [Padraig O'Briain]
+* Add Swedish translations [Christian Rose]
+* Fix compiler warnings [Soeren Sandmann]
+* Add singal "active-descendant-changed" to AtkObject [Padraig]
+* Add relation types ATK_RELATION_EMBEDS and ATK_RELATION_EMBEDS_BY  
+[Bill Haneman]
+* Add atk_hyperlink_is_inline() [Bill]
+* Update docs [Bill]
+
 Changes in version 1.1.1
 
 * Add new functions atk_object_add_relationship, atk_object_remove_relationship,

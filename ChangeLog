@@ -1,3 +1,10 @@
+2002-11-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* Update NEWS for 1.1.2
+
+	* docs/tmpl/atkhyperlink.sgml docs/tmpl/atkobject.sgml
+	Update docs.
+
 2002-11-14  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:

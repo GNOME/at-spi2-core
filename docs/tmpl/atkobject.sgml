@@ -473,12 +473,7 @@ This signal support, which may be any of the accessible state types.
 
 @atkobject: the object which received the signal.
 
-<!-- ##### ARG AtkObject:accessible-component-layer ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkObject:accessible-component-mdi-zorder ##### -->
+<!-- ##### ARG AtkObject:accessible-name ##### -->
 <para>
 
 </para>
@@ -488,17 +483,27 @@ This signal support, which may be any of the accessible state types.
 
 </para>
 
-<!-- ##### ARG AtkObject:accessible-name ##### -->
-<para>
-
-</para>
-
 <!-- ##### ARG AtkObject:accessible-parent ##### -->
 <para>
 
 </para>
 
+<!-- ##### ARG AtkObject:accessible-value ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG AtkObject:accessible-role ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-component-layer ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-component-mdi-zorder ##### -->
 <para>
 
 </para>
@@ -529,11 +534,6 @@ This signal support, which may be any of the accessible state types.
 </para>
 
 <!-- ##### ARG AtkObject:accessible-table-summary ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkObject:accessible-value ##### -->
 <para>
 
 </para>
