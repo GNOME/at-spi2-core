@@ -1,5 +1,10 @@
 2003-02-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* test/Makefile.am: Update to produce .so files
+	(Problem reported and solution reported by Michael.Wilson@bull.net)
+
+2003-02-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkgobjectaccessible.c (atk_gobject_accessible_from_object):
 	Correct creation of non-AtkGObjectAccessible (bug #107124)
 
