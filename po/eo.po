@@ -3,7 +3,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.0\n"
+"Project-Id-Version: atk 1.3.4\n"
 "POT-Creation-Date: 2003-03-18 11:51+0000\n"
 "PO-Revision-Date: 2003-03-14 16:16+0500\n"
 "Last-Translator: Charles Voelger <cvoelger@dweasel.com>\n"
@@ -62,7 +62,7 @@ msgstr "tekstlisto"
 
 #: atk/atkobject.c:1278
 msgid "date-editor"
-msgstr "dat-redaktilon"
+msgstr "dat-redaktilo"
 
 #: atk/atkobject.c:1281
 msgid "desktop-icon"
