@@ -1,3 +1,7 @@
+Tue Jan 29 23:29:46 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* NEWS: Retroactively write a NEWS entry for 0.9 and 0.10.
+
 2002-01-28  Padraig O'Briain  <padraig.obriain@sun.com>
 
        * configure.in:

@@ -1,3 +1,12 @@
+Changes in version 0.9 and 0.10
+
+* Win32 build fixes [Hans Breuer]
+* Fix default signal handler name for text_caret_moved signal [Jeff Franks]
+* Doc improvements [Padraig O'Briain]
+* Fix signal prototypes in atkobject.h [Murray Cumming]
+* Fix atk-enum-types.h includes for C++ [Mikael Hermansson]
+* Bug fixes [Michael Meeks, Jeff]
+
 Changes in 0.8
 
 * Win32 build fixes [Hans Breuer]
