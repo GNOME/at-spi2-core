@@ -1,26 +1,27 @@
 # Romanian translation of at-spi
-# Copyright (C) 2003 at-spi Free Software Foundation
+# Copyright (C) 2003, 2004 at-spi Free Software Foundation
 # This file is distributed under the same license as the at-spi package.
-# Mişu Moldovan dumol@go.ro, 2003.
+# Mişu Moldovan dumol@go.ro, 2003, 2004
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: at-spi 1.3.6\n"
-"POT-Creation-Date: 2003-08-24 22:00+0300\n"
-"PO-Revision-Date: 2003-08-24 22:00+0300\n"
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-15 22:17+0200\n"
+"PO-Revision-Date: 2004-03-14 20:40+0200\n"
 "Last-Translator: Mişu Moldovan <dumol@go.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk-bridge/bridge.c:311
+#: atk-bridge/bridge.c:309
 msgid "failure: no device event controller found.\n"
-msgstr "eroare: nu s-a găsit nici un dispozitiv de control evenimente.\n"
+msgstr "eroare: nu s-a găsit nici un dispozitiv de control al evenimentelor.\n"
 
-#: atk-bridge/bridge.c:806
+#: atk-bridge/bridge.c:778
 msgid "WARNING: NULL key event reported."
-msgstr "ATENŢIE: s-a raportat un eveniment „NULL key“."
+msgstr "ATENŢIE: s-a raportat un eveniment „NULL key”."
 
 #: registryd/Accessibility_Registry.server.in.in.h:1
 msgid "AT-SPI Registry"
