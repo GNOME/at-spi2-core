@@ -1,5 +1,14 @@
 <2001-09-30  Bill Haneman <bill.haneman@sun.com>
-	
+
+	* libspi/keystrokelistener.h:
+	* libspi/keystrokelistener.c:
+		Began (no-op) implementations of KeystrokeListener
+			(see below).
+	* libspi/deviceeventcontroller.c:
+	* libspi/deviceeventcontroller.h:
+		Began creating implementations of DeviceEventController,
+			to handle keystroke and mouse event listening and
+			synthesis.
 	* libspi/accessible.c:
 		Stubbed-in the implementations for
 			Accessibility_Accessible_getState and

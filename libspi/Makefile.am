@@ -27,8 +27,10 @@ libspiinclude_HEADERS = accessible.h       \
 			table.h\
 			text.h\
 			value.h\
-                        listener.h         \
+                        listener.h   \
+			keystrokelistener.h	\
 			accessibleeventlistener.h	\
+			deviceeventcontroller.h	\
                         registry.h         \
                         Accessibility.h
 
@@ -58,6 +60,8 @@ libspi_la_SOURCES = accessible.c         \
 		    component.h		 \
                     desktop.c            \
                     desktop.h            \
+		    deviceeventcontroller.c \
+		    deviceeventcontroller.h \
 		    editabletext.c\
 		    editabletext.h\
 		    hyperlink.c\
@@ -66,6 +70,8 @@ libspi_la_SOURCES = accessible.c         \
 		    hypertext.h\
 		    image.c\
 		    image.h\
+		    keystrokelistener.c\
+		    keystrokelistener.h\
 		    selection.c\
 		    selection.h\
 		    table.c\
