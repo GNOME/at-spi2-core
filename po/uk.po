@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-10 11:48+0200\n"
-"PO-Revision-Date: 2004-02-10 16:20+0200\n"
+"POT-Creation-Date: 2004-08-03 12:44+0300\n"
+"PO-Revision-Date: 2004-08-03 12:46+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -349,127 +349,132 @@ msgstr "автодоповнення"
 msgid "edit bar"
 msgstr "рядок редагування"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "вбудований компонент"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Допоміжна назва"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Ім'я екземпляру об'єкта для доступу з використанням допоміжних технологій"
+msgstr ""
+"Ім'я екземпляру об'єкта для доступу з використанням допоміжних технологій"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Допоміжний опис"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Опис об'єкта для доступу з використанням допоміжних технологій"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "Допоміжний предок"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "Використовується для сповіщення про зміну предку"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Допоміжне значення"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "Використовується для сповіщення, що значення змінились"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Допоміжна роль"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "роль цього об'єкту у допоміжних технологіях"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "Допоміжний рівень"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "Рівень цього об'єкту в допоміжних технологіях"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "Допоміжне значення MDI"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "Значення MDI цього об'єкту у допоміжних технологіях"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "Допоміжний заголовок таблиці"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 "Використовується для сповіщення про зміну заголовку таблиці. Ця властивість "
-"не повинна використовуватись. Натомість повинна використовуватись властивість "
-"accessible-table-caption-object."
+"не повинна використовуватись. Натомість повинна використовуватись "
+"властивість accessible-table-caption-object."
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "Допоміжний заголовок стовпця таблиці"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "Використовується для сповіщення про зміну заголовку стовпця"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "Допоміжний опис стовпця таблиці"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "Використовується для сповіщення про зміну опису стовпця"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "Допоміжний заголовок рядка таблиці"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "Використовується для сповіщення про зміну заголовку рядка таблиці"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "Допоміжний опис рядка таблиці"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "Використовується для сповіщення про зміну опису рядка таблиці"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "Допоміжний підсумок таблиці "
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "Використовується для сповіщення про зміну підсумку таблиці"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "Допоміжний об'єкт заголовку таблиці"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "Використовується для сповіщення про зміну заголовку таблиці"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "Кількість допоміжних гіпертекстових посилань"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Кількість посилань, які має поточний об'єкт AtkHypertext"
