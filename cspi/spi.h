@@ -533,7 +533,8 @@ AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
 				  const char *content_type);
 SPIBoolean
 AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
-				  long int offset);
+				  long int offset,
+				  unsigned int seek_type);
 SPIBoolean
 AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
 				  void *buff,

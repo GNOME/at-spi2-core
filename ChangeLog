@@ -1,5 +1,31 @@
 2002-04-16  Bill Haneman <bill.haneman@sun.com>
 
+	* configure.in:
+	Revved version to 0.12 due to API change (see below).
+
+	* cspi/spi-roletypes.h:
+	removed (obsolete) SPI_ROLE_FOCUS_TRAVERSABLE 
+	definition from the inline docs, and added docs
+	for SPI_ROLE_LAST_DEFINED.
+
+	* cspi/spi.h:
+	* cspi/spi_streamablecontent.c:
+	Added missing seek_type parameter to
+	(so far unused) method, 
+	AccessibleStreamableContent_seek().
+	[ RT approval JodyG. ]
+
+	* cspi/spi_event.c:
+	Fixed docs for SPI_createAccessibleKeystrokeListener.
+
+	* cspi/spi_registry.c:
+	Fixed docs for SPI_KEYSET_ALL_KEYS.
+	
+	* docs/reference/cspi/at-spi-cspi-sections.txt:
+	Added a number of missing APIs to SECTIONS.
+	
+2002-04-16  Bill Haneman <bill.haneman@sun.com>
+
 	* registryd/Makefile.am:
 	* cspi/Makefile.am:
 	* cspi/bonobo/Makefile.am:

@@ -53,6 +53,14 @@ Registry queries
 @list: 
 
 
+<!-- ##### FUNCTION SPI_freeDesktopList ##### -->
+<para>
+
+</para>
+
+@desktop_list: 
+
+
 <!-- ##### USER_FUNCTION AccessibleKeystrokeListenerCB ##### -->
 <para>
 
@@ -97,6 +105,33 @@ Registry queries
 <para>
 
 </para>
+
+
+<!-- ##### MACRO SPI_KEYSET_ALL_KEYS ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION SPI_createAccessibleKeySet ##### -->
+<para>
+
+</para>
+
+@len: 
+@keysyms: 
+@keycodes: 
+@keystrings: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPI_freeAccessibleKeySet ##### -->
+<para>
+
+</para>
+
+@keyset: 
 
 
 <!-- ##### FUNCTION SPI_createAccessibleKeystrokeListener ##### -->

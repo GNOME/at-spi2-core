@@ -14,6 +14,14 @@ Accessible Objects
 
 </para>
 
+<!-- ##### STRUCT Accessible ##### -->
+<para>
+
+</para>
+
+@objref: 
+@ref_count: 
+
 <!-- ##### FUNCTION Accessible_ref ##### -->
 <para>
 
@@ -188,6 +196,15 @@ Accessible Objects
 @Returns: 
 
 
+<!-- ##### FUNCTION Accessible_isStreamableContent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION Accessible_isTable ##### -->
 <para>
 
@@ -270,6 +287,15 @@ Accessible Objects
 
 
 <!-- ##### FUNCTION Accessible_getSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getStreamableContent ##### -->
 <para>
 
 </para>

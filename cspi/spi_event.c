@@ -184,7 +184,7 @@ AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
 }
 
 /**
- * createAccessibleKeystrokeListener:
+ * SPI_createAccessibleKeystrokeListener:
  * @callback : an #AccessibleKeystrokeListenerCB callback function, or NULL.
  * @user_data: a pointer to data which will be passed to the callback when invoked.
  *

@@ -54,9 +54,6 @@ AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
  * @obj: a pointer to the #AccessibleStreamableContent implementor on which to operate.
  * @content_type: a string specifying the content type to retrieve (should match one
  * of the return strings from #AccessibleStreamableContent_getContentTypes ()).
- * @fp: a pointer to a FILE pointer into which is placed a file handle suitable for
- *      reading the content, if possible.  Not all content types support file-handle
- *      interaction, so check this parameter for NULL before use.
  *
  * Open a streaming connection to an AccessibleStreamableContent implementor,
  *       of a particular content type
@@ -88,7 +85,8 @@ AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
  **/
 SPIBoolean
 AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
-				  long int offset)
+				  long int offset,
+				  unsigned int seek_type)
 {
   /* TODO: connect this to the correct libspi implementation code */
   return FALSE;

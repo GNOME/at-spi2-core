@@ -286,6 +286,12 @@ SPI_freeDesktopList (Accessible **desktop_list)
 }
 
 /**
+ * SPI_KEYSET_ALL_KEYS:
+ * @SPI_KEYSET_ALL_KEYS: A special value for an AccessibleKeySet type, which tacitly
+ *                       includes all keycodes and keyvals for the specified modifier set.
+ **/
+
+/**
  * SPI_registerAccessibleKeystrokeListener:
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
  *             keystroke events are requested.

@@ -35,7 +35,6 @@ extern "C" {
  *               directory and lets the user select a file, browse a different
  *	 	 directory, or specify a filename.
  * @SPI_ROLE_FILLER: A object that fills up space in a user interface
- * @SPI_ROLE_FOCUS_TRAVERSABLE: XXX Not sure about this.
  * @SPI_ROLE_FONT_CHOOSER: Allows selection of a display font
  * @SPI_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
  * @SPI_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of all
@@ -109,6 +108,7 @@ extern "C" {
  * @SPI_ROLE_WINDOW: A top level window with no title or border.
  * @SPI_ROLE_EXTENDED: This object's role is not included in the standard role list and
  *                     should be queried by name.
+ * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
  **/
 typedef enum
 {
