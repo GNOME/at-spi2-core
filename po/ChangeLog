@@ -1,4 +1,6 @@
-2002-10-30  gettextize  <bug-gnu-utils@gnu.org>
+2002-11-11  Christian Rose  <menthos@menthos.com>
 
-	* Makefile.in.in: Upgrade to gettext-0.10.38.
+	* .cvsignore: Corrected typos.
+	* POTFILES.in: Added comment.
+	* po2tbl.sed.in: Removed, it's in .cvsignore anyway.
 

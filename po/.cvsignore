@@ -6,8 +6,8 @@ Makefile.in
 Makefile.in.in
 POTFILES
 cat-id-tbl.c
+stamp-cat-id
 messages
-mising
+missing
 po2tbl.sed
 po2tbl.sed.in
-stamp-cat-id
