@@ -87,6 +87,8 @@ listener for.
 <!-- ##### TYPEDEF AccessibleModifierMaskType ##### -->
 <para>
 AccessibleModifierMaskType is a synonym for AccessibleKeymaskType.
+The defined values for AccessibleModifierMaskType can be found in
+libspi/keymasks.h.
 </para>
 
 

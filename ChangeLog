@@ -1,3 +1,10 @@
+2003-12-05  Bill Haneman <billh@gnome.org>
+
+	* docs/reference/cspi/tmpl/spi_registry.sgml:
+	Added reference to libspi/keymasks.h to the
+        description of Registry queries: AccessibleKeyMaskType.
+	Fixes bug #118103.
+
 2003-12-04  Bill Haneman <billh@gnome.org>
 
         Fix for bug #121974.
