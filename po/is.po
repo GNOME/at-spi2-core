@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: Samuel Jon Gunnarsson <sammi@techattack.nu>\n"
 "Language-Team: Icelandic <gnome@techattack.nu>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: atk/atkobject.c:1242
@@ -20,7 +20,7 @@ msgstr "ógilt"
 
 #: atk/atkobject.c:1245
 msgid "accel-label"
-msgstr "hröðunarmiði"
+msgstr "hröðunarmerki"
 
 #: atk/atkobject.c:1248
 msgid "alert"
@@ -32,7 +32,7 @@ msgstr "hreyfimynd"
 
 #: atk/atkobject.c:1254
 msgid "arrow"
-msgstr "ör"
+msgstr "píla"
 
 #: atk/atkobject.c:1257
 msgid "calendar"
@@ -128,7 +128,7 @@ msgstr "innrirammi"
 
 #: atk/atkobject.c:1326
 msgid "label"
-msgstr "miði"
+msgstr "merki"
 
 #: atk/atkobject.c:1329
 msgid "layered-pane"
@@ -188,7 +188,7 @@ msgstr "þrýstihnappur"
 
 #: atk/atkobject.c:1371
 msgid "radio-button"
-msgstr "radíó-hnappur"
+msgstr "Einvalshnappur"
 
 #: atk/atkobject.c:1374
 msgid "radio-menu-item"
@@ -264,11 +264,11 @@ msgstr "rofahnappur"
 
 #: atk/atkobject.c:1428
 msgid "tool-bar"
-msgstr "tól-stika"
+msgstr "tækjastika"
 
 #: atk/atkobject.c:1431
 msgid "tool-tip"
-msgstr "tól-vísbendingar"
+msgstr "vísbending"
 
 #: atk/atkobject.c:1434
 msgid "tree"
@@ -276,7 +276,7 @@ msgstr "tré"
 
 #: atk/atkobject.c:1437
 msgid "tree-table"
-msgstr "tré-tafla"
+msgstr "trétafla"
 
 #: atk/atkobject.c:1440
 msgid "unknown"
@@ -300,7 +300,7 @@ msgstr "fótur"
 
 #: atk/atkobject.c:1455
 msgid "paragraph"
-msgstr "mÃ¡lsgrein"
+msgstr "málsgrein"
 
 #: atk/atkobject.c:1458
 msgid "ruler"
@@ -308,4 +308,4 @@ msgstr "reglustika"
 
 #: atk/atkobject.c:1461
 msgid "application"
-msgstr "Forrit"
+msgstr "forrit"
