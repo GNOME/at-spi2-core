@@ -30,6 +30,7 @@
 
 static void report_focus_event    (const AccessibleEvent *event, void *user_data);
 static void report_generic_event  (const AccessibleEvent *event, void *user_data);
+static void report_text_event     (const AccessibleEvent *event, void *user_data);
 static void report_button_press   (const AccessibleEvent *event, void *user_data);
 static void check_property_change (const AccessibleEvent *event, void *user_data);
 static SPIBoolean report_command_key_event  (const AccessibleKeystroke *stroke, void *user_data);
@@ -48,6 +49,7 @@ static AccessibleEventListener *focus_listener;
 static AccessibleEventListener *property_listener;
 static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *button_listener;
+static AccessibleEventListener *text_listener;
 static AccessibleKeystrokeListener *command_key_listener;
 static AccessibleKeystrokeListener *ordinary_key_listener;
 static AccessibleKeySet            *command_keyset;
@@ -82,6 +84,7 @@ main (int argc, char **argv)
   focus_listener = SPI_createAccessibleEventListener (report_focus_event, NULL);
   property_listener = SPI_createAccessibleEventListener (check_property_change, NULL); 
   generic_listener = SPI_createAccessibleEventListener (report_generic_event, NULL); 
+  text_listener = SPI_createAccessibleEventListener (report_text_event, NULL); 
   button_listener = SPI_createAccessibleEventListener (report_button_press, NULL);
   SPI_registerGlobalEventListener (focus_listener, "focus:");
   SPI_registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
@@ -89,7 +92,7 @@ main (int argc, char **argv)
   SPI_registerGlobalEventListener (generic_listener, "object:children-changed"); 
   SPI_registerGlobalEventListener (generic_listener, "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (generic_listener, "object:text-selection-changed"); 
-  SPI_registerGlobalEventListener (generic_listener, "object:text-caret-moved"); 
+  SPI_registerGlobalEventListener (text_listener, "object:text-caret-moved"); 
   SPI_registerGlobalEventListener (generic_listener, "object:text-changed"); 
   SPI_registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
   n_desktops = SPI_getDesktopCount ();
@@ -174,6 +177,7 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
 {
   char *s;
   int len;
+  long x, y, width, height;
 
   if (use_festival)
     {
@@ -192,14 +196,30 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
   
   if (Accessible_isComponent (obj))
     {
-      long x, y, width, height;
       AccessibleComponent *component = Accessible_getComponent (obj);
       AccessibleComponent_getExtents (component, &x, &y, &width, &height,
                                       SPI_COORD_TYPE_SCREEN);
       fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
                x, y, x+width, y+height);
+      if (Accessible_isText (obj))
+	{
+	  long x0, y0, xN, yN, w0, h0, wN, hN, nchars;
+	  AccessibleText *text = Accessible_getText (obj);
+	  nchars = AccessibleText_getCharacterCount (text);
+	  if (nchars > 0) 
+	    {
+	      AccessibleText_getCharacterExtents (text, 0, &x0, &y0, &w0, &h0,
+					      SPI_COORD_TYPE_SCREEN);
+	      AccessibleText_getCharacterExtents (text, nchars-1, &xN, &yN, &wN, &hN, 
+						  SPI_COORD_TYPE_SCREEN);
+	      x = MIN (x0, xN);
+	      width = MAX (x0 + w0, xN + wN) - x;
+	      fprintf (stderr, "Text bounding box: (%ld, %ld) ; (%ld, %ld)\n",
+		       x, y, x+width, y+height);
+	    }
+	}
       if (use_magnifier) {
-	      magnifier_set_roi ((short) 0, x, y, width, height);
+	magnifier_set_roi ((short) 0, x, y, width, height);
       }
     }
 
@@ -257,6 +277,23 @@ report_generic_event (const AccessibleEvent *event, void *user_data)
 }
 
 void
+report_text_event (const AccessibleEvent *event, void *user_data)
+{
+  fprintf (stderr, "%s event received\n", event->type);
+  if (use_magnifier)
+    {
+      AccessibleText *text = Accessible_getText (event->source);
+      long offset = AccessibleText_getCaretOffset (text);
+      long x, y, w, h;
+      fprintf (stderr, "offset %d\n", (int) offset);
+      AccessibleText_getCharacterExtents (text, offset, &x, &y, &w, &h, 
+					  SPI_COORD_TYPE_SCREEN);
+      fprintf (stderr, "new roi %d %d %d %d\n", (int) x, (int) y, (int) w, (int) h);
+      magnifier_set_roi ((short) 0, x, y, w, h);
+    }
+}
+
+void
 report_button_press (const AccessibleEvent *event, void *user_data)
 {
   char *s;
@@ -310,6 +347,9 @@ simple_at_exit ()
 
   SPI_deregisterGlobalEventListenerAll (generic_listener);
   AccessibleEventListener_unref        (generic_listener);
+
+  SPI_deregisterGlobalEventListenerAll (text_listener);
+  AccessibleEventListener_unref        (text_listener);
 
   SPI_deregisterGlobalEventListenerAll (button_listener);
   AccessibleEventListener_unref        (button_listener);

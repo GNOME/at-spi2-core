@@ -1,3 +1,11 @@
+2002-01-18  Bill Haneman <bill.haneman@sun.com>
+
+        * test/simple-at.c:
+	Added caret tracking when using magnifier, and 
+	now use text bounds for focus tracking of text elements, rather than
+	the component bounds - this is helpful for short text fields in long
+	table cells, at high magnification.
+	
 2002-01-16  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:
