@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2003-12-09 00:10+0000\n"
-"PO-Revision-Date: 2003-12-09 00:15+0000\n"
+"POT-Creation-Date: 2003-12-25 04:04+0000\n"
+"PO-Revision-Date: 2003-12-25 04:05+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: pt <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -52,8 +52,8 @@ msgid "invalid"
 msgstr "inválido"
 
 #: atk/atkobject.c:83
-msgid "accel label"
-msgstr "etiqueta atalho"
+msgid "accelerator label"
+msgstr "etiqueta de atalho"
 
 #: atk/atkobject.c:84
 msgid "alert"
