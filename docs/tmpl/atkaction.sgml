@@ -44,6 +44,7 @@ be manipulated should support this interface.
 
 @action: 
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_action_get_n_actions ##### -->

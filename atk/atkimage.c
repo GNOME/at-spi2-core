@@ -72,7 +72,7 @@ atk_image_get_image_description (AtkImage *image)
  * @width: filled with the image width
  * @height: filled with the image height
  *
- * Get the wdith and height in pixels for the specified image.
+ * Get the width and height in pixels for the specified image.
  * The values of @width and @height are returned as -1 if the
  * values cannot be obtained.
  **/

@@ -1,10 +1,20 @@
-<2001-08-22  Marc Mulcahy <marc.mulcahy@sun.com>
-	AtkAction.c AtkAction.h:
-		Made atk_action_do_action return a gboolean as the class member of AtkActionIface does.
+2001-08-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	.cvsignore:
-		Added atk.spec
+	* atk/atkaction.c:
+	Refer to return value in function documentation for 
+	atk_action_do_action
+	* atk/atkimage.c:
+	Fix typo in comments
+	* docs/tmpl/atkaction.sgml:
+	Update to include return value
 
+2001-08-22  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* atk/atkaction.c atk/atkaction.h:
+	Made atk_action_do_action return a gboolean as the class member of 
+	AtkActionIface does.
+	* .cvsignore:
+	Added atk.spec
 
 2001-08-20  Padraig O'Briain  <padraig.obriain@sun.com>
 

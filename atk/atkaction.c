@@ -45,6 +45,9 @@ atk_action_get_type ()
  * @i: the action index corresponding to the action to be performed 
  *
  * Perform the specified action on the object.
+ *
+ * Returns: %TRUE if success, %FALSE otherwise
+ *
  **/
 gboolean
 atk_action_do_action (AtkAction *obj,
