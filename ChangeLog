@@ -1,3 +1,12 @@
+2001-11-29  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/Makefile.am:
+	Generate files atk-enum-types.c and atk-enums-types.h to create
+	types for enums.
+
+	* atk/atkobject.c:
+	Use ATK_TYPE_ROLE in atk_role_get_name() and atk_role_for_name()
+
 2001-11-28  Bill Haneman  <bill.haneman@sun.com>
 
 	* atk/atkutil.c:

@@ -26,6 +26,11 @@ install-ms-lib:
 uninstall-ms-lib:
 endif
 
+atk_built_headers = atk-enum-types.h
+atk_built_cfiles = atk-enum-types.c
+
+$(OBJECTS): $(atk_built_headers)
+
 libatk_la_SOURCES = 		\
 	atkaction.c		\
 	atkcomponent.c		\
@@ -48,7 +53,8 @@ libatk_la_SOURCES = 		\
 	atktable.c		\
 	atktext.c		\
 	atkutil.c		\
-	atkvalue.c
+	atkvalue.c		\
+	$(atk_built_cfiles)
 
 EXTRA_DIST += atkmarshal.list
 MAINTAINERCLEANFILES += 	\
@@ -69,7 +75,7 @@ LDFLAGS =  \
 
 libatkincludedir=$(includedir)/atk-1.0/atk
 
-libatkinclude_HEADERS =	\
+atk_headers = \
         atk.h			\
         atkaction.h		\
         atkcomponent.h		\
@@ -93,6 +99,10 @@ libatkinclude_HEADERS =	\
         atktext.h		\
         atkutil.h		\
         atkvalue.h
+
+libatkinclude_HEADERS =	\
+	$(atk_headers)	\
+	$(atk_built_headers)
 
 $(libatk_la_OBJECTS): atkmarshal.c atkmarshal.h
 
@@ -119,6 +129,36 @@ stamp-atkmarshal.c: atkmarshal.list
 	&& (cmp -s xgen-gmc $(srcdir)/atkmarshal.c || cp xgen-gmc $(srcdir)/atkmarshal.c)		\
 	&& rm -f xgen-gmc xgen-gmc~									\
 	&& echo timestamp > $(@F)
+
+atk-enum-types.h: s-enum-types-h
+	@true
+
+s-enum-types-h: @REBUILD@ $(atk_headers) Makefile
+	( cd $(srcdir) && glib-mkenums \
+			--fhead "#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n" \
+			--fprod "/* enumerations from \"@filename@\" */\n" \
+			--vhead "GType @enum_name@_get_type (void);\n#define ATK_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n"         \
+			--ftail "#endif /* __ATK_ENUM_TYPES_H__ */" \
+		$(atk_headers) ) > tmp-atk-enum-types.h \
+	&& (cmp -s tmp-atk-enum-types.h $(srcdir)/atk-enum-types.h || cp tmp-atk-enum-types.h $(srcdir)/atk-enum-types.h ) \
+	&& rm -f tmp-atk-enum-types.h \
+	&& echo timestamp > $(@F)
+
+atk-enum-types.c: s-enum-types-c
+	@true
+
+s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
+	( cd $(srcdir) && glib-mkenums \
+			--fhead "#include <atk.h>" \
+			--fprod "\n/* enumerations from \"@filename@\" */" \
+			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {"     \
+			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (\"@EnumName@\", values);\n  }\n  return etype;\n}\n" \
+		$(atk_headers) ) > tmp-atk-enum-types.c \
+	&& (cmp -s tmp-atk-enum-types.c $(srcdir)/atk-enum-types.c || cp tmp-atk-enum-types.c $(srcdir)/atk-enum-types.c ) \
+	&& rm -f tmp-atk-enum-types.c \
+	&& echo timestamp > $(@F)
+
 
 atk.lib: libatk.la atk.def
 	lib -name:libatk-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@

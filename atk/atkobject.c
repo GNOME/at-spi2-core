@@ -23,78 +23,7 @@
 
 #include "atk.h"
 #include "atkmarshal.h"
-
-static gchar *role_names[ATK_ROLE_LAST_DEFINED] = {
-  "invalid",
-  "accel_label",
-  "alert",
-  "animation",
-  "arrow",
-  "calendar",
-  "canvas",
-  "check_box",
-  "check_menu_item",
-  "color_chooser",
-  "column_header",
-  "combo_box",
-  "date_editor",
-  "desktop_icon",
-  "desktop_frame",
-  "dial",
-  "dialog",
-  "directory_pane",
-  "drawing_area",
-  "file_chooser",
-  "filler",
-  "font_chooser",
-  "frame",
-  "glass_pane",
-  "html_container",
-  "icon",
-  "image",
-  "internal_frame",
-  "label",
-  "layered_pane",
-  "list",
-  "list_item",
-  "menu",
-  "menu_bar",
-  "menu_item",
-  "option_pane",
-  "page_tab",
-  "page_tab_list",
-  "panel",
-  "password_text",
-  "popup_menu",
-  "progress_bar",
-  "push_button",
-  "radio_button",
-  "radio_menu_item",
-  "root_pane",
-  "row_header",
-  "scroll_bar",
-  "scroll_pane",
-  "separator",
-  "slider",
-  "split_pane",
-  "spin_button",
-  "statusbar",
-  "table",
-  "table_cell",
-  "table_column_header",
-  "table_row_header",
-  "tear_off_menu_item",
-  "terminal",
-  "text",
-  "toggle_button",
-  "tool_bar",
-  "tool_tip",
-  "tree",
-  "tree_table",
-  "unknown",
-  "viewport",
-  "window"
-};
+#include "atk-enum-types.h"
 
 enum
 {
@@ -1151,14 +1080,26 @@ atk_object_notify (GObject     *obj,
 G_CONST_RETURN gchar*
 atk_role_get_name (AtkRole role)
 {
-  gint n;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  gchar *name;
 
-  n = role;
+  type_class = g_type_class_ref (ATK_TYPE_ROLE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
 
-  if ((n >= 0) && (n < ATK_ROLE_LAST_DEFINED))
-    return role_names[n];
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), role);
 
-  return role_names[ATK_ROLE_INVALID];
+  if (value)
+    {
+      name = value->value_name;
+    }
+  else
+    {
+      value = g_enum_get_value (G_ENUM_CLASS (type_class), ATK_ROLE_INVALID);
+      name = value->value_name;
+    }
+  g_type_class_unref (type_class);
+  return name;
 }
 
 /**
@@ -1174,14 +1115,26 @@ name,
 AtkRole
 atk_role_for_name (const gchar *name)
 {
-  gint i;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  AtkRole role;
 
   g_return_val_if_fail (name, ATK_ROLE_INVALID);
 
-  for (i = 0; i < ATK_ROLE_LAST_DEFINED; i++)
+  type_class = g_type_class_ref (ATK_TYPE_ROLE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), ATK_ROLE_INVALID);
+
+  value = g_enum_get_value_by_name (G_ENUM_CLASS (type_class), name);
+
+  if (value)
     {
-      if (strcmp (name, role_names[i]) == 0)
-        return i;
+      role = value->value;
     }
-  return ATK_ROLE_INVALID;
+  else
+    {
+      role = ATK_ROLE_INVALID;
+    }
+  g_type_class_unref (type_class);
+  
+  return role;
 }
