@@ -1,3 +1,26 @@
+2003-12-04  Bill Haneman <billh@gnome.org>
+
+        Fix for bug #121974.
+	
+	* idl/Accessibility_Application.idl:
+	(Accessibility::LOCALE_TYPE): New enum, corresponds to
+	setlocale's LC_TYPEs.
+	(Accessibility::Application::getLocale): New method.
+	Allows clients to query the locale, by type, of an app.
+	
+	* cspi/spi.h:
+	* cspi/spi_application.c:
+	(AccessibleApplication_getLocale): New method, wraps IDL above.
+
+	* libspi/application.c:
+	(spi_application_class_init): Init epv entry for getLocale.
+	(impl_accessibility_application_get_locale): Impl for above.
+
+	* test/test-simple.c:
+	(test_application): Added assertion for getLocale, i.e.
+	that the string from AccessibleApplication_getLocale (app, type) 
+	is the same as that from setlocale (type, NULL);
+
 2003-12-03  Padraig O'Briain <padraig.obriain@sun.com>
 
 	*registryd/deviceeventcontroller.c: Add an idle handler which polls

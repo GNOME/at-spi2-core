@@ -27,6 +27,16 @@
 #include <Accessibility_Accessible.idl>
 
 module Accessibility {
+
+  enum LOCALE_TYPE {
+      LOCALE_TYPE_MESSAGES,
+      LOCALE_TYPE_COLLATE,
+      LOCALE_TYPE_CTYPE,
+      LOCALE_TYPE_MONETARY,
+      LOCALE_TYPE_NUMERIC,
+      LOCALE_TYPE_TIME
+  };
+
   interface Application : Accessible {
 
     /**
@@ -100,10 +110,20 @@ module Accessibility {
      **/
     boolean       resume ();
 
+     /**
+     * getLocale:
+     *
+     * @lctype: the LocaleType for which the locale is queried.
+     * Gets the locale in which the application is currently operating.
+     * For the current message locale, use @lctype LOCALE_TYPE_MESSAGES.
+     *
+     * Returns: a string compliant with the POSIX standard for locale description.
+     **/
+    string       getLocale (in LOCALE_TYPE lctype);
+
     void          unImplemented_ ();
     void          unImplemented2_ ();
     void          unImplemented3_ ();
-    void          unImplemented4_ ();
   };
 };
 

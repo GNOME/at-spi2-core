@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include <gtk/gtk.h>
 #include <cspi/spi.h>
 #include <libbonobo.h>
@@ -232,6 +233,10 @@ test_application (Accessible *application)
 	g_assert (str != NULL);
 	g_assert (!strcmp (str, "GAIL"));
 	SPI_freeString (str);
+
+	str = AccessibleApplication_getLocale (application, LC_MESSAGES);
+	g_assert (!strcmp (str, setlocale (LC_MESSAGES, NULL)));
+        SPI_freeString (str);
 
 	str = AccessibleApplication_getVersion (application);
 	g_assert (str != NULL);

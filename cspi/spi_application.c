@@ -28,6 +28,7 @@
  */
 
 #include <cspi/spi-private.h>
+#include <locale.h>
 
 /**
  * AccessibleApplication_ref:
@@ -128,6 +129,52 @@ AccessibleApplication_getID (AccessibleApplication *obj)
   cspi_return_val_if_ev ("id", 0);
 
   return retval;
+}
+
+/**
+ * AccessibleApplication_getLocale:
+ * @obj: a pointer to the #AccessibleApplication being queried.
+ *
+ * Get a POSIX-compliant string describing the application's current
+ * locale setting for a particular @lctype category.
+ *
+ * Returns: a POSIX-compliant locale string, e.g. "C", "pt_BR", "sr@latn", etc.
+ **/
+char *
+AccessibleApplication_getLocale (AccessibleApplication *obj, int lc_category)
+{
+  gchar *retval;
+  Accessibility_LOCALE_TYPE lctype;
+
+  cspi_return_val_if_fail (obj != NULL, CORBA_string_dup (""));
+
+  switch (lc_category) 
+  {
+  case LC_COLLATE:
+    lctype = Accessibility_LOCALE_TYPE_COLLATE;
+    break;
+  case LC_CTYPE:
+    lctype = Accessibility_LOCALE_TYPE_CTYPE;
+    break;
+  case LC_NUMERIC:
+    lctype = Accessibility_LOCALE_TYPE_NUMERIC;
+    break;
+  case LC_MONETARY:
+    lctype = Accessibility_LOCALE_TYPE_MONETARY;
+    break;
+  case LC_MESSAGES:
+  default:
+    lctype = Accessibility_LOCALE_TYPE_MESSAGES;
+    break;
+  }
+
+  retval = Accessibility_Application_getLocale (CSPI_OBJREF (obj),
+						lctype,
+						cspi_ev ());
+
+  cspi_return_val_if_ev ("id", CORBA_string_dup (""));
+
+  return CORBA_string_dup (retval);
 }
 
 /**

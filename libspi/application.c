@@ -27,6 +27,7 @@
 #include <config.h>
 #include <atk/atkutil.h>
 #include <libspi/application.h>
+#include <locale.h>
 #include "spi-private.h"
 
 /* Our parent Gtk object type */
@@ -170,6 +171,34 @@ spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
   return TRUE;
 }
 
+static CORBA_string
+impl_accessibility_application_get_locale (PortableServer_Servant servant,
+					   Accessibility_LOCALE_TYPE lctype,
+					   CORBA_Environment *ev)
+{
+    int category;
+    switch (lctype) 
+    {
+	case Accessibility_LOCALE_TYPE_COLLATE:
+	    category = LC_COLLATE;
+	    break;
+	case Accessibility_LOCALE_TYPE_CTYPE:
+	    category = LC_CTYPE;
+	    break;
+	case Accessibility_LOCALE_TYPE_MONETARY:
+	    category = LC_MONETARY;
+	    break;
+	case Accessibility_LOCALE_TYPE_NUMERIC:
+	    category = LC_NUMERIC;
+	    break;
+	case Accessibility_LOCALE_TYPE_MESSAGES:
+	default:
+	    category = LC_MESSAGES;
+	    break;
+    }
+    return CORBA_string_dup (setlocale (category, NULL));
+}
+
 static void
 impl_accessibility_application_register_toolkit_event_listener (PortableServer_Servant servant,
 								Accessibility_EventListener listener,
@@ -242,6 +271,7 @@ spi_application_class_init (SpiApplicationClass *klass)
   epv->_get_id = impl_accessibility_application_get_id;
   epv->_set_id = impl_accessibility_application_set_id;
   epv->registerToolkitEventListener = impl_accessibility_application_register_toolkit_event_listener;
+  epv->getLocale = impl_accessibility_application_get_locale;
   init_toolkit_names (&klass->generic_event_names, &klass->toolkit_event_names);
 }
 
@@ -260,5 +290,5 @@ SpiApplication *
 spi_application_new (AtkObject *app_root)
 {
   return SPI_APPLICATION (spi_accessible_construct (
-	SPI_APPLICATION_TYPE, app_root));
+			  SPI_APPLICATION_TYPE, app_root));
 }

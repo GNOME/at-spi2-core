@@ -34,7 +34,6 @@
 #include <libspi/spi-private.h>
 #include "accessible.h"
 #include "application.h"
-
 #include <bonobo-activation/bonobo-activation-register.h>
 
 #undef SPI_BRIDGE_DEBUG

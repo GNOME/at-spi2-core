@@ -1,5 +1,29 @@
 (top)
 in HEAD:
+What's new in at-spi-1.3.8:
+
+* New api:  AccessibleApplication_getLocale (app, type),
+  returns a POSIX locale string for a locale category,
+  for instance Accessibility_LOCALE_TYPE_MESSAGES.
+
+* New SPI_ROLE_EDITBAR.
+
+* New Accessible_getLocalizedRoleName.
+
+* New AccessibleText_getDefaultAttributes.
+
+* fixes to AccessibleStreamableContent, including a 'seek'
+  implementation for cspi.  Thanks to Michael Meeks for some
+  related bugfixes in StreamableContent.
+
+* now we emit key-released events to appropriate keylisteners.
+
+* new LINGUAS in configure.in: nn (Asmund Sjeveland), lt (Gediminas Paulauskas),
+  no (Kjartan Masass), eu (Christian Rose).
+
+* bugfixes for: #120991, #120473, #118581, #127463, #116009, #114926,
+  #125834, #111429, #121974.
+
 What's new in at-spi-1.3.7:
 
 This is the official GNOME 2.4.0 release of at-spi.

@@ -472,6 +472,7 @@ void       AccessibleApplication_unref          (AccessibleApplication *obj);
 char      *AccessibleApplication_getToolkitName (AccessibleApplication *obj);
 char      *AccessibleApplication_getVersion     (AccessibleApplication *obj);
 long       AccessibleApplication_getID          (AccessibleApplication *obj);
+char      *AccessibleApplication_getLocale      (AccessibleApplication *obj, int lc_category);
 SPIBoolean AccessibleApplication_pause          (AccessibleApplication *obj);
 SPIBoolean AccessibleApplication_resume         (AccessibleApplication *obj);
 
