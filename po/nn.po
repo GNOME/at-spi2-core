@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-25 01:51+0100\n"
+"POT-Creation-Date: 2003-12-27 17:16+0100\n"
 "PO-Revision-Date: 2003-12-26 17:27+0100\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -362,7 +362,8 @@ msgstr "Tilgjengeleg namn"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Objektinstansen sitt namn, formatert for tilgang gjennom hjelpeteknologi"
+msgstr ""
+"Objektinstansen sitt namn, formatert for tilgang gjennom hjelpeteknologi"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
@@ -482,4 +483,3 @@ msgstr "Talet på lenkjer som noverande AtkHypertext har"
 
 #~ msgid "ruler"
 #~ msgstr "linjal"
-
