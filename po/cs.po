@@ -2,311 +2,316 @@
 # Copyright (C) 2002 Free Software Foundation
 # This file is distributed under the same license as the ATK package.
 # Michal Bukovjan <bukm@centrum.cz>, 2002.
+# Miloslav Trmac <mitr@volny.cz>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ATK for GNOME 2.1.x\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2002-12-01 10:47GMT\n"
-"Last-Translator: Michal Bukovjan <bukm@centrum.cz>\n"
+"Project-Id-Version: atk VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-27 03:02+0100\n"
+"PO-Revision-Date: 2003-11-27 10:38+0100\n"
+"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkobject.c:81
 msgid "invalid"
 msgstr "neplatný"
 
-#: atk/atkobject.c:1245
-msgid "accel-label"
-msgstr "popisek-se-zkratkou"
+#: atk/atkobject.c:82
+msgid "accel label"
+msgstr "popisek se zkratkou"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:83
 msgid "alert"
 msgstr "upozornění"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:84
 msgid "animation"
 msgstr "animace"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:85
 msgid "arrow"
 msgstr "šipka"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:86
 msgid "calendar"
 msgstr "kalendář"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:87
 msgid "canvas"
 msgstr "plátno"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
-msgstr "zaškrtávací-políčko"
+#: atk/atkobject.c:88
+msgid "check box"
+msgstr "zaškrtávací políčko"
 
-#: atk/atkobject.c:1266
-msgid "check-menu-item"
-msgstr "zaškrtávací-položka-menu"
+#: atk/atkobject.c:89
+msgid "check menu item"
+msgstr "zaškrtávací položka menu"
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
-msgstr "výběr-barvy"
+#: atk/atkobject.c:90
+msgid "color chooser"
+msgstr "výběr barvy"
 
-#: atk/atkobject.c:1272
-msgid "column-header"
-msgstr "záhlaví-sloupce"
+#: atk/atkobject.c:91
+msgid "column header"
+msgstr "záhlaví sloupce"
 
-#: atk/atkobject.c:1275
-msgid "combo-box"
-msgstr "kombo-box"
+#: atk/atkobject.c:92
+msgid "combo box"
+msgstr "kombo box"
 
-#: atk/atkobject.c:1278
-msgid "date-editor"
-msgstr "editor-data"
+#: atk/atkobject.c:93
+msgid "dateeditor"
+msgstr "editor data"
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
-msgstr "ikona-pracovní-plochy"
+#: atk/atkobject.c:94
+msgid "desktop icon"
+msgstr "ikona pracovní plochy"
 
-#: atk/atkobject.c:1284
-msgid "desktop-frame"
-msgstr "rám-pracovní-plochy"
+#: atk/atkobject.c:95
+msgid "desktop frame"
+msgstr "rám pracovní plochy"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:96
 msgid "dial"
 msgstr "vytáčení"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:97
 msgid "dialog"
 msgstr "dialog"
 
-#: atk/atkobject.c:1293
-msgid "directory-pane"
-msgstr "panel-adresářů"
+#: atk/atkobject.c:98
+msgid "directory pane"
+msgstr "panel adresářů"
 
-#: atk/atkobject.c:1296
-msgid "drawing-area"
-msgstr "kreslící-oblast"
+#: atk/atkobject.c:99
+msgid "drawing area"
+msgstr "kreslicí oblast"
 
-#: atk/atkobject.c:1299
-msgid "file-chooser"
-msgstr "výběr-souboru"
+#: atk/atkobject.c:100
+msgid "file chooser"
+msgstr "výběr souboru"
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:101
 msgid "filler"
 msgstr "plnič"
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
-msgstr "výběr-písma"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:103
+msgid "fontchooser"
+msgstr "výběr písma"
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:104
 msgid "frame"
 msgstr "rám"
 
-#: atk/atkobject.c:1311
-msgid "glass-pane"
-msgstr "skleněný-panel"
+#: atk/atkobject.c:105
+msgid "glass pane"
+msgstr "skleněný panel"
 
-#: atk/atkobject.c:1314
-msgid "html-container"
-msgstr "kontejner-html"
+#: atk/atkobject.c:106
+msgid "html container"
+msgstr "kontejner html"
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:107
 msgid "icon"
 msgstr "ikona"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:108
 msgid "image"
 msgstr "obrázek"
 
-#: atk/atkobject.c:1323
-msgid "internal-frame"
-msgstr "interní-rám"
+#: atk/atkobject.c:109
+msgid "internal frame"
+msgstr "interní rám"
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:110
 msgid "label"
 msgstr "popisek"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
-msgstr "vrstvený-panel"
+#: atk/atkobject.c:111
+msgid "layered pane"
+msgstr "vrstvený panel"
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:112
 msgid "list"
 msgstr "seznam"
 
-#: atk/atkobject.c:1335
-msgid "list-item"
-msgstr "položka-seznamu"
+#: atk/atkobject.c:113
+msgid "list item"
+msgstr "položka seznamu"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:114
 msgid "menu"
 msgstr "menu"
 
-#: atk/atkobject.c:1341
-msgid "menu-bar"
-msgstr "menu-lišta"
+#: atk/atkobject.c:115
+msgid "menu bar"
+msgstr "lišta menu"
 
-#: atk/atkobject.c:1344
-msgid "menu-item"
-msgstr "položka-menu"
+#: atk/atkobject.c:116
+msgid "menu item"
+msgstr "položka menu"
 
-#: atk/atkobject.c:1347
-msgid "option-pane"
-msgstr "panel-s-volbami"
+#: atk/atkobject.c:117
+msgid "option pane"
+msgstr "panel voleb"
 
-#: atk/atkobject.c:1350
-msgid "page-tab"
-msgstr "odrážka-stránky"
+#: atk/atkobject.c:118
+msgid "page tab"
+msgstr "záložka stránky"
 
-#: atk/atkobject.c:1353
-msgid "page-tab-list"
-msgstr "seznam-odrážek-stránky"
+#: atk/atkobject.c:119
+msgid "page tab list"
+msgstr "seznam záložek stránky"
 
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:120
 msgid "panel"
 msgstr "panel"
 
-#: atk/atkobject.c:1359
-msgid "password-text"
-msgstr "text-hesla"
+#: atk/atkobject.c:121
+msgid "password text"
+msgstr "text hesla"
 
-#: atk/atkobject.c:1362
-msgid "popup-menu"
-msgstr "vyskakovací-menu"
+#: atk/atkobject.c:122
+msgid "popup menu"
+msgstr "vyskakovací menu"
 
-#: atk/atkobject.c:1365
-msgid "progress-bar"
-msgstr "lišta-průběhu"
+#: atk/atkobject.c:123
+msgid "progress bar"
+msgstr "lišta průběhu"
 
-#: atk/atkobject.c:1368
-msgid "push-button"
+#: atk/atkobject.c:124
+msgid "push button"
 msgstr "tlačítko"
 
-#: atk/atkobject.c:1371
-msgid "radio-button"
-msgstr "rádiové-tlačítko"
+#: atk/atkobject.c:125
+msgid "radio button"
+msgstr "rádiové tlačítko"
 
-#: atk/atkobject.c:1374
-msgid "radio-menu-item"
-msgstr "rádiová-položka-menu"
+#: atk/atkobject.c:126
+msgid "radio menu item"
+msgstr "rádiová položka menu"
 
-#: atk/atkobject.c:1377
-msgid "root-pane"
-msgstr "kořenový-panel"
+#: atk/atkobject.c:127
+msgid "root pane"
+msgstr "kořenový panel"
 
-#: atk/atkobject.c:1380
-msgid "row-header"
-msgstr "záhlaví-řádku"
+#: atk/atkobject.c:128
+msgid "row header"
+msgstr "záhlaví řádku"
 
-#: atk/atkobject.c:1383
-msgid "scroll-bar"
-msgstr "posuvná-lišta"
+#: atk/atkobject.c:129
+msgid "scroll bar"
+msgstr "posuvná lišta"
 
-#: atk/atkobject.c:1386
-msgid "scroll-pane"
-msgstr "posuvný-panel"
+#: atk/atkobject.c:130
+msgid "scroll pane"
+msgstr "posuvný panel"
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:131
 msgid "separator"
 msgstr "oddělovač"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:132
 msgid "slider"
 msgstr "posunovač"
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
-msgstr "oddělený-panel"
+#: atk/atkobject.c:133
+msgid "split pane"
+msgstr "oddělený panel"
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
-msgstr "otáčecí-tlačítko"
+#: atk/atkobject.c:134
+msgid "spin button"
+msgstr "otáčecí tlačítko"
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:135
 msgid "statusbar"
 msgstr "stavová-lišta"
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:136
 msgid "table"
 msgstr "tabulka"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
-msgstr "buňka-tabulky"
+#: atk/atkobject.c:137
+msgid "table cell"
+msgstr "buňka tabulky"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
-msgstr "záhlaví-sloupce-tabulky"
+#: atk/atkobject.c:138
+msgid "table column header"
+msgstr "záhlaví sloupce tabulky"
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
-msgstr "záhlaví-řádku-tabulky"
+#: atk/atkobject.c:139
+msgid "table row header"
+msgstr "záhlaví řádku tabulky"
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
-msgstr "odtrhávací-položka-menu"
+#: atk/atkobject.c:140
+msgid "tear off menu item"
+msgstr "odtrhávací položka menu"
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:141
 msgid "terminal"
 msgstr "terminál"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:142
 msgid "text"
 msgstr "text"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
+#: atk/atkobject.c:143
+msgid "toggle button"
 msgstr "přepínač"
 
-#: atk/atkobject.c:1428
-msgid "tool-bar"
-msgstr "nástrojová-lišta"
+#: atk/atkobject.c:144
+msgid "tool bar"
+msgstr "nástrojová lišta"
 
-#: atk/atkobject.c:1431
-msgid "tool-tip"
+#: atk/atkobject.c:145
+msgid "tool tip"
 msgstr "tip"
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:146
 msgid "tree"
 msgstr "strom"
 
-#: atk/atkobject.c:1437
-msgid "tree-table"
-msgstr "stromová-tabulka"
+#: atk/atkobject.c:147
+msgid "tree table"
+msgstr "stromová tabulka"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:148
 msgid "unknown"
 msgstr "neznámý"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:149
 msgid "viewport"
 msgstr "pohled"
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:150
 msgid "window"
 msgstr "okno"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:151
 msgid "header"
 msgstr "záhlaví"
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:152
 msgid "footer"
 msgstr "zápatí"
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:153
 msgid "paragraph"
 msgstr "odstavec"
 
-#: atk/atkobject.c:1458
-msgid "ruler"
-msgstr "pravítko"
-
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:154
 msgid "application"
 msgstr "aplikace"
+
+#: atk/atkobject.c:155
+msgid "autocomplete"
+msgstr "autodoplnění"
+
+#~ msgid "ruler"
+#~ msgstr "pravítko"
