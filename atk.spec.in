@@ -4,11 +4,11 @@ Version:	@VERSION@
 Release:	1
 License:	LGPL
 Group:		Development/Libraries
-Source:		%{name}-%{version}.tar.gz
+Source:		ftp://ftp.gimp.org/pub/gtk/v1.3/%{name}-%{version}.tar.gz
 BuildRoot:	/var/tmp/%{name}-%{version}-root
 URL:		http://www.gtk.org
-Requires:	glib >= @GLIB_REQUIRED_VERSION@
-BuildRequires:	glib-devel >= @GLIB_REQUIRED_VERSION@
+Requires:	glib2 >= @GLIB_REQUIRED_VERSION@
+BuildRequires:	glib2-devel >= @GLIB_REQUIRED_VERSION@
 
 %description
 Handy library of accessability functions. Development libs and headers
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/atk
 
 %changelog
+* Mon Aug 27 2001 Jens Finke <jens@gnome.org>
+- glib2 package now required
+- updated source url
 
 * Wed Aug 15 2001 Jens Finke <jens@gnome.org>
 - created spec file
