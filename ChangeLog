@@ -1,3 +1,7 @@
+2003-02-19  Dmitry G. Mastrukov  <dmitry@taurussoft.org>
+
+	* configure.in: Added Belarusian to ALL_LINGUAS.
+
 2003-02-14  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atknoopobject.c: Add AtkHypertext interface as this object should
