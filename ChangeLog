@@ -1,3 +1,8 @@
+2003-02-14  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atknoopobject.c: Add AtkHypertext interface as this object should
+	claim to implement all interfaces.
+
 2003-02-12  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkhyperlink.c (atk_hyperlink_class_init): Correct typo in blurb

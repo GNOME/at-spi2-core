@@ -1,5 +1,5 @@
 /* ATK -  Accessibility Toolkit
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -95,6 +95,13 @@ atk_no_op_object_get_type (void)
         NULL
     };
 
+    static const GInterfaceInfo atk_hypertext_info =
+    {
+        (GInterfaceInitFunc) NULL,
+        (GInterfaceFinalizeFunc) NULL,
+        NULL
+    };
+
     static const GInterfaceInfo atk_value_info =
     {
         (GInterfaceInitFunc) NULL,
@@ -119,6 +126,8 @@ atk_no_op_object_get_type (void)
                                  &atk_table_info);
     g_type_add_interface_static (type, ATK_TYPE_TEXT,
                                  &atk_text_info);
+    g_type_add_interface_static (type, ATK_TYPE_HYPERTEXT,
+                                 &atk_hypertext_info);
     g_type_add_interface_static (type, ATK_TYPE_VALUE,
                                  &atk_value_info);
   }
