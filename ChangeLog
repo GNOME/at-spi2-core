@@ -1,3 +1,7 @@
+2003-09-28  Gediminas Paulauskas  <menesis@delfi.lt>
+
+    * configure.in: Added lt to ALL_LINGUAS.
+
 2003-09-25  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c:
