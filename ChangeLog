@@ -1,5 +1,7 @@
 2003-04-25  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/stateset.h: Fix typo in documentation.
+
 	* autogen.sh (have_libtool): Accept libtool-1.5. (#111481)
 	Patch provided by Ali Akcaagac.
 
