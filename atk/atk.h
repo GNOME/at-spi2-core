@@ -35,6 +35,7 @@
 #include <atk/atkregistry.h>
 #include <atk/atkrelation.h>
 #include <atk/atkrelationset.h>
+#include <atk/atkrelationtype.h>
 #include <atk/atkselection.h>
 #include <atk/atkstate.h>
 #include <atk/atkstateset.h>

@@ -57,6 +57,9 @@ extern "C" {
  *@ATK_STATE_TRANSIENT: Indicates this object is transient
  *@ATK_STATE_VERTICAL: Indicates the orientation of this object is vertical
  *@ATK_STATE_VISIBLE: Indicates this object is visible
+ *@ATK_STATE_MANAGES_DESCENDANTS: Indicates that "active-descendant-changed" event
+ * is sent when children become 'active' (i.e. are selected or navigated to onscreen).
+ * Used to prevent need to enumerate all children in very large containers, like tables.
  *@ATK_STATE_LAST_DEFINED: Not a valid role, used for finding end of enumeration
  *
  *The possible types of states of an object
@@ -92,6 +95,7 @@ typedef enum
   ATK_STATE_TRANSIENT,
   ATK_STATE_VERTICAL,
   ATK_STATE_VISIBLE,
+  ATK_STATE_MANAGES_DESCENDANTS,
   ATK_STATE_LAST_DEFINED
 } AtkStateType;
 

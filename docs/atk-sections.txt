@@ -6,6 +6,7 @@ atk_action_do_action
 atk_action_get_n_actions
 atk_action_get_description
 atk_action_get_name
+atk_action_get_localized_name
 atk_action_get_keybinding
 atk_action_set_description
 <SUBSECTION Standard>
@@ -173,7 +174,10 @@ atk_object_connect_property_change_handler
 atk_object_remove_property_change_handler
 atk_object_notify_state_change
 atk_object_initialize
+atk_object_add_relationship
+atk_object_remove_relationship
 atk_role_get_name
+atk_role_get_localized_name
 atk_role_for_name
 <SUBSECTION Standard>
 AtkImplementorIface

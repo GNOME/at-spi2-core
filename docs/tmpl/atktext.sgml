@@ -336,6 +336,13 @@ The AtkText structure does not contain any fields.
 @Returns: 
 
 
+<!-- ##### SIGNAL AtkText::text-attributes-changed ##### -->
+<para>
+
+</para>
+
+@atktext: the object which received the signal.
+
 <!-- ##### SIGNAL AtkText::text-caret-moved ##### -->
 <para>
 

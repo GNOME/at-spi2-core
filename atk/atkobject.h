@@ -26,6 +26,7 @@ extern "C" {
 
 #include <glib-object.h>
 #include <atk/atkstate.h>
+#include <atk/atkrelationtype.h>
 
 /*
  * AtkObject represents the minimum information all accessible objects
@@ -107,7 +108,11 @@ extern "C" {
  *@ATK_ROLE_TREE_TABLE: An object capable of expanding and collapsing rows as well as showing multiple columns of data
  *@ATK_ROLE_UNKNOWN: The object contains some Accessible information, but its role is not known
  *@ATK_ROLE_VIEWPORT: An object usually used in a scroll pane
- *@ATK_ROLE_WINDOW: A top level window with no title or border
+ *@ATK_ROLE_WINDOW: A top level window with no title or border.
+ *@ATK_ROLE_HEADER: An object that serves as a document header.
+ *@ATK_ROLE_FOOTER: An object that serves as a document footer.
+ *@ATK_ROLE_PARAGRAPH: An object which is contains a paragraph of text content.
+ *@ATK_ROLE_RULER: An object which describes margins and tab stops, etc. for text objects which it controls (should have CONTROLLER_FOR relation to such).
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of enumeration
  * 
  *Describes the role of an object
@@ -183,6 +188,10 @@ typedef enum
   ATK_ROLE_UNKNOWN,
   ATK_ROLE_VIEWPORT,
   ATK_ROLE_WINDOW,
+  ATK_ROLE_HEADER,
+  ATK_ROLE_FOOTER,
+  ATK_ROLE_PARAGRAPH,
+  ATK_ROLE_RULER,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 
@@ -456,6 +465,16 @@ void                 atk_object_initialize                       (AtkObject     
                                     
 G_CONST_RETURN gchar* atk_role_get_name      (AtkRole         role);
 AtkRole               atk_role_for_name      (const gchar     *name);
+
+
+/* NEW in 1.1: convenience API */
+gboolean              atk_object_add_relationship              (AtkObject      *object,
+								AtkRelationType relationship,
+								AtkObject      *target);
+gboolean              atk_object_remove_relationship           (AtkObject      *object,
+								AtkRelationType relationship,
+								AtkObject      *target);
+G_CONST_RETURN gchar* atk_role_get_localized_name              (AtkRole     role);
 
 
 /*

@@ -25,37 +25,13 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <glib-object.h>
+#include <atk/atkrelationtype.h>
 
 /*
  * An AtkRelation describes a relation between the object and one or more 
  * other objects. The actual relations that an object has with other objects
  * are defined as an AtkRelationSet, which is a set of AtkRelations. 
  */
-
-/**
- *AtkRelationType:
- *@ATK_RELATION_NULL:
- *@ATK_RELATION_CONTROLLED_BY: Indicates an object controlled by one or more target objects.
- *@ATK_RELATION_CONTROLLER_FOR: Indicates an object is an controller for one or more target objects.
- *@ATK_RELATION_LABEL_FOR: Indicates an object is a label for one or more target objects.
- *@ATK_RELATION_LABELLED_BY: Indicates an object is labelled by one or more target objects.
- *@ATK_RELATION_MEMBER_OF: Indicates an object is a member of a group of one or more target objects.
- *@ATK_RELATION_NODE_CHILD_OF: Indicates an object is a cell in a treetable which is displayed because a cell in the same column is expanded and identifies that cell.
- *@ATK_RELATION_LAST_DEFINED:
- * 
- *Describes the type of the relation
- **/
-typedef enum
-{
-  ATK_RELATION_NULL = 0,
-  ATK_RELATION_CONTROLLED_BY,
-  ATK_RELATION_CONTROLLER_FOR,
-  ATK_RELATION_LABEL_FOR,
-  ATK_RELATION_LABELLED_BY,
-  ATK_RELATION_MEMBER_OF,
-  ATK_RELATION_NODE_CHILD_OF,
-  ATK_RELATION_LAST_DEFINED
-} AtkRelationType;
 
 #define ATK_TYPE_RELATION                         (atk_relation_get_type ())
 #define ATK_RELATION(obj)                         (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_RELATION, AtkRelation))
@@ -66,7 +42,6 @@ typedef enum
 
 typedef struct _AtkRelation            AtkRelation;
 typedef struct _AtkRelationClass       AtkRelationClass;
-
 
 struct _AtkRelation
 {

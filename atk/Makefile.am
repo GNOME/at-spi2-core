@@ -98,6 +98,7 @@ atk_headers = \
         atkimage.h		\
         atkregistry.h		\
         atkrelation.h		\
+        atkrelationtype.h	\
         atkrelationset.h	\
         atkselection.h		\
         atkstate.h		\

@@ -62,8 +62,8 @@ struct _AtkActionIface
   gboolean                (*set_description)   (AtkAction         *action,
                                                 gint              i,
                                                 const gchar       *desc);
-
-  AtkFunction             pad1;
+  G_CONST_RETURN gchar*   (*get_localized_name)(AtkAction         *action,
+						gint              i);
   AtkFunction             pad2;
 };
 
@@ -93,6 +93,10 @@ gboolean              atk_action_set_description  (AtkAction         *action,
                                                    gint              i,
                                                    const gchar       *desc);
 
+/* NEW in ATK 1.1: */
+
+G_CONST_RETURN gchar* atk_action_get_localized_name (AtkAction       *action,
+						     gint            i);
 
 /*
  * Additional GObject properties exported by AtkAction:

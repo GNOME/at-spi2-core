@@ -29,6 +29,12 @@ test_relation (void)
 {
   AtkRelationType type1, type2;
   G_CONST_RETURN gchar *name;
+  AtkObject *obj;
+  gboolean ret_value;
+  AtkRelationSet *set;
+  AtkRelation *relation;
+  gint n_relations;
+  GPtrArray *array; 
 
   name = atk_relation_type_get_name (ATK_RELATION_LABEL_FOR);
   g_return_val_if_fail (name, FALSE);
@@ -82,6 +88,65 @@ test_relation (void)
       g_print ("Unexpected name for undefined type %s\n", name);
       return FALSE;
     }
+
+  obj = g_object_new (ATK_TYPE_OBJECT, NULL);
+  ret_value = atk_object_add_relationship (obj, ATK_RELATION_LABEL_FOR, obj);
+  if (!ret_value)
+    {
+      g_print ("Unexpected return value for atk_object_add_relationship\n");
+      return FALSE;
+    }
+  set = atk_object_ref_relation_set (obj);
+  if (!set)
+    {
+      g_print ("Unexpected return value for atk_object_ref_relation_set\n");
+      return FALSE;
+    }
+  n_relations = atk_relation_set_get_n_relations (set);
+  if (n_relations != 1)
+    {
+      g_print ("Unexpected return value (%d) for atk_relation_set_get_n_relations expected value: %d\n", n_relations, 1);
+      return FALSE;
+    }
+  relation = atk_relation_set_get_relation (set, 0);  
+  if (!relation)
+    {
+      g_print ("Unexpected return value for atk_object_relation_set_get_relation\n");
+      return FALSE;
+    }
+  type1 = atk_relation_get_relation_type (relation);
+  if (type1 != ATK_RELATION_LABEL_FOR)
+    {
+      g_print ("Unexpected return value for atk_relation_get_relation_type\n");
+      return FALSE;
+    }
+  array = atk_relation_get_target (relation);
+  if (obj != g_ptr_array_index (array, 0))
+    {
+      g_print ("Unexpected return value for atk_relation_get_target\n");
+      return FALSE;
+    }
+  g_object_unref (set);
+  ret_value = atk_object_remove_relationship (obj, ATK_RELATION_LABEL_FOR, obj);
+  if (!ret_value)
+    {
+      g_print ("Unexpected return value for atk_object_remove_relationship\n");
+      return FALSE;
+    }
+  set = atk_object_ref_relation_set (obj);
+  if (!set)
+    {
+      g_print ("Unexpected return value for atk_object_ref_relation_set\n");
+      return FALSE;
+    }
+  n_relations = atk_relation_set_get_n_relations (set);
+  if (n_relations != 0)
+    {
+      g_print ("Unexpected return value (%d) for atk_relation_set_get_n_relations expected value: %d\n", n_relations, 0);
+      return FALSE;
+    }
+  g_object_unref (set);
+  g_object_unref (obj);
   return TRUE;
 }
 

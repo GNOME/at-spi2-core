@@ -227,7 +227,8 @@ struct _AtkTextIface
                                                    gint             location);
   void           (* text_selection_changed)       (AtkText          *text);
 
-  AtkFunction    pad1;
+  void           (* text_attributes_changed)      (AtkText          *text);
+
   AtkFunction    pad2;
   AtkFunction    pad3;
   AtkFunction    pad4;

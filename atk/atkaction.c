@@ -144,6 +144,32 @@ atk_action_get_name (AtkAction *obj,
 }
 
 /**
+ * atk_action_get_localized_name:
+ * @action: a #GObject instance that implements AtkActionIface
+ * @i: the action index corresponding to the action to be performed 
+ *
+ * Returns the localized name of the specified action of the object.
+ *
+ * Returns a name string, or %NULL
+ * if @action does not implement this interface.
+ **/
+G_CONST_RETURN gchar*
+atk_action_get_localized_name (AtkAction *obj,
+                               gint      i)
+{
+  AtkActionIface *iface;
+
+  g_return_val_if_fail (ATK_IS_ACTION (obj), NULL);
+
+  iface = ATK_ACTION_GET_IFACE (obj);
+
+  if (iface->get_localized_name)
+    return (iface->get_localized_name) (obj, i);
+  else
+    return NULL;
+}
+
+/**
  * atk_action_get_keybinding:
  * @action: a #GObject instance that implements AtkActionIface
  * @i: the action index corresponding to the action to be performed 

@@ -29,6 +29,7 @@ enum {
   TEXT_CHANGED,
   TEXT_CARET_MOVED,
   TEXT_SELECTION_CHANGED,
+  TEXT_ATTRIBUTES_CHANGED,
   LAST_SIGNAL
 };
 
@@ -126,6 +127,14 @@ atk_text_base_init (gpointer *g_class)
                       ATK_TYPE_TEXT,
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (AtkTextIface, text_selection_changed),
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+      atk_text_signals[TEXT_ATTRIBUTES_CHANGED] =
+        g_signal_new ("text_attributes_changed",
+                      ATK_TYPE_TEXT,
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (AtkTextIface, text_attributes_changed),
                       (GSignalAccumulator) NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);

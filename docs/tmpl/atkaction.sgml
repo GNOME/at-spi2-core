@@ -86,6 +86,16 @@ The AtkAction structure does not contain any fields.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_action_get_localized_name ##### -->
+<para>
+
+</para>
+
+@action: 
+@i: 
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_action_get_keybinding ##### -->
 <para>
 

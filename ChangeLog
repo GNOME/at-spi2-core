@@ -1,3 +1,33 @@
+2002-10-30  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/Makefile.am, atk/atk.h: Add reference to atk/atkrelationtype.h
+
+	* atk/atkaction.[ch]: Add atk_action_get_localized_name.
+
+	* atk/atkobject.[ch]: Add atk_role_get_localized_name,
+	atk_object_add_relationship and atk_object_remove_relationship
+	Add new roles ATK_ROLE_HEADER, ATK_ROLE_FOOTER, ATK_ROLE_PARAGRAPH
+	and ATK_ROLE_RULER
+
+	* atk/atkrelation.h: Move definition of AtkRelationType to
+	atk/relationtype.h
+
+	* atk/atkstate.h: Add new state ATK_STATE_MANAGES_DESCENDANTS
+
+	* atk/atktext.[ch]: Add text-attributes-changed signal.
+
+	* docs/atk-sections.txt, docs/tmpl/atkaction.sgml: Add new functions.
+
+	* docs/tmpl/atkobject.sgml: Add new functions and new roles.
+
+	* docs/tmpl/atkrelation.sgml: Add new relations
+
+	* docs/tmpl/atkstate.sgml: Add new state
+
+	* docs/tmpl/atktext.sgml: Add new signal
+
+	* tests/testrelation.c: Add tests for new relationship functions.
+
 2002-10-01  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c (atk_object_notify): Fix leak; report and patch

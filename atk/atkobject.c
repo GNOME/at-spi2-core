@@ -1142,6 +1142,23 @@ atk_role_get_name (AtkRole role)
 }
 
 /**
+ * atk_role_get_localized_name:
+ * @role: The #AtkRole whose localized name is required
+ *
+ * Gets the localized description string describing the #Roleype @role.
+ *
+ * Returns: the localized string describing the AtkRole
+ **/
+G_CONST_RETURN gchar*
+atk_role_get_localized_name (AtkRole role)
+{
+  G_CONST_RETURN gchar *name;
+
+  name = atk_role_get_name (role);
+  return name;
+}
+
+/**
  * atk_role_for_name:
  * @name: a string which is the (non-localized) name of an ATK role.
  *
@@ -1192,4 +1209,78 @@ atk_role_for_name (const gchar *name)
   g_type_class_unref (type_class);
   
   return role;
+}
+
+/**
+ * atk_object_add_relationship:
+ * @object: The #AtkObject to which an AtkRelation is to be added. 
+ * @relationship: The #AtkRelationType of the relation
+ * @target: The #AtkObject which is to be the target of the relation.
+ *
+ * Adds a relationship of the specified type with the specified target.
+ *
+ * Returns TRUE if the relationship is added.
+ **/
+gboolean
+atk_object_add_relationship (AtkObject       *object,
+                             AtkRelationType relationship,
+                             AtkObject       *target)
+{
+  AtkObject *array[1];
+  AtkRelation *relation;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (object), FALSE);
+  g_return_val_if_fail (ATK_IS_OBJECT (target), FALSE);
+
+  array[0] = target;
+  relation = atk_relation_new (array, 1, relationship);
+  atk_relation_set_add (object->relation_set, relation);
+  g_object_unref (relation);
+
+  return TRUE;
+}
+
+/**
+ * atk_object_remove_relationship:
+ * @object: The #AtkObject from which an AtkRelation is to be removed. 
+ * @relationship: The #AtkRelationType of the relation
+ * @target: The #AtkObject which is the target of the relation to be removed.
+ *
+ * Removes a relationship of the specified type with the specified target.
+ *
+ * Returns TRUE if the relationship is removed.
+ **/
+gboolean
+atk_object_remove_relationship (AtkObject       *object,
+                                AtkRelationType relationship,
+                                AtkObject       *target)
+{
+  gint n_relations, i;
+  gboolean ret = FALSE;
+  AtkRelation *relation;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (object), FALSE);
+  g_return_val_if_fail (ATK_IS_OBJECT (target), FALSE);
+
+  n_relations = atk_relation_set_get_n_relations (object->relation_set);
+  for (i = 0; i < n_relations; i++)
+    {
+      relation = atk_relation_set_get_relation (object->relation_set, i);
+      if (atk_relation_get_relation_type (relation) == relationship)
+        {
+          GPtrArray *array;
+          gint j;
+
+          array = atk_relation_get_target (relation);
+        
+          if (g_ptr_array_index (array, 0) == target)
+            {
+              atk_relation_set_remove (object->relation_set, relation); 
+              ret = TRUE;
+              break;
+            }
+        }
+    }
+
+  return ret;
 }
