@@ -57,8 +57,16 @@ if $GTKDOC ; then
     gtk_doc_version=`gtkdoc-mkdb --version`
     AC_MSG_CHECKING([gtk-doc version ($gtk_doc_version) >= $gtk_doc_min_version])
     if perl <<EOF ; then
-	exit (("$gtk_doc_version" =~ /^[[0-9]]+\.[[0-9]]+$/) &&
-            ("$gtk_doc_version" >= "$gtk_doc_min_version") ? 0 : 1);
+my @installed = split /\./, "$gtk_doc_version";
+my @required = split /\./, "$gtk_doc_min_version";
+
+while (scalar @required) {
+    my \$installed_ver = (shift @installed || 0);
+    my \$required_ver = shift @required;
+    exit 1 if (\$installed_ver < \$required_ver);
+    exit 0 if (\$installed_ver > \$required_ver);
+}
+exit 0;
 EOF
       AC_MSG_RESULT(yes)
    else
