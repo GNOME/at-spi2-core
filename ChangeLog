@@ -1,3 +1,11 @@
+2004-09-03 Bill Haneman    <bill.haneman@sun.com>
+
+	* cspi/bonobo/cspi-bonobo.c:
+	(cspi_display_name): Fix C99ism.
+	* atk-bridge/bridge.c:
+	(spi_display_name): Fix C99ism.
+	Patch from Jens Granseuer, jensgr@gmx.net.
+	
 2004-09-03  Gora Mohanty  <gmohanty@cvs.gnome.org>
  
 	* configure.in: Added "or" to ALL_LINGUAS.
