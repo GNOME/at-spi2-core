@@ -1,3 +1,9 @@
+2002-02-25  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/Makefile.am:
+	Remove -no-undefined because of problems with uunresolved symbols
+	in libgobject on Solaris when using gcc
+
 Sat Feb 23 23:02:23 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* configure.in: Version 0.13

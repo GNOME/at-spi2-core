@@ -75,7 +75,6 @@ INCLUDES = \
 
 LDFLAGS =  \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)	\
-	-no-undefined						\
 	$(export_symbols)					\
 	@DEP_LIBS@
 
