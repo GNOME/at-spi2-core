@@ -62,8 +62,18 @@ typedef struct {
   EventTypeMajor major;
   char * minor;
   char * detail;
+  guint hash;
 } EventTypeStruct;
 
+typedef struct {
+  Accessibility_EventListener listener;
+  guint event_type_hash;
+} ListenerStruct;
+
+/* static function prototypes */
+static void registry_notify_listeners ( GList *listeners,
+                                        const Accessibility_Event *e,
+                                        CORBA_Environment *ev);
 
 /*
  * Implemented GObject::finalize
@@ -119,10 +129,66 @@ compare_object_hash (gconstpointer p1, gconstpointer p2)
   return ((diff < 0) ? -1 : ((diff > 0) ? 1 : 0));
 }
 
+static gint
+compare_listener_hash (gconstpointer p1, gconstpointer p2)
+{
+  return (((ListenerStruct *)p2)->event_type_hash - ((ListenerStruct *)p1)->event_type_hash);
+}
+
 static void
 parse_event_type (EventTypeStruct *etype, char *event_name)
 {
-  etype->major = ETYPE_FOCUS;
+  static gunichar delimiter = 0;
+  char * major_delim_char;
+  char * minor_delim_char;
+  guint nbytes = 0;
+
+  if (!delimiter)
+    {
+      delimiter = g_utf8_get_char (":");
+    }
+  major_delim_char = g_utf8_strchr (event_name, (gssize) 32, delimiter);
+  minor_delim_char = g_utf8_strrchr (event_name, (gssize) 255, delimiter);
+
+  nbytes = (guint)((gint64) minor_delim_char -
+                   (gint64) major_delim_char);
+
+  fprintf ("nbytes = %ld", (long) nbytes);
+
+  if (!g_ascii_strncasecmp (event_name, "focus:", 6))
+    {
+      etype->major = ETYPE_FOCUS;
+    }
+  else if (!g_ascii_strncasecmp (event_name, "window:", 7))
+    {
+      etype->major = ETYPE_WINDOW;
+    }
+  else
+    {
+      etype->major = ETYPE_TOOLKIT;
+    }
+
+  if (major_delim_char)
+    {
+      etype->minor = g_strndup (major_delim_char, nbytes);
+      etype->hash = g_str_hash (major_delim_char);
+    }
+  else
+    {
+      etype->minor = g_strdup ("");
+      etype->hash = g_str_hash ("");
+    }
+  if (major_delim_char != minor_delim_char)
+    {
+      etype->detail = g_strdup (minor_delim_char);
+    }
+  else
+    {
+      etype->detail = g_strdup ("");
+    }
+
+
+  /* TODO: don't forget to free the strings from caller when done ! */
 }
 
 /**
@@ -170,13 +236,19 @@ impl_accessibility_registry_register_global_event_listener
 
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
   /* fprintf(stderr, "registering %x/%x\n", listener, *listener); */
+  ListenerStruct *ls = g_malloc (sizeof (ListenerStruct));
+
   EventTypeStruct etype;
   parse_event_type (&etype, event_name);
+  ls->event_type_hash = etype.hash;
 
-  /* parse, check major event type */
+  /* parse, check major event type and add listener accordingly */
   switch (etype.major)
     {
     case (ETYPE_FOCUS) :
+      ls->listener = CORBA_Object_duplicate (listener, ev);
+      registry->focus_listeners =
+        g_list_append (registry->focus_listeners, ls);
       break;
     case (ETYPE_WINDOW) :
       break;
@@ -185,10 +257,25 @@ impl_accessibility_registry_register_global_event_listener
     default:
       break;
     }
+}
 
-  registry->listeners = g_list_append (registry->listeners, CORBA_Object_duplicate(listener, ev));
-  /* fprintf(stderr, "there are now %d listeners registered.\n", g_list_length(registry->listeners)); */
-  /* should use hashtable and CORBA_Object_hash (...) */
+/*
+ * CORBA Accessibility::Registry::deregisterGlobalEventListenerAll method implementation
+ */
+static void
+impl_accessibility_registry_deregister_global_event_listener_all
+                                                   (PortableServer_Servant  servant,
+                                                    Accessibility_EventListener listener,
+                                                    CORBA_Environment      *ev)
+{
+  Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
+  GList *list = g_list_find_custom (registry->focus_listeners, listener, compare_object_hash);
+  while (list)
+    {
+      fprintf (stderr, "deregistering listener\n");
+      registry->focus_listeners = g_list_delete_link (registry->focus_listeners, list);
+      list = g_list_find_custom (registry->focus_listeners, listener, compare_object_hash);
+    }
 }
 
 /*
@@ -198,12 +285,22 @@ static void
 impl_accessibility_registry_deregister_global_event_listener
                                                    (PortableServer_Servant  servant,
                                                     Accessibility_EventListener listener,
+                                                    const CORBA_char * event_name,
                                                     CORBA_Environment      *ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  /* TODO: this won't work since 'listener' is a duplicate ref */
-  registry->listeners = g_list_remove (registry->listeners, listener);
-  /*  fprintf(stderr, "deregister\n"); */
+  ListenerStruct ls;
+  EventTypeStruct etype;
+  GList *list;
+  parse_event_type (&etype, event_name);
+  ls.event_type_hash = etype.hash;
+  list = g_list_find_custom (registry->focus_listeners, &ls, compare_listener_hash);
+
+  if (list)
+    {
+      fprintf (stderr, "deregistering listener\n");
+      registry->applications = g_list_delete_link (registry->focus_listeners, list);
+    }
 }
 
 
@@ -282,31 +379,63 @@ impl_registry_notify_event (PortableServer_Servant servant,
                             const Accessibility_Event *e,
                             CORBA_Environment *ev)
 {
+  Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
+  EventTypeStruct etype;
+
+  parse_event_type (&etype, e->type);
+
+  switch (etype.major)
+    {
+    case (ETYPE_FOCUS) :
+      registry_notify_listeners (registry->focus_listeners, e, ev);
+      break;
+    case (ETYPE_WINDOW) :
+      registry_notify_listeners (registry->window_listeners, e, ev);
+      break;
+    case (ETYPE_TOOLKIT) :
+      registry_notify_listeners (registry->toolkit_listeners, e, ev);
+      break;
+    default:
+      break;
+    }
+  Accessibility_Accessible_unref (e->target, ev);
+}
+
+static void
+registry_notify_listeners ( GList *listeners,
+                            const Accessibility_Event *e,
+                            CORBA_Environment *ev)
+{
   int n;
   int len;
-  Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-
-  /**
-   *  TODO:
-   *
-   *  distinguish between event types
-   *  find non-strcmp method of matching event types to listeners
-   *
-   **/
-
-  len = g_list_length (registry->listeners);
-  /* fprintf(stderr, "%d listeners registered\n", len); */
+  ListenerStruct *ls;
+  EventTypeStruct etype;
+  parse_event_type (&etype, e->type);
+  len = g_list_length (listeners);
 
   for (n=0; n<len; ++n)
     {
+      ls =  (ListenerStruct *) g_list_nth_data (listeners, n);
 #ifdef SPI_DEBUG
-      fprintf(stderr, "notifying listener #%d\n", n);
-      fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->target, ev));
+      fprintf(stderr, "event hashes: %lx %lx\n", ls->event_type_hash, etype.hash);
 #endif
-      Accessibility_EventListener_notifyEvent (
-               (Accessibility_EventListener) g_list_nth_data (registry->listeners, n),
-               e,
-               ev);
+      if ((ls->event_type_hash == etype.hash) || (TRUE))
+        {
+#ifdef SPI_DEBUG
+          fprintf(stderr, "notifying listener #%d\n", n);
+          fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->target, ev));
+#endif
+          Accessibility_Accessible_ref (e->target, ev);
+          Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
+                                                   e,
+                                                   ev);
+          if (ev->_major != CORBA_NO_EXCEPTION) {
+                fprintf(stderr,
+                ("Accessibility app error: exception during event notification: %s\n"),
+                        CORBA_exception_id(ev));
+                exit(-1);
+          }
+        }
     }
 }
 
@@ -324,6 +453,7 @@ registry_class_init (RegistryClass *klass)
         epv->deregisterApplication = impl_accessibility_registry_deregister_application;
         epv->registerGlobalEventListener = impl_accessibility_registry_register_global_event_listener;
         epv->deregisterGlobalEventListener = impl_accessibility_registry_deregister_global_event_listener;
+        epv->deregisterGlobalEventListenerAll = impl_accessibility_registry_deregister_global_event_listener_all;
         epv->getDesktopCount = impl_accessibility_registry_get_desktop_count;
         epv->getDesktop = impl_accessibility_registry_get_desktop;
         epv->getDesktopList = impl_accessibility_registry_get_desktop_list;
@@ -334,7 +464,9 @@ registry_class_init (RegistryClass *klass)
 static void
 registry_init (Registry *registry)
 {
-  registry->listeners = NULL;
+  registry->focus_listeners = NULL;
+  registry->window_listeners = NULL;
+  registry->toolkit_listeners = NULL;
   registry->applications = NULL;
   registry->desktop = desktop_new();
 }
@@ -358,10 +490,10 @@ registry_get_type (void)
                         NULL /* value table */
                 };
                 /*
-                 *   Here we use bonobo_x_type_unique instead of
+                 *   Here we use bonobo_type_unique instead of
                  * gtk_type_unique, this auto-generates a load of
                  * CORBA structures for us. All derived types must
-                 * use bonobo_x_type_unique.
+                 * use bonobo_type_unique.
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,

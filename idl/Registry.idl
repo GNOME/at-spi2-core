@@ -82,7 +82,20 @@ module Accessibility {
          *
 	 **/
 
-        void deregisterGlobalEventListener (in EventListener listener);
+        void deregisterGlobalEventListenerAll (in EventListener listener);
+  	/**
+         * deregisterGlobalEventListener:
+         * @listener: the requesting @EventListener
+         * @eventName: a string indicating the type of events
+	 * return values: void
+         *
+         * Request that a previously registered client stop receiving
+         * global notifications for events of a certain type.
+         *
+	 **/
+
+        void deregisterGlobalEventListener (in EventListener listener, 
+					    in string event_name);
         /** 
          * event types: "Window" "Desktop"
          *              "Window:Create" "Window:Destroy"

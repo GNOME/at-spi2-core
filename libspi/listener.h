@@ -27,7 +27,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include <bonobo/bonobo-xobject.h>
+#include <bonobo/bonobo-object.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
 
@@ -38,11 +38,11 @@ extern "C" {
 #define IS_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), LISTENER_TYPE))
 
 typedef struct {
-        BonoboXObject parent;
+        BonoboObject parent;
 } Listener;
 
 typedef struct {
-        BonoboXObjectClass parent_class;
+        BonoboObjectClass parent_class;
         POA_Accessibility_EventListener__epv epv;
 } ListenerClass;
 

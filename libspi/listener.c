@@ -41,7 +41,7 @@
 /*
  * Our parent Gtk object type
  */
-#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
+#define PARENT_TYPE BONOBO_OBJECT_TYPE
 
 /*
  * A pointer to our parent object class
@@ -75,7 +75,15 @@ impl_notify_event (PortableServer_Servant     servant,
   fprintf (stderr, "notify...\n");
   fprintf (stderr, "source name: '%s'\n",
            Accessibility_Accessible__get_name(e->target, ev));
+  if (ev->_major != CORBA_NO_EXCEPTION) {
+    fprintf(stderr,
+            ("Accessibility app error: exception during event notification: %s\n"),
+            CORBA_exception_id(ev));
+    exit(-1);
+  }
 #endif
+  Accessibility_Accessible_unref(e->target, ev);
+
 }
 
 static void
@@ -83,7 +91,7 @@ listener_class_init (ListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_EventListener__epv *epv = &klass->epv;
-        listener_parent_class = g_type_class_ref (BONOBO_X_OBJECT_TYPE);
+        listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
 
         object_class->finalize = listener_object_finalize;
 
@@ -114,12 +122,12 @@ listener_get_type (void)
                         NULL /* value table */
                 };
                 /*
-                 *   Here we use bonobo_x_type_unique instead of
+                 *   Here we use bonobo_type_unique instead of
                  * gtk_type_unique, this auto-generates a load of
                  * CORBA structures for us. All derived types must
-                 * use bonobo_x_type_unique.
+                 * use bonobo_type_unique.
                  */
-                type = bonobo_x_type_unique (
+                type = bonobo_type_unique (
                         PARENT_TYPE,
                         POA_Accessibility_EventListener__init,
                         NULL,

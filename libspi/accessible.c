@@ -191,6 +191,7 @@ accessible_new (AtkObject *o)
 {
     Accessible *retval =
                ACCESSIBLE (g_object_new (accessible_get_type (), NULL));
+    g_object_ref (o);
     retval->atko = ATK_OBJECT (o);
     return retval;
 }

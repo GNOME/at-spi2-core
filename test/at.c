@@ -77,7 +77,7 @@ main(int argc, char **argv)
                                    (registry,
                                     (Accessibility_EventListener)
                                          bonobo_object_corba_objref (bonobo_object (listener)),
-                                    "test",
+                                    "focus:",
                                     &ev);
 
         fprintf (stderr, "AT callback registered.\n");

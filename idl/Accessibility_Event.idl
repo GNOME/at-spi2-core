@@ -37,6 +37,7 @@ module Accessibility
   };
 
   interface EventListener : Bonobo::Unknown {
+    attribute long hash_id;
     oneway void notifyEvent (in Event e);
   };
 

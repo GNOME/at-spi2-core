@@ -53,10 +53,7 @@ main(int argc, char **argv)
           }
 
         /* Create the accesssible application server object */
-        /* TODO: get app name and pid */
-	if (argc > 1)
-	        snprintf(sbuf, APP_STATIC_BUFF_SZ, "application-%s",
-					(argc > 1) ? argv[1] : "test");
+        sprintf(sbuf, "application-%s", g_get_prgname());
 
         atko = g_object_new (atk_object_get_type(), NULL);
         atk_object_set_name (atko, sbuf);
@@ -67,9 +64,8 @@ main(int argc, char **argv)
         accessible = accessible_new (atko);
         fprintf(stderr, "accessible created.\n");
 
-        /* FIXME: this type of event struct will leak, needs to be redefined */
         e.target = bonobo_object_corba_objref ( bonobo_object (accessible));
-        e.type = CORBA_string_dup ("test");
+        e.type = CORBA_string_dup ("focus:");
 
         obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
