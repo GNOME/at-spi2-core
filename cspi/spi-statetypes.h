@@ -112,6 +112,13 @@ typedef enum
   SPI_STATE_VERTICAL,
   /* Indicates this object is visible */
   SPI_STATE_VISIBLE,
+  /*
+   * Indicates that "active-descendant-changed" event is sent when children
+   * become 'active' (i.e. are selected or navigated to onscreen).  Used to
+   * prevent need to enumerate all children in very large containers, like
+   * tables.
+   */
+  SPI_STATE_MANAGES_DESCENDANTS, 
   SPI_STATE_LAST_DEFINED
 } AccessibleState;
 

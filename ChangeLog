@@ -1,3 +1,35 @@
+2002-11-19  Darren Kenny  <darren.kenny@sun.com>
+
+	Fixes for bugs 98127 and 97914.
+	* cspi/spi-roletypes.h:
+	Added SPI_ROLE_HEADER, SPI_ROLE_FOOTER, SPI_ROLE_PARAGRAPH,
+	SPI_ROLE_RULER
+	* cspi/spi-statetypes.h:
+	Added SPI_STATE_MANAGES_DESCENDANTS
+	* cspi/spi.h:
+	Added SPI_RELATION_FLOWS_TO, SPI_RELATIONS_FLOWS_FROM,
+	SPI_RELATION_SUBWINDOW_OF, SPI_RELATION_EMBEDS, SPI_RELATION_EMBEDDED_BY
+	* cspi/spi_accessible.c:
+	Added mapping in role_table from new Accessibility_ROLE_* to SPI_ROLE_*
+	Added mapping from SPI_STATE_MANAGES_DESCENDANTS to 
+	Accessibility_STATE_MANAGES_DESCENDANTS
+	* libspi/accessible.c:
+	Added Mapping from ATK_ROLE_{FOOTER,HEADER,PARAGRAPH,RULER} to
+	Accessibility_ROLE_{FOOTER,HEADER,PARAGRAPH,RULER} 
+	As requested by Bill, I also cleaned up the alignment.
+	* libspi/relation.c:
+	Added mapping of the ATK_RELATION_{FLOWS_TO,FLOWS_FROM,SUBWINDOW_OF,
+	EMBEDS,EMBEDDED_BY} to equivalend Accessibility_RELATION_*
+	* libspi/stateset.c:
+	Added mappings between ATK_STATE_MANAGES_DESCENDANTS and
+	Accessibility_STATE_MANAGES_DESCENDANTS
+	* docs/reference/cspi/tmpl/spi_accessible.sgml:
+	Document changes reflecting modifications to roles.
+	* docs/reference/cspi/tmpl/spi_relation.sgml:
+	Document changes reflecting modifications to relations.
+	* docs/reference/cspi/tmpl/spi_stateset.sgml:
+	Document changes reflecting modifications to states.
+
 2002-11-17  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:

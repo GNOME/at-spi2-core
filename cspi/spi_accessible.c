@@ -177,6 +177,10 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_VIEWPORT] = SPI_ROLE_VIEWPORT;
   role_table [Accessibility_ROLE_WINDOW] = SPI_ROLE_WINDOW;
   role_table [Accessibility_ROLE_EXTENDED] = SPI_ROLE_EXTENDED;
+  role_table [Accessibility_ROLE_HEADER] = SPI_ROLE_HEADER;
+  role_table [Accessibility_ROLE_FOOTER] = SPI_ROLE_FOOTER;
+  role_table [Accessibility_ROLE_PARAGRAPH] = SPI_ROLE_PARAGRAPH;
+  role_table [Accessibility_ROLE_RULER] = SPI_ROLE_RULER;
   role_table [Accessibility_ROLE_LAST_DEFINED] = SPI_ROLE_EXTENDED;
 
   return TRUE;
@@ -240,6 +244,7 @@ init_state_table (Accessibility_StateType *state_table)
   state_table[SPI_STATE_TRANSIENT] = Accessibility_STATE_TRANSIENT;
   state_table[SPI_STATE_VERTICAL] = Accessibility_STATE_VERTICAL;
   state_table[SPI_STATE_VISIBLE] = Accessibility_STATE_VISIBLE;
+  state_table[SPI_STATE_MANAGES_DESCENDANTS] = Accessibility_STATE_MANAGES_DESCENDANTS;
 
   return TRUE;
 }
