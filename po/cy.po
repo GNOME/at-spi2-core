@@ -1,315 +1,492 @@
 # atk yn Gymraeg.
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the ATK package.
-# Dafydd Harries <daf@parnassus.ath.cx>, 2003.
+# Dafydd Harries <daf@parnassus.ath.cx>, 2003 2004.
+# Rhys Jones <rhys@sucs.org>, 2003.
+#
+# [rhys] Caption -> 'capsiwn' yn hytrach na 'pennawd', er mwyn gwahaniaethu
+# rhwng 'caption' a 'header' (cyfieithir 'header' fel 'pennawd'). Hefyd
+# mae 'pennawd' yn awgrymu rhywbeth ar ben eitem; nid yw hyn o hyd yn wir
+# am 'caption' (yn enwedig pan yn sôn am dablau)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-19 02:43+0100\n"
-"PO-Revision-Date: 2003-08-30 23:31+0100\n"
-"Last-Translator: Dafydd Harries <daf@parnassus.ath.cx>\n"
+"POT-Creation-Date: 2004-01-26 12:21+0000\n"
+"PO-Revision-Date: 2004-01-26 12:21+0000\n"
+"Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Welsh <gnome-cy@pengwyn.linux.org.uk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1244
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "Dolen Dewisiedig"
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Penodi a yw'r gwrthrych AtkHyperlink wedi ei ddewis"
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "Nifer yr Angorau"
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Nifer yr angorau sy'n gysylltiedig a'r gwrthrych AtkHyperlink"
+
+# EFALLAI
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "Rhif mynegai olaf"
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "Rhif mynegai olaf y gwrthrych AtkHyperlink"
+
+# EFALLAI
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "Rhif mynegai cyntaf"
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "Rhif mynegai cyntaf y gwrthrych AtkHyperlink"
+
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "annilys"
 
-#: atk/atkobject.c:1247
-msgid "accel-label"
-msgstr "label-cyflymu"
+#: atk/atkobject.c:83
+msgid "accelerator label"
+msgstr "label cyflymu"
 
-#: atk/atkobject.c:1250
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "rhybudd"
 
-#: atk/atkobject.c:1253
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "animeiddiad"
 
-#: atk/atkobject.c:1256
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "saeth"
 
-#: atk/atkobject.c:1259
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "calendr"
 
-#: atk/atkobject.c:1262
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "cynfas"
 
-#: atk/atkobject.c:1265
-msgid "check-box"
-msgstr "blwch-dewis"
+#: atk/atkobject.c:89
+msgid "check box"
+msgstr "blwch dewis"
 
-#: atk/atkobject.c:1268
-msgid "check-menu-item"
-msgstr "eitem-dewislen-dewis"
+#: atk/atkobject.c:90
+msgid "check menu item"
+msgstr "eitem dewislen dewis"
 
-#: atk/atkobject.c:1271
-msgid "color-chooser"
-msgstr "dewiswr-lliw"
+#: atk/atkobject.c:91
+msgid "color chooser"
+msgstr "dewiswr lliw"
 
-#: atk/atkobject.c:1274
-msgid "column-header"
-msgstr "pennawd-colofn"
+#: atk/atkobject.c:92
+msgid "column header"
+msgstr "pennawd colofn"
 
-#: atk/atkobject.c:1277
-msgid "combo-box"
-msgstr "blwch-cyfun"
+#: atk/atkobject.c:93
+msgid "combo box"
+msgstr "blwch cyfun"
 
-#: atk/atkobject.c:1280
-msgid "date-editor"
-msgstr "newidydd-dyddiad"
+#: atk/atkobject.c:94
+msgid "dateeditor"
+msgstr "newidydd dyddiad"
 
-#: atk/atkobject.c:1283
-msgid "desktop-icon"
-msgstr "eicon-bwrdd-gwaith"
+#: atk/atkobject.c:95
+msgid "desktop icon"
+msgstr "eicon bwrdd gwaith"
 
-#: atk/atkobject.c:1286
-msgid "desktop-frame"
-msgstr "ffrâm-bwrdd-gwaith"
+#: atk/atkobject.c:96
+msgid "desktop frame"
+msgstr "ffrâm bwrdd gwaith"
 
-#: atk/atkobject.c:1289
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "deial"
 
-#: atk/atkobject.c:1292
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "deialog"
 
 # EFALLAI
-#: atk/atkobject.c:1295
-msgid "directory-pane"
-msgstr "chwarel-cyfeiriadur"
+#: atk/atkobject.c:99
+msgid "directory pane"
+msgstr "chwarel cyfeiriadur"
 
-#: atk/atkobject.c:1298
-msgid "drawing-area"
-msgstr "ardal-arlunio"
+#: atk/atkobject.c:100
+msgid "drawing area"
+msgstr "ardal arlunio"
 
-#: atk/atkobject.c:1301
-msgid "file-chooser"
-msgstr "dewiswr-ffeiliau"
+#: atk/atkobject.c:101
+msgid "file chooser"
+msgstr "dewiswr ffeiliau"
 
-#: atk/atkobject.c:1304
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "llenwydd"
 
-#: atk/atkobject.c:1307
-msgid "font-chooser"
-msgstr "dewiswr-ffont"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+msgid "fontchooser"
+msgstr "dewiswr ffont"
 
-#: atk/atkobject.c:1310
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "ffrâm"
 
-#: atk/atkobject.c:1313
-msgid "glass-pane"
+#: atk/atkobject.c:106
+msgid "glass pane"
 msgstr "chwarel-wydr"
 
-#: atk/atkobject.c:1316
-msgid "html-container"
-msgstr "cynhwysydd-html"
+#: atk/atkobject.c:107
+msgid "html container"
+msgstr "cynhwysydd html"
 
-#: atk/atkobject.c:1319
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "eicon"
 
-#: atk/atkobject.c:1322
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "delwedd"
 
-#: atk/atkobject.c:1325
-msgid "internal-frame"
-msgstr "ffrâm-mewnol"
+#: atk/atkobject.c:110
+msgid "internal frame"
+msgstr "ffrâm fewnol"
 
-#: atk/atkobject.c:1328
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "label"
 
-#: atk/atkobject.c:1331
-msgid "layered-pane"
-msgstr "chwarel-wedi-haenu"
+#: atk/atkobject.c:112
+msgid "layered pane"
+msgstr "chwarel wedi haenu"
 
-#: atk/atkobject.c:1334
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "rhestr"
 
-#: atk/atkobject.c:1337
-msgid "list-item"
-msgstr "eitem-rhestr"
+#: atk/atkobject.c:114
+msgid "list item"
+msgstr "eitem rhestr"
 
-#: atk/atkobject.c:1340
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "dewislen"
 
-#: atk/atkobject.c:1343
-msgid "menu-bar"
-msgstr "bar-dewislen"
+#: atk/atkobject.c:116
+msgid "menu bar"
+msgstr "bar dewislen"
 
-#: atk/atkobject.c:1346
-msgid "menu-item"
-msgstr "eitem-dewislen"
+#: atk/atkobject.c:117
+msgid "menu item"
+msgstr "eitem dewislen"
 
-#: atk/atkobject.c:1349
-msgid "option-pane"
-msgstr "chwarel-opsiwn"
+#: atk/atkobject.c:118
+msgid "option pane"
+msgstr "chwarel opsiwn"
 
-#: atk/atkobject.c:1352
-msgid "page-tab"
-msgstr "chwarel-tab"
+#: atk/atkobject.c:119
+msgid "page tab"
+msgstr "tab tudalen"
 
-#: atk/atkobject.c:1355
-msgid "page-tab-list"
-msgstr "rhestr-chwarel-tab"
+#: atk/atkobject.c:120
+msgid "page tab list"
+msgstr "rhestr tab tudalen"
 
-#: atk/atkobject.c:1358
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "panel"
 
-#: atk/atkobject.c:1361
-msgid "password-text"
-msgstr "testun-cyfrinair"
+#: atk/atkobject.c:122
+msgid "password text"
+msgstr "testun cyfrinair"
 
-#: atk/atkobject.c:1364
-msgid "popup-menu"
+#: atk/atkobject.c:123
+msgid "popup menu"
 msgstr "naidlen"
 
-#: atk/atkobject.c:1367
-msgid "progress-bar"
-msgstr "bar-cynydd"
+#: atk/atkobject.c:124
+msgid "progress bar"
+msgstr "bar cynnydd"
 
-#: atk/atkobject.c:1370
-msgid "push-button"
-msgstr "botwm-gwasgu"
+#: atk/atkobject.c:125
+msgid "push button"
+msgstr "botwm gwasgu"
 
-#: atk/atkobject.c:1373
-msgid "radio-button"
-msgstr "botwm-radio"
+#: atk/atkobject.c:126
+msgid "radio button"
+msgstr "botwm radio"
 
-#: atk/atkobject.c:1376
-msgid "radio-menu-item"
-msgstr "eitem-dewislen-radio"
+#: atk/atkobject.c:127
+msgid "radio menu item"
+msgstr "eitem dewislen radio"
 
-#: atk/atkobject.c:1379
-msgid "root-pane"
-msgstr "chwarel-gwraidd"
+#: atk/atkobject.c:128
+msgid "root pane"
+msgstr "chwarel gwraidd"
 
-#: atk/atkobject.c:1382
-msgid "row-header"
-msgstr "pennawd-rhes"
+#: atk/atkobject.c:129
+msgid "row header"
+msgstr "pennawd rhes"
 
-#: atk/atkobject.c:1385
-msgid "scroll-bar"
-msgstr "bar-sgrolio"
+#: atk/atkobject.c:130
+msgid "scroll bar"
+msgstr "bar sgrolio"
 
-#: atk/atkobject.c:1388
-msgid "scroll-pane"
-msgstr "chwarel-sgrolio"
+#: atk/atkobject.c:131
+msgid "scroll pane"
+msgstr "chwarel sgrolio"
 
-#: atk/atkobject.c:1391
+#: atk/atkobject.c:132
 msgid "separator"
-msgstr "gwahannwr"
+msgstr "gwahanwr"
 
-#: atk/atkobject.c:1394
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "llithrwr"
 
-#: atk/atkobject.c:1397
-msgid "split-pane"
-msgstr "chwarel-hollt"
+#: atk/atkobject.c:134
+msgid "split pane"
+msgstr "chwarel hollt"
 
-#: atk/atkobject.c:1400
-msgid "spin-button"
-msgstr "botwm-troelli"
+#: atk/atkobject.c:135
+msgid "spin button"
+msgstr "botwm troelli"
 
-#: atk/atkobject.c:1403
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "bar-statws"
 
-#: atk/atkobject.c:1406
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "tabl"
 
-#: atk/atkobject.c:1409
-msgid "table-cell"
-msgstr "cell-tabl"
+#: atk/atkobject.c:138
+msgid "table cell"
+msgstr "cell tabl"
 
-#: atk/atkobject.c:1412
-msgid "table-column-header"
-msgstr "pennawd-colofn-tabl"
+#: atk/atkobject.c:139
+msgid "table column header"
+msgstr "pennawd colofn tabl"
 
-#: atk/atkobject.c:1415
-msgid "table-row-header"
-msgstr "pennawd-rhes-tabl"
+#: atk/atkobject.c:140
+msgid "table row header"
+msgstr "pennawd rhes tabl"
 
-#: atk/atkobject.c:1418
-msgid "tear-off-menu-item"
-msgstr "eitem-dewislen-rhwygadwy"
+#: atk/atkobject.c:141
+msgid "tear off menu item"
+msgstr "eitem dewislen rhwygadwy"
 
-#: atk/atkobject.c:1421
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "terfynell"
 
-#: atk/atkobject.c:1424
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "testun"
 
 # EFALLAI
-#: atk/atkobject.c:1427
-msgid "toggle-button"
-msgstr "botwm-togl"
+#: atk/atkobject.c:144
+msgid "toggle button"
+msgstr "botwm togl"
 
-#: atk/atkobject.c:1430
-msgid "tool-bar"
-msgstr "bar-offer"
+#: atk/atkobject.c:145
+msgid "tool bar"
+msgstr "bar offer"
 
-#: atk/atkobject.c:1433
-msgid "tool-tip"
-msgstr "cyngor"
+#: atk/atkobject.c:146
+msgid "tool tip"
+msgstr "cyngor offer"
 
-#: atk/atkobject.c:1436
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "coeden"
 
-#: atk/atkobject.c:1439
-msgid "tree-table"
-msgstr "tabl-coeden"
+#: atk/atkobject.c:148
+msgid "tree table"
+msgstr "tabl coeden"
 
-#: atk/atkobject.c:1442
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "anhysbys"
 
 # EFALLAI
-#: atk/atkobject.c:1445
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "porth-golwg"
 
-#: atk/atkobject.c:1448
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "ffenest"
 
-#: atk/atkobject.c:1451
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "penawd"
 
-#: atk/atkobject.c:1454
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "troedyn"
 
-#: atk/atkobject.c:1457
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "paragraff"
 
-#: atk/atkobject.c:1460
-msgid "ruler"
-msgstr "mesur"
-
-#: atk/atkobject.c:1463
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "rhaglen"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr "cwblhad awtomatig"
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr "bar golygu"
+
+#: atk/atkobject.c:295
+msgid "Accessible Name"
+msgstr "Enw Hygyrchol"
+
+#: atk/atkobject.c:296
+msgid "Object instance's name formatted for assistive technology access"
+msgstr ""
+"Enw'r enghraifft gwrthrych wedi ei fformadu er mwyn ei ddefnyddio gyda "
+"technoleg hygyrchol"
+
+#: atk/atkobject.c:302
+msgid "Accessible Description"
+msgstr "Disgrifiad Hygyrchol"
+
+#: atk/atkobject.c:303
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+"Disgrifiad gwrthrych, wedi ei fformadu er mwyn ei ddefnyddio gyda technoleg "
+"hygyrchol"
+
+#: atk/atkobject.c:309
+msgid "Accessible Parent"
+msgstr "Rhiant Hygyrchol"
+
+#: atk/atkobject.c:310
+msgid "Is used to notify that the parent has changed"
+msgstr "Defnyddir er mwyn hysbysu fod y rhiant wedi newid"
+
+#: atk/atkobject.c:316
+msgid "Accessible Value"
+msgstr "Gwerth Hygyrchol"
+
+#: atk/atkobject.c:317
+msgid "Is used to notify that the value has changed"
+msgstr "Defnyddir er mwyn hysbysu fod y gwerth wedi newid"
+
+#: atk/atkobject.c:325
+msgid "Accessible Role"
+msgstr "Rôl Hygyrchol"
+
+#: atk/atkobject.c:326
+msgid "The accessible role of this object"
+msgstr "Rôl hygyrchol y gwrthrych hwn"
+
+#: atk/atkobject.c:334
+msgid "Accessible Layer"
+msgstr "Haen Hygyrchol"
+
+#: atk/atkobject.c:335
+msgid "The accessible layer of this object"
+msgstr "Haen hygyrchol y gwrthrych hwn"
+
+#: atk/atkobject.c:343
+msgid "Accessible MDI Value"
+msgstr "Gwerth MDI Hygyrchol"
+
+#: atk/atkobject.c:344
+msgid "The accessible MDI value of this object"
+msgstr "Gwerth MDI Hygyrchol y gwrthrych hwn"
+
+#: atk/atkobject.c:352
+msgid "Accessible Table Caption"
+msgstr "Capsiwn Tabl Hygyrchol"
+
+#: atk/atkobject.c:353
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Defnyddir er mwyn hysbysu fod capsiwn y tabl wedi newid; ni ddylid "
+"defnyddio'r nodwedd hon. Dylid defnyddio accessible-table-caption-object yn "
+"ei lle"
+
+#: atk/atkobject.c:359
+msgid "Accessible Table Column Header"
+msgstr "Pennawd Colofn Tabl Hygyrchol"
+
+#: atk/atkobject.c:360
+msgid "Is used to notify that the table column header has changed"
+msgstr "Defnyddir er mwyn hysbysu fod pennawd colofn y tabl wedi newid"
+
+#: atk/atkobject.c:366
+msgid "Accessible Table Column Description"
+msgstr "Disgrifiad Colofn Tabl Hygyrchol"
+
+#: atk/atkobject.c:367
+msgid "Is used to notify that the table column description has changed"
+msgstr "Defnyddir er mwyn hysbysu fod disgrifiad colofn y tabl wedi newid"
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Row Header"
+msgstr "Pennawd Rhes Tabl Hygyrchol"
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table row header has changed"
+msgstr "Defnyddir er mwyn hysbysu fod pennawd rhes y tabl wedi newid"
+
+#: atk/atkobject.c:380
+msgid "Accessible Table Row Description"
+msgstr "Disgrifiad Rhes Tabl Hygyrchol"
+
+#: atk/atkobject.c:381
+msgid "Is used to notify that the table row description has changed"
+msgstr "Defnyddir er mwyn hysbysu fod disgrifiad rhes y tabl wedi newid"
+
+#: atk/atkobject.c:387
+msgid "Accessible Table Summary"
+msgstr "Crynodeb Tabl Hygyrchol"
+
+#: atk/atkobject.c:388
+msgid "Is used to notify that the table summary has changed"
+msgstr "Defnyddir er mwyn hysbysu fod crynodeb y tabl wedi newid"
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Caption Object"
+msgstr "Gwrthrych Capsiwn Tabl Hygyrchol"
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table caption has changed"
+msgstr "Defnyddir er mwyn hysbysu fod capsiwn y tabl wedi newid"
+
+#: atk/atkobject.c:401
+msgid "Number of Accessible Hypertext Links"
+msgstr "Nifer Cysylltion y Gordestun Hygyrchol"
+
+#: atk/atkobject.c:402
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Nifer y cysylltion sydd gan yr AtkHypertext cyfredol"
+
+#~ msgid "ruler"
+#~ msgstr "mesur"
