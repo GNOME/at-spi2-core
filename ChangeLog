@@ -1,3 +1,8 @@
+2002-03-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c (atk_text_get_text):
+	Permit end offset value of -1
+
 2002-02-28  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkhypertext.h:

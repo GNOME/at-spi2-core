@@ -156,7 +156,7 @@ atk_text_get_text (AtkText      *text,
 
   iface = ATK_TEXT_GET_IFACE (text);
 
-  if (start_offset < 0 || end_offset < 0)
+  if (start_offset < 0 || end_offset < -1)
     return NULL;
 
   if (iface->get_text)
