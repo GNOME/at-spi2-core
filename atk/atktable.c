@@ -541,7 +541,7 @@ atk_table_get_row_header (AtkTable *obj, gint row)
  * atk_get_accessible_table() convenience method.
  *
  * Returns: a AtkObject* representing a sumary description of the table,
- * or %NULL if value does not implement this interface.
+ * or zero if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_summary (AtkTable *obj)
@@ -563,59 +563,61 @@ atk_table_get_summary (AtkTable *obj)
  * atk_table_get_selected_rows:
  * @table: a GObject instance that implements AtkTableIface
  *
- * Gets the selected rows of the table.
+ * Gets the selected rows of the table by initializing **selected with 
+ * the selected row numbers. This array should be freed by the caller.
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a gint* representing the selected rows,
- * or %NULL if value does not implement this interface.
+ * Returns: a gint representing the number of selected rows,
+ * or zero if value does not implement this interface.
  **/
-gint*
-atk_table_get_selected_rows (AtkTable *obj)
+gint
+atk_table_get_selected_rows (AtkTable *obj, gint **selected)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (obj != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
 
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->get_selected_rows)
-    return (iface->get_selected_rows) (obj);
+    return (iface->get_selected_rows) (obj, selected);
   else
-    return NULL;
+    return 0;
 }
 
 /**
  * atk_table_get_selected_columns:
  * @table: a GObject instance that implements AtkTableIface
  *
- * Gets the selected columns of the table.
+ * Gets the selected columns of the table by initializing **selected with 
+ * the selected column numbers. This array should be freed by the caller.
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a gint* representing the selected columns,
- * or %NULL if value does not implement this interface.
+ * Returns: a gint representing the number of selected columns,
+ * or %0 if value does not implement this interface.
  *
  **/
-gint*
-atk_table_get_selected_columns (AtkTable *obj)
+gint 
+atk_table_get_selected_columns (AtkTable *obj, gint **selected)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (obj != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
 
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->get_selected_columns)
-    return (iface->get_selected_columns) (obj);
+    return (iface->get_selected_columns) (obj, selected);
   else
-    return NULL;
+    return 0;
 }
 
 /**
@@ -712,6 +714,127 @@ atk_table_is_selected (AtkTable *obj,
 
   if (iface->is_selected)
     return (iface->is_selected) (obj, row, column);
+  else
+    return FALSE;
+}
+
+/**
+ * atk_table_add_row_selection:
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ *
+ * Adds the specified @row to the selection. 
+ * Note: callers should not rely on %NULL or on a zero value for
+ * indication of whether AtkSelectionIface is implemented, they should
+ * use type checking/interface checking macros or the
+ * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if row was successfully added to selection,
+ * or 0 if value does not implement this interface.
+ **/
+gboolean
+atk_table_add_row_selection (AtkTable *obj,
+                       		 gint     row)
+{
+  AtkTableIface *iface;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+
+  iface = ATK_TABLE_GET_IFACE (obj);
+
+  if (iface->add_row_selection)
+    return (iface->add_row_selection) (obj, row);
+  else
+    return FALSE;
+}
+/**
+ * atk_table_remove_row_selection:
+ * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in @table
+ *
+ * Removes the specified @row from the selection. 
+ * Note: callers should not rely on %NULL or on a zero value for
+ * indication of whether AtkSelectionIface is implemented, they should
+ * use type checking/interface checking macros or the
+ * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if the row was successfully removed from
+ * the selection, or 0 if value does not implement this interface.
+ **/
+gboolean
+atk_table_remove_row_selection (AtkTable *obj,
+                       		    gint     row)
+{
+  AtkTableIface *iface;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+
+  iface = ATK_TABLE_GET_IFACE (obj);
+
+  if (iface->remove_row_selection)
+    return (iface->remove_row_selection) (obj, row);
+  else
+    return FALSE;
+}
+/**
+ * atk_table_add_column_selection:
+ * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in @table
+ *
+ * Adds the specified @column to the selection. 
+ * Note: callers should not rely on %NULL or on a zero value for
+ * indication of whether AtkSelectionIface is implemented, they should
+ * use type checking/interface checking macros or the
+ * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if the column was successfully added to 
+ * the selection, or 0 if value does not implement this interface.
+ **/
+gboolean
+atk_table_add_column_selection (AtkTable *obj,
+                       		    gint     column)
+{
+  AtkTableIface *iface;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+
+  iface = ATK_TABLE_GET_IFACE (obj);
+
+  if (iface->add_column_selection)
+    return (iface->add_column_selection) (obj, column);
+  else
+    return FALSE;
+}
+/**
+ * atk_table_remove_column_selection:
+ * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in @table
+ *
+ * Adds the specified @column to the selection. 
+ * Note: callers should not rely on %NULL or on a zero value for
+ * indication of whether AtkSelectionIface is implemented, they should
+ * use type checking/interface checking macros or the
+ * atk_get_accessible_table() convenience method.
+ *
+ * Returns: a gboolean representing if the column was successfully removed from
+ * the selection, or 0 if value does not implement this interface.
+ **/
+gboolean
+atk_table_remove_column_selection (AtkTable *obj,
+                       			   gint     column)
+{
+  AtkTableIface *iface;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+
+  iface = ATK_TABLE_GET_IFACE (obj);
+
+  if (iface->remove_column_selection)
+    return (iface->remove_column_selection) (obj, column);
   else
     return FALSE;
 }

@@ -52,6 +52,10 @@ two-dimensional table format.
 @is_column_selected: 
 @is_row_selected: 
 @is_selected: 
+@add_row_selection: 
+@remove_row_selection: 
+@add_column_selection: 
+@remove_column_selection: 
 @model_changed: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
@@ -200,6 +204,7 @@ two-dimensional table format.
 </para>
 
 @table: 
+@selected: 
 @Returns: 
 
 
@@ -209,6 +214,7 @@ two-dimensional table format.
 </para>
 
 @table: 
+@selected: 
 @Returns: 
 
 

@@ -1,3 +1,9 @@
+2001-06-20  Louise Miller <louise.miller@sun.com>
+	*atk/atktable.h, atk/table.c, docs/tmpl/atktable.sgml	
+	Changed parameters for get_selected_rows/get_selected_columns
+	Added 4 new functions, add_row_selection, remove_row_selection,
+	add_column_selection, remove_column_selection
+
 2001-06-19  Brian Cameron <brian.cameron@sun.com>
 	* atk/atktable.c
 	Fixed minor bug with signals.

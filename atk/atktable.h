@@ -91,8 +91,10 @@ struct _AtkTableIface
                                                   AtkObject     *header);
   void              (* set_summary)              (AtkTable      *table,
                                                   AtkObject     *accessible);
-  gint*             (* get_selected_columns)     (AtkTable      *table);
-  gint*             (* get_selected_rows)        (AtkTable      *table);
+  gint              (* get_selected_columns)     (AtkTable      *table,
+												  gint 			**selected);
+  gint              (* get_selected_rows)        (AtkTable      *table,
+												  gint 			**selected);
   gboolean          (* is_column_selected)       (AtkTable      *table,
                                                   gint          column);
   gboolean          (* is_row_selected)          (AtkTable      *table,
@@ -100,6 +102,15 @@ struct _AtkTableIface
   gboolean          (* is_selected)              (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
+  gboolean          (* add_row_selection)        (AtkTable      *table,
+                                                  gint          row);
+  gboolean          (* remove_row_selection)     (AtkTable      *table,
+                                                  gint          row);
+  gboolean          (* add_column_selection)     (AtkTable      *table,
+                                                  gint          column);
+  gboolean          (* remove_column_selection)  (AtkTable      *table,
+                                                  gint          column);
+
   /*
    * signal handlers
    */
@@ -157,8 +168,10 @@ void              atk_table_set_row_header       (AtkTable         *table,
                                                   AtkObject        *header);
 void              atk_table_set_summary          (AtkTable         *table,
                                                   AtkObject        *accessible);
-gint*             atk_table_get_selected_columns (AtkTable         *table);
-gint*             atk_table_get_selected_rows    (AtkTable         *table);
+gint              atk_table_get_selected_columns (AtkTable         *table,
+												  gint			   **selected);
+gint              atk_table_get_selected_rows    (AtkTable         *table,
+												  gint			   **selected);
 gboolean          atk_table_is_column_selected   (AtkTable         *table,
                                                   gint             column);
 gboolean          atk_table_is_row_selected      (AtkTable         *table,
@@ -166,6 +179,16 @@ gboolean          atk_table_is_row_selected      (AtkTable         *table,
 gboolean          atk_table_is_selected          (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
+gboolean          atk_table_add_row_selection    (AtkTable      *table,
+                                                  gint          row);
+gboolean          atk_table_remove_row_selection (AtkTable      *table,
+                                                  gint          row);
+gboolean          atk_table_add_column_selection (AtkTable      *table,
+                                                  gint          column);
+gboolean          atk_table_remove_column_selection  (AtkTable      *table,
+                                                  	  gint          column);
+
+
 
 #ifdef __cplusplus
 }
