@@ -324,7 +324,6 @@ typedef struct _AtkImplementorIface       AtkImplementorIface;
 
 typedef struct _AtkObject                 AtkObject;
 typedef struct _AtkObjectClass            AtkObjectClass;
-typedef struct _AtkRelation               AtkRelation;
 typedef struct _AtkRelationSet            AtkRelationSet;
 
 typedef guint64                           AtkStateMask;
@@ -562,67 +561,6 @@ void                 atk_object_remove_property_change_handler  (AtkObject      
  *
  *    cpos = atk_text_get_caret_position (ATK_TEXT (accessible));
  */
-
-typedef enum
-{
-  ATK_RELATION_NULL = 0,
-
-  ATK_RELATION_CONTROLLED_BY,
-  ATK_RELATION_CONTROLLER_FOR,
-  ATK_RELATION_LABEL_FOR,
-  ATK_RELATION_LABELLED_BY,
-  ATK_RELATION_MEMBER_OF,
-  ATK_RELATION_LAST_DEFINED
-} AtkRelationType;
-
-AtkRelationType atk_relation_type_register            (const gchar *name);
-
-/*
- * Create a new relation for the specified key and the specified list
- * of targets.
- */
-AtkRelation*    atk_relation_new                      (GArray          *target,
-                                                       AtkRelationType relationship);
-/*
- * Returns whether the relation set contains a relation that matches the
- * specified type.
- */
-gboolean        atk_relation_set_contains             (AtkRelationSet  *set,
-                                                       AtkRelationType relationship);
-/*
- * Remove a relation from the from the relation set.
- */
-void            atk_relation_set_remove               (AtkRelationSet  *set,
-                                                       AtkRelation     *relation);
-/*
- * Add a new relation to the current relation set if it is not already
- * present.
- */
-void            atk_relation_set_add                  (AtkRelationSet  *set,
-                                                       AtkRelation     *relation);
-/*
- * Returns the number of relations in a relation set.
- */
-gint            atk_relation_set_get_n_relations      (AtkRelationSet  *set);
-/*
- * Returns the relation at the specified position in the relation set.
- */
-AtkRelation*    atk_relation_set_get_relation         (AtkRelationSet  *set,
-                                                       gint            i);
-/*
- * Returns a relation that matches the specified type.
- */
-AtkRelation*    atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
-                                                       AtkRelationType relationship);
-
-/*
- * Returns the type of a relation.
- */
-AtkRelationType atk_relation_get_type                 (AtkRelation     *relation);
-/*
- * Returns the target list of a relation.
- */
-GArray*         atk_relation_get_target               (AtkRelation     *relation);
 
 G_CONST_RETURN gchar* atk_state_mask_get_name         (AtkStateMask    state);
 AtkStateMask          atk_state_mask_for_name         (const gchar     *name);

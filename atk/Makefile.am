@@ -15,6 +15,8 @@ libatk_la_SOURCES = 		\
 	atkobject.c		\
 	atkobjectfactory.c	\
 	atkregistry.c		\
+	atkrelation.c		\
+	atkrelationset.c	\
 	atkselection.c		\
 	atktable.c		\
 	atktext.c		\
@@ -42,6 +44,8 @@ libatkinclude_HEADERS =	\
 	atkobjectfactory.h	\
         atkimage.h		\
         atkregistry.h		\
+        atkrelation.h		\
+        atkrelationset.h	\
         atkselection.h		\
         atktable.h		\
         atktext.h		\

@@ -44,18 +44,6 @@ enum {
   LAST_SIGNAL
 };
 
-struct _AtkRelationSet
-{
-  GArray     *relations;
-};
-
-struct _AtkRelation
-{
-  GArray              *target;
-  AtkRelationType     relationship;
-};
-
-
 static void            atk_object_class_init       (AtkObjectClass  *klass);
 static void            atk_object_init             (AtkObject       *accessible,
                                                     AtkObjectClass  *klass);
@@ -222,9 +210,6 @@ static void
 atk_object_init  (AtkObject        *accessible,
                   AtkObjectClass   *klass)
 {
-    accessible->relation_set = g_malloc (sizeof (AtkRelationSet));
-    g_return_if_fail (accessible->relation_set != NULL);
-    accessible->relation_set->relations = NULL;
 }
 
 GType
@@ -495,159 +480,6 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
     (klass->remove_property_change_handler) (accessible, handler_id);
 }
 
-AtkRelationType
-atk_relation_type_register (const gchar *name)
-{
-  /* TODO: associate name with new type */
-  static guint type = ATK_RELATION_LAST_DEFINED;
-  return (++type);
-}
-
-AtkRelation*
-atk_relation_new (GArray          *target,
-                  AtkRelationType relationship)
-{
-  AtkRelation* relation;
-  g_return_val_if_fail (target != NULL, NULL);
-
-  relation = (AtkRelation *) g_malloc (sizeof (AtkRelation));
-
-  g_return_val_if_fail ((relation != NULL), NULL);
-
-  relation->target = target;
-  relation->relationship = relationship;
-
-  return relation;
-}
-
-gboolean
-atk_relation_set_contains (AtkRelationSet   *set,
-                           AtkRelationType  relationship)
-{
-  GArray *array_item;
-  AtkRelation *item;
-  gint  i;
-
-  g_return_val_if_fail (set != NULL, FALSE);
-
-  array_item = set->relations;
-  if (array_item == NULL)
-    return FALSE;
-  for (i = 0; i < array_item->len; i++)
-  {
-    item = g_array_index (array_item, AtkRelation*, i);
-    if (item->relationship == relationship)
-      return TRUE;
-  }
-  return FALSE;
-}
-
-void
-atk_relation_set_remove (AtkRelationSet *set,
-                         AtkRelation    *relation)
-{
-  GArray *array_item;
-  AtkRelation *item;
-  gint  i;
-
-  g_return_if_fail (set != NULL);
-  g_return_if_fail (relation != NULL);
-
-  array_item = set->relations;
-  if (array_item == NULL)
-    return;
-  for (i = 0; i < array_item->len; i++)
-  {
-    item = g_array_index (array_item, AtkRelation*, i);
-    if (item == relation)
-    {
-      g_array_remove_index (array_item, i);
-      return;
-    }
-  }
-}
-
-void
-atk_relation_set_add (AtkRelationSet *set,
-                      AtkRelation    *relation)
-{
-  g_return_if_fail (set != NULL);
-  g_return_if_fail (relation != NULL);
-
-  if (set->relations == NULL)
-  {
-    set->relations = g_array_new (FALSE, TRUE, sizeof (AtkRelation));
-  }
-  set->relations = g_array_append_val (set->relations, relation);
-}
-
-gint
-atk_relation_set_get_n_relations (AtkRelationSet *set)
-{
-  g_return_val_if_fail (set != NULL, 0);
-
-  if (set->relations == NULL)
-    return 0;
-
-  return set->relations->len;
-}
-
-AtkRelation*
-atk_relation_set_get_relation (AtkRelationSet *set,
-                               gint           i)
-{
-  GArray *array_item;
-  AtkRelation* item;
-
-  g_return_val_if_fail (set != NULL, NULL);
-  g_return_val_if_fail (i >= 0, NULL);
-
-  array_item = set->relations;
-  if (array_item == NULL)
-    return NULL;
-  item = g_array_index (array_item, AtkRelation*, i);
-  if (item == NULL)
-    return NULL;
-
-  return item;
-}
-
-AtkRelation*
-atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
-                                       AtkRelationType relationship)
-{
-  GArray *array_item;
-  AtkRelation *item;
-  gint i;
-
-  g_return_val_if_fail (set != NULL, NULL);
-
-  array_item = set->relations;
-  if (array_item == NULL)
-    return NULL;
-  for (i = 0; i < array_item->len; i++)
-  {
-    item = g_array_index (array_item, AtkRelation*, i);
-    if (item->relationship == relationship)
-      return item;
-  }
-  return NULL;
-}
-
-AtkRelationType
-atk_relation_get_type (AtkRelation *relation)
-{
-  g_return_val_if_fail (relation != NULL, 0);
-  return relation->relationship;
-}
-
-GArray*
-atk_relation_get_target (AtkRelation *relation)
-{
-  g_return_val_if_fail (relation != NULL, 0);
-  return relation->target;
-}
-
 G_CONST_RETURN gchar*
 atk_state_mask_get_name (AtkStateMask state)
 {
@@ -765,7 +597,6 @@ static void
 atk_object_finalize (GObject *object)
 {
   AtkObject        *accessible;
-  GArray           *relations;
 
   g_return_if_fail (ATK_IS_OBJECT (object));
 
@@ -775,23 +606,12 @@ atk_object_finalize (GObject *object)
   g_free (accessible->description);
 
   /*
-   * Free memory allocated for relations and relation sets;
+   * Free memory allocated for relation set if it have been allocated.
    */
-  relations = accessible->relation_set->relations;
-  if (relations)
+  if (accessible->relation_set)
   {
-    gint        len = relations->len;
-    gint        i;
-    AtkRelation *relation;
-
-    for (i = 0; i < len; i++)
-    {
-      relation = g_array_index (relations, AtkRelation*, i);
-      g_array_free (relation->target, TRUE);
-    }
-    g_array_free (relations, TRUE);
+    g_object_unref (accessible->relation_set);
   }
-  g_free (accessible->relation_set);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }

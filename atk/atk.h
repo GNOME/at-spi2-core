@@ -26,6 +26,8 @@
 #include <atk/atkimage.h>
 #include <atk/atkobjectfactory.h>
 #include <atk/atkregistry.h>
+#include <atk/atkrelation.h>
+#include <atk/atkrelationset.h>
 #include <atk/atkselection.h>
 #include <atk/atktable.h>
 #include <atk/atktext.h>

@@ -312,8 +312,8 @@ atk_text_set_selection_bounds (AtkText *text,
 }
 
 gboolean
-atk_text_set_selection_bounds (AtkText *text,
-                               gint    offset)
+atk_text_set_caret_offset (AtkText *text,
+                           gint    offset)
 {
   AtkTextIface *iface;
 
