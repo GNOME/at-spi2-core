@@ -2,7 +2,7 @@ AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=0
 AT_SPI_MINOR_VERSION=0
-AT_SPI_MICRO_VERSION=6
+AT_SPI_MICRO_VERSION=7
 AT_SPI_INTERFACE_AGE=0
 AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
@@ -167,7 +167,6 @@ libspi-1.0.pc
 cspi-1.0.pc
 docs/Makefile
 docs/reference/Makefile
-docs/reference/idl/Makefile
 docs/reference/cspi/Makefile
 idl/Makefile
 libspi/Makefile

@@ -701,10 +701,10 @@ test_keylisteners (void)
 		memset (&stroke, 0, sizeof (AccessibleKeystroke));
 		g_assert (SPI_generateKeyboardEvent ('=', NULL, SPI_KEY_SYM));
 		while (!(stroke.type & SPI_KEY_PRESSED))
-			g_main_iteration (TRUE);
+			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "p");
 		while (!(stroke.type & SPI_KEY_RELEASED))
-			g_main_iteration (TRUE);
+			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "r ");
 	}
 

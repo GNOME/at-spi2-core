@@ -53,10 +53,7 @@ static gboolean spi_atk_bridge_signal_listener         (GSignalInvocationHint *s
 static gint     spi_atk_bridge_key_listener            (AtkKeyEventStruct     *event,
 							gpointer               data);
 
-/*
- *   These exported symbols are hooked by gnome-program
- * to provide automatic module initialization and shutdown.
- */
+/* For automatic libgnome init */
 extern void gnome_accessibility_module_init     (void);
 extern void gnome_accessibility_module_shutdown (void);
 
@@ -65,6 +62,13 @@ static guint   atk_bridge_focus_tracker_id = 0;
 static guint   atk_bridge_key_event_listener_id = 0;
 static guint   idle_init_id = 0;
 static GArray *listener_ids = NULL;
+
+/*
+ *   These exported symbols are hooked by gnome-program
+ * to provide automatic module initialization and shutdown.
+ */
+extern void gnome_accessibility_module_init     (void);
+extern void gnome_accessibility_module_shutdown (void);
 
 int
 gtk_module_init (gint *argc, gchar **argv[])

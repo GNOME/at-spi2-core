@@ -1,3 +1,12 @@
+2002-02-04  Bill Haneman <bill.haneman@sun.com>
+	
+	* configure.in:
+	Incremented revision.
+
+	* test/test-simple.c:
+	Replaced use of deprecated g_main_iteration with 
+	g_main_context_iteration.
+	
 2002-01-28  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* configure.in:
