@@ -33,12 +33,33 @@ an assistive technology to get descriptive information about images.
 @get_image_size: 
 @set_image_description: 
 
+<!-- ##### FUNCTION atk_image_get_position ##### -->
+<para>
+
+</para>
+
+@image: 
+@x: 
+@y: 
+@coord_type: 
+
+
 <!-- ##### FUNCTION atk_image_get_image_description ##### -->
 <para>
 
 </para>
 
 @image: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_image_set_image_description ##### -->
+<para>
+
+</para>
+
+@image: 
+@description: 
 @Returns: 
 
 
@@ -50,15 +71,5 @@ an assistive technology to get descriptive information about images.
 @image: 
 @height: 
 @width: 
-
-
-<!-- ##### FUNCTION atk_image_set_image_description ##### -->
-<para>
-
-</para>
-
-@image: 
-@description: 
-@Returns: 
 
 
