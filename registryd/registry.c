@@ -80,7 +80,7 @@ static long _get_unique_id();
 static gboolean _device_event_controller_hook (gpointer source);
 
 SpiListenerStruct *
-spi_listener_struct_new (Accessibility_EventListener *listener, CORBA_Environment *ev)
+spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment *ev)
 {
   SpiListenerStruct *retval = g_malloc (sizeof (SpiListenerStruct));
   retval->listener = bonobo_object_dup_ref (listener, ev);
@@ -201,6 +201,7 @@ static void
 parse_event_type (EventTypeStruct *etype, char *event_name)
 {
   gchar **split_string;
+  gchar *s;
 
   split_string = g_strsplit(event_name, ":", 4);
   etype->event_name = g_strndup(event_name, 255);
@@ -224,19 +225,23 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
 
   if (split_string[1])
     {
-      etype->major = split_string[1];
+      etype->major = g_strdup (split_string[1]);
       if (split_string[2])
         {
-          etype->minor = split_string[2];
+          etype->minor = g_strdup (split_string[2]);
           if (split_string[3])
             {
-              etype->detail = split_string[3];
-              etype->hash = g_str_hash ( g_strconcat (split_string[1], split_string[2], split_string[3], NULL));
+              etype->detail = g_strdup (split_string[3]);
+	      s = g_strconcat (split_string[1], split_string[2], split_string[3], NULL);
+              etype->hash = g_str_hash (s);
+	      g_free (s);
             }
           else
             {
               etype->detail = g_strdup ("");
-              etype->hash = g_str_hash ( g_strconcat (split_string[1], split_string[2], NULL));
+	      s = g_strconcat (split_string[1], split_string[2], NULL);
+	      etype->hash = g_str_hash (s);
+	      g_free (s);
             }
         }
       else
@@ -253,7 +258,7 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
       etype->hash = g_str_hash ("");
     }
 
-  /* TODO: don't forget to free the strings from caller when done ! */
+  g_strfreev (split_string);
 }
 
 /**
@@ -545,19 +550,21 @@ _registry_notify_listeners (GList *listeners,
                             const Accessibility_Event *e_in,
                             CORBA_Environment *ev)
 {
-  int n;
-  int len;
+  gint n = 0;
   SpiListenerStruct *ls;
+  GList *list;
   EventTypeStruct etype;
   Accessibility_Event *e_out;
+  gchar *s;
   guint minor_hash;
   parse_event_type (&etype, e_in->type);
-  minor_hash = g_str_hash (g_strconcat (etype.major, etype.minor, NULL));
-  len = g_list_length (listeners);
+  s = g_strconcat (etype.major, etype.minor, NULL);
+  minor_hash = g_str_hash (s);
+  g_free (s);
 
-  for (n=0; n<len; ++n)
+  for (list = listeners; list; list = list->next)
     {
-      ls =  (SpiListenerStruct *) g_list_nth_data (listeners, n);
+      ls =  (SpiListenerStruct *) list->data;
 #ifdef SPI_SPI_LISTENER_DEBUG
       fprintf(stderr, "event hashes: %lx %lx %lx\n", ls->event_type_hash, etype.hash, minor_hash);
       fprintf(stderr, "event name: %s\n", etype.event_name);
@@ -565,8 +572,10 @@ _registry_notify_listeners (GList *listeners,
       if ((ls->event_type_hash == etype.hash) || (ls->event_type_hash == minor_hash))
         {
 #ifdef SPI_DEBUG
-          fprintf(stderr, "notifying listener #%d\n", n);
-          fprintf(stderr, "event source name %s\n", Accessibility_Accessible__get_name(e_in->source, ev));
+          fprintf(stderr, "notifying listener #%d\n", n++);
+	  s = Accessibility_Accessible__get_name(e_in->source, ev);
+          fprintf(stderr, "event source name %s\n", s);
+	  g_free (s);
 #endif
 	  e_out = ORBit_copy_value (e_in, TC_Accessibility_Event);
 	  e_out->source = bonobo_object_dup_ref (e_in->source, ev);

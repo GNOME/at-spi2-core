@@ -1,3 +1,41 @@
+2001-12-04  Bill Haneman  <bill.haneman@sun.com>
+
+	* libspi/registry.c (_registry_notify_listeners):
+	Changed listener loop iteration to use preferred convention.
+	Got rid of string memory leaks caused be calling g_strconcat
+	inside function calls.
+
+	* libspi/registry.c (parse_event_type):
+	Stopped g_strconcat memory leaks, free the g_strsplit return,
+	g_strdup the split pieces when used, etc.
+
+2001-12-04  Bill Haneman  <bill.haneman@sun.com>
+
+	* idl/State.idl: 
+	Change method 'compare' to return a 'difference set' rather than
+	taking a StateSet as an out parameter (more Java-friendly).
+
+	* idl/Accessible.idl:
+	Added CORBA struct 'BoundingBox', to faciliate API changes below:
+	
+	* idl/Component.idl:
+	* idl/Image.idl:
+	Changed methods 'getExtents' and 'getImageExtents' in these
+	interfaces to return a BoundingBox structure.  
+	(getPosition and getSize are redundant and possibly should be
+	removed, rather than creating a corresponding Point struct.)
+
+	* cspi/spi_component.c:
+	Modify implementation of getExtents to reflect the above IDL
+	change.
+	
+	* cspi/spi_image.c:
+	* cspi/spi.h:
+	Add (missing) AccessibleImage_getExtents () API.
+
+	* docs/reference/cspi/at-spi-cspi-sections.txt:
+	Added AccessibleImage_getImageExtents () to docs.
+	
 2001-12-03  Bill Haneman  <bill.haneman@sun.com>
 
 	* idl/Component.idl:

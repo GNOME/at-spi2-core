@@ -24,8 +24,8 @@ module Accessibility {
 
   interface Image : Bonobo::Unknown  {
     readonly attribute string imageDescription;
+    BoundingBox getImageExtents (in short coordType);
     void getImagePosition (out long x, out long y, in short coordType);
-    void getImageExtents (out long x, out long y, out long width, out long height, in short coodrType);
     void getImageSize (out long width, out long height);
   };
 };

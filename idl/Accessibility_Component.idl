@@ -39,7 +39,7 @@ module Accessibility {
 
         boolean contains (in long x, in long y, in short coord_type);
         Accessible getAccessibleAtPoint (in long x, in long y, in short coord_type);
-        void getExtents (out long x, out long y, out long width, out long height, in short coord_type);
+        BoundingBox getExtents (in short coord_type);
         void getPosition (out long x, out long y, in short coord_type);
         void getSize (out long width, out long height);
 	ComponentLayer getLayer ();

@@ -154,6 +154,7 @@ AccessibleImage_unref
 AccessibleImage_getImageDescription
 AccessibleImage_getImageSize
 AccessibleImage_getImagePosition
+AccessibleImage_getImageExtents
 </SECTION>
 
 <SECTION>

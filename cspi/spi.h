@@ -1100,6 +1100,13 @@ AccessibleImage_getImagePosition (AccessibleImage *obj,
                                   long int *y,
                                   AccessibleCoordType ctype);
 
+void
+AccessibleImage_getImageExtents (AccessibleImage *obj,
+				 long int *x,
+				 long int *y,
+				 long int *width,
+				 long int *height,
+				 AccessibleCoordType ctype);
 /*
  *
  * AccessibleRelation function prototypes

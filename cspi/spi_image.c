@@ -95,3 +95,35 @@ AccessibleImage_getImagePosition (AccessibleImage *obj,
 					(CORBA_long *) x, (CORBA_long *) y, (CORBA_short) ctype,
 					cspi_ev ());
 }
+
+/**
+ * AccessibleImage_getImageExtents:
+ * @obj: a pointer to the #AccessibleImage implementor to query.
+ * @x: a pointer to a #long into which the minimum x coordinate will be returned.
+ * @y: a pointer to a #long into which the minimum y coordinate will be returned.
+ * @width: a pointer to a #long into which the image x extent will be returned.
+ * @width: a pointer to a #long into which the image y extent will be returned.
+ * @ctype: the desired coordinate system into which to return the results,
+ *         (e.g. SPI_COORD_TYPE_WINDOW, SPI_COORD_TYPE_SCREEN).
+ *
+ * Get the bounding box of the image displayed in a
+ *         specified #AccessibleImage implementor.
+ *
+ **/
+void
+AccessibleImage_getImageExtents (AccessibleImage *obj,
+				 long *x,
+				 long *y,
+				 long *width,
+				 long *height,
+				 AccessibleCoordType ctype)
+{
+  Accessibility_BoundingBox bbox;	
+  bbox = Accessibility_Image_getImageExtents (CSPI_OBJREF (obj),
+					      (CORBA_short) ctype,
+					      cspi_ev ());
+  *x = bbox.x;
+  *y = bbox.y;
+  *width = bbox.width;
+  *height = bbox.height;
+}

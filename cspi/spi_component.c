@@ -114,19 +114,15 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
                                 long int *height,
                                 AccessibleCoordType ctype)
 {
-  CORBA_long cx, cy, cw, ch;	
-  Accessibility_Component_getExtents (CSPI_OBJREF (obj),
-                                      &cx,
-                                      &cy,
-                                      &cw,
-                                      &ch,
-				      ctype,
-				      cspi_ev ());
+  Accessibility_BoundingBox bbox;
+  bbox = Accessibility_Component_getExtents (CSPI_OBJREF (obj),
+					     ctype,
+					     cspi_ev ());
   cspi_warn_ev (cspi_ev (), "AccessibleComponent_getExtents");
-  *x = (long) cx;
-  *y = (long) cy;
-  *width = (long) cw;
-  *height = (long) ch;
+  *x = bbox.x;
+  *y = bbox.y;
+  *width = bbox.width;
+  *height = bbox.height;
 }
 
 /**

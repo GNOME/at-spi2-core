@@ -110,7 +110,8 @@ module Accessibility {
     void		add (in StateType state);
     void 		remove (in StateType state);
     boolean		equals (in StateSet stateSet);
-    void		compare (in StateSet compareState, out StateSet differenceSet);
+    /* returns a 'difference set' */
+    StateSet            compare (in StateSet compareState);
     boolean		isEmpty ();
   };
 };

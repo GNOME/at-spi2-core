@@ -33,6 +33,13 @@ module Accessibility {
   
   typedef sequence<Relation> RelationSet;
 
+  struct BoundingBox {
+	  long x;
+	  long y;
+	  long width;
+	  long height;
+  };
+
   interface Accessible : Bonobo::Unknown {
 
     /**
