@@ -1,0 +1,312 @@
+# The Bengali translation for ATK
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# This file is distributed under the same license as the ATK package.
+# Sayamindu Dasgupta <unmadindu@Softhome.net>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2002-11-22 08:13+0000\n"
+"PO-Revision-Date: 2003-01-29 13:06+0530\n"
+"Last-Translator: Sayamindu Dasgupta <unmadindu@Softhome.net>\n"
+"Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "ভুল"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "গতিবর্ধক শিরোনাম"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "সতর্ক "
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "চলচ্চিত্র "
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "নির্দেশক"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "দিনপঞ্জি"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "চিত্রপট"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "টিক বাক্স‌"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "টিক মেনুর আইটেম"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "রং নির্বাচক"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "কলাম শিরোনাম"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "কম্বো বাক্স"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "তারিখ-পরিবর্তক"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "ডেস্কটপ-আইকন"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "ডেস্কটপ কাঠামো"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "ডায়াল"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "সংলাপ"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "ডাইরেক্টরি ফলক"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "আঁকার স্থান"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "ফাইল নির্বাচক"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "পূরনকারী"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "ফন্ট নির্বাচক"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "কাঠামো"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "স্বচ্ছ-ফলক"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "এইচ-টি-এম-এল ধারক"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "আইকন"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "ছবি"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "অভন্তরীন-কাঠামো"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "শিরোনাম"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "বহুস্তরীয় ফলক"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "তালিকা"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "তালিকার আইটেম"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "মেনূ"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "মেনূ বার"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "মেনূ আইটেম"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "পছন্দ - ফলক"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "পৃষ্ঠাসূচক-ট্যাব"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "পৃষ্ঠাসূচক-ট্যাব তালিকা"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "পাত"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "পাসওয়ার্ড টেক্সট"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "ভেসে ওঠা মেনূ"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "অগ্রগতি নির্ণায়ক"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "টিপ বোতাম"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "রেডিও বোতাম"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "রেডিও-মেনূর আইটেম"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "মূল ফলক"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "সারি শিরোনাম"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "স্ক্রল বার"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "স্ক্রল ফলক"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "বিভাজক"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "স্লাইডার"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "বিভাজিত ফলক"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "ঘোরানো বোতাম"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "স্ট্যাটাস বার"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "ছক"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "ছকস্থ ঘর"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "ছকস্থ কলামের শিরোনাম"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "ছকস্থ সারির শিরোনাম"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "আলগা মেনূ আইটেম"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "টারমিনাল"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "টেক্সট"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "টগ্গল বোতাম"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "টুল বার"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "টুল পরামর্শ"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "ট্রি   "
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "ট্রি ছক"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "অজ্ঞাত"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "ভিউপোর্ট"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "উইনডো"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "শিরোনাম"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "পাদটীকা"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "অনুচ্ছেদ"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "রুলার"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "এপ্লিকেসন"
+
