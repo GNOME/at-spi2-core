@@ -65,6 +65,7 @@ MAINTAINERCLEANFILES += 	\
 
 INCLUDES = \
 	-I$(top_srcdir)		\
+	-DG_DISABLE_DEPRECATED	\
 	@DEP_CFLAGS@
 
 LDFLAGS =  \

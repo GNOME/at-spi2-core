@@ -1,3 +1,8 @@
+2001-12-13  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* atk/Makefile.am, tests/Makefile.am: Compile with
+	-DG_DISABLE_DEPRECATED. See #52790.
+
 2001-12-11  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkcomponent.c (atk_component_ref_accessible_at_position):
