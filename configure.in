@@ -47,7 +47,7 @@ AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
 dnl internationalization support
-dnl ALL_LINGUAS="be ca cs cy de eo es fr he nl pl pt_BR pt ru sk sr@Latn sr sv vi"
+dnl ALL_LINGUAS="be ca cs cy de eo es fr he ms nl pl pt_BR pt ru sk sr@Latn sr sv vi"
 dnl AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_PROG(GTKDOC, gtkdoc-mkdb, true, false)
