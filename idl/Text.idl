@@ -38,16 +38,20 @@ module Accessibility {
     readonly attribute long caretOffset;
     string getText (in long startOffset, in long endOffset);
     boolean setCaretOffset (in long offset);
-    string getTextBeforeOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
-    string getTextAtOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
-    string getTextAfterOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
+    string getTextBeforeOffset (in long offset, in TEXT_BOUNDARY_TYPE type,
+				out long startOffset, out long endOffset);
+    string getTextAtOffset (in long offset, in TEXT_BOUNDARY_TYPE type,
+			    				out long startOffset, out long endOffset);
+    string getTextAfterOffset (in long offset, in TEXT_BOUNDARY_TYPE type,
+			       				out long startOffset, out long endOffset);
     wchar getCharacterAtOffset (in long offset); /* could be string instead, 
 						  * to allow unicode chars > 16 bits 
 						  */
     /* void getRowColAtOffset (in long offset, out long row, out long column); */
-    string getAttributes (in long startOffset, in long endOffset);
-    boolean getCharacterExtents (in long offset, out long x, out long y, out long length, out long width);
-    long getOffsetAtPoint (in long x, in long y);
+    string getAttributes (in long offset,
+			  out long startOffset, out long endOffset);
+    boolean getCharacterExtents (in long offset, out long x, out long y, out long length, out long width, in short coordType);
+    long getOffsetAtPoint (in long x, in long y, in short coordType);
     long getNSelections ();
     void getSelection (in long selectionNum, out long startOffset, out long endOffset);
     boolean addSelection (in long startOffset, in long endOffset);

@@ -63,7 +63,7 @@ module Accessibility {
      * return values: a @boolean indicating success or failure.
      *
      **/
-    void doAction (in long index);
+    boolean doAction (in long index);
 
     /**
      * getKeyBinding:
