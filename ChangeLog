@@ -1,3 +1,16 @@
+2002-11-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* cspi/spi_accessible.c
+	(cspi_init_role_table): Do not write beyond end of role_table.
+	(Accessible_getRole): Use correct type for value returned by
+	Accessibility_Accessible_getRole().
+
+	* libspi/accessible.c (spi_init_role_lookup_table): Do not write
+	beyond end of role_table. (This fixes bug #98269)
+
+	* libspi/application.c: Add include file spi-private.h for 
+	definition of spi_init_any_nil.
+
 2002-11-19 Bill Haneman <bill.haneman@sun.com>
 
         FIX for bug 99024.

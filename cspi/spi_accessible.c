@@ -181,7 +181,6 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_FOOTER] = SPI_ROLE_FOOTER;
   role_table [Accessibility_ROLE_PARAGRAPH] = SPI_ROLE_PARAGRAPH;
   role_table [Accessibility_ROLE_RULER] = SPI_ROLE_RULER;
-  role_table [Accessibility_ROLE_LAST_DEFINED] = SPI_ROLE_EXTENDED;
 
   return TRUE;
 }
@@ -515,7 +514,7 @@ Accessible_getRelationSet (Accessible *obj)
 AccessibleRole
 Accessible_getRole (Accessible *obj)
 {
-  AccessibleRole retval;
+  Accessibility_Role retval;
 
   cspi_return_val_if_fail (obj != NULL, SPI_ROLE_INVALID);
 

@@ -27,6 +27,7 @@
 #include <config.h>
 #include <atk/atkutil.h>
 #include <libspi/application.h>
+#include "spi-private.h"
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_ACCESSIBLE_TYPE
