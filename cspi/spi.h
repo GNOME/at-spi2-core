@@ -652,7 +652,7 @@ char *
 AccessibleAction_getDescription (AccessibleAction *obj,
                                  long index);
 
-void
+boolean
 AccessibleAction_doAction (AccessibleAction *obj,
                            long index);
 
@@ -1048,7 +1048,7 @@ AccessibleTable_ref (AccessibleTable *obj);
 int
 AccessibleTable_unref (AccessibleTable *obj);
 
-char *
+Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj);
 
 Accessible *
@@ -1107,14 +1107,14 @@ AccessibleTable_getColumnHeader (AccessibleTable *obj,
 long
 AccessibleTable_getNSelectedRows (AccessibleTable *obj);
 
-void
+long
 AccessibleTable_getSelectedRows (AccessibleTable *obj,
                                  long **selectedRows);
 
 long
 AccessibleTable_getNSelectedColumns (AccessibleTable *obj);
 
-void
+long
 AccessibleTable_getSelectedColumns (AccessibleTable *obj,
                                     long **selectedColumns);
 
@@ -1155,7 +1155,7 @@ long
 AccessibleText_getCaretOffset (AccessibleText *obj);
 
 char *
-AccessibleText_refRunAttributes (AccessibleText *obj,
+AccessibleText_getAttributes (AccessibleText *obj,
 				 long offset,
 				 long *startOffset,
 				 long *endOfset);
@@ -1186,18 +1186,18 @@ char
 AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long offset);
 
-boolean
+void
 AccessibleText_getCharacterExtents (AccessibleText *obj,
                                     long offset,
                                     long *x,
                                     long *y,
                                     long *width,
-                                    long *height);
+                                    long *height, AccessibleCoordType type);
 
 long
 AccessibleText_getOffsetAtPoint (AccessibleText *obj,
                                  long x,
-                                 long y);
+                                 long y, AccessibleCoordType type);
 
 long
 AccessibleText_getNSelections (AccessibleText *obj);

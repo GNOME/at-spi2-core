@@ -28,7 +28,7 @@ AccessibleHyperlink *
 AccessibleHyperText_getLink (AccessibleHypertext *obj,
                              long linkIndex)
 {
-  return (Accessible)
+  return (AccessibleHyperlink *)
     Accessibility_Hypertext_getLink (*obj,
 				     (CORBA_long) linkIndex, &ev);
 }

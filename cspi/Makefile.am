@@ -24,6 +24,7 @@ libcspi_la_SOURCES = spi.c              \
 SPICSOURCES =        spi_main.c		\
 		     spi_event.c 	\
 		     spi_registry.c	\
+		     spi-util.c\
 		     spi_accessible.c	\
 		     spi_action.c\
 		     spi_application.c	\

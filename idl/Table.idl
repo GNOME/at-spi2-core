@@ -26,11 +26,14 @@ module Accessibility {
 
 typedef sequence<long> LongSeq;
 
- interface Table {
+ interface Table : Bonobo::Unknown {
    readonly attribute long nRows;
    readonly attribute long nColumns;
    readonly attribute Accessible caption;
    readonly attribute Accessible summary;
+   readonly attribute long nSelectedRows;
+   readonly attribute long nSelectedColumns;
+
    Accessible getAccessibleAt (in long row, in long column);
    long getIndexAt (in long row, in long column);
    long getRowAtIndex (in long index);

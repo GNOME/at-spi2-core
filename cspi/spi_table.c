@@ -18,11 +18,11 @@ AccessibleTable_unref (AccessibleTable *obj)
 
 
 
-char *
+Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj)
 {
-  return string_from_corba_string (
-				   Accessibility_Table_getCaption (*obj, &ev));
+  return (Accessible *)
+    Accessibility_Table__get_caption (*obj, &ev);
 }
 
 
@@ -31,7 +31,7 @@ Accessible *
 AccessibleTable_getSummary (AccessibleTable *obj)
 {
   return (Accessible *)
-    Accessibility_Table_getSummary (*obj, &ev);
+    Accessibility_Table__get_summary (*obj, &ev);
 }
 
 
@@ -40,7 +40,7 @@ long
 AccessibleTable_getNRows (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table_getNRows (*obj, &ev);
+    Accessibility_Table__get_nRows (*obj, &ev);
 }
 
 
@@ -49,17 +49,17 @@ long
 AccessibleTable_getNColumns (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table_getNColumns (*obj, &ev);
+    Accessibility_Table__get_nColumns (*obj, &ev);
 }
 
 
 Accessible *
-AccessibleTable_refAt (AccessibleTable *obj,
+AccessibleTable_getAccessibleAt (AccessibleTable *obj,
                                  long row,
                                  long column)
 {
   return (Accessible *)
-    Accessibility_Table_refAt (*obj,
+    Accessibility_Table_getAccessibleAt (*obj,
 			       (CORBA_long) row, (CORBA_long) column, &ev);
 }
 
@@ -157,7 +157,7 @@ AccessibleTable_getRowHeader (AccessibleTable *obj,
 
 Accessible *
 AccessibleTable_getColumnHeader (AccessibleTable *obj,
-				 long column);
+				 long column)
 {
   return (Accessible *)
     Accessibility_Table_getColumnHeader (*obj,
@@ -170,17 +170,30 @@ long
 AccessibleTable_getNSelectedRows (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table_getNSelectedRows (*obj, &ev);
+    Accessibility_Table__get_nSelectedRows (*obj, &ev);
 }
 
 
 
-void
+long
 AccessibleTable_getSelectedRows (AccessibleTable *obj,
                                  long **selectedRows)
 {
-  Accessibility_Table_getSelectedRows (*obj,
-				      (CORBA_long **) selectedRows, &ev);
+  Accessibility_LongSeq *rows = Accessibility_Table_getSelectedRows (*obj, &ev);
+  CORBA_long *i;
+  long *j;
+  long length;
+
+  i = rows->_buffer;
+  length = (long) rows->_length;
+  j = *selectedRows = malloc (sizeof(long)*length);
+  
+  while (length--)
+    *j++ = (CORBA_long) (*i++);
+
+  length = rows->_length;
+  CORBA_free (rows);
+  return length;
 }
 
 
@@ -189,16 +202,29 @@ long
 AccessibleTable_getNSelectedColumns (AccessibleTable *obj)
 {
   return (long)
-    Accessibility_Table_getNSelectedColumns (*obj, &ev);
+    Accessibility_Table__get_nSelectedColumns (*obj, &ev);
 }
 
 
-void
+long
 AccessibleTable_getSelectedColumns (AccessibleTable *obj,
                                     long **selectedColumns)
 {
-  Accessibility_Table_getSelectedColumns (*obj,
-				      (CORBA_long **) selectedColumns, &ev);
+  Accessibility_LongSeq *columns = Accessibility_Table_getSelectedColumns (*obj, &ev);
+  CORBA_long *i;
+  long *j;
+  long length;
+
+  i = columns->_buffer;
+  length = (long) columns->_length;
+  j = *selectedColumns = malloc (sizeof(long)*length);
+  
+  while (length--)
+    *j++ = (CORBA_long) (*i++);
+
+  length = columns->_length;
+  CORBA_free (columns);
+  return length;
 }
 
 

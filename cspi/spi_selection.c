@@ -20,17 +20,17 @@ long
 AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj)
 {
   return (long)
-    Accessibility_Selection_getNSelectedChildren (*obj, &ev);
+    Accessibility_Selection__get_nSelectedChildren (*obj, &ev);
 }
 
 
 
 Accessible *
-AccessibleSelection_refSelectedChild (AccessibleSelection *obj,
+AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long selectedChildIndex)
 {
   return (Accessible *)
-    Accessibility_Selection_refSelectedChild (*obj,
+    Accessibility_Selection_getSelectedChild (*obj,
 					      (CORBA_long) selectedChildIndex, &ev);
 }
 

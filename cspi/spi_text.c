@@ -44,22 +44,22 @@ long
 AccessibleText_getCaretOffset (AccessibleText *obj)
 {
   return (long)
-    Accessibility_Text_getCaretOffset (*obj, &ev);
+    Accessibility_Text__get_caretOffset (*obj, &ev);
 }
 
 
 
 char *
-AccessibleText_refRunAttributes (AccessibleText *obj,
+AccessibleText_getAttributes (AccessibleText *obj,
 				 long offset,
 				 long *startOffset,
-				 long *endOfset)
+				 long *endOffset)
 {
-return string_from_corba_string (
-				 Accessibility_Text_refRunAttributes (*obj,
-								      (CORBA_long) offset,
-								      (CORBA_long *) startOffset,
-								      (CORBA_long *) endOffset, &ev));
+  return string_from_corba_string (
+				   Accessibility_Text_getAttributes (*obj,
+									(CORBA_long) offset,
+									(CORBA_long *) startOffset,
+									(CORBA_long *) endOffset, &ev));
 }
 
 
@@ -131,21 +131,22 @@ AccessibleText_getCharacterAtOffset (AccessibleText *obj,
 
 
 
-boolean
+void
 AccessibleText_getCharacterExtents (AccessibleText *obj,
                                     long offset,
                                     long *x,
                                     long *y,
                                     long *width,
-                                    long *height)
+                                    long *height,
+				    AccessibleCoordType type)
 {
-  return (boolean)
-    Accessibility_Text_getTextExtents (*obj,
-				       (CORBA_long) offset,
-				       (CORBA_long *) x,
-				       (CORBA_long *) y,
-				       (CORBA_long *) width,
-				       (CORBA_long *) height, &ev);
+  Accessibility_Text_getCharacterExtents (*obj,
+					  (CORBA_long) offset,
+					  (CORBA_long *) x,
+					  (CORBA_long *) y,
+					  (CORBA_long *) width,
+					  (CORBA_long *) height, 
+					  (CORBA_short) type, &ev);
 }
 
 
@@ -153,11 +154,12 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
 long
 AccessibleText_getOffsetAtPoint (AccessibleText *obj,
                                  long x,
-                                 long y)
+                                 long y,
+				 AccessibleCoordType type)
 {
   return (long)
     Accessibility_Text_getOffsetAtPoint (*obj,
-					 (CORBA_long) x, (CORBA_long) y, &ev);
+					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, &ev);
 }
 
 
@@ -216,8 +218,8 @@ AccessibleText_setSelection (AccessibleText *obj,
   return (boolean)
     Accessibility_Text_setSelection (*obj,
 				     (CORBA_long) selectionNum,
-				     (CORBA_long) startPos,
-				     (CORBA_long) endOffset, &ev);
+				     (CORBA_long) startOffset,
+ (CORBA_long) endOffset, &ev);
 }
 
 

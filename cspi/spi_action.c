@@ -12,7 +12,7 @@ int
 AccessibleAction_unref (AccessibleAction *obj)
 {
   Accessibility_Action_unref (*obj, &ev);
-  eturn 0;
+  return 0;
 }
 
 
@@ -21,7 +21,7 @@ long
 AccessibleAction_getNActions (AccessibleAction *obj)
 {
   return (long)
-    Accessibility_Action_getNActions (*obj, &ev);
+    Accessibility_Action__get_nActions (*obj, &ev);
 }
 
 
@@ -54,7 +54,7 @@ AccessibleAction_getKeyBinding (AccessibleAction *obj,
                                 long index)
 {
   return string_from_corba_string (
-				   Accessibility_Action_getKeybinding (*obj,
+				   Accessibility_Action_getKeyBinding (*obj,
 								       (CORBA_long) index,
 								       &ev));
 }

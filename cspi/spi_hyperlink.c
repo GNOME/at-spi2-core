@@ -3,8 +3,8 @@
 int
 AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_ref (*obj);
-  return 0:
+  Accessibility_Hyperlink_ref (*obj, &ev);
+  return 0;
 }
 
 
@@ -12,7 +12,7 @@ AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 int
 AccessibleHyperlink_unref (AccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_unref (*obj);
+  Accessibility_Hyperlink_unref (*obj, &ev);
   return 0;
 }
 
@@ -21,8 +21,8 @@ AccessibleHyperlink_unref (AccessibleHyperlink *obj)
 long
 AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
 {
-  RETURN (LONG)
-    aCCESSIBILITY_hYPERLINK_GETnaNCHORS (*OBJ);
+  return (long)
+    Accessibility_Hyperlink__get_nAnchors (*obj, &ev);
 }
 
 
@@ -31,9 +31,9 @@ char *
 AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
                             long i)
 {
-  RETURN STRING_FROM_CORBA_STRING (
-				   aCCESSIBIITY_hYPERLINK_GETuri (*OBJ,
-								  (corba_LONG) I, &EV));
+  return string_from_corba_string (
+				   Accessibility_Hyperlink_getURI (*obj,
+								  (CORBA_long) i, &ev));
 }
 
 
@@ -44,7 +44,7 @@ AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
 {
   return (Accessible)
     Accessibility_Hyperlink_getObject (*obj,
-				       (CORBA_long) i);
+				       (CORBA_long) i, &ev);
 }
 
 
@@ -55,9 +55,9 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long *endIndex)
 {
   *startIndex = (long)
-    Accessibility_Hyperlink__get_startIndex (*obj);
+    Accessibility_Hyperlink__get_startIndex (*obj, &ev);
   *endIndex = (long)
-    Acccessibility_Hyperlink__get_endIndex (*obj);
+    Accessibility_Hyperlink__get_endIndex (*obj, &ev);
 }
 
 
@@ -66,7 +66,7 @@ boolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
 {
   return (boolean)
-    Accessibility_Hyperlink_isValid (*obj);
+    Accessibility_Hyperlink_isValid (*obj, &ev);
 }
 
 

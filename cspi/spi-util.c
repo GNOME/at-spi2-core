@@ -11,7 +11,7 @@ string_from_corba_string (CORBA_char *string)
   length = strlen (string);
   newstring = (char *) malloc (length+1);
   strcpy (newstring, string);
-  corba_free (string);
+  CORBA_free (string);
   return newstring;
 }
 

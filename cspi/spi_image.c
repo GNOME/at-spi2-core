@@ -23,7 +23,7 @@ char *
 AccessibleImage_getImageDescription (AccessibleImage *obj)
 {
   return string_from_corba_string (
-				   Accessibility_Image_getImageDescription (*obj, &ev));
+				   Accessibility_Image__get_imageDescription (*obj, &ev));
 }
 
 

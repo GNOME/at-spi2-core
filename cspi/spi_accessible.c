@@ -195,7 +195,11 @@ Accessible_getStateSet (Accessible *obj)
 boolean
 Accessible_isAction (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Action:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -230,7 +234,11 @@ Accessible_isComponent (Accessible *obj)
 boolean
 Accessible_isEditableText (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/EditableText:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -246,7 +254,11 @@ Accessible_isEditableText (Accessible *obj)
 boolean
 Accessible_isHypertext (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Hypertext:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -262,7 +274,11 @@ Accessible_isHypertext (Accessible *obj)
 boolean
 Accessible_isImage (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Image:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -278,7 +294,11 @@ Accessible_isImage (Accessible *obj)
 boolean
 Accessible_isSelection (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Selection:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -294,7 +314,11 @@ Accessible_isSelection (Accessible *obj)
 boolean
 Accessible_isTable (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Table:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -310,7 +334,11 @@ Accessible_isTable (Accessible *obj)
 boolean
 Accessible_isText (Accessible *obj)
 {
-  return FALSE;
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Text:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
 }
 
 /**
@@ -322,7 +350,11 @@ Accessible_isText (Accessible *obj)
 AccessibleAction *
 Accessible_getAction (Accessible *obj)
 {
-  return NULL;
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Action:1.0",
+                                             &ev);
+  return Obj_Add (iface);
 }
 
 /**
@@ -343,6 +375,90 @@ Accessible_getComponent (Accessible *obj)
                                              &ev);
   return Obj_Add (iface);
 }
+
+AccessibleEditableText *
+Accessible_getEditableText (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/EditableText:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
+
+AccessibleHypertext *
+Accessible_getHypertext (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Hypertext:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
+
+AccessibleImage *
+Accessible_getImage (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Image:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
+
+AccessibleSelection *
+Accessible_getSelection (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Selection:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
+
+AccessibleTable *
+Accessible_getTable (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Table:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
+
+AccessibleText *
+Accessible_getText (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Text:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
+
+AccessibleValue *
+Accessible_getValue (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Value:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+
 
 /**
  * Accessible_queryInterface:

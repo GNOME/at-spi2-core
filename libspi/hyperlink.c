@@ -118,7 +118,7 @@ hyperlink_class_init (HyperlinkClass *klass)
 
   /* Initialize epv table */
 
-  epv->_get_n_anchors = impl__get_n_anchors;
+  epv->_get_nAnchors = impl__get_n_anchors;
   epv->getURI = impl_getURI;
   epv->_get_startIndex = impl__get_startIndex;
   epv->_get_endIndex = impl__get_endIndex;

@@ -22,7 +22,7 @@
 
 module Accessibility {
 
-  interface Value {
+  interface Value : Bonobo::Unknown {
     readonly attribute float minimumValue;
     readonly attribute float maximumValue;
     readonly attribute float minimumIncrement;

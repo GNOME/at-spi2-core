@@ -17,7 +17,7 @@ AccessibleValue_unref (AccessibleValue *obj)
 
 
 float
-AccessibleValue_getMinimumValue (AccessibleValue *value)
+AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
   return (float)
     Accessibility_Value__get_minimumValue (*obj, &ev);
@@ -26,7 +26,7 @@ AccessibleValue_getMinimumValue (AccessibleValue *value)
 
 
 float
-AccessibleValue_getCurrentValue (AccessibleValue *value)
+AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
   return (float)
     Accessibility_Value__get_currentValue (*obj, &ev);
@@ -35,7 +35,7 @@ AccessibleValue_getCurrentValue (AccessibleValue *value)
 
 
 float
-AccessibleValue_getMaximumValue (AccessibleValue *value)
+AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
   return (float)
     Accessibility_Value__get_maximumValue (*obj, &ev);
@@ -44,7 +44,7 @@ AccessibleValue_getMaximumValue (AccessibleValue *value)
 
 
 boolean
-AccessibleValue_setCurrentValue (AccessibleValue *value,
+AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {
   Accessibility_Value__set_currentValue (*obj,

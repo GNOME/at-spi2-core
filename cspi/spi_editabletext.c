@@ -17,12 +17,12 @@ AccessibleEditableText_unref (AccessibleEditableText *obj)
 
 
 boolean
-AccessibleEditableText_setRunAttributes (AccessibleEditableText *obj,
+AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
 					 const char *attributes,
 					 long startPos, long endPos)
 {
   return (boolean)
-    Accessibility_EditableText_setRunAttributes (*obj,
+    Accessibility_EditableText_setAttributes (*obj,
 						 (CORBA_char *) attributes,
 						 (CORBA_long) startPos, (CORBA_long) endPos, &ev);
 }
@@ -31,7 +31,7 @@ AccessibleEditableText_setRunAttributes (AccessibleEditableText *obj,
 
 void
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
-                                        const char *newContents);
+                                        const char *newContents)
 {
   Accessibility_EditableText_setTextContents (*obj,
 					      (CORBA_char *) newContents, &ev);
@@ -90,6 +90,6 @@ AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long position)
 {
   Accessibility_EditableText_pasteText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
+					(CORBA_long) position, &ev);
 }
 
