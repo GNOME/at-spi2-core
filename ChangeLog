@@ -1,3 +1,10 @@
+2005-04-05  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkstate.h: Added ATK_STATE_REQUIRED, to
+	indicate that explicit user interaction with a UI control is
+	required, i.e. for web forms elements with the 'required' tag.
+	See bug #172663.
+	
 2005-04-04  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkrelation.c: Update doc to note that atk_relation_add_target
