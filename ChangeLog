@@ -1,3 +1,8 @@
+2003-06-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atkrelationtype.h, docs/tmpl/atkrelation.sgml: Add new relation
+	ATK_RELATION_POPUP.
+
 2003-06-05  Paul Duffy <dubhthach@frink.nuigalway.ie>
 
         * configure.in: Added ga (irish) to ALL_LINGUAS
