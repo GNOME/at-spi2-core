@@ -64,7 +64,7 @@ IDL_DEPS = \
 
 
 BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
-CLEANFILES+= $(IDL_OUT) Accessibility-imodule.c
+CLEANFILES = $(IDL_OUT) Accessibility-imodule.c
 
 libspi_la_SOURCES =		\
 	$(IDL_OUT)		\

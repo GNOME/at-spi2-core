@@ -1,5 +1,6 @@
 2004-02-10  Tomasz K³oczko <kloczek@pld.org.pl>
 
+	* libspi/Makefile.am: fixes for automake >= 1.6.
 	* configure.in: Trivial cleanup: remove AC_SUBST(CFLAGS),
 	  AC_SUBST(CPPFLAGS) and AC_SUBST(LDFLAGS). This variables are
 	  substed by default.
