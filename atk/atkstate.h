@@ -35,7 +35,7 @@ extern "C" {
  *@ATK_STATE_CHECKED: Indicates this object is currently checked
  *@ATK_STATE_DEFUNCT: Indicates the user interface object corresponding to this object no longer exists
  *@ATK_STATE_EDITABLE: Indicates the user can change the contents of this object
- *@ATK_STATE_ENABLED: Indicates that this object is enabled
+ *@ATK_STATE_ENABLED: Indicates that this object is enabled. An inconsistent GtkToggleButton is an example of an object which is sensitive but not enabled.
  *@ATK_STATE_EXPANDABLE: Indicates this object allows progressive disclosure of its children
  *@ATK_STATE_EXPANDED: Indicates this object its expanded
  *@ATK_STATE_FOCUSABLE: Indicates this object can accept keyboard focus, which means all events resulting from typing on the keyboard will normally be passed to it when it has focus

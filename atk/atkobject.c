@@ -34,7 +34,7 @@
 #include "atk-enum-types.h"
 #include "atkintl.h"
 
-GPtrArray *extra_roles = NULL;
+static GPtrArray *extra_roles = NULL;
 
 enum
 {

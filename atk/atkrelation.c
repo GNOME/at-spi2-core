@@ -31,7 +31,7 @@ enum {
   PROP_LAST
 };
 
-GPtrArray *extra_names = NULL;
+static GPtrArray *extra_names = NULL;
 
 static gpointer parent_class = NULL;
   

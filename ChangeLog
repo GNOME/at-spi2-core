@@ -1,3 +1,14 @@
+2004-05-11  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Make extra_roles static.
+
+	* atk/atkrelation.c: Make extra_names static.
+
+	Fixes bug #142234.
+
+	* atk/atkstate.h: Add clarification of state ATK_STATE_ENABLED to
+	documentation.
+
 2004-04-22  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Increment version to 1.7.1 and interface age to 1.
