@@ -70,7 +70,8 @@ GType atk_util_get_type (void);
  *@ATK_XY_WINDOW: specifies xy coordinates relative to the widgets 
  * top-level window
  *
- *Specifies how xy coordinates are to be interpreted 
+ *Specifies how xy coordinates are to be interpreted. Used by functions such
+ *as atk_component_get_position() and atk_text_get_character_extents() 
  **/
 typedef enum {
   ATK_XY_SCREEN,

@@ -340,7 +340,9 @@ atk_text_get_character_extents (AtkText *text,
  *Creates an #AtkAttributeSet which consists of the attributes explicitly
  *set at the position @offset in the text. @start_offset and @end_offset are
  *set to the start and end of the range around @offset where the attributes are
- *invariant.
+ *invariant. See the ATK_ATTRIBUTE macros, such as #ATK_ATTRIBUTE_LEFT_MARGIN
+ *for types of text attributes that can be returned. Note that other 
+ *attributes that do not have corresponding macros may also be returned.
  *
  *Returns: an #AtkAttributeSet which contains the attributes explicitly set
  *at @offset

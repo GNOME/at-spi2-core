@@ -54,7 +54,10 @@ atk_editable_text_get_type ()
  *@start_offset: start of range in which to set attributes
  *@end_offset: end of range in which to set attributes
  *
- *Sets the attributes for a specified range.
+ *Sets the attributes for a specified range. See the ATK_ATTRIBUTE
+ *macros (such as #ATK_ATTRIBUTE_LEFT_MARGIN) for examples of attributes 
+ *that can be set. Note that other attributes that do not have corresponding
+ *ATK_ATTRIBUTE macros may also be set for certain text widgets.
  *
  *Returns: %TRUE if attributes successfully set for the specified
  *range, otherwise %FALSE

@@ -58,6 +58,20 @@ AtkText provides an accessibility interface for text widgets
 @ATK_TEXT_BOUNDARY_LINE_START: 
 @ATK_TEXT_BOUNDARY_LINE_END: 
 
+<!-- ##### STRUCT AtkAttribute ##### -->
+<para>
+
+</para>
+
+@name: 
+@value: 
+
+<!-- ##### TYPEDEF AtkAttributeSet ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### FUNCTION atk_text_get_text ##### -->
 <para>
 
@@ -236,5 +250,194 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @offset: 
 @Returns: 
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_LEFT_MARGIN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_RIGHT_MARGIN ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_INDENT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_INVISIBLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_EDITABLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_PIXELS_ABOVE_LINES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_PIXELS_BELOW_LINES ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_PIXELS_INSIDE_WRAP ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_BG_FULL_HEIGHT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_RISE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_UNDERLINE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_STRIKETHROUGH ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_SIZE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_SCALE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_WEIGHT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_LANGUAGE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_FAMILY_NAME ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_BG_COLOR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_FG_COLOR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_BG_STIPPLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_FG_STIPPLE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_WRAP_MODE ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_DIRECTION ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_JUSTIFICATION ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_STRETCH ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_VARIANT ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO ATK_ATTRIBUTE_STYLE ##### -->
+<para>
+
+</para>
+
 
 

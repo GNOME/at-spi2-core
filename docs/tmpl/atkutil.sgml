@@ -14,6 +14,14 @@ The AtkUtility interface provides general purpose utility functions.
 
 </para>
 
+<!-- ##### ENUM AtkCoordType ##### -->
+<para>
+
+</para>
+
+@ATK_XY_SCREEN: 
+@ATK_XY_WINDOW: 
+
 <!-- ##### FUNCTION atk_add_focus_tracker ##### -->
 <para>
 
