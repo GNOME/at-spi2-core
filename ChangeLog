@@ -1,3 +1,9 @@
+Thu Dec 20 00:33:47 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* atk/Makefile.am (EXTRA_DIST): Set GPATH - necessary
+	for correct srcdir != builddir operation when 
+	generating source files in srcdir.
+	
 Thu Dec 20 00:27:01 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* docs/tmpl/atkutil.sgml: remove some conflict

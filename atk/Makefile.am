@@ -1,3 +1,7 @@
+# We set GPATH here; this gives us semantics for GNU make
+# which are more like other make's VPATH.
+GPATH = $(srcdir)
+
 EXTRA_DIST = atk.def
 if OS_WIN32
 export_symbols = -export-symbols atk.def
