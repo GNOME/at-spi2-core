@@ -1,10 +1,18 @@
+2004-02-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.5.3=====
+	
+	* configure.in: Version 1.5.3, interface age 2, binary age 503
+
+	* NEWS: Updated.
+
 2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
 
 2004-01-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	* atk/atkobject.c: Revise property name. Fixes bug #132022 from
+	* atk/atkobject.c: Revise property name. Fixes bug #130022 from
 	Christian - Manny Calavera - Neumair.
 
 2004-01-23  Manish Singh  <yosh@gimp.org>

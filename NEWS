@@ -1,3 +1,19 @@
+Changes in version 1.5.3
+========================
+* Corrected library name in atk-uninstalled.pc.in (bug #132283). [Laszlo Peter]
+
+* Corrcted property name for number of links in a AtkHypertext (bug #130022).
+
+* Add translation: Croatian [Robert Sedak]
+
+* Update translations: Japanese [Takeshi AIHANA], Italian [Alessio Frusciante],
+Norwegian [Kjartan Marass], Albanian [Laurent Dhima],
+Russian [Russian team], Polish [GNOME PL team], Welsh [Rhys Jones],
+Swedish [Christian Rose], Serbian [Danilo \305\240egan], 
+Dutch [Tino Meinen], Czech [Miloslav Trmac], Korean [Changwoo Ryu], 
+Spanish [Francicso Javier F. Serrador], Danish [Ole Laursen],
+Portuguese [Duarte Loreto]
+
 Changes in version 1.5.2
 ========================
 * Fix crasher bug in atk_text_free_ranges (bug #129837). [Jeff Franks]
