@@ -1,0 +1,316 @@
+# Afrikaans translation of ATK.
+# Copyright (C) 2002 COPYRIGHTHOLDER
+# This file is distributed under the same license as the atk package.
+# Stefan <servine_lauvi@hotmail.com>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk cvs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-29 14:03+0100\n"
+"PO-Revision-Date: 2002-12-05 16:08+0100\n"
+"Last-Translator: Stefan Lubbersen <servine_lauvi@hotmail.com>\n"
+"Language-Team: Afrikaans <servine_lauvi@hotmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:81
+msgid "invalid"
+msgstr "ongeldig"
+
+#: atk/atkobject.c:82
+msgid "accel label"
+msgstr "sneltoetslabel"
+
+#: atk/atkobject.c:83
+msgid "alert"
+msgstr "alarm"
+
+#: atk/atkobject.c:84
+msgid "animation"
+msgstr "animasie"
+
+#: atk/atkobject.c:85
+msgid "arrow"
+msgstr "pyl"
+
+#: atk/atkobject.c:86
+msgid "calendar"
+msgstr "kalender"
+
+#: atk/atkobject.c:87
+msgid "canvas"
+msgstr "kanvas"
+
+#: atk/atkobject.c:88
+msgid "check box"
+msgstr "aankruisvakkie"
+
+#: atk/atkobject.c:89
+msgid "check menu item"
+msgstr "aankruis-spyskaart-item"
+
+#: atk/atkobject.c:90
+msgid "color chooser"
+msgstr "kleurkieser"
+
+#: atk/atkobject.c:91
+msgid "column header"
+msgstr "kolomtitel"
+
+#: atk/atkobject.c:92
+msgid "combo box"
+msgstr "keusevak"
+
+#: atk/atkobject.c:93
+msgid "dateeditor"
+msgstr "datum bewerk"
+
+#: atk/atkobject.c:94
+msgid "desktop icon"
+msgstr "burobladikoon"
+
+#: atk/atkobject.c:95
+msgid "desktop frame"
+msgstr "buroblad-frame"
+
+#: atk/atkobject.c:96
+msgid "dial"
+msgstr "bel"
+
+#: atk/atkobject.c:97
+msgid "dialog"
+msgstr "dialoogvenster"
+
+#: atk/atkobject.c:98
+msgid "directory pane"
+msgstr "mappepaneel"
+
+#: atk/atkobject.c:99
+msgid "drawing area"
+msgstr "tekengebied"
+
+#: atk/atkobject.c:100
+msgid "file chooser"
+msgstr "bestands-kieser"
+
+#: atk/atkobject.c:101
+msgid "filler"
+msgstr "vuller"
+
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:103
+msgid "fontchooser"
+msgstr "lettertiepe-kieser"
+
+#: atk/atkobject.c:104
+msgid "frame"
+msgstr "frame"
+
+#: atk/atkobject.c:105
+msgid "glass pane"
+msgstr "glaspaneel"
+
+#: atk/atkobject.c:106
+msgid "html container"
+msgstr "html-houer"
+
+#: atk/atkobject.c:107
+msgid "icon"
+msgstr "ikoon"
+
+#: atk/atkobject.c:108
+msgid "image"
+msgstr "afbeelding"
+
+#: atk/atkobject.c:109
+msgid "internal frame"
+msgstr "interne frame"
+
+#: atk/atkobject.c:110
+msgid "label"
+msgstr "label"
+
+#: atk/atkobject.c:111
+msgid "layered pane"
+msgstr "gelaagde paneel"
+
+#: atk/atkobject.c:112
+msgid "list"
+msgstr "lys"
+
+#: atk/atkobject.c:113
+msgid "list item"
+msgstr "lys-item"
+
+#: atk/atkobject.c:114
+msgid "menu"
+msgstr "spyskaart"
+
+#: atk/atkobject.c:115
+msgid "menu bar"
+msgstr "spyskaart-balk"
+
+#: atk/atkobject.c:116
+msgid "menu item"
+msgstr "spyskaart-item"
+
+#: atk/atkobject.c:117
+msgid "option pane"
+msgstr "opsies-paneel"
+
+#: atk/atkobject.c:118
+msgid "page tab"
+msgstr "bladsy-tabblad"
+
+#: atk/atkobject.c:119
+msgid "page tab list"
+msgstr "bladsy-tabbladlys"
+
+#: atk/atkobject.c:120
+msgid "panel"
+msgstr "paneel"
+
+#: atk/atkobject.c:121
+msgid "password text"
+msgstr "wagwoordteks"
+
+#: atk/atkobject.c:122
+msgid "popup menu"
+msgstr "popop-spyskaart"
+
+#: atk/atkobject.c:123
+msgid "progress bar"
+msgstr "voorgangsbalk"
+
+#: atk/atkobject.c:124
+msgid "push button"
+msgstr "drukknop"
+
+#: atk/atkobject.c:125
+msgid "radio button"
+msgstr "radioknop"
+
+#: atk/atkobject.c:126
+msgid "radio menu item"
+msgstr "radio-spyskaart-item"
+
+#: atk/atkobject.c:127
+msgid "root pane"
+msgstr "hoofpaneel"
+
+#: atk/atkobject.c:128
+msgid "row header"
+msgstr "rytitel"
+
+#: atk/atkobject.c:129
+msgid "scroll bar"
+msgstr "skuifbalk"
+
+#: atk/atkobject.c:130
+msgid "scroll pane"
+msgstr "skuifpaneel"
+
+#: atk/atkobject.c:131
+msgid "separator"
+msgstr "skeiding"
+
+#: atk/atkobject.c:132
+msgid "slider"
+msgstr "skuiwer"
+
+#: atk/atkobject.c:133
+msgid "split pane"
+msgstr "gedeelde paneel"
+
+#: atk/atkobject.c:134
+msgid "spin button"
+msgstr "omhoog/omlaag-knop"
+
+#: atk/atkobject.c:135
+msgid "statusbar"
+msgstr "statusbalk"
+
+#: atk/atkobject.c:136
+msgid "table"
+msgstr "tabel"
+
+#: atk/atkobject.c:137
+msgid "table cell"
+msgstr "tabel-sel"
+
+#: atk/atkobject.c:138
+msgid "table column header"
+msgstr "tabelkolomtitel"
+
+#: atk/atkobject.c:139
+msgid "table row header"
+msgstr "tabelrytitel"
+
+#: atk/atkobject.c:140
+msgid "tear off menu item"
+msgstr "afneembaar spyskaart-item"
+
+#: atk/atkobject.c:141
+msgid "terminal"
+msgstr "terminaal"
+
+#: atk/atkobject.c:142
+msgid "text"
+msgstr "teks"
+
+#: atk/atkobject.c:143
+msgid "toggle button"
+msgstr "skakelknop"
+
+#: atk/atkobject.c:144
+msgid "tool bar"
+msgstr "werkbalk"
+
+#: atk/atkobject.c:145
+msgid "tool tip"
+msgstr "hulpballon"
+
+#: atk/atkobject.c:146
+msgid "tree"
+msgstr "boom"
+
+#: atk/atkobject.c:147
+msgid "tree table"
+msgstr "boomtabel"
+
+#: atk/atkobject.c:148
+msgid "unknown"
+msgstr "onbekend"
+
+#: atk/atkobject.c:149
+msgid "viewport"
+msgstr "blikveld"
+
+#: atk/atkobject.c:150
+msgid "window"
+msgstr "venster"
+
+#: atk/atkobject.c:151
+msgid "header"
+msgstr "kop"
+
+#: atk/atkobject.c:152
+msgid "footer"
+msgstr "voet"
+
+#: atk/atkobject.c:153
+msgid "paragraph"
+msgstr "paragraaf"
+
+#: atk/atkobject.c:154
+msgid "application"
+msgstr "program"
+
+#: atk/atkobject.c:155
+msgid "autocomplete"
+msgstr "outkompleet"
+
+#~ msgid "ruler"
+#~ msgstr "lineaal"

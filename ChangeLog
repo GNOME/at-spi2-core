@@ -1,3 +1,7 @@
+2003-11-29  Danilo Šegan  <dsegan@gmx.net>
+
+	* configure.in: Added "af" to ALL_LINGUAS.
+
 2003-11-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
         * atk/atkobject.c (atk_object_real_ref_state_set): Add state FOCUSED
