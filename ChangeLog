@@ -1,3 +1,8 @@
+2001-11-23  Mark McLoughlin  <mark@skynet.ie>
+
+	* cspi/spi-private.h: my guess at what michael forgot
+	before he ran off to NZ :-)
+
 2001-11-23  Michael Meeks  <michael@ximian.com>
 
 	* cspi/spi_event.c (AccessibleEventListener_removeCallback):
