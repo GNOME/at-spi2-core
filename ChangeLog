@@ -1,3 +1,9 @@
+2002-10-23  Vitaly Tishkov  <tvv@sparc.spb.su>
+
+	* registryd/deviceeventcontroller.c
+        Fixed compilation error caused by calling gettimeofday() 
+        with 1 parameter
+
 2002-10-18  Bill Haneman  <bill.haneman@sun.com>
 
 	BUGFIX for #95828.

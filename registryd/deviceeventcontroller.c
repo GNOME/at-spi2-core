@@ -1263,7 +1263,7 @@ dec_synth_keycode_press (SpiDEController *controller,
 		bounce_delay = dec_xkb_get_bouncekeys_delay (controller); 
                 if (bounce_delay)
 		{
-			gettimeofday (&tv);
+			gettimeofday (&tv, NULL);
 			elapsed_msec =
 				(tv.tv_sec - priv->last_release_time.tv_sec) * 1000
 				+ (tv.tv_usec - priv->last_release_time.tv_usec) / 1000;
@@ -1307,7 +1307,7 @@ dec_synth_keycode_release (SpiDEController *controller,
 		slow_delay = dec_xkb_get_slowkeys_delay (controller);
 		if (slow_delay)
 		{
-			gettimeofday (&tv);
+			gettimeofday (&tv, NULL);
 			elapsed_msec =
 				(tv.tv_sec - priv->last_press_time.tv_sec) * 1000
 				+ (tv.tv_usec - priv->last_press_time.tv_usec) / 1000;
