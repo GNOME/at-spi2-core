@@ -92,6 +92,9 @@ struct _AtkComponentIface
   gboolean                 (* set_size)         (AtkComponent   *component,
                                                  gint           width,
                                                  gint           height);
+  	
+  AtkLayer                 (* get_layer)        (AtkObject     *accessible);
+  gint                     (* get_mdi_zorder)   (AtkObject     *accessible);
 };
 
 GType atk_component_get_type (void);
@@ -121,6 +124,8 @@ void                  atk_component_get_position           (AtkComponent    *com
 void                  atk_component_get_size               (AtkComponent    *component,
                                                             gint            *width,
                                                             gint            *height);
+AtkLayer              atk_component_get_layer              (AtkComponent    *component);
+gint                  atk_component_get_mdi_zorder         (AtkComponent    *component);
 gboolean              atk_component_grab_focus             (AtkComponent    *component);
 void                  atk_component_remove_focus_handler   (AtkComponent    *component,
                                                             guint           handler_id);

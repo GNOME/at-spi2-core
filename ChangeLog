@@ -3,6 +3,17 @@
 	* configure.in:
 	Incremented revision and tagged GNOME_D2_BETA.
 
+	* atkobject.h: 
+	Marked atk_object_get_layer and atk_object_get_mdi_zorder
+	as deprecated (should use atk_component API below).
+	
+	* atkcomponent.h:
+	Added atk_component_get_layer and atk_component_get_mdi_zorder
+	(erroneously defined in atkobject, they belong here).
+
+	* atkcomponent.c:
+	Fixed some property get/set bugs.
+
 	* NEWS: updated for GNOME 2 Desktop Beta.
 	
 2002-02-11  jacob berkman  <jacob@ximian.com>
