@@ -99,15 +99,18 @@ EXPORTS
 	atk_object_set_name
 	atk_object_set_parent
 	atk_object_set_role
+	atk_rectangle_get_type
 	atk_registry_get_factory
 	atk_registry_get_factory_type
 	atk_registry_get_type
 	atk_registry_set_factory_type
+	atk_relation_add_target
 	atk_relation_get_relation_type
 	atk_relation_get_target
 	atk_relation_get_type
 	atk_relation_new
 	atk_relation_set_add
+	atk_relation_set_add_relation_by_type
 	atk_relation_set_contains
 	atk_relation_set_get_n_relations
 	atk_relation_set_get_relation
