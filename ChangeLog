@@ -1,3 +1,8 @@
+2002-02-26  Tor Lillqvist  <tml@iki.fi>
+
+	* atk/Makefile.am: Do use -no-undefined on Win32, otherwise
+	libtool won't create a DLL.
+
 2002-02-25  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/Makefile.am:

@@ -5,6 +5,7 @@ GPATH = $(srcdir)
 EXTRA_DIST = atk.def
 if OS_WIN32
 export_symbols = -export-symbols atk.def
+no_undefined = -no-undefined
 
 install-libtool-import-lib:
 	$(INSTALL) .libs/libatk.dll.a $(DESTDIR)$(libdir)
@@ -76,6 +77,7 @@ INCLUDES = \
 LDFLAGS =  \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)	\
 	$(export_symbols)					\
+	$(no_undefined)						\
 	@DEP_LIBS@
 
 libatkincludedir=$(includedir)/atk-1.0/atk
