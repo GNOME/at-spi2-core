@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-10 13:28+0100\n"
-"PO-Revision-Date: 2004-03-10 13:42+0100\n"
+"POT-Creation-Date: 2004-09-07 19:55+0200\n"
+"PO-Revision-Date: 2004-09-07 19:55+0200\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -348,125 +348,142 @@ msgstr "completa automàticament"
 msgid "edit bar"
 msgstr "edita la barra"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "component incrustat"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Nom accessible"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Nom de la instància de l'objecte formatat per a l'accés de les tecnologies assistives"
+msgstr ""
+"Nom de la instància de l'objecte formatat per a l'accés de les tecnologies "
+"assistives"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Descripció accessible"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Descripció d'un objecte, formatat per a l'accés de les tecnologies assistives"
+msgstr ""
+"Descripció d'un objecte, formatat per a l'accés de les tecnologies assistives"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "Pare accessible"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "S'utilitza per a notificar que el pare ha canviat"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Valor accessible"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "S'utilitza per a notificar que el valor ha canviat"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Rol accessible"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "El rol accessible d'aquest objecte"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "Capa accessible"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "La capa accessible d'aquest objecte"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "Valor MDI accessible"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "El valor MDI accessible d'aquest objecte"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "Títol de la taula accessible"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "S'utilitza per a notificar que el títol de la taula ha canviat; aquesta propietat no s'ha d'utilitzar. S'ha d'utilitzar accessible-table-caption-object en el seu lloc"
+msgstr ""
+"S'utilitza per a notificar que el títol de la taula ha canviat; aquesta "
+"propietat no s'ha d'utilitzar. S'ha d'utilitzar accessible-table-caption-"
+"object en el seu lloc"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "Capçalera de columna de taula accessible"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
-msgstr "S'utilitza per a notificar que la capçalera de la columna de la taula ha canviat"
+msgstr ""
+"S'utilitza per a notificar que la capçalera de la columna de la taula ha "
+"canviat"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "Descripció de la columna de la taula accessible"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
-msgstr "S'utilitza per a notificar que la descripció de la columna de la taula ha canviat"
+msgstr ""
+"S'utilitza per a notificar que la descripció de la columna de la taula ha "
+"canviat"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "Capçalera de la fila de la taula accessible"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
-msgstr "S'utilitza per a notificar que la capçalera de la fila de la taula ha canviat"
+msgstr ""
+"S'utilitza per a notificar que la capçalera de la fila de la taula ha canviat"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "Descripció de la fila de la taula accessible"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
-msgstr "S'utilitza per a notificar que la descripció de la fila de la taula ha canviat"
+msgstr ""
+"S'utilitza per a notificar que la descripció de la fila de la taula ha "
+"canviat"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "Resum de la taula accessible"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "S'utilitza per a notificar que el resum de la taula ha canviat"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "Objecte de títol de taula accessible"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "S'utilitza per a notificar que el títol de la taula ha canviat"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "Nombre d'enllaços d'hypertext accessibles"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "El nombre d'enllaços que té l'AtkHypertext actual"
 
