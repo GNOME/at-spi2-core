@@ -41,8 +41,14 @@ static CORBA_Environment ev;
 static Accessibility_Registry registry = NULL;
 static SpiApplication *this_app = NULL;
 static gboolean registry_died = FALSE;
+static guint toplevel_handler;
 
 static Accessibility_Registry spi_atk_bridge_get_registry (void);
+static void     spi_atk_bridge_do_registration         (void);
+static void     spi_atk_bridge_toplevel_added          (AtkObject             *object,
+                                                        guint                 index,
+                                                        AtkObject             *child);
+
 static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
@@ -87,8 +93,6 @@ extern void gnome_accessibility_module_shutdown (void);
 static int
 atk_bridge_init (gint *argc, gchar **argv[])
 {
-  CORBA_Environment ev;
-
   if (atk_bridge_initialized)
     {
       return 0;
@@ -101,13 +105,31 @@ atk_bridge_init (gint *argc, gchar **argv[])
     }
 
   /*
-   *   We only want to enable the bridge for top level
+   * We only want to enable the bridge for top level
    * applications, we detect bonobo components by seeing
    * if they were activated with the intention of extracting
    * an impl. by IID - very solid.
    */
   if (bonobo_activation_iid_get ())
-	  return 0;
+    {
+      fprintf (stderr, "Found Bonobo component\n");
+      toplevel_handler = g_signal_connect (atk_get_root (), 
+                                           "children-changed::add",
+                                           (GCallback) spi_atk_bridge_toplevel_added, 
+                                           NULL);
+    }
+  else
+    {
+      spi_atk_bridge_do_registration ();
+    }
+
+  return 0;
+}
+
+static void
+spi_atk_bridge_do_registration (void)
+{
+  CORBA_Environment ev;
 
   CORBA_exception_init(&ev);
 
@@ -130,7 +152,15 @@ atk_bridge_init (gint *argc, gchar **argv[])
 
   fprintf (stderr, "Application registered & listening\n");
 
-  return 0;
+}
+
+static void
+spi_atk_bridge_toplevel_added (AtkObject *object,
+                               guint     index,
+                               AtkObject *child)
+{
+  g_signal_handler_disconnect (object, toplevel_handler);
+  spi_atk_bridge_do_registration ();
 }
 
 static void

@@ -1,3 +1,15 @@
+2002-11-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c
+	(atk_bridge_init): If application is Bonobo component wait until top
+	level is added before registering
+	(spi_atk_bridge_do_registration): New function which contains code, 
+	formerly in atk_bridge_init, to do application registration.
+	(spi_atk_bridge_toplevel_added): Signal called when top level
+	added to Bonobo component
+
+	This fixes bug #83134.
+
 2002-10-23  Vitaly Tishkov  <tvv@sparc.spb.su>
 
 	* registryd/deviceeventcontroller.c
