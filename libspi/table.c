@@ -462,4 +462,4 @@ spi_table_init (SpiTable *table)
 BONOBO_TYPE_FUNC_FULL (SpiTable,
 		       Accessibility_Table,
 		       SPI_TYPE_BASE,
-		       spi_table);
+		       spi_table)

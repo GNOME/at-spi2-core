@@ -58,7 +58,7 @@ impl_getKeyBinding (PortableServer_Servant servant,
 BONOBO_TYPE_FUNC_FULL (SpiAction,
 		       Accessibility_Action,
 		       SPI_TYPE_BASE,
-		       spi_action);
+		       spi_action)
 
 static void
 spi_action_class_init (SpiActionClass *klass)

@@ -168,7 +168,7 @@ cspi_event_listener_add_cb (AccessibleEventListener  *al,
   g_return_if_fail (CSPI_IS_EVENT_LISTENER (listener));
 
   listener->callbacks = g_list_prepend (listener->callbacks,
-					cspi_event_handler_new (callback, user_data));
+					cspi_event_handler_new ((void *) callback, user_data));
 }
 
 void
@@ -179,7 +179,7 @@ cspi_event_listener_remove_cb (AccessibleEventListener  *al,
 
   g_return_if_fail (CSPI_IS_EVENT_LISTENER (listener));
 
-  listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, callback);
+  listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, (void *) callback);
 }
 
 /* 
@@ -266,7 +266,7 @@ cspi_device_listener_class_init (CSpiDeviceListenerClass *klass)
 
 BONOBO_TYPE_FUNC (CSpiDeviceListener, 
 		  spi_device_listener_get_type (),
-		  cspi_device_listener);
+		  cspi_device_listener)
 
 gpointer
 cspi_device_listener_new (void)
@@ -286,7 +286,7 @@ cspi_device_listener_add_cb (AccessibleDeviceListener  *al,
   g_return_if_fail (CSPI_IS_DEVICE_LISTENER (listener));
 
   listener->callbacks = g_list_prepend (listener->callbacks,
-					cspi_event_handler_new (callback, user_data));
+					cspi_event_handler_new ((void *)callback, user_data));
 }
 
 void
@@ -297,7 +297,7 @@ cspi_device_listener_remove_cb (AccessibleDeviceListener  *al,
 
   g_return_if_fail (CSPI_IS_DEVICE_LISTENER (listener));
 
-  listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, callback);
+  listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, (void *) callback);
 }
 
 void

@@ -58,7 +58,7 @@ impl_isValid (PortableServer_Servant _servant,
 BONOBO_TYPE_FUNC_FULL (SpiHyperlink,
 		       Accessibility_Hyperlink,
 		       SPI_TYPE_BASE,
-		       spi_hyperlink);
+		       spi_hyperlink)
 
 
 static void

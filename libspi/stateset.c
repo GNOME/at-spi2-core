@@ -393,4 +393,4 @@ spi_state_set_init (SpiStateSet *set)
 BONOBO_TYPE_FUNC_FULL (SpiStateSet,
 		       Accessibility_StateSet,
 		       SPI_TYPE_BASE,
-		       spi_state_set);
+		       spi_state_set)

@@ -1,3 +1,54 @@
+2003-04-14  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/accessible.c:
+	(cpi_initial_relation_type_table): New function which initializes 
+	mapping between Accessibility_RelationType and AccessibleRelationType.
+	(cspi_relation_type_from_spi_relation_type): New function which
+	translates an Accessibility_RelationType into an AccessibleRelationType.
+	(AccessibleRelation_getRelationType): Use 
+	cpi_relation_type_get_spi_relation_type to return correct value.
+	(spi_state_to_corba): Return correct type for default case.
+
+	* cspi/spi_registry.c (SPI_registerAccessibleKeyStrokeListener):
+	Use Accessibility_EventType instead of Accessibility_KeyEventType.
+
+	* cspi/cspi-bonobo-listener.c:
+	Remove semicolon after BONOBO_TYPE_FUNC. Add casts to avoid compiler
+	warnings.
+
+	* libspi/accessible.c, libspi/action.c, libspi/application.c,
+	libspi/base.c, libspi/component.c, libspi.devicelistener.c,
+	libspi/editabletable.c, libspi/hyperlink.c, libspi/hypertext.c,
+	libspi/image.c, libspi/listener.c, libspi/selection.c, 
+	libspi/stateset.c, libspi/table, libspi/text.c, libspi/value.c, 
+	registryd/desktop.c, registryd/registry.c:
+	Remove semicolon after BONOBO_TYPE_FUNC_FULL.
+
+	* libspi/eventlistener.c
+	Remove semicolon after BONOBO_TYPE_FUNC.
+
+	* libspi/relation.c:
+	Remove semicolon after BONOBO_TYPE_FUNC_FULL.
+	(spi_init_relation_type_table): Initialize using correct type.
+
+	* registryd/desktop.c:
+	Remove semicolon after BONOBO_TYPE_FUNC_FULL.
+	(spi_keystroke_from_x_key_event): Use Accessibility_EventType instead 
+	of Accessibility_KeyEventType.
+
+	* test/key-listener-test.c (report_tab_key_event): Use fprintf
+	instead of g_print.
+
+	* tests/simple-at.c, tests/screen-review-test.c:
+	Add include for <strings.h>.
+
+	* tests.stress-test.c:
+	Add includes for <unistd.h> and <bonobo/bonobo-main.h>
+
+	These changes fix compiler warnings when using FORTE compiler on
+	Solaris; fixes bug #107479.
+
+	
 2003-04-10  Bill Haneman <bill.haneman@sun.com>
 
 

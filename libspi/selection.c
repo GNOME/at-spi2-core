@@ -181,4 +181,4 @@ spi_selection_init (SpiSelection *selection)
 BONOBO_TYPE_FUNC_FULL (SpiSelection,
 		       Accessibility_Selection,
 		       SPI_TYPE_BASE,
-		       spi_selection);
+		       spi_selection)

@@ -704,7 +704,7 @@ spi_registry_init (SpiRegistry *registry)
 BONOBO_TYPE_FUNC_FULL (SpiRegistry,
 		       Accessibility_Registry,
 		       PARENT_TYPE,
-		       spi_registry);
+		       spi_registry)
 
 SpiRegistry *
 spi_registry_new (void)

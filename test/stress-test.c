@@ -21,6 +21,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include "../cspi/spi-private.h" /* A hack for now */
 #include <glib-object.h>
@@ -28,6 +29,7 @@
 #include <atk/atk.h>
 #include <atk/atknoopobject.h>
 #include <bonobo-activation/bonobo-activation-register.h>
+#include <bonobo/bonobo-main.h>
 #include <libspi.h>
 
 int

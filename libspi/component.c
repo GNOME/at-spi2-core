@@ -225,7 +225,7 @@ spi_component_init (SpiComponent *component)
 BONOBO_TYPE_FUNC_FULL (SpiComponent,
 		       Accessibility_Component,
 		       PARENT_TYPE,
-		       spi_component);
+		       spi_component)
 
 SpiComponent *
 spi_component_interface_new (AtkObject *o)

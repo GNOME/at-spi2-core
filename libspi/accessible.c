@@ -432,7 +432,7 @@ spi_accessible_init (SpiAccessible *accessible)
 BONOBO_TYPE_FUNC_FULL (SpiAccessible,
 		       Accessibility_Accessible,
 		       PARENT_TYPE,
-		       spi_accessible);
+		       spi_accessible)
 
 static GHashTable *public_corba_refs = NULL;
 

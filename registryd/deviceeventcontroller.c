@@ -1263,11 +1263,11 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
   key_event.hw_code = (CORBA_short) x_key_event->keycode;
   if (((XEvent *) x_key_event)->type == KeyPress)
     {
-      key_event.type = Accessibility_KEY_PRESSED;
+      key_event.type = Accessibility_KEY_PRESSED_EVENT;
     }
   else
     {
-      key_event.type = Accessibility_KEY_RELEASED;
+      key_event.type = Accessibility_KEY_RELEASED_EVENT;
     } 
   key_event.modifiers = (CORBA_unsigned_short)(x_key_event->state);
   key_event.is_text = CORBA_FALSE;
@@ -2076,4 +2076,4 @@ spi_device_event_controller_new (SpiRegistry *registry)
 BONOBO_TYPE_FUNC_FULL (SpiDEController,
 		       Accessibility_DeviceEventController,
 		       PARENT_TYPE,
-		       spi_device_event_controller);
+		       spi_device_event_controller)

@@ -150,4 +150,4 @@ spi_image_init (SpiImage *image)
 BONOBO_TYPE_FUNC_FULL (SpiImage,
 		       Accessibility_Image,
 		       SPI_TYPE_BASE,
-		       spi_image);
+		       spi_image)

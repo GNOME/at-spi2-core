@@ -121,4 +121,4 @@ spi_hypertext_init (SpiHypertext *hypertext)
 BONOBO_TYPE_FUNC_FULL (SpiHypertext,
 		       Accessibility_Hypertext,
 		       PARENT_TYPE,
-		       spi_hypertext);
+		       spi_hypertext)

@@ -101,7 +101,7 @@ spi_listener_init (SpiListener *listener)
 BONOBO_TYPE_FUNC_FULL (SpiListener,
 		       Accessibility_EventListener,
 		       PARENT_TYPE,
-		       spi_listener);
+		       spi_listener)
 
 SpiListener *
 spi_listener_new (void)

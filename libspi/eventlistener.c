@@ -78,7 +78,7 @@ spi_event_listener_init (SpiEventListener *listener)
 
 BONOBO_TYPE_FUNC (SpiEventListener,
 		  PARENT_TYPE,
-		  spi_event_listener);
+		  spi_event_listener)
 
 SpiEventListener *
 spi_event_listener_new ()

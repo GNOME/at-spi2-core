@@ -964,6 +964,52 @@ AccessibleRelation_unref (AccessibleRelation *obj)
   cspi_object_unref (obj);
 }
 
+static SPIBoolean
+cspi_init_relation_type_table (AccessibleRelationType *relation_type_table)
+{
+  int i;
+  for (i = 0; i < Accessibility_RELATION_LAST_DEFINED; ++i)
+    {
+      relation_type_table [i] = SPI_RELATION_NULL;
+    }
+  relation_type_table [Accessibility_RELATION_NULL] = SPI_RELATION_NULL;
+  relation_type_table [Accessibility_RELATION_LABEL_FOR] = SPI_RELATION_LABEL_FOR;
+  relation_type_table [Accessibility_RELATION_LABELLED_BY] = SPI_RELATION_LABELED_BY;
+  relation_type_table [Accessibility_RELATION_CONTROLLER_FOR] = SPI_RELATION_CONTROLLER_FOR;
+  relation_type_table [Accessibility_RELATION_CONTROLLED_BY] = SPI_RELATION_CONTROLLED_BY;
+  relation_type_table [Accessibility_RELATION_MEMBER_OF] = SPI_RELATION_MEMBER_OF;
+  relation_type_table [Accessibility_RELATION_TOOLTIP_FOR] = SPI_RELATION_NULL;
+  relation_type_table [Accessibility_RELATION_NODE_CHILD_OF] = SPI_RELATION_NODE_CHILD_OF;
+  relation_type_table [Accessibility_RELATION_EXTENDED] = SPI_RELATION_EXTENDED;
+  relation_type_table [Accessibility_RELATION_FLOWS_TO] = SPI_RELATION_FLOWS_TO;
+  relation_type_table [Accessibility_RELATION_FLOWS_FROM] = SPI_RELATION_FLOWS_FROM;
+  relation_type_table [Accessibility_RELATION_SUBWINDOW_OF] = SPI_RELATION_SUBWINDOW_OF;
+  relation_type_table [Accessibility_RELATION_EMBEDS] = SPI_RELATION_EMBEDS;
+  relation_type_table [Accessibility_RELATION_EMBEDDED_BY] = SPI_RELATION_EMBEDDED_BY;
+  relation_type_table [Accessibility_RELATION_LAST_DEFINED] = SPI_RELATION_LAST_DEFINED;
+}
+
+static AccessibleRelationType
+cspi_relation_type_from_spi_relation_type (Accessibility_RelationType type)
+{
+  /* array is sized according to IDL RelationType because IDL RelationTypes are the index */	
+  static AccessibleRelationType cspi_relation_type_table [Accessibility_RELATION_LAST_DEFINED];
+  static SPIBoolean is_initialized = FALSE;
+  AccessibleRelationType cspi_type;
+  if (!is_initialized)
+    {
+      is_initialized = cspi_init_relation_type_table (cspi_relation_type_table);	    
+    }
+  if (type >= 0 && type < Accessibility_RELATION_LAST_DEFINED)
+    {
+      cspi_type = cspi_relation_type_table [type];	    
+    }
+  else
+    {
+      cspi_type = SPI_RELATION_NULL;
+    }
+  return cspi_type; 
+}
 /**
  * AccessibleRelation_getRelationType:
  * @obj: a pointer to the #AccessibleRelation object to query.
@@ -977,13 +1023,13 @@ AccessibleRelation_unref (AccessibleRelation *obj)
 AccessibleRelationType
 AccessibleRelation_getRelationType (AccessibleRelation *obj)
 {
-  AccessibleRelationType retval;
+  Accessibility_RelationType retval;
   
   cspi_return_val_if_fail (obj, SPI_RELATION_NULL);
   retval =
     Accessibility_Relation_getRelationType (CSPI_OBJREF (obj), cspi_ev());
   cspi_return_val_if_ev ("getRelationType", SPI_RELATION_NULL);
-  return retval;
+  return cspi_relation_type_from_spi_relation_type (retval);
 }
 
 /**
@@ -1101,7 +1147,7 @@ spi_state_to_corba (AccessibleState state)
       MAP_STATE (VISIBLE);
       MAP_STATE (MANAGES_DESCENDANTS);
     default:
-      return ATK_STATE_INVALID;
+      return Accessibility_STATE_INVALID;
   }
 #undef MAP_STATE
 }	      

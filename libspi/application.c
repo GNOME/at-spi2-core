@@ -254,7 +254,7 @@ spi_application_init (SpiApplication *application)
 
 BONOBO_TYPE_FUNC_FULL (SpiApplication,
 		       Accessibility_Application,
-		       PARENT_TYPE, spi_application);
+		       PARENT_TYPE, spi_application)
 
 SpiApplication *
 spi_application_new (AtkObject *app_root)

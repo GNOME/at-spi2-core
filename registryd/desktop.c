@@ -245,7 +245,7 @@ spi_desktop_class_init (SpiDesktopClass *klass)
 BONOBO_TYPE_FUNC_FULL (SpiDesktop,
 		       Accessibility_Desktop,
 		       PARENT_TYPE,
-		       spi_desktop);
+		       spi_desktop)
 
 SpiDesktop *
 spi_desktop_new (void)

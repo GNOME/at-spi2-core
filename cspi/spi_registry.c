@@ -338,7 +338,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
   Accessibility_EventListenerMode     listener_mode;
-  Accessibility_KeyEventType          key_event_types [2];
+  Accessibility_EventType             key_event_types [2];
   SPIBoolean                          retval = FALSE;
 
   if (!listener)
@@ -381,11 +381,11 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
   key_events._buffer = key_event_types;
   if (eventmask & SPI_KEY_PRESSED)
     {
-      key_events._buffer[i++] = Accessibility_KEY_PRESSED;
+      key_events._buffer[i++] = Accessibility_KEY_PRESSED_EVENT;
     }
   if (eventmask & SPI_KEY_RELEASED)
     {
-      key_events._buffer[i++] = Accessibility_KEY_RELEASED;
+      key_events._buffer[i++] = Accessibility_KEY_RELEASED_EVENT;
     }
   key_events._length = i;
   

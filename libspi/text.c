@@ -649,7 +649,7 @@ spi_text_init (SpiText *text)
 BONOBO_TYPE_FUNC_FULL (SpiText,
 		       Accessibility_Text,
 		       PARENT_TYPE,
-		       spi_text);
+		       spi_text)
 
 void
 spi_text_construct (SpiText *text, AtkObject *obj)

@@ -135,7 +135,7 @@ spi_device_listener_init (SpiDeviceListener *device_listener)
 BONOBO_TYPE_FUNC_FULL (SpiDeviceListener,
 		       Accessibility_DeviceEventListener,
 		       BONOBO_TYPE_OBJECT,
-		       spi_device_listener);
+		       spi_device_listener)
 
 SpiDeviceListener *
 spi_device_listener_new (void)

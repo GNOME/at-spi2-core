@@ -35,7 +35,7 @@ spi_init_relation_type_table (Accessibility_RelationType *types)
   gint i;
 
   for (i = 0; i < ATK_RELATION_LAST_DEFINED; i++)
-    types[i] = ATK_RELATION_NULL;
+    types[i] = Accessibility_RELATION_NULL;
 
   types[ATK_RELATION_CONTROLLED_BY] = Accessibility_RELATION_CONTROLLED_BY;
   types[ATK_RELATION_CONTROLLER_FOR] = Accessibility_RELATION_CONTROLLER_FOR;
@@ -158,4 +158,4 @@ spi_relation_init (SpiRelation *relation)
 BONOBO_TYPE_FUNC_FULL (SpiRelation,
 		       Accessibility_Relation,
 		       SPI_TYPE_BASE,
-		       spi_relation);
+		       spi_relation)

@@ -69,7 +69,7 @@ impl_pasteText (PortableServer_Servant servant,
 BONOBO_TYPE_FUNC_FULL (SpiEditableText,
 		       Accessibility_EditableText,
 		       SPI_TEXT_TYPE,
-		       spi_editable_text);
+		       spi_editable_text)
 
 static void
 spi_editable_text_class_init (SpiEditableTextClass *klass)
