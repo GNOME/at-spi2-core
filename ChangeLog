@@ -1,3 +1,13 @@
+2001-08-24  Mark McLoughlin <mark@skynet.ie>
+
+	* libspi/listener.c(impl_notify_event):
+	BonoboUnkown_unref the source instead
+	of bonobo_object_release_unref - the ORB
+	handles the releasing.
+
+	* configure.in: require ORBit-2.3.94 for
+	this behaviour.
+
 2001-08-21  Bill Haneman <bill.haneman@sun.com>
 
         Tagged CVS repository 'EA_1_0'.

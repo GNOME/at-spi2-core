@@ -83,11 +83,11 @@ dnl   	  to make this work with the tarballs.
 AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
 dnl Checks for libraries
-PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
+PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.94 atk >= 0.2)
 AC_SUBST(LIBSPI_LIBS)
 AC_SUBST(LIBSPI_CFLAGS)
 
-PKG_CHECK_MODULES(LIBCSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
+PKG_CHECK_MODULES(LIBCSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.94 atk >= 0.2)
 AC_SUBST(LIBCSPI_LIBS)
 AC_SUBST(LIBCSPI_CFLAGS)
 
@@ -95,11 +95,11 @@ PKG_CHECK_MODULES(REGISTRYD, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.9
 AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)
 
-PKG_CHECK_MODULES(TESTS, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 atk >= 0.2)
+PKG_CHECK_MODULES(TESTS, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0  >= 2.3.94 atk >= 0.2)
 AC_SUBST(TESTS_LIBS)
 AC_SUBST(TESTS_CFLAGS)
 
-PKG_CHECK_MODULES(AT_BRIDGE, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 atk >= 0.2)
+PKG_CHECK_MODULES(AT_BRIDGE, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0  >= 2.3.94 atk >= 0.2)
 AC_SUBST(AT_BRIDGE_LIBS)
 AC_SUBST(AT_BRIDGE_CFLAGS)
 
