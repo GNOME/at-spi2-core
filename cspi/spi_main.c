@@ -365,7 +365,7 @@ static gboolean SPI_inited = FALSE;
  *
  * Connects to the accessibility registry and initializes the SPI.
  *
- * Returns: 0 on success, otherwise an integer error code.
+ * Returns: 0 on success, otherwise an integer error code.  
  **/
 int
 SPI_init (void)
@@ -382,8 +382,13 @@ SPI_init (void)
   registry = cspi_init ();
 
   g_atexit (cspi_cleanup);
-  
-  return 0;
+
+  /* fprintf (stderr, "registry=%x\n", (int) registry); */
+
+  if ((registry != CORBA_OBJECT_NIL) && (cspi_ping (registry)))
+      return 0;
+  else
+      return 2;
 }
 
 /**

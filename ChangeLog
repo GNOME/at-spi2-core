@@ -1,3 +1,9 @@
+2004-09-03 Bill Haneman <bill.haneman@sun.com>
+
+	* cspi/spi_main.c:
+	(SPI_init): Return error code '2' if the activated
+	registry cannot be pinged. Fixes bug #147648.
+	
 2004-07-28 Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:

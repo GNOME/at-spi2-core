@@ -1,3 +1,16 @@
+What's new in at-spi-1.5.4: 
+
+* Registration failure at SPI_init is now detected and
+  an error code is returned to the caller (bug #147648).
+
+* We now use polling as our default for detecting mouse
+  button changes (this was formerly our fallback method);
+  this prevents conflict with Xstroke.
+  [a better long-term fix requires the Xevie extension]
+
+
+============
+
 What's new in at-spi-1.5.3: 
 
 * New role EMBEDDED (bug #144415).
