@@ -1,3 +1,8 @@
+Thu Dec 12 14:57:20 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* acinclude.m4: Remove; wasn't needed, and referred
+	to GLib internal m4 files now gone.
+
 Thu Dec 12 11:04:05 2002  Manish Singh  <yosh@gimp.org>
 
 	* configure.in: Require autoconf-2.53.
