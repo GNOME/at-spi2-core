@@ -348,8 +348,14 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
         {
           key_set._buffer[i].keycode = keys->keycodes[i];
 	  key_set._buffer[i].keysym = keys->keysyms[i];
-	  key_set._buffer[i].keystring = (keys->keystrings[i] != NULL) ?
-		  keys->keystrings[i] : CORBA_string_dup("");
+	  if (keys->keystrings && keys->keystrings[i]) 
+	    {
+	      key_set._buffer[i].keystring = keys->keystrings[i];
+	    } 
+          else 
+            {
+	      key_set._buffer[i].keystring = CORBA_string_dup("");
+	    }
         }
     }
   else

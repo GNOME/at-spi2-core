@@ -1,5 +1,11 @@
 2002-05-09  Bill Haneman <bill.haneman@sun.com>
 
+	* cspi/spi_registry.c:
+	Fixed nasty bug in SPI_registerAccessibleKeystrokeListener
+	which was uncovered by the recent key changes.
+
+2002-05-09  Bill Haneman <bill.haneman@sun.com>
+
 	* test/event-listener-test.c:
 	* test/Makefile.am:
 	Added new test, "event-listener-test"; 
