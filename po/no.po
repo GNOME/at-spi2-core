@@ -52,7 +52,7 @@ msgstr "ugyldig"
 
 #: atk/atkobject.c:83
 msgid "accelerator label"
-msgstr "akseleratoretikett"
+msgstr "etikett for snarveitast"
 
 #: atk/atkobject.c:84
 msgid "alert"
