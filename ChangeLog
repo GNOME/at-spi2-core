@@ -1,5 +1,22 @@
 2001-11-20  Michael Meeks  <michael@ximian.com>
 
+	* libspi/registry.c
+	(impl_accessibility_registry_deregister_global_event_listener): 
+	segv. protection.
+
+	* libspi/deviceeventcontroller.c
+	(spi_device_event_controller_check_key_event): return
+	FALSE on no virtual method.
+
+	* libspi/*..h: make includes work on a correctly pathed install.
+
+	* libspi/*.h: include glib/gmacros.h, use G_BEGIN / END _DECLS.
+
+	* libspi/application.h: kill unused ( and whacked out )
+	gboolean *spi_application_set_id (AtkObject *app, long id);
+
+2001-11-20  Michael Meeks  <michael@ximian.com>
+
 	* libspi/*.[ch]: further convert to bonobo's type func
 	macros, remove redundnant casts etc.
 

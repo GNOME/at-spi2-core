@@ -23,14 +23,12 @@
 #ifndef SPI_DEVICE_EVENT_CONTROLLER_H_
 #define SPI_DEVICE_EVENT_CONTROLLER_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <libspi/Accessibility.h>
-#include "keystrokelistener.h"
-#include "registry.h"
+#include <libspi/keystrokelistener.h>
+#include <libspi/registry.h>
+
+G_BEGIN_DECLS
 
 #define SPI_DEVICE_EVENT_CONTROLLER_TYPE        (spi_device_event_controller_get_type ())
 #define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventController))
@@ -56,8 +54,6 @@ typedef struct {
 GType                     spi_device_event_controller_get_type   (void);
 SpiDeviceEventController *spi_device_event_controller_new        (void *registry);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* DEVICEEVENTCONTROLLER_H_ */

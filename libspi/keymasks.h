@@ -1,11 +1,10 @@
 #ifndef _SPI_KEYMASKS_H_
 #define _SPI_KEYMASKS_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <X11/Xlib.h>
+#include <glib/gmacros.h>
+
+G_BEGIN_DECLS
 
 typedef unsigned long SpiKeyMaskType;
 
@@ -18,9 +17,6 @@ typedef unsigned long SpiKeyMaskType;
 #define SPI_KEYMASK_SHIFTLOCK LockMask
 #define SPI_KEYMASK_UNMODIFIED 0
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif

@@ -20,14 +20,11 @@
 #ifndef SPI_VALUE_H_
 #define SPI_VALUE_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_VALUE_TYPE        (spi_value_get_type ())
 #define SPI_VALUE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_VALUE_TYPE, SpiValue))
@@ -48,14 +45,9 @@ struct _ValueClass {
   POA_Accessibility_Value__epv epv;
 };
 
-GType
-spi_value_get_type   (void);
+GType     spi_value_get_type      (void);
+SpiValue *spi_value_interface_new (AtkObject *obj);
 
-SpiValue *
-spi_value_interface_new       (AtkObject *obj);
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_VALUE_H_ */

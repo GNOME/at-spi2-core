@@ -20,14 +20,12 @@
 #ifndef SPI_ACCESSIBLE_H_
 #define SPI_ACCESSIBLE_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
+#include <glib/gmacros.h>
 #include <bonobo/bonobo-object.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_ACCESSIBLE_TYPE        (spi_accessible_get_type ())
 #define SPI_ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_TYPE, SpiAccessible))
@@ -49,8 +47,6 @@ GType          spi_accessible_get_type (void);
 SpiAccessible *spi_accessible_new      (AtkObject *o);
 
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_ACCESSIBLE_H_ */

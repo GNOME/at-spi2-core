@@ -23,15 +23,12 @@
 #ifndef SPI_REGISTRY_H_
 #define SPI_REGISTRY_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <glib/gmain.h>
-#include <libspi/Accessibility.h>
-#include "listener.h"
-#include "desktop.h"
-#include "deviceeventcontroller.h"
+#include <libspi/listener.h>
+#include <libspi/desktop.h>
+#include <libspi/deviceeventcontroller.h>
+
+G_BEGIN_DECLS
 
 #define SPI_REGISTRY_TYPE        (spi_registry_get_type ())
 #define SPI_REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTRY_TYPE, SpiRegistry))
@@ -55,11 +52,9 @@ typedef struct {
         POA_Accessibility_Registry__epv epv;
 } SpiRegistryClass;
 
-GType               spi_registry_get_type   (void);
-SpiRegistry            *spi_registry_new       (void);
+GType        spi_registry_get_type (void);
+SpiRegistry *spi_registry_new      (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_REGISTRY_H_ */

@@ -33,6 +33,7 @@
  * Anyone want to help?
  */
 #include <X11/Xlib.h>
+#include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
 #include <libspi/registry.h>
@@ -186,7 +187,6 @@ compare_listener_corbaref (gconstpointer p1, gconstpointer p2)
 static void
 parse_event_type (EventTypeStruct *etype, char *event_name)
 {
-  guint nbytes = 0;
   gchar **split_string;
 
   split_string = g_strsplit(event_name, ":", 4);
@@ -296,7 +296,6 @@ impl_accessibility_registry_register_global_event_listener (
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
   SpiListenerStruct *ls = g_malloc (sizeof (SpiListenerStruct));
   EventTypeStruct etype;
-  gboolean is_toolkit_specific = TRUE;
 
   fprintf(stderr, "registering for events of type %s\n", event_name);
 
@@ -395,8 +394,12 @@ impl_accessibility_registry_deregister_global_event_listener (
       listeners = &registry->toolkit_listeners;
       break;
     default:
+      listeners = NULL;
       break;
     }
+
+  if (!listeners)
+	  return;
 
   ls.event_type_hash = etype.hash;
   list = g_list_find_custom (*listeners, &ls, compare_listener_hash);
@@ -561,7 +564,8 @@ _registry_notify_listeners ( GList *listeners,
     }
 }
 
-static gboolean _device_event_controller_hook (gpointer p)
+static gboolean
+_device_event_controller_hook (gpointer p)
 {
     SpiRegistry *registry = (SpiRegistry *)p;
     SpiDeviceEventController *controller = registry->device_event_controller;

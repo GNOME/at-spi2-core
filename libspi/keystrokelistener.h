@@ -23,14 +23,12 @@
 #ifndef SPI_KEYSTROKE_LISTENER_H_
 #define SPI_KEYSTROKE_LISTENER_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
-#include "keymasks.h"
+#include <libspi/keymasks.h>
+
+G_BEGIN_DECLS
 
 #define SPI_KEYSTROKE_LISTENER_TYPE        (spi_keystroke_listener_get_type ())
 #define SPI_KEYSTROKE_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_KEYSTROKE_LISTENER_TYPE, SpiKeystrokeListener))
@@ -58,8 +56,6 @@ void                   spi_keystroke_listener_remove_callback (SpiKeystrokeListe
 							       BooleanKeystrokeListenerCB callback);
 
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* KEYSTROKE_SPI_LISTENER_H_ */

@@ -20,14 +20,11 @@
 #ifndef SPI_ACTION_H_
 #define SPI_ACTION_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_ACTION_TYPE        (spi_action_get_type ())
 #define SPI_ACTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_ACTION_TYPE, SpiAction))
@@ -54,8 +51,6 @@ spi_action_get_type   (void);
 SpiAction *
 spi_action_interface_new       (AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_ACTION_H_ */

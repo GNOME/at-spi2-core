@@ -20,15 +20,12 @@
 #ifndef SPI_TEXT_H_
 #define SPI_TEXT_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
-#include "accessible.h"
+#include <libspi/accessible.h>
+
+G_BEGIN_DECLS
 
 #define SPI_TEXT_TYPE         (spi_text_get_type ())
 #define SPI_TEXT(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_TEXT_TYPE, SpiText))
@@ -52,8 +49,6 @@ struct _SpiTextClass {
 GType    spi_text_get_type      (void);
 SpiText *spi_text_interface_new (AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_TEXT_H_ */

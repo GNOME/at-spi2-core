@@ -20,14 +20,11 @@
 #ifndef SPI_HYPERLINK_H_
 #define SPI_HYPERLINK_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_HYPERLINK_TYPE        (spi_hyperlink_get_type ())
 #define SPI_HYPERLINK(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERLINK_TYPE, SpiHyperlink))
@@ -54,8 +51,6 @@ spi_hyperlink_get_type   (void);
 SpiHyperlink *
 spi_hyperlink_new       ();
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_HYPERLINK_H_ */

@@ -20,14 +20,11 @@
 #ifndef SPI_HYPERTEXT_H_
 #define SPI_HYPERTEXT_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_HYPERTEXT_TYPE        (spi_hypertext_get_type ())
 #define SPI_HYPERTEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERTEXT_TYPE, SpiHypertext))
@@ -51,8 +48,6 @@ struct _HypertextClass {
 GType         spi_hypertext_get_type      (void);
 SpiHypertext *spi_hypertext_interface_new (AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_HYPERTEXT_H_ */

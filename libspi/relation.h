@@ -21,14 +21,11 @@
 #ifndef SPI_RELATION_H_
 #define SPI_RELATION_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_RELATION_TYPE        (spi_relation_get_type ())
 #define SPI_RELATION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_RELATION_TYPE, SpiRelation))
@@ -55,8 +52,6 @@ spi_relation_get_type   (void);
 SpiRelation *
 spi_relation_new       (AtkRelation *relation);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_RELATION_H_ */

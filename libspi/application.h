@@ -23,14 +23,13 @@
 #ifndef SPI_APPLICATION_H_
 #define SPI_APPLICATION_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
+#include <glib/gmacros.h>
 #include <atk/atkobject.h>
-#include <accessible.h>
-#include <application.h>
+#include <libspi/accessible.h>
+#include <libspi/application.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_APPLICATION_TYPE        (spi_application_get_type ())
 #define SPI_APPLICATION(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_APPLICATION_TYPE, SpiApplication))
@@ -51,13 +50,9 @@ typedef struct {
 	GHashTable *generic_event_names;
 } SpiApplicationClass;
 
-GType               spi_application_get_type           (void);
-gboolean            *spi_application_set_id            (AtkObject *app, long id);
-SpiApplication         *spi_application_new               (AtkObject *app_root);
+GType           spi_application_get_type (void);
+SpiApplication *spi_application_new      (AtkObject *app_root);
 
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_APPLICATION_H_ */

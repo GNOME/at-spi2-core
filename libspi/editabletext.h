@@ -20,15 +20,12 @@
 #ifndef SPI_EDITABLE_TEXT_H_
 #define SPI_EDITABLE_TEXT_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
-#include "text.h"
+#include <libspi/text.h>
+
+G_BEGIN_DECLS
 
 #define SPI_EDITABLE_TEXT_TYPE        (spi_editable_text_get_type ())
 #define SPI_EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_EDITABLE_TEXT_TYPE, SpiEditableText))
@@ -54,8 +51,6 @@ spi_editable_text_get_type   (void);
 SpiEditableText *
 spi_editable_text_interface_new       ( AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_EDITABLE_TEXT_H_ */

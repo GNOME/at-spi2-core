@@ -227,7 +227,7 @@ _controller_register_with_devices (SpiDeviceEventController *controller)
   /* register with: keyboard hardware code handler */
   /* register with: (translated) keystroke handler */
 #ifdef SPI_DEBUG
-  fprintf (stderr, "About to request events on window %ld of display %x\n",
+  fprintf (stderr, "About to request events on window %ld of display %p\n",
 	   (unsigned long) GDK_ROOT_WINDOW(), GDK_DISPLAY());
 #endif
   /* We must open a new connection to the server to avoid clashing with the GDK event loop */
@@ -265,13 +265,10 @@ static gboolean
 _check_key_event (SpiDeviceEventController *controller)
 {
 	static gboolean initialized = FALSE;
-	static gboolean is_active = FALSE;
 	XEvent *x_event = g_new0 (XEvent, 1);
 	XKeyEvent *x_key_event;
 	KeySym keysym;
 	gboolean is_consumed = FALSE;
-	char key_name[16];
-	int i;
 	Accessibility_KeyStroke key_event;
 	static CORBA_Environment ev;
 
@@ -301,10 +298,10 @@ _check_key_event (SpiDeviceEventController *controller)
 		     (int) x_key_event->state);
 #endif
 #ifdef SPI_DEBUG
-	    fprintf(stderr, "%s%c",
-		    (x_key_event->state & Mod1Mask)?"Alt-":"",
-		    ((x_key_event->state & ShiftMask)^(x_key_event->state & LockMask))?
-		    (char) toupper((int) keysym) : (char) tolower((int)keysym));
+	    fprintf (stderr, "%s%c",
+		     (x_key_event->state & Mod1Mask)?"Alt-":"",
+		     ((x_key_event->state & ShiftMask)^(x_key_event->state & LockMask))?
+		     g_ascii_toupper (keysym) : g_ascii_tolower (keysym));
 #endif /* SPI_DEBUG */
 	      }
 	    else
@@ -511,11 +508,11 @@ impl_generate_key_event (PortableServer_Servant     servant,
  *     method implementation
  */
 static void
-impl_generate_mouse_event (PortableServer_Servant     servant,
-			   const CORBA_long x,
-			   const CORBA_long y,
-			   const CORBA_char * eventName,
-			   CORBA_Environment         *ev)
+impl_generate_mouse_event (PortableServer_Servant servant,
+			   const CORBA_long       x,
+			   const CORBA_long       y,
+			   const CORBA_char      *eventName,
+			   CORBA_Environment     *ev)
 {
 #ifdef SPI_DEBUG
 	fprintf (stderr, "generating mouse %s event at %ld, %ld\n", eventName, x, y);
@@ -554,6 +551,7 @@ spi_device_event_controller_check_key_event (SpiDeviceEventController *controlle
 	SpiDeviceEventControllerClass *klass = SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS (controller);
 	if (klass->check_key_event)
 		return (klass->check_key_event) (controller);
+	return FALSE;
 }
 
 SpiDeviceEventController *

@@ -23,13 +23,11 @@
 #ifndef SPI_LISTENER_H_
 #define SPI_LISTENER_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_LISTENER_TYPE        (spi_listener_get_type ())
 #define SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_LISTENER_TYPE, SpiListener))
@@ -49,8 +47,6 @@ typedef struct {
 GType               spi_listener_get_type   (void);
 SpiListener            *spi_listener_new       (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_LISTENER_H_ */

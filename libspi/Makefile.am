@@ -2,8 +2,6 @@ lib_LTLIBRARIES = libspi.la
 
 INCLUDES = -I $(top_srcdir)           \
            -I $(top_builddir)         \
-           -I $(top_srcdir)/libspi    \
-           -I $(top_builddir)/libspi  \
            $(LIBSPI_CFLAGS)
 
 LDFLAGS = $(LIBSPI_LIBS) -lXtst @LT_VERSION_INFO@

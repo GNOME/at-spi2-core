@@ -20,14 +20,11 @@
 #ifndef SPI_IMAGE_H_
 #define SPI_IMAGE_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_IMAGE_TYPE        (spi_image_get_type ())
 #define SPI_IMAGE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_IMAGE_TYPE, SpiImage))
@@ -54,8 +51,6 @@ spi_image_get_type   (void);
 SpiImage *
 spi_image_interface_new       (AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_IMAGE_H_ */

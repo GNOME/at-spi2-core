@@ -23,11 +23,9 @@
 #ifndef SPI_ACCESSIBLE_EVENT_LISTENER_H_
 #define SPI_ACCESSIBLE_EVENT_LISTENER_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+#include <libspi/listener.h>
 
-#include "listener.h"
+G_BEGIN_DECLS
 
 #define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE        (spi_event_listener_get_type ())
 #define SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiEventListener))
@@ -53,8 +51,6 @@ void   spi_event_listener_add_callback (SpiEventListener *listener,
 void   spi_event_listener_remove_callback (SpiEventListener *listener,
                                                   VoidSpiEventListenerCB callback);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_ACCESSIBLE_EVENT_SPI_LISTENER_H_ */

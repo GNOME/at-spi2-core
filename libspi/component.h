@@ -20,14 +20,11 @@
 #ifndef SPI_COMPONENT_H_
 #define SPI_COMPONENT_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_COMPONENT_TYPE        (spi_component_get_type ())
 #define SPI_COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_COMPONENT_TYPE, SpiComponent))
@@ -48,8 +45,6 @@ typedef struct {
 GType         spi_component_get_type      (void);
 SpiComponent *spi_component_interface_new (AtkObject *o);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_COMPONENT_H_ */

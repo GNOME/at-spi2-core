@@ -20,14 +20,11 @@
 #ifndef SPI_TABLE_H_
 #define SPI_TABLE_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_TABLE_TYPE        (spi_table_get_type ())
 #define SPI_TABLE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_TABLE_TYPE, SpiTable))
@@ -54,8 +51,6 @@ spi_table_get_type   (void);
 SpiTable *
 spi_table_interface_new       (AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_TABLE_H_ */

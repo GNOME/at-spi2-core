@@ -23,15 +23,13 @@
 #ifndef SPI_DESKTOP_H_
 #define SPI_DESKTOP_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-xobject.h>
 #include <atk/atkobject.h>
-#include <accessible.h>
-#include <application.h>
+#include <libspi/accessible.h>
+#include <libspi/application.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_DESKTOP_TYPE        (spi_desktop_get_type ())
 #define SPI_DESKTOP(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DESKTOP_TYPE, SpiDesktop))
@@ -54,8 +52,6 @@ void                spi_desktop_add_application    (SpiApplication *app);
 void                spi_desktop_remove_application (SpiApplication *app);
 SpiDesktop             *spi_desktop_new               (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_DESKTOP_H_ */

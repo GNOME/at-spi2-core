@@ -20,14 +20,11 @@
 #ifndef SPI_SELECTION_H_
 #define SPI_SELECTION_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+
+G_BEGIN_DECLS
 
 #define SPI_SELECTION_TYPE        (spi_selection_get_type ())
 #define SPI_SELECTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_SELECTION_TYPE, SpiSelection))
@@ -54,8 +51,6 @@ spi_selection_get_type   (void);
 SpiSelection *
 spi_selection_interface_new       (AtkObject *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* SPI_SELECTION_H_ */
