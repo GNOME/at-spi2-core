@@ -6,3 +6,7 @@ Makefile.in
 .libs
 *atkmarshal.c
 *atkmarshal.h
+atk-enum-types.c
+atk-enum-types.h
+s-enum-types-c
+s-enum-types-h
