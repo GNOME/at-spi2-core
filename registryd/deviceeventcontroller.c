@@ -62,7 +62,7 @@ KeySym ucs2keysym (long ucs);
 static guint check_release_handler = 0;
 static Accessibility_DeviceEvent pressed_event;
 static SpiDEController *saved_controller; 
-static void wait_for_release_event (GdkEvent *event, SpiDEController *controller);
+static void wait_for_release_event (XEvent *event, SpiDEController *controller);
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE BONOBO_TYPE_OBJECT
@@ -1021,7 +1021,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
             XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
           else
             {
-              wait_for_release_event (event, controller);
+              wait_for_release_event (xevent, controller);
               XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
             }
         }
@@ -2387,7 +2387,7 @@ check_release (gpointer data)
   return (released == 0);
 }
 
-static void wait_for_release_event (GdkEvent        *event,
+static void wait_for_release_event (XEvent          *event,
                                     SpiDEController *controller)
 {
   pressed_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);

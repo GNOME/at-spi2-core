@@ -1,3 +1,12 @@
+2003-12-10  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* registryd/devieceventcontroller.c:
+	(wait_for_release_event): Change first parameter from GdkEvent to 
+	XEvent.
+	(global_filter_fn); Correct call to wait_for_release_event.
+
+	Fixes bug #128912.
+
 2003-12-08  Bill Haneman <billh@gnome.org>
 
 	Version 1.3.10.
@@ -88,7 +97,7 @@
 
 	* cspi/spi_accessible.c (cspi_init_role_table): Add SPI_ROLE_EDITBAR.
 
-	* docs/referecce/cspi/tmpl/spi-accessible.sgml: Add SPI_ROLE_EDITBAR
+	* docs/reference/cspi/tmpl/spi-accessible.sgml: Add SPI_ROLE_EDITBAR
 
 	* idl/Accessibility_Role.idl: Add ROLE_EDITBAR.
 
