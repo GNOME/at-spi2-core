@@ -1,3 +1,7 @@
+Mon Feb 25 19:09:39 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* configure.in: Bail if AM_PATH_GLIB_2_0 fails.
+
 2002-02-26  Tor Lillqvist  <tml@iki.fi>
 
 	* atk/Makefile.am: Do use -no-undefined on Win32, otherwise

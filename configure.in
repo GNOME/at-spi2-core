@@ -96,7 +96,11 @@ AC_SUBST(GLIB_PACKAGES)
 dnl This PATH_GLIB is somewhat redundant, but does a sanity compile and 
 dnl importantly defines the GLIB_GENMARSHAL variable for subst into the
 dnl Makefile
-AM_PATH_GLIB_2_0($GLIB_REQUIRED_VERSION)
+AM_PATH_GLIB_2_0($GLIB_REQUIRED_VERSION, :,
+  AC_MSG_ERROR([
+*** GLIB $GLIB_REQUIRED_VERSION or better is required. The latest version of 
+*** GLIB is always available from ftp://ftp.gtk.org/.]),
+  gobject gmodule)
 
 PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, , AC_MSG_ERROR([
         *** GLib not found. You can find it on ftp://ftp.gtk.org
