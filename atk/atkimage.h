@@ -47,7 +47,7 @@ typedef struct _AtkImageIface AtkImageIface;
 struct _AtkImageIface
 {
   GTypeInterface parent;
-  void          	( *get_position)          (AtkImage		 *image,
+  void          	( *get_image_position)    (AtkImage		 *image,
                                                    gint                  *x,
 				                   gint	                 *y,
     			                           AtkCoordType	         coord_type);
@@ -69,7 +69,7 @@ void     atk_image_get_image_size        (AtkImage           *image,
 
 gboolean atk_image_set_image_description (AtkImage           *image,
                                           const gchar       *description);
-void     atk_image_get_position          (AtkImage	     *image,
+void     atk_image_get_image_position    (AtkImage	     *image,
                                           gint               *x,
 					  gint	             *y,
     					  AtkCoordType	     coord_type);

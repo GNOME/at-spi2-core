@@ -89,6 +89,16 @@ atk
 @image: 
 @Returns: 
 
+<!-- ##### FUNCTION atk_image_get_position ##### -->
+<para>
+
+</para>
+
+@image: 
+@x: 
+@y: 
+@coord_type: 
+
 <!-- ##### FUNCTION atk_image_get_storage_type ##### -->
 <para>
 

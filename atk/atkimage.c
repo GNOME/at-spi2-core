@@ -73,6 +73,8 @@ atk_image_get_image_description (AtkImage *image)
  * @width: filled with the image width
  *
  * Get the height and width in pixels for the specified image.
+ * The values of @height and @width are returned as -1 if the
+ * values cannot be obtained.
  **/
 void
 atk_image_get_image_size (AtkImage *image, int *height, int *width)
@@ -84,7 +86,14 @@ atk_image_get_image_size (AtkImage *image, int *height, int *width)
   iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_size)
+  {
     iface->get_image_size (image, height, width);
+  }
+  else
+  {
+    *height = -1;
+    *width = -1;
+  }
 }
 
 /**
@@ -118,7 +127,7 @@ atk_image_set_image_description (AtkImage        *image,
 }
 
 /**
- * atk_image_get_position:
+ * atk_image_get_image_position:
  * @image: a #GObject instance that implements AtkImageIface
  * @x: address of #gint to put x coordinate position
  * @y: address of #gint to put y coordinate position
@@ -126,10 +135,11 @@ atk_image_set_image_description (AtkImage        *image,
  * or to the components top level window
  * 
  * Gets the position of the image in the form of a point specifying the
- * images top-left corner
+ * images top-left corner.  The values of @x and @y are returned as -1
+ * if the values cannot be obtained.
  **/
 void     
-atk_image_get_position (AtkImage *image,
+atk_image_get_image_position (AtkImage *image,
                         gint *x,
 		        gint *y,
     		        AtkCoordType coord_type)
@@ -140,8 +150,15 @@ atk_image_get_position (AtkImage *image,
 
   iface = ATK_IMAGE_GET_IFACE (image);
 
-  if (iface->get_position)
-    (iface->get_position) (image, x, y, coord_type);
+  if (iface->get_image_position)
+  {
+    (iface->get_image_position) (image, x, y, coord_type);
+  }
+  else
+  {
+    *x = -1;
+    *y = -1;
+  }
 }
 
 

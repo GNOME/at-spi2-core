@@ -1,3 +1,12 @@
+2001-08-07  Brian Cameron <brian.cameron@sun.com>
+	* atk/atkimage.[ch] docs/atk-sections.txt
+	docs/tmpl/atkimage.sgml
+	Updated AtkImage get_position to get_image_position
+	so the naming is consistant.  Now get_image_position
+	and get_image_size return -1 for x/y/height/width
+	if AtkImage implementations of these functions is
+	not found.
+
 2001-07-31  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c

@@ -28,12 +28,12 @@ an assistive technology to get descriptive information about images.
 </para>
 
 @parent: 
-@get_position: 
+@get_image_position: 
 @get_image_description: 
 @get_image_size: 
 @set_image_description: 
 
-<!-- ##### FUNCTION atk_image_get_position ##### -->
+<!-- ##### FUNCTION atk_image_get_image_position ##### -->
 <para>
 
 </para>
