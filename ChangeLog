@@ -1,3 +1,10 @@
+Tue Mar  5 11:55:35 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* configure.in: Require GLib-2.0.0.
+
+	* configure.in atk/Makefile.am tests/Makefile.am atk.pc.in:
+	Switch over to the Glib/GTK+ versioning scheme.
+
 2002-03-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c (atk_text_get_text):

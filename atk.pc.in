@@ -7,5 +7,5 @@ Name: Atk
 Description: Accessibility Toolkit
 Version: @VERSION@
 Requires: @GLIB_PACKAGES@
-Libs: -L${libdir} -latk
+Libs: -L${libdir} -latk-@ATK_API_VERSION@
 Cflags: -I${includedir}/atk-1.0

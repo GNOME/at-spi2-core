@@ -16,7 +16,7 @@ install-libtool-import-lib:
 uninstall-libtool-import-lib:
 endif
 
-lib_LTLIBRARIES = libatk.la
+lib_LTLIBRARIES = libatk-1.0.la
 
 if MS_LIB_AVAILABLE
 noinst_DATA = atk.lib
@@ -36,7 +36,7 @@ atk_built_cfiles = atk-enum-types.c
 
 $(OBJECTS): $(atk_built_headers)
 
-libatk_la_SOURCES = 		\
+libatk_1_0_la_SOURCES = 	\
 	atkaction.c		\
 	atkcomponent.c		\
 	atkdocument.c		\
@@ -74,10 +74,10 @@ INCLUDES = \
 	-DG_DISABLE_DEPRECATED	\
 	@DEP_CFLAGS@
 
-LDFLAGS =  \
-	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)	\
-	$(export_symbols)					\
-	$(no_undefined)						\
+LDFLAGS =  					\
+	-version-info $(LT_VERSION_INFO)	\
+	$(export_symbols)			\
+	$(no_undefined)				\
 	@DEP_LIBS@
 
 libatkincludedir=$(includedir)/atk-1.0/atk
@@ -112,7 +112,7 @@ libatkinclude_HEADERS =		\
 	$(atk_headers)		\
 	$(atk_built_headers)
 
-$(libatk_la_OBJECTS): atkmarshal.c atkmarshal.h $(atk_built_headers)
+$(libatk_1_0_la_OBJECTS): atkmarshal.c atkmarshal.h $(atk_built_headers)
 
 atkmarshal.h: @REBUILD@ stamp-atkmarshal.h
 	@true
@@ -168,7 +168,7 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 	&& echo timestamp > $(@F)
 
 
-atk.lib: libatk.la atk.def
+atk.lib: libatk-$(ATK_API_VERSION).la atk.def
 	lib -name:libatk-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@
 
 install-data-local: install-ms-lib install-libtool-import-lib
