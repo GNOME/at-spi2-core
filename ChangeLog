@@ -1,3 +1,7 @@
+2004-12-20  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi.h: Add description for SPI_RELATION_SUBWINDOW_OF.
+
 2004-12-09  Bill Haneman <billh@gnome.org>
 
 	* registryd/registry-main.c:

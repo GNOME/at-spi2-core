@@ -101,7 +101,7 @@ more target objects.
  *  AtkObject in a sequential way, (for instance text-flow).
  *@SPI_RELATION_FLOWS_FROM: Indicates that the object has content that flows logically from
  *  another AtkObject in a sequential way, (for instance text-flow).
- *@SPI_RELATION_SUBWINDOW_OF: 
+ *@SPI_RELATION_SUBWINDOW_OF: Indicates a subwindow attached to a component but otherwise has no connection in the UI heirarchy to that component.
  *@SPI_RELATION_EMBEDS: Indicates that the object visually embeds
  *  another object's content, i.e. this object's content flows around
  *  another's content.
