@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-07 16:18-0400\n"
-"PO-Revision-Date: 2004-08-02 18:16-0500\n"
+"POT-Creation-Date: 2004-09-24 13:34-0400\n"
+"PO-Revision-Date: 2004-09-24 18:16-0500\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr "dial"
 
 #: atk/atkobject.c:98
 msgid "dialog"
-msgstr "dialog"
+msgstr "dialogue"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
@@ -418,8 +418,8 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Used to notify that the table caption has changed. This property should "
-"not be used; accessible-table-caption-object should be used instead"
+"Used to notify that the table caption has changed. This property should not "
+"be used; accessible-table-caption-object should be used instead"
 
 #: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
