@@ -330,6 +330,7 @@ cspi_object_unref (Accessible *accessible)
       return;
     }
 
+  g_return_if_fail (accessible->ref_count > 0);
   if (--accessible->ref_count == 0)
     {
       g_hash_table_remove (cspi_get_live_refs (), accessible->objref);

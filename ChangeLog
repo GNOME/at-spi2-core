@@ -1,3 +1,9 @@
+2004-05-14  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi_main.c (cspi_object_unref): Add check that reference count
+	is positive. This should make it easier to detect inapprorpiate unref
+	calls.
+
 2004-05-11  James Henstridge  <james@daa.com.au>
 
 	* configure.in: remove GNOME_PLATFORM_GNOME_2 macro, which is a
