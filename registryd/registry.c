@@ -318,7 +318,7 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
       else
         {
 	  etype->minor = etype->major;
-	  etype->detail = g_quark_from_static_string (""); //etype->major;
+	  etype->detail = g_quark_from_static_string (""); /*etype->major;*/
         }
     }
   else

@@ -1376,7 +1376,7 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
   Accessibility_DeviceEvent key_event;
   KeySym keysym;
   const int cbuf_bytes = 20;
-  char cbuf [cbuf_bytes+1];
+  char cbuf [21];
   int nbytes;
 
   nbytes = XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL);  

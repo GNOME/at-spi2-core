@@ -40,7 +40,7 @@
 
 #define DBG(a,b) if(_dbg>=(a))b
 
-static int _dbg = 0;
+int _dbg = 0;
 static CORBA_Environment ev;
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
 static Accessibility_DeviceEventController device_event_controller = CORBA_OBJECT_NIL;
