@@ -1,8 +1,15 @@
 2002-10-01  Bill Haneman <bill.haneman@sun.com>
 
+	* configure.in:
+	Update version number to 0.4 for Beta2.
+	
 	* libspi/accessible.c, libspi/accessible.h:
 	Expose spi_accessible_construct, to enable libgail-gnome
 	construction from spi_accessible subtype.
+
+	* utils/magnifier.c:
+	Workaround for bug in some non-gnome-compliant window managers
+	which made magnifier resize improperly.
 
 2002-09-01  Bill Haneman <bill.haneman@sun.com>
 
