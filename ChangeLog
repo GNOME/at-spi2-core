@@ -1,4 +1,11 @@
-<2001-09-04 Marc Mulcahy <marc.mulcahy@sun.com>
+<2001-09-04  Marc Mulcahy <marc.mulcahy@sun.com>
+	* Added files:
+		spi_action.c spi_editabletext.c spi_hyperlink.c spi_hypertext.c
+		spi_image.c spi_selection.c spi_table.c spi_text.c spi_value.c
+		spi-util.c spi-util.h
+		Implementations for C bindings to remaining accessibility interfaces.
+
+	<2001-09-04 Marc Mulcahy <marc.mulcahy@sun.com>
 	* idl/Action.idl:
 		changed return value of Action from void to boolean to bring in line with ATK.
 
