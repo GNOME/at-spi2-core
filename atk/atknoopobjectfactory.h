@@ -46,9 +46,9 @@ struct _AtkNoOpObjectFactoryClass
   AtkObjectFactoryClass parent_class;
 };
 
-GType atk_no_op_object_factory_get_type();
+GType atk_no_op_object_factory_get_type(void);
 
-AtkObjectFactory *atk_no_op_object_factory_new();
+AtkObjectFactory *atk_no_op_object_factory_new(void);
 
 #ifdef __cplusplus
 }

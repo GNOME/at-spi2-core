@@ -20,7 +20,7 @@
 #include "atkaction.h"
 
 GType
-atk_action_get_type ()
+atk_action_get_type (void)
 {
   static GType type = 0;
 

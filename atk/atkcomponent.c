@@ -40,7 +40,7 @@ static void      atk_component_real_get_size                 (AtkComponent *comp
                                                               gint         *height);
 
 GType
-atk_component_get_type ()
+atk_component_get_type (void)
 {
   static GType type = 0;
 

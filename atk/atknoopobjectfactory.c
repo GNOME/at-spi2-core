@@ -30,7 +30,7 @@ static AtkObject* atk_no_op_object_factory_create_accessible (
 static AtkNoOpObjectFactoryClass    *parent_class = NULL;
 
 GType
-atk_no_op_object_factory_get_type ()
+atk_no_op_object_factory_get_type (void)
 {
   static GType type = 0;
 

@@ -64,7 +64,7 @@ struct _AtkActionIface
                                                 const gchar       *desc);
 };
 
-GType atk_action_get_type ();
+GType atk_action_get_type (void);
 
 /*
  * These are the function which would be called by an application with

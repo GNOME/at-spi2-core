@@ -59,7 +59,7 @@ GType             atk_registry_get_factory_type (AtkRegistry *registry,
 AtkObjectFactory* atk_registry_get_factory      (AtkRegistry *registry,
                                                  GType type);
 
-AtkRegistry*      atk_get_default_registry      ();
+AtkRegistry*      atk_get_default_registry      (void);
 
 #ifdef __cplusplus
 }

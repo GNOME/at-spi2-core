@@ -1,3 +1,14 @@
+2002-02-11  jacob berkman  <jacob@ximian.com>
+
+	* atk/atkselection.[ch] (atk_selection_get_type): 
+	* atk/atktable.[ch] (atk_table_get_type): 
+	* atk/atkregistry.h (atk_get_default_registry): 
+	* atk/atknoopobjectfactory.[ch] (atk_no_op_object_factory_get_type): 
+	* atk/atkobjectfactory.[ch] (atk_object_factory_get_type): 
+	* atk/atkcomponent.[ch] (atk_component_get_type): 
+	* atk/atkaction.[ch] (atk_action_get_type): declare function
+	arguments as (void) rather than ()
+
 2002-02-04  Bill Haneman  <bill.haneman@sun.com>
 
 	* configure.in:

@@ -36,7 +36,7 @@ static void  atk_table_base_init (gpointer *g_class);
 static guint atk_table_signals[LAST_SIGNAL] = { 0 };
 
 GType
-atk_table_get_type ()
+atk_table_get_type (void)
 {
   static GType type = 0;
   

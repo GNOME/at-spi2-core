@@ -94,7 +94,7 @@ struct _AtkComponentIface
                                                  gint           height);
 };
 
-GType atk_component_get_type ();
+GType atk_component_get_type (void);
 
 /* convenience functions */
 

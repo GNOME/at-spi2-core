@@ -134,7 +134,7 @@ struct _AtkTableIface
   void              (* model_changed)            (AtkTable      *table);
 };
 
-GType atk_table_get_type ();
+GType atk_table_get_type (void);
 
 AtkObject*        atk_table_ref_at               (AtkTable         *table,
                                                   gint             row,

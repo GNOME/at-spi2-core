@@ -65,7 +65,7 @@ struct _AtkSelectionIface
   void         (*selection_changed)     (AtkSelection   *selection);
 
 };
-GType atk_selection_get_type ();
+GType atk_selection_get_type (void);
 
 gboolean     atk_selection_add_selection        (AtkSelection   *selection,
                                                  gint           i);

@@ -25,7 +25,7 @@ static void atk_object_factory_class_init   (AtkObjectFactoryClass        *klass
 static gpointer    parent_class = NULL;
 
 GType
-atk_object_factory_get_type ()
+atk_object_factory_get_type (void)
 {
   static GType type = 0;
 
