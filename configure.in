@@ -227,6 +227,7 @@ po/Makefile.in
 atk.pc
 atk-uninstalled.pc
 atk/Makefile
+atk/atk.rc
 tests/Makefile
 docs/Makefile
 atk.spec

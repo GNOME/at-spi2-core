@@ -2,10 +2,13 @@
 # which are more like other make's VPATH.
 GPATH = $(srcdir)
 
-EXTRA_DIST = atk.def
+EXTRA_DIST = atk.def atk.rc atk.rc.in
+
 if OS_WIN32
 export_symbols = -export-symbols atk.def
 no_undefined = -no-undefined
+
+atk_win32res = atk-win32res.lo
 
 install-libtool-import-lib:
 	$(INSTALL) .libs/libatk-$(ATK_API_VERSION).dll.a $(DESTDIR)$(libdir)
@@ -62,6 +65,9 @@ libatk_1_0_la_SOURCES = 	\
 	atkvalue.c		\
 	$(atk_built_cfiles)
 
+libatk_1_0_la_LIBADD = $(atk_win32res)
+libatk_1_0_la_DEPENDENCIES = $(atk_win32res)
+
 EXTRA_DIST += atkmarshal.list	\
 		atkintl.h
 
@@ -117,6 +123,9 @@ libatkinclude_HEADERS =		\
 	$(atk_built_headers)
 
 $(libatk_1_0_la_OBJECTS): atkmarshal.c atkmarshal.h $(atk_built_headers)
+
+atk-win32res.lo: atk.rc
+	$(top_srcdir)/../glib/build/win32/lt-compile-resource atk.rc atk-win32res.lo
 
 atkmarshal.h: @REBUILD@ stamp-atkmarshal.h
 	@true

@@ -1,3 +1,21 @@
+2003-02-25  Tor Lillqvist  <tml@iki.fi>
+
+	* Makefile.am (EXTRA_DIST): Dist atk-zip.sh.in, not atk-zip.sh.
+
+	* atk/atk.def: Add a couple of missing entries, thanks to Cedric
+	Gustin.
+
+	* atk/atk.rc.in: New file, for version info in the DLL on
+	Windows. Similar as in GLib, GTK, etc.
+
+	* configure.in: Generate atk/atk.rc.
+	
+	* atk/Makefile.am: Use atk.rc on Windows.
+	(EXTRA_DIST): Distribute atk.rc(.in).
+
+	* atk/atkobject.c: On Windows, don't use hardcoded ATKLOCALEDIR,
+	but deduce it from DLL location, like GLib, GTK etc do.
+
 2003-02-23  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Added "mk" to ALL_LINGUAS.

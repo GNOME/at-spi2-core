@@ -21,6 +21,14 @@
 
 #include <glib-object.h>
 
+#ifdef G_OS_WIN32
+#define STRICT
+#include <windows.h>
+#undef STRICT
+#undef FOCUS_EVENT		/* <windows.h> pollutes the namespace
+				 * like a six hundred pound gorilla */
+#endif
+
 #include "atk.h"
 #include "atkmarshal.h"
 #include "atk-enum-types.h"
@@ -1177,6 +1185,23 @@ atk_role_get_name (AtkRole role)
   g_type_class_unref (type_class);
   return name;
 }
+
+#ifdef G_OS_WIN32
+
+#undef ATKLOCALEDIR
+
+#define ATKLOCALEDIR get_atk_locale_dir()
+
+G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
+
+static char *
+get_atk_locale_dir (void)
+{
+  return g_win32_get_package_installation_subdirectory
+    (GETTEXT_PACKAGE, dll_name, "lib/locale");
+}
+
+#endif
 
 /**
  * atk_role_get_localized_name:

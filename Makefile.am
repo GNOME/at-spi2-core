@@ -7,7 +7,7 @@ EXTRA_DIST = 			\
 	atk.pc.in		\
 	atk.spec.in		\
 	atk.spec		\
-	atk-zip.sh
+	atk-zip.sh.in
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atk.pc

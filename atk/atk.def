@@ -2,6 +2,7 @@ EXPORTS
 	atk_action_do_action
 	atk_action_get_description
 	atk_action_get_keybinding
+	atk_action_get_localized_name
 	atk_action_get_n_actions
 	atk_action_get_name
 	atk_action_get_type
@@ -13,6 +14,8 @@ EXPORTS
 	atk_component_add_focus_handler
 	atk_component_contains
 	atk_component_get_extents
+	atk_component_get_layer
+	atk_component_get_mdi_zorder
 	atk_component_get_position
 	atk_component_get_size
 	atk_component_get_type
@@ -67,6 +70,7 @@ EXPORTS
 	atk_no_op_object_factory_new
 	atk_no_op_object_get_type
 	atk_no_op_object_new
+	atk_object_add_relationship
 	atk_object_connect_property_change_handler
 	atk_object_factory_create_accessible
 	atk_object_factory_get_accessible_type
@@ -115,6 +119,7 @@ EXPORTS
 	atk_remove_global_event_listener
 	atk_remove_key_event_listener
 	atk_role_for_name
+	atk_role_get_localized_name
 	atk_role_get_name
 	atk_role_get_type
 	atk_role_register
