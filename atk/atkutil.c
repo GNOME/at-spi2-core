@@ -231,6 +231,49 @@ atk_remove_global_event_listener (guint listener_id)
 }
 
 /**
+ * atk_add_key_event_listener:
+ * @listener: the listener to notify
+ * @event_type: the type of event for which notification is requested
+ *
+ * Adds the specified function to the list of functions to be called
+ * when an event of type event_type occurs.
+ *
+ * Returns: added event listener id, or 0 on failure.
+ **/
+guint
+atk_add_key_event_listener (AtkKeySnoopFunc *listener, gpointer data)
+{
+  guint retval;
+  AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
+  if (klass->add_key_event_listener)
+    {
+      retval = klass->add_key_event_listener (listener, data);
+    }
+  else
+    {
+      retval = -1;
+    }
+  g_type_class_unref (klass);
+
+  return retval;
+}
+
+/**
+ * atk_remove_key_event_listener:
+ * @listener_id: the id of the event listener to remove
+ *
+ * Removes the specified event listener
+ **/
+void
+atk_remove_key_event_listener (guint listener_id)
+{
+  AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
+
+  if (klass->remove_key_event_listener)
+    klass->remove_key_event_listener (listener_id);
+}
+
+/**
  * atk_get_root:
  *
  * Gets the root accessible container for the current application.
