@@ -1,5 +1,12 @@
 2001-07-27  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atkobject.c:
+	Add function atk_object_real_ref_state_set() which creates the
+	state set and adds states ATK_STATE_SELECTABLE and ATK_STATE_SELECTED
+	if appropriate
+
+2001-07-27  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/*.c:
 	Remove all instances of g_return_if_fail (foo != NULL); that are
 	immediately before a g_return_if_fail (ATK_IS_FOO (foo));

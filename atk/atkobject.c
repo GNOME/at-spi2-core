@@ -79,6 +79,8 @@ static G_CONST_RETURN gchar*
                                                    (AtkObject       *object);
 static AtkObject*      atk_object_real_get_parent  (AtkObject       *object);
 static AtkRole         atk_object_real_get_role    (AtkObject       *object);
+static AtkStateSet*    atk_object_real_ref_state_set
+                                                   (AtkObject       *object);
 static void            atk_object_real_set_name    (AtkObject       *object,
                                                     const gchar     *name);
 static void            atk_object_real_set_description
@@ -166,7 +168,7 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->get_index_in_parent = NULL;
   klass->ref_relation_set = atk_object_real_ref_relation_set;
   klass->get_role = atk_object_real_get_role;
-  klass->ref_state_set = NULL;
+  klass->ref_state_set = atk_object_real_ref_state_set;
   klass->set_name = atk_object_real_set_name;
   klass->set_description = atk_object_real_set_description;
   klass->set_parent = atk_object_real_set_parent;
@@ -553,7 +555,8 @@ atk_role_register (const gchar *name)
  * Returns: an #AtkRole which is the role of the accessible
  **/
 AtkRole
-atk_object_get_role (AtkObject *accessible) {
+atk_object_get_role (AtkObject *accessible) 
+{
   AtkObjectClass *klass;
 
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), ATK_ROLE_UNKNOWN);
@@ -576,7 +579,8 @@ atk_object_get_role (AtkObject *accessible) {
  * set of the accessible
  **/
 AtkStateSet*
-atk_object_ref_state_set (AtkObject *accessible) {
+atk_object_ref_state_set (AtkObject *accessible) 
+{
   AtkObjectClass *klass;
 
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
@@ -884,6 +888,36 @@ static AtkRole
 atk_object_real_get_role (AtkObject       *object)
 {
   return object->role;
+}
+
+static AtkStateSet*
+atk_object_real_ref_state_set (AtkObject *accessible) 
+{
+  AtkStateSet *state_set;
+  AtkObject *ap;
+
+  state_set = atk_state_set_new ();
+
+  ap = atk_object_get_parent (accessible);
+  if (ap)
+  {
+    if (ATK_IS_SELECTION (ap))
+    {
+      int i;
+
+      atk_state_set_add_state (state_set, ATK_STATE_SELECTABLE);
+
+      i = atk_object_get_index_in_parent (accessible);
+      if (i >= 0)
+      {
+        if (atk_selection_is_child_selected(ATK_SELECTION (ap), i))
+        {
+          atk_state_set_add_state (state_set, ATK_STATE_SELECTED);
+        } 
+      } 
+    } 
+  }
+  return state_set; 
 }
 
 static void
