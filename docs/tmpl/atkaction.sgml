@@ -47,21 +47,6 @@ The AtkAction structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkActionIface ##### -->
-<para>
-
-</para>
-
-@parent: 
-@do_action: 
-@get_n_actions: 
-@get_description: 
-@get_name: 
-@get_keybinding: 
-@set_description: 
-@pad1: 
-@pad2: 
-
 <!-- ##### FUNCTION atk_action_do_action ##### -->
 <para>
 

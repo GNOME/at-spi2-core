@@ -147,16 +147,6 @@ The AtkImplementor structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkImplementorIface ##### -->
-<para>
-This interface provides an alternative means of obtaining AtkObjects
-from a GObject instance, and for querying whether a GObject instance
-provides ATK functionality.
-</para>
-
-@parent: 
-@ref_accessible: 
-
 <!-- ##### STRUCT AtkRelationSet ##### -->
 <para>
 The AtkRelationSet structure should not be accessed directly.

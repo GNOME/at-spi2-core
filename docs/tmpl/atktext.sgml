@@ -38,37 +38,6 @@ The AtkText structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkTextIface ##### -->
-<para>
-
-</para>
-
-@parent: 
-@get_text: 
-@get_text_after_offset: 
-@get_text_at_offset: 
-@get_character_at_offset: 
-@get_text_before_offset: 
-@get_caret_offset: 
-@get_run_attributes: 
-@get_default_attributes: 
-@get_character_extents: 
-@get_character_count: 
-@get_offset_at_point: 
-@get_n_selections: 
-@get_selection: 
-@add_selection: 
-@remove_selection: 
-@set_selection: 
-@set_caret_offset: 
-@text_changed: 
-@text_caret_moved: 
-@text_selection_changed: 
-@pad1: 
-@pad2: 
-@pad3: 
-@pad4: 
-
 <!-- ##### ENUM AtkTextBoundary ##### -->
 <para>
 

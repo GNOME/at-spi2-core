@@ -24,23 +24,6 @@ The AtkDocument structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkDocumentIface ##### -->
-<para>
-
-</para>
-
-@parent: 
-@get_document_type: 
-@get_document: 
-@pad1: 
-@pad2: 
-@pad3: 
-@pad4: 
-@pad5: 
-@pad6: 
-@pad7: 
-@pad8: 
-
 <!-- ##### FUNCTION atk_document_get_document_type ##### -->
 <para>
 

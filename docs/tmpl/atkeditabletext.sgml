@@ -27,22 +27,6 @@ The AtkEditableText structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkEditableTextIface ##### -->
-<para>
-
-</para>
-
-@parent_interface: 
-@set_run_attributes: 
-@set_text_contents: 
-@insert_text: 
-@copy_text: 
-@cut_text: 
-@delete_text: 
-@paste_text: 
-@pad1: 
-@pad2: 
-
 <!-- ##### FUNCTION atk_editable_text_set_run_attributes ##### -->
 <para>
 

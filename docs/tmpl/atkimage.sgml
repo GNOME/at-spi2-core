@@ -33,19 +33,6 @@ The AtkImage structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkImageIface ##### -->
-<para>
-
-</para>
-
-@parent: 
-@get_image_position: 
-@get_image_description: 
-@get_image_size: 
-@set_image_description: 
-@pad1: 
-@pad2: 
-
 <!-- ##### FUNCTION atk_image_get_image_position ##### -->
 <para>
 

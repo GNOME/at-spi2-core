@@ -40,53 +40,6 @@ The AtkTable structure does not contain any fields.
 </para>
 
 
-<!-- ##### STRUCT AtkTableIface ##### -->
-<para>
-
-</para>
-
-@parent: 
-@ref_at: 
-@get_index_at: 
-@get_column_at_index: 
-@get_row_at_index: 
-@get_n_columns: 
-@get_n_rows: 
-@get_column_extent_at: 
-@get_row_extent_at: 
-@get_caption: 
-@get_column_description: 
-@get_column_header: 
-@get_row_description: 
-@get_row_header: 
-@get_summary: 
-@set_caption: 
-@set_column_description: 
-@set_column_header: 
-@set_row_description: 
-@set_row_header: 
-@set_summary: 
-@get_selected_columns: 
-@get_selected_rows: 
-@is_column_selected: 
-@is_row_selected: 
-@is_selected: 
-@add_row_selection: 
-@remove_row_selection: 
-@add_column_selection: 
-@remove_column_selection: 
-@row_inserted: 
-@column_inserted: 
-@row_deleted: 
-@column_deleted: 
-@row_reordered: 
-@column_reordered: 
-@model_changed: 
-@pad1: 
-@pad2: 
-@pad3: 
-@pad4: 
-
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>
 

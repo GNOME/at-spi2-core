@@ -2,7 +2,6 @@
 <FILE>atkaction</FILE>
 <TITLE>AtkAction</TITLE>
 AtkAction
-AtkActionIface
 atk_action_do_action
 atk_action_get_n_actions
 atk_action_get_description
@@ -21,7 +20,6 @@ atk_action_get_type
 <FILE>atkcomponent</FILE>
 <TITLE>AtkComponent</TITLE>
 AtkComponent
-AtkComponentIface
 atk_component_add_focus_handler
 atk_component_contains
 atk_component_get_extents
@@ -48,7 +46,6 @@ atk_component_get_type
 <FILE>atkdocument</FILE>
 <TITLE>AtkDocument</TITLE>
 AtkDocument
-AtkDocumentIface
 atk_document_get_document_type
 atk_document_get_document
 <SUBSECTION Standard>
@@ -63,7 +60,6 @@ atk_document_get_type
 <FILE>atkeditabletext</FILE>
 <TITLE>AtkEditableText</TITLE>
 AtkEditableText
-AtkEditableTextIface
 atk_editable_text_set_run_attributes
 atk_editable_text_set_text_contents
 atk_editable_text_insert_text
@@ -83,7 +79,6 @@ atk_editable_text_get_type
 <FILE>atkhypertext</FILE>
 <TITLE>AtkHypertext</TITLE>
 AtkHypertext
-AtkHypertextIface
 atk_hypertext_get_link
 atk_hypertext_get_n_links
 atk_hypertext_get_link_index
@@ -99,7 +94,6 @@ atk_hypertext_get_type
 <FILE>atkimage</FILE>
 <TITLE>AtkImage</TITLE>
 AtkImage
-AtkImageIface
 atk_image_get_image_position
 atk_image_get_image_description
 atk_image_set_image_description
@@ -150,7 +144,6 @@ AtkRole
 atk_role_register
 AtkLayer
 AtkImplementor
-AtkImplementorIface
 AtkRelationSet
 AtkPropertyValues
 AtkFunction
@@ -279,7 +272,6 @@ ATK_RELATION_SET_GET_CLASS
 <FILE>atkselection</FILE>
 <TITLE>AtkSelection</TITLE>
 AtkSelection
-AtkSelectionIface
 atk_selection_add_selection
 atk_selection_clear_selection
 atk_selection_ref_selection
@@ -323,7 +315,6 @@ ATK_STATE_SET_GET_CLASS
 <FILE>atktable</FILE>
 <TITLE>AtkTable</TITLE>
 AtkTable
-AtkTableIface
 atk_table_ref_at
 atk_table_get_index_at
 atk_table_get_column_at_index
@@ -365,7 +356,6 @@ atk_table_get_type
 <FILE>atktext</FILE>
 <TITLE>AtkText</TITLE>
 AtkText
-AtkTextIface
 AtkTextBoundary
 AtkAttribute
 AtkAttributeSet
@@ -408,7 +398,6 @@ atk_text_boundary_get_type
 <FILE>atkvalue</FILE>
 <TITLE>AtkValue</TITLE>
 AtkValue
-AtkValueIface
 atk_value_get_current_value
 atk_value_get_maximum_value
 atk_value_get_minimum_value
@@ -458,7 +447,6 @@ atk_state_type_get_type
 <FILE>atkstreamablecontent</FILE>
 <TITLE>AtkStreamableContent</TITLE>
 AtkStreamableContent
-AtkStreamableContentIface
 atk_streamable_content_get_n_mime_types
 atk_streamable_content_get_mime_type
 atk_streamable_content_get_stream	

@@ -1,5 +1,17 @@
 2002-09-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* docs/atk-sections.txt docs/tmpl/atkaction.sgml
+	docs/tmpl/atkcomponent.sgml docs/tmpl/atkdocument.sgml
+	docs/tmpl/atkeditabletext.sgml docs/tmpl/atkhypertext.sgml
+	docs/tmpl/atkimage.sgml docs/tmpl/atkobject.sgml
+	docs/tmpl/atkselection.sgml docs/tmpl/atkstreamablecontent.sgml
+	docs/tmpl/atktable.sgml docs/tmpl/atktext.sgml
+	docs/tmpl/atkvalue.sgml:
+	Remove reference to ...Iface data structures; which eliminates
+	undocumented symbols.
+
+2002-09-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	*  atk/atkutil.h: Add documentation for AtkKeyEventType
 
 	* docs/tmpl/action.sgml docs/tmpl/atkcomponent.sgml
