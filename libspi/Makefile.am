@@ -4,11 +4,11 @@ INCLUDES = -I$(top_srcdir)	\
            -I$(top_builddir)	\
            $(LIBSPI_CFLAGS)
 
-LDFLAGS = $(LIBSPI_LIBS) $(XTST_LIBS) @LT_VERSION_INFO@
+LDFLAGS = @LDFLAGS@ $(LIBSPI_LIBS) $(XTST_LIBS) @LT_VERSION_INFO@
 
 #DEBUG_CFLAGS=-DSPI_DEBUG
 
-CFLAGS += $(DEBUG_CFLAGS)
+CFLAGS = @CFLAGS@ $(DEBUG_CFLAGS)
 
 libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
@@ -62,7 +62,7 @@ IDL_DEPS = \
 
 
 BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
-CLEANFILES+=$(IDL_OUT) Accessibility-imodule.c
+CLEANFILES+= $(IDL_OUT) Accessibility-imodule.c
 
 libspi_la_SOURCES =		\
 	accessible.c		\

@@ -9,7 +9,7 @@ INCLUDES = -I $(top_srcdir)           \
            $(X_CFLAGS)                \
            $(LIBCSPI_CFLAGS)
 
-LDFLAGS = $(LIBCSPI_LIBS) @LT_VERSION_INFO@
+LDFLAGS = @LDFLAGS@ $(LIBCSPI_LIBS) @LT_VERSION_INFO@
 
 LDADD =				\
 	../libspi/libspi.la	\

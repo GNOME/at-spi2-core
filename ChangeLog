@@ -1,3 +1,9 @@
+2002-08-28  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: incremented micro version.
+
+	* branched for gnome-2-0 (a gnome-2-0-0 branch already exists).
+
 2002-08-20  Bill Haneman <bill.haneman@sun.com>
 
 	* HACKING: 

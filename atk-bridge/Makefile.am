@@ -22,7 +22,7 @@ DEPS = 	\
 	$(libat-spi)
 
 
-LDFLAGS += -no-undefined -module -avoid-version
+LDFLAGS = @LDFLAGS@ -no-undefined -module -avoid-version
 
 libatk_bridge_la_LIBADD = $(ATK_BRIDGE_LIBS) ../libspi/libspi.la
 
