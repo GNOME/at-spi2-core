@@ -1,4 +1,20 @@
 (top)
+What's new in at-spi-1.0.1:
+
+* bugfix for 82509
+
+What's new in at-spi-1.0.0:
+
+* API Freeze (1.0 API is now FINAL)
+* added boolean return for
+Accessibility_Registry_registerKeystrokeListener.
+* Revved activation ID for registry to "1.0"
+* many bugfixes and improvements to global key listener implementation.
+* improvements to regression test "test-simple", added key
+listener/synthesis test.
+* added sample code in "test" to demonstrate how flat line-mode
+screen-review can be implemented with at-spi.
+
 What's new in at-spi-0.13.1:
 
 (note: 0.13.1 is not binary compatible with 0.12.1, clients will need

@@ -122,7 +122,6 @@ desktop_remove_application (SpiDesktop *desktop,
 }
 
 
-
 static void
 spi_registry_object_finalize (GObject *object)
 {
