@@ -292,7 +292,7 @@ atk_object_class_init (AtkObjectClass *klass)
 		  NULL, NULL,
 		  g_cclosure_marshal_VOID__UINT_POINTER,
 		  G_TYPE_NONE,
-		  2, G_TYPE_UINT, ATK_TYPE_OBJECT);
+		  2, G_TYPE_UINT, G_TYPE_POINTER);
   atk_object_signals[FOCUS_EVENT] =
     g_signal_new ("focus_event",
 		  G_TYPE_FROM_CLASS (klass),
