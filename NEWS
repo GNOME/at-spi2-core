@@ -1,3 +1,12 @@
+Changes in 0.6
+
+* Small improvements to AtkText, AtkRelation, AtkObject APIs. 
+  [Padraig O'Briain, Bill Haneman]
+* Win32 build fixes [Tor Lillqvst]
+* Bug fixes and optimizations [Padraig]
+* Makefile fix [Jacob Berkman]
+* Doc improvements [Padraig]
+
 Changes in 0.5
 
 * Win32 updates and a small bug fix [Hans Breuer]

@@ -1,3 +1,9 @@
+Wed Oct 24 11:13:13 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* Version 0.6
+
+	* NEWS: Updates.
+
 2001-10-25  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.h, docs/tmpl/atkobject.sgml:
