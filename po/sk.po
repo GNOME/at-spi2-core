@@ -1,0 +1,314 @@
+# translation of atk.sk.po to Slovak
+# translation of atk.HEAD.po to Slovak
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Stanislav Visnovsky <visnovsky@kde.org>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk.sk\n"
+"POT-Creation-Date: 2003-01-21 12:01+0100\n"
+"PO-Revision-Date: 2003-01-22 21:53+0100\n"
+"Last-Translator: Stanislav Visnovsky <visnovsky@kde.org>\n"
+"Language-Team: Slovak <sk-i18n@linux.sk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.2\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "neplatné"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "označenie akcelerátora"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "poplach"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "animácia"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "šipka"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "kalendár"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "plátno"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "zaškrtávacie pole"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "zaškrtávacia položka menu"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "výber farby"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "hlavička stĺpca"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "rozbaľovací zoznam"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "editor dátumov"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "ikona plochy"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "rám plochy"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "vytáčanie"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialóg"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "oblasť priečinku"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "oblasť kreslenia"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "výber súboru"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "výplň"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "výber písma"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "rám"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "sklenená oblasť"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "schránka na HTML"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ikona"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "obrázok"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "interný rám"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "popis"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "vrstvená oblasť"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "zoznam"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "položka zoznamu"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "menu"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "pruh menu"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "položka menu"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "oblasť volieb"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "záložka"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "zoznam záložiek"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "text hesla"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "menu"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "pruh priebehu"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "tlačidlo"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "prepínač"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "prepínač v menu"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "koreňová plocha"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "hlavička riadku"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "posuvník"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "plocha s posuvníkmi"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "oddeľovač"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "posuvník"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "rozdelenie plochy"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "spin-button"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "stavový riadok"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tabuľka"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "bunka tabuľky"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "hlavička stĺpca tabuľky"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "hlavička tabuľky"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "položka menu pre odtrhnutie"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminál"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "text"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "prepínacie tlačidlo"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "panel nástrojov"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "rada"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "strom"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "stromová tabuľka"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "neznámy"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "pohľad"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "okno"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "hlavička"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "pätička"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "odstavec"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "pravítko"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "aplikácia"
+
