@@ -1,3 +1,11 @@
+2004-02-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.5.5=====
+	
+	* configure.in: Version 1.5.5, interface age 4, binary age 505
+
+	* NEWS: Updated.
+
 2004-02-20  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "en_CA" to ALL_LINGUAS.
@@ -6,7 +14,7 @@
 
 	* ===== Released 1.5.4=====
 	
-	* configure.in: Version 1.5.4, interface age 4, binary age 504
+	* configure.in: Version 1.5.4, interface age 3, binary age 504
 
 	* NEWS: Updated.
 
