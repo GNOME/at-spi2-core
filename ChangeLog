@@ -1,3 +1,8 @@
+2001-10-09  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c (atk_attribute_set_free):
+	Avoid leaking of AtkAttributeSet data structure; speed up code.
+
 2001-10-01  jacob berkman  <jacob@ximian.com>
 
 	* docs/Makefile.am (dist-hook-local): depend on all-local so that

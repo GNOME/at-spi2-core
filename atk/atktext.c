@@ -678,15 +678,20 @@ atk_text_set_caret_offset (AtkText *text,
 void
 atk_attribute_set_free(AtkAttributeSet *attrib_set)
 {
-  gint index;
+  GSList *temp;
 
-  if (attrib_set == NULL)
-    return;
+  temp = attrib_set;
 
-  for (index = 0; index < g_slist_length(attrib_set); index++)
-  {
-    g_free(((AtkAttribute*) (g_slist_nth(attrib_set,index)->data))->name);
-    g_free(((AtkAttribute*) (g_slist_nth(attrib_set,index)->data))->value);
-  }
-  g_slist_free(attrib_set);
+  while (temp != NULL)
+    {
+      AtkAttribute *att;
+
+      att = temp->data;
+
+      g_free (att->name);
+      g_free (att->value);
+      g_free (att);
+      temp = temp->next;
+    }
+  g_slist_free (attrib_set);
 }
