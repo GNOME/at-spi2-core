@@ -412,7 +412,7 @@ atk_text_get_run_attributes (AtkText          *text,
   if (end_offset)
     real_end_offset = end_offset;
   else
-    real_start_offset = &local_end_offset;
+    real_end_offset = &local_end_offset;
 
   iface = ATK_TEXT_GET_IFACE (text);
 

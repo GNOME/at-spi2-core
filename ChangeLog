@@ -1,5 +1,10 @@
 2001-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atktext.c (atk_text_get_run_attributes):
+	Correct typo.
+
+2001-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atktext.[c|h]:
         * docs/atk-sections.txt, docs/tmpl/atktext.sgml:
 	Add new function atk_text_get_default_attributes
