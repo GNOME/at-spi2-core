@@ -1,21 +1,23 @@
 # Беларускі пераклад atk.HEAD.
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# This file is distributed under the same license as the atk.HEAD package.
+# Copyright (C) 2005 THE atk.HEAD'S COPYRIGHT HOLDER.
 # Vital Khilko <dojlid@mova.org>, 2003.
 # Ales Nyakhaychyk <nab@mail.by>, 2004.
-#
+# 
+# Ales Nyakhaychyk <nab@mail.by>, 2005.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-08 03:02+0100\n"
-"PO-Revision-Date: 2004-03-08 15:41+0200\n"
-"Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
+"POT-Creation-Date: 2005-02-12 12:37+0100\n"
+"PO-Revision-Date: 2005-02-13 13:53+0200\n"
+"Last-Translator: Vital Khilko <vk@altlinux.ru>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -27,11 +29,11 @@ msgstr "Задае, ці зьяўляецца аб'ект AtkHyperlink вылу�
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "Колькасьць якароў"
+msgstr "Колькасьць якараў"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "Колькасьць якароў, якія зьвязаныя з аб'ектам AtkHyperlink"
+msgstr "Колькасьць якараў, якія зьвязаныя з аб'ектам AtkHyperlink"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -39,7 +41,7 @@ msgstr "Канцавы індэкс"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "Канцавы індэкс аб'екта AtkHyperlink"
+msgstr "Канцавы індэкс аб'екту AtkHyperlink"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
@@ -47,7 +49,7 @@ msgstr "Пачатковы індэкс"
 
 #: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "Пачатковы індэкс аб'екта AtkHyperlink"
+msgstr "Пачатковы індэкс аб'екту AtkHyperlink"
 
 #: atk/atkobject.c:82
 msgid "invalid"
@@ -55,7 +57,7 @@ msgstr "нерэчаіснае"
 
 #: atk/atkobject.c:83
 msgid "accelerator label"
-msgstr "адмеціна паскаральніка"
+msgstr "адмеціна паскаральніку"
 
 #: atk/atkobject.c:84
 msgid "alert"
@@ -91,11 +93,11 @@ msgstr "абіральнік колеру"
 
 #: atk/atkobject.c:92
 msgid "column header"
-msgstr "загаловак слупка"
+msgstr "загаловак слупку"
 
 #: atk/atkobject.c:93
 msgid "combo box"
-msgstr "комбінаваны элемэнт"
+msgstr "камбінаваны элемэнт"
 
 #: atk/atkobject.c:94
 msgid "dateeditor"
@@ -103,11 +105,11 @@ msgstr "рэдактар даты"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "значка стальца"
+msgstr "значка стальцу"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
-msgstr "кадар стальца"
+msgstr "кадар стальцу"
 
 #: atk/atkobject.c:97
 msgid "dial"
@@ -119,7 +121,7 @@ msgstr "дыялёг"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
-msgstr "вакно тэчкі"
+msgstr "акно тэчкі"
 
 #: atk/atkobject.c:100
 msgid "drawing area"
@@ -127,7 +129,7 @@ msgstr "прастора маляваньня"
 
 #: atk/atkobject.c:101
 msgid "file chooser"
-msgstr "абіральнік файла"
+msgstr "абіральнік файлу"
 
 #: atk/atkobject.c:102
 msgid "filler"
@@ -136,15 +138,15 @@ msgstr "фільтар"
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
-msgstr "абіральнік шрыфта"
+msgstr "абіральнік шрыфту"
 
 #: atk/atkobject.c:105
 msgid "frame"
-msgstr "фрэйм"
+msgstr "кадар"
 
 #: atk/atkobject.c:106
 msgid "glass pane"
-msgstr "вакно празрыстасьці"
+msgstr "акно празрыстасьці"
 
 #: atk/atkobject.c:107
 msgid "html container"
@@ -168,7 +170,7 @@ msgstr "адмеціна"
 
 #: atk/atkobject.c:112
 msgid "layered pane"
-msgstr "вакно узроўняў"
+msgstr "акно узроўняў"
 
 #: atk/atkobject.c:113
 msgid "list"
@@ -176,7 +178,7 @@ msgstr "сьпіс"
 
 #: atk/atkobject.c:114
 msgid "list item"
-msgstr "пункт сьпіса"
+msgstr "пункт сьпісу"
 
 #: atk/atkobject.c:115
 msgid "menu"
@@ -192,7 +194,7 @@ msgstr "пункт мэню"
 
 #: atk/atkobject.c:118
 msgid "option pane"
-msgstr "вакно выбараў"
+msgstr "акно выбараў"
 
 #: atk/atkobject.c:119
 msgid "page tab"
@@ -204,15 +206,15 @@ msgstr "сьпіс ўкладак старонкі"
 
 #: atk/atkobject.c:121
 msgid "panel"
-msgstr "панэля"
+msgstr "панэль"
 
 #: atk/atkobject.c:122
 msgid "password text"
-msgstr "тэкст пароля"
+msgstr "тэкст паролю"
 
 #: atk/atkobject.c:123
 msgid "popup menu"
-msgstr "усплыўнае мэню"
+msgstr "усплыўное мэню"
 
 #: atk/atkobject.c:124
 msgid "progress bar"
@@ -232,11 +234,11 @@ msgstr "пункт мэню ўзаемавыключнага выбару"
 
 #: atk/atkobject.c:128
 msgid "root pane"
-msgstr "карэннае вакно"
+msgstr "карэннае акно"
 
 #: atk/atkobject.c:129
 msgid "row header"
-msgstr "загаловак радка"
+msgstr "загаловак радку"
 
 #: atk/atkobject.c:130
 msgid "scroll bar"
@@ -244,11 +246,11 @@ msgstr "паласа пракруткі"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "вакно пракрутка"
+msgstr "акно пракруткі"
 
 #: atk/atkobject.c:132
 msgid "separator"
-msgstr "падзяляльнік"
+msgstr "дзельнік"
 
 #: atk/atkobject.c:133
 msgid "slider"
@@ -256,11 +258,11 @@ msgstr "паўзунок"
 
 #: atk/atkobject.c:134
 msgid "split pane"
-msgstr "падзяляльнік вокнаў"
+msgstr "дзельнік вокнаў"
 
 #: atk/atkobject.c:135
 msgid "spin button"
-msgstr "круцёлка"
+msgstr "пракрутка"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
@@ -276,15 +278,15 @@ msgstr "ячэя табліцы"
 
 #: atk/atkobject.c:139
 msgid "table column header"
-msgstr "загаловак слупка табліцы"
+msgstr "загаловак слупку табліцы"
 
 #: atk/atkobject.c:140
 msgid "table row header"
-msgstr "загаловак радка табліцы"
+msgstr "загаловак радку табліцы"
 
 #: atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "пункт адчапленьня мэню"
+msgstr "пункт зачапленьня мэню"
 
 #: atk/atkobject.c:142
 msgid "terminal"
@@ -300,7 +302,7 @@ msgstr "пераключальнік"
 
 #: atk/atkobject.c:145
 msgid "tool bar"
-msgstr "панэля сродкаў"
+msgstr "панэль сродкаў"
 
 #: atk/atkobject.c:146
 msgid "tool tip"
@@ -320,7 +322,7 @@ msgstr "невядома"
 
 #: atk/atkobject.c:150
 msgid "viewport"
-msgstr "акно прагляда"
+msgstr "акно прагляду"
 
 #: atk/atkobject.c:151
 msgid "window"
@@ -350,132 +352,136 @@ msgstr "аўтазавяршэньне"
 msgid "edit bar"
 msgstr "радок рэдагаваньня"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "убудаваны кампанэнт"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Даступная назва"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Назва экзэмпляра аб'екта, сфарматаваная для тэхналёгіі судзеяньня"
+msgstr "Назва экзэмпляру аб'екту, фарматаваная для тэхналёгіі садзеяньня"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Апісаньне даступнасьці"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Апісаньне аб'екта, сфарматаванае для тэхналёгіі судзеяньня"
-
-#: atk/atkobject.c:309
-msgid "Accessible Parent"
-msgstr "Даступнасьць бацькоскага аб'екта"
+msgstr "Апісаньне аб'екта, фарматаванае для тэхналёгіі садзеяньня"
 
 #: atk/atkobject.c:310
-msgid "Is used to notify that the parent has changed"
-msgstr "Выкарыстоўваецца, каб паведамляць пра зьмены бацькоўскага аб'екта"
+msgid "Accessible Parent"
+msgstr "Даступнасьць бацькоўскага аб'екту"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:311
+msgid "Is used to notify that the parent has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра зьмены бацькоўскага аб'екту"
+
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Значэньне даступнасьці"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "Выкарыстоўваецца, каб паведамляць пра зьмену значэньня"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Роля даступнасьці"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
-msgstr "Роля аб'екта ў даступнасьці"
+msgstr "Роля аб'екту ў даступнасьці"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "Узровень даступнасьці"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
-msgstr "Узровень даступнасьці гэтага аб'екта"
+msgstr "Узровень даступнасьці гэтага аб'екту"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "Значэньне даступнасьці MDI"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
-msgstr "Значэньне даступнасьці MDI гэтага аб'екта"
-
-#: atk/atkobject.c:352
-msgid "Accessible Table Caption"
-msgstr "Даступнасьць загалоўка табліцы"
+msgstr "Значэньне даступнасьці MDI гэтага аб'екту"
 
 #: atk/atkobject.c:353
+msgid "Accessible Table Caption"
+msgstr "Даступнасьць загалоўку табліцы"
+
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Выкарыстоўваецца, каб паведамляць пра зьмену загалоўка табліцы; гэтая "
+"Выкарыстоўваецца, каб паведамляць пра зьмену загалоўку табліцы; гэтая "
 "ўласьцівасьць не павінна ўжывацца. accessible-table-caption-object мусіць "
 "ужывацца замест яе"
 
-#: atk/atkobject.c:359
-msgid "Accessible Table Column Header"
-msgstr "Даступнасьць загалоўка слупка табліцы"
-
 #: atk/atkobject.c:360
-msgid "Is used to notify that the table column header has changed"
-msgstr "Выкарыстоўваецца, каб паведамляць пра зьмену загалоўка слупка табліцы"
+msgid "Accessible Table Column Header"
+msgstr "Даступнасьць загалоўку слупку табліцы"
 
-#: atk/atkobject.c:366
-msgid "Accessible Table Column Description"
-msgstr "Даступнасьць апісаньня загалоўка слупка табліцы"
+#: atk/atkobject.c:361
+msgid "Is used to notify that the table column header has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра зьмену загалоўку слупку табліцы"
 
 #: atk/atkobject.c:367
+msgid "Accessible Table Column Description"
+msgstr "Даступнасьць апісаньня загалоўку слупку табліцы"
+
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
-"Выкарыстоўваецца, каб паведамляць пра зьмену апісаньня загалоўка слупка "
+"Выкарыстоўваецца, каб паведамляць пра зьмену апісаньня загалоўку слупку "
 "табліцы"
-
-#: atk/atkobject.c:373
-msgid "Accessible Table Row Header"
-msgstr "Даступнасьць загалоўка радка табліцы"
 
 #: atk/atkobject.c:374
-msgid "Is used to notify that the table row header has changed"
-msgstr "Выкарыстоўваецца, каб паведамляць пра зьмену загалоўка радка табліцы"
+msgid "Accessible Table Row Header"
+msgstr "Даступнасьць загалоўку радку табліцы"
 
-#: atk/atkobject.c:380
-msgid "Accessible Table Row Description"
-msgstr "Даступнасьць апісаньня загалоўка радка табліцы"
+#: atk/atkobject.c:375
+msgid "Is used to notify that the table row header has changed"
+msgstr "Выкарыстоўваецца, каб паведамляць пра зьмену загалоўку радку табліцы"
 
 #: atk/atkobject.c:381
+msgid "Accessible Table Row Description"
+msgstr "Даступнасьць апісаньня загалоўку радку табліцы"
+
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
-"Выкарыстоўваецца, каб паведамляць пра зьмену апісаньня загалоўка радка "
+"Выкарыстоўваецца, каб паведамляць пра зьмену апісаньня загалоўку радку "
 "табліцы"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "Даступнасьць справаздачы табліцы"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "Выкарыстоўваецца, каб паведаміць пра зьмену справаздачы табліцы"
 
-#: atk/atkobject.c:394
-msgid "Accessible Table Caption Object"
-msgstr "Даступнасьць аб'екта загалоўка табліцы"
-
 #: atk/atkobject.c:395
+msgid "Accessible Table Caption Object"
+msgstr "Даступнасьць аб'екту загалоўку табліцы"
+
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "Выкарыстоўваецца, каб паведаміць пра зьмену загалоўка табліцы"
 
-#: atk/atkobject.c:401
-msgid "Number of Accessible Hypertext Links"
-msgstr "Колькасьць Даступных гіпертэкставых спасылак"
-
 #: atk/atkobject.c:402
+msgid "Number of Accessible Hypertext Links"
+msgstr "Колькасьць даступных гіпертэкставых спасылак"
+
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Колькасьць спасылак, якія мае ў бягучы момант AtkHypertext"
 
