@@ -125,7 +125,7 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_DIAL] = SPI_ROLE_DIAL;
   role_table [Accessibility_ROLE_DIALOG] = SPI_ROLE_DIALOG;
   role_table [Accessibility_ROLE_DIRECTORY_PANE] = SPI_ROLE_DIRECTORY_PANE;
-  role_table[Accessibility_ROLE_DRAWING_AREA] = SPI_ROLE_DRAWING_AREA;
+  role_table [Accessibility_ROLE_DRAWING_AREA] = SPI_ROLE_DRAWING_AREA;
   role_table [Accessibility_ROLE_FILE_CHOOSER] = SPI_ROLE_FILE_CHOOSER;
   role_table [Accessibility_ROLE_FILLER] = SPI_ROLE_FILLER;
   role_table [Accessibility_ROLE_FONT_CHOOSER] = SPI_ROLE_FONT_CHOOSER;
@@ -1152,7 +1152,7 @@ AccessibleStateSet_add (AccessibleStateSet *obj,
 
   spi_state = spi_state_type_from_accessible_state (state);
   Accessibility_StateSet_add (CSPI_OBJREF (obj), spi_state, cspi_ev ());
-  cspi_check_ev ("add");
+  cspi_check_ev ("StateSet_add");
 }
 
 /**
@@ -1174,7 +1174,7 @@ AccessibleStateSet_remove (AccessibleStateSet *obj,
 
   spi_state = spi_state_type_from_accessible_state (state);
   Accessibility_StateSet_remove (CSPI_OBJREF (obj), spi_state, cspi_ev ());
-  cspi_check_ev ("remove");
+  cspi_check_ev ("StateSet_remove");
 }
 
 /**

@@ -23,7 +23,31 @@
 #include <stdlib.h>
 #include "../cspi/spi-private.h"
 
-#define CLIP_DEBUG
+#undef CLIP_DEBUG
+
+/*
+ * Screen Review Algorithm Demonstration, Benchmark, and Test-bed.
+ *
+ * Issues:
+ *
+ * * bounds now fail to include window border decoration
+ *         (which we can't really know about).
+ *
+ * * brute-force algorithm uses no client-side cache; performance mediocre.
+ *
+ * * we don't have good ordering information for the toplevel windows,
+ *          and our current heuristic is not guaranteed if
+ *          the active window is not always on top.
+ *
+ * * text-bearing objects that don't implement AccessibleText (such as buttons)
+ *          don't get their text clipped since we don't know the character
+ *          bounding boxes.
+ * * can't know about "inaccessible" objects that may be obscuring the
+ *          accessible windows (inherent to API-based approach).
+ *
+ * * (others).
+ */
+
 
 #define BOUNDS_CONTAIN_X(b, p)  (((p)>=(b)->x) && ((p)<=((b)->x + (b)->width))\
 	    && ((b)->width > 0) && ((b)->height > 0))
@@ -47,11 +71,14 @@
 					      (c)->clip_bounds.width) >= \
 			               ((i)->clip_bounds.x + \
 			                (i)->clip_bounds.width)))
+/*
+ * #define CHUNK_BOUNDS_WITHIN(c, i)  ((i) && ((c)->clip_bounds.x >= \
+ *                               (i)->text_bounds.x) && \
+ *                               (((c)->clip_bounds.x + (c)->clip_bounds.width) \
+ *                             <= ((i)->text_bounds.x + (i)->text_bounds.width)))
+ */
 
-//#define CHUNK_BOUNDS_WITHIN(c, i)  ((i) && ((c)->clip_bounds.x >= \
-//                               (i)->text_bounds.x) && \
-//                               (((c)->clip_bounds.x + (c)->clip_bounds.width) \
-//                               <= ((i)->text_bounds.x + (i)->text_bounds.width)))
+#define IS_CLIPPING_CONTAINER(a) ((a) != SPI_ROLE_PAGE_TAB)
 
 static void report_screen_review_line  (const AccessibleEvent *event, void *user_data);
 
@@ -105,8 +132,8 @@ main (int argc, char **argv)
 
   SPI_registerGlobalEventListener (mouseclick_listener,
 				   "Gtk:GtkWidget:button-press-event");
-#define JAVA_TEST_HACK
-#ifdef JAVA_TEST_HACK
+#undef JAVA_TEST_HACK
+#ifdef JAVA_TEST_HACK /* Only use this to test Java apps */
   SPI_registerGlobalEventListener (mouseclick_listener,
 				   "object:text-caret-moved");
   isJava = TRUE;
@@ -124,14 +151,6 @@ main (int argc, char **argv)
 }
 
 static inline gboolean
-bounds_contain_y (BoundaryRect *bounds, int y)
-{
-	return (y > bounds->y && y <= (bounds->y + bounds->height)
-		&& bounds->width && bounds->height);
-}
-
-
-static inline gboolean
 chunk_bounds_within (TextChunk *chunk, TextChunk *test_chunk)
 {
 	int x1, x2, tx1, tx2;
@@ -144,10 +163,6 @@ chunk_bounds_within (TextChunk *chunk, TextChunk *test_chunk)
 	gtx1 = (chunk->clip_bounds.x >= test_chunk->clip_bounds.x);
 	ltx2 = (chunk->clip_bounds.x + chunk->clip_bounds.width
 		<= test_chunk->clip_bounds.x + test_chunk->clip_bounds.width);
-
-//	fprintf (stderr, "testing BOUNDS %d-%d WITHIN %d-%d: %s\n",
-//		 x1, x2, tx1, tx2, ((gtx1 && ltx2) ? "T" : "F"));
-	
 	return gtx1 && ltx2;
 }
 
@@ -185,6 +200,9 @@ boundary_clip (BoundaryRect *bounds, BoundaryRect *clipBounds)
 	bounds->height = MAX (y2 - bounds->y, 0);
 	if (!bounds->width || !bounds->height)
 		bounds->isEmpty = TRUE;
+	if (IS_CLIPPING_CONTAINER (bounds->role)) {
+		*clipBounds = *bounds;
+	}
 #ifdef CLIP_DEBUG
 	fprintf (stderr, "%d-%d\n",
 		 bounds->x, bounds->x+bounds->width);
@@ -468,7 +486,7 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 				&text_chunk->start_char_bounds.height,
 				SPI_COORD_TYPE_SCREEN);
 #ifdef CLIP_DEBUG
-			fprintf (stderr, "%s: start char (%d) x, width %d %d;",
+			fprintf (stderr, "%s: start char (%d) x, width %d %d; ",
 				 s,
 				 start,
 				 text_chunk->start_char_bounds.x,
@@ -505,9 +523,28 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 		text_chunk->text_bounds.height = y2 - text_chunk->text_bounds.y;
 		text_chunk->start_offset = start;
 		text_chunk->end_offset = end;
-		if ((role != SPI_ROLE_TABLE_CELL) /* XXX bug workaround */
-		    && !bounds_contain_y (&text_chunk->text_bounds,
-					  screen_y)) {
+		if (text_chunk->text_bounds.x < text_chunk->clip_bounds.x) {
+			text_chunk->text_bounds.x = text_chunk->clip_bounds.x;
+			text_chunk->text_bounds.isClipped = TRUE;
+		} 
+		if ((text_chunk->text_bounds.x +
+		     text_chunk->text_bounds.width)
+		    > (text_chunk->clip_bounds.x +
+		       text_chunk->clip_bounds.width)) {
+			text_chunk->text_bounds.width =
+				MAX (0, (text_chunk->clip_bounds.x +
+					 text_chunk->clip_bounds.width) -
+				     text_chunk->text_bounds.x);
+			text_chunk->text_bounds.isClipped = TRUE;
+		}
+		if (!BOUNDS_CONTAIN_Y (&text_chunk->text_bounds,
+				       screen_y)) {
+#ifdef CLIP_DEBUG			
+			fprintf (stderr, "%s out of bounds (%d-%d)\n", s,
+				 text_chunk->text_bounds.y,
+				 text_chunk->text_bounds.y +
+				 text_chunk->text_bounds.height);
+#endif			
 			s = NULL;
 		}
 	} else {
@@ -572,23 +609,26 @@ clip_into_buffers (Accessible *accessible,  BoundaryRect* parentClipBounds[],
 	BoundaryRect** clip_bounds;
 	TextChunk *text_chunk;
 	AccessibleComponent *component;
+	AccessibleRole role;
 	int layer;
 
         clip_bounds = clip_bounds_clone (parentClipBounds);
 	if (Accessible_isComponent (accessible)) {
+		role = Accessible_getRole (accessible);
 		component = Accessible_getComponent (accessible);
 		layer = AccessibleComponent_getLayer (component);
 		bounds = *clip_bounds[layer];
-		if (!bounds.isEmpty || 1) {
+		if (!bounds.isEmpty) {
 			AccessibleComponent_getExtents (component,
 							&bounds.x,
 							&bounds.y,
 							&bounds.width,
 							&bounds.height,
 							SPI_COORD_TYPE_SCREEN);
+			bounds.role = role;
 			if (clip_bounds[layer])
 				boundary_clip (&bounds, clip_bounds[layer]);
-			if (bounds_contain_y (&bounds, screen_y)) {
+			if (BOUNDS_CONTAIN_Y (&bounds, screen_y)) {
 				text_chunk = review_buffer_get_text_chunk (
 					reviewBuffers[layer], accessible, &bounds,
 					screen_x, screen_y);
@@ -597,7 +637,8 @@ clip_into_buffers (Accessible *accessible,  BoundaryRect* parentClipBounds[],
 						reviewBuffers[layer]->text_chunks,
 						text_chunk);
 			} else {
-				clip_bounds[layer]->isEmpty = TRUE;
+				bounds.isEmpty =
+					IS_CLIPPING_CONTAINER (bounds.role);
 			}
 		} 
 		Accessible_unref (component);
@@ -616,6 +657,8 @@ clip_into_buffers (Accessible *accessible,  BoundaryRect* parentClipBounds[],
 	/* TODO: free the parent clip bounds */
 }
 
+#undef CHARACTER_CLIP_DEBUG
+
 static char*
 text_chunk_get_clipped_string (TextChunk *chunk)
 {
@@ -629,10 +672,10 @@ text_chunk_get_clipped_string (TextChunk *chunk)
 		s = chunk->string;
 	else if (chunk->source) {
 		len = chunk->end_offset - chunk->start_offset;
-#ifdef CLIP_DEBUG		
+#ifdef CHARACTER_CLIP_DEBUG		
 		fprintf (stderr, "clipping %s\n", chunk->string);
 #endif		
-		for (i = 0; i < len; ++i) {
+		for (i = chunk->start_offset; i < chunk->end_offset; ++i) {
 			AccessibleText_getCharacterExtents (chunk->source,
 							    i,
 							    &char_bounds.x,
@@ -693,7 +736,7 @@ review_buffer_composite (ScreenReviewBuffer *buffers[])
 	GList *chunk_list, *iter;
 	TextChunk *chunk;
 	chunk_list = buffers[0]->text_chunks;
-	for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
+/*	for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
 		iter = buffers[i]->text_chunks;
 		fprintf (stderr, "layer %d has %d chunks\n",
 			 i, g_list_length (iter));
@@ -709,7 +752,7 @@ review_buffer_composite (ScreenReviewBuffer *buffers[])
 			iter = iter->next;
 		}
 	}
-	chunk_list = buffers[SPI_LAYER_WIDGET]->text_chunks;
+*/	chunk_list = buffers[SPI_LAYER_WIDGET]->text_chunks;
 	return text_chunk_list_to_string (chunk_list);
 }
 
@@ -793,12 +836,12 @@ get_screen_review_line_at (int x, int y)
 		      for (i = 0; i < SPI_LAYER_LAST_DEFINED; ++i) {
 			      *clip_bounds[i] = toplevel_bounds;
 		      }
-#ifdef CLIP_DEBUG		      
-		      fprintf (stderr, "toplevel clip starting\n");
-		      debug_chunk_list (reviewBuffers[SPI_LAYER_WIDGET]->text_chunks);
-#endif		      
 		      clip_into_buffers (toplevel, clip_bounds,
 				     reviewBuffers, x, y);
+#ifdef CLIP_DEBUG
+		      fprintf (stderr, "toplevel clip done\n");
+		      debug_chunk_list (reviewBuffers[SPI_LAYER_WIDGET]->text_chunks);
+#endif		      
 	      }
 	  }
 	  Accessible_unref (toplevel);

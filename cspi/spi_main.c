@@ -165,7 +165,7 @@ cspi_object_add (CORBA_Object corba_object)
     {
       ref = NULL;
     }
-  else if (!cspi_check_ev ("pre method check"))
+  else if (!cspi_check_ev ("pre method check: add"))
     {
       ref = NULL;
     }

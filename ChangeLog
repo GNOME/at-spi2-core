@@ -1,6 +1,22 @@
+2002-05-21  Bill Haneman  <bill.haneman@sun.com>
+
+	* test/screen-review-test.c:
+	* test/Makefile.am:
+	Added a screen review benchmarking and test program to test
+	directory.
+
+	* cspi/spi_accessible.c:
+	* cspi/spi_main.c:
+	Made some of the debug strings passed to cspi_check_ev a
+	little more specific.
+
 2002-05-21  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* test/screen-review-test.c: Fix crashes in debug statements
+
+2002-05-20  Bill Haneman  <bill.haneman@sun.com>
+
+	* test/screen-review-test.c: Added this file.
 
 2002-05-13  Marc Mulcahy <marc.mulcahy@sun.com>
 
