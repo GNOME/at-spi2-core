@@ -1,3 +1,13 @@
+2002-12-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* cspi/spi_event.c 
+	(cspi_internal_event_get_object): Use CORBA_TypeCode_Equivalent() 
+	to compare two CORBA_TypeCodes.
+	(cspi_internal_event_add): Silence warning from FORTE compiler.
+
+	* cspi/bonobo/cspi_bonobo-listener.h: Add function declarations to 
+	avoid implicit declaration of functions.
+	
 2002-12-09  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c:
@@ -69,7 +79,6 @@
 	(spi_dec_button_update_and_emit): 
 	Fixed type in mask bit operations; fix for #99799.
 	
->>>>>>> 1.266
 2002-12-02  Bill Haneman  <bill.haneman@sun.com>
 
 	Removed some of the more dangerous workarounds from

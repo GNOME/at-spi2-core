@@ -358,7 +358,7 @@ cspi_internal_event_get_object (const InternalEvent *e)
   g_return_val_if_fail (e, NULL);
   g_return_val_if_fail (e->data, NULL);
   any = (CORBA_any *) e->data;
-  if (any->_type == TC_CORBA_Object) 
+  if (CORBA_TypeCode_equal (any->_type, TC_CORBA_Object, cspi_ev()))
     return cspi_object_take (* (CORBA_Object *) any->_value);
   else 
     return NULL;
@@ -535,7 +535,7 @@ cspi_internal_event_check (const AccessibleEvent *e)
 static InternalEvent *
 cspi_internal_event_add (const InternalEvent *e)
 {
-  _cspi_event_queue = g_slist_prepend (_cspi_event_queue, e);
+  _cspi_event_queue = g_slist_prepend (_cspi_event_queue, (gpointer) e);
   return (InternalEvent *) e;
 }
 

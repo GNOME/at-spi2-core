@@ -58,6 +58,13 @@ typedef SpiDeviceListenerClass CSpiDeviceListenerClass;
 
 GType cspi_device_listener_get_type (void);
 gpointer cspi_device_listener_new (void);
+void cspi_device_listener_add_cb (AccessibleDeviceListener  *al,
+                                  AccessibleDeviceListenerCB callback,
+                                  void                      *user_data);
+void cspi_device_listener_remove_cb (AccessibleDeviceListener  *al,
+                                     AccessibleDeviceListenerCB callback);
+void cspi_device_listener_unref (AccessibleDeviceListener *listener);
+
 
 G_END_DECLS
 
