@@ -1,5 +1,9 @@
 2002-06-18  Bill Haneman  <bill.haneman@sun.com>
 
+	Fixes for bugs 84900, 84908, 84897, 84898.
+
+	* NEWS: updated.
+	
 	* configure.in:
 	Revved version to 1.1.0 
 	(reserving the 1.0.X branch for gnome-2-0-0 branch, this

@@ -1,4 +1,10 @@
 (top)
+What's new in at-spi-1.1.0:
+
+* event listener notifications are no longer oneways.
+* bugfixes for 84900, 84908, 84897, 84898.
+* performance improvement for event listeners.
+
 What's new in at-spi-1.0.1:
 
 * bugfix for 82509
