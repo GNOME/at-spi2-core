@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: atk.HEAD.mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-08 11:02+0200\n"
-"PO-Revision-Date: 2004-09-23 10:38+0200\n"
+"PO-Revision-Date: 2004-10-14 17:27+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -375,11 +375,11 @@ msgstr "Опис на објекотот, форматиран за приста
 
 #: atk/atkobject.c:310
 msgid "Accessible Parent"
-msgstr ""
+msgstr "Пристапен процес"
 
 #: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgstr "Се користи за известување дека процесот е променет"
 
 #: atk/atkobject.c:317
 msgid "Accessible Value"
