@@ -58,7 +58,6 @@ atk_value_get_current_value (AtkValue *obj,
   g_return_if_fail (obj != NULL);
   g_return_if_fail (value != NULL);
   g_return_if_fail (ATK_IS_VALUE (obj));
-  g_return_if_fail (G_IS_VALUE (value));
 
   iface = ATK_VALUE_GET_IFACE (obj);
 
@@ -85,7 +84,6 @@ atk_value_get_maximum_value  (AtkValue *obj,
   g_return_if_fail (obj != NULL);
   g_return_if_fail (value != NULL);
   g_return_if_fail (ATK_IS_VALUE (obj));
-  g_return_if_fail (G_IS_VALUE (value));
 
   iface = ATK_VALUE_GET_IFACE (obj);
 
@@ -112,7 +110,6 @@ atk_value_get_minimum_value (AtkValue *obj,
   g_return_if_fail (obj != NULL);
   g_return_if_fail (value != NULL);
   g_return_if_fail (ATK_IS_VALUE (obj));
-  g_return_if_fail (G_IS_VALUE (value));
 
   iface = ATK_VALUE_GET_IFACE (obj);
 

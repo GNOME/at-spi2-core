@@ -68,16 +68,16 @@ struct _AtkImageIface
   /*
    * Gets the height of the image
    */
-  gint   ( *get_image_height)      (AtkImage              *image);
+  gint     ( *get_image_height)      (AtkImage              *image);
   /*
    * Gets the width of the image
    */
-  gint   ( *get_image_width)       (AtkImage              *image);
+  gint     ( *get_image_width)       (AtkImage              *image);
   /*
    * Sets the description of the image
    */
-  void   ( *set_image_description) (AtkImage              *image,
-                                    const gchar           *description);
+  gboolean ( *set_image_description) (AtkImage              *image,
+                                      const gchar           *description);
 
 };
 GType  atk_image_get_type             (void);
@@ -85,12 +85,12 @@ GType  atk_image_get_type             (void);
 AtkImageType          atk_image_get_storage_type      (AtkImage   *image);
 G_CONST_RETURN gchar* atk_image_get_image_description (AtkImage   *image);
 
-gint   atk_image_get_image_height      (AtkImage           *image);
+gint     atk_image_get_image_height      (AtkImage           *image);
 
-gint   atk_image_get_image_width       (AtkImage           *image);
+gint     atk_image_get_image_width       (AtkImage           *image);
 
-void   atk_image_set_image_description (AtkImage           *image,
-                                        const gchar       *description);
+gboolean atk_image_set_image_description (AtkImage           *image,
+                                          const gchar       *description);
 
 
 #ifdef __cplusplus
