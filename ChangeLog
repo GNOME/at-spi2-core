@@ -1,3 +1,14 @@
+2002-04-113  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* idl/Accessibility_State.idl: Made StateSet inherit from BonoboUnknown.
+
+	* libspi/accessible.c: Added implementation fo
+	Accessibility_Accessible_get_state.
+	
+	* libspi/libspi.h: Added stateset.h to the list of includes.
+
+	* libspi/stateset.c: Fixed broken implementation.
+
 2002-04-13  Bill Haneman <bill.haneman@sun.com>
 
         * util/magnifier.c:

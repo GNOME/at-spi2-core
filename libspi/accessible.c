@@ -306,13 +306,20 @@ impl_accessibility_accessible_get_state (PortableServer_Servant servant,
 					 CORBA_Environment     *ev)
 {
   AtkObject *object = get_atkobject_from_servant (servant);
+  AtkStateSet *atk_set;
+  SpiStateSet *set;
+  Accessibility_StateSet retval;
 
   bonobo_return_val_if_fail (object != NULL, NULL, ev);
 
-  printf ("SpiAccessible get_state.\n");
+  atk_set = atk_object_ref_state_set (object);
+  
+  set = spi_state_set_new (atk_set);
+  retval = bonobo_object_dup_ref (
+				  BONOBO_OBJREF(set),
+				  ev);
 
-  /* TODO: implement the bonobo stateset class */
-  return (Accessibility_StateSet) NULL;
+  return retval;
 }
 
 /*

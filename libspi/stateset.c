@@ -36,6 +36,12 @@ spi_init_state_type_tables (void)
 {
   gint i;
 
+  if (accessible_state_types || atk_state_types)
+    return FALSE;
+  if (!accessible_state_types)
+    accessible_state_types = g_new (Accessibility_StateType, Accessibility_STATE_LAST_DEFINED);
+  if (!atk_state_types)
+    atk_state_types = g_new (AtkStateType, ATK_STATE_LAST_DEFINED);
   g_return_val_if_fail (accessible_state_types, FALSE);
   g_return_val_if_fail (atk_state_types, FALSE);
   
@@ -347,6 +353,7 @@ spi_state_set_class_init (SpiStateSetClass *klass)
 {
   POA_Accessibility_StateSet__epv *epv = &klass->epv;
 
+  spi_init_state_type_tables ();
   epv->contains = impl_contains;
   epv->add = impl_add;
   epv->remove = impl_remove;

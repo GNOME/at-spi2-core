@@ -32,6 +32,7 @@
 #include <libspi/image.h>
 #include <libspi/relation.h>
 #include <libspi/selection.h>
+#include <libspi/stateset.h>
 #include <libspi/table.h>
 #include <libspi/text.h>
 #include <libspi/value.h>

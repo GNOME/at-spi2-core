@@ -113,7 +113,7 @@ module Accessibility {
 
   typedef sequence <StateType> StateSeq;
 
-  interface StateSet {
+  interface StateSet : Bonobo::Unknown {
     boolean 		contains (in StateType state);
     void		add (in StateType state);
     void 		remove (in StateType state);
