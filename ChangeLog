@@ -1,3 +1,8 @@
+Thu Nov 25 14:11:41 2004  Manish Singh  <yosh@gimp.org>
+
+	* autogen.sh: rm autom4te.cache, since it might interfere with
+	differing autoconf versions.
+
 2004-11-22  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: Replace DEPRECATED by @Deprecated in comments
