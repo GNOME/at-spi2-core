@@ -48,43 +48,17 @@ struct _AtkSelectionIface
 {
   GTypeInterface parent;
 
-  /*
-   * Adds the specified accessible child of the object to the
-   * object's selection.
-   */
   void         (* add_selection)        (AtkSelection   *selection,
                                          gint           i);
-  /*
-   * Clears the selection in the object so that no children in the object
-   * are selected.
-   */
   void         (* clear_selection)      (AtkSelection   *selection);
-  /*
-   * Returns a reference to the accessible object representing the specified 
-   * selected * child of the object.
-   */
   AtkObject*   (* ref_selection)        (AtkSelection   *selection,
                                          gint           i);
-  /*
-   * Returns the number of accessible children currently selected.
-   */
   gint         (* get_selection_count)  (AtkSelection   *selection);
-  /*
-   * Determines if the current child of this object is selected
-   */
   gboolean     (* is_child_selected)    (AtkSelection   *selection,
                                          gint           i);
-  /*
-   * Removes the specified child of the object from the object's selection.
-   */
   void         (* remove_selection)     (AtkSelection   *selection,
                                          gint           i);
-  /*
-   * Causes every child of the object to be selected if the object
-   * supports multiple selections.
-   */
   void         (* select_all_selection) (AtkSelection   *selection);
-
 };
 GType atk_selection_get_type ();
 

@@ -43,6 +43,17 @@ typedef struct _AtkImage AtkImage;
 #endif
 typedef struct _AtkImageIface AtkImageIface;
 
+/**
+ *AtkImageType:
+ *@ATK_IMAGE_EMPTY:
+ *@ATK_IMAGE_PIXMAP:
+ *@ATK_IMAGE_IMAGE:
+ *@ATK_IMAGE_PIXBUF:
+ *@ATK_IMAGE_STOCK:
+ *@ATK_IMAGE_ICON_SET:
+ *
+ *The representation being used to store the image data
+ **/
 typedef enum
 {
   ATK_IMAGE_EMPTY,
@@ -57,25 +68,10 @@ struct _AtkImageIface
 {
   GTypeInterface parent;
 
-  /*
-   * Gets the type of representation being used to store image data
-   */
   AtkImageType     (*get_storage_type)              (AtkImage              *image);
-  /*
-   * Gets the description of the image
-   */
   G_CONST_RETURN   gchar* ( *get_image_description) (AtkImage              *image);
-  /*
-   * Gets the height of the image
-   */
   gint     ( *get_image_height)      (AtkImage              *image);
-  /*
-   * Gets the width of the image
-   */
   gint     ( *get_image_width)       (AtkImage              *image);
-  /*
-   * Sets the description of the image
-   */
   gboolean ( *set_image_description) (AtkImage              *image,
                                       const gchar           *description);
 

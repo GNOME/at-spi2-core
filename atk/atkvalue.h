@@ -49,24 +49,12 @@ struct _AtkValueIface
 {
   GTypeInterface parent;
 
-  /*
-   * Gets the value of this object
-   */
   void     (* get_current_value) (AtkValue     *obj,
                                   GValue       *value);
-  /*
-   * Gets the maximum value of this object
-   */
   void     (* get_maximum_value) (AtkValue     *obj,
                                   GValue       *value);
-  /*
-   * Gets the minimum value of this object
-   */
   void     (* get_minimum_value) (AtkValue     *obj,
                                   GValue       *value);
-  /*
-   * Sets the value of this object
-   */
   gboolean (* set_current_value) (AtkValue     *obj,
                                   GValue       *value);
 

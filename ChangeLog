@@ -3,6 +3,7 @@
 
 	* atk/atktext.c
 	Now properly set the initialized flag when setting up signals.
+        Updated the atk-docs in several files
 
 2001-05-24  Padraig O'Briain  <padraig.obriain@sun.com>
 

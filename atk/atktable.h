@@ -47,10 +47,6 @@ struct _AtkTableIface
 {
   GTypeInterface parent;
 
-  /*
-   * Returns a reference to the accessible object at a specified row 
-   * and column in the table.
-   */
   AtkObject*        (* ref_at)                   (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
@@ -61,113 +57,45 @@ struct _AtkTableIface
                                                   gint          index);
   gint              (* get_column_at_index)      (AtkTable      *table,
                                                   gint          index);
-  /*
-   * Returns the caption for the table.
-   */
   AtkObject*        (* get_caption)              (AtkTable      *table);
-  /*
-   * Returns the number of columns in the table.
-   */
   gint              (* get_n_columns)           (AtkTable      *table);
-  /*
-   * Returns the description text of the specified column in the table
-   */
   AtkObject*        (* get_column_description)   (AtkTable      *table,
                                                   gint          column);
-  /*
-   * Returns the number of columns occupied by the accessible object
-   * at a specified row and column in the table.
-   */
   gint              (* get_column_extent_at)     (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
-  /*
-   * Returns the column headers of an accessible table.
-   */
   AtkTable*         (* get_column_header)        (AtkTable      *table);
-  /*
-   * Returns the number of rows in the table.
-   */
   gint              (* get_n_rows)               (AtkTable      *table);
-  /*
-   * Returns the description text of the specified row in the table
-   */
   AtkObject*        (* get_row_description)      (AtkTable      *table,
                                                   gint          row);
-  /*
-   * Returns the number of rows occupied by the accessible object
-   * at a specified row and column in the table.
-   */
   gint              (* get_row_extent_at)        (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
-  /*
-   * Returns the row headers of an accessible table.
-   */
   AtkTable*         (* get_row_header)           (AtkTable      *table);
-  /*
-   * Returns the summary description of the table.
-   */
   AtkObject*        (* get_summary)              (AtkTable      *table);
-  /*
-   * Returns the selected columns of the table.
-   */
   gint*             (* get_selected_columns)     (AtkTable      *table);
-  /*
-   * Returns the selected rows of the table.
-   */
   gint*             (* get_selected_rows)        (AtkTable      *table);
-  /*
-   * Returns a boolean value indicating whether the specified column
-   * is selected
-   */
   gboolean          (* is_column_selected)       (AtkTable      *table,
                                                   gint          column);
-  /*
-   * Returns a boolean value indicating whether the specified row
-   * is selected
-   */
   gboolean          (* is_row_selected)          (AtkTable      *table,
                                                   gint          row);
-  /*
-   * Returns a boolean value indicating whether the acessible object
-   * at the specified row and column is selected
-   */
   gboolean          (* is_selected)              (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
-  /*
-   * Sets the caption for the table.
-   */
   void              (* set_caption)              (AtkTable      *table,
                                                   AtkObject     *accessible);
-  /*
-   * Sets the description text for the specified column of the table.
-   */
   void              (* set_column_description)   (AtkTable      *table,
                                                   gint          column,
                                                   AtkObject     *accessible);
-  /*
-   * Sets the column headers
-   */
   void              (* set_column_header)        (AtkTable      *table,
                                                   gint          column,
                                                   AtkTable      *header);
-  /*
-   * Sets the description text for the specified row of the table.
-   */
   void              (* set_row_description)      (AtkTable      *table,
                                                   gint          row,
                                                   AtkObject     *accessible);
-  /*
-   * Sets the row headers
-   */
   void              (* set_row_header)           (AtkTable      *table,
                                                   gint          row,
                                                   AtkTable      *header);
-  /*
-   * Sets the summary description of the table
-   */
   void              (* set_summary)              (AtkTable      *table,
                                                   AtkObject     *accessible);
 };

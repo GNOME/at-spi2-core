@@ -25,11 +25,21 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <glib-object.h>
-
+/**
+ *AtkRelationType:
+ *@ATK_RELATION_NULL:
+ *@ATK_RELATION_CONTROLLED_BY:
+ *@ATK_RELATION_CONTROLLER_FOR:
+ *@ATK_RELATION_LABEL_FOR:
+ *@ATK_RELATION_LABELLED_BY:
+ *@ATK_RELATION_MEMBER_OF:
+ *@ATK_RELATION_LAST_DEFINED:
+ * 
+ *The possible types of an #AtkRelation
+ **/
 typedef enum
 {
   ATK_RELATION_NULL = 0,
-
   ATK_RELATION_CONTROLLED_BY,
   ATK_RELATION_CONTROLLER_FOR,
   ATK_RELATION_LABEL_FOR,

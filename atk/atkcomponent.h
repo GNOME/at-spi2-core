@@ -51,83 +51,40 @@ struct _AtkComponentIface
 {
   GTypeInterface parent;
 
-  /*
-   * Add the specified handler to the set of functions to be called 
-   * when this object receives focus (in or out) events.
-   */
   guint          (* add_focus_handler)  (AtkComponent    *component,
                                          AtkFocusHandler handler);
-  /*
-   * Checks whether the specified point is within the extent of the object,
-   * the points x and y coordinates are defined to be relative to the 
-   * coordinate system of the object.
-   */
   gboolean       (* contains)           (AtkComponent           *component,
                                          gint                   x,
                                          gint                   y);
 
-  /*
-   * Gets the accessible child, if one exists, contained at the local
-   * coordinate point specified by x and y.
-   */
   AtkObject*    (* get_accessible_at_point)  (AtkComponent     *component,
                                          gint                   x,
                                          gint                   y);
-  /*
-   * Gets the rectangle which gives the extent of the object.
-   */
   void          (* get_extents)         (AtkComponent          *component,
                                          gint                  *x,
                                          gint                  *y,
                                          gint                  *width,
                                          gint                  *height);
-  /*
-   * Gets the position of the object relative to the parent in the form of 
-   * a point specifying the object's top-left corner in the screen's
-   * coordinate space.
-   */
   void                     (* get_position)     (AtkComponent   *component,
                                                  gint           *x,
                                                  gint           *y);
-  /*
-   *  Returns the position of the object on the screen
-   */
   void                     (* get_position_on_screen)   (AtkComponent   *component,
                                                          gint           *root_x,
                                                          gint           *root_y);
-  /*
-   *  Returns the size of the object
-   */
   void                     (* get_size)                 (AtkComponent   *component,
                                                          gint           *width,
                                                          gint           *height);
-  /*
-   * Grabs focus for this object
-   */
   void                     (* grab_focus)               (AtkComponent   *component);
-  /*
-   * Remove the handler specified by the handler_id from the list of
-   * functions to be executed when this object receives focus (in or out)
-   */
   void                     (* remove_focus_handler)      (AtkComponent  *component,
                                                           guint         handler_id);
-  /*
-   * Sets the extents of the object
-   */
   void                     (* set_extents)      (AtkComponent   *component,
                                                  gint           x,
                                                  gint           y,
                                                  gint           width,
                                                  gint           height);
-  /*
-   * Set the position of the object
-   */
   void                     (* set_position)     (AtkComponent   *component,
                                                  gint           x,
                                                  gint           y);
-  /*
-   * Set the size of the object
-   */
   void                     (* set_size)         (AtkComponent   *component,
                                                  gint           width,
                                                  gint           height);

@@ -50,25 +50,11 @@ struct _AtkActionIface
 {
   GTypeInterface parent;
 
-  /*
-   * Perform the specified action on the object
-   */
   gboolean (*do_action)         (AtkAction         *action,
                                  gint              i);
-  /*
-   * Returns the number of accessible actions available on the object.
-   * If there are more than one, the first one is considered the
-   * "default" action of the object.
-   */
   gint     (*get_n_actions)     (AtkAction         *action);
-  /*
-   * Returns a description of the specified action of the object
-   */
   G_CONST_RETURN gchar*   (*get_description)   (AtkAction         *action,
                                                 gint              i);
-  /*
-   * Returns a keybinding associated with this action, if one exists.
-   */
   G_CONST_RETURN gchar*   (*get_keybinding)    (AtkAction         *action,
                                                 gint              i);
 

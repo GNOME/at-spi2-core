@@ -53,20 +53,9 @@ struct _AtkHypertextIface
 {
   GTypeInterface parent;
 
-  /*
-   * Returns the nth link of this hypertext document
-   */
   AtkHyperLink*(* get_link)                 (AtkHypertext       *hypertext,
                                              gint               link_index);
-  /*
-   * Returns the number of links within this hypertext document.
-   */
   gint         (* get_n_links)              (AtkHypertext       *hypertext);
-  /*
-   * Returns the index into the array of hyperlinks that is associated 
-   * this character index, or -1 if there is no hyperlink associated with
-   * this index.
-   */
   gint         (* get_link_index)           (AtkHypertext       *hypertext,
                                              gint               char_index);
 
