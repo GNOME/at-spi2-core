@@ -1,5 +1,26 @@
 2001-12-04  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atktext.c:
+	Add implementation of atk_attribute_register, atk_attribute_for_name
+	Udate atk_attribute_get_name to use ATK_TYPE_TEXT__ATTRIBUTE and
+	support extra attributes being defined
+
+	* atk/atktext.h:
+	Add ATK_TEXT_ATTR_INVALID and ATK_TEXT_ATTR_LAST_DEFINED to allow
+	extra attributes to be defined
+	Add atk_attribute_register() and atk_attribute_for_name()
+
+	* atk/atk.def:
+	Add new functions
+
+	* docs/atk-sections.txt docs/tmpl/atktext.sgml
+	Update because of additions to atk/atktext.h
+
+	* tests/testrelation.c:
+	Add tests for text attributes
+
+2001-12-04  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkobject.c:
 	Update atk_role_register() to allow extra roles to be defined
 	Update atk_role_get_name() and atk_role_for_name() for newly defined

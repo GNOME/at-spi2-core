@@ -110,7 +110,7 @@ test_role (void)
   role1 = atk_role_for_name ("list-item");
   if (role1 != ATK_ROLE_LIST_ITEM)
     {
-      g_print ("Unexpected role for list_item\n");
+      g_print ("Unexpected role for list-item\n");
       return FALSE;
     }
 
@@ -135,12 +135,73 @@ test_role (void)
       return FALSE;
     }
   /*
-   * Check that a non-existent type returns NULL
+   * Check that a non-existent role returns NULL
    */
   name = atk_role_get_name (ATK_ROLE_LAST_DEFINED + 2);
   if (name)
     {
       g_print ("Unexpected name for undefined role %s\n", name);
+      return FALSE;
+    }
+  return TRUE;
+}
+
+static gboolean
+test_text_attr (void)
+{
+  AtkTextAttribute attr1, attr2;
+  G_CONST_RETURN gchar *name;
+
+  name = atk_attribute_get_name (ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "pixels-inside-wrap") != 0)
+    {
+      g_print ("Unexpected name for ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP %s\n", name);
+      return FALSE;
+    }
+
+  name = atk_attribute_get_name (ATK_TEXT_ATTR_BG_STIPPLE);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "bg-stipple") != 0)
+    {
+      g_print ("Unexpected name for ATK_TEXT_ATTR_BG_STIPPLE %s\n", name);
+      return FALSE;
+    }
+
+  attr1 = atk_attribute_for_name ("left-margin");
+  if (attr1 != ATK_TEXT_ATTR_LEFT_MARGIN)
+    {
+      g_print ("Unexpected attribute for left-margin\n");
+      return FALSE;
+    }
+
+  attr1 = atk_attribute_register ("test-attribute");
+  name = atk_attribute_get_name (attr1);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "test-attribute") != 0)
+    {
+      g_print ("Unexpected name for test-attribute %s\n", name);
+      return FALSE;
+    }
+  attr2 = atk_attribute_for_name ("test-attribute");
+  if (attr1 != attr2)
+  {
+    g_print ("Unexpected attribute for test-attribute\n");
+    return FALSE;
+  }
+  attr2 = atk_attribute_for_name ("TEST_ATTR");
+  if (attr2 != 0)
+    {
+      g_print ("Unexpected attribute for TEST_ATTR\n");
+      return FALSE;
+    }
+  /*
+   * Check that a non-existent attribute returns NULL
+   */
+  name = atk_attribute_get_name (ATK_TEXT_ATTR_LAST_DEFINED + 2);
+  if (name)
+    {
+      g_print ("Unexpected name for undefined attribute %s\n", name);
       return FALSE;
     }
   return TRUE;
@@ -164,5 +225,10 @@ gtk_module_init (gint  argc,
     g_print ("Role tests succeeded\n");
   else
     g_print ("Role tests failed\n");
+  b_ret = test_text_attr ();
+  if (b_ret)
+    g_print ("Text Attribute tests succeeded\n");
+  else
+    g_print ("Text Attribute tests failed\n");
   return 0;
 }

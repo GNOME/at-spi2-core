@@ -9,8 +9,9 @@ EXPORTS
 	atk_add_focus_tracker
 	atk_add_global_event_listener
 	atk_add_key_event_listener
-	atk_attribute_get_name
 	atk_attribute_get_value
+	atk_attribute_for_name
+	atk_attribute_register
 	atk_attribute_set_free
 	atk_component_add_focus_handler
 	atk_component_contains
@@ -24,6 +25,7 @@ EXPORTS
 	atk_component_set_extents
 	atk_component_set_position
 	atk_component_set_size
+	atk_coord_type_get_type
 	atk_document_get_document
 	atk_document_get_document_type
 	atk_document_get_type
@@ -52,6 +54,7 @@ EXPORTS
 	atk_hypertext_get_link_index
 	atk_hypertext_get_n_links
 	atk_hypertext_get_type
+	atk_key_event_type_get_type
 	atk_image_get_image_description
 	atk_image_get_image_position
 	atk_image_get_image_size
@@ -59,6 +62,7 @@ EXPORTS
 	atk_image_set_image_description
 	atk_implementor_get_type
 	atk_implementor_ref_accessible
+	atk_layer_get_type
 	atk_no_op_object_factory_get_type
 	atk_no_op_object_factory_new
 	atk_no_op_object_get_type
@@ -103,10 +107,14 @@ EXPORTS
 	atk_relation_set_remove
 	atk_relation_type_for_name
 	atk_relation_type_get_name
+	atk_relation_type_get_type
 	atk_relation_type_register
 	atk_remove_focus_tracker
 	atk_remove_global_event_listener
 	atk_remove_key_event_listener
+	atk_role_get_name
+	atk_role_get_type
+	atk_role_for_name
 	atk_role_register
 	atk_selection_add_selection
 	atk_selection_clear_selection
@@ -130,6 +138,7 @@ EXPORTS
 	atk_state_set_xor_sets
 	atk_state_type_for_name
 	atk_state_type_get_name
+	atk_state_type_get_type
 	atk_state_type_register
 	atk_streamable_content_get_mime_type
 	atk_streamable_content_get_n_mime_types
@@ -167,6 +176,7 @@ EXPORTS
 	atk_table_set_summary
 	atk_text_add_selection
 	atk_text_get_caret_offset
+	atk_text_attribute_get_type
 	atk_text_get_character_at_offset
 	atk_text_get_character_count
 	atk_text_get_character_extents

@@ -19,42 +19,15 @@
 
 #include "atktext.h"
 #include "atkmarshal.h"
+#include "atk-enum-types.h"
+
+GPtrArray *extra_attributes = NULL;
 
 enum {
   TEXT_CHANGED,
   CARET_MOVED,
   TEXT_SELECTION_CHANGED,
   LAST_SIGNAL
-};
-
-static const gchar * text_attr_name[] = {
-  "left_margin",
-  "right_margin",
-  "indent",
-  "invisible",
-  "editable",
-  "pixels_above_lines",
-  "pixels_below_lines",
-  "pixels_inside_wrap",
-  "bg_full_height",
-  "rise",
-  "underline",
-  "strikethrough",
-  "size",
-  "scale",
-  "weight",
-  "language",
-  "family_name",
-  "bg_color",
-  "fg_color",
-  "bg_stipple",
-  "fg_stipple",
-  "wrap_mode",
-  "direction",
-  "justification",
-  "stretch",
-  "variant",
-  "slant_style",
 };
 
 static const gchar *bool[] = {"false",
@@ -891,6 +864,26 @@ atk_attribute_set_free (AtkAttributeSet *attrib_set)
 }
 
 /**
+ * atk_attribute_register:
+ * @name: a name string
+ *
+ * Associate @name with a new #AtkTextAttribute
+ *
+ * Returns: an #AtkTextAttribute associated with @name
+ **/
+AtkTextAttribute
+atk_attribute_register (const gchar *name)
+{
+  g_return_val_if_fail (name, ATK_TEXT_ATTR_INVALID);
+
+  if (!extra_attributes)
+    extra_attributes = g_ptr_array_new ();
+
+  g_ptr_array_add (extra_attributes, g_strdup (name));
+  return extra_attributes->len + ATK_TEXT_ATTR_LAST_DEFINED;
+}
+
+/**
  * atk_attribute_get_name:
  * @attr: The #AtkTextAttribute whose name is required
  *
@@ -901,9 +894,89 @@ atk_attribute_set_free (AtkAttributeSet *attrib_set)
 G_CONST_RETURN gchar*
 atk_attribute_get_name (AtkTextAttribute attr)
 {
-  g_assert (attr >= 0 && attr <= ATK_TEXT_ATTR_STYLE);
-  return text_attr_name[attr];
+  GTypeClass *type_class;
+  GEnumValue *value;
+  gchar *name = NULL;
+
+  type_class = g_type_class_ref (ATK_TYPE_TEXT_ATTRIBUTE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
+
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), attr);
+
+  if (value)
+    {
+      name = value->value_nick;
+    }
+  else
+    {
+      if (extra_attributes)
+        {
+          gint n = attr;
+
+          n -= ATK_TEXT_ATTR_LAST_DEFINED + 1;
+
+          if (n < extra_attributes->len)
+
+            name = g_ptr_array_index (extra_attributes, n);
+        }
+    }
+  g_type_class_unref (type_class);
+  return name;
 }
+
+/**
+ * atk_attribute_for_name:
+ * @name: a string which is the (non-localized) name of an ATK text attribute.
+ *
+ * Get the #AtkTextAttribute type corresponding to a text attribute name.
+ *
+ * Returns: the #AtkTextAttribute enumerated type corresponding to the specified
+name,
+ *          or #ATK_TEXT_ATTRIBUTE_INVALID if no matching text attribute is found.
+ **/
+AtkTextAttribute
+atk_attribute_for_name (const gchar *name)
+{
+  GTypeClass *type_class;
+  GEnumValue *value;
+  AtkTextAttribute type = ATK_TEXT_ATTR_INVALID;
+
+  g_return_val_if_fail (name, ATK_TEXT_ATTR_INVALID);
+
+  type_class = g_type_class_ref (ATK_TYPE_TEXT_ATTRIBUTE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), ATK_TEXT_ATTR_INVALID);
+
+  value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
+
+  if (value)
+    {
+      type = value->value;
+    }
+  else
+    {
+      gint i;
+
+      if (extra_attributes)
+        {
+          for (i = 0; i < extra_attributes->len; i++)
+            {
+              gchar *extra_attribute = (gchar *)g_ptr_array_index (extra_attributes, i);
+
+              g_return_val_if_fail (extra_attribute, ATK_TEXT_ATTR_INVALID);
+
+              if (strcmp (name, extra_attribute) == 0)
+                {
+                  type = i + 1 + ATK_TEXT_ATTR_LAST_DEFINED;
+                  break;
+                }
+            }
+        }
+    }
+  g_type_class_unref (type_class);
+
+  return type;
+}
+
 
 /**
  * atk_attribute_get_value:

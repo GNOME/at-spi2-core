@@ -57,6 +57,7 @@ struct _AtkAttribute {
 
 /**
  *AtkTextAttribute
+ *@ATK_TEXT_ATTR_INVALID: Invalid attribute
  *@ATK_TEXT_ATTR_LEFT_MARGIN: The pixel width of the left margin
  *@ATK_TEXT_ATTR_RIGHT_MARGIN: The pixel width of the right margin
  *@ATK_TEXT_ATTR_INDENT: The number of pixels that the text is indented
@@ -84,11 +85,13 @@ struct _AtkAttribute {
  *@ATK_TEXT_ATTR_STRETCH: The stretch of the text, if set. Values are "ultra_condensed", "extra_condensed", "condensed", "semi_condensed", "normal", "semi_expanded", "expanded", "extra_expanded" or "ultra_expanded"
  *@ATK_TEXT_ATTR_VARIANT: The capitalization variant of the text, if set. Values are "normal" or "small_caps"
  *@ATK_TEXT_ATTR_STYLE: The slant style of the text, if set. Values are "normal", "oblique" or "italic"
+ *@ATK_TEXT_ATTR_LAST_DEFINED: not a valid text attribute, used for finding end of enumeration
  *
  * Describes the text attributes supported
  **/
 typedef enum
 {
+  ATK_TEXT_ATTR_INVALID = 0,
   ATK_TEXT_ATTR_LEFT_MARGIN,
   ATK_TEXT_ATTR_RIGHT_MARGIN,
   ATK_TEXT_ATTR_INDENT,
@@ -115,8 +118,12 @@ typedef enum
   ATK_TEXT_ATTR_JUSTIFICATION,
   ATK_TEXT_ATTR_STRETCH,
   ATK_TEXT_ATTR_VARIANT,
-  ATK_TEXT_ATTR_STYLE
+  ATK_TEXT_ATTR_STYLE,
+  ATK_TEXT_ATTR_LAST_DEFINED
 } AtkTextAttribute;
+
+AtkTextAttribute         atk_attribute_register        (const gchar *name);
+
 
 #define ATK_TYPE_TEXT                    (atk_text_get_type ())
 #define ATK_IS_TEXT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_TEXT)
@@ -287,6 +294,7 @@ gboolean      atk_text_set_caret_offset                   (AtkText          *tex
                                                            gint             offset);
 void 	      atk_attribute_set_free                      (AtkAttributeSet  *attrib_set);
 G_CONST_RETURN gchar*  atk_attribute_get_name             (AtkTextAttribute attr);
+AtkTextAttribute       atk_attribute_for_name             (const gchar      *name);
 G_CONST_RETURN gchar*  atk_attribute_get_value            (AtkTextAttribute attr,
                                                            gint             index);
 

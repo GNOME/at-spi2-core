@@ -79,6 +79,7 @@ AtkText
 
 </para>
 
+@ATK_TEXT_ATTR_INVALID: 
 @ATK_TEXT_ATTR_LEFT_MARGIN: 
 @ATK_TEXT_ATTR_RIGHT_MARGIN: 
 @ATK_TEXT_ATTR_INDENT: 
@@ -106,6 +107,7 @@ AtkText
 @ATK_TEXT_ATTR_STRETCH: 
 @ATK_TEXT_ATTR_VARIANT: 
 @ATK_TEXT_ATTR_STYLE: 
+@ATK_TEXT_ATTR_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_text_get_text ##### -->
 <para>
@@ -306,12 +308,30 @@ AtkText
 @attrib_set: 
 
 
+<!-- ##### FUNCTION atk_attribute_register ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_attribute_get_name ##### -->
 <para>
 
 </para>
 
 @attr: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_attribute_for_name ##### -->
+<para>
+
+</para>
+
+@name: 
 @Returns: 
 
 
