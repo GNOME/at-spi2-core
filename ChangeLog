@@ -1,3 +1,7 @@
+2003-05-09  Samúel Jón Gunnarsson  <sammi@techattack.nu>
+
+	* is.po: Added "is" into ALL_LINGUAS.
+
 2003-05-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Make message when pkg-config fials to find glib-2.0.pc
