@@ -9,7 +9,8 @@ Fri Jun 01  Brian Cameron <brian.cameron@sun.com>
         * atk/atkeditabletext.[ch], atk/atktext.[ch]
         * docs/atk-overrides.txt, docs/Makefile.am
           Updated the interface for dealing with selected
-          text to handle multiple selected regions.  Added
+          text to handle multiple selected regions.  Removed
+          get_row_col_at_offset from atktext.[ch].  Added
           docs/atk-overrides.txt file.
 
 Thu May 31  Brian Cameron <brian.cameron@sun.com>

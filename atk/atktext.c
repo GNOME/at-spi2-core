@@ -279,37 +279,6 @@ atk_text_get_caret_offset (AtkText *text)
 }
 
 /**
- * atk_text_get_row_col_at_offset
- * @text: an #AtkText
- * @offset: position
- * @row: row number
- * @col: column number
- *
- * Given an @offset, the @row and @col arguments are filled appropriately.
- **/
-void
-atk_text_get_row_col_at_offset (AtkText *text,
-                                gint offset,
-                                gint *row,
-                                gint *col)
-{
-  AtkTextIface *iface;
-
-  g_return_if_fail (text != NULL);
-  g_return_if_fail (ATK_IS_TEXT (text));
-
-  iface = ATK_TEXT_GET_IFACE (text);
-
-  if (iface->get_row_col_at_offset)
-    (*(iface->get_row_col_at_offset)) (text, offset, row, col);
-  else
-    {
-      *row = 0;
-      *col = 0;
-    }
-}
-
-/**
  * atk_text_get_range_attributes
  * @text: an #AtkText
  * @start_offset: start position

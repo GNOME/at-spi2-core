@@ -83,10 +83,6 @@ struct _AtkTextIface
                                                    gint             offset,
                                                    AtkTextBoundary  boundary_type);
   gint           (* get_caret_offset)             (AtkText          *text);
-  void           (* get_row_col_at_offset)        (AtkText          *text,
-                                                   gint             offset,
-                                                   gint             *row,
-                                                   gint             *col);
   PangoAttrList* (* get_range_attributes)         (AtkText          *text,
                                                    gint             start_offset,
                                                    gint             end_offset);
@@ -145,10 +141,6 @@ gchar*        atk_text_get_text_before_offset             (AtkText          *tex
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type);
 gint          atk_text_get_caret_offset                   (AtkText          *text);
-void          atk_text_get_row_col_at_offset              (AtkText          *text,
-                                                           gint             offset,
-                                                           gint             *row,
-                                                           gint             *col);
 PangoAttrList* atk_text_get_range_attributes              (AtkText          *text,
                                                            gint             start_offset,
                                                            gint             end_offset);
