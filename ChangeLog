@@ -1,3 +1,8 @@
+2001-06-01  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Add support for setting and getting 
+	accessible-value property.
+	* atk/atkvalue.[ch] Make GValue in atk_value_set_current_value const
 
 Fri Jun 01  Brian Cameron <brian.cameron@sun.com>
 

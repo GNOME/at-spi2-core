@@ -184,17 +184,14 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         "Is used to notify that the selection has been changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
-  /*
-   * XXX We need to reconsider the value type for this
-   */
   g_object_class_install_property (gobject_class,
                                    PROP_VALUE,
-                                   g_param_spec_int    (atk_object_name_property_value,
+                                   g_param_spec_double (atk_object_name_property_value,
                                                         "Accessible Value",
                                                         "Is used to notify that the value has been changed ",
-                                                        0,
-                                                        G_MAXINT,
-                                                        0,
+                                                        0.0,
+                                                        G_MAXDOUBLE,
+                                                        0.0,
                                                         G_PARAM_READWRITE));
   /*
    * The signal "children_changed" supports two details:
@@ -675,6 +672,10 @@ atk_object_real_set_property (GObject      *object,
     case PROP_STATE:
       g_print ("This interface does not support setting the state set of an accessible object\n");
       break;
+    case PROP_VALUE:
+      if (ATK_IS_VALUE (accessible))
+        atk_value_set_current_value (ATK_VALUE (accessible), value);
+      break;
     default:
       break;
   }
@@ -697,6 +698,10 @@ atk_object_real_get_property (GObject      *object,
       break;
     case PROP_DESCRIPTION:
       g_value_set_string (value, atk_object_get_description (accessible));
+      break;
+    case PROP_VALUE:
+      if (ATK_IS_VALUE (accessible))
+        atk_value_get_current_value (ATK_VALUE (accessible), value);
       break;
     default:
       break;

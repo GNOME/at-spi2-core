@@ -130,8 +130,8 @@ atk_value_get_minimum_value (AtkValue *obj,
  * Returns: %TRUE if new value is successfully set, %FALSE otherwise.
  **/
 gboolean
-atk_value_set_current_value (AtkValue *obj, 
-                             GValue   *value)
+atk_value_set_current_value (AtkValue       *obj, 
+                             const GValue   *value)
 {
   AtkValueIface *iface;
 
