@@ -1,4 +1,8 @@
-2001-07/10  Brian Cameron <brian.cameron@sun.com>
+2001-07-11  Padraig O'Briain  <padraig.obriain@sun.com>
+	* atk/atkimage.c atk/atkutil.c
+	Changes to build with Sun's FORTE compiler.
+
+2001-07-10  Brian Cameron <brian.cameron@sun.com>
 	* tmpl/atk-unused.sgml tmpl/atkcomponent.sgml tmpl/atkeditabletext.sgml
 	tmpl/atkimage.sgml tmpl/atkselection.sgml tmpl/atkstate.sgml
 	tmpl/atkstreamablecontent.sgml tmpl/atktable.sgml
