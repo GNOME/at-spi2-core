@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Vincent van Adrighem <adrighem@gnome.org>, 2003
+# Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>, 2003
 #
 msgid ""
 msgstr ""
