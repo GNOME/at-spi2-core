@@ -1,3 +1,7 @@
+2004-11-11  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "as" to ALL_LINGUAS.
+
 2004-10-28  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* docs/atk-docs.sgml: Add a more descriptive title in the docs.
