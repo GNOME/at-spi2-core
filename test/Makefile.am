@@ -6,14 +6,13 @@ at_SOURCES = at.c
 
 app_SOURCES = app.c
 
+DEBUG_CFLAGS=-DSPI_DEBUG
+
 INCLUDES = -I$(top_srcdir)           \
            -I$(top_builddir)         \
            -I$(top_srcdir)/libspi    \
            -I$(top_builddir)/libspi  \
-	   $(TESTS_CFLAGS)
+	   $(AT_COMMON_CFLAGS)          \
+	   $(DEBUG_CFLAGS)
 
-DEBUG_CFLAGS=-DSPI_DEBUG
-
-CFLAGS += $(TESTS_CFLAGS)
-
-LDADD = ../libspi/libspi.la $(TESTS_LIBS)
+LDADD = ../libspi/libspi.la $(AT_COMMON_LIBS)

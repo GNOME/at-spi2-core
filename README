@@ -1,25 +1,46 @@
-This is the initial CVS checkin of the Gnome Accessibility Project's Assistive Technology Service Provider Interface.
+This is the initial CVS checkin of the Gnome Accessibility Project's
+Assistive Technology Service Provider Interface.
 
-At the moment it does not include IDL for all of the SPI, but it does provide a prototype implementation of the core of the out-of-process accessibility service, the 'registry'.
+At the moment it does not include IDL for all of the SPI, but it does
+provide a prototype implementation of the core of the out-of-process
+accessibility service, the 'registry'.
 
-Accessible applications will register with this registry service (via OAF) and adaptive/assistive technologies will register with the service as well, to indicate their interest in receiving UI events.  ATs can also use the registry's services programmatically to query accessible applications.
-
-
-Running the test programs:
-============================
-
-At the moment the only clients and 'apps' are the test at client and test app in the 'tests' subdirectory.
-
-If you have a working ORBit2/OAF installation you can run the tests after adding the registryd directory to OAF's directory list with oaf-sysconf, or by installing Accessibility_Registry.oaf in your 'oafinfo' directory.
-
-You can then run './at' and './app' from the 'test' directory, to see 'app' register as an application, and 'at' as a listening client.  OAF should take care of the job of bootstrapping the registry daemon ('registryd') for you.
-
-At the moment app and at deregistration are broken, so you are advised to kill the registry daemon if you exit either 'at' or 'app' instances.  You may run as many instances of each as you like, concurrently - you may find it useful to do so in separate terminal windows.
+Accessible applications will register with this registry service (via OAF)
+and adaptive/assistive technologies will register with the service as
+well, to indicate their interest in receiving UI events.  ATs can also use
+the registry's services programmatically to query accessible applications.
 
 
-'at' connects to the registry as an event listener, then queries the service for the number of virtual desktops (currently always 0 or 1), and queries each desktop for the accessible applications it is running.  It then prints out the name of each such application (as reported by the application's accessibility interfaces), and then waits to receive events.
+Running the test programs: ============================
 
-'app' connects to the registry as an application, then dispatches an event which the registry should relay to all registered listeners.  Thus instances of 'app' run after 'at' should cause the 'at' instances to receive events.
+At the moment the only clients and 'apps' are the test at client and
+test app in the 'tests' subdirectory.
+
+If you have a working ORBit2/OAF installation you can run the tests after
+adding the registryd directory to OAF's directory list with oaf-sysconf,
+or by installing Accessibility_Registry.oaf in your 'oafinfo' directory.
+
+You can then run './at' and './app' from the 'test' directory, to see
+'app' register as an application, and 'at' as a listening client.
+OAF should take care of the job of bootstrapping the registry daemon
+('registryd') for you.
+
+At the moment app and at deregistration are broken, so you are advised
+to kill the registry daemon if you exit either 'at' or 'app' instances.
+You may run as many instances of each as you like, concurrently - you
+may find it useful to do so in separate terminal windows.
+
+
+'at' connects to the registry as an event listener, then queries the
+service for the number of virtual desktops (currently always 0 or 1),
+and queries each desktop for the accessible applications it is running.
+It then prints out the name of each such application (as reported by the
+application's accessibility interfaces), and then waits to receive events.
+
+'app' connects to the registry as an application, then dispatches an
+event which the registry should relay to all registered listeners.
+Thus instances of 'app' run after 'at' should cause the 'at' instances
+to receive events.
 
 
 -Bill

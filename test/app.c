@@ -53,7 +53,7 @@ main(int argc, char **argv)
           }
 
         /* Create the accesssible application server object */
-        sprintf(sbuf, "application-%s", g_get_prgname());
+        snprintf(sbuf, APP_STATIC_BUFF_SZ, "application-%s", argv[0]);
 
         atko = g_object_new (atk_object_get_type(), NULL);
         atk_object_set_name (atko, sbuf);

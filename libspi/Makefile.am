@@ -1,16 +1,15 @@
 lib_LTLIBRARIES = libspi.la
 
+DEBUG_CFLAGS=-DSPI_DEBUG
+
 INCLUDES = -I $(top_srcdir)           \
            -I $(top_builddir)         \
            -I $(top_srcdir)/libspi    \
            -I $(top_builddir)/libspi  \
-           $(LIBSPI_CFLAGS)
+           $(LIBSPI_CFLAGS)           \
+	   $(DEBUG_CFLAGS)
 
-LDFLAGS = $(LIBSPI_LIBS) @LT_VERSION_INFO@
-
-DEBUG_CFLAGS=-DSPI_DEBUG
-
-CFLAGS += $(DEBUG_CFLAGS)
+LDADD = $(LIBSPI_LIBS) @LT_VERSION_INFO@
 
 libspiincludedir = $(includedir)/libspi
 
@@ -49,7 +48,7 @@ libspi_la_SOURCES = accessible.c         \
                     registry.h           \
                     $(IDL_OUT)
 
-IDLFLAGS = -I$(OAF_IDL_DIR) -I$(LIBBONOBO_IDL_DIR) -I$(top_srcdir)/idl
+IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) -I$(LIBBONOBO_IDL_DIR) -I$(top_srcdir)/idl
 
 $(IDL_OUT) : $(IDL) $(ORBIT_IDL)
 	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) $(top_srcdir)/idl/Accessibility.idl

@@ -4,11 +4,11 @@ INCLUDES = -I$(top_srcdir)          \
            -I$(top_builddir)        \
            -I$(top_builddir)/libspi \
            -I$(top_srcdir)/libspi   \
-           $(REGISTRYD_CFLAGS)
+           $(AT_COMMON_CFLAGS)
+
+LDADD = ../libspi/libspi.la $(AT_COMMON_LIBS)
 
 registryd_SOURCES = registryd.c
-
-LDADD = ../libspi/libspi.la $(REGISTRYD_LIBS)
 
 oafinfodir = $(datadir)/oaf
 oafinfo_DATA = Accessibility_Registry.oaf

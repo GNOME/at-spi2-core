@@ -1,3 +1,25 @@
+2001-08-15  Mark McLoughlin <mark@skynet.ie>
+
+	* test/app.c: use atgv[0] instead of
+	g_type_prgname.
+
+2001-08-15  Mark McLoughlin <mark@skynet.ie>
+
+	* libspi/Makefile.am,
+	  registryd/Makefile.am,
+	  at-bridge/Makefile.am.
+	  test/Makefile.am, configure.in:
+	cleanup, replace individual LIBS/CFLAGS with
+	AT_COMMON_{LIBS|CFLAGS}.
+
+	* README: format.
+
+2001-08-15  Mark McLoughlin <mark@skynet.ie>
+	
+	* configure.in, libspi/Makefile.am:
+	Change IDL path checking for bonobo-activation
+	as opposed to oaf.
+
 2001-08-15  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/registry.c : separated event listeners to use
