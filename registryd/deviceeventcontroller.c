@@ -27,7 +27,7 @@
 
 #undef  SPI_XKB_DEBUG
 #undef  SPI_DEBUG
-#undef  SPI_KEYEVENT_DEBUG
+#define  SPI_KEYEVENT_DEBUG
 
 #include <string.h>
 #include <ctype.h>
@@ -1216,8 +1216,10 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
   Accessibility_DeviceEvent key_event;
   KeySym keysym;
   const int cbuf_bytes = 20;
-  char cbuf [cbuf_bytes];
-  
+  char cbuf [cbuf_bytes+1];
+  int nbytes;
+
+  if (!x_key_event) g_error ("invalid key event!");
   keysym = XLookupKeysym (x_key_event, 0);
   key_event.id = (CORBA_long)(keysym);
   key_event.hw_code = (CORBA_short) x_key_event->keycode;
@@ -1312,10 +1314,12 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
         key_event.event_string = CORBA_string_dup ("Right");
 	break;
       default:
-        if (XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL) > 0)
+	nbytes = XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL);
+        if (nbytes > 0)
           {
+	    cbuf[nbytes] = '\0'; /* OK since length is cbuf_bytes+1 */
             key_event.event_string = CORBA_string_dup (cbuf);
-	    if (isgraph (keysym))
+	    if (keysym && g_ascii_isprint (keysym))
 	      {
 	        key_event.is_text = CORBA_TRUE; /* FIXME: incorrect for some composed chars? */
 	      }
