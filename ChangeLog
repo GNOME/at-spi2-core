@@ -1,3 +1,8 @@
+2002-03-27  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* libspi/hypertext.c:
+	Fix warnings when yelp is used with atk-bridge
+
 2002-03-21  Michael Meeks  <michael@ximian.com>
 
 	* libspi/application.c (spi_application_new):

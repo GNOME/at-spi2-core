@@ -28,12 +28,14 @@
 #include <libspi/hyperlink.h>
 #include <libspi/hypertext.h>
 
+#define PARENT_TYPE SPI_TYPE_BASE
+
 SpiHypertext *
 spi_hypertext_interface_new (AtkObject *obj)
 {
   SpiHypertext *new_hypertext = g_object_new (SPI_HYPERTEXT_TYPE, NULL);
 
-  spi_text_construct (SPI_TEXT (new_hypertext), obj);
+  spi_base_construct (SPI_BASE (new_hypertext), G_OBJECT (obj));
 
   return new_hypertext;
 }
@@ -118,5 +120,5 @@ spi_hypertext_init (SpiHypertext *hypertext)
 
 BONOBO_TYPE_FUNC_FULL (SpiHypertext,
 		       Accessibility_Hypertext,
-		       BONOBO_TYPE_OBJECT,
+		       PARENT_TYPE,
 		       spi_hypertext);
