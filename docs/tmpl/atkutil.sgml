@@ -14,6 +14,13 @@ The AtkUtility interface provides general purpose utility functions.
 
 </para>
 
+<!-- ##### STRUCT AtkUtil ##### -->
+<para>
+
+</para>
+
+@parent: 
+
 <!-- ##### ENUM AtkCoordType ##### -->
 <para>
 
@@ -55,6 +62,21 @@ The AtkUtility interface provides general purpose utility functions.
 @object: 
 
 
+<!-- ##### USER_FUNCTION AtkEventListener ##### -->
+<para>
+
+</para>
+
+@Param1: 
+
+
+<!-- ##### USER_FUNCTION AtkEventListenerInit ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### FUNCTION atk_add_global_event_listener ##### -->
 <para>
 
@@ -66,6 +88,56 @@ The AtkUtility interface provides general purpose utility functions.
 
 
 <!-- ##### FUNCTION atk_remove_global_event_listener ##### -->
+<para>
+
+</para>
+
+@listener_id: 
+
+
+<!-- ##### STRUCT AtkKeyEventStruct ##### -->
+<para>
+
+</para>
+
+@type: 
+@state: 
+@keyval: 
+@length: 
+@string: 
+@keycode: 
+@timestamp: 
+
+<!-- ##### ENUM AtkKeyEventType ##### -->
+<para>
+
+</para>
+
+@ATK_KEY_EVENT_PRESS: 
+@ATK_KEY_EVENT_RELEASE: 
+@ATK_KEY_EVENT_LAST_DEFINED: 
+
+<!-- ##### USER_FUNCTION AtkKeySnoopFunc ##### -->
+<para>
+
+</para>
+
+@event: 
+@func_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_add_key_event_listener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_remove_key_event_listener ##### -->
 <para>
 
 </para>

@@ -14,6 +14,13 @@ An #AtkObjectFactory which creates non-functioning stub #AtkObjects.
 
 </para>
 
+<!-- ##### STRUCT AtkNoOpObjectFactory ##### -->
+<para>
+
+</para>
+
+@parent: 
+
 <!-- ##### FUNCTION atk_no_op_object_factory_new ##### -->
 <para>
 

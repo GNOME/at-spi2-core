@@ -14,6 +14,13 @@ AtkHyperlink
 
 </para>
 
+<!-- ##### STRUCT AtkHyperlink ##### -->
+<para>
+
+</para>
+
+@parent: 
+
 <!-- ##### FUNCTION atk_hyperlink_get_uri ##### -->
 <para>
 

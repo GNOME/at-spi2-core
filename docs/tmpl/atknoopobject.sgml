@@ -14,6 +14,13 @@ Provides non-functioning stub #AtkObjects.
 
 </para>
 
+<!-- ##### STRUCT AtkNoOpObject ##### -->
+<para>
+
+</para>
+
+@parent: 
+
 <!-- ##### FUNCTION atk_no_op_object_new ##### -->
 <para>
 

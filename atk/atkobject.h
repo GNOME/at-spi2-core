@@ -208,7 +208,7 @@ typedef enum
   ATK_LAYER_WIDGET,
   ATK_LAYER_MDI,
   ATK_LAYER_POPUP,
-  ATK_LAYER_OVERLAY,
+  ATK_LAYER_OVERLAY
 } AtkLayer;
 
 #define ATK_TYPE_OBJECT                           (atk_object_get_type ())

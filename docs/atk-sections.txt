@@ -113,6 +113,7 @@ atk_image_get_type
 <SECTION>
 <FILE>atknoopobject</FILE>
 <TITLE>AtkNoOpObject</TITLE>
+AtkNoOpObject
 atk_no_op_object_new
 <SUBSECTION Standard>
 ATK_NO_OP_OBJECT
@@ -127,6 +128,7 @@ ATK_NO_OP_OBJECT_GET_CLASS
 <SECTION>
 <FILE>atknoopobjectfactory</FILE>
 <TITLE>AtkNoOpObjectFactory</TITLE>
+AtkNoOpObjectFactory
 atk_no_op_object_factory_new
 <SUBSECTION Standard>
 ATK_NO_OP_OBJECT_FACTORY
@@ -141,6 +143,7 @@ ATK_NO_OP_OBJECT_FACTORY_GET_CLASS
 <SECTION>
 <FILE>atkobject</FILE>
 <TITLE>AtkObject</TITLE>
+AtkObject
 AtkRole
 atk_role_register
 AtkLayer
@@ -187,6 +190,7 @@ atk_object_get_type
 <SECTION>
 <FILE>atkobjectfactory</FILE>
 <TITLE>AtkObjectFactory</TITLE>
+AtkObjectFactory
 atk_object_factory_create_accessible
 atk_object_factory_invalidate
 <SUBSECTION Standard>
@@ -202,6 +206,7 @@ ATK_OBJECT_FACTORY_GET_CLASS
 <SECTION>
 <FILE>atkregistry</FILE>
 <TITLE>AtkRegistry</TITLE>
+AtkRegistry
 atk_registry_set_factory_type
 atk_registry_get_factory_type
 atk_registry_get_factory
@@ -210,6 +215,7 @@ atk_get_default_registry
 ATK_REGISTRY
 ATK_IS_REGISTRY
 ATK_TYPE_REGISTRY
+atk_registry_get_type
 ATK_REGISTRY_CLASS
 ATK_IS_REGISTRY_CLASS
 ATK_REGISTRY_GET_CLASS
@@ -218,8 +224,10 @@ ATK_REGISTRY_GET_CLASS
 <SECTION>
 <FILE>atkrelation</FILE>
 <TITLE>AtkRelation</TITLE>
+AtkRelation
 AtkRelationType
 atk_relation_type_register
+atk_relation_type_from_string
 atk_relation_new
 atk_relation_get_relation_type
 atk_relation_get_target
@@ -396,6 +404,7 @@ atk_value_get_type
 <SECTION>
 <FILE>atkhyperlink</FILE>
 <TITLE>AtkHyperlink</TITLE>
+AtkHyperlink
 atk_hyperlink_get_uri
 atk_hyperlink_get_object
 atk_hyperlink_get_end_index
@@ -425,28 +434,47 @@ atk_state_type_for_name
 <SECTION>
 <FILE>atkstreamablecontent</FILE>
 <TITLE>AtkStreamableContent</TITLE>
+AtkStreamableContent
+AtkStreamableContentIface
 atk_streamable_content_get_n_mime_types
 atk_streamable_content_get_mime_type
 atk_streamable_content_get_stream	
 <SUBSECTION Standard>
+ATK_STREAMABLE_CONTENT
+ATK_IS_STREAMABLE_CONTENT
+ATK_TYPE_STREAMABLE_CONTENT
 atk_streamable_content_get_type
+ATK_STREAMABLE_CONTENT_GET_IFACE
 </SECTION>
 
 <SECTION>
 <FILE>atkutil</FILE>
 <TITLE>AtkUtil</TITLE>
+AtkUtil
 AtkCoordType
 atk_add_focus_tracker
 atk_remove_focus_tracker
 atk_focus_tracker_init
 atk_focus_tracker_notify
+AtkEventListener
+AtkEventListenerInit
 atk_add_global_event_listener
 atk_remove_global_event_listener
+AtkKeyEventStruct
+AtkKeyEventType
+AtkKeySnoopFunc
+atk_add_key_event_listener
+atk_remove_key_event_listener
 atk_get_root
 atk_get_toolkit_name
 atk_get_toolkit_version
 <SUBSECTION Standard>
-AtkEventListener
-AtkEventListenerInit
+ATK_UTIL
+ATK_IS_UTIL
+ATK_TYPE_UTIL
+atk_util_get_type
+ATK_UTIL_CLASS
+ATK_IS_UTIL_CLASS
+ATK_UTIL_GET_CLASS
 </SECTION>
 

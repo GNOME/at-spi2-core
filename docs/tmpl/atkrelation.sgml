@@ -14,6 +14,15 @@ Defines the functional relationship between two #AtkObjects.
 
 </para>
 
+<!-- ##### STRUCT AtkRelation ##### -->
+<para>
+
+</para>
+
+@parent: 
+@target: 
+@relationship: 
+
 <!-- ##### ENUM AtkRelationType ##### -->
 <para>
 
@@ -29,6 +38,15 @@ Defines the functional relationship between two #AtkObjects.
 @ATK_RELATION_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_relation_type_register ##### -->
+<para>
+
+</para>
+
+@name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_relation_type_from_string ##### -->
 <para>
 
 </para>

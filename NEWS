@@ -1,8 +1,18 @@
+Changes in 0.7
+
+* Some restructuring of how change notification works, use
+  signals not properties in some cases. [Padraig O'Briain, Bill Haneman] 
+* Various small API fixes and improvements [Padraig]
+* Add key event hooks [Bill]
+* Documentation improvements [Padraig]
+* Win32 build improvements [Tor Lillqvist]
+* Bug fixes [Padraig, Bill]
+
 Changes in 0.6
 
 * Small improvements to AtkText, AtkRelation, AtkObject APIs. 
   [Padraig O'Briain, Bill Haneman]
-* Win32 build fixes [Tor Lillqvst]
+* Win32 build fixes [Tor Lillqvist]
 * Bug fixes and optimizations [Padraig]
 * Makefile fix [Jacob Berkman]
 * Doc improvements [Padraig]

@@ -19,6 +19,19 @@ of the other ATK interfaces:
 
 </para>
 
+<!-- ##### STRUCT AtkObject ##### -->
+<para>
+
+</para>
+
+@parent: 
+@description: 
+@name: 
+@accessible_parent: 
+@role: 
+@relation_set: 
+@layer: 
+
 <!-- ##### ENUM AtkRole ##### -->
 <para>
 

@@ -15,6 +15,15 @@ A registry for registering new #AtkObject factories.
 
 </para>
 
+<!-- ##### STRUCT AtkRegistry ##### -->
+<para>
+
+</para>
+
+@parent: 
+@factory_type_registry: 
+@factory_singleton_cache: 
+
 <!-- ##### FUNCTION atk_registry_set_factory_type ##### -->
 <para>
 
