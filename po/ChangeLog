@@ -1,3 +1,7 @@
+2002-12-05  Gil Osher  <dolfin@rpg.org.il>
+
+	* he.po: Added Hebrew translation.
+
 2002-12-05  Ole Laursen  <olau@hardworking.dk>
 
 	* da.po: Added Danish translation.
@@ -43,4 +47,5 @@
 	* .cvsignore: Corrected typos.
 	* POTFILES.in: Added comment.
 	* po2tbl.sed.in: Removed, it's in .cvsignore anyway.
+
 
