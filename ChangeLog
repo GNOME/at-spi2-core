@@ -1,5 +1,15 @@
 2001-11-21  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atkobject.[c|h]:
+	Add additional argument (name) to state-change signal
+	Update atk_object_notify_state_change to take account of 
+	extra argument for state-change
+
+	* atk/atkmarshal.list:
+	Add marshaller for VOID:STRING,BOOLEAN
+	
+2001-11-21  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkobject.[c|h], docs/atk-sections.txt, docs/tmpl/atkobject.sgml:
 	Add enum AtkLayer and functions atk_object_get_layer and
 	atk_object_get_mdi_zorder

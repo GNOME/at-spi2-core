@@ -22,6 +22,7 @@
 #include <glib-object.h>
 
 #include "atk.h"
+#include "atkmarshal.h"
 
 /* New GObject properties registered by AtkObject */
 enum
@@ -324,8 +325,9 @@ atk_object_class_init (AtkObjectClass *klass)
                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
                   G_STRUCT_OFFSET (AtkObjectClass, state_change),
                   (GSignalAccumulator) NULL, NULL,
-                  g_cclosure_marshal_VOID__BOOLEAN,
-                  G_TYPE_NONE, 1,
+                  atk_marshal_VOID__STRING_BOOLEAN,
+                  G_TYPE_NONE, 2,
+                  G_TYPE_STRING,
                   G_TYPE_BOOLEAN);
   atk_object_signals[VISIBLE_DATA_CHANGED] =
     g_signal_new ("visible_data_changed",
@@ -793,9 +795,12 @@ atk_object_notify_state_change (AtkObject *accessible,
                                 AtkState  state,
                                 gboolean  value)
 {
+  G_CONST_RETURN gchar* name;
+
+  name = atk_state_type_get_name (state);
   g_signal_emit (accessible, atk_object_signals[STATE_CHANGE],
-                 g_quark_from_string (atk_state_type_get_name (state)),
-                 value, NULL);
+                 g_quark_from_string (name),
+                 name, value, NULL);
 }
 
 /**
