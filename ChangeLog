@@ -3,6 +3,11 @@
 		applied patch from Marc to build and run 
 	        against new glib and gtk+ (seemed like a change 
 	        to bonobo_init signature was made ?)
+	* test/simple-at.c:
+		made festival-server support turned off by default.
+		Added support for a simple magnifier (off by default)
+		which will be added to a 'util' directory later.
+
 <2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
 	* cspi/Makefile.am:
 		Added spi-util.c.

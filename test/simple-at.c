@@ -21,6 +21,8 @@
  */
 
 #include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/un.h>
 #include "spi.h"
 
 void report_focus_event (void *fp);
@@ -30,9 +32,14 @@ void report_button_press (void *fp);
 static int _festival_init ();
 static void _festival_say (const char *text, const char *voice, boolean shutup);
 static void _festival_write (const char *buff, int fd);
+static void _send_to_magnifier (int x, int y, int w, int h);
 
-static boolean use_festival = TRUE;
-static boolean festival_terse = TRUE;
+static boolean use_magnifier = FALSE;
+static boolean use_festival = FALSE;
+static boolean festival_chatty = FALSE;
+
+static struct sockaddr_un mag_server = { AF_UNIX , "/tmp/magnifier_socket" };
+static struct sockaddr_un client = { AF_UNIX, "/tmp/mag_client"};
 
 int
 main(int argc, char **argv)
@@ -44,6 +51,13 @@ main(int argc, char **argv)
   Accessible *application;
   AccessibleEventListener *focus_listener;
   AccessibleEventListener *button_listener;
+
+  if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
+  {
+    printf ("Usage: simple-at\n");
+    printf ("\tEnvironment variables used:\n\t\tFESTIVAL\n\t\tMAGNIFIER\n\t\tFESTIVAL_CHATTY\n");
+    exit(0);
+  }
 
   SPI_init();
 
@@ -70,8 +84,16 @@ main(int argc, char **argv)
   if (getenv ("FESTIVAL"))
   {
     use_festival = TRUE;
+    if (getenv ("FESTIVAL_CHATTY"))
+    {
+      festival_chatty = TRUE;
+    }
   }
-  
+  if (getenv("MAGNIFIER"))
+  {
+    use_magnifier = TRUE;
+  }  
+
   SPI_event_main(FALSE);
 }
 
@@ -84,11 +106,11 @@ report_focus_event (void *p)
   
   if (use_festival)
     {
-    if (!festival_terse) 	    
+    if (festival_chatty) 	    
       {
         _festival_say (Accessible_getRole (&ev->source), "voice_don_diphone", TRUE);
       }
-      _festival_say (Accessible_getName (&ev->source), "voice_kal_diphone", FALSE);
+      _festival_say (Accessible_getName (&ev->source), "voice_kal_diphone", festival_chatty==FALSE);
     }
   
   if (Accessible_isComponent (&ev->source))
@@ -100,6 +122,8 @@ report_focus_event (void *p)
                                       COORD_TYPE_SCREEN);
       fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
                x, y, x+width, y+height);
+      if (use_magnifier)
+	      _send_to_magnifier (x, y, width, height);
     }
 }
 
@@ -129,9 +153,9 @@ static int _festival_init ()
     }
   }
 
-  _festival_write ("(audio_mode'async)", fd);
-  _festival_write ("(Parameter.set 'Duration_Stretch 0.5)", fd);
-  _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)", fd);
+  _festival_write ("(audio_mode'async)\n", fd);
+  _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
+  _festival_write ("(Parameter.set 'Duration_Stretch 0.5)\n", fd);
   return fd;
 }
 
@@ -141,8 +165,8 @@ static void _festival_say (const char *text, const char *voice, boolean shutup)
   gchar *quoted;
   gchar *p;
   gchar prefix[50];
-  gchar voice_spec[32];
-
+  static gchar voice_spec[32];
+  
   if (!fd)
     {
       fd = _festival_init ();
@@ -166,17 +190,15 @@ static void _festival_say (const char *text, const char *voice, boolean shutup)
   *p++ = '\n';
   *p = 0;
 
-  if(shutup) _festival_write ("(audio_mode'shutup)\n", fd);
-  if (voice)
+  if (shutup) _festival_write ("(audio_mode'shutup)\n", fd);
+  if (voice && (strncmp (voice, (char *) (voice_spec+1), strlen(voice))))
     {
-      sprintf (voice_spec, "(%s)\n", voice);	  
+      snprintf (voice_spec, 32, "(%s)\n", voice); 
       _festival_write (voice_spec, fd);
+      _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
+      _festival_write ("(Parameter.set 'Duration_Stretch 0.5)\n", fd);
     }
-  if (!festival_terse)
-  {
-    _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
-    _festival_write ("(Parameter.set 'Duration_Stretch 0.5)\n", fd);
-  }
+
   _festival_write (quoted, fd);
 
   g_free(quoted);
@@ -190,4 +212,39 @@ static void _festival_write (const gchar *command_string, int fd)
     return;
   }
   write(fd, command_string, strlen(command_string));
+}
+
+static void
+_send_to_magnifier(int x, int y, int w, int h)
+{
+  int desc, length_msg;
+  gchar buff[100];
+
+  sprintf (buff, "~5:%d,%d:", x+w/2, y+h/2);
+
+#ifdef MAG_DEBUG
+  g_print ("sending magnifier: %s\n", buff);
+#endif
+
+  if((desc=socket(AF_UNIX,SOCK_STREAM,0)) == -1){
+    perror("socket");
+    return;
+  }
+  unlink("/tmp/mag_client");
+
+  if (bind(desc, (struct sockaddr*)&client, sizeof(client)) == -1)
+    {
+      perror("bind");
+      return;
+    }
+
+  if (connect(desc,(struct sockaddr*)&mag_server,sizeof(mag_server)) == -1)
+    {
+      perror("connect");
+      return;
+    }
+
+  length_msg = write(desc,buff,strlen(buff));
+  unlink("/tmp/mag_client");
+  return;
 }
