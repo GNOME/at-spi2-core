@@ -183,6 +183,21 @@ typedef enum {
 } AccessibleKeyListenerSyncType;
 
 
+/**
+ *AccessibleStreamableContentSeekType
+ *@SPI_STREAM_SEEK_SET: seek from the 'top' of the streamable
+ *@SPI_STREAM_SEEK_CUR: seek from the current position in the stream
+ *@SPI_STREAM_SEEK_END: seek from the end of the stream (if known)
+ *
+ *The seek type for a specified offset in AccessibleStreamableContent_seek.
+ **/
+typedef enum
+{
+  SPI_STREAM_SEEK_SET,
+  SPI_STREAM_SEEK_CUR,
+  SPI_STREAM_SEEK_END
+} AccessibleStreamableContentSeekType;
+
 typedef struct _SPIException SPIException;
 
 typedef SPIBoolean 
@@ -711,15 +726,19 @@ void
 AccessibleStreamableContent_unref (AccessibleStreamableContent *obj);
 char **
 AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj);
+void
+AccessibleStreamableContent_freeContentTypeList (AccessibleStreamableContent *obj,
+						 char **list);
 SPIBoolean
 AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
 				  const char *content_type);
 SPIBoolean
 AccessibleStreamableContent_close (AccessibleStreamableContent *obj);
-SPIBoolean
+
+long int
 AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 				  long int offset,
-				  unsigned int seek_type);
+				  AccessibleStreamableContentSeekType seek_type);
 SPIBoolean
 AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
 				  void *buff,

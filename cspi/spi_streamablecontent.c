@@ -41,23 +41,13 @@ streams_equal_func (gconstpointer a, gconstpointer b)
 }
 
 static void
-stream_release (gpointer a)
-{
-  CORBA_Environment ev;
-
-  bonobo_object_release_unref (a, &ev);
-}
-
-static void
 stream_cache_item_free (gpointer a)
 {
   struct StreamCacheItem *cache_item = a;
-  CORBA_Environment ev;
-  if (cache_item) {
-    bonobo_object_release_unref (cache_item->stream, &ev);
-    SPI_freeString (cache_item->mimetype);
-    g_free (cache_item);
-  }
+
+  cspi_release_unref (cache_item->stream);
+  SPI_freeString (cache_item->mimetype);
+  g_free (cache_item);
 }
 
 static GHashTable *streams = NULL;
@@ -65,11 +55,36 @@ static GHashTable *streams = NULL;
 GHashTable *
 get_streams (void) 
 {
-  if (streams == NULL) {
-    streams = g_hash_table_new_full (g_direct_hash, streams_equal_func, 
-				     stream_release, stream_cache_item_free);
-  }
+  if (streams == NULL)
+      streams = g_hash_table_new_full (g_direct_hash, streams_equal_func, 
+				       NULL, stream_cache_item_free);
   return streams;
+}
+
+static CORBA_long
+accessible_bonobo_stream_client_seek (const Bonobo_Stream stream,
+				      CORBA_long offset,
+				      Bonobo_Stream_SeekType seek_type,
+				      CORBA_Environment  *opt_ev)
+{
+	Bonobo_StorageInfo *info;
+	CORBA_Environment  *ev, temp_ev;
+	CORBA_long ret_offset;
+       
+	if (!opt_ev) {
+		CORBA_exception_init (&temp_ev);
+		ev = &temp_ev;
+	} else
+		ev = opt_ev;
+
+	ret_offset = Bonobo_Stream_seek (stream, offset, seek_type, ev);
+	if (BONOBO_EX (ev))
+	        ret_offset = -1;
+
+	if (!opt_ev)
+		CORBA_exception_free (&temp_ev);
+	
+	return ret_offset;
 }
 
 /* internal use only, declared in cspi-private.h */
@@ -122,6 +137,7 @@ AccessibleStreamableContent_unref (AccessibleStreamableContent *obj)
  *       mimetypes for which the streamed content is available.
  *
  **/
+
 char **
 AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
 {
@@ -131,15 +147,31 @@ AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
 
   mimeseq = Accessibility_StreamableContent_getContentTypes (CSPI_OBJREF (obj),
 							     cspi_ev ());
+  cspi_return_val_if_ev ("getContentTypes", NULL); 
 
   content_types = g_new0 (char *, mimeseq->_length + 1);
-  for (i = 0; i < mimeseq->_length; ++i) {
+  for (i = 0; i < mimeseq->_length; ++i)
     content_types[i] = CORBA_string_dup (mimeseq->_buffer[i]);
-  }
   content_types [mimeseq->_length] = NULL;
   CORBA_free (mimeseq);
 
   return content_types;
+}
+
+void
+AccessibleStreamableContent_freeContentTypesList (AccessibleStreamableContent *obj,
+						  char **content_types)
+{
+  if (content_types) 
+    {
+      gint i = 0;
+      while (content_types[i])
+	{
+	  g_free (content_types[i]);
+	  i++;
+	}
+      g_free (content_types);
+    }
 }
 
 /**
@@ -162,7 +194,9 @@ AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
   struct StreamCacheItem *cache;
   stream = Accessibility_StreamableContent_getContent (CSPI_OBJREF (obj),
 						       content_type,
-						       cspi_ev ());    
+						       cspi_ev ());
+  cspi_return_val_if_ev ("getContent", FALSE); 
+
   if (stream != CORBA_OBJECT_NIL) {
     cache = g_new0 (struct StreamCacheItem, 1);
     cache->stream = stream;
@@ -208,13 +242,42 @@ AccessibleStreamableContent_close (AccessibleStreamableContent *obj)
  * Returns: #TRUE if successful, #FALSE if unsuccessful.
  *
  **/
-SPIBoolean
+long int
 AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 				  long int offset,
-				  unsigned int seek_type)
+				  AccessibleStreamableContentSeekType seek_type)
 {
-  /* currently Bonobo_Stream does not appear to support seek operations */
-  return FALSE;
+  Bonobo_Stream stream;
+  long int ret_offset = 0;
+  struct StreamCacheItem *cached; 
+  Bonobo_Stream_SeekType bonobo_seek_type;
+
+  cached = g_hash_table_lookup (get_streams (), CSPI_OBJREF (obj));
+  if (cached)
+    {
+      stream = cached->stream;
+      if (stream != CORBA_OBJECT_NIL)
+	{
+          guint8 *mem;
+	  switch (seek_type) {
+	  case SPI_STREAM_SEEK_SET:
+	    bonobo_seek_type = Bonobo_Stream_SeekSet; 
+	    break;
+	  case SPI_STREAM_SEEK_END:
+	    bonobo_seek_type = Bonobo_Stream_SeekEnd; 
+	    break;
+	  case SPI_STREAM_SEEK_CUR:
+	  default:
+	    bonobo_seek_type = Bonobo_Stream_SeekCur; 
+	    break;
+	  }
+	  /* bonobo-client doesn't wrap seek yet, so we have to. */
+	  ret_offset = accessible_bonobo_stream_client_seek (stream, offset, 
+							     seek_type, cspi_ev ());
+	  cspi_return_val_if_ev ("seek", FALSE);
+	}
+    }
+  return ret_offset;
 }
 
 /**
@@ -227,7 +290,9 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
  *        if blocking is not allowed, etc.
  *
  * Copy (read) bytes from the currently open streamable content connection
- *     to a buffer.
+ *     to a buffer.  This is a blocking API, in the sense that it does not 
+ *     return until the bytes have been read, or an error condition is 
+ *     detected.
  *
  * Returns: an integer indicating the number of bytes read, or -1 on error.
  *
@@ -241,17 +306,24 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
   Bonobo_Stream stream;
   struct StreamCacheItem *cached; 
   cached = g_hash_table_lookup (get_streams (), CSPI_OBJREF (obj));
-  if (cached) {
-    CORBA_long len_read;
-    stream = cached->stream;
-    if (stream != CORBA_OBJECT_NIL) {
-      guint8 *mem;
-      mem = bonobo_stream_client_read (stream, (size_t) nbytes, &len_read, cspi_ev ());
-      if (mem) memcpy (buff, mem, len_read);	
-      if (mem && ((nbytes == -1) || (len_read == nbytes)))
-	return TRUE;
+  if (cached)
+    {
+      CORBA_long len_read;
+      stream = cached->stream;
+      if (stream != CORBA_OBJECT_NIL)
+	{
+          guint8 *mem;
+	  mem = bonobo_stream_client_read (stream, (size_t) nbytes, &len_read, cspi_ev ());
+	  cspi_return_val_if_ev ("read", FALSE);
+	  if (mem)
+            {
+              memcpy (buff, mem, len_read);
+	      g_free (mem);
+	      if ((nbytes == -1) || (len_read == nbytes))
+                return TRUE;
+	    }
+	}
     }
-  }
   return FALSE;
 }
 

@@ -1,8 +1,28 @@
 2003-12-01  Bill Haneman <billh@gnome.org>
 
+	Fix for bug #114926.  Thanks to Michael Meeks for some of this patch.
+
+	* cspi/spi.h:
+	Added enum for AccessibleStreamableContentSeekType.
+	(AccessibleStreamableContent_freeContentTypeList): New.
+	
+	* cspi/spi_streamablecontent.c:
+	(accessible_bonobo_stream_client_seek): New private method.
+	(AccessibleStreamableContent_seek): Implemented this method,
+	using Bonobo_Stream_seek.
+	(AccessibleStreamableContent_freeContentTypeList): New method
+	for freeing the return value from 
+	AccessibleStreamableContent_getContentTypes.
+	(stream_cache_item_free): Replaces stream_release; stop leaks.
+	(stream_release): removed.
+	(AccessibleStreamableContent_read): Use properly init'd CORBA_evs, 
+	free the memory properly.
+
+2003-12-02  Padraig O'Briain <padraig.obriain@sun.com>
+
 	Fix for bug #116009.
 
-	* cspi/spi-roletypes.h: Add SPI_ROL_EEDITBAR.
+	* cspi/spi-roletypes.h: Add SPI_ROLE_EDITBAR.
 
 	* cspi/spi_accessible.c (cspi_init_role_table): Add SPI_ROLE_EDITBAR.
 
@@ -82,7 +102,7 @@
 	* libspi/table.c (impl_getColumnDescription): Correct typo,
 	pointed out by Bolian.Yin@sun.com.
 
-2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
+2003-09-21  Ãsmund SkjÃ¦veland  <aasmunds@fys.uio.no>
 
 	* configure.in: Added nn to ALL_LINGUAS (which is commented out).
 
@@ -139,7 +159,7 @@
 
 	* configure.in: Added "ja" to ALL_LINGUAS.
 
-2003-08-22  Samúel Jón Gunnarsson  <sammi@techattack.nu>
+2003-08-22  SamÃºel JÃ³n Gunnarsson  <sammi@techattack.nu>
 
 	* configure.in: Added "is" to ALL_LINGUAS.
 	
@@ -181,7 +201,7 @@
 
 	* configure.in: Added mn to ALL_LINGUAS.
 
-2003-08-16  Tõivo Leedjärv  <toivo@linux.ee>
+2003-08-16  TÃµivo LeedjÃ¤rv  <toivo@linux.ee>
 
 	* configure.in: Added et to ALL_LINGUAS.
 
@@ -288,7 +308,7 @@
 
         * configure.in: Added Portuguese (pt) to ALL_LINGUAS.
 
-2003-07-14  Danilo Šegan  <dsegan@gmx.net>
+2003-07-14  Danilo Å Segan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr" and "sr@Latn" (Serbian) to ALL_LINGUAS.
 
