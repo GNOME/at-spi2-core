@@ -1,5 +1,23 @@
 2002-06-19  Bill Haneman  <bill.haneman@sun.com>
 
+	* atk-bridge/bridge.c:	[partial fix for bug 85305]
+	(spi_atk_bridge_register_application):
+	New method where the initial application registry calls have been
+	moved; it allows an application to re-register in response to
+	certain error conditions (such as a registry restart, see below).
+	(atk_bridge_init):
+	Moved some initialization code to the method
+	spi_atk_bridge_get_registry, below.
+	(spi_atk_bridge_get_registry):
+	New, private accessor function for the Accessibility_Registry
+	instance.  If the registry has not been started before, or has
+	died (as detected by failure of a CORBA exception), it is
+	restarted before return, and spi_atk_bridge_register_application
+	is called again to register with the new bridge instance.
+	(spi_atk_emit_eventv):
+	Set registry_died on error; use spi_atk_bridge_get_registry () to
+	access the registry.
+	
 	* registryd/registry.c:
 	(impl_accessibility_registry_register_global_event_listener):
 	Set listener's event_type_quark to etype.minor instead of

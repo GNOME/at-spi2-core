@@ -37,12 +37,15 @@
 #undef SPI_BRIDGE_DEBUG
 
 static CORBA_Environment ev;
-static Accessibility_Registry registry;
+static Accessibility_Registry registry = NULL;
 static SpiApplication *this_app = NULL;
+static gboolean registry_died = FALSE;
 
+static Accessibility_Registry spi_atk_bridge_get_registry (void);
 static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
+static void     spi_atk_bridge_register_application    (Accessibility_Registry registry);
 static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 							guint                  n_param_values,
 							const GValue          *param_values,
@@ -107,18 +110,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
 
   CORBA_exception_init(&ev);
 
-  registry = bonobo_activation_activate_from_id (
-	  "OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
-  
-  if (ev._major != CORBA_NO_EXCEPTION)
-    {
-      g_error ("Accessibility app error: exception during "
-	       "registry activation from id: %s\n",
-	       CORBA_exception_id (&ev));
-      CORBA_exception_free (&ev);
-    }
-
-  if (registry == CORBA_OBJECT_NIL)
+  if (spi_atk_bridge_get_registry () == CORBA_OBJECT_NIL)
     {
       g_error ("Could not locate registry");
     }
@@ -131,17 +123,49 @@ atk_bridge_init (gint *argc, gchar **argv[])
 
   fprintf (stderr, "About to register application\n");
 
-  Accessibility_Registry_registerApplication (registry,
-                                              BONOBO_OBJREF (this_app),
-                                              &ev);
-
+  spi_atk_bridge_register_application (spi_atk_bridge_get_registry ());
+  
   g_atexit (spi_atk_bridge_exit_func);
-
-  spi_atk_register_event_listeners ();
 
   fprintf (stderr, "Application registered & listening\n");
 
   return 0;
+}
+
+static void
+spi_atk_bridge_register_application (Accessibility_Registry registry)
+{
+  Accessibility_Registry_registerApplication (spi_atk_bridge_get_registry (),
+                                              BONOBO_OBJREF (this_app),
+                                              &ev);
+  spi_atk_register_event_listeners ();
+}
+
+static Accessibility_Registry
+spi_atk_bridge_get_registry ()
+{
+  CORBA_Environment ev;
+
+  if (registry_died || (registry == NULL)) {
+	  CORBA_exception_init (&ev);
+	  if (registry_died) g_warning ("registry died! restarting...");
+	  registry = bonobo_activation_activate_from_id (
+		  "OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
+	  
+	  if (ev._major != CORBA_NO_EXCEPTION)
+	  {
+		  g_error ("Accessibility app error: exception during "
+			   "registry activation from id: %s\n",
+			   CORBA_exception_id (&ev));
+		  CORBA_exception_free (&ev);
+	  }
+	  
+	  if (registry_died && registry) {
+		  registry_died = FALSE;
+		  spi_atk_bridge_register_application (registry);
+	  }
+  }
+  return registry;
 }
 
 int
@@ -235,8 +259,8 @@ spi_atk_register_event_listeners (void)
 static void
 deregister_application (BonoboObject *app)
 {
-  Accessibility_Registry_deregisterApplication (
-	  registry, BONOBO_OBJREF (app), &ev);
+  Accessibility_Registry registry = spi_atk_bridge_get_registry ();	
+  Accessibility_Registry_deregisterApplication (registry, BONOBO_OBJREF (app), &ev);
 
   registry = bonobo_object_release_unref (registry, &ev);
   
@@ -328,7 +352,9 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   e.detail1 = 0;
   e.detail2 = 0;
 
-  Accessibility_Registry_notifyEvent (registry, &e, &ev);
+  Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
+  if (BONOBO_EX (&ev)) registry_died = TRUE;
+  
   Accessibility_Accessible_unref (e.source, &ev);
   
   CORBA_exception_free (&ev);
@@ -382,7 +408,8 @@ spi_atk_emit_eventv (GObject      *gobject,
       CORBA_free (s);
 #endif
 
-      Accessibility_Registry_notifyEvent (registry, &e, &ev);
+      Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
+      if (BONOBO_EX (&ev)) registry_died = TRUE;
       Accessibility_Accessible_unref (e.source, &ev);
 
       CORBA_exception_free (&ev);
@@ -523,12 +550,14 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 	g_warning ("failure: pre-listener get dec\n");
 
   controller =
-    Accessibility_Registry_getDeviceEventController (registry, &ev);
+    Accessibility_Registry_getDeviceEventController (
+	    spi_atk_bridge_get_registry (), &ev);
 
   if (BONOBO_EX (&ev))
     {
       g_warning ("failure: no deviceeventcontroller found\n");
       CORBA_exception_free (&ev);
+      registry_died = TRUE;
       result = FALSE;
     }
   else
