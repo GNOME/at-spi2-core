@@ -780,7 +780,7 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
   else
 #endif
   if (!event)
-    {
+    { /* this doesn't really need translating */
       g_print (_("WARNING: NULL key event reported."));
     }
   
