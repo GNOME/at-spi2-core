@@ -1,3 +1,7 @@
+2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
+
+	* configure.in: Added nn to ALL_LINGUAS (which is commented out).
+
 2003-09-08  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Revved to 1.3.7.
