@@ -33,7 +33,7 @@ static void report_detail_event  (const AccessibleEvent *event, void *user_data)
 static void report_detail1_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_selection_event  (const AccessibleEvent *event, void *user_data);
-static void report_active_descendant_event  (const AccessibleEvent *event, void *user_data);
+static void report_active_descendant_changed_event  (const AccessibleEvent *event, void *user_data);
 static void report_children_changed_event (const AccessibleEvent *event, void *user_data);
 static void report_name_changed_event (const AccessibleEvent *event, void *user_data);
 static void report_description_changed_event (const AccessibleEvent *event, void *user_data);
@@ -53,7 +53,7 @@ static AccessibleEventListener *detail1_listener;
 static AccessibleEventListener *test_listener;
 static AccessibleEventListener *text_listener;
 static AccessibleEventListener *text_selection_listener;
-static AccessibleEventListener *active_descendant_listener;
+static AccessibleEventListener *active_descendant_changed_listener;
 static AccessibleEventListener *children_changed_listener;
 static AccessibleEventListener *name_changed_listener;
 static AccessibleEventListener *description_changed_listener;
@@ -121,8 +121,8 @@ main (int argc, char **argv)
 	  report_text_event, NULL);
   text_selection_listener = SPI_createAccessibleEventListener (
 	  report_text_selection_event, NULL);
-  active_descendant_listener = SPI_createAccessibleEventListener (
-	  report_active_descendant_event, NULL);
+  active_descendant_changed_listener = SPI_createAccessibleEventListener (
+	  report_active_descendant_changed_event, NULL);
   children_changed_listener = SPI_createAccessibleEventListener (
 	  report_children_changed_event, NULL);
   name_changed_listener = SPI_createAccessibleEventListener (
@@ -181,8 +181,8 @@ main (int argc, char **argv)
 				   "object:selection-changed"); 
   SPI_registerGlobalEventListener (children_changed_listener,
 				   "object:children-changed"); 
-  SPI_registerGlobalEventListener (active_descendant_listener,
-				   "object:active-descendant"); 
+  SPI_registerGlobalEventListener (active_descendant_changed_listener,
+				   "object:active-descendant-changed"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (text_selection_listener,
@@ -371,7 +371,7 @@ report_text_selection_event (const AccessibleEvent *event, void *user_data)
 }
 
 void
-report_active_descendant_event (const AccessibleEvent *event, void *user_data)
+report_active_descendant_changed_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
   char *s1;

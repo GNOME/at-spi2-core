@@ -1,3 +1,8 @@
+2003-08-13  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* test/event-listeber-test.c: Change active-descendant to 
+	active-descendant-changed.
+
 2003-08-10  Sami Pesonen  <sampeson@iki.fi>
 
 	* configure.in: Added "fi" in ALL_LINGUAS.
