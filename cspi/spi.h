@@ -837,6 +837,20 @@ AccessibleTable_isSelected (AccessibleTable *obj,
                             long int row,
                             long int column);
 
+SPIBoolean
+AccessibleTable_addRowSelection (AccessibleTable *obj,
+				 long int row);
+SPIBoolean
+AccessibleTable_addColumnSelection (AccessibleTable *obj,
+				    long int column);
+
+SPIBoolean
+AccessibleTable_removeRowSelection (AccessibleTable *obj,
+				    long int row);
+SPIBoolean
+AccessibleTable_removeColumnSelection (AccessibleTable *obj,
+				       long int column);
+
 /*
  *
  * AccessibleText function prototypes

@@ -1,5 +1,18 @@
 2004-03-24  Bill Haneman <billh@gnome.org>
 
+	* cspi/spi.h:
+	(AccessibleTable_addRowSelection),
+	(AccessibleTable_addColumnSelection),
+	(AccessibleTable_removeRowSelection),
+	(AccessibleTable_removeColumnSelection):
+	Add declarations for spi wrappers which were
+  	inadvertantly omitted.  Fixes bug #133413.
+
+	* configure.in:
+	Revved to 1.5.0 (unstable series for GNOME 2.7).
+	
+2004-03-24  Bill Haneman <billh@gnome.org>
+
 	* atk-bridge/bridge.c:
 	Bracketed some debug output in 
 	conditionals, to avoid printing it in normal use.
