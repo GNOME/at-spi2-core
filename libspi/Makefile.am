@@ -98,7 +98,7 @@ IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
 $(IDL_OUT) Accessibility-imodule.c : $(IDL) $(ORBIT_IDL)
 	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) $(top_srcdir)/idl/Accessibility.idl
 
-orbittypelibdir = $(libdir)/orbit
+orbittypelibdir = $(libdir)/orbit-2.0
 orbittypelib_LTLIBRARIES = Accessibility_module.la
 
 Accessibility_module_la_LDFLAGS = \

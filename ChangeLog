@@ -1,3 +1,7 @@
+2001-10-26  Michael Meeks  <michael@ximian.com>
+
+	* libspi/Makefile.am (orbittypelibdir): install in orbit-2.0
+
 <2001-10-26  Laszlo Peter <laca@ireland.sun.com>
 
 	* at-bridge/Makefile.am: fix LDFLAGS.
