@@ -228,7 +228,7 @@ atk_remove_global_event_listener (guint listener_id)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
 
-  if (klass->remove_global_event_listener)
+  if (klass && klass->remove_global_event_listener)
     klass->remove_global_event_listener (listener_id);
 }
 
@@ -249,7 +249,7 @@ atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data)
 {
   guint retval;
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
-  if (klass->add_key_event_listener)
+  if (klass && klass->add_key_event_listener)
     {
       retval = klass->add_key_event_listener (listener, data);
     }
@@ -307,15 +307,19 @@ atk_get_root (void)
 G_CONST_RETURN gchar*
 atk_get_toolkit_name (void)
 {
-  AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
+  const gchar *retval;
+  AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
   if (klass->get_toolkit_name)
     {
-      return klass->get_toolkit_name ();
+      retval = klass->get_toolkit_name ();
     }
   else
     {
-      return NULL;
+      retval = NULL;
     }
+  g_type_class_unref (klass);
+
+  return retval;
 }
 
 /**
@@ -328,13 +332,17 @@ atk_get_toolkit_name (void)
 G_CONST_RETURN gchar*
 atk_get_toolkit_version (void)
 {
-  AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
+  const gchar *retval;
+  AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
   if (klass->get_toolkit_version)
     {
-      return klass->get_toolkit_version ();
+      retval = klass->get_toolkit_version ();
     }
   else
     {
-      return NULL;
+      retval = NULL;
     }
+  g_type_class_unref (klass);
+
+  return retval;
 }

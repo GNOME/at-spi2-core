@@ -1142,7 +1142,7 @@ atk_object_notify (GObject     *obj,
 
 /**
  * atk_role_get_name:
- * @type: The #AtkRole whose name is required
+ * @role: The #AtkRole whose name is required
  *
  * Gets the description string describing the #Roleype @role.
  *

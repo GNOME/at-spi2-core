@@ -1,3 +1,14 @@
+2001-11-28  Bill Haneman  <bill.haneman@sun.com>
+
+	* atk/atkutil.c:
+	Changed calls to g_type_class_peek() to g_type_class_ref() where
+	it makes more sense, and in other places check for a non-null
+	klass return before trying to call class methods.  This prevents
+	SEGV if no Atk-implementation library has been loaded.
+
+	* atk/atkobject.c:
+	Fixed gtk-doc warning.
+
 2001-11-28  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.[c|h]:
