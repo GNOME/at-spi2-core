@@ -285,23 +285,23 @@ atk_object_class_init (AtkObjectClass *klass)
    * "add" and "remove"
    */
   atk_object_signals[CHILDREN_CHANGED] =
-    g_signal_newc ("children_changed",
-                   G_TYPE_FROM_CLASS (klass),
-                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-                   G_STRUCT_OFFSET (AtkObjectClass, children_changed),
-                   NULL, NULL,
-                   g_cclosure_marshal_VOID__UINT_POINTER,
-                   G_TYPE_NONE,
-                   2, G_TYPE_UINT, ATK_TYPE_OBJECT);
+    g_signal_new ("children_changed",
+		  G_TYPE_FROM_CLASS (klass),
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		  G_STRUCT_OFFSET (AtkObjectClass, children_changed),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__UINT_POINTER,
+		  G_TYPE_NONE,
+		  2, G_TYPE_UINT, ATK_TYPE_OBJECT);
   atk_object_signals[FOCUS_EVENT] =
-    g_signal_newc ("focus_event",
-                   G_TYPE_FROM_CLASS (klass),
-                   G_SIGNAL_RUN_LAST,
-                   G_STRUCT_OFFSET (AtkObjectClass, focus_event), 
-                   NULL, NULL,
-                   g_cclosure_marshal_VOID__BOOLEAN,
-                   G_TYPE_NONE,
-                   1, G_TYPE_BOOLEAN);
+    g_signal_new ("focus_event",
+		  G_TYPE_FROM_CLASS (klass),
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (AtkObjectClass, focus_event), 
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__BOOLEAN,
+		  G_TYPE_NONE,
+		  1, G_TYPE_BOOLEAN);
 }
 
 static void

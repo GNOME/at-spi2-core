@@ -29,39 +29,29 @@ two-dimensional table format.
 @parent: 
 @ref_at: 
 @get_index_at: 
-@get_column_at_index: 
 @get_row_at_index: 
-@get_n_columns: 
-@get_n_rows: 
-@get_column_extent_at: 
-@get_row_extent_at: 
+@get_column_at_index: 
 @get_caption: 
+@get_n_columns: 
 @get_column_description: 
+@get_column_extent_at: 
 @get_column_header: 
+@get_n_rows: 
 @get_row_description: 
+@get_row_extent_at: 
 @get_row_header: 
 @get_summary: 
+@get_selected_columns: 
+@get_selected_rows: 
+@is_column_selected: 
+@is_row_selected: 
+@is_selected: 
 @set_caption: 
 @set_column_description: 
 @set_column_header: 
 @set_row_description: 
 @set_row_header: 
 @set_summary: 
-@get_selected_columns: 
-@get_selected_rows: 
-@is_column_selected: 
-@is_row_selected: 
-@is_selected: 
-@add_row_selection: 
-@remove_row_selection: 
-@add_column_selection: 
-@remove_column_selection: 
-@row_inserted: 
-@column_inserted: 
-@row_deleted: 
-@column_deleted: 
-@row_reordered: 
-@column_reordered: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>
@@ -180,8 +170,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@column: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@column: 
 
 
 <!-- ##### FUNCTION atk_table_get_row_header ##### -->
@@ -190,8 +181,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@row: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@row: 
 
 
 <!-- ##### FUNCTION atk_table_get_summary ##### -->
@@ -209,9 +201,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@caption: 
-<!-- # Unused Parameters # -->
 @accessible: 
+<!-- # Unused Parameters # -->
+@caption: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_description ##### -->
@@ -221,9 +213,9 @@ two-dimensional table format.
 
 @table: 
 @row: 
-@description: 
-<!-- # Unused Parameters # -->
 @accessible: 
+<!-- # Unused Parameters # -->
+@description: 
 
 
 <!-- ##### FUNCTION atk_table_set_column_description ##### -->
@@ -233,9 +225,9 @@ two-dimensional table format.
 
 @table: 
 @column: 
-@description: 
-<!-- # Unused Parameters # -->
 @accessible: 
+<!-- # Unused Parameters # -->
+@description: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_header ##### -->
@@ -273,8 +265,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@selected: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@selected: 
 
 
 <!-- ##### FUNCTION atk_table_get_selected_rows ##### -->
@@ -283,8 +276,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@selected: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@selected: 
 
 
 <!-- ##### FUNCTION atk_table_is_column_selected ##### -->
@@ -315,46 +309,6 @@ two-dimensional table format.
 @table: 
 @row: 
 @column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_add_column_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_add_row_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_remove_column_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_remove_row_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
 @Returns: 
 
 

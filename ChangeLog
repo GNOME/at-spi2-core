@@ -1,3 +1,10 @@
+Mon Jul  2 06:37:09 2001  Tim Janik  <timj@gtk.org>
+
+	* atk/atktext.c (atk_text_base_init): 
+	* atk/atktable.c (atk_table_base_init): 
+	* atk/atkobject.c (atk_object_init): s/signal_newc/signal_new/
+	to adapt to recent GSignal changes.
+
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	* atk/atkutil.c atk/atkutil.h docs/atk-sections.txt
 	docs/tmpl/atkutil.sgml

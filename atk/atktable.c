@@ -45,19 +45,19 @@ GType
 atk_table_get_type ()
 {
   static GType type = 0;
-
+  
   if (!type) {
     GTypeInfo tinfo =
     {
       sizeof (AtkTableIface),
       (GBaseInitFunc) atk_table_base_init,
       (GBaseFinalizeFunc) NULL,
-
+      
     };
-
+    
     type = g_type_register_static (G_TYPE_INTERFACE, "AtkTable", &tinfo, 0);
   }
-
+  
   return type;
 }
 
@@ -66,65 +66,65 @@ static void
 atk_table_base_init (gpointer *g_class)
 {
   static gboolean initialized = FALSE;
-
-  if (! initialized)
-  {
-    atk_table_signals[ROW_INSERTED] =
-      g_signal_newc ("row_inserted",
-                     ATK_TYPE_TABLE,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTableIface, row_inserted),
-                     (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
-                     G_TYPE_NONE,
-                     2, G_TYPE_INT, G_TYPE_INT);
-    atk_table_signals[COLUMN_INSERTED] =
-      g_signal_newc ("column_inserted",
-                     ATK_TYPE_TABLE,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTableIface, column_inserted),
-                     (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
-                     G_TYPE_NONE,
-                     2, G_TYPE_INT, G_TYPE_INT);
-    atk_table_signals[ROW_DELETED] =
-      g_signal_newc ("row_deleted",
-                     ATK_TYPE_TABLE,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTableIface, row_deleted),
-                     (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
-                     G_TYPE_NONE,
-                     2, G_TYPE_INT, G_TYPE_INT);
-    atk_table_signals[COLUMN_DELETED] =
-      g_signal_newc ("column_deleted",
-                     ATK_TYPE_TABLE,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTableIface, column_deleted),
-                     (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
-                     G_TYPE_NONE,
-                     2, G_TYPE_INT, G_TYPE_INT);
-    atk_table_signals[ROW_REORDERED] =
-      g_signal_newc ("row_reordered",
-                     ATK_TYPE_TABLE,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTableIface, row_reordered),
-                     (GSignalAccumulator) NULL, NULL,
-                     g_cclosure_marshal_VOID__VOID,
-                     G_TYPE_NONE,
-                     0);
-    atk_table_signals[COLUMN_REORDERED] =
-      g_signal_newc ("column_reordered",
-                     ATK_TYPE_TABLE,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTableIface, column_reordered),
-                     (GSignalAccumulator) NULL, NULL,
-                     g_cclosure_marshal_VOID__VOID,
-                     G_TYPE_NONE,
-                     0);
-    initialized = TRUE;
-  }
+  
+  if (!initialized)
+    {
+      atk_table_signals[ROW_INSERTED] =
+	g_signal_new ("row_inserted",
+		      ATK_TYPE_TABLE,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTableIface, row_inserted),
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT,
+		      G_TYPE_NONE,
+		      2, G_TYPE_INT, G_TYPE_INT);
+      atk_table_signals[COLUMN_INSERTED] =
+	g_signal_new ("column_inserted",
+		      ATK_TYPE_TABLE,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTableIface, column_inserted),
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT,
+		      G_TYPE_NONE,
+		      2, G_TYPE_INT, G_TYPE_INT);
+      atk_table_signals[ROW_DELETED] =
+	g_signal_new ("row_deleted",
+		      ATK_TYPE_TABLE,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTableIface, row_deleted),
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT,
+		      G_TYPE_NONE,
+		      2, G_TYPE_INT, G_TYPE_INT);
+      atk_table_signals[COLUMN_DELETED] =
+	g_signal_new ("column_deleted",
+		      ATK_TYPE_TABLE,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTableIface, column_deleted),
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT,
+		      G_TYPE_NONE,
+		      2, G_TYPE_INT, G_TYPE_INT);
+      atk_table_signals[ROW_REORDERED] =
+	g_signal_new ("row_reordered",
+		      ATK_TYPE_TABLE,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTableIface, row_reordered),
+		      (GSignalAccumulator) NULL, NULL,
+		      g_cclosure_marshal_VOID__VOID,
+		      G_TYPE_NONE,
+		      0);
+      atk_table_signals[COLUMN_REORDERED] =
+	g_signal_new ("column_reordered",
+		      ATK_TYPE_TABLE,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTableIface, column_reordered),
+		      (GSignalAccumulator) NULL, NULL,
+		      g_cclosure_marshal_VOID__VOID,
+		      G_TYPE_NONE,
+		      0);
+      initialized = TRUE;
+    }
 }
 
 /**

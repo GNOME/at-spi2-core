@@ -64,36 +64,36 @@ static void
 atk_text_base_init (gpointer *g_class)
 {
   static gboolean initialized = FALSE;
-
+  
   if (! initialized)
     {
-   /* 
-    * Note that text_changed signal supports details "insert", "delete", 
-    * possibly "replace". 
-    */
-
-    atk_text_signals[TEXT_CHANGED] =
-      g_signal_newc ("text_changed",
-                     ATK_TYPE_TEXT,
-                     G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
-                     G_STRUCT_OFFSET (AtkTextIface, text_changed), 
-                     (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
-                     G_TYPE_NONE,
-                     2, G_TYPE_INT, G_TYPE_INT);
-
-    atk_text_signals[CARET_MOVED] =
-      g_signal_newc ("text_caret_moved",
-                     ATK_TYPE_TEXT,
-                     G_SIGNAL_RUN_LAST,
-                     G_STRUCT_OFFSET (AtkTextIface, caret_changed),
-                     (GSignalAccumulator) NULL, NULL,
-                     g_cclosure_marshal_VOID__INT,
-                     G_TYPE_NONE,
-                     1, G_TYPE_INT);
-
-  initialized = TRUE;
-  }
+      /* 
+       * Note that text_changed signal supports details "insert", "delete", 
+       * possibly "replace". 
+       */
+      
+      atk_text_signals[TEXT_CHANGED] =
+	g_signal_new ("text_changed",
+		      ATK_TYPE_TEXT,
+		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      G_STRUCT_OFFSET (AtkTextIface, text_changed), 
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT,
+		      G_TYPE_NONE,
+		      2, G_TYPE_INT, G_TYPE_INT);
+      
+      atk_text_signals[CARET_MOVED] =
+	g_signal_new ("text_caret_moved",
+		      ATK_TYPE_TEXT,
+		      G_SIGNAL_RUN_LAST,
+		      G_STRUCT_OFFSET (AtkTextIface, caret_changed),
+		      (GSignalAccumulator) NULL, NULL,
+		      g_cclosure_marshal_VOID__INT,
+		      G_TYPE_NONE,
+		      1, G_TYPE_INT);
+      
+      initialized = TRUE;
+    }
 }
 
 /**
