@@ -173,7 +173,7 @@ msgstr "Panel"
 
 #: atk/atkobject.c:1352
 msgid "password-text"
-msgstr "Passwordtext"
+msgstr "Passworttext"
 
 #: atk/atkobject.c:1355
 msgid "popup-menu"
