@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ATK\n"
-"POT-Creation-Date: 2003-01-08 05:50+0100\n"
-"PO-Revision-Date: 2003-01-11 22:55+0100\n"
+"POT-Creation-Date: 2003-01-17 11:56+0100\n"
+"PO-Revision-Date: 2003-01-18 00:56+0100\n"
 "Last-Translator: Deep_Dark <epidamus@netscape.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgstr "tab i faqeve"
 
 #: atk/atkobject.c:1294
 msgid "page-tab-list"
-msgstr ""
+msgstr "lista e page-tab"
 
 #: atk/atkobject.c:1297
 msgid "panel"
@@ -201,15 +201,15 @@ msgstr "Paneli i root-it"
 
 #: atk/atkobject.c:1321
 msgid "row-header"
-msgstr ""
+msgstr "Linja e titujve"
 
 #: atk/atkobject.c:1324
 msgid "scroll-bar"
-msgstr ""
+msgstr "Bari rrëshqitës"
 
 #: atk/atkobject.c:1327
 msgid "scroll-pane"
-msgstr ""
+msgstr "Paneli rrëshqitës"
 
 #: atk/atkobject.c:1330
 msgid "separator"
@@ -221,11 +221,11 @@ msgstr "Rrëshkitës"
 
 #: atk/atkobject.c:1336
 msgid "split-pane"
-msgstr ""
+msgstr "panel i split-ueshëm (që mbyllet duke u rrotulluar)"
 
 #: atk/atkobject.c:1339
 msgid "spin-button"
-msgstr ""
+msgstr "spin-button"
 
 #: atk/atkobject.c:1342
 msgid "statusbar"
@@ -241,15 +241,15 @@ msgstr "Kutia e tavolinës"
 
 #: atk/atkobject.c:1351
 msgid "table-column-header"
-msgstr ""
+msgstr "tabela e titujve"
 
 #: atk/atkobject.c:1354
 msgid "table-row-header"
-msgstr ""
+msgstr "tabela e linjës së titujve"
 
 #: atk/atkobject.c:1357
 msgid "tear-off-menu-item"
-msgstr ""
+msgstr "hiq elementin e menusë"
 
 #: atk/atkobject.c:1360
 msgid "terminal"
@@ -261,15 +261,15 @@ msgstr "tekst"
 
 #: atk/atkobject.c:1366
 msgid "toggle-button"
-msgstr ""
+msgstr "tasti i kthimit"
 
 #: atk/atkobject.c:1369
 msgid "tool-bar"
-msgstr ""
+msgstr "bari i mjeteve"
 
 #: atk/atkobject.c:1372
 msgid "tool-tip"
-msgstr ""
+msgstr "fundi i tool(aplikacioneve ndihmës)"
 
 #: atk/atkobject.c:1375
 msgid "tree"
@@ -285,7 +285,7 @@ msgstr "e panjohur"
 
 #: atk/atkobject.c:1384
 msgid "viewport"
-msgstr ""
+msgstr "pikëpamje"
 
 #: atk/atkobject.c:1387
 msgid "window"
@@ -297,7 +297,7 @@ msgstr "titull"
 
 #: atk/atkobject.c:1393
 msgid "footer"
-msgstr ""
+msgstr "footer"
 
 #: atk/atkobject.c:1396
 msgid "paragraph"
