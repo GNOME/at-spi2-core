@@ -76,6 +76,7 @@ AC_CHECK_LIB(pango, pango_context_new, :, AC_MSG_ERROR([
 
 AC_OUTPUT([
 Makefile
-atk/Makefile
 atk.pc
+atk/Makefile
+tests/Makefile
 ])
