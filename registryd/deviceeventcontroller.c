@@ -416,7 +416,7 @@ handle_keygrab (SpiDEController         *controller,
     {
       grab_mask.key_val = AnyKey;
 #ifdef SPI_DEBUG
-      fprintf (stderr, "AnyKey grab!"); */
+      fprintf (stderr, "AnyKey grab!");
 #endif
       process_cb (controller, &grab_mask);
     }
@@ -548,7 +548,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
   XEvent *xevent = gdk_xevent;
   SpiDEController *controller;
 
-  if (xevent->type == KeyPress && xevent->type == KeyRelease)
+  if (xevent->type == KeyPress || xevent->type == KeyRelease)
     {
       controller = SPI_DEVICE_EVENT_CONTROLLER (data);
       spi_device_event_controller_forward_key_event (controller, xevent);
@@ -594,7 +594,6 @@ spi_controller_register_with_devices (SpiDEController *controller)
   x_default_error_handler = XSetErrorHandler (_spi_controller_device_error_handler);
 }
 
-#define SPI_KEYEVENT_DEBUG
 static gboolean
 spi_key_set_contains_key (Accessibility_KeySet            *key_set,
 			  const Accessibility_DeviceEvent *key_event)
@@ -973,15 +972,15 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
         {
 
 #ifdef SPI_DEBUG
-	  fprintf (stderr, "grab with mask %x\n", grab_mask->mod_mask);
+	  fprintf (stderr, "grab %d with mask %x\n", grab_mask->key_val, grab_mask->mod_mask);
 #endif
           XGrabKey (spi_get_display (),
 		    grab_mask->key_val,
 		    grab_mask->mod_mask,
 		    gdk_x11_get_default_root_xwindow (),
 		    True,
-		    GrabModeAsync,
-		    GrabModeAsync);
+		    GrabModeSync,
+		    GrabModeSync);
 	  XSync (spi_get_display (), False);
 	  update_failed = spi_clear_error_state ();
 	  if (update_failed) {

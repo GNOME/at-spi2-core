@@ -1,3 +1,13 @@
+2002-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* registryd/deviceeventcontroller.c
+	(global_filter_fn): Correct typo which caused KeyPress and KeyRelease
+	events to be ignored.
+	(spi_controller_update_key_grabs): Use GrabModeSync for pointer_mode
+	keyboard_mode so that XAllowEvents() can be called.
+
+	Fixes bug #93658.
+
 2002-10-08  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* cspi/spi-accessible.c: Correct names of roles returned by
