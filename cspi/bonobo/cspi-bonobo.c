@@ -86,7 +86,7 @@ cspi_init (void)
       g_error ("Could not initialize Bonobo");
     }
 
-  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+  obj_id = "OAFIID:Accessibility_Registry:1.0";
 
   CORBA_exception_init (&ev);
 

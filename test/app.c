@@ -67,7 +67,7 @@ main(int argc, char **argv)
         e.source = bonobo_object_corba_objref ( bonobo_object (accessible));
         e.type = CORBA_string_dup ("focus:");
 
-        obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+        obj_id = "OAFIID:Accessibility_Registry:1.0";
 
         oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {

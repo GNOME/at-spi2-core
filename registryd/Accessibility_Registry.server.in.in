@@ -1,5 +1,5 @@
 <oaf_info>
-	<oaf_server iid="OAFIID:Accessibility_Registry:proto0.1"
+	<oaf_server iid="OAFIID:Accessibility_Registry:1.0"
         	    type="exe" location="@REGISTRYD_PATH@/at-spi-registryd">
 		<oaf_attribute name="repo_ids" type="stringv">
 			<item value="IDL:Bonobo/Unknown:1.0"/>

@@ -62,7 +62,7 @@ main(int argc, char **argv)
             g_error ("Could not initialize Bonobo");
           }
 
-        obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+        obj_id = "OAFIID:Accessibility_Registry:1.0";
 
         oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {

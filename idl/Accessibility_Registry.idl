@@ -226,13 +226,13 @@ module Accessibility {
 	 *            receive the events synchronously, potentially consuming them,
 	 *            or just be notified asynchronously of those events that have
 	 *            been generated.
-	 * Returns: void
+	 * Returns: %true if successful, %false if not
          *
          * Register to intercept keyboard events, and either pass them on or
          * consume them. 
          *
 	 **/
-        void registerKeystrokeListener (in DeviceEventListener listener,
+        boolean registerKeystrokeListener (in DeviceEventListener listener,
 					in KeySet keys,
 					in ControllerEventMask mask,
 					in KeyEventTypeSeq type,

@@ -1,3 +1,72 @@
+2002-06-02  Bill Haneman  <bill.haneman@sun.com>
+
+	AT-SPI 1.0 API FINAL: at-spi 1.0 is now
+	API frozen.
+	
+	* configure.in: Revved to 1.0.0.
+
+	* idl/Accessibility_Registry.idl:
+	(registerKeystrokeListener):
+	Added boolean return value.
+	
+	* registryd/registry.c:
+	(notify_listeners_cb): Minor fix to debug output.
+
+	* registryd/Accessibility_Registry.server.in.in:
+	Revved version number in OAFIID to 1.0.
+
+	* registryd/registryd.c:
+	(main):
+	Use new OAFIID version.
+
+	* cspi/bonobo/cspi-bonobo.c:
+	(cspi_init):
+	Use new OAFIID version.
+
+	* test/at.c:
+	(main):
+	* test/app.c:
+	(main):
+	* atk-bridge/bridge.c:
+	(atk_bridge_init):
+	Use new OAFIID version.
+
+	* registryd/deviceeventcontroller.c:
+	(impl_register_keystroke_listener):
+	Added CORBA_boolean return value.
+	(spi_controller_register_device_listener):
+	Added gboolean return value.
+	(spi_controller_register_global_keygrabs):
+	Added gboolean return value.
+	(spi_key_set_contains_key):
+	Added implementation for many more control keys,
+	for instance F1-F12, arrow keys, End, Home, Page_Up,
+	Page_Down, Escape.
+	[TODO: some still not implemented]. 
+	
+	* text/screen-review-test.c:
+	(text_chunk_pad_string):
+	New function: it provides mapping between coordinate
+	positions of text chunks and character positions in the
+	screen-review-line output string.
+	(text_chunk_to_string):
+	New function, calls text_chunk_pad_string with various
+	pad/delimiter characters. Pushbuttons are delimited with
+	square brackets, Frames with vertical 'pipe' lines, and 
+	other text with double quotes.
+	(text_chunk_list_to_string):
+	Calls new function text_chunk_to_string.
+	(toplevel_composite):
+	New function to composite layers CANVAS through
+	POPUP in each toplevel (other layers are composited
+	across toplevels, i.e. BACKGROUND and OVERLAY).
+	(review_buffer_composite):
+	Revise to use new methods.
+	
+	
+	
+	
+
 2002-05-31  Laszlo Peter  <laca@sun.com>
 
 	* configure.in: add the Xtst libdir to the runpath on Solaris,
@@ -9,6 +78,15 @@
 
 2002-05-29  Bill Haneman  <bill.haneman@sun.com>
 
+	* test/screen-review-test.c:
+	(text_chunk_pad_string):
+	Added method, which pads the string according to the 
+	text bounds of the chunk.  It also takes a 3-character
+	string as a param which indicates the characters to be 
+	used for start, padding, and end delimitation of the chunk.
+	(text_chunk_to_string):
+	Changed to use text_chunk_pad_string.
+	
 	* configure.in: Fixed bug in AC_OUTPUT that was
         causing path substitution in Accessibility_Registry.server
 	to fail.

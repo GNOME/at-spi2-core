@@ -23,6 +23,7 @@
 /* registry.c: the main accessibility service registry implementation */
 
 #undef SPI_LISTENER_DEBUG
+#undef SPI_DEBUG
 
 #include <config.h>
 #ifdef SPI_DEBUG
@@ -351,12 +352,13 @@ impl_accessibility_registry_register_global_event_listener (
 	const CORBA_char           *event_name,
 	CORBA_Environment          *ev)
 {
-  SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
+  SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant)); 
   SpiListenerStruct *ls = spi_listener_struct_new (listener, ev);
   EventTypeStruct etype;
   GList          **list;
 
 #ifdef SPI_DEBUG
+  fprintf (stderr, "registering");
   fprintf (stderr, "registering for events of type %s\n", event_name);
 #endif
 
@@ -560,8 +562,9 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
       (ls->event_type_quark == ctx->etype.minor))
     {
 #ifdef SPI_DEBUG
-      fprintf (stderr, "notifying listener %d\n", g_list_index (listeners, l->data));
-      s = Accessibility_Accessible__get_name (ctx->source, ev);
+      fprintf (stderr, "notifying listener %d\n", 0);
+/* g_list_index (list, l->data)); */
+      s = Accessibility_Accessible__get_name (ctx->source, ctx->ev);
       fprintf (stderr, "event source name %s\n", s);
       CORBA_free (s);
 #endif

@@ -30,8 +30,7 @@
  *
  * Issues:
  *
- * * bounds now fail to include window border decoration
- *         (which we can't really know about yet).
+ * * there are bugs in the compositing code.
  *
  * * brute-force algorithm uses no client-side cache; performance mediocre.
  *
@@ -40,17 +39,13 @@
  *          the active window is not always on top (i.e. autoraise is
  *          not enabled).
  *
- * * text-bearing objects that don't implement AccessibleText (such as buttons)
- *          don't get their text clipped since we don't know the character
- *          bounding boxes.
- *
  * * can't know about "inaccessible" objects that may be obscuring the
  *          accessible windows (inherent to API-based approach).
  *
- * * this implementation doesn't worry about text column-alignment, it generates
- *          review lines of more-or-less arbitrary length.  The x-coordinate
- *          info is preserved in the reviewBuffers list structures, but the
- *          "buffer-to-string" algorithm (currently) ignores it.
+ * * text column alignment is crude since it relies on a hard-coded
+ *          (and arbitrary) ratio of horizontal pixels to character columns.
+ *          For small proportional fonts, overruns are likely to result in
+ *          occasional review lines that exceed the standard length.
  *
  * * (others).
  */
@@ -116,7 +111,7 @@ typedef struct _TextChunk {
 	BoundaryRect    end_char_bounds;
 } TextChunk;
 
-typedef struct _ScreenReviewBuffer { /* TODO: implement */
+typedef struct _ScreenReviewBuffer { 
 	GList *text_chunks;
 } ScreenReviewBuffer;
 
@@ -185,7 +180,7 @@ clip_bounds_clone (BoundaryRect *bounds[])
 	BoundaryRect **bounds_clone;
 	bounds_clone = (BoundaryRect **)
 		g_new0 (gpointer, SPI_LAYER_LAST_DEFINED);
-	for (i = 0; i < SPI_LAYER_LAST_DEFINED; ++i) {
+	for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
 		bounds_clone[i] = g_new0 (BoundaryRect, 1);
 		*bounds_clone[i] = *bounds[i];
 	}
@@ -746,7 +741,6 @@ string_guess_clip (TextChunk *chunk)
 							&b.x, &b.y,
 							&b.width, &b.height,
 							SPI_COORD_TYPE_SCREEN);
-			/* TODO: finish this! */
 			start_offset = len * (chunk->text_bounds.x - b.x) / b.width;
 			end_offset = len * (chunk->text_bounds.x +
 					    chunk->text_bounds.width - b.x) / b.width;
@@ -829,20 +823,82 @@ text_chunk_get_clipped_string (TextChunk *chunk)
 	return string;
 }
 
+
+static char*
+text_chunk_pad_string (TextChunk *chunk, char *string, glong offset, const char *pad_chars)
+{
+	char *s = "";
+	char *cp;
+	char startbuf[6], padbuf[6], endbuf[6];
+	int pixels_per_column = 6;
+        /* this is an arbitrary pixel-to-textcolumn mapping at present */
+	glong end_padding;
+	gint howmany;
+	howmany = g_unichar_to_utf8 (g_utf8_get_char (pad_chars), startbuf);
+	startbuf[howmany] = '\0';
+	g_assert (howmany < 7 && howmany > 0);
+	cp = g_utf8_find_next_char (pad_chars, NULL);
+	howmany = g_unichar_to_utf8 (g_utf8_get_char (cp), padbuf);
+	padbuf[howmany] = '\0';
+	g_assert (howmany < 7 && howmany > 0);
+	cp = g_utf8_find_next_char (cp, NULL);
+	howmany = g_unichar_to_utf8 (g_utf8_get_char (cp), endbuf);
+	endbuf[howmany] = '\0';
+	g_assert (howmany < 7 && howmany > 0);
+	end_padding = chunk->clip_bounds.x / pixels_per_column; 
+	while (offset < end_padding - 1) {
+		s = g_strconcat (s, padbuf, NULL); /* could be more efficient */
+		++offset;
+	}
+	s = g_strconcat (s, startbuf, string, NULL);
+	offset += g_utf8_strlen (string, -1) + 1;
+	end_padding = chunk->text_bounds.x / pixels_per_column; 
+	while (offset < end_padding) {
+		s = g_strconcat (s, padbuf, NULL); /* could be more efficient */
+		++offset;
+	}
+	end_padding = (chunk->clip_bounds.x + chunk->clip_bounds.width) /
+		pixels_per_column;
+	while (offset < end_padding - 1) {
+		s = g_strconcat (s, padbuf, NULL); /* could be more efficient */
+		++offset;
+	}
+	s = g_strconcat (s, endbuf, NULL);
+	return s;
+}
+
+static char*
+text_chunk_to_string (TextChunk *chunk, glong offset)
+{
+	char *s = NULL;
+	if (chunk->string) {
+		s = text_chunk_get_clipped_string (chunk);
+		if (chunk->clip_bounds.role == SPI_ROLE_PUSH_BUTTON) {
+			s = text_chunk_pad_string (chunk, s, offset, "[ ]");
+		} else if (chunk->clip_bounds.role == SPI_ROLE_FRAME) {
+			s = text_chunk_pad_string (chunk, s, offset, "| |");
+		} else if (chunk->clip_bounds.role == SPI_ROLE_TEXT) {
+			s = text_chunk_pad_string (chunk, s, offset, "\" \"");
+		} else {
+			s = text_chunk_pad_string (chunk, s, offset, "   ");
+		}
+	}
+	return s;
+}
+
 static char*
 text_chunk_list_to_string (GList *iter)
 {
 	char *s = "";
 	char *string;
 	TextChunk *chunk = NULL;
+	int offset = 0;
 	while (iter) {
 		chunk = (TextChunk *)iter->data;
-		if (chunk /* && chunk->string */) {
-			string = text_chunk_get_clipped_string (chunk);
+		if (chunk) {
+			string = text_chunk_to_string (chunk, g_utf8_strlen (s, -1));
 			if (string)
-				s = g_strconcat (s, "|", string, NULL);
-			else /* XXX test */
-				s = g_strconcat (s, ":", NULL);
+				s = g_strconcat (s, string, NULL);
 		}
 		iter = iter->next;
 	}
@@ -850,15 +906,54 @@ text_chunk_list_to_string (GList *iter)
 	return s;
 }
 
-static char*
-review_buffer_composite (ScreenReviewBuffer *buffers[])
+#define COMPOSITE_DEBUG
+
+static void
+toplevel_composite (ScreenReviewBuffer *buffers[])
 {
 	int i;
 	GList *chunk_list, *iter;
 	TextChunk *chunk;
-#ifdef NEED_TO_FIX_THIS	
-	chunk_list = buffers[0]->text_chunks;
-	for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
+
+	chunk_list = buffers[SPI_LAYER_CANVAS]->text_chunks;
+	for (i = SPI_LAYER_MDI; i < SPI_LAYER_OVERLAY; ++i) {
+		iter = buffers[i]->text_chunks;
+#ifdef COMPOSITE_DEBUG
+		fprintf (stderr, "layer %d has %d chunks\n",
+			 i, g_list_length (iter));
+#endif		
+		while (iter) {
+			chunk = (TextChunk *) iter->data;
+			if (chunk) {
+#ifdef COMPOSITE_DEBUG
+				fprintf (stderr, "inserting chunk <%s>\n",
+					 chunk->string ? chunk->string : "<null>");
+#endif
+				chunk_list =
+					text_chunk_list_insert_chunk (chunk_list,
+								      chunk);
+			}
+			iter = iter->next;
+		}
+	}
+}
+
+static char*
+review_buffer_composite (ScreenReviewBuffer *buffers[])
+{
+	/* TODO: FIXME: something is wrong here, compositing fails */
+	int i;
+	GList *chunk_list, *iter;
+	TextChunk *chunk;
+	chunk_list = buffers[SPI_LAYER_BACKGROUND]->text_chunks;
+	for (i = 2; i < SPI_LAYER_LAST_DEFINED; ++i) {
+		if (i == SPI_LAYER_WIDGET) i = SPI_LAYER_OVERLAY;
+		/*
+		 * Q: why skip these layers ?
+		 * A: since layers WIDGET, MDI, and POPUP have already been
+		 *  composited into layer CANVAS for each toplevel before this
+		 *  routine is called.
+		 */
 		iter = buffers[i]->text_chunks;
 #ifdef CLIP_DEBUG
 		fprintf (stderr, "layer %d has %d chunks\n",
@@ -878,7 +973,7 @@ review_buffer_composite (ScreenReviewBuffer *buffers[])
 			iter = iter->next;
 		}
 	}
-#endif
+	
 	chunk_list = buffers[SPI_LAYER_WIDGET]->text_chunks;
 	return text_chunk_list_to_string (chunk_list);
 }
@@ -898,7 +993,7 @@ get_screen_review_line_at (int x, int y)
   GTimer *timer = g_timer_new ();
   int i;
 
-  for (i = 0; i < SPI_LAYER_LAST_DEFINED; ++i) {
+  for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
 	  reviewBuffers[i] = g_new0 (ScreenReviewBuffer, 1);
 	  clip_bounds[i] = g_new0 (BoundaryRect, 1);
 	  clip_bounds[i]->isClipped = FALSE;
@@ -960,11 +1055,13 @@ get_screen_review_line_at (int x, int y)
 						      &toplevel_bounds.height,
 						      SPI_COORD_TYPE_SCREEN);
 		      toplevel_bounds.isEmpty = FALSE;
-		      for (i = 0; i < SPI_LAYER_LAST_DEFINED; ++i) {
+		      for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
 			      *clip_bounds[i] = toplevel_bounds;
 		      }
 		      clip_into_buffers (toplevel, clip_bounds,
 				     reviewBuffers, x, y);
+
+		      toplevel_composite (reviewBuffers);
 #ifdef CHUNK_LIST_DEBUG
 		      fprintf (stderr, "toplevel clip done\n");
 		      debug_chunk_list (reviewBuffers[SPI_LAYER_WIDGET]->text_chunks);

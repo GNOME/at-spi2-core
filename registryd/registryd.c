@@ -42,7 +42,7 @@ main (int argc, char **argv)
       g_error ("Could not initialize oaf / Bonobo");
     }
 
-  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+  obj_id = "OAFIID:Accessibility_Registry:1.0";
 
   registry = spi_registry_new ();
 

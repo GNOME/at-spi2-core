@@ -110,7 +110,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
   CORBA_exception_init(&ev);
 
   registry = bonobo_activation_activate_from_id (
-	  "OAFIID:Accessibility_Registry:proto0.1", 0, NULL, &ev);
+	  "OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
   
   if (ev._major != CORBA_NO_EXCEPTION)
     {

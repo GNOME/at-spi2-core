@@ -84,7 +84,7 @@ typedef struct {
 static void     spi_controller_register_with_devices          (SpiDEController           *controller);
 static gboolean spi_controller_update_key_grabs               (SpiDEController           *controller,
 							       Accessibility_DeviceEvent *recv);
-static void     spi_controller_register_device_listener       (SpiDEController           *controller,
+static gboolean spi_controller_register_device_listener       (SpiDEController           *controller,
 							       DEControllerListener      *l,
 							       CORBA_Environment         *ev);
 static void     spi_device_event_controller_forward_key_event (SpiDEController           *controller,
@@ -239,6 +239,9 @@ handle_keygrab (SpiDEController         *controller,
   if (key_listener->keys->_length == 0) /* special case means AnyKey/AllKeys */
     {
       grab_mask.key_val = AnyKey;
+#ifdef SPI_DEBUG
+      fprintf (stderr, "AnyKey grab!"); */
+#endif
       process_cb (controller, &grab_mask);
     }
   else
@@ -268,12 +271,12 @@ handle_keygrab (SpiDEController         *controller,
     }
 }
 
-static void
+static gboolean
 spi_controller_register_global_keygrabs (SpiDEController         *controller,
 					 DEControllerKeyListener *key_listener)
 {
   handle_keygrab (controller, key_listener, _register_keygrab);
-  spi_controller_update_key_grabs (controller, NULL);
+  return spi_controller_update_key_grabs (controller, NULL);
 }
 
 static void
@@ -284,7 +287,7 @@ spi_controller_deregister_global_keygrabs (SpiDEController         *controller,
   spi_controller_update_key_grabs (controller, NULL);
 }
 
-static void
+static gboolean
 spi_controller_register_device_listener (SpiDEController      *controller,
 					 DEControllerListener *listener,
 					 CORBA_Environment    *ev)
@@ -299,12 +302,15 @@ spi_controller_register_device_listener (SpiDEController      *controller,
 						  key_listener);
       if (key_listener->mode->global)
         {
-	  spi_controller_register_global_keygrabs (controller, key_listener);	
+	  return spi_controller_register_global_keygrabs (controller, key_listener);	
 	}
+      else
+	      return TRUE;
       break;
     default:
       break;
   }
+  return FALSE; 
 }
 
 static GdkFilterReturn
@@ -355,6 +361,7 @@ spi_controller_register_with_devices (SpiDEController *controller)
   x_default_error_handler = XSetErrorHandler (_spi_controller_device_error_handler);
 }
 
+#define SPI_KEYEVENT_DEBUG
 static gboolean
 spi_key_set_contains_key (Accessibility_KeySet            *key_set,
 			  const Accessibility_DeviceEvent *key_event)
@@ -560,6 +567,69 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
       case XK_Return:
         key_event.event_string = CORBA_string_dup ("Return");
 	break;
+      case XK_Home:
+        key_event.event_string = CORBA_string_dup ("Home");
+	break;
+      case XK_Page_Down:
+        key_event.event_string = CORBA_string_dup ("Page_Down");
+	break;
+      case XK_Page_Up:
+        key_event.event_string = CORBA_string_dup ("Page_Up");
+	break;
+      case XK_F1:
+        key_event.event_string = CORBA_string_dup ("F1");
+	break;
+      case XK_F2:
+        key_event.event_string = CORBA_string_dup ("F2");
+	break;
+      case XK_F3:
+        key_event.event_string = CORBA_string_dup ("F3");
+	break;
+      case XK_F4:
+        key_event.event_string = CORBA_string_dup ("F4");
+	break;
+      case XK_F5:
+        key_event.event_string = CORBA_string_dup ("F5");
+	break;
+      case XK_F6:
+        key_event.event_string = CORBA_string_dup ("F6");
+	break;
+      case XK_F7:
+        key_event.event_string = CORBA_string_dup ("F7");
+	break;
+      case XK_F8:
+        key_event.event_string = CORBA_string_dup ("F8");
+	break;
+      case XK_F9:
+        key_event.event_string = CORBA_string_dup ("F9");
+	break;
+      case XK_F10:
+        key_event.event_string = CORBA_string_dup ("F10");
+	break;
+      case XK_F11:
+        key_event.event_string = CORBA_string_dup ("F11");
+	break;
+      case XK_F12:
+        key_event.event_string = CORBA_string_dup ("F12");
+	break;
+      case XK_End:
+        key_event.event_string = CORBA_string_dup ("End");
+	break;
+      case XK_Escape:
+        key_event.event_string = CORBA_string_dup ("Escape");
+	break;
+      case XK_Up:
+        key_event.event_string = CORBA_string_dup ("Up");
+	break;
+      case XK_Down:
+        key_event.event_string = CORBA_string_dup ("Down");
+	break;
+      case XK_Left:
+        key_event.event_string = CORBA_string_dup ("Left");
+	break;
+      case XK_Right:
+        key_event.event_string = CORBA_string_dup ("Right");
+	break;
       default:
         if (XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL) > 0)
           {
@@ -706,7 +776,7 @@ spi_device_event_controller_object_finalize (GObject *object)
  * CORBA Accessibility::DEController::registerKeystrokeListener
  *     method implementation
  */
-static void
+static CORBA_boolean
 impl_register_keystroke_listener (PortableServer_Servant                  servant,
 				  const Accessibility_DeviceEventListener l,
 				  const Accessibility_KeySet             *keys,
@@ -723,8 +793,8 @@ impl_register_keystroke_listener (PortableServer_Servant                  servan
 	   (void *) l, (unsigned long) mask);
 #endif
   dec_listener = spi_dec_key_listener_new (l, keys, mask, type, mode, ev);
-  spi_controller_register_device_listener (
-    controller, (DEControllerListener *) dec_listener, ev);
+  return spi_controller_register_device_listener (
+	  controller, (DEControllerListener *) dec_listener, ev);
 }
 
 
