@@ -1,3 +1,15 @@
+2003-06-26  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_init_event_type_consts): Ensure that this function only
+	looks up signals once.
+	(atk_bridge_init): Call spi_atk_bridge_init_event_type_consts only
+	if doing registration.
+	(spi_atk_bridge_toplevel_added): Call spi_bridge_init_event_type_consts
+	when doing registration.
+	
+	This fixes bug #115014.
+
 2003-06-25  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c:

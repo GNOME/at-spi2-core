@@ -123,6 +123,11 @@ extern void gnome_accessibility_module_shutdown (void);
 static void
 spi_atk_bridge_init_event_type_consts ()
 {
+  static gboolean done = FALSE;
+
+  if (done)
+    return;
+
   atk_signal_children_changed = g_signal_lookup ("children_changed", 
 					      ATK_TYPE_OBJECT);
   atk_signal_text_changed = g_signal_lookup ("text_changed", 
@@ -134,6 +139,7 @@ spi_atk_bridge_init_event_type_consts ()
 					      ATK_TYPE_HYPERTEXT);
   atk_signal_text_selection_changed = g_signal_lookup ("text_selection_changed", 
 					      ATK_TYPE_TEXT);
+  done = TRUE;
 }
 
 static int
@@ -176,10 +182,9 @@ atk_bridge_init (gint *argc, gchar **argv[])
   else
     {
       spi_atk_bridge_do_registration ();
+      spi_atk_bridge_init_event_type_consts ();
     }
  
-  spi_atk_bridge_init_event_type_consts ();
-
   return 0;
 }
 
@@ -218,7 +223,10 @@ spi_atk_bridge_toplevel_added (AtkObject *object,
                                AtkObject *child)
 {
   if (toplevels == 0)
-    spi_atk_bridge_do_registration ();
+    {
+      spi_atk_bridge_do_registration ();
+      spi_atk_bridge_init_event_type_consts ();
+    }
   toplevels++;
 }
 
