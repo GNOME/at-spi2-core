@@ -73,7 +73,7 @@ gtk_module_init(gint *argc, gchar **argv[])
   ArgStruct *args = (ArgStruct *) g_new0(ArgStruct, 1);
   args->c = *argc;
   args->v = *argv;
-  g_idle_add (bridge_register_app, args);
+  bridge_register_app (args);
   g_atexit (bridge_exit_func);
 }
 

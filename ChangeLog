@@ -1,3 +1,34 @@
+2001-12-03  Bill Haneman  <bill.haneman@sun.com>
+
+        * idl/Component.idl:
+	Added two methods, getLayer () and getMDIZOrder (), to reflect
+	the new ATK methods atk_object_get_layer and
+	atk_object_get_mdi_z_order. (Which arguably should be part of the
+	AtkComponent API and AtkObject).  Also added an enum,
+	ComponentLayer, for the first method's return value.
+
+	* cspi/spi_component.c:
+	* cspi/spi.h:
+	Added cspi binding methods for above, 
+	AccessibleComponent_getLayer() and
+	AccessibleComponent_getMDIZOrder().
+	Added cspi enum 'AccessibleComponentLayer'.
+
+	* docs/reference/cspi/at-spi-cspi-sections.txt:
+	Added above methods to docs.
+
+	* cspi/spi-impl.h:
+	* cspi/spi*.[ch]:
+	Changed typedef for 'boolean' type (and all references to it) to
+	SPIBoolean, to avoid keyword clashes with C++.
+
+	* test/simple-at.c:
+	Changed usages of 'boolean' to SPIBoolean.
+
+	* test/keysynth-demo.c:
+	Changed usages of 'boolean' to 'gboolean' (since this is a gnome
+	app), except where SPIBoolean is required by the callbacks API.
+	
 2001-12-02  Bill Haneman  <bill.haneman@sun.com>
 
 	* cspi/spi_registry.c:
