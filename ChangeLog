@@ -1,3 +1,8 @@
+2004-04-28 Bill Haneman <billh@gnome.org>
+
+	* Makefile.am: Added --enable-gtk-doc to
+	DISTCHECK_CONFIGURE_FLAGS; fixes make distcheck.
+	
 2004-04-19 Bill Haneman <billh@gnome.org>
 
 	* configure.in: Revved to 1.5.1.
