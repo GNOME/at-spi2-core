@@ -56,7 +56,12 @@ two-dimensional table format.
 @remove_row_selection: 
 @add_column_selection: 
 @remove_column_selection: 
-@model_changed: 
+@row_inserted: 
+@column_inserted: 
+@row_deleted: 
+@column_deleted: 
+@row_reordered: 
+@column_reordered: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>

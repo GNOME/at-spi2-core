@@ -1,5 +1,5 @@
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
-	*atk/atktable.h
+	*atk/atktable.h, atk/atktable.c
 	Updated signal handler definitions.
 
 2001-06-27  Brian Cameron <brian.cameron@sun.com>
