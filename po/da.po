@@ -1,13 +1,13 @@
 # Danish translation of ATK.
-# Copyright (C) 2002, 03 Free Software Foundation, Inc.
-# Ole Laursen <olau@hardworking.dk>, 2002, 03.
+# Copyright (C) 2002, 03, 04 Free Software Foundation, Inc.
+# Ole Laursen <olau@hardworking.dk>, 2002, 03, 04.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-09 22:02+0100\n"
-"PO-Revision-Date: 2003-12-09 22:12+0100\n"
+"POT-Creation-Date: 2004-02-01 00:37+0100\n"
+"PO-Revision-Date: 2004-02-01 00:39+0100\n"
 "Last-Translator: Ole Laursen <olau@hardworking.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgid "invalid"
 msgstr "ugyldig"
 
 #: atk/atkobject.c:83
-msgid "accel label"
+msgid "accelerator label"
 msgstr "genvejsetiket"
 
 #: atk/atkobject.c:84
@@ -412,7 +412,9 @@ msgstr "Tilgængelighedstabeltitel"
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "Bruges til at bekendtgøre at tabeltitlen er ændret; denne egenskab bør ikke benyttes. accessible-table-caption-object bør bruges i stedet"
+msgstr ""
+"Bruges til at bekendtgøre at tabeltitlen er ændret; denne egenskab bør ikke "
+"benyttes. accessible-table-caption-object bør bruges i stedet"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
@@ -463,8 +465,8 @@ msgid "Is used to notify that the table caption has changed"
 msgstr "Bruges til at bekendtgøre at tabeltitlen er ændret"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
-msgstr "Tilgængelighedshypertekst-antal henvisninger"
+msgid "Number of Accessible Hypertext Links"
+msgstr "Antal tilgængelighedshypertekst-henvisninger"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
