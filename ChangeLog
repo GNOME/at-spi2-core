@@ -1,5 +1,18 @@
 2001-08-15  Mark McLoughlin <mark@skynet.ie>
 
+	* libspi/Makefile.am,
+          registryd/Makefile.am,
+          at-bridge/Makefile.am.
+          test/Makefile.am, configure.in:
+	reverse previous changes.
+
+	* /idl/Image.idl: fix typo.
+
+	* test/Makefile.am: put DEBUG_FLAGS
+	in CFLAGS.
+
+2001-08-15  Mark McLoughlin <mark@skynet.ie>
+
 	* test/app.c: use atgv[0] instead of
 	g_type_prgname.
 

@@ -25,7 +25,7 @@ module Accessibility {
   interface Image : Bonobo::Unknown  {
     readonly attribute string imageDescription;
     readonly attribute long height;
-    readonly attribute long widthl
+    readonly attribute long width;
     readonly attribute long xpos;
     readonly attribute long ypos;
   };

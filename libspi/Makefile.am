@@ -1,15 +1,16 @@
 lib_LTLIBRARIES = libspi.la
 
-DEBUG_CFLAGS=-DSPI_DEBUG
-
 INCLUDES = -I $(top_srcdir)           \
            -I $(top_builddir)         \
            -I $(top_srcdir)/libspi    \
            -I $(top_builddir)/libspi  \
-           $(LIBSPI_CFLAGS)           \
-	   $(DEBUG_CFLAGS)
+           $(LIBSPI_CFLAGS)
 
-LDADD = $(LIBSPI_LIBS) @LT_VERSION_INFO@
+LDFLAGS = $(LIBSPI_LIBS) @LT_VERSION_INFO@
+
+DEBUG_CFLAGS=-DSPI_DEBUG
+
+CFLAGS += $(DEBUG_CFLAGS)
 
 libspiincludedir = $(includedir)/libspi
 

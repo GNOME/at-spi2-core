@@ -9,6 +9,19 @@ INCLUDES = -I $(top_srcdir) \
 	   -I $(top_srcdir)/libspi	\
 	   -I $(top_builddir)/libspi	\
            -I $(top_builddir)/at-bridge \
-           $(AT_COMMON_CFLAGS)
+           $(AT_BRIDGE_CFLAGS)
 
-LDADD = $(AT_COMMON_LIBS) ../libspi/libspi.la
+DEPS = 	\
+	$(libatk)	\
+	$(libbonobo-2)	\
+	$(liboaf-2)	\
+	$(libORBit-2)	\
+	$(libat-spi)
+
+
+LDFLAGS = -no-undefined	\
+	@DEP_LIBS@
+
+libat_bridge_la_LIBADD = $(AT_BRIDGE_LIBS) ../libspi/libspi.la
+
+CFLAGS += $(AT_BRIDGE_CFLAGS)
