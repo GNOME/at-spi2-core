@@ -1,11 +1,11 @@
-# Translation of at-spi to Croatian
-# Copyright (C) Croatian team
+# Translation of at-spi to Croatiann
+# Copyright (C) Croatiann team
 # Translators: Robert Sedak <robert.sedak@sk.tel.hr>,
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi 0\n"
-"POT-Creation-Date: 2003-12-31 18:37+0100\n"
-"PO-Revision-Date: 2003-12-31 18:39+CET\n"
+"POT-Creation-Date: 2004-02-01 16:48+0100\n"
+"PO-Revision-Date: 2004-02-01 16:48+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
