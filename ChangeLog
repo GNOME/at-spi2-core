@@ -1,3 +1,7 @@
+2001-08-07  Mark McLoughlin <mark@skynet.ie>
+
+	* po/Makefile.in.in: Add. Again.
+
 2001-07-31  Bill Haneman <bill.haneman@sun.com>
 
         * libspi/accessible.c : added support for 'description' property.
