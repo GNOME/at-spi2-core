@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.4\n"
-"POT-Creation-Date: 2003-08-06 11:17+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-08-11 11:14+0200\n"
 "PO-Revision-Date: 2003-08-06 18:06+0200\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani <gnome@azitt.com>\n"
@@ -29,4 +30,3 @@ msgstr "AT-SPI Qeydi"
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
 msgstr "Yetişmə Qabiliyyəti Qeydi"
-
