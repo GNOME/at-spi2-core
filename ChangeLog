@@ -1,3 +1,8 @@
+2004-01-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Revise property name. Fixes bug #132022 from
+	Christian - Manny Calavera - Neumair.
+
 2004-01-23  Manish Singh  <yosh@gimp.org>
 
 	* Makefile.am: remove trailing backslash from last line of

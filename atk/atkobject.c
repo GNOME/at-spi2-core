@@ -398,7 +398,7 @@ atk_object_class_init (AtkObjectClass *klass)
   g_object_class_install_property (gobject_class,
                                    PROP_HYPERTEXT_NUM_LINKS,
                                    g_param_spec_int    (atk_object_name_property_hypertext_num_links,
-                                                        _("Accessible Hypertext Number of Links"),
+                                                        _("Number of Accessible Hypertext Links"),
                                                         _("The number of links which the current AtkHypertext has"),
                                                         0,
                                                         G_MAXINT,
