@@ -1,3 +1,8 @@
+2001-09-11  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c:
+	Add object reference when object is set as accessible_parent
+
 2001-09-05  Mark McLoughlin <mark@skynet.ie>
 
 	* configure.in: remember ACLOCAL_FLAGS.

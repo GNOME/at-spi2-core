@@ -855,9 +855,10 @@ atk_object_finalize (GObject *object)
    * Free memory allocated for relation set if it have been allocated.
    */
   if (accessible->relation_set)
-  {
     g_object_unref (accessible->relation_set);
-  }
+
+  if (accessible->accessible_parent)
+    g_object_unref (accessible->accessible_parent);
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -936,8 +937,12 @@ static void
 atk_object_real_set_parent (AtkObject       *object,
                             AtkObject       *parent)
 {
-  object->accessible_parent = parent;
+  if (object->accessible_parent)
+    g_object_unref (object->accessible_parent);
 
+  object->accessible_parent = parent;
+  if (object->accessible_parent)
+    g_object_ref (object->accessible_parent);
 }
 
 static void
