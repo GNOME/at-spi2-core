@@ -20,6 +20,10 @@
 
 #include "atkcomponent.h"
 
+static AtkObject* atk_component_real_get_accessible_at_point (AtkComponent *component,
+                                                              gint         x,
+                                                              gint         y);
+
 GType
 atk_component_get_type ()
 {
@@ -99,15 +103,20 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
                                        gint            y)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
+  g_return_val_if_fail (component != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), NULL);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_accessible_at_point)
     return (iface->get_accessible_at_point) (component, x, y);
   else
-    return FALSE;
+  {
+    /*
+     * if this method is not overridden use the default implementation.
+     */
+    return atk_component_real_get_accessible_at_point (component, x, y);
+  }
 }
 
 void
@@ -230,4 +239,37 @@ atk_component_set_size       (AtkComponent    *component,
 
   if (iface->set_size)
     (iface->set_size) (component, x, y);
+}
+
+static AtkObject* 
+atk_component_real_get_accessible_at_point (AtkComponent *component,
+                                            gint         x,
+                                            gint         y)
+{
+  gint count, i;
+
+  count = atk_object_get_n_accessible_children (ATK_OBJECT (component));
+
+  g_return_val_if_fail (count != 0, NULL);
+
+  for (i = 0; i < count; i++)
+  {
+    AtkObject *obj;
+
+    obj = atk_object_ref_accessible_child (ATK_OBJECT (component), i);
+
+    if (obj != NULL)
+    {
+      if (atk_component_contains (ATK_COMPONENT (obj), x, y))
+      {
+        g_object_unref (obj);
+        return obj;
+      }
+      else
+      {
+        g_object_unref (obj);
+      }
+    }
+  }
+  return NULL;
 }
