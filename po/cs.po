@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-08 03:06+0100\n"
-"PO-Revision-Date: 2003-12-08 12:38+0100\n"
+"POT-Creation-Date: 2003-12-21 03:04+0100\n"
+"PO-Revision-Date: 2003-12-21 14:50+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,8 +53,8 @@ msgid "invalid"
 msgstr "neplatný"
 
 #: atk/atkobject.c:83
-msgid "accel label"
-msgstr "popisek se zkratkou"
+msgid "accelerator label"
+msgstr "popisek klávesové zkratky"
 
 #: atk/atkobject.c:84
 msgid "alert"
