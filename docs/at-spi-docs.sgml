@@ -1,14 +1,32 @@
 <!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
 <!entity at-spi-spi_main SYSTEM "sgml/spi_main.sgml">
+<!entity at-spi-spi_event SYSTEM "sgml/spi_event.sgml">
+<!entity at-spi-spi_registry SYSTEM "sgml/spi_registry.sgml">
+<!entity at-spi-spi_application SYSTEM "sgml/spi_application.sgml">
+<!entity at-spi-spi_accessible SYSTEM "sgml/spi_accessible.sgml">
+<!entity at-spi-spi_component SYSTEM "sgml/spi_component.sgml">
 ]>
 
 <book>
   <bookinfo>
-    <title>AT-SPI Reference Manual</title>
+    <title>AT-SPI C Bindings Reference Manual</title>
   </bookinfo>
-
-  <chapter id="at-spi">
-    <title>AT-SPI C Bindings</title>
+  <chapter id="spi-main">
+    <title>SPI Main Event Loop and Registry</title>
     &at-spi-spi_main;
+    &at-spi-spi_event;
+    &at-spi-spi_registry;
+  </chapter>
+  <chapter id="spi-application">
+    <title>AccessibleApplication Methods</title>
+    &at-spi-spi_application;
    </chapter>
+  <chapter id="spi-accessible">
+    <title>Basic Accessible Object Methods and Interface Query</title>
+    &at-spi-spi_accessible;
+  </chapter>
+  <chapter id="spi-component">
+    <title>Subinterface Methods</title>
+    &at-spi-spi_component;
+  </chapter>
 </book>

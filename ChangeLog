@@ -1,5 +1,24 @@
 2001-08-20  Bill Haneman <bill.haneman@sun.com>
 
+	* docs/at-spi-docs.sgml:
+	* docs/at-spi-sections.txt:
+	* docs/at-spi-overrides.txt: (Added zero-length file)
+	Documentation improvements - gtk-doc should build
+	docs for all implemented C bindings now.
+	* cspi/Makefile.am:
+	* cspi/spi_main.c:
+	* cspi/spi.c: (New file)
+	* cspi/spi_event.c: (New file)
+	* cspi/spi_registry.c: (New file)
+	* cspi/spi_accessible.c: (New file)
+	* cspi/spi_application.c: (New file)
+	* cspi/spi_component.c: (New file)
+	Split spi_main.c into six parts, and included them from
+	"spi.c".  This is a bit of a hack, probably temporary,
+	but required by gtk-doc, apparently.
+	
+2001-08-20  Bill Haneman <bill.haneman@sun.com>
+
 	* docs/Makefile.am:
 	* docs/at-spi-docs.sgml:
 	* docs/at-spi-sections.txt:

@@ -6,20 +6,18 @@ SPI_event_main
 SPI_eventIsReady
 SPI_nextEvent
 SPI_exit
-<SUBSECTION Standard>
 </SECTION>
 
 <SECTION>
-<FILE>spi_main</FILE>
+<FILE>spi_event</FILE>
 <TITLE>Event Listener Support</TITLE>
 createEventListener
 EventListener_addCallback
 EventListener_removeCallback
-<SUBSECTION Standard>
 </SECTION>
-<SECTION>
 
-<FILE>spi_main</FILE>
+<SECTION>
+<FILE>spi_registry</FILE>
 <TITLE>Registry queries</TITLE>
 getDesktopCount
 getDesktop
@@ -32,7 +30,7 @@ generateMouseEvent
 </SECTION>
 
 <SECTION>
-<FILE>spi_main</FILE>
+<FILE>spi_accessible</FILE>
 <TITLE>Accessible Objects</TITLE>
 Accessible_ref
 Accessible_unref
@@ -65,7 +63,7 @@ Accessible_queryInterface
 </SECTION>
 
 <SECTION>
-<FILE>spi_main</FILE>
+<FILE>spi_application</FILE>
 <TITLE>AccessibleApplication API</TITLE>
 AccessibleApplication_ref
 AccessibleApplication_unref
@@ -77,7 +75,7 @@ AccessibleApplication_resume
 </SECTION>
 
 <SECTION>
-<FILE>spi_main</FILE>
+<FILE>spi_component</FILE>
 <TITLE>AccessibleComponent Interface</TITLE>
 AccessibleComponent_ref
 AccessibleComponent_unref
