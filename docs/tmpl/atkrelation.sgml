@@ -101,3 +101,13 @@ The AtkRelation structure should not be accessed directly.
 @Returns: 
 
 
+<!-- ##### ARG AtkRelation:relation-type ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkRelation:target ##### -->
+<para>
+
+</para>
+

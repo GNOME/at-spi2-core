@@ -116,7 +116,11 @@ extern "C" {
  *@ATK_ROLE_APPLICATION: The object is an application object, which may contain @ATK_ROLE_FRAME objects or other types of accessibles.
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of enumeration
  * 
- *Describes the role of an object
+ * Describes the role of an object
+ *
+ * These are the built-in enumerated roles that UI components can have in
+ * ATK.  Other roles may be added at runtime, so an AtkRole >=
+ * ATK_ROLE_LAST_DEFINED is not necessarily an error.
  **/
 typedef enum
 {
@@ -211,6 +215,10 @@ AtkRole                  atk_role_register        (const gchar *name);
  *@ATK_LAYER_WINDOW: This layer is used for toplevel windows.
  *
  * Describes the layer of a component
+ *
+ * These enumerated "layer values" are used when determining which UI
+ * rendering layer a component is drawn into, which can help in making
+ * determinations of when components occlude one another.
  **/
 typedef enum
 {

@@ -370,6 +370,9 @@ atk_table_get_type
 <TITLE>AtkText</TITLE>
 AtkText
 AtkTextBoundary
+AtkTextClipType
+AtkTextRange
+AtkTextRectangle
 AtkAttribute
 AtkAttributeSet
 AtkTextAttribute
@@ -384,6 +387,9 @@ atk_text_get_run_attributes
 atk_text_get_default_attributes
 atk_text_get_character_count
 atk_text_get_offset_at_point
+atk_text_get_bounded_ranges
+atk_text_get_range_extents
+atk_text_free_ranges
 atk_text_get_n_selections
 atk_text_get_selection
 atk_text_add_selection
@@ -403,9 +409,11 @@ ATK_TYPE_TEXT
 ATK_TEXT_GET_IFACE
 ATK_TYPE_TEXT_ATTRIBUTE
 ATK_TYPE_TEXT_BOUNDARY
+ATK_TYPE_TEXT_CLIP_TYPE
 atk_text_get_type
 atk_text_attribute_get_type
 atk_text_boundary_get_type
+atk_text_clip_type_get_type
 </SECTION>
 
 <SECTION>

@@ -66,6 +66,18 @@ static const gchar *underline[] = {"none",
 
 static void atk_text_base_init (gpointer *g_class);
 
+static void atk_text_real_get_range_extents  (AtkText          *text,
+                                              gint             start_offset,
+                                              gint             end_offset,
+                                              AtkCoordType     coord_type,
+                                              AtkTextRectangle *rect);
+
+static AtkTextRange** atk_text_real_get_bounded_ranges (AtkText          *text,
+                                                        AtkTextRectangle *rect,
+                                                        AtkCoordType     coord_type,
+                                                        AtkTextClipType  x_clip_type,
+                                                        AtkTextClipType  y_clip_type);
+
 static guint atk_text_signals[LAST_SIGNAL] = { 0 };
 
 GType
@@ -483,15 +495,15 @@ atk_text_get_caret_offset (AtkText *text)
 /**
  * atk_text_get_character_extents:
  * @text: an #AtkText
- * @offset: position
- * @x: x-position of character
- * @y: y-position of character
- * @width: width of character
- * @height: height of character
+ * @offset: The offset of the text character for which bounding information is required.
+ * @x: Pointer for the x cordinate of the bounding box.
+ * @y: Pointer for the y cordinate of the bounding box.
+ * @width: Pointer for the width of the bounding box
+ * @height: Pointer for the height of the bounding box.
  * @coords: specify whether coordinates are relative to the screen or widget window 
  *
- * Given an @offset, the @x, @y, @width, and @height values are filled
- * appropriately. 
+ * Get the bounding box containing the glyph representing the character at 
+ *     a particular text offset. 
  **/
 void
 atk_text_get_character_extents (AtkText *text,
@@ -537,6 +549,12 @@ atk_text_get_character_extents (AtkText *text,
 
   if (iface->get_character_extents)
     (*(iface->get_character_extents)) (text, offset, real_x, real_y, real_width, real_height, coords);
+
+  if (*real_width <0)
+    {
+      *real_x = *real_x + *real_width;
+      *real_width *= -1;
+    }
 }
 
 /**
@@ -865,6 +883,74 @@ atk_text_set_caret_offset (AtkText *text,
 }
 
 /**
+ * atk_text_get_range_extents:
+ * @text: an #AtkText
+ * @start_offset: The offset of the first text character for which boundary 
+ *        information is required.
+ * @end_offset: The offset of the text character after the last character 
+ *        for which boundary information is required.
+ * @coord_type: Specify whether coordinates are relative to the screen or widget window.
+ * @rect: A pointer to a AtkTextRectangle which is filled in by this function.
+ *
+ * Get the bounding box for text within the specified range.
+ **/
+void
+atk_text_get_range_extents (AtkText          *text,
+                            gint             start_offset,
+                            gint             end_offset,
+                            AtkCoordType     coord_type,
+                            AtkTextRectangle *rect)
+{
+  AtkTextIface *iface;
+
+  g_return_if_fail (ATK_IS_TEXT (text));
+  g_return_if_fail (rect);
+
+  if (start_offset < 0 || start_offset >= end_offset)
+    return;
+ 
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->get_range_extents)
+    (*(iface->get_range_extents)) (text, start_offset, end_offset, coord_type, rect);
+  else
+    atk_text_real_get_range_extents (text, start_offset, end_offset, coord_type, rect);
+}
+
+/**
+ * atk_text_get_bounded_ranges:
+ * @text: an #AtkText
+ * @rect: An AtkTextRectagle giving the dimensions of the bounding box.
+ * @coord_type: Specify whether coordinates are relative to the screen or widget window.
+ * @x_clip_type: Specify the horizontal clip type.
+ * @y_clip_type: Specify the vertical clip type.
+ *
+ * Get the ranges of text in the specified bounding box.
+ *
+ * Returns: Array of AtkTextRange. The last element of the array returned 
+ *          by this function will be NULL.
+ **/
+AtkTextRange**
+atk_text_get_bounded_ranges (AtkText          *text,
+                             AtkTextRectangle *rect,
+                             AtkCoordType      coord_type,
+                             AtkTextClipType   x_clip_type,
+                             AtkTextClipType   y_clip_type)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+  g_return_val_if_fail (rect, NULL);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->get_bounded_ranges)
+    return (*(iface->get_bounded_ranges)) (text, rect, coord_type, x_clip_type, y_clip_type);
+  else
+    return atk_text_real_get_bounded_ranges (text, rect, coord_type, x_clip_type, y_clip_type);
+}
+
+/**
  * atk_attribute_set_free:
  * @attrib_set: The #AtkAttributeSet to free
  *
@@ -1006,7 +1092,6 @@ atk_text_attribute_for_name (const gchar *name)
   return type;
 }
 
-
 /**
  * atk_text_attribute_get_value:
  * @attr: The #AtkTextAttribute for which a value is required
@@ -1055,4 +1140,183 @@ atk_text_attribute_get_value (AtkTextAttribute attr,
     default:
       return NULL;
    }
+}
+
+static void
+atk_text_rectangle_union (AtkTextRectangle *src1,
+                          AtkTextRectangle *src2,
+                          AtkTextRectangle *dest)
+{
+  gint dest_x, dest_y;
+
+  dest_x = MIN (src1->x, src2->x);
+  dest_y = MIN (src1->y, src2->y);
+  dest->width = MAX (src1->x + src1->width, src2->x + src2->width) - dest_x;
+  dest->height = MAX (src1->y + src1->height, src2->y + src2->height) - dest_y;
+  dest->x = dest_x;
+  dest->y = dest_y;
+}
+
+static gboolean
+atk_text_rectangle_contain (AtkTextRectangle *clip,
+                            AtkTextRectangle *bounds,
+                            AtkTextClipType  x_clip_type,
+                            AtkTextClipType  y_clip_type)
+{
+  gboolean x_min_ok, x_max_ok, y_min_ok, y_max_ok;
+
+  x_min_ok = (bounds->x >= clip->x) ||
+             ((bounds->x + bounds->width >= clip->x) &&
+              ((x_clip_type == ATK_TEXT_CLIP_NONE) ||
+               (x_clip_type == ATK_TEXT_CLIP_MAX)));
+
+  x_max_ok = (bounds->x + bounds->width <= clip->x + clip->width) ||
+             ((bounds->x <= clip->x + clip->width) &&
+              ((x_clip_type == ATK_TEXT_CLIP_NONE) ||
+               (x_clip_type == ATK_TEXT_CLIP_MIN)));
+
+  y_min_ok = (bounds->y >= clip->y) ||
+             ((bounds->y + bounds->height >= clip->y) &&
+              ((y_clip_type == ATK_TEXT_CLIP_NONE) ||
+               (y_clip_type == ATK_TEXT_CLIP_MAX)));
+
+  y_max_ok = (bounds->y + bounds->height <= clip->y + clip->height) ||
+             ((bounds->y <= clip->y + clip->height) &&
+              ((y_clip_type == ATK_TEXT_CLIP_NONE) ||
+               (y_clip_type == ATK_TEXT_CLIP_MIN)));
+
+  return (x_min_ok && x_max_ok && y_min_ok && y_max_ok);
+  
+}
+
+static void 
+atk_text_real_get_range_extents (AtkText           *text,
+                                 gint              start_offset,
+                                 gint              end_offset,
+                                 AtkCoordType      coord_type,
+                                 AtkTextRectangle  *rect)
+{
+  gint i;
+  AtkTextRectangle cbounds, bounds;
+
+  atk_text_get_character_extents (text, start_offset,
+                                  &bounds.x, &bounds.y,
+                                  &bounds.width, &bounds.height,
+                                  coord_type);
+
+  for (i = start_offset + 1; i < end_offset; i++)
+    {
+      atk_text_get_character_extents (text, i,
+                                      &cbounds.x, &cbounds.y, 
+                                      &cbounds.width, &cbounds.height, 
+                                      coord_type);
+      atk_text_rectangle_union (&bounds, &cbounds, &bounds);
+    }
+
+  rect->x = bounds.x;
+  rect->y = bounds.y;
+  rect->width = bounds.width;
+  rect->height = bounds.height;
+}
+
+static AtkTextRange**
+atk_text_real_get_bounded_ranges (AtkText          *text,
+                                  AtkTextRectangle *rect,
+                                  AtkCoordType     coord_type,
+                                  AtkTextClipType  x_clip_type,
+                                  AtkTextClipType  y_clip_type)
+{
+  gint bounds_min_offset, bounds_max_offset;
+  gint min_line_start, min_line_end;
+  gint max_line_start, max_line_end;
+  gchar *line;
+  gint curr_offset;
+  gint offset;
+  gint num_ranges = 0;
+  gint range_size = 1;
+  AtkTextRectangle cbounds;
+  AtkTextRange **range;
+
+  range = NULL;
+  bounds_min_offset = atk_text_get_offset_at_point (text, rect->x, rect->y, coord_type);
+  bounds_max_offset = atk_text_get_offset_at_point (text, rect->x + rect->width, rect->y + rect->height, coord_type);
+
+  if (bounds_min_offset == 0 &&
+      bounds_min_offset == bounds_max_offset)
+    return NULL;
+
+  line = atk_text_get_text_at_offset (text, bounds_min_offset, 
+                                      ATK_TEXT_BOUNDARY_LINE_START,
+                                      &min_line_start, &min_line_end);
+  g_free (line);
+  line = atk_text_get_text_at_offset (text, bounds_max_offset, 
+                                      ATK_TEXT_BOUNDARY_LINE_START,
+                                      &max_line_start, &max_line_end);
+  g_free (line);
+  bounds_min_offset = MIN (min_line_start, max_line_start);
+  bounds_max_offset = MAX (min_line_end, max_line_end);
+
+  curr_offset = bounds_min_offset;
+  while (curr_offset < bounds_max_offset)
+    {
+      offset = curr_offset;
+
+      while (curr_offset < bounds_max_offset)
+        {
+          atk_text_get_character_extents (text, curr_offset,
+                                          &cbounds.x, &cbounds.y,
+                                          &cbounds.width, &cbounds.height,
+                                          coord_type);
+          if (!atk_text_rectangle_contain (rect, &cbounds, x_clip_type, y_clip_type))
+	    break;
+          curr_offset++;
+        }
+      if (curr_offset > offset)
+        {
+          AtkTextRange *one_range = g_new (AtkTextRange, 1);
+
+          one_range->start_offset = offset;
+          one_range->end_offset = curr_offset;
+          one_range->content = atk_text_get_text (text, offset, curr_offset);
+          atk_text_get_range_extents (text, offset, curr_offset, coord_type, &one_range->bounds);
+
+          if (num_ranges >= range_size - 1)
+            {
+              range_size *= 2;
+              range = g_realloc (range, range_size * sizeof (gpointer));
+            }
+          range[num_ranges] = one_range;
+          num_ranges++; 
+        }   
+      curr_offset++;
+      if (range)
+        range[num_ranges] = NULL;
+    }
+  return range;
+}
+
+/**
+ * atk_text_free_ranges:
+ * @ranges: A pointer to an array of  #AtkTextRange which is to be freed.
+ *
+ * Frees the memory associated with an array of AtkTextRange. It is assumed
+ * that the array was returned by the function atk_text_get_bounded_ranges
+ * and is NULL terminated.
+ **/
+void
+atk_text_free_ranges (AtkTextRange **ranges)
+{
+  if (ranges)
+    {
+      while (*ranges)
+        {
+          AtkTextRange *range;
+
+          range = *ranges;
+          *ranges++;
+          g_free (range->content);
+          g_free (ranges);
+        }
+      g_free (ranges);
+    }
 }

@@ -23,12 +23,31 @@
 #include "atkrelation.h"
 #include "atk-enum-types.h"
 
+enum {
+  PROP_0,
+
+  PROP_RELATION_TYPE,
+  PROP_TARGET,
+  PROP_LAST
+};
+
 GPtrArray *extra_names = NULL;
 
 static gpointer parent_class = NULL;
   
-static void atk_relation_class_init (AtkRelationClass *klass);
-static void atk_relation_finalize   (GObject          *object);
+static void atk_relation_class_init   (AtkRelationClass *klass);
+static void atk_relation_finalize     (GObject          *object);
+static void atk_relation_set_property (GObject          *object,
+                                       guint            prop_id,
+                                       const GValue     *value,
+                                       GParamSpec       *pspec);
+static void atk_relation_get_property (GObject          *object,
+                                       guint            prop_id,
+                                       GValue           *value,
+                                       GParamSpec       *pspec);
+
+static GPtrArray* atk_relation_get_ptr_array_from_value_array (GValueArray *array);
+static GValueArray* atk_relation_get_value_array_from_ptr_array (GPtrArray *array);
 
 GType
 atk_relation_get_type (void)
@@ -62,6 +81,25 @@ atk_relation_class_init (AtkRelationClass *klass)
   parent_class = g_type_class_peek_parent (klass);
   
   gobject_class->finalize = atk_relation_finalize;
+  gobject_class->set_property = atk_relation_set_property;
+  gobject_class->get_property = atk_relation_get_property;
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_RELATION_TYPE,
+                                   g_param_spec_enum ("relation_type",
+                                                      "Relation Type",
+                                                      "The type of the relation",
+                                                      ATK_TYPE_RELATION_TYPE,
+                                                      ATK_RELATION_NULL,
+                                                      G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TARGET,
+                                   g_param_spec_value_array ("target",
+                                                             "Target",
+                                                             "An array of the targets for the relation",
+                                                             NULL,
+
+                                                             G_PARAM_READWRITE));
 }
 
 /**
@@ -69,7 +107,7 @@ atk_relation_class_init (AtkRelationClass *klass)
  * @name: a name string
  *
  * Associate @name with a new #AtkRelationType
- *
+ 
  * Returns: an #AtkRelationType associated with @name
  **/
 AtkRelationType
@@ -196,23 +234,26 @@ atk_relation_new (AtkObject       **targets,
 {
   AtkRelation *relation;
   int         i;
-  GPtrArray      *array;
+  GValueArray *array;
+  GValue      *value;
 
   g_return_val_if_fail (targets != NULL, NULL);
 
-  relation = g_object_new (ATK_TYPE_RELATION, NULL);
-  array = g_ptr_array_sized_new (n_targets);
+  array = g_value_array_new (n_targets);
   for (i = 0; i < n_targets; i++)
   {
-    /*
-     * Add a reference to AtkObject being added to a relation
-     */
-    g_object_ref (targets[i]);
-    g_ptr_array_add (array, targets[i]);
+    value = g_new0 (GValue, 1);
+    g_value_init (value, ATK_TYPE_OBJECT);
+    g_value_set_object (value, targets[i]);
+    array = g_value_array_append (array, value);
   }
   
-  relation->target = array;
-  relation->relationship = relationship;
+  relation =  g_object_new (ATK_TYPE_RELATION, 
+                            "relation_type", relationship,
+                            "target", array,
+                            NULL);
+
+  g_value_array_free (array);
 
   return relation;
 }
@@ -273,4 +314,93 @@ atk_relation_finalize (GObject *object)
   } 
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void 
+atk_relation_set_property (GObject       *object,
+                           guint         prop_id,
+                           const GValue  *value,
+                           GParamSpec    *pspec)
+{
+  AtkRelation *relation;
+  gpointer boxed;
+
+  relation = ATK_RELATION (object);
+
+  switch (prop_id)
+    {
+    case PROP_RELATION_TYPE:
+      relation->relationship = g_value_get_enum (value);
+      break; 
+    case PROP_TARGET:
+      boxed = g_value_get_boxed (value);
+      relation->target = atk_relation_get_ptr_array_from_value_array ( (GValueArray *) boxed);
+      break; 
+    default:
+      break;
+    }  
+}
+
+static void
+atk_relation_get_property (GObject    *object,
+                           guint      prop_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
+{
+  AtkRelation *relation;
+  GValueArray *array;
+
+  relation = ATK_RELATION (object);
+
+  switch (prop_id)
+    {
+    case PROP_RELATION_TYPE:
+      g_value_set_enum (value, relation->relationship);
+      break;
+    case PROP_TARGET:
+      array = atk_relation_get_value_array_from_ptr_array (relation->target);
+      g_value_set_boxed (value, array);
+      break;
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+    }  
+}
+
+static GPtrArray*
+atk_relation_get_ptr_array_from_value_array (GValueArray *array)
+{
+  gint i;
+  GPtrArray *return_array;
+  GValue *value;
+  GObject *obj;
+
+  return_array = g_ptr_array_sized_new (array->n_values);
+  for (i = 0; i < array->n_values; i++)
+    {
+      value = g_value_array_get_nth (array, i);
+      obj = g_value_get_object (value);
+      g_object_ref (obj);
+      g_ptr_array_add (return_array, obj);
+    }
+      
+  return return_array;
+}
+
+static GValueArray*
+atk_relation_get_value_array_from_ptr_array (GPtrArray *array)
+{
+  int         i;
+  GValueArray *return_array;
+  GValue      *value;
+
+  return_array = g_value_array_new (array->len);
+  for (i = 0; i < array->len; i++)
+    {
+      value = g_new0 (GValue, 1);
+      g_value_init (value, ATK_TYPE_OBJECT);
+      g_value_set_object (value, g_ptr_array_index (array, i));
+      return_array = g_value_array_append (return_array, value);
+    }
+  return return_array;
 }

@@ -45,6 +45,7 @@ enum
   PROP_TABLE_ROW_DESCRIPTION,
   PROP_TABLE_ROW_HEADER,
   PROP_TABLE_SUMMARY,
+  PROP_TABLE_CAPTION_OBJECT,
   PROP_LAST         /* gobject convention */
 };
 
@@ -121,6 +122,7 @@ static const gchar* atk_object_name_property_table_column_header = "accessible-t
 static const gchar* atk_object_name_property_table_row_description = "accessible-table-row-description";
 static const gchar* atk_object_name_property_table_row_header = "accessible-table-row-header";
 static const gchar* atk_object_name_property_table_summary = "accessible-table-summary";
+static const gchar* atk_object_name_property_table_caption_object = "accessible-table-caption-object";
 
 GType
 atk_object_get_type (void)
@@ -250,7 +252,7 @@ atk_object_class_init (AtkObjectClass *klass)
                                    PROP_TABLE_CAPTION,
                                    g_param_spec_string (atk_object_name_property_table_caption,
                                                         "Accessible Table Caption",
-                                                        "Is used to notify that the table caption has changed ",
+                                                        "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead",
                                                         NULL,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
@@ -286,6 +288,13 @@ atk_object_class_init (AtkObjectClass *klass)
                                    g_param_spec_object (atk_object_name_property_table_summary,
                                                         "Accessible Table Summary",
                                                         "Is used to notify that the table summary has changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_CAPTION_OBJECT,
+                                   g_param_spec_object (atk_object_name_property_table_caption_object,
+                                                        "Accessible Table Caption Object",
+                                                        "Is used to notify that the table caption has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   /*

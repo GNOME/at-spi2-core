@@ -40,9 +40,6 @@ The AtkObject structure should not be accessed directly.
 
 <!-- ##### ENUM AtkRole ##### -->
 <para>
-These are the built-in enumerated roles that UI components can have in
-ATK.  Other roles may be added at runtime, so an AtkRole >=
-ATK_ROLE_LAST_DEFINED is not necessarily an error.
 </para>
 
 @ATK_ROLE_INVALID: 
@@ -132,9 +129,6 @@ ATK_ROLE_LAST_DEFINED is not necessarily an error.
 
 <!-- ##### ENUM AtkLayer ##### -->
 <para>
-These enumerated "layer values" are used when determining which UI
-rendering layer a component is drawn into, which can help in making
-determinations of when components occlude one another.
 </para>
 
 @ATK_LAYER_INVALID: 
@@ -505,6 +499,11 @@ This signal support, which may be any of the accessible state types.
 </para>
 
 <!-- ##### ARG AtkObject:accessible-table-caption ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkObject:accessible-table-caption-object ##### -->
 <para>
 
 </para>

@@ -1,4 +1,33 @@
-003-01-20  Padraig O'Briain  <padraig.obriain@sun.com>
+2003-01-21  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Add property accessible-table-caption-object.
+	This addresses bug #74814.
+
+	* atk/atkobject.h: Move some documentation from template file to
+	avoid warnings when building.
+
+	* atk/atkrelation.c: Add new properties relation and target.
+	This addresses bug #72426.
+
+	* atktext.[ch]: Add new functions atk_text_get_range_extents and
+	atk_text_get_bounded_ranges.
+	Also added data structures AtkTextRectangle and AtkTextRange, enum
+	AtkTextClipType and helper function  atk_text_free_ranges.
+	This addresses bug #100943.
+	(atk_text_get_character_extents): Ensure that the reported width is 
+	not negative. This fixes bug #102954)
+
+	* docs/atk-sections.txt: Add new functions and data items.
+
+	* docs/tmpl/atk-object.sgml: Remove some docuementation and put in 
+	atkobject.h. Add reference to accessible-table-caption-object.
+
+	* docs/tmpl/atk-relation.sgml: Add new properties
+
+	* docs/tmpl/atktext.sgml: Add new functions and data items.
+
+
+2003-01-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.2.2=====
 

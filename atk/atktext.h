@@ -158,6 +158,59 @@ typedef enum {
   ATK_TEXT_BOUNDARY_LINE_END
 } AtkTextBoundary;
 
+/**
+ * AtkTextRectangle:
+ * @x: The horizontal coordinate of a rectangle
+ * @y: The vertical coordinate of a rectangle
+ * @width: The width of a rectangle
+ * @height: The height of a rectangle
+ *
+ * A structure used to store a rectangle used by AtkText.
+ **/
+
+typedef struct _AtkTextRectangle AtkTextRectangle;
+
+struct _AtkTextRectangle {
+  gint x;
+  gint y;
+  gint width;
+  gint height;
+};
+
+/**
+ * AtkTextRange:
+ * @bounds: A rectangle giving the bounds of the text range
+ * @start_offset: The start offset of a AtkTextRange
+ * @end_offset: The end offset of a AtkTextRange
+ * @content: The text in the text range
+ *
+ * A structure used to describe a text range.
+ **/
+typedef struct _AtkTextRange AtkTextRange;
+
+struct _AtkTextRange {
+  AtkTextRectangle bounds;
+  gint start_offset;
+  gint end_offset;
+  gchar* content;
+};
+
+/**
+ *AtkTextClipType
+ *@ATK_TEXT_CLIP_NONE: No clipping to be done
+ *@ATK_TEXT_CLIP_MIN: Text clipped by min coordinate is omitted
+ *@ATK_TEXT_CLIP_MAX: Text clipped by max coordinate is omitted
+ *@ATK_TEXT_CLIP_BOTH: Only text fully within mix/max bound is retained
+ *
+ *Describes the type of clipping required.
+ **/
+typedef enum {
+    ATK_TEXT_CLIP_NONE,
+    ATK_TEXT_CLIP_MIN,
+    ATK_TEXT_CLIP_MAX,
+    ATK_TEXT_CLIP_BOTH
+} AtkTextClipType;
+
 struct _AtkTextIface
 {
   GTypeInterface parent;
@@ -229,8 +282,20 @@ struct _AtkTextIface
 
   void           (* text_attributes_changed)      (AtkText          *text);
 
-  AtkFunction    pad2;
-  AtkFunction    pad3;
+
+  void           (* get_range_extents)            (AtkText          *text,
+                                                   gint             start_offset,
+                                                   gint             end_offset,
+                                                   AtkCoordType     coord_type,
+                                                   AtkTextRectangle *rect);
+
+  AtkTextRange** (* get_bounded_ranges)           (AtkText          *text,
+                                                   AtkTextRectangle *rect,
+                                                   AtkCoordType     coord_type,
+                                                   AtkTextClipType  x_clip_type,
+                                                   AtkTextClipType  y_clip_type);
+ 
+
   AtkFunction    pad4;
 };
 
@@ -298,6 +363,18 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 							   gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
+void          atk_text_get_range_extents                  (AtkText          *text,
+
+                                                           gint             start_offset,
+                                                           gint             end_offset,
+                                                           AtkCoordType     coord_type,
+                                                           AtkTextRectangle *rect);
+AtkTextRange**  atk_text_get_bounded_ranges               (AtkText          *text,
+                                                           AtkTextRectangle *rect,
+                                                           AtkCoordType     coord_type,
+                                                           AtkTextClipType  x_clip_type,
+                                                           AtkTextClipType  y_clip_type);
+void          atk_text_free_ranges                        (AtkTextRange     **ranges);
 void 	      atk_attribute_set_free                      (AtkAttributeSet  *attrib_set);
 G_CONST_RETURN gchar*  atk_text_attribute_get_name        (AtkTextAttribute attr);
 AtkTextAttribute       atk_text_attribute_for_name        (const gchar      *name);
