@@ -1,3 +1,7 @@
+2003-01-06  Alessio Frusciante  <algol@firenze.linux.it>
+
+	* configure.in (ALL_LINGUAS): Added "it" (Italian) 
+
 2003-01-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Add -with-html-dir option. (bug #102497)
