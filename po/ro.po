@@ -4,307 +4,307 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.2.1\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2003-01-19 15:59+0200\n"
+"Project-Id-Version: atk 1.3.5\n"
+"POT-Creation-Date: 2003-08-24 18:49+0300\n"
+"PO-Revision-Date: 2003-08-24 18:55+0200\n"
 "Last-Translator: Mişu Moldovan <dumol@go.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkobject.c:1244
 msgid "invalid"
 msgstr "invalid"
 
-#: atk/atkobject.c:1245
+#: atk/atkobject.c:1247
 msgid "accel-label"
 msgstr "etichetă-accelerator"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:1250
 msgid "alert"
 msgstr "alertă"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:1253
 msgid "animation"
 msgstr "animaţie"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:1256
 msgid "arrow"
 msgstr "săgeată"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:1259
 msgid "calendar"
 msgstr "calendar"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:1262
 msgid "canvas"
 msgstr "canava"
 
-#: atk/atkobject.c:1263
+#: atk/atkobject.c:1265
 msgid "check-box"
 msgstr "căsuţă-bifare"
 
-#: atk/atkobject.c:1266
+#: atk/atkobject.c:1268
 msgid "check-menu-item"
 msgstr "item-meniu-activat"
 
-#: atk/atkobject.c:1269
+#: atk/atkobject.c:1271
 msgid "color-chooser"
 msgstr "selector-culoare"
 
-#: atk/atkobject.c:1272
+#: atk/atkobject.c:1274
 msgid "column-header"
 msgstr "antet-coloană"
 
-#: atk/atkobject.c:1275
+#: atk/atkobject.c:1277
 msgid "combo-box"
 msgstr "căsuţă-combo"
 
-#: atk/atkobject.c:1278
+#: atk/atkobject.c:1280
 msgid "date-editor"
 msgstr "editor-dată"
 
-#: atk/atkobject.c:1281
+#: atk/atkobject.c:1283
 msgid "desktop-icon"
 msgstr "iconiţă-desktop"
 
-#: atk/atkobject.c:1284
+#: atk/atkobject.c:1286
 msgid "desktop-frame"
 msgstr "cadru-desktop"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:1289
 msgid "dial"
 msgstr "cadran"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:1292
 msgid "dialog"
 msgstr "dialog"
 
-#: atk/atkobject.c:1293
+#: atk/atkobject.c:1295
 msgid "directory-pane"
 msgstr "vedere-directoare"
 
-#: atk/atkobject.c:1296
+#: atk/atkobject.c:1298
 msgid "drawing-area"
 msgstr "arie-desenare"
 
-#: atk/atkobject.c:1299
+#: atk/atkobject.c:1301
 msgid "file-chooser"
 msgstr "selector-fişiere"
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:1304
 msgid "filler"
 msgstr "umplere"
 
-#: atk/atkobject.c:1305
+#: atk/atkobject.c:1307
 msgid "font-chooser"
 msgstr "selector-fonturi"
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:1310
 msgid "frame"
 msgstr "cadru"
 
-#: atk/atkobject.c:1311
+#: atk/atkobject.c:1313
 msgid "glass-pane"
 msgstr "vedere-parţială"
 
-#: atk/atkobject.c:1314
+#: atk/atkobject.c:1316
 msgid "html-container"
 msgstr "recipient-html"
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:1319
 msgid "icon"
 msgstr "iconiţă"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:1322
 msgid "image"
 msgstr "imagine"
 
-#: atk/atkobject.c:1323
+#: atk/atkobject.c:1325
 msgid "internal-frame"
 msgstr "cadru-intern"
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:1328
 msgid "label"
 msgstr "etichetă"
 
-#: atk/atkobject.c:1329
+#: atk/atkobject.c:1331
 msgid "layered-pane"
 msgstr "vedere-suprapusă"
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:1334
 msgid "list"
 msgstr "listă"
 
-#: atk/atkobject.c:1335
+#: atk/atkobject.c:1337
 msgid "list-item"
 msgstr "item-listă"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:1340
 msgid "menu"
 msgstr "meniu"
 
-#: atk/atkobject.c:1341
+#: atk/atkobject.c:1343
 msgid "menu-bar"
 msgstr "bară-meniu"
 
-#: atk/atkobject.c:1344
+#: atk/atkobject.c:1346
 msgid "menu-item"
 msgstr "item-meniu"
 
-#: atk/atkobject.c:1347
+#: atk/atkobject.c:1349
 msgid "option-pane"
 msgstr "vedere-opţiuni"
 
-#: atk/atkobject.c:1350
+#: atk/atkobject.c:1352
 msgid "page-tab"
 msgstr "tab-pagină"
 
-#: atk/atkobject.c:1353
+#: atk/atkobject.c:1355
 msgid "page-tab-list"
 msgstr "listă-taburi-pagină"
 
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:1358
 msgid "panel"
-msgstr "panel"
+msgstr "panou"
 
-#: atk/atkobject.c:1359
+#: atk/atkobject.c:1361
 msgid "password-text"
 msgstr "text-parolă"
 
-#: atk/atkobject.c:1362
+#: atk/atkobject.c:1364
 msgid "popup-menu"
 msgstr "meniu-popup"
 
-#: atk/atkobject.c:1365
+#: atk/atkobject.c:1367
 msgid "progress-bar"
 msgstr "bară-progres"
 
-#: atk/atkobject.c:1368
+#: atk/atkobject.c:1370
 msgid "push-button"
 msgstr "buton-apăsare"
 
-#: atk/atkobject.c:1371
+#: atk/atkobject.c:1373
 msgid "radio-button"
 msgstr "buton-radio"
 
-#: atk/atkobject.c:1374
+#: atk/atkobject.c:1376
 msgid "radio-menu-item"
 msgstr "item-meniu-radio"
 
-#: atk/atkobject.c:1377
+#: atk/atkobject.c:1379
 msgid "root-pane"
-msgstr "vedere-primară"
+msgstr "vedere-rădăcină"
 
-#: atk/atkobject.c:1380
+#: atk/atkobject.c:1382
 msgid "row-header"
 msgstr "antet-rând"
 
-#: atk/atkobject.c:1383
+#: atk/atkobject.c:1385
 msgid "scroll-bar"
 msgstr "bară-defilare"
 
-#: atk/atkobject.c:1386
+#: atk/atkobject.c:1388
 msgid "scroll-pane"
 msgstr "vedere-defilare"
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:1391
 msgid "separator"
 msgstr "separator"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:1394
 msgid "slider"
 msgstr "derulator"
 
-#: atk/atkobject.c:1395
+#: atk/atkobject.c:1397
 msgid "split-pane"
 msgstr "vedere-despărţită"
 
-#: atk/atkobject.c:1398
+#: atk/atkobject.c:1400
 msgid "spin-button"
 msgstr "iconiţă-animată"
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:1403
 msgid "statusbar"
 msgstr "bară-stare"
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:1406
 msgid "table"
 msgstr "tabel"
 
-#: atk/atkobject.c:1407
+#: atk/atkobject.c:1409
 msgid "table-cell"
 msgstr "celulă-tabel"
 
-#: atk/atkobject.c:1410
+#: atk/atkobject.c:1412
 msgid "table-column-header"
 msgstr "antet-coloană-tabel"
 
-#: atk/atkobject.c:1413
+#: atk/atkobject.c:1415
 msgid "table-row-header"
 msgstr "antet-rând-tabel"
 
-#: atk/atkobject.c:1416
+#: atk/atkobject.c:1418
 msgid "tear-off-menu-item"
 msgstr "item-meniu-desprins"
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:1421
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:1424
 msgid "text"
 msgstr "text"
 
-#: atk/atkobject.c:1425
+#: atk/atkobject.c:1427
 msgid "toggle-button"
 msgstr "buton-comutator"
 
-#: atk/atkobject.c:1428
+#: atk/atkobject.c:1430
 msgid "tool-bar"
 msgstr "bară-unelte"
 
-#: atk/atkobject.c:1431
+#: atk/atkobject.c:1433
 msgid "tool-tip"
 msgstr "pont-unelte"
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:1436
 msgid "tree"
 msgstr "arbore"
 
-#: atk/atkobject.c:1437
+#: atk/atkobject.c:1439
 msgid "tree-table"
 msgstr "tabel-arbore"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:1442
 msgid "unknown"
 msgstr "necunoscut"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:1445
 msgid "viewport"
 msgstr "vedere-hublou"
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:1448
 msgid "window"
 msgstr "fereastră"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:1451
 msgid "header"
 msgstr "antet"
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:1454
 msgid "footer"
 msgstr "notă-subsol"
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:1457
 msgid "paragraph"
 msgstr "paragraf"
 
-#: atk/atkobject.c:1458
+#: atk/atkobject.c:1460
 msgid "ruler"
 msgstr "riglă"
 
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:1463
 msgid "application"
 msgstr "aplicaţie"
