@@ -1,17 +1,19 @@
+# translation of es.po to Spanish
 # translation of atk.HEAD.po to Spanish
 # ATK Spanish Translation.
 # Copyright (C) 2002 The GNOME Software foundation
 # This file is distributed under the same license as the atk package.
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002.
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-01-30 18:27+0100\n"
-"PO-Revision-Date: 2004-01-30 18:28+0100\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@arrakis.es>\n"
+"PO-Revision-Date: 2004-03-06 17:48+0100\n"
+"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +34,7 @@ msgstr "Número de anclas"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "El núemro de anclas asociadas con un objeto AtkHyperlink"
+msgstr "El número de anclas asociadas con un objeto AtkHyperlink"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -367,7 +369,7 @@ msgstr "Descripción para soporte a discapacitados"
 
 #: atk/atkobject.c:303
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Descripción de un objeto, formatiado para acceso para discapacitados"
+msgstr "Descripción de un objeto, formateado para acceso para discapacitados"
 
 #: atk/atkobject.c:309
 msgid "Accessible Parent"
@@ -411,7 +413,7 @@ msgstr "El valor accesible MDI de este objeto"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
-msgstr "Descripción acesible de la tabla"
+msgstr "Descripción accesible de la tabla"
 
 #: atk/atkobject.c:353
 msgid ""
@@ -428,8 +430,7 @@ msgstr "Cabecera de columna accesible de la tabla"
 
 #: atk/atkobject.c:360
 msgid "Is used to notify that the table column header has changed"
-msgstr ""
-"Se usa para notificar que la cabecera de columna de la tabla ha cambiado"
+msgstr "Se usa para notificar que la cabecera de columna de la tabla ha cambiado"
 
 #: atk/atkobject.c:366
 msgid "Accessible Table Column Description"
@@ -447,8 +448,7 @@ msgstr "Cabecera accesible de la fila de la tabla"
 
 #: atk/atkobject.c:374
 msgid "Is used to notify that the table row header has changed"
-msgstr ""
-"Se usa para notificar que la fila de la cabecera de la tabla ha cambiado"
+msgstr "Se usa para notificar que la fila de la cabecera de la tabla ha cambiado"
 
 #: atk/atkobject.c:380
 msgid "Accessible Table Row Description"
@@ -484,3 +484,4 @@ msgstr "El número de enlaces que el AtkHypertext actual tiene"
 
 #~ msgid "ruler"
 #~ msgstr "regla"
+
