@@ -1,3 +1,7 @@
+2004-03-22  Bill Haneman <billh@gnome.org>
+
+	* configure.in: Revved to 1.4.0, libtool 9.14.9
+
 2004-03-17  Laszlo Peter  <laca@sun.com>
 
 	* libspi-1.0-uninstalled.pc.in: add idldir

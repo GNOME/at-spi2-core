@@ -1,3 +1,10 @@
+What's new in at-spi-1.4.0: [GNOME 2.6.0 release]
+
+* build improvements from Laszlo Peter.
+* en_GB added to ALL_LINGUAS.
+
+=======
+
 What's new in at-spi-1.3.16: [GNOME 2.6 RC1 release]
 
 * Fix for bug #134036, which could steal keystrokes from applications
