@@ -5,306 +5,308 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.1.3\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2002-12-07 21:13+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-27 20:46+0100\n"
+"PO-Revision-Date: 2003-11-27 20:51+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkobject.c:81
 msgid "invalid"
 msgstr "ugyldig"
 
-#: atk/atkobject.c:1245
-msgid "accel-label"
+#: atk/atkobject.c:82
+msgid "accel label"
 msgstr "akselleratoretikett"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:83
 msgid "alert"
 msgstr "varsel"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:84
 msgid "animation"
 msgstr "animasjon"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:85
 msgid "arrow"
 msgstr "pil"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:86
 msgid "calendar"
 msgstr "kalender"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:87
 msgid "canvas"
 msgstr "kanvas"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
+#: atk/atkobject.c:88
+msgid "check box"
 msgstr "avkryssingsboks"
 
-#: atk/atkobject.c:1266
-msgid "check-menu-item"
-msgstr "kryssboks-meny-oppføring"
+#: atk/atkobject.c:89
+msgid "check menu item"
+msgstr "menyoppføring med avkryssingsboks"
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
+#: atk/atkobject.c:90
+msgid "color chooser"
 msgstr "fargevelger"
 
-#: atk/atkobject.c:1272
-msgid "column-header"
+#: atk/atkobject.c:91
+msgid "column header"
 msgstr "kolonnetopptekst"
 
-#: atk/atkobject.c:1275
-msgid "combo-box"
+#: atk/atkobject.c:92
+msgid "combo box"
 msgstr "komboboks"
 
-#: atk/atkobject.c:1278
-msgid "date-editor"
+#: atk/atkobject.c:93
+msgid "dateeditor"
 msgstr "datoredigering"
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
+#: atk/atkobject.c:94
+msgid "desktop icon"
 msgstr "skrivebordsikon"
 
-#: atk/atkobject.c:1284
-msgid "desktop-frame"
+#: atk/atkobject.c:95
+msgid "desktop frame"
 msgstr "skrivebordsramme"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:96
 msgid "dial"
 msgstr "nummeroppføring"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:97
 msgid "dialog"
 msgstr "dialog"
 
-#: atk/atkobject.c:1293
-msgid "directory-pane"
+#: atk/atkobject.c:98
+msgid "directory pane"
 msgstr "katalogområde"
 
-#: atk/atkobject.c:1296
-msgid "drawing-area"
+#: atk/atkobject.c:99
+msgid "drawing area"
 msgstr "tegneområde"
 
-#: atk/atkobject.c:1299
-msgid "file-chooser"
+#: atk/atkobject.c:100
+msgid "file chooser"
 msgstr "filvelger"
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:101
 msgid "filler"
 msgstr "fyll"
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:103
+msgid "fontchooser"
 msgstr "skriftvelger"
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:104
 msgid "frame"
 msgstr "ramme"
 
-#: atk/atkobject.c:1311
-msgid "glass-pane"
+#: atk/atkobject.c:105
+msgid "glass pane"
 msgstr "glass-område"
 
-#: atk/atkobject.c:1314
-msgid "html-container"
+#: atk/atkobject.c:106
+msgid "html container"
 msgstr "html-område"
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:107
 msgid "icon"
 msgstr "ikon"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:108
 msgid "image"
 msgstr "bilde"
 
-#: atk/atkobject.c:1323
-msgid "internal-frame"
-msgstr "intern-ramme"
+#: atk/atkobject.c:109
+msgid "internal frame"
+msgstr "intern ramme"
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:110
 msgid "label"
 msgstr "etikett"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
-msgstr "lagdelt-område"
+#: atk/atkobject.c:111
+msgid "layered pane"
+msgstr "lagdelt område"
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:112
 msgid "list"
 msgstr "liste"
 
-#: atk/atkobject.c:1335
-msgid "list-item"
+#: atk/atkobject.c:113
+msgid "list item"
 msgstr "listeoppføring"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:114
 msgid "menu"
 msgstr "meny"
 
-#: atk/atkobject.c:1341
-msgid "menu-bar"
+#: atk/atkobject.c:115
+msgid "menu bar"
 msgstr "menylinje"
 
-#: atk/atkobject.c:1344
-msgid "menu-item"
+#: atk/atkobject.c:116
+msgid "menu item"
 msgstr "menyoppføring"
 
-#: atk/atkobject.c:1347
-msgid "option-pane"
+#: atk/atkobject.c:117
+msgid "option pane"
 msgstr "alternativ-område"
 
-#: atk/atkobject.c:1350
-msgid "page-tab"
-msgstr "side-fane"
+#: atk/atkobject.c:118
+msgid "page tab"
+msgstr "sidefane"
 
-#: atk/atkobject.c:1353
-msgid "page-tab-list"
-msgstr "side-fane-liste"
+#: atk/atkobject.c:119
+msgid "page tab list"
+msgstr "sidefaneliste"
 
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:120
 msgid "panel"
 msgstr "panel"
 
-#: atk/atkobject.c:1359
-msgid "password-text"
+#: atk/atkobject.c:121
+msgid "password text"
 msgstr "passordtekst"
 
-#: atk/atkobject.c:1362
-msgid "popup-menu"
+#: atk/atkobject.c:122
+msgid "popup menu"
 msgstr "oppsprettmeny"
 
-#: atk/atkobject.c:1365
-msgid "progress-bar"
+#: atk/atkobject.c:123
+msgid "progress bar"
 msgstr "fremgangsmåler"
 
-#: atk/atkobject.c:1368
-msgid "push-button"
+#: atk/atkobject.c:124
+msgid "push button"
 msgstr "trykknapp"
 
-#: atk/atkobject.c:1371
-msgid "radio-button"
+#: atk/atkobject.c:125
+msgid "radio button"
 msgstr "radioknapp"
 
-#: atk/atkobject.c:1374
-msgid "radio-menu-item"
-msgstr "radio-meny-oppføring"
+#: atk/atkobject.c:126
+msgid "radio menu item"
+msgstr "radiomenyoppføring"
 
-#: atk/atkobject.c:1377
-msgid "root-pane"
+#: atk/atkobject.c:127
+msgid "root pane"
 msgstr "rotområde"
 
-#: atk/atkobject.c:1380
-msgid "row-header"
+#: atk/atkobject.c:128
+msgid "row header"
 msgstr "radtoppekst"
 
-#: atk/atkobject.c:1383
-msgid "scroll-bar"
+#: atk/atkobject.c:129
+msgid "scroll bar"
 msgstr "rullefelt"
 
-#: atk/atkobject.c:1386
-msgid "scroll-pane"
-msgstr "rulle-område"
+#: atk/atkobject.c:130
+msgid "scroll pane"
+msgstr "rulleområde"
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:131
 msgid "separator"
 msgstr "skillelinje"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:132
 msgid "slider"
 msgstr "ruller"
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
-msgstr "delt-område"
+#: atk/atkobject.c:133
+msgid "split pane"
+msgstr "delt område"
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
-msgstr "spin-button"
+#: atk/atkobject.c:134
+msgid "spin button"
+msgstr "spin button"
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:135
 msgid "statusbar"
 msgstr "statuslinje"
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:136
 msgid "table"
 msgstr "tabell"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
-msgstr "tabell-celle"
+#: atk/atkobject.c:137
+msgid "table cell"
+msgstr "tabellcelle"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
-msgstr "tabell-kolonne-topptekst"
+#: atk/atkobject.c:138
+msgid "table column header"
+msgstr "topptekst for kolonne i tabell"
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
-msgstr "tabell-rad-topptekst"
+#: atk/atkobject.c:139
+msgid "table row header"
+msgstr "topptekst for rad i tabell"
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
-msgstr "avrivbar-meny-oppføring"
+#: atk/atkobject.c:140
+msgid "tear off menu item"
+msgstr "avtagbar menyoppføring"
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:141
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:142
 msgid "text"
 msgstr "tekst"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
-msgstr "av-på-knapp"
+#: atk/atkobject.c:143
+msgid "toggle button"
+msgstr "av/på-knapp"
 
-#: atk/atkobject.c:1428
-msgid "tool-bar"
+#: atk/atkobject.c:144
+msgid "tool bar"
 msgstr "verktøylinje"
 
-#: atk/atkobject.c:1431
-msgid "tool-tip"
+#: atk/atkobject.c:145
+msgid "tool tip"
 msgstr "verktøytips"
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:146
 msgid "tree"
 msgstr "tre"
 
-#: atk/atkobject.c:1437
-msgid "tree-table"
-msgstr "tre-tabell"
+#: atk/atkobject.c:147
+msgid "tree table"
+msgstr "tretabell"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:148
 msgid "unknown"
 msgstr "ukjent"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:149
 msgid "viewport"
 msgstr "visningsport"
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:150
 msgid "window"
 msgstr "vindu"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:151
 msgid "header"
 msgstr "topptekst"
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:152
 msgid "footer"
 msgstr "bunntekst"
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:153
 msgid "paragraph"
 msgstr "avsnitt"
 
-#: atk/atkobject.c:1458
-msgid "ruler"
-msgstr "linjal"
-
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:154
 msgid "application"
 msgstr "applikasjon"
+
+#: atk/atkobject.c:155
+msgid "autocomplete"
+msgstr "autofullfør"
