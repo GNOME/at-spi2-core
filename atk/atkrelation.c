@@ -17,6 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include <glib-object.h>
 #include "atkobject.h"
 #include "atkrelation.h"

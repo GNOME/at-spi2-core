@@ -1,3 +1,21 @@
+2001-11-22  Michael Meeks  <michael@ximian.com>
+
+	* atk/atkutil.c (atk_add_key_event_listener): switch
+	to class_peek.
+
+	* atk/atkobject.c (atk_object_real_get_property):
+	add missing 'break'.
+
+2001-11-21  Michael Meeks  <michael@ximian.com>
+
+	* atk/atkrelation.c: pull in string.h for strcmp
+
+	* atk/atktext.c (atk_text_get_selection): fix bug / warning.
+
+	* atk/atkutil.c (atk_add_global_event_listener),
+	(atk_get_toolkit_name, atk_get_toolkit_version):
+	constify 
+
 2001-11-21  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkrelation.c: Added gtk-doc docs for 

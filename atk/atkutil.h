@@ -76,14 +76,14 @@ struct _AtkUtilClass
 {
    GObjectClass parent;
    guint        (* add_global_event_listener)    (GSignalEmissionHook listener,
-                                                 gchar*               event_type);
+						  const gchar        *event_type);
    void         (* remove_global_event_listener) (guint               listener_id);
    guint	(* add_key_event_listener) 	 (AtkKeySnoopFunc     listener,
 						  gpointer data);
    void         (* remove_key_event_listener)    (guint               listener_id);
    AtkObject*   (* get_root)                     (void);
-   gchar*       (* get_toolkit_name)             (void);
-   gchar*       (* get_toolkit_version)          (void);
+   G_CONST_RETURN gchar* (* get_toolkit_name)    (void);
+   G_CONST_RETURN gchar* (* get_toolkit_version) (void);
 };
 GType atk_util_get_type (void);
 
@@ -132,7 +132,8 @@ void     atk_focus_tracker_notify  (AtkObject            *object);
  * Adds the specified function to the list of functions to be called
  * when an event of type event_type occurs.
  */
-guint	atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_type);
+guint	atk_add_global_event_listener (GSignalEmissionHook listener,
+				       const gchar        *event_type);
 
 /*
  * Removes the specified event listener
@@ -158,12 +159,12 @@ AtkObject* atk_get_root(void);
 /*
  * Returns name string for the GUI toolkit.
  */
-gchar* atk_get_toolkit_name(void);
+G_CONST_RETURN gchar *atk_get_toolkit_name (void);
 
 /*
  * Returns version string for the GUI toolkit.
  */
-gchar* atk_get_toolkit_version(void);
+G_CONST_RETURN gchar *atk_get_toolkit_version (void);
 
 #ifdef __cplusplus
 }

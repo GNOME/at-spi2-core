@@ -198,10 +198,12 @@ atk_focus_tracker_notify (AtkObject       *object)
  * Returns: added event listener id, or 0 on failure.
  **/
 guint
-atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_type)
+atk_add_global_event_listener (GSignalEmissionHook listener,
+			       const gchar        *event_type)
 {
   guint retval;
   AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
+
   if (klass->add_global_event_listener)
     {
       retval = klass->add_global_event_listener (listener, event_type);
@@ -244,7 +246,7 @@ guint
 atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data)
 {
   guint retval;
-  AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
+  AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
   if (klass->add_key_event_listener)
     {
       retval = klass->add_key_event_listener (listener, data);
@@ -253,7 +255,6 @@ atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data)
     {
       retval = -1;
     }
-  g_type_class_unref (klass);
 
   return retval;
 }
@@ -301,7 +302,8 @@ atk_get_root(void)
  *
  * Returns: name string for the GUI toolkit implementing ATK for this application
  **/
-gchar* atk_get_toolkit_name(void)
+G_CONST_RETURN gchar*
+atk_get_toolkit_name (void)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
   if (klass->get_toolkit_name)
@@ -321,8 +323,8 @@ gchar* atk_get_toolkit_name(void)
  *
  * Returns: version string for the GUI toolkit implementing ATK for this application
  **/
-gchar*
-atk_get_toolkit_version(void)
+G_CONST_RETURN gchar*
+atk_get_toolkit_version (void)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
   if (klass->get_toolkit_version)
@@ -334,4 +336,3 @@ atk_get_toolkit_version(void)
       return NULL;
     }
 }
-

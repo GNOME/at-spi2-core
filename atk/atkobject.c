@@ -890,6 +890,7 @@ atk_object_real_get_property (GObject      *object,
       break;
     case PROP_DESCRIPTION:
       g_value_set_string (value, atk_object_get_description (accessible));
+      break;
     case PROP_ROLE:
       g_value_set_int (value, atk_object_get_role (accessible));
       break;
