@@ -91,7 +91,7 @@ struct _AtkTextIface
   void           (* get_selection_bounds)         (AtkText          *text,
                                                    gint             *start_offset,
                                                    gint             *end_offset);
-  void           (* set_selection_bounds)         (AtkText          *text,
+  gboolean       (* set_selection_bounds)         (AtkText          *text,
                                                    gint             start_offset,
                                                    gint             end_offset);
   gboolean       (* set_caret_offset)             (AtkText          *text,
@@ -143,7 +143,7 @@ gchar*        atk_text_get_selected_text                  (AtkText          *tex
 void          atk_text_get_selection_bounds               (AtkText          *text,
                                                            gint             *start_offset,
                                                            gint             *end_offset);
-void          atk_text_set_selection_bounds               (AtkText          *text,
+gboolean      atk_text_set_selection_bounds               (AtkText          *text,
                                                            gint             start_offset,
                                                            gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,

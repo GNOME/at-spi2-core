@@ -289,7 +289,7 @@ atk_text_get_selection_bounds (AtkText *text,
   }
 }
 
-void
+gboolean
 atk_text_set_selection_bounds (AtkText *text,
                                gint    start_offset,
                                gint    end_offset)
@@ -304,6 +304,27 @@ atk_text_set_selection_bounds (AtkText *text,
   if (iface->set_selection_bounds)
     {
       return (*(iface->set_selection_bounds)) (text, start_offset, end_offset);
+    }
+  else
+    {
+      return FALSE;
+    }
+}
+
+gboolean
+atk_text_set_selection_bounds (AtkText *text,
+                               gint    offset)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (text != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->set_caret_offset)
+    {
+      return (*(iface->set_caret_offset)) (text, offset);
     }
   else
     {
