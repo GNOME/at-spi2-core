@@ -1,5 +1,7 @@
 2003-06-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* configure.in: Version 1.3.4, interface age 0, binary age 304
+
 	* atkrelationtype.h, docs/tmpl/atkrelation.sgml: Add new relation
 	ATK_RELATION_POPUP.
 
