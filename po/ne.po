@@ -1,4 +1,3 @@
-# Nepali Translation of atk
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the atk package.
 # Pawan Chitrakar <pawan@nplinux.org>.
@@ -6,9 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-02 03:12+0200\n"
-"PO-Revision-Date: 2003-08-28 12:13\n"
+"POT-Creation-Date: 2004-07-13 03:16+0200\n"
+"PO-Revision-Date: 2004-08-05 21:00+0545\n"
 "Last-Translator: Laxmi Prasad Khatiwada <laxmi@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +15,7 @@ msgstr ""
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
-msgstr "छानिएको लिङ्क"
+msgstr "छानिएको संपर्क सूत्र"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
@@ -25,11 +23,11 @@ msgstr "एटीकेहाइपरलिङ्क छानिएको छ 
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "लिङ्कको  संख्या"
+msgstr "एङ्कोरको  संख्या"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "एटीकेहाइपरलिङ्कसँग सम्बन्धित लिङ्कको  संख्या"
+msgstr "एटीकेहाइपरलिङ्कसँग सम्बन्धित संपर्क सूत्रको  संख्या"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -37,7 +35,7 @@ msgstr "अनुसूचीको अन्त्य"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "एटीकेहाइपरलिङ्कको  अन्त्य अनुसूची"
+msgstr "एटीकेहाइपरलिङ्कको अन्त्य अनुसूची"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
@@ -61,7 +59,7 @@ msgstr "साबधान"
 
 #: atk/atkobject.c:85
 msgid "animation"
-msgstr "एनिमेसन"
+msgstr "रङ्गचित्राङ्कन"
 
 #: atk/atkobject.c:86
 msgid "arrow"
@@ -77,7 +75,7 @@ msgstr "चित्रपट"
 
 #: atk/atkobject.c:89
 msgid "check box"
-msgstr "चेक-बाकस"
+msgstr "जाँच-बाकस"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
@@ -101,7 +99,7 @@ msgstr "मिति-संशोधक"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "डेक्सटप-चिन्ह"
+msgstr "डेक्सटप-छविचित्र"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
@@ -131,7 +129,7 @@ msgstr "फाईल-चयक"
 msgid "filler"
 msgstr "भर्ने"
 
-#. I know it looks wrong but that is what Java returns
+#  I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "लिपि-चयक"
@@ -150,7 +148,7 @@ msgstr "एचटिएमएल-बाकस"
 
 #: atk/atkobject.c:108
 msgid "icon"
-msgstr "चिन्ह"
+msgstr "छविचित्र"
 
 #: atk/atkobject.c:109
 msgid "image"
@@ -409,8 +407,7 @@ msgid "Accessible Table Caption"
 msgstr "पहुँच योग्य  तालिकाको अनुशीर्षक"
 
 #: atk/atkobject.c:353
-msgid "Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
+msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
 msgstr "तालिकाको अनुशीर्षक परिवर्तन भएको जानकजरी प्रयोग गर्ने हो?। यो विशेषता प्रयोग गर्न सकिँदैन । यसको सट्टामा पहुँच योग्य-तालिका-अनुशीर्षक-वस्तु प्रयोग गर्नुस्"
 
 #: atk/atkobject.c:359
@@ -467,7 +464,5 @@ msgstr "पहुँच योग्य हाइपर-पाठ लिङ्�
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
-msgstr "वर्तमान हाइपर-पाठ लिङ्कको संख्या"
+msgstr "वर्तमान हाइपर-पाठ संपर्क सूत्रको संख्या"
 
-#~ msgid "ruler"
-#~ msgstr "नियन्त्रक"
