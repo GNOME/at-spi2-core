@@ -1,3 +1,7 @@
+2005-02-08  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "xh" to ALL_LINGUAS.
+
 2005-01-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atk.def: Add atk_text_clip_type_get_type. Bug #165288.
