@@ -1,3 +1,10 @@
+
+2001-12-10  Bill Haneman  <bill.haneman@sun.com>
+
+	* test/test-simple.c:
+	Added test_table (GtkTreeView widget in test window to follow).
+	Un-commented test_value, will add GtkRange as well.
+
 2001-12-10  Michael Meeks  <michael@ximian.com>
 
 	* cspi/spi_text.c: audit for exception handling,

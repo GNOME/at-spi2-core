@@ -185,6 +185,32 @@ test_editable_text (AccessibleEditableText *etext)
 }
 
 static void
+test_table (AccessibleTable *table)
+{
+	char *str;
+	gint index;
+	gint rows, columns;
+
+	fprintf (stderr, "Testing table ...\n");
+
+	rows = AccessibleTable_getNRows (table);
+	g_assert (rows > 0);
+	
+	columns = AccessibleTable_getNColumns (table);
+	g_assert (columns > 0);
+	
+	index = AccessibleTable_getIndexAt (table, rows-1, columns-1);
+
+	g_assert (AccessibleTable_getRowAtIndex (table, index) == rows-1);
+
+	g_assert (AccessibleTable_getColumnAtIndex (table, index) == columns-1);
+
+	g_assert (AccessibleTable_getColumnHeader (table, 0)); /* maybe bogus assertion */
+
+	/* FIXME: lots more tests */
+}
+
+static void
 test_text (AccessibleText *text)
 {
 	char *str;
@@ -205,6 +231,8 @@ test_text (AccessibleText *text)
 	AccessibleText_setCaretOffset (text, 7);
 	g_assert (AccessibleText_getCaretOffset (text) == 7);
 
+	AccessibleText_isSelected (text, 0, 0); /* no assertion, but see if warnings are thrown */
+	
 	/* FIXME: lots more tests - selections etc. etc. */
 }
 
@@ -431,6 +459,8 @@ validate_accessible (Accessible *accessible,
 		g_assert (tmp != NULL);
 		if (print_tree)
 			fprintf (stderr, "Ta");
+		else
+			test_table (tmp);
 		AccessibleTable_unref (tmp);
 	}
 
@@ -450,7 +480,7 @@ validate_accessible (Accessible *accessible,
 		if (print_tree)
 			fprintf (stderr, "Va");
 		else
-			; /* test_value (tmp); */
+			test_value (tmp); 
 		AccessibleValue_unref (tmp);
 	}
 
