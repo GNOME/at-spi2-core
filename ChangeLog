@@ -1,3 +1,7 @@
+2002-12-22  Christophe Merlet  <redfox@redfoxcenter.org>
+
+	* configure.in (ALL_LINGUAS): added French (fr).
+
 2002-12-21  Jordi Mallach  <jordi@sindominio.net>
 
 	* configure.in (ALL_LINGUAS): added Catalan (ca).
