@@ -1,0 +1,310 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk 2.1.3\n"
+"POT-Creation-Date: 2002-11-22 21:17+0100\n"
+"PO-Revision-Date: 2002-11-22 21:35+0100\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
+"Language-Team: Norwegian <no@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "ugyldig"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "akselleratoretikett"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "varsel"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "animasjon"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "pil"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "kalender"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "kanvas"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "avkryssingsboks"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "fargevelger"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "kolonnetopptekst"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "komboboks"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "datoredigering"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "skrivebordsikon"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr ""
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr ""
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialog"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr ""
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "tegneområde"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "filvelger"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr ""
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "skriftvelger"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "ramme"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr ""
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr ""
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ikon"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "bilde"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr ""
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "etikett"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr ""
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "liste"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "listeoppføring"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "meny"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "menylinje"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "menyoppføring"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr ""
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr ""
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr ""
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "passordtekst"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr ""
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr ""
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "trykknapp"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "radioknapp"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr ""
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "radtoppekst"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "rullefelt"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr ""
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "skillelinje"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "ruller"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr ""
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr ""
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "statuslinje"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tabell"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr ""
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr ""
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr ""
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminal"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "tekst"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr ""
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "verktøylinje"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "verktøytips"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "tre"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr ""
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "ukjent"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "visningsport"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "vindu"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "topptekst"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "bunntekst"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "avsnitt"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "linjal"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "applikasjon"
