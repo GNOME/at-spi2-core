@@ -333,7 +333,7 @@ struct _AtkTextIface
                                                    gint             offset,
                                                    gint             *x,
                                                    gint             *y,
-                                                   gint             *length,
+                                                   gint             *height,
                                                    gint             *width,
                                                    AtkCoordType	    coords);
   gint           (* get_character_count)          (AtkText          *text);
@@ -401,7 +401,7 @@ void          atk_text_get_character_extents              (AtkText          *tex
                                                            gint             offset,
                                                            gint             *x,
                                                            gint             *y,
-                                                           gint             *length,
+                                                           gint             *height,
                                                            gint             *width,
                                                            AtkCoordType	    coords);
 AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,

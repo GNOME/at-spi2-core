@@ -290,7 +290,7 @@ atk_text_get_caret_offset (AtkText *text)
  * @offset: position
  * @x: x-position of character
  * @y: y-position of character
- * @length: length of character
+ * @length: height of character
  * @width: width of character
  * @coords: specify whether coordinates are relative to the screen or widget window 
  *
@@ -302,7 +302,7 @@ atk_text_get_character_extents (AtkText *text,
                                 gint offset,
                                 gint *x,
                                 gint *y,
-                                gint *length,
+                                gint *height,
                                 gint *width,
 			        AtkCoordType coords)
 {
@@ -313,12 +313,12 @@ atk_text_get_character_extents (AtkText *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_extents)
-    (*(iface->get_character_extents)) (text, offset, x, y, length, width, coords);
+    (*(iface->get_character_extents)) (text, offset, x, y, height, width, coords);
   else
     {
       *x = 0;
       *x = 0;
-      *length = 0;
+      *height = 0;
       *width = 0;
     }
 }

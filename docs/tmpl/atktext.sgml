@@ -2,17 +2,19 @@
 AtkText
 
 <!-- ##### SECTION Short_Description ##### -->
-accessibility interface for text widgets
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-AtkText provides an accessibility interface for text widgets
+
 </para>
+
 
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
 </para>
+
 
 <!-- ##### STRUCT AtkText ##### -->
 <para>
@@ -150,7 +152,7 @@ AtkText provides an accessibility interface for text widgets
 @offset: 
 @x: 
 @y: 
-@length: 
+@height: 
 @width: 
 @coords: 
 
