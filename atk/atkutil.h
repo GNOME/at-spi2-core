@@ -38,6 +38,7 @@ extern "C" {
 #define _TYPEDEF_ATK_UTIL_
 typedef struct _AtkUtil      AtkUtil;
 typedef struct _AtkUtilClass AtkUtilClass;
+typedef struct _AtkKeyEventStruct AtkKeyEventStruct;
 #endif
 
 /*
@@ -46,6 +47,18 @@ typedef struct _AtkUtilClass AtkUtilClass;
  */
 typedef void  (*AtkEventListener) (AtkObject*);
 typedef void  (*AtkEventListenerInit) (void);
+typedef gint  (*AtkKeySnoopFunc)  (AtkImplementor*, AtkKeyEventStruct *event,
+				   gpointer func_data);
+
+struct _AtkKeyEventStruct {
+  gint type;
+  guint state;
+  guint keyval;
+  gint length;
+  gchar *string;
+  guint16 keycode;
+  guint32 time;	
+};
 
 struct _AtkUtil
 {
@@ -58,6 +71,9 @@ struct _AtkUtilClass
    guint        (* add_global_event_listener)    (GSignalEmissionHook listener,
                                                  gchar*               event_type);
    void         (* remove_global_event_listener) (guint               listener_id);
+   guint	(* add_key_event_listener) 	 (AtkKeySnoopFunc    *listener,
+						  gpointer data);
+   void         (* remove_key_event_listener)    (guint               listener_id);
    AtkObject*   (* get_root)                     (void);
    gchar*       (* get_toolkit_name)             (void);
    gchar*       (* get_toolkit_version)          (void);
@@ -115,6 +131,17 @@ guint	atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_
  * Removes the specified event listener
  */
 void	atk_remove_global_event_listener (guint listener_id);
+
+/*
+ * Adds the specified function to the list of functions to be called
+ * when an keyboard event occurs.
+ */
+guint	atk_add_key_event_listener (AtkKeySnoopFunc *listener, gpointer data);
+
+/*
+ * Removes the specified event listener
+ */
+void	atk_remove_key_event_listener (guint listener_id);
 
 /*
  * Returns the root accessible container for the current application.
