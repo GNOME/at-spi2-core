@@ -1,3 +1,42 @@
+2002-06-21  Bill Haneman  <bill.haneman@sun.com>
+
+	Happy Summer Solstice...
+
+	* registryd/deviceeventcontroller.c: [fix for bug 84100]
+	(spi_controller_notify_keylisteners):
+	Changes to remove a listener from the listener list, freeing its
+	open keygrabs, if a notification to that listener fails.  This
+	means that although a dead listener can continue to hold a passive
+	keygrab, a maximum of one dispatch to such a listener can fail
+	before the listener is removed from the list, thus the keygrab
+	will be released on the next occurrence.
+	As part of this fix:
+	(spi_notify_keylisteners):
+	Renamed to spi_controller_notify_keylisteners, as the controller
+	instance must now be passed as an argument.
+	The copied 'notify' GList is now a list of DEControllerKeyListener
+	objects, since we need more than just the CORBA reference if a
+	notify fails and we need to deregister the listener.
+	(impl_notify_listeners_sync):
+	(impl_notify_listeners_async):
+	(spi_device_event_controller_forward_key_event):
+	Modify use of notify_keylisteners in accordance with above
+	changes.
+	(spi_deregister_controller_key_listener):
+	New method introduced by refactoring, from 
+	impl_deregister_keystroke_listener.
+	(impl_deregister_keystroke_listener):
+	Call spi_deregister_controller_key_listener.
+	(spi_key_listener_clone):
+	New method to copy a key listner without doing a 'ref' on the
+	remote object instance; used to create a notifier list.
+	(spi_key_listener_data_free):
+	New method, frees data without unreffing the source.
+	Used in refactor.
+	(spi_key_listener_clone_free): new method.
+	(spi_key_listener_free): 
+	refactored to call spi_key_listener_data_free.
+	
 2002-06-20  Bill Haneman  <bill.haneman@sun.com>
 
 	* registryd/registry.c: [fix for bug 86048]

@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* deviceeventcontroler.c: implement the DeviceEventController interface */
+/* deviceeventcontroller.c: implement the DeviceEventController interface */
 
 #include <config.h>
 
@@ -90,6 +90,10 @@ static gboolean spi_controller_register_device_listener       (SpiDEController  
 							       CORBA_Environment         *ev);
 static void     spi_device_event_controller_forward_key_event (SpiDEController           *controller,
 							       const XEvent              *event);
+static void     spi_deregister_controller_key_listener (SpiDEController         *controller,
+							DEControllerKeyListener *key_listener,
+							CORBA_Environment       *ev);
+
 static gboolean spi_clear_error_state (void);
 
 #define spi_get_display() GDK_DISPLAY()
@@ -168,14 +172,44 @@ spi_dec_key_listener_new (CORBA_Object                            l,
   return key_listener;	
 }
 
+static DEControllerKeyListener *
+spi_key_listener_clone (DEControllerKeyListener *key_listener, CORBA_Environment *ev)
+{
+  DEControllerKeyListener *clone = g_new0 (DEControllerKeyListener, 1);
+  clone->listener.object =
+	  CORBA_Object_duplicate (key_listener->listener.object, ev);
+  clone->listener.type = SPI_DEVICE_TYPE_KBD;
+  clone->keys = ORBit_copy_value (key_listener->keys, TC_Accessibility_KeySet);
+  clone->mask = key_listener->mask;
+  clone->typeseq = ORBit_copy_value (key_listener->typeseq, TC_Accessibility_KeyEventTypeSeq);
+  if (key_listener->mode)
+    clone->mode = ORBit_copy_value (key_listener->mode, TC_Accessibility_EventListenerMode);
+  else
+    clone->mode = NULL;
+  return clone;
+}
+
+static void
+spi_key_listener_data_free (DEControllerKeyListener *key_listener, CORBA_Environment *ev)
+{
+  CORBA_free (key_listener->typeseq);
+  CORBA_free (key_listener->keys);
+  g_free (key_listener);
+}
+
+static void
+spi_key_listener_clone_free (DEControllerKeyListener *clone, CORBA_Environment *ev)
+{
+  CORBA_Object_release (clone->listener.object, ev);
+  spi_key_listener_data_free (clone, ev);
+}
+
 static void
 spi_dec_key_listener_free (DEControllerKeyListener *key_listener,
 			   CORBA_Environment       *ev)
 {
   bonobo_object_release_unref (key_listener->listener.object, ev);
-  CORBA_free (key_listener->typeseq);
-  CORBA_free (key_listener->keys);
-  g_free (key_listener);
+  spi_key_listener_data_free (key_listener, ev);
 }
 
 static void
@@ -467,13 +501,14 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 }
 
 static gboolean
-spi_notify_keylisteners (GList                          **key_listeners,
-			 const Accessibility_DeviceEvent *key_event,
-			 CORBA_boolean                    is_system_global,
-			 CORBA_Environment               *ev)
+spi_controller_notify_keylisteners (SpiDEController                 *controller,
+				    const Accessibility_DeviceEvent *key_event,
+				    CORBA_boolean                    is_system_global,
+				    CORBA_Environment               *ev)
 {
   GList   *l;
   GSList  *notify = NULL, *l2;
+  GList  **key_listeners = &controller->key_listeners;
   gboolean is_consumed;
 
   if (!key_listeners)
@@ -491,7 +526,9 @@ spi_notify_keylisteners (GList                          **key_listeners,
 
 	   if (ls != CORBA_OBJECT_NIL)
 	     {
-               notify = g_slist_prepend (notify, CORBA_Object_duplicate (ls, ev));
+	       /* we clone (don't dup) the listener, to avoid refcount inc. */
+	       notify = g_slist_prepend (notify,
+					 spi_key_listener_clone (key_listener, ev));
 	     }
          }
     }
@@ -506,13 +543,16 @@ spi_notify_keylisteners (GList                          **key_listeners,
   is_consumed = FALSE;
   for (l2 = notify; l2 && !is_consumed; l2 = l2->next)
     {
-      Accessibility_DeviceEventListener ls = l2->data;
+      DEControllerKeyListener *key_listener = l2->data;	    
+      Accessibility_DeviceEventListener ls = key_listener->listener.object;
 
       is_consumed = Accessibility_DeviceEventListener_notifyEvent (ls, key_event, ev);
 
       if (BONOBO_EX (ev))
         {
           is_consumed = FALSE;
+	  spi_deregister_controller_key_listener (controller, key_listener,
+						  ev);
 	  CORBA_exception_free (ev);
         }
 
@@ -521,7 +561,9 @@ spi_notify_keylisteners (GList                          **key_listeners,
 
   for (; l2; l2 = l2->next)
     {
-      CORBA_Object_release (l2->data, ev);
+      DEControllerKeyListener *key_listener = l2->data;	    
+      spi_key_listener_clone_free (key_listener, ev);
+      /* clone doesn't have its own ref, so don't use spi_key_listener_free */
     }
 
   g_slist_free (notify);
@@ -855,6 +897,31 @@ copy_key_listener_cb (GList * const *list,
   return SPI_RE_ENTRANT_CONTINUE;
 }
 
+
+static void
+spi_deregister_controller_key_listener (SpiDEController            *controller,
+					DEControllerKeyListener    *key_listener,
+					CORBA_Environment          *ev)
+{
+  RemoveKeyListenerClosure  ctx;
+
+  ctx.ev = ev;
+  ctx.key_listener = key_listener;
+
+  /* special case, copy keyset from existing controller list entry */
+  if (key_listener->keys->_length == 0) 
+    {
+      spi_re_entrant_list_foreach (&controller->key_listeners,
+				  copy_key_listener_cb, &ctx);
+    }
+  
+  spi_controller_deregister_global_keygrabs (controller, key_listener);
+
+  spi_re_entrant_list_foreach (&controller->key_listeners,
+				remove_key_listener_cb, &ctx);
+
+}
+
 /*
  * CORBA Accessibility::DEController::deregisterKeystrokeListener
  *     method implementation
@@ -868,7 +935,6 @@ impl_deregister_keystroke_listener (PortableServer_Servant                  serv
 				    CORBA_Environment                      *ev)
 {
   DEControllerKeyListener  *key_listener;
-  RemoveKeyListenerClosure  ctx;
   SpiDEController *controller;
 
   controller = SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
@@ -880,20 +946,7 @@ impl_deregister_keystroke_listener (PortableServer_Servant                  serv
 	   (void *) l, (unsigned long) mask->value);
 #endif
 
-  ctx.ev = ev;
-  ctx.key_listener = key_listener;
-
-  /* special case, copy keyset from existing controller list entry */
-  if (keys->_length == 0) 
-    {
-      spi_re_entrant_list_foreach (&controller->key_listeners,
-				  copy_key_listener_cb, &ctx);
-    }
-  
-  spi_controller_deregister_global_keygrabs (controller, key_listener);
-
-  spi_re_entrant_list_foreach (&controller->key_listeners,
-				remove_key_listener_cb, &ctx);
+  spi_deregister_controller_key_listener (controller, key_listener, ev);
 
   spi_dec_key_listener_free (key_listener, ev);
 }
@@ -1026,7 +1079,7 @@ impl_notify_listeners_sync (PortableServer_Servant           servant,
   g_print ("notifylistening listeners synchronously: controller %p, event id %d\n",
 	   controller, (int) event->id);
 #endif
-  return spi_notify_keylisteners (&controller->key_listeners, event, CORBA_FALSE, ev) ?
+  return spi_controller_notify_keylisteners (controller, event, CORBA_FALSE, ev) ?
 	  CORBA_TRUE : CORBA_FALSE; 
 }
 
@@ -1041,7 +1094,7 @@ impl_notify_listeners_async (PortableServer_Servant           servant,
 #ifdef SPI_DEBUG
   fprintf (stderr, "notifying listeners asynchronously\n");
 #endif
-  spi_notify_keylisteners (&controller->key_listeners, event, CORBA_FALSE, ev); 
+  spi_controller_notify_keylisteners (controller, event, CORBA_FALSE, ev); 
 }
 
 static void
@@ -1096,8 +1149,8 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
   spi_controller_update_key_grabs (controller, &key_event);
 
   /* relay to listeners, and decide whether to consume it or not */
-  is_consumed = spi_notify_keylisteners (
-    &controller->key_listeners, &key_event, CORBA_TRUE, &ev);
+  is_consumed = spi_controller_notify_keylisteners (
+	  controller, &key_event, CORBA_TRUE, &ev);
 
   CORBA_exception_free (&ev);
 
