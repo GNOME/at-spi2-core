@@ -1,5 +1,9 @@
 2002-01-11  Bill Haneman <bill.haneman@sun.com>
 
+	* test/demo.csh:
+	Checked in a demo script, which requires editing before use!
+	Proceed with caution.
+	
 	* libspi/value.h:
 	Fixed typo in header which was redefining SPI_ACTION_CLASS.
 
