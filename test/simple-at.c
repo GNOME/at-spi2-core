@@ -140,7 +140,7 @@ main (int argc, char **argv)
 
   SPI_event_main ();
 
-  setenv ("AT_BRIDGE_SHUTDOWN", "1", TRUE);
+  putenv ("AT_BRIDGE_SHUTDOWN=1");
 
   return SPI_exit ();
 }

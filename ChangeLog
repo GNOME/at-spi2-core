@@ -1,3 +1,8 @@
+2001-12-11  Bill Haneman <bill.haneman@sun.com>
+
+	* test/simple-at.c:
+	Replace setenv() call with putenv ().
+
 2001-12-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/image.c (impl_getImageExtents): impl.
