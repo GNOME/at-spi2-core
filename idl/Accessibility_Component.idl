@@ -32,6 +32,7 @@ module Accessibility {
     LAYER_MDI,
     LAYER_POPUP,
     LAYER_OVERLAY,
+    LAYER_WINDOW,
     LAYER_LAST_DEFINED
   };
 

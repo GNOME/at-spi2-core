@@ -112,6 +112,8 @@ typedef unsigned long AccessibleKeyEventMask;
  *                          MDI components.
  * @SPI_LAYER_OVERLAY: Component is in the overlay plane - this value is reserved
  *                          for future use.
+ * @SPI_LAYER_WINDOW: Component is in the window layer and have valid Z-information
+ *                    relative to other window-layer components.
  * @SPI_LAYER_LAST_DEFINED: Used to determine the last valid value in the enum,
  *                          should not be encountered.	
  **/
@@ -123,6 +125,7 @@ typedef enum {
     SPI_LAYER_MDI,
     SPI_LAYER_POPUP,
     SPI_LAYER_OVERLAY,
+    SPI_LAYER_WINDOW,
     SPI_LAYER_LAST_DEFINED	
 } AccessibleComponentLayer;
 

@@ -170,6 +170,8 @@ impl_accessibility_component_get_layer (PortableServer_Servant servant,
         return Accessibility_LAYER_POPUP;
       case ATK_LAYER_OVERLAY:
         return Accessibility_LAYER_OVERLAY;
+      case ATK_LAYER_WINDOW:
+        return Accessibility_LAYER_WINDOW;
       default:
         break;      
     }

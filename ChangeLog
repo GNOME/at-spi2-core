@@ -1,3 +1,15 @@
+2002-09-06  Mark McLoughlin  <mark@skynet.ie>
+
+	* cspi/spi.h: add SPI_LAYER_WINDOW.
+
+	* cspi/spi_component.c: (AccessibleComponent_getLayer):
+	add Accessibility_LAYER_WINDOW case.
+
+	* idl/Accessibility_Component.idl: add LAYER_WINDOW.
+
+	* libspi/component.c: (impl_accessibility_component_get_layer):
+	add ATK_LAYER_WINDOW case.
+
 2002-08-28  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: incremented micro version.
