@@ -60,7 +60,8 @@ static unsigned int mouse_mask_state = 0;
 static unsigned int mouse_button_mask =
   Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
 static unsigned int key_modifier_mask =
-  Mod1Mask | Mod2Mask | Mod3Mask | Mod4Mask | Mod5Mask | ShiftMask | LockMask | ControlMask;
+  Mod1Mask | Mod2Mask | Mod3Mask | Mod4Mask | Mod5Mask | ShiftMask | LockMask | ControlMask | SPI_KEYMASK_NUMLOCK;
+static unsigned int _numlock_physical_mask = Mod2Mask; /* a guess, will be reset */
 
 static GQuark spi_dec_private_quark = 0;
 
@@ -399,6 +400,13 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
   fprintf (stderr, "MODIFIER CHANGE EVENT! %x to %x\n", 
 	   prev_mask, current_mask);
 #endif
+
+  /* set bits for the virtual modifiers like NUMLOCK */
+  if (prev_mask & _numlock_physical_mask) 
+    prev_mask |= SPI_KEYMASK_NUMLOCK;
+  if (current_mask & _numlock_physical_mask) 
+    current_mask |= SPI_KEYMASK_NUMLOCK;
+
   e.type = "keyboard:modifiers";  
   e.source = BONOBO_OBJREF (controller->registry->desktop);
   e.detail1 = prev_mask & key_modifier_mask;
@@ -489,6 +497,24 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
     }
 }
 
+/**
+ * Eventually we can use this to make the marshalling of mask types
+ * more sane, but for now we just use this to detect 
+ * the use of 'virtual' masks such as Mumlock and convert them to
+ * system-specific mask values (i.e. ModMask).
+ * 
+ **/
+static Accessibility_ControllerEventMask
+spi_dec_translate_mask (Accessibility_ControllerEventMask mask)
+{
+  DEControllerPrivateData *priv;
+
+  if (mask == SPI_KEYMASK_NUMLOCK) {
+    mask = _numlock_physical_mask;
+  }
+  return mask;
+}
+
 static DEControllerKeyListener *
 spi_dec_key_listener_new (CORBA_Object                            l,
 			  const Accessibility_KeySet             *keys,
@@ -501,7 +527,7 @@ spi_dec_key_listener_new (CORBA_Object                            l,
   key_listener->listener.object = bonobo_object_dup_ref (l, ev);
   key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
   key_listener->keys = ORBit_copy_value (keys, TC_Accessibility_KeySet);
-  key_listener->mask = mask;
+  key_listener->mask = spi_dec_translate_mask (mask);
   key_listener->listener.typeseq = ORBit_copy_value (typeseq, TC_Accessibility_EventTypeSeq);
   if (mode)
     key_listener->mode = ORBit_copy_value (mode, TC_Accessibility_EventListenerMode);
@@ -1028,6 +1054,8 @@ spi_controller_register_with_devices (SpiDEController *controller)
       XkbSelectEvents (spi_get_display (),
 		       XkbUseCoreKbd,
 		       XkbStateNotifyMask, XkbStateNotifyMask);	    
+      _numlock_physical_mask = XkbKeysymToModifiers (spi_get_display (), 
+						     XK_Num_Lock);
     }	
 
   gdk_window_add_filter (NULL, global_filter_fn, controller);
@@ -1126,7 +1154,7 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 				DEControllerKeyListener         *listener,
 				CORBA_boolean                    is_system_global)
 {
-  if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask & 0xFFFF)) &&
+  if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask & 0xFF)) &&
        spi_key_set_contains_key (listener->keys, key_event) &&
        spi_eventtype_seq_contains_event (listener->listener.typeseq, key_event) && 
       (is_system_global == listener->mode->global))
@@ -1386,7 +1414,6 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
       next = l->next;
 
       re_issue_grab = recv &&
-/*	      (recv->type == Accessibility_KEY_RELEASED) && - (?) */
 	      (recv->modifiers & grab_mask->mod_mask) &&
 	      (grab_mask->key_val == keycode_for_keysym (recv->id));
 

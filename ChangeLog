@@ -1,5 +1,32 @@
 2003-04-10  Bill Haneman <bill.haneman@sun.com>
 
+
+	* configure.in: revved to 1.1.10
+	
+	* libspi/keymasks.h:
+	(SPI_KEYMASK_NUMLOCK): Added.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_key_event_matches_listener): AND with a smaller
+	bitmask (as we should).  
+	(spi_dec_translate_mask): 
+	New method, sets the virtual NumLock modifier bit
+	if numlock is on.  Eventually it can handle other virtual
+	modifier bits if needed, or other marshalling from
+	at-spi modifier masks to platform (X) masks.
+	(spi_dec_key_listener_new):
+	Call spi_dec_translate_mask to set up virtual mod bits
+	in the 'mask' field when creating a new listener struct.
+	(spi_dec_emit_modifier_event):
+	Set the virtual (i.e. NumLock) bits before emitting event.
+	(spi_controller_register_with_devices):
+	Query for the NumLock modifier 'physical' bit if Xkb is
+	present, for use in above methods.
+
+	Fix for 107261.
+	
+2003-04-10  Bill Haneman <bill.haneman@sun.com>
+	
 	* registryd/deviceeventcontroller.c:
 	(spi_keystroke_from_x_key_event):
 	Instead of checking to see if the keysym is

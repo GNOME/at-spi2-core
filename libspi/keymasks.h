@@ -45,6 +45,7 @@ typedef unsigned long SpiKeyMaskType;
 #define SPI_KEYMASK_CONTROL   ControlMask
 #define SPI_KEYMASK_SHIFT     ShiftMask
 #define SPI_KEYMASK_SHIFTLOCK LockMask
+#define SPI_KEYMASK_NUMLOCK   (1<<14)
 #define SPI_KEYMASK_UNMODIFIED 0
 
 G_END_DECLS
