@@ -1,5 +1,6 @@
 <SECTION>
 <FILE>atkaction</FILE>
+<TITLE>AtkAction</TITLE>
 ATK_ACTION_GET_IFACE
 AtkAction
 AtkActionIface
@@ -16,6 +17,7 @@ atk_action_get_type
 
 <SECTION>
 <FILE>atkcomponent</FILE>
+<TITLE>AtkComponent</TITLE>
 ATK_COMPONENT_GET_IFACE
 AtkComponent
 AtkComponentIface
@@ -41,6 +43,7 @@ atk_component_get_type
 
 <SECTION>
 <FILE>atkeditabletext</FILE>
+<TITLE>AtkEditableText</TITLE>
 ATK_EDITABLE_TEXT_GET_IFACE
 AtkEditableText
 AtkEditableTextIface
@@ -79,6 +82,7 @@ ATK_HYPERLINK_GET_CLASS
 
 <SECTION>
 <FILE>atkhypertext</FILE>
+<TITLE>AtkHypertext</TITLE>
 ATK_HYPERTEXT_GET_IFACE
 AtkHypertext
 AtkHypertextIface
@@ -95,6 +99,7 @@ atk_hypertext_get_type
 
 <SECTION>
 <FILE>atkimage</FILE>
+<TITLE>AtkImage</TITLE>
 ATK_IMAGE_GET_IFACE
 AtkImage
 AtkImageIface
@@ -141,7 +146,6 @@ ATK_NO_OP_OBJECT_FACTORY_GET_CLASS
 
 <SECTION>
 <FILE>atkobject</FILE>
-AtkChildChangeType
 AtkRole
 atk_role_register
 ATK_TYPE_IMPLEMENTOR
@@ -155,7 +159,6 @@ AtkStateSet
 AtkPropertyValues
 AtkPropertyChangeHandler
 <TITLE>AtkObject</TITLE>
-atk_implementor_get_type
 atk_implementor_ref_accessible
 atk_object_get_name
 atk_object_get_description
@@ -180,6 +183,7 @@ atk_object_get_type
 ATK_OBJECT_CLASS
 ATK_IS_OBJECT_CLASS
 ATK_OBJECT_GET_CLASS
+atk_implementor_get_type
 </SECTION>
 
 <SECTION>
@@ -201,6 +205,7 @@ ATK_OBJECT_FACTORY_GET_CLASS
 <FILE>atkregistry</FILE>
 <TITLE>AtkRegistry</TITLE>
 atk_registry_set_factory_type
+atk_registry_get_factory_type
 atk_registry_get_factory
 atk_get_default_registry
 <SUBSECTION Standard>
@@ -252,6 +257,7 @@ ATK_RELATION_SET_GET_CLASS
 
 <SECTION>
 <FILE>atkselection</FILE>
+<TITLE>AtkSelection</TITLE>
 ATK_SELECTION_GET_IFACE
 AtkSelection
 AtkSelectionIface
@@ -295,6 +301,7 @@ ATK_STATE_SET_GET_CLASS
 
 <SECTION>
 <FILE>atktable</FILE>
+<TITLE>AtkTable</TITLE>
 ATK_TABLE_GET_IFACE
 AtkTable
 AtkTableIface
@@ -332,6 +339,7 @@ atk_table_get_type
 
 <SECTION>
 <FILE>atktext</FILE>
+<TITLE>AtkText</TITLE>
 ATK_TEXT_GET_IFACE
 AtkText
 AtkTextIface
@@ -360,6 +368,7 @@ atk_text_get_type
 
 <SECTION>
 <FILE>atkvalue</FILE>
+<TITLE>AtkValue</TITLE>
 ATK_VALUE_GET_IFACE
 AtkValue
 AtkValueIface
@@ -380,6 +389,7 @@ atk_value_get_type
 
 <SECTION>
 <FILE>atkstate</FILE>
+<TITLE>AtkState</TITLE>
 AtkStateType
 AtkState
 atk_state_type_register
@@ -389,6 +399,7 @@ atk_state_type_for_name
 
 <SECTION>
 <FILE>atkutil</FILE>
+<TITLE>AtkUtil</TITLE>
 AtkFocusTracker
 AtkFocusTrackerInit
 atk_add_focus_tracker

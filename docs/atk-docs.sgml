@@ -1,22 +1,24 @@
 <!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
-<!entity atkcomponent SYSTEM "sgml/atkcomponent.sgml">
-<!entity atkaction SYSTEM "sgml/atkaction.sgml">
-<!entity atkcomponent SYSTEM "sgml/atkcomponent.sgml">
-<!entity atkeditabletext SYSTEM "sgml/atkeditabletext.sgml">
-<!entity atkhyperlink SYSTEM "sgml/atkhyperlink.sgml">
-<!entity atkhypertext SYSTEM "sgml/atkhypertext.sgml">
-<!entity atkimage SYSTEM "sgml/atkimage.sgml">
-<!entity atknoopobject SYSTEM "sgml/atknoopobject.sgml">
-<!entity atknoopobjectfactory SYSTEM "sgml/atknoopobjectfactory.sgml">
-<!entity atkobject SYSTEM "sgml/atkobject.sgml">
-<!entity atkobjectfactory SYSTEM "sgml/atkobjectfactory.sgml">
-<!entity atkregistry SYSTEM "sgml/atkregistry.sgml">
-<!entity atkselection SYSTEM "sgml/atkselection.sgml">
-<!entity atktable SYSTEM "sgml/atktable.sgml">
-<!entity atktext SYSTEM "sgml/atktext.sgml">
-<!entity atkutil SYSTEM "sgml/atkutil.sgml">
-<!entity atkvalue SYSTEM "sgml/atkvalue.sgml">
-
+<!entity atk-AtkAction SYSTEM "sgml/atkaction.sgml">
+<!entity atk-atkcomponent SYSTEM "sgml/atkcomponent.sgml">
+<!entity atk-atkeditabletext SYSTEM "sgml/atkeditabletext.sgml">
+<!entity atk-AtkHyperlink SYSTEM "sgml/atkhyperlink.sgml">
+<!entity atk-atkhypertext SYSTEM "sgml/atkhypertext.sgml">
+<!entity atk-atkimage SYSTEM "sgml/atkimage.sgml">
+<!entity atk-AtkNoOpObject SYSTEM "sgml/atknoopobject.sgml">
+<!entity atk-AtkNoOpObjectFactory SYSTEM "sgml/atknoopobjectfactory.sgml">
+<!entity atk-AtkObject SYSTEM "sgml/atkobject.sgml">
+<!entity atk-AtkObjectFactory SYSTEM "sgml/atkobjectfactory.sgml">
+<!entity atk-AtkRegistry SYSTEM "sgml/atkregistry.sgml">
+<!entity atk-AtkRelation SYSTEM "sgml/atkrelation.sgml">
+<!entity atk-AtkRelationSet SYSTEM "sgml/atkrelationset.sgml">
+<!entity atk-atkselection SYSTEM "sgml/atkselection.sgml">
+<!entity atk-AtkStateSet SYSTEM "sgml/atkstateset.sgml">
+<!entity atk-atktable SYSTEM "sgml/atktable.sgml">
+<!entity atk-atktext SYSTEM "sgml/atktext.sgml">
+<!entity atk-atkvalue SYSTEM "sgml/atkvalue.sgml">
+<!entity atk-atkstate SYSTEM "sgml/atkstate.sgml">
+<!entity atk-atkutil SYSTEM "sgml/atkutil.sgml">
 ]>
 
 <book>
@@ -26,26 +28,26 @@
 
   <chapter id="atk">
     <title>ATK Library</title>
-
-       <sect1 id="test123">
-       <title>section 1</title>
-          &atkaction
-          &atkcomponent
-          &atkeditabletext
-          &atkhyperlink
-          &atkhypertext
-          &atkimage
-          &atknoopobject
-          &atknoopobjectfactory
-          &atkobject
-          &atkobjectfactory
-          &atkregistry
-          &atkselection
-          &atktable
-          &atktext
-          &atkutil
-          &atkvalue
-       </sect1>
+    &atk-AtkAction;
+    &atk-atkcomponent;
+    &atk-atkeditabletext;
+    &atk-AtkHyperlink;
+    &atk-atkhypertext;
+    &atk-atkimage;
+    &atk-AtkNoOpObject;
+    &atk-AtkNoOpObjectFactory;
+    &atk-AtkObject;
+    &atk-AtkObjectFactory;
+    &atk-AtkRegistry;
+    &atk-AtkRelation;
+    &atk-AtkRelationSet;
+    &atk-atkselection;
+    &atk-AtkStateSet;
+    &atk-atktable;
+    &atk-atktext;
+    &atk-atkvalue;
+    &atk-atkstate;
+    &atk-atkutil;
    </chapter>
 </book>
 
