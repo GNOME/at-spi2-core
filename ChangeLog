@@ -1,3 +1,17 @@
+2001-10-31  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/relation.h, docs/tmpl/atkrelation.sgml:
+	Add two new relations ATK_RELATION_NODE_CHILDREN and
+	ATK_RELATION_NODE_PARENT to support compound objects in a
+        node or cell of a tree or table
+	Added descriptions of all relations which are defined
+
+	* atk/atktable.c:
+	Remove functions atk_table_real_get_index_at(),
+	atk_table_real_get_column_at_index() and 
+	atk_table_real_get_row_at_index() 
+	Correct typos in documentation of other functions.
+
 2001-10-28  Tor Lillqvist  <tml@iki.fi>
 
 	* atk-zip.sh.in: New file, used to build developer package for

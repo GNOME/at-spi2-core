@@ -25,6 +25,8 @@ Defines the functional relationship between two #AtkObjects.
 @ATK_RELATION_LABEL_FOR: 
 @ATK_RELATION_LABELLED_BY: 
 @ATK_RELATION_MEMBER_OF: 
+@ATK_RELATION_NODE_CHILDREN: 
+@ATK_RELATION_NODE_PARENT: 
 @ATK_RELATION_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_relation_type_register ##### -->

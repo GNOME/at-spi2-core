@@ -39,14 +39,6 @@ typedef struct _AtkTableIfaceClass AtkTableIfaceClass;
 
 static void  atk_table_base_init (gpointer *g_class);
 
-static gint  atk_table_real_get_index_at        (AtkTable *table,
-                                                 gint     row,
-                                                 gint     column);
-static gint  atk_table_real_get_column_at_index (AtkTable *table,
-                                                 gint     index);
-static gint  atk_table_real_get_row_at_index    (AtkTable *table,
-                                                 gint     index);
-
 static guint atk_table_signals[LAST_SIGNAL] = { 0 };
 
 GType
@@ -168,11 +160,11 @@ atk_table_ref_at (AtkTable *table,
  * @row: a #gint representing a row in @table
  * @column: a #gint representing a column in @table
  *
- * Gets a #gint representing the index at the specified @row and @column,
- * or 0 if value does not implement this interface.
+ * Gets a #gint representing the index at the specified @row and @column.
+ * The value -1 is returned if the object at row,column is not a child
+ * of table or table does not implement this interface.
  *
- * Returns: a #gint representing the index at specified position, or 0
- * if value does not implement this interface.
+ * Returns: a #gint representing the index at specified position 
  **/
 gint
 atk_table_get_index_at (AtkTable *table,
@@ -181,16 +173,16 @@ atk_table_get_index_at (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
-  g_return_val_if_fail (row >= 0, 0);
-  g_return_val_if_fail (column >= 0, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), -1);
+  g_return_val_if_fail (row >= 0, -1);
+  g_return_val_if_fail (column >= 0, -1);
 
   iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_index_at)
     return (iface->get_index_at) (table, row, column);
   else
-    return atk_table_real_get_index_at (table, row, column);
+    return -1;
 }
 
 /**
@@ -198,11 +190,10 @@ atk_table_get_index_at (AtkTable *table,
  * @table: a GObject instance that implements AtkTableInterface
  * @index: a #gint representing an index in @table
  *
- * Gets a #gint representing the row at the specified @index, or 0
- * if the value does not implement this interface
+ * Gets a #gint representing the row at the specified @index, or -1
+ * if the table does not implement this interface
  *
- * Returns: a gint representing the row at the specified  index, or 0
- * if value does not implement this interface.
+ * Returns: a gint representing the row at the specified index.
  **/
 gint
 atk_table_get_row_at_index (AtkTable *table,
@@ -210,14 +201,14 @@ atk_table_get_row_at_index (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), -1);
 
   iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_row_at_index)
     return (iface->get_row_at_index) (table, index);
   else
-    return atk_table_real_get_row_at_index (table, index);
+    return -1;
 }
 
 /**
@@ -225,11 +216,10 @@ atk_table_get_row_at_index (AtkTable *table,
  * @table: a GObject instance that implements AtkTableInterface
  * @index: a #gint representing an index in @table
  *
- * Gets a #gint representing the column at the specified @index, or 0
- * if the value does not implement this interface
+ * Gets a #gint representing the column at the specified @index, or -1
+ * if the table does not implement this interface
  *
- * Returns: a gint representing the column at the specified  index, or 0
- * if value does not implement this interface.
+ * Returns: a gint representing the column at the specified index.
  **/
 gint
 atk_table_get_column_at_index (AtkTable *table,
@@ -244,7 +234,7 @@ atk_table_get_column_at_index (AtkTable *table,
   if (iface->get_column_at_index)
     return (iface->get_column_at_index) (table, index);
   else
-    return atk_table_real_get_column_at_index (table, index);
+    return -1;
 }
 
 /**
@@ -874,48 +864,4 @@ atk_table_set_summary (AtkTable       *table,
 
   if (iface->set_summary)
     (iface->set_summary) (table, accessible);
-}
-
-static gint
-atk_table_real_get_index_at (AtkTable *table,
-                             gint     row,
-                             gint     column)
-{
-  gint n_cols, n_rows;
-
-  n_cols = atk_table_get_n_columns (table);
-  n_rows = atk_table_get_n_rows (table);
-
-  g_return_val_if_fail (row < n_rows, 0);
-  g_return_val_if_fail (column < n_cols, 0);
-
-  return row * n_cols + column;
-}
-
-static gint
-atk_table_real_get_column_at_index (AtkTable *table,
-                                    gint     index)
-{
-  gint n_cols;
-
-  n_cols = atk_table_get_n_columns (table);
-
-  if (n_cols == 0)
-    return 0;
-  else
-    return (gint) (index % n_cols);
-}
-
-static gint
-atk_table_real_get_row_at_index (AtkTable *table,
-                                 gint     index)
-{
-  gint n_cols;
-
-  n_cols = atk_table_get_n_columns (table);
-
-  if (n_cols == 0)
-    return 0;
-  else
-    return (gint) (index / n_cols);
 }

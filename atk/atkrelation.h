@@ -25,17 +25,26 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <glib-object.h>
+
+/*
+ * An AtkRelation describes a relation between the object and one or more 
+ * other objects. The actual relations that an object has with other objects
+ * are defined as an AtkRelationSet, which is a set of AtkRelations. 
+ */
+
 /**
  *AtkRelationType:
  *@ATK_RELATION_NULL:
- *@ATK_RELATION_CONTROLLED_BY:
- *@ATK_RELATION_CONTROLLER_FOR:
- *@ATK_RELATION_LABEL_FOR:
- *@ATK_RELATION_LABELLED_BY:
- *@ATK_RELATION_MEMBER_OF:
+ *@ATK_RELATION_CONTROLLED_BY: Indicates an object controlled by one or more target objects.
+ *@ATK_RELATION_CONTROLLER_FOR: Indicates an object is an controller for one or more target objects.
+ *@ATK_RELATION_LABEL_FOR: Indicates an object is a label for one or more target objects.
+ *@ATK_RELATION_LABELLED_BY: Indicates an object is labelled by one or more target objects.
+ *@ATK_RELATION_MEMBER_OF: Indicates an object is a member of a group of one or more target objects.
+ *@ATK_RELATION_NODE_CHILDREN: Indicates an object is a node in a tree or table and a compound object which more than one subobject
+ *@ATK_RELATION_NODE_PARENT: Indicates an object is a subobject of a compound object which is a node in a tree or table.
  *@ATK_RELATION_LAST_DEFINED:
  * 
- *The possible types of an #AtkRelation
+ *Describes the type of the relation
  **/
 typedef enum
 {
@@ -45,6 +54,8 @@ typedef enum
   ATK_RELATION_LABEL_FOR,
   ATK_RELATION_LABELLED_BY,
   ATK_RELATION_MEMBER_OF,
+  ATK_RELATION_NODE_CHILDREN,
+  ATK_RELATION_NODE_PARENT,
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 
