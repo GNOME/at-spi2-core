@@ -17,7 +17,7 @@ dnl set ATK_BINARY_AGE _and_ ATK_INTERFACE_AGE to 0.
 dnl The triplet 
 m4_define([atk_major_version], [1])
 m4_define([atk_minor_version], [3])
-m4_define([atk_micro_version], [5])
+m4_define([atk_micro_version], [6])
 m4_define([atk_version],
           [atk_major_version.atk_minor_version.atk_micro_version])
 
@@ -25,7 +25,7 @@ dnl The X.Y in -latk-X.Y line. This is expected to stay 1.0 until Atk 2.
 m4_define([atk_api_version], [1.0])
 
 dnl Number of releases since we've added interfaces
-m4_define([atk_interface_age], [1])
+m4_define([atk_interface_age], [2])
 
 m4_define([atk_binary_age],
           [m4_eval(100 * atk_minor_version + atk_micro_version)])

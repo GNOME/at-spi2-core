@@ -1,3 +1,10 @@
+Changes in version 1.3.6
+========================
+* Add translations: Hindi [Guntupalli Katunakar]
+
+* Update translations: Azerbaijani [Metin Amiroff], 
+Italian [Alessio Frusciante]
+
 Changes in version 1.3.5
 ========================
 * Remove po/Makefile.in.in (bug #119053)
