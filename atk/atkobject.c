@@ -60,9 +60,6 @@ static void            atk_object_real_get_property(GObject         *object,
 static void            atk_object_finalize         (GObject         *object);
 static void            atk_object_real_set_role    (AtkObject       *object,
                                                     AtkRole         role);
-static void            atk_object_focus_event_unimplemented
-                                                   (AtkObject       *object,
-                                                    gboolean        focus_in);
 
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
 
@@ -111,8 +108,11 @@ atk_object_class_init (AtkObjectClass *klass)
 
   klass->ref_relation_set = atk_object_real_ref_relation_set;
   klass->set_role = atk_object_real_set_role;
-  klass->focus_event = atk_object_focus_event_unimplemented;
 
+  /*
+   * We do not define default signal handlers here
+   */
+  klass->focus_event = NULL;
   klass->children_changed = NULL;
 
   g_object_class_install_property (gobject_class,
@@ -168,11 +168,15 @@ atk_object_class_init (AtkObjectClass *klass)
                                                            "for this component",
                                                            G_PARAM_READWRITE));
 #endif
+  /*
+   * The signal "children_changed" supports two details:
+   * "add" and "remove"
+   */
   atk_object_signals[CHILDREN_CHANGED] =
-    g_signal_newc ("accessible_children_changed",
+    g_signal_newc ("children_changed",
                    G_TYPE_FROM_CLASS (klass),
-                   G_SIGNAL_RUN_LAST,
-                   G_STRUCT_OFFSET (AtkObjectClass, children_changed), /* still need to declare and define this func */
+                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+                   G_STRUCT_OFFSET (AtkObjectClass, children_changed),
                    NULL, NULL,
                    g_cclosure_marshal_VOID__UINT_POINTER,
                    G_TYPE_NONE,
@@ -700,12 +704,4 @@ atk_object_real_set_role (AtkObject *object,
                           AtkRole   role)
 {
   object->role = role;
-}
-
-static void
-atk_object_focus_event_unimplemented (AtkObject       *object,
-                                      gboolean        focus_in)
-{
-  g_warning ("AtkObjectClass::focus_event not implemented for `%s'", 
-              g_type_name (G_OBJECT_TYPE (object)));
 }
