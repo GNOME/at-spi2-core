@@ -1,5 +1,8 @@
 2004-02-10  Tomasz K³oczko <kloczek@pld.org.pl>
 
+	* docs/reference/cspi/at-spi-cspi.types: added empty file for
+	  correct pass "make dist" (empty .. because seems no sach types in
+	  header files with gtk-doc markups).
 	* docs/reference/cspi/Makefile.am, configure.in:
 	  Added better gtk-doc support using GTK_DOC_CHECK aclocal macro
 	  from gtk-doc >= 1.0 (modyfications based on scheme from atk).
