@@ -21,7 +21,6 @@
 #ifndef __ATK_TEXT_H__
 #define __ATK_TEXT_H__
 
-#include <pango/pango.h>
 #include <glib-object.h>
 #include <atk/atkobject.h>
 #include <atk/atkutil.h>

@@ -13,9 +13,9 @@ includedir = $(PRJ_TOP)
 LT_RELEASE = $(PKG_VER)
 
 INCLUDES = \
-	-I$(top_srcdir) $(GLIB_CFLAGS) $(PANGO_CFLAGS)
+	-I$(top_srcdir) $(GLIB_CFLAGS)
 
-PKG_LINK = $(GLIB_LIBS) $(PANGO_LIBS)
+PKG_LINK = $(GLIB_LIBS)
 
 MAINTAINERCLEANFILES = \
 	atkmarshal.c

@@ -20,7 +20,6 @@
 #ifndef __ATK_EDITABLE_TEXT_H__
 #define __ATK_EDITABLE_TEXT_H__
 
-#include <pango/pango.h>
 #include <atk/atkobject.h>
 #include <atk/atktext.h>
 
