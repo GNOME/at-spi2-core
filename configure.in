@@ -26,7 +26,7 @@ dnl ==========================================================================
 
 ATK_MAJOR_VERSION=0
 ATK_MINOR_VERSION=0
-ATK_MICRO_VERSION=10
+ATK_MICRO_VERSION=11
 ATK_INTERFACE_AGE=0
 ATK_BINARY_AGE=0
 ## with 1.0 you'd insert MINOR_VERSION in here, i.e. 0.3->1.0.0->1.0.1->1.0.2

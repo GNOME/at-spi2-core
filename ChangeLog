@@ -1,3 +1,8 @@
+2002-02-04  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	Incremented revision.
+
 2002-01-30  Bill Haneman  <bill.haneman@sun.com>
 
 	* docs/tmpl/atkaction.sgml:
