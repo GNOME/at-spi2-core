@@ -714,6 +714,8 @@ spi_atk_signal_emit_event (const GObject *gobject,
   else
     spi_atk_emit_eventv (gobject, detail1, detail2, &any,
 			 "object:%s", name);
+  if (sp)
+    g_free (sp);
 }
 
 

@@ -111,10 +111,9 @@ desktop_add_application (SpiDesktop *desktop,
   spi_init_any_object (&e.any_data, a);
   */
   spi_init_any_nil (&e.any_data);
-  Accessibility_Accessible_unref (a, &ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
-  Accessibility_Desktop_unref (e.source, &ev);
+  bonobo_object_release_unref (a, &ev);
   CORBA_exception_free (&ev);
 }
 

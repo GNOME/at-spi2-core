@@ -39,6 +39,14 @@ struct _Accessible {
 	guint        ref_count : 30;
 };
 
+/* 
+ * For internal use by CSPI implementation only
+ */
+typedef struct {
+  AccessibleEvent event;
+  void           *data; 
+} InternalEvent;
+
 #define CSPI_OBJREF(a) (((Accessible *)(a))->objref)
 
 CORBA_Environment     *cspi_ev               (void);

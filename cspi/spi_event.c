@@ -348,7 +348,7 @@ cspi_internal_event_get_text (const InternalEvent *e)
     }
 }
 
-static char *
+static Accessible *
 cspi_internal_event_get_object (const InternalEvent *e)
 {
   CORBA_any *any;
@@ -375,9 +375,9 @@ cspi_internal_event_get_object (const InternalEvent *e)
 char *
 AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e)
 {
-  InternalEvent *foo = (InternalEvent *) e;
+  const InternalEvent *foo = (InternalEvent *) e;
   /* TODO: check the event type? expensive... */
-  return cspi_internal_event_get_text (e);
+  return cspi_internal_event_get_text (foo);
 }
 
 /**
@@ -397,7 +397,7 @@ AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e)
 Accessible *
 AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e)
 {
-  InternalEvent *foo = (InternalEvent *) e;
-  return cspi_internal_event_get_object (e);
+  const InternalEvent *foo = (InternalEvent *) e;
+  return (Accessible *) cspi_internal_event_get_object (foo);
 }
 
