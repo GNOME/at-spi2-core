@@ -1,4 +1,23 @@
-2002-04-113  Marc Mulcahy <marc.mulcahy@sun.com>
+2002-04-14  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_Table.idl: Added missing methods,
+	Accessibility_Table_addRowSelection,
+	Accessibility_Table_addColumnSelection,
+	Accessibility_Table_removeRowSelection,
+	Accessibility_Table_removeColumnSelection.
+
+	* cspi/spi_table.c:
+	Added C wrappers for above IDL:
+	AccessibleTable_addRowSelection,
+	AccessibleTable_addColumnSelection,
+	AccessibleTable_removeRowSelection,
+	AccessibleTable_removeColumnSelection.
+	
+	* libspi/table.c:
+	Added server-side implementation code for IDL above, connecting
+	to pre-existing ATK api.
+	
+2002-04-13  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* idl/Accessibility_State.idl: Made StateSet inherit from BonoboUnknown.
 

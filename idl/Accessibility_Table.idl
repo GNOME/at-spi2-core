@@ -49,6 +49,10 @@ typedef sequence<long> LongSeq;
    boolean isRowSelected (in long row);
    boolean isColumnSelected (in long column);
    boolean isSelected (in long row, in long column);
+   boolean addRowSelection (in long row);
+   boolean addColumnSelection (in long column);
+   boolean removeRowSelection (in long row);
+   boolean removeColumnSelection (in long column);
     /**
      * unImplemented:
      *

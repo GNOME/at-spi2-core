@@ -551,6 +551,114 @@ AccessibleTable_isColumnSelected (AccessibleTable *obj,
 }
 
 /**
+ * AccessibleTable_addRowSelection:
+ * @obj: a pointer to the #AccessibleTable implementor on which to operate.
+ * @row:
+ *
+ * Select the specified row, adding it to the current row selection.
+ * Not all tables support row selection.
+ *
+ * Returns: #TRUE if the specified row was successfully selected, #FALSE if not.
+ **/
+SPIBoolean
+AccessibleTable_addRowSelection (AccessibleTable *obj,
+				 long int         row)
+{
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Table_addRowSelection (CSPI_OBJREF (obj),
+					 (CORBA_long) row, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("addRowSelection", FALSE);
+
+  return retval;
+}
+
+/**
+ * AccessibleTable_addColumnSelection:
+ * @obj: a pointer to the #AccessibleTable implementor on which to operate.
+ * @column:
+ *
+ * Select the specified column, adding it to the current column selection.
+ * Not all tables support column selection.
+ *
+ * Returns: #TRUE if the specified column was successfully selected, #FALSE if not.
+ **/
+SPIBoolean
+AccessibleTable_addColumnSelection (AccessibleTable *obj,
+				    long int         column)
+{
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Table_addColumnSelection (CSPI_OBJREF (obj),
+					    (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("addColumnSelection", FALSE);
+
+  return retval;
+}
+
+/**
+ * AccessibleTable_removeRowSelection:
+ * @obj: a pointer to the #AccessibleTable implementor on which to operate.
+ * @row:
+ *
+ * De-select the specified row, removing it to the current row selection.
+ * Not all tables support row selection.
+ *
+ * Returns: #TRUE if the specified row was successfully de-selected, #FALSE if not.
+ **/
+SPIBoolean
+AccessibleTable_removeRowSelection (AccessibleTable *obj,
+				    long int         row)
+{
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Table_removeRowSelection (CSPI_OBJREF (obj),
+					    (CORBA_long) row, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("removeRowSelection", FALSE);
+
+  return retval;
+}
+
+/**
+ * AccessibleTable_removeColumnSelection:
+ * @obj: a pointer to the #AccessibleTable implementor on which to operate.
+ * @column:
+ *
+ * De-select the specified column, removing it to the current column selection.
+ * Not all tables support column selection.
+ *
+ * Returns: #TRUE if the specified column was successfully de-selected, #FALSE if not.
+ **/
+SPIBoolean
+AccessibleTable_removeColumnSelection (AccessibleTable *obj,
+				       long int         column)
+{
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Table_removeColumnSelection (CSPI_OBJREF (obj),
+					       (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("removeColumnSelection", FALSE);
+
+  return retval;
+}
+
+/**
  * AccessibleTable_isSelected:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
  * @row:
