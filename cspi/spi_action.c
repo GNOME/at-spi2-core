@@ -2,33 +2,33 @@ int
 SpiAccessibleAction_ref (
                       SpiAccessibleAction *obj)
 {
-  Accessibility_SpiAction_ref (*obj, &ev);
+  Accessibility_Action_ref (*obj, &ev);
   return 0;
 }
 
 int
 SpiAccessibleAction_unref (SpiAccessibleAction *obj)
 {
-  Accessibility_SpiAction_unref (*obj, &ev);
+  Accessibility_Action_unref (*obj, &ev);
   return 0;
 }
 
 
 
 long
-SpiAccessibleAction_getNSpiActions (SpiAccessibleAction *obj)
+SpiAccessibleAction_getNActions (SpiAccessibleAction *obj)
 {
   return (long)
-    Accessibility_SpiAction__get_nSpiActions (*obj, &ev);
+    Accessibility_Action__get_nActions (*obj, &ev);
 }
 
 
 /**
  * SpiAccessibleAction_getDescription:
- * @obj: a pointer to the #SpiAccessibleAction to query.
+ * @obj: a pointer to the #AccessibleAction to query.
  *
  * Get the description of 'i-th' action invokable on an
- *      object implementing #SpiAccessibleAction.
+ *      object implementing #AccessibleAction.
  *
  * Not Yet Implemented.
  *
@@ -40,7 +40,7 @@ SpiAccessibleAction_getDescription (SpiAccessibleAction *obj,
                                  long index)
 {
   return (char *)
-    Accessibility_SpiAction_getDescription (*obj,
+    Accessibility_Action_getDescription (*obj,
 					 (CORBA_long) index,
 					 &ev);
 }
@@ -52,7 +52,7 @@ SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
 				long index)
 {
   return (char *) 
-    Accessibility_SpiAction_getKeyBinding (*obj,
+    Accessibility_Action_getKeyBinding (*obj,
        (CORBA_long) index,
        &ev);
 }
@@ -64,18 +64,18 @@ SpiAccessibleAction_getName (SpiAccessibleAction *obj,
 			  long index)
 {
   return (char *)
-				   Accessibility_SpiAction_getName (*obj,
+				   Accessibility_Action_getName (*obj,
 								 (CORBA_long) index,
 								 &ev);
 }
 
 
 boolean
-SpiAccessibleAction_doSpiAction (SpiAccessibleAction *obj,
+SpiAccessibleAction_doAction (SpiAccessibleAction *obj,
                            long index)
 {
   return (boolean)
-    Accessibility_SpiAction_doSpiAction (*obj,
+    Accessibility_Action_doAction (*obj,
 				   (CORBA_long) index,
 				   &ev);
 }

@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -61,18 +61,18 @@ impl__get_startIndex (PortableServer_Servant _servant,
 static CORBA_long
 impl__get_endIndex (PortableServer_Servant _servant,
 		    CORBA_Environment * ev);
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_getAnchor (PortableServer_Servant _servant,
 		const CORBA_long i,
 		CORBA_Environment * ev);
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_getObject (PortableServer_Servant _servant,
 		const CORBA_long i,
 		CORBA_Environment * ev);
 static CORBA_long
 impl_getNLinks (PortableServer_Servant _servant,
 		CORBA_Environment * ev);
-static Accessibility_SpiHyperlink
+static Accessibility_Hyperlink
 impl_getLink (PortableServer_Servant _servant,
 	      const CORBA_long linkIndex,
 	      CORBA_Environment * ev);
@@ -109,7 +109,7 @@ spi_hypertext_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_SpiHyperspi_text__init,
+			       POA_Accessibility_Hypertext__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiHypertextClass, epv),
 			       &tinfo,
@@ -123,7 +123,7 @@ static void
 spi_hypertext_class_init (SpiHypertextClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiHyperspi_text__epv *epv = &klass->epv;
+  POA_Accessibility_Hypertext__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = spi_hypertext_finalize;
@@ -172,14 +172,14 @@ impl_getNLinks (PortableServer_Servant _servant,
 
 
 
-static Accessibility_SpiHyperlink
+static Accessibility_Hyperlink
 impl_getLink (PortableServer_Servant _servant,
 	      const CORBA_long linkIndex,
 					  CORBA_Environment * ev)
 {
   AtkHyperlink *link;
   SpiHypertext *hypertext = SPI_HYPERTEXT(bonobo_object_from_servant(_servant));
-  Accessibility_SpiHyperlink rv;
+  Accessibility_Hyperlink rv;
   
   link = atk_hypertext_get_link (ATK_HYPERTEXT(hypertext->atko),
 				 (gint) linkIndex);

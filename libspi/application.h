@@ -46,7 +46,7 @@ typedef struct {
 
 typedef struct {
         SpiAccessibleClass parent_class;
-        POA_Accessibility_SpiApplication__epv epv;
+        POA_Accessibility_Application__epv epv;
 	GHashTable *toolkit_event_names;
 	GHashTable *generic_event_names;
 } SpiApplicationClass;

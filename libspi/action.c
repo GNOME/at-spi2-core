@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -50,14 +50,14 @@ spi_action_init (SpiAction *action);
 static void
 spi_action_finalize (GObject *obj);
 static CORBA_long
-impl__get_nSpiActions(PortableServer_Servant servant,
+impl__get_nActions(PortableServer_Servant servant,
 		 CORBA_Environment * ev);
 static CORBA_string
 impl_getDescription (PortableServer_Servant servant,
 		     const CORBA_long index,
 		     CORBA_Environment * ev);
 static CORBA_boolean 
-impl_doSpiAction (PortableServer_Servant servant,
+impl_doAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev);
 static CORBA_string
 impl_getName (PortableServer_Servant servant,
@@ -96,7 +96,7 @@ spi_action_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_SpiAction__init,
+			       POA_Accessibility_Action__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiActionClass, epv),
 			       &tinfo,
@@ -110,7 +110,7 @@ static void
 spi_action_class_init (SpiActionClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiAction__epv *epv = &klass->epv;
+  POA_Accessibility_Action__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = spi_action_finalize;
@@ -118,8 +118,8 @@ spi_action_class_init (SpiActionClass *klass)
 
   /* Initialize epv table */
 
-  epv->_get_nSpiActions = impl__get_nSpiActions;
-  epv->doSpiAction = impl_doSpiAction;
+  epv->_get_nActions = impl__get_nActions;
+  epv->doAction = impl_doAction;
   epv->getDescription = impl_getDescription;
   epv->getName = impl_getName;
   epv->getKeyBinding = impl_getKeyBinding;
@@ -150,7 +150,7 @@ spi_action_interface_new (AtkObject *obj)
 }
 
 static CORBA_long
-impl__get_nSpiActions(PortableServer_Servant servant,
+impl__get_nActions(PortableServer_Servant servant,
 	    CORBA_Environment * ev)
 {
   SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
@@ -158,7 +158,7 @@ impl__get_nSpiActions(PortableServer_Servant servant,
 }
 
 static CORBA_boolean
-impl_doSpiAction (PortableServer_Servant servant,
+impl_doAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev)
 {
   SpiAction *action = SPI_ACTION (bonobo_object_from_servant (servant));

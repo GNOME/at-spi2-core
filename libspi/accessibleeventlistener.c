@@ -47,22 +47,22 @@
 /*
  * A pointer to our parent object class
  */
-static SpiListenerClass *spi_accessible_event_spi_listener_parent_class;
+static SpiListenerClass *spi_accessible_event_listener_parent_class;
 
 /*
  * Implemented GObject::finalize
  */
 static void
-spi_accessible_event_spi_listener_object_finalize (GObject *object)
+spi_accessible_event_listener_object_finalize (GObject *object)
 {
 #ifdef SPI_DEBUG
         fprintf(stderr, "spi_listener_object_finalize called\n");
 #endif
-        ((GObjectClass *) spi_accessible_event_spi_listener_parent_class)->finalize (object);
+        ((GObjectClass *) spi_accessible_event_listener_parent_class)->finalize (object);
 }
 
 /*
- * CORBA Accessibility::SpiListener::notifyEvent method implementation
+ * CORBA Accessibility::Listener::notifyEvent method implementation
  */
 
 static void
@@ -85,30 +85,30 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
           (*cb) (e);
         }
     }
-  /* Accessibility_SpiAccessible_unref (e->source, ev); */
+  /* Accessibility_Accessible_unref (e->source, ev); */
 }
 
 static void
-spi_accessible_event_spi_listener_class_init (SpiAccessibleEventListenerClass *klass)
+spi_accessible_event_listener_class_init (SpiAccessibleEventListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         SpiListenerClass * spi_listener_class = (SpiListenerClass *) klass;
         POA_Accessibility_EventListener__epv *epv = &spi_listener_class->epv;
-        spi_accessible_event_spi_listener_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
+        spi_accessible_event_listener_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
 
-        object_class->finalize = spi_accessible_event_spi_listener_object_finalize;
+        object_class->finalize = spi_accessible_event_listener_object_finalize;
 
         epv->notifyEvent = impl_accessible_event_notify_event;
 }
 
 static void
-spi_accessible_event_spi_listener_init (SpiAccessibleEventListener *listener)
+spi_accessible_event_listener_init (SpiAccessibleEventListener *listener)
 {
         listener->callbacks = NULL;
 }
 
 GType
-spi_accessible_event_spi_listener_get_type (void)
+spi_accessible_event_listener_get_type (void)
 {
         static GType type = 0;
 
@@ -117,12 +117,12 @@ spi_accessible_event_spi_listener_get_type (void)
                         sizeof (SpiAccessibleEventListenerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_accessible_event_spi_listener_class_init,
+                        (GClassInitFunc) spi_accessible_event_listener_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
                         sizeof (SpiListener),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) spi_accessible_event_spi_listener_init,
+                        (GInstanceInitFunc) spi_accessible_event_listener_init,
                         NULL /* value table */
                 };
                 /*
@@ -144,20 +144,20 @@ spi_accessible_event_spi_listener_get_type (void)
 }
 
 SpiAccessibleEventListener *
-spi_accessible_event_spi_listener_new ()
+spi_accessible_event_listener_new ()
 {
     SpiAccessibleEventListener *retval =
-    SPI_ACCESSIBLE_EVENT_SPI_LISTENER (g_object_new (spi_accessible_event_spi_listener_get_type (), NULL));
+    SPI_ACCESSIBLE_EVENT_SPI_LISTENER (g_object_new (spi_accessible_event_listener_get_type (), NULL));
     return retval;
 }
 
-void   spi_accessible_event_spi_listener_add_callback (SpiAccessibleEventListener *listener,
+void   spi_accessible_event_listener_add_callback (SpiAccessibleEventListener *listener,
                                                VoidEventListenerCB callback)
 {
   listener->callbacks = g_list_append (listener->callbacks, callback);
 }
 
-void   spi_accessible_event_spi_listener_remove_callback (SpiAccessibleEventListener *listener,
+void   spi_accessible_event_listener_remove_callback (SpiAccessibleEventListener *listener,
                                                   VoidEventListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);

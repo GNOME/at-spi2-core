@@ -36,16 +36,16 @@ extern "C" {
 #define IS_SPI_EDITABLE_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_EDITABLE_TEXT_TYPE))
 #define IS_SPI_EDITABLE_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_EDITABLE_TEXT_TYPE))
 
-typedef struct _SpiEditableText SpiEditableText;
-typedef struct _SpiEditableTextClass SpiEditableTextClass;
+typedef struct _EditableText SpiEditableText;
+typedef struct _EditableTextClass SpiEditableTextClass;
 
-struct _SpiEditableText {
+struct _EditableText {
   SpiText parent;
 };
 
-struct _SpiEditableTextClass {
+struct _EditableTextClass {
   SpiTextClass parent_class;
-  POA_Accessibility_SpiEditableText__epv epv;
+  POA_Accessibility_EditableText__epv epv;
 };
 
 GType

@@ -52,7 +52,7 @@ typedef enum
 
 
 /* don't change the order of these ! */
-typedef enum _SpiAccessibleCoordType {
+typedef enum _AccessibleCoordType {
   COORD_TYPE_SCREEN,
   COORD_TYPE_WINDOW
 } SpiAccessibleCoordType;
@@ -69,11 +69,11 @@ typedef enum _KeySynthType {
   KEY_SYM
 } KeySynthType;
 
-typedef enum _KeySpiListenerSyncType {
+typedef enum _KeyListenerSyncType {
   KEYSPI_LISTENER_SYNCHRONOUS = 1,
   KEYSPI_LISTENER_CANCONSUME = 2,
   KEYSPI_LISTENER_ALLWINDOWS = 4
-} KeySpiListenerSyncType;
+} KeyListenerSyncType;
 
 typedef unsigned long KeyEventMask;
 
@@ -145,7 +145,7 @@ SPI_eventIsReady ();
  * Used by clients that don't wish to use SPI_event_main().
  * Not Yet Implemented.
  *
- * Returns: the next #SpiAccessibleEvent in the SPI event queue.
+ * Returns: the next #AccessibleEvent in the SPI event queue.
  *
  **/
 SpiAccessibleEvent *
@@ -167,11 +167,11 @@ SPI_exit (void);
 
 /**
  * createEventListener:
- * @callback : an #SpiAccessibleEventListenerCB callback function, or NULL.
+ * @callback : an #AccessibleEventListenerCB callback function, or NULL.
  *
- * Create a new #SpiAccessibleEventListener with a specified callback function.
+ * Create a new #AccessibleEventListener with a specified callback function.
  *
- * Returns: a pointer to a newly-created #SpiAccessibleEventListener.
+ * Returns: a pointer to a newly-created #AccessibleEventListener.
  *
  **/
 SpiAccessibleEventListener *
@@ -179,8 +179,8 @@ createEventListener (SpiAccessibleEventListenerCB callback);
 
 /**
  * EventListener_addCallback:
- * @listener: the #SpiAccessibleEventListener instance to modify.
- * @callback: an #SpiAccessibleEventListenerCB function pointer.
+ * @listener: the #AccessibleEventListener instance to modify.
+ * @callback: an #AccessibleEventListenerCB function pointer.
  *
  * Add an in-process callback function to an existing SpiAccessibleEventListener.
  *
@@ -193,8 +193,8 @@ EventListener_addCallback (SpiAccessibleEventListener *listener,
 
 /**
  * EventListener_removeCallback:
- * @listener: the #SpiAccessibleEventListener instance to modify.
- * @callback: an #SpiAccessibleEventListenerCB function pointer.
+ * @listener: the #AccessibleEventListener instance to modify.
+ * @callback: an #AccessibleEventListenerCB function pointer.
  *
  * Remove an in-process callback function from an existing SpiAccessibleEventListener.
  *
@@ -206,7 +206,7 @@ EventListener_removeCallback (SpiAccessibleEventListener *listener,
                               SpiAccessibleEventListenerCB callback);
 
 /**
- * createKeySpiListener:
+ * createKeyListener:
  * @callback : an #KeystrokeListenerCB callback function, or NULL.
  *
  * Create a new #KeystrokeListener with a specified callback function.
@@ -253,7 +253,7 @@ KeystrokeListener_removeCallback (KeystrokeListener *listener,
 
 /**
  * registerGlobalEventListener:
- * @listener: the #SpiAccessibleEventListener to be registered against an event type.
+ * @listener: the #AccessibleEventListener to be registered against an event type.
  * @callback: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail
@@ -297,7 +297,7 @@ getDesktopCount ();
  * NOTE: currently multiple virtual desktops are not implemented, this
  *       function always returns '1'.
  *
- * Returns: a pointer to the 'i-th' virtual desktop's #SpiAccessible representation.
+ * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
  *
  **/
 SpiAccessible*
@@ -305,7 +305,7 @@ getDesktop (int n);
 
 /**
  * getDesktopList:
- * @list: a pointer to an array of #SpiAccessible objects.
+ * @list: a pointer to an array of #Accessible objects.
  *
  * Get the list of virtual desktops.  On return, @list will point
  *     to a newly-created array of virtual desktop pointers.
@@ -333,7 +333,7 @@ registerKeystrokeListener (KeystrokeListener *listener,
 			   KeySet *keys,
 			   KeyMaskType modmask,
 			   KeyEventMask eventmask,
-			   KeySpiListenerSyncType sync_type);
+			   KeyListenerSyncType sync_type);
 
 /**
  * generateKeyEvent:
@@ -372,9 +372,9 @@ generateMouseEvent (long x, long y, char *name);
 
 /**
  * SpiAccessible_ref:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Increment the reference count for an #SpiAccessible object.
+ * Increment the reference count for an #Accessible object.
  *
  * Returns: (no return code implemented yet).
  *
@@ -384,9 +384,9 @@ SpiAccessible_ref (SpiAccessible *obj);
 
 /**
  * SpiAccessible_unref:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Decrement the reference count for an #SpiAccessible object.
+ * Decrement the reference count for an #Accessible object.
  *
  * Returns: (no return code implemented yet).
  *
@@ -396,11 +396,11 @@ SpiAccessible_unref (SpiAccessible *obj);
 
 /**
  * SpiAccessible_getName:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the name of an #SpiAccessible object.
+ * Get the name of an #Accessible object.
  *
- * Returns: a UTF-8 string indicating the name of the #SpiAccessible object.
+ * Returns: a UTF-8 string indicating the name of the #Accessible object.
  *
  **/
 char *
@@ -408,11 +408,11 @@ SpiAccessible_getName (SpiAccessible *obj);
 
 /**
  * SpiAccessible_getDescription:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the description of an #SpiAccessible object.
+ * Get the description of an #Accessible object.
  *
- * Returns: a UTF-8 string describing the #SpiAccessible object.
+ * Returns: a UTF-8 string describing the #Accessible object.
  *
  **/
 char *
@@ -420,12 +420,12 @@ SpiAccessible_getDescription (SpiAccessible *obj);
 
 /**
  * SpiAccessible_getParent:
- * @obj: a pointer to the #SpiAccessible object to query.
+ * @obj: a pointer to the #Accessible object to query.
  *
- * Get an #SpiAccessible object's parent container.
+ * Get an #Accessible object's parent container.
  *
- * Returns: a pointer to the #SpiAccessible object which contains the given
- *          #SpiAccessible instance, or NULL if the @obj has no parent container.
+ * Returns: a pointer to the #Accessible object which contains the given
+ *          #Accessible instance, or NULL if the @obj has no parent container.
  *
  **/
 SpiAccessible *
@@ -434,12 +434,12 @@ SpiAccessible_getParent (SpiAccessible *obj);
 /**
  * SpiAccessible_getChildCount:
  *
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the number of children contained by an #SpiAccessible object.
+ * Get the number of children contained by an #Accessible object.
  *
- * Returns: a #long indicating the number of #SpiAccessible children
- *          contained by an #SpiAccessible object.
+ * Returns: a #long indicating the number of #Accessible children
+ *          contained by an #Accessible object.
  *
  **/
 long
@@ -448,12 +448,12 @@ SpiAccessible_getChildCount (SpiAccessible *obj);
 /**
  * SpiAccessible_getChildAtIndex:
  *
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  * @childIndex: a #long indicating which child is specified.
  *
- * Get the #SpiAccessible child of an #SpiAccessible object at a given index.
+ * Get the #Accessible child of an #Accessible object at a given index.
  *
- * Returns: a pointer to the #SpiAccessible child object at index
+ * Returns: a pointer to the #Accessible child object at index
  *          @childIndex.
  *
  **/
@@ -464,12 +464,12 @@ SpiAccessible_getChildAtIndex (SpiAccessible *obj,
 /**
  * SpiAccessible_getIndexInParent:
  *
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the index of an #SpiAccessible object in its containing #SpiAccessible.
+ * Get the index of an #Accessible object in its containing #Accessible.
  *
- * Returns: a #long indicating the index of the #SpiAccessible object
- *          in its parent (i.e. containing) #SpiAccessible instance,
+ * Returns: a #long indicating the index of the #Accessible object
+ *          in its parent (i.e. containing) #Accessible instance,
  *          or -1 if @obj has no containing parent.
  *
  **/
@@ -487,11 +487,11 @@ SpiAccessible_getRelationSet (SpiAccessible *obj);
 
 /**
  * SpiAccessible_getRole:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the UI role of an #SpiAccessible object.
+ * Get the UI role of an #Accessible object.
  *
- * Returns: a UTF-8 string indicating the UI role of the #SpiAccessible object.
+ * Returns: a UTF-8 string indicating the UI role of the #Accessible object.
  *
  **/
 char *
@@ -509,107 +509,107 @@ SpiAccessible_getStateSet (SpiAccessible *obj);
 /* Interface query methods */
 
 /**
- * SpiAccessible_isSpiAction:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isAction:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleAction.
+ * Query whether the specified #Accessible implements #AccessibleAction.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleAction interface,
+ * Returns: #TRUE if @obj implements the #AccessibleAction interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiAction (SpiAccessible *obj);
+SpiAccessible_isAction (SpiAccessible *obj);
 
 /**
- * SpiAccessible_isSpiComponent:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isComponent:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleComponent.
+ * Query whether the specified #Accessible implements #AccessibleComponent.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleComponent interface,
+ * Returns: #TRUE if @obj implements the #AccessibleComponent interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiComponent (SpiAccessible *obj);
+SpiAccessible_isComponent (SpiAccessible *obj);
 
 /**
- * SpiAccessible_isSpiEditableText:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isEditableText:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleEditableText.
+ * Query whether the specified #Accessible implements #AccessibleEditableText.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleEditableText interface,
+ * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiEditableText (SpiAccessible *obj);
+SpiAccessible_isEditableText (SpiAccessible *obj);
 
 /**
- * SpiAccessible_isSpiHypertext:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isHypertext:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleHypertext.
+ * Query whether the specified #Accessible implements #AccessibleHypertext.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleHypertext interface,
+ * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiHypertext (SpiAccessible *obj);
+SpiAccessible_isHypertext (SpiAccessible *obj);
 
 /**
- * SpiAccessible_isSpiImage:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isImage:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleImage.
+ * Query whether the specified #Accessible implements #AccessibleImage.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleImage interface,
+ * Returns: #TRUE if @obj implements the #AccessibleImage interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiImage (SpiAccessible *obj);
+SpiAccessible_isImage (SpiAccessible *obj);
 
 /**
-  * SpiAccessible_isSpiSelection:
- * @obj: a pointer to the #SpiAccessible instance to query.
+  * SpiAccessible_isSelection:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleSelection.
+ * Query whether the specified #Accessible implements #AccessibleSelection.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleSelection interface,
+ * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiSelection (SpiAccessible *obj);
+SpiAccessible_isSelection (SpiAccessible *obj);
 
 /**
- * SpiAccessible_isSpiTable:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isTable:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleTable.
+ * Query whether the specified #Accessible implements #AccessibleTable.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleTable interface,
+ * Returns: #TRUE if @obj implements the #AccessibleTable interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiTable (SpiAccessible *obj);
+SpiAccessible_isTable (SpiAccessible *obj);
 
 /**
- * SpiAccessible_isSpiText:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isText:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleText.
+ * Query whether the specified #Accessible implements #AccessibleText.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleText interface,
+ * Returns: #TRUE if @obj implements the #AccessibleText interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiText (SpiAccessible *obj);
+SpiAccessible_isText (SpiAccessible *obj);
 
 /**
  * SpiAccessible_getAction:
@@ -622,12 +622,12 @@ SpiAccessible_getAction (SpiAccessible *obj);
 
 /**
  * SpiAccessible_getComponent:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Get the #SpiAccessibleComponent interface for an #SpiAccessible.
+ * Get the #AccessibleComponent interface for an #Accessible.
  *
- * Returns: a pointer to an #SpiAccessibleComponent interface instance, or
- *          NULL if @obj does not implement #SpiAccessibleComponent.
+ * Returns: a pointer to an #AccessibleComponent interface instance, or
+ *          NULL if @obj does not implement #AccessibleComponent.
  **/
 SpiAccessibleComponent *
 SpiAccessible_getComponent (SpiAccessible *obj);
@@ -688,10 +688,10 @@ SpiAccessible_getText (SpiAccessible *obj);
 
 /**
  * SpiAccessible_queryInterface:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * @obj: a pointer to the #Accessible instance to query.
  * @interface_name: a UTF-8 character string specifiying the requested interface.
  *
- * Query an #SpiAccessible object to for a named interface.
+ * Query an #Accessible object to for a named interface.
  *
  * Returns: an instance of the named interface object, if it is implemented
  *          by @obj, or NULL otherwise.
@@ -714,14 +714,14 @@ int
 SpiAccessibleAction_unref (SpiAccessibleAction *obj);
 
 long
-SpiAccessibleAction_getNSpiActions (SpiAccessibleAction *obj);
+SpiAccessibleAction_getNActions (SpiAccessibleAction *obj);
 
 /**
  * SpiAccessibleAction_getDescription:
- * @obj: a pointer to the #SpiAccessibleAction to query.
+ * @obj: a pointer to the #AccessibleAction to query.
  *
  * Get the description of 'i-th' action invokable on an
- *      object implementing #SpiAccessibleAction.
+ *      object implementing #AccessibleAction.
  *
  * Not Yet Implemented.
  *
@@ -733,7 +733,7 @@ SpiAccessibleAction_getDescription (SpiAccessibleAction *obj,
                                  long index);
 
 boolean
-SpiAccessibleAction_doSpiAction (SpiAccessibleAction *obj,
+SpiAccessibleAction_doAction (SpiAccessibleAction *obj,
                            long index);
 
 char *
@@ -748,9 +748,9 @@ SpiAccessibleAction_getKeyBinding (SpiAccessibleAction *obj,
 
 /**
  * SpiAccessibleApplication_unref:
- * @obj: a pointer to the #SpiAccessibleApplication on which to operate.
+ * @obj: a pointer to the #AccessibleApplication on which to operate.
  *
- * Decrement the reference count for an #SpiAccessibleApplication.
+ * Decrement the reference count for an #AccessibleApplication.
  *
  * Returns: (no return code implemented yet).
  *
@@ -760,9 +760,9 @@ SpiAccessibleApplication_ref (SpiAccessibleApplication *obj);
 
 /**
  * SpiAccessibleApplication_unref:
- * @obj: a pointer to the #SpiAccessibleApplication object on which to operate.
+ * @obj: a pointer to the #AccessibleApplication object on which to operate.
  *
- * Decrement the reference count for an #SpiAccessibleApplication.
+ * Decrement the reference count for an #AccessibleApplication.
  *
  * Returns: (no return code implemented yet).
  *
@@ -772,9 +772,9 @@ SpiAccessibleApplication_unref (SpiAccessibleApplication *obj);
 
 /**
  * SpiAccessibleApplication_getToolkitName:
- * @obj: a pointer to the #SpiAccessibleApplication to query.
+ * @obj: a pointer to the #AccessibleApplication to query.
  *
- * Get the name of the UI toolkit used by an #SpiAccessibleApplication.
+ * Get the name of the UI toolkit used by an #AccessibleApplication.
  *
  * Returns: a UTF-8 string indicating which UI toolkit is
  *          used by an application.
@@ -785,10 +785,10 @@ SpiAccessibleApplication_getToolkitName (SpiAccessibleApplication *obj);
 
 /**
  * SpiAccessibleApplication_getVersion:
- * @obj: a pointer to the #SpiAccessibleApplication being queried.
+ * @obj: a pointer to the #AccessibleApplication being queried.
  *
  * Get the version of the at-spi bridge exported by an
- *      #SpiAccessibleApplication instance.
+ *      #AccessibleApplication instance.
  *
  * Returns: a UTF-8 string indicating the application's
  *          at-spi version.
@@ -799,10 +799,10 @@ SpiAccessibleApplication_getVersion (SpiAccessibleApplication *obj);
 
 /**
  * SpiAccessibleApplication_getID:
- * @obj: a pointer to the #SpiAccessibleApplication being queried.
+ * @obj: a pointer to the #AccessibleApplication being queried.
  *
  * Get the unique ID assigned by the SpiRegistry to an
- *      #SpiAccessibleApplication instance.
+ *      #AccessibleApplication instance.
  * (Not Yet Implemented by the registry).
  *
  * Returns: a unique #long integer associated with the application
@@ -827,7 +827,7 @@ SpiAccessibleApplication_pause (SpiAccessibleApplication *obj);
 /**
  * SpiAccessibleApplication_pause:
  *
- * Attempt to resume the application (used after #SpiAccessibleApplication_pause).
+ * Attempt to resume the application (used after #AccessibleApplication_pause).
  * Not Yet Implemented.
  *
  * Returns: #TRUE if application processing resumed successfully, #FALSE otherwise.
@@ -862,7 +862,7 @@ SpiAccessibleComponent_getAccessibleAtPoint (SpiAccessibleComponent *obj,
 
 /**
  * SpiAccessibleComponent_getExtents:
- * @obj: a pointer to the #SpiAccessibleComponent to query.
+ * @obj: a pointer to the #AccessibleComponent to query.
  * @x: a pointer to a #long into which the minimum x coordinate will be returned.
  * @y: a pointer to a #long into which the minimum y coordinate will be returned.
  * @width: a pointer to a #long into which the x extents (width) will be returned.
@@ -870,7 +870,7 @@ SpiAccessibleComponent_getAccessibleAtPoint (SpiAccessibleComponent *obj,
  * @ctype: the desired coordinate system into which to return the results,
  *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
  *
- * Get the bounding box of the specified #SpiAccessibleComponent.
+ * Get the bounding box of the specified #AccessibleComponent.
  *
  **/
 void
@@ -923,7 +923,7 @@ SpiAccessibleEditableText_insertText (SpiAccessibleEditableText *obj,
                                    long length);
 
 void
-SpiAccessibleEditableText_copySpiText (SpiAccessibleText *obj,
+SpiAccessibleEditableText_copyText (SpiAccessibleText *obj,
                                  long startPos,
                                  long endPos);
 
@@ -979,20 +979,20 @@ SpiAccessibleHyperlink_isValid (SpiAccessibleHyperlink *obj);
  */
 
 int
-SpiAccessibleHyperspi_text_ref (SpiAccessibleHypertext *obj);
+SpiAccessibleHypertext_ref (SpiAccessibleHypertext *obj);
 
 int
-SpiAccessibleHyperspi_text_unref (SpiAccessibleHypertext *obj);
+SpiAccessibleHypertext_unref (SpiAccessibleHypertext *obj);
 
 long
-SpiAccessibleHyperspi_text_getNLinks (SpiAccessibleHypertext *obj);
+SpiAccessibleHypertext_getNLinks (SpiAccessibleHypertext *obj);
 
 SpiAccessibleHyperlink *
-SpiAccessibleHyperSpiText_getLink (SpiAccessibleHypertext *obj,
+SpiAccessibleHyperText_getLink (SpiAccessibleHypertext *obj,
                              long linkIndex);
 
 long
-SpiAccessibleHyperspi_text_getLinkIndex (SpiAccessibleHypertext *obj,
+SpiAccessibleHypertext_getLinkIndex (SpiAccessibleHypertext *obj,
                                   long characterIndex);
 
 /*
@@ -1076,7 +1076,7 @@ void
 SpiAccessibleSelection_selectAll (SpiAccessibleSelection *obj);
 
 void
-SpiAccessibleSelection_clearSpiSelection (SpiAccessibleSelection *obj);
+SpiAccessibleSelection_clearSelection (SpiAccessibleSelection *obj);
 
 
 /*
@@ -1280,7 +1280,7 @@ SpiAccessibleText_getOffsetAtPoint (SpiAccessibleText *obj,
                                  long y, SpiAccessibleCoordType type);
 
 long
-SpiAccessibleText_getNSpiSelections (SpiAccessibleText *obj);
+SpiAccessibleText_getNSelections (SpiAccessibleText *obj);
 
 void
 SpiAccessibleText_getSelection (SpiAccessibleText *obj,
@@ -1289,7 +1289,7 @@ SpiAccessibleText_getSelection (SpiAccessibleText *obj,
 
 
 boolean
-SpiAccessibleText_addSpiSelection (SpiAccessibleText *obj,
+SpiAccessibleText_addSelection (SpiAccessibleText *obj,
 			     long startOffset, long endOffset);
 
 boolean
@@ -1309,17 +1309,17 @@ SpiAccessibleText_setSelection (SpiAccessibleText *obj,
  */
 
 float
-SpiAccessibleValue_getMinimumSpiValue (SpiAccessibleValue *value);
+SpiAccessibleValue_getMinimumValue (SpiAccessibleValue *value);
 
 float
 SpiAccessibleValue_getCurrentValue (SpiAccessibleValue *value);
 
 float
-SpiAccessibleValue_getMaximumSpiValue (SpiAccessibleValue *value);
+SpiAccessibleValue_getMaximumValue (SpiAccessibleValue *value);
 
 boolean
 SpiAccessibleValue_setCurrentValue (SpiAccessibleValue *value,
-                                 float newSpiValue);
+                                 float newValue);
 
 void
 spi_freeString (char *s);

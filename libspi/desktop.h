@@ -46,7 +46,7 @@ typedef struct {
 
 typedef struct {
         SpiAccessibleClass parent_class;
-        POA_Accessibility_SpiDesktop__epv epv;
+        POA_Accessibility_Desktop__epv epv;
 } SpiDesktopClass;
 
 GType               spi_desktop_get_type           (void);

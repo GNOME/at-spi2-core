@@ -40,7 +40,7 @@ main(int argc, char **argv)
         char *obj_id;
         char sbuf[APP_STATIC_BUFF_SZ];
 
-        Accessibility_SpiRegistry registry;
+        Accessibility_Registry registry;
         Accessibility_Event e;
         SpiAccessible *accessible;
         SpiApplication *app;
@@ -67,7 +67,7 @@ main(int argc, char **argv)
         e.source = bonobo_object_corba_objref ( bonobo_object (accessible));
         e.type = CORBA_string_dup ("focus:");
 
-        obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
+        obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
         oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {
@@ -83,14 +83,14 @@ main(int argc, char **argv)
             g_error ("Could not locate registry");
           }
 
-        registry = (Accessibility_SpiRegistry) oclient;
+        registry = (Accessibility_Registry) oclient;
 
-        Accessibility_SpiRegistry_registerSpiApplication (registry,
+        Accessibility_Registry_registerApplication (registry,
                                                     bonobo_object_corba_objref (bonobo_object (app)),
                                                     &ev);
-        fprintf(stderr, "registerSpiApplication has been called.\n");
+        fprintf(stderr, "registerApplication has been called.\n");
 
-        Accessibility_SpiRegistry_notifyEvent (registry, &e, &ev);
+        Accessibility_Registry_notifyEvent (registry, &e, &ev);
         fprintf (stderr, "notify event has been called.\n");
 
         bonobo_main (); /* needed when app becomes a server ? */

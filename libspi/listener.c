@@ -63,7 +63,7 @@ spi_listener_object_finalize (GObject *object)
 }
 
 /*
- * CORBA Accessibility::SpiListener::notifyEvent method implementation
+ * CORBA Accessibility::Listener::notifyEvent method implementation
  */
 
 static void
@@ -74,7 +74,7 @@ impl_notify_event (PortableServer_Servant     servant,
 #ifdef SPI_DEBUG
   fprintf (stderr, "notify %s...\n", e->type);
   fprintf (stderr, "source name: '%s'\n",
-           Accessibility_SpiAccessible__get_name(e->source, ev));
+           Accessibility_Accessible__get_name(e->source, ev));
   if (ev->_major != CORBA_NO_EXCEPTION) {
     fprintf(stderr,
             ("Accessibility app error: exception during event notification: %s\n"),
@@ -83,13 +83,13 @@ impl_notify_event (PortableServer_Servant     servant,
   }
   /*
   fprintf (stderr, "source is component ? : %s\n",
-           Accessibility_SpiAccessible_queryInterface (e->source,
-                                                    "IDL:Accessibility/SpiComponent:1.0",
+           Accessibility_Accessible_queryInterface (e->source,
+                                                    "IDL:Accessibility/Component:1.0",
                                                     ev)
            ? "yes" : "no");
   */
 #endif
-  Accessibility_SpiAccessible_unref (e->source, ev);
+  Accessibility_Accessible_unref (e->source, ev);
 }
 
 static void

@@ -35,17 +35,17 @@ extern "C" {
 #define IS_SPI_HYPERTEXT(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERTEXT_TYPE))
 #define IS_HYPESPI_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERTEXT_TYPE))
 
-typedef struct _SpiHypertext SpiHypertext;
-typedef struct _SpiHypertextClass SpiHypertextClass;
+typedef struct _Hypertext SpiHypertext;
+typedef struct _HypertextClass SpiHypertextClass;
 
-struct _SpiHypertext {
+struct _Hypertext {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiHypertextClass {
+struct _HypertextClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiHyperspi_text__epv epv;
+  POA_Accessibility_Hypertext__epv epv;
 };
 
 GType

@@ -35,17 +35,17 @@ extern "C" {
 #define IS_SPI_IMAGE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_IMAGE_TYPE))
 #define IS_SPI_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_IMAGE_TYPE))
 
-typedef struct _SpiImage SpiImage;
-typedef struct _SpiImageClass SpiImageClass;
+typedef struct _Image SpiImage;
+typedef struct _ImageClass SpiImageClass;
 
-struct _SpiImage {
+struct _Image {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiImageClass {
+struct _ImageClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiImage__epv epv;
+  POA_Accessibility_Image__epv epv;
 };
 
 GType

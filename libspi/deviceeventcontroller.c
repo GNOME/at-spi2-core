@@ -346,7 +346,7 @@ spi_device_event_controller_object_finalize (GObject *object)
 }
 
 /*
- * CORBA Accessibility::SpiDeviceEventController::registerKeystrokeListener
+ * CORBA Accessibility::DeviceEventController::registerKeystrokeListener
  *     method implementation
  */
 static void
@@ -371,7 +371,7 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 	; /* register with toolkit instead */	
 }
 /*
- * CORBA Accessibility::SpiDeviceEventController::deregisterKeystrokeListener
+ * CORBA Accessibility::DeviceEventController::deregisterKeystrokeListener
  *     method implementation
  */
 static void
@@ -393,7 +393,7 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 }
 
 /*
- * CORBA Accessibility::SpiDeviceEventController::registerMouseListener
+ * CORBA Accessibility::DeviceEventController::registerMouseListener
  *     method implementation
  */
 /*
@@ -418,7 +418,7 @@ keycode_for_keysym (long keysym)
 }
 
 /*
- * CORBA Accessibility::SpiDeviceEventController::registerKeystrokeListener
+ * CORBA Accessibility::DeviceEventController::registerKeystrokeListener
  *     method implementation
  */
 static void
@@ -459,7 +459,7 @@ impl_generate_key_event (PortableServer_Servant     servant,
 }
 
 /*
- * CORBA Accessibility::SpiDeviceEventController::generateMouseEvent
+ * CORBA Accessibility::DeviceEventController::generateMouseEvent
  *     method implementation
  */
 static void
@@ -478,7 +478,7 @@ static void
 spi_device_event_controller_class_init (SpiDeviceEventControllerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_SpiDeviceEventController__epv *epv = &klass->epv;
+        POA_Accessibility_DeviceEventController__epv *epv = &klass->epv;
         spi_device_event_controller_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
 
         object_class->finalize = spi_device_event_controller_object_finalize;
@@ -533,7 +533,7 @@ spi_device_event_controller_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_SpiDeviceEventController__init,
+                        POA_Accessibility_DeviceEventController__init,
                         NULL,
                         G_STRUCT_OFFSET (SpiDeviceEventControllerClass, epv),
                         &tinfo,

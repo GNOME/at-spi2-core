@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -91,7 +91,7 @@ spi_image_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_SpiImage__init,
+			       POA_Accessibility_Image__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiImageClass, epv),
 			       &tinfo,
@@ -105,7 +105,7 @@ static void
 spi_image_class_init (SpiImageClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiImage__epv *epv = &klass->epv;
+  POA_Accessibility_Image__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = spi_image_finalize;

@@ -35,17 +35,17 @@ extern "C" {
 #define IS_TABLE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_TABLE_TYPE))
 #define IS_TABLE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_TABLE_TYPE))
 
-typedef struct _SpiTable SpiTable;
-typedef struct _SpiTableClass SpiTableClass;
+typedef struct _Table SpiTable;
+typedef struct _TableClass SpiTableClass;
 
-struct _SpiTable {
+struct _Table {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiTableClass {
+struct _TableClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiTable__epv epv;
+  POA_Accessibility_Table__epv epv;
 };
 
 GType

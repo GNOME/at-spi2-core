@@ -29,7 +29,7 @@ extern "C" {
 
 #include "listener.h"
 
-#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE        (spi_accessible_event_spi_listener_get_type ())
+#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE        (spi_accessible_event_listener_get_type ())
 #define SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiAccessibleEventListener))
 #define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiAccessibleEventListenerClass))
 #define IS_SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE))
@@ -46,11 +46,11 @@ typedef struct {
   SpiListenerClass parent_class;
 } SpiAccessibleEventListenerClass;
 
-GType                    spi_accessible_event_spi_listener_get_type     (void);
-SpiAccessibleEventListener  *spi_accessible_event_spi_listener_new         (void);
-void   spi_accessible_event_spi_listener_add_callback (SpiAccessibleEventListener *listener,
+GType                    spi_accessible_event_listener_get_type     (void);
+SpiAccessibleEventListener  *spi_accessible_event_listener_new         (void);
+void   spi_accessible_event_listener_add_callback (SpiAccessibleEventListener *listener,
                                                VoidEventListenerCB callback);
-void   spi_accessible_event_spi_listener_remove_callback (SpiAccessibleEventListener *listener,
+void   spi_accessible_event_listener_remove_callback (SpiAccessibleEventListener *listener,
                                                   VoidEventListenerCB callback);
 
 #ifdef __cplusplus

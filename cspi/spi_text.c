@@ -1,7 +1,7 @@
 int
 SpiAccessibleText_ref (SpiAccessibleText *obj)
 {
-  Accessibility_SpiText_ref (*obj, &ev);
+  Accessibility_Text_ref (*obj, &ev);
   return 0;
 }
 
@@ -10,7 +10,7 @@ SpiAccessibleText_ref (SpiAccessibleText *obj)
 int
 SpiAccessibleText_unref (SpiAccessibleText *obj)
 {
-  Accessibility_SpiText_unref (*obj, &ev);
+  Accessibility_Text_unref (*obj, &ev);
   return 0;
 }
 
@@ -23,7 +23,7 @@ SpiAccessibleText_getCharacterCount (SpiAccessibleText *obj)
 
   CORBA_exception_init (&ev);
   retval = (long)
-    Accessibility_SpiText__get_characterCount (*obj, &ev);
+    Accessibility_Text__get_characterCount (*obj, &ev);
 
   spi_check_ev (&ev, "SpiAccessibleText_getCharacterCount");
 
@@ -38,7 +38,7 @@ SpiAccessibleText_getText (SpiAccessibleText *obj,
                         long endOffset)
 {
   return (char *)
-    Accessibility_SpiText_getText (*obj,
+    Accessibility_Text_getText (*obj,
 				(CORBA_long) startOffset, (CORBA_long) endOffset, &ev);
 }
 
@@ -49,7 +49,7 @@ long
 SpiAccessibleText_getCaretOffset (SpiAccessibleText *obj)
 {
   return (long)
-    Accessibility_SpiText__get_caretOffset (*obj, &ev);
+    Accessibility_Text__get_caretOffset (*obj, &ev);
 }
 
 
@@ -63,7 +63,7 @@ SpiAccessibleText_getAttributes (SpiAccessibleText *obj,
   CORBA_long retStartOffset, retEndOffset;
   char *retval;	
   retval = (char *)
-    Accessibility_SpiText_getAttributes (*obj,
+    Accessibility_Text_getAttributes (*obj,
 				      (CORBA_long) offset,
 				      &retStartOffset,
 				      &retEndOffset,
@@ -80,7 +80,7 @@ SpiAccessibleText_setCaretOffset (SpiAccessibleText *obj,
                                long newOffset)
 {
   return (boolean)
-    Accessibility_SpiText_setCaretOffset (*obj,
+    Accessibility_Text_setCaretOffset (*obj,
 				       (CORBA_long) newOffset, &ev);
 }
 
@@ -95,7 +95,7 @@ SpiAccessibleText_getTextBeforeOffset (SpiAccessibleText *obj,
   char *retval;
   CORBA_long retStartOffset, retEndOffset;
   retval = (char *)
-    Accessibility_SpiText_getTextBeforeOffset (*obj,
+    Accessibility_Text_getTextBeforeOffset (*obj,
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
 					   &ev);
@@ -115,7 +115,7 @@ SpiAccessibleText_getTextAtOffset (SpiAccessibleText *obj,
   CORBA_long corbaStartOffset;
   CORBA_long corbaEndOffset;
   char *retval = "";
-  retval = Accessibility_SpiText_getTextAtOffset (*obj,
+  retval = Accessibility_Text_getTextAtOffset (*obj,
 					       (CORBA_long) offset,
 					       (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					       &corbaStartOffset,
@@ -140,7 +140,7 @@ SpiAccessibleText_getTextAfterOffset (SpiAccessibleText *obj,
   char *retval;
   CORBA_long retStartOffset, retEndOffset;
   retval = (char *)
-    Accessibility_SpiText_getTextAfterOffset (*obj,
+    Accessibility_Text_getTextAfterOffset (*obj,
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
 					   &ev);
@@ -156,7 +156,7 @@ SpiAccessibleText_getCharacterAtOffset (SpiAccessibleText *obj,
                                      long offset)
 {
   return (unsigned long)
-    Accessibility_SpiText_getCharacterAtOffset (*obj,
+    Accessibility_Text_getCharacterAtOffset (*obj,
 					     (CORBA_long) offset, &ev);
 }
 
@@ -172,7 +172,7 @@ SpiAccessibleText_getCharacterExtents (SpiAccessibleText *obj,
 				    SpiAccessibleCoordType type)
 {
   CORBA_long retX, retY, retWidth, retHeight;
-  Accessibility_SpiText_getCharacterExtents (*obj,
+  Accessibility_Text_getCharacterExtents (*obj,
 					  (CORBA_long) offset,
 					  &retX,
 					  &retY,
@@ -194,17 +194,17 @@ SpiAccessibleText_getOffsetAtPoint (SpiAccessibleText *obj,
 				 SpiAccessibleCoordType type)
 {
   return (long)
-    Accessibility_SpiText_getOffsetAtPoint (*obj,
+    Accessibility_Text_getOffsetAtPoint (*obj,
 					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, &ev);
 }
 
 
 
 long
-SpiAccessibleText_getNSpiSelections (SpiAccessibleText *obj)
+SpiAccessibleText_getNSelections (SpiAccessibleText *obj)
 {
   return (long)
-    Accessibility_SpiText_getNSpiSelections (*obj, &ev);
+    Accessibility_Text_getNSelections (*obj, &ev);
 }
 
 
@@ -215,7 +215,7 @@ SpiAccessibleText_getSelection (SpiAccessibleText *obj,
 			     long *endOffset)
 {
   CORBA_long retStartOffset, retEndOffset;
-  Accessibility_SpiText_getSelection (*obj,
+  Accessibility_Text_getSelection (*obj,
 				   (CORBA_long) selectionNum,
 				   &retStartOffset, &retEndOffset, &ev);
   
@@ -226,11 +226,11 @@ SpiAccessibleText_getSelection (SpiAccessibleText *obj,
 
 
 boolean
-SpiAccessibleText_addSpiSelection (SpiAccessibleText *obj,
+SpiAccessibleText_addSelection (SpiAccessibleText *obj,
 			     long startOffset, long endOffset)
 {
   return (boolean)
-    Accessibility_SpiText_addSpiSelection (*obj,
+    Accessibility_Text_addSelection (*obj,
 				     (CORBA_long) startOffset, (CORBA_long) endOffset,
 				     &ev);
 }
@@ -242,7 +242,7 @@ SpiAccessibleText_removeSelection (SpiAccessibleText *obj,
 				long selectionNum)
 {
   return (boolean)
-    Accessibility_SpiText_removeSelection (*obj,
+    Accessibility_Text_removeSelection (*obj,
 					(CORBA_long) selectionNum, &ev);
 }
 
@@ -255,7 +255,7 @@ SpiAccessibleText_setSelection (SpiAccessibleText *obj,
 			     long endOffset)
 {
   return (boolean)
-    Accessibility_SpiText_setSelection (*obj,
+    Accessibility_Text_setSelection (*obj,
 				     (CORBA_long) selectionNum,
 				     (CORBA_long) startOffset,
 				     (CORBA_long) endOffset, &ev);

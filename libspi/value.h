@@ -35,17 +35,17 @@ extern "C" {
 #define IS_SPI_VALUE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_VALUE_TYPE))
 #define IS_SPI_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_VALUE_TYPE))
 
-typedef struct _SpiValue SpiValue;
-typedef struct _SpiValueClass SpiValueClass;
+typedef struct _Value SpiValue;
+typedef struct _ValueClass SpiValueClass;
 
-struct _SpiValue {
+struct _Value {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiValueClass {
+struct _ValueClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiValue__epv epv;
+  POA_Accessibility_Value__epv epv;
 };
 
 GType

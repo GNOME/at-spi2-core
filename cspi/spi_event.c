@@ -1,28 +1,28 @@
 
 /**
  * createEventListener:
- * @callback : an #SpiAccessibleEventListenerCB callback function, or NULL.
+ * @callback : an #AccessibleEventListenerCB callback function, or NULL.
  *
- * Create a new #SpiAccessibleEventListener with a specified callback function.
+ * Create a new #AccessibleEventListener with a specified callback function.
  *
- * Returns: a pointer to a newly-created #SpiAccessibleEventListener.
+ * Returns: a pointer to a newly-created #AccessibleEventListener.
  *
  **/
 SpiAccessibleEventListener *
 createEventListener (SpiAccessibleEventListenerCB callback)
 {
-  SpiAccessibleEventListener *listener = spi_accessible_event_spi_listener_new ();
+  SpiAccessibleEventListener *listener = spi_accessible_event_listener_new ();
   if (callback)
     {
-      spi_accessible_event_spi_listener_add_callback (listener, callback);
+      spi_accessible_event_listener_add_callback (listener, callback);
     }
   return listener;
 }
 
 /**
  * EventListener_addCallback:
- * @listener: the #SpiAccessibleEventListener instance to modify.
- * @callback: an #SpiAccessibleEventListenerCB function pointer.
+ * @listener: the #AccessibleEventListener instance to modify.
+ * @callback: an #AccessibleEventListenerCB function pointer.
  *
  * Add an in-process callback function to an existing SpiAccessibleEventListener.
  *
@@ -33,14 +33,14 @@ boolean
 EventListener_addCallback (SpiAccessibleEventListener *listener,
                            SpiAccessibleEventListenerCB callback)
 {
-  spi_accessible_event_spi_listener_add_callback (listener, callback);
+  spi_accessible_event_listener_add_callback (listener, callback);
   return TRUE;
 }
 
 /**
  * EventListener_removeCallback:
- * @listener: the #SpiAccessibleEventListener instance to modify.
- * @callback: an #SpiAccessibleEventListenerCB function pointer.
+ * @listener: the #AccessibleEventListener instance to modify.
+ * @callback: an #AccessibleEventListenerCB function pointer.
  *
  * Remove an in-process callback function from an existing SpiAccessibleEventListener.
  *
@@ -51,7 +51,7 @@ boolean
 EventListener_removeCallback (SpiAccessibleEventListener *listener,
                            SpiAccessibleEventListenerCB callback)
 {
-  spi_accessible_event_spi_listener_remove_callback (listener, callback);
+  spi_accessible_event_listener_remove_callback (listener, callback);
   return TRUE;
 }
 
@@ -67,10 +67,10 @@ EventListener_removeCallback (SpiAccessibleEventListener *listener,
 KeystrokeListener *
 createKeystrokeListener (KeystrokeListenerCB callback)
 {
-  KeystrokeListener *listener = keystroke_spi_listener_new ();
+  KeystrokeListener *listener = keystroke_listener_new ();
   if (callback)
     {
-      keystroke_spi_listener_add_callback (listener, callback);
+      keystroke_listener_add_callback (listener, callback);
     }
   return listener;
 }
@@ -89,7 +89,7 @@ boolean
 KeystrokeListener_addCallback (KeystrokeListener *listener,
                            KeystrokeListenerCB callback)
 {
-  keystroke_spi_listener_add_callback (listener, callback);
+  keystroke_listener_add_callback (listener, callback);
   return TRUE;
 }
 
@@ -107,7 +107,7 @@ boolean
 KeystrokeListener_removeCallback (KeystrokeListener *listener,
 				  KeystrokeListenerCB callback)
 {
-  keystroke_spi_listener_remove_callback (listener, callback);
+  keystroke_listener_remove_callback (listener, callback);
   return TRUE;
 }
 

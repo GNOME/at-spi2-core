@@ -35,17 +35,17 @@ extern "C" {
 #define IS_SPI_SELECTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_SELECTION_TYPE))
 #define IS_SPI_SELECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_SELECTION_TYPE))
 
-typedef struct _SpiSelection SpiSelection;
-typedef struct _SpiSelectionClass SpiSelectionClass;
+typedef struct _Selection SpiSelection;
+typedef struct _SelectionClass SpiSelectionClass;
 
-struct _SpiSelection {
+struct _Selection {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiSelectionClass {
+struct _SelectionClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiSelection__epv epv;
+  POA_Accessibility_Selection__epv epv;
 };
 
 GType

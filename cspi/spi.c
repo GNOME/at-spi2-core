@@ -3,7 +3,7 @@
 #include "spi.h"
 
 static CORBA_Environment ev;
-static AccessibilitySpiRegistry registry;
+static AccessibilityRegistry registry;
 
 static SpiAccessible *
 Obj_Add (SpiAccessible object)

@@ -128,7 +128,7 @@ report_focussed_accessible (SpiAccessible *obj, boolean shutup_previous_speech)
 		     shutup_previous_speech || festival_chatty);
     }
   
-  if (SpiAccessible_isSpiComponent (obj))
+  if (SpiAccessible_isComponent (obj))
     {
       long x, y, width, height;
       SpiAccessibleComponent *component = SpiAccessible_getComponent (obj);
@@ -141,13 +141,13 @@ report_focussed_accessible (SpiAccessible *obj, boolean shutup_previous_speech)
       }
     }
   /* if this is a text object, speak the first sentence. */
-  if (SpiAccessible_isSpiText(obj))
+  if (SpiAccessible_isText(obj))
   {
      SpiAccessibleText *spi_text_interface;
      long start_offset, end_offset;
      char *first_sentence = "empty";
      spi_text_interface = SpiAccessible_getText (obj);
-     fprintf (stderr, "isSpiText...%p %p\n", spi_text_interface, (void *)*spi_text_interface);
+     fprintf (stderr, "isText...%p %p\n", spi_text_interface, (void *)*spi_text_interface);
      first_sentence = SpiAccessibleText_getTextAtOffset (
 	       spi_text_interface, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
      if (first_sentence) _festival_say(first_sentence, "voice_don_diphone", FALSE);
@@ -282,7 +282,7 @@ static void _festival_say (const char *text, const char *voice, boolean shutup)
   
   quoted = g_malloc(64+strlen(text)*2);
 
-  sprintf (prefix, "(SaySpiText \"");
+  sprintf (prefix, "(SayText \"");
 
   strncpy(quoted, prefix, 10);
   p = quoted+strlen(prefix);

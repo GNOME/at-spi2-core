@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -76,7 +76,7 @@ spi_accessible_object_finalize (GObject *object)
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::get_name method implementation
+ * CORBA Accessibility::Accessible::get_name method implementation
  */
 static CORBA_char *
 impl_accessibility_accessible_get_name (PortableServer_Servant servant,
@@ -94,7 +94,7 @@ impl_accessibility_accessible_get_name (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::set_name method implementation
+ * CORBA Accessibility::Accessible::set_name method implementation
  */
 static void
 impl_accessibility_accessible_set_name (PortableServer_Servant servant,
@@ -107,7 +107,7 @@ impl_accessibility_accessible_set_name (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::get_description method implementation
+ * CORBA Accessibility::Accessible::get_description method implementation
  */
 static CORBA_char *
 impl_accessibility_accessible_get_description (PortableServer_Servant servant,
@@ -121,7 +121,7 @@ impl_accessibility_accessible_get_description (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::set_description method implementation
+ * CORBA Accessibility::Accessible::set_description method implementation
  */
 static void
 impl_accessibility_accessible_set_description (PortableServer_Servant servant,
@@ -134,13 +134,13 @@ impl_accessibility_accessible_set_description (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::get_parent method implementation
+ * CORBA Accessibility::Accessible::get_parent method implementation
  */
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
                                           CORBA_Environment     *ev)
 {
-  Accessibility_SpiAccessible retval;
+  Accessibility_Accessible retval;
   SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
   AtkObject *parent;
   parent = atk_object_get_parent (accessible->atko);
@@ -150,7 +150,7 @@ impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::get_IndexInParent method implementation
+ * CORBA Accessibility::Accessible::get_IndexInParent method implementation
  */
 static CORBA_long
 impl_accessibility_accessible_get_index_in_parent (PortableServer_Servant servant,
@@ -164,7 +164,7 @@ impl_accessibility_accessible_get_index_in_parent (PortableServer_Servant servan
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::get_childCount method implementation
+ * CORBA Accessibility::Accessible::get_childCount method implementation
  */
 static CORBA_long
 impl_accessibility_accessible_get_child_count (PortableServer_Servant servant,
@@ -178,14 +178,14 @@ impl_accessibility_accessible_get_child_count (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::getChildAtIndex method implementation
+ * CORBA Accessibility::Accessible::getChildAtIndex method implementation
  */
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant,
                                                   const CORBA_long      index,
                                                   CORBA_Environment     *ev)
 {
-  Accessibility_SpiAccessible retval;
+  Accessibility_Accessible retval;
   SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
   AtkObject *child = atk_object_ref_accessible_child (accessible->atko, (gint) index);
   retval = BONOBO_OBJREF (spi_accessible_new (child));
@@ -194,7 +194,7 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::getState method implementation
+ * CORBA Accessibility::Accessible::getState method implementation
  */
 static Accessibility_StateSet
 impl_accessibility_accessible_get_state (PortableServer_Servant servant,
@@ -210,7 +210,7 @@ impl_accessibility_accessible_get_state (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::getRelationSet method implementation
+ * CORBA Accessibility::Accessible::getRelationSet method implementation
  */
 static Accessibility_RelationSet *
 impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
@@ -229,7 +229,7 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiAccessible::getRole method implementation
+ * CORBA Accessibility::Accessible::getRole method implementation
  */
 static Accessibility_Role
 impl_accessibility_accessible_get_role (PortableServer_Servant servant,
@@ -247,7 +247,7 @@ static void
 spi_accessible_class_init (SpiAccessibleClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_SpiAccessible__epv *epv = &klass->epv;
+        POA_Accessibility_Accessible__epv *epv = &klass->epv;
         spi_accessible_parent_class = g_type_class_peek_parent (klass);
 
         object_class->finalize = spi_accessible_object_finalize;
@@ -297,7 +297,7 @@ spi_accessible_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_SpiAccessible__init,
+                        POA_Accessibility_Accessible__init,
                         NULL,
                         G_STRUCT_OFFSET (SpiAccessibleClass, epv),
                         &tinfo,

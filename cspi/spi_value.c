@@ -1,7 +1,7 @@
 int
 SpiAccessibleValue_ref (SpiAccessibleValue *obj)
      {
-       Accessibility_SpiValue_ref (*obj, &ev);
+       Accessibility_Value_ref (*obj, &ev);
        return 0;
      }
 
@@ -10,17 +10,17 @@ SpiAccessibleValue_ref (SpiAccessibleValue *obj)
 int
 SpiAccessibleValue_unref (SpiAccessibleValue *obj)
      {
-       Accessibility_SpiValue_unref (*obj, &ev);
+       Accessibility_Value_unref (*obj, &ev);
        return 0;
      }
 
 
 
 float
-SpiAccessibleValue_getMinimumSpiValue (SpiAccessibleValue *obj)
+SpiAccessibleValue_getMinimumValue (SpiAccessibleValue *obj)
 {
   return (float)
-    Accessibility_SpiValue__get_minimumSpiValue (*obj, &ev);
+    Accessibility_Value__get_minimumValue (*obj, &ev);
 }
 
 
@@ -29,26 +29,26 @@ float
 SpiAccessibleValue_getCurrentValue (SpiAccessibleValue *obj)
 {
   return (float)
-    Accessibility_SpiValue__get_currentValue (*obj, &ev);
+    Accessibility_Value__get_currentValue (*obj, &ev);
 }
 
 
 
 float
-SpiAccessibleValue_getMaximumSpiValue (SpiAccessibleValue *obj)
+SpiAccessibleValue_getMaximumValue (SpiAccessibleValue *obj)
 {
   return (float)
-    Accessibility_SpiValue__get_maximumSpiValue (*obj, &ev);
+    Accessibility_Value__get_maximumValue (*obj, &ev);
 }
 
 
 
 boolean
 SpiAccessibleValue_setCurrentValue (SpiAccessibleValue *obj,
-                                 float newSpiValue)
+                                 float newValue)
 {
-  Accessibility_SpiValue__set_currentValue (*obj,
-					 (CORBA_float) newSpiValue, &ev);
+  Accessibility_Value__set_currentValue (*obj,
+					 (CORBA_float) newValue, &ev);
   return TRUE;
 }
 

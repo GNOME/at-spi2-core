@@ -47,7 +47,7 @@ typedef struct {
 
 typedef struct {
         BonoboObjectClass parent_class;
-        POA_Accessibility_SpiDeviceEventController__epv epv;
+        POA_Accessibility_DeviceEventController__epv epv;
 	gboolean (*check_key_event) (SpiDeviceEventController *controller);
 } SpiDeviceEventControllerClass;
 

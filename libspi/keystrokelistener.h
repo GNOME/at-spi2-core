@@ -32,7 +32,7 @@ extern "C" {
 #include <libspi/Accessibility.h>
 #include "keymasks.h"
 
-#define KEYSTROKE_SPI_LISTENER_TYPE        (keystroke_spi_listener_get_type ())
+#define KEYSTROKE_SPI_LISTENER_TYPE        (keystroke_listener_get_type ())
 #define KEYSTROKE_SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), KEYSTROKE_SPI_LISTENER_TYPE, KeystrokeListener))
 #define KEYSTROKE_SPI_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), KEYSTROKE_SPI_LISTENER_TYPE, KeystrokeListenerClass))
 #define IS_KEYSTROKE_SPI_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), KEYSTROKE_SPI_LISTENER_TYPE))
@@ -50,11 +50,11 @@ typedef struct {
         POA_Accessibility_KeystrokeListener__epv epv;
 } KeystrokeListenerClass;
 
-GType               keystroke_spi_listener_get_type   (void);
-KeystrokeListener  *keystroke_spi_listener_new       (void);
-void   keystroke_spi_listener_add_callback (KeystrokeListener *listener,
+GType               keystroke_listener_get_type   (void);
+KeystrokeListener  *keystroke_listener_new       (void);
+void   keystroke_listener_add_callback (KeystrokeListener *listener,
                                         BooleanKeystrokeListenerCB callback);
-void   keystroke_spi_listener_remove_callback (KeystrokeListener *listener,
+void   keystroke_listener_remove_callback (KeystrokeListener *listener,
                                            BooleanKeystrokeListenerCB callback);
 
 

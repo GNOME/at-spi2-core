@@ -1,7 +1,7 @@
 int
 SpiAccessibleHyperlink_ref (SpiAccessibleHyperlink *obj)
 {
-  Accessibility_SpiHyperlink_ref (*obj, &ev);
+  Accessibility_Hyperlink_ref (*obj, &ev);
   return 0;
 }
 
@@ -10,7 +10,7 @@ SpiAccessibleHyperlink_ref (SpiAccessibleHyperlink *obj)
 int
 SpiAccessibleHyperlink_unref (SpiAccessibleHyperlink *obj)
 {
-  Accessibility_SpiHyperlink_unref (*obj, &ev);
+  Accessibility_Hyperlink_unref (*obj, &ev);
   return 0;
 }
 
@@ -20,7 +20,7 @@ long
 SpiAccessibleHyperlink_getNAnchors (SpiAccessibleHyperlink *obj)
 {
   return (long)
-    Accessibility_SpiHyperlink__get_nAnchors (*obj, &ev);
+    Accessibility_Hyperlink__get_nAnchors (*obj, &ev);
 }
 
 
@@ -30,7 +30,7 @@ SpiAccessibleHyperlink_getURI (SpiAccessibleHyperlink *obj,
                             long i)
 {
   return (char *)
-    Accessibility_SpiHyperlink_getURI (*obj,
+    Accessibility_Hyperlink_getURI (*obj,
 				    (CORBA_long) i, &ev);
 }
 
@@ -41,7 +41,7 @@ SpiAccessibleHyperlink_getObject (SpiAccessibleHyperlink *obj,
                                long i)
 {
   return (SpiAccessible)
-    Accessibility_SpiHyperlink_getObject (*obj,
+    Accessibility_Hyperlink_getObject (*obj,
 				       (CORBA_long) i, &ev);
 }
 
@@ -53,9 +53,9 @@ SpiAccessibleHyperlink_getIndexRange (SpiAccessibleHyperlink *obj,
                                    long *endIndex)
 {
   *startIndex = (long)
-    Accessibility_SpiHyperlink__get_startIndex (*obj, &ev);
+    Accessibility_Hyperlink__get_startIndex (*obj, &ev);
   *endIndex = (long)
-    Accessibility_SpiHyperlink__get_endIndex (*obj, &ev);
+    Accessibility_Hyperlink__get_endIndex (*obj, &ev);
 }
 
 
@@ -64,7 +64,7 @@ boolean
 SpiAccessibleHyperlink_isValid (SpiAccessibleHyperlink *obj)
 {
   return (boolean)
-    Accessibility_SpiHyperlink_isValid (*obj, &ev);
+    Accessibility_Hyperlink_isValid (*obj, &ev);
 }
 
 

@@ -7,9 +7,9 @@
 
 /**
  * SpiAccessibleApplication_ref:
- * @obj: a pointer to the #SpiAccessibleApplication on which to operate.
+ * @obj: a pointer to the #AccessibleApplication on which to operate.
  *
- * Increment the reference count for an #SpiAccessibleApplication.
+ * Increment the reference count for an #AccessibleApplication.
  *
  * Returns: (no return code implemented yet).
  *
@@ -17,15 +17,15 @@
 int
 SpiAccessibleApplication_ref (SpiAccessibleApplication *obj)
 {
-  Accessibility_SpiApplication_ref (*obj, &ev);
+  Accessibility_Application_ref (*obj, &ev);
   return 0;
 }
 
 /**
  * SpiAccessibleApplication_unref:
- * @obj: a pointer to the #SpiAccessibleApplication object on which to operate.
+ * @obj: a pointer to the #AccessibleApplication object on which to operate.
  *
- * Decrement the reference count for an #SpiAccessibleApplication.
+ * Decrement the reference count for an #AccessibleApplication.
  *
  * Returns: (no return code implemented yet).
  *
@@ -33,15 +33,15 @@ SpiAccessibleApplication_ref (SpiAccessibleApplication *obj)
 int
 SpiAccessibleApplication_unref (SpiAccessibleApplication *obj)
 {
-  Accessibility_SpiApplication_unref (*obj, &ev);
+  Accessibility_Application_unref (*obj, &ev);
   return 0;
 }
 
 /**
  * SpiAccessibleApplication_getToolkitName:
- * @obj: a pointer to the #SpiAccessibleApplication to query.
+ * @obj: a pointer to the #AccessibleApplication to query.
  *
- * Get the name of the UI toolkit used by an #SpiAccessibleApplication.
+ * Get the name of the UI toolkit used by an #AccessibleApplication.
  *
  * Returns: a UTF-8 string indicating which UI toolkit is
  *          used by an application.
@@ -50,15 +50,15 @@ SpiAccessibleApplication_unref (SpiAccessibleApplication *obj)
 char *
 SpiAccessibleApplication_getToolkitName (SpiAccessibleApplication *obj)
 {
-  return Accessibility_SpiApplication__get_toolkitName (*obj, &ev);
+  return Accessibility_Application__get_toolkitName (*obj, &ev);
 }
 
 /**
  * SpiAccessibleApplication_getVersion:
- * @obj: a pointer to the #SpiAccessibleApplication being queried.
+ * @obj: a pointer to the #AccessibleApplication being queried.
  *
  * Get the version of the at-spi bridge exported by an
- *      #SpiAccessibleApplication instance.
+ *      #AccessibleApplication instance.
  *
  * Returns: a UTF-8 string indicating the application's
  *          at-spi version.
@@ -67,15 +67,15 @@ SpiAccessibleApplication_getToolkitName (SpiAccessibleApplication *obj)
 char *
 SpiAccessibleApplication_getVersion (SpiAccessibleApplication *obj)
 {
-  return Accessibility_SpiApplication__get_version (*obj, &ev);
+  return Accessibility_Application__get_version (*obj, &ev);
 }
 
 /**
  * SpiAccessibleApplication_getID:
- * @obj: a pointer to the #SpiAccessibleApplication being queried.
+ * @obj: a pointer to the #AccessibleApplication being queried.
  *
  * Get the unique ID assigned by the SpiRegistry to an
- *      #SpiAccessibleApplication instance.
+ *      #AccessibleApplication instance.
  * (Not Yet Implemented by the registry).
  *
  * Returns: a unique #long integer associated with the application
@@ -83,7 +83,7 @@ SpiAccessibleApplication_getVersion (SpiAccessibleApplication *obj)
 long
 SpiAccessibleApplication_getID (SpiAccessibleApplication *obj)
 {
-  return Accessibility_SpiApplication__get_id (*obj, &ev);
+  return Accessibility_Application__get_id (*obj, &ev);
 }
 
 /**
@@ -105,7 +105,7 @@ SpiAccessibleApplication_pause (SpiAccessibleApplication *obj)
 /**
  * SpiAccessibleApplication_resume:
  *
- * Attempt to resume the application (used after #SpiAccessibleApplication_pause).
+ * Attempt to resume the application (used after #AccessibleApplication_pause).
  * Not Yet Implemented.
  *
  * Returns: #TRUE if application processing resumed successfully, #FALSE otherwise.

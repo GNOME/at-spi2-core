@@ -42,7 +42,7 @@ typedef struct {
 
 typedef struct {
         BonoboObjectClass parent_class;
-        POA_Accessibility_SpiAccessible__epv epv;
+        POA_Accessibility_Accessible__epv epv;
 } SpiAccessibleClass;
 
 GType                  spi_accessible_get_type   (void);

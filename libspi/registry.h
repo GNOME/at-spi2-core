@@ -52,7 +52,7 @@ typedef struct {
 
 typedef struct {
         SpiListenerClass parent_class;
-        POA_Accessibility_SpiRegistry__epv epv;
+        POA_Accessibility_Registry__epv epv;
 } SpiRegistryClass;
 
 GType               spi_registry_get_type   (void);

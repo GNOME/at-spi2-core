@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 #include "accessible.h"
@@ -53,7 +53,7 @@ spi_selection_finalize (GObject *obj);
 static CORBA_long
 impl__get_nSelectedChildren (PortableServer_Servant _servant,
 			     CORBA_Environment * ev);
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_getSelectedChild (PortableServer_Servant _servant,
 		       const CORBA_long selectedChildIndex,
 		       CORBA_Environment * ev);
@@ -73,7 +73,7 @@ static void
 impl_selectAll (PortableServer_Servant _servant,
 		CORBA_Environment * ev);
 static void 
-impl_clearSpiSelection (PortableServer_Servant _servant,
+impl_clearSelection (PortableServer_Servant _servant,
 		     CORBA_Environment * ev);
 
 
@@ -105,7 +105,7 @@ spi_selection_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_SpiSelection__init,
+			       POA_Accessibility_Selection__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiSelectionClass, epv),
 			       &tinfo,
@@ -119,7 +119,7 @@ static void
 spi_selection_class_init (SpiSelectionClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiSelection__epv *epv = &klass->epv;
+  POA_Accessibility_Selection__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = spi_selection_finalize;
@@ -133,7 +133,7 @@ spi_selection_class_init (SpiSelectionClass *klass)
   epv->deselectSelectedChild = impl_deselectSelectedChild;
   epv->isChildSelected = impl_isChildSelected;
   epv->selectAll = impl_selectAll;
-  epv->clearSpiSelection = impl_clearSpiSelection;
+  epv->clearSelection = impl_clearSelection;
 }
 
 static void
@@ -179,7 +179,7 @@ impl__get_nSelectedChildren (PortableServer_Servant _servant,
 }
 
 
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_getSelectedChild (PortableServer_Servant _servant,
 		       const CORBA_long selectedChildIndex,
 		       CORBA_Environment * ev)
@@ -188,7 +188,7 @@ impl_getSelectedChild (PortableServer_Servant _servant,
   SpiSelection
 	  *selection;
   AtkObject *atk_object;
-  Accessibility_SpiAccessible rv;
+  Accessibility_Accessible rv;
 #ifdef SPI_DEBUG
   fprintf (stderr, "calling impl_getSelectedChild\n");
 #endif
@@ -257,7 +257,7 @@ impl_selectAll (PortableServer_Servant _servant,
 
 
 static void 
-impl_clearSpiSelection (PortableServer_Servant _servant,
+impl_clearSelection (PortableServer_Servant _servant,
 		     CORBA_Environment * ev)
 {
   SpiSelection *selection = SPI_SELECTION (bonobo_object_from_servant (_servant));

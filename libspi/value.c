@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -50,10 +50,10 @@ spi_value_init (SpiValue *value);
 static void
 spi_value_finalize (GObject *obj);
 static CORBA_float
-impl__get_minimumSpiValue (PortableServer_Servant _servant,
+impl__get_minimumValue (PortableServer_Servant _servant,
 			CORBA_Environment * ev);
 static        CORBA_float
-impl__get_maximumSpiValue (PortableServer_Servant _servant,
+impl__get_maximumValue (PortableServer_Servant _servant,
 			CORBA_Environment * ev);
 static CORBA_float
 impl__get_currentValue (PortableServer_Servant _servant,
@@ -94,7 +94,7 @@ spi_value_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_SpiValue__init,
+			       POA_Accessibility_Value__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiValueClass, epv),
 			       &tinfo,
@@ -108,7 +108,7 @@ static void
 spi_value_class_init (SpiValueClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiValue__epv *epv = &klass->epv;
+  POA_Accessibility_Value__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = spi_value_finalize;
@@ -116,8 +116,8 @@ spi_value_class_init (SpiValueClass *klass)
 
   /* Initialize epv table */
 
-  epv->_get_minimumSpiValue = impl__get_minimumSpiValue;
-  epv->_get_maximumSpiValue = impl__get_maximumSpiValue;
+  epv->_get_minimumValue = impl__get_minimumValue;
+  epv->_get_maximumValue = impl__get_maximumValue;
   epv->_get_currentValue = impl__get_currentValue;
   epv->_set_currentValue = impl__set_currentValue;
 }
@@ -149,7 +149,7 @@ spi_value_interface_new (AtkObject *obj)
 
 
 static CORBA_float
-impl__get_minimumSpiValue (PortableServer_Servant _servant,
+impl__get_minimumValue (PortableServer_Servant _servant,
 		       CORBA_Environment * ev)
 {
   SpiValue *value = SPI_VALUE (bonobo_object_from_servant (_servant));
@@ -163,7 +163,7 @@ impl__get_minimumSpiValue (PortableServer_Servant _servant,
 
 
 static        CORBA_float
-impl__get_maximumSpiValue (PortableServer_Servant _servant,
+impl__get_maximumValue (PortableServer_Servant _servant,
 			CORBA_Environment * ev)
 {
   SpiValue *value = SPI_VALUE (bonobo_object_from_servant (_servant));

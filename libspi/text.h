@@ -36,17 +36,17 @@ extern "C" {
 #define IS_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_TEXT_TYPE))
 #define IS_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_TEXT_TYPE))
 
-typedef struct _SpiText SpiText;
-typedef struct _SpiTextClass SpiTextClass;
+typedef struct _Text SpiText;
+typedef struct _TextClass SpiTextClass;
 
-struct _SpiText {
+struct _Text {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiTextClass {
+struct _TextClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiText__epv epv;
+  POA_Accessibility_Text__epv epv;
 };
 
 GType

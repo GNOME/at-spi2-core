@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -61,7 +61,7 @@ impl__get_startIndex (PortableServer_Servant _servant,
 static CORBA_long
 impl__get_endIndex (PortableServer_Servant _servant,
 		    CORBA_Environment * ev);
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_getObject (PortableServer_Servant _servant,
 		const CORBA_long i,
 		CORBA_Environment * ev);
@@ -97,7 +97,7 @@ spi_hyperlink_get_type (void)
      */
     type = bonobo_type_unique (
 			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_SpiHyperlink__init,
+			       POA_Accessibility_Hyperlink__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiHyperlinkClass, epv),
 			       &tinfo,
@@ -111,7 +111,7 @@ static void
 spi_hyperlink_class_init (SpiHyperlinkClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiHyperlink__epv *epv = &klass->epv;
+  POA_Accessibility_Hyperlink__epv *epv = &klass->epv;
   parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = spi_hyperlink_finalize;
@@ -202,14 +202,14 @@ impl_getURI (PortableServer_Servant _servant,
 
 
 
-static Accessibility_SpiAccessible
+static Accessibility_Accessible
 impl_getObject (PortableServer_Servant _servant,
 		const CORBA_long i,
 		CORBA_Environment * ev)
 {
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
   AtkObject *atk_object;
-  Accessibility_SpiAccessible rv;
+  Accessibility_Accessible rv;
   atk_object = atk_hyperlink_get_object (ATK_HYPERLINK(link->atko), (gint) i);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(atk_object)));
   return rv;

@@ -85,9 +85,9 @@ SpiAccessible_Role_getName (Accessibility_Role role)
 
 /**
  * SpiAccessible_ref:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Increment the reference count for an #SpiAccessible object.
+ * Increment the reference count for an #Accessible object.
  *
  * Returns: (no return code implemented yet).
  *
@@ -95,7 +95,7 @@ SpiAccessible_Role_getName (Accessibility_Role role)
 int
 SpiAccessible_ref (SpiAccessible *obj)
 {
-  Accessibility_SpiAccessible_ref (*obj, &ev);
+  Accessibility_Accessible_ref (*obj, &ev);
   spi_check_ev (&ev, "ref");
   return 0;
 }
@@ -103,9 +103,9 @@ SpiAccessible_ref (SpiAccessible *obj)
 
 /**
  * SpiAccessible_unref:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Decrement the reference count for an #SpiAccessible object.
+ * Decrement the reference count for an #Accessible object.
  *
  * Returns: (no return code implemented yet).
  *
@@ -113,18 +113,18 @@ SpiAccessible_ref (SpiAccessible *obj)
 int
 SpiAccessible_unref (SpiAccessible *obj)
 {
-  Accessibility_SpiAccessible_unref (*obj, &ev);
+  Accessibility_Accessible_unref (*obj, &ev);
   spi_check_ev (&ev, "unref");
   return 0;
 }
 
 /**
  * SpiAccessible_getName:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the name of an #SpiAccessible object.
+ * Get the name of an #Accessible object.
  *
- * Returns: a UTF-8 string indicating the name of the #SpiAccessible object.
+ * Returns: a UTF-8 string indicating the name of the #Accessible object.
  *
  **/
 char *
@@ -132,44 +132,44 @@ SpiAccessible_getName (SpiAccessible *obj)
 {
   char *retval = 
     (char *)
-    Accessibility_SpiAccessible__get_name (*obj, &ev);
+    Accessibility_Accessible__get_name (*obj, &ev);
   spi_check_ev (&ev, "getName"); 
   return retval;
 }
 
 /**
  * SpiAccessible_getDescription:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the description of an #SpiAccessible object.
+ * Get the description of an #Accessible object.
  *
- * Returns: a UTF-8 string describing the #SpiAccessible object.
+ * Returns: a UTF-8 string describing the #Accessible object.
  *
  **/
 char *
 SpiAccessible_getDescription (SpiAccessible *obj)
 {
   char *retval = (char *)
-    Accessibility_SpiAccessible__get_description (*obj, &ev);
+    Accessibility_Accessible__get_description (*obj, &ev);
   spi_check_ev (&ev, "getDescription");
   return retval;
 }
 
 /**
  * SpiAccessible_getParent:
- * @obj: a pointer to the #SpiAccessible object to query.
+ * @obj: a pointer to the #Accessible object to query.
  *
- * Get an #SpiAccessible object's parent container.
+ * Get an #Accessible object's parent container.
  *
- * Returns: a pointer tothe #SpiAccessible object which contains the given
- *          #SpiAccessible instance, or NULL if the @obj has no parent container.
+ * Returns: a pointer tothe #Accessible object which contains the given
+ *          #Accessible instance, or NULL if the @obj has no parent container.
  *
  **/
 SpiAccessible *
 SpiAccessible_getParent (SpiAccessible *obj)
 {
   SpiAccessible *retval = 
-      Obj_Add (Accessibility_SpiAccessible__get_parent (*obj, &ev));
+      Obj_Add (Accessibility_Accessible__get_parent (*obj, &ev));
   spi_check_ev (&ev, "getParent");
   return retval;
 }
@@ -177,18 +177,18 @@ SpiAccessible_getParent (SpiAccessible *obj)
 /**
  * SpiAccessible_getChildCount:
  *
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the number of children contained by an #SpiAccessible object.
+ * Get the number of children contained by an #Accessible object.
  *
- * Returns: a #long indicating the number of #SpiAccessible children
- *          contained by an #SpiAccessible object.
+ * Returns: a #long indicating the number of #Accessible children
+ *          contained by an #Accessible object.
  *
  **/
 long
 SpiAccessible_getChildCount (SpiAccessible *obj)
 {
-  long retval = (long) Accessibility_SpiAccessible__get_childCount (*obj, &ev);
+  long retval = (long) Accessibility_Accessible__get_childCount (*obj, &ev);
   spi_check_ev (&ev, "getChildCount");
   return retval;
 }
@@ -196,12 +196,12 @@ SpiAccessible_getChildCount (SpiAccessible *obj)
 /**
  * SpiAccessible_getChildAtIndex:
  *
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  * @childIndex: a #long indicating which child is specified.
  *
- * Get the #SpiAccessible child of an #SpiAccessible object at a given index.
+ * Get the #Accessible child of an #Accessible object at a given index.
  *
- * Returns: a pointer to the #SpiAccessible child object at index
+ * Returns: a pointer to the #Accessible child object at index
  *          @childIndex.
  *
  **/
@@ -209,7 +209,7 @@ SpiAccessible *
 SpiAccessible_getChildAtIndex (SpiAccessible *obj,
                             long childIndex)
 {
-  SpiAccessible *retval = Obj_Add (Accessibility_SpiAccessible_getChildAtIndex (*obj, childIndex, &ev));
+  SpiAccessible *retval = Obj_Add (Accessibility_Accessible_getChildAtIndex (*obj, childIndex, &ev));
   spi_check_ev (&ev, "getChildAtIndex");
   return retval;
 }
@@ -217,19 +217,19 @@ SpiAccessible_getChildAtIndex (SpiAccessible *obj,
 /**
  * SpiAccessible_getIndexInParent:
  *
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the index of an #SpiAccessible object in its containing #SpiAccessible.
+ * Get the index of an #Accessible object in its containing #Accessible.
  *
- * Returns: a #long indicating the index of the #SpiAccessible object
- *          in its parent (i.e. containing) #SpiAccessible instance,
+ * Returns: a #long indicating the index of the #Accessible object
+ *          in its parent (i.e. containing) #Accessible instance,
  *          or -1 if @obj has no containing parent.
  *
  **/
 long
 SpiAccessible_getIndexInParent (SpiAccessible *obj)
 {
-  long retval = (long) Accessibility_SpiAccessible_getIndexInParent (*obj, &ev);
+  long retval = (long) Accessibility_Accessible_getIndexInParent (*obj, &ev);
   spi_check_ev (&ev, "getIndexInParent");
   return retval;
 }
@@ -239,7 +239,7 @@ SpiAccessible_getIndexInParent (SpiAccessible *obj)
  *
  * Not Yet Implemented.
  *
- * Returns: a pointer to an array of #SpiAccessibleRelations.
+ * Returns: a pointer to an array of #AccessibleRelations.
  *
  **/
 SpiAccessibleRelation **
@@ -250,18 +250,18 @@ SpiAccessible_getRelationSet (SpiAccessible *obj)
 
 /**
  * SpiAccessible_getRole:
- * @obj: a pointer to the #SpiAccessible object on which to operate.
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Get the UI role of an #SpiAccessible object.
+ * Get the UI role of an #Accessible object.
  *
- * Returns: a UTF-8 string indicating the UI role of the #SpiAccessible object.
+ * Returns: a UTF-8 string indicating the UI role of the #Accessible object.
  *
  **/
 char *
 SpiAccessible_getRole (SpiAccessible *obj)
 {
   char *retval = SpiAccessible_Role_getName (
-		  Accessibility_SpiAccessible_getRole (*obj, &ev));
+		  Accessibility_Accessible_getRole (*obj, &ev));
   spi_check_ev (&ev, "getRole");
   return retval;
 }
@@ -271,7 +271,7 @@ SpiAccessible_getRole (SpiAccessible *obj)
  *
  * Not Yet Implemented.
  *
- * Returns: a pointer to an #SpiAccessibleStateSet representing the object's current state.
+ * Returns: a pointer to an #AccessibleStateSet representing the object's current state.
  **/
 SpiAccessibleStateSet *
 SpiAccessible_getStateSet (SpiAccessible *obj)
@@ -282,201 +282,201 @@ SpiAccessible_getStateSet (SpiAccessible *obj)
 /* Interface query methods */
 
 /**
- * SpiAccessible_isSpiAction:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isAction:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleAction.
+ * Query whether the specified #Accessible implements #AccessibleAction.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleAction interface,
+ * Returns: #TRUE if @obj implements the #AccessibleAction interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiAction (SpiAccessible *obj)
+SpiAccessible_isAction (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiAction:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Action:1.0",
                                              &ev);
-  spi_warn_ev (&ev, "isSpiAction");
+  spi_warn_ev (&ev, "isAction");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
 
 /**
- * SpiAccessible_isSpiComponent:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isComponent:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleComponent.
+ * Query whether the specified #Accessible implements #AccessibleComponent.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleComponent interface,
+ * Returns: #TRUE if @obj implements the #AccessibleComponent interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiComponent (SpiAccessible *obj)
+SpiAccessible_isComponent (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiComponent:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Component:1.0",
                                              &ev);
-  spi_warn_ev (&ev, "isSpiComponent");
+  spi_warn_ev (&ev, "isComponent");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
 
 /**
- * SpiAccessible_isSpiEditableText:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isEditableText:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleEditableText.
+ * Query whether the specified #Accessible implements #AccessibleEditableText.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleEditableText interface,
+ * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiEditableText (SpiAccessible *obj)
+SpiAccessible_isEditableText (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiEditableText:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/EditableText:1.0",
                                              &ev);
-  spi_check_ev (&ev, "isSpiEditableText");
+  spi_check_ev (&ev, "isEditableText");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
 
 /**
- * SpiAccessible_isSpiHypertext:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isHypertext:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleHypertext.
+ * Query whether the specified #Accessible implements #AccessibleHypertext.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleHypertext interface,
+ * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
  *          #FALSE otherwise.
  **/
 boolean
-SpiAccessible_isSpiHypertext (SpiAccessible *obj)
+SpiAccessible_isHypertext (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiHypertext:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Hypertext:1.0",
                                              &ev);
 
-  spi_check_ev (&ev, "isSpiHypertext");
+  spi_check_ev (&ev, "isHypertext");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
 
 /**
- * SpiAccessible_isSpiImage:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isImage:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleImage.
+ * Query whether the specified #Accessible implements #AccessibleImage.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleImage interface,
+ * Returns: #TRUE if @obj implements the #AccessibleImage interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiImage (SpiAccessible *obj)
+SpiAccessible_isImage (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiImage:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Image:1.0",
                                              &ev);
-  spi_check_ev (&ev, "isSpiImage");
+  spi_check_ev (&ev, "isImage");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
 
 /**
-  * SpiAccessible_isSpiSelection:
- * @obj: a pointer to the #SpiAccessible instance to query.
+  * SpiAccessible_isSelection:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleSelection.
+ * Query whether the specified #Accessible implements #AccessibleSelection.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleSelection interface,
+ * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiSelection (SpiAccessible *obj)
+SpiAccessible_isSelection (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiSelection:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Selection:1.0",
                                              &ev);
-  spi_warn_ev (&ev, "isSpiSelection");
-
-  return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
-
-}
-
-/**
- * SpiAccessible_isSpiTable:
- * @obj: a pointer to the #SpiAccessible instance to query.
- *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleTable.
- * Not Yet Implemented.
- *
- * Returns: #TRUE if @obj implements the #SpiAccessibleTable interface,
- *          #FALSE otherwise.
-**/
-boolean
-SpiAccessible_isSpiTable (SpiAccessible *obj)
-{
-  Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiTable:1.0",
-                                             &ev);
-  spi_check_ev (&ev, "isSpiTable");
+  spi_warn_ev (&ev, "isSelection");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 
 }
 
 /**
- * SpiAccessible_isSpiText:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isTable:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleText.
+ * Query whether the specified #Accessible implements #AccessibleTable.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleText interface,
+ * Returns: #TRUE if @obj implements the #AccessibleTable interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiText (SpiAccessible *obj)
+SpiAccessible_isTable (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiText:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Table:1.0",
                                              &ev);
-  spi_warn_ev (&ev, "isSpiText");
+  spi_check_ev (&ev, "isTable");
+
+  return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
+
+}
+
+/**
+ * SpiAccessible_isText:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleText.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleText interface,
+ *          #FALSE otherwise.
+**/
+boolean
+SpiAccessible_isText (SpiAccessible *obj)
+{
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Text:1.0",
+                                             &ev);
+  spi_warn_ev (&ev, "isText");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
 
 /**
- * SpiAccessible_isSpiValue:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * SpiAccessible_isValue:
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Query whether the specified #SpiAccessible implements #SpiAccessibleValue.
+ * Query whether the specified #Accessible implements #AccessibleValue.
  * Not Yet Implemented.
  *
- * Returns: #TRUE if @obj implements the #SpiAccessibleValue interface,
+ * Returns: #TRUE if @obj implements the #AccessibleValue interface,
  *          #FALSE otherwise.
 **/
 boolean
-SpiAccessible_isSpiValue (SpiAccessible *obj)
+SpiAccessible_isValue (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiValue:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Value:1.0",
                                              &ev);
-  spi_check_ev (&ev, "isSpiValue");
+  spi_check_ev (&ev, "isValue");
 
   return (CORBA_Object_is_nil (iface, &ev)) ? FALSE : TRUE;
 }
@@ -491,8 +491,8 @@ SpiAccessibleAction *
 SpiAccessible_getAction (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiAction:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Action:1.0",
                                              &ev);
   spi_check_ev (&ev, "getAction");
 
@@ -502,19 +502,19 @@ SpiAccessible_getAction (SpiAccessible *obj)
 
 /**
  * SpiAccessible_getComponent:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * @obj: a pointer to the #Accessible instance to query.
  *
- * Get the #SpiAccessibleComponent interface for an #SpiAccessible.
+ * Get the #AccessibleComponent interface for an #Accessible.
  *
- * Returns: a pointer to an #SpiAccessibleComponent interface instance, or
- *          NULL if @obj does not implement #SpiAccessibleComponent.
+ * Returns: a pointer to an #AccessibleComponent interface instance, or
+ *          NULL if @obj does not implement #AccessibleComponent.
  **/
 SpiAccessibleComponent *
 SpiAccessible_getComponent (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiComponent:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Component:1.0",
                                              &ev);
   spi_check_ev (&ev, "getComponent");
 
@@ -525,8 +525,8 @@ SpiAccessibleEditableText *
 SpiAccessible_getEditableText (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiEditableText:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/EditableText:1.0",
                                              &ev);
   spi_check_ev (&ev, "getEditableText");
 
@@ -540,8 +540,8 @@ SpiAccessibleHypertext *
 SpiAccessible_getHypertext (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiHypertext:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Hypertext:1.0",
                                              &ev);
   spi_check_ev (&ev, "getHypertext");
 
@@ -555,8 +555,8 @@ SpiAccessibleImage *
 SpiAccessible_getImage (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiImage:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Image:1.0",
                                              &ev);
   spi_check_ev (&ev, "getImage");
 
@@ -570,8 +570,8 @@ SpiAccessibleSelection *
 SpiAccessible_getSelection (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiSelection:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Selection:1.0",
                                              &ev);
   spi_warn_ev (&ev, "getSelection");
 
@@ -585,8 +585,8 @@ SpiAccessibleTable *
 SpiAccessible_getTable (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiTable:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Table:1.0",
                                              &ev);
   spi_check_ev (&ev, "getTable");
 
@@ -598,8 +598,8 @@ SpiAccessibleText *
 SpiAccessible_getText (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiText:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Text:1.0",
                                              &ev);
 
   spi_check_ev (&ev, "getText"); 
@@ -614,8 +614,8 @@ SpiAccessibleValue *
 SpiAccessible_getValue (SpiAccessible *obj)
 {
   Bonobo_Unknown iface =
-    Accessibility_SpiAccessible_queryInterface (*obj,
-                                             "IDL:Accessibility/SpiValue:1.0",
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Value:1.0",
                                              &ev);
   return (SpiAccessibleValue *)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
@@ -625,10 +625,10 @@ SpiAccessible_getValue (SpiAccessible *obj)
 
 /**
  * SpiAccessible_queryInterface:
- * @obj: a pointer to the #SpiAccessible instance to query.
+ * @obj: a pointer to the #Accessible instance to query.
  * @interface_name: a UTF-8 character string specifiying the requested interface.
  *
- * Query an #SpiAccessible object to for a named interface.
+ * Query an #Accessible object to for a named interface.
  *
  * Returns: an instance of the named interface object, if it is implemented
  *          by @obj, or NULL otherwise.
@@ -638,7 +638,7 @@ GenericInterface *
 SpiAccessible_queryInterface (SpiAccessible *obj, char *interface_name)
 {
   GenericInterface iface;
-  iface = Accessibility_SpiAccessible_queryInterface (*obj,
+  iface = Accessibility_Accessible_queryInterface (*obj,
                                                     interface_name,
                                                     &ev);
   return (iface != NULL) ? Obj_Add (iface) : NULL;

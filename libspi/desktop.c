@@ -31,7 +31,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -59,7 +59,7 @@ spi_desktop_init (SpiDesktop  *desktop)
 }
 
 static CORBA_long
-impl_spi_desktop_get_child_count (PortableServer_Servant servant,
+impl_desktop_get_child_count (PortableServer_Servant servant,
                               CORBA_Environment * ev)
 {
   SpiDesktop *desktop = SPI_DESKTOP (bonobo_object_from_servant (servant));
@@ -73,8 +73,8 @@ impl_spi_desktop_get_child_count (PortableServer_Servant servant,
     }
 }
 
-static Accessibility_SpiAccessible
-impl_spi_desktop_get_child_at_index (PortableServer_Servant servant,
+static Accessibility_Accessible
+impl_desktop_get_child_at_index (PortableServer_Servant servant,
                                  const CORBA_long index,
                                  CORBA_Environment * ev)
 {
@@ -94,19 +94,19 @@ impl_spi_desktop_get_child_at_index (PortableServer_Servant servant,
       fprintf (stderr, "no %ldth child\n", (long) index);
       retval = CORBA_OBJECT_NIL;
     }
-  return (Accessibility_SpiAccessible) retval;
+  return (Accessibility_Accessible) retval;
 }
 
 static void
 spi_desktop_class_init (SpiDesktopClass  *klass)
 {
         SpiAccessibleClass * spi_accessible_class = (SpiAccessibleClass *) klass;
-        POA_Accessibility_SpiAccessible__epv *epv = &spi_accessible_class->epv;
+        POA_Accessibility_Accessible__epv *epv = &spi_accessible_class->epv;
 
         parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
 
-        epv->_get_childCount = impl_spi_desktop_get_child_count;
-        epv->getChildAtIndex = impl_spi_desktop_get_child_at_index;
+        epv->_get_childCount = impl_desktop_get_child_count;
+        epv->getChildAtIndex = impl_desktop_get_child_at_index;
 }
 
 GType
@@ -135,7 +135,7 @@ spi_desktop_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_SpiDesktop__init,
+                        POA_Accessibility_Desktop__init,
                         NULL,
                         G_STRUCT_OFFSET (SpiDesktopClass, epv),
                         &tinfo,

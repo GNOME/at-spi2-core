@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -54,11 +54,11 @@ static GObjectClass *spi_component_parent_class;
  * Implemented GObject::finalize
  */
 static void
-accessibility_spi_component_object_finalize (GObject *object)
+accessibility_component_object_finalize (GObject *object)
 {
         SpiComponent *component = SPI_COMPONENT (object);
 
-        printf("spi_accessible_spi_component_object_finalize called\n");
+        printf("spi_accessible_component_object_finalize called\n");
         g_object_unref (component->atko);
 	component->atko = NULL;
 
@@ -67,10 +67,10 @@ accessibility_spi_component_object_finalize (GObject *object)
 }
 
 /*
- * CORBA Accessibility::SpiComponent::contains method implementation
+ * CORBA Accessibility::Component::contains method implementation
  */
 static CORBA_boolean
-impl_accessibility_spi_component_contains (PortableServer_Servant servant,
+impl_accessibility_component_contains (PortableServer_Servant servant,
                                        const CORBA_long x,
                                        const CORBA_long y,
                                        CORBA_short coord_type,
@@ -90,10 +90,10 @@ impl_accessibility_spi_component_contains (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiComponent::getAccessibleAtPoint method implementation
+ * CORBA Accessibility::Component::getAccessibleAtPoint method implementation
  */
-static Accessibility_SpiAccessible
-impl_accessibility_spi_component_get_accessible_at_point (PortableServer_Servant servant,
+static Accessibility_Accessible
+impl_accessibility_component_get_accessible_at_point (PortableServer_Servant servant,
                                                       const CORBA_long x,
                                                       const CORBA_long y,
                                                       CORBA_short coord_type,
@@ -101,7 +101,7 @@ impl_accessibility_spi_component_get_accessible_at_point (PortableServer_Servant
 {
   BonoboObject *obj;
   SpiComponent *component;
-  Accessibility_SpiAccessible retval;
+  Accessibility_Accessible retval;
   AtkObject *child;
 
   obj = bonobo_object_from_servant (servant);
@@ -117,10 +117,10 @@ impl_accessibility_spi_component_get_accessible_at_point (PortableServer_Servant
 }
 
 /*
- * CORBA Accessibility::SpiComponent::getExtents method implementation
+ * CORBA Accessibility::Component::getExtents method implementation
  */
 static void
-impl_accessibility_spi_component_get_extents (PortableServer_Servant servant,
+impl_accessibility_component_get_extents (PortableServer_Servant servant,
                                           CORBA_long * x,
                                           CORBA_long * y,
                                           CORBA_long * width,
@@ -146,10 +146,10 @@ impl_accessibility_spi_component_get_extents (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiComponent::getPosition method implementation
+ * CORBA Accessibility::Component::getPosition method implementation
  */
 static void
-impl_accessibility_spi_component_get_position (PortableServer_Servant servant,
+impl_accessibility_component_get_position (PortableServer_Servant servant,
                                            CORBA_long * x,
                                            CORBA_long * y,
                                            const CORBA_short coord_type,
@@ -170,10 +170,10 @@ impl_accessibility_spi_component_get_position (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::SpiComponent::getSize method implementation
+ * CORBA Accessibility::Component::getSize method implementation
  */
 static void
-impl_accessibility_spi_component_get_size (PortableServer_Servant servant,
+impl_accessibility_component_get_size (PortableServer_Servant servant,
                                        CORBA_long * width,
                                        CORBA_long * height,
                                        CORBA_Environment     *ev)
@@ -191,28 +191,28 @@ impl_accessibility_spi_component_get_size (PortableServer_Servant servant,
 }
 
 static void
-accessibility_spi_component_class_init (SpiComponentClass *klass)
+accessibility_component_class_init (SpiComponentClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_SpiComponent__epv *epv = &klass->epv;
+        POA_Accessibility_Component__epv *epv = &klass->epv;
         spi_component_parent_class = g_type_class_peek_parent (klass);
 
-        object_class->finalize = accessibility_spi_component_object_finalize;
+        object_class->finalize = accessibility_component_object_finalize;
 
-        epv->contains = impl_accessibility_spi_component_contains;
-        epv->getAccessibleAtPoint = impl_accessibility_spi_component_get_accessible_at_point;
-        epv->getExtents = impl_accessibility_spi_component_get_extents;
-        epv->getPosition = impl_accessibility_spi_component_get_position;
-        epv->getSize = impl_accessibility_spi_component_get_size;
+        epv->contains = impl_accessibility_component_contains;
+        epv->getAccessibleAtPoint = impl_accessibility_component_get_accessible_at_point;
+        epv->getExtents = impl_accessibility_component_get_extents;
+        epv->getPosition = impl_accessibility_component_get_position;
+        epv->getSize = impl_accessibility_component_get_size;
 }
 
 static void
-accessibility_spi_component_init (SpiComponent *component)
+accessibility_component_init (SpiComponent *component)
 {
 }
 
 GType
-accessibility_spi_component_get_type (void)
+accessibility_component_get_type (void)
 {
         static GType type = 0;
 
@@ -221,12 +221,12 @@ accessibility_spi_component_get_type (void)
                         sizeof (SpiComponentClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) accessibility_spi_component_class_init,
+                        (GClassInitFunc) accessibility_component_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
                         sizeof (SpiComponent),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) accessibility_spi_component_init,
+                        (GInstanceInitFunc) accessibility_component_init,
                         NULL /* value table */
                 };
                 /*
@@ -236,7 +236,7 @@ accessibility_spi_component_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_SpiComponent__init,
+                        POA_Accessibility_Component__init,
                         NULL,
                         G_STRUCT_OFFSET (SpiComponentClass, epv),
                         &tinfo,
@@ -250,7 +250,7 @@ SpiComponent *
 spi_component_interface_new (AtkObject *o)
 {
     SpiComponent *retval =
-               SPI_COMPONENT (g_object_new (accessibility_spi_component_get_type (), NULL));
+               SPI_COMPONENT (g_object_new (accessibility_component_get_type (), NULL));
     retval->atko = o;
     g_object_ref (o);
     return retval;

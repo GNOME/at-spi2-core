@@ -35,17 +35,17 @@ extern "C" {
 #define SPI_IS_ACTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_ACTION_TYPE))
 #define SPI_IS_ACTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_ACTION_TYPE))
 
-typedef struct _SpiAction SpiAction;
-typedef struct _SpiActionClass SpiActionClass;
+typedef struct _Action SpiAction;
+typedef struct _ActionClass SpiActionClass;
 
-struct _SpiAction {
+struct _Action {
   BonoboObject parent;
   AtkObject *atko;
 };
 
-struct _SpiActionClass {
+struct _ActionClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_SpiAction__epv epv;
+  POA_Accessibility_Action__epv epv;
 };
 
 GType

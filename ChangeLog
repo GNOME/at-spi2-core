@@ -1,5 +1,12 @@
 2001-11-13  Michael Meeks  <michael@ximian.com>
 
+	* *.[ch] fix bits I screwed up:
+
+		s/([^ \tb(\*\&\?\",])spi_/\1/g;
+		s/([^ \tb(\*\&\?\",])Spi/\1/g;
+	
+2001-11-13  Michael Meeks  <michael@ximian.com>
+
 	* *.[ch] Namespace libspi into spi_ and Spi.
 
 2001-11-13  Michael Meeks  <michael@ximian.com>

@@ -31,7 +31,7 @@
 #include <stdlib.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -130,7 +130,7 @@ impl_getOffsetAtPoint (PortableServer_Servant _servant,
 		       CORBA_Environment * ev);
 
 static CORBA_long
-impl_getNSpiSelections (PortableServer_Servant _servant,
+impl_getNSelections (PortableServer_Servant _servant,
 		     CORBA_Environment * ev);
 
 static void 
@@ -140,7 +140,7 @@ impl_getSelection (PortableServer_Servant _servant,
 		   CORBA_Environment * ev);
 
 static CORBA_boolean
-impl_addSpiSelection (PortableServer_Servant _servant,
+impl_addSelection (PortableServer_Servant _servant,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev);
@@ -188,7 +188,7 @@ accessibility_text_get_type (void)
      */
     type = bonobo_type_unique (
 			       PARENT_TYPE,
-			       POA_Accessibility_SpiText__init,
+			       POA_Accessibility_Text__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiTextClass, epv),
 			       &tinfo,
@@ -202,7 +202,7 @@ static void
 accessibility_text_class_init (SpiTextClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiText__epv *epv = &klass->epv;
+  POA_Accessibility_Text__epv *epv = &klass->epv;
   spi_text_parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = accessibility_text_object_finalize;
@@ -219,9 +219,9 @@ accessibility_text_class_init (SpiTextClass *klass)
   epv->getCharacterExtents = impl_getCharacterExtents;
   epv->_get_characterCount = impl__get_characterCount;
   epv->getOffsetAtPoint = impl_getOffsetAtPoint;
-  epv->getNSpiSelections = impl_getNSpiSelections;
+  epv->getNSelections = impl_getNSelections;
   epv->getSelection = impl_getSelection;
-  epv->addSpiSelection = impl_addSpiSelection;
+  epv->addSelection = impl_addSelection;
   epv->removeSelection = impl_removeSelection;
   epv->setSelection = impl_setSelection;
   epv->setCaretOffset = impl_setCaretOffset;
@@ -513,7 +513,7 @@ impl_getOffsetAtPoint (PortableServer_Servant _servant,
 
 
 static CORBA_long
-impl_getNSpiSelections (PortableServer_Servant _servant,
+impl_getNSelections (PortableServer_Servant _servant,
 		     CORBA_Environment * ev)
 {
   SpiText *text;
@@ -549,7 +549,7 @@ impl_getSelection (PortableServer_Servant _servant,
 
 
 static CORBA_boolean
-impl_addSpiSelection (PortableServer_Servant _servant,
+impl_addSelection (PortableServer_Servant _servant,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev)

@@ -40,7 +40,7 @@ struct _ArgStruct {
 };
 
 static CORBA_Environment ev;
-static Accessibility_SpiRegistry registry;
+static Accessibility_Registry registry;
 static SpiApplication *this_app;
 
 static gboolean bridge_register_app (gpointer p);
@@ -85,7 +85,7 @@ bridge_register_app (gpointer gp)
   /* Create the accesssible application server object */
   this_app = spi_application_new(atk_get_root ());
 
-  obj_id = "OAFIID:Accessibility_SpiRegistry:proto0.1";
+  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
   oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
   if (ev._major != CORBA_NO_EXCEPTION) {
@@ -101,13 +101,13 @@ bridge_register_app (gpointer gp)
       g_error ("Could not locate registry");
     }
 
-  registry = (Accessibility_SpiRegistry) oclient;
+  registry = (Accessibility_Registry) oclient;
 
   fprintf(stderr, "About to register application\n");
 
   bonobo_activate ();
 
-  Accessibility_SpiRegistry_registerSpiApplication (registry,
+  Accessibility_Registry_registerApplication (registry,
                                               CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
                                               &ev);
 
@@ -136,7 +136,7 @@ register_atk_event_listeners ()
 static void bridge_exit_func()
 {
   fprintf (stderr, "exiting bridge\n");
-  Accessibility_SpiRegistry_deregisterSpiApplication (registry,
+  Accessibility_Registry_deregisterApplication (registry,
 						CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
 						&ev);
   fprintf (stderr, "bridge exit func complete.\n");
@@ -149,7 +149,7 @@ static void bridge_focus_tracker (AtkObject *object)
   e->source = CORBA_Object_duplicate (BONOBO_OBJREF (spi_accessible_new (object)), &ev);
   e->detail1 = 0;
   e->detail2 = 0;
-  Accessibility_SpiRegistry_notifyEvent (registry, e, &ev);
+  Accessibility_Registry_notifyEvent (registry, e, &ev);
 }
 
 static gboolean
@@ -199,7 +199,7 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   e->detail1 = 0;
   e->detail2 = 0;
   if (source)
-    Accessibility_SpiRegistry_notifyEvent (registry, e, &ev);
+    Accessibility_Registry_notifyEvent (registry, e, &ev);
   return TRUE;
 }
 
@@ -247,12 +247,12 @@ bridge_signal_listener (GSignalInvocationHint *signal_hint,
   e->source = source;
   e->detail1 = 0;
   e->detail2 = 0;
-  Accessibility_SpiRegistry_notifyEvent (registry, e, &ev);
+  Accessibility_Registry_notifyEvent (registry, e, &ev);
   g_object_unref (aobject);
   return TRUE;
 }
 
-static Accessibility_SpiRegistry bridge_get_registry ()
+static Accessibility_Registry bridge_get_registry ()
 {
   return registry;
 }

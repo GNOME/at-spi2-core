@@ -46,33 +46,33 @@
 /*
  * A pointer to our parent object class
  */
-static GObjectClass *keystroke_spi_listener_parent_class;
+static GObjectClass *keystroke_listener_parent_class;
 
 /*
  * Implemented GObject::finalize
  */
 static void
-keystroke_spi_listener_object_finalize (GObject *object)
+keystroke_listener_object_finalize (GObject *object)
 {
 /*        KeystrokeListener *keystroke_listener = KEYSTROKE_SPI_LISTENER (object); */
 
 #ifdef SPI_DEBUG
-        fprintf(stderr, "keystroke_spi_listener_object_finalize called\n");
+        fprintf(stderr, "keystroke_listener_object_finalize called\n");
 #endif
-        keystroke_spi_listener_parent_class->finalize (object);
+        keystroke_listener_parent_class->finalize (object);
 }
 
-void   keystroke_spi_listener_add_callback (KeystrokeListener *listener,
+void   keystroke_listener_add_callback (KeystrokeListener *listener,
 					BooleanKeystrokeListenerCB callback)
 {
   listener->callbacks = g_list_append (listener->callbacks, callback);
 #ifdef SPI_DEBUG
-        fprintf(stderr, "keystroke_spi_listener_add_callback (%p) called\n",
+        fprintf(stderr, "keystroke_listener_add_callback (%p) called\n",
 		(gpointer) callback);
 #endif
 }
 
-void   keystroke_spi_listener_remove_callback (KeystrokeListener *listener,
+void   keystroke_listener_remove_callback (KeystrokeListener *listener,
 					   BooleanKeystrokeListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);
@@ -113,25 +113,25 @@ impl_key_event (PortableServer_Servant     servant,
 }
 
 static void
-keystroke_spi_listener_class_init (KeystrokeListenerClass *klass)
+keystroke_listener_class_init (KeystrokeListenerClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
-        keystroke_spi_listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
+        keystroke_listener_parent_class = g_type_class_ref (BONOBO_OBJECT_TYPE);
 
-        object_class->finalize = keystroke_spi_listener_object_finalize;
+        object_class->finalize = keystroke_listener_object_finalize;
 
         epv->keyEvent = impl_key_event;
 }
 
 static void
-keystroke_spi_listener_init (KeystrokeListener *keystroke_listener)
+keystroke_listener_init (KeystrokeListener *keystroke_listener)
 {
 	keystroke_listener->callbacks = NULL;
 }
 
 GType
-keystroke_spi_listener_get_type (void)
+keystroke_listener_get_type (void)
 {
         static GType type = 0;
 
@@ -140,12 +140,12 @@ keystroke_spi_listener_get_type (void)
                         sizeof (KeystrokeListenerClass),
                         (GBaseInitFunc) NULL,
                         (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) keystroke_spi_listener_class_init,
+                        (GClassInitFunc) keystroke_listener_class_init,
                         (GClassFinalizeFunc) NULL,
                         NULL, /* class data */
                         sizeof (KeystrokeListener),
                         0, /* n preallocs */
-                        (GInstanceInitFunc) keystroke_spi_listener_init,
+                        (GInstanceInitFunc) keystroke_listener_init,
                         NULL /* value table */
                 };
                 /*
@@ -167,9 +167,9 @@ keystroke_spi_listener_get_type (void)
 }
 
 KeystrokeListener *
-keystroke_spi_listener_new (void)
+keystroke_listener_new (void)
 {
     KeystrokeListener *retval =
-               KEYSTROKE_SPI_LISTENER (g_object_new (keystroke_spi_listener_get_type (), NULL));
+               KEYSTROKE_SPI_LISTENER (g_object_new (keystroke_listener_get_type (), NULL));
     return retval;
 }

@@ -30,7 +30,7 @@
 #include <stdio.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -66,7 +66,7 @@ impl_insertText (PortableServer_Servant _servant,
 		 const CORBA_long length,
 		 CORBA_Environment * ev);
 static void 
-impl_copySpiText (PortableServer_Servant _servant,
+impl_copyText (PortableServer_Servant _servant,
 	       const CORBA_long startPos, const CORBA_long endPos,
 	       CORBA_Environment * ev);
 static void 
@@ -109,7 +109,7 @@ spi_editable_text_get_type (void)
      */
     type = bonobo_type_unique (
 			       SPI_TEXT_TYPE,
-			       POA_Accessibility_SpiEditableText__init,
+			       POA_Accessibility_EditableText__init,
 			       NULL,
 			       G_STRUCT_OFFSET (SpiEditableTextClass, epv),
 			       &tinfo,
@@ -123,7 +123,7 @@ static void
 spi_editable_text_class_init (SpiEditableTextClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiEditableText__epv *epv = &klass->epv;
+  POA_Accessibility_EditableText__epv *epv = &klass->epv;
   parent_class = g_type_interface_peek_parent (klass);
 
   object_class->finalize = spi_editable_text_finalize;
@@ -133,7 +133,7 @@ spi_editable_text_class_init (SpiEditableTextClass *klass)
   epv->setAttributes = impl_setAttributes;
   epv->setTextContents = impl_setTextContents;
   epv->insertText = impl_insertText;
-  epv->copySpiText = impl_copySpiText;
+  epv->copyText = impl_copyText;
   epv->cutText = impl_cutText;
   epv->deleteText = impl_deleteText;
   epv->pasteText = impl_pasteText;
@@ -219,7 +219,7 @@ impl_insertText (PortableServer_Servant _servant,
 
 
 static void 
-impl_copySpiText (PortableServer_Servant _servant,
+impl_copyText (PortableServer_Servant _servant,
 	       const CORBA_long startPos, const CORBA_long endPos,
 	       CORBA_Environment * ev)
 {

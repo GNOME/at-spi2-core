@@ -30,7 +30,7 @@
 #include <atk/atkutil.h>
 
 /*
- * This pulls the CORBA definitions for the "Accessibility::SpiAccessible" server
+ * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
 
@@ -65,14 +65,14 @@ static char* reverse_lookup_name_for_toolkit_event (char *toolkit_name);
  * Implemented GObject::finalize
  */
 static void
-spi_accessible_spi_application_finalize (GObject *object)
+spi_accessible_application_finalize (GObject *object)
 {
   /* TODO: any necessary cleanup */
   (G_OBJECT_CLASS (spi_application_parent_class))->finalize (object);
 }
 
 static CORBA_string
-impl_accessibility_spi_application_get_toolkit_name (PortableServer_Servant servant,
+impl_accessibility_application_get_toolkit_name (PortableServer_Servant servant,
                                                  CORBA_Environment *ev)
 {
   CORBA_char *retval;
@@ -82,7 +82,7 @@ impl_accessibility_spi_application_get_toolkit_name (PortableServer_Servant serv
 }
 
 static CORBA_string
-impl_accessibility_spi_application_get_version (PortableServer_Servant servant,
+impl_accessibility_application_get_version (PortableServer_Servant servant,
                                             CORBA_Environment *ev)
 {
   CORBA_char *retval;
@@ -92,7 +92,7 @@ impl_accessibility_spi_application_get_version (PortableServer_Servant servant,
 }
 
 static CORBA_long
-impl_accessibility_spi_application_get_id (PortableServer_Servant servant,
+impl_accessibility_application_get_id (PortableServer_Servant servant,
                                        CORBA_Environment *ev)
 {
   CORBA_long retval;
@@ -102,7 +102,7 @@ impl_accessibility_spi_application_get_id (PortableServer_Servant servant,
 }
 
 static void
-impl_accessibility_spi_application_set_id (PortableServer_Servant servant,
+impl_accessibility_application_set_id (PortableServer_Servant servant,
                                        const CORBA_long id,
                                        CORBA_Environment *ev)
 {
@@ -218,7 +218,7 @@ spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
 }
 
 static void
-impl_accessibility_spi_application_register_toolkit_event_listener (PortableServer_Servant servant,
+impl_accessibility_application_register_toolkit_event_listener (PortableServer_Servant servant,
 								Accessibility_EventListener listener,
                                                                 const CORBA_char *event_name,
                                                                 CORBA_Environment *ev)
@@ -236,7 +236,7 @@ impl_accessibility_spi_application_register_toolkit_event_listener (PortableServ
 }
 
 static void
-impl_accessibility_spi_application_register_object_event_listener (PortableServer_Servant servant,
+impl_accessibility_application_register_object_event_listener (PortableServer_Servant servant,
 							       Accessibility_EventListener listener,
 							       const CORBA_char *event_name,
 							       CORBA_Environment *ev)
@@ -329,17 +329,17 @@ static void
 spi_application_class_init (SpiApplicationClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_SpiApplication__epv *epv = &klass->epv;
+  POA_Accessibility_Application__epv *epv = &klass->epv;
 
   spi_application_parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
 
-  object_class->finalize = spi_accessible_spi_application_finalize;
+  object_class->finalize = spi_accessible_application_finalize;
 
-  epv->_get_toolkitName = impl_accessibility_spi_application_get_toolkit_name;
-  epv->_get_version = impl_accessibility_spi_application_get_version;
-  epv->_get_id = impl_accessibility_spi_application_get_id;
-  epv->_set_id = impl_accessibility_spi_application_set_id;
-  epv->registerToolkitEventListener = impl_accessibility_spi_application_register_toolkit_event_listener;
+  epv->_get_toolkitName = impl_accessibility_application_get_toolkit_name;
+  epv->_get_version = impl_accessibility_application_get_version;
+  epv->_get_id = impl_accessibility_application_get_id;
+  epv->_set_id = impl_accessibility_application_set_id;
+  epv->registerToolkitEventListener = impl_accessibility_application_register_toolkit_event_listener;
   init_toolkit_names (&klass->generic_event_names, &klass->toolkit_event_names);
 }
 
@@ -376,7 +376,7 @@ spi_application_get_type (void)
                  */
                 type = bonobo_type_unique (
                         PARENT_TYPE,
-                        POA_Accessibility_SpiApplication__init,
+                        POA_Accessibility_Application__init,
                         NULL,
                         G_STRUCT_OFFSET (SpiApplicationClass, epv),
                         &tinfo,

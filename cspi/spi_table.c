@@ -1,7 +1,7 @@
 int
 SpiAccessibleTable_ref (SpiAccessibleTable *obj)
 {
-  Accessibility_SpiTable_ref (*obj, &ev);
+  Accessibility_Table_ref (*obj, &ev);
   return 0;
 }
 
@@ -10,7 +10,7 @@ SpiAccessibleTable_ref (SpiAccessibleTable *obj)
 int
 SpiAccessibleTable_unref (SpiAccessibleTable *obj)
 {
-  Accessibility_SpiTable_unref (*obj, &ev);
+  Accessibility_Table_unref (*obj, &ev);
   return 0;
 }
 
@@ -20,7 +20,7 @@ SpiAccessible *
 SpiAccessibleTable_getCaption (SpiAccessibleTable *obj)
 {
   return (SpiAccessible *)
-    Accessibility_SpiTable__get_caption (*obj, &ev);
+    Accessibility_Table__get_caption (*obj, &ev);
 }
 
 
@@ -29,7 +29,7 @@ SpiAccessible *
 SpiAccessibleTable_getSummary (SpiAccessibleTable *obj)
 {
   return (SpiAccessible *)
-    Accessibility_SpiTable__get_summary (*obj, &ev);
+    Accessibility_Table__get_summary (*obj, &ev);
 }
 
 
@@ -38,7 +38,7 @@ long
 SpiAccessibleTable_getNRows (SpiAccessibleTable *obj)
 {
   return (long)
-    Accessibility_SpiTable__get_nRows (*obj, &ev);
+    Accessibility_Table__get_nRows (*obj, &ev);
 }
 
 
@@ -47,7 +47,7 @@ long
 SpiAccessibleTable_getNColumns (SpiAccessibleTable *obj)
 {
   return (long)
-    Accessibility_SpiTable__get_nColumns (*obj, &ev);
+    Accessibility_Table__get_nColumns (*obj, &ev);
 }
 
 
@@ -57,7 +57,7 @@ SpiAccessibleTable_getAccessibleAt (SpiAccessibleTable *obj,
                                  long column)
 {
   return (SpiAccessible *)
-    Accessibility_SpiTable_getAccessibleAt (*obj,
+    Accessibility_Table_getAccessibleAt (*obj,
 			       (CORBA_long) row, (CORBA_long) column, &ev);
 }
 
@@ -68,7 +68,7 @@ SpiAccessibleTable_getIndexAt (SpiAccessibleTable *obj,
                             long column)
 {
   return (long)
-    Accessibility_SpiTable_getIndexAt (*obj,
+    Accessibility_Table_getIndexAt (*obj,
 				    (CORBA_long) row, (CORBA_long) column, &ev);
 }
 
@@ -79,7 +79,7 @@ SpiAccessibleTable_getRowAtIndex (SpiAccessibleTable *obj,
                                long index)
 {
   return (long)
-    Accessibility_SpiTable_getRowAtIndex (*obj,
+    Accessibility_Table_getRowAtIndex (*obj,
 				       (CORBA_long) index, &ev);
 }
 
@@ -90,7 +90,7 @@ SpiAccessibleTable_getColumnAtIndex (SpiAccessibleTable *obj,
                                   long index)
 {
   return (long)
-    Accessibility_SpiTable_getColumnAtIndex (*obj,
+    Accessibility_Table_getColumnAtIndex (*obj,
 					  (CORBA_long) index, &ev);
 }
 
@@ -101,7 +101,7 @@ SpiAccessibleTable_getRowDescription (SpiAccessibleTable *obj,
 				   long row)
 {
   return (char *)
-    Accessibility_SpiTable_getRowDescription (*obj,
+    Accessibility_Table_getRowDescription (*obj,
 					   (CORBA_long) row, &ev);
 }
 
@@ -112,7 +112,7 @@ SpiAccessibleTable_getColumnDescription (SpiAccessibleTable *obj,
 				      long column)
 {
   return (char *)
-    Accessibility_SpiTable_getColumnDescription (*obj,
+    Accessibility_Table_getColumnDescription (*obj,
 					      (CORBA_long) column, &ev);
 }
 
@@ -124,7 +124,7 @@ SpiAccessibleTable_getRowExtentAt (SpiAccessibleTable *obj,
                                 long column)
 {
   return (long)
-    Accessibility_SpiTable_getRowExtentAt (*obj,
+    Accessibility_Table_getRowExtentAt (*obj,
 					(CORBA_long) row, (CORBA_long) column, &ev);
 }
 
@@ -136,7 +136,7 @@ SpiAccessibleTable_getColumnExtentAt (SpiAccessibleTable *obj,
                                    long column)
 {
   return (long)
-    Accessibility_SpiTable_getColumnExtentAt (*obj,
+    Accessibility_Table_getColumnExtentAt (*obj,
 					(CORBA_long) row, (CORBA_long) column, &ev);
 }
 
@@ -147,7 +147,7 @@ SpiAccessibleTable_getRowHeader (SpiAccessibleTable *obj,
 			      long row)
 {
   return (SpiAccessible *)
-    Accessibility_SpiTable_getRowHeader (*obj,
+    Accessibility_Table_getRowHeader (*obj,
 				      (CORBA_long) row, &ev);
 }
 
@@ -158,7 +158,7 @@ SpiAccessibleTable_getColumnHeader (SpiAccessibleTable *obj,
 				 long column)
 {
   return (SpiAccessible *)
-    Accessibility_SpiTable_getColumnHeader (*obj,
+    Accessibility_Table_getColumnHeader (*obj,
 				      (CORBA_long) column, &ev);
 }
 
@@ -168,7 +168,7 @@ long
 SpiAccessibleTable_getNSelectedRows (SpiAccessibleTable *obj)
 {
   return (long)
-    Accessibility_SpiTable__get_nSelectedRows (*obj, &ev);
+    Accessibility_Table__get_nSelectedRows (*obj, &ev);
 }
 
 
@@ -177,7 +177,7 @@ long
 SpiAccessibleTable_getSelectedRows (SpiAccessibleTable *obj,
                                  long **selectedRows)
 {
-  Accessibility_LongSeq *rows = Accessibility_SpiTable_getSelectedRows (*obj, &ev);
+  Accessibility_LongSeq *rows = Accessibility_Table_getSelectedRows (*obj, &ev);
   CORBA_long *i;
   long *j;
   long length;
@@ -200,7 +200,7 @@ long
 SpiAccessibleTable_getNSelectedColumns (SpiAccessibleTable *obj)
 {
   return (long)
-    Accessibility_SpiTable__get_nSelectedColumns (*obj, &ev);
+    Accessibility_Table__get_nSelectedColumns (*obj, &ev);
 }
 
 
@@ -208,7 +208,7 @@ long
 SpiAccessibleTable_getSelectedColumns (SpiAccessibleTable *obj,
                                     long **selectedColumns)
 {
-  Accessibility_LongSeq *columns = Accessibility_SpiTable_getSelectedColumns (*obj, &ev);
+  Accessibility_LongSeq *columns = Accessibility_Table_getSelectedColumns (*obj, &ev);
   CORBA_long *i;
   long *j;
   long length;
@@ -231,7 +231,7 @@ SpiAccessibleTable_isRowSelected (SpiAccessibleTable *obj,
                                long row)
 {
   return (boolean)
-    Accessibility_SpiTable_isRowSelected (*obj,
+    Accessibility_Table_isRowSelected (*obj,
 				       (CORBA_long) row, &ev);
 }
 
@@ -242,7 +242,7 @@ SpiAccessibleTable_isColumnSelected (SpiAccessibleTable *obj,
                                   long column)
 {
   return (boolean)
-    Accessibility_SpiTable_isColumnSelected (*obj,
+    Accessibility_Table_isColumnSelected (*obj,
 				       (CORBA_long) column, &ev);
 }
 
@@ -254,7 +254,7 @@ SpiAccessibleTable_isSelected (SpiAccessibleTable *obj,
                             long column)
 {
 return (boolean)
-  Accessibility_SpiTable_isSelected (*obj,
+  Accessibility_Table_isSelected (*obj,
 				  (CORBA_long) row, (CORBA_long) column, &ev);
 }
 

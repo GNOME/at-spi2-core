@@ -30,7 +30,7 @@ typedef CORBA_Object SpiAccessibleStateSet;
 typedef CORBA_Object SpiAccessibleTable;
 typedef CORBA_Object SpiAccessibleText;
 typedef CORBA_Object SpiAccessibleValue;
-typedef CORBA_Object AccessibilitySpiRegistry;
+typedef CORBA_Object AccessibilityRegistry;
 typedef CORBA_Object GenericInterface;
 
 #endif
