@@ -66,6 +66,10 @@ atk_text_base_init (gpointer *g_class)
 
   if (! initialized)
     {
+/*
+    ATK_TEXT_GET_IFACE(g_class)->text_changed = 0;
+    ATK_TEXT_GET_IFACE(g_class)->caret_changed = 0;
+*/
 
   /* 
    * Note that text_changed signal supports details "insert", "delete", 
@@ -91,6 +95,8 @@ atk_text_base_init (gpointer *g_class)
                      g_cclosure_marshal_VOID__INT,
                      G_TYPE_NONE,
                      1, G_TYPE_INT);
+
+  initialized = TRUE;
   }
 }
 
