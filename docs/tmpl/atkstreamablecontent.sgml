@@ -2,7 +2,7 @@
 AtkStreamableContent
 
 <!-- ##### SECTION Short_Description ##### -->
-accessibility interface for objects that contain streamable content.
+accessibility interface for objects that contain streamable content
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
