@@ -1,0 +1,32 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: punlinux\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-03 21:07+0530\n"
+"PO-Revision-Date: 2004-01-26 08:06+0530\n"
+"Last-Translator: Amanpreet Singh Alam <amanlinux@netscape.net>\n"
+"Language-Team: KBST Punjab <kbstpunjab@netscape.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:309
+msgid "failure: no device event controller found.\n"
+msgstr "ਅਸਫਲਤਾ: ਕੋਈ ਯੰਤਰ ਕਾਰਵਾਈ ਸੰਭਣ ਵਾਲਾ ਨਹੀ ਹੈ \n"
+
+#: atk-bridge/bridge.c:778
+msgid "WARNING: NULL key event reported."
+msgstr "ਚੇਤਾਵਨੀ : NULL ਕੀ ਕਾਰਵਾਈ ਹੋਈ ਹੈ"
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI ਰਜਿਸਟ੍ਰਰੀ"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "ਪਹੁੰਚਯੋਗ ਰਜਿਸਟ੍ਰਰੀ"
