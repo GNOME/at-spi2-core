@@ -1,3 +1,21 @@
+What's new in at-spi-1.5.2: 
+
+* Added Accessibility_LoginHelper interface, and
+  LoginHelper GType.  Also added client and server tests
+  for this interface.  The purpose is to identify services
+  (typically, assistive technologies) which need access to 
+  system or device services (keyboard, audio, serial ports,
+  posting windows, etc.) during login or re-login/authentication.
+
+* fixed make distcheck.
+
+* Added a check in cspi_object_unref, which should help in detecting
+  refcount bugs in clients (Padraig O'Briain).
+
+* New languages:
+  Walloon (Pablo Saratxaga)
+  Bulgarian (Alexander Shopov)
+
 What's new in at-spi-1.5.1: 
 
 * Allow synthesis of keysyms that aren't in the current X keymap.

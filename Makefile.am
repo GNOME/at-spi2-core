@@ -15,6 +15,6 @@ EXTRA_DIST = \
 	libspi-1.0.pc.in \
 	libspi-1.0-uninstalled.pc.in
 
-CLEANFILES = intltool-extract \
+DISTCLEANFILES = intltool-extract \
 	intltool-merge	\
 	intltool-update
