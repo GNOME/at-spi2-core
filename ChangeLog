@@ -1,3 +1,10 @@
+2002-02-11  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	Incremented revision and tagged GNOME_D2_BETA.
+
+	* NEWS: updated for GNOME 2 Desktop Beta.
+	
 2002-02-11  jacob berkman  <jacob@ximian.com>
 
 	* atk/atkselection.[ch] (atk_selection_get_type): 

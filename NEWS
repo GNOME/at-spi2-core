@@ -1,3 +1,8 @@
+Changes in version 0.11 and 0.12
+
+* Ansi-fied function prototypes and definitions;
+  i.e.  foo(void) instead of foo() [Jacob Berkman]
+
 Changes in version 0.9 and 0.10
 
 * Win32 build fixes [Hans Breuer]
