@@ -1,3 +1,9 @@
+2001-11-08  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c (atk_object_notify_state_change):
+	Notify previous value when a state if toggled, e.g. ATK_STATE_COLLAPSED
+	to ATK_STATE_EXPANDED or vice versa.
+
 2001-11-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.h:
