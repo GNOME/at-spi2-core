@@ -21,8 +21,7 @@ DEPS = 	\
 	$(libat-spi)
 
 
-LDFLAGS = -no-undefined	\
-	@DEP_LIBS@
+LDFLAGS += -no-undefined
 
 libat_bridge_la_LIBADD = $(AT_BRIDGE_LIBS) ../libspi/libspi.la
 
