@@ -443,7 +443,7 @@ AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e)
  * AccessibleParentChangedEvent_getParentAccessible:
  * @event: a pointer to the #AccessibleEvent being queried.
  *
- * Queries an #AccessibleEvent of type "object:parent_changed"
+ * Queries an #AccessibleEvent of type "object:property-change:accessible-parent"
  *         to get a reference to the changed #Accessible.
  *         Note that context #Accessibles are not guaranteed to outlive
  *         event delivery, in which case this call may return %NULL
@@ -458,8 +458,18 @@ AccessibleParentChangedEvent_getParentAccessible (const AccessibleEvent *e)
   return (Accessible *) cspi_internal_event_get_object (foo);
 }
 
-/** NEED TO DOCUMENT THESE **/
-
+/**
+ * AccessibleActiveDescendantChangedEvent_getActiveDescendant:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:active-descendant-changed"
+ *         to get a reference to the changed #Accessible.
+ *         Note that context #Accessibles are not guaranteed to outlive
+ *         event delivery, in which case this call may return %NULL
+ *         even if the object existed at the time of dispatch.
+ *
+ * Returns: an #Accessible pointer representing the new active descendant.
+ **/
 Accessible *
 AccessibleActiveDescendantChangedEvent_getActiveDescendant (const AccessibleEvent *e) 
 {
@@ -467,6 +477,18 @@ AccessibleActiveDescendantChangedEvent_getActiveDescendant (const AccessibleEven
   return (Accessible *) cspi_internal_event_get_object (foo);
 }
 
+/**
+ * AccessibleTableSummaryChangedEvent_getSummaryAccessible:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:property-changed:accessible-table-summary"
+ *         to get a reference to the changed #Accessible.
+ *         Note that context #Accessibles are not guaranteed to outlive
+ *         event delivery, in which case this call may return %NULL
+ *         even if the object existed at the time of dispatch.
+ *
+ * Returns: an #Accessible pointer representing the new table summary.
+ **/
 Accessible *
 AccessibleTableSummaryChangedEvent_getSummaryAccessible (const AccessibleEvent *e) 
 {
@@ -474,35 +496,101 @@ AccessibleTableSummaryChangedEvent_getSummaryAccessible (const AccessibleEvent *
   return (Accessible *) cspi_internal_event_get_object (foo);
 }
 
+/**
+ * AccessibleTableHeaderChangedEvent_getHeaderAccessible:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type 
+ *         "object:property-changed:accessible-table-row-header" or
+ *         "object:property-changed:accessible-table-column-header"
+ *         to get a reference to the changed #Accessible.
+ *         Note that context #Accessibles are not guaranteed to outlive
+ *         event delivery, in which case this call may return %NULL
+ *         even if the object existed at the time of dispatch.
+ *
+ * Returns: an #Accessible pointer representing the new table header.
+ **/
 Accessible *
 AccessibleTableHeaderChangedEvent_getHeaderAccessible (const AccessibleEvent *e)
 {
-  return NULL;
+  const InternalEvent *foo = (InternalEvent *) e;
+  return (Accessible *) cspi_internal_event_get_object (foo);
 }
 
 
+/**
+ * AccessibleTableCaptionChangedEvent_getCaptionString:
+ * @e: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type 
+ *         "object:property-changed:accessible-table-caption-object" 
+ *         returning the text in the caption, if present.
+ *
+ * Returns: a UTF-8 text string indicating the text in the caption.
+ **/
 char *
 AccessibleTableCaptionChangedEvent_getCaptionString (const AccessibleEvent *e)
 {
-  return NULL;
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (foo);
 }
 
+/**
+ * AccessibleTableRowDescriptionEvent_getDescriptionString:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type 
+ *         "object:property-changed:accessible-table-row-description" 
+ *         returning the new table row description.
+ *
+ * Returns: a UTF-8 text string representing the recently changed
+ *         table row description 
+ **/
 char *
 AccessibleTableRowDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
 {
-  return NULL;
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (foo);
 }
 
+/**
+ * AccessibleTableColumnDescriptionEvent_getDescriptionString:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type 
+ *         "object:property-changed:accessible-table-column-description" 
+ *         returning the new table column description.
+ *
+ * Returns: a UTF-8 text string representing the recently changed
+ *         table column description 
+ **/
 char *
 AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
 {
-  return NULL;
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (foo);
 }
 
+/**
+ * AccessibleDescriptionEvent_getDescriptionString:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type 
+ *         "object:property-changed:accessible-description" 
+ *         returning the new description.
+ *
+ * Returns: a UTF-8 text string representing the recently changed
+ *         description 
+ **/
 char *
 AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
 {
-  return NULL;
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (foo);
 }
 
 static gint
@@ -548,10 +636,21 @@ cspi_internal_event_remove (const InternalEvent *e)
     _cspi_event_queue = g_slist_remove_link (_cspi_event_queue, link);
 }
 
+/**
+ * AccessibleNameChangedEvent_getNametring:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:property-change:accessible_name:", 
+ *         returning the name.
+ *
+ * Returns: a UTF-8 text string representing the name of the 
+ *         object which recently changed.
+ **/
 char *
 AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e)
 {
-  return NULL;
+  const InternalEvent *foo = (InternalEvent *) e;
+  return cspi_internal_event_get_text (foo);
 }
 
 SPIBoolean

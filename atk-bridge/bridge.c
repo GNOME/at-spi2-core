@@ -21,6 +21,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -49,22 +50,12 @@ static gboolean registry_died = FALSE;
 static gboolean atk_listeners_registered = FALSE;
 static guint toplevel_handler;
 
-/* NOT YET USED
-   static GQuark atk_quark_property_changed_name;
-   static GQuark atk_quark_property_changed_description;
-   static GQuark atk_quark_property_changed_parent;
-   static GQuark atk_quark_property_changed_role;
-   static GQuark atk_quark_property_changed_table_caption;
-   static GQuark atk_quark_property_changed_table_column_description;
-   static GQuark atk_quark_property_changed_table_row_description;
-*/
-
 static guint atk_signal_text_changed;
 static guint atk_signal_children_changed;
 static guint atk_signal_active_descendant_changed;
+static guint atk_signal_text_selection_changed;
 
 /* NOT YET USED
-   static guint atk_signal_text_selection_changed;
    static guint atk_signal_row_reordered;
    static guint atk_signal_row_inserted;
    static guint atk_signal_row_deleted;
@@ -134,6 +125,8 @@ spi_atk_bridge_init_event_type_consts ()
 		          ATK_TYPE_OBJECT);
   atk_signal_link_selected = g_signal_lookup ("link_selected", 
 					      ATK_TYPE_HYPERTEXT);
+  atk_signal_text_selection_changed = g_signal_lookup ("text_selection_changed", 
+					      ATK_TYPE_TEXT);
 }
 
 static int
@@ -565,6 +558,13 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 {
   AtkPropertyValues *values;
   GObject *gobject;
+  const gchar *prop_name;
+  CORBA_any any;
+  const gchar *sp = NULL;
+  AtkObject *ao;
+  SpiAccessible *s_ao = NULL;
+  CORBA_Object c_obj;
+  gint i;
 
 #ifdef SPI_BRIDGE_DEBUG
   GSignalQuery signal_query;
@@ -585,8 +585,101 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   gobject = g_value_get_object (param_values + 0);
   values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
 
-  spi_atk_emit_eventv (gobject, 0, 0, NULL,
-		       "object:property-change:%s", values->property_name);
+  prop_name = values->property_name;
+  if (strcmp (prop_name, "accessible-name") == 0)
+    {
+      sp = atk_object_get_name (ATK_OBJECT (gobject));
+      spi_init_any_string (&any, (gchar **)&sp);
+    }
+  else if (strcmp (prop_name, "accessible-description") == 0)
+    {
+      sp = atk_object_get_description (ATK_OBJECT (gobject));
+      spi_init_any_string (&any, (gchar **)&sp);
+    }
+  else if (strcmp (prop_name, "accessible-parent") == 0)
+    {
+      ao = atk_object_get_parent (ATK_OBJECT (gobject));
+      if (ao) 
+        {
+          s_ao = spi_accessible_new (ao);
+          c_obj = BONOBO_OBJREF (s_ao);
+          spi_init_any_object (&any, &c_obj);
+	}
+      else
+        {
+          spi_init_any_nil (&any);
+        }
+    }
+  else if (strcmp (prop_name, "accessible-table-summary") == 0)
+    {
+      ao = atk_table_get_summary (ATK_TABLE (gobject));
+      if (ao) 
+        {
+          s_ao = spi_accessible_new (ao);
+          c_obj = BONOBO_OBJREF (s_ao);
+          spi_init_any_object (&any, &c_obj);
+	}
+      else
+        {
+          spi_init_any_nil (&any);
+        }
+    }
+  else if (strcmp (prop_name, "accessible-table-column-header") == 0)
+    {
+      i = g_value_get_int (&(values->new_value));
+      ao = atk_table_get_column_header (ATK_TABLE (gobject), i);
+      if (ao) 
+        {
+          s_ao = spi_accessible_new (ao);
+          c_obj = BONOBO_OBJREF (s_ao);
+          spi_init_any_object (&any, &c_obj);
+	}
+      else
+        {
+          spi_init_any_nil (&any);
+        }
+    }
+  else if (strcmp (prop_name, "accessible-table-row-header") == 0)
+    {
+      i = g_value_get_int (&(values->new_value));
+      ao = atk_table_get_row_header (ATK_TABLE (gobject), i);
+      if (ao) 
+        {
+          s_ao = spi_accessible_new (ao);
+          c_obj = BONOBO_OBJREF (s_ao);
+          spi_init_any_object (&any, &c_obj);
+	}
+      else
+        {
+          spi_init_any_nil (&any);
+        }
+    }
+  else if (strcmp (prop_name, "accessible-table-row-description") == 0)
+    {
+      i = g_value_get_int (&(values->new_value));
+      sp = atk_table_get_row_description (ATK_TABLE (gobject), i);
+      spi_init_any_string (&any, (gchar **)&sp);
+    }
+  else if (strcmp (prop_name, "accessible-table-column-description") == 0)
+    {
+      i = g_value_get_int (&(values->new_value));
+      sp = atk_table_get_column_description (ATK_TABLE (gobject), i);
+      spi_init_any_string (&any, (gchar **)&sp);
+    }
+  else if (strcmp (prop_name, "accessible-table-caption-object") == 0)
+    {
+      ao = atk_table_get_caption (ATK_TABLE (gobject));
+      sp = atk_object_get_name (ao);
+      spi_init_any_string (&any, (gchar **)&sp);
+    }
+  else
+    {
+      spi_init_any_nil (&any);
+    }
+
+  spi_atk_emit_eventv (gobject, 0, 0, &any,
+		       "object:property-change:%s", prop_name);
+
 
   return TRUE;
 }
@@ -708,6 +801,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   CORBA_Object c_obj;
   char *sp = NULL;
   AtkObject *ao;
+  AtkText *text;
   gint detail1 = 0, detail2 = 0;
   SpiAccessible *s_ao = NULL;
 #ifdef SPI_BRIDGE_DEBUG
@@ -786,6 +880,13 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 	    		          detail1,
 			          detail1+detail2);
           spi_init_any_string (&any, &sp);
+        }
+      else if (signal_query.signal_id == atk_signal_text_selection_changed)
+        {
+          text = ATK_TEXT (gobject);
+ 
+          /* Return NULL as the selected string */
+	  spi_init_any_nil (&any);
         }
       else
         {

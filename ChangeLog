@@ -1,5 +1,14 @@
 2003-04-02  Padraig O'Briain <padraig.obriain@sun.com>
 
+	* atk-bridge/bridge.c: Add support for extended events
+	* cspi/spi_event.c: Add documentation and implementation for
+	extended events.
+	* tests/event-listener-test.c: Add tests for extended events.
+
+	This fixes bugs #100424 and #100426.
+ 
+2003-04-02  Padraig O'Briain <padraig.obriain@sun.com>
+
 	* configure.in: Add 100 to AT_SPI_BINARY_AGE and update calculation
 	of LT_CURRENT. This fixes bug #89350.
 
