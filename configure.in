@@ -39,7 +39,6 @@ AC_PROG_INSTALL
 AC_ISC_POSIX
 
 GNOME_COMMON_INIT
-GNOME_PLATFORM_GNOME_2(yes, force)
 GNOME_COMPILE_WARNINGS(maximum)
 
 dnl Initialize libtool
@@ -50,11 +49,7 @@ dnl internationalization support; uncomment if translatable strings are reintrod
 dnl ALL_LINGUAS="ar az be bn ca cs cy da de el en_CA en_GB eo es et eu fa fi fr gu he hi hr id is it ja ko lt mn ms ne nl nn no pa pl pt_BR pt ro ru sk sl sq sr@ije sr@Latn sr sv uk vi wa zh_CN"
 dnl AM_GLIB_GNU_GETTEXT
 
-GTK_DOC_CHECK ([1.0])
-
-dnl NOTE: We need to use a separate automake conditional for this
-dnl   	  to make this work with the tarballs.
-AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
+GTK_DOC_CHECK([1.0])
 
 AC_PATH_XTRA
 

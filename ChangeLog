@@ -1,3 +1,8 @@
+2004-05-11  James Henstridge  <james@daa.com.au>
+
+	* configure.in: remove GNOME_PLATFORM_GNOME_2 macro, which is a
+	no-op and deprecated.
+
 2004-05-03  Pablo Saratxaga  <pablo@mandrakesoft.com>
 
 	* configure.in: Added "wa" (Walloon) to ALL_LINGUAS.
