@@ -1,5 +1,9 @@
 2002-11-11  Christian Rose  <menthos@menthos.com>
 
+	* sv.po: Added Swedish translation.
+
+2002-11-11  Christian Rose  <menthos@menthos.com>
+
 	* .cvsignore: Corrected typos.
 	* POTFILES.in: Added comment.
 	* po2tbl.sed.in: Removed, it's in .cvsignore anyway.

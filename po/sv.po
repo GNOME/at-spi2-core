@@ -1,0 +1,315 @@
+# Swedish messages for atk.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# This file is distributed under the same license as the atk package.
+# Christian Rose <menthos@menthos.com>, 2002.
+#
+# $Id$
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2002-11-11 11:58+0100\n"
+"PO-Revision-Date: 2002-11-11 11:59+0100\n"
+"Last-Translator: Christian Rose <menthos@menthos.com>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1172
+msgid "invalid"
+msgstr "ogiltig"
+
+#: atk/atkobject.c:1175
+msgid "accel-label"
+msgstr "genvägsetikett"
+
+#: atk/atkobject.c:1178
+msgid "alert"
+msgstr "varning"
+
+#: atk/atkobject.c:1181
+msgid "animation"
+msgstr "animering"
+
+#: atk/atkobject.c:1184
+msgid "arrow"
+msgstr "pil"
+
+#: atk/atkobject.c:1187
+msgid "calendar"
+msgstr "kalender"
+
+#: atk/atkobject.c:1190
+msgid "canvas"
+msgstr "canvas"
+
+#: atk/atkobject.c:1193
+msgid "check-box"
+msgstr "kryssruta"
+
+#: atk/atkobject.c:1196
+msgid "check-menu-item"
+msgstr "kryssmenypost"
+
+#: atk/atkobject.c:1199
+msgid "color-chooser"
+msgstr "färgväljare"
+
+#: atk/atkobject.c:1202
+msgid "column-header"
+msgstr "kolumnrubrik"
+
+#: atk/atkobject.c:1205
+msgid "combo-box"
+msgstr "komboruta"
+
+#: atk/atkobject.c:1208
+msgid "date-editor"
+msgstr "datumredigerare"
+
+#: atk/atkobject.c:1211
+msgid "desktop-icon"
+msgstr "skrivbordsikon"
+
+#: atk/atkobject.c:1214
+msgid "desktop-frame"
+msgstr "skrivbordsram"
+
+#: atk/atkobject.c:1217
+msgid "dial"
+msgstr "ring"
+
+#: atk/atkobject.c:1220
+msgid "dialog"
+msgstr "dialog"
+
+#: atk/atkobject.c:1223
+msgid "directory-pane"
+msgstr "katalogpanel"
+
+#: atk/atkobject.c:1226
+msgid "drawing-area"
+msgstr "rityta"
+
+#: atk/atkobject.c:1229
+msgid "file-chooser"
+msgstr "filväljare"
+
+#: atk/atkobject.c:1232
+msgid "filler"
+msgstr "ifyllare"
+
+#: atk/atkobject.c:1235
+msgid "font-chooser"
+msgstr "typsnittsväljare"
+
+#: atk/atkobject.c:1238
+msgid "frame"
+msgstr "ram"
+
+#: atk/atkobject.c:1241
+msgid "glass-pane"
+msgstr "glaspanel"
+
+#: atk/atkobject.c:1244
+msgid "html-container"
+msgstr "html-behållare"
+
+#: atk/atkobject.c:1247
+msgid "icon"
+msgstr "ikon"
+
+#: atk/atkobject.c:1250
+msgid "image"
+msgstr "bild"
+
+#: atk/atkobject.c:1253
+msgid "internal-frame"
+msgstr "intern-ram"
+
+#: atk/atkobject.c:1256
+msgid "label"
+msgstr "etikett"
+
+#: atk/atkobject.c:1259
+msgid "layered-pane"
+msgstr "lagerpanel"
+
+#: atk/atkobject.c:1262
+msgid "list"
+msgstr "lista"
+
+#: atk/atkobject.c:1265
+msgid "list-item"
+msgstr "listpost"
+
+#: atk/atkobject.c:1268
+msgid "menu"
+msgstr "meny"
+
+#: atk/atkobject.c:1271
+msgid "menu-bar"
+msgstr "menyrad"
+
+#: atk/atkobject.c:1274
+msgid "menu-item"
+msgstr "menypost"
+
+#: atk/atkobject.c:1277
+msgid "option-pane"
+msgstr "alternativpanel"
+
+#: atk/atkobject.c:1280
+msgid "page-tab"
+msgstr "sidflik"
+
+#: atk/atkobject.c:1283
+msgid "page-tab-list"
+msgstr "sidflikslist"
+
+#: atk/atkobject.c:1286
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1289
+msgid "password-text"
+msgstr "lösenordstext"
+
+#: atk/atkobject.c:1292
+msgid "popup-menu"
+msgstr "popupmeny"
+
+#: atk/atkobject.c:1295
+msgid "progress-bar"
+msgstr "förloppsmätare"
+
+#: atk/atkobject.c:1298
+msgid "push-button"
+msgstr "tryckknapp"
+
+#: atk/atkobject.c:1301
+msgid "radio-button"
+msgstr "radiioknapp"
+
+#: atk/atkobject.c:1304
+msgid "radio-menu-item"
+msgstr "radiomenypost"
+
+#: atk/atkobject.c:1307
+msgid "root-pane"
+msgstr "rotpanel"
+
+#: atk/atkobject.c:1310
+msgid "row-header"
+msgstr "radhuvud"
+
+#: atk/atkobject.c:1313
+msgid "scroll-bar"
+msgstr "rullningslist"
+
+#: atk/atkobject.c:1316
+msgid "scroll-pane"
+msgstr "rullningspanel"
+
+#: atk/atkobject.c:1319
+msgid "separator"
+msgstr "avskiljare"
+
+#: atk/atkobject.c:1322
+msgid "slider"
+msgstr "skjutreglage"
+
+#: atk/atkobject.c:1325
+msgid "split-pane"
+msgstr "delad-panel"
+
+#: atk/atkobject.c:1328
+msgid "spin-button"
+msgstr "spinnknapp"
+
+#: atk/atkobject.c:1331
+msgid "statusbar"
+msgstr "statusrad"
+
+#: atk/atkobject.c:1334
+msgid "table"
+msgstr "tabell"
+
+#: atk/atkobject.c:1337
+msgid "table-cell"
+msgstr "tabellcell"
+
+#: atk/atkobject.c:1340
+msgid "table-column-header"
+msgstr "tabellkolumnhuvud"
+
+#: atk/atkobject.c:1343
+msgid "table-row-header"
+msgstr "tabellradshuvud"
+
+#: atk/atkobject.c:1346
+msgid "tear-off-menu-item"
+msgstr "avtagbar-menypost"
+
+#: atk/atkobject.c:1349
+msgid "terminal"
+msgstr "terminal"
+
+#: atk/atkobject.c:1352
+msgid "text"
+msgstr "text"
+
+#: atk/atkobject.c:1355
+msgid "toggle-button"
+msgstr "växlingsknapp"
+
+#: atk/atkobject.c:1358
+msgid "tool-bar"
+msgstr "verktygsrad"
+
+#: atk/atkobject.c:1361
+msgid "tool-tip"
+msgstr "verktygstips"
+
+#: atk/atkobject.c:1364
+msgid "tree"
+msgstr "träd"
+
+#: atk/atkobject.c:1367
+msgid "tree-table"
+msgstr "trädtabell"
+
+#: atk/atkobject.c:1370
+msgid "unknown"
+msgstr "okänd"
+
+#: atk/atkobject.c:1373
+msgid "viewport"
+msgstr "skrivbordsvy"
+
+#: atk/atkobject.c:1376
+msgid "window"
+msgstr "fönster"
+
+#: atk/atkobject.c:1379
+msgid "header"
+msgstr "huvud"
+
+#: atk/atkobject.c:1382
+msgid "footer"
+msgstr "fot"
+
+#: atk/atkobject.c:1385
+msgid "paragraph"
+msgstr "stycke"
+
+#: atk/atkobject.c:1388
+msgid "ruler"
+msgstr "linjal"
+
+#~ msgid "folder-pane"
+#~ msgstr "mappanel"
+
+#~ msgid "toolbar"
+#~ msgstr "verktygsrad"
