@@ -1,7 +1,16 @@
 (top)
 in HEAD:
 
-What's new in at-spi-1.1.5:
+What's new in at-spi-1.1.6:
+
+* Fixes for #99799, #10530.
+
+* New methods in cspi:
+  'AccessibleEvent_ref' and 'AccessibleEvent_unref'
+  to allow lifecycle management of AccessibleEvents outside of
+  the emission handler.
+
+What's new in at-spi-1.1.6:
 
 * event struct in libspi is bigger, increased unimplemented
   slot count for sufficient future bincompatible expansion. 

@@ -243,6 +243,25 @@ cspi_object_return (Accessible *accessible)
     }
 }
 
+Accessible *
+cspi_object_take (CORBA_Object corba_object)
+{
+  Accessible *accessible;
+  accessible = cspi_object_borrow (corba_object);
+  cspi_object_ref (accessible->objref);
+  /* 
+   * if the remote object is dead, 
+   * cspi_object_return will throw an exception. 
+   */
+  cspi_object_return (accessible->objref);
+  if (cspi_exception ()) 
+    {
+      cspi_object_unref (accessible->objref);
+      accessible = NULL;
+    }
+  return accessible;
+}
+
 void
 cspi_object_ref (Accessible *accessible)
 {

@@ -1,3 +1,55 @@
+2002-12-06  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	Revved to 1.1.6.
+	
+	* cspi/spi.h: 
+	(AccessibleEvent_ref, AccessibleEvent_unref):
+	New methods, for persisting an event outside the emission context.
+	Must be used if the new accessor methods are to be called
+	outside of the event listener's callback.
+
+	* cspi/bonobo/cspi-bonobo.c:
+	(cspi_dup_ref): Pass 'ev' to bonobo_object_dup_ref
+	as second parameter instead of NULL, so we can call
+	cspi_check_ev afterwards.
+	
+	* cspi/spi_main.c:
+	(cspi_object_take): New internal method, 
+	converts a CORBA_Object reference to a hard ref on
+	an Accessible if possible, returning NULL if the object
+	reference is invalid or an Accessible * otherwise.
+
+	* cspi/spi_event.c:
+	(AccessibleEvent_ref): 
+	Increment the event's internal private refcount, and 
+	add the event's internal struct to an internal cache 
+	if it's not already there.
+	(AccessibleEvent_unref): 
+	Decrement the event's refcount and remove it from
+	the cspi event cache if refcount==0.
+	(cspi_event_compare): New private method.
+	Compares two event structs via their ids. Used 
+	for queue lookup.
+	(cspi_internal_event_lookup): New private method.
+	(cspi_internal_event_check): New private method,
+	a 0-order sanity check for events to make sure their
+	private data is intact.
+	(cspi_internal_event_add, cspi_internal_event_remove):
+	New private methods for managiing the event cache.
+
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	(cspi_event):
+	Initialize the new private data elements (id, magic, ref_count).
+	
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_signal_listener):
+	Fixed bug #100530, passing wrong params to emission func.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_button_update_and_emit): 
+	Fixed type in mask bit operations; fix for #99799.
+	
 2002-12-02  Bill Haneman  <bill.haneman@sun.com>
 
 	Removed some of the more dangerous workarounds from

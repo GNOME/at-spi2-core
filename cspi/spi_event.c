@@ -24,6 +24,8 @@
 #include <cspi/spi-private.h>
 #include <cspi/bonobo/cspi-bonobo-listener.h>
 
+static GSList *_cspi_event_queue = NULL;
+
 /**
  * SPI_freeAccessibleKeySet:
  * @keyset: An AccessibleKeyset to free.
@@ -352,11 +354,12 @@ static Accessible *
 cspi_internal_event_get_object (const InternalEvent *e)
 {
   CORBA_any *any;
+  Accessible *accessible;
   g_return_val_if_fail (e, NULL);
   g_return_val_if_fail (e->data, NULL);
   any = (CORBA_any *) e->data;
   if (any->_type == TC_CORBA_Object) 
-    return cspi_object_add (* (CORBA_Object *) any->_value);
+    return cspi_object_take (* (CORBA_Object *) any->_value);
   else 
     return NULL;
 }
@@ -501,9 +504,90 @@ AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e
   return NULL;
 }
 
+static gint
+cspi_event_compare (gconstpointer p1, gconstpointer p2)
+{
+  const InternalEvent *e1 = p1, *e2 = p2;
+  return (gint) ((long) e2->id  - (long) e1->id);
+}
+
+static InternalEvent *
+cspi_internal_event_lookup (const InternalEvent *e)
+{
+  InternalEvent *internal = NULL;
+  GSList *p =
+    g_slist_find_custom (_cspi_event_queue, e, cspi_event_compare);
+  if (p)
+    internal = p->data;
+  return internal;
+}
+
+static const InternalEvent *
+cspi_internal_event_check (const AccessibleEvent *e)
+{
+  InternalEvent *internal = (InternalEvent *) e;
+  if (internal->magic == SPI_INTERNAL_EVENT_MAGIC) 
+    return internal;
+  else
+    return NULL;
+}
+
+static InternalEvent *
+cspi_internal_event_add (const InternalEvent *e)
+{
+  _cspi_event_queue = g_slist_prepend (_cspi_event_queue, e);
+  return (InternalEvent *) e;
+}
+
+static void
+cspi_internal_event_remove (const InternalEvent *e)
+{
+  GSList *link = g_slist_find_custom (_cspi_event_queue, e, cspi_event_compare);
+  if (link)
+    _cspi_event_queue = g_slist_remove_link (_cspi_event_queue, link);
+}
+
 char *
 AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e)
 {
   return NULL;
 }
 
+SPIBoolean
+AccessibleEvent_ref (const AccessibleEvent *e)
+{
+  const InternalEvent *private = cspi_internal_event_check (e);
+  if (private)
+    {
+      InternalEvent *event = cspi_internal_event_lookup (private);
+      /* 
+       * put event in the cache if it's not there already, 
+       * and increment refcount 
+       */
+      if (!event)
+	{
+	  event = cspi_internal_event_add (private);
+	}
+      event->ref_count++;
+      return TRUE;
+    }
+  else
+    return FALSE;
+}
+
+void
+AccessibleEvent_unref (const AccessibleEvent *e)
+{
+  const InternalEvent *private = cspi_internal_event_check (e);
+  /* decrement refcount and remove if appropriate */
+  if (private)
+    {
+      InternalEvent *event = cspi_internal_event_lookup (private);
+      if (event) 
+	{
+	  event->ref_count--;
+	  if (event->ref_count < 1)
+	    cspi_internal_event_remove (event);
+	}
+    }
+}

@@ -39,6 +39,8 @@ typedef struct
 GObjectClass *event_parent_class;
 GObjectClass *device_parent_class;
 
+static guint32 _e_id = 0;
+
 /*
  * Misc. helpers.
  */
@@ -98,6 +100,9 @@ cspi_event (SpiEventListener    *listener,
   aevent.event.source  = source;
   aevent.event.detail1 = event->detail1;
   aevent.event.detail2 = event->detail2;
+  aevent.id            = _e_id++;
+  aevent.magic         = SPI_INTERNAL_EVENT_MAGIC;
+  aevent.ref_count     = 0;
   aevent.data          = &event->any_data;
 
   /* FIXME: re-enterancy hazard on this list */

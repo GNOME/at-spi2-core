@@ -39,11 +39,16 @@ struct _Accessible {
 	guint        ref_count : 30;
 };
 
+#define SPI_INTERNAL_EVENT_MAGIC 0xc3
 /* 
  * For internal use by CSPI implementation only
  */
 typedef struct {
   AccessibleEvent event;
+  guint           id;
+  guchar          magic;
+  guchar          type;
+  guint16         ref_count;
   void           *data; 
 } InternalEvent;
 
@@ -56,6 +61,7 @@ Accessible            *cspi_object_add       (CORBA_Object corba_object);
 void                   cspi_object_ref       (Accessible  *accessible);
 void                   cspi_object_unref     (Accessible  *accessible);
 Accessible            *cspi_object_borrow    (CORBA_Object corba_object);
+Accessible            *cspi_object_take      (CORBA_Object corba_object);
 void                   cspi_object_return    (Accessible  *accessible);
 SPIBoolean             cspi_accessible_is_a  (Accessible  *accessible,
 					      const char  *interface_name);

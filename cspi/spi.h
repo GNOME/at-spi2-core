@@ -793,6 +793,10 @@ double     AccessibleValue_getMaximumValue (AccessibleValue *obj);
 SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
 					    double           newValue);
 
+/* Persistance and lifecycle control for AccessibleEvents. */
+SPIBoolean AccessibleEvent_ref (const AccessibleEvent *e);
+void AccessibleEvent_unref (const AccessibleEvent *e);
+
 /*
  * Prototypes for accessor functions, to obtain context
  * information for accessible events.

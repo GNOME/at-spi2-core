@@ -29,7 +29,7 @@
 CORBA_Object
 cspi_dup_ref (CORBA_Object object)
 {
-  return bonobo_object_dup_ref (object, NULL);
+  return bonobo_object_dup_ref (object, cspi_ev ());
 }
 
 void
