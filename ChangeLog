@@ -1,3 +1,9 @@
+2002-03-16 Bill Haneman <bill.haneman@sun.com>
+
+	* test/simple-at.c:
+	Added a #define-guarded tree-traversal step
+	when enumerating the apps (diagnostic tool).
+
 2002-03-15 Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Role.idl:

@@ -29,6 +29,8 @@
 #include "../util/mag_client.h"
 #include "../cspi/spi-private.h" /* A hack for now */
 
+#undef PRINT_TREE
+
 static void report_focus_event    (const AccessibleEvent *event, void *user_data);
 static void report_generic_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_event     (const AccessibleEvent *event, void *user_data);
@@ -41,6 +43,10 @@ static void get_environment_vars (void);
 static int _festival_init ();
 static void _festival_say (const char *text, const char *voice, SPIBoolean shutup);
 static void _festival_write (const char *buff, int fd);
+
+#ifdef PRINT_TREE
+static void print_accessible_tree (Accessible *accessible, char *prefix);
+#endif
 
 static SPIBoolean use_magnifier = FALSE;
 static SPIBoolean use_festival = FALSE;
@@ -76,7 +82,7 @@ main (int argc, char **argv)
   modules = g_getenv ("GTK_MODULES");
   if (!modules || modules [0] == '\0')
     {
-      putenv ("GTK_MODULES=gail:atk-bridge");
+      putenv ("GTK_MODULES=");
     }
   modules = NULL;
 
@@ -110,6 +116,9 @@ main (int argc, char **argv)
           application = Accessible_getChildAtIndex (desktop, j);
 	  s = Accessible_getName (application);
           fprintf (stderr, "app %d name: %s\n", j, s);
+#ifdef PRINT_TREE
+	  print_accessible_tree (application, "*");
+#endif
           SPI_freeString (s);
           Accessible_unref (application);
         }
@@ -172,6 +181,46 @@ get_environment_vars (void)
       fprintf (stderr, "No speech output\n");
     }
 }
+
+#ifdef PRINT_TREE
+static void
+print_accessible_tree (Accessible *accessible, char *prefix)
+{
+	int n_children;
+	int i;
+	char *name;
+	char *role_name;
+	char *parent_name;
+	char *parent_role;
+	char child_prefix[100];
+	Accessible *child;
+	Accessible *parent;
+	
+	strncpy (child_prefix, prefix, 98);
+	strcat (child_prefix, "*");
+	parent = Accessible_getParent (accessible);
+	if (parent)
+	  {
+		parent_name = Accessible_getName (parent);
+		parent_role = Accessible_getRoleName (parent);
+	  }
+	Accessible_unref (parent);
+	name = Accessible_getName (accessible);
+	role_name = Accessible_getRoleName (accessible);
+	fprintf (stdout, "%sAccessible [%s] \"%s\"; parent [%s] %s\n",
+		 prefix, role_name, name, parent_role, parent_name);
+	SPI_freeString (name);
+	SPI_freeString (role_name);
+	SPI_freeString (parent_name);
+	n_children = Accessible_getChildCount (accessible);
+	for (i = 0; i < n_children; ++i)
+	        {
+			child = Accessible_getChildAtIndex (accessible, i);
+			print_accessible_tree (child, child_prefix);
+			Accessible_unref (child);
+	        }
+}
+#endif
 
 void
 report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
