@@ -1,3 +1,28 @@
+2002-05-23  Bill Haneman  <bill.haneman@sun.com>
+
+	* test/screen-review-test.c:
+	(review_buffer_get_text_chunk):
+	We now pull "name" from labels if they do not implement
+	AccessibleText (i.e. for Java labels).
+	(get_screen_review_line_at):
+	Added #ifdef guards CHUNK_LIST_DEBUG for diagnostics.
+
+	* configure.in:
+	Replaceded AC_OUTPUT target
+	registryd/Accessibility_Registry.server with 
+	registryd/Accessibility_Registry.server.in.
+
+	* registryd/Accessibility_Registry.server.in:
+	Removed (this is now a Makefile target).
+
+	* registryd/Accessibility_Registry.server.in.in:
+	Added (source for target above).  We now use $(libexecdir) as
+	prefix for the executable at-spi-registryd.
+
+	* registry/Makefile.am: 
+	Now install at-spi-registryd into $(libexecdir), and build .server
+	file with path (see above).
+	
 2002-05-22  Bill Haneman  <bill.haneman@sun.com>
 
 	* test/screen-review-test.c:

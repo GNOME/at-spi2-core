@@ -1,3 +1,8 @@
+server_dot_in = Accessibility_Registry.server.in
+
+$(server_dot_in): $(server_dot_in).in
+	sed -e "s|\@REGISTRYD_PATH\@|$(libexecdir)|" $< > $@ 
+
 libexec_PROGRAMS = at-spi-registryd
 
 INCLUDES = -I$(top_srcdir)          \

@@ -31,28 +31,31 @@
  * Issues:
  *
  * * bounds now fail to include window border decoration
- *         (which we can't really know about).
+ *         (which we can't really know about yet).
  *
  * * brute-force algorithm uses no client-side cache; performance mediocre.
  *
  * * we don't have good ordering information for the toplevel windows,
  *          and our current heuristic is not guaranteed if
- *          the active window is not always on top.
+ *          the active window is not always on top (i.e. autoraise is
+ *          not enabled).
  *
  * * text-bearing objects that don't implement AccessibleText (such as buttons)
  *          don't get their text clipped since we don't know the character
  *          bounding boxes.
+ *
  * * can't know about "inaccessible" objects that may be obscuring the
  *          accessible windows (inherent to API-based approach).
  *
  * * this implementation doesn't worry about text column-alignment, it generates
  *          review lines of more-or-less arbitrary length.  The x-coordinate
  *          info is preserved in the reviewBuffers list structures, but the
- *          "buffer-to-string" algorithm ignores it.
+ *          "buffer-to-string" algorithm (currently) ignores it.
  *
  * * (others).
  */
 
+#undef CHUNK_LIST_DEBUG /* define to get list of text chunks before clip */
 
 #define BOUNDS_CONTAIN_X_BOUNDS(b, p)  ( ((p).x>=(b).x) &&\
 					 (((p).x + (p).width) <= \
@@ -139,7 +142,7 @@ main (int argc, char **argv)
 
   SPI_registerGlobalEventListener (mouseclick_listener,
 				   "Gtk:GtkWidget:button-press-event");
-#undef JAVA_TEST_HACK
+#define JAVA_TEST_HACK
 #ifdef JAVA_TEST_HACK /* Only use this to test Java apps */
   SPI_registerGlobalEventListener (mouseclick_listener,
 				   "object:text-caret-moved");
@@ -558,6 +561,7 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 	} else {
 		if (role == SPI_ROLE_PUSH_BUTTON ||
 		    role == SPI_ROLE_CHECK_BOX ||
+		    role == SPI_ROLE_LABEL ||
 		    role == SPI_ROLE_MENU ||
 		    role == SPI_ROLE_MENU_ITEM) { /* don't like this
 						     special casing :-( */
@@ -928,7 +932,7 @@ get_screen_review_line_at (int x, int y)
 		      }
 		      clip_into_buffers (toplevel, clip_bounds,
 				     reviewBuffers, x, y);
-#ifdef CLIP_DEBUG
+#ifdef CHUNK_LIST_DEBUG
 		      fprintf (stderr, "toplevel clip done\n");
 		      debug_chunk_list (reviewBuffers[SPI_LAYER_WIDGET]->text_chunks);
 #endif		      
