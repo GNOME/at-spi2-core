@@ -1,3 +1,9 @@
+2003-05-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkstate.h, docs/tmpl/atkstate.sgml: Add state 
+	ATK_STATE_INDETERMINATE. This state is used by Oo for check buttons
+	which can have a value other than on or off.
+
 2003-05-19 Arafat Medini <lumina@silverpen.de>
 
 	*configure.in: Added "ar" (Arabic) to ALL_LINGUAS
