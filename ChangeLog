@@ -1,3 +1,11 @@
+2002-12-16  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.1.5=====
+	
+	* configure.in: Version 1.1.5, interface age 2, binary age 105
+
+	* NEWS: Updated.
+
 2002-12-13  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c (atk_text_get_caret_offset): Rerturn 0 instead of -1

@@ -1,6 +1,14 @@
+Changes in version 1.1.5
+
+* Correct return value for atk_text_get_caret_offset(). (Bug #101020)
+[Padraig O'briain]
+* Add translations: Vietnamese, Hebrew, Dutch [Pablo Saratxaga], 
+Hungarian [Andras Timar], Bulgarian [Yanko Kaneti]
+* Miscellaneous Fixes [Owen Taylor, manish Singh, Padraig]
+
 Changes in version 1.1.4
 
-* Add translations: Norwegian [Kjartan Maraas], german [Christian Neumair],
+* Add translations: Norwegian [Kjartan Maraas], German [Christian Neumair],
 Spanish [Pablo Gonzalo del Campo], Danish [Ole Laursen]
 
 Changes in version 1.1.3
