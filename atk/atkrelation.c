@@ -71,15 +71,19 @@ atk_relation_new (AtkObject       **targets,
 {
   AtkRelation *relation;
   int         i;
-  GArray      *array;
+  GPtrArray      *array;
 
   g_return_val_if_fail (targets != NULL, NULL);
 
   relation = g_object_new (ATK_TYPE_RELATION, NULL);
-  array = g_array_sized_new (FALSE, FALSE, sizeof (AtkObject *), n_targets);
+  array = g_ptr_array_sized_new (n_targets);
   for (i = 0; i < n_targets; i++)
   {
-    g_array_insert_vals (array, i, &targets[i], sizeof (AtkObject *));
+    /*
+     * Add a reference to AtkObject being added to a relation
+     */
+    g_object_ref (targets[i]);
+    g_ptr_array_add (array, targets[i]);
   }
   
   relation->target = array;
@@ -97,7 +101,7 @@ atk_relation_get_relation_type (AtkRelation *relation)
   return relation->relationship;
 }
 
-GArray*
+GPtrArray*
 atk_relation_get_target (AtkRelation *relation)
 {
   g_return_val_if_fail (relation != NULL, FALSE);
@@ -117,6 +121,15 @@ atk_relation_finalize (GObject *object)
 
   if (relation->target)
   {
-    g_array_free (relation->target, TRUE);
+    gint i;
+
+    for (i = 0; i < relation->target->len; i++)
+    {
+      /*
+       * Remove a reference to AtkObject being removed from a relation
+       */
+      g_object_unref (g_ptr_array_index (relation->target, i));
+    }
+    g_ptr_array_free (relation->target, TRUE);
   } 
 }

@@ -53,7 +53,7 @@ struct _AtkRelation
 {
   GObject parent;
 
-  GArray          *target;
+  GPtrArray       *target;
   AtkRelationType relationship;
 };
 
@@ -80,7 +80,7 @@ AtkRelationType atk_relation_get_relation_type        (AtkRelation     *relation
 /*
  * Returns the target list of a relation.
  */
-GArray*         atk_relation_get_target               (AtkRelation     *relation);
+GPtrArray*      atk_relation_get_target               (AtkRelation     *relation);
 
 #ifdef __cplusplus
 }
