@@ -1,3 +1,12 @@
+2002-05-10  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	Fixed bug in grab key conversion which was causing keycode grabs
+	to be converted to AnyKey grabs.
+
+	* NEWS:
+	updated NEWS file to reflect recent spin-off of gnome-mag.
+
 2002-05-09  Bill Haneman <bill.haneman@sun.com>
 
 	* cspi/spi_registry.c:

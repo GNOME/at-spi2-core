@@ -1,3 +1,19 @@
+(top)
+What's new in at-spi-0.13.1:
+
+(note: 0.13.1 is not binary compatible with 0.12.1, clients will need
+ to recompile )
+
+* fix for bugzilla bug 80616
+* IDL change which will affect direct CORBA users of the keystroke
+  listener API
+* added a new test harness, event-listener-test, which also
+  has a simple tree traversal timing benchmark. event-listener-test
+  attaches listeners to all currently supported events (and a few
+  events which are not fully implemented yet); it thus serves
+  as useful event listener sample code as well as being a diagnostic
+  tool. 
+
 What's new in at-spi-0.12.1:
 
 * fixes for bugzilla bugs 78249,68929,76615,71686,72300,78247,72300,78249

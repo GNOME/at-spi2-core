@@ -25,7 +25,7 @@
 #include <config.h>
 
 #undef  SPI_DEBUG
-#define  SPI_KEYEVENT_DEBUG
+#undef  SPI_KEYEVENT_DEBUG
 
 #include <string.h>
 #include <ctype.h>
@@ -250,7 +250,7 @@ handle_keygrab (SpiDEController         *controller,
 	  Accessibility_KeyDefinition keydef = key_listener->keys->_buffer[i];	
 	  long int key_val = keydef.keysym;
 	  /* X Grabs require keycodes, not keysyms */
-	  if (keydef.keystring)
+	  if (keydef.keystring && keydef.keystring[0])
 	    {
 	      key_val = XStringToKeysym(keydef.keystring);		    
 	    }
@@ -263,7 +263,6 @@ handle_keygrab (SpiDEController         *controller,
 	      key_val = keydef.keycode;
 	    }
 	  grab_mask.key_val = key_val;
-
 	  process_cb (controller, &grab_mask);
 	}
     }
@@ -380,9 +379,10 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
   for (i = 0; i < len; ++i)
     {
 #ifdef SPI_KEYEVENT_DEBUG	    
-      g_print ("key_set[%d] = %d; key_event %d, code %d\n",
+      g_print ("key_set[%d] = %d; key_event %d, code %d, string %s\n",
 	        i, (int) key_set->_buffer[i].keycode,
-	       (int) key_event->id, (int) key_event->hw_code); 
+	       (int) key_event->id, (int) key_event->hw_code,
+	       key_event->event_string); 
 #endif
       if (key_set->_buffer[i].keysym == (CORBA_long) key_event->id)
         {
@@ -392,8 +392,8 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
         {
           return TRUE;
 	}
-      if (key_event->event_string && key_event->event_string[0] && !strcmp
-	  (key_set->_buffer[i].keystring, key_event->event_string))
+      if (key_event->event_string && key_event->event_string[0] &&
+	  !strcmp (key_set->_buffer[i].keystring, key_event->event_string))
         {
           return TRUE;
 	}
