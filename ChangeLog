@@ -1,3 +1,21 @@
+2003-09-25  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c:
+	(atk_bridge_init): Register event listeners always even for 
+	out-of-process applet.
+	(spi_atk_bridge_toplevel_added): Remove call to 
+	spi_atk_bridge_event_type_consts as it is now called in atk_bridge_init
+	(spi_atk_bridge_toplevelk_removed): Remove call to 
+	spi_atk_deregister_event_listenersa as the listeners are now always
+	registered
+	(spi_atk_bridge_register_application): Remove call to
+	spi_atk_register_event_listeners as it is not done in atk_bridge_init
+
+	This fixes bug #120991.
+
+	* libspi/table.c (impl_getColumnDescription): Correct typo,
+	pointed out by Bolian.Yin@sun.com.
+
 2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
 
 	* configure.in: Added nn to ALL_LINGUAS (which is commented out).

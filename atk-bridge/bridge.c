@@ -77,7 +77,6 @@ static void     spi_atk_bridge_toplevel_removed        (AtkObject             *o
 
 static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
-static void     spi_atk_deregister_event_listeners     (void);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
 static void     spi_atk_bridge_register_application    (Accessibility_Registry registry);
 static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
@@ -182,8 +181,9 @@ atk_bridge_init (gint *argc, gchar **argv[])
   else
     {
       spi_atk_bridge_do_registration ();
-      spi_atk_bridge_init_event_type_consts ();
     }
+  spi_atk_register_event_listeners ();
+  spi_atk_bridge_init_event_type_consts ();
  
   return 0;
 }
@@ -225,7 +225,6 @@ spi_atk_bridge_toplevel_added (AtkObject *object,
   if (toplevels == 0)
     {
       spi_atk_bridge_do_registration ();
-      spi_atk_bridge_init_event_type_consts ();
     }
   toplevels++;
 }
@@ -241,7 +240,6 @@ spi_atk_bridge_toplevel_removed (AtkObject *object,
   if (toplevels == 0)
     {
       deregister_application (app);
-      spi_atk_deregister_event_listeners ();
       reinit_register_vars ();
     }
   if (toplevels < 0)
@@ -257,7 +255,6 @@ spi_atk_bridge_register_application (Accessibility_Registry registry)
   Accessibility_Registry_registerApplication (spi_atk_bridge_get_registry (),
                                               BONOBO_OBJREF (this_app),
                                               &ev);
-  spi_atk_register_event_listeners ();
 }
 
 static Accessibility_Registry
@@ -409,32 +406,6 @@ spi_atk_register_event_listeners (void)
   
   g_object_unref (G_OBJECT (bo));
   g_object_unref (ao);
-}
-
-static void
-spi_atk_deregister_event_listeners (void)
-{
-  gint i;
-  guint id;
-
-  if (!atk_listeners_registered)
-    return;
-
-  atk_listeners_registered = FALSE;
-
-  for (i = 0; i < listener_ids->len; i++)
-    {
-      id = g_array_index (listener_ids, guint, i);
-      atk_remove_global_event_listener (id);   
-    }
-  g_array_free (listener_ids, TRUE);
-  listener_ids = NULL;
-
-  atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
-  atk_bridge_focus_tracker_id = 0;
-
-  atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
-  atk_bridge_key_event_listener_id = 0;
 }
 
 static void
