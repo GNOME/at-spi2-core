@@ -26,25 +26,25 @@ module Accessibility {
 
 typedef sequence<long> LongSeq;
 
-  interface Table {
-        Accessible getCaption ();
-        Accessible getSummary ();
-        long getNRows ();
-        long getNColumns ();
-        Accessible getAccessibleAt (in long row, in long column);
-        long getIndexAt (in long row, in long column);
-        long getRowAtIndex (in long index);
-        long getColumnAtIndex (in long index);
-        string getRowDescription (in long row);
-        string getColumnDescription (in long column);
-        long getRowExtentAt (in long row, in long column);
-        long getColumnExtentAt (in long row, in long column);
-        Table getRowHeaders ();
-        Table getColumnHeaders ();
-        LongSeq getSelectedRows ();
-        LongSeq getSelectedColumns ();
-        boolean isRowSelected (in long row);
-        boolean isColumnSelected (in long column);
-        boolean isSelected (in long row, in long column);
-  };
+ interface Table {
+   readonly attribute long nRows;
+   readonly attribute long nColumns;
+   readonly attribute Accessible caption;
+   readonly attribute Accessible summary;
+   Accessible getAccessibleAt (in long row, in long column);
+   long getIndexAt (in long row, in long column);
+   long getRowAtIndex (in long index);
+   long getColumnAtIndex (in long index);
+   string getRowDescription (in long row);
+   string getColumnDescription (in long column);
+   long getRowExtentAt (in long row, in long column);
+   long getColumnExtentAt (in long row, in long column);
+   Accessible getRowHeader (in long row);
+   Accessible getColumnHeader (in long column);
+   LongSeq getSelectedRows ();
+   LongSeq getSelectedColumns ();
+   boolean isRowSelected (in long row);
+   boolean isColumnSelected (in long column);
+   boolean isSelected (in long row, in long column);
+ };
 };

@@ -24,45 +24,59 @@ module Accessibility {
 
   interface Action : Bonobo::Unknown {
 
-        /**
-         * getNActions:
-         * return values: a @long containing the number of actions this object supports.
-         *
-         * Returns the number of actions supported by this object.
-         **/
-        long getNActions ();
+    /**
+     * getNActions:
+     * return values: a @long containing the number of actions this object supports.
+     *
+     * Returns the number of actions supported by this object.
+     **/
+    long getNActions ();
 
-        /**
-	 * getDescription:
-	 * return values: a @wstring containing the description of the specified action.
-	 * @index: an %in parameter specifying the index of the action 
-         *   for which a description is desired.
-	 *
-	 * Gets the description of the specified action.
-	 *
-	 **/
-        string getDescription (in long index);
+    /**
+     * getDescription:
+     * @index: an %in parameter specifying the index of the action 
+     *   for which a description is desired.
+     *
+     * Gets the description of the specified action.
+     *
+     * return values: a @wstring containing the description of the specified action.
+     *
+     **/
+    string getDescription (in long index);
 
-        /**
-         * doAction:
-         * @index: an %in parameter specifying the 0-based index of the action to perform.
-         *
-         * Causes the object to perform the specified action.
-	 *
-         **/
-        void doAction (in long index);
+    /**
+     * getName:
+     * @index: an %in parameter specifying the index of the action 
+     *   whose name is requested.
+     *
+     * Gets the name of the specified action.
+     *
+     * return values: a @string containing the name of the specified action.
+     *
+     **/
+    string getName (in long index);
 
-        /**
-	 * getKeyBinding:
-	 * return values: a @wstring containing the key binding for the specified action,
-         *   "" if none exists.
-	 * @index: an %in parameter specifying the 0-based index of the action 
-         *   for which a key binding is requested.
-	 *
-	 * Gets the key binding associated with a specific action.
-	 *
-	 **/
-        string getKeyBinding (in long index);
+    /**
+     * doAction:
+     * @index: an %in parameter specifying the 0-based index of the action to perform.
+     *
+     * Causes the object to perform the specified action.
+     *
+     * return values: a @boolean indicating success or failure.
+     *
+     **/
+    void doAction (in long index);
+
+    /**
+     * getKeyBinding:
+     * return values: a @string containing the key binding for the specified action,
+     *   "" if none exists.
+     * @index: an %in parameter specifying the 0-based index of the action 
+     *   for which a key binding is requested.
+     *
+     * Gets the key binding associated with a specific action.
+     *
+     **/
+    string getKeyBinding (in long index);
   };
-
 };

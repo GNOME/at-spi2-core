@@ -31,24 +31,27 @@ module Accessibility {
     TEXT_BOUNDARY_SENTENCE_END,
     TEXT_BOUNDARY_LINE_START,
     TEXT_BOUNDARY_LINE_END
-};
+  };
 
-  interface Text {
-        long getCharacterCount ();
-        string getText (in long startOfffset, in long endOffset);
-        long getCaretOffset ();
-        boolean setCaretOffset (in long offset);
-        string getTextBeforeOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
-        string getTextAtOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
-        string getTextAfterOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
-        /* could be string instead, to allow unicode chars > 16 bits */
-        wchar getCharacterAtOffset (in long offset);
-        void getRowColAtOffset (in long offset, out long row, out long column);
-        string getAttributes (in long startOffset, in long endOffset);
-        boolean getCharacterExtents (in long offset, out long x, out long y, out long length, out long width);
-        long getOffsetAtPoint (in long x, in long y);
-        string getSelectedText ();
-        void getSelectionBounds (out long startOffset, out long endOffset);
-        boolean setSelectionBounds (in long startOffset, in long endOffset);
+  interface Text : Bonobo::Unknown {
+    readonly attribute long characterCount;
+    readonly attribute long caretOffset;
+    string getText (in long startOffset, in long endOffset);
+    boolean setCaretOffset (in long offset);
+    string getTextBeforeOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
+    string getTextAtOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
+    string getTextAfterOffset (in long offset, in TEXT_BOUNDARY_TYPE type);
+    wchar getCharacterAtOffset (in long offset); /* could be string instead, 
+						  * to allow unicode chars > 16 bits 
+						  */
+    /* void getRowColAtOffset (in long offset, out long row, out long column); */
+    string getAttributes (in long startOffset, in long endOffset);
+    boolean getCharacterExtents (in long offset, out long x, out long y, out long length, out long width);
+    long getOffsetAtPoint (in long x, in long y);
+    long getNSelections ();
+    void getSelection (in long selectionNum, out long startOffset, out long endOffset);
+    boolean addSelection (in long startOffset, in long endOffset);
+    boolean removeSelection (in long selectionNum);
+    boolean setSelection (in long selectionNum, in long startOffset, in long endOffset);
   };
 };

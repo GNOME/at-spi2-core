@@ -23,10 +23,9 @@
 module Accessibility {
 
   interface Value {
-        float getMinimumValue ();
-        float getCurrentValue ();
-        float getMaximumValue ();
-        float getMinimumIncrement ();
-        boolean setCurrentValue (in float value);
+    readonly attribute float minimumValue;
+    readonly attribute float maximumValue;
+    readonly attribute float minimumIncrement;
+    attribute float currentValue;
   };
 };

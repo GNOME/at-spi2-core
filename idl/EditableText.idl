@@ -26,13 +26,12 @@ module Accessibility {
 
   interface EditableText : Text {
 
-        void setTextContents (in string newContents);
-        void insertText (in long position, in string text, in long length);
-        void selectText (in long startPos, in long endPos);
-        void setAttributes (in long startPos, in long endPos, in wstring attributes);
-        void copyText (in long startPos, in long endPos);
-        void cutText (in long startPos, in long endPos);
-        void deleteText (in long startPos, in long endPos);
-        void pasteText (in long position);
+    void    setTextContents (in string newContents);
+    void    insertText (in long position, in string text, in long length);
+    boolean setAttributes (in string attributes, in long startPos, in long endPos);
+    void    copyText (in long startPos, in long endPos);
+    void    cutText (in long startPos, in long endPos);
+    void    deleteText (in long startPos, in long endPos);
+    void    pasteText (in long position);
   };
 };

@@ -25,12 +25,12 @@
 module Accessibility {
 
   interface Selection : Bonobo::Unknown {
-        long getNSelectedChildren ();
-        Accessible getSelectedChild (in long selectedChildIndex);
-        boolean selectChild (in long childIndex);
-        boolean deselectSelectedChild (in long selectedChildIndex);
-        boolean isChildSelected (in long childIndex);
-        void selectAll ();
-        void clearSelection ();
+    readonly attribute long nSelectedChildren;
+    Accessible getSelectedChild (in long selectedChildIndex);
+    boolean selectChild (in long childIndex);
+    boolean deselectSelectedChild (in long selectedChildIndex);
+    boolean isChildSelected (in long childIndex);
+    void selectAll ();
+    void clearSelection ();
   };
 };
