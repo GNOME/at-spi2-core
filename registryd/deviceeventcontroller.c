@@ -736,6 +736,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 #ifdef SPI_DEBUG
 	  fprintf (stderr, "grab with mask %x\n", grab_mask->mod_mask);
 #endif
+	  XSynchronize (spi_get_display(), True);
           XGrabKey (spi_get_display (),
 		    grab_mask->key_val,
 		    grab_mask->mod_mask,
@@ -743,7 +744,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 		    True,
 		    GrabModeAsync,
 		    GrabModeAsync);
-	/* TODO: set retval to FALSE if an X error occurrs here */
+	  XSynchronize (spi_get_display(), False);
 	}
 
       grab_mask->pending_add = FALSE;
@@ -759,7 +760,6 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 	  spi_grab_mask_free (grab_mask);
 	}
 
-      /* TODO: check calls for errors and return FALSE if error occurs */
     } 
 
   return ! spi_clear_error_state ();

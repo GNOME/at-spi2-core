@@ -1,3 +1,13 @@
+2002-06-06  Bill Haneman  <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+        (spi_controller_update_key_grabs):
+	Fix for #82509, lack of failure notification when
+        ALL_WINDOWS keygrabs fail due to XGrabKey
+        failure: we synchronize the server when 
+        registering a passive grab, to make sure we get the
+        error message before the call returns.
+
 2002-06-03  Bill Haneman  <bill.haneman@sun.com>
 
 	* test/test-simple.c:
