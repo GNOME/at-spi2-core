@@ -1,15 +1,15 @@
 # Swedish messages for atk.
-# Copyright (C) 2002, 2003 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2003, 2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
-# Christian Rose <menthos@menthos.com>, 2002, 2003.
+# Christian Rose <menthos@menthos.com>, 2002, 2003, 2004.
 #
 # $Id$
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"POT-Creation-Date: 2003-12-16 23:52+0100\n"
-"PO-Revision-Date: 2003-12-16 23:52+0100\n"
+"POT-Creation-Date: 2004-01-26 18:41+0100\n"
+"PO-Revision-Date: 2004-01-26 18:41+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,7 @@ msgid "invalid"
 msgstr "ogiltig"
 
 #: atk/atkobject.c:83
-msgid "accel label"
+msgid "accelerator label"
 msgstr "genvägsetikett"
 
 #: atk/atkobject.c:84
@@ -466,14 +466,14 @@ msgid "Is used to notify that the table caption has changed"
 msgstr "Används för att meddela att tabellrubriken har ändrats"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
-msgstr "Tillgängligt hypertextantal med länkar"
+msgid "Number of Accessible Hypertext Links"
+msgstr "Antal tillgängliga hypertextlänkar"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Antalet länkar som den aktuella AtkHypertext har"
 
-#~ msgid "accelerator label"
+#~ msgid "accel label"
 #~ msgstr "genvägsetikett"
 
 #~ msgid "font chooser"
