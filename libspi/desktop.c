@@ -36,7 +36,7 @@ static SpiAccessibleClass *parent_class;
 static void
 spi_desktop_init (SpiDesktop  *desktop)
 {
-  SPI_ACCESSIBLE (desktop)->atko = g_object_new (atk_object_get_type(), NULL);
+  SPI_ACCESSIBLE (desktop)->atko = g_object_new (ATK_TYPE_OBJECT, NULL);
   desktop->applications = NULL;
   atk_object_set_name (ATK_OBJECT (SPI_ACCESSIBLE (desktop)->atko), "main");
 }
@@ -100,7 +100,7 @@ BONOBO_TYPE_FUNC_FULL (SpiDesktop,
 SpiDesktop *
 spi_desktop_new (void)
 {
-    SpiDesktop *retval = SPI_DESKTOP (g_object_new (SPI_DESKTOP_TYPE, NULL));
+    SpiDesktop *retval = g_object_new (SPI_DESKTOP_TYPE, NULL);
 
     return retval;
 }

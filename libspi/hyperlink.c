@@ -99,8 +99,8 @@ spi_hyperlink_finalize (GObject *obj)
 SpiHyperlink *
 spi_hyperlink_new (AtkHyperlink *hyperlink)
 {
-  SpiHyperlink *new_hyperlink = 
-    SPI_HYPERLINK(g_object_new (SPI_HYPERLINK_TYPE, NULL));
+  SpiHyperlink *new_hyperlink = g_object_new (
+	  SPI_HYPERLINK_TYPE, NULL);
   g_object_ref (hyperlink);
   new_hyperlink->hyperlink = hyperlink;
   return new_hyperlink;

@@ -99,19 +99,21 @@ BONOBO_TYPE_FUNC (SpiEventListener,
 SpiEventListener *
 spi_event_listener_new ()
 {
-    SpiEventListener *retval =
-    SPI_ACCESSIBLE_EVENT_SPI_LISTENER (g_object_new (spi_event_listener_get_type (), NULL));
+    SpiEventListener *retval = g_object_new (
+	    SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, NULL);
     return retval;
 }
 
-void   spi_event_listener_add_callback (SpiEventListener *listener,
-                                               VoidSpiEventListenerCB callback)
+void
+spi_event_listener_add_callback (SpiEventListener *listener,
+				 VoidSpiEventListenerCB callback)
 {
   listener->callbacks = g_list_append (listener->callbacks, callback);
 }
 
-void   spi_event_listener_remove_callback (SpiEventListener *listener,
-                                                  VoidSpiEventListenerCB callback)
+void
+spi_event_listener_remove_callback (SpiEventListener *listener,
+				    VoidSpiEventListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);
 }

@@ -270,8 +270,7 @@ BONOBO_TYPE_FUNC_FULL (SpiAccessible,
 SpiAccessible *
 spi_accessible_new (AtkObject *o)
 {
-    SpiAccessible *retval =
-               SPI_ACCESSIBLE (g_object_new (spi_accessible_get_type (), NULL));
+    SpiAccessible *retval = g_object_new (SPI_ACCESSIBLE_TYPE, NULL);
     CORBA_Environment ev;
     CORBA_exception_init (&ev);
     g_object_ref (o);

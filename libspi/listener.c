@@ -96,46 +96,14 @@ spi_listener_init (SpiListener *listener)
 {
 }
 
-GType
-spi_listener_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiListenerClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_listener_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiListener),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_listener_init,
-                        NULL /* value table */
-                };
-                /*
-                 *   Here we use bonobo_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_EventListener__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiListenerClass, epv),
-                        &tinfo,
-                        "SpiListener");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiListener,
+		       Accessibility_EventListener,
+		       PARENT_TYPE,
+		       spi_listener);
 
 SpiListener *
 spi_listener_new (void)
 {
-    SpiListener *retval =
-               SPI_LISTENER (g_object_new (spi_listener_get_type (), NULL));
+    SpiListener *retval = g_object_new (SPI_LISTENER_TYPE, NULL);
     return retval;
 }

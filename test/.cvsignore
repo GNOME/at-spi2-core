@@ -4,3 +4,6 @@ Makefile.in
 Makefile
 app
 at
+accessx-gui
+simple-at
+keysynth-demo

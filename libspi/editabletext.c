@@ -108,8 +108,8 @@ spi_editable_text_finalize (GObject *obj)
 SpiEditableText *
 spi_editable_text_interface_new (AtkObject *obj)
 {
-  SpiEditableText *new_editable =
-    SPI_EDITABLE_TEXT(g_object_new (SPI_EDITABLE_TEXT_TYPE, NULL));
+  SpiEditableText *new_editable = g_object_new (
+	  SPI_EDITABLE_TEXT_TYPE, NULL);
   (SPI_TEXT (new_editable))->atko = obj;
   g_object_ref (obj);
   return new_editable;

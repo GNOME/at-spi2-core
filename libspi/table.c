@@ -27,168 +27,8 @@
 #include <libspi/accessible.h>
 #include <libspi/table.h>
 
-/* Static function declarations */
-
-static void
-spi_table_class_init (SpiTableClass *klass);
-static void
-spi_table_init (SpiTable *table);
-static void
-spi_table_finalize (GObject *obj);
-static Accessibility_Accessible
-impl__get_caption (PortableServer_Servant _servant,
-		   CORBA_Environment * ev);
-static Accessibility_Accessible
-impl__get_summary (PortableServer_Servant _servant,
-		   CORBA_Environment * ev);
-static CORBA_long
-impl__get_nRows (PortableServer_Servant _servant,
-		 CORBA_Environment * ev);
-static CORBA_long
-impl__get_nRows (PortableServer_Servant _servant,
-		 CORBA_Environment * ev);
-static CORBA_long
-impl__get_nColumns (PortableServer_Servant _servant,
-		    CORBA_Environment * ev);
-static Accessibility_Accessible
-impl_getAccessibleAt (PortableServer_Servant _servant,
-		      const CORBA_long row,
-		      const CORBA_long column,
-		      CORBA_Environment * ev);
-static CORBA_long
-impl_getIndexAt (PortableServer_Servant _servant,
-		 const CORBA_long row, const CORBA_long column,
-		 CORBA_Environment * ev);
-static CORBA_long
-impl_getRowAtIndex (PortableServer_Servant _servant,
-		    const CORBA_long index,
-		    CORBA_Environment * ev);
-static CORBA_long
-impl_getColumnAtIndex (PortableServer_Servant _servant,
-		       const CORBA_long index,
-		       CORBA_Environment * ev);
-static CORBA_string
-impl_getRowDescription (PortableServer_Servant _servant,
-			const CORBA_long row,
-			CORBA_Environment * ev);
-static CORBA_string
-impl_getColumnDescription (PortableServer_Servant _servant,
-			   const CORBA_long column,
-			   CORBA_Environment * ev);
-static CORBA_long
-impl_getRowExtentAt (PortableServer_Servant _servant,
-		     const CORBA_long row,
-		     const CORBA_long column,
-		     CORBA_Environment * ev);
-static CORBA_long
-impl_getColumnExtentAt (PortableServer_Servant _servant,
-			const CORBA_long row,
-			const CORBA_long column,
-			CORBA_Environment * ev);
-static Accessibility_Table
-impl_getRowHeader (PortableServer_Servant _servant,
-		   const CORBA_long row,
-		   CORBA_Environment * ev);
-static        Accessibility_Table
-impl_getColumnHeader (PortableServer_Servant _servant,
-		      const CORBA_long column,
-		      CORBA_Environment * ev);
-static Accessibility_LongSeq *
-impl_getSelectedRows (PortableServer_Servant _servant,
-		      CORBA_Environment * ev);
-static Accessibility_LongSeq *
-impl_getSelectedColumns (PortableServer_Servant _servant,
-			 CORBA_Environment * ev);
-static CORBA_boolean
-impl_isRowSelected (PortableServer_Servant _servant,
-		    const CORBA_long row,
-		    CORBA_Environment * ev);
-static CORBA_boolean
-impl_isColumnSelected (PortableServer_Servant _servant,
-		       const CORBA_long column,
-		       CORBA_Environment * ev);
-static CORBA_boolean
-impl_isSelected (PortableServer_Servant _servant,
-		 const CORBA_long row,
-		 const CORBA_long column,
-		 CORBA_Environment * ev);
-
-
+/* A pointer to our parent object class */
 static GObjectClass *parent_class;
-
-GType
-spi_table_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiTableClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_table_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiTable),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_table_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_TYPE_OBJECT,
-			       POA_Accessibility_Table__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiTableClass, epv),
-			       &tinfo,
-			       "SpiAccessibleTable");
-  }
-
-  return type;
-}
-
-static void
-spi_table_class_init (SpiTableClass *klass)
-{
-  GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Table__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_table_finalize;
-
-
-  /* Initialize epv table */
-
-  epv->_get_caption = impl__get_caption;
-  epv->_get_summary = impl__get_summary;
-  epv->_get_nRows = impl__get_nRows;
-  epv->_get_nColumns = impl__get_nColumns;
-  epv->getAccessibleAt = impl_getAccessibleAt;
-  epv->getIndexAt = impl_getIndexAt;
-  epv->getRowAtIndex = impl_getRowAtIndex;
-  epv->getColumnAtIndex = impl_getColumnAtIndex;
-  epv->getRowDescription = impl_getRowDescription;
-  epv->getColumnDescription = impl_getColumnDescription;
-  epv->getRowExtentAt = impl_getRowExtentAt;
-  epv->getColumnExtentAt = impl_getColumnExtentAt;
-  epv->getRowHeader = impl_getRowHeader;
-  epv->getColumnHeader = impl_getColumnHeader;
-  epv->getSelectedRows = impl_getSelectedRows;
-  epv->getSelectedColumns = impl_getSelectedColumns;
-  epv->isRowSelected = impl_isRowSelected;
-  epv->isColumnSelected = impl_isColumnSelected;
-  epv->isSelected = impl_isSelected;
-}
-
-static void
-spi_table_init (SpiTable *table)
-{
-}
 
 static void
 spi_table_finalize (GObject *obj)
@@ -202,8 +42,7 @@ spi_table_finalize (GObject *obj)
 SpiTable *
 spi_table_interface_new (AtkObject *obj)
 {
-  SpiTable *new_table =
-    SPI_TABLE(g_object_new (SPI_TABLE_TYPE, NULL));
+  SpiTable *new_table = g_object_new (SPI_TABLE_TYPE, NULL);
   new_table->atko = obj;
   g_object_ref (obj);
   return new_table;
@@ -503,5 +342,45 @@ impl_isSelected (PortableServer_Servant _servant,
 			   (gint) row, (gint) column);
 }
 
+static void
+spi_table_class_init (SpiTableClass *klass)
+{
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_Table__epv *epv = &klass->epv;
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = spi_table_finalize;
 
 
+  /* Initialize epv table */
+
+  epv->_get_caption = impl__get_caption;
+  epv->_get_summary = impl__get_summary;
+  epv->_get_nRows = impl__get_nRows;
+  epv->_get_nColumns = impl__get_nColumns;
+  epv->getAccessibleAt = impl_getAccessibleAt;
+  epv->getIndexAt = impl_getIndexAt;
+  epv->getRowAtIndex = impl_getRowAtIndex;
+  epv->getColumnAtIndex = impl_getColumnAtIndex;
+  epv->getRowDescription = impl_getRowDescription;
+  epv->getColumnDescription = impl_getColumnDescription;
+  epv->getRowExtentAt = impl_getRowExtentAt;
+  epv->getColumnExtentAt = impl_getColumnExtentAt;
+  epv->getRowHeader = impl_getRowHeader;
+  epv->getColumnHeader = impl_getColumnHeader;
+  epv->getSelectedRows = impl_getSelectedRows;
+  epv->getSelectedColumns = impl_getSelectedColumns;
+  epv->isRowSelected = impl_isRowSelected;
+  epv->isColumnSelected = impl_isColumnSelected;
+  epv->isSelected = impl_isSelected;
+}
+
+static void
+spi_table_init (SpiTable *table)
+{
+}
+
+BONOBO_TYPE_FUNC_FULL (SpiTable,
+		       Accessibility_Table,
+		       BONOBO_TYPE_OBJECT,
+		       spi_table);

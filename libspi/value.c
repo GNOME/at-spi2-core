@@ -92,8 +92,7 @@ spi_value_finalize (GObject *obj)
 SpiValue *
 spi_value_interface_new (AtkObject *obj)
 {
-  SpiValue *new_value = 
-    SPI_VALUE(g_object_new (SPI_VALUE_TYPE, NULL));
+  SpiValue *new_value = g_object_new (SPI_VALUE_TYPE, NULL);
   new_value->atko = obj;
   g_object_ref (obj);
   return new_value;

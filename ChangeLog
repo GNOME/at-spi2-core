@@ -1,5 +1,22 @@
 2001-11-20  Michael Meeks  <michael@ximian.com>
 
+	* libspi/*.[ch]: further convert to bonobo's type func
+	macros, remove redundnant casts etc.
+
+	* libspi/text.c s/accessibility_text/spi_text/g,
+	re-order to de-cruft.
+
+	* libspi/hypertext.c: re-order to kill a huge slew
+	of redundant forward decls.
+
+	* libspi/relation.c: ditto.
+
+	* libspi/image.c: ditto.
+
+	* */.cvsignore: update
+	
+2001-11-20  Michael Meeks  <michael@ximian.com>
+
 	* libspi/deviceeventcontroller.c
 	(_controller_register_with_devices): use g_getenv,
 	kill stdlib.h include.

@@ -98,8 +98,7 @@ spi_action_finalize (GObject *obj)
 SpiAction *
 spi_action_interface_new (AtkObject *obj)
 {
-  SpiAction *new_action = 
-    SPI_ACTION(g_object_new (SPI_ACTION_TYPE, NULL));
+  SpiAction *new_action = g_object_new (SPI_ACTION_TYPE, NULL);
   new_action->atko = obj;
   g_object_ref (obj);
   return new_action;

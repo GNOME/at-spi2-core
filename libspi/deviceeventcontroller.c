@@ -560,8 +560,8 @@ SpiDeviceEventController *
 spi_device_event_controller_new (void *registryp)
 {
   SpiRegistry *registry = SPI_REGISTRY (registryp);	
-  SpiDeviceEventController *retval = 
-	  SPI_DEVICE_EVENT_CONTROLLER (g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL));
+  SpiDeviceEventController *retval = g_object_new (
+	  SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
   retval->registry = registry;
   bonobo_object_ref (registry);
   return retval;

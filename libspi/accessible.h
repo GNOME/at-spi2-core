@@ -45,8 +45,8 @@ typedef struct {
         POA_Accessibility_Accessible__epv epv;
 } SpiAccessibleClass;
 
-GType                  spi_accessible_get_type   (void);
-SpiAccessible             *spi_accessible_new       (AtkObject *o);
+GType          spi_accessible_get_type (void);
+SpiAccessible *spi_accessible_new      (AtkObject *o);
 
 
 #ifdef __cplusplus

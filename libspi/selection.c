@@ -27,104 +27,8 @@
 #include <libspi/accessible.h>
 #include <libspi/selection.h>
 
-/* Static function declarations */
-
-static void
-spi_selection_class_init (SpiSelectionClass *klass);
-static void
-spi_selection_init (SpiSelection *selection);
-static void
-spi_selection_finalize (GObject *obj);
-static CORBA_long
-impl__get_nSelectedChildren (PortableServer_Servant _servant,
-			     CORBA_Environment * ev);
-static Accessibility_Accessible
-impl_getSelectedChild (PortableServer_Servant _servant,
-		       const CORBA_long selectedChildIndex,
-		       CORBA_Environment * ev);
-static CORBA_boolean
-impl_selectChild (PortableServer_Servant _servant,
-		  const CORBA_long childIndex,
-		  CORBA_Environment * ev);
-static CORBA_boolean
-impl_deselectSelectedChild (PortableServer_Servant _servant,
-			    const CORBA_long selectedChildIndex,
-			    CORBA_Environment * ev);
-static CORBA_boolean
-impl_isChildSelected (PortableServer_Servant _servant,
-		      const CORBA_long childIndex,
-		      CORBA_Environment * ev);
-static void 
-impl_selectAll (PortableServer_Servant _servant,
-		CORBA_Environment * ev);
-static void 
-impl_clearSelection (PortableServer_Servant _servant,
-		     CORBA_Environment * ev);
-
-
+/* A pointer to our parent object class */
 static GObjectClass *parent_class;
-
-GType
-spi_selection_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiSelectionClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_selection_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiSelection),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_selection_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_TYPE_OBJECT,
-			       POA_Accessibility_Selection__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiSelectionClass, epv),
-			       &tinfo,
-			       "SpiAccessibleSelection");
-  }
-
-  return type;
-}
-
-static void
-spi_selection_class_init (SpiSelectionClass *klass)
-{
-  GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Selection__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_selection_finalize;
-
-
-  /* Initialize epv table */
-
-  epv->_get_nSelectedChildren = impl__get_nSelectedChildren;
-  epv->getSelectedChild = impl_getSelectedChild;
-  epv->selectChild = impl_selectChild;
-  epv->deselectSelectedChild = impl_deselectSelectedChild;
-  epv->isChildSelected = impl_isChildSelected;
-  epv->selectAll = impl_selectAll;
-  epv->clearSelection = impl_clearSelection;
-}
-
-static void
-spi_selection_init (SpiSelection *selection)
-{
-}
 
 static void
 spi_selection_finalize (GObject *obj)
@@ -138,8 +42,7 @@ spi_selection_finalize (GObject *obj)
 SpiSelection *
 spi_selection_interface_new (AtkObject *obj)
 {
-  SpiSelection *new_selection = 
-    SPI_SELECTION(g_object_new (SPI_SELECTION_TYPE, NULL));
+  SpiSelection *new_selection = g_object_new (SPI_SELECTION_TYPE, NULL);
   new_selection->atko = obj;
   g_object_ref (obj);
   return new_selection;
@@ -249,3 +152,33 @@ impl_clearSelection (PortableServer_Servant _servant,
   atk_selection_clear_selection (ATK_SELECTION(selection->atko));
 }
 
+static void
+spi_selection_class_init (SpiSelectionClass *klass)
+{
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_Selection__epv *epv = &klass->epv;
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = spi_selection_finalize;
+
+
+  /* Initialize epv table */
+
+  epv->_get_nSelectedChildren = impl__get_nSelectedChildren;
+  epv->getSelectedChild = impl_getSelectedChild;
+  epv->selectChild = impl_selectChild;
+  epv->deselectSelectedChild = impl_deselectSelectedChild;
+  epv->isChildSelected = impl_isChildSelected;
+  epv->selectAll = impl_selectAll;
+  epv->clearSelection = impl_clearSelection;
+}
+
+static void
+spi_selection_init (SpiSelection *selection)
+{
+}
+
+BONOBO_TYPE_FUNC_FULL (SpiSelection,
+		       Accessibility_Selection,
+		       BONOBO_TYPE_OBJECT,
+		       spi_selection);

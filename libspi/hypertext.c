@@ -29,102 +29,7 @@
 
 /* Static function declarations */
 
-static void
-spi_hypertext_class_init (SpiHypertextClass *klass);
-static void
-spi_hypertext_init (SpiHypertext *hypertext);
-static void
-spi_hypertext_finalize (GObject *obj);
-static CORBA_short
-impl__get_n_anchors (PortableServer_Servant _servant,
-		     CORBA_Environment * ev);
-static CORBA_string
-impl__get_uri (PortableServer_Servant _servant,
-	       CORBA_Environment * ev);
-static CORBA_long
-impl__get_startIndex (PortableServer_Servant _servant,
-		      CORBA_Environment * ev);
-static CORBA_long
-impl__get_endIndex (PortableServer_Servant _servant,
-		    CORBA_Environment * ev);
-static Accessibility_Accessible
-impl_getAnchor (PortableServer_Servant _servant,
-		const CORBA_long i,
-		CORBA_Environment * ev);
-static Accessibility_Accessible
-impl_getObject (PortableServer_Servant _servant,
-		const CORBA_long i,
-		CORBA_Environment * ev);
-static CORBA_long
-impl_getNLinks (PortableServer_Servant _servant,
-		CORBA_Environment * ev);
-static Accessibility_Hyperlink
-impl_getLink (PortableServer_Servant _servant,
-	      const CORBA_long linkIndex,
-	      CORBA_Environment * ev);
-static CORBA_long
-impl_getLinkIndex (PortableServer_Servant _servant,
-		   const CORBA_long characterIndex,
-		   CORBA_Environment * ev);
-
 static GObjectClass *parent_class;
-
-GType
-spi_hypertext_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiHypertextClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_hypertext_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiHypertext),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_hypertext_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_TYPE_OBJECT,
-			       POA_Accessibility_Hypertext__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiHypertextClass, epv),
-			       &tinfo,
-			       "SpiAccessibleHypertext");
-  }
-
-  return type;
-}
-
-static void
-spi_hypertext_class_init (SpiHypertextClass *klass)
-{
-  GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Hypertext__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_hypertext_finalize;
-
-  /* Initialize epv table */
-
-  epv->getNLinks = impl_getNLinks;
-  epv->getLink = impl_getLink;
-  epv->getLinkIndex = impl_getLinkIndex;
-}
-
-static void
-spi_hypertext_init (SpiHypertext *hypertext)
-{
-}
 
 static void
 spi_hypertext_finalize (GObject *obj)
@@ -138,8 +43,7 @@ spi_hypertext_finalize (GObject *obj)
 SpiHypertext *
 spi_hypertext_interface_new (AtkObject *obj)
 {
-  SpiHypertext *new_hypertext = 
-    SPI_HYPERTEXT(g_object_new (SPI_HYPERTEXT_TYPE, NULL));
+  SpiHypertext *new_hypertext = g_object_new (SPI_HYPERTEXT_TYPE, NULL);
   new_hypertext->atko = obj;
   g_object_ref (obj);
   return new_hypertext;
@@ -191,3 +95,28 @@ impl_getLinkIndex (PortableServer_Servant _servant,
 				  (gint) characterIndex);
 }
 
+static void
+spi_hypertext_class_init (SpiHypertextClass *klass)
+{
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_Hypertext__epv *epv = &klass->epv;
+  parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = spi_hypertext_finalize;
+
+  /* Initialize epv table */
+
+  epv->getNLinks = impl_getNLinks;
+  epv->getLink = impl_getLink;
+  epv->getLinkIndex = impl_getLinkIndex;
+}
+
+static void
+spi_hypertext_init (SpiHypertext *hypertext)
+{
+}
+
+BONOBO_TYPE_FUNC_FULL (SpiHypertext,
+		       Accessibility_Hypertext,
+		       BONOBO_TYPE_OBJECT,
+		       spi_hypertext);

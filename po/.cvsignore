@@ -6,4 +6,5 @@ Makefile.in.in
 Makefile.in.in.orig
 stamp-cat-id
 cat-id-tbl.c
+po2tbl.sed
 POTFILES

@@ -123,7 +123,7 @@ BONOBO_TYPE_FUNC_FULL (SpiKeystrokeListener,
 SpiKeystrokeListener *
 spi_keystroke_listener_new (void)
 {
-    SpiKeystrokeListener *retval =
-               SPI_KEYSTROKE_LISTENER (g_object_new (spi_keystroke_listener_get_type (), NULL));
+    SpiKeystrokeListener *retval = g_object_new (
+	    SPI_KEYSTROKE_LISTENER_TYPE, NULL);
     return retval;
 }

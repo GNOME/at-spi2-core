@@ -605,46 +605,14 @@ spi_registry_init (SpiRegistry *registry)
   registry->kbd_event_hook = _device_event_controller_hook;
 }
 
-GType
-spi_registry_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiRegistryClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_registry_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiRegistry),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_registry_init,
-                        NULL /* value table */
-                };
-                /*
-                 *   Here we use bonobo_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_Registry__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiRegistryClass, epv),
-                        &tinfo,
-                        "SpiRegistry");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiRegistry,
+		       Accessibility_Registry,
+		       PARENT_TYPE,
+		       spi_registry);
 
 SpiRegistry *
 spi_registry_new (void)
 {
-    SpiRegistry *retval =
-               SPI_REGISTRY (g_object_new (spi_registry_get_type (), NULL));
+    SpiRegistry *retval = g_object_new (SPI_REGISTRY_TYPE, NULL);
     return retval;
 }

@@ -26,70 +26,25 @@
 #include <stdio.h>
 #include <libspi/relation.h>
 
-/* Static function declarations */
-
-static void
-spi_relation_class_init (SpiRelationClass *klass);
-static void
-spi_relation_init (SpiRelation *relation);
-static void
-spi_relation_finalize (GObject *obj);
-static CORBA_string
-impl_getURI (PortableServer_Servant _servant,
-	     const CORBA_long i, CORBA_Environment * ev);
-static CORBA_short
-impl__get_n_anchors (PortableServer_Servant _servant,
-		     CORBA_Environment * ev);
-static CORBA_long
-impl__get_startIndex (PortableServer_Servant _servant,
-		      CORBA_Environment * ev);
-static CORBA_long
-impl__get_endIndex (PortableServer_Servant _servant,
-		    CORBA_Environment * ev);
-static Accessibility_Accessible
-impl_getObject (PortableServer_Servant _servant,
-		const CORBA_long i,
-		CORBA_Environment * ev);
-static CORBA_boolean
-impl_isValid (PortableServer_Servant _servant,
-	      CORBA_Environment * ev);
-
+/* A pointer to our parent object class */
 static GObjectClass *parent_class;
 
-GType
-spi_relation_get_type (void)
+static void
+spi_relation_finalize (GObject *obj)
 {
-  static GType type = 0;
+  SpiRelation *relation = SPI_RELATION(obj);
+  g_object_unref (relation->relation);
+  relation->relation = NULL;
+  parent_class->finalize (obj);
+}
 
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiRelationClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_relation_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiRelation),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_relation_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_TYPE_OBJECT,
-			       POA_Accessibility_Relation__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiRelationClass, epv),
-			       &tinfo,
-			       "SpiAccessibleRelation");
-  }
-
-  return type;
+SpiRelation *
+spi_relation_new (AtkRelation *obj)
+{
+  SpiRelation *new_relation = g_object_new (SPI_RELATION_TYPE, NULL);
+  new_relation->relation = obj;
+  g_object_ref (obj);
+  return new_relation;
 }
 
 static void
@@ -111,22 +66,7 @@ spi_relation_init (SpiRelation *relation)
 {
 }
 
-static void
-spi_relation_finalize (GObject *obj)
-{
-  SpiRelation *relation = SPI_RELATION(obj);
-  g_object_unref (relation->relation);
-  relation->relation = NULL;
-  parent_class->finalize (obj);
-}
-
-SpiRelation *
-spi_relation_new (AtkRelation *obj)
-{
-  SpiRelation *new_relation = 
-    SPI_RELATION (g_object_new (SPI_RELATION_TYPE, NULL));
-  new_relation->relation = obj;
-  g_object_ref (obj);
-  return new_relation;
-}
-
+BONOBO_TYPE_FUNC_FULL (SpiRelation,
+		       Accessibility_Relation,
+		       BONOBO_TYPE_OBJECT,
+		       spi_relation);

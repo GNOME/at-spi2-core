@@ -202,8 +202,7 @@ BONOBO_TYPE_FUNC_FULL (SpiComponent,
 SpiComponent *
 spi_component_interface_new (AtkObject *o)
 {
-    SpiComponent *retval =
-               SPI_COMPONENT (g_object_new (SPI_COMPONENT_TYPE, NULL));
+    SpiComponent *retval = g_object_new (SPI_COMPONENT_TYPE, NULL);
     retval->atko = o;
     g_object_ref (o);
     return retval;

@@ -33,206 +33,6 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_text_parent_class;
 
-/* Static function declarations */
-
-static void
-accessibility_text_class_init (SpiTextClass *klass);
-
-static void
-accessibility_text_init (SpiText *text);
-
-static void
-accessibility_text_object_finalize (GObject *obj);
-
-static CORBA_string
-impl_getText (PortableServer_Servant _servant,
-	      const CORBA_long startOffset,
-	      const CORBA_long endOffset,
-	      CORBA_Environment * ev);
-
-static CORBA_string
-impl_getTextAfterOffset (PortableServer_Servant _servant,
-			 const CORBA_long offset,
-			 const
-			 Accessibility_TEXT_BOUNDARY_TYPE
-			 type, CORBA_long * startOffset,
-			 CORBA_long * endOffset,
-			 CORBA_Environment * ev);
-static CORBA_string
-impl_getTextAtOffset (PortableServer_Servant _servant,
-		      const CORBA_long offset,
-		      const Accessibility_TEXT_BOUNDARY_TYPE type,
-		      CORBA_long * startOffset,
-		      CORBA_long * endOffset,
-		      CORBA_Environment * ev);
-
-static CORBA_unsigned_long
-impl_getCharacterAtOffset (PortableServer_Servant _servant,
-			   const CORBA_long offset,
-			   CORBA_Environment * ev);
-
-static CORBA_string
-impl_getTextBeforeOffset (PortableServer_Servant _servant,
-			  const CORBA_long offset,
-			  const
-			  Accessibility_TEXT_BOUNDARY_TYPE
-			  type, CORBA_long * startOffset,
-			  CORBA_long * endOffset,
-			  CORBA_Environment * ev);
-
-static CORBA_long
-impl__get_caretOffset (PortableServer_Servant _servant,
-		     CORBA_Environment * ev);
-
-static CORBA_string
-impl_getAttributes (PortableServer_Servant _servant,
-		       const CORBA_long offset,
-		       CORBA_long * startOffset,
-		       CORBA_long * endOffset,
-		       CORBA_Environment * ev);
-
-static void 
-impl_getCharacterExtents (PortableServer_Servant _servant,
-			  const CORBA_long offset, CORBA_long * x,
-			  CORBA_long * y, CORBA_long * width,
-			  CORBA_long * height,
-			  const CORBA_short coordType,
-			  CORBA_Environment * ev);
-
-static CORBA_long
-impl__get_characterCount (PortableServer_Servant _servant,
-			CORBA_Environment * ev);
-
-static CORBA_long
-impl_getOffsetAtPoint (PortableServer_Servant _servant,
-		       const CORBA_long x, const CORBA_long y,
-		       const CORBA_short coordType,
-		       CORBA_Environment * ev);
-
-static CORBA_long
-impl_getNSelections (PortableServer_Servant _servant,
-		     CORBA_Environment * ev);
-
-static void 
-impl_getSelection (PortableServer_Servant _servant,
-		   const CORBA_long selectionNum,
-		   CORBA_long * startOffset, CORBA_long * endOffset,
-		   CORBA_Environment * ev);
-
-static CORBA_boolean
-impl_addSelection (PortableServer_Servant _servant,
-		   const CORBA_long startOffset,
-		   const CORBA_long endOffset,
-		   CORBA_Environment * ev);
-
-static CORBA_boolean
-impl_removeSelection (PortableServer_Servant _servant,
-		      const CORBA_long selectionNum,
-		      CORBA_Environment * ev);
-
-static CORBA_boolean
-impl_setSelection (PortableServer_Servant _servant,
-		   const CORBA_long selectionNum,
-		   const CORBA_long startOffset,
-		   const CORBA_long endOffset,
-		   CORBA_Environment * ev);
-
-static CORBA_boolean
-impl_setCaretOffset (PortableServer_Servant _servant,
-		     const CORBA_long value,
-		     CORBA_Environment * ev); 
-
-GType
-accessibility_text_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiTextClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) accessibility_text_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiText),
-      0, /* n preallocs */
-      (GInstanceInitFunc) accessibility_text_init,
-      NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       PARENT_TYPE,
-			       POA_Accessibility_Text__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiTextClass, epv),
-			       &tinfo,
-			       "SpiAccessibleText");
-  }
-
-  return type;
-}
-
-static void
-accessibility_text_class_init (SpiTextClass *klass)
-{
-  GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_Text__epv *epv = &klass->epv;
-  spi_text_parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = accessibility_text_object_finalize;
-
-  /* Initialize epv table */
-
-  epv->getText = impl_getText;
-  epv->getTextAfterOffset = impl_getTextAfterOffset;
-  epv->getCharacterAtOffset = impl_getCharacterAtOffset;
-  epv->getTextAtOffset = impl_getTextAtOffset;
-  epv->getTextBeforeOffset = impl_getTextBeforeOffset;
-  epv->_get_caretOffset = impl__get_caretOffset;
-  epv->getAttributes = impl_getAttributes;
-  epv->getCharacterExtents = impl_getCharacterExtents;
-  epv->_get_characterCount = impl__get_characterCount;
-  epv->getOffsetAtPoint = impl_getOffsetAtPoint;
-  epv->getNSelections = impl_getNSelections;
-  epv->getSelection = impl_getSelection;
-  epv->addSelection = impl_addSelection;
-  epv->removeSelection = impl_removeSelection;
-  epv->setSelection = impl_setSelection;
-  epv->setCaretOffset = impl_setCaretOffset;
-}
-
-static void
-accessibility_text_init (SpiText *text)
-{
-}
-
-static void
-accessibility_text_object_finalize (GObject *obj)
-{
-  SpiText *text = SPI_TEXT (obj);
-  g_object_unref (text->atko);
-  text->atko = NULL;
-  spi_text_parent_class->finalize (obj);
-}
-
-SpiText *
-spi_text_interface_new (AtkObject *obj)
-{
-  SpiText *new_text = 
-    SPI_TEXT (g_object_new (accessibility_text_get_type (), NULL));
-  new_text->atko = obj;
-  g_object_ref (obj);
-  return new_text;
-}
-
-
-
 static CORBA_string
 impl_getText (PortableServer_Servant _servant,
 	      const CORBA_long startOffset,
@@ -622,3 +422,59 @@ impl_getRowColAtOffset (PortableServer_Servant _servant,
   g_print ("getRowColAtOffset not yet implemented\n");
 }
 
+static void
+spi_text_object_finalize (GObject *obj)
+{
+  SpiText *text = SPI_TEXT (obj);
+  g_object_unref (text->atko);
+  text->atko = NULL;
+  spi_text_parent_class->finalize (obj);
+}
+
+static void
+spi_text_class_init (SpiTextClass *klass)
+{
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_Text__epv *epv = &klass->epv;
+  spi_text_parent_class = g_type_class_peek_parent (klass);
+
+  object_class->finalize = spi_text_object_finalize;
+
+  /* Initialize epv table */
+
+  epv->getText = impl_getText;
+  epv->getTextAfterOffset = impl_getTextAfterOffset;
+  epv->getCharacterAtOffset = impl_getCharacterAtOffset;
+  epv->getTextAtOffset = impl_getTextAtOffset;
+  epv->getTextBeforeOffset = impl_getTextBeforeOffset;
+  epv->_get_caretOffset = impl__get_caretOffset;
+  epv->getAttributes = impl_getAttributes;
+  epv->getCharacterExtents = impl_getCharacterExtents;
+  epv->_get_characterCount = impl__get_characterCount;
+  epv->getOffsetAtPoint = impl_getOffsetAtPoint;
+  epv->getNSelections = impl_getNSelections;
+  epv->getSelection = impl_getSelection;
+  epv->addSelection = impl_addSelection;
+  epv->removeSelection = impl_removeSelection;
+  epv->setSelection = impl_setSelection;
+  epv->setCaretOffset = impl_setCaretOffset;
+}
+
+static void
+spi_text_init (SpiText *text)
+{
+}
+
+BONOBO_TYPE_FUNC_FULL (SpiText,
+		       Accessibility_Text,
+		       PARENT_TYPE,
+		       spi_text);
+
+SpiText *
+spi_text_interface_new (AtkObject *obj)
+{
+  SpiText *new_text = g_object_new (SPI_TEXT_TYPE, NULL);
+  new_text->atko = obj;
+  g_object_ref (obj);
+  return new_text;
+}
