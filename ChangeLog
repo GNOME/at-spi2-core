@@ -1,3 +1,11 @@
+2003-06-13  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: version 1.3.4.
+
+	* cspi/spi_accessible.c:
+	Changed test of obj==NULL to obj==CORBA_OBJECT_NIL.
+
+
 2003-06-13  Michael Meeks  <michael@ximian.com>
 
 	* cspi/bonobo/cspi-bonobo.c (cspi_check_ev): use it.

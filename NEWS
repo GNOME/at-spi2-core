@@ -1,6 +1,27 @@
 (top)
 in HEAD:
-What's new in at-spi-1.3.1:
+What's new in at-spi-1.3.4:
+
+* require atk 1.3.4 throughout.
+
+* Fix for crasher bug in cspi, exceptions were not being properly 
+caught internally.
+
+* added cspi_peek_ev()
+
+* added SPI_ROLE_AUTOCOMPLETE, SPI_STATE_INDETERMINATE (for 
+	checkboxes in the 'inconsistent' state)
+
+* initial wrapper implementations for AccessibleStreamableContent.
+  (partial)
+
+* implement "string" synthesis type in SPI_generateKeyEvent.
+
+* Added cspi client-side APIs for exception handling.
+
+* bugfixes for #114370,  #113268,  #108664, #92143,  
+
+What's new in at-spi-1.3.2:
 
 * Fix for #113268.
 
