@@ -16,6 +16,9 @@
 
 	* configure.in:
 	Add -lXext to XINPUT_LIBS. Fix for bug #132237.
+	Incremented to 1.4.1 (but didn't dist yet - I'm going to 
+	try incrementing the revision AFTER doing a dist, at least
+	for awhile).
 	
 2004-03-22  Bill Haneman <billh@gnome.org>
 
