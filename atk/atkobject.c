@@ -31,9 +31,10 @@ enum
   PROP_NAME,
   PROP_DESCRIPTION,
   PROP_PARENT,      /* ancestry has changed */
-  PROP_STATE,       /* AtkStateSet for the object has changed */
   PROP_VALUE,
   PROP_ROLE,
+  PROP_LAYER,
+  PROP_MDI_ZORDER,
   PROP_TABLE_CAPTION,
   PROP_TABLE_COLUMN_DESCRIPTION,
   PROP_TABLE_COLUMN_HEADER,
@@ -75,6 +76,7 @@ static G_CONST_RETURN gchar*
                                                    (AtkObject       *object);
 static AtkObject*      atk_object_real_get_parent  (AtkObject       *object);
 static AtkRole         atk_object_real_get_role    (AtkObject       *object);
+static AtkLayer        atk_object_real_get_layer   (AtkObject       *object);
 static AtkStateSet*    atk_object_real_ref_state_set
                                                    (AtkObject       *object);
 static void            atk_object_real_set_name    (AtkObject       *object,
@@ -106,6 +108,8 @@ static const gchar* atk_object_name_property_description = "accessible-descripti
 static const gchar* atk_object_name_property_parent = "accessible-parent";
 static const gchar* atk_object_name_property_value = "accessible-value";
 static const gchar* atk_object_name_property_role = "accessible-role";
+static const gchar* atk_object_name_property_component_layer = "accessible-component-layer";
+static const gchar* atk_object_name_property_component_mdi_zorder = "accessible-component-mdi-zorder";
 static const gchar* atk_object_name_property_table_caption = "accessible-table-caption";
 static const gchar* atk_object_name_property_table_column_description = "accessible-table-column-description";
 static const gchar* atk_object_name_property_table_column_header = "accessible-table-column-header";
@@ -157,6 +161,8 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->get_index_in_parent = NULL;
   klass->ref_relation_set = atk_object_real_ref_relation_set;
   klass->get_role = atk_object_real_get_role;
+  klass->get_layer = atk_object_real_get_layer;
+  klass->get_mdi_zorder = NULL;
   klass->ref_state_set = atk_object_real_ref_state_set;
   klass->set_name = atk_object_real_set_name;
   klass->set_description = atk_object_real_set_description;
@@ -211,11 +217,29 @@ atk_object_class_init (AtkObjectClass *klass)
                                    PROP_ROLE,
                                    g_param_spec_int    (atk_object_name_property_role,
                                                         "Accessible Role",
-                                                        "The accessible role this object ",
+                                                        "The accessible role of this object ",
                                                         0,
                                                         G_MAXINT,
                                                         0,
                                                         G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_LAYER,
+                                   g_param_spec_int    (atk_object_name_property_component_layer,
+                                                        "Accessible Layer",
+                                                        "The accessible layer of this object ",
+                                                        0,
+                                                        G_MAXINT,
+                                                        0,
+                                                        G_PARAM_READABLE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_MDI_ZORDER,
+                                   g_param_spec_int    (atk_object_name_property_component_mdi_zorder,
+                                                        "Accessible MDI Value",
+                                                        "The accessible MDI value of this object ",
+                                                        G_MININT,
+                                                        G_MAXINT,
+                                                        G_MININT,
+                                                        G_PARAM_READABLE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_CAPTION,
                                    g_param_spec_string (atk_object_name_property_table_caption,
@@ -523,6 +547,53 @@ atk_object_get_role (AtkObject *accessible)
 }
 
 /**
+ * atk_object_get_layer:
+ * @accessible: an #AtkObject
+ *
+ * Gets the layer of the accessible.
+ *
+ * Returns: an #AtkLayer which is the layer of the accessible
+ **/
+AtkLayer
+atk_object_get_layer (AtkObject *accessible) 
+{
+  AtkObjectClass *klass;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), ATK_LAYER_INVALID);
+
+  klass = ATK_OBJECT_GET_CLASS (accessible);
+  if (klass->get_layer)
+    return (klass->get_layer) (accessible);
+  else
+    return ATK_LAYER_INVALID;
+}
+
+/**
+ * atk_object_get_mdi_zorder:
+ * @accessible: an #AtkObject
+ *
+ * Gets the zorder of the accessible. The value G_MININT will be returned 
+ * if the layer of the accessible is not ATK_LAYER_MDI.
+ *
+ * Returns: a gint which is the zorder of the accessible, i.e. the depth at 
+ * which the component is shown in relation to other components in the same 
+ * container.
+ **/
+gint
+atk_object_get_mdi_zorder (AtkObject *accessible) 
+{
+  AtkObjectClass *klass;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), G_MININT);
+
+  klass = ATK_OBJECT_GET_CLASS (accessible);
+  if (klass->get_mdi_zorder)
+    return (klass->get_mdi_zorder) (accessible);
+  else
+    return G_MININT;
+}
+
+/**
  * atk_object_ref_state_set:
  * @accessible: an #AtkObject
  *
@@ -814,9 +885,14 @@ atk_object_real_get_property (GObject      *object,
       break;
     case PROP_DESCRIPTION:
       g_value_set_string (value, atk_object_get_description (accessible));
-      break;
     case PROP_ROLE:
       g_value_set_int (value, atk_object_get_role (accessible));
+      break;
+    case PROP_LAYER:
+      g_value_set_int (value, atk_object_get_role (accessible));
+      break;
+    case PROP_MDI_ZORDER:
+      g_value_set_int (value, atk_object_get_mdi_zorder (accessible));
       break;
     case PROP_PARENT:
       g_value_set_object (value, atk_object_get_parent (accessible));
@@ -877,6 +953,12 @@ static AtkRole
 atk_object_real_get_role (AtkObject       *object)
 {
   return object->role;
+}
+
+static AtkLayer
+atk_object_real_get_layer (AtkObject       *object)
+{
+  return object->layer;
 }
 
 static AtkStateSet*

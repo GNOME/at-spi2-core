@@ -143,6 +143,7 @@ ATK_NO_OP_OBJECT_FACTORY_GET_CLASS
 <TITLE>AtkObject</TITLE>
 AtkRole
 atk_role_register
+AtkLayer
 AtkImplementor
 AtkImplementorIface
 AtkRelationSet
@@ -155,6 +156,8 @@ atk_object_get_parent
 atk_object_get_n_accessible_children
 atk_object_ref_accessible_child
 atk_object_ref_relation_set
+atk_object_get_layer
+atk_object_get_mdi_zorder
 atk_object_get_role
 atk_object_ref_state_set
 atk_object_get_index_in_parent

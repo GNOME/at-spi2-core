@@ -104,6 +104,19 @@ of the other ATK interfaces:
 @Returns: 
 
 
+<!-- ##### ENUM AtkLayer ##### -->
+<para>
+
+</para>
+
+@ATK_LAYER_INVALID: 
+@ATK_LAYER_BACKGROUND: 
+@ATK_LAYER_CANVAS: 
+@ATK_LAYER_WIDGET: 
+@ATK_LAYER_MDI: 
+@ATK_LAYER_POPUP: 
+@ATK_LAYER_OVERLAY: 
+
 <!-- ##### STRUCT AtkImplementor ##### -->
 <para>
 
@@ -206,6 +219,26 @@ of the other ATK interfaces:
 
 @accessible: 
 @Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_layer ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_mdi_zorder ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@acessible: 
 
 
 <!-- ##### FUNCTION atk_object_get_role ##### -->

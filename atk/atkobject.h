@@ -188,6 +188,28 @@ typedef enum
 
 AtkRole                  atk_role_register        (const gchar *name);
 
+/**
+ *AtkLayer:
+ *@ATK_LAYER_INVALID: The object does not have a layer
+ *@ATK_LAYER_BACKGROUND: This layer is reserved for the desktop background
+ *@ATK_LAYER_CANVAS: This layer is used for Canvas components
+ *@ATK_LAYER_WIDGET: This layer is normally used for components
+ *@ATK_LAYER_MDI: This layer is used for layered components
+ *@ATK_LAYER_POPUP: This layer is used for popup components, such as menus
+ *@ATK_LAYER_OVERLAY: This layer is reserved for future use.
+ *
+ * Describes the layer of a component
+ **/
+typedef enum
+{
+  ATK_LAYER_INVALID,
+  ATK_LAYER_BACKGROUND,
+  ATK_LAYER_CANVAS,
+  ATK_LAYER_WIDGET,
+  ATK_LAYER_MDI,
+  ATK_LAYER_POPUP,
+  ATK_LAYER_OVERLAY,
+} AtkLayer;
 
 #define ATK_TYPE_OBJECT                           (atk_object_get_type ())
 #define ATK_OBJECT(obj)                           (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_OBJECT, AtkObject))
@@ -244,6 +266,7 @@ struct _AtkObject
   AtkObject *accessible_parent;
   AtkRole role;
   AtkRelationSet *relation_set;
+  AtkLayer layer;
 };
 
 struct _AtkObjectClass
@@ -287,6 +310,8 @@ struct _AtkObjectClass
    * Gets the role of the object
    */
   AtkRole                 (* get_role)            (AtkObject                 *accessible);
+  AtkLayer                (* get_layer)           (AtkObject                 *accessible);
+  gint                    (* get_mdi_zorder)      (AtkObject                 *accessible);
   /*
    * Gets the state set of the object
    */
@@ -394,6 +419,8 @@ AtkObject*              atk_object_ref_accessible_child           (AtkObject *ac
                                                                    gint        i);
 AtkRelationSet*         atk_object_ref_relation_set               (AtkObject *accessible);
 AtkRole                 atk_object_get_role                       (AtkObject *accessible);
+AtkLayer                atk_object_get_layer                      (AtkObject *accessible);
+gint                    atk_object_get_mdi_zorder                 (AtkObject *accessible);
 AtkStateSet*            atk_object_ref_state_set                  (AtkObject *accessible);
 gint                    atk_object_get_index_in_parent            (AtkObject *accessible);
 void                    atk_object_set_name                       (AtkObject *accessible,
