@@ -1,7 +1,7 @@
 Makefile.in
 Makefile
 html
-sgml
+xml
 atk.args
 atk.hierarchy
 atk.signals
@@ -11,3 +11,5 @@ atk-unused.txt
 atk-undocumented.txt
 *.stamp
 version.xml
+atk.interfaces
+atk.prerequisites
