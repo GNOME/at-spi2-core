@@ -1,3 +1,10 @@
+2002-03-13  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkutil.c (atk_object_get_root):
+	Changed g_type_class_peek to g_type_class_ref,
+	this seemed to be triggering a SEGV in some cases.
+
+
 2002-03-12  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkgobjectaccessible.c (atk_gobject_accessible_dispose):

@@ -54,6 +54,7 @@ struct _AtkComponentIface
 
   guint          (* add_focus_handler)  (AtkComponent          *component,
                                          AtkFocusHandler        handler);
+
   gboolean       (* contains)           (AtkComponent          *component,
                                          gint                   x,
                                          gint                   y,

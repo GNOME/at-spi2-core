@@ -286,15 +286,19 @@ atk_remove_key_event_listener (guint listener_id)
 AtkObject*
 atk_get_root (void)
 {
-  AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
+  AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
+  AtkObject    *retval;
   if (klass->get_root)
     {
-      return klass->get_root ();
+      retval = klass->get_root ();
     }
   else
     {
-      return NULL;
+      retval = NULL;
     }
+  g_type_class_unref (klass);
+
+  return retval;
 }
 
 /**
