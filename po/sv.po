@@ -1,0 +1,25 @@
+# Swedish messages for at-spi.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi package.
+# Christian Rose <menthos@menthos.com>, 2003.
+#
+# $Id: sv.po,v 1.1 2003/06/27 23:34:25 menthos Exp $
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"POT-Creation-Date: 2003-06-28 01:30+0200\n"
+"PO-Revision-Date: 2003-06-28 01:30+0200\n"
+"Last-Translator: Christian Rose <menthos@menthos.com>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI-register"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Tillgänglighetsregister"
