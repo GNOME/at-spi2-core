@@ -292,6 +292,7 @@ report_text_event (const AccessibleEvent *event, void *user_data)
   if (s) SPI_freeString (s);
   s = AccessibleTextChangedEvent_getChangeString (event);
   fprintf (stderr, "context string %s\n", (s) ? s : "<nil>");
+  SPI_freeString (s);
 }
 
 SPIBoolean

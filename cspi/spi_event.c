@@ -338,7 +338,7 @@ cspi_internal_event_get_text (const InternalEvent *e)
   any = (CORBA_any *) e->data;
   if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
     {
-      return g_strdup (* (char **) any->_value);
+      return CORBA_string_dup (* (char **) any->_value);
     } 
   else
     {

@@ -1,3 +1,11 @@
+2003-03-05  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi_event.c (cspi_internal_event_get_text): Change
+	g_strdup to CORBA_String_dup (bug #105291)
+
+	* test/event-listener-test.c (report_text_event): Add call to
+	SPI_freeString.
+
 2003-02-28  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:
