@@ -371,6 +371,12 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
       keystroke->type = 0;
       break;
     }
+#if 0  
+  g_print ("key_event type %d; val=%d code=%d modifiers=%x name=%s is_text=%d, time=%lx\n",
+	   (int) keystroke->type, (int) keystroke->id, (int) keystroke->hw_code,
+	   (int) keystroke->modifiers,
+	   keystroke->event_string, (int) keystroke->is_text, (unsigned long) keystroke->timestamp);
+#endif
 }
 
 static gint
@@ -383,6 +389,7 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 
   if (BONOBO_EX (&ev))
     {
+      g_warning ("failure: no deviceeventcontroller found\n");
       CORBA_exception_free (&ev);
       result = FALSE;
     }

@@ -1,12 +1,49 @@
+2001-12-21  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	Fixed regressions in generateKeyEvent caused by the removal of
+	gdk_init from registryd; we now use pure X calls to connect to the
+	display, which makes sense because deviceeventcontroller already
+	uses a fair bit of X API (should eventually be migrated to a
+	'portability layer').
+
+	* registryd/desktop.c:
+	Fixed minor regression in spi_desktop_init, changed the way the
+	desktop name is being set to work with new spi_base API
+	(gobject-based, rather than AtkObject-based).
+
+	* registryd/Makefile.am:
+	Minor revision of makefile to use XTST_LIBS variable rather than
+	hard-wiring the Xtst LD_ADD element.
+
+	* test/keysynth-demo.c:
+	Tweaked an output message; added initialization of the
+	'keystrings' member of the "switch listener" key_set.
+
+	* libspi/relation.c:
+	Squashed compile-time warning.
+
+	* libspi/accessible.c:
+	Cosmetic and formatting fixes, renamed a static method.
+	
 2001-12-18 Marc Mulcahy <marc.mulcahy@sun.com>
 
-	* at-spi/libspi/accessible.c at-spi/libspi/action.c
-at-spi/libspi/application.c at-spi/libspi/base.c at-spi/libspi/base.h
-at-spi/libspi/component.c at-spi/libspi/editabletext.c
-at-spi/libspi/hyperlink.c at-spi/libspi/hypertext.c
-at-spi/libspi/image.c at-spi/libspi/selection.c at-spi/libspi/table.c
-at-spi/libspi/text.c at-spi/libspi/value.c at-spi/registryd/desktop.c:
-Changed SpiBase to contain a GObject pointer rather than an AtkObject
+	* libspi/accessible.c 
+	* libspi/action.c
+	* libspi/application.c 
+	* libspi/base.c 
+	* libspi/base.h
+	* libspi/component.c 
+	* libspi/editabletext.c
+	* libspi/hyperlink.c 
+	* libspi/hypertext.c
+	* libspi/image.c 
+	* libspi/selection.c 
+	* libspi/table.c
+	* libspi/text.c 
+	* libspi/value.c 
+	* registryd/desktop.c:
+	Changed SpiBase to contain a GObject pointer rather than an AtkObject
 
 2001-12-17  Bill Haneman <bill.haneman@sun.com>
 
