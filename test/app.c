@@ -64,7 +64,7 @@ main(int argc, char **argv)
         accessible = accessible_new (atko);
         fprintf(stderr, "accessible created.\n");
 
-        e.target = bonobo_object_corba_objref ( bonobo_object (accessible));
+        e.source = bonobo_object_corba_objref ( bonobo_object (accessible));
         e.type = CORBA_string_dup ("focus:");
 
         obj_id = "OAFIID:Accessibility_Registry:proto0.1";

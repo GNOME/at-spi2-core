@@ -63,13 +63,17 @@ main(int argc, char **argv)
 }
 
 void
-report_focus_event (void *fp)
+report_focus_event (void *p)
 {
-  fprintf (stderr, "focus\n");
+  AccessibleEvent *ev = (AccessibleEvent *) p;
+  fprintf (stderr, "%s event from %s\n", ev->type,
+           Accessible_getName (&ev->source));
 }
 
 void
-report_button_press (void *fp)
+report_button_press (void *p)
 {
-  fprintf (stderr, "button press\n");
+  AccessibleEvent *ev = (AccessibleEvent *) p;
+  fprintf (stderr, "%s event from %s\n", ev->type,
+           Accessible_getName (&ev->source));
 }

@@ -9,6 +9,14 @@
 	* test/Makefile.am :
 	* test/simple-at.c :
 	Added new test that uses the C bindings API.
+	* idl/Event.idl :
+	* libspi/listener.c :
+	* libspi/registry.c :
+	* libspi/accessibleeventlistener.c :
+	* at-bridge/bridge.c :
+	Renamed member "target" of Accessibility_Event to "source",
+	which is more descriptive.
+	
 
 2001-08-18  Bill Haneman <bill.haneman@sun.com>
 

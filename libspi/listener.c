@@ -74,7 +74,7 @@ impl_notify_event (PortableServer_Servant     servant,
 #ifdef SPI_DEBUG
   fprintf (stderr, "notify %s...\n", e->type);
   fprintf (stderr, "source name: '%s'\n",
-           Accessibility_Accessible__get_name(e->target, ev));
+           Accessibility_Accessible__get_name(e->source, ev));
   if (ev->_major != CORBA_NO_EXCEPTION) {
     fprintf(stderr,
             ("Accessibility app error: exception during event notification: %s\n"),
@@ -82,13 +82,13 @@ impl_notify_event (PortableServer_Servant     servant,
     exit(-1);
   }
   fprintf (stderr, "source is component ? : %s\n",
-           Accessibility_Accessible_queryInterface (e->target,
+           Accessibility_Accessible_queryInterface (e->source,
                                                     "IDL:Accessibility/Component:1.0",
                                                     ev)
            ? "yes" : "no");
 
 #endif
-  bonobo_object_release_unref (e->target, ev);
+  bonobo_object_release_unref (e->source, ev);
 
 }
 

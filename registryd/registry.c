@@ -461,7 +461,7 @@ impl_registry_notify_event (PortableServer_Servant servant,
     default:
       break;
     }
-  bonobo_object_release_unref (e->target, ev);
+  bonobo_object_release_unref (e->source, ev);
 }
 
 static void
@@ -489,9 +489,9 @@ registry_notify_listeners ( GList *listeners,
         {
 #ifdef SPI_DEBUG
           fprintf(stderr, "notifying listener #%d\n", n);
-          fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->target, ev));
+          fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->source, ev));
 #endif
-          bonobo_object_dup_ref ( e->target, ev);
+          bonobo_object_dup_ref ( e->source, ev);
           Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
                                                    e,
                                                    ev);

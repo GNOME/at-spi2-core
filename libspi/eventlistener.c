@@ -70,7 +70,6 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
                                     const Accessibility_Event *e,
                                     CORBA_Environment         *ev)
 {
-
   int n;
   int len;
   VoidEventListenerCB cb;
@@ -83,10 +82,10 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
       cb =  (VoidEventListenerCB) g_list_nth_data (listener->callbacks, n);
       if (cb)
         {
-          (*cb) (NULL);
+          (*cb) (e);
         }
     }
-  bonobo_object_release_unref (e->target, ev);
+  bonobo_object_release_unref (e->source, ev);
 }
 
 static void
@@ -147,7 +146,7 @@ AccessibleEventListener *
 accessible_event_listener_new ()
 {
     AccessibleEventListener *retval =
-               LISTENER (g_object_new (accessible_event_listener_get_type (), NULL));
+    ACCESSIBLE_EVENT_LISTENER (g_object_new (accessible_event_listener_get_type (), NULL));
     return retval;
 }
 

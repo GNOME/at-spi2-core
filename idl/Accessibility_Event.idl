@@ -31,7 +31,7 @@ module Accessibility
 
   struct Event {
     string type;
-    Accessible target;
+    Accessible source;
     long detail1;
     long detail2;
   };

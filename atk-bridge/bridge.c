@@ -107,7 +107,7 @@ static void bridge_focus_tracker (AtkObject *object)
 {
   Accessibility_Event *e = g_new0(Accessibility_Event, 1);
   e->type = CORBA_string_dup ("focus:");
-  e->target = bonobo_object_corba_objref (bonobo_object (accessible_new (object)));
+  e->source = bonobo_object_corba_objref (bonobo_object (accessible_new (object)));
   e->detail1 = 0;
   e->detail2 = 0;
   Accessibility_Registry_notifyEvent (registry, e, &ev);

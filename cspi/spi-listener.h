@@ -14,12 +14,7 @@ extern "C" {
  *
  */
 
-typedef struct _AccessibleEvent {
-  Accessible *source;
-  char *type;
-  char *detail1;
-  char *detail2;
-} AccessibleEvent;
+typedef Accessibility_Event AccessibleEvent;
 
 /*
  *

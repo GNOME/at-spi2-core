@@ -134,7 +134,7 @@ application_toolkit_listener (GSignalInvocationHint *signal_hint,
     {
       aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
       e->type = CORBA_string_dup (sbuf);
-      e->target = bonobo_object_corba_objref (bonobo_object (accessible_new (aobject)));
+      e->source = bonobo_object_corba_objref (bonobo_object (accessible_new (aobject)));
       e->detail1 = 0;
       e->detail2 = 0;
       Accessibility_EventListener_notifyEvent (the_toolkit_listener, e, &ev);
