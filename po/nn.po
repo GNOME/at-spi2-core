@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-23 23:17+0100\n"
-"PO-Revision-Date: 2003-12-23 23:29+0100\n"
+"POT-Creation-Date: 2003-12-25 01:51+0100\n"
+"PO-Revision-Date: 2003-12-26 17:27+0100\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -346,7 +346,7 @@ msgstr "avsnitt"
 
 #: atk/atkobject.c:155
 msgid "application"
-msgstr "applikasjon"
+msgstr "program"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
@@ -421,8 +421,8 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Vert brukt til å varsla at tabelltittelen er endra. Denne eigenskapen "
-"bør ikkje brukast. «accessible-table-caption-object» bør brukast i staden"
+"Vert brukt til å varsla at tabelltittelen er endra. Denne eigenskapen bør "
+"ikkje brukast. «accessible-table-caption-object» bør brukast i staden"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
