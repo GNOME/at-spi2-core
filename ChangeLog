@@ -1,4 +1,10 @@
-2002-01-09  Bill Haneman <bill.haneman@sun.com>
+2002-10-01  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c, libspi/accessible.h:
+	Expose spi_accessible_construct, to enable libgail-gnome
+	construction from spi_accessible subtype.
+
+2002-09-01  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/accessible.c: (spi_accessible_new) :
 	Move the test for SPI_IS_REMOTE_OBJECT to

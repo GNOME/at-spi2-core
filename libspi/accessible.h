@@ -27,7 +27,7 @@ G_BEGIN_DECLS
 #define SPI_ACCESSIBLE_TYPE        (spi_accessible_get_type ())
 #define SPI_ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_TYPE, SpiAccessible))
 #define SPI_ACCESSIBLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_TYPE, SpiAccessibleClass))
-#define SPI_IS_ACCESSIBLE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_ACCESSIBLE_TYPE))
+#define SPI_IS_ACCESSIBLE(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_ACCESSIBLE_TYPE))
 #define SPI_IS_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_TYPE))
 
 typedef struct {
@@ -41,6 +41,8 @@ typedef struct {
 
 GType                    spi_accessible_get_type   (void);
 SpiAccessible           *spi_accessible_new        (AtkObject         *o);
+SpiAccessible           *spi_accessible_construct  (GType              type,
+						    AtkObject         *o);
 Accessibility_Accessible spi_accessible_new_return (AtkObject         *o,
 						    gboolean           release_ref,
 						    CORBA_Environment *ev);
