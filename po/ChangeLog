@@ -1,3 +1,7 @@
+2005-02-09  Maxim Dziumanenko <mvd@mylinux.com.ua>
+
+	* uk.po: Fix Ukrainian translation.
+
 2005-01-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* POTFILES.skip: Add *.server.in file.
