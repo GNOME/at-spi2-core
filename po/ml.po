@@ -26,7 +26,7 @@ msgstr "ലിഖിതം"
 #: atk/atkobject.c:1248
 #, fuzzy
 msgid "alert"
-msgstr "ഇടത്"
+msgstr "അറിയിപ്പ്"
 
 #: atk/atkobject.c:1251
 msgid "animation"
@@ -49,32 +49,37 @@ msgid "check-box"
 msgstr "മറുകുറി"
 
 #: atk/atkobject.c:1266
+#, fuzzy
 msgid "check-menu-item"
-msgstr ""
+msgstr "ചെക്ക്-മെനു ഇനം"
 
 #: atk/atkobject.c:1269
 msgid "color-chooser"
-msgstr ""
+msgstr "നിറം തെരെ‌‌‌ഞ്ഞെടുപ്പ്"
 
 #: atk/atkobject.c:1272
+#, fuzzy
 msgid "column-header"
-msgstr ""
+msgstr "വരി തലക്കെ‌ട്ട"
 
 #: atk/atkobject.c:1275
+#, fuzzy
 msgid "combo-box"
-msgstr ""
+msgstr "കോംബോ പെട്ടി"
 
 #: atk/atkobject.c:1278
+#, fuzzy
 msgid "date-editor"
-msgstr ""
+msgstr "തിയതി തിരുത്ത്"
 
 #: atk/atkobject.c:1281
 msgid "desktop-icon"
 msgstr "പണിയിടം ചിഹ്നം"
 
 #: atk/atkobject.c:1284
+#, fuzzy
 msgid "desktop-frame"
-msgstr ""
+msgstr "‌‌ഡെസ്ക് ടോപ്പ് ചട്ടക്കൂട്"
 
 #: atk/atkobject.c:1287
 #, fuzzy
@@ -96,8 +101,9 @@ msgid "drawing-area"
 msgstr "വര മൂല"
 
 #: atk/atkobject.c:1299
+#, fuzzy
 msgid "file-chooser"
-msgstr ""
+msgstr "ഫയല് തെരെ‌ഞ്ഞെടുപ്പ്"
 
 #: atk/atkobject.c:1302
 #, fuzzy
@@ -106,21 +112,22 @@ msgstr "വെള്ളി"
 
 #: atk/atkobject.c:1305
 msgid "font-chooser"
-msgstr ""
+msgstr "അച്ച് തെരെഞ്ഞെടുപ്പ്"
 
 #: atk/atkobject.c:1308
 #, fuzzy
 msgid "frame"
-msgstr "പേര‍്"
+msgstr "ചട്ടക്കൂട്"
 
 #: atk/atkobject.c:1311
+#, fuzzy
 msgid "glass-pane"
-msgstr ""
+msgstr "ഗ്ളാസ്-പാളി"
 
 #: atk/atkobject.c:1314
 #, fuzzy
 msgid "html-container"
-msgstr "ഉള്‍ക്കൊള്ളുന്നു"
+msgstr "html-ഉള്‍ക്കൊള്ളുന്നു"
 
 #: atk/atkobject.c:1317
 msgid "icon"
@@ -141,7 +148,7 @@ msgstr "ലിഖിതം"
 
 #: atk/atkobject.c:1329
 msgid "layered-pane"
-msgstr ""
+msgstr "നിരവധി തലങ്ങളുളള പാളി"
 
 #: atk/atkobject.c:1332
 msgid "list"
@@ -178,8 +185,9 @@ msgid "page-tab"
 msgstr "അനുബന്ധങ്ങള്"
 
 #: atk/atkobject.c:1353
+#, fuzzy
 msgid "page-tab-list"
-msgstr ""
+msgstr "അനുബന്ധങ്ങളുടെ പട്ടിക"
 
 #: atk/atkobject.c:1356
 #, fuzzy
@@ -192,8 +200,9 @@ msgid "password-text"
 msgstr "അടയാളവാക്യം"
 
 #: atk/atkobject.c:1362
+#, fuzzy
 msgid "popup-menu"
-msgstr ""
+msgstr "പോപ് അപ്പ് പട്ടിക"
 
 #: atk/atkobject.c:1365
 #, fuzzy
@@ -201,20 +210,24 @@ msgid "progress-bar"
 msgstr "പൂരോഗതി‌"
 
 #: atk/atkobject.c:1368
+#, fuzzy
 msgid "push-button"
-msgstr ""
+msgstr "പുഷ് ബട്ടണ്"
 
 #: atk/atkobject.c:1371
+#, fuzzy
 msgid "radio-button"
-msgstr ""
+msgstr "റേ‌ഡിയോ ബട്ടണ്"
 
 #: atk/atkobject.c:1374
+#, fuzzy
 msgid "radio-menu-item"
-msgstr ""
+msgstr "റേഡിയോ പട്ടിക ഇനം"
 
 #: atk/atkobject.c:1377
+#, fuzzy
 msgid "root-pane"
-msgstr ""
+msgstr "അടിസ്ഥാന പാളി"
 
 #: atk/atkobject.c:1380
 #, fuzzy
@@ -222,13 +235,14 @@ msgid "row-header"
 msgstr "എല്ലാ തലവാചകങ്ങളും കാണിക്കുക"
 
 #: atk/atkobject.c:1383
+#, fuzzy
 msgid "scroll-bar"
-msgstr ""
+msgstr "നിരക്കിനീക്കാന്"
 
 #: atk/atkobject.c:1386
 #, fuzzy
 msgid "scroll-pane"
-msgstr "നിരക്കിനീക്കാവുന്ന"
+msgstr "നിരക്കിനീക്കാവുന്ന പാളി"
 
 #: atk/atkobject.c:1389
 msgid "separator"
@@ -292,8 +306,9 @@ msgid "tool-bar"
 msgstr "പണി ആയുധപ്പട്ട"
 
 #: atk/atkobject.c:1431
+#, fuzzy
 msgid "tool-tip"
-msgstr ""
+msgstr "സൂചന"
 
 #: atk/atkobject.c:1434
 #, fuzzy
@@ -310,8 +325,9 @@ msgid "unknown"
 msgstr "അറിയാത്ത"
 
 #: atk/atkobject.c:1443
+#, fuzzy
 msgid "viewport"
-msgstr ""
+msgstr "ദറ്ശന മണ്ഡലം"
 
 #: atk/atkobject.c:1446
 msgid "window"
@@ -332,7 +348,7 @@ msgstr "foo"
 #: atk/atkobject.c:1455
 #, fuzzy
 msgid "paragraph"
-msgstr "പ്രയോഗം"
+msgstr "ഖണ്ഡം"
 
 #: atk/atkobject.c:1458
 #, fuzzy
