@@ -17,3 +17,5 @@ atk-uninstalled.pc
 sgml
 atk.spec
 autom4te.cache
+stamp-h
+stamp-h.in
