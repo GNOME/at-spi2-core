@@ -63,7 +63,8 @@ Registry queries
 
 <!-- ##### USER_FUNCTION AccessibleKeystrokeListenerCB ##### -->
 <para>
-
+This is a function which is specified when creating a KeystrokeListener.
+It is called when an event being listened for occurs. 
 </para>
 
 @stroke: 
@@ -73,7 +74,15 @@ Registry queries
 
 <!-- ##### TYPEDEF AccessibleKeyEventMask ##### -->
 <para>
+AccessibleKeyEventMask is a set of types of key events. It is used 
+in SPI_registerAccessibleKeystroketListener to specify the events to be 
+listener for.
+</para>
 
+
+<!-- ##### TYPEDEF AccessibleModifierMaskType ##### -->
+<para>
+AccessibleModifierMaskType is a synonym for AccessibleKeymaskType.
 </para>
 
 
@@ -101,15 +110,8 @@ Registry queries
 
 <!-- ##### TYPEDEF AccessibleKeystroke ##### -->
 <para>
-
+This is a synonym for AccessibleDeviceEvent.
 </para>
-
-
-<!-- ##### MACRO SPI_KEYSET_ALL_KEYS ##### -->
-<para>
-
-</para>
-
 
 
 <!-- ##### FUNCTION SPI_createAccessibleKeySet ##### -->
@@ -243,5 +245,99 @@ Registry queries
 @y: 
 @name: 
 @Returns: 
+
+
+<!-- ##### TYPEDEF AccessibleDeviceEvent ##### -->
+<para>
+AccessibleDeviceEvent is a struct which encapsulates a device event.
+</para>
+
+
+<!-- ##### TYPEDEF AccessibleDeviceEventMask ##### -->
+<para>
+AccessibleDeviceEventMask is a set of types of key events. It is used 
+in SPI_registerDeviceEventListener to specify the events to be listener for.
+</para>
+
+
+<!-- ##### ENUM AccessibleDeviceEventType ##### -->
+<para>
+
+</para>
+
+@SPI_KEY_PRESSED: 
+@SPI_KEY_RELEASED: 
+@SPI_BUTTON_PRESSED: 
+@SPI_BUTTON_RELEASED: 
+
+<!-- ##### USER_FUNCTION AccessibleDeviceListenerCB ##### -->
+<para>
+This is a function which is specified when creating a DeviceListener.
+It is called when an event being listened for occurs. 
+</para>
+
+@stroke: 
+@user_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPI_createAccessibleDeviceListener ##### -->
+<para>
+
+</para>
+
+@callback: 
+@user_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPI_registerDeviceEventListener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@eventmask: 
+@filter: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPI_deregisterDeviceEventListener ##### -->
+<para>
+
+</para>
+
+@listener: 
+@filter: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleDeviceListener_addCallback ##### -->
+<para>
+
+</para>
+
+@listener: 
+@callback: 
+@user_data: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleDeviceListener_removeCallback ##### -->
+<para>
+
+</para>
+
+@listener: 
+@callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleDeviceListener_unref ##### -->
+<para>
+
+</para>
+
+@listener: 
 
 

@@ -40,6 +40,15 @@ typedef struct {
   long         detail2;
 } AccessibleEvent;
   
+/**
+ *AccessibleDeviceEventType:
+ *@SPI_KEY_PRESSED:
+ *@SPI_KEY_RELEASED:
+ *@SPI_BUTTON_PRESSED:
+ *@SPI_BUTTON_RELEASED:
+ *
+ *The type of an AccessibleDeviceEvent.
+ **/
 typedef enum {
   SPI_KEY_PRESSED  = 1<<0,
   SPI_KEY_RELEASED = 1<<1,
@@ -47,6 +56,11 @@ typedef enum {
   SPI_BUTTON_RELEASED = 1<<3
 } AccessibleDeviceEventType;
 
+/**
+ *AccessibleKeyEventType:
+ *
+ *This is a synonym for AccessibleDeviceEventType
+ **/
 typedef AccessibleDeviceEventType AccessibleKeyEventType;
 
 typedef struct {

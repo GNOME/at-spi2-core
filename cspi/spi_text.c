@@ -604,9 +604,6 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
  *
  * Get the bounding box for text within a range in an  #AccessibleText object.
  *
- * Returns: the bounding-box extents of the specified text range,
- *       in the specified coordinate system.
- *
  **/
 void
 AccessibleText_getRangeExtents (AccessibleText *obj,

@@ -16,17 +16,35 @@ Event Listener Support
 
 <!-- ##### TYPEDEF AccessibleEvent ##### -->
 <para>
-
+AccessibleEvent is a struct used to encapsulate event information.
 </para>
 
 
 <!-- ##### USER_FUNCTION AccessibleEventListenerCB ##### -->
 <para>
-
+This is a function which is specified when creating a EventListener.
+It is called when an event being listened for occurs.
 </para>
 
 @event: 
 @user_data: 
+
+
+<!-- ##### FUNCTION AccessibleEvent_ref ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEvent_unref ##### -->
+<para>
+
+</para>
+
+@e: 
 
 
 <!-- ##### FUNCTION SPI_createAccessibleEventListener ##### -->
@@ -65,6 +83,123 @@ Event Listener Support
 
 @listener: 
 @callback: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleActiveDescendantChangedEvent_getActiveDescendant ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleChildChangedEvent_getChildAccessible ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleDescriptionChangedEvent_getDescriptionString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleNameChangedEvent_getNameString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleParentChangedEvent_getParentAccessible ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTableCaptionChangedEvent_getCaptionString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTableColumnDescriptionChangedEvent_getDescriptionString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTableHeaderChangedEvent_getHeaderAccessible ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTableRowDescriptionChangedEvent_getDescriptionString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTableSummaryChangedEvent_getSummaryAccessible ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTextChangedEvent_getChangeString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTextSelectionChangedEvent_getSelectionString ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleWindowEvent_getTitleString ##### -->
+<para>
+
+</para>
+
+@e: 
 @Returns: 
 
 

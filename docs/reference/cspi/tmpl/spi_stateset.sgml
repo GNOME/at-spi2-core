@@ -6,7 +6,6 @@ State and StateSets
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -51,6 +50,16 @@ State and StateSets
 @SPI_STATE_VISIBLE: 
 @SPI_STATE_MANAGES_DESCENDANTS: 
 @SPI_STATE_LAST_DEFINED: 
+
+<!-- ##### STRUCT AccessibleStateSet ##### -->
+<para>
+An AccessibleStateSet determines a component's state set. It is composed of 
+a set of AccessibleState values.
+
+</para>
+
+@ref_count: 
+@states: 
 
 <!-- ##### FUNCTION AccessibleStateSet_ref ##### -->
 <para>

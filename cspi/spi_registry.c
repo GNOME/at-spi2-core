@@ -306,7 +306,9 @@ SPI_freeDesktopList (Accessible **desktop_list)
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
  *             keystroke events are requested.
  * @keys:      a pointer to the #AccessibleKeySet indicating which
- *             keystroke events are requested, or #CSPI_KEYSET_ALL_KEYS.
+ *             keystroke events are requested, or #CSPI_KEYSET_ALL_KEYS
+ *             to indicate that all keycodes and keyvals for the specified
+ *             modifier set are to be included.
  * @modmask:   an #AccessibleKeyMaskType mask indicating which
  *             key event modifiers must be set in combination with @keys,
  *             events will only be reported for key events for which all
@@ -474,6 +476,7 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
  *             the events.
  * @eventmask: an #AccessibleDeviceEventMask mask indicating which
  *             types of key events are requested (#SPI_KEY_PRESSED, etc.).
+ * @filter: Unused parameter.
  *             
  * Register a listener for device events, for instance button events.
  *
@@ -533,6 +536,7 @@ SPI_registerDeviceEventListener (AccessibleDeviceListener  *listener,
  * SPI_deregisterDeviceEventListener:
  * @listener: a pointer to the #AccessibleDeviceListener for which
  *            device events are requested.
+ * @filter: Unused parameter.
  *
  * Removes a device event listener from the registry's listener queue,
  *            ceasing notification of events of the specified type.

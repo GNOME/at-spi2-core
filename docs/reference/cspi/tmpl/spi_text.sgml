@@ -29,6 +29,16 @@ AccessibleText Interface
 @SPI_TEXT_BOUNDARY_LINE_END: 
 @SPI_TEXT_BOUNDARY_ATTRIBUTE_RANGE: 
 
+<!-- ##### ENUM AccessibleTextClipType ##### -->
+<para>
+
+</para>
+
+@SPI_TEXT_CLIP_NONE: 
+@SPI_TEXT_CLIP_MIN: 
+@SPI_TEXT_CLIP_MAX: 
+@SPI_TEXT_CLIP_BOTH: 
+
 <!-- ##### FUNCTION AccessibleText_ref ##### -->
 <para>
 
@@ -69,6 +79,22 @@ AccessibleText Interface
 @offset: 
 @startOffset: 
 @endOffset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleText_getBoundedRanges ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@width: 
+@height: 
+@type: 
+@clipTypeX: 
+@clipTypeY: 
 @Returns: 
 
 
@@ -123,6 +149,21 @@ AccessibleText Interface
 @y: 
 @type: 
 @Returns: 
+
+
+<!-- ##### FUNCTION AccessibleText_getRangeExtents ##### -->
+<para>
+
+</para>
+
+@obj: 
+@startOffset: 
+@endOffset: 
+@x: 
+@y: 
+@width: 
+@height: 
+@type: 
 
 
 <!-- ##### FUNCTION AccessibleText_getSelection ##### -->
@@ -216,5 +257,13 @@ AccessibleText Interface
 @startOffset: 
 @endOffset: 
 @Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTextRange_freeRanges ##### -->
+<para>
+
+</para>
+
+@ranges: 
 
 

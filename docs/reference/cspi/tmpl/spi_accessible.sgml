@@ -16,7 +16,8 @@ Accessible Objects
 
 <!-- ##### STRUCT Accessible ##### -->
 <para>
-
+An Accessible object is an opaque object used to refer to an accessible
+object corresponding to an user interface element.
 </para>
 
 @objref: 

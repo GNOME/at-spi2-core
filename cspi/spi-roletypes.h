@@ -139,6 +139,12 @@ extern "C" {
  * @SPI_ROLE_APPLICATION: An object which corresponds to a desktop application,
  *                  which may have children of @SPI_ROLE_FRAME or other type.
  * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
+ *
+ * Describes the role of an object
+ *
+ * These are the built-in enumerated roles that UI components can have.
+ * Other roles may be added at runtime, so an AccessibleRole >=
+ * SPI_ROLE_LAST_DEFINED is not necessarily an error.
  **/
 typedef enum
 {

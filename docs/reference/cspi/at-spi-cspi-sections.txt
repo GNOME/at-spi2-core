@@ -16,10 +16,26 @@ SPI_freeString
 <TITLE>Event Listener Support</TITLE>
 AccessibleEvent
 AccessibleEventListenerCB
+AccessibleEvent_ref
+AccessibleEvent_unref
 SPI_createAccessibleEventListener
 AccessibleEventListener_unref
 AccessibleEventListener_addCallback
 AccessibleEventListener_removeCallback
+<SUBSECTION Specific Event Support>
+AccessibleActiveDescendantChangedEvent_getActiveDescendant
+AccessibleChildChangedEvent_getChildAccessible
+AccessibleDescriptionChangedEvent_getDescriptionString
+AccessibleNameChangedEvent_getNameString
+AccessibleParentChangedEvent_getParentAccessible
+AccessibleTableCaptionChangedEvent_getCaptionString
+AccessibleTableColumnDescriptionChangedEvent_getDescriptionString
+AccessibleTableHeaderChangedEvent_getHeaderAccessible
+AccessibleTableRowDescriptionChangedEvent_getDescriptionString
+AccessibleTableSummaryChangedEvent_getSummaryAccessible
+AccessibleTextChangedEvent_getChangeString
+AccessibleTextSelectionChangedEvent_getSelectionString
+AccessibleWindowEvent_getTitleString
 </SECTION>
 
 <SECTION>
@@ -33,11 +49,11 @@ SPI_freeDesktopList
 <SUBSECTION Event Registration>
 AccessibleKeystrokeListenerCB
 AccessibleKeyEventMask
+AccessibleModifierMaskType
 AccessibleKeyMaskType
 AccessibleKeyEventType
 AccessibleKeyListenerSyncType
 AccessibleKeystroke
-SPI_KEYSET_ALL_KEYS
 SPI_createAccessibleKeySet
 SPI_freeAccessibleKeySet
 SPI_createAccessibleKeystrokeListener
@@ -51,6 +67,18 @@ AccessibleKeystrokeListener_removeCallback
 AccessibleKeystrokeListener_addCallback
 SPI_generateKeyboardEvent
 SPI_generateMouseEvent
+AccessibleDeviceEvent
+AccessibleDeviceEventMask
+AccessibleDeviceEventType
+AccessibleDeviceListenerCB
+SPI_createAccessibleDeviceListener
+SPI_registerDeviceEventListener
+SPI_deregisterDeviceEventListener
+AccessibleDeviceListener_addCallback
+AccessibleDeviceListener_removeCallback
+AccessibleDeviceListener_unref
+<SUBSECTION Private>
+SPI_KEYSET_ALL_KEYS
 </SECTION>
 
 <SECTION>
@@ -96,6 +124,62 @@ Accessible_queryInterface
 <SUBSECTION Auxiliary types>
 AccessibleRole
 AccessibleRole_getName
+<SUBSECTION Private>
+InternalEvent
+SPI_INTERNAL_EVENT_MAGIC
+CSPI_OBJREF
+cspi_ev
+cspi_exception
+cspi_registry
+cspi_object_add
+cspi_object_ref
+cspi_object_unref
+cspi_object_borrow
+cspi_object_take
+cspi_object_return
+cspi_accessible_is_a
+cspi_return_if_fail
+cspi_return_val_if_fail
+cspi_return_if_ev
+cspi_return_val_if_ev
+cspi_check_ev
+cspi_dup_ref
+cspi_release_unref
+cspi_exception_get_text
+cspi_init
+cspi_ping
+cspi_main
+cspi_main_quit
+cspi_event_listener_get_type
+cspi_event_listener_new
+cspi_event_listener_get_corba
+cspi_event_listener_add_cb
+cspi_event_listener_remove_cb
+cspi_event_listener_unref
+cspi_keystroke_listener_new
+cspi_keystroke_listener_unref
+cspi_keystroke_listener_get_corba
+cspi_keystroke_listener_add_cb
+cspi_keystroke_listener_remove_cb
+cspi_device_listener_get_type
+cspi_device_listener_new
+cspi_device_listener_add_cb
+cspi_device_listener_remove_cb
+cspi_device_listener_unref
+CSpiEventListener
+CSpiEventListenerClass
+CSPI_EVENT_LISTENER_TYPE
+CSPI_EVENT_LISTENER
+CSPI_EVENT_LISTENER_CLASS
+CSPI_IS_EVENT_LISTENER
+CSPI_IS_EVENT_LISTENER_CLASS
+CSpiDeviceListener
+CSpiDeviceListenerClass
+CSPI_DEVICE_LISTENER_TYPE
+CSPI_DEVICE_LISTENER
+CSPI_DEVICE_LISTENER_CLASS
+CSPI_IS_DEVICE_LISTENER
+CSPI_IS_DEVICE_LISTENER_CLASS
 </SECTION>
 
 <SECTION>
@@ -231,15 +315,18 @@ AccessibleTable_isSelected
 <FILE>spi_text</FILE>
 <TITLE>AccessibleText Interface</TITLE>
 AccessibleTextBoundaryType
+AccessibleTextClipType
 AccessibleText_ref
 AccessibleText_unref
 AccessibleText_addSelection
 AccessibleText_getAttributes
+AccessibleText_getBoundedRanges
 AccessibleText_getCaretOffset
 AccessibleText_getCharacterCount
 AccessibleText_getCharacterExtents
 AccessibleText_getNSelections
 AccessibleText_getOffsetAtPoint
+AccessibleText_getRangeExtents
 AccessibleText_getSelection
 AccessibleText_getText
 AccessibleText_getTextBeforeOffset
@@ -248,6 +335,7 @@ AccessibleText_getTextAtOffset
 AccessibleText_removeSelection
 AccessibleText_setCaretOffset
 AccessibleText_setSelection
+AccessibleTextRange_freeRanges
 </SECTION>
 
 <SECTION>
@@ -277,6 +365,7 @@ AccessibleHyperlink_isValid
 <FILE>spi_stateset</FILE>
 <TITLE>State and StateSets</TITLE>
 AccessibleState
+AccessibleStateSet
 AccessibleStateSet_ref
 AccessibleStateSet_unref
 AccessibleStateSet_add

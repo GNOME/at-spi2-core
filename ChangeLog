@@ -1,3 +1,43 @@
+2003-04-25  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi-listener.h: Add documentation for AccessibleDeviceEventType,
+	AcccessibleKeyEventType, AccessibleKeyMaskType.
+
+	* cspi/spi-roletypes.h: Update documentation for AccessibleRole.
+
+	* cspi/state-types.h: Add documentation for AccessibleState.
+
+	* cspi/spi.h: Add documentation for AccessibleTextBoundaryType,
+	AccessibleTextClipType, AccessibleRelationType, AccessibleCoordType,
+	AccessibleKeySynthType, AccessibleKeyListenerSyncType, 
+	AccessibleComponentLayer.
+
+	* cspi/spi_event.c, cspi/spi_registry.c, cspi/spi_text.c: Fix bugs 
+	in documentation.
+
+	* docs/reference/cspi/at-spi-cspi-sections.txt: Add undefined symbols.
+
+	* docs/reference/cspi/tmpl/spi_registry.sgml: Add description of 
+	Accessible.  Add description of AccessibleEvent, 
+	AccessibleEventListenerCB.
+
+	* docs/reference/cspi/tmpl/spi_event.sgml: Update with extra 
+	documentation.
+
+	* docs/reference/cspi/tmpl/spi_registry.sgml: Update with extra 
+	documentation. Add description of AccessibleKeystrokeListenerCB,
+	AccessibleKeyEventMask, AccessibleModifierMaskType, 
+	AccessibleKeyMaskType, AccessibleKeystroke, AccessibleDeviceEvent,
+	AccessibleDeviceEventMask, AccessibleDeviceListenerCB. 
+
+	* docs/reference/cspi/tmpl/spi_stateset.sgml: Add description of
+	AccessibleStateSet.
+
+	* docs/reference/cspi/tmpl/spi_text.sgml: Update with extra 
+	documentation.
+
+	This fixes bug #104730.
+
 2003-04-24  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c (spi_init_keystroke_from_atk_key_event):

@@ -385,7 +385,7 @@ AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e)
 
 /**
  * AccessibleTextSelectionChangedEvent_getSelectionString:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:text-selection-changed", 
  *         returning the newly added, removed, or modified selection string.
@@ -402,7 +402,7 @@ AccessibleTextSelectionChangedEvent_getSelectionString (const AccessibleEvent *e
 
 /**
  * AccessibleWindowEvent_getTitleString:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "window:", 
  *         returning the window title.
@@ -420,7 +420,7 @@ AccessibleWindowEvent_getTitleString (const AccessibleEvent *e)
 
 /**
  * AccessibleChildChangedEvent_getChildAccessible:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:children_changed"
  *         to get a reference to the changed #Accessible.
@@ -441,7 +441,7 @@ AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e)
 
 /**
  * AccessibleParentChangedEvent_getParentAccessible:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:property-change:accessible-parent"
  *         to get a reference to the changed #Accessible.
@@ -460,7 +460,7 @@ AccessibleParentChangedEvent_getParentAccessible (const AccessibleEvent *e)
 
 /**
  * AccessibleActiveDescendantChangedEvent_getActiveDescendant:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:active-descendant-changed"
  *         to get a reference to the changed #Accessible.
@@ -479,7 +479,7 @@ AccessibleActiveDescendantChangedEvent_getActiveDescendant (const AccessibleEven
 
 /**
  * AccessibleTableSummaryChangedEvent_getSummaryAccessible:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:property-changed:accessible-table-summary"
  *         to get a reference to the changed #Accessible.
@@ -498,7 +498,7 @@ AccessibleTableSummaryChangedEvent_getSummaryAccessible (const AccessibleEvent *
 
 /**
  * AccessibleTableHeaderChangedEvent_getHeaderAccessible:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type 
  *         "object:property-changed:accessible-table-row-header" or
@@ -537,8 +537,8 @@ AccessibleTableCaptionChangedEvent_getCaptionString (const AccessibleEvent *e)
 }
 
 /**
- * AccessibleTableRowDescriptionEvent_getDescriptionString:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * AccessibleTableRowDescriptionChangedEvent_getDescriptionString:
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type 
  *         "object:property-changed:accessible-table-row-description" 
@@ -556,8 +556,8 @@ AccessibleTableRowDescriptionChangedEvent_getDescriptionString (const Accessible
 }
 
 /**
- * AccessibleTableColumnDescriptionEvent_getDescriptionString:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * AccessibleTableColumnDescriptionChangedEvent_getDescriptionString:
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type 
  *         "object:property-changed:accessible-table-column-description" 
@@ -575,8 +575,8 @@ AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (const Accessi
 }
 
 /**
- * AccessibleDescriptionEvent_getDescriptionString:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * AccessibleDescriptionChangedEvent_getDescriptionString:
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type 
  *         "object:property-changed:accessible-description" 
@@ -637,8 +637,8 @@ cspi_internal_event_remove (const InternalEvent *e)
 }
 
 /**
- * AccessibleNameChangedEvent_getNametring:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * AccessibleNameChangedEvent_getNameString:
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:property-change:accessible_name:", 
  *         returning the name.
@@ -653,6 +653,15 @@ AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e)
   return cspi_internal_event_get_text (foo);
 }
 
+/**
+ * AccessibleEvent_ref:
+ * @e: a pointer to the #AccessibleEvent being referenced.
+ *
+ * Increments by 1 the reference count of the event
+ *
+ * Returns: TRUE if the function succeeded; FALSE if the pointer is not a
+ *         valid event.
+ **/
 SPIBoolean
 AccessibleEvent_ref (const AccessibleEvent *e)
 {
@@ -675,6 +684,14 @@ AccessibleEvent_ref (const AccessibleEvent *e)
     return FALSE;
 }
 
+/**
+ * AccessibleEvent_unref:
+ * @e: a pointer to the #AccessibleEvent being referenced.
+ *
+ * Decrements by 1 the reference count of the event. The event is destroyed
+ * when the reference count recahes zero.
+ *
+ **/
 void
 AccessibleEvent_unref (const AccessibleEvent *e)
 {
