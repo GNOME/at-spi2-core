@@ -39,18 +39,18 @@ spi_init_state_type_tables (void)
   if (accessible_state_types || atk_state_types)
     return FALSE;
   if (!accessible_state_types)
-    accessible_state_types = g_new (Accessibility_StateType, Accessibility_STATE_LAST_DEFINED);
+    accessible_state_types = g_new (Accessibility_StateType, ATK_STATE_LAST_DEFINED);
   if (!atk_state_types)
-    atk_state_types = g_new (AtkStateType, ATK_STATE_LAST_DEFINED);
+    atk_state_types = g_new (AtkStateType, Accessibility_STATE_LAST_DEFINED);
   g_return_val_if_fail (accessible_state_types, FALSE);
   g_return_val_if_fail (atk_state_types, FALSE);
   
-  for (i = 0; i < ATK_STATE_LAST_DEFINED; i++)
+  for (i = 0; i < Accessibility_STATE_LAST_DEFINED; i++)
     {
       atk_state_types[i] = ATK_STATE_INVALID;
     }
 
-  for (i=0; i < Accessibility_STATE_LAST_DEFINED; i++)
+  for (i=0; i < ATK_STATE_LAST_DEFINED; i++)
     {
       accessible_state_types[i] = Accessibility_STATE_INVALID;	
     }

@@ -1,8 +1,7 @@
-2002-04-29  Bill Haneman <bill.haneman@sun.com>
+2002-04-26  Radek Doulik  <rodo@ximian.com>
 
-	* libspi/stateset.c:
-	Fixed improper array initialization (past end of 
-	array).  Thanks to Radek for finding this...
+	* libspi/stateset.c (spi_init_state_type_tables): fix size of
+	atk_state_types table
 
 2002-04-22  jacob berkman  <jacob@ximian.com>
 
