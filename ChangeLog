@@ -1,3 +1,8 @@
+2003-03-12  Tor Lillqvist  <tml@iki.fi>
+
+	* atk/atk.def: Add one more missing export, thanks to Cedric
+	Gustin.
+
 2003-03-07  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c (atk_object_set_role): Add check that role is

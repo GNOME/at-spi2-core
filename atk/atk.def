@@ -91,6 +91,7 @@ EXPORTS
 	atk_object_ref_relation_set
 	atk_object_ref_state_set
 	atk_object_remove_property_change_handler
+	atk_object_remove_relationship
 	atk_object_set_description
 	atk_object_set_name
 	atk_object_set_parent
