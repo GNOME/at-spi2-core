@@ -21,9 +21,9 @@
  */
 
 #include <Bonobo_Unknown.idl>
-#include <Event.idl>
-#include <Application.idl>
-#include <Desktop.idl>
+#include <Accessibility_Event.idl>
+#include <Accessibility_Application.idl>
+#include <Accessibility_Desktop.idl>
 
 #ifndef _ACCESSIBILITY_REGISTRY_IDL_
 #define _ACCESSIBILITY_REGISTRY_IDL_

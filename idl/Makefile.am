@@ -1,24 +1,25 @@
 idldir = $(datadir)/idl/at-spi-1.0
 
-idl_DATA = Accessibility.idl	\
-	   Accessible.idl	\
-	   Action.idl		\
-	   Application.idl	\
-	   Component.idl	\
-           Desktop.idl		\
-	   EditableText.idl	\
-           Event.idl		\
-	   Hyperlink.idl	\
-	   Hypertext.idl	\
-	   Image.idl		\
-	   Registry.idl		\
-	   Relation.idl		\
-	   Role.idl		\
-           Selection.idl	\
-           State.idl		\
-	   StreamableContent.idl	\
-	   Table.idl		\
-	   Text.idl		\
-	   Value.idl
+idl_DATA =					\
+	Accessibility.idl			\
+	Accessibility_Accessible.idl		\
+	Accessibility_Action.idl		\
+	Accessibility_Application.idl		\
+	Accessibility_Component.idl		\
+	Accessibility_Desktop.idl		\
+	Accessibility_EditableText.idl		\
+	Accessibility_Event.idl			\
+	Accessibility_Hyperlink.idl		\
+	Accessibility_Hypertext.idl		\
+	Accessibility_Image.idl			\
+	Accessibility_Registry.idl		\
+	Accessibility_Relation.idl		\
+	Accessibility_Role.idl			\
+	Accessibility_Selection.idl		\
+	Accessibility_State.idl			\
+	Accessibility_StreamableContent.idl	\
+	Accessibility_Table.idl			\
+	Accessibility_Text.idl			\
+	Accessibility_Value.idl
 
 EXTRA_DIST=$(idl_DATA)

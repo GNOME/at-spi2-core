@@ -24,7 +24,7 @@
 #define __ACCESSIBILITY_DESKTOP_DEFINED__
 
 #include <Bonobo_Unknown.idl>
-#include <Accessible.idl>
+#include <Accessibility_Accessible.idl>
 
 module Accessibility {
   interface Desktop : Accessible {

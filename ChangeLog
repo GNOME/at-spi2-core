@@ -1,5 +1,32 @@
 2001-12-11  Michael Meeks  <michael@ximian.com>
 
+	* libspi/image.c (impl_getImageExtents): impl.
+	(spi_image_class_init): upd.
+
+	* cspi/spi_image.c
+	(AccessibleImage_getImageDescription): fix daft bug
+	of mine (doh).
+
+	* test/test-simple.c (global_listener_cb): update
+	to only quit if not --poke
+	(main): catch --poke.
+	(validate_accessible): upd. dumping, call test_image
+	(test_image): impl.
+
+	* libspi/Makefile.am (IDL_DEPS): fixup the IDL
+	dependencies.
+
+	* idl/Accessibility.idl: update all IDL includes.
+
+	* idl/*.idl - rename to namespace - this sucks, blame
+	mjs' bad decision for oafd.
+
+	* test/test-simple.c (create_test_window): add more tests.
+	(create_tree): split this out.
+	(validate_accessible): bugfix.
+
+2001-12-11  Michael Meeks  <michael@ximian.com>
+
 	* cspi/bonobo/cspi-bonobo-listener.c: 
 	(cspi_kestroke_listener_unref),
 	(cspi_event_listener_unref): impl. undoing previous

@@ -45,7 +45,7 @@ AccessibleImage_getImageDescription (AccessibleImage *obj)
 
   cspi_return_val_if_ev ("getImageDescription", NULL);
 
-  return NULL;
+  return retval;
 }
 
 /**

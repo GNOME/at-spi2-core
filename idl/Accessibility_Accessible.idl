@@ -25,9 +25,9 @@
 
 #include <Bonobo_Unknown.idl>
 
-#include "Relation.idl"
-#include "State.idl"
-#include "Role.idl"
+#include "Accessibility_Relation.idl"
+#include "Accessibility_State.idl"
+#include "Accessibility_Role.idl"
 
 module Accessibility {
   

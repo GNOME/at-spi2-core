@@ -1,11 +1,11 @@
 TODO:
 
 idl: 
-	+ possibly change Value.idl interface to return a value union. [Bill]
 	+ audit IDL for conformance with bonobo/doc/FAQ's [Java]
 	naming practice [Michael]
         + possibly change Value.idl interface to return a value
 	union. [Bill] *DONE*
+	+ rename all IDL prepending Accessibility_ to each IDL filename
 
 cspi: 
 	+ API change required if above IDL change is made. [Bill]

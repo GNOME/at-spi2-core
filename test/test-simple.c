@@ -41,6 +41,7 @@ static void validate_accessible (Accessible *accessible,
 
 static int      print_tree_depth = 0;
 static gboolean print_tree = FALSE;
+static gboolean do_poke = FALSE;
 
 typedef struct {
 	gulong     magic;
@@ -73,14 +74,31 @@ test_window_add_and_show (GtkContainer *container, GtkWidget *widget)
 	gtk_widget_show (widget);
 }
 
+static GtkWidget *
+create_tree (void)
+{
+	GtkWidget         *widget;
+	GtkTreeIter        iter;
+	GtkListStore      *store;
+	GtkTreeViewColumn *column;
+
+	store = gtk_list_store_new (1, G_TYPE_STRING);
+	gtk_list_store_append (store, &iter);
+	gtk_list_store_set (store, &iter, 0, TEST_STRING_A, -1); 
+	column = gtk_tree_view_column_new_with_attributes ("String",
+	        gtk_cell_renderer_text_new (), "text", 0, NULL);
+	widget = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store)); 
+	g_object_unref (G_OBJECT (store));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (widget), column);
+
+	return widget;
+}
+
 static TestWindow *
 create_test_window (void)
 {
 	TestWindow *win = g_new0 (TestWindow, 1);
 	GtkWidget  *widget, *vbox;
-	GtkListStore *store;
-	GtkTreeViewColumn *column;
-	GtkTreeIter iter;
 
 	win->magic  = WINDOW_MAGIC;
 	win->window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -95,18 +113,21 @@ create_test_window (void)
 	gtk_entry_set_text (GTK_ENTRY (widget), TEST_STRING_A);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
+	widget = gtk_button_new_with_label ("_Foobar");
+	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
+
+	widget = gtk_hseparator_new ();
+	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
+
+	widget = gtk_image_new_from_stock (GTK_STOCK_DIALOG_QUESTION,
+					   GTK_ICON_SIZE_LARGE_TOOLBAR);
+	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
+	
 	widget = g_object_new (GTK_TYPE_RANGE, NULL);
 	gtk_range_set_range (GTK_RANGE (widget), 0.0, 100.0);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
-	store = gtk_list_store_new (1, G_TYPE_STRING);
-	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, 0, TEST_STRING_A, -1); 
-	column = gtk_tree_view_column_new_with_attributes ("String",
-	        gtk_cell_renderer_text_new (), "text", 0, NULL);
-	widget = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store)); 
-	g_object_unref (G_OBJECT (store));
-	gtk_tree_view_append_column (GTK_TREE_VIEW (widget), column);
+	widget = create_tree ();
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
 	g_idle_add ((GSourceFunc) focus_me, win->window);
@@ -343,6 +364,23 @@ test_component (AccessibleComponent *component)
 }
 
 static void
+test_image (AccessibleImage *image)
+{
+	char *desc;
+	long int x = -1, y = -1, width = -1, height = -1;
+
+	desc = AccessibleImage_getImageDescription (image);
+	g_assert (desc != NULL);
+	SPI_freeString (desc);
+
+	AccessibleImage_getImagePosition (image, &x, &y,
+					  SPI_COORD_TYPE_SCREEN);
+	AccessibleImage_getImageSize     (image, &width, &height);
+	AccessibleImage_getImageExtents  (image, &x, &y, &width, &height,
+					  SPI_COORD_TYPE_WINDOW);
+}
+
+static void
 validate_tree (Accessible *accessible,
 	       gboolean    has_parent,
 	       gboolean    recurse_down)
@@ -398,6 +436,7 @@ validate_accessible (Accessible *accessible,
 	Accessible *tmp;
 	char       *name, *descr;
 	const char *role;
+	GString    *item_str = g_string_new ("");
 
 	name = Accessible_getName (accessible);
 	g_assert (name != NULL);
@@ -464,9 +503,19 @@ validate_accessible (Accessible *accessible,
 	if (Accessible_isImage (accessible)) {
 		tmp = Accessible_getImage (accessible);
 		g_assert (tmp != NULL);
-		if (print_tree)
+		if (print_tree) {
+			char *desc;
+
 			fprintf (stderr, "Im");
-		AccessibleImage_unref (accessible);
+
+			desc = AccessibleImage_getImageDescription (tmp);
+			g_string_append_printf (
+				item_str, " image descr: '%s'", desc);
+			SPI_freeString (desc);
+		} else
+			test_image (tmp);
+
+		AccessibleImage_unref (tmp);
 	}
 
 	if (Accessible_isSelection (accessible)) {
@@ -508,10 +557,12 @@ validate_accessible (Accessible *accessible,
 	}
 
 	if (print_tree)
-		fprintf (stderr, " ] '%s' (%s) - %s:\n", name, descr, role);
+		fprintf (stderr, " ] '%s' (%s) - %s: %s\n",
+			 name, descr, role, item_str->str);
 
 	SPI_freeString (name);
 	SPI_freeString (descr);
+	g_string_free (item_str, TRUE);
 
 	validate_tree (accessible, has_parent, recurse_down);
 }
@@ -539,27 +590,30 @@ global_listener_cb (AccessibleEvent     *event,
 
 	fprintf (stderr, "Fielded focus event ...\n");
 
-	desktop = getDesktop (0);
-	application = Accessible_getChildAtIndex (desktop, 0);
-	g_assert (application != NULL);
-	Accessible_unref (desktop);
+	if (!do_poke) {
+		desktop = getDesktop (0);
+		application = Accessible_getChildAtIndex (desktop, 0);
+		g_assert (application != NULL);
+		Accessible_unref (desktop);
+		
+		test_application (application);
+		
+		AccessibleApplication_unref (application);
+		
+		print_tree = FALSE;
+		validate_accessible (event->source, TRUE, TRUE);
 
-	test_application (application);
-	
-	AccessibleApplication_unref (application);
+		gtk_main_quit ();
+	}
 
 	print_tree = TRUE;
 	validate_accessible (event->source, TRUE, TRUE);
-	print_tree = FALSE;
-	validate_accessible (event->source, TRUE, TRUE);
-
-	gtk_main_quit ();
 }
 
 int
 main (int argc, char **argv)
 {
-	int leaked;
+	int leaked, i;
 	TestWindow *win;
 	const char *modules;
 	AccessibleEventListener *global_listener;
@@ -568,6 +622,11 @@ main (int argc, char **argv)
 	if (!modules || modules [0] == '\0')
 		putenv ("GTK_MODULES=gail:at-bridge");
 	modules = NULL;
+
+	for (i = 1; i < argc; i++) {
+		if (!g_strcasecmp (argv [i], "--poke"))
+			do_poke = TRUE;
+	}
 
 	gtk_init (&argc, &argv);
 

@@ -36,16 +36,29 @@ libspiinclude_HEADERS = Accessibility.h \
 
 IDL_OUT = Accessibility.h Accessibility-stubs.c Accessibility-skels.c Accessibility-common.c
 
-IDL = \
-	$(top_srcdir)/idl/Accessibility.idl \
-	$(top_srcdir)/idl/Accessible.idl    \
-	$(top_srcdir)/idl/Application.idl   \
-	$(top_srcdir)/idl/Desktop.idl       \
-	$(top_srcdir)/idl/Event.idl         \
-	$(top_srcdir)/idl/Registry.idl	    \
-	$(top_srcdir)/idl/Relation.idl      \
-	$(top_srcdir)/idl/Role.idl          \
-	$(top_srcdir)/idl/State.idl
+IDL_DEPS = \
+	$(top_srcdir)/idl/Accessibility.idl			\
+	$(top_srcdir)/idl/Accessibility_Accessible.idl		\
+	$(top_srcdir)/idl/Accessibility_Action.idl		\
+	$(top_srcdir)/idl/Accessibility_Application.idl		\
+	$(top_srcdir)/idl/Accessibility_Component.idl		\
+	$(top_srcdir)/idl/Accessibility_Desktop.idl		\
+	$(top_srcdir)/idl/Accessibility_EditableText.idl	\
+	$(top_srcdir)/idl/Accessibility_Event.idl		\
+	$(top_srcdir)/idl/Accessibility_Hyperlink.idl		\
+	$(top_srcdir)/idl/Accessibility_Hypertext.idl		\
+	$(top_srcdir)/idl/Accessibility_Image.idl		\
+	$(top_srcdir)/idl/Accessibility_Registry.idl		\
+	$(top_srcdir)/idl/Accessibility_Relation.idl		\
+	$(top_srcdir)/idl/Accessibility_Role.idl		\
+	$(top_srcdir)/idl/Accessibility_Selection.idl		\
+	$(top_srcdir)/idl/Accessibility_State.idl		\
+	$(top_srcdir)/idl/Accessibility_StreamableContent.idl	\
+	$(top_srcdir)/idl/Accessibility_Table.idl		\
+	$(top_srcdir)/idl/Accessibility_Text.idl		\
+	$(top_srcdir)/idl/Accessibility_Value.idl
+
+
 
 BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
 CLEANFILES+=$(IDL_OUT) Accessibility-imodule.c
@@ -96,7 +109,7 @@ IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
 	   -I$(top_srcdir)/idl            \
 	   --add-imodule
 
-$(IDL_OUT) Accessibility-imodule.c : $(IDL) $(ORBIT_IDL)
+$(IDL_OUT) Accessibility-imodule.c : $(IDL_DEPS) $(ORBIT_IDL)
 	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) $(top_srcdir)/idl/Accessibility.idl
 
 orbittypelibdir = $(libdir)/orbit-2.0
