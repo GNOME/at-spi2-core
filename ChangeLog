@@ -1,3 +1,7 @@
+2002-12-22  Artis Trops  <hornet@navigator.lv>
+
+	* configure.in: Added Latvian (lv) to ALL_LINGUAS.
+
 2002-12-22  Christophe Merlet  <redfox@redfoxcenter.org>
 
 	* configure.in (ALL_LINGUAS): added French (fr).

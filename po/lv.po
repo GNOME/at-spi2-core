@@ -1,0 +1,312 @@
+# atk for Latvian.
+# Copyright (C) 2002 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the atk package.
+# Artis Trops <hornet@navigator.lv>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2002-12-20 05:43+0100\n"
+"PO-Revision-Date: 2002-12-22 15:27+0200\n"
+"Last-Translator: Artis Trops <hornet@navigators.lv>\n"
+"Language-Team: Latvian <ll10nt@os.lv>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "nederīgs"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "paātr-iezīme"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "brīdinājums"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "animācija"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "bulta"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "kalendārs"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "kanva"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "izvēles-rūtiņa"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "izvēles-izvēlnes-priekšmets"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "krāsas-izvēlētājs"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "kolonnas-galvene"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "kombinācij-rūtiņa"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "datuma-redaktors"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "darbvirsmas-ikona"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "darbvirsmas-rāmis"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "skala"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialogs"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "direktorija-rūts"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "zīmēšanas-lauks"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "faila-izvēlētājs"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "filtrs"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "fonta-izvēlētājs"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "rāmis"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "stikla-rūts"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "html-saturētājs"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ikona"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "attēls"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "iekšējais-rāmis"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "iezīme"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "slāņa-rūts"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "saraksts"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "saraksta-priekšmets"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "izvēlne"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "izvēlnes-josla"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "izvēlnes-priekšmets"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "opcijas-rūts"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "lapas-sadaļa"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "lapas-sadaļu-saraksts"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panelis"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "paroles-teksts"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "uznirstošā-izvēlne"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "progres-josla"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "spied-poga"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "radio-poga"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "radio-izvēlnes-priekšmets"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "saknes-rūts"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "rindas-galvene"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "rit-josla"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "rit-rūts"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "atdalītājs"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "slīnis"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "šķeltņ-rūts"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "vērpj-poga"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "statusjosla"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tabula"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "tabulas-šūna"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "tabul-koonnas-galvene"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "tabul-rindas-gavene"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "pārceļamās-izvēlnes-priekšmets"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminālis"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "teksts"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "slēgt-poga"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "rīk-josla"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "knifs"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "koks"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "koka-tabula"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "nezināms"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "skatpunkts"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "logs"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "galvene"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "kājene"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "paragrāfs"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "lineāls"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "aplikācija"
+
