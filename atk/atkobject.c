@@ -37,7 +37,7 @@ enum
   PROP_CARET,       /* Used only by AtkText implementors */
   PROP_SELECTION,
   PROP_VALUE,
-  PROP_VIBIBLE_DATA,
+  PROP_VISIBLE_DATA,
   PROP_LAST         /* gobject convention */
 };
 
@@ -196,7 +196,7 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         0.0,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
-                                   PROP_SELECTION,
+                                   PROP_VISIBLE_DATA,
                                    g_param_spec_object (atk_object_name_property_visible,
                                                         "Accessible Visible Data",
                                                         "Is used to notify that the visual appearance of the object has changed ",
