@@ -1,3 +1,13 @@
+2004-04-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.6.1=====
+
+	* configure.in: Version 1.6.1, interface age 1, binary age 601
+
+	* NEWS: Updated.
+
+	* README: Fix typo.
+
 2004-04-08  Guntupalli Karunakar  <karunakar@freedomink.org>
 
         * configure.in: Added "gu" (Gujarati) to ALL_LINGUAS.
