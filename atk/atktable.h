@@ -65,36 +65,39 @@ struct _AtkTableIface
   gint              (* get_row_extent_at)        (AtkTable      *table,
                                                   gint          row,
                                                   gint          column);
-  gchar*            (* get_caption)              (AtkTable      *table);
-  gchar*            (* get_column_description)   (AtkTable      *table,
+  G_CONST_RETURN gchar*
+                    (* get_caption)              (AtkTable      *table);
+  G_CONST_RETURN gchar*
+                    (* get_column_description)   (AtkTable      *table,
                                                   gint          column);
   AtkObject*        (* get_column_header)        (AtkTable      *table,
 						  gint		column);
-  gchar* 	    (* get_row_description)      (AtkTable      *table,
+  G_CONST_RETURN gchar*
+                    (* get_row_description)      (AtkTable      *table,
                                                   gint          row);
   AtkObject*        (* get_row_header)           (AtkTable      *table,
 						  gint		row);
   AtkObject*        (* get_summary)              (AtkTable      *table);
   void              (* set_caption)              (AtkTable      *table,
-                                                  gchar		*caption);
+                                                  const gchar   *caption);
   void              (* set_column_description)   (AtkTable      *table,
                                                   gint          column,
-                                                  gchar		*description);
+                                                  const gchar   *description);
   void              (* set_column_header)        (AtkTable      *table,
                                                   gint          column,
                                                   AtkObject     *header);
   void              (* set_row_description)      (AtkTable      *table,
                                                   gint          row,
-                                                  gchar		*description);
+                                                  const gchar   *description);
   void              (* set_row_header)           (AtkTable      *table,
                                                   gint          row,
                                                   AtkObject     *header);
   void              (* set_summary)              (AtkTable      *table,
                                                   AtkObject     *accessible);
   gint              (* get_selected_columns)     (AtkTable      *table,
-												  gint 			**selected);
+                                                  gint          **selected);
   gint              (* get_selected_rows)        (AtkTable      *table,
-												  gint 			**selected);
+                                                  gint          **selected);
   gboolean          (* is_column_selected)       (AtkTable      *table,
                                                   gint          column);
   gboolean          (* is_row_selected)          (AtkTable      *table,
@@ -150,36 +153,40 @@ gint              atk_table_get_column_extent_at (AtkTable         *table,
 gint              atk_table_get_row_extent_at    (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
-gchar*            atk_table_get_caption          (AtkTable         *table);
-gchar*            atk_table_get_column_description (AtkTable         *table,
-                                                    gint             column);
+G_CONST_RETURN gchar*
+                  atk_table_get_caption          (AtkTable         *table);
+G_CONST_RETURN gchar*
+                  atk_table_get_column_description (AtkTable         *table,
+                                                  gint             column);
 AtkObject*        atk_table_get_column_header    (AtkTable         *table,
 						  gint		   column);
-gchar*            atk_table_get_row_description  (AtkTable         *table,
-                                                  gint             r);
+G_CONST_RETURN gchar*
+                  atk_table_get_row_description  (AtkTable         *table,
+                                                  gint             row);
 AtkObject*        atk_table_get_row_header       (AtkTable         *table,
 						  gint		   row);
 AtkObject*        atk_table_get_summary          (AtkTable         *table);
 void              atk_table_set_caption          (AtkTable         *table,
-                                                  gchar		   *caption);
-void              atk_table_set_column_description (AtkTable       *table,
-                                                    gint           column,
-                                                    gchar	   *description);
+                                                  const gchar      *caption);
+void              atk_table_set_column_description 
+                                                 (AtkTable         *table,
+                                                  gint             column,
+                                                  const gchar      *description);
 void              atk_table_set_column_header    (AtkTable         *table,
                                                   gint             column,
                                                   AtkObject        *header);
 void              atk_table_set_row_description  (AtkTable         *table,
                                                   gint             row,
-                                                  gchar		   *description);
+                                                  const gchar      *description);
 void              atk_table_set_row_header       (AtkTable         *table,
                                                   gint             row,
                                                   AtkObject        *header);
 void              atk_table_set_summary          (AtkTable         *table,
                                                   AtkObject        *accessible);
 gint              atk_table_get_selected_columns (AtkTable         *table,
-												  gint			   **selected);
+                                                  gint             **selected);
 gint              atk_table_get_selected_rows    (AtkTable         *table,
-												  gint			   **selected);
+                                                  gint             **selected);
 gboolean          atk_table_is_column_selected   (AtkTable         *table,
                                                   gint             column);
 gboolean          atk_table_is_row_selected      (AtkTable         *table,
@@ -187,16 +194,15 @@ gboolean          atk_table_is_row_selected      (AtkTable         *table,
 gboolean          atk_table_is_selected          (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
-gboolean          atk_table_add_row_selection    (AtkTable      *table,
-                                                  gint          row);
-gboolean          atk_table_remove_row_selection (AtkTable      *table,
-                                                  gint          row);
-gboolean          atk_table_add_column_selection (AtkTable      *table,
-                                                  gint          column);
-gboolean          atk_table_remove_column_selection  (AtkTable      *table,
-                                                  	  gint          column);
-
-
+gboolean          atk_table_add_row_selection    (AtkTable         *table,
+                                                  gint             row);
+gboolean          atk_table_remove_row_selection (AtkTable         *table,
+                                                  gint             row);
+gboolean          atk_table_add_column_selection (AtkTable         *table,
+                                                  gint             column);
+gboolean          atk_table_remove_column_selection  
+                                                 (AtkTable         *table,
+                                                  gint             column);
 
 #ifdef __cplusplus
 }

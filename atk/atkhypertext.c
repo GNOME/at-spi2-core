@@ -68,7 +68,7 @@ atk_hypertext_interface_init (AtkHypertextIfaceClass *klass)
  * Returns: the link in this hypertext document at
  * index @link_index
  **/
-AtkHyperLink* 
+AtkHyperlink* 
 atk_hypertext_get_link (AtkHypertext  *hypertext,
                         gint          link_index)
 {

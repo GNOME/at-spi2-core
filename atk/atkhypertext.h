@@ -21,6 +21,7 @@
 #define __ATK_HYPERTEXT_H__
 
 #include <atk/atkobject.h>
+#include <atk/atkhyperlink.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,13 +48,11 @@ typedef struct _AtkHypertext AtkHypertext;
 #endif
 typedef struct _AtkHypertextIface AtkHypertextIface;
 
-typedef struct _AtkHyperLink  AtkHyperLink;
-
 struct _AtkHypertextIface
 {
   GTypeInterface parent;
 
-  AtkHyperLink*(* get_link)                 (AtkHypertext       *hypertext,
+  AtkHyperlink*(* get_link)                 (AtkHypertext       *hypertext,
                                              gint               link_index);
   gint         (* get_n_links)              (AtkHypertext       *hypertext);
   gint         (* get_link_index)           (AtkHypertext       *hypertext,
@@ -62,7 +61,7 @@ struct _AtkHypertextIface
 };
 GType atk_hypertext_get_type (void);
 
-AtkHyperLink* atk_hypertext_get_link       (AtkHypertext *hypertext,
+AtkHyperlink* atk_hypertext_get_link       (AtkHypertext *hypertext,
                                             gint          link_index);
 gint          atk_hypertext_get_n_links    (AtkHypertext *hypertext);
 gint          atk_hypertext_get_link_index (AtkHypertext *hypertext,

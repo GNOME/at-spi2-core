@@ -82,7 +82,6 @@ atk_editable_text_get_type
 <TITLE>AtkHypertext</TITLE>
 AtkHypertext
 AtkHypertextIface
-AtkHyperLink
 atk_hypertext_get_link
 atk_hypertext_get_n_links
 atk_hypertext_get_link_index

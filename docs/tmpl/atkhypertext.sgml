@@ -35,12 +35,6 @@ mechanisms for manipulating hyperlinks.
 @get_n_links: 
 @get_link_index: 
 
-<!-- ##### STRUCT AtkHyperLink ##### -->
-<para>
-
-</para>
-
-
 <!-- ##### FUNCTION atk_hypertext_get_link ##### -->
 <para>
 

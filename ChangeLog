@@ -1,3 +1,18 @@
+2001-08-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkhyperlink.h:
+	Change AtkHyperLink to AtkHyperlink in comment
+	* atk/atkhypertext.[c|h]:
+	Change AtkHyperLink to AtkHyperlink
+	* atk/atktable.[c|h]:
+	Make gchar* arguments const; make return value of type gchar*
+	G_CONST_RETURN
+	* docs/atk-sections.txt
+	Remove reference to AtkHyperLink
+	* docs/atk-used.sgml, docs/tmpl/atkhyperlink.sgml
+	docs/tmpl/atkhypertext.sgml, docs/tmpl/atkdocs.sgml:
+	Updated by make
+	
 2001-08-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktable.c

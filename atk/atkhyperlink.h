@@ -27,7 +27,7 @@ extern "C" {
 #include <atk/atkaction.h>
 
 /*
- * AtkHyperLink encapsulates a link or set of links in a hypertext document.
+ * AtkHyperlink encapsulates a link or set of links in a hypertext document.
  *
  * It implements the AtkAction interface.
  */

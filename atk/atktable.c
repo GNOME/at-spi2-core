@@ -272,7 +272,7 @@ atk_table_get_column_at_index (AtkTable *table,
  * Returns: a gchar* representing the table caption, or %NULL
  * if value does not implement this interface.
  **/
-gchar*
+G_CONST_RETURN gchar*
 atk_table_get_caption (AtkTable *table)
 {
   AtkTableIface *iface;
@@ -329,7 +329,7 @@ atk_table_get_n_columns (AtkTable *table)
  * Returns: a gchar* representing the column description, or %NULL
  * if value does not implement this interface.
  **/
-gchar*
+G_CONST_RETURN gchar*
 atk_table_get_column_description (AtkTable *table,
                                   gint     column)
 {
@@ -438,7 +438,7 @@ atk_table_get_n_rows (AtkTable *table)
 /**
  * atk_table_get_row_description:
  * @table: a GObject instance that implements AtkTableIface
- * @r: a #gint representing a row in @table
+ * @row: a #gint representing a row in @table
  *
  * Gets the description text of the specified row in the table
  * Note: callers should not rely on %NULL or on a zero value for
@@ -449,7 +449,7 @@ atk_table_get_n_rows (AtkTable *table)
  * Returns: a gchar* representing the row description, or %NULL
  * if value does not implement this interface.
  **/
-gchar*
+G_CONST_RETURN gchar*
 atk_table_get_row_description (AtkTable *table,
                                gint      row)
 {
@@ -836,7 +836,7 @@ atk_table_remove_column_selection (AtkTable *table,
  **/
 void
 atk_table_set_caption (AtkTable       *table,
-                       gchar          *caption)
+                       const gchar    *caption)
 {
   AtkTableIface *iface;
 
@@ -860,7 +860,7 @@ atk_table_set_caption (AtkTable       *table,
 void
 atk_table_set_column_description (AtkTable       *table,
                                   gint           column,
-                                  gchar          *description)
+                                  const gchar    *description)
 {
   AtkTableIface *iface;
 
@@ -907,7 +907,7 @@ atk_table_set_column_header (AtkTable  *table,
 void
 atk_table_set_row_description (AtkTable       *table,
                                gint           row,
-                               gchar          *description)
+                               const gchar    *description)
 {
   AtkTableIface *iface;
 

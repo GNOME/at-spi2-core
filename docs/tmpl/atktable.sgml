@@ -2,12 +2,11 @@
 AtkTable
 
 <!-- ##### SECTION Short_Description ##### -->
-a user-interface component that presents data in two-dimensional table format
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-AtkTable describes a user-interface component that presents data in
-two-dimensional table format.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -170,7 +169,7 @@ two-dimensional table format.
 </para>
 
 @table: 
-@r: 
+@row: 
 @Returns: 
 
 
@@ -210,8 +209,6 @@ two-dimensional table format.
 
 @table: 
 @caption: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_description ##### -->
@@ -222,8 +219,6 @@ two-dimensional table format.
 @table: 
 @row: 
 @description: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_column_description ##### -->
@@ -234,8 +229,6 @@ two-dimensional table format.
 @table: 
 @column: 
 @description: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_header ##### -->
