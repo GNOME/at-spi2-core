@@ -469,7 +469,7 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   property_name = g_strdup (g_value_get_string (param_values + 1));
   detail1 = (g_value_get_boolean (param_values + 2))
     ? 1 : 0;
-  type = g_strdup_printf ("object:state-change:%s", property_name);
+  type = g_strdup_printf ("object:state-changed:%s", property_name);
   spi_atk_emit_eventv (gobject, 
 		       detail1,
 		       0,
