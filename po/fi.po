@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi\n"
-"POT-Creation-Date: 2003-08-10 00:49+0300\n"
-"PO-Revision-Date: 2003-08-10 00:41+0300\n"
+"POT-Creation-Date: 2003-08-31 18:55+0300\n"
+"PO-Revision-Date: 2003-08-31 18:56+0300\n"
 "Last-Translator: Sami Pesonen <sampeson@iki.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
 "sourceforge.net>\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: atk-bridge/bridge.c:311
 msgid "failure: no device event controller found.\n"
-msgstr "virhe: laitetapahtumaohjainta ei ole havaittu.\n"
+msgstr "virhe: laitetapahtumaohjainta ei löytynyt.\n"
 
 #: atk-bridge/bridge.c:806
 msgid "WARNING: NULL key event reported."
@@ -25,7 +25,7 @@ msgstr "VAROITUS: TYHJÄ näppäintapahtuma havaittu."
 
 #: registryd/Accessibility_Registry.server.in.in.h:1
 msgid "AT-SPI Registry"
-msgstr "AT-SPI rekisteri"
+msgstr "AT-SPI-rekisteri"
 
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
