@@ -26,6 +26,7 @@
 /**
  * createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.
+ * @user_data: a pointer to data which will be passed to the callback when invoked.
  *
  * Create a new #AccessibleEventListener with a specified (in-process) callback function.
  *
@@ -48,6 +49,7 @@ createAccessibleEventListener (AccessibleEventListenerCB callback,
  * AccessibleEventListener_addCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.
+ * @user_data: a pointer to data which will be passed to the callback when invoked.
  *
  * Add an in-process callback function to an existing AccessibleEventListener.
  * Note that the callback function must live in the same address
@@ -102,6 +104,7 @@ AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
 /**
  * createAccessibleKeystrokeListener:
  * @callback : an #AccessibleKeystrokeListenerCB callback function, or NULL.
+ * @user_data: a pointer to data which will be passed to the callback when invoked.
  *
  * Create a new #AccessibleKeystrokeListener with a specified callback function.
  *
@@ -124,6 +127,7 @@ createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
  * AccessibleKeystrokeListener_addCallback:
  * @listener: the #AccessibleKeystrokeListener instance to modify.
  * @callback: an #AccessibleKeystrokeListenerCB function pointer.
+ * @user_data: a pointer to data which will be passed to the callback when invoked.
  *
  * Add an in-process callback function to an existing #AccessibleKeystrokeListener.
  *

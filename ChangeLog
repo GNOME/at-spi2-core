@@ -1,9 +1,25 @@
 2001-12-09  Bill Haneman <bill.haneman@sun.com>
 
+	* cspi/spi.h:
+	* cspi/spi_event.c:
+	* cspi/spi_accessible.c:
+	Documentation fixes: added user_data params to documentation for 
+	listeners and callbacks.  
+
+	* cspi/spi_accessible.c: 
+	Changed AccessibleStateSet_compare to return a
+	StateSet rather than return the difference set into a third parameter.
+	
+	
+2001-12-09  Bill Haneman <bill.haneman@sun.com>
+
 	* configure.in:
 	Replace use of AM_PROG_XML_I18N_TOOLS macro with AC_PROG_INTLTOOL.
 	remove 'dnl' comment line from AC_OUTPUT (autoconf doesn't like
-	it).
+	it). 
+
+	* Makefile.am:
+	Remove subdirectory po from SUBDIRS for now.
 
 	* at-bridge/bridge.c:
 	Beefed up a couple of debug printouts.

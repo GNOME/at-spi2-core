@@ -102,7 +102,7 @@ AccessibleImage_getImagePosition (AccessibleImage *obj,
  * @x: a pointer to a #long into which the minimum x coordinate will be returned.
  * @y: a pointer to a #long into which the minimum y coordinate will be returned.
  * @width: a pointer to a #long into which the image x extent will be returned.
- * @width: a pointer to a #long into which the image y extent will be returned.
+ * @height: a pointer to a #long into which the image y extent will be returned.
  * @ctype: the desired coordinate system into which to return the results,
  *         (e.g. SPI_COORD_TYPE_WINDOW, SPI_COORD_TYPE_SCREEN).
  *

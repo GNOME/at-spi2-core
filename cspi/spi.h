@@ -685,10 +685,9 @@ SPIBoolean
 AccessibleStateSet_equals (AccessibleStateSet *obj,
                            AccessibleStateSet *obj2);
 
-void
+AccessibleStateSet *
 AccessibleStateSet_compare (AccessibleStateSet *obj,
-                            AccessibleStateSet *obj2,
-                            AccessibleStateSet **differenceSet);
+                            AccessibleStateSet *obj2);
 
 SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj);
