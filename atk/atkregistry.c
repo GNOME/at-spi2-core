@@ -137,18 +137,18 @@ atk_registry_set_factory_type (AtkRegistry *registry,
   g_return_if_fail (ATK_IS_REGISTRY (registry));
 
   value = g_hash_table_lookup (registry->factory_type_registry, 
-                                  GUINT_TO_POINTER (type));
-  old_type = GPOINTER_TO_UINT (value);
+                                  (gpointer) type);
+  old_type = (GType) value;
   if (old_type && old_type != factory_type)
     {
       g_hash_table_remove (registry->factory_type_registry, 
-                           GUINT_TO_POINTER (type));
+                           (gpointer) type);
       /*
        * If the old factory was created, notify it that it has
        * been replaced, then free it.
        */
       old_factory = g_hash_table_lookup (registry->factory_singleton_cache, 
-                                         GUINT_TO_POINTER (old_type));
+                                         (gpointer) old_type);
       if (old_factory)
         {
           atk_object_factory_invalidate (old_factory);
@@ -156,8 +156,8 @@ atk_registry_set_factory_type (AtkRegistry *registry,
         }
     }
   g_hash_table_insert (registry->factory_type_registry, 
-                       GUINT_TO_POINTER (type), 
-                       GUINT_TO_POINTER (factory_type));
+                       (gpointer) type, 
+                       (gpointer) factory_type);
 }
 
 /**
@@ -186,7 +186,7 @@ atk_registry_get_factory_type (AtkRegistry *registry,
   do {
     value =
         g_hash_table_lookup (registry->factory_type_registry, 
-                             GUINT_TO_POINTER (type));
+                             (gpointer) type);
     type = g_type_parent (type);
     if (type == G_TYPE_INVALID)
       {
@@ -194,7 +194,7 @@ atk_registry_get_factory_type (AtkRegistry *registry,
       }
   } while (value == NULL);
 
-  factory_type = GPOINTER_TO_UINT (value);
+  factory_type = (GType) value;
   return factory_type;
 }
 
@@ -232,14 +232,14 @@ atk_registry_get_factory (AtkRegistry *registry,
   /* ask second hashtable for instance of factory type */
   factory_pointer =
         g_hash_table_lookup (registry->factory_singleton_cache, 
-        GUINT_TO_POINTER (factory_type));
+        (gpointer) factory_type);
 
   /* if there isn't one already, create one and save it */
   if (factory_pointer == NULL)
     {
       factory_pointer = g_type_create_instance (factory_type);
       g_hash_table_insert (registry->factory_singleton_cache,
-                           GUINT_TO_POINTER (factory_type),
+                           (gpointer) factory_type,
                            factory_pointer);
     }
 

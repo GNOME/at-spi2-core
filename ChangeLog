@@ -1,3 +1,9 @@
+2002-05-29  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkregistry.c:
+	64 bit fixes for ATK. Patch supplied by George Lebl (jirka@5z.com)
+	(bug #83316)
+
 Thu Mar 28 18:27:32 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* ===== Released 1.0.2 ======
