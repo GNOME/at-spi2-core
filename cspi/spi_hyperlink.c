@@ -46,7 +46,7 @@ AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
   retval =
     Accessibility_Hyperlink__get_nAnchors (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_val_if_ex ("getNAnchors", -1);
+  cspi_return_val_if_ev ("getNAnchors", -1);
 
   return retval;
 }
@@ -72,7 +72,7 @@ AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
     Accessibility_Hyperlink_getURI (CSPI_OBJREF (obj),
 				    (CORBA_long) i, cspi_ev ());
 
-  cspi_return_val_if_ex ("getURI", NULL);
+  cspi_return_val_if_ev ("getURI", NULL);
 
   return retval;
 }
@@ -124,7 +124,7 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
   *endIndex = (long)
     Accessibility_Hyperlink__get_endIndex (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_if_ex ("getIndexRange");
+  cspi_return_if_ev ("getIndexRange");
 }
 
 /**
@@ -147,7 +147,7 @@ AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
   retval =
     Accessibility_Hyperlink_isValid (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_val_if_ex ("isValid", FALSE);
+  cspi_return_val_if_ev ("isValid", FALSE);
 
   return retval;
 }

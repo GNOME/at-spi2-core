@@ -51,7 +51,7 @@ AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
   retval =
     Accessibility_Hypertext_getNLinks (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_val_if_ex ("getNLinks", -1);
+  cspi_return_val_if_ev ("getNLinks", -1);
 
   return retval;
 }
@@ -69,11 +69,18 @@ AccessibleHyperlink *
 AccessibleHypertext_getLink (AccessibleHypertext *obj,
                              long int             linkIndex)
 {
+  AccessibleHyperlink *retval;
+	
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  return cspi_object_new (
+  retval = cspi_object_add (
     Accessibility_Hypertext_getLink (CSPI_OBJREF (obj),
-				     (CORBA_long) linkIndex, cspi_ev ()));
+				     (CORBA_long) linkIndex,
+				     cspi_ev ()));
+  
+  cspi_return_val_if_ev ("getLink", NULL); 
+
+  return retval;
 }
 
 /**
@@ -101,7 +108,7 @@ AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
 					  (CORBA_long) characterOffset,
 					  cspi_ev ());
 
-  cspi_return_val_if_ex ("getLinkIndex", -1);
+  cspi_return_val_if_ev ("getLinkIndex", -1);
 
   return retval;
 }

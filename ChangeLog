@@ -1,5 +1,10 @@
 2001-12-10  Bill Haneman  <bill.haneman@sun.com>
 
+	* cspi/spi_hyperlink.c:
+	* cspi/spi_hypertext.c:
+	Fixed macro name typos, and remove use of obsolete macro in 
+	AccessibleHyperlink_getLink.
+
 	* cspi/spi_action.c:
 	* cspi/spi_accessible.c:
 	* cspi/spi_application.c:
