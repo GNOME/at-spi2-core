@@ -562,6 +562,7 @@ atk_table_get_summary (AtkTable *table)
 /**
  * atk_table_get_selected_rows:
  * @table: a GObject instance that implements AtkTableIface
+ * @selected: a #gint** that is to contain the selected row numbers
  *
  * Gets the selected rows of the table by initializing **selected with 
  * the selected row numbers. This array should be freed by the caller.
@@ -592,6 +593,7 @@ atk_table_get_selected_rows (AtkTable *table, gint **selected)
 /**
  * atk_table_get_selected_columns:
  * @table: a GObject instance that implements AtkTableIface
+ * @selected: a #gint** that is to contain the selected columns numbers
  *
  * Gets the selected columns of the table by initializing **selected with 
  * the selected column numbers. This array should be freed by the caller.

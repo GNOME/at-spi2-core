@@ -249,6 +249,46 @@ two-dimensional table format.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_table_add_row_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_remove_row_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_add_column_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_remove_column_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_table_set_caption ##### -->
 <para>
 
