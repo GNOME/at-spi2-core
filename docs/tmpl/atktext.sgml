@@ -32,7 +32,7 @@ AtkText
 @get_character_at_offset: 
 @get_text_before_offset: 
 @get_caret_offset: 
-@ref_run_attributes: 
+@get_range_attributes: 
 @get_character_extents: 
 @get_character_count: 
 @get_offset_at_point: 
@@ -51,26 +51,13 @@ AtkText
 </para>
 
 @ATK_TEXT_BOUNDARY_CHAR: 
+@ATK_TEXT_BOUNDARY_CURSOR_POS: 
 @ATK_TEXT_BOUNDARY_WORD_START: 
 @ATK_TEXT_BOUNDARY_WORD_END: 
 @ATK_TEXT_BOUNDARY_SENTENCE_START: 
 @ATK_TEXT_BOUNDARY_SENTENCE_END: 
 @ATK_TEXT_BOUNDARY_LINE_START: 
 @ATK_TEXT_BOUNDARY_LINE_END: 
-
-<!-- ##### STRUCT AtkAttribute ##### -->
-<para>
-
-</para>
-
-@name: 
-@value: 
-
-<!-- ##### TYPEDEF AtkAttributeSet ##### -->
-<para>
-
-</para>
-
 
 <!-- ##### FUNCTION atk_text_get_text ##### -->
 <para>
@@ -101,10 +88,10 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
-@start_offset: 
-@end_offset: 
 @Returns: 
 <!-- # Unused Parameters # -->
+@start_offset: 
+@end_offset: 
 @startOffset: 
 @endOffset: 
 
@@ -117,10 +104,10 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
-@start_offset: 
-@end_offset: 
 @Returns: 
 <!-- # Unused Parameters # -->
+@start_offset: 
+@end_offset: 
 @startOffset: 
 @endOffset: 
 
@@ -133,10 +120,10 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
-@start_offset: 
-@end_offset: 
 @Returns: 
 <!-- # Unused Parameters # -->
+@start_offset: 
+@end_offset: 
 @startOffset: 
 @endOffset: 
 
@@ -159,21 +146,11 @@ AtkText
 @offset: 
 @x: 
 @y: 
+@length: 
 @width: 
+<!-- # Unused Parameters # -->
 @height: 
 @coords: 
-
-
-<!-- ##### FUNCTION atk_text_ref_run_attributes ##### -->
-<para>
-
-</para>
-
-@text: 
-@offset: 
-@start_offset: 
-@end_offset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_character_count ##### -->
@@ -193,8 +170,9 @@ AtkText
 @text: 
 @x: 
 @y: 
-@coords: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@coords: 
 
 
 <!-- ##### FUNCTION atk_text_get_n_selections ##### -->
@@ -259,202 +237,5 @@ AtkText
 @text: 
 @offset: 
 @Returns: 
-
-
-<!-- ##### FUNCTION atk_attribute_set_free ##### -->
-<para>
-
-</para>
-
-@attrib_set: 
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_LEFT_MARGIN ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_RIGHT_MARGIN ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_INDENT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_INVISIBLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_EDITABLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_PIXELS_ABOVE_LINES ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_PIXELS_BELOW_LINES ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_PIXELS_INSIDE_WRAP ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_BG_FULL_HEIGHT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_RISE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_UNDERLINE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_STRIKETHROUGH ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_SIZE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_SCALE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_WEIGHT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_LANGUAGE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_FAMILY_NAME ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_BG_COLOR ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_FG_COLOR ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_BG_STIPPLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_FG_STIPPLE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_WRAP_MODE ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_DIRECTION ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_JUSTIFICATION ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_STRETCH ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_VARIANT ##### -->
-<para>
-
-</para>
-
-
-
-<!-- ##### MACRO ATK_ATTRIBUTE_STYLE ##### -->
-<para>
-
-</para>
-
 
 

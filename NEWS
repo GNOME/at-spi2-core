@@ -1,3 +1,9 @@
+Overview of Changes in Atk 0.4
+==============================
+
+* Miscellaneous cleanups and fixes.
+
+
 Changes in 0.3
 
 * API improvements to AtkTable, AtkSelection
