@@ -1,3 +1,7 @@
+2003-06-25  Fatih Demir <kabalak@gtranslator.org>
+
+	* configure.in: (Re-?)added "ta" (Tamil) to languages' list.
+
 2003-06-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk.spec.in:
