@@ -651,6 +651,9 @@ Accessible_isTable (Accessible *obj);
 SPIBoolean
 Accessible_isText (Accessible *obj);
 
+SPIBoolean
+Accessible_isValue (Accessible *obj);
+
 AccessibleAction *
 Accessible_getAction (Accessible *obj);
 
@@ -719,6 +722,9 @@ Accessible_getTable (Accessible *obj);
  **/
 AccessibleText *
 Accessible_getText (Accessible *obj);
+
+AccessibleValue *
+Accessible_getValue (Accessible *obj);
 
 /**
  * Accessible_queryInterface:

@@ -186,7 +186,7 @@ AccessibleComponent_getLayer (AccessibleComponent *obj)
   
   zlayer = Accessibility_Component_getLayer (CSPI_OBJREF (obj),
 					      cspi_ev ());
-  switch (retval)
+  switch (zlayer)
     {
     case Accessibility_LAYER_BACKGROUND:
       retval = SPI_LAYER_BACKGROUND;
