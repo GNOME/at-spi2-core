@@ -798,8 +798,8 @@ SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
  * information for accessible events.
  */
 
-char*        AccessibleEvent_getContextString (const AccessibleEvent *e);
-Accessible * AccessibleEvent_getContextObject (const AccessibleEvent *e);
+char*        AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e);
+Accessible * AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e);
 
 /* Misc methods */
 void SPI_freeString (char *s);

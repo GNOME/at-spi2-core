@@ -327,36 +327,18 @@ AccessibleDeviceListener_unref (AccessibleDeviceListener *listener)
   cspi_device_listener_unref (listener);
 }
 
-/**
- * AccessibleEvent_getContextString:
- * @event: a pointer to the #AccessibleEvent being queried.
- *
- * Queries an #AccessibleEvent for a string whose meaning depends
- *         on the event's context, that is, the event type and details.
- *         Not all events have context strings, in which case this 
- *         query returns NULL.  
- *         Context strings may be returned by:
- *         object:text-changed events, 
- *         in which case they represent the text inserted or deleted;
- *         window: events, in which case they indicate the window title,
- *         or other events.
- *
- * Returns: the context string for the event, or %NULL if
- *          there is no context string for the event.
- **/
-char *
-AccessibleEvent_getContextString (const AccessibleEvent *e)
+static char *
+cspi_internal_event_get_text (const InternalEvent *e)
 {
-  InternalEvent *foo = (InternalEvent *) e;
   CORBA_any *any;
-  g_return_val_if_fail (foo, NULL);
-  g_return_val_if_fail (foo->data, NULL);
-  any = (CORBA_any *) foo->data;
+  g_return_val_if_fail (e, NULL);
+  g_return_val_if_fail (e->data, NULL);
+  any = (CORBA_any *) e->data;
   if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
     {
       return * (char **) any->_value;
     } 
-  else 
+  else
     {
 #ifdef EVENT_CONTEXT_DEBUG
       fprintf (stderr, "requested string, TC is not TC_CORBA_string! (%u)\n",
@@ -366,35 +348,56 @@ AccessibleEvent_getContextString (const AccessibleEvent *e)
     }
 }
 
+static char *
+cspi_internal_event_get_object (const InternalEvent *e)
+{
+  CORBA_any *any;
+  g_return_val_if_fail (e, NULL);
+  g_return_val_if_fail (e->data, NULL);
+  any = (CORBA_any *) e->data;
+  if (any->_type == TC_CORBA_Object) 
+    return cspi_object_add (* (CORBA_Object *) any->_value);
+  else 
+    return NULL;
+}
+
+
 /**
- * AccessibleEvent_getContextObject:
+ * AccessibleTextChangedEvent_getChangeString:
  * @event: a pointer to the #AccessibleEvent being queried.
  *
- * Queries an #AccessibleEvent for an #Accessible whose meaning depends
- *         on the event's context, that is, the event type and details.
- *         Not all events have context strings, in which case this 
- *         query returns NULL.  
- *         Context #Accessible objects may be returned by, for instance:
- *         object:child-changed events, 
- *         in which case they represent the child added or deleted.
+ * Queries an #AccessibleEvent of type "object:text-changed", 
+ *         returning the text inserted or deleted.
+ *
+ * Returns: a UTF-8 text string indicating the text inserted,
+ *          deleted, or substituted by this event.
+ **/
+char *
+AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e)
+{
+  InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (e);
+}
+
+/**
+ * AccessibleChildChangedEvent_getChildAccessible:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:children_changed"
+ *         to get a reference to the changed #Accessible.
  *         Note that context #Accessibles are not guaranteed to outlive
  *         event delivery, in which case this call may return %NULL
  *         even if the object existed at the time of dispatch.
  *
  * Returns: the context #Accessible for the event, or %NULL if
- *          there is no context #Accessible object for the event.
+ *          there is no longer a valid context #Accessible 
+ *          object for the event.
  **/
 Accessible *
-AccessibleEvent_getContextObject (const AccessibleEvent *e)
+AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e)
 {
   InternalEvent *foo = (InternalEvent *) e;
-  CORBA_any *any;
-  g_return_val_if_fail (foo, NULL);
-  g_return_val_if_fail (foo->data, NULL);
-  any = (CORBA_any *) foo->data;
-  if (any->_type == TC_CORBA_Object) 
-    return cspi_object_add (* (CORBA_Object *) any->_value);
-  else 
-    return NULL;
+  return cspi_internal_event_get_object (e);
 }
 

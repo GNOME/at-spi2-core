@@ -41,7 +41,7 @@
 /* A pointer to our parent object class */
 static SpiListenerClass *spi_registry_parent_class;
 
-extern int _dbg = 0;
+int _dbg = 0;
 
 typedef enum {
   ETYPE_FOCUS,
@@ -69,10 +69,10 @@ typedef struct {
 } SpiListenerStruct;
 
 static void
-spi_registry_set_debug (char *debug_flag_string)
+spi_registry_set_debug (const char *debug_flag_string)
 {
   if (debug_flag_string) 
-    _dbg = g_ascii_digit_value(debug_flag_string);
+    _dbg = (int) g_ascii_strtod (debug_flag_string, NULL);
 }
 
 SpiListenerStruct *

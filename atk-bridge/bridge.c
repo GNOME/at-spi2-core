@@ -39,7 +39,8 @@
 
 #define DBG(a,b) if(_dbg>=(a))b
 
-static int _dbg;
+static int _dbg = 0;
+static char *spi_nil_string = "";
 
 static CORBA_Environment ev;
 static Accessibility_Registry registry = NULL;
@@ -71,25 +72,6 @@ static guint atk_signal_child_changed;
    static guint atk_signal_column_inserted;
    static guint atk_signal_column_deleted;
 */
-
-#define ATK_BRIDGE_RESERVED_CONTEXT_SIZE 16
-
-typedef enum {
-  ATK_BRIDGE_CONTEXT_TYPE_NONE = 0,
-  ATK_BRIDGE_CONTEXT_TYPE_STRING,
-  ATK_BRIDGE_CONTEXT_TYPE_OBJECT
-} AtkBridgeEventContextType;
-
-typedef union {
-  gchar       *string;
-  AtkObject   *object;
-  gpointer    *foo;
-} AtkBridgeEventContextData;
-
-typedef struct {
-  AtkBridgeEventContextType _type;
-  AtkBridgeEventContextData _data;
-} AtkBridgeEventContext;
 
 static Accessibility_Registry spi_atk_bridge_get_registry (void);
 static void     spi_atk_bridge_do_registration         (void);
@@ -139,7 +121,7 @@ extern void gnome_accessibility_module_init     (void);
 extern void gnome_accessibility_module_shutdown (void);
 
 static void
-atk_bridge_init_event_type_consts ()
+spi_atk_bridge_init_event_type_consts ()
 {
   atk_signal_child_changed = g_signal_lookup ("child_changed", 
 					      ATK_TYPE_OBJECT);
@@ -150,13 +132,16 @@ atk_bridge_init_event_type_consts ()
 static int
 atk_bridge_init (gint *argc, gchar **argv[])
 {
+  const char *debug_env_string = g_getenv ("AT_SPI_DEBUG");
+
   if (atk_bridge_initialized)
     {
       return 0;
     }
   atk_bridge_initialized = TRUE;
 
-  _dbg = g_ascii_digit_value (g_getenv ("AT_SPI_DEBUG"));
+  if (debug_env_string)
+    _dbg = (int) g_ascii_strtod (debug_env_string, NULL);
 
   if (!bonobo_init (argc, argv ? *argv : NULL))
     {
@@ -182,10 +167,11 @@ atk_bridge_init (gint *argc, gchar **argv[])
       spi_atk_bridge_do_registration ();
     }
  
-  atk_bridge_init_event_type_consts ();
+  spi_atk_bridge_init_event_type_consts ();
 
   return 0;
 }
+
 
 static void
 spi_atk_bridge_do_registration (void)
@@ -433,34 +419,6 @@ gnome_accessibility_module_shutdown (void)
 }
 
 static void
-atk_bridge_event_context_init (CORBA_any *any, 
-			       AtkBridgeEventContext *ctx)
-{
-  SpiAccessible *accessible;
-  if (ctx) 
-    {
-      switch (ctx->_type) 
-	{
-	  /* FIXME	
-	    case ATK_BRIDGE_CONTEXT_TYPE_OBJECT:
-		accessible = spi_accessible_new (ctx->_data.object);    
-		spi_init_any_object (any, BONOBO_OBJREF (accessible));
-		break;
-	  */
-	case ATK_BRIDGE_CONTEXT_TYPE_STRING:
-	  spi_init_any_string (any, &ctx->_data.string);
-	  break;
-	default:
-	  spi_init_any_nil (any); 
-	} 
-    }
-  else
-    {
-      spi_init_any_nil (any); 
-    }
-} 
-
-static void
 spi_atk_bridge_focus_tracker (AtkObject *object)
 {
   SpiAccessible *source;
@@ -481,50 +439,12 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   CORBA_exception_free (&ev);
 }
 
-static
-AtkBridgeEventContext *
-spi_atk_bridge_event_context_create (GObject *gobject, 
-				     long detail1, 
-				     long detail2, 
-				     GSignalQuery *signal_query, 
-				     const gchar *detail)
-{
-  AtkBridgeEventContext *ctx = g_new0 (AtkBridgeEventContext, 1);
-  /*
-  if (signal_query->signal_id == atk_signal_child_changed) 
-    {  
-      ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_OBJECT;
-      ctx->_data.object = atk_object_ref_accessible_child (ATK_OBJECT (gobject),
-							   (gint) detail1);
-    }
-  else */ if (signal_query->signal_id == atk_signal_text_changed)
-    {
-      ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_STRING;
-      ctx->_data.string = atk_text_get_text (ATK_TEXT (gobject),
-					     (gint) detail1,
-					     (gint) detail1+detail2);
-    }
-  else
-    {
-      ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_NONE;
-    }
-  return ctx;
-}
-
 static void
-spi_atk_bridge_event_context_free (AtkBridgeEventContext *ctx)
-{
-  if (ctx->_type == ATK_BRIDGE_CONTEXT_TYPE_OBJECT)
-    g_object_unref (ctx->_data.object);
-  g_free (ctx);
-}
-
-static void
-spi_atk_emit_eventv (GObject               *gobject,
-		     unsigned long          detail1,
-		     unsigned long          detail2,
-		     AtkBridgeEventContext *context,
-		     const char   *format, ...)
+spi_atk_emit_eventv (const GObject         *gobject,
+		     long                   detail1,
+		     long                   detail2,
+		     CORBA_any             *any,
+		     const char            *format, ...)
 {
   va_list             args;
   Accessibility_Event e;
@@ -551,15 +471,18 @@ spi_atk_emit_eventv (GObject               *gobject,
     {
       aobject = NULL;
       source  = NULL;
-      g_error ("received property-change event from non-AtkImplementor");
+      DBG (0, g_warning ("received property-change event from non-AtkImplementor"));
     }
 
-  if (source != NULL)
+  if (source) 
     {
       e.type = g_strdup_vprintf (format, args);
       e.source = BONOBO_OBJREF (source);
       e.detail1 = detail1;
       e.detail2 = detail2;
+      if (any) e.any_data = *any;
+      else spi_init_any_nil (&e.any_data);
+      
 #ifdef SPI_BRIDGE_DEBUG
       s = Accessibility_Accessible__get_name (BONOBO_OBJREF (source), &ev);
       g_warning ("Emitting event '%s' (%lu, %lu) on %s",
@@ -567,21 +490,20 @@ spi_atk_emit_eventv (GObject               *gobject,
       CORBA_free (s);
 #endif
       CORBA_exception_init (&ev);
-      atk_bridge_event_context_init (&e.any_data, context); 
-      Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
-      /* I haven't freed any_data._value when it's a char*, does it leak ? */
+      Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), 
+					  &e, &ev);
 #ifdef SPI_BRIDGE_DEBUG
       if (ev._major != CORBA_NO_EXCEPTION)
-	      g_warning ("error emitting event %s, (%d) %s",
-			 e.type,
-			 ev._major,
-			 CORBA_exception_id(&ev));
+	g_warning ("error emitting event %s, (%d) %s",
+		   e.type,
+		   ev._major,
+		   CORBA_exception_id(&ev));
 #endif	      
       if (BONOBO_EX (&ev)) registry_died = TRUE;
       Accessibility_Accessible_unref (e.source, &ev);
-
+      
       CORBA_exception_free (&ev);
-
+      
       g_free (e.type);
     }
 
@@ -745,6 +667,57 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
   return result;
 }
 
+
+static void
+spi_atk_signal_emit_event (const GObject *gobject, 
+			   const GSignalQuery *signal_query,
+			   long detail1, 
+			   long detail2,
+			   const gchar *name, 
+			   const gchar *detail)
+{
+  CORBA_any any;
+  CORBA_char *sp = NULL;
+  AtkObject *ao;
+
+  if (signal_query->signal_id == atk_signal_text_changed)
+    {
+      sp = atk_text_get_text (ATK_TEXT (gobject),
+			      detail1,
+			      detail1+detail2);
+      spi_init_any_string (&any, &sp);
+    }
+#ifdef EXTENDED_OBJECT_EVENTS_ARE_WORKING
+  else if ((signal_query->signal_id == atk_signal_child_changed) && gobject)
+    {
+      ao = atk_object_ref_accessible_child (ATK_OBJECT (gobject), 
+					    detail1);
+      if (ao) 
+	{
+	  spi_init_any_object (&any, ao); 
+	  atk_object_unref (ao);
+	}
+      else
+	{
+	  spi_init_any_nil (&any);
+	}
+    }
+#endif
+  else
+    {
+      spi_init_any_nil (&any);
+    }
+
+  if (detail)
+    spi_atk_emit_eventv (gobject, detail1, detail2, &any,
+			 "object:%s:%s", name, detail);
+  else
+    spi_atk_emit_eventv (gobject, detail1, detail2, &any,
+			 "object:%s", name);
+}
+
+
+
 static gboolean
 spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 				guint n_param_values,
@@ -755,12 +728,12 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   GSignalQuery signal_query;
   const gchar *name;
   const gchar *detail;
-  AtkBridgeEventContext *ctx = NULL;
+  CORBA_char *sp;
   
   gint detail1 = 0, detail2 = 0;
 #ifdef SPI_BRIDGE_DEBUG
   const gchar *s, *s2;
-#endif
+#endif 
   
   g_signal_query (signal_hint->signal_id, &signal_query);
 
@@ -775,44 +748,30 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
   fprintf (stderr, "Received signal %s:%s detail: %s from object %s (gail %s)\n",
 	   g_type_name (signal_query.itype), name, 
-                        detail ? detail : "<NULL>", s ? s : "<NULL>" , s2);
+	   detail ? detail : "<NULL>", s ? s : "<NULL>" , s2);
 #endif
-
+  
   gobject = g_value_get_object (param_values + 0);
   if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
     detail1 = g_value_get_int (param_values + 1);
   if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
     detail2 = g_value_get_int (param_values + 2);
-
-  /* build some event context data, depending on the type */
-  ctx = spi_atk_bridge_event_context_create (gobject, 
-					     detail1, detail2, 
-					     &signal_query, 
-					     detail);
-
-  if (detail)
-    spi_atk_emit_eventv (gobject, detail1, detail2, ctx,
-			 "object:%s:%s", name, detail);
-  else
-    spi_atk_emit_eventv (gobject, detail1, detail2, ctx,
-			 "object:%s", name);
-
-  if (ctx) 
-    spi_atk_bridge_event_context_free (ctx);
-
+  
+  spi_atk_signal_emit_event (gobject, &signal_query,
+			     detail2, detail2,
+			     name, detail);
   return TRUE;
 }
 
 static gboolean
 spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
-				guint n_param_values,
-				const GValue *param_values,
-				gpointer data)
+				      guint n_param_values,
+				      const GValue *param_values,
+				      gpointer data)
 {
   GObject *gobject;
   GSignalQuery signal_query;
-  AtkBridgeEventContext ctx;
-
+  CORBA_any any;
   const gchar *name, *s;
 #ifdef SPI_BRIDGE_DEBUG
   const gchar *s2;
@@ -830,11 +789,11 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 #endif
   
   gobject = g_value_get_object (param_values + 0);
-  ctx._type = ATK_BRIDGE_CONTEXT_TYPE_STRING;
+
   s = atk_object_get_name (ATK_OBJECT (gobject));
-  ctx._data.string = (gchar *) s;
-  /* cast from const silences compiler */
-  spi_atk_emit_eventv (gobject, 0, 0, &ctx, "window:%s", name);
-  /* don't free the context, it's on the stack */
+  spi_init_any_string (&any, &s);
+  
+  spi_atk_emit_eventv (gobject, 0, 0, &any,
+		       "window:%s", name);
   return TRUE;
 }

@@ -275,7 +275,7 @@ report_text_event (const AccessibleEvent *event, void *user_data)
   fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
 	   event->detail1, event->detail2);
   if (s) SPI_freeString (s);
-  s = AccessibleEvent_getContextString (event);
+  s = AccessibleTextChangedEvent_getChangeString (event);
   fprintf (stderr, "context string %s\n", (s) ? s : "<nil>");
 }
 
