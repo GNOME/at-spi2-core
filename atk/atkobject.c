@@ -1058,7 +1058,7 @@ atk_object_real_get_property (GObject      *object,
       break;
     case PROP_HYPERTEXT_NUM_LINKS:
       if (ATK_IS_HYPERTEXT (accessible))
-        g_value_set_set (value, atk_hypertext_get_n_links (ATK_HYPERTEXT (accessible)));
+        g_value_set_int (value, atk_hypertext_get_n_links (ATK_HYPERTEXT (accessible)));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);

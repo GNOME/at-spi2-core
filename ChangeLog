@@ -1,3 +1,8 @@
+2003-12-01  Michael Natterer  <mitch@gimp.org>
+
+	* atk/atkobject.c (atk_object_real_get_property): fix typo:
+	s/g_value_set_set/g_value_set_int/.
+
 2003-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: (atk_object_class_init): Make nicks and blurbs of
