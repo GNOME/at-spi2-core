@@ -1,3 +1,7 @@
+2002-11-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* autogen.sh: Add call to autoheader to create config.h.in
+
 2002-11-04  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* acinclude.m4: New file
