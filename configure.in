@@ -161,4 +161,5 @@ atk/Makefile
 tests/Makefile
 docs/Makefile
 atk.spec
+atk-zip.sh
 ])

@@ -1,6 +1,14 @@
 EXTRA_DIST = atk.def
 if OS_WIN32
 export_symbols = -export-symbols atk.def
+
+install-libtool-import-lib:
+	$(INSTALL) .libs/libatk.dll.a $(DESTDIR)$(libdir)
+uninstall-libtool-import-lib:
+	-rm $(DESTDIR)$(libdir)/libatk.dll.a
+else
+install-libtool-import-lib:
+uninstall-libtool-import-lib:
 endif
 
 lib_LTLIBRARIES = libatk.la
@@ -8,11 +16,14 @@ lib_LTLIBRARIES = libatk.la
 if MS_LIB_AVAILABLE
 noinst_DATA = atk.lib
 
-install-data-local:
-	cp atk.lib $(DESTDIR)$(libdir)
+install-ms-lib:
+	$(INSTALL) atk.lib $(DESTDIR)$(libdir)
 
-uninstall-local:
+uninstall-ms-lib:
 	-rm $(DESTDIR)$(libdir)/atk.lib
+else
+install-ms-lib:
+uninstall-ms-lib:
 endif
 
 libatk_la_SOURCES = 		\
@@ -111,3 +122,7 @@ stamp-atkmarshal.c: atkmarshal.list
 
 atk.lib: libatk.la atk.def
 	lib -name:libatk-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@
+
+install-data-local: install-ms-lib install-libtool-import-lib
+
+uninstall-local: uninstall-ms-lib uninstall-libtool-import-lib

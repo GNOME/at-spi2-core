@@ -1,3 +1,14 @@
+2001-10-28  Tor Lillqvist  <tml@iki.fi>
+
+	* atk-zip.sh.in: New file, used to build developer package for
+	Win32.
+
+	* Makefile.am
+	* configure.in: Add it.
+
+	* atk/Makefile.am: Add rules to install and uninstall mingw import
+	library.
+
 2001-10-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.[c|h]

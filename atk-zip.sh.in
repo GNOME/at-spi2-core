@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Build zipfile for ATK on Win32: both runtime and developer stuff
+
+# These two directory paths are obviously system-dependent. This is what tml
+# happens to use.
+ZIP=/g/tmp/atk-@ATK_VERSION@.zip
+cd /target
+
+rm $ZIP
+zip -r $ZIP -@ <<EOF
+include/atk-1.0
+lib/libatk-@LT_CURRENT_MINUS_AGE@.dll
+lib/libatk.dll.a
+lib/atk.lib
+lib/pkgconfig/atk.pc
+EOF

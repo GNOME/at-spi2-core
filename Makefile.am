@@ -6,7 +6,8 @@ EXTRA_DIST = 			\
 	atk-uninstalled.pc.in	\
 	atk.pc.in		\
 	atk.spec.in		\
-	atk.spec
+	atk.spec		\
+	atk-zip.sh
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atk.pc
