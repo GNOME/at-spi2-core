@@ -91,7 +91,7 @@ PKG_CHECK_MODULES(REGISTRYD, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.9
 AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)
 
-PKG_CHECK_MODULES(TESTS, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0  >= 2.3.94 atk >= 0.2)
+PKG_CHECK_MODULES(TESTS, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0  >= 2.3.94 atk >= 0.2 gtk+-2.0 >= 1.3.2)
 AC_SUBST(TESTS_LIBS)
 AC_SUBST(TESTS_CFLAGS)
 

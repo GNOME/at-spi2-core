@@ -62,6 +62,13 @@ typedef enum _KeyEventType {
   KEY_RELEASED
 } KeyEventType;
 
+typedef enum _KeySynthType {
+  KEY_PRESS,
+  KEY_RELEASE, 
+  KEY_PRESSRELEASE,
+  KEY_SYM
+} KeySynthType;
+
 typedef enum _KeyListenerSyncType {
   KEYLISTENER_SYNCHRONOUS = 1,
   KEYLISTENER_CANCONSUME = 2,
@@ -332,16 +339,16 @@ registerKeystrokeListener (KeystrokeListener *listener,
  * generateKeyEvent:
  * @keycode: a #long indicating the keycode of the key event
  *           being synthesized.
- * @meta: a #long indicating the key modifiers to be sent
- *        with the event, if any.
+ * @synth_type: a #KeySynthType indicating whether this should be a
+ *        KEY_PRESS, KEY_RELEASE, both (KEY_PRESSRELEASE), or
+ *        a press/release pair for a KEYSYM.
  *
  * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
  * current UI context).
- * Not Yet Implemented.
  *
  **/
 void
-generateKeyEvent (long keyCode, long meta);
+generateKeyEvent (long keyCode, KeySynthType synth_type);
 
 /**
  * generateMouseEvent:

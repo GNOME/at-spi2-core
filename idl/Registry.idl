@@ -157,6 +157,13 @@ module Accessibility {
     KEY_RELEASED
   };
 
+  enum KeySynthType {
+    KEY_PRESS,
+    KEY_RELEASE,
+    KEY_PRESSRELEASE,
+    KEY_SYM
+  };
+
   enum ModifierType {
     MODIFIER_SHIFT,
     MODIFIER_ALT,
@@ -234,13 +241,20 @@ module Accessibility {
     
         /**
          * generateKeyEvent:
-         * @keyEventID: a long integer indicating which keypress is synthesized.
+         * @keycode: a long integer indicating the keycode of
+	 *          the keypress to be synthesized.
+	 *
+	 * Note that this long may be truncated before being
+	 *          processed, as keycode length may be platform-dependent
+	 *          and keycode ranges are generally much smaller than
+	 *          CORBA_long. 
+	 *
          * Returns: void
          *
          * Synthesize a keypress event.
          *
          **/
-         void generateKeyEvent (in long keyEventID);
+         void generateKeyEvent (in long keycode, in KeySynthType type);
 
         /**
          * generateMouseEvent:

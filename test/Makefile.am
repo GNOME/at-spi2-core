@@ -1,12 +1,14 @@
 NULL=
 
-noinst_PROGRAMS = at app simple-at
+noinst_PROGRAMS = at app simple-at keysynth-demo
 
 at_SOURCES = at.c
 
 app_SOURCES = app.c
 
 simple_at_SOURCES = simple-at.c 
+
+keysynth_demo_SOURCES = keysynth-demo.c 
 
 INCLUDES = -I$(top_srcdir)           \
            -I$(top_builddir)         \

@@ -266,9 +266,17 @@ deregisterKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
  *
  **/
 void
-generateKeyEvent (long keyCode, long meta)
+generateKeyEvent (long keyval, KeySynthType type)
 {
-  ;
+/* TODO: check current modifier status and
+ *  send keycode to alter, if necessary
+ */
+  Accessibility_DeviceEventController device_event_controller = 
+	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+  Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
+							keyval,
+							(unsigned long) type,
+							&ev);
 }
 
 /**

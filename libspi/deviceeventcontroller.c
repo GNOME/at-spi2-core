@@ -235,6 +235,7 @@ _check_key_event (DeviceEventController *controller)
 	while (XPending(display))
 	  {
 	    XNextEvent (display, x_event);
+	    if (XFilterEvent (x_event, None)) continue;	  
 	    if (x_event->type == KeyPress)
 	      {
 	        x_key_event = (XKeyEvent *)x_event;
@@ -410,21 +411,51 @@ impl_register_mouse_listener (PortableServer_Servant     servant,
 }
 */
 
+static KeyCode
+keycode_for_keysym (long keysym)
+{
+  return XKeysymToKeycode (display, (KeySym) keysym);
+}
+
 /*
  * CORBA Accessibility::DeviceEventController::registerKeystrokeListener
  *     method implementation
  */
 static void
 impl_generate_key_event (PortableServer_Servant     servant,
-			 const CORBA_long           keyEventID,
-			 CORBA_Environment         *ev)
+			 const CORBA_long           keycode,
+			 const CORBA_long           synth_type,
+			 CORBA_Environment          *ev)
 {
+	long key_synth_code;
 #ifdef SPI_DEBUG
-	fprintf (stderr, "synthesizing keystroke %ld\n", (long) keyEventID);
+	fprintf (stderr, "synthesizing keystroke %ld\n", (long) keycode);
 #endif
 	/* TODO: hide/wrap/remove X dependency */
-	XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keyEventID, True, CurrentTime);
-	XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keyEventID, False, CurrentTime);
+
+	/* TODO: be accessX-savvy so that keyrelease occurs after sufficient timeout */
+	
+	/*
+	 * TODO: when initializing, query for XTest extension before using,
+	 * and fall back to XSendEvent() if XTest is not available.
+	 */
+	
+	switch (synth_type)
+	{
+	case Accessibility_KEY_PRESS:
+		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keycode, True, CurrentTime);
+		break;
+	case Accessibility_KEY_PRESSRELEASE:
+		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keycode, True, CurrentTime);
+	case Accessibility_KEY_RELEASE:
+		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keycode, False, CurrentTime);
+		break;
+	case Accessibility_KEY_SYM:
+		key_synth_code = keycode_for_keysym (keycode);
+		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) key_synth_code, True, CurrentTime);
+		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) key_synth_code, False, CurrentTime);
+		break;
+	}
 }
 
 /*

@@ -1,4 +1,22 @@
-2001-11-09  Bill Haneman <bill.haneman@sun.com
+2001-11-11  Bill Haneman <bill.haneman@sun.com>
+
+	* test/Makefile.am:
+	* test/keysynth-demo.c:
+	Added new test of key synthesis, which creates a simple
+	(mouse-operated) onscreen keyboard.  It inserts key events into
+	the currently-focused window, thus it does not grab keyboard focus
+	itself.
+
+	* cspi/spi_registry.c:
+	Added C binding for AT-SPI generateKeyEvent.
+
+	* libspi/deviceeventcontroller.c:
+	Added call to XFilterEvent so that key listener works with XIM (we
+	hope).  Added event_synth_type to generateKeyEvent, so that we can
+	produce KEY_PRESS, KEY_RELEASE, KEY_PRESSRELEASE (pair), or
+	synthesize a press/release pair for KeySyms.	
+	
+2001-11-09  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/Makefile.am: 
 	* registryd/Makefile.am:
