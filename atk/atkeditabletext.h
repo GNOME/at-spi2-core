@@ -47,9 +47,6 @@ struct _AtkEditableTextIface
 {
   GTypeInterface parent_interface;
 
-  void   (* select_text)          (AtkEditableText  *text,
-                                   gint             start_pos,
-                                   gint             end_pos);
   void   (* set_attributes)       (AtkEditableText  *text,
                                    gint             start_pos,
                                    gint             end_pos,
@@ -74,9 +71,6 @@ struct _AtkEditableTextIface
 };
 GType atk_editable_text_get_type (void);
 
-void atk_editable_text_select_text          (AtkEditableText  *text,
-                                             gint             start_pos,
-                                             gint             end_pos);
 void atk_editable_text_set_attributes       (AtkEditableText  *text,
                                              gint             start_pos,
                                              gint             end_pos,

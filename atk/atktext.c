@@ -430,15 +430,48 @@ atk_text_get_offset_at_point (AtkText *text,
 }
 
 /**
- * atk_text_get_selected_text
+ * atk_text_get_n_selections
  * @text: an #AtkText
  *
- * Gets the selected text.
+ * Gets the number of selected regions.
+ *
+ * Returns: The number of selected regions, or -1 if a failure
+ *   occurred.
+ **/
+gint
+atk_text_get_n_selections (AtkText *text)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (text != NULL, -1);
+  g_return_val_if_fail (ATK_IS_TEXT (text), -1);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->get_n_selections)
+    return (*(iface->get_n_selections)) (text);
+  else
+    return -1;
+}
+
+/**
+ * atk_text_get_selection
+ * @text: an #AtkText
+ * @selection_num: The selection number.  The selected regions are
+ * assigned numbers that corrispond to how far the region is from the
+ * start of the text.  The selected region closest to the beginning
+ * of the text region is assigned the number 0, etc.  Note that adding,
+ * moving or deleting a selected region can change the numbering.
+ * @start_offset: passes back the start position of the selected region
+ * @end_offset: passes back the end position of the selected region
+ *
+ * Gets the text from the specified selection.
  *
  * Returns: the selected text.
  **/
 gchar*
-atk_text_get_selected_text (AtkText *text)
+atk_text_get_selection (AtkText *text, gint selection_num,
+   gint *start_offset, gint *end_offset)
 {
   AtkTextIface *iface;
 
@@ -447,57 +480,28 @@ atk_text_get_selected_text (AtkText *text)
 
   iface = ATK_TEXT_GET_IFACE (text);
 
-  if (iface->get_selected_text)
-    return (*(iface->get_selected_text)) (text);
+  if (iface->get_selection)
+  {
+    return (*(iface->get_selection)) (text, selection_num,
+       start_offset, end_offset);
+  }
   else
     return NULL;
 }
 
 /**
- * atk_text_get_selection_bounds
+ * atk_text_add_selection
  * @text: an #AtkText
- * @start_offset: start position
- * @end_offset: end position
+ * @start_offset: the start position of the selected region
+ * @end_offset: the end position of the selected region
  *
- * @start_offset and @end_offset are filled with the
- * current selection bounds.
- **/
-void
-atk_text_get_selection_bounds (AtkText *text,
-                               gint    *start_offset,
-                               gint    *end_offset)
-{
-  AtkTextIface *iface;
-
-  g_return_if_fail (text != NULL);
-  g_return_if_fail (ATK_IS_TEXT (text));
-
-  iface = ATK_TEXT_GET_IFACE (text);
-
-  if (iface->get_selection_bounds)
-    (*(iface->get_selection_bounds)) (text, start_offset, end_offset);
-  else
-  {
-    *start_offset = 0;
-    *end_offset = 0;
-  }
-}
-
-/**
- * atk_text_set_selection_bounds
- * @text: an #AtkText
- * @start_offset: start position
- * @end_offset: end position
+ * Adds a selection bounded by the specified offsets.
  *
- * The selection bounds are set to the specified @start_offset
- * and @end_offset values.
- * 
- * Returns: %TRUE if success, %FALSE otherwise.
+ * Returns: %TRUE if success, %FALSE otherwise
  **/
 gboolean
-atk_text_set_selection_bounds (AtkText *text,
-                               gint    start_offset,
-                               gint    end_offset)
+atk_text_add_selection (AtkText *text, gint start_offset,
+   gint end_offset)
 {
   AtkTextIface *iface;
 
@@ -506,14 +510,74 @@ atk_text_set_selection_bounds (AtkText *text,
 
   iface = ATK_TEXT_GET_IFACE (text);
 
-  if (iface->set_selection_bounds)
-    {
-      return (*(iface->set_selection_bounds)) (text, start_offset, end_offset);
-    }
+  if (iface->add_selection)
+    return (*(iface->add_selection)) (text, start_offset, end_offset);
   else
-    {
-      return FALSE;
-    }
+    return FALSE;
+}
+
+/**
+ * atk_text_remove_selection
+ * @text: an #AtkText
+ * @selection_num: The selection number.  The selected regions are
+ * assigned numbers that corrispond to how far the region is from the
+ * start of the text.  The selected region closest to the beginning
+ * of the text region is assigned the number 0, etc.  Note that adding,
+ * moving or deleting a selected region can change the numbering.
+ *
+ * Removes the specified selection
+ *
+ * Returns: %TRUE if success, %FALSE otherwise
+ **/
+gboolean
+atk_text_remove_selection (AtkText *text, gint selection_num)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (text != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->remove_selection)
+    return (*(iface->remove_selection)) (text, selection_num);
+  else
+    return FALSE;
+}
+
+/**
+ * atk_text_set_selection
+ * @text: an #AtkText
+ * @selection_num: The selection number.  The selected regions are
+ * assigned numbers that corrispond to how far the region is from the
+ * start of the text.  The selected region closest to the beginning
+ * of the text region is assigned the number 0, etc.  Note that adding,
+ * moving or deleting a selected region can change the numbering.
+ * @start_offset: the new start position of the selection
+ * @end_offset: the new end position of the selection
+ *
+ * Changes the start and end offset of the specified selection
+ *
+ * Returns: %TRUE if success, %FALSE otherwise
+ **/
+gboolean
+atk_text_set_selection (AtkText *text, gint selection_num,
+   gint start_offset, gint end_offset)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (text != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
+
+  iface = ATK_TEXT_GET_IFACE (text);
+
+  if (iface->set_selection)
+  {
+    return (*(iface->set_selection)) (text, selection_num,
+       start_offset, end_offset);
+  }
+  else
+    return FALSE;
 }
 
 /**

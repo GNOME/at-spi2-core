@@ -47,34 +47,6 @@ atk_editable_text_get_type ()
   return type;
 }
 
-
-/**
- * atk_editable_text_select_text:
- * @text: an #AtkEditableText
- * @start_pos: start position
- * @end_pos: end position
- *
- * Select text between @start_pos and @end_pos. The characters that are selected
- * are those characters at positions from @start_pos up to, but not including
- * @end_pos. If @end_pos is negative, then the characters selected 
- * will be those characters from start_pos to the end of the text.
- **/
-void 
-atk_editable_text_select_text (AtkEditableText  *text,
-                               gint             start_pos,
-                               gint             end_pos)
-{
-  AtkEditableTextIface *iface;
-
-  g_return_if_fail (text != NULL);
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
-
-  iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
-
-  if (iface->select_text)
-    (*(iface->select_text)) (text, start_pos, end_pos);
-}
-
 /**
  * atk_editable_text_set_attributes:
  * @text: an #AtkEditableText

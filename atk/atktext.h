@@ -100,13 +100,20 @@ struct _AtkTextIface
   gint           (* get_offset_at_point)          (AtkText          *text,
                                                    gint             x,
                                                    gint             y);
-  gchar*         (* get_selected_text)            (AtkText          *text);
-  void           (* get_selection_bounds)         (AtkText          *text,
-                                                   gint             *start_offset,
-                                                   gint             *end_offset);
-  gboolean       (* set_selection_bounds)         (AtkText          *text,
-                                                   gint             start_offset,
-                                                   gint             end_offset);
+  gint		 (* get_n_selections)		  (AtkText          *text);
+  gchar*         (* get_selection)	          (AtkText          *text,
+						   gint		    selection_num,
+						   gint		    *start_offset,
+						   gint		    *end_offset);
+  gboolean       (* add_selection)		  (AtkText          *text,
+						   gint		    start_offset,
+						   gint		    end_offset);
+  gboolean       (* remove_selection)		  (AtkText          *text,
+						   gint             selection_num);
+  gboolean       (* set_selection)		  (AtkText          *text,
+						   gint		    selection_num,
+						   gint		    start_offset,
+						   gint		    end_offset);
   gboolean       (* set_caret_offset)             (AtkText          *text,
                                                    gint             offset);
   void		 (* text_changed)                 (AtkText          *text);
@@ -155,13 +162,20 @@ gint          atk_text_get_character_count                (AtkText          *tex
 gint          atk_text_get_offset_at_point                (AtkText          *text,
                                                            gint             x,
                                                            gint             y);
-gchar*        atk_text_get_selected_text                  (AtkText          *text);
-void          atk_text_get_selection_bounds               (AtkText          *text,
-                                                           gint             *start_offset,
-                                                           gint             *end_offset);
-gboolean      atk_text_set_selection_bounds               (AtkText          *text,
-                                                           gint             start_offset,
-                                                           gint             end_offset);
+gint          atk_text_get_n_selections			  (AtkText          *text);
+gchar*        atk_text_get_selection			  (AtkText          *text,
+							   gint		    selection_num,
+							   gint             *start_offset,
+							   gint             *end_offset);
+gboolean      atk_text_add_selection                      (AtkText          *text,
+							   gint             start_offset,
+							   gint             end_offset);
+gboolean      atk_text_remove_selection                   (AtkText          *text,
+							   gint		    selection_num);
+gboolean      atk_text_set_selection                      (AtkText          *text,
+							   gint		    selection_num,
+							   gint             start_offset,
+							   gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
 
