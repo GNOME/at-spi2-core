@@ -81,6 +81,12 @@ impl_notify_event (PortableServer_Servant     servant,
             CORBA_exception_id(ev));
     exit(-1);
   }
+  fprintf (stderr, "source is component ? : %s\n",
+           Accessibility_Accessible_queryInterface (e->target,
+                                                    "IDL:Accessibility/Component:1.0",
+                                                    ev)
+           ? "yes" : "no");
+
 #endif
   Accessibility_Accessible_unref(e->target, ev);
 

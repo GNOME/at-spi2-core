@@ -147,14 +147,14 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
     {
       delimiter = g_utf8_get_char (":");
     }
+
   major_delim_char = g_utf8_strchr (event_name, (gssize) 32, delimiter);
   minor_delim_char = g_utf8_strrchr (event_name, (gssize) 255, delimiter);
 
   nbytes = (guint)((gint64) minor_delim_char -
                    (gint64) major_delim_char);
 
-  fprintf ("nbytes = %ld", (long) nbytes);
-
+  fprintf (stderr, "nbytes = %ld\n", (long) nbytes);
   if (!g_ascii_strncasecmp (event_name, "focus:", 6))
     {
       etype->major = ETYPE_FOCUS;
@@ -410,7 +410,9 @@ registry_notify_listeners ( GList *listeners,
   int len;
   ListenerStruct *ls;
   EventTypeStruct etype;
+  guint minor_hash;
   parse_event_type (&etype, e->type);
+  minor_hash = g_str_hash (etype.minor);
   len = g_list_length (listeners);
 
   for (n=0; n<len; ++n)
@@ -419,7 +421,7 @@ registry_notify_listeners ( GList *listeners,
 #ifdef SPI_DEBUG
       fprintf(stderr, "event hashes: %lx %lx\n", ls->event_type_hash, etype.hash);
 #endif
-      if ((ls->event_type_hash == etype.hash) || (TRUE))
+      if ((ls->event_type_hash == etype.hash) || (ls->event_type_hash == minor_hash))
         {
 #ifdef SPI_DEBUG
           fprintf(stderr, "notifying listener #%d\n", n);

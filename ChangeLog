@@ -1,3 +1,27 @@
+2001-08-16  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c : accessible_new() :
+	Now we add the Component interface via bonobo_object_add_interface,
+	if the contained AtkObject implements AtkComponent.
+	* libspi/accessible.h : now include "component.h"
+	* libspi/component.h :
+	* libspi/component.c : added files - implementation of
+	bonobo wrapper object for Accessibility/Component
+	* libspi/listener.c :
+	Added test code to check for Accessibility/Component:1.0
+	interface and report whether it is implemented by the
+	event source.
+	* libspi/registry.c :
+	Now we check for not only the hash of the whole event 
+	string before relaying the event, we also check the
+	"minor" event string (without the detail string).
+	This allows event listeners to be registered against
+	all events of a certain major+minor type, or just
+	against a specific major+minor+detail type.
+	* libspi/accessible.c :
+	Added implementations for Accessible:get_parent(),
+	Accessible:getChildCount(), and Accessible:getChildAtIndex().
+
 2001-08-15  Mark McLoughlin <mark@skynet.ie>
 
 	* libspi/Makefile.am,
@@ -13,7 +37,7 @@
 
 2001-08-15  Mark McLoughlin <mark@skynet.ie>
 
-	* test/app.c: use atgv[0] instead of
+	* test/app.c: use argv[0] instead of
 	g_type_prgname.
 
 2001-08-15  Mark McLoughlin <mark@skynet.ie>

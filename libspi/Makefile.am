@@ -15,6 +15,7 @@ CFLAGS += $(DEBUG_CFLAGS)
 libspiincludedir = $(includedir)/libspi
 
 libspiinclude_HEADERS = accessible.h       \
+			component.h	   \
                         application.h      \
                         desktop.h          \
                         listener.h         \
@@ -41,6 +42,8 @@ libspi_la_SOURCES = accessible.c         \
                     accessible.h         \
                     application.c        \
                     application.h        \
+		    component.c		 \
+		    component.h		 \
                     desktop.c            \
                     desktop.h            \
                     listener.c           \

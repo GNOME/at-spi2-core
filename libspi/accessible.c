@@ -123,6 +123,52 @@ impl_accessibility_accessible_set_description (PortableServer_Servant servant,
   printf ("Accessible set_description called: %s\n", name);
 }
 
+/*
+ * CORBA Accessibility::Accessible::get_parent method implementation
+ */
+static Accessibility_Accessible
+impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
+                                          CORBA_Environment     *ev)
+{
+  Accessibility_Accessible retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  AtkObject *parent;
+  parent = atk_object_get_parent (accessible->atko);
+  retval = bonobo_object_corba_objref (bonobo_object (accessible_new (parent)));
+  printf ("Accessible get_parent called\n");
+  return retval;
+}
+
+/*
+ * CORBA Accessibility::Accessible::get_childCount method implementation
+ */
+static CORBA_long
+impl_accessibility_accessible_get_child_count (PortableServer_Servant servant,
+                                               CORBA_Environment     *ev)
+{
+  CORBA_long retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  retval = (CORBA_long) atk_object_get_n_accessible_children (accessible->atko);
+  printf ("Accessible get_childCount called: %d\n", (int) retval);
+  return retval;
+}
+
+/*
+ * CORBA Accessibility::Accessible::getChildAtIndex method implementation
+ */
+static Accessibility_Accessible
+impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant,
+                                                  const CORBA_long      index,
+                                                  CORBA_Environment     *ev)
+{
+  Accessibility_Accessible retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  AtkObject *child = atk_object_ref_accessible_child (accessible->atko, (gint) index);
+  retval = bonobo_object_corba_objref ( bonobo_object (accessible_new (child)));
+  printf ("Accessible get_child_at_index called.\n");
+  return retval;
+}
+
 static void
 accessible_class_init (AccessibleClass *klass)
 {
@@ -137,9 +183,10 @@ accessible_class_init (AccessibleClass *klass)
         epv->_get_description = impl_accessibility_accessible_get_description;
         epv->_set_description = impl_accessibility_accessible_set_description;
 
-        /* epv->_get_parent = impl_accessibility_accessible_get_parent;               */
-        /* epv->_get_childCount = impl_accessibility_accessible_get_child_count;      */
-        /* epv->getChildAtIndex = impl_accessibility_accessible_get_child_at_index;   */
+        epv->_get_parent = impl_accessibility_accessible_get_parent;
+        epv->_get_childCount = impl_accessibility_accessible_get_child_count;
+        epv->getChildAtIndex = impl_accessibility_accessible_get_child_at_index;
+
         /* epv->getIndexInParent = impl_accessibility_accessible_get_index_in_parent; */
         /* epv->getRelationSet = impl_accessibility_accessible_get_relation_set;      */
         /* epv->getState = impl_accessibility_accessible_get_state;                   */
@@ -193,5 +240,66 @@ accessible_new (AtkObject *o)
                ACCESSIBLE (g_object_new (accessible_get_type (), NULL));
     g_object_ref (o);
     retval->atko = ATK_OBJECT (o);
+
+    /*
+     * TODO: add interface containers/constructors for ACTION, EDITABLE_TEXT, HYPERTEXT,
+     *  IMAGE, SELECTION, TABLE, TEXT, VALUE.
+     */
+
+    /* add appropriate ATK interfaces */
+
+    /* Action: not yet implemented
+    if (ATK_IS_ACTION (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (action_interface_new (o)));
+      }
+    */
+
+    if (ATK_IS_COMPONENT (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (component_interface_new (o)));
+      }
+
+    /* Others: not yet implemented
+    if (ATK_IS_EDITABLE_TEXT (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (editable_text_interface_new (o)));
+      }
+    else if (ATK_IS_HYPERTEXT (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (hypertext_interface_new (o)));
+      }
+    else if (ATK_IS_TEXT (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (text_interface_new (o)));
+      }
+    if (ATK_IS_IMAGE (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (image_interface_new (o)));
+      }
+    if (ATK_IS_SELECTION (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (selection_interface_new (o)));
+      }
+    if (ATK_IS_TABLE (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (table_interface_new (o)));
+      }
+    if (ATK_IS_VALUE (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     bonobo_object (value_interface_new (o)));
+      }
+
+    */
+
     return retval;
 }
