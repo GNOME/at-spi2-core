@@ -47,8 +47,10 @@ Registry queries
 
 </para>
 
-@list: 
+@desktop_list: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@list: 
 
 
 <!-- ##### USER_FUNCTION AccessibleKeystrokeListenerCB ##### -->

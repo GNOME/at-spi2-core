@@ -69,7 +69,8 @@ SPI_freeAccessibleKeySet (AccessibleKeySet *keyset)
  *
  **/
 AccessibleKeySet *
-SPI_createAccessibleKeySet (int len, const char *keysyms, short *keycodes, const char **keystrings)
+SPI_createAccessibleKeySet (int len, const char *keysyms, short *keycodes,
+			    const char **keystrings)
 {
   AccessibleKeySet *keyset = g_new0 (AccessibleKeySet, 1);
   int i, keysym_len = 0;
@@ -93,8 +94,14 @@ SPI_createAccessibleKeySet (int len, const char *keysyms, short *keycodes, const
         {
           keyset->keysyms [i] = 0;
         }
-      if (keycodes) keyset->keycodes [i] = keycodes [i];
-      if (keystrings) keyset->keystrings [i] = keystrings [i];
+      if (keycodes)
+        {
+	  keyset->keycodes [i] = keycodes [i];
+	}
+      if (keystrings)
+        {
+	  keyset->keystrings [i] = g_strdup (keystrings [i]);
+	}
     }
   return keyset;	
 }

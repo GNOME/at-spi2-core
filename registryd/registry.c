@@ -29,6 +29,7 @@
 #  include <stdio.h>
 #endif
 
+#include <bonobo/bonobo-exception.h>
 #include "registry.h"
 
 /* Our parent GObject type  */
@@ -58,17 +59,11 @@ typedef struct {
 
 typedef struct {
   Accessibility_EventListener listener;
-  GQuark event_type_quark;
+  GQuark            event_type_quark;
   EventTypeCategory event_type_cat;
 } SpiListenerStruct;
 
 /* static function prototypes */
-static void _registry_notify_listeners (GList *listeners,
-                                        const Accessibility_Event *e,
-                                        CORBA_Environment *ev);
-
-static long _get_unique_id();
-
 static gboolean _device_event_controller_hook (gpointer source);
 
 SpiListenerStruct *
@@ -79,6 +74,7 @@ spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment
   return retval;
 }
 
+
 void
 spi_listener_struct_free (SpiListenerStruct *ls, CORBA_Environment *ev)
 {
@@ -86,15 +82,22 @@ spi_listener_struct_free (SpiListenerStruct *ls, CORBA_Environment *ev)
   g_free (ls);
 }
 
-/* GObject::finalize */
+
 static void
 spi_registry_object_finalize (GObject *object)
 {
-        SpiRegistry *registry = SPI_REGISTRY (object);
+  printf ("spi_registry_object_finalize called\n");
 
-        printf("spi_registry_object_finalize called\n");
-	/* TODO: unref deviceeventcontroller, which disconnects key listener */
-        G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
+  /* TODO: unref deviceeventcontroller, which disconnects key listener */
+  G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
+}
+
+static long
+_get_unique_id (void)
+{
+  static long id = 0;
+
+  return ++id;
 }
 
 /**
@@ -117,7 +120,7 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
 #endif
   spi_desktop_add_application (registry->desktop, application);
 
-  Accessibility_Application__set_id (application, _get_unique_id(), ev);
+  Accessibility_Application__set_id (application, _get_unique_id (), ev);
 
   /*
    * TODO: change the implementation below to a WM-aware one;
@@ -125,6 +128,7 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
    */
 }
 
+#ifdef USE_A_HASH_IN_FUTURE
 static gint
 compare_corba_objects (gconstpointer p1, gconstpointer p2)
 {
@@ -139,6 +143,7 @@ compare_corba_objects (gconstpointer p1, gconstpointer p2)
   retval = !CORBA_Object_is_equivalent ((CORBA_Object) p1, (CORBA_Object) p2, &ev);
   return retval;  
 }
+#endif
 
 static void
 register_with_toolkits (SpiRegistry *spi_registry_bonobo_object, EventTypeStruct *etype, CORBA_Environment *ev)
@@ -167,16 +172,18 @@ register_with_toolkits (SpiRegistry *spi_registry_bonobo_object, EventTypeStruct
 	  Accessibility_Application_registerToolkitEventListener (app,
 								  registry,
 								  CORBA_string_dup (etype->event_name),
-								  
 								  ev);
         }
     }
 }
 
+#ifdef USE_A_HASH_IN_FUTURE
+
 static gint
 compare_listener_quarks (gconstpointer p1, gconstpointer p2)
 {
-  return (!((SpiListenerStruct *)p2)->event_type_quark == ((SpiListenerStruct *)p1)->event_type_quark);
+	return (((SpiListenerStruct *)p2)->event_type_quark !=
+		((SpiListenerStruct *)p1)->event_type_quark);
 }
 
 static gint
@@ -185,15 +192,16 @@ compare_listener_corbaref (gconstpointer p1, gconstpointer p2)
   return compare_corba_objects (((SpiListenerStruct *)p2)->listener,
                                 ((SpiListenerStruct *)p1)->listener);
 }
+#endif
 
 static void
-parse_event_type (EventTypeStruct *etype, char *event_name)
+parse_event_type (EventTypeStruct *etype, const char *event_name)
 {
   gchar **split_string;
   gchar *s;
 
-  split_string = g_strsplit(event_name, ":", 4);
-  etype->event_name = g_strndup(event_name, 255);
+  split_string = g_strsplit (event_name, ":", 4);
+  etype->event_name = g_strdup (event_name);
 
   if (!g_ascii_strncasecmp (event_name, "focus:", 6))
     {
@@ -273,48 +281,88 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
 #endif
 }
 
+static GList **
+get_listener_list (SpiRegistry      *registry,
+		   EventTypeCategory cat)
+{
+  GList **ret;
+  
+  switch (cat)
+    {
+      case ETYPE_OBJECT:
+      case ETYPE_PROPERTY:
+      case ETYPE_FOCUS:
+        ret = &registry->object_listeners;
+	break;
+      case ETYPE_WINDOW:
+	ret = &registry->window_listeners;
+	break;
+      case ETYPE_TOOLKIT:
+	ret = &registry->toolkit_listeners;
+	break;
+      case ETYPE_KEYBOARD:
+      default:
+        ret = NULL;
+	break;
+    }
+  return ret;
+}
+
 /*
  * CORBA Accessibility::Registry::registerGlobalEventListener method implementation
  */
 static void
 impl_accessibility_registry_register_global_event_listener (
-	                                     PortableServer_Servant  servant,
-                                             Accessibility_EventListener listener,
-                                             const CORBA_char *event_name,
-                                             CORBA_Environment      *ev)
+	PortableServer_Servant      servant,
+	Accessibility_EventListener listener,
+	const CORBA_char           *event_name,
+	CORBA_Environment          *ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
   SpiListenerStruct *ls = spi_listener_struct_new (listener, ev);
   EventTypeStruct etype;
+  GList          **list;
 
   fprintf(stderr, "registering for events of type %s\n", event_name);
 
   /* parse, check major event type and add listener accordingly */
-  parse_event_type (&etype, (char*) event_name);
+  parse_event_type (&etype, event_name);
   ls->event_type_quark = etype.major;
   ls->event_type_cat = etype.type_cat;
 
-  switch (etype.type_cat)
+  list = get_listener_list (registry, etype.type_cat);
+
+  if (list)
     {
-    case (ETYPE_FOCUS) :
-    case (ETYPE_OBJECT) :
-    case (ETYPE_PROPERTY) :
-      registry->object_listeners =
-        g_list_append (registry->object_listeners, ls);
-      break;
-    case (ETYPE_WINDOW) :
-      /* Support for Window Manager Events is not yet implemented */
-      spi_listener_struct_free (ls, ev);
-      break;
-    case (ETYPE_TOOLKIT) :
-      registry->toolkit_listeners =
-        g_list_append (registry->toolkit_listeners, ls);
-      register_with_toolkits (registry, &etype, ev);
-      break;
-    default:
-      spi_listener_struct_free (ls, ev);
-      break;
+      *list = g_list_prepend (*list, ls);
+
+      if (etype.type_cat == ETYPE_TOOLKIT)
+        {
+          register_with_toolkits (registry, &etype, ev);
+	}
     }
+  else
+    {
+      spi_listener_struct_free (ls, ev);
+    }
+}
+
+static void
+remove_listener_cb (GList * const *list, gpointer user_data)
+{
+  SpiListenerStruct *ls = (SpiListenerStruct *) (*list)->data;
+  CORBA_Environment  ev;
+  Accessibility_EventListener listener = user_data;
+
+  CORBA_exception_init (&ev);
+	
+  if (CORBA_Object_is_equivalent (ls->listener, listener, &ev))
+    {
+       spi_re_enterant_list_delete_link (list);
+       spi_listener_struct_free (ls, &ev);
+    }
+
+  CORBA_exception_free (&ev);
 }
 
 /*
@@ -322,85 +370,44 @@ impl_accessibility_registry_register_global_event_listener (
  */
 static void
 impl_accessibility_registry_deregister_global_event_listener_all (
-                                                    PortableServer_Servant  servant,
-                                                    Accessibility_EventListener listener,
-                                                    CORBA_Environment      *ev)
+	PortableServer_Servant      servant,
+	Accessibility_EventListener listener,
+	CORBA_Environment          *ev)
 {
+  int i;
+  GList **lists[2];
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  SpiListenerStruct *ls = spi_listener_struct_new (listener, ev);
-  GList *list;
-  list = g_list_find_custom (registry->object_listeners, ls,
-			     compare_listener_corbaref);
 
-  /*
-   * TODO : de-register with toolkit if the last instance of a listener
-   *        to a particular toolkit event type has been deregistered.
-   */
+  lists[0] = &registry->object_listeners;
+  lists[1] = &registry->window_listeners;
+  lists[2] = &registry->toolkit_listeners;
 
-  while (list)
+  for (i = 0; i < sizeof (lists) / sizeof (lists[0]); i++)
     {
-      spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
-      registry->object_listeners = g_list_delete_link (registry->object_listeners, list);
-      list = g_list_find_custom (registry->object_listeners, ls, compare_listener_corbaref);
+      spi_re_enterant_list_foreach (lists [i], remove_listener_cb, listener);
     }
-  list = g_list_find_custom (registry->toolkit_listeners, ls, compare_listener_corbaref);
-  while (list)
-    {
-      spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
-      registry->toolkit_listeners = g_list_delete_link (registry->toolkit_listeners, list);
-      list = g_list_find_custom (registry->toolkit_listeners, ls, compare_listener_corbaref);
-    }
-  spi_listener_struct_free (ls, ev);
 }
+
 
 /*
  * CORBA Accessibility::Registry::deregisterGlobalEventListener method implementation
  */
 static void
 impl_accessibility_registry_deregister_global_event_listener (
-                                                    PortableServer_Servant  servant,
-                                                    Accessibility_EventListener listener,
-                                                    const CORBA_char * event_name,
-                                                    CORBA_Environment      *ev)
+	PortableServer_Servant      servant,
+	Accessibility_EventListener listener,
+	const CORBA_char           *event_name,
+	CORBA_Environment          *ev)
 {
-  SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  SpiListenerStruct ls;
+  SpiRegistry    *registry;
   EventTypeStruct etype;
-  GList *list;
-  GList **listeners;
+
+  registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
 
   parse_event_type (&etype, (char *) event_name);
-  switch (etype.type_cat)
-    {
-    case (ETYPE_OBJECT) :
-    case (ETYPE_PROPERTY) :
-    case (ETYPE_FOCUS) :
-      listeners = &registry->object_listeners;
-      break;
-    case (ETYPE_WINDOW) :
-      /* Support for Window Manager Events is not yet implemented */
-      listeners = NULL;
-      break;
-    case (ETYPE_TOOLKIT) :
-      listeners = &registry->toolkit_listeners;
-      break;
-    default:
-      listeners = NULL;
-      break;
-    }
 
-  if (!listeners)
-	  return;
-
-  ls.event_type_quark = etype.major;
-  list = g_list_find_custom (*listeners, &ls, compare_listener_quarks);
-
-  while (list)
-    {
-      spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
-      *listeners = g_list_delete_link (*listeners, list);
-      list = g_list_find_custom (*listeners, &ls, compare_listener_quarks);
-    }
+  spi_re_enterant_list_foreach (get_listener_list (registry, etype.type_cat),
+			    remove_listener_cb, listener);
 }
 
 
@@ -421,6 +428,7 @@ impl_accessibility_registry_get_desktop_count (PortableServer_Servant servant,
   n_desktops = (CORBA_short) 1;
   return n_desktops;
 }
+
 
 /**
  * getDesktop:
@@ -449,6 +457,7 @@ impl_accessibility_registry_get_desktop (PortableServer_Servant servant,
     }
 }
 
+
 /**
  * getDesktopList:
  * return values: a sequence containing references to
@@ -461,104 +470,115 @@ static Accessibility_DesktopSeq *
 impl_accessibility_registry_get_desktop_list (PortableServer_Servant servant,
                                               CORBA_Environment * ev)
 {
-  /* TODO: implement support for multiple virtual desktops */
-  return (Accessibility_DesktopSeq *) NULL;
+  SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
+  Accessibility_DesktopSeq *desktops;
+
+  desktops = Accessibility_DesktopSeq__alloc ();
+  desktops->_length = desktops->_maximum = 1;
+  desktops->_buffer = Accessibility_DesktopSeq_allocbuf (desktops->_length);
+  desktops->_buffer [0] = bonobo_object_dup_ref (BONOBO_OBJREF (registry->desktop), ev);
+
+  return desktops;
 }
+
 
 static Accessibility_DeviceEventController
 impl_accessibility_registry_get_device_event_controller (PortableServer_Servant servant,
-                                                         CORBA_Environment * ev)
+                                                         CORBA_Environment     *ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
+
   if (!registry->device_event_controller)
-    registry->device_event_controller = spi_device_event_controller_new (registry);
+    {
+      registry->device_event_controller = spi_device_event_controller_new (registry);
+    }
 
   return bonobo_object_dup_ref (BONOBO_OBJREF (registry->device_event_controller), ev);
 }
 
+typedef struct {
+  CORBA_Environment  *ev;
+  Bonobo_Unknown      source;
+  EventTypeStruct     etype;
+  Accessibility_Event e_out;
+} NotifyContext;
+
 static void
-impl_registry_notify_event (PortableServer_Servant servant,
-                            const Accessibility_Event *e,
-                            CORBA_Environment *ev)
+notify_listeners_cb (GList * const *list, gpointer user_data)
 {
-  SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  EventTypeStruct etype;
+  SpiListenerStruct *ls;
+  NotifyContext     *ctx = user_data;
+#ifdef SPI_DEBUG
+  CORBA_string       s;
+#endif
 
-  parse_event_type (&etype, e->type);
+  ls = (*list)->data;
 
-  switch (etype.type_cat)
+#ifdef SPI_LISTENER_DEBUG
+  fprintf (stderr, "event quarks: %lx %lx %lx\n", ls->event_type_quark, etype.major, etype.minor);
+  fprintf (stderr, "event name: %s\n", etype.event_name);
+#endif
+
+  if ((ls->event_type_quark == ctx->etype.major) ||
+      (ls->event_type_quark == ctx->etype.minor))
     {
-    case (ETYPE_OBJECT) :
-    case (ETYPE_PROPERTY) :
-    case (ETYPE_FOCUS) :
-      _registry_notify_listeners (registry->object_listeners, e, ev); 
-      break;
-    case (ETYPE_WINDOW) :
-      _registry_notify_listeners (registry->window_listeners, e, ev);
-      break;
-    case (ETYPE_TOOLKIT) :
-      _registry_notify_listeners (registry->toolkit_listeners, e, ev); 
-      break;
-    case (ETYPE_KEYBOARD) :
-    default:
-      break;
+#ifdef SPI_DEBUG
+      fprintf (stderr, "notifying listener %d\n", g_list_index (listeners, l->data));
+      s = Accessibility_Accessible__get_name (ctx->source, ev);
+      fprintf (stderr, "event source name %s\n", s);
+      CORBA_free (s);
+#endif
+      
+      ctx->e_out.source = bonobo_object_dup_ref (ctx->source, ctx->ev);
+      if (BONOBO_EX (ctx->ev))
+	      return;
+
+      if ((*list) && (*list)->data == ls)
+        {
+          Accessibility_EventListener_notifyEvent (
+            (Accessibility_EventListener) ls->listener, &ctx->e_out, ctx->ev);
+        if (ctx->ev->_major != CORBA_NO_EXCEPTION)
+          {
+            g_warning ("Accessibility app error: exception during "
+		       "event notification: %s\n",
+		       CORBA_exception_id (ctx->ev));
+	  }
+	}
+      else /* dup re-entered */
+        {
+          bonobo_object_release_unref (ctx->e_out.source, ctx->ev);
+	}
+    }  
+}
+
+static void
+impl_registry_notify_event (PortableServer_Servant     servant,
+                            const Accessibility_Event *e,
+                            CORBA_Environment         *ev)
+{
+  SpiRegistry  *registry;
+  GList       **list;
+  NotifyContext ctx;
+
+  registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
+
+  parse_event_type (&ctx.etype, e->type);
+
+  list = get_listener_list (registry, ctx.etype.type_cat);
+
+  if (list)
+    {
+      ctx.ev = ev;
+      ctx.e_out = *e;
+      ctx.source = e->source;
+      parse_event_type (&ctx.etype, e->type);
+
+      spi_re_enterant_list_foreach (list, notify_listeners_cb, &ctx);
     }
+
   if (e->source != CORBA_OBJECT_NIL)
     {
       Accessibility_Accessible_unref (e->source, ev);
-    }
-}
-
-static long
-_get_unique_id ()
-{
-  static long id = 0;
-  return ++id;
-}
-
-static void
-_registry_notify_listeners (GList *listeners,
-                            const Accessibility_Event *e_in,
-                            CORBA_Environment *ev)
-{
-  GList              *l;
-  Accessibility_Event e_out;
-  SpiListenerStruct  *ls;
-  EventTypeStruct     etype;
-#ifdef SPI_DEBUG
-  CORBA_string        s;
-#endif
-
-  e_out = *e_in;
-  parse_event_type (&etype, e_in->type);
-
-  for (l = listeners; l; l = l->next)
-    {
-      ls = (SpiListenerStruct *) l->data;
-
-#ifdef SPI_LISTENER_DEBUG
-      fprintf (stderr, "event quarks: %lx %lx %lx\n", ls->event_type_quark, etype.major, etype.minor);
-      fprintf (stderr, "event name: %s\n", etype.event_name);
-#endif
-
-      if ((ls->event_type_quark == etype.major) || (ls->event_type_quark == etype.minor))
-        {
-#ifdef SPI_DEBUG
-          fprintf (stderr, "notifying listener %d\n", g_list_index (listeners, l->data));
-          s = Accessibility_Accessible__get_name (e_in->source, ev);
-	  fprintf (stderr, "event source name %s\n", s);
-	  CORBA_free (s);
-#endif
-	  e_out.source = bonobo_object_dup_ref (e_in->source, ev);
-          Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
-                                                   &e_out,
-                                                   ev);
-          if (ev->_major != CORBA_NO_EXCEPTION)
-            {
-              g_warning ("Accessibility app error: exception during event notification: %s\n",
-		       CORBA_exception_id (ev));
-	    }
-        }
     }
 }
 
@@ -601,7 +621,7 @@ spi_registry_init (SpiRegistry *registry)
   registry->object_listeners = NULL;
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
-  registry->desktop = spi_desktop_new();
+  registry->desktop = spi_desktop_new ();
   registry->device_event_controller = NULL;
   registry->kbd_event_hook = _device_event_controller_hook;
 }

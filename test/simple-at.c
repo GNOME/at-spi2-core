@@ -73,7 +73,7 @@ main (int argc, char **argv)
   modules = g_getenv ("GTK_MODULES");
   if (!modules || modules [0] == '\0')
     {
-      putenv ("GTK_MODULES=gail:at-bridge");
+      putenv ("GTK_MODULES=gail:atk-bridge");
     }
   modules = NULL;
 

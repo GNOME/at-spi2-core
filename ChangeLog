@@ -1,3 +1,60 @@
+2002-01-08  Michael Meeks  <michael@ximian.com>
+
+	* registryd/registry.c (parse_event_type): remove strndup.
+
+	* libspi/Makefile.am (libspi_la_SOURCES): remove
+	sources already included in the headers section.
+
+	* libspi/util.c: add.
+
+	* libspi/spi-private.h: add.
+
+	* registryd/registry.c: update to moved list iterators.
+
+2002-01-05  Michael Meeks  <michael@ximian.com>
+
+	* test/simple-at.c (main): upd. auto-module set to atk-bridge
+
+	* test/test-simple.c (main): ditto.
+
+2002-01-04  Michael Meeks  <michael@ximian.com>
+
+	* libspi/accessible.c (spi_accessible_new): remove 2nd,
+	redundant construct.
+
+	* registryd/registry.c
+	(get_listener_list): impl.
+	(impl_accessibility_registry_register_global_event_listener):
+	re-impl. to simplify using ~, remove dodgy const cast off.
+	(parse_event_type): constify.
+	(impl_accessibility_registry_deregister_global_event_listener_all): 
+	re-write, more efficiency and simplicity, kill re-enterancy
+	hazard.
+	(compare_listener_corbaref, compare_corba_objects),
+	(compare_listener_quarks): define out.
+	(impl_accessibility_registry_deregister_global_event_listener): 
+	re-write for effiency, and nail re-enterancy hazard.
+	(impl_accessibility_registry_get_desktop_list): impl.
+	(re_enterant_list_delete_link): impl.
+	(re_enterant_list_foreach): impl.
+	(remove_listener_cb): impl.
+	(_registry_notify_listeners): kill.
+	(notify_listeners_cb): impl.
+
+	* cspi/spi_registry.c (SPI_freeDesktopList): impl.
+	(SPI_getDesktopList): impl.
+
+	* test/test-simple.c (test_desktop): test the methods.
+
+2002-01-03  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi_event.c (SPI_createAccessibleKeySet): dup the
+	keystrings since we free them
+	(SPI_freeAccessibleKeySet): in here.
+
+	* libspi/accessible.c (spi_accessible_new): kill warning,
+	wonder what is going on with the constructor here.
+
 2002-03-01  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/accessible.c (spi_accessible_new ()) :

@@ -370,8 +370,8 @@ spi_key_set_contains_key (Accessibility_KeySet *key_set, const Accessibility_Dev
 }
 
 static gboolean
-spi_key_eventtype_seq_contains_event (Accessibility_KeyEventTypeSeq *type_seq,
-				  const Accessibility_DeviceEvent *key_event)
+spi_key_eventtype_seq_contains_event (Accessibility_KeyEventTypeSeq   *type_seq,
+				      const Accessibility_DeviceEvent *key_event)
 {
   gint i;
   gint len;
@@ -400,8 +400,8 @@ spi_key_eventtype_seq_contains_event (Accessibility_KeyEventTypeSeq *type_seq,
 
 static gboolean
 spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
-			    DEControllerKeyListener *listener,
-			    CORBA_boolean is_system_global)
+				DEControllerKeyListener         *listener,
+				CORBA_boolean                    is_system_global)
 {
   g_print ("checking keycode %d\n", (int) key_event->hw_code);
   if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask & 0xFFFF)) &&

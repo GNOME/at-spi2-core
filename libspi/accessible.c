@@ -454,13 +454,11 @@ spi_accessible_new (AtkObject *o)
 
    else if (SPI_IS_REMOTE_OBJECT (o))
      {
-       retval = spi_remote_object_get_accessible (o); 
+       retval = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (o)); 
      }
    else
      {
        retval = g_object_new (SPI_ACCESSIBLE_TYPE, NULL);
-
-       spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
 
        spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
 

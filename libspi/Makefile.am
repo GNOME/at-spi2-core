@@ -12,27 +12,28 @@ CFLAGS += $(DEBUG_CFLAGS)
 
 libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
-libspiinclude_HEADERS = Accessibility.h \
-			accessible.h \
-			eventlistener.h \
-			action.h \
-                        application.h \
-			base.h \
-			component.h \
-			editabletext.h\
-			hyperlink.h\
-			hypertext.h\
-			image.h \
-			keystrokelistener.h \
-			keymasks.h \
-			libspi.h \
-                        listener.h \
-			relation.h \
-			remoteobject.h \
-			selection.h \
-			table.h \
-			text.h \
-			value.h
+libspiinclude_HEADERS =		\
+	Accessibility.h		\
+	accessible.h		\
+	eventlistener.h		\
+	action.h		\
+	application.h		\
+	base.h			\
+	component.h		\
+	editabletext.h		\
+	hyperlink.h		\
+	hypertext.h		\
+	image.h			\
+	keystrokelistener.h	\
+	keymasks.h		\
+	libspi.h		\
+	listener.h		\
+	relation.h		\
+	remoteobject.h		\
+	selection.h		\
+	table.h			\
+	text.h			\
+	value.h
 
 IDL_OUT = Accessibility.h Accessibility-stubs.c Accessibility-skels.c Accessibility-common.c
 
@@ -59,46 +60,31 @@ IDL_DEPS = \
 	$(top_srcdir)/idl/Accessibility_Value.idl
 
 
-
 BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
 CLEANFILES+=$(IDL_OUT) Accessibility-imodule.c
 
-libspi_la_SOURCES = accessible.c         \
-                    accessible.h         \
-                    action.c\
-		    action.h\
-		    application.c        \
-                    application.h        \
-		    base.c		 \
-		    component.c		 \
-		    component.h		 \
-		    editabletext.c\
-		    editabletext.h\
-		    hyperlink.c\
-		    hyperlink.h\
-		    hypertext.c\
-		    hypertext.h\
-		    image.c\
-		    image.h\
-		    keystrokelistener.c\
-		    keystrokelistener.h\
-		    relation.c\
-		    relation.h\
-		    remoteobject.c\
-		    remoteobject.h\
-		    selection.c\
-		    selection.h\
-		    table.c\
-		    table.h\
-		    text.c\
-		    text.h\
-		    value.c\
-		    value.h\
-                    listener.c           \
-                    listener.h           \
-		    eventlistener.c	 \
-		    keymasks.h		\
-                    $(IDL_OUT)
+libspi_la_SOURCES =		\
+	accessible.c		\
+	action.c		\
+	application.c		\
+	base.c			\
+	component.c		\
+	editabletext.c		\
+	hyperlink.c		\
+	hypertext.c		\
+	image.c			\
+	keystrokelistener.c	\
+	relation.c		\
+	remoteobject.c		\
+	selection.c		\
+	spi-private.h		\
+	table.c			\
+	text.c			\
+	util.c			\
+	value.c			\
+	listener.c		\
+	eventlistener.c		\
+	$(IDL_OUT)
 
 IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
 	   -I$(LIBBONOBO_IDL_DIR)         \

@@ -200,7 +200,8 @@ SPIBoolean SPI_deregisterAccessibleKeystrokeListener (
 
 int         SPI_getDesktopCount                  (void);
 Accessible *SPI_getDesktop                       (int i);
-int         SPI_getDesktopList                   (Accessible **list);
+int         SPI_getDesktopList                   (Accessible ***desktop_list);
+void        SPI_freeDesktopList                  (Accessible  **desktop_list);
 
 SPIBoolean  SPI_generateKeyboardEvent            (long int                    keyval,
 						  char                       *keystring,

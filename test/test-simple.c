@@ -174,7 +174,7 @@ test_action (AccessibleAction *action)
 		fprintf (stderr, "%d: %s (%s);  ", i, s, sd);
 		SPI_freeString (s);
 		SPI_freeString (sd);
-		/* g_assert (AccessibleAction_doAction (action, i)); */
+		g_assert (AccessibleAction_doAction (action, i));
 	}
 	fprintf (stderr, "\n");
 }
@@ -182,14 +182,20 @@ test_action (AccessibleAction *action)
 static void
 test_desktop (void)
 {
-	Accessible *desktop;
-	Accessible *application;
+	Accessible  *desktop;
+	Accessible  *application;
+	int          length;
+	Accessible **list;
 
 	fprintf (stderr, "Testing desktop...\n");
 
 	g_assert (SPI_getDesktop (-1) == NULL);
 	desktop = SPI_getDesktop (0);
 	g_assert (desktop != NULL);
+
+	g_assert ((length = SPI_getDesktopList (&list)) > 0);
+	g_assert (list[0] == desktop);
+	SPI_freeDesktopList (list);
 
 	validate_accessible (desktop, FALSE, FALSE);
 
@@ -647,7 +653,7 @@ main (int argc, char **argv)
 
 	modules = g_getenv ("GTK_MODULES");
 	if (!modules || modules [0] == '\0')
-		putenv ("GTK_MODULES=gail:at-bridge");
+		putenv ("GTK_MODULES=gail:atk-bridge");
 	modules = NULL;
 
 	for (i = 1; i < argc; i++) {

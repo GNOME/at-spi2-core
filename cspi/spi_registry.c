@@ -219,10 +219,11 @@ SPI_getDesktop (int i)
 
 /**
  * SPI_getDesktopList:
- * @list: a pointer to an array of #Accessible objects.
+ * @desktop_list: a pointer to an array of #Accessible references.
  *
  * Get the list of virtual desktops.  On return, @list will point
- *     to a newly-created array of virtual desktop pointers.
+ *     to a newly-created, NULL terminated array of virtual desktop
+ *     pointers.
  *     It is the responsibility of the caller to free this array when
  *     it is no longer needed.
  *
@@ -233,10 +234,55 @@ SPI_getDesktop (int i)
  *          placed in the list pointed to by parameter @list.
  **/
 int
-SPI_getDesktopList (Accessible **list)
+SPI_getDesktopList (Accessible ***desktop_list)
 {
-  *list = NULL;
-  return 0;
+  int i;
+  Accessible **list;
+  Accessibility_DesktopSeq *desktops;
+
+  if (!desktop_list)
+	  return 0;
+
+  *desktop_list = NULL;
+
+  desktops = Accessibility_Registry_getDesktopList (cspi_registry (),
+						    cspi_ev ());
+
+  cspi_return_val_if_ev ("getting desktop list", 0);
+
+  list = g_new0 (Accessible *, desktops->_length + 1);
+
+  for (i = 0; i < desktops->_length; i++)
+    {
+      list [i] = cspi_object_add (
+	      CORBA_Object_duplicate (desktops->_buffer [i], cspi_ev ()));
+    }
+  list [i] = NULL;
+
+  CORBA_free (desktops);
+
+  *desktop_list = list;
+
+  return i;
+}
+
+/**
+ * SPI_freeDesktopList:
+ * @desktop_list: a pointer to an array of #Accessible objects
+ * as returned from @SPI_getDesktopList
+ * 
+ * This routine frees the memory associated with the list.
+ **/
+void
+SPI_freeDesktopList (Accessible **desktop_list)
+{
+  Accessible **p;
+  
+  for (p = desktop_list; p && *p; p++)
+    {
+      cspi_object_unref (*p);
+    }
+  g_free (desktop_list);
 }
 
 /**
