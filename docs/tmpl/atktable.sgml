@@ -68,7 +68,7 @@ The AtkTable structure does not contain any fields.
 </para>
 
 @table: 
-@index: 
+@index_: 
 @Returns: 
 
 
@@ -78,7 +78,7 @@ The AtkTable structure does not contain any fields.
 </para>
 
 @table: 
-@index: 
+@index_: 
 @Returns: 
 
 
@@ -149,8 +149,6 @@ The AtkTable structure does not contain any fields.
 @table: 
 @row: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@r: 
 
 
 <!-- ##### FUNCTION atk_table_get_column_header ##### -->
@@ -189,8 +187,6 @@ The AtkTable structure does not contain any fields.
 
 @table: 
 @caption: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_description ##### -->
@@ -201,8 +197,6 @@ The AtkTable structure does not contain any fields.
 @table: 
 @row: 
 @description: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_column_description ##### -->
@@ -213,8 +207,6 @@ The AtkTable structure does not contain any fields.
 @table: 
 @column: 
 @description: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_header ##### -->

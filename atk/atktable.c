@@ -191,9 +191,9 @@ atk_table_get_index_at (AtkTable *table,
 /**
  * atk_table_get_row_at_index:
  * @table: a GObject instance that implements AtkTableInterface
- * @index: a #gint representing an index in @table
+ * @index_: a #gint representing an index in @table
  *
- * Gets a #gint representing the row at the specified @index, or -1
+ * Gets a #gint representing the row at the specified @index_, or -1
  * if the table does not implement this interface
  *
  * Returns: a gint representing the row at the specified index.
@@ -217,9 +217,9 @@ atk_table_get_row_at_index (AtkTable *table,
 /**
  * atk_table_get_column_at_index:
  * @table: a GObject instance that implements AtkTableInterface
- * @index: a #gint representing an index in @table
+ * @index_: a #gint representing an index in @table
  *
- * Gets a #gint representing the column at the specified @index, or -1
+ * Gets a #gint representing the column at the specified @index_, or -1
  * if the table does not implement this interface
  *
  * Returns: a gint representing the column at the specified index.

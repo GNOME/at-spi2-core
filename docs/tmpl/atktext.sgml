@@ -181,8 +181,6 @@ The AtkText structure does not contain any fields.
 @width: 
 @height: 
 @coords: 
-<!-- # Unused Parameters # -->
-@length: 
 
 
 <!-- ##### FUNCTION atk_text_get_run_attributes ##### -->
@@ -332,7 +330,7 @@ The AtkText structure does not contain any fields.
 </para>
 
 @attr: 
-@index: 
+@index_: 
 @Returns: 
 
 

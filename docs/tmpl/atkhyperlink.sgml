@@ -27,7 +27,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 </para>
 
-@link: 
+@link_: 
 @i: 
 @Returns: 
 
@@ -37,7 +37,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 </para>
 
-@link: 
+@link_: 
 @i: 
 @Returns: 
 
@@ -47,7 +47,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 </para>
 
-@link: 
+@link_: 
 @Returns: 
 
 
@@ -56,7 +56,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 </para>
 
-@link: 
+@link_: 
 @Returns: 
 
 
@@ -65,7 +65,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 </para>
 
-@link: 
+@link_: 
 @Returns: 
 
 
@@ -74,7 +74,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 </para>
 
-@link: 
+@link_: 
 @Returns: 
 
 

@@ -1010,7 +1010,7 @@ atk_text_attribute_for_name (const gchar *name)
 /**
  * atk_text_attribute_get_value:
  * @attr: The #AtkTextAttribute for which a value is required
- * @index: The index of the required value
+ * @index_: The index of the required value
  *
  * Gets the value for the index of the #AtkTextAttribute
  *

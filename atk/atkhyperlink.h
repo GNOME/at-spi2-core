@@ -55,35 +55,35 @@ struct _AtkHyperlinkClass
    * Returns a string specifying the URI associated with the nth anchor
    * of this link.
    */
-  gchar*           (* get_uri)             (AtkHyperlink     *link,
+  gchar*           (* get_uri)             (AtkHyperlink     *link_,
                                             gint             i);
   /*
    * Returns an object which represents the link action, as appropriate for 
    * that link.
    */
-  AtkObject*       (* get_object)          (AtkHyperlink     *link,
+  AtkObject*       (* get_object)          (AtkHyperlink     *link_,
                                             gint             i);
   /*
    * Gets the index with the hypertext document at which this link ends
    */
-  gint             (* get_end_index)       (AtkHyperlink     *link);
+  gint             (* get_end_index)       (AtkHyperlink     *link_);
 
   /* 
    * Gets the index with the hypertext document at which this link begins 
    */
-  gint             (* get_start_index)     (AtkHyperlink     *link);
+  gint             (* get_start_index)     (AtkHyperlink     *link_);
 
   /*
    * Since the document a link is associated with may have changed, this 
    * method returns whether or not this link is still valid (with respect
    * to the document is references)
    */
-  gboolean         (* is_valid)            (AtkHyperlink     *link);
+  gboolean         (* is_valid)            (AtkHyperlink     *link_);
 
   /* 
    * Returns the number of anchors associated with this link
    */
-  gint	           (* get_n_anchors)	   (AtkHyperlink     *link);
+  gint	           (* get_n_anchors)	   (AtkHyperlink     *link_);
 
   AtkFunction      pad1;
   AtkFunction      pad2;
@@ -93,19 +93,19 @@ struct _AtkHyperlinkClass
 
 GType            atk_hyperlink_get_type             (void);
 
-gchar*           atk_hyperlink_get_uri              (AtkHyperlink     *link,
+gchar*           atk_hyperlink_get_uri              (AtkHyperlink     *link_,
                                                      gint             i);
 
-AtkObject*       atk_hyperlink_get_object           (AtkHyperlink     *link,
+AtkObject*       atk_hyperlink_get_object           (AtkHyperlink     *link_,
                                                      gint             i);
 
-gint             atk_hyperlink_get_end_index        (AtkHyperlink     *link);
+gint             atk_hyperlink_get_end_index        (AtkHyperlink     *link_);
 
-gint             atk_hyperlink_get_start_index      (AtkHyperlink     *link);
+gint             atk_hyperlink_get_start_index      (AtkHyperlink     *link_);
 
-gboolean         atk_hyperlink_is_valid             (AtkHyperlink     *link);
+gboolean         atk_hyperlink_is_valid             (AtkHyperlink     *link_);
 
-gint		 atk_hyperlink_get_n_anchors        (AtkHyperlink     *link);
+gint		 atk_hyperlink_get_n_anchors        (AtkHyperlink     *link_);
 
 
 #ifdef __cplusplus

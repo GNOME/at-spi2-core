@@ -54,9 +54,9 @@ struct _AtkTableIface
                                                   gint          row,
                                                   gint          column);
   gint              (* get_column_at_index)      (AtkTable      *table,
-                                                  gint          index);
+                                                  gint          index_);
   gint              (* get_row_at_index)         (AtkTable      *table,
-                                                  gint          index);
+                                                  gint          index_);
   gint              (* get_n_columns)           (AtkTable      *table);
   gint              (* get_n_rows)               (AtkTable      *table);
   gint              (* get_column_extent_at)     (AtkTable      *table,
@@ -148,9 +148,9 @@ gint              atk_table_get_index_at         (AtkTable         *table,
                                                   gint             row,
                                                   gint             column);
 gint              atk_table_get_column_at_index  (AtkTable         *table,
-                                                  gint             index);
+                                                  gint             index_);
 gint              atk_table_get_row_at_index     (AtkTable         *table,
-                                                  gint             index);
+                                                  gint             index_);
 gint              atk_table_get_n_columns        (AtkTable         *table);
 gint              atk_table_get_n_rows           (AtkTable         *table);
 gint              atk_table_get_column_extent_at (AtkTable         *table,

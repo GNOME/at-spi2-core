@@ -76,11 +76,11 @@ atk_hyperlink_init  (AtkHyperlink        *link,
 
 /**
  * atk_hyperlink_get_uri:
- * @link: an #AtkHyperlink
+ * @link_: an #AtkHyperlink
  * @i: a (zero-index) integer specifying the desired anchor
  *
  * Get a the URI associated with the anchor specified 
- * by @i of @link. 
+ * by @i of @link_. 
  *
  * Multiple anchors are primarily used by client-side image maps.
  *
@@ -103,12 +103,12 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
 
 /**
  * atk_hyperlink_get_object:
- * @link: an #AtkHyperlink
+ * @link_: an #AtkHyperlink
  * @i: a (zero-index) integer specifying the desired anchor
  *
  * Returns the item associated with this hyperlinks nth anchor.
  * For instance, the returned #AtkObject will implement #AtkText
- * if @link is a text hyperlink, #AtkImage if @link is an image
+ * if @link_ is a text hyperlink, #AtkImage if @link_ is an image
  * hyperlink etc. 
  * 
  * Multiple anchors are primarily used by client-side image maps.
@@ -132,7 +132,7 @@ atk_hyperlink_get_object (AtkHyperlink *link,
 
 /**
  * atk_hyperlink_get_end_index:
- * @link: an #AtkHyperlink
+ * @link_: an #AtkHyperlink
  *
  * Gets the index with the hypertext document at which this link ends.
  *
@@ -154,7 +154,7 @@ atk_hyperlink_get_end_index (AtkHyperlink *link)
 
 /**
  * atk_hyperlink_get_start_index:
- * @link: an #AtkHyperlink
+ * @link_: an #AtkHyperlink
  *
  * Gets the index with the hypertext document at which this link begins.
  *
@@ -176,7 +176,7 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
 
 /**
  * atk_hyperlink_is_valid:
- * @link: an #AtkHyperlink
+ * @link_: an #AtkHyperlink
  *
  * Since the document that a link is associated with may have changed
  * this method returns %TRUE if the link is still valid (with
@@ -200,7 +200,7 @@ atk_hyperlink_is_valid (AtkHyperlink *link)
 
 /**
  * atk_hyperlink_get_n_anchors:
- * @link: an #AtkHyperlink
+ * @link_: an #AtkHyperlink
  *
  * Gets the number of anchors associated with this hyperlink.
  *
