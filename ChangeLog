@@ -1,3 +1,7 @@
+2003-01-12  Laurent Dhima  <laurenti@alblinux.net>
+
+	* configure.in: Added 'sq'(albanian) to ALL_LINGUAS.
+
 2003-01-11  Pauli Virtanen  <pauli.virtanen@hut.fi>
 
 	* configure.in (ALL_LINGUAS): Added "fi" (Finnish)
