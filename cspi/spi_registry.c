@@ -333,7 +333,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 	  key_set,
 	  controller_event_mask,
 	  key_events,
-	  (CORBA_boolean) ((sync_type | SPI_KEYLISTENER_ALL_WINDOWS)!=0),
+	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
 	  &ev);
 }
 

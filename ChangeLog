@@ -1,5 +1,23 @@
 2001-22-11  Bill Haneman  <bill.haneman@sun.com>
 
+	* test/simple-at.c:
+	Added non-preemptive keylistener for key events with no modifiers
+	and shift-only modifier.
+
+	* libspi/keystrokelistener.c:
+	Removed some verbose diagnostics printout.
+
+	* cspi/spi_registry.c:
+	Fixed a bug that caused all key listeners to be registered as
+	pre-emptive.
+	
+	* libspi/deviceeventcontroller.c:
+	Fixed bug that caused XGrabKey (preemptive key grab) to be called
+	for non-preemptive key masks.
+
+
+2001-22-11  Bill Haneman  <bill.haneman@sun.com>
+
 	* docs/reference/idl/at-spi-idl-docs.sgml:
 	* docs/reference/idl/at-spi-idl-sections.txt:
 	* docs/reference/idl/at-spi-idl-overrides.txt:
