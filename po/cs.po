@@ -1,15 +1,16 @@
 # Czech ATK translation.
 # Copyright (C) 2002 Free Software Foundation
+# Copyright (C) 2004 Miloslav Trmac <mitr@volny.cz>
 # This file is distributed under the same license as the ATK package.
 # Michal Bukovjan <bukm@centrum.cz>, 2002.
-# Miloslav Trmac <mitr@volny.cz>, 2003.
+# Miloslav Trmac <mitr@volny.cz>, 2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-21 03:04+0100\n"
-"PO-Revision-Date: 2003-12-21 14:50+0100\n"
+"POT-Creation-Date: 2004-01-24 03:14+0100\n"
+"PO-Revision-Date: 2004-01-24 20:50+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -457,7 +458,7 @@ msgstr "Zpřístupněný souhrn tabulky"
 
 #: atk/atkobject.c:388
 msgid "Is used to notify that the table summary has changed"
-msgstr "Používá se pro upozornění, že sourhn tabulky byl změněn"
+msgstr "Používá se pro upozornění, že souhrn tabulky byl změněn"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
@@ -465,7 +466,7 @@ msgstr "Zpřístupněný objekt nadpisu tabulky"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr "Používá se pro upozornění, že nadpis tabulky byl změněm"
+msgstr "Používá se pro upozornění, že nadpis tabulky byl změněn"
 
 #: atk/atkobject.c:401
 msgid "Accessible Hypertext Number of Links"
