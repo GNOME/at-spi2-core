@@ -159,6 +159,12 @@ cspi_exception (void)
 Accessible *
 cspi_object_add (CORBA_Object corba_object)
 {
+	return cspi_object_add_ref (corba_object, FALSE);
+}
+
+Accessible *
+cspi_object_add_ref (CORBA_Object corba_object, gboolean do_ref)
+{
   Accessible *ref;
 
   if (corba_object == CORBA_OBJECT_NIL)
@@ -175,7 +181,8 @@ cspi_object_add (CORBA_Object corba_object)
         {
           g_assert (ref->ref_count > 0);
 	  ref->ref_count++;
-          cspi_release_unref (corba_object);
+          if (!do_ref) 
+		cspi_release_unref (corba_object);
 #ifdef DEBUG_OBJECTS
           g_print ("returning cached %p => %p\n", ref, ref->objref);
 #endif
@@ -187,8 +194,14 @@ cspi_object_add (CORBA_Object corba_object)
 #ifdef DEBUG_OBJECTS
           g_print ("allocating %p => %p\n", ref, corba_object);
 #endif
-
-          ref->objref = corba_object;
+	  if (do_ref) {
+#ifdef JAVA_BRIDGE_BUG_IS_FIXED
+		  g_assert (CORBA_Object_is_a (corba_object,
+						"IDL:Bonobo/Unknown:1.0", cspi_ev ()));
+#endif
+		  ref->objref = bonobo_object_dup_ref (corba_object, cspi_ev ());
+	  } else 
+		  ref->objref = corba_object;
           ref->ref_count = 1;
 
           g_hash_table_insert (cspi_get_live_refs (), ref->objref, ref);

@@ -93,7 +93,7 @@ cspi_event (SpiEventListener    *listener,
   AccessibleEvent    aevent;
   Accessible        *source;
 
-  source = cspi_object_add (bonobo_object_dup_ref (event->source, cspi_ev ()));
+  source = cspi_object_add_ref (event->source, TRUE);
 
   aevent.type    = event->type;
   aevent.source  = source;

@@ -42,7 +42,6 @@ static SpiApplication *this_app = NULL;
 
 static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
-static gboolean spi_atk_bridge_idle_init               (gpointer               user_data);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
 static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 							guint                  n_param_values,
@@ -72,7 +71,6 @@ extern void gnome_accessibility_module_shutdown (void);
 static int     atk_bridge_initialized = FALSE;
 static guint   atk_bridge_focus_tracker_id = 0;
 static guint   atk_bridge_key_event_listener_id = 0;
-static guint   idle_init_id = 0;
 static GArray *listener_ids = NULL;
 
 /*
@@ -139,7 +137,9 @@ atk_bridge_init (gint *argc, gchar **argv[])
 
   g_atexit (spi_atk_bridge_exit_func);
 
-  idle_init_id = g_idle_add (spi_atk_bridge_idle_init, NULL);
+  spi_atk_register_event_listeners ();
+
+  fprintf (stderr, "Application registered & listening\n");
 
   return 0;
 }
@@ -148,18 +148,6 @@ int
 gtk_module_init (gint *argc, gchar **argv[])
 {
 	return atk_bridge_init (argc, argv);
-}
-
-static gboolean
-spi_atk_bridge_idle_init (gpointer user_data)
-{
-  idle_init_id = 0;
-
-  spi_atk_register_event_listeners ();
-
-  fprintf (stderr, "Application registered & listening\n");
-
-  return FALSE;
 }
 
 static void
@@ -302,7 +290,9 @@ void
 gnome_accessibility_module_shutdown (void)
 {
   BonoboObject *app = (BonoboObject *) this_app;
-
+  int     i;
+  GArray *ids = listener_ids;
+  
   if (!atk_bridge_initialized)
     {
       return;
@@ -312,26 +302,15 @@ gnome_accessibility_module_shutdown (void)
 
   g_print("Atk Accessibilty bridge shutdown\n");
 
-  if (idle_init_id)
-    {
-      g_source_remove (idle_init_id);
-      idle_init_id = 0;
-    }
-  else
-    {
-      int     i;
-      GArray *ids = listener_ids;
-
-      listener_ids = NULL;
-      atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
-      
-      for (i = 0; ids && i < ids->len; i++)
-        {
+  listener_ids = NULL;
+  atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
+  
+  for (i = 0; ids && i < ids->len; i++)
+  {
           atk_remove_global_event_listener (g_array_index (ids, guint, i));
-	}
-
-      atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
-    }
+  }
+  
+  atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
 
   deregister_application (app);
 }
@@ -513,10 +492,10 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
   switch (event->type)
     {
     case (ATK_KEY_EVENT_PRESS):
-      keystroke->type = Accessibility_KEY_PRESSED;
+      keystroke->type = Accessibility_KEY_PRESSED_EVENT;
       break;
     case (ATK_KEY_EVENT_RELEASE):
-      keystroke->type = Accessibility_KEY_RELEASED;
+      keystroke->type = Accessibility_KEY_RELEASED_EVENT;
       break;
     default:
       keystroke->type = 0;
@@ -535,7 +514,12 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
   CORBA_boolean             result;
   Accessibility_DeviceEvent key_event;
-  Accessibility_DeviceEventController controller =
+  Accessibility_DeviceEventController controller;
+	
+  if (BONOBO_EX (&ev))
+	g_warning ("failure: pre-listener get dec\n");
+
+  controller =
     Accessibility_Registry_getDeviceEventController (registry, &ev);
 
   if (BONOBO_EX (&ev))

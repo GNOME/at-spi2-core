@@ -63,6 +63,7 @@ spi_base_class_init (SpiBaseClass *klass)
 static void
 spi_base_init (SpiBase *object)
 {
+	object->gobj = NULL;
 }
 
 BONOBO_TYPE_FUNC (SpiBase, PARENT_TYPE, spi_base);
@@ -70,7 +71,8 @@ BONOBO_TYPE_FUNC (SpiBase, PARENT_TYPE, spi_base);
 void
 spi_base_construct (SpiBase *object, GObject *gobject)
 {
-  object->gobj = g_object_ref (gobject);
+ g_assert (G_IS_OBJECT (gobject));
+ object->gobj = g_object_ref (gobject);
 }
 
 void

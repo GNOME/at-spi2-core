@@ -1,5 +1,46 @@
+2002-06-13  Bill Haneman  <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	(spi_controller_update_key_grabs):
+	Fix for #84735, subsequent keygrab listeners not informed of
+	registration failure.
+
+	* libspi/base.c:
+	(spi_base_construct):
+	Add an assertion on construct, to make sure the GObject passed in
+	is really a GObject.
+	(spi_base_init):
+	Explicitly initialize object->gobj pointer to NULL;
+
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	(cspi_object_add_ref):
+	New method, can specify whether to dup-ref a bonobo object passed
+	in if it's newly added to the object cache.
+	(cspi_object_add):
+	Now calls cspi_object_add_ref with second param of "FALSE".  This
+	prevents us from doing a pointless dup-ref followed by
+	release-unref for all those cases where the object is already in
+	our object cache (fix for #85205).
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_idle_init):
+	Removed this method, we don't need to initialize in an idle
+	handler anymore;
+	(atk_bridge_init):
+	Changed to call spi_atk_register_event_listeners directly, not via an
+	idle handler. (fix for #81139)
+	(gnome_accessibility_module_shutdown):
+	Removed conditional around deregistration of listeners, since we
+	don't use the idle handler and thus have always registered when
+	shutdown is called.
+	(spi_init_keystroke_from_atk_key_event):
+	Changed references to Accessibility_KEY_PRESSED to 
+	Accessibility_KEY_PRESSED_EVENT, etc. (fix for #79865).
+	
 2002-06-12  Bill Haneman  <bill.haneman@sun.com>
 
+	(TAGGED AND BRANCHED for gnome-2-0-0 after this commit)
+	
 	* configure.in:
 	Revved to 1.0.1
 

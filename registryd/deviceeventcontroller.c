@@ -678,7 +678,8 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 				 Accessibility_DeviceEvent *recv)
 {
   GList *l, *next;
-
+  gboolean   update_failed = FALSE;
+  
   g_return_val_if_fail (controller != NULL, FALSE);
 
   /*
@@ -736,7 +737,6 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 #ifdef SPI_DEBUG
 	  fprintf (stderr, "grab with mask %x\n", grab_mask->mod_mask);
 #endif
-	  XSynchronize (spi_get_display(), True);
           XGrabKey (spi_get_display (),
 		    grab_mask->key_val,
 		    grab_mask->mod_mask,
@@ -744,7 +744,12 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 		    True,
 		    GrabModeAsync,
 		    GrabModeAsync);
-	  XSynchronize (spi_get_display(), False);
+	  XSync (spi_get_display (), False);
+	  update_failed = spi_clear_error_state ();
+	  if (update_failed) {
+		  while (grab_mask->ref_count > 0) --grab_mask->ref_count;
+		  do_remove = TRUE;
+	  }
 	}
 
       grab_mask->pending_add = FALSE;
@@ -762,7 +767,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 
     } 
 
-  return ! spi_clear_error_state ();
+  return ! update_failed;
 }
 
 /*
