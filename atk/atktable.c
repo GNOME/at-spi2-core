@@ -138,19 +138,19 @@ atk_table_base_init (gpointer *g_class)
  * Returns: a AtkObject* representing the referred to accessible
  **/
 AtkObject*
-atk_table_ref_at (AtkTable *obj,
+atk_table_ref_at (AtkTable *table,
                   gint     row,
                   gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->ref_at)
-    return (iface->ref_at) (obj, row, column);
+    return (iface->ref_at) (table, row, column);
   else
     return NULL;
 }
@@ -172,19 +172,19 @@ atk_table_ref_at (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_index_at (AtkTable *obj,
+atk_table_get_index_at (AtkTable *table,
                         gint     row,
                         gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_index_at)
-    return (iface->get_index_at) (obj, row, column);
+    return (iface->get_index_at) (table, row, column);
   else
     return 0;
 }
@@ -205,18 +205,18 @@ atk_table_get_index_at (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_row_at_index (AtkTable *obj,
+atk_table_get_row_at_index (AtkTable *table,
                             gint     index)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_row_at_index)
-    return (iface->get_row_at_index) (obj, index);
+    return (iface->get_row_at_index) (table, index);
   else
     return 0;
 }
@@ -237,18 +237,18 @@ atk_table_get_row_at_index (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_column_at_index (AtkTable *obj,
+atk_table_get_column_at_index (AtkTable *table,
                                gint     index)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_column_at_index)
-    return (iface->get_column_at_index) (obj, index);
+    return (iface->get_column_at_index) (table, index);
   else
     return 0;
 }
@@ -267,17 +267,17 @@ atk_table_get_column_at_index (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gchar*
-atk_table_get_caption (AtkTable *obj)
+atk_table_get_caption (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_caption)
-    return (iface->get_caption) (obj);
+    return (iface->get_caption) (table);
   else
     return NULL;
 }
@@ -296,17 +296,17 @@ atk_table_get_caption (AtkTable *obj)
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_n_columns (AtkTable *obj)
+atk_table_get_n_columns (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_n_columns)
-    return (iface->get_n_columns) (obj);
+    return (iface->get_n_columns) (table);
   else
     return 0;
 }
@@ -326,18 +326,18 @@ atk_table_get_n_columns (AtkTable *obj)
  * if value does not implement this interface.
  **/
 gchar*
-atk_table_get_column_description (AtkTable *obj,
+atk_table_get_column_description (AtkTable *table,
                                   gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_column_description)
-    return (iface->get_column_description) (obj, column);
+    return (iface->get_column_description) (table, column);
   else
     return NULL;
 }
@@ -359,19 +359,19 @@ atk_table_get_column_description (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_column_extent_at (AtkTable *obj,
+atk_table_get_column_extent_at (AtkTable *table,
                                 gint     row,
                                 gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_column_extent_at)
-    return (iface->get_column_extent_at) (obj, row, column);
+    return (iface->get_column_extent_at) (table, row, column);
   else
     return 0;
 }
@@ -391,17 +391,17 @@ atk_table_get_column_extent_at (AtkTable *obj,
  * %NULL if value does not implement this interface.
  **/
 AtkObject*
-atk_table_get_column_header (AtkTable *obj, gint column)
+atk_table_get_column_header (AtkTable *table, gint column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_column_header)
-    return (iface->get_column_header) (obj, column);
+    return (iface->get_column_header) (table, column);
   else
     return NULL;
 }
@@ -420,17 +420,17 @@ atk_table_get_column_header (AtkTable *obj, gint column)
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_n_rows (AtkTable *obj)
+atk_table_get_n_rows (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_n_rows)
-    return (iface->get_n_rows) (obj);
+    return (iface->get_n_rows) (table);
   else
     return 0;
 }
@@ -450,18 +450,18 @@ atk_table_get_n_rows (AtkTable *obj)
  * if value does not implement this interface.
  **/
 gchar*
-atk_table_get_row_description (AtkTable *obj,
+atk_table_get_row_description (AtkTable *table,
                                gint      row)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_row_description)
-    return (iface->get_row_description) (obj, row);
+    return (iface->get_row_description) (table, row);
   else
     return NULL;
 }
@@ -483,19 +483,19 @@ atk_table_get_row_description (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gint
-atk_table_get_row_extent_at (AtkTable *obj,
+atk_table_get_row_extent_at (AtkTable *table,
                              gint     row,
                              gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_row_extent_at)
-    return (iface->get_row_extent_at) (obj, row, column);
+    return (iface->get_row_extent_at) (table, row, column);
   else
     return 0;
 }
@@ -515,17 +515,17 @@ atk_table_get_row_extent_at (AtkTable *obj,
  * %NULL if value does not implement this interface.
  **/
 AtkObject*
-atk_table_get_row_header (AtkTable *obj, gint row)
+atk_table_get_row_header (AtkTable *table, gint row)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_row_header)
-    return (iface->get_row_header) (obj, row);
+    return (iface->get_row_header) (table, row);
   else
     return NULL;
 }
@@ -544,17 +544,17 @@ atk_table_get_row_header (AtkTable *obj, gint row)
  * or zero if value does not implement this interface.
  **/
 AtkObject*
-atk_table_get_summary (AtkTable *obj)
+atk_table_get_summary (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), NULL);
+  g_return_val_if_fail (table != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_summary)
-    return (iface->get_summary) (obj);
+    return (iface->get_summary) (table);
   else
     return NULL;
 }
@@ -574,17 +574,17 @@ atk_table_get_summary (AtkTable *obj)
  * or zero if value does not implement this interface.
  **/
 gint
-atk_table_get_selected_rows (AtkTable *obj, gint **selected)
+atk_table_get_selected_rows (AtkTable *table, gint **selected)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_selected_rows)
-    return (iface->get_selected_rows) (obj, selected);
+    return (iface->get_selected_rows) (table, selected);
   else
     return 0;
 }
@@ -605,17 +605,17 @@ atk_table_get_selected_rows (AtkTable *obj, gint **selected)
  *
  **/
 gint 
-atk_table_get_selected_columns (AtkTable *obj, gint **selected)
+atk_table_get_selected_columns (AtkTable *table, gint **selected)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), 0);
+  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->get_selected_columns)
-    return (iface->get_selected_columns) (obj, selected);
+    return (iface->get_selected_columns) (table, selected);
   else
     return 0;
 }
@@ -636,18 +636,18 @@ atk_table_get_selected_columns (AtkTable *obj, gint **selected)
  * if value does not implement this interface.
  **/
 gboolean
-atk_table_is_column_selected (AtkTable *obj,
+atk_table_is_column_selected (AtkTable *table,
                               gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->is_column_selected)
-    return (iface->is_column_selected) (obj, column);
+    return (iface->is_column_selected) (table, column);
   else
     return FALSE;
 }
@@ -668,18 +668,18 @@ atk_table_is_column_selected (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gboolean
-atk_table_is_row_selected (AtkTable *obj,
+atk_table_is_row_selected (AtkTable *table,
                            gint     row)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->is_row_selected)
-    return (iface->is_row_selected) (obj, row);
+    return (iface->is_row_selected) (table, row);
   else
     return FALSE;
 }
@@ -701,19 +701,19 @@ atk_table_is_row_selected (AtkTable *obj,
  * if value does not implement this interface.
  **/
 gboolean
-atk_table_is_selected (AtkTable *obj,
+atk_table_is_selected (AtkTable *table,
                        gint     row,
                        gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->is_selected)
-    return (iface->is_selected) (obj, row, column);
+    return (iface->is_selected) (table, row, column);
   else
     return FALSE;
 }
@@ -733,18 +733,18 @@ atk_table_is_selected (AtkTable *obj,
  * or 0 if value does not implement this interface.
  **/
 gboolean
-atk_table_add_row_selection (AtkTable *obj,
+atk_table_add_row_selection (AtkTable *table,
                        		 gint     row)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->add_row_selection)
-    return (iface->add_row_selection) (obj, row);
+    return (iface->add_row_selection) (table, row);
   else
     return FALSE;
 }
@@ -763,18 +763,18 @@ atk_table_add_row_selection (AtkTable *obj,
  * the selection, or 0 if value does not implement this interface.
  **/
 gboolean
-atk_table_remove_row_selection (AtkTable *obj,
+atk_table_remove_row_selection (AtkTable *table,
                        		    gint     row)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->remove_row_selection)
-    return (iface->remove_row_selection) (obj, row);
+    return (iface->remove_row_selection) (table, row);
   else
     return FALSE;
 }
@@ -793,18 +793,18 @@ atk_table_remove_row_selection (AtkTable *obj,
  * the selection, or 0 if value does not implement this interface.
  **/
 gboolean
-atk_table_add_column_selection (AtkTable *obj,
+atk_table_add_column_selection (AtkTable *table,
                        		    gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->add_column_selection)
-    return (iface->add_column_selection) (obj, column);
+    return (iface->add_column_selection) (table, column);
   else
     return FALSE;
 }
@@ -823,18 +823,18 @@ atk_table_add_column_selection (AtkTable *obj,
  * the selection, or 0 if value does not implement this interface.
  **/
 gboolean
-atk_table_remove_column_selection (AtkTable *obj,
+atk_table_remove_column_selection (AtkTable *table,
                        			   gint     column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TABLE (obj), FALSE);
+  g_return_val_if_fail (table != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->remove_column_selection)
-    return (iface->remove_column_selection) (obj, column);
+    return (iface->remove_column_selection) (table, column);
   else
     return FALSE;
 }
@@ -847,18 +847,18 @@ atk_table_remove_column_selection (AtkTable *obj,
  * Sets the caption for the table.
  **/
 void
-atk_table_set_caption (AtkTable       *obj,
+atk_table_set_caption (AtkTable       *table,
                        gchar          *caption)
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_TABLE (obj));
+  g_return_if_fail (table != NULL);
+  g_return_if_fail (ATK_IS_TABLE (table));
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->set_caption)
-    (iface->set_caption) (obj, caption);
+    (iface->set_caption) (table, caption);
 }
 
 /**
@@ -871,19 +871,19 @@ atk_table_set_caption (AtkTable       *obj,
  * Sets the description text for the specified @column of the @table.
  **/
 void
-atk_table_set_column_description (AtkTable       *obj,
+atk_table_set_column_description (AtkTable       *table,
                                   gint           column,
                                   gchar          *description)
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_TABLE (obj));
+  g_return_if_fail (table != NULL);
+  g_return_if_fail (ATK_IS_TABLE (table));
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->set_column_description)
-    (iface->set_column_description) (obj, column, description);
+    (iface->set_column_description) (table, column, description);
 }
 
 /**
@@ -895,19 +895,19 @@ atk_table_set_column_description (AtkTable       *obj,
  * Sets the specified column header to @header
  **/
 void
-atk_table_set_column_header (AtkTable  *obj,
+atk_table_set_column_header (AtkTable  *table,
                              gint      column,
                              AtkObject *header)
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_TABLE (obj));
+  g_return_if_fail (table != NULL);
+  g_return_if_fail (ATK_IS_TABLE (table));
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->set_column_header)
-    (iface->set_column_header) (obj, column, header);
+    (iface->set_column_header) (table, column, header);
 }
 
 /**
@@ -920,19 +920,19 @@ atk_table_set_column_header (AtkTable  *obj,
  * Sets the description text for the specified @row of @table.
  **/
 void
-atk_table_set_row_description (AtkTable       *obj,
+atk_table_set_row_description (AtkTable       *table,
                                gint           row,
                                gchar          *description)
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_TABLE (obj));
+  g_return_if_fail (table != NULL);
+  g_return_if_fail (ATK_IS_TABLE (table));
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->set_row_description)
-    (iface->set_row_description) (obj, row, description);
+    (iface->set_row_description) (table, row, description);
 }
 
 /**
@@ -944,19 +944,19 @@ atk_table_set_row_description (AtkTable       *obj,
  * Sets the specified row header to @header
  **/
 void
-atk_table_set_row_header (AtkTable  *obj,
+atk_table_set_row_header (AtkTable  *table,
                           gint      row,
                           AtkObject *header)
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_TABLE (obj));
+  g_return_if_fail (table != NULL);
+  g_return_if_fail (ATK_IS_TABLE (table));
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->set_row_header)
-    (iface->set_row_header) (obj, row, header);
+    (iface->set_row_header) (table, row, header);
 }
 
 /**
@@ -968,16 +968,16 @@ atk_table_set_row_header (AtkTable  *obj,
  * Sets the summary description of the table
  **/
 void
-atk_table_set_summary (AtkTable       *obj,
+atk_table_set_summary (AtkTable       *table,
                        AtkObject      *accessible)
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_TABLE (obj));
+  g_return_if_fail (table != NULL);
+  g_return_if_fail (ATK_IS_TABLE (table));
 
-  iface = ATK_TABLE_GET_IFACE (obj);
+  iface = ATK_TABLE_GET_IFACE (table);
 
   if (iface->set_summary)
-    (iface->set_summary) (obj, accessible);
+    (iface->set_summary) (table, accessible);
 }
