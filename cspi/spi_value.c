@@ -5,7 +5,6 @@
  * @obj: a pointer to the #AccessibleValue implementor on which to operate.
  *
  * Increment the reference count for an #AccessibleValue object.
- *
  **/
 void
 AccessibleValue_ref (AccessibleValue *obj)
@@ -18,7 +17,6 @@ AccessibleValue_ref (AccessibleValue *obj)
  * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
  *
  * Decrement the reference count for an #AccessibleValue object.
- *
  **/
 void
 AccessibleValue_unref (AccessibleValue *obj)
@@ -38,11 +36,17 @@ AccessibleValue_unref (AccessibleValue *obj)
 float
 AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
-  return (float)
+  float retval;
+
+  cspi_return_val_if_fail (obj != NULL, 0.0);
+
+  retval = 
     Accessibility_Value__get_minimumValue (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getMinimumValue", 0.0);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleValue_getCurrentValue:
@@ -51,16 +55,21 @@ AccessibleValue_getMinimumValue (AccessibleValue *obj)
  * Get the current value for an #AccessibleValue.
  *
  * Returns: the current value for this object.
- *
  **/
 float
 AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
-  return (float)
+  float retval;
+
+  cspi_return_val_if_fail (obj != NULL, 0.0);
+
+  retval =
     Accessibility_Value__get_currentValue (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getCurrentValue", 0.0);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleValue_getMaximumValue:
@@ -69,16 +78,21 @@ AccessibleValue_getCurrentValue (AccessibleValue *obj)
  * Get the maximum allowed value for an #AccessibleValue.
  *
  * Returns: the maximum allowed value for this object.
- *
  **/
 float
 AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
-  return (float)
+  float retval;
+
+  cspi_return_val_if_fail (obj != NULL, 0.0);
+
+  retval =
     Accessibility_Value__get_maximumValue (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getMaximumValue", 0.0);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleValue_setCurrentValue:
@@ -89,14 +103,18 @@ AccessibleValue_getMaximumValue (AccessibleValue *obj)
  *
  * Returns: #TRUE if the value could be assigned the specified value,
  *          #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {
-  Accessibility_Value__set_currentValue (CSPI_OBJREF (obj),
-					 (CORBA_float) newValue, cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  Accessibility_Value__set_currentValue (
+    CSPI_OBJREF (obj), (CORBA_float) newValue, cspi_ev ());
+
+  cspi_return_val_if_ev ("setCurrentValue", FALSE);
+
   return TRUE;
 }
 

@@ -1,3 +1,20 @@
+2001-12-10  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi_text.c: audit for exception handling,
+	tolerating NULL object references safely etc.
+
+	* cspi/spi_value.c: ditto.
+
+	* cspi/spi_table.c (AccessibleTable_getSummary),
+	(AccessibleTable_getAccessibleAt),
+	(AccessibleTable_getRowHeader),
+	(AccessibleTable_getColumnHeader),
+	(AccessibleTable_getCaption): fix bugs hidden by
+	incorrect casts.
+	(long_seq_to_array): impl.
+	(AccessibleTable_getSelectedRows),
+	(AccessibleTable_getSelectedColumns): use it.
+
 2001-12-10  Bill Haneman  <bill.haneman@sun.com>
 
 	* TODO:

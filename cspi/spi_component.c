@@ -11,7 +11,6 @@
  * @obj: a pointer to an object implementing #AccessibleComponent on which to operate.
  *
  * Increment the reference count for an #AccessibleComponent.
- *
  **/
 void
 AccessibleComponent_ref (AccessibleComponent *obj)
@@ -24,7 +23,6 @@ AccessibleComponent_ref (AccessibleComponent *obj)
  * @obj: a pointer to the object implementing #AccessibleComponent on which to operate.
  *
  * Decrement the reference count for an #AccessibleComponent.
- *
  **/
 void
 AccessibleComponent_unref (AccessibleComponent *obj)

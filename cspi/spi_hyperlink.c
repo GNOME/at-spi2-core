@@ -115,8 +115,6 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long int *startIndex,
                                    long int *endIndex)
 {
-  long retval;
-
   cspi_return_if_fail (obj != NULL);
 
   *startIndex = (long)

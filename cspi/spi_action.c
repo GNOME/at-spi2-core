@@ -5,7 +5,6 @@
  * @obj: a pointer to the #AccessibleAction on which to operate.
  *
  * Increment the reference count for an #AccessibleAction.
- *
  **/
 void
 AccessibleAction_ref (AccessibleAction *obj)
@@ -18,7 +17,6 @@ AccessibleAction_ref (AccessibleAction *obj)
  * @obj: a pointer to the #AccessibleAction on which to operate.
  *
  * Decrement the reference count for an #AccessibleAction.
- *
  **/
 void
 AccessibleAction_unref (AccessibleAction *obj)

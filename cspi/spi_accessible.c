@@ -107,7 +107,6 @@ AccessibleRole_getName (AccessibleRole role)
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Increment the reference count for an #Accessible object.
- *
  **/
 void
 Accessible_ref (Accessible *obj)
@@ -120,7 +119,6 @@ Accessible_ref (Accessible *obj)
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Decrement the reference count for an #Accessible object.
- *
  **/
 void
 Accessible_unref (Accessible *obj)

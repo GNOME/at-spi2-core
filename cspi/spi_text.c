@@ -5,7 +5,6 @@
  * @obj: a pointer to the #AccessibleText object on which to operate.
  *
  * Increment the reference count for an #AccessibleText object.
- *
  **/
 void
 AccessibleText_ref (AccessibleText *obj)
@@ -18,7 +17,6 @@ AccessibleText_ref (AccessibleText *obj)
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Decrement the reference count for an #AccessibleText object.
- *
  **/
 void
 AccessibleText_unref (AccessibleText *obj)
@@ -34,7 +32,6 @@ AccessibleText_unref (AccessibleText *obj)
  *
  * Returns: a long integer indicating the total number of
  *              characters in the #AccessibleText object.
- *
  **/
 long
 AccessibleText_getCharacterCount (AccessibleText *obj)
@@ -46,7 +43,7 @@ AccessibleText_getCharacterCount (AccessibleText *obj)
   retval = (long)
     Accessibility_Text__get_characterCount (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_val_if_ev ("_getCharacterCount", -1);
+  cspi_return_val_if_ev ("getCharacterCount", -1);
 
   return retval;
 }
@@ -63,16 +60,25 @@ AccessibleText_getCharacterCount (AccessibleText *obj)
  *
  * Returns: a text string containing characters from @startOffset
  *          to @endOffset-1, inclusive, encoded as UTF-8.
- *
  **/
 char *
 AccessibleText_getText (AccessibleText *obj,
                         long int startOffset,
                         long int endOffset)
 {
-  return (char *)
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =
     Accessibility_Text_getText (CSPI_OBJREF (obj),
-				(CORBA_long) startOffset, (CORBA_long) endOffset, cspi_ev ());
+				(CORBA_long) startOffset,
+				(CORBA_long) endOffset,
+				cspi_ev ());
+
+  cspi_return_val_if_ev ("getText", NULL);
+
+  return retval;
 }
 
 /**
@@ -82,15 +88,21 @@ AccessibleText_getText (AccessibleText *obj,
  * Get the current offset of the text caret in an #AccessibleText object.
  *
  * Returns: a long integer indicating the current position of the text caret.
- *
  **/
 long
 AccessibleText_getCaretOffset (AccessibleText *obj)
 {
-  return (long)
-    Accessibility_Text__get_caretOffset (CSPI_OBJREF (obj), cspi_ev ());
-}
+  long retval;
 
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Text__get_caretOffset (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getCaretOffset", -1);
+
+  return retval;
+}
 
 /**
  * AccessibleText_getAttributes:
@@ -106,7 +118,6 @@ AccessibleText_getCaretOffset (AccessibleText *obj)
  * Returns: a text string describing the attributes occurring within the
  *          attribute run containing @offset, encoded as UTF-8 and
  *          delimited by ':'
- *
  **/
 char *
 AccessibleText_getAttributes (AccessibleText *obj,
@@ -116,18 +127,32 @@ AccessibleText_getAttributes (AccessibleText *obj,
 {
   CORBA_long retStartOffset, retEndOffset;
   char *retval;	
+
+  if (obj == NULL)
+    {
+      *startOffset = *endOffset = 0;
+      return NULL;
+    }
+
   retval = (char *)
     Accessibility_Text_getAttributes (CSPI_OBJREF (obj),
 				      (CORBA_long) offset,
 				      &retStartOffset,
 				      &retEndOffset,
 				      cspi_ev ());
-  *startOffset = (long) retStartOffset;
-  *endOffset = (long) retEndOffset;
+
+  if (!cspi_check_ev ("getAttributes"))
+    {
+      *startOffset = *endOffset = 0;
+    }
+  else
+    {
+      *startOffset = retStartOffset;
+      *endOffset   = retEndOffset;
+    }
+
   return retval;
 }
-
-
 
 /**
  * AccessibleText_setCaretOffset:
@@ -137,15 +162,22 @@ AccessibleText_getAttributes (AccessibleText *obj,
  * Set the text caret position for an #AccessibleText object.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleText_setCaretOffset (AccessibleText *obj,
                                long int newOffset)
 {
-  return (SPIBoolean)
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
     Accessibility_Text_setCaretOffset (CSPI_OBJREF (obj),
 				       (CORBA_long) newOffset, cspi_ev ());
+
+  cspi_return_val_if_ev ("setCaretOffset", FALSE);
+
+  return retval;
 }
 
 /**
@@ -168,7 +200,6 @@ AccessibleText_setCaretOffset (AccessibleText *obj,
  * Returns: a UTF-8 string representing the delimited text, both of whose
  *          delimiting boundaries are before the current offset, or
  *          an empty string if no such text exists.
- *
  **/
 char *
 AccessibleText_getTextBeforeOffset (AccessibleText *obj,
@@ -209,7 +240,6 @@ AccessibleText_getTextBeforeOffset (AccessibleText *obj,
  * Returns: a UTF-8 string representing the delimited text, whose
  *          delimiting boundaries bracket the current offset, or
  *          an empty string if no such text exists.
- *
  **/
 char *
 AccessibleText_getTextAtOffset (AccessibleText *obj,
@@ -219,21 +249,36 @@ AccessibleText_getTextAtOffset (AccessibleText *obj,
 {
   CORBA_long corbaStartOffset;
   CORBA_long corbaEndOffset;
-  char *retval = "";
+  char      *retval;
+
+  if (obj == NULL)
+    {
+      *startOffset = *endOffset = 0;
+      return NULL;
+    }
+
   retval = Accessibility_Text_getTextAtOffset (CSPI_OBJREF (obj),
 					       (CORBA_long) offset,
 					       (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					       &corbaStartOffset,
 					       &corbaEndOffset,
 					       cspi_ev ());
-  *startOffset = (long) corbaStartOffset;
-  *endOffset = (long) corbaEndOffset;
+
+  if (!cspi_check_ev ("getTextAtOffset"))
+    {
+      *startOffset = *endOffset = 0;
+      retval = NULL;
+    }
+  else
+    {
+      *startOffset = corbaStartOffset;
+      *endOffset   = corbaEndOffset;
+    }
 #ifdef CSPI_DEBUG
   fprintf (stderr, "text offsets %ld to %ld\n", *startOffset, *endOffset);
 #endif
   return retval;
 }
-
 
 /**
  * AccessibleText_getTextAfterOffset:
@@ -255,7 +300,6 @@ AccessibleText_getTextAtOffset (AccessibleText *obj,
  * Returns: a UTF-8 string representing the delimited text, both of whose
  *          delimiting boundaries are after or inclusive of the current
  *          offset, or an empty string if no such text exists.
- *
  **/
 char *
 AccessibleText_getTextAfterOffset (AccessibleText *obj,
@@ -265,17 +309,31 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
 {
   char *retval;
   CORBA_long retStartOffset, retEndOffset;
+
+  if (obj == NULL)
+    {
+      *startOffset = *endOffset = 0;
+      return NULL;
+    }
+
   retval = (char *)
     Accessibility_Text_getTextAfterOffset (CSPI_OBJREF (obj),
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
 					   cspi_ev ());
-  *startOffset = (long) retStartOffset;
-  *endOffset = (long) retEndOffset;
+
+  if (!cspi_check_ev ("getTextAfterOffset"))
+    {
+      *startOffset = *endOffset = 0;
+    }
+  else
+    {
+      *startOffset = retStartOffset;
+      *endOffset   = retEndOffset;
+    }
+
   return retval;
 }
-
-
 
 /**
  * AccessibleText_getCharacterAtOffset:
@@ -289,15 +347,23 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
  *        UCS-4 unicode code point of the given character, or
  *        0xFFFFFFFF if the character in question cannot be represented
  *        in the UCS-4 encoding.
- *
  **/
 unsigned long
 AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long int offset)
 {
-  return (unsigned long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Text_getCharacterAtOffset (CSPI_OBJREF (obj),
-					     (CORBA_long) offset, cspi_ev ());
+					     (CORBA_long) offset,
+					     cspi_ev ());
+
+  cspi_return_val_if_ev ("getCharacterAtOffset", -1);
+
+  return retval;
 }
 
 /**
@@ -318,7 +384,6 @@ AccessibleText_getCharacterAtOffset (AccessibleText *obj,
  *
  * Get the bounding box containing the glyph representing
  *        the character at a particular text offset.
- *
  **/
 void
 AccessibleText_getCharacterExtents (AccessibleText *obj,
@@ -330,6 +395,14 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
 				    AccessibleCoordType type)
 {
   CORBA_long retX, retY, retWidth, retHeight;
+
+  if (obj == NULL)
+    {
+      *x = *y = 0;
+      *width = *height = 0;
+      return;
+    }
+
   Accessibility_Text_getCharacterExtents (CSPI_OBJREF (obj),
 					  (CORBA_long) offset,
 					  &retX,
@@ -337,12 +410,20 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
 					  &retWidth,
 					  &retHeight,
 					  (CORBA_short) type, cspi_ev ());
-  *x = (long) retX;
-  *y = (long) retY;
-  *width = (long) retWidth;
-  *height = (long) retHeight;
-}
 
+  if (!cspi_check_ev ("getCharacterExtents"))
+    {
+      *x = *y = 0;
+      *width = *height = 0;
+    }
+  else
+    {
+      *x = retX;
+      *y = retY;
+      *width = retWidth;
+      *height = retHeight;
+    }
+}
 
 /**
  * AccessibleText_getOffsetAtPoint:
@@ -364,11 +445,20 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
                                  long int y,
 				 AccessibleCoordType type)
 {
-  return (long)
-    Accessibility_Text_getOffsetAtPoint (CSPI_OBJREF (obj),
-					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, cspi_ev ());
-}
+  long retval;
 
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Text_getOffsetAtPoint (CSPI_OBJREF (obj),
+					 (CORBA_long) x,
+					 (CORBA_long) y,
+					 (CORBA_short) type, cspi_ev ());
+
+  cspi_return_val_if_ev ("getOffsetAtPoint", -1);
+
+  return retval;
+}
 
 /**
  * AccessibleText_getNSelections:
@@ -380,16 +470,21 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
  * Returns: a long integer indicating the current
  *          number of non-contiguous text selections active
  *          within an #AccessibleText object.
- *
  **/
 long
 AccessibleText_getNSelections (AccessibleText *obj)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Text_getNSelections (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getNSelections", -1);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleText_getSelection:
@@ -402,7 +497,6 @@ AccessibleText_getNSelections (AccessibleText *obj)
  *
  * Get the bounds of the @selectionNum-th active text selection for an
  *         #AccessibleText object.
- *
  **/
 void
 AccessibleText_getSelection (AccessibleText *obj,
@@ -411,15 +505,28 @@ AccessibleText_getSelection (AccessibleText *obj,
 			     long int *endOffset)
 {
   CORBA_long retStartOffset, retEndOffset;
+
+  if (obj == NULL)
+    {
+      *endOffset = *startOffset = -1;
+      return;
+    }
+
   Accessibility_Text_getSelection (CSPI_OBJREF (obj),
 				   (CORBA_long) selectionNum,
-				   &retStartOffset, &retEndOffset, cspi_ev ());
-  
-  *startOffset = (long) retStartOffset;
-  *endOffset = (long) retEndOffset;
+				   &retStartOffset, &retEndOffset,
+				   cspi_ev ());
+
+  if (!cspi_check_ev ("getSelection"))
+    {
+      *startOffset = *endOffset = 0;
+    }
+  else
+    {
+      *startOffset = retStartOffset;
+      *endOffset   = retEndOffset;
+    }
 }
-
-
 
 /**
  * AccessibleText_addSelection:
@@ -430,18 +537,24 @@ AccessibleText_getSelection (AccessibleText *obj,
  * Select some text (add a text selection) in an #AccessibleText object.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleText_addSelection (AccessibleText *obj,
 			     long int startOffset, long int endOffset)
 {
-  return (SPIBoolean)
-    Accessibility_Text_addSelection (CSPI_OBJREF (obj),
-				     (CORBA_long) startOffset, (CORBA_long) endOffset,
-				     cspi_ev ());
-}
+  SPIBoolean retval;
 
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Text_addSelection (
+      CSPI_OBJREF (obj), (CORBA_long) startOffset,
+      (CORBA_long) endOffset, cspi_ev ());
+
+  cspi_return_val_if_ev ("addSelection", FALSE);
+
+  return retval;
+}
 
 /**
  * AccessibleText_removeSelection:
@@ -452,15 +565,22 @@ AccessibleText_addSelection (AccessibleText *obj,
  * De-select a text selection.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleText_removeSelection (AccessibleText *obj,
 				long int selectionNum)
 {
-  return (SPIBoolean)
-    Accessibility_Text_removeSelection (CSPI_OBJREF (obj),
-					(CORBA_long) selectionNum, cspi_ev ());
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Text_removeSelection (
+      CSPI_OBJREF (obj), (CORBA_long) selectionNum, cspi_ev ());
+
+  cspi_return_val_if_ev ("removeSelection", FALSE);
+
+  return retval;
 }
 
 /**
@@ -474,7 +594,6 @@ AccessibleText_removeSelection (AccessibleText *obj,
  * Change the bounds of an existing #AccessibleText text selection.
  *
  * Returns: #TRUE if successful, #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleText_setSelection (AccessibleText *obj,
@@ -482,11 +601,16 @@ AccessibleText_setSelection (AccessibleText *obj,
 			     long int startOffset,
 			     long int endOffset)
 {
-  return (SPIBoolean)
-    Accessibility_Text_setSelection (CSPI_OBJREF (obj),
-				     (CORBA_long) selectionNum,
-				     (CORBA_long) startOffset,
-				     (CORBA_long) endOffset, cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  Accessibility_Text_setSelection (CSPI_OBJREF (obj),
+				   (CORBA_long) selectionNum,
+				   (CORBA_long) startOffset,
+				   (CORBA_long) endOffset, cspi_ev ());
+
+  cspi_return_val_if_ev ("setSelection", FALSE);
+
+  return TRUE;
 }
 
 

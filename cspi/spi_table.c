@@ -36,8 +36,8 @@ AccessibleTable_unref (AccessibleTable *obj)
 Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj)
 {
-  return (Accessible *)
-    Accessibility_Table__get_caption (CSPI_OBJREF (obj), cspi_ev ());
+  return cspi_object_add (
+    Accessibility_Table__get_caption (CSPI_OBJREF (obj), cspi_ev ()));
 }
 
 /**
@@ -48,13 +48,12 @@ AccessibleTable_getCaption (AccessibleTable *obj)
  *
  * Returns: an #Accessible object that serves as the table's summary (often a
  *          reduced #AccessibleTable).
- *
  **/
 Accessible *
 AccessibleTable_getSummary (AccessibleTable *obj)
 {
-  return (Accessible *)
-    Accessibility_Table__get_summary (CSPI_OBJREF (obj), cspi_ev ());
+  return cspi_object_add (
+    Accessibility_Table__get_summary (CSPI_OBJREF (obj), cspi_ev ()));
 }
 
 /**
@@ -66,13 +65,21 @@ AccessibleTable_getSummary (AccessibleTable *obj)
  *        of rows that may be outside of the current scrolling window or viewport.
  *
  * Returns: a #long integer indicating the number of rows in the table.
- *
  **/
 long
 AccessibleTable_getNRows (AccessibleTable *obj)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Table__get_nRows (CSPI_OBJREF (obj), cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getNRows", -1);
+
+  return retval;
+	  
 }
 
 /**
@@ -84,13 +91,20 @@ AccessibleTable_getNRows (AccessibleTable *obj)
  *        of columns that may be outside of the current scrolling window or viewport.
  *
  * Returns: a #long integer indicating the number of columns in the table.
- *
  **/
 long
 AccessibleTable_getNColumns (AccessibleTable *obj)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Table__get_nColumns (CSPI_OBJREF (obj), cspi_ev ());
+	  
+  cspi_return_val_if_ev ("", -1);
+
+  return retval;
 }
 
 /**
@@ -104,16 +118,16 @@ AccessibleTable_getNColumns (AccessibleTable *obj)
  *          use #Accessible_getAccessibleAtPoint ().
  *
  * Returns: an #Accessible object representing the specified table cell.
- *
  **/
 Accessible *
 AccessibleTable_getAccessibleAt (AccessibleTable *obj,
                                  long int row,
                                  long int column)
 {
-  return (Accessible *)
-    Accessibility_Table_getAccessibleAt (CSPI_OBJREF (obj),
-			       (CORBA_long) row, (CORBA_long) column, cspi_ev ());
+  return cspi_object_add (
+    Accessibility_Table_getAccessibleAt (
+      CSPI_OBJREF (obj), (CORBA_long) row,
+      (CORBA_long) column, cspi_ev ()));
 }
 
 /**
@@ -129,19 +143,25 @@ AccessibleTable_getAccessibleAt (AccessibleTable *obj,
  *
  * Returns: a long integer which serves as the index of a specified cell in the
  *          table, in a form usable by #Accessible_getChildAtIndex().
- *
  **/
 long
 AccessibleTable_getIndexAt (AccessibleTable *obj,
                             long int row,
                             long int column)
 {
-  return (long)
-    Accessibility_Table_getIndexAt (CSPI_OBJREF (obj),
-				    (CORBA_long) row, (CORBA_long) column, cspi_ev ());
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Table_getIndexAt (
+      CSPI_OBJREF (obj), (CORBA_long) row,
+      (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getIndexAt", -1);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_getRowAtIndex:
@@ -154,18 +174,23 @@ AccessibleTable_getIndexAt (AccessibleTable *obj,
  *
  * Returns: a long integer indicating the first row spanned by the child of a
  *          table, at the specified 1-D (zero-offset) @index.
- *
  **/
 long
 AccessibleTable_getRowAtIndex (AccessibleTable *obj,
                                long index)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Table_getRowAtIndex (CSPI_OBJREF (obj),
 				       (CORBA_long) index, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("", -1);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_getColumnAtIndex:
@@ -178,18 +203,23 @@ AccessibleTable_getRowAtIndex (AccessibleTable *obj,
  *
  * Returns: a long integer indicating the first column spanned by the child of a
  *          table, at the specified 1-D (zero-offset) @index.
- *
  **/
 long
 AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
                                   long index)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Table_getColumnAtIndex (CSPI_OBJREF (obj),
 					  (CORBA_long) index, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getColumnAtIndex", -1);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_getRowDescription:
@@ -200,18 +230,23 @@ AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
  * AccessibleTable_getRowHeader, which returns an #Accessible.
  *
  * Returns: a UTF-8 string describing the specified table row, if available.
- *
  **/
 char *
 AccessibleTable_getRowDescription (AccessibleTable *obj,
-				   long int row)
+				   long int         row)
 {
-  return (char *)
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =
     Accessibility_Table_getRowDescription (CSPI_OBJREF (obj),
 					   (CORBA_long) row, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getRowDescription", NULL);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_getColumnDescription:
@@ -222,18 +257,23 @@ AccessibleTable_getRowDescription (AccessibleTable *obj,
  * AccessibleTable_getColumnHeader, which returns an #Accessible.
  *
  * Returns: a UTF-8 string describing the specified table column, if available.
- *
  **/
 char *
 AccessibleTable_getColumnDescription (AccessibleTable *obj,
-				      long int column)
+				      long int         column)
 {
-  return (char *)
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =
     Accessibility_Table_getColumnDescription (CSPI_OBJREF (obj),
 					      (CORBA_long) column, cspi_ev ());
+
+  cspi_return_val_if_ev ("getColumnDescription", NULL);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_getRowExtentAt:
@@ -245,19 +285,25 @@ AccessibleTable_getColumnDescription (AccessibleTable *obj,
  * (some tables can have cells which span multiple rows and/or columns).
  *
  * Returns: a long integer indicating the number of rows spanned by the specified cell.
- *
  **/
 long
 AccessibleTable_getRowExtentAt (AccessibleTable *obj,
-                                long int row,
-                                long int column)
+                                long int         row,
+                                long int         column)
 {
-  return (long)
-    Accessibility_Table_getRowExtentAt (CSPI_OBJREF (obj),
-					(CORBA_long) row, (CORBA_long) column, cspi_ev ());
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Table_getRowExtentAt (
+      CSPI_OBJREF (obj), (CORBA_long) row,
+      (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getRowExtentAt", -1);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_getColumnExtentAt:
@@ -269,18 +315,25 @@ AccessibleTable_getRowExtentAt (AccessibleTable *obj,
  * (some tables can have cells which span multiple rows and/or columns).
  *
  * Returns: a long integer indicating the number of columns spanned by the specified cell.
- *
  **/
 long
 AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
-                                   long int row,
-                                   long int column)
+                                   long int         row,
+                                   long int         column)
 {
-  return (long)
-    Accessibility_Table_getColumnExtentAt (CSPI_OBJREF (obj),
-					(CORBA_long) row, (CORBA_long) column, cspi_ev ());
-}
+  long retval;
 
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Table_getColumnExtentAt (
+      CSPI_OBJREF (obj), (CORBA_long) row,
+      (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getColumnExtentAt", -1);
+
+  return retval;
+}
 
 /**
  * AccessibleTable_getRowHeader:
@@ -291,18 +344,15 @@ AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
  * AccessibleTable_getRowDescription, which returns a string.
  *
  * Returns: a #Accessible representatin of the specified table row, if available.
- *
  **/
 Accessible *
 AccessibleTable_getRowHeader (AccessibleTable *obj,
-			      long int row)
+			      long int         row)
 {
-  return (Accessible *)
+  return cspi_object_add (
     Accessibility_Table_getRowHeader (CSPI_OBJREF (obj),
-				      (CORBA_long) row, cspi_ev ());
+				      (CORBA_long) row, cspi_ev ()));
 }
-
-
 
 /**
  * AccessibleTable_getColumnHeader:
@@ -313,17 +363,15 @@ AccessibleTable_getRowHeader (AccessibleTable *obj,
  * AccessibleTable_getColumnDescription, which returns a string.
  *
  * Returns: a #Accessible representatin of the specified table column, if available.
- *
  **/
 Accessible *
 AccessibleTable_getColumnHeader (AccessibleTable *obj,
 				 long int column)
 {
-  return (Accessible *)
+  return cspi_object_add (
     Accessibility_Table_getColumnHeader (CSPI_OBJREF (obj),
-				      (CORBA_long) column, cspi_ev ());
+				      (CORBA_long) column, cspi_ev ()));
 }
-
 
 /**
  * AccessibleTable_getNSelectedRows:
@@ -337,11 +385,42 @@ AccessibleTable_getColumnHeader (AccessibleTable *obj,
 long
 AccessibleTable_getNSelectedRows (AccessibleTable *obj)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
     Accessibility_Table__get_nSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getNSelectedRows", -1);
+
+  return retval;
 }
 
+static long
+long_seq_to_array (Accessibility_LongSeq *seq, long int **array)
+{
+  long *j, length, i;
 
+  if (!cspi_check_ev ("getSelectionItems"))
+    {
+      *array = NULL;
+      return 0;
+    }
+
+  length = seq->_length;
+
+  j = *array = g_new (long, length);
+
+  for (i = 0; i < length; i++)
+    {
+      j[i] = seq->_buffer [i];
+    }
+
+  CORBA_free (seq);
+
+  return length;
+}
 
 /**
  * AccessibleTable_getSelectedRows:
@@ -355,26 +434,18 @@ AccessibleTable_getNSelectedRows (AccessibleTable *obj)
  **/
 long
 AccessibleTable_getSelectedRows (AccessibleTable *obj,
-                                 long int **selectedRows)
+                                 long int       **selectedRows)
 {
-  Accessibility_LongSeq *rows = Accessibility_Table_getSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
-  CORBA_long *i;
-  long *j;
-  long length;
+  Accessibility_LongSeq *rows;
 
-  i = rows->_buffer;
-  length = (long) rows->_length;
-  j = *selectedRows = (long *) malloc (sizeof(long)*length);
-  
-  while (length--)
-    *j++ = (CORBA_long) (*i++);
+  *selectedRows = NULL;
 
-  length = rows->_length;
-  CORBA_free (rows);
-  return length;
+  cspi_return_val_if_fail (obj != NULL, 0);
+
+  rows = Accessibility_Table_getSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
+
+  return long_seq_to_array (rows, selectedRows);
 }
-
-
 
 /**
  * AccessibleTable_getNSelectedColumns:
@@ -388,10 +459,17 @@ AccessibleTable_getSelectedRows (AccessibleTable *obj,
 long
 AccessibleTable_getNSelectedColumns (AccessibleTable *obj)
 {
-  return (long)
-    Accessibility_Table__get_nSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
-}
+  long retval;
 
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Table__get_nSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
+	  
+  cspi_return_val_if_ev ("getNSelectedColumns", -1);
+
+  return retval;
+}
 
 /**
  * AccessibleTable_getSelectedColumns:
@@ -406,25 +484,18 @@ AccessibleTable_getNSelectedColumns (AccessibleTable *obj)
  **/
 long
 AccessibleTable_getSelectedColumns (AccessibleTable *obj,
-                                    long int **selectedColumns)
+                                    long int       **selectedColumns)
 {
-  Accessibility_LongSeq *columns = Accessibility_Table_getSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
-  CORBA_long *i;
-  long *j;
-  long length;
+  Accessibility_LongSeq *columns;
 
-  i = columns->_buffer;
-  length = (long) columns->_length;
-  j = *selectedColumns = (long *) malloc (sizeof(long)*length);
-  
-  while (length--)
-    *j++ = (CORBA_long) (*i++);
+  *selectedColumns = NULL;
 
-  length = columns->_length;
-  CORBA_free (columns);
-  return length;
+  cspi_return_val_if_fail (obj != NULL, 0);
+
+  columns = Accessibility_Table_getSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
+
+  return long_seq_to_array (columns, selectedColumns);
 }
-
 
 /**
  * AccessibleTable_isRowSelected:
@@ -434,18 +505,23 @@ AccessibleTable_getSelectedColumns (AccessibleTable *obj,
  * Determine whether a table row is selected.  Not all tables support row selection.
  *
  * Returns: #TRUE if the specified row is currently selected, #FALSE if not.
- *
  **/
 SPIBoolean
 AccessibleTable_isRowSelected (AccessibleTable *obj,
-                               long int row)
+                               long int         row)
 {
-  return (SPIBoolean)
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
     Accessibility_Table_isRowSelected (CSPI_OBJREF (obj),
 				       (CORBA_long) row, cspi_ev ());
+
+  cspi_return_val_if_ev ("isRowSelected", FALSE);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_isColumnSelected:
@@ -456,18 +532,23 @@ AccessibleTable_isRowSelected (AccessibleTable *obj,
  * Not all tables support column selection.
  *
  * Returns: #TRUE if the specified column is currently selected, #FALSE if not.
- *
  **/
 SPIBoolean
 AccessibleTable_isColumnSelected (AccessibleTable *obj,
-                                  long int column)
+                                  long int         column)
 {
-  return (SPIBoolean)
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
     Accessibility_Table_isColumnSelected (CSPI_OBJREF (obj),
-				       (CORBA_long) column, cspi_ev ());
+					  (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("isColumnSelected", FALSE);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleTable_isSelected:
@@ -478,15 +559,23 @@ AccessibleTable_isColumnSelected (AccessibleTable *obj,
  * Determine whether the cell at a specific row and column is selected.
  *
  * Returns: #TRUE if the specified cell is currently selected, #FALSE if not.
- *
  **/
 SPIBoolean
 AccessibleTable_isSelected (AccessibleTable *obj,
                             long int row,
                             long int column)
 {
-  return (SPIBoolean)
-  Accessibility_Table_isSelected (CSPI_OBJREF (obj),
-				  (CORBA_long) row, (CORBA_long) column, cspi_ev ());
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Table_isSelected (CSPI_OBJREF (obj),
+				    (CORBA_long) row,
+				    (CORBA_long) column, cspi_ev ());
+	  
+  cspi_return_val_if_ev ("isSelected", FALSE);
+
+  return retval;
 }
 
