@@ -4,7 +4,7 @@ INCLUDES = -I $(top_srcdir)           \
            -I $(top_builddir)         \
            $(LIBSPI_CFLAGS)
 
-LDFLAGS = $(LIBSPI_LIBS) -lXtst @LT_VERSION_INFO@
+LDFLAGS = $(LIBSPI_LIBS) $(XTST_LIBS) @LT_VERSION_INFO@
 
 DEBUG_CFLAGS=-DSPI_DEBUG
 

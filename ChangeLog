@@ -1,3 +1,7 @@
+2001-11-21  Laszlo Peter  <laca@ireland.sun.com>
+
+	* configure.in, libspi/Makefile.am: find libXtst.
+
 2001-11-21  Michael Meeks  <michael@ximian.com>
 
 	* test/accessx-gui.c: s/spi_value/value/ - doh.
