@@ -1,14 +1,14 @@
 # German atk translation.
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002-2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
-# Christian Neumair <chris@gnome-de.org>, 2002, 2003.
+# Christian Neumair <chris@gnome-de.org>, 2002-2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.5.1\n"
+"Project-Id-Version: atk 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-26 11:42+0100\n"
-"PO-Revision-Date: 2003-12-26 11:42+0100\n"
+"POT-Creation-Date: 2004-02-21 12:16+0100\n"
+"PO-Revision-Date: 2004-02-21 12:16+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -481,8 +481,8 @@ msgstr ""
 "verwendet"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
-msgstr "Barrierefreie Anzahl der Hypertext-Links"
+msgid "Number of Accessible Hypertext Links"
+msgstr "Anzahl der barrierefreien Hypertext-Links"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
