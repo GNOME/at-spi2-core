@@ -1,3 +1,19 @@
+2001-10-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.[c|h]
+	Remove the following properties
+	accessible-child - use signal children_changed for notification
+	accessible-text - use signal text_changed for notification
+	accessible-caret - use signal text_caret_moved for notification
+	accessible-selection - use new signal selection_changed 
+	for notification
+	accessible-visible-data - use new signal visible_data_changed
+	for notification
+	accessible-model - use new signal model_changed for notification
+	Notify when role or parent changes
+	Allow parent and role to be set or got using g_object_set() or
+	g_object_get()
+.
 Wed Oct 24 11:13:13 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* Version 0.6

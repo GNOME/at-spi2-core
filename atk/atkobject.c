@@ -31,13 +31,8 @@ enum
   PROP_NAME,
   PROP_DESCRIPTION,
   PROP_PARENT,      /* ancestry has changed */
-  PROP_CHILD,       /* a child has been added or removed */
   PROP_STATE,       /* AtkStateSet for the object has changed */
-  PROP_TEXT,        /* Used only by AtkText implementors */
-  PROP_CARET,       /* Used only by AtkText implementors */
-  PROP_SELECTION,
   PROP_VALUE,
-  PROP_VISIBLE_DATA,
   PROP_ROLE,
   PROP_TABLE_CAPTION,
   PROP_TABLE_COLUMN_DESCRIPTION,
@@ -45,14 +40,16 @@ enum
   PROP_TABLE_ROW_DESCRIPTION,
   PROP_TABLE_ROW_HEADER,
   PROP_TABLE_SUMMARY,
-  PROP_MODEL,
   PROP_LAST         /* gobject convention */
 };
 
 enum {
   CHILDREN_CHANGED,
   FOCUS_EVENT,
+  MODEL_CHANGED,
   PROPERTY_CHANGE,
+  SELECTION_CHANGED,
+  VISIBLE_DATA_CHANGED,
 
   LAST_SIGNAL
 };
@@ -108,13 +105,8 @@ static gpointer parent_class = NULL;
 static const gchar* atk_object_name_property_name = "accessible-name";
 static const gchar* atk_object_name_property_state = "accessible-state";
 static const gchar* atk_object_name_property_description = "accessible-description";
-static const gchar* atk_object_name_property_child = "accessible-child";
 static const gchar* atk_object_name_property_parent = "accessible-parent";
-static const gchar* atk_object_name_property_text = "accessible-text";
-static const gchar* atk_object_name_property_caret = "accessible-caret";
-static const gchar* atk_object_name_property_selection = "accessible-selection";
 static const gchar* atk_object_name_property_value = "accessible-value";
-static const gchar* atk_object_name_property_visible = "accessible-visible-data";
 static const gchar* atk_object_name_property_role = "accessible-role";
 static const gchar* atk_object_name_property_table_caption = "accessible-table-caption";
 static const gchar* atk_object_name_property_table_column_description = "accessible-table-column-description";
@@ -122,7 +114,6 @@ static const gchar* atk_object_name_property_table_column_header = "accessible-t
 static const gchar* atk_object_name_property_table_row_description = "accessible-table-row-description";
 static const gchar* atk_object_name_property_table_row_header = "accessible-table-row-header";
 static const gchar* atk_object_name_property_table_summary = "accessible-table-summary";
-static const gchar* atk_object_name_property_model = "accessible-model";
 
 GType
 atk_object_get_type (void)
@@ -183,7 +174,10 @@ atk_object_class_init (AtkObjectClass *klass)
    */
   klass->children_changed = NULL;
   klass->focus_event = NULL;
+  klass->model_changed = NULL;
   klass->property_change = NULL;
+  klass->selection_changed = NULL;
+  klass->visible_data_changed = NULL;
 
   g_object_class_install_property (gobject_class,
                                    PROP_NAME,
@@ -212,40 +206,10 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         0,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
-                                   PROP_CHILD,
-                                   g_param_spec_object (atk_object_name_property_child,
-                                                        "Accessible Child",
-                                                        "Is used to notify that a child has been added or removed ",
-                                                        ATK_TYPE_OBJECT,
-                                                        G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
                                    PROP_PARENT,
                                    g_param_spec_object (atk_object_name_property_parent,
                                                         "Accessible Parent",
                                                         "Is used to notify that the parent has changed ",
-                                                        ATK_TYPE_OBJECT,
-                                                        G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_TEXT,
-                                   g_param_spec_object (atk_object_name_property_text,
-                                                        "Accessible Text",
-                                                        "Is used to notify that the text has changed ",
-                                                        ATK_TYPE_OBJECT,
-                                                        G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_CARET,
-                                   g_param_spec_int    (atk_object_name_property_caret,
-                                                        "Accessible Caret",
-                                                        "Is used to notify that the caret position has changed ",
-                                                        0,
-                                                        G_MAXINT,
-                                                        0,
-                                                        G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_SELECTION,
-                                   g_param_spec_object (atk_object_name_property_selection,
-                                                        "Accessible Selection",
-                                                        "Is used to notify that the selection has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
@@ -256,13 +220,6 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         0.0,
                                                         G_MAXDOUBLE,
                                                         0.0,
-                                                        G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_VISIBLE_DATA,
-                                   g_param_spec_object (atk_object_name_property_visible,
-                                                        "Accessible Visible Data",
-                                                        "Is used to notify that the visual appearance of the object has changed ",
-                                                        ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_ROLE,
@@ -315,13 +272,6 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         "Is used to notify that the table summary has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_MODEL,
-                                   g_param_spec_object (atk_object_name_property_model,
-                                                        "Accessible Model",
-                                                        "Is used to notify that the model for Table or Tree has changed ",
-                                                        ATK_TYPE_OBJECT,
-                                                        G_PARAM_READWRITE));
   /*
    * The signal "children_changed" supports two details:
    * "add" and "remove"
@@ -344,6 +294,14 @@ atk_object_class_init (AtkObjectClass *klass)
 		  g_cclosure_marshal_VOID__BOOLEAN,
 		  G_TYPE_NONE,
 		  1, G_TYPE_BOOLEAN);
+  atk_object_signals[MODEL_CHANGED] =
+    g_signal_new ("model_changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (AtkObjectClass, model_changed),
+                  (GSignalAccumulator) NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
   atk_object_signals[PROPERTY_CHANGE] =
     g_signal_new ("property_change",
                   G_TYPE_FROM_CLASS (klass),
@@ -353,6 +311,22 @@ atk_object_class_init (AtkObjectClass *klass)
                   g_cclosure_marshal_VOID__POINTER,
                   G_TYPE_NONE, 1,
                   G_TYPE_POINTER);
+  atk_object_signals[SELECTION_CHANGED] =
+    g_signal_new ("selection_changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (AtkObjectClass, selection_changed),
+                  (GSignalAccumulator) NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
+  atk_object_signals[VISIBLE_DATA_CHANGED] =
+    g_signal_new ("visible_data_changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (AtkObjectClass, visible_data_changed),
+                  (GSignalAccumulator) NULL, NULL,
+                  g_cclosure_marshal_VOID__VOID,
+                  G_TYPE_NONE, 0);
 }
 
 static void
@@ -676,7 +650,10 @@ atk_object_set_parent (AtkObject *accessible,
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_parent)
-    (klass->set_parent) (accessible, parent);
+    {
+      (klass->set_parent) (accessible, parent);
+      g_object_notify (G_OBJECT (accessible), atk_object_name_property_parent);
+    }
 }
 
 /**
@@ -696,7 +673,10 @@ atk_object_set_role (AtkObject *accessible,
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
   if (klass->set_role)
-    (klass->set_role) (accessible, role);
+    {
+      (klass->set_role) (accessible, role);
+      g_object_notify (G_OBJECT (accessible), atk_object_name_property_role);
+    }
 }
 
 /**
@@ -759,10 +739,8 @@ atk_object_notify_state_change (AtkObject *accessible,
                                 AtkState  state,
                                 gboolean  value)
 {
-  AtkPropertyValues  values;
+  AtkPropertyValues  values = { 0, };
 
-  memset (&values.old_value, 0, sizeof (GValue));
-  memset (&values.new_value, 0, sizeof (GValue));
   values.property_name = atk_object_name_property_state;
   if (value)
     {
@@ -834,8 +812,11 @@ atk_object_real_set_property (GObject      *object,
     case PROP_DESCRIPTION:
       atk_object_set_description (accessible, g_value_get_string (value));
       break;
-    case PROP_STATE:
-      g_print ("This interface does not support setting the state set of an accessible object\n");
+    case PROP_ROLE:
+      atk_object_set_role (accessible, g_value_get_int (value));
+      break;
+    case PROP_PARENT:
+      atk_object_set_parent (accessible, g_value_get_object (value));
       break;
     case PROP_VALUE:
       if (ATK_IS_VALUE (accessible))
@@ -863,12 +844,18 @@ atk_object_real_get_property (GObject      *object,
       break;
     case PROP_DESCRIPTION:
       g_value_set_string (value, atk_object_get_description (accessible));
+    case PROP_ROLE:
+      g_value_set_int (value, atk_object_get_role (accessible));
+      break;
+    case PROP_PARENT:
+      g_value_set_object (value, atk_object_get_parent (accessible));
       break;
     case PROP_VALUE:
       if (ATK_IS_VALUE (accessible))
         atk_value_get_current_value (ATK_VALUE (accessible), value);
       break;
     default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
     }
 }
@@ -1016,7 +1003,7 @@ atk_object_notify (GObject     *obj,
   AtkPropertyValues values = { 0, };
 
   g_value_init (&values.new_value, pspec->value_type);
-  g_object_get_property(obj, pspec->name, &values.new_value);
+  g_object_get_property (obj, pspec->name, &values.new_value);
   values.property_name = pspec->name;
   g_signal_emit (obj, atk_object_signals[PROPERTY_CHANGE],
                  g_quark_from_string (pspec->name),

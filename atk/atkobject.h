@@ -211,7 +211,7 @@ typedef struct _AtkStateSet               AtkStateSet;
 
 struct _AtkPropertyValues
 {
-  gchar  *property_name;
+  const gchar  *property_name;
   GValue old_value;
   GValue new_value;
 };
@@ -337,11 +337,26 @@ void                      (* remove_property_change_handler)     (AtkObject
   void                    (*focus_event)          (AtkObject                  *accessible,
                                                    gboolean                   focus_in);
   /*
+   * The signal handler which is executed when there is a model change
+   * for an object
+   */
+  void                    (*model_changed)        (AtkObject                  *accessible);
+  /*
    * The signal handler which is executed  when there is a property_change 
    * signal for an object.
    */
-  gint                    (*property_change)      (AtkObject                 *accessible,
-                                                   AtkPropertyValues         *values);
+  gint                    (*property_change)      (AtkObject                  *accessible,
+                                                   AtkPropertyValues          *values);
+  /*
+   * The signal handler which is executed when there is a selection change
+   * for an object
+   */
+  void                    (*selection_changed)    (AtkObject                  *accessible);
+  /*
+   * The signal handler which is executed when there is a change in the
+   * visible data for an object
+   */
+  void                    (*visible_data_changed) (AtkObject                  *accessible);
 
 };
 
