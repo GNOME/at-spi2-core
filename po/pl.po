@@ -9,12 +9,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2003-01-02 00:20+0100\n"
-"Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
+"POT-Creation-Date: 2003-05-05 19:20+0200\n"
+"PO-Revision-Date: 2003-05-05 19:33--100\n"
+"Last-Translator:  <>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: atk/atkobject.c:1242
@@ -23,11 +23,11 @@ msgstr "niepoprawny"
 
 #: atk/atkobject.c:1245
 msgid "accel-label"
-msgstr ""
+msgstr "etykieta-z-klawiszem-skrótu"
 
 #: atk/atkobject.c:1248
 msgid "alert"
-msgstr ""
+msgstr "alarm"
 
 #: atk/atkobject.c:1251
 msgid "animation"
@@ -47,11 +47,11 @@ msgstr "płótno"
 
 #: atk/atkobject.c:1263
 msgid "check-box"
-msgstr ""
+msgstr "przycisk-opcji"
 
 #: atk/atkobject.c:1266
 msgid "check-menu-item"
-msgstr ""
+msgstr "element-menu-wyboru"
 
 #: atk/atkobject.c:1269
 msgid "color-chooser"
@@ -63,11 +63,11 @@ msgstr "nagłówek-kolumny"
 
 #: atk/atkobject.c:1275
 msgid "combo-box"
-msgstr ""
+msgstr "wejście-z-opcjami"
 
 #: atk/atkobject.c:1278
 msgid "date-editor"
-msgstr ""
+msgstr "edytor-dat"
 
 #: atk/atkobject.c:1281
 msgid "desktop-icon"
@@ -77,9 +77,11 @@ msgstr "ikona-pulpitu"
 msgid "desktop-frame"
 msgstr "ramka-pulpitu"
 
+# chyba o to może chodzić
+# ew. wybieranie numeru.
 #: atk/atkobject.c:1287
 msgid "dial"
-msgstr ""
+msgstr "tarcza-liczbowa"
 
 #: atk/atkobject.c:1290
 msgid "dialog"
@@ -87,7 +89,7 @@ msgstr "okno-dialogowe"
 
 #: atk/atkobject.c:1293
 msgid "directory-pane"
-msgstr ""
+msgstr "obszar-katalogu"
 
 #: atk/atkobject.c:1296
 msgid "drawing-area"
@@ -111,11 +113,11 @@ msgstr "ramka"
 
 #: atk/atkobject.c:1311
 msgid "glass-pane"
-msgstr ""
+msgstr "obszar-szklany"
 
 #: atk/atkobject.c:1314
 msgid "html-container"
-msgstr ""
+msgstr "zawartość-html"
 
 #: atk/atkobject.c:1317
 msgid "icon"
@@ -135,7 +137,7 @@ msgstr "etykieta"
 
 #: atk/atkobject.c:1329
 msgid "layered-pane"
-msgstr ""
+msgstr "obszar-warstwowy"
 
 #: atk/atkobject.c:1332
 msgid "list"
@@ -159,7 +161,7 @@ msgstr "obiekt-menu"
 
 #: atk/atkobject.c:1347
 msgid "option-pane"
-msgstr ""
+msgstr "obszar-opcji"
 
 #: atk/atkobject.c:1350
 msgid "page-tab"
@@ -167,7 +169,7 @@ msgstr "zakładka-strony"
 
 #: atk/atkobject.c:1353
 msgid "page-tab-list"
-msgstr ""
+msgstr "lista-zakładek-stron"
 
 #: atk/atkobject.c:1356
 msgid "panel"
@@ -175,7 +177,7 @@ msgstr "panel"
 
 #: atk/atkobject.c:1359
 msgid "password-text"
-msgstr ""
+msgstr "tekst-hasła"
 
 #: atk/atkobject.c:1362
 msgid "popup-menu"
@@ -191,15 +193,15 @@ msgstr "przycisk"
 
 #: atk/atkobject.c:1371
 msgid "radio-button"
-msgstr ""
+msgstr "przycisk-radiowy"
 
 #: atk/atkobject.c:1374
 msgid "radio-menu-item"
-msgstr ""
+msgstr "radiowy-element-menu"
 
 #: atk/atkobject.c:1377
 msgid "root-pane"
-msgstr ""
+msgstr "obszar-główny"
 
 #: atk/atkobject.c:1380
 msgid "row-header"
@@ -211,7 +213,7 @@ msgstr "pasek-przewijania"
 
 #: atk/atkobject.c:1386
 msgid "scroll-pane"
-msgstr ""
+msgstr "obszar-przewijania"
 
 #: atk/atkobject.c:1389
 msgid "separator"
@@ -223,11 +225,11 @@ msgstr "suwak"
 
 #: atk/atkobject.c:1395
 msgid "split-pane"
-msgstr ""
+msgstr "obszar-podziału"
 
 #: atk/atkobject.c:1398
 msgid "spin-button"
-msgstr ""
+msgstr "wejście-liczbowe"
 
 #: atk/atkobject.c:1401
 msgid "statusbar"
@@ -251,7 +253,7 @@ msgstr "nagłówek-wiersza-tabeli"
 
 #: atk/atkobject.c:1416
 msgid "tear-off-menu-item"
-msgstr ""
+msgstr "odrywający-element-menu"
 
 #: atk/atkobject.c:1419
 msgid "terminal"
@@ -287,7 +289,7 @@ msgstr "nieznany"
 
 #: atk/atkobject.c:1443
 msgid "viewport"
-msgstr ""
+msgstr "obszar-wyświetlania"
 
 #: atk/atkobject.c:1446
 msgid "window"
@@ -307,8 +309,9 @@ msgstr "akapit"
 
 #: atk/atkobject.c:1458
 msgid "ruler"
-msgstr ""
+msgstr "linijka"
 
 #: atk/atkobject.c:1461
 msgid "application"
 msgstr "aplikacja"
+
