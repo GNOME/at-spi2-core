@@ -1,3 +1,13 @@
+2003-01-29  Bill Haneman <bill.haneman@sun.com>
+	
+	* cspi/Makefile.am:
+	Fixed dependencies for libcspi so that libspi gets pulled in
+	properly.  Fixes 104741.
+
+	* cspi/spi.h:
+	* cspi/spi_event.c:
+	Clean up inline docs a little.
+
 2003-01-27  Padraig O'Briain <padraig.obriain@sun.com
 
 	* registryd/desktop.c: Implement AccessibleComponent for SpiDesktop.
