@@ -1,4 +1,13 @@
-Thu May 31  Brian Cameron <brian.cameron@sun.com
+
+Fri Jun 01  Brian Cameron <brian.cameron@sun.com>
+
+        * atk/atkeditabletext.[ch], atk/atktext.[ch]
+        * docs/atk-overrides.txt, docs/Makefile.am
+          Updated the interface for dealing with selected
+          text to handle multiple selected regions.  Added
+          docs/atk-overrides.txt file.
+
+Thu May 31  Brian Cameron <brian.cameron@sun.com>
 
         * Makefile.am configure.in atk/Makefile.am atk/atktext.c
 	  atk/atkutil.c docs/Makefile.am atk/atkmarshal.list
