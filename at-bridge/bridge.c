@@ -142,8 +142,14 @@ register_atk_event_listeners (void)
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-reordered");
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-deleted");
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:model-changed");
+/*
+ * May add the following listeners to implement preemptive key listening for GTK+
+ *
+ * atk_add_global_event_listener (bridge_widgetkey_listener, "Gtk:GtkWidget:key-press-event");
+ * atk_add_global_event_listener (bridge_widgetkey_listener, "Gtk:GtkWidget:key-release-event");
+ */
   atk_add_key_event_listener    (bridge_key_listener, NULL);
-
+  
   g_object_unref (G_OBJECT (bo));
   g_object_unref (ao);
 }
@@ -325,8 +331,8 @@ bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 }
 
 static void
-accessibility_init_keystroke_from_atk_key_event (Accessibility_KeyStroke *keystroke,
-						 AtkKeyEventStruct       *event)
+accessibility_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
+						 AtkKeyEventStruct          *event)
 {
 #ifdef SPI_DEBUG
   if (event)
@@ -340,8 +346,8 @@ accessibility_init_keystroke_from_atk_key_event (Accessibility_KeyStroke *keystr
       g_print ("WARNING: NULL key event!");
     }
   
-  keystroke->keyID     = (CORBA_long) event->keyval;
-  keystroke->keycode   = (CORBA_short) event->keycode;
+  keystroke->id        = (CORBA_long) event->keyval;
+  keystroke->hw_code   = (CORBA_short) event->keycode;
   keystroke->timestamp = (CORBA_unsigned_long) event->timestamp;
   keystroke->modifiers = (CORBA_unsigned_short) (event->state & 0xFFFF);
 
@@ -362,8 +368,8 @@ accessibility_init_keystroke_from_atk_key_event (Accessibility_KeyStroke *keystr
 static gint
 bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
-  CORBA_boolean           result;
-  Accessibility_KeyStroke key_event;
+  CORBA_boolean             result;
+  Accessibility_DeviceEvent key_event;
   Accessibility_DeviceEventController controller =
     Accessibility_Registry_getDeviceEventController (registry, &ev);
 
@@ -377,9 +383,8 @@ bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 
       accessibility_init_keystroke_from_atk_key_event (&key_event, event);
 
-  /* FIXME: this casting is just totaly bogus */
       result = Accessibility_DeviceEventController_notifyListenersSync (
-        controller, (Accessibility_DeviceEvent *) &key_event, &ev);
+        controller, &key_event, &ev);
 
       CORBA_exception_free (&ev);
     }
@@ -417,3 +422,10 @@ bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
   return TRUE;
 }
+
+
+
+
+
+
+

@@ -26,6 +26,7 @@ typedef enum {
 typedef struct {
   long                   keyID;
   short                  keycode;
+  char *                 keystring;
   long                   timestamp;
   AccessibleKeyEventType type;
   unsigned short         modifiers;

@@ -275,7 +275,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
         {
           /* we overload the keyset long w/keycodes, the - bit acts as a flag */
           key_set._buffer[i] = (keys->keysyms[i]) ? keys->keysyms[i] :
-	                                         -keys->keycodes[i];
+		                                  - keys->keycodes[i];
 	  /* fprintf (stderr, "key-set %d = %d\n", i, (int) key_set->_buffer[i]); */
         }
     }
@@ -310,14 +310,13 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
     }
   key_events._length = i;
   
-  controller_event_mask.value = (CORBA_unsigned_long) modmask;
-  controller_event_mask.refcount = (CORBA_unsigned_short) 1;
+  controller_event_mask = (CORBA_unsigned_long) modmask;
 
   Accessibility_DeviceEventController_registerKeystrokeListener (
     device_event_controller,
     cspi_event_listener_get_corba (listener),
     &key_set,
-    &controller_event_mask,
+    controller_event_mask,
     &key_events,
     (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
     cspi_ev ());
@@ -358,8 +357,7 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
 
   cspi_return_val_if_ev ("getting keystroke listener", FALSE);
 
-  controller_event_mask.value = (CORBA_unsigned_long) modmask;
-  controller_event_mask.refcount = (CORBA_unsigned_short) 1;
+  controller_event_mask = (CORBA_unsigned_long) modmask;
 
   key_events._buffer = NULL;
   key_events._length = 0;
@@ -371,7 +369,7 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
     device_event_controller,
     cspi_event_listener_get_corba (listener),
     &key_set,
-    &controller_event_mask,
+    controller_event_mask,
     &key_events,
     (CORBA_boolean) TRUE,
     cspi_ev ());

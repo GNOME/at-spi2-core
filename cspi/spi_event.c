@@ -22,6 +22,83 @@
 
 #include <cspi/spi-private.h>
 
+
+
+/**
+ * SPI_freeAccessibleKeySet:
+ * @keyset: An AccessibleKeyset to free.
+ *
+ * Release the memory used by an AccessibleKeySet.
+ *
+ **/
+void
+SPI_freeAccessibleKeySet (AccessibleKeySet *keyset)
+{
+  int i = 0;	
+  g_free (keyset->keysyms);
+  g_free (keyset->keycodes);
+  while (keyset->keystrings [i])
+    {
+      g_free (keyset->keystrings [i++]);
+    }
+  g_free (keyset->keystrings);
+  g_free (keyset);
+}
+
+/**
+ * SPI_createAccessibleKeySet:
+ * @len: the number of key values in the key set.
+ * @keysyms: a UTF-8 string containing symbolic key values to be matched, or NULL if
+ *           matching is performed against other key values instead.
+ * @keycodes: an array of unsigned short values which are the hardware keycodes
+ *           to be matched, or NULL if the keyset is specified solely by keysyms
+ *           and/or keystrings.
+ * @keystrings: an array of null-terminated character strings which specify key
+ *             name values to match, or NULL if the keyset is specified solely by
+ *             keycodes and/or keysyms.
+ *
+ * Create a new #AccessibleKeySet of a specified length.
+ * A KeySet is used typically to match key event values, and a matches are made
+ * using the following criteria: a match exists with a key event if all non-null
+ * i-th members of the keyset match the key event.
+ * If both keystring and keysym values are NULL, a keycode value match is
+ * forced, thus the match for keysym=0, keycode=0, keystring=NULL is
+ * keycode 0.
+ *
+ * Returns: a pointer to a newly-created #AccessibleKeySet.
+ *
+ **/
+AccessibleKeySet *
+SPI_createAccessibleKeySet (int len, const char *keysyms, short *keycodes, const char **keystrings)
+{
+  AccessibleKeySet *keyset = g_new0 (AccessibleKeySet, 1);
+  int i, keysym_len = 0;
+  const char *keysym_ptr = keysyms;
+  keyset->len = len;
+  keyset->keysyms = g_new0 (unsigned long, len);
+  keyset->keycodes = g_new0 (unsigned short, len);
+  keyset->keystrings = g_new0 (char *, len);
+  if (keysyms)
+    {
+      keysym_len = g_utf8_strlen (keysyms, -1);
+    }
+  for (i = 0; i < len; ++i)
+    {
+      if (i < keysym_len)
+        {
+	  keyset->keysyms [i] = (unsigned long) g_utf8_get_char (keysym_ptr);
+	  keysym_ptr = g_utf8_find_next_char (keysym_ptr, NULL);
+        }
+      else
+        {
+          keyset->keysyms [i] = 0;
+        }
+      if (keycodes) keyset->keycodes [i] = keycodes [i];
+      if (keystrings) keyset->keystrings [i] = keystrings [i];
+    }
+  return keyset;	
+}
+
 /**
  * SPI_createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.

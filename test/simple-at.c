@@ -50,6 +50,7 @@ static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *button_listener;
 static AccessibleKeystrokeListener *command_key_listener;
 static AccessibleKeystrokeListener *ordinary_key_listener;
+static AccessibleKeySet *spacebar_key_set;
 
 int
 main (int argc, char **argv)
@@ -119,22 +120,32 @@ main (int argc, char **argv)
   SPI_registerAccessibleKeystrokeListener(command_key_listener,
 					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
 					  SPI_KEYMASK_ALT,
-					  (unsigned long) ( KeyPress ),
+					  (unsigned long) ( SPI_KEY_PRESSED ),
 					  SPI_KEYLISTENER_ALL_WINDOWS);
   
   /* will listen only to unshifted key events, both press and release */
   SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
 					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
 					  SPI_KEYMASK_UNMODIFIED,
-					  (unsigned long) ( KeyPress | KeyRelease),
+					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_NOSYNC);
 				      
   /* will listen only to shifted key events, both press and release */
   SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
 					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
 					  SPI_KEYMASK_SHIFT,
-					  (unsigned long) ( KeyPress | KeyRelease),
+					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_NOSYNC);
+
+  spacebar_key_set = SPI_createAccessibleKeySet (1, " ", NULL, NULL);
+  
+  /* will listen only to shift-spacebar events, on release, globally */
+  SPI_registerAccessibleKeystrokeListener(command_key_listener,
+					  spacebar_key_set,
+					  SPI_KEYMASK_SHIFT,
+					  (unsigned long) ( SPI_KEY_RELEASED ),
+					  SPI_KEYLISTENER_ALL_WINDOWS);
+
   
   get_environment_vars ();
 
@@ -324,6 +335,8 @@ simple_at_exit ()
   SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED);
   SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT);
   AccessibleKeystrokeListener_unref         (ordinary_key_listener);
+
+  SPI_freeAccessibleKeySet (spacebar_key_set);
   
   SPI_event_quit ();
 }

@@ -1,3 +1,69 @@
+2001-12-15  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_Registry.idl:
+	Removed Accessibility_KeyStroke structure in favor of generic
+	Accessibility_DeviceEvent structure.
+	Changed Accessibility_ControllerEventMask from a struct to an
+	unsigned long.
+
+	* at-bridge/bridge.c:
+	Changed APIs to use DeviceEvent structure as above, and removed
+	bogus casting between these event structures.
+
+	* cspi/spi-listener.h:
+	Added keystring member of AccessibleKeystroke structure, to enable
+	matching on event "names" rather than only hardware codes and
+	keysyms.
+
+	* cspi/spi.h:
+	Added keystrings member of AccessibleKeySet struct, to allow
+	matching on event names (as above).
+	Added declarations for SPI_createAccessibleKeySet and
+	SPI_freeAccessibleKeySet.  Due to changes in libspi, we now pass
+	event modmasks directly as unsigned ints rather than structs with
+	refcounts, in the DeviceEventController methods.
+
+	* cspi/spi_registry.c:
+	Add SPI_createAccessibleKeySet and SPI_freeAccessibleKeySet methods.
+
+	* cspi/spi-roletypes.h:
+	Added documentation of newly added SPI Roles.
+
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	Changes in support of API changes above.
+	
+	* libspi/accessible.c:
+	Converted APIs to use DeviceEvent structure (see IDL changes
+	above).	
+
+	* registryd/deviceeventcontroller.c:
+	Added DEControllerGrabMask structure to track keygrabs not only by
+	modmask but by keyset as well; this allows us to do "global"
+	(i.e. X) keygrabs on a per-key or keyset basis rather than always
+	grabbing on AnyKey and then filtering after-the-fact.
+	Bugfixes for event filtration mean that we don't get false matches
+	on SPI_KEY_RELEASED, when only SPI_KEY_PRESSED was requested.
+
+	* registryd/deviceeventcontroller.c:
+	Namespaced a number of static methods to use spi_ prefix.  Major
+	revision to internals of global (i.e. X) key grabs.
+
+	* registryd/deviceeventcontroller.h:
+	Removed keymask_list and added keygrabs_list to
+	SpiDeviceEventController struct.
+
+	* test/simple-at.c:
+	Added use of SPI_createAccessibleKeySet API when creating a
+	listener for only one key.  Attach a listener to "shift spacebar
+	SPI_KEY_RELEASE" as a demonstration.  Changed (incorrect) usage of
+	X key event names to SPI key event names, so that listeners are
+	registered for (SPI_KEY_PRESSED | SPI_KEY_RELEASED), for instance.
+	
+	* test/keysynth-demo.c:
+        Changed (incorrect) use of X key event names (KeyPressed,
+	KeyReleased) to SPI enums SPI_KEY_PRESSED and SPI_KEY_RELEASED.
+	
+
 2001-12-12  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/accessible.c:

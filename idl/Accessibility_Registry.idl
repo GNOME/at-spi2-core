@@ -174,33 +174,19 @@ module Accessibility {
     MODIFIER_NUMLOCK
   };
 
-  struct ControllerEventMask {
-    unsigned long value;
-    unsigned short refcount;
-  };
-
-  struct KeyStroke {
-    long keyID;
-    short keycode;
-    unsigned long timestamp;
-    KeyEventType type; 
-    unsigned short modifiers;
-  };
+  typedef unsigned long ControllerEventMask;
 
   struct DeviceEvent {
-    long eventID;
-    short hw_code;
-    unsigned long timestamp;
     EventType type; 
+    long  id;
+    short hw_code;
     unsigned short modifiers;
+    unsigned long timestamp;
+    string event_string;
   };
 
   typedef sequence< long > KeySet;
   typedef sequence< KeyEventType > KeyEventTypeSeq;
-
-  interface KeystrokeListener : Bonobo::Unknown {
-        boolean keyEvent (in KeyStroke key);
-  };
 
   interface DeviceEventListener : Bonobo::Unknown {
         boolean notifyEvent (in DeviceEvent event);
@@ -210,7 +196,7 @@ module Accessibility {
 
   	/**
          * registerKeystrokeListener:
-         * @listener: a @KeystrokeListener which will intercept key events.
+         * @listener: a @DeviceEventListener which will intercept key events.
          * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
          * @mask:     a @ControllerEventMask filtering the intercepted key events.
 	 * @type:     an @EventType mask that may created by ORing event types together.
@@ -224,7 +210,7 @@ module Accessibility {
          * consume them. 
          *
 	 **/
-        void registerKeystrokeListener (in KeystrokeListener listener,
+        void registerKeystrokeListener (in DeviceEventListener listener,
 					in KeySet keys,
 					in ControllerEventMask mask,
 					in KeyEventTypeSeq type,
@@ -232,7 +218,7 @@ module Accessibility {
     
   	/**
          * deregisterKeystrokeListener:
-         * @listener: a @KeystrokeListener which will intercept key events.
+         * @listener: a @DeviceEventListener which will intercept key events.
          * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
          * @mask:     a @ControllerEventMask filtering the intercepted key events.
 	 * @type:     an @EventType mask that may created by ORing event types together.
@@ -245,11 +231,11 @@ module Accessibility {
          * De-register a previously registered keyboard eventlistener.
          *
 	 **/
-        void deregisterKeystrokeListener (in KeystrokeListener listener,
-					in KeySet keys,
-					in ControllerEventMask mask,
-					in KeyEventTypeSeq type,
-					in boolean is_synchronous);
+        void deregisterKeystrokeListener (in DeviceEventListener listener,
+					  in KeySet keys,
+					  in ControllerEventMask mask,
+					  in KeyEventTypeSeq type,
+					  in boolean is_synchronous);
     
         boolean notifyListenersSync (in DeviceEvent event);
 

@@ -42,9 +42,9 @@ static guint signals [LAST_SIGNAL];
  * CORBA Accessibility::KeystrokeListener::keyEvent method implementation
  */
 static CORBA_boolean
-impl_key_event (PortableServer_Servant         servant,
-		const Accessibility_KeyStroke *key,
-		CORBA_Environment             *ev)
+impl_key_event (PortableServer_Servant           servant,
+		const Accessibility_DeviceEvent *key,
+		CORBA_Environment               *ev)
 {
   gboolean was_consumed = FALSE;
   SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (
@@ -112,7 +112,7 @@ marshal_BOOLEAN__POINTER (GClosure     *closure,
 static void
 spi_keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
 {
-  POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
+  POA_Accessibility_DeviceEventListener__epv *epv = &klass->epv;
   
   signals [KEY_EVENT] = g_signal_new (
     "key_event",
@@ -123,7 +123,7 @@ spi_keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
     marshal_BOOLEAN__POINTER,
     G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
   
-  epv->keyEvent = impl_key_event;
+  epv->notifyEvent = impl_key_event;
 }
 
 static void
@@ -132,7 +132,7 @@ spi_keystroke_listener_init (SpiKeystrokeListener *keystroke_listener)
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiKeystrokeListener,
-		       Accessibility_KeystrokeListener,
+		       Accessibility_DeviceEventListener,
 		       BONOBO_TYPE_OBJECT,
 		       spi_keystroke_listener);
 

@@ -498,7 +498,7 @@ main (int argc, char **argv)
   SPI_registerAccessibleKeystrokeListener (switch_listener,
 					   &switch_set,
 					   SPI_KEYMASK_UNMODIFIED,
-					   (unsigned long) ( KeyPress | KeyRelease),
+					   (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					   SPI_KEYLISTENER_CANCONSUME);
   
   SPI_event_main ();

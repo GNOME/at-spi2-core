@@ -159,8 +159,8 @@ cspi_event_listener_remove_cb (AccessibleEventListener  *al,
  * Key event dispatcher
  */
 static gboolean
-cspi_key_event (SpiKeystrokeListener          *listener,
-		const Accessibility_KeyStroke *keystroke)
+cspi_key_event (SpiKeystrokeListener            *listener,
+		const Accessibility_DeviceEvent *keystroke)
 {
   GList *l;
   CSpiKeystrokeListener *clistener = (CSpiKeystrokeListener *) listener;
@@ -192,8 +192,8 @@ cspi_key_event (SpiKeystrokeListener          *listener,
 	akeystroke.type = 0;
 	break;
     }
-  akeystroke.keyID     = keystroke->keyID;
-  akeystroke.keycode   = keystroke->keycode;
+  akeystroke.keyID     = keystroke->id;
+  akeystroke.keycode   = keystroke->hw_code;
   akeystroke.timestamp = keystroke->timestamp;
   akeystroke.modifiers = keystroke->modifiers;
 

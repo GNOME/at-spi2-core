@@ -37,17 +37,17 @@ G_BEGIN_DECLS
 #define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
 
 typedef struct {
-        BonoboObject parent;
-	void  *registry;
-        GList *key_listeners;
-        GList *mouse_listeners;
-	GList *keymask_list;
+  BonoboObject parent;
+  void  *registry;
+  GList *key_listeners;
+  GList *mouse_listeners;
+  GList *keygrabs_list;
 } SpiDeviceEventController;
 
 typedef struct {
-        BonoboObjectClass parent_class;
-        POA_Accessibility_DeviceEventController__epv epv;
-	gboolean (*check_key_event) (SpiDeviceEventController *controller);
+  BonoboObjectClass parent_class;
+  POA_Accessibility_DeviceEventController__epv epv;
+  gboolean (*check_key_event) (SpiDeviceEventController *controller);
 } SpiDeviceEventControllerClass;
 
 GType                     spi_device_event_controller_get_type        (void);

@@ -111,9 +111,10 @@ typedef enum {
  **/
 typedef struct _AccessibleKeySet
 {
-	unsigned long *keysyms;
-	unsigned short *keycodes;
-	short len;
+  unsigned long  *keysyms;
+  unsigned short *keycodes;
+  char          **keystrings;
+  short           len;
 } AccessibleKeySet;
 
 /**
@@ -137,6 +138,13 @@ int              SPI_exit         (void);
 
 /* Event Listener creation and support.  */
 
+void                      SPI_freeAccessibleKeySet (
+	                                           AccessibleKeySet         *keyset);
+AccessibleKeySet        * SPI_createAccessibleKeySet (
+                                         	   int                       len,
+						   const char               *keysyms,
+						   short                    *keycodes,
+						   const char              **keystrings);
 AccessibleEventListener * SPI_createAccessibleEventListener (
 	                                           AccessibleEventListenerCB callback,
 						   void                     *user_data);

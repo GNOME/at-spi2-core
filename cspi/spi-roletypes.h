@@ -8,16 +8,25 @@ extern "C" {
 /**
  * AccessibleRole:
  * @SPI_ROLE_INVALID: role is not legal, something is wrong with this object
+ * @SPI_ROLE_ACCELERATOR_LABEL: object is a label indicating keyboard
+ *                              accelerators for the parent
  * @SPI_ROLE_ALERT: Object is used to alert the user about something
+ * @SPI_ROLE_ANIMATION: Object contains a dynamic or moving image
+ * @SPI_ROLE_ARROW: Object is a 2d directional indicator
+ * @SPI_ROLE_CALENDAR: Object contains one or more dates, usually arranged into
+ *                     a 2d list
  * @SPI_ROLE_CANVAS: Object that can be drawn into and is used to trap events
  * @SPI_ROLE_CHECK_BOX: Object representd a choice that can be checked or unchecked
  *                    and provides a separate indicator for the current state.
+ * @SPI_ROLE_CHECK_MENU_ITEM: Object is a menu item that behaves like a CHECK_BOX
  * @SPI_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a color.
  * @SPI_ROLE_COLUMN_HEADER: The header for a column of data 
  * @SPI_ROLE_COMBO_BOX: A list of choices the user can select from
- * @SPI_ROLE_SPI_DESKTOP_ICON: An inconifed internal frame within a SPI_DESKTOP_PANE
- * @SPI_ROLE_SPI_DESKTOP_FRAME: A pane that supports internal frames and
+ * @SPI_ROLE_DATE_EDITOR: Allows entry of a date
+ * @SPI_ROLE_DESKTOP_ICON: An inconifed internal frame within a DESKTOP_PANE
+ * @SPI_ROLE_DESKTOP_FRAME: A pane that supports internal frames and
  *              iconified versions of those internal frames.
+ * @SPI_ROLE_DIAL: A rotating/rotatable valuator
  * @SPI_ROLE_DIALOG: A top level window with title bar and a border
  * @SPI_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate
  *              through and select the contents of a directory.
@@ -26,12 +35,14 @@ extern "C" {
  *	 	 directory, or specify a filename.
  * @SPI_ROLE_FILLER: A object that fills up space in a user interface
  * @SPI_ROLE_FOCUS_TRAVERSABLE: XXX Not sure about this.
+ * @SPI_ROLE_FONT_CHOOSER: Allows selection of a display font
  * @SPI_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
  * @SPI_ROLE_GLASS_PANE: A pane that is guaranteed to be painted on top of all
  *               panes beneath it
  * @SPI_ROLE_HTML_CONTAINER: A document container for HTML, whose children
  *               represent the document content.
  * @SPI_ROLE_ICON: A small fixed size picture, typically used to decorate components.
+ * @SPI_ROLE_IMAGE: An image, typically static
  * @SPI_ROLE_INTERNAL_FRAME: A frame-like object that is clipped by a desktop pane.
  * @SPI_ROLE_LABEL: An object used to present an icon or short string in an interface
  * @SPI_ROLE_LAYERED_PANE: A specialized pane that allows its children to be drawn in layers
@@ -69,23 +80,32 @@ extern "C" {
  * @SPI_ROLE_SEPARATOR: An object usually contained in a menu to provide a visible and
  *        logical separation of the contents in a menu.
  * @SPI_ROLE_SLIDER: An object that allows the user to select from a bounded range.
+ * @SPI_ROLE_SPIN_BUTTON: An object which allows selection from a set of choices and
+ *                        displays the current choice.
  * @SPI_ROLE_SPLIT_PANE: A specialized panel that presents two other panels at the same time.
+ * @SPI_ROLE_STATUS_BAR: An object the display qualitative status information. c.f. PROGRESS_BAR
  * @SPI_ROLE_TABLE: An object used to rpesent information in terms of rows and columns.
  * @SPI_ROLE_TABLE_CELL: An object which is a descendant of a table,
  *        with a row/column location.  A cell may span multiple rows and columns.
  * @SPI_ROLE_TABLE_COLUMN_HEADER: An object which serves to describe a column in a table.
  * @SPI_ROLE_TABLE_ROW_HEADER: An object which serves to label or describe a row in a table.
+ * @SPI_ROLE_TEAROFF_MENU_ITEM: A menu item which allows the menu to be removed from
+ *                              a menubar and placed in its own window
+ * @SPI_ROLE_TERMINAL: An object that emulates a teletype or terminal
  * @SPI_ROLE_TEXT: An object that presents text to the user
  * @SPI_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or unchecked,
  *	  but does not provide a separate indicator for the current state.
  * @SPI_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
  * @SPI_ROLE_TOOL_TIP: An object that provides information about another object
- * @SPI_ROLE_TREE: An object used to repsent hierarchical information to the user.
+ * @SPI_ROLE_TREE: An object used to represent hierarchical information to the user
+ * @SPI_ROLE_TREE_TABLE: An object which represents both hierarchical and tabular information
  * @SPI_ROLE_UNKNOWN: The object contains some SpiAccessible information, but its role is
  *                    not known.
  * @SPI_ROLE_VIEWPORT: An object usually used in a scroll pane, which restricts the visual
  *                    area into which its contents are presented.
  * @SPI_ROLE_WINDOW: A top level window with no title or border.
+ * @SPI_ROLE_EXTENDED: This object's role is not included in the standard role list and
+ *                     should be queried by name.
  **/
 typedef enum
 {

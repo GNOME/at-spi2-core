@@ -308,8 +308,6 @@ test_value (AccessibleValue *value)
 {
 	float original_value;
 	
-        /* Note: test_value assertions are known not to work as of Dec 09 */
-	
 	fprintf (stderr, "Testing value ...\n");
 
 	original_value = AccessibleValue_getCurrentValue (value);
