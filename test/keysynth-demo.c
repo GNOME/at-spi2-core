@@ -482,7 +482,7 @@ main(int argc, char **argv)
    * Register a listener on an 'unused' key, to serve as a 'single switch'.
    * On most Intel boxes there is at least one 'special' system key that does not
    * have a non-zero keycode assigned in the Xserver, so we will intercept any keycode
-   * that is 'zero'.  Often these the "windows" key or the "menu" key.
+   * that is 'zero'.  Often these the are the "windows" or the "menu" keys.
    */
   switch_set.keysyms = g_new0 (unsigned long, 1);
   switch_set.keycodes = g_new0 (unsigned short, 1);

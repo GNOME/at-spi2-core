@@ -57,6 +57,7 @@ main(int argc, char **argv)
   int n_apps;
   Accessible *desktop;
   Accessible *application;
+  char *s;
 
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
   {
@@ -78,13 +79,17 @@ main(int argc, char **argv)
   for (i=0; i<n_desktops; ++i)
     {
       desktop = getDesktop (i);
-      fprintf (stderr, "desktop %d name: %s\n", i, Accessible_getName (desktop));
+      s = Accessible_getName (desktop);
+      fprintf (stderr, "desktop %d name: %s\n", i, s);
+      SPI_freeString (s);
       n_apps = Accessible_getChildCount (desktop);
       for (j=0; j<n_apps; ++j)
         {
           application = Accessible_getChildAtIndex (desktop, j);
-          fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
-	  Accessible_unref (application);
+	  s = Accessible_getName (application);
+          fprintf (stderr, "app %d name: %s\n", j, s);
+          SPI_freeString (s);
+          Accessible_unref (application);
         }
       Accessible_unref (desktop);
     }
@@ -139,6 +144,8 @@ get_environment_vars()
 void
 report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
 {
+  char *s;
+  int len;
   if (use_festival)
     {
     if (festival_chatty) 	    
@@ -146,8 +153,10 @@ report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
         _festival_say (Accessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
       }
       fprintf (stderr, "getting Name\n");
-      _festival_say (Accessible_getName (obj), "voice_kal_diphone",
+      s = Accessible_getName (obj);
+      _festival_say (s, "voice_kal_diphone",
 		     shutup_previous_speech || festival_chatty);
+      SPI_freeString (s);
     }
   
   if (Accessible_isComponent (obj))
@@ -171,29 +180,37 @@ report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
      long start_offset, end_offset;
      char *first_sentence = "empty";
      text_interface = Accessible_getText (obj);
-     fprintf (stderr, "isText...%p\n", text_interface);
      first_sentence = AccessibleText_getTextAtOffset (
 	       text_interface, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
-     if (first_sentence) _festival_say(first_sentence, "voice_don_diphone", FALSE);
-     fprintf (stderr, "done reporting on focussed object\n");
+     if (first_sentence)
+       {
+	 _festival_say(first_sentence, "voice_don_diphone", FALSE);
+	 SPI_freeString (first_sentence);
+       }
+     len = AccessibleText_getCharacterCount (text_interface);
+     s = AccessibleText_getText (text_interface, 0, len);
+     fprintf (stderr, "done reporting on focussed object, text=%s\n", s);
   }
 }
 
 void
 report_focus_event (AccessibleEvent *event)
 {
-  fprintf (stderr, "%s event from %s\n", event->type,
-           Accessible_getName (event->source));
+  char *s = Accessible_getName (event->source);
+  fprintf (stderr, "%s event from %s\n", event->type, s);
+  SPI_freeString (s);
   report_focussed_accessible (event->source, TRUE);
 }
 
 void
 report_button_press (AccessibleEvent *event)
 {
-  fprintf (stderr, "%s event from %s\n", event->type,
-           Accessible_getName (event->source));
-  fprintf (stderr, "Object description %s\n",
-           Accessible_getDescription (event->source));
+  char *s = Accessible_getName (event->source);
+  fprintf (stderr, "%s event from %s\n", event->type, s);
+  SPI_freeString (s);
+  s = Accessible_getDescription (event->source);
+  fprintf (stderr, "Object description %s\n", s);
+  SPI_freeString (s);
 }
 
 
@@ -203,17 +220,22 @@ check_property_change (AccessibleEvent *event)
   AccessibleSelection *selection = Accessible_getSelection (event->source);
   int n_selections;
   int i;
+  char *s;
   if (selection)
   {
     n_selections = (int) AccessibleSelection_getNSelectedChildren (selection);
+    s = Accessible_getName (event->source);
     fprintf (stderr, "(Property) %s event from %s, %d selected children\n",
-	     event->type, Accessible_getName (event->source), n_selections);
+	     event->type, s, n_selections);
+    SPI_freeString (s);
   /* for now, speak entire selection set */
     for (i=0; i<n_selections; ++i)
       {
         Accessible *obj = AccessibleSelection_getSelectedChild (selection, (long) i);
 	g_return_if_fail (obj);
-	fprintf (stderr, "Child %d, name=%s\n", i, Accessible_getName (obj));
+	s = Accessible_getName (obj);
+	fprintf (stderr, "Child %d, name=%s\n", i, s);
+	SPI_freeString (s);
 	report_focussed_accessible (obj, i==0);
     }
   }

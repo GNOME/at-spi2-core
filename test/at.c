@@ -50,6 +50,7 @@ main(int argc, char **argv)
         CORBA_short n_desktops;
         CORBA_long j;
         CORBA_long n_apps;
+	CORBA_string s;
         Accessibility_Desktop desktop;
         Accessibility_Application app;
         Accessibility_Registry registry;
@@ -105,8 +106,9 @@ main(int argc, char **argv)
             for (i=0; i<n_desktops; ++i)
               {
                 desktop = Accessibility_Registry_getDesktop (registry, i, &ev);
-                fprintf (stderr, "desktop %d name: %s\n", i,
-                         Accessibility_Desktop__get_name (desktop, &ev));
+		s = Accessibility_Desktop__get_name (desktop, &ev);
+                fprintf (stderr, "desktop %d name: %s\n", i, s);
+	        CORBA_free (s);	 
                 check_ev (&ev, "desktop:name");
                 n_apps = Accessibility_Desktop__get_childCount (desktop, &ev);
                 check_ev (&ev, "desktop:childCount");
@@ -115,8 +117,9 @@ main(int argc, char **argv)
                   {
                     app = (Accessibility_Application) Accessibility_Desktop_getChildAtIndex (desktop, j, &ev);
                     check_ev (&ev, "desktop:getChildAtIndex");
-                    fprintf (stderr, "app %d name: %s\n", j,
-                             Accessibility_Application__get_name (app, &ev));
+                    s = Accessibility_Application__get_name (app, &ev);
+		    fprintf (stderr, "app %d name: %s\n", j, s);
+		    CORBA_free (s);
                     check_ev (&ev, "app:getName");
                   }
               }

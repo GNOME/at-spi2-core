@@ -1,8 +1,17 @@
 #include <stdlib.h>
 #include <cspi/spi-private.h>
 
+/**
+ * SPI_freeString:
+ * @s: a character string returned from another at-spi call.
+ *
+ * Free a character string returned from an at-spi call.  Clients of
+ * at-spi should use this function instead of free () or g_free().
+ * This API should not be used to free strings
+ * from other libraries or allocated by the client.
+ **/
 void
-spi_freeString (char *s)
+SPI_freeString (char *s)
 {
   CORBA_free (s);
 }

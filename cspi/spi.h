@@ -1366,9 +1366,6 @@ boolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue);
 
-void
-spi_freeString (char *s);
-
 G_END_DECLS
 
 #endif

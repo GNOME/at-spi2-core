@@ -6,6 +6,8 @@ SPI_event_main
 SPI_eventIsReady
 SPI_nextEvent
 SPI_exit
+<SUBSECTION Utility Functions>
+SPI_freeString
 </SECTION>
 
 <SECTION>

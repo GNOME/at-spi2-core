@@ -50,10 +50,13 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### TYPEDEF AccessibleKeystrokeListenerCB ##### -->
+<!-- ##### USER_FUNCTION AccessibleKeystrokeListenerCB ##### -->
 <para>
 
 </para>
+
+@stroke: 
+@Returns: 
 
 
 <!-- ##### TYPEDEF AccessibleKeyEventMask ##### -->

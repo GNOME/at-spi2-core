@@ -20,10 +20,12 @@ Event Listener Support
 </para>
 
 
-<!-- ##### TYPEDEF AccessibleEventListenerCB ##### -->
+<!-- ##### USER_FUNCTION AccessibleEventListenerCB ##### -->
 <para>
 
 </para>
+
+@event: 
 
 
 <!-- ##### FUNCTION createAccessibleEventListener ##### -->

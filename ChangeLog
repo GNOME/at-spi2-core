@@ -1,5 +1,24 @@
 2001-11-28  Bill Haneman  <bill.haneman@sun.com>
 
+	* docs/reference/cspi:
+	Included docs for SPI_freeString in generated documentation.
+
+	* cspi/spi-util.c:
+	Renamed spi_freeString to SPI_freeString, for consistency.  Added
+	documentation for this function.
+
+	* cspi/spi-util.h:
+	Renamed spi_freeString to SPI_freeString, for consistency.  
+	Removed obsolete method declaration string_from_corba_string.
+
+	* test/keysynth-demo.c:
+	Small tweak to comments.
+
+	* test/simple-at.c:
+	Stopped leaking the strings returned from CSPI.	
+
+2001-11-28  Bill Haneman  <bill.haneman@sun.com>
+
 	Merged Michael's branch (see his ChangeLog entries below).
 	
 	* at-bridge/bridge.c: Explicitly hold a ref to the registry while
