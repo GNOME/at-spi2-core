@@ -1016,7 +1016,7 @@ spi_atk_tidy_windows (void)
         {
           spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:deactivate");
         }
-      g_free (stateset);
+      g_object_unref (stateset);
 
       spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:destroy");
       g_object_unref (child);

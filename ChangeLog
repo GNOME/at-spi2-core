@@ -1,3 +1,8 @@
+2004-02-02  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c (spi_atk_tidy_windows): Correct g_free call to
+	g_object_unref.
+
 2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
         * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
