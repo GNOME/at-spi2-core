@@ -321,9 +321,12 @@ SPI_freeDesktopList (Accessible **desktop_list)
  *             the behavior of the notification/listener transaction.
  *             
  * Register a listener for keystroke events, either pre-emptively for
- *             all windows (SPI_KEYLISTENER_ALL_WINDOWS), or
- *             non-preemptively (SPI_KEYLISTENER_NOSYNC).
- *             ( Other sync_type values may be available in the future.)
+ *             all windows (SPI_KEYLISTENER_ALL_WINDOWS),
+ *             non-preemptively (SPI_KEYLISTENER_NOSYNC), or
+ *             pre-emptively at the toolkit level (SPI_KEYLISTENER_CANCONSUME).
+ *             If ALL_WINDOWS or CANCONSUME are used, the event is consumed
+ *             upon receipt if one of @listener's callbacks returns #TRUE.
+ *             ( Other sync_type values may be available in the future )
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/

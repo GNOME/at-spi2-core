@@ -65,6 +65,10 @@ Registry queries
 <para>
 This is a function which is specified when creating a KeystrokeListener.
 It is called when an event being listened for occurs. 
+If it returns TRUE, this indicates that the event should be consumed 
+rather than passed through; only callbacks whose listeners are
+registered with the SPI_KEYLISTENER_ALL_WINDOWS or 
+SPI_KEYLISTENER_CANCONSUME flags can be consumed.
 </para>
 
 @stroke: 

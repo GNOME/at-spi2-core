@@ -83,6 +83,8 @@ typedef AccessibleDeviceEvent AccessibleKeystroke;
  * void (*AccessibleEventListenerCB) (AccessibleEvent *event);
  *
  * SPIBoolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystrokeEvent *Event);
+ * Note that AccessibleKeystrokeListeners may consume the event received
+ * if one of their callbacks returns TRUE (see SPI_registerAccessibleKeystrokeListener)
  */
 typedef void       (*AccessibleEventListenerCB)     (const AccessibleEvent     *event,
 						     void                      *user_data);
