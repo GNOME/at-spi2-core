@@ -1,4 +1,10 @@
 2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
+
+	* nn.po: Updated Norwegian (nynorsk) translation. Now complete
+	(although I am unhappy about the translation of "dial", since the
+	use of the word "dial" itself doesn't make much sense to me.)
+
+2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
  
         * nn.po: Started Norwegian (nynorsk) translation
 
