@@ -4,6 +4,7 @@
 	    Now allocate Accessibility_Event using
 	    Accessibility_Event__alloc() instead of g_new0().
 	* libspi/accessibleeventlistener.c:
+	    Initialize AccessibleEventListener->callbacks to NULL.
 	    Fixed accessible__event_listener_init() param, changed to
 	    "AccessibleEventListener *" type.
 	    Changed a bonobo_object_release_unref() call to
