@@ -89,7 +89,7 @@ libspi_la_SOURCES =		\
 	eventlistener.c		\
 	$(IDL_OUT)
 
-accessible.c base.h keystrokelistener.h libspi.h listener.h remoteobject.h : Accessibility.h
+$(top_srcdir)/libspi/accessible.c $(top_srcdir)/libspi/base.h $(top_srcdir)/libspi/keystrokelistener.h $(top_srcdir)/libspi/libspi.h $(top_srcdir)/libspi/listener.h $(top_srcdir)/libspi/remoteobject.h : Accessibility.h
 
 IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
 	   -I$(LIBBONOBO_IDL_DIR)         \

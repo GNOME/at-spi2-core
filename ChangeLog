@@ -1,5 +1,8 @@
 2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
 
+	* libspi/Makefile.am: Fix problem with building outside of source
+	directory. Bug #98120.
+
 	* cpsi/spi_table.c (AccessibleTable_getNSelectedColumns): Fix
 	typo in documentation comments. Bug #94275.
 
