@@ -73,7 +73,8 @@ static void            atk_object_init              (AtkObject       *accessible
                                                      AtkObjectClass  *klass);
 static AtkRelationSet* atk_object_real_ref_relation_set 
                                                     (AtkObject       *accessible);
-
+static void            atk_object_real_initialize   (AtkObject       *accessible,
+                                                     gpointer        data);
 static void            atk_object_real_set_property (GObject         *object,
                                                      guint            prop_id,
                                                      const GValue    *value,
@@ -178,6 +179,7 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->get_role = atk_object_real_get_role;
   klass->get_layer = atk_object_real_get_layer;
   klass->get_mdi_zorder = NULL;
+  klass->initialize = atk_object_real_initialize;
   klass->ref_state_set = atk_object_real_ref_state_set;
   klass->set_name = atk_object_real_set_name;
   klass->set_description = atk_object_real_set_description;
@@ -1582,4 +1584,11 @@ atk_object_remove_relationship (AtkObject       *object,
     }
 
   return ret;
+}
+
+static void
+atk_object_real_initialize (AtkObject *accessible,
+                            gpointer  data)
+{
+  return;
 }

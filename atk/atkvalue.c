@@ -1,5 +1,5 @@
 /* ATK -  Accessibility Toolkit
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,6 +17,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include "atkvalue.h"
 
 GType
@@ -58,7 +59,14 @@ atk_value_get_current_value (AtkValue *obj,
   iface = ATK_VALUE_GET_IFACE (obj);
 
   if (iface->get_current_value)
-    (iface->get_current_value) (obj, value);
+    {
+      if (G_IS_VALUE (value))
+        g_value_unset (value);
+      else
+        memset (value, 0, sizeof (*value));
+
+      (iface->get_current_value) (obj, value);
+    }
 }
 
 /**
@@ -80,7 +88,14 @@ atk_value_get_maximum_value  (AtkValue *obj,
   iface = ATK_VALUE_GET_IFACE (obj);
 
   if (iface->get_maximum_value)
-    (iface->get_maximum_value) (obj, value);
+    {
+      if (G_IS_VALUE (value))
+        g_value_unset (value);
+      else
+        memset (value, 0, sizeof (*value));
+
+      (iface->get_maximum_value) (obj, value);
+    }
 }
 
 /**
@@ -102,7 +117,14 @@ atk_value_get_minimum_value (AtkValue *obj,
   iface = ATK_VALUE_GET_IFACE (obj);
 
   if (iface->get_minimum_value)
-    (iface->get_minimum_value) (obj, value);
+    {
+      if (G_IS_VALUE (value))
+        g_value_unset (value);
+      else
+        memset (value, 0, sizeof (*value));
+
+      (iface->get_minimum_value) (obj, value);
+    }
 }
 
 /**

@@ -1,5 +1,5 @@
 /* ATK - Accessibility Toolkit
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -85,15 +85,16 @@ atk_gobject_accessible_for_object (GObject *obj)
                                           G_OBJECT_TYPE (obj));
       accessible = atk_object_factory_create_accessible (factory,
                                                          obj);
-      if (!quark_accessible_object)
+      if (!ATK_IS_GOBJECT_ACCESSIBLE (accessible))
         {
           /*
            * The AtkObject which was created was not a AtkGObjectAccessible
            */
-          quark_accessible_object = g_quark_from_static_string ("accessible-object");
           g_object_weak_ref (obj,
                              (GWeakNotify) g_object_unref,
                              accessible); 
+          if (!quark_accessible_object)
+            quark_accessible_object = g_quark_from_static_string ("accessible-object");
         }
       g_object_set_qdata (obj, quark_accessible_object, accessible);
     }

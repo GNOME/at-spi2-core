@@ -1,3 +1,18 @@
+2003-02-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkgobjectaccessible.c (atk_gobject_accessible_from_object):
+	Correct creation of non-AtkGObjectAccessible (bug #107124)
+
+	* atk/atkobject.c (atk_object_class_init): Set default initialize 
+	function so that code which does not check for existence of parent 
+	class's initialize function will work.
+
+	* atk/atkvalue.c: (atk_value_get_minimum_value, 
+	atk_value_get_maximum_value, atk_value_get_current_value):
+	Reset Value argument if it is a valid GValue otherwise zeroise it.
+
+	docs/tmpl/atkhypertext.sgml: Add link-selected signal.
+
 2003-02-25  Tor Lillqvist  <tml@iki.fi>
 
 	* Makefile.am (EXTRA_DIST): Dist atk-zip.sh.in, not atk-zip.sh.
@@ -166,7 +181,7 @@ Tue Jan 28 15:18:24 2003  Owen Taylor  <otaylor@redhat.com>
 
 	* docs/atk-sections.txt: Add new functions and data items.
 
-	* docs/tmpl/atk-object.sgml: Remove some docuementation and put in 
+	* docs/tmpl/atk-object.sgml: Remove some documentation and put in 
 	atkobject.h. Add reference to accessible-table-caption-object.
 
 	* docs/tmpl/atk-relation.sgml: Add new properties

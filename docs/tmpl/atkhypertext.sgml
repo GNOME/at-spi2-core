@@ -49,3 +49,11 @@ The AtkHypertext structure does not contain any fields.
 @Returns: 
 
 
+<!-- ##### SIGNAL AtkHypertext::link-selected ##### -->
+<para>
+
+</para>
+
+@atkhypertext: the object which received the signal.
+@arg1: 
+
