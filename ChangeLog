@@ -1,3 +1,10 @@
+2003-08-06  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* idl/Accessibility_Registry.idl: Put MODIFIER_SHIFTLOCk and
+	MODIFIER_ALT in correct place. 
+
+	This fixes part of bug #118114.
+
 2003-07-30  Alessio Frusciante  <algol@firenze.linux.it>
 
 	* configure.in: Added "it" (Italian) to ALL_LINGUAS.
