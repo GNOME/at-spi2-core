@@ -23,11 +23,13 @@
 #ifndef _ACCESSIBILITY_IDL_
 #define _ACCESSIBILITY_IDL_
 
-#if !defined(__ACCESSIBILITY_COMPILATION__) && defined(__ORBIT_IDL__)
+#ifndef  __ACCESSIBILITY_COMPILATION__
+#ifdef   __ORBIT_IDL__
 %{
 #pragma include_defs Accessibility.h
 %}
 #pragma inhibit push
+#endif
 #endif
 
 /*
@@ -63,8 +65,10 @@
 #include <Registry.idl>
 #include <Role.idl>
 
-#if !defined(__ACCESSIBILITY_COMPILATION__) && defined(__ORBIT_IDL__)
+#ifndef __ACCESSIBILITY_COMPILATION__
+#ifdef  __ORBIT_IDL__
 #pragma inhibit pop
+#endif
 #endif
 
 #endif

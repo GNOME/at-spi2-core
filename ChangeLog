@@ -1,3 +1,10 @@
+<2001-10-13  Louise Miller <louise.miller@sun.com>
+
+	* idl/Accessible.idl, idl/Application.idl, idl/Desktop.idl,
+	idl/Event.idl, idl/Registry.idl
+	Changed these files to include Bonobo_Unknown.idl instead
+	of Bonobo.idl
+
 <2001-09-10  Marc Mulcahy <marc.mulcahy@sun.com
 	libspi/component.c libspi/component.h:
 		Fixed typo.  Added assertions for object checks in AccessibleComponent code.

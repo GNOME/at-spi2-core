@@ -23,7 +23,7 @@
 #ifndef __ACCESSIBILITY_APPLICATION_DEFINED__
 #define __ACCESSIBILITY_APPLICATION_DEFINED__
 
-#include <Bonobo.idl>
+#include <Bonobo_Unknown.idl>
 #include <Accessible.idl>
 
 module Accessibility {

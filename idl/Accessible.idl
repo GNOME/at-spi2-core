@@ -23,7 +23,7 @@
 #ifndef _ACCESSIBILITY_ACCESSIBLE_IDL
 #define _ACCESSIBILITY_ACCESSIBLE_IDL
 
-#include <Bonobo.idl>
+#include <Bonobo_Unknown.idl>
 
 #include "Relation.idl"
 #include "State.idl"
@@ -65,7 +65,7 @@ module Accessibility {
      * return values: a #boolean indicating whether the two object references
      *         point to the same object. 
      **/
-    boolean isEqual (in Accessible object);
+    boolean isEqual (in Accessible obj);
 
     /**
      * getChildAtIndex:
