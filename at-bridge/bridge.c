@@ -416,6 +416,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   GObject *gobject;
   GSignalQuery signal_query;
   const gchar *name;
+  gint detail1 = 0, detail2 = 0;
 #ifdef SPI_BRIDGE_DEBUG
   gchar *s, *s2;
 #endif
@@ -432,8 +433,12 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 #endif
 
   gobject = g_value_get_object (param_values + 0);
-
-  spi_atk_emit_eventv (gobject, 0, 0, "object:%s", name);
+  if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
+    detail1 = g_value_get_int (param_values + 1);
+  if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
+    detail2 = g_value_get_int (param_values + 2);
+  
+  spi_atk_emit_eventv (gobject, detail1, detail2, "object:%s", name);
 
   return TRUE;
 }

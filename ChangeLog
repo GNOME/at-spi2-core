@@ -1,3 +1,11 @@
+2001-12-22  Marc Mulcahy  <marc.mulcahy@sun.com>
+
+	* at-bridge/bridge.c: Added registration for separate
+	"Atktext:text-changed::insert" and "AtkText:text-changed::delete"
+	signals.  If either of the first two parameters to the generic
+	bridge signal handler are ints, they are passed on as event
+	details.  This allows an AT to determine what text was inserted.
+
 2001-12-21  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:
