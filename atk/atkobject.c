@@ -35,6 +35,8 @@ enum
   PROP_STATE,       /* AtkStateSet for the object has changed */
   PROP_TEXT,        /* Used only by AtkText implementors */
   PROP_CARET,       /* Used only by AtkText implementors */
+  PROP_SELECTION,
+  PROP_VALUE,
   PROP_LAST         /* gobject convention */
 };
 
@@ -70,6 +72,10 @@ static const gchar* atk_object_name_property_state = "accessible-state";
 static const gchar* atk_object_name_property_description = "accessible-description";
 static const gchar* atk_object_name_property_child = "accessible-child";
 static const gchar* atk_object_name_property_parent = "accessible-parent";
+static const gchar* atk_object_name_property_text = "accessible-text";
+static const gchar* atk_object_name_property_caret = "accessible-caret";
+static const gchar* atk_object_name_property_selection = "accessible-selection";
+static const gchar* atk_object_name_property_value = "accessible-value";
 
 GType
 atk_object_get_type (void)
@@ -155,19 +161,41 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         "Is used to notify that the parent has been changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
-#if 0
   g_object_class_install_property (gobject_class,
                                    PROP_TEXT,
-                                   g_param_spec_ccallback ("accessible_text", "Accessible Text",
-                                                           "This object\'s accessible text contents",
-                                                           G_PARAM_READWRITE));
+                                   g_param_spec_object (atk_object_name_property_text,
+                                                        "Accessible Text",
+                                                        "Is used to notify that the text has been changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_CARET,
-                                   g_param_spec_ccallback ("accessible_caret", "Accessible Text Caret",
-                                                           "The current text caret state and position "
-                                                           "for this component",
-                                                           G_PARAM_READWRITE));
-#endif
+                                   g_param_spec_int    (atk_object_name_property_caret,
+                                                        "Accessible Caret",
+                                                        "Is used to notify that the caret position has been changed ",
+                                                        0,
+                                                        G_MAXINT,
+                                                        0,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_SELECTION,
+                                   g_param_spec_object (atk_object_name_property_selection,
+                                                        "Accessible Selection",
+                                                        "Is used to notify that the selection has been changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  /*
+   * XXX We need to reconsider the value type for this
+   */
+  g_object_class_install_property (gobject_class,
+                                   PROP_VALUE,
+                                   g_param_spec_int    (atk_object_name_property_value,
+                                                        "Accessible Value",
+                                                        "Is used to notify that the value has been changed ",
+                                                        0,
+                                                        G_MAXINT,
+                                                        0,
+                                                        G_PARAM_READWRITE));
   /*
    * The signal "children_changed" supports two details:
    * "add" and "remove"

@@ -1,3 +1,7 @@
+2001-05-29  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Define new properties accessible-text, 
+	accessible-caret, accessible-selection and accessible-value
 
 2001-05-29  Brian Cameron <brian.cameron@sun.com>
         * docs/atk-sections.txt
