@@ -1,3 +1,8 @@
+2003-07-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkstateset.c (atk_state_set_is_empty): Correct return value.
+	Fixes bug #116621. Problem reported by Mario Lang.
+
 2003-06-25  Fatih Demir <kabalak@gtranslator.org>
 
 	* configure.in: (Re-?)added "ta" (Tamil) to languages' list.

@@ -94,9 +94,9 @@ atk_state_set_is_empty (AtkStateSet   *set)
   real_set = (AtkRealStateSet *)set;
 
   if (real_set->state)
-    return TRUE;
-  else
     return FALSE;
+  else
+    return TRUE;
 }
 
 /**
