@@ -28,12 +28,12 @@
 #include "../util/mag_client.h"
 #include "../cspi/spi-private.h" /* A hack for now */
 
-static void report_focus_event    (AccessibleEvent *event, void *user_data);
-static void report_generic_event  (AccessibleEvent *event, void *user_data);
-static void report_button_press   (AccessibleEvent *event, void *user_data);
-static void check_property_change (AccessibleEvent *event, void *user_data);
-static SPIBoolean report_command_key_event  (AccessibleKeystroke *stroke, void *user_data);
-static SPIBoolean report_ordinary_key_event (AccessibleKeystroke *stroke, void *user_data);
+static void report_focus_event    (const AccessibleEvent *event, void *user_data);
+static void report_generic_event  (const AccessibleEvent *event, void *user_data);
+static void report_button_press   (const AccessibleEvent *event, void *user_data);
+static void check_property_change (const AccessibleEvent *event, void *user_data);
+static SPIBoolean report_command_key_event  (const AccessibleKeystroke *stroke, void *user_data);
+static SPIBoolean report_ordinary_key_event (const AccessibleKeystroke *stroke, void *user_data);
 static void get_environment_vars (void);
 
 static int _festival_init ();
@@ -238,7 +238,7 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
 }
 
 void
-report_focus_event (AccessibleEvent *event, void *user_data)
+report_focus_event (const AccessibleEvent *event, void *user_data)
 {
   char *s;
 
@@ -255,13 +255,13 @@ report_focus_event (AccessibleEvent *event, void *user_data)
 }
 
 void
-report_generic_event (AccessibleEvent *event, void *user_data)
+report_generic_event (const AccessibleEvent *event, void *user_data)
 {
   fprintf (stderr, "%s event received\n", event->type);
 }
 
 void
-report_button_press (AccessibleEvent *event, void *user_data)
+report_button_press (const AccessibleEvent *event, void *user_data)
 {
   char *s;
 
@@ -277,7 +277,7 @@ report_button_press (AccessibleEvent *event, void *user_data)
 }
 
 void
-check_property_change (AccessibleEvent *event, void *user_data)
+check_property_change (const AccessibleEvent *event, void *user_data)
 {
   AccessibleSelection *selection = Accessible_getSelection (event->source);
   int n_selections;
@@ -330,7 +330,7 @@ simple_at_exit ()
 }
 
 static SPIBoolean
-is_command_key (AccessibleKeystroke *key)
+is_command_key (const AccessibleKeystroke *key)
 {
   switch (key->keyID)
     {
@@ -354,7 +354,7 @@ is_command_key (AccessibleKeystroke *key)
 }
 
 static SPIBoolean
-report_command_key_event (AccessibleKeystroke *key, void *user_data)
+report_command_key_event (const AccessibleKeystroke *key, void *user_data)
 {
   fprintf (stderr, "Command KeyEvent %s%c (keycode %d); string=%s; time=%lx\n",
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
@@ -368,7 +368,7 @@ report_command_key_event (AccessibleKeystroke *key, void *user_data)
 
 
 static SPIBoolean
-report_ordinary_key_event (AccessibleKeystroke *key, void *user_data)
+report_ordinary_key_event (const AccessibleKeystroke *key, void *user_data)
 {
   fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\tstring=\'%s\'\n\ttime %lx\n",
 	   (long) key->keyID,

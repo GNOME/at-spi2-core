@@ -1,4 +1,25 @@
-2002-01-11  Bill Haneman <bill.haneman@sun.com>
+2002-01-11  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi_accessible.c (role_names): add a role name
+	to sync this array with the enum; and make the regression
+	tests pass, sigh.
+
+2002-01-10  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi_registry.c (SPI_generateKeyboardEvent): 
+	allow expansion of enumeration & kill warning.
+
+	* test/test-simple.c (key_listener_cb): impl.
+	(test_keylisteners): impl.
+
+	* cspi/spi-listener.h: make listener signatures const
+	on the provided (const) events.
+
+	* test/keysynth-demo.c: upd. to const events.
+
+	* test/simple-at.c: ditto.
+
+2002-10-01  Bill Haneman <bill.haneman@sun.com>
 
 	* test/demo.csh:
 	Checked in a demo script, which requires editing before use!

@@ -42,10 +42,10 @@ typedef struct {
  *
  * SPIBoolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystrokeEvent *Event);
  */
-typedef void       (*AccessibleEventListenerCB)     (AccessibleEvent     *event,
-						     void                *user_data);
-typedef SPIBoolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystroke *stroke,
-						     void                *user_data);
+typedef void       (*AccessibleEventListenerCB)     (const AccessibleEvent     *event,
+						     void                      *user_data);
+typedef SPIBoolean (*AccessibleKeystrokeListenerCB) (const AccessibleKeystroke *stroke,
+						     void                      *user_data);
 
 #ifdef  __cplusplus
 }

@@ -11,6 +11,7 @@ static const char *role_names [] =
   "calendar",
   "canvas",
   "check box",
+  "check menu item",
   "color chooser",
   "column header",
   "combo box",

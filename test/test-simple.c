@@ -611,8 +611,8 @@ test_misc (void)
 }
 
 static void
-global_listener_cb (AccessibleEvent     *event,
-		    void                *user_data)
+global_listener_cb (const AccessibleEvent *event,
+		    void                  *user_data)
 {
 	TestWindow *win = user_data;
 	Accessible *desktop;
@@ -643,6 +643,50 @@ global_listener_cb (AccessibleEvent     *event,
 	validate_accessible (event->source, TRUE, TRUE);
 }
 
+static SPIBoolean
+key_listener_cb (const AccessibleKeystroke *stroke,
+		 void                      *user_data)
+{
+	AccessibleKeystroke *s = user_data;
+
+	*s = *stroke;
+
+	g_warning ("Key listener callback");
+
+	return FALSE;
+}
+
+static void
+test_keylisteners (void)
+{
+	AccessibleKeystroke stroke;
+	AccessibleKeystrokeListener *key_listener;
+
+	key_listener = SPI_createAccessibleKeystrokeListener (
+		key_listener_cb, &stroke);
+
+	g_assert (SPI_registerAccessibleKeystrokeListener (
+		key_listener, SPI_KEYSET_ALL_KEYS, 0,
+		SPI_KEY_PRESSED | SPI_KEY_RELEASED,
+		SPI_KEYLISTENER_CANCONSUME));
+
+#if FIXME_HOW_SHOULD_THIS_WORK
+	memset (&stroke, 0, sizeof (AccessibleKeystroke));
+
+	g_assert (SPI_generateKeyboardEvent (33, "!", SPI_KEY_PRESSRELEASE));
+
+	while (stroke.type == 0)
+		g_main_iteration (TRUE);
+
+	g_assert (!strcmp (stroke.keystring, "!"));
+	g_assert (stroke.type == SPI_KEY_PRESSRELEASE);
+#endif
+
+	g_assert (SPI_deregisterAccessibleKeystrokeListener (key_listener, 0));
+
+	AccessibleKeystrokeListener_unref (key_listener);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -670,6 +714,7 @@ main (int argc, char **argv)
 	test_roles ();
 	test_misc ();
 	test_desktop ();
+	test_keylisteners ();
 
 	win = create_test_window ();
 

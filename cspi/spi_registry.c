@@ -506,6 +506,8 @@ SPI_generateKeyboardEvent (long int keyval,
       case SPI_KEY_STRING:
 	  keysynth_type = Accessibility_KEY_STRING;
 	  break;
+      default:
+          return FALSE;
     }
 
   Accessibility_DeviceEventController_generateKeyboardEvent (device_event_controller,

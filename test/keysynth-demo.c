@@ -319,7 +319,7 @@ button_exit (GtkButton *notused, void *alsonotused)
 }
 
 static SPIBoolean
-is_command_key (AccessibleKeystroke *key, void *user_data)
+is_command_key (const AccessibleKeystroke *key, void *user_data)
 {
   switch (key->keyID)
     {
@@ -332,7 +332,7 @@ is_command_key (AccessibleKeystroke *key, void *user_data)
 }
 
 static SPIBoolean
-switch_callback (AccessibleKeystroke *key, void *user_data)
+switch_callback (const AccessibleKeystroke *key, void *user_data)
 {
   static SPIBoolean is_down = FALSE;
 
