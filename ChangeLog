@@ -1,3 +1,8 @@
+2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
+ 
+        * configure.in: Added Norwegian (nynorsk) code
+        nn to ALL_LINGUAS.
+
 2003-09-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: Remove comments about signals. The description
