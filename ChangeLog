@@ -25,6 +25,8 @@
 	whether the event came from the 'toolkit source' or the 'global
 	(XServer) source' - this is used in the notification process to
 	determine which listeners to send the event to.
+
+	deviceeventcontroller.c is now warning-free.
 	
 	* libspi/registry.c:
 	Fixed regression in application de-registration.
