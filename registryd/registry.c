@@ -53,7 +53,7 @@ typedef enum {
 } EventTypeCategory;
 
 typedef struct {
-  char *event_name;
+  const char *event_name;
   EventTypeCategory type_cat;
   GQuark major;  /* from string segment[1] */
   GQuark minor;  /* from string segment[1]+segment[2] */
@@ -90,7 +90,7 @@ desktop_add_application (SpiDesktop *desktop,
   Accessibility_Event e;
   CORBA_Environment ev;
   
-  e.type = g_strdup ("object:children-changed:add");
+  e.type = "object:children-changed:add";
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
@@ -111,7 +111,7 @@ desktop_remove_application (SpiDesktop *desktop,
   Accessibility_Event e;
   CORBA_Environment ev;
   
-  e.type = g_strdup ("object:children-changed:remove");
+  e.type = "object:children-changed:remove";
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
@@ -241,7 +241,7 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
   gchar *s;
 
   split_string = g_strsplit (event_name, ":", 4);
-  etype->event_name = g_strdup (event_name);
+  etype->event_name = event_name;
 
   if (!g_ascii_strncasecmp (event_name, "focus:", 6))
     {
@@ -578,7 +578,7 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
 
       if (BONOBO_EX (ctx->ev))
         {
-          return SPI_RE_ENTRANT_CONTINUE;;
+          return SPI_RE_ENTRANT_CONTINUE;
 	}
       
       if ((*list) && (*list)->data == ls)

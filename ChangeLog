@@ -1,3 +1,10 @@
+2002-09-17  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* registryd/registry.c
+	(desktop_add_application): Remove leak.
+	(desktop_remove_application): Remove leak.
+	(parser_event_type): Remove leak.
+
 2002-09-16  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* registryd/deviceeventcontroller.c (spi_dec_mouse_moved): Removed
