@@ -1,3 +1,8 @@
+2002-01-10  Bill Haneman <bill.haneman@sun.com>
+
+       * configure.in:
+       Update version number to 0.9, for Beta2 package.
+
 Wed Jan  9 11:26:56 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* atk/Makefile.am (s-enum-types-h):  Include glib-object.h,
