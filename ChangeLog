@@ -1,3 +1,11 @@
+2004-07-28  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Increment version to 1.7.3 and interface age to 3.
+
+	* ===== Released Version 1.7.3, interface age 3, binary age 703 ====
+
+	* NEWS: Updated.
+	
 2004-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* docs/atk-sections.txt: Add entries to fix warning when generating
