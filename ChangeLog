@@ -4,6 +4,10 @@
 	Added key mask #defines for mouse buttons; e.g.
 	SPI_KEYMASK_BUTTON1, etc.
 
+	* configure.in:
+	Incremented dependency on ATK to version 1.1.0. (This dependency
+	is probably premature but will soon be real enough).
+
 2002-10-11  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* libspi/hyperlink.[ch]
