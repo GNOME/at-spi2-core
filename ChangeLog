@@ -1,3 +1,10 @@
+2003-07-08  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktable.c (atk_table_ref_at): Ensure that row and column values 
+	are non-negative.
+
+	This is a partial fix for bug #116712.
+
 2003-07-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkstateset.c (atk_state_set_is_empty): Correct return value.

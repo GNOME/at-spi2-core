@@ -148,6 +148,8 @@ atk_table_ref_at (AtkTable *table,
   AtkTableIface *iface;
 
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
+  g_return_val_if_fail (row >= 0, NULL);
+  g_return_val_if_fail (column >= 0, NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
 
