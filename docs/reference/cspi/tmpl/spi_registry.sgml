@@ -190,6 +190,17 @@ Registry queries
 @Returns: 
 
 
+<!-- ##### FUNCTION SPI_generateKeyboardEvent ##### -->
+<para>
+
+</para>
+
+@keyval: 
+@keystring: 
+@synth_type: 
+@Returns: 
+
+
 <!-- ##### FUNCTION SPI_generateMouseEvent ##### -->
 <para>
 

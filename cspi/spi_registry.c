@@ -458,6 +458,11 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
  * SPI_generateKeyboardEvent:
  * @keyval: a long integer indicating the keycode or keysym of the key event
  *           being synthesized.
+ * @keystring: an (optional) UTF-8 string which, if @keyval is NULL,
+ *           indicates a 'composed' keyboard input string which is 
+ *           being synthesized; this type of keyboard event synthesis does
+ *           not emulate hardware keypresses but injects the string 
+ *           as though a composing input method (such as XIM) were used.
  * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
  *           is to be interpreted as a keysym rather than a keycode
  *           (CSPI_KEYSYM), or whether to synthesize

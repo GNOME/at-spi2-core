@@ -8,7 +8,7 @@ extern "C" {
 /**
  * AccessibleRole:
  * @SPI_ROLE_INVALID: role is not legal, something is wrong with this object
- * @SPI_ROLE_ACCELERATOR_LABEL: object is a label indicating keyboard
+ * @SPI_ROLE_ACCEL_LABEL: object is a label indicating keyboard
  *                              accelerators for the parent
  * @SPI_ROLE_ALERT: Object is used to alert the user about something
  * @SPI_ROLE_ANIMATION: Object contains a dynamic or moving image
@@ -70,6 +70,8 @@ extern "C" {
  *        the application to do something.
  * @SPI_ROLE_RADIO_BUTTON: A specialized check box that will cause other radio buttons in the
  *        same group to become uncghecked when this one is checked.
+ * @SPI_RADIO_MENU_ITEM: A specialized menu item that behaves like a 
+ *        radio button.
  * @SPI_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a layered pane as its
  *        children.
  * @SPI_ROLE_ROW_HEADER: The header for a row of data
@@ -117,6 +119,7 @@ typedef enum
   SPI_ROLE_CALENDAR,
   SPI_ROLE_CANVAS,
   SPI_ROLE_CHECK_BOX,
+  SPI_ROLE_CHECK_MENU_ITEM,
   SPI_ROLE_COLOR_CHOOSER,
   SPI_ROLE_COLUMN_HEADER,
   SPI_ROLE_COMBO_BOX,

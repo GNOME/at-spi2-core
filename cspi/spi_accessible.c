@@ -91,6 +91,7 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_CALENDAR] = SPI_ROLE_CALENDAR;
   role_table [Accessibility_ROLE_CANVAS] = SPI_ROLE_CANVAS;
   role_table [Accessibility_ROLE_CHECK_BOX] = SPI_ROLE_CHECK_BOX;
+  role_table [Accessibility_ROLE_CHECK_MENU_ITEM] = SPI_ROLE_CHECK_MENU_ITEM;
   role_table [Accessibility_ROLE_COLOR_CHOOSER] = SPI_ROLE_COLOR_CHOOSER;
   role_table [Accessibility_ROLE_COLUMN_HEADER] = SPI_ROLE_COLUMN_HEADER;
   role_table [Accessibility_ROLE_COMBO_BOX] = SPI_ROLE_COMBO_BOX;

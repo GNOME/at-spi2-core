@@ -17,7 +17,6 @@ SPI_freeString
 AccessibleEvent
 AccessibleEventListenerCB
 SPI_createAccessibleEventListener
-AccessibleEventListener_ref
 AccessibleEventListener_unref
 AccessibleEventListener_addCallback
 AccessibleEventListener_removeCallback
@@ -47,7 +46,7 @@ AccessibleKeystrokeListener_ref
 AccessibleKeystrokeListener_unref
 AccessibleKeystrokeListener_removeCallback
 AccessibleKeystrokeListener_addCallback
-SPI_generateKeyEvent
+SPI_generateKeyboardEvent
 SPI_generateMouseEvent
 </SECTION>
 
