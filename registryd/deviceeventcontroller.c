@@ -57,6 +57,7 @@
 #include "deviceeventcontroller.h"
 
 KeySym ucs2keysym (long ucs);
+long keysym2ucs(KeySym keysym); 
 
 #define CHECK_RELEASE_DELAY 20
 #define BIT(c, x)       (c[x/8]&(1<<(x%8)))
@@ -1589,8 +1590,8 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
 	    gunichar c;
 	    cbuf[nbytes] = '\0'; /* OK since length is cbuf_bytes+1 */
             key_event.event_string = CORBA_string_dup (cbuf);
-	    c = g_utf8_get_char_validated (cbuf, nbytes);
-	    if ((c > 0) && g_unichar_isprint (c))
+	    c = keysym2ucs (keysym);
+	    if (c > 0 && !g_unichar_iscntrl (c))
 	      {
 	        key_event.is_text = CORBA_TRUE; 
 		/* incorrect for some composed chars? */
