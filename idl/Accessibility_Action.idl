@@ -1,0 +1,68 @@
+/* 
+ * AT-SPI - Assistive Technology Service Provider Interface 
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2001 Sun Microsystems, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+module Accessibility {
+
+  interface Action {
+
+        /**
+         * getNActions:
+         * return values: a @long containing the number of actions this object supports.
+         *
+         * Returns the number of actions supported by this object.
+         **/
+        long getNActions ();
+
+        /**
+	 * getDescription:
+	 * return values: a @wstring containing the description of the specified action.
+	 * @index: an %in parameter specifying the index of the action 
+         *   for which a description is desired.
+	 *
+	 * Gets the description of the specified action.
+	 *
+	 **/
+        string getDescription (in long index);
+
+        /**
+         * doAction:
+         * @index: an %in parameter specifying the 0-based index of the action to perform.
+         *
+         * Causes the object to perform the specified action.
+	 *
+         **/
+        void doAction (in long index);
+
+        /**
+	 * getKeyBinding:
+	 * return values: a @wstring containing the key binding for the specified action,
+         *   "" if none exists.
+	 * @index: an %in parameter specifying the 0-based index of the action 
+         *   for which a key binding is requested.
+	 *
+	 * Gets the key binding associated with a specific action.
+	 *
+	 **/
+        string getKeyBinding (in long index);
+  };
+
+};

@@ -30,11 +30,35 @@
 #pragma inhibit push
 #endif
 
+/*
+ * Accessibility interfaces and subinterfaces
+ */
 #include <Accessible.idl>
-#include <Desktop.idl>
+#include <Action.idl>
+#include <Component.idl>
+#include <Hyperlink.idl>
+#include <Image.idl>
+#include <Selection.idl>
+#include <StreamableContent.idl>
+#include <Table.idl>
+#include <Text.idl>
+#include <Value.idl>
+
+/*
+ * Interfaces derived from Accessibility::Text
+ */
+
+#include <EditableText.idl>
+#include <Hypertext.idl>
+
+/*
+ * Utility interfaces and interfaces derived from Accessibility::Accessible
+ */
+
 #include <Relation.idl>
 #include <State.idl>
 #include <Application.idl>
+#include <Desktop.idl>
 #include <Event.idl>
 #include <Registry.idl>
 #include <Role.idl>
