@@ -32,6 +32,7 @@ void magnifier_set_magnification (int zoom_region, float mag_factor_x, float mag
 void magnifier_resize_region (int zoom_region, int x1, int y1, int x2, int y2);
 int  magnifier_create_region (float zx, float zy, int x1, int y1, int x2, int y2);
 void magnifier_clear_all_regions (void);
+void magnifier_exit (void);
 
 #ifdef __cplusplus
 }
