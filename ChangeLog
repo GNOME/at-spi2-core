@@ -1,5 +1,8 @@
 2004-02-10  Tomasz K³oczko <kloczek@pld.org.pl>
 
+	* docs/reference/cspi/Makefile.am, configure.in:
+	  Added better gtk-doc support using GTK_DOC_CHECK aclocal macro
+	  from gtk-doc >= 1.0 (modyfications based on scheme from atk).
 	* libspi/Makefile.am: fixes for automake >= 1.6.
 	* configure.in: Trivial cleanup: remove AC_SUBST(CFLAGS),
 	  AC_SUBST(CPPFLAGS) and AC_SUBST(LDFLAGS). This variables are
