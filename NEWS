@@ -1,3 +1,21 @@
+Changes in version 1.8.0
+========================
+* Add translations: Bosnian [Kenan Had\305\276iavdi\304\207],
+Norwegian [Kjartan Marass], Gujarati [Ankit Patel]
+
+* Update translations: Norwegian Nynorsk [\303\205smund Skj\303\246veland],
+Vietnamese [Nguy\341\273\205n Th\303\241i Ng\341\273\215c Duy],
+Turkish [Baris Cicek], German [Hendrik Richter],
+Greek [Nikos Charonitakis], Arabic [Arafat Medini],
+Brazilian Portuguese [Raphael Higino], Nepali [Pawan Chitrakar],
+Danish [Martin Willemoes Hansen], Albanian [Laurent Dhima],
+Finnish [Pauli Virtanen], Azerbaijani [M\311\231tin \306\217mirov] ,
+Polish [Artur Flinta], Panjabi [AmanPreet Singh Alam],
+Serbian [Danilo \305\240egan], Mongolian [Sanlig Badral],
+Russian [Russian team <gnome-cyr@gnome.org>], Dutch [Timo Meinen],
+Ukranian [Maxim Dziumanenko], Canadian English [Adam Weinberger],
+Simplified Chinese [Funda Wang], Basque [I\303\261aki Larra\303\261aga]
+
 Changes in version 1.7.3
 ========================
 * Minor updates to documentation.
