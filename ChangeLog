@@ -1,3 +1,13 @@
+2002-12-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+        * ===== Released 1.2.0 ======
+
+	* configure.in: Version 1.2.0, interface age 0, binary age 200
+
+	* NEWS: Final update for 1.2.0.
+
+	* docs/tmpl/atkobject.sgml: Order of properties have been changed.
+
 2002-12-18  Dmitry G. Mastrukov  <dmitry@taurussoft.org>
 
 	* configure.in: Added Russian to ALL_LINGUAS.
@@ -12,7 +22,7 @@
 
 2002-12-13  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	* atk/atktext.c (atk_text_get_caret_offset): Rerturn 0 instead of -1
+	* atk/atktext.c (atk_text_get_caret_offset): Return 0 instead of -1
 	if caret is not supported. This addresses bug #101020.
 
 	* configure.in: Use third argument of AC_DEFINE to get rid of 
