@@ -1,3 +1,9 @@
+2001-10-17  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c:
+	Update comments in atk_text_get_text_[at|after|before]_offset()
+	to clarify what these functions will return.
+
 2001-10-16  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c:

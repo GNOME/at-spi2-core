@@ -219,15 +219,44 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @end_offset: the end offset of the returned string.
  *
  * Gets the specified text.
- * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
- * ATK_TEXT_BOUNDARY_WORD_END part of a word may be returned.
- * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the start point 
- * will be the offset and will continue to the start of the next sentence. 
- * The first word may not be a complete word. Similarly for 
- * ATK_TEXT_BOUNDARY_SENTENCE_END, ATK_TEXT_BOUNDARY_LINE_START and
- * ATK_TEXT_BOUNDARY_LINE_END
  *
- * Returns: the text after @offset up to the specified @boundary_type.
+ * If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character after the 
+ * offset is returned.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
+ * is from the word start after the offset to the next word start.
+ *
+ * The returned string will contain the word after the offset if the offset 
+ * is inside a word or if the offset is not inside a word.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_END the returned string
+ * is from the word end at or after the offset to the next work end.
+ *
+ * The returned string will contain the word after the offset if the offset
+ * is inside a word and will contain the word after the word after the offset
+ * if the offset is not inside a word.
+ *
+ * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the returned
+ * string is from the sentence start after the offset to the next sentence
+ * start.
+ *
+ * The returned string will contain the sentence after the offset if the offset
+ * is inside a sentence or if the offset is not inside a sentence.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_SENTENCE_END the returned string
+ * is from the sentence end at or after the offset to the next sentence end.
+ *
+ * The returned string will contain the sentence after the offset if the offset
+ * is inside a sentence and will contain the sentence after the sentence
+ * after the offset if the offset is not inside a sentence.
+ *
+ * If the boundary type is ATK_TEXT_BOUNDARY_LINE_START the returned
+ * string is from the line start after the offset to the next line start.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_LINE_END the returned string
+ * is from the line end at or after the offset to the next line start.
+ *
+ * Returns: the text after @offset bounded by the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
@@ -268,14 +297,51 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @end_offset: the end offset of the returned string.
  *
  * Gets the specified text.
- * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START or 
- * ATK_TEXT_BOUNDARY_WORD_END a complete word is returned; 
- * if the boundary type is  ATK_TEXT_BOUNDARY_SENTENCE_START or 
- * ATK_TEXT_BOUNDARY_SENTENCE_END a complete sentence
- * is returned; if the boundary type is ATK_TEXT_BOUNDARY_LINE_START or
- * ATK_TEXT_BOUNDARY_LINE_END a complete line is returned.
  *
- * Returns: the text at @offset up to the specified @boundary_type.
+ * If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character at the
+ * offset is returned.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
+ * is from the word start at or before the offset to the word start after 
+ * the offset.
+ *
+ * The returned string will contain the word at the offset if the offset
+ * is inside a word and will contain the word before the offset if the 
+ * offset is not inside a word.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_END the returned string
+ * is from the word end before the offset to the word end at or after the
+ * offset.
+ *
+ * The returned string will contain the word at the offset if the offset
+ * is inside a word and will contain the word after to the offset if the 
+ * offset is not inside a word.
+ *
+ * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the returned
+ * string is from the sentence start at or before the offset to the sentence
+ * start after the offset.
+ *
+ * The returned string will contain the sentence at the offset if the offset
+ * is inside a sentence and will contain the sentence before the offset 
+ * if the offset is not inside a sentence.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_SENTENCE_END the returned string
+ * is from the sentence end before the offset to the sentence end at or
+ * after the offset.
+ *
+ * The returned string will contain the sentence at the offset if the offset
+ * is inside a sentence and will contain the sentence after the offset 
+ * if the offset is not inside a sentence.
+ *
+ * If the boundary type is ATK_TEXT_BOUNDARY_LINE_START the returned
+ * string is from the line start at or before the offset to the line
+ * start after the offset.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_LINE_END the returned string
+ * is from the line end before the offset to the line end at or after
+ * the offset.
+ *
+ * Returns: the text at @offset bounded by the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
@@ -316,15 +382,49 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @end_offset: the end offset of the returned string.
  *
  * Gets the specified text.
- * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
- * ATK_TEXT_BOUNDARY_WORD_END part of a word may be returned.
- * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the start point 
- * will be at the start of the sentence, and will continue to the offset. 
- * The last word may not be a complete word. Similarly for 
- * ATK_TEXT_BOUNDARY_SENTENCE_END, ATK_TEXT_BOUNDARY_LINE_START and
- * ATK_TEXT_BOUNDARY_LINE_END
  *
- * Returns: the text before @offset starting from the specified @boundary_type.
+ * If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character before the
+ * offset is returned.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
+ * is from the word start before the word start before the offset to 
+ * the word start before the offset.
+ *
+ * The returned string will contain the word before the offset if the offset
+ * is inside a word and will contain the word before the word before the 
+ * offset if the offset is not inside a word.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_END the returned string
+ * is from the word end before the word end at or before the offset to the 
+ * word end at or before the offset.
+ *
+ * The returned string will contain the word before the offset if the offset
+ * is inside a word or if the offset is not inside a word.
+ *
+ * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the returned
+ * string is from the sentence start before the sentence start before 
+ * the offset to the sentence start before the offset.
+ *
+ * The returned string will contain the sentence before the offset if the 
+ * offset is inside a sentence and will contain the sentence before the 
+ * sentence before the offset if the offset is not inside a sentence.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_SENTENCE_END the returned string
+ * is from the sentence end before the sentence end at or before the offset to 
+ * the sentence end at or before the offset.
+ *
+ * The returned string will contain the sentence before the offset if the 
+ * offset is inside a sentence or if the offset is not inside a sentence.
+ *
+ * If the boundary type is ATK_TEXT_BOUNDARY_LINE_START the returned
+ * string is from the line start before the line start ar or before the offset 
+ * to the line start ar or before the offset.
+ *
+ * If the boundary_type is ATK_TEXT_BOUNDARY_LINE_END the returned string
+ * is from the line end before the line end before the offset to the 
+ * line end before the offset.
+ *
+ * Returns: the text before @offset bounded by the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
