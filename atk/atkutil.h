@@ -57,8 +57,15 @@ struct _AtkKeyEventStruct {
   gint length;
   gchar *string;
   guint16 keycode;
-  guint32 time;	
+  guint32 timestamp;	
 };
+
+typedef enum
+{
+  ATK_KEY_EVENT_PRESS,
+  ATK_KEY_EVENT_RELEASE,
+  ATK_KEY_EVENT_LAST_DEFINED
+} AtkKeyEventType;
 
 struct _AtkUtil
 {
