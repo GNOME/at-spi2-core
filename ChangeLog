@@ -1,3 +1,11 @@
+2003-01-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.2.1=====
+	
+	* configure.in: Version 1.2.1, interface age 1, binary age 201
+
+	* NEWS: Updated.
+
 2003-01-02  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* configure.in (ALL_LINGUAS): Added pl (Polish).
