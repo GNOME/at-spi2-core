@@ -93,8 +93,8 @@ struct _AtkComponentIface
                                                  gint           width,
                                                  gint           height);
   	
-  AtkLayer                 (* get_layer)        (AtkObject     *accessible);
-  gint                     (* get_mdi_zorder)   (AtkObject     *accessible);
+  AtkLayer                 (* get_layer)        (AtkComponent   *component);
+  gint                     (* get_mdi_zorder)   (AtkComponent   *component);
 
   AtkFunction              pad1;
   AtkFunction              pad2;

@@ -1,5 +1,22 @@
 2002-02-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atkcomponent.h:
+	Change argument of get_layer and get_mdi_zorder function pointers 
+	to be AtkComponent instead of AtkObject
+
+	* atk/atkcomponent.c:
+	Change atk_component_get_layer and atk_component_get_mdi_zorder
+	to refer to argument as component instead os accessible
+
+	* docs/atk-sections.txt docs/tmpl/atkaction.sgml 
+	docs/tmpl/atkcomponent.sgml docs/tmpl/atkeditabletext.sgml
+	docs/tmpl/atkimage.sgml docs/tmpl/atkobject.sgml 
+	docs/tmpl/atkselection.sgml docs/tmpl/atkstreamablecontent.sgml
+	docs/tmpl/atktable.sgml docs/tmpl/atktext.sgml docs/tmpl/atkvalue.sgml:
+	Update for recent changes
+	
+2002-02-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atk.h:
 	Guard atk.h with ifndef __ATK_H__
 	(#71405 reported by terra@diku.dk (Morten Welinder))

@@ -319,47 +319,47 @@ atk_component_get_size       (AtkComponent    *component,
 
 /**
  * atk_component_get_layer:
- * @accessible: an #AtkComponent
+ * @component: an #AtkComponent
  *
- * Gets the layer of the accessible.
+ * Gets the layer of the component.
  *
- * Returns: an #AtkLayer which is the layer of the accessible
+ * Returns: an #AtkLayer which is the layer of the component
  **/
 AtkLayer
-atk_component_get_layer (AtkComponent *accessible) 
+atk_component_get_layer (AtkComponent *component) 
 {
   AtkComponentIface *iface;
 
-  g_return_val_if_fail (ATK_IS_COMPONENT (accessible), ATK_LAYER_INVALID);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), ATK_LAYER_INVALID);
 
-  iface = ATK_COMPONENT_GET_IFACE (accessible);
+  iface = ATK_COMPONENT_GET_IFACE (component);
   if (iface->get_layer)
-    return (iface->get_layer) (accessible);
+    return (iface->get_layer) (component);
   else
     return ATK_LAYER_WIDGET;
 }
 
 /**
  * atk_component_get_mdi_zorder:
- * @accessible: an #AtkComponent
+ * @component: an #AtkComponent
  *
- * Gets the zorder of the accessible. The value G_MININT will be returned 
- * if the layer of the accessible is not ATK_LAYER_MDI.
+ * Gets the zorder of the component. The value G_MININT will be returned 
+ * if the layer of the component is not ATK_LAYER_MDI.
  *
- * Returns: a gint which is the zorder of the accessible, i.e. the depth at 
+ * Returns: a gint which is the zorder of the component, i.e. the depth at 
  * which the component is shown in relation to other components in the same 
  * container.
  **/
 gint
-atk_component_get_mdi_zorder (AtkComponent *accessible) 
+atk_component_get_mdi_zorder (AtkComponent *component) 
 {
   AtkComponentIface *iface;
 
-  g_return_val_if_fail (ATK_IS_COMPONENT (accessible), G_MININT);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), G_MININT);
 
-  iface = ATK_COMPONENT_GET_IFACE (accessible);
+  iface = ATK_COMPONENT_GET_IFACE (component);
   if (iface->get_mdi_zorder)
-    return (iface->get_mdi_zorder) (accessible);
+    return (iface->get_mdi_zorder) (component);
   else
     return G_MININT;
 }
