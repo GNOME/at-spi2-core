@@ -1,3 +1,13 @@
+2002-10-31  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.1.1 =====
+	
+	* configure.in: Version 1.1.1, interface age 0, binary age 101
+
+	* NEWS: Updated.
+
+	* atk/Makefile.am: Add atkintl.h to EXTRA_DIST.
+
 2002-10-30  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* Makefile.am: Add po directory

@@ -1,3 +1,13 @@
+Changes in version 1.1.1
+
+* Add new functions atk_object_add_relationship, atk_object_remove_relationship,
+atk_role_get_localized_name, atk_action_get_localized_name; add new roles,
+states and relationships; add text-attributes-changed signal for AtkText
+interface. [Padraig O'Briain]
+
+* Add po directory and update atk_role_get_localized_name() to allow it to
+return localized name [Padraig]
+
 Changes in version 1.1.0
 
 * Documentation improvements [Padraig O'Briain]

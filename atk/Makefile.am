@@ -62,7 +62,9 @@ libatk_1_0_la_SOURCES = 	\
 	atkvalue.c		\
 	$(atk_built_cfiles)
 
-EXTRA_DIST += atkmarshal.list
+EXTRA_DIST += atkmarshal.list	\
+		atkintl.h
+
 MAINTAINERCLEANFILES += 	\
 	atkmarshal.c		\
 	atkmarshal.h		\
