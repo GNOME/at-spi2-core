@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"POT-Creation-Date: 2003-02-02 04:53+0100\n"
-"PO-Revision-Date: 2003-02-02 11:03+0000\n"
-"Last-Translator: Gorkem Cetin <gorkem@kde.org>\n"
+"POT-Creation-Date: 2003-02-07 04:51+0100\n"
+"PO-Revision-Date: 2003-02-07 07:13+0000\n"
+"Last-Translator: erkaN <erkaN@linux-sevenler.de>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr "geçersiz"
 
 #: atk/atkobject.c:1186
 msgid "accel-label"
-msgstr ""
+msgstr "kısaltma etiket"
 
 #: atk/atkobject.c:1189
 msgid "alert"
@@ -40,15 +40,15 @@ msgstr "takvim"
 
 #: atk/atkobject.c:1201
 msgid "canvas"
-msgstr ""
+msgstr "kanvas"
 
 #: atk/atkobject.c:1204
 msgid "check-box"
-msgstr ""
+msgstr "kontrol kutusu"
 
 #: atk/atkobject.c:1207
 msgid "check-menu-item"
-msgstr ""
+msgstr "kontrol menü ögesi"
 
 #: atk/atkobject.c:1210
 msgid "color-chooser"
@@ -60,7 +60,7 @@ msgstr "sütun-başlığı"
 
 #: atk/atkobject.c:1216
 msgid "combo-box"
-msgstr "çoklu-kutu"
+msgstr "çoklu kutu"
 
 #: atk/atkobject.c:1219
 msgid "date-editor"
@@ -216,7 +216,7 @@ msgstr "ayraç"
 
 #: atk/atkobject.c:1333
 msgid "slider"
-msgstr ""
+msgstr "kaydırıcı"
 
 #: atk/atkobject.c:1336
 msgid "split-pane"
@@ -224,7 +224,7 @@ msgstr "ayrık-panel"
 
 #: atk/atkobject.c:1339
 msgid "spin-button"
-msgstr ""
+msgstr "kaydırma düğmesi"
 
 #: atk/atkobject.c:1342
 msgid "statusbar"
@@ -248,7 +248,7 @@ msgstr "tablo-satır-başlığı"
 
 #: atk/atkobject.c:1357
 msgid "tear-off-menu-item"
-msgstr ""
+msgstr "menü ögesi aralığı"
 
 #: atk/atkobject.c:1360
 msgid "terminal"
