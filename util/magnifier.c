@@ -458,6 +458,7 @@ impl_magnifier_create_zoom_region (PortableServer_Servant servant,
       magnifier->mag_data->mag_width = (x2 - x1);
       magnifier->mag_data->mag_height = (y2 - y1);
       magnifier_pack_regions (magnifier);
+      return 0;
     }
   else
     {

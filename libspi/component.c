@@ -155,7 +155,7 @@ impl_accessibility_component_get_layer (PortableServer_Servant servant,
 
   g_return_val_if_fail (component != NULL, Accessibility_LAYER_INVALID);
 
-  atklayer = atk_object_get_layer (ATK_OBJECT (component));
+  atklayer = atk_component_get_layer (component);
   switch (atklayer)
     {
       case ATK_LAYER_BACKGROUND:
@@ -184,7 +184,7 @@ impl_accessibility_component_get_mdi_z_order (PortableServer_Servant servant,
 
   g_return_val_if_fail (component != NULL, -1);
 
-  return (CORBA_short) atk_object_get_mdi_zorder (ATK_OBJECT (component));
+  return (CORBA_short) atk_component_get_mdi_zorder (component);
 }
 
 static void

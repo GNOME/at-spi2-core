@@ -3,6 +3,10 @@
 	* configure.in: 0.8
 	Incremented revision (but no change in public API
 	outside of 'utils', which are not installed public yet.)
+
+	* libspi/component.c:
+	Changed to use atk_component API for layers and
+	mdi_zorder, instead of deprecated atk_object API.
 	
 	Magnification Utility Enhancements:
 	
