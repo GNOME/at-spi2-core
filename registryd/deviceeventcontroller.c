@@ -500,7 +500,10 @@ spi_notify_keylisteners (GList                          **key_listeners,
     }
 
   g_slist_free (notify);
-  
+
+#ifdef SPI_DEBUG
+  if (is_consumed) g_message ("consumed\n");
+#endif
   return is_consumed;
 }
 

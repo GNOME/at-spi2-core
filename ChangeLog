@@ -8,6 +8,10 @@
 	now kill an existing magnifier via 
 	./mag_control q, from the util directory.
 
+	* test/key-listener-test.c:
+	* test/Makefile.am:
+	Added a new test, for our key listener API.
+
 2002-04-11  Bill Haneman <bill.haneman@sun.com>
 
 	* test/app.c, test/keysynth-demo.c:
