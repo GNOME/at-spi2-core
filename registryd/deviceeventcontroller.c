@@ -339,7 +339,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 #endif
 	snprintf (event_name, 22, "mouse:button:%d%c", button_number,
 		  (is_down) ? 'p' : 'r');
-	/* TODO: distinguish between physical and 
+	/* TODO: FIXME distinguish between physical and 
 	 * logical buttons 
 	 */
 	mouse_e.type      = (is_down) ? 
@@ -929,7 +929,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   snprintf (event_name, 22, "mouse:button:%d%c", button,
 	    (xevent->type == ButtonPress) ? 'p' : 'r');
 
-  /* TODO: distinguish between physical and logical buttons */
+  /* TODO: FIXME distinguish between physical and logical buttons */
   mouse_e.type      = (xevent->type == ButtonPress) ? 
                       Accessibility_BUTTON_PRESSED_EVENT :
                       Accessibility_BUTTON_RELEASED_EVENT;
@@ -2051,7 +2051,6 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
    * and fall back to XSendEvent() if XTest is not available.
    */
   
-  /* TODO: implement keystring mode also */
   gdk_error_trap_push ();
   key_synth_code = keycode;
 

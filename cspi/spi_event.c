@@ -379,7 +379,7 @@ char *
 AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 
@@ -396,7 +396,7 @@ char *
 AccessibleTextSelectionChangedEvent_getSelectionString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 
@@ -414,7 +414,7 @@ char *
 AccessibleWindowEvent_getTitleString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 
@@ -532,7 +532,7 @@ char *
 AccessibleTableCaptionChangedEvent_getCaptionString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 
@@ -551,7 +551,7 @@ char *
 AccessibleTableRowDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 
@@ -570,7 +570,7 @@ char *
 AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 
@@ -589,7 +589,7 @@ char *
 AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
-  /* TODO: check the event type? expensive... */
+  /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
 }
 

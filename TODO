@@ -74,3 +74,48 @@ test:
 	+ update test-simple to do complete API tests
 	+ Expand tests for AtkTable
 
+=================
+
+for 2.4/'dev complete'
+
+[** denotes API extension!]
+
+** ATK API for text range bounds?
+
+** add ROLE_EDITBAR [describes objects, usually text entries, 
+                    that describe and/or control the operation of other
+	            components.  They both reflect stateful information 
+	            about the application or the currently-focussed 
+		    object within the app, and contain editable text.
+	    	    Examples include the URI/location entry field in
+		    browsers, the currently-active-file field in an editor,
+                    and the formula/edit field in a spreadsheet.]
+
+* multiple-workspace awareness
+
+* in deviceeventcontroller, better keysym/unicode mapping 
+	(i.e. more complete)
+
+* type checking in the 'event detail' methods
+        (see TODO comments in cspi/spi_event.c)
+
+* fix silly assumption(s) about apps DISPLAY being 
+        same as registry, and being the GDK_DISPLAY()
+	default.
+
+* remove listeners from the list if their processes die.
+
+* do better deregistration on registry finalize.
+
+* check what happens if XKB isn't available - make registry and bridges
+	at least not trash things (even if nonfunctional).
+
+* deviceeventcontroller.c: Distinguish between physical and logical
+	(i.e. button 1 versus "left mouse") mouse buttons.
+
+========
+
+2.6: 
+
+* use XIM for keysym/unicode mapping, string insertion.
+* toplevel windows: implement Z ordering via Component mdi_zorder API.

@@ -157,8 +157,8 @@ static void
 spi_registry_object_finalize (GObject *object)
 {
   DBG (1, g_warning ("spi_registry_object_finalize called\n"));
+  g_object_unref (SPI_REGISTRY (object)->de_controller);
 
-  /* TODO: unref deviceeventcontroller, which disconnects key listener */
   G_OBJECT_CLASS (spi_registry_parent_class)->finalize (object);
 }
 
@@ -861,7 +861,7 @@ spi_registry_init (SpiRegistry *registry)
 {
   spi_registry_set_debug (g_getenv ("AT_SPI_DEBUG"));
   /*
-   * TODO: fixme, this module makes the foolish assumptions that
+   * TODO: FIXME, this module makes the foolish assumptions that
    * registryd uses the same display as the apps, and that the
    * DISPLAY environment variable is set.
    */

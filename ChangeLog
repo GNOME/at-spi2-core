@@ -1,3 +1,10 @@
+2003-06-26  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/registry.c: 
+	(spi_registry_object_finalize): Unref the deviceeventcontroller.
+
+	* TODO: Update with 2.4/"Dev Complete" items.
+
 2003-06-26  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c:
