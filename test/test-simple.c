@@ -187,8 +187,8 @@ test_desktop (void)
 
 	fprintf (stderr, "Testing desktop...\n");
 
-	g_assert (getDesktop (-1) == NULL);
-	desktop = getDesktop (0);
+	g_assert (SPI_getDesktop (-1) == NULL);
+	desktop = SPI_getDesktop (0);
 	g_assert (desktop != NULL);
 
 	validate_accessible (desktop, FALSE, FALSE);
@@ -620,7 +620,7 @@ global_listener_cb (AccessibleEvent     *event,
 	fprintf (stderr, "Fielded focus event ...\n");
 
 	if (!do_poke) {
-		desktop = getDesktop (0);
+		desktop = SPI_getDesktop (0);
 		application = Accessible_getChildAtIndex (desktop, 0);
 		g_assert (application != NULL);
 		Accessible_unref (desktop);
@@ -661,7 +661,7 @@ main (int argc, char **argv)
 
 	g_assert (!SPI_init ());
 	g_assert (SPI_init ());
-	g_assert (getDesktopCount () == 1);
+	g_assert (SPI_getDesktopCount () == 1);
 
 	test_roles ();
 	test_misc ();
@@ -669,13 +669,13 @@ main (int argc, char **argv)
 
 	win = create_test_window ();
 
-	global_listener = createAccessibleEventListener (global_listener_cb, win);
-	g_assert (registerGlobalEventListener (global_listener, "focus:"));
+	global_listener = SPI_createAccessibleEventListener (global_listener_cb, win);
+	g_assert (SPI_registerGlobalEventListener (global_listener, "focus:"));
 
 	fprintf (stderr, "Waiting for focus event ...\n");
 	gtk_main ();
 
-	g_assert (deregisterGlobalEventListenerAll (global_listener));
+	g_assert (SPI_deregisterGlobalEventListenerAll (global_listener));
 	AccessibleEventListener_unref (global_listener);
 
 	test_window_destroy (win);

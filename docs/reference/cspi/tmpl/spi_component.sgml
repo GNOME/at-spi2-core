@@ -22,6 +22,20 @@ AccessibleComponent Interface
 @SPI_COORD_TYPE_SCREEN: 
 @SPI_COORD_TYPE_WINDOW: 
 
+<!-- ##### ENUM AccessibleComponentLayer ##### -->
+<para>
+
+</para>
+
+@SPI_LAYER_INVALID: 
+@SPI_LAYER_BACKGROUND: 
+@SPI_LAYER_CANVAS: 
+@SPI_LAYER_WIDGET: 
+@SPI_LAYER_MDI: 
+@SPI_LAYER_POPUP: 
+@SPI_LAYER_OVERLAY: 
+@SPI_LAYER_LAST_DEFINED: 
+
 <!-- ##### FUNCTION AccessibleComponent_ref ##### -->
 <para>
 

@@ -25,7 +25,7 @@
 #include <cspi/spi-private.h>
 
 /**
- * registerGlobalEventListener:
+ * SPI_registerGlobalEventListener:
  * @listener: the #AccessibleEventListener to be registered against an
  *            event type.
  * @eventType: a character string indicating the type of events for which
@@ -81,8 +81,8 @@
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-registerGlobalEventListener (AccessibleEventListener *listener,
-                             const char              *eventType)
+SPI_registerGlobalEventListener (AccessibleEventListener *listener,
+				 const char              *eventType)
 {
   SPIBoolean retval;
 
@@ -102,7 +102,7 @@ registerGlobalEventListener (AccessibleEventListener *listener,
 }
 
 /**
- * deregisterGlobalEventListenerAll:
+ * SPI_deregisterGlobalEventListenerAll:
  * @listener: the #AccessibleEventListener to be registered against
  *            an event type.
  *
@@ -114,7 +114,7 @@ registerGlobalEventListener (AccessibleEventListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
+SPI_deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 {
   if (!listener)
     {
@@ -130,7 +130,7 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 }
 
 /**
- * deregisterGlobalEventListener:
+ * SPI_deregisterGlobalEventListener:
  * @listener: the #AccessibleEventListener registered against an event type.
  * @eventType: a string specifying the event type for which this
  *             listener is to be deregistered.
@@ -141,8 +141,8 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-deregisterGlobalEventListener (AccessibleEventListener *listener,
-			       const char              *eventType)
+SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
+				   const char              *eventType)
 {
   if (!listener)
     {
@@ -158,7 +158,7 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
 }
 
 /**
- * getDesktopCount:
+ * SPI_getDesktopCount:
  *
  * Get the number of virtual desktops.
  * NOTE: currently multiple virtual desktops are not implemented, this
@@ -167,7 +167,7 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
  * Returns: an integer indicating the number of active virtual desktops.
  **/
 int
-getDesktopCount ()
+SPI_getDesktopCount ()
 {
   int retval;
 
@@ -180,7 +180,7 @@ getDesktopCount ()
 }
 
 /**
- * getDesktop:
+ * SPI_getDesktop:
  * @i: an integer indicating which of the accessible desktops is to be returned.
  *
  * Get the virtual desktop indicated by index @i.
@@ -190,7 +190,7 @@ getDesktopCount ()
  * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
  **/
 Accessible*
-getDesktop (int i)
+SPI_getDesktop (int i)
 {
   return cspi_object_add (
     Accessibility_Registry_getDesktop (
@@ -198,7 +198,7 @@ getDesktop (int i)
 }
 
 /**
- * getDesktopList:
+ * SPI_getDesktopList:
  * @list: a pointer to an array of #Accessible objects.
  *
  * Get the list of virtual desktops.  On return, @list will point
@@ -213,14 +213,14 @@ getDesktop (int i)
  *          placed in the list pointed to by parameter @list.
  **/
 int
-getDesktopList (Accessible **list)
+SPI_getDesktopList (Accessible **list)
 {
   *list = NULL;
   return 0;
 }
 
 /**
- * registerAccessibleKeystrokeListener:
+ * SPI_registerAccessibleKeystrokeListener:
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
  *             keystroke events are requested.
  * @keys:      a pointer to the #AccessibleKeySet indicating which
@@ -244,11 +244,11 @@ getDesktopList (Accessible **list)
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-				     AccessibleKeySet *keys,
-				     AccessibleKeyMaskType modmask,
-				     AccessibleKeyEventMask eventmask,
-				     AccessibleKeyListenerSyncType sync_type)
+SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
+					 AccessibleKeySet *keys,
+					 AccessibleKeyMaskType modmask,
+					 AccessibleKeyEventMask eventmask,
+					 AccessibleKeyListenerSyncType sync_type)
 {
   gint                                i, mask;
   Accessibility_KeySet                key_set;
@@ -328,7 +328,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 }
 
 /**
- * deregisterAccessibleKeystrokeListener:
+ * SPI_deregisterAccessibleKeystrokeListener:
  * @listener: a pointer to the #AccessibleKeystrokeListener for which
  *            keystroke events are requested.
  * @modmask:  the key modifier mask for which this listener is to be
@@ -340,8 +340,8 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-				       AccessibleKeyMaskType modmask)
+SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
+					   AccessibleKeyMaskType modmask)
 {
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_KeySet                key_set;
@@ -382,7 +382,7 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 }
 
 /**
- * generateKeyEvent:
+ * SPI_generateKeyEvent:
  * @keyval: a long integer indicating the keycode or keysym of the key event
  *           being synthesized.
  * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
@@ -396,7 +396,7 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
+SPI_generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
 {
 /* TODO: check current modifier status and
  *  send keycode to alter, if necessary
@@ -417,7 +417,7 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
 }
 
 /**
- * generateMouseEvent:
+ * SPI_generateMouseEvent:
  * @x: a #long indicating the screen x coordinate of the mouse event.
  * @y: a #long indicating the screen y coordinate of the mouse event.
  * @name: a string indicating which mouse event to be synthesized
@@ -431,7 +431,7 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-generateMouseEvent (long x, long y, char *name)
+SPI_generateMouseEvent (long x, long y, char *name)
 {
   return FALSE;
 }

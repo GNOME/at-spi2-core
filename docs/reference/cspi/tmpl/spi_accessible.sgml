@@ -107,6 +107,15 @@ Accessible Objects
 @Returns: 
 
 
+<!-- ##### FUNCTION Accessible_getRoleName ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION Accessible_getStateSet ##### -->
 <para>
 
@@ -117,6 +126,15 @@ Accessible Objects
 
 
 <!-- ##### FUNCTION Accessible_isAction ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_isApplication ##### -->
 <para>
 
 </para>
@@ -188,7 +206,25 @@ Accessible Objects
 @Returns: 
 
 
+<!-- ##### FUNCTION Accessible_isValue ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION Accessible_getAction ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getApplication ##### -->
 <para>
 
 </para>
@@ -252,6 +288,15 @@ Accessible Objects
 
 
 <!-- ##### FUNCTION Accessible_getText ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getValue ##### -->
 <para>
 
 </para>

@@ -24,7 +24,7 @@ Registry queries
 @SPI_KEY_PRESSRELEASE: 
 @SPI_KEY_SYM: 
 
-<!-- ##### FUNCTION getDesktopCount ##### -->
+<!-- ##### FUNCTION SPI_getDesktopCount ##### -->
 <para>
 
 </para>
@@ -32,7 +32,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION getDesktop ##### -->
+<!-- ##### FUNCTION SPI_getDesktop ##### -->
 <para>
 
 </para>
@@ -41,7 +41,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION getDesktopList ##### -->
+<!-- ##### FUNCTION SPI_getDesktopList ##### -->
 <para>
 
 </para>
@@ -90,7 +90,13 @@ Registry queries
 @SPI_KEYLISTENER_CANCONSUME: 
 @SPI_KEYLISTENER_ALL_WINDOWS: 
 
-<!-- ##### FUNCTION createAccessibleKeystrokeListener ##### -->
+<!-- ##### TYPEDEF AccessibleKeystroke ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION SPI_createAccessibleKeystrokeListener ##### -->
 <para>
 
 </para>
@@ -100,7 +106,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION registerGlobalEventListener ##### -->
+<!-- ##### FUNCTION SPI_registerGlobalEventListener ##### -->
 <para>
 
 </para>
@@ -110,7 +116,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION deregisterGlobalEventListener ##### -->
+<!-- ##### FUNCTION SPI_deregisterGlobalEventListener ##### -->
 <para>
 
 </para>
@@ -120,7 +126,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION deregisterGlobalEventListenerAll ##### -->
+<!-- ##### FUNCTION SPI_deregisterGlobalEventListenerAll ##### -->
 <para>
 
 </para>
@@ -129,7 +135,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION registerAccessibleKeystrokeListener ##### -->
+<!-- ##### FUNCTION SPI_registerAccessibleKeystrokeListener ##### -->
 <para>
 
 </para>
@@ -142,7 +148,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION deregisterAccessibleKeystrokeListener ##### -->
+<!-- ##### FUNCTION SPI_deregisterAccessibleKeystrokeListener ##### -->
 <para>
 
 </para>
@@ -150,6 +156,14 @@ Registry queries
 @listener: 
 @modmask: 
 @Returns: 
+
+
+<!-- ##### FUNCTION AccessibleKeystrokeListener_unref ##### -->
+<para>
+
+</para>
+
+@listener: 
 
 
 <!-- ##### FUNCTION AccessibleKeystrokeListener_removeCallback ##### -->
@@ -173,7 +187,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION generateKeyEvent ##### -->
+<!-- ##### FUNCTION SPI_generateKeyEvent ##### -->
 <para>
 
 </para>
@@ -183,7 +197,7 @@ Registry queries
 @Returns: 
 
 
-<!-- ##### FUNCTION generateMouseEvent ##### -->
+<!-- ##### FUNCTION SPI_generateMouseEvent ##### -->
 <para>
 
 </para>

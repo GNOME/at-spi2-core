@@ -23,7 +23,7 @@
 #include <cspi/spi-private.h>
 
 /**
- * createAccessibleEventListener:
+ * SPI_createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.
  * @user_data: a pointer to data which will be passed to the callback when invoked.
  *
@@ -33,8 +33,8 @@
  *
  **/
 AccessibleEventListener *
-createAccessibleEventListener (AccessibleEventListenerCB callback,
-			       void                     *user_data)
+SPI_createAccessibleEventListener (AccessibleEventListenerCB callback,
+				   void                     *user_data)
 {
   AccessibleEventListener *listener = cspi_event_listener_new ();
   if (callback)
@@ -110,8 +110,8 @@ AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
  *
  **/
 AccessibleKeystrokeListener *
-createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
-				   void                         *user_data)
+SPI_createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
+				       void                         *user_data)
 {
   AccessibleKeystrokeListener *listener = cspi_keystroke_listener_new ();
   if (callback)

@@ -78,24 +78,24 @@ main (int argc, char **argv)
 
   SPI_init ();
 
-  focus_listener = createAccessibleEventListener (report_focus_event, NULL);
-  property_listener = createAccessibleEventListener (check_property_change, NULL); 
-  generic_listener = createAccessibleEventListener (report_generic_event, NULL); 
-  button_listener = createAccessibleEventListener (report_button_press, NULL);
-  registerGlobalEventListener (focus_listener, "focus:");
-  registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
-  registerGlobalEventListener (generic_listener, "object:selection-changed"); 
-  registerGlobalEventListener (generic_listener, "object:children-changed"); 
-  registerGlobalEventListener (generic_listener, "object:visible-data-changed"); 
-  registerGlobalEventListener (generic_listener, "object:text-selection-changed"); 
-  registerGlobalEventListener (generic_listener, "object:text-caret-moved"); 
-  registerGlobalEventListener (generic_listener, "object:text-changed"); 
-  registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
-  n_desktops = getDesktopCount ();
+  focus_listener = SPI_createAccessibleEventListener (report_focus_event, NULL);
+  property_listener = SPI_createAccessibleEventListener (check_property_change, NULL); 
+  generic_listener = SPI_createAccessibleEventListener (report_generic_event, NULL); 
+  button_listener = SPI_createAccessibleEventListener (report_button_press, NULL);
+  SPI_registerGlobalEventListener (focus_listener, "focus:");
+  SPI_registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
+  SPI_registerGlobalEventListener (generic_listener, "object:selection-changed"); 
+  SPI_registerGlobalEventListener (generic_listener, "object:children-changed"); 
+  SPI_registerGlobalEventListener (generic_listener, "object:visible-data-changed"); 
+  SPI_registerGlobalEventListener (generic_listener, "object:text-selection-changed"); 
+  SPI_registerGlobalEventListener (generic_listener, "object:text-caret-moved"); 
+  SPI_registerGlobalEventListener (generic_listener, "object:text-changed"); 
+  SPI_registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
+  n_desktops = SPI_getDesktopCount ();
 
   for (i=0; i<n_desktops; ++i)
     {
-      desktop = getDesktop (i);
+      desktop = SPI_getDesktop (i);
       s = Accessible_getName (desktop);
       fprintf (stderr, "desktop %d name: %s\n", i, s);
       SPI_freeString (s);
@@ -112,30 +112,30 @@ main (int argc, char **argv)
     }
 
   /* prepare the keyboard snoopers */
-  command_key_listener = createAccessibleKeystrokeListener (report_command_key_event, NULL);
-  ordinary_key_listener = createAccessibleKeystrokeListener (report_ordinary_key_event, NULL);
+  command_key_listener = SPI_createAccessibleKeystrokeListener (report_command_key_event, NULL);
+  ordinary_key_listener = SPI_createAccessibleKeystrokeListener (report_ordinary_key_event, NULL);
   
   /* will listen only to Alt-key combinations, and only to KeyPress events */
-  registerAccessibleKeystrokeListener(command_key_listener,
-				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-				      SPI_KEYMASK_ALT,
-				      (unsigned long) ( KeyPress ),
-				      SPI_KEYLISTENER_ALL_WINDOWS);
+  SPI_registerAccessibleKeystrokeListener(command_key_listener,
+					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+					  SPI_KEYMASK_ALT,
+					  (unsigned long) ( KeyPress ),
+					  SPI_KEYLISTENER_ALL_WINDOWS);
   
   /* will listen only to unshifted key events, both press and release */
-  registerAccessibleKeystrokeListener(ordinary_key_listener,
-				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-				      SPI_KEYMASK_UNMODIFIED,
-				      (unsigned long) ( KeyPress | KeyRelease),
-				      SPI_KEYLISTENER_NOSYNC);
+  SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
+					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+					  SPI_KEYMASK_UNMODIFIED,
+					  (unsigned long) ( KeyPress | KeyRelease),
+					  SPI_KEYLISTENER_NOSYNC);
 				      
   /* will listen only to shifted key events, both press and release */
-  registerAccessibleKeystrokeListener(ordinary_key_listener,
-				      (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-				      SPI_KEYMASK_SHIFT,
-				      (unsigned long) ( KeyPress | KeyRelease),
-				      SPI_KEYLISTENER_NOSYNC);
-
+  SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
+					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+					  SPI_KEYMASK_SHIFT,
+					  (unsigned long) ( KeyPress | KeyRelease),
+					  SPI_KEYLISTENER_NOSYNC);
+  
   get_environment_vars ();
 
   SPI_event_main ();
@@ -306,24 +306,24 @@ check_property_change (AccessibleEvent *event, void *user_data)
 static void
 simple_at_exit ()
 {
-  deregisterGlobalEventListenerAll (focus_listener);
-  AccessibleEventListener_unref    (focus_listener);
+  SPI_deregisterGlobalEventListenerAll (focus_listener);
+  AccessibleEventListener_unref        (focus_listener);
 
-  deregisterGlobalEventListenerAll (property_listener);
-  AccessibleEventListener_unref    (property_listener);
+  SPI_deregisterGlobalEventListenerAll (property_listener);
+  AccessibleEventListener_unref        (property_listener);
 
-  deregisterGlobalEventListenerAll (generic_listener);
-  AccessibleEventListener_unref    (generic_listener);
+  SPI_deregisterGlobalEventListenerAll (generic_listener);
+  AccessibleEventListener_unref        (generic_listener);
 
-  deregisterGlobalEventListenerAll (button_listener);
-  AccessibleEventListener_unref    (button_listener);
+  SPI_deregisterGlobalEventListenerAll (button_listener);
+  AccessibleEventListener_unref        (button_listener);
 
-  deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT);
-  AccessibleKeystrokeListener_unref (command_key_listener);
+  SPI_deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT);
+  AccessibleKeystrokeListener_unref         (command_key_listener);
 
-  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED);
-  deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT);
-  AccessibleKeystrokeListener_unref (ordinary_key_listener);
+  SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED);
+  SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFT);
+  AccessibleKeystrokeListener_unref         (ordinary_key_listener);
   
   SPI_event_quit ();
 }

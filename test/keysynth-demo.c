@@ -280,11 +280,11 @@ toggle_shift_latch (GtkButton *button)
 static void
 keysynth_exit (void)
 {
-  deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT);
-  AccessibleKeystrokeListener_unref     (key_listener);
+  SPI_deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT);
+  AccessibleKeystrokeListener_unref         (key_listener);
 
-  deregisterAccessibleKeystrokeListener (switch_listener, SPI_KEYMASK_UNMODIFIED);
-  AccessibleKeystrokeListener_unref     (switch_listener);
+  SPI_deregisterAccessibleKeystrokeListener (switch_listener, SPI_KEYMASK_UNMODIFIED);
+  AccessibleKeystrokeListener_unref         (switch_listener);
 
   SPI_event_quit ();
 }
@@ -367,13 +367,13 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
           label_buttons (caps_lock || shift_latched);
         }
       if (shift_latched)
-	      generateKeyEvent (shift_keycode, SPI_KEY_PRESS);
+	      SPI_generateKeyEvent (shift_keycode, SPI_KEY_PRESS);
       
-      generateKeyEvent ((long) *keycode, SPI_KEY_PRESSRELEASE);
+      SPI_generateKeyEvent ((long) *keycode, SPI_KEY_PRESSRELEASE);
 
       if (shift_latched)
         {
-	  generateKeyEvent (shift_keycode, SPI_KEY_RELEASE);
+	  SPI_generateKeyEvent (shift_keycode, SPI_KEY_RELEASE);
 	  toggle_shift_latch (button);
 	}
     }
@@ -474,13 +474,13 @@ main (int argc, char **argv)
 
   SPI_init ();
 
-  key_listener = createAccessibleKeystrokeListener (is_command_key, NULL);
+  key_listener = SPI_createAccessibleKeystrokeListener (is_command_key, NULL);
   /* will listen only to Alt-key combinations */
-  registerAccessibleKeystrokeListener (key_listener,
-				       (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-				       SPI_KEYMASK_ALT,
-				       (unsigned long) ( KeyPress | KeyRelease),
-				       SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
+  SPI_registerAccessibleKeystrokeListener (key_listener,
+					   (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+					   SPI_KEYMASK_ALT,
+					   (unsigned long) ( KeyPress | KeyRelease),
+					   SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
   create_vkbd ();  
 
   /*
@@ -494,12 +494,12 @@ main (int argc, char **argv)
   switch_set.len = 1;
   switch_set.keysyms[0] = (unsigned long) 0;
   switch_set.keycodes[0] = (unsigned short) 0;
-  switch_listener = createAccessibleKeystrokeListener (switch_callback, NULL);
-  registerAccessibleKeystrokeListener (switch_listener,
-				       &switch_set,
-				       SPI_KEYMASK_UNMODIFIED,
-				       (unsigned long) ( KeyPress | KeyRelease),
-				       SPI_KEYLISTENER_CANCONSUME);
+  switch_listener = SPI_createAccessibleKeystrokeListener (switch_callback, NULL);
+  SPI_registerAccessibleKeystrokeListener (switch_listener,
+					   &switch_set,
+					   SPI_KEYMASK_UNMODIFIED,
+					   (unsigned long) ( KeyPress | KeyRelease),
+					   SPI_KEYLISTENER_CANCONSUME);
   
   SPI_event_main ();
 

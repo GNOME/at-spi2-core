@@ -137,53 +137,61 @@ int              SPI_exit         (void);
 
 /* Event Listener creation and support.  */
 
-AccessibleEventListener *
-           createAccessibleEventListener          (AccessibleEventListenerCB callback,
+AccessibleEventListener * SPI_createAccessibleEventListener (
+	                                           AccessibleEventListenerCB callback,
 						   void                     *user_data);
-SPIBoolean AccessibleEventListener_addCallback    (AccessibleEventListener  *listener,
+SPIBoolean                AccessibleEventListener_addCallback (
+	                                           AccessibleEventListener  *listener,
 						   AccessibleEventListenerCB callback,
 						   void                     *user_data);
-SPIBoolean AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
+SPIBoolean                AccessibleEventListener_removeCallback (
+	                                           AccessibleEventListener  *listener,
 						   AccessibleEventListenerCB callback);
-void       AccessibleEventListener_unref          (AccessibleEventListener  *listener);
+void                      AccessibleEventListener_unref (
+	                                           AccessibleEventListener  *listener);
 
 /* Keystroke Listener creation and support.  */
 
-AccessibleKeystrokeListener *
-           createAccessibleKeystrokeListener          (AccessibleKeystrokeListenerCB callback,
-						       void                         *user_data);
-SPIBoolean AccessibleKeystrokeListener_addCallback    (AccessibleKeystrokeListener  *listener,
-						       AccessibleKeystrokeListenerCB callback,
-						       void                         *user_data);
-SPIBoolean AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
-						       AccessibleKeystrokeListenerCB callback);
-void       AccessibleKeystrokeListener_unref         (AccessibleKeystrokeListener *listener);
+AccessibleKeystrokeListener * SPI_createAccessibleKeystrokeListener (
+	                                AccessibleKeystrokeListenerCB callback,
+					void                         *user_data);
+SPIBoolean                    AccessibleKeystrokeListener_addCallback (
+	                                AccessibleKeystrokeListener  *listener,
+					AccessibleKeystrokeListenerCB callback,
+					void                         *user_data);
+SPIBoolean                    AccessibleKeystrokeListener_removeCallback (
+	                                AccessibleKeystrokeListener *listener,
+					AccessibleKeystrokeListenerCB callback);
+void                          AccessibleKeystrokeListener_unref (
+	                                AccessibleKeystrokeListener *listener);
 
 /* Global functions serviced by the registry */
 
-SPIBoolean  registerGlobalEventListener      (AccessibleEventListener *listener,
-					      const char              *eventType);
-SPIBoolean  deregisterGlobalEventListener    (AccessibleEventListener *listener,
-					      const char              *eventType);
-SPIBoolean  deregisterGlobalEventListenerAll (AccessibleEventListener *listener);
+SPIBoolean SPI_registerGlobalEventListener           (
+	                               AccessibleEventListener *listener,
+				       const char              *eventType);
+SPIBoolean SPI_deregisterGlobalEventListener         (
+	                               AccessibleEventListener *listener,
+				       const char              *eventType);
+SPIBoolean SPI_deregisterGlobalEventListenerAll      (
+	                               AccessibleEventListener *listener);
+SPIBoolean SPI_registerAccessibleKeystrokeListener   (
+                                       AccessibleKeystrokeListener *listener,
+				       AccessibleKeySet             *keys,
+				       AccessibleKeyMaskType         modmask,
+				       AccessibleKeyEventMask        eventmask,
+				       AccessibleKeyListenerSyncType sync_type);
+SPIBoolean SPI_deregisterAccessibleKeystrokeListener (
+	                               AccessibleKeystrokeListener *listener,
+				       AccessibleKeyMaskType        modmask);
 
-SPIBoolean  registerAccessibleKeystrokeListener (
-                                              AccessibleKeystrokeListener *listener,
-					      AccessibleKeySet             *keys,
-					      AccessibleKeyMaskType         modmask,
-					      AccessibleKeyEventMask        eventmask,
-					      AccessibleKeyListenerSyncType sync_type);
-SPIBoolean  deregisterAccessibleKeystrokeListener (
-                                              AccessibleKeystrokeListener *listener,
-					      AccessibleKeyMaskType        modmask);
+int         SPI_getDesktopCount                  (void);
+Accessible *SPI_getDesktop                       (int i);
+int         SPI_getDesktopList                   (Accessible **list);
 
-int         getDesktopCount                  (void);
-Accessible *getDesktop                       (int i);
-int         getDesktopList                   (Accessible **list);
-
-SPIBoolean  generateKeyEvent                 (long int                    keyval,
-					      AccessibleKeySynthType      synth_type);
-SPIBoolean  generateMouseEvent               (long int x, long int y, char *name);
+SPIBoolean  SPI_generateKeyEvent                 (long int                    keyval,
+						  AccessibleKeySynthType      synth_type);
+SPIBoolean  SPI_generateMouseEvent               (long int x, long int y, char *name);
 
 /* Accessible function prototypes  */
 

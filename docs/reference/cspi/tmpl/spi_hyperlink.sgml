@@ -14,6 +14,22 @@ AccessibleHyperlink Interface
 
 </para>
 
+<!-- ##### FUNCTION AccessibleHyperlink_ref ##### -->
+<para>
+
+</para>
+
+@obj: 
+
+
+<!-- ##### FUNCTION AccessibleHyperlink_unref ##### -->
+<para>
+
+</para>
+
+@obj: 
+
+
 <!-- ##### FUNCTION AccessibleHyperlink_getNAnchors ##### -->
 <para>
 

@@ -1,5 +1,21 @@
 2001-12-12  Bill Haneman <bill.haneman@sun.com>
 
+	* cspi/spi.h:
+	* cspi/spi_registry.c:
+	* cspi/spi_event.c:
+	Namespaced all methods that did not begin with an "SPI_" or
+	"Accessible" prefix to "SPI_".  
+
+	* cspi/spi_main.c:
+	Homogenized internal function namespace to "cspi_" for statics.
+	
+	* test/*.c:
+	Patched tests to use the new CSPI API.
+
+	* docs/reference/cspi/at-spi-cspi-sections.txt:
+	Updated docs to reflect namespace changes, and added a number of
+	methods to the documentation.
+	
 	* registryd/registry.c:
 	Changed use of strings and string hashes in listener event
 	matching and parse_event_string to use GQuark, which is guaranteed

@@ -14,7 +14,7 @@ static Accessibility_Registry registry = CORBA_OBJECT_NIL;
 static GHashTable *live_refs = NULL;
 
 static guint
-spi_object_hash (gconstpointer key)
+cspi_object_hash (gconstpointer key)
 {
   CORBA_Object object = (CORBA_Object) key;
   guint        retval;
@@ -25,7 +25,7 @@ spi_object_hash (gconstpointer key)
 }
 
 static gboolean
-spi_object_equal (gconstpointer a, gconstpointer b)
+cspi_object_equal (gconstpointer a, gconstpointer b)
 {
   CORBA_Object objecta = (CORBA_Object) a;
   CORBA_Object objectb = (CORBA_Object) b;
@@ -37,7 +37,7 @@ spi_object_equal (gconstpointer a, gconstpointer b)
 }
 
 static void
-spi_object_release (gpointer  value)
+cspi_object_release (gpointer  value)
 {
   Accessible *a = (Accessible *) value;
 
@@ -91,14 +91,14 @@ cspi_accessible_is_a (Accessible *obj,
 }
 
 static GHashTable *
-get_live_refs (void)
+cspi_get_live_refs (void)
 {
   if (!live_refs) 
     {
-      live_refs = g_hash_table_new_full (spi_object_hash,
-					 spi_object_equal,
+      live_refs = g_hash_table_new_full (cspi_object_hash,
+					 cspi_object_equal,
 					 NULL,
-					 spi_object_release);
+					 cspi_object_release);
     }
   return live_refs;
 }
@@ -149,7 +149,7 @@ cspi_object_add (CORBA_Object corba_object)
     }
   else
     {
-      if ((ref = g_hash_table_lookup (get_live_refs (), corba_object)))
+      if ((ref = g_hash_table_lookup (cspi_get_live_refs (), corba_object)))
         {
           g_assert (ref->ref_count > 0);
 	  ref->ref_count++;
@@ -169,7 +169,7 @@ cspi_object_add (CORBA_Object corba_object)
           ref->objref = corba_object;
           ref->ref_count = 1;
 
-          g_hash_table_insert (get_live_refs (), ref->objref, ref);
+          g_hash_table_insert (cspi_get_live_refs (), ref->objref, ref);
 	}
     }
 
@@ -194,7 +194,7 @@ cspi_object_unref (Accessible *accessible)
 
   if (--accessible->ref_count == 0)
     {
-      g_hash_table_remove (get_live_refs (), accessible->objref);
+      g_hash_table_remove (cspi_get_live_refs (), accessible->objref);
     }
 }
 

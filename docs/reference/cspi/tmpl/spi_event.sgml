@@ -29,7 +29,7 @@ Event Listener Support
 @user_data: 
 
 
-<!-- ##### FUNCTION createAccessibleEventListener ##### -->
+<!-- ##### FUNCTION SPI_createAccessibleEventListener ##### -->
 <para>
 
 </para>
@@ -37,6 +37,14 @@ Event Listener Support
 @callback: 
 @user_data: 
 @Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEventListener_unref ##### -->
+<para>
+
+</para>
+
+@listener: 
 
 
 <!-- ##### FUNCTION AccessibleEventListener_addCallback ##### -->

@@ -3,6 +3,7 @@
 <TITLE>SPI main loop and initialization</TITLE>
 SPI_init
 SPI_event_main
+SPI_event_quit
 SPI_eventIsReady
 SPI_nextEvent
 SPI_exit
@@ -15,7 +16,9 @@ SPI_freeString
 <TITLE>Event Listener Support</TITLE>
 AccessibleEvent
 AccessibleEventListenerCB
-createAccessibleEventListener
+SPI_createAccessibleEventListener
+AccessibleEventListener_ref
+AccessibleEventListener_unref
 AccessibleEventListener_addCallback
 AccessibleEventListener_removeCallback
 </SECTION>
@@ -24,25 +27,28 @@ AccessibleEventListener_removeCallback
 <FILE>spi_registry</FILE>
 <TITLE>Registry queries</TITLE>
 AccessibleKeySynthType
-getDesktopCount
-getDesktop
-getDesktopList
+SPI_getDesktopCount
+SPI_getDesktop
+SPI_getDesktopList
 <SUBSECTION Event Registration>
 AccessibleKeystrokeListenerCB
 AccessibleKeyEventMask
 AccessibleKeyMaskType
 AccessibleKeyEventType
 AccessibleKeyListenerSyncType
-createAccessibleKeystrokeListener
-registerGlobalEventListener
-deregisterGlobalEventListener
-deregisterGlobalEventListenerAll
-registerAccessibleKeystrokeListener
-deregisterAccessibleKeystrokeListener
+AccessibleKeystroke
+SPI_createAccessibleKeystrokeListener
+SPI_registerGlobalEventListener
+SPI_deregisterGlobalEventListener
+SPI_deregisterGlobalEventListenerAll
+SPI_registerAccessibleKeystrokeListener
+SPI_deregisterAccessibleKeystrokeListener
+AccessibleKeystrokeListener_ref
+AccessibleKeystrokeListener_unref
 AccessibleKeystrokeListener_removeCallback
 AccessibleKeystrokeListener_addCallback
-generateKeyEvent
-generateMouseEvent
+SPI_generateKeyEvent
+SPI_generateMouseEvent
 </SECTION>
 
 <SECTION>
@@ -58,9 +64,11 @@ Accessible_getChildAtIndex
 Accessible_getIndexInParent
 Accessible_getRelationSet
 Accessible_getRole
+Accessible_getRoleName
 Accessible_getStateSet
 <SUBSECTION Interface Queries>
 Accessible_isAction
+Accessible_isApplication
 Accessible_isComponent
 Accessible_isEditableText
 Accessible_isHypertext
@@ -68,7 +76,9 @@ Accessible_isImage
 Accessible_isSelection
 Accessible_isTable
 Accessible_isText
+Accessible_isValue
 Accessible_getAction
+Accessible_getApplication
 Accessible_getComponent
 Accessible_getEditableText
 Accessible_getHypertext
@@ -76,6 +86,7 @@ Accessible_getImage
 Accessible_getSelection
 Accessible_getTable
 Accessible_getText
+Accessible_getValue
 Accessible_queryInterface
 <SUBSECTION Auxiliary types>
 AccessibleRole
@@ -110,6 +121,7 @@ AccessibleAction_getDescription
 <FILE>spi_component</FILE>
 <TITLE>AccessibleComponent Interface</TITLE>
 AccessibleCoordType
+AccessibleComponentLayer
 AccessibleComponent_ref
 AccessibleComponent_unref
 AccessibleComponent_contains
@@ -236,6 +248,8 @@ AccessibleValue_setCurrentValue
 <SECTION>
 <FILE>spi_hyperlink</FILE>
 <TITLE>AccessibleHyperlink Interface</TITLE>
+AccessibleHyperlink_ref
+AccessibleHyperlink_unref
 AccessibleHyperlink_getNAnchors
 AccessibleHyperlink_getIndexRange
 AccessibleHyperlink_getObject
@@ -263,6 +277,7 @@ AccessibleStateSet_remove
 AccessibleRelationType
 AccessibleRelation_ref
 AccessibleRelation_unref
+AccessibleRelation_getNTargets
 AccessibleRelation_getTarget
 AccessibleRelation_getRelationType
 </SECTION>

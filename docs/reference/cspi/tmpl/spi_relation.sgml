@@ -45,6 +45,15 @@ AccessibleRelations and RelationSets
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleRelation_getNTargets ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleRelation_getTarget ##### -->
 <para>
 

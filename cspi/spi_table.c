@@ -398,7 +398,7 @@ AccessibleTable_getNSelectedRows (AccessibleTable *obj)
 }
 
 static long
-long_seq_to_array (Accessibility_LongSeq *seq, long int **array)
+cspi_long_seq_to_array (Accessibility_LongSeq *seq, long int **array)
 {
   long *j, length, i;
 
@@ -444,7 +444,7 @@ AccessibleTable_getSelectedRows (AccessibleTable *obj,
 
   rows = Accessibility_Table_getSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
 
-  return long_seq_to_array (rows, selectedRows);
+  return cspi_long_seq_to_array (rows, selectedRows);
 }
 
 /**
@@ -494,7 +494,7 @@ AccessibleTable_getSelectedColumns (AccessibleTable *obj,
 
   columns = Accessibility_Table_getSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
 
-  return long_seq_to_array (columns, selectedColumns);
+  return cspi_long_seq_to_array (columns, selectedColumns);
 }
 
 /**

@@ -33,6 +33,13 @@ SPI main loop and initialization
 @isGNOMEApp: 
 
 
+<!-- ##### FUNCTION SPI_event_quit ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### FUNCTION SPI_eventIsReady ##### -->
 <para>
 
