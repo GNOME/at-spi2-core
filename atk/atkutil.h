@@ -163,6 +163,8 @@ void	atk_remove_key_event_listener (guint listener_id);
  */
 AtkObject* atk_get_root(void);
 
+AtkObject* atk_get_focus_object (void);
+
 /*
  * Returns name string for the GUI toolkit.
  */

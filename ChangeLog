@@ -1,5 +1,18 @@
 2003-11-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
+        * atk/atkobject.c (atk_object_real_ref_state_set): Add state FOCUSED
+        if object is focus object.
+
+        * atk/atkutil.[ch] (atk_get_focus_object): New function which returns
+        the last object reported by the application as focused.
+
+        * docs/atk-sections.txt, docs/tmpl/atkutil.sgml:
+        Add atk_get_focus_object.
+
+	Fixes bug #127400.
+
+2003-11-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkobject.c: Change role names so that the unlocalized names
 	do not contain hyphens and match the Java role names. Fixes bug #125024.
 
@@ -8,7 +21,7 @@
 	*  docs/tmpl/atkhyperlink.sgml, docs/tmp/atkhypertext.sgml,
 	docs/tmpl/atkobject.sgml, docs/tmpl/atkrelatiom.sgml,
 	docs/tmpl/atkselection.sgml, docs/tmpl/atktable.sgml,
-	docs/tmpl/atktext.sgml: Regenernate these files. The location of
+	docs/tmpl/atktext.sgml: Regenerate these files. The location of
 	signal information has changed.
 
 2003-11-24  Padraig O'Briain  <padraig.obriain@sun.com>

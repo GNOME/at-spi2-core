@@ -20,8 +20,9 @@
 #include "atkutil.h"
 #include "atkmarshal.c"
 
-
 static void atk_util_class_init (AtkUtilClass *klass);
+
+static AtkObject *previous_focus_object = NULL;
 
 GType
 atk_util_get_type (void)
@@ -174,7 +175,6 @@ void
 atk_focus_tracker_notify (AtkObject       *object)
 {
   FocusTracker *item;
-  static AtkObject *previous_focus_object = NULL;
   guint i;
 
   if (trackers == NULL)
@@ -315,6 +315,19 @@ atk_get_root (void)
   g_type_class_unref (klass);
 
   return retval;
+}
+
+/**
+ * atk_get_focus_object:
+ *
+ * Gets the currently focused object.
+ *
+ * Returns: the currently focused object for the current application
+ **/
+AtkObject*
+atk_get_focus_object (void)
+{
+  return previous_focus_object;
 }
 
 /**

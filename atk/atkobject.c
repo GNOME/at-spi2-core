@@ -1112,6 +1112,7 @@ atk_object_real_ref_state_set (AtkObject *accessible)
 {
   AtkStateSet *state_set;
   AtkObject *ap;
+  AtkObject *focus_object;
 
   state_set = atk_state_set_new ();
 
@@ -1128,6 +1129,9 @@ atk_object_real_ref_state_set (AtkObject *accessible)
           if (atk_selection_is_child_selected(ATK_SELECTION (ap), i))
             atk_state_set_add_state (state_set, ATK_STATE_SELECTED);
       } 
+  focus_object = atk_get_focus_object ();
+  if (focus_object == accessible)
+    atk_state_set_add_state (state_set, ATK_STATE_FOCUSED);
 
   return state_set; 
 }

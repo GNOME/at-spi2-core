@@ -515,6 +515,7 @@ AtkKeySnoopFunc
 atk_add_key_event_listener
 atk_remove_key_event_listener
 atk_get_root
+atk_get_focus_object
 atk_get_toolkit_name
 atk_get_toolkit_version
 <SUBSECTION Standard>

@@ -161,6 +161,14 @@ An AtkKeySnoopFunc is a function which is called when a keyboard event occurs.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_get_focus_object ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_get_toolkit_name ##### -->
 <para>
 
