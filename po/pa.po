@@ -1,3 +1,4 @@
+# translation of atk.HEAD.pa.po to Punjabi
 # translation of pa.po to Punjabi
 # Copyright (C) 2004 THE atk.HEAD'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the atk.HEAD package.
@@ -6,16 +7,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pa\n"
+"Project-Id-Version: atk.HEAD.pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-23 20:30+0530\n"
-"PO-Revision-Date: 2004-07-22 10:56+0530\n"
+"POT-Creation-Date: 2004-08-21 11:00+0200\n"
+"PO-Revision-Date: 2004-08-21 18:27+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
-"Language-Team: Punjabi <pa@li.org>\n"
+"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
+"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -350,67 +352,71 @@ msgstr "ਸਵੈ-ਪੂਰਨ"
 msgid "edit bar"
 msgstr "ਸੋਧ ਪੱਟੀ"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "ਸ਼ਾਮਿਲ ਭਾਗ"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "ਪਹੁੰਚ ਨਾਂ"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "ਆਬਜੈਕਟ ਮੌਜੂਦ ਦਾ ਨਾਂ ਫਾਰਮਿਟ ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "ਪਹੁੰਚ ਵੇਰਵਾ"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ ਆਬਜੈਕਟ ਦਾ ਵੇਰਵਾ ਫਾਰਮਿਟ"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "ਪਹੁੰਚ ਮੂਲ"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਕਰਨ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਮੂਲ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "ਪਹੁੰਚ ਮੁੱਲ"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਕਰਨ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਮੁੱਲ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "ਪਹੁੰਚ ਭਾਗ"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਭਾਗ"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "ਪਹੁੰਚ ਪਰਤ"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਪਰਤ"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "ਪਹੁੰਚ ਐਮਡੀਆਈ ਮੁੱਲ"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਐਮਡੀਆਈ"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਂ"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -418,59 +424,59 @@ msgstr ""
 "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਂ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ; ਇਹ ਵਿਸ਼ੇਸਤਾ ਤਬਦੀਲ ਨਹੀ ਹੋਣੀ "
 "ਚਾਹੀਦੀ ਹੈ । ਪਹੁੰਚ-ਸਾਰਣੀ-ਨਾਂ-ਆਬਜੈਕਟ ਵਰਤੋ"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਕਾਲਮ ਸਿਰਲੇਖ"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਕਾਲਮ ਸਿਰਲੇਖ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਕਾਲਮ ਵੇਰਵਾ"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਕਾਲਮ ਵੇਰਵਾ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਕਤਾਰ ਸਿਰਲੇਖ"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਕਤਾਰ ਸਿਰਲੇਖ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਕਤਾਰ ਵੇਰਵਾ"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਕਤਾਰ ਵੇਰਵਾ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਸੰਖੇਪ"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਸੰਖੇਪ ਤਬਦੀਲ ਹੋ ਗਈ ਹੈ"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਂ ਆਬਜੈਕਟ"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਂ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "ਪਹੁੰਚਯੋਗ ਹਾਈਪਰਟੈਕਸਟ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "ਮੌਜੂਦਾ ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਵਿੱਚ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
 
