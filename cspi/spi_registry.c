@@ -11,8 +11,9 @@ static Display *display = NULL;
 
 /**
  * registerGlobalEventListener:
- * @listener: the #AccessibleEventListener to be registered against an event type.
- * @callback: a character string indicating the type of events for which
+ * @listener: the #AccessibleEventListener to be registered against an
+ *            event type.
+ * @eventType: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail
  *            where all subfields other than EventClass are optional.
@@ -20,9 +21,10 @@ static Display *display = NULL;
  *            and toolkit events (e.g. "Gtk", "AWT").
  *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
  *
- * NOTE: this string may be UTF-8, but should not contain byte value 56 (ascii ':'),
- *            except as a delimiter, since non-UTF-8 string delimiting
- *            functions are used internally.  In general, listening to
+ * NOTE: this string may be UTF-8, but should not contain byte value 56
+ *            (ascii ':'), except as a delimiter, since non-UTF-8 string
+ *            delimiting functions are used internally.
+ *            In general, listening to
  *            toolkit-specific events is not recommended.
  *
  * Add an in-process callback function to an existing AccessibleEventListener.
@@ -52,10 +54,12 @@ registerGlobalEventListener (AccessibleEventListener *listener,
 }
 
 /**
- * deregisterGlobalEventListener:
- * @listener: the #AccessibleEventListener to be registered against an event type.
+ * deregisterGlobalEventListenerAll:
+ * @listener: the #AccessibleEventListener to be registered against
+ *            an event type.
  *
- * deregisters an AccessibleEventListener from the registry, for all event types it may be listening to.
+ * deregisters an AccessibleEventListener from the registry, for all
+ *            event types it may be listening to.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
@@ -66,8 +70,43 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
   Accessibility_Registry_deregisterGlobalEventListenerAll (
                          registry,
                          (Accessibility_EventListener)
-                            CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev),
+                            CORBA_Object_duplicate (
+				    bonobo_object_corba_objref (
+					    bonobo_object (listener)), &ev),
                          &ev);
+
+  if (ev._major != CORBA_NO_EXCEPTION)
+    {
+    return FALSE;
+    }
+  else
+    {
+      return TRUE;
+    }
+}
+/**
+ * deregisterGlobalEventListener:
+ * @listener: the #AccessibleEventListener registered against an event type.
+ * @eventType: a string specifying the event type for which this
+ *             listener is to be deregistered.
+ *
+ * deregisters an AccessibleEventListener from the registry, for a specific
+ *             event type.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+boolean
+deregisterGlobalEventListener (AccessibleEventListener *listener,
+			       char *eventType)
+{
+  Accessibility_Registry_deregisterGlobalEventListener (
+	  registry,
+	  (Accessibility_EventListener)
+	  CORBA_Object_duplicate (
+		  bonobo_object_corba_objref (bonobo_object (listener)), &ev),
+	  (CORBA_char *) eventType,
+	  &ev);
 
   if (ev._major != CORBA_NO_EXCEPTION)
     {
@@ -107,9 +146,9 @@ getDesktopCount ()
  *
  **/
 Accessible*
-getDesktop (int n)
+getDesktop (int i)
 {
-  return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) n, &ev));
+  return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) i, &ev));
 }
 
 /**
@@ -121,7 +160,8 @@ getDesktop (int n)
  *     It is the responsibility of the caller to free this array when
  *     it is no longer needed.
  *
- * Not Yet Implemented.
+ * Not Yet Implemented : this implementation always returns a single
+ * #Accessible desktop.
  *
  * Returns: an integer indicating how many virtual desktops have been
  *          placed in the list pointed to by parameter @list.
@@ -155,9 +195,25 @@ key_event_source_func (void *p)
 
 /**
  * registerAccessibleKeystrokeListener:
- * @listener: a pointer to the #AccessibleKeystrokeListener for which
- *            keystroke events are requested.
- *
+ * @listener:  a pointer to the #AccessibleKeystrokeListener for which
+ *             keystroke events are requested.
+ * @keys:      a pointer to the #AccessibleKeySet indicating which
+ *             keystroke events are requested, or #SPI_KEYSET_ALL_KEYS.
+ * @modmask:   an #AccessibleKeyMaskType mask indicating which
+ *             key event modifiers must be set in combination with @keys,
+ *             events will only be reported for key events for which all
+ *             modifiers in @modmask are set.  If you wish to listen for
+ *             events with multiple modifier combinations you must call
+ *             registerAccessibleKeystrokeListener() once for each combination.
+ * @eventmask: an #AccessibleKeyMaskType mask indicating which
+ *             types of key events are requested (#SPI_KEY_PRESSED, etc.).
+ * @sync_type: a #AccessibleKeyListenerSyncType parameter indicating
+ *             the behavior of the notification/listener transaction.
+ *             
+ * Register a listener for keystroke events, either pre-emptively for
+ *             all windows (SPI_KEYLISTENER_ALL_WINDOWS), or
+ *             non-preemptively (SPI_KEYLISTENER_NOSYNC).
+ *             ( Other sync_type values may be available in the future.)
  **/
 void
 registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
@@ -194,10 +250,13 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  * deregisterAccessibleKeystrokeListener:
  * @listener: a pointer to the #AccessibleKeystrokeListener for which
  *            keystroke events are requested.
+ * @modmask:  the key modifier mask for which this listener is to be
+ *            'deregistered' (of type #AccessibleeyMaskType).
  *
  **/
 void
-deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener, AccessibleKeyMaskType keymask)
+deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
+				       AccessibleKeyMaskType modmask)
 {
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
@@ -207,7 +266,7 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener, Ac
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
   Accessibility_KeystrokeListener spi_listener_corba_ref;
   Accessibility_DeviceEventController_unref (device_event_controller, &ev);
-  controller_event_mask->value = (CORBA_unsigned_long) keymask;
+  controller_event_mask->value = (CORBA_unsigned_long) modmask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
   spi_listener_corba_ref = (Accessibility_KeystrokeListener)
@@ -225,18 +284,19 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener, Ac
 
 /**
  * generateKeyEvent:
- * @keycode: a #long indicating the keycode of the key event
+ * @keyval: a long integer indicating the keycode or keysym of the key event
  *           being synthesized.
- * @meta: a #long indicating the key modifiers to be sent
- *        with the event, if any.
+ * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
+ *           is to be interpreted as a keysym rather than a keycode
+ *           (SPI_KEYSYM), or whether to synthesize
+ *           SPI_KEY_PRESS, SPI_KEY_RELEASE, or both (SPI_KEY_PRESSRELEASE).
  *
  * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
  * current UI context).
- * Not Yet Implemented.
  *
  **/
 void
-generateKeyEvent (long keyval, AccessibleKeySynthType type)
+generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
 {
 /* TODO: check current modifier status and
  *  send keycode to alter, if necessary
@@ -245,7 +305,7 @@ generateKeyEvent (long keyval, AccessibleKeySynthType type)
 	  Accessibility_Registry_getDeviceEventController (registry, &ev);
   Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
 							keyval,
-							(unsigned long) type,
+							(unsigned long) synth_type,
 							&ev);
 }
 
@@ -257,6 +317,8 @@ generateKeyEvent (long keyval, AccessibleKeySynthType type)
  *        (e.g. "button1", "button2", "mousemove").
  *
  * Synthesize a mouse event at a specific screen coordinate.
+ * Most AT clients should use the #AccessibleAction interface when
+ * tempted to generate mouse events, rather than this method.
  * Not Yet Implemented.
  *
  **/

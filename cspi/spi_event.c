@@ -24,7 +24,7 @@
  * createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.
  *
- * Create a new #AccessibleEventListener with a specified callback function.
+ * Create a new #AccessibleEventListener with a specified (in-process) callback function.
  *
  * Returns: a pointer to a newly-created #AccessibleEventListener.
  *
@@ -32,10 +32,10 @@
 AccessibleEventListener *
 createAccessibleEventListener (AccessibleEventListenerCB callback)
 {
-  AccessibleEventListener *listener = spi_accessible_event_listener_new ();
+  AccessibleEventListener *listener = spi_event_listener_new ();
   if (callback)
     {
-      spi_accessible_event_listener_add_callback (listener, callback);
+      spi_event_listener_add_callback (listener, callback);
     }
   return listener;
 }
@@ -46,15 +46,20 @@ createAccessibleEventListener (AccessibleEventListenerCB callback)
  * @callback: an #AccessibleEventListenerCB function pointer.
  *
  * Add an in-process callback function to an existing AccessibleEventListener.
+ * Note that the callback function must live in the same address
+ * space as the AccessibleEventListener implementation code, thus one should not
+ * use this function to attach callbacks to a 'remote' event listener
+ * (that is, one that was not created by a client call to
+ * createAccessibleEventListener ();
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
 boolean
 AccessibleEventListener_addCallback (AccessibleEventListener *listener,
-				     AccessibleEventListenerCB callback)
+			   AccessibleEventListenerCB callback)
 {
-  spi_accessible_event_listener_add_callback (listener, callback);
+  spi_event_listener_add_callback (listener, callback);
   return TRUE;
 }
 
@@ -72,7 +77,7 @@ boolean
 AccessibleEventListener_removeCallback (AccessibleEventListener *listener,
 					AccessibleEventListenerCB callback)
 {
-  spi_accessible_event_listener_remove_callback (listener, callback);
+  spi_event_listener_remove_callback (listener, callback);
   return TRUE;
 }
 

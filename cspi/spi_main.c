@@ -53,7 +53,9 @@ SPI_init (void)
 /**
  * SPI_event_main:
  * @isGNOMEApp: a #boolean indicating whether the client of the SPI
- *              will use the Gnome event loop or not.
+ *              will use the Gnome event loop or not.  Clients that have
+ *              their own GUIS will usually specify #TRUE here, and must
+ *              do so if they use Gnome GUI components.
  *
  * Starts/enters the main event loop for the SPI services.
  *
@@ -76,10 +78,11 @@ SPI_event_main (boolean isGNOMEApp)
 }
 
 /**
- * SPI_event_is_ready:
+ * SPI_eventIsReady:
  *
  * Checks to see if an SPI event is waiting in the event queue.
  * Used by clients that don't wish to use SPI_event_main().
+ *
  * Not Yet Implemented.
  *
  * Returns: #TRUE if an event is waiting, otherwise #FALSE.
@@ -93,10 +96,12 @@ SPI_eventIsReady ()
 
 /**
  * SPI_nextEvent:
+ * @waitForEvent: a #boolean indicating whether to block or not.
  *
  * Gets the next event in the SPI event queue; blocks if no event
- * is pending.
+ * is pending and @waitForEvent is #TRUE.
  * Used by clients that don't wish to use SPI_event_main().
+ *
  * Not Yet Implemented.
  *
  * Returns: the next #AccessibleEvent in the SPI event queue.
@@ -112,7 +117,6 @@ SPI_nextEvent (boolean waitForEvent)
  * SPI_exit:
  *
  * Disconnects from the Accessibility Registry and releases resources.
- * Not Yet Implemented.
  *
  **/
 void

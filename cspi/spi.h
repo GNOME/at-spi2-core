@@ -16,6 +16,11 @@
 #include "spi-listener.h"
 
 /*
+ * Auxiliary typedefs and mask definitions
+ */
+#include <keymasks.h>
+
+/*
  *
  * Enumerated type for text boundary types
  *
@@ -51,24 +56,24 @@ typedef enum
 
 
 /* don't change the order of these ! */
-typedef enum _AccessibleCoordType {
+typedef enum {
   SPI_COORD_TYPE_SCREEN,
   SPI_COORD_TYPE_WINDOW
 } AccessibleCoordType;
 
-typedef enum _AccessibleKeyEventType {
+typedef enum {
   SPI_KEY_PRESSED,
   SPI_KEY_RELEASED
 } AccessibleKeyEventType;
 
-typedef enum _AccessibleKeySynthType {
+typedef enum {
   SPI_KEY_PRESS,
   SPI_KEY_RELEASE, 
   SPI_KEY_PRESSRELEASE,
   SPI_KEY_SYM
 } AccessibleKeySynthType;
 
-typedef enum _AccessibleKeyListenerSyncType {
+typedef enum {
   SPI_KEYLISTENER_NOSYNC = 0,
   SPI_KEYLISTENER_SYNCHRONOUS = 1,
   SPI_KEYLISTENER_CANCONSUME = 2,
@@ -85,7 +90,16 @@ typedef struct _AccessibleKeyStroke
 	unsigned short modifiers;
 } AccessibleKeyStroke;
 
-typedef struct _AccessibleAccessibleKeySet
+/**
+ * AccessibleKeySet:
+ * @keysyms:
+ * @keycodes:
+ * @len:
+ *
+ * Structure containing identifying information about a set of keycode or
+ *        keysyms.
+ **/
+typedef struct _AccessibleKeySet
 {
 	unsigned long *keysyms;
 	unsigned short *keycodes;
@@ -93,6 +107,8 @@ typedef struct _AccessibleAccessibleKeySet
 } AccessibleKeySet;
 
 #define SPI_KEYSET_ALL_KEYS ((void *)NULL)
+
+typedef unsigned long AccessibleKeyMaskType;
 
 /*
  *
@@ -166,7 +182,7 @@ SPI_exit (void);
  */
 
 /**
- * createEventListener:
+ * createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.
  *
  * Create a new #AccessibleEventListener with a specified callback function.
@@ -175,10 +191,10 @@ SPI_exit (void);
  *
  **/
 AccessibleEventListener *
-createEventListener (AccessibleEventListenerCB callback);
+createAccessibleEventListener (AccessibleEventListenerCB callback);
 
 /**
- * EventListener_addCallback:
+ * AccessibleEventListener_addCallback:
  * @listener: the #AccessibleEventListener instance to modify.
  * @callback: an #AccessibleEventListenerCB function pointer.
  *
@@ -275,6 +291,12 @@ AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listene
 boolean
 registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType);
+boolean
+deregisterGlobalEventListener (AccessibleEventListener *listener,
+                               char *eventType);
+boolean
+deregisterGlobalEventListenerAll (AccessibleEventListener *listener);
+
 
 /**
  * getDesktopCount:
@@ -301,7 +323,7 @@ getDesktopCount ();
  *
  **/
 Accessible*
-getDesktop (int n);
+getDesktop (int i);
 
 /**
  * getDesktopList:
@@ -337,27 +359,28 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 
 void
 deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-				       AccessibleKeyMaskType keymask);
+				       AccessibleKeyMaskType modmask);
 
 /**
  * generateKeyEvent:
- * @keycode: a #long indicating the keycode of the key event
+ * @keyval: a #long integer indicating the keycode or keysym of the key event
  *           being synthesized.
- * @synth_type: a #AccessibleKeySynthType indicating whether this should be a
- *        SPI_KEY_PRESS, SPI_KEY_RELEASE, both (SPI_KEY_PRESSRELEASE), or
- *        a press/release pair for a KEYSYM.
+ * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
+ *           is to be interpreted as a keysym rather than a keycode
+ *           (SPI_KEYSYM) and whether to synthesize
+ *           SPI_KEY_PRESS, SPI_KEY_RELEASE, or both (SPI_KEY_PRESSRELEASE).
  *
  * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
  * current UI context).
  *
  **/
 void
-generateKeyEvent (long keyCode, AccessibleKeySynthType synth_type);
+generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type);
 
 /**
  * generateMouseEvent:
- * @x: a #long indicating the screen x coordinate of the mouse event.
- * @y: a #long indicating the screen y coordinate of the mouse event.
+ * @x: a #long int indicating the screen x coordinate of the mouse event.
+ * @y: a #long int indicating the screen y coordinate of the mouse event.
  * @name: a string indicating which mouse event to be synthesized
  *        (e.g. "button1", "button2", "mousemove").
  *
@@ -366,7 +389,7 @@ generateKeyEvent (long keyCode, AccessibleKeySynthType synth_type);
  *
  **/
 void
-generateMouseEvent (long x, long y, char *name);
+generateMouseEvent (long int x, long int y, char *name);
 
 /*
  *
@@ -437,7 +460,6 @@ Accessible_getParent (Accessible *obj);
 
 /**
  * Accessible_getChildCount:
- *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the number of children contained by an #Accessible object.
@@ -463,7 +485,7 @@ Accessible_getChildCount (Accessible *obj);
  **/
 Accessible *
 Accessible_getChildAtIndex (Accessible *obj,
-                            long childIndex);
+                            long int childIndex);
 
 /**
  * Accessible_getIndexInParent:
@@ -482,8 +504,11 @@ Accessible_getIndexInParent (Accessible *obj);
 
 /**
  * Accessible_getRelationSet:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Not Yet Implemented.
+ *
+ * Returns: a pointer to an array of #AccessibleRelations.
  *
  **/
 AccessibleRelation **
@@ -503,8 +528,11 @@ Accessible_getRole (Accessible *obj);
 
 /**
  * Accessible_getStateSet:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Not Yet Implemented.
+ *
+ * Returns: a pointer to an #AccessibleStateSet representing the object's current state.
  *
  **/
 AccessibleStateSet *
@@ -517,7 +545,6 @@ Accessible_getStateSet (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleAction.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleAction interface,
  *          #FALSE otherwise.
@@ -542,7 +569,6 @@ Accessible_isComponent (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleEditableText.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
  *          #FALSE otherwise.
@@ -555,7 +581,6 @@ Accessible_isEditableText (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleHypertext.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
  *          #FALSE otherwise.
@@ -568,7 +593,6 @@ Accessible_isHypertext (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleImage.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleImage interface,
  *          #FALSE otherwise.
@@ -581,7 +605,6 @@ Accessible_isImage (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleSelection.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
  *          #FALSE otherwise.
@@ -594,7 +617,6 @@ Accessible_isSelection (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleTable.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleTable interface,
  *          #FALSE otherwise.
@@ -607,7 +629,6 @@ Accessible_isTable (Accessible *obj);
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleText.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleText interface,
  *          #FALSE otherwise.
@@ -615,12 +636,6 @@ Accessible_isTable (Accessible *obj);
 boolean
 Accessible_isText (Accessible *obj);
 
-/**
- * Accessible_getAction:
- *
- * Not Yet Implemented.
- *
- **/
 AccessibleAction *
 Accessible_getAction (Accessible *obj);
 
@@ -720,28 +735,53 @@ long
 AccessibleAction_getNActions (AccessibleAction *obj);
 
 /**
- * AccessibleAction_getDescription:
- * @obj: a pointer to the #AccessibleAction to query.
+ * AccessibleAction_getName:
+ * @obj: a pointer to the #AccessibleAction implementor to query.
+ * @i: a long integer indicating which action to query.
  *
- * Get the description of 'i-th' action invokable on an
+ * Get the name of the '@i-th' action invokable on an
  *      object implementing #AccessibleAction.
  *
- * Not Yet Implemented.
+ * Returns: the 'event type' name of the action, as a UTF-8 string.
  *
- * Returns: a UTF-8 string describing the 'i-th' invokable action.
+ **/
+char *
+AccessibleAction_getName (AccessibleAction *obj, long int i);
+
+/**
+ * AccessibleAction_getDescription:
+ * @obj: a pointer to the #AccessibleAction to query.
+ * @i: a long integer indicating which action to query.
+ *
+ * Get the description of '@i-th' action invokable on an
+ *      object implementing #AccessibleAction.
+ *
+ * Returns: a UTF-8 string describing the '@i-th' invokable action.
  *
  **/
 char *
 AccessibleAction_getDescription (AccessibleAction *obj,
-                                 long index);
+                                 long int i);
 
 boolean
 AccessibleAction_doAction (AccessibleAction *obj,
-                           long index);
+                           long int i);
 
+/**
+ * AccessibleAction_getKeybinding:
+ * @obj: a pointer to the #AccessibleAction implementor to query.
+ * @i: a long integer indicating which action to query.
+ *
+ * Get the keybindings for the @i-th action invokable on an
+ *      object implementing #AccessibleAction, if any are defined.
+ *
+ * Returns: a UTF-8 string which can be parsed to determine the @i-th
+ * invokable action's keybindings.
+ *
+ **/
 char *
 AccessibleAction_getKeyBinding (AccessibleAction *obj,
-                                long index);
+                                long int i);
 
 /*
  *
@@ -816,6 +856,7 @@ AccessibleApplication_getID (AccessibleApplication *obj);
 
 /**
  * AccessibleApplication_pause:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Attempt to pause the application (used when client event queue is
  *  over-full).
@@ -828,7 +869,8 @@ boolean
 AccessibleApplication_pause (AccessibleApplication *obj);
 
 /**
- * AccessibleApplication_pause:
+ * AccessibleApplication_resume:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Attempt to resume the application (used after #AccessibleApplication_pause).
  * Not Yet Implemented.
@@ -853,14 +895,14 @@ AccessibleComponent_unref (AccessibleComponent *obj);
 
 boolean
 AccessibleComponent_contains (AccessibleComponent *obj,
-                              long x,
-                              long y,
+                              long int x,
+                              long int y,
                               AccessibleCoordType ctype);
 
 Accessible *
 AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
-                                          long x,
-                                          long y,
+                                          long int x,
+                                          long int y,
                                           AccessibleCoordType ctype);
 
 /**
@@ -878,22 +920,22 @@ AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
  **/
 void
 AccessibleComponent_getExtents (AccessibleComponent *obj,
-                                long *x,
-                                long *y,
-                                long *width,
-                                long *height,
+                                long int *x,
+                                long int *y,
+                                long int *width,
+                                long int *height,
                                 AccessibleCoordType ctype);
 
 void
 AccessibleComponent_getPosition (AccessibleComponent *obj,
-                                 long *x,
-                                 long *y,
+                                 long int *x,
+                                 long int *y,
                                  AccessibleCoordType ctype);
 
 void
 AccessibleComponent_getSize (AccessibleComponent *obj,
-                             long *width,
-                             long *height);
+                             long int *width,
+                             long int *height);
 
 void
 AccessibleComponent_grabFocus (AccessibleComponent *obj);
@@ -913,36 +955,36 @@ AccessibleEditableText_unref (AccessibleEditableText *obj);
 boolean
 AccessibleEditableText_setRunAttributes (AccessibleEditableText *obj,
 					 const char *attributes,
-					 long startPos, long endPos);
+					 long int startPos, long int intendPos);
 
-void
+boolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents);
 
-void
+boolean
 AccessibleEditableText_insertText (AccessibleEditableText *obj,
-                                   long position,
+                                   long int position,
                                    char *text,
-                                   long length);
+                                   long int length);
 
-void
+boolean
 AccessibleEditableText_copyText (AccessibleText *obj,
-                                 long startPos,
-                                 long endPos);
+                                 long int startPos,
+                                 long int endPos);
 
-void
+boolean
 AccessibleEditableText_cutText (AccessibleEditableText *obj,
-                                long startPos,
-                                long endPos);
+                                long int startPos,
+                                long int endPos);
 
-void
+boolean
 AccessibleEditableText_deleteText (AccessibleEditableText *obj,
-                                   long startPos,
-                                   long endPos);
+                                   long int startPos,
+                                   long int endPos);
 
-void
+boolean
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
-                                  long position);
+                                  long int position);
 
 /*
  *
@@ -950,27 +992,21 @@ AccessibleEditableText_pasteText (AccessibleEditableText *obj,
  *
  */
 
-int
-AccessibleHyperlink_ref (AccessibleHyperlink *obj);
-
-int
-AccessibleHyperlink_unref (AccessibleHyperlink *obj);
-
 long
 AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj);
 
 char *
 AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
-                            long i);
+                            long int i);
 
 Accessible *
 AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
-                               long i);
+                               long int i);
 
 void
 AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
-                                   long *startIndex,
-                                   long *endIndex);
+                                   long int *startIndex,
+                                   long int *endIndex);
 
 boolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj);
@@ -991,12 +1027,12 @@ long
 AccessibleHypertext_getNLinks (AccessibleHypertext *obj);
 
 AccessibleHyperlink *
-AccessibleHyperText_getLink (AccessibleHypertext *obj,
-                             long linkIndex);
+AccessibleHypertext_getLink (AccessibleHypertext *obj,
+                             long int linkIndex);
 
 long
 AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
-                                  long characterIndex);
+                                  long int characterIndex);
 
 /*
  *
@@ -1015,13 +1051,13 @@ AccessibleImage_getImageDescription (AccessibleImage *obj);
 
 void
 AccessibleImage_getImageSize (AccessibleImage *obj,
-                              long *width,
-                              long *height);
+                              long int *width,
+                              long int *height);
 
 void
 AccessibleImage_getImagePosition (AccessibleImage *obj,
-                                  long *x,
-                                  long *y,
+                                  long int *x,
+                                  long int *y,
                                   AccessibleCoordType ctype);
 
 /*
@@ -1060,21 +1096,21 @@ AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj);
 
 Accessible *
 AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
-                                      long selectedChildIndex);
+                                      long int selectedChildIndex);
 
 boolean
 AccessibleSelection_selectChild (AccessibleSelection *obj,
-                                 long childIndex);
+                                 long int childIndex);
 
 boolean
 AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
-                                           long selectedChildIndex);
+                                           long int selectedChildIndex);
 
 boolean
 AccessibleSelection_isChildSelected (AccessibleSelection *obj,
-                                     long childIndex);
+                                     long int childIndex);
 
-void
+boolean
 AccessibleSelection_selectAll (AccessibleSelection *obj);
 
 void
@@ -1144,74 +1180,74 @@ AccessibleTable_getNColumns (AccessibleTable *obj);
 
 Accessible *
 AccessibleTable_refAt (AccessibleTable *obj,
-                                 long row,
-                                 long column);
+                                 long int row,
+                                 long int column);
 
 long
 AccessibleTable_getIndexAt (AccessibleTable *obj,
-                            long row,
-                            long column);
+                            long int row,
+                            long int column);
 
 long
 AccessibleTable_getRowAtIndex (AccessibleTable *obj,
-                               long index);
+                               long int index);
 
 long
 AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
-                                  long index);
+                                  long int index);
 
 char *
 AccessibleTable_getRowDescription (AccessibleTable *obj,
-				   long row);
+				   long int row);
 
 char *
 AccessibleTable_getColumnDescription (AccessibleTable *obj,
-				      long column);
+				      long int column);
 
 long
 AccessibleTable_getRowExtentAt (AccessibleTable *obj,
-                                long row,
-                                long column);
+                                long int row,
+                                long int column);
 
 long
 AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
-                                   long row,
-                                   long column);
+                                   long int row,
+                                   long int column);
 
 Accessible *
 AccessibleTable_getRowHeader (AccessibleTable *obj,
-			      long row);
+			      long int row);
 
 Accessible *
 AccessibleTable_getColumnHeader (AccessibleTable *obj,
-				 long column);
+				 long int column);
 
 long
 AccessibleTable_getNSelectedRows (AccessibleTable *obj);
 
 long
 AccessibleTable_getSelectedRows (AccessibleTable *obj,
-                                 long **selectedRows);
+                                 long int **selectedRows);
 
 long
 AccessibleTable_getNSelectedColumns (AccessibleTable *obj);
 
 long
 AccessibleTable_getSelectedColumns (AccessibleTable *obj,
-                                    long **selectedColumns);
+                                    long int **selectedColumns);
 
 boolean
 AccessibleTable_isRowSelected (AccessibleTable *obj,
-                               long row);
+                               long int row);
 
 boolean
 AccessibleTable_isColumnSelected (AccessibleTable *obj,
-                                  long column);
+                                  long int column);
 
 boolean
 AccessibleTable_isSelected (AccessibleTable *obj,
-                            long row,
-                            long column);
+                            long int row,
+                            long int column);
 
 /*
  *
@@ -1230,80 +1266,87 @@ AccessibleText_getCharacterCount (AccessibleText *obj);
 
 char *
 AccessibleText_getText (AccessibleText *obj,
-                        long startOffset,
-                        long endOffset);
+                        long int startOffset,
+                        long int endOffset);
 
 long
 AccessibleText_getCaretOffset (AccessibleText *obj);
 
 char *
 AccessibleText_getAttributes (AccessibleText *obj,
-				 long offset,
-				 long *startOffset,
-				 long *endOfset);
+				 long int offset,
+				 long int *startOffset,
+				 long int *endOffset);
 
 
 boolean
 AccessibleText_setCaretOffset (AccessibleText *obj,
-                               long newOffset);
+                               long int newOffset);
 
 char *
 AccessibleText_getTextBeforeOffset (AccessibleText *obj,
-                                    long offset,
+                                    long int offset,
                                     AccessibleTextBoundaryType type,
-				    long *startOffset, long *endOffset);
+				    long int *startOffset,
+				    long int *endOffset);
 
 char *
 AccessibleText_getTextAtOffset (AccessibleText *obj,
-                                    long offset,
-				    AccessibleTextBoundaryType type,
-				    long *startOffset, long *endOffset);
+				long int offset,
+				AccessibleTextBoundaryType type,
+				long int *startOffset,
+				long int *endOffset);
 
 char *
 AccessibleText_getTextAfterOffset (AccessibleText *obj,
-				   long offset,
+				   long int offset,
 				   AccessibleTextBoundaryType type,
-				   long *startOffset, long *endOffset);
+				   long int *startOffset,
+				   long int *endOffset);
 
 unsigned long
 AccessibleText_getCharacterAtOffset (AccessibleText *obj,
-                                     long offset);
+                                     long int offset);
 
 void
 AccessibleText_getCharacterExtents (AccessibleText *obj,
-                                    long offset,
-                                    long *x,
-                                    long *y,
-                                    long *width,
-                                    long *height, AccessibleCoordType type);
+                                    long int offset,
+                                    long int *x,
+                                    long int *y,
+                                    long int *width,
+                                    long int *height,
+				    AccessibleCoordType type);
 
 long
 AccessibleText_getOffsetAtPoint (AccessibleText *obj,
-                                 long x,
-                                 long y, AccessibleCoordType type);
+                                 long int x,
+                                 long int y,
+				 AccessibleCoordType type);
 
 long
 AccessibleText_getNSelections (AccessibleText *obj);
 
 void
 AccessibleText_getSelection (AccessibleText *obj,
-			     long selectionNum, long *startOffset,
-			     long *endOffset);
+			     long int selectionNum,
+			     long int *startOffset,
+			     long int *endOffset);
 
 
 boolean
 AccessibleText_addSelection (AccessibleText *obj,
-			     long startOffset, long endOffset);
+			     long int startOffset,
+			     long int endOffset);
 
 boolean
 AccessibleText_removeSelection (AccessibleText *obj,
-				long selectionNum);
+				long int selectionNum);
 
 boolean
 AccessibleText_setSelection (AccessibleText *obj,
-			     long selectionNum,
-			     long startOffset,
-			     long endOffset);
+			     long int selectionNum,
+			     long int startOffset,
+			     long int endOffset);
 
 /*
  *
@@ -1311,17 +1354,23 @@ AccessibleText_setSelection (AccessibleText *obj,
  *
  */
 
-float
-AccessibleValue_getMinimumValue (AccessibleValue *value);
+int
+AccessibleValue_ref (AccessibleValue *obj);
+
+int
+AccessibleValue_unref (AccessibleValue *obj);
 
 float
-AccessibleValue_getCurrentValue (AccessibleValue *value);
+AccessibleValue_getMinimumValue (AccessibleValue *obj);
 
 float
-AccessibleValue_getMaximumValue (AccessibleValue *value);
+AccessibleValue_getCurrentValue (AccessibleValue *obj);
+
+float
+AccessibleValue_getMaximumValue (AccessibleValue *obj);
 
 boolean
-AccessibleValue_setCurrentValue (AccessibleValue *value,
+AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue);
 
 void

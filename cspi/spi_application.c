@@ -80,6 +80,7 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
  *
  * Returns: a unique #long integer associated with the application
  *          by the Registry, or 0 if the application is not registered.
+**/
 long
 AccessibleApplication_getID (AccessibleApplication *obj)
 {
@@ -88,6 +89,7 @@ AccessibleApplication_getID (AccessibleApplication *obj)
 
 /**
  * AccessibleApplication_pause:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Attempt to pause the application (used when client event queue is
  *  over-full).
@@ -104,6 +106,7 @@ AccessibleApplication_pause (AccessibleApplication *obj)
 
 /**
  * AccessibleApplication_resume:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Attempt to resume the application (used after #AccessibleApplication_pause).
  * Not Yet Implemented.

@@ -1,3 +1,12 @@
+/**
+ * AccessibleValue_ref:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate.
+ *
+ * Increment the reference count for an #AccessibleValue object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
 int
 AccessibleValue_ref (AccessibleValue *obj)
 {
@@ -7,6 +16,15 @@ AccessibleValue_ref (AccessibleValue *obj)
 
 
 
+/**
+ * AccessibleValue_unref:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
+ *
+ * Decrement the reference count for an #AccessibleValue object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
 int
 AccessibleValue_unref (AccessibleValue *obj)
 {
@@ -16,6 +34,15 @@ AccessibleValue_unref (AccessibleValue *obj)
 
 
 
+/**
+ * AccessibleValue_getMinimumValue:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
+ *
+ * Get the minimum allowed value for an #AccessibleValue.
+ *
+ * Returns: the minimum allowed value for this object.
+ *
+ **/
 float
 AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
@@ -25,6 +52,15 @@ AccessibleValue_getMinimumValue (AccessibleValue *obj)
 
 
 
+/**
+ * AccessibleValue_getCurrentValue:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
+ *
+ * Get the current value for an #AccessibleValue.
+ *
+ * Returns: the current value for this object.
+ *
+ **/
 float
 AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
@@ -34,6 +70,15 @@ AccessibleValue_getCurrentValue (AccessibleValue *obj)
 
 
 
+/**
+ * AccessibleValue_getMaximumValue:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
+ *
+ * Get the maximum allowed value for an #AccessibleValue.
+ *
+ * Returns: the maximum allowed value for this object.
+ *
+ **/
 float
 AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
@@ -43,6 +88,17 @@ AccessibleValue_getMaximumValue (AccessibleValue *obj)
 
 
 
+/**
+ * AccessibleValue_setCurrentValue:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate.
+ * @newValue: a #float value which is the desired new value of the object.
+ *
+ * Set the current value of an #AccessibleValue.
+ *
+ * Returns: #TRUE if the value could be assigned the specified value,
+ *          #FALSE otherwise.
+ *
+ **/
 boolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)

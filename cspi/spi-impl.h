@@ -36,8 +36,6 @@ typedef CORBA_Object AccessibilityRegistry;
 typedef CORBA_Object GenericInterface;
 
 typedef SpiKeystrokeListener AccessibleKeystrokeListener;
-typedef SpiAccessibleEventListener AccessibleEventListener;
-
-typedef SpiKeyMaskType AccessibleKeyMaskType;
+typedef SpiEventListener AccessibleEventListener;
 
 #endif

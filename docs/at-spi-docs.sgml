@@ -1,10 +1,21 @@
 <!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
-<!entity at-spi-spi_main SYSTEM "sgml/spi_main.sgml">
-<!entity at-spi-spi_event SYSTEM "sgml/spi_event.sgml">
-<!entity at-spi-spi_registry SYSTEM "sgml/spi_registry.sgml">
-<!entity at-spi-spi_application SYSTEM "sgml/spi_application.sgml">
-<!entity at-spi-spi_accessible SYSTEM "sgml/spi_accessible.sgml">
-<!entity at-spi-spi_component SYSTEM "sgml/spi_component.sgml">
+<!entity at-spi-spi-main SYSTEM "sgml/spi_main.sgml">
+<!entity at-spi-spi-event SYSTEM "sgml/spi_event.sgml">
+<!entity at-spi-spi-registry SYSTEM "sgml/spi_registry.sgml">
+<!entity at-spi-spi-application SYSTEM "sgml/spi_application.sgml">
+<!entity at-spi-spi-accessible SYSTEM "sgml/spi_accessible.sgml">
+<!entity at-spi-spi-action SYSTEM "sgml/spi_action.sgml">
+<!entity at-spi-spi-component SYSTEM "sgml/spi_component.sgml">
+<!entity at-spi-spi-editabletext SYSTEM "sgml/spi_editabletext.sgml">
+<!entity at-spi-spi-hypertext SYSTEM "sgml/spi_hypertext.sgml">
+<!entity at-spi-spi-image SYSTEM "sgml/spi_image.sgml">
+<!entity at-spi-spi-selection SYSTEM "sgml/spi_selection.sgml">
+<!entity at-spi-spi-table SYSTEM "sgml/spi_table.sgml">
+<!entity at-spi-spi-text SYSTEM "sgml/spi_text.sgml">
+<!entity at-spi-spi-value SYSTEM "sgml/spi_value.sgml">
+<!entity at-spi-spi-hyperlink SYSTEM "sgml/spi_hyperlink.sgml">
+<!entity at-spi-spi-relation SYSTEM "sgml/spi_relation.sgml">
+<!entity at-spi-spi-stateset SYSTEM "sgml/spi_stateset.sgml">
 ]>
 
 <book>
@@ -13,20 +24,34 @@
   </bookinfo>
   <chapter id="spi-main">
     <title>SPI Main Event Loop and Registry</title>
-    &at-spi-spi_main;
-    &at-spi-spi_event;
-    &at-spi-spi_registry;
+    &at-spi-spi-main;
+    &at-spi-spi-event;
+    &at-spi-spi-registry;
   </chapter>
   <chapter id="spi-application">
     <title>AccessibleApplication Methods</title>
-    &at-spi-spi_application;
+    &at-spi-spi-application;
    </chapter>
   <chapter id="spi-accessible">
     <title>Basic Accessible Object Methods and Interface Query</title>
-    &at-spi-spi_accessible;
+    &at-spi-spi-accessible;
+    &at-spi-spi-relation;	    
+    &at-spi-spi-stateset;	    
   </chapter>
   <chapter id="spi-component">
     <title>Subinterface Methods</title>
-    &at-spi-spi_component;
+    &at-spi-spi-action;
+    &at-spi-spi-component;
+    &at-spi-spi-editabletext;
+    &at-spi-spi-hypertext;
+    &at-spi-spi-image;
+    &at-spi-spi-selection;
+    &at-spi-spi-table;
+    &at-spi-spi-text;
+    &at-spi-spi-value;
+  </chapter>
+  <chapter>
+    <title>Auxiliary Types</title>
+    &at-spi-spi-hyperlink;	    
   </chapter>
 </book>

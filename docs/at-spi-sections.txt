@@ -11,20 +11,35 @@ SPI_exit
 <SECTION>
 <FILE>spi_event</FILE>
 <TITLE>Event Listener Support</TITLE>
-createEventListener
-EventListener_addCallback
-EventListener_removeCallback
+AccessibleEvent
+AccessibleEventListenerCB
+createAccessibleEventListener
+AccessibleEventListener_addCallback
+AccessibleEventListener_removeCallback
 </SECTION>
 
 <SECTION>
 <FILE>spi_registry</FILE>
 <TITLE>Registry queries</TITLE>
+AccessibleKeySynthType
 getDesktopCount
 getDesktop
 getDesktopList
 <SUBSECTION Event Registration>
+AccessibleKeystrokeListenerCB
+AccessibleKeyEventMask
+AccessibleKeyMaskType
+AccessibleKeyEventType
+AccessibleKeyListenerSyncType
+SPI_KEYSET_ALL_KEYS
+createAccessibleKeystrokeListener
 registerGlobalEventListener
-registerKeystrokeListener
+deregisterGlobalEventListener
+deregisterGlobalEventListenerAll
+registerAccessibleKeystrokeListener
+deregisterAccessibleKeystrokeListener
+AccessibleKeystrokeListener_removeCallback
+AccessibleKeystrokeListener_addCallback
 generateKeyEvent
 generateMouseEvent
 </SECTION>
@@ -38,6 +53,7 @@ Accessible_getName
 Accessible_getDescription
 Accessible_getParent
 Accessible_getChildCount
+Accessible_getChildAtIndex
 Accessible_getIndexInParent
 Accessible_getRelationSet
 Accessible_getRole
@@ -60,6 +76,8 @@ Accessible_getSelection
 Accessible_getTable
 Accessible_getText
 Accessible_queryInterface
+<SUBSECTION Auxiliary types>
+AccessibleRole
 </SECTION>
 
 <SECTION>
@@ -75,8 +93,20 @@ AccessibleApplication_resume
 </SECTION>
 
 <SECTION>
+<FILE>spi_action</FILE>
+<TITLE>AccessibleAction Interface</TITLE>
+AccessibleAction_ref
+AccessibleAction_unref
+AccessibleAction_getNActions
+AccessibleAction_doAction
+AccessibleAction_getKeyBinding
+AccessibleAction_getDescription
+</SECTION>
+
+<SECTION>
 <FILE>spi_component</FILE>
 <TITLE>AccessibleComponent Interface</TITLE>
+AccessibleCoordType
 AccessibleComponent_ref
 AccessibleComponent_unref
 AccessibleComponent_contains
@@ -85,4 +115,149 @@ AccessibleComponent_getExtents
 AccessibleComponent_getPosition
 AccessibleComponent_getSize
 AccessibleComponent_grabFocus
+</SECTION>
+
+<SECTION>
+<FILE>spi_editabletext</FILE>
+<TITLE>AccessibleEditableText Interface</TITLE>
+AccessibleEditableText_ref
+AccessibleEditableText_unref
+AccessibleEditableText_copyText
+AccessibleEditableText_deleteText
+AccessibleEditableText_insertText
+AccessibleEditableText_cutText
+AccessibleEditableText_pasteText
+AccessibleEditableText_setTextContents
+AccessibleEditableText_setRunAttributes
+</SECTION>
+
+<SECTION>
+<FILE>spi_hypertext</FILE>
+<TITLE>AccessibleHypertext Interface</TITLE>
+AccessibleHypertext_ref
+AccessibleHypertext_unref
+AccessibleHypertext_getNLinks
+AccessibleHypertext_getLink
+AccessibleHypertext_getLinkIndex
+</SECTION>
+
+<SECTION>
+<FILE>spi_image</FILE>
+<TITLE>AccessibleImage Interface</TITLE>
+AccessibleImage_ref
+AccessibleImage_unref
+AccessibleImage_getImageDescription
+AccessibleImage_getImageSize
+AccessibleImage_getImagePosition
+</SECTION>
+
+<SECTION>
+<FILE>spi_selection</FILE>
+<TITLE>AccessibleSelection Interface</TITLE>
+AccessibleSelection_ref
+AccessibleSelection_unref
+AccessibleSelection_getNSelectedChildren
+AccessibleSelection_getSelectedChild
+AccessibleSelection_selectChild
+AccessibleSelection_isChildSelected
+AccessibleSelection_deselectSelectedChild
+AccessibleSelection_clearSelection
+AccessibleSelection_selectAll
+</SECTION>
+
+<SECTION>
+<FILE>spi_table</FILE>
+<TITLE>AccessibleTable Interface</TITLE>
+AccessibleTable_ref
+AccessibleTable_unref
+AccessibleTable_getCaption
+AccessibleTable_getColumnAtIndex
+AccessibleTable_getColumnDescription
+AccessibleTable_getColumnExtentAt
+AccessibleTable_getColumnHeader
+AccessibleTable_getIndexAt
+AccessibleTable_getNColumns
+AccessibleTable_getNRows
+AccessibleTable_getNSelectedColumns
+AccessibleTable_getNSelectedRows
+AccessibleTable_getRowAtIndex
+AccessibleTable_getRowDescription
+AccessibleTable_getRowExtentAt
+AccessibleTable_getRowHeader
+AccessibleTable_getSelectedRows
+AccessibleTable_getSelectedColumns
+AccessibleTable_getSummary
+AccessibleTable_isColumnSelected
+AccessibleTable_isRowSelected
+AccessibleTable_isSelected
+AccessibleTable_refAt
+</SECTION>
+
+<SECTION>
+<FILE>spi_text</FILE>
+<TITLE>AccessibleText Interface</TITLE>
+AccessibleTextBoundaryType
+AccessibleText_ref
+AccessibleText_unref
+AccessibleText_addSelection
+AccessibleText_getAttributes
+AccessibleText_getCaretOffset
+AccessibleText_getCharacterCount
+AccessibleText_getCharacterExtents
+AccessibleText_getNSelections
+AccessibleText_getOffsetAtPoint
+AccessibleText_getSelection
+AccessibleText_getText
+AccessibleText_getTextBeforeOffset
+AccessibleText_getTextAfterOffset
+AccessibleText_getTextAtOffset
+AccessibleText_removeSelection
+AccessibleText_setCaretOffset
+AccessibleText_setSelection
+</SECTION>
+
+<SECTION>
+<FILE>spi_value</FILE>
+<TITLE>AccessibleValue Interface</TITLE>
+AccessibleValue_ref
+AccessibleValue_unref
+AccessibleValue_getCurrentValue
+AccessibleValue_getMaximumValue
+AccessibleValue_getMinimumValue
+AccessibleValue_setCurrentValue
+</SECTION>
+
+<SECTION>
+<FILE>spi_hyperlink</FILE>
+<TITLE>AccessibleHyperlink Interface</TITLE>
+AccessibleHyperlink_getNAnchors
+AccessibleHyperlink_getIndexRange
+AccessibleHyperlink_getObject
+AccessibleHyperlink_getURI
+AccessibleHyperlink_isValid
+</SECTION>
+
+<SECTION>
+<FILE>spi_stateset</FILE>
+<TITLE>State and StateSets</TITLE>
+AccessibleState
+AccessibleStateSet_ref
+AccessibleStateSet_unref
+AccessibleStateSet_add
+AccessibleStateSet_compare
+AccessibleStateSet_contains
+AccessibleStateSet_equals
+AccessibleStateSet_isEmpty
+AccessibleStateSet_remove
+
+</SECTION>
+
+<SECTION>
+<FILE>spi_relation</FILE>
+<TITLE>AccessibleRelations and RelationSets</TITLE>
+AccessibleRelationType
+AccessibleRelation_ref
+AccessibleRelation_unref
+AccessibleRelation_getTarget
+AccessibleRelation_getRelationType
 </SECTION>

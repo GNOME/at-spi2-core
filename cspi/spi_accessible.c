@@ -176,7 +176,6 @@ Accessible_getParent (Accessible *obj)
 
 /**
  * Accessible_getChildCount:
- *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the number of children contained by an #Accessible object.
@@ -195,7 +194,6 @@ Accessible_getChildCount (Accessible *obj)
 
 /**
  * Accessible_getChildAtIndex:
- *
  * @obj: a pointer to the #Accessible object on which to operate.
  * @childIndex: a #long indicating which child is specified.
  *
@@ -207,7 +205,7 @@ Accessible_getChildCount (Accessible *obj)
  **/
 Accessible *
 Accessible_getChildAtIndex (Accessible *obj,
-                            long childIndex)
+                            long int childIndex)
 {
   Accessible *retval = Obj_Add (Accessibility_Accessible_getChildAtIndex (*obj, childIndex, &ev));
   spi_check_ev (&ev, "getChildAtIndex");
@@ -216,7 +214,6 @@ Accessible_getChildAtIndex (Accessible *obj,
 
 /**
  * Accessible_getIndexInParent:
- *
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the index of an #Accessible object in its containing #Accessible.
@@ -236,6 +233,7 @@ Accessible_getIndexInParent (Accessible *obj)
 
 /**
  * Accessible_getRelationSet:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Not Yet Implemented.
  *
@@ -268,6 +266,7 @@ Accessible_getRole (Accessible *obj)
 
 /**
  * Accessible_getStateSet:
+ * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Not Yet Implemented.
  *
@@ -286,7 +285,6 @@ Accessible_getStateSet (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleAction.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleAction interface,
  *          #FALSE otherwise.
@@ -329,7 +327,6 @@ Accessible_isComponent (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleEditableText.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
  *          #FALSE otherwise.
@@ -351,7 +348,6 @@ Accessible_isEditableText (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleHypertext.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
  *          #FALSE otherwise.
@@ -374,7 +370,6 @@ Accessible_isHypertext (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleImage.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleImage interface,
  *          #FALSE otherwise.
@@ -396,7 +391,6 @@ Accessible_isImage (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleSelection.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
  *          #FALSE otherwise.
@@ -419,7 +413,6 @@ Accessible_isSelection (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleTable.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleTable interface,
  *          #FALSE otherwise.
@@ -442,7 +435,6 @@ Accessible_isTable (Accessible *obj)
  * @obj: a pointer to the #Accessible instance to query.
  *
  * Query whether the specified #Accessible implements #AccessibleText.
- * Not Yet Implemented.
  *
  * Returns: #TRUE if @obj implements the #AccessibleText interface,
  *          #FALSE otherwise.
@@ -482,8 +474,12 @@ Accessible_isValue (Accessible *obj)
 
 /**
  * Accessible_getAction:
+ * @obj: a pointer to the #Accessible instance to query.
  *
+ * Get the #AccessibleAction interface for an #Accessible.
  *
+ * Returns: a pointer to an #AccessibleAction interface instance, or
+ *          NULL if @obj does not implement #AccessibleAction.
  **/
 AccessibleAction *
 Accessible_getAction (Accessible *obj)
@@ -519,6 +515,15 @@ Accessible_getComponent (Accessible *obj)
   return (AccessibleComponent *) ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
+/**
+ * Accessible_getEditableText:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleEditableText interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleEditableText interface instance, or
+ *          NULL if @obj does not implement #AccessibleEditableText.
+ **/
 AccessibleEditableText *
 Accessible_getEditableText (Accessible *obj)
 {
@@ -534,6 +539,15 @@ Accessible_getEditableText (Accessible *obj)
 
 
 
+/**
+ * Accessible_getHypertext:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleHypertext interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleHypertext interface instance, or
+ *          NULL if @obj does not implement #AccessibleHypertext.
+ **/
 AccessibleHypertext *
 Accessible_getHypertext (Accessible *obj)
 {
@@ -549,6 +563,15 @@ Accessible_getHypertext (Accessible *obj)
 
 
 
+/**
+ * Accessible_getImage:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleImage interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleImage interface instance, or
+ *          NULL if @obj does not implement #AccessibleImage.
+ **/
 AccessibleImage *
 Accessible_getImage (Accessible *obj)
 {
@@ -564,6 +587,15 @@ Accessible_getImage (Accessible *obj)
 
 
 
+/**
+ * Accessible_getSelection:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleSelection interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleSelection interface instance, or
+ *          NULL if @obj does not implement #AccessibleSelection.
+ **/
 AccessibleSelection *
 Accessible_getSelection (Accessible *obj)
 {
@@ -579,6 +611,15 @@ Accessible_getSelection (Accessible *obj)
 
 
 
+/**
+ * Accessible_getTable:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleTable interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleTable interface instance, or
+ *          NULL if @obj does not implement #AccessibleTable.
+ **/
 AccessibleTable *
 Accessible_getTable (Accessible *obj)
 {
@@ -592,6 +633,15 @@ Accessible_getTable (Accessible *obj)
 	  ((CORBA_Object_is_nil (iface, &ev)) ? 0 : Obj_Add (iface));
 }
 
+/**
+ * Accessible_getText:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleText interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleText interface instance, or
+ *          NULL if @obj does not implement #AccessibleText.
+ **/
 AccessibleText *
 Accessible_getText (Accessible *obj)
 {
@@ -608,6 +658,15 @@ Accessible_getText (Accessible *obj)
 
 
 
+/**
+ * Accessible_getValue:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleValue interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleValue interface instance, or
+ *          NULL if @obj does not implement #AccessibleValue.
+ **/
 AccessibleValue *
 Accessible_getValue (Accessible *obj)
 {

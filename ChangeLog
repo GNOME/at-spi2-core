@@ -1,3 +1,57 @@
+2001-16-11  Bill Haneman <bill.haneman@sun.com>
+
+	One last namespacing revision:
+	* libspi/accessibleeventlistener.[ch]:
+	Renamed SpiAccessibleEventListener to SpiEventListener,
+	(no need for two namespaces ;-)
+
+	And lots of documentation fixes:
+
+	* docs/at-spi-docs.sgml:
+	Fixed 'underscore vs. hyphen' bug that was preventing
+	the gtk-doc API docs from being automatically generated.
+
+	* cspi/spi-impl.h
+	* cspi/spi-listener.h
+	* cspi/spi.h
+	* cspi/spi_accessible.c
+	* cspi/spi_action.c
+	* cspi/spi_application.c
+	* cspi/spi_component.c
+	* cspi/spi_editabletext.c
+	* cspi/spi_event.c
+	* cspi/spi_hypertext.c
+	* cspi/spi_main.c
+	* cspi/spi_registry.c
+	* cspi/spi_selection.c
+	* cspi/spi_text.c
+	* cspi/spi_value.c
+	* docs/Makefile.am
+	* docs/at-spi-docs.sgml
+	* docs/at-spi-sections.txt
+	
+	Added and fixed up gtk-doc documentation in cspi.
+	
+	Interfaces now (fully) documented (subject to revision and enhancement):
+	SPI_main
+	Event Listener Support
+	Registry API
+	AccessibleApplication
+	Accessible
+	AccessibleAction
+	AccessibleComponent
+	AccessibleEditableText
+	AccessibleSelection
+	AccessibleText
+	AccessibleValue
+
+	still pending:
+	AccessibleStateSet
+	AccessibleRelationSet
+	AccessibleImage
+	AccessibleTable
+	AccessibleHyperlink
+	
 2001-14-11  Bill Haneman <bill.haneman@sun.com>
 
 	* at-bridge/bridge.c:

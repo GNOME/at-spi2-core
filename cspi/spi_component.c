@@ -46,11 +46,13 @@ AccessibleComponent_unref (AccessibleComponent *obj)
  *
  * Query whether a given #AccessibleComponent contains a particular point.
  *
+ * Returns: a #TRUE if the specified component contains the point (@x, @y),
+ *          otherwise #FALSE.
  **/
 boolean
 AccessibleComponent_contains (AccessibleComponent *obj,
-                              long x,
-                              long y,
+                              long int x,
+                              long int y,
                               AccessibleCoordType ctype)
 {
   return Accessibility_Component_contains (*obj,
@@ -75,8 +77,8 @@ AccessibleComponent_contains (AccessibleComponent *obj,
  **/
 Accessible *
 AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
-                                          long x,
-                                          long y,
+                                          long int x,
+                                          long int y,
                                           AccessibleCoordType ctype)
 {
   Accessible child;
@@ -103,10 +105,10 @@ AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
  **/
 void
 AccessibleComponent_getExtents (AccessibleComponent *obj,
-                                long *x,
-                                long *y,
-                                long *width,
-                                long *height,
+                                long int *x,
+                                long int *y,
+                                long int *width,
+                                long int *height,
                                 AccessibleCoordType ctype)
 {
   CORBA_long cx, cy, cw, ch;	
@@ -137,8 +139,8 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
  **/
 void
 AccessibleComponent_getPosition (AccessibleComponent *obj,
-                                 long *x,
-                                 long *y,
+                                 long int *x,
+                                 long int *y,
                                  AccessibleCoordType ctype)
 {
   Accessibility_Component_getPosition (*obj,
@@ -159,8 +161,8 @@ AccessibleComponent_getPosition (AccessibleComponent *obj,
  **/
 void
 AccessibleComponent_getSize (AccessibleComponent *obj,
-                             long *width,
-                             long *height)
+                             long int *width,
+                             long int *height)
 {
   Accessibility_Component_getSize (*obj,
                                    (CORBA_long *) width,
@@ -168,7 +170,14 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
                                    &ev);
 }
 
-/* Not Yet Implemented */
+/**
+ * AccessibleComponent_grabFocus:
+ * @obj: a pointer to the #AccessibleComponent on which to operate.
+ *
+ * Attempt to set the keyboard input focus to the specified
+ *         #AccessibleComponent.
+ *
+ **/
 void
 AccessibleComponent_grabFocus (AccessibleComponent *obj)
 {

@@ -25,7 +25,7 @@ AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
 
 
 AccessibleHyperlink *
-AccessibleHyperText_getLink (AccessibleHypertext *obj,
+AccessibleHypertext_getLink (AccessibleHypertext *obj,
                              long linkIndex)
 {
   return (AccessibleHyperlink *)

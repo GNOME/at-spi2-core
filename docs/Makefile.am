@@ -2,6 +2,9 @@
 
 EXTRA_DIST = Makefile.am at-spi-docs.sgml at-spi-sections.txt
 
+# Files whose declarations are to be ignored (private)
+IGNORE_HFILES = spi-impl.h
+
 # The name of the module.
 DOC_MODULE=at-spi
 
