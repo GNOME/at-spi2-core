@@ -11,7 +11,6 @@
  * @obj: a pointer to the #AccessibleApplication on which to operate.
  *
  * Increment the reference count for an #AccessibleApplication.
- *
  **/
 void
 AccessibleApplication_ref (AccessibleApplication *obj)
@@ -24,7 +23,6 @@ AccessibleApplication_ref (AccessibleApplication *obj)
  * @obj: a pointer to the #AccessibleApplication object on which to operate.
  *
  * Decrement the reference count for an #AccessibleApplication.
- *
  **/
 void
 AccessibleApplication_unref (AccessibleApplication *obj)
@@ -93,7 +91,7 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
  *
  * Returns: a unique #long integer associated with the application
  *          by the Registry, or 0 if the application is not registered.
-**/
+ **/
 long
 AccessibleApplication_getID (AccessibleApplication *obj)
 {

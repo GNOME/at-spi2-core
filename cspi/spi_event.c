@@ -21,7 +21,6 @@
  */
 
 #include <cspi/spi-private.h>
-#include <cspi/spi-listener-impl.h>
 
 /**
  * createAccessibleEventListener:
@@ -66,7 +65,7 @@ AccessibleEventListener_addCallback (AccessibleEventListener *listener,
 				     AccessibleEventListenerCB callback,
 				     void                     *user_data)
 {
-  cspi_event_listener_add_callback (listener, callback, user_data);
+  cspi_event_listener_add_cb (listener, callback, user_data);
   return TRUE;
 }
 
@@ -79,8 +78,7 @@ AccessibleEventListener_addCallback (AccessibleEventListener *listener,
 void
 AccessibleEventListener_unref (AccessibleEventListener *listener)
 {
-  /* Would prefer this not to be bonobo api */
-  bonobo_object_unref (BONOBO_OBJECT (listener));
+  cspi_event_listener_unref (listener);
 }
 
 /**
@@ -97,7 +95,7 @@ SPIBoolean
 AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
 					AccessibleEventListenerCB callback)
 {
-  cspi_event_listener_remove_callback (listener, callback);
+  cspi_event_listener_remove_cb (listener, callback);
   return TRUE;
 }
 
@@ -115,12 +113,12 @@ AccessibleKeystrokeListener *
 createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
 				   void                         *user_data)
 {
-  CSpiKeystrokeListener *listener = cspi_keystroke_listener_new ();
+  AccessibleKeystrokeListener *listener = cspi_keystroke_listener_new ();
   if (callback)
     {
       AccessibleKeystrokeListener_addCallback (listener, callback, user_data);
     }
-  return (AccessibleKeystrokeListener *)listener;
+  return listener;
 }
 
 /**
@@ -139,7 +137,7 @@ AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
 					 AccessibleKeystrokeListenerCB callback,
 					 void                         *user_data)
 {
-  cspi_keystroke_listener_add_callback (listener, callback, user_data);
+  cspi_keystroke_listener_add_cb (listener, callback, user_data);
   return TRUE;
 }
 
@@ -157,7 +155,7 @@ SPIBoolean
 AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
 					    AccessibleKeystrokeListenerCB callback)
 {
-  cspi_keystroke_listener_remove_callback (listener, callback);
+  cspi_keystroke_listener_remove_cb (listener, callback);
   return TRUE;
 }
 
@@ -170,6 +168,5 @@ AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listene
 void
 AccessibleKeystrokeListener_unref (AccessibleKeystrokeListener *listener)
 {
-  /* Would prefer this not to be bonobo api */
-  bonobo_object_unref (BONOBO_OBJECT (listener));
+  cspi_keystroke_listener_unref (listener);
 }

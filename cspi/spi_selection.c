@@ -193,7 +193,7 @@ AccessibleSelection_selectAll (AccessibleSelection *obj)
 
   cspi_check_ev ("selectAll");
 
-  return TRUE; /* TODO: change the bonobo method to return SPIBoolean */
+  return TRUE; /* TODO: change the CORBA method to return SPIBoolean */
 }
 
 /**

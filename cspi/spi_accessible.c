@@ -699,7 +699,7 @@ Accessible_getValue (Accessible *obj)
  *          by @obj, or NULL otherwise.
  *
  **/
-GenericInterface *
+AccessibleUnknown *
 Accessible_queryInterface (Accessible *obj,
 			   const char *interface_name)
 {

@@ -1,3 +1,5 @@
+SUBDIRS = bonobo
+
 NULL=
 
 lib_LTLIBRARIES = libcspi.la
@@ -8,7 +10,9 @@ INCLUDES = -I $(top_srcdir)           \
 
 LDFLAGS = $(LIBCSPI_LIBS) @LT_VERSION_INFO@
 
-LDADD = ../libspi/libspi.la $(LIBCSPI_LIBS)
+LDADD =				\
+	../libspi/libspi.la	\
+	$(LIBCSPI_LIBS)
 
 libcspidir = $(includedir)/at-spi-1.0/cspi
 libcspi_HEADERS =		\
@@ -19,6 +23,7 @@ libcspi_HEADERS =		\
 	spi-statetypes.h
 
 libcspi_la_SOURCES =		\
+	cspi-lowlevel.h		\
 	spi_accessible.c	\
 	spi_action.c		\
 	spi_application.c	\
@@ -28,13 +33,13 @@ libcspi_la_SOURCES =		\
 	spi_hyperlink.c		\
 	spi_hypertext.c		\
 	spi_image.c		\
-	spi-listener-impl.h	\
-	spi-listener-impl.c	\
 	spi_main.c		\
 	spi-private.h		\
 	spi_registry.c		\
 	spi_selection.c		\
 	spi_table.c		\
 	spi_text.c		\
-	spi-util.c		\
 	spi_value.c
+
+libcspi_la_LIBADD =		\
+	bonobo/libcspi-bonobo.la

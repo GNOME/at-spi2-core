@@ -79,7 +79,6 @@
  * Add an in-process callback function to an existing AccessibleEventListener.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 registerGlobalEventListener (AccessibleEventListener *listener,
@@ -87,12 +86,15 @@ registerGlobalEventListener (AccessibleEventListener *listener,
 {
   SPIBoolean retval;
 
+  if (!listener)
+    {
+      return FALSE;
+    }
+
   Accessibility_Registry_registerGlobalEventListener (
-                         cspi_registry (),
-                         (Accessibility_EventListener)
-                            BONOBO_OBJREF (bonobo_object (listener)),
-                         eventType,
-                         cspi_ev ());
+    cspi_registry (),
+    cspi_event_listener_get_corba (listener),
+    eventType, cspi_ev ());
 
   retval = !cspi_exception ();
  
@@ -110,18 +112,23 @@ registerGlobalEventListener (AccessibleEventListener *listener,
  *            listener reference.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 {
+  if (!listener)
+    {
+      return FALSE;
+    }
+
   Accessibility_Registry_deregisterGlobalEventListenerAll (
-                         cspi_registry (),
-			 (Accessibility_EventListener) BONOBO_OBJREF (listener),
-			 cspi_ev ());
+    cspi_registry (),
+    cspi_event_listener_get_corba (listener),
+    cspi_ev ());
 
   return !cspi_exception ();
 }
+
 /**
  * deregisterGlobalEventListener:
  * @listener: the #AccessibleEventListener registered against an event type.
@@ -132,17 +139,20 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
  *             event type.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 deregisterGlobalEventListener (AccessibleEventListener *listener,
 			       const char              *eventType)
 {
+  if (!listener)
+    {
+      return FALSE;
+    }
+
   Accessibility_Registry_deregisterGlobalEventListener (
-	  cspi_registry (),
-	  (Accessibility_EventListener) BONOBO_OBJREF (listener),
-	  (CORBA_char *) eventType,
-	  cspi_ev ());
+    cspi_registry (), 
+    cspi_event_listener_get_corba (listener),
+    (CORBA_char *) eventType, cspi_ev ());
 
   return !cspi_exception ();
 }
@@ -155,7 +165,6 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
  *       function always returns '1'.
  *
  * Returns: an integer indicating the number of active virtual desktops.
- *
  **/
 int
 getDesktopCount ()
@@ -179,14 +188,13 @@ getDesktopCount ()
  *       function always returns '1'.
  *
  * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
- *
  **/
 Accessible*
 getDesktop (int i)
 {
-  return cspi_object_add (Accessibility_Registry_getDesktop (cspi_registry (),
-							     (CORBA_short) i,
-							     cspi_ev ()));
+  return cspi_object_add (
+    Accessibility_Registry_getDesktop (
+      cspi_registry (), (CORBA_short) i, cspi_ev ()));
 }
 
 /**
@@ -232,8 +240,10 @@ getDesktopList (Accessible **list)
  *             all windows (CSPI_KEYLISTENER_ALL_WINDOWS), or
  *             non-preemptively (CSPI_KEYLISTENER_NOSYNC).
  *             ( Other sync_type values may be available in the future.)
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
  **/
-void
+SPIBoolean
 registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 				     AccessibleKeySet *keys,
 				     AccessibleKeyMaskType modmask,
@@ -246,10 +256,15 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
 
+  if (!listener)
+    {
+      return FALSE;
+    }
+
   device_event_controller = 
     Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  cspi_return_if_ev ("getting event controller");
+  cspi_return_val_if_ev ("getting event controller", FALSE);
 
   /* copy the keyval filter values from the C api into the CORBA KeySet */
   if (keys)
@@ -261,7 +276,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
           /* we overload the keyset long w/keycodes, the - bit acts as a flag */
           key_set._buffer[i] = (keys->keysyms[i]) ? keys->keysyms[i] :
 	                                         -keys->keycodes[i];
-	  /* g_print ("key-set %d = %d\n", i, (int) key_set->_buffer[i]); */
+	  /* fprintf (stderr, "key-set %d = %d\n", i, (int) key_set->_buffer[i]); */
         }
     }
   else
@@ -299,15 +314,17 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   controller_event_mask.refcount = (CORBA_unsigned_short) 1;
 
   Accessibility_DeviceEventController_registerKeystrokeListener (
-	  device_event_controller,
-	  BONOBO_OBJREF (listener),
-	  &key_set,
-	  &controller_event_mask,
-	  &key_events,
-	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
-	  cspi_ev ());
+    device_event_controller,
+    cspi_event_listener_get_corba (listener),
+    &key_set,
+    &controller_event_mask,
+    &key_events,
+    (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
+    cspi_ev ());
 
-  bonobo_object_release_unref (device_event_controller, cspi_ev ());
+  cspi_release_unref (device_event_controller);
+
+  return TRUE;
 }
 
 /**
@@ -319,8 +336,10 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  *
  * Removes a keystroke event listener from the registry's listener queue,
  *            ceasing notification of events with modifiers matching @modmask.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
  **/
-void
+SPIBoolean
 deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 				       AccessibleKeyMaskType modmask)
 {
@@ -329,10 +348,15 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_KeyEventTypeSeq       key_events;
   Accessibility_DeviceEventController device_event_controller;
 
+  if (!listener)
+    {
+      return FALSE;
+    }
+
   device_event_controller = 
     Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  cspi_return_if_ev ("getting keystroke listener");
+  cspi_return_val_if_ev ("getting keystroke listener", FALSE);
 
   controller_event_mask.value = (CORBA_unsigned_long) modmask;
   controller_event_mask.refcount = (CORBA_unsigned_short) 1;
@@ -344,15 +368,17 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   key_set._length = 0;
 
   Accessibility_DeviceEventController_deregisterKeystrokeListener (
-	  device_event_controller,
-	  BONOBO_OBJREF (listener),
-	  &key_set,
-	  &controller_event_mask,
-	  &key_events,
-	  (CORBA_boolean) TRUE,
-	  cspi_ev ());
+    device_event_controller,
+    cspi_event_listener_get_corba (listener),
+    &key_set,
+    &controller_event_mask,
+    &key_events,
+    (CORBA_boolean) TRUE,
+    cspi_ev ());
 
-  bonobo_object_release_unref (device_event_controller, NULL);
+  cspi_release_unref (device_event_controller);
+
+  return TRUE;
 }
 
 /**
@@ -367,8 +393,9 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
  * current UI context).
  *
+ * Returns: #TRUE if successful, otherwise #FALSE.
  **/
-void
+SPIBoolean
 generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
 {
 /* TODO: check current modifier status and
@@ -377,14 +404,16 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  cspi_return_if_ev ("getting event controller");
+  cspi_return_val_if_ev ("getting event controller", FALSE);
 
   Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
 							keyval,
 							(unsigned long) synth_type,
 							cspi_ev ());
 
-  bonobo_object_release_unref (device_event_controller, NULL);
+  cspi_release_unref (device_event_controller);
+
+  return TRUE;
 }
 
 /**
@@ -399,10 +428,11 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
  * tempted to generate mouse events, rather than this method.
  * Not Yet Implemented.
  *
+ * Returns: #TRUE if successful, otherwise #FALSE.
  **/
-void
+SPIBoolean
 generateMouseEvent (long x, long y, char *name)
 {
-  ;
+  return FALSE;
 }
 

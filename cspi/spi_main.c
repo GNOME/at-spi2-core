@@ -45,16 +45,15 @@ spi_object_release (gpointer  value)
   g_print ("releasing %p => %p\n", a, a->objref);
 #endif
 
-  bonobo_object_release_unref (a->objref, NULL);
+  cspi_release_unref (a->objref);
 
   memset (a, 0xaa, sizeof (Accessible));
   a->ref_count = -1;
 
 #ifndef DEBUG_OBJECTS
-  g_free (a);
+  free (a);
 #endif
 }
-
 
 SPIBoolean
 cspi_accessible_is_a (Accessible *obj,
@@ -71,17 +70,17 @@ cspi_accessible_is_a (Accessible *obj,
   unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (obj),
 					   interface_name, cspi_ev ());
 
-  if (BONOBO_EX (cspi_ev ()))
+  if (ev._major != CORBA_NO_EXCEPTION)
     {
       g_error ("Exception '%s' checking if is '%s'",
-	       bonobo_exception_get_text (cspi_ev ()),
+	       cspi_exception_get_text (),
 	       interface_name);
     }
 
   if (unknown != CORBA_OBJECT_NIL)
     {
       retval = TRUE;
-      bonobo_object_release_unref (unknown, NULL);
+      cspi_release_unref (unknown);
     }
   else
     {
@@ -122,7 +121,7 @@ cspi_exception (void)
 {
   SPIBoolean retval;
 
-  if (BONOBO_EX (&ev))
+  if (ev._major != CORBA_NO_EXCEPTION)
     {
       CORBA_exception_free (&ev);
       retval = TRUE;
@@ -154,14 +153,14 @@ cspi_object_add (CORBA_Object corba_object)
         {
           g_assert (ref->ref_count > 0);
 	  ref->ref_count++;
-          bonobo_object_release_unref (corba_object, NULL);
+          cspi_release_unref (corba_object);
 #ifdef DEBUG_OBJECTS
           g_print ("returning cached %p => %p\n", ref, ref->objref);
 #endif
 	}
       else
         {
-          ref = g_new (Accessible, 1);
+          ref = malloc (sizeof (Accessible));
 
 #ifdef DEBUG_OBJECTS
           g_print ("allocating %p => %p\n", ref, corba_object);
@@ -213,7 +212,7 @@ cspi_cleanup (void)
 
   if (registry != CORBA_OBJECT_NIL)
     {
-      bonobo_object_release_unref (registry, NULL);
+      cspi_release_unref (registry);
       registry = CORBA_OBJECT_NIL;
     }
 }
@@ -230,9 +229,6 @@ static gboolean SPI_inited = FALSE;
 int
 SPI_init (void)
 {
-  int argc = 0;
-  char *obj_id;
-
   if (SPI_inited)
     {
       return 1;
@@ -242,28 +238,7 @@ SPI_init (void)
 
   CORBA_exception_init (&ev);
 
-  if (!bonobo_init (&argc, NULL))
-    {
-      g_error ("Could not initialize Bonobo");
-    }
-
-  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
-
-  registry = bonobo_activation_activate_from_id (
-	  obj_id, 0, NULL, cspi_ev ());
-
-  if (ev._major != CORBA_NO_EXCEPTION)
-    {
-      g_error ("AT-SPI error: during registry activation: %s\n",
-	       bonobo_exception_get_text (cspi_ev ()));
-    }
-
-  if (registry == CORBA_OBJECT_NIL)
-    {
-      g_error ("Could not locate registry");
-    }
-
-  bonobo_activate ();
+  registry = cspi_init ();
 
   g_atexit (cspi_cleanup);
   
@@ -282,7 +257,7 @@ SPI_init (void)
 void
 SPI_event_main (void)
 {
-  bonobo_main ();
+  cspi_main ();
 }
 
 /**
@@ -294,7 +269,7 @@ SPI_event_main (void)
 void
 SPI_event_quit (void)
 {
-  bonobo_main_quit ();
+  cspi_main_quit ();
 }
 
 /**
@@ -373,4 +348,19 @@ SPI_exit (void)
   fprintf (stderr, "bye-bye!\n");
 
   return leaked;
+}
+
+/**
+ * SPI_freeString:
+ * @s: a character string returned from another at-spi call.
+ *
+ * Free a character string returned from an at-spi call.  Clients of
+ * at-spi should use this function instead of free () or g_free().
+ * This API should not be used to free strings
+ * from other libraries or allocated by the client.
+ **/
+void
+SPI_freeString (char *s)
+{
+  CORBA_free (s);
 }

@@ -1,9 +1,9 @@
 #ifndef _SPI_ROLETYPES_H_
 #define _SPI_ROLETYPES_H_
 
-#include <glib/gmacros.h>
-
-G_BEGIN_DECLS
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
 /**
  * AccessibleRole:
@@ -148,6 +148,8 @@ typedef enum
 
 const char* AccessibleRole_getName (AccessibleRole role);
 
-G_END_DECLS
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

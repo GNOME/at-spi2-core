@@ -1,6 +1,6 @@
-#include "../cspi-lowlevel.h"
-
+#include <string.h>
 #include <libbonobo.h>
+#include "../cspi-lowlevel.h"
 
 void
 cspi_dup_ref (CORBA_Object object)
@@ -40,3 +40,61 @@ cspi_check_ev (const char *error_string)
     }
 }
 
+char *
+cspi_exception_get_text (void)
+{
+  char *ret, *txt;
+
+  txt = bonobo_exception_get_text (cspi_ev ());
+  ret = strdup (txt);
+  g_free (txt);
+
+  return ret;
+}
+
+CORBA_Object
+cspi_init (void)
+{
+  char *obj_id;
+  CORBA_Object registry;
+  CORBA_Environment ev;
+
+  if (!bonobo_init (0, NULL))
+    {
+      g_error ("Could not initialize Bonobo");
+    }
+
+  obj_id = "OAFIID:Accessibility_Registry:proto0.1";
+
+  CORBA_exception_init (&ev);
+
+  registry = bonobo_activation_activate_from_id (
+    obj_id, 0, NULL, &ev);
+
+  if (ev._major != CORBA_NO_EXCEPTION)
+    {
+      g_error ("AT-SPI error: during registry activation: %s\n",
+	       bonobo_exception_get_text (&ev));
+    }
+
+  if (registry == CORBA_OBJECT_NIL)
+    {
+      g_error ("Could not locate registry");
+    }
+
+  bonobo_activate ();
+
+  return registry;
+}
+
+void
+cspi_main (void)
+{
+  bonobo_main ();
+}
+
+void
+cspi_main_quit (void)
+{
+  bonobo_main_quit ();
+}

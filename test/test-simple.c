@@ -210,7 +210,7 @@ test_editable_text (AccessibleEditableText *etext)
 static void
 test_table (AccessibleTable *table)
 {
-	char *str;
+	Accessible *header;
 	gint index;
 	gint rows, columns;
 
@@ -220,19 +220,18 @@ test_table (AccessibleTable *table)
 	g_assert (rows > 0);
 
 	columns = AccessibleTable_getNColumns (table);
-	g_assert (columns > 0); /* weird that this fails, surely a bug ? */
+	g_assert (columns > 0);
 
-	index = AccessibleTable_getIndexAt (table, rows-1, columns-1);
+	index = AccessibleTable_getIndexAt (table, rows - 1, columns - 1);
 
-	g_assert (AccessibleTable_getRowAtIndex (table, index) == rows-1);
+	g_assert (AccessibleTable_getRowAtIndex (table, index) == rows - 1);
 
-	g_assert (AccessibleTable_getColumnAtIndex (table, index) == columns-1);
+	g_assert (AccessibleTable_getColumnAtIndex (table, index) == columns - 1);
 
-	g_assert (AccessibleTable_getColumnHeader (table, 0));
-                  /* maybe bogus assertion */
+	g_assert ((header = AccessibleTable_getColumnHeader (table, 0)));
+	Accessible_unref (header);
 
 	AccessibleTable_isSelected (table, 0, 0);
-                  /* no assertion, but see if warnings are thrown */
 	
 	/* FIXME: lots more tests */
 }
@@ -264,7 +263,6 @@ test_text (AccessibleText *text)
 static void
 test_value (AccessibleValue *value)
 {
-	char *str;
 	float original_value;
 	
         /* Note: test_value assertions are known not to work as of Dec 09 */
@@ -563,7 +561,7 @@ main (int argc, char **argv)
 {
 	int leaked;
 	TestWindow *win;
-	const char *modules, *tmp;
+	const char *modules;
 	AccessibleEventListener *global_listener;
 
 	modules = g_getenv ("GTK_MODULES");

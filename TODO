@@ -1,27 +1,46 @@
 TODO:
 
 idl: 
-      possibly change Value.idl interface to return a value
-union. [Bill] *DONE*
+	+ possibly change Value.idl interface to return a value union. [Bill]
+	+ audit IDL for conformance with bonobo/doc/FAQ's [Java]
+	naming practice [Michael]
+        + possibly change Value.idl interface to return a value
+	union. [Bill] *DONE*
 
 cspi: 
-      API change required if above IDL change is made. [Bill]
+	+ API change required if above IDL change is made. [Bill]
+	+ move bonobo bits into cspi/bonobo
+	+ ensure spi-listener-impl's list notification methods don't
+	  have a re-enterancy hazard.
+	+ namespace all methods missing a prepending Acessible
+	  or SPI_ prefix.
+	+ Put LGPL headers everywhere.
+
+registry:
+	+ move code into here from libspi
+	+ kill the getDeviceWhatnot - and use queryInterface,
+	  don't inherit from the Listener interface - use aggregation
+	+ fire an event on dead application & re-factor the listen for
+	  broken code.
+
+bridge:
+	+ move code into here from libspi
 
 libspi: 
-
-      Change the weird string-hash event matching to something sane,
-using GQuark. [Bill]
-
-      Merge the DeviceEvent and KeyEvent structs to avoid the bogus casting of
-these back and forth.
-
-      Complete implementation of support for RelationSet and StateSet, and
-export to cspi. 
-
-      Complete and test the pre-emptive key API so that we don't always do
-AnyKey grabs. [Bill]
+	+ remove redundant casts throughout
+	+ determine if there are other headers we don't need to install
+	+ consider moving the non-impl. parts into registryd/ bridge/ etc.
+	+ change the weird string-hash event matching to something sane,
+	using GQuark. [Bill]
+	+ merge the DeviceEvent and KeyEvent structs to avoid the
+	bogus casting of these back and forth.
+	+ complete implementation of support for RelationSet and
+	StateSet, and export to cspi.
+	+ complete and test the pre-emptive key API so that we don't
+	always do AnyKey grabs. [Bill]
 
 test:
-
-      Add tests for AtkTable, and add table elements to the test window.
+	+ update test-simple to do complete API tests
+	+ Add tests for AtkTable, and add table elements to the test window.
+	+ remove comment from test_value; ensure that it works.
 

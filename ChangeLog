@@ -1,3 +1,45 @@
+2001-12-11  Michael Meeks  <michael@ximian.com>
+
+	* cspi/bonobo/cspi-bonobo-listener.c: 
+	(cspi_kestroke_listener_unref),
+	(cspi_event_listener_unref): impl. undoing previous
+	homenous environment - for Bill.
+
+	* cspi/spi_table.c (long_seq_to_array): use
+	malloc instead.
+
+	* cspi/spi_main.c: split out all bonoboish bits into
+	bonobo/
+
+	* cspi/spi-impl.h: upd. typedefs.
+
+	* cspi/spi_registry.c: update to lowlevel API,
+	return booleans to indicate success in some places.
+
+	* cspi/spi_event.c: update to lowlevel API.
+
+	* cspi/bonobo/Makefile.am: add.
+
+	* cspi/bonobo/cspi-lowlevel.h: add
+
+	* cspi/bonobo/cspi-bonobo.c: add
+
+	* cspi/bonobo/cspi-bonobo-listener.[ch]: impl.
+
+	* cspi/Makefile.am: remove spi-listener-impl.[ch],
+	(SUBDIRS): add bonobo, link in the libs.
+
+	* cspi/spi-util.c: kill this file.
+
+	* TODO: merge in my bits.
+
+2001-12-11  Michael Meeks  <michael@ximian.com>
+
+	* test/test-simple.c (test_value, test_table, main):
+	remove unused variables causing warnings.
+
+	* configure.in: cleanup checks - require gail.
+
 2001-12-11  Bill Haneman  <bill.haneman@sun.com>
 
 	* idl/Value.idl:

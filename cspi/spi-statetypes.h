@@ -1,15 +1,11 @@
 #ifndef _SPI_STATETYPES_H_
 #define _SPI_STATETYPES_H_
 
-#include <glib/gmacros.h>
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
-G_BEGIN_DECLS
-
-/*
- *
- * Enumerated type for accessible state
- *
- */
+/* Enumerated type for accessible state */
 
 typedef enum
 {
@@ -90,6 +86,8 @@ typedef enum
   SPI_STATE_LAST_DEFINED
 } AccessibleState;
 
-G_END_DECLS
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

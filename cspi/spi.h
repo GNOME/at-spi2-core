@@ -1,8 +1,6 @@
 #ifndef _SPI_H
 #define _SPI_H
 
-#include <glib/gmacros.h>
-
 #include <cspi/spi-impl.h>
 /*
  * Definitions for AccessibleRole, AccessibleState,
@@ -17,7 +15,9 @@
  */
 #include <libspi/keymasks.h>
 
-G_BEGIN_DECLS
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
 /*
  * Enumerated type for text boundary types
@@ -167,13 +167,13 @@ SPIBoolean  deregisterGlobalEventListener    (AccessibleEventListener *listener,
 					      const char              *eventType);
 SPIBoolean  deregisterGlobalEventListenerAll (AccessibleEventListener *listener);
 
-void        registerAccessibleKeystrokeListener (
+SPIBoolean  registerAccessibleKeystrokeListener (
                                               AccessibleKeystrokeListener *listener,
 					      AccessibleKeySet             *keys,
 					      AccessibleKeyMaskType         modmask,
 					      AccessibleKeyEventMask        eventmask,
 					      AccessibleKeyListenerSyncType sync_type);
-void        deregisterAccessibleKeystrokeListener (
+SPIBoolean  deregisterAccessibleKeystrokeListener (
                                               AccessibleKeystrokeListener *listener,
 					      AccessibleKeyMaskType        modmask);
 
@@ -181,9 +181,9 @@ int         getDesktopCount                  (void);
 Accessible *getDesktop                       (int i);
 int         getDesktopList                   (Accessible **list);
 
-void        generateKeyEvent                 (long int                    keyval,
+SPIBoolean  generateKeyEvent                 (long int                    keyval,
 					      AccessibleKeySynthType      synth_type);
-void        generateMouseEvent               (long int x, long int y, char *name);
+SPIBoolean  generateMouseEvent               (long int x, long int y, char *name);
 
 /* Accessible function prototypes  */
 
@@ -223,253 +223,65 @@ AccessibleSelection *    Accessible_getSelection    (Accessible *obj);
 AccessibleTable *        Accessible_getTable        (Accessible *obj);
 AccessibleText *         Accessible_getText         (Accessible *obj);
 AccessibleValue *        Accessible_getValue        (Accessible *obj);
-GenericInterface *       Accessible_queryInterface  (Accessible *obj,
+AccessibleUnknown *      Accessible_queryInterface  (Accessible *obj,
 						     const char *interface_name);
 
-/*
- * AccessibleAction function prototypes
- */
+/* AccessibleAction function prototypes  */
 
-void AccessibleAction_ref    (AccessibleAction *obj);
-void AccessibleAction_unref  (AccessibleAction *obj);
-long
-AccessibleAction_getNActions (AccessibleAction *obj);
+void       AccessibleAction_ref            (AccessibleAction *obj);
+void       AccessibleAction_unref          (AccessibleAction *obj);
+long       AccessibleAction_getNActions    (AccessibleAction *obj);
+char      *AccessibleAction_getName        (AccessibleAction *obj,
+					    long int          i);
+char      *AccessibleAction_getDescription (AccessibleAction *obj,
+					    long int          i);
+SPIBoolean AccessibleAction_doAction       (AccessibleAction *obj,
+					    long int          i);
+char      *AccessibleAction_getKeyBinding  (AccessibleAction *obj,
+					    long int          i);
 
-/**
- * AccessibleAction_getName:
- * @obj: a pointer to the #AccessibleAction implementor to query.
- * @i: a long integer indicating which action to query.
- *
- * Get the name of the '@i-th' action invokable on an
- *      object implementing #AccessibleAction.
- *
- * Returns: the 'event type' name of the action, as a UTF-8 string.
- *
- **/
-char *
-AccessibleAction_getName (AccessibleAction *obj, long int i);
+/* AccessibleApplication function prototypes  */
 
-/**
- * AccessibleAction_getDescription:
- * @obj: a pointer to the #AccessibleAction to query.
- * @i: a long integer indicating which action to query.
- *
- * Get the description of '@i-th' action invokable on an
- *      object implementing #AccessibleAction.
- *
- * Returns: a UTF-8 string describing the '@i-th' invokable action.
- *
- **/
-char *
-AccessibleAction_getDescription (AccessibleAction *obj,
-                                 long int i);
+void       AccessibleApplication_ref            (AccessibleApplication *obj);
+void       AccessibleApplication_unref          (AccessibleApplication *obj);
+char      *AccessibleApplication_getToolkitName (AccessibleApplication *obj);
+char      *AccessibleApplication_getVersion     (AccessibleApplication *obj);
+long       AccessibleApplication_getID          (AccessibleApplication *obj);
+SPIBoolean AccessibleApplication_pause          (AccessibleApplication *obj);
+SPIBoolean AccessibleApplication_resume         (AccessibleApplication *obj);
 
-SPIBoolean
-AccessibleAction_doAction (AccessibleAction *obj,
-                           long int i);
+/* AccessibleComponent function prototypes */
 
-/**
- * AccessibleAction_getKeybinding:
- * @obj: a pointer to the #AccessibleAction implementor to query.
- * @i: a long integer indicating which action to query.
- *
- * Get the keybindings for the @i-th action invokable on an
- *      object implementing #AccessibleAction, if any are defined.
- *
- * Returns: a UTF-8 string which can be parsed to determine the @i-th
- * invokable action's keybindings.
- *
- **/
-char *
-AccessibleAction_getKeyBinding (AccessibleAction *obj,
-                                long int i);
-
-/*
- *
- * AccessibleApplication function prototypes
- *
- */
-
-/**
- * AccessibleApplication_unref:
- * @obj: a pointer to the #AccessibleApplication on which to operate.
- *
- * Decrement the reference count for an #AccessibleApplication.
- *
- * Returns: (no return code implemented yet).
- *
- **/
-void
-AccessibleApplication_ref (AccessibleApplication *obj);
-
-/**
- * AccessibleApplication_unref:
- * @obj: a pointer to the #AccessibleApplication object on which to operate.
- *
- * Decrement the reference count for an #AccessibleApplication.
- *
- * Returns: (no return code implemented yet).
- *
- **/
-void
-AccessibleApplication_unref (AccessibleApplication *obj);
-
-/**
- * AccessibleApplication_getToolkitName:
- * @obj: a pointer to the #AccessibleApplication to query.
- *
- * Get the name of the UI toolkit used by an #AccessibleApplication.
- *
- * Returns: a UTF-8 string indicating which UI toolkit is
- *          used by an application.
- *
- **/
-char *
-AccessibleApplication_getToolkitName (AccessibleApplication *obj);
-
-/**
- * AccessibleApplication_getVersion:
- * @obj: a pointer to the #AccessibleApplication being queried.
- *
- * Get the version of the at-spi bridge exported by an
- *      #AccessibleApplication instance.
- *
- * Returns: a UTF-8 string indicating the application's
- *          at-spi version.
- *
- **/
-char *
-AccessibleApplication_getVersion (AccessibleApplication *obj);
-
-/**
- * AccessibleApplication_getID:
- * @obj: a pointer to the #AccessibleApplication being queried.
- *
- * Get the unique ID assigned by the Registry to an
- *      #AccessibleApplication instance.
- * (Not Yet Implemented by the registry).
- *
- * Returns: a unique #long integer associated with the application
- *          by the Registry, or 0 if the application is not registered.
- **/
-long
-AccessibleApplication_getID (AccessibleApplication *obj);
-
-/**
- * AccessibleApplication_pause:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Attempt to pause the application (used when client event queue is
- *  over-full).
- * Not Yet Implemented.
- *
- * Returns: #TRUE if the application was paused successfully, #FALSE otherwise.
- *
- **/
-SPIBoolean
-AccessibleApplication_pause (AccessibleApplication *obj);
-
-/**
- * AccessibleApplication_resume:
- * @obj: a pointer to the #Accessible object on which to operate.
- *
- * Attempt to resume the application (used after #AccessibleApplication_pause).
- * Not Yet Implemented.
- *
- * Returns: #TRUE if application processing resumed successfully, #FALSE otherwise.
- *
- **/
-SPIBoolean
-AccessibleApplication_resume (AccessibleApplication *obj);
-
-/*
- *
- * AccessibleComponent function prototypes
- *
- */
-
-void
-AccessibleComponent_ref (AccessibleComponent *obj);
-
-void
-AccessibleComponent_unref (AccessibleComponent *obj);
-
-SPIBoolean
-AccessibleComponent_contains (AccessibleComponent *obj,
-                              long int x,
-                              long int y,
-                              AccessibleCoordType ctype);
-
-Accessible *
-AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
-                                          long int x,
-                                          long int y,
-                                          AccessibleCoordType ctype);
-
-/**
- * AccessibleComponent_getExtents:
- * @obj: a pointer to the #AccessibleComponent to query.
- * @x: a pointer to a #long into which the minimum x coordinate will be returned.
- * @y: a pointer to a #long into which the minimum y coordinate will be returned.
- * @width: a pointer to a #long into which the x extents (width) will be returned.
- * @height: a pointer to a #long into which the y extents (height) will be returned.
- * @ctype: the desired coordinate system into which to return the results,
- *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
- *
- * Get the bounding box of the specified #AccessibleComponent.
- *
- **/
-void
-AccessibleComponent_getExtents (AccessibleComponent *obj,
-                                long int *x,
-                                long int *y,
-                                long int *width,
-                                long int *height,
-                                AccessibleCoordType ctype);
-
-void
-AccessibleComponent_getPosition (AccessibleComponent *obj,
-                                 long int *x,
-                                 long int *y,
-                                 AccessibleCoordType ctype);
-
-void
-AccessibleComponent_getSize (AccessibleComponent *obj,
-                             long int *width,
-                             long int *height);
-
-/**
- * AccessibleComponent_getLayer:
- * @obj: a pointer to the #AccessibleComponent to query.
- *
- * Query which layer the component is painted into, to help determine its 
- *      visibility in terms of stacking order.
- *
- * Returns: the #AccessibleComponentLayer into which this component is painted.
- **/
+void        AccessibleComponent_ref         (AccessibleComponent *obj);
+void        AccessibleComponent_unref       (AccessibleComponent *obj);
+SPIBoolean  AccessibleComponent_contains    (AccessibleComponent *obj,
+					     long int             x,
+					     long int             y,
+					     AccessibleCoordType  ctype);
+Accessible *AccessibleComponent_getAccessibleAtPoint (
+                                             AccessibleComponent *obj,
+					     long int             x,
+					     long int             y,
+					     AccessibleCoordType  ctype);
+void        AccessibleComponent_getExtents  (AccessibleComponent *obj,
+					     long int            *x,
+					     long int            *y,
+					     long int            *width,
+					     long int            *height,
+					     AccessibleCoordType  ctype);
+void        AccessibleComponent_getPosition (AccessibleComponent *obj,
+					     long int            *x,
+					     long int            *y,
+					     AccessibleCoordType  ctype);
+void        AccessibleComponent_getSize     (AccessibleComponent *obj,
+					     long int            *width,
+					     long int            *height);
 AccessibleComponentLayer
-AccessibleComponent_getLayer (AccessibleComponent *obj);
+            AccessibleComponent_getLayer    (AccessibleComponent *obj);
+void        AccessibleComponent_grabFocus   (AccessibleComponent *obj);
+short       AccessibleComponent_getMDIZOrder(AccessibleComponent *obj);
 
-/**
- * AccessibleComponent_getMDIZOrder:
- * @obj: a pointer to the #AccessibleComponent to query.
- *
- * Query the z stacking order of a component which is in the MDI layer.
- *
- * Returns: a short integer indicating the stacking order of the component 
- *       in the MDI layer, or -1 if the component is not in the MDI layer.
- **/
-short
-AccessibleComponent_getMDIZOrder (AccessibleComponent *obj);
-
-void
-AccessibleComponent_grabFocus (AccessibleComponent *obj);
-
-/*
- *
- * AccessibleEditableText function prototypes
- *
- */
+/* AccessibleEditableText function prototypes  */
 
 void
 AccessibleEditableText_ref (AccessibleEditableText *obj);
@@ -872,31 +684,21 @@ AccessibleText_setSelection (AccessibleText *obj,
 			     long int startOffset,
 			     long int endOffset);
 
-/*
- *
- * AccessibleValue Function Prototypes:
- *
- */
+/* AccessibleValue Function Prototypes:  */
 
-void AccessibleValue_ref   (AccessibleValue *obj);
-void AccessibleValue_unref (AccessibleValue *obj);
+void       AccessibleValue_ref             (AccessibleValue *obj);
+void       AccessibleValue_unref           (AccessibleValue *obj);
+float      AccessibleValue_getMinimumValue (AccessibleValue *obj);
+float      AccessibleValue_getCurrentValue (AccessibleValue *obj);
+float      AccessibleValue_getMaximumValue (AccessibleValue *obj);
+SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
+					    float            newValue);
 
-float
-AccessibleValue_getMinimumValue (AccessibleValue *obj);
+/* Misc methods */
+void SPI_freeString (char *s);
 
-float
-AccessibleValue_getCurrentValue (AccessibleValue *obj);
-
-float
-AccessibleValue_getMaximumValue (AccessibleValue *obj);
-
-SPIBoolean
-AccessibleValue_setCurrentValue (AccessibleValue *obj,
-                                 float newValue);
-
-void
-SPI_freeString (char *s);
-
-G_END_DECLS
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

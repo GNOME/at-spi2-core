@@ -410,7 +410,7 @@ long_seq_to_array (Accessibility_LongSeq *seq, long int **array)
 
   length = seq->_length;
 
-  j = *array = g_new (long, length);
+  j = *array = malloc (sizeof (long) * length);
 
   for (i = 0; i < length; i++)
     {

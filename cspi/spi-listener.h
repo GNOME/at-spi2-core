@@ -3,7 +3,9 @@
 
 #include <cspi/spi-impl.h>
 
-G_BEGIN_DECLS
+#ifdef  __cplusplus
+extern "C" {
+#endif
 
 /*
  * Structure used to encapsulate event information
@@ -43,6 +45,8 @@ typedef void       (*AccessibleEventListenerCB)     (AccessibleEvent     *event,
 typedef SPIBoolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystroke *stroke,
 						     void                *user_data);
 
-G_END_DECLS
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

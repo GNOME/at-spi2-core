@@ -1,13 +1,11 @@
 #ifndef _SPI_PRIVATE_H_
 #define _SPI_PRIVATE_H_
 
-/*
- * Private internal implementation details of at-spi.
- */
+/* Private internal implementation details of at-spi. */
 
-#include <libbonobo.h>
 #include <libspi/Accessibility.h>
 #include <cspi/spi.h>
+#include "cspi/cspi-lowlevel.h"
 #include "cspi/spi-listener.h"
 
 struct _Accessible {
@@ -26,7 +24,6 @@ void                   cspi_object_ref       (Accessible          *accessible);
 void                   cspi_object_unref     (Accessible          *accessible);
 SPIBoolean             cspi_accessible_is_a  (Accessible          *obj,
 					      const char          *interface_name);
-SPIBoolean             cspi_check_ev         (const char          *error_string);
 
 #define cspi_return_if_fail(val)		\
 	if (!(val))				\

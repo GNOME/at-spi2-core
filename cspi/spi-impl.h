@@ -4,7 +4,13 @@
 #ifndef _SPI_IMPL_H_
 #define _SPI_IMPL_H_
 
-typedef struct _Accessible Accessible;
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+typedef struct _Accessible AccessibleUnknown;
+typedef AccessibleUnknown  Accessible;
+
 typedef Accessible AccessibleAction;
 typedef Accessible AccessibleApplication;
 typedef Accessible AccessibleComponent;
@@ -19,11 +25,15 @@ typedef Accessible AccessibleTable;
 typedef Accessible AccessibleText;
 typedef Accessible AccessibleValue;
 typedef Accessible AccessibilityRegistry;
-typedef Accessible GenericInterface;
 
-typedef struct _CSpiEventListener     AccessibleEventListener;
-typedef struct _CSpiKeystrokeListener AccessibleKeystrokeListener;
+typedef void AccessibleEventListener;
+typedef void AccessibleKeystrokeListener;
 
 typedef unsigned int SPIBoolean;
+
+
+#ifdef  __cplusplus
+}
+#endif
 
 #endif

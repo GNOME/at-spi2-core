@@ -622,7 +622,7 @@ timeout_box ()
 }
 
 static void
-create_gui ()
+create_gui (void)
 {
   GtkWidget *window, *button, *container, *hbox;
   
@@ -672,7 +672,7 @@ create_gui ()
 }
 
 static void
-create_gui_x ()
+create_gui_x (void)
 {
   GtkWidget *window, *button, *container, *hbox, *range;
   GtkAdjustment *adjustment;
@@ -686,8 +686,6 @@ create_gui_x ()
   controls[5] = control_struct_new (XkbMouseKeysMask,  &xkb->ctrls->mk_delay, "MouseKeys", "Delay, mS");
   controls[6] = control_struct_new (XkbMouseKeysAccelMask, &xkb->ctrls->mk_time_to_max, NULL, "Accel");
   controls[7] = control_struct_new (XkbAccessXTimeoutMask, &xkb->ctrls->ax_timeout, "AccessX timeout", "Sec");
-  
-  
   
   hbox = gtk_widget_new (gtk_hbox_get_type(),
 			 "GtkWidget::parent", container,
