@@ -4,47 +4,26 @@
 TOP = ..\..
 PRJ_TOP = ..
 PACKAGE = atk
-PKG_VER = 0.1
+PKG_VER = 0.2
 !INCLUDE $(TOP)\build\win32\make.msc
 
 top_srcdir = $(PRJ_TOP)
 top_builddir = $(PRJ_TOP)
 includedir = $(PRJ_TOP)
 LT_RELEASE = $(PKG_VER)
+
 INCLUDES = \
 	-I$(top_srcdir) $(GLIB_CFLAGS) $(PANGO_CFLAGS)
 
 PKG_LINK = $(GLIB_LIBS) $(PANGO_LIBS)
 
-lib_LTLIBRARIES = \
-	libatk.la
-
-libatkincludedi = \
-	$(includedir)/atk-1.0/atk
-
-libatkinclude_HEADERS = \
-	atk.h \
-	atkaction.h \
-	atkcomponent.h \
-	atkeditabletext.h \
-	atkhyperlink.h \
-	atkhypertext.h \
-	atkobject.h \
-	atkobjectfactory.h \
-	atkimage.h \
-	atkregistry.h \
-	atkrelation.h \
-	atkrelationset.h \
-	atkselection.h \
-	atkstateset.h \
-	atktable.h \
-	atktext.h \
-	atkutil.h \
-	atkvalue.h
+MAINTAINERCLEANFILES = \
+	atkmarshal.c
 
 OBJECTS = \
 	atkaction.obj \
 	atkcomponent.obj \
+	atkdocument.obj \
 	atkeditabletext.obj \
 	atkhyperlink.obj \
 	atkhypertext.obj \
@@ -57,16 +36,59 @@ OBJECTS = \
 	atkrelation.obj \
 	atkrelationset.obj \
 	atkselection.obj \
+	atkstate.obj \
 	atkstateset.obj \
+	atkstreamablecontent.obj \
 	atktable.obj \
 	atktext.obj \
 	atkutil.obj \
 	atkvalue.obj \
 
-# $(PRJ_TOP)\config.h \
+libatkincludedi = \
+	$(includedir)/atk-1.0/atk
+
+lib_LTLIBRARIES = \
+	libatk.la
+
+libatkinclude_HEADERS = \
+	atk.h \
+	atkaction.h \
+	atkcomponent.h \
+	atkdocument.h \
+	atkeditabletext.h \
+	atkhyperlink.h \
+	atkhypertext.h \
+	atknoopobject.h \
+	atknoopobjectfactory.h \
+	atkobject.h \
+	atkobjectfactory.h \
+	atkimage.h \
+	atkregistry.h \
+	atkrelation.h \
+	atkrelationset.h \
+	atkselection.h \
+	atkstate.h \
+	atkstateset.h \
+	atkstreamablecontent.h \
+	atktable.h \
+	atktext.h \
+	atkutil.h \
+	atkvalue.h
+
+EXTRA_DIST = \
+	atkmarshal.list
+
+GENERATED = atkmarshal.c atkmarshal.h
+
 all : \
+	$(GENERATED) \
 	$(PACKAGE)-$(PKG_VER).dll
 
+atkmarshal.h : atkmarshal.list
+	$(GLIB)\gobject\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header >atkmarshal.h
+
+atkmarshal.c : atkmarshal.list
+	$(GLIB)\gobject\glib-genmarshal --prefix=atk_marshal atkmarshal.list --body >atkmarshal.c
 
 $(PRJ_TOP)\config.h: $(PRJ_TOP)\config.h.win32
 	copy $(PRJ_TOP)\config.h.win32 $(PRJ_TOP)\config.h

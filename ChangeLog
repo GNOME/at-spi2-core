@@ -1,3 +1,8 @@
+2001-07-20  Hans Breuer  <hans@breuer.org>
+
+	* atk/atk.def : added more exports
+	* atk/makefile.msc : updated win32 build
+
 2001-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
 	* atk/atkaction.[c|h], docs/atk-sections.txt, 
 	docs/tmpl/atkaction.sgml
