@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk cvs\n"
-"POT-Creation-Date: 2003-12-03 14:04+0100\n"
-"PO-Revision-Date: 2003-12-03 17:19+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-12-21 03:04+0100\n"
+"PO-Revision-Date: 2003-12-21 15:57+0100\n"
 "Last-Translator: Vincent van Adrighem <adrighem@gnome.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +52,7 @@ msgid "invalid"
 msgstr "ongeldig"
 
 #: atk/atkobject.c:83
-msgid "accel label"
+msgid "accelerator label"
 msgstr "sneltoetslabel"
 
 #: atk/atkobject.c:84
