@@ -1,6 +1,13 @@
 2002-01-11  Bill Haneman <bill.haneman@sun.com>
 
-        * registryd/deviceeventcontroller.c:
+	* test/simple-at.c:
+	Changed simple-at to use a specific keyset, rather than
+	SPI_KEYSET_ALL_KEYS - this helps minimize clashes with the window
+	manager, desktop, etc.
+	
+2002-01-11  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
 	Replaced standard X error handler with a special handler that 
 	is non-fatal for failed keygrabs.  This works around 
 	problems with keygrab clashes sometimes observed on 

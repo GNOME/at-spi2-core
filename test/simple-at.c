@@ -50,6 +50,7 @@ static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *button_listener;
 static AccessibleKeystrokeListener *command_key_listener;
 static AccessibleKeystrokeListener *ordinary_key_listener;
+static AccessibleKeySet            *command_keyset;
 
 int
 main (int argc, char **argv)
@@ -114,21 +115,16 @@ main (int argc, char **argv)
   /* prepare the keyboard snoopers */
   command_key_listener = SPI_createAccessibleKeystrokeListener (report_command_key_event, NULL);
   ordinary_key_listener = SPI_createAccessibleKeystrokeListener (report_ordinary_key_event, NULL);
+
+  command_keyset = SPI_createAccessibleKeySet (11, "qmf23456789", NULL, NULL);
   
-  /* will listen only to Control-Alt-key combinations, and only to KeyPress events */
+  /* will listen only to Control-Alt-q KeyPress events */
   SPI_registerAccessibleKeystrokeListener(command_key_listener,
-					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
+					  command_keyset,
 					  SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL,
 					  (unsigned long) ( SPI_KEY_PRESSED ),
 					  SPI_KEYLISTENER_ALL_WINDOWS);
 
-  /* will listen only to CAPSLOCK-Alt-key combinations, and only to KeyPress events */
-  SPI_registerAccessibleKeystrokeListener(command_key_listener,
-					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-					  SPI_KEYMASK_ALT | SPI_KEYMASK_SHIFTLOCK,
-					  (unsigned long) ( SPI_KEY_PRESSED ),
-					  SPI_KEYLISTENER_ALL_WINDOWS);
-  
   /* will listen only to CAPSLOCK key events, both press and release */
   SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
 					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
@@ -319,10 +315,9 @@ simple_at_exit ()
   AccessibleEventListener_unref        (button_listener);
 
   SPI_deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL);
-  SPI_deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_SHIFTLOCK);
   AccessibleKeystrokeListener_unref         (command_key_listener);
+  SPI_freeAccessibleKeySet                  (command_keyset);
 
-  SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_UNMODIFIED);
   SPI_deregisterAccessibleKeystrokeListener (ordinary_key_listener, SPI_KEYMASK_SHIFTLOCK);
   AccessibleKeystrokeListener_unref         (ordinary_key_listener);
 
