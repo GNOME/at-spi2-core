@@ -48,7 +48,7 @@ struct _HyperlinkClass {
 };
 
 GType         spi_hyperlink_get_type (void);
-SpiHyperlink *spi_hyperlink_new      (AtkObject *object);
+SpiHyperlink *spi_hyperlink_new      (AtkHyperlink *object);
 
 G_END_DECLS
 

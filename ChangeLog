@@ -1,3 +1,15 @@
+2002-10-11  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* libspi/hyperlink.[ch]
+	(spi_hyperlink_new): Change parameter from AtkObject to AtkHyperlink.
+	(get_hyperlink_from_servant): Check object is AtkHyperlink not 
+	AtkObject.
+
+	* libspi/hypertext.c (impl_getLink): Remove cast of AtkHyperlink to
+	AtkObject.
+
+	Fixes bug #95517.
+
 2002-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* registryd/deviceeventcontroller.c
