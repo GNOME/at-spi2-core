@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk cvs\n"
-"POT-Creation-Date: 2002-12-05 06:00+0100\n"
+"POT-Creation-Date: 2003-01-09 05:51+0100\n"
 "PO-Revision-Date: 2002-12-05 16:08+0100\n"
 "Last-Translator: V. van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "kolomtitel"
 
 #: atk/atkobject.c:1216
 msgid "combo-box"
-msgstr ""
+msgstr "keuzevak"
 
 #: atk/atkobject.c:1219
 msgid "date-editor"
@@ -224,7 +224,7 @@ msgstr "gedeeld paneel"
 
 #: atk/atkobject.c:1339
 msgid "spin-button"
-msgstr ""
+msgstr "omhoog/omlaag-knop"
 
 #: atk/atkobject.c:1342
 msgid "statusbar"
@@ -248,7 +248,7 @@ msgstr "tabelrijtitel"
 
 #: atk/atkobject.c:1357
 msgid "tear-off-menu-item"
-msgstr ""
+msgstr "afneembaar menu-item"
 
 #: atk/atkobject.c:1360
 msgid "terminal"
@@ -309,4 +309,5 @@ msgstr "lineaal"
 #: atk/atkobject.c:1402
 msgid "application"
 msgstr "programma"
+
 
