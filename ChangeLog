@@ -1,3 +1,9 @@
+2002-02-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c:
+	Add check for offset being negative in functions which have offset
+	parameter and return immediately if so.
+
 2002-02-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkcomponent.h:

@@ -157,6 +157,9 @@ atk_text_get_text (AtkText      *text,
 
   iface = ATK_TEXT_GET_IFACE (text);
 
+  if (start_offset < 0 || end_offset < 0)
+    return NULL;
+
   if (iface->get_text)
     return (*(iface->get_text)) (text, start_offset, end_offset);
   else
@@ -179,6 +182,9 @@ atk_text_get_character_at_offset (AtkText      *text,
   AtkTextIface *iface;
 
   g_return_val_if_fail (ATK_IS_TEXT (text), (gunichar) 0);
+
+  if (offset < 0)
+    return (gunichar) 0;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
@@ -257,6 +263,9 @@ atk_text_get_text_after_offset (AtkText          *text,
     real_end_offset = end_offset;
   else
     real_end_offset = &local_end_offset;
+
+  if (offset < 0)
+    return NULL;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
@@ -343,6 +352,9 @@ atk_text_get_text_at_offset (AtkText          *text,
   else
     real_end_offset = &local_end_offset;
 
+  if (offset < 0)
+    return NULL;
+
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_at_offset)
@@ -426,6 +438,9 @@ atk_text_get_text_before_offset (AtkText          *text,
   else
     real_end_offset = &local_end_offset;
 
+  if (offset < 0)
+    return NULL;
+
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_before_offset)
@@ -502,17 +517,18 @@ atk_text_get_character_extents (AtkText *text,
   else
     real_height = &local_height;
 
+  *real_x = 0;
+  *real_y = 0;
+  *real_width = 0;
+  *real_height = 0;
+
+  if (offset < 0)
+    return;
+ 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_extents)
     (*(iface->get_character_extents)) (text, offset, real_x, real_y, real_width, real_height, coords);
-  else
-    {
-      *real_x = 0;
-      *real_y = 0;
-      *real_width = 0;
-      *real_height = 0;
-    }
 }
 
 /**
@@ -552,6 +568,9 @@ atk_text_get_run_attributes (AtkText          *text,
     real_end_offset = end_offset;
   else
     real_end_offset = &local_end_offset;
+
+  if (offset < 0)
+    return NULL;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
