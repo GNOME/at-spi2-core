@@ -1,3 +1,11 @@
+2002-05-08  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_register_event_listeners) Call atk_add_global_event_listener()
+	for window:activate and window:deactiveate
+	(atk_bridge_property_event_listener atk_bridge_signal_listener
+	atk_bridge_window_event_listener) Tidy debug code
+
 2002-05-02  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* libspi/accessible.c (impl_accessibility_accessible_get_role_name):
