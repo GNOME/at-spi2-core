@@ -7,21 +7,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ATK 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-02 12:31+0300\n"
-"PO-Revision-Date: 2003-12-03 16:43+0300\n"
+"POT-Creation-Date: 2004-01-19 11:32+0300\n"
+"PO-Revision-Date: 2004-01-19 11:38+0300\n"
 "Last-Translator: Dmitry G. Mastrukov <dmitry@taurussoft.org>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "выбранная ссылка"
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Определяет, выделен ли объект AtkHyperlink"
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "Число якорей"
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Число якорей, связанных с текущим объектом AtkHypertext"
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "Конец индекса"
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "Конец индекса объекта AtkHyperlink"
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "Начало индекса"
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "Начало индекса объекта AtkHyperlink"
+
 #: atk/atkobject.c:82
 msgid "invalid"
 msgstr "недопустима"
 
 #: atk/atkobject.c:83
-msgid "accel label"
-msgstr "метка с ускорителем"
+msgid "accelerator label"
+msgstr "метка ускорителя"
 
 #: atk/atkobject.c:84
 msgid "alert"
