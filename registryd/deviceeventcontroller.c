@@ -53,7 +53,8 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_device_event_controller_parent_class;
 static int spi_error_code = 0;
-static GdkPoint *last_mouse_pos = NULL; 
+static GdkPoint last_mouse_pos_static = {0, 0}; 
+static GdkPoint *last_mouse_pos = &last_mouse_pos_static;
 static unsigned int mouse_mask_state = 0;
 static unsigned int mouse_button_mask =
   Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
@@ -238,18 +239,17 @@ spi_dec_poll_mouse_moved (gpointer data)
                           mouse_e.modifiers = (CORBA_unsigned_short) 
 			                       mouse_mask_state; 
 			  mouse_e.timestamp = 0;
-			  mouse_e.event_string = CORBA_string_dup ("");
+			  mouse_e.event_string = "";
 			  mouse_e.is_text   = CORBA_FALSE;
 			  is_consumed = 
 			    spi_controller_notify_mouselisteners (controller, 
 								  &mouse_e, 
 								  &ev);
-			  CORBA_free (mouse_e.event_string);
-
 			  e.type = event_name;
 			  e.source = BONOBO_OBJREF (registry->desktop);
 			  e.detail1 = last_mouse_pos->x;
 			  e.detail2 = last_mouse_pos->y;
+			  spi_init_any_nil (&e.any_data);
 			  CORBA_exception_init (&ev);
 			  if (!is_consumed)
 			    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
@@ -266,6 +266,7 @@ spi_dec_poll_mouse_moved (gpointer data)
 		  e.source = BONOBO_OBJREF (registry->desktop);
 		  e.detail1 = mouse_mask_state;
 		  e.detail2 = mask_return;
+		  spi_init_any_nil (&e.any_data);
 		  CORBA_exception_init (&ev);
 		  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 						      &e,
@@ -273,17 +274,13 @@ spi_dec_poll_mouse_moved (gpointer data)
 	  }
 	  mouse_mask_state = mask_return;
   }
-  if (last_mouse_pos == NULL) {
-	  last_mouse_pos = g_new0 (GdkPoint, 1);
-	  last_mouse_pos->x = 0;
-	  last_mouse_pos->y = 0;
-  }
   if (poll_count++ == poll_count_modulus) {
 	  poll_count = 0;
 	  e.type = "mouse:abs";  
 	  e.source = BONOBO_OBJREF (registry->desktop);
 	  e.detail1 = x;
 	  e.detail2 = y;
+	  spi_init_any_nil (&e.any_data);
 	  CORBA_exception_init (&ev);
 	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 					      &e,
@@ -294,6 +291,7 @@ spi_dec_poll_mouse_moved (gpointer data)
 	  e.source = BONOBO_OBJREF (registry->desktop);
 	  e.detail1 = x - last_mouse_pos->x;
 	  e.detail2 = y - last_mouse_pos->y;
+	  spi_init_any_nil (&e.any_data);
 	  CORBA_exception_init (&ev);
 	  last_mouse_pos->x = x;
 	  last_mouse_pos->y = y;
@@ -333,12 +331,10 @@ static int
 spi_dec_ungrab_mouse (gpointer data)
 {
 	Display *display = spi_get_display ();
-	fprintf (stderr, "mouse ungrab : display = %p\n", display);
 	if (display)
 	  {
 	    XUngrabButton (spi_get_display (), AnyButton, AnyModifier,
 			   XDefaultRootWindow (spi_get_display ()));
-	    fprintf (stderr, "mouse grab released\n");
 	  }
 	return FALSE;
 }
@@ -650,11 +646,8 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
       DEControllerListener *listener = l2->data;	    
       Accessibility_DeviceEventListener ls = listener->object;
 
-      fprintf (stderr, "notifying mouse listener\n");
       CORBA_exception_init (ev);
       is_consumed = Accessibility_DeviceEventListener_notifyEvent (ls, event, ev);
-      fprintf (stderr, "%sconsumed\n", is_consumed ? "" : "not ");
-
       if (BONOBO_EX (ev))
         {
           is_consumed = FALSE;
@@ -737,15 +730,15 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   mouse_e.hw_code   = button;
   mouse_e.modifiers = (CORBA_unsigned_short) xbutton_event->state;
   mouse_e.timestamp = (CORBA_unsigned_long) xbutton_event->time;
-  mouse_e.event_string = CORBA_string_dup ("");
+  mouse_e.event_string = "";
   mouse_e.is_text   = CORBA_FALSE;
   is_consumed = spi_controller_notify_mouselisteners (controller, &mouse_e, &ev);
-  CORBA_free (mouse_e.event_string);
 
   e.type = CORBA_string_dup (event_name);
   e.source = BONOBO_OBJREF (controller->registry->desktop);
   e.detail1 = last_mouse_pos->x;
   e.detail2 = last_mouse_pos->y;
+  spi_init_any_nil (&e.any_data);
   CORBA_exception_init (&ev);
   
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
@@ -801,8 +794,10 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 	  if (priv->pending_xkb_mod_relatch_mask)
 	    {
 	      unsigned int feedback_mask;
+#ifdef SPI_XKB_DEBUG
 	      fprintf (stderr, "relatching %x\n",
 		       priv->pending_xkb_mod_relatch_mask);
+#endif
 	      /* temporarily turn off the latch bell, if it's on */
 	      XkbGetControls (display,
 			      XkbAccessXFeedbackMask,
@@ -827,8 +822,10 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 		priv->xkb_desc->ctrls->ax_options = feedback_mask;
 		XkbChangeControls (display, priv->xkb_desc, &changes);
 	      }
+#ifdef SPI_XKB_DEBUG
 	      fprintf (stderr, "relatched %x\n",
 		       priv->pending_xkb_mod_relatch_mask);
+#endif
 	      priv->pending_xkb_mod_relatch_mask = 0;
 	    }
 	}
@@ -1412,8 +1409,13 @@ spi_deregister_controller_device_listener (SpiDEController            *controlle
 					   DEControllerListener *listener,
 					   CORBA_Environment          *ev)
 {
+  RemoveListenerClosure  ctx;
+
+  ctx.ev = ev;
+  ctx.listener = listener;
+
   spi_re_entrant_list_foreach (&controller->mouse_listeners,
-			       remove_listener_cb, listener);
+			       remove_listener_cb, &ctx);
 }
 
 static void
@@ -1582,7 +1584,6 @@ dec_synth_keycode_press (SpiDEController *controller,
 #endif
 		}
 	}
-	fprintf (stderr, "press %d\n", (int) keycode);
         XTestFakeKeyEvent (spi_get_display (), keycode, True, time);
 	priv->last_press_keycode = keycode;
 	XSync (spi_get_display (), False);
@@ -1626,7 +1627,6 @@ dec_synth_keycode_release (SpiDEController *controller,
 #endif
 		}
 	}
-	fprintf (stderr, "release %d\n", (int) keycode);
         XTestFakeKeyEvent (spi_get_display (), keycode, False, time);
 	priv->last_release_keycode = keycode;
 	XSync (spi_get_display (), False);
@@ -1709,7 +1709,6 @@ impl_generate_mouse_event (PortableServer_Servant servant,
   fprintf (stderr, "generating mouse %s event at %ld, %ld\n",
 	   eventName, (long int) x, (long int) y);
 #endif
-  g_message ("mouse event synthesis\n");
   switch (eventName[0])
     {
       case 'b':

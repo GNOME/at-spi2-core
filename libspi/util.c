@@ -33,6 +33,8 @@ typedef struct {
 
 static GSList *working_list = NULL; /* of Iteration */
 
+static char *spi_atk_bridge_null_string = "";
+
 /*
  *   deletes an element from the list - in a re-entrant
  * safe fashion; advances the element pointer to the next
@@ -81,7 +83,7 @@ spi_re_entrant_list_foreach (GList         **list,
 {
 	Iteration i;
 
-	if (!list)
+	if (!list || !*list)
 	  {
             return;
 	  }
@@ -101,4 +103,34 @@ spi_re_entrant_list_foreach (GList         **list,
 	}
 
 	working_list = g_slist_remove (working_list, &i);
+}
+
+void 
+spi_init_any_nil (CORBA_any *any)
+{
+  any->_type = TC_null;
+  any->_value = NULL;
+  any->_release = FALSE;
+}
+
+void 
+spi_init_any_object (CORBA_any *any, CORBA_Object o)
+{
+  CORBA_Environment ev;
+  CORBA_exception_init (&ev);
+  any->_type = TC_CORBA_Object;
+  any->_value = CORBA_Object_duplicate (o, &ev);
+  any->_release = FALSE;
+  CORBA_exception_free (&ev);
+}
+
+void
+spi_init_any_string (CORBA_any *any, char **string_pointer)
+{  
+  any->_type = (CORBA_TypeCode) TC_CORBA_string;
+  if (string_pointer && *string_pointer)
+    any->_value = string_pointer;
+  else
+    any->_value = &spi_atk_bridge_null_string;
+  any->_release = FALSE;
 }

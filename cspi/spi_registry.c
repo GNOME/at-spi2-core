@@ -70,6 +70,7 @@
  *            object:column-reordered
  *            object:column-deleted
  *            object:model-changed
+ *            object:active-descendant-changed
  *
  *  (window events)
  *
@@ -545,6 +546,7 @@ SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
   Accessibility_EventTypeSeq       event_types;
+  Accessibility_EventType          event_type_buff[2];
 
   if (!listener)
     {
@@ -556,7 +558,7 @@ SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
 
   cspi_return_val_if_ev ("getting keystroke listener", FALSE);
 
-  event_types._buffer = Accessibility_EventTypeSeq_allocbuf (2);
+  event_types._buffer = event_type_buff;
   event_types._length = 2;
   event_types._buffer[0] = Accessibility_BUTTON_PRESSED_EVENT;
   event_types._buffer[1] = Accessibility_BUTTON_RELEASED_EVENT;

@@ -43,6 +43,50 @@ static SpiApplication *this_app = NULL;
 static gboolean registry_died = FALSE;
 static guint toplevel_handler;
 
+/* NOT YET USED
+   static GQuark atk_quark_property_changed_name;
+   static GQuark atk_quark_property_changed_description;
+   static GQuark atk_quark_property_changed_parent;
+   static GQuark atk_quark_property_changed_role;
+   static GQuark atk_quark_property_changed_table_caption;
+   static GQuark atk_quark_property_changed_table_column_description;
+   static GQuark atk_quark_property_changed_table_row_description;
+   static guint atk_signal_property_changed;
+*/
+
+static guint atk_signal_text_changed;
+static guint atk_signal_child_changed;
+
+/* NOT YET USED
+   static guint atk_signal_text_selection_changed;
+   static guint atk_signal_active_descendant_changed;
+   static guint atk_signal_row_reordered;
+   static guint atk_signal_row_inserted;
+   static guint atk_signal_row_deleted;
+   static guint atk_signal_column_reordered;
+   static guint atk_signal_column_inserted;
+   static guint atk_signal_column_deleted;
+*/
+
+#define ATK_BRIDGE_RESERVED_CONTEXT_SIZE 16
+
+typedef enum {
+  ATK_BRIDGE_CONTEXT_TYPE_NONE = 0,
+  ATK_BRIDGE_CONTEXT_TYPE_STRING,
+  ATK_BRIDGE_CONTEXT_TYPE_OBJECT
+} AtkBridgeEventContextType;
+
+typedef union {
+  gchar       *string;
+  AtkObject   *object;
+  gpointer    *foo;
+} AtkBridgeEventContextData;
+
+typedef struct {
+  AtkBridgeEventContextType _type;
+  AtkBridgeEventContextData _data;
+} AtkBridgeEventContext;
+
 static Accessibility_Registry spi_atk_bridge_get_registry (void);
 static void     spi_atk_bridge_do_registration         (void);
 static void     spi_atk_bridge_toplevel_added          (AtkObject             *object,
@@ -90,6 +134,15 @@ static GArray *listener_ids = NULL;
 extern void gnome_accessibility_module_init     (void);
 extern void gnome_accessibility_module_shutdown (void);
 
+static void
+atk_bridge_init_event_type_consts ()
+{
+  atk_signal_child_changed = g_signal_lookup ("child_changed", 
+					      ATK_TYPE_OBJECT);
+  atk_signal_text_changed = g_signal_lookup ("text_changed", 
+					     ATK_TYPE_TEXT);
+}
+
 static int
 atk_bridge_init (gint *argc, gchar **argv[])
 {
@@ -122,6 +175,8 @@ atk_bridge_init (gint *argc, gchar **argv[])
     {
       spi_atk_bridge_do_registration ();
     }
+ 
+  atk_bridge_init_event_type_consts ();
 
   return 0;
 }
@@ -371,6 +426,34 @@ gnome_accessibility_module_shutdown (void)
 }
 
 static void
+atk_bridge_event_context_init (CORBA_any *any, 
+			       AtkBridgeEventContext *ctx)
+{
+  SpiAccessible *accessible;
+  if (ctx) 
+    {
+      switch (ctx->_type) 
+	{
+	  /* FIXME	
+	    case ATK_BRIDGE_CONTEXT_TYPE_OBJECT:
+		accessible = spi_accessible_new (ctx->_data.object);    
+		spi_init_any_object (any, BONOBO_OBJREF (accessible));
+		break;
+	  */
+	case ATK_BRIDGE_CONTEXT_TYPE_STRING:
+	  spi_init_any_string (any, &ctx->_data.string);
+	  break;
+	default:
+	  spi_init_any_nil (any); 
+	} 
+    }
+  else
+    {
+      spi_init_any_nil (any); 
+    }
+} 
+
+static void
 spi_atk_bridge_focus_tracker (AtkObject *object)
 {
   SpiAccessible *source;
@@ -382,7 +465,7 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   e.source = BONOBO_OBJREF (source);
   e.detail1 = 0;
   e.detail2 = 0;
-
+  spi_init_any_nil (&e.any_data);
   Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
   if (BONOBO_EX (&ev)) registry_died = TRUE;
   
@@ -391,10 +474,49 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   CORBA_exception_free (&ev);
 }
 
+static
+AtkBridgeEventContext *
+spi_atk_bridge_event_context_create (GObject *gobject, 
+				     long detail1, 
+				     long detail2, 
+				     GSignalQuery *signal_query, 
+				     const gchar *detail)
+{
+  AtkBridgeEventContext *ctx = g_new0 (AtkBridgeEventContext, 1);
+  /*
+  if (signal_query->signal_id == atk_signal_child_changed) 
+    {  
+      ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_OBJECT;
+      ctx->_data.object = atk_object_ref_accessible_child (ATK_OBJECT (gobject),
+							   (gint) detail1);
+    }
+  else */ if (signal_query->signal_id == atk_signal_text_changed)
+    {
+      ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_STRING;
+      ctx->_data.string = atk_text_get_text (ATK_TEXT (gobject),
+					     (gint) detail1,
+					     (gint) detail1+detail2);
+    }
+  else
+    {
+      ctx->_type = ATK_BRIDGE_CONTEXT_TYPE_NONE;
+    }
+  return ctx;
+}
+
 static void
-spi_atk_emit_eventv (GObject      *gobject,
-		     unsigned long detail1,
-		     unsigned long detail2,
+spi_atk_bridge_event_context_free (AtkBridgeEventContext *ctx)
+{
+  if (ctx->_type == ATK_BRIDGE_CONTEXT_TYPE_OBJECT)
+    g_object_unref (ctx->_data.object);
+  g_free (ctx);
+}
+
+static void
+spi_atk_emit_eventv (GObject               *gobject,
+		     unsigned long          detail1,
+		     unsigned long          detail2,
+		     AtkBridgeEventContext *context,
 		     const char   *format, ...)
 {
   va_list             args;
@@ -431,15 +553,16 @@ spi_atk_emit_eventv (GObject      *gobject,
       e.source = BONOBO_OBJREF (source);
       e.detail1 = detail1;
       e.detail2 = detail2;
-
 #ifdef SPI_BRIDGE_DEBUG
       s = Accessibility_Accessible__get_name (BONOBO_OBJREF (source), &ev);
       g_warning ("Emitting event '%s' (%lu, %lu) on %s",
 		 e.type, e.detail1, e.detail2, s);
       CORBA_free (s);
 #endif
-
+      CORBA_exception_init (&ev);
+      atk_bridge_event_context_init (&e.any_data, context); 
       Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
+      /* I haven't freed any_data._value when it's a char*, does it leak ? */
 #ifdef SPI_BRIDGE_DEBUG
       if (ev._major != CORBA_NO_EXCEPTION)
 	      g_warning ("error emitting event %s, (%d) %s",
@@ -487,7 +610,8 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   gobject = g_value_get_object (param_values + 0);
   values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
 
-  spi_atk_emit_eventv (gobject, 0, 0, "object:property-change:%s", values->property_name);
+  spi_atk_emit_eventv (gobject, 0, 0, NULL,
+		       "object:property-change:%s", values->property_name);
 
   return TRUE;
 }
@@ -520,6 +644,7 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   spi_atk_emit_eventv (gobject, 
 		       detail1,
 		       0,
+		       NULL,
 		       type);
   g_free (property_name);
   g_free (type);
@@ -623,6 +748,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   GSignalQuery signal_query;
   const gchar *name;
   const gchar *detail;
+  AtkBridgeEventContext *ctx = NULL;
   
   gint detail1 = 0, detail2 = 0;
 #ifdef SPI_BRIDGE_DEBUG
@@ -650,11 +776,22 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     detail1 = g_value_get_int (param_values + 1);
   if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
     detail2 = g_value_get_int (param_values + 2);
-  
+
+  /* build some event context data, depending on the type */
+  ctx = spi_atk_bridge_event_context_create (gobject, 
+					     detail1, detail2, 
+					     &signal_query, 
+					     detail);
+
   if (detail)
-    spi_atk_emit_eventv (gobject, detail1, detail2, "object:%s:%s", name, detail);
+    spi_atk_emit_eventv (gobject, detail1, detail2, ctx,
+			 "object:%s:%s", name, detail);
   else
-    spi_atk_emit_eventv (gobject, detail1, detail2, "object:%s", name);
+    spi_atk_emit_eventv (gobject, detail1, detail2, ctx,
+			 "object:%s", name);
+
+  if (ctx) 
+    spi_atk_bridge_event_context_free (ctx);
 
   return TRUE;
 }
@@ -667,9 +804,11 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 {
   GObject *gobject;
   GSignalQuery signal_query;
-  const gchar *name;
+  AtkBridgeEventContext ctx;
+
+  const gchar *name, *s;
 #ifdef SPI_BRIDGE_DEBUG
-  const gchar *s, *s2;
+  const gchar *s2;
 #endif
   
   g_signal_query (signal_hint->signal_id, &signal_query);
@@ -682,9 +821,13 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   fprintf (stderr, "Received signal %s:%s from object %s (gail %s)\n",
 	   g_type_name (signal_query.itype), name, s ? s : "<NULL>" , s2);
 #endif
-
+  
   gobject = g_value_get_object (param_values + 0);
-  spi_atk_emit_eventv (gobject, 0, 0, "window:%s", name);
-
+  ctx._type = ATK_BRIDGE_CONTEXT_TYPE_STRING;
+  s = atk_object_get_name (ATK_OBJECT (gobject));
+  ctx._data.string = (gchar *) s;
+  /* cast from const silences compiler */
+  spi_atk_emit_eventv (gobject, 0, 0, &ctx, "window:%s", name);
+  /* don't free the context, it's on the stack */
   return TRUE;
 }

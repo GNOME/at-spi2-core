@@ -151,6 +151,10 @@ module Accessibility {
 	 */
 	void unImplemented ();
 	void unImplemented2 ();
+	void unImplemented3 ();
+	void unImplemented4 ();
+	void unImplemented5 ();
+	void unImplemented6 ();
     };
 
   /* Deprecated, DO NOT USE! */
@@ -220,6 +224,8 @@ module Accessibility {
         void    unImplemented_2_ ();
         void    unImplemented_3_ ();
         void    unImplemented_4_ ();
+        void    unImplemented_5_ ();
+        void    unImplemented_6_ ();
   };
 
   interface DeviceEventController : Bonobo::Unknown {
@@ -342,6 +348,8 @@ module Accessibility {
 	  */
 	 void unImplemented ();
 	 void unImplemented2 ();
+	 void unImplemented3 ();
+	 void unImplemented4 ();
     }; 
 };
 

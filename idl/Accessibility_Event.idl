@@ -34,6 +34,7 @@ module Accessibility
     Accessible source;
     long       detail1;
     long       detail2;
+    any        any_data;
   };
 
   interface EventListener : Bonobo::Unknown {

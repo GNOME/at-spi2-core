@@ -56,5 +56,7 @@ module Accessibility {
 	 */
 	void unImplemented ();
 	void unImplemented2 ();
+	void unImplemented3 ();
+	void unImplemented4 ();
   };
 };

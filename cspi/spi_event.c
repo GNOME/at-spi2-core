@@ -326,3 +326,75 @@ AccessibleDeviceListener_unref (AccessibleDeviceListener *listener)
 {
   cspi_device_listener_unref (listener);
 }
+
+/**
+ * AccessibleEvent_getContextString:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent for a string whose meaning depends
+ *         on the event's context, that is, the event type and details.
+ *         Not all events have context strings, in which case this 
+ *         query returns NULL.  
+ *         Context strings may be returned by:
+ *         object:text-changed events, 
+ *         in which case they represent the text inserted or deleted;
+ *         window: events, in which case they indicate the window title,
+ *         or other events.
+ *
+ * Returns: the context string for the event, or %NULL if
+ *          there is no context string for the event.
+ **/
+char *
+AccessibleEvent_getContextString (const AccessibleEvent *e)
+{
+  InternalEvent *foo = (InternalEvent *) e;
+  CORBA_any *any;
+  g_return_val_if_fail (foo, NULL);
+  g_return_val_if_fail (foo->data, NULL);
+  any = (CORBA_any *) foo->data;
+  if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
+    {
+      return * (char **) any->_value;
+    } 
+  else 
+    {
+#ifdef EVENT_CONTEXT_DEBUG
+      fprintf (stderr, "requested string, TC is not TC_CORBA_string! (%u)\n",
+	       (unsigned) any->_type);
+#endif
+      return NULL;
+    }
+}
+
+/**
+ * AccessibleEvent_getContextObject:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent for an #Accessible whose meaning depends
+ *         on the event's context, that is, the event type and details.
+ *         Not all events have context strings, in which case this 
+ *         query returns NULL.  
+ *         Context #Accessible objects may be returned by, for instance:
+ *         object:child-changed events, 
+ *         in which case they represent the child added or deleted.
+ *         Note that context #Accessibles are not guaranteed to outlive
+ *         event delivery, in which case this call may return %NULL
+ *         even if the object existed at the time of dispatch.
+ *
+ * Returns: the context #Accessible for the event, or %NULL if
+ *          there is no context #Accessible object for the event.
+ **/
+Accessible *
+AccessibleEvent_getContextObject (const AccessibleEvent *e)
+{
+  InternalEvent *foo = (InternalEvent *) e;
+  CORBA_any *any;
+  g_return_val_if_fail (foo, NULL);
+  g_return_val_if_fail (foo->data, NULL);
+  any = (CORBA_any *) foo->data;
+  if (any->_type == TC_CORBA_Object) 
+    return cspi_object_add (* (CORBA_Object *) any->_value);
+  else 
+    return NULL;
+}
+

@@ -91,20 +91,21 @@ cspi_event (SpiEventListener    *listener,
 {
   GList *l;
   CSpiEventListener *clistener = (CSpiEventListener *) listener;
-  AccessibleEvent    aevent;
+  InternalEvent      aevent;
   Accessible        *source = cspi_object_borrow (event->source);
   
-  aevent.type    = event->type;
-  aevent.source  = source;
-  aevent.detail1 = event->detail1;
-  aevent.detail2 = event->detail2;
+  aevent.event.type    = event->type;
+  aevent.event.source  = source;
+  aevent.event.detail1 = event->detail1;
+  aevent.event.detail2 = event->detail2;
+  aevent.data          = &event->any_data;
 
   /* FIXME: re-enterancy hazard on this list */
   for (l = clistener->callbacks; l; l = l->next)
     {
       EventHandler *eh = l->data;
-
-      eh->cb.event (&aevent, eh->user_data);
+      /* cast hides our private stuff from client handlers */
+      eh->cb.event ((AccessibleEvent *) &aevent, eh->user_data);
     }
 
   cspi_object_return (source);

@@ -27,7 +27,7 @@
 #include <cspi/spi-impl.h>
 /*
  * Definitions for AccessibleRole, AccessibleState,
- * AccessibleEvent, and event listeners.
+ * and event listeners.
  */
 #include <cspi/spi-roletypes.h>
 #include <cspi/spi-statetypes.h>
@@ -792,6 +792,14 @@ double     AccessibleValue_getCurrentValue (AccessibleValue *obj);
 double     AccessibleValue_getMaximumValue (AccessibleValue *obj);
 SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
 					    double           newValue);
+
+/*
+ * Prototypes for accessor functions, to obtain context
+ * information for accessible events.
+ */
+
+char*        AccessibleEvent_getContextString (const AccessibleEvent *e);
+Accessible * AccessibleEvent_getContextObject (const AccessibleEvent *e);
 
 /* Misc methods */
 void SPI_freeString (char *s);

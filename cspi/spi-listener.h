@@ -39,6 +39,14 @@ typedef struct {
   long         detail1;
   long         detail2;
 } AccessibleEvent;
+  
+/* 
+ * For internal use by CSPI implementation only
+ */
+typedef struct {
+  AccessibleEvent event;
+  void           *data; 
+} InternalEvent;
 
 typedef enum {
   SPI_KEY_PRESSED  = 1<<0,

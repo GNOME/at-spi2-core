@@ -29,12 +29,14 @@ static void traverse_accessible_tree (Accessible *accessible);
 
 static void report_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
+static void report_text_event  (const AccessibleEvent *event, void *user_data);
 static void timing_test_event (const AccessibleEvent *event, void *user_data);
 static SPIBoolean report_mouse_event  (const AccessibleDeviceEvent *event, void *user_data);
 
 static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *specific_listener;
 static AccessibleEventListener *test_listener;
+static AccessibleEventListener *text_listener;
 static AccessibleDeviceListener *mouse_device_listener;
 static gint n_elements_traversed = 0;
 static GTimer *timer;
@@ -80,12 +82,16 @@ main (int argc, char **argv)
       }
   }
 
+  fprintf (stderr, "RUNNING\n");
+
   SPI_init ();
 
   generic_listener = SPI_createAccessibleEventListener (
 	  report_event, NULL); 
   specific_listener = SPI_createAccessibleEventListener (
 	  report_detail_event, NULL); 
+  text_listener = SPI_createAccessibleEventListener (
+	  report_text_event, NULL);
   test_listener = SPI_createAccessibleEventListener (
 	  timing_test_event, NULL);
   mouse_device_listener = SPI_createAccessibleDeviceListener (
@@ -129,7 +135,7 @@ main (int argc, char **argv)
 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:text-caret-moved"); 
-  SPI_registerGlobalEventListener (generic_listener,
+  SPI_registerGlobalEventListener (text_listener,
 				   "object:text-changed"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:column-inserted"); 
@@ -260,6 +266,17 @@ report_detail_event (const AccessibleEvent *event, void *user_data)
   fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
 	   event->detail1, event->detail2);
   if (s) SPI_freeString (s);
+}
+
+void
+report_text_event (const AccessibleEvent *event, void *user_data)
+{
+  char *s = Accessible_getName (event->source);
+  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+	   event->detail1, event->detail2);
+  if (s) SPI_freeString (s);
+  s = AccessibleEvent_getContextString (event);
+  fprintf (stderr, "context string %s\n", (s) ? s : "<nil>");
 }
 
 SPIBoolean

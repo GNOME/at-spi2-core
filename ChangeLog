@@ -1,3 +1,158 @@
+2002-11-19 Bill Haneman <bill.haneman@sun.com>
+
+        FIXES for 98836, 98842, other bugs.
+	
+	* configure.in:
+	Revved to 1.1.4, interface-age=4, binary-age=4.
+
+	* registryd/deviceeventcontroller.c:
+	(statics):
+	Fixed crasher bug in last_mouse_pos initialization.
+
+	* registryd/registry.c:
+	(desktop_add_application, desktop_remove_application):
+	Added (and then commented out) some support for
+	object context marshalling. [TODO]
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_event_context_create):
+	Commented out object context creation until it can
+	be properly tested and debugged.
+
+	* registryd/registry.c:
+	(impl_registry_notify_event):
+	Fixed crasher bug, we were calling 
+	spi_re_entrant_list_foreach () with an empty list.
+
+2002-11-18  Bill Haneman <bill.haneman@sun.com>
+	
+	* idl/Accessibility_Action.idl:
+	* idl/Accessibility_Component.idl:
+	* idl/Accessibility_Desktop.idl:
+	* idl/Accessibility_Event.idl:
+	* idl/Accessibility_Hyperlink.idl:
+	* idl/Accessibility_Image.idl:
+	* idl/Accessibility_Relation.idl:
+	* idl/Accessibility_Selection.idl:
+	* idl/Accessibility_State.idl:
+	* idl/Accessibility_Value.idl:
+	Updated unimplemented slot count to minimum of
+	four for all interfaces, for ABI freeze. 
+
+	* idl/Accessibility_EditableText.idl:
+	* idl/Accessibility_Text.idl:
+	Updated unimplemented slot count to six
+	for ABI freeze. 
+	
+	* idl/Accessibility_Registry.idl:
+	Updated unimplemented slot count to six
+	(also for DeviceEventController), 
+	for ABI freeze. 
+
+	* idl/Accessibility_Table.idl:
+	Updated unimplemented slot count to eight,
+	for ABI freeze. 
+
+	* idl/Accessibility_Event.idl:
+	Added CORBA_any "any_data" member to Event struct.
+
+	* idl/Accessibility_Event.idl:
+	Added CORBA_any "any_data" member to Event struct.
+
+	* atk-bridge/bridge.c:
+	(statics):
+	atk_signal_text_changed, atk_signal_child_changed,
+	signal ids queried from gtype system.
+	(AtkBridgeEventContextType): New enum.
+	(AtkBridgeEventContextData): New struct.
+	(AtkBridgeEventContext): New struct.
+	(atk_bridge_init_event_type_consts):
+	New method, initializes type contants for comparison 
+	prior to emit_eventv.
+	(atk_bridge_event_context_init): New method,
+	initializes a CORBA_any from an AtkBridgeEventContext.
+	(atk_bridge_focus_tracker): Call spi_init_any_nil to
+	initialize the event.any_data struct.
+	(spi_atk_bridge_event_context_create): New method,
+	creates an AtkBridgeEventContext from signal/event info.
+	(spi_atk_bridge_event_context_free): New method.
+	(spi_atk_emit_eventv): Changed to take an 
+	AtkBridgeEventContext parameter. We now initialize
+	the event.any_data member prior to notifying the 
+	Registry, via the AtkBridgeEventContext.
+	(spi_atk_bridge_property_event_listener):
+	(spi_atk_bridge_state_event_listener):
+	Match emit_eventv signature.
+	(spi_atk_bridge_object_event_listener):
+	Match emit_eventv signature, and create an
+	event context from the event details.
+	Free the event context afterwards.
+	(spi_atk_bridge_window_event_listener):
+	Create an event context, pass it to the
+	emit_eventv call.
+	
+	* cspi/spi_event.c:
+	(AccessibleEvent_getContextString):
+	(AccessibleEvent_getContextObject):
+	New methods, allow query of AccessibleEvent objects
+	for more context details (via the "any_data" member 
+	of the Event struct, above).
+	
+	* cspi/spi.h:
+	Definitions for AccessibleEvent_getContextString
+	and AccessibleEvent_getContextObject.
+
+	* cspi/spi_listener.h:
+	(InternalEvent): New struct.
+
+	* cspi/spi_event.c:
+	(AccessibleEvent_getContextString):
+	(AccessibleEvent_getContextObject):
+	Implementations of new methods, for obtaining
+	additional context information from some event types.
+
+	* cspi/spi_registry.c:
+	(SPI_registerGlobalEventListener):
+	Added mention of active-descendant-changed event in docs.
+
+	* cspi/cspi-bonobo-listener.c:
+	(cspi_event):
+	Marshal the any into the AccessibleEvent via
+	InternalEvent.
+	
+	* libspi/spi-private.h:
+	#include <orbit/orbit.h>
+	(spi_init_any_nil):
+	(spi_init_any_string):
+	(spi_init_any_object):
+	New convenience function declarations.
+
+	* libspi/util.c:
+	(spi_init_any_nil):
+	(spi_init_any_string):
+	(spi_init_any_object):
+	New convenience function implementations.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_poll_dec_mouse_moved):
+	(spi_device_event_controller_forward_mous_event):
+	Initialize any_data member of event.
+	(spi_deregister_controller_device_listener):
+	Fix incorrect param pass which was preventing deregistration.
+
+	* registryd/registry.c:
+	(desktop_add_application):
+	(desktop_remove_application):
+	Add object data to event's any_data before dispatch.
+	(parse_event_type):
+	Fix for error messages from GAIL.
+	
+	* test/event-listener-test.c:
+	Test new ContextString and "any_data" API:
+	(report_text_event): New method query and output context string.
+	(main): register a new text listener with report_text_event
+	callback.
+
 2002-11-19  Darren Kenny  <darren.kenny@sun.com>
 
 	Fixes for bugs 98127 and 97914.
@@ -72,9 +227,6 @@
 	
 	* idl/Accessibility_Event.idl:
 	Added two more empty slots to EventListener (for a total of four).
-
-	* idl/Accessibility_Accessible.idl:
-	Added four empty slots to Accessible interface.
 
 	* idl/Accessibility_Accessible.idl:
 	Added four empty slots to Accessible interface.

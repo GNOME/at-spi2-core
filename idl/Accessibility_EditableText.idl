@@ -34,7 +34,7 @@ module Accessibility {
     boolean deleteText (in long startPos, in long endPos);
     boolean pasteText (in long position);
     /**
-     * unImplemented5:
+     * unImplemented7:
      *
      * placeholders for future expansion. Note that these are named
      * 'unimplemented5 and unimplemented6' to avoid conflict with 
@@ -42,5 +42,9 @@ module Accessibility {
      */
     void unImplemented5 ();
     void unImplemented6 ();
+    void unImplemented9 ();
+    void unImplemented10 ();
+    void unImplemented11 ();
+    void unImplemented12 ();
   };
 };

@@ -25,6 +25,7 @@
 #define SPI_PRIVATE_H_
 
 #include <glib/glist.h>
+#include <orbit/orbit.h>
 
 G_BEGIN_DECLS
 
@@ -40,6 +41,9 @@ void spi_re_entrant_list_delete_link (GList * const  *element_ptr);
 void spi_re_entrant_list_foreach     (GList         **list,
 				      SpiReEntrantFn  func,
 				      gpointer        user_data);
+void spi_init_any_nil                (CORBA_any *any);
+void spi_init_any_string             (CORBA_any *any, char **string);
+void spi_init_any_object             (CORBA_any *any, CORBA_Object o);
 
 G_END_DECLS
 

@@ -64,5 +64,7 @@ module Accessibility {
     void unImplemented2 ();
     void unImplemented3 ();
     void unImplemented4 ();
+    void unImplemented7 ();
+    void unImplemented8 ();
   };
 };

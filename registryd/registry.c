@@ -89,12 +89,20 @@ desktop_add_application (SpiDesktop *desktop,
   BonoboObject *registry = BONOBO_OBJECT (data);
   Accessibility_Event e;
   CORBA_Environment ev;
+  Accessibility_Accessible a;
   
+  CORBA_exception_init (&ev);
   e.type = "object:children-changed:add";
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
-  CORBA_exception_init (&ev);
+  a = Accessibility_Accessible_getChildAtIndex (BONOBO_OBJREF (desktop), 
+						index, &ev);
+  /* FIXME
+  spi_init_any_object (&e.any_data, a);
+  */
+  spi_init_any_nil (&e.any_data);
+  Accessibility_Accessible_unref (a, &ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
   Accessibility_Desktop_unref (e.source, &ev);
@@ -109,13 +117,22 @@ desktop_remove_application (SpiDesktop *desktop,
 {
   BonoboObject *registry = BONOBO_OBJECT (data);
   Accessibility_Event e;
+  Accessibility_Accessible a;
   CORBA_Environment ev;
   
+  CORBA_exception_init (&ev);
+
   e.type = "object:children-changed:remove";
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
-  CORBA_exception_init (&ev);
+  a = Accessibility_Accessible_getChildAtIndex (BONOBO_OBJREF (desktop), 
+						index, &ev);
+  /* FIXME
+  spi_init_any_object (&e.any_data, a);
+  */
+  spi_init_any_nil (&e.any_data);
+  Accessibility_Accessible_unref (a, &ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
   Accessibility_Desktop_unref (e.source, &ev);
@@ -259,6 +276,10 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
     {
       etype->type_cat = ETYPE_WINDOW;
     }
+  else if (!g_ascii_strncasecmp (event_name, "keyboard:", 9))
+    {
+      etype->type_cat = ETYPE_KEYBOARD;
+    }
   else
     {
       etype->type_cat = ETYPE_TOOLKIT;
@@ -363,7 +384,6 @@ impl_accessibility_registry_register_global_event_listener (
   GList          **list;
 
 #ifdef SPI_LISTENER_DEBUG
-  fprintf (stderr, "registering");
   fprintf (stderr, "registering for events of type %s\n", event_name);
 #endif
 
@@ -575,7 +595,6 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
 #endif
       
       ctx->e_out.source = CORBA_Object_duplicate (ctx->source, ctx->ev);
-
       if (BONOBO_EX (ctx->ev))
         {
           return SPI_RE_ENTRANT_CONTINUE;
@@ -620,15 +639,14 @@ impl_registry_notify_event (PortableServer_Servant     servant,
 
   list = get_listener_list (registry, ctx.etype.type_cat);
 
-  if (list)
+  if (list && *list)
     {
       ctx.ev = ev;
       ctx.e_out = *e;
+      CORBA_any__copy (&ctx.e_out.any_data, &e->any_data);
       ctx.source = e->source;
-
       spi_re_entrant_list_foreach (list, notify_listeners_cb, &ctx);
     }
-
 }
 
 static void
@@ -657,6 +675,8 @@ spi_registry_class_init (SpiRegistryClass *klass)
 static void
 spi_registry_init (SpiRegistry *registry)
 {
+  fprintf (stderr, "REGISTRY INITIALIZED: toolkit list = %p\n",
+	   &registry->toolkit_listeners);
   registry->object_listeners = NULL;
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
