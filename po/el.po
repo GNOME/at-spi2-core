@@ -1,0 +1,313 @@
+# atk.
+# Copyright (C) Free Software Foundation Inc. 2002
+# This file is distributed under the same license as the PACKAGE package.
+# Kostas Papadimas , <pkst@gmx.net>, 2002
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2002-12-25 05:52+0100\n"
+"PO-Revision-Date: 2002-12-25 12:20+0200\n"
+"Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
+"Language-Team: Greek <nls@tux.hellug.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "μη έγκυρο"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "ετικέτα-συντόμ"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "ειδοποίηση"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "κινούμενο σχέδιο"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "βέλος"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "ημερολόγιο"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "canvas"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "κουτί επιλογής"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "αντικείμενο-μενού-επιλογής"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "Επιλογέας χρώματος"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "κεφαλίδα-στήλης"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "κουτί-πολλαπλών"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "επεξεργαστής-ημερομηνίας"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "εικονίδιο-επιφάνειας"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "πλαίσιο-επιφάνειας εργασίας"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "dial"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "διάλογος"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "pane-καταλόγου"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "περιοχή-σχεδίασης"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "επιλογέας-αρχείου"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "filler"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "επιλογέας-γραμματοσειράς"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "πλαίσιο"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "glass-pane"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "html-container"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "εικονίδιο"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "εικόνα "
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "εσωτερικό-πλάισιο"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "ετικέτα"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "layered-pane"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "λίστα"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "αντικείμενο-λίστας"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "μενού"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "εργαλειοθήκη-μενού"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "αντικείμενο-μενού"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "ταμπλώ-επιλογών"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "στήλη-σελίδας"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "λίστα-στήλης-σελίδας"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "ταμπλώ"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "κείμενο-κωδικού"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "αναδυόμενο-μενού"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "μπάρα-προόδου"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "κουμπί-πίεσης"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "κουμπί-radio"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "αντικείμενο-μενού-radio"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "root-pane"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "κεφαλίδα-γραμμής"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "μπάρα-κύλισης"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "scroll-pane"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "διαχωριστικό"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "μπάρα κύλισης"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "split-pane"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "κουμπί-στροβιλισμού (spin)"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "γραμμή κατάστασης"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "πίνακας"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "κελί-πίνακα"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "κεφαλίδα-στήλης-πίνακα"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "κεφαλίδα-στήλης-πίνακα"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "αντικείμενο-αποσπώμενου-μενού"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "τερματικό"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "κείμενο"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "κουμπί-εναλλαγής"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "εργαλειο-θήκη"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "συμβουλή εργαλείου"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "δένδρο"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "δένδρο-πίνακα"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "άγνωστο"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "θύρα όψης"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "παράθυρο"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "κεφαλίδα"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "υποσέλιδο"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "παράγραφος"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "χάρακας"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "εφαρμογή"
+
