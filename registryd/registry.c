@@ -24,8 +24,8 @@
  * registry.c: test for accessibility implementation
  *
  */
-#define DEBUG_PRINTSTUFF
-#ifdef DEBUG_PRINTSTUFF
+
+#ifdef SPI_DEBUG
 #include <stdio.h>
 #endif
 #include <config.h>
@@ -80,7 +80,10 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
 
+#ifdef SPI_DEBUG
   fprintf (stderr, "registering app %p\n", application);
+#endif
+
   registry->desktop->applications = g_list_append (registry->desktop->applications, CORBA_Object_duplicate (application, ev));
   /*
    * TODO: change the implementation below to a WM-aware one;
@@ -242,8 +245,10 @@ impl_registry_notify_event (PortableServer_Servant servant,
 
   for (n=0; n<len; ++n)
     {
-      /*      fprintf(stderr, "notifying listener #%d\n", n);*/
-      /*      fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->target, ev));*/
+#ifdef SPI_DEBUG
+      fprintf(stderr, "notifying listener #%d\n", n);
+      fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->target, ev));
+#endif
       Accessibility_EventListener_notifyEvent (
                (Accessibility_EventListener) g_list_nth_data (registry->listeners, n),
                e,

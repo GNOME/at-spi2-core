@@ -24,10 +24,11 @@
  * listener.c: test for accessibility implementation
  *
  */
-#define DEBUG_PRINTSTUFF
-#ifdef DEBUG_PRINTSTUFF
+
+#ifdef SPI_DEBUG
 #include <stdio.h>
 #endif
+
 #include <config.h>
 #include <bonobo/Bonobo.h>
 #include <Accessible.h>
@@ -55,8 +56,9 @@ listener_object_finalize (GObject *object)
 {
 /*        Listener *listener = LISTENER (object); */
 
-        printf("listener_object_finalize called\n");
-
+#ifdef SPI_DEBUG
+        fprintf(stderr, "listener_object_finalize called\n");
+#endif
         listener_parent_class->finalize (object);
 }
 
@@ -69,9 +71,11 @@ impl_notify_event (PortableServer_Servant     servant,
                    const Accessibility_Event *e,
                    CORBA_Environment         *ev)
 {
+#ifdef SPI_DEBUG
   fprintf (stderr, "notify...\n");
   fprintf (stderr, "source name: '%s'\n",
            Accessibility_Accessible__get_name(e->target, ev));
+#endif
 }
 
 static void

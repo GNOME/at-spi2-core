@@ -20,7 +20,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#ifdef AT_SPI_DEBUG
 #include <stdlib.h>
+#endif
+
 #include <libbonobo.h>
 #include "registry.h"
 
@@ -44,7 +47,9 @@ main (int argc,
                 obj_id,
                 bonobo_object_corba_objref (bonobo_object (registry)));
 
+#ifdef AT_SPI_DEBUG
         fprintf (stderr, "Registry Message: Registry daemon is running.\n");
+#endif
         bonobo_main ();
 
         return 0;

@@ -8,6 +8,10 @@ INCLUDES = -I $(top_srcdir)           \
 
 LDFLAGS = $(LIBSPI_LIBS) @LT_VERSION_INFO@
 
+DEBUG_CFLAGS=-DSPI_DEBUG
+
+CFLAGS += $(DEBUG_CFLAGS)
+
 libspiincludedir = $(includedir)/libspi
 
 libspiinclude_HEADERS = accessible.h       \

@@ -10,6 +10,10 @@ INCLUDES = -I$(top_srcdir)           \
            -I$(top_builddir)         \
            -I$(top_srcdir)/libspi    \
            -I$(top_builddir)/libspi  \
-           $(TESTS_CFLAGS)
+	   $(TESTS_CFLAGS)
+
+DEBUG_CFLAGS=-DSPI_DEBUG
+
+CFLAGS += $(TESTS_CFLAGS)
 
 LDADD = ../libspi/libspi.la $(TESTS_LIBS)
