@@ -52,7 +52,6 @@ atk_action_do_action (AtkAction *obj,
 {
   AtkActionIface *iface;
 
-  g_return_if_fail (obj != NULL);
   g_return_if_fail (ATK_IS_ACTION (obj));
 
   iface = ATK_ACTION_GET_IFACE (obj);
@@ -77,7 +76,6 @@ atk_action_get_n_actions  (AtkAction *obj)
 {
   AtkActionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
   g_return_val_if_fail (ATK_IS_ACTION (obj), 0);
 
   iface = ATK_ACTION_GET_IFACE (obj);
@@ -104,7 +102,6 @@ atk_action_get_description (AtkAction *obj,
 {
   AtkActionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
   g_return_val_if_fail (ATK_IS_ACTION (obj), NULL);
 
   iface = ATK_ACTION_GET_IFACE (obj);
@@ -131,7 +128,6 @@ atk_action_get_name (AtkAction *obj,
 {
   AtkActionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
   g_return_val_if_fail (ATK_IS_ACTION (obj), NULL);
 
   iface = ATK_ACTION_GET_IFACE (obj);
@@ -159,7 +155,6 @@ atk_action_get_keybinding (AtkAction *obj,
 {
   AtkActionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
   g_return_val_if_fail (ATK_IS_ACTION (obj), NULL);
 
   iface = ATK_ACTION_GET_IFACE (obj);
@@ -187,7 +182,6 @@ atk_action_set_description (AtkAction   *obj,
 {
   AtkActionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_ACTION (obj), FALSE);
 
   iface = ATK_ACTION_GET_IFACE (obj);

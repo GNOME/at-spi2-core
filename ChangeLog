@@ -1,4 +1,17 @@
+2001-08-09  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkaction.c, atk/atkcomponent.c
+	Remove all instances of g_return_if_fail (foo != NULL); that are
+	immediately before a g_return_if_fail (ATK_IS_FOO (foo));
+	since the second check catches the NULL.
+	* atk/atkcomponent.c
+	Add functions atk_component_real_contains(), 
+	atk_component_real_get_position(), atkcomponent_real_get_size()	
+	as default implementations for atk_component_contains(),
+	atk_component_get_position(), atk_component_get_size()
+
 2001-08-07  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkimage.[ch] docs/atk-sections.txt
 	docs/tmpl/atkimage.sgml
 	Updated AtkImage get_position to get_image_position

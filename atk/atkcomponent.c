@@ -20,10 +20,24 @@
 
 #include "atkcomponent.h"
 
+static gboolean   atk_component_real_contains                (AtkComponent *component,
+                                                              gint         x,
+                                                              gint         y,
+                                                              AtkCoordType coord_type);
+
 static AtkObject* atk_component_real_get_accessible_at_point (AtkComponent *component,
                                                               gint         x,
                                                               gint         y,
                                                               AtkCoordType coord_type);
+
+static void      atk_component_real_get_position             (AtkComponent *component,
+                                                              gint         *x,
+                                                              gint         *y,
+                                                              AtkCoordType coord_type);
+
+static void      atk_component_real_get_size                 (AtkComponent *component,
+                                                              gint         *width,
+                                                              gint         *height);
 
 GType
 atk_component_get_type ()
@@ -60,7 +74,6 @@ atk_component_add_focus_handler (AtkComponent    *component,
                                  AtkFocusHandler handler)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, 0);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), 0);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -114,7 +127,6 @@ atk_component_contains (AtkComponent    *component,
                         AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -122,7 +134,12 @@ atk_component_contains (AtkComponent    *component,
   if (iface->contains)
     return (iface->contains) (component, x, y, coord_type);
   else
-    return FALSE;
+  {
+    /*
+     * if this method is not overridden use the default implementation.
+     */
+    return atk_component_real_contains (component, x, y, coord_type);
+  }
 }
 
 /**
@@ -145,7 +162,6 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
                                        AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, NULL);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), NULL);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -215,6 +231,13 @@ atk_component_get_position   (AtkComponent    *component,
 
   if (iface->get_position)
     (iface->get_position) (component, x, y, coord_type);
+  else
+  {
+    /*
+     * if this method is not overridden use the default implementation.
+     */
+    atk_component_real_get_position (component, x, y, coord_type);
+  }
 }
 
 /**
@@ -227,8 +250,8 @@ atk_component_get_position   (AtkComponent    *component,
  **/
 void
 atk_component_get_size       (AtkComponent    *component,
-                              gint            *x,
-                              gint            *y)
+                              gint            *width,
+                              gint            *height)
 {
   AtkComponentIface *iface = NULL;
   g_return_if_fail (ATK_IS_COMPONENT (component));
@@ -236,7 +259,14 @@ atk_component_get_size       (AtkComponent    *component,
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_size)
-    (iface->get_size) (component, x, y);
+    (iface->get_size) (component, width, height);
+  else
+  {
+    /*
+     * if this method is not overridden use the default implementation.
+     */
+    atk_component_real_get_size (component, width, height);
+  }
 }
 
 /**
@@ -251,7 +281,6 @@ gboolean
 atk_component_grab_focus (AtkComponent    *component)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -285,7 +314,6 @@ atk_component_set_extents   (AtkComponent    *component,
                              AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -315,7 +343,6 @@ atk_component_set_position   (AtkComponent    *component,
                               AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -342,13 +369,33 @@ atk_component_set_size       (AtkComponent    *component,
                               gint            y)
 {
   AtkComponentIface *iface = NULL;
-  g_return_val_if_fail (component != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->set_size)
     return (iface->set_size) (component, x, y);
+  else
+    return FALSE;
+}
+
+static gboolean
+atk_component_real_contains (AtkComponent *component,
+                             gint         x,
+                             gint         y,
+                             AtkCoordType coord_type)
+{
+  gint real_x, real_y, width, height;
+
+  real_x = real_y = width = height = 0;
+
+  atk_component_get_extents (component, &real_x, &real_y, &width, &height, coord_type);
+
+  if ((x >= real_x) &&
+      (x < real_x + width) &&
+      (y >= real_y) &&
+      (y < real_y + height))
+    return TRUE;
   else
     return FALSE;
 }
@@ -385,4 +432,31 @@ atk_component_real_get_accessible_at_point (AtkComponent *component,
     }
   }
   return NULL;
+}
+
+static void
+atk_component_real_get_position (AtkComponent *component,
+                                 gint         *x,
+                                 gint         *y,
+                                 AtkCoordType coord_type)
+{
+  gint width, height;
+
+  atk_component_get_extents (component, x, y, &width, &height, coord_type);
+}
+
+static void
+atk_component_real_get_size (AtkComponent *component,
+                             gint         *width,
+                             gint         *height)
+{
+  gint x, y;
+  AtkCoordType coord_type;
+
+  /*
+   * Pick one coordinate type; it does not matter for size
+   */
+  coord_type = ATK_XY_WINDOW;
+
+  atk_component_get_extents (component, &x, &y, width, height, coord_type);
 }
