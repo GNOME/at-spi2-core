@@ -59,6 +59,7 @@ typedef enum {
 } EventTypeMajor;
 
 typedef struct {
+  char *event_name;
   EventTypeMajor major;
   char * minor;
   char * detail;
@@ -108,7 +109,6 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
 #ifdef SPI_DEBUG
   fprintf (stderr, "registering app %p\n", application);
 #endif
-  ORBit_register_objref (application);
   registry->desktop->applications = g_list_append (registry->desktop->applications,
                                                    CORBA_Object_duplicate (application, ev));
 
@@ -131,18 +131,31 @@ compare_object_hash (gconstpointer p1, gconstpointer p2)
 }
 
 static gboolean
-toolkit_listener (GSignalInvocationHint *signal_hint, guint n_param_value,
-                  const GValue *param_values, gpointer data)
+toolkit_listener (GSignalInvocationHint *signal_hint,
+                  guint n_param_values,
+                  const GValue *param_values,
+                  gpointer data)
 {
-  ;
-  return FALSE;
+  gchar *name =
+    g_signal_name (signal_hint->signal_id);
+  fprintf (stderr, "Received signal %s\n", name);
+
+  /* TODO: notify the actual listeners! */
+
+  return TRUE;
 }
 
 static void
 register_with_toolkit (EventTypeStruct *etype)
 {
-  guint listener_id =
-  atk_add_global_event_listener (toolkit_listener, g_strconcat (etype->minor, etype->detail, NULL));
+  guint listener_id;
+  listener_id =
+     atk_add_global_event_listener (toolkit_listener, etype->event_name);
+#ifdef SPI_DEBUG
+  fprintf (stderr, "registered %d for toolkit events named: %s\n",
+           listener_id,
+           etype->event_name);
+#endif
 }
 
 static gint
@@ -158,6 +171,8 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
   char * major_delim_char;
   char * minor_delim_char;
   guint nbytes = 0;
+
+  etype->event_name = g_strndup(event_name, 255);
 
   if (!delimiter)
     {
@@ -184,25 +199,26 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
       etype->major = ETYPE_TOOLKIT;
     }
 
-  if (major_delim_char)
+  if (major_delim_char != minor_delim_char)
     {
       etype->minor = g_strndup (major_delim_char, nbytes);
+      etype->detail = g_strdup (minor_delim_char);
       etype->hash = g_str_hash (major_delim_char);
     }
   else
     {
-      etype->minor = g_strdup ("");
-      etype->hash = g_str_hash ("");
-    }
-  if (major_delim_char != minor_delim_char)
-    {
-      etype->detail = g_strdup (minor_delim_char);
-    }
-  else
-    {
+      if (* (major_delim_char+1))
+        {
+          etype->minor = g_strdup (major_delim_char+1);
+          etype->hash = g_str_hash (major_delim_char+1);
+        }
+      else
+        {
+          etype->minor = g_strdup ("");
+          etype->hash = g_str_hash ("");
+        }
       etype->detail = g_strdup ("");
     }
-
 
   /* TODO: don't forget to free the strings from caller when done ! */
 }

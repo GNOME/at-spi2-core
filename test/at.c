@@ -28,6 +28,18 @@
 #include "listener.h"
 #include "desktop.h"
 
+void
+check_ev (CORBA_Environment *ev, char *desc)
+{
+        if (ev->_major != CORBA_NO_EXCEPTION) {
+                fprintf(stderr,
+                ("Accessibility app error: exception during CORBA call %s (%s)\n"),
+                        CORBA_exception_id(ev), desc);
+                CORBA_exception_free(ev);
+                exit(-1);
+        }
+}
+
 int
 main(int argc, char **argv)
 {
@@ -79,7 +91,14 @@ main(int argc, char **argv)
                                          bonobo_object_corba_objref (bonobo_object (listener)),
                                     "focus:",
                                     &ev);
-
+        check_ev (&ev, "register:focus");
+        Accessibility_Registry_registerGlobalEventListener
+                                   (registry,
+                                    (Accessibility_EventListener)
+                                         bonobo_object_corba_objref (bonobo_object (listener)),
+                                    "Gtk:GtkWidget:button_press_event",
+                                    &ev);
+        check_ev (&ev, "register:button_press");
         fprintf (stderr, "AT callback registered.\n");
 
 
@@ -90,13 +109,17 @@ main(int argc, char **argv)
                 desktop = Accessibility_Registry_getDesktop (registry, i, &ev);
                 fprintf (stderr, "desktop %d name: %s\n", i,
                          Accessibility_Desktop__get_name (desktop, &ev));
+                check_ev (&ev, "desktop:name");
                 n_apps = Accessibility_Desktop__get_childCount (desktop, &ev);
+                check_ev (&ev, "desktop:childCount");
                 fprintf (stderr, "desktop has %d apps:\n", n_apps);
                 for (j=0; j<n_apps; ++j)
                   {
                     app = (Accessibility_Application) Accessibility_Desktop_getChildAtIndex (desktop, j, &ev);
+                    check_ev (&ev, "desktop:getChildAtIndex");
                     fprintf (stderr, "app %d name: %s\n", j,
                              Accessibility_Application__get_name (app, &ev));
+                    check_ev (&ev, "app:getName");
                   }
               }
 
