@@ -1,4 +1,18 @@
+2001-06-07  Havoc Pennington  <hp@redhat.com>
+
+	* atk/Makefile.am: use @GLIB_GENMARSHAL@ so we can use uninstalled
+	glib-genmarshal
+
+	* configure.in: rearrange the library checks to support
+	uninstalled linking	
+
+	* autogen.sh: add support for AUTOGEN_SUBDIR_MODE
+
+	* atk-uninstalled.pc.in: new file, allows linking to uninstalled
+	ATK in giant GTK tarball
+
 2001-06-07  Brian Cameron <brian.cameron@sun.com>
+
 	* docs/atk-api.sgml docs/atk-sections.txt
 	docs/tmpl/atk-unused.sgml docs/tmpl/atkeditabletext.sgml
 	docs/tmpl/atktext.sgml
@@ -8,6 +22,7 @@
 	interfaces
 
 2001-06-06  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atktext.h atk/atktext.h
 	Updated to new atktext functions for getting attributes.
 

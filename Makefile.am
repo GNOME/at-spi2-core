@@ -2,7 +2,8 @@
 
 SUBDIRS=atk tests docs
 
-EXTRA_DIST = 		\
+EXTRA_DIST = 			\
+	atk-uninstalled.pc.in	\
 	atk.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
