@@ -591,6 +591,8 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   GObject *gobject;
   GSignalQuery signal_query;
   const gchar *name;
+  const gchar *detail;
+  
   gint detail1 = 0, detail2 = 0;
 #ifdef SPI_BRIDGE_DEBUG
   const gchar *s, *s2;
@@ -599,12 +601,17 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   g_signal_query (signal_hint->signal_id, &signal_query);
 
   name = signal_query.signal_name;
+  if (signal_hint->detail)
+    detail = g_quark_to_string (signal_hint->detail);
+  else
+    detail = NULL;
 
 #ifdef SPI_BRIDGE_DEBUG
   s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
-  fprintf (stderr, "Received signal %s:%s from object %s (gail %s)\n",
-	   g_type_name (signal_query.itype), name, s ? s : "<NULL>" , s2);
+  fprintf (stderr, "Received signal %s:%s detail: %s from object %s (gail %s)\n",
+	   g_type_name (signal_query.itype), name, 
+                        detail ? detail : "<NULL>", s ? s : "<NULL>" , s2);
 #endif
 
   gobject = g_value_get_object (param_values + 0);
@@ -613,12 +620,13 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
     detail2 = g_value_get_int (param_values + 2);
   
-  spi_atk_emit_eventv (gobject, detail1, detail2, "object:%s", name);
+  if (detail)
+    spi_atk_emit_eventv (gobject, detail1, detail2, "object:%s:%s", name, detail);
+  else
+    spi_atk_emit_eventv (gobject, detail1, detail2, "object:%s", name);
 
   return TRUE;
 }
-
-
 
 static gboolean
 spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,

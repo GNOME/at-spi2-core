@@ -1,3 +1,9 @@
+2002-08-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c (spi_atk_bridge_signal_listener):
+	If signal has detail add it to the type of the event.
+	(bug #90838)
+	
 2002-08-12  Michael Meeks  <michael@ximian.com>
 
 	* test/test-simple.c (global_listener_cb): bin bogosity.
