@@ -241,7 +241,7 @@ atk_remove_global_event_listener (guint listener_id)
  * Returns: added event listener id, or 0 on failure.
  **/
 guint
-atk_add_key_event_listener (AtkKeySnoopFunc *listener, gpointer data)
+atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data)
 {
   guint retval;
   AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);

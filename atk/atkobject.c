@@ -48,7 +48,8 @@ enum {
   FOCUS_EVENT,
   PROPERTY_CHANGE,
   VISIBLE_DATA_CHANGED,
-
+  STATE_CHANGE,
+  
   LAST_SIGNAL
 };
 
@@ -295,6 +296,18 @@ atk_object_class_init (AtkObjectClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
                   G_STRUCT_OFFSET (AtkObjectClass, property_change),
+                  (GSignalAccumulator) NULL, NULL,
+                  g_cclosure_marshal_VOID__POINTER,
+                  G_TYPE_NONE, 1,
+                  G_TYPE_POINTER);
+  /*
+   * The "state_change" signal supports details, one for each accessible state type
+   * (see atkstate.c).
+   */
+    g_signal_new ("state_change",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+                  G_STRUCT_OFFSET (AtkObjectClass, state_change),
                   (GSignalAccumulator) NULL, NULL,
                   g_cclosure_marshal_VOID__POINTER,
                   G_TYPE_NONE, 1,

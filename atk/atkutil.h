@@ -71,7 +71,7 @@ struct _AtkUtilClass
    guint        (* add_global_event_listener)    (GSignalEmissionHook listener,
                                                  gchar*               event_type);
    void         (* remove_global_event_listener) (guint               listener_id);
-   guint	(* add_key_event_listener) 	 (AtkKeySnoopFunc    *listener,
+   guint	(* add_key_event_listener) 	 (AtkKeySnoopFunc     listener,
 						  gpointer data);
    void         (* remove_key_event_listener)    (guint               listener_id);
    AtkObject*   (* get_root)                     (void);
@@ -136,7 +136,7 @@ void	atk_remove_global_event_listener (guint listener_id);
  * Adds the specified function to the list of functions to be called
  * when an keyboard event occurs.
  */
-guint	atk_add_key_event_listener (AtkKeySnoopFunc *listener, gpointer data);
+guint	atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data);
 
 /*
  * Removes the specified event listener

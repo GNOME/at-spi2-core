@@ -1,3 +1,13 @@
+2001-11-19  Bill Haneman <bill.haneman@sun.com>
+	* atk/atkobject.c:
+	* atk/atkstate.c:
+	Added state-changed signal to atkobject, in anticipation of 
+	deprecating the accessible-state property.
+
+	* atk/atkutil.[ch]:
+	Fixed signature of atk_util_add_key_listener () to
+	take an AtkKeySnoopFunc instead of a pointer to same.
+
 2001-11-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c (atk_object_notify_state_change):
