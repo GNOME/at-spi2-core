@@ -4,3 +4,5 @@ Makefile.in
 *.la
 .deps
 .libs
+*atkmarshal.c
+*atkmarshal.h

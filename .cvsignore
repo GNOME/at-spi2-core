@@ -12,3 +12,5 @@ atk.pc
 missing
 install-sh
 mkinstalldirs
+atk-uninstalled.pc
+

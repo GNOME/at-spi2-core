@@ -1,0 +1,15 @@
+Makefile.in
+Makefile
+html
+sgml
+atk.args
+atk.hierarchy
+atk.signals
+atk-decl.txt
+atk-decl-list.txt
+atk-unused.txt
+atk-undocumented.txt
+*.stamp
+
+
+
