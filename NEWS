@@ -1,3 +1,8 @@
+Changes in version 1.0.3
+
+* Documentation improvements [Padraig O'Briain]
+* 64-bit bug fixes [George Lebl]
+
 Changes in version 1.0.2
 
 * Fixed bug with focus notification [Padraig O'Briain]

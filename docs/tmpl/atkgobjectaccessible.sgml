@@ -5,7 +5,6 @@ AtkGObjectAccessible
 This object class is derived from AtkObject and can be used as a basis 
 implementing accessible objects.
 
-
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 This object class is derived from AtkObject. It can be used as a basis for

@@ -1,3 +1,12 @@
+Wed Jul 31 17:08:04 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* ===== Released 1.0.3 =====
+	
+	* configure.in (GLIB_REQUIRED_VERSION): Version 1.0.3,
+	interface, binary version 3.
+
+	* NEWS: Updated.
+
 2002-07-14  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* README: Updated to describe where to log bugs and mention mailing
