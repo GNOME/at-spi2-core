@@ -91,9 +91,17 @@ spi_hyperlink_new (AtkHyperlink *object)
 
   spi_base_construct (SPI_BASE (new_hyperlink), G_OBJECT(object));
 
+  /* 
+   * some hyperlinks are actionable... this is an ATK convention 
+   * that seems convenient though possibly poorly documented or unintended.
+   */
+  if (ATK_IS_ACTION (object))
+    {
+      bonobo_object_add_interface (bonobo_object (new_hyperlink),
+				   BONOBO_OBJECT (spi_action_interface_new (object)));
+    }
   return new_hyperlink;
 }
-
 
 static AtkHyperlink *
 get_hyperlink_from_servant (PortableServer_Servant servant)
