@@ -1,5 +1,6 @@
 2001-07-31  Bill Haneman <bill.haneman@sun.com>
 
+        * libspi/accessible.c : added support for 'description' property.
 	* libspi/accessible.c
 	* libspi/desktop.c
 	* libspi/registry.c : changed to use bonobo_object instead of bonobo_x_object
