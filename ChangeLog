@@ -1,3 +1,9 @@
+2002-10-15  Bill Haneman  <bill.haneman@sun.com>
+
+	* libspi/keymasks.h:
+	Added key mask #defines for mouse buttons; e.g.
+	SPI_KEYMASK_BUTTON1, etc.
+
 2002-10-11  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* libspi/hyperlink.[ch]

@@ -35,6 +35,11 @@ typedef unsigned long SpiKeyMaskType;
 #define SPI_KEYMASK_MOD1      Mod1Mask
 #define SPI_KEYMASK_MOD2      Mod2Mask
 #define SPI_KEYMASK_MOD3      Mod3Mask
+#define SPI_KEYMASK_BUTTON1   Button1Mask
+#define SPI_KEYMASK_BUTTON2   Button2Mask
+#define SPI_KEYMASK_BUTTON3   Button3Mask
+#define SPI_KEYMASK_BUTTON4   Button4Mask
+#define SPI_KEYMASK_BUTTON5   Button5Mask
 #define SPI_KEYMASK_CONTROL   ControlMask
 #define SPI_KEYMASK_SHIFT     ShiftMask
 #define SPI_KEYMASK_SHIFTLOCK LockMask
