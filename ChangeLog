@@ -1,3 +1,13 @@
+2002-08-12  Darren Kenny  <darren.kenny@sun.com>
+
+	* cspi/bonobo/cspi-bonobo-listener.c: 
+	(cspi_event):
+	Don't call cspi_oject_new() because this is creating a new Accessible
+	every single time that an event is fired. This causes ATs like at-poke
+	to nolonger recognise the source of the event and thus ignore it.
+	Re-use the object from the cache, ref it and then unref it after the
+	listeners have been called.
+
 2002-08-06  Darren Kenny  <darren.kenny@sun.com>
 
 	* test/event-listener-test.c: 

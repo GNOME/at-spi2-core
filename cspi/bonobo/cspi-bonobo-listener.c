@@ -91,7 +91,7 @@ cspi_event (SpiEventListener    *listener,
   GList *l;
   CSpiEventListener *clistener = (CSpiEventListener *) listener;
   AccessibleEvent    aevent;
-  Accessible        *source = cspi_object_new (event->source);
+  Accessible        *source = cspi_object_add (cspi_dup_ref(event->source));
   
   aevent.type    = event->type;
   aevent.source  = source;
@@ -105,6 +105,8 @@ cspi_event (SpiEventListener    *listener,
 
       eh->cb.event (&aevent, eh->user_data);
     }
+
+  cspi_object_unref( source );
 }
 
 static void
