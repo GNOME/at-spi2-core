@@ -1,3 +1,9 @@
+Sat Jun  9 15:17:00 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* configure.in (DEP_CFLAGS): Only include gthread-2.0 in
+	CFLAGS, not in LIBS. (Always linking with -lpthread
+	is a noticeable speed hit.)
+
 Thu Jun  7 17:03:37 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* atk/Makefile.am: Really fix marshal generation.

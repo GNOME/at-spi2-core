@@ -24,7 +24,7 @@ if test "x$GCC" = "xyes"; then
 fi
 changequote([,])dnl
 
-GLIB_PACKAGES="gobject-2.0 gmodule-2.0 gthread-2.0"
+GLIB_PACKAGES="gobject-2.0 gmodule-2.0"
 AC_SUBST(GLIB_PACKAGES)
 GLIB_REQUIRED_VERSION=1.3.2
 
@@ -40,6 +40,9 @@ PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES $PANGO_
         *** GLib or Pango not found. You can find these on ftp://ftp.gtk.org
         *** Errors follow:
             $DEP_PKG_ERRORS]))
+
+# Rerun PKG_CONFIG to add gthread-2.0 cflags, but not libs
+DEP_CFLAGS=`$PKG_CONFIG --cflags $GLIB_PACKAGES $PANGO_PACKAGES gthread-2.0`
 
 if $PKG_CONFIG --uninstalled $GLIB_PACKAGES $PANGO_PACKAGES; then
         :
