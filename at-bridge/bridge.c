@@ -352,10 +352,12 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
   if (event->string)
     {
       keystroke->event_string = CORBA_string_dup (event->string);
+      keystroke->is_text = CORBA_TRUE;
     }
   else
     {
       keystroke->event_string = CORBA_string_dup ("");
+      keystroke->is_text = CORBA_FALSE;
     }
   switch (event->type)
     {

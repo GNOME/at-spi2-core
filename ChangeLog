@@ -1,5 +1,19 @@
 2001-12-17  Bill Haneman <bill.haneman@sun.com>
 
+	* idl/Accessibility_Registry.idl:
+	Added boolean member 'is_text' to DeviceEvent.  This is for the
+	use of key events, and helps prevent ambiguity between composed
+	key strings and keysym names, since both may potentially be
+	returned in the 'event_string' member.
+
+	* at-bridge/bridge.c:
+	* registryd/deviceeventcontroller.c:
+	Use the 'is_text' member when notifying device event listeners.
+	Knon issue: composed characters are not dealt with correctly by
+	the global key listener implementation yet.
+	
+2001-12-17  Bill Haneman <bill.haneman@sun.com>
+
 	* at-bridge/bridge.c:
 	Namespaced local static methods to spi_atk_bridge_* where
 	previously named bridge_*, and spi_* elsewhere.

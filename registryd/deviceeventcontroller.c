@@ -453,7 +453,7 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
       key_event.type = Accessibility_KEY_RELEASED;
     } 
   key_event.modifiers = (CORBA_unsigned_short)(x_key_event->state);
-
+  key_event.is_text = CORBA_FALSE;
   switch (keysym)
     {
       case ' ':
@@ -472,6 +472,10 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
         if (XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL) > 0)
           {
             key_event.event_string = CORBA_string_dup (cbuf);
+	    if (isgraph (keysym))
+	      {
+	        key_event.is_text = CORBA_TRUE; /* FIXME: incorrect for some composed chars? */
+	      }
           }
         else
           {

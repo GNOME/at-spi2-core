@@ -30,6 +30,7 @@ typedef struct {
   long                   timestamp;
   AccessibleKeyEventType type;
   unsigned short         modifiers;
+  SPIBoolean             is_text;	
 } AccessibleKeystroke;
 
 /*

@@ -183,6 +183,7 @@ module Accessibility {
     unsigned short modifiers;
     unsigned long timestamp;
     string event_string;
+    boolean is_text;
   };
 
   typedef sequence< long > KeySet;
