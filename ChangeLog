@@ -1,3 +1,8 @@
+<2001-09-05  Marc Mulcahy <marc.mulcahy@sun.com>
+		implementations-- made server implementations own AtkObject pointers
+	rather than their respective AtkInterrface pointers to fix
+	refcounting.  AtkHyperlink is still broken.
+	
 2001-09-04  Bill Haneman <bill.haneman@sun.com>
 
 	* at-bridge/bridge.c:

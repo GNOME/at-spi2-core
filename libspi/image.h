@@ -40,7 +40,7 @@ typedef struct _ImageClass ImageClass;
 
 struct _Image {
   BonoboObject parent;
-  AtkImage *atk_image;
+  AtkObject *atko;
 };
 
 struct _ImageClass {
@@ -52,7 +52,7 @@ GType
 image_get_type   (void);
 
 Image *
-image_new       (AtkImage *image);
+image_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

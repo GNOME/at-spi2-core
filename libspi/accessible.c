@@ -38,6 +38,15 @@
  * This pulls the definition for the BonoboObject (Gtk Type)
  */
 #include "accessible.h"
+#include "component.h"
+#include "editabletext.h"
+#include "hyperlink.h"
+#include "hypertext.h"
+#include "image.h"
+#include "selection.h"
+#include "table.h"
+#include "text.h"
+#include "value.h"
 
 /*
  * Our parent Gtk object type
@@ -74,7 +83,7 @@ impl_accessibility_accessible_get_name (PortableServer_Servant servant,
 {
   CORBA_char * retval;
   Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
-  retval = atk_object_get_name (accessible->atko);
+  retval = (CORBA_char *) atk_object_get_name (accessible->atko);
   if (retval )
     retval = CORBA_string_dup (retval);
   else
@@ -265,64 +274,63 @@ accessible_new (AtkObject *o)
     if (ATK_IS_ACTION (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (action_new (ATK_ACTION(o))));
+                                     BONOBO_OBJECT (action_interface_new (o)));
       }
 
     if (ATK_IS_COMPONENT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (component_interface_new (o)));
+                                     BONOBO_OBJECT (component_interface_new (o)));
       }
 
     if (ATK_IS_EDITABLE_TEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (editable_text_new (ATK_EDITABLE_TEXT(o))));
+                                     BONOBO_OBJECT(editable_text_interface_new (o)));
       }
 
     else if (ATK_IS_HYPERTEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (hypertext_new (o)));
+                                     BONOBO_OBJECT (hypertext_interface_new (o)));
       }
 
     else if (ATK_IS_TEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (text_new (o)));
+                                     BONOBO_OBJECT (text_interface_new (o)));
       }
 
     if (ATK_IS_HYPERLINK (o))
       {
 	bonobo_object_add_interface (bonobo_object (retval),
-				     bonobo_object (hyperlink_new(ATK_HYPERLINK(o))));
+				     BONOBO_OBJECT (hyperlink_interface_new(o)));
       }
 
     if (ATK_IS_IMAGE (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (image_new (o)));
+                                     BONOBO_OBJECT (image_interface_new (o)));
       }
 
     if (ATK_IS_SELECTION (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (selection_new (o)));
+                                     BONOBO_OBJECT (selection_interface_new (o)));
       }
 
     if (ATK_IS_TABLE (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (table_new (o)));
+                                     BONOBO_OBJECT (table_interface_new (o)));
       }
 
-    /* if (ATK_IS_VALUE (o))
+    if (ATK_IS_VALUE (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (value_interface_new (o)));
+                                     BONOBO_OBJECT (value_interface_new (o)));
       }
 
-    */
 
     return retval;
 }

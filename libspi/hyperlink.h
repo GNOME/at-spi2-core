@@ -40,7 +40,7 @@ typedef struct _HyperlinkClass HyperlinkClass;
 
 struct _Hyperlink {
   BonoboObject parent;
-  AtkHyperlink *atk_hyperlink;
+  AtkObject *atko;
 };
 
 struct _HyperlinkClass {
@@ -52,7 +52,7 @@ GType
 hyperlink_get_type   (void);
 
 Hyperlink *
-hyperlink_new       (AtkHyperlink *hyperlink);
+hyperlink_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

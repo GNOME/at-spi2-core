@@ -128,7 +128,7 @@ impl_setSelection (PortableServer_Servant _servant,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev);
-static void
+static CORBA_boolean
 impl_setCaretOffset (PortableServer_Servant _servant,
 		     const CORBA_long value,
 		     CORBA_Environment * ev);
@@ -212,16 +212,18 @@ static void
 text_finalize (GObject *obj)
 {
   Text *text = TEXT (obj);
-  text->atk_text = NULL;
+  g_object_unref (text->atko);
+  text->atko = NULL;
   parent_class->finalize (obj);
 }
 
 Text *
-text_new (AtkText *text)
+text_interface_new (AtkObject *obj)
 {
   Text *new_text = 
     TEXT(g_object_new (TEXT_TYPE, NULL));
-  new_text->atk_text = text;
+  new_text->atko = obj;
+  g_object_ref (obj);
   return new_text;
 }
 
@@ -237,7 +239,7 @@ impl_getText (PortableServer_Servant _servant,
   gchar *txt;
   CORBA_char *rv;
 
-  txt = atk_text_get_text (text->atk_text,
+  txt = atk_text_get_text (ATK_TEXT(text->atko),
 		       (gint) startOffset, (gint) endOffset);
   rv = CORBA_string_dup (txt);
   g_free (txt);
@@ -259,7 +261,7 @@ impl_getTextAfterOffset (PortableServer_Servant _servant,
   gchar *txt;
   CORBA_char *rv;
 
-  txt = atk_text_get_text_after_offset (text->atk_text,
+  txt = atk_text_get_text_after_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    (gint *) startOffset, (gint *) endOffset);
   rv = CORBA_string_dup (txt);
@@ -281,7 +283,7 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
   gchar *txt;
   CORBA_char *rv;
 
-  txt = atk_text_get_text_at_offset (text->atk_text,
+  txt = atk_text_get_text_at_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    (gint *) startOffset, (gint *) endOffset);
   rv = CORBA_string_dup (txt);
@@ -298,7 +300,7 @@ impl_getCharacterAtOffset (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_wchar)
-    atk_text_get_character_at_offset (text->atk_text, (gint) offset);
+    atk_text_get_character_at_offset (ATK_TEXT(text->atko), (gint) offset);
 }
 
 
@@ -315,7 +317,7 @@ impl_getTextBeforeOffset (PortableServer_Servant _servant,
   gchar *txt;
   CORBA_char *rv;
 
-  txt = atk_text_get_text_before_offset (text->atk_text,
+  txt = atk_text_get_text_before_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    (gint *) startOffset, (gint *) endOffset);
   rv = CORBA_string_dup (txt);
@@ -329,7 +331,7 @@ impl__get_caretOffset (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_text_get_caret_offset (text->atk_text);
+    atk_text_get_caret_offset (ATK_TEXT(text->atko));
 }
 
 
@@ -356,7 +358,7 @@ impl_getCharacterExtents (PortableServer_Servant _servant,
 			  CORBA_Environment * ev)
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
-  atk_text_get_character_extents (text->atk_text, (gint) offset,
+  atk_text_get_character_extents (ATK_TEXT(text->atko), (gint) offset,
 				  (gint *) x, (gint *) y, (gint *) width, (gint *) height,
 				  (AtkCoordType) coordType);
 }
@@ -369,7 +371,7 @@ impl__get_characterCount (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_text_get_character_count (text->atk_text);
+    atk_text_get_character_count (ATK_TEXT(text->atko));
 }
 
 
@@ -382,7 +384,7 @@ impl_getOffsetAtPoint (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_text_get_offset_at_point (text->atk_text,
+    atk_text_get_offset_at_point (ATK_TEXT(text->atko),
 				  (gint) x, (gint) y, (AtkCoordType) coordType);
 }
 
@@ -394,7 +396,7 @@ impl_getNSelections (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_text_get_n_selections (text->atk_text);
+    atk_text_get_n_selections (ATK_TEXT(text->atko));
 }
 
 
@@ -406,7 +408,7 @@ impl_getSelection (PortableServer_Servant _servant,
 		   CORBA_Environment * ev)
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
-  atk_text_get_selection (text->atk_text, (gint) selectionNum,
+  atk_text_get_selection (ATK_TEXT(text->atko), (gint) selectionNum,
 			  (gint *) startOffset, (gint *) endOffset);
 }
 
@@ -420,7 +422,7 @@ impl_addSelection (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_text_add_selection (text->atk_text,
+    atk_text_add_selection (ATK_TEXT(text->atko),
 			    (gint) startOffset, (gint) endOffset);
 }
 
@@ -433,7 +435,7 @@ impl_removeSelection (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_text_remove_selection (text->atk_text, (gint) selectionNum);
+    atk_text_remove_selection (ATK_TEXT(text->atko), (gint) selectionNum);
 }
 
 
@@ -447,20 +449,20 @@ impl_setSelection (PortableServer_Servant _servant,
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_text_set_selection (text->atk_text,
+    atk_text_set_selection (ATK_TEXT(text->atko),
 			    (gint) selectionNum, (gint) startOffset, (gint) endOffset);
 }
 
 
 
-static void
+static CORBA_boolean
 impl_setCaretOffset (PortableServer_Servant _servant,
 		     const CORBA_long value,
 		     CORBA_Environment * ev)
 {
   Text *text = TEXT (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_text_set_caret_offset (text->atk_text, (gint) value);
+    atk_text_set_caret_offset (ATK_TEXT(text->atko), (gint) value);
 }
 
 

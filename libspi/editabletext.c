@@ -149,17 +149,19 @@ static void
 editable_text_finalize (GObject *obj)
 {
   EditableText *editable = EDITABLE_TEXT(obj);
-  editable->atk_editable_text = NULL;
+  g_object_unref (editable->atko);
+  editable->atko = NULL;
   parent_class->finalize (obj);
 }
 
 EditableText *
-editable_text_new (AtkEditableText *editable)
+editable_text_interface_new (AtkObject *obj)
 {
   EditableText *new_editable =
     EDITABLE_TEXT(g_object_new (EDITABLE_TEXT_TYPE, NULL));
-  new_editable->atk_editable_text = editable;
-  return new_editable;
+  new_editable->atko = obj;
+  g_object_ref (obj);
+return new_editable;
 }
 
 
@@ -182,7 +184,7 @@ impl_setTextContents (PortableServer_Servant _servant,
 		      CORBA_Environment * ev)
 {
   EditableText *editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  atk_editable_text_set_text_contents (editable->atk_editable_text,
+  atk_editable_text_set_text_contents (ATK_EDITABLE_TEXT(editable->atko),
 				       (gchar *) newContents);
 }
 
@@ -196,7 +198,7 @@ impl_insertText (PortableServer_Servant _servant,
 		 CORBA_Environment * ev)
 {
   EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
-  atk_editable_text_insert_text (editable->atk_editable_text,
+  atk_editable_text_insert_text (ATK_EDITABLE_TEXT(editable->atko),
 				 (gchar *) text,
 				 (gint) length,
 				 (gint *) &position);
@@ -209,7 +211,7 @@ impl_copyText (PortableServer_Servant _servant,
 	       CORBA_Environment * ev)
 {
   EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
-  atk_editable_text_copy_text (editable->atk_editable_text,
+  atk_editable_text_copy_text (ATK_EDITABLE_TEXT(editable->atko),
 			       (gint) startPos, (gint) endPos);
 }
 
@@ -221,7 +223,7 @@ impl_cutText (PortableServer_Servant _servant,
 	      CORBA_Environment * ev)
 {
   EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
-  atk_editable_text_cut_text (editable->atk_editable_text,
+  atk_editable_text_cut_text (ATK_EDITABLE_TEXT(editable->atko),
 				 (gint) startPos, (gint) endPos);
 }
 
@@ -234,7 +236,7 @@ impl_deleteText (PortableServer_Servant _servant,
 		 CORBA_Environment * ev)
 {
   EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
-  atk_editable_text_delete_text (editable->atk_editable_text,
+  atk_editable_text_delete_text (ATK_EDITABLE_TEXT(editable->atko),
 				 (gint) startPos, (gint) endPos);
 }
 
@@ -244,6 +246,6 @@ impl_pasteText (PortableServer_Servant _servant,
 		const CORBA_long position, CORBA_Environment * ev)
 {
   EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
-  atk_editable_text_paste_text (editable->atk_editable_text, position);
+  atk_editable_text_paste_text (ATK_EDITABLE_TEXT(editable->atko), position);
 }
 

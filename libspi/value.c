@@ -131,16 +131,18 @@ static void
 value_finalize (GObject *obj)
 {
   Value *value = VALUE (obj);
-  value->atk_value = NULL;
+  g_object_unref (value->atko);
+  value->atko = NULL;
   parent_class->finalize (obj);
 }
 
 Value *
-value_new (AtkValue *value)
+value_interface_new (AtkObject *obj)
 {
   Value *new_value = 
     VALUE(g_object_new (VALUE_TYPE, NULL));
-  new_value->atk_value = value;
+  new_value->atko = obj;
+  g_object_ref (obj);
   return new_value;
 }
 
@@ -154,7 +156,7 @@ impl__get_minimumValue (PortableServer_Servant _servant,
   GValue gvalue = {0, };
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
-  atk_value_get_minimum_value (value->atk_value, &gvalue);
+  atk_value_get_minimum_value (ATK_VALUE(value->atko), &gvalue);
   return (CORBA_float) g_value_get_float (&gvalue);
 }
 
@@ -168,7 +170,7 @@ impl__get_maximumValue (PortableServer_Servant _servant,
   GValue gvalue = {0, };
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
-  atk_value_get_maximum_value (value->atk_value, &gvalue);
+  atk_value_get_maximum_value (ATK_VALUE(value->atko), &gvalue);
   return (CORBA_float) g_value_get_float (&gvalue);
 }
 
@@ -182,7 +184,7 @@ impl__get_currentValue (PortableServer_Servant _servant,
   GValue gvalue = {0, };
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
-  atk_value_get_current_value (value->atk_value, &gvalue);
+  atk_value_get_current_value (ATK_VALUE(value->atko), &gvalue);
   return (CORBA_float) g_value_get_float (&gvalue);
 }
 
@@ -197,7 +199,7 @@ impl__set_currentValue (PortableServer_Servant _servant,
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
   g_value_set_float (&gvalue, (gfloat) value);
-  atk_value_set_current_value (val->atk_value, &gvalue);
+  atk_value_set_current_value (ATK_VALUE(val->atko), &gvalue);
 }
 
 

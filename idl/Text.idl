@@ -50,7 +50,7 @@ module Accessibility {
     /* void getRowColAtOffset (in long offset, out long row, out long column); */
     string getAttributes (in long offset,
 			  out long startOffset, out long endOffset);
-    boolean getCharacterExtents (in long offset, out long x, out long y, out long length, out long width, in short coordType);
+    void getCharacterExtents (in long offset, out long x, out long y, out long length, out long width, in short coordType);
     long getOffsetAtPoint (in long x, in long y, in short coordType);
     long getNSelections ();
     void getSelection (in long selectionNum, out long startOffset, out long endOffset);

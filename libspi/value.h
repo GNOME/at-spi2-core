@@ -40,7 +40,7 @@ typedef struct _ValueClass ValueClass;
 
 struct _Value {
   BonoboObject parent;
-  AtkValue *atk_value;
+  AtkObject *atko;
 };
 
 struct _ValueClass {
@@ -52,7 +52,7 @@ GType
 value_get_type   (void);
 
 Value *
-value_new       (AtkValue *value);
+value_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

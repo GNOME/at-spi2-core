@@ -208,16 +208,18 @@ static void
 table_finalize (GObject *obj)
 {
   Table *table = TABLE (obj);
-  table->atk_table = NULL;
+  g_object_unref (table->atko);
+  table->atko = NULL;  
   parent_class->finalize (obj);
 }
 
 Table *
-table_new (AtkTable *table)
+table_interface_new (AtkObject *obj)
 {
   Table *new_table =
     TABLE(g_object_new (TABLE_TYPE, NULL));
-  new_table->atk_table = table;
+  new_table->atko = obj;
+  g_object_ref (obj);
   return new_table;
 }
 
@@ -232,7 +234,7 @@ impl__get_caption (PortableServer_Servant _servant,
   Accessibility_Accessible rv;
 
   atk_object = g_object_new (ATK_TYPE_OBJECT, NULL);
-  atk_object_set_name (atk_object, atk_table_get_caption (table->atk_table));
+  atk_object_set_name (atk_object, atk_table_get_caption (ATK_TABLE(table-> atko)));
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
   return rv;
 }
@@ -247,7 +249,7 @@ impl__get_summary (PortableServer_Servant _servant,
   AtkObject *atk_object;
   Accessibility_Accessible rv;
 
-  atk_object = atk_table_get_summary (table->atk_table);
+  atk_object = atk_table_get_summary (ATK_TABLE(table->atko));
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
   return rv;
 }
@@ -260,7 +262,7 @@ impl__get_nRows (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_n_rows (table->atk_table);
+    atk_table_get_n_rows (ATK_TABLE(table->atko) );
 }
 
 
@@ -271,7 +273,7 @@ impl__get_nColumns (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_n_columns (table->atk_table);
+    atk_table_get_n_columns (ATK_TABLE(table->atko));
 }
 
 
@@ -286,7 +288,7 @@ impl_getAccessibleAt (PortableServer_Servant _servant,
   AtkObject *atk_object;
   Accessibility_Accessible rv;
 
-  atk_object = atk_table_ref_at (table->atk_table,
+  atk_object = atk_table_ref_at (ATK_TABLE(table->atko),
 					     (gint) row, (gint) column);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
   return rv;
@@ -301,7 +303,7 @@ impl_getIndexAt (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_index_at (table->atk_table,
+    atk_table_get_index_at (ATK_TABLE(table->atko),
 			    (gint) row, (gint) column);
 }
 
@@ -314,7 +316,7 @@ impl_getRowAtIndex (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_row_at_index (table->atk_table, (gint) index);
+    atk_table_get_row_at_index (ATK_TABLE(table->atko), (gint) index);
 }
 
 
@@ -326,7 +328,7 @@ impl_getColumnAtIndex (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_column_at_index (table->atk_table, (gint) index);
+    atk_table_get_column_at_index (ATK_TABLE(table->atko), (gint) index);
 }
 
 
@@ -338,7 +340,7 @@ impl_getRowDescription (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return CORBA_string_dup (
-			   atk_table_get_row_description (table->atk_table, (gint) row));
+			   atk_table_get_row_description (ATK_TABLE(table->atko), (gint) row));
 }
 
 
@@ -350,7 +352,7 @@ impl_getColumnDescription (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return CORBA_string_dup (
-			   atk_table_get_column_description (table->atk_table, (gint) column));
+			   atk_table_get_column_description (ATK_TABLE(table->atko), (gint) column));
 }
 
 
@@ -363,7 +365,7 @@ impl_getRowExtentAt (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_row_extent_at (table->atk_table,
+    atk_table_get_row_extent_at (ATK_TABLE(table->atko),
 				 (gint) row, (gint) column);
 }
 
@@ -377,7 +379,7 @@ impl_getColumnExtentAt (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_table_get_column_extent_at (table->atk_table,
+    atk_table_get_column_extent_at (ATK_TABLE(table->atko),
 				 (gint) row, (gint) column);
 }
 
@@ -392,7 +394,7 @@ impl_getRowHeader (PortableServer_Servant _servant,
   AtkObject *header;
   Accessibility_Table rv;
 
-  header = atk_table_get_row_header (table->atk_table, (gint) row);
+  header = atk_table_get_row_header (ATK_TABLE(table->atko), (gint) row);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(header)));
   return rv;
 }
@@ -408,7 +410,7 @@ impl_getColumnHeader (PortableServer_Servant _servant,
   AtkObject *header;
   Accessibility_Table rv;
 
-  header = atk_table_get_column_header (table->atk_table, (gint) column);
+  header = atk_table_get_column_header (ATK_TABLE(table->atko), (gint) column);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(header)));
   return rv;
 }
@@ -424,7 +426,7 @@ impl_getSelectedRows (PortableServer_Servant _servant,
   gint length;
   Accessibility_LongSeq *retval;
 
-  length = atk_table_get_selected_rows (table->atk_table, &selectedRows);
+  length = atk_table_get_selected_rows (ATK_TABLE(table->atko), &selectedRows);
 
   g_return_val_if_fail (length, NULL);
   retval = Accessibility_LongSeq__alloc ();
@@ -448,7 +450,7 @@ impl_getSelectedColumns (PortableServer_Servant _servant,
   gint length;
   Accessibility_LongSeq *retval;
 
-  length = atk_table_get_selected_columns (table->atk_table, &selectedColumns);
+  length = atk_table_get_selected_columns (ATK_TABLE(table->atko), &selectedColumns);
 
   g_return_val_if_fail (length, NULL);
 
@@ -471,7 +473,7 @@ impl_isRowSelected (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_table_is_row_selected (table->atk_table, (gint) row);
+    atk_table_is_row_selected (ATK_TABLE(table->atko), (gint) row);
 }
 
 
@@ -483,7 +485,7 @@ impl_isColumnSelected (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_table_is_column_selected (table->atk_table, (gint) column);
+    atk_table_is_column_selected (ATK_TABLE(table->atko), (gint) column);
 }
 
 
@@ -496,7 +498,7 @@ impl_isSelected (PortableServer_Servant _servant,
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_table_is_selected (table->atk_table,
+    atk_table_is_selected (ATK_TABLE(table->atko),
 			   (gint) row, (gint) column);
 }
 

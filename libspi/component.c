@@ -59,7 +59,8 @@ accessibility_component_object_finalize (GObject *object)
         Component *component = COMPONENT (object);
 
         printf("accessible_component_object_finalize called\n");
-        component->atko = NULL;
+        g_object_unref (component->atko);
+	component->atko = NULL;
 
         printf("atko freed, calling parent finalize\n");
         component_parent_class->finalize (object);
@@ -220,7 +221,7 @@ component_interface_new (AtkObject *o)
 {
     Component *retval =
                COMPONENT (g_object_new (accessibility_component_get_type (), NULL));
-    /* don't increment AtkObject refcount, ref is held by containing Accessible instance */
-    retval->atko = ATK_OBJECT (o);
-    return retval;
+    retval->atko = o;
+    g_object_ref (o);
+return retval;
 }

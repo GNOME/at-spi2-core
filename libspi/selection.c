@@ -144,16 +144,18 @@ static void
 selection_finalize (GObject *obj)
 {
   Selection *selection = SELECTION (obj);
-  selection->atk_selection = NULL;
+  g_object_unref (selection->atko);
+  selection->atko = NULL;
   parent_class->finalize (obj);
 }
 
 Selection *
-selection_new (AtkSelection *selection)
+selection_interface_new (AtkObject *obj)
 {
   Selection *new_selection = 
     SELECTION(g_object_new (SELECTION_TYPE, NULL));
-  new_selection->atk_selection = selection;
+  new_selection->atko = obj;
+  g_object_ref (obj);
   return new_selection;
 }
 
@@ -165,7 +167,7 @@ impl__get_nSelectedChildren (PortableServer_Servant _servant,
 {
   Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
   return (CORBA_long)
-    atk_selection_get_selection_count (selection->atk_selection);
+    atk_selection_get_selection_count (ATK_SELECTION(selection->atko));
 } 
 
 
@@ -180,7 +182,7 @@ impl_getSelectedChild (PortableServer_Servant _servant,
   AtkObject *atk_object;
   Accessibility_Accessible rv;
 
-  atk_object = atk_selection_ref_selection (selection->atk_selection, (gint) selectedChildIndex);
+  atk_object = atk_selection_ref_selection (ATK_SELECTION(selection->atko), (gint) selectedChildIndex);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
   return rv;
 }
@@ -194,7 +196,7 @@ impl_selectChild (PortableServer_Servant _servant,
 {
   Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_selection_add_selection (selection->atk_selection, (gint) childIndex);
+    atk_selection_add_selection (ATK_SELECTION(selection->atko), (gint) childIndex);
 }
 
 
@@ -207,7 +209,7 @@ impl_deselectSelectedChild (PortableServer_Servant _servant,
 {
   Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_selection_remove_selection (selection->atk_selection, (gint) selectedChildIndex);
+    atk_selection_remove_selection (ATK_SELECTION(selection->atko), (gint) selectedChildIndex);
 }
 
 
@@ -219,7 +221,7 @@ impl_isChildSelected (PortableServer_Servant _servant,
 {
   Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
   return (CORBA_boolean)
-    atk_selection_is_child_selected (selection->atk_selection, (gint) childIndex);
+    atk_selection_is_child_selected (ATK_SELECTION(selection->atko), (gint) childIndex);
 }
 
 
@@ -229,7 +231,7 @@ impl_selectAll (PortableServer_Servant _servant,
 		CORBA_Environment * ev)
 {
   Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
-  atk_selection_select_all_selection (selection->atk_selection);
+  atk_selection_select_all_selection (ATK_SELECTION(selection->atko));
 }
 
 
@@ -239,6 +241,6 @@ impl_clearSelection (PortableServer_Servant _servant,
 		     CORBA_Environment * ev)
 {
   Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
-  atk_selection_clear_selection (selection->atk_selection);
+  atk_selection_clear_selection (ATK_SELECTION(selection->atko));
 }
 

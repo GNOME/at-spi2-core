@@ -40,7 +40,7 @@ typedef struct _TableClass TableClass;
 
 struct _Table {
   BonoboObject parent;
-  AtkTable *atk_table;
+  AtkObject *atko;
 };
 
 struct _TableClass {
@@ -52,7 +52,7 @@ GType
 table_get_type   (void);
 
 Table *
-table_new       (AtkTable *table);
+table_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

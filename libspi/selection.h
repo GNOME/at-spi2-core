@@ -40,7 +40,7 @@ typedef struct _SelectionClass SelectionClass;
 
 struct _Selection {
   BonoboObject parent;
-  AtkSelection *atk_selection;
+  AtkObject *atko;
 };
 
 struct _SelectionClass {
@@ -52,7 +52,7 @@ GType
 selection_get_type   (void);
 
 Selection *
-selection_new       (AtkSelection *selection);
+selection_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

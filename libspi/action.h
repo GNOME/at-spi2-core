@@ -40,7 +40,7 @@ typedef struct _ActionClass ActionClass;
 
 struct _Action {
   BonoboObject parent;
-  AtkAction *atk_action;
+  AtkObject *atko;
 };
 
 struct _ActionClass {
@@ -52,7 +52,7 @@ GType
 action_get_type   (void);
 
 Action *
-action_new       (AtkAction *action);
+action_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

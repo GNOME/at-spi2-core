@@ -40,7 +40,7 @@ typedef struct _TextClass TextClass;
 
 struct _Text {
   BonoboObject parent;
-  AtkText *atk_text;
+  AtkObject *atko;
 };
 
 struct _TextClass {
@@ -52,7 +52,7 @@ GType
 text_get_type   (void);
 
 Text *
-text_new       (AtkText *text);
+text_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

@@ -144,16 +144,18 @@ static void
 hypertext_finalize (GObject *obj)
 {
   Hypertext *hypertext = HYPERTEXT(obj);
-  hypertext->atk_hypertext = NULL;
+  g_object_unref (hypertext->atko);
+  hypertext->atko = NULL;
   parent_class->finalize (obj);
 }
 
 Hypertext *
-hypertext_new (AtkHypertext *hypertext)
+hypertext_interface_new (AtkObject *obj)
 {
   Hypertext *new_hypertext = 
     HYPERTEXT(g_object_new (HYPERTEXT_TYPE, NULL));
-  new_hypertext->atk_hypertext = hypertext;
+  new_hypertext->atko = obj;
+  g_object_ref (obj);
   return new_hypertext;
 }
 
@@ -165,7 +167,7 @@ impl_getNLinks (PortableServer_Servant _servant,
 {
   Hypertext *hypertext = HYPERTEXT(bonobo_object_from_servant(_servant));
   return (CORBA_long)
-    atk_hypertext_get_n_links (hypertext->atk_hypertext);
+    atk_hypertext_get_n_links (ATK_HYPERTEXT(hypertext->atko));
 }
 
 
@@ -179,9 +181,9 @@ impl_getLink (PortableServer_Servant _servant,
   Hypertext *hypertext = HYPERTEXT(bonobo_object_from_servant(_servant));
   Accessibility_Hyperlink rv;
   
-  link = atk_hypertext_get_link (hypertext->atk_hypertext,
+  link = atk_hypertext_get_link (ATK_HYPERTEXT(hypertext->atko),
 				 (gint) linkIndex);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(hyperlink_new(link)));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(hyperlink_interface_new(ATK_OBJECT(link))));
   return rv;
 }
 
@@ -194,7 +196,7 @@ impl_getLinkIndex (PortableServer_Servant _servant,
 {
   Hypertext *hypertext = HYPERTEXT(bonobo_object_from_servant(_servant));
   return (CORBA_long)
-    atk_hypertext_get_link_index (hypertext->atk_hypertext,
+    atk_hypertext_get_link_index (ATK_HYPERTEXT(hypertext->atko),
 				  (gint) characterIndex);
 }
 

@@ -127,16 +127,18 @@ static void
 image_finalize (GObject *obj)
 {
   Image *image = IMAGE (obj);
-  image->atk_image = NULL;
+  g_object_unref (image->atko);
+  image->atko = NULL;
   parent_class->finalize (obj);
 }
 
 Image *
-image_new (AtkImage *image)
+image_interface_new (AtkObject *obj)
 {
   Image *new_image = 
     IMAGE(g_object_new (IMAGE_TYPE, NULL));
-  new_image->atk_image = image;
+  new_image->atko = obj;
+  g_object_ref (obj);
   return new_image;
 }
 
@@ -149,7 +151,7 @@ impl_getImagePosition (PortableServer_Servant _servant,
 		       CORBA_Environment * ev)
 {
   Image *image = IMAGE (bonobo_object_from_servant(_servant));
-  atk_image_get_image_position (image->atk_image,
+  atk_image_get_image_position (ATK_IMAGE(image->atko),
 				(gint *) x, (gint *) y,
 				(AtkCoordType) coordType);
 }
@@ -162,7 +164,7 @@ impl_getImageSize (PortableServer_Servant _servant,
 			    CORBA_Environment * ev)
 {
   Image *image = IMAGE (bonobo_object_from_servant(_servant));
-  atk_image_get_image_size (image->atk_image,
+  atk_image_get_image_size (ATK_IMAGE(image->atko),
 			    (gint *) width, (gint *) height);
 }
 
@@ -174,7 +176,7 @@ impl__get_imageDescription (PortableServer_Servant _servant,
 {
   Image *image = IMAGE (bonobo_object_from_servant(_servant));
   return CORBA_string_dup (
-			   atk_image_get_image_description (image->atk_image));
+			   atk_image_get_image_description (ATK_IMAGE(image->atko)));
 }
 
 

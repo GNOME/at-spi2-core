@@ -40,7 +40,7 @@ typedef struct _EditableTextClass EditableTextClass;
 
 struct _EditableText {
   BonoboObject parent;
-  AtkEditableText *atk_editable_text;
+  AtkObject *atko;
 };
 
 struct _EditableTextClass {
@@ -52,7 +52,7 @@ GType
 editable_text_get_type   (void);
 
 EditableText *
-editable_text_new       (AtkEditableText *editable);
+editable_text_interface_new       ( AtkObject *obj);
 
 #ifdef __cplusplus
 }

@@ -48,7 +48,6 @@ typedef struct {
 GType                  accessible_get_type   (void);
 Accessible             *accessible_new       (AtkObject *o);
 
-#include "component.h"
 
 #ifdef __cplusplus
 }

@@ -40,7 +40,7 @@ typedef struct _HypertextClass HypertextClass;
 
 struct _Hypertext {
   BonoboObject parent;
-  AtkHypertext *atk_hypertext;
+  AtkObject *atko;
 };
 
 struct _HypertextClass {
@@ -52,7 +52,7 @@ GType
 hypertext_get_type   (void);
 
 Hypertext *
-hypertext_new       (AtkHypertext *hypertext);
+hypertext_interface_new       (AtkObject *obj);
 
 #ifdef __cplusplus
 }

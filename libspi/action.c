@@ -134,16 +134,18 @@ static void
 action_finalize (GObject *obj)
 {
   Action *action = ACTION (obj);
-  action->atk_action = NULL;
+  g_object_unref (action->atko);
+  action->atko = NULL;
   parent_class->finalize (obj);
 }
 
 Action *
-action_new (AtkAction *action)
+action_interface_new (AtkObject *obj)
 {
   Action *new_action = 
     ACTION(g_object_new (ACTION_TYPE, NULL));
-  new_action->atk_action = action;
+  new_action->atko = obj;
+  g_object_ref (obj);
   return new_action;
 }
 
@@ -152,7 +154,7 @@ impl__get_nActions(PortableServer_Servant servant,
 	    CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return (CORBA_long) atk_action_get_n_actions (action->atk_action);
+  return (CORBA_long) atk_action_get_n_actions (ATK_ACTION(action->atko));
 }
 
 static CORBA_boolean
@@ -160,7 +162,7 @@ impl_doAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant (servant));
-  return (CORBA_boolean) atk_action_do_action (action->atk_action, (gint) index);
+  return (CORBA_boolean) atk_action_do_action (ATK_ACTION(action->atko), (gint) index);
 }
 
 
@@ -170,7 +172,7 @@ impl_getDescription (PortableServer_Servant servant,
 		CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return CORBA_string_dup (atk_action_get_description (action->atk_action, (gint) index));
+  return CORBA_string_dup (atk_action_get_description (ATK_ACTION(action->atko), (gint) index));
 }
 
 
@@ -180,7 +182,7 @@ impl_getName (PortableServer_Servant servant,
 		CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return CORBA_string_dup (atk_action_get_name (action->atk_action, (gint) index));
+  return CORBA_string_dup (atk_action_get_name (ATK_ACTION(action->atko), (gint) index));
 }
 
 static CORBA_string
@@ -189,5 +191,5 @@ impl_getKeyBinding (PortableServer_Servant servant,
 		    CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return CORBA_string_dup (atk_action_get_keybinding (action->atk_action, (gint) index));
+  return CORBA_string_dup (atk_action_get_keybinding (ATK_ACTION(action->atko), (gint) index));
 }
