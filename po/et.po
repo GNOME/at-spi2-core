@@ -2,18 +2,20 @@
 # Copyright (C) 1999-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
 # Priit Laes <amd@tt.ee>, 2003.
-# 
+# Ivar Smolin <okul@linux.ee>, 2005.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: atk Gnome 2.6\n"
-"POT-Creation-Date: 2004-02-01 19:14+0100\n"
-"PO-Revision-Date: 2004-03-06 10:13+0300\n"
-"Last-Translator: Priit Laes <amd@tt.ee>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-01-15 11:33+0100\n"
+"PO-Revision-Date: 2005-02-11 07:08+0200\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -21,31 +23,31 @@ msgstr "Valitud viit"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr ""
+msgstr "Määrab, milline AtkHyperlink on valitud"
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr ""
+msgstr "Ankrute arv"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr ""
+msgstr "AtkHyperlink objektiga seotud ankrute arv"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
-msgstr ""
+msgstr "Lõpuindeks"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr ""
+msgstr "AtkHyperlink objekti lõpuindeks"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr ""
+msgstr "Algusindeks"
 
 #: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr ""
+msgstr "AtkHyperlink objekti algusindeks"
 
 #: atk/atkobject.c:82
 msgid "invalid"
@@ -53,7 +55,7 @@ msgstr "vigane"
 
 #: atk/atkobject.c:83
 msgid "accelerator label"
-msgstr ""
+msgstr "kiirendi märk"
 
 #: atk/atkobject.c:84
 msgid "alert"
@@ -77,15 +79,15 @@ msgstr ""
 
 #: atk/atkobject.c:89
 msgid "check box"
-msgstr ""
+msgstr "märkeruut"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
-msgstr ""
+msgstr "märgitav menüükirje"
 
 #: atk/atkobject.c:91
 msgid "color chooser"
-msgstr ""
+msgstr "värvivalija"
 
 #: atk/atkobject.c:92
 msgid "column header"
@@ -93,7 +95,7 @@ msgstr "veeru päis"
 
 #: atk/atkobject.c:93
 msgid "combo box"
-msgstr ""
+msgstr "valikukast"
 
 #: atk/atkobject.c:94
 msgid "dateeditor"
@@ -105,7 +107,7 @@ msgstr "töölaua ikoon"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
-msgstr ""
+msgstr "töölaua raam"
 
 #: atk/atkobject.c:97
 msgid "dial"
@@ -125,20 +127,20 @@ msgstr "joonistamise ala"
 
 #: atk/atkobject.c:101
 msgid "file chooser"
-msgstr ""
+msgstr "failivalija"
 
 #: atk/atkobject.c:102
 msgid "filler"
 msgstr ""
 
-#  I know it looks wrong but that is what Java returns
+#. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
-msgstr ""
+msgstr "kirjatüübivalija"
 
 #: atk/atkobject.c:105
 msgid "frame"
-msgstr ""
+msgstr "raam"
 
 #: atk/atkobject.c:106
 msgid "glass pane"
@@ -146,7 +148,7 @@ msgstr "klaaspaan"
 
 #: atk/atkobject.c:107
 msgid "html container"
-msgstr ""
+msgstr "html konteiner"
 
 #: atk/atkobject.c:108
 msgid "icon"
@@ -158,7 +160,7 @@ msgstr "pilt"
 
 #: atk/atkobject.c:110
 msgid "internal frame"
-msgstr ""
+msgstr "sisemine raam"
 
 #: atk/atkobject.c:111
 msgid "label"
@@ -214,7 +216,7 @@ msgstr "hüpikmenüü"
 
 #: atk/atkobject.c:124
 msgid "progress bar"
-msgstr ""
+msgstr "edenemisriba"
 
 #: atk/atkobject.c:125
 msgid "push button"
@@ -222,11 +224,11 @@ msgstr ""
 
 #: atk/atkobject.c:126
 msgid "radio button"
-msgstr ""
+msgstr "raadionupp"
 
 #: atk/atkobject.c:127
 msgid "radio menu item"
-msgstr ""
+msgstr "raadionupuga menüülkirje"
 
 #: atk/atkobject.c:128
 msgid "root pane"
@@ -302,7 +304,7 @@ msgstr "tööriistariba"
 
 #: atk/atkobject.c:146
 msgid "tool tip"
-msgstr ""
+msgstr "tööriistavihje"
 
 #: atk/atkobject.c:147
 msgid "tree"
@@ -310,7 +312,7 @@ msgstr "puu"
 
 #: atk/atkobject.c:148
 msgid "tree table"
-msgstr ""
+msgstr "puutabel"
 
 #: atk/atkobject.c:149
 msgid "unknown"
@@ -342,129 +344,134 @@ msgstr "rakendus"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
-msgstr ""
+msgstr "automaatlõpetus"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
 msgstr "redigeerimisriba"
 
-#: atk/atkobject.c:295
-msgid "Accessible Name"
+#: atk/atkobject.c:158
+msgid "embedded component"
 msgstr ""
 
 #: atk/atkobject.c:296
+msgid "Accessible Name"
+msgstr ""
+
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr ""
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr ""
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr ""
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr ""
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr ""
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr ""
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr ""
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr ""
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr ""
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr ""
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr ""
 
-#: atk/atkobject.c:353
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr ""
-
-#: atk/atkobject.c:359
-msgid "Accessible Table Column Header"
+#: atk/atkobject.c:354
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
 #: atk/atkobject.c:360
+msgid "Accessible Table Column Header"
+msgstr ""
+
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr ""
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr ""
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr ""
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr ""
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr ""
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr ""
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr ""
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr ""
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr ""
-
