@@ -1,3 +1,8 @@
+2004-10-09  Bill Haneman <billh@gnome.org>
+
+	* idl/Accessibility_LoginHelper.idl:
+	Improved inline documentation.
+
 2004-10-02  Jesus Bravo Alvarez  <suso@trasno.net>
 
 	* configure.in: Added gl (Galician) to ALL_LINGUAS

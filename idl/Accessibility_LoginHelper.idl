@@ -29,12 +29,37 @@ module Accessibility {
 
   interface LoginHelper : Bonobo::Unknown {
 
+      /* 
+       * WindowInfo:
+       * A structure containing info about toplevel X windows that
+       * the @LoginHelper instance wishes to have raised.
+       *
+       * @winID: The windowing-system-dependeny Window ID of the toplevel window.
+       */
       struct WindowInfo {
 	  long winID;
-      };	
+      };
 
       typedef sequence<WindowInfo> WindowList;
 
+      /*
+       * DeviceReq:
+       * @Accessibility_LoginHelper_GUI_EVENTS: Needs access to the GUI event subsystem (e.g. Xserver).
+       * @Accessibility_LoginHelper_CORE_KEYBOARD Needs access to the system keyboard events (read and write).
+       * @Accessibility_LoginHelper_CORE_POINTER: Needs access to the onscreen pointer (e.g. mouse pointer).
+       * @Accessibility_LoginHelper_EXT_INPUT: Reads XInput extended input devices.
+       * @Accessibility_LoginHelper_POST_WINDOWS: Posts Windows, and needs for toplevel windows to be visible
+       * @Accessibility_LoginHelper_AUDIO_OUT: Writes to audio device.
+       * @Accessibility_LoginHelper_AUDIO_IN: Reads from audio device.
+       * @Accessibility_LoginHelper_NETWORK: Requires access to general network services, including remote access.
+       * @Accessibility_LoginHelper_LOCALHOST: Requires network services hosted on LOCALHOST only.
+       * @Accessibility_LoginHelper_SERIAL_OUT: Writes to a serial port.
+       * @Accessibility_LoginHelper_SERIAL_IN: Reads from a serial port.
+       *
+       * The system and device access and services which the @LoginHelper-implementing 
+       * assistive technology requires in order to enable the user to use the system.
+       *
+       */
       enum DeviceReq {
 	  GUI_EVENTS,
 	  CORE_KEYBOARD,
@@ -59,6 +84,9 @@ module Accessibility {
 	 *         If @safe_mode is %TRUE, but the return value is %FALSE,
 	 *         the requesting client may wish to deny services to the 
 	 *         %LoginHelper, for instance avoid raising its toplevels.
+	 *         The return value is purely advisory, and no guarantees are 
+	 *         intended about what the implementing LoginHelper will do 
+	 *         to improve security when in "safe" mode.
 	 *
          * Returns: whether the %LoginHelper is now "safe" or not.
 	 **/
@@ -74,7 +102,8 @@ module Accessibility {
 	 *    Accessibility_LoginHelper_CORE_KEYBOARD in this list.
 	 *
          * Returns: A sequence of @LoginHelper_DeviceFlags indicating
-	 *    the device I/O required.
+	 *    the device I/O required in order to facilitate end-user access 
+	 *    to the system.
 	 **/
         DeviceReqList getDeviceReqs ();
 
@@ -84,7 +113,9 @@ module Accessibility {
          * Get a list of window IDs that need raising on login. 
          *
 	 * Returns: a sequence containing window IDS for toplevels which
-	 *          need to be raised/made visible during user authentication.
+	 *          need to be raised/made visible during user authentication, in
+	 *          order for the @LoginHelper to facilitate end-user access to the 
+	 *          system.
 	 **/
         WindowList getRaiseWindows ();
 
