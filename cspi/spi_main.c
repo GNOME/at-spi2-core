@@ -94,12 +94,13 @@ cspi_accessible_is_a (Accessible *accessible,
 
   if (ev._major != CORBA_NO_EXCEPTION)
     {
-      g_error ("Exception '%s' checking if is '%s'",
-	       cspi_exception_get_text (),
-	       interface_name);
+      g_warning ("Exception '%s' checking if is '%s'",
+		 cspi_exception_get_text (),
+		 interface_name);
+      retval = FALSE;
     }
 
-  if (unknown != CORBA_OBJECT_NIL)
+  else if (unknown != CORBA_OBJECT_NIL)
     {
       retval = TRUE;
       cspi_release_unref (unknown);
