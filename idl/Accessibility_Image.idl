@@ -27,5 +27,12 @@ module Accessibility {
     BoundingBox getImageExtents (in short coordType);
     void getImagePosition (out long x, out long y, in short coordType);
     void getImageSize (out long width, out long height);
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };

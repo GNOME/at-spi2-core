@@ -76,6 +76,14 @@ module Accessibility {
      *   "" if none exists.
      **/
     string getKeyBinding (in long index);
+
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };
 

@@ -481,16 +481,16 @@ spi_accessible_new (AtkObject *o)
                                      BONOBO_OBJECT(spi_editable_text_interface_new (o)));
       }
 
-    else if (ATK_IS_HYPERTEXT (o))
-      {
-        bonobo_object_add_interface (bonobo_object (retval),
-                                     BONOBO_OBJECT (spi_hypertext_interface_new (o)));
-      }
-
     else if (ATK_IS_TEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
                                      BONOBO_OBJECT (spi_text_interface_new (o)));
+      }
+
+    if (ATK_IS_HYPERTEXT (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+                                     BONOBO_OBJECT (spi_hypertext_interface_new (o)));
       }
 
     if (ATK_IS_IMAGE (o))

@@ -75,7 +75,7 @@ struct _DEControllerKeyListener {
   Accessibility_KeySet *keys;
   Accessibility_ControllerEventMask mask;
   Accessibility_KeyEventTypeSeq *typeseq;
-  gboolean is_system_global;	
+  Accessibility_EventListenerMode *mode;	
 };
 
 typedef struct _DEControllerKeyListener DEControllerKeyListener;
@@ -161,7 +161,7 @@ spi_dec_key_listener_new (CORBA_Object l,
 			  const Accessibility_KeySet *keys,
 			  const Accessibility_ControllerEventMask mask,
 			  const Accessibility_KeyEventTypeSeq *typeseq,
-			  const CORBA_boolean is_system_global,
+			  const Accessibility_EventListenerMode *mode,
 			  CORBA_Environment *ev)
 {
   DEControllerKeyListener *key_listener = g_new0 (DEControllerKeyListener, 1);
@@ -170,12 +170,15 @@ spi_dec_key_listener_new (CORBA_Object l,
   key_listener->keys = ORBit_copy_value (keys, TC_Accessibility_KeySet);
   key_listener->mask = mask;
   key_listener->typeseq = ORBit_copy_value (typeseq, TC_Accessibility_KeyEventTypeSeq);
-  key_listener->is_system_global = is_system_global;
+  if (mode)
+    key_listener->mode = ORBit_copy_value (mode, TC_Accessibility_EventListenerMode);
+  else
+    key_listener->mode = NULL;
 
 #ifdef SPI_DEBUG
   g_print ("new listener, with mask %x, is_global %d, keys %p\n",
 	   (unsigned int) key_listener->mask,
-           (int) key_listener->is_system_global,
+           (int) mode->global,
 	   (void *) key_listener->keys);
 #endif
   return key_listener;	
@@ -268,7 +271,7 @@ spi_controller_register_device_listener (SpiDeviceEventController *controller,
   case SPI_DEVICE_TYPE_KBD:
       key_listener = (DEControllerKeyListener *) listener;  	  
       controller->key_listeners = g_list_prepend (controller->key_listeners, key_listener);
-      if (key_listener->is_system_global)
+      if (key_listener->mode->global)
         {
 	  spi_controller_register_global_keygrabs (controller, key_listener);	
 	}
@@ -404,7 +407,7 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
   if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask & 0xFFFF)) &&
        spi_key_set_contains_key (listener->keys, key_event) &&
        spi_key_eventtype_seq_contains_event (listener->typeseq, key_event) && 
-      (is_system_global == listener->is_system_global))
+      (is_system_global == listener->mode->global))
     {
       return TRUE;
     }
@@ -636,7 +639,7 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 				  const Accessibility_KeySet *keys,
 				  const Accessibility_ControllerEventMask mask,
 				  const Accessibility_KeyEventTypeSeq *type,
-				  const CORBA_boolean is_system_global,
+				  const Accessibility_EventListenerMode *mode,
 				  CORBA_Environment         *ev)
 {
   SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
@@ -646,12 +649,8 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
   fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
 	   (void *) l, (unsigned long) mask);
 #endif
-  dec_listener = spi_dec_key_listener_new (l, keys, mask, type,
-					   is_system_global, ev);
-  
-  spi_controller_register_device_listener (controller,
-					   (DEControllerListener *) dec_listener,
-					   ev);
+  dec_listener = spi_dec_key_listener_new (l, keys, mask, type, mode, ev);
+  spi_controller_register_device_listener (controller, (DEControllerListener *) dec_listener, ev);
 }
 
 /*
@@ -664,7 +663,6 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 				    const Accessibility_KeySet *keys,
 				    const Accessibility_ControllerEventMask mask,
 				    const Accessibility_KeyEventTypeSeq *type,
-				    const CORBA_boolean is_system_global,
 				    CORBA_Environment         *ev)
 {
 	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
@@ -673,7 +671,7 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 									  keys,
 									  mask,
 									  type,
-									  is_system_global,
+									  NULL,
 									  ev);
 #ifdef SPI_DEREGISTER_DEBUG
 	fprintf (stderr, "deregistering keystroke listener %p with maskVal %lu\n",
@@ -710,45 +708,50 @@ keycode_for_keysym (long keysym)
   return XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
 }
 
+#define SPI_DEBUG
+
 /*
  * CORBA Accessibility::DeviceEventController::registerKeystrokeListener
  *     method implementation
  */
 static void
-impl_generate_key_event (PortableServer_Servant     servant,
-			 const CORBA_long           keycode,
-			 const Accessibility_KeySynthType synth_type,
-			 CORBA_Environment          *ev)
+impl_generate_keyboard_event (PortableServer_Servant     servant,
+			      const CORBA_long           keycode,
+			      const CORBA_char          *keystring,
+			      const Accessibility_KeySynthType synth_type,
+			      CORBA_Environment          *ev)
 {
-	long key_synth_code;
+  long key_synth_code;
 #ifdef SPI_DEBUG
-	fprintf (stderr, "synthesizing keystroke %ld, type %d\n", (long) keycode, (int) synth_type);
+  fprintf (stderr, "synthesizing keystroke %ld, type %d\n", (long) keycode, (int) synth_type);
 #endif
-	/* TODO: hide/wrap/remove X dependency */
+  /* TODO: hide/wrap/remove X dependency */
 
-	/* TODO: be accessX-savvy so that keyrelease occurs after sufficient timeout */
+  /* TODO: be accessX-savvy so that keyrelease occurs after sufficient timeout */
 	
-	/*
-	 * TODO: when initializing, query for XTest extension before using,
-	 * and fall back to XSendEvent() if XTest is not available.
-	 */
+  /*
+   * TODO: when initializing, query for XTest extension before using,
+   * and fall back to XSendEvent() if XTest is not available.
+   */
+  
+  /* TODO: implement keystring mode also */
 	
-	switch (synth_type)
-	{
-	case Accessibility_KEY_PRESS:
-		XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
-		break;
-	case Accessibility_KEY_PRESSRELEASE:
-		XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
-	case Accessibility_KEY_RELEASE:
-		XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, False, CurrentTime);
-		break;
-	case Accessibility_KEY_SYM:
-		key_synth_code = keycode_for_keysym (keycode);
-		XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, True, CurrentTime);
-		XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, False, CurrentTime);
-		break;
-	}
+  switch (synth_type)
+    {
+      case Accessibility_KEY_PRESS:
+	  XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
+	  break;
+      case Accessibility_KEY_PRESSRELEASE:
+	  XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
+      case Accessibility_KEY_RELEASE:
+	  XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, False, CurrentTime);
+	  break;
+      case Accessibility_KEY_SYM:
+	  key_synth_code = keycode_for_keysym (keycode);
+	  XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, True, CurrentTime);
+	  XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, False, CurrentTime);
+	  break;
+   }
 }
 
 /* Accessibility::DeviceEventController::generateMouseEvent */
@@ -806,7 +809,7 @@ spi_device_event_controller_class_init (SpiDeviceEventControllerClass *klass)
         epv->registerKeystrokeListener = impl_register_keystroke_listener;
         epv->deregisterKeystrokeListener = impl_deregister_keystroke_listener;
 /*        epv->registerMouseListener = impl_register_mouse_listener; */
-        epv->generateKeyEvent = impl_generate_key_event;
+        epv->generateKeyboardEvent = impl_generate_keyboard_event;
         epv->generateMouseEvent = impl_generate_mouse_event;
 	epv->notifyListenersSync = impl_notify_listeners_sync;
 	epv->notifyListenersAsync = impl_notify_listeners_async;

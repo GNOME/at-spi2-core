@@ -32,5 +32,13 @@ module Accessibility {
     boolean isChildSelected (in long childIndex);
     void selectAll ();
     void clearSelection ();
+
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };

@@ -607,6 +607,23 @@ Accessible_isTable (Accessible *obj)
 }
 
 /**
+ * Accessible_isStreamableContent:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements
+ *          #AccessibleStreamableContent.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleStreamableContent interface,
+ *          #FALSE otherwise.
+**/
+SPIBoolean
+Accessible_isStreamableContent (Accessible *obj)
+{
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/StreamableContent:1.0");
+}
+
+/**
  * Accessible_isText:
  * @obj: a pointer to the #Accessible instance to query.
  *
@@ -757,6 +774,22 @@ Accessible_getSelection (Accessible *obj)
 }
 
 
+
+/**
+ * Accessible_getStreamableContent:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleStreamableContent interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleStreamableContent interface instance, or
+ *          NULL if @obj does not implement #AccessibleStreamableContent.
+ **/
+AccessibleStreamableContent *
+Accessible_getStreamableContent (Accessible *obj)
+{
+  return (AccessibleStreamableContent *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/StreamableContent:1.0");
+}
 
 /**
  * Accessible_getTable:

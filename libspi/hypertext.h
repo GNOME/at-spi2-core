@@ -34,11 +34,11 @@ typedef struct _SpiHypertext      SpiHypertext;
 typedef struct _SpiHypertextClass SpiHypertextClass;
 
 struct _SpiHypertext {
-  SpiText parent;
+  SpiBase parent;
 };
 
 struct _SpiHypertextClass {
-  SpiTextClass parent_class;
+  SpiBaseClass parent_class;
   POA_Accessibility_Hypertext__epv epv;
 };
 

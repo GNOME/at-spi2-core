@@ -61,7 +61,8 @@ typedef enum {
   SPI_KEY_PRESS,
   SPI_KEY_RELEASE, 
   SPI_KEY_PRESSRELEASE,
-  SPI_KEY_SYM
+  SPI_KEY_SYM,
+  SPI_KEY_STRING
 } AccessibleKeySynthType;
 
 typedef enum {
@@ -197,8 +198,10 @@ int         SPI_getDesktopCount                  (void);
 Accessible *SPI_getDesktop                       (int i);
 int         SPI_getDesktopList                   (Accessible **list);
 
-SPIBoolean  SPI_generateKeyEvent                 (long int                    keyval,
+SPIBoolean  SPI_generateKeyboardEvent            (long int                    keyval,
+						  char                       *keystring,
 						  AccessibleKeySynthType      synth_type);
+
 SPIBoolean  SPI_generateMouseEvent               (long int x, long int y, char *name);
 
 /* Accessible function prototypes  */
@@ -219,29 +222,31 @@ AccessibleStateSet * Accessible_getStateSet      (Accessible *obj);
 
 /* Interface query methods */
 
-SPIBoolean Accessible_isAction       (Accessible *obj);
-SPIBoolean Accessible_isApplication  (Accessible *obj);
-SPIBoolean Accessible_isComponent    (Accessible *obj);
-SPIBoolean Accessible_isEditableText (Accessible *obj);
-SPIBoolean Accessible_isHypertext    (Accessible *obj);
-SPIBoolean Accessible_isImage        (Accessible *obj);
-SPIBoolean Accessible_isSelection    (Accessible *obj);
-SPIBoolean Accessible_isTable        (Accessible *obj);
-SPIBoolean Accessible_isText         (Accessible *obj);
-SPIBoolean Accessible_isValue        (Accessible *obj);
+SPIBoolean Accessible_isAction            (Accessible *obj);
+SPIBoolean Accessible_isApplication       (Accessible *obj);
+SPIBoolean Accessible_isComponent         (Accessible *obj);
+SPIBoolean Accessible_isEditableText      (Accessible *obj);
+SPIBoolean Accessible_isHypertext         (Accessible *obj);
+SPIBoolean Accessible_isImage             (Accessible *obj);
+SPIBoolean Accessible_isSelection         (Accessible *obj);
+SPIBoolean Accessible_isStreamableContent (Accessible *obj);
+SPIBoolean Accessible_isTable             (Accessible *obj);
+SPIBoolean Accessible_isText              (Accessible *obj);
+SPIBoolean Accessible_isValue             (Accessible *obj);
 
-AccessibleAction *       Accessible_getAction       (Accessible *obj);
-AccessibleApplication *  Accessible_getApplication  (Accessible *obj);
-AccessibleComponent *    Accessible_getComponent    (Accessible *obj);
-AccessibleEditableText * Accessible_getEditableText (Accessible *obj);
-AccessibleHypertext *    Accessible_getHypertext    (Accessible *obj);
-AccessibleImage *        Accessible_getImage        (Accessible *obj);
-AccessibleSelection *    Accessible_getSelection    (Accessible *obj);
-AccessibleTable *        Accessible_getTable        (Accessible *obj);
-AccessibleText *         Accessible_getText         (Accessible *obj);
-AccessibleValue *        Accessible_getValue        (Accessible *obj);
-AccessibleUnknown *      Accessible_queryInterface  (Accessible *obj,
-						     const char *interface_name);
+AccessibleAction *            Accessible_getAction            (Accessible *obj);
+AccessibleApplication *       Accessible_getApplication       (Accessible *obj);
+AccessibleComponent *         Accessible_getComponent         (Accessible *obj);
+AccessibleEditableText *      Accessible_getEditableText      (Accessible *obj);
+AccessibleHypertext *         Accessible_getHypertext         (Accessible *obj);
+AccessibleImage *             Accessible_getImage             (Accessible *obj);
+AccessibleSelection *         Accessible_getSelection         (Accessible *obj);
+AccessibleStreamableContent * Accessible_getStreamableContent (Accessible *obj);
+AccessibleTable *             Accessible_getTable             (Accessible *obj);
+AccessibleText *              Accessible_getText              (Accessible *obj);
+AccessibleValue *             Accessible_getValue             (Accessible *obj);
+AccessibleUnknown *           Accessible_queryInterface       (Accessible *obj,
+					           const char *interface_name);
 
 /* AccessibleAction function prototypes  */
 
@@ -512,7 +517,23 @@ AccessibleStateSet_compare (AccessibleStateSet *obj,
 SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj);
 
-
+void
+AccessibleStreamableContent_ref (AccessibleStreamableContent *obj);
+void
+AccessibleStreamableContent_unref (AccessibleStreamableContent *obj);
+char **
+AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj);
+SPIBoolean
+AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
+				  const char *content_type);
+SPIBoolean
+AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
+				  long int offset);
+SPIBoolean
+AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
+				  void *buff,
+				  long int nbytes,
+				  unsigned int read_type);
 /*
  *
  * AccessibleTable function prototypes

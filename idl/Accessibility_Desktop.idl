@@ -32,6 +32,13 @@ module Accessibility {
      * At the moment this is only a marker interface, it acts just like
      * any other Accessible.
      **/
+	  /**
+	   * unImplemented:
+	   *
+	   * placeholders for future expansion.
+	   */
+	  void unImplemented ();
+	  void unImplemented2 ();
   };
 };
 

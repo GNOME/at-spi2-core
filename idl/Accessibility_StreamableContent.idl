@@ -26,17 +26,19 @@ module Accessibility {
 
   typedef sequence<string> StringSeq;
 
-  typedef sequence<octet>  OctetSeq;
-
-  enum SeekType {
-    SEEK_START,
-    SEEK_END,
-    SEEK_CURRENT
-  };
-
   interface StreamableContent {
     StringSeq getContentTypes ();
     Bonobo::Stream getContent (in string contentType);
     /* methods used from Bonobo::Stream : seek, read.  Others unsupported. */
+
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
+    void unImplemented3 ();
+    void unImplemented4 ();
   };
 };

@@ -27,5 +27,13 @@ module Accessibility {
     readonly attribute double maximumValue;
     readonly attribute double minimumIncrement;
     attribute double currentValue;
+
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };

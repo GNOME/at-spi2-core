@@ -359,6 +359,7 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
   static KeyCode shift_keycode = 0;
   if (!shift_keycode) shift_keycode = XKeysymToKeycode(GDK_DISPLAY(), (KeySym) 0xFFE1);
   /* Note: in a real onscreen keyboard shift keycode should not be hard-coded! */
+  
   if (*keycode)
     {
       if (*keycode == CAPSLOCK_KEYCODE)
@@ -367,13 +368,14 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
           label_buttons (caps_lock || shift_latched);
         }
       if (shift_latched)
-	      SPI_generateKeyEvent (shift_keycode, SPI_KEY_PRESS);
-      
-      SPI_generateKeyEvent ((long) *keycode, SPI_KEY_PRESSRELEASE);
+	      SPI_generateKeyboardEvent (shift_keycode, NULL, SPI_KEY_PRESS);
+
+      g_print ("generating key %d\n", (int) *keycode);
+      SPI_generateKeyboardEvent ((long) *keycode, NULL, SPI_KEY_PRESSRELEASE);
 
       if (shift_latched)
         {
-	  SPI_generateKeyEvent (shift_keycode, SPI_KEY_RELEASE);
+	  SPI_generateKeyboardEvent (shift_keycode, NULL, SPI_KEY_RELEASE);
 	  toggle_shift_latch (button);
 	}
     }
@@ -501,7 +503,7 @@ main (int argc, char **argv)
 					   &switch_set,
 					   SPI_KEYMASK_UNMODIFIED,
 					   (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
-					   SPI_KEYLISTENER_CANCONSUME);
+					   SPI_KEYLISTENER_NOSYNC);
   
   SPI_event_main ();
 

@@ -70,6 +70,26 @@
  *            object:column-deleted
  *            object:model-changed
  *
+ *  (window events)
+ *
+ *            window:minimize
+ *            window:maximize
+ *            window:restore
+ *            window:close
+ *            window:create
+ *            window:reparent
+ *            window:desktop-create
+ *            window:desktop-destroy
+ *            window:focus-in
+ *            window:focus-out
+ *            window:raise
+ *            window:lower
+ *            window:move
+ *            window:resize
+ *            window:shade
+ *            window:unshade
+ *            window:restyle
+ *
  * NOTE: this string may be UTF-8, but should not contain byte value 56
  *            (ascii ':'), except as a delimiter, since non-UTF-8 string
  *            delimiting functions are used internally.
@@ -255,6 +275,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_KeyEventTypeSeq       key_events;
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
+  Accessibility_EventListenerMode     listener_mode;
 
   if (!listener)
     {
@@ -312,13 +333,20 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   
   controller_event_mask = (CORBA_unsigned_long) modmask;
 
+  listener_mode.synchronous =
+	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_SYNCHRONOUS)!=0);
+  listener_mode.preemptive =
+	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_CANCONSUME)!=0);
+  listener_mode.global =
+	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0);
+
   Accessibility_DeviceEventController_registerKeystrokeListener (
     device_event_controller,
     cspi_event_listener_get_corba (listener),
     &key_set,
     controller_event_mask,
     &key_events,
-    ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0) ? CORBA_TRUE : CORBA_FALSE,
+    &listener_mode,
     cspi_ev ());
 
   cspi_return_val_if_ev ("registering keystroke listener", FALSE);
@@ -373,7 +401,6 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
     &key_set,
     controller_event_mask,
     &key_events,
-    (CORBA_boolean) TRUE,
     cspi_ev ());
 
   cspi_release_unref (device_event_controller);
@@ -382,7 +409,7 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
 }
 
 /**
- * SPI_generateKeyEvent:
+ * SPI_generateKeyboardEvent:
  * @keyval: a long integer indicating the keycode or keysym of the key event
  *           being synthesized.
  * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
@@ -396,21 +423,47 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-SPI_generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
+SPI_generateKeyboardEvent (long int keyval,
+			   char *keystring,
+			   AccessibleKeySynthType synth_type)
 {
 /* TODO: check current modifier status and
  *  send keycode to alter, if necessary
  */
+	
+  /* TODO: implement keystring use case */
+  Accessibility_KeySynthType keysynth_type;
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
-  g_print ("keyval %d\n", (int) keyval);
-  cspi_return_val_if_ev ("getting event controller", FALSE);
+  cspi_return_val_if_ev ("getting event controller for key event gen", FALSE);
 
-  Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
-							keyval,
-							(unsigned long) synth_type,
-							cspi_ev ());
+  switch (synth_type)
+    {
+      case SPI_KEY_PRESS:
+	  keysynth_type = Accessibility_KEY_PRESS;
+	  break;
+      case SPI_KEY_RELEASE:
+	  keysynth_type = Accessibility_KEY_RELEASE;
+	  break;
+      case SPI_KEY_PRESSRELEASE:
+	  keysynth_type = Accessibility_KEY_PRESSRELEASE;
+	  break;
+      case SPI_KEY_SYM:
+	  keysynth_type = Accessibility_KEY_SYM;
+	  break;
+      case SPI_KEY_STRING:
+	  keysynth_type = Accessibility_KEY_STRING;
+	  break;
+    }
+
+  Accessibility_DeviceEventController_generateKeyboardEvent (device_event_controller,
+							     keyval,
+							     "",
+							     keysynth_type,
+							     cspi_ev ());
+
+  cspi_return_val_if_ev ("generating keyboard event", FALSE);
 
   cspi_release_unref (device_event_controller);
 

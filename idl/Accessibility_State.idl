@@ -113,6 +113,14 @@ module Accessibility {
     /* returns a 'difference set' */
     StateSet            compare (in StateSet compareState);
     boolean		isEmpty ();
+
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };
 

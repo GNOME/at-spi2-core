@@ -113,11 +113,11 @@ PKG_CHECK_MODULES(UTILS, \
 AC_SUBST(UTILS_LIBS)
 AC_SUBST(UTILS_CFLAGS)
 
-PKG_CHECK_MODULES(AT_BRIDGE, \
+PKG_CHECK_MODULES(ATK_BRIDGE, \
 	libbonobo-2.0 >= 1.107.0 \
 	atk >= 0.2)
-AC_SUBST(AT_BRIDGE_LIBS)
-AC_SUBST(AT_BRIDGE_CFLAGS)
+AC_SUBST(ATK_BRIDGE_LIBS)
+AC_SUBST(ATK_BRIDGE_CFLAGS)
 
 PKG_CHECK_MODULES(LIBCSPI, \
 	libbonobo-2.0 >= 1.107.0 \
@@ -173,7 +173,7 @@ idl/Makefile
 libspi/Makefile
 registryd/Makefile
 registryd/Accessibility_Registry.server
-at-bridge/Makefile
+atk-bridge/Makefile
 test/Makefile
 cspi/Makefile
 cspi/bonobo/Makefile

@@ -46,7 +46,6 @@ module Accessibility {
     unsigned long getCharacterAtOffset (in long offset);  /* long instead of wchar, 
 							   * to allow unicode chars > 16 bits 
 							   */
-    /* void getRowColAtOffset (in long offset, out long row, out long column); */
     string getAttributes (in long offset,
 			  out long startOffset, out long endOffset);
     void getCharacterExtents (in long offset, out long x, out long y, out long length, out long width, in short coordType);
@@ -56,5 +55,14 @@ module Accessibility {
     boolean addSelection (in long startOffset, in long endOffset);
     boolean removeSelection (in long selectionNum);
     boolean setSelection (in long selectionNum, in long startOffset, in long endOffset);
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
+    void unImplemented3 ();
+    void unImplemented4 ();
   };
 };

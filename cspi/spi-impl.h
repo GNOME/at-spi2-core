@@ -21,6 +21,7 @@ typedef Accessible AccessibleImage;
 typedef Accessible AccessibleRelation;
 typedef Accessible AccessibleSelection;
 typedef Accessible AccessibleStateSet;
+typedef Accessible AccessibleStreamableContent;
 typedef Accessible AccessibleTable;
 typedef Accessible AccessibleText;
 typedef Accessible AccessibleValue;

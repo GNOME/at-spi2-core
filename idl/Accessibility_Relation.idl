@@ -43,6 +43,9 @@ module Accessibility {
     RelationType        getRelationType ();
     short               getNTargets ();
     Object		getTarget (in short index);
+    /* placeholders for future expansion */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };
 

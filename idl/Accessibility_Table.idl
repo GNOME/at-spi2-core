@@ -49,5 +49,14 @@ typedef sequence<long> LongSeq;
    boolean isRowSelected (in long row);
    boolean isColumnSelected (in long column);
    boolean isSelected (in long row, in long column);
- };
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
+    void unImplemented3 ();
+    void unImplemented4 ();
+  };
 };

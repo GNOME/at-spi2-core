@@ -144,6 +144,13 @@ module Accessibility {
 	 **/
         DeviceEventController getDeviceEventController ();
 
+	/**
+	 * unImplemented:
+	 *
+	 * placeholders for future expansion.
+	 */
+	void unImplemented ();
+	void unImplemented2 ();
     };
 
   enum KeyEventType {
@@ -160,7 +167,8 @@ module Accessibility {
     KEY_PRESS,
     KEY_RELEASE,
     KEY_PRESSRELEASE,
-    KEY_SYM
+    KEY_SYM,
+    KEY_STRING
   };
 
   enum ModifierType {
@@ -172,6 +180,12 @@ module Accessibility {
     MODIFIER_META3,
     MODIFIER_SHIFTLOCK,
     MODIFIER_NUMLOCK
+  };
+
+  struct EventListenerMode {
+    boolean synchronous;
+    boolean preemptive;
+    boolean global;	  
   };
 
   typedef unsigned long ControllerEventMask;
@@ -215,7 +229,7 @@ module Accessibility {
 					in KeySet keys,
 					in ControllerEventMask mask,
 					in KeyEventTypeSeq type,
-					in boolean is_synchronous);
+					in EventListenerMode mode);
     
   	/**
          * deregisterKeystrokeListener:
@@ -223,10 +237,7 @@ module Accessibility {
          * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
          * @mask:     a @ControllerEventMask filtering the intercepted key events.
 	 * @type:     an @EventType mask that may created by ORing event types together.
-	 * @is_synchronous: a @boolean indicating whether the listener should 
-	 *            receive the events synchronously, potentially consuming them,
-	 *            or just be notified asynchronously of those events that have
-	 *            been generated.
+	 *
 	 * Returns: void
          *
          * De-register a previously registered keyboard eventlistener.
@@ -235,29 +246,39 @@ module Accessibility {
         void deregisterKeystrokeListener (in DeviceEventListener listener,
 					  in KeySet keys,
 					  in ControllerEventMask mask,
-					  in KeyEventTypeSeq type,
-					  in boolean is_synchronous);
+					  in KeyEventTypeSeq type);
     
         boolean notifyListenersSync (in DeviceEvent event);
 
         oneway void notifyListenersAsync (in DeviceEvent event);
 
         /**
-         * generateKeyEvent:
+         * generateKeyboardEvent:
          * @keycode: a long integer indicating the keycode of
 	 *          the keypress to be synthesized.
+	 * @keystring: an optional UTF-8 string indicating a complex
+	 *          keyboard input event.
+	 * @type: a #KeySynthType indicating the type of event(s) to be 
+	 *          synthesized: a key press, release, press-release pair,
+	 *          or a complex input string (for instance from an
+	 *          internationalized or complex text input method, or
+	 *          a composed character).
 	 *
-	 * Note that this long may be truncated before being
+	 * Note that @keycode may be truncated before being
 	 *          processed, as keycode length may be platform-dependent
 	 *          and keycode ranges are generally much smaller than
 	 *          CORBA_long. 
+	 * One or the other of @keycode or @keystring are generally NULL, 
+	 *          (but not both), depending on the value of @type.
 	 *
          * Returns: void
          *
-         * Synthesize a keypress event.
+         * Synthesize a keyboard event.
          *
          **/
-         void generateKeyEvent (in long keycode, in KeySynthType type);
+         void generateKeyboardEvent (in long keycode, 
+				     in string keystring, 
+				     in KeySynthType type);
 
         /**
          * generateMouseEvent:
@@ -270,6 +291,14 @@ module Accessibility {
          *
          **/
          void generateMouseEvent (in long x, in long y, in string eventName);
+
+	 /**
+	  * unImplemented:
+	  *
+	  * placeholders for future expansion.
+	  */
+	 void unImplemented ();
+	 void unImplemented2 ();
     }; 
 };
 

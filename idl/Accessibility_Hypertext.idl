@@ -24,7 +24,7 @@
 
 module Accessibility {
 
-  interface Hypertext : Text {
+  interface Hypertext : Bonobo::Unknown {
     long getNLinks ();
     Hyperlink getLink (in long linkIndex);
     long getLinkIndex (in long characterIndex);

@@ -47,5 +47,13 @@ module Accessibility {
         void grabFocus ();
         void registerFocusHandler (in EventListener handler);
         void deregisterFocusHandler (in EventListener handler);
-  };  
+
+	/**
+	 * unImplemented:
+	 *
+	 * placeholders for future expansion.
+	 */
+	void unImplemented ();
+	void unImplemented2 ();
+  };
 };

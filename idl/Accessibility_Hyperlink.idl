@@ -31,5 +31,12 @@ module Accessibility {
     Accessible getObject (in long i);
     string getURI (in long i);
     boolean isValid ();
+    /**
+     * unImplemented:
+     *
+     * placeholders for future expansion.
+     */
+    void unImplemented ();
+    void unImplemented2 ();
   };
 };

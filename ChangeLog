@@ -1,3 +1,48 @@
+2002-01-01  Bill Haneman <bill.haneman@sun.com>
+
+	API tweaks for today's API 'freeze'.
+
+	* idl/*:
+	Added placeholder functions to allow future compatible expansion
+	of the IDL interfaces.
+
+	* idl/Accessibility_Registry.idl:
+	Changed generateKeyEvent to generateKeyboardEvent.  Changed
+	signature of this method to accept an optional keystring in
+	parameter (for complex text input synthesis) and changed use of
+	simple 'boolean' parameter in registerKeystrokeListener to a
+	struct, EventListenerMode.
+
+	* cspi/spi_accessible.c:
+	* cspi/spi.h:
+	* cspi/spi_streamablecontent.c:
+	Added references to AccessibleStreamableContent interface, and
+	definition and implementation of AccessibleStreamableContent 
+	C bindings.
+
+	* cspi/spi_registry.c:
+	* cspi/spi.h:
+	Changed generateKeyEvent API to generateKeyboardEvent,
+	taking a new (optional) keystring parameter to support complex
+	text input.
+	
+	* at-bridge/*:
+	* atk-bridge/*:
+	Renamed directory (to better reflect its actual purpose, bridging
+	from at-spi to ATK).  The .so module is also now named
+	libatk-bridge.so.
+
+	* idl/Accessibility_Hypertext.idl:
+	* libspi/accessible.c:
+	* libspi/hypertext.h:
+	* libspi/hypertext.c:
+	Changed Accessibility_Hypertext to *not* derive from
+	Accessibility_Text.
+
+	* cspi/spi_registry.c:
+	Added list of legal event type names for 'window' events, which
+	completes the registry event API.
+
 2001-12-22  Marc Mulcahy  <marc.mulcahy@sun.com>
 
 	* at-bridge/bridge.c: Added registration for separate
