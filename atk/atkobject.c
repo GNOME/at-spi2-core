@@ -677,9 +677,10 @@ atk_object_get_role (AtkObject *accessible)
  * @accessible: an #AtkObject
  *
  * Gets the layer of the accessible.
- * DEPRECATED: use atk_component_get_layer instead!
  *
  * Returns: an #AtkLayer which is the layer of the accessible
+ *
+ * @Deprecated: Use atk_component_get_layer instead.
  **/
 AtkLayer
 atk_object_get_layer (AtkObject *accessible) 
@@ -701,11 +702,12 @@ atk_object_get_layer (AtkObject *accessible)
  *
  * Gets the zorder of the accessible. The value G_MININT will be returned 
  * if the layer of the accessible is not ATK_LAYER_MDI.
- * DEPRECATED: use atk_component_get_mdi_zorder instead!
  *
  * Returns: a gint which is the zorder of the accessible, i.e. the depth at 
  * which the component is shown in relation to other components in the same 
  * container.
+ *
+ * @Deprecated: Use atk_component_get_mdi_zorder instead.
  **/
 gint
 atk_object_get_mdi_zorder (AtkObject *accessible) 

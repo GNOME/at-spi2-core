@@ -264,3 +264,40 @@ atk_relation_set_finalize (GObject *object)
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
+
+/**
+ * atk_relation_set_add_relation_by_type:
+ * @set: an #AtkRelationSet
+ * @relationship: an #AtkRelationType
+ * @target: an #AtkObject
+ *
+ * Add a new relation of the specified type with the specified target to 
+ * the current relation set if the relation set does not contain a relation
+ * of that type. If it is does contain a relation of that typea the target
+ * is added to the relation.
+ **/
+void
+atk_relation_set_add_relation_by_type (AtkRelationSet  *set,
+                                       AtkRelationType relationship,
+                                       AtkObject       *target)
+{
+  AtkRelation *relation;
+
+  g_return_if_fail (ATK_IS_RELATION_SET (set));
+  g_return_if_fail (ATK_IS_OBJECT (target));
+
+  relation = atk_relation_set_get_relation_by_type (set,
+                                                    relationship);
+  if (relation)
+    {
+      atk_relation_add_target (relation, target);
+    } 
+  else 
+    {
+      /* the relation hasn't been created yet ... */
+      relation = atk_relation_new (&target, 1, relationship);
+      atk_relation_set_add (set, relation);
+      g_object_unref(relation);
+    }
+}
+

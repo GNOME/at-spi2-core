@@ -103,6 +103,15 @@ The AtkRelation structure should not be accessed directly.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_relation_add_target ##### -->
+<para>
+
+</para>
+
+@relation: 
+@target: 
+
+
 <!-- ##### ARG AtkRelation:relation-type ##### -->
 <para>
 

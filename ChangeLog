@@ -1,3 +1,19 @@
+2004-11-22  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Replace DEPRECATED by @Deprecated in comments
+	to fix warning when documentation is generated.
+
+	* atk/atkrelation.[ch]: 
+	* docs/tmpl/atkrelation.sgml: Add atk_relation_add_target.
+
+	* atk/atkrelationset.[ch]:
+	* atk/tmpl/atkrelationset.sgml: Add atk_relation_add_relation_by_type.
+
+	* docs/atk-sections.txt: Add atk_relation_add_target and
+	atk_relation_add_relation_by_type.
+
+	Fixes bug #158722.
+
 2004-11-17  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Use gmodule-no-export.pc, requires glib 2.5.7.

@@ -304,6 +304,32 @@ delete_object_while_in_relation (gpointer callback_data,
   g_ptr_array_remove (array, where_the_object_was);
 }
 
+/**
+ * atk_relation_add_target:
+ * @relation: an #AtkRelation
+ * @target: an #AtkObject
+ *
+ * Adds the specified AtkObject to the target for the relation, if it is
+ * not already present.
+ **/
+void
+atk_relation_add_target (AtkRelation *relation,
+                         AtkObject   *target)
+{
+  guint i;
+
+  g_return_if_fail (ATK_IS_RELATION (relation));
+  g_return_if_fail (ATK_IS_OBJECT (target));
+
+  /* first check if target occurs in array ... */
+  for (i = 0; i < relation->target->len; i++)
+    if (g_ptr_array_index(relation->target, i) == target)
+      return;
+
+  g_ptr_array_add (relation->target, target);
+  g_object_weak_ref (G_OBJECT (target), (GWeakNotify) delete_object_while_in_relation, relation->target);
+}
+
 static void
 atk_relation_finalize (GObject *object)
 {
