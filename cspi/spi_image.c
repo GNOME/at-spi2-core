@@ -5,9 +5,6 @@
  * @obj: a pointer to the #AccessibleImage implementor on which to operate.
  *
  * Increment the reference count for an #AccessibleImage object.
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleImage_ref (AccessibleImage *obj)
@@ -20,16 +17,12 @@ AccessibleImage_ref (AccessibleImage *obj)
  * @obj: a pointer to the #AccessibleImage implementor on which to operate.
  *
  * Decrement the reference count for an #AccessibleImage object.
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleImage_unref (AccessibleImage *obj)
 {
   cspi_object_unref (obj);
 }
-
 
 /**
  * AccessibleImage_getImageDescription:
@@ -38,16 +31,22 @@ AccessibleImage_unref (AccessibleImage *obj)
  * Get the description of the image displayed in an #AccessibleImage object.
  *
  * Returns: a UTF-8 string describing the image.
- *
  **/
 char *
 AccessibleImage_getImageDescription (AccessibleImage *obj)
 {
-  return (char *)
-    Accessibility_Image__get_imageDescription (CSPI_OBJREF (obj), cspi_ev ());
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = 
+    Accessibility_Image__get_imageDescription (CSPI_OBJREF (obj),
+					       cspi_ev ());
+
+  cspi_return_val_if_ev ("getImageDescription", NULL);
+
+  return NULL;
 }
-
-
 
 /**
  * AccessibleImage_getImageSize:
@@ -56,18 +55,30 @@ AccessibleImage_getImageDescription (AccessibleImage *obj)
  * @height: a pointer to a #long into which the y extents (height) will be returned.
  *
  * Get the size of the image displayed in a specified #AccessibleImage object.
- *
  **/
 void
 AccessibleImage_getImageSize (AccessibleImage *obj,
                               long int *width,
                               long int *height)
 {
+  CORBA_long w, h;
+
+  cspi_return_if_fail (obj != NULL);
+
   Accessibility_Image_getImageSize (CSPI_OBJREF (obj),
-				    (CORBA_long *) width, (CORBA_long *) height, cspi_ev ());
+				    &w, &h, cspi_ev ());
+
+  if (!cspi_check_ev ("getImageSize"))
+    {
+      *width = 0;
+      *height = 0;
+    }
+  else
+    {
+      *width = w;
+      *height = h;
+    }
 }
-
-
 
 /**
  * AccessibleImage_getImagePosition:
@@ -79,7 +90,6 @@ AccessibleImage_getImageSize (AccessibleImage *obj,
  *
  * Get the minimum x and y coordinates of the image displayed in a
  *         specified #AccessibleImage implementor.
- *
  **/
 void
 AccessibleImage_getImagePosition (AccessibleImage *obj,
@@ -87,9 +97,23 @@ AccessibleImage_getImagePosition (AccessibleImage *obj,
                                   long *y,
                                   AccessibleCoordType ctype)
 {
+  CORBA_long cx, cy;
+
+  cspi_return_if_fail (obj != NULL);
+
   Accessibility_Image_getImagePosition (CSPI_OBJREF (obj),
-					(CORBA_long *) x, (CORBA_long *) y, (CORBA_short) ctype,
-					cspi_ev ());
+					&cx, &cy, ctype, cspi_ev ());
+
+  if (!cspi_check_ev ("getImagePosition"))
+    {
+      *x = 0;
+      *y = 0;
+    }
+  else
+    {
+      *x = cx;
+      *y = cy;
+    }
 }
 
 /**
@@ -104,7 +128,6 @@ AccessibleImage_getImagePosition (AccessibleImage *obj,
  *
  * Get the bounding box of the image displayed in a
  *         specified #AccessibleImage implementor.
- *
  **/
 void
 AccessibleImage_getImageExtents (AccessibleImage *obj,
@@ -114,12 +137,23 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
 				 long *height,
 				 AccessibleCoordType ctype)
 {
-  Accessibility_BoundingBox bbox;	
+  Accessibility_BoundingBox bbox;
+
+  cspi_return_if_fail (obj != NULL);
+
   bbox = Accessibility_Image_getImageExtents (CSPI_OBJREF (obj),
 					      (CORBA_short) ctype,
 					      cspi_ev ());
-  *x = bbox.x;
-  *y = bbox.y;
-  *width = bbox.width;
-  *height = bbox.height;
+
+  if (!cspi_check_ev ("getImageExtents"))
+    {
+      *x = *y = *width = *height = 0;
+    }
+  else
+    {
+      *x = bbox.x;
+      *y = bbox.y;
+      *width = bbox.width;
+      *height = bbox.height;
+    }
 }

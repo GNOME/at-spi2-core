@@ -7,9 +7,6 @@
  * Increment the reference count for an #AccessibleHypertext object.
  *       Since AccessibleHypertext is derived from AccessibleText,
  *       this is the same as AccessibleText_unref().
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleHypertext_ref (AccessibleHypertext *obj)
@@ -24,9 +21,6 @@ AccessibleHypertext_ref (AccessibleHypertext *obj)
  * Decrement the reference count for an #AccessibleHypertext object.
  *       Since AccessibleHypertext is derived from AccessibleText,
  *       this is the same as AccessibleText_unref().
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleHypertext_unref (AccessibleHypertext *obj)
@@ -46,15 +40,21 @@ AccessibleHypertext_unref (AccessibleHypertext *obj)
  *        the number cannot be determined (for example, if the
  *        #AccessibleHypertext object is so large that it is not
  *        all currently in the memory cache).
- *
  **/
 long
 AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
 {
-  return (long)
-    Accessibility_Hypertext_getNLinks (CSPI_OBJREF (obj), cspi_ev ());
-}
+  long retval;
 
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
+    Accessibility_Hypertext_getNLinks (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ex ("getNLinks", -1);
+
+  return retval;
+}
 
 /**
  * AccessibleHypertext_getLink:
@@ -64,17 +64,17 @@ AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
  * Get the #AccessibleHyperlink object at a specified index.
  *
  * Returns: the #AccessibleHyperlink object specified by #linkIndex.
- *
  **/
 AccessibleHyperlink *
 AccessibleHypertext_getLink (AccessibleHypertext *obj,
-                             long int linkIndex)
+                             long int             linkIndex)
 {
-  return (AccessibleHyperlink *)
-    Accessibility_Hypertext_getLink (CSPI_OBJREF (obj),
-				     (CORBA_long) linkIndex, cspi_ev ());
-}
+  cspi_return_val_if_fail (obj != NULL, FALSE);
 
+  return cspi_object_new (
+    Accessibility_Hypertext_getLink (CSPI_OBJREF (obj),
+				     (CORBA_long) linkIndex, cspi_ev ()));
+}
 
 /**
  * AccessibleHypertext_getLinkIndex:
@@ -87,15 +87,23 @@ AccessibleHypertext_getLink (AccessibleHypertext *obj,
  * Returns: the linkIndex of the #AccessibleHyperlink active at
  *        character offset @characterOffset, or -1 if there is
  *        no hyperlink at the specified character offset.
- *
  **/
 long
 AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
-                                  long int characterOffset)
+                                  long int             characterOffset)
 {
-  return (long)
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval = 
     Accessibility_Hypertext_getLinkIndex (CSPI_OBJREF (obj),
-					  (CORBA_long) characterOffset, cspi_ev ());
+					  (CORBA_long) characterOffset,
+					  cspi_ev ());
+
+  cspi_return_val_if_ex ("getLinkIndex", -1);
+
+  return retval;
 }
 
 

@@ -7,9 +7,6 @@
  * Increment the reference count for an #AccessibleEditableText object.
  *       Since AccessibleEditableText is derived from AccessibleText,
  *       this is the same as AccessibleText_ref().
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleEditableText_ref (AccessibleEditableText *obj)
@@ -24,9 +21,6 @@ AccessibleEditableText_ref (AccessibleEditableText *obj)
  * Decrement the reference count for an #AccessibleEdiitableText object.
  *       Since AccessibleEditableText is derived from AccessibleText,
  *       this is the same as AccessibleText_unref().
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleEditableText_unref (AccessibleEditableText *obj)
@@ -46,7 +40,6 @@ AccessibleEditableText_unref (AccessibleEditableText *obj)
  *          object, and the bounds of the range.
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
@@ -54,14 +47,20 @@ AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
 				      long int startPos,
 				      long int endPos)
 {
-  return (SPIBoolean)
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval = 
     Accessibility_EditableText_setAttributes (CSPI_OBJREF (obj),
 					      (CORBA_char *) attributes,
 					      (CORBA_long) startPos,
 					      (CORBA_long) endPos, cspi_ev ());
+
+  cspi_return_val_if_ev ("setAttributes", FALSE);
+
+  return retval;
 }
-
-
 
 /**
  * AccessibleEditableText_setTextContents:
@@ -72,18 +71,20 @@ AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
  * Replace the entire text contents of an #AccessibleEditableText object.
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents)
 {
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
   Accessibility_EditableText_setTextContents (CSPI_OBJREF (obj),
 					      (CORBA_char *) newContents, cspi_ev ());
-  return TRUE; /* TODO: make bonobo method return a SPIBoolean */
+
+  cspi_return_val_if_ev ("setTextContents", FALSE);
+
+  return TRUE;
 }
-
-
 
 /**
  * AccessibleEditableText_insertText:
@@ -99,7 +100,6 @@ AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
  *       variable-width encoding.
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 AccessibleEditableText_insertText (AccessibleEditableText *obj,
@@ -107,13 +107,16 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    const char *text,
                                    long int length)
 {
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
   Accessibility_EditableText_insertText (CSPI_OBJREF (obj),
 					 (CORBA_long) position, (const CORBA_char *) text,
 					 (CORBA_long) length, cspi_ev ());
+
+  cspi_return_val_if_ev ("insertText", FALSE);
+
   return TRUE;
 }
-
-
 
 /**
  * AccessibleEditableText_copyText:
@@ -128,18 +131,22 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
  * @see: AccessibleEditableText_pasteText 
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 AccessibleEditableText_copyText (AccessibleText *obj,
                                  long int startPos,
                                  long int endPos)
 {
-  Accessibility_EditableText_copyText (CSPI_OBJREF (obj),
-				       (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  Accessibility_EditableText_copyText (
+    CSPI_OBJREF (obj), (CORBA_long) startPos,
+    (CORBA_long) endPos, cspi_ev ());
+
+  cspi_return_val_if_ev ("copyText", FALSE);
+
   return TRUE;
 }
-
 
 /**
  * AccessibleEditableText_cutText:
@@ -155,19 +162,22 @@ AccessibleEditableText_copyText (AccessibleText *obj,
  * @see: AccessibleEditableText_pasteText
  *
  * Returns: #TRUE if operation was successful, #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long int startPos,
                                 long int endPos)
 {
-  Accessibility_EditableText_cutText (CSPI_OBJREF (obj),
-				       (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  Accessibility_EditableText_cutText (
+    CSPI_OBJREF (obj),
+    (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
+
+  cspi_return_val_if_ev ("cutText", FALSE);
+
   return TRUE;
 }
-
-
 
 /**
  * AccessibleEditableText_deleteText:
@@ -183,19 +193,22 @@ AccessibleEditableText_cutText (AccessibleEditableText *obj,
  * @see: AccessibleEditableText_cutText
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long startPos,
                                    long endPos)
 {
-  Accessibility_EditableText_deleteText (CSPI_OBJREF (obj),
-				       (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  Accessibility_EditableText_deleteText (
+    CSPI_OBJREF (obj),
+    (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
+
+  cspi_return_val_if_ev ("deleteText", FALSE);
+
   return TRUE;
 }
-
-
 
 /**
  * AccessibleEditableText_pasteText:
@@ -209,14 +222,17 @@ AccessibleEditableText_deleteText (AccessibleEditableText *obj,
  *       variable-width encoding.
  *
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
- *
  **/
 SPIBoolean
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long int position)
 {
-  Accessibility_EditableText_pasteText (CSPI_OBJREF (obj),
-					(CORBA_long) position, cspi_ev ());
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  Accessibility_EditableText_pasteText (
+    CSPI_OBJREF (obj), (CORBA_long) position, cspi_ev ());
+
+  cspi_return_val_if_ev ("pasteText", FALSE);
+
   return TRUE;
 }
-

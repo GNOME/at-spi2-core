@@ -13,7 +13,6 @@
  * Increment the reference count for an #AccessibleApplication.
  *
  * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleApplication_ref (AccessibleApplication *obj)
@@ -28,7 +27,6 @@ AccessibleApplication_ref (AccessibleApplication *obj)
  * Decrement the reference count for an #AccessibleApplication.
  *
  * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleApplication_unref (AccessibleApplication *obj)
@@ -44,12 +42,21 @@ AccessibleApplication_unref (AccessibleApplication *obj)
  *
  * Returns: a UTF-8 string indicating which UI toolkit is
  *          used by an application.
- *
  **/
 char *
 AccessibleApplication_getToolkitName (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_toolkitName (CSPI_OBJREF (obj), cspi_ev ());
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =
+    Accessibility_Application__get_toolkitName (CSPI_OBJREF (obj),
+						cspi_ev ());
+
+  cspi_return_val_if_ev ("toolkitName", NULL);
+
+  return retval;
 }
 
 /**
@@ -61,12 +68,21 @@ AccessibleApplication_getToolkitName (AccessibleApplication *obj)
  *
  * Returns: a UTF-8 string indicating the application's
  *          at-spi version.
- *
  **/
 char *
 AccessibleApplication_getVersion (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_version (CSPI_OBJREF (obj), cspi_ev ());
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =
+    Accessibility_Application__get_version (CSPI_OBJREF (obj),
+					    cspi_ev ());
+
+  cspi_return_val_if_ev ("getVersion", NULL);
+
+  return retval;
 }
 
 /**
@@ -83,7 +99,16 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
 long
 AccessibleApplication_getID (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_id (CSPI_OBJREF (obj), cspi_ev ());
+  long retval;
+
+  cspi_return_val_if_fail (obj != NULL, 0);
+
+  retval = Accessibility_Application__get_id (CSPI_OBJREF (obj),
+					      cspi_ev ());
+
+  cspi_return_val_if_ev ("get_id", 0);
+
+  return retval;
 }
 
 /**
@@ -118,5 +143,3 @@ AccessibleApplication_resume (AccessibleApplication *obj)
 {
   return FALSE;
 }
-
-

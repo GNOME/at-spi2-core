@@ -5,33 +5,23 @@
  * @obj: a pointer to the #AccessibleHyperlink object on which to operate.
  *
  * Increment the reference count for an #AccessibleHyperlink object.
- *
- * Returns: (no return code implemented yet).
- *
  **/
-int
+void
 AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
-
-
 
 /**
  * AccessibleHyperlink_unref:
  * @obj: a pointer to the #AccessibleHyperlink object on which to operate.
  *
  * Decrement the reference count for an #AccessibleHyperlink object.
- *
- * Returns: (no return code implemented yet).
- *
  **/
-int
+void
 AccessibleHyperlink_unref (AccessibleHyperlink *obj)
 {
   cspi_object_ref (obj);
-  return 0;
 }
 
 /**
@@ -45,15 +35,21 @@ AccessibleHyperlink_unref (AccessibleHyperlink *obj)
  * @see AccessibleHyperlink_getURI() and AccessibleHyperlink_getObject().
  *
  * Returns: a #long indicating the number of anchors in this hyperlink.
- *
  **/
 long
 AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
 {
-  return (long)
-    Accessibility_Hyperlink__get_nAnchors (CSPI_OBJREF (obj), cspi_ev ());
-}
+  long retval;
 
+  cspi_return_val_if_fail (obj != NULL, -1);
+
+  retval =
+    Accessibility_Hyperlink__get_nAnchors (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ex ("getNAnchors", -1);
+
+  return retval;
+}
 
 /**
  * AccessibleHyperlink_getURI:
@@ -63,15 +59,22 @@ AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
  * Get the URI associated with a particular hyperlink anchor.  
  *
  * Returns: a UTF-8 string giving the URI of the @ith hyperlink anchor.
- *
  **/
 char *
 AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
-                            long int i)
+                            long int             i)
 {
-  return (char *)
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =
     Accessibility_Hyperlink_getURI (CSPI_OBJREF (obj),
 				    (CORBA_long) i, cspi_ev ());
+
+  cspi_return_val_if_ex ("getURI", NULL);
+
+  return retval;
 }
 
 /**
@@ -83,12 +86,13 @@ AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
  *
  * Returns: an #Accessible that represents the object associated with the @ith anchor
  *        of the specified #AccessibleHyperlink.
- *
  **/
 Accessible*
 AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
-                               long int i)
+                               long int             i)
 {
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
   return cspi_object_add (
     Accessibility_Hyperlink_getObject (CSPI_OBJREF (obj),
 				       (CORBA_long) i, cspi_ev ()));
@@ -105,20 +109,23 @@ AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
  *
  * Get the starting and ending character offsets of the text range associated with
  *       a #AccessibleHyperlink, in its originating #AccessibleHypertext.
- *
  **/
 void
 AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long int *startIndex,
                                    long int *endIndex)
 {
+  long retval;
+
+  cspi_return_if_fail (obj != NULL);
+
   *startIndex = (long)
     Accessibility_Hyperlink__get_startIndex (CSPI_OBJREF (obj), cspi_ev ());
   *endIndex = (long)
     Accessibility_Hyperlink__get_endIndex (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_if_ex ("getIndexRange");
 }
-
-
 
 /**
  * AccessibleHyperlink_isValid:
@@ -129,13 +136,20 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
  *
  * Returns: #TRUE of the specified #AccessibleHyperlink is still valid with respect
  *          to its originating #AccessibleHypertext object, #FALSE otherwise.
- *
  **/
 SPIBoolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
 {
-  return (SPIBoolean)
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval =
     Accessibility_Hyperlink_isValid (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ex ("isValid", FALSE);
+
+  return retval;
 }
 
 

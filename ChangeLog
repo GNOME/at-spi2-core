@@ -1,5 +1,24 @@
 2001-12-10  Michael Meeks  <michael@ximian.com>
 
+	* cspi/spi_action.c: audit for exception handling,
+	tolerating NULL object references safely etc.
+
+	* cspi/spi_accessible.c: ditto.
+
+	* cspi/spi_component.c: ditto.
+
+	* cspi/spi_editabletext.c: ditto.
+
+	* cspi/spi_hyperlink.c: ditto.
+
+	* cspi/spi_hypertext.c: ditto.
+
+	* cspi/spi_image.c: ditto.
+
+	* cspi/spi_selection.c: ditto.
+
+2001-12-10  Michael Meeks  <michael@ximian.com>
+
 	* configure.in: use cspi/libspi.pc.in instead.
 
 	* Makefile.am (pkgconfig_DATA): upd. to match.

@@ -6,9 +6,6 @@
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
  *
  * Increment the reference count for an #AccessibleTable object.
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleTable_ref (AccessibleTable *obj)
@@ -21,9 +18,6 @@ AccessibleTable_ref (AccessibleTable *obj)
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
  *
  * Decrement the reference count for an #AccessibleTable object.
- *
- * Returns: (no return code implemented yet).
- *
  **/
 void
 AccessibleTable_unref (AccessibleTable *obj)
@@ -38,7 +32,6 @@ AccessibleTable_unref (AccessibleTable *obj)
  * Get an accessible representation of the caption for an #AccessibleTable.
  *
  * Returns: an #Accessible object that serves as the table's caption.
- *
  **/
 Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj)

@@ -55,13 +55,18 @@ AccessibleComponent_contains (AccessibleComponent *obj,
                               long int y,
                               AccessibleCoordType ctype)
 {
+  SPIBoolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  return Accessibility_Component_contains (CSPI_OBJREF (obj),
-                                           (CORBA_long) x,
-                                           (CORBA_long) y,
-                                           ctype,
-                                           cspi_ev ());
+  retval = Accessibility_Component_contains (CSPI_OBJREF (obj),
+					     (CORBA_long) x,
+					     (CORBA_long) y,
+					     ctype,
+					     cspi_ev ());
+  cspi_return_val_if_ev ("contains", FALSE);
+
+  return retval;
 }
 
 /**
@@ -123,7 +128,7 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
   bbox = Accessibility_Component_getExtents (CSPI_OBJREF (obj),
 					     ctype,
 					     cspi_ev ());
-  if (cspi_check_ev ("AccessibleComponent_getExtents"))
+  if (!cspi_check_ev ("AccessibleComponent_getExtents"))
     {
       *x = *y = *width = *height = 0;    
     }
@@ -153,11 +158,22 @@ AccessibleComponent_getPosition (AccessibleComponent *obj,
                                  long int *y,
                                  AccessibleCoordType ctype)
 {
+  CORBA_long cx, cy;
+
+  cspi_return_if_fail (obj != NULL);
+
   Accessibility_Component_getPosition (CSPI_OBJREF (obj),
-                                       (CORBA_long *) x,
-                                       (CORBA_long *) y,
-                                       ctype,
-                                       cspi_ev ());
+				       &cx, &cy, ctype, cspi_ev ());
+
+  if (!cspi_check_ev ("getPosition"))
+    {
+      *x = *y = 0;
+    }
+  else
+    {
+      *x = cx;
+      *y = cy;
+    }
 }
 
 /**
@@ -174,6 +190,8 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
                              long int *width,
                              long int *height)
 {
+  cspi_return_if_fail (obj != NULL);
+
   Accessibility_Component_getSize (CSPI_OBJREF (obj),
                                    (CORBA_long *) width,
                                    (CORBA_long *) height,
@@ -192,11 +210,16 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
 AccessibleComponentLayer
 AccessibleComponent_getLayer (AccessibleComponent *obj)
 {
+  AccessibleComponentLayer     retval;
   Accessibility_ComponentLayer zlayer;
-  AccessibleComponentLayer retval;
-  
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
   zlayer = Accessibility_Component_getLayer (CSPI_OBJREF (obj),
 					     cspi_ev ());
+
+  cspi_return_val_if_ev ("getLayer", SPI_LAYER_INVALID);
+
   switch (zlayer)
     {
     case Accessibility_LAYER_BACKGROUND:
@@ -221,6 +244,7 @@ AccessibleComponent_getLayer (AccessibleComponent *obj)
       retval = SPI_LAYER_INVALID;
       break;
     }
+
   return retval;
 }
 
@@ -237,8 +261,16 @@ AccessibleComponent_getLayer (AccessibleComponent *obj)
 short
 AccessibleComponent_getMDIZOrder (AccessibleComponent *obj)
 {
-  return (short) Accessibility_Component_getMDIZOrder (CSPI_OBJREF (obj),
-                                                       cspi_ev ());
+  short retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval = Accessibility_Component_getMDIZOrder (CSPI_OBJREF (obj),
+						 cspi_ev ());
+
+  cspi_return_val_if_ev ("getMDIZOrder", FALSE);
+
+  return retval;
 }
 
 /**
@@ -247,10 +279,8 @@ AccessibleComponent_getMDIZOrder (AccessibleComponent *obj)
  *
  * Attempt to set the keyboard input focus to the specified
  *         #AccessibleComponent.
- *
  **/
 void
 AccessibleComponent_grabFocus (AccessibleComponent *obj)
 {
-  ;
 }

@@ -517,6 +517,10 @@ AccessibleEditableText_pasteText (AccessibleEditableText *obj,
  * AccessibleHyperlink function prototypes
  *
  */
+void
+AccessibleHyperlink_ref (AccessibleHyperlink *obj);
+void
+AccessibleHyperlink_unref (AccessibleHyperlink *obj);
 
 long
 AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj);
