@@ -1,5 +1,8 @@
 2003-02-14  Padraig O'Briain <padraig.obriain@sun.com>
 
+	* configure.in: Update to work when X is not installed in expected 
+	location. Fixes bug #105836.
+
 	* atk-bridge/bridge.c
 	(spi_atk_bridge_init_event_type_consts): Look up "link-selected" for
 	AtkHypertext
