@@ -36,6 +36,7 @@ extern "C" {
  *@ATK_STATE_COLLAPSED: Indicates this object is collapsed
  *@ATK_STATE_DEFUNCT: Indicates the user interface object corresponding to this object no longer exists
  *@ATK_STATE_EDITABLE: Indicates the user can change the contents of this object
+ *@ATK_STATE_ENABLED: Indicates that this object is enabled
  *@ATK_STATE_EXPANDABLE: Indicates this object allows progressive disclosure of its children
  *@ATK_STATE_EXPANDED: Indicates this object its expanded
  *@ATK_STATE_FOCUSABLE: Indicates this object can accept keyboard focus, which means all events resulting from typing on the keyboard will normally be passed to it when it has focus
@@ -71,6 +72,7 @@ typedef enum
   ATK_STATE_COLLAPSED,
   ATK_STATE_DEFUNCT,
   ATK_STATE_EDITABLE,
+  ATK_STATE_ENABLED,
   ATK_STATE_EXPANDABLE,
   ATK_STATE_EXPANDED,
   ATK_STATE_FOCUSABLE,

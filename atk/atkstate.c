@@ -32,6 +32,7 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
  "collapsed",
  "defunct",
  "editable",
+ "enabled",
  "expandable",
  "expanded",
  "focusable",
