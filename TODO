@@ -29,3 +29,25 @@ test:
 	+ update test-simple to do complete API tests
 	+ Expand tests for AtkTable
 
+2.2 API Proposed Additions:
+
+	+ SPI_dupString ()
+	+ Additional relation types: FLOWS_TO, FLOWS_FROM
+	+ SPIBoolean
+	  AccessibleText_getTextBounds (AccessibleText *text, 
+					long start_offset, 
+					long end_offset,
+					long *x,
+					long *y,
+					long *width,
+					long *height, 
+					SPI_COORD_TYPE type);
+	+ char *
+          AccessibleText_getTextWithin (AccessibleText *text,
+					long x,
+					long y,
+					long width,
+					long height,
+					SPI_COORD_TYPE type);
+
+					

@@ -45,12 +45,19 @@
  * * can't know about "inaccessible" objects that may be obscuring the
  *          accessible windows (inherent to API-based approach).
  *
+ * * this implementation doesn't worry about text column-alignment, it generates
+ *          review lines of more-or-less arbitrary length.  The x-coordinate
+ *          info is preserved in the reviewBuffers list structures, but the
+ *          "buffer-to-string" algorithm ignores it.
+ *
  * * (others).
  */
 
 
-#define BOUNDS_CONTAIN_X(b, p)  (((p)>=(b)->x) && ((p)<=((b)->x + (b)->width))\
-	    && ((b)->width > 0) && ((b)->height > 0))
+#define BOUNDS_CONTAIN_X_BOUNDS(b, p)  ( ((p).x>=(b).x) &&\
+					 (((p).x + (p).width) <= \
+                                         ((b).x + (b).width)) && \
+	                                ((b).width > 0) && ((b).height > 0))
 
 #define BOUNDS_CONTAIN_Y(b, p)  (((p)>=(b)->y) && ((p)<=((b)->y + (b)->height))\
 	    && ((b)->width > 0) && ((b)->height > 0))
@@ -492,9 +499,10 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 				 text_chunk->start_char_bounds.x,
 				 text_chunk->start_char_bounds.width);
 #endif
-			end--; /* XXX: bug workaround */
+			if (s && strlen (s) && s[strlen (s) - 1] == '\n')
+				end--;
 			AccessibleText_getCharacterExtents (
-				text, end--,
+				text, end - 1,
 				&text_chunk->end_char_bounds.x,
 				&text_chunk->end_char_bounds.y,
 				&text_chunk->end_char_bounds.width,
@@ -502,7 +510,7 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 				SPI_COORD_TYPE_SCREEN);
 #ifdef CLIP_DEBUG			
 			fprintf (stderr, "end char (%d) x, width %d %d\n",
-				 end,
+				 end - 1,
 				 text_chunk->end_char_bounds.x,
 				 text_chunk->end_char_bounds.width);
 #endif
@@ -660,52 +668,128 @@ clip_into_buffers (Accessible *accessible,  BoundaryRect* parentClipBounds[],
 #undef CHARACTER_CLIP_DEBUG
 
 static char*
+text_chunk_get_clipped_substring_by_char (TextChunk *chunk, int start, int end)
+{
+	BoundaryRect char_bounds;
+	int i;
+	GString *string = g_string_new ("");
+	gunichar c;
+	for (i = start; i < end; ++i) {
+		AccessibleText_getCharacterExtents (chunk->source,
+						    i,
+						    &char_bounds.x,
+						    &char_bounds.y,
+						    &char_bounds.width,
+						    &char_bounds.height,
+						    SPI_COORD_TYPE_SCREEN);
+#ifdef CHARACTER_CLIP_DEBUG
+		fprintf (stderr, "testing %d-%d against %d-%d\n",
+			 char_bounds.x, char_bounds.x+char_bounds.width,
+			 chunk->text_bounds.x,
+			 chunk->text_bounds.x + chunk->text_bounds.width);
+#endif
+		if (BOUNDS_CONTAIN_X_BOUNDS (chunk->text_bounds,
+					     char_bounds)) {
+			c = AccessibleText_getCharacterAtOffset (
+				chunk->source, i);
+#ifdef CLIP_DEBUG				
+			fprintf (stderr, "[%c]", c);
+#endif				
+			g_string_append_unichar (string, c);
+		}
+	}
+	return string->str;
+		g_string_free (string, FALSE);
+
+}
+
+
+/*
+ * Note: this routine shouldn't have to do as much as it currently does,
+ *       but at the moment it works around a pango?/gail? bug which
+ *       causes WORD boundary type queries to return incorrect strings.
+ */
+static char *
+string_strip_newlines (char *s, long offset, long *start_offset, long *end_offset)
+{
+	int i;
+	char *word_start = s;
+	/* FIXME: potential memory leak here */
+	for (i=0; s && s[i]; ++i)
+	{
+		if (s [i] == '\n' && i > (offset - *start_offset) ) {
+			s [i] = '\0';
+			*end_offset = *start_offset + i;
+			return word_start;
+		} else if (s [i] == '\n') {
+			word_start = &s[i + 1];
+		}
+	}
+	return word_start;
+}
+
+static char*
 text_chunk_get_clipped_string (TextChunk *chunk)
 {
-	char *s;
+	char *s, *string = "";
 	int i;
-	int len;
-	gunichar c;
-	GString *string = g_string_new ("");
-	BoundaryRect char_bounds;
+	long start = chunk->start_offset, end = chunk->end_offset;
+	long word_start, word_end, range_end;
+	BoundaryRect start_bounds, end_bounds;
+	gboolean start_inside, end_inside;
 	if (!chunk->text_bounds.isClipped)
-		s = chunk->string;
+		string = chunk->string;
 	else if (chunk->source) {
-		len = chunk->end_offset - chunk->start_offset;
-#ifdef CHARACTER_CLIP_DEBUG		
+#ifdef CLIP_DEBUG		
 		fprintf (stderr, "clipping %s\n", chunk->string);
-#endif		
-		for (i = chunk->start_offset; i < chunk->end_offset; ++i) {
-			AccessibleText_getCharacterExtents (chunk->source,
-							    i,
-							    &char_bounds.x,
-							    &char_bounds.y,
-							    &char_bounds.width,
-							    &char_bounds.height,
-							    SPI_COORD_TYPE_SCREEN);
-#ifdef CHARACTER_CLIP_DEBUG
-			fprintf (stderr, "testing %d-%d against %d-%d\n",
-				 char_bounds.x, char_bounds.x+char_bounds.width,
-				 chunk->text_bounds.x,
-				 chunk->text_bounds.x + chunk->text_bounds.width);
 #endif
-			if (BOUNDS_CONTAIN_X (&chunk->text_bounds,
-					      char_bounds.x)) {
-				c = AccessibleText_getCharacterAtOffset (
-					chunk->source, i);
-#ifdef CLIP_DEBUG				
-				fprintf (stderr, "[%c]", c);
-#endif				
-				g_string_append_unichar (string, c);
-			}
-		}
-		s = string->str;
+		/* while words at offset lie within the bounds, add them */
+		do {
+		    s = AccessibleText_getTextAtOffset (chunk->source,
+							start,
+						SPI_TEXT_BOUNDARY_WORD_START,
+							&word_start,
+							&word_end);
+		    range_end = word_end;
+		    s = string_strip_newlines (s, start, &word_start, &word_end);
+		    AccessibleText_getCharacterExtents (chunk->source,
+							word_start,
+							&start_bounds.x,
+							&start_bounds.y,
+							&start_bounds.width,
+							&start_bounds.height,
+							SPI_COORD_TYPE_SCREEN);
+		    AccessibleText_getCharacterExtents (chunk->source,
+							word_end - 1,
+							&end_bounds.x,
+							&end_bounds.y,
+							&end_bounds.width,
+							&end_bounds.height,
+							SPI_COORD_TYPE_SCREEN);
+		    start_inside = BOUNDS_CONTAIN_X_BOUNDS (chunk->text_bounds,
+							    start_bounds);
+		    end_inside = BOUNDS_CONTAIN_X_BOUNDS (chunk->text_bounds,
+							  end_bounds);
+		    if (start_inside && end_inside) {
+			    /* word is contained in bounds */
+			    string = g_strconcat (string, s, NULL);
+		    } else if (start_inside || end_inside) {
+			    /* one end of word is in */
+			    if (word_end > end) word_end = end;
+			    s = text_chunk_get_clipped_substring_by_char (
+				    chunk,
+				    MAX (word_start, chunk->start_offset),
+				    MIN (word_end, chunk->end_offset));
+			    string = g_strconcat (string, s, NULL);
+		    } else {
+		    }
+		    start = range_end;
+		} while (start < chunk->end_offset);
 	} else { /* we're clipped, but don't implement AccessibleText :-( */
 		/* punt for now, maybe we can do betterc someday */
-		s = chunk->string;
+		string = chunk->string;
 	}
-	g_string_free (string, FALSE);
-	return s;
+	return string;
 }
 
 static char*
@@ -735,16 +819,21 @@ review_buffer_composite (ScreenReviewBuffer *buffers[])
 	int i;
 	GList *chunk_list, *iter;
 	TextChunk *chunk;
+#ifdef NEED_TO_FIX_THIS	
 	chunk_list = buffers[0]->text_chunks;
-/*	for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
+	for (i = 1; i < SPI_LAYER_LAST_DEFINED; ++i) {
 		iter = buffers[i]->text_chunks;
+#ifdef CLIP_DEBUG
 		fprintf (stderr, "layer %d has %d chunks\n",
 			 i, g_list_length (iter));
+#endif		
 		while (iter) {
 			chunk = (TextChunk *) iter->data;
 			if (chunk) {
+#ifdef CLIP_DEBUG
 				fprintf (stderr, "inserting chunk <%s>\n",
 					 chunk->string ? chunk->string : "<null>");
+#endif
 				chunk_list =
 					text_chunk_list_insert_chunk (chunk_list,
 								      chunk);
@@ -752,7 +841,8 @@ review_buffer_composite (ScreenReviewBuffer *buffers[])
 			iter = iter->next;
 		}
 	}
-*/	chunk_list = buffers[SPI_LAYER_WIDGET]->text_chunks;
+#endif
+	chunk_list = buffers[SPI_LAYER_WIDGET]->text_chunks;
 	return text_chunk_list_to_string (chunk_list);
 }
 

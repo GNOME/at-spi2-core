@@ -1,4 +1,4 @@
-bin_PROGRAMS = at-spi-registryd
+libexec_PROGRAMS = at-spi-registryd
 
 INCLUDES = -I$(top_srcdir)          \
            -I$(top_builddir)        \
