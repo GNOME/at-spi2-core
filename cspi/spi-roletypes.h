@@ -138,6 +138,9 @@ extern "C" {
  *                  which it controls (should have CONTROLLER_FOR relation to such). 
  * @SPI_ROLE_APPLICATION: An object which corresponds to a desktop application,
  *                  which may have children of @SPI_ROLE_FRAME or other type.
+ * @SPI_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items for 
+ *                         insertion into an entry widget, for instance a list 
+ *                          of words for completion of a text entry.
  * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
  *
  * Describes the role of an object
@@ -223,6 +226,7 @@ typedef enum
   SPI_ROLE_PARAGRAPH,
   SPI_ROLE_RULER,
   SPI_ROLE_APPLICATION,
+  SPI_ROLE_AUTOCOMPLETE,
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
 

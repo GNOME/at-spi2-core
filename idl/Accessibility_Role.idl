@@ -264,6 +264,12 @@ module Accessibility {
    * are generally ROLE_APPLICATION objects.
    */
   ROLE_APPLICATION,
+  /*
+   * The object is a dialog or list containing items for insertion 
+   * into an entry widget, for instance a list of words for completion 
+   * of a text entry.
+   */
+  ROLE_AUTOCOMPLETE,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
   };

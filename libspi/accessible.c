@@ -118,6 +118,8 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_FOOTER] =              Accessibility_ROLE_FOOTER;
   role_table [ATK_ROLE_PARAGRAPH] =           Accessibility_ROLE_PARAGRAPH;
   role_table [ATK_ROLE_RULER] =               Accessibility_ROLE_RULER;
+  role_table [ATK_ROLE_APPLICATION] =         Accessibility_ROLE_APPLICATION;
+  role_table [ATK_ROLE_AUTOCOMPLETE] =        Accessibility_ROLE_AUTOCOMPLETE;
   
   return TRUE;
 }

@@ -1,3 +1,17 @@
+2003-06-11  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi-roletypes.h: Add role SPI_ROLE_AUTOCOMPLETE
+
+	* cspi/spi_accessible.c (cspi_init_role_table): Add ROLE_AUTOCOMPLETE.
+
+	* docs/reference/cspi/tmpl/spi_accessible.sgml: Add role 
+	SPI_ROLE_AUTOCOMPLETE
+
+	* idl/Accessibility_Role.idl: Add role ROLE_AUTOCOMPLETE
+
+	* libspi_accessible.c(spi_init_role_lookup_table): Add lookup
+	for ROLE_APPLICATION and ROLE_AUTOCOMPLETE
+
 2003-06-11  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/streamablecontent.h:
