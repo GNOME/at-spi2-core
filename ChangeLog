@@ -1,3 +1,18 @@
+Tue Mar  5 16:54:21 2002  Owen Taylor  <otaylor@redhat.com>
+
+        * ATK 1.0.0 rc1
+
+	* tests/Makefile.am: Don't install libteststateset.la,
+	libtestrelation.la. (#73655, James Henstridge)
+
+	* autogen.sh: Add --enable-gtk-doc
+
+	* configure.in: --disable-gtk-doc by default.
+
+	* Makefile.am: Add a slightly modified distcheck rule
+	that passes --enable-gtk-doc to the configure inside.
+	(So that 'make dist' succeeds inside.)
+
 Tue Mar  5 11:55:35 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* configure.in: Require GLib-2.0.0.

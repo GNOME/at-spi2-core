@@ -1,5 +1,5 @@
 
-lib_LTLIBRARIES = \
+noinst_LTLIBRARIES = \
 	libteststateset.la	\
 	libtestrelation.la
 
