@@ -1,7 +1,17 @@
+2001-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.[c|h]:
+        * docs/atk-sections.txt, docs/tmpl/atktext.sgml:
+	Add new function atk_text_get_default_attributes
+	Rename atk_text_ref_run_attributes to atk_text_get_run_attributes
+
 2001-10-09  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c (atk_attribute_set_free):
 	Avoid leaking of AtkAttributeSet data structure; speed up code.
+
+	* docs/tmpl.atk*.sgml
+	Updated to reflect current APIs.
 
 2001-10-01  jacob berkman  <jacob@ximian.com>
 

@@ -32,7 +32,8 @@ AtkText
 @get_character_at_offset: 
 @get_text_before_offset: 
 @get_caret_offset: 
-@ref_run_attributes: 
+@get_run_attributes: 
+@get_default_attributes: 
 @get_character_extents: 
 @get_character_count: 
 @get_offset_at_point: 
@@ -166,7 +167,7 @@ AtkText
 @length: 
 
 
-<!-- ##### FUNCTION atk_text_ref_run_attributes ##### -->
+<!-- ##### FUNCTION atk_text_get_run_attributes ##### -->
 <para>
 
 </para>
@@ -175,6 +176,15 @@ AtkText
 @offset: 
 @start_offset: 
 @end_offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_default_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
 @Returns: 
 
 

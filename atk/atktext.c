@@ -376,7 +376,7 @@ atk_text_get_character_extents (AtkText *text,
 }
 
 /**
- *atk_text_ref_run_attributes:
+ *atk_text_get_run_attributes:
  *@text: an #AtkText
  *@offset: the offset at which to get the attributes
  *@start_offset: the address to put the start offset of the range
@@ -390,12 +390,14 @@ atk_text_get_character_extents (AtkText *text,
  *attributes that do not have corresponding macros may also be returned.
  *
  *Returns: an #AtkAttributeSet which contains the attributes explicitly set
- *at @offset
+ *at @offset. This #AtkAttributeSet should be freed by a call to
+ *atk_attribute_set_free().
  **/
-AtkAttributeSet* atk_text_ref_run_attributes              (AtkText          *text,
-                                                           gint             offset,
-                                                           gint             *start_offset,
-                                                           gint             *end_offset)
+AtkAttributeSet* 
+atk_text_get_run_attributes (AtkText          *text,
+                             gint             offset,
+                             gint             *start_offset,
+                             gint             *end_offset)
 {
   AtkTextIface *iface;
   gint local_start_offset, local_end_offset;
@@ -414,8 +416,35 @@ AtkAttributeSet* atk_text_ref_run_attributes              (AtkText          *tex
 
   iface = ATK_TEXT_GET_IFACE (text);
 
-  if (iface->ref_run_attributes)
-    return (*(iface->ref_run_attributes)) (text, offset, real_start_offset, real_end_offset);
+  if (iface->get_run_attributes)
+    return (*(iface->get_run_attributes)) (text, offset, real_start_offset, real_end_offset);
+  else
+    return NULL;
+}
+
+/**
+ *atk_text_get_default_attributes:
+ *@text: an #AtkText
+ *
+ *Creates an #AtkAttributeSet which consists of the default values of
+ *attributes for the text. See the ATK_ATTRIBUTE macros, such as 
+ *#ATK_ATTRIBUTE_LEFT_MARGIN for types of text attributes that can be 
+ *returned. Note that other attributes that do not have corresponding macros 
+ *may also be returned.
+ *
+ *Returns: an #AtkAttributeSet which contains the default values of attributes.
+ *at @offset. This #AtkAttributeSet should be freed by a call to
+ *atk_attribute_set_free().
+ */
+AtkAttributeSet* 
+atk_text_get_default_attributes (AtkText          *text)
+{
+  AtkTextIface *iface;
+
+  g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  if (iface->get_default_attributes)
+    return (*(iface->get_default_attributes)) (text);
   else
     return NULL;
 }

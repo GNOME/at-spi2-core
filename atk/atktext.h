@@ -33,7 +33,8 @@ extern "C" {
  * AtkAttributeSet:
  *
  * This is a singly-linked list (a #GSList) of #AtkAttribute. It is
- * used by atk_text_ref_run_attributes() and atk_editable_text_set_run_attributes()
+ * used by atk_text_get_run_attributes(), atk_text_get_default_attributes()
+ * and atk_editable_text_set_run_attributes()
  **/
 typedef GSList AtkAttributeSet;
 
@@ -325,10 +326,11 @@ struct _AtkTextIface
  						   gint             *start_offset,
 						   gint             *end_offset);
   gint           (* get_caret_offset)             (AtkText          *text);
-  AtkAttributeSet* (* ref_run_attributes)         (AtkText	    *text,
+  AtkAttributeSet* (* get_run_attributes)         (AtkText	    *text,
 						   gint	  	    offset,
 						   gint             *start_offset,
 						   gint	 	    *end_offset);
+  AtkAttributeSet* (* get_default_attributes)     (AtkText	    *text);
   void           (* get_character_extents)        (AtkText          *text,
                                                    gint             offset,
                                                    gint             *x,
@@ -404,10 +406,11 @@ void          atk_text_get_character_extents              (AtkText          *tex
                                                            gint             *width,
                                                            gint             *height,
                                                            AtkCoordType	    coords);
-AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,
+AtkAttributeSet* atk_text_get_run_attributes              (AtkText	    *text,
 						           gint	  	    offset,
 						           gint             *start_offset,
 						           gint	 	    *end_offset);
+AtkAttributeSet* atk_text_get_default_attributes          (AtkText	    *text);
 gint          atk_text_get_character_count                (AtkText          *text);
 gint          atk_text_get_offset_at_point                (AtkText          *text,
                                                            gint             x,
