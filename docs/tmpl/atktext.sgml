@@ -42,7 +42,6 @@ AtkText provides an accessibility interface for text widgets
 @remove_selection: 
 @set_selection: 
 @set_caret_offset: 
-@set_run_attributes: 
 @text_changed: 
 @caret_changed: 
 
@@ -134,6 +133,7 @@ AtkText provides an accessibility interface for text widgets
 @y: 
 @length: 
 @width: 
+@coords: 
 
 
 <!-- ##### FUNCTION atk_text_ref_run_attributes ##### -->
@@ -165,6 +165,7 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @x: 
 @y: 
+@coords: 
 @Returns: 
 
 

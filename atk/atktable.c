@@ -330,18 +330,19 @@ atk_table_get_column_extent_at (AtkTable *obj,
 /**
  * atk_table_get_column_header:
  * @table: a GObject instance that implements AtkTableIface
+ * @column: a #gint representing a column in the table
  *
- * Gets the column headers of an accessible table.
+ * Gets the column header of a specified column in an accessible table.
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a AtkObject* representing the column headers, or %NULL
- * if value does not implement this interface.
+ * Returns: a AtkObject* representing the specified column header, or
+ * %NULL if value does not implement this interface.
  **/
-AtkTable*
-atk_table_get_column_header (AtkTable *obj)
+AtkObject*
+atk_table_get_column_header (AtkTable *obj, gint column)
 {
   AtkTableIface *iface;
 
@@ -351,7 +352,7 @@ atk_table_get_column_header (AtkTable *obj)
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->get_column_header)
-    return (iface->get_column_header) (obj);
+    return (iface->get_column_header) (obj, column);
   else
     return NULL;
 }
@@ -453,18 +454,19 @@ atk_table_get_row_extent_at (AtkTable *obj,
 /**
  * atk_table_get_row_header:
  * @table: a GObject instance that implements AtkTableIface
+ * @row: a #gint representing a row in the table
  *
- * Gets the row headers of an accessible table.
+ * Gets the row header of a specified row in an accessible table.
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a AtkTable* representing the row headers, or %NULL
- * if value does not implement this interface.
+ * Returns: a AtkObject* representing the specified row header, or
+ * %NULL if value does not implement this interface.
  **/
-AtkTable*
-atk_table_get_row_header (AtkTable *obj)
+AtkObject*
+atk_table_get_row_header (AtkTable *obj, gint row)
 {
   AtkTableIface *iface;
 
@@ -474,7 +476,7 @@ atk_table_get_row_header (AtkTable *obj)
   iface = ATK_TABLE_GET_IFACE (obj);
 
   if (iface->get_row_header)
-    return (iface->get_row_header) (obj);
+    return (iface->get_row_header) (obj, row);
   else
     return NULL;
 }
@@ -721,9 +723,9 @@ atk_table_set_column_description (AtkTable       *obj,
  * Sets the specified column header to @header
  **/
 void
-atk_table_set_column_header (AtkTable *obj,
-                             gint     column,
-                             AtkTable *header)
+atk_table_set_column_header (AtkTable  *obj,
+                             gint      column,
+                             AtkObject *header)
 {
   AtkTableIface *iface;
 
@@ -770,9 +772,9 @@ atk_table_set_row_description (AtkTable       *obj,
  * Sets the specified row header to @header
  **/
 void
-atk_table_set_row_header (AtkTable *obj,
-                          gint     row,
-                          AtkTable *header)
+atk_table_set_row_header (AtkTable  *obj,
+                          gint      row,
+                          AtkObject *header)
 {
   AtkTableIface *iface;
 

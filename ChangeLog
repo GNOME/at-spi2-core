@@ -1,3 +1,10 @@
+2001-06-13  Brian Cameron <brian.cameron@sun.com>
+
+	* atk/atktable.h, atk/atktable.c
+	Updated so that get/set row/column header functions
+	work with AtkObjects rather than AtkTables.  Organized
+	the header file a little more cleanly.
+
 2001-06-12  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkmarshal.list, atk/atktable.h atk/atktable.c:
