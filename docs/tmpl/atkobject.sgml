@@ -110,6 +110,11 @@ the object changed.
 
 </para>
 
+<!-- ##### ARG AtkObject:accessible-hypertext-nlinks ##### -->
+<para>
+
+</para>
+
 <!-- ##### ARG AtkObject:accessible-name ##### -->
 <para>
 
@@ -244,6 +249,7 @@ the object changed.
 @ATK_ROLE_RULER: 
 @ATK_ROLE_APPLICATION: 
 @ATK_ROLE_AUTOCOMPLETE: 
+@ATK_ROLE_EDITBAR: 
 @ATK_ROLE_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_role_register ##### -->

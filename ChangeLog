@@ -1,3 +1,12 @@
+2003-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.[ch]: Add new role ATK_ROLE_EDITBAR. Fixes bug #111607.
+
+	* atk/docs/tmpl/atkhyperlink.sgml: Add references to new signals and 
+	properties
+
+	* atk/docs/tmpl/atkobject.sgml: Add references to new property and role
+
 2003-12-01  Michael Natterer  <mitch@gimp.org>
 
 	* atk/atkobject.c (atk_object_real_get_property): fix typo:
@@ -13,7 +22,7 @@
 	* atk/atkhyperlink.h: Remove unnecessary comments. Add signal
 	link_activated.
 
-	* atk/atkhyperlink.c: aAdd signals link_activated and new properties
+	* atk/atkhyperlink.c: Add signals link_activated and new properties
 	"number-of-anchors, end-index and start-index.
 
 	This fixes bug #112390.
