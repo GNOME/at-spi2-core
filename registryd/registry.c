@@ -358,14 +358,14 @@ impl_accessibility_registry_register_global_event_listener (
   EventTypeStruct etype;
   GList          **list;
 
-#ifdef SPI_DEBUG
+#ifdef SPI_LISTENER_DEBUG
   fprintf (stderr, "registering");
   fprintf (stderr, "registering for events of type %s\n", event_name);
 #endif
 
   /* parse, check major event type and add listener accordingly */
   parse_event_type (&etype, event_name);
-  ls->event_type_quark = etype.major;
+  ls->event_type_quark = etype.minor;
   ls->event_type_cat = etype.type_cat;
 
   list = get_listener_list (registry, etype.type_cat);

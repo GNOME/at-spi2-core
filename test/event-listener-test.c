@@ -64,6 +64,8 @@ main (int argc, char **argv)
 				   "object:property-change:accessible-name");
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:state-changed"); 
+  SPI_registerGlobalEventListener (specific_listener,
+				   "object:state-changed:focused"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:selection-changed"); 
   SPI_registerGlobalEventListener (generic_listener,
@@ -204,7 +206,9 @@ report_event (const AccessibleEvent *event, void *user_data)
 void
 report_detail_event (const AccessibleEvent *event, void *user_data)
 {
-  fprintf (stderr, "%s\n", event->type);
+  char *s = Accessible_getName (event->source);
+  fprintf (stderr, "(detail) %s %s\n", event->type, s);
+  if (s) SPI_freeString (s);
 }
 
 void

@@ -1,3 +1,15 @@
+2002-06-19  Bill Haneman  <bill.haneman@sun.com>
+
+	* registryd/registry.c:
+	(impl_accessibility_registry_register_global_event_listener):
+	Set listener's event_type_quark to etype.minor instead of
+	etype.major (fix for bug 84856).
+
+	* test/event-listener-test.c:
+	(report_detail_event):
+	Change the output string so that user/tester can tell that the
+	'detail listener' was called instead of the 'generic listener'.
+	
 2002-06-18  Bill Haneman  <bill.haneman@sun.com>
 
 	Fixes for bugs 84900, 84908, 84897, 84898.
@@ -2867,7 +2879,7 @@
 
 	* cspi/*.h: add G_BEGIN/END_DECLS
 
-2001-22-11  Bill Haneman  <bill.haneman@sun.com>
+2001-11-22  Bill Haneman  <bill.haneman@sun.com>
 
 	* test/simple-at.c:
 	Added non-preemptive keylistener for key events with no modifiers
@@ -2885,7 +2897,7 @@
 	for non-preemptive key masks.
 
 
-2001-22-11  Bill Haneman  <bill.haneman@sun.com>
+2001-11-22  Bill Haneman  <bill.haneman@sun.com>
 
 	* docs/reference/idl/at-spi-idl-docs.sgml:
 	* docs/reference/idl/at-spi-idl-sections.txt:
@@ -2901,7 +2913,7 @@
 	* docs/idl:
 	Added .cvsignore files.
 	
-2001-21-11  Bill Haneman  <bill.haneman@sun.com>
+2001-11-21  Bill Haneman  <bill.haneman@sun.com>
 
 	* libspi/deviceeventcontroller.c:
 	* libspi/keystrokelistener.c:
@@ -2911,7 +2923,7 @@
 	event dispatching, so listeners should only receive those events
 	that they requested :-)
 
-2001-21-11  Bill Haneman  <bill.haneman@sun.com>
+2001-11-21  Bill Haneman  <bill.haneman@sun.com>
 
 	* configure.in:
 	* docs/Makefile.am:
@@ -2943,7 +2955,7 @@
 
 	* libspi/base.[ch]: add.
 
-2001-18-11  Bill Haneman <bill.haneman@sun.com>
+2001-11-18  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessible.idl:
 	* idl/Application.idl:
@@ -2981,7 +2993,7 @@
 	Solaris build problem.
 	
 	
-2001-20-11  Michael Meeks  <michael@ximian.com>
+2001-11-20  Michael Meeks  <michael@ximian.com>
 
 	* libspi/registry.c
 	(impl_accessibility_registry_deregister_global_event_listener): 
@@ -2998,7 +3010,7 @@
 	* libspi/application.h: kill unused ( and whacked out )
 	gboolean *spi_application_set_id (AtkObject *app, long id);
 
-2001-20-11  Michael Meeks  <michael@ximian.com>
+2001-11-20  Michael Meeks  <michael@ximian.com>
 
 	* libspi/*.[ch]: further convert to bonobo's type func
 	macros, remove redundnant casts etc.
@@ -3015,7 +3027,7 @@
 
 	* */.cvsignore: update
 	
-2001-20-11  Michael Meeks  <michael@ximian.com>
+2001-11-20  Michael Meeks  <michael@ximian.com>
 
 	* libspi/deviceeventcontroller.c
 	(_controller_register_with_devices): use g_getenv,
@@ -3030,7 +3042,7 @@
 
 	* libspi/*.[ch]: more headers, includes and over commenting.
 	
-2001-20-11  Michael Meeks  <michael@ximian.com>
+2001-11-20  Michael Meeks  <michael@ximian.com>
 
 	* libspi/*.[ch]: fixup headers, includes and over commenting.
 
@@ -3042,7 +3054,7 @@
 
 	* libspi/libspi.h: add.
 
-2001-19-11  Michael Meeks  <michael@ximian.com>
+2001-11-19  Michael Meeks  <michael@ximian.com>
 
 	* libspi/editabletext.c (impl_setAttributes): fix warnings.
 
@@ -3065,7 +3077,7 @@
 	* libspi/accessible.c (impl_accessibility_accessible_get_relation_set):
 	warning fixes.
 
-2001-18-11  Bill Haneman <bill.haneman@sun.com>
+2001-11-18  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/spi_accessible.c: Added docs and C bindings for
 	AccessibleStateSet. (No implementations yet).  Documentation
@@ -3130,7 +3142,7 @@
             object:column-deleted
             object:model-changed        
 
-2001-16-11  Bill Haneman <bill.haneman@sun.com>
+2001-11-16  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/hyperlink.c,h:
 	Fixed some broken stuff in hyperlink.
@@ -3154,7 +3166,7 @@
 
 	Doc coverage now 95%.
 
-2001-16-11  Bill Haneman <bill.haneman@sun.com>
+2001-11-16  Bill Haneman <bill.haneman@sun.com>
 
 	One last namespacing revision:
 	* libspi/accessibleeventlistener.[ch]:
@@ -3208,7 +3220,7 @@
 	AccessibleTable
 	AccessibleHyperlink
 	
-2001-14-11  Bill Haneman <bill.haneman@sun.com>
+2001-11-14  Bill Haneman <bill.haneman@sun.com>
 
 	* at-bridge/bridge.c:
 	Initial work for toolkit-level key snooper connection by bridge.
@@ -3265,7 +3277,7 @@
 	libraries. (Incompletely tested for technical reasons, fixes may follow)
 	
 
-2001-13-11  Michael Meeks  <michael@ximian.com>
+2001-11-13  Michael Meeks  <michael@ximian.com>
 
 	* libspi/application.c
 	(impl_accessibility_application_get_version),
@@ -3284,14 +3296,14 @@
 	(impl_accessibility_accessible_get_relation_set):
 	warning fixes & include action.h
 
-2001-13-11  Michael Meeks  <michael@ximian.com>
+2001-11-13  Michael Meeks  <michael@ximian.com>
 
 	* *.[ch] fix bits I screwed up:
 
 		s/([^ \tb(\*\&\?\",])spi_/\1/g;
 		s/([^ \tb(\*\&\?\",])Spi/\1/g;
 	
-2001-13-11  Michael Meeks  <michael@ximian.com>
+2001-11-13  Michael Meeks  <michael@ximian.com>
 
 	* *.[ch] Namespace libspi into spi_ and Spi.
 
@@ -3307,7 +3319,7 @@
 
 	* configure.in: build it.
 
-2001-12-11  Bill Haneman <bill.haneman@sun.com>
+2001-11-12  Bill Haneman <bill.haneman@sun.com>
 
         * test/keysynth-demo.c:
         Use a 'realize' signal-handler to set the WM properties for
@@ -3397,11 +3409,11 @@
 
 	* libspi/Makefile.am (orbittypelibdir): install in orbit-2.0
 
-<2001-10-26  Laszlo Peter <laca@ireland.sun.com>
+2001-10-26  Laszlo Peter <laca@ireland.sun.com>
 
 	* at-bridge/Makefile.am: fix LDFLAGS.
 
-<2001-10-09  Bill Haneman <bill.haneman@sun.com>
+2001-10-09  Bill Haneman <bill.haneman@sun.com>
 
 	* at-bridge/bridge.c:
 	Re-worked listeners for toolkit events, now we have signal
@@ -3460,20 +3472,20 @@
 	bonobo_object_corba_objref (bonobo_object(o)) to
 	BONOBO_OBJREF(o), for concision and clarity.
 	
-<2001-10-13  Louise Miller <louise.miller@sun.com>
+2001-10-13  Louise Miller <louise.miller@sun.com>
 
 	* idl/Accessible.idl, idl/Application.idl, idl/Desktop.idl,
 	idl/Event.idl, idl/Registry.idl
 	Changed these files to include Bonobo_Unknown.idl instead
 	of Bonobo.idl
 
-<2001-09-10  Marc Mulcahy <marc.mulcahy@sun.com
+2001-09-10  Marc Mulcahy <marc.mulcahy@sun.com
 
 	* libspi/component.c libspi/component.h:
 		Fixed typo.  Added assertions for object checks in 
 	AccessibleComponent code.
 
-<2001-10-09  Bill Haneman <bill.haneman@sun.com>
+2001-10-09  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessible.idl:
 		Added 'isEqual (Accessible *object)' 
@@ -3512,7 +3524,7 @@
 	CORBA_unsigned_long, to allow for 32-bit characters.
 	
 		
-<2001-10-08  Bill Haneman <bill.haneman@sun.com>
+2001-10-08  Bill Haneman <bill.haneman@sun.com>
 
 	* util/Makefile.am:
 	* idl/Makefile.am:
@@ -3574,19 +3586,19 @@
 		Changed the default magnifier type to be a 3x vertical
 	splitscreen magnifier (was previously a 2x horizontal one).
 
-<2001-10-03  Bill Haneman <bill.haneman@sun.com>
+2001-10-03  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/keystrokelistener.h:
 	* libspi/keystrokelistener.c:
 		Initial functional implementations of KeystrokeListener.
 	* idl/Registry.idl:
 	
-<2001-10-05  Marc Mulcahy <marc.mulcahy@sun.com>
+2001-10-05  Marc Mulcahy <marc.mulcahy@sun.com>
 
  	Fixed string handling for NULL strings in libspi.
 	Added spi_freeString to free strings returned by C bindings.
 
-<2001-09-30  Bill Haneman <bill.haneman@sun.com>
+2001-09-30  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/keystrokelistener.h:
 	* libspi/keystrokelistener.c:
@@ -3617,7 +3629,7 @@
 			Required making 'app' static, renamed 'this_app'.
 		Fixed broken use of bonobo_init, passing argv wrongly.
 
-<2001-09-27  Bill Haneman <bill.haneman@sun.com>
+2001-09-27  Bill Haneman <bill.haneman@sun.com>
 
 	* util:
 	* util/Makefile.am: 
@@ -3659,7 +3671,8 @@
 		If env variable MAGNIFIER is set, a magnifier service
 			will be started if one does not exist.
 	
-<2001-09-25  Bill Haneman <bill.haneman@sun.com>
+2001-09-25  Bill Haneman <bill.haneman@sun.com>
+
 	* at-bridge/bridge.c:
 		applied patch from Marc to build and run 
 	        against new glib and gtk+ (seemed like a change 
@@ -3672,7 +3685,8 @@
 		Changed "application.h" header from a 'source'
 		to a 'dependency' of libat-bridge.
 
-<2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
+2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
+
 	* cspi/Makefile.am:
 		Added spi-util.c.
 
@@ -3761,7 +3775,7 @@
 	* libspi/hyperlink.c:
 		Change for nAnchors attributte name change.
 
-<2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
+2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
 	* cspi/Makefile.am:
 		Added spi-util.c.
 
@@ -3851,13 +3865,13 @@
 		Change for nAnchors attributte name change.
 
 
-<2001-09-05  Marc Mulcahy <marc.mulcahy@sun.com>
+2001-09-05  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	implementations-- made server implementations own AtkObject pointers
 	rather than their respective AtkInterrface pointers to fix
 	refcounting.  AtkHyperlink is still broken.
 
-<2001-09-04  Bill Haneman <bill.haneman@sun.com>
+2001-09-04  Bill Haneman <bill.haneman@sun.com>
 	* cspi/spi_accessible.c:
 		Added method Accessible_Role_getName(),
 			and requisite string array (role_names).
@@ -3887,7 +3901,7 @@
 	    Changed bonobo_object_release_unref to 
 	    Accessibility_Accessible_unref.
 	
-<2001-09-04  Marc Mulcahy <marc.mulcahy@sun.com>
+2001-09-04  Marc Mulcahy <marc.mulcahy@sun.com>
 	
 	* Added files:
 	    spi_action.c spi_editabletext.c spi_hyperlink.c spi_hypertext.c
@@ -3896,7 +3910,7 @@
 	    Implementations for C bindings to remaining accessibility 
 	    interfaces.
 
-<2001-09-04 Marc Mulcahy <marc.mulcahy@sun.com>
+2001-09-04 Marc Mulcahy <marc.mulcahy@sun.com>
 	
 	* idl/Action.idl:
 	    changed return value of Action from void to boolean to 
@@ -3954,7 +3968,7 @@
 2001-08-21  Bill Haneman <bill.haneman@sun.com>
 
         Tagged CVS repository 'EA_1_0'.
-        * README.EARLY_ACCESS:
+	* README.EARLY_ACCESS:
         Alphabetized acknowledgements list, and
         added someone.
         Listed some known dependencies of at-spi.
@@ -4015,7 +4029,7 @@
 	Accessible_getName() - uppercase object type name, studlyCaps method
 	                       name.
 
-	*cspi/spi.h:
+	* cspi/spi.h:
 	Added gtk-doc documentation for all currently implemented
 	methods in the C bindings API.
 
@@ -4292,7 +4306,7 @@
 
 2001-07-31  Bill Haneman <bill.haneman@sun.com>
 
-        * libspi/accessible.c : added support for 'description' property.
+	* libspi/accessible.c : added support for 'description' property.
 	* libspi/accessible.c
 	* libspi/desktop.c
 	* libspi/registry.c : changed to use bonobo_object instead of bonobo_x_object
@@ -4313,7 +4327,7 @@
 
 2001-07-28  Anders Carlsson  <andersca@gnome.org>
 
-        * libspi/accessible.c (accessible_object_finalize): Change
+	* libspi/accessible.c (accessible_object_finalize): Change
           g_free to g_object_unref since the AtkObject is a GObject.
 
 2001-07-30  Bill Haneman <bill.haneman@sun.com>
