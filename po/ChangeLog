@@ -1,4 +1,5 @@
-2001-08-22  gettextize  <bug-gnu-utils@gnu.org>
+2003-06-28  Christian Rose  <menthos@menthos.com>
 
-	* Makefile.in.in: Upgrade to gettext-0.10.38.
+	* POTFILES.in: Added missing file.
+	* .cvsignore: Added more entries.
 
