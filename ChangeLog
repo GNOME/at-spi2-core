@@ -1,3 +1,28 @@
+2004-03-24  Bill Haneman <billh@gnome.org>
+
+	* configure.in: Revved to 1.5.1.
+
+	* registryd/deviceeventcontroller.c:
+	#define XK_LATIN1.
+	(DEControllerPrivateData): Added fields for 
+	reserved_keycode, reserved_keysym, and reserved_reset_timeout.
+	(spi_dec_replace_map_keysym): New internal utility for
+	replacing a keysym in the keymap - used to allow
+	synthesis of individual characters which aren't in the
+	current X keymap.
+	(spi_dec_reset_reserved): New; resets the changed keysym value 
+	in the map.
+	(keycode_for_keysym): We now try to deal with failed
+	XKeysymToKeycode requests by changing a keymap value
+	and returning a reserved keycode.  We now take 
+	a DEController pointer as first arg.
+	(spi_controller_register_with_devices): Call XkbGetMap with 
+	the XkbKeySymsMask.  Find the highest keycode in the current
+	keymap which doesn't have any grabs, and mark that one for
+	temporary re-mapping when out-of-range KeySyms are synthesized.
+	(dec_synth_keycode_press): Call XFlush after synthesizing the key
+	event.
+	
 2004-04-08  Guntupalli Karunakar  <karunakar@freedomink.org>
 
         * configure.in: Added "gu" (Gujarati) to ALL_LINGUAS.

@@ -39,6 +39,7 @@
 #include <X11/extensions/XTest.h>
 #include <X11/XKBlib.h>
 #define XK_MISCELLANY
+#define XK_LATIN1
 #include <X11/keysymdef.h>
 
 #ifdef HAVE_XEVIE
@@ -124,6 +125,9 @@ typedef struct {
   unsigned int xkb_latch_mask;
   unsigned int pending_xkb_mod_relatch_mask;
   XkbDescPtr xkb_desc;
+  KeyCode reserved_keycode;
+  KeySym reserved_keysym;
+  guint  reserved_reset_timeout;
 } DEControllerPrivateData;
 
 static void     spi_controller_register_with_devices          (SpiDEController           *controller);
@@ -201,11 +205,77 @@ keysym_mod_mask (KeySym keysym, KeyCode keycode)
 	return retval;
 }
 
+static gboolean
+spi_dec_replace_map_keysym (DEControllerPrivateData *priv, KeyCode keycode, KeySym keysym)
+{
+#ifdef HAVE_XKB
+  Display *dpy = spi_get_display ();
+  XkbDescPtr desc;
+  if (!(desc = XkbGetMap (dpy, XkbAllMapComponentsMask, XkbUseCoreKbd)))
+    {
+      fprintf (stderr, "ERROR getting map\n");
+    }
+  XFlush (dpy);
+  XSync (dpy, False);
+  if (desc && desc->map)
+    {
+      gint offset = desc->map->key_sym_map[keycode].offset;
+      long old_sym = desc->map->syms[offset]; 
+      desc->map->syms[offset] = keysym; 
+    }
+  else
+    {
+      fprintf (stderr, "Error changing key map: empty server structure\n");
+    }		
+  XkbSetMap (dpy, XkbAllMapComponentsMask, desc);
+  /**
+   *  FIXME: the use of XkbChangeMap, and the reuse of the priv->xkb_desc structure, 
+   * would be far preferable.
+   * HOWEVER it does not seem to work using XFree 4.3. 
+   **/
+  /*	    XkbChangeMap (dpy, priv->xkb_desc, priv->changes); */
+  XFlush (dpy);
+  XSync (dpy, False);
+  XkbFreeKeyboard (desc, 0, TRUE);
+
+  return TRUE;
+#else
+  return FALSE;
+#endif
+}
+
+static gboolean
+spi_dec_reset_reserved (gpointer data)
+{
+  DEControllerPrivateData *priv = data;
+  spi_dec_replace_map_keysym (priv, priv->reserved_keycode, priv->reserved_keysym);
+  priv->reserved_reset_timeout = 0;
+  return FALSE;
+}
+
 static KeyCode
-keycode_for_keysym (long keysym, unsigned int *modmask)
+keycode_for_keysym (SpiDEController *controller, long keysym, unsigned int *modmask)
 {
 	KeyCode keycode = 0;
 	keycode = XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
+	if (!keycode) 
+	{
+		DEControllerPrivateData *priv = (DEControllerPrivateData *)
+			g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+		/* if there's no keycode available, fix it */
+		if (spi_dec_replace_map_keysym (priv, priv->reserved_keycode, keysym))
+		{
+			keycode = priv->reserved_keycode;
+			/* 
+			 * queue a timer to restore the old keycode.  Ugly, but required 
+			 * due to races / asynchronous X delivery.   
+			 * Long-term fix is to extend the X keymap here instead of replace entries.
+			 */
+			priv->reserved_reset_timeout = g_timeout_add (500, spi_dec_reset_reserved, priv);
+		}		
+		*modmask = 0;
+		return keycode;
+	}
 	if (modmask) 
 		*modmask = keysym_mod_mask (keysym, keycode);
 	return keycode;
@@ -1168,12 +1238,56 @@ spi_controller_register_with_devices (SpiDEController *controller)
 				      &priv->xkb_base_error_code, NULL, NULL);
   if (priv->have_xkb)
     {
-      priv->xkb_desc = XkbGetMap (spi_get_display (), 0, XkbUseCoreKbd);
+      gint i;
+      guint64 reserved = 0;
+      priv->xkb_desc = XkbGetMap (spi_get_display (), XkbKeySymsMask, XkbUseCoreKbd);
       XkbSelectEvents (spi_get_display (),
 		       XkbUseCoreKbd,
 		       XkbStateNotifyMask, XkbStateNotifyMask);	    
       _numlock_physical_mask = XkbKeysymToModifiers (spi_get_display (), 
 						     XK_Num_Lock);
+      for (i = priv->xkb_desc->max_key_code; i >= priv->xkb_desc->min_key_code; --i)
+      {
+	  if (priv->xkb_desc->map->key_sym_map[i].kt_index[0] == XkbOneLevelIndex)
+	  { 
+	      if (XKeycodeToKeysym (spi_get_display (), i, 0) != 0)
+	      {
+		  /* don't use this one if there's a grab client! */
+		  gdk_error_trap_push ();
+		  XGrabKey (spi_get_display (), i, 0, 
+			    gdk_x11_get_default_root_xwindow (),
+			    TRUE,
+			    GrabModeSync, GrabModeSync);
+		  XSync (spi_get_display (), TRUE);
+		  XUngrabKey (spi_get_display (), i, 0, 
+			      gdk_x11_get_default_root_xwindow ());
+		  if (!gdk_error_trap_pop ())
+		  {
+		      reserved = i;
+		      break;
+		  }
+	      }
+	  }
+      }
+      if (reserved) 
+      {
+	  priv->reserved_keycode = reserved;
+	  priv->reserved_keysym = XKeycodeToKeysym (spi_get_display (), reserved, 0);
+      }
+      else
+      { 
+	  priv->reserved_keycode = XKeysymToKeycode (spi_get_display (), XK_numbersign);
+	  priv->reserved_keysym = XK_numbersign;
+      }
+#ifdef SPI_RESERVED_DEBUG
+      unsigned sym = 0;
+      sym = XKeycodeToKeysym (spi_get_display (), reserved, 0);
+      fprintf (stderr, "%x\n", sym);
+      fprintf (stderr, "setting the reserved keycode to %d (%s)\n", 
+	       reserved, 
+	       XKeysymToString (XKeycodeToKeysym (spi_get_display (),
+                                                            reserved, 0)));
+#endif
     }	
 
   gdk_window_add_filter (NULL, global_filter_fn, controller);
@@ -1541,7 +1655,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
    * ControlMask grabs are broken, must be in use already
    */
   if (recv)
-    keycode = keycode_for_keysym (recv->id, NULL);
+    keycode = keycode_for_keysym (controller, recv->id, NULL);
   for (l = controller->keygrabs_list; l; l = next)
     {
       gboolean do_remove;
@@ -1922,6 +2036,7 @@ dec_synth_keycode_press (SpiDEController *controller,
 	}
         XTestFakeKeyEvent (spi_get_display (), keycode, True, time);
 	priv->last_press_keycode = keycode;
+	XFlush (spi_get_display ());
 	XSync (spi_get_display (), False);
 	gettimeofday (&priv->last_press_time, NULL);
 	return TRUE;
@@ -2002,7 +2117,7 @@ dec_synth_keysym (SpiDEController *controller, KeySym keysym)
 	KeyCode key_synth_code;
 	unsigned int modifiers, synth_mods, lock_mods;
 
-	key_synth_code = keycode_for_keysym (keysym, &synth_mods);
+	key_synth_code = keycode_for_keysym (controller, keysym, &synth_mods);
 
 	if ((key_synth_code == 0) || (synth_mods == 0xFF)) return FALSE;
 
@@ -2017,6 +2132,7 @@ dec_synth_keysym (SpiDEController *controller, KeySym keysym)
 	}
 	dec_synth_keycode_press (controller, key_synth_code);
 	dec_synth_keycode_release (controller, key_synth_code);
+
 	if (synth_mods != modifiers) 
 		dec_unlock_modifiers (controller, lock_mods);
 	return TRUE;
@@ -2068,6 +2184,7 @@ dec_synth_keystring (SpiDEController *controller, const CORBA_char *keystring)
 			keystring = g_utf8_next_char (keystring); 
 		}
 		keysyms[i++] = 0;
+		XSynchronize (spi_get_display (), TRUE);
 		for (i = 0; keysyms[i]; ++i) {
 			if (!dec_synth_keysym (controller, keysyms[i])) {
 #ifdef SPI_DEBUG
@@ -2078,6 +2195,7 @@ dec_synth_keystring (SpiDEController *controller, const CORBA_char *keystring)
 				break;
 			}
 		}
+		XSynchronize (spi_get_display (), FALSE);
 	}
 	g_free (keysyms);
 
@@ -2099,6 +2217,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   SpiDEController *controller =
 	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
   long key_synth_code;
+  gint err;
   KeySym keysym;
 
 #ifdef SPI_DEBUG
@@ -2142,9 +2261,9 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 			       keystring);
 	      break;
     }
-  if (gdk_error_trap_pop ())
+  if (err = gdk_error_trap_pop ())
     {
-      DBG (-1, g_warning ("Error emitting keystroke"));
+      DBG (-1, g_warning ("Error [%d] emitting keystroke", err));
     }
   if (synth_type == Accessibility_KEY_SYM) {
     keysym = keycode;
