@@ -1,3 +1,10 @@
+2002-03-13  Michael Meeks  <michael@ximian.com>
+
+	* atk-bridge/bridge.c (gtk_module_init): split
+	out body to (atk_bridge_init): here, since otherwise
+	we get symbol conflicts and oddness when invoked
+	from (gnome_accessibility_module_init): here (upd.)
+
 2002-03-11  Bill Haneman  <bill.haneman@sun.com>
 
 	* HACKING:

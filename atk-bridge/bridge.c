@@ -70,8 +70,8 @@ static GArray *listener_ids = NULL;
 extern void gnome_accessibility_module_init     (void);
 extern void gnome_accessibility_module_shutdown (void);
 
-int
-gtk_module_init (gint *argc, gchar **argv[])
+static int
+atk_bridge_init (gint *argc, gchar **argv[])
 {
   CORBA_Environment ev;
 
@@ -81,7 +81,7 @@ gtk_module_init (gint *argc, gchar **argv[])
     }
   atk_bridge_initialized = TRUE;
 
-  if (!bonobo_init (argc, *argv))
+  if (!bonobo_init (argc, argv ? *argv : NULL))
     {
       g_error ("Could not initialize Bonobo");
     }
@@ -99,7 +99,7 @@ gtk_module_init (gint *argc, gchar **argv[])
       CORBA_exception_free (&ev);
     }
 
-  if (CORBA_Object_is_nil (registry, &ev))
+  if (registry == CORBA_OBJECT_NIL)
     {
       g_error ("Could not locate registry");
     }
@@ -121,6 +121,12 @@ gtk_module_init (gint *argc, gchar **argv[])
   idle_init_id = g_idle_add (spi_atk_bridge_idle_init, NULL);
 
   return 0;
+}
+
+int
+gtk_module_init (gint *argc, gchar **argv[])
+{
+	return atk_bridge_init (argc, argv);
 }
 
 static gboolean
@@ -242,7 +248,7 @@ spi_atk_bridge_exit_func (void)
 void
 gnome_accessibility_module_init (void)
 {
-  gtk_module_init (NULL, NULL);
+  atk_bridge_init (NULL, NULL);
 
   g_print("Atk Accessibilty bridge initialized\n");
 }

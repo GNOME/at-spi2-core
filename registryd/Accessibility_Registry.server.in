@@ -2,9 +2,11 @@
 	<oaf_server iid="OAFIID:Accessibility_Registry:proto0.1"
         	    type="exe" location="registryd">
 		<oaf_attribute name="repo_ids" type="stringv">
+			<item value="IDL:Bonobo/Unknown:1.0"/>
 			<item value="IDL:Accessibility/Registry:1.0"/>
 		</oaf_attribute>
 		<oaf_attribute name="name" type="string" value="AT-SPI Registry"/>
-		<oaf_attribute name="description" type="string" value="Accessibility Registry"/>
+		<oaf_attribute name="description" type="string"
+		 value="Accessibility Registry"/>
 	</oaf_server>
 </oaf_info>
