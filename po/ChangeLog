@@ -1,3 +1,8 @@
+2003-05-09  Abel Cheung  <maddog@linux.org.hk>
+
+	* zh_TW.po: Updated traditional Chinese translation.
+	* az.po: Fix header (msgfmt check failed).
+
 2003-05-05  Duarte Loreto <happyguy_pt@hotmail.com>
 
         * pt.po: Added Portuguese translation.
