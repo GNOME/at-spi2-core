@@ -33,7 +33,7 @@
 #include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
 #include <gdk/gdkwindow.h>
 
-#include <libspi/deviceeventcontroller.h>
+#include "deviceeventcontroller.h"
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE BONOBO_TYPE_OBJECT

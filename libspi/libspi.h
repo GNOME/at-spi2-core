@@ -26,7 +26,6 @@
 #include <libspi/action.h>
 #include <libspi/application.h>
 #include <libspi/component.h>
-#include <libspi/desktop.h>
 #include <libspi/editabletext.h>
 #include <libspi/hyperlink.h>
 #include <libspi/hypertext.h>
@@ -39,8 +38,6 @@
 #include <libspi/listener.h>
 #include <libspi/eventlistener.h>
 #include <libspi/keystrokelistener.h>
-#include <libspi/deviceeventcontroller.h>
-#include <libspi/registry.h>
 #include <libspi/keymasks.h>
 
 #endif /* LIBSPI_H_ */

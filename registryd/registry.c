@@ -27,7 +27,7 @@
 #  include <stdio.h>
 #endif
 
-#include <libspi/registry.h>
+#include "registry.h"
 
 /* Our parent GObject type  */
 #define PARENT_TYPE SPI_LISTENER_TYPE

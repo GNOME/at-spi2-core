@@ -1,4 +1,4 @@
-AC_INIT(idl/Accessible.idl)
+AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=0
 AT_SPI_MINOR_VERSION=0
@@ -93,6 +93,7 @@ AC_SUBST(LIBSPI_CFLAGS)
 
 PKG_CHECK_MODULES(REGISTRYD, \
 	libbonobo-2.0 >= 1.107.0 \
+	gtk+-2.0 \
 	atk >= 0.2)
 AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)

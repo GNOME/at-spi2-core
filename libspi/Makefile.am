@@ -19,7 +19,6 @@ libspiinclude_HEADERS = Accessibility.h \
                         application.h \
 			base.h \
 			component.h \
-			deviceeventcontroller.h	\
 			editabletext.h\
 			hyperlink.h\
 			hypertext.h\
@@ -72,10 +71,6 @@ libspi_la_SOURCES = accessible.c         \
 		    base.c		 \
 		    component.c		 \
 		    component.h		 \
-                    desktop.c            \
-                    desktop.h            \
-		    deviceeventcontroller.c \
-		    deviceeventcontroller.h \
 		    editabletext.c\
 		    editabletext.h\
 		    hyperlink.c\
@@ -99,8 +94,6 @@ libspi_la_SOURCES = accessible.c         \
                     listener.c           \
                     listener.h           \
 		    eventlistener.c	 \
-                    registry.c           \
-                    registry.h           \
 		    keymasks.h		\
                     $(IDL_OUT)
 

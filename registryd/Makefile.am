@@ -6,7 +6,14 @@ INCLUDES = -I$(top_srcdir)          \
            -I$(top_srcdir)/libspi   \
            $(REGISTRYD_CFLAGS)
 
-registryd_SOURCES = registryd.c
+registryd_SOURCES =		\
+	desktop.c		\
+	desktop.h		\
+	deviceeventcontroller.c	\
+	deviceeventcontroller.h	\
+	registry-main.c		\
+	registry.c		\
+	registry.h
 
 LDADD = ../libspi/libspi.la -lXtst $(REGISTRYD_LIBS) 
 

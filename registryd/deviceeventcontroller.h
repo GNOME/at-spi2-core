@@ -26,7 +26,6 @@
 #include <bonobo/bonobo-object.h>
 #include <libspi/Accessibility.h>
 #include <libspi/keystrokelistener.h>
-#include <libspi/registry.h>
 
 G_BEGIN_DECLS
 

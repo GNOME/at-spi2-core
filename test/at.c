@@ -26,7 +26,6 @@
 #include <libspi/Accessibility.h>
 #include "accessible.h"
 #include "listener.h"
-#include "desktop.h"
 
 void
 check_ev (CORBA_Environment *ev, char *desc)

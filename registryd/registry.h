@@ -25,8 +25,9 @@
 
 #include <glib/gmain.h>
 #include <libspi/listener.h>
-#include <libspi/desktop.h>
-#include <libspi/deviceeventcontroller.h>
+
+#include "desktop.h"
+#include "deviceeventcontroller.h"
 
 G_BEGIN_DECLS
 

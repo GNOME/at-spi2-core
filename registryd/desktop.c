@@ -25,7 +25,7 @@
 #include <config.h>
 #include <stdio.h>
 #include <libbonobo.h>
-#include <libspi/desktop.h>
+#include "desktop.h"
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_ACCESSIBLE_TYPE

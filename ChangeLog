@@ -1,3 +1,15 @@
+2001-12-11  Michael Meeks  <michael@ximian.com>
+
+	* libspi/libspi.h: remove registry.h and
+	desktop.h, deviceeventcontroller.h
+
+	* libspi/Makefile.am: remove registry.[ch],
+	desktop.[ch], deviceeventcontroller.[ch]
+
+	* registryd/Makefile.am: add registry.[ch],
+	desktop.[ch], rename registryd.c to registry-main.c.
+	add deviceeventcontroller.[ch]
+
 2001-12-11  Bill Haneman <bill.haneman@sun.com>
 
 	* test/simple-at.c:

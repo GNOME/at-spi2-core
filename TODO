@@ -9,15 +9,14 @@ idl:
 
 cspi: 
 	+ API change required if above IDL change is made. [Bill]
-	+ move bonobo bits into cspi/bonobo
 	+ ensure spi-listener-impl's list notification methods don't
-	  have a re-enterancy hazard.
+	  have a re-enterancy hazard. [Michael]
 	+ namespace all methods missing a prepending Acessible
 	  or SPI_ prefix.
 	+ Put LGPL headers everywhere.
 
 registry:
-	+ move code into here from libspi
+	+ move code into here from libspi [Michael]
 	+ kill the getDeviceWhatnot - and use queryInterface,
 	  don't inherit from the Listener interface - use aggregation
 	+ fire an event on dead application & re-factor the listen for
