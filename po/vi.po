@@ -1,0 +1,312 @@
+# ATK in Vietnamese.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# T.M.Thanh <tmthanh@yahoo.com>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ATK VERSION\n"
+"POT-Creation-Date: 2002-12-05 06:00+0100\n"
+"PO-Revision-Date: 2002-12-08 20:22+0700\n"
+"Last-Translator: Trinh Minh Thanh <tmthanh@linuxmail.org>\n"
+"Language-Team: Gnome-Vi Team <Gnomevi-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "không hợp lệ"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "nhãn-accel"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "cảnh báo"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "hoạt cảnh"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "mũi tên"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "lịch"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "canvas"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "hộp kiểm"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "mục menu kiểm"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "trình chọn màu"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "header-cột"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "hộp combo"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "date-editor"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "biểu tượng desktop"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "khung desktop"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "quay số"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "thoại"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "pane thư mục"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "vùng vẽ"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "trình chọn tập tin"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr ""
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "trình chọn phông chữ"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "khung"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr ""
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "nơi chứa html"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "biểu tượng"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "ảnh"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "khung nội bộ"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "nhãn"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "pane theo lớp"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "danh sách"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "mục liệt kê"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "menu"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "thanh menu"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "mục menu"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "pane tùy chọn"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "tab trang"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "danh sách tab trang"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "văn bản mật khẩu"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "menu bật lên"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "thanh tiến trình"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "nút push"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "nút radio"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "mục menu radio"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "root-pane"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "header hàng"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "thanh cuộn"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "pane cuộn"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "bộ chia tách"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "con trượt"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "pane tách"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "nút xoay"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "thanh trạng thái"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "bảng"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "cell-bảng"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "header-cột-bảng"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "header-hàng-bảng"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "đầu cuối"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "văn bản"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "nút-chốt"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "thanh công cụ"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "gợi ý công cụ"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "cây"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "bảng-cây"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "không xác định"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "cổng xem"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "cửa sổ"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "header"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "footer"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "đoạn văn bản"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "thước đo"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "ứng dụng"
+

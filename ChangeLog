@@ -1,3 +1,8 @@
+2002-12-11  Pablo Saratxaga  <pablo@mandrakesoft.com>
+
+	* configure.in (ALL_LINGUAS): Added Vietnamese (vi), Hebrew (he),
+	and Dutch (nl).
+
 2002-12-07  Andras Timar <timar@gnome.hu>
 
 	* configure.in (ALL_LINGUAS): Added Hungarian (hu).
