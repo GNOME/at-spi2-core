@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-29 09:14+0100\n"
+"POT-Creation-Date: 2004-01-21 10:30+0100\n"
 "PO-Revision-Date: 2003-03-08 01:37+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -404,77 +404,80 @@ msgstr "Warstwa dostępności tego obiektu"
 
 #: atk/atkobject.c:343
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "Wartość dostępności MDI"
 
 #: atk/atkobject.c:344
 msgid "The accessible MDI value of this object"
-msgstr ""
+msgstr "Wartość dostępności MDI tego obiektu"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "Nagłówek tabeli dostępności"
 
+# FIXME - Jakiś idiotyczny tekst tu wyszedł
 #: atk/atkobject.c:353
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
+"Jest używane do powiadamiania o zmianie nagłówka tabeli; zamiast tej "
+"właściwości należy używać obiektu nagłówka tabeli dostępności"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
-msgstr ""
+msgstr "Nagłówek kolumny tabeli dostępności"
 
 #: atk/atkobject.c:360
 msgid "Is used to notify that the table column header has changed"
-msgstr ""
+msgstr "Jest używane do powiadamiania o zmianie nagłówka kolumny tabeli"
 
 #: atk/atkobject.c:366
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "Opis kolumny tabeli dostępności"
 
 #: atk/atkobject.c:367
 msgid "Is used to notify that the table column description has changed"
-msgstr ""
+msgstr "Jest używane do powiadamiania o zmianie opisu kolumny tabeli"
 
 #: atk/atkobject.c:373
 msgid "Accessible Table Row Header"
-msgstr ""
+msgstr "Nagłówek wiersza tabeli dostępności"
 
 #: atk/atkobject.c:374
 msgid "Is used to notify that the table row header has changed"
-msgstr ""
+msgstr "Jest używane do powiadamiania o zmianie nagłówka wiersza tabeli"
 
 #: atk/atkobject.c:380
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "Opis wiersza tabeli dostępności"
 
 #: atk/atkobject.c:381
 msgid "Is used to notify that the table row description has changed"
-msgstr ""
+msgstr "Jest używane do powiadamiania o zmianie opisu wiersza tabeli"
 
 #: atk/atkobject.c:387
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "Zestawienie tabeli dostępności"
 
 #: atk/atkobject.c:388
 msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgstr "Jest używane do powiadamiania o zmianie zestawienia tabeli"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "Obiekt nagłówka tabeli dostępności"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgstr "Jest używane do powiadamiania o zmianie nagłówka tabeli"
 
 #: atk/atkobject.c:401
 msgid "Accessible Hypertext Number of Links"
-msgstr ""
+msgstr "Liczba odnośników hipertekstowych dostępności"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
-msgstr ""
+msgstr "Liczba odnośników jakie posiada bieżący obiekt AtkHypertext"
 
 #~ msgid "ruler"
 #~ msgstr "linijka"
