@@ -6,305 +6,416 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.2.2\n"
 "POT-Creation-Date: 2003-01-19 19:58+0100\n"
-"PO-Revision-Date: 2003-01-23 15:53+0800\n"
+"PO-Revision-Date: 2003-01-31 22:12+0800\n"
 "Last-Translator: Abel Cheung <maddog@linux.org.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1183
+#. TRANSLATOR: Invalid role
+#: atk/atkobject.c:1184
 msgid "invalid"
 msgstr "無效"
 
-#: atk/atkobject.c:1186
+#. TRANSLATOR: A label which represents an accelerator
+#: atk/atkobject.c:1188
 msgid "accel-label"
 msgstr ""
 
-#: atk/atkobject.c:1189
+#. TRANSLATOR: An object which is an alert to the user
+#: atk/atkobject.c:1192
 msgid "alert"
 msgstr "提示訊息"
 
-#: atk/atkobject.c:1192
+#. TRANSLATOR: An object which is an animated image
+#: atk/atkobject.c:1196
 msgid "animation"
 msgstr "動畫"
 
-#: atk/atkobject.c:1195
+#. TRANSLATOR: An arrow in one of the four cardinal directions
+#: atk/atkobject.c:1200
 msgid "arrow"
 msgstr "箭頭"
 
-#: atk/atkobject.c:1198
+#. TRANSLATOR: An object that displays a calendar and allows the
+#. * user to select a date
+#: atk/atkobject.c:1205
 msgid "calendar"
 msgstr "日曆"
 
-#: atk/atkobject.c:1201
+#. TRANSLATOR: An object that can be drawn into and is used to
+#. * trap events
+#: atk/atkobject.c:1210
 msgid "canvas"
-msgstr ""
+msgstr "canvas"
 
-#: atk/atkobject.c:1204
+#. TRANSLATOR: A choice that can be checked or unchecked and
+#. * provides a separate indicator for the current state
+#: atk/atkobject.c:1215
 msgid "check-box"
 msgstr "多重選擇按鈕"
 
-#: atk/atkobject.c:1207
+#. TRANSLATOR: A menu item with a check box
+#: atk/atkobject.c:1219
 msgid "check-menu-item"
-msgstr ""
+msgstr "多重選擇選單項目"
 
-#: atk/atkobject.c:1210
+#. TRANSLATOR: A specialized dialog that lets the user choose a color
+#: atk/atkobject.c:1223
 msgid "color-chooser"
 msgstr "顏色選擇窗"
 
-#: atk/atkobject.c:1213
+#. TRANSLATOR: The header for a column of data
+#: atk/atkobject.c:1227
 msgid "column-header"
-msgstr ""
+msgstr "每列資料的標題"
 
-#: atk/atkobject.c:1216
+#. TRANSLATOR: A list of choices the user can select from
+#: atk/atkobject.c:1231
 msgid "combo-box"
 msgstr "選擇項目清單"
 
-#: atk/atkobject.c:1219
+#. TRANSLATOR: An object whose purpose is to allow a user to edit a
+#. * date
+#: atk/atkobject.c:1236
 msgid "date-editor"
-msgstr ""
+msgstr "日期選擇窗"
 
-#: atk/atkobject.c:1222
+#. TRANSLATOR: An inconifed internal frame within a DESKTOP_PANE
+#: atk/atkobject.c:1240
 msgid "desktop-icon"
 msgstr "桌面圖示"
 
-#: atk/atkobject.c:1225
+#. TRANSLATOR: A pane that supports internal frames and iconified
+#. * versions of those internal frames
+#: atk/atkobject.c:1245
 msgid "desktop-frame"
 msgstr ""
 
-#: atk/atkobject.c:1228
+#. TRANSLATOR: An object whose purpose is to allow a user to set a
+#. * value
+#: atk/atkobject.c:1250
 msgid "dial"
 msgstr ""
 
-#: atk/atkobject.c:1231
+#. TRANSLATOR: A top level window with title bar and a border
+#: atk/atkobject.c:1254
 msgid "dialog"
 msgstr "對話窗"
 
-#: atk/atkobject.c:1234
+#. TRANSLATOR: A pane that allows the user to navigate through and
+#. * select the contents of a directory
+#: atk/atkobject.c:1259
 msgid "directory-pane"
-msgstr ""
+msgstr "目錄選擇窗"
 
-#: atk/atkobject.c:1237
+#. TRANSLATOR: An object used for drawing custom user interface
+#. * elements
+#: atk/atkobject.c:1264
 msgid "drawing-area"
-msgstr ""
+msgstr "繪圖區域"
 
-#: atk/atkobject.c:1240
+#. TRANSLATOR: A specialized dialog that lets the user choose a file
+#: atk/atkobject.c:1268
 msgid "file-chooser"
 msgstr "檔案選擇窗"
 
-#: atk/atkobject.c:1243
+#. TRANSLATOR: A object that fills up space in a user interface
+#: atk/atkobject.c:1272
 msgid "filler"
 msgstr "填充元件"
 
-#: atk/atkobject.c:1246
+#. TRANSLATOR: A specialized dialog that lets the user choose a font
+#: atk/atkobject.c:1276
 msgid "font-chooser"
 msgstr "字型選擇窗"
 
-#: atk/atkobject.c:1249
+#. TRANSLATOR: A top level window with a title bar, border, menubar, etc.
+#: atk/atkobject.c:1280
 msgid "frame"
-msgstr ""
+msgstr "邊框"
 
-#: atk/atkobject.c:1252
+#. TRANSLATOR: A pane that is guaranteed to be painted on top of
+#. * all panes beneath it
+#: atk/atkobject.c:1285
 msgid "glass-pane"
 msgstr ""
 
-#: atk/atkobject.c:1255
+#. TRANSLATOR: A document container for HTML, whose children
+#. * represent the document content
+#: atk/atkobject.c:1290
 msgid "html-container"
 msgstr "HTML 容器元件"
 
-#: atk/atkobject.c:1258
+#. TRANSLATOR: A small fixed size picture, typically used to
+#. * decorate components
+#: atk/atkobject.c:1295
 msgid "icon"
 msgstr "圖示"
 
-#: atk/atkobject.c:1261
+#. TRANSLATOR: An object whose primary purpose is to display an image
+#: atk/atkobject.c:1299
 msgid "image"
 msgstr "圖像"
 
-#: atk/atkobject.c:1264
+#. TRANSLATOR: A frame-like object that is clipped by a desktop pane
+#: atk/atkobject.c:1303
 msgid "internal-frame"
 msgstr ""
 
-#: atk/atkobject.c:1267
+#. TRANSLATOR: An object used to present an icon or short string in
+#. * an interface
+#: atk/atkobject.c:1308
 msgid "label"
-msgstr ""
+msgstr "標籤"
 
-#: atk/atkobject.c:1270
+#. TRANSLATOR: A specialized pane that allows its children to be
+#. * drawn in layers, providing a form of stacking order
+#: atk/atkobject.c:1313
 msgid "layered-pane"
 msgstr ""
 
-#: atk/atkobject.c:1273
+#. TRANSLATOR: An object that presents a list of objects to the
+#. * user and allows the user to select one or more of them
+#: atk/atkobject.c:1318
 msgid "list"
 msgstr "清單"
 
-#: atk/atkobject.c:1276
+#. TRANSLATOR: An object that represents an element of a list
+#: atk/atkobject.c:1322
 msgid "list-item"
 msgstr "清單項目"
 
-#: atk/atkobject.c:1279
+#. TRANSLATOR: An object usually found inside a menu bar that
+#. * contains a list of actions the user can choose from
+#: atk/atkobject.c:1327
 msgid "menu"
 msgstr "選單"
 
-#: atk/atkobject.c:1282
+#. TRANSLATOR: An object usually drawn at the top of the primary dialog box of
+#. * an application that contains a list of menus the user can choose from
+#: atk/atkobject.c:1332
 msgid "menu-bar"
 msgstr "選單列"
 
-#: atk/atkobject.c:1285
+#. TRANSLATOR: An object usually contained in a menu that presents an
+#. * action the user can choose
+#: atk/atkobject.c:1337
 msgid "menu-item"
 msgstr "選單項目"
 
-#: atk/atkobject.c:1288
+#. TRANSLATOR: A specialized pane whose primary use is inside a DIALOG
+#: atk/atkobject.c:1341
 msgid "option-pane"
-msgstr ""
+msgstr "選項窗格"
 
-#: atk/atkobject.c:1291
+#. TRANSLATOR: An object that is a child of a page tab list
+#: atk/atkobject.c:1345
 msgid "page-tab"
-msgstr ""
+msgstr "分頁標題"
 
-#: atk/atkobject.c:1294
+#. TRANSLATOR: An object that presents a series of panels (or page tabs),
+#. * one at a time, through some mechanism provided by the object
+#: atk/atkobject.c:1350
 msgid "page-tab-list"
-msgstr ""
+msgstr "分頁標題清單"
 
-#: atk/atkobject.c:1297
+#. TRANSLATOR: A generic container that is often used to group objects
+#: atk/atkobject.c:1354
 msgid "panel"
 msgstr "面板"
 
-#: atk/atkobject.c:1300
+#. TRANSLATOR: A text object uses for passwords, or other places where
+#. * the text content is not shown visibly to the user
+#: atk/atkobject.c:1359
 msgid "password-text"
 msgstr "密碼"
 
-#: atk/atkobject.c:1303
+#. TRANSLATOR: A temporary window that is usually used to offer the user a list
+#. * of choices, and then hides when the user selects one of those choices
+#: atk/atkobject.c:1364
 msgid "popup-menu"
-msgstr ""
+msgstr "彈出式選單"
 
-#: atk/atkobject.c:1306
+#. TRANSLATOR: An object used to indicate how much of a task has been completed
+#: atk/atkobject.c:1368
 msgid "progress-bar"
 msgstr "進度列"
 
-#: atk/atkobject.c:1309
+#. TRANSLATOR: An object the user can manipulate to tell the application to
+#. * do something
+#: atk/atkobject.c:1373
 msgid "push-button"
-msgstr ""
+msgstr "按鈕"
 
-#: atk/atkobject.c:1312
+#. TRANSLATOR: A specialized check box that will cause other radio buttons
+#. * in the same group to become unchecked when this one is checked
+#: atk/atkobject.c:1378
 msgid "radio-button"
 msgstr "單項選擇按鈕"
 
-#: atk/atkobject.c:1315
+#. TRANSLATOR: A check menu item which belongs to a group. At each instant
+#. * exactly one of the radio menu items from a group is selected
+#: atk/atkobject.c:1383
 msgid "radio-menu-item"
-msgstr ""
+msgstr "單項選擇選單項目"
 
-#: atk/atkobject.c:1318
+#. TRANSLATOR: A specialized pane that has a glass pane and a layered
+#. * pane as its children
+#: atk/atkobject.c:1388
 msgid "root-pane"
 msgstr ""
 
-#: atk/atkobject.c:1321
+#. TRANSLATOR: The header for a row of data
+#: atk/atkobject.c:1392
 msgid "row-header"
-msgstr ""
+msgstr "每行資料的標題"
 
-#: atk/atkobject.c:1324
+#. TRANSLATOR: An object usually used to allow a user to incrementally
+#. * view a large amount of data.
+#: atk/atkobject.c:1397
 msgid "scroll-bar"
 msgstr "捲動列"
 
-#: atk/atkobject.c:1327
+#. TRANSLATOR: An object that allows a user to incrementally view a
+#. * large amount of information
+#: atk/atkobject.c:1402
 msgid "scroll-pane"
-msgstr ""
+msgstr "捲動平面"
 
-#: atk/atkobject.c:1330
+#. TRANSLATOR: An object usually contained in a menu to provide a
+#. * visible and logical separation of the contents in a menu
+#: atk/atkobject.c:1407
 msgid "separator"
-msgstr ""
+msgstr "分隔線"
 
-#: atk/atkobject.c:1333
+#. TRANSLATOR: An object that allows the user to select from a bounded range
+#: atk/atkobject.c:1411
 msgid "slider"
-msgstr ""
+msgstr "數值選擇杆"
 
-#: atk/atkobject.c:1336
+#. TRANSLATOR: A specialized panel that presents two other panels at
+#. * the same time
+#: atk/atkobject.c:1416
 msgid "split-pane"
-msgstr ""
+msgstr "分隔控制項"
 
-#: atk/atkobject.c:1339
+#. TRANSLATOR: An object used to get an integer or floating point
+#. * number from the user
+#: atk/atkobject.c:1421
 msgid "spin-button"
-msgstr ""
+msgstr "數字調整欄位"
 
-#: atk/atkobject.c:1342
+#. TRANSLATOR: An object which reports messages of minor importance to the user
+#: atk/atkobject.c:1425
 msgid "statusbar"
 msgstr "狀態列"
 
-#: atk/atkobject.c:1345
+#. TRANSLATOR: An object used to represent information in terms of
+#. * rows and columns
+#: atk/atkobject.c:1430
 msgid "table"
 msgstr "表格"
 
-#: atk/atkobject.c:1348
+#. TRANSLATOR: A cell in a table
+#: atk/atkobject.c:1434
 msgid "table-cell"
-msgstr ""
+msgstr "資料格"
 
-#: atk/atkobject.c:1351
+#. TRANSLATOR: The header for a column of a table
+#: atk/atkobject.c:1438
 msgid "table-column-header"
-msgstr ""
+msgstr "表格中每列的標題"
 
-#: atk/atkobject.c:1354
+#. TRANSLATOR: The header for a row of a table
+#: atk/atkobject.c:1442
 msgid "table-row-header"
-msgstr ""
+msgstr "表格中每行的標題"
 
-#: atk/atkobject.c:1357
+#. TRANSLATOR: A menu item used to tear off and reattach its menu
+#: atk/atkobject.c:1446
 msgid "tear-off-menu-item"
-msgstr ""
+msgstr "選單脫離線"
 
-#: atk/atkobject.c:1360
+#. TRANSLATOR: An object that represents an accessible terminal
+#: atk/atkobject.c:1450
 msgid "terminal"
 msgstr "終端機"
 
-#: atk/atkobject.c:1363
+#. TRANSLATOR: An object that presents text to the user
+#: atk/atkobject.c:1454
 msgid "text"
 msgstr "文字"
 
-#: atk/atkobject.c:1366
+#. TRANSLATOR: A specialized push button that can be checked or unchecked,
+#. * but does not provide a separate indicator for the current state
+#: atk/atkobject.c:1459
 msgid "toggle-button"
-msgstr ""
+msgstr "切換按鈕"
 
-#: atk/atkobject.c:1369
+#. TRANSLATOR: A bar or palette usually composed of push buttons or
+#. * toggle buttons
+#: atk/atkobject.c:1464
 msgid "tool-bar"
 msgstr "工具列"
 
-#: atk/atkobject.c:1372
+#. TRANSLATOR: An object that provides information about another object
+#: atk/atkobject.c:1468
 msgid "tool-tip"
 msgstr "工具列提示"
 
-#: atk/atkobject.c:1375
+#. TRANSLATOR: An object used to represent hierarchical information to the user
+#: atk/atkobject.c:1472
 msgid "tree"
-msgstr ""
+msgstr "樹狀資料元件"
 
-#: atk/atkobject.c:1378
+#. TRANSLATOR: An object capable of expanding and collapsing rows as
+#. * well as showing multiple columns of data
+#: atk/atkobject.c:1477
 msgid "tree-table"
-msgstr ""
+msgstr "樹狀表格"
 
-#: atk/atkobject.c:1381
+#. TRANSLATOR: The object contains some Accessible information, but
+#. * its role is not known
+#: atk/atkobject.c:1482
 msgid "unknown"
 msgstr "不明"
 
-#: atk/atkobject.c:1384
+#. TRANSLATOR: An object usually used in a scroll pane
+#: atk/atkobject.c:1486
 msgid "viewport"
-msgstr ""
+msgstr "視窗界限"
 
-#: atk/atkobject.c:1387
+#. TRANSLATOR: A top level window with no title or border.
+#: atk/atkobject.c:1490
 msgid "window"
 msgstr "視窗"
 
-#: atk/atkobject.c:1390
+#. TRANSLATOR: An object that serves as a document header.
+#: atk/atkobject.c:1494
 msgid "header"
-msgstr ""
+msgstr "頁首"
 
-#: atk/atkobject.c:1393
+#. TRANSLATOR: An object that serves as a document footer.
+#: atk/atkobject.c:1498
 msgid "footer"
-msgstr ""
+msgstr "頁尾"
 
-#: atk/atkobject.c:1396
+#. TRANSLATOR: An object which contains a paragraph of text content.
+#: atk/atkobject.c:1502
 msgid "paragraph"
 msgstr "段落"
 
-#: atk/atkobject.c:1399
+#. TRANSLATOR: An object which describes margins and tab stops, etc. for text
+#. * objects which it controls (should have CONTROLLER_FOR relation to such).
+#: atk/atkobject.c:1507
 msgid "ruler"
 msgstr "間尺"
 
-#: atk/atkobject.c:1402
+#. TRANSLATOR: The object is an application object, which may contain
+#. * @ATK_ROLE_FRAME objects or other types of accessibles.
+#: atk/atkobject.c:1512
 msgid "application"
 msgstr "程式"
+
