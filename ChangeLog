@@ -1,3 +1,9 @@
+2004-02-10  Tomasz K³oczko <kloczek@pld.org.pl>
+
+	* configure.in: Trivial cleanup: remove AC_SUBST(CFLAGS),
+	  AC_SUBST(CPPFLAGS) and AC_SUBST(LDFLAGS). This variables are
+	  substed by default.
+
 Sun Feb  8 11:20:50 2004  Matthias Clasen  <maclas@gmx.de>
 
 	* docs/reference/cspi/Makefile.am (install-data-local): Install
