@@ -83,6 +83,46 @@ spi_listener_struct_free (SpiListenerStruct *ls, CORBA_Environment *ev)
 
 
 static void
+desktop_add_application (SpiDesktop *desktop,
+			 guint index, gpointer data)
+{
+  BonoboObject *registry = BONOBO_OBJECT(data);
+  Accessibility_Event e;
+  CORBA_Environment ev;
+  
+  e.type = g_strdup ("object:children-changed::add");
+  e.source = BONOBO_OBJREF (desktop);
+  e.detail1 = index;
+  e.detail2 = 0;
+  CORBA_exception_init (&ev);
+  Accessibility_Registry_notifyEvent (BONOBO_OBJREF(registry),
+				      &e, &ev);
+  CORBA_exception_free (&ev);
+}
+
+
+
+static void
+desktop_remove_application (SpiDesktop *desktop,
+			    guint index, gpointer data)
+{
+  BonoboObject *registry = BONOBO_OBJECT(data);
+  Accessibility_Event e;
+  CORBA_Environment ev;
+  
+  e.type = g_strdup ("object:children-changed::remove");
+  e.source = BONOBO_OBJREF (desktop);
+  e.detail1 = index;
+  e.detail2 = 0;
+  CORBA_exception_init (&ev);
+  Accessibility_Registry_notifyEvent (BONOBO_OBJREF(registry),
+				      &e, &ev);
+  CORBA_exception_free (&ev);
+}
+
+
+
+static void
 spi_registry_object_finalize (GObject *object)
 {
   printf ("spi_registry_object_finalize called\n");
@@ -620,6 +660,12 @@ spi_registry_init (SpiRegistry *registry)
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
   registry->desktop = spi_desktop_new ();
+  /* Register callback notification for application addition and removal */
+  g_signal_connect (G_OBJECT (registry->desktop), "application_added",
+			    G_CALLBACK(desktop_add_application), (gpointer)registry);
+  g_signal_connect (G_OBJECT (registry->desktop), "application_removed",
+			    G_CALLBACK(desktop_remove_application), (gpointer)registry);
+
   registry->de_controller = NULL;
 }
 

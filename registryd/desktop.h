@@ -41,6 +41,12 @@ typedef struct {
 typedef struct {
         SpiAccessibleClass parent_class;
         POA_Accessibility_Desktop__epv epv;
+
+        /*Signals */
+        void (*application_added) (SpiDesktop *desktop,
+				   guint index);
+        void (*application_removed) (SpiDesktop *desktop,
+				     guint index);
 } SpiDesktopClass;
 
 GType       spi_desktop_get_type           (void);

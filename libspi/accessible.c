@@ -62,6 +62,7 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_DIAL] =             Accessibility_ROLE_DIAL;
   role_table [ATK_ROLE_DIALOG] =           Accessibility_ROLE_DIALOG;
   role_table [ATK_ROLE_DIRECTORY_PANE] =   Accessibility_ROLE_DIRECTORY_PANE;
+  role_table[ATK_ROLE_DRAWING_AREA] = Accessibility_ROLE_DRAWING_AREA;
   role_table [ATK_ROLE_FILE_CHOOSER] =     Accessibility_ROLE_FILE_CHOOSER;
   role_table [ATK_ROLE_FILLER] =           Accessibility_ROLE_FILLER;
   role_table [ATK_ROLE_FONT_CHOOSER] =     Accessibility_ROLE_FONT_CHOOSER;
@@ -94,16 +95,14 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_SCROLL_PANE] =      Accessibility_ROLE_SCROLL_PANE;
   role_table [ATK_ROLE_SEPARATOR] =        Accessibility_ROLE_SEPARATOR;
   role_table [ATK_ROLE_SLIDER] =           Accessibility_ROLE_SLIDER;
-  role_table [ATK_ROLE_SPLIT_PANE] =       Accessibility_ROLE_SPLIT_PANE;
   role_table [ATK_ROLE_SPIN_BUTTON] =      Accessibility_ROLE_SPIN_BUTTON;
+  role_table [ATK_ROLE_SPLIT_PANE] =       Accessibility_ROLE_SPLIT_PANE;
   role_table [ATK_ROLE_STATUSBAR] =        Accessibility_ROLE_STATUS_BAR;
   role_table [ATK_ROLE_TABLE] =            Accessibility_ROLE_TABLE;
   role_table [ATK_ROLE_TABLE_CELL] =       Accessibility_ROLE_TABLE_CELL;
-  role_table [ATK_ROLE_TABLE_COLUMN_HEADER] =
-	                                   Accessibility_ROLE_COLUMN_HEADER;
+  role_table [ATK_ROLE_TABLE_COLUMN_HEADER] = Accessibility_ROLE_COLUMN_HEADER;
   role_table [ATK_ROLE_TABLE_ROW_HEADER] = Accessibility_ROLE_ROW_HEADER;
-  role_table [ATK_ROLE_TEAR_OFF_MENU_ITEM] =
-	                                   Accessibility_ROLE_TEAROFF_MENU_ITEM;
+  role_table [ATK_ROLE_TEAR_OFF_MENU_ITEM] = Accessibility_ROLE_TEAROFF_MENU_ITEM;
   role_table [ATK_ROLE_TERMINAL] =         Accessibility_ROLE_TERMINAL;
   role_table [ATK_ROLE_TEXT] =             Accessibility_ROLE_TEXT;
   role_table [ATK_ROLE_TOGGLE_BUTTON] =    Accessibility_ROLE_TOGGLE_BUTTON;

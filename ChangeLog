@@ -1,4 +1,16 @@
-2001-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
+2002-03-14 Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* cspi/spi-roletypes.h cspi/spi_accessible.c
+	idl/Accessibility_Role.idl libspi/accessible.c: synched up role
+	types with ATK.
+
+	* registryd/desktop.c registryd/desktop.h registryd/registry.c:
+	Added signals to SpiDesktop and callbacks in SpiRegistry to notify
+	AT when applications are added and removed from the desktop.  This
+	reverts the previous broken implementation using the backing
+	AtkObject for the SpiDesktop.
+	
+	2002-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* registryd/desktop.c: emit the "children-changed::add" and
 	"children-changed::remove" signals on the backing ATK object for

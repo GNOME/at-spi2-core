@@ -30,6 +30,7 @@ extern "C" {
  * @SPI_ROLE_DIALOG: A top level window with title bar and a border
  * @SPI_ROLE_DIRECTORY_PANE: A pane that allows the user to navigate
  *              through and select the contents of a directory.
+ * @SPI_ROLE_DRAWING_AREA: An object used for drawing custom user interface elements
  * @SPI_ROLE_FILE_CHOOSER: A specialized dialog that displays the files in the
  *               directory and lets the user select a file, browse a different
  *	 	 directory, or specify a filename.
@@ -70,7 +71,7 @@ extern "C" {
  *        the application to do something.
  * @SPI_ROLE_RADIO_BUTTON: A specialized check box that will cause other radio buttons in the
  *        same group to become uncghecked when this one is checked.
- * @SPI_RADIO_MENU_ITEM: A specialized menu item that behaves like a 
+ * @SPI_ROLE_RADIO_MENU_ITEM: A specialized menu item that behaves like a 
  *        radio button.
  * @SPI_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a layered pane as its
  *        children.
@@ -129,9 +130,9 @@ typedef enum
   SPI_ROLE_DIAL,
   SPI_ROLE_DIALOG,
   SPI_ROLE_DIRECTORY_PANE,
+  SPI_ROLE_DRAWING_AREA,
   SPI_ROLE_FILE_CHOOSER,
   SPI_ROLE_FILLER,
-  SPI_ROLE_FOCUS_TRAVERSABLE,
   SPI_ROLE_FONT_CHOOSER,
   SPI_ROLE_FRAME,
   SPI_ROLE_GLASS_PANE,
@@ -170,6 +171,7 @@ typedef enum
   SPI_ROLE_TABLE_COLUMN_HEADER,
   SPI_ROLE_TABLE_ROW_HEADER,
   SPI_ROLE_TEAROFF_MENU_ITEM,
+  SPI_ROLE_TERMINAL,
   SPI_ROLE_TEXT,
   SPI_ROLE_TOGGLE_BUTTON,
   SPI_ROLE_TOOL_BAR,

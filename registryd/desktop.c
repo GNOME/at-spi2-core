@@ -27,6 +27,15 @@
 #include <libbonobo.h>
 #include "desktop.h"
 
+/* SpiDesktop signals */
+enum {
+  APPLICATION_ADDED,
+  APPLICATION_REMOVED,  
+LAST_SIGNAL
+};
+static guint spi_desktop_signals[LAST_SIGNAL];
+
+
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_ACCESSIBLE_TYPE
 
@@ -116,6 +125,24 @@ spi_desktop_class_init (SpiDesktopClass *klass)
   
   parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
 
+  spi_desktop_signals[APPLICATION_ADDED] =
+    g_signal_new ("application_added",
+		  G_TYPE_FROM_CLASS (klass),
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (SpiDesktopClass, application_added),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__UINT,
+		  G_TYPE_NONE,
+		  1, G_TYPE_UINT);
+  spi_desktop_signals[APPLICATION_REMOVED] =
+    g_signal_new ("application_removed",
+		  G_TYPE_FROM_CLASS (klass),
+		  G_SIGNAL_RUN_LAST,
+		  G_STRUCT_OFFSET (SpiDesktopClass, application_removed),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__UINT,
+		  G_TYPE_NONE,
+		  1, G_TYPE_UINT);
   epv->_get_childCount = impl_desktop_get_child_count;
   epv->getChildAtIndex = impl_desktop_get_child_at_index;
 }
@@ -164,9 +191,10 @@ spi_desktop_add_application (SpiDesktop *desktop,
       app->ref = ref;
 
       desktop->applications = g_list_append (desktop->applications, app);
+      g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_ADDED], 0,
+		     g_list_index (desktop->applications, app));
 
       ORBit_small_listen_for_broken (app->ref, G_CALLBACK (abnormal_application_termination), app);
-      g_signal_emit_by_name (SPI_BASE(desktop)->gobj, "children_changed::add", g_list_index (desktop->applications, app), NULL);
     }
 
   CORBA_exception_free (&ev);
@@ -199,7 +227,8 @@ spi_desktop_remove_application (SpiDesktop *desktop,
     {
       Application *app = (Application *) l->data;
 
-      g_signal_emit_by_name (SPI_BASE(desktop)->gobj, "children_changed::remove", g_list_index (desktop->applications, l), NULL);
+      g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_REMOVED], 0,
+		     g_list_index (desktop->applications, l));
       desktop->applications = g_list_delete_link (desktop->applications, l);
 
       ORBit_small_unlisten_for_broken (app->ref, G_CALLBACK (abnormal_application_termination));

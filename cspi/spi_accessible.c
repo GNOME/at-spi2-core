@@ -21,9 +21,9 @@ static const char *role_names [] =
   "dial",
   "dialog",
   "directory pane",
+  "drawing area",
   "file chooser",
   "filler",
-  "focus traversable",
   "font chooser",
   "frame",
   "glass pane",
@@ -62,12 +62,13 @@ static const char *role_names [] =
   "table column header",
   "table row header",
   "tearoff menu item",
+  "terminal",
   "text",
   "toggle button",
   "toolbar",
   "tooltip",
   "tree",
-  "tree-table",
+  "tree table",
   "<unknown>",
   "viewport",
   "window",
@@ -102,6 +103,7 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_DIAL] = SPI_ROLE_DIAL;
   role_table [Accessibility_ROLE_DIALOG] = SPI_ROLE_DIALOG;
   role_table [Accessibility_ROLE_DIRECTORY_PANE] = SPI_ROLE_DIRECTORY_PANE;
+  role_table[Accessibility_ROLE_DRAWING_AREA] = SPI_ROLE_DRAWING_AREA;
   role_table [Accessibility_ROLE_FILE_CHOOSER] = SPI_ROLE_FILE_CHOOSER;
   role_table [Accessibility_ROLE_FILLER] = SPI_ROLE_FILLER;
   role_table [Accessibility_ROLE_FONT_CHOOSER] = SPI_ROLE_FONT_CHOOSER;
@@ -139,14 +141,16 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_STATUS_BAR] = SPI_ROLE_STATUS_BAR;
   role_table [Accessibility_ROLE_TABLE] = SPI_ROLE_TABLE;
   role_table [Accessibility_ROLE_TABLE_CELL] = SPI_ROLE_TABLE_CELL;
+  role_table[Accessibility_ROLE_TABLE_COLUMN_HEADER] = SPI_ROLE_TABLE_COLUMN_HEADER;
+  role_table[Accessibility_ROLE_TABLE_ROW_HEADER] = SPI_ROLE_TABLE_ROW_HEADER;
   role_table [Accessibility_ROLE_TEAROFF_MENU_ITEM] = SPI_ROLE_TEAROFF_MENU_ITEM;
+  role_table[Accessibility_ROLE_TERMINAL] = SPI_ROLE_TERMINAL;
   role_table [Accessibility_ROLE_TEXT] = SPI_ROLE_TEXT;
   role_table [Accessibility_ROLE_TOGGLE_BUTTON] = SPI_ROLE_TOGGLE_BUTTON;
   role_table [Accessibility_ROLE_TOOL_BAR] = SPI_ROLE_TOOL_BAR;
   role_table [Accessibility_ROLE_TOOL_TIP] = SPI_ROLE_TOOL_TIP;
   role_table [Accessibility_ROLE_TREE] = SPI_ROLE_TREE;
   role_table [Accessibility_ROLE_TREE_TABLE] = SPI_ROLE_TREE_TABLE;
-  role_table [Accessibility_ROLE_UNKNOWN] = SPI_ROLE_UNKNOWN;
   role_table [Accessibility_ROLE_VIEWPORT] = SPI_ROLE_VIEWPORT;
   role_table [Accessibility_ROLE_WINDOW] = SPI_ROLE_WINDOW;
   role_table [Accessibility_ROLE_EXTENDED] = SPI_ROLE_EXTENDED;
