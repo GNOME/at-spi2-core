@@ -1,3 +1,11 @@
+2003-01-12  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.5.2=====
+	
+	* configure.in: Version 1.5.2, interface age 1, binary age 502
+
+	* NEWS: Updated.
+
 2004-01-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Move specification of ALL_LINGUAS to later in file

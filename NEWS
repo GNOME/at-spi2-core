@@ -1,3 +1,21 @@
+Changes in version 1.5.2
+========================
+* Fix crasher bug in atk_text_free_ranges (bug #129837). [Jeff Franks]
+
+* Change name of role from, "accel label" to "accelerator label". (bug #129499)
+
+* Update translations: Czech [MiloSlac Trmac], Portuguese [Duaret Loreto],
+Danish [Ole Laursen], Spanish [Francisco Javier F. Serrador],
+Afrikaans [Stefan Lubbersen], Japanese [Takeshi AIHANA],
+Norwegian [Kjartan Maraas], Greek [Kostas Papadimas], 
+Swedish [Christan Rose], Belarusian [Alex Nyakhaychyk],
+Serbian [Danilo \305\240egan], Arabic [Arafat Mendini],
+Norwegian Nyorsk [\303\205smund Skj\303\246veland], Croatian [Robert Sedak],
+Polish [Artur Flinta], Lithuanian [Tomas Kuliavas],
+Dutch [Vincent van Adrighem], French {Christophe Merlet],
+Mongolian [Sanlig Badral], Korean [Korean], Arabic [Arafat Medini]. 
+
+
 Changes in version 1.5.1
 ========================
 * Change role names so that unlocalized names the same as Java role names.
