@@ -85,6 +85,13 @@ atk_gobject_accessible_for_object (GObject *obj)
                                           G_OBJECT_TYPE (obj));
       accessible = atk_object_factory_create_accessible (factory,
                                                          obj);
+      if (!quark_accessible_object)
+        {
+          /*
+           * The AtkObject which was created was not a AtkGObjectAccessible
+           */
+          quark_accessible_object = g_quark_from_static_string ("accessible-object");
+        }
       g_object_set_qdata (obj, quark_accessible_object, accessible);
     }
   return accessible;
@@ -144,6 +151,7 @@ atk_gobject_accessible_class_init (AtkGObjectAccessibleClass *klass)
 
   class->initialize = atk_real_gobject_accessible_initialize;
 
-  quark_accessible_object = g_quark_from_static_string ("accessible-object");
+  if (!quark_accessible_object)
+    quark_accessible_object = g_quark_from_static_string ("accessible-object");
   quark_object = g_quark_from_static_string ("object-for-accessible");
 }

@@ -1,3 +1,10 @@
+2002-04-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkgobjectaccessible.c:
+	(atk_gobject_accessible_for_object):  Allow for case where created
+	AtkObject is not a AtkGObjectAccessible so quark_accessible_object
+	was not initialized in atk_gobject_accessible_class_init
+
 Thu Mar 28 18:27:32 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* ===== Released 1.0.1 ======
