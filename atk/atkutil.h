@@ -90,7 +90,7 @@ GType atk_util_get_type (void);
 /**
  *AtkCoordType:
  *@ATK_XY_SCREEN: specifies xy coordinates relative to the screen
- *@ATK_XY_WINDOW: specifies xy coordinates relative to the widgets 
+ *@ATK_XY_WINDOW: specifies xy coordinates relative to the widget's 
  * top-level window
  *
  *Specifies how xy coordinates are to be interpreted. Used by functions such

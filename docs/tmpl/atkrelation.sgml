@@ -2,10 +2,15 @@
 AtkRelation
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An object usaed to describe a relation between a object and one or more
+other objects.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
+An AtkRelation describes a relation between the object and one or more
+other objects. The actual relations that an object has with other objects
+are defined as an AtkRelationSet, which is a set of AtkRelations.
+
 
 </para>
 

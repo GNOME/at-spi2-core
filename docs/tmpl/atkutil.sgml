@@ -2,10 +2,13 @@
 AtkUtil
 
 <!-- ##### SECTION Short_Description ##### -->
-
+This is a utility class which supports the adding and removal of event listeners.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
+This is a utility class which supports the adding and removal of event 
+listeners. The adding and removing of the listeners must be done in the 
+same thread. The file also contains a number of utility functions.
 
 </para>
 

@@ -2,7 +2,7 @@
 AtkText
 
 <!-- ##### SECTION Short_Description ##### -->
-ATK Interface provided by components with text content.
+The ATK interface implemented by components with text content.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>

@@ -2,7 +2,7 @@
 AtkRelationSet
 
 <!-- ##### SECTION Short_Description ##### -->
-
+A set of AtkRelations, normally the set of AtkRelations which an AtkObject has.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>

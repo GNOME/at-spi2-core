@@ -2,7 +2,7 @@
 AtkStreamableContent
 
 <!-- ##### SECTION Short_Description ##### -->
-
+The ATK interface which provides access to streamable content.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>

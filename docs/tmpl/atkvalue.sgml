@@ -2,7 +2,7 @@
 AtkValue
 
 <!-- ##### SECTION Short_Description ##### -->
-ATK Interface implemented by valuators and components which display or
+The ATK interface implemented by valuators and components which display or
 select a value from a bounded range of values.
 
 <!-- ##### SECTION Long_Description ##### -->

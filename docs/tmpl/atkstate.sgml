@@ -2,11 +2,12 @@
 AtkState
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An AtkState describes a component's particular state.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An AtkState describes a component's particular state. The actual state of
+an component is described by its AtkStateSet, which is a set of AtkStates.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

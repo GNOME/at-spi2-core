@@ -2,11 +2,12 @@
 AtkHyperlink
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An ATK object which encapsulates a link or set of links in a hypertext document.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An ATK object which encapsulates a link or set of links in a hypertext document.
+It implements the AtkAction interface.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

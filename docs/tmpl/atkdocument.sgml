@@ -2,11 +2,13 @@
 AtkDocument
 
 <!-- ##### SECTION Short_Description ##### -->
-
+The ATK interface which allows access to a DOM associated with on object.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+The AtkDocument interface should be supported by any object that has an
+associated document object model (DOM). This interface provides the
+standard mechanism allowing an assistive technology access to the DOM.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

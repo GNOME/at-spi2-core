@@ -1,3 +1,18 @@
+2002-06-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkutil.h atk/docs/atk-docs.sgml atk/docs/tmpl/atk-component.sgml
+	atk/docs/atkdocument.sgml atk/docs/tmpl/atkeditabletext.sgml
+	atk/docs/tmpl/atkgobjectaccessible.sgml atk/docs/tmpl/atkhyperlink.sgml
+	atk/docs/tmpl/atkhypertext.sgml atk/docs/tmpl/atkimage.sgml
+	atk/docs/atknoopobject.sgml atk/docs/tmpl/atknoopobjectfactory.sgml
+	atk/docs/tmpl/atkobjectfactory.sgml atk/docs/tmpl/atkregistry.sgml
+	atk/docs/tmpl/atkregistry.sgml atk/docs/tmpl/atkrelationset.sgml
+	atk/docs/tmpl/atkselection.sgml atk/docs/tmpl/atkstate.sgml
+	atk/docs/tmpl/atkstateset.sgml atk/docs/tmpl/atkstreamablecontent.sgml
+	atk/docs/tmpl/atktable.sgml atk/docs/tmpl/atktext.sgml
+	atk/docs/tmpl/atkutil.sgml atk/docs/tmpl/atkvalue.sgml
+	Update documentation.
+
 2002-05-29  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkregistry.c:

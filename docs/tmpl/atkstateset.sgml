@@ -2,11 +2,12 @@
 AtkStateSet
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An AtkStateSet determines a component's state set.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An AtkStateSet determines a component's state set. It is composed of a set 
+of AtkStates.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

@@ -2,7 +2,7 @@
 AtkTable
 
 <!-- ##### SECTION Short_Description ##### -->
-ATK Interface implemented for UI components which contain tabular or
+The ATK interface implemented for UI components which contain tabular or
 row/column information.
 
 <!-- ##### SECTION Long_Description ##### -->

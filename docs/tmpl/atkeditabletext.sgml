@@ -2,7 +2,7 @@
 AtkEditableText
 
 <!-- ##### SECTION Short_Description ##### -->
-ATK Interface implemented by components containing user-editable text content.
+The ATK interface implemented by components containing user-editable text content.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>

@@ -3,6 +3,7 @@
 <!entity atk-AtkComponent SYSTEM "sgml/atkcomponent.sgml">
 <!entity atk-AtkDocument SYSTEM "sgml/atkdocument.sgml">
 <!entity atk-AtkEditabletext SYSTEM "sgml/atkeditabletext.sgml">
+<!entity atk-AtkGObjectAccessible SYSTEM "sgml/atkgobjectaccessible.sgml">
 <!entity atk-AtkHyperlink SYSTEM "sgml/atkhyperlink.sgml">
 <!entity atk-AtkHypertext SYSTEM "sgml/atkhypertext.sgml">
 <!entity atk-AtkImage SYSTEM "sgml/atkimage.sgml">
@@ -34,6 +35,7 @@
     &atk-AtkComponent;
     &atk-AtkDocument;
     &atk-AtkEditabletext;
+    &atk-AtkGObjectAccessible;
     &atk-AtkHyperlink;
     &atk-AtkHypertext;
     &atk-AtkImage;

@@ -2,7 +2,7 @@
 AtkImage
 
 <!-- ##### SECTION Short_Description ##### -->
-ATK Interface implemented by components which expose image or pixmap
+The ATK Interface implemented by components which expose image or pixmap
 content on-screen.
 
 <!-- ##### SECTION Long_Description ##### -->

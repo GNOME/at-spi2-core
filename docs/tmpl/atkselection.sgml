@@ -3,7 +3,7 @@ AtkSelection
 
 <!-- ##### SECTION Short_Description ##### -->
 
-ATK Interface implemented by container objects whose #AtkObject children
+The ATK interface implemented by container objects whose #AtkObject children
 can be selected.
 
 <!-- ##### SECTION Long_Description ##### -->

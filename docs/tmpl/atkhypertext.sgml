@@ -2,7 +2,7 @@
 AtkHypertext
 
 <!-- ##### SECTION Short_Description ##### -->
-
+The ATK interface which provides standard mechanism for manipulating hyperlinks.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
