@@ -245,6 +245,18 @@ module Accessibility {
    * core enumeration 
    */
   ROLE_EXTENDED,
+  /* An object that serves as a document header. */
+  ROLE_HEADER,
+  /* An object that serves as a document footer. */
+  ROLE_FOOTER,
+  /* An object which is contains a paragraph of text content. */
+  ROLE_PARAGRAPH,
+  /*
+   * An object which describes margins and tab stops, etc. 
+   * for text objects which it controls 
+   * (should have CONTROLLER_FOR relation to such). 
+   */
+  ROLE_RULER,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
   };

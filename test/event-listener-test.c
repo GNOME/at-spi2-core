@@ -114,6 +114,8 @@ main (int argc, char **argv)
 /*  SPI_registerGlobalEventListener (specific_listener,
     "object:children-changed:add"); */
   SPI_registerGlobalEventListener (generic_listener,
+				   "object:active-descendant"); 
+  SPI_registerGlobalEventListener (generic_listener,
 				   "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:text-selection-changed"); 

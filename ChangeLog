@@ -1,3 +1,15 @@
+2002-11-15  Darren Kenny  <darren.kenny@sun.com>
+
+	* idl/Accessibility_Relation.idl:
+	add RELATION_FLOWS_TO,RELATION_FLOWS_FROM,RELATION_SUBWINDOW_OF,
+	RELATION_EMBEDS,RELATION_EMBEDDED_BY
+	* idl/Accessibility_Role.idl:
+	add ROLE_HEADER, ROLE_FOOTER, ROLE_PARAGRAPH, ROLE_RULER
+	* idl/Accessibility_State.idl:
+	add STATE_MANAGES_DESCENDANTS
+	* test/event-listener-test.c:
+	Added a listener for active-descendant events.
+
 2002-11-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c

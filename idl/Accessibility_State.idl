@@ -108,6 +108,14 @@ module Accessibility {
   STATE_VERTICAL,
   /* Indicates this object is visible */
   STATE_VISIBLE,
+  /*
+   * Indicates that "active-descendant-changed" event is sent when children
+   * become 'active' (i.e. are selected or navigated to onscreen).  Used to
+   * prevent need to enumerate all children in very large containers, like
+   * tables.
+   */
+  STATE_MANAGES_DESCENDANTS,
+
   STATE_LAST_DEFINED
   };
 
