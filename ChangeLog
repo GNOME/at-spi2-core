@@ -1,3 +1,9 @@
+2004-01-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+        * docs/reference/cspi/at-spi-cspi-docs.sgml: Added XML in
+        DOCTYPE statement. Fixes bug #129728. Patch supplied by Sebastien
+        Bacher.
+
 2004-01-01  Roozbeh Pournader  <roozbeh@sharif.edu>
 
 	* configure.in: Added "fa" to ALL_LINGUAS.
