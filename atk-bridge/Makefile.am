@@ -1,4 +1,5 @@
-lib_LTLIBRARIES = libatk-bridge.la
+moduledir = $(libdir)/gtk-2.0/modules
+module_LTLIBRARIES = libatk-bridge.la
 
 libatk_bridge_la_SOURCES = 	\
 	bridge.c
@@ -21,7 +22,7 @@ DEPS = 	\
 	$(libat-spi)
 
 
-LDFLAGS += -no-undefined
+LDFLAGS += -no-undefined -module -avoid-version
 
 libatk_bridge_la_LIBADD = $(ATK_BRIDGE_LIBS) ../libspi/libspi.la
 

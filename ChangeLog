@@ -1,3 +1,7 @@
+2002-05-02  jacob berkman  <jacob@ximian.com>
+
+	* atk-bridge/Makefile.am: make atk-bridge a real module
+
 2002-04-26  Radek Doulik  <rodo@ximian.com>
 
 	* libspi/stateset.c (spi_init_state_type_tables): fix size of
