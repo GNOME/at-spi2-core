@@ -2,14 +2,14 @@
 # atk.
 # Copyright (C) Free Software Foundation Inc. 2002
 # This file is distributed under the same license as the PACKAGE package.
-# Kostas Papadimas <pkst@gnome.org>, 2002,2003.
+# Kostas Papadimas <pkst@gnome.org>, 2002,2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-16 11:30+0200\n"
-"PO-Revision-Date: 2003-12-16 11:49+0200\n"
+"POT-Creation-Date: 2004-02-23 14:38+0200\n"
+"PO-Revision-Date: 2004-02-23 14:38+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgid "invalid"
 msgstr "μη έγκυρο"
 
 #: atk/atkobject.c:83
-msgid "accel label"
+msgid "accelerator label"
 msgstr "ετικέτα συντόμ"
 
 #: atk/atkobject.c:84
@@ -356,7 +356,9 @@ msgstr "Προσβάσιμο όνομα"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Το όνομα της εμφάνισης του αντικειμένου μορφοποιημένο για πρόσβαση από την βοηθητική τεχνολογία"
+msgstr ""
+"Το όνομα της εμφάνισης του αντικειμένου μορφοποιημένο για πρόσβαση από την "
+"βοηθητική τεχνολογία"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
@@ -364,7 +366,9 @@ msgstr "Περιγραφή προσβασιμότητας"
 
 #: atk/atkobject.c:303
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Περιγραφή του αντικειμένου μορφοποιημένη για πρόσβαση από την βοηθητική τεχνολογία"
+msgstr ""
+"Περιγραφή του αντικειμένου μορφοποιημένη για πρόσβαση από την βοηθητική "
+"τεχνολογία"
 
 #: atk/atkobject.c:309
 msgid "Accessible Parent"
@@ -415,8 +419,9 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Χρησιμοποιείται για να ενημερώσει ότι η κεφαλίδα πίνακα έχει αλλάξει, αυτή η ιδιότητα δεν πρέπει "
-"να χρησιμοποιείται.Θα πρέπει να χρησιμοποιείται το accessible-table-caption-object"
+"Χρησιμοποιείται για να ενημερώσει ότι η κεφαλίδα πίνακα έχει αλλάξει, αυτή η "
+"ιδιότητα δεν πρέπει να χρησιμοποιείται.Θα πρέπει να χρησιμοποιείται το "
+"accessible-table-caption-object"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
@@ -467,8 +472,8 @@ msgid "Is used to notify that the table caption has changed"
 msgstr "Χρησιμοποιείται για να ενημερώσει ότι η επικεφαλίδα πίνακα έχει αλλάξει"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
-msgstr "Προσβάσιμος αριθμός υπερκειμένου δεσμών"
+msgid "Number of Accessible Hypertext Links"
+msgstr "Προσβάσιμος αριθμός δεσμών υπερκειμένου "
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
