@@ -587,7 +587,7 @@ spi_dec_translate_mask (Accessibility_ControllerEventMask mask)
       tmp_mask = mask ^ SPI_KEYMASK_NUMLOCK;
       tmp_mask |= _numlock_physical_mask;
     }
-
+ 
   return tmp_mask;
 }
 
@@ -1022,15 +1022,38 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
     {
       if (controller->xevie_display == NULL)
         {
-          gboolean is_consumed =
+          gboolean is_consumed;
+
+          is_consumed =
             spi_device_event_controller_forward_key_event (controller, xevent);
 
           if (is_consumed)
-            XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
+            {
+              int n_events;
+              int i;
+              XEvent next_event;
+              n_events = XPending (display);
+
+#ifdef SPI_KEYEVENT_DEBUG
+              g_print ("Number of events pending: %d\n", n_events);
+#endif
+              for (i = 0; i < n_events; i++)
+                {
+                  XNextEvent (display, &next_event);
+		  if (next_event.type != KeyPress &&
+		      next_event.type != KeyRelease)
+			g_warning ("Unexpected event type %d in queue", next_event.type);
+                 }
+
+              XAllowEvents (display, AsyncKeyboard, CurrentTime);
+              if (n_events)
+                XUngrabKeyboard (display, CurrentTime);
+            }
           else
             {
-              wait_for_release_event (xevent, controller);
-              XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
+              if (xevent->type == KeyPress)
+                wait_for_release_event (xevent, controller);
+              XAllowEvents (display, ReplayKeyboard, CurrentTime);
             }
         }
 
@@ -1044,7 +1067,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
     {
       XkbAnyEvent * xkb_ev = (XkbAnyEvent *) xevent;
       /* ugly but probably necessary...*/
-      XSynchronize (spi_get_display (), TRUE);
+      XSynchronize (display, TRUE);
 
       if (xkb_ev->xkb_type == XkbStateNotify)
         {
@@ -1106,7 +1129,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 	}
         else
 	       DBG (2, g_warning ("XKB event %d\n", xkb_ev->xkb_type));
-      XSynchronize (spi_get_display (), FALSE);
+      XSynchronize (display, FALSE);
     }
   
   return GDK_FILTER_CONTINUE;
@@ -1493,6 +1516,7 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
      (x_key_event->state & Mod1Mask)?"Alt-":"",
      ((x_key_event->state & ShiftMask)^(x_key_event->state & LockMask))?
      g_ascii_toupper (keysym) : g_ascii_tolower (keysym));
+  fprintf (stderr, "serial: %x Time: %x\n", x_key_event->serial, x_key_event->time);
 #endif /* SPI_DEBUG */
   return key_event;	
 }
@@ -1503,6 +1527,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 {
   GList *l, *next;
   gboolean   update_failed = FALSE;
+  KeyCode keycode;
   
   g_return_val_if_fail (controller != NULL, FALSE);
 
@@ -1515,6 +1540,8 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
    *
    * ControlMask grabs are broken, must be in use already
    */
+  if (recv)
+    keycode = keycode_for_keysym (recv->id, NULL);
   for (l = controller->keygrabs_list; l; l = next)
     {
       gboolean do_remove;
@@ -1525,7 +1552,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 
       re_issue_grab = recv &&
 	      (recv->modifiers & grab_mask->mod_mask) &&
-	      (grab_mask->key_val == keycode_for_keysym (recv->id, NULL));
+	      (grab_mask->key_val == keycode);
 
 #ifdef SPI_DEBUG
       fprintf (stderr, "mask=%lx %lx (%c%c) %s\n",

@@ -1,6 +1,18 @@
+2003-12-15  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* registryd/deviceeventcontroller.c (global_filter_fn):
+	When an event is consumed discard any XEvents were added to
+	the queue while dealing with the the event. This can happen if
+	processing of the event takes a long time. Call XUngrabKeyboard
+	if an event was discarded. This fixes bug $124837.
+	Only call wait_for_release_event for a KeyPress.
+	Use local variable display instead of spi_get_display().
+	(spi_controller_update_key_grabs): Move call to keycode_for_keysym
+	outside for loop.
+
 2003-12-11  Padraig O'Briain <padraig.obriain@sun.com>
 
-	* registryd/devieceventcontroller.c (spi_dec_translate_mask):
+	* registryd/deviceeventcontroller.c (spi_dec_translate_mask):
 	Allow for mask to contain values other than NumLock mask.
 	Fixes bug #129103.
 
