@@ -1,3 +1,15 @@
+2003-10-29  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Add reference to docs/version.xml
+
+	* docs/Makefile.am: Add references to version.xml.in and version.xml
+
+	* docs/atk-docs.sgml: Add reference to version.xml
+
+	* docs/version.xml.in: New file.
+
+	This fixes bug #125758.
+	
 2003-10-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkrelation.c (atk_relation_new): Fix memory leak. (bug #124877)

@@ -24,11 +24,13 @@
   <!ENTITY atk-AtkText SYSTEM "xml/atktext.xml">
   <!ENTITY atk-AtkUtil SYSTEM "xml/atkutil.xml">
   <!ENTITY atk-AtkValue SYSTEM "xml/atkvalue.xml">
+  <!ENTITY version SYSTEM "version.xml">
 ]>
 
 <book>
   <bookinfo>
     <title>ATK Library Reference Manual</title>
+    <releaseinfo>for ATK &version;</releaseinfo>
   </bookinfo>
 
   <chapter id="atk">

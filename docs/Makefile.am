@@ -29,7 +29,11 @@ GTKDOC_LIBS = $(top_builddir)/atk/libatk-$(ATK_API_VERSION).la
 
 # gtkdoc-mkdb related varaibles
 MKDB_OPTIONS =
-content_files =
+content_files =		\
+	version.xml
 HTML_IMAGES =
 
 include $(top_srcdir)/gtk-doc.make
+
+# Other files to distribute
+EXTRA_DIST += version.xml.in
