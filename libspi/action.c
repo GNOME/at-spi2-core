@@ -91,7 +91,7 @@ spi_action_interface_new (AtkObject *obj)
 static AtkAction *
 get_action_from_servant (PortableServer_Servant servant)
 {
-  SpiBase *object = SPI_BASE (servant);
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
   return ATK_ACTION (object->atko);
 }
 

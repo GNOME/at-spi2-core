@@ -122,7 +122,7 @@ create_test_window (void)
 	widget = gtk_image_new_from_stock (GTK_STOCK_DIALOG_QUESTION,
 					   GTK_ICON_SIZE_LARGE_TOOLBAR);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
-	
+
 	widget = g_object_new (GTK_TYPE_RANGE, NULL);
 	gtk_range_set_range (GTK_RANGE (widget), 0.0, 100.0);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
@@ -155,6 +155,28 @@ test_roles (void)
 	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_RADIO_BUTTON), "radiobutton"));
 	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_TABLE), "table"));
 	g_assert (!strcmp (AccessibleRole_getName (SPI_ROLE_WINDOW), "window"));
+}
+
+static void
+test_action (AccessibleAction *action)
+{
+	gint n_actions, i;
+	gchar *s, *sd;
+	g_assert ((n_actions = AccessibleAction_getNActions (action)) >= 0);
+
+	fprintf (stderr, "Testing actions...");
+	for (i = 0; i < n_actions; ++i)
+	{
+		s = AccessibleAction_getName (action, i);
+		g_assert (s);
+		sd = AccessibleAction_getDescription (action, i);
+		g_assert (sd);
+		fprintf (stderr, "%d: %s (%s);  ", i, s, sd);
+		SPI_freeString (s);
+		SPI_freeString (sd);
+		/* g_assert (AccessibleAction_doAction (action, i)); */
+	}
+	fprintf (stderr, "\n");
 }
 
 static void
@@ -460,6 +482,8 @@ validate_accessible (Accessible *accessible,
 		g_assert (tmp != NULL);
 		if (print_tree)
 			fprintf (stderr, "At");
+		else
+			test_action (tmp);
 		AccessibleAction_unref (tmp);
 	}
 

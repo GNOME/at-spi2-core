@@ -1,3 +1,11 @@
+2001-12-11  Bill Haneman <bill.haneman@sun.com>
+
+	* test/test-simple.c:
+	Add test_action.
+
+	* libspi/action.c:
+	Bugfix for get_action_from_servant ().
+
 2001-12-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/libspi.h: remove registry.h and
@@ -16,7 +24,8 @@
 	Replace setenv() call with putenv ().
 
 	* libspi/component.c:
-	Bugfix in AccessibleComponent_getExtents ().
+	Bugfix in AccessibleComponent_getExtents (),
+	(from Adi Dascal).
 	
 2001-12-11  Michael Meeks  <michael@ximian.com>
 
