@@ -83,7 +83,7 @@ spi_value_interface_new (AtkObject *obj)
 {
   SpiValue *new_value = g_object_new (SPI_VALUE_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_value), obj);
+  spi_base_construct (SPI_BASE (new_value), G_OBJECT(obj));
 
   return new_value;
 }
@@ -94,12 +94,9 @@ get_value_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_VALUE (object->atko);
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_VALUE (object->gobj);
 }
 
 static double

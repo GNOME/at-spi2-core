@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 
 typedef struct {
         BonoboObject parent;
-        AtkObject   *atko;
+        GObject *gobj;
 } SpiBase;
 
 typedef struct {
@@ -44,9 +44,9 @@ typedef struct {
 
 GType      spi_base_get_type          (void);
 void       spi_base_construct         (SpiBase   *base,
-				       AtkObject *aobject);
+				       GObject *gobject);
 void       spi_base_construct_default (SpiBase   *base);
-AtkObject *spi_base_get_atkbase       (SpiBase   *base);
+GObject *spi_base_get_gobject       (SpiBase   *base);
 
 G_END_DECLS
 

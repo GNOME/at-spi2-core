@@ -45,7 +45,7 @@ spi_desktop_init (SpiDesktop *desktop)
 
   desktop->applications = NULL;
 
-  atk_object_set_name (SPI_BASE (desktop)->atko, "main");
+  atk_object_set_name (ATK_OBJECT(SPI_BASE (desktop)->gobj), "main");
 }
 
 static void

@@ -38,7 +38,8 @@ get_component_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
   g_return_val_if_fail (object != NULL, NULL);
-  return ATK_COMPONENT (object->atko);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_COMPONENT (object->gobj);
 }
 
 /*
@@ -216,7 +217,7 @@ spi_component_interface_new (AtkObject *o)
 {
     SpiComponent *retval = g_object_new (SPI_COMPONENT_TYPE, NULL);
 
-    spi_base_construct (SPI_BASE (retval), o);
+    spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
 
     return retval;
 }

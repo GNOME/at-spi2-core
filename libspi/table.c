@@ -35,7 +35,7 @@ spi_table_interface_new (AtkObject *obj)
 {
   SpiTable *new_table = g_object_new (SPI_TABLE_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_table), obj);
+  spi_base_construct (SPI_BASE (new_table), G_OBJECT(obj));
 
   return new_table;
 }
@@ -46,12 +46,9 @@ get_table_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_TABLE (object->atko);
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_TABLE (object->gobj);
 }
 
 

@@ -32,7 +32,7 @@ spi_image_interface_new (AtkObject *obj)
 {
   SpiImage *new_image = g_object_new (SPI_IMAGE_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_image), obj);
+  spi_base_construct (SPI_BASE (new_image), G_OBJECT(obj));
 
   return new_image;
 }
@@ -42,12 +42,9 @@ get_image_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_IMAGE (object->atko);
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_IMAGE (object->gobj);
 }
 
 static void 

@@ -88,7 +88,7 @@ spi_hyperlink_new (AtkObject *object)
   SpiHyperlink *new_hyperlink = g_object_new (
 	  SPI_HYPERLINK_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_hyperlink), object);
+  spi_base_construct (SPI_BASE (new_hyperlink), G_OBJECT(object));
 
   return new_hyperlink;
 }
@@ -99,12 +99,9 @@ get_hyperlink_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_HYPERLINK (object->atko);
+  g_return_val_if_fail (object != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_HYPERLINK (object->gobj);
 }
 
 

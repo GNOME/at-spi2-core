@@ -40,11 +40,11 @@ spi_base_object_dispose (GObject *gobject)
 {
   SpiBase *object = SPI_BASE (gobject);
 
-  if (object->atko)
+  if (object->gobj)
     {
-      g_assert (ATK_IS_OBJECT (object->atko));
-      g_object_unref (G_OBJECT (object->atko));
-      object->atko = NULL;
+      g_assert (G_IS_OBJECT (object->gobj));
+      g_object_unref (object->gobj);
+      object->gobj = NULL;
     }
 
   spi_base_parent_class->dispose (gobject);
@@ -68,21 +68,19 @@ spi_base_init (SpiBase *object)
 BONOBO_TYPE_FUNC (SpiBase, PARENT_TYPE, spi_base);
 
 void
-spi_base_construct (SpiBase *object, AtkObject *aobject)
+spi_base_construct (SpiBase *object, GObject *gobject)
 {
-  object->atko = g_object_ref (G_OBJECT (aobject));
+  object->gobj = g_object_ref (gobject);
 }
 
 void
 spi_base_construct_default (SpiBase *object)
 {
-  object->atko = g_object_new (ATK_TYPE_OBJECT, NULL);
+  object->gobj = g_object_new (G_TYPE_OBJECT, NULL);
 }
 
-AtkObject *
-spi_base_get_atkobject (SpiBase *object)
+GObject *
+spi_base_get_gobject (SpiBase *object)
 {
-  g_return_val_if_fail (ATK_IS_OBJECT (object), NULL);
-
-  return object->atko;
+  return object->gobj;
 }

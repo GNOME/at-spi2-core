@@ -33,7 +33,7 @@ spi_selection_interface_new (AtkObject *obj)
 {
   SpiSelection *new_selection = g_object_new (SPI_SELECTION_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_selection), obj);
+  spi_base_construct (SPI_BASE (new_selection), G_OBJECT(obj));
 
   return new_selection;
 }
@@ -44,12 +44,9 @@ get_selection_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_SELECTION (object->atko);
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_SELECTION (object->gobj);
 }
 
 

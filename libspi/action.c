@@ -83,7 +83,7 @@ spi_action_interface_new (AtkObject *obj)
 {
   SpiAction *new_action = g_object_new (SPI_ACTION_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_action), obj);
+  spi_base_construct (SPI_BASE (new_action), G_OBJECT(obj));
 
   return new_action;
 }
@@ -92,7 +92,9 @@ static AtkAction *
 get_action_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-  return ATK_ACTION (object->atko);
+  g_return_val_if_fail (object != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_ACTION (object->gobj);
 }
 
 static CORBA_long

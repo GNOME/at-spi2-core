@@ -1,3 +1,13 @@
+2001-12-18 Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* at-spi/libspi/accessible.c at-spi/libspi/action.c
+at-spi/libspi/application.c at-spi/libspi/base.c at-spi/libspi/base.h
+at-spi/libspi/component.c at-spi/libspi/editabletext.c
+at-spi/libspi/hyperlink.c at-spi/libspi/hypertext.c
+at-spi/libspi/image.c at-spi/libspi/selection.c at-spi/libspi/table.c
+at-spi/libspi/text.c at-spi/libspi/value.c at-spi/registryd/desktop.c:
+Changed SpiBase to contain a GObject pointer rather than an AtkObject
+
 2001-12-17  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Registry.idl:

@@ -44,12 +44,9 @@ get_hypertext_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_HYPERTEXT (object->atko);
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_HYPERTEXT (object->gobj);
 }
 
 

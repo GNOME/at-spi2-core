@@ -36,12 +36,9 @@ get_text_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return ATK_TEXT (object->atko);
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_TEXT (object->gobj);
 }
 
 static CORBA_string
@@ -406,8 +403,9 @@ BONOBO_TYPE_FUNC_FULL (SpiText,
 void
 spi_text_construct (SpiText *text, AtkObject *obj)
 {
-  spi_base_construct (SPI_BASE (text), obj);
+  spi_base_construct (SPI_BASE (text), G_OBJECT(obj));
 }
+
 
 SpiText *
 spi_text_interface_new (AtkObject *obj)

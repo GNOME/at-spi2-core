@@ -147,12 +147,9 @@ get_accessible_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
-  if (!object)
-    {
-      return NULL;
-    }
-
-  return object->atko;
+  g_return_val_if_fail (object, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
+  return ATK_OBJECT(object->gobj);
 }
 
 /*
@@ -436,7 +433,7 @@ get_public_refs (void)
 static void
 de_register_public_ref (SpiBase *object)
 {
-  g_hash_table_remove (get_public_refs (), object->atko);
+  g_hash_table_remove (get_public_refs (), object->gobj);
 }
 
 SpiAccessible *
@@ -457,7 +454,7 @@ spi_accessible_new (AtkObject *o)
 
     retval = g_object_new (SPI_ACCESSIBLE_TYPE, NULL);
 
-    spi_base_construct (SPI_BASE (retval), o);
+    spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
 
     g_hash_table_insert (get_public_refs (), o, retval);
     g_signal_connect (G_OBJECT (retval), "destroy",

@@ -364,7 +364,7 @@ spi_application_new (AtkObject *app_root)
 {
   SpiApplication *retval = g_object_new (SPI_APPLICATION_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (retval), app_root);
+  spi_base_construct (SPI_BASE (retval), G_OBJECT(app_root));
 
   return retval;
 }
