@@ -1,3 +1,25 @@
+2002-10-16  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in:
+	Incremented revision to 1.1.2, SONAME is still '.so', library
+	extensions are ".so.0.0.2".
+
+	* registryd/deviceeventcontroller.c:
+	FIXES FOR #93592 and #95940.
+	(statics):  renamed mouse_button_state to mouse_mask_state, 
+	added key_modifier_mask.
+   	(spi_dec_poll_mouse_moved): 
+	Added key modifier checks, and emit "keyboard:modifiers"
+	events when the key modifiers currently in use change.
+	Also generate "mouse:abs" events periodically, even if the mouse
+	is stationary (should we?).
+	Alternatively we could generate "mouse:abs" events for either all
+	mouse movements, or every 'nth' mouse movement, or at the
+	beginning and end of every "active" mouse period.
+	
+	* test/event-listener-test.c:
+	(main): Added listener for "keyboard:modifiers" events.
+	
 2002-10-15  Bill Haneman  <bill.haneman@sun.com>
 
 	* libspi/keymasks.h:

@@ -52,9 +52,11 @@
 static GObjectClass *spi_device_event_controller_parent_class;
 static int spi_error_code = 0;
 static GdkPoint *last_mouse_pos = NULL; 
-static unsigned int mouse_button_state = 0;
+static unsigned int mouse_mask_state = 0;
 static unsigned int mouse_button_mask =
   Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
+static unsigned int key_modifier_mask =
+  Mod1Mask | Mod2Mask | Mod3Mask | Mod4Mask | Mod5Mask | ShiftMask | LockMask | ControlMask;
 
 int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
@@ -150,6 +152,8 @@ spi_grab_mask_compare_values (gconstpointer p1, gconstpointer p2)
     }
 }
 
+static gint poll_count = 0;
+
 static gboolean
 spi_dec_poll_mouse_moved (gpointer data)
 {
@@ -159,6 +163,7 @@ spi_dec_poll_mouse_moved (gpointer data)
   Window root_return, child_return;
   int win_x_return,win_y_return;
   int x, y;
+  int poll_count_modulus = 10;
   unsigned int mask_return;
   gchar event_name[24];
   Display *display = spi_get_display ();
@@ -169,50 +174,74 @@ spi_dec_poll_mouse_moved (gpointer data)
 		&x, &y,
 		&win_x_return, &win_y_return, &mask_return);
 
-  if ((mask_return & mouse_button_mask) != mouse_button_state) {
-	  int button_number = 0;
-	  if (!(mask_return & Button1Mask) &&
-	      (mouse_button_state & Button1Mask)) {
-		  button_number = 1;
-	  } else if (!(mask_return & Button2Mask) &&
-		     (mouse_button_state & Button2Mask)) {
-		  button_number = 2;
-	  } else if (!(mask_return & Button3Mask) &&
-		     (mouse_button_state & Button3Mask)) {
-		  button_number = 3;
-	  } else if (!(mask_return & Button4Mask) &&
-		     (mouse_button_state & Button1Mask)) {
-		  button_number = 4;
-	  } else if (!(mask_return & Button5Mask) &&
-		     (mouse_button_state & Button5Mask)) {
-		  button_number = 5;
-	  }
-	  if (button_number) {
+  if (mask_return != mouse_mask_state) {
+	  if ((mask_return & mouse_button_mask) !=
+	      (mouse_mask_state & mouse_button_mask)) {
+		  int button_number = 0;
+		  if (!(mask_return & Button1Mask) &&
+		      (mouse_mask_state & Button1Mask)) {
+			  button_number = 1;
+		  } else if (!(mask_return & Button2Mask) &&
+			     (mouse_mask_state & Button2Mask)) {
+			  button_number = 2;
+		  } else if (!(mask_return & Button3Mask) &&
+			     (mouse_mask_state & Button3Mask)) {
+			  button_number = 3;
+		  } else if (!(mask_return & Button4Mask) &&
+			     (mouse_mask_state & Button1Mask)) {
+			  button_number = 4;
+		  } else if (!(mask_return & Button5Mask) &&
+			     (mouse_mask_state & Button5Mask)) {
+			  button_number = 5;
+		  }
+		  if (button_number) {
 #ifdef SPI_DEBUG		  
-		  fprintf (stderr, "Button %d Released\n",
-			   button_number);
+			  fprintf (stderr, "Button %d Released\n",
+				   button_number);
 #endif
-		  snprintf (event_name, 22, "mouse:button:%dr", button_number);
-		  e.type = event_name;
+			  snprintf (event_name, 22, "mouse:button:%dr", button_number);
+			  e.type = event_name;
+			  e.source = BONOBO_OBJREF (registry->desktop);
+			  e.detail1 = last_mouse_pos->x;
+			  e.detail2 = last_mouse_pos->y;
+			  CORBA_exception_init (&ev);
+			  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+							      &e,
+							      &ev);
+		  }
+	  }
+	  if ((mask_return & key_modifier_mask) !=
+	      (mouse_mask_state & key_modifier_mask)) {
+		  fprintf (stderr, "MODIFIER CHANGE EVENT!\n");  
+		  e.type = "keyboard:modifiers";  
 		  e.source = BONOBO_OBJREF (registry->desktop);
-		  e.detail1 = last_mouse_pos->x;
-		  e.detail2 = last_mouse_pos->y;
+		  e.detail1 = mouse_mask_state;
+		  e.detail2 = mask_return;
 		  CORBA_exception_init (&ev);
 		  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 						      &e,
 						      &ev);
 	  }
-	  mouse_button_state = mask_return & mouse_button_mask;
+	  mouse_mask_state = mask_return;
   }
   if (last_mouse_pos == NULL) {
 	  last_mouse_pos = g_new0 (GdkPoint, 1);
 	  last_mouse_pos->x = 0;
 	  last_mouse_pos->y = 0;
-	  e.type = "mouse:abs";
-  } else {
-	  e.type = "mouse:rel";  
+  }
+  if (poll_count++ == poll_count_modulus) {
+	  poll_count = 0;
+	  e.type = "mouse:abs";  
+	  e.source = BONOBO_OBJREF (registry->desktop);
+	  e.detail1 = x;
+	  e.detail2 = y;
+	  CORBA_exception_init (&ev);
+	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+					      &e,
+					      &ev);
   }
   if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
+	  e.type = "mouse:rel";  
 	  e.source = BONOBO_OBJREF (registry->desktop);
 	  e.detail1 = x - last_mouse_pos->x;
 	  e.detail2 = y - last_mouse_pos->y;
@@ -498,7 +527,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   gchar event_name[24];
   int button = ((XButtonEvent *) xevent)->button;
   
-  mouse_button_state = ((XButtonEvent *) xevent)->state;
+  unsigned int mouse_button_state = ((XButtonEvent *) xevent)->state;
 
   switch (button)
     {

@@ -97,6 +97,8 @@ main (int argc, char **argv)
       SPI_registerGlobalEventListener (specific_listener,
 				       "mouse:abs");
   }
+  SPI_registerGlobalEventListener (specific_listener,
+				   "keyboard:modifiers");
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:property-change");
 /*  SPI_registerGlobalEventListener (specific_listener,
