@@ -1,3 +1,8 @@
+2001-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
+	* atk/atkaction.[c|h], docs/atk-sections.txt, 
+	docs/tmpl/atkaction.sgml
+	Add atk_action_get_name() and atk_action_set_description()
+
 2001-07-18  Padraig O'Briain  <padraig.obriain@sun.com>
 	* atk/atkstate.[c|h]
 	Add ATK_STATE_ENABLED so we can distinguish between a consistent

@@ -116,6 +116,33 @@ atk_action_get_description (AtkAction *obj,
 }
 
 /**
+ * atk_action_get_name:
+ * @action: a #GObject instance that implements AtkActionIface
+ * @i: the action index corresponding to the action to be performed 
+ *
+ * Returns the name of the specified action of the object.
+ *
+ * Returns a name string, or %NULL
+ * if @action does not implement this interface.
+ **/
+G_CONST_RETURN gchar*
+atk_action_get_name (AtkAction *obj,
+                     gint      i)
+{
+  AtkActionIface *iface;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_ACTION (obj), NULL);
+
+  iface = ATK_ACTION_GET_IFACE (obj);
+
+  if (iface->get_name)
+    return (iface->get_name) (obj, i);
+  else
+    return NULL;
+}
+
+/**
  * atk_action_get_keybinding:
  * @action: a #GObject instance that implements AtkActionIface
  * @i: the action index corresponding to the action to be performed 
@@ -141,4 +168,32 @@ atk_action_get_keybinding (AtkAction *obj,
     return (iface->get_keybinding) (obj, i);
   else
     return NULL;
+}
+
+/**
+ * atk_action_set_description:
+ * @action: a #GObject instance that implements AtkActionIface
+ * @i: the action index corresponding to the action to be performed 
+ * @desc: the description to be assigned to this action
+ *
+ * Sets a description of the specified action of the object.
+ *
+ * Returns: a gboolean representing if the description was successfully set;
+ **/
+gboolean
+atk_action_set_description (AtkAction   *obj,
+                            gint        i,
+                            const gchar *desc)
+{
+  AtkActionIface *iface;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_ACTION (obj), FALSE);
+
+  iface = ATK_ACTION_GET_IFACE (obj);
+
+  if (iface->set_description)
+    return (iface->set_description) (obj, i, desc);
+  else
+    return FALSE;
 }

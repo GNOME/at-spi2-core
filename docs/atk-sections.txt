@@ -6,7 +6,9 @@ AtkActionIface
 atk_action_do_action
 atk_action_get_n_actions
 atk_action_get_description
+atk_action_get_name
 atk_action_get_keybinding
+atk_action_set_description
 <SUBSECTION Standard>
 ATK_ACTION
 ATK_IS_ACTION
