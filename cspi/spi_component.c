@@ -76,8 +76,8 @@ AccessibleComponent_contains (AccessibleComponent *obj,
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
   retval = Accessibility_Component_contains (CSPI_OBJREF (obj),
-					     (CORBA_long) x,
-					     (CORBA_long) y,
+					     x,
+					     y,
 					     ctype,
 					     cspi_ev ());
   cspi_return_val_if_ev ("contains", FALSE);
@@ -109,8 +109,8 @@ AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
   cspi_return_val_if_fail (obj != NULL, NULL);
 
   child = Accessibility_Component_getAccessibleAtPoint (CSPI_OBJREF (obj),
-							(CORBA_long) x,
-							(CORBA_long) y,
+							x,
+							y,
 							ctype,
 							cspi_ev ());
   return cspi_object_add (child);
@@ -144,7 +144,7 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
   bbox = Accessibility_Component_getExtents (CSPI_OBJREF (obj),
 					     ctype,
 					     cspi_ev ());
-  if (!cspi_check_ev ("AccessibleComponent_getExtents"))
+  if (!cspi_check_ev ("getExtents"))
     {
       *x = *y = *width = *height = 0;    
     }
@@ -206,12 +206,23 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
                              long int *width,
                              long int *height)
 {
+  CORBA_long cw, ch;
+
   cspi_return_if_fail (obj != NULL);
 
   Accessibility_Component_getSize (CSPI_OBJREF (obj),
-                                   (CORBA_long *) width,
-                                   (CORBA_long *) height,
+                                   &cw,
+                                   &ch,
                                    cspi_ev ());
+  if (cspi_check_ev ("getSize"))
+  {
+    *width = *height = 0;
+  }
+  else
+  {
+    *width = cw;
+    *height = ch;
+  }
 }
 
 /**
@@ -302,7 +313,7 @@ AccessibleComponent_getMDIZOrder (AccessibleComponent *obj)
 SPIBoolean
 AccessibleComponent_grabFocus (AccessibleComponent *obj)
 {
-  short retval;
+  SPIBoolean retval;
 
   cspi_return_val_if_fail (obj != NULL, FALSE);
 

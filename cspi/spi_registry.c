@@ -104,8 +104,6 @@ SPIBoolean
 SPI_registerGlobalEventListener (AccessibleEventListener *listener,
 				 const char              *eventType)
 {
-  SPIBoolean retval;
-
   if (!listener)
     {
       return FALSE;
@@ -116,9 +114,7 @@ SPI_registerGlobalEventListener (AccessibleEventListener *listener,
     cspi_event_listener_get_corba (listener),
     eventType, cspi_ev ());
 
-  retval = !cspi_exception ();
- 
-  return retval;
+  return  !cspi_exception ();
 }
 
 /**
@@ -172,7 +168,7 @@ SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
   Accessibility_Registry_deregisterGlobalEventListener (
     cspi_registry (), 
     cspi_event_listener_get_corba (listener),
-    (CORBA_char *) eventType, cspi_ev ());
+    eventType, cspi_ev ());
 
   return !cspi_exception ();
 }
@@ -214,7 +210,7 @@ SPI_getDesktop (int i)
 {
   return cspi_object_add (
     Accessibility_Registry_getDesktop (
-      cspi_registry (), (CORBA_short) i, cspi_ev ()));
+      cspi_registry (), i, cspi_ev ()));
 }
 
 /**
@@ -248,7 +244,7 @@ SPI_getDesktopList (Accessible ***desktop_list)
   desktops = Accessibility_Registry_getDesktopList (cspi_registry (),
 						    cspi_ev ());
 
-  cspi_return_val_if_ev ("getting desktop list", 0);
+  cspi_return_val_if_ev ("getDesktopList", 0);
 
   list = g_new0 (Accessible *, desktops->_length + 1);
 

@@ -326,8 +326,7 @@ Accessible_getName (Accessible *obj)
 
   cspi_return_val_if_fail (obj != NULL, NULL);
 
-  retval = (char *)
-    Accessibility_Accessible__get_name (CSPI_OBJREF (obj), cspi_ev ());
+  retval = Accessibility_Accessible__get_name (CSPI_OBJREF (obj), cspi_ev ());
 
   cspi_return_val_if_ev ("getName", NULL); 
 
@@ -350,8 +349,7 @@ Accessible_getDescription (Accessible *obj)
 
   cspi_return_val_if_fail (obj != NULL, NULL);
 
-  retval = (char *)
-    Accessibility_Accessible__get_description (CSPI_OBJREF (obj),
+  retval = Accessibility_Accessible__get_description (CSPI_OBJREF (obj),
 					       cspi_ev ());
 
   cspi_return_val_if_ev ("getDescription", NULL); 
@@ -402,8 +400,7 @@ Accessible_getChildCount (Accessible *obj)
 
   cspi_return_val_if_fail (obj != NULL, -1);
 
-  retval = (long) 
-    Accessibility_Accessible__get_childCount (CSPI_OBJREF (obj),
+  retval = Accessibility_Accessible__get_childCount (CSPI_OBJREF (obj),
 					      cspi_ev ());
 
   cspi_return_val_if_ev ("getChildCount", -1); 
@@ -433,6 +430,7 @@ Accessible_getChildAtIndex (Accessible *obj,
     Accessibility_Accessible_getChildAtIndex (CSPI_OBJREF (obj),
 					      childIndex, cspi_ev ()));
 
+  cspi_return_val_if_ev ("getChildAtIndex", NULL);
   return retval;
 }
 
@@ -453,8 +451,7 @@ Accessible_getIndexInParent (Accessible *obj)
 
   cspi_return_val_if_fail (obj != NULL, -1);
 
-  retval = (long)
-    Accessibility_Accessible_getIndexInParent (CSPI_OBJREF (obj), cspi_ev ());
+  retval = Accessibility_Accessible_getIndexInParent (CSPI_OBJREF (obj), cspi_ev ());
 
   cspi_return_val_if_ev ("getIndexInparent", -1); 
   return retval;
@@ -569,6 +566,7 @@ Accessible_getStateSet (Accessible *obj)
     Accessibility_Accessible_getState (CSPI_OBJREF (obj),
 					  cspi_ev ()));
 
+  cspi_return_val_if_ev ("getState", NULL);
   return retval;
 }
 
@@ -1047,8 +1045,7 @@ AccessibleRelation_getNTargets (AccessibleRelation *obj)
   int retval;
   
   cspi_return_val_if_fail (obj, -1);
-  retval = (int)
-    Accessibility_Relation_getNTargets (CSPI_OBJREF (obj), cspi_ev());
+  retval = Accessibility_Relation_getNTargets (CSPI_OBJREF (obj), cspi_ev());
   cspi_return_val_if_ev ("getNTargets", -1);
   return retval;
 }
@@ -1074,7 +1071,7 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
 
   retval = cspi_object_add (
 			 Accessibility_Relation_getTarget (CSPI_OBJREF(obj),
-							   (CORBA_short) i, cspi_ev()));
+							   i, cspi_ev()));
   cspi_return_val_if_ev ("getTarget", NULL);
   return retval;
 }
@@ -1133,7 +1130,7 @@ AccessibleStateSet_contains (AccessibleStateSet *obj,
 
   cspi_return_val_if_ev ("contains", FALSE);
 
-  return (SPIBoolean) retval;
+  return retval;
 }
 
 /**
@@ -1229,12 +1226,15 @@ AccessibleStateSet *
 AccessibleStateSet_compare (AccessibleStateSet *obj,
                             AccessibleStateSet *obj2)
 {
-  Accessibility_StateSet retval;
+  AccessibleStateSet *retval;
 
   cspi_return_val_if_fail (obj != NULL, NULL);
   cspi_return_val_if_fail (obj2 != NULL, NULL);
-  retval = Accessibility_StateSet_compare (CSPI_OBJREF(obj), CSPI_OBJREF(obj2), cspi_ev ());
-  return NULL;	
+  retval = cspi_object_add (
+			 Accessibility_StateSet_compare (CSPI_OBJREF(obj), CSPI_OBJREF(obj2), cspi_ev ()));
+
+  cspi_return_val_if_ev ("compare", NULL);
+  return retval;
 }
 
 /**
@@ -1254,7 +1254,9 @@ AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
 
   cspi_return_val_if_fail (obj != NULL, FALSE);
   retval = Accessibility_StateSet_isEmpty (CSPI_OBJREF (obj), cspi_ev ());
-  return (SPIBoolean) retval;
+
+  cspi_return_val_if_ev ("isEmpty", TRUE);
+  return retval;
 }
 
 

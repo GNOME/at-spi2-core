@@ -92,7 +92,7 @@ AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
 
   retval =
     Accessibility_Hyperlink_getURI (CSPI_OBJREF (obj),
-				    (CORBA_long) i, cspi_ev ());
+				    i, cspi_ev ());
 
   cspi_return_val_if_ev ("getURI", NULL);
 
@@ -117,7 +117,7 @@ AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
 
   return cspi_object_add (
     Accessibility_Hyperlink_getObject (CSPI_OBJREF (obj),
-				       (CORBA_long) i, cspi_ev ()));
+				       i, cspi_ev ()));
 }
 
 /**
@@ -137,14 +137,17 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long int *startIndex,
                                    long int *endIndex)
 {
+  CORBA_long si, ei;
+
   cspi_return_if_fail (obj != NULL);
 
-  *startIndex = (long)
-    Accessibility_Hyperlink__get_startIndex (CSPI_OBJREF (obj), cspi_ev ());
-  *endIndex = (long)
-    Accessibility_Hyperlink__get_endIndex (CSPI_OBJREF (obj), cspi_ev ());
+si = Accessibility_Hyperlink__get_startIndex (CSPI_OBJREF (obj), cspi_ev ());
+ cspi_return_if_ev ("startIndex");
+ ei = Accessibility_Hyperlink__get_endIndex (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_if_ev ("getIndexRange");
+ cspi_return_if_ev ("endIndex");
+ *startIndex = si;
+ *endIndex = ei; 
 }
 
 /**

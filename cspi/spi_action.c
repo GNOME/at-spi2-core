@@ -88,7 +88,7 @@ AccessibleAction_getDescription (AccessibleAction *obj,
 
   retval =
     Accessibility_Action_getDescription (CSPI_OBJREF (obj),
-					 (CORBA_long) i,
+					 i,
 					 cspi_ev ());
 
   cspi_return_val_if_ev ("getDescription", NULL);
@@ -117,7 +117,7 @@ AccessibleAction_getKeyBinding (AccessibleAction *obj,
 
   retval =
     Accessibility_Action_getKeyBinding (CSPI_OBJREF (obj),
-       (CORBA_long) i,
+       i,
        cspi_ev ());
 
   cspi_return_val_if_ev ("getKeyBinding", NULL);
@@ -145,7 +145,7 @@ AccessibleAction_getName (AccessibleAction *obj,
 
   retval =
    Accessibility_Action_getName (CSPI_OBJREF (obj),
-				 (CORBA_long) i,
+				 i,
 				 cspi_ev ());
 
   cspi_return_val_if_ev ("getName", NULL);
@@ -170,9 +170,8 @@ AccessibleAction_doAction (AccessibleAction *obj,
 
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  retval = (SPIBoolean)
-    Accessibility_Action_doAction (CSPI_OBJREF (obj),
-				   (CORBA_long) i,
+  retval = Accessibility_Action_doAction (CSPI_OBJREF (obj),
+				   i,
 				   cspi_ev ());
 
   cspi_return_val_if_ev ("doAction", FALSE);

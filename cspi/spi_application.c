@@ -98,7 +98,7 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
     Accessibility_Application__get_version (CSPI_OBJREF (obj),
 					    cspi_ev ());
 
-  cspi_return_val_if_ev ("getVersion", NULL);
+  cspi_return_val_if_ev ("version", NULL);
 
   return retval;
 }
@@ -124,7 +124,7 @@ AccessibleApplication_getID (AccessibleApplication *obj)
   retval = Accessibility_Application__get_id (CSPI_OBJREF (obj),
 					      cspi_ev ());
 
-  cspi_return_val_if_ev ("get_id", 0);
+  cspi_return_val_if_ev ("id", 0);
 
   return retval;
 }

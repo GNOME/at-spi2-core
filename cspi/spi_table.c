@@ -58,8 +58,14 @@ AccessibleTable_unref (AccessibleTable *obj)
 Accessible *
 AccessibleTable_getCaption (AccessibleTable *obj)
 {
-  return cspi_object_add (
-    Accessibility_Table__get_caption (CSPI_OBJREF (obj), cspi_ev ()));
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval =  cspi_object_add (
+			     Accessibility_Table__get_caption (CSPI_OBJREF (obj), cspi_ev ()));
+  cspi_return_val_if_ev ("getCaption", NULL);
+  return retval;
 }
 
 /**
@@ -74,8 +80,14 @@ AccessibleTable_getCaption (AccessibleTable *obj)
 Accessible *
 AccessibleTable_getSummary (AccessibleTable *obj)
 {
-  return cspi_object_add (
-    Accessibility_Table__get_summary (CSPI_OBJREF (obj), cspi_ev ()));
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+retval = cspi_object_add (
+			  Accessibility_Table__get_summary (CSPI_OBJREF (obj), cspi_ev ()));
+ cspi_return_val_if_ev ("getSummary", NULL);
+ return retval;
 }
 
 /**
@@ -124,7 +136,7 @@ AccessibleTable_getNColumns (AccessibleTable *obj)
   retval =
     Accessibility_Table__get_nColumns (CSPI_OBJREF (obj), cspi_ev ());
 	  
-  cspi_return_val_if_ev ("", -1);
+  cspi_return_val_if_ev ("getNColumns", -1);
 
   return retval;
 }
@@ -146,10 +158,16 @@ AccessibleTable_getAccessibleAt (AccessibleTable *obj,
                                  long int row,
                                  long int column)
 {
-  return cspi_object_add (
-    Accessibility_Table_getAccessibleAt (
-      CSPI_OBJREF (obj), (CORBA_long) row,
-      (CORBA_long) column, cspi_ev ()));
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = cspi_object_add (
+			    Accessibility_Table_getAccessibleAt (
+								 CSPI_OBJREF (obj), row,
+								 column, cspi_ev ()));
+  cspi_return_val_if_ev ("getAccessibleAt", NULL);
+ return retval;
 }
 
 /**
@@ -177,8 +195,8 @@ AccessibleTable_getIndexAt (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getIndexAt (
-      CSPI_OBJREF (obj), (CORBA_long) row,
-      (CORBA_long) column, cspi_ev ());
+      CSPI_OBJREF (obj), row,
+      column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("getIndexAt", -1);
 
@@ -207,9 +225,9 @@ AccessibleTable_getRowAtIndex (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getRowAtIndex (CSPI_OBJREF (obj),
-				       (CORBA_long) index, cspi_ev ());
+				       index, cspi_ev ());
 	  
-  cspi_return_val_if_ev ("", -1);
+  cspi_return_val_if_ev ("getRowAtIndex", -1);
 
   return retval;
 }
@@ -236,7 +254,7 @@ AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getColumnAtIndex (CSPI_OBJREF (obj),
-					  (CORBA_long) index, cspi_ev ());
+					  index, cspi_ev ());
 	  
   cspi_return_val_if_ev ("getColumnAtIndex", -1);
 
@@ -263,7 +281,7 @@ AccessibleTable_getRowDescription (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getRowDescription (CSPI_OBJREF (obj),
-					   (CORBA_long) row, cspi_ev ());
+					   row, cspi_ev ());
 	  
   cspi_return_val_if_ev ("getRowDescription", NULL);
 
@@ -290,7 +308,7 @@ AccessibleTable_getColumnDescription (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getColumnDescription (CSPI_OBJREF (obj),
-					      (CORBA_long) column, cspi_ev ());
+					      column, cspi_ev ());
 
   cspi_return_val_if_ev ("getColumnDescription", NULL);
 
@@ -319,8 +337,8 @@ AccessibleTable_getRowExtentAt (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getRowExtentAt (
-      CSPI_OBJREF (obj), (CORBA_long) row,
-      (CORBA_long) column, cspi_ev ());
+      CSPI_OBJREF (obj), row,
+      column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("getRowExtentAt", -1);
 
@@ -349,8 +367,8 @@ AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_getColumnExtentAt (
-      CSPI_OBJREF (obj), (CORBA_long) row,
-      (CORBA_long) column, cspi_ev ());
+      CSPI_OBJREF (obj), row,
+      column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("getColumnExtentAt", -1);
 
@@ -371,9 +389,16 @@ Accessible *
 AccessibleTable_getRowHeader (AccessibleTable *obj,
 			      long int         row)
 {
-  return cspi_object_add (
-    Accessibility_Table_getRowHeader (CSPI_OBJREF (obj),
-				      (CORBA_long) row, cspi_ev ()));
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = cspi_object_add (
+			    Accessibility_Table_getRowHeader (CSPI_OBJREF (obj),
+							      row, cspi_ev ()));
+  cspi_return_val_if_ev ("getRowHeader", NULL);
+
+ return retval;
 }
 
 /**
@@ -390,9 +415,16 @@ Accessible *
 AccessibleTable_getColumnHeader (AccessibleTable *obj,
 				 long int column)
 {
-  return cspi_object_add (
-    Accessibility_Table_getColumnHeader (CSPI_OBJREF (obj),
-				      (CORBA_long) column, cspi_ev ()));
+  Accessible *retval;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  retval = cspi_object_add (
+			    Accessibility_Table_getColumnHeader (CSPI_OBJREF (obj),
+								 column, cspi_ev ()));
+  cspi_return_val_if_ev ("getColumnHeader", NULL);
+
+  return retval;
 }
 
 /**
@@ -422,7 +454,8 @@ AccessibleTable_getNSelectedRows (AccessibleTable *obj)
 static long
 cspi_long_seq_to_array (Accessibility_LongSeq *seq, long int **array)
 {
-  long *j, length, i;
+  long *j;
+  long length, i;
 
   if (!cspi_check_ev ("getSelectionItems"))
     {
@@ -465,6 +498,8 @@ AccessibleTable_getSelectedRows (AccessibleTable *obj,
   cspi_return_val_if_fail (obj != NULL, 0);
 
   rows = Accessibility_Table_getSelectedRows (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getSelectedRows", -1);
 
   return cspi_long_seq_to_array (rows, selectedRows);
 }
@@ -516,6 +551,7 @@ AccessibleTable_getSelectedColumns (AccessibleTable *obj,
 
   columns = Accessibility_Table_getSelectedColumns (CSPI_OBJREF (obj), cspi_ev ());
 
+  cspi_return_val_if_ev ("getSelectedColumns", -1);
   return cspi_long_seq_to_array (columns, selectedColumns);
 }
 
@@ -538,7 +574,7 @@ AccessibleTable_isRowSelected (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_isRowSelected (CSPI_OBJREF (obj),
-				       (CORBA_long) row, cspi_ev ());
+				       row, cspi_ev ());
 
   cspi_return_val_if_ev ("isRowSelected", FALSE);
 
@@ -565,7 +601,7 @@ AccessibleTable_isColumnSelected (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_isColumnSelected (CSPI_OBJREF (obj),
-					  (CORBA_long) column, cspi_ev ());
+					  column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("isColumnSelected", FALSE);
 
@@ -592,7 +628,7 @@ AccessibleTable_addRowSelection (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_addRowSelection (CSPI_OBJREF (obj),
-					 (CORBA_long) row, cspi_ev ());
+					 row, cspi_ev ());
 	  
   cspi_return_val_if_ev ("addRowSelection", FALSE);
 
@@ -619,7 +655,7 @@ AccessibleTable_addColumnSelection (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_addColumnSelection (CSPI_OBJREF (obj),
-					    (CORBA_long) column, cspi_ev ());
+					    column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("addColumnSelection", FALSE);
 
@@ -646,7 +682,7 @@ AccessibleTable_removeRowSelection (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_removeRowSelection (CSPI_OBJREF (obj),
-					    (CORBA_long) row, cspi_ev ());
+					    row, cspi_ev ());
 	  
   cspi_return_val_if_ev ("removeRowSelection", FALSE);
 
@@ -673,7 +709,7 @@ AccessibleTable_removeColumnSelection (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_removeColumnSelection (CSPI_OBJREF (obj),
-					       (CORBA_long) column, cspi_ev ());
+					       column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("removeColumnSelection", FALSE);
 
@@ -701,8 +737,8 @@ AccessibleTable_isSelected (AccessibleTable *obj,
 
   retval =
     Accessibility_Table_isSelected (CSPI_OBJREF (obj),
-				    (CORBA_long) row,
-				    (CORBA_long) column, cspi_ev ());
+				    row,
+				    column, cspi_ev ());
 	  
   cspi_return_val_if_ev ("isSelected", FALSE);
 

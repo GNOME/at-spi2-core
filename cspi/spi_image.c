@@ -164,7 +164,7 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
   cspi_return_if_fail (obj != NULL);
 
   bbox = Accessibility_Image_getImageExtents (CSPI_OBJREF (obj),
-					      (CORBA_short) ctype,
+					      ctype,
 					      cspi_ev ());
 
   if (!cspi_check_ev ("getImageExtents"))

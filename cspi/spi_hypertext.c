@@ -97,7 +97,7 @@ AccessibleHypertext_getLink (AccessibleHypertext *obj,
 
   retval = cspi_object_add (
     Accessibility_Hypertext_getLink (CSPI_OBJREF (obj),
-				     (CORBA_long) linkIndex,
+				     linkIndex,
 				     cspi_ev ()));
   
   cspi_return_val_if_ev ("getLink", NULL); 
@@ -127,7 +127,7 @@ AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
 
   retval = 
     Accessibility_Hypertext_getLinkIndex (CSPI_OBJREF (obj),
-					  (CORBA_long) characterOffset,
+					  characterOffset,
 					  cspi_ev ());
 
   cspi_return_val_if_ev ("getLinkIndex", -1);

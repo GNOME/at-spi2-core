@@ -102,9 +102,9 @@ AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
   
   child = Accessibility_Selection_getSelectedChild (
     CSPI_OBJREF (obj),
-    (CORBA_long) selectedChildIndex, cspi_ev ());
+    selectedChildIndex, cspi_ev ());
 
-  return (Accessible *) cspi_object_add (child);
+  return  cspi_object_add (child);
 }
 
 /**
@@ -130,7 +130,7 @@ AccessibleSelection_selectChild (AccessibleSelection *obj,
 
   retval =
     Accessibility_Selection_selectChild (CSPI_OBJREF (obj),
-					 (CORBA_long) childIndex, cspi_ev ());
+					 childIndex, cspi_ev ());
 
   cspi_return_val_if_ev ("selectChild", FALSE);
 
@@ -160,7 +160,7 @@ AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
   retval = Accessibility_Selection_deselectSelectedChild (
-    CSPI_OBJREF (obj), (CORBA_long) selectedChildIndex, cspi_ev ());
+    CSPI_OBJREF (obj), selectedChildIndex, cspi_ev ());
 
   cspi_return_val_if_ev ("deselectSelectedChild", FALSE);
 
@@ -189,11 +189,11 @@ AccessibleSelection_isChildSelected (AccessibleSelection *obj,
 
   retval = Accessibility_Selection_isChildSelected (
     CSPI_OBJREF (obj),
-    (CORBA_long) childIndex, cspi_ev ());
+    childIndex, cspi_ev ());
 
   cspi_return_val_if_ev ("isChildSelected", FALSE);
 
-  return (SPIBoolean) retval;
+  return retval;
 }
 
 /**

@@ -1,3 +1,37 @@
+2002-05-09  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* cspi/spi_accessible.c: Added exception checks.  Fixed completely
+	busted AccessibleStateSet_compare.  Removed redundant casts.
+	
+	* cspi/spi-action.c: Removed redundant casts.
+
+	* cspi/spi_application.c: Fixed typo in AccessibleApplication_getVersion.
+
+	* cspi/spi_component.c: Fixed typos and casting error.
+
+	* cspi/spi_editabletext.c: Removed redundant casts.
+
+	* cspi/spi_hyperlink.c: Fixed casting and exception checking.
+
+	* cspi/spi_hypertext.c: Eliminated redundant casts.
+
+	* cspi/spi_image.c: Eliminated redundant casts.
+
+	* cspi/spi_registry.c: Eliminated redundant casts.
+	SPI_deregisterGlobalEventListenerAll () removed retval variable.
+	* cspi/spi_selection.c: Removed redundant casts.
+	* cspi/spi_text.c: Eliminated redundant casts.  Fixed exception
+	handling.  Screen geometry and text offsets were being returned as 0
+	on error which is technically valid-- changed these to return -1.
+	Added marshaller for text boundary types to fix bug with boundary
+	types being passed incorrectly to atk.
+		
+	
+2002-05-03  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* cspi/bonobo/cspi-bonobo.c cspi/bonobo/cspi-bonobo-listener.c
+	cspi/bonobo/cspi-bonobo-listener.h: Added copyright notice.
+
 2002-05-10  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:
@@ -6,6 +40,7 @@
 
 	* NEWS:
 	updated NEWS file to reflect recent spin-off of gnome-mag.
+
 
 2002-05-09  Bill Haneman <bill.haneman@sun.com>
 
