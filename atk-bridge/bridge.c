@@ -831,7 +831,7 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
   result = Accessibility_DeviceEventController_notifyListenersSync (
 	  spi_atk_bridget_get_dec (), &key_event, &ev);
 
-  if (BONOB_EX(&ev)) {
+  if (BONOBO_EX(&ev)) {
       result = FALSE;
       CORBA_exception_free (&ev);
   }
