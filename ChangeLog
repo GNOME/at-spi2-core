@@ -1,3 +1,9 @@
+2001-10-22  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c (atk_object_notify_state_change):
+	Initialize AtkPropertyValue data structure to 0 instead of using
+	memset.
+
 2001-10-19  Tor Lillqvist  <tml@iki.fi>
 
 	* configure.in: Set automake conditionals OS_WIN32 if on (native)

@@ -1013,10 +1013,8 @@ static void
 atk_object_notify (GObject     *obj,
                    GParamSpec  *pspec)
 {
-  AtkPropertyValues values;
+  AtkPropertyValues values = { 0, };
 
-  memset (&values.old_value, 0, sizeof (GValue));
-  memset (&values.new_value, 0, sizeof (GValue));
   g_value_init (&values.new_value, pspec->value_type);
   g_object_get_property(obj, pspec->name, &values.new_value);
   values.property_name = pspec->name;
