@@ -1,4 +1,11 @@
-2002-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
+2001-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* registryd/desktop.c: emit the "children-changed::add" and
+	"children-changed::remove" signals on the backing ATK object for
+	the desktop so AT can tell when applications are started and shut
+	down.
+
+	2002-03-14  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* cspi/spi_accessible.c: Made role names freeable with SPI_freeString ()
 

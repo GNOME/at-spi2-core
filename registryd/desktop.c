@@ -166,6 +166,7 @@ spi_desktop_add_application (SpiDesktop *desktop,
       desktop->applications = g_list_append (desktop->applications, app);
 
       ORBit_small_listen_for_broken (app->ref, G_CALLBACK (abnormal_application_termination), app);
+      g_signal_emit_by_name (SPI_BASE(desktop)->gobj, "children_changed::add", g_list_index (desktop->applications, app), NULL);
     }
 
   CORBA_exception_free (&ev);
@@ -198,6 +199,7 @@ spi_desktop_remove_application (SpiDesktop *desktop,
     {
       Application *app = (Application *) l->data;
 
+      g_signal_emit_by_name (SPI_BASE(desktop)->gobj, "children_changed::remove", g_list_index (desktop->applications, l), NULL);
       desktop->applications = g_list_delete_link (desktop->applications, l);
 
       ORBit_small_unlisten_for_broken (app->ref, G_CALLBACK (abnormal_application_termination));
