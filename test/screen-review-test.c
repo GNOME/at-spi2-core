@@ -21,6 +21,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <stdio.h>
 #include <strings.h>
 #include <stdlib.h>
 #include "../cspi/spi-private.h"

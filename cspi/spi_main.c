@@ -26,6 +26,8 @@
  * Basic SPI initialization and event loop function prototypes
  *
  */
+
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <cspi/spi-private.h>
