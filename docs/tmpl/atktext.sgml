@@ -38,44 +38,6 @@ The AtkText structure does not contain any fields.
 </para>
 
 
-<!-- ##### SIGNAL AtkText::text-attributes-changed ##### -->
-<para>
-The "text-attributes-changed" signal is emitted when the text attributes of 
-the text of an object which implements AtkText changes.
-</para>
-
-@atktext: the object which received the signal.
-
-<!-- ##### SIGNAL AtkText::text-caret-moved ##### -->
-<para>
-The "text-caret-moved" signal is emitted when the caret position of 
-the text of an object which implements AtkText changes.
-</para>
-
-@atktext: the object which received the signal.
-@arg1: The new position of the text caret.
-
-<!-- ##### SIGNAL AtkText::text-changed ##### -->
-<para>
-The "text-changed" signal is emitted when the text of the object which 
-implements the AtkText interface changes, This signal will have a detail 
-which is either "insert" or "delete" which identifies whether the text 
-change was an insertion or a deletion
-</para>
-
-@atktext: the object which received the signal.
-@arg1: The position of the insertion or deletion.
-@arg2: The length of text inserted or deleted.
-
-<!-- ##### SIGNAL AtkText::text-selection-changed ##### -->
-<para>
-The "text-selection-changed" signal is emitted when the selected text of 
-an object which implements AtkText changes.
-
-</para>
-
-@atktext: the object which received the signal.
-
 <!-- ##### ENUM AtkTextBoundary ##### -->
 <para>
 
@@ -434,4 +396,42 @@ an object which implements AtkText changes.
 @index_: 
 @Returns: 
 
+
+<!-- ##### SIGNAL AtkText::text-attributes-changed ##### -->
+<para>
+The "text-attributes-changed" signal is emitted when the text attributes of 
+the text of an object which implements AtkText changes.
+</para>
+
+@atktext: the object which received the signal.
+
+<!-- ##### SIGNAL AtkText::text-caret-moved ##### -->
+<para>
+The "text-caret-moved" signal is emitted when the caret position of 
+the text of an object which implements AtkText changes.
+</para>
+
+@atktext: the object which received the signal.
+@arg1: The new position of the text caret.
+
+<!-- ##### SIGNAL AtkText::text-changed ##### -->
+<para>
+The "text-changed" signal is emitted when the text of the object which 
+implements the AtkText interface changes, This signal will have a detail 
+which is either "insert" or "delete" which identifies whether the text 
+change was an insertion or a deletion
+</para>
+
+@atktext: the object which received the signal.
+@arg1: The position of the insertion or deletion.
+@arg2: The length of text inserted or deleted.
+
+<!-- ##### SIGNAL AtkText::text-selection-changed ##### -->
+<para>
+The "text-selection-changed" signal is emitted when the selected text of 
+an object which implements AtkText changes.
+
+</para>
+
+@atktext: the object which received the signal.
 

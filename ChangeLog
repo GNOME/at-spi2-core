@@ -1,5 +1,16 @@
 2004-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* docs/atk-sections.txt: Add entries to fix warning when generating
+	documentation.
+
+	* docs/tmpl/atkcomponent.sgml docs/tmpl/atkhyperlink.sgml 
+	docs/tmpl/atkhypertext.sgml docs/tmpl/atkobject.sgml 
+	docs/tmpl/atkrelation.sgml docs/tmpl/atkselection.sgml 
+	docs/tmpl/atktable.sgml docs/tmpl/atktext.sgml: Changes to generated
+	files.
+
+2004-07-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* ===== Released Version 1.7.2, interface age 2, binary age 702 ====
 
 	* NEWS: Updated.

@@ -40,10 +40,12 @@ AtkComponentIface
 ATK_COMPONENT
 ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
+ATK_TYPE_RECTANGLE
 ATK_COMPONENT_GET_IFACE
 AtkFocusHandler
 AtkRectangle
 atk_component_get_type
+atk_rectangle_get_type
 </SECTION>
 
 <SECTION>

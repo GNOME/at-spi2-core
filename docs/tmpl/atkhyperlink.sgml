@@ -22,33 +22,6 @@ The AtkHyperlink structure should not be accessed directly.
 </para>
 
 
-<!-- ##### SIGNAL AtkHyperlink::link-activated ##### -->
-<para>
-The signal link-activated is emitted when a link is activated.
-</para>
-
-@atkhyperlink: the object which received the signal.
-
-<!-- ##### ARG AtkHyperlink:end-index ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkHyperlink:number-of-anchors ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkHyperlink:selected-link ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkHyperlink:start-index ##### -->
-<para>
-
-</para>
-
 <!-- ##### ENUM AtkHyperlinkStateFlags ##### -->
 <para>
 
@@ -129,4 +102,31 @@ The signal link-activated is emitted when a link is activated.
 @link_: 
 @Returns: 
 
+
+<!-- ##### SIGNAL AtkHyperlink::link-activated ##### -->
+<para>
+The signal link-activated is emitted when a link is activated.
+</para>
+
+@atkhyperlink: the object which received the signal.
+
+<!-- ##### ARG AtkHyperlink:end-index ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkHyperlink:number-of-anchors ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkHyperlink:selected-link ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkHyperlink:start-index ##### -->
+<para>
+
+</para>
 

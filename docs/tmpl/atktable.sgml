@@ -40,72 +40,6 @@ The AtkTable structure does not contain any fields.
 </para>
 
 
-<!-- ##### SIGNAL AtkTable::column-deleted ##### -->
-<para>
-The "column-deleted" signal is emitted by an object which implements the 
-AtkTable interface when a column is deleted.
-</para>
-
-@atktable: the object which received the signal.
-@arg1: The index of the first column deleted.
-@arg2: The number of columns deleted.
-
-<!-- ##### SIGNAL AtkTable::column-inserted ##### -->
-<para>
-The "column-inserted" signal is emitted by an object which implements the 
-AtkTable interface when a column is inserted.
-
-</para>
-
-@atktable: the object which received the signal.
-@arg1: The index of the column inserted.
-@arg2: The number of colums inserted.
-
-<!-- ##### SIGNAL AtkTable::column-reordered ##### -->
-<para>
-The "column-reordered" signal is emitted by an object which implements the 
-AtkTable interface when the columns are reordered.
-</para>
-
-@atktable: the object which received the signal.
-
-<!-- ##### SIGNAL AtkTable::model-changed ##### -->
-<para>
-The "model-changed" signal is emitted by an object which implements the 
-AtkTable interface when the model displayed by the table changes.
-</para>
-
-@atktable: the object which received the signal.
-
-<!-- ##### SIGNAL AtkTable::row-deleted ##### -->
-<para>
-The "row-deleted" signal is emitted by an object which implements the 
-AtkTable interface when a column is inserted.
-
-</para>
-
-@atktable: the object which received the signal.
-@arg1: The index of the first row deleted.
-@arg2: The number of rows deleted.
-
-<!-- ##### SIGNAL AtkTable::row-inserted ##### -->
-<para>
-The "row-inserted" signal is emitted by an object which implements the 
-AtkTable interface when a column is inserted.
-</para>
-
-@atktable: the object which received the signal.
-@arg1: The index of the first row deleted.
-@arg2: The number of rows deleted.
-
-<!-- ##### SIGNAL AtkTable::row-reordered ##### -->
-<para>
-The "row-reordered" signal is emitted by an object which implements the 
-AtkTable interface when the columns are reordered.
-</para>
-
-@atktable: the object which received the signal.
-
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>
 
@@ -394,4 +328,70 @@ AtkTable interface when the columns are reordered.
 @row: 
 @Returns: 
 
+
+<!-- ##### SIGNAL AtkTable::column-deleted ##### -->
+<para>
+The "column-deleted" signal is emitted by an object which implements the 
+AtkTable interface when a column is deleted.
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the first column deleted.
+@arg2: The number of columns deleted.
+
+<!-- ##### SIGNAL AtkTable::column-inserted ##### -->
+<para>
+The "column-inserted" signal is emitted by an object which implements the 
+AtkTable interface when a column is inserted.
+
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the column inserted.
+@arg2: The number of colums inserted.
+
+<!-- ##### SIGNAL AtkTable::column-reordered ##### -->
+<para>
+The "column-reordered" signal is emitted by an object which implements the 
+AtkTable interface when the columns are reordered.
+</para>
+
+@atktable: the object which received the signal.
+
+<!-- ##### SIGNAL AtkTable::model-changed ##### -->
+<para>
+The "model-changed" signal is emitted by an object which implements the 
+AtkTable interface when the model displayed by the table changes.
+</para>
+
+@atktable: the object which received the signal.
+
+<!-- ##### SIGNAL AtkTable::row-deleted ##### -->
+<para>
+The "row-deleted" signal is emitted by an object which implements the 
+AtkTable interface when a column is inserted.
+
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the first row deleted.
+@arg2: The number of rows deleted.
+
+<!-- ##### SIGNAL AtkTable::row-inserted ##### -->
+<para>
+The "row-inserted" signal is emitted by an object which implements the 
+AtkTable interface when a column is inserted.
+</para>
+
+@atktable: the object which received the signal.
+@arg1: The index of the first row deleted.
+@arg2: The number of rows deleted.
+
+<!-- ##### SIGNAL AtkTable::row-reordered ##### -->
+<para>
+The "row-reordered" signal is emitted by an object which implements the 
+AtkTable interface when the columns are reordered.
+</para>
+
+@atktable: the object which received the signal.
 
