@@ -1,5 +1,19 @@
+EXTRA_DIST = atk.def
+if OS_WIN32
+export_symbols = -export-symbols atk.def
+endif
 
 lib_LTLIBRARIES = libatk.la
+
+if MS_LIB_AVAILABLE
+noinst_DATA = atk.lib
+
+install-data-local:
+	cp atk.lib $(DESTDIR)$(libdir)
+
+uninstall-local:
+	-rm $(DESTDIR)$(libdir)/atk.lib
+endif
 
 libatk_la_SOURCES = 		\
 	atkaction.c		\
@@ -39,6 +53,7 @@ INCLUDES = \
 LDFLAGS =  \
 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)	\
 	-no-undefined						\
+	$(export_symbols)					\
 	@DEP_LIBS@
 
 libatkincludedir=$(includedir)/atk-1.0/atk
@@ -93,3 +108,6 @@ stamp-atkmarshal.c: atkmarshal.list
 	&& (cmp -s xgen-gmc $(srcdir)/atkmarshal.c || cp xgen-gmc $(srcdir)/atkmarshal.c)		\
 	&& rm -f xgen-gmc xgen-gmc~									\
 	&& echo timestamp > $(@F)
+
+atk.lib: libatk.la atk.def
+	lib -name:libatk-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@

@@ -1,3 +1,15 @@
+2001-10-19  Tor Lillqvist  <tml@iki.fi>
+
+	* configure.in: Set automake conditionals OS_WIN32 if on (native)
+	Win32, and MS_LIB_AVAILABLE if lib.exe is available. Calculate
+	LT_CURRENT - LT_AGE and set LT_CURRENT_MINUS_AGE to that value.
+
+	* atk/Makefile.am: Add atk.def to EXTRA_DIST. On Win32, use
+	-export-symbols atk.def. If lib.exe is available, generate
+	atk.lib, and install it.
+
+	* atk/atk.def: Update with new entry points.
+
 2001-10-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.[c|], docs/atk-sections.txt,

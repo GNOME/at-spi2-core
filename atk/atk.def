@@ -2,21 +2,32 @@ EXPORTS
 	atk_action_do_action
 	atk_action_get_description
 	atk_action_get_keybinding
+	atk_action_get_n_actions
 	atk_action_get_name
 	atk_action_get_type
 	atk_action_set_description
 	atk_add_focus_tracker
 	atk_add_global_event_listener
+	atk_attribute_get_name
+	atk_attribute_get_value
+	atk_attribute_set_free
 	atk_component_add_focus_handler
 	atk_component_contains
+	atk_component_get_extents
+	atk_component_get_position
+	atk_component_get_size
 	atk_component_get_type
 	atk_component_grab_focus
 	atk_component_ref_accessible_at_point
 	atk_component_remove_focus_handler
+	atk_component_set_extents
+	atk_component_set_position
+	atk_component_set_size
 	atk_document_get_document
 	atk_document_get_document_type
 	atk_document_get_type
 	atk_editable_text_copy_text
+	atk_editable_text_cut_text
 	atk_editable_text_delete_text
 	atk_editable_text_get_type
 	atk_editable_text_insert_text
@@ -26,6 +37,9 @@ EXPORTS
 	atk_focus_tracker_init
 	atk_focus_tracker_notify
 	atk_get_default_registry
+	atk_get_root
+	atk_get_toolkit_name
+	atk_get_toolkit_version
 	atk_hyperlink_get_end_index
 	atk_hyperlink_get_n_anchors
 	atk_hyperlink_get_object
@@ -63,6 +77,7 @@ EXPORTS
 	atk_object_ref_accessible_child
 	atk_object_ref_relation_set
 	atk_object_ref_state_set
+	atk_object_remove_property_change_handler
 	atk_object_set_description
 	atk_object_set_name
 	atk_object_set_parent
@@ -83,6 +98,7 @@ EXPORTS
 	atk_relation_set_get_type
 	atk_relation_set_new
 	atk_relation_set_remove
+	atk_relation_type_from_string
 	atk_relation_type_register
 	atk_remove_focus_tracker
 	atk_remove_global_event_listener
@@ -149,8 +165,10 @@ EXPORTS
 	atk_text_get_character_at_offset
 	atk_text_get_character_count
 	atk_text_get_character_extents
+	atk_text_get_default_attributes
 	atk_text_get_n_selections
 	atk_text_get_offset_at_point
+	atk_text_get_run_attributes
 	atk_text_get_selection
 	atk_text_get_text
 	atk_text_get_text_after_offset
@@ -162,6 +180,7 @@ EXPORTS
 	atk_text_set_selection
 	atk_util_get_type
 	atk_value_get_current_value
+	atk_value_get_maximum_value
 	atk_value_get_minimum_value
 	atk_value_get_type
 	atk_value_set_current_value
