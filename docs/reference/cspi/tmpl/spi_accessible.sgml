@@ -421,6 +421,7 @@ Accessible Objects
 @SPI_ROLE_FOOTER: 
 @SPI_ROLE_PARAGRAPH: 
 @SPI_ROLE_RULER: 
+@SPI_ROLE_APPLICATION: 
 @SPI_ROLE_LAST_DEFINED: 
 
 <!-- ##### FUNCTION AccessibleRole_getName ##### -->

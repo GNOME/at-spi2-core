@@ -257,6 +257,13 @@ module Accessibility {
    * (should have CONTROLLER_FOR relation to such). 
    */
   ROLE_RULER,
+  /*
+   * An object corresponding to the toplevel accessible of an 
+   * application, which may contain ROLE_FRAME objects or other
+   * accessible objects.  Children of AccessibleDesktop objects 
+   * are generally ROLE_APPLICATION objects.
+   */
+  ROLE_APPLICATION,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
   };

@@ -95,7 +95,12 @@ static const char *role_names [] =
   "unknown",
   "viewport",
   "window",
-
+  NULL,
+  "header",
+  "fooler",
+  "paragraph",
+  "ruler",
+  "application"
 };
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
@@ -181,6 +186,7 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_FOOTER] = SPI_ROLE_FOOTER;
   role_table [Accessibility_ROLE_PARAGRAPH] = SPI_ROLE_PARAGRAPH;
   role_table [Accessibility_ROLE_RULER] = SPI_ROLE_RULER;
+  role_table [Accessibility_ROLE_APPLICATION] = SPI_ROLE_APPLICATION;
 
   return TRUE;
 }
@@ -281,7 +287,7 @@ spi_state_type_from_accessible_state (AccessibleState type)
 char *
 AccessibleRole_getName (AccessibleRole role)
 {
-  if (role < MAX_ROLES)
+  if (role < MAX_ROLES && role_names [(int) role])
     {
       return CORBA_string_dup (role_names [(int) role]);
     }

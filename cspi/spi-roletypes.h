@@ -136,6 +136,8 @@ extern "C" {
  * @SPI_ROLE_PARAGRAPH: An object which is contains a paragraph of text content.
  * @SPI_ROLE_RULER: An object which describes margins and tab stops, etc.  for text objects 
  *                  which it controls (should have CONTROLLER_FOR relation to such). 
+ * @SPI_ROLE_APPLICATION: An object which corresponds to a desktop application,
+ *                  which may have children of @SPI_ROLE_FRAME or other type.
  * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
  **/
 typedef enum
@@ -214,6 +216,7 @@ typedef enum
   SPI_ROLE_FOOTER,
   SPI_ROLE_PARAGRAPH,
   SPI_ROLE_RULER,
+  SPI_ROLE_APPLICATION,
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
 

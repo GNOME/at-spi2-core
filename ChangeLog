@@ -1,3 +1,21 @@
+2002-11-20  Bill Haneman  <bill.haneman@sun.com>
+
+	* cspi/spi_accessible.c:
+	(AccessibleRole_getName):
+	Added necessary strings for making this (deprecated) 
+	method work with the new role types. 
+	(init_role_table, role_table):
+	Added definition of SPI_ROLE_APPLICATION.
+
+	* libspi/spi-roletypes.h:
+	Added SPI_ROLE_APPLICATION.
+
+	* idl/Accessibility_Role.idl:
+	Added ROLE_APPLICATION.	
+
+	* docs/reference/cspi/at-spi-cspi-decl.txt:
+	Added SPI_ROLE_APPLICATION to docs.
+
 2002-11-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* cspi/spi_accessible.c
