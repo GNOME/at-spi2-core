@@ -426,6 +426,199 @@ Accessible_getRole (Accessible *obj);
 AccessibleStateSet *
 Accessible_getStateSet (Accessible *obj);
 
+/* Interface query methods */
+
+/**
+ * Accessible_isAction:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleAction.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleAction interface,
+ *          #FALSE otherwise.
+ **/
+boolean
+Accessible_isAction (Accessible *obj);
+
+/**
+ * Accessible_isComponent:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleComponent.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleComponent interface,
+ *          #FALSE otherwise.
+ **/
+boolean
+Accessible_isComponent (Accessible *obj);
+
+/**
+ * Accessible_isEditableText:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleEditableText.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
+ *          #FALSE otherwise.
+ **/
+boolean
+Accessible_isEditableText (Accessible *obj);
+
+/**
+ * Accessible_isHypertext:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleHypertext.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
+ *          #FALSE otherwise.
+ **/
+boolean
+Accessible_isHypertext (Accessible *obj);
+
+/**
+ * Accessible_isImage:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleImage.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleImage interface,
+ *          #FALSE otherwise.
+**/
+boolean
+Accessible_isImage (Accessible *obj);
+
+/**
+  * Accessible_isSelection:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleSelection.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
+ *          #FALSE otherwise.
+**/
+boolean
+Accessible_isSelection (Accessible *obj);
+
+/**
+ * Accessible_isTable:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleTable.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleTable interface,
+ *          #FALSE otherwise.
+**/
+boolean
+Accessible_isTable (Accessible *obj);
+
+/**
+ * Accessible_isText:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleText.
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleText interface,
+ *          #FALSE otherwise.
+**/
+boolean
+Accessible_isText (Accessible *obj);
+
+/**
+ * Accessible_getAction:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleAction *
+Accessible_getAction (Accessible *obj);
+
+/**
+ * Accessible_getComponent:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleComponent interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleComponent interface instance, or
+ *          NULL if @obj does not implement #AccessibleComponent.
+ **/
+AccessibleComponent *
+Accessible_getComponent (Accessible *obj);
+
+/**
+ * Accessible_getEditableText:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleEditableText *
+Accessible_getEditableText (Accessible *obj);
+
+/**
+ * Accessible_getHypertext:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleHypertext *
+Accessible_getHypertext (Accessible *obj);
+
+/**
+ * Accessible_getImage:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleImage *
+Accessible_getImage (Accessible *obj);
+
+/**
+ * Accessible_getSelection:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleSelection *
+Accessible_getSelection (Accessible *obj);
+
+/**
+ * Accessible_getTable:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleTable *
+Accessible_getTable (Accessible *obj);
+
+/**
+ * Accessible_getText:
+ *
+ * Not Yet Implemented.
+ *
+ **/
+AccessibleText *
+Accessible_getText (Accessible *obj);
+
+/**
+ * Accessible_queryInterface:
+ * @obj: a pointer to the #Accessible instance to query.
+ * @interface_name: a UTF-8 character string specifiying the requested interface.
+ *
+ * Query an #Accessible object to for a named interface.
+ *
+ * Returns: an instance of the named interface object, if it is implemented
+ *          by @obj, or NULL otherwise.
+ *
+ **/
+GenericInterface *
+Accessible_queryInterface (Accessible *obj, char *interface_name);
 
 /*
  *
@@ -587,6 +780,19 @@ AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
                                           long y,
                                           AccessibleCoordType ctype);
 
+/**
+ * AccessibleComponent_getExtents:
+ * @obj: a pointer to the #AccessibleComponent to query.
+ * @x: a pointer to a #long into which the minimum x coordinate will be returned.
+ * @y: a pointer to a #long into which the minimum y coordinate will be returned.
+ * @width: a pointer to a #long into which the x extents (width) will be returned.
+ * @height: a pointer to a #long into which the y extents (height) will be returned.
+ * @ctype: the desired coordinate system into which to return the results,
+ *         (e.g. COORD_TYPE_WINDOW, COORD_TYPE_SCREEN).
+ *
+ * Get the bounding box of the specified #AccessibleComponent.
+ *
+ **/
 void
 AccessibleComponent_getExtents (AccessibleComponent *obj,
                                 long *x,

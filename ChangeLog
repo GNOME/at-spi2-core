@@ -1,3 +1,22 @@
+2001-08-20  Bill Haneman <bill.haneman@sun.com>
+	
+	* cspi/spi.h:
+	* cspi/spi.c:
+	Added (missing) interface query methods to Accessible's C binding.
+	* cspi/spi-impl.h:
+	Added GenericInterface type definition.
+	* test/simple-at.c:
+	Added query for AccessibleComponent interface to focus event handler.
+	Added printout of bounding box for focussed component.
+	* libspi/component.c:
+	Added partial implementation for AccessibleComponent to C binding.
+	* idl/Application.idl:
+	* libspi/registry.c:
+	* libspi/listener.c:
+	* libspi/application.c:
+	* libspi/application.h:
+	Changed "ID" attribute type from string to long.
+
 2001-08-19  Bill Haneman <bill.haneman@sun.com>
 
 	* cspi/spi.h:

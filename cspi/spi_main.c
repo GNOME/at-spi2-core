@@ -258,6 +258,37 @@ Accessible_getStateSet (Accessible *obj)
   return NULL;
 }
 
+/* Interface query methods */
+
+boolean
+Accessible_isComponent (Accessible *obj)
+{
+  Bonobo_Unknown iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Component:1.0",
+                                             &ev);
+  return (iface != NULL) ? TRUE : FALSE;
+}
+
+AccessibleComponent *
+Accessible_getComponent (Accessible *obj)
+{
+  AccessibleComponent iface =
+    Accessibility_Accessible_queryInterface (*obj,
+                                             "IDL:Accessibility/Component:1.0",
+                                             &ev);
+  return Obj_Add (iface);
+}
+
+GenericInterface *
+Accessible_queryInterface (Accessible *obj, char *interface_name)
+{
+  GenericInterface iface;
+  iface = Accessibility_Accessible_queryInterface (*obj,
+                                                    interface_name,
+                                                    &ev);
+  return (iface != NULL) ? Obj_Add (iface) : NULL;
+}
 
 /*
  *
@@ -311,3 +342,99 @@ AccessibleApplication_resume (AccessibleApplication *obj)
   return FALSE;
 }
 
+/*
+ *
+ * AccessibleComponent function implementations
+ *
+ */
+
+int
+AccessibleComponent_ref (AccessibleComponent *obj)
+{
+  Accessibility_Component_ref (*obj, &ev);
+  return 0;
+}
+
+int
+AccessibleComponent_unref (AccessibleComponent *obj)
+{
+  Accessibility_Component_unref (*obj, &ev);
+  return 0;
+}
+
+boolean
+AccessibleComponent_contains (AccessibleComponent *obj,
+                              long x,
+                              long y,
+                              AccessibleCoordType ctype)
+{
+  return Accessibility_Component_contains (*obj,
+                                           (CORBA_long) x,
+                                           (CORBA_long) y,
+                                           ctype,
+                                           &ev);
+}
+
+Accessible *
+AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
+                                          long x,
+                                          long y,
+                                          AccessibleCoordType ctype)
+{
+  Accessible child;
+  child = Accessibility_Component_getAccessibleAtPoint(*obj,
+                                                       (CORBA_long) x,
+                                                       (CORBA_long) y,
+                                                       ctype,
+                                                       &ev);
+  return (child != NULL) ? Obj_Add (child) : NULL;
+}
+
+void
+AccessibleComponent_getExtents (AccessibleComponent *obj,
+                                long *x,
+                                long *y,
+                                long *width,
+                                long *height,
+                                AccessibleCoordType ctype)
+{
+  /* TODO: remove assumption that CORBA_long == long in typecast */
+  Accessibility_Component_getExtents (*obj,
+                                     (CORBA_long *) x,
+                                     (CORBA_long *) y,
+                                     (CORBA_long *) width,
+                                     (CORBA_long *) height,
+                                     ctype,
+                                     &ev);
+}
+
+void
+AccessibleComponent_getPosition (AccessibleComponent *obj,
+                                 long *x,
+                                 long *y,
+                                 AccessibleCoordType ctype)
+{
+  Accessibility_Component_getPosition (*obj,
+                                       (CORBA_long *) x,
+                                       (CORBA_long *) y,
+                                       ctype,
+                                       &ev);
+}
+
+void
+AccessibleComponent_getSize (AccessibleComponent *obj,
+                             long *width,
+                             long *height)
+{
+  Accessibility_Component_getSize (*obj,
+                                   (CORBA_long *) width,
+                                   (CORBA_long *) height,
+                                   &ev);
+}
+
+/* Not Yet Implemented */
+void
+AccessibleComponent_grabFocus (AccessibleComponent *obj)
+{
+  ;
+}

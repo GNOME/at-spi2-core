@@ -30,5 +30,6 @@ typedef CORBA_Object AccessibleTable;
 typedef CORBA_Object AccessibleText;
 typedef CORBA_Object AccessibleValue;
 typedef CORBA_Object AccessibilityRegistry;
+typedef CORBA_Object GenericInterface;
 
 #endif
