@@ -1,3 +1,13 @@
+2003-02-13  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/Makefile.am: Allow for build directory to be different 
+	from source directory
+
+	* registryd/Makefile.am: Allow for build directory to be different
+	from source directory
+
+	Bug #104744.
+
 2003-01-29  Bill Haneman <bill.haneman@sun.com>
 	
 	* cspi/Makefile.am:
@@ -8,7 +18,7 @@
 	* cspi/spi_event.c:
 	Clean up inline docs a little.
 
-2003-01-27  Padraig O'Briain <padraig.obriain@sun.com
+2003-01-27  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* registryd/desktop.c: Implement AccessibleComponent for SpiDesktop.
 	This is done by implementing AtkComponent for SpiAtkDesktop, which is
@@ -21,12 +31,12 @@
 	* registryd/registry.c (spi_registry_init): Add call to gdk_init()
 	so that Display is set when SpiDesktop is created.
 
-2003-01-21  Padraig O'Briain <padraig.obriain@sun.com
+2003-01-21  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* registryd/deviceeventcontroller.c: Add include of <sys/time.h>
 	This fixes bug #102830.
 
-2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
+2003-01-15  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* test/test-simple.c: Update to take account of fact that GailButton 
 	now implements AtkText.
@@ -39,17 +49,17 @@
 	* cpsi/spi_table.c (AccessibleTable_getNSelectedColumns): Fix
 	typo in documentation comments. Bug #94275.
 
-2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
+2003-01-15  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* libspi/text.c (impl_getBoundedRanges): Bug fix.
 
-2003-01-10  Padraig O'Briain <padraig.obriain@sun.com
+2003-01-10  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* libspi/text.c:
 	Add includes to avoid compiler warnings on Solaris.
 	(impl_getRangeExtents): Bug fix.
 
-2002-12-17  Bill Haneman <bill.haneman@sun.com
+2002-12-17  Bill Haneman <bill.haneman@sun.com>
 
         Fix for 100944, [API addition approved by Gman and murrayc].
 	
