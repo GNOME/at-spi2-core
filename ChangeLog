@@ -1,3 +1,21 @@
+2001-08-16  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/registry.c :
+	added more implementation for toolkit events.
+	Fixed bug such that toolkit event registrations
+	(via atk) use the whole event name string, not 
+	just minor+detail.
+	Removed a useless call to an ORBit_ method.
+	* at-bridge/bridge.c :
+	Removed unused local sbuf[] variable.
+	* test/at.c :
+	We now register for Gtk:GtkWidget:button_press_event 
+	events as well as "focus:" events.
+	* cspi/spi.h :
+	Add some more API from Registry.idl that was missing,
+	for keystroke listening, keystroke and mouse event
+	synthesis, and enumeration of accessible desktops.
+
 2001-08-16  Michael Meeks  <michael@ximian.com>
 
 	* configure.in: use AM_GLIB_GNU_GETTEXT.

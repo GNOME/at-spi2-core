@@ -93,6 +93,34 @@ SPI_exit (void);
 
 /*
  *
+ * Global functions serviced by the registry
+ *
+ */
+
+boolean
+RegisterGlobalEventListener (AccessibleEventListener listener,
+                             char *eventType);
+
+int
+GetDesktopCount ();
+
+Accessible
+*getDesktop (int n);
+
+int
+getDesktopList (Accessible **list);
+
+void
+registerKeystrokeListener (KeystrokeListener *listener);
+
+void
+generateKeyEvent (long keyCode, long meta);
+
+void
+generateMouseEvent (long x, long y, char *name);
+
+/*
+ *
  * Accessible function prototypes
  *
  */
@@ -284,16 +312,6 @@ AccessibleEditableText_deleteText (AccessibleEditableText *obj,
 void
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long position);
-
-/*
- *
- * registerEventListener
- *
- */
-
-boolean
-RegisterGlobalEventListener (AccessibleEventListener listener,
-                             char *eventType);
 
 /*
  *

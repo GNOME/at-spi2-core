@@ -58,7 +58,6 @@ bridge_register_app (gpointer gp)
   CORBA_Object oclient;
   AtkObject *atko;
   char *obj_id;
-  char sbuf[30];
   ArgStruct *args = (ArgStruct *)gp;
 
   Application *app;
