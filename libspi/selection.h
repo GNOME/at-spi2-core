@@ -32,7 +32,7 @@ extern "C" {
 #define SELECTION_TYPE        (selection_get_type ())
 #define SELECTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SELECTION_TYPE, Selection))
 #define SELECTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SELECTION_TYPE, SelectionClass))
-#define IS_SELECTION(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SELECTION_TYPE))
+#define IS_SELECTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SELECTION_TYPE))
 #define IS_SELECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SELECTION_TYPE))
 
 typedef struct _Selection Selection;

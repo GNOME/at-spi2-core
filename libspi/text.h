@@ -30,7 +30,7 @@ extern "C" {
 #include <libspi/Accessibility.h>
 #include "accessible.h"
 
-#define TEXT_TYPE        (text_get_type ())
+#define TEXT_TYPE        (accessibility_text_get_type ())
 #define TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEXT_TYPE, Text))
 #define TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), TEXT_TYPE, TextClass))
 #define IS_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEXT_TYPE))
@@ -50,7 +50,7 @@ struct _TextClass {
 };
 
 GType
-text_get_type   (void);
+accessibility_text_get_type   (void);
 
 Text *
 text_interface_new       (AtkObject *obj);

@@ -124,10 +124,15 @@ editable_text_class_init (EditableTextClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_EditableText__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
+  parent_class = g_type_interface_peek_parent (klass);
 
   object_class->finalize = editable_text_finalize;
-
+  
+/* */
+  fprintf(stderr, "INITIALIZING editabletext class!\n");
+  
+  fprintf (stderr, "EditableText: get-character-count is at %p\n",
+	   ((TEXT_CLASS(klass))->epv._get_characterCount));
 
   /* Initialize epv table */
 
@@ -148,10 +153,6 @@ editable_text_init (EditableText *editable)
 static void
 editable_text_finalize (GObject *obj)
 {
-  EditableText *editable = EDITABLE_TEXT(obj);
-  Text *text = TEXT(obj);
-  g_object_unref (text->atko);
-  text->atko = NULL;
   parent_class->finalize (obj);
 }
 
@@ -160,9 +161,9 @@ editable_text_interface_new (AtkObject *obj)
 {
   EditableText *new_editable =
     EDITABLE_TEXT(g_object_new (EDITABLE_TEXT_TYPE, NULL));
-  TEXT (new_editable)->atko = obj;
+  (TEXT (new_editable))->atko = obj;
   g_object_ref (obj);
-return new_editable;
+  return new_editable;
 }
 
 

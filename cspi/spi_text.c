@@ -19,8 +19,15 @@ AccessibleText_unref (AccessibleText *obj)
 long
 AccessibleText_getCharacterCount (AccessibleText *obj)
 {
-  return (long)
+  long retval;
+
+  CORBA_exception_init (&ev);
+  retval = (long)
     Accessibility_Text__get_characterCount (*obj, &ev);
+
+  spi_check_ev (&ev, "AccessibleText_getCharacterCount");
+
+  return retval;
 }
 
 
@@ -101,9 +108,9 @@ AccessibleText_getTextBeforeOffset (AccessibleText *obj,
 
 char *
 AccessibleText_getTextAtOffset (AccessibleText *obj,
-                                    long offset,
-                                    TEXT_BOUNDARY_TYPE type,
-				    long *startOffset, long *endOffset)
+				long offset,
+				TEXT_BOUNDARY_TYPE type,
+				long *startOffset, long *endOffset)
 {
   CORBA_long corbaStartOffset;
   CORBA_long corbaEndOffset;

@@ -28,6 +28,7 @@
 static void report_focus_event (void *fp);
 static void report_button_press (void *fp);
 static boolean report_key_event (void *fp);
+static void check_property_change (void *fp);
 static void get_environment_vars (void);
 
 static int _festival_init ();
@@ -47,6 +48,7 @@ main(int argc, char **argv)
   Accessible *desktop;
   Accessible *application;
   AccessibleEventListener *focus_listener;
+  AccessibleEventListener *property_listener;
   AccessibleEventListener *button_listener;
   KeystrokeListener *key_listener;
 
@@ -60,11 +62,11 @@ main(int argc, char **argv)
   SPI_init();
 
   focus_listener = createEventListener (report_focus_event);
+  property_listener = createEventListener (check_property_change); 
   button_listener = createEventListener (report_button_press);
-
   registerGlobalEventListener (focus_listener, "focus:");
+  registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
   registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
-
   n_desktops = getDesktopCount ();
 
   for (i=0; i<n_desktops; ++i)
@@ -76,6 +78,7 @@ main(int argc, char **argv)
         {
           application = Accessible_getChildAtIndex (desktop, j);
           fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
+	  Accessible_unref (application);
         }
     }
 
@@ -106,25 +109,23 @@ get_environment_vars()
 }
 
 void
-report_focus_event (void *p)
+report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
 {
-  AccessibleEvent *ev = (AccessibleEvent *) p;
-  fprintf (stderr, "%s event from %s\n", ev->type,
-           Accessible_getName (&ev->source));
-  
   if (use_festival)
     {
     if (festival_chatty) 	    
       {
-        _festival_say (Accessible_getRole (&ev->source), "voice_don_diphone", TRUE);
+        _festival_say (Accessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
       }
-      _festival_say (Accessible_getName (&ev->source), "voice_kal_diphone", festival_chatty==FALSE);
+      fprintf (stderr, "getting Name\n");
+      _festival_say (Accessible_getName (obj), "voice_kal_diphone",
+		     shutup_previous_speech || festival_chatty);
     }
   
-  if (Accessible_isComponent (&ev->source))
+  if (Accessible_isComponent (obj))
     {
       long x, y, width, height;
-      AccessibleComponent *component = Accessible_getComponent (&ev->source);
+      AccessibleComponent *component = Accessible_getComponent (obj);
       AccessibleComponent_getExtents (component, &x, &y, &width, &height,
                                       COORD_TYPE_SCREEN);
       fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
@@ -133,17 +134,28 @@ report_focus_event (void *p)
 	      magnifier_set_roi (x, y, width, height);	      
       }
     }
-  if (Accessible_isText(&ev->source))
-    /* if this is a text object, speak the first sentence. */
+  /* if this is a text object, speak the first sentence. */
+  if (Accessible_isText(obj))
   {
-     AccessibleText *text_interface = Accessible_getText (&ev->source);
+     AccessibleText *text_interface;
      long start_offset, end_offset;
-     char *first_sentence = "";
+     char *first_sentence = "empty";
+     text_interface = Accessible_getText (obj);
+     fprintf (stderr, "isText...%p %p\n", text_interface, (void *)*text_interface);
      first_sentence = AccessibleText_getTextAtOffset (
-	     text_interface, (long) 0, TEXT_BOUNDARY_WORD_END,
-	     &start_offset, &end_offset); 
-     _festival_say(first_sentence, "voice_don_diphone", festival_chatty==FALSE);
+	       text_interface, (long) 0, TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
+     if (first_sentence) _festival_say(first_sentence, "voice_don_diphone", FALSE);
+     fprintf (stderr, "done reporting on focussed object\n");
   }
+}
+
+void
+report_focus_event (void *p)
+{
+  AccessibleEvent *ev = (AccessibleEvent *) p;
+  fprintf (stderr, "%s event from %s\n", ev->type,
+           Accessible_getName (&ev->source));
+  report_focussed_accessible (&ev->source, TRUE);
 }
 
 void
@@ -152,6 +164,30 @@ report_button_press (void *p)
   AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
            Accessible_getName (&ev->source));
+}
+
+
+void
+check_property_change (void *p)
+{
+  AccessibleEvent *ev = (AccessibleEvent *) p;
+  AccessibleSelection *selection = Accessible_getSelection (&ev->source);
+  int n_selections;
+  int i;
+  if (selection)
+  {
+    n_selections = (int) AccessibleSelection_getNSelectedChildren (selection);
+    fprintf (stderr, "(Property) %s event from %s, %d selected children\n", ev->type,
+           Accessible_getName (&ev->source), n_selections);
+  /* for now, speak entire selection set */
+    for (i=0; i<n_selections; ++i)
+    {
+	  Accessible *obj = AccessibleSelection_getSelectedChild (selection, (long) i);
+	  g_return_if_fail (obj);
+          fprintf (stderr, "Child %d, name=%s\n", i, Accessible_getName (obj));
+	  report_focussed_accessible (obj, i==0);
+    }
+  }
 }
 
 static boolean

@@ -32,7 +32,7 @@ extern "C" {
 #define ACTION_TYPE        (action_get_type ())
 #define ACTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), ACTION_TYPE, Action))
 #define ACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), ACTION_TYPE, ActionClass))
-#define IS_ACTION(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), ACTION_TYPE))
+#define IS_ACTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ACTION_TYPE))
 #define IS_ACTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), ACTION_TYPE))
 
 typedef struct _Action Action;

@@ -41,7 +41,7 @@ extern "C" {
 
 typedef struct {
   Listener parent;
-  GList *focus_listeners;
+  GList *object_listeners;
   GList *window_listeners;
   GList *toolkit_listeners;
   GList *applications;

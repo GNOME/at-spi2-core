@@ -10,6 +10,7 @@
 #ifndef _SPI_IMPL_H_
 #define _SPI_IMPL_H_
 
+#include <stdlib.h>
 #include <orbit/orbit.h>
 #include "Accessibility.h"
 

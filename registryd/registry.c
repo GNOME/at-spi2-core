@@ -60,6 +60,8 @@ static ListenerClass *registry_parent_class;
 
 typedef enum {
   ETYPE_FOCUS,
+  ETYPE_OBJECT,
+  ETYPE_PROPERTY,
   ETYPE_WINDOW,
   ETYPE_TOOLKIT,
   ETYPE_LAST_DEFINED
@@ -122,7 +124,7 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
   fprintf (stderr, "registering app %p\n", application);
 #endif
   registry->desktop->applications = g_list_append (registry->desktop->applications,
-                                                   CORBA_Object_duplicate (application, ev));
+                                                   bonobo_object_dup_ref (application, ev));
 
   /* TODO: create unique string here (with libuuid call ?) and hash ? */
   Accessibility_Application__set_id (application, _get_unique_id(), ev);
@@ -157,7 +159,7 @@ register_with_toolkits (Registry *registry_bonobo_object, EventTypeStruct *etype
   Accessibility_Desktop desktop;
   Accessibility_Application app;
   Accessibility_Registry registry;
-  registry  = bonobo_object_corba_objref (bonobo_object (registry_bonobo_object));
+  registry  = BONOBO_OBJREF (registry_bonobo_object);
 
   /* for each app in each desktop, call ...Application_registerToolkitEventListener */
 
@@ -172,11 +174,11 @@ register_with_toolkits (Registry *registry_bonobo_object, EventTypeStruct *etype
           app = (Accessibility_Application) Accessibility_Desktop_getChildAtIndex (desktop,
                                                                                    j,
                                                                                    ev);
-          /* TODO: should we be ref-ing the registry object before each call ? */
-          Accessibility_Application_registerToolkitEventListener (app,
-                                                                  registry,
-                                                                  CORBA_string_dup (etype->event_name),
-                                                                  ev);
+	  Accessibility_Application_registerToolkitEventListener (app,
+								  registry,
+								  CORBA_string_dup (etype->event_name),
+								  
+								  ev);
         }
     }
 }
@@ -199,6 +201,10 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
   if (!g_ascii_strncasecmp (event_name, "focus:", 6))
     {
       etype->type_cat = ETYPE_FOCUS;
+    }
+  else if (!g_ascii_strncasecmp (event_name, "object:", 7))
+    {
+      etype->type_cat = ETYPE_OBJECT;
     }
   else if (!g_ascii_strncasecmp (event_name, "window:", 7))
     {
@@ -296,6 +302,7 @@ impl_accessibility_registry_register_global_event_listener (
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
   ListenerStruct *ls = g_malloc (sizeof (ListenerStruct));
   EventTypeStruct etype;
+  gboolean is_toolkit_specific = TRUE;
 
   fprintf(stderr, "registering for events of type %s\n", event_name);
 
@@ -307,9 +314,11 @@ impl_accessibility_registry_register_global_event_listener (
   switch (etype.type_cat)
     {
     case (ETYPE_FOCUS) :
+    case (ETYPE_OBJECT) :
+    case (ETYPE_PROPERTY) :
       ls->listener = CORBA_Object_duplicate (listener, ev);
-      registry->focus_listeners =
-        g_list_append (registry->focus_listeners, ls);
+      registry->object_listeners =
+        g_list_append (registry->object_listeners, ls);
       break;
     case (ETYPE_WINDOW) :
       /* Support for Window Manager Events is not yet implemented */
@@ -335,7 +344,7 @@ impl_accessibility_registry_deregister_global_event_listener_all (
                                                     CORBA_Environment      *ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->focus_listeners, listener, compare_corba_objects);
+  GList *list = g_list_find_custom (registry->object_listeners, listener, compare_corba_objects);
 
   /*
    * TODO : de-register with toolkit if the last instance of a listener
@@ -345,8 +354,8 @@ impl_accessibility_registry_deregister_global_event_listener_all (
   while (list)
     {
       fprintf (stderr, "deregistering listener\n");
-      registry->focus_listeners = g_list_delete_link (registry->focus_listeners, list);
-      list = g_list_find_custom (registry->focus_listeners, listener, compare_corba_objects);
+      registry->object_listeners = g_list_delete_link (registry->object_listeners, list);
+      list = g_list_find_custom (registry->object_listeners, listener, compare_corba_objects);
     }
   list = g_list_find_custom (registry->toolkit_listeners, listener, compare_corba_objects);
   while (list)
@@ -376,8 +385,10 @@ impl_accessibility_registry_deregister_global_event_listener (
   parse_event_type (&etype, event_name);
   switch (etype.type_cat)
     {
+    case (ETYPE_OBJECT) :
+    case (ETYPE_PROPERTY) :
     case (ETYPE_FOCUS) :
-      listeners = &registry->focus_listeners;
+      listeners = &registry->object_listeners;
       break;
     case (ETYPE_WINDOW) :
       /* Support for Window Manager Events is not yet implemented */
@@ -438,8 +449,7 @@ impl_accessibility_registry_get_desktop (PortableServer_Servant servant,
   if (n == 0)
     {
       return (Accessibility_Desktop)
-        CORBA_Object_duplicate (
-             bonobo_object_corba_objref (bonobo_object (registry->desktop)), ev);
+        CORBA_Object_duplicate (BONOBO_OBJREF (registry->desktop), ev);
     }
   else
     {
@@ -470,9 +480,7 @@ impl_accessibility_registry_get_device_event_controller (PortableServer_Servant 
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
   if (!registry->device_event_controller)
     registry->device_event_controller = g_object_new (DEVICE_EVENT_CONTROLLER_TYPE, NULL);
-  return CORBA_Object_duplicate (
-	  bonobo_object_corba_objref (
-		  bonobo_object (registry->device_event_controller)), ev);
+  return CORBA_Object_duplicate (BONOBO_OBJREF (registry->device_event_controller), ev);
 }
 
 static void
@@ -487,19 +495,21 @@ impl_registry_notify_event (PortableServer_Servant servant,
 
   switch (etype.type_cat)
     {
+    case (ETYPE_OBJECT) :
+    case (ETYPE_PROPERTY) :
     case (ETYPE_FOCUS) :
-      _registry_notify_listeners (registry->focus_listeners, e, ev);
+      _registry_notify_listeners (registry->object_listeners, e, ev); 
       break;
     case (ETYPE_WINDOW) :
       _registry_notify_listeners (registry->window_listeners, e, ev);
       break;
     case (ETYPE_TOOLKIT) :
-      _registry_notify_listeners (registry->toolkit_listeners, e, ev);
+      _registry_notify_listeners (registry->toolkit_listeners, e, ev); 
       break;
     default:
       break;
     }
- Accessibility_Accessible_unref (e->source, ev);
+  /* Accessibility_Accessible_unref (e->source, ev);*/ /* This should be here! */
 }
 
 static long
@@ -526,7 +536,7 @@ _registry_notify_listeners ( GList *listeners,
   for (n=0; n<len; ++n)
     {
       ls =  (ListenerStruct *) g_list_nth_data (listeners, n);
-#ifdef SPI_DEBUG
+#ifdef SPI_LISTENER_DEBUG
       fprintf(stderr, "event hashes: %lx %lx %lx\n", ls->event_type_hash, etype.hash, minor_hash);
       fprintf(stderr, "event name: %s\n", etype.event_name);
 #endif
@@ -534,8 +544,9 @@ _registry_notify_listeners ( GList *listeners,
         {
 #ifdef SPI_DEBUG
           fprintf(stderr, "notifying listener #%d\n", n);
-          fprintf(stderr, "event name %s\n", Accessibility_Accessible__get_name(e->source, ev));
+          fprintf(stderr, "event source name %s\n", Accessibility_Accessible__get_name(e->source, ev));
 #endif
+	  e->source = CORBA_Object_duplicate (e->source, ev);
           Accessibility_Accessible_ref ( e->source, ev);
           Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
                                                    e,
@@ -585,7 +596,7 @@ registry_class_init (RegistryClass *klass)
 static void
 registry_init (Registry *registry)
 {
-  registry->focus_listeners = NULL;
+  registry->object_listeners = NULL;
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
   registry->applications = NULL;

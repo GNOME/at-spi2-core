@@ -101,7 +101,6 @@ main(int argc, char **argv)
         check_ev (&ev, "register:button_press");
         fprintf (stderr, "AT callback registered.\n");
 
-
             n_desktops = Accessibility_Registry_getDesktopCount (registry, &ev);
 
             for (i=0; i<n_desktops; ++i)

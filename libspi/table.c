@@ -235,7 +235,7 @@ impl__get_caption (PortableServer_Servant _servant,
 
   atk_object = atk_table_get_caption (ATK_TABLE(table-> atko));
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
-  return rv;
+  return CORBA_Object_duplicate (rv, ev);
 }
 
 
@@ -250,7 +250,7 @@ impl__get_summary (PortableServer_Servant _servant,
 
   atk_object = atk_table_get_summary (ATK_TABLE(table->atko));
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
-  return rv;
+  return CORBA_Object_duplicate (rv, ev);
 }
 
 
@@ -290,7 +290,7 @@ impl_getAccessibleAt (PortableServer_Servant _servant,
   atk_object = atk_table_ref_at (ATK_TABLE(table->atko),
 					     (gint) row, (gint) column);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
-  return rv;
+  return CORBA_Object_duplicate (rv, ev);
 }
 
 
@@ -405,7 +405,7 @@ impl_getRowHeader (PortableServer_Servant _servant,
 
   header = atk_table_get_row_header (ATK_TABLE(table->atko), (gint) row);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(header)));
-  return rv;
+  return CORBA_Object_duplicate (rv, ev);
 }
 
 
@@ -421,7 +421,7 @@ impl_getColumnHeader (PortableServer_Servant _servant,
 
   header = atk_table_get_column_header (ATK_TABLE(table->atko), (gint) column);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(header)));
-  return rv;
+  return CORBA_Object_duplicate (rv, ev);
 }
 
 

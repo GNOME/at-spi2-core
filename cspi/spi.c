@@ -9,8 +9,12 @@ static Accessible *
 Obj_Add (Accessible object)
 {
   /* TODO: keep list of live object refs */
-  Accessible *oref = g_malloc (sizeof (Accessible));
-  *oref = object;
+  Accessible *oref = NULL;
+  if (!CORBA_Object_is_nil (object, &ev))
+  {
+	  oref = g_malloc (sizeof (Accessible));
+	  *oref = object;
+  }
   return oref;
 }
 

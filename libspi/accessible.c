@@ -67,7 +67,8 @@ accessible_object_finalize (GObject *object)
         Accessible *accessible = ACCESSIBLE (object);
 
         printf("accessible_object_finalize called\n");
-        g_object_unref (accessible->atko);
+	ATK_OBJECT (accessible->atko); /* assertion */
+        g_object_unref (G_OBJECT(accessible->atko));
         accessible->atko = NULL;
 
         printf("atko freed, calling parent finalize\n");
@@ -88,7 +89,7 @@ impl_accessibility_accessible_get_name (PortableServer_Servant servant,
     retval = CORBA_string_dup (retval);
   else
     retval = CORBA_string_dup ("");
-  fprintf (stderr, "Accessible get_name called: %s\n", retval);
+
   return retval;
 }
 
@@ -115,7 +116,7 @@ impl_accessibility_accessible_get_description (PortableServer_Servant servant,
   CORBA_char * retval;
   Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
   retval = CORBA_string_dup (atk_object_get_description (accessible->atko));
-  fprintf (stderr, "Accessible get_description called: %s\n", retval);
+
   return retval;
 }
 
@@ -143,9 +144,9 @@ impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
   Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
   AtkObject *parent;
   parent = atk_object_get_parent (accessible->atko);
-  retval = bonobo_object_corba_objref (bonobo_object (accessible_new (parent)));
+  retval = BONOBO_OBJREF (accessible_new (parent));
   printf ("Accessible get_parent called\n");
-  return retval;
+  return CORBA_Object_duplicate (retval, &ev);
 }
 
 /*
@@ -187,9 +188,9 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
   Accessibility_Accessible retval;
   Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
   AtkObject *child = atk_object_ref_accessible_child (accessible->atko, (gint) index);
-  retval = bonobo_object_corba_objref ( bonobo_object (accessible_new (child)));
+  retval = BONOBO_OBJREF (accessible_new (child));
   printf ("Accessible get_child_at_index called.\n");
-  return retval;
+  return CORBA_Object_duplicate (retval, &ev);
 }
 
 /*
@@ -213,7 +214,6 @@ impl_accessibility_accessible_get_state (PortableServer_Servant servant,
  */
 static Accessibility_RelationSet *
 impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
-						const CORBA_long      index,
 						CORBA_Environment     *ev)
 {
   Accessibility_RelationSet *retval;
@@ -233,7 +233,6 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
  */
 static Accessibility_Role
 impl_accessibility_accessible_get_role (PortableServer_Servant servant,
-					const CORBA_long      index,
 					CORBA_Environment     *ev)
 {
   Accessibility_Role retval;
@@ -313,6 +312,8 @@ accessible_new (AtkObject *o)
 {
     Accessible *retval =
                ACCESSIBLE (g_object_new (accessible_get_type (), NULL));
+    CORBA_Environment ev;
+    CORBA_exception_init (&ev);
     g_object_ref (o);
     retval->atko = ATK_OBJECT (o);
 
@@ -328,7 +329,7 @@ accessible_new (AtkObject *o)
         bonobo_object_add_interface (bonobo_object (retval),
                                      BONOBO_OBJECT (action_interface_new (o)));
       }
-
+      
     if (ATK_IS_COMPONENT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
@@ -351,12 +352,6 @@ accessible_new (AtkObject *o)
       {
         bonobo_object_add_interface (bonobo_object (retval),
                                      BONOBO_OBJECT (text_interface_new (o)));
-      }
-
-    if (ATK_IS_HYPERLINK (o))
-      {
-	bonobo_object_add_interface (bonobo_object (retval),
-				     BONOBO_OBJECT (hyperlink_interface_new(o)));
       }
 
     if (ATK_IS_IMAGE (o))
@@ -382,7 +377,6 @@ accessible_new (AtkObject *o)
         bonobo_object_add_interface (bonobo_object (retval),
                                      BONOBO_OBJECT (value_interface_new (o)));
       }
-
 
     return retval;
 }

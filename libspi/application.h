@@ -41,11 +41,14 @@ extern "C" {
 typedef struct {
         Accessible parent;
         long id;
+	GList *toolkit_listeners;
 } Application;
 
 typedef struct {
         AccessibleClass parent_class;
         POA_Accessibility_Application__epv epv;
+	GHashTable *toolkit_event_names;
+	GHashTable *generic_event_names;
 } ApplicationClass;
 
 GType               application_get_type           (void);

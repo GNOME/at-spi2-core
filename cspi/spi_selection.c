@@ -29,12 +29,13 @@ Accessible *
 AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long selectedChildIndex)
 {
-  return (Accessible *)
+  Accessibility_Accessible child = 
     Accessibility_Selection_getSelectedChild (*obj,
 					      (CORBA_long) selectedChildIndex, &ev);
+  spi_warn_ev (&ev, "getSelectedChild");
+
+  return (Accessible *) ((CORBA_Object_is_nil (child, &ev)) ? NULL : Obj_Add (child));
 }
-
-
 
 boolean
 AccessibleSelection_selectChild (AccessibleSelection *obj,

@@ -41,21 +41,36 @@
 #include "text.h"
 
 /*
+ * Our parent Gtk object type
+ */
+#define PARENT_TYPE BONOBO_OBJECT_TYPE
+
+
+/*
+ * A pointer to our parent object class
+ */
+static GObjectClass *text_parent_class;
+
+/*
  * Static function declarations
  */
 
 static void
-text_class_init (TextClass *klass);
+accessibility_text_class_init (TextClass *klass);
+
 static void
-text_init (Text *text);
+accessibility_text_init (Text *text);
+
 static void
-text_finalize (GObject *obj);
+accessibility_text_object_finalize (GObject *obj);
+
 static CORBA_string
 impl_getText (PortableServer_Servant _servant,
 	      const CORBA_long startOffset,
 	      const CORBA_long endOffset,
 	      CORBA_Environment * ev);
-CORBA_string
+
+static CORBA_string
 impl_getTextAfterOffset (PortableServer_Servant _servant,
 			 const CORBA_long offset,
 			 const
@@ -75,6 +90,7 @@ static CORBA_unsigned_long
 impl_getCharacterAtOffset (PortableServer_Servant _servant,
 			   const CORBA_long offset,
 			   CORBA_Environment * ev);
+
 static CORBA_string
 impl_getTextBeforeOffset (PortableServer_Servant _servant,
 			  const CORBA_long offset,
@@ -83,15 +99,18 @@ impl_getTextBeforeOffset (PortableServer_Servant _servant,
 			  type, CORBA_long * startOffset,
 			  CORBA_long * endOffset,
 			  CORBA_Environment * ev);
+
 static CORBA_long
 impl__get_caretOffset (PortableServer_Servant _servant,
 		     CORBA_Environment * ev);
+
 static CORBA_string
 impl_getAttributes (PortableServer_Servant _servant,
 		       const CORBA_long offset,
 		       CORBA_long * startOffset,
 		       CORBA_long * endOffset,
 		       CORBA_Environment * ev);
+
 static void 
 impl_getCharacterExtents (PortableServer_Servant _servant,
 			  const CORBA_long offset, CORBA_long * x,
@@ -99,48 +118,52 @@ impl_getCharacterExtents (PortableServer_Servant _servant,
 			  CORBA_long * height,
 			  const CORBA_short coordType,
 			  CORBA_Environment * ev);
+
 static CORBA_long
 impl__get_characterCount (PortableServer_Servant _servant,
 			CORBA_Environment * ev);
+
 static CORBA_long
 impl_getOffsetAtPoint (PortableServer_Servant _servant,
 		       const CORBA_long x, const CORBA_long y,
 		       const CORBA_short coordType,
 		       CORBA_Environment * ev);
+
 static CORBA_long
 impl_getNSelections (PortableServer_Servant _servant,
 		     CORBA_Environment * ev);
+
 static void 
 impl_getSelection (PortableServer_Servant _servant,
 		   const CORBA_long selectionNum,
 		   CORBA_long * startOffset, CORBA_long * endOffset,
 		   CORBA_Environment * ev);
+
 static CORBA_boolean
 impl_addSelection (PortableServer_Servant _servant,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev);
+
 static CORBA_boolean
 impl_removeSelection (PortableServer_Servant _servant,
 		      const CORBA_long selectionNum,
 		      CORBA_Environment * ev);
+
 static CORBA_boolean
 impl_setSelection (PortableServer_Servant _servant,
 		   const CORBA_long selectionNum,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev);
+
 static CORBA_boolean
 impl_setCaretOffset (PortableServer_Servant _servant,
 		     const CORBA_long value,
-		     CORBA_Environment * ev);
-  
- 
-
-static GObjectClass *parent_class;
+		     CORBA_Environment * ev); 
 
 GType
-text_get_type (void)
+accessibility_text_get_type (void)
 {
   static GType type = 0;
 
@@ -149,13 +172,13 @@ text_get_type (void)
       sizeof (TextClass),
       (GBaseInitFunc) NULL,
       (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) text_class_init,
+      (GClassInitFunc) accessibility_text_class_init,
       (GClassFinalizeFunc) NULL,
       NULL, /* class data */
       sizeof (Text),
       0, /* n preallocs */
-      (GInstanceInitFunc) text_init,
-                        NULL /* value table */
+      (GInstanceInitFunc) accessibility_text_init,
+      NULL /* value table */
     };
 
     /*
@@ -164,7 +187,7 @@ text_get_type (void)
      * use bonobo_type_unique.
      */
     type = bonobo_type_unique (
-			       BONOBO_OBJECT_TYPE,
+			       PARENT_TYPE,
 			       POA_Accessibility_Text__init,
 			       NULL,
 			       G_STRUCT_OFFSET (TextClass, epv),
@@ -176,14 +199,13 @@ text_get_type (void)
 }
 
 static void
-text_class_init (TextClass *klass)
+accessibility_text_class_init (TextClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_Text__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
+  text_parent_class = g_type_class_peek_parent (klass);
 
-  object_class->finalize = text_finalize;
-
+  object_class->finalize = accessibility_text_object_finalize;
 
   /* Initialize epv table */
 
@@ -206,24 +228,24 @@ text_class_init (TextClass *klass)
 }
 
 static void
-text_init (Text *text)
+accessibility_text_init (Text *text)
 {
 }
 
 static void
-text_finalize (GObject *obj)
+accessibility_text_object_finalize (GObject *obj)
 {
   Text *text = TEXT (obj);
   g_object_unref (text->atko);
   text->atko = NULL;
-  parent_class->finalize (obj);
+  text_parent_class->finalize (obj);
 }
 
 Text *
 text_interface_new (AtkObject *obj)
 {
   Text *new_text = 
-    TEXT(g_object_new (TEXT_TYPE, NULL));
+    TEXT (g_object_new (accessibility_text_get_type (), NULL));
   new_text->atko = obj;
   g_object_ref (obj);
   return new_text;
@@ -239,7 +261,7 @@ impl_getText (PortableServer_Servant _servant,
 {
   Text *text;
   gchar *txt;
-  CORBA_char *rv;
+  CORBA_string rv;
   BonoboObject *obj;
   
   obj = (bonobo_object_from_servant (_servant));
@@ -456,13 +478,16 @@ impl__get_characterCount (PortableServer_Servant _servant,
 {
   Text *text;
   BonoboObject *obj;
+  CORBA_long retval;
 
   obj = (bonobo_object_from_servant (_servant));
   g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)0);
   text = TEXT (obj);
 
-  return (CORBA_long)
+  retval = (CORBA_long)
     atk_text_get_character_count (ATK_TEXT(text->atko));
+
+  return retval;
 }
 
 

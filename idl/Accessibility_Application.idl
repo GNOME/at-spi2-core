@@ -51,10 +51,17 @@ module Accessibility {
     attribute long id;
 
     /**
-     * Register with this application's toolkit for "toolkit" event notifications.
+     * Register with this application's toolkit for "toolkit-specific" event notifications.
      *
      **/
     void registerToolkitEventListener (in EventListener listener, in string eventName);
+
+    /**
+     * Register with this application's toolkit for "Accessibility::Accessible" 
+     * event notifications.
+     *
+     **/
+    void registerObjectEventListener (in EventListener listener, in string eventName);
 
     /**
      * pause:

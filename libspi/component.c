@@ -62,7 +62,7 @@ accessibility_component_object_finalize (GObject *object)
         g_object_unref (component->atko);
 	component->atko = NULL;
 
-        printf("atko freed, calling parent finalize\n");
+        printf("component atko freed, calling parent finalize\n");
         component_parent_class->finalize (object);
 }
 
@@ -113,7 +113,7 @@ impl_accessibility_component_get_accessible_at_point (PortableServer_Servant ser
                                                   (gint) x, (gint) y,
                                                   (AtkCoordType) coord_type);
   retval = bonobo_object_corba_objref (bonobo_object (accessible_new (child)));
-  return retval;
+  return CORBA_Object_duplicate (retval, ev);
 }
 
 /*
@@ -253,5 +253,5 @@ component_interface_new (AtkObject *o)
                COMPONENT (g_object_new (accessibility_component_get_type (), NULL));
     retval->atko = o;
     g_object_ref (o);
-return retval;
+    return retval;
 }

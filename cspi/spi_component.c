@@ -109,14 +109,19 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
                                 long *height,
                                 AccessibleCoordType ctype)
 {
-  /* TODO: remove assumption that CORBA_long == long in typecast */
+  CORBA_long cx, cy, cw, ch;	
   Accessibility_Component_getExtents (*obj,
-                                     (CORBA_long *) x,
-                                     (CORBA_long *) y,
-                                     (CORBA_long *) width,
-                                     (CORBA_long *) height,
-                                     ctype,
-                                     &ev);
+                                      &cx,
+                                      &cy,
+                                      &cw,
+                                      &ch,
+				      ctype,
+				      &ev);
+  spi_warn_ev (&ev, "AccessibleComponent_getExtents");
+  *x = (long) cx;
+  *y = (long) cy;
+  *width = (long) cw;
+  *height = (long) ch;
 }
 
 /**

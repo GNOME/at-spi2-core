@@ -1029,7 +1029,7 @@ long
 AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj);
 
 Accessible *
-AccessibleSelection_refSelectedChild (AccessibleSelection *obj,
+AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long selectedChildIndex);
 
 boolean

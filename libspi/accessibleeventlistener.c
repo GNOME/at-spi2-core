@@ -85,7 +85,7 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
           (*cb) (e);
         }
     }
-  Accessibility_Accessible_unref (e->source, ev);
+  /* Accessibility_Accessible_unref (e->source, ev); */
 }
 
 static void

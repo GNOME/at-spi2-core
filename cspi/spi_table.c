@@ -184,7 +184,7 @@ AccessibleTable_getSelectedRows (AccessibleTable *obj,
 
   i = rows->_buffer;
   length = (long) rows->_length;
-  j = *selectedRows = malloc (sizeof(long)*length);
+  j = *selectedRows = (long *) malloc (sizeof(long)*length);
   
   while (length--)
     *j++ = (CORBA_long) (*i++);
@@ -215,7 +215,7 @@ AccessibleTable_getSelectedColumns (AccessibleTable *obj,
 
   i = columns->_buffer;
   length = (long) columns->_length;
-  j = *selectedColumns = malloc (sizeof(long)*length);
+  j = *selectedColumns = (long *) malloc (sizeof(long)*length);
   
   while (length--)
     *j++ = (CORBA_long) (*i++);

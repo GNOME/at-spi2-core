@@ -33,6 +33,7 @@
  * This pulls the CORBA definitions for the "Accessibility::Accessible" server
  */
 #include <libspi/Accessibility.h>
+#include "accessible.h"
 
 /*
  * This pulls the definition of the selection bonobo object
@@ -165,12 +166,17 @@ static CORBA_long
 impl__get_nSelectedChildren (PortableServer_Servant _servant,
 			     CORBA_Environment * ev)
 {
-  Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
+  BonoboObject *obj = bonobo_object_from_servant (_servant);
+  Selection *selection;
+#ifdef SPI_DEBUG
+  fprintf (stderr, "calling impl__get_nSelectedChildren\n");
+#endif
+  g_return_val_if_fail (IS_SELECTION (obj), 0);
+  selection = SELECTION (obj);
+  g_return_val_if_fail (ATK_IS_SELECTION (selection->atko), 0);
   return (CORBA_long)
     atk_selection_get_selection_count (ATK_SELECTION(selection->atko));
-} 
-
-
+}
 
 
 static Accessibility_Accessible
@@ -178,13 +184,27 @@ impl_getSelectedChild (PortableServer_Servant _servant,
 		       const CORBA_long selectedChildIndex,
 		       CORBA_Environment * ev)
 {
-  Selection *selection = SELECTION (bonobo_object_from_servant (_servant));
+  BonoboObject *obj = bonobo_object_from_servant (_servant);
+  Selection
+	  *selection;
   AtkObject *atk_object;
   Accessibility_Accessible rv;
+#ifdef SPI_DEBUG
+  fprintf (stderr, "calling impl_getSelectedChild\n");
+#endif
+  g_return_val_if_fail (IS_SELECTION (obj), 0);
+  selection = SELECTION (obj);
+  g_return_val_if_fail (ATK_IS_SELECTION (selection->atko), 0);
 
-  atk_object = atk_selection_ref_selection (ATK_SELECTION(selection->atko), (gint) selectedChildIndex);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
-  return rv;
+  atk_object = atk_selection_ref_selection (ATK_SELECTION (selection->atko),
+					    (gint) selectedChildIndex);
+  g_return_val_if_fail (ATK_IS_OBJECT (atk_object), NULL);
+#ifdef SPI_DEBUG
+  fprintf (stderr, "child type is %s\n", g_type_name (G_OBJECT_TYPE (atk_object)));
+#endif
+  rv = bonobo_object_corba_objref (bonobo_object (accessible_new (atk_object)));
+  g_object_unref (atk_object);
+  return CORBA_Object_duplicate (rv, ev);
 }
 
 

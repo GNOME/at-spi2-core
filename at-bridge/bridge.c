@@ -30,6 +30,8 @@
 #include "accessible.h"
 #include "application.h"
 
+#define APP_STATIC_BUFF_SZ 64
+
 typedef struct _ArgStruct ArgStruct;
 
 struct _ArgStruct {
@@ -44,6 +46,16 @@ static Application *this_app;
 static gboolean bridge_register_app (gpointer p);
 static void bridge_focus_tracker (AtkObject *object);
 static void bridge_exit_func(void);
+static gboolean bridge_register_event_listener ();
+static void register_atk_event_listeners();
+static gboolean bridge_property_event_listener (GSignalInvocationHint *signal_hint,
+						guint n_param_values,
+						const GValue *param_values,
+						gpointer data);
+static gboolean bridge_signal_listener (GSignalInvocationHint *signal_hint,
+					guint n_param_values,
+					const GValue *param_values,
+					gpointer data);
 
 int
 gtk_module_init(gint *argc, gchar **argv[])
@@ -95,21 +107,37 @@ bridge_register_app (gpointer gp)
 
   bonobo_activate ();
 
-  /* Register for focus event notifications, and register app with central registry  */
-  atk_add_focus_tracker (bridge_focus_tracker);
-
   Accessibility_Registry_registerApplication (registry,
-                                              bonobo_object_corba_objref (bonobo_object (this_app)),
+                                              CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
                                               &ev);
+
+  register_atk_event_listeners ();
+
   return FALSE;
+}
+
+static void
+register_atk_event_listeners ()
+{
+  /* Register for focus event notifications, and register app with central registry  */
+
+/* kludge to make sure the Atk interface types are registered, otherwise
+   the AtkText signal handlers below won't get registered */
+
+  ATK_TYPE_TEXT;
+
+  atk_add_focus_tracker (bridge_focus_tracker);
+  atk_add_global_event_listener (bridge_property_event_listener, "Gtk:AtkObject:property-change");
+/*  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:children-changed");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-changed");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-caret-moved");*/
 }
 
 static void bridge_exit_func()
 {
   fprintf (stderr, "exiting bridge\n");
   Accessibility_Registry_deregisterApplication (registry,
-						bonobo_object_corba_objref (
-							bonobo_object (this_app)),
+						CORBA_Object_duplicate (BONOBO_OBJREF (this_app), &ev),
 						&ev);
   fprintf (stderr, "bridge exit func complete.\n");
 }
@@ -118,11 +146,110 @@ static void bridge_focus_tracker (AtkObject *object)
 {
   Accessibility_Event *e = Accessibility_Event__alloc();
   e->type = CORBA_string_dup ("focus:");
-  e->source = bonobo_object_corba_objref (bonobo_object (accessible_new (object)));
+  e->source = CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (object)), &ev);
   e->detail1 = 0;
   e->detail2 = 0;
   Accessibility_Registry_notifyEvent (registry, e, &ev);
-  /* CORBA_free (e); */
+}
+
+static gboolean
+bridge_property_event_listener (GSignalInvocationHint *signal_hint,
+				guint n_param_values,
+				const GValue *param_values,
+				gpointer data)
+{
+  Accessibility_Event *e = Accessibility_Event__alloc();
+  Bonobo_Unknown source = NULL;
+  AtkObject *aobject;
+  AtkPropertyValues *values;
+  GObject *gobject;
+  GSignalQuery signal_query;
+  gchar *name;
+  char sbuf[APP_STATIC_BUFF_SZ];
+  
+  g_signal_query (signal_hint->signal_id, &signal_query);
+  name = signal_query.signal_name;
+#ifdef SPI_BRIDGE_DEBUG
+  fprintf (stderr, "Received (property) signal %s:%s\n",
+	   g_type_name (signal_query.itype), name);
+#endif
+  gobject = g_value_get_object (param_values + 0);
+  values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
+
+  /* notify the actual listeners */
+  if (ATK_IS_IMPLEMENTOR (gobject))
+  {
+    aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
+    source = CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (aobject)), &ev);
+    g_object_unref (G_OBJECT(aobject));
+  }
+  else if (ATK_IS_OBJECT (gobject))
+  {
+    aobject = ATK_OBJECT (gobject);
+    source = CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (aobject)), &ev);
+  }
+  else
+  {
+    g_error("received property-change event from non-AtkImplementor");
+  }
+  
+  snprintf(sbuf, APP_STATIC_BUFF_SZ, "object:property-change:%s", values->property_name);
+  e->type = CORBA_string_dup (sbuf);
+  e->source = source;
+  e->detail1 = 0;
+  e->detail2 = 0;
+  if (source)
+    Accessibility_Registry_notifyEvent (registry, e, &ev);
+  return TRUE;
+}
+
+static gboolean
+bridge_signal_listener (GSignalInvocationHint *signal_hint,
+			guint n_param_values,
+			const GValue *param_values,
+			gpointer data)
+{
+  Accessibility_Event *e = g_new0(Accessibility_Event, 1);
+  AtkObject *aobject;
+  Bonobo_Unknown source;
+  AtkPropertyValues *values;
+  GObject *gobject;
+  GSignalQuery signal_query;
+  gchar *name;
+  char sbuf[APP_STATIC_BUFF_SZ];
+  
+  g_signal_query (signal_hint->signal_id, &signal_query);
+  name = signal_query.signal_name;
+#ifdef SPI_BRIDGE_DEBUG
+  fprintf (stderr, "Received (property) signal %s:%s\n",
+	   g_type_name (signal_query.itype), name);
+#endif
+  gobject = g_value_get_object (param_values + 0);
+
+  /* notify the actual listeners */
+  if (ATK_IS_IMPLEMENTOR (gobject))
+  {
+    aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
+  }
+  else if (ATK_IS_OBJECT (gobject))
+  {
+    aobject = ATK_OBJECT (gobject);
+    g_object_ref (aobject);
+  }
+  else
+  {
+    g_error("received property-change event from non-AtkImplementor");
+  }
+
+  snprintf(sbuf, APP_STATIC_BUFF_SZ, "%s:%s", name, g_type_name (signal_query.itype));
+  source =  CORBA_Object_duplicate (BONOBO_OBJREF (accessible_new (aobject)), &ev);
+  e->type = CORBA_string_dup (sbuf);
+  e->source = source;
+  e->detail1 = 0;
+  e->detail2 = 0;
+  Accessibility_Registry_notifyEvent (registry, e, &ev);
+  g_object_unref (aobject);
+  return TRUE;
 }
 
 static Accessibility_Registry bridge_get_registry ()

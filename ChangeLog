@@ -1,3 +1,62 @@
+<2001-10-09  Bill Haneman <bill.haneman@sun.com>
+
+	* at-bridge/bridge.c:
+	Re-worked listeners for toolkit events, now we have signal
+	and property listeners. Added a private method
+	register_atk_event_listeners(), which registers with the
+	various atk and gtk signals we need to monitor in order to emit
+	our at-spi events.
+	Added emission hook for AtkObject:property-change events, to
+	support the 'property listeners'.
+	Fixed some alloc()s of Accessibility_Event structs to use CORBA
+	allocation.
+
+	* cspi/spi-util.c: added methods spi_warn_ev and spi_check_ev,
+	which emit warnings and exit, respectively, if CORBA errors occur
+	during remote calls, and we now use these methods to check most of
+	our CORBA calls in the C bindings.
+
+	* cspi/spi_accessible.c:
+	Changed AccessibleSelection_refSelectedChild() to
+	AccessibleSelection_getSelectedChild(), since all our cspi 'gets'
+	now increment refcounts.
+
+	* cspi/spi_component.c:
+	Fixed some long pointer casts (dangerous!) to pass pointers to
+	CORBA_longs of the proper type to the CORBA stubs, and copy the
+	data into the longs that were passed into the C bindings code.
+	
+	* at-bridge/bridge.c:
+	
+	* libspi/accessible.c:
+	Removed ATK_IS_HYPERLINK() query, since AtkObjects are never
+	hyperlinks, AtkHyperlink is an object type.	
+
+	* libspi/application.c:
+	Added various conversions to and from "generic" event types and
+	atk-specific types; this is really part of the 'bridge'
+	implementation but is valid for all AtkObject-based accessibility 
+	implementations.
+
+	* libspi/editabletext.c:
+	Fixed nasty bug wherein editable text's finalize method was
+	unref'ing tha AtkObject reference that the text parent class was
+	about to unref _again_.  There was also a nasty inheritance bug
+	that meant that the AccessibleEditableText class was corrupt.
+
+	* libspi/selection.c:
+	Provided implementations for some selection API that was broken.
+	
+	* idl/Application.idl:
+	Added registerObjectEventListener () method.
+
+	* THROUGHOUT:
+	Fixed a number of return values that were Bonobo_Unknowns from
+	bonobo_object_corba_objref(), which I
+	forgot to dup before returning.  Changed instances of 
+	bonobo_object_corba_objref (bonobo_object(o)) to
+	BONOBO_OBJREF(o), for concision and clarity.
+	
 <2001-10-13  Louise Miller <louise.miller@sun.com>
 
 	* idl/Accessible.idl, idl/Application.idl, idl/Desktop.idl,
@@ -6,10 +65,12 @@
 	of Bonobo.idl
 
 <2001-09-10  Marc Mulcahy <marc.mulcahy@sun.com
-	libspi/component.c libspi/component.h:
-		Fixed typo.  Added assertions for object checks in AccessibleComponent code.
 
-	<2001-10-09  Bill Haneman <bill.haneman@sun.com>
+	* libspi/component.c libspi/component.h:
+		Fixed typo.  Added assertions for object checks in 
+	AccessibleComponent code.
+
+<2001-10-09  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessible.idl:
 		Added 'isEqual (Accessible *object)' 
