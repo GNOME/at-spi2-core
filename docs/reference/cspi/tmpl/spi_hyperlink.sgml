@@ -45,7 +45,6 @@ AccessibleHyperlink Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
 @startIndex: 
 @endIndex: 
 
@@ -56,9 +55,8 @@ AccessibleHyperlink Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleHyperlink_getURI ##### -->
@@ -67,9 +65,8 @@ AccessibleHyperlink Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleHyperlink_isValid ##### -->

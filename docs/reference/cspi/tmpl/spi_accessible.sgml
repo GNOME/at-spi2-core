@@ -76,9 +76,8 @@ Accessible Objects
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @childIndex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION Accessible_getIndexInParent ##### -->

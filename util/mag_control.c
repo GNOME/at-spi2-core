@@ -20,12 +20,28 @@ int main(int argc, char ** argv){
 	  get_magnifier ();
   }
 
-  else {
-	  printf ("setting mag factor to %f\n", (float) atof (argv[1]));
-	  magnifier_set_magnification (0, (float) atof (argv[1]),
-				       (float) atof (argv[1]));
-  }
-  sleep (4);
+  else
+    {
+      switch (*argv[1])
+        {
+	case 'z':	
+	  printf ("setting mag factor to %f\n", (float) atof (argv[1]+1));
+	  magnifier_set_magnification (0, (float) atof (argv[1]+1),
+				       (float) atof (argv[1]+1));
+	  break;
+	case 's':
+	  printf ("resizing region 0 to 100x100 at (600, 0)\n");
+	  magnifier_resize_region (0, 600, 0, 700, 100);
+	  break;
+	case 'd':
+	  printf ("destroying/clearing all regions.\n");
+	  magnifier_clear_all_regions ();
+	  break;
+	case 'c':
+	  printf ("creating 3x region at 100,100; 300x200\n");
+	  magnifier_create_region (3.0, 3.0, 100, 100, 400, 300);
+        }
+    }
   return 0;
 }
 
@@ -78,6 +94,49 @@ magnifier_set_roi(int zoom_region, int x, int y, int w, int h)
 				      (const CORBA_long) x+w,
 				      (const CORBA_long) y+h,
 				      &ev);
+}
+
+void
+magnifier_resize_region (int zoom_region, int x1, int y1, int x2, int y2)
+{
+  Accessibility_Magnifier magnifier = get_magnifier();
+
+  if (magnifier)
+       Accessibility_Magnifier_resizeZoomRegion (magnifier,
+						 (const CORBA_short) zoom_region,
+						 (const CORBA_long) x1,
+						 (const CORBA_long) y1,
+						 (const CORBA_long) x2,
+						 (const CORBA_long) y2,
+						 &ev);
+}
+
+void
+magnifier_clear_all_regions ()
+{
+  Accessibility_Magnifier magnifier = get_magnifier();
+
+  if (magnifier)
+       Accessibility_Magnifier_clearAllZoomRegions (magnifier,
+						    &ev);
+}
+
+int
+magnifier_create_region (float zx, float zy, int x1, int y1, int x2, int y2)
+{
+  Accessibility_Magnifier magnifier = get_magnifier();
+  int retval = -1;
+  
+  if (magnifier)
+       retval = Accessibility_Magnifier_createZoomRegion (magnifier,
+							  (const CORBA_float) zx,
+							  (const CORBA_float) zy,
+							  (const CORBA_long) x1,
+							  (const CORBA_long) y1,
+							  (const CORBA_long) x2,
+							  (const CORBA_long) y2,
+							  &ev);
+  return retval;
 }
 
 void

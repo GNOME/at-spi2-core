@@ -49,9 +49,8 @@ AccessibleAction Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleAction_getKeyBinding ##### -->
@@ -60,9 +59,8 @@ AccessibleAction Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleAction_getName ##### -->
@@ -71,9 +69,8 @@ AccessibleAction Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @i: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleAction_getDescription ##### -->
@@ -82,8 +79,7 @@ AccessibleAction Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @i: 
+@Returns: 
 
 

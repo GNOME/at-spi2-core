@@ -1,8 +1,36 @@
+2002-02-12 Bill Haneman <bill.haneman@sun.com>
+
+	Magnification Utility Enhancements:
+	
+	* util/magnifier.c:
+	Added implementation of createZoomRegion, clearAllZoomRegions,
+	resizeZoomRegion.  Added new commandline argument
+	"--no-initial-region".  Note that clearAllZoomRegions doesn't
+	unmap the old '0' region as it should (yet), and the other
+	methods only work when creating/resizing a single region,
+	which is "region 0".  
+	(Code for multiple region support will be added later.)
+
+	* util/mag_image.c:
+	Now we raise the magnifier window each time it's refreshed;
+	this will help keep it on top.
+	
+	* util/mag_client.h:
+	Added simple wrappers for above, used by mag_control.
+	For general use, it's recommended to use the bonobo magnifier
+	control API directly instead of using these wrappers.
+
+	* util/mag_image.h:
+	Moved ZoomRegionData from magnifier.c to this file.
+	
+	* util/mag_control.c: 
+	Added some code to exercise new IDL implementations.
+	
 2002-02-06 Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* libspi/text.c: Provide implementation for getAttributes.
 
-	2002-02-04  Bill Haneman <bill.haneman@sun.com>
+2002-02-04  Bill Haneman <bill.haneman@sun.com>
 	
 	* configure.in:
 	Incremented revision.

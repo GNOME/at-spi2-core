@@ -121,7 +121,8 @@ int display_image(gpointer data)
 			0,0,0,0,DisplayWidth (mag_data->target_display,screen_num),
 			DisplayHeight(mag_data->target_display,screen_num),
 			GDK_RGB_DITHER_NORMAL,0,0);
-  /* TODO: raise this window to top on refresh */
+
+  gdk_window_raise (drawing_area->window);
   return TRUE;
 }
 

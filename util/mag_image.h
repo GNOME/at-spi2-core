@@ -29,6 +29,16 @@ struct xlib_colormap_struct {
 	Colormap colormap;
 };
 
+typedef struct {
+	GdkRectangle extents;
+	GdkRectangle roi;
+	float zoom_x;
+	float zoom_y;
+	int contrast;
+	gboolean is_managed;
+	gboolean is_dirty;
+} ZoomRegionData;
+
 point	    center_position;
 point	    curpos; /* Position of the magnified cursor */
 GdkPixbuf*  image;
@@ -54,6 +64,7 @@ typedef struct _MagnifierData {
 	GtkWidget *output_window;
 	void *source_display;
 	void *target_display;
+	GList *zoom_regions;
 } MagnifierData;
 
 #define	FACTOR		1

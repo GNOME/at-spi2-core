@@ -40,10 +40,9 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getCaption ##### -->
@@ -61,9 +60,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @index: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getColumnDescription ##### -->
@@ -72,9 +70,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getColumnExtentAt ##### -->
@@ -83,10 +80,9 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getColumnHeader ##### -->
@@ -95,9 +91,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getIndexAt ##### -->
@@ -106,10 +101,9 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getNColumns ##### -->
@@ -154,9 +148,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @index: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getRowDescription ##### -->
@@ -165,9 +158,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getRowExtentAt ##### -->
@@ -176,10 +168,9 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getRowHeader ##### -->
@@ -188,9 +179,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getSelectedRows ##### -->
@@ -199,9 +189,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @selectedRows: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getSelectedColumns ##### -->
@@ -210,9 +199,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @selectedColumns: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_getSummary ##### -->
@@ -230,9 +218,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_isRowSelected ##### -->
@@ -241,9 +228,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleTable_isSelected ##### -->
@@ -252,9 +238,8 @@ AccessibleTable Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
 @column: 
+@Returns: 
 
 

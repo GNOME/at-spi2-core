@@ -15,16 +15,18 @@ pkill festival
 pkill sleep
 pkill magnifier
 pkill simple-at
+pkill keysynth-demo
 unsetenv GTK_MODULES
 setenv MAGNIFIER 1
 setenv FESTIVAL 1
+setenv GTK_RC_FILES /opt/gnome-2.0/share/themes/Default/gtk-2.0/gtkrc
 # start the text-to-speech service
 festival_server &
 
 # start the simple AT client, which uses the
 #  MAGNIFIER and FESTIVAL environment variables
 simple-at &
-
+sleep 2; keysynth-demo &
 # now set GTK_MODULES for use by GTK+ applications
 # this will cause the gail accessibility support, 
 # the ferret test tool, and the atk-bridge to be

@@ -14,16 +14,6 @@
 struct sockaddr_un mag_server = { AF_UNIX ,  "/tmp/magnifier_socket" };
 
 typedef struct {
-	GdkRectangle extents;
-	GdkRectangle roi;
-	float zoom_x;
-	float zoom_y;
-	int contrast;
-	gboolean is_managed;
-	gboolean is_dirty;
-} ZoomRegionData;
-
-typedef struct {
 	gchar *target_display;
 	gchar *source_display;
 	int   vertical_split;
@@ -36,7 +26,7 @@ typedef struct {
 	int   min_refresh_time;
 	int   no_bonobo;
 	int   fast_cmap_convert;
-	GList *zoom_regions;
+	int   no_initial_region;
 } MagnifierOptions;
 
 static MagnifierOptions global_options = { ":0.0",
@@ -49,6 +39,7 @@ static MagnifierOptions global_options = { ":0.0",
 					   0,
 					   2.0,
 					   200,
+					   0,
 					   0,
 					   0
                                          };
@@ -65,6 +56,7 @@ struct poptOption magnifier_options [] = {
 /*	{"invert image", 'i', POPT_ARG_NONE, &global_options.invert_image, 'i', "invert the image colormap", NULL}, */
   	{"fast-colormap-conversion", 'c', POPT_ARG_NONE, &global_options.fast_cmap_convert, 'c', "use faster colormap conversion algorithm (fails for 6 bit color)", NULL}, 
 	{"no-bonobo", '\0', POPT_ARG_NONE, &global_options.no_bonobo, '\0', "don't use bonobo for controls, use sockets", NULL},
+	{"no-initial-region", '\0', POPT_ARG_NONE, &global_options.no_initial_region, '\0', "don't create an initial zoom region", NULL},
 	{NULL, 0, 0, NULL, 0, 0}
 };
 
@@ -119,6 +111,24 @@ static gboolean get_commands(GIOChannel* client,
 
 }
 
+static void
+magnifier_pack_regions (Magnifier *magnifier)
+{
+  /* 
+   * this call prevents resizing, which is a bother, but required to 
+   * work around dtwm incompatibilities.  Perhaps a better workaround will
+   * be found, or we can make this a runtime option.
+   */ 
+  gtk_widget_set_size_request (magnifier->mag_data->output_window, 
+			       magnifier->mag_data->mag_width, 
+			       magnifier->mag_data->mag_height);
+
+  gdk_window_move(magnifier->mag_data->output_window->window,
+		  magnifier->mag_data->mag_x,
+		  magnifier->mag_data->mag_y);
+
+}
+
 int main (int argc, char** argv){
   GIOChannel *mag_channel;
   char *dpyname;
@@ -146,12 +156,20 @@ int main (int argc, char** argv){
 	  global_options.mouse_follow;
   magnifier->mag_data->color_inverted =
 	  global_options.invert_image;
-  magnifier->mag_data->factor_x =
-    (int) global_options.zoom_factor; 
-  magnifier->mag_data->factor_y =
-    (int) global_options.zoom_factor;
-  
-  /* TODO: enable fractional magnifications ? */
+  if (!global_options.no_initial_region) 
+    {
+      magnifier->mag_data->zoom_regions =
+	      g_list_prepend (magnifier->mag_data->zoom_regions,
+			      g_new0 (ZoomRegionData, 1));
+      magnifier->mag_data->factor_x = (int) global_options.zoom_factor; 
+      magnifier->mag_data->factor_y = (int) global_options.zoom_factor;
+    }
+  else {
+      g_print ("starting magnifier with no initial zoom region\n");
+      magnifier->mag_data->mag_width = 0; 
+      magnifier->mag_data->mag_height = 0;
+  }
+      /* TODO: enable fractional magnifications option? */
   if (global_options.target_display) {
     snprintf (env_string, (size_t) (ENV_STRING_MAX_SIZE-1), "DISPLAY=%s", global_options.target_display);
     putenv (env_string);
@@ -234,30 +252,41 @@ int main (int argc, char** argv){
 				DisplayWidth (magnifier->mag_data->target_display,screen_num),
 				DisplayHeight(magnifier->mag_data->target_display,screen_num));
   if (global_options.vertical_split)
-	  magnifier->mag_data->mag_width = DisplayWidth (magnifier->mag_data->target_display,screen_num)/2;
-  else
-	  magnifier->mag_data->mag_width = DisplayWidth (magnifier->mag_data->target_display, screen_num);
-  if (global_options.horizontal_split)
-	  magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display,screen_num)/2;
-  else magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display, screen_num);
-  gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
-  
-  /* 
-   * this call prevents resizing, which is a bother, but required to 
-   * work around dtwm incompatibilities.  Perhaps a better workaround will
-   * be found, or we can make this a runtime option.
-   */ 
-  gtk_widget_set_size_request (window, 
-			       magnifier->mag_data->mag_width, 
-			       magnifier->mag_data->mag_height);
-  gtk_widget_show_all (window);
-  
-  gdk_window_move(window->window,
-		  gdk_screen_width() - magnifier->mag_data->mag_width,
-		  gdk_screen_height() - magnifier->mag_data->mag_height);
+    {
+      magnifier->mag_data->mag_width =
+	      DisplayWidth (magnifier->mag_data->target_display,screen_num)/2;
+      magnifier->mag_data->mag_height =
+	      DisplayHeight (magnifier->mag_data->target_display, screen_num);
+    }
+  else if (global_options.horizontal_split)
+    {
+      magnifier->mag_data->mag_width =
+	    DisplayWidth (magnifier->mag_data->target_display, screen_num);
+      magnifier->mag_data->mag_height =
+	    DisplayHeight (magnifier->mag_data->target_display,screen_num)/2;
+    }
+  else if (global_options.fullscreen)
+    {
+      magnifier->mag_data->mag_width =
+	    DisplayWidth (magnifier->mag_data->target_display, screen_num);
+      magnifier->mag_data->mag_height =
+	    DisplayHeight (magnifier->mag_data->target_display,screen_num);
+    }
+  magnifier->mag_data->mag_x =
+	  DisplayWidth (magnifier->mag_data->target_display, screen_num)
+	  - magnifier->mag_data->mag_width;
+  magnifier->mag_data->mag_y =
+	  DisplayHeight (magnifier->mag_data->target_display, screen_num)
+	  - magnifier->mag_data->mag_height;
 
   magnifier->mag_data->output_window = window;
-  if (global_options.fullscreen) gdk_window_stick (window->window);
+  gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
+  gtk_widget_show_all (window);
+
+  magnifier_pack_regions (magnifier);
+  
+  /* if (global_options.fullscreen) */
+  gdk_window_stick (window->window);
   gdk_window_set_functions(window->window, 0);
   gdk_window_raise(window->window);
   
@@ -387,6 +416,10 @@ impl_magnifier_set_mag_factor (PortableServer_Servant servant,
 static void
 impl_magnifier_mark_dirty (PortableServer_Servant servant,
 			   const CORBA_short zoom_region,
+			   const CORBA_long x1,
+			   const CORBA_long y1,
+			   const CORBA_long x2,
+			   const CORBA_long y2,
 			   CORBA_Environment *ev)
 {
   Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
@@ -413,7 +446,23 @@ impl_magnifier_create_zoom_region (PortableServer_Servant servant,
 				   CORBA_Environment *ev)
 {
   Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
-  return -1;
+  if (magnifier->mag_data->zoom_regions == NULL)
+    {
+      magnifier->mag_data->zoom_regions =
+	      g_list_prepend (magnifier->mag_data->zoom_regions,
+			      g_new0 (ZoomRegionData, 1));
+      magnifier->mag_data->factor_x = (int) zx; 
+      magnifier->mag_data->factor_y = (int) zy;
+      magnifier->mag_data->mag_x = x1;
+      magnifier->mag_data->mag_y = y1;
+      magnifier->mag_data->mag_width = (x2 - x1);
+      magnifier->mag_data->mag_height = (y2 - y1);
+      magnifier_pack_regions (magnifier);
+    }
+  else
+    {
+      return -1;
+    }
 }
 
 static CORBA_boolean
@@ -440,25 +489,42 @@ impl_magnifier_get_zoom_region_params (PortableServer_Servant servant,
 }
 
 static void
-impl_magnifier_resize_zoom_region (PortableServer_Servant _servant,
+impl_magnifier_resize_zoom_region (PortableServer_Servant servant,
 				   const CORBA_short zoom_region,
 				   const CORBA_long x1, const CORBA_long y1,
 				   const CORBA_long x2, const CORBA_long y2,
 				   CORBA_Environment * ev)
 {
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  if (zoom_region == 0)
+    {
+      magnifier->mag_data->mag_x = x1;
+      magnifier->mag_data->mag_y = y1;
+      magnifier->mag_data->mag_width = (x2 - x1);
+      magnifier->mag_data->mag_height = (y2 - y1);
+      magnifier_pack_regions (magnifier);
+    }
 }
 
 static void
-impl_magnifier_destroy_zoom_region (PortableServer_Servant _servant,
+impl_magnifier_destroy_zoom_region (PortableServer_Servant servant,
 				    const CORBA_short zoom_region,
 				    CORBA_Environment * ev)
 {
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  if (zoom_region == 0)
+    {
+      g_list_free (magnifier->mag_data->zoom_regions);
+    }
 }
 
 static void
-impl_magnifier_clear_all_zoom_regions (PortableServer_Servant _servant,
+impl_magnifier_clear_all_zoom_regions (PortableServer_Servant servant,
 				       CORBA_Environment * ev)
 {
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  g_list_free (magnifier->mag_data->zoom_regions);
+  magnifier->mag_data->zoom_regions = NULL;
 }
 
 static void
@@ -500,6 +566,7 @@ magnifier_init (Magnifier *magnifier)
   magnifier->mag_data->fast_rgb_convert = FALSE;
   magnifier->mag_data->center.x = 0;
   magnifier->mag_data->center.y = 0;
+  magnifier->mag_data->zoom_regions = NULL;
 }
 
 GType

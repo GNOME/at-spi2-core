@@ -49,9 +49,8 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @selectedChildIndex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_selectChild ##### -->
@@ -60,9 +59,8 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @childIndex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_isChildSelected ##### -->
@@ -71,9 +69,8 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @childIndex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_deselectSelectedChild ##### -->
@@ -82,9 +79,8 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @selectedChildIndex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_clearSelection ##### -->

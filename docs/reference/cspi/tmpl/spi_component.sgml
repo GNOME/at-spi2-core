@@ -62,11 +62,10 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @x: 
 @y: 
 @ctype: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleComponent_getAccessibleAtPoint ##### -->
@@ -75,11 +74,10 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @x: 
 @y: 
 @ctype: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleComponent_getExtents ##### -->
@@ -88,7 +86,6 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
 @x: 
 @y: 
 @width: 
@@ -102,7 +99,6 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
 @x: 
 @y: 
 @ctype: 
@@ -114,7 +110,6 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
 @width: 
 @height: 
 
