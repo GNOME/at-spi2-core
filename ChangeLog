@@ -1,3 +1,8 @@
+2001-11-21  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkrelation.c: Added gtk-doc docs for 
+	atk_relation_type_from_string.
+
 Wed Nov 21 17:54:44 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* atk/atkobject.h (enum): Fix trailing comma on

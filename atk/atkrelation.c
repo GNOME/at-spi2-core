@@ -72,6 +72,16 @@ atk_relation_type_register (const gchar *name)
   return (++type);
 }
 
+
+/**
+ * atk_relation_type_from_string:
+ * @name: a string which is the (non-localized) name of an ATK relation type.
+ *
+ * Get the #AtkRelationType type corresponding to a relation name.
+ *
+ * Returns: the #AtkRelationType enumerated type corresponding to the specified name,
+ *          or #ATK_RELATION_NULL if no matching relation type is found.
+ **/
 AtkRelationType
 atk_relation_type_from_string (const gchar *name)
 {
