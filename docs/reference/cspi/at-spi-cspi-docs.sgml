@@ -1,21 +1,23 @@
-<!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
-<!entity at-spi-spi-main SYSTEM "sgml/spi_main.sgml">
-<!entity at-spi-spi-event SYSTEM "sgml/spi_event.sgml">
-<!entity at-spi-spi-registry SYSTEM "sgml/spi_registry.sgml">
-<!entity at-spi-spi-application SYSTEM "sgml/spi_application.sgml">
-<!entity at-spi-spi-accessible SYSTEM "sgml/spi_accessible.sgml">
-<!entity at-spi-spi-action SYSTEM "sgml/spi_action.sgml">
-<!entity at-spi-spi-component SYSTEM "sgml/spi_component.sgml">
-<!entity at-spi-spi-editabletext SYSTEM "sgml/spi_editabletext.sgml">
-<!entity at-spi-spi-hypertext SYSTEM "sgml/spi_hypertext.sgml">
-<!entity at-spi-spi-image SYSTEM "sgml/spi_image.sgml">
-<!entity at-spi-spi-selection SYSTEM "sgml/spi_selection.sgml">
-<!entity at-spi-spi-table SYSTEM "sgml/spi_table.sgml">
-<!entity at-spi-spi-text SYSTEM "sgml/spi_text.sgml">
-<!entity at-spi-spi-value SYSTEM "sgml/spi_value.sgml">
-<!entity at-spi-spi-hyperlink SYSTEM "sgml/spi_hyperlink.sgml">
-<!entity at-spi-spi-relation SYSTEM "sgml/spi_relation.sgml">
-<!entity at-spi-spi-stateset SYSTEM "sgml/spi_stateset.sgml">
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY at-spi-spi-main SYSTEM "xml/spi_main.xml">
+<!ENTITY at-spi-spi-event SYSTEM "xml/spi_event.xml">
+<!ENTITY at-spi-spi-registry SYSTEM "xml/spi_registry.xml">
+<!ENTITY at-spi-spi-application SYSTEM "xml/spi_application.xml">
+<!ENTITY at-spi-spi-accessible SYSTEM "xml/spi_accessible.xml">
+<!ENTITY at-spi-spi-action SYSTEM "xml/spi_action.xml">
+<!ENTITY at-spi-spi-component SYSTEM "xml/spi_component.xml">
+<!ENTITY at-spi-spi-editabletext SYSTEM "xml/spi_editabletext.xml">
+<!ENTITY at-spi-spi-hypertext SYSTEM "xml/spi_hypertext.xml">
+<!ENTITY at-spi-spi-image SYSTEM "xml/spi_image.xml">
+<!ENTITY at-spi-spi-selection SYSTEM "xml/spi_selection.xml">
+<!ENTITY at-spi-spi-table SYSTEM "xml/spi_table.xml">
+<!ENTITY at-spi-spi-text SYSTEM "xml/spi_text.xml">
+<!ENTITY at-spi-spi-value SYSTEM "xml/spi_value.xml">
+<!ENTITY at-spi-spi-hyperlink SYSTEM "xml/spi_hyperlink.xml">
+<!ENTITY at-spi-spi-relation SYSTEM "xml/spi_relation.xml">
+<!ENTITY at-spi-spi-stateset SYSTEM "xml/spi_stateset.xml">
 ]>
 
 <book>

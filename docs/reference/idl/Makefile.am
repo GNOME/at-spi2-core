@@ -14,6 +14,9 @@ DOC_MAIN_SGML_FILE=at-spi-idl-docs.sgml
 # The directory containing the source code (if it contains documentation).
 DOC_SOURCE_DIR=../../../idl
 
+# Extra options to supply to gtkdoc-mkdb
+MKDB_OPTIONS=--output-format=xml
+
 INSTALLDIR=$(prefix)/share/gtk-doc
 
 HTML_DIR = ${datadir}/gtk-doc/html

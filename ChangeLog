@@ -1,3 +1,14 @@
+2003-04-29  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* docs/reference/cspi/Makefile.am, docs/reference/idl/Makefile.am:
+	Add MKDB_OPTIONS=--outtput-format=xml
+
+	* docs/reference/cspi/at-spi-cspi-docs.sgml
+	docs/reference/idl/at-spi-idl-docs.sgml:
+	Convert to Docbook XML.
+
+	This fixes bug #111793.
+
 2003-04-25  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi-listener.h: Add documentation for AccessibleDeviceEventType,
