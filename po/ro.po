@@ -1,0 +1,310 @@
+# Romanian translation for atk
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Mişu Moldovan <dumol@go.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk 1.2.1\n"
+"POT-Creation-Date: 2003-01-18 19:57+0100\n"
+"PO-Revision-Date: 2003-01-19 15:59+0200\n"
+"Last-Translator: Mişu Moldovan <dumol@go.ro>\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "invalid"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "etichetă-accelerator"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "alertă"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "animaţie"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "săgeată"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "calendar"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "canava"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "căsuţă-bifare"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "item-meniu-activat"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "selector-culoare"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "antet-coloană"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "căsuţă-combo"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "editor-dată"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "iconiţă-desktop"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "cadru-desktop"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "cadran"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialog"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "vedere-directoare"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "arie-desenare"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "selector-fişiere"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "umplere"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "selector-fonturi"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "cadru"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "vedere-parţială"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "recipient-html"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "iconiţă"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "imagine"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "cadru-intern"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "etichetă"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "vedere-suprapusă"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "listă"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "item-listă"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "meniu"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "bară-meniu"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "item-meniu"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "vedere-opţiuni"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "tab-pagină"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "listă-taburi-pagină"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "text-parolă"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "meniu-popup"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "bară-progres"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "buton-apăsare"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "buton-radio"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "item-meniu-radio"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "vedere-primară"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "antet-rând"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "bară-defilare"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "vedere-defilare"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "separator"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "derulator"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "vedere-despărţită"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "iconiţă-animată"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "bară-stare"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tabel"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "celulă-tabel"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "antet-coloană-tabel"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "antet-rând-tabel"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "item-meniu-desprins"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminal"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "text"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "buton-comutator"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "bară-unelte"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "pont-unelte"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "arbore"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "tabel-arbore"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "necunoscut"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "vedere-hublou"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "fereastră"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "antet"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "notă-subsol"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "paragraf"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "riglă"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "aplicaţie"
