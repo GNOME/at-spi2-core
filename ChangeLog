@@ -1,3 +1,7 @@
+2001-06-18  Brian Cameron <brian.cameron@sun.com>
+	* atk/atktable
+	Added signals.
+
 2001-06-15  Brian Cameron & Lucy Brophy  <brian.cameron@sun.com>
 	* atk/atkselection.h atk/atkselection.c
 	Now add_selection, clear_selection, and remove_selection 
