@@ -162,19 +162,13 @@ spi_dec_poll_mouse_moved (gpointer data)
   unsigned int mask_return;
   gchar event_name[24];
   Display *display = spi_get_display ();
-  if (last_mouse_pos == NULL) {
-	  last_mouse_pos = g_new0 (GdkPoint, 1);
-	  last_mouse_pos->x = 0;
-	  last_mouse_pos->y = 0;
-	  e.type = g_strdup ("mouse:abs");
-  } else {
-	  e.type = g_strdup ("mouse:rel");
-  }
+
   if (display != NULL)
 	  XQueryPointer(display, DefaultRootWindow (display),
 		&root_return, &child_return,
 		&x, &y,
 		&win_x_return, &win_y_return, &mask_return);
+
   if ((mask_return & mouse_button_mask) != mouse_button_state) {
 	  int button_number = 0;
 	  if (!(mask_return & Button1Mask) &&
@@ -207,23 +201,32 @@ spi_dec_poll_mouse_moved (gpointer data)
 		  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 						      &e,
 						      &ev);
+		  g_free (e.type);
 	  }
 	  mouse_button_state = mask_return & mouse_button_mask;
+  }
+  if (last_mouse_pos == NULL) {
+	  last_mouse_pos = g_new0 (GdkPoint, 1);
+	  last_mouse_pos->x = 0;
+	  last_mouse_pos->y = 0;
+	  e.type = g_strdup ("mouse:abs");
+  } else {
+	  e.type = g_strdup ("mouse:rel");  
   }
   if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
 	  e.source = BONOBO_OBJREF (registry->desktop);
 	  e.detail1 = x - last_mouse_pos->x;
 	  e.detail2 = y - last_mouse_pos->y;
 	  CORBA_exception_init (&ev);
-	  if (last_mouse_pos == NULL)
-		  last_mouse_pos = g_new0 (GdkPoint, 1);
 	  last_mouse_pos->x = x;
 	  last_mouse_pos->y = y;
 	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 					      &e,
 					      &ev);
+	  g_free (e.type);
 	  return TRUE;
   }
+  g_free (e.type);
   return FALSE;
 }
 

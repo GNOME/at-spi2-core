@@ -99,18 +99,18 @@ main (int argc, char **argv)
   }
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:property-change");
-  SPI_registerGlobalEventListener (specific_listener,
-				   "object:property-change:accessible-name");
+/*  SPI_registerGlobalEventListener (specific_listener,
+    "object:property-change:accessible-name");*/
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:state-changed"); 
-  SPI_registerGlobalEventListener (specific_listener,
-				   "object:state-changed:focused"); 
+/*  SPI_registerGlobalEventListener (specific_listener,
+    "object:state-changed:focused"); */
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:selection-changed"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:children-changed"); 
-  SPI_registerGlobalEventListener (specific_listener,
-				   "object:children-changed:add"); 
+/*  SPI_registerGlobalEventListener (specific_listener,
+    "object:children-changed:add"); */
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (generic_listener,

@@ -1,3 +1,13 @@
+2002-09-13  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	spi_dec_mouse_moved: Fixed memory leaks and reordered 2 code blocks.
+
+	* test/event-listener-test.c:
+	main: commented out three redundant listeners, to reduce output
+	noise. (They still are potentially useful for testing).
+	
+
 2002-09-13  Michael Meeks  <michael@ximian.com>
 
 	* Update all the copyrights to include Ximian.
