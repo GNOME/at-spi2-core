@@ -769,10 +769,16 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     }
   else
     {
-      if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
-        detail1 = g_value_get_int (param_values + 1);
-      if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
-        detail2 = g_value_get_int (param_values + 2);
+      if (n_param_values >= 2)
+        {
+          if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
+            detail1 = g_value_get_int (param_values + 1);
+          if (n_param_values >= 3)
+            {
+              if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
+                detail2 = g_value_get_int (param_values + 2);
+            }
+        }
 
       if (signal_query.signal_id == atk_signal_text_changed)
         {

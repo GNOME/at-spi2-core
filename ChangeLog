@@ -1,3 +1,9 @@
+2003-04-01  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c (spi_bridge_signal_listener):  Add check for
+	number of signal parameter values before accessing them. This fixes
+	bug #109626.
+
 2003-04-01  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Fixed duplicate inclusion of -lspi.
