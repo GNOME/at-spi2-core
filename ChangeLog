@@ -1,4 +1,25 @@
 <2001-10-09  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessible.idl:
+		Added 'isEqual (Accessible *object)' 
+	method for Accessible. (Not Yet Implemented).
+	
+	* idl/Registry.idl:
+		Changed signature of registerKeystrokeListener() to
+	take a KeySet and KeyEventSeq so that specific keys and event
+	types could be requested for monitoring, and added a flag
+	is_synchronous so that either synchronous or asynchronous
+	notification could be requested.  (However this is not all
+	implemented yet). This also meant adding two new typedefs,
+	KeyEventSeq and KeySet.
+
+	* idl/Relation.idl: 
+		Added two new relations, RELATION_TOOLTIP_FOR and
+	RELATION_LEAFNODE_OF.
+
+	* idl/State.idl:
+		Added new state, STATE_HAS_TOOLTIP.
+	
 	* libspi/text.c, editabletext.c:
 		Added new assertions to all casts of bonobo-objects from
 	CORBA servants, to prevent Text API calls on non-text objects.

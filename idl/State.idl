@@ -51,6 +51,8 @@ module Accessibility {
   STATE_FOCUSABLE,
   /* Indicates this object currently has the keyboard focus */
   STATE_FOCUSED,
+  /* Indicates that the object has an associated tooltip */
+  STATE_HAS_TOOLTIP,
   /* Indicates the orientation of thsi object is horizontal */
   STATE_HORIZONTAL,
   /* Indicates this object is minimized and is represented only by an icon */

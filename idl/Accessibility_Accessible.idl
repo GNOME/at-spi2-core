@@ -60,6 +60,14 @@ module Accessibility {
     readonly attribute long    	childCount;
 
     /**
+     * isEqual:
+     * @object: an #Accessible object reference to compare to
+     * return values: a #boolean indicating whether the two object references
+     *         point to the same object. 
+     **/
+    boolean isEqual (in Accessible object);
+
+    /**
      * getChildAtIndex:
      * @index: an in parameter indicating which child is requested (zero-indexed).
      * return values: the 'nth' @Accessible child of this object.

@@ -179,6 +179,9 @@ module Accessibility {
     unsigned short modifiers;
   };
 
+  typedef sequence< long > KeySet;
+  typedef sequence< KeyEventType > KeyEventTypeSeq;
+
   interface KeystrokeListener {
         boolean keyEvent (in KeyStroke key);
   };
@@ -188,15 +191,24 @@ module Accessibility {
   	/**
          * registerKeystrokeListener:
          * @listener: a @KeystrokeListener which will intercept key events.
+         * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
          * @mask:     a @ControllerEventMask filtering the intercepted key events.
+	 * @type:     an @EventType mask that may created by ORing event types together.
+	 * @is_synchronous: a @boolean indicating whether the listener should 
+	 *            receive the events synchronously, potentially consuming them,
+	 *            or just be notified asynchronously of those events that have
+	 *            been generated.
 	 * Returns: void
          *
          * Register to intercept keyboard events, and either pass them on or
          * consume them. 
          *
 	 **/
-        void registerKeystrokeListener (in KeystrokeListener listener, 
-					in ControllerEventMask mask);
+        void registerKeystrokeListener (in KeystrokeListener listener,
+					in KeySet keys,
+					in ControllerEventMask mask,
+					in KeyEventTypeSeq type,
+					in boolean is_synchronous);
     
         /**
          * generateKeyEvent:

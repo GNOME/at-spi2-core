@@ -116,6 +116,8 @@ registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
 	  Accessibility_ControllerEventMask__alloc();
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+  Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
+  Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
   Accessibility_DeviceEventController_ref (device_event_controller, &ev);
   controller_event_mask->value = (CORBA_unsigned_long) keymask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
@@ -123,13 +125,16 @@ registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
   fprintf (stderr, "controller %p, mask value %lu\n", (void *) device_event_controller,
 	   (unsigned long) controller_event_mask->value );
   */
-  Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
-							(CORBA_long) 32, &ev);
+
+
   Accessibility_DeviceEventController_registerKeystrokeListener (
 	  device_event_controller,
 	  (Accessibility_KeystrokeListener)
 	      bonobo_object_corba_objref (bonobo_object (listener)),
+	  all_keys,
 	  controller_event_mask,
+	  key_events,
+	  (CORBA_boolean) TRUE,
 	  &ev);
 }
 
