@@ -1,15 +1,15 @@
 # atk ko.po
-# Copyright (C) 2002 Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 # Nam SungHyun <namsh@kldp.org>, 2002
+# Changwoo Ryu <cwryu@debian.org>, 2004
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-09 02:13+0900\n"
-"PO-Revision-Date: 2004-01-09 02:36+0900\n"
-"Last-Translator: Nam SungHyun <namsh@kldp.org>\n"
-"Language-Team: Korean <gnome-kr-translation@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2004-01-30 03:40+0900\n"
+"PO-Revision-Date: 2004-01-30 03:41+0900\n"
+"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
+"Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -205,7 +205,7 @@ msgstr "패널"
 
 #: atk/atkobject.c:122
 msgid "password text"
-msgstr "비밀번호 텍스트"
+msgstr "열쇠글 텍스트"
 
 #: atk/atkobject.c:123
 msgid "popup menu"
@@ -245,7 +245,7 @@ msgstr "스크롤 창"
 
 #: atk/atkobject.c:132
 msgid "separator"
-msgstr "분리기"
+msgstr "구분자"
 
 #: atk/atkobject.c:133
 msgid "slider"
@@ -261,7 +261,7 @@ msgstr "스핀 단추"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr "상태막대"
+msgstr "상태 표시줄"
 
 #: atk/atkobject.c:137
 msgid "table"
@@ -411,7 +411,9 @@ msgstr "접근성 테이블 캡션"
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다; 이 속성은 사용하지 않아야 합니다. 대신에 accessible-table-caption-object를 사용해야 합니다"
+msgstr ""
+"테이블 캡션이 바뀐 걸 알릴 때 쓰입니다; 이 속성은 사용하지 않아야 합니다. 대"
+"신에 accessible-table-caption-object를 사용해야 합니다"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
@@ -462,7 +464,7 @@ msgid "Is used to notify that the table caption has changed"
 msgstr "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
+msgid "Number of Accessible Hypertext Links"
 msgstr "접근성 하이퍼텍스트 바로가기 개수"
 
 #: atk/atkobject.c:402
