@@ -27,25 +27,13 @@ to editing features of editable text widgets.
 </para>
 
 @parent_interface: 
-@set_run_attributes: 
+@set_attributes: 
 @set_text_contents: 
 @insert_text: 
 @copy_text: 
 @cut_text: 
 @delete_text: 
 @paste_text: 
-
-<!-- ##### FUNCTION atk_editable_text_set_run_attributes ##### -->
-<para>
-
-</para>
-
-@text: 
-@attrib_set: 
-@start_offset: 
-@end_offset: 
-@Returns: 
-
 
 <!-- ##### FUNCTION atk_editable_text_set_text_contents ##### -->
 <para>

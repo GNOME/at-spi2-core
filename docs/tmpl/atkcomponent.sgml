@@ -31,9 +31,10 @@ representation of an object.
 @parent: 
 @add_focus_handler: 
 @contains: 
-@ref_accessible_at_point: 
+@get_accessible_at_point: 
 @get_extents: 
 @get_position: 
+@get_position_on_screen: 
 @get_size: 
 @grab_focus: 
 @remove_focus_handler: 
@@ -59,8 +60,9 @@ representation of an object.
 @component: 
 @x: 
 @y: 
-@coord_type: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@coord_type: 
 
 
 <!-- ##### FUNCTION atk_component_get_extents ##### -->
@@ -73,6 +75,7 @@ representation of an object.
 @y: 
 @width: 
 @height: 
+<!-- # Unused Parameters # -->
 @coord_type: 
 
 
@@ -84,6 +87,7 @@ representation of an object.
 @component: 
 @x: 
 @y: 
+<!-- # Unused Parameters # -->
 @coord_type: 
 
 
@@ -103,18 +107,7 @@ representation of an object.
 </para>
 
 @component: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_component_ref_accessible_at_point ##### -->
-<para>
-
-</para>
-
-@component: 
-@x: 
-@y: 
-@coord_type: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -137,6 +130,7 @@ representation of an object.
 @y: 
 @width: 
 @height: 
+<!-- # Unused Parameters # -->
 @coord_type: 
 @Returns: 
 
@@ -149,6 +143,7 @@ representation of an object.
 @component: 
 @x: 
 @y: 
+<!-- # Unused Parameters # -->
 @coord_type: 
 @Returns: 
 
@@ -161,6 +156,7 @@ representation of an object.
 @component: 
 @width: 
 @height: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 

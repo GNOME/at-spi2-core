@@ -45,6 +45,7 @@ can be selected should support the AtkSelection interface.
 
 @selection: 
 @i: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -54,6 +55,7 @@ can be selected should support the AtkSelection interface.
 </para>
 
 @selection: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -93,6 +95,7 @@ can be selected should support the AtkSelection interface.
 
 @selection: 
 @i: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -102,6 +105,7 @@ can be selected should support the AtkSelection interface.
 </para>
 
 @selection: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
