@@ -52,7 +52,6 @@ atk_document_get_document_type (AtkDocument *document)
 {
   AtkDocumentIface *iface;
 
-  g_return_val_if_fail (document != NULL, NULL);
   g_return_val_if_fail (ATK_IS_DOCUMENT (document), NULL);
 
   iface = ATK_DOCUMENT_GET_IFACE (document);
@@ -82,7 +81,6 @@ atk_document_get_document (AtkDocument *document)
 {
   AtkDocumentIface *iface;
 
-  g_return_val_if_fail (document != NULL, NULL);
   g_return_val_if_fail (ATK_IS_DOCUMENT (document), NULL);
 
   iface = ATK_DOCUMENT_GET_IFACE (document);

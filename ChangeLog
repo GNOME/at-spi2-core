@@ -1,3 +1,10 @@
+2001-07-27  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/*.c:
+	Remove all instances of g_return_if_fail (foo != NULL); that are
+	immediately before a g_return_if_fail (ATK_IS_FOO (foo));
+	since the second check catches the NULL.
+
 2001-07-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/Makefile.am

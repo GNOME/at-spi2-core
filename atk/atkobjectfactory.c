@@ -75,9 +75,7 @@ atk_object_factory_create_accessible (AtkObjectFactory *factory,
   AtkObjectFactoryClass *klass;
   AtkObject *accessible = NULL;
 
-  g_return_val_if_fail ((factory != NULL), NULL);
   g_return_val_if_fail (ATK_IS_OBJECT_FACTORY (factory), NULL);
-  g_return_val_if_fail (obj != NULL, NULL);
   g_return_val_if_fail (G_IS_OBJECT (obj), NULL);
 
   klass = ATK_OBJECT_FACTORY_GET_CLASS (factory);
@@ -104,7 +102,6 @@ atk_object_factory_invalidate (AtkObjectFactory *factory)
 {
   AtkObjectFactoryClass *klass;
 
-  g_return_if_fail (factory != NULL);
   g_return_if_fail (ATK_OBJECT_FACTORY (factory));
 
   klass = ATK_OBJECT_FACTORY_GET_CLASS (factory);

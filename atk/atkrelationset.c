@@ -91,7 +91,6 @@ atk_relation_set_contains (AtkRelationSet   *set,
   AtkRelation *item;
   gint  i;
 
-  g_return_val_if_fail (set != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
 
   array_item = set->relations;
@@ -121,9 +120,7 @@ atk_relation_set_remove (AtkRelationSet *set,
 {
   GPtrArray *array_item;
 
-  g_return_if_fail (set != NULL);
   g_return_if_fail (ATK_IS_RELATION_SET (set));
-  g_return_if_fail (relation != NULL);
 
   array_item = set->relations;
   if (array_item == NULL)
@@ -150,7 +147,6 @@ void
 atk_relation_set_add (AtkRelationSet *set,
                       AtkRelation    *relation)
 {
-  g_return_if_fail (set != NULL);
   g_return_if_fail (ATK_IS_RELATION_SET (set));
   g_return_if_fail (relation != NULL);
 
@@ -173,7 +169,6 @@ atk_relation_set_add (AtkRelationSet *set,
 gint
 atk_relation_set_get_n_relations (AtkRelationSet *set)
 {
-  g_return_val_if_fail (set != NULL, 0);
   g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
 
   if (set->relations == NULL)
@@ -198,7 +193,6 @@ atk_relation_set_get_relation (AtkRelationSet *set,
   GPtrArray *array_item;
   AtkRelation* item;
 
-  g_return_val_if_fail (set != NULL, NULL);
   g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
   g_return_val_if_fail (i >= 0, NULL);
 
@@ -229,7 +223,6 @@ atk_relation_set_get_relation_by_type (AtkRelationSet  *set,
   AtkRelation *item;
   gint i;
 
-  g_return_val_if_fail (set != NULL, NULL);
   g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
 
   array_item = set->relations;

@@ -55,7 +55,6 @@ atk_selection_add_selection (AtkSelection *obj,
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
@@ -80,7 +79,6 @@ atk_selection_clear_selection (AtkSelection *obj)
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
@@ -113,7 +111,6 @@ atk_selection_ref_selection (AtkSelection *obj,
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), NULL);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
@@ -142,7 +139,6 @@ atk_selection_get_selection_count (AtkSelection *obj)
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), 0);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
@@ -173,7 +169,6 @@ atk_selection_is_child_selected (AtkSelection *obj,
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
@@ -200,7 +195,6 @@ atk_selection_remove_selection (AtkSelection *obj,
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
@@ -225,7 +219,6 @@ atk_selection_select_all_selection (AtkSelection *obj)
 {
   AtkSelectionIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);

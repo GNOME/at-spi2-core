@@ -401,7 +401,6 @@ atk_object_get_name (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -426,7 +425,6 @@ atk_object_get_description (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -449,7 +447,6 @@ atk_object_get_parent (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -473,7 +470,6 @@ atk_object_get_n_accessible_children (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, 0);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), 0);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -501,7 +497,6 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -524,7 +519,6 @@ atk_object_ref_relation_set (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -562,7 +556,6 @@ AtkRole
 atk_object_get_role (AtkObject *accessible) {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, ATK_ROLE_UNKNOWN);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), ATK_ROLE_UNKNOWN);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -586,7 +579,6 @@ AtkStateSet*
 atk_object_ref_state_set (AtkObject *accessible) {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, NULL);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -610,7 +602,6 @@ atk_object_get_index_in_parent (AtkObject *accessible)
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, -1);
   g_return_val_if_fail (ATK_OBJECT (accessible), -1);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -633,7 +624,6 @@ atk_object_set_name (AtkObject    *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
   g_return_if_fail (name != NULL);
 
@@ -658,7 +648,6 @@ atk_object_set_description (AtkObject   *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
   g_return_if_fail (description != NULL);
 
@@ -683,7 +672,6 @@ atk_object_set_parent (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -704,7 +692,6 @@ atk_object_set_role (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -728,7 +715,6 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, 0);
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), 0);
   g_return_val_if_fail ((handler != NULL), 0);
 
@@ -752,7 +738,6 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
 {
   AtkObjectClass *klass;
 
-  g_return_if_fail (accessible != NULL);
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
@@ -776,7 +761,6 @@ atk_implementor_ref_accessible (AtkImplementor *object)
   AtkImplementorIface *iface;
   AtkObject           *accessible = NULL;
 
-  g_return_val_if_fail (object != NULL, NULL);
   g_return_val_if_fail (ATK_IS_IMPLEMENTOR (object), NULL);
 
   iface = ATK_IMPLEMENTOR_GET_IFACE (object);

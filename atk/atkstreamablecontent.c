@@ -52,7 +52,6 @@ atk_streamable_content_get_n_mime_types (AtkStreamableContent *streamable)
 {
   AtkStreamableContentIface *iface;
 
-  g_return_val_if_fail (streamable != NULL, 0);
   g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), 0);
 
   iface = ATK_STREAMABLE_CONTENT_GET_IFACE (streamable);
@@ -80,7 +79,6 @@ atk_streamable_content_get_mime_type (AtkStreamableContent *streamable,
 {
   AtkStreamableContentIface *iface;
 
-  g_return_val_if_fail (streamable != NULL, NULL);
   g_return_val_if_fail (i >= 0, NULL);
   g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), NULL);
 
@@ -108,7 +106,6 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
 {
   AtkStreamableContentIface *iface;
 
-  g_return_val_if_fail (streamable != NULL, NULL);
   g_return_val_if_fail (mime_type != NULL, NULL);
   g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), NULL);
 

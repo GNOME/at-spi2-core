@@ -86,7 +86,6 @@ atk_component_remove_focus_handler (AtkComponent    *component,
                                     guint           handler_id)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
   g_return_if_fail (ATK_IS_COMPONENT (component));
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -184,7 +183,6 @@ atk_component_get_extents    (AtkComponent    *component,
                               AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
   g_return_if_fail (ATK_IS_COMPONENT (component));
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -211,7 +209,6 @@ atk_component_get_position   (AtkComponent    *component,
                               AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
   g_return_if_fail (ATK_IS_COMPONENT (component));
 
   iface = ATK_COMPONENT_GET_IFACE (component);
@@ -234,7 +231,6 @@ atk_component_get_size       (AtkComponent    *component,
                               gint            *y)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
   g_return_if_fail (ATK_IS_COMPONENT (component));
 
   iface = ATK_COMPONENT_GET_IFACE (component);

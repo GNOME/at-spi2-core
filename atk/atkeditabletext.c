@@ -70,7 +70,6 @@ atk_editable_text_set_run_attributes (AtkEditableText *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (text), FALSE);
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
@@ -99,7 +98,6 @@ atk_editable_text_set_text_contents (AtkEditableText  *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
@@ -127,7 +125,6 @@ atk_editable_text_insert_text (AtkEditableText  *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
@@ -152,7 +149,6 @@ atk_editable_text_copy_text (AtkEditableText  *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
@@ -177,7 +173,6 @@ atk_editable_text_cut_text  (AtkEditableText  *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
@@ -201,7 +196,6 @@ atk_editable_text_delete_text (AtkEditableText  *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
@@ -223,7 +217,6 @@ atk_editable_text_paste_text (AtkEditableText  *text,
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);

@@ -74,7 +74,6 @@ atk_hypertext_get_link (AtkHypertext  *hypertext,
 {
   AtkHypertextIface *iface;
 
-  g_return_val_if_fail (hypertext != NULL, NULL);
   g_return_val_if_fail (ATK_IS_HYPERTEXT (hypertext), NULL);
 
   iface = ATK_HYPERTEXT_GET_IFACE (hypertext);
@@ -98,7 +97,6 @@ atk_hypertext_get_n_links (AtkHypertext  *hypertext)
 {
   AtkHypertextIface *iface;
 
-  g_return_val_if_fail (hypertext != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERTEXT (hypertext), 0);
 
   iface = ATK_HYPERTEXT_GET_IFACE (hypertext);
@@ -126,7 +124,6 @@ atk_hypertext_get_link_index (AtkHypertext  *hypertext,
 {
   AtkHypertextIface *iface;
 
-  g_return_val_if_fail (hypertext != NULL, -1);
   g_return_val_if_fail (ATK_IS_HYPERTEXT (hypertext), -1);
 
   iface = ATK_HYPERTEXT_GET_IFACE (hypertext);

@@ -113,7 +113,6 @@ atk_text_get_text (AtkText      *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -139,7 +138,6 @@ atk_text_get_character_at_offset (AtkText      *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, (gunichar) 0);
   g_return_val_if_fail (ATK_IS_TEXT (text), (gunichar) 0);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -178,7 +176,6 @@ atk_text_get_text_after_offset (AtkText          *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -216,7 +213,6 @@ atk_text_get_text_at_offset (AtkText          *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -255,7 +251,6 @@ atk_text_get_text_before_offset (AtkText          *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -279,7 +274,6 @@ atk_text_get_caret_offset (AtkText *text)
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, -1);
   g_return_val_if_fail (ATK_IS_TEXT (text), -1);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -314,7 +308,6 @@ atk_text_get_character_extents (AtkText *text,
 {
   AtkTextIface *iface;
 
-  g_return_if_fail (text != NULL);
   g_return_if_fail (ATK_IS_TEXT (text));
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -354,7 +347,6 @@ AtkAttributeSet* atk_text_ref_run_attributes              (AtkText          *tex
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -378,7 +370,6 @@ atk_text_get_character_count (AtkText *text)
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, -1);
   g_return_val_if_fail (ATK_IS_TEXT (text), -1);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -412,7 +403,6 @@ atk_text_get_offset_at_point (AtkText *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, -1);
   g_return_val_if_fail (ATK_IS_TEXT (text), -1);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -437,7 +427,6 @@ atk_text_get_n_selections (AtkText *text)
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, -1);
   g_return_val_if_fail (ATK_IS_TEXT (text), -1);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -469,7 +458,6 @@ atk_text_get_selection (AtkText *text, gint selection_num,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -499,7 +487,6 @@ atk_text_add_selection (AtkText *text, gint start_offset,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -528,7 +515,6 @@ atk_text_remove_selection (AtkText *text, gint selection_num)
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -560,7 +546,6 @@ atk_text_set_selection (AtkText *text, gint selection_num,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -589,7 +574,6 @@ atk_text_set_caret_offset (AtkText *text,
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (text != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
 
   iface = ATK_TEXT_GET_IFACE (text);

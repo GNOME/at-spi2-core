@@ -92,7 +92,6 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail (link != NULL, NULL);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), NULL);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
@@ -122,7 +121,6 @@ atk_hyperlink_get_object (AtkHyperlink *link,
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail (link != NULL, NULL);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), NULL);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
@@ -145,7 +143,6 @@ atk_hyperlink_get_end_index (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail (link != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
@@ -168,7 +165,6 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail (link != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
@@ -193,7 +189,6 @@ atk_hyperlink_is_valid (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail (link != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
@@ -216,7 +211,6 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail (link != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);

@@ -123,7 +123,6 @@ atk_relation_new (AtkObject       **targets,
 AtkRelationType
 atk_relation_get_relation_type (AtkRelation *relation)
 {
-  g_return_val_if_fail (relation != NULL, 0);
   g_return_val_if_fail (ATK_IS_RELATION (relation), 0);
   
   return relation->relationship;
@@ -140,7 +139,6 @@ atk_relation_get_relation_type (AtkRelation *relation)
 GPtrArray*
 atk_relation_get_target (AtkRelation *relation)
 {
-  g_return_val_if_fail (relation != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_RELATION (relation), FALSE);
 
   return relation->target;

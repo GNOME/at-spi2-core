@@ -144,7 +144,6 @@ atk_table_ref_at (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -178,7 +177,6 @@ atk_table_get_index_at (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -210,7 +208,6 @@ atk_table_get_row_at_index (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -242,7 +239,6 @@ atk_table_get_column_at_index (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -271,7 +267,6 @@ atk_table_get_caption (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -300,7 +295,6 @@ atk_table_get_n_columns (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -331,7 +325,6 @@ atk_table_get_column_description (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -365,7 +358,6 @@ atk_table_get_column_extent_at (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -395,7 +387,6 @@ atk_table_get_column_header (AtkTable *table, gint column)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -424,7 +415,6 @@ atk_table_get_n_rows (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -455,7 +445,6 @@ atk_table_get_row_description (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -489,7 +478,6 @@ atk_table_get_row_extent_at (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -519,7 +507,6 @@ atk_table_get_row_header (AtkTable *table, gint row)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -548,7 +535,6 @@ atk_table_get_summary (AtkTable *table)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, NULL);
   g_return_val_if_fail (ATK_IS_TABLE (table), NULL);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -579,7 +565,6 @@ atk_table_get_selected_rows (AtkTable *table, gint **selected)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -610,7 +595,6 @@ atk_table_get_selected_columns (AtkTable *table, gint **selected)
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, 0);
   g_return_val_if_fail (ATK_IS_TABLE (table), 0);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -642,7 +626,6 @@ atk_table_is_column_selected (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -674,7 +657,6 @@ atk_table_is_row_selected (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -708,7 +690,6 @@ atk_table_is_selected (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -739,7 +720,6 @@ atk_table_add_row_selection (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -769,7 +749,6 @@ atk_table_remove_row_selection (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -799,7 +778,6 @@ atk_table_add_column_selection (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -829,7 +807,6 @@ atk_table_remove_column_selection (AtkTable *table,
 {
   AtkTableIface *iface;
 
-  g_return_val_if_fail (table != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_TABLE (table), FALSE);
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -853,7 +830,6 @@ atk_table_set_caption (AtkTable       *table,
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (table != NULL);
   g_return_if_fail (ATK_IS_TABLE (table));
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -878,7 +854,6 @@ atk_table_set_column_description (AtkTable       *table,
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (table != NULL);
   g_return_if_fail (ATK_IS_TABLE (table));
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -902,7 +877,6 @@ atk_table_set_column_header (AtkTable  *table,
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (table != NULL);
   g_return_if_fail (ATK_IS_TABLE (table));
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -927,7 +901,6 @@ atk_table_set_row_description (AtkTable       *table,
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (table != NULL);
   g_return_if_fail (ATK_IS_TABLE (table));
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -951,7 +924,6 @@ atk_table_set_row_header (AtkTable  *table,
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (table != NULL);
   g_return_if_fail (ATK_IS_TABLE (table));
 
   iface = ATK_TABLE_GET_IFACE (table);
@@ -974,7 +946,6 @@ atk_table_set_summary (AtkTable       *table,
 {
   AtkTableIface *iface;
 
-  g_return_if_fail (table != NULL);
   g_return_if_fail (ATK_IS_TABLE (table));
 
   iface = ATK_TABLE_GET_IFACE (table);

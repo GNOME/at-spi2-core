@@ -52,7 +52,6 @@ atk_image_get_image_description (AtkImage *image)
 {
   AtkImageIface *iface;
 
-  g_return_val_if_fail (image != NULL, NULL);
   g_return_val_if_fail (ATK_IS_IMAGE (image), NULL);
 
   iface = ATK_IMAGE_GET_IFACE (image);
@@ -80,7 +79,6 @@ atk_image_get_image_size (AtkImage *image, int *height, int *width)
 {
   AtkImageIface *iface;
 
-  g_return_if_fail (image != NULL);
   g_return_if_fail (ATK_IS_IMAGE (image));
 
   iface = ATK_IMAGE_GET_IFACE (image);
@@ -105,7 +103,6 @@ atk_image_set_image_description (AtkImage        *image,
 {
   AtkImageIface *iface;
 
-  g_return_val_if_fail (image != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_IMAGE (image), FALSE);
 
   iface = ATK_IMAGE_GET_IFACE (image);
@@ -139,7 +136,6 @@ atk_image_get_position (AtkImage *image,
 {
   AtkImageIface *iface;
 
-  g_return_if_fail (image != NULL);
   g_return_if_fail (ATK_IS_IMAGE (image));
 
   iface = ATK_IMAGE_GET_IFACE (image);
