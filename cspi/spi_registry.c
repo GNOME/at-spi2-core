@@ -528,18 +528,31 @@ SPI_generateKeyboardEvent (long int keyval,
  * @x: a #long indicating the screen x coordinate of the mouse event.
  * @y: a #long indicating the screen y coordinate of the mouse event.
  * @name: a string indicating which mouse event to be synthesized
- *        (e.g. "button1", "button2", "mousemove").
+ *        (e.g. "b1p", "b1c", "b2r", "rel", "abs").
  *
  * Synthesize a mouse event at a specific screen coordinate.
  * Most AT clients should use the #AccessibleAction interface when
  * tempted to generate mouse events, rather than this method.
- * Not Yet Implemented.
+ * Event names: b1p = button 1 press; b2r = button 2 release;
+ *              b3c = button 3 click; b2d = button 2 double-click;
+ *              abs = absolute motion; rel = relative motion.
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
 SPI_generateMouseEvent (long x, long y, char *name)
 {
-  return FALSE;
+  Accessibility_DeviceEventController device_event_controller = 
+	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
+
+  cspi_return_val_if_ev ("getting event controller for mouse event gen", FALSE);
+
+  Accessibility_DeviceEventController_generateMouseEvent (device_event_controller,
+							  x, y, name, cspi_ev ());
+  cspi_return_val_if_ev ("generating mouse event", FALSE);
+
+  cspi_release_unref (device_event_controller);
+
+  return TRUE;
 }
 

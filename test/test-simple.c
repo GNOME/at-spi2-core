@@ -707,12 +707,16 @@ test_keylisteners (void)
 			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "r ");
 	}
-
 	g_assert (SPI_deregisterAccessibleKeystrokeListener (key_listener, 0));
 	SPI_freeAccessibleKeySet (test_keyset);
 
 	g_assert (!strcmp (stroke.keystring, "="));
 	fprintf (stderr, "\n");
+
+	g_assert (SPI_generateMouseEvent (100, 100, "rel"));
+        g_assert (SPI_generateMouseEvent (-50, -50, "rel"));		  
+        g_assert (SPI_generateMouseEvent (-50, -50, "rel"));		  
+        g_assert (SPI_generateMouseEvent (-1, -1, "b1c")); 
 
 	AccessibleKeystrokeListener_unref (key_listener);
 }

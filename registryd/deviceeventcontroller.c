@@ -852,11 +852,58 @@ impl_generate_mouse_event (PortableServer_Servant servant,
 			   const CORBA_char      *eventName,
 			   CORBA_Environment     *ev)
 {
+  int button;
+  gboolean error = FALSE;
+  Display *display = spi_get_display ();
 #ifdef SPI_DEBUG
   fprintf (stderr, "generating mouse %s event at %ld, %ld\n",
 	   eventName, (long int) x, (long int) y);
 #endif
-  g_warning ("not yet implemented");
+  g_message ("mouse event synthesis\n");
+  switch (eventName[0])
+    {
+      case 'b':
+        switch (eventName[1])
+	  {
+	  /* TODO: check number of buttons before parsing */
+	  case '1':
+		    button = 1;
+		    break;
+	  case '2':
+		  button = 2;
+		  break;
+	  case '3':
+	          button = 3;
+	          break;
+	  default:
+		  error = TRUE;
+	  }
+	if (!error)
+	  {
+	    if (x != -1 && y != -1)
+	      {
+	        XTestFakeMotionEvent (display, DefaultScreen (display),
+				      x, y, 0);
+	      }
+	    XTestFakeButtonEvent (display, button, !(eventName[2] == 'r'), 0);
+	    if (eventName[2] == 'c')
+	      XTestFakeButtonEvent (display, button, FALSE, 1);
+	    else if (eventName[2] == 'd')
+	      {
+	      XTestFakeButtonEvent (display, button, FALSE, 1);
+	      XTestFakeButtonEvent (display, button, TRUE, 2);
+	      XTestFakeButtonEvent (display, button, FALSE, 3);
+	      }
+	  }
+	break;
+      case 'r': /* relative motion */ 
+	XTestFakeRelativeMotionEvent (display, x, y, 0);
+        break;
+      case 'a': /* absolute motion */
+	XTestFakeMotionEvent (display, DefaultScreen (display),
+			      x, y, 0);
+        break;
+    }
 }
 
 /* Accessibility::DEController::notifyListenersSync */

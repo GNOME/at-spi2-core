@@ -1,5 +1,14 @@
 2002-02-12 Bill Haneman <bill.haneman@sun.com>
 
+	* registryd/deviceeventcontroller.c:
+	Added implementation for generateMouseEvent.
+
+	* cspi/spi_registry.c:
+	Connected new implementation for generateMouseEvent
+	to the C bindings.
+	
+2002-02-12 Bill Haneman <bill.haneman@sun.com>
+
 	* configure.in: 0.8
 	Incremented revision (but no change in public API
 	outside of 'utils', which are not installed public yet.)
