@@ -57,8 +57,8 @@ void   spi_keystroke_listener_add_callback (SpiKeystrokeListener *listener,
 #endif
 }
 
-void   keystroke_listener_remove_callback (SpiKeystrokeListener *listener,
-					   BooleanKeystrokeListenerCB callback)
+void   spi_keystroke_listener_remove_callback (SpiKeystrokeListener *listener,
+					       BooleanKeystrokeListenerCB callback)
 {
   listener->callbacks = g_list_remove (listener->callbacks, callback);
 }
@@ -88,6 +88,13 @@ impl_key_event (PortableServer_Servant     servant,
 	    (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID));
   }
 #endif
+  /* TODO: convert from the CORBA-based struct to a c-type-based one ? */
+    fprintf (stderr, "Key:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
+	   (long) key->keyID,
+	   (unsigned int) key->modifiers,
+	   (int) key->keycode,
+	   (long int) key->timestamp);
+
   while (callbacks)
   {
 	  BooleanKeystrokeListenerCB cb = (BooleanKeystrokeListenerCB) callbacks->data;

@@ -281,10 +281,46 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 	  Accessibility_ControllerEventMask__alloc();
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (registry, &ev);
-  Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
+  Accessibility_KeySet *key_set = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
   Accessibility_KeystrokeListener spi_listener_corba_ref;
+  gint i, mask;
   Accessibility_DeviceEventController_ref (device_event_controller, &ev);
+
+  /* copy the keyval filter values from the C api into the CORBA KeySet */
+  if (keys)
+    {
+      key_set->_buffer = Accessibility_KeySet_allocbuf (
+ 	                                            (unsigned long) keys->len);
+      key_set->_length = (unsigned long) keys->len;
+      for (i=0; i < key_set->_length; ++i)
+        {
+          /* we overload the keyset long w/keycodes, the - bit acts as a flag */
+          key_set->_buffer[i] = (keys->keysyms[i]) ? keys->keysyms[i] :
+	                                         -keys->keycodes[i];
+        }
+    }
+  /* copy the event filter values from the C api into the CORBA KeyEventTypeSeq */
+  mask=1;
+  i=0;
+  do
+    {
+      if (mask & eventmask) ++i; 
+      mask <<= 1;
+    } while (mask & 0xFFFF);
+  
+  key_events->_buffer = Accessibility_KeyEventTypeSeq_allocbuf (i);
+  i=0;
+  if (eventmask & SPI_KEY_PRESSED)
+    {
+      key_events->_buffer[i++] = Accessibility_KEY_PRESSED;
+    }
+  if (eventmask & SPI_KEY_RELEASED)
+    {
+      key_events->_buffer[i++] = Accessibility_KEY_RELEASED;
+    }
+  key_events->_length = i;
+  
   controller_event_mask->value = (CORBA_unsigned_long) modmask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
@@ -294,7 +330,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 	  Accessibility_DeviceEventController_registerKeystrokeListener (
 	  device_event_controller,
 	  spi_listener_corba_ref,
-	  all_keys,
+	  key_set,
 	  controller_event_mask,
 	  key_events,
 	  (CORBA_boolean) ((sync_type | SPI_KEYLISTENER_ALL_WINDOWS)!=0),

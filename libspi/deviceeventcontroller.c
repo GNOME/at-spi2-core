@@ -129,13 +129,15 @@ dec_key_listener_new (CORBA_Object l,
   key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
   key_listener->keys = ORBit_copy_value (keys, TC_Accessibility_KeySet);
   key_listener->mask = ORBit_copy_value (mask, TC_Accessibility_ControllerEventMask);
+  key_listener->typeseq = ORBit_copy_value (typeseq, TC_Accessibility_KeyEventTypeSeq);
   key_listener->is_system_global = is_system_global;
 
+#ifdef SPI_DEBUG
   g_print ("new listener, with mask %x, is_global %d, keys %p\n",
 	   (unsigned int) key_listener->mask->value,
            (int) key_listener->is_system_global,
 	   (void *) key_listener->keys);
-  
+#endif
   return key_listener;	
 }
 
@@ -246,17 +248,65 @@ _controller_register_with_devices (SpiDeviceEventController *controller)
   return retval;
 }
 
+static gboolean
+key_set_contains_key (Accessibility_KeySet *key_set, Accessibility_KeyStroke *key_event)
+{
+  gint i;
+  gint len;
+
+  /* g_assert (key_set); */
+  if (!key_set) { g_print ("null key set!"); return TRUE; }
+
+  len = key_set->_length;
+  
+  if (len == 0) /* special case, means "all keys/any key" */
+    {
+      return TRUE;
+    }
+
+  for (i=0; i<len; ++i)
+    {
+      g_print ("key_set[%d] = %d\n", i, (int) key_set->_buffer[i]);
+      if (key_set->_buffer[i] == (CORBA_long) key_event->keyID) return TRUE;	    
+    }
+  
+  return TRUE;
+}
+
+static gboolean
+key_eventtype_seq_contains_event (Accessibility_KeyEventTypeSeq *type_seq,
+				  Accessibility_KeyStroke *key_event)
+{
+  gint i;
+  gint len;
+
+  /* g_assert (type_seq); */
+  if (!type_seq) { g_print ("null type seq!"); return TRUE; }
+
+  len = type_seq->_length;
+  
+  if (len == 0) /* special case, means "all events/any event" */
+    {
+      return TRUE;
+    }
+
+  for (i=0; i<len; ++i)
+    {
+      g_print ("type_seq[%d] = %d\n", i, (int) type_seq->_buffer[i]);
+      if (type_seq->_buffer[i] == (CORBA_long) key_event->type) return TRUE;	    
+    }
+  
+  return TRUE;
+}
 
 static gboolean
 key_event_matches_listener (Accessibility_KeyStroke *key_event,
 			    DEControllerKeyListener *listener,
 			    CORBA_boolean is_system_global)
 {
-  g_print ("mask=%x, listener mask= %x\n", (unsigned int) key_event->modifiers,
-	   (unsigned int) (listener->mask->value & 0xFFFF));	
-  if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask->value && 0xFFFF)) &&
-      ((listener->keys == NULL) || (1)) && /* in keyset seq */
-      (1) && /* in event type seq */
+  if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask->value & 0xFFFF)) &&
+       key_set_contains_key (listener->keys, key_event) &&
+       key_eventtype_seq_contains_event (listener->typeseq, key_event) && 
       (is_system_global == listener->is_system_global))
     {
       return TRUE;

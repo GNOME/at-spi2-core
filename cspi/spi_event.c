@@ -133,7 +133,7 @@ boolean
 AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
 					    AccessibleKeystrokeListenerCB callback)
 {
-  keystroke_listener_remove_callback (listener, callback);
+  spi_keystroke_listener_remove_callback (listener, callback);
   return TRUE;
 }
 

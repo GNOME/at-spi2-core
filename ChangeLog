@@ -1,5 +1,15 @@
 2001-21-11  Bill Haneman  <bill.haneman@sun.com>
 
+	* libspi/deviceeventcontroller.c:
+	* libspi/keystrokelistener.c:
+	* cspi/spi_event.c:
+	* cspi/spi_registry.c:
+	Added filters for KeySets, KeyEventSeq, and event types to key
+	event dispatching, so listeners should only receive those events
+	that they requested :-)
+
+2001-21-11  Bill Haneman  <bill.haneman@sun.com>
+
 	* configure.in:
 	* docs/Makefile.am:
 	* docs/reference:
