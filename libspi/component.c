@@ -20,34 +20,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* component.c : implements the Component interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/accessible.h>
+#include <libspi/component.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition for the BonoboObject (Gtk Type)
- */
-#include "component.h"
-#include "accessible.h"
-
-/*
- * Our parent Gtk object type
- */
+/* Our parent Gtk object type */
 #define PARENT_TYPE BONOBO_OBJECT_TYPE
 
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static GObjectClass *spi_component_parent_class;
 
 /*

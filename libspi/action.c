@@ -20,24 +20,11 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* component.c : bonobo wrapper for accessible component implementation */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
-
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the SpiAction bonobo object
- */
-#include "action.h"
+#include <libspi/action.h>
 
 /*
  * Static function declarations

@@ -20,24 +20,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * application.c: implements SpiApplication.idl
- *
- */
+/* application.c: implements SpiApplication.idl */
+
 #include <string.h>
 #include <config.h>
-#include <bonobo/Bonobo.h>
 #include <atk/atkutil.h>
-
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition for the BonoboObject (GObject Type)
- */
-#include "application.h"
+#include <libspi/application.h>
 
 /*
  * Our parent Gtk object type

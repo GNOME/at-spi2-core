@@ -14,27 +14,28 @@ CFLAGS += $(DEBUG_CFLAGS)
 
 libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
-libspiinclude_HEADERS = accessible.h       \
-			action.h\
-                        application.h      \
-			component.h\
-                        desktop.h          \
+libspiinclude_HEADERS = Accessibility.h \
+			accessible.h \
+			accessibleeventlistener.h \
+			action.h \
+                        application.h \
+			component.h \
+                        desktop.h \
+			deviceeventcontroller.h	\
 			editabletext.h\
 			hyperlink.h\
 			hypertext.h\
-			image.h\
-			relation.h\
-			selection.h\
-			table.h\
-			text.h\
-			value.h\
-                        listener.h   \
-			keystrokelistener.h	\
-			accessibleeventlistener.h	\
-			deviceeventcontroller.h	\
-                        registry.h         \
-			keymasks.h	\
-                        Accessibility.h
+			image.h \
+			keystrokelistener.h \
+			keymasks.h \
+			libspi.h \
+                        listener.h \
+                        registry.h \
+			relation.h \
+			selection.h \
+			table.h \
+			text.h \
+			value.h
 
 IDL_OUT = Accessibility.h Accessibility-stubs.c Accessibility-skels.c Accessibility-common.c
 

@@ -20,28 +20,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * relation.c : bonobo wrapper for accessible relation implementation
- *
- */
+/* relation.c : implements the Relation interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/relation.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the relation bonobo object
- */
-#include "relation.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_relation_class_init (SpiRelationClass *klass);

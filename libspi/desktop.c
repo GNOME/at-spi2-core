@@ -20,34 +20,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * desktop.c: implements SpiDesktop.idl
- *
- */
+/* desktop.c: implements SpiDesktop.idl */
 
-/* #include <config.h> */
-#include <libbonobo.h>
-
+#include <config.h>
 #include <stdio.h>
+#include <libbonobo.h>
+#include <libspi/desktop.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition for the BonoboObject (Gtk Type)
- */
-#include "desktop.h"
-
-/*
- * Our parent Gtk object type
- */
+/* Our parent Gtk object type */
 #define PARENT_TYPE SPI_ACCESSIBLE_TYPE
 
-/*
- * A pointer to our parent object class
- */
+/* A pointer to our parent object class */
 static SpiAccessibleClass *parent_class;
 
 static void

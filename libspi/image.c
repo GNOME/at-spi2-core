@@ -20,28 +20,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* image.c : implements the Image interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/image.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the image bonobo object
- */
-#include "image.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_image_class_init (SpiImageClass *klass);
@@ -171,13 +156,15 @@ impl_getImageSize (PortableServer_Servant _servant,
 
 
 static CORBA_string 
-impl__get_imageDescription (PortableServer_Servant _servant,
-			  CORBA_Environment * ev)
+impl__get_imageDescription (PortableServer_Servant servant,
+			    CORBA_Environment     *ev)
 {
-  SpiImage *image = SPI_IMAGE (bonobo_object_from_servant(_servant));
-  CORBA_char *rv;
+  SpiImage *image;
+  const char *rv;
 
-  rv = atk_image_get_image_description (ATK_IMAGE(image->atko));
+  image = SPI_IMAGE (bonobo_object_from_servant (servant));
+
+  rv = atk_image_get_image_description (ATK_IMAGE (image->atko));
   if (rv)
     return CORBA_string_dup (rv);
   else

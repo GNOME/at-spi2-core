@@ -20,28 +20,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* hypertext.c : implements the HyperText interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/hyperlink.h>
+#include <libspi/hypertext.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the hypertext bonobo object
- */
-#include "hypertext.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_hypertext_class_init (SpiHypertextClass *klass);
@@ -173,17 +159,22 @@ impl_getNLinks (PortableServer_Servant _servant,
 
 
 static Accessibility_Hyperlink
-impl_getLink (PortableServer_Servant _servant,
-	      const CORBA_long linkIndex,
-					  CORBA_Environment * ev)
+impl_getLink (PortableServer_Servant servant,
+	      const CORBA_long       linkIndex,
+	      CORBA_Environment     *ev)
 {
   AtkHyperlink *link;
-  SpiHypertext *hypertext = SPI_HYPERTEXT(bonobo_object_from_servant(_servant));
+  SpiHypertext *hypertext;
   Accessibility_Hyperlink rv;
   
-  link = atk_hypertext_get_link (ATK_HYPERTEXT(hypertext->atko),
-				 (gint) linkIndex);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_hyperlink_new(ATK_OBJECT(link))));
+  hypertext = SPI_HYPERTEXT (bonobo_object_from_servant (servant));
+
+  link = atk_hypertext_get_link (
+	  ATK_HYPERTEXT (hypertext->atko), linkIndex);
+
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT (
+	  spi_hyperlink_new (ATK_OBJECT (link))));
+
   return rv;
 }
 

@@ -20,28 +20,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* table.c : implements the Table interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/accessible.h>
+#include <libspi/table.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the SpiTable bonobo object
- */
-#include "table.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_table_class_init (SpiTableClass *klass);
@@ -333,14 +319,17 @@ impl_getColumnAtIndex (PortableServer_Servant _servant,
 
 
 static CORBA_string
-impl_getRowDescription (PortableServer_Servant _servant,
-			const CORBA_long row,
-			CORBA_Environment * ev)
+impl_getRowDescription (PortableServer_Servant servant,
+			const CORBA_long       row,
+			CORBA_Environment     *ev)
 {
-  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
-  CORBA_char *rv;
+  const char *rv;
+  SpiTable   *table;
+
+  table = SPI_TABLE (bonobo_object_from_servant (servant));
   
-  rv = atk_table_get_row_description (ATK_TABLE(table->atko), (gint) row);
+  rv = atk_table_get_row_description (ATK_TABLE (table->atko), row);
+
   if (rv)
     return CORBA_string_dup (rv);
   else
@@ -350,14 +339,17 @@ impl_getRowDescription (PortableServer_Servant _servant,
 
 
 static CORBA_string
-impl_getColumnDescription (PortableServer_Servant _servant,
-			   const CORBA_long column,
-			   CORBA_Environment * ev)
+impl_getColumnDescription (PortableServer_Servant servant,
+			   const CORBA_long       column,
+			   CORBA_Environment     *ev)
 {
-  SpiTable *table = SPI_TABLE (bonobo_object_from_servant (_servant));
-  CORBA_char *rv;
+  const char *rv;
+  SpiTable   *table;
 
-  rv = atk_table_get_column_description (ATK_TABLE(table->atko), (gint) column);
+  table = SPI_TABLE (bonobo_object_from_servant (servant));
+  
+  rv = atk_table_get_row_description (ATK_TABLE (table->atko), column);
+
   if (rv)
     return CORBA_string_dup (rv);
   else

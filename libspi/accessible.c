@@ -20,35 +20,11 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * accessible.c: test for accessibility implementation
- *
- */
+/* accessible.c: the core of the accessibility implementation */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
-
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition for the BonoboObject (Gtk Type)
- */
-#include "accessible.h"
-#include "component.h"
-#include "editabletext.h"
-#include "hyperlink.h"
-#include "hypertext.h"
-#include "image.h"
-#include "selection.h"
-#include "table.h"
-#include "text.h"
-#include "value.h"
-#include "action.h"
-#include "relation.h"
+#include <libspi/libspi.h>
 
 /*
  * Our parent Gtk object type

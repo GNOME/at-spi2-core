@@ -1,3 +1,15 @@
+2001-11-20  Michael Meeks  <michael@ximian.com>
+
+	* libspi/*.[ch]: fixup headers, includes and over commenting.
+
+	* libspi/image.c (impl__get_imageDescription): const
+	correctness warning fix. remove redundant casting.
+
+	* libspi/table.c (impl_getRowDescription): ditto.
+	(impl_getColumnDescription): ditto.
+
+	* libspi/libspi.h: add.
+
 2001-11-19  Michael Meeks  <michael@ximian.com>
 
 	* libspi/editabletext.c (impl_setAttributes): fix warnings.

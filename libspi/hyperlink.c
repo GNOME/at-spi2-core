@@ -20,29 +20,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* hyperlink.c : implements the Hyperlink interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/hyperlink.h>
+#include <libspi/accessible.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the hyperlink bonobo object
- */
-#include "hyperlink.h"
-#include "accessible.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_hyperlink_class_init (SpiHyperlinkClass *klass);
@@ -195,5 +180,3 @@ impl_isValid (PortableServer_Servant _servant,
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
   return (CORBA_boolean) atk_hyperlink_is_valid (ATK_HYPERLINK(link->hyperlink));
 }
-
-

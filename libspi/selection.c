@@ -20,29 +20,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* selection.c : implements the Selection interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/accessible.h>
+#include <libspi/selection.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-#include "accessible.h"
-
-/*
- * This pulls the definition of the selection bonobo object
- */
-#include "selection.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_selection_class_init (SpiSelectionClass *klass);

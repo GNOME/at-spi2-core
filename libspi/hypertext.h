@@ -48,11 +48,8 @@ struct _HypertextClass {
   POA_Accessibility_Hypertext__epv epv;
 };
 
-GType
-spi_hypertext_get_type   (void);
-
-SpiHypertext *
-spi_hypertext_interface_new       (AtkObject *obj);
+GType         spi_hypertext_get_type      (void);
+SpiHypertext *spi_hypertext_interface_new (AtkObject *obj);
 
 #ifdef __cplusplus
 }

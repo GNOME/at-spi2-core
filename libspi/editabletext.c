@@ -20,28 +20,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/*
- * component.c : bonobo wrapper for accessible component implementation
- *
- */
+/* editabletext.c : implements the EditableText interface */
+
 #include <config.h>
-#include <bonobo/Bonobo.h>
-
 #include <stdio.h>
+#include <libspi/editabletext.h>
 
-/*
- * This pulls the CORBA definitions for the "Accessibility::Accessible" server
- */
-#include <libspi/Accessibility.h>
-
-/*
- * This pulls the definition of the SpiEditableText bonobo object
- */
-#include "editabletext.h"
-
-/*
- * Static function declarations
- */
+/* Static function declarations */
 
 static void
 spi_editable_text_class_init (SpiEditableTextClass *klass);
