@@ -47,10 +47,10 @@ struct _AtkEditableTextIface
 {
   GTypeInterface parent_interface;
 
-  void   (* set_attributes)       (AtkEditableText  *text,
-                                   gint             start_pos,
-                                   gint             end_pos,
-                                   PangoAttrList    *attributes);
+  gboolean (* set_run_attributes) (AtkEditableText  *text,
+                                   AtkAttributeSet  *attrib_set,
+                                   gint		    start_offset,
+ 				   gint		    end_offset);
   void   (* set_text_contents)    (AtkEditableText  *text,
                                    const gchar      *string);
   void   (* insert_text)          (AtkEditableText  *text,
@@ -71,10 +71,11 @@ struct _AtkEditableTextIface
 };
 GType atk_editable_text_get_type (void);
 
-void atk_editable_text_set_attributes       (AtkEditableText  *text,
-                                             gint             start_pos,
-                                             gint             end_pos,
-                                             PangoAttrList    *attributes);
+
+gboolean atk_editable_text_set_run_attributes (AtkEditableText          *text,
+                                               AtkAttributeSet  *attrib_set,
+                                               gint    	        start_offset,
+ 					       gint	        end_offset);
 void atk_editable_text_set_text_contents    (AtkEditableText  *text,
                                              const gchar      *string);
 void atk_editable_text_insert_text          (AtkEditableText  *text,

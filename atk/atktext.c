@@ -280,16 +280,17 @@ atk_text_get_caret_offset (AtkText *text)
 }
 
 /**
- * atk_text_get_character_extents
+ * atk_text_get_character_extents:
  * @text: an #AtkText
  * @offset: position
  * @x: x-position of character
  * @y: y-position of character
  * @length: length of character
  * @width: width of character
+ * @coords: specify whether coordinates are relative to the screen or widget window 
  *
  * Given an @offset, the @x, @y, @length, and @width values are filled
- * appropriately.
+ * appropriately. 
  **/
 void
 atk_text_get_character_extents (AtkText *text,
@@ -297,7 +298,8 @@ atk_text_get_character_extents (AtkText *text,
                                 gint *x,
                                 gint *y,
                                 gint *length,
-                                gint *width)
+                                gint *width,
+			        AtkXYCoords coords)
 {
   AtkTextIface *iface;
 
@@ -307,7 +309,7 @@ atk_text_get_character_extents (AtkText *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_extents)
-    (*(iface->get_character_extents)) (text, offset, x, y, length, width);
+    (*(iface->get_character_extents)) (text, offset, x, y, length, width, coords);
   else
     {
       *x = 0;
@@ -375,12 +377,15 @@ atk_text_get_character_count (AtkText *text)
 }
 
 /**
- * atk_text_get_offset_at_point
+ * atk_text_get_offset_at_point:
  * @text: an #AtkText
  * @x: screen x-position of character
  * @y: screen y-position of character
+ * @coords: specify whether coordinates are relative to the screen or widget window 
  *
- * Gets the x,y screen coordinates of the specified character.
+ * Gets the offset of the character located at coordinates @x and @y. @x and @y are
+ * interpreted as being relative to the screen or this widget's window depending
+ * on @coords.
  *
  * Returns: the offset to the character which is located at
  * the specified @x and @y coordinates.
@@ -388,7 +393,8 @@ atk_text_get_character_count (AtkText *text)
 gint
 atk_text_get_offset_at_point (AtkText *text,
                               gint x,
-                              gint y)
+                              gint y,
+			      AtkXYCoords coords)
 {
   AtkTextIface *iface;
 
@@ -398,7 +404,7 @@ atk_text_get_offset_at_point (AtkText *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_offset_at_point)
-    return (*(iface->get_offset_at_point)) (text, x, y);
+    return (*(iface->get_offset_at_point)) (text, x, y, coords);
   else
     return -1;
 }
@@ -552,41 +558,6 @@ atk_text_set_selection (AtkText *text, gint selection_num,
   }
   else
     return FALSE;
-}
-
-/**
- *atk_text_set_run_attributes:
- *@text: an #AtkText
- *@attrib: an #AtkAttributeSet
- *@start_offset: start of range in which to set attributes
- *@end_offset: end of range in which to set attributes
- *
- *Sets the attributes for a specified range
- *
- *Returns: %TRUE if attributes successfully set for the specified
- *range, otherwise %FALSE
- **/
-gboolean
-atk_text_set_run_attributes (AtkText *text,
-                             AtkAttributeSet *attrib,
-			     gint start_offset,
-                             gint end_offset)
-{
-  AtkTextIface *iface;
-
-  g_return_val_if_fail (text != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_TEXT (text), FALSE);
-
-  iface = ATK_TEXT_GET_IFACE (text);
-
-  if (iface->set_run_attributes)
-    {
-      return (*(iface->set_run_attributes)) (text, attrib, start_offset, end_offset);
-    }
-  else
-    {
-      return FALSE;
-    }
 }
 
 /**

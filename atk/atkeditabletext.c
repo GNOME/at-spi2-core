@@ -48,34 +48,40 @@ atk_editable_text_get_type ()
 }
 
 /**
- * atk_editable_text_set_attributes:
- * @text: an #AtkEditableText
- * @start_pos: start position
- * @end_pos: end position
- * @attributes: a #PangoAttrList to set for text between @start_pos and @end_pos
+ *atk_editable_text_set_run_attributes:
+ *@text: an #AtkEditableText
+ *@attrib_set: an #AtkAttributeSet
+ *@start_offset: start of range in which to set attributes
+ *@end_offset: end of range in which to set attributes
  *
- * Set attributes for text between @start_pos and @end_pos.  The characters
- * whose attributes are set are those characters at positions from @start_pos
- * up to, but not including @end_pos. If @end_pos is negative, then the
- * characters selected will be those characters from start_pos to 
- * the end of the text.
+ *Sets the attributes for a specified range
+ *
+ *Returns: %TRUE if attributes successfully set for the specified
+ *range, otherwise %FALSE
  **/
-void 
-atk_editable_text_set_attributes (AtkEditableText  *text,
-                                  gint             start_pos,
-                                  gint             end_pos,
-                                  PangoAttrList    *attributes)
+gboolean
+atk_editable_text_set_run_attributes (AtkEditableText *text,
+                                      AtkAttributeSet *attrib_set,
+			              gint start_offset,
+                                      gint end_offset)
 {
   AtkEditableTextIface *iface;
 
-  g_return_if_fail (text != NULL);
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT (text));
+  g_return_val_if_fail (text != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (text), FALSE);
 
   iface = ATK_EDITABLE_TEXT_GET_IFACE (text);
 
-  if (iface->set_attributes)
-    (*(iface->set_attributes)) (text, start_pos, end_pos, attributes);
+  if (iface->set_run_attributes)
+    {
+      return (*(iface->set_run_attributes)) (text, attrib_set, start_offset, end_offset);
+    }
+  else
+    {
+      return FALSE;
+    }
 }
+
 
 /**
  * atk_editable_text_set_text_contents:

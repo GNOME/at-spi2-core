@@ -40,12 +40,19 @@ typedef struct _AtkText AtkText;
 #endif
 typedef struct _AtkTextIface AtkTextIface;
 
-typedef GList AtkAttributeSet;
 
-typedef struct _AtkAttribute {
-  gchar* name;
-  gchar* value;
-}AtkAttribute;
+/**
+ *AtkXYCoords:
+ *@ATK_XY_SCREEN: specifies xy coordinates relative to the screen
+ *@ATK_XY_WIDGET: specifies xy coordinates relative to the widgets window
+ *
+ *Specifies what type of coordinates are to be returned for functions that
+ *return position coordinates
+ **/
+typedef enum {
+  ATK_XY_SCREEN,
+  ATK_XY_WIDGET
+}AtkXYCoords;
 
 /**
  *AtkTextBoundary:
@@ -99,11 +106,13 @@ struct _AtkTextIface
                                                    gint             *x,
                                                    gint             *y,
                                                    gint             *length,
-                                                   gint             *width);
+                                                   gint             *width,
+                                                   AtkXYCoords	    coords);
   gint           (* get_character_count)          (AtkText          *text);
   gint           (* get_offset_at_point)          (AtkText          *text,
                                                    gint             x,
-                                                   gint             y);
+                                                   gint             y,
+                                                   AtkXYCoords	    coords);
   gint		 (* get_n_selections)		  (AtkText          *text);
   gchar*         (* get_selection)	          (AtkText          *text,
 						   gint		    selection_num,
@@ -120,10 +129,6 @@ struct _AtkTextIface
 						   gint		    end_offset);
   gboolean       (* set_caret_offset)             (AtkText          *text,
                                                    gint             offset);
-  gboolean       (* set_run_attributes)           (AtkText          *text,
-                                                   AtkAttributeSet  *attrib,
-                                                   gint		    start_offset,
- 					 	   gint		    end_offset);
   void		 (* text_changed)                 (AtkText          *text);
   void           (* caret_changed)                (AtkText          *text,
                                                    gint             location);
@@ -158,7 +163,8 @@ void          atk_text_get_character_extents              (AtkText          *tex
                                                            gint             *x,
                                                            gint             *y,
                                                            gint             *length,
-                                                           gint             *width);
+                                                           gint             *width,
+                                                           AtkXYCoords	    coords);
 AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,
 						           gint	  	    offset,
 						           gint             *start_offset,
@@ -166,7 +172,8 @@ AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,
 gint          atk_text_get_character_count                (AtkText          *text);
 gint          atk_text_get_offset_at_point                (AtkText          *text,
                                                            gint             x,
-                                                           gint             y);
+                                                           gint             y,
+                                                           AtkXYCoords	    coords);
 gint          atk_text_get_n_selections			  (AtkText          *text);
 gchar*        atk_text_get_selection			  (AtkText          *text,
 							   gint		    selection_num,
@@ -183,10 +190,6 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 							   gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
-gboolean      atk_text_set_run_attributes                 (AtkText          *text,
-                                                           AtkAttributeSet  *attrib,
-                                                           gint		    start_offset,
- 					 	           gint		    end_offset);
 
 #ifdef __cplusplus
 }

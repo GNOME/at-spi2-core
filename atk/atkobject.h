@@ -35,6 +35,16 @@ extern "C" {
  * of the following interfaces:
  */
 
+/* AtkAttributeSet & AtkAttribute are needed by atktext and atkeditable text */
+/* so I am putting them here until a better place for them to be defined is  */
+/* decided */
+typedef GSList AtkAttributeSet;
+
+typedef struct _AtkAttribute {
+  gchar* name;
+  gchar* value;
+}AtkAttribute;
+
 /**
  *AtkRole:
  *@ATK_ROLE_INVALID: Invalid role

@@ -1,3 +1,11 @@
+2001-06-12  Brian Cameron <brian.cameron@sun.com>
+
+	* atk/atkeditabletext.[ch], atk/atktext.[ch], atk/atkobject.h
+	Updated atkeditabletext and atktext interfaces so they
+	now properly define the get/set attribute methods and now
+	get_offset_at_point and get_character_extents can request
+	x,y coords by either widget or screen coords.
+
 Sat Jun  9 15:17:00 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* configure.in (DEP_CFLAGS): Only include gthread-2.0 in
