@@ -112,3 +112,8 @@ static void bridge_focus_tracker (AtkObject *object)
   e->detail2 = 0;
   Accessibility_Registry_notifyEvent (registry, e, &ev);
 }
+
+static Accessibility_Registry bridge_get_registry ()
+{
+  return registry;
+}

@@ -1,3 +1,20 @@
+2001-08-17  Bill Haneman <bill.haneman@sun.com>
+	* libspi/registry.c :
+	* libspi/application.c :
+	* idl/Application.idl :
+	Made registration with toolkit an application method,
+	which is required since each app has its own toolkit static
+	environment.  Thus the bridge must register for 
+	notification of toolkit events from each application in turn.
+	Toolkit notifications are now successfully registered for, and
+	sent to the listening at client.
+	* test/at.c :
+	Changed toolkit event string to use hyphens rather than underscores.
+	* libspi/listener.c :
+	listner now gives more info in debug mode - it reports the
+	name of the event received, as well as the name of the source.
+	
+
 2001-08-16  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/registry.c :

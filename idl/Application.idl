@@ -51,6 +51,12 @@ module Accessibility {
     attribute string id;
 
     /**
+     * Register with this application's toolkit for "toolkit" event notifications.
+     *
+     **/
+    void registerToolkitEventListener (in EventListener listener, in string eventName);
+
+    /**
      * pause:
      * Returns: %true if the request succeeded, %false otherwise.
      *

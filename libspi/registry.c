@@ -56,11 +56,12 @@ typedef enum {
   ETYPE_WINDOW,
   ETYPE_TOOLKIT,
   ETYPE_LAST_DEFINED
-} EventTypeMajor;
+} EventTypeCategory;
 
 typedef struct {
   char *event_name;
-  EventTypeMajor major;
+  EventTypeCategory type_cat;
+  char * major;
   char * minor;
   char * detail;
   guint hash;
@@ -69,7 +70,7 @@ typedef struct {
 typedef struct {
   Accessibility_EventListener listener;
   guint event_type_hash;
-  EventTypeMajor event_type_major;
+  EventTypeCategory event_type_cat;
 } ListenerStruct;
 
 /* static function prototypes */
@@ -130,32 +131,36 @@ compare_object_hash (gconstpointer p1, gconstpointer p2)
   return ((diff < 0) ? -1 : ((diff > 0) ? 1 : 0));
 }
 
-static gboolean
-toolkit_listener (GSignalInvocationHint *signal_hint,
-                  guint n_param_values,
-                  const GValue *param_values,
-                  gpointer data)
-{
-  gchar *name =
-    g_signal_name (signal_hint->signal_id);
-  fprintf (stderr, "Received signal %s\n", name);
-
-  /* TODO: notify the actual listeners! */
-
-  return TRUE;
-}
-
 static void
-register_with_toolkit (EventTypeStruct *etype)
+register_with_toolkits (Registry *registry_bonobo_object, EventTypeStruct *etype, CORBA_Environment *ev)
 {
-  guint listener_id;
-  listener_id =
-     atk_add_global_event_listener (toolkit_listener, etype->event_name);
-#ifdef SPI_DEBUG
-  fprintf (stderr, "registered %d for toolkit events named: %s\n",
-           listener_id,
-           etype->event_name);
-#endif
+  gint n_desktops;
+  gint n_apps;
+  gint i, j;
+  Accessibility_Desktop desktop;
+  Accessibility_Application app;
+  Accessibility_Registry registry;
+  registry  = bonobo_object_corba_objref (bonobo_object (registry_bonobo_object));
+
+  /* for each app in each desktop, call bridge_register_toolkit_event */
+
+  n_desktops = Accessibility_Registry_getDesktopCount (registry, ev);
+
+  for (i=0; i<n_desktops; ++i)
+    {
+      desktop = Accessibility_Registry_getDesktop (registry, i, ev);
+      n_apps = Accessibility_Desktop__get_childCount (desktop, ev);
+      for (j=0; j<n_apps; ++j)
+        {
+          app = (Accessibility_Application) Accessibility_Desktop_getChildAtIndex (desktop,
+                                                                                   j,
+                                                                                   ev);
+          Accessibility_Application_registerToolkitEventListener (app,
+                                                                  registry,
+                                                                  CORBA_string_dup (etype->event_name),
+                                                                  ev);
+        }
+    }
 }
 
 static gint
@@ -167,57 +172,54 @@ compare_listener_hash (gconstpointer p1, gconstpointer p2)
 static void
 parse_event_type (EventTypeStruct *etype, char *event_name)
 {
-  static gunichar delimiter = 0;
-  char * major_delim_char;
-  char * minor_delim_char;
   guint nbytes = 0;
+  gchar **split_string;
 
+  split_string = g_strsplit(event_name, ":", 4);
   etype->event_name = g_strndup(event_name, 255);
 
-  if (!delimiter)
-    {
-      delimiter = g_utf8_get_char (":");
-    }
-
-  major_delim_char = g_utf8_strchr (event_name, (gssize) 32, delimiter);
-  minor_delim_char = g_utf8_strrchr (event_name, (gssize) 255, delimiter);
-
-  nbytes = (guint)((gint64) minor_delim_char -
-                   (gint64) major_delim_char);
-
-  fprintf (stderr, "nbytes = %ld\n", (long) nbytes);
   if (!g_ascii_strncasecmp (event_name, "focus:", 6))
     {
-      etype->major = ETYPE_FOCUS;
+      etype->type_cat = ETYPE_FOCUS;
     }
   else if (!g_ascii_strncasecmp (event_name, "window:", 7))
     {
-      etype->major = ETYPE_WINDOW;
+      etype->type_cat = ETYPE_WINDOW;
     }
   else
     {
-      etype->major = ETYPE_TOOLKIT;
+      etype->type_cat = ETYPE_TOOLKIT;
     }
 
-  if (major_delim_char != minor_delim_char)
+  if (split_string[1])
     {
-      etype->minor = g_strndup (major_delim_char, nbytes);
-      etype->detail = g_strdup (minor_delim_char);
-      etype->hash = g_str_hash (major_delim_char);
-    }
-  else
-    {
-      if (* (major_delim_char+1))
+      etype->major = split_string[1];
+      if (split_string[2])
         {
-          etype->minor = g_strdup (major_delim_char+1);
-          etype->hash = g_str_hash (major_delim_char+1);
+          etype->minor = split_string[2];
+          if (split_string[3])
+            {
+              etype->detail = split_string[3];
+              etype->hash = g_str_hash ( g_strconcat (split_string[1], split_string[2], split_string[3], NULL));
+            }
+          else
+            {
+              etype->detail = g_strdup ("");
+              etype->hash = g_str_hash ( g_strconcat (split_string[1], split_string[2], NULL));
+            }
         }
       else
         {
           etype->minor = g_strdup ("");
-          etype->hash = g_str_hash ("");
+          etype->hash = g_str_hash ( split_string[1]);
         }
+    }
+  else
+    {
+      etype->major = g_strdup ("");
+      etype->minor = g_strdup ("");
       etype->detail = g_strdup ("");
+      etype->hash = g_str_hash ("");
     }
 
   /* TODO: don't forget to free the strings from caller when done ! */
@@ -256,25 +258,18 @@ impl_accessibility_registry_register_global_event_listener
                                              const CORBA_char *event_name,
                                              CORBA_Environment      *ev)
 {
-  /**
-   *  TODO:
-   *
-   *  register with app toolkits only for requested event types
-   *
-   **/
-
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  /* fprintf(stderr, "registering %x/%x\n", listener, *listener); */
   ListenerStruct *ls = g_malloc (sizeof (ListenerStruct));
-
   EventTypeStruct etype;
+
+  fprintf(stderr, "registering for events of type %s\n", event_name);
 
   /* parse, check major event type and add listener accordingly */
   parse_event_type (&etype, event_name);
   ls->event_type_hash = etype.hash;
-  ls->event_type_major = etype.major;
+  ls->event_type_cat = etype.type_cat;
 
-  switch (etype.major)
+  switch (etype.type_cat)
     {
     case (ETYPE_FOCUS) :
       ls->listener = CORBA_Object_duplicate (listener, ev);
@@ -288,7 +283,7 @@ impl_accessibility_registry_register_global_event_listener
       ls->listener = CORBA_Object_duplicate (listener, ev);
       registry->toolkit_listeners =
         g_list_append (registry->toolkit_listeners, ls);
-      register_with_toolkit (&etype);
+      register_with_toolkits (registry, &etype, ev);
       break;
     default:
       break;
@@ -344,7 +339,7 @@ impl_accessibility_registry_deregister_global_event_listener
   GList **listeners;
 
   parse_event_type (&etype, event_name);
-  switch (etype.major)
+  switch (etype.type_cat)
     {
     case (ETYPE_FOCUS) :
       listeners = &registry->focus_listeners;
@@ -451,7 +446,7 @@ impl_registry_notify_event (PortableServer_Servant servant,
 
   parse_event_type (&etype, e->type);
 
-  switch (etype.major)
+  switch (etype.type_cat)
     {
     case (ETYPE_FOCUS) :
       registry_notify_listeners (registry->focus_listeners, e, ev);
@@ -479,14 +474,15 @@ registry_notify_listeners ( GList *listeners,
   EventTypeStruct etype;
   guint minor_hash;
   parse_event_type (&etype, e->type);
-  minor_hash = g_str_hash (etype.minor);
+  minor_hash = g_str_hash (g_strconcat (etype.major, etype.minor, NULL));
   len = g_list_length (listeners);
 
   for (n=0; n<len; ++n)
     {
       ls =  (ListenerStruct *) g_list_nth_data (listeners, n);
 #ifdef SPI_DEBUG
-      fprintf(stderr, "event hashes: %lx %lx\n", ls->event_type_hash, etype.hash);
+      fprintf(stderr, "event hashes: %lx %lx %lx\n", ls->event_type_hash, etype.hash, minor_hash);
+      fprintf(stderr, "event name: %s\n", etype.event_name);
 #endif
       if ((ls->event_type_hash == etype.hash) || (ls->event_type_hash == minor_hash))
         {

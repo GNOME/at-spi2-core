@@ -96,7 +96,7 @@ main(int argc, char **argv)
                                    (registry,
                                     (Accessibility_EventListener)
                                          bonobo_object_corba_objref (bonobo_object (listener)),
-                                    "Gtk:GtkWidget:button_press_event",
+                                    "Gtk:GtkWidget:button-press-event",
                                     &ev);
         check_ev (&ev, "register:button_press");
         fprintf (stderr, "AT callback registered.\n");

@@ -48,6 +48,8 @@
  */
 static AccessibleClass *application_parent_class;
 
+Accessibility_EventListener the_toolkit_listener;
+
 /*
  * Implemented GObject::finalize
  */
@@ -102,6 +104,62 @@ impl_accessibility_application_set_id (PortableServer_Servant servant,
   application->id = id;
 }
 
+#define APP_STATIC_BUFF_SZ 64
+
+static gboolean
+application_toolkit_listener (GSignalInvocationHint *signal_hint,
+                              guint n_param_values,
+                              const GValue *param_values,
+                              gpointer data)
+{
+  Accessibility_Event *e = g_new0(Accessibility_Event, 1);
+  AtkObject *aobject;
+  GObject *gobject;
+  CORBA_Environment ev;
+  GSignalQuery signal_query;
+  gchar *name;
+  char sbuf[APP_STATIC_BUFF_SZ];
+
+  g_signal_query (signal_hint->signal_id, &signal_query);
+  name = signal_query.signal_name;
+  fprintf (stderr, "Received signal %s:%s\n", g_type_name (signal_query.itype), name);
+
+  /* TODO: move GTK dependency out of app.c into bridge */
+  snprintf(sbuf, APP_STATIC_BUFF_SZ, "Gtk:%s:%s", g_type_name (signal_query.itype), name);
+
+
+  gobject = g_value_get_object (param_values + 0);
+  /* notify the actual listeners */
+  if (ATK_IS_IMPLEMENTOR (gobject))
+    {
+      aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
+      e->type = CORBA_string_dup (sbuf);
+      e->target = bonobo_object_corba_objref (bonobo_object (accessible_new (aobject)));
+      e->detail1 = 0;
+      e->detail2 = 0;
+      Accessibility_EventListener_notifyEvent (the_toolkit_listener, e, &ev);
+      g_object_unref (aobject);
+    }
+  return TRUE;
+}
+
+static void
+impl_accessibility_application_register_toolkit_event_listener (PortableServer_Servant servant,
+                                                                Accessibility_EventListener listener,
+                                                                const CORBA_char *event_name,
+                                                                CORBA_Environment *ev)
+{
+  guint listener_id;
+  listener_id =
+     atk_add_global_event_listener (application_toolkit_listener, event_name);
+  the_toolkit_listener = CORBA_Object_duplicate (listener, ev);
+#ifdef SPI_DEBUG
+  fprintf (stderr, "registered %d for toolkit events named: %s\n",
+           listener_id,
+           event_name);
+#endif
+}
+
 static void
 application_class_init (ApplicationClass *klass)
 {
@@ -116,6 +174,7 @@ application_class_init (ApplicationClass *klass)
   epv->_get_version = impl_accessibility_application_get_version;
   epv->_get_id = impl_accessibility_application_get_id;
   epv->_set_id = impl_accessibility_application_set_id;
+  epv->registerToolkitEventListener = impl_accessibility_application_register_toolkit_event_listener;
 }
 
 static void

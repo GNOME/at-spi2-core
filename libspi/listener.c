@@ -72,7 +72,7 @@ impl_notify_event (PortableServer_Servant     servant,
                    CORBA_Environment         *ev)
 {
 #ifdef SPI_DEBUG
-  fprintf (stderr, "notify...\n");
+  fprintf (stderr, "notify %s...\n", e->type);
   fprintf (stderr, "source name: '%s'\n",
            Accessibility_Accessible__get_name(e->target, ev));
   if (ev->_major != CORBA_NO_EXCEPTION) {
