@@ -94,3 +94,17 @@ The AtkHyperlink structure should not be accessed directly.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_hyperlink_is_selected_link ##### -->
+<para>
+
+</para>
+
+@link_: 
+@Returns: 
+
+
+<!-- ##### ARG AtkHyperlink:selected-link ##### -->
+<para>
+
+</para>
+

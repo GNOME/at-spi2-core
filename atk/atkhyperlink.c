@@ -19,10 +19,22 @@
 
 #include "atkhyperlink.h"
 
+enum
+{
+  PROP_0,  /* gobject convention */
+
+  PROP_SELECTED_LINK,
+  PROP_LAST
+};
 
 static void atk_hyperlink_class_init (AtkHyperlinkClass *klass);
 static void atk_hyperlink_init       (AtkHyperlink      *link,
                                       AtkHyperlinkClass *klass);
+
+static void atk_hyperlink_real_get_property (GObject            *object,
+                                             guint              prop_id,
+                                             GValue             *value,
+                                             GParamSpec         *pspec);
 
 static void atk_hyperlink_action_iface_init (AtkActionIface *iface);
 
@@ -64,14 +76,45 @@ atk_hyperlink_get_type (void)
 static void
 atk_hyperlink_class_init (AtkHyperlinkClass *klass)
 {
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
   parent_class = g_type_class_peek_parent (klass);
 
+  gobject_class->get_property = atk_hyperlink_real_get_property;
+
+  g_object_class_install_property (gobject_class,
+                                   PROP_SELECTED_LINK,
+                                   g_param_spec_boolean ("selected-link",
+                                                         "Selected Link",
+                                                         "Specifies whether theAtkHyperlink object is selected",
+                                                         FALSE,
+                                                         G_PARAM_READABLE));
 }
 
 static void
 atk_hyperlink_init  (AtkHyperlink        *link,
                      AtkHyperlinkClass   *klass)
 {
+}
+
+static void
+atk_hyperlink_real_get_property (GObject    *object,
+                                 guint      prop_id,
+                                 GValue     *value,
+                                 GParamSpec *pspec)
+{
+  AtkHyperlink* link;
+
+  link = ATK_HYPERLINK (object);
+
+  switch (prop_id)
+    {
+    case PROP_SELECTED_LINK:
+      g_value_set_boolean (value, atk_hyperlink_is_selected_link (link));
+      break;
+    default:
+      break;
+    }
 }
 
 /**
@@ -246,6 +289,28 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
     return 0;
 }
 
+/**
+ * atk_hyperlink_is_selected_link:
+ * @link_: an #AtkHyperlink
+ *
+ * Determines whether this AtkHyperlink is selected
+ *
+ * Returns: True is the AtkHyperlink is selected, False otherwise
+ **/
+gboolean
+atk_hyperlink_is_selected_link (AtkHyperlink *link)
+{
+  AtkHyperlinkClass *klass;
+
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
+
+  klass = ATK_HYPERLINK_GET_CLASS (link);
+  if (klass->is_selected_link)
+    return (klass->is_selected_link) (link);
+  else
+    return FALSE;
+}
+
 static void atk_hyperlink_action_iface_init (AtkActionIface *iface)
 {
   /*
@@ -253,8 +318,5 @@ static void atk_hyperlink_action_iface_init (AtkActionIface *iface)
    *
    * When we come to derive a class from AtkHyperlink we will provide an
    * implementation of the AtkAction interface. 
-   *
-   * This depends on being able to override an interface in a derived class
-   * which currently (March 2001) is not implemented but will be in GTK+ 2.0.
    */
 }

@@ -19,6 +19,16 @@
 
 #include "atkhypertext.h"
 
+enum {
+  LINK_SELECTED,
+  LAST_SIGNAL
+};
+
+static void atk_hypertext_base_init (AtkHypertextIface *class);
+
+static guint atk_hypertext_signals[LAST_SIGNAL] = { 0 };
+
+
 GType
 atk_hypertext_get_type ()
 {
@@ -28,7 +38,7 @@ atk_hypertext_get_type ()
     static const GTypeInfo tinfo =
     {
       sizeof (AtkHypertextIface),
-      (GBaseInitFunc) NULL,
+      (GBaseInitFunc) atk_hypertext_base_init,
       (GBaseFinalizeFunc) NULL,
 
     };
@@ -37,6 +47,27 @@ atk_hypertext_get_type ()
   }
 
   return type;
+}
+
+static void
+atk_hypertext_base_init (AtkHypertextIface *class)
+{
+  static gboolean initialized = FALSE;
+
+  if (!initialized)
+    {
+      atk_hypertext_signals[LINK_SELECTED] =
+        g_signal_new ("link_selected",
+                      ATK_TYPE_HYPERTEXT,
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (AtkHypertextIface, link_selected),
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__INT,
+                      G_TYPE_NONE,
+                      1, G_TYPE_INT);
+
+      initialized = TRUE;
+    }
 }
 
 /**

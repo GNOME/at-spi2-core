@@ -1,3 +1,21 @@
+2003-01-30  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkhyperlink.[ch]
+	New property selected-link defined.
+	Function pointer is_selected_link added to interface
+	(atk_hyperlink_is_selected_link: New functions which checks
+	whether the specified AtkHyperlink is selected
+	
+	* atk/atkhypertext.[ch]
+	New signal link-selected added.
+
+	* docs/atk-sections.txt: Add atk_hyperlink_is_selected_link
+
+	* docs/tmpl/atkhyperlink.sgml: Add reference to property selected-link
+	and function atk_hyperlink_is_selected_link.
+
+	This fixes bug #104621.
+	
 Tue Jan 28 13:52:20 2003  Manish Singh  <yosh@gimp.org>
 
 	* autogen.sh (have_automake): call the versioned automake when
@@ -410,7 +428,7 @@ Fri Nov  8 19:55:25 2002  Soeren Sandmann  <sandmann@daimi.au.dk>
 	increment version to 1.1.0, in view of the fact that we've 
 	branched for GNOME-2 and GTK+-2.0, and this is HEAD.
 	Also reset INTERFACE_AGE to zero, since an enum was added.
-	Use similar librray numbering as GTK.
+	Use similar library numbering as GTK.
 
 	* docs/tmpl/atkobject.sgml: Add ATK_LAYER_WINDOW
 

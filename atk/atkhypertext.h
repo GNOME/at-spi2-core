@@ -52,10 +52,16 @@ struct _AtkHypertextIface
   gint         (* get_n_links)              (AtkHypertext       *hypertext);
   gint         (* get_link_index)           (AtkHypertext       *hypertext,
                                              gint               char_index);
+
+  /*
+   * signal handlers
+   */
+  void         (* link_selected)            (AtkHypertext       *hypertext,
+                                             gint               link_index);
+
   AtkFunction pad1;
   AtkFunction pad2;
   AtkFunction pad3;
-  AtkFunction pad4;
 };
 GType atk_hypertext_get_type (void);
 

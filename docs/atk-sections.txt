@@ -445,6 +445,7 @@ atk_hyperlink_get_start_index
 atk_hyperlink_is_valid
 atk_hyperlink_is_inline
 atk_hyperlink_get_n_anchors
+atk_hyperlink_is_selected_link
 <SUBSECTION Standard>
 ATK_HYPERLINK
 ATK_IS_HYPERLINK

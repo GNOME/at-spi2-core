@@ -104,9 +104,9 @@ struct _AtkHyperlinkClass
    */
   guint	           (* link_state)	   (AtkHyperlink     *link_);
   
+  gboolean         (* is_selected_link)    (AtkHyperlink     *link_);
   AtkFunction      pad1;
   AtkFunction      pad2;
-  AtkFunction      pad3;
 };
 
 GType            atk_hyperlink_get_type             (void);
@@ -126,6 +126,7 @@ gboolean         atk_hyperlink_is_valid             (AtkHyperlink     *link_);
 gboolean         atk_hyperlink_is_inline             (AtkHyperlink     *link_);
 
 gint		 atk_hyperlink_get_n_anchors        (AtkHyperlink     *link_);
+gboolean         atk_hyperlink_is_selected_link     (AtkHyperlink     *link_);
 
 
 #ifdef __cplusplus
