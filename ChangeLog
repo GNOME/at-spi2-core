@@ -1,3 +1,9 @@
+2004-03-22  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in:
+	* atk/Makefile.am: Update to build on Cygwin. Fixes bug #137666.
+	 Patch from Roger Leigh.
+	
 2004-03-18  Guntupalli Karunakar  <karunakar@freedomink.org>
 
 	* configure.in: Added "mr" for Marathi to ALL_LINGUAS.

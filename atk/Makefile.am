@@ -2,6 +2,12 @@
 # which are more like other make's VPATH.
 GPATH = $(srcdir)
 
+if PLATFORM_WIN32
+no_undefined = -no-undefined
+else
+no_undefined =
+endif
+
 INCLUDES = \
 	-I$(top_srcdir)		\
 	-DG_DISABLE_DEPRECATED	\
@@ -9,7 +15,9 @@ INCLUDES = \
 
 lib_LTLIBRARIES = libatk-1.0.la
 
-libatk_1_0_la_LDFLAGS = -version-info $(LT_VERSION_INFO)
+libatk_1_0_la_LDFLAGS = 			\
+	-version-info $(LT_VERSION_INFO)	\
+	$(no_undefined)
 libatk_1_0_la_LIBADD = $(DEP_LIBS)
 
 libatk_1_0_la_SOURCES = 	\
