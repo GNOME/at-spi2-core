@@ -3,6 +3,9 @@
 	* test/simple-at.c:
 	Replace setenv() call with putenv ().
 
+	* libspi/component.c:
+	Bugfix in AccessibleComponent_getExtents ().
+	
 2001-12-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/image.c (impl_getImageExtents): impl.

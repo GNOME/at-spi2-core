@@ -98,7 +98,7 @@ impl_accessibility_component_get_extents (PortableServer_Servant servant,
 			     (AtkCoordType) coord_type);
 
   retval.x = ix;
-  retval.y = ix;
+  retval.y = iy;
   retval.width = iw;
   retval.height = ih;
 
