@@ -1,3 +1,43 @@
+2002-11-25  Bill Haneman  <bill.haneman@sun.com>
+
+        Workarounds and fixes for mouse event/XKB interaction.
+	
+	* registryd/registry.c:
+	(spi_keycodes_contain, spi_dec_init_keycode_list): 
+	New internal methods.
+	(spi_dec_set_unlatch_pending):
+	Split the method that tells XKB to expect an
+	unlatch (and revert it) out of the rest of the
+	event handling code.  This method is called by the
+	two mouse event handlers (the poll and the filter).
+	(spi_dec_update_and_emit, spi_dec_mouse_check): 
+	New methods split from spi_dec_poll_mouse_moved.
+	The second one is now called from inside the filterFn
+	when an XKB delatch event is received, to determine 
+	whether to revert the delatch or not.
+	(spi_poll_mouse_moved):	Refactor; also we can now
+	properly handle the case where multiple button states
+	have changed between polling cycles and we didn't get
+	notified due to another client's grab.
+	(global_filter_fn): 
+	Synchronize the server while handling an XKB notification.
+	Ugly, but apparently necessary to avoid nasty races.
+	Check the mouse state on receipt of an XKB latch change,
+	to decide whether to revert the latch or not. (Latches are
+	reverted if there is an immediately preceding mouse button
+	event that a client has consumed, in which case we don't want
+	the user to see the side-effect of the event).
+	(spi_device_event_controller_forward_mouse_event):
+	Check for modifier events and fire before resetting mouse_mask_state,
+	prevents losing modifier events.
+
+	(impl_generate_keyboard_event):
+	If we've just generated a keyboard event for a non-shift key,
+	we don't want to revert the pending XKB latch. 
+	Otherwise, check the modifier state (via a call to 
+	spi_dev_mouse_check) and set the relatch mask to 
+	that state before returning.
+	
 2002-11-24  Bill Haneman  <bill.haneman@sun.com>
 
         * NEWS: 

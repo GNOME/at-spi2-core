@@ -26,7 +26,7 @@
 #include <config.h>
 
 #undef  SPI_XKB_DEBUG
-#define  SPI_DEBUG
+#undef  SPI_DEBUG
 #undef  SPI_KEYEVENT_DEBUG
 
 #include <string.h>
@@ -95,17 +95,18 @@ typedef struct {
 } DEControllerKeyListener;
 
 typedef struct {
-	unsigned int last_press_keycode;
-	unsigned int last_release_keycode;
-	struct timeval last_press_time;
-	struct timeval last_release_time;
-	int have_xkb;
-	int xkb_major_extension_opcode;
-	int xkb_base_event_code;
-	int xkb_base_error_code;
-	unsigned int xkb_latch_mask;
-	unsigned int pending_xkb_mod_relatch_mask;
-	XkbDescPtr xkb_desc;
+  unsigned int last_press_keycode;
+  unsigned int last_release_keycode;
+  struct timeval last_press_time;
+  struct timeval last_release_time;
+  int have_xkb;
+  int xkb_major_extension_opcode;
+  int xkb_base_event_code;
+  int xkb_base_error_code;
+  unsigned int xkb_latch_mask;
+  unsigned int pending_xkb_mod_relatch_mask;
+  KeyCode *shift_keycodes;
+  XkbDescPtr xkb_desc;
 } DEControllerPrivateData;
 
 static void     spi_controller_register_with_devices          (SpiDEController           *controller);
@@ -141,6 +142,51 @@ static KeyCode
 keycode_for_keysym (long keysym)
 {
   return XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
+}
+
+#define SPI_DEC_MAX_SHIFT_KEYSYMS 15
+static long _shift_keysyms[SPI_DEC_MAX_SHIFT_KEYSYMS] = 
+                                {XK_Shift_L, XK_Shift_R,
+				 XK_Control_L, XK_Control_R,
+				 XK_Caps_Lock, XK_Shift_Lock,
+				 XK_Alt_L, XK_Alt_R,
+				 XK_Meta_L, XK_Meta_R, 
+				 XK_Super_L, XK_Super_R,
+				 XK_Hyper_L, XK_Hyper_R,
+				 0};
+
+static gboolean
+spi_keycodes_contain (KeyCode keycodes[], KeyCode keycode)
+{
+  int i = 0;
+
+  if (keycode)
+    {
+      while (i < SPI_DEC_MAX_SHIFT_KEYSYMS)
+	{
+	  if (keycodes[i] == keycode) 
+	    return TRUE;
+	  ++i;
+	}
+    }
+  return FALSE;
+}
+
+static void
+spi_dec_init_keycode_list (SpiDEController *controller)
+{
+  DEControllerPrivateData *priv = 
+    g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+  KeyCode keycode;
+  int i;
+  priv->shift_keycodes = g_malloc (sizeof (KeyCode) * 
+				   SPI_DEC_MAX_SHIFT_KEYSYMS);
+  for (i = 0; _shift_keysyms[i] != 0; ++i)
+    { 
+      keycode = keycode_for_keysym (_shift_keysyms [i]);
+      priv->shift_keycodes [i] = keycode;
+    }
+  priv->shift_keycodes [i] = 0; /* terminate the list */
 }
 
 static DEControllerGrabMask *
@@ -179,31 +225,164 @@ spi_grab_mask_compare_values (gconstpointer p1, gconstpointer p2)
     }
 }
 
+static void
+spi_dec_set_unlatch_pending (SpiDEController *controller, unsigned mask)
+{
+  DEControllerPrivateData *priv = 
+    g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+#ifdef SPI_XKB_DEBUG
+  if (priv->xkb_latch_mask) fprintf (stderr, "unlatch pending! %x\n", mask);
+#endif
+  priv->pending_xkb_mod_relatch_mask |= priv->xkb_latch_mask; 
+}
+ 
 static gint poll_count = 0;
 
 static gboolean
-spi_dec_poll_mouse_moved (gpointer data)
+spi_dec_button_update_and_emit (SpiDEController *controller, 
+				guint mask_return)
 {
-  SpiRegistry *registry = SPI_REGISTRY (data);
-  SpiDEController *controller = registry->de_controller;
   CORBA_Environment ev;
   Accessibility_Event e;
   Accessibility_DeviceEvent mouse_e;
-  Window root_return, child_return;
+  gchar event_name[24];
+  gboolean is_consumed = FALSE;
+
+  if ((mask_return & mouse_button_mask) !=
+      (mouse_mask_state & mouse_button_mask)) 
+    {
+      int button_number = 0;
+      gboolean is_down = False;
+      
+      if (!(mask_return & Button1Mask) &&
+	  (mouse_mask_state & Button1Mask)) 
+	{
+	  mouse_mask_state &= ~Button1Mask;
+	  button_number = 1;
+	} 
+      else if ((mask_return & Button1Mask) &&
+	       !(mouse_mask_state & Button1Mask)) 
+	{
+	  mouse_mask_state |= Button1Mask;
+	  button_number = 1;
+	  is_down = True;
+	} 
+      else if (!(mask_return & Button2Mask) &&
+	       (mouse_mask_state & Button2Mask)) 
+	{
+	  mouse_mask_state &= ~Button2Mask;
+	  button_number = 2;
+	} 
+      else if ((mask_return & Button2Mask) &&
+	       !(mouse_mask_state & Button2Mask)) 
+	{
+	  mouse_mask_state |= Button2Mask;
+	  button_number = 2;
+	  is_down = True;
+	} 
+      else if (!(mask_return & Button3Mask) &&
+	       (mouse_mask_state & Button3Mask)) 
+	{
+	  mouse_mask_state &= ~Button3Mask;
+	  button_number = 3;
+	} 
+      else if ((mask_return & Button3Mask) &&
+	       !(mouse_mask_state & Button3Mask)) 
+	{
+	  mouse_mask_state |= Button3Mask;
+	  button_number = 3;
+	  is_down = True;
+	} 
+      else if (!(mask_return & Button4Mask) &&
+	       (mouse_mask_state & Button1Mask)) 
+	{
+	  mouse_mask_state &= ~Button4Mask;
+	  button_number = 4;
+	} 
+      else if ((mask_return & Button4Mask) &&
+	       !(mouse_mask_state & Button1Mask)) 
+	{
+	  mouse_mask_state |= Button4Mask;
+	  button_number = 4;
+	  is_down = True;
+	} 
+      else if (!(mask_return & Button5Mask) &&
+	       (mouse_mask_state & Button5Mask)) 
+	{
+	  mouse_mask_state &= ~Button5Mask;
+	  button_number = 5;
+	}
+      else if ((mask_return & Button5Mask) &&
+	       !(mouse_mask_state & Button5Mask)) 
+	{
+	  mouse_mask_state |= Button5Mask;
+	  button_number = 5;
+	  is_down = True;
+	}
+      if (button_number) {
+#ifdef SPI_DEBUG		  
+	fprintf (stderr, "Button %d %s\n",
+		 button_number, (is_down) ? "Pressed" : "Released");
+#endif
+	snprintf (event_name, 22, "mouse:button:%d%c", button_number,
+		  (is_down) ? 'p' : 'r');
+	/* TODO: distinguish between physical and 
+	 * logical buttons 
+	 */
+	mouse_e.type      = (is_down) ? 
+	  Accessibility_BUTTON_PRESSED_EVENT :
+	  Accessibility_BUTTON_RELEASED_EVENT;
+	mouse_e.id        = button_number;
+	mouse_e.hw_code   = button_number;
+	mouse_e.modifiers = (CORBA_unsigned_short) mouse_mask_state; 
+	mouse_e.timestamp = 0;
+	mouse_e.event_string = "";
+	mouse_e.is_text   = CORBA_FALSE;
+	is_consumed = 
+	  spi_controller_notify_mouselisteners (controller, 
+						&mouse_e, 
+						&ev);
+	e.type = event_name;
+	e.source = BONOBO_OBJREF (controller->registry->desktop);
+	e.detail1 = last_mouse_pos->x;
+	e.detail2 = last_mouse_pos->y;
+	spi_init_any_nil (&e.any_data);
+	CORBA_exception_init (&ev);
+	if (!is_consumed)
+	  {
+	    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
+						&e,
+						&ev);  
+	  }
+	else
+	  spi_dec_set_unlatch_pending (controller, mask_return);
+      }
+      return TRUE;
+    }
+  else
+    {
+      return FALSE;
+    }
+}
+
+
+static guint
+spi_dec_mouse_check (SpiDEController *controller, 
+		     int *x, int *y, gboolean *moved)
+{
+  Accessibility_Event e;
+  CORBA_Environment ev;
   int win_x_return,win_y_return;
-  int x, y;
   int poll_count_modulus = 10;
   unsigned int mask_return;
-  gchar event_name[24];
-  gboolean is_consumed;
+  Window root_return, child_return;
   Display *display = spi_get_display ();
 
   if (display != NULL)
     XQueryPointer(display, DefaultRootWindow (display),
 		  &root_return, &child_return,
-		  &x, &y,
+		  x, y,
 		  &win_x_return, &win_y_return, &mask_return);
-  
   /* 
    * Since many clients grab the pointer, and X goes an automatic
    * pointer grab on mouse-down, we often must detect mouse button events
@@ -213,158 +392,85 @@ spi_dec_poll_mouse_moved (gpointer data)
    */
   if (mask_return != mouse_mask_state) 
     {
-      while ((mask_return & mouse_button_mask) !=
-	     (mouse_mask_state & mouse_button_mask)) 
-	{
-	  int button_number = 0;
-	  gboolean is_down = False;
+      while (spi_dec_button_update_and_emit (controller, mask_return));
+    }
 
-	  if (!(mask_return & Button1Mask) &&
-	      (mouse_mask_state & Button1Mask)) 
-	    {
-	      mouse_mask_state &= ~Button1Mask;
-	      button_number = 1;
-	    } 
-	  else if ((mask_return & Button1Mask) &&
-	      !(mouse_mask_state & Button1Mask)) 
-	    {
-	      mouse_mask_state |= Button1Mask;
-	      button_number = 1;
-	      is_down = True;
-	    } 
-	  else if (!(mask_return & Button2Mask) &&
-		       (mouse_mask_state & Button2Mask)) 
-	    {
-	      mouse_mask_state &= ~Button2Mask;
-	      button_number = 2;
-	    } 
-	  else if ((mask_return & Button2Mask) &&
-		       !(mouse_mask_state & Button2Mask)) 
-	    {
-	      mouse_mask_state |= Button2Mask;
-	      button_number = 2;
-	      is_down = True;
-	    } 
-	  else if (!(mask_return & Button3Mask) &&
-		   (mouse_mask_state & Button3Mask)) 
-	    {
-	      mouse_mask_state &= ~Button3Mask;
-	      button_number = 3;
-	    } 
-	  else if ((mask_return & Button3Mask) &&
-		   !(mouse_mask_state & Button3Mask)) 
-	    {
-	      mouse_mask_state |= Button3Mask;
-	      button_number = 3;
-	      is_down = True;
-	    } 
-	  else if (!(mask_return & Button4Mask) &&
-		   (mouse_mask_state & Button1Mask)) 
-	    {
-	      mouse_mask_state &= ~Button4Mask;
-	      button_number = 4;
-	    } 
-	  else if ((mask_return & Button4Mask) &&
-		   !(mouse_mask_state & Button1Mask)) 
-	    {
-	      mouse_mask_state |= Button4Mask;
-	      button_number = 4;
-	      is_down = True;
-	    } 
-	  else if (!(mask_return & Button5Mask) &&
-		   (mouse_mask_state & Button5Mask)) 
-	    {
-	      mouse_mask_state &= ~Button5Mask;
-	      button_number = 5;
-	    }
-	  else if ((mask_return & Button5Mask) &&
-		   !(mouse_mask_state & Button5Mask)) 
-	    {
-	      mouse_mask_state |= Button5Mask;
-	      button_number = 5;
-	      is_down = True;
-	    }
-	  if (button_number) {
-#ifdef SPI_DEBUG		  
-	    fprintf (stderr, "Button %d %s\n",
-		     button_number, (is_down) ? "Pressed" : "Released");
-#endif
-	    snprintf (event_name, 22, "mouse:button:%d%c", button_number,
-		      (is_down) ? 'p' : 'r');
-	    /* TODO: distinguish between physical and 
-	     * logical buttons 
-	     */
-	    mouse_e.type      = (is_down) ? 
-	      Accessibility_BUTTON_PRESSED_EVENT :
-	      Accessibility_BUTTON_RELEASED_EVENT;
-	    mouse_e.id        = button_number;
-	    mouse_e.hw_code   = button_number;
-	    mouse_e.modifiers = (CORBA_unsigned_short) mouse_mask_state; 
-	    mouse_e.timestamp = 0;
-	    mouse_e.event_string = "";
-	    mouse_e.is_text   = CORBA_FALSE;
-	    is_consumed = 
-	      spi_controller_notify_mouselisteners (controller, 
-						    &mouse_e, 
-						    &ev);
-	    e.type = event_name;
-	    e.source = BONOBO_OBJREF (registry->desktop);
-	    e.detail1 = last_mouse_pos->x;
-	    e.detail2 = last_mouse_pos->y;
-	    spi_init_any_nil (&e.any_data);
-	    CORBA_exception_init (&ev);
-	    if (!is_consumed)
-	      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-						  &e,
-						  &ev);  
-	  }
-	}
-      
-      if ((mask_return & key_modifier_mask) !=
-      (mouse_mask_state & key_modifier_mask)) {
-#ifdef SPI_DEBUG
-	fprintf (stderr, "MODIFIER CHANGE EVENT!\n");
-#endif
-	e.type = "keyboard:modifiers";  
-	e.source = BONOBO_OBJREF (registry->desktop);
-	e.detail1 = mouse_mask_state;
-	e.detail2 = mask_return;
-	spi_init_any_nil (&e.any_data);
-	CORBA_exception_init (&ev);
-	Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-					    &e,
-					    &ev);
-      }
-      mouse_mask_state = mask_return;
-    }  
-  
   if (poll_count++ == poll_count_modulus) {
     poll_count = 0;
     e.type = "mouse:abs";  
-    e.source = BONOBO_OBJREF (registry->desktop);
-    e.detail1 = x;
-    e.detail2 = y;
+    e.source = BONOBO_OBJREF (controller->registry->desktop);
+    e.detail1 = *x;
+    e.detail2 = *y;
     spi_init_any_nil (&e.any_data);
     CORBA_exception_init (&ev);
-    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 					&e,
 					&ev);
   }
-  if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
-    e.type = "mouse:rel";  
-    e.source = BONOBO_OBJREF (registry->desktop);
-    e.detail1 = x - last_mouse_pos->x;
-    e.detail2 = y - last_mouse_pos->y;
-    spi_init_any_nil (&e.any_data);
-    CORBA_exception_init (&ev);
-    last_mouse_pos->x = x;
-    last_mouse_pos->y = y;
-    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
-					&e,
-					&ev);
-    return TRUE;
-  }
-  return FALSE;
+  if (*x != last_mouse_pos->x || *y != last_mouse_pos->y) 
+    {
+      e.type = "mouse:rel";  
+      e.source = BONOBO_OBJREF (controller->registry->desktop);
+      e.detail1 = *x - last_mouse_pos->x;
+      e.detail2 = *y - last_mouse_pos->y;
+      spi_init_any_nil (&e.any_data);
+      CORBA_exception_init (&ev);
+      last_mouse_pos->x = *x;
+      last_mouse_pos->y = *y;
+      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
+					  &e,
+					  &ev);
+      *moved = True;
+    }
+  else
+    {
+      *moved = False;
+    }
+
+  return mask_return;
+}
+
+static void
+spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask, 
+			     guint current_mask)
+{
+  Accessibility_Event e;
+  CORBA_Environment ev;
+
+#ifdef SPI_XKB_DEBUG
+  fprintf (stderr, "MODIFIER CHANGE EVENT! %x to %x\n", 
+	   prev_mask, current_mask);
+#endif
+  e.type = "keyboard:modifiers";  
+  e.source = BONOBO_OBJREF (controller->registry->desktop);
+  e.detail1 = prev_mask & key_modifier_mask;
+  e.detail2 = current_mask & key_modifier_mask;
+  spi_init_any_nil (&e.any_data);
+  CORBA_exception_init (&ev);
+  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
+				      &e,
+				      &ev);
+}
+
+static gboolean
+spi_dec_poll_mouse_moved (gpointer data)
+{
+  SpiRegistry *registry = SPI_REGISTRY (data);
+  SpiDEController *controller = registry->de_controller;
+  int x, y;  
+  gboolean moved;
+  guint mask_return;
+
+  mask_return = spi_dec_mouse_check (controller, &x, &y, &moved);
+  
+  if ((mask_return & key_modifier_mask) !=
+      (mouse_mask_state & key_modifier_mask)) 
+    {
+      spi_dec_emit_modifier_event (controller, mouse_mask_state, mask_return);
+      mouse_mask_state = mask_return;
+    }
+
+  return moved;
 }
 
 static gboolean
@@ -749,7 +855,6 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   gchar event_name[24];
   gboolean is_consumed = FALSE;
   gboolean xkb_mod_unlatch_occurred;
-  DEControllerPrivateData *priv;
   XButtonEvent *xbutton_event = (XButtonEvent *) xevent;
 
   int button = xbutton_event->button;
@@ -774,6 +879,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 	    mouse_button_state |= Button5Mask;
 	    break;
     }
+
   last_mouse_pos->x = ((XButtonEvent *) xevent)->x_root;
   last_mouse_pos->y = ((XButtonEvent *) xevent)->y_root;
 
@@ -797,8 +903,12 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   mouse_e.event_string = "";
   mouse_e.is_text   = CORBA_FALSE;
   if ((mouse_button_state & mouse_button_mask) != 
-      (mouse_mask_state & mouse_button_mask)) 
+       (mouse_mask_state & mouse_button_mask))
     { 
+      if ((mouse_mask_state & key_modifier_mask) !=
+	  (mouse_button_state & key_modifier_mask))
+	spi_dec_emit_modifier_event (controller, 
+				     mouse_mask_state, mouse_button_state);
       mouse_mask_state = mouse_button_state;
       is_consumed = 
 	spi_controller_notify_mouselisteners (controller, &mouse_e, &ev);
@@ -813,17 +923,15 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 					  &e,
 					  &ev);
     }
+
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
 			      xevent->type == ButtonRelease);
-      
+  
   /* if client wants to consume this event, and XKB latch state was
    *   unset by this button event, we reset it
    */
-  if (is_consumed && xkb_mod_unlatch_occurred)
-    {
-      priv = g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);	    
-      priv->pending_xkb_mod_relatch_mask |= priv->xkb_latch_mask; 
-    }
+  if (is_consumed && (xkb_mod_unlatch_occurred))
+    spi_dec_set_unlatch_pending (controller, mouse_mask_state);
   
   XAllowEvents (spi_get_display (),
 		(is_consumed) ? SyncPointer : ReplayPointer,
@@ -853,12 +961,24 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
   if (xevent->type == priv->xkb_base_event_code)
     {
       XkbAnyEvent * xkb_ev = (XkbAnyEvent *) xevent;
+      /* ugly but probably necessary...*/
+      XSynchronize (spi_get_display (), TRUE);
 
       if (xkb_ev->xkb_type == XkbStateNotify)
         {
 	  XkbStateNotifyEvent *xkb_snev =
 		  (XkbStateNotifyEvent *) xkb_ev;
-	  priv->xkb_latch_mask = xkb_snev->latched_mods;
+	  /* check the mouse, to catch mouse events grabbed by
+	   * another client; in case we should revert this XKB delatch 
+	   */
+	  if (!priv->pending_xkb_mod_relatch_mask)
+	    {
+	      int x, y;
+	      gboolean moved;
+	      spi_dec_mouse_check (controller, &x, &y, &moved);
+	    }
+	  /* we check again, since the previous call may have 
+	     changed this flag */
 	  if (priv->pending_xkb_mod_relatch_mask)
 	    {
 	      unsigned int feedback_mask;
@@ -896,9 +1016,14 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 #endif
 	      priv->pending_xkb_mod_relatch_mask = 0;
 	    }
+	  else
+	    {
+	      priv->xkb_latch_mask = xkb_snev->latched_mods;
+	    }
 	}
         else
 	       DBG (2, g_warning ("XKB event %d\n", xkb_ev->xkb_type));
+      XSynchronize (spi_get_display (), FALSE);
     }
   
   return GDK_FILTER_CONTINUE;
@@ -1716,6 +1841,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 {
   SpiDEController *controller =
 	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
+  DEControllerPrivateData *priv;
   long key_synth_code;
   unsigned int slow_keys_delay;
   unsigned int press_time;
@@ -1734,7 +1860,8 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   
   /* TODO: implement keystring mode also */
   gdk_error_trap_push ();
-  
+  key_synth_code = keycode;
+
   switch (synth_type)
     {
       case Accessibility_KEY_PRESS:
@@ -1760,6 +1887,26 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   if (gdk_error_trap_pop ())
     {
       DBG (-1, g_warning ("Error emitting keystroke"));
+    }
+
+  /* now we must determine whether this keystroke is expected 
+   * to delatch XKB. This is a bit of a hack :-( */
+  priv =  g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+  if (!priv->shift_keycodes) 
+    spi_dec_init_keycode_list (controller);
+  if (!spi_keycodes_contain (priv->shift_keycodes, key_synth_code)) 
+    {
+      priv->pending_xkb_mod_relatch_mask = 0;
+      priv->xkb_latch_mask = 0;
+      fprintf (stderr, "resetting the relatch masks.\n");
+    }
+  else
+    {
+      int x, y;
+      gboolean moved;
+      priv->pending_xkb_mod_relatch_mask = 
+	spi_dec_mouse_check (controller, &x, &y, &moved);
+      fprintf (stderr, "preparing to relatch %x\n");
     }
 }
 
@@ -1898,7 +2045,7 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
   g_object_set_qdata (G_OBJECT (device_event_controller),
 		      spi_dec_private_quark,
 		      private);
-  
+  private->shift_keycodes = NULL;
   spi_controller_register_with_devices (device_event_controller);
 }
 
