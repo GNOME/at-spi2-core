@@ -227,7 +227,8 @@ ATK_REGISTRY_GET_CLASS
 AtkRelation
 AtkRelationType
 atk_relation_type_register
-atk_relation_type_from_string
+atk_relation_type_get_name
+atk_relation_type_for_name
 atk_relation_new
 atk_relation_get_relation_type
 atk_relation_get_target

@@ -172,8 +172,6 @@ AtkTable
 @table: 
 @row: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@r: 
 
 
 <!-- ##### FUNCTION atk_table_get_column_header ##### -->
@@ -212,8 +210,6 @@ AtkTable
 
 @table: 
 @caption: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_description ##### -->
@@ -224,8 +220,6 @@ AtkTable
 @table: 
 @row: 
 @description: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_column_description ##### -->
@@ -236,8 +230,6 @@ AtkTable
 @table: 
 @column: 
 @description: 
-<!-- # Unused Parameters # -->
-@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_header ##### -->

@@ -4,4 +4,8 @@ GTK program by specifying the GTK_MODULES environment variable.
 
 teststateset
 ============
-This module tests the interfaces in atk/atkstatset.h
+This module tests the interfaces in atk/atkstateset.h
+
+testrelation
+============
+This module tests the interfaces in atk/atkrelation.h

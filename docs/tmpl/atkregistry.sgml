@@ -2,11 +2,10 @@
 AtkRegistry
 
 <!-- ##### SECTION Short_Description ##### -->
-registry for registering new #AtkObject factories
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-A registry for registering new #AtkObject factories.
 
 </para>
 

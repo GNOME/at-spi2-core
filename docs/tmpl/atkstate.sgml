@@ -2,13 +2,11 @@
 AtkState
 
 <!-- ##### SECTION Short_Description ##### -->
-describes an objects particular state
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-AtkState describes an objects particular state. The actual state of the 
-object is defined as an #AtkStateSet, which is a composed set of 
-AtkStates.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

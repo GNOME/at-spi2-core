@@ -2,12 +2,11 @@
 AtkEditableText
 
 <!-- ##### SECTION Short_Description ##### -->
-accessibility interface for editable text widgets
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-AtkEditableText is used to support access in an "accessibility" context
-to editing features of editable text widgets.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

@@ -2,16 +2,11 @@
 AtkObject
 
 <!-- ##### SECTION Short_Description ##### -->
-represents the minimum information all accessible objects return
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-AtkObject represents the minimum information all accessible objects
-return. This information includes accessible name, accessible
-description, role and state of the object, as well information about
-its parent and children. It is also possible to obtain more specific
-accessibility information about a component if it supports one or more
-of the other ATK interfaces:
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -250,8 +245,6 @@ of the other ATK interfaces:
 
 @accessible: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@acessible: 
 
 
 <!-- ##### FUNCTION atk_object_get_role ##### -->

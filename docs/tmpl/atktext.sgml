@@ -139,9 +139,6 @@ AtkText
 @start_offset: 
 @end_offset: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@startOffset: 
-@endOffset: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_at_offset ##### -->
@@ -155,9 +152,6 @@ AtkText
 @start_offset: 
 @end_offset: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@startOffset: 
-@endOffset: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_before_offset ##### -->
@@ -171,9 +165,6 @@ AtkText
 @start_offset: 
 @end_offset: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@startOffset: 
-@endOffset: 
 
 
 <!-- ##### FUNCTION atk_text_get_caret_offset ##### -->
@@ -197,8 +188,6 @@ AtkText
 @width: 
 @height: 
 @coords: 
-<!-- # Unused Parameters # -->
-@length: 
 
 
 <!-- ##### FUNCTION atk_text_get_run_attributes ##### -->

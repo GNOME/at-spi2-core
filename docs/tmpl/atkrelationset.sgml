@@ -2,13 +2,10 @@
 AtkRelationSet
 
 <!-- ##### SECTION Short_Description ##### -->
-a set of #AtkRelations, which define the functional relationships
-between #AtkObjects
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-A set of #AtkRelations, which define the functional relationships
-between #AtkObjects.
 
 </para>
 

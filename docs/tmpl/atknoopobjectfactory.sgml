@@ -2,11 +2,11 @@
 AtkNoOpObjectFactory
 
 <!-- ##### SECTION Short_Description ##### -->
-an #AtkObjectFactory which creates non-functioning stub #AtkObjects
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-An #AtkObjectFactory which creates non-functioning stub #AtkObjects.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

@@ -83,25 +83,25 @@ struct _AtkRelationClass
 
 GType atk_relation_get_type (void);
 
-AtkRelationType atk_relation_type_register            (const gchar *name);
-
-AtkRelationType atk_relation_type_from_string         (const gchar *name);
+AtkRelationType       atk_relation_type_register      (const gchar     *name);
+G_CONST_RETURN gchar* atk_relation_type_get_name      (AtkRelationType type);
+AtkRelationType       atk_relation_type_for_name      (const gchar     *name);
 
 /*
  * Create a new relation for the specified key and the specified list
  * of targets.
  */
-AtkRelation*    atk_relation_new                      (AtkObject       **targets,
+AtkRelation*          atk_relation_new                (AtkObject       **targets,
                                                        gint            n_targets,
                                                        AtkRelationType relationship);
 /*
  * Returns the type of a relation.
  */
-AtkRelationType atk_relation_get_relation_type        (AtkRelation     *relation);
+AtkRelationType       atk_relation_get_relation_type  (AtkRelation     *relation);
 /*
  * Returns the target list of a relation.
  */
-GPtrArray*      atk_relation_get_target               (AtkRelation     *relation);
+GPtrArray*            atk_relation_get_target         (AtkRelation     *relation);
 
 #ifdef __cplusplus
 }

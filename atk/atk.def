@@ -99,7 +99,8 @@ EXPORTS
 	atk_relation_set_get_type
 	atk_relation_set_new
 	atk_relation_set_remove
-	atk_relation_type_from_string
+	atk_relation_type_get_name
+	atk_relation_type_for_name
 	atk_relation_type_register
 	atk_remove_focus_tracker
 	atk_remove_global_event_listener

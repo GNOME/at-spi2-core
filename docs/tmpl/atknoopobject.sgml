@@ -2,11 +2,11 @@
 AtkNoOpObject
 
 <!-- ##### SECTION Short_Description ##### -->
-provides non-functioning stub #AtkObjects
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-Provides non-functioning stub #AtkObjects. 
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

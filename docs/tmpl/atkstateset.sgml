@@ -2,13 +2,11 @@
 AtkStateSet
 
 <!-- ##### SECTION Short_Description ##### -->
-determines an object's state set
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-AtkStateSet determines an object's state set. The state set of an object 
-is a set of AtkState objects and describes the current 
-overall state of the object, such as whether it is active, has focus, etc. 
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

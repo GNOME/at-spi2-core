@@ -2,13 +2,11 @@
 AtkImage
 
 <!-- ##### SECTION Short_Description ##### -->
-accessibility interface for objects that have an associated image
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-The AtkImage interface should be supported by any object that has an 
-associated image. This interface provides the standard mechanism for 
-an assistive technology to get descriptive information about images.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

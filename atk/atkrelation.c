@@ -22,6 +22,18 @@
 #include "atkobject.h"
 #include "atkrelation.h"
 
+static gchar *relation_names[ATK_RELATION_LAST_DEFINED] = {
+  "null",
+  "controlled_by",
+  "controller_for",
+  "label_for",
+  "labelled_by",
+  "member_of",
+  "node_child_of"
+};
+
+GPtrArray *extra_names = NULL;
+  
 static void            atk_relation_class_init       (AtkRelationClass  *klass);
 static void            atk_relation_finalize         (GObject           *object);
 
@@ -68,14 +80,48 @@ atk_relation_class_init (AtkRelationClass *klass)
 AtkRelationType
 atk_relation_type_register (const gchar *name)
 {
-  /* TODO: associate name with new type */
-  static guint type = ATK_RELATION_LAST_DEFINED;
-  return (++type);
+  g_return_val_if_fail (name, ATK_RELATION_NULL);
+
+  if (!extra_names)
+    extra_names = g_ptr_array_new ();
+
+  g_ptr_array_add (extra_names, g_strdup (name));
+  return extra_names->len + ATK_RELATION_LAST_DEFINED - 1;
 }
 
+/**
+ * atk_relation_type_get_name:
+ * @type: The #AtkRelationType whose name is required
+ *
+ * Gets the description string describing the #AtkRelationType @type.
+ *
+ * Returns: the string describing the AtkRelationType
+ */
+G_CONST_RETURN gchar*
+atk_relation_type_get_name (AtkRelationType type)
+{
+  gint n;
+
+  n = type;
+
+  if (n >= 0)
+    {
+      if (n < ATK_RELATION_LAST_DEFINED)
+        return relation_names[n];
+      else if (extra_names)
+        {
+          n -= ATK_RELATION_LAST_DEFINED;
+
+          if (n < extra_names->len)
+            return g_ptr_array_index (extra_names, n);
+        }
+    }
+  return ATK_RELATION_NULL;
+
+}
 
 /**
- * atk_relation_type_from_string:
+ * atk_relation_type_for_name:
  * @name: a string which is the (non-localized) name of an ATK relation type.
  *
  * Get the #AtkRelationType type corresponding to a relation name.
@@ -84,18 +130,31 @@ atk_relation_type_register (const gchar *name)
  *          or #ATK_RELATION_NULL if no matching relation type is found.
  **/
 AtkRelationType
-atk_relation_type_from_string (const gchar *name)
+atk_relation_type_for_name (const gchar *name)
 {
-  /*
-   * TODO: implement properly,
-   *  checking type namelist in conjunction with above function.
-   */
-	if ( !strcmp (name, "controlled_by") ) return ATK_RELATION_CONTROLLED_BY;
-	else if (!strcmp (name, "controller_for")) return ATK_RELATION_CONTROLLER_FOR;
-	else if (!strcmp (name, "label_for")) return ATK_RELATION_LABEL_FOR;
-	else if (!strcmp (name, "labelled_by")) return ATK_RELATION_LABELLED_BY;
-	else if (!strcmp (name, "member_of")) return ATK_RELATION_MEMBER_OF;
-	else return ATK_RELATION_NULL;
+  gint i;
+
+  g_return_val_if_fail (name, ATK_RELATION_NULL);
+
+  for (i = 0; i < ATK_RELATION_LAST_DEFINED; i++)
+    {
+      if (strcmp (name, relation_names[i]) == 0)
+        return i;
+    }
+
+  if (extra_names)
+    {
+      for (i = 0; i < extra_names->len; i++)
+        {
+          gchar *extra_name = (gchar *)g_ptr_array_index (extra_names, i);
+
+          g_return_val_if_fail (extra_name, ATK_RELATION_NULL);
+         
+          if (strcmp (name, extra_name) == 0)
+            return i + ATK_RELATION_LAST_DEFINED;
+        }
+    }
+  return ATK_RELATION_NULL;
 }
 
 

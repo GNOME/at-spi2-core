@@ -2,16 +2,11 @@
 AtkHypertext
 
 <!-- ##### SECTION Short_Description ##### -->
-the base class for all classes that present hypertext information
-on the display
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-The AtkHypertext class is the base class for all classes that present 
-hypertext information on the display. This class provides the standard 
-mechanism for an assistive technology to access that text via its 
-content, attributes, and spatial location. It also provides standard 
-mechanisms for manipulating hyperlinks.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

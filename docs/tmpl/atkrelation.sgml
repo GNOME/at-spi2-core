@@ -2,11 +2,11 @@
 AtkRelation
 
 <!-- ##### SECTION Short_Description ##### -->
-defines the functional relationship between two #AtkObjects
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-Defines the functional relationship between two #AtkObjects.
+
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -46,7 +46,16 @@ Defines the functional relationship between two #AtkObjects.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_relation_type_from_string ##### -->
+<!-- ##### FUNCTION atk_relation_type_get_name ##### -->
+<para>
+
+</para>
+
+@type: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_relation_type_for_name ##### -->
 <para>
 
 </para>

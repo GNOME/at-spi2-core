@@ -21,7 +21,7 @@
 
 #include <string.h>
 
-static guint type = ATK_STATE_LAST_DEFINED;
+static guint last_type = ATK_STATE_LAST_DEFINED;
 
 #define NUM_POSSIBLE_STATES               (sizeof(AtkState)*8)
 
@@ -68,12 +68,13 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
 AtkStateType
 atk_state_type_register (const gchar *name)
 {
+  g_return_val_if_fail (name, ATK_STATE_INVALID);
 
-  if (type < NUM_POSSIBLE_STATES -1)
-  {
-    state_names[++type] = g_strdup (name); 
-    return (type);
-  }
+  if (last_type < NUM_POSSIBLE_STATES -1)
+    {
+      state_names[++last_type] = g_strdup (name); 
+      return (last_type);
+    }
   return ATK_STATE_INVALID; /* caller needs to check */
 }
 
@@ -83,17 +84,18 @@ atk_state_type_register (const gchar *name)
  *
  * Gets the description string describing the #AtkStateType @type.
  *
- * Returns: the string describing the state
+ * Returns: the string describing the AtkStateType
  */
 G_CONST_RETURN gchar*
-atk_state_type_get_name (AtkStateType state)
+atk_state_type_get_name (AtkStateType type)
 {
   gint n;
 
-  if (state < type)
+  if (type < last_type)
     {
-      n = state; 
-      return state_names[n];
+      n = type; 
+      if (n >= 0)
+        return state_names[n];
     }
 
   return NULL;
@@ -115,12 +117,12 @@ atk_state_type_for_name (const gchar *name)
   g_return_val_if_fail (name != NULL, 0);
   g_return_val_if_fail (strlen (name) > 0, 0);
 
-  for (i = 0; i < type; i++)
-  {
-    if (state_names[i] == NULL)
-      continue; 
-    if (!strcmp(name, state_names[i])) 
-      return i;
-  }
+  for (i = 0; i < last_type; i++)
+    {
+      if (state_names[i] == NULL)
+        continue; 
+      if (!strcmp(name, state_names[i])) 
+        return i;
+    }
   return 0;
 }

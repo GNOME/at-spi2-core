@@ -1,3 +1,27 @@
+2001-11-22  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atk.def, atk/atkrelationtype.h, docs/atk-sections.txt,
+	docs/tmpl/atkrelation.sgml:
+	Change atk_relation_type_from_string to atk_relation_type_for_name
+	Add atk_relation_type_get_name
+
+	* atk/atkrelationtype.c:
+	Change atk_relation_type_from_string to atk_relation_type_for_name
+	Add atk_relation_type_get_name
+	Update atk_relation_type_register() to correctly register new
+	relation types
+
+	* atk/atkstate.c:
+	Changed name of static variable type to last_type
+	Changed name of paremeter if atk_state_type_get_name to type to match
+	comments
+
+	* docs/tmpl/*sgml
+	Updated files
+
+	* tests/README, tests/Makefile.am	
+	Add new test file testrelation.c
+
 2001-11-22  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkutil.c (atk_add_key_event_listener):

@@ -2,11 +2,10 @@
 AtkObjectFactory
 
 <!-- ##### SECTION Short_Description ##### -->
-factory for creating #AtkObjects
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-A factory for creating #AtkObjects.
 
 </para>
 
