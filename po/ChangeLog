@@ -1,3 +1,7 @@
+2003-02-22  Metin Amiroff  <metin@karegen.com>
+
+	* az.po: Removed some escaped characters.
+
 2003-02-21  Rozobeh Pournader  <roozbeh@sharif.edu>
 
 	* fa.po: Added Persian translation.
