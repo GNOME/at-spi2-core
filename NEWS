@@ -1,3 +1,18 @@
+Changes in version 1.9.0
+========================
+* Add new functions atk_relation_set_add_relation_by_type and
+atk_relation_add_target. (bug #158722)
+
+* Use gmodule-no-export.pc. (bug #158531) [Matthias Clasen]
+
+* Add new translations: Arabic [Arafat Medini], 
+Thai [Supranee Thirawattanasuk], Assamese [Sunaram Patir]
+
+* Updated translations: Canadian English [Adam Weinberger],
+Italian [Alessio Frusciante], Traditional Chinese [GNOME HK Team],
+Welsh [Dafydd Harries], French [Jean-Michel Ardantz],
+Romanian [Mi\305\237u Moldovan], Catalan [Jordi Mallach]
+ 
 Changes in version 1.8.0
 ========================
 * Add translations: Bosnian [Kenan Had\305\276iavdi\304\207],

@@ -1,3 +1,11 @@
+2004-11-29  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.9.0=====
+
+	* configure.in: Version 1.9.0, interface age 0, binary age 900
+
+	* NEWS: Updated.
+
 Thu Nov 25 14:11:41 2004  Manish Singh  <yosh@gimp.org>
 
 	* autogen.sh: rm autom4te.cache, since it might interfere with
