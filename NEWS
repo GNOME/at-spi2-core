@@ -1,3 +1,10 @@
+Changes in version 1.7.0
+========================
+* Add "bounds-changed" signal for AtkComponent. (bug #140476)
+
+* Add new state ATK_STATE_TRUNCATED and new relation 
+ATK_RELATION_PARENT_WINDOW_OF. (bug #133375)
+
 Changes in version 1.6.1
 ========================
 * Update to build on Cygwin, (bug #136666) [Roger Leigh]
