@@ -1,3 +1,8 @@
+2004-02-11  Bill Haneman <billh@gnome.org>
+
+	* reverted most of Tomasz' patch below, since it was breaking
+	builds (see bug #134058).
+	
 2004-02-10  Tomasz K³oczko <kloczek@pld.org.pl>
 
 	* docs/reference/cspi/at-spi-cspi.types: added empty file for
