@@ -1,3 +1,8 @@
+Thu Dec 20 00:27:01 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* docs/tmpl/atkutil.sgml: remove some conflict
+	indicators.
+
 2001-12-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atk.def:

@@ -14,9 +14,6 @@ AtkUtil
 
 </para>
 
-<<<<<<< atkutil.sgml
-=======
-
 <!-- ##### STRUCT AtkUtil ##### -->
 <para>
 
@@ -64,9 +61,6 @@ AtkUtil
 
 @object: 
 
-
-<<<<<<< atkutil.sgml
-=======
 
 
 <!-- ##### USER_FUNCTION AtkEventListener ##### -->
