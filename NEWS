@@ -1,3 +1,24 @@
+Changes in version 1.5.1
+========================
+* Change role names so that unlocalized names the same as Java role names.
+(bug #125024)
+
+* Set state FOCUSED for object reported as having focus. (bug #127400)
+
+* Add new property "accessible-hypertext-nlinks" for AtkObject. Add new 
+signal link_activated and properties "number-of-anchors", "end-index" and 
+"start-index" for AtkHyperlink. (bug 112390)
+
+* Make nicks and blurbs of properties translatable.
+
+* Add new role ATK_ROLE_EDITBAR. (bug 116007)
+
+* Add translations: Afrikaans [Stefan Lubbersen]
+
+* Update translations: Serbian [Danilo \305\240egan], Czech [Milozlav Trmac],
+Portuguese [Duarte Loreto],  Mongolian [Sanlig Badral], 
+Dutch [Vincent van Adrighem]
+
 Changes in version 1.5.0
 ========================
 * Fix memory leaks in AtkRelations (bugs #124877, #125725)
@@ -5,6 +26,7 @@ Changes in version 1.5.0
 * Add version number to documentation (bug #125758)
 
 * Update translations: Catalan [Jordi Mallach], Kannada [Pramod]
+
 Changes in version 1.4.1
 ========================
 * Add translations: Lithuanian [Gedminas Paulauskas], 

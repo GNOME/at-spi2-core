@@ -1,3 +1,11 @@
+2003-12-04  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.5.1=====
+	
+	* configure.in: Version 1.5.1, interface age 0, binary age 501
+
+	* NEWS: Updated.
+
 2003-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.[ch]: Add new role ATK_ROLE_EDITBAR. Fixes bug #116007.
@@ -12,7 +20,7 @@
 	* atk/atkobject.c (atk_object_real_get_property): fix typo:
 	s/g_value_set_set/g_value_set_int/.
 
-2003-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
+2003-12-01  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: (atk_object_class_init): Make nicks and blurbs of
 	properties translatable. Add new property "accessible-hypertext-nlinks".
@@ -23,7 +31,7 @@
 	link_activated.
 
 	* atk/atkhyperlink.c: Add signals link_activated and new properties
-	"number-of-anchors, end-index and start-index.
+	"number-of-anchors", "end-index" and "start-index".
 
 	This fixes bug #112390.
 
@@ -61,7 +69,7 @@
 
 	* ===== Released 1.5.0=====
 	
-	* configure.in: Version 1.5.0, interface age 0, binary age 400
+	* configure.in: Version 1.5.0, interface age 0, binary age 500
 
 	* NEWS: Updated.
 
