@@ -19,18 +19,6 @@
 
 #include "atkhypertext.h"
 
-struct _AtkHypertextIfaceClass
-{
-  GObjectClass parent;
-};
-
-typedef struct _AtkHypertextIfaceClass AtkHypertextIfaceClass;
-
-static void atk_hypertext_interface_init (AtkHypertextIfaceClass *klass);
-
-static gpointer parent_class = NULL;
-
-
 GType
 atk_hypertext_get_type ()
 {
@@ -42,19 +30,13 @@ atk_hypertext_get_type ()
       sizeof (AtkHypertextIface),
       (GBaseInitFunc) NULL,
       (GBaseFinalizeFunc) NULL,
-      (GInterfaceInitFunc) atk_hypertext_interface_init,
+
     };
 
     type = g_type_register_static (G_TYPE_INTERFACE, "AtkHypertext", &tinfo, 0);
   }
 
   return type;
-}
-
-static void
-atk_hypertext_interface_init (AtkHypertextIfaceClass *klass)
-{
-  parent_class = g_type_class_ref (ATK_TYPE_HYPERTEXT);
 }
 
 /**

@@ -290,13 +290,3 @@ of the other ATK interfaces:
 @handler_id: 
 
 
-<!-- ##### FUNCTION atk_object_notify_state_change ##### -->
-<para>
-
-</para>
-
-@accessible: 
-@state: 
-@value: 
-
-

@@ -29,8 +29,7 @@ atk_image_get_type ()
     {
       sizeof (AtkImageIface),
       (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-
+      (GBaseFinalizeFunc) NULL
     };
 
     type = g_type_register_static (G_TYPE_INTERFACE, "AtkImage", &tinfo, 0);

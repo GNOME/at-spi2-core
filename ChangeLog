@@ -1,3 +1,15 @@
+2001-11-14  Bill Haneman  <bill.haneman@sun.com>
+
+	* atk/atkutil.h :
+	Added API 
+	atk_util_add_key_event_listener    (AtkKeySnoopFunc *listener,
+	                                    gpointer data);
+	atk_util_remove_key_event_listener (AtkKeySnoopFunc *listener,
+	                                    gpointer data);
+	
+	to allow non-GTK-dependent installation of key snoop functions.
+	This also meant adding definitions of AtkKeySnoopFunc and AtkKeyEventStruct.
+
 2001-11-08  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c (atk_object_notify_state_change):
