@@ -48,7 +48,7 @@ AM_PROG_LIBTOOL
 
 dnl internationalization support
 ALL_LINGUAS=""
-AM_GNOME2_GETTEXT
+AM_GLIB_GNU_GETTEXT
 
 dnl Checks for libraries
 PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
@@ -84,7 +84,6 @@ AC_SUBST(LDFLAGS)
 AC_OUTPUT([
 Makefile
 po/Makefile.in
-intl/Makefile
 docs/Makefile
 idl/Makefile
 libspi/Makefile
