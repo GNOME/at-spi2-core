@@ -1,3 +1,37 @@
+2004-06-11  Bill Haneman <bill.haneman@sun.com>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_do_registration): 
+	Register with ATK for AtkComponent:bounds-changed events.
+	(api_atk_bridge_signal_listener): 
+	Marshal the AtkRectangle info into the event notification
+	for object:bounds-changed events.
+	
+	* libspi/util.c:
+	(spi_init_any_rect): New method, inits a corba struct of
+	type Accessibility_BoundingBox from an AtkRectangle.
+
+	* libspi/spi-private.h: Declared spi_init_any_rect (above).
+	
+	* cspi/spi.h:
+	(SPIRect): New struct definition.
+	(SPI_freeRect): New declaration.
+	(AccessibleBoundsChangedEvent_getNewBounds): New, see below.
+
+	* cspi/spi_event.c:
+	(AccessibleBoundsChangedEvent_getNewBounds): New method,
+	implemented.  Gets the bounding box data from the CORBA_any
+	associated with a bounds-changed event notification.
+	(cspi_internal_event_get_rect): New, used internally by above method.
+	
+	* cspi/spi_main.c:
+	(SPI_freeRect): Implemented this new method, for freeing
+	SPIRect structs.
+	
+	* test/event-listener-test.c:
+	(main, report_bounds_event):
+	Added a test for object:bounds-changed events.
+	
 2004-06-01  Bill Haneman <bill.haneman@sun.com>
 
 	* test/login-helper-server-test.c:

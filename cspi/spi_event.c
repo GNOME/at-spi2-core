@@ -365,6 +365,33 @@ cspi_internal_event_get_object (const InternalEvent *e)
     return NULL;
 }
 
+static SPIRect *
+cspi_internal_event_get_rect (const InternalEvent *e)
+{
+  CORBA_any *any;
+  g_return_val_if_fail (e, NULL);
+  g_return_val_if_fail (e->data, NULL);
+  any = (CORBA_any *) e->data;
+  if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_BoundingBox, NULL)) 
+    {
+      SPIRect *rect = g_new (SPIRect, 1);
+      Accessibility_BoundingBox *bounds = (Accessibility_BoundingBox *) any->_value;
+      rect->x = bounds->x;
+      rect->y = bounds->y;
+      rect->width = bounds->width;
+      rect->height = bounds->height;
+      return rect;
+    } 
+  else
+    {
+#ifdef EVENT_CONTEXT_DEBUG
+      fprintf (stderr, "requested string, TC is not TC_Accessible_RectBounds! (%u)\n",
+	       (unsigned) any->_type);
+#endif
+      return NULL;
+    }
+}
+
 /**
  * AccessibleTextChangedEvent_getChangeString:
  * @e: a pointer to the #AccessibleEvent being queried.
@@ -591,6 +618,26 @@ AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e
   const InternalEvent *foo = (InternalEvent *) e;
   /* TODO: check the event type. */
   return cspi_internal_event_get_text (foo);
+}
+
+/**
+ * AccessibleBoundsChangedEvent_getNewBounds:
+ * @e: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:bounds-changed", 
+ *         returning a pointer to an SPIRect structure containing the
+ *         new bounds, or NULL on error.
+ *         The returned structure should be freed with SPI_freeRect when 
+ *         the caller has finished referencing it.
+ *
+ * Returns: a pointer to an SPIRect defining the new object bounds.
+ **/
+SPIRect *
+AccessibleBoundsChangedEvent_getNewBounds (const AccessibleEvent *e)
+{
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type. */
+  return cspi_internal_event_get_rect (foo);
 }
 
 static gint

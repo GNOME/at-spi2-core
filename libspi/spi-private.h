@@ -25,6 +25,7 @@
 #define SPI_PRIVATE_H_
 
 #include <glib/glist.h>
+#include <atk/atk.h>
 #include <orbit/orbit.h>
 
 G_BEGIN_DECLS
@@ -48,6 +49,7 @@ void spi_re_entrant_list_foreach     (GList         **list,
 void spi_init_any_nil                (CORBA_any *any);
 void spi_init_any_string             (CORBA_any *any, char **string);
 void spi_init_any_object             (CORBA_any *any, CORBA_Object *o);
+void spi_init_any_rect               (CORBA_any *any, AtkRectangle *rect);
 
 G_END_DECLS
 

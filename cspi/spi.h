@@ -221,6 +221,13 @@ typedef enum {
 typedef unsigned long AccessibleKeyEventMask;
 typedef unsigned long AccessibleDeviceEventMask;
 
+typedef struct {
+	long x;
+	long y;
+	long width;
+	long height;
+} SPIRect;
+
 /**
  *AccessibleComponentLayer:
  *@SPI_LAYER_INVALID: The layer cannot be determined or is somehow undefined.
@@ -1015,11 +1022,14 @@ char *       AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (
 char *       AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e);
 
 char *       AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e);
+SPIRect *    AccessibleBoundsChangedEvent_getNewBounds (const AccessibleEvent *e);
 
 /* Misc methods and error handling */
 void SPI_freeString (char *s);
 
 char* SPI_dupString (char *s);
+
+void SPI_freeRect (SPIRect *rect);
 
 SPIBoolean SPI_exceptionHandlerPush (SPIExceptionHandler *handler);
 

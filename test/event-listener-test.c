@@ -29,6 +29,7 @@
 static void traverse_accessible_tree (Accessible *accessible);
 
 static void report_event  (const AccessibleEvent *event, void *user_data);
+static void report_bounds_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail1_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_event  (const AccessibleEvent *event, void *user_data);
@@ -49,6 +50,7 @@ static SPIBoolean report_mouse_event  (const AccessibleDeviceEvent *event, void 
 
 static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *specific_listener;
+static AccessibleEventListener *bounds_listener;
 static AccessibleEventListener *detail1_listener;
 static AccessibleEventListener *test_listener;
 static AccessibleEventListener *text_listener;
@@ -117,6 +119,8 @@ main (int argc, char **argv)
 	  report_event, NULL); 
   specific_listener = SPI_createAccessibleEventListener (
 	  report_detail_event, NULL); 
+  bounds_listener = SPI_createAccessibleEventListener (
+	  report_bounds_event, NULL);
   text_listener = SPI_createAccessibleEventListener (
 	  report_text_event, NULL);
   text_selection_listener = SPI_createAccessibleEventListener (
@@ -208,6 +212,8 @@ main (int argc, char **argv)
 				   "object:model-changed"); 
   SPI_registerGlobalEventListener (detail1_listener,
 				   "object:link-selected"); 
+  SPI_registerGlobalEventListener (bounds_listener,
+				   "object:bounds-changed");
   SPI_registerGlobalEventListener (window_listener,
 				   "window:minimize");
   SPI_registerGlobalEventListener (window_listener,
@@ -343,6 +349,18 @@ report_detail1_event (const AccessibleEvent *event, void *user_data)
   char *s = Accessible_getName (event->source);
   fprintf (stderr, "(detail) %s %s %d\n", event->type, s,
 	   event->detail1);
+  if (s) SPI_freeString (s);
+}
+
+void
+report_bounds_event (const AccessibleEvent *event, void *user_data)
+{
+  char *s = Accessible_getName (event->source);
+  SPIRect *bounds = AccessibleBoundsChangedEvent_getNewBounds (event);
+  if (!bounds) fprintf (stderr, "bounds-changed event with no bounds?\n");
+  fprintf (stderr, "(bounds-changed) %s %s %d,%d - %d,%d\n", event->type, s,
+	   bounds->x, bounds->y, bounds->x + bounds->width, bounds->y + bounds->height);
+  SPI_freeRect (bounds);
   if (s) SPI_freeString (s);
 }
 

@@ -64,6 +64,7 @@ static guint atk_signal_text_selection_changed;
 */
 
 static guint atk_signal_link_selected;
+static guint atk_signal_bounds_changed;
 
 static Accessibility_Registry spi_atk_bridge_get_registry (void);
 static void     spi_atk_bridge_do_registration         (void);
@@ -130,9 +131,11 @@ spi_atk_bridge_init_event_type_consts ()
 					      ATK_TYPE_OBJECT);
   atk_signal_text_changed = g_signal_lookup ("text_changed", 
 					     ATK_TYPE_TEXT);
+  atk_signal_bounds_changed = g_signal_lookup ("bounds_changed", 
+					      ATK_TYPE_COMPONENT);
   atk_signal_active_descendant_changed = 
          g_signal_lookup ("active_descendant_changed", 
-		          ATK_TYPE_OBJECT);
+		          ATK_TYPE_OBJECT); 
   atk_signal_link_selected = g_signal_lookup ("link_selected", 
 					      ATK_TYPE_HYPERTEXT);
   atk_signal_text_selection_changed = g_signal_lookup ("text_selection_changed", 
@@ -384,6 +387,7 @@ spi_atk_register_event_listeners (void)
   add_signal_listener ("Gtk:AtkObject:children-changed");
   add_signal_listener ("Gtk:AtkObject:visible-data-changed");
   add_signal_listener ("Gtk:AtkObject:active-descendant-changed");
+  add_signal_listener ("Gtk:AtkComponent:bounds-changed");
   add_signal_listener ("Gtk:AtkSelection:selection-changed");
   add_signal_listener ("Gtk:AtkText:text-selection-changed");
   add_signal_listener ("Gtk:AtkText:text-changed");
@@ -902,6 +906,14 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
       if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
         detail1 = g_value_get_int (param_values + 1);
       spi_init_any_nil (&any);
+    }
+  else if (signal_query.signal_id == atk_signal_bounds_changed)
+    {
+      AtkRectangle *atk_rect = NULL;
+
+      if (G_VALUE_HOLDS_BOXED (param_values + 1))
+	  atk_rect = g_value_get_boxed (param_values + 1);
+      spi_init_any_rect (&any, atk_rect);
     }
   else if ((signal_query.signal_id == atk_signal_children_changed) && gobject)
     {

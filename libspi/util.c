@@ -23,6 +23,7 @@
 
 #include <glib/gmessages.h>
 #include <glib/gslist.h>
+#include <Accessibility.h>
 
 #include "spi-private.h"
 
@@ -134,4 +135,17 @@ spi_init_any_string (CORBA_any *any, char **string_pointer)
   else
     any->_value = &spi_atk_bridge_null_string;
   any->_release = FALSE;
+}
+
+void
+spi_init_any_rect (CORBA_any *any, AtkRectangle *rect)
+{
+    Accessibility_BoundingBox *box = Accessibility_BoundingBox__alloc ();
+    box->x = rect->x;
+    box->y = rect->y;
+    box->width = rect->width;
+    box->height = rect->height;
+    any->_type = TC_Accessibility_BoundingBox;
+    any->_value = box;
+    any->_release = TRUE;
 }

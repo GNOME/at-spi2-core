@@ -536,6 +536,27 @@ SPI_freeString (char *s)
 }
 
 /**
+ * SPI_freeRect:
+ * @r: a pointer to an SPIRect returned from another at-spi call.
+ *
+ * Free a SPIRect structure returned from an at-spi call.  Clients of
+ * at-spi should use this function instead of free () or g_free().
+ * A NULL rect @r will be silently ignored.
+ * This API should not be used to free data
+ * from other libraries or allocated by the client.
+ **/
+void
+SPI_freeRect (SPIRect *r)
+{
+  if (r)
+    {
+      /* err, okay, in this case the client _could_ 
+	 have called g_free, but we don't want to guarantee it */
+      g_free (r);
+    }
+}
+
+/**
  * DOCUMENT_ME!
  **/
 char *
