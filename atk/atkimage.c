@@ -48,18 +48,18 @@ atk_image_get_type ()
  * Returns: a string representing the image description
  **/
 G_CONST_RETURN gchar*
-atk_image_get_image_description (AtkImage *obj)
+atk_image_get_image_description (AtkImage *image)
 {
   AtkImageIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_IMAGE (obj), NULL);
+  g_return_val_if_fail (image != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_IMAGE (image), NULL);
 
-  iface = ATK_IMAGE_GET_IFACE (obj);
+  iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_description)
     {
-      return (iface->get_image_description) (obj);
+      return (iface->get_image_description) (image);
     }
   else
     {
@@ -73,23 +73,21 @@ atk_image_get_image_description (AtkImage *obj)
  * @height: filled with the image height
  * @width: filled with the image width
  *
- * Get the height, in pixels/screen coords, of this image.
- *
- * Returns: an integer representing the image height in pixel coords
+ * Get the height and width in pixels for the specified image.
  **/
 void
-atk_image_get_image_size (AtkImage *obj, int *height, int *width)
+atk_image_get_image_size (AtkImage *image, int *height, int *width)
 {
   AtkImageIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_IMAGE (obj));
+  g_return_if_fail (image != NULL);
+  g_return_if_fail (ATK_IS_IMAGE (image));
 
-  iface = ATK_IMAGE_GET_IFACE (obj);
+  iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_size)
     {
-      return (iface->get_image_size) (obj, height, width);
+      return (iface->get_image_size) (image, height, width);
     }
   else
     {
@@ -108,19 +106,19 @@ atk_image_get_image_size (AtkImage *obj, int *height, int *width)
  * not be completed.
  **/
 gboolean
-atk_image_set_image_description (AtkImage        *obj,
+atk_image_set_image_description (AtkImage        *image,
                               const gchar     *description)
 {
   AtkImageIface *iface;
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-  g_return_val_if_fail (ATK_IS_IMAGE (obj), FALSE);
+  g_return_val_if_fail (image != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_IMAGE (image), FALSE);
 
-  iface = ATK_IMAGE_GET_IFACE (obj);
+  iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->set_image_description)
     {
-      return (iface->set_image_description) (obj, description);
+      return (iface->set_image_description) (image, description);
     }
   else
     {

@@ -248,6 +248,8 @@ atk_component_get_size       (AtkComponent    *component,
  * @component: an #AtkComponent
  *
  * Grabs focus for this @component.
+ *
+ * Returns: %TRUE if successful, %FALSE otherwise.
  **/
 gboolean
 atk_component_grab_focus (AtkComponent    *component)

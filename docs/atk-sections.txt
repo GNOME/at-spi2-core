@@ -25,7 +25,6 @@ atk_component_contains
 atk_component_get_accessible_at_point
 atk_component_get_extents
 atk_component_get_position
-atk_component_get_position_on_screen
 atk_component_get_size
 atk_component_grab_focus
 atk_component_remove_focus_handler
