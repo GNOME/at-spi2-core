@@ -5,308 +5,485 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.4.0\n"
+"Project-Id-Version: atk 1.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-30 16:44+0200\n"
-"PO-Revision-Date: 2003-09-30 16:44+0200\n"
+"POT-Creation-Date: 2003-12-26 11:42+0100\n"
+"PO-Revision-Date: 2003-12-26 11:42+0100\n"
 "Last-Translator: Christian Neumair <chris@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1235
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "Ausgewählter Link"
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "Gibt an, ob das AtkHyperlink-Objekt ausgewählt ist"
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "Ankeranzahl"
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "Die Anzahl der mit dem AtkHyperlink-Objekt assoziierten Anker"
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "Endindex"
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "Der Endindex des AtkHyperlink-Objekts"
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "Anfangsindex"
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "Der Anfangsindex des AtkHyperlink-Objekts"
+
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "ungültig"
 
-#: atk/atkobject.c:1238
-msgid "accel-label"
-msgstr "Kürzel-Beschriftung"
+#: atk/atkobject.c:83
+msgid "accelerator label"
+msgstr "Kürzelbeschriftung"
 
-#: atk/atkobject.c:1241
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "Alarm"
 
-#: atk/atkobject.c:1244
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "Animation"
 
-#: atk/atkobject.c:1247
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "Pfeil"
 
-#: atk/atkobject.c:1250
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "Kalender"
 
-#: atk/atkobject.c:1253
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "Leinwand"
 
-#: atk/atkobject.c:1256
-msgid "check-box"
+#: atk/atkobject.c:89
+msgid "check box"
 msgstr "Kontrollkästchen"
 
-#: atk/atkobject.c:1259
-msgid "check-menu-item"
-msgstr "Kontroll-Menüobjekt"
+#: atk/atkobject.c:90
+msgid "check menu item"
+msgstr "Kontrollmenüobjekt"
 
-#: atk/atkobject.c:1262
-msgid "color-chooser"
+#: atk/atkobject.c:91
+msgid "color chooser"
 msgstr "Farbwähler"
 
-#: atk/atkobject.c:1265
-msgid "column-header"
+#: atk/atkobject.c:92
+msgid "column header"
 msgstr "Spaltenkopf"
 
-#: atk/atkobject.c:1268
-msgid "combo-box"
+#: atk/atkobject.c:93
+msgid "combo box"
 msgstr "Kombinationsfeld"
 
-#: atk/atkobject.c:1271
-msgid "date-editor"
-msgstr "Datums-Editor"
+#: atk/atkobject.c:94
+msgid "dateeditor"
+msgstr "Datumseditor"
 
-#: atk/atkobject.c:1274
-msgid "desktop-icon"
+#: atk/atkobject.c:95
+msgid "desktop icon"
 msgstr "Desktop-Symbol"
 
-#: atk/atkobject.c:1277
-msgid "desktop-frame"
+#: atk/atkobject.c:96
+msgid "desktop frame"
 msgstr "Desktop-Rahmen"
 
-#: atk/atkobject.c:1280
+#: atk/atkobject.c:97
 msgid "dial"
-msgstr "Wählen"
+msgstr "wählen"
 
-#: atk/atkobject.c:1283
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "Dialog"
 
-#: atk/atkobject.c:1286
-msgid "directory-pane"
+#: atk/atkobject.c:99
+msgid "directory pane"
 msgstr "Verzeichnisleiste"
 
-#: atk/atkobject.c:1289
-msgid "drawing-area"
+#: atk/atkobject.c:100
+msgid "drawing area"
 msgstr "Zeichenfeld"
 
-#: atk/atkobject.c:1292
-msgid "file-chooser"
+#: atk/atkobject.c:101
+msgid "file chooser"
 msgstr "Dateiwähler"
 
-#: atk/atkobject.c:1295
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "Füller"
 
-#: atk/atkobject.c:1298
-msgid "font-chooser"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+msgid "fontchooser"
 msgstr "Schriftwähler"
 
-#: atk/atkobject.c:1301
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "Rahmen"
 
-#: atk/atkobject.c:1304
-msgid "glass-pane"
+#: atk/atkobject.c:106
+msgid "glass pane"
 msgstr "Glasleiste"
 
-#: atk/atkobject.c:1307
-msgid "html-container"
+#: atk/atkobject.c:107
+msgid "html container"
 msgstr "HTML-Container"
 
-#: atk/atkobject.c:1310
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "Symbol"
 
-#: atk/atkobject.c:1313
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "Bild"
 
-#: atk/atkobject.c:1316
-msgid "internal-frame"
-msgstr "Interner-Rahmen"
+#: atk/atkobject.c:110
+msgid "internal frame"
+msgstr "interner Rahmen"
 
-#: atk/atkobject.c:1319
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "Beschriftung"
 
-#: atk/atkobject.c:1322
-msgid "layered-pane"
+#: atk/atkobject.c:112
+msgid "layered pane"
 msgstr "Schichtleiste"
 
-#: atk/atkobject.c:1325
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "Liste"
 
-#: atk/atkobject.c:1328
-msgid "list-item"
+#: atk/atkobject.c:114
+msgid "list item"
 msgstr "Listenobjekt"
 
-#: atk/atkobject.c:1331
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "Menü"
 
-#: atk/atkobject.c:1334
-msgid "menu-bar"
+#: atk/atkobject.c:116
+msgid "menu bar"
 msgstr "Menüleiste"
 
-#: atk/atkobject.c:1337
-msgid "menu-item"
+#: atk/atkobject.c:117
+msgid "menu item"
 msgstr "Menüobjekt"
 
-#: atk/atkobject.c:1340
-msgid "option-pane"
+#: atk/atkobject.c:118
+msgid "option pane"
 msgstr "Optionsleiste"
 
-#: atk/atkobject.c:1343
-msgid "page-tab"
+#: atk/atkobject.c:119
+msgid "page tab"
 msgstr "Seitenreiter"
 
-#: atk/atkobject.c:1346
-msgid "page-tab-list"
+#: atk/atkobject.c:120
+msgid "page tab list"
 msgstr "Seitenreiter-Liste"
 
-#: atk/atkobject.c:1349
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "Panel"
 
-#: atk/atkobject.c:1352
-msgid "password-text"
+#: atk/atkobject.c:122
+msgid "password text"
 msgstr "Passworttext"
 
-#: atk/atkobject.c:1355
-msgid "popup-menu"
+#: atk/atkobject.c:123
+msgid "popup menu"
 msgstr "Popup-Menü"
 
-#: atk/atkobject.c:1358
-msgid "progress-bar"
+#: atk/atkobject.c:124
+msgid "progress bar"
 msgstr "Fortschrittsleiste"
 
-#: atk/atkobject.c:1361
-msgid "push-button"
+#: atk/atkobject.c:125
+msgid "push button"
 msgstr "Druckknopf"
 
-#: atk/atkobject.c:1364
-msgid "radio-button"
+#: atk/atkobject.c:126
+msgid "radio button"
 msgstr "Radioknopf"
 
-#: atk/atkobject.c:1367
-msgid "radio-menu-item"
-msgstr "Radio-Menüobjekt"
+#: atk/atkobject.c:127
+msgid "radio menu item"
+msgstr "Radiomenüobjekt"
 
-#: atk/atkobject.c:1370
-msgid "root-pane"
+#: atk/atkobject.c:128
+msgid "root pane"
 msgstr "Wurzelleiste"
 
-#: atk/atkobject.c:1373
-msgid "row-header"
+#: atk/atkobject.c:129
+msgid "row header"
 msgstr "Zeilenkopf"
 
-#: atk/atkobject.c:1376
-msgid "scroll-bar"
+#: atk/atkobject.c:130
+msgid "scroll bar"
 msgstr "Rollbalken"
 
-#: atk/atkobject.c:1379
-msgid "scroll-pane"
+#: atk/atkobject.c:131
+msgid "scroll pane"
 msgstr "Rollleiste"
 
-#: atk/atkobject.c:1382
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "Trennlinie"
 
-#: atk/atkobject.c:1385
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "Schieber"
 
-#: atk/atkobject.c:1388
-msgid "split-pane"
-msgstr "Geteilte-Leiste"
+#: atk/atkobject.c:134
+msgid "split pane"
+msgstr "geteilte Leiste"
 
-#: atk/atkobject.c:1391
-msgid "spin-button"
+#: atk/atkobject.c:135
+msgid "spin button"
 msgstr "Spin-Knopf"
 
-#: atk/atkobject.c:1394
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "Statusleiste"
 
-#: atk/atkobject.c:1397
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "Tabelle"
 
-#: atk/atkobject.c:1400
-msgid "table-cell"
+#: atk/atkobject.c:138
+msgid "table cell"
 msgstr "Tabellenzelle"
 
-#: atk/atkobject.c:1403
-msgid "table-column-header"
-msgstr "Tabelle-Spaltenkopf"
+#: atk/atkobject.c:139
+msgid "table column header"
+msgstr "Spaltenkopf einer Tabelle"
 
-#: atk/atkobject.c:1406
-msgid "table-row-header"
-msgstr "Tabelle-Zeilenkopf"
+#: atk/atkobject.c:140
+msgid "table row header"
+msgstr "Zeilenkopf einer Tabelle"
 
-#: atk/atkobject.c:1409
-msgid "tear-off-menu-item"
-msgstr "Abriss-Menüobjekt"
+#: atk/atkobject.c:141
+msgid "tear off menu item"
+msgstr "Objekt in Abrissmenü"
 
-#: atk/atkobject.c:1412
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "Terminal"
 
-#: atk/atkobject.c:1415
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "Text"
 
-#: atk/atkobject.c:1418
-msgid "toggle-button"
+#: atk/atkobject.c:144
+msgid "toggle button"
 msgstr "Auslöseknopf"
 
-#: atk/atkobject.c:1421
-msgid "tool-bar"
+#: atk/atkobject.c:145
+msgid "tool bar"
 msgstr "Werkzeugleiste"
 
-#: atk/atkobject.c:1424
-msgid "tool-tip"
-msgstr "Tooltip"
+#: atk/atkobject.c:146
+msgid "tool tip"
+msgstr "Minihilfe"
 
-#: atk/atkobject.c:1427
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "Baum"
 
-#: atk/atkobject.c:1430
-msgid "tree-table"
-msgstr "Baum-Tabelle"
+#: atk/atkobject.c:148
+msgid "tree table"
+msgstr "Baumtabelle"
 
-#: atk/atkobject.c:1433
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "unbekannt"
 
-#: atk/atkobject.c:1436
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "Sichtfeld"
 
-#: atk/atkobject.c:1439
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "Fenster"
 
-#: atk/atkobject.c:1442
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "Kopfzeilen"
 
-#: atk/atkobject.c:1445
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "Fußzeilen"
 
-#: atk/atkobject.c:1448
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "Absatz"
 
-#: atk/atkobject.c:1451
-msgid "ruler"
-msgstr "Lineal"
-
-#: atk/atkobject.c:1454
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "Anwendung"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr "Auto-Vervollständigung"
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr "Bearbeitungsleiste"
+
+#: atk/atkobject.c:295
+msgid "Accessible Name"
+msgstr "Barrierefreier Name"
+
+#: atk/atkobject.c:296
+msgid "Object instance's name formatted for assistive technology access"
+msgstr ""
+"Name der Objektinstanz, formatiert für den Zugriff durch Hilfstechnologien"
+
+#: atk/atkobject.c:302
+msgid "Accessible Description"
+msgstr "Barrierefreie Beschreibung"
+
+#: atk/atkobject.c:303
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+"Beschreibung eines Objekts, formatiert für den Zugriff durch "
+"Hilfstechnologien"
+
+#: atk/atkobject.c:309
+msgid "Accessible Parent"
+msgstr "Barrierefreies Eltern-Element"
+
+#: atk/atkobject.c:310
+msgid "Is used to notify that the parent has changed"
+msgstr "Wird zur Benachrichtigung bei Änderungen am Eltern-Element verwendet"
+
+#: atk/atkobject.c:316
+msgid "Accessible Value"
+msgstr "Barrierefreier Wert"
+
+#: atk/atkobject.c:317
+msgid "Is used to notify that the value has changed"
+msgstr "Wird zur Benachrichtigung bei Wertänderungen verwendet"
+
+#: atk/atkobject.c:325
+msgid "Accessible Role"
+msgstr "Barrierefreie Rolle"
+
+#: atk/atkobject.c:326
+msgid "The accessible role of this object"
+msgstr "Die barrierefreie Rolle dieses Objekts"
+
+#: atk/atkobject.c:334
+msgid "Accessible Layer"
+msgstr "Barrierefreie Ebene"
+
+#: atk/atkobject.c:335
+msgid "The accessible layer of this object"
+msgstr "Die barrierefreie Ebene dieses Objekts"
+
+#: atk/atkobject.c:343
+msgid "Accessible MDI Value"
+msgstr "Barrierefreier MDI-Wert"
+
+#: atk/atkobject.c:344
+msgid "The accessible MDI value of this object"
+msgstr "Der barrierefreie MDI-Wert dieses Objekts"
+
+#: atk/atkobject.c:352
+msgid "Accessible Table Caption"
+msgstr "Barrierefreie Tabellenüberschrift"
+
+#: atk/atkobject.c:353
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen der Tabellenbeschriftung verwendet; "
+"statt dieser Eigenschaft sollte »accessible-table-caption-object« verwendet "
+"werden"
+
+#: atk/atkobject.c:359
+msgid "Accessible Table Column Header"
+msgstr "Barrierefreie Überschrift der Tabellenspalte"
+
+#: atk/atkobject.c:360
+msgid "Is used to notify that the table column header has changed"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen an der Überschrift der "
+"Tabellenspalte verwendet"
+
+#: atk/atkobject.c:366
+msgid "Accessible Table Column Description"
+msgstr "Barrierefreie Beschreibung der Tabellenspalte"
+
+#: atk/atkobject.c:367
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen an der Beschreibung der "
+"Tabellenspalte verwendet"
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Row Header"
+msgstr "Barrierfreie Überschrift der Tabellenzeile"
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table row header has changed"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen an der Überschrift der "
+"Tabellenzeile verwendet"
+
+#: atk/atkobject.c:380
+msgid "Accessible Table Row Description"
+msgstr "Barrierefreie Beschreibung der Tabellenzeile"
+
+#: atk/atkobject.c:381
+msgid "Is used to notify that the table row description has changed"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen an der Beschreibung der "
+"Tabellenzeile verwendet"
+
+#: atk/atkobject.c:387
+msgid "Accessible Table Summary"
+msgstr "Barrierefreie Tabellenzusammenfassung"
+
+#: atk/atkobject.c:388
+msgid "Is used to notify that the table summary has changed"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen an der Tabellenzusammenfassung "
+"verwendet"
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Caption Object"
+msgstr "Barrierefreies Objekt zur Tabellenbeschriftung"
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table caption has changed"
+msgstr ""
+"Wird zur Benachrichtigung bei Änderungen an der Tabellenbeschriftung "
+"verwendet"
+
+#: atk/atkobject.c:401
+msgid "Accessible Hypertext Number of Links"
+msgstr "Barrierefreie Anzahl der Hypertext-Links"
+
+#: atk/atkobject.c:402
+msgid "The number of links which the current AtkHypertext has"
+msgstr "Die Anzahl der Links, die der derzeitige AtkHypertext hat"
