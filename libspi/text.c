@@ -196,6 +196,36 @@ impl__get_caretOffset (PortableServer_Servant servant,
 }
 
 
+static CORBA_char *
+_string_from_attribute_set (AtkAttributeSet *set)
+{
+  gchar *attributes, *tmp, *tmp2;
+  CORBA_char *rv;
+  GSList *cur_attr;
+  AtkAttribute *at;
+  
+  attributes = g_strdup ("");
+  cur_attr = (GSList *) set;
+  while (cur_attr)
+    {
+      at = (AtkAttribute *) cur_attr->data;
+      tmp = g_strdup_printf ("%s%s:%s%s",
+			     ((GSList *)(set) == cur_attr) ? "" : " ",
+			     at->name, at->value,
+			     (cur_attr->next) ? ", " : "");
+      tmp2 = g_strconcat (attributes, tmp, NULL);
+      g_free (tmp);
+      g_free (attributes);
+      attributes = tmp2;
+      cur_attr = cur_attr->next;
+    }
+  rv = CORBA_string_dup (attributes);
+  g_free (attributes);
+  return rv;
+}
+
+
+
 static CORBA_string
 impl_getAttributes (PortableServer_Servant servant,
 		    const CORBA_long offset,
@@ -203,13 +233,20 @@ impl_getAttributes (PortableServer_Servant servant,
 		    CORBA_long * endOffset,
 		    CORBA_Environment *ev)
 {
+  AtkAttributeSet *set;
+  gint intstart_offset, intend_offset;
+  CORBA_char *rv;
   AtkText *text = get_text_from_servant (servant);
 
   g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
-  g_print ("getAttributes not yet implemented.\n");
-
-  return CORBA_string_dup ("");
+  set = atk_text_get_run_attributes (text, offset,
+				     &intstart_offset, &intend_offset);
+  *startOffset = (CORBA_long) intstart_offset;
+  *endOffset = (CORBA_long) intend_offset;
+  rv = _string_from_attribute_set (set);
+  atk_attribute_set_free (set);
+  return rv;  
 }
 
 

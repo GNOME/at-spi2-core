@@ -1,4 +1,8 @@
-2002-02-04  Bill Haneman <bill.haneman@sun.com>
+2002-02-06 Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* libspi/text.c: Provide implementation for getAttributes.
+
+	2002-02-04  Bill Haneman <bill.haneman@sun.com>
 	
 	* configure.in:
 	Incremented revision.
