@@ -268,6 +268,7 @@ cspi_object_borrow (CORBA_Object corba_object)
 void
 cspi_object_return (Accessible *accessible)
 {
+  int old_ref_count;
   g_return_if_fail (accessible != NULL);
 
   if (!accessible->on_loan ||
@@ -278,8 +279,17 @@ cspi_object_return (Accessible *accessible)
   else /* Convert to a permanant ref */
     {
       accessible->on_loan = FALSE;
+      old_ref_count = accessible->ref_count;
       accessible->objref = cspi_dup_ref (accessible->objref);
-      accessible->ref_count--;
+      if (old_ref_count != accessible->ref_count &&
+          accessible->ref_count == 1)
+        {
+            cspi_object_unref (accessible);
+        }
+      else    
+        {
+          accessible->ref_count--;
+        }
     }
 }
 

@@ -1,3 +1,8 @@
+2003-09-01  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi_main.c (cspi_object_return): Ensure that reference count is
+	not decremented to zero. Fixes bug #120725.
+
 2003-08-30  KAMAGASAKO Masatoshi  <emerald@gnome.gr.jp>
 
 	* configure.in: Added "ja" to ALL_LINGUAS.
