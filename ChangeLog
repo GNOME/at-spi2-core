@@ -1,3 +1,8 @@
+2001-01-06  Hans Breuer  <hans@breuer.org>
+
+	* atk/makefile.msc atk/atk.def (new files) :
+	Enable build for win32, no sourc changes necessary.
+
 Sat May  5 07:46:47 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* Released 0.1

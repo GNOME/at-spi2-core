@@ -1,0 +1,5 @@
+EXPORTS
+ atk_get_default_registry
+ atk_implementor_get_type
+ atk_object_factory_create_accessible
+ atk_registry_get_factory
