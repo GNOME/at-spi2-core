@@ -1,3 +1,10 @@
+Changes in version 1.3.1
+========================
+* Allow use of libtool-1.5 (bug #111481) [Ali Akcaagac]
+
+* Added translations: Yiddish [Raphael Finkel], Japanese [Takeshi AIHANA].
+
+
 Changes in version 1.3.0
 ========================
 * Use automake-1.7, libtoolize, gtkdocize and glib-gettextize. 

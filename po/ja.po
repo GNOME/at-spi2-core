@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.2.2\n"
-"POT-Creation-Date: 2003-03-21 13:17+0900\n"
+"POT-Creation-Date: 2003-03-18 11:51+0000\n"
 "PO-Revision-Date: 2003-01-28 00:27+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
 "Language-Team: Japanese <translation@gnome.gr.jp>\n"
