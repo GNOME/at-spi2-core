@@ -1,5 +1,15 @@
 2003-01-21  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atkobject.c 
+	(atk_object_real_set_property): Add support for PROP_TABLE_SUMMARY 
+	and PROP_TABLE_CAPTION_OBJECT.
+	(atk_object_real_get_property): Add support for PROP_TABLE_SUMMARY 
+	and PROP_TABLE_CAPTION_OBJECT.
+
+	This completes ATK changes for bug #74814.
+
+2003-01-21  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkobject.c: Add property accessible-table-caption-object.
 	This addresses bug #74814.
 

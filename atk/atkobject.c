@@ -895,6 +895,14 @@ atk_object_real_set_property (GObject      *object,
       if (ATK_IS_VALUE (accessible))
         atk_value_set_current_value (ATK_VALUE (accessible), value);
       break;
+    case PROP_TABLE_SUMMARY:
+      if (ATK_IS_TABLE (accessible))
+        atk_table_set_summary (ATK_TABLE (accessible), g_value_get_object (value));
+      break;
+    case PROP_TABLE_CAPTION_OBJECT:
+      if (ATK_IS_TABLE (accessible))
+        atk_table_set_caption (ATK_TABLE (accessible), g_value_get_object (value));
+      break;
     default:
       break;
     }
@@ -935,6 +943,14 @@ atk_object_real_get_property (GObject      *object,
     case PROP_VALUE:
       if (ATK_IS_VALUE (accessible))
         atk_value_get_current_value (ATK_VALUE (accessible), value);
+      break;
+    case PROP_TABLE_SUMMARY:
+      if (ATK_IS_TABLE (accessible))
+        g_value_set_object (value, atk_table_get_summary (ATK_TABLE (accessible)));
+      break;
+    case PROP_TABLE_CAPTION_OBJECT:
+      if (ATK_IS_TABLE (accessible))
+        g_value_set_object (value, atk_table_get_caption (ATK_TABLE (accessible)));
       break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
