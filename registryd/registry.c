@@ -47,7 +47,7 @@ typedef enum {
   ETYPE_WINDOW,
   ETYPE_TOOLKIT,
   ETYPE_KEYBOARD,
-  
+  ETYPE_MOUSE,
   ETYPE_LAST_DEFINED
 } EventTypeCategory;
 
@@ -65,7 +65,6 @@ typedef struct {
   EventTypeCategory event_type_cat;
 } SpiListenerStruct;
 
-
 SpiListenerStruct *
 spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment *ev)
 {
@@ -81,7 +80,6 @@ spi_listener_struct_free (SpiListenerStruct *ls, CORBA_Environment *ev)
   bonobo_object_release_unref (ls->listener, ev);
   g_free (ls);
 }
-
 
 static void
 desktop_add_application (SpiDesktop *desktop,
@@ -248,6 +246,10 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
     {
       etype->type_cat = ETYPE_FOCUS;
     }
+  else if (!g_ascii_strncasecmp (event_name, "mouse:", 6))
+    {
+      etype->type_cat = ETYPE_MOUSE;
+    }
   else if (!g_ascii_strncasecmp (event_name, "object:", 7))
     {
       etype->type_cat = ETYPE_OBJECT;
@@ -332,6 +334,7 @@ get_listener_list (SpiRegistry      *registry,
       case ETYPE_WINDOW:
 	ret = &registry->window_listeners;
 	break;
+      case ETYPE_MOUSE:
       case ETYPE_TOOLKIT:
 	ret = &registry->toolkit_listeners;
 	break;
@@ -670,7 +673,7 @@ spi_registry_init (SpiRegistry *registry)
 		    G_CALLBACK (desktop_remove_application),
 		    registry);
 
-  registry->de_controller = NULL;
+  registry->de_controller = spi_device_event_controller_new (registry);
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiRegistry,

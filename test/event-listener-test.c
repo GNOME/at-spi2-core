@@ -58,6 +58,10 @@ main (int argc, char **argv)
 
   SPI_registerGlobalEventListener (generic_listener,
 				   "focus:");
+  SPI_registerGlobalEventListener (specific_listener,
+				   "mouse:rel");
+  SPI_registerGlobalEventListener (specific_listener,
+				   "mouse:abs");
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:property-change");
   SPI_registerGlobalEventListener (specific_listener,
@@ -207,7 +211,8 @@ void
 report_detail_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s\n", event->type, s);
+  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+	   event->detail1, event->detail2);
   if (s) SPI_freeString (s);
 }
 

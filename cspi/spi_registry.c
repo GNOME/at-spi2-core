@@ -90,6 +90,18 @@
  *            window:unshade
  *            window:restyle
  *
+ *  (other events)
+ *
+ *            focus:
+ *            mouse:abs
+ *            mouse:rel
+ *            mouse:b1p
+ *            mouse:b1r
+ *            mouse:b2p
+ *            mouse:b2r
+ *            mouse:b3p
+ *            mouse:b3r
+ *
  * NOTE: this string may be UTF-8, but should not contain byte value 56
  *            (ascii ':'), except as a delimiter, since non-UTF-8 string
  *            delimiting functions are used internally.

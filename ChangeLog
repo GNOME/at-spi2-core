@@ -1,3 +1,40 @@
+2002-06-25  Bill Haneman  <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c: partial fix for 84261
+	(spi_dec_poll_mouse_idle):
+	New method, a timeout which checks to see if the mouse
+	has moved.
+	(spi_dec_poll_mouse_moving):
+	A timeout to be called when mouse motion is underway.
+	(spi_dec_poll_mouse_moved):
+	A method which fires an event if the mouse has moved, and reports
+	whether or not it did so. 
+	(spi_dec_init_mouse_listener):
+	A method which sets up the timeouts above.
+	(spi_device_event_controller_new):
+	Now calls spi_dec_init_mouse_listener.
+
+	* registryd/registry.c:
+	(spi_registry_init):
+	Now we initialize the device event controller when the registry is
+	initialized, instead of waiting until a client has requested a key
+	event notification; this is because we need the event controller
+	for mouse events, but the mouse event registration API is a
+	"registry" call and doesn't explicitly call the 
+	deviceeventcontroller.
+	We now report mouse motion events with a 100 ms idle latency and
+	a 20 ms granularity when motion is in progress.
+
+	* test/event-listener-test.c:
+	(main):
+	We now register the "detail listener" for events of type 
+	"mouse:rel" and "mouse:abs" (Note, mouse-abs events generally are
+	delivered only for the first mouse event received, and thereafter
+	"mouse:abs" events are delivered.)
+
+	* cspi/spi_registry.c:
+	DOCS: Documented the above mouse event typestrings.
+	
 2002-06-21  Bill Haneman  <bill.haneman@sun.com>
 
 	Happy Summer Solstice...

@@ -50,6 +50,7 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_device_event_controller_parent_class;
 static int spi_error_code = 0;
+static GdkPoint *last_mouse_pos = NULL;
 
 int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
@@ -95,6 +96,9 @@ static void     spi_deregister_controller_key_listener (SpiDEController         
 							CORBA_Environment       *ev);
 
 static gboolean spi_clear_error_state (void);
+static gboolean spi_dec_poll_mouse_moved (gpointer data);
+static gboolean spi_dec_poll_mouse_moving (gpointer data);
+static gboolean spi_dec_poll_mouse_idle (gpointer data);
 
 #define spi_get_display() GDK_DISPLAY()
 
@@ -140,6 +144,75 @@ spi_grab_mask_compare_values (gconstpointer p1, gconstpointer p2)
     { 
       return ((l1->mod_mask != l2->mod_mask) || (l1->key_val != l2->key_val));
     }
+}
+
+static gboolean
+spi_dec_poll_mouse_moved (gpointer data)
+{
+  SpiRegistry *registry = SPI_REGISTRY (data);
+  CORBA_Environment ev;
+  Accessibility_Event e;
+  Window root_return, child_return;
+  int win_x_return,win_y_return;
+  int x, y;
+  unsigned int mask_return;
+  Display *display = spi_get_display ();
+  if (last_mouse_pos == NULL) {
+	  last_mouse_pos = g_new0 (GdkPoint, 1);
+	  last_mouse_pos->x = 0;
+	  last_mouse_pos->y = 0;
+	  e.type = g_strdup ("mouse:abs");
+  } else {
+	  e.type = g_strdup ("mouse:rel");
+  }
+  if (display != NULL)
+	  XQueryPointer(display, DefaultRootWindow (display),
+		&root_return, &child_return,
+		&x, &y,
+		&win_x_return, &win_y_return, &mask_return);
+  if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
+	  e.source = BONOBO_OBJREF (registry->desktop);
+	  e.detail1 = x - last_mouse_pos->x;
+	  e.detail2 = y - last_mouse_pos->y;
+	  CORBA_exception_init (&ev);
+	  last_mouse_pos->x = x;
+	  last_mouse_pos->y = y;
+	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+					      &e,
+					      &ev);
+	  return TRUE;
+  }
+  return FALSE;
+}
+
+static gboolean
+spi_dec_poll_mouse_idle (gpointer data)
+{
+  if (! spi_dec_poll_mouse_moved (data)) 
+    return TRUE;
+  else
+    {
+      g_timeout_add (20, spi_dec_poll_mouse_moving, data);	    
+      return FALSE;	    
+    }
+}
+
+static gboolean
+spi_dec_poll_mouse_moving (gpointer data)
+{
+  if (spi_dec_poll_mouse_moved (data))
+    return TRUE;
+  else
+    {
+      g_timeout_add (100, spi_dec_poll_mouse_idle, data);	    
+      return FALSE;
+    }
+}
+
+static void
+spi_dec_init_mouse_listener (SpiRegistry *registry)
+{
+  g_timeout_add (100, spi_dec_poll_mouse_idle, registry);
 }
 
 static DEControllerKeyListener *
@@ -1173,6 +1246,9 @@ spi_device_event_controller_new (SpiRegistry *registry)
   retval->registry = SPI_REGISTRY (bonobo_object_ref (
 	  BONOBO_OBJECT (registry)));
 
+  spi_dec_init_mouse_listener (registry);
+  /* TODO: kill mouse listener on finalize */
+  
   return retval;
 }
 
