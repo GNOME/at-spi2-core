@@ -237,10 +237,12 @@ typedef enum
   /* Indicates this object is collapsed */
   ATK_STATE_COLLAPSED,
   /* Indicates the user can change the contents of this object */
+  ATK_STATE_DEFUNCT,
+  /* Indicates this object may have been removed by the application */
   ATK_STATE_EDITABLE,
   /* Indicates this object allows progressive disclosure of its children */
   ATK_STATE_EXPANDABLE,
-  /* Indicates this object its expanded */
+  /* Indicates this object is expandable */
   ATK_STATE_EXPANDED,
   /*
    * Indicates this object can accept keyboard focus, which means all
@@ -325,11 +327,11 @@ typedef struct _AtkImplementorIface       AtkImplementorIface;
 typedef struct _AtkObject                 AtkObject;
 typedef struct _AtkObjectClass            AtkObjectClass;
 typedef struct _AtkRelationSet            AtkRelationSet;
+typedef struct _AtkStateSet               AtkStateSet;
 
-typedef guint64                           AtkStateMask;
 typedef guint64                           AtkState;
+typedef guint64                           AtkStateMask;
 
-#define ATK_STATE(state_enum)             ((AtkStateMask)(1 << ((guint64)(state_enum)%64)))
 
 struct _AtkPropertyValues
 {
@@ -410,7 +412,7 @@ struct _AtkObjectClass
   /*
    * Gets the state set of the object
    */
-  AtkState                (* get_state)           (AtkObject                 *accessible);
+  AtkStateSet*            (* ref_state_set)       (AtkObject                 *accessible);
   /*
    * Sets the accessible name of the object
    */
@@ -489,7 +491,7 @@ AtkObject*              atk_object_ref_accessible_child           (AtkObject *ac
                                                                    gint        i);
 AtkRelationSet*         atk_object_ref_relation_set               (AtkObject *accessible);
 AtkRole                 atk_object_get_role                       (AtkObject *accessible);
-AtkState                atk_object_get_state                      (AtkObject *accessible);
+AtkStateSet*            atk_object_ref_state_set                  (AtkObject *accessible);
 gint                    atk_object_get_index_in_parent            (AtkObject *accessible);
 void                    atk_object_set_name                       (AtkObject *accessible,
                                                                    const gchar *name);

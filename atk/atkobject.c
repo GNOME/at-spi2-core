@@ -25,6 +25,8 @@
 
 #define NUM_POSSIBLE_STATES                     (sizeof(AtkStateMask)*8)
 
+#define ATK_STATE(state_enum)             ((AtkStateMask)(1 << ((guint64)(state_enum)%64)))
+
 /* New GObject properties registered by AtkObject */
 enum
 {
@@ -425,24 +427,25 @@ atk_state_type_register (const gchar *name)
 }
 
 /**
- * atk_object_get_state
+ * atk_object_ref_state_set
  * @accessible: a #AtkObject
- * return values: a #AtkState which is the state of the accessible
+ * return values: a reference to a #AtkStateSet which is the state set of the accessible
  *
- * Gets the state of the accessible
+ * returns a reference to the state set of the accessible; the caller should
+ * unreference it.
  **/
-AtkState
-atk_object_get_state (AtkObject *accessible) {
+AtkStateSet*
+atk_object_ref_state_set (AtkObject *accessible) {
   AtkObjectClass *klass;
 
-  g_return_val_if_fail (accessible != NULL, 0);
-  g_return_val_if_fail (ATK_IS_OBJECT (accessible), 0);
+  g_return_val_if_fail (accessible != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
 
   klass = ATK_OBJECT_GET_CLASS (accessible);
-  if (klass->get_state)
-    return (klass->get_state) (accessible);
+  if (klass->ref_state_set)
+    return (klass->ref_state_set) (accessible);
   else
-    return 0;
+    return NULL;
 }
 
 /**
@@ -468,6 +471,13 @@ atk_object_get_index_in_parent (AtkObject *accessible)
     return -1;
 }
 
+/**
+ * atk_object_set_name
+ * @accessible: a #AtkObject
+ * @name : a character string to be set as the accessible name
+ *
+ * Sets the accessible name of the accessible
+ **/
 void
 atk_object_set_name (AtkObject    *accessible,
                      const gchar  *name)
@@ -486,6 +496,13 @@ atk_object_set_name (AtkObject    *accessible,
   }
 }
 
+/**
+ * atk_object_set_name
+ * @accessible: a #AtkObject
+ * @description : a character string to be set as the accessible description
+ *
+ * Sets the accessible description of the accessible
+ **/
 void
 atk_object_set_description (AtkObject   *accessible,
                             const gchar *description)
@@ -504,6 +521,13 @@ atk_object_set_description (AtkObject   *accessible,
   }
 }
 
+/**
+ * atk_object_set_name
+ * @accessible: a #AtkObject
+ * @parent : a #AtkObject to be set as the accessible parent
+ *
+ * Sets the accessible parent of the accessible
+ **/
 void
 atk_object_set_parent (AtkObject *accessible,
                        AtkObject *parent)
@@ -518,6 +542,13 @@ atk_object_set_parent (AtkObject *accessible,
     (klass->set_parent) (accessible, parent);
 }
 
+/**
+ * atk_object_set_name
+ * @accessible: a #AtkObject
+ * @role : a #AtkRole to be set as the role
+ *
+ * Sets the role of the accessible
+ **/
 void
 atk_object_set_role (AtkObject *accessible, 
                      AtkRole   role)
@@ -656,9 +687,9 @@ atk_object_real_set_property (GObject      *object,
 
 static void
 atk_object_real_get_property (GObject      *object,
-                         guint         prop_id,
-                         GValue       *value,
-                         GParamSpec   *pspec)
+                              guint         prop_id,
+                              GValue       *value,
+                              GParamSpec   *pspec)
 {
   AtkObject *accessible;
 
@@ -671,9 +702,6 @@ atk_object_real_get_property (GObject      *object,
       break;
     case PROP_DESCRIPTION:
       g_value_set_string (value, atk_object_get_description (accessible));
-      break;
-    case PROP_STATE:
-      g_value_set_int (value, atk_object_get_state (accessible));
       break;
     default:
       break;

@@ -29,6 +29,7 @@
 #include <atk/atkrelation.h>
 #include <atk/atkrelationset.h>
 #include <atk/atkselection.h>
+#include <atk/atkstateset.h>
 #include <atk/atktable.h>
 #include <atk/atktext.h>
 #include <atk/atkutil.h>
