@@ -40,6 +40,7 @@ EXPORTS
 	atk_focus_tracker_init
 	atk_focus_tracker_notify
 	atk_get_default_registry
+	atk_get_focus_object
 	atk_get_root
 	atk_get_toolkit_name
 	atk_get_toolkit_version
@@ -52,6 +53,8 @@ EXPORTS
 	atk_hyperlink_get_start_index
 	atk_hyperlink_get_type
 	atk_hyperlink_get_uri
+	atk_hyperlink_is_inline
+	atk_hyperlink_is_selected_link
 	atk_hyperlink_is_valid
 	atk_hypertext_get_link
 	atk_hypertext_get_link_index
@@ -189,6 +192,7 @@ EXPORTS
 	atk_text_attribute_get_value
 	atk_text_attribute_register
 	atk_text_boundary_get_type
+	atk_text_get_bounded_ranges
 	atk_text_get_caret_offset
 	atk_text_get_character_at_offset
 	atk_text_get_character_count
@@ -196,6 +200,7 @@ EXPORTS
 	atk_text_get_default_attributes
 	atk_text_get_n_selections
 	atk_text_get_offset_at_point
+	atk_text_get_range_extents
 	atk_text_get_run_attributes
 	atk_text_get_selection
 	atk_text_get_text
