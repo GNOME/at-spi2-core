@@ -1,3 +1,11 @@
+2001-08-16  Bill Haneman  <bill.haneman@sun.com>
+
+        * atk/atkutil.c :
+        Changed g_type_class_peek() to g_type_class_ref()
+        in atk_add_global_event_listener(), since
+        g_type_class_peek() could return NULL when an
+        instance of the class had not been created.
+
 2001-08-16  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* docs/atk-sections.txt, docs/tmpl/atktext.sgml:

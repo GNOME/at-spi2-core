@@ -96,7 +96,7 @@ atk_focus_tracker_init (AtkEventListenerInit    init)
 /**
  * atk_add_focus_tracker:
  * @focus_tracker: Function to be added to the list of functions to be called
- * when an object receives focus. 
+ * when an object receives focus.
  *
  * Adds the specified function to the list of functions to be called
  * when an object receives focus.
@@ -123,7 +123,7 @@ atk_add_focus_tracker (AtkEventListener   focus_tracker)
 
     item.index = ++index;
     item.func = focus_tracker;
-    trackers = g_array_append_val (trackers, item); 
+    trackers = g_array_append_val (trackers, item);
     return index;
   }
   else
@@ -196,18 +196,22 @@ atk_focus_tracker_notify (AtkObject       *object)
  *
  * Returns: added event listener id, or 0 on failure.
  **/
-guint	
+guint
 atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_type)
 {
-  AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
-  if (klass->add_global_event_listener) 
+  guint retval;
+  AtkUtilClass *klass = g_type_class_ref (ATK_TYPE_UTIL);
+  if (klass->add_global_event_listener)
     {
-      return klass->add_global_event_listener (listener, event_type);
+      retval = klass->add_global_event_listener (listener, event_type);
     }
   else
     {
-      return -1;
+      retval = -1;
     }
+  g_type_class_unref (klass);
+
+  return retval;
 }
 
 /**
@@ -216,12 +220,12 @@ atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_type)
  *
  * Removes the specified event listener
  **/
-void	
+void
 atk_remove_global_event_listener (guint listener_id)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
 
-  if (klass->remove_global_event_listener) 
+  if (klass->remove_global_event_listener)
     klass->remove_global_event_listener (listener_id);
 }
 
@@ -232,7 +236,7 @@ atk_remove_global_event_listener (guint listener_id)
  *
  * Returns: the root accessible container for the current application
  **/
-AtkObject* 
+AtkObject*
 atk_get_root(void)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
@@ -256,14 +260,14 @@ atk_get_root(void)
 gchar* atk_get_toolkit_name(void)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
-  if (klass->get_toolkit_name) 
+  if (klass->get_toolkit_name)
     {
       return klass->get_toolkit_name ();
     }
   else
     {
       return NULL;
-    } 
+    }
 }
 
 /**
@@ -273,7 +277,7 @@ gchar* atk_get_toolkit_name(void)
  *
  * Returns: version string for the GUI toolkit implementing ATK for this application
  **/
-gchar* 
+gchar*
 atk_get_toolkit_version(void)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
