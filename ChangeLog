@@ -1,3 +1,8 @@
+2003-11-06  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi_accessible.c (cspi_init_relation_type_table): Do not
+	write beyond the end of the table. Fixes bug #120473.
+
 2003-09-30  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "eu" to ALL_LINGUAS.
