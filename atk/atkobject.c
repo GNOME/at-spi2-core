@@ -38,6 +38,14 @@ enum
   PROP_SELECTION,
   PROP_VALUE,
   PROP_VISIBLE_DATA,
+  PROP_ROLE,
+  PROP_TABLE_CAPTION,
+  PROP_TABLE_COLUMN_DESCRIPTION,
+  PROP_TABLE_COLUMN_HEADER,
+  PROP_TABLE_ROW_DESCRIPTION,
+  PROP_TABLE_ROW_HEADER,
+  PROP_TABLE_SUMMARY,
+  PROP_MODEL,
   PROP_LAST         /* gobject convention */
 };
 
@@ -78,6 +86,14 @@ static const gchar* atk_object_name_property_caret = "accessible-caret";
 static const gchar* atk_object_name_property_selection = "accessible-selection";
 static const gchar* atk_object_name_property_value = "accessible-value";
 static const gchar* atk_object_name_property_visible = "accessible-visible-data";
+static const gchar* atk_object_name_property_role = "accessible-role";
+static const gchar* atk_object_name_property_table_caption = "accessible-table-caption";
+static const gchar* atk_object_name_property_table_column_description = "accessible-table-column-description";
+static const gchar* atk_object_name_property_table_column_header = "accessible-table-column-header";
+static const gchar* atk_object_name_property_table_row_description = "accessible-table-row-description";
+static const gchar* atk_object_name_property_table_row_header = "accessible-table-row-header";
+static const gchar* atk_object_name_property_table_summary = "accessible-table-summary";
+static const gchar* atk_object_name_property_model = "accessible-model";
 
 GType
 atk_object_get_type (void)
@@ -156,8 +172,8 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         "Is used to notify that a child has been added or removed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
-   g_object_class_install_property (gobject_class,
-                                    PROP_PARENT,
+  g_object_class_install_property (gobject_class,
+                                   PROP_PARENT,
                                    g_param_spec_object (atk_object_name_property_parent,
                                                         "Accessible Parent",
                                                         "Is used to notify that the parent has changed ",
@@ -200,6 +216,68 @@ atk_object_class_init (AtkObjectClass *klass)
                                    g_param_spec_object (atk_object_name_property_visible,
                                                         "Accessible Visible Data",
                                                         "Is used to notify that the visual appearance of the object has changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_ROLE,
+                                   g_param_spec_int    (atk_object_name_property_role,
+                                                        "Accessible Role",
+                                                        "The accessible role this object ",
+                                                        0,
+                                                        G_MAXINT,
+                                                        0,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_CAPTION,
+                                   g_param_spec_object (atk_object_name_property_table_caption,
+                                                        "Accessible Table Caption",
+                                                        "Is used to notify that the table caption has changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_COLUMN_HEADER,
+                                   g_param_spec_object (atk_object_name_property_table_column_header,
+                                                        "Accessible Table Column Header",
+                                                        "Is used to notify that the table column header has changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_COLUMN_DESCRIPTION,
+                                   g_param_spec_int    (atk_object_name_property_table_column_description,
+                                                        "Accessible Table Columnn Description",
+                                                        "Is used to notify that the table columnscription has changed ",
+                                                        0,
+                                                        G_MAXINT,
+                                                        0,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_ROW_HEADER,
+                                   g_param_spec_object (atk_object_name_property_table_row_header,
+                                                        "Accessible Table Row Header",
+                                                        "Is used to notify that the table row header has changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_ROW_DESCRIPTION,
+                                   g_param_spec_int    (atk_object_name_property_table_row_description,
+                                                        "Accessible Table Row Description",
+                                                        "Is used to notify that the table row description has changed ",
+                                                        0,
+                                                        G_MAXINT,
+                                                        0,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_TABLE_SUMMARY,
+                                   g_param_spec_object (atk_object_name_property_table_summary,
+                                                        "Accessible Table Summary",
+                                                        "Is used to notify that the table summary has changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_MODEL,
+                                   g_param_spec_object (atk_object_name_property_model,
+                                                        "Accessible Model",
+                                                        "Is used to notify that the model for Table or Tree has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   /*

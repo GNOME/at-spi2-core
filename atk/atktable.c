@@ -18,6 +18,23 @@
  */
 
 #include "atktable.h"
+#include "atkmarshal.h"
+
+enum {
+  MODEL_CHANGED,
+  LAST_SIGNAL
+};
+
+struct _AtkTableIfaceClass
+{
+  GObjectClass parent;
+};
+
+typedef struct _AtkTableIfaceClass AtkTableIfaceClass;
+
+static void atk_table_base_init (gpointer *g_class);
+
+static guint atk_table_signals[LAST_SIGNAL] = { 0 };
 
 GType
 atk_table_get_type ()
@@ -28,7 +45,7 @@ atk_table_get_type ()
     GTypeInfo tinfo =
     {
       sizeof (AtkTableIface),
-      (GBaseInitFunc) NULL,
+      (GBaseInitFunc) atk_table_base_init,
       (GBaseFinalizeFunc) NULL,
 
     };
@@ -37,6 +54,28 @@ atk_table_get_type ()
   }
 
   return type;
+}
+
+
+static void
+atk_table_base_init (gpointer *g_class)
+{
+  static gboolean initialized = FALSE;
+
+  if (! initialized)
+  {
+    atk_table_signals[MODEL_CHANGED] =
+      g_signal_newc ("model_changed",
+                     ATK_TYPE_TABLE,
+                     G_SIGNAL_RUN_LAST,
+                     G_STRUCT_OFFSET (AtkTableIface, model_changed),
+                     (GSignalAccumulator) NULL, NULL,
+                     atk_marshal_VOID__INT_INT_INT_INT_INT,
+                     G_TYPE_NONE,
+                     5, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, 
+                     G_TYPE_INT);
+    initialized = TRUE;
+  }
 }
 
 /**

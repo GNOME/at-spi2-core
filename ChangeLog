@@ -1,3 +1,14 @@
+2001-06-12  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkmarshal.list, atk/atktable.h atk/atktable.c:
+	Add signal model-changed.
+
+	* atk/atkobject.c: Add properties
+	accessible-role, accessible-table-caption, 
+	accessible-table-column-header, accessible-table-column_description.
+	accessible-table-row-header, accessible-table-row_description.
+	accessible-table-summary, accessible-model
+
 2001-06-12  Brian Cameron <brian.cameron@sun.com>
 
 	* atk/atkeditabletext.[ch], atk/atktext.[ch], atk/atkobject.h

@@ -98,6 +98,15 @@ struct _AtkTableIface
                                                   AtkTable      *header);
   void              (* set_summary)              (AtkTable      *table,
                                                   AtkObject     *accessible);
+  /*
+   * signal handlers
+   */
+  void              (* model_changed)            (AtkTable      *table,
+                                                  gint          type,
+                                                  gint          first_row,
+                                                  gint          last_row,
+                                                  gint          first_column,
+                                                  gint          last_column);
 };
 
 GType atk_table_get_type ();
