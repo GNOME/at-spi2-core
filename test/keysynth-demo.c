@@ -338,14 +338,14 @@ switch_callback (AccessibleKeystroke *key, void *user_data)
 
   if (key->type == SPI_KEY_RELEASED)
     {
-      g_print ("spacebar up\n");
+      g_print ("switch up\n");
       is_down = FALSE;
       scan_stop (key->timestamp);
     }
   else 
   if (!is_down)
     {
-      g_print ("spacebar down\n");
+      g_print ("switch down\n");
       is_down = TRUE;
       scan_start (key->timestamp);
     }
@@ -491,9 +491,11 @@ main (int argc, char **argv)
    */
   switch_set.keysyms = g_new0 (unsigned long, 1);
   switch_set.keycodes = g_new0 (unsigned short, 1);
+  switch_set.keystrings = g_new0 (char *, 1);
   switch_set.len = 1;
   switch_set.keysyms[0] = (unsigned long) 0;
   switch_set.keycodes[0] = (unsigned short) 0;
+  switch_set.keystrings[0] = "";
   switch_listener = SPI_createAccessibleKeystrokeListener (switch_callback, NULL);
   SPI_registerAccessibleKeystrokeListener (switch_listener,
 					   &switch_set,

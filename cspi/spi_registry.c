@@ -318,8 +318,10 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
     &key_set,
     controller_event_mask,
     &key_events,
-    (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
+    ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0) ? CORBA_TRUE : CORBA_FALSE,
     cspi_ev ());
+
+  cspi_return_val_if_ev ("registering keystroke listener", FALSE);
 
   cspi_release_unref (device_event_controller);
 
@@ -402,6 +404,7 @@ SPI_generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
 
+  g_print ("keyval %d\n", (int) keyval);
   cspi_return_val_if_ev ("getting event controller", FALSE);
 
   Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,

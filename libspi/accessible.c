@@ -143,7 +143,7 @@ spi_role_from_atk_role (AtkRole role)
 }
 
 static AtkObject *
-get_accessible_from_servant (PortableServer_Servant servant)
+get_atkobject_from_servant (PortableServer_Servant servant)
 {
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
@@ -161,7 +161,7 @@ impl_accessibility_accessible_get_name (PortableServer_Servant servant,
 {
   const gchar *name;
   CORBA_char  *retval;
-  AtkObject   *object = get_accessible_from_servant (servant);
+  AtkObject   *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, CORBA_string_dup (""));
 
@@ -187,7 +187,7 @@ impl_accessibility_accessible_set_name (PortableServer_Servant servant,
                                         const CORBA_char      *name,
                                         CORBA_Environment     *ev)
 {
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_if_fail (object != NULL);
 
@@ -203,7 +203,7 @@ impl_accessibility_accessible_get_description (PortableServer_Servant servant,
 {
   const gchar *descr;
   CORBA_char  *retval;
-  AtkObject   *object = get_accessible_from_servant (servant);
+  AtkObject   *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, CORBA_string_dup (""));
 
@@ -229,7 +229,7 @@ impl_accessibility_accessible_set_description (PortableServer_Servant servant,
                                                const CORBA_char      *descr,
                                                CORBA_Environment     *ev)
 {
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_if_fail (object != NULL);
 
@@ -244,7 +244,7 @@ impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
                                           CORBA_Environment     *ev)
 {
   AtkObject *parent;
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, CORBA_OBJECT_NIL);
 
@@ -260,7 +260,7 @@ static CORBA_long
 impl_accessibility_accessible_get_index_in_parent (PortableServer_Servant servant,
                                                    CORBA_Environment     *ev)
 {
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, -1);
 
@@ -274,7 +274,7 @@ static CORBA_long
 impl_accessibility_accessible_get_child_count (PortableServer_Servant servant,
                                                CORBA_Environment     *ev)
 {
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, 0);
 
@@ -290,7 +290,7 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
                                                   CORBA_Environment     *ev)
 {
   AtkObject *child;
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, 0);
 
@@ -306,7 +306,7 @@ static Accessibility_StateSet
 impl_accessibility_accessible_get_state (PortableServer_Servant servant,
 					 CORBA_Environment     *ev)
 {
-  AtkObject *object = get_accessible_from_servant (servant);
+  AtkObject *object = get_atkobject_from_servant (servant);
 
   bonobo_return_val_if_fail (object != NULL, NULL, ev);
 
@@ -327,7 +327,7 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
   gint n_relations;
   gint i;
   AtkRelationSet *relation_set;
-  AtkObject      *object = get_accessible_from_servant (servant);
+  AtkObject      *object = get_atkobject_from_servant (servant);
 
   bonobo_return_val_if_fail (object != NULL, NULL, ev);
 
@@ -359,7 +359,7 @@ impl_accessibility_accessible_get_role (PortableServer_Servant servant,
 {
   AtkRole            role;
   Accessibility_Role retval;
-  AtkObject         *object = get_accessible_from_servant (servant);
+  AtkObject         *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, 0);
 
@@ -378,7 +378,7 @@ impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
 {
   AtkRole            role;
   Accessibility_Role retval;
-  AtkObject         *object = get_accessible_from_servant (servant);
+  AtkObject         *object = get_atkobject_from_servant (servant);
 
   g_return_val_if_fail (object != NULL, 0);
 

@@ -15,7 +15,7 @@ registryd_SOURCES =		\
 	registry.c		\
 	registry.h
 
-LDADD = ../libspi/libspi.la -lXtst $(REGISTRYD_LIBS) 
+LDADD = ../libspi/libspi.la $(XTST_LIBS) $(REGISTRYD_LIBS) 
 
 serverinfodir = $(libdir)/bonobo/servers
 serverinfo_DATA = Accessibility_Registry.server

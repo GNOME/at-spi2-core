@@ -47,8 +47,6 @@ static GObjectClass *spi_device_event_controller_parent_class;
 
 static gboolean kbd_registered = FALSE;
 
-static Display *display;
-
 static Window root_window;
 
 typedef enum {
@@ -93,7 +91,24 @@ static void spi_controller_register_device_listener (SpiDeviceEventController *c
  * Private methods
  */
 
-static DEControllerGrabMask * 
+static Display *
+spi_get_display (void )
+{
+ static Display *display = NULL;
+ /* We must open a new connection to the server to avoid clashing with the GDK event loop */
+ /*
+  * TODO: fixme, this makes the foolish assumption that registryd uses
+  * the same display as the apps, and the the DISPLAY environment variable is set.
+  */
+ 
+ if (!display)
+   {
+     display = XOpenDisplay (g_getenv ("DISPLAY"));
+   }
+ return display;
+}
+
+static DEControllerGrabMask *
 spi_grabmask_clone (DEControllerGrabMask *grabmask)
 {
   DEControllerGrabMask *clone = g_new0 (DEControllerGrabMask, 1);
@@ -220,7 +235,7 @@ spi_controller_register_global_keygrabs (SpiDeviceEventController *controller,
 	  /* X Grabs require keycodes, not keysyms */
 	  if (keyval >= 0)
 	    {
-	      keyval = XKeysymToKeycode(display, (KeySym) keyval);		    
+	      keyval = XKeysymToKeycode(spi_get_display (), (KeySym) keyval);		    
 	    }
 	  grabmask.keyval = keyval;
           list_ptr = g_list_find_custom (controller->keygrabs_list, &grabmask,
@@ -307,14 +322,10 @@ spi_controller_register_with_devices (SpiDeviceEventController *controller)
   /* calls to device-specific implementations and routines go here */
   /* register with: keyboard hardware code handler */
   /* register with: (translated) keystroke handler */
-#ifdef SPI_DEBUG
-  fprintf (stderr, "About to request events on window %ld of display %p\n",
-	   (unsigned long) GDK_ROOT_WINDOW(), GDK_DISPLAY());
-#endif
+
   /* We must open a new connection to the server to avoid clashing with the GDK event loop */
-  display = XOpenDisplay (g_getenv ("DISPLAY"));
-  root_window = DefaultRootWindow (display);		
-  XSelectInput (display,
+  root_window = DefaultRootWindow (spi_get_display ());		
+  XSelectInput (spi_get_display (),
 		root_window,
 		KeyPressMask | KeyReleaseMask);
   /* register with: mouse hardware device handler? */
@@ -389,6 +400,7 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 			    DEControllerKeyListener *listener,
 			    CORBA_boolean is_system_global)
 {
+  g_print ("checking keycode %d\n", (int) key_event->hw_code);
   if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask & 0xFFFF)) &&
        spi_key_set_contains_key (listener->keys, key_event) &&
        spi_key_eventtype_seq_contains_event (listener->typeseq, key_event) && 
@@ -517,9 +529,9 @@ spi_check_key_event (SpiDeviceEventController *controller)
 	  CORBA_exception_init (&ev);
 	}
 
-	while (XPending(display))
+	while (XPending(spi_get_display ()))
 	  {
-	    XNextEvent (display, x_event);
+	    XNextEvent (spi_get_display (), x_event);
 	    if (XFilterEvent (x_event, None)) continue;	  
 	    if (x_event->type == KeyPress || x_event->type == KeyRelease)
 	      {
@@ -536,14 +548,14 @@ spi_check_key_event (SpiDeviceEventController *controller)
 
 	    if (is_consumed)
 	      {
-	        XAllowEvents (display, AsyncKeyboard, CurrentTime);
+	        XAllowEvents (spi_get_display (), AsyncKeyboard, CurrentTime);
 	      }
 	    else
 	      {
-	        XAllowEvents (display, ReplayKeyboard, CurrentTime);
+	        XAllowEvents (spi_get_display (), ReplayKeyboard, CurrentTime);
 	      }
 	  }
-	XUngrabKey (display, AnyKey, AnyModifier, root_window);
+	XUngrabKey (spi_get_display (), AnyKey, AnyModifier, root_window);
 
 	return spi_controller_grab_keyboard (controller);
 }
@@ -582,7 +594,7 @@ spi_controller_grab_keyboard (SpiDeviceEventController *controller)
 #endif
       if (!(maskVal & ControlMask))
   	{
-	  XGrabKey (display,
+	  XGrabKey (spi_get_display (),
 		    keyVal, 
 		    maskVal,
 		    root_window,
@@ -607,11 +619,11 @@ spi_device_event_controller_object_finalize (GObject *object)
 {
 
 #ifdef SPI_DEBUG
-        fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
+  fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
 #endif
-	/* disconnect any special listeners, get rid of outstanding keygrabs */
+  /* disconnect any special listeners, get rid of outstanding keygrabs */
 	
-        spi_device_event_controller_parent_class->finalize (object);
+  spi_device_event_controller_parent_class->finalize (object);
 }
 
 /*
@@ -627,15 +639,19 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 				  const CORBA_boolean is_system_global,
 				  CORBA_Environment         *ev)
 {
-	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
-		bonobo_object_from_servant (servant));
-	DEControllerKeyListener *dec_listener;
+  SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
+	  bonobo_object_from_servant (servant));
+  DEControllerKeyListener *dec_listener;
 #ifdef SPI_DEBUG
-	fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
-		 (void *) l, (unsigned long) mask);
+  fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
+	   (void *) l, (unsigned long) mask);
 #endif
-	dec_listener = spi_dec_key_listener_new (l, keys, mask, type, is_system_global, ev);
-	spi_controller_register_device_listener (controller, (DEControllerListener *) dec_listener, ev);
+  dec_listener = spi_dec_key_listener_new (l, keys, mask, type,
+					   is_system_global, ev);
+  
+  spi_controller_register_device_listener (controller,
+					   (DEControllerListener *) dec_listener,
+					   ev);
 }
 
 /*
@@ -691,7 +707,7 @@ impl_register_mouse_listener (PortableServer_Servant     servant,
 static KeyCode
 keycode_for_keysym (long keysym)
 {
-  return XKeysymToKeycode (display, (KeySym) keysym);
+  return XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
 }
 
 /*
@@ -706,7 +722,7 @@ impl_generate_key_event (PortableServer_Servant     servant,
 {
 	long key_synth_code;
 #ifdef SPI_DEBUG
-	fprintf (stderr, "synthesizing keystroke %ld\n", (long) keycode);
+	fprintf (stderr, "synthesizing keystroke %ld, type %d\n", (long) keycode, (int) synth_type);
 #endif
 	/* TODO: hide/wrap/remove X dependency */
 
@@ -720,17 +736,17 @@ impl_generate_key_event (PortableServer_Servant     servant,
 	switch (synth_type)
 	{
 	case Accessibility_KEY_PRESS:
-		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keycode, True, CurrentTime);
+		XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
 		break;
 	case Accessibility_KEY_PRESSRELEASE:
-		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keycode, True, CurrentTime);
+		XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
 	case Accessibility_KEY_RELEASE:
-		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keycode, False, CurrentTime);
+		XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, False, CurrentTime);
 		break;
 	case Accessibility_KEY_SYM:
 		key_synth_code = keycode_for_keysym (keycode);
-		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) key_synth_code, True, CurrentTime);
-		XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) key_synth_code, False, CurrentTime);
+		XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, True, CurrentTime);
+		XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, False, CurrentTime);
 		break;
 	}
 }

@@ -41,11 +41,11 @@ static SpiAccessibleClass *parent_class;
 static void
 spi_desktop_init (SpiDesktop *desktop)
 {
-  spi_base_construct_default (SPI_BASE (desktop));
+  spi_base_construct (SPI_BASE (desktop), g_object_new (ATK_TYPE_OBJECT, NULL));
 
   desktop->applications = NULL;
 
-  atk_object_set_name (ATK_OBJECT(SPI_BASE (desktop)->gobj), "main");
+  atk_object_set_name (ATK_OBJECT (SPI_BASE (desktop)->gobj), "main");
 }
 
 static void

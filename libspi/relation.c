@@ -32,7 +32,7 @@ spi_relation_new (AtkRelation *obj)
 {
   SpiRelation *new_relation = g_object_new (SPI_RELATION_TYPE, NULL);
 
-  spi_base_construct (SPI_BASE (new_relation), ATK_OBJECT (obj));
+  spi_base_construct (SPI_BASE (new_relation), G_OBJECT (obj));
 
   return new_relation;
 }
