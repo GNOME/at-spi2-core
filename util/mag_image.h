@@ -35,16 +35,19 @@ GdkPixbuf*  image;
 GdkPixbuf*  scaled_image;
 Window	    image_root_window;
 int	    screen_num;
-int         old_factor;
+int         old_factor_x;
+int         old_factor_y;
 xlib_colormap * x_cmap;
 
 typedef struct _MagnifierData {
 	int mag_width;
 	int mag_height;
-	int factor;
+	int factor_x;
+	int factor_y;
 	point center;
 	int follow_mouse;
 	int color_inverted;
+	int fast_rgb_convert;
 	int contrast;
 	GtkWidget *output_window;
 	void *source_display;

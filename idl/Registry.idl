@@ -175,6 +175,7 @@ module Accessibility {
 
   struct KeyStroke {
     long keyID;
+    short keycode;
     KeyEventType type; 
     unsigned short modifiers;
   };
@@ -182,7 +183,7 @@ module Accessibility {
   typedef sequence< long > KeySet;
   typedef sequence< KeyEventType > KeyEventTypeSeq;
 
-  interface KeystrokeListener {
+  interface KeystrokeListener : Bonobo::Unknown {
         boolean keyEvent (in KeyStroke key);
   };
 
@@ -205,6 +206,27 @@ module Accessibility {
          *
 	 **/
         void registerKeystrokeListener (in KeystrokeListener listener,
+					in KeySet keys,
+					in ControllerEventMask mask,
+					in KeyEventTypeSeq type,
+					in boolean is_synchronous);
+    
+  	/**
+         * deregisterKeystrokeListener:
+         * @listener: a @KeystrokeListener which will intercept key events.
+         * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+         * @mask:     a @ControllerEventMask filtering the intercepted key events.
+	 * @type:     an @EventType mask that may created by ORing event types together.
+	 * @is_synchronous: a @boolean indicating whether the listener should 
+	 *            receive the events synchronously, potentially consuming them,
+	 *            or just be notified asynchronously of those events that have
+	 *            been generated.
+	 * Returns: void
+         *
+         * De-register a previously registered keyboard eventlistener.
+         *
+	 **/
+        void deregisterKeystrokeListener (in KeystrokeListener listener,
 					in KeySet keys,
 					in ControllerEventMask mask,
 					in KeyEventTypeSeq type,

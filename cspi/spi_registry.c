@@ -5,6 +5,10 @@
  *
  */
 
+/* static stuff used only by registry C bindings */
+static GList *key_listeners = NULL;
+static Display *display = NULL;
+
 /**
  * registerGlobalEventListener:
  * @listener: the #AccessibleEventListener to be registered against an event type.
@@ -35,6 +39,34 @@ registerGlobalEventListener (AccessibleEventListener *listener,
                          (Accessibility_EventListener)
                             bonobo_object_corba_objref (bonobo_object (listener)),
                          eventType,
+                         &ev);
+
+  if (ev._major != CORBA_NO_EXCEPTION)
+    {
+    return FALSE;
+    }
+  else
+    {
+      return TRUE;
+    }
+}
+
+/**
+ * deregisterGlobalEventListener:
+ * @listener: the #AccessibleEventListener to be registered against an event type.
+ *
+ * deregisters an AccessibleEventListener from the registry, for all event types it may be listening to.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+boolean
+deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
+{
+  Accessibility_Registry_deregisterGlobalEventListenerAll (
+                         registry,
+                         (Accessibility_EventListener)
+                            CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev),
                          &ev);
 
   if (ev._major != CORBA_NO_EXCEPTION)
@@ -101,16 +133,68 @@ getDesktopList (Accessible **list)
   return 0;
 }
 
+static gboolean
+key_event_source_func (void *p)
+{
+  GList *listeners = (GList *)p;
+  XEvent *x_event = g_new0 (XEvent, 1);
+  while (XPending (display))
+    {
+      XNextEvent (display, x_event);
+      while (listeners)
+        {
+        /* if the listener mask matches, notify it*/
+          if (1)
+  	    {
+	      ;	  
+	    }
+	}
+    }
+  return TRUE;
+}
+
+void
+save_this_impl_registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
+{
+  static gboolean initialized = FALSE;
+  static Window grab_window;
+  XEvent *x_event = g_new0(XEvent, 1);
+  key_listeners = g_list_append (key_listeners, listener);
+  if (!initialized)
+    {
+      g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 200, key_event_source_func, key_listeners, NULL);
+      display = XOpenDisplay (getenv ("DISPLAY"));
+      grab_window = DefaultRootWindow (display);
+      XSelectInput (display, grab_window, KeyPress | KeyRelease);
+      initialized = TRUE;
+    }
+  /* */
+  XGrabKey (display,
+	    AnyKey,
+	    LockMask,
+	    grab_window,
+	    False,
+	    GrabModeAsync,
+	    GrabModeAsync);
+  while (0)
+  {
+	  XNextEvent (display, x_event);
+	  g_print ("foo!\n");
+  }
+}
+ 
 /**
  * registerKeystrokeListener:
  * @listener: a pointer to the #KeystrokeListener for which
  *            keystroke events are requested.
  *
- * Not Yet Implemented.
- *
  **/
 void
-registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
+registerKeystrokeListener (KeystrokeListener *listener,
+			   KeySet *keys,
+			   KeyMaskType modmask,
+			   KeyEventMask eventmask,
+			   KeyListenerSyncType sync_type)
 {
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
@@ -118,19 +202,50 @@ registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
 	  Accessibility_Registry_getDeviceEventController (registry, &ev);
   Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
+  Accessibility_KeystrokeListener listener_corba_ref;
   Accessibility_DeviceEventController_ref (device_event_controller, &ev);
+  controller_event_mask->value = (CORBA_unsigned_long) modmask;
+  controller_event_mask->refcount = (CORBA_unsigned_short) 1;
+
+  listener_corba_ref = (Accessibility_KeystrokeListener)
+	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev);
+  
+	  Accessibility_DeviceEventController_registerKeystrokeListener (
+	  device_event_controller,
+	  listener_corba_ref,
+	  all_keys,
+	  controller_event_mask,
+	  key_events,
+	  (CORBA_boolean) ((sync_type | KEYLISTENER_CANCONSUME)!=0),
+	  &ev);
+}
+
+/**
+ * deregisterKeystrokeListener:
+ * @listener: a pointer to the #KeystrokeListener for which
+ *            keystroke events are requested.
+ *
+ **/
+void
+deregisterKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask)
+{
+  Accessibility_ControllerEventMask *controller_event_mask =
+	  Accessibility_ControllerEventMask__alloc();
+  Accessibility_DeviceEventController device_event_controller = 
+	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+  Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
+  Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
+  Accessibility_KeystrokeListener listener_corba_ref;
+  Accessibility_DeviceEventController_unref (device_event_controller, &ev);
   controller_event_mask->value = (CORBA_unsigned_long) keymask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
-  /*
-  fprintf (stderr, "controller %p, mask value %lu\n", (void *) device_event_controller,
-	   (unsigned long) controller_event_mask->value );
-  */
 
-
-  Accessibility_DeviceEventController_registerKeystrokeListener (
+  listener_corba_ref = (Accessibility_KeystrokeListener)
+	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev);
+  
+  Accessibility_DeviceEventController_deregisterKeystrokeListener (
 	  device_event_controller,
-	  (Accessibility_KeystrokeListener)
-	      bonobo_object_corba_objref (bonobo_object (listener)),
+	  listener_corba_ref,
 	  all_keys,
 	  controller_event_mask,
 	  key_events,

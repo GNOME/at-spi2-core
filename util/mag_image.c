@@ -32,9 +32,11 @@ void parse_message(char *msg, MagnifierData *data){
   type = atoi((char*)&msg[1]);
   switch (type){
 	case FACTOR :
-	    old_factor = data->factor;
-	    data->factor = get_num(msg);
-	    printf("FACTOR = %d\n",data->factor);
+	    old_factor_x = data->factor_x;
+	    data->factor_x = get_num(msg);
+	    old_factor_y = data->factor_y;
+	    data->factor_y = get_num(msg);
+	    printf("FACTOR = %d\n",data->factor_x);
 	    break;
 	case CONTRAST :
 	    data->contrast = get_num(msg);
@@ -109,8 +111,8 @@ int display_image(gpointer data)
 		   DisplayHeight(mag_data->target_display,screen_num),
 		   0,
 		   0,
-		   mag_data->factor,
-		   mag_data->factor,
+		   mag_data->factor_x,
+		   mag_data->factor_y,
 		   GDK_INTERP_NEAREST);
   
   gdk_pixbuf_render_to_drawable (scaled_image,
@@ -139,17 +141,17 @@ void update_image(MagnifierData *mag_data)
   total_width = DisplayWidth (mag_data->source_display,screen_num);
   total_height = DisplayHeight(mag_data->source_display,screen_num);
 
-  x = mag_data->center.x - mag_data->mag_width/mag_data->factor/2;
-  y = mag_data->center.y - mag_data->mag_height/mag_data->factor/2;
+  x = mag_data->center.x - mag_data->mag_width/mag_data->factor_x/2;
+  y = mag_data->center.y - mag_data->mag_height/mag_data->factor_y/2;
 
-  if(mag_data->center.x < mag_data->mag_width/mag_data->factor/2)
+  if(mag_data->center.x < mag_data->mag_width/mag_data->factor_x/2)
     x = 0;
-  if(mag_data->center.x > (total_width - mag_data->mag_width/mag_data->factor/2))
-    x = total_width - mag_data->mag_width/mag_data->factor;
-  if(mag_data->center.y < mag_data->mag_height/mag_data->factor/2)
+  if(mag_data->center.x > (total_width - mag_data->mag_width/mag_data->factor_x/2))
+    x = total_width - mag_data->mag_width/mag_data->factor_x;
+  if(mag_data->center.y < mag_data->mag_height/mag_data->factor_y/2)
     y = 0;
-  if(mag_data->center.y > (total_height - mag_data->mag_height/mag_data->factor/2))
-    y = total_height - mag_data->mag_height/mag_data->factor;
+  if(mag_data->center.y > (total_height - mag_data->mag_height/mag_data->factor_y/2))
+    y = total_height - mag_data->mag_height/mag_data->factor_y;
   if(x < 0)
     x = 0;
   if(y < 0)
@@ -163,13 +165,14 @@ void update_image(MagnifierData *mag_data)
 					total_height,
 					total_width);
 */
-  if(mag_data->factor != old_factor){
+  if(mag_data->factor_x != old_factor_x || mag_data->factor_y != old_factor_y){
     g_object_unref((GObject *)image);
     image = gdk_pixbuf_new (GDK_COLORSPACE_RGB,FALSE, 8,
-				DisplayWidth (mag_data->target_display,screen_num)/mag_data->factor,
-				DisplayHeight(mag_data->target_display,screen_num)/mag_data->factor);
+				DisplayWidth (mag_data->target_display,screen_num)/mag_data->factor_x,
+				DisplayHeight(mag_data->target_display,screen_num)/mag_data->factor_y);
     /* yes, use target display above, since the size of the area grabbed depends on the target */
-    old_factor = mag_data->factor;
+    old_factor_x = mag_data->factor_x;
+    old_factor_y = mag_data->factor_y;
   }
   get_root_image(image_root_window,
 		 image,
@@ -1123,12 +1126,14 @@ static cfunc convert_map[] = {
 };
 
 static void
-rgbconvert (XImage *image, guchar *pixels, int rowstride, int alpha, xlib_colormap *cmap)
+rgbconvert (XImage *image, guchar *pixels, int rowstride, int alpha, xlib_colormap *cmap,
+	    MagnifierData *mag_data)
 {
-	int index = (image->byte_order == MSBFirst) | (alpha != 0) << 1;
-	int bank=5;		/* default fallback converter */
-	Visual *v = cmap->visual;
-
+  int index = (image->byte_order == MSBFirst) | (alpha != 0) << 1;
+  int bank=5;		/* default fallback converter */
+  Visual *v = cmap->visual;
+  if (mag_data->fast_rgb_convert)
+    {	  
 	switch (v->class) {
 				/* I assume this is right for static & greyscale's too? */
 	case StaticGray:
@@ -1168,6 +1173,7 @@ rgbconvert (XImage *image, guchar *pixels, int rowstride, int alpha, xlib_colorm
 		/* always use the slow version */
 		break;
 	}
+    }
 
 	if (bank==5) {
 		convert_real_slow(image, pixels, rowstride, cmap, alpha);
@@ -1177,12 +1183,10 @@ rgbconvert (XImage *image, guchar *pixels, int rowstride, int alpha, xlib_colorm
 	}
 }
 
-    
-
-void get_root_image(Window src,GdkPixbuf *dest, int src_x, int src_y, MagnifierData *mag_data)  {
+void get_root_image(Window src, GdkPixbuf *dest, int src_x, int src_y, MagnifierData *mag_data)  {
 	XImage *image;
-	int width = mag_data->mag_width/mag_data->factor;
-	int height = mag_data->mag_height/mag_data->factor;
+	int width = mag_data->mag_width/mag_data->factor_x;
+	int height = mag_data->mag_height/mag_data->factor_y;
 
 	/* Get Image in ZPixmap format (packed bits). */
 	image = XGetImage (mag_data->source_display, src, src_x, src_y,
@@ -1198,7 +1202,12 @@ void get_root_image(Window src,GdkPixbuf *dest, int src_x, int src_y, MagnifierD
 	rgbconvert (image, gdk_pixbuf_get_pixels(dest),
 		    gdk_pixbuf_get_rowstride(dest),
 		    gdk_pixbuf_get_has_alpha(dest),
-		    x_cmap);
+		    x_cmap,
+		    mag_data);
+
+	/* would like to use GDK routine, but since we don't have multi-head
+	   yet, we have to use X */
+
 	XDestroyImage (image);
 }
 

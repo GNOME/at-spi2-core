@@ -54,7 +54,7 @@ main (int argc,
 #endif
   
         gdk_init(&argc, &argv);
-	g_idle_add (registry->kbd_event_hook, registry);
+        g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 200, registry->kbd_event_hook, registry, NULL);
 /*	keyevent_source =
 		g_source_new (registry->kbd_event_hook, sizeof (GSourceFunc));
 		g_source_attach (keyevent_source, g_main_context_default());*/

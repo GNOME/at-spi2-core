@@ -39,6 +39,11 @@ static boolean use_magnifier = FALSE;
 static boolean use_festival = FALSE;
 static boolean festival_chatty = FALSE;
 
+static AccessibleEventListener *focus_listener;
+static AccessibleEventListener *property_listener;
+static AccessibleEventListener *button_listener;
+static KeystrokeListener *key_listener;
+
 int
 main(int argc, char **argv)
 {
@@ -47,10 +52,6 @@ main(int argc, char **argv)
   int n_apps;
   Accessible *desktop;
   Accessible *application;
-  AccessibleEventListener *focus_listener;
-  AccessibleEventListener *property_listener;
-  AccessibleEventListener *button_listener;
-  KeystrokeListener *key_listener;
 
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
   {
@@ -83,12 +84,17 @@ main(int argc, char **argv)
     }
 
   /* prepare the keyboard snoopers */
-  /* key_listener = createKeystrokeListener(report_key_event);
-     registerKeystrokeListener(key_listener, KEYMASK_SHIFT); */
+  key_listener = createKeystrokeListener(report_key_event);
+  /* will listen only to Alt-key combinations */
+  registerKeystrokeListener(key_listener,
+			    (KeySet *) ALL_KEYS,
+			    KEYMASK_ALT,
+			    (unsigned long) ( KeyPress | KeyRelease),
+			    KEYLISTENER_CANCONSUME);
 
   get_environment_vars();
 
-  SPI_event_main(FALSE);
+  SPI_event_main(TRUE);
 }
 
 static void
@@ -131,7 +137,7 @@ report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
       fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
                x, y, x+width, y+height);
       if (use_magnifier) {
-	      magnifier_set_roi (x, y, width, height);	      
+	      magnifier_set_roi ((short) 0, x, y, width, height);
       }
     }
   /* if this is a text object, speak the first sentence. */
@@ -190,12 +196,49 @@ check_property_change (void *p)
   }
 }
 
+static void
+simple_at_exit()
+{
+  deregisterGlobalEventListenerAll (focus_listener);
+  deregisterGlobalEventListenerAll (property_listener);
+  deregisterGlobalEventListenerAll (button_listener);
+  deregisterKeystrokeListener (key_listener, KEYMASK_ALT );
+  
+  SPI_exit ();
+}
+
+static boolean
+is_command_key (KeyStroke *key)
+{
+  switch (key->keyID)
+    {
+    case 'Q':
+    case 'q':
+	    simple_at_exit(); 
+	    return TRUE; /* not reached */
+    case 'M':
+    case 'm':
+	    use_magnifier = ! use_magnifier;
+	    return TRUE;
+    case 'F':
+    case 'f':
+	    use_festival = ! use_festival;
+	    return TRUE;
+    default:
+	    return FALSE;
+    }
+}
+
 static boolean
 report_key_event (void *p)
 {
   KeyStroke *key = (KeyStroke *) p;
-  fprintf (stderr, ".");
-  return FALSE;
+  fprintf(stderr, "KeyEvent %s%c (keycode %d)\n",
+	  (key->modifiers & KEYMASK_ALT)?"Alt-":"",
+	  ((key->modifiers & KEYMASK_SHIFT)^(key->modifiers & KEYMASK_SHIFTLOCK))?
+	  (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID),
+	  (int) key->keycode);
+  return is_command_key (key);
 }
 
 static int _festival_init ()

@@ -30,6 +30,7 @@
 #endif
 
 #include <X11/Xlib.h>
+#include <X11/extensions/XTest.h>
 #include <config.h>
 #include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
 #include <gdk/gdkwindow.h>
@@ -52,6 +53,10 @@
 static GObjectClass *device_event_controller_parent_class;
 
 static gboolean kbd_registered = FALSE;
+
+static Display *display;
+
+static Window root_window;
 
 typedef enum {
   DEVICE_TYPE_KBD,
@@ -90,11 +95,13 @@ _compare_corba_objects (gconstpointer p1, gconstpointer p2)
 static gint
 _eventmask_compare_value (gconstpointer p1, gconstpointer p2)
 {
+    long d;
     if (!p1 || !p2)
 	return (gint) (p1?1:(p2?-1:0));
     else
-	return ((long)((Accessibility_ControllerEventMask*)p2)->value) -
+	d = ((long)((Accessibility_ControllerEventMask*)p2)->value) -
 		((long)((Accessibility_ControllerEventMask*)p1)->value);
+    return (gint) d;
 }
 
 static void
@@ -104,7 +111,7 @@ _controller_register_device_listener (DeviceEventController *controller,
 				      DeviceTypeCategory type,
 				      CORBA_Environment *ev)
 {
-  Accessibility_ControllerEventMask *mask_ptr;
+  Accessibility_ControllerEventMask *mask_ptr = NULL;
   
   switch (type) {
   case DEVICE_TYPE_KBD:
@@ -156,17 +163,21 @@ _controller_deregister_device_listener (DeviceEventController *controller,
       list_ptr = g_list_find_custom (controller->key_listeners, l, _compare_corba_objects);
       if (list_ptr)
 	  controller->key_listeners = g_list_remove (controller->key_listeners, list_ptr);
-      
-      mask_ptr = (Accessibility_ControllerEventMask *)
+      list_ptr = (GList *)
 	          g_list_find_custom (controller->keymask_list, (gpointer) mask,
 				     _eventmask_compare_value);
-      if (mask_ptr)
+      if (list_ptr)
+        {
+	  mask_ptr = (Accessibility_ControllerEventMask *) list_ptr->data;
+          if (mask_ptr)
 	      --mask_ptr->refcount;
-      if (!mask_ptr->refcount)
-      {
-	   controller->keymask_list = g_list_remove (controller->keymask_list, mask_ptr);
-	   ;  /* TODO: release any key grabs that are in place for this key mask */
-      }
+          if (!mask_ptr->refcount)
+            {
+	      controller->keymask_list =
+		      g_list_remove (controller->keymask_list, mask_ptr);
+	      ;  /* TODO: release any key grabs that are in place for this key mask */
+	    }
+	}
       break;
   case DEVICE_TYPE_MOUSE:
 /*    controller->mouse_listeners = g_list_append (controller->mouse_listeners,
@@ -181,35 +192,28 @@ static gboolean
 _controller_register_with_devices (DeviceEventController *controller)
 {
   gboolean retval = FALSE;
-  Display *default_display;
-  Window root_window;
 
-  default_display = GDK_DISPLAY();
-  root_window = GDK_ROOT_WINDOW();  
   /* calls to device-specific implementations and routines go here */
   /* register with: keyboard hardware code handler */
   /* register with: (translated) keystroke handler */
 #ifdef SPI_DEBUG
-  fprintf (stderr, "About to request events on window %ld of display %p\n",
-	   (unsigned long) root_window, default_display);
+  fprintf (stderr, "About to request events on window %ld of display %x\n",
+	   (unsigned long) GDK_ROOT_WINDOW(), GDK_DISPLAY());
 #endif
-  XSelectInput (default_display,
+  /* We must open a new connection to the server to avoid clashing with the GDK event loop */
+  display = XOpenDisplay (getenv ("DISPLAY"));
+  root_window = DefaultRootWindow (display);		
+  XSelectInput (display,
 		root_window,
-		KeyPressMask);
-  XSelectInput (default_display,
-		root_window,
-		KeyReleaseMask);
+		KeyPressMask | KeyReleaseMask);
   /* register with: mouse hardware device handler? */
   /* register with: mouse event handler */
   return retval;
 }
 
-static gboolean _check_key_event (DeviceEventController *controller)
+static gboolean
+_check_key_event (DeviceEventController *controller)
 {
-#ifdef SPI_DEBUG
-	static Accessibility_ControllerEventMask shiftlock_mask =
-		{(CORBA_unsigned_long) LockMask, (CORBA_unsigned_short) 1};
-#endif
 	static gboolean initialized = FALSE;
 	static gboolean is_active = FALSE;
 	XEvent *x_event = g_new0 (XEvent, 1);
@@ -221,89 +225,75 @@ static gboolean _check_key_event (DeviceEventController *controller)
 	int n_listeners = g_list_length (controller->key_listeners);
 	Accessibility_KeyStroke key_event;
 	static CORBA_Environment ev;
-	
+
 	if (!initialized)
 	{
-		initialized = TRUE;
-		CORBA_exception_init (&ev);
+	  initialized = TRUE;
+	  CORBA_exception_init (&ev);
 	}
 
-/*        if (!XPending(GDK_DISPLAY())) return TRUE; */
-
-	/*
-	 * the call to XPending seemed like a good idea, why did it
-	 * wreak such havoc?
-	 */
-
-	XPeekEvent (GDK_DISPLAY(), x_event);
-	if (x_event->type == KeyPress)
-	{
-	    x_key_event = (XKeyEvent *)x_event;
-	    keysym = XLookupKeysym (x_key_event, 0);
-	    key_event.keyID = (CORBA_long)(keysym);
-	    key_event.type = Accessibility_KEY_PRESSED;
-	    key_event.modifiers = (CORBA_unsigned_short)(x_key_event->state);
-#if defined SPI_KEYEVENT_DEBUG
+	while (XPending(display))
+	  {
+	    XNextEvent (display, x_event);
+	    if (x_event->type == KeyPress)
+	      {
+	        x_key_event = (XKeyEvent *)x_event;
+		keysym = XLookupKeysym (x_key_event, 0);
+		key_event.keyID = (CORBA_long)(keysym);
+		key_event.keycode = (CORBA_short) x_key_event->keycode;
+		key_event.type = Accessibility_KEY_PRESSED;
+		key_event.modifiers = (CORBA_unsigned_short)(x_key_event->state);
+#ifdef SPI_KEYEVENT_DEBUG
 	    fprintf (stderr,
 		     "Key %lu pressed (%c), modifiers %d\n",
 		     (unsigned long) keysym,
-		     (char) keysym,
+		     keysym ? (int) keysym : '*',
 		     (int) x_key_event->state);
-#elif defined SPI_DEBUG
+#endif
+#ifdef SPI_DEBUG
 	    fprintf(stderr, "%s%c",
 		    (x_key_event->state & Mod1Mask)?"Alt-":"",
 		    ((x_key_event->state & ShiftMask)^(x_key_event->state & LockMask))?
 		    (char) toupper((int) keysym) : (char) tolower((int)keysym));
 #endif /* SPI_DEBUG */
-	}
-	else
-	{
+	      }
+	    else
+	    {
 #ifdef SPI_KEYEVENT_DEBUG
-		fprintf (stderr, "other event, type %d\n", (int) x_event->type);
+		    fprintf (stderr, "other event, type %d\n", (int) x_event->type);
 #endif
-	}
-	/* relay to listeners, and decide whether to consume it or not */
-	for (i=0; i<n_listeners && !is_consumed; ++i)
-	{
-  	  Accessibility_KeystrokeListener ls;
-	  ls = (Accessibility_KeystrokeListener)
-			g_list_nth_data (controller->key_listeners, i);
-	  if (!CORBA_Object_is_nil(ls, &ev))
-	  {
-	    is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, &key_event, &ev);
-	  }		
-	}
-	if (is_consumed) XNextEvent (GDK_DISPLAY(), x_event);
-	XAllowEvents (GDK_DISPLAY(), ReplayKeyboard, CurrentTime);
-/*
- *  I haven't figure out how to make this work correctly yet :-(
- *
- *	XGrabKeyboard (GDK_DISPLAY(), GDK_ROOT_WINDOW(), True,
- *		       GrabModeAsync, GrabModeSync, CurrentTime);
- *      XAllowEvents (GDK_DISPLAY(), SyncKeyboard, CurrentTime);
- *
- *
- * ControlMask grabs are broken, must be in use already.
- *
- */
-	
-/* Always grab ShiftLock in DEBUG mode */
-#ifdef SPI_DEBUG
-	if (!controller->keymask_list)
-	    controller->keymask_list =
-		g_list_append (controller->keymask_list, &shiftlock_mask);
-#endif
+	    }
+	    /* relay to listeners, and decide whether to consume it or not */
+	    for (i=0; i<n_listeners && !is_consumed; ++i)
+	    {
+		    Accessibility_KeystrokeListener ls;
+		    ls = (Accessibility_KeystrokeListener)
+			    g_list_nth_data (controller->key_listeners, i);
+		    if (!CORBA_Object_is_nil(ls, &ev))
+		    {
+			    is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, &key_event, &ev);
+		    }		
+	    }
+	    if (is_consumed)
+	    {
+	      XAllowEvents (display, SyncKeyboard, CurrentTime);
+	    }
+	    else
+	    {
+	      XAllowEvents (display, ReplayKeyboard, CurrentTime);
+	    }
+	  }
+	XUngrabKey (display, AnyKey, AnyModifier, root_window);
 	return _controller_grab_keyboard (controller);
 }
 
 static gboolean
 _controller_grab_keyboard (DeviceEventController *controller)
 {
-	Display *display = GDK_DISPLAY();
-	Window root_window = GDK_ROOT_WINDOW();
 	GList *maskList = controller->keymask_list;
 	int i;
-	int last_mask = g_list_length (maskList);
+	int last_mask;
+	last_mask = g_list_length (maskList);
 
 /*
  * masks known to work with default RH 7.1: 
@@ -326,9 +316,6 @@ _controller_grab_keyboard (DeviceEventController *controller)
 #endif
 		if (!(maskVal & ControlMask))
 		{
-#ifdef SPI_KEYEVENT_DEBUG
-			fprintf (stderr, "grabbing for mod %lu\n", (unsigned long) maskVal);
-#endif
 			XGrabKey (display,
 				  AnyKey,
 				  maskVal,
@@ -364,7 +351,10 @@ device_event_controller_object_finalize (GObject *object)
 static void
 impl_register_keystroke_listener (PortableServer_Servant     servant,
 				  const Accessibility_KeystrokeListener l,
+				  const Accessibility_KeySet *keys,
 				  const Accessibility_ControllerEventMask *mask,
+				  const Accessibility_KeyEventTypeSeq *type,
+				  const CORBA_boolean is_synchronous,
 				  CORBA_Environment         *ev)
 {
 	DeviceEventController *controller = DEVICE_EVENT_CONTROLLER (
@@ -373,7 +363,32 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 	fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
 		 (void *) l, (unsigned long) mask->value);
 #endif
+        /* TODO: change this to an enum, indicating if event can be consumed */
+	if (is_synchronous)
 	_controller_register_device_listener(controller, l, mask, DEVICE_TYPE_KBD, ev);
+	else
+	; /* register with toolkit instead */	
+}
+/*
+ * CORBA Accessibility::DeviceEventController::deregisterKeystrokeListener
+ *     method implementation
+ */
+static void
+impl_deregister_keystroke_listener (PortableServer_Servant     servant,
+				    const Accessibility_KeystrokeListener l,
+				    const Accessibility_KeySet *keys,
+				    const Accessibility_ControllerEventMask *mask,
+				    const Accessibility_KeyEventTypeSeq *type,
+				    const CORBA_boolean is_synchronous,
+				    CORBA_Environment         *ev)
+{
+	DeviceEventController *controller = DEVICE_EVENT_CONTROLLER (
+		bonobo_object_from_servant (servant));
+#ifdef SPI_DEBUG
+	fprintf (stderr, "deregistering keystroke listener %p with maskVal %lu\n",
+		 (void *) l, (unsigned long) mask->value);
+#endif
+	_controller_deregister_device_listener(controller, l, mask, DEVICE_TYPE_KBD, ev);
 }
 
 /*
@@ -407,6 +422,9 @@ impl_generate_key_event (PortableServer_Servant     servant,
 #ifdef SPI_DEBUG
 	fprintf (stderr, "synthesizing keystroke %ld\n", (long) keyEventID);
 #endif
+	/* TODO: hide/wrap/remove X dependency */
+	XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keyEventID, True, CurrentTime);
+	XTestFakeKeyEvent (GDK_DISPLAY(), (unsigned int) keyEventID, False, CurrentTime);
 }
 
 /*
@@ -435,6 +453,7 @@ device_event_controller_class_init (DeviceEventControllerClass *klass)
         object_class->finalize = device_event_controller_object_finalize;
 
         epv->registerKeystrokeListener = impl_register_keystroke_listener;
+        epv->deregisterKeystrokeListener = impl_deregister_keystroke_listener;
 /*        epv->registerMouseListener = impl_register_mouse_listener; */
         epv->generateKeyEvent = impl_generate_key_event;
         epv->generateMouseEvent = impl_generate_mouse_event;
@@ -445,7 +464,7 @@ static void
 device_event_controller_init (DeviceEventController *device_event_controller)
 {
   device_event_controller->key_listeners = NULL;
-  device_event_controller->key_listeners = NULL;
+  device_event_controller->mouse_listeners = NULL;
   device_event_controller->keymask_list = NULL;
   kbd_registered = _controller_register_with_devices (device_event_controller);
 }

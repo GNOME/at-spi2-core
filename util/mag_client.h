@@ -26,8 +26,8 @@ extern "C" {
 #endif /* __cplusplus */
 
 Accessibility_Magnifier get_magnifier(void);
-void magnifier_set_roi (int x1, int y1, int x2, int y2);
-void magnifier_set_magnification (float mag_factor);
+void magnifier_set_roi (int zoom_region, int x1, int y1, int x2, int y2);
+void magnifier_set_magnification (int zoom_region, float mag_factor_x, float mag_factor_y);
 
 #ifdef __cplusplus
 }

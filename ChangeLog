@@ -1,3 +1,63 @@
+2001-11-09  Bill Haneman <bill.haneman@sun.com
+
+	* libspi/Makefile.am: 
+	* registryd/Makefile.am:
+	(temporary) hack to include libXtst in libspi and registryd.
+	(Needed for keystroke synthesis, see below).
+
+	* idl/Registry.idl:
+	Improved API for registerKeystrokeListener, in accordance with
+	discussions with Gnopernicus team and X server research.
+
+	* libspi/registry.c:
+	* libspi/deviceeventcontroller.c:
+	* libspi/accessible.c:
+	* libspi/keystrokelistener.c:
+	Changes and fixes to support keylisteners for potentially
+	consumed key events (that is, 'passive grabs').
+	Added implementation for generateKeyEvent() [untested].
+
+	* cspi/spi.h:
+	Changes to registerKeystrokeListener() API, as above.
+	Added deregisterGlobalEventListenerAll(), and 
+	deregisterKeystrokeListener(), which are needed for clean exit of
+	clients.
+	Added typedefs for KeyListenerSyncType, KeyEventMask, and KeySet,
+	and a macro ALL_KEYS which may be used in place of a KeySet pointer.
+	
+	* cspi/spi_registry.c:
+	Added implementations of function prototypes mentioned above.
+	
+	* registryd/registryd.c:
+	Added the key listener event source as a g_timeout(), to allow
+	receipt of key events that are not caught by GDK (since GDK
+	doesn't support passive keygrabs, this was necessary).
+
+	* test/simple-at.c:
+	Changed to attach a keylistener to 'Alt' keys, and
+	respond to the following keycommands: Alt-M (toggle magnifier);
+	Alt-F (toggle speech); Alt-Q (quit).
+	Added an exit routine to deregister the listeners, and a key
+	listener that prints some key info to the console when a key
+	matches the listener mask (and is thus received by the listener).
+	
+	* util/idl/Magnifier.idl:
+	Changes to magnifier API to support multiple zoom regions,
+	non-uniform scaling in x and y, markDirty, and a host of other
+	features that would be useful to magnification.
+
+	* util/mag_image.h:
+	* util/mag_client.c:
+	* util/mag_client.h:
+	* util/mag_control.c:
+	* util/magnifier.c:
+	Source code changes to support the above IDL changes.
+	
+	* util/mag_image.c:
+	As above, and also changes to use a (slower) generic conversion
+	path for colormap conversions, since the fast RGB conversions have been
+	reported to fail for 16-bit displays.
+
 2001-10-26  Michael Meeks  <michael@ximian.com>
 
 	* libspi/Makefile.am (orbittypelibdir): install in orbit-2.0

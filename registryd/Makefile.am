@@ -8,7 +8,7 @@ INCLUDES = -I$(top_srcdir)          \
 
 registryd_SOURCES = registryd.c
 
-LDADD = ../libspi/libspi.la $(REGISTRYD_LIBS)
+LDADD = ../libspi/libspi.la -lXtst $(REGISTRYD_LIBS) 
 
 serverinfodir = $(libdir)/bonobo/servers
 serverinfo_DATA = Accessibility_Registry.server

@@ -14,6 +14,16 @@
 struct sockaddr_un mag_server = { AF_UNIX ,  "/tmp/magnifier_socket" };
 
 typedef struct {
+	GdkRectangle extents;
+	GdkRectangle roi;
+	float zoom_x;
+	float zoom_y;
+	int contrast;
+	gboolean is_managed;
+	gboolean is_dirty;
+} ZoomRegionData;
+
+typedef struct {
 	gchar *target_display;
 	gchar *source_display;
 	int   vertical_split;
@@ -23,8 +33,10 @@ typedef struct {
 	int   mouse_follow;
 	int   invert_image;
 	float zoom_factor;
-	int   refresh_time;
+	int   min_refresh_time;
 	int   no_bonobo;
+	int   fast_cmap_convert;
+	GList *zoom_regions;
 } MagnifierOptions;
 
 static MagnifierOptions global_options = { ":0.0",
@@ -37,6 +49,7 @@ static MagnifierOptions global_options = { ":0.0",
 					   0,
 					   2.0,
 					   200,
+					   0,
 					   0
                                          };
 
@@ -47,9 +60,10 @@ struct poptOption magnifier_options [] = {
 	{"horizontal", 'h', POPT_ARG_NONE, &global_options.horizontal_split, 'h', "split screen horizontally (if target display = source display)", NULL},
 	{"dual-head", 'd', POPT_ARG_NONE, &global_options.dual_head, 'd', "dual-head display mode (maps magnifier to second display)", NULL},
 	{"mouse follow", 'm', POPT_ARG_NONE, &global_options.mouse_follow, 'm', "track mouse movements", NULL},
-	{"refresh time", 'r', POPT_ARG_NONE, &global_options.refresh_time, 'r', "refresh time for mouse follow and idle, in ms", NULL},
+	{"refresh time", 'r', POPT_ARG_NONE, &global_options.min_refresh_time, 'r', "minimum refresh time for mouse follow and idle, in ms", NULL},
 	{"zoom (scale) factor", 'z', POPT_ARG_FLOAT, &global_options.zoom_factor, 'z', "zoom (scale) factor used to magnify source display", NULL}, 
 /*	{"invert image", 'i', POPT_ARG_NONE, &global_options.invert_image, 'i', "invert the image colormap", NULL}, */
+  	{"fast-colormap-conversion", 'c', POPT_ARG_NONE, &global_options.fast_cmap_convert, 'c', "use faster colormap conversion algorithm (fails for 6 bit color)", NULL}, 
 	{"no-bonobo", '\0', POPT_ARG_NONE, &global_options.no_bonobo, '\0', "don't use bonobo for controls, use sockets", NULL},
 	{NULL, 0, 0, NULL, 0, 0}
 };
@@ -101,11 +115,12 @@ int main (int argc, char** argv){
 	  global_options.mouse_follow;
   magnifier->mag_data->color_inverted =
 	  global_options.invert_image;
-  magnifier->mag_data->factor =
+  magnifier->mag_data->factor_x =
     (int) global_options.zoom_factor; 
-
-  /* TODO: enable fractional magnifications ? */
+  magnifier->mag_data->factor_y =
+    (int) global_options.zoom_factor;
   
+  /* TODO: enable fractional magnifications ? */
   if (global_options.target_display) {
     snprintf (env_string, (size_t) (ENV_STRING_MAX_SIZE-1), "DISPLAY=%s", global_options.target_display);
     putenv (env_string);
@@ -194,7 +209,7 @@ int main (int argc, char** argv){
   gdk_window_set_functions(window->window, 0);
   gdk_window_raise(window->window);
   
-  gtk_timeout_add(global_options.refresh_time, display_image, magnifier->mag_data);
+  gtk_timeout_add(global_options.min_refresh_time, display_image, magnifier->mag_data);
 
   obj_id = "OAFIID:Accessibility_Util_Magnifier:proto0.1";
 
@@ -281,6 +296,7 @@ impl_magnifier_goto (PortableServer_Servant servant,
 
 static void
 impl_magnifier_set_roi (PortableServer_Servant servant,
+			const CORBA_short zoom_region,
 			const CORBA_long x1,
 			const CORBA_long y1,
 			const CORBA_long x2,
@@ -294,11 +310,78 @@ impl_magnifier_set_roi (PortableServer_Servant servant,
 
 static void
 impl_magnifier_set_mag_factor (PortableServer_Servant servant,
-			       const CORBA_float mag_factor,
+			       const CORBA_short zoom_region,
+			       const CORBA_float mag_factor_x,
+			       const CORBA_float mag_factor_y,
 			       CORBA_Environment *ev)
 {
   Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
-  magnifier->mag_data->factor = (float) mag_factor;
+  magnifier->mag_data->factor_x = (float) mag_factor_x;
+  magnifier->mag_data->factor_y = (float) mag_factor_y;
+}
+
+static void
+impl_magnifier_mark_dirty (PortableServer_Servant servant,
+			   const CORBA_short zoom_region,
+			   CORBA_Environment *ev)
+{
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+}
+
+static void
+impl_magnifier_mark_unmanaged (PortableServer_Servant servant,
+			       const CORBA_short zoom_region,
+			       CORBA_Environment *ev)
+{
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+}
+
+static CORBA_short
+impl_magnifier_create_zoom_region (PortableServer_Servant servant,
+				   const CORBA_float zx,
+				   const CORBA_float zy,
+				   const CORBA_long x1,
+				   const CORBA_long y1,
+				   const CORBA_long x2,
+				   const CORBA_long y2,
+				   CORBA_Environment *ev)
+{
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  return -1;
+}
+
+static CORBA_boolean
+impl_magnifier_get_zoom_region_params (PortableServer_Servant _servant,
+				       const CORBA_short zoom_region,
+				       CORBA_float * zx,
+				       CORBA_float * zy, CORBA_long * x1,
+				       CORBA_long * y1, CORBA_long * x2,
+				       CORBA_long * y2,
+				       CORBA_Environment * ev)
+{
+	return CORBA_FALSE;
+}
+
+static void
+impl_magnifier_resize_zoom_region (PortableServer_Servant _servant,
+				   const CORBA_short zoom_region,
+				   const CORBA_long x1, const CORBA_long y1,
+				   const CORBA_long x2, const CORBA_long y2,
+				   CORBA_Environment * ev)
+{
+}
+
+static void
+impl_magnifier_destroy_zoom_region (PortableServer_Servant _servant,
+				    const CORBA_short zoom_region,
+				    CORBA_Environment * ev)
+{
+}
+
+static void
+impl_magnifier_clear_all_zoom_regions (PortableServer_Servant _servant,
+				       CORBA_Environment * ev)
+{
 }
 
 static void
@@ -318,7 +401,14 @@ magnifier_class_init (MagnifierClass *klass)
         epv->_set_SourceDisplay = impl_magnifier_set_source_display;
 	epv->_set_TargetDisplay = impl_magnifier_set_target_display;
 	epv->setROI = impl_magnifier_set_roi;
-        epv->_set_MagFactor = impl_magnifier_set_mag_factor;
+        epv->setMagFactor = impl_magnifier_set_mag_factor;
+        epv->markDirty = impl_magnifier_mark_dirty;
+        epv->markUnmanaged = impl_magnifier_mark_unmanaged;
+	epv->createZoomRegion = impl_magnifier_create_zoom_region;
+	epv->getZoomRegionParams = impl_magnifier_get_zoom_region_params;
+	epv->resizeZoomRegion = impl_magnifier_resize_zoom_region;
+	epv->destroyZoomRegion = impl_magnifier_destroy_zoom_region;
+	epv->clearAllZoomRegions = impl_magnifier_clear_all_zoom_regions;
 	epv->exit = impl_magnifier_exit;
 }
 
@@ -326,9 +416,11 @@ static void
 magnifier_init (Magnifier *magnifier)
 {
   magnifier->mag_data = (MagnifierData *) g_new0 (MagnifierData, 1);
-  magnifier->mag_data->factor = 2;
+  magnifier->mag_data->factor_x = 2;
+  magnifier->mag_data->factor_y = 2;
   magnifier->mag_data->contrast = 0;
   magnifier->mag_data->color_inverted = FALSE;
+  magnifier->mag_data->fast_rgb_convert = FALSE;
   magnifier->mag_data->center.x = 0;
   magnifier->mag_data->center.y = 0;
 }

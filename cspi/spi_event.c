@@ -67,7 +67,7 @@ EventListener_removeCallback (AccessibleEventListener *listener,
 KeystrokeListener *
 createKeystrokeListener (KeystrokeListenerCB callback)
 {
-  KeystrokeListener *listener = g_object_new (KEYSTROKE_LISTENER_TYPE, NULL);
+  KeystrokeListener *listener = keystroke_listener_new ();
   if (callback)
     {
       keystroke_listener_add_callback (listener, callback);
@@ -110,3 +110,4 @@ KeystrokeListener_removeCallback (KeystrokeListener *listener,
   keystroke_listener_remove_callback (listener, callback);
   return TRUE;
 }
+

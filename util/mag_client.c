@@ -42,28 +42,30 @@ get_magnifier()
 }
 
 void
-magnifier_set_roi(int x, int y, int w, int h)
+magnifier_set_roi(int zoom_region, int x, int y, int w, int h)
 {
   Accessibility_Magnifier magnifier = get_magnifier();
 
   if (magnifier)
        Accessibility_Magnifier_setROI (magnifier,
-				      (const CORBA_long) x,
-				      (const CORBA_long) y,
-				      (const CORBA_long) x+w,
-				      (const CORBA_long) y+h,
-				      &ev);
+				       (const CORBA_short) zoom_region,
+				       (const CORBA_long) x,
+				       (const CORBA_long) y,
+				       (const CORBA_long) x+w,
+				       (const CORBA_long) y+h,
+				       &ev);
 }
 
 void
-magnifier_set_magnification (float mag_factor)
+magnifier_set_magnification (int zoom_region, float mag_factor_x, float mag_factor_y)
 {
   Accessibility_Magnifier magnifier = get_magnifier();
 
   if (magnifier)
-       Accessibility_Magnifier__set_MagFactor (magnifier,
-					       (const CORBA_short)
-					           ((short) mag_factor),
-					       &ev);
+       Accessibility_Magnifier_setMagFactor (magnifier,
+					     (const CORBA_short) zoom_region,
+					     ((CORBA_float) mag_factor_x),
+					     ((CORBA_float) mag_factor_y),
+					     &ev);
 }
 

@@ -329,7 +329,7 @@ accessible_new (AtkObject *o)
         bonobo_object_add_interface (bonobo_object (retval),
                                      BONOBO_OBJECT (action_interface_new (o)));
       }
-      
+
     if (ATK_IS_COMPONENT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),

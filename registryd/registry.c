@@ -140,13 +140,13 @@ compare_corba_objects (gconstpointer p1, gconstpointer p2)
 {
   CORBA_Environment ev;
   gint retval;
-  retval = !CORBA_Object_is_equivalent ((CORBA_Object) p1, (CORBA_Object) p2, &ev);
 
 #ifdef SPI_DEBUG
-  fprintf (stderr, "comparing %p to %p; result %d\n",
-	   p1, p2,
-	   retval);
+  fprintf (stderr, "comparing %p to %p\n",
+	   p1, p2);
 #endif
+  
+  retval = !CORBA_Object_is_equivalent ((CORBA_Object) p1, (CORBA_Object) p2, &ev);
   return retval;  
 }
 
@@ -187,6 +187,13 @@ static gint
 compare_listener_hash (gconstpointer p1, gconstpointer p2)
 {
   return (((ListenerStruct *)p2)->event_type_hash - ((ListenerStruct *)p1)->event_type_hash);
+}
+
+static gint
+compare_listener_corbaref (gconstpointer p1, gconstpointer p2)
+{
+  return compare_corba_objects (((ListenerStruct *)p2)->listener,
+                                ((ListenerStruct *)p1)->listener);
 }
 
 static void
@@ -264,7 +271,7 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
                                                     CORBA_Environment * ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->desktop->applications, application, compare_corba_objects);
+  GList *list = g_list_find_custom (registry->desktop->applications, &application, compare_corba_objects);
 
 #ifdef SPI_DEBUG
   gint i;
@@ -344,7 +351,11 @@ impl_accessibility_registry_deregister_global_event_listener_all (
                                                     CORBA_Environment      *ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->object_listeners, listener, compare_corba_objects);
+  ListenerStruct *ls = g_malloc (sizeof (ListenerStruct));
+  GList *list;
+  ls->listener = listener;  
+  list = g_list_find_custom (registry->object_listeners, ls,
+			     compare_listener_corbaref);
 
   /*
    * TODO : de-register with toolkit if the last instance of a listener
@@ -355,14 +366,14 @@ impl_accessibility_registry_deregister_global_event_listener_all (
     {
       fprintf (stderr, "deregistering listener\n");
       registry->object_listeners = g_list_delete_link (registry->object_listeners, list);
-      list = g_list_find_custom (registry->object_listeners, listener, compare_corba_objects);
+      list = g_list_find_custom (registry->object_listeners, ls, compare_listener_corbaref);
     }
-  list = g_list_find_custom (registry->toolkit_listeners, listener, compare_corba_objects);
+  list = g_list_find_custom (registry->toolkit_listeners, ls, compare_listener_corbaref);
   while (list)
     {
       fprintf (stderr, "deregistering listener\n");
       registry->toolkit_listeners = g_list_delete_link (registry->toolkit_listeners, list);
-      list = g_list_find_custom (registry->toolkit_listeners, listener, compare_corba_objects);
+      list = g_list_find_custom (registry->toolkit_listeners, ls, compare_listener_corbaref);
     }
 }
 

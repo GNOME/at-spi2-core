@@ -62,13 +62,30 @@ typedef enum _KeyEventType {
   KEY_RELEASED
 } KeyEventType;
 
+typedef enum _KeyListenerSyncType {
+  KEYLISTENER_SYNCHRONOUS = 1,
+  KEYLISTENER_CANCONSUME = 2,
+  KEYLISTENER_ALLWINDOWS = 4
+} KeyListenerSyncType;
+
+typedef unsigned long KeyEventMask;
+
 typedef struct _KeyStroke
 {
 	long keyID;
+	short keycode;
 	KeyEventType type;
 	unsigned short modifiers;
 } KeyStroke;
 
+typedef struct _KeySet
+{
+	unsigned long *keysyms;
+	unsigned short *keycodes;
+	short len;
+} KeySet;
+
+#define ALL_KEYS ((void *)NULL)
 
 /*
  *
@@ -305,7 +322,11 @@ getDesktopList (Accessible **list);
  *
  **/
 void
-registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask);
+registerKeystrokeListener (KeystrokeListener *listener,
+			   KeySet *keys,
+			   KeyMaskType modmask,
+			   KeyEventMask eventmask,
+			   KeyListenerSyncType sync_type);
 
 /**
  * generateKeyEvent:

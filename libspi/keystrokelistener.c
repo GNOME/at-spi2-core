@@ -81,13 +81,15 @@ void   keystroke_listener_remove_callback (KeystrokeListener *listener,
 /*
  * CORBA Accessibility::KeystrokeListener::keyEvent method implementation
  */
-
 static CORBA_boolean
 impl_key_event (PortableServer_Servant     servant,
 		const Accessibility_KeyStroke *key,
 		CORBA_Environment         *ev)
 {
-#ifdef SPI_DEBUG
+  KeystrokeListener *listener = KEYSTROKE_LISTENER (bonobo_object_from_servant (servant));
+  GList *callbacks = listener->callbacks;
+  gboolean was_consumed = FALSE;
+#ifdef SPI_KEYEVENT_DEBUG
   if (ev->_major != CORBA_NO_EXCEPTION) {
     fprintf(stderr,
             ("Accessibility app error: exception during keystroke notification: %s\n"),
@@ -101,6 +103,13 @@ impl_key_event (PortableServer_Servant     servant,
 	    (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID));
   }
 #endif
+  while (callbacks)
+  {
+	  BooleanKeystrokeListenerCB cb = (BooleanKeystrokeListenerCB) callbacks->data;
+	  was_consumed = (*cb) (key) || was_consumed;
+	  callbacks = g_list_next (callbacks);
+  }
+  return was_consumed;
 }
 
 static void

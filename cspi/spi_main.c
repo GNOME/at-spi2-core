@@ -64,7 +64,7 @@ SPI_init (void)
 void
 SPI_event_main (boolean isGNOMEApp)
 {
-  if (isGNOMEApp) {
+  if (isGNOMEApp) {	  
     g_atexit(SPI_exit);
     bonobo_main();
   }
