@@ -1,3 +1,8 @@
+2001-10-01  jacob berkman  <jacob@ximian.com>
+
+	* docs/Makefile.am (dist-hook-local): depend on all-local so that
+	make dist works correctly w/o having to build first
+
 2001-10-01  Tor Lillqvist  <tml@iki.fi>
 
 	* configure.in: Add AC_LIBTOOL_WIN32_DLL.

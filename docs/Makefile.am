@@ -26,6 +26,8 @@ content_files =
 # Other files to distribute
 extra_files =
 
+dist-hook-local: all-local
+
 ####################################
 # Everything below here is generic #
 ####################################
