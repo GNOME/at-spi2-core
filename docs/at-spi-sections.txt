@@ -31,7 +31,6 @@ AccessibleKeyEventMask
 AccessibleKeyMaskType
 AccessibleKeyEventType
 AccessibleKeyListenerSyncType
-SPI_KEYSET_ALL_KEYS
 createAccessibleKeystrokeListener
 registerGlobalEventListener
 deregisterGlobalEventListener

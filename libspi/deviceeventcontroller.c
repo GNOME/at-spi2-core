@@ -60,24 +60,46 @@ static Display *display;
 static Window root_window;
 
 typedef enum {
-  DEVICE_TYPE_KBD,
-  DEVICE_TYPE_MOUSE,
-  DEVICE_TYPE_LAST_DEFINED
-} DeviceTypeCategory;
+  SPI_DEVICE_TYPE_KBD,
+  SPI_DEVICE_TYPE_MOUSE,
+  SPI_DEVICE_TYPE_LAST_DEFINED
+} SpiDeviceTypeCategory;
+
+struct _DEControllerListener {
+  CORBA_Object object;
+  SpiDeviceTypeCategory type;
+};
+
+typedef struct _DEControllerListener DEControllerListener;
+
+struct _DEControllerKeyListener {
+  DEControllerListener listener;
+  Accessibility_KeySet *keys;
+  Accessibility_ControllerEventMask *mask;
+  Accessibility_KeyEventTypeSeq *typeseq;
+  gboolean is_system_global;	
+};
+
+typedef struct _DEControllerKeyListener DEControllerKeyListener;
 
 static gboolean _controller_register_with_devices (SpiDeviceEventController *controller);
 static gboolean _controller_grab_keyboard (SpiDeviceEventController *controller);
 
-static void _controller_register_device_listener (SpiDeviceEventController *controller,
-						  const CORBA_Object l,
-						  DeviceTypeCategory type,
-						  const Accessibility_KeySet *keys,
-						  const Accessibility_ControllerEventMask *mask,
-						  CORBA_Environment *ev);
+static void controller_register_device_listener (SpiDeviceEventController *controller,
+						 DEControllerListener *l,
+						 CORBA_Environment *ev);
 
 /*
  * Private methods
  */
+
+static gint
+_compare_listeners (gconstpointer p1, gconstpointer p2)
+{
+  DEControllerListener *l1 = (DEControllerListener *) p1;	
+  DEControllerListener *l2 = (DEControllerListener *) p2;	
+  return _compare_corba_objects (l1->object, l2->object);
+}
 
 static gint
 _compare_corba_objects (gconstpointer p1, gconstpointer p2)
@@ -106,44 +128,60 @@ _eventmask_compare_value (gconstpointer p1, gconstpointer p2)
     return (gint) d;
 }
 
+static DEControllerKeyListener *
+dec_key_listener_new (CORBA_Object l,
+		      const Accessibility_KeySet *keys,
+		      const Accessibility_ControllerEventMask *mask,
+		      const Accessibility_KeyEventTypeSeq *typeseq,
+		      const CORBA_boolean is_system_global,
+		      CORBA_Environment *ev)
+{
+  DEControllerKeyListener *key_listener = g_new0 (DEControllerKeyListener, 1);
+  key_listener->listener.object = CORBA_Object_duplicate (l, ev);
+  key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
+  key_listener->keys = keys;
+  key_listener->mask = mask;
+  key_listener->is_system_global = is_system_global;
+
+  return key_listener;	
+}
+
 static void
-_controller_register_device_listener (SpiDeviceEventController *controller,
-				      const CORBA_Object l,
-				      DeviceTypeCategory type,
-				      const Accessibility_KeySet *keys,
-				      const Accessibility_ControllerEventMask *mask,
-				      CORBA_Environment *ev)
+controller_register_device_listener (SpiDeviceEventController *controller,
+				     DEControllerListener *listener,
+				     CORBA_Environment *ev)
 {
   Accessibility_ControllerEventMask *mask_ptr = NULL;
+  DEControllerKeyListener *key_listener;
   
-  switch (type) {
-  case DEVICE_TYPE_KBD:
-      controller->key_listeners = g_list_append (controller->key_listeners,
-						 CORBA_Object_duplicate (l, ev));
+  switch (listener->type) {
+  case SPI_DEVICE_TYPE_KBD:
+      key_listener = (DEControllerKeyListener *) listener;  	  
+      controller->key_listeners = g_list_append (controller->key_listeners, key_listener);
       
       mask_ptr = (Accessibility_ControllerEventMask *)
-	      g_list_find_custom (controller->keymask_list, (gpointer) mask,
+	      g_list_find_custom (controller->keymask_list, (gpointer) key_listener->mask,
 				  _eventmask_compare_value);
       if (mask_ptr)
 	      ++(mask_ptr->refcount);
       else
       {
-	      if (mask->refcount != (CORBA_unsigned_short) 1)
+	      if (key_listener->mask->refcount != (CORBA_unsigned_short) 1)
 		      fprintf (stderr, "mask initial refcount is not 1!\n");
-	      if (mask->value > (CORBA_unsigned_long) 2048)
+	      if (key_listener->mask->value > (CORBA_unsigned_long) 2048)
 		      fprintf (stderr, "mask value looks invalid (%lu)\n",
-			       (unsigned long) mask->value);
+			       (unsigned long) key_listener->mask->value);
 	      else
 		      fprintf (stderr, "appending mask with val=%lu\n",
-			       (unsigned long) mask->value);
+			       (unsigned long) key_listener->mask->value);
 	      mask_ptr = Accessibility_ControllerEventMask__alloc();
-	      mask_ptr->value = mask->value;
+	      mask_ptr->value = key_listener->mask->value;
 	      mask_ptr->refcount = (CORBA_unsigned_short) 1;
 	      controller->keymask_list = g_list_append (controller->keymask_list,
 							(gpointer) mask_ptr);
       }
       break;
-  case DEVICE_TYPE_MOUSE:
+  case SPI_DEVICE_TYPE_MOUSE:
 /*    controller->mouse_listeners = g_list_append (controller->mouse_listeners,
                                                    CORBA_Object_duplicate (l, ev));*/
 
@@ -153,21 +191,22 @@ _controller_register_device_listener (SpiDeviceEventController *controller,
 }
 
 static void
-_controller_deregister_device_listener (SpiDeviceEventController *controller,
-					const CORBA_Object l,
-					const Accessibility_ControllerEventMask *mask,
-					DeviceTypeCategory type,
-					CORBA_Environment *ev)
+controller_deregister_device_listener (SpiDeviceEventController *controller,
+				       DEControllerListener *listener,
+				       CORBA_Environment *ev)
 {
   Accessibility_ControllerEventMask *mask_ptr;
+  DEControllerKeyListener *key_listener;
   GList *list_ptr;
-  switch (type) {
-  case DEVICE_TYPE_KBD:
-      list_ptr = g_list_find_custom (controller->key_listeners, l, _compare_corba_objects);
+  switch (listener->type) {
+  case SPI_DEVICE_TYPE_KBD:
+      key_listener = (DEControllerKeyListener *) listener;
+      list_ptr = g_list_find_custom (controller->key_listeners, listener, _compare_listeners);
+      /* TODO: need a different custom compare func */
       if (list_ptr)
 	  controller->key_listeners = g_list_remove (controller->key_listeners, list_ptr);
       list_ptr = (GList *)
-	          g_list_find_custom (controller->keymask_list, (gpointer) mask,
+	          g_list_find_custom (controller->keymask_list, (gpointer) key_listener->mask,
 				     _eventmask_compare_value);
       if (list_ptr)
         {
@@ -182,7 +221,7 @@ _controller_deregister_device_listener (SpiDeviceEventController *controller,
 	    }
 	}
       break;
-  case DEVICE_TYPE_MOUSE:
+  case SPI_DEVICE_TYPE_MOUSE:
 /*    controller->mouse_listeners = g_list_append (controller->mouse_listeners,
                                                    CORBA_Object_duplicate (l, ev));*/
 
@@ -214,6 +253,26 @@ _controller_register_with_devices (SpiDeviceEventController *controller)
   return retval;
 }
 
+
+static gboolean
+notify_keylisteners (GList *key_listeners, Accessibility_KeyStroke *key_event, CORBA_Environment *ev)
+{
+  int i, n_listeners = g_list_length (key_listeners);
+  gboolean is_consumed = FALSE;
+  for (i=0; i<n_listeners && !is_consumed; ++i)
+    {
+      Accessibility_KeystrokeListener ls;
+      ls = (Accessibility_KeystrokeListener)
+	    g_list_nth_data (key_listeners, i);
+      if (!CORBA_Object_is_nil(ls, ev))
+        {
+	    is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, key_event, ev);
+        }		
+    }
+  return is_consumed;
+}
+
+
 static gboolean
 _check_key_event (SpiDeviceEventController *controller)
 {
@@ -225,7 +284,6 @@ _check_key_event (SpiDeviceEventController *controller)
 	gboolean is_consumed = FALSE;
 	char key_name[16];
 	int i;
-	int n_listeners = g_list_length (controller->key_listeners);
 	Accessibility_KeyStroke key_event;
 	static CORBA_Environment ev;
 
@@ -268,16 +326,8 @@ _check_key_event (SpiDeviceEventController *controller)
 #endif
 	    }
 	    /* relay to listeners, and decide whether to consume it or not */
-	    for (i=0; i<n_listeners && !is_consumed; ++i)
-	    {
-		    Accessibility_KeystrokeListener ls;
-		    ls = (Accessibility_KeystrokeListener)
-			    g_list_nth_data (controller->key_listeners, i);
-		    if (!CORBA_Object_is_nil(ls, &ev))
-		    {
-			    is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, &key_event, &ev);
-		    }		
-	    }
+	    is_consumed = notify_keylisteners (controller->key_listeners, &key_event, &ev);
+
 	    if (is_consumed)
 	    {
 	      XAllowEvents (display, SyncKeyboard, CurrentTime);
@@ -363,15 +413,13 @@ impl_register_keystroke_listener (PortableServer_Servant     servant,
 {
 	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
 		bonobo_object_from_servant (servant));
+	DEControllerKeyListener *dec_listener;
 #ifdef SPI_DEBUG
 	fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
 		 (void *) l, (unsigned long) mask->value);
 #endif
-        /* TODO: change this to an enum, indicating if event is caught at OS level */
-	if (is_system_global)
-	_controller_register_device_listener(controller, l, DEVICE_TYPE_KBD, keys, mask, ev);
-	else
-	; /* register with toolkit instead */	
+	dec_listener = dec_key_listener_new (l, keys, mask, type, is_system_global, ev);
+	controller_register_device_listener (controller, (DEControllerListener *) dec_listener, ev);
 }
 
 /*
@@ -384,16 +432,24 @@ impl_deregister_keystroke_listener (PortableServer_Servant     servant,
 				    const Accessibility_KeySet *keys,
 				    const Accessibility_ControllerEventMask *mask,
 				    const Accessibility_KeyEventTypeSeq *type,
-				    const CORBA_boolean is_synchronous,
+				    const CORBA_boolean is_system_global,
 				    CORBA_Environment         *ev)
 {
 	SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
 		bonobo_object_from_servant (servant));
+	DEControllerKeyListener *key_listener = dec_key_listener_new (l,
+								      keys,
+								      mask,
+								      type,
+								      is_system_global,
+								      ev);
 #ifdef SPI_DEBUG
 	fprintf (stderr, "deregistering keystroke listener %p with maskVal %lu\n",
 		 (void *) l, (unsigned long) mask->value);
 #endif
-	_controller_deregister_device_listener(controller, l, mask, DEVICE_TYPE_KBD, ev);
+	controller_deregister_device_listener(controller,
+					      (DEControllerListener *) key_listener,
+					      ev);
 }
 
 /*
@@ -411,7 +467,7 @@ impl_register_mouse_listener (PortableServer_Servant     servant,
 #ifdef SPI_DEBUG
 	fprintf (stderr, "registering mouse listener %p\n", l);
 #endif
-	_controller_register_device_listener(controller, DEVICE_TYPE_MOUSE, l, keys, mask, ev);
+	controller_register_device_listener(controller, DEVICE_TYPE_MOUSE, l, keys, mask, ev);
 }
 */
 

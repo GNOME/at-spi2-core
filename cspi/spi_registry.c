@@ -17,9 +17,43 @@ static Display *display = NULL;
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail
  *            where all subfields other than EventClass are optional.
- *            EventClasses include "Focus", "Window", "Mouse",
+ *            EventClasses include "object", "window", "mouse",
  *            and toolkit events (e.g. "Gtk", "AWT").
  *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
+ *
+ * Legal object event types:
+ *
+ *    (property change events)
+ *
+ *            object:property-change
+ *            object:property-change:accessible-name
+ *            object:property-change:accessible-state
+ *            object:property-change:accessible-description
+ *            object:property-change:accessible-parent
+ *            object:property-change:accessible-value
+ *            object:property-change:accessible-role
+ *            object:property-change:accessible-table-caption
+ *            object:property-change:accessible-table-column-description
+ *            object:property-change:accessible-table-column-header
+ *            object:property-change:accessible-table-row-description
+ *            object:property-change:accessible-table-row-header
+ *            object:property-change:accessible-table-summary
+ *
+ *    (other object events)
+ *
+ *            object:children-changed
+ *            object:visible-data-changed
+ *            object:selection-changed
+ *            object:text-selection-changed
+ *            object:text-changed
+ *            object:text-caret-moved
+ *            object:row-inserted
+ *            object:row-reordered
+ *            object:row-deleted
+ *            object:column-inserted
+ *            object:column-reordered
+ *            object:column-deleted
+ *            object:model-changed
  *
  * NOTE: this string may be UTF-8, but should not contain byte value 56
  *            (ascii ':'), except as a delimiter, since non-UTF-8 string

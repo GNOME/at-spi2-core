@@ -9,9 +9,6 @@ extern "C" {
 #include "accessibleeventlistener.h"
 #include "keystrokelistener.h"
 
-#define SPI_KEYSET_ALL_KEYS ((void *)NULL)
-
-
 /*
  *
  * Structure used to encapsulate event information

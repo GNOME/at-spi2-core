@@ -809,3 +809,157 @@ AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
 {
   return NULL;
 }
+
+/**
+ * AccessibleStateSet_ref:
+ * @obj: a pointer to the #AccessibleStateSet object on which to operate.
+ *
+ * Increment the reference count for an #AccessibleStateSet object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
+int
+AccessibleStateSet_ref (AccessibleStateSet *obj)
+{
+/*  Accessibility_StateSet_ref (*obj, &ev); */
+  spi_check_ev (&ev, "ref");
+  return 0;
+}
+
+/**
+ * AccessibleStateSet_unref:
+ * @obj: a pointer to the #AccessibleStateSet object on which to operate.
+ *
+ * Decrement the reference count for an #AccessibleStateSet object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
+int
+AccessibleStateSet_unref (AccessibleStateSet *obj)
+{
+/*  Accessibility_StateSet_unref (*obj, &ev); */
+  spi_check_ev (&ev, "unref");
+  return 0;
+}
+
+
+/**
+ * AccessibleStateSet_contains:
+ * @obj: a pointer to the #AccessibleStateSet object on which to operate.
+ * @state: an #AccessibleState for which the specified #AccessibleStateSet
+ *       will be queried.
+ *
+ * Determine whether a given #AccessibleStateSet includes a given state; that is,
+ *       whether @state is true for the stateset in question.
+ *
+ * Returns: #TRUE if @state is true/included in the given #AccessibleStateSet,
+ *          otherwise #FALSE.
+ *
+ **/
+boolean
+AccessibleStateSet_contains (AccessibleStateSet *obj,
+			     AccessibleState state)
+{
+  CORBA_boolean retval = Accessibility_StateSet_contains (*obj, state, &ev);
+  spi_check_ev (&ev, "contains");
+  return (boolean) retval;
+}
+
+/**
+ * AccessibleStateSet_add:
+ * @obj: a pointer to the #AccessibleStateSet object on which to operate.
+ * @state: an #AccessibleState to be added to the specified #AccessibleStateSet
+ *
+ * Add a particular #AccessibleState to an #AccessibleStateSet (i.e. set the
+ *       given state to #TRUE in the stateset.
+ *
+ **/
+void
+AccessibleStateSet_add (AccessibleStateSet *obj,
+			AccessibleState state)
+{
+  Accessibility_StateSet_add (*obj, state, &ev);
+  spi_check_ev (&ev, "contains");
+}
+
+
+/**
+ * AccessibleStateSet_remove:
+ * @obj: a pointer to the #AccessibleStateSet object on which to operate.
+ * @state: an #AccessibleState to be removed from the specified #AccessibleStateSet
+ *
+ * Remove a particular #AccessibleState to an #AccessibleStateSet (i.e. set the
+ *       given state to #FALSE in the stateset.)
+ *
+ **/
+void
+AccessibleStateSet_remove (AccessibleStateSet *obj,
+			   AccessibleState state)
+{
+  Accessibility_StateSet_remove (*obj, state, &ev);
+  spi_check_ev (&ev, "contains");
+}
+
+/**
+ * AccessibleStateSet_equals:
+ * @obj: a pointer to the first #AccessibleStateSet object on which to operate.
+ * @obj2: a pointer to the second #AccessibleStateSet object on which to operate.
+ *
+ * Determine whether two instances of #AccessibleStateSet are equivalent (i.e.
+ *         consist of the same #AccessibleStates).  Useful for checking multiple
+ *         state variables at once; construct the target state then compare against it.
+ *
+ * @see AccessibleStateSet_compare().
+ *
+ * Returns: #TRUE if the two #AccessibleStateSets are equivalent,
+ *          otherwise #FALSE.
+ *
+ **/
+boolean
+AccessibleStateSet_equals (AccessibleStateSet *obj,
+                           AccessibleStateSet *obj2)
+{
+  return Accessibility_StateSet_equals (*obj, *obj2, &ev);
+}
+
+/**
+ * AccessibleStateSet_compare:
+ * @obj: a pointer to the first #AccessibleStateSet object on which to operate.
+ * @obj2: a pointer to the second #AccessibleStateSet object on which to operate.
+ *
+ * Determine the differences between two instances of #AccessibleStateSet.
+ *.
+ * @see AccessibleStateSet_equals().
+ *
+ * Returns: an #AccessibleStateSet object containing all states contained on one of
+ *          the two sets but not the other.
+ *
+ **/
+void
+AccessibleStateSet_compare (AccessibleStateSet *obj,
+                            AccessibleStateSet *obj2,
+                            AccessibleStateSet **differenceSet);
+
+
+/**
+ * AccessibleStateSet_isEmpty:
+ * @obj: a pointer to the #AccessibleStateSet object on which to operate.
+ *
+ * Determine whether a given #AccessibleStateSet is the empty set.
+ *
+ * Returns: #TRUE if the given #AccessibleStateSet contains no (true) states,
+ *          otherwise #FALSE.
+ *
+ **/
+boolean
+AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
+{
+  return TRUE;	
+  /*  return Accessibility_StateSet_isEmpty (*obj, &ev);*/
+}
+
+
+
+

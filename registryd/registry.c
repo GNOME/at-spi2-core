@@ -64,6 +64,8 @@ typedef enum {
   ETYPE_PROPERTY,
   ETYPE_WINDOW,
   ETYPE_TOOLKIT,
+  ETYPE_KEYBOARD,
+  
   ETYPE_LAST_DEFINED
 } EventTypeCategory;
 
@@ -518,6 +520,7 @@ impl_registry_notify_event (PortableServer_Servant servant,
     case (ETYPE_TOOLKIT) :
       _registry_notify_listeners (registry->toolkit_listeners, e, ev); 
       break;
+    case (ETYPE_KEYBOARD) :
     default:
       break;
     }

@@ -157,6 +157,11 @@ module Accessibility {
     KEY_RELEASED
   };
 
+  enum EventType {
+    KEY_PRESSED_EVENT,
+    KEY_RELEASED_EVENT
+  };
+
   enum KeySynthType {
     KEY_PRESS,
     KEY_RELEASE,
@@ -183,7 +188,16 @@ module Accessibility {
   struct KeyStroke {
     long keyID;
     short keycode;
+    unsigned long timestamp;
     KeyEventType type; 
+    unsigned short modifiers;
+  };
+
+  struct DeviceEvent {
+    long eventID;
+    short hw_code;
+    unsigned long timestamp;
+    EventType type; 
     unsigned short modifiers;
   };
 
@@ -192,6 +206,10 @@ module Accessibility {
 
   interface KeystrokeListener : Bonobo::Unknown {
         boolean keyEvent (in KeyStroke key);
+  };
+
+  interface DeviceEventListener : Bonobo::Unknown {
+        boolean notifyEvent (in DeviceEvent event);
   };
 
   interface DeviceEventController : Bonobo::Unknown {
@@ -239,6 +257,12 @@ module Accessibility {
 					in KeyEventTypeSeq type,
 					in boolean is_synchronous);
     
+        boolean notifyListenersSync (in DeviceEventListener listener,
+				     in DeviceEvent event);
+
+        oneway void notifyListenersAsync (in DeviceEventListener listener,
+					  in DeviceEvent event);
+
         /**
          * generateKeyEvent:
          * @keycode: a long integer indicating the keycode of

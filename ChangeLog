@@ -1,5 +1,73 @@
+2001-18-11  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/spi_accessible.c: Added docs and C bindings for
+	AccessibleStateSet. (No implementations yet).  Documentation
+	coverage for C bindings now 100%. Made docs for event listeners
+	more explicit.
+	
+	* idl/Registry.idl:
+	Added methods 
+            boolean notifyListenersSync (in DeviceEventListener listener,
+				     in DeviceEvent event);
+
+            oneway void notifyListenersAsync (in DeviceEventListener listener,
+					  in DeviceEvent event);
+
+	Added DeviceEventListener and DeviceEvent structs (may deprecate
+	KeyStroke and KeystrokeListener in favor of this generic
+	event/listener framework for devices).
+
+	* libspi/deviceeventcontroller.c:
+
+	Changed some key listener code to take masks, etc., and paved the
+	way for integration of toolkit/non-preemptive key events. Changed
+	signatures of some internal methods.
+
+	* at-bridge/bridge.c:
+        Fixed regression connecting to interface signals, apparently
+	caused by GTK+ changes.
+
+	Added an internal bridge_state_listener to deal with
+	property-change:accessible-state signals.
+
+	Changed the key_listeners GList to store structs (including masks,
+	etc.) instead of just CORBA_Objects (required for full
+	implementation of key listener API).
+
+	Connected the bridge to all currently supported Atk signals.
+	Events now supported: 
+	    object:property-change
+            object:property-change:accessible-name
+            object:property-change:accessible-state
+            object:property-change:accessible-description
+            object:property-change:accessible-parent
+            object:property-change:accessible-value
+            object:property-change:accessible-role
+            object:property-change:accessible-table-caption
+            object:property-change:accessible-table-column-description
+            object:property-change:accessible-table-column-header
+            object:property-change:accessible-table-row-description
+            object:property-change:accessible-table-row-header
+            object:property-change:accessible-table-summary
+            object:children-changed
+            object:visible-data-changed
+            object:selection-changed
+            object:text-selection-changed
+            object:text-changed
+            object:text-caret-moved
+            object:row-inserted
+            object:row-reordered
+            object:row-deleted
+            object:column-inserted
+            object:column-reordered
+            object:column-deleted
+            object:model-changed        
+
 2001-16-11  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/hyperlink.c,h:
+	Fixed some broken stuff in hyperlink.
+	
 	* libspi/relation.h:
 	* libspi/relation.c:
 	* cspi/spi_accessible.c:

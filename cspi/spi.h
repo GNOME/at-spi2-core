@@ -111,7 +111,7 @@ typedef struct _AccessibleKeySet
  * @SPI_KEYSET_ALL_KEYS: A special value for an AccessibleKeySet type, which tacitly
  *                       includes all keycodes and keyvals for the specified modifier set.
  **/
-#define SPI_KEYSET_ALL_KEYS ((void *)NULL)
+#define SPI_KEYSET_ALL_KEYS NULL
 
 typedef unsigned long AccessibleKeyMaskType;
 
