@@ -36,6 +36,7 @@ libatk_la_SOURCES = 		\
 	atkcomponent.c		\
 	atkdocument.c		\
 	atkeditabletext.c	\
+	atkgobjectaccessible.c	\
 	atkhyperlink.c		\
 	atkhypertext.c		\
 	atkimage.c		\
@@ -82,6 +83,7 @@ atk_headers = \
         atkcomponent.h		\
         atkdocument.h		\
         atkeditabletext.h	\
+        atkgobjectaccessible.h	\
         atkhyperlink.h		\
         atkhypertext.h		\
         atknoopobject.h		\

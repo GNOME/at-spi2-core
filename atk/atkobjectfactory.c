@@ -108,3 +108,25 @@ atk_object_factory_invalidate (AtkObjectFactory *factory)
   if (klass->invalidate)
      (klass->invalidate) (factory);
 }
+
+/**
+ * atk_object_factory_get_accessible_type:
+ * @factory: an #AtkObjectFactory 
+ *
+ * Gets the GType of the accessible which is created by the factory. 
+ * The value G_TYPE_INVALID is returned if no type if found.
+ * Returns: the type of the accessible which is created by the @factory.
+ **/
+GType
+atk_object_factory_get_accessible_type (AtkObjectFactory *factory)
+{
+  AtkObjectFactoryClass *klass;
+
+  g_return_val_if_fail (ATK_OBJECT_FACTORY (factory), G_TYPE_INVALID);
+
+  klass = ATK_OBJECT_FACTORY_GET_CLASS (factory);
+  if (klass->get_accessible_type)
+     return (klass->get_accessible_type) ();
+  else
+     return G_TYPE_INVALID;
+}

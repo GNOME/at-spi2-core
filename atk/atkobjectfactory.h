@@ -48,12 +48,14 @@ struct _AtkObjectFactoryClass
 
   AtkObject* (* create_accessible) (GObject          *obj);
   void       (* invalidate)        (AtkObjectFactory *factory);
+  GType      (* get_accessible_type)    (void);
 };
 
 GType atk_object_factory_get_type();
 
-AtkObject* atk_object_factory_create_accessible(AtkObjectFactory *factory, GObject *obj);
-void       atk_object_factory_invalidate       (AtkObjectFactory *factory);      
+AtkObject* atk_object_factory_create_accessible (AtkObjectFactory *factory, GObject *obj);
+void       atk_object_factory_invalidate (AtkObjectFactory *factory);
+GType      atk_object_factory_get_accessible_type (AtkObjectFactory *factory);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

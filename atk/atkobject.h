@@ -350,6 +350,8 @@ void                      (* remove_property_change_handler)     (AtkObject
                 *accessible,
                                                                   guint
                 handler_id);
+void                      (* initialize)                         (AtkObject                     *accessible,
+                                                                  gpointer                      data);
   /*
    * The signal handler which is executed when there is a change in the
    * children of the object
@@ -442,6 +444,8 @@ void                 atk_object_remove_property_change_handler   (AtkObject     
 void                 atk_object_notify_state_change              (AtkObject                      *accessible,
                                                                   AtkState                       state,
                                                                   gboolean                       value);
+void                 atk_object_initialize                       (AtkObject                     *accessible,
+                                                                  gpointer                      data);
                                     
 G_CONST_RETURN gchar* atk_role_get_name      (AtkRole         role);
 AtkRole               atk_role_for_name      (const gchar     *name);

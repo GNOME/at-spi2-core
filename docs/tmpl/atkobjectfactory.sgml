@@ -31,6 +31,15 @@ AtkObjectFactory
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_object_factory_get_accessible_type ##### -->
+<para>
+
+</para>
+
+@factory: 
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_object_factory_invalidate ##### -->
 <para>
 

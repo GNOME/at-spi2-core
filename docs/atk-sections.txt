@@ -171,6 +171,7 @@ atk_object_set_role
 atk_object_connect_property_change_handler
 atk_object_remove_property_change_handler
 atk_object_notify_state_change
+atk_object_initialize
 atk_role_get_name
 atk_role_for_name
 <SUBSECTION Standard>
@@ -184,9 +185,13 @@ ATK_OBJECT_GET_CLASS
 ATK_TYPE_IMPLEMENTOR
 ATK_IS_IMPLEMENTOR
 ATK_IMPLEMENTOR
+ATK_TYPE_ROLE
+ATK_TYPE_LAYER
 AtkStateSet
 atk_implementor_get_type
 atk_object_get_type
+atk_role_get_type
+atk_layer_get_type
 </SECTION>
 
 <SECTION>
@@ -194,6 +199,7 @@ atk_object_get_type
 <TITLE>AtkObjectFactory</TITLE>
 AtkObjectFactory
 atk_object_factory_create_accessible
+atk_object_factory_get_accessible_type
 atk_object_factory_invalidate
 <SUBSECTION Standard>
 ATK_OBJECT_FACTORY
@@ -238,7 +244,9 @@ atk_relation_get_target
 ATK_RELATION
 ATK_IS_RELATION
 ATK_TYPE_RELATION
+ATK_TYPE_RELATION_TYPE
 atk_relation_get_type
+atk_relation_type_get_type
 ATK_RELATION_CLASS
 ATK_IS_RELATION_CLASS
 ATK_RELATION_GET_CLASS
@@ -386,7 +394,11 @@ ATK_TEXT
 ATK_IS_TEXT
 ATK_TYPE_TEXT
 ATK_TEXT_GET_IFACE
+ATK_TYPE_TEXT_ATTRIBUTE
+ATK_TYPE_TEXT_BOUNDARY
 atk_text_get_type
+atk_text_attribute_get_type
+atk_text_boundary_get_type
 </SECTION>
 
 <SECTION>
@@ -434,6 +446,9 @@ AtkState
 atk_state_type_register
 atk_state_type_get_name
 atk_state_type_for_name
+<SUBSECTION Standard>
+ATK_TYPE_STATE_TYPE
+atk_state_type_get_type
 </SECTION>
 
 <SECTION>
@@ -477,9 +492,28 @@ atk_get_toolkit_version
 ATK_UTIL
 ATK_IS_UTIL
 ATK_TYPE_UTIL
+ATK_TYPE_KEY_EVENT_TYPE
+ATK_TYPE_COORD_TYPE
 atk_util_get_type
+atk_key_event_type_get_type
+atk_coord_type_get_type
 ATK_UTIL_CLASS
 ATK_IS_UTIL_CLASS
 ATK_UTIL_GET_CLASS
 </SECTION>
 
+<SECTION>
+<FILE>atkgobjectaccessible</FILE>
+<TITLE>AtkGObjectAccessible</TITLE>
+AtkGObjectAccessible
+atk_gobject_accessible_for_object
+atk_gobject_accessible_get_object
+<SUBSECTION Standard>
+ATK_GOBJECT_ACCESSIBLE
+ATK_IS_GOBJECT_ACCESSIBLE
+ATK_TYPE_GOBJECT_ACCESSIBLE
+atk_gobject_accessible_get_type
+ATK_GOBJECT_ACCESSIBLE_CLASS
+ATK_IS_GOBJECT_ACCESSIBLE_CLASS
+ATK_GOBJECT_ACCESSIBLE_GET_CLASS
+</SECTION>

@@ -1051,6 +1051,29 @@ atk_object_real_remove_property_change_handler (AtkObject           *obj,
   g_signal_handler_disconnect (obj, handler_id);
 }
 
+/**
+ * atk_object_initialize:
+ * @accessible: a #AtkObject
+ * @data: a #gpointer which identifies the object for which the AtkObject was created.
+ *
+ * This function is called when implementing subclasses of #AtkObject.
+ * It does initialization required for the new object. It is intended
+ * that this function should called only in the ..._new() functions used
+ * to create an instance of a subclass of #AtkObject
+ **/
+void
+atk_object_initialize (AtkObject  *accessible,
+                       gpointer   data)
+{
+  AtkObjectClass *klass;
+
+  g_return_if_fail (ATK_IS_OBJECT (accessible));
+
+  klass = ATK_OBJECT_GET_CLASS (accessible);
+  if (klass->initialize)
+    klass->initialize (accessible, data);
+}
+
 /*
  * This function is a signal handler for notify signal which gets emitted
  * when a property changes value.

@@ -339,6 +339,15 @@ AtkObject
 @value: 
 
 
+<!-- ##### FUNCTION atk_object_initialize ##### -->
+<para>
+
+</para>
+
+@accessible: 
+@data: 
+
+
 <!-- ##### FUNCTION atk_role_get_name ##### -->
 <para>
 

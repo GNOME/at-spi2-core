@@ -1,0 +1,43 @@
+<!-- ##### SECTION Title ##### -->
+AtkGObjectAccessible
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkGObjectAccessible ##### -->
+<para>
+
+</para>
+
+@parent: 
+
+<!-- ##### FUNCTION atk_gobject_accessible_for_object ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_gobject_accessible_get_object ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
