@@ -6,23 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-08-10 11:11+0200\n"
-"PO-Revision-Date: 2003-08-10 18:55+0300\n"
-"Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
+"POT-Creation-Date: 2004-03-15 16:02+0200\n"
+"PO-Revision-Date: 2004-03-15 16:04-0200\n"
+"Last-Translator: Nikos Charonitakis <charosn@her.fothnet.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
 
-#: atk-bridge/bridge.c:311
+#: atk-bridge/bridge.c:309
 msgid "failure: no device event controller found.\n"
-msgstr "αποτυχία: δεν βρέθηκε ελεγκτής γεγονότος συσκευής.\n"
+msgstr "αποτυχία: δε βρέθηκε ελεγκτής γεγονότος συσκευής.\n"
 
-#: atk-bridge/bridge.c:806
+#: atk-bridge/bridge.c:778
 msgid "WARNING: NULL key event reported."
-msgstr "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: αναφέρθηκε  NULL key event"
+msgstr "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: αναφέρθηκε  NULL key event."
 
 #: registryd/Accessibility_Registry.server.in.in.h:1
 msgid "AT-SPI Registry"
@@ -30,5 +28,5 @@ msgstr "Μητρώο AT-SPI"
 
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
-msgstr "Μητρώο προσβασιμότητας"
+msgstr "Μητρώο Προσβασιμότητας"
 
