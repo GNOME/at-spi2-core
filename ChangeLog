@@ -1,3 +1,15 @@
+2004-01-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Move specification of ALL_LINGUAS to later in file
+	so that CATOBJEXT is defined correctly.
+	Use ATK_LOCALEDIR instead of atklocaledir.
+
+	* atk/Makefile.am: Remove definition of ATKLOCALEDIR.
+
+	* atk/atkobject.c: Use ATK_LOCALEDIR instead of ATKLOCALEDIR.
+
+	* docs/tmpl/atkhyperlink.sgml: Add text for link-activated signal.
+
 2004-01-02  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c (atk_text_free_ranges): Fix segfault (bug #129837)
