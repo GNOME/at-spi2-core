@@ -306,7 +306,7 @@ SPI_freeDesktopList (Accessible **desktop_list)
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
  *             keystroke events are requested.
  * @keys:      a pointer to the #AccessibleKeySet indicating which
- *             keystroke events are requested, or #CSPI_KEYSET_ALL_KEYS
+ *             keystroke events are requested, or #SPI_KEYSET_ALL_KEYS
  *             to indicate that all keycodes and keyvals for the specified
  *             modifier set are to be included.
  * @modmask:   an #AccessibleKeyMaskType mask indicating which
@@ -321,8 +321,8 @@ SPI_freeDesktopList (Accessible **desktop_list)
  *             the behavior of the notification/listener transaction.
  *             
  * Register a listener for keystroke events, either pre-emptively for
- *             all windows (CSPI_KEYLISTENER_ALL_WINDOWS), or
- *             non-preemptively (CSPI_KEYLISTENER_NOSYNC).
+ *             all windows (SPI_KEYLISTENER_ALL_WINDOWS), or
+ *             non-preemptively (SPI_KEYLISTENER_NOSYNC).
  *             ( Other sync_type values may be available in the future.)
  *
  * Returns: #TRUE if successful, otherwise #FALSE.
