@@ -1,3 +1,7 @@
+2003-12-20  Arafat Medini <lumina@silverpen.de>
+
+	* ar.po: Added "ar" to ALL_LINGUAS
+
 2003-12-16	Bill Haneman <billh@gnome.org>
 
 	* registryd/registry-main.c:
