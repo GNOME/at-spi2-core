@@ -187,13 +187,15 @@ AccessibleSelection_isChildSelected (AccessibleSelection *obj,
 SPIBoolean
 AccessibleSelection_selectAll (AccessibleSelection *obj)
 {
+  SPIBoolean retval;
+  
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_Selection_selectAll (CSPI_OBJREF (obj), cspi_ev ());
+  retval = Accessibility_Selection_selectAll (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_check_ev ("selectAll");
+  cspi_return_val_if_ev ("selectAll", FALSE);
 
-  return TRUE; /* TODO: change the CORBA method to return SPIBoolean */
+  return retval;
 }
 
 /**
@@ -202,14 +204,21 @@ AccessibleSelection_selectAll (AccessibleSelection *obj)
  *
  * Clear the current selection, removing all selected children from the
  *       specified #AccessibleSelection implementor's selection list.
+ *
+ * Returns: #TRUE if successful, #FALSE otherwise.
+ *
  **/
-void
+SPIBoolean
 AccessibleSelection_clearSelection (AccessibleSelection *obj)
 {
-  cspi_return_if_fail (obj != NULL);
+  SPIBoolean retval;
+  
+  cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_Selection_clearSelection (CSPI_OBJREF (obj), cspi_ev ());
-  cspi_check_ev ("clearSelection");
+  retval = Accessibility_Selection_clearSelection (CSPI_OBJREF (obj), cspi_ev ());
+  cspi_return_val_if_ev ("clearSelection", FALSE);
+
+  return retval;
 }
 
 

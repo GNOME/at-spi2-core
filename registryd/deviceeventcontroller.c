@@ -24,7 +24,7 @@
 
 #include <config.h>
 
-#undef SPI_DEBUG
+#define  SPI_DEBUG
 
 #include <string.h>
 #include <ctype.h>

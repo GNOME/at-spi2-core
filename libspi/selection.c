@@ -99,8 +99,7 @@ impl_selectChild (PortableServer_Servant servant,
 
   g_return_val_if_fail (selection != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_selection_add_selection (selection, (gint) childIndex);
+  return atk_selection_add_selection (selection, childIndex);
 }
 
 
@@ -127,32 +126,32 @@ impl_isChildSelected (PortableServer_Servant servant,
 
   g_return_val_if_fail (selection != NULL, FALSE);
 
-  return (CORBA_boolean)
-    atk_selection_is_child_selected (selection, (gint) childIndex);
+  return atk_selection_is_child_selected (selection, childIndex);
 }
 
 
-static void 
+static CORBA_boolean 
 impl_selectAll (PortableServer_Servant servant,
 		CORBA_Environment     *ev)
 {
   AtkSelection *selection = get_selection_from_servant (servant);
 
-  g_return_if_fail (selection != NULL);
+  g_return_val_if_fail (selection != NULL, FALSE);
 
-  atk_selection_select_all_selection (selection);
+  return atk_selection_select_all_selection (selection);
+
 }
 
 
-static void 
+static CORBA_boolean
 impl_clearSelection (PortableServer_Servant servant,
 		     CORBA_Environment     *ev)
 {
   AtkSelection *selection = get_selection_from_servant (servant);
 
-  g_return_if_fail (selection != NULL);
+  g_return_val_if_fail (selection != NULL, FALSE);
 
-  atk_selection_clear_selection (selection);
+  return atk_selection_clear_selection (selection);
 }
 
 

@@ -305,7 +305,7 @@ void        AccessibleComponent_getSize     (AccessibleComponent *obj,
 					     long int            *height);
 AccessibleComponentLayer
             AccessibleComponent_getLayer    (AccessibleComponent *obj);
-void        AccessibleComponent_grabFocus   (AccessibleComponent *obj);
+SPIBoolean  AccessibleComponent_grabFocus   (AccessibleComponent *obj);
 short       AccessibleComponent_getMDIZOrder(AccessibleComponent *obj);
 
 /* AccessibleEditableText function prototypes  */
@@ -486,7 +486,7 @@ AccessibleSelection_isChildSelected (AccessibleSelection *obj,
 SPIBoolean
 AccessibleSelection_selectAll (AccessibleSelection *obj);
 
-void
+SPIBoolean
 AccessibleSelection_clearSelection (AccessibleSelection *obj);
 
 

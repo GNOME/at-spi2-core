@@ -89,6 +89,7 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_selectAll ##### -->

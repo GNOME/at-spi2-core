@@ -39,11 +39,11 @@ impl_setAttributes (PortableServer_Servant servant,
 		       const CORBA_long startPos,
 		       const CORBA_long endPos,
 		       CORBA_Environment *ev);
-static void
+static CORBA_boolean
 impl_setTextContents (PortableServer_Servant servant,
 		      const CORBA_char * newContents,
 		      CORBA_Environment *ev);
-static void 
+static CORBA_boolean 
 impl_insertText (PortableServer_Servant servant,
 		 const CORBA_long position,
 		 const CORBA_char * text,
@@ -53,15 +53,15 @@ static void
 impl_copyText (PortableServer_Servant servant,
 	       const CORBA_long startPos, const CORBA_long endPos,
 	       CORBA_Environment *ev);
-static void 
+static CORBA_boolean
 impl_cutText (PortableServer_Servant servant,
 	      const CORBA_long startPos, const CORBA_long endPos,
 	      CORBA_Environment *ev);
-static void 
+static CORBA_boolean
 impl_deleteText (PortableServer_Servant servant,
 		 const CORBA_long startPos, const CORBA_long endPos,
 		 CORBA_Environment *ev);
-static void
+static CORBA_boolean
 impl_pasteText (PortableServer_Servant servant,
 		const CORBA_long position, CORBA_Environment *ev);
 
@@ -133,20 +133,22 @@ impl_setAttributes (PortableServer_Servant servant,
 }
 
 
-static void
+static CORBA_boolean
 impl_setTextContents (PortableServer_Servant servant,
 		      const CORBA_char     *newContents,
 		      CORBA_Environment    *ev)
 {
   AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  g_return_if_fail (editable != NULL);
+  g_return_val_if_fail (editable != NULL, FALSE);
   
   atk_editable_text_set_text_contents (editable, (gchar *) newContents);
+
+  return TRUE;
 }
 
 
-static void 
+static CORBA_boolean
 impl_insertText (PortableServer_Servant servant,
 		 const CORBA_long      position,
 		 const CORBA_char     *text,
@@ -155,12 +157,13 @@ impl_insertText (PortableServer_Servant servant,
 {
   AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  g_return_if_fail (editable != NULL);
+  g_return_val_if_fail (editable != NULL, FALSE);
 
   atk_editable_text_insert_text (editable,
 				 (gchar *) text,
 				 (gint) length,
 				 (gint *) &position);
+  return TRUE;
 }
 
 
@@ -174,42 +177,49 @@ impl_copyText (PortableServer_Servant servant,
   g_return_if_fail (editable != NULL);
 
   atk_editable_text_copy_text (editable, (gint) startPos, (gint) endPos);
+  
 }
 
 
-static void 
+static CORBA_boolean
 impl_cutText (PortableServer_Servant servant,
 	      const CORBA_long startPos, const CORBA_long endPos,
 	      CORBA_Environment *ev)
 {
   AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  g_return_if_fail (editable != NULL);
+  g_return_val_if_fail (editable != NULL, FALSE);
 
-  atk_editable_text_cut_text (editable, (gint) startPos, (gint) endPos);
+  atk_editable_text_cut_text (editable, startPos, endPos);
+
+  return TRUE;
 }
 
 
-static void 
+static CORBA_boolean
 impl_deleteText (PortableServer_Servant servant,
 		 const CORBA_long startPos, const CORBA_long endPos,
 		 CORBA_Environment *ev)
 {
   AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  g_return_if_fail (editable != NULL);
+  g_return_val_if_fail (editable != NULL, FALSE);
 
-  atk_editable_text_delete_text (editable, (gint) startPos, (gint) endPos);
+  atk_editable_text_delete_text (editable, startPos, endPos);
+
+  return TRUE;
 }
 
 
-static void
+static CORBA_boolean
 impl_pasteText (PortableServer_Servant servant,
 		const CORBA_long position, CORBA_Environment *ev)
 {
   AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  g_return_if_fail (editable != NULL);
+  g_return_val_if_fail (editable != NULL, FALSE);
 
   atk_editable_text_paste_text (editable, position);
+
+  return TRUE;
 }

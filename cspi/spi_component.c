@@ -273,8 +273,22 @@ AccessibleComponent_getMDIZOrder (AccessibleComponent *obj)
  *
  * Attempt to set the keyboard input focus to the specified
  *         #AccessibleComponent.
+ *
+ * Returns: #TRUE if successful, #FALSE otherwise.
+ *
  **/
-void
+SPIBoolean
 AccessibleComponent_grabFocus (AccessibleComponent *obj)
 {
+  short retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval = Accessibility_Component_grabFocus (CSPI_OBJREF (obj),
+					      cspi_ev ());
+
+  cspi_return_val_if_ev ("grabFocus", FALSE);
+
+  return retval;
 }
+

@@ -713,6 +713,7 @@ test_keylisteners (void)
 		while (!(stroke.type & SPI_KEY_PRESSED))
 			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "p");
+	        g_assert (!strcmp (stroke.keystring, "="));
 		while (!(stroke.type & SPI_KEY_RELEASED))
 			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "r ");
@@ -720,7 +721,6 @@ test_keylisteners (void)
 	g_assert (SPI_deregisterAccessibleKeystrokeListener (key_listener, 0));
 	SPI_freeAccessibleKeySet (test_keyset);
 
-	g_assert (!strcmp (stroke.keystring, "="));
 	fprintf (stderr, "\n");
 
 	AccessibleKeystrokeListener_unref (key_listener);

@@ -44,7 +44,7 @@ module Accessibility {
         void getSize (out long width, out long height);
 	ComponentLayer getLayer ();
 	short getMDIZOrder ();
-        void grabFocus ();
+        boolean grabFocus ();
         void registerFocusHandler (in EventListener handler);
         void deregisterFocusHandler (in EventListener handler);
 

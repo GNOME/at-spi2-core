@@ -117,8 +117,7 @@ impl_getAccessibleAt (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
 
-  atk_object = atk_table_ref_at (table,
-				 (gint) row, (gint) column);
+  atk_object = atk_table_ref_at (table, row, column);
 
   return spi_accessible_new_return (atk_object, TRUE, ev);
 }
@@ -134,8 +133,7 @@ impl_getIndexAt (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, 0);
 
-  return (CORBA_long)
-    atk_table_get_index_at (table, (gint) row, (gint) column);
+  return atk_table_get_index_at (table, row, column);
 }
 
 
@@ -148,8 +146,7 @@ impl_getRowAtIndex (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, 0);
 
-  return (CORBA_long)
-    atk_table_get_row_at_index (table, (gint) index);
+  return atk_table_get_row_at_index (table, index);
 }
 
 
@@ -162,8 +159,7 @@ impl_getColumnAtIndex (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, 0);
 
-  return (CORBA_long)
-    atk_table_get_column_at_index (table, (gint) index);
+  return atk_table_get_column_at_index (table, index);
 }
 
 
@@ -223,9 +219,7 @@ impl_getRowExtentAt (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, -1);
 
-  return (CORBA_long)
-    atk_table_get_row_extent_at (table,
-				 (gint) row, (gint) column);
+  return atk_table_get_row_extent_at (table, row, column);
 }
 
 
@@ -239,9 +233,7 @@ impl_getColumnExtentAt (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, -1);
 
-  return (CORBA_long)
-    atk_table_get_column_extent_at (table,
-				    (gint) row, (gint) column);
+  return atk_table_get_column_extent_at (table, row, column);
 }
 
 
@@ -255,7 +247,7 @@ impl_getRowHeader (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
 
-  header = atk_table_get_row_header (table, (gint) row);
+  header = atk_table_get_row_header (table, row);
 
   return spi_accessible_new_return (header, FALSE, ev);
 }
@@ -271,7 +263,7 @@ impl_getColumnHeader (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
 
-  header = atk_table_get_column_header (table, (gint) column);
+  header = atk_table_get_column_header (table, column);
 
   return spi_accessible_new_return (header, FALSE, ev);
 }
@@ -346,7 +338,7 @@ impl_isRowSelected (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, FALSE);
 
-  return (CORBA_boolean) atk_table_is_row_selected (table, (gint) row);
+  return atk_table_is_row_selected (table, row);
 }
 
 
@@ -359,7 +351,58 @@ impl_isColumnSelected (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, FALSE);
 
-  return (CORBA_boolean) atk_table_is_column_selected (table, (gint) column);
+  return atk_table_is_column_selected (table, column);
+}
+
+static CORBA_boolean
+impl_addRowSelection (PortableServer_Servant servant,
+		      const CORBA_long       row,
+		      CORBA_Environment     *ev)
+{
+  AtkTable *table = get_table_from_servant (servant);
+
+  g_return_val_if_fail (table != NULL, FALSE);
+
+  return atk_table_add_row_selection (table, row);
+}
+
+
+static CORBA_boolean
+impl_addColumnSelection (PortableServer_Servant servant,
+			 const CORBA_long       column,
+			 CORBA_Environment     *ev)
+{
+  AtkTable *table = get_table_from_servant (servant);
+
+  g_return_val_if_fail (table != NULL, FALSE);
+
+  return atk_table_add_column_selection (table, column);
+}
+
+
+static CORBA_boolean
+impl_removeRowSelection (PortableServer_Servant servant,
+			 const CORBA_long       row,
+			 CORBA_Environment     *ev)
+{
+  AtkTable *table = get_table_from_servant (servant);
+
+  g_return_val_if_fail (table != NULL, FALSE);
+
+  return atk_table_remove_row_selection (table, row);
+}
+
+
+static CORBA_boolean
+impl_removeColumnSelection (PortableServer_Servant servant,
+			    const CORBA_long       column,
+			    CORBA_Environment     *ev)
+{
+  AtkTable *table = get_table_from_servant (servant);
+
+  g_return_val_if_fail (table != NULL, FALSE);
+
+  return atk_table_remove_column_selection (table, column);
 }
 
 
@@ -373,8 +416,8 @@ impl_isSelected (PortableServer_Servant servant,
 
   g_return_val_if_fail (table != NULL, FALSE);
 
-  return (CORBA_boolean) atk_table_is_selected (table,
-						(gint) row, (gint) column);
+  return atk_table_is_selected (table,
+				row, column);
 }
 
 
@@ -403,6 +446,10 @@ spi_table_class_init (SpiTableClass *klass)
   epv->getSelectedColumns = impl_getSelectedColumns;
   epv->isRowSelected = impl_isRowSelected;
   epv->isColumnSelected = impl_isColumnSelected;
+  epv->addRowSelection = impl_addRowSelection;
+  epv->addColumnSelection = impl_addColumnSelection;
+  epv->removeRowSelection = impl_removeRowSelection;
+  epv->removeColumnSelection = impl_removeColumnSelection;
   epv->isSelected = impl_isSelected;
 }
 

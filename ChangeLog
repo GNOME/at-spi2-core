@@ -1,3 +1,39 @@
+2002-04-15  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Revved version to 0.11.
+
+	* libspi/component.c:
+	Added implementation for grabFocus.
+
+	* idl/Accessibility_Component.idl
+	(Accessibility_Component_grabFocus):
+	Made this method return boolean to indicate success or failure, to
+	be consistent with cspi and the corresponding ATK method.
+	
+	* idl/Accessibility_Selection.idl
+	(Accessibility_Selection_selectAll) :
+	Made these methods return boolean to indicate success or
+	failure, to be consistent with cspi and the corresponding ATK methods.
+	
+	* idl/Accessibility_EditableText.idl 
+	(Accessibility_EditableText_setTextContents,
+	 Accessibility_EditableText_insertText,
+	 Accessibility_EditableText_cutText,
+	 Accessibility_EditableText_deleteText,
+	 Accessibility_EditableText_pasteText):
+	Made these methods return boolean to indicate
+	success or failure.
+
+	* cspi/spi_editabletext.c:
+	Made these methods return booleans.
+
+	* libspi/selection.c:
+	* libspi/component.c:
+	* libspi/editabletext.c:
+	Connected the boolean returns from ATK
+	to the server-side code referenced above.
+	
 2002-04-14  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Table.idl: Added missing methods,

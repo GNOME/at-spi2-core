@@ -76,14 +76,16 @@ SPIBoolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents)
 {
+  SPIBoolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_EditableText_setTextContents (CSPI_OBJREF (obj),
-					      (CORBA_char *) newContents, cspi_ev ());
+  retval = Accessibility_EditableText_setTextContents (CSPI_OBJREF (obj),
+				       (CORBA_char *) newContents, cspi_ev ());
 
   cspi_return_val_if_ev ("setTextContents", FALSE);
 
-  return TRUE;
+  return retval;
 }
 
 /**
@@ -107,15 +109,17 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    const char *text,
                                    long int length)
 {
+  SPIBoolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_EditableText_insertText (CSPI_OBJREF (obj),
+  retval = Accessibility_EditableText_insertText (CSPI_OBJREF (obj),
 					 (CORBA_long) position, (const CORBA_char *) text,
 					 (CORBA_long) length, cspi_ev ());
 
   cspi_return_val_if_ev ("insertText", FALSE);
 
-  return TRUE;
+  return retval;
 }
 
 /**
@@ -168,15 +172,17 @@ AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long int startPos,
                                 long int endPos)
 {
+  SPIBoolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_EditableText_cutText (
+  retval = Accessibility_EditableText_cutText (
     CSPI_OBJREF (obj),
     (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
 
   cspi_return_val_if_ev ("cutText", FALSE);
 
-  return TRUE;
+  return retval;
 }
 
 /**
@@ -199,15 +205,17 @@ AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long startPos,
                                    long endPos)
 {
+  SPIBoolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_EditableText_deleteText (
+  retval = Accessibility_EditableText_deleteText (
     CSPI_OBJREF (obj),
     (CORBA_long) startPos, (CORBA_long) endPos, cspi_ev ());
 
   cspi_return_val_if_ev ("deleteText", FALSE);
 
-  return TRUE;
+  return retval;
 }
 
 /**
@@ -227,12 +235,14 @@ SPIBoolean
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long int position)
 {
+  SPIBoolean retval;
+
   cspi_return_val_if_fail (obj != NULL, FALSE);
 
-  Accessibility_EditableText_pasteText (
+  retval = Accessibility_EditableText_pasteText (
     CSPI_OBJREF (obj), (CORBA_long) position, cspi_ev ());
 
   cspi_return_val_if_ev ("pasteText", FALSE);
 
-  return TRUE;
+  return retval;
 }
