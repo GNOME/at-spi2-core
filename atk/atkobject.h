@@ -396,10 +396,19 @@ void                      (* initialize)                         (AtkObject     
    */
   void                    (*visible_data_changed) (AtkObject                  *accessible);
 
+  /*
+   * The signal handler which is executed when there is a change in the
+   * 'active' child or children of the object, for instance when 
+   * interior focus changes in a table or list.  This signal should be emitted
+   * by objects whose state includes ATK_STATE_MANAGES_DESCENDANTS.
+   */
+  void                    (*active_descendant_changed) (AtkObject                  *accessible,
+                                                        gpointer                   *child);
+
   AtkFunction             pad1;
   AtkFunction             pad2;
   AtkFunction             pad3;
-  AtkFunction             pad4;
+
 };
 
 GType            atk_object_get_type   (void);

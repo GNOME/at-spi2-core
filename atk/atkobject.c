@@ -54,6 +54,7 @@ enum {
   PROPERTY_CHANGE,
   STATE_CHANGE,
   VISIBLE_DATA_CHANGED,
+  ACTIVE_DESCENDANT_CHANGED,
   
   LAST_SIGNAL
 };
@@ -184,6 +185,7 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->focus_event = NULL;
   klass->property_change = NULL;
   klass->visible_data_changed = NULL;
+  klass->active_descendant_changed = NULL;
 
   g_object_class_install_property (gobject_class,
                                    PROP_NAME,
@@ -340,6 +342,15 @@ atk_object_class_init (AtkObjectClass *klass)
                   (GSignalAccumulator) NULL, NULL,
                   g_cclosure_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
+  atk_object_signals[ACTIVE_DESCENDANT_CHANGED] =
+    g_signal_new ("active_descendant_changed",
+		  G_TYPE_FROM_CLASS (klass),
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		  G_STRUCT_OFFSET (AtkObjectClass, active_descendant_changed),
+		  NULL, NULL,
+		  g_cclosure_marshal_VOID__POINTER,
+		  G_TYPE_NONE,
+		  1, G_TYPE_POINTER);
 }
 
 static void
