@@ -1,3 +1,13 @@
+2004-03-15  Laszlo Peter  <laca@sun.com>
+
+	* libspi-1.0-uninstalled.pc.in: new file
+
+	* cspi-1.0-uninstalled.pc.in: new file
+
+	* configure.in: add the new pc files to AC_OUTPUT
+
+	* Makefile.am: add the new pc files to EXTRA_DIST
+
 2004-03-12  Bill Haneman <billh@gnome.org>
 
 	* atk-bridge/bridge.c:
