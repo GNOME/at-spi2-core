@@ -69,7 +69,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",
   [Define the gettext package to be used])
 
-ALL_LINGUAS="bg cs da de en_GB es he hu ms nl no sv vi"
+ALL_LINGUAS="bg cs da de en_GB es he hu ms nl no ru sv vi"
 AM_GLIB_GNU_GETTEXT
 
 # AM_GLIB_GNU_GETTEXT above substs $DATADIRNAME
