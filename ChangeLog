@@ -12,6 +12,13 @@
 	* libspi/listener.c : now we ref event sources before propagating, and unref on receipt.
 	* libspi/registry.c : some changes to internal structs, to support event typestring hashes.
 	* text/app.c : changed the way the appname is generated.
+	* cspi : added directory that will hold the C bindings library for 
+		non-CORBA/bonobo-savvy clients.
+	* cspi/spi.h : header file that contains the function prototypes for the C binding.
+	* idl/Component.idl : added in parameter to indicate coord system for
+		geometry-related calls.
+	* idl/Hyperlink.idl : added readonly n_links attribute
+	* idl/Image.idl : changed methods to attributes.
 	
 	KNOWN PROBLEMS:
 	poll() fails after a few event notifications, when the number of file descriptors

@@ -25,10 +25,12 @@
 module Accessibility {
 
   interface Hyperlink : Bonobo::Unknown {
-        Accessible getAnchor (in long i);
-        Accessible getObject (in long i);
-        long getStartIndex ();
-        long getEndIndex ();
-        boolean isValid ();
+    readonly attribute short n_anchors;
+    readonly attribute string uri;
+    Accessible getAnchor (in long i);
+    Accessible getObject (in long i);
+    long getStartIndex ();
+    long getEndIndex ();
+    boolean isValid ();
   };
 };

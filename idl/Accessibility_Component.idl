@@ -26,11 +26,10 @@ module Accessibility {
 
   interface Component : Bonobo::Unknown {
 
-        boolean contains (in long x, in long y);
-        Accessible getAccessibleAtPoint (in long x, in long y);
-        void getExtents (out long x, out long y, out long width, out long height);
-        void getPosition (out long x, out long y);
-        void getPositionOnScreen (out long rootX, out long rootY);
+        boolean contains (in long x, in long y, in short coord_type);
+        Accessible getAccessibleAtPoint (in long x, in long y, in short coord_type);
+        void getExtents (out long x, out long y, out long width, out long height, in short coord_type);
+        void getPosition (out long x, out long y, in short coord_type);
         void getSize (out long width, out long height);
         void grabFocus ();
         void registerFocusHandler (in EventListener handler);
