@@ -101,9 +101,12 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_at_offset ##### -->
@@ -114,9 +117,12 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_before_offset ##### -->
@@ -127,9 +133,12 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_caret_offset ##### -->

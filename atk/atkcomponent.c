@@ -199,12 +199,32 @@ atk_component_get_extents    (AtkComponent    *component,
                               AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
+  gint local_x, local_y, local_width, local_height;
+  gint *real_x, *real_y, *real_width, *real_height;
+
   g_return_if_fail (ATK_IS_COMPONENT (component));
+
+  if (x)
+    real_x = x;
+  else
+    real_x = &local_x;
+  if (y)
+    real_y = y;
+  else
+    real_y = &local_y;
+  if (width)
+    real_width = width;
+  else
+    real_width = &local_width;
+  if (height)
+    real_height = height;
+  else
+    real_height = &local_height;
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_extents)
-    (iface->get_extents) (component, x, y, width, height, coord_type);
+    (iface->get_extents) (component, real_x, real_y, real_width, real_height, coord_type);
 }
 
 /**
@@ -225,18 +245,30 @@ atk_component_get_position   (AtkComponent    *component,
                               AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
+  gint local_x, local_y;
+  gint *real_x, *real_y;
+
   g_return_if_fail (ATK_IS_COMPONENT (component));
+
+  if (x)
+    real_x = x;
+  else
+    real_x = &local_x;
+  if (y)
+    real_y = y;
+  else
+    real_y = &local_y;
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_position)
-    (iface->get_position) (component, x, y, coord_type);
+    (iface->get_position) (component, real_x, real_y, coord_type);
   else
   {
     /*
      * if this method is not overridden use the default implementation.
      */
-    atk_component_real_get_position (component, x, y, coord_type);
+    atk_component_real_get_position (component, real_x, real_y, coord_type);
   }
 }
 
@@ -254,18 +286,33 @@ atk_component_get_size       (AtkComponent    *component,
                               gint            *height)
 {
   AtkComponentIface *iface = NULL;
+  gint local_width, local_height;
+  gint *real_width, *real_height;
+
+  g_return_if_fail (ATK_IS_COMPONENT (component));
+
+  if (width)
+    real_width = width;
+  else
+    real_width = &local_width;
+  if (height)
+    real_height = height;
+  else
+    real_height = &local_height;
+
+  iface = ATK_COMPONENT_GET_IFACE (component);
   g_return_if_fail (ATK_IS_COMPONENT (component));
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_size)
-    (iface->get_size) (component, width, height);
+    (iface->get_size) (component, real_width, real_height);
   else
   {
     /*
      * if this method is not overridden use the default implementation.
      */
-    atk_component_real_get_size (component, width, height);
+    atk_component_real_get_size (component, real_width, real_height);
   }
 }
 

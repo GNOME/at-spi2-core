@@ -112,7 +112,7 @@ atk_text_get_text (AtkText      *text,
                    gint         end_offset)
 {
   AtkTextIface *iface;
-
+  
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
   iface = ATK_TEXT_GET_IFACE (text);
@@ -153,8 +153,8 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @startOffset: the start offset of the returned string.
- * @endOffset: the end offset of the returned string.
+ * @start_offset: the start offset of the returned string.
+ * @end_offset: the end offset of the returned string.
  *
  * Gets the specified text.
  * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
@@ -171,17 +171,28 @@ gchar*
 atk_text_get_text_after_offset (AtkText          *text,
                                 gint             offset,
                                 AtkTextBoundary  boundary_type,
- 				gint             *startOffset,
-				gint		 *endOffset)
+ 				gint             *start_offset,
+				gint		 *end_offset)
 {
   AtkTextIface *iface;
+  gint local_start_offset, local_end_offset;
+  gint *real_start_offset, *real_end_offset;
 
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  if (start_offset)
+    real_start_offset = start_offset;
+  else
+    real_start_offset = &local_start_offset;
+  if (end_offset)
+    real_end_offset = end_offset;
+  else
+    real_end_offset = &local_end_offset;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_after_offset)
-    return (*(iface->get_text_after_offset)) (text, offset, boundary_type, startOffset, endOffset);
+    return (*(iface->get_text_after_offset)) (text, offset, boundary_type, real_start_offset, real_end_offset);
   else
     return NULL;
 }
@@ -191,8 +202,8 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @startOffset: the start offset of the returned string.
- * @endOffset: the end offset of the returned string.
+ * @start_offset: the start offset of the returned string.
+ * @end_offset: the end offset of the returned string.
  *
  * Gets the specified text.
  * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START or 
@@ -208,17 +219,28 @@ gchar*
 atk_text_get_text_at_offset (AtkText          *text,
                              gint             offset,
                              AtkTextBoundary  boundary_type,
-			     gint             *startOffset,
-			     gint             *endOffset)
+			     gint             *start_offset,
+			     gint             *end_offset)
 {
   AtkTextIface *iface;
+  gint local_start_offset, local_end_offset;
+  gint *real_start_offset, *real_end_offset;
 
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  if (start_offset)
+    real_start_offset = start_offset;
+  else
+    real_start_offset = &local_start_offset;
+  if (end_offset)
+    real_end_offset = end_offset;
+  else
+    real_end_offset = &local_end_offset;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_at_offset)
-    return (*(iface->get_text_at_offset)) (text, offset, boundary_type, startOffset, endOffset);
+    return (*(iface->get_text_at_offset)) (text, offset, boundary_type, real_start_offset, real_end_offset);
   else
     return NULL;
 }
@@ -228,8 +250,8 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @startOffset: the start offset of the returned string.
- * @endOffset: the end offset of the returned string.
+ * @start_offset: the start offset of the returned string.
+ * @end_offset: the end offset of the returned string.
  *
  * Gets the specified text.
  * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
@@ -246,17 +268,28 @@ gchar*
 atk_text_get_text_before_offset (AtkText          *text,
                                  gint             offset,
                                  AtkTextBoundary  boundary_type,
-				 gint             *startOffset,
-				 gint		  *endOffset)
+				 gint             *start_offset,
+				 gint		  *end_offset)
 {
   AtkTextIface *iface;
+  gint local_start_offset, local_end_offset;
+  gint *real_start_offset, *real_end_offset;
 
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  if (start_offset)
+    real_start_offset = start_offset;
+  else
+    real_start_offset = &local_start_offset;
+  if (end_offset)
+    real_end_offset = end_offset;
+  else
+    real_end_offset = &local_end_offset;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_text_before_offset)
-    return (*(iface->get_text_before_offset)) (text, offset, boundary_type, startOffset, endOffset);
+    return (*(iface->get_text_before_offset)) (text, offset, boundary_type, real_start_offset, real_end_offset);
   else
     return NULL;
 }
@@ -307,19 +340,38 @@ atk_text_get_character_extents (AtkText *text,
 			        AtkCoordType coords)
 {
   AtkTextIface *iface;
+  gint local_x, local_y, local_width, local_height;
+  gint *real_x, *real_y, *real_width, *real_height;
 
   g_return_if_fail (ATK_IS_TEXT (text));
+
+  if (x)
+    real_x = x;
+  else
+    real_x = &local_x;
+  if (y)
+    real_y = y;
+  else
+    real_y = &local_y;
+  if (width)
+    real_width = width;
+  else
+    real_width = &local_width;
+  if (height)
+    real_height = height;
+  else
+    real_height = local_height;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_extents)
-    (*(iface->get_character_extents)) (text, offset, x, y, width, height, coords);
+    (*(iface->get_character_extents)) (text, offset, real_x, real_y, real_width, real_height, coords);
   else
     {
-      *x = 0;
-      *x = 0;
-      *width = 0;
-      *height = 0;
+      *real_x = 0;
+      *real_y = 0;
+      *real_width = 0;
+      *real_height = 0;
     }
 }
 
@@ -346,13 +398,24 @@ AtkAttributeSet* atk_text_ref_run_attributes              (AtkText          *tex
                                                            gint             *end_offset)
 {
   AtkTextIface *iface;
+  gint local_start_offset, local_end_offset;
+  gint *real_start_offset, *real_end_offset;
 
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  if (start_offset)
+    real_start_offset = start_offset;
+  else
+    real_start_offset = &local_start_offset;
+  if (end_offset)
+    real_end_offset = end_offset;
+  else
+    real_start_offset = &local_end_offset;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->ref_run_attributes)
-    return (*(iface->ref_run_attributes)) (text, offset, start_offset, end_offset);
+    return (*(iface->ref_run_attributes)) (text, offset, real_start_offset, real_end_offset);
   else
     return NULL;
 }
@@ -453,19 +516,32 @@ atk_text_get_n_selections (AtkText *text)
  * Returns: the selected text.
  **/
 gchar*
-atk_text_get_selection (AtkText *text, gint selection_num,
-   gint *start_offset, gint *end_offset)
+atk_text_get_selection (AtkText *text, 
+                        gint    selection_num,
+                        gint    *start_offset,
+                        gint    *end_offset)
 {
   AtkTextIface *iface;
+  gint local_start_offset, local_end_offset;
+  gint *real_start_offset, *real_end_offset;
 
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
+
+  if (start_offset)
+    real_start_offset = start_offset;
+  else
+    real_start_offset = &local_start_offset;
+  if (end_offset)
+    real_end_offset = end_offset;
+  else
+    real_start_offset = &local_end_offset;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_selection)
   {
     return (*(iface->get_selection)) (text, selection_num,
-       start_offset, end_offset);
+       real_start_offset, real_end_offset);
   }
   else
     return NULL;
@@ -482,8 +558,9 @@ atk_text_get_selection (AtkText *text, gint selection_num,
  * Returns: %TRUE if success, %FALSE otherwise
  **/
 gboolean
-atk_text_add_selection (AtkText *text, gint start_offset,
-   gint end_offset)
+atk_text_add_selection (AtkText *text, 
+                        gint    start_offset,
+                        gint    end_offset)
 {
   AtkTextIface *iface;
 
@@ -511,7 +588,8 @@ atk_text_add_selection (AtkText *text, gint start_offset,
  * Returns: %TRUE if success, %FALSE otherwise
  **/
 gboolean
-atk_text_remove_selection (AtkText *text, gint selection_num)
+atk_text_remove_selection (AtkText *text, 
+                           gint    selection_num)
 {
   AtkTextIface *iface;
 
@@ -541,8 +619,10 @@ atk_text_remove_selection (AtkText *text, gint selection_num)
  * Returns: %TRUE if success, %FALSE otherwise
  **/
 gboolean
-atk_text_set_selection (AtkText *text, gint selection_num,
-   gint start_offset, gint end_offset)
+atk_text_set_selection (AtkText *text, 
+                        gint    selection_num,
+                        gint    start_offset, 
+                        gint    end_offset)
 {
   AtkTextIface *iface;
 
