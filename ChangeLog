@@ -1,3 +1,15 @@
+2004-07-20  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Revved to 1.5.3.
+
+	* idl/Accessibility_Role.idl: Added ROLE_EMBEDDED (bug #144415).
+
+	* libspi/accessible.c: Added support for ROLE_EMBEDDED.
+
+	* cspi/spi_accessible.c: Support for ROLE_EMBEDDED.
+
+	* cspi/spi-roletypes.h: Added SPI_ROLE_EMBEDDED.
+	
 2004-06-11  Bill Haneman <bill.haneman@sun.com>
 
 	* atk-bridge/bridge.c:

@@ -1,3 +1,12 @@
+What's new in at-spi-1.5.3: 
+
+* New role EMBEDDED (bug #144415).
+
+* Added object:bounds-changed event, for detecting when the 
+  component bounds of an object have changed onscreen.
+
+==============
+
 What's new in at-spi-1.5.2: 
 
 * Added Accessibility_LoginHelper interface, and

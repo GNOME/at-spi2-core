@@ -142,7 +142,11 @@ extern "C" {
  *                         insertion into an entry widget, for instance a list 
  *                          of words for completion of a text entry.
  * @SPI_ROLE_EDITBAR: The object is an editable text object in a toolbar
-
+ * @SPI_ROLE_EMBEDDED: The object is an embedded component container.  
+ *                     This role is a  "grouping" hint that the contained 
+ *                     objects share a context which is different from the 
+ *                     container in which this accessible is embedded.
+ *                     Uses: document embedding, "panel applets", etc.
  * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
  *
  * Describes the role of an object
@@ -230,6 +234,7 @@ typedef enum
   SPI_ROLE_APPLICATION,
   SPI_ROLE_AUTOCOMPLETE,
   SPI_ROLE_EDITBAR,
+  SPI_ROLE_EMBEDDED,
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
 

@@ -190,6 +190,7 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_APPLICATION] = SPI_ROLE_APPLICATION;
   role_table [Accessibility_ROLE_AUTOCOMPLETE] = SPI_ROLE_AUTOCOMPLETE;
   role_table [Accessibility_ROLE_EDITBAR] = SPI_ROLE_EDITBAR;
+  role_table [Accessibility_ROLE_EMBEDDED] = SPI_ROLE_EMBEDDED;
 
   return TRUE;
 }

@@ -274,6 +274,14 @@ module Accessibility {
    * The object is an editable text object in a toolbar.
    */
   ROLE_EDITBAR,
+  /*
+   * The object is an embedded component container.  This role is a 
+   * "grouping" hint that the contained objects share a context which is 
+   * different from the container in which this accessible is embedded.
+   * In particular, it is used for some kinds of document embedding, and
+   * for embedding of out-of-process component, "panel applets", etc.
+   */
+  ROLE_EMBEDDED,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
   };
