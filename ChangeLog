@@ -1,5 +1,8 @@
 2002-04-18  Michael Meeks  <michael@ximian.com>
 
+	* libspi/relation.c (impl_getNTargets): impl.
+	(impl_getTarget): impl.
+
 	* libspi/Makefile.am: fix stateset install.
 
 2002-04-17  Bill Haneman <bill.haneman@sun.com>

@@ -24,6 +24,7 @@
 
 #include <config.h>
 #include <stdio.h>
+#include <libspi/accessible.h>
 #include <libspi/relation.h>
 
 
@@ -83,11 +84,10 @@ impl_getRelationType (PortableServer_Servant servant,
   AtkRelation *relation = get_relation_from_servant (servant);
   AtkRelationType type;
 
-  g_return_val_if_fail (relation, 0);
+  g_return_val_if_fail (relation != NULL, 0);
   type = atk_relation_get_relation_type (relation);
   return spi_relation_type_from_atk_relation_type (type);
 }
-
 
 
 static CORBA_short
@@ -95,9 +95,10 @@ impl_getNTargets (PortableServer_Servant servant,
 		  CORBA_Environment * ev)
 {
   AtkRelation *relation = get_relation_from_servant(servant);
-  g_return_val_if_fail (relation, 0);
-}
+  g_return_val_if_fail (relation != NULL, 0);
 
+  return relation->target ? relation->target->len : 0;
+}
 
 
 static CORBA_Object
@@ -105,10 +106,21 @@ impl_getTarget (PortableServer_Servant servant,
 		const CORBA_short index,
 		CORBA_Environment * ev)
 {
+  AtkObject *atk_object;
   AtkRelation *relation = get_relation_from_servant (servant);
   g_return_val_if_fail (relation, NULL);
-}
 
+  if (!relation->target ||
+      index < 0 ||
+      index >= relation->target->len)
+    return CORBA_OBJECT_NIL;
+
+  atk_object = g_ptr_array_index (relation->target, index);
+  if (!atk_object)
+    return CORBA_OBJECT_NIL;
+
+  return spi_accessible_new_return (atk_object, FALSE, ev);
+}
 
 
 SpiRelation *
