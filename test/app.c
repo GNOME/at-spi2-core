@@ -23,10 +23,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <libbonobo.h>
+#include <bonobo-activation/bonobo-activation.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
 #include "accessible.h"
 #include "application.h"
+
+#define APP_STATIC_BUFF_SZ 30
 
 int
 main(int argc, char **argv)
@@ -35,7 +38,7 @@ main(int argc, char **argv)
         CORBA_Object oclient;
         AtkObject *atko;
         char *obj_id;
-        char sbuf[30];
+        char sbuf[APP_STATIC_BUFF_SZ];
 
         Accessibility_Registry registry;
         Accessibility_Event e;
@@ -51,9 +54,12 @@ main(int argc, char **argv)
 
         /* Create the accesssible application server object */
         /* TODO: get app name and pid */
-        sprintf(sbuf, "application-%s", argv[1]);
+	if (argc > 1)
+	        snprintf(sbuf, APP_STATIC_BUFF_SZ, "application-%s",
+					(argc > 1) ? argv[1] : "test");
+
         atko = g_object_new (atk_object_get_type(), NULL);
-        atk_object_set_name (atko, "sbuf");
+        atk_object_set_name (atko, sbuf);
         atk_object_set_description( atko, "test application for accessibility SPI");
         app = application_new(atko);
 

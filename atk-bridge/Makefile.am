@@ -22,6 +22,6 @@ DEPS = 	\
 LDFLAGS = -no-undefined	\
 	@DEP_LIBS@
 
-libat_bridge_la_LIBADD = $(AT_BRIDGE_LIBS) -lspi
+libat_bridge_la_LIBADD = $(AT_BRIDGE_LIBS) ../libspi/libspi.la
 
 CFLAGS += $(AT_BRIDGE_CFLAGS)

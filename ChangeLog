@@ -1,3 +1,12 @@
+2001-08-15  Mark McLoughlin <mark@skynet.ie>
+
+	* at-bridge/Makefile.am: link against
+	../libspi/libspi.la instead of -lspi.
+
+	* at-spi/test/app.c: include 
+	bonobo-activation.h. Use a default appname
+	if one is not provided.
+
 2001-08-14  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Registry.idl : temporarily changed register_Application
