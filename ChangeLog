@@ -1,4 +1,11 @@
-2003-01-12  Padraig O'Briain  <padraig.obriain@sun.com>
+2004-01-23  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk-uninstalled.pc.in: Correct library name. Fixes bug #132283,
+	from laszlo.peter@ireland.sun.com.
+
+	* Makefile.am: Add DISTCLEANFILES.
+
+2004-01-12  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.5.2=====
 	

@@ -13,3 +13,9 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atk.pc
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+
+DISTCLEANFILES =	\
+	atk-uninstalled.pc	\
+	atk.pc			\
+	atk.pc.spec		\
+	atk-zip.sh		\
