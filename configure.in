@@ -31,7 +31,7 @@ AM_CONFIG_HEADER(config.h)
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
 
-AM_PROG_XML_I18N_TOOLS
+dnl AM_PROG_XML_I18N_TOOLS
 
 dnl Checks for programs
 AC_PROG_CC
@@ -47,8 +47,8 @@ AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
 dnl internationalization support
-ALL_LINGUAS=""
-AM_GLIB_GNU_GETTEXT
+dnl ALL_LINGUAS=""
+dnl AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_PROG(GTKDOC, gtkdoc-mkdb, true, false)
 
@@ -146,7 +146,7 @@ AC_MSG_ERROR([You must have popt 1.5 or greater to compile the utilities.]))
 AC_OUTPUT([
 Makefile
 at-spi-1.0.pc
-po/Makefile.in
+dnl po/Makefile.in
 docs/Makefile
 docs/reference/Makefile
 docs/reference/idl/Makefile

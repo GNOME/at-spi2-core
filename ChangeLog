@@ -1,3 +1,8 @@
+2001-12-08  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Comment out dummy i18n support for now,
+	  otherwise it fails to build.
+
 2001-12-07  Michael Meeks  <michael@ximian.com>
 
 	* libspi/component.c
