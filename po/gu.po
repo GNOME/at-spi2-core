@@ -1,17 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# translation of atk.HEAD.gu.po to Gujarati
+# Copyright (C) 2004 Free Software Foundation, Inc.
 # MagNet <magnet@magnet-i.com>, 2004.
+# Ankit Patel <ankit@redhat.com>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: atk-2.6\n"
+"Project-Id-Version: atk.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-15 02:41+0100\n"
-"PO-Revision-Date: 2004-02-29 20:47+0530\n"
-"Last-Translator: Nirav, Ankit, Ankur, Atit, Bhavin, Kartik, Khushbu, Sweta. <magnet@magnet-i.com>\n"
-"Language-Team: MagNet <magnet@magnet-i.com>\n"
+"POT-Creation-Date: 2004-08-05 03:01+0200\n"
+"PO-Revision-Date: 2004-08-05 10:23+0530\n"
+"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
+"<magnet@magnet-i.com>\n"
+"Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -346,129 +350,131 @@ msgstr "આપોઆપ પૂરુ"
 msgid "edit bar"
 msgstr "ફેરફાર કરવાની પટ્ટી"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "જડિત ભાગો"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ નામ"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "સહાયક તકનીકને પ્રાપ્ત કરવા માટે વસ્તુના નમૂનાના નામનુ બંધારણ કર્યુ"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ વર્ણન"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "વસ્તુનુ વર્ણન, સહાયક તકનીકને પ્રાપ્ત કરવા માટે બંધારણ કર્યુ"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "પ્રાપ્ત થઇ શકે તેવો પિતૃ"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "શું તે પિતૃ બદલાઇ ગયો તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "પ્રાપ્ત થઇ શકે તેવી કિંમત"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "શું તે કિંમત બદલાઇ ગયો તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "પ્રાપ્ત થઇ શકે તેવો રોલ"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "આ વસ્તુનો પ્રાપ્ત થઇ શકે તેવો રોલ"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ સ્તર"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "આ વસ્તુનુ પ્રાપ્ત થઇ શકે તેવુ સ્તર"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "પ્રાપ્ત થઇ શકે તેવી MDI કિંમત"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "આ વસ્તુની પ્રાપ્ત થઇ શકે તેવી MDI કિંમત"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ કોષ્ટકનુ નામ"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે; આ ગુણધર્મનો ઉપયોગ થવો જોઇએ"
-"નહિ. તેની જગ્યાએ પ્રાપ્ત થઇ શકે તેવુ-કોષ્ટક-નામ-વસ્તુ વાપરવુ જોઇએ"
+"શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે; આ ગુણધર્મનો ઉપયોગ થવો જોઇએનહિ. "
+"તેની જગ્યાએ પ્રાપ્ત થઇ શકે તેવુ-કોષ્ટક-નામ-વસ્તુ વાપરવુ જોઇએ"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ કોષ્ટક સ્તંભ હેડર"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "શું તે કોષ્ટકના સ્તંભના હેડરનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકના સ્તંભનુ વર્ણન"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "શું તે કોષ્ટકના સ્તંભનુ વર્ણન બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકની હરોળનુ હેડર"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "શું તે કોષ્ટકના હરોળની હેડરનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકની હરોળનુ વર્ણન"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "શું તે કોષ્ટકના હરોળનુ વર્ણન બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકનો સારાંશ"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "શું તે કોષ્ટકનો સારાંશ બદલાઇ ગયો છે તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકના નામની વસ્તુ"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "પ્રાપ્ત થઇ શકે તેવી હાઇપરલખાણની કડીઓની સંખ્યા"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "વર્તમાન એટીકેહાઇપરલખાણ ધરાવે છે તે કડીઓની સંખ્યા"
 
-#~ msgid "ruler"
-#~ msgstr "માપપટ્ટી"
