@@ -1,3 +1,19 @@
+<2001-09-04 Marc Mulcahy <marc.mulcahy@sun.com>
+	* idl/Action.idl:
+		changed return value of Action from void to boolean to bring in line with ATK.
+
+	* idl/Text.idl:
+		Changed getText funcions to return "out" start and end offsets.
+		Changed getAttributes to take and offset and return the start and end offset of the attribute run.
+		Changed getOffsetAtPoint and getCharacterExtents to take an enum describing whether coordinates are window or screen.
+
+	* Added files:
+		libspi/action.c libspi/action.h libspi/editabletext.c libspi/editabletext.h libspi/hyperlink.c libspi/hyperlink.h
+		libspi/hypertext.c libspi/hypertext.h libspi/image.c libspi/image.h libspi/selection.c libspi/selection.h
+		libspi/table.c libspi/table.h libspi/text.c libspi/text.h libspi/value.c libspi/value.h
+			Added server implementations for outstanding ATK interfaces not yet implemented.
+
+ 
 2001-09-04  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Action.idl:

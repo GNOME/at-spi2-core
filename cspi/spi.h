@@ -827,26 +827,20 @@ AccessibleEditableText_ref (AccessibleEditableText *obj);
 int
 AccessibleEditableText_unref (AccessibleEditableText *obj);
 
+boolean
+AccessibleEditableText_setRunAttributes (AccessibleEditableText *obj,
+					 const char *attributes,
+					 long startPos, long endPos);
+
 void
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
-                                        char *newContents);
+                                        const char *newContents);
 
 void
 AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    long position,
                                    char *text,
                                    long length);
-
-boolean
-AccessibleEditableText_selectText (AccessibleEditableText *obj,
-                                   long startPos,
-                                   long endPos);
-
-boolean
-AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
-                                      long startPos,
-                                      long endPos,
-                                      char *attributes);
 
 void
 AccessibleEditableText_copyText (AccessibleText *obj,
@@ -887,7 +881,7 @@ AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
                             long i);
 
 Accessible
-AccessibleHyperlink_getAnchor (AccessibleHyperlink *obj,
+AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
                                long i);
 
 void
@@ -939,8 +933,8 @@ AccessibleImage_getImageDescription (AccessibleImage *obj);
 void
 AccessibleImage_getImageSize (AccessibleImage *obj,
                               long *width,
-                              long *height,
-                              AccessibleCoordType ctype);
+                              long *height);
+
 void
 AccessibleImage_getImagePosition (AccessibleImage *obj,
                                   long *x,
@@ -980,10 +974,10 @@ int
 AccessibleSelection_unref (AccessibleSelection *obj);
 
 long
-AccessibleSelwection_getNSelectedChildren (AccessibleSelection *obj);
+AccessibleSelection_getNSelectedChildren (AccessibleSelection *obj);
 
 Accessible *
-AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
+AccessibleSelection_refSelectedChild (AccessibleSelection *obj,
                                       long selectedChildIndex);
 
 boolean
@@ -1054,7 +1048,7 @@ AccessibleTable_ref (AccessibleTable *obj);
 int
 AccessibleTable_unref (AccessibleTable *obj);
 
-Accessible *
+char *
 AccessibleTable_getCaption (AccessibleTable *obj);
 
 Accessible *
@@ -1067,7 +1061,7 @@ long
 AccessibleTable_getNColumns (AccessibleTable *obj);
 
 Accessible *
-AccessibleTable_getAccessibleAt (AccessibleTable *obj,
+AccessibleTable_refAt (AccessibleTable *obj,
                                  long row,
                                  long column);
 
@@ -1085,10 +1079,12 @@ AccessibleTable_getColumnAtIndex (AccessibleTable *obj,
                                   long index);
 
 char *
-AccessibleTable_getRowDescription (AccessibleTable *obj);
+AccessibleTable_getRowDescription (AccessibleTable *obj,
+				   long row);
 
 char *
-AccessibleTable_getColumnDescription (AccessibleTable *obj);
+AccessibleTable_getColumnDescription (AccessibleTable *obj,
+				      long column);
 
 long
 AccessibleTable_getRowExtentAt (AccessibleTable *obj,
@@ -1100,11 +1096,13 @@ AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
                                    long row,
                                    long column);
 
-AccessibleTable *
-AccessibleTable_getRowHeaders (AccessibleTable *obj);
+Accessible *
+AccessibleTable_getRowHeader (AccessibleTable *obj,
+			      long row);
 
-AccessibleTable *
-AccessibleTable_getColumnHeaders (AccessibleTable *obj);
+Accessible *
+AccessibleTable_getColumnHeader (AccessibleTable *obj,
+				 long column);
 
 long
 AccessibleTable_getNSelectedRows (AccessibleTable *obj);
@@ -1156,6 +1154,13 @@ AccessibleText_getText (AccessibleText *obj,
 long
 AccessibleText_getCaretOffset (AccessibleText *obj);
 
+char *
+AccessibleText_refRunAttributes (AccessibleText *obj,
+				 long offset,
+				 long *startOffset,
+				 long *endOfset);
+
+
 boolean
 AccessibleText_setCaretOffset (AccessibleText *obj,
                                long newOffset);
@@ -1163,26 +1168,23 @@ AccessibleText_setCaretOffset (AccessibleText *obj,
 char *
 AccessibleText_getTextBeforeOffset (AccessibleText *obj,
                                     long offset,
-                                    TEXT_BOUNDARY_TYPE type);
+                                    TEXT_BOUNDARY_TYPE type,
+				    long *startOffset, long *endOffset);
 
 char *
-AccessibleText_getTextAtOffset (Accessible *obj,
-                                long offset,
-                                TEXT_BOUNDARY_TYPE type);
+AccessibleText_getTextAtOffset (AccessibleText *obj,
+                                    long offset,
+                                    TEXT_BOUNDARY_TYPE type,
+				long *startOffset, long *endOffset);
 
 char *
 AccessibleText_getTextAfterOffset (AccessibleText *obj,
-                                   long offset,
-                                   TEXT_BOUNDARY_TYPE type);
-
+                                    long offset,
+                                    TEXT_BOUNDARY_TYPE type,
+				   long *startOffset, long *endOffset);
 char
 AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long offset);
-
-char *
-AccessibleText_getAttributes (AccessibleText *obj,
-                              long startOffset,
-                              long endOffset);
 
 boolean
 AccessibleText_getCharacterExtents (AccessibleText *obj,
@@ -1197,18 +1199,28 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
                                  long x,
                                  long y);
 
-char *
-AccessibleText_getSelectedText (AccessibleText *obj);
+long
+AccessibleText_getNSelections (AccessibleText *obj);
 
 void
-AccessibleText_getSelectionBounds (AccessibleText *obj,
-                                   long *startOffset,
-                                   long *endOffset);
+AccessibleText_getSelection (AccessibleText *obj,
+			     long selectionNum, long *startOffset,
+			     long *endOffset);
+
 
 boolean
-AccessibleText_setSelectionBounds (AccessibleText *obj,
-                                   long startOffset,
-                                   long endOffset);
+AccessibleText_addSelection (AccessibleText *obj,
+			     long startOffset, long endOffset);
+
+boolean
+AccessibleText_removeSelection (AccessibleText *obj,
+				long selectionNum);
+
+boolean
+AccessibleText_setSelection (AccessibleText *obj,
+			     long selectionNum,
+			     long startOffset,
+			     long endOffset);
 
 /*
  *

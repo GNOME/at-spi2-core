@@ -15,9 +15,18 @@ CFLAGS += $(DEBUG_CFLAGS)
 libspiincludedir = $(includedir)/libspi
 
 libspiinclude_HEADERS = accessible.h       \
-			component.h	   \
+			action.h\
                         application.h      \
+			component.h\
                         desktop.h          \
+			editabletext.h\
+			hyperlink.h\
+			hypertext.h\
+			image.h\
+			selection.h\
+			table.h\
+			text.h\
+			value.h\
                         listener.h         \
 			accessibleeventlistener.h	\
                         registry.h         \
@@ -41,12 +50,30 @@ CLEANFILES+=$(IDL_OUT) Accessibility-imodule.c
 
 libspi_la_SOURCES = accessible.c         \
                     accessible.h         \
-                    application.c        \
+                    action.c\
+		    action.h\
+		    application.c        \
                     application.h        \
 		    component.c		 \
 		    component.h		 \
                     desktop.c            \
                     desktop.h            \
+		    editabletext.c\
+		    editabletext.h\
+		    hyperlink.c\
+		    hyperlink.h\
+		    hypertext.c\
+		    hypertext.h\
+		    image.c\
+		    image.h\
+		    selection.c\
+		    selection.h\
+		    table.c\
+		    table.h\
+		    text.c\
+		    text.h\
+		    value.c\
+		    value.h\
                     listener.c           \
                     listener.h           \
 		    accessibleeventlistener.c	\

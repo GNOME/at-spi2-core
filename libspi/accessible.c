@@ -256,19 +256,17 @@ accessible_new (AtkObject *o)
     retval->atko = ATK_OBJECT (o);
 
     /*
-     * TODO: add interface containers/constructors for ACTION, EDITABLE_TEXT, HYPERTEXT,
+     * TODO: add interface containers/constructors for EDITABLE_TEXT, HYPERTEXT,
      *  IMAGE, SELECTION, TABLE, TEXT, VALUE.
      */
 
     /* add appropriate ATK interfaces */
 
-    /* Action: not yet implemented
     if (ATK_IS_ACTION (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (action_interface_new (o)));
+                                     bonobo_object (action_new (ATK_ACTION(o))));
       }
-    */
 
     if (ATK_IS_COMPONENT (o))
       {
@@ -276,38 +274,49 @@ accessible_new (AtkObject *o)
                                      bonobo_object (component_interface_new (o)));
       }
 
-    /* Others: not yet implemented
     if (ATK_IS_EDITABLE_TEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (editable_text_interface_new (o)));
+                                     bonobo_object (editable_text_new (ATK_EDITABLE_TEXT(o))));
       }
+
     else if (ATK_IS_HYPERTEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (hypertext_interface_new (o)));
+                                     bonobo_object (hypertext_new (o)));
       }
+
     else if (ATK_IS_TEXT (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (text_interface_new (o)));
+                                     bonobo_object (text_new (o)));
       }
+
+    if (ATK_IS_HYPERLINK (o))
+      {
+	bonobo_object_add_interface (bonobo_object (retval),
+				     bonobo_object (hyperlink_new(ATK_HYPERLINK(o))));
+      }
+
     if (ATK_IS_IMAGE (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (image_interface_new (o)));
+                                     bonobo_object (image_new (o)));
       }
+
     if (ATK_IS_SELECTION (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (selection_interface_new (o)));
+                                     bonobo_object (selection_new (o)));
       }
+
     if (ATK_IS_TABLE (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
-                                     bonobo_object (table_interface_new (o)));
+                                     bonobo_object (table_new (o)));
       }
-    if (ATK_IS_VALUE (o))
+
+    /* if (ATK_IS_VALUE (o))
       {
         bonobo_object_add_interface (bonobo_object (retval),
                                      bonobo_object (value_interface_new (o)));
