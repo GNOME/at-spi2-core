@@ -480,7 +480,7 @@ main (int argc, char **argv)
   /* will listen only to Alt-key combinations */
   SPI_registerAccessibleKeystrokeListener (key_listener,
 					   (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-					   SPI_KEYMASK_ALT,
+					   SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL,
 					   (unsigned long) ( KeyPress | KeyRelease),
 					   SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
   create_vkbd ();  

@@ -49,8 +49,9 @@ AccessibleHypertext Interface
 </para>
 
 @obj: 
-@linkIndex: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@linkIndex: 
 
 
 <!-- ##### FUNCTION AccessibleHypertext_getLinkIndex ##### -->
@@ -59,7 +60,8 @@ AccessibleHypertext Interface
 </para>
 
 @obj: 
-@characterOffset: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@characterOffset: 
 
 

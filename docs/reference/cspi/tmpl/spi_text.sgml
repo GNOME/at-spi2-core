@@ -55,9 +55,10 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_getAttributes ##### -->
@@ -66,10 +67,11 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @offset: 
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_getCaretOffset ##### -->
@@ -96,6 +98,7 @@ AccessibleText Interface
 </para>
 
 @obj: 
+<!-- # Unused Parameters # -->
 @offset: 
 @x: 
 @y: 
@@ -119,10 +122,11 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @x: 
 @y: 
 @type: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_getSelection ##### -->
@@ -131,6 +135,7 @@ AccessibleText Interface
 </para>
 
 @obj: 
+<!-- # Unused Parameters # -->
 @selectionNum: 
 @startOffset: 
 @endOffset: 
@@ -142,9 +147,10 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_getTextBeforeOffset ##### -->
@@ -153,11 +159,12 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @offset: 
 @type: 
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_getTextAfterOffset ##### -->
@@ -166,11 +173,12 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @offset: 
 @type: 
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_getTextAtOffset ##### -->
@@ -179,11 +187,12 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @offset: 
 @type: 
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_removeSelection ##### -->
@@ -192,8 +201,9 @@ AccessibleText Interface
 </para>
 
 @obj: 
-@selectionNum: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@selectionNum: 
 
 
 <!-- ##### FUNCTION AccessibleText_setCaretOffset ##### -->
@@ -202,8 +212,9 @@ AccessibleText Interface
 </para>
 
 @obj: 
-@newOffset: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@newOffset: 
 
 
 <!-- ##### FUNCTION AccessibleText_setSelection ##### -->
@@ -212,9 +223,10 @@ AccessibleText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @selectionNum: 
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 

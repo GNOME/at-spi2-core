@@ -49,8 +49,11 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_device_event_controller_parent_class;
 
+int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
+
 typedef enum {
   SPI_DEVICE_TYPE_KBD,
+  SPI_DEVICE_TYPE_MOUSE,
   SPI_DEVICE_TYPE_LAST_DEFINED
 } SpiDeviceTypeCategory;
 
@@ -309,6 +312,19 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
   return GDK_FILTER_CONTINUE;
 }
 
+int
+_spi_controller_device_error_handler (Display *display, XErrorEvent *error)
+{
+  if (error->error_code == BadAccess) 
+    {  
+      g_message ("Could not complete key grab: grab already in use.\n");
+    }
+  else 
+    {
+      (*x_default_error_handler) (display, error);
+    }
+}
+
 static void
 spi_controller_register_with_devices (SpiDEController *controller)
 {
@@ -320,6 +336,8 @@ spi_controller_register_with_devices (SpiDEController *controller)
 
   gdk_window_set_events (gdk_get_default_root_window (),
 			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
+
+  x_default_error_handler = XSetErrorHandler (_spi_controller_device_error_handler);
 
   XSelectInput (GDK_DISPLAY (),
 		DefaultRootWindow (GDK_DISPLAY ()),
@@ -597,6 +615,9 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 	}
       else if (grab_mask->pending_remove)
         {
+#ifdef SPI_DEBUG
+      fprintf (stderr, "ungrabbing, mask=%x\n", grab_mask->mod_mask);
+#endif
 	  XUngrabKey (GDK_DISPLAY (),
 		      grab_mask->key_val,
 		      grab_mask->mod_mask,
@@ -606,6 +627,10 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 	}
       else if (grab_mask->pending_add || re_issue_grab)
         {
+
+#ifdef SPI_DEBUG
+	  fprintf (stderr, "grab with mask %x\n", grab_mask->mod_mask);
+#endif
           XGrabKey (GDK_DISPLAY (),
 		    grab_mask->key_val,
 		    grab_mask->mod_mask,
@@ -648,6 +673,7 @@ spi_device_event_controller_object_finalize (GObject *object)
   fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
 #endif
   /* disconnect any special listeners, get rid of outstanding keygrabs */
+  XUngrabKey (GDK_DISPLAY (), AnyKey, AnyModifier, DefaultRootWindow (GDK_DISPLAY ()));
 	
   spi_device_event_controller_parent_class->finalize (object);
 }

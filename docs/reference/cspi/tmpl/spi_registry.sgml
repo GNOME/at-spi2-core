@@ -195,10 +195,11 @@ Registry queries
 
 </para>
 
+@Returns: 
+<!-- # Unused Parameters # -->
 @keyval: 
 @keystring: 
 @synth_type: 
-@Returns: 
 
 
 <!-- ##### FUNCTION SPI_generateMouseEvent ##### -->
@@ -206,9 +207,10 @@ Registry queries
 
 </para>
 
+@Returns: 
+<!-- # Unused Parameters # -->
 @x: 
 @y: 
 @name: 
-@Returns: 
 
 

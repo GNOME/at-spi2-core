@@ -40,9 +40,10 @@ AccessibleEditableText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startPos: 
 @endPos: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleEditableText_deleteText ##### -->
@@ -51,9 +52,10 @@ AccessibleEditableText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startPos: 
 @endPos: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleEditableText_insertText ##### -->
@@ -62,10 +64,11 @@ AccessibleEditableText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @position: 
 @text: 
 @length: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleEditableText_cutText ##### -->
@@ -74,9 +77,10 @@ AccessibleEditableText Interface
 </para>
 
 @obj: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startPos: 
 @endPos: 
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleEditableText_pasteText ##### -->
@@ -85,8 +89,9 @@ AccessibleEditableText Interface
 </para>
 
 @obj: 
-@position: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@position: 
 
 
 <!-- ##### FUNCTION AccessibleEditableText_setTextContents ##### -->
@@ -106,8 +111,9 @@ AccessibleEditableText Interface
 
 @obj: 
 @attributes: 
+@Returns: 
+<!-- # Unused Parameters # -->
 @startOffset: 
 @endOffset: 
-@Returns: 
 
 
