@@ -1,3 +1,7 @@
+2002-12-13  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Revved to 1.1.7 (new keymask vals).
+
 2002-12-10  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/keymasks.h:
