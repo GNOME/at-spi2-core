@@ -96,6 +96,7 @@ static gboolean spi_atk_bridge_signal_listener         (GSignalInvocationHint *s
 							gpointer               data);
 static gint     spi_atk_bridge_key_listener            (AtkKeyEventStruct     *event,
 							gpointer               data);
+static void     spi_atk_tidy_windows                   (void);
 
 /* For automatic libgnome init */
 extern void gnome_accessibility_module_init     (void);
@@ -395,6 +396,10 @@ spi_atk_bridge_exit_func (void)
     }
   this_app = NULL;
 
+  /*
+   * Check whether we still have windows which have not been deleted.
+   */
+  spi_atk_tidy_windows ();
   /*
    *  FIXME: this may be incorrect for apps that do their own bonobo
    *  shutdown, until we can explicitly shutdown to get the ordering
@@ -924,19 +929,19 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   CORBA_any any;
   const gchar *name, *s;
 #ifdef SPI_BRIDGE_DEBUG
-#endif
   const gchar *s2;
+#endif
   
   g_signal_query (signal_hint->signal_id, &signal_query);
 
   name = signal_query.signal_name;
 
 #ifdef SPI_BRIDGE_DEBUG
-#endif
   s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
   fprintf (stderr, "Received signal %s:%s from object %s (gail %s)\n",
 	   g_type_name (signal_query.itype), name, s ? s : "<NULL>" , s2);
+#endif
   
   gobject = g_value_get_object (param_values + 0);
 
@@ -946,4 +951,36 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   spi_atk_emit_eventv (gobject, 0, 0, &any,
 		       "window:%s", name);
   return TRUE;
+}
+
+static void
+spi_atk_tidy_windows (void)
+{
+  AtkObject *root;
+  gint n_children;
+  gint i;
+
+  root = atk_get_root ();
+  n_children = atk_object_get_n_accessible_children (root);
+  for (i = 0; i < n_children; i++)
+    {
+      AtkObject *child;
+      AtkStateSet *stateset;
+      CORBA_any any;
+      const gchar *name;
+     
+      child = atk_object_ref_accessible_child (root, i);
+      stateset = atk_object_ref_state_set (child);
+      
+      name = atk_object_get_name (child);
+      spi_init_any_string (&any, (char**) &name);
+      if (atk_state_set_contains_state (stateset, ATK_STATE_ACTIVE))
+        {
+          spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:deactivate");
+        }
+      g_free (stateset);
+
+      spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:destroy");
+      g_object_unref (child);
+    }
 }
