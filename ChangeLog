@@ -1,3 +1,15 @@
+2003-04-10  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	(spi_keystroke_from_x_key_event):
+	Instead of checking to see if the keysym is
+	printable, check the string from XLookupString
+	if available, get the first unicode character from it,
+	and call g_unichar_isprint to determine whether the
+	is_text flag should be TRUE or FALSE.
+	
+	Fix for bug 110419.
+
 2003-04-02  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c: Add support for extended events

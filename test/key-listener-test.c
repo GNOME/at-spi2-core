@@ -94,7 +94,7 @@ main (int argc, char **argv)
 
   retval = SPI_registerAccessibleKeystrokeListener(all_key_listener,
 					  SPI_KEYSET_ALL_KEYS,
-					  SPI_KEYMASK_CONTROL,
+					  SPI_KEYMASK_CONTROL | SPI_KEYMASK_SHIFT,
 					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
 					  SPI_KEYLISTENER_ALL_WINDOWS);
 	

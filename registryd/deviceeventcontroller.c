@@ -2,7 +2,7 @@
  *
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
+ * Copyright 2001, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -1249,9 +1249,6 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
         key_event.event_string = CORBA_string_dup ("space");
         break;
       case XK_Tab:
-#ifdef SPI_KEYEVENT_DEBUG
-	fprintf(stderr, "Tab\n");
-#endif
         key_event.event_string = CORBA_string_dup ("Tab");
 	break;
       case XK_BackSpace:
@@ -1326,12 +1323,14 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
       default:
         if (nbytes > 0)
           {
+	    gunichar c;
 	    cbuf[nbytes] = '\0'; /* OK since length is cbuf_bytes+1 */
             key_event.event_string = CORBA_string_dup (cbuf);
-	    if ((keysym && g_ascii_isprint (keysym)) || (nbytes == 1))
+	    c = g_utf8_get_char_validated (cbuf, nbytes);
+	    if ((c > 0) && g_unichar_isprint (c))
 	      {
 	        key_event.is_text = CORBA_TRUE; 
-		/* FIXME: incorrect for some composed chars, unicode chars? */
+		/* incorrect for some composed chars? */
 	      }
           }
         else
@@ -1343,10 +1342,13 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
   key_event.timestamp = (CORBA_unsigned_long) x_key_event->time;
 #ifdef SPI_KEYEVENT_DEBUG
   fprintf (stderr,
-     "Key %lu pressed (%c), modifiers %d\n",
-     (unsigned long) keysym,
-     keysym ? (int) keysym : '*',
-     (int) x_key_event->state);
+	   "Key %lu pressed (%c), modifiers %d; string=%s [%x] %s\n",
+	   (unsigned long) keysym,
+	   keysym ? (int) keysym : '*',
+	   (int) x_key_event->state,
+	   key_event.event_string,
+	   key_event.event_string[0],
+	   (key_event.is_text == CORBA_TRUE) ? "(text)" : "(not text)");
 #endif
 #ifdef SPI_DEBUG
   fprintf (stderr, "%s%c",
