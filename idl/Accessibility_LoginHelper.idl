@@ -27,6 +27,41 @@
 
 module Accessibility {
 
+    /**
+     * LoginHelper:
+     *
+     * This interface is intended for use by assistive technologies
+     * and related user-enabling services, and by applications and
+     * utilities which may wish to restrict access to certain system 
+     * devices and services during security-sensitive states, e.g. when 
+     * the screen is locked or during authentication into some secure
+     * service.
+     *
+     * Such 'applications' (for instance, screen lock dialogs and
+     * security-enabled web browsers) use the @LoginHelper client
+     * interfaces, and the bonobo-activation query service, to
+     * query for assistive technologies which advertise the @LoginHelper
+     * service.  The client then queries these assistive technologies 
+     * for their device I/O requirements, via the @getDeviceReqs call.
+     * The client may then issue the advisory request @setSafe (TRUE), 
+     * which requests that the @LoginHelper-implementing service make a
+     * best-effort attempt to make itself more secure (for instance, 
+     * an onscreen keyboard might turn off word prediction, and a
+     * screenreader may turn off keyboard echo via speech).  The return
+     * value of @setSafe is an advisory indication of whether this attempt
+     * was successful (no specific guarantees are implied).
+     * Once the 'security sensitive' state is exited, the client should 
+     * call @setSafe (FALSE).
+     * 
+     * The return values from @getDeviceReqs inform the client of which
+     * services the @LoginHelper service (e. g. assistive technology) needs
+     * in order to do its job.  The client may use this information to
+     * loosen any restrictions on access which it may currently have in 
+     * place (for instance, keyboard grabs, etc.).  If it does not do so,
+     * the likely outcome is that the end-user will experience loss
+     * of access to the system.
+     *
+     **/
   interface LoginHelper : Bonobo::Unknown {
 
       /* 
