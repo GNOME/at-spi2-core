@@ -601,11 +601,6 @@ SPI_generateKeyboardEvent (long int keyval,
 			   char *keystring,
 			   AccessibleKeySynthType synth_type)
 {
-/* TODO: check current modifier status and
- *  send keycode to alter, if necessary
- */
-	
-  /* TODO: implement keystring use case */
   Accessibility_KeySynthType keysynth_type;
   Accessibility_DeviceEventController device_event_controller = 
 	  Accessibility_Registry_getDeviceEventController (cspi_registry (), cspi_ev ());
@@ -635,7 +630,7 @@ SPI_generateKeyboardEvent (long int keyval,
 
   Accessibility_DeviceEventController_generateKeyboardEvent (device_event_controller,
 							     keyval,
-							     "",
+							     keystring ? keystring : "",
 							     keysynth_type,
 							     cspi_ev ());
 

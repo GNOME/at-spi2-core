@@ -139,10 +139,60 @@ static gboolean spi_dec_poll_mouse_idle (gpointer data);
 
 /* Private methods */
 
-static KeyCode
-keycode_for_keysym (long keysym)
+static unsigned int
+keysym_mod_mask (KeySym keysym, KeyCode keycode)
 {
-  return XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
+	/* we really should use XKB and look directly at the keymap */
+	/* this is very inelegant */
+	Display *display = spi_get_display ();
+	unsigned int mods_rtn = 0;
+	unsigned int retval = 0;
+	KeySym sym_rtn;
+
+	if (XkbLookupKeySym (display, keycode, 0, &mods_rtn, &sym_rtn) &&
+	    (sym_rtn == keysym)) {
+		retval = 0;
+	}
+	else if (XkbLookupKeySym (display, keycode, ShiftMask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = ShiftMask;
+	}
+	else if (XkbLookupKeySym (display, keycode, Mod2Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = Mod2Mask;
+	}
+	else if (XkbLookupKeySym (display, keycode, Mod3Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = Mod3Mask;
+	}
+	else if (XkbLookupKeySym (display, keycode, 
+				  ShiftMask | Mod2Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = (Mod2Mask | ShiftMask);
+	}
+	else if (XkbLookupKeySym (display, keycode, 
+				  ShiftMask | Mod3Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = (Mod3Mask | ShiftMask);
+	}
+	else if (XkbLookupKeySym (display, keycode, 
+				  ShiftMask | Mod4Mask, &mods_rtn, &sym_rtn) &&
+		 (sym_rtn == keysym)) {
+		retval = (Mod4Mask | ShiftMask);
+	}
+	else
+		retval = 0xFFFF;
+	return retval;
+}
+
+static KeyCode
+keycode_for_keysym (long keysym, unsigned int *modmask)
+{
+	KeyCode keycode = 0;
+	keycode = XKeysymToKeycode (spi_get_display (), (KeySym) keysym);
+	if (modmask) 
+		*modmask = keysym_mod_mask (keysym, keycode);
+	return keycode;
 }
 
 static DEControllerGrabMask *
@@ -1415,7 +1465,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 
       re_issue_grab = recv &&
 	      (recv->modifiers & grab_mask->mod_mask) &&
-	      (grab_mask->key_val == keycode_for_keysym (recv->id));
+	      (grab_mask->key_val == keycode_for_keysym (recv->id, NULL));
 
 #ifdef SPI_DEBUG
       fprintf (stderr, "mask=%lx %lx (%c%c) %s\n",
@@ -1823,6 +1873,157 @@ dec_synth_keycode_release (SpiDEController *controller,
 	return TRUE;
 }
 
+static unsigned
+dec_get_modifier_state (SpiDEController *controller)
+{
+	return mouse_mask_state;
+}
+
+static gboolean
+dec_lock_modifiers (SpiDEController *controller, unsigned modifiers)
+{
+	return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
+			  modifiers, modifiers);
+}
+
+static gboolean
+dec_unlock_modifiers (SpiDEController *controller, unsigned modifiers)
+{
+	return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
+			  modifiers, 0);
+}
+
+dec_keysym_for_unichar (SpiDEController *controller, gunichar unichar)
+{
+	/* TODO: table lookups within a range, for various code pages! */
+	KeySym keysym = NoSymbol;
+
+	if (unichar >= 0x20 && unichar < 0x7f) { /* Basic Latin/ASCII */
+		keysym = (KeySym) unichar;
+	}
+	else if (unichar >= 0xa0 && unichar <= 0xff) { /* Latin 1 extensions */
+		keysym = (KeySym) unichar;
+	}
+	else if (unichar >= 0x100 && unichar <= 0x233) { /* unfortunately the mapping gets nasty for Latin-2 and 3... help! */
+		keysym = NoSymbol;
+	}
+	else if (unichar >= 0x7c1 && unichar <= 0x3a1) { /* let's try Greek anyway... */
+		keysym = (KeySym) (0x391 + (unichar - 0x7c1));
+	}
+	else if (unichar >= 0x3a3 && unichar <= 0x3a9) { /* let's try Greek anyway... */
+		keysym = (KeySym) (0x7d2 + (unichar - 0x3a3));
+	}
+	else if (unichar >= 0x3b1 && unichar <= 0x3c1) { /* let's try Greek anyway... */
+		keysym = (KeySym) (0x7e1 + (unichar - 0x3b1));
+	}
+	else if (unichar == 0x3c2) {
+		keysym = (KeySym) 0x7f3; /* XK_Greek_finalsmallsigma; */
+	}
+	else if (unichar >= 0x3c3 && unichar <= 0x3c9) { /* let's try Greek anyway... */
+		keysym = (KeySym) (0x7f2 + (unichar - 0x3c2));
+	}	
+	else if (unichar >= 0x5d0 && unichar <= 0x5ea) { /* Hebrew basics */
+		/* probably broken :-) */
+		keysym = (KeySym) (0xce0 + (unichar - 0x5d0));
+	}	
+	else if (unichar >= 0x30a1 && unichar <= 0x30ab) { /* partial katakana support */
+		/* TODO: complete! */
+		keysym = (KeySym) (0x4b1 + (unichar - 0x30a1)/2);
+	}
+	else if (unichar >= 0x20a0 && unichar <= 0x20ac) { /* currency */
+		keysym = (KeySym) unichar; /* how convenient ;-) */
+	}
+	return keysym;
+}
+
+static gboolean
+dec_synth_keysym (SpiDEController *controller, KeySym keysym)
+{
+	KeyCode key_synth_code;
+	unsigned int modifiers, synth_mods, lock_mods;
+
+	key_synth_code = keycode_for_keysym (keysym, &synth_mods);
+
+	if ((key_synth_code == 0) || (synth_mods == 0xFF)) return FALSE;
+
+	/* TODO: set the modifiers accordingly! */
+	modifiers = dec_get_modifier_state (controller);
+	/* side-effect; we may unset mousebutton modifiers here! */
+
+	if (synth_mods != modifiers) {
+		lock_mods = synth_mods & ~modifiers;
+		dec_lock_modifiers (controller, lock_mods);
+	}
+	dec_synth_keycode_press (controller, key_synth_code);
+	dec_synth_keycode_release (controller, key_synth_code);
+	if (synth_mods != modifiers) 
+		dec_unlock_modifiers (controller, lock_mods);
+	return TRUE;
+}
+
+
+static gboolean
+dec_synth_keystring (SpiDEController *controller, const CORBA_char *keystring)
+{
+	/* probably we need to create and inject an XIM handler eventually. */
+	/* for now, try to match the string to existing 
+	 * keycode+modifier states. 
+         */
+	KeySym *keysyms;
+	gint maxlen = 0;
+	gunichar unichar = 0;
+	gint i = 0;
+	gboolean retval = TRUE;
+	const gchar *c;
+
+	maxlen = strlen (keystring);
+	keysyms = g_new0 (KeySym, maxlen);
+	if (!(keystring && *keystring && g_utf8_validate (keystring, -1, &c))) { 
+		retval = FALSE;
+	} 
+	else {
+#ifdef SPI_DEBUG
+		fprintf (stderr, "[keystring synthesis attempted on %s]\n", keystring);
+#endif
+		while (keystring && (unichar = g_utf8_get_char (keystring))) {
+			KeySym keysym;
+			char bytes[6];
+			gint mbytes;
+			
+			mbytes = g_unichar_to_utf8 (unichar, bytes);
+			bytes[mbytes] = '\0';
+#ifdef SPI_DEBUG
+		        fprintf (stderr, "[unichar %s]", bytes);
+#endif
+			keysym = dec_keysym_for_unichar (controller, unichar);
+			if (keysym == NoSymbol) {
+#ifdef SPI_DEBUG
+				fprintf (stderr, "no keysym for %s", bytes);
+#endif
+				retval = FALSE;
+				break;
+			}
+			keysyms[i++] = keysym;
+			keystring = g_utf8_next_char (keystring); 
+		}
+		keysyms[i++] = 0;
+		for (i = 0; keysyms[i]; ++i) {
+			if (!dec_synth_keysym (controller, keysyms[i])) {
+#ifdef SPI_DEBUG
+				fprintf (stderr, "could not synthesize %c\n",
+					 (int) keysyms[i]);
+#endif
+				retval = FALSE;
+				break;
+			}
+		}
+	}
+	g_free (keysyms);
+
+	return retval;
+}
+
+
 /*
  * CORBA Accessibility::DEController::registerKeystrokeListener
  *     method implementation
@@ -1868,12 +2069,17 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 #ifdef SPI_XKB_DEBUG	      
 	      fprintf (stderr, "KeySym synthesis\n");
 #endif
-	      key_synth_code = keycode_for_keysym (keycode);
-	      dec_synth_keycode_press (controller, key_synth_code);
-	      dec_synth_keycode_release (controller, key_synth_code);
+	      /* 
+	       * note: we are using long for 'keycode'
+	       * in our arg list; it can contain either
+	       * a keycode or a keysym.
+	       */
+	      dec_synth_keysym (controller, (KeySym) keycode);
 	      break;
       case Accessibility_KEY_STRING:
-	      fprintf (stderr, "Not yet implemented\n");
+	      if (!dec_synth_keystring (controller, keystring))
+		      fprintf (stderr, "Keystring synthesis failure, string=%s\n",
+			       keystring);
 	      break;
     }
   if (gdk_error_trap_pop ())
