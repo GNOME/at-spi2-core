@@ -48,24 +48,24 @@ struct _AtkSelectionIface
 {
   GTypeInterface parent;
 
-  void         (* add_selection)        (AtkSelection   *selection,
+  gboolean     (* add_selection)        (AtkSelection   *selection,
                                          gint           i);
-  void         (* clear_selection)      (AtkSelection   *selection);
+  gboolean     (* clear_selection)      (AtkSelection   *selection);
   AtkObject*   (* ref_selection)        (AtkSelection   *selection,
                                          gint           i);
   gint         (* get_selection_count)  (AtkSelection   *selection);
   gboolean     (* is_child_selected)    (AtkSelection   *selection,
                                          gint           i);
-  void         (* remove_selection)     (AtkSelection   *selection,
+  gboolean     (* remove_selection)     (AtkSelection   *selection,
                                          gint           i);
   void         (* select_all_selection) (AtkSelection   *selection);
 };
 GType atk_selection_get_type ();
 
-void         atk_selection_add_selection        (AtkSelection   *selection,
+gboolean     atk_selection_add_selection        (AtkSelection   *selection,
                                                  gint           i);
 
-void         atk_selection_clear_selection      (AtkSelection   *selection);
+gboolean     atk_selection_clear_selection      (AtkSelection   *selection);
 
 AtkObject*   atk_selection_ref_selection        (AtkSelection   *selection,
                                                  gint           i);
@@ -75,7 +75,7 @@ gint         atk_selection_get_selection_count  (AtkSelection   *selection);
 gboolean     atk_selection_is_child_selected    (AtkSelection   *selection,
                                                  gint           i);
 
-void         atk_selection_remove_selection     (AtkSelection   *selection,
+gboolean     atk_selection_remove_selection     (AtkSelection   *selection,
                                                  gint           i);
 
 void         atk_selection_select_all_selection (AtkSelection   *selection);

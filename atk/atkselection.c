@@ -46,20 +46,24 @@ atk_selection_get_type ()
  *
  * Adds the specified accessible child of the object to the
  * object's selection.
+ *
+ * Returns: TRUE if success, FALSE otherwise.
  **/
-void
+gboolean
 atk_selection_add_selection (AtkSelection *obj,
                              gint         i)
 {
   AtkSelectionIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_SELECTION (obj));
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
 
   if (iface->add_selection)
-    (iface->add_selection) (obj, i);
+    return (iface->add_selection) (obj, i);
+  else
+    return FALSE;
 }
 
 /**
@@ -68,19 +72,23 @@ atk_selection_add_selection (AtkSelection *obj,
  *
  * Clears the selection in the object so that no children in the object
  * are selected.
+ *
+ * Returns: TRUE if success, FALSE otherwise.
  **/
-void
+gboolean
 atk_selection_clear_selection (AtkSelection *obj)
 {
   AtkSelectionIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_SELECTION (obj));
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
 
   if (iface->clear_selection)
-    (iface->clear_selection) (obj);
+    return (iface->clear_selection) (obj);
+  else
+    return FALSE;
 }
 
 /**
@@ -181,20 +189,24 @@ atk_selection_is_child_selected (AtkSelection *obj,
  * @i: a #gint specifying an accessible child of @selection 
  *
  * Removes the specified child of the object from the object's selection.
+ *
+ * Returns: TRUE if success, FALSE otherwise.
  **/
-void
+gboolean
 atk_selection_remove_selection (AtkSelection *obj,
                                 gint         i)
 {
   AtkSelectionIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_SELECTION (obj));
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
 
   if (iface->remove_selection)
-    (iface->remove_selection) (obj, i);
+    return (iface->remove_selection) (obj, i);
+  else
+    return FALSE;
 }
 
 /**
