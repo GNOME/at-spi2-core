@@ -50,6 +50,7 @@ an component is described by its AtkStateSet, which is a set of AtkStates.
 @ATK_STATE_VERTICAL: 
 @ATK_STATE_VISIBLE: 
 @ATK_STATE_MANAGES_DESCENDANTS: 
+@ATK_STATE_INDETERMINATE: 
 @ATK_STATE_LAST_DEFINED: 
 
 <!-- ##### TYPEDEF AtkState ##### -->
