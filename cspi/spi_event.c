@@ -367,7 +367,7 @@ cspi_internal_event_get_object (const InternalEvent *e)
 
 /**
  * AccessibleTextChangedEvent_getChangeString:
- * @event: a pointer to the #AccessibleEvent being queried.
+ * @e: a pointer to the #AccessibleEvent being queried.
  *
  * Queries an #AccessibleEvent of type "object:text-changed", 
  *         returning the text inserted or deleted.

@@ -9,10 +9,10 @@ INCLUDES = -I $(top_srcdir)           \
            $(X_CFLAGS)                \
            $(LIBCSPI_CFLAGS)
 
-LDFLAGS = @LDFLAGS@ $(LIBCSPI_LIBS) @LT_VERSION_INFO@
+libcspi_la_LDFLAGS = @LDFLAGS@ ../libspi/libspi.la $(LIBCSPI_LIBS) @LT_VERSION_INFO@
 
 LDADD =				\
-	../libspi/libspi.la	\
+	$(top_srcdir)/libspi/libspi.la	\
 	$(LIBCSPI_LIBS) $(X_LIBS)
 
 libcspidir = $(includedir)/at-spi-1.0/cspi
