@@ -1,6 +1,10 @@
+2004-01-01  Roozbeh Pournader  <roozbeh@sharif.edu>
+
+	* configure.in: Added "fa" to ALL_LINGUAS.
+
 2003-12-20  Arafat Medini <lumina@silverpen.de>
 
-	* ar.po: Added "ar" to ALL_LINGUAS
+	* configure.in: Added "ar" to ALL_LINGUAS
 
 2003-12-16	Bill Haneman <billh@gnome.org>
 
