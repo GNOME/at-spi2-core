@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-08 05:40+0100\n"
-"PO-Revision-Date: 2003-12-08 05:41+0100\n"
+"POT-Creation-Date: 2003-12-19 16:47+0100\n"
+"PO-Revision-Date: 2003-12-19 16:48+0100\n"
 "Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgid "invalid"
 msgstr "неисправно"
 
 #: atk/atkobject.c:83
-msgid "accel label"
+msgid "accelerator label"
 msgstr "ознака пречице"
 
 #: atk/atkobject.c:84
