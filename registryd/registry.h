@@ -50,6 +50,8 @@ struct _SpiRegistry {
   GQueue          *deferred_event_queue;
   gboolean         is_queueing;
   guint            exit_notify_timeout;
+  guint            queue_handler_id;
+  Bonobo_Unknown    focus_object;
   SpiDEController *de_controller;
   SpiDesktop      *desktop;
 };

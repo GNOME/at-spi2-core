@@ -1,3 +1,19 @@
+2003-09-05  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* registryd/registry.[ch}:
+	Add queue_handler_id and focus_object to SpiRegistry data structure.
+	(registry_flush_event_queue): If event being discarded is 
+	"state-change:focused" store object as focus_object.
+	(registry_start_queue): Remove queue handler and focus object
+	if present.
+	(registry_discard_event): New function which discards a focus event
+	if we had stored focus object in the registry.
+	(registry_queue_event): Add new check that is_queueing is set as this
+	function is reentrant.
+	(registry_filer_event): Add call to registry_discard_event.
+	
+	This resolves issues raised in bug #108664.
+	
 2003-09-05  Taneem Ahmed  <taneem@bengalinux.org>
 
 	* configure.in: Added "bn" to ALL_LINGUAS.

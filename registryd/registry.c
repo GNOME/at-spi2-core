@@ -45,6 +45,7 @@ static SpiListenerClass *spi_registry_parent_class;
 static GQuark _deactivate_quark = 0;
 static GQuark _activate_quark = 0;
 static GQuark _state_quark = 0;
+static GQuark _state_changed_focused_quark = 0;
 
 int _dbg = 0;
 
@@ -679,7 +680,18 @@ registry_flush_event_queue (SpiRegistry       *registry,
       q_ctx->ev = ev;
       registry_emit_event (registry, q_ctx);
     }
-    bonobo_object_release_unref (q_ctx->source, NULL);
+    if (discard &&
+	(q_ctx->etype.type_cat == ETYPE_OBJECT) && 
+	(q_ctx->etype.major == _state_quark) &&
+	(q_ctx->etype.minor == _state_changed_focused_quark)) {
+        registry->focus_object = q_ctx->source;
+#ifdef SPI_QUEUE_DEBUG
+        fprintf (stderr, "discard!: set focus_object %p\n", registry->focus_object);
+#endif
+    }
+    else {
+      bonobo_object_release_unref (q_ctx->source, NULL);
+    }
     CORBA_free ((void *)q_ctx->etype.event_name);
     CORBA_free ((void *)q_ctx->e_out.type);
     g_free (q_ctx);
@@ -696,6 +708,7 @@ registry_timeout_flush_queue (gpointer data)
   fprintf (stderr, "timeout! flushing queue...\n");
 #endif
   CORBA_exception_init (&ev);
+  registry->queue_handler_id = 0;
   registry_flush_event_queue (registry, FALSE, &ev);
   return FALSE;
 }
@@ -721,14 +734,57 @@ registry_reset_on_event (SpiRegistry *registry, NotifyContext *ctx)
   return (ctx->etype.type_cat == ETYPE_WINDOW) ? TRUE : FALSE;
 }
 
+#ifdef SPI_QUEUE_DEBUG
+#include <sys/time.h>
+#endif
+
 static void
 registry_start_queue (SpiRegistry *registry)
 {
-    g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 
-			registry->exit_notify_timeout,
-			registry_timeout_flush_queue, registry, 
-			NULL);
-    registry->is_queueing = 1;
+#ifdef SPI_QUEUE_DEBUG
+    struct timeval tp;
+    gettimeofday (&tp, NULL);
+    fprintf (stderr, "start queueing at %i.%.6i\n", tp.tv_sec, tp.tv_usec);
+#endif
+    if (registry->queue_handler_id != 0)
+      g_source_remove (registry->queue_handler_id);
+       
+    if (registry->focus_object)
+      {
+#ifdef SPI_QUEUE_DEBUG
+        fprintf (stderr, "registry_start_queue: release focus_object %p\n", registry->focus_object);
+#endif
+        bonobo_object_release_unref (registry->focus_object, NULL);
+        registry->focus_object = NULL;
+      }
+    registry->queue_handler_id = g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 
+						     registry->exit_notify_timeout,
+						     registry_timeout_flush_queue, registry, 
+						     NULL);
+    registry->is_queueing = TRUE;
+}
+
+static gboolean
+registry_discard_event (SpiRegistry *registry,  NotifyContext *ctx)
+{
+  gboolean ret = FALSE;
+
+  if (ctx->etype.type_cat == ETYPE_FOCUS)
+    {
+      if (registry->focus_object)
+        {
+          if (CORBA_Object_is_equivalent (registry->focus_object, ctx->source, NULL))
+            {
+              ret = TRUE;
+            }
+#ifdef SPI_QUEUE_DEBUG
+          fprintf (stderr, "registry_discard_event: release focus_object %p\n", registry->focus_object);
+#endif
+          bonobo_object_release_unref (registry->focus_object, NULL);
+          registry->focus_object = NULL;
+        }
+    }
+  return ret; 
 }
 
 static gboolean
@@ -749,7 +805,7 @@ registry_defer_on_event (SpiRegistry *registry, NotifyContext *ctx)
   return defer;
 }
 
-static void
+static gboolean
 registry_queue_event (SpiRegistry *registry, NotifyContext *ctx)
 {
   NotifyContext *q_ctx = registry_clone_notify_context (ctx);
@@ -757,7 +813,20 @@ registry_queue_event (SpiRegistry *registry, NotifyContext *ctx)
     if (q_ctx->etype.type_cat != ETYPE_MOUSE)
       fprintf (stderr, "push! %s %p\n", q_ctx->etype.event_name, q_ctx);
 #endif    
-  g_queue_push_head (registry->deferred_event_queue, q_ctx);
+  if (registry->is_queueing)
+    {
+      g_queue_push_head (registry->deferred_event_queue, q_ctx);
+
+      return FALSE;
+    }
+  else
+    {
+      bonobo_object_release_unref (q_ctx->source, NULL);
+      CORBA_free ((void *)q_ctx->etype.event_name);
+      CORBA_free ((void *)q_ctx->e_out.type);
+      g_free (q_ctx);
+      return TRUE; 
+    }
 }
 
 /**
@@ -775,11 +844,12 @@ registry_filter_event (SpiRegistry *registry, NotifyContext *ctx,
 {
   g_assert (ctx != NULL);
 
-  /* case #1 is not yet used */
+  if (registry_discard_event (registry, ctx))
+    return FALSE;
+
   if (registry_defer_on_event (registry, ctx)) { /* #2, #3 */
     if (registry->is_queueing) {
-      registry_queue_event (registry, ctx);
-      return FALSE;
+      return registry_queue_event (registry, ctx);
     }
     else { /* #4a */
       return TRUE;
@@ -790,6 +860,11 @@ registry_filter_event (SpiRegistry *registry, NotifyContext *ctx,
 #ifdef SPI_QUEUE_DEBUG
     fprintf (stderr, "event %s caused reset, discard=%d\n",
 	     ctx->etype.event_name, (int) discard);
+      {
+        struct timeval tp;
+        gettimeofday (&tp, NULL);
+        fprintf (stderr, "event at %i.%.6i\n", tp.tv_sec, tp.tv_usec);
+      }
 #endif    
     registry_flush_event_queue (registry, discard, ev);
     return (discard ? FALSE : TRUE);
@@ -817,13 +892,14 @@ impl_registry_notify_event (PortableServer_Servant     servant,
   ctx.e_out = *e;
   ctx.source = e->source;
 
+#ifdef SPI_QUEUE_DEBUG
+    if (ctx.etype.type_cat != ETYPE_MOUSE)
+      fprintf (stderr, "filter! %s level: %d\n", ctx.etype.event_name, level);
+#endif    
   if (registry_filter_event (registry, &ctx, ev)) {
 #ifdef SPI_QUEUE_DEBUG
     if (ctx.etype.type_cat != ETYPE_MOUSE)
-{
       fprintf (stderr, "emit! %s level: %d\n", ctx.etype.event_name, level);
-      fprintf (stderr, "emit! %p %x\n", ctx.e_out, ctx.e_out.type);
-}
 #endif    
     registry_emit_event (registry, &ctx);
   }
@@ -854,6 +930,7 @@ spi_registry_class_init (SpiRegistryClass *klass)
   _deactivate_quark = g_quark_from_static_string ("deactivate");
   _activate_quark = g_quark_from_static_string ("activate");
   _state_quark = g_quark_from_static_string ("state-changed");
+  _state_changed_focused_quark = g_quark_from_static_string ("state-changedfocused");
 }
 
 static void
@@ -871,7 +948,16 @@ spi_registry_init (SpiRegistry *registry)
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
   registry->deferred_event_queue = g_queue_new ();
-  registry->exit_notify_timeout = 100;
+  registry->exit_notify_timeout = 200;
+  registry->queue_handler_id  = 0;
+  /*
+   * The focus_object is set when a state-change:focused event is discarded
+   * after a window:deactivate event is received because a window:activate
+   * event has been received for the same window within the timeout period.
+   * The focus object is used to suppress a focus event for that object.
+   * It is released when a window:deactivate event is received.
+   */ 
+  registry->focus_object = NULL;
   registry->desktop = spi_desktop_new ();
   /* Register callback notification for application addition and removal */
   g_signal_connect (G_OBJECT (registry->desktop),
