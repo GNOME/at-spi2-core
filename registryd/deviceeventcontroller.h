@@ -27,32 +27,36 @@
 #include <libspi/Accessibility.h>
 #include <libspi/keystrokelistener.h>
 
+typedef struct _SpiDEController SpiDEController;
+
+#include "registry.h"
+
 G_BEGIN_DECLS
 
 #define SPI_DEVICE_EVENT_CONTROLLER_TYPE        (spi_device_event_controller_get_type ())
-#define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventController))
-#define SPI_DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
+#define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEController))
+#define SPI_DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
 #define SPI_IS_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
 #define SPI_IS_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
-#define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
+#define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
 
-typedef struct {
+struct _SpiDEController {
   BonoboObject parent;
-  void  *registry;
-  GList *key_listeners;
-  GList *mouse_listeners;
-  GList *keygrabs_list;
-} SpiDeviceEventController;
+
+  SpiRegistry *registry;
+  GList       *key_listeners;
+  GList       *mouse_listeners;
+  GList       *keygrabs_list;
+};
 
 typedef struct {
   BonoboObjectClass parent_class;
-  POA_Accessibility_DeviceEventController__epv epv;
-  gboolean (*check_key_event) (SpiDeviceEventController *controller);
-} SpiDeviceEventControllerClass;
 
-GType                     spi_device_event_controller_get_type        (void);
-SpiDeviceEventController *spi_device_event_controller_new             (void *registry);
-gboolean                  spi_device_event_controller_check_key_event (SpiDeviceEventController *controller);
+  POA_Accessibility_DeviceEventController__epv epv;
+} SpiDEControllerClass;
+
+GType            spi_device_event_controller_get_type (void);
+SpiDEController *spi_device_event_controller_new      (SpiRegistry *registry);
 
 G_END_DECLS
 

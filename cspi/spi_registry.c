@@ -310,10 +310,10 @@ SPI_freeDesktopList (Accessible **desktop_list)
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 SPIBoolean
-SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
-					 AccessibleKeySet *keys,
-					 AccessibleKeyMaskType modmask,
-					 AccessibleKeyEventMask eventmask,
+SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
+					 AccessibleKeySet             *keys,
+					 AccessibleKeyMaskType         modmask,
+					 AccessibleKeyEventMask        eventmask,
 					 AccessibleKeyListenerSyncType sync_type)
 {
   gint                                i, mask;

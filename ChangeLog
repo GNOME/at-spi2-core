@@ -1,5 +1,90 @@
 2002-01-11  Michael Meeks  <michael@ximian.com>
 
+	* registryd/deviceeventcontroller.c
+	(spi_device_event_controller_forward_key_event): kill
+	XUngrabKey / XKeyGrab race.
+	(spi_controller_grab_keyboard): rename to
+	(spi_controller_update_key_grabs): this, and deal
+	with incremental adding / removing grabs more
+	sensibly.
+	(_register_keygrab): ensure we're not pending a remove.
+	(spi_grab_mask_free): impl.
+	(spi_controller_register_global_keygrabs): split out
+	common code into:
+	(handle_keygrab): impl.
+	(_deregister_keygrab): impl.
+	(spi_controller_deregister_global_keygrabs): impl.
+	(spi_controller_update_key_grabs): re-issue the grab if
+	we just recieved a notification.
+
+	* test/test-simple.c (key_listener_cb): remove debug.
+
+	* registryd/deviceeventcontroller.c
+	(spi_controller_register_device_listener): after
+	registering a global keygrab, actualy register it !
+	don't wait for a timeout; doh !
+
+	* registryd/deviceeventcontroller.[ch]: s/DeviceEvent/DE/
+	to make it more readable / manipulable.
+	s/grabmask/grab_mask/ s/refcount/ref_count/
+	s/keyval/key_val/ s/modmask/mod_mask
+
+2002-01-08  Michael Meeks  <michael@ximian.com>
+
+	* registryd/deviceeventcontroller.c
+	(spi_controller_register_with_devices): use gdk calls to
+	setup a filter.
+	(global_filter_fn): implement the filter.
+	(spi_device_event_controller_check_key_event): rename to
+	(spi_device_event_controller_forward_key_event): this & upd.
+	(spi_get_display): replace with GDK_DISPLAY.
+
+	* registryd/deviceeventcontroller.c
+	(spi_controller_deregister_device_listener): unroll into
+	(impl_deregister_keystroke_listener): here to simplify.
+	(spi_controller_register_global_keygrabs): split cut and
+	paste (!) out into (_register_keygrab): here, shorter & sweeter.
+	(spi_controller_deregister_device_listener): remove.
+	(impl_register_mouse_listener): remove, no mouse listener
+	support in at-spi-1.0
+
+	* registryd/registry.c
+	(_device_event_controller_hook): kill.
+	(spi_registry_init): upd.
+
+	* registryd/deviceeventcontroller.c
+	(spi_device_event_controller_class_init): upd.
+	(spi_check_key_event): merge into.
+	(spi_device_event_controller_check_key_event):
+	here and kill strange static ev init, don't leak
+	the x_event - nor dynamicaly allocate it.
+
+	* registryd/registry-main.c (main): re-direct
+	timeout to remove strange vtable mess.
+
+	* registryd/deviceeventcontroller.c
+	(remove_listener_cb): impl.
+	(spi_controller_deregister_device_listener):
+	fix re-enterancy hazard.
+
+2002-01-07  Michael Meeks  <michael@ximian.com>
+
+	* registryd/deviceeventcontroller.c
+	(spi_device_event_controller_new): upd.
+	(impl_notify_listeners_sync): upd. debug.
+	(spi_notify_keylisteners): fix re-enterancy hazards,
+	prettify, remove O(n*n) iteration.
+	(spi_controller_grab_keyboard): fix iteration.
+	(spi_check_key_event): re-format to suit coding style.
+	Clean all the warnings - we're warning free.
+
+	* registryd/deviceeventcontroller.h:
+	* registryd/registry.h: make mutualy referential with
+	typesafe forward references instead of (!) void pointer
+	hacks.
+
+2002-01-11  Michael Meeks  <michael@ximian.com>
+
 	* cspi/spi_accessible.c (role_names): add a role name
 	to sync this array with the enum; and make the regression
 	tests pass, sigh.

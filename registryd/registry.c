@@ -30,6 +30,7 @@
 #endif
 
 #include <bonobo/bonobo-exception.h>
+#include "../libspi/spi-private.h"
 #include "registry.h"
 
 /* Our parent GObject type  */
@@ -63,8 +64,6 @@ typedef struct {
   EventTypeCategory event_type_cat;
 } SpiListenerStruct;
 
-/* static function prototypes */
-static gboolean _device_event_controller_hook (gpointer source);
 
 SpiListenerStruct *
 spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment *ev)
@@ -323,7 +322,9 @@ impl_accessibility_registry_register_global_event_listener (
   EventTypeStruct etype;
   GList          **list;
 
-  fprintf(stderr, "registering for events of type %s\n", event_name);
+#ifdef SPI_DEBUG
+  fprintf (stderr, "registering for events of type %s\n", event_name);
+#endif
 
   /* parse, check major event type and add listener accordingly */
   parse_event_type (&etype, event_name);
@@ -347,7 +348,7 @@ impl_accessibility_registry_register_global_event_listener (
     }
 }
 
-static void
+static SpiReEnterantContinue
 remove_listener_cb (GList * const *list, gpointer user_data)
 {
   SpiListenerStruct *ls = (SpiListenerStruct *) (*list)->data;
@@ -363,6 +364,8 @@ remove_listener_cb (GList * const *list, gpointer user_data)
     }
 
   CORBA_exception_free (&ev);
+
+  return SPI_RE_ENTERANT_CONTINUE;
 }
 
 /*
@@ -407,7 +410,7 @@ impl_accessibility_registry_deregister_global_event_listener (
   parse_event_type (&etype, (char *) event_name);
 
   spi_re_enterant_list_foreach (get_listener_list (registry, etype.type_cat),
-			    remove_listener_cb, listener);
+				remove_listener_cb, listener);
 }
 
 
@@ -484,16 +487,16 @@ impl_accessibility_registry_get_desktop_list (PortableServer_Servant servant,
 
 static Accessibility_DeviceEventController
 impl_accessibility_registry_get_device_event_controller (PortableServer_Servant servant,
-                                                         CORBA_Environment     *ev)
+							 CORBA_Environment     *ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
 
-  if (!registry->device_event_controller)
+  if (!registry->de_controller)
     {
-      registry->device_event_controller = spi_device_event_controller_new (registry);
+      registry->de_controller = spi_device_event_controller_new (registry);
     }
 
-  return bonobo_object_dup_ref (BONOBO_OBJREF (registry->device_event_controller), ev);
+  return bonobo_object_dup_ref (BONOBO_OBJREF (registry->de_controller), ev);
 }
 
 typedef struct {
@@ -503,7 +506,7 @@ typedef struct {
   Accessibility_Event e_out;
 } NotifyContext;
 
-static void
+static SpiReEnterantContinue
 notify_listeners_cb (GList * const *list, gpointer user_data)
 {
   SpiListenerStruct *ls;
@@ -531,7 +534,9 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
       
       ctx->e_out.source = bonobo_object_dup_ref (ctx->source, ctx->ev);
       if (BONOBO_EX (ctx->ev))
-	      return;
+        {
+          return SPI_RE_ENTERANT_CONTINUE;;
+	}
 
       if ((*list) && (*list)->data == ls)
         {
@@ -549,6 +554,8 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
           bonobo_object_release_unref (ctx->e_out.source, ctx->ev);
 	}
     }  
+
+  return SPI_RE_ENTERANT_CONTINUE;
 }
 
 static void
@@ -582,37 +589,28 @@ impl_registry_notify_event (PortableServer_Servant     servant,
     }
 }
 
-static gboolean
-_device_event_controller_hook (gpointer p)
-{
-    SpiRegistry *registry = (SpiRegistry *)p;
-    SpiDeviceEventController *controller = registry->device_event_controller;
-    if (controller)
-	spi_device_event_controller_check_key_event (controller);
-    return TRUE;
-}
 
 static void
 spi_registry_class_init (SpiRegistryClass *klass)
 {
-        GObjectClass * object_class = (GObjectClass *) klass;
-        POA_Accessibility_Registry__epv *epv = &klass->epv;
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_Registry__epv *epv = &klass->epv;
 
-        spi_registry_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
+  spi_registry_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
+  
+  object_class->finalize = spi_registry_object_finalize;
 
-        object_class->finalize = spi_registry_object_finalize;
-
-        epv->registerApplication = impl_accessibility_registry_register_application;
-        epv->deregisterApplication = impl_accessibility_registry_deregister_application;
-        epv->registerGlobalEventListener = impl_accessibility_registry_register_global_event_listener;
-        epv->deregisterGlobalEventListener = impl_accessibility_registry_deregister_global_event_listener;
-        epv->deregisterGlobalEventListenerAll = impl_accessibility_registry_deregister_global_event_listener_all;
-        epv->getDeviceEventController = impl_accessibility_registry_get_device_event_controller;
-        epv->getDesktopCount = impl_accessibility_registry_get_desktop_count;
-        epv->getDesktop = impl_accessibility_registry_get_desktop;
-        epv->getDesktopList = impl_accessibility_registry_get_desktop_list;
-
-        ((SpiListenerClass *) klass)->epv.notifyEvent = impl_registry_notify_event;
+  klass->parent_class.epv.notifyEvent   = impl_registry_notify_event;
+  
+  epv->registerApplication              = impl_accessibility_registry_register_application;
+  epv->deregisterApplication            = impl_accessibility_registry_deregister_application;
+  epv->registerGlobalEventListener      = impl_accessibility_registry_register_global_event_listener;
+  epv->deregisterGlobalEventListener    = impl_accessibility_registry_deregister_global_event_listener;
+  epv->deregisterGlobalEventListenerAll = impl_accessibility_registry_deregister_global_event_listener_all;
+  epv->getDeviceEventController         = impl_accessibility_registry_get_device_event_controller;
+  epv->getDesktopCount                  = impl_accessibility_registry_get_desktop_count;
+  epv->getDesktop                       = impl_accessibility_registry_get_desktop;
+  epv->getDesktopList                   = impl_accessibility_registry_get_desktop_list;
 }
 
 static void
@@ -622,8 +620,7 @@ spi_registry_init (SpiRegistry *registry)
   registry->window_listeners = NULL;
   registry->toolkit_listeners = NULL;
   registry->desktop = spi_desktop_new ();
-  registry->device_event_controller = NULL;
-  registry->kbd_event_hook = _device_event_controller_hook;
+  registry->de_controller = NULL;
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiRegistry,
@@ -634,7 +631,7 @@ BONOBO_TYPE_FUNC_FULL (SpiRegistry,
 SpiRegistry *
 spi_registry_new (void)
 {
-    SpiRegistry *retval = g_object_new (SPI_REGISTRY_TYPE, NULL);
-    bonobo_object_set_immortal (BONOBO_OBJECT (retval), TRUE);
-    return retval;
+  SpiRegistry *retval = g_object_new (SPI_REGISTRY_TYPE, NULL);
+  bonobo_object_set_immortal (BONOBO_OBJECT (retval), TRUE);
+  return retval;
 }

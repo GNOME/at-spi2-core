@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #endif
 
+#include <gdk/gdk.h>
 #include <libbonobo.h>
 #include <glib/gmain.h>
 #include "registry.h"
@@ -59,7 +60,6 @@ main (int argc, char **argv)
 #ifdef AT_SPI_DEBUG
       fprintf (stderr, "SpiRegistry Message: SpiRegistry daemon is running.\n");
 #endif
-      g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 200, registry->kbd_event_hook, registry, NULL);
       bonobo_main ();
     }
 

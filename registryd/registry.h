@@ -26,6 +26,8 @@
 #include <glib/gmain.h>
 #include <libspi/listener.h>
 
+typedef struct _SpiRegistry SpiRegistry;
+
 #include "desktop.h"
 #include "deviceeventcontroller.h"
 
@@ -37,19 +39,20 @@ G_BEGIN_DECLS
 #define SPI_IS_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
 #define SPI_IS_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
 
-typedef struct {
-  SpiListener parent;
-  GList *object_listeners;
-  GList *window_listeners;
-  GList *toolkit_listeners;
-  SpiDeviceEventController *device_event_controller;
-  SpiDesktop *desktop;
-  gboolean (*kbd_event_hook) (gpointer source);
-} SpiRegistry;
+struct _SpiRegistry {
+  SpiListener      parent;
+
+  GList           *object_listeners;
+  GList           *window_listeners;
+  GList           *toolkit_listeners;
+  SpiDEController *de_controller;
+  SpiDesktop      *desktop;
+};
 
 typedef struct {
-        SpiListenerClass parent_class;
-        POA_Accessibility_Registry__epv epv;
+  SpiListenerClass parent_class;
+
+  POA_Accessibility_Registry__epv epv;
 } SpiRegistryClass;
 
 GType        spi_registry_get_type (void);
