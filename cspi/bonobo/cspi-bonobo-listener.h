@@ -14,20 +14,13 @@ G_BEGIN_DECLS
 #define CSPI_IS_EVENT_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSPI_EVENT_LISTENER_TYPE))
 #define CSPI_IS_EVENT_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), CSPI_EVENT_LISTENER_TYPE))
 
-typedef struct _CSpiEventListener CSpiEventListener;
 struct _CSpiEventListener {
 	SpiEventListener parent;
 	GList           *callbacks;
 };
 typedef SpiEventListenerClass CSpiEventListenerClass;
 
-GType              cspi_event_listener_get_type        (void);
-CSpiEventListener *cspi_event_listener_new             (void);
-void               cspi_event_listener_add_callback    (CSpiEventListener        *listener,
-							AccessibleEventListenerCB callback,
-							void                     *user_data);
-void               cspi_event_listener_remove_callback (CSpiEventListener        *listener,
-							AccessibleEventListenerCB callback);
+GType cspi_event_listener_get_type (void);
 
 #define CSPI_KEYSTROKE_LISTENER_TYPE        (cspi_keystroke_listener_get_type ())
 #define CSPI_KEYSTROKE_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), CSPI_KEYSTROKE_LISTENER_TYPE, CSpiKeystrokeListener))
@@ -35,20 +28,13 @@ void               cspi_event_listener_remove_callback (CSpiEventListener       
 #define CSPI_IS_KEYSTROKE_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSPI_KEYSTROKE_LISTENER_TYPE))
 #define CSPI_IS_KEYSTROKE_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), CSPI_KEYSTROKE_LISTENER_TYPE))
 
-typedef struct _CSpiKeystrokeListener CSpiKeystrokeListener;
 struct _CSpiKeystrokeListener {
 	SpiKeystrokeListener parent;
 	GList               *callbacks;
 };
 typedef SpiKeystrokeListenerClass CSpiKeystrokeListenerClass;
 
-GType                  cspi_keystroke_listener_get_type        (void);
-CSpiKeystrokeListener *cspi_keystroke_listener_new             (void);
-void                   cspi_keystroke_listener_add_callback    (CSpiKeystrokeListener        *listener,
-								AccessibleKeystrokeListenerCB callback,
-								void                         *user_data);
-void                   cspi_keystroke_listener_remove_callback (CSpiKeystrokeListener        *listener,
-								AccessibleKeystrokeListenerCB callback);
+GType cspi_keystroke_listener_get_type (void);
 
 G_END_DECLS
 
