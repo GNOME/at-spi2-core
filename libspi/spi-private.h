@@ -47,7 +47,7 @@ void spi_re_entrant_list_foreach     (GList         **list,
 				      gpointer        user_data);
 void spi_init_any_nil                (CORBA_any *any);
 void spi_init_any_string             (CORBA_any *any, char **string);
-void spi_init_any_object             (CORBA_any *any, CORBA_Object o);
+void spi_init_any_object             (CORBA_any *any, CORBA_Object *o);
 
 G_END_DECLS
 

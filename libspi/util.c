@@ -114,12 +114,13 @@ spi_init_any_nil (CORBA_any *any)
 }
 
 void 
-spi_init_any_object (CORBA_any *any, CORBA_Object o)
+spi_init_any_object (CORBA_any *any, CORBA_Object *o)
 {
   CORBA_Environment ev;
   CORBA_exception_init (&ev);
+  
   any->_type = TC_CORBA_Object;
-  any->_value = CORBA_Object_duplicate (o, &ev);
+  any->_value = o;
   any->_release = FALSE;
   CORBA_exception_free (&ev);
 }

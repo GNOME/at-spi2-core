@@ -30,6 +30,7 @@
 #include <atk/atkobject.h>
 #include <atk/atknoopobject.h>
 #include <libspi/Accessibility.h>
+#include <libspi/spi-private.h>
 #include "accessible.h"
 #include "application.h"
 
@@ -62,10 +63,10 @@ static guint toplevel_handler;
 
 static guint atk_signal_text_changed;
 static guint atk_signal_child_changed;
+static guint atk_signal_active_descendant_changed;
 
 /* NOT YET USED
    static guint atk_signal_text_selection_changed;
-   static guint atk_signal_active_descendant_changed;
    static guint atk_signal_row_reordered;
    static guint atk_signal_row_inserted;
    static guint atk_signal_row_deleted;
@@ -128,6 +129,9 @@ spi_atk_bridge_init_event_type_consts ()
 					      ATK_TYPE_OBJECT);
   atk_signal_text_changed = g_signal_lookup ("text_changed", 
 					     ATK_TYPE_TEXT);
+  atk_signal_active_descendant_changed = 
+         g_signal_lookup ("active_descendant_changed", 
+		          ATK_TYPE_OBJECT);
 }
 
 static int
@@ -317,6 +321,7 @@ spi_atk_register_event_listeners (void)
 
   add_signal_listener ("Gtk:AtkObject:children-changed");
   add_signal_listener ("Gtk:AtkObject:visible-data-changed");
+  add_signal_listener ("Gtk:AtkObject:active-descendant-changed");
   add_signal_listener ("Gtk:AtkSelection:selection-changed");
   add_signal_listener ("Gtk:AtkText:text-selection-changed");
   add_signal_listener ("Gtk:AtkText:text-changed");
@@ -488,7 +493,7 @@ spi_atk_emit_eventv (const GObject         *gobject,
       e.detail2 = detail2;
       if (any) e.any_data = *any;
       else spi_init_any_nil (&e.any_data);
-      
+
 #ifdef SPI_BRIDGE_DEBUG
       s = Accessibility_Accessible__get_name (BONOBO_OBJREF (source), &ev);
       g_warning ("Emitting event '%s' (%lu, %lu) on %s",
@@ -586,7 +591,6 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   return TRUE;
 }
 
-
 static void
 spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 				       AtkKeyEventStruct          *event)
@@ -673,59 +677,6 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
   return result;
 }
 
-
-static void
-spi_atk_signal_emit_event (const GObject *gobject, 
-			   const GSignalQuery *signal_query,
-			   long detail1, 
-			   long detail2,
-			   const gchar *name, 
-			   const gchar *detail)
-{
-  CORBA_any any;
-  CORBA_char *sp = NULL;
-  AtkObject *ao;
-
-  if (signal_query->signal_id == atk_signal_text_changed)
-    {
-      sp = atk_text_get_text (ATK_TEXT (gobject),
-			      detail1,
-			      detail1+detail2);
-      spi_init_any_string (&any, &sp);
-    }
-#ifdef EXTENDED_OBJECT_EVENTS_ARE_WORKING
-  else if ((signal_query->signal_id == atk_signal_child_changed) && gobject)
-    {
-      ao = atk_object_ref_accessible_child (ATK_OBJECT (gobject), 
-					    detail1);
-      if (ao) 
-	{
-	  spi_init_any_object (&any, ao); 
-	  atk_object_unref (ao);
-	}
-      else
-	{
-	  spi_init_any_nil (&any);
-	}
-    }
-#endif
-  else
-    {
-      spi_init_any_nil (&any);
-    }
-
-  if (detail)
-    spi_atk_emit_eventv (gobject, detail1, detail2, &any,
-			 "object:%s:%s", name, detail);
-  else
-    spi_atk_emit_eventv (gobject, detail1, detail2, &any,
-			 "object:%s", name);
-  if (sp)
-    g_free (sp);
-}
-
-
-
 static gboolean
 spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 				guint n_param_values,
@@ -736,9 +687,12 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   GSignalQuery signal_query;
   const gchar *name;
   const gchar *detail;
-  CORBA_char *sp;
-  
+  CORBA_any any;
+  CORBA_Object c_obj;
+  char *sp = NULL;
+  AtkObject *ao;
   gint detail1 = 0, detail2 = 0;
+  SpiAccessible *s_ao = NULL;
 #ifdef SPI_BRIDGE_DEBUG
   const gchar *s, *s2;
 #endif 
@@ -760,14 +714,66 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 #endif
   
   gobject = g_value_get_object (param_values + 0);
-  if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
-    detail1 = g_value_get_int (param_values + 1);
-  if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
-    detail2 = g_value_get_int (param_values + 2);
-  
-  spi_atk_signal_emit_event (gobject, &signal_query,
-			     detail1, detail2,
-			     name, detail);
+
+  if (signal_query.signal_id == atk_signal_active_descendant_changed)
+    {
+      gpointer child = g_value_get_pointer (param_values + 1);
+
+      g_return_val_if_fail (ATK_IS_OBJECT (child), TRUE);
+
+      ao = ATK_OBJECT (child);
+
+      detail1 = atk_object_get_index_in_parent (ao);
+      s_ao = spi_accessible_new (ao);
+      c_obj = BONOBO_OBJREF (s_ao);
+      spi_init_any_object (&any, &c_obj);
+    }
+  else
+    {
+      if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
+        detail1 = g_value_get_int (param_values + 1);
+      if (G_VALUE_TYPE (param_values + 2) == G_TYPE_INT)
+        detail2 = g_value_get_int (param_values + 2);
+
+      if (signal_query.signal_id == atk_signal_text_changed)
+        {
+          sp = atk_text_get_text (ATK_TEXT (gobject),
+	    		          detail1,
+			          detail1+detail2);
+          spi_init_any_string (&any, &sp);
+        }
+      else if ((signal_query.signal_id == atk_signal_child_changed) && gobject)
+        {
+          ao = atk_object_ref_accessible_child (ATK_OBJECT (gobject), 
+					        detail1);
+          if (ao) 
+	    {
+              s_ao = spi_accessible_new (ao);
+              c_obj = BONOBO_OBJREF (s_ao);
+              spi_init_any_object (&any, &c_obj);
+	      g_object_unref (ao);
+	    }
+          else
+	    {
+	      spi_init_any_nil (&any);
+	    }
+        }
+      else
+        {
+	  spi_init_any_nil (&any);
+        }
+    }
+
+  if (detail)
+    spi_atk_emit_eventv (gobject, detail1, detail2, &any,
+			 "object:%s:%s", name, detail);
+  else
+    spi_atk_emit_eventv (gobject, detail1, detail2, &any,
+			 "object:%s", name);
+
+  if (sp)
+    g_free (sp);
+
   return TRUE;
 }
 
@@ -799,7 +805,7 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   gobject = g_value_get_object (param_values + 0);
 
   s = atk_object_get_name (ATK_OBJECT (gobject));
-  spi_init_any_string (&any, &s);
+  spi_init_any_string (&any, (char **) &s);
   
   spi_atk_emit_eventv (gobject, 0, 0, &any,
 		       "window:%s", name);

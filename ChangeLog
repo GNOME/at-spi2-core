@@ -1,3 +1,22 @@
+2002-12-09  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_init_event_type_consts): Store signal id for
+	active-descendant-changed signal.
+	(spi_atk_register_event_listeners): Add signal listener for
+	active-descendant-changed signal,
+	(spi_atk_bridge_signal_listener): Move code in function 
+	spi_atk-signal_emit_event() into this function.
+	Add support for active-descendant-changed
+	Update support for child-changed signal.
+	(spi_bridge_window_event_listener): Silence warning.
+
+	* libspi/spi_private.[ch]:
+	(spi_init_any_object): Change second parameter from CORBA_Object to
+	CORBA_Object*.
+	Omit call to CORBA_Object_duplicate(). 
+	Set CORBA_any's _value to CORBA_Object*.	
+
 2002-12-06  Bill Haneman  <bill.haneman@sun.com>
 
 	* configure.in:
@@ -50,6 +69,7 @@
 	(spi_dec_button_update_and_emit): 
 	Fixed type in mask bit operations; fix for #99799.
 	
+>>>>>>> 1.266
 2002-12-02  Bill Haneman  <bill.haneman@sun.com>
 
 	Removed some of the more dangerous workarounds from
