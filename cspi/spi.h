@@ -801,6 +801,28 @@ SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
 char*        AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e);
 Accessible * AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e);
 
+Accessible * AccessibleParentChangedEvent_getParentAccessible (const AccessibleEvent *e);
+
+char*        AccessibleTextSelectionChangedEvent_getSelectionString (const AccessibleEvent *e);
+
+char*        AccessibleWindowEvent_getTitleString (const AccessibleEvent *e);
+
+Accessible * AccessibleActiveDescendantChangedEvent_getActiveDescendant (const AccessibleEvent *e);
+
+Accessible * AccessibleTableSummaryChangedEvent_getSummaryAccessible (const AccessibleEvent *e); 
+
+Accessible * AccessibleTableHeaderChangedEvent_getHeaderAccessible (const AccessibleEvent *e);
+
+char *       AccessibleTableCaptionChangedEvent_getCaptionString (const AccessibleEvent *e);
+
+char *       AccessibleTableRowDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e);
+
+char *       AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e);
+
+char *       AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e);
+
+char *       AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e);
+
 /* Misc methods */
 void SPI_freeString (char *s);
 

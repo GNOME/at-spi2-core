@@ -361,7 +361,6 @@ cspi_internal_event_get_object (const InternalEvent *e)
     return NULL;
 }
 
-
 /**
  * AccessibleTextChangedEvent_getChangeString:
  * @event: a pointer to the #AccessibleEvent being queried.
@@ -374,6 +373,41 @@ cspi_internal_event_get_object (const InternalEvent *e)
  **/
 char *
 AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e)
+{
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (foo);
+}
+
+/**
+ * AccessibleTextSelectionChangedEvent_getSelectionString:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:text-selection-changed", 
+ *         returning the newly added, removed, or modified selection string.
+ *
+ * Returns: a UTF-8 text string indicating the recently changed selection.
+ **/
+char *
+AccessibleTextSelectionChangedEvent_getSelectionString (const AccessibleEvent *e)
+{
+  const InternalEvent *foo = (InternalEvent *) e;
+  /* TODO: check the event type? expensive... */
+  return cspi_internal_event_get_text (foo);
+}
+
+/**
+ * AccessibleWindowEvent_getTitleString:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "window:", 
+ *         returning the window title.
+ *
+ * Returns: a UTF-8 text string representing the title of the 
+ *         recently changed window.
+ **/
+char *
+AccessibleWindowEvent_getTitleString (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
   /* TODO: check the event type? expensive... */
@@ -399,5 +433,77 @@ AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e)
 {
   const InternalEvent *foo = (InternalEvent *) e;
   return (Accessible *) cspi_internal_event_get_object (foo);
+}
+
+/**
+ * AccessibleParentChangedEvent_getParentAccessible:
+ * @event: a pointer to the #AccessibleEvent being queried.
+ *
+ * Queries an #AccessibleEvent of type "object:parent_changed"
+ *         to get a reference to the changed #Accessible.
+ *         Note that context #Accessibles are not guaranteed to outlive
+ *         event delivery, in which case this call may return %NULL
+ *         even if the object existed at the time of dispatch.
+ *
+ * Returns: an #Accessible pointer representing the new parent object.
+ **/
+Accessible *
+AccessibleParentChangedEvent_getParentAccessible (const AccessibleEvent *e)
+{
+  const InternalEvent *foo = (InternalEvent *) e;
+  return (Accessible *) cspi_internal_event_get_object (foo);
+}
+
+/** NEED TO DOCUMENT THESE **/
+
+Accessible *
+AccessibleActiveDescendantChangedEvent_getActiveDescendant (const AccessibleEvent *e) 
+{
+  const InternalEvent *foo = (InternalEvent *) e;
+  return (Accessible *) cspi_internal_event_get_object (foo);
+}
+
+Accessible *
+AccessibleTableSummaryChangedEvent_getSummaryAccessible (const AccessibleEvent *e) 
+{
+  const InternalEvent *foo = (InternalEvent *) e;
+  return (Accessible *) cspi_internal_event_get_object (foo);
+}
+
+Accessible *
+AccessibleTableHeaderChangedEvent_getHeaderAccessible (const AccessibleEvent *e)
+{
+  return NULL;
+}
+
+
+char *
+AccessibleTableCaptionChangedEvent_getCaptionString (const AccessibleEvent *e)
+{
+  return NULL;
+}
+
+char *
+AccessibleTableRowDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
+{
+  return NULL;
+}
+
+char *
+AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
+{
+  return NULL;
+}
+
+char *
+AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e)
+{
+  return NULL;
+}
+
+char *
+AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e)
+{
+  return NULL;
 }
 
