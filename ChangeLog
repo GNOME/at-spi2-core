@@ -1,5 +1,10 @@
 2001-12-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atk.def:
+	Add new functions
+
+2001-12-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	Add new files atk/atkgobjectaccessible.c atk/atkgobjectaccessible.h
 	docs/tmpl/atkgobjectaccessible.sgml
 

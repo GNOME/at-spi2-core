@@ -40,6 +40,9 @@ EXPORTS
 	atk_get_root
 	atk_get_toolkit_name
 	atk_get_toolkit_version
+	atk_gobject_accessible_get_object
+	atk_gobject_accessible_get_type
+	atk_gobject_accessible_for_object
 	atk_hyperlink_get_end_index
 	atk_hyperlink_get_n_anchors
 	atk_hyperlink_get_object
@@ -66,6 +69,7 @@ EXPORTS
 	atk_no_op_object_new
 	atk_object_connect_property_change_handler
 	atk_object_factory_create_accessible
+	atk_object_factory_get_accessible_type
 	atk_object_factory_get_type
 	atk_object_factory_invalidate
 	atk_object_get_description
@@ -77,6 +81,7 @@ EXPORTS
 	atk_object_get_parent
 	atk_object_get_role
 	atk_object_get_type
+	atk_object_initialize
 	atk_object_notify_state_change
 	atk_object_ref_accessible_child
 	atk_object_ref_relation_set
