@@ -1,6 +1,28 @@
+2002-06-20  Bill Haneman  <bill.haneman@sun.com>
+
+	* cspi/spi_main.c: [fix for bug 85980]
+	(cspi_object_ref):
+	Replaced use of bonobo_object_dup_ref with call to the wrapper
+	method, csou_dup_ref (); this silences a compiler warning and
+	provided more portability.
+	(cspi_registry):
+	Ping the registry before return, and restart if necessary.
+
+	* cspi/bonobo/cspi-bonobo.c:
+	(cspi_ping):
+	New internal method.
+	(cspi_dup_ref):
+	Fixed this method to return an object reference, as it should have
+	all along.
+
+	* cspi/cspi-lowlevel.h:
+	Added internal definition for cspi_ping() and fixed 
+	return type of cspi_dup_ref().
+	
+
 2002-06-19  Bill Haneman  <bill.haneman@sun.com>
 
-	* atk-bridge/bridge.c:	[partial fix for bug 85305]
+	* atk-bridge/bridge.c:	[fix for bug 85305]
 	(spi_atk_bridge_register_application):
 	New method where the initial application registry calls have been
 	moved; it allows an application to re-register in response to

@@ -24,10 +24,10 @@
 #include <libbonobo.h>
 #include "../cspi-lowlevel.h"
 
-void
+CORBA_Object
 cspi_dup_ref (CORBA_Object object)
 {
-  bonobo_object_dup_ref (object, NULL);
+  return bonobo_object_dup_ref (object, NULL);
 }
 
 void
@@ -107,6 +107,12 @@ cspi_init (void)
   bonobo_activate ();
 
   return registry;
+}
+
+SPIBoolean
+cspi_ping (CORBA_Object object)
+{
+	return bonobo_unknown_ping (object, NULL);
 }
 
 void

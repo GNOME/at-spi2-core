@@ -35,10 +35,11 @@
 /* Misc CORBA / bonobo bits */
 
 SPIBoolean   cspi_check_ev           (const char *error_string);
-void         cspi_dup_ref            (CORBA_Object object);
+CORBA_Object cspi_dup_ref            (CORBA_Object object);
 void         cspi_release_unref      (CORBA_Object object);
 char        *cspi_exception_get_text (void);
 CORBA_Object cspi_init               (void);
+SPIBoolean   cspi_ping               (CORBA_Object object);
 void         cspi_main               (void);
 void         cspi_main_quit          (void);
 

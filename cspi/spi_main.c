@@ -128,13 +128,14 @@ cspi_get_live_refs (void)
 CORBA_Environment *
 cspi_ev (void)
 {
-  /* This method is an ugly hack */
   return &ev;
 }
 
 Accessibility_Registry
 cspi_registry (void)
 {
+  if (!cspi_ping (registry))
+	  registry = cspi_init ();
   return registry;
 }
 
@@ -238,8 +239,8 @@ cspi_object_ref (Accessible *accessible)
   g_return_if_fail (accessible != NULL);
 
   if (g_hash_table_lookup (cspi_get_live_refs (), accessible->objref) == NULL) {
-	  accessible->objref = bonobo_object_dup_ref (accessible->objref, cspi_ev ());
-	  g_hash_table_insert (cspi_get_live_refs (), accessible->objref, accessible);	  
+	  accessible->objref = cspi_dup_ref (accessible->objref);
+	  g_hash_table_insert (cspi_get_live_refs (), accessible->objref, accessible);
   } else {
 	  accessible->ref_count++;
   }
