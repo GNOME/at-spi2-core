@@ -81,7 +81,10 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
   for (n=0; n<len; ++n)
     {
       cb =  (VoidEventListenerCB) g_list_nth_data (listener->callbacks, n);
-      (*cb) (NULL);
+      if (cb)
+        {
+          (*cb) (NULL);
+        }
     }
   bonobo_object_release_unref (e->target, ev);
 }
@@ -151,11 +154,11 @@ accessible_event_listener_new ()
 void   accessible_event_listener_add_callback (AccessibleEventListener *listener,
                                                VoidEventListenerCB callback)
 {
-  listener->callbacks = g_list_append (listener->callbacks, listener);
+  listener->callbacks = g_list_append (listener->callbacks, callback);
 }
 
 void   accessible_event_listener_remove_callback (AccessibleEventListener *listener,
                                                   VoidEventListenerCB callback)
 {
-  listener->callbacks = g_list_remove (listener->callbacks, listener);
+  listener->callbacks = g_list_remove (listener->callbacks, callback);
 }

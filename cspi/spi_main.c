@@ -93,6 +93,7 @@ CreateEventListener (AccessibleEventListenerCB callback)
     {
       accessible_event_listener_add_callback (listener, callback);
     }
+  return listener;
 }
 
 boolean
@@ -220,7 +221,7 @@ Accessible_getParent (Accessible *obj)
 long
 Accessible_getChildCount (Accessible *obj)
 {
-  return Accessibility_Accessible_getChildCount (*obj, &ev);
+  return Accessibility_Accessible__get_childCount (*obj, &ev);
 }
 
 Accessible *
@@ -293,7 +294,7 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
 long
 AccessibleApplication_getID (AccessibleApplication *obj)
 {
-  return Accessibility_Application__getID (*obj, &ev);
+  return Accessibility_Application__get_id (*obj, &ev);
 }
 
 /* Not Yet Implemented */

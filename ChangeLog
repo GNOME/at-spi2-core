@@ -1,5 +1,17 @@
 2001-08-18  Bill Haneman <bill.haneman@sun.com>
 
+	* Makefile.am : changed build order to build test last.
+	* cspi/spi.h :
+	* cspi/spi_main.c :
+	Changed "createEventListener" to "CreateEventListener".
+	* libspi/accessibleeventlistener.c :
+	Bugfix for addition of callbacks.
+	* test/Makefile.am :
+	* test/simple-at.c :
+	Added new test that uses the C bindings API.
+
+2001-08-18  Bill Haneman <bill.haneman@sun.com>
+
 	* Makefile.am: 
 	* configure.in :
 	* cspi/Makefile.am :

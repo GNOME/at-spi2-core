@@ -79,7 +79,7 @@ SPI_exit (void);
  */
 
 AccessibleEventListener *
-createEventListener (AccessibleEventListenerCB callback);
+CreateEventListener (AccessibleEventListenerCB callback);
 
 boolean
 EventListener_addCallback (AccessibleEventListener *listener,
