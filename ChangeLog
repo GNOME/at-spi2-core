@@ -1,3 +1,7 @@
+2001-07-25  Bill Haneman <bill.haneman@sun.com>
+
+	* initial CVS checkin
+
 2001-06-29  Michael Meeks  <michael@ximian.com>
 
 	* configure.in: add AM_CONFIG_HEADER to gen config.h
