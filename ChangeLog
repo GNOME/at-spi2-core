@@ -1,3 +1,11 @@
+Thu Mar  7 23:52:51 2002  Owen Taylor  <otaylor@redhat.com>
+
+        * ===== Released 1.0.0 ======
+
+	* NEWS: Final update for 1.0.0.
+
+	* README: Update the compilation instructions a bit.
+
 2002-03-06  Tor Lillqvist  <tml@iki.fi>
 
 	* atk-zip.sh.in
