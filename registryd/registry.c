@@ -741,8 +741,9 @@ registry_defer_on_event (SpiRegistry *registry, NotifyContext *ctx)
     registry_start_queue (registry);
   }
   /* defer all object:state-change events after a window:deactivate */
-  else if ((ctx->etype.type_cat == ETYPE_OBJECT) && 
-	   (ctx->etype.major == _state_quark)) {
+  else if ((ctx->etype.type_cat == ETYPE_FOCUS) ||
+	   ((ctx->etype.type_cat == ETYPE_OBJECT) && 
+	   (ctx->etype.major == _state_quark))) {
     defer = TRUE;
   }
   return defer;

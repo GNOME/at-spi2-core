@@ -2,6 +2,8 @@
 
 	* registryd/registry.c: 
 	(spi_registry_object_finalize): Unref the deviceeventcontroller.
+	(registry_defer_on_event): Defer focus: events, this is an
+	improvement to the patch for bug #108664.
 
 	* TODO: Update with 2.4/"Dev Complete" items.
 
