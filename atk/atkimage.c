@@ -69,30 +69,43 @@ atk_image_get_image_description (AtkImage *image)
 /**
  * atk_image_get_image_size:
  * @image: a #GObject instance that implements AtkImageIface
- * @height: filled with the image height
  * @width: filled with the image width
+ * @height: filled with the image height
  *
- * Get the height and width in pixels for the specified image.
- * The values of @height and @width are returned as -1 if the
+ * Get the wdith and height in pixels for the specified image.
+ * The values of @width and @height are returned as -1 if the
  * values cannot be obtained.
  **/
 void
-atk_image_get_image_size (AtkImage *image, int *height, int *width)
+atk_image_get_image_size (AtkImage *image, 
+                          int      *width,
+                          int      *height)
 {
   AtkImageIface *iface;
+  gint local_width, local_height;
+  gint *real_width, *real_height;
 
   g_return_if_fail (ATK_IS_IMAGE (image));
 
+  if (width)
+    real_width = width;
+  else
+    real_width = &local_width;
+  if (height)
+    real_height = height;
+  else
+    real_height = &local_height;
+  
   iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_size)
   {
-    iface->get_image_size (image, height, width);
+    iface->get_image_size (image, real_width, real_height);
   }
   else
   {
-    *height = -1;
     *width = -1;
+    *height = -1;
   }
 }
 
@@ -108,7 +121,7 @@ atk_image_get_image_size (AtkImage *image, int *height, int *width)
  **/
 gboolean
 atk_image_set_image_description (AtkImage        *image,
-                              const gchar     *description)
+                                 const gchar     *description)
 {
   AtkImageIface *iface;
 
@@ -145,6 +158,21 @@ atk_image_get_image_position (AtkImage *image,
     		        AtkCoordType coord_type)
 {
   AtkImageIface *iface;
+  gint local_x, local_y;
+  gint *real_x, *real_y;
+
+  g_return_if_fail (ATK_IS_IMAGE (image));
+
+  if (x)
+    real_x = x;
+  else
+    real_x = &local_x;
+  if (y)
+    real_y = y;
+  else
+    real_y = &local_y;
+  
+  iface = ATK_IMAGE_GET_IFACE (image);
 
   g_return_if_fail (ATK_IS_IMAGE (image));
 
@@ -152,7 +180,7 @@ atk_image_get_image_position (AtkImage *image,
 
   if (iface->get_image_position)
   {
-    (iface->get_image_position) (image, x, y, coord_type);
+    (iface->get_image_position) (image, real_x, real_y, coord_type);
   }
   else
   {
@@ -160,9 +188,3 @@ atk_image_get_image_position (AtkImage *image,
     *y = -1;
   }
 }
-
-
-
-
-
-
