@@ -207,6 +207,8 @@ test_table (AccessibleTable *table)
 
 	g_assert (AccessibleTable_getColumnHeader (table, 0)); /* maybe bogus assertion */
 
+	AccessibleTable_isSelected (table, 0, 0); /* no assertion, but see if warnings are thrown */
+	
 	/* FIXME: lots more tests */
 }
 
@@ -231,8 +233,6 @@ test_text (AccessibleText *text)
 	AccessibleText_setCaretOffset (text, 7);
 	g_assert (AccessibleText_getCaretOffset (text) == 7);
 
-	AccessibleText_isSelected (text, 0, 0); /* no assertion, but see if warnings are thrown */
-	
 	/* FIXME: lots more tests - selections etc. etc. */
 }
 
