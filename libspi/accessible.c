@@ -405,6 +405,28 @@ impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
     return CORBA_string_dup ("");
 }
 
+/*
+ * CORBA Accessibility::Accessible::getLocalizedRole method implementation
+ */
+static CORBA_char *
+impl_accessibility_accessible_get_local_role_name (PortableServer_Servant servant,
+						   CORBA_Environment     *ev)
+{
+  const gchar     *role_name;
+  AtkRole    role;
+  AtkObject *object = get_atkobject_from_servant (servant);
+
+  g_return_val_if_fail (object != NULL, 0);
+
+  role = atk_object_get_role (object);
+
+  role_name = atk_role_get_localized_name (role);
+  if (role_name)
+    return CORBA_string_dup (role_name);
+  else
+    return CORBA_string_dup ("");
+}
+
 static void
 spi_accessible_class_init (SpiAccessibleClass *klass)
 {
@@ -424,6 +446,7 @@ spi_accessible_class_init (SpiAccessibleClass *klass)
         epv->getState = impl_accessibility_accessible_get_state;
         epv->getRole = impl_accessibility_accessible_get_role;
         epv->getRoleName = impl_accessibility_accessible_get_role_name;
+	epv->getLocalizedRoleName = impl_accessibility_accessible_get_local_role_name;
 }
 
 static void

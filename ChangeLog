@@ -1,5 +1,24 @@
 2003-12-01  Bill Haneman <billh@gnome.org>
 
+	Fix for bug/rfe #127463.
+	
+	* idl/Accessibility_Accessible.idl:
+	(getLocalizedRoleName): New.
+	(unimplemented4): Removed (replaced by above).
+
+	* libspi/accessible.c:
+	(impl_accessibility_accessible_get_local_role_name): New.
+	(spi_accessible_class_init): Add getLocalizedRoleName entry to
+	epv.
+	
+	* cspi/spi.h:
+	(Accessible_getLocalizedRoleName): New.
+
+	* cspi/spi_accessible.c:
+	(Accessible_getLocalizedRoleName): New.
+	
+2003-12-01  Bill Haneman <billh@gnome.org>
+	
 	Fix for bug #118581.
 	* idl/Accessibility_Text.idl:
 	(getDefaultAttributes): New.

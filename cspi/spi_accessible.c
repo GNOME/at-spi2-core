@@ -499,6 +499,32 @@ Accessible_getRoleName (Accessible *obj)
 }
 
 /**
+ * Accessible_getLocalizedRoleName:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get a UTF-8 string describing the (localized) role this object plays in the UI.
+ * This method will return useful values for roles that fall outside the
+ * enumeration used in Accessible_getRole ().
+ *
+ * Returns: a UTF-8 string specifying the role of this #Accessible object.
+ *
+ **/
+char *
+Accessible_getLocalizedRoleName (Accessible *obj)
+{
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, CORBA_string_dup ("invalid"));
+
+  retval = 
+    Accessibility_Accessible_getLocalizedRoleName (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getLocalizedRoleName", CORBA_string_dup ("invalid")); 
+
+  return retval;
+}
+
+/**
  * Accessible_getStateSet:
  * @obj: a pointer to the #Accessible object on which to operate.
  *

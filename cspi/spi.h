@@ -405,6 +405,7 @@ long                 Accessible_getIndexInParent (Accessible *obj);
 AccessibleRelation **Accessible_getRelationSet   (Accessible *obj);
 AccessibleRole       Accessible_getRole          (Accessible *obj);
 char *               Accessible_getRoleName      (Accessible *obj);
+char *               Accessible_getLocalizedRoleName (Accessible *obj);
 AccessibleStateSet * Accessible_getStateSet      (Accessible *obj);
 
 /* Interface query methods */

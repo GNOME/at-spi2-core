@@ -118,6 +118,15 @@ module Accessibility {
     string		getRoleName ();
 
     /**
+     * getLocalizedRoleName:
+     * Get a string indicating the type of UI role played by this object,
+     * translated to the current locale.
+     *
+     * Returns: a UTF-8 string indicating the type of UI role played by this object.
+     **/
+    string		getLocalizedRoleName ();
+
+    /**
      * getState:
      *
      * Get the current state of the object as a @StateSet.
@@ -128,7 +137,6 @@ module Accessibility {
     void        unImplemented ();
     void        unImplemented2 ();
     void        unImplemented3 ();
-    void        unImplemented4 ();
   };
 };
 
