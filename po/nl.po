@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-27 03:03+0100\n"
-"PO-Revision-Date: 2004-01-27 13:35+0100\n"
+"POT-Creation-Date: 2004-07-31 10:57+0200\n"
+"PO-Revision-Date: 2004-07-31 12:02+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -351,71 +351,75 @@ msgstr "auto-afmaken"
 msgid "edit bar"
 msgstr "bewerkingsbalk"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "ingebedde component"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Toegankelijke naam"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "Naam van dit object, speciaal opgemaakt voor toegang van ondersteunende "
 "technologie"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Toekankelijke beschrijving"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "Beschrijving van dit object, speciaal opgemaakt voor toegang van "
 "ondersteunende technologie"
 
-#: atk/atkobject.c:309
+#: atk/atkobject.c:310
 msgid "Accessible Parent"
 msgstr "Toegankelijke ouder"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:311
 msgid "Is used to notify that the parent has changed"
 msgstr "Wordt gebruikt om aan te geven dat de ouder is veranderd"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Toegankelijke waarde"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
 msgstr "Wordt gebruikt om aan te geven dat de waarde is veranderd"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Toegankelijke rol"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "De toegankelijke rol van dit object"
 
-#: atk/atkobject.c:334
+#: atk/atkobject.c:335
 msgid "Accessible Layer"
 msgstr "Toegankelijke laag"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:336
 msgid "The accessible layer of this object"
 msgstr "De toegankelijke laag van dit object"
 
-#: atk/atkobject.c:343
+#: atk/atkobject.c:344
 msgid "Accessible MDI Value"
 msgstr "Toegankelijke MDI-waarde"
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr "De toegankelijke MDI-waarde van dit object"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:353
 msgid "Accessible Table Caption"
 msgstr "Toegankelijke tabeltitel"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -423,58 +427,58 @@ msgstr ""
 "Wordt gebruikt om aan te geven dat de tabeltitel is veranderd (niet "
 "gebruiken). U kunt beter accessible-table-caption-object gebruiken."
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
 msgstr "Toegankelijke tabel kolomtitel"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr "Wordt gebruikt om aan te geven dat de kolomtitel is veranderd"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:367
 msgid "Accessible Table Column Description"
 msgstr "Toegankelijke kolombeschrijving"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr "Wordt gebruikt om aan te geven dat de kolombeschrijving is veranderd"
 
-#: atk/atkobject.c:373
+#: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
 msgstr "Toegankelijke rijtitel"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr "Wordt gebruikt om aan te geven dat de rijtitel is veranderd"
 
-#: atk/atkobject.c:380
+#: atk/atkobject.c:381
 msgid "Accessible Table Row Description"
 msgstr "Toegankelijke rijbeschrijving"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr "Wordt gebruikt om aan te geven dat de rijbeschrijving is veranderd"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:388
 msgid "Accessible Table Summary"
 msgstr "Toegankelijke tabelsamenvatting"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:389
 msgid "Is used to notify that the table summary has changed"
 msgstr "Wordt gebruikt om aan te geven dat de tabelsamenvatting is veranderd"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
 msgstr "Toegankelijk tabeltitelobject"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
 msgstr "Wordt gebruikt om aan te geven dat de tabeltitel is veranderd"
 
-#: atk/atkobject.c:401
+#: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
 msgstr "Aantal toegankelijke hypertext links"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Het huidig aantal links van de huidige AtkHypertext"
