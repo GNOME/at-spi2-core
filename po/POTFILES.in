@@ -1,3 +1,4 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
+atk-bridge/bridge.c
 registryd/Accessibility_Registry.server.in.in
