@@ -1,3 +1,9 @@
+2002-03-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkutil.c (atk_focus_tracker_notify):
+	Do not do notification if previously notified object is the same as
+	this object
+
 2002-03-14  Tor Lillqvist  <tml@iki.fi>
 
 	* atk/Makefile.am: Use correct name for the DLL when generating

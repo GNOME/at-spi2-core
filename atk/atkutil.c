@@ -174,11 +174,21 @@ void
 atk_focus_tracker_notify (AtkObject       *object)
 {
   FocusTracker *item;
+  static AtkObject *previous_focus_object = NULL;
   guint i;
 
   if (trackers == NULL)
     return;
 
+  if (object == previous_focus_object)
+    return;
+  else
+    {
+      if (previous_focus_object)
+        g_object_unref (previous_focus_object);
+      previous_focus_object = g_object_ref (object);
+    }
+  
   for (i = 0; i < trackers->len; i++)
   {
     item = &g_array_index (trackers, FocusTracker, i);
