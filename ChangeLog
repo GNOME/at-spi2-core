@@ -1,5 +1,10 @@
 2002-03-13  Michael Meeks  <michael@ximian.com>
 
+	* atk-bridge/bridge.c (atk_bridge_init): don't register
+	if we're in a bonobo-component, rather than a bonobo app.
+
+2002-03-13  Michael Meeks  <michael@ximian.com>
+
 	* atk-bridge/bridge.c (gtk_module_init): split
 	out body to (atk_bridge_init): here, since otherwise
 	we get symbol conflicts and oddness when invoked

@@ -32,6 +32,8 @@
 #include "accessible.h"
 #include "application.h"
 
+#include <bonobo-activation/bonobo-activation-register.h>
+
 #undef SPI_BRIDGE_DEBUG
 
 static CORBA_Environment ev;
@@ -85,6 +87,15 @@ atk_bridge_init (gint *argc, gchar **argv[])
     {
       g_error ("Could not initialize Bonobo");
     }
+
+  /*
+   *   We only want to enable the bridge for top level
+   * applications, we detect bonobo components by seeing
+   * if they were activated with the intention of extracting
+   * an impl. by IID - very solid.
+   */
+  if (bonobo_activation_iid_get ())
+	  return 0;
 
   CORBA_exception_init(&ev);
 
