@@ -269,8 +269,9 @@ text_chunk_split_insert (GList *chunk_list, GList *iter, TextChunk *chunk)
 	TextChunk *iter_copy = text_chunk_copy (iter_chunk);
 	/* TODO: FIXME something is wrong here */
 #ifdef CLIP_DEBUG
-	fprintf (stderr, "***clip insert of %s into %s\n", chunk->string,
-		 iter_chunk->string);
+	fprintf (stderr, "***clip insert of %s into %s\n", 
+		 chunk->string ? chunk->string : "<null>",
+		 iter_chunk->string ? iter_chunk->string : "<null>");
 #endif	
 	chunk_list = g_list_insert_before (chunk_list, iter, iter_copy);
 	text_chunk_tail_clip (iter_copy, chunk);
@@ -346,10 +347,11 @@ text_chunk_list_clip_and_insert (GList *text_chunk_list,
 				 GList *next)
 {
 #ifdef CLIP_DEBUG
-	fprintf (stderr, "clip-and-insert for %s, between %s and %s\n",
-		 chunk->string,
-		 (prev ? ((TextChunk *)prev->data)->string : "<null>"),
-		 (next ? ((TextChunk *)next->data)->string : "<null>"));
+	if (chunk->string)
+		fprintf (stderr, "clip-and-insert for %s, between %s and %s\n",
+			 chunk->string,
+		 	 (prev && ((TextChunk *)prev->data)->string ? ((TextChunk *)prev->data)->string : "<null>"),
+		 	 (next && ((TextChunk *)next->data)->string ? ((TextChunk *)next->data)->string : "<null>"));
 #endif
 	/* cases: */
 	if (!prev && !next) { /* first element in, no clip needed */
@@ -699,7 +701,7 @@ review_buffer_composite (ScreenReviewBuffer *buffers[])
 			chunk = (TextChunk *) iter->data;
 			if (chunk) {
 				fprintf (stderr, "inserting chunk <%s>\n",
-					 chunk->string);
+					 chunk->string ? chunk->string : "<null>");
 				chunk_list =
 					text_chunk_list_insert_chunk (chunk_list,
 								      chunk);

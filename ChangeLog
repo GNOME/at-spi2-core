@@ -1,3 +1,7 @@
+2002-05-21  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* test/screen-review-test.c: Fix crashes in debug statements
+
 2002-05-13  Marc Mulcahy <marc.mulcahy@sun.com>
 
 	* atk-bridge/bridge.c: changed "object:state-change" to
