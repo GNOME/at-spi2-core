@@ -719,9 +719,12 @@ atk_object_notify_state_change (AtkObject *accessible,
                                 AtkState  state,
                                 gboolean  value)
 {
+#define N_TOGGLE_STATES 2
   AtkPropertyValues  values = { 0, };
-  AtkState toggle_states[] = { ATK_STATE_EXPANDED, ATK_STATE_COLLAPSED };
-  AtkState toggled_states[] = { ATK_STATE_COLLAPSED, ATK_STATE_EXPANDED };
+  AtkState toggle_states[N_TOGGLE_STATES] = { ATK_STATE_EXPANDED, 
+                                              ATK_STATE_COLLAPSED };
+  AtkState toggled_states[N_TOGGLE_STATES] = { ATK_STATE_COLLAPSED, 
+                                               ATK_STATE_EXPANDED };
 
   values.property_name = atk_object_name_property_state;
   if (value)
@@ -731,7 +734,7 @@ atk_object_notify_state_change (AtkObject *accessible,
        g_value_init (&values.new_value, G_TYPE_INT);
        g_value_set_int (&values.new_value, state);
 
-       for (i = 0; i < sizeof (toggle_states); i ++)
+       for (i = 0; i < N_TOGGLE_STATES; i++)
          {
            if (toggle_states[i] == state)
              {

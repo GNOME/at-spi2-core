@@ -21,6 +21,8 @@
 
 #include <string.h>
 
+static guint type = ATK_STATE_LAST_DEFINED;
+
 #define NUM_POSSIBLE_STATES               (sizeof(AtkState)*8)
 
 static gchar* state_names[NUM_POSSIBLE_STATES] = {
@@ -67,8 +69,8 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
 AtkStateType
 atk_state_type_register (const gchar *name)
 {
-  static guint type = ATK_STATE_LAST_DEFINED;
-  if (type < NUM_POSSIBLE_STATES)
+
+  if (type < NUM_POSSIBLE_STATES -1)
   {
     state_names[++type] = g_strdup (name); 
     return (type);
@@ -89,14 +91,11 @@ atk_state_type_get_name (AtkStateType state)
 {
   gint n;
 
-  if (state == 0)
-    return NULL;
-
-  for (n=0; n<NUM_POSSIBLE_STATES; n++)
-  {
-    if (state == n) 
+  if (state < type)
+    {
+      n = state; 
       return state_names[n];
-  }
+    }
 
   return NULL;
 }
@@ -117,7 +116,7 @@ atk_state_type_for_name (const gchar *name)
   g_return_val_if_fail (name != NULL, 0);
   g_return_val_if_fail (strlen (name) > 0, 0);
 
-  for (i = 0; i < NUM_POSSIBLE_STATES; i++)
+  for (i = 0; i < type; i++)
   {
     if (state_names[i] == NULL)
       continue; 

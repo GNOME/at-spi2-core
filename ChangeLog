@@ -1,3 +1,13 @@
+2001-11-19  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c (atk_object_notify_state_change):
+	Fix bug in calculation of number of toggle states
+
+	* atk/atkstate.c:
+	Correct out-by-1 error in atk_state_type_register()
+	Use type (number of states defined) in atk_state_type_get_name()
+	and atk_state_type_for_name()
+	
 2001-11-17  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkeditabletext.c:
