@@ -22,6 +22,7 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include "../cspi/spi-private.h" /* A hack for now */
 
