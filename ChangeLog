@@ -1,3 +1,7 @@
+2004-05-03  Pablo Saratxaga  <pablo@mandrakesoft.com>
+
+	* configure.in: Added "wa" (Walloon) to ALL_LINGUAS.
+
 2004-04-28 Bill Haneman <billh@gnome.org>
 
 	* Makefile.am: Added --enable-gtk-doc to
@@ -30,7 +34,7 @@
 	
 2004-04-08  Guntupalli Karunakar  <karunakar@freedomink.org>
 
-        * configure.in: Added "gu" (Gujarati) to ALL_LINGUAS.
+	* configure.in: Added "gu" (Gujarati) to ALL_LINGUAS.
 
 2004-03-24  Alexander Winston  <alexander.winston@comcast.net>
 
@@ -160,7 +164,7 @@
 	* reverted most of Tomasz' patch below, since it was breaking
 	builds (see bug #134058).
 	
-2004-02-10  Tomasz K³oczko <kloczek@pld.org.pl>
+2004-02-10  Tomasz KÅ‚oczko <kloczek@pld.org.pl>
 
 	* docs/reference/cspi/at-spi-cspi.types: added empty file for
 	  correct pass "make dist" (empty .. because seems no sach types in
