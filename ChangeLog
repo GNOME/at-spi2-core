@@ -4,6 +4,10 @@
 	New file.  Explicitly allow "build sheriff" putbacks provided
 	they are tested on Solaris.
 	
+	* docs/reference/cspi/Makefile.am:
+	Added '-' to the "cp" command for index.sgml.
+	("patch by thomasvs, soon coming to a GUADEC near you")
+
 	* configure.in:
 	Incremented version number (0.9.0) for new release.
 	Changed macro that checks for popt, to better detect
