@@ -1,4 +1,10 @@
+2001-07-31  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c
+	Create an object relation set when the object is created.
+
 2001-07-30  Brian Cameron <brian.cameron@sun.com>
+
 	* atk/atkutil.[ch]
 	Changed first argument of atk_add_global_event_listener
 	so the callback function is of type GSignalEmissionHook

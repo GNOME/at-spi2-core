@@ -366,7 +366,7 @@ atk_object_init  (AtkObject        *accessible,
   accessible->name = NULL;
   accessible->description = NULL;
   accessible->accessible_parent = NULL;
-  accessible->relation_set = NULL;
+  accessible->relation_set = atk_relation_set_new();
   accessible->role = ATK_ROLE_UNKNOWN;
 }
 
@@ -780,8 +780,8 @@ atk_implementor_ref_accessible (AtkImplementor *object)
 static AtkRelationSet*
 atk_object_real_ref_relation_set (AtkObject *accessible)
 {
-  if (accessible->relation_set)
-    g_object_ref (accessible->relation_set); 
+  g_return_val_if_fail (accessible->relation_set, NULL);
+  g_object_ref (accessible->relation_set); 
 
   return accessible->relation_set;
 }
