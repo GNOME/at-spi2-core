@@ -66,15 +66,10 @@ atk_text_base_init (gpointer *g_class)
 
   if (! initialized)
     {
-/*
-    ATK_TEXT_GET_IFACE(g_class)->text_changed = 0;
-    ATK_TEXT_GET_IFACE(g_class)->caret_changed = 0;
-*/
-
-  /* 
-   * Note that text_changed signal supports details "insert", "delete", 
-   * possibly "replace". 
-   */
+   /* 
+    * Note that text_changed signal supports details "insert", "delete", 
+    * possibly "replace". 
+    */
 
     atk_text_signals[TEXT_CHANGED] =
       g_signal_newc ("text_changed",
@@ -106,6 +101,8 @@ atk_text_base_init (gpointer *g_class)
  * @start_offset: start position
  * @end_offset: end position
  *
+ * Gets the specified text.
+ *
  * Returns: the text from @start_offset up to, but not including @end_offset.
  **/
 gchar*
@@ -130,6 +127,8 @@ atk_text_get_text (AtkText      *text,
  * atk_text_get_character_at_offset
  * @text: an #AtkText
  * @offset: position
+ *
+ * Gets the specified text.
  *
  * Returns: the character at @offset.
  **/
@@ -156,7 +155,7 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
  *
- * Returns: the text after @offset up to the specified @boundary_type.
+ * Gets the specified text.
  * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
  * ATK_TEXT_BOUNDARY_WORD_END part of a word may be returned.
  * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the start point 
@@ -164,6 +163,8 @@ atk_text_get_character_at_offset (AtkText      *text,
  * The first word may not be a complete word. Similarly for 
  * ATK_TEXT_BOUNDARY_SENTENCE_END, ATK_TEXT_BOUNDARY_LINE_START and
  * ATK_TEXT_BOUNDARY_LINE_END
+ *
+ * Returns: the text after @offset up to the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
@@ -189,13 +190,15 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
  *
- * Returns: the text at @offset up to the specified @boundary_type.
+ * Gets the specified text.
  * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START or 
  * ATK_TEXT_BOUNDARY_WORD_END a complete word is returned; 
  * if the boundary type is  ATK_TEXT_BOUNDARY_SENTENCE_START or 
  * ATK_TEXT_BOUNDARY_SENTENCE_END a complete sentence
  * is returned; if the boundary type is ATK_TEXT_BOUNDARY_LINE_START or
  * ATK_TEXT_BOUNDARY_LINE_END a complete line is returned.
+ *
+ * Returns: the text at @offset up to the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
@@ -221,7 +224,7 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
  *
- * Returns: the text before @offset starting from the specified @boundary_type.
+ * Gets the specified text.
  * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
  * ATK_TEXT_BOUNDARY_WORD_END part of a word may be returned.
  * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the start point 
@@ -229,6 +232,8 @@ atk_text_get_text_at_offset (AtkText          *text,
  * The last word may not be a complete word. Similarly for 
  * ATK_TEXT_BOUNDARY_SENTENCE_END, ATK_TEXT_BOUNDARY_LINE_START and
  * ATK_TEXT_BOUNDARY_LINE_END
+ *
+ * Returns: the text before @offset starting from the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
@@ -252,7 +257,9 @@ atk_text_get_text_before_offset (AtkText          *text,
  * atk_text_get_caret_offset
  * @text: an #AtkText
  *
- * Returns: the position of the caret (cursor).
+ * Gets the offset position of the caret (cursor).
+ *
+ * Returns: the offset position of the caret (cursor).
  **/
 gint
 atk_text_get_caret_offset (AtkText *text)
@@ -307,7 +314,9 @@ atk_text_get_row_col_at_offset (AtkText *text,
  * @start_offset: start position
  * @end_offset: end position
  *
- * Returns a #PangoAttrList with the text attributes between the
+ * Gets attributes over the specified range.
+ *
+ * Returns: a #PangoAttrList with the text attributes between the
  * @start_offset and the @end_offset.
  **/
 PangoAttrList*
@@ -370,6 +379,8 @@ atk_text_get_character_extents (AtkText *text,
  * atk_text_get_character_count
  * @text: an #AtkText
  *
+ * Gets the character count.
+ *
  * Returns: the number of characters.
  **/
 gint
@@ -391,8 +402,10 @@ atk_text_get_character_count (AtkText *text)
 /**
  * atk_text_get_offset_at_point
  * @text: an #AtkText
- * @x: x-position of character
- * @y: y-position of character
+ * @x: screen x-position of character
+ * @y: screen y-position of character
+ *
+ * Gets the x,y screen coordinates of the specified character.
  *
  * Returns: the offset to the character which is located at
  * the specified @x and @y coordinates.
@@ -418,6 +431,8 @@ atk_text_get_offset_at_point (AtkText *text,
 /**
  * atk_text_get_selected_text
  * @text: an #AtkText
+ *
+ * Gets the selected text.
  *
  * Returns: the selected text.
  **/
