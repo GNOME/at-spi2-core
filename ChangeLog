@@ -16,6 +16,7 @@
 
 	* configure.in:
 	Add -lXext to XINPUT_LIBS. Fix for bug #132237.
+	Don't add X_LIBS to CFLAGS (Fix for bug #134332).
 	Incremented to 1.4.1 (but didn't dist yet - I'm going to 
 	try incrementing the revision AFTER doing a dist, at least
 	for awhile).
