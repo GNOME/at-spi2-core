@@ -1,3 +1,7 @@
+2004-08-12  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Added nb to ALL_LINGUAS.
+
 2004-09-03 Bill Haneman <bill.haneman@sun.com>
 
 	* cspi/spi_main.c:
