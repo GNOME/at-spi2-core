@@ -1,3 +1,9 @@
+Sun Feb  8 11:20:50 2004  Matthias Clasen  <maclas@gmx.de>
+
+	* docs/reference/cspi/Makefile.am (install-data-local): Install
+	index.sgml since the doc autobuilder on widget.gnome.org looks for
+	that file.
+
 2004-02-02  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c (spi_atk_tidy_windows): Correct g_free call to
