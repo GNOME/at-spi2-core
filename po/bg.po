@@ -1,20 +1,27 @@
 # Bulgarian translation for atk
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Yanko Kaneti <yaneti@declera.com>, 2002.
-# - napylno neprofesionalen pyrvi prewod, tryqbwa da 
-#   byde pregledan ot specialist v oblasta na dostyponostta
+# Alexander Shopov <ash@contact.bg>, 2004.
+# Към всички преводачи - това са специални термини,
+# които трябва да са достъпни за потребители с
+# увреждания - например слепота. Преводът е ОПИСАТЕЛЕН,
+# за да може да се предаде на потребителя какво всъщност
+# има на екрана. Преводът не е идеален. Някои от
+# термините са силно обвързани с терминологията на Java.
+# За повече информация: http://java.sun.com/docs/books/tutorial/uiswing/components/rootpane.html 
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk\n"
+"Project-Id-Version: atk-HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-02 02:36+0200\n"
-"PO-Revision-Date: 2004-06-02 12:38+0300\n"
-"Last-Translator: Yanko Kaneti <yaneti@declera.com>\n"
+"POT-Creation-Date: 2004-12-19 17:15+0200\n"
+"PO-Revision-Date: 2004-12-19 17:16+0200\n"
+"Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
+"lural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -22,31 +29,31 @@ msgstr "Избрана препратка"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "Определя дали AtkHyperlink обекта е избран"
+msgstr "Определя дали обектът AtkHyperlink е избран"
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr ""
+msgstr "Брой котви"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr ""
+msgstr "Броят на котвите свързани с обект AtkHyperlink"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
-msgstr "Индекс за край"
+msgstr "Край на индекс"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "Крайният индекс на AtkHyperlink обект"
+msgstr "Крайният индекс на обект AtkHyperlink"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr "Индекс за начало"
+msgstr "Начало на индекс"
 
 #: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "Началния индекс на AtkHyperlink обект"
+msgstr "Началният индекс на обект AtkHyperlink"
 
 #: atk/atkobject.c:82
 msgid "invalid"
@@ -78,11 +85,11 @@ msgstr "платно"
 
 #: atk/atkobject.c:89
 msgid "check box"
-msgstr "кутийка за отметки"
+msgstr "кутийка за отмятане"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
-msgstr ""
+msgstr "елемент на менюто за отмятане"
 
 #: atk/atkobject.c:91
 msgid "color chooser"
@@ -90,11 +97,11 @@ msgstr "избор на цвят"
 
 #: atk/atkobject.c:92
 msgid "column header"
-msgstr ""
+msgstr "заглавие на колона"
 
 #: atk/atkobject.c:93
 msgid "combo box"
-msgstr "комбо кутийка"
+msgstr "кутийка за избор от определени стойности"
 
 #: atk/atkobject.c:94
 msgid "dateeditor"
@@ -102,27 +109,27 @@ msgstr "редактор на дата"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "икона на работното място"
+msgstr "икона за работния плот"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
-msgstr ""
+msgstr "рамка на работния плот"
 
 #: atk/atkobject.c:97
 msgid "dial"
-msgstr "набиране"
+msgstr "скала"
 
 #: atk/atkobject.c:98
 msgid "dialog"
-msgstr "диалог"
+msgstr "диалогова кутия"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
-msgstr ""
+msgstr "изглед към папки"
 
 #: atk/atkobject.c:100
 msgid "drawing area"
-msgstr "район за рисуване"
+msgstr "област за рисуване"
 
 #: atk/atkobject.c:101
 msgid "file chooser"
@@ -143,11 +150,11 @@ msgstr "рамка"
 
 #: atk/atkobject.c:106
 msgid "glass pane"
-msgstr ""
+msgstr "най-горна рамка"
 
 #: atk/atkobject.c:107
 msgid "html container"
-msgstr "съдържател на html код"
+msgstr "койнтейнер с код на html"
 
 #: atk/atkobject.c:108
 msgid "icon"
@@ -159,7 +166,7 @@ msgstr "картина"
 
 #: atk/atkobject.c:110
 msgid "internal frame"
-msgstr "вътрешен прозорец"
+msgstr "вътрешна рамка"
 
 #: atk/atkobject.c:111
 msgid "label"
@@ -167,7 +174,7 @@ msgstr "етикет"
 
 #: atk/atkobject.c:112
 msgid "layered pane"
-msgstr ""
+msgstr "рамка със слоеве обекти"
 
 #: atk/atkobject.c:113
 msgid "list"
@@ -211,7 +218,7 @@ msgstr "текстово поле за парола"
 
 #: atk/atkobject.c:123
 msgid "popup menu"
-msgstr "изкачащо меню"
+msgstr "изскачащо меню"
 
 #: atk/atkobject.c:124
 msgid "progress bar"
@@ -227,15 +234,15 @@ msgstr "радио-бутон"
 
 #: atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "елемент от радио-меню"
+msgstr "радио-елемент от меню"
 
 #: atk/atkobject.c:128
 msgid "root pane"
-msgstr ""
+msgstr "основна рамка"
 
 #: atk/atkobject.c:129
 msgid "row header"
-msgstr ""
+msgstr "заглавие на ред"
 
 #: atk/atkobject.c:130
 msgid "scroll bar"
@@ -243,7 +250,7 @@ msgstr "лента за скролиране"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr ""
+msgstr "рамка, която се прелиства"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -255,15 +262,15 @@ msgstr "плъзгач"
 
 #: atk/atkobject.c:134
 msgid "split pane"
-msgstr "панел разделител"
+msgstr "разделителена рамка"
 
 #: atk/atkobject.c:135
 msgid "spin button"
-msgstr ""
+msgstr "бутон за последователен избор"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr "статус-лента"
+msgstr "лента за състояние"
 
 #: atk/atkobject.c:137
 msgid "table"
@@ -271,19 +278,19 @@ msgstr "таблица"
 
 #: atk/atkobject.c:138
 msgid "table cell"
-msgstr "таблична клетка"
+msgstr "клетка от таблица"
 
 #: atk/atkobject.c:139
 msgid "table column header"
-msgstr ""
+msgstr "заглавие на колона в таблица"
 
 #: atk/atkobject.c:140
 msgid "table row header"
-msgstr ""
+msgstr "заглавие на ред в таблица"
 
 #: atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr ""
+msgstr "елемент на менюто, който може да се отдели от него"
 
 #: atk/atkobject.c:142
 msgid "terminal"
@@ -295,7 +302,7 @@ msgstr "текст"
 
 #: atk/atkobject.c:144
 msgid "toggle button"
-msgstr ""
+msgstr "превключващ бутон"
 
 #: atk/atkobject.c:145
 msgid "tool bar"
@@ -327,149 +334,163 @@ msgstr "прозорец"
 
 #: atk/atkobject.c:152
 msgid "header"
-msgstr "надслов"
+msgstr "горен колонтитул"
 
 #: atk/atkobject.c:153
 msgid "footer"
-msgstr "подслов"
+msgstr "долен колонтитул"
 
 #: atk/atkobject.c:154
 msgid "paragraph"
-msgstr "параграф"
+msgstr "абзац"
 
 #: atk/atkobject.c:155
 msgid "application"
-msgstr "програма"
+msgstr "приложение"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
-msgstr "авт. довършване"
+msgstr "автоматично довършване"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
 msgstr "лента за редакция"
 
-#: atk/atkobject.c:295
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "вграден компонент"
+
+#: atk/atkobject.c:296
 msgid "Accessible Name"
 msgstr "Достъпно име"
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
+"Име на обект от някакъв клас. Името е форматирано за технологии за достъпност"
 
-#: atk/atkobject.c:302
+#: atk/atkobject.c:303
 msgid "Accessible Description"
 msgstr "Достъпно описание"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Описание на обект, форматиран за достъп до асистивните технологии"
-
-#: atk/atkobject.c:309
-msgid "Accessible Parent"
-msgstr ""
+msgstr "Описание на обект, форматиран за технологии за достъпност"
 
 #: atk/atkobject.c:310
-msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgid "Accessible Parent"
+msgstr "Достъпен родител"
 
-#: atk/atkobject.c:316
+#: atk/atkobject.c:311
+msgid "Is used to notify that the parent has changed"
+msgstr "Използва се, за да уведоми за промяна в родителя"
+
+#: atk/atkobject.c:317
 msgid "Accessible Value"
 msgstr "Достъпна стойност"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:318
 msgid "Is used to notify that the value has changed"
-msgstr "Използва се да се съобщи, че стойността се е променила"
+msgstr "Използва се, за да се уведоми за промяна на стойността"
 
-#: atk/atkobject.c:325
+#: atk/atkobject.c:326
 msgid "Accessible Role"
 msgstr "Достъпна роля"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:327
 msgid "The accessible role of this object"
 msgstr "Достъпната роля на този обект"
 
-#: atk/atkobject.c:334
-msgid "Accessible Layer"
-msgstr "Достъпен пласт"
-
 #: atk/atkobject.c:335
-msgid "The accessible layer of this object"
-msgstr "Достъпният пласт на този обект"
+msgid "Accessible Layer"
+msgstr "Достъпен слой"
 
-#: atk/atkobject.c:343
-msgid "Accessible MDI Value"
-msgstr ""
+#: atk/atkobject.c:336
+msgid "The accessible layer of this object"
+msgstr "Достъпният слой на този обект"
 
 #: atk/atkobject.c:344
+msgid "Accessible MDI Value"
+msgstr "Достъпна стойност на приложение с множество прозорци в един контейнер"
+
+#: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
 msgstr ""
-
-#: atk/atkobject.c:352
-msgid "Accessible Table Caption"
-msgstr ""
+"Достъпна стойност на обект на приложение с множество прозорци в един "
+"контейнер"
 
 #: atk/atkobject.c:353
+msgid "Accessible Table Caption"
+msgstr "Достъпно заглавие на таблица"
+
+#: atk/atkobject.c:354
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-
-#: atk/atkobject.c:359
-msgid "Accessible Table Column Header"
-msgstr ""
+"Използва се, за да се уведоми за промяна на заглавие на таблица. Това "
+"свойство не трябва да се изполва. Вместо него се използва accessible-table-"
+"caption-object"
 
 #: atk/atkobject.c:360
+msgid "Accessible Table Column Header"
+msgstr "Достъпно заглавие на колона на таблица"
+
+#: atk/atkobject.c:361
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
-
-#: atk/atkobject.c:366
-msgid "Accessible Table Column Description"
-msgstr ""
+"Използва се, за да се уведоми за промяна на заглавие на колона на таблица."
 
 #: atk/atkobject.c:367
+msgid "Accessible Table Column Description"
+msgstr "Достъпно описание на колона в таблица"
+
+#: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
-
-#: atk/atkobject.c:373
-msgid "Accessible Table Row Header"
-msgstr ""
+"Използва се, за да се уведоми за промяна на описание на колона на таблица."
 
 #: atk/atkobject.c:374
+msgid "Accessible Table Row Header"
+msgstr "Достъпно заглавие на ред на таблица"
+
+#: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
-
-#: atk/atkobject.c:380
-msgid "Accessible Table Row Description"
-msgstr ""
+"Използва се, за да се уведоми за промяна на заглавие на ред на таблица."
 
 #: atk/atkobject.c:381
+msgid "Accessible Table Row Description"
+msgstr "Достъпно описание на ред в таблица"
+
+#: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
-
-#: atk/atkobject.c:387
-msgid "Accessible Table Summary"
-msgstr ""
+"Използва се, за да се уведоми за промяна на описание на ред на таблица."
 
 #: atk/atkobject.c:388
-msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgid "Accessible Table Summary"
+msgstr "Достъпно резюме на таблица"
 
-#: atk/atkobject.c:394
-msgid "Accessible Table Caption Object"
-msgstr ""
+#: atk/atkobject.c:389
+msgid "Is used to notify that the table summary has changed"
+msgstr "Използва се, за да се уведоми за промяна на резюме на таблица"
 
 #: atk/atkobject.c:395
-msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgid "Accessible Table Caption Object"
+msgstr "Достъпен обект за заглавие на таблица"
 
-#: atk/atkobject.c:401
-msgid "Number of Accessible Hypertext Links"
-msgstr "Брой достъпни хипертекст препратки"
+#: atk/atkobject.c:396
+msgid "Is used to notify that the table caption has changed"
+msgstr "Използва се, за да се уведоми за промяна на заглавие на таблица"
 
 #: atk/atkobject.c:402
+msgid "Number of Accessible Hypertext Links"
+msgstr "Брой достъпни препратки в хипертекст"
+
+#: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
-msgstr "Брой препратки, които текущия AtkHypertext има"
+msgstr "Брой препратки, в текущия обект AtkHypertext"
 
 #~ msgid "ruler"
 #~ msgstr "скала"
