@@ -1,7 +1,40 @@
-2001-12-11  Bill Haneman <bill.haneman@sun.com>
+2001-12-12  Bill Haneman <bill.haneman@sun.com>
 
+	* idl/Accessibility_Value.idl:
+	Revert use of union back to CORBA_double, since the double type is
+	more efficient and can contain the other types without loss of
+	precision.
+
+	* idl/Accessibility_Accessible.idl:
+	Added method Accessibility:Accessible:getRoleName, to complement
+	Accessibility:Accessible:getRole.
+
+	* cspi/spi_accessible.c:
+	* cspi/spi.h:
+	Added C binding for above, Accessible_getRoleName (), and changed
+	signature of Accessible_getRole () to return an AccessibleRole.
+
+	* cspi/spi-roletypes.h:
+	Changed AccessibleRole_getName to return a char * instead of a
+	const char *.  This method is now at least temporarily deprecated 
+	in favor of asking Accessibles for their RoleNames directly.
+
+	* libspi/value.c:
+	Revert to match Accessibility_Value.idl;
+
+	* cspi/spi_value.c:
+	* cspi/spi.h:
+	Change signature of AccessibleValue methods to use double rather
+	than float.
+
+	* cspi/spi.h:
+	* cspi/spi_accessible.c:
+	Changed Accessible_getRole to return an AccessibleRole enum rather
+	than a UTF-8 string.  The UTF-8 string can still be obtained via
+	AccessibleRole_getName ().
+	
 	* test/test-simple.c:
-	Add test_action.
+	Add test_action.  Small fixup to match API change to Accessible_getRole.
 
 	* libspi/action.c:
 	Bugfix for get_action_from_servant ().

@@ -183,7 +183,9 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
     {
       if (festival_chatty) 	    
         {
-          _festival_say (Accessible_getRole (obj), "voice_don_diphone", shutup_previous_speech);
+	  s = Accessible_getRoleName (obj);	
+          _festival_say (s, "voice_don_diphone", shutup_previous_speech);
+	  SPI_freeString (s);
         }
       fprintf (stderr, "getting Name\n");
       s = Accessible_getName (obj);

@@ -139,6 +139,7 @@ Registry queries
 @modmask: 
 @eventmask: 
 @sync_type: 
+@Returns: 
 
 
 <!-- ##### FUNCTION deregisterAccessibleKeystrokeListener ##### -->
@@ -148,6 +149,7 @@ Registry queries
 
 @listener: 
 @modmask: 
+@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleKeystrokeListener_removeCallback ##### -->
@@ -178,6 +180,7 @@ Registry queries
 
 @keyval: 
 @synth_type: 
+@Returns: 
 
 
 <!-- ##### FUNCTION generateMouseEvent ##### -->
@@ -188,5 +191,6 @@ Registry queries
 @x: 
 @y: 
 @name: 
+@Returns: 
 
 

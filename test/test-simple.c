@@ -455,10 +455,11 @@ validate_accessible (Accessible *accessible,
 		     gboolean    has_parent,
 		     gboolean    recurse_down)
 {
-	Accessible *tmp;
-	char       *name, *descr;
-	const char *role;
-	GString    *item_str = g_string_new ("");
+	Accessible    *tmp;
+	char          *name, *descr;
+	AccessibleRole role;
+	char          *role_name;
+	GString       *item_str = g_string_new ("");
 
 	name = Accessible_getName (accessible);
 	g_assert (name != NULL);
@@ -467,7 +468,10 @@ validate_accessible (Accessible *accessible,
 	g_assert (descr != NULL);
 
 	role = Accessible_getRole (accessible);
-	g_assert (role != NULL);
+	g_assert (role != SPI_ROLE_INVALID);
+	role_name = Accessible_getRoleName (accessible);
+	g_assert (role_name != NULL);
+	
 
 	if (print_tree) {
 		int i;
@@ -582,10 +586,11 @@ validate_accessible (Accessible *accessible,
 
 	if (print_tree)
 		fprintf (stderr, " ] '%s' (%s) - %s: %s\n",
-			 name, descr, role, item_str->str);
+			 name, descr, role_name, item_str->str);
 
 	SPI_freeString (name);
 	SPI_freeString (descr);
+	SPI_freeString (role_name);
 	g_string_free (item_str, TRUE);
 
 	validate_tree (accessible, has_parent, recurse_down);

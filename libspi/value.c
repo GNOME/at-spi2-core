@@ -29,25 +29,27 @@
 
 /* Static function declarations */
 
-static Accessibility_SValue
-gvalue_to_svalue (GValue *gvalue);
+static double
+get_double_from_gvalue (GValue *gvalue);
+static void
+gvalue_set_from_double (GValue *gvalue, double value);
 static void
 spi_value_class_init (SpiValueClass *klass);
 static void
 spi_value_init (SpiValue *value);
-static Accessibility_SValue
+static double
 impl__get_minimumValue (PortableServer_Servant _servant,
 			CORBA_Environment *    ev);
-static Accessibility_SValue
+static double
 impl__get_maximumValue (PortableServer_Servant _servant,
 			CORBA_Environment *    ev);
-static Accessibility_SValue
+static double
 impl__get_currentValue (PortableServer_Servant _servant,
 			CORBA_Environment *    ev);
 static void 
-impl__set_currentValue (PortableServer_Servant       _servant,
-			const Accessibility_SValue * value,
-			CORBA_Environment *          ev);
+impl__set_currentValue (PortableServer_Servant _servant,
+			const CORBA_double     value,
+			CORBA_Environment *    ev);
 
 
 BONOBO_TYPE_FUNC_FULL (SpiValue,
@@ -100,142 +102,149 @@ get_value_from_servant (PortableServer_Servant servant)
   return ATK_VALUE (object->atko);
 }
 
-static Accessibility_SValue
-gvalue_to_svalue (GValue *gvalue)
+static double
+get_double_from_gvalue (GValue *gvalue)
 {
-  Accessibility_SValue sval;
-  if (G_VALUE_HOLDS_DOUBLE (gvalue))
-  {
-      sval._d = Accessibility_DOUBLEVAL;
-      sval._u.val_double = g_value_get_double (gvalue);
-  }
-  else if (G_VALUE_HOLDS_FLOAT (gvalue))
-  {
-      sval._d = Accessibility_FLOATVAL;
-      sval._u.val_float = g_value_get_float (gvalue);
-  }
-  else if (G_VALUE_HOLDS_ULONG (gvalue))
-  {
-      sval._d = Accessibility_ULONGVAL;
-      sval._u.val_ulong = g_value_get_ulong (gvalue); 
-  }
-  else if (G_VALUE_HOLDS_LONG (gvalue))
-  {
-      sval._d = Accessibility_LONGVAL;
-      sval._u.val_long = g_value_get_long (gvalue);
-  }
-  else if (G_VALUE_HOLDS_UINT (gvalue))
-  {
-      sval._d = Accessibility_USHORTVAL;
-      sval._u.val_ushort = CLAMP (g_value_get_uint (gvalue), 0, G_MAXUSHORT);
-  }
-  else if (G_VALUE_HOLDS_INT (gvalue))
-  {
-      sval._d = Accessibility_SHORTVAL;
-      sval._u.val_short = CLAMP (g_value_get_int (gvalue), G_MINSHORT, G_MAXSHORT);
-  }
+  double	retval = 0;
+  if (G_TYPE_IS_FUNDAMENTAL (G_VALUE_TYPE (gvalue)))
+    {
+      switch (gvalue->g_type)
+        {
+	  case G_TYPE_DOUBLE:
+            retval = g_value_get_double (gvalue);
+	    break;
+	  case G_TYPE_FLOAT:
+            retval = g_value_get_float (gvalue);
+	    break;
+	  case G_TYPE_ULONG:
+            retval = g_value_get_ulong (gvalue);
+	    break;
+	  case G_TYPE_LONG:
+            retval = g_value_get_long (gvalue);
+	    break;
+	  case G_TYPE_UINT:
+            retval = g_value_get_uint (gvalue);
+	    break;
+	  case G_TYPE_INT:
+            retval = g_value_get_int (gvalue);
+	    break;
+	  case G_TYPE_UCHAR:
+            retval = g_value_get_uchar (gvalue);
+	    break;
+	  case G_TYPE_CHAR:
+            retval = g_value_get_char (gvalue);
+	    break;
+	  case G_TYPE_BOOLEAN:
+            retval = g_value_get_boolean (gvalue);
+	    break;
+        }
+    }
   else
-  {
-      sval._d = Accessibility_SHORTVAL;
-      sval._u.val_short = 0;
-  }
-  return sval;
-}
+    {
+      g_warning ("SpiValue requested from a non-fundamental type\n");	    
+    }
+  return retval;
+}  
 
 static void
-gvalue_set_from_svalue (GValue *gvalue, Accessibility_SValue *sval)
+gvalue_set_from_double (GValue *gvalue, double value)
 {
-  switch (sval->_d)
+  if (G_TYPE_IS_FUNDAMENTAL (G_VALUE_TYPE (gvalue)))
     {
-      case Accessibility_DOUBLEVAL:
-        g_value_init (gvalue, G_TYPE_DOUBLE);
-        g_value_set_double (gvalue, sval->_u.val_double);
-        break;
-      case Accessibility_FLOATVAL:
-        g_value_init (gvalue, G_TYPE_FLOAT);
-        g_value_set_float (gvalue, sval->_u.val_float);
-        break;
-      case Accessibility_ULONGVAL:
-        g_value_init (gvalue, G_TYPE_ULONG);
-        g_value_set_ulong (gvalue, sval->_u.val_ulong);
-        break;
-      case Accessibility_LONGVAL:
-        g_value_init (gvalue, G_TYPE_LONG);
-        g_value_set_long (gvalue, sval->_u.val_long);
-        break;
-      case Accessibility_USHORTVAL:
-        g_value_init (gvalue, G_TYPE_UINT);
-        g_value_set_uint (gvalue, sval->_u.val_ushort);
-        break;
-      case Accessibility_SHORTVAL:
-        g_value_init (gvalue, G_TYPE_INT);
-        g_value_set_int (gvalue, sval->_u.val_short);
-        break;
-      default:
-        g_value_init (gvalue, G_TYPE_INT);
-	g_value_set_int (gvalue, 0);
+      switch (gvalue->g_type)
+        {
+	  case G_TYPE_DOUBLE:
+            g_value_set_double (gvalue, value);
+	    break;
+	  case G_TYPE_FLOAT:
+            g_value_set_float (gvalue, value);
+	    break;
+	  case G_TYPE_ULONG:
+            g_value_set_ulong (gvalue, value);
+	    break;
+	  case G_TYPE_LONG:
+            g_value_set_long (gvalue, value);
+	    break;
+	  case G_TYPE_UINT:
+            g_value_set_uint (gvalue, value);
+	    break;
+	  case G_TYPE_INT:
+            g_value_set_int (gvalue, value);
+	    break;
+	  case G_TYPE_UCHAR:
+            g_value_set_uchar (gvalue, value);
+	    break;
+	  case G_TYPE_CHAR:
+            g_value_set_char (gvalue, value);
+	    break;
+	  case G_TYPE_BOOLEAN:
+            g_value_set_boolean (gvalue, ((fabs (value) > 0.5) ? 1 : 0));
+	    break;
+        }
+    }
+  else
+    {
+      g_warning ("SpiValue change requested for a non-fundamental type\n");	    
     }
 }
 
-static Accessibility_SValue
+static double
 impl__get_minimumValue (PortableServer_Servant servant,
 			CORBA_Environment     *ev)
 {
   GValue    gvalue = {0, };
   AtkValue *value = get_value_from_servant (servant);
 
-  g_return_val_if_fail (value != NULL, gvalue_to_svalue (&gvalue));
+  g_return_val_if_fail (value != NULL, 0.0);
 
-  g_value_init (&gvalue, G_TYPE_DOUBLE);
   atk_value_get_minimum_value (value, &gvalue);
 
-  return gvalue_to_svalue (&gvalue);
+  return get_double_from_gvalue (&gvalue);
 }
 
 
-static Accessibility_SValue
+static double
 impl__get_maximumValue (PortableServer_Servant servant,
 			CORBA_Environment     *ev)
 {
   GValue   gvalue = {0, };
   AtkValue *value = get_value_from_servant (servant);
 
-  g_return_val_if_fail (value != NULL, gvalue_to_svalue (&gvalue));
+  g_return_val_if_fail (value != NULL, 0.0);
 
-  g_value_init (&gvalue, G_TYPE_DOUBLE);
   atk_value_get_maximum_value (value, &gvalue);
 
-  return gvalue_to_svalue (&gvalue);
+  return get_double_from_gvalue (&gvalue);
 }
 
 
-static Accessibility_SValue
+static double
 impl__get_currentValue (PortableServer_Servant servant,
 			CORBA_Environment     *ev)
 {
   GValue   gvalue = {0, };
   AtkValue *value = get_value_from_servant (servant);
 
-  g_return_val_if_fail (value != NULL, gvalue_to_svalue (&gvalue));
+  g_return_val_if_fail (value != NULL, 0.0);
 
-  g_value_init (&gvalue, G_TYPE_DOUBLE);
   atk_value_get_current_value (value, &gvalue);
 
-  return gvalue_to_svalue (&gvalue);
+  return get_double_from_gvalue (&gvalue);
 }
 
 
 static void 
 impl__set_currentValue (PortableServer_Servant servant,
-			const Accessibility_SValue *value,
+			const CORBA_double     value,
 			CORBA_Environment     *ev)
 {
-  GValue    gvalue = {0, };
+  GValue    gvalue = { 0, };
   AtkValue *avalue = get_value_from_servant (servant);
 
   g_return_if_fail (avalue != NULL);
 
-  gvalue_set_from_svalue (&gvalue, value);
+  atk_value_get_current_value (avalue, &gvalue);
+  gvalue_set_from_double (&gvalue, value);
 
   atk_value_set_current_value (avalue, &gvalue);
 }

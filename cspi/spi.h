@@ -197,7 +197,8 @@ Accessible *         Accessible_getChildAtIndex  (Accessible *obj,
 						  long int    childIndex);
 long                 Accessible_getIndexInParent (Accessible *obj);
 AccessibleRelation **Accessible_getRelationSet   (Accessible *obj);
-const char *         Accessible_getRole          (Accessible *obj);
+AccessibleRole       Accessible_getRole          (Accessible *obj);
+char *               Accessible_getRoleName      (Accessible *obj);
 AccessibleStateSet * Accessible_getStateSet      (Accessible *obj);
 
 /* Interface query methods */
@@ -688,11 +689,11 @@ AccessibleText_setSelection (AccessibleText *obj,
 
 void       AccessibleValue_ref             (AccessibleValue *obj);
 void       AccessibleValue_unref           (AccessibleValue *obj);
-float      AccessibleValue_getMinimumValue (AccessibleValue *obj);
-float      AccessibleValue_getCurrentValue (AccessibleValue *obj);
-float      AccessibleValue_getMaximumValue (AccessibleValue *obj);
+double     AccessibleValue_getMinimumValue (AccessibleValue *obj);
+double     AccessibleValue_getCurrentValue (AccessibleValue *obj);
+double     AccessibleValue_getMaximumValue (AccessibleValue *obj);
 SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
-					    float            newValue);
+					    double           newValue);
 
 /* Misc methods */
 void SPI_freeString (char *s);

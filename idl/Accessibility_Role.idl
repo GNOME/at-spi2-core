@@ -200,6 +200,11 @@ module Accessibility {
   ROLE_VIEWPORT,
   /* A top level window with no title or border */
   ROLE_WINDOW,
+  /* 
+   * means that the role for this item is known, but not included in the 
+   * core enumeration 
+   */
+  ROLE_EXTENDED,
   /* not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED
   };

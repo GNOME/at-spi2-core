@@ -82,24 +82,21 @@ static const char *role_names [] =
  * @role: an #AccessibleRole object to query.
  *
  * Get a localizeable string that indicates the name of an #AccessibleRole.
+ * Currently broken, do not use.
  *
  * Returns: a localizable string name for an #AccessibleRole enumerated type.
  **/
-const char *
+char *
 AccessibleRole_getName (AccessibleRole role)
 {
   if (role < MAX_ROLES)
     {
-      return role_names [(int) role];
+      return g_strdup (role_names [(int) role]);
     }
   else
     {
-      return "";
+      return g_strdup ("");
     }
-  /*
-   * TODO: replace with implementation linked to ATK, which
-   *  now supports Role/Name mapping
-   */
 }
 
 /**
@@ -321,21 +318,48 @@ Accessible_getRelationSet (Accessible *obj)
  * @obj: a pointer to the #Accessible object on which to operate.
  *
  * Get the UI role of an #Accessible object.
+ * A UTF-8 string describing this role can be obtained via Accessible_getRoleName ().
  *
- * Returns: a UTF-8 string indicating the UI role of the #Accessible object.
+ * Returns: the #AccessibleRole of the object.
  *
  **/
-const char *
+AccessibleRole
 Accessible_getRole (Accessible *obj)
 {
-  const char *retval;
+  AccessibleRole retval;
 
-  cspi_return_val_if_fail (obj != NULL, NULL);
+  cspi_return_val_if_fail (obj != NULL, SPI_ROLE_INVALID);
 
-  retval = AccessibleRole_getName (
-    Accessibility_Accessible_getRole (CSPI_OBJREF (obj), cspi_ev ()));
+  retval = 
+    Accessibility_Accessible_getRole (CSPI_OBJREF (obj), cspi_ev ());
 
-  cspi_return_val_if_ev ("getRole", NULL); 
+  cspi_return_val_if_ev ("getRole", SPI_ROLE_INVALID); 
+
+  return retval;
+}
+
+/**
+ * Accessible_getRoleName:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get a UTF-8 string describing the role this object plays in the UI.
+ * This method will return useful values for roles that fall outside the
+ * enumeration used in Accessible_getRole ().
+ *
+ * Returns: a UTF-8 string specifying the role of this #Accessible object.
+ *
+ **/
+char *
+Accessible_getRoleName (Accessible *obj)
+{
+  char *retval;
+
+  cspi_return_val_if_fail (obj != NULL, CORBA_string_dup ("invalid"));
+
+  retval = 
+    Accessibility_Accessible_getRoleName (CSPI_OBJREF (obj), cspi_ev ());
+
+  cspi_return_val_if_ev ("getRoleName", CORBA_string_dup ("invalid")); 
 
   return retval;
 }

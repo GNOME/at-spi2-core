@@ -31,6 +31,92 @@
 /* Our parent Gtk object type  */
 #define PARENT_TYPE SPI_TYPE_BASE
 
+static Accessibility_Role
+spi_role_from_atk_role (AtkRole role)
+{
+  Accessibility_Role spi_role;
+
+  /* TODO: finish and/or make efficient! */
+  switch (role)
+  {
+    case ATK_ROLE_INVALID:
+      spi_role = Accessibility_ROLE_INVALID;
+      break;
+    case ATK_ROLE_ACCEL_LABEL:
+    case ATK_ROLE_ALERT:
+    case ATK_ROLE_ANIMATION: 
+    case ATK_ROLE_ARROW: 
+    case ATK_ROLE_CALENDAR: 
+    case ATK_ROLE_CANVAS:
+    case ATK_ROLE_CHECK_BOX:
+    case ATK_ROLE_CHECK_MENU_ITEM:
+    case ATK_ROLE_COLOR_CHOOSER:
+    case ATK_ROLE_COLUMN_HEADER:
+    case ATK_ROLE_COMBO_BOX:
+    case ATK_ROLE_DATE_EDITOR:
+    case ATK_ROLE_DESKTOP_ICON:
+    case ATK_ROLE_DESKTOP_FRAME:
+    case ATK_ROLE_DIAL:
+    case ATK_ROLE_DIALOG:
+    case ATK_ROLE_DIRECTORY_PANE:
+    case ATK_ROLE_DRAWING_AREA:
+    case ATK_ROLE_FILE_CHOOSER:
+    case ATK_ROLE_FILLER:
+    case ATK_ROLE_FONT_CHOOSER:
+    case ATK_ROLE_FRAME:
+    case ATK_ROLE_GLASS_PANE: 
+    case ATK_ROLE_HTML_CONTAINER: 
+    case ATK_ROLE_ICON: 
+    case ATK_ROLE_IMAGE:
+    case ATK_ROLE_INTERNAL_FRAME:
+    case ATK_ROLE_LABEL:
+    case ATK_ROLE_LAYERED_PANE:
+    case ATK_ROLE_LIST:
+    case ATK_ROLE_LIST_ITEM:
+    case ATK_ROLE_MENU:
+    case ATK_ROLE_MENU_BAR:
+    case ATK_ROLE_MENU_ITEM:
+    case ATK_ROLE_OPTION_PANE:
+    case ATK_ROLE_PAGE_TAB:
+    case ATK_ROLE_PAGE_TAB_LIST:
+    case ATK_ROLE_PANEL:
+    case ATK_ROLE_PASSWORD_TEXT:
+    case ATK_ROLE_POPUP_MENU:
+    case ATK_ROLE_PROGRESS_BAR:
+    case ATK_ROLE_PUSH_BUTTON:
+    case ATK_ROLE_RADIO_BUTTON:
+    case ATK_ROLE_RADIO_MENU_ITEM:
+    case ATK_ROLE_ROOT_PANE:
+    case ATK_ROLE_ROW_HEADER:
+    case ATK_ROLE_SCROLL_BAR:
+    case ATK_ROLE_SCROLL_PANE:
+    case ATK_ROLE_SEPARATOR:
+    case ATK_ROLE_SLIDER:
+    case ATK_ROLE_SPLIT_PANE:
+    case ATK_ROLE_SPIN_BUTTON:
+    case ATK_ROLE_STATUSBAR:
+    case ATK_ROLE_TABLE:
+    case ATK_ROLE_TABLE_CELL:
+    case ATK_ROLE_TABLE_COLUMN_HEADER:
+    case ATK_ROLE_TABLE_ROW_HEADER:
+    case ATK_ROLE_TEAR_OFF_MENU_ITEM:
+    case ATK_ROLE_TERMINAL:
+    case ATK_ROLE_TEXT:
+    case ATK_ROLE_TOGGLE_BUTTON:
+    case ATK_ROLE_TOOL_BAR:
+    case ATK_ROLE_TOOL_TIP:
+    case ATK_ROLE_TREE:
+    case ATK_ROLE_TREE_TABLE:
+    case ATK_ROLE_UNKNOWN:
+    case ATK_ROLE_VIEWPORT:
+    case ATK_ROLE_WINDOW:
+    case ATK_ROLE_LAST_DEFINED:
+    default:
+      spi_role = Accessibility_ROLE_EXTENDED;	    
+  }
+  return spi_role;
+}
+
 static AtkObject *
 get_accessible_from_servant (PortableServer_Servant servant)
 {
@@ -256,9 +342,27 @@ impl_accessibility_accessible_get_role (PortableServer_Servant servant,
   g_return_val_if_fail (object != NULL, 0);
 
   role = atk_object_get_role (object);
-  retval = role; /* FIXME: relies on ability to cast these back and forth */
+  retval = spi_role_from_atk_role (role);
 
   return retval;
+}
+
+/*
+ * CORBA Accessibility::Accessible::getRole method implementation
+ */
+static CORBA_char *
+impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
+					     CORBA_Environment     *ev)
+{
+  AtkRole            role;
+  Accessibility_Role retval;
+  AtkObject         *object = get_accessible_from_servant (servant);
+
+  g_return_val_if_fail (object != NULL, 0);
+
+  role = atk_object_get_role (object);
+
+  return CORBA_string_dup (atk_role_get_name (role));
 }
 
 static void
@@ -279,6 +383,7 @@ spi_accessible_class_init (SpiAccessibleClass *klass)
         epv->getRelationSet = impl_accessibility_accessible_get_relation_set;
         epv->getState = impl_accessibility_accessible_get_state;
         epv->getRole = impl_accessibility_accessible_get_role;
+        epv->getRoleName = impl_accessibility_accessible_get_role_name;
 }
 
 static void
