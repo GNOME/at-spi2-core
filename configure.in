@@ -53,6 +53,12 @@ AC_PROG_CC
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
+dnl Cache $ACLOCAL_FLAGS
+AC_CACHE_CHECK([for aclocal flags], ac_cv_atk_aclocal_flags,[
+   ac_cv_atk_aclocal_flags="$ACLOCAL_FLAGS"
+])
+ACLOCAL="$ACLOCAL $ac_cv_atk_aclocal_flags"
+
 AC_ARG_ENABLE(rebuilds, [  --disable-rebuilds      disable all source autogeneration rules],,enable_rebuilds=yes)
 
 changequote(,)dnl
