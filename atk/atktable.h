@@ -131,6 +131,7 @@ struct _AtkTableIface
                                                   gint          num_deleted);
   void              (* row_reordered)            (AtkTable      *table);
   void              (* column_reordered)         (AtkTable      *table);
+  void              (* model_changed)            (AtkTable      *table);
 };
 
 GType atk_table_get_type ();

@@ -37,6 +37,7 @@ can be selected should support the AtkSelection interface.
 @is_child_selected: 
 @remove_selection: 
 @select_all_selection: 
+@selection_changed: 
 
 <!-- ##### FUNCTION atk_selection_add_selection ##### -->
 <para>

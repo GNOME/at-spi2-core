@@ -61,6 +61,7 @@ AtkTable
 @column_deleted: 
 @row_reordered: 
 @column_reordered: 
+@model_changed: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>

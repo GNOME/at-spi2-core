@@ -59,6 +59,11 @@ struct _AtkSelectionIface
   gboolean     (* remove_selection)     (AtkSelection   *selection,
                                          gint           i);
   gboolean     (* select_all_selection) (AtkSelection   *selection);
+
+  /* signal handlers */
+  
+  void         (*selection_changed)     (AtkSelection   *selection);
+
 };
 GType atk_selection_get_type ();
 

@@ -23,6 +23,7 @@
 enum {
   TEXT_CHANGED,
   CARET_MOVED,
+  TEXT_SELECTION_CHANGED,
   LAST_SIGNAL
 };
 
@@ -88,13 +89,6 @@ static const gchar *underline[] = {"none",
                                    "double",
                                    "low"};
 
-struct _AtkTextIfaceClass
-{
-  GObjectClass parent;
-};
-
-typedef struct _AtkTextIfaceClass AtkTextIfaceClass;
-
 static void atk_text_base_init (gpointer *g_class);
 
 static guint atk_text_signals[LAST_SIGNAL] = { 0 };
@@ -153,6 +147,15 @@ atk_text_base_init (gpointer *g_class)
 		      g_cclosure_marshal_VOID__INT,
 		      G_TYPE_NONE,
 		      1, G_TYPE_INT);
+      atk_text_signals[TEXT_SELECTION_CHANGED] =
+        g_signal_new ("text_selection_changed",
+                      ATK_TYPE_TEXT,
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (AtkTextIface, text_selection_changed),
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
       
       initialized = TRUE;
     }

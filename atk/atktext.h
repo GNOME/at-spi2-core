@@ -213,9 +213,12 @@ struct _AtkTextIface
   /*
    * signal handlers
    */
-  void		 (* text_changed)                 (AtkText          *text);
+  void		 (* text_changed)                 (AtkText          *text,
+                                                   gint             position,
+                                                   gint             length);
   void           (* caret_changed)                (AtkText          *text,
                                                    gint             location);
+  void           (* text_selection_changed)       (AtkText          *text);
 };
 
 GType            atk_text_get_type (void);

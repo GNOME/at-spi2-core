@@ -46,9 +46,7 @@ enum
 enum {
   CHILDREN_CHANGED,
   FOCUS_EVENT,
-  MODEL_CHANGED,
   PROPERTY_CHANGE,
-  SELECTION_CHANGED,
   VISIBLE_DATA_CHANGED,
 
   LAST_SIGNAL
@@ -174,9 +172,7 @@ atk_object_class_init (AtkObjectClass *klass)
    */
   klass->children_changed = NULL;
   klass->focus_event = NULL;
-  klass->model_changed = NULL;
   klass->property_change = NULL;
-  klass->selection_changed = NULL;
   klass->visible_data_changed = NULL;
 
   g_object_class_install_property (gobject_class,
@@ -294,14 +290,6 @@ atk_object_class_init (AtkObjectClass *klass)
 		  g_cclosure_marshal_VOID__BOOLEAN,
 		  G_TYPE_NONE,
 		  1, G_TYPE_BOOLEAN);
-  atk_object_signals[MODEL_CHANGED] =
-    g_signal_new ("model_changed",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (AtkObjectClass, model_changed),
-                  (GSignalAccumulator) NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID,
-                  G_TYPE_NONE, 0);
   atk_object_signals[PROPERTY_CHANGE] =
     g_signal_new ("property_change",
                   G_TYPE_FROM_CLASS (klass),
@@ -311,14 +299,6 @@ atk_object_class_init (AtkObjectClass *klass)
                   g_cclosure_marshal_VOID__POINTER,
                   G_TYPE_NONE, 1,
                   G_TYPE_POINTER);
-  atk_object_signals[SELECTION_CHANGED] =
-    g_signal_new ("selection_changed",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (AtkObjectClass, selection_changed),
-                  (GSignalAccumulator) NULL, NULL,
-                  g_cclosure_marshal_VOID__VOID,
-                  G_TYPE_NONE, 0);
   atk_object_signals[VISIBLE_DATA_CHANGED] =
     g_signal_new ("visible_data_changed",
                   G_TYPE_FROM_CLASS (klass),

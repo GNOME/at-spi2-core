@@ -19,6 +19,15 @@
 
 #include "atkselection.h"
 
+enum {
+  SELECTION_CHANGED,
+  LAST_SIGNAL
+};
+
+static void atk_selection_base_init (gpointer *g_class);
+
+static guint atk_selection_signals[LAST_SIGNAL] = { 0 };
+
 GType
 atk_selection_get_type ()
 {
@@ -28,7 +37,7 @@ atk_selection_get_type ()
     GTypeInfo tinfo =
     {
       sizeof (AtkSelectionIface),
-      (GBaseInitFunc) NULL,
+      (GBaseInitFunc)atk_selection_base_init,
       (GBaseFinalizeFunc) NULL,
 
     };
@@ -37,6 +46,27 @@ atk_selection_get_type ()
   }
 
   return type;
+}
+
+static void
+atk_selection_base_init (gpointer *g_class)
+{
+  static gboolean initialized = FALSE;
+
+  if (! initialized)
+    {
+      atk_selection_signals[SELECTION_CHANGED] =
+        g_signal_new ("selection_changed",
+                      ATK_TYPE_SELECTION,
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (AtkSelectionIface, selection_changed),
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
+
+      initialized = TRUE;
+    }
 }
 
 /**

@@ -27,15 +27,9 @@ enum {
   COLUMN_DELETED,
   ROW_REORDERED,
   COLUMN_REORDERED,
+  MODEL_CHANGED,
   LAST_SIGNAL
 };
-
-struct _AtkTableIfaceClass
-{
-  GObjectClass parent;
-};
-
-typedef struct _AtkTableIfaceClass AtkTableIfaceClass;
 
 static void  atk_table_base_init (gpointer *g_class);
 
@@ -123,6 +117,15 @@ atk_table_base_init (gpointer *g_class)
 		      g_cclosure_marshal_VOID__VOID,
 		      G_TYPE_NONE,
 		      0);
+      atk_table_signals[MODEL_CHANGED] =
+        g_signal_new ("model_changed",
+                      ATK_TYPE_TABLE,
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (AtkTableIface, model_changed),
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
       initialized = TRUE;
     }
 }

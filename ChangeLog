@@ -1,3 +1,26 @@
+2001-11-17  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkeditabletext.c:
+	Remove unused structure _AtkEditableTextIfaceClass
+
+	* atk/atkobject.[c|h]
+	Remove signals model_changed and selection_changed
+
+	* atk/selection.[c|h]
+	Add signal selection_changed
+
+	* atk/atktable.[c|h]
+	Remove unused structure _AtkTableIfaceClass
+	Add signal model_changed
+
+	* atk/atktext.[c|h]
+	Remove unused structure _AtkTextIfaceClass
+	Add signal text_selection_changed
+
+	* docs/tmpl/atkobject.sgml, docs/tmpl/atkselection.sgml,
+	docs/tmpl/atktable.sgml, atk/tmpl/atktext.sgml:
+	Documentation changes
+
 2001-11-17  Tor Lillqvist  <tml@iki.fi>
 
 	* atk-zip.sh.in: Build separate runtime and developer packages.
@@ -8,13 +31,14 @@
 
 	* atk/atkutil.h :
 	Added API 
-	atk_util_add_key_event_listener    (AtkKeySnoopFunc *listener,
-	                                    gpointer data);
-	atk_util_remove_key_event_listener (AtkKeySnoopFunc *listener,
-	                                    gpointer data);
+	atk_add_key_event_listener    (AtkKeySnoopFunc *listener,
+	                               gpointer data);
+	atk_remove_key_event_listener (AtkKeySnoopFunc *listener,
+	                               gpointer data);
 	
 	to allow non-GTK-dependent installation of key snoop functions.
-	This also meant adding definitions of AtkKeySnoopFunc and AtkKeyEventStruct.
+	This also meant adding definitions of AtkKeySnoopFunc and 
+	AtkKeyEventStruct.
 
 2001-11-08  Padraig O'Briain  <padraig.obriain@sun.com>
 

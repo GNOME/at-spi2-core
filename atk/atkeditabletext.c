@@ -20,13 +20,6 @@
 #include "atkeditabletext.h"
 
 
-struct _AtkEditableTextIfaceClass
-{
-  GObjectClass parent;
-};
-
-typedef struct _AtkEditableTextIfaceClass AtkEditableTextIfaceClass;
-
 GType
 atk_editable_text_get_type ()
 {
