@@ -1,3 +1,9 @@
+2003-12-03  Danilo Šegan  <dsegan@gmx.net>
+
+	* sr.po, sr@Latn.po: Updated Serbian translation.
+
+	* POTFILES.in: Added atk/atkhyperlink.c.
+
 2003-12-02  Duarte Loreto <happyguy_pt@hotmail.com>
 
 	* pt.po: Updated and revised Portuguese translation.
