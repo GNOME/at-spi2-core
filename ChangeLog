@@ -1,3 +1,8 @@
+Sun Aug 12 10:33:02 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* docs/Makefile.am: Set GPATH to fix srcdir != builddir problems
+	with GNU make.
+
 2001-08-09  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkaction.c, atk/atkcomponent.c
