@@ -125,7 +125,7 @@ atk_text_get_text (AtkText      *text,
 }
 
 /**
- * atk_text_get_character_at_offset
+ * atk_text_get_character_at_offset:
  * @text: an #AtkText
  * @offset: position
  *
@@ -151,10 +151,12 @@ atk_text_get_character_at_offset (AtkText      *text,
 }
 
 /**
- * atk_text_get_text_after_offset
+ * atk_text_get_text_after_offset:
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
+ * @startOffset: the start offset of the returned string.
+ * @endOffset: the end offset of the returned string.
  *
  * Gets the specified text.
  * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
@@ -188,10 +190,12 @@ atk_text_get_text_after_offset (AtkText          *text,
 }
 
 /**
- * atk_text_get_text_at_offset
+ * atk_text_get_text_at_offset:
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
+ * @startOffset: the start offset of the returned string.
+ * @endOffset: the end offset of the returned string.
  *
  * Gets the specified text.
  * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START or 
@@ -224,10 +228,12 @@ atk_text_get_text_at_offset (AtkText          *text,
 }
 
 /**
- * atk_text_get_text_before_offset
+ * atk_text_get_text_before_offset:
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
+ * @startOffset: the start offset of the returned string.
+ * @endOffset: the end offset of the returned string.
  *
  * Gets the specified text.
  * If the boundary type is ATK_TEXT_BOUNDARY_WORD_START or
@@ -261,7 +267,7 @@ atk_text_get_text_before_offset (AtkText          *text,
 }
 
 /**
- * atk_text_get_caret_offset
+ * atk_text_get_caret_offset:
  * @text: an #AtkText
  *
  * Gets the offset position of the caret (cursor).
@@ -359,7 +365,7 @@ AtkAttributeSet* atk_text_ref_run_attributes              (AtkText          *tex
 }
 
 /**
- * atk_text_get_character_count
+ * atk_text_get_character_count:
  * @text: an #AtkText
  *
  * Gets the character count.
@@ -416,7 +422,7 @@ atk_text_get_offset_at_point (AtkText *text,
 }
 
 /**
- * atk_text_get_n_selections
+ * atk_text_get_n_selections:
  * @text: an #AtkText
  *
  * Gets the number of selected regions.
@@ -441,7 +447,7 @@ atk_text_get_n_selections (AtkText *text)
 }
 
 /**
- * atk_text_get_selection
+ * atk_text_get_selection:
  * @text: an #AtkText
  * @selection_num: The selection number.  The selected regions are
  * assigned numbers that corrispond to how far the region is from the
@@ -476,7 +482,7 @@ atk_text_get_selection (AtkText *text, gint selection_num,
 }
 
 /**
- * atk_text_add_selection
+ * atk_text_add_selection:
  * @text: an #AtkText
  * @start_offset: the start position of the selected region
  * @end_offset: the end position of the selected region
@@ -503,7 +509,7 @@ atk_text_add_selection (AtkText *text, gint start_offset,
 }
 
 /**
- * atk_text_remove_selection
+ * atk_text_remove_selection:
  * @text: an #AtkText
  * @selection_num: The selection number.  The selected regions are
  * assigned numbers that corrispond to how far the region is from the
@@ -532,7 +538,7 @@ atk_text_remove_selection (AtkText *text, gint selection_num)
 }
 
 /**
- * atk_text_set_selection
+ * atk_text_set_selection:
  * @text: an #AtkText
  * @selection_num: The selection number.  The selected regions are
  * assigned numbers that corrispond to how far the region is from the
@@ -567,7 +573,7 @@ atk_text_set_selection (AtkText *text, gint selection_num,
 }
 
 /**
- * atk_text_set_caret_offset
+ * atk_text_set_caret_offset:
  * @text: an #AtkText
  * @offset: position
  *
