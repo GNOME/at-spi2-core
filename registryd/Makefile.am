@@ -10,9 +10,9 @@ registryd_SOURCES = registryd.c
 
 LDADD = ../libspi/libspi.la $(REGISTRYD_LIBS)
 
-oafinfodir = $(datadir)/oaf
-oafinfo_DATA = Accessibility_Registry.oaf
+serverinfodir = $(libdir)/bonobo/servers
+serverinfo_DATA = Accessibility_Registry.server
 
-@XML_I18N_MERGE_OAF_RULE@
+@XML_I18N_MERGE_SERVER_RULE@
 
-EXTRA_DIST = Accessibility_Registry.oaf.in $(oafinfo_DATA)
+EXTRA_DIST = Accessibility_Registry.server.in $(serverinfo_DATA)

@@ -1,3 +1,12 @@
+2001-08-15  Michael Meeks  <michael@ximian.com>
+
+	* registryd/Makefile.am: s/oaf/server/ relocate info file.
+
+	* configure.in: upd.
+
+	* configure.in: depend on a recent bonobo-activation that
+	will find our server files ...
+
 2001-08-16  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/accessible.c : accessible_new() :
