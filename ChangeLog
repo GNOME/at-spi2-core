@@ -1,3 +1,11 @@
+2003-11-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.5.0=====
+	
+	* configure.in: Version 1.5.0, interface age 0, binary age 400
+
+	* NEWS: Updated.
+
 2003-11-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkrelation.c: Use weak references for objects in a relation

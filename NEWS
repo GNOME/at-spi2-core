@@ -1,3 +1,10 @@
+Changes in version 1.5.0
+========================
+* Fix memory leaks in AtkRelations (bugs #124877, #125725)
+
+* Add version number to documentation (bug #125758)
+
+* Update translations: Catalan [Jordi Mallach], Kannada [Pramod]
 Changes in version 1.4.1
 ========================
 * Add translations: Lithuanian [Gedminas Paulauskas], 
