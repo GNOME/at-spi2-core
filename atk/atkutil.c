@@ -220,14 +220,9 @@ void
 atk_remove_global_event_listener (guint listener_id)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
+
   if (klass->remove_global_event_listener) 
-    {
-      return klass->remove_global_event_listener (listener_id);
-    }
-  else
-    {
-      return;
-    }
+    klass->remove_global_event_listener (listener_id);
 }
 
 /**

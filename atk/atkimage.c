@@ -86,13 +86,7 @@ atk_image_get_image_size (AtkImage *image, int *height, int *width)
   iface = ATK_IMAGE_GET_IFACE (image);
 
   if (iface->get_image_size)
-    {
-      return (iface->get_image_size) (image, height, width);
-    }
-  else
-    {
-      return;
-    }
+    iface->get_image_size (image, height, width);
 }
 
 /**
