@@ -317,6 +317,8 @@ spi_accessible_new (AtkObject *o)
 
     CORBA_exception_init (&ev);
 
+    g_assert (o);
+
     if ((retval = g_hash_table_lookup (get_public_refs (), o)))
       {
         bonobo_object_ref (BONOBO_OBJECT (retval));

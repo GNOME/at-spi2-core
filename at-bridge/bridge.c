@@ -216,7 +216,10 @@ emit_eventv (GObject      *gobject,
   Accessibility_Event e;
   SpiAccessible      *source;
   AtkObject          *aobject;
-
+#ifdef SPI_BRIDGE_DEBUG
+  CORBA_string s;
+#endif
+  
   va_start (args, format);
   
   if (ATK_IS_IMPLEMENTOR (gobject))
@@ -245,8 +248,10 @@ emit_eventv (GObject      *gobject,
       e.detail2 = detail2;
 
 #ifdef SPI_BRIDGE_DEBUG
-      g_warning ("Emitting event '%s' (%d, %d) on %p",
-		 e.type, e.detail1, e.detail2, source);
+      s = Accessibility_Accessible__get_name (BONOBO_OBJREF (source), &ev);
+      g_warning ("Emitting event '%s' (%lu, %lu) on %s",
+		 e.type, e.detail1, e.detail2, s);
+      CORBA_free (s);
 #endif
 
       Accessibility_Registry_notifyEvent (registry, &e, &ev);
@@ -271,12 +276,14 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 #ifdef SPI_BRIDGE_DEBUG
   GSignalQuery signal_query;
   const gchar *name;
+  gchar *s;
   
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
 
-  fprintf (stderr, "Received (property) signal %s:%s\n",
-	   g_type_name (signal_query.itype), name);
+  s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
+  fprintf (stderr, "Received (property) signal %s:%s from object %s\n",
+	   g_type_name (signal_query.itype), name, s);
 #endif
 
   gobject = g_value_get_object (param_values + 0);
@@ -400,7 +407,7 @@ bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
   gobject = g_value_get_object (param_values + 0);
 
-  emit_eventv (gobject, 0, 0, "%s:%s", name, g_type_name (signal_query.itype));
+  emit_eventv (gobject, 0, 0, "object:%s", name);
 
   return TRUE;
 }

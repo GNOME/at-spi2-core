@@ -212,8 +212,10 @@ spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
 				g_type_name (signal_query.itype), 
 				signal_query.signal_name);
 
+#ifdef SPI_DEBUG  
   fprintf (stderr, "Received signal %s\n", event_name);
-
+#endif
+  
   aobject = get_atk_object_ref (g_value_get_object (param_values + 0));
 
   source = spi_accessible_new (aobject);

@@ -13,6 +13,6 @@ LDADD = ../libspi/libspi.la -lXtst $(REGISTRYD_LIBS)
 serverinfodir = $(libdir)/bonobo/servers
 serverinfo_DATA = Accessibility_Registry.server
 
-@XML_I18N_MERGE_SERVER_RULE@
+@INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST = Accessibility_Registry.server.in $(serverinfo_DATA)

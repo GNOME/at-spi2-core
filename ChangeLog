@@ -1,3 +1,37 @@
+2001-12-09  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Replace use of AM_PROG_XML_I18N_TOOLS macro with AC_PROG_INTLTOOL.
+	remove 'dnl' comment line from AC_OUTPUT (autoconf doesn't like
+	it).
+
+	* at-bridge/bridge.c:
+	Beefed up a couple of debug printouts.
+	One-line fix for signal notification name formatting.
+
+	* libspi/accessible.c:
+	Added assertion to spi_accessible_new ().
+
+	* libspi/application.c:
+	Put #ifdef qualifiers around a printf.
+
+	* libspi/value.c:
+	Fixed derivation (from BONOBO_OBJECT to SPI_BASE).
+
+	* registryd/Makefile.am:
+	* util/Makefile.am:
+	Replaces use of XML_I18N_MERGE_SERVER_RULE with
+	INTLTOOL_SERVER_RULE macro.
+
+	* test/simple-at.c:
+	Added an event listener for several ATK signals, for
+	testing and debugging.  Removed a few g_warnings.
+	Added test output if focussed item implements the Value interface.
+
+	* test/test-simple.c:
+	Added test_value () function (known not to pass at the moment, so
+	not actually called yet.
+	
 2001-12-08  Michael Meeks  <michael@ximian.com>
 
 	* at-bridge/bridge.c (bridge_focus_tracker),

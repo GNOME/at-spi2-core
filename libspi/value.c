@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <libspi/value.h>
 
+#define PARENT_TYPE SPI_TYPE_BASE
+
 /* Static function declarations */
 
 static void
@@ -48,7 +50,7 @@ impl__set_currentValue (PortableServer_Servant _servant,
 
 BONOBO_TYPE_FUNC_FULL (SpiValue,
 		       Accessibility_Value,
-		       BONOBO_TYPE_OBJECT,
+		       PARENT_TYPE,
 		       spi_value);
 
 
@@ -105,6 +107,12 @@ impl__get_minimumValue (PortableServer_Servant servant,
   AtkValue *value = get_value_from_servant (servant);
 
   g_return_val_if_fail (value != NULL, 0.0);
+
+  /*
+   * FIXME: ahem, there's no guarantee that
+   * atk_value_get_minimum_value returns a float.
+   * What we really need is a generic value API here
+   */
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
   atk_value_get_minimum_value (value, &gvalue);
