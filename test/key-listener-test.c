@@ -195,7 +195,7 @@ report_tab_key_event (const AccessibleKeystroke *key, void *user_data)
 static SPIBoolean
 report_all_key_event (const AccessibleKeystroke *key, void *user_data)
 {
-  fprintf(stdout, "(%d)", key->keyID);
+  fprintf(stderr, "(%d)", key->keyID);
   return FALSE;
 }
 

@@ -9,6 +9,10 @@
 	Don't cast 'object' to ATK_OBJECT when constructing
 	an AtkAction interface for a hyperlink.
 	See discussion in bug #120659.
+
+	* test/key-listener-test.c:
+	(report_all_key_event): Send output to stderr,
+	not stdout, for consistency with the rest of the test callbacks.
 	
 2004-03-22  Bill Haneman <billh@gnome.org>
 
