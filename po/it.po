@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-01-13 10:12+0100\n"
-"PO-Revision-Date: 2004-01-13 10:23+0100\n"
+"PO-Revision-Date: 2004-01-26 10:15+0100\n"
 "Last-Translator: Alessio Frusciante <algol@firenze.linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -56,8 +56,9 @@ msgid "accelerator label"
 msgstr "etichetta acceleratrice"
 
 #: atk/atkobject.c:84
+#, fuzzy
 msgid "alert"
-msgstr ""
+msgstr "allarme"
 
 #: atk/atkobject.c:85
 msgid "animation"
@@ -105,11 +106,12 @@ msgstr "icona del desktop"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
-msgstr ""
+msgstr "cornice del desktop"
 
 #: atk/atkobject.c:97
+#, fuzzy
 msgid "dial"
-msgstr ""
+msgstr "rotella"
 
 #: atk/atkobject.c:98
 msgid "dialog"
@@ -138,7 +140,7 @@ msgstr "selettore font"
 
 #: atk/atkobject.c:105
 msgid "frame"
-msgstr ""
+msgstr "cornice"
 
 #: atk/atkobject.c:106
 msgid "glass pane"
@@ -158,7 +160,7 @@ msgstr "immagine"
 
 #: atk/atkobject.c:110
 msgid "internal frame"
-msgstr ""
+msgstr "cornice interna"
 
 #: atk/atkobject.c:111
 msgid "label"
@@ -218,7 +220,7 @@ msgstr "barra di avanzamento"
 
 #: atk/atkobject.c:125
 msgid "push button"
-msgstr ""
+msgstr "pulsante"
 
 #: atk/atkobject.c:126
 msgid "radio button"
@@ -320,7 +322,7 @@ msgstr "sconosciuto"
 
 #: atk/atkobject.c:150
 msgid "viewport"
-msgstr ""
+msgstr "area visibile"
 
 #: atk/atkobject.c:151
 msgid "window"
@@ -348,126 +350,134 @@ msgstr "completamento automatico"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
-msgstr ""
+msgstr "barra di modifica"
 
 #: atk/atkobject.c:295
 msgid "Accessible Name"
-msgstr ""
+msgstr "Nome accessibile"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
+msgstr "Il nome dell'instanza dell'oggetto formattato per l'accesso tramite tecnologia assistiva"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
-msgstr ""
+msgstr "Descrizione accessibile"
 
 #: atk/atkobject.c:303
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
+msgstr "Descrizione di un oggetto, formattata per l'accesso tramite tecnologia assistiva"
 
 #: atk/atkobject.c:309
 msgid "Accessible Parent"
-msgstr ""
+msgstr "Genitore accessibile"
 
 #: atk/atkobject.c:310
+#, fuzzy
 msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgstr "Usato per notificare che il genitore e cambiato"
 
 #: atk/atkobject.c:316
 msgid "Accessible Value"
-msgstr ""
+msgstr "Valore accessibile"
 
 #: atk/atkobject.c:317
+#, fuzzy
 msgid "Is used to notify that the value has changed"
-msgstr ""
+msgstr "Usato per notificare che il valore e cambiato"
 
 #: atk/atkobject.c:325
 msgid "Accessible Role"
-msgstr ""
+msgstr "Ruolo accessibile"
 
 #: atk/atkobject.c:326
 msgid "The accessible role of this object"
-msgstr ""
+msgstr "Il ruolo accessibile di questo oggetto"
 
 #: atk/atkobject.c:334
 msgid "Accessible Layer"
-msgstr ""
+msgstr "Livello accessibile"
 
 #: atk/atkobject.c:335
 msgid "The accessible layer of this object"
-msgstr ""
+msgstr "Il livello accessibile di questo oggetto"
 
 #: atk/atkobject.c:343
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "Valore MDI accessibile"
 
 #: atk/atkobject.c:344
 msgid "The accessible MDI value of this object"
-msgstr ""
+msgstr "Il valore MDI accessibile di questo oggetto"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "Didascalia accessibile della tabella"
 
 #: atk/atkobject.c:353
+#, fuzzy
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr ""
+msgstr "Usato per notificare che la descrizione della tabella e cambiata; questa propriet non dovrebbe essere usata. Dovrebbe essere usata accessible-table-caption-object al suo posto."
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
-msgstr ""
+msgstr "Intestazione accessibile della colonna della tabella"
 
 #: atk/atkobject.c:360
+#, fuzzy
 msgid "Is used to notify that the table column header has changed"
-msgstr ""
+msgstr "Usato per notificare che l'intestazione della colonna della tabella e cambiata"
 
 #: atk/atkobject.c:366
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "Descrizione accessibile della colonna della tabella"
 
 #: atk/atkobject.c:367
+#, fuzzy
 msgid "Is used to notify that the table column description has changed"
-msgstr ""
+msgstr "Usata per notificare che la descrizione della colonna della tabella e cambiata"
 
 #: atk/atkobject.c:373
 msgid "Accessible Table Row Header"
-msgstr ""
+msgstr "Intestazione accessibile della riga della tabella"
 
 #: atk/atkobject.c:374
+#, fuzzy
 msgid "Is used to notify that the table row header has changed"
-msgstr ""
+msgstr "Usato per notificare che l'intestazione della riga della tabella e cambiata"
 
 #: atk/atkobject.c:380
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "Descrizione accessibile della riga della tabella"
 
 #: atk/atkobject.c:381
+#, fuzzy
 msgid "Is used to notify that the table row description has changed"
-msgstr ""
+msgstr "Usata per notificare che la descrizione della riga della tabella e cambiata"
 
 #: atk/atkobject.c:387
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "Riassunto accessibile della tabella"
 
 #: atk/atkobject.c:388
+#, fuzzy
 msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgstr "Usato per notificare che il riassunto della tabella e cambiato"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "Oggetto didascalia accessibile della tabella"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgstr "Usato per notificare che la didascalia della tabella e cambiata"
 
 #: atk/atkobject.c:401
 msgid "Accessible Hypertext Number of Links"
-msgstr ""
+msgstr "Numero di link nell'ipertesto accessibile"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
-msgstr ""
+msgstr "Il numero di link che ha AtkHypertext attuale"
