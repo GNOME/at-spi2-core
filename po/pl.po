@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"POT-Creation-Date: 2003-01-02 00:20+0100\n"
+"POT-Creation-Date: 2003-03-18 11:51+0000\n"
 "PO-Revision-Date: 2003-01-02 00:20+0100\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -17,298 +17,298 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1242
 msgid "invalid"
 msgstr "niepoprawny"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1245
 msgid "accel-label"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1248
 msgid "alert"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1251
 msgid "animation"
 msgstr "animacja"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1254
 msgid "arrow"
 msgstr "strzałka"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1257
 msgid "calendar"
 msgstr "kalendarz"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1260
 msgid "canvas"
 msgstr "płótno"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1263
 msgid "check-box"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1266
 msgid "check-menu-item"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1269
 msgid "color-chooser"
 msgstr "okno-wyboru-kolorów"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1272
 msgid "column-header"
 msgstr "nagłówek-kolumny"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1275
 msgid "combo-box"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1278
 msgid "date-editor"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1281
 msgid "desktop-icon"
 msgstr "ikona-pulpitu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1284
 msgid "desktop-frame"
 msgstr "ramka-pulpitu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1287
 msgid "dial"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1290
 msgid "dialog"
 msgstr "okno-dialogowe"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1293
 msgid "directory-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1296
 msgid "drawing-area"
 msgstr "obszar-rysowania"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1299
 msgid "file-chooser"
 msgstr "okno-wyboru-pliku"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1302
 msgid "filler"
 msgstr "wypełniacz"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1305
 msgid "font-chooser"
 msgstr "okno-wyboru-czcionki"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1308
 msgid "frame"
 msgstr "ramka"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1311
 msgid "glass-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1314
 msgid "html-container"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1317
 msgid "icon"
 msgstr "ikona"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1320
 msgid "image"
 msgstr "obraz"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1323
 msgid "internal-frame"
 msgstr "wewnętrzna-ramka"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1326
 msgid "label"
 msgstr "etykieta"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1329
 msgid "layered-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1332
 msgid "list"
 msgstr "lista"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1335
 msgid "list-item"
 msgstr "obiekt-listy"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1338
 msgid "menu"
 msgstr "menu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1341
 msgid "menu-bar"
 msgstr "pasek-menu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1344
 msgid "menu-item"
 msgstr "obiekt-menu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1347
 msgid "option-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1350
 msgid "page-tab"
 msgstr "zakładka-strony"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1353
 msgid "page-tab-list"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1356
 msgid "panel"
 msgstr "panel"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1359
 msgid "password-text"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1362
 msgid "popup-menu"
 msgstr "menu-podręczne"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1365
 msgid "progress-bar"
 msgstr "pasek-postępu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1368
 msgid "push-button"
 msgstr "przycisk"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1371
 msgid "radio-button"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1374
 msgid "radio-menu-item"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1377
 msgid "root-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1380
 msgid "row-header"
 msgstr "nagłówek-wiersza"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1383
 msgid "scroll-bar"
 msgstr "pasek-przewijania"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1386
 msgid "scroll-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1389
 msgid "separator"
 msgstr "separator"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1392
 msgid "slider"
 msgstr "suwak"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1395
 msgid "split-pane"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1398
 msgid "spin-button"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1401
 msgid "statusbar"
 msgstr "pasek-stanu"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1404
 msgid "table"
 msgstr "tabela"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1407
 msgid "table-cell"
 msgstr "komórka-tabeli"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1410
 msgid "table-column-header"
 msgstr "nagłówek-kolumny-tabeli"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1413
 msgid "table-row-header"
 msgstr "nagłówek-wiersza-tabeli"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1416
 msgid "tear-off-menu-item"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1419
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1422
 msgid "text"
 msgstr "napis"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1425
 msgid "toggle-button"
 msgstr "przełączalny-przycisk"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1428
 msgid "tool-bar"
 msgstr "pasek-narzędziowy"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1431
 msgid "tool-tip"
 msgstr "podpowiedź"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1434
 msgid "tree"
 msgstr "drzewo"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1437
 msgid "tree-table"
 msgstr "tabela-drzewiasta"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1440
 msgid "unknown"
 msgstr "nieznany"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1443
 msgid "viewport"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1446
 msgid "window"
 msgstr "okno"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1449
 msgid "header"
 msgstr "nagłówek"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1452
 msgid "footer"
 msgstr "stopka"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1455
 msgid "paragraph"
 msgstr "akapit"
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1458
 msgid "ruler"
 msgstr ""
 
-#: atk/atkobject.c:1
+#: atk/atkobject.c:1461
 msgid "application"
 msgstr "aplikacja"

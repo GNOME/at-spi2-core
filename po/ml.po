@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.2.x\n"
-"POT-Creation-Date: 2003-03-20 17:02+0530\n"
+"POT-Creation-Date: 2003-03-18 11:51+0000\n"
 "PO-Revision-Date: 2003-03-05 10:29+0530\n"
 "Last-Translator: FSF-India <locale@gnu.org.in>\n"
 "Language-Team: Malayalam <locale@gnu.org.in>\n"

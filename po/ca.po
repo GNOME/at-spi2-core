@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.2.0\n"
-"POT-Creation-Date: 2002-12-21 17:17+0100\n"
+"POT-Creation-Date: 2003-03-18 11:51+0000\n"
 "PO-Revision-Date: 2002-12-21 19:01+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -14,298 +14,298 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1183
+#: atk/atkobject.c:1242
 msgid "invalid"
 msgstr "invàlid"
 
-#: atk/atkobject.c:1186
+#: atk/atkobject.c:1245
 msgid "accel-label"
 msgstr "etiqueta d'accelerador"
 
-#: atk/atkobject.c:1189
+#: atk/atkobject.c:1248
 msgid "alert"
 msgstr "alerta"
 
-#: atk/atkobject.c:1192
+#: atk/atkobject.c:1251
 msgid "animation"
 msgstr "animació"
 
-#: atk/atkobject.c:1195
+#: atk/atkobject.c:1254
 msgid "arrow"
 msgstr "fletxa"
 
-#: atk/atkobject.c:1198
+#: atk/atkobject.c:1257
 msgid "calendar"
 msgstr "calendari"
 
-#: atk/atkobject.c:1201
+#: atk/atkobject.c:1260
 msgid "canvas"
 msgstr "canvas"
 
-#: atk/atkobject.c:1204
+#: atk/atkobject.c:1263
 msgid "check-box"
 msgstr "quadre de verificació"
 
-#: atk/atkobject.c:1207
+#: atk/atkobject.c:1266
 msgid "check-menu-item"
 msgstr "element de menú de verificació"
 
-#: atk/atkobject.c:1210
+#: atk/atkobject.c:1269
 msgid "color-chooser"
 msgstr "selector de color"
 
-#: atk/atkobject.c:1213
+#: atk/atkobject.c:1272
 msgid "column-header"
 msgstr "capçalera de columna"
 
-#: atk/atkobject.c:1216
+#: atk/atkobject.c:1275
 msgid "combo-box"
 msgstr "caixa combo"
 
-#: atk/atkobject.c:1219
+#: atk/atkobject.c:1278
 msgid "date-editor"
 msgstr "editor de data"
 
-#: atk/atkobject.c:1222
+#: atk/atkobject.c:1281
 msgid "desktop-icon"
 msgstr "icona d'escriptori"
 
-#: atk/atkobject.c:1225
+#: atk/atkobject.c:1284
 msgid "desktop-frame"
 msgstr "marc d'escriptori"
 
-#: atk/atkobject.c:1228
+#: atk/atkobject.c:1287
 msgid "dial"
 msgstr "disc selector"
 
-#: atk/atkobject.c:1231
+#: atk/atkobject.c:1290
 msgid "dialog"
 msgstr "diàleg"
 
-#: atk/atkobject.c:1234
+#: atk/atkobject.c:1293
 msgid "directory-pane"
 msgstr "quadre de directori"
 
-#: atk/atkobject.c:1237
+#: atk/atkobject.c:1296
 msgid "drawing-area"
 msgstr "àrea de dibuixat"
 
-#: atk/atkobject.c:1240
+#: atk/atkobject.c:1299
 msgid "file-chooser"
 msgstr "selector de fitxer"
 
-#: atk/atkobject.c:1243
+#: atk/atkobject.c:1302
 msgid "filler"
 msgstr "omplenador"
 
-#: atk/atkobject.c:1246
+#: atk/atkobject.c:1305
 msgid "font-chooser"
 msgstr "selector de font"
 
-#: atk/atkobject.c:1249
+#: atk/atkobject.c:1308
 msgid "frame"
 msgstr "marc"
 
-#: atk/atkobject.c:1252
+#: atk/atkobject.c:1311
 msgid "glass-pane"
 msgstr "quadre transparent"
 
-#: atk/atkobject.c:1255
+#: atk/atkobject.c:1314
 msgid "html-container"
 msgstr "contenidor d'html"
 
-#: atk/atkobject.c:1258
+#: atk/atkobject.c:1317
 msgid "icon"
 msgstr "icona"
 
-#: atk/atkobject.c:1261
+#: atk/atkobject.c:1320
 msgid "image"
 msgstr "imatge"
 
-#: atk/atkobject.c:1264
+#: atk/atkobject.c:1323
 msgid "internal-frame"
 msgstr "marc intern"
 
-#: atk/atkobject.c:1267
+#: atk/atkobject.c:1326
 msgid "label"
 msgstr "etiqueta"
 
-#: atk/atkobject.c:1270
+#: atk/atkobject.c:1329
 msgid "layered-pane"
 msgstr "quadre superposat"
 
-#: atk/atkobject.c:1273
+#: atk/atkobject.c:1332
 msgid "list"
 msgstr "llista"
 
-#: atk/atkobject.c:1276
+#: atk/atkobject.c:1335
 msgid "list-item"
 msgstr "element de llista"
 
-#: atk/atkobject.c:1279
+#: atk/atkobject.c:1338
 msgid "menu"
 msgstr "menú"
 
-#: atk/atkobject.c:1282
+#: atk/atkobject.c:1341
 msgid "menu-bar"
 msgstr "barra de menú"
 
-#: atk/atkobject.c:1285
+#: atk/atkobject.c:1344
 msgid "menu-item"
 msgstr "element de menú"
 
-#: atk/atkobject.c:1288
+#: atk/atkobject.c:1347
 msgid "option-pane"
 msgstr "quadre d'opcions"
 
-#: atk/atkobject.c:1291
+#: atk/atkobject.c:1350
 msgid "page-tab"
 msgstr "pestanya de pàgina"
 
-#: atk/atkobject.c:1294
+#: atk/atkobject.c:1353
 msgid "page-tab-list"
 msgstr "llista de pestanyes de pàgina"
 
-#: atk/atkobject.c:1297
+#: atk/atkobject.c:1356
 msgid "panel"
 msgstr "quadre"
 
-#: atk/atkobject.c:1300
+#: atk/atkobject.c:1359
 msgid "password-text"
 msgstr "text de contrasenya"
 
-#: atk/atkobject.c:1303
+#: atk/atkobject.c:1362
 msgid "popup-menu"
 msgstr "menú emergent"
 
-#: atk/atkobject.c:1306
+#: atk/atkobject.c:1365
 msgid "progress-bar"
 msgstr "barra de progrés"
 
-#: atk/atkobject.c:1309
+#: atk/atkobject.c:1368
 msgid "push-button"
 msgstr "botó de pulsació"
 
-#: atk/atkobject.c:1312
+#: atk/atkobject.c:1371
 msgid "radio-button"
 msgstr "botó radial"
 
-#: atk/atkobject.c:1315
+#: atk/atkobject.c:1374
 msgid "radio-menu-item"
 msgstr "element de menú radial"
 
-#: atk/atkobject.c:1318
+#: atk/atkobject.c:1377
 msgid "root-pane"
 msgstr "quadre arrel"
 
-#: atk/atkobject.c:1321
+#: atk/atkobject.c:1380
 msgid "row-header"
 msgstr "capçalera de fila"
 
-#: atk/atkobject.c:1324
+#: atk/atkobject.c:1383
 msgid "scroll-bar"
 msgstr "barra de desplaçament"
 
-#: atk/atkobject.c:1327
+#: atk/atkobject.c:1386
 msgid "scroll-pane"
 msgstr "quadre de desplaçament"
 
-#: atk/atkobject.c:1330
+#: atk/atkobject.c:1389
 msgid "separator"
 msgstr "separador"
 
-#: atk/atkobject.c:1333
+#: atk/atkobject.c:1392
 msgid "slider"
 msgstr "desplaçador"
 
-#: atk/atkobject.c:1336
+#: atk/atkobject.c:1395
 msgid "split-pane"
 msgstr "quadre partit"
 
-#: atk/atkobject.c:1339
+#: atk/atkobject.c:1398
 msgid "spin-button"
 msgstr "botó giratori"
 
-#: atk/atkobject.c:1342
+#: atk/atkobject.c:1401
 msgid "statusbar"
 msgstr "barra d'estat"
 
-#: atk/atkobject.c:1345
+#: atk/atkobject.c:1404
 msgid "table"
 msgstr "taula"
 
-#: atk/atkobject.c:1348
+#: atk/atkobject.c:1407
 msgid "table-cell"
 msgstr "cel·la de taula"
 
-#: atk/atkobject.c:1351
+#: atk/atkobject.c:1410
 msgid "table-column-header"
 msgstr "capçalera de columna de taula"
 
-#: atk/atkobject.c:1354
+#: atk/atkobject.c:1413
 msgid "table-row-header"
 msgstr "capçalera de fila de taula"
 
-#: atk/atkobject.c:1357
+#: atk/atkobject.c:1416
 msgid "tear-off-menu-item"
 msgstr "element de menú arrossegable"
 
-#: atk/atkobject.c:1360
+#: atk/atkobject.c:1419
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:1363
+#: atk/atkobject.c:1422
 msgid "text"
 msgstr "text"
 
-#: atk/atkobject.c:1366
+#: atk/atkobject.c:1425
 msgid "toggle-button"
 msgstr "botó de selecció"
 
-#: atk/atkobject.c:1369
+#: atk/atkobject.c:1428
 msgid "tool-bar"
 msgstr "barra d'eines"
 
-#: atk/atkobject.c:1372
+#: atk/atkobject.c:1431
 msgid "tool-tip"
 msgstr "consell"
 
-#: atk/atkobject.c:1375
+#: atk/atkobject.c:1434
 msgid "tree"
 msgstr "àrbre"
 
-#: atk/atkobject.c:1378
+#: atk/atkobject.c:1437
 msgid "tree-table"
 msgstr "taula d'arbre"
 
-#: atk/atkobject.c:1381
+#: atk/atkobject.c:1440
 msgid "unknown"
 msgstr "desconegut"
 
-#: atk/atkobject.c:1384
+#: atk/atkobject.c:1443
 msgid "viewport"
 msgstr "subàrea"
 
-#: atk/atkobject.c:1387
+#: atk/atkobject.c:1446
 msgid "window"
 msgstr "finestra"
 
-#: atk/atkobject.c:1390
+#: atk/atkobject.c:1449
 msgid "header"
 msgstr "capçalera"
 
-#: atk/atkobject.c:1393
+#: atk/atkobject.c:1452
 msgid "footer"
 msgstr "peu"
 
-#: atk/atkobject.c:1396
+#: atk/atkobject.c:1455
 msgid "paragraph"
 msgstr "paràgraf"
 
-#: atk/atkobject.c:1399
+#: atk/atkobject.c:1458
 msgid "ruler"
 msgstr "regla"
 
-#: atk/atkobject.c:1402
+#: atk/atkobject.c:1461
 msgid "application"
 msgstr "aplicació"

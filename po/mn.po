@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
-"POT-Creation-Date: 2003-01-08 05:50+0100\n"
+"POT-Creation-Date: 2003-03-18 11:51+0000\n"
 "PO-Revision-Date: 2003-01-16 20:55+0100\n"
 "Last-Translator: Sanlig Badral <badral@chinggis.com>\n"
 "Language-Team: mongolian <mn@li.org>\n"
@@ -15,299 +15,298 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.1\n"
 
-#: atk/atkobject.c:1183
+#: atk/atkobject.c:1242
 msgid "invalid"
 msgstr "хүчингүй"
 
-#: atk/atkobject.c:1186
+#: atk/atkobject.c:1245
 msgid "accel-label"
 msgstr "товч-бичээс"
 
-#: atk/atkobject.c:1189
+#: atk/atkobject.c:1248
 msgid "alert"
 msgstr "Сонордуулга"
 
-#: atk/atkobject.c:1192
+#: atk/atkobject.c:1251
 msgid "animation"
 msgstr "Хөдөлгөөн"
 
-#: atk/atkobject.c:1195
+#: atk/atkobject.c:1254
 msgid "arrow"
 msgstr "Сум"
 
-#: atk/atkobject.c:1198
+#: atk/atkobject.c:1257
 msgid "calendar"
 msgstr "Календар"
 
-#: atk/atkobject.c:1201
+#: atk/atkobject.c:1260
 msgid "canvas"
 msgstr "зураг(canvas)"
 
-#: atk/atkobject.c:1204
+#: atk/atkobject.c:1263
 msgid "check-box"
 msgstr "хирээст талбар"
 
-#: atk/atkobject.c:1207
+#: atk/atkobject.c:1266
 msgid "check-menu-item"
 msgstr "удирдах-цэс-элемент"
 
-#: atk/atkobject.c:1210
+#: atk/atkobject.c:1269
 msgid "color-chooser"
 msgstr "Өнгө сонгогч"
 
-#: atk/atkobject.c:1213
+#: atk/atkobject.c:1272
 msgid "column-header"
 msgstr "баганы толгой"
 
-#: atk/atkobject.c:1216
+#: atk/atkobject.c:1275
 msgid "combo-box"
 msgstr "Унадаг талбар"
 
-#: atk/atkobject.c:1219
+#: atk/atkobject.c:1278
 msgid "date-editor"
 msgstr "Огноо-засварлагч"
 
-#: atk/atkobject.c:1222
+#: atk/atkobject.c:1281
 msgid "desktop-icon"
 msgstr "Desktop-эмблем"
 
-#: atk/atkobject.c:1225
+#: atk/atkobject.c:1284
 msgid "desktop-frame"
 msgstr "Desktop-хүрээ"
 
-#: atk/atkobject.c:1228
+#: atk/atkobject.c:1287
 msgid "dial"
 msgstr "залгах"
 
-#: atk/atkobject.c:1231
+#: atk/atkobject.c:1290
 msgid "dialog"
 msgstr "диалог"
 
-#: atk/atkobject.c:1234
+#: atk/atkobject.c:1293
 msgid "directory-pane"
 msgstr "Лавлахын самбар"
 
-#: atk/atkobject.c:1237
+#: atk/atkobject.c:1296
 msgid "drawing-area"
 msgstr "Зурах талбар"
 
-#: atk/atkobject.c:1240
+#: atk/atkobject.c:1299
 msgid "file-chooser"
 msgstr "Файл сонгогч"
 
-#: atk/atkobject.c:1243
+#: atk/atkobject.c:1302
 msgid "filler"
 msgstr "Дүүргэгч"
 
-#: atk/atkobject.c:1246
+#: atk/atkobject.c:1305
 msgid "font-chooser"
 msgstr "Бичиг сонгогч"
 
-#: atk/atkobject.c:1249
+#: atk/atkobject.c:1308
 msgid "frame"
 msgstr "хүрээ"
 
-#: atk/atkobject.c:1252
+#: atk/atkobject.c:1311
 msgid "glass-pane"
 msgstr "шилний самбар"
 
-#: atk/atkobject.c:1255
+#: atk/atkobject.c:1314
 msgid "html-container"
 msgstr "HTML-агуулах"
 
-#: atk/atkobject.c:1258
+#: atk/atkobject.c:1317
 msgid "icon"
 msgstr "Эмблем"
 
-#: atk/atkobject.c:1261
+#: atk/atkobject.c:1320
 msgid "image"
 msgstr "Зураг"
 
-#: atk/atkobject.c:1264
+#: atk/atkobject.c:1323
 msgid "internal-frame"
 msgstr "дотоод хүрээ"
 
-#: atk/atkobject.c:1267
+#: atk/atkobject.c:1326
 msgid "label"
 msgstr "Бичээс"
 
-#: atk/atkobject.c:1270
+#: atk/atkobject.c:1329
 msgid "layered-pane"
 msgstr "Үечлэлийн самбар"
 
-#: atk/atkobject.c:1273
+#: atk/atkobject.c:1332
 msgid "list"
 msgstr "жигсаалт"
 
-#: atk/atkobject.c:1276
+#: atk/atkobject.c:1335
 msgid "list-item"
 msgstr "жигсаалт-элемент"
 
-#: atk/atkobject.c:1279
+#: atk/atkobject.c:1338
 msgid "menu"
 msgstr "Цэс"
 
-#: atk/atkobject.c:1282
+#: atk/atkobject.c:1341
 msgid "menu-bar"
 msgstr "Цэс самбар"
 
-#: atk/atkobject.c:1285
+#: atk/atkobject.c:1344
 msgid "menu-item"
 msgstr "Цэсний элемент"
 
-#: atk/atkobject.c:1288
+#: atk/atkobject.c:1347
 msgid "option-pane"
 msgstr "Сонголт самбар"
 
-#: atk/atkobject.c:1291
+#: atk/atkobject.c:1350
 msgid "page-tab"
 msgstr "хуудас-гогцоо"
 
-#: atk/atkobject.c:1294
+#: atk/atkobject.c:1353
 msgid "page-tab-list"
 msgstr "хуудас-гогцоо-жигсаалт"
 
-#: atk/atkobject.c:1297
+#: atk/atkobject.c:1356
 msgid "panel"
 msgstr "Хавтан"
 
-#: atk/atkobject.c:1300
+#: atk/atkobject.c:1359
 msgid "password-text"
 msgstr "нууц үг-текст"
 
-#: atk/atkobject.c:1303
+#: atk/atkobject.c:1362
 msgid "popup-menu"
 msgstr "Тагтан(Popup)-цэс"
 
-#: atk/atkobject.c:1306
+#: atk/atkobject.c:1365
 msgid "progress-bar"
 msgstr "прогресс самбар"
 
-#: atk/atkobject.c:1309
+#: atk/atkobject.c:1368
 msgid "push-button"
 msgstr "дардаг-товч"
 
-#: atk/atkobject.c:1312
+#: atk/atkobject.c:1371
 msgid "radio-button"
 msgstr "Радио товч"
 
-#: atk/atkobject.c:1315
+#: atk/atkobject.c:1374
 msgid "radio-menu-item"
 msgstr "Радио-цэс-элемент"
 
-#: atk/atkobject.c:1318
+#: atk/atkobject.c:1377
 msgid "root-pane"
 msgstr "үндэс-самбар"
 
-#: atk/atkobject.c:1321
+#: atk/atkobject.c:1380
 msgid "row-header"
 msgstr "мөрийн толгой"
 
-#: atk/atkobject.c:1324
+#: atk/atkobject.c:1383
 msgid "scroll-bar"
 msgstr "Гүйдэг дөрвөлжин"
 
-#: atk/atkobject.c:1327
+#: atk/atkobject.c:1386
 msgid "scroll-pane"
 msgstr "Гүйдэг самбар"
 
-#: atk/atkobject.c:1330
+#: atk/atkobject.c:1389
 msgid "separator"
 msgstr "Тусгаарлагч шугам"
 
-#: atk/atkobject.c:1333
+#: atk/atkobject.c:1392
 msgid "slider"
 msgstr "Гулсуур"
 
-#: atk/atkobject.c:1336
+#: atk/atkobject.c:1395
 msgid "split-pane"
 msgstr "Хуваагдсан-самбарууд"
 
-#: atk/atkobject.c:1339
+#: atk/atkobject.c:1398
 msgid "spin-button"
 msgstr "Spin-товч"
 
-#: atk/atkobject.c:1342
+#: atk/atkobject.c:1401
 msgid "statusbar"
 msgstr "Төлвийн сабар"
 
-#: atk/atkobject.c:1345
+#: atk/atkobject.c:1404
 msgid "table"
 msgstr "хүснэгт"
 
-#: atk/atkobject.c:1348
+#: atk/atkobject.c:1407
 msgid "table-cell"
 msgstr "хүснэгт-зай"
 
-#: atk/atkobject.c:1351
+#: atk/atkobject.c:1410
 msgid "table-column-header"
 msgstr "хүснэгтийн баганы толгой"
 
-#: atk/atkobject.c:1354
+#: atk/atkobject.c:1413
 msgid "table-row-header"
 msgstr "хүснэгтийн мөрийн толгой"
 
-#: atk/atkobject.c:1357
+#: atk/atkobject.c:1416
 msgid "tear-off-menu-item"
 msgstr "тасархай-цэс элемент"
 
-#: atk/atkobject.c:1360
+#: atk/atkobject.c:1419
 msgid "terminal"
 msgstr "терминал"
 
-#: atk/atkobject.c:1363
+#: atk/atkobject.c:1422
 msgid "text"
 msgstr "текст"
 
-#: atk/atkobject.c:1366
+#: atk/atkobject.c:1425
 msgid "toggle-button"
 msgstr "эргэх товч"
 
-#: atk/atkobject.c:1369
+#: atk/atkobject.c:1428
 msgid "tool-bar"
 msgstr "багаж самбар"
 
-#: atk/atkobject.c:1372
+#: atk/atkobject.c:1431
 msgid "tool-tip"
 msgstr "Tooltip"
 
-#: atk/atkobject.c:1375
+#: atk/atkobject.c:1434
 msgid "tree"
 msgstr "Мод"
 
-#: atk/atkobject.c:1378
+#: atk/atkobject.c:1437
 msgid "tree-table"
 msgstr "мод-хүснэгт"
 
-#: atk/atkobject.c:1381
+#: atk/atkobject.c:1440
 msgid "unknown"
 msgstr "тодорхогүй"
 
-#: atk/atkobject.c:1384
+#: atk/atkobject.c:1443
 msgid "viewport"
 msgstr "харах талбар"
 
-#: atk/atkobject.c:1387
+#: atk/atkobject.c:1446
 msgid "window"
 msgstr "Цонх"
 
-#: atk/atkobject.c:1390
+#: atk/atkobject.c:1449
 msgid "header"
 msgstr "толгой"
 
-#: atk/atkobject.c:1393
+#: atk/atkobject.c:1452
 msgid "footer"
 msgstr "хөл"
 
-#: atk/atkobject.c:1396
+#: atk/atkobject.c:1455
 msgid "paragraph"
 msgstr "Догол мөр"
 
-#: atk/atkobject.c:1399
+#: atk/atkobject.c:1458
 msgid "ruler"
 msgstr "Шугам"
 
-#: atk/atkobject.c:1402
+#: atk/atkobject.c:1461
 msgid "application"
 msgstr "х.программ"
-
