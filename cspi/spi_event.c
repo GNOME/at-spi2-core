@@ -2,8 +2,8 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
+ * Copyright 2001, 2002, 2003 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -338,7 +338,7 @@ cspi_internal_event_get_text (const InternalEvent *e)
   any = (CORBA_any *) e->data;
   if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
     {
-      return * (char **) any->_value;
+      return g_strdup (* (char **) any->_value);
     } 
   else
     {

@@ -2,8 +2,8 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
+ * Copyright 2001, 2002, 2003 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -29,12 +29,14 @@ static void traverse_accessible_tree (Accessible *accessible);
 
 static void report_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
+static void report_detail1_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_event  (const AccessibleEvent *event, void *user_data);
 static void timing_test_event (const AccessibleEvent *event, void *user_data);
 static SPIBoolean report_mouse_event  (const AccessibleDeviceEvent *event, void *user_data);
 
 static AccessibleEventListener *generic_listener;
 static AccessibleEventListener *specific_listener;
+static AccessibleEventListener *detail1_listener;
 static AccessibleEventListener *test_listener;
 static AccessibleEventListener *text_listener;
 static AccessibleDeviceListener *mouse_device_listener;
@@ -96,6 +98,8 @@ main (int argc, char **argv)
 	  timing_test_event, NULL);
   mouse_device_listener = SPI_createAccessibleDeviceListener (
           report_mouse_event, NULL);
+  detail1_listener = SPI_createAccessibleEventListener (
+	  report_detail1_event, NULL); 
 
   SPI_registerGlobalEventListener (generic_listener,
 				   "focus:");
@@ -151,6 +155,8 @@ main (int argc, char **argv)
 				   "object:row-deleted"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:model-changed"); 
+  SPI_registerGlobalEventListener (detail1_listener,
+				   "object:link-selected"); 
   SPI_registerGlobalEventListener (generic_listener,
 				   "window:minimize");
   SPI_registerGlobalEventListener (generic_listener,
@@ -265,6 +271,15 @@ report_detail_event (const AccessibleEvent *event, void *user_data)
   char *s = Accessible_getName (event->source);
   fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
 	   event->detail1, event->detail2);
+  if (s) SPI_freeString (s);
+}
+
+void
+report_detail1_event (const AccessibleEvent *event, void *user_data)
+{
+  char *s = Accessible_getName (event->source);
+  fprintf (stderr, "(detail) %s %s %d\n", event->type, s,
+	   event->detail1);
   if (s) SPI_freeString (s);
 }
 

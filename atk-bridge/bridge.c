@@ -2,8 +2,8 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
+ * Copyright 2001, 2002, 2003 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -74,6 +74,8 @@ static guint atk_signal_active_descendant_changed;
    static guint atk_signal_column_deleted;
 */
 
+static guint atk_signal_link_selected;
+
 static Accessibility_Registry spi_atk_bridge_get_registry (void);
 static void     spi_atk_bridge_do_registration         (void);
 static void     spi_atk_bridge_toplevel_added          (AtkObject             *object,
@@ -131,6 +133,8 @@ spi_atk_bridge_init_event_type_consts ()
   atk_signal_active_descendant_changed = 
          g_signal_lookup ("active_descendant_changed", 
 		          ATK_TYPE_OBJECT);
+  atk_signal_link_selected = g_signal_lookup ("link_selected", 
+					      ATK_TYPE_HYPERTEXT);
 }
 
 static int
@@ -360,6 +364,7 @@ spi_atk_register_event_listeners (void)
   add_signal_listener ("Gtk:AtkTable:column-reordered");
   add_signal_listener ("Gtk:AtkTable:column-deleted");
   add_signal_listener ("Gtk:AtkTable:model-changed");
+  add_signal_listener ("Gtk:AtkHypertext:link-selected");
 /*
  * May add the following listeners to implement preemptive key listening for GTK+
  *
@@ -740,6 +745,12 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
       s_ao = spi_accessible_new (ao);
       c_obj = BONOBO_OBJREF (s_ao);
       spi_init_any_object (&any, &c_obj);
+    }
+  else if (signal_query.signal_id == atk_signal_link_selected)
+    {
+      if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
+        detail1 = g_value_get_int (param_values + 1);
+      spi_init_any_nil (&any);
     }
   else
     {

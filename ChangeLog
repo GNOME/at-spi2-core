@@ -1,5 +1,20 @@
 2003-02-14  Padraig O'Briain <padraig.obriain@sun.com>
 
+	* atk-bridge/bridge.c
+	(spi_atk_bridge_init_event_type_consts): Look up "link-selected" for
+	AtkHypertext
+	(spi_atk_register_event_listener): Add signal listener for 
+	link-selected
+	(spi_atk_bridge_signal_listener): Event event when link-selected
+	signal is emitted. (bug #104622)
+
+	* cspi/spi_event.c (cspi_internal_event_get_text): Call g_strdup()
+	on returned string. (bug #105291)
+
+	* test/event-listener-test.c: Add test for link-selected.
+	
+2003-02-14  Padraig O'Briain <padraig.obriain@sun.com>
+
 	* atk-bridge/Makefile.am: Correct typo in previous commit.
 
 2003-02-13  Padraig O'Briain <padraig.obriain@sun.com>
