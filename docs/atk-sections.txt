@@ -126,6 +126,7 @@ atk_no_op_object_get_type
 ATK_NO_OP_OBJECT_CLASS
 ATK_IS_NO_OP_OBJECT_CLASS
 ATK_NO_OP_OBJECT_GET_CLASS
+AtkNoOpObjectClass
 </SECTION>
 
 <SECTION>
@@ -141,6 +142,7 @@ atk_no_op_object_factory_get_type
 ATK_NO_OP_OBJECT_FACTORY_CLASS
 ATK_IS_NO_OP_OBJECT_FACTORY_CLASS
 ATK_NO_OP_OBJECT_FACTORY_GET_CLASS
+AtkNoOpObjectFactoryClass
 </SECTION>
 
 <SECTION>
@@ -198,6 +200,7 @@ atk_implementor_get_type
 atk_object_get_type
 atk_role_get_type
 atk_layer_get_type
+AtkObjectClass
 </SECTION>
 
 <SECTION>
@@ -215,6 +218,7 @@ atk_object_factory_get_type
 ATK_OBJECT_FACTORY_CLASS
 ATK_IS_OBJECT_FACTORY_CLASS
 ATK_OBJECT_FACTORY_GET_CLASS
+AtkObjectFactoryClass
 </SECTION>
 
 <SECTION>
@@ -233,6 +237,7 @@ atk_registry_get_type
 ATK_REGISTRY_CLASS
 ATK_IS_REGISTRY_CLASS
 ATK_REGISTRY_GET_CLASS
+AtkRegistryClass
 </SECTION>
 
 <SECTION>
@@ -256,6 +261,7 @@ atk_relation_type_get_type
 ATK_RELATION_CLASS
 ATK_IS_RELATION_CLASS
 ATK_RELATION_GET_CLASS
+AtkRelationClass
 </SECTION>
 
 <SECTION>
@@ -277,6 +283,7 @@ atk_relation_set_get_type
 ATK_RELATION_SET_CLASS
 ATK_IS_RELATION_SET_CLASS
 ATK_RELATION_SET_GET_CLASS
+AtkRelationSetClass
 </SECTION>
 
 <SECTION>
@@ -321,6 +328,7 @@ atk_state_set_get_type
 ATK_STATE_SET_CLASS
 ATK_IS_STATE_SET_CLASS
 ATK_STATE_SET_GET_CLASS
+AtkStateSetClass
 </SECTION>
 
 <SECTION>
@@ -456,6 +464,7 @@ ATK_IS_HYPERLINK_CLASS
 ATK_HYPERLINK_GET_CLASS
 atk_hyperlink_state_flags_get_type
 ATK_TYPE_HYPERLINK_STATE_FLAGS
+AtkHyperlinkClass
 </SECTION>
 
 <SECTION>
@@ -520,6 +529,7 @@ atk_coord_type_get_type
 ATK_UTIL_CLASS
 ATK_IS_UTIL_CLASS
 ATK_UTIL_GET_CLASS
+AtkUtilClass
 </SECTION>
 
 <SECTION>
@@ -536,4 +546,5 @@ atk_gobject_accessible_get_type
 ATK_GOBJECT_ACCESSIBLE_CLASS
 ATK_IS_GOBJECT_ACCESSIBLE_CLASS
 ATK_GOBJECT_ACCESSIBLE_GET_CLASS
+AtkGObjectAccessibleClass
 </SECTION>

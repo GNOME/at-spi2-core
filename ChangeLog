@@ -1,3 +1,7 @@
+2003-03-20  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* docs/atk-sections.txt: Add 11 unused declarations.
+
 2003-03-20  James Henstridge  <james@daa.com.au>
  
  	* autogen.sh: update to call automake-1.7, libtoolize, gtkdocize
