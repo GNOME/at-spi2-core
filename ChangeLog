@@ -1,3 +1,9 @@
+2001-10-16  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c:
+	Update comments in atk_text_get_run_attributes() and
+	atk_text_get_default_attributes().
+
 2001-10-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject;c:

@@ -447,9 +447,8 @@ atk_text_get_character_extents (AtkText *text,
  *Creates an #AtkAttributeSet which consists of the attributes explicitly
  *set at the position @offset in the text. @start_offset and @end_offset are
  *set to the start and end of the range around @offset where the attributes are
- *invariant. See the ATK_ATTRIBUTE macros, such as #ATK_ATTRIBUTE_LEFT_MARGIN
- *for types of text attributes that can be returned. Note that other 
- *attributes that do not have corresponding macros may also be returned.
+ *invariant. See the enum AtkTextAttribute for types of text attributes that 
+ *can be returned. Note that other attributes may also be returned.
  *
  *Returns: an #AtkAttributeSet which contains the attributes explicitly set
  *at @offset. This #AtkAttributeSet should be freed by a call to
@@ -489,10 +488,9 @@ atk_text_get_run_attributes (AtkText          *text,
  *@text: an #AtkText
  *
  *Creates an #AtkAttributeSet which consists of the default values of
- *attributes for the text. See the ATK_ATTRIBUTE macros, such as 
- *#ATK_ATTRIBUTE_LEFT_MARGIN for types of text attributes that can be 
- *returned. Note that other attributes that do not have corresponding macros 
- *may also be returned.
+ *attributes for the text. See the enum AtkTextAttribute for types of text 
+ *attributes that can be returned. Note that other attributes may also be 
+ *returned.
  *
  *Returns: an #AtkAttributeSet which contains the default values of attributes.
  *at @offset. This #AtkAttributeSet should be freed by a call to
