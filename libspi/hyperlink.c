@@ -98,8 +98,14 @@ spi_hyperlink_new (AtkHyperlink *object)
    */
   if (ATK_IS_ACTION (object))
     {
+      /* 
+       * NOTE: we don't cast 'object' to ATK_OBJECT in the call to 
+       * spi_action_interface_new(), because of the above convention, 
+       * even though it means we may be violating the func prototype.
+       * See discussion in bugzilla bug #120659.
+       */
       bonobo_object_add_interface (bonobo_object (new_hyperlink),
-				   BONOBO_OBJECT (spi_action_interface_new (ATK_OBJECT (object))));
+				   BONOBO_OBJECT (spi_action_interface_new (object)));
     }
   return new_hyperlink;
 }

@@ -4,6 +4,11 @@
 	Bracketed some debug output in 
 	conditionals, to avoid printing it in normal use.
 	Fixes bug #136660.
+
+	* libspi/hyperlink.c:
+	Don't cast 'object' to ATK_OBJECT when constructing
+	an AtkAction interface for a hyperlink.
+	See discussion in bug #120659.
 	
 2004-03-22  Bill Haneman <billh@gnome.org>
 
