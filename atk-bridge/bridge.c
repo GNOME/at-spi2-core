@@ -409,6 +409,13 @@ spi_atk_emit_eventv (GObject      *gobject,
 #endif
 
       Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), &e, &ev);
+#ifdef SPI_BRIDGE_DEBUG
+      if (ev._major != CORBA_NO_EXCEPTION)
+	      g_warning ("error emitting event %s, (%d) %s",
+			 e.type,
+			 ev._major,
+			 CORBA_exception_id(&ev));
+#endif	      
       if (BONOBO_EX (&ev)) registry_died = TRUE;
       Accessibility_Accessible_unref (e.source, &ev);
 

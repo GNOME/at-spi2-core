@@ -586,6 +586,10 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
               g_warning ("Accessibility app error: exception during "
 		        "event notification: %s\n",
 		        CORBA_exception_id (ctx->ev));
+	      if (ctx->ev->_major == CORBA_SYSTEM_EXCEPTION)
+		      CORBA_exception_init (ctx->ev);
+	      /* clear system exception on notify, it means listener is dead but
+	       * that's no concern of the event source :-) */
 	    }
 	}
       else /* dup re-entered */

@@ -1,5 +1,15 @@
 2002-06-20  Bill Haneman  <bill.haneman@sun.com>
 
+	* registryd/registry.c: [fix for bug 86048]
+	(notify_listeners_cb):
+	Clear CORBA system exceptions which occur when notifying
+	listeners, before returning to the source of the original event,
+	since the event source doesn't care if the relayed notify failed.
+	In other words, don't complain to the atk-bridge if the registry
+	could not notify all its listeners, that's no fault of the
+	application and thus should not appear to be an error from the
+	application's perspective.
+	
 	* cspi/spi_main.c: [fix for bug 85980]
 	(cspi_object_ref):
 	Replaced use of bonobo_object_dup_ref with call to the wrapper
