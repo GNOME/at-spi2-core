@@ -1,17 +1,6 @@
-#include <string.h>
-#include "spi-util.h"
-
-
-char *
-string_from_corba_string (CORBA_char *string)
+void
+spi_freeString (char *s)
 {
-  char *newstring;
-  int length;
-
-  length = strlen (string);
-  newstring = (char *) malloc (length+1);
-  strcpy (newstring, string);
-  CORBA_free (string);
-  return newstring;
+  CORBA_free (s);
 }
 

@@ -1,5 +1,3 @@
-#include "spi-util.h"
-
 int
 AccessibleAction_ref (
                       AccessibleAction *obj)
@@ -41,22 +39,22 @@ char *
 AccessibleAction_getDescription (AccessibleAction *obj,
                                  long index)
 {
-  return string_from_corba_string (
-				   Accessibility_Action_getDescription (*obj,
-				       (CORBA_long) index,
-									&ev));
+  return (char *)
+    Accessibility_Action_getDescription (*obj,
+					 (CORBA_long) index,
+					 &ev);
 }
 
 
 
 char *
 AccessibleAction_getKeyBinding (AccessibleAction *obj,
-                                long index)
+				long index)
 {
-  return string_from_corba_string (
-				   Accessibility_Action_getKeyBinding (*obj,
-								       (CORBA_long) index,
-								       &ev));
+  return (char *) 
+    Accessibility_Action_getKeyBinding (*obj,
+       (CORBA_long) index,
+       &ev);
 }
 
 
@@ -65,10 +63,10 @@ char *
 AccessibleAction_getName (AccessibleAction *obj,
 			  long index)
 {
-  return string_from_corba_string (
+  return (char *)
 				   Accessibility_Action_getName (*obj,
 								 (CORBA_long) index,
-								 &ev));
+								 &ev);
 }
 
 

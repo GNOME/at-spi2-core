@@ -172,7 +172,13 @@ impl_getDescription (PortableServer_Servant servant,
 		CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return CORBA_string_dup (atk_action_get_description (ATK_ACTION(action->atko), (gint) index));
+  CORBA_char *rv;
+  
+  rv = atk_action_get_description (ATK_ACTION(action->atko), (gint) index);
+  if (rv)
+    return CORBA_string_dup (rv);
+  else
+    return CORBA_string_dup ("");
 }
 
 
@@ -182,7 +188,13 @@ impl_getName (PortableServer_Servant servant,
 		CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return CORBA_string_dup (atk_action_get_name (ATK_ACTION(action->atko), (gint) index));
+  CORBA_char *rv;
+  
+  rv = atk_action_get_name (ATK_ACTION(action->atko), (gint) index);
+  if (rv)
+    return CORBA_string_dup (rv);
+  else
+    return CORBA_string_dup ("");
 }
 
 static CORBA_string
@@ -191,5 +203,11 @@ impl_getKeyBinding (PortableServer_Servant servant,
 		    CORBA_Environment * ev)
 {
   Action *action = ACTION (bonobo_object_from_servant(servant));
-  return CORBA_string_dup (atk_action_get_keybinding (ATK_ACTION(action->atko), (gint) index));
+  CORBA_char *rv;
+  
+  rv = atk_action_get_keybinding (ATK_ACTION(action->atko), (gint) index);
+  if (rv)
+    return CORBA_string_dup (rv);
+  else
+    return CORBA_string_dup ("");
 }

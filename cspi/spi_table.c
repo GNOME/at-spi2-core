@@ -1,5 +1,3 @@
-#include "spi-util.h"
-
 int
 AccessibleTable_ref (AccessibleTable *obj)
 {
@@ -102,9 +100,9 @@ char *
 AccessibleTable_getRowDescription (AccessibleTable *obj,
 				   long row)
 {
-  return string_from_corba_string (
-				   Accessibility_Table_getRowDescription (*obj,
-									  (CORBA_long) row, &ev));
+  return (char *)
+    Accessibility_Table_getRowDescription (*obj,
+					   (CORBA_long) row, &ev);
 }
 
 
@@ -113,9 +111,9 @@ char *
 AccessibleTable_getColumnDescription (AccessibleTable *obj,
 				      long column)
 {
-  return string_from_corba_string (
-				   Accessibility_Table_getColumnDescription (*obj,
-									     (CORBA_long) column, &ev));
+  return (char *)
+    Accessibility_Table_getColumnDescription (*obj,
+					      (CORBA_long) column, &ev);
 }
 
 

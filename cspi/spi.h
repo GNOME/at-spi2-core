@@ -1241,4 +1241,7 @@ boolean
 AccessibleValue_setCurrentValue (AccessibleValue *value,
                                  float newValue);
 
+void
+spi_freeString (char *s);
+
 #endif

@@ -128,8 +128,8 @@ Accessible_unref (Accessible *obj)
 char *
 Accessible_getName (Accessible *obj)
 {
-  return string_from_corba_string (
-	  Accessibility_Accessible__get_name (*obj, &ev));
+  return (char *)
+    Accessibility_Accessible__get_name (*obj, &ev);
 }
 
 /**
@@ -144,8 +144,8 @@ Accessible_getName (Accessible *obj)
 char *
 Accessible_getDescription (Accessible *obj)
 {
-  return string_from_corba_string (
-	  Accessibility_Accessible__get_description (*obj, &ev));
+  return (char *)
+    Accessibility_Accessible__get_description (*obj, &ev);
 }
 
 /**

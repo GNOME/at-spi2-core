@@ -1,5 +1,3 @@
-#include "spi-util.h"
-
 int
 AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 {
@@ -31,9 +29,9 @@ char *
 AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
                             long i)
 {
-  return string_from_corba_string (
-				   Accessibility_Hyperlink_getURI (*obj,
-								  (CORBA_long) i, &ev));
+  return (char *)
+    Accessibility_Hyperlink_getURI (*obj,
+				    (CORBA_long) i, &ev);
 }
 
 

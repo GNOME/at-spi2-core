@@ -190,8 +190,13 @@ impl_getURI (PortableServer_Servant _servant,
   gchar *uri;
   CORBA_char *rv;
   uri = atk_hyperlink_get_uri (ATK_HYPERLINK(link->atko), (gint) i);
-  rv = CORBA_string_dup (uri);
-  g_free (uri);
+  if (uri)
+    {
+      rv = CORBA_string_dup (uri);
+      g_free (uri);
+      }
+  else
+    rv = CORBA_string_dup ("");
   return rv;
 } 
 

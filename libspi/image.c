@@ -175,8 +175,13 @@ impl__get_imageDescription (PortableServer_Servant _servant,
 			  CORBA_Environment * ev)
 {
   Image *image = IMAGE (bonobo_object_from_servant(_servant));
-  return CORBA_string_dup (
-			   atk_image_get_image_description (ATK_IMAGE(image->atko)));
+  CORBA_char *rv;
+
+  rv = atk_image_get_image_description (ATK_IMAGE(image->atko));
+  if (rv)
+    return CORBA_string_dup (rv);
+  else
+    return CORBA_string_dup ("");
 }
 
 

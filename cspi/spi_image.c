@@ -1,6 +1,3 @@
-#include "spi-util.h"
-
-
 int
 AccessibleImage_ref (AccessibleImage *obj)
 {
@@ -22,9 +19,9 @@ AccessibleImage_unref (AccessibleImage *obj)
 char *
 AccessibleImage_getImageDescription (AccessibleImage *obj)
 {
-  return string_from_corba_string (
-				   Accessibility_Image__get_imageDescription (*obj, &ev));
-}
+  return (char *)
+    Accessibility_Image__get_imageDescription (*obj, &ev);
+    }
 
 
 

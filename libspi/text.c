@@ -241,8 +241,13 @@ impl_getText (PortableServer_Servant _servant,
 
   txt = atk_text_get_text (ATK_TEXT(text->atko),
 		       (gint) startOffset, (gint) endOffset);
-  rv = CORBA_string_dup (txt);
-  g_free (txt);
+  if (txt)
+    {
+      rv = CORBA_string_dup (txt);
+      g_free (txt);
+    }
+  else
+    rv = CORBA_string_dup ("");
   return rv;
 }
 
@@ -261,11 +266,17 @@ impl_getTextAfterOffset (PortableServer_Servant _servant,
   gchar *txt;
   CORBA_char *rv;
 
+
   txt = atk_text_get_text_after_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    (gint *) startOffset, (gint *) endOffset);
-  rv = CORBA_string_dup (txt);
-  g_free (txt);
+  if (txt)
+    {
+      rv = CORBA_string_dup (txt);
+      g_free (txt);
+      }
+  else
+    rv = CORBA_string_dup ("");
   return rv;
 }
 
@@ -286,8 +297,13 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
   txt = atk_text_get_text_at_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    (gint *) startOffset, (gint *) endOffset);
-  rv = CORBA_string_dup (txt);
-  g_free (txt);
+  if (txt)
+    {
+      rv = CORBA_string_dup (txt);
+      g_free (txt);
+    }
+  else
+    rv = CORBA_string_dup ("");
   return rv;
 }
 
@@ -320,8 +336,14 @@ impl_getTextBeforeOffset (PortableServer_Servant _servant,
   txt = atk_text_get_text_before_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    (gint *) startOffset, (gint *) endOffset);
-  rv = CORBA_string_dup (txt);
-  g_free (txt);
+  if (txt)
+    {
+      rv = CORBA_string_dup (txt);
+      g_free (txt);
+    }
+  else
+    rv = CORBA_string_dup ("");
+  return rv;
 }
 
 

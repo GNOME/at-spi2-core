@@ -233,8 +233,7 @@ impl__get_caption (PortableServer_Servant _servant,
   AtkObject *atk_object;
   Accessibility_Accessible rv;
 
-  atk_object = g_object_new (ATK_TYPE_OBJECT, NULL);
-  atk_object_set_name (atk_object, atk_table_get_caption (ATK_TABLE(table-> atko)));
+  atk_object = atk_table_get_caption (ATK_TABLE(table-> atko));
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(accessible_new(atk_object)));
   return rv;
 }
@@ -339,8 +338,13 @@ impl_getRowDescription (PortableServer_Servant _servant,
 			CORBA_Environment * ev)
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
-  return CORBA_string_dup (
-			   atk_table_get_row_description (ATK_TABLE(table->atko), (gint) row));
+  CORBA_char *rv;
+
+  rv = atk_table_get_row_description (ATK_TABLE(table->atko), (gint) row);
+  if (rv)
+    return CORBA_string_dup (rv);
+  else
+    return CORBA_string_dup ("");
 }
 
 
@@ -351,8 +355,13 @@ impl_getColumnDescription (PortableServer_Servant _servant,
 			   CORBA_Environment * ev)
 {
   Table *table = TABLE (bonobo_object_from_servant (_servant));
-  return CORBA_string_dup (
-			   atk_table_get_column_description (ATK_TABLE(table->atko), (gint) column));
+  CORBA_char *rv;
+
+  rv = atk_table_get_column_description (ATK_TABLE(table->atko), (gint) column);
+  if (rv)
+    return CORBA_string_dup (rv);
+  else
+    return CORBA_string_dup ("");
 }
 
 

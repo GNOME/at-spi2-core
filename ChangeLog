@@ -1,4 +1,8 @@
-<2001-09-30  Bill Haneman <bill.haneman@sun.com>
+<2001-10-05  Marc Mulcahy <marc.mulcahy@sun.com>
+	Fixed string handling for NULL strings in libspi.
+	Added spi_freeString to free strings returned by C bindings.
+
+	<2001-09-30  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/keystrokelistener.h:
 	* libspi/keystrokelistener.c:
