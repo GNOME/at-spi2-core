@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi.hi\n"
-"POT-Creation-Date: 2003-08-08 17:53+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-23 19:16+0530\n"
 "PO-Revision-Date: 2003-08-08 18:00+0530\n"
 "Last-Translator: G Karunakar <karunakar@freedomink.org>\n"
 "Language-Team: Hindi <indlinux-hindi-gnome@lists.sourceforge.net>\n"
@@ -15,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0\n"
 
-#: atk-bridge/bridge.c:311
+#: atk-bridge/bridge.c:309
 msgid "failure: no device event controller found.\n"
 msgstr "असफलता : कोई उपकरण घटना नियंत्रक नही मिला \n"
 
-#: atk-bridge/bridge.c:806
+#: atk-bridge/bridge.c:778
 msgid "WARNING: NULL key event reported."
 msgstr "चेतावनी : NULL कुंजी घटना का रपट मिला"
 
@@ -30,4 +31,3 @@ msgstr "एटी एसपीआइ रेजिस्ट्री"
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
 msgstr "अभिगम्यता रेजिस्ट्री"
-
