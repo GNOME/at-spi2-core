@@ -48,9 +48,10 @@ main (int argc, char **argv)
 	else
 	{
 		CORBA_Environment ev;
+		Bonobo_Unknown ret;
 		CORBA_exception_init (&ev);
 		
-		Bonobo_Unknown ret = Bonobo_Unknown_queryInterface (
+		ret = Bonobo_Unknown_queryInterface (
 			BONOBO_OBJREF (helper),
 			"IDL:Accessibility/LoginHelper:1.0", 
 			&ev);
