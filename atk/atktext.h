@@ -55,46 +55,47 @@ struct _AtkTextIface
 {
   GTypeInterface parent;
 
-  gchar* (* get_text)                     (AtkText          *text,
-                                           gint             start_offset,
-                                           gint             end_offset);
-  gchar* (* get_text_after_offset)        (AtkText          *text,
-                                           gint             offset,
-                                           AtkTextBoundary  boundary_type);
-  gchar* (* get_text_at_offset)           (AtkText          *text,
-                                           gint             offset,
-                                           AtkTextBoundary  boundary_type);
-  gunichar (* get_character_at_offset)    (AtkText          *text,
-                                           gint             offset);
-  gchar* (* get_text_before_offset)       (AtkText          *text,
-                                           gint             offset,
-                                           AtkTextBoundary  boundary_type);
-  gint   (* get_caret_offset)             (AtkText          *text);
-  void   (* get_row_col_at_offset)        (AtkText          *text,
-                                           gint             offset,
-                                           gint             *row,
-                                           gint             *col);
-  PangoAttrList* (* get_range_attributes) (AtkText          *text,
-                                           gint             start_offset,
-                                           gint             end_offset);
-  void   (* get_character_extents)        (AtkText          *text,
-                                           gint             offset,
-                                           gint             *x,
-                                           gint             *y,
-                                           gint             *length,
-                                           gint             *width);
-  gint   (* get_character_count)          (AtkText          *text);
-  gint   (* get_offset_at_point)          (AtkText          *text,
-                                           gint             x,
-                                           gint             y);
-  gchar* (* get_selected_text)            (AtkText          *text);
-  gboolean (* get_selection_bounds)       (AtkText          *text,
-                                           gint             *start_offset,
-                                           gint             *end_offset);
-  void     (*  set_selection_bounds)      (AtkText         *text,
-                                           gint            start_offset,
-                                           gint            end_offset);
-
+  gchar*         (* get_text)                     (AtkText          *text,
+                                                   gint             start_offset,
+                                                   gint             end_offset);
+  gchar*         (* get_text_after_offset)        (AtkText          *text,
+                                                   gint             offset,
+                                                   AtkTextBoundary  boundary_type);
+  gchar*         (* get_text_at_offset)           (AtkText          *text,
+                                                   gint             offset,
+                                                   AtkTextBoundary  boundary_type);
+  gunichar       (* get_character_at_offset)      (AtkText          *text,
+                                                   gint             offset);
+  gchar*         (* get_text_before_offset)       (AtkText          *text,
+                                                   gint             offset,
+                                                   AtkTextBoundary  boundary_type);
+  gint           (* get_caret_offset)             (AtkText          *text);
+  void           (* get_row_col_at_offset)        (AtkText          *text,
+                                                   gint             offset,
+                                                   gint             *row,
+                                                   gint             *col);
+  PangoAttrList* (* get_range_attributes)         (AtkText          *text,
+                                                   gint             start_offset,
+                                                   gint             end_offset);
+  void           (* get_character_extents)        (AtkText          *text,
+                                                   gint             offset,
+                                                   gint             *x,
+                                                   gint             *y,
+                                                   gint             *length,
+                                                   gint             *width);
+  gint           (* get_character_count)          (AtkText          *text);
+  gint           (* get_offset_at_point)          (AtkText          *text,
+                                                   gint             x,
+                                                   gint             y);
+  gchar*         (* get_selected_text)            (AtkText          *text);
+  void           (* get_selection_bounds)         (AtkText          *text,
+                                                   gint             *start_offset,
+                                                   gint             *end_offset);
+  void           (* set_selection_bounds)         (AtkText          *text,
+                                                   gint             start_offset,
+                                                   gint             end_offset);
+  gboolean       (* set_caret_offset)             (AtkText          *text,
+                                                   gint             offset);
 };
 GType            atk_text_get_type (void);
 
@@ -109,10 +110,8 @@ GType            atk_text_get_type (void);
 gchar*        atk_text_get_text                           (AtkText          *text,
                                                            gint             start_offset,
                                                            gint             end_offset);
-
 gunichar      atk_text_get_character_at_offset            (AtkText          *text,
                                                            gint             offset);
-
 gchar*        atk_text_get_text_after_offset              (AtkText          *text,
                                                            gint             offset,
                                                            AtkTextBoundary  boundary_type);
@@ -141,13 +140,14 @@ gint          atk_text_get_offset_at_point                (AtkText          *tex
                                                            gint             x,
                                                            gint             y);
 gchar*        atk_text_get_selected_text                  (AtkText          *text);
-gboolean      atk_text_get_selection_bounds               (AtkText          *text,
+void          atk_text_get_selection_bounds               (AtkText          *text,
                                                            gint             *start_offset,
                                                            gint             *end_offset);
 void          atk_text_set_selection_bounds               (AtkText          *text,
                                                            gint             start_offset,
                                                            gint             end_offset);
-
+gboolean      atk_text_set_caret_offset                   (AtkText          *text,
+                                                           gint             offset);
 
 #ifdef __cplusplus
 }
