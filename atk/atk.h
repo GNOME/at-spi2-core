@@ -17,6 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#ifndef __ATK_H__
+#define __ATK_H__
+
 #include <atk/atkobject.h>
 #include <atk/atkaction.h>
 #include <atk/atkcomponent.h>
@@ -38,3 +41,5 @@
 #include <atk/atktext.h>
 #include <atk/atkutil.h>
 #include <atk/atkvalue.h>
+
+#endif /* __ATK_H__ */

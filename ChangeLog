@@ -1,3 +1,9 @@
+2002-02-15  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atk.h:
+	Guard atk.h with ifndef __ATK_H__
+	(#71405 reported by terra@diku.dk (Morten Welinder))
+
 2002-02-13  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkaction.h atk/atkcomponent.h atk/atkeditabletext.h
