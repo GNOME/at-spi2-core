@@ -1,0 +1,517 @@
+# Marathi translation of atk10.pot
+# Copyright (C) 2004  Jitendra Shah.
+# This file is distributed under GPL.
+# FIRST AUTHOR Pradeep Deshpande.<npdeshpande@vsnl.com>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-18 17:00+0530\n"
+"PO-Revision-Date: 2004-02-07 13:20+0530\n"
+"Last-Translator: Jitendra Shah. <jitendras@vsnl.com>\n"
+"Language-Team: Marathi <www.indictrans.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr ""
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr ""
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr ""
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr ""
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr ""
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkobject.c:82
+msgid "invalid"
+msgstr "अनधिकृत"
+
+#: atk/atkobject.c:83
+#, fuzzy
+msgid "accelerator label"
+msgstr "अॅक्सेल लेबल"
+
+#: atk/atkobject.c:84
+msgid "alert"
+msgstr "सावधान"
+
+#: atk/atkobject.c:85
+msgid "animation"
+msgstr "रंजनचित्र निर्मीती "
+
+#: atk/atkobject.c:86
+msgid "arrow"
+msgstr "बाण"
+
+#: atk/atkobject.c:87
+msgid "calendar"
+msgstr "दिनदर्शिका"
+
+#: atk/atkobject.c:88
+msgid "canvas"
+msgstr "पडदा"
+
+#: atk/atkobject.c:89
+#, fuzzy
+msgid "check box"
+msgstr "चिन्हांकन चौकट"
+
+#: atk/atkobject.c:90
+#, fuzzy
+msgid "check menu item"
+msgstr "चिन्हांकन चौकटीचा मेनू"
+
+#: atk/atkobject.c:91
+#, fuzzy
+msgid "color chooser"
+msgstr "रंग निवडकर्ता"
+
+#: atk/atkobject.c:92
+#, fuzzy
+msgid "column header"
+msgstr "स्तंभ शिर्षक"
+
+#: atk/atkobject.c:93
+#, fuzzy
+msgid "combo box"
+msgstr "निवडीसाठी उप चौकट"
+
+#: atk/atkobject.c:94
+#, fuzzy
+msgid "dateeditor"
+msgstr "दिनांक बदलण्याचे साधन"
+
+#: atk/atkobject.c:95
+#, fuzzy
+msgid "desktop icon"
+msgstr "डेस्कटाॅप चिन्ह "
+
+#: atk/atkobject.c:96
+#, fuzzy
+msgid "desktop frame"
+msgstr "डेस्कटाॅपची चौकट"
+
+#: atk/atkobject.c:97
+msgid "dial"
+msgstr "डायल"
+
+#: atk/atkobject.c:98
+msgid "dialog"
+msgstr "संवाद"
+
+#: atk/atkobject.c:99
+#, fuzzy
+msgid "directory pane"
+msgstr "डिरेक्ट्रीचा पडदा"
+
+#: atk/atkobject.c:100
+#, fuzzy
+msgid "drawing area"
+msgstr "चित्रण क्षेत्र"
+
+#: atk/atkobject.c:101
+#, fuzzy
+msgid "file chooser"
+msgstr "फाईल निवडकर्ता"
+
+#: atk/atkobject.c:102
+msgid "filler"
+msgstr "भरणी"
+
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+#, fuzzy
+msgid "fontchooser"
+msgstr "फाॅन्ट निवडकर्ता"
+
+#: atk/atkobject.c:105
+msgid "frame"
+msgstr "चौकट"
+
+#: atk/atkobject.c:106
+#, fuzzy
+msgid "glass pane"
+msgstr "काचेचा पडदा"
+
+#: atk/atkobject.c:107
+#, fuzzy
+msgid "html container"
+msgstr "html समावेशक"
+
+#: atk/atkobject.c:108
+msgid "icon"
+msgstr "चिन्ह"
+
+#: atk/atkobject.c:109
+msgid "image"
+msgstr "प्रतिमा"
+
+#: atk/atkobject.c:110
+#, fuzzy
+msgid "internal frame"
+msgstr "अंतर्गत चौकट"
+
+#: atk/atkobject.c:111
+msgid "label"
+msgstr "लेबल"
+
+#: atk/atkobject.c:112
+#, fuzzy
+msgid "layered pane"
+msgstr "स्तरिकृत पडदा"
+
+#: atk/atkobject.c:113
+msgid "list"
+msgstr "यादी"
+
+#: atk/atkobject.c:114
+#, fuzzy
+msgid "list item"
+msgstr "यादीतील विषय"
+
+#: atk/atkobject.c:115
+msgid "menu"
+msgstr "मेनु"
+
+#: atk/atkobject.c:116
+#, fuzzy
+msgid "menu bar"
+msgstr "मेनु बार"
+
+#: atk/atkobject.c:117
+#, fuzzy
+msgid "menu item"
+msgstr "मेनु विषय"
+
+#: atk/atkobject.c:118
+#, fuzzy
+msgid "option pane"
+msgstr "ऐच्छिक पडदा"
+
+#: atk/atkobject.c:119
+#, fuzzy
+msgid "page tab"
+msgstr "पान बदलाची खूण"
+
+#: atk/atkobject.c:120
+#, fuzzy
+msgid "page tab list"
+msgstr "पान बदलाच्या खूणांची यादी"
+
+#: atk/atkobject.c:121
+msgid "panel"
+msgstr "सूिचका"
+
+#: atk/atkobject.c:122
+#, fuzzy
+msgid "password text"
+msgstr "पासवर्ड लेखन"
+
+#: atk/atkobject.c:123
+#, fuzzy
+msgid "popup menu"
+msgstr "पाॅपप मेनु"
+
+#: atk/atkobject.c:124
+#, fuzzy
+msgid "progress bar"
+msgstr "प्रगतीसूचक पट्टी"
+
+#: atk/atkobject.c:125
+#, fuzzy
+msgid "push button"
+msgstr "ढकल बटण"
+
+#: atk/atkobject.c:126
+#, fuzzy
+msgid "radio button"
+msgstr "रेडिओचे बटण"
+
+#: atk/atkobject.c:127
+#, fuzzy
+msgid "radio menu item"
+msgstr "रेडिओ मेनु विषय"
+
+#: atk/atkobject.c:128
+#, fuzzy
+msgid "root pane"
+msgstr "तळ पडदा"
+
+#: atk/atkobject.c:129
+#, fuzzy
+msgid "row header"
+msgstr "ओळ शिर्षक"
+
+#: atk/atkobject.c:130
+#, fuzzy
+msgid "scroll bar"
+msgstr "स्काॅल पट्टी"
+
+#: atk/atkobject.c:131
+#, fuzzy
+msgid "scroll pane"
+msgstr "स्काॅल पडदा"
+
+#: atk/atkobject.c:132
+msgid "separator"
+msgstr "विभिन्नकर्ता"
+
+#: atk/atkobject.c:133
+msgid "slider"
+msgstr "सरकपट्टी"
+
+#: atk/atkobject.c:134
+#, fuzzy
+msgid "split pane"
+msgstr "उघडा पडदा"
+
+#: atk/atkobject.c:135
+#, fuzzy
+msgid "spin button"
+msgstr "फिरते बटण"
+
+#: atk/atkobject.c:136
+msgid "statusbar"
+msgstr "दर्जासूचिका"
+
+#: atk/atkobject.c:137
+msgid "table"
+msgstr "टेबल (तक्ता)"
+
+#: atk/atkobject.c:138
+#, fuzzy
+msgid "table cell"
+msgstr "टेबल कोष"
+
+#: atk/atkobject.c:139
+#, fuzzy
+msgid "table column header"
+msgstr "टेबल स्तंभाची शिर्षकपट्टी"
+
+#: atk/atkobject.c:140
+#, fuzzy
+msgid "table row header"
+msgstr "टेबल ओळीची शिर्षकपट्टी"
+
+#: atk/atkobject.c:141
+#, fuzzy
+msgid "tear off menu item"
+msgstr "मेनुविषय काढून टाका"
+
+#: atk/atkobject.c:142
+msgid "terminal"
+msgstr "टर्मिनल"
+
+#: atk/atkobject.c:143
+msgid "text"
+msgstr "मजकूर"
+
+#: atk/atkobject.c:144
+#, fuzzy
+msgid "toggle button"
+msgstr "टाॅगल बटण"
+
+#: atk/atkobject.c:145
+#, fuzzy
+msgid "tool bar"
+msgstr "उपकरण पट्टी"
+
+#: atk/atkobject.c:146
+#, fuzzy
+msgid "tool tip"
+msgstr "उपकरण सूची"
+
+#: atk/atkobject.c:147
+msgid "tree"
+msgstr "वृक्ष"
+
+#: atk/atkobject.c:148
+#, fuzzy
+msgid "tree table"
+msgstr "वृक्षांकित चित्रे"
+
+#: atk/atkobject.c:149
+msgid "unknown"
+msgstr "अपरिचित"
+
+#: atk/atkobject.c:150
+msgid "viewport"
+msgstr "दर्शनभाग"
+
+#: atk/atkobject.c:151
+msgid "window"
+msgstr "चौकट"
+
+#: atk/atkobject.c:152
+msgid "header"
+msgstr "शिर्षक पट्टी"
+
+#: atk/atkobject.c:153
+msgid "footer"
+msgstr "तळपट्टी"
+
+#: atk/atkobject.c:154
+msgid "paragraph"
+msgstr "पॅरा बनविणे"
+
+#: atk/atkobject.c:155
+msgid "application"
+msgstr "कार्यक्रम"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr ""
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr ""
+
+#: atk/atkobject.c:295
+msgid "Accessible Name"
+msgstr ""
+
+#: atk/atkobject.c:296
+msgid "Object instance's name formatted for assistive technology access"
+msgstr ""
+
+#: atk/atkobject.c:302
+msgid "Accessible Description"
+msgstr ""
+
+#: atk/atkobject.c:303
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+
+#: atk/atkobject.c:309
+msgid "Accessible Parent"
+msgstr ""
+
+#: atk/atkobject.c:310
+msgid "Is used to notify that the parent has changed"
+msgstr ""
+
+#: atk/atkobject.c:316
+msgid "Accessible Value"
+msgstr ""
+
+#: atk/atkobject.c:317
+msgid "Is used to notify that the value has changed"
+msgstr ""
+
+#: atk/atkobject.c:325
+msgid "Accessible Role"
+msgstr ""
+
+#: atk/atkobject.c:326
+msgid "The accessible role of this object"
+msgstr ""
+
+#: atk/atkobject.c:334
+msgid "Accessible Layer"
+msgstr ""
+
+#: atk/atkobject.c:335
+msgid "The accessible layer of this object"
+msgstr ""
+
+#: atk/atkobject.c:343
+msgid "Accessible MDI Value"
+msgstr ""
+
+#: atk/atkobject.c:344
+msgid "The accessible MDI value of this object"
+msgstr ""
+
+#: atk/atkobject.c:352
+msgid "Accessible Table Caption"
+msgstr ""
+
+#: atk/atkobject.c:353
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+
+#: atk/atkobject.c:359
+msgid "Accessible Table Column Header"
+msgstr ""
+
+#: atk/atkobject.c:360
+msgid "Is used to notify that the table column header has changed"
+msgstr ""
+
+#: atk/atkobject.c:366
+msgid "Accessible Table Column Description"
+msgstr ""
+
+#: atk/atkobject.c:367
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Row Header"
+msgstr ""
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table row header has changed"
+msgstr ""
+
+#: atk/atkobject.c:380
+msgid "Accessible Table Row Description"
+msgstr ""
+
+#: atk/atkobject.c:381
+msgid "Is used to notify that the table row description has changed"
+msgstr ""
+
+#: atk/atkobject.c:387
+msgid "Accessible Table Summary"
+msgstr ""
+
+#: atk/atkobject.c:388
+msgid "Is used to notify that the table summary has changed"
+msgstr ""
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Caption Object"
+msgstr ""
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table caption has changed"
+msgstr ""
+
+#: atk/atkobject.c:401
+msgid "Number of Accessible Hypertext Links"
+msgstr ""
+
+#: atk/atkobject.c:402
+msgid "The number of links which the current AtkHypertext has"
+msgstr ""
+
+#~ msgid "ruler"
+#~ msgstr "मापन पट्टी"
