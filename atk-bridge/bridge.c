@@ -44,11 +44,11 @@ static gboolean bridge_register_app (gpointer p);
 static void bridge_focus_tracker (AtkObject *object);
 
 int
-gtk_module_init(gint argc, char* argv[])
+gtk_module_init(gint *argc, gchar **argv[])
 {
   ArgStruct *args = (ArgStruct *) g_new0(ArgStruct, 1);
-  args->c = argc;
-  args->v = argv;
+  args->c = *argc;
+  args->v = *argv;
   g_idle_add (bridge_register_app, args);
 }
 
@@ -64,7 +64,7 @@ bridge_register_app (gpointer gp)
 
   CORBA_exception_init(&ev);
 
-  if (!bonobo_init (&(args->c), args->v))
+  if (!bonobo_init (&(args->c), &args->v))
     {
       g_error ("Could not initialize Bonobo");
     }

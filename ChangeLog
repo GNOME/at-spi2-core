@@ -1,14 +1,96 @@
-<2001-09-04  Bill Haneman <bill.haneman@sun.com>
+<2001-09-25  Bill Haneman <bill.haneman@sun.com>
+	* at-bridge/bridge.c:
+		applied patch from Marc to build and run 
+	        against new glib and gtk+ (seemed like a change 
+	        to bonobo_init signature was made ?)
+<2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
+	* cspi/Makefile.am:
+		Added spi-util.c.
+
+	* cspi/spi-util.c:
+		Fixed typo
+
+	* cspi/spi.c:
+		Added interface implementation c files to list of
+			includes so they are included in libcspi.
+
+	* cspi/spi.h:
+		Changed prototype of AccessibleAction_doAction to return a
+			boolean.
+		Changed prototype of AccessibleTable_getCaption to
+			return an Accessible.
+		Changed prototype of AccessibleTable_getSelectedRows
+			and AccessibleTable_getSelectedColumns to
+			return a long (returns the number of selected rows
+			or columns respectively).
+		Changed name of AccessibleText_refRunAttributes to
+			AccessibleText_getAttributes.
+		Changed prototype of AccessibleText_getCharacterExtents to
+			return a void rather than a boolean. 
+		Added support for a AccessibleCoordType parameter
+			specifying what type of coordinates are desired.
+		Added an AccessibleCordType parameter to
+			AccessibleText_getPointAtOffset.
+
 	* cspi/spi_accessible.c:
-		Added method Accessible_Role_getName(),
-			and requisite string array (role_names).
-		Added conversion string_from_corba_strin() call
-			to Accessible_getName and _getDescription.
-	* libspi/accessible.c:
-		Added implementation for Accessible_getRole()
-	* test/simple-at.c:
-		Added festival support, used if environment variable
-			FESTIVAL is set.
+		Added code to return the outstanding interfaces from
+			Accessible_queryInterface.
+
+	* cspi/spi_action.c:
+		Fixed typos.
+		Corrected call to getNActions to call the c binding
+			for an attribute.
+
+	* cspi/spi_editabletext.c:
+		Fixed typos.
+		Changed name from setRunAttributes to setAttributes.
+
+	* cspi/spi_hyperlink.c:
+		Fixed typos.
+		Changed call to getNAnchors to correctly call the c
+			binding for an attribute.
+
+	* cspi/spi_hypertext.c:
+		Fixed typos.
+		Changed getImageDescription to correctly call the
+			binding for an attribute.
+
+	* cspi/spi_selection.c:
+		Changed getNSelectedChildren to correctly call the c
+			binding for the attribute.
+		Changed refSelectedChild to getSelectedChild.
+
+	* cspi/spi_table.c:
+		Fixed typos.
+		Changed getCaption to return an Accessible.
+		Fixed calls which retrieve attributes.
+		Changed refAt to getAccessibleAt.
+		Changed getNSelectedRows and getNSelectedColumns to
+			return longs.
+
+	* cspi/spi_text.c:
+		Changed getCharacterExtents and getPointAtOffset to accept an
+			AccessibleCoordType.
+		Fixed typos.
+		Changed calls which retrieve attributes.
+		Changed refRunAttributes to getAttributes.
+
+	* cspi/spi_value.c:
+		Fixed typos.
+
+	* idl/Hyperlink.idl:
+		Changed n_anchors attribute to nAnchors to keep naming
+			convention consistent.
+
+	* idl/Table.idl:
+		Made Table inherit from Bonobo::Unknown.
+		Added nSelectedColumns and nSelectedRows attributes.
+
+	* idl/Value.idl:
+		Made Value inherit from Bonobo::Unknown.
+
+	* libspi/hyperlink.c:
+		Change for nAnchors attributte name change.
 
 <2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
 	* cspi/Makefile.am:
@@ -105,6 +187,18 @@
 	implementations-- made server implementations own AtkObject pointers
 	rather than their respective AtkInterrface pointers to fix
 	refcounting.  AtkHyperlink is still broken.
+
+<2001-09-04  Bill Haneman <bill.haneman@sun.com>
+	* cspi/spi_accessible.c:
+		Added method Accessible_Role_getName(),
+			and requisite string array (role_names).
+		Added conversion string_from_corba_strin() call
+			to Accessible_getName and _getDescription.
+	* libspi/accessible.c:
+		Added implementation for Accessible_getRole()
+	* test/simple-at.c:
+		Added festival support, used if environment variable
+			FESTIVAL is set.
 	
 2001-09-04  Bill Haneman <bill.haneman@sun.com>
 
