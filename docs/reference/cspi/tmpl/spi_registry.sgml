@@ -23,6 +23,7 @@ Registry queries
 @SPI_KEY_RELEASE: 
 @SPI_KEY_PRESSRELEASE: 
 @SPI_KEY_SYM: 
+@SPI_KEY_STRING: 
 
 <!-- ##### FUNCTION SPI_getDesktopCount ##### -->
 <para>
@@ -184,16 +185,6 @@ Registry queries
 @listener: 
 @callback: 
 @user_data: 
-@Returns: 
-
-
-<!-- ##### FUNCTION SPI_generateKeyEvent ##### -->
-<para>
-
-</para>
-
-@keyval: 
-@synth_type: 
 @Returns: 
 
 

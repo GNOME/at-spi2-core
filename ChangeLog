@@ -1,3 +1,11 @@
+2002-01-01  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/remoteobject.h:
+	* libspi/remoteobject.c:
+	Added definitions for special AtkObject subtype, required for
+	support of remote components (specifically, used by BonoboControl
+	accessibility implementation).
+	
 2002-01-02 Marc Mulcahy  <marc.mulcahy@sun.com>
 
 	* cspi/spi.h: synched relation types with ATK
