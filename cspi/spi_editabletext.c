@@ -19,7 +19,7 @@ AccessibleEditableText_ref (AccessibleEditableText *obj)
 
 
 /**
- * AccessibleEditableText_ref:
+ * AccessibleEditableText_unref:
  * @obj: a pointer to the #AccessibleEditableText object on which to operate.
  *
  * Decrement the reference count for an #AccessibleEdiitableText object.

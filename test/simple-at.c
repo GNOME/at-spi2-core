@@ -172,6 +172,8 @@ report_button_press (void *p)
   AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
            Accessible_getName (&ev->source));
+  fprintf (stderr, "Object description %s\n",
+           Accessible_getDescription (&ev->source));
 }
 
 

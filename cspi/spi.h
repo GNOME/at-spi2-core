@@ -1032,7 +1032,7 @@ AccessibleHypertext_getLink (AccessibleHypertext *obj,
 
 long
 AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
-                                  long int characterIndex);
+                                  long int characterOffset);
 
 /*
  *

@@ -117,6 +117,10 @@ impl_accessibility_accessible_get_description (PortableServer_Servant servant,
   CORBA_char * retval;
   SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
   retval = CORBA_string_dup (atk_object_get_description (accessible->atko));
+  if (retval )
+    retval = CORBA_string_dup (retval);
+  else
+    retval = CORBA_string_dup ("");
 
   return retval;
 }

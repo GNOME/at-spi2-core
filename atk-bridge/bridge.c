@@ -30,6 +30,8 @@
 #include "accessible.h"
 #include "application.h"
 
+#define SPI_BRIDGE_DEBUG 1
+
 #define APP_STATIC_BUFF_SZ 64
 
 typedef struct _ArgStruct ArgStruct;

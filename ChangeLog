@@ -1,5 +1,16 @@
 2001-16-11  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/accessible.c:
+	Fixed a bug that caused SEGV  if an accessible
+	object's description is NULL, and a client
+	requests it.  An empty string is now returned.
+
+	* cspi/spi_editabletext.c:
+	* cspi/spi_hypertext.c:
+	Added docs.  Doc coverage now 70%.
+
+2001-16-11  Bill Haneman <bill.haneman@sun.com>
+
 	One last namespacing revision:
 	* libspi/accessibleeventlistener.[ch]:
 	Renamed SpiAccessibleEventListener to SpiEventListener,
