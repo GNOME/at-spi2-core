@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn.no\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-09-21 03:14+0200\n"
+"POT-Creation-Date: 2004-01-02 12:43+0100\n"
 "PO-Revision-Date: 2003-09-21 03:16+0200\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
 "Language-Team: Norsk nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: atk-bridge/bridge.c:311
+#: atk-bridge/bridge.c:309
 msgid "failure: no device event controller found.\n"
 msgstr "mislykka: fann ingen kontroller for einingshendingar.\n"
 
-#: atk-bridge/bridge.c:806
+#: atk-bridge/bridge.c:778
 msgid "WARNING: NULL key event reported."
 msgstr "ÅTVARING: NULL-tastehending rapportert."
 
@@ -31,4 +31,3 @@ msgstr "AT-SPI register"
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
 msgstr "Tilgjengeregister"
-
