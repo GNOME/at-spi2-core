@@ -21,6 +21,7 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "../cspi/spi-private.h" /* A hack for now */
 
 static void traverse_accessible_tree (Accessible *accessible);
@@ -35,10 +36,22 @@ static AccessibleEventListener *test_listener;
 static gint n_elements_traversed = 0;
 static GTimer *timer;
 
+static gboolean report_mouse_events = TRUE;
+
+void 
+usage_and_exit( void )
+{
+  g_print("\nUsage: event-listener-test [-h] [-m]\n");
+  g_print("       -h    : prints this usage message.\n");
+  g_print("       -m    : disable mouse event reporting.\n\n");
+
+  exit( 1 );
+}
+
 int
 main (int argc, char **argv)
 {
-  int i, j;
+  int i, j, c;
   int n_desktops;
   int n_apps;
   char *s;
@@ -46,6 +59,23 @@ main (int argc, char **argv)
   Accessible *desktop;
   Accessible *application;
   const char *modules;
+
+  /* Parse Command-line */
+  if ( argc > 1 ) {
+      while ( ( c = getopt( argc, argv, "hm")) != EOF ) {
+          switch( c ) {
+              case 'm':
+                  report_mouse_events = FALSE;
+                  break;
+              default:
+                  usage_and_exit();
+                  break;
+          }
+      }
+      if ( optind < argc ) {
+          usage_and_exit();
+      }
+  }
 
   SPI_init ();
 
@@ -58,12 +88,14 @@ main (int argc, char **argv)
 
   SPI_registerGlobalEventListener (generic_listener,
 				   "focus:");
-  SPI_registerGlobalEventListener (specific_listener,
-				   "mouse:rel");
-  SPI_registerGlobalEventListener (specific_listener,
-				   "mouse:button");
-  SPI_registerGlobalEventListener (specific_listener,
-				   "mouse:abs");
+  if ( report_mouse_events ) {
+      SPI_registerGlobalEventListener (specific_listener,
+				       "mouse:rel");
+      SPI_registerGlobalEventListener (specific_listener,
+				       "mouse:button");
+      SPI_registerGlobalEventListener (specific_listener,
+				       "mouse:abs");
+  }
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:property-change");
   SPI_registerGlobalEventListener (specific_listener,
