@@ -35,8 +35,8 @@ IDL = \
 	$(top_srcdir)/idl/Role.idl          \
 	$(top_srcdir)/idl/State.idl
 
-BUILT_SOURCES = $(IDL_OUT)
-CLEANFILES+=$(IDL_OUT)
+BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
+CLEANFILES+=$(IDL_OUT) Accessibility-imodule.c
 
 libspi_la_SOURCES = accessible.c         \
                     accessible.h         \
@@ -52,13 +52,13 @@ libspi_la_SOURCES = accessible.c         \
                     registry.h           \
                     $(IDL_OUT)
 
-IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) -I$(LIBBONOBO_IDL_DIR) -I$(top_srcdir)/idl
+IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
+	   -I$(LIBBONOBO_IDL_DIR)         \
+	   -I$(top_srcdir)/idl            \
+	   --add-imodule
 
-$(IDL_OUT) : $(IDL) $(ORBIT_IDL)
+$(IDL_OUT) Accessibility-imodule.c : $(IDL) $(ORBIT_IDL)
 	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) $(top_srcdir)/idl/Accessibility.idl
-
-Accessibility-imodule.c : $(IDL) $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) --imodule $(top_srcdir)/idl/Accessibility.idl
 
 orbittypelibdir = $(libdir)/orbit
 orbittypelib_LTLIBRARIES = Accessibility_module.la
