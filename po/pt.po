@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 2,4\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "POT-Creation-Date: 2003-07-15 19:52+0200\n"
-"PO-Revision-Date: 2003-07-15 02:35+0000\n"
+"PO-Revision-Date: 2003-08-24 19:55+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr "falha: nenhum dispositivo controlador de eventos encontrado.\n"
 
 #: atk-bridge/bridge.c:806
 msgid "WARNING: NULL key event reported."
-msgstr "AVISO: relatado evento de tecla NULA."
+msgstr "AVISO: relatado evento de chave NULL."
 
 #: registryd/Accessibility_Registry.server.in.in.h:1
 msgid "AT-SPI Registry"
