@@ -1,6 +1,6 @@
 NULL =
 
-idldir = $(top_srcdir)/util/idl
+idldir = $(datadir)
 
 idl_DATA = idl/Magnifier.idl
 
