@@ -25,7 +25,7 @@
 
 GPtrArray *extra_names = NULL;
 
-GObjectClass *parent_class;
+static gpointer parent_class = NULL;
   
 static void atk_relation_class_init (AtkRelationClass *klass);
 static void atk_relation_finalize   (GObject          *object);
@@ -272,5 +272,5 @@ atk_relation_finalize (GObject *object)
     g_ptr_array_free (relation->target, TRUE);
   } 
 
-  parent_class->finalize (object);
+  G_OBJECT_CLASS (parent_class)->finalize (object);
 }

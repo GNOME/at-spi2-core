@@ -1,3 +1,17 @@
+2002-02-22  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkgobjectaccessible.c atk/atkhyperlink.c atk/atknoopobject.c
+	atk/atknoopobjectfactory.c atkobject.c atk/atkobjectfactory.c
+	atk/atkregistry.c atk/atkrelation.c atk/atkrelationset.c:
+	Make use of parent_class consistent; define as gpointer and
+	use g_type_class_peek_parent() to get it
+
+	* atk/atktext.c:
+	Delete unused empty line
+
+	* atk/atkregistry.c atk/atkrelation.c:
+	Make parent_class static 
+
 2002-02-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c:

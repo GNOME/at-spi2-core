@@ -149,7 +149,7 @@ atk_object_class_init (AtkObjectClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
-  parent_class = g_type_class_ref (G_TYPE_OBJECT);
+  parent_class = g_type_class_peek_parent (klass);
 
   gobject_class->set_property = atk_object_real_set_property;
   gobject_class->get_property = atk_object_real_get_property;

@@ -52,7 +52,7 @@ atk_object_factory_get_type (void)
 static void 
 atk_object_factory_class_init (AtkObjectFactoryClass *klass)
 {
-  parent_class = g_type_class_ref (G_TYPE_OBJECT);
+  parent_class = g_type_class_peek_parent (klass);
 
 }
 

@@ -128,7 +128,7 @@ atk_no_op_object_get_type (void)
 static void
 atk_no_op_object_class_init (AtkNoOpObjectClass *klass)
 {
-  parent_class = g_type_class_ref (ATK_TYPE_OBJECT);
+  parent_class = g_type_class_peek_parent (klass);
 }
 
 /**

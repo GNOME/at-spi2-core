@@ -27,7 +27,7 @@ static void atk_no_op_object_factory_class_init (
 static AtkObject* atk_no_op_object_factory_create_accessible (
                               GObject                          *obj);
 
-static AtkNoOpObjectFactoryClass    *parent_class = NULL;
+static gpointer    parent_class = NULL;
 
 GType
 atk_no_op_object_factory_get_type (void)
@@ -62,7 +62,7 @@ atk_no_op_object_factory_class_init (AtkNoOpObjectFactoryClass *klass)
 {
   AtkObjectFactoryClass *class = ATK_OBJECT_FACTORY_CLASS (klass);
 
-  parent_class = g_type_class_ref (ATK_TYPE_OBJECT_FACTORY);
+  parent_class = g_type_class_peek_parent (klass);
 
   class->create_accessible = atk_no_op_object_factory_create_accessible;
 }

@@ -51,7 +51,6 @@ static const gchar *stretch[] = {"ultra_condensed",
 static const gchar *justification[] = {"left",
                                        "right",
                                        "center",
-
                                        "fill"};
 static const gchar *direction[] = {"none",
                                    "ltr",

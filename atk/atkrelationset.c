@@ -21,7 +21,7 @@
 
 #include "atk.h"
 
-static GObjectClass *parent_class;
+static gpointer parent_class = NULL;
 
 static void atk_relation_set_class_init (AtkRelationSetClass  *klass);
 static void atk_relation_set_finalize   (GObject              *object);
@@ -262,5 +262,5 @@ atk_relation_set_finalize (GObject *object)
     g_ptr_array_free (array, TRUE);
   }
 
-  parent_class->finalize (object);
+  G_OBJECT_CLASS (parent_class)->finalize (object);
 }

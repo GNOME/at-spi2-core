@@ -26,7 +26,7 @@ static void       atk_gobject_accessible_dispose          (gpointer          dat
 
 static GQuark quark_accessible_object = 0;
 static GQuark quark_object = 0;
-static AtkObjectClass *parent_class = NULL;
+static gpointer parent_class = NULL;
 
 GType
 atk_gobject_accessible_get_type (void)
@@ -140,7 +140,7 @@ atk_gobject_accessible_class_init (AtkGObjectAccessibleClass *klass)
 
   class = ATK_OBJECT_CLASS (klass);
 
-  parent_class = g_type_class_ref (ATK_TYPE_OBJECT);
+  parent_class = g_type_class_peek_parent (klass);
 
   class->initialize = atk_real_gobject_accessible_initialize;
 
