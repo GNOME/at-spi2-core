@@ -3,4 +3,5 @@
 Makefile
 Makefile.in
 Accessibility_Registry.server
-registryd
+Accessibility_Registry.server.in
+at-spi-registryd
