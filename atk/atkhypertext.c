@@ -30,7 +30,7 @@ static guint atk_hypertext_signals[LAST_SIGNAL] = { 0 };
 
 
 GType
-atk_hypertext_get_type ()
+atk_hypertext_get_type (void)
 {
   static GType type = 0;
 

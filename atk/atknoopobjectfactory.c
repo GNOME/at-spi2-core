@@ -78,7 +78,7 @@ atk_no_op_object_factory_class_init (AtkNoOpObjectFactoryClass *klass)
  * Returns: an instance of an #AtkObjectFactory
  **/
 AtkObjectFactory* 
-atk_no_op_object_factory_new ()
+atk_no_op_object_factory_new (void)
 {
   GObject *factory;
 

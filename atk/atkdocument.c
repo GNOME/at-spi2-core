@@ -20,7 +20,7 @@
 #include "atkdocument.h"
 
 GType
-atk_document_get_type ()
+atk_document_get_type (void)
 {
   static GType type = 0;
 

@@ -81,7 +81,7 @@ static AtkTextRange** atk_text_real_get_bounded_ranges (AtkText          *text,
 static guint atk_text_signals[LAST_SIGNAL] = { 0 };
 
 GType
-atk_text_get_type ()
+atk_text_get_type (void)
 {
   static GType type = 0;
 

@@ -1,5 +1,12 @@
-2004-08-12  Kjartan Maraas  <kmaraas@gnome.org>
+2004-08-13  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* *atk/atkdocument.c atk/atkeditabletext.c atk/atkhypertext.c
+	atk/atkimage.c atk/atknoopobjectfactory.c atkobject.c 
+	atk/atkstreamablecontent.c atk/atktext.c attk/atkvalue.c:
+	Fix for bug #149990; patch from Kjartan Maraas.
+
+2004-08-12  Kjartan Maraas  <kmaraas@gnome.org>
+ 
 	* configure.in: Added nb to ALL_LINGUAS.
 
 2004-08-09  Ankit Patel <ankit@redhat.com>

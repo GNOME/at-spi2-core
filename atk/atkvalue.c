@@ -21,7 +21,7 @@
 #include "atkvalue.h"
 
 GType
-atk_value_get_type ()
+atk_value_get_type (void)
 {
   static GType type = 0;
 

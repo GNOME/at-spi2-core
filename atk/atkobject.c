@@ -1241,7 +1241,7 @@ static void
 atk_object_notify (GObject     *obj,
                    GParamSpec  *pspec)
 {
-  AtkPropertyValues values = { 0, };
+  AtkPropertyValues values = { NULL, };
 
   g_value_init (&values.new_value, pspec->value_type);
   g_object_get_property (obj, pspec->name, &values.new_value);

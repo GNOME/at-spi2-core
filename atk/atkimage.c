@@ -20,7 +20,7 @@
 #include "atkimage.h"
 
 GType
-atk_image_get_type ()
+atk_image_get_type (void)
 {
   static GType type = 0;
 

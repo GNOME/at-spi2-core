@@ -21,7 +21,7 @@
 
 
 GType
-atk_editable_text_get_type ()
+atk_editable_text_get_type (void)
 {
   static GType type = 0;
 

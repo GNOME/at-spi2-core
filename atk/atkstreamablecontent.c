@@ -20,7 +20,7 @@
 #include "atkstreamablecontent.h"
 
 GType
-atk_streamable_content_get_type ()
+atk_streamable_content_get_type (void)
 {
   static GType type = 0;
 
