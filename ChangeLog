@@ -1,3 +1,11 @@
+2003-02-12  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkhyperlink.c (atk_hyperlink_class_init): Correct typo in blurb
+
+	* atk/atkhypertext.c
+	(atk_hypertext_get_link): Add check on link_index value
+	(atk_hypertext_get_link_index): Add check on char_index value
+
 2003-02-09  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "kn" to ALL_LINGUAS.

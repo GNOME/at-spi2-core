@@ -1,5 +1,5 @@
 /* ATK -  Accessibility Toolkit
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -86,7 +86,7 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
                                    PROP_SELECTED_LINK,
                                    g_param_spec_boolean ("selected-link",
                                                          "Selected Link",
-                                                         "Specifies whether theAtkHyperlink object is selected",
+                                                         "Specifies whether the AtkHyperlink object is selected",
                                                          FALSE,
                                                          G_PARAM_READABLE));
 }

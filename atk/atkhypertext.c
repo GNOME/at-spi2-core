@@ -1,5 +1,5 @@
 /* ATK - The Accessibility Toolkit for GTK+
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002, 2003 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -89,6 +89,9 @@ atk_hypertext_get_link (AtkHypertext  *hypertext,
 
   g_return_val_if_fail (ATK_IS_HYPERTEXT (hypertext), NULL);
 
+  if (link_index < 0)
+    return NULL;
+
   iface = ATK_HYPERTEXT_GET_IFACE (hypertext);
 
   if (iface->get_link)
@@ -138,6 +141,9 @@ atk_hypertext_get_link_index (AtkHypertext  *hypertext,
   AtkHypertextIface *iface;
 
   g_return_val_if_fail (ATK_IS_HYPERTEXT (hypertext), -1);
+
+  if (char_index < 0)
+    return -1;
 
   iface = ATK_HYPERTEXT_GET_IFACE (hypertext);
 
