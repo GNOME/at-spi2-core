@@ -1591,6 +1591,7 @@ spi_device_event_controller_object_finalize (GObject *object)
   /* disconnect any special listeners, get rid of outstanding keygrabs */
   XUngrabKey (spi_get_display (), AnyKey, AnyModifier, DefaultRootWindow (spi_get_display ()));
 
+#ifdef HAVE_XEEVIE
   if (controller->xevie_display != NULL)
     {
       XevieEnd(controller->xevie_display);
@@ -1598,6 +1599,7 @@ spi_device_event_controller_object_finalize (GObject *object)
       printf("XevieEnd(dpy) finished \n");
 #endif
     }
+#endif
 
   private = g_object_get_data (G_OBJECT (controller), "spi-dec-private");
   if (private->xkb_desc)

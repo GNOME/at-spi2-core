@@ -1,3 +1,9 @@
+2003-08-07  Marc Mulcahy  <marc.mulcahy@sun.com>
+
+	* registryd/deviceeventcontroller.c
+	(spi_device_event_controller_object_finalize): Fix build on
+	systems without XEvIE.
+	
 2003-08-06  Brian Cameron <Brian.Cameron@sun.com>
 
 	* acconfig.h, configure.in, registryd/Makefile.am,
