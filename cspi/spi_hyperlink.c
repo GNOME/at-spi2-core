@@ -131,10 +131,10 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
  *          to its originating #AccessibleHypertext object, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Hyperlink_isValid (CSPI_OBJREF (obj), cspi_ev ());
 }
 

@@ -455,11 +455,11 @@ AccessibleTable_getSelectedColumns (AccessibleTable *obj,
  * Returns: #TRUE if the specified row is currently selected, #FALSE if not.
  *
  **/
-boolean
+SPIBoolean
 AccessibleTable_isRowSelected (AccessibleTable *obj,
                                long int row)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Table_isRowSelected (CSPI_OBJREF (obj),
 				       (CORBA_long) row, cspi_ev ());
 }
@@ -477,11 +477,11 @@ AccessibleTable_isRowSelected (AccessibleTable *obj,
  * Returns: #TRUE if the specified column is currently selected, #FALSE if not.
  *
  **/
-boolean
+SPIBoolean
 AccessibleTable_isColumnSelected (AccessibleTable *obj,
                                   long int column)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Table_isColumnSelected (CSPI_OBJREF (obj),
 				       (CORBA_long) column, cspi_ev ());
 }
@@ -499,12 +499,12 @@ AccessibleTable_isColumnSelected (AccessibleTable *obj,
  * Returns: #TRUE if the specified cell is currently selected, #FALSE if not.
  *
  **/
-boolean
+SPIBoolean
 AccessibleTable_isSelected (AccessibleTable *obj,
                             long int row,
                             long int column)
 {
-  return (boolean)
+  return (SPIBoolean)
   Accessibility_Table_isSelected (CSPI_OBJREF (obj),
 				  (CORBA_long) row, (CORBA_long) column, cspi_ev ());
 }

@@ -54,13 +54,13 @@ AccessibleEditableText_unref (AccessibleEditableText *obj)
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
 				      const char *attributes,
 				      long int startPos,
 				      long int endPos)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_EditableText_setAttributes (CSPI_OBJREF (obj),
 					      (CORBA_char *) attributes,
 					      (CORBA_long) startPos,
@@ -80,7 +80,7 @@ AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents)
 {
@@ -107,7 +107,7 @@ AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    long int position,
                                    char *text,
@@ -136,7 +136,7 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_copyText (AccessibleText *obj,
                                  long int startPos,
                                  long int endPos)
@@ -163,7 +163,7 @@ AccessibleEditableText_copyText (AccessibleText *obj,
  * Returns: #TRUE if operation was successful, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long int startPos,
                                 long int endPos)
@@ -191,7 +191,7 @@ AccessibleEditableText_cutText (AccessibleEditableText *obj,
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long startPos,
                                    long endPos)
@@ -217,7 +217,7 @@ AccessibleEditableText_deleteText (AccessibleEditableText *obj,
  * Returns: #TRUE if the operation was successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long int position)
 {

@@ -101,7 +101,7 @@ AccessibleValue_getMaximumValue (AccessibleValue *obj)
  *          #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {

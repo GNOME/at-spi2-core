@@ -97,11 +97,11 @@ AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
  * Returns: #TRUE if the child was successfully selected, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleSelection_selectChild (AccessibleSelection *obj,
                                  long int childIndex)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Selection_selectChild (CSPI_OBJREF (obj),
 					 (CORBA_long) childIndex, cspi_ev ());
 }
@@ -122,7 +122,7 @@ AccessibleSelection_selectChild (AccessibleSelection *obj,
  * Returns: #TRUE if the child was successfully deselected, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
                                            long int selectedChildIndex)
 {
@@ -145,11 +145,11 @@ AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
  *          #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleSelection_isChildSelected (AccessibleSelection *obj,
                                      long int childIndex)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Selection_isChildSelected (CSPI_OBJREF (obj),
 					     (CORBA_long) childIndex, cspi_ev ());
 }
@@ -166,7 +166,7 @@ AccessibleSelection_isChildSelected (AccessibleSelection *obj,
  * Returns: #TRUE if successful, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleSelection_selectAll (AccessibleSelection *obj)
 {
   Accessibility_Selection_selectAll (CSPI_OBJREF (obj), cspi_ev ());

@@ -9,7 +9,7 @@
 
 static CORBA_Environment ev = { 0 };
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
-static boolean is_gnome_app = FALSE;
+static SPIBoolean is_gnome_app = FALSE;
 static GSList *live_refs = NULL;
 
 CORBA_Environment *
@@ -25,16 +25,16 @@ cspi_registry (void)
   return registry;
 }
 
-boolean
+SPIBoolean
 cspi_is_gnome_app (void)
 {
   return is_gnome_app;	
 }
 
-boolean
+SPIBoolean
 cspi_exception (void)
 {
-  boolean retval;
+  SPIBoolean retval;
 
   if (BONOBO_EX (&ev))
     {
@@ -178,7 +178,7 @@ SPI_init (void)
 
 /**
  * SPI_event_main:
- * @isGNOMEApp: a #boolean indicating whether the client of the SPI
+ * @isGNOMEApp: a #SPIBoolean indicating whether the client of the SPI
  *              will use the Gnome event loop or not.  Clients that have
  *              their own GUIS will usually specify #TRUE here, and must
  *              do so if they use Gnome GUI components.
@@ -190,7 +190,7 @@ SPI_init (void)
  *
  **/
 void
-SPI_event_main (boolean isGNOMEApp)
+SPI_event_main (SPIBoolean isGNOMEApp)
 {
   is_gnome_app = isGNOMEApp;
   if (isGNOMEApp)
@@ -217,7 +217,7 @@ SPI_event_main (boolean isGNOMEApp)
  * Returns: #TRUE if an event is waiting, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 SPI_eventIsReady ()
 {
   return FALSE;
@@ -225,7 +225,7 @@ SPI_eventIsReady ()
 
 /**
  * SPI_nextEvent:
- * @waitForEvent: a #boolean indicating whether to block or not.
+ * @waitForEvent: a #SPIBoolean indicating whether to block or not.
  *
  * Gets the next event in the SPI event queue; blocks if no event
  * is pending and @waitForEvent is #TRUE.
@@ -236,7 +236,7 @@ SPI_eventIsReady ()
  * Returns: the next #AccessibleEvent in the SPI event queue.
  **/
 AccessibleEvent *
-SPI_nextEvent (boolean waitForEvent)
+SPI_nextEvent (SPIBoolean waitForEvent)
 {
   return NULL;
 }

@@ -58,7 +58,7 @@ createAccessibleEventListener (AccessibleEventListenerCB callback)
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEventListener_addCallback (AccessibleEventListener *listener,
 				     AccessibleEventListenerCB callback)
 {
@@ -76,7 +76,7 @@ AccessibleEventListener_addCallback (AccessibleEventListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
 					AccessibleEventListenerCB callback)
 {
@@ -114,7 +114,7 @@ createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback)
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
 					 AccessibleKeystrokeListenerCB callback)
 {
@@ -132,7 +132,7 @@ AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
 					    AccessibleKeystrokeListenerCB callback)
 {

@@ -24,6 +24,6 @@ typedef Accessible GenericInterface;
 typedef struct _CSpiEventListener     AccessibleEventListener;
 typedef struct _CSpiKeystrokeListener AccessibleKeystrokeListener;
 
-typedef unsigned int boolean;
+typedef unsigned int SPIBoolean;
 
 #endif

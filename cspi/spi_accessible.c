@@ -85,11 +85,14 @@ static char *role_names [MAX_ROLES] =
 char*
 AccessibleRole_getName (AccessibleRole role)
 {
+  /*
+   * TODO: replace with implementation linked to ATK, which
+   *  now supports Role/Name mapping
+   */
+	
   if (role < MAX_ROLES) return role_names [(int) role];
   else return "";
 }
-
-
 
 /**
  * Accessible_ref:
@@ -106,7 +109,6 @@ Accessible_ref (Accessible *obj)
   cspi_object_ref (obj);
   return 0;
 }
-
 
 /**
  * Accessible_unref:
@@ -303,11 +305,11 @@ Accessible_getStateSet (Accessible *obj)
 
 /* Interface query methods */
 
-static boolean
+static SPIBoolean
 cspi_accessible_is_a (Accessible *obj,
 		     const char *interface_name)
 {
-  boolean        retval;
+  SPIBoolean        retval;
   Bonobo_Unknown unknown;
 
   unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (obj),
@@ -342,7 +344,7 @@ cspi_accessible_is_a (Accessible *obj,
  * Returns: #TRUE if @obj implements the #AccessibleAction interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isAction (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -358,7 +360,7 @@ Accessible_isAction (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleComponent interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isComponent (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -374,7 +376,7 @@ Accessible_isComponent (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isEditableText (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -390,7 +392,7 @@ Accessible_isEditableText (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isHypertext (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -406,7 +408,7 @@ Accessible_isHypertext (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleImage interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isImage (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -422,7 +424,7 @@ Accessible_isImage (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isSelection (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -438,7 +440,7 @@ Accessible_isSelection (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleTable interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isTable (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -454,7 +456,7 @@ Accessible_isTable (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleText interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isText (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -470,7 +472,7 @@ Accessible_isText (Accessible *obj)
  * Returns: #TRUE if @obj implements the #AccessibleValue interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isValue (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
@@ -796,13 +798,13 @@ AccessibleStateSet_unref (AccessibleStateSet *obj)
  *          otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleStateSet_contains (AccessibleStateSet *obj,
 			     AccessibleState state)
 {
   CORBA_boolean retval = Accessibility_StateSet_contains (CSPI_OBJREF (obj), state, cspi_ev ());
   cspi_check_ev (cspi_ev (), "contains");
-  return (boolean) retval;
+  return (SPIBoolean) retval;
 }
 
 /**
@@ -855,7 +857,7 @@ AccessibleStateSet_remove (AccessibleStateSet *obj,
  *          otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleStateSet_equals (AccessibleStateSet *obj,
                            AccessibleStateSet *obj2)
 {
@@ -894,7 +896,7 @@ AccessibleStateSet_compare (AccessibleStateSet *obj,
  *          otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj)
 {
   return TRUE;	

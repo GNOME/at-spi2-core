@@ -117,6 +117,8 @@ AccessibleComponent_getAccessibleAtPoint
 AccessibleComponent_getExtents
 AccessibleComponent_getPosition
 AccessibleComponent_getSize
+AccessibleComponent_getLayer
+AccessibleComponent_getMDIZOrder
 AccessibleComponent_grabFocus
 </SECTION>
 

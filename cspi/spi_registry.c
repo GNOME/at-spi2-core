@@ -91,11 +91,11 @@ static Display *display = NULL;
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType)
 {
-  boolean retval;
+  SPIBoolean retval;
 
   Accessibility_Registry_registerGlobalEventListener (
                          cspi_registry (),
@@ -121,7 +121,7 @@ registerGlobalEventListener (AccessibleEventListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 {
   Accessibility_Registry_deregisterGlobalEventListenerAll (
@@ -151,7 +151,7 @@ deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 deregisterGlobalEventListener (AccessibleEventListener *listener,
 			       char *eventType)
 {

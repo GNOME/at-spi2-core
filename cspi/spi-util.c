@@ -16,7 +16,7 @@ SPI_freeString (char *s)
   CORBA_free (s);
 }
 
-boolean
+SPIBoolean
 cspi_warn_ev (CORBA_Environment *ev, const char *error_string)
 {
   if (ev->_major != CORBA_NO_EXCEPTION)

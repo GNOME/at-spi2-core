@@ -31,17 +31,17 @@
 static void report_focus_event    (AccessibleEvent *event);
 static void report_button_press   (AccessibleEvent *event);
 static void check_property_change (AccessibleEvent *event);
-static boolean report_command_key_event  (AccessibleKeystroke *stroke);
-static boolean report_ordinary_key_event (AccessibleKeystroke *stroke);
+static SPIBoolean report_command_key_event  (AccessibleKeystroke *stroke);
+static SPIBoolean report_ordinary_key_event (AccessibleKeystroke *stroke);
 static void get_environment_vars (void);
 
 static int _festival_init ();
-static void _festival_say (const char *text, const char *voice, boolean shutup);
+static void _festival_say (const char *text, const char *voice, SPIBoolean shutup);
 static void _festival_write (const char *buff, int fd);
 
-static boolean use_magnifier = FALSE;
-static boolean use_festival = FALSE;
-static boolean festival_chatty = FALSE;
+static SPIBoolean use_magnifier = FALSE;
+static SPIBoolean use_festival = FALSE;
+static SPIBoolean festival_chatty = FALSE;
 
 static AccessibleEventListener *focus_listener;
 static AccessibleEventListener *property_listener;
@@ -142,7 +142,7 @@ get_environment_vars()
 }
 
 void
-report_focussed_accessible (Accessible *obj, boolean shutup_previous_speech)
+report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
 {
   char *s;
   int len;
@@ -257,7 +257,7 @@ simple_at_exit()
   SPI_exit ();
 }
 
-static boolean
+static SPIBoolean
 is_command_key (AccessibleKeystroke *key)
 {
   switch (key->keyID)
@@ -279,7 +279,7 @@ is_command_key (AccessibleKeystroke *key)
     }
 }
 
-static boolean
+static SPIBoolean
 report_command_key_event (AccessibleKeystroke *key)
 {
   fprintf (stderr, "Command KeyEvent %s%c (keycode %d)\n",
@@ -291,7 +291,7 @@ report_command_key_event (AccessibleKeystroke *key)
 }
 
 
-static boolean
+static SPIBoolean
 report_ordinary_key_event (AccessibleKeystroke *key)
 {
   fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
@@ -326,7 +326,7 @@ static int _festival_init ()
   return fd;
 }
 
-static void _festival_say (const char *text, const char *voice, boolean shutup)
+static void _festival_say (const char *text, const char *voice, SPIBoolean shutup)
 {
   static int fd = 0;
   gchar *quoted;

@@ -98,6 +98,24 @@ AccessibleComponent Interface
 @height: 
 
 
+<!-- ##### FUNCTION AccessibleComponent_getLayer ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleComponent_getMDIZOrder ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleComponent_grabFocus ##### -->
 <para>
 

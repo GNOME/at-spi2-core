@@ -149,11 +149,11 @@ AccessibleText_getAttributes (AccessibleText *obj,
  * Returns: #TRUE if successful, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleText_setCaretOffset (AccessibleText *obj,
                                long int newOffset)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Text_setCaretOffset (CSPI_OBJREF (obj),
 				       (CORBA_long) newOffset, cspi_ev ());
 }
@@ -442,11 +442,11 @@ AccessibleText_getSelection (AccessibleText *obj,
  * Returns: #TRUE if successful, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleText_addSelection (AccessibleText *obj,
 			     long int startOffset, long int endOffset)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Text_addSelection (CSPI_OBJREF (obj),
 				     (CORBA_long) startOffset, (CORBA_long) endOffset,
 				     cspi_ev ());
@@ -464,11 +464,11 @@ AccessibleText_addSelection (AccessibleText *obj,
  * Returns: #TRUE if successful, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleText_removeSelection (AccessibleText *obj,
 				long int selectionNum)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Text_removeSelection (CSPI_OBJREF (obj),
 					(CORBA_long) selectionNum, cspi_ev ());
 }
@@ -486,13 +486,13 @@ AccessibleText_removeSelection (AccessibleText *obj,
  * Returns: #TRUE if successful, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleText_setSelection (AccessibleText *obj,
 			     long int selectionNum,
 			     long int startOffset,
 			     long int endOffset)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Text_setSelection (CSPI_OBJREF (obj),
 				     (CORBA_long) selectionNum,
 				     (CORBA_long) startOffset,

@@ -99,7 +99,7 @@ AccessibleApplication_getID (AccessibleApplication *obj)
  * Returns: #TRUE if the application was paused successfully, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleApplication_pause (AccessibleApplication *obj)
 {
   return FALSE;
@@ -115,7 +115,7 @@ AccessibleApplication_pause (AccessibleApplication *obj)
  * Returns: #TRUE if application processing resumed successfully, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleApplication_resume (AccessibleApplication *obj)
 {
   return FALSE;

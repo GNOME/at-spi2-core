@@ -20,6 +20,7 @@ typedef enum {
 	SPI_KEY_RELEASED = 1<<1
 } AccessibleKeyEventType;
 
+
 typedef struct {
 	long                   keyID;
 	short                  keycode;
@@ -35,10 +36,10 @@ typedef struct {
  * usage: signatures should be
  * void (*AccessibleEventListenerCB) (AccessibleEvent *event);
  *
- * boolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystrokeEvent *Event);
+ * SPIBoolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystrokeEvent *Event);
  */
 typedef void    (*AccessibleEventListenerCB)     (AccessibleEvent     *event);
-typedef boolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystroke *stroke);
+typedef SPIBoolean (*AccessibleKeystrokeListenerCB) (AccessibleKeystroke *stroke);
 
 G_END_DECLS
 

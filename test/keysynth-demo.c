@@ -40,8 +40,8 @@
 static AccessibleKeystrokeListener *key_listener;
 static AccessibleKeystrokeListener *switch_listener;
 
-static boolean shift_latched = False;
-static boolean caps_lock = False;
+static gboolean shift_latched = False;
+static gboolean caps_lock = False;
 static GtkButton **buttons[MAX_ROWS];
 
 typedef enum {
@@ -226,7 +226,7 @@ scan_stop (unsigned int timestamp)
 }
 
 static void
-label_buttons(boolean shifted)
+label_buttons(gboolean shifted)
 {
   int i, j;
   KeySym keysym;
@@ -265,7 +265,7 @@ label_buttons(boolean shifted)
 }
 
 static void
-show_shift (GtkButton *button, boolean *is_shifted)
+show_shift (GtkButton *button, gboolean *is_shifted)
 {
  label_buttons (*is_shifted ^ caps_lock);	
 }
@@ -314,7 +314,7 @@ button_exit(GtkButton *notused, void *alsonotused)
   keysynth_exit();
 }
 
-static boolean
+static SPIBoolean
 is_command_key (AccessibleKeystroke *key)
 {
   switch (key->keyID)
@@ -327,10 +327,10 @@ is_command_key (AccessibleKeystroke *key)
   return FALSE;
 }
 
-static boolean
+static SPIBoolean
 switch_callback (AccessibleKeystroke *key)
 {
-  static boolean is_down = FALSE;
+  static gboolean is_down = FALSE;
   if (key->type == SPI_KEY_RELEASED)
     {
       g_print ("spacebar up\n");
@@ -380,8 +380,8 @@ create_vkbd()
   GtkWidget *window, *container, *hbox;
   int i, j;
   KeyCode *keycodeptr, keycode = MIN_KEYCODE;
-  static boolean true_val = True;
-  static boolean false_val = False;
+  static gboolean true_val = True;
+  static gboolean false_val = False;
 
   window = g_object_connect (gtk_widget_new (gtk_window_get_type (),
 					     "user_data", NULL,

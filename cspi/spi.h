@@ -73,6 +73,32 @@ typedef enum {
 
 typedef unsigned long AccessibleKeyEventMask;
 
+/**
+ * AccessibleComponentLayer:
+ * @SPI_LAYER_INVALID: The layer cannot be determined or is somehow undefined.
+ * @SPI_LAYER_BACKGROUND: Component belongs to the destop background.
+ * @SPI_LAYER_CANVAS: Component is a canvas backdrop or drawing area.
+ * @SPI_LAYER_WIDGET: Component is a 'normal' widget.
+ * @SPI_LAYER_MDI: Component is drawn in the MDI layer and may have valid
+ *                          Z-information relative to other MDI-layer components.
+ * @SPI_LAYER_POPUP: Component is in the popup layer, above other widgets and
+ *                          MDI components.
+ * @SPI_LAYER_OVERLAY: Component is in the overlay plane - this value is reserved
+ *                          for future use.
+ * @SPI_LAYER_LAST_DEFINED: Used to determine the last valid value in the enum,
+ *                          should not be encountered.	
+ **/
+typedef enum {
+    SPI_LAYER_INVALID,
+    SPI_LAYER_BACKGROUND,
+    SPI_LAYER_CANVAS,
+    SPI_LAYER_WIDGET,
+    SPI_LAYER_MDI,
+    SPI_LAYER_POPUP,
+    SPI_LAYER_OVERLAY,
+    SPI_LAYER_LAST_DEFINED	
+} AccessibleComponentLayer;
+
 
 /**
  * AccessibleKeySet:
@@ -117,7 +143,7 @@ SPI_init (void);
 
 /**
  * SPI_event_main:
- * @isGNOMEApp: a #boolean indicating whether the client of the SPI
+ * @isGNOMEApp: a #SPIBoolean indicating whether the client of the SPI
  *              will use the Gnome event loop or not.
  *
  * Starts/enters the main event loop for the SPI services.
@@ -127,7 +153,7 @@ SPI_init (void);
  *
  **/
 void
-SPI_event_main (boolean isGNOMEApp);
+SPI_event_main (SPIBoolean isGNOMEApp);
 
 /**
  * SPI_event_is_ready:
@@ -139,7 +165,7 @@ SPI_event_main (boolean isGNOMEApp);
  * Returns: #TRUE if an event is waiting, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 SPI_eventIsReady ();
 
 /**
@@ -154,7 +180,7 @@ SPI_eventIsReady ();
  *
  **/
 AccessibleEvent *
-SPI_nextEvent (boolean waitForEvent);
+SPI_nextEvent (SPIBoolean waitForEvent);
 
 /**
  * SPI_exit:
@@ -192,7 +218,7 @@ createAccessibleEventListener (AccessibleEventListenerCB callback);
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEventListener_addCallback (AccessibleEventListener *listener,
 				     AccessibleEventListenerCB callback);
 
@@ -206,7 +232,7 @@ AccessibleEventListener_addCallback (AccessibleEventListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleEventListener_removeCallback (AccessibleEventListener *listener,
 					AccessibleEventListenerCB callback);
 
@@ -232,7 +258,7 @@ createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback);
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
 					 AccessibleKeystrokeListenerCB callback);
 
@@ -246,7 +272,7 @@ AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listener,
 					    AccessibleKeystrokeListenerCB callback);
 
@@ -277,13 +303,13 @@ AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listene
  * Returns: #TRUE if successful, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType);
-boolean
+SPIBoolean
 deregisterGlobalEventListener (AccessibleEventListener *listener,
                                char *eventType);
-boolean
+SPIBoolean
 deregisterGlobalEventListenerAll (AccessibleEventListener *listener);
 
 
@@ -538,7 +564,7 @@ Accessible_getStateSet (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleAction interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isAction (Accessible *obj);
 
 /**
@@ -550,7 +576,7 @@ Accessible_isAction (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleComponent interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isComponent (Accessible *obj);
 
 /**
@@ -562,7 +588,7 @@ Accessible_isComponent (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleEditableText interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isEditableText (Accessible *obj);
 
 /**
@@ -574,7 +600,7 @@ Accessible_isEditableText (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleHypertext interface,
  *          #FALSE otherwise.
  **/
-boolean
+SPIBoolean
 Accessible_isHypertext (Accessible *obj);
 
 /**
@@ -586,7 +612,7 @@ Accessible_isHypertext (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleImage interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isImage (Accessible *obj);
 
 /**
@@ -598,7 +624,7 @@ Accessible_isImage (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleSelection interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isSelection (Accessible *obj);
 
 /**
@@ -610,7 +636,7 @@ Accessible_isSelection (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleTable interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isTable (Accessible *obj);
 
 /**
@@ -622,7 +648,7 @@ Accessible_isTable (Accessible *obj);
  * Returns: #TRUE if @obj implements the #AccessibleText interface,
  *          #FALSE otherwise.
 **/
-boolean
+SPIBoolean
 Accessible_isText (Accessible *obj);
 
 AccessibleAction *
@@ -752,7 +778,7 @@ char *
 AccessibleAction_getDescription (AccessibleAction *obj,
                                  long int i);
 
-boolean
+SPIBoolean
 AccessibleAction_doAction (AccessibleAction *obj,
                            long int i);
 
@@ -854,7 +880,7 @@ AccessibleApplication_getID (AccessibleApplication *obj);
  * Returns: #TRUE if the application was paused successfully, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleApplication_pause (AccessibleApplication *obj);
 
 /**
@@ -867,7 +893,7 @@ AccessibleApplication_pause (AccessibleApplication *obj);
  * Returns: #TRUE if application processing resumed successfully, #FALSE otherwise.
  *
  **/
-boolean
+SPIBoolean
 AccessibleApplication_resume (AccessibleApplication *obj);
 
 /*
@@ -882,7 +908,7 @@ AccessibleComponent_ref (AccessibleComponent *obj);
 int
 AccessibleComponent_unref (AccessibleComponent *obj);
 
-boolean
+SPIBoolean
 AccessibleComponent_contains (AccessibleComponent *obj,
                               long int x,
                               long int y,
@@ -926,6 +952,30 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
                              long int *width,
                              long int *height);
 
+/**
+ * AccessibleComponent_getLayer:
+ * @obj: a pointer to the #AccessibleComponent to query.
+ *
+ * Query which layer the component is painted into, to help determine its 
+ *      visibility in terms of stacking order.
+ *
+ * Returns: the #AccessibleComponentLayer into which this component is painted.
+ **/
+AccessibleComponentLayer
+AccessibleComponent_getLayer (AccessibleComponent *obj);
+
+/**
+ * AccessibleComponent_getMDIZOrder:
+ * @obj: a pointer to the #AccessibleComponent to query.
+ *
+ * Query the z stacking order of a component which is in the MDI layer.
+ *
+ * Returns: a short integer indicating the stacking order of the component 
+ *       in the MDI layer, or -1 if the component is not in the MDI layer.
+ **/
+short
+AccessibleComponent_getMDIZOrder (AccessibleComponent *obj);
+
 void
 AccessibleComponent_grabFocus (AccessibleComponent *obj);
 
@@ -941,38 +991,38 @@ AccessibleEditableText_ref (AccessibleEditableText *obj);
 int
 AccessibleEditableText_unref (AccessibleEditableText *obj);
 
-boolean
+SPIBoolean
 AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
 				      const char *attributes,
 				      long int startOffset,
 				      long int endOffset);
 
-boolean
+SPIBoolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents);
 
-boolean
+SPIBoolean
 AccessibleEditableText_insertText (AccessibleEditableText *obj,
                                    long int position,
                                    char *text,
                                    long int length);
 
-boolean
+SPIBoolean
 AccessibleEditableText_copyText (AccessibleText *obj,
                                  long int startPos,
                                  long int endPos);
 
-boolean
+SPIBoolean
 AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long int startPos,
                                 long int endPos);
 
-boolean
+SPIBoolean
 AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long int startPos,
                                    long int endPos);
 
-boolean
+SPIBoolean
 AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long int position);
 
@@ -998,7 +1048,7 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long int *startIndex,
                                    long int *endIndex);
 
-boolean
+SPIBoolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj);
 
 /*
@@ -1091,19 +1141,19 @@ Accessible *
 AccessibleSelection_getSelectedChild (AccessibleSelection *obj,
                                       long int selectedChildIndex);
 
-boolean
+SPIBoolean
 AccessibleSelection_selectChild (AccessibleSelection *obj,
                                  long int childIndex);
 
-boolean
+SPIBoolean
 AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
                                            long int selectedChildIndex);
 
-boolean
+SPIBoolean
 AccessibleSelection_isChildSelected (AccessibleSelection *obj,
                                      long int childIndex);
 
-boolean
+SPIBoolean
 AccessibleSelection_selectAll (AccessibleSelection *obj);
 
 void
@@ -1122,7 +1172,7 @@ AccessibleStateSet_ref (AccessibleStateSet *obj);
 int
 AccessibleStateSet_unref (AccessibleStateSet *obj);
 
-boolean
+SPIBoolean
 AccessibleStateSet_contains (AccessibleStateSet *obj,
                              AccessibleState state);
 
@@ -1134,7 +1184,7 @@ void
 AccessibleStateSet_remove (AccessibleStateSet *obj,
                            AccessibleState state);
 
-boolean
+SPIBoolean
 AccessibleStateSet_equals (AccessibleStateSet *obj,
                            AccessibleStateSet *obj2);
 
@@ -1143,7 +1193,7 @@ AccessibleStateSet_compare (AccessibleStateSet *obj,
                             AccessibleStateSet *obj2,
                             AccessibleStateSet **differenceSet);
 
-boolean
+SPIBoolean
 AccessibleStateSet_isEmpty (AccessibleStateSet *obj);
 
 
@@ -1229,15 +1279,15 @@ long
 AccessibleTable_getSelectedColumns (AccessibleTable *obj,
                                     long int **selectedColumns);
 
-boolean
+SPIBoolean
 AccessibleTable_isRowSelected (AccessibleTable *obj,
                                long int row);
 
-boolean
+SPIBoolean
 AccessibleTable_isColumnSelected (AccessibleTable *obj,
                                   long int column);
 
-boolean
+SPIBoolean
 AccessibleTable_isSelected (AccessibleTable *obj,
                             long int row,
                             long int column);
@@ -1272,7 +1322,7 @@ AccessibleText_getAttributes (AccessibleText *obj,
 				 long int *endOffset);
 
 
-boolean
+SPIBoolean
 AccessibleText_setCaretOffset (AccessibleText *obj,
                                long int newOffset);
 
@@ -1326,16 +1376,16 @@ AccessibleText_getSelection (AccessibleText *obj,
 			     long int *endOffset);
 
 
-boolean
+SPIBoolean
 AccessibleText_addSelection (AccessibleText *obj,
 			     long int startOffset,
 			     long int endOffset);
 
-boolean
+SPIBoolean
 AccessibleText_removeSelection (AccessibleText *obj,
 				long int selectionNum);
 
-boolean
+SPIBoolean
 AccessibleText_setSelection (AccessibleText *obj,
 			     long int selectionNum,
 			     long int startOffset,
@@ -1362,7 +1412,7 @@ AccessibleValue_getCurrentValue (AccessibleValue *obj);
 float
 AccessibleValue_getMaximumValue (AccessibleValue *obj);
 
-boolean
+SPIBoolean
 AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue);
 

@@ -128,11 +128,11 @@ AccessibleAction_getName (AccessibleAction *obj,
  * Returns: #TRUE if the action is successfully invoked, otherwise #FALSE.
  *
  **/
-boolean
+SPIBoolean
 AccessibleAction_doAction (AccessibleAction *obj,
                            long int i)
 {
-  return (boolean)
+  return (SPIBoolean)
     Accessibility_Action_doAction (CSPI_OBJREF (obj),
 				   (CORBA_long) i,
 				   cspi_ev ());

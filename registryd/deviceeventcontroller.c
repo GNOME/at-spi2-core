@@ -235,7 +235,7 @@ controller_deregister_device_listener (SpiDeviceEventController *controller,
 #endif
 	  controller->key_listeners = g_list_remove_link (controller->key_listeners,
 							  list_ptr);
-	  dec_key_listener_free (dec_listener, ev);
+	  dec_key_listener_free ((DEControllerKeyListener *) dec_listener, ev);
 	}
       break;
   case SPI_DEVICE_TYPE_MOUSE:

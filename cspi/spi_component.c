@@ -51,7 +51,7 @@ AccessibleComponent_unref (AccessibleComponent *obj)
  * Returns: a #TRUE if the specified component contains the point (@x, @y),
  *          otherwise #FALSE.
  **/
-boolean
+SPIBoolean
 AccessibleComponent_contains (AccessibleComponent *obj,
                               long int x,
                               long int y,
@@ -171,6 +171,66 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
                                    (CORBA_long *) width,
                                    (CORBA_long *) height,
                                    cspi_ev ());
+}
+
+/**
+ * AccessibleComponent_getLayer:
+ * @obj: a pointer to the #AccessibleComponent to query.
+ *
+ * Query which layer the component is painted into, to help determine its 
+ *      visibility in terms of stacking order.
+ *
+ * Returns: the #AccessibleComponentLayer into which this component is painted.
+ **/
+AccessibleComponentLayer
+AccessibleComponent_getLayer (AccessibleComponent *obj)
+{
+  Accessibility_ComponentLayer zlayer;
+  AccessibleComponentLayer retval;
+  
+  zlayer = Accessibility_Component_getLayer (CSPI_OBJREF (obj),
+					      cspi_ev ());
+  switch (retval)
+    {
+    case Accessibility_LAYER_BACKGROUND:
+      retval = SPI_LAYER_BACKGROUND;
+      break;
+    case Accessibility_LAYER_CANVAS:	  
+      retval = SPI_LAYER_CANVAS;
+      break;
+    case Accessibility_LAYER_WIDGET:	  
+      retval = SPI_LAYER_WIDGET;
+      break;
+    case Accessibility_LAYER_MDI:	  
+      retval = SPI_LAYER_MDI;
+      break;
+    case Accessibility_LAYER_POPUP:	  
+      retval = SPI_LAYER_POPUP;
+      break;
+    case Accessibility_LAYER_OVERLAY:	  
+      retval = SPI_LAYER_OVERLAY;
+      break;
+    default:
+      retval = SPI_LAYER_INVALID;
+    }
+  return retval;
+}
+
+/**
+ * AccessibleComponent_getMDIZOrder:
+ * @obj: a pointer to the #AccessibleComponent to query.
+ *
+ * Query the z stacking order of a component which is in the MDI layer.
+ *       (Bigger z-order numbers mean nearer the top)
+ *
+ * Returns: a short integer indicating the stacking order of the component 
+ *       in the MDI layer, or -1 if the component is not in the MDI layer.
+ **/
+short
+AccessibleComponent_getMDIZOrder (AccessibleComponent *obj)
+{
+  return (short) Accessibility_Component_getMDIZOrder (CSPI_OBJREF (obj),
+                                                       cspi_ev ());
 }
 
 /**
