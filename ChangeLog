@@ -1,5 +1,21 @@
 2002-10-30  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* Makefile.am: Add po directory
+
+	* configure.in: Add support for I18N
+
+	* acconfig.h atk/atkintl.h: New files used to support I18N
+
+	* atk/atkobject.c: Update atk_role_get_localized_name() to
+	allow for localized name to be returned.
+
+	* docs/Makefile.am: Add atkintl.h to IGNORE_HFILES
+
+	* po/Makfile.in.in, po/POTFILES.in, po/po2tbl.sed.in po/.cvsignore
+	po/ChangeLog: New files
+
+2002-10-30  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/Makefile.am, atk/atk.h: Add reference to atk/atkrelationtype.h
 
 	* atk/atkaction.[ch]: Add atk_action_get_localized_name.

@@ -24,6 +24,7 @@
 #include "atk.h"
 #include "atkmarshal.h"
 #include "atk-enum-types.h"
+#include "atkintl.h"
 
 GPtrArray *extra_roles = NULL;
 
@@ -1105,7 +1106,7 @@ atk_object_notify (GObject     *obj,
  * atk_role_get_name:
  * @role: The #AtkRole whose name is required
  *
- * Gets the description string describing the #Roleype @role.
+ * Gets the description string describing the #AtkRole @role.
  *
  * Returns: the string describing the AtkRole
  */
@@ -1145,7 +1146,7 @@ atk_role_get_name (AtkRole role)
  * atk_role_get_localized_name:
  * @role: The #AtkRole whose localized name is required
  *
- * Gets the localized description string describing the #Roleype @role.
+ * Gets the localized description string describing the #AtkRole @role.
  *
  * Returns: the localized string describing the AtkRole
  **/
@@ -1154,7 +1155,231 @@ atk_role_get_localized_name (AtkRole role)
 {
   G_CONST_RETURN gchar *name;
 
-  name = atk_role_get_name (role);
+  switch (role)
+    {
+      case ATK_ROLE_INVALID:
+        name = _("invalid");
+        break;
+      case ATK_ROLE_ACCEL_LABEL:
+        name = _("accel-label");
+        break;
+      case ATK_ROLE_ALERT:
+        name = _("alert");
+        break;
+      case ATK_ROLE_ANIMATION:
+        name = _("animation");
+        break;
+      case ATK_ROLE_ARROW:
+        name = _("arrow");
+        break;
+      case ATK_ROLE_CALENDAR:
+        name = _("calendar");
+        break;
+      case ATK_ROLE_CANVAS:
+        name = _("canvas");
+        break;
+      case ATK_ROLE_CHECK_BOX:
+        name = _("check-box");
+        break;
+      case ATK_ROLE_CHECK_MENU_ITEM:
+        name = _("check-menu-item");
+        break;
+      case ATK_ROLE_COLOR_CHOOSER:
+        name = _("color-chooser");
+        break;
+      case ATK_ROLE_COLUMN_HEADER:
+        name = _("column-header");
+        break;
+      case ATK_ROLE_COMBO_BOX:
+        name = _("combo-box");
+        break;
+      case ATK_ROLE_DATE_EDITOR:
+        name = _("date-editor");
+        break;
+      case ATK_ROLE_DESKTOP_ICON:
+        name = _("desktop-icon");
+        break;
+      case ATK_ROLE_DESKTOP_FRAME:
+        name = _("desktop-frame");
+        break;
+      case ATK_ROLE_DIAL:
+        name = _("dial");
+        break;
+      case ATK_ROLE_DIALOG:
+        name = _("dialog");
+        break;
+      case ATK_ROLE_DIRECTORY_PANE:
+        name = _("directory-pane");
+        break;
+      case ATK_ROLE_DRAWING_AREA:
+        name = _("drawing-area");
+        break;
+      case ATK_ROLE_FILE_CHOOSER:
+        name = _("file-chooser");
+        break;
+      case ATK_ROLE_FILLER:
+        name = _("filler");
+        break;
+      case ATK_ROLE_FONT_CHOOSER:
+        name = _("font-chooser");
+        break;
+      case ATK_ROLE_FRAME:
+        name = _("frame");
+        break;
+      case ATK_ROLE_GLASS_PANE:
+        name = _("glass-pane");
+        break;
+      case ATK_ROLE_HTML_CONTAINER:
+        name = _("html-container");
+        break;
+      case ATK_ROLE_ICON:
+        name = _("icon");
+        break;
+      case ATK_ROLE_IMAGE:
+        name = _("image");
+        break;
+      case ATK_ROLE_INTERNAL_FRAME:
+        name = _("internal-frame");
+        break;
+      case ATK_ROLE_LABEL:
+        name = _("label");
+        break;
+      case ATK_ROLE_LAYERED_PANE:
+        name = _("layered-pane");
+        break;
+      case ATK_ROLE_LIST:
+        name = _("list");
+        break;
+      case ATK_ROLE_LIST_ITEM:
+        name = _("list-item");
+        break;
+      case ATK_ROLE_MENU:
+        name = _("menu");
+        break;
+      case ATK_ROLE_MENU_BAR:
+        name = _("menu-bar");
+        break;
+      case ATK_ROLE_MENU_ITEM:
+        name = _("menu-item");
+        break;
+      case ATK_ROLE_OPTION_PANE:
+        name = _("option-pane");
+        break;
+      case ATK_ROLE_PAGE_TAB:
+        name = _("page-tab");
+        break;
+      case ATK_ROLE_PAGE_TAB_LIST:
+        name = _("page-tab-list");
+        break;
+      case ATK_ROLE_PANEL:
+        name = _("panel");
+        break;
+      case ATK_ROLE_PASSWORD_TEXT:
+        name = _("password-text");
+        break;
+      case ATK_ROLE_POPUP_MENU:
+        name = _("popup-menu");
+        break;
+      case ATK_ROLE_PROGRESS_BAR:
+        name = _("progress-bar");
+        break;
+      case ATK_ROLE_PUSH_BUTTON:
+        name = _("push-button");
+        break;
+      case ATK_ROLE_RADIO_BUTTON:
+        name = _("radio-button");
+        break;
+      case ATK_ROLE_RADIO_MENU_ITEM:
+        name = _("radio-menu-item");
+        break;
+      case ATK_ROLE_ROOT_PANE:
+        name = _("root-pane");
+        break;
+      case ATK_ROLE_ROW_HEADER:
+        name = _("row-header");
+        break;
+      case ATK_ROLE_SCROLL_BAR:
+        name = _("scroll-bar");
+        break;
+      case ATK_ROLE_SCROLL_PANE:
+        name = _("scroll-pane");
+        break;
+      case ATK_ROLE_SEPARATOR:
+        name = _("separator");
+        break;
+      case ATK_ROLE_SLIDER:
+        name = _("slider");
+        break;
+      case ATK_ROLE_SPLIT_PANE:
+        name = _("split-pane");
+        break;
+      case ATK_ROLE_SPIN_BUTTON:
+        name = _("spin-button");
+        break;
+      case ATK_ROLE_STATUSBAR:
+        name = _("statusbar");
+        break;
+      case ATK_ROLE_TABLE:
+        name = _("table");
+        break;
+      case ATK_ROLE_TABLE_CELL:
+        name = _("table-cell");
+        break;
+      case ATK_ROLE_TABLE_COLUMN_HEADER:
+        name = _("table-column-header");
+        break;
+      case ATK_ROLE_TABLE_ROW_HEADER:
+        name = _("table-row-header");
+        break;
+      case ATK_ROLE_TEAR_OFF_MENU_ITEM:
+        name = _("tear-off-menu-item");
+        break;
+      case ATK_ROLE_TERMINAL:
+        name = _("terminal");
+        break;
+      case ATK_ROLE_TEXT:
+        name = _("text");
+        break;
+      case ATK_ROLE_TOGGLE_BUTTON:
+        name = _("toggle-button");
+        break;
+      case ATK_ROLE_TOOL_BAR:
+        name = _("tool-bar");
+        break;
+      case ATK_ROLE_TOOL_TIP:
+        name = _("tool-tip");
+        break;
+      case ATK_ROLE_TREE:
+        name = _("tree");
+        break;
+      case ATK_ROLE_TREE_TABLE:
+        name = _("tree-table");
+        break;
+      case ATK_ROLE_UNKNOWN:
+        name = _("unknown");
+        break;
+      case ATK_ROLE_VIEWPORT:
+        name = _("viewport");
+        break;
+      case ATK_ROLE_WINDOW:
+        name = _("window");
+        break;
+      case ATK_ROLE_HEADER:
+        name = _("header");
+        break;
+      case ATK_ROLE_FOOTER:
+        name = _("footer");
+        break;
+      case ATK_ROLE_PARAGRAPH:
+        name = _("paragraph");
+        break;
+      case ATK_ROLE_RULER:
+        name = _("ruler");
+        break;
+      default:
+        name = atk_role_get_name (role);
+        break;
+    }
   return name;
 }
 

@@ -1,6 +1,6 @@
 # Process this file with automake to create Makefile.in.
 
-SUBDIRS=atk tests docs
+SUBDIRS=atk tests docs po
 
 EXTRA_DIST = 			\
 	atk-uninstalled.pc.in	\

@@ -16,7 +16,7 @@ INSTALLDIR=$(prefix)/share/gtk-doc
 HTML_DIR = ${datadir}/gtk-doc/html
 
 # Header files to ignore when scanning
-IGNORE_HFILES =	atkmarshal.h
+IGNORE_HFILES =	atkmarshal.h atkintl.h
 
 # Images to copy into HTML directory
 HTML_IMAGES =

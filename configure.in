@@ -2,6 +2,8 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(ChangeLog)
 
+AM_CONFIG_HEADER(config.h)
+
 dnl ==========================================================================
 dnl
 dnl If you add a version number here, you *must* add an AC_SUBST line for
@@ -59,6 +61,13 @@ AC_SUBST(LT_CURRENT_MINUS_AGE)
 dnl ==========================================================================
 
 AM_INIT_AUTOMAKE(atk,$ATK_VERSION)
+
+GETTEXT_PACKAGE=atk10
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE")
+
+ALL_LINGUAS=""
+AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CC
 AM_DISABLE_STATIC
@@ -187,6 +196,7 @@ AC_SUBST(REBUILD)
 
 AC_OUTPUT([
 Makefile
+po/Makefile.in
 atk.pc
 atk-uninstalled.pc
 atk/Makefile
