@@ -1,7 +1,6 @@
 <SECTION>
 <FILE>atkaction</FILE>
 <TITLE>AtkAction</TITLE>
-ATK_ACTION_GET_IFACE
 AtkAction
 AtkActionIface
 atk_action_do_action
@@ -12,13 +11,13 @@ atk_action_get_keybinding
 ATK_ACTION
 ATK_IS_ACTION
 ATK_TYPE_ACTION
+ATK_ACTION_GET_IFACE
 atk_action_get_type
 </SECTION>
 
 <SECTION>
 <FILE>atkcomponent</FILE>
 <TITLE>AtkComponent</TITLE>
-ATK_COMPONENT_GET_IFACE
 AtkComponent
 AtkComponentIface
 AtkFocusHandler
@@ -38,13 +37,13 @@ atk_component_set_size
 ATK_COMPONENT
 ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
+ATK_COMPONENT_GET_IFACE
 atk_component_get_type
 </SECTION>
 
 <SECTION>
 <FILE>atkeditabletext</FILE>
 <TITLE>AtkEditableText</TITLE>
-ATK_EDITABLE_TEXT_GET_IFACE
 AtkEditableText
 AtkEditableTextIface
 atk_editable_text_select_text
@@ -59,31 +58,13 @@ atk_editable_text_paste_text
 ATK_EDITABLE_TEXT
 ATK_IS_EDITABLE_TEXT
 ATK_TYPE_EDITABLE_TEXT
+ATK_EDITABLE_TEXT_GET_IFACE
 atk_editable_text_get_type
-</SECTION>
-
-<SECTION>
-<FILE>atkhyperlink</FILE>
-<TITLE>AtkHyperlink</TITLE>
-atk_hyperlink_get_anchor
-atk_hyperlink_get_object
-atk_hyperlink_get_end_index
-atk_hyperlink_get_start_index
-atk_hyperlink_is_valid
-<SUBSECTION Standard>
-ATK_HYPERLINK
-ATK_IS_HYPERLINK
-ATK_TYPE_HYPERLINK
-atk_hyperlink_get_type
-ATK_HYPERLINK_CLASS
-ATK_IS_HYPERLINK_CLASS
-ATK_HYPERLINK_GET_CLASS
 </SECTION>
 
 <SECTION>
 <FILE>atkhypertext</FILE>
 <TITLE>AtkHypertext</TITLE>
-ATK_HYPERTEXT_GET_IFACE
 AtkHypertext
 AtkHypertextIface
 AtkHyperLink
@@ -94,13 +75,13 @@ atk_hypertext_get_link_index
 ATK_HYPERTEXT
 ATK_IS_HYPERTEXT
 ATK_TYPE_HYPERTEXT
+ATK_HYPERTEXT_GET_IFACE
 atk_hypertext_get_type
 </SECTION>
 
 <SECTION>
 <FILE>atkimage</FILE>
 <TITLE>AtkImage</TITLE>
-ATK_IMAGE_GET_IFACE
 AtkImage
 AtkImageIface
 AtkImageType
@@ -113,6 +94,7 @@ atk_image_set_image_description
 ATK_IMAGE
 ATK_IS_IMAGE
 ATK_TYPE_IMAGE
+ATK_IMAGE_GET_IFACE
 atk_image_get_type
 </SECTION>
 
@@ -146,19 +128,15 @@ ATK_NO_OP_OBJECT_FACTORY_GET_CLASS
 
 <SECTION>
 <FILE>atkobject</FILE>
+<TITLE>AtkObject</TITLE>
 AtkRole
 atk_role_register
-ATK_TYPE_IMPLEMENTOR
-ATK_IS_IMPLEMENTOR
-ATK_IMPLEMENTOR
-ATK_IMPLEMENTOR_GET_IFACE
 AtkImplementor
 AtkImplementorIface
 AtkRelationSet
 AtkStateSet
 AtkPropertyValues
 AtkPropertyChangeHandler
-<TITLE>AtkObject</TITLE>
 atk_implementor_ref_accessible
 atk_object_get_name
 atk_object_get_description
@@ -179,10 +157,14 @@ atk_object_remove_property_change_handler
 ATK_OBJECT
 ATK_IS_OBJECT
 ATK_TYPE_OBJECT
+ATK_IMPLEMENTOR_GET_IFACE
 atk_object_get_type
 ATK_OBJECT_CLASS
 ATK_IS_OBJECT_CLASS
 ATK_OBJECT_GET_CLASS
+ATK_TYPE_IMPLEMENTOR
+ATK_IS_IMPLEMENTOR
+ATK_IMPLEMENTOR
 atk_implementor_get_type
 </SECTION>
 
@@ -219,8 +201,8 @@ ATK_REGISTRY_GET_CLASS
 
 <SECTION>
 <FILE>atkrelation</FILE>
-AtkRelationType
 <TITLE>AtkRelation</TITLE>
+AtkRelationType
 atk_relation_type_register
 atk_relation_new
 atk_relation_get_relation_type
@@ -258,7 +240,6 @@ ATK_RELATION_SET_GET_CLASS
 <SECTION>
 <FILE>atkselection</FILE>
 <TITLE>AtkSelection</TITLE>
-ATK_SELECTION_GET_IFACE
 AtkSelection
 AtkSelectionIface
 atk_selection_add_selection
@@ -272,6 +253,7 @@ atk_selection_select_all_selection
 ATK_SELECTION
 ATK_IS_SELECTION
 ATK_TYPE_SELECTION
+ATK_SELECTION_GET_IFACE
 atk_selection_get_type
 </SECTION>
 
@@ -302,7 +284,6 @@ ATK_STATE_SET_GET_CLASS
 <SECTION>
 <FILE>atktable</FILE>
 <TITLE>AtkTable</TITLE>
-ATK_TABLE_GET_IFACE
 AtkTable
 AtkTableIface
 atk_table_ref_at
@@ -334,13 +315,13 @@ atk_table_set_summary
 ATK_TABLE
 ATK_IS_TABLE
 ATK_TYPE_TABLE
+ATK_TABLE_GET_IFACE
 atk_table_get_type
 </SECTION>
 
 <SECTION>
 <FILE>atktext</FILE>
 <TITLE>AtkText</TITLE>
-ATK_TEXT_GET_IFACE
 AtkText
 AtkTextIface
 AtkTextBoundary
@@ -363,13 +344,13 @@ atk_text_set_caret_offset
 ATK_TEXT
 ATK_IS_TEXT
 ATK_TYPE_TEXT
+ATK_TEXT_GET_IFACE
 atk_text_get_type
 </SECTION>
 
 <SECTION>
 <FILE>atkvalue</FILE>
 <TITLE>AtkValue</TITLE>
-ATK_VALUE_GET_IFACE
 AtkValue
 AtkValueIface
 atk_value_get_current_value
@@ -380,11 +361,27 @@ atk_value_set_current_value
 ATK_VALUE
 ATK_IS_VALUE
 ATK_TYPE_VALUE
+ATK_VALUE_GET_IFACE
 atk_value_get_type
 </SECTION>
 
 <SECTION>
-<FILE>atk</FILE>
+<FILE>atkhyperlink</FILE>
+<TITLE>AtkHyperlink</TITLE>
+atk_hyperlink_get_uri
+atk_hyperlink_get_object
+atk_hyperlink_get_end_index
+atk_hyperlink_get_start_index
+atk_hyperlink_is_valid
+atk_hyperlink_get_n_anchors
+<SUBSECTION Standard>
+ATK_HYPERLINK
+ATK_IS_HYPERLINK
+ATK_TYPE_HYPERLINK
+atk_hyperlink_get_type
+ATK_HYPERLINK_CLASS
+ATK_IS_HYPERLINK_CLASS
+ATK_HYPERLINK_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -400,11 +397,12 @@ atk_state_type_for_name
 <SECTION>
 <FILE>atkutil</FILE>
 <TITLE>AtkUtil</TITLE>
-AtkFocusTracker
-AtkFocusTrackerInit
 atk_add_focus_tracker
 atk_remove_focus_tracker
 atk_focus_tracker_init
 atk_focus_tracker_notify
+<SUBSECTION Standard>
+AtkFocusTracker
+AtkFocusTrackerInit
 </SECTION>
 
