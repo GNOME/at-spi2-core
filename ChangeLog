@@ -1,3 +1,7 @@
+2003-02-14  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/Makefile.am: Correct typo in previous commit.
+
 2003-02-13  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/Makefile.am: Allow for build directory to be different 

@@ -24,6 +24,6 @@ DEPS = 	\
 
 LDFLAGS = @LDFLAGS@ -no-undefined -module -avoid-version
 
-libatk_bridge_la_LIBADD = $(ATK_BRIDGE_LIBS) $(top_builddir/libspi/libspi.la
+libatk_bridge_la_LIBADD = $(ATK_BRIDGE_LIBS) $(top_builddir)/libspi/libspi.la
 
 CFLAGS += $(ATK_BRIDGE_CFLAGS)
