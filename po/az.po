@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk-2-4\n"
-"POT-Creation-Date: 2003-06-22 11:50+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-08-11 11:14+0200\n"
 "PO-Revision-Date: 2003-06-22 18:34+0200\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani Turkish <gnome@azitt.com>\n"
@@ -20,7 +21,7 @@ msgstr "hökmsüz"
 
 #: atk/atkobject.c:1247
 msgid "accel-label"
-msgstr "accel etiketi"
+msgstr "accel-etiketi"
 
 #: atk/atkobject.c:1250
 msgid "alert"
@@ -36,7 +37,7 @@ msgstr "ox"
 
 #: atk/atkobject.c:1259
 msgid "calendar"
-msgstr "cədvəl"
+msgstr "təqvim"
 
 #: atk/atkobject.c:1262
 msgid "canvas"
@@ -44,35 +45,35 @@ msgstr "kanvas"
 
 #: atk/atkobject.c:1265
 msgid "check-box"
-msgstr "işarətləmə qutusu"
+msgstr "işarələmə-qutusu"
 
 #: atk/atkobject.c:1268
 msgid "check-menu-item"
-msgstr "seçim-menyu-üzvü"
+msgstr "işarələmə-menyusu-üzvü"
 
 #: atk/atkobject.c:1271
 msgid "color-chooser"
-msgstr "rəng seçicisi"
+msgstr "rəng-seçicisi"
 
 #: atk/atkobject.c:1274
 msgid "column-header"
-msgstr "sütun başlığı"
+msgstr "sütun-başlığı"
 
 #: atk/atkobject.c:1277
 msgid "combo-box"
-msgstr "combo qutusu"
+msgstr "kombo-qutusu"
 
 #: atk/atkobject.c:1280
 msgid "date-editor"
-msgstr "tarix editoru"
+msgstr "tarix-editoru"
 
 #: atk/atkobject.c:1283
 msgid "desktop-icon"
-msgstr "masa üstü timsalı"
+msgstr "masa-üstü-timsalı"
 
 #: atk/atkobject.c:1286
 msgid "desktop-frame"
-msgstr "masa üstü çərçivəsi"
+msgstr "masa-üstü-çərçivəsi"
 
 #: atk/atkobject.c:1289
 msgid "dial"
@@ -84,11 +85,11 @@ msgstr "dialoq"
 
 #: atk/atkobject.c:1295
 msgid "directory-pane"
-msgstr "cərgə lövhəsi"
+msgstr "cərgə-lövhəsi"
 
 #: atk/atkobject.c:1298
 msgid "drawing-area"
-msgstr "rəsm sahəsi"
+msgstr "rəsm-sahəsi"
 
 #: atk/atkobject.c:1301
 msgid "file-chooser"
@@ -96,11 +97,11 @@ msgstr "fayl-seçicisi"
 
 #: atk/atkobject.c:1304
 msgid "filler"
-msgstr "dolduran"
+msgstr "doldurucu"
 
 #: atk/atkobject.c:1307
 msgid "font-chooser"
-msgstr "yazı növü seçicisi"
+msgstr "yazı-növü-seçicisi"
 
 #: atk/atkobject.c:1310
 msgid "frame"
@@ -112,7 +113,7 @@ msgstr "ayna-lövhəsi"
 
 #: atk/atkobject.c:1316
 msgid "html-container"
-msgstr "html tutucusu"
+msgstr "html-konteyneri"
 
 #: atk/atkobject.c:1319
 msgid "icon"
@@ -124,7 +125,7 @@ msgstr "şəkil"
 
 #: atk/atkobject.c:1325
 msgid "internal-frame"
-msgstr "daxili çərçivə"
+msgstr "daxili-çərçivə"
 
 #: atk/atkobject.c:1328
 msgid "label"
@@ -132,7 +133,7 @@ msgstr "etiket"
 
 #: atk/atkobject.c:1331
 msgid "layered-pane"
-msgstr "laylanmış lövhə"
+msgstr "laylanmış-lövhə"
 
 #: atk/atkobject.c:1334
 msgid "list"
@@ -140,7 +141,7 @@ msgstr "siyahı"
 
 #: atk/atkobject.c:1337
 msgid "list-item"
-msgstr "siyahı üzvü"
+msgstr "siyahı-üzvü"
 
 #: atk/atkobject.c:1340
 msgid "menu"
@@ -148,23 +149,23 @@ msgstr "menyu"
 
 #: atk/atkobject.c:1343
 msgid "menu-bar"
-msgstr "menyu çubuğu"
+msgstr "menyu-çubuğu"
 
 #: atk/atkobject.c:1346
 msgid "menu-item"
-msgstr "menyu üzvü"
+msgstr "menyu-üzvü"
 
 #: atk/atkobject.c:1349
 msgid "option-pane"
-msgstr "seçənək lövhəsi"
+msgstr "seçim-lövhəsi"
 
 #: atk/atkobject.c:1352
 msgid "page-tab"
-msgstr "səhifə tabı"
+msgstr "səhifə-səkməsi"
 
 #: atk/atkobject.c:1355
 msgid "page-tab-list"
-msgstr "səhifə tablarının siyahısı"
+msgstr "səhifə-səkməsi-siyahısı"
 
 #: atk/atkobject.c:1358
 msgid "panel"
@@ -172,11 +173,11 @@ msgstr "panel"
 
 #: atk/atkobject.c:1361
 msgid "password-text"
-msgstr "parol mətni"
+msgstr "şifrə-mətni"
 
 #: atk/atkobject.c:1364
 msgid "popup-menu"
-msgstr "hoppanan menyu"
+msgstr "popup-menyu"
 
 #: atk/atkobject.c:1367
 msgid "progress-bar"
@@ -184,7 +185,7 @@ msgstr "ilərləmə-çubuğu"
 
 #: atk/atkobject.c:1370
 msgid "push-button"
-msgstr "basma düymə"
+msgstr "basma-düyməsi"
 
 #: atk/atkobject.c:1373
 msgid "radio-button"
@@ -192,23 +193,23 @@ msgstr "qərar-düyməsi"
 
 #: atk/atkobject.c:1376
 msgid "radio-menu-item"
-msgstr "radio-menü-əşyası"
+msgstr "qərar-menyusu-üzvü"
 
 #: atk/atkobject.c:1379
 msgid "root-pane"
-msgstr "kök lövhə"
+msgstr "kök-lövhə"
 
 #: atk/atkobject.c:1382
 msgid "row-header"
-msgstr "sətir başlığı"
+msgstr "sətir-başlığı"
 
 #: atk/atkobject.c:1385
 msgid "scroll-bar"
-msgstr "sürüşdürmə çubuğu"
+msgstr "sürüşdürmə-çubuğu"
 
 #: atk/atkobject.c:1388
 msgid "scroll-pane"
-msgstr "sürüşdürmə lövhəsi"
+msgstr "sürüşdürmə-lövhəsi"
 
 #: atk/atkobject.c:1391
 msgid "separator"
@@ -220,15 +221,15 @@ msgstr "sürüşdürücü"
 
 #: atk/atkobject.c:1397
 msgid "split-pane"
-msgstr "ayırma lövhəsi"
+msgstr "ayırma-lövhəsi"
 
 #: atk/atkobject.c:1400
 msgid "spin-button"
-msgstr "dönən düymə"
+msgstr "dönən-düymə"
 
 #: atk/atkobject.c:1403
 msgid "statusbar"
-msgstr "vəziyyət çubuğu"
+msgstr "vəziyyət-çubuğu"
 
 #: atk/atkobject.c:1406
 msgid "table"
@@ -236,19 +237,19 @@ msgstr "cədvəl"
 
 #: atk/atkobject.c:1409
 msgid "table-cell"
-msgstr "cədvəl hücrəsi"
+msgstr "cədvəl-hücrəsi"
 
 #: atk/atkobject.c:1412
 msgid "table-column-header"
-msgstr "cədvəl-kolon-başlığı"
+msgstr "cədvəl-sütun-başlığı"
 
 #: atk/atkobject.c:1415
 msgid "table-row-header"
-msgstr "cədvəl sətir başlığı"
+msgstr "cədvəl-sətir-başlığı"
 
 #: atk/atkobject.c:1418
 msgid "tear-off-menu-item"
-msgstr "qopardıla bilən menyu üzvü"
+msgstr "qopardıla-bilən-menyu-üzvü"
 
 #: atk/atkobject.c:1421
 msgid "terminal"
@@ -268,7 +269,7 @@ msgstr "ləvazimat-çubuğu"
 
 #: atk/atkobject.c:1433
 msgid "tool-tip"
-msgstr "ip ucu"
+msgstr "ehkam"
 
 #: atk/atkobject.c:1436
 msgid "tree"
@@ -276,7 +277,7 @@ msgstr "ağac"
 
 #: atk/atkobject.c:1439
 msgid "tree-table"
-msgstr "ağac cədvəli"
+msgstr "ağac-cədvəli"
 
 #: atk/atkobject.c:1442
 msgid "unknown"
@@ -284,7 +285,7 @@ msgstr "namə'lum"
 
 #: atk/atkobject.c:1445
 msgid "viewport"
-msgstr "nümayiş qutusu"
+msgstr "nümayiş-lövhəsi"
 
 #: atk/atkobject.c:1448
 msgid "window"
@@ -308,5 +309,4 @@ msgstr "xətkeş"
 
 #: atk/atkobject.c:1463
 msgid "application"
-msgstr "təminat"
-
+msgstr "tə'minat"
