@@ -1,3 +1,9 @@
+2002-03-21  Michael Meeks  <michael@ximian.com>
+
+	* libspi/application.c (spi_application_new):
+	use spi_accessible_construct so we use the AtkObject
+	cache correctly.
+
 2002-03-19  Michael Meeks  <michael@ximian.com>
 
 	* registryd/registry.c (desktop_remove_application),

@@ -44,9 +44,9 @@ typedef struct {
 
 GType      spi_base_get_type          (void);
 void       spi_base_construct         (SpiBase   *base,
-				       GObject *gobject);
+				       GObject   *gobject);
 void       spi_base_construct_default (SpiBase   *base);
-GObject *spi_base_get_gobject       (SpiBase   *base);
+GObject   *spi_base_get_gobject       (SpiBase   *base);
 
 G_END_DECLS
 

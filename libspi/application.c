@@ -362,9 +362,6 @@ BONOBO_TYPE_FUNC_FULL (SpiApplication,
 SpiApplication *
 spi_application_new (AtkObject *app_root)
 {
-  SpiApplication *retval = g_object_new (SPI_APPLICATION_TYPE, NULL);
-
-  spi_base_construct (SPI_BASE (retval), G_OBJECT(app_root));
-
-  return retval;
+  return SPI_APPLICATION (spi_accessible_construct (
+	SPI_APPLICATION_TYPE, app_root));
 }
