@@ -52,10 +52,6 @@ two-dimensional table format.
 @is_column_selected: 
 @is_row_selected: 
 @is_selected: 
-@add_row_selection: 
-@remove_row_selection: 
-@add_column_selection: 
-@remove_column_selection: 
 @model_changed: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
@@ -204,8 +200,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@selected: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@selected: 
 
 
 <!-- ##### FUNCTION atk_table_get_selected_rows ##### -->
@@ -214,8 +211,9 @@ two-dimensional table format.
 </para>
 
 @table: 
-@selected: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@selected: 
 
 
 <!-- ##### FUNCTION atk_table_is_column_selected ##### -->
@@ -245,46 +243,6 @@ two-dimensional table format.
 
 @table: 
 @row: 
-@column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_add_row_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_remove_row_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_add_column_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_remove_column_selection ##### -->
-<para>
-
-</para>
-
-@table: 
 @column: 
 @Returns: 
 

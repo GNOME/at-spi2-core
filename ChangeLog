@@ -1,3 +1,7 @@
+2001-06-22  Lucy Brophy <lucy.brophy@sun.com>
+	*atk/atktext.h
+	Removed the macro ATK_TEXT_BOUNDARY_CURSOR_POS
+
 2001-06-21  Brian Cameron <brian.cameron@sun.com>
 	* atk/atkeditabletext.h, atk/atkobject.h,
 	atktext.[ch]
