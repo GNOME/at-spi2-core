@@ -116,7 +116,7 @@ atk_relation_type_get_name (AtkRelationType type)
             return g_ptr_array_index (extra_names, n);
         }
     }
-  return ATK_RELATION_NULL;
+  return relation_names[ATK_RELATION_NULL];
 
 }
 

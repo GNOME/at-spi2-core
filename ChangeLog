@@ -1,3 +1,19 @@
+2001-11-28  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.[c|h]:
+	Add functions atk_role_get_name() and atk_role_for_name() which
+	transform a role into an untranslated string
+	Update comments in atkobject.h which refer to property names
+
+	* atk/atkrelation.c:
+	Correct error in atk_relation_type_get_name
+
+	* docs/atk-sections.txt
+	Added atk_role_get_name and atk_role_for_name
+
+	* docs/tmpl/*sgml
+	Updated files
+	
 2001-11-23  Hans Breuer  <hans@breuer.org>
 
 	* atk/atk.def : updated externals

@@ -171,6 +171,8 @@ atk_object_set_role
 atk_object_connect_property_change_handler
 atk_object_remove_property_change_handler
 atk_object_notify_state_change
+atk_role_get_name
+atk_role_for_name
 <SUBSECTION Standard>
 ATK_OBJECT
 ATK_IS_OBJECT

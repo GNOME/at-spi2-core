@@ -14,3 +14,48 @@ AtkStreamableContent
 
 </para>
 
+<!-- ##### STRUCT AtkStreamableContent ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkStreamableContentIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@get_n_mime_types: 
+@get_mime_type: 
+@get_stream: 
+
+<!-- ##### FUNCTION atk_streamable_content_get_n_mime_types ##### -->
+<para>
+
+</para>
+
+@streamable: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_streamable_content_get_mime_type ##### -->
+<para>
+
+</para>
+
+@streamable: 
+@i: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_streamable_content_get_stream ##### -->
+<para>
+
+</para>
+
+@streamable: 
+@mime_type: 
+@Returns: 
+
+

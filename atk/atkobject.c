@@ -24,7 +24,78 @@
 #include "atk.h"
 #include "atkmarshal.h"
 
-/* New GObject properties registered by AtkObject */
+static gchar *role_names[ATK_ROLE_LAST_DEFINED] = {
+  "invalid",
+  "accel_label",
+  "alert",
+  "animation",
+  "arrow",
+  "calendar",
+  "canvas",
+  "check_box",
+  "check_menu_item",
+  "color_chooser",
+  "column_header",
+  "combo_box",
+  "date_editor",
+  "desktop_icon",
+  "desktop_frame",
+  "dial",
+  "dialog",
+  "directory_pane",
+  "drawing_area",
+  "file_chooser",
+  "filler",
+  "font_chooser",
+  "frame",
+  "glass_pane",
+  "html_container",
+  "icon",
+  "image",
+  "internal_frame",
+  "label",
+  "layered_pane",
+  "list",
+  "list_item",
+  "menu",
+  "menu_bar",
+  "menu_item",
+  "option_pane",
+  "page_tab",
+  "page_tab_list",
+  "panel",
+  "password_text",
+  "popup_menu",
+  "progress_bar",
+  "push_button",
+  "radio_button",
+  "radio_menu_item",
+  "root_pane",
+  "row_header",
+  "scroll_bar",
+  "scroll_pane",
+  "separator",
+  "slider",
+  "split_pane",
+  "spin_button",
+  "statusbar",
+  "table",
+  "table_cell",
+  "table_column_header",
+  "table_row_header",
+  "tear_off_menu_item",
+  "terminal",
+  "text",
+  "toggle_button",
+  "tool_bar",
+  "tool_tip",
+  "tree",
+  "tree_table",
+  "unknown",
+  "viewport",
+  "window"
+};
+
 enum
 {
   PROP_0,  /* gobject convention */
@@ -1067,4 +1138,50 @@ atk_object_notify (GObject     *obj,
   g_signal_emit (obj, atk_object_signals[PROPERTY_CHANGE],
                  g_quark_from_string (pspec->name),
                  &values, NULL);
+}
+
+/**
+ * atk_role_get_name:
+ * @type: The #AtkRole whose name is required
+ *
+ * Gets the description string describing the #Roleype @role.
+ *
+ * Returns: the string describing the AtkRole
+ */
+G_CONST_RETURN gchar*
+atk_role_get_name (AtkRole role)
+{
+  gint n;
+
+  n = role;
+
+  if ((n >= 0) && (n < ATK_ROLE_LAST_DEFINED))
+    return role_names[n];
+
+  return role_names[ATK_ROLE_INVALID];
+}
+
+/**
+ * atk_role_for_name:
+ * @name: a string which is the (non-localized) name of an ATK role.
+ *
+ * Get the #AtkRole type corresponding to a rolew name.
+ *
+ * Returns: the #AtkRole enumerated type corresponding to the specified
+name,
+ *          or #ATK_ROLE_INVALID if no matching role is found.
+ **/
+AtkRole
+atk_role_for_name (const gchar *name)
+{
+  gint i;
+
+  g_return_val_if_fail (name, ATK_ROLE_INVALID);
+
+  for (i = 0; i < ATK_ROLE_LAST_DEFINED; i++)
+    {
+      if (strcmp (name, role_names[i]) == 0)
+        return i;
+    }
+  return ATK_ROLE_INVALID;
 }

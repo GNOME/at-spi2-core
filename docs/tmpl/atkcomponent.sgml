@@ -28,10 +28,9 @@ AtkComponent
 @parent: 
 @add_focus_handler: 
 @contains: 
-@get_accessible_at_point: 
+@ref_accessible_at_point: 
 @get_extents: 
 @get_position: 
-@get_position_on_screen: 
 @get_size: 
 @grab_focus: 
 @remove_focus_handler: 
@@ -57,9 +56,8 @@ AtkComponent
 @component: 
 @x: 
 @y: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @coord_type: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_component_get_extents ##### -->
@@ -72,7 +70,6 @@ AtkComponent
 @y: 
 @width: 
 @height: 
-<!-- # Unused Parameters # -->
 @coord_type: 
 
 
@@ -84,7 +81,6 @@ AtkComponent
 @component: 
 @x: 
 @y: 
-<!-- # Unused Parameters # -->
 @coord_type: 
 
 
@@ -104,7 +100,18 @@ AtkComponent
 </para>
 
 @component: 
-<!-- # Unused Parameters # -->
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_component_ref_accessible_at_point ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+@coord_type: 
 @Returns: 
 
 
@@ -127,7 +134,6 @@ AtkComponent
 @y: 
 @width: 
 @height: 
-<!-- # Unused Parameters # -->
 @coord_type: 
 @Returns: 
 
@@ -140,7 +146,6 @@ AtkComponent
 @component: 
 @x: 
 @y: 
-<!-- # Unused Parameters # -->
 @coord_type: 
 @Returns: 
 
@@ -153,7 +158,6 @@ AtkComponent
 @component: 
 @width: 
 @height: 
-<!-- # Unused Parameters # -->
 @Returns: 
 
 

@@ -32,7 +32,8 @@ AtkText
 @get_character_at_offset: 
 @get_text_before_offset: 
 @get_caret_offset: 
-@get_range_attributes: 
+@get_run_attributes: 
+@get_default_attributes: 
 @get_character_extents: 
 @get_character_count: 
 @get_offset_at_point: 
@@ -44,6 +45,7 @@ AtkText
 @set_caret_offset: 
 @text_changed: 
 @caret_changed: 
+@text_selection_changed: 
 
 <!-- ##### ENUM AtkTextBoundary ##### -->
 <para>
@@ -51,13 +53,59 @@ AtkText
 </para>
 
 @ATK_TEXT_BOUNDARY_CHAR: 
-@ATK_TEXT_BOUNDARY_CURSOR_POS: 
 @ATK_TEXT_BOUNDARY_WORD_START: 
 @ATK_TEXT_BOUNDARY_WORD_END: 
 @ATK_TEXT_BOUNDARY_SENTENCE_START: 
 @ATK_TEXT_BOUNDARY_SENTENCE_END: 
 @ATK_TEXT_BOUNDARY_LINE_START: 
 @ATK_TEXT_BOUNDARY_LINE_END: 
+
+<!-- ##### STRUCT AtkAttribute ##### -->
+<para>
+
+</para>
+
+@name: 
+@value: 
+
+<!-- ##### TYPEDEF AtkAttributeSet ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ENUM AtkTextAttribute ##### -->
+<para>
+
+</para>
+
+@ATK_TEXT_ATTR_LEFT_MARGIN: 
+@ATK_TEXT_ATTR_RIGHT_MARGIN: 
+@ATK_TEXT_ATTR_INDENT: 
+@ATK_TEXT_ATTR_INVISIBLE: 
+@ATK_TEXT_ATTR_EDITABLE: 
+@ATK_TEXT_ATTR_PIXELS_ABOVE_LINES: 
+@ATK_TEXT_ATTR_PIXELS_BELOW_LINES: 
+@ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP: 
+@ATK_TEXT_ATTR_BG_FULL_HEIGHT: 
+@ATK_TEXT_ATTR_RISE: 
+@ATK_TEXT_ATTR_UNDERLINE: 
+@ATK_TEXT_ATTR_STRIKETHROUGH: 
+@ATK_TEXT_ATTR_SIZE: 
+@ATK_TEXT_ATTR_SCALE: 
+@ATK_TEXT_ATTR_WEIGHT: 
+@ATK_TEXT_ATTR_LANGUAGE: 
+@ATK_TEXT_ATTR_FAMILY_NAME: 
+@ATK_TEXT_ATTR_BG_COLOR: 
+@ATK_TEXT_ATTR_FG_COLOR: 
+@ATK_TEXT_ATTR_BG_STIPPLE: 
+@ATK_TEXT_ATTR_FG_STIPPLE: 
+@ATK_TEXT_ATTR_WRAP_MODE: 
+@ATK_TEXT_ATTR_DIRECTION: 
+@ATK_TEXT_ATTR_JUSTIFICATION: 
+@ATK_TEXT_ATTR_STRETCH: 
+@ATK_TEXT_ATTR_VARIANT: 
+@ATK_TEXT_ATTR_STYLE: 
 
 <!-- ##### FUNCTION atk_text_get_text ##### -->
 <para>
@@ -88,10 +136,9 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @start_offset: 
 @end_offset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_at_offset ##### -->
@@ -102,10 +149,9 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @start_offset: 
 @end_offset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_text_before_offset ##### -->
@@ -116,10 +162,9 @@ AtkText
 @text: 
 @offset: 
 @boundary_type: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @start_offset: 
 @end_offset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_caret_offset ##### -->
@@ -140,11 +185,32 @@ AtkText
 @offset: 
 @x: 
 @y: 
-@length: 
 @width: 
-<!-- # Unused Parameters # -->
 @height: 
 @coords: 
+<!-- # Unused Parameters # -->
+@length: 
+
+
+<!-- ##### FUNCTION atk_text_get_run_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_get_default_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_character_count ##### -->
@@ -164,9 +230,8 @@ AtkText
 @text: 
 @x: 
 @y: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @coords: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_n_selections ##### -->
@@ -230,6 +295,33 @@ AtkText
 
 @text: 
 @offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_attribute_set_free ##### -->
+<para>
+
+</para>
+
+@attrib_set: 
+
+
+<!-- ##### FUNCTION atk_attribute_get_name ##### -->
+<para>
+
+</para>
+
+@attr: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_attribute_get_value ##### -->
+<para>
+
+</para>
+
+@attr: 
+@index: 
 @Returns: 
 
 

@@ -114,7 +114,7 @@ extern "C" {
  **/
 typedef enum
 {
-  ATK_ROLE_INVALID,
+  ATK_ROLE_INVALID = 0, 
   ATK_ROLE_ACCEL_LABEL,
   ATK_ROLE_ALERT,
   ATK_ROLE_ANIMATION,
@@ -434,13 +434,6 @@ void                    atk_object_set_role                       (AtkObject *ac
                                                                    AtkRole   role);
 
 
-/*
- * to install property change listener, one must
- * install signal handler for gobject "properties_changed" signal.
- * (for single notifications of multiple changes).
- * We could use the "notify" signal instead.
- *
- */
 guint                atk_object_connect_property_change_handler  (AtkObject                      *accessible,
                                                                   AtkPropertyChangeHandler       *handler);
 void                 atk_object_remove_property_change_handler   (AtkObject                      *accessible,
@@ -450,6 +443,10 @@ void                 atk_object_notify_state_change              (AtkObject     
                                                                   AtkState                       state,
                                                                   gboolean                       value);
                                     
+G_CONST_RETURN gchar* atk_role_get_name      (AtkRole         role);
+AtkRole               atk_role_for_name      (const gchar     *name);
+
+
 /*
  * Note: the properties which are registered with the GType
  *   property registry, for type ATK_TYPE_OBJECT, are as follows:
@@ -457,26 +454,23 @@ void                 atk_object_notify_state_change              (AtkObject     
  *   "accessible-name"
  *   "accessible-description"
  *   "accessible-parent"
- *   "accessible-child"
  *   "accessible-role"
- *   "accessible-state"
- *   "accessible-parent"
- *   "accessible-text"
- *   "accessible-caret"
- *   "accessible-selection"
  *   "accessible-value"
- *   "accessible-visible-data"
+ *   "accessible-component-layer"
+ *   "accessible-component-zorder"
  *   "accessible-table-caption"
+ *   "accessible-table-column-description"
  *   "accessible-table-column-header"
- *   "accessible-table-row-heaer"
+ *   "accessible-table-row-description"
+ *   "accessible-table-row-header"
  *   "accessible-table-summary"
  *   "accessible-model"
  *
  * accessibility property change listeners should use the
- *   normal GObject property interfaces and "properties_changed"
+ *   normal GObject property interfaces and "property-change"
  *   signal handler semantics to interpret the property change
  *   information relayed from AtkObject.
- *   (AtkObject instances will connect to the "properties_changed"
+ *   (AtkObject instances will connect to the "notify"
  *   signal in their host objects, and relay the signals when appropriate).
  */
 
