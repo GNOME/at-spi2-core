@@ -106,6 +106,11 @@ typedef struct _AccessibleKeySet
 	short len;
 } AccessibleKeySet;
 
+/**
+ * SPI_KEYSET_ALL_KEYS:
+ * @SPI_KEYSET_ALL_KEYS: A special value for an AccessibleKeySet type, which tacitly
+ *                       includes all keycodes and keyvals for the specified modifier set.
+ **/
 #define SPI_KEYSET_ALL_KEYS ((void *)NULL)
 
 typedef unsigned long AccessibleKeyMaskType;
@@ -953,9 +958,10 @@ int
 AccessibleEditableText_unref (AccessibleEditableText *obj);
 
 boolean
-AccessibleEditableText_setRunAttributes (AccessibleEditableText *obj,
-					 const char *attributes,
-					 long int startPos, long int intendPos);
+AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
+				      const char *attributes,
+				      long int startOffset,
+				      long int endOffset);
 
 boolean
 AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
@@ -1179,7 +1185,7 @@ long
 AccessibleTable_getNColumns (AccessibleTable *obj);
 
 Accessible *
-AccessibleTable_refAt (AccessibleTable *obj,
+AccessibleTable_getAccessibleAt (AccessibleTable *obj,
                                  long int row,
                                  long int column);
 

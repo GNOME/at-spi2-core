@@ -1,6 +1,6 @@
 /**
  * AccessibleSelection_ref:
- * @obj: a pointer to the #AccessibleSelecion implementor on which to operate.
+ * @obj: a pointer to the #AccessibleSelection implementor on which to operate.
  *
  * Increment the reference count for an #AccessibleSelection object.
  *

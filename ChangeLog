@@ -7,7 +7,10 @@
 
 	* cspi/spi_editabletext.c:
 	* cspi/spi_hypertext.c:
-	Added docs.  Doc coverage now 70%.
+	* cspi/spi_image.c:
+	* cspi/spi_hyperlink.c:
+	* cspi/spi_table.c:
+	Added docs.  Doc coverage now 92%.
 
 2001-16-11  Bill Haneman <bill.haneman@sun.com>
 

@@ -71,11 +71,16 @@ static char *role_names [MAX_ROLES] =
   "window",
 };
 
-/*
- * Returns a localizable string name for an AtkRole enumerated type.
- */
+/**
+ * AccessibleRole_getName:
+ * @role: an #AccessibleRole object to query.
+ *
+ * Get a localizeable string that indicates the name of an #AccessibleRole.
+ *
+ * Returns: a localizable string name for an #AccessibleRole enumerated type.
+ **/
 char*
-Accessible_Role_getName (Accessibility_Role role)
+AccessibleRole_getName (AccessibleRole role)
 {
   if (role < MAX_ROLES) return role_names [(int) role];
   else return "";
@@ -258,7 +263,7 @@ Accessible_getRelationSet (Accessible *obj)
 char *
 Accessible_getRole (Accessible *obj)
 {
-  char *retval = Accessible_Role_getName (
+  char *retval = AccessibleRole_getName (
 		  Accessibility_Accessible_getRole (*obj, &ev));
   spi_check_ev (&ev, "getRole");
   return retval;

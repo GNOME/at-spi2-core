@@ -1,12 +1,17 @@
 #ifndef _SPI_ROLETYPES_H_
 #define _SPI_ROLETYPES_H_
 
-/*
+/**
+ * AccessibleRole:
+ * @SPI_ROLE_INVALID: role is not legal, something is wrong with this object
+ * @SPI_ROLE_ALERT: Object is used to alert the user about something
+ * @SPI_ROLE_CANVAS: Object that can be drawn into and is used to trap events
+ * @SPI_ROLE_CHECK_BOX: Object representd a choice that can be checked or unchecked
+ *                    and provides a separate indicator for the current state.
  *
- * Enumerated type for AccessibleRole
+ * 
  *
- */
-
+ **/
 typedef enum
 {
   SPI_ROLE_INVALID,
@@ -186,5 +191,7 @@ typedef enum
   /* not a valid role, used for finding end of enumeration. */
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
+
+char* AccessibleRole_getName (AccessibleRole role);
 
 #endif

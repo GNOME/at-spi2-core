@@ -78,6 +78,7 @@ Accessible_getText
 Accessible_queryInterface
 <SUBSECTION Auxiliary types>
 AccessibleRole
+AccessibleRole_getName
 </SECTION>
 
 <SECTION>
@@ -100,6 +101,7 @@ AccessibleAction_unref
 AccessibleAction_getNActions
 AccessibleAction_doAction
 AccessibleAction_getKeyBinding
+AccessibleAction_getName
 AccessibleAction_getDescription
 </SECTION>
 
@@ -128,7 +130,7 @@ AccessibleEditableText_insertText
 AccessibleEditableText_cutText
 AccessibleEditableText_pasteText
 AccessibleEditableText_setTextContents
-AccessibleEditableText_setRunAttributes
+AccessibleEditableText_setAttributes
 </SECTION>
 
 <SECTION>
@@ -170,6 +172,7 @@ AccessibleSelection_selectAll
 <TITLE>AccessibleTable Interface</TITLE>
 AccessibleTable_ref
 AccessibleTable_unref
+AccessibleTable_getAccessibleAt
 AccessibleTable_getCaption
 AccessibleTable_getColumnAtIndex
 AccessibleTable_getColumnDescription
@@ -190,7 +193,6 @@ AccessibleTable_getSummary
 AccessibleTable_isColumnSelected
 AccessibleTable_isRowSelected
 AccessibleTable_isSelected
-AccessibleTable_refAt
 </SECTION>
 
 <SECTION>

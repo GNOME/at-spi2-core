@@ -41,6 +41,8 @@ AccessibleEditableText_unref (AccessibleEditableText *obj)
 /**
  * AccessibleEditableText_setAttributes:
  * @obj: a pointer to the #AccessibleEditableText object to modify.
+ * @attributes: a character string indicating the attributes to apply to the range,
+ *        delimited by ':'.
  * @startOffset: a #long indicating the start of the desired text range.
  * @endOffset: a #long indicating the first character past the desired range.
  *

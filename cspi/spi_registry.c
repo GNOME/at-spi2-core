@@ -253,6 +253,8 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
  * @modmask:  the key modifier mask for which this listener is to be
  *            'deregistered' (of type #AccessibleeyMaskType).
  *
+ * Removes a keystroke event listener from the registry's listener queue,
+ *            ceasing notification of events with modifiers matching @modmask.
  **/
 void
 deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
