@@ -111,7 +111,7 @@ atk_table_base_init (gpointer *g_class)
                      G_SIGNAL_RUN_LAST,
                      G_STRUCT_OFFSET (AtkTableIface, model_changed),
                      (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
+                     g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE,
                      0);
     atk_table_signals[COLUMN_REORDERED] =
@@ -120,7 +120,7 @@ atk_table_base_init (gpointer *g_class)
                      G_SIGNAL_RUN_LAST,
                      G_STRUCT_OFFSET (AtkTableIface, model_changed),
                      (GSignalAccumulator) NULL, NULL,
-                     atk_marshal_VOID__INT_INT,
+                     g_cclosure_marshal_VOID__VOID,
                      G_TYPE_NONE,
                      0);
     initialized = TRUE;

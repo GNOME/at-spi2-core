@@ -1,3 +1,8 @@
+2001-06-20  Brian Cameron <brian.cameron@sun.com>
+	* atk/atktable.c, atk/atkmarshal.list
+	Removed needless marshal and updated signal handlers in
+	atktable.c
+
 2001-06-20  Louise Miller <louise.miller@sun.com>
 	*atk/atktable.h, atk/table.c, docs/tmpl/atktable.sgml	
 	Changed parameters for get_selected_rows/get_selected_columns
