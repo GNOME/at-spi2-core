@@ -1,3 +1,11 @@
+2002-12-13  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.c (atk_text_get_caret_offset): Rerturn 0 instead of -1
+	if caret is not supported. This addresses bug #101020.
+
+	* configure.in: Use third argument of AC_DEFINE to get rid of 
+	acconfig.h. 
+
 Thu Dec 12 14:57:20 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* acinclude.m4: Remove; wasn't needed, and referred

@@ -470,14 +470,14 @@ atk_text_get_caret_offset (AtkText *text)
 {
   AtkTextIface *iface;
 
-  g_return_val_if_fail (ATK_IS_TEXT (text), -1);
+  g_return_val_if_fail (ATK_IS_TEXT (text), 0);
 
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_caret_offset)
     return (*(iface->get_caret_offset)) (text);
   else
-    return -1;
+    return 0;
 }
 
 /**
