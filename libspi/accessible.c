@@ -292,7 +292,7 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
   AtkObject *child;
   AtkObject *object = get_atkobject_from_servant (servant);
 
-  g_return_val_if_fail (object != NULL, 0);
+  g_return_val_if_fail (object != NULL, CORBA_OBJECT_NIL);
 
   child = atk_object_ref_accessible_child (object, index);
 
@@ -440,7 +440,7 @@ de_register_public_ref (SpiBase *object)
 SpiAccessible *
 spi_accessible_new (AtkObject *o)
 {
-  return spi_accessible_construct (SPI_ACCESSIBLE_TYPE, o);
+  return spi_accessible_construct (SPI_ACCESSIBLE_TYPE, o);	  
 }
 
 SpiAccessible *
@@ -459,7 +459,6 @@ spi_accessible_construct (GType type, AtkObject *o)
         bonobo_object_ref (BONOBO_OBJECT (retval));
 	return retval;
       }
-
     else
       {
         retval = g_object_new (type, NULL);
@@ -555,11 +554,11 @@ spi_accessible_new_return (AtkObject         *o,
     }
   else if (SPI_IS_REMOTE_OBJECT (o))
     {
-      retval = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (o)); 
+      retval = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (o));
     }
   else
     {
-      accessible = spi_accessible_new (o);
+      accessible = spi_accessible_construct (SPI_ACCESSIBLE_TYPE, o);
       retval = CORBA_Object_duplicate (BONOBO_OBJREF (accessible), ev); 
     }
 

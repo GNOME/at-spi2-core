@@ -1,3 +1,10 @@
+2002-03-13  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c 
+	(impl_accessibility_accessible_get_child_at_index):
+	Change return value for g_return_if_fail ()
+	to CORBA_OBJECT_NIL instead of "0" (!)
+
 2002-03-13  Michael Meeks  <michael@ximian.com>
 
 	* atk-bridge/bridge.c (atk_bridge_init): don't register
