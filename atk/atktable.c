@@ -41,14 +41,11 @@ atk_table_get_type ()
 
 /**
  * atk_table_ref_at:
- * @value: a GObject instance that implements AtkTableIface
- * @return: a AtkObject* representing the referred to accessible , or NULL
- * if value does not implement this interface.
+ * @obj: a GObject instance that implements AtkTableIface
+ * return values: a AtkObject* representing the referred to accessible
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkSelectionIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_table() convenience method.
+ * Get a reference to the table cell at #row, #column
+ *
  **/
 AtkObject*
 atk_table_ref_at (AtkTable *obj,
@@ -432,7 +429,7 @@ atk_table_get_summary (AtkTable *obj)
 /**
  * atk_table_get_selected_rows:
  * @value: a GObject instance that implements AtkTableIface
- * @return: a gint* representing the selected rows, 
+ * @return: a gint* representing the selected rows,
  * or NULL if value does not implement this interface.
  *
  * WARNING: callers should not rely on %NULL or on a zero value for
@@ -459,7 +456,7 @@ atk_table_get_selected_rows (AtkTable *obj)
 /**
  * atk_table_get_selected_columns:
  * @value: a GObject instance that implements AtkTableIface
- * @return: a gint* representing the selected columns, 
+ * @return: a gint* representing the selected columns,
  * or NULL if value does not implement this interface.
  *
  * WARNING: callers should not rely on %NULL or on a zero value for
@@ -571,7 +568,7 @@ atk_table_is_selected (AtkTable *obj,
 /**
  * atk_table_set_caption:
  * @value: a GObject instance that implements AtkTableIface
- * @return: void 
+ * @return: void
  **/
 void
 atk_table_set_caption (AtkTable       *obj,
@@ -591,7 +588,7 @@ atk_table_set_caption (AtkTable       *obj,
 /**
  * atk_table_set_column_description:
  * @value: a GObject instance that implements AtkTableIface
- * @return: void 
+ * @return: void
  **/
 void
 atk_table_set_column_description (AtkTable       *obj,
@@ -612,7 +609,7 @@ atk_table_set_column_description (AtkTable       *obj,
 /**
  * atk_table_set_column_header:
  * @value: a GObject instance that implements AtkTableIface
- * @return: void 
+ * @return: void
  **/
 void
 atk_table_set_column_header (AtkTable *obj,
@@ -633,7 +630,7 @@ atk_table_set_column_header (AtkTable *obj,
 /**
  * atk_table_set_row_description:
  * @value: a GObject instance that implements AtkTableIface
- * @return: void 
+ * @return: void
  **/
 void
 atk_table_set_row_description (AtkTable       *obj,
@@ -654,7 +651,7 @@ atk_table_set_row_description (AtkTable       *obj,
 /**
  * atk_table_set_row_header:
  * @value: a GObject instance that implements AtkTableIface
- * @return: void 
+ * @return: void
  **/
 void
 atk_table_set_row_header (AtkTable *obj,
@@ -675,7 +672,7 @@ atk_table_set_row_header (AtkTable *obj,
 /**
  * atk_table_set_summary:
  * @value: a GObject instance that implements AtkTableIface
- * @return: void 
+ * @return: void
  **/
 void
 atk_table_set_summary (AtkTable       *obj,

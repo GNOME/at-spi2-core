@@ -17,7 +17,6 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* Superseded by atkimage.c */
 #include "atkimage.h"
 
 GType
@@ -42,14 +41,11 @@ atk_image_get_type ()
 
 /**
  * atk_image_get_storage_type:
- * @value: a GObject instance that implements AtkImageIface
- * @return: a AtkStorageType representing the image storage type, or 0
- * if value does not implement this interface.
+ * @obj: a GObject instance that implements AtkImageIface
+ * return values: a AtkStorageType representing the image storage type
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkImageIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_image() convenience method.
+ * [maybe this method will be replaced, watch this space.]
+ *
  **/
 AtkImageType
 atk_image_get_storage_type (AtkImage *obj)
@@ -62,21 +58,21 @@ atk_image_get_storage_type (AtkImage *obj)
   iface = ATK_IMAGE_GET_IFACE (obj);
 
   if (iface->get_storage_type)
-    return (iface->get_storage_type) (obj);
+    {
+      return (iface->get_storage_type) (obj);
+    }
   else
-    return 0;
+    {
+      return 0;
+    }
 }
 
 /**
  * atk_image_get_image_description:
- * @value: a GObject instance that implements AtkImageIface
- * @return: a gchar* representing the image description, or NULL
- * if value does not implement this interface.
+ * @obj: a GObject instance that implements AtkImageIface
+ * return values: a gchar* representing the image description
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkImageIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_image() convenience method.
+ * Get a textual description of this image.
  **/
 G_CONST_RETURN gchar*
 atk_image_get_image_description (AtkImage *obj)
@@ -89,21 +85,22 @@ atk_image_get_image_description (AtkImage *obj)
   iface = ATK_IMAGE_GET_IFACE (obj);
 
   if (iface->get_image_description)
-    return (iface->get_image_description) (obj);
+    {
+      return (iface->get_image_description) (obj);
+    }
   else
-    return NULL;
+    {
+      return NULL;
+    }
 }
 
 /**
  * atk_image_get_image_height:
- * @value: a GObject instance that implements AtkImageIface
- * @return: a gint representing the image height, or 0
- * if value does not implement this interface.
+ * @obj: a GObject instance that implements AtkImageIface
+ * return values: a gint representing the image height in pixel coords
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkImageIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_image() convenience method.
+ * Get the height, in pixels/screen coords, of this image.
+ *
  **/
 gint
 atk_image_get_image_height (AtkImage *obj)
@@ -116,21 +113,22 @@ atk_image_get_image_height (AtkImage *obj)
   iface = ATK_IMAGE_GET_IFACE (obj);
 
   if (iface->get_image_height)
-    return (iface->get_image_height) (obj);
+    {
+      return (iface->get_image_height) (obj);
+    }
   else
-    return 0;
+    {
+      return 0;
+    }
 }
 
 /**
  * atk_image_get_image_width:
- * @value: a GObject instance that implements AtkImageIface
- * @return: a gint representing the image width, or 0
- * if value does not implement this interface.
+ * @obj: a GObject instance that implements AtkImageIface
+ * return values: a gint representing the image width
  *
- * WARNING: callers should not rely on %NULL or on a zero value for
- * indication of whether AtkImageIface is implemented, they should
- * use type checking/interface checking macros or the
- * atk_get_accessible_image() convenience method.
+ * Get the width, in pixel/screen coords, of this image.
+ *
  **/
 gint
 atk_image_get_image_width (AtkImage *obj)
@@ -143,27 +141,41 @@ atk_image_get_image_width (AtkImage *obj)
   iface = ATK_IMAGE_GET_IFACE (obj);
 
   if (iface->get_image_width)
-    return (iface->get_image_width) (obj);
+    {
+      return (iface->get_image_width) (obj);
+    }
   else
-    return 0;
+    {
+      return 0;
+    }
 }
 
 /**
  * atk_image_set_image_description:
- * @value: a GObject instance that implements AtkImageIface
- * @return: void
+ * @obj: a GObject instance that implements AtkImageIface
+ * return values: boolean TRUE, or FALSE if operation could
+ * not be completed.
+ *
+ * Sets the textual description for this image.
+ *
  **/
-void
+gboolean
 atk_image_set_image_description (AtkImage        *obj,
                               const gchar     *description)
 {
   AtkImageIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_IMAGE (obj));
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_IMAGE (obj), FALSE);
 
   iface = ATK_IMAGE_GET_IFACE (obj);
 
   if (iface->set_image_description)
-    (iface->set_image_description) (obj, description);
+    {
+      return (iface->set_image_description) (obj, description);
+    }
+  else
+    {
+      return FALSE;
+    }
 }
