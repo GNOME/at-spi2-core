@@ -28,7 +28,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/un.h>
-#include <spi.h>
+#include <cspi/spi.h>
 
 static SPIBoolean report_command_key_event  (const AccessibleKeystroke *stroke, void *user_data);
 static SPIBoolean report_ordinary_key_event (const AccessibleKeystroke *stroke, void *user_data);

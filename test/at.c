@@ -25,8 +25,8 @@
 #include <stdlib.h>
 #include <libbonobo.h>
 #include <libspi/Accessibility.h>
-#include "accessible.h"
-#include "listener.h"
+#include <libspi/accessible.h>
+#include <libspi/listener.h>
 
 void
 check_ev (CORBA_Environment *ev, char *desc)

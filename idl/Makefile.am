@@ -20,6 +20,7 @@ idl_DATA =					\
 	Accessibility_StreamableContent.idl	\
 	Accessibility_Table.idl			\
 	Accessibility_Text.idl			\
-	Accessibility_Value.idl
+	Accessibility_Value.idl			\
+	Accessibility_LoginHelper.idl
 
 EXTRA_DIST=$(idl_DATA)

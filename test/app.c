@@ -27,8 +27,8 @@
 #include <bonobo-activation/bonobo-activation.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
-#include "accessible.h"
-#include "application.h"
+#include <libspi/accessible.h>
+#include <libspi/application.h>
 
 #define APP_STATIC_BUFF_SZ 30
 

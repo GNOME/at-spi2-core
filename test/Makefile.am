@@ -1,6 +1,10 @@
 NULL=
 
-noinst_PROGRAMS = test-simple at app simple-at stress-test keysynth-demo key-listener-test event-listener-test window-listener-test screen-review-test keypad-test keysynth-test
+noinst_PROGRAMS = test-simple at app simple-at stress-test keysynth-demo key-listener-test event-listener-test window-listener-test screen-review-test keypad-test keysynth-test login-helper-client-test login-helper-server-test
+
+login_helper_client_test_SOURCES = login-helper-client-test.c
+
+login_helper_server_test_SOURCES = login-helper-server-test.c
 
 keysynth_test_SOURCES = keysynth-test.c
 
@@ -30,13 +34,9 @@ DEBUG_CFLAGS=-DSPI_DEBUG
 
 INCLUDES = -I$(top_srcdir)           \
            -I$(top_builddir)         \
-           -I$(top_srcdir)/libspi    \
-           -I$(top_builddir)/libspi  \
-	   -I$(top_srcdir)/cspi	     \
-	   -I$(top_builddir)/cspi    \
 	   $(TESTS_CFLAGS)	     \
 	   $(DEBUG_CFLAGS)
 
-LDADD = ../libspi/libspi.la ../cspi/libcspi.la $(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS)
+LDADD = ../libspi/libspi.la ../cspi/libcspi.la ../login-helper/libloginhelper.la $(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS)
 
 TESTS = test-simple

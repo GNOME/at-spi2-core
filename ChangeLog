@@ -1,4 +1,36 @@
+2004-05-27  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Create login-helper/Makefile.  
+	Incremented micro version.
+
+	* Makefile.am:  Add login-helper subdir and pkgconfig data.
+	
+	* login-helper: New subdir.
+
+	* libloginhelper-1.0.pc.in: New.
+
+	* idl/Accessibility_LoginHelper.idl: New file, defines
+	interface whereby authentication clients can identify agents which
+	need access to services during the login process, e.g. screen lock
+	dialogs, etc.
+
+	* login-helper/Makefile.am : New.
+
+	* login-helper/login-helper.[ch] : New, implementation of
+	a LoginHelper base class.  Services needing LoginHelper can subclass.
+
+	* test/Makefile.am : Added test for login-helper, client and
+	server.
+
+	* test/app.c, at.c, keypad-test.c, keysynth-test.c, stress-test.c:
+	Use proper prefix in #include files.
+
+	* test/login-helper-client-test.c: New.
+	
+	* test/login-helper-server-test.c: New.
+
 2004-05-27  Alexander Shopov <ash@contact.bg>
+
 	* configure.in (ALL_LINGUAS): Added "bg" (Bulgarian)
 
 2004-05-14  Padraig O'Briain <padraig.obriain@sun.com>

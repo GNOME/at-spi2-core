@@ -29,7 +29,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/un.h>
-#include <spi.h>
+#include <cspi/spi.h>
 #define XK_MISCELLANY
 #include <X11/keysymdef.h>
 #include <gdk/gdk.h>

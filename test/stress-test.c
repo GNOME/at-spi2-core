@@ -30,7 +30,7 @@
 #include <atk/atknoopobject.h>
 #include <bonobo-activation/bonobo-activation-register.h>
 #include <bonobo/bonobo-main.h>
-#include <libspi.h>
+#include <libspi/libspi.h>
 
 int
 main (int argc, char **argv)

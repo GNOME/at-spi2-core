@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
-#include "spi.h"
+#include <cspi/spi.h>
 
 #define LABELMAXLEN 20
 #define MIN_KEYCODE 9
