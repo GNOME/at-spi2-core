@@ -246,6 +246,7 @@ atk_relation_new (AtkObject       **targets,
     g_value_init (value, ATK_TYPE_OBJECT);
     g_value_set_object (value, targets[i]);
     array = g_value_array_append (array, value);
+    g_value_unset (value);
     g_free (value);
   }
   
@@ -292,6 +293,18 @@ atk_relation_get_target (AtkRelation *relation)
 }
 
 static void
+delete_object_while_in_relation (gpointer callback_data,
+                                 GObject *where_the_object_was)
+{
+  GPtrArray *array;
+
+  g_assert (callback_data != NULL);
+
+  array = callback_data;
+  g_ptr_array_remove (array, where_the_object_was);
+}
+
+static void
 atk_relation_finalize (GObject *object)
 {
   AtkRelation        *relation;
@@ -306,10 +319,9 @@ atk_relation_finalize (GObject *object)
 
     for (i = 0; i < relation->target->len; i++)
     {
-      /*
-       * Remove a reference to AtkObject being removed from a relation
-       */
-      g_object_unref (g_ptr_array_index (relation->target, i));
+      g_object_weak_unref (G_OBJECT (g_ptr_array_index (relation->target, i)),
+                           (GWeakNotify) delete_object_while_in_relation, 
+                           relation->target);
     }
     g_ptr_array_free (relation->target, TRUE);
   } 
@@ -381,8 +393,8 @@ atk_relation_get_ptr_array_from_value_array (GValueArray *array)
     {
       value = g_value_array_get_nth (array, i);
       obj = g_value_get_object (value);
-      g_object_ref (obj);
       g_ptr_array_add (return_array, obj);
+      g_object_weak_ref (obj, (GWeakNotify) delete_object_while_in_relation, return_array);
     }
       
   return return_array;
