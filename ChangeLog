@@ -1,5 +1,13 @@
 2001-08-17  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* docs/tmpl/atkimage.sgml atk/atktext.h:
+	Swap height and width arguments to atk_image_get_image_size
+	* atk/atktext.c:
+	Swap height and height arguments to atk_image_get_image_size
+	Do not crash if NULL pointers are passed for return values
+
+2001-08-17  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* docs/tmpl/atktext.sgml atk/atktext.h:
 	Change parameter names *offset to *_offset
 	* atk/atkcomponent.c:
