@@ -36,7 +36,6 @@ get_magnifier()
 
     magnifier = (Accessibility_Magnifier) oclient;
 
-    /* bonobo_activate (); ? */
   }
 
   return magnifier;

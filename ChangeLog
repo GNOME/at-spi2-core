@@ -1,8 +1,78 @@
+<2001-10-08  Bill Haneman <bill.haneman@sun.com>
+
+	* util/Makefile.am:
+	* idl/Makefile.am:
+		Fixed 'make dist' so that distro compiles...
+	* libspi/keymasks.h:
+		new file.
+	* cspi/spi-listener.c:
+		KeystrokeListenerCB now returns a boolean.
+	* cspi/spi.h:
+		Added KeyEventType struct, and KeyStroke.
+		Also added createKeystrokeListener(),
+	KeystrokeListener_addCallback(),
+	KeystrokeListener_removeCallback(), and added a keymask to
+	registerKeystrokeListener().
+	* cspi/spi_accessible.c:
+		Changed numerous return types for interfaces from
+	AccessibleComponent to Accessible<InterfaceName>; this was
+	probably a cut-and-paste error.
+	* cspi/spi_event.c:
+		Implementations of new KeystrokeListener api (from spi.h,
+	above).
+	* idl/Registry.idl:
+		Changes to key modifier mapping.
+		Created ControllerEventMask struct.
+		Made DeviceEventController derive from Bonobo::Unknown.
+	* idl/Text.idl:
+		Removed TEXT_BOUNDARY_CURSOR_POS boundary type.
+	* libspi/deviceeventcontroller.c:
+		Added a number of new internal (private) methods.
+	* libspi/editabletext.c:
+	* libspi/editabletext.h:
+		Fixed a number of bugs related to the fact that
+	editabletext inherits from text.  Fixed the EditableText struct,
+	the init() call, and use correct casts when calling Text methods
+	from an EditableText object.  Removed (duplicate) atko from the
+	EditableText structure, we use the one in the parent Text
+	structure via the casts mentioned above.
+	* libspi/keystrokelistener.[ch]:
+	* libspi/registry.c:
+		Changes in support of keyboard handling (above).
+	
+	Keyboard handling, though partly functional, is still not
+	recommended for at-spi client use as there is considerable 
+	work yet to be done.
+
+	* libspi/text.c:
+		Changed some places where pointers to various int types
+	are cast to be pointers to CORBA_long types and vice-versa:
+	pointer casting is not safe so we pass pointers of the correct
+	types and then cast the result before putting it into the target
+	pointers.
+
+	* libspi/text.h: minor typos corrected.
+	* test/simple-at.c: 
+		We now speak not only the name of a Text element, but the
+	first sentence of its content, when it receives focus.
+		I also changed the text compression to 75% from 50%.
+	* util/Accessibility_Util.server.in:
+		Changed the default magnifier type to be a 3x vertical
+	splitscreen magnifier (was previously a 2x horizontal one).
+
+<2001-10-03  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/keystrokelistener.h:
+	* libspi/keystrokelistener.c:
+		Initial functional implementations of KeystrokeListener.
+	* idl/Registry.idl:
+	
 <2001-10-05  Marc Mulcahy <marc.mulcahy@sun.com>
-	Fixed string handling for NULL strings in libspi.
+
+ 	Fixed string handling for NULL strings in libspi.
 	Added spi_freeString to free strings returned by C bindings.
 
-	<2001-09-30  Bill Haneman <bill.haneman@sun.com>
+<2001-09-30  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/keystrokelistener.h:
 	* libspi/keystrokelistener.c:

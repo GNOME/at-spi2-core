@@ -94,11 +94,21 @@ AccessibleText_getTextAtOffset (AccessibleText *obj,
                                     TEXT_BOUNDARY_TYPE type,
 				    long *startOffset, long *endOffset)
 {
-  return (char *)
-    Accessibility_Text_getTextAtOffset (*obj,
-					(CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
-					(CORBA_long *) startOffset, (CORBA_long *) endOffset,
-					&ev);
+  CORBA_long corbaStartOffset;
+  CORBA_long corbaEndOffset;
+  char *retval = "";
+  retval = Accessibility_Text_getTextAtOffset (*obj,
+					       (CORBA_long) offset,
+					       (Accessibility_TEXT_BOUNDARY_TYPE) type,
+					       &corbaStartOffset,
+					       &corbaEndOffset,
+					       &ev);
+  *startOffset = (long) corbaStartOffset;
+  *endOffset = (long) corbaEndOffset;
+#ifdef SPI_DEBUG
+  fprintf (stderr, "text offsets %ld to %ld\n", *startOffset, *endOffset);
+#endif
+  return retval;
 }
 
 

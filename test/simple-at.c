@@ -27,6 +27,7 @@
 
 static void report_focus_event (void *fp);
 static void report_button_press (void *fp);
+static boolean report_key_event (void *fp);
 static void get_environment_vars (void);
 
 static int _festival_init ();
@@ -47,6 +48,7 @@ main(int argc, char **argv)
   Accessible *application;
   AccessibleEventListener *focus_listener;
   AccessibleEventListener *button_listener;
+  KeystrokeListener *key_listener;
 
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
   {
@@ -76,6 +78,10 @@ main(int argc, char **argv)
           fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
         }
     }
+
+  /* prepare the keyboard snoopers */
+  /* key_listener = createKeystrokeListener(report_key_event);
+     registerKeystrokeListener(key_listener, KEYMASK_SHIFT); */
 
   get_environment_vars();
 
@@ -127,6 +133,17 @@ report_focus_event (void *p)
 	      magnifier_set_roi (x, y, width, height);	      
       }
     }
+  if (Accessible_isText(&ev->source))
+    /* if this is a text object, speak the first sentence. */
+  {
+     AccessibleText *text_interface = Accessible_getText (&ev->source);
+     long start_offset, end_offset;
+     char *first_sentence = "";
+     first_sentence = AccessibleText_getTextAtOffset (
+	     text_interface, (long) 0, TEXT_BOUNDARY_WORD_END,
+	     &start_offset, &end_offset); 
+     _festival_say(first_sentence, "voice_don_diphone", festival_chatty==FALSE);
+  }
 }
 
 void
@@ -135,6 +152,14 @@ report_button_press (void *p)
   AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
            Accessible_getName (&ev->source));
+}
+
+static boolean
+report_key_event (void *p)
+{
+  KeyStroke *key = (KeyStroke *) p;
+  fprintf (stderr, ".");
+  return FALSE;
 }
 
 static int _festival_init ()
@@ -157,7 +182,7 @@ static int _festival_init ()
 
   _festival_write ("(audio_mode'async)\n", fd);
   _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
-  _festival_write ("(Parameter.set 'Duration_Stretch 0.7)\n", fd);
+  _festival_write ("(Parameter.set 'Duration_Stretch 0.75)\n", fd);
   return fd;
 }
 
@@ -198,7 +223,7 @@ static void _festival_say (const char *text, const char *voice, boolean shutup)
       snprintf (voice_spec, 32, "(%s)\n", voice); 
       _festival_write (voice_spec, fd);
       _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
-      _festival_write ("(Parameter.set 'Duration_Stretch 0.5)\n", fd);
+      _festival_write ("(Parameter.set 'Duration_Stretch 0.75)\n", fd);
     }
 
   _festival_write (quoted, fd);

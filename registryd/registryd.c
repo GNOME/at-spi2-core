@@ -25,6 +25,7 @@
 #endif
 
 #include <libbonobo.h>
+#include <glib/gmain.h>
 #include "registry.h"
 
 int
@@ -32,6 +33,7 @@ main (int argc,
       char **argv)
 {
         Registry *registry;
+	GSource *keyevent_source;
         char *obj_id;
 
         if (!bonobo_init (&argc, argv))
@@ -50,6 +52,12 @@ main (int argc,
 #ifdef AT_SPI_DEBUG
         fprintf (stderr, "Registry Message: Registry daemon is running.\n");
 #endif
+  
+        gdk_init(&argc, &argv);
+	g_idle_add (registry->kbd_event_hook, registry);
+/*	keyevent_source =
+		g_source_new (registry->kbd_event_hook, sizeof (GSourceFunc));
+		g_source_attach (keyevent_source, g_main_context_default());*/
         bonobo_main ();
 
         return 0;

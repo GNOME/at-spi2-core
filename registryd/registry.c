@@ -36,6 +36,14 @@
 #include <libspi/Accessibility.h>
 
 /*
+ * We'd like to replace the dependance on X-isms with a wrapper layer,
+ * to the extent that it can't be done with pure GDK.
+ * Anyone want to help?
+ */
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+
+/*
  * This pulls the definition for the BonoboObject (GType)
  */
 #include "registry.h"
@@ -78,6 +86,8 @@ static void _registry_notify_listeners ( GList *listeners,
                                         CORBA_Environment *ev);
 
 static long _get_unique_id();
+
+static gboolean _device_event_controller_hook (gpointer source);
 
 /*
  * Implemented GObject::finalize
@@ -124,7 +134,7 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
 }
 
 static gint
-compare_object_hash (gconstpointer p1, gconstpointer p2)
+compare_corba_objects (gconstpointer p1, gconstpointer p2)
 {
   CORBA_Environment ev;
   gint retval;
@@ -248,7 +258,7 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
                                                     CORBA_Environment * ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->desktop->applications, application, compare_object_hash);
+  GList *list = g_list_find_custom (registry->desktop->applications, application, compare_corba_objects);
 
 #ifdef SPI_DEBUG
   gint i;
@@ -277,8 +287,8 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
  * CORBA Accessibility::Registry::registerGlobalEventListener method implementation
  */
 static void
-impl_accessibility_registry_register_global_event_listener
-                                            (PortableServer_Servant  servant,
+impl_accessibility_registry_register_global_event_listener (
+	                                     PortableServer_Servant  servant,
                                              Accessibility_EventListener listener,
                                              const CORBA_char *event_name,
                                              CORBA_Environment      *ev)
@@ -319,13 +329,13 @@ impl_accessibility_registry_register_global_event_listener
  * CORBA Accessibility::Registry::deregisterGlobalEventListenerAll method implementation
  */
 static void
-impl_accessibility_registry_deregister_global_event_listener_all
-                                                   (PortableServer_Servant  servant,
+impl_accessibility_registry_deregister_global_event_listener_all (
+                                                    PortableServer_Servant  servant,
                                                     Accessibility_EventListener listener,
                                                     CORBA_Environment      *ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->focus_listeners, listener, compare_object_hash);
+  GList *list = g_list_find_custom (registry->focus_listeners, listener, compare_corba_objects);
 
   /*
    * TODO : de-register with toolkit if the last instance of a listener
@@ -336,14 +346,14 @@ impl_accessibility_registry_deregister_global_event_listener_all
     {
       fprintf (stderr, "deregistering listener\n");
       registry->focus_listeners = g_list_delete_link (registry->focus_listeners, list);
-      list = g_list_find_custom (registry->focus_listeners, listener, compare_object_hash);
+      list = g_list_find_custom (registry->focus_listeners, listener, compare_corba_objects);
     }
-  list = g_list_find_custom (registry->toolkit_listeners, listener, compare_object_hash);
+  list = g_list_find_custom (registry->toolkit_listeners, listener, compare_corba_objects);
   while (list)
     {
       fprintf (stderr, "deregistering listener\n");
       registry->toolkit_listeners = g_list_delete_link (registry->toolkit_listeners, list);
-      list = g_list_find_custom (registry->toolkit_listeners, listener, compare_object_hash);
+      list = g_list_find_custom (registry->toolkit_listeners, listener, compare_corba_objects);
     }
 }
 
@@ -351,8 +361,8 @@ impl_accessibility_registry_deregister_global_event_listener_all
  * CORBA Accessibility::Registry::deregisterGlobalEventListener method implementation
  */
 static void
-impl_accessibility_registry_deregister_global_event_listener
-                                                   (PortableServer_Servant  servant,
+impl_accessibility_registry_deregister_global_event_listener (
+                                                    PortableServer_Servant  servant,
                                                     Accessibility_EventListener listener,
                                                     const CORBA_char * event_name,
                                                     CORBA_Environment      *ev)
@@ -453,12 +463,16 @@ impl_accessibility_registry_get_desktop_list (PortableServer_Servant servant,
   return (Accessibility_DesktopSeq *) NULL;
 }
 
-static CORBA_Object
+static Accessibility_DeviceEventController
 impl_accessibility_registry_get_device_event_controller (PortableServer_Servant servant,
                                                          CORBA_Environment * ev)
 {
-  /* TODO: not yet implemented! */
-  return CORBA_OBJECT_NIL;
+  Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
+  if (!registry->device_event_controller)
+    registry->device_event_controller = g_object_new (DEVICE_EVENT_CONTROLLER_TYPE, NULL);
+  return CORBA_Object_duplicate (
+	  bonobo_object_corba_objref (
+		  bonobo_object (registry->device_event_controller)), ev);
 }
 
 static void
@@ -536,6 +550,15 @@ _registry_notify_listeners ( GList *listeners,
     }
 }
 
+static gboolean _device_event_controller_hook (gpointer p)
+{
+    Registry *registry = (Registry *)p;
+    DeviceEventController *controller = registry->device_event_controller;
+    if (controller)
+	device_event_controller_check_key_event (controller);
+    return TRUE;
+}
+
 static void
 registry_class_init (RegistryClass *klass)
 {
@@ -567,6 +590,8 @@ registry_init (Registry *registry)
   registry->toolkit_listeners = NULL;
   registry->applications = NULL;
   registry->desktop = desktop_new();
+  registry->device_event_controller = NULL;
+  registry->kbd_event_hook = _device_event_controller_hook;
 }
 
 GType

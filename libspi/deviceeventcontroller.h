@@ -29,20 +29,26 @@ extern "C" {
 
 #include <bonobo/bonobo-object.h>
 #include <libspi/Accessibility.h>
+#include "keystrokelistener.h"
 
 #define DEVICE_EVENT_CONTROLLER_TYPE        (device_event_controller_get_type ())
 #define DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), DEVICE_EVENT_CONTROLLER_TYPE, DeviceEventController))
 #define DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), DEVICE_EVENT_CONTROLLER_TYPE, DeviceEventControllerClass))
-#define IS_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), DEVICE_EVENT_CONTROLLER_TYPE))
+#define IS_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), DEVICE_EVENT_CONTROLLER_TYPE))
 #define IS_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), DEVICE_EVENT_CONTROLLER_TYPE))
+#define DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), DEVICE_EVENT_CONTROLLER_TYPE, DeviceEventControllerClass))
 
 typedef struct {
         BonoboObject parent;
+        GList *key_listeners;
+        GList *mouse_listeners;
+	GList *keymask_list;
 } DeviceEventController;
 
 typedef struct {
         BonoboObjectClass parent_class;
         POA_Accessibility_DeviceEventController__epv epv;
+	gboolean (*check_key_event) (DeviceEventController *controller);
 } DeviceEventControllerClass;
 
 GType               device_event_controller_get_type   (void);

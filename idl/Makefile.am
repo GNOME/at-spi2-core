@@ -1,12 +1,22 @@
 idldir = $(datadir)/idl
 
-idl_DATA = Accessible.idl   \
+idl_DATA = Accessibility.idl\
+	   Accessible.idl   \
+	   Action.idl	    \
+	   Application.idl  \
+	   Component.idl    \
            Desktop.idl      \
-           Relation.idl     \
-           State.idl        \
-           Application.idl  \
+	   EditableText.idl \
            Event.idl        \
-           Registry.idl     \
-           Role.idl
+	   Hyperlink.idl    \
+	   Image.idl        \
+	   Registry.idl	    \
+	   Relation.idl	    \
+	   Role.idl	    \
+           State.idl        \
+	   StreamableContent.idl \
+	   Table.idl	\
+	   Text.idl 	\
+	   Value.idl
 
 EXTRA_DIST=$(idl_DATA)

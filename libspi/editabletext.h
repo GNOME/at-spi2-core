@@ -28,6 +28,7 @@ extern "C" {
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+#include "text.h"
 
 #define EDITABLE_TEXT_TYPE        (editable_text_get_type ())
 #define EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), EDITABLE_TEXT_TYPE, EditableText))
@@ -39,12 +40,11 @@ typedef struct _EditableText EditableText;
 typedef struct _EditableTextClass EditableTextClass;
 
 struct _EditableText {
-  BonoboObject parent;
-  AtkObject *atko;
+  Text parent;
 };
 
 struct _EditableTextClass {
-  BonoboObjectClass parent_class;
+  TextClass parent_class;
   POA_Accessibility_EditableText__epv epv;
 };
 

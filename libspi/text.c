@@ -28,6 +28,7 @@
 #include <bonobo/Bonobo.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
  * This pulls the CORBA definitions for the "Accessibility::Accessible" server
@@ -65,8 +66,8 @@ impl_getTextAfterOffset (PortableServer_Servant _servant,
 static CORBA_string
 impl_getTextAtOffset (PortableServer_Servant _servant,
 		      const CORBA_long offset,
-		      const Accessibility_TEXT_BOUNDARY_TYPE
-		      type, CORBA_long * startOffset,
+		      const Accessibility_TEXT_BOUNDARY_TYPE type,
+		      CORBA_long * startOffset,
 		      CORBA_long * endOffset,
 		      CORBA_Environment * ev);
 static CORBA_wchar
@@ -285,18 +286,28 @@ impl_getTextAfterOffset (PortableServer_Servant _servant,
 static CORBA_string
 impl_getTextAtOffset (PortableServer_Servant _servant,
 		      const CORBA_long offset,
-		      const Accessibility_TEXT_BOUNDARY_TYPE
-		      type, CORBA_long * startOffset,
+		      const Accessibility_TEXT_BOUNDARY_TYPE type,
+		      CORBA_long * startOffset,
 		      CORBA_long * endOffset,
 		      CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
-  gchar *txt;
+  Text *text;
+  CORBA_char *txt;
   CORBA_char *rv;
+  gint intStartOffset, intEndOffset;
 
-  txt = atk_text_get_text_at_offset (ATK_TEXT(text->atko),
+  BonoboObject *obj;
+  fprintf (stderr, "getting bonobo-object from text servant\n");
+  obj = (bonobo_object_from_servant (_servant));
+  
+  g_return_val_if_fail (IS_TEXT (bonobo_object_from_servant (_servant)), (CORBA_char *)"");
+			g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  txt = (CORBA_char *) atk_text_get_text_at_offset (ATK_TEXT (text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
-				    (gint *) startOffset, (gint *) endOffset);
+				    &intStartOffset, &intEndOffset);
+  *startOffset = (CORBA_long) intStartOffset;
+  *endOffset = (CORBA_long) intEndOffset;
+
   if (txt)
     {
       rv = CORBA_string_dup (txt);
@@ -304,6 +315,7 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
     }
   else
     rv = CORBA_string_dup ("");
+
   return rv;
 }
 

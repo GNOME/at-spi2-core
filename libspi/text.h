@@ -1,4 +1,4 @@
-/* ATK -  Accessibility Toolkit
+/* AT-SPI -  Assistive Technology Service Provider Interface
  * Copyright 2001 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -28,12 +28,13 @@ extern "C" {
 #include <bonobo/bonobo-object.h>
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
+#include "accessible.h"
 
 #define TEXT_TYPE        (text_get_type ())
 #define TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), TEXT_TYPE, Text))
 #define TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), TEXT_TYPE, TextClass))
-#define IS_TEXT(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), TEXT_TYPE))
-#define IS_TEX_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TEXT_TYPE))
+#define IS_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), TEXT_TYPE))
+#define IS_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TEXT_TYPE))
 
 typedef struct _Text Text;
 typedef struct _TextClass TextClass;

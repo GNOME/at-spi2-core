@@ -484,7 +484,7 @@ Accessible_getHypertext (Accessible *obj)
 AccessibleImage *
 Accessible_getImage (Accessible *obj)
 {
-  AccessibleComponent iface =
+  AccessibleImage iface =
     Accessibility_Accessible_queryInterface (*obj,
                                              "IDL:Accessibility/Image:1.0",
                                              &ev);
@@ -496,7 +496,7 @@ Accessible_getImage (Accessible *obj)
 AccessibleSelection *
 Accessible_getSelection (Accessible *obj)
 {
-  AccessibleComponent iface =
+  AccessibleSelection iface =
     Accessibility_Accessible_queryInterface (*obj,
                                              "IDL:Accessibility/Selection:1.0",
                                              &ev);
@@ -508,7 +508,7 @@ Accessible_getSelection (Accessible *obj)
 AccessibleTable *
 Accessible_getTable (Accessible *obj)
 {
-  AccessibleComponent iface =
+  AccessibleTable iface =
     Accessibility_Accessible_queryInterface (*obj,
                                              "IDL:Accessibility/Table:1.0",
                                              &ev);
@@ -520,7 +520,7 @@ Accessible_getTable (Accessible *obj)
 AccessibleText *
 Accessible_getText (Accessible *obj)
 {
-  AccessibleComponent iface =
+  AccessibleText iface =
     Accessibility_Accessible_queryInterface (*obj,
                                              "IDL:Accessibility/Text:1.0",
                                              &ev);

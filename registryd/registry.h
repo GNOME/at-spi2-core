@@ -27,9 +27,11 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#include <glib/gmain.h>
 #include <libspi/Accessibility.h>
 #include "listener.h"
 #include "desktop.h"
+#include "deviceeventcontroller.h"
 
 #define REGISTRY_TYPE        (registry_get_type ())
 #define REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), REGISTRY_TYPE, Registry))
@@ -43,7 +45,9 @@ typedef struct {
   GList *window_listeners;
   GList *toolkit_listeners;
   GList *applications;
+  DeviceEventController *device_event_controller;
   Desktop *desktop;
+  gboolean (*kbd_event_hook) (gpointer source);
 } Registry;
 
 typedef struct {

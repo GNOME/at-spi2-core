@@ -6,6 +6,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#include "keystrokelistener.h"
 #include "accessibleeventlistener.h"
 
 /*
@@ -24,15 +25,11 @@ typedef Accessibility_Event AccessibleEvent;
  * usage: signatures should be
  * void (*AccessibleEventListenerCB) (AccessibleEvent *event);
  *
- * void (*KeystrokeListenerCB) (KeystrokeEvent *Event);
+ * boolean (*KeystrokeListenerCB) (KeystrokeEvent *Event);
  */
 
 typedef VoidEventListenerCB AccessibleEventListenerCB;
-typedef VoidEventListenerCB KeystrokeListenerCB;
-
-typedef struct _KeystrokeListener {
-   KeystrokeListenerCB callback;
-} KeystrokeListener;
+typedef BooleanKeystrokeListenerCB KeystrokeListenerCB;
 
 #ifdef __cplusplus
 }

@@ -38,4 +38,6 @@ SPICSOURCES =        spi_main.c		\
 		     spi_text.c\
 		     spi_value.c
 
-spi.c : $(SPICSOURCES)
+EXTRA_DIST = $(SPICSOURCES)
+
+spi.c : $(SPICSOURCES) ../libspi/keymasks.h

@@ -54,3 +54,59 @@ EventListener_removeCallback (AccessibleEventListener *listener,
   accessible_event_listener_remove_callback (listener, callback);
   return TRUE;
 }
+
+/**
+ * createKeystrokeListener:
+ * @callback : an #KeystrokeListenerCB callback function, or NULL.
+ *
+ * Create a new #KeystrokeListener with a specified callback function.
+ *
+ * Returns: a pointer to a newly-created #KeystrokeListener.
+ *
+ **/
+KeystrokeListener *
+createKeystrokeListener (KeystrokeListenerCB callback)
+{
+  KeystrokeListener *listener = g_object_new (KEYSTROKE_LISTENER_TYPE, NULL);
+  if (callback)
+    {
+      keystroke_listener_add_callback (listener, callback);
+    }
+  return listener;
+}
+
+/**
+ * KeystrokeListener_addCallback:
+ * @listener: the #KeystrokeListener instance to modify.
+ * @callback: an #KeystrokeListenerCB function pointer.
+ *
+ * Add an in-process callback function to an existing #KeystrokeListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+boolean
+KeystrokeListener_addCallback (KeystrokeListener *listener,
+                           KeystrokeListenerCB callback)
+{
+  keystroke_listener_add_callback (listener, callback);
+  return TRUE;
+}
+
+/**
+ * KeystrokeListener_removeCallback:
+ * @listener: the #KeystrokeListener instance to modify.
+ * @callback: an #KeystrokeListenerCB function pointer.
+ *
+ * Remove an in-process callback function from an existing KeystrokeListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+boolean
+KeystrokeListener_removeCallback (KeystrokeListener *listener,
+				  KeystrokeListenerCB callback)
+{
+  keystroke_listener_remove_callback (listener, callback);
+  return TRUE;
+}

@@ -83,7 +83,7 @@ dnl   	  to make this work with the tarballs.
 AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 
 dnl Checks for libraries
-PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.94 atk >= 0.2)
+PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.9.1 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.94 atk >= 0.2 gtk+-2.0 >= 1.3.2)
 AC_SUBST(LIBSPI_LIBS)
 AC_SUBST(LIBSPI_CFLAGS)
 

@@ -32,6 +32,7 @@ libspiinclude_HEADERS = accessible.h       \
 			accessibleeventlistener.h	\
 			deviceeventcontroller.h	\
                         registry.h         \
+			keymasks.h	\
                         Accessibility.h
 
 IDL_OUT = Accessibility.h Accessibility-stubs.c Accessibility-skels.c Accessibility-common.c
@@ -86,6 +87,7 @@ libspi_la_SOURCES = accessible.c         \
 		    accessibleeventlistener.h	\
                     registry.c           \
                     registry.h           \
+		    keymasks.h		\
                     $(IDL_OUT)
 
 IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \

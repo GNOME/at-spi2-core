@@ -62,11 +62,27 @@ keystroke_listener_object_finalize (GObject *object)
         keystroke_listener_parent_class->finalize (object);
 }
 
+void   keystroke_listener_add_callback (KeystrokeListener *listener,
+					BooleanKeystrokeListenerCB callback)
+{
+  listener->callbacks = g_list_append (listener->callbacks, callback);
+#ifdef SPI_DEBUG
+        fprintf(stderr, "keystroke_listener_add_callback (%p) called\n",
+		(gpointer) callback);
+#endif
+}
+
+void   keystroke_listener_remove_callback (KeystrokeListener *listener,
+					   BooleanKeystrokeListenerCB callback)
+{
+  listener->callbacks = g_list_remove (listener->callbacks, callback);
+}
+
 /*
  * CORBA Accessibility::KeystrokeListener::keyEvent method implementation
  */
 
-static void
+static CORBA_boolean
 impl_key_event (PortableServer_Servant     servant,
 		const Accessibility_KeyStroke *key,
 		CORBA_Environment         *ev)
@@ -77,6 +93,12 @@ impl_key_event (PortableServer_Servant     servant,
             ("Accessibility app error: exception during keystroke notification: %s\n"),
             CORBA_exception_id(ev));
     exit(-1);
+  }
+  else {
+    fprintf(stderr, "%s%c",
+	    (key->modifiers & KEYMASK_ALT)?"Alt-":"",
+	    ((key->modifiers & KEYMASK_SHIFT)^(key->modifiers & KEYMASK_SHIFTLOCK))?
+	    (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID));
   }
 #endif
 }
@@ -96,6 +118,7 @@ keystroke_listener_class_init (KeystrokeListenerClass *klass)
 static void
 keystroke_listener_init (KeystrokeListener *keystroke_listener)
 {
+	keystroke_listener->callbacks = NULL;
 }
 
 GType

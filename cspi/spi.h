@@ -57,6 +57,18 @@ typedef enum _AccessibleCoordType {
   COORD_TYPE_WINDOW
 } AccessibleCoordType;
 
+typedef enum _KeyEventType {
+  KEY_PRESSED,
+  KEY_RELEASED
+} KeyEventType;
+
+typedef struct _KeyStroke
+{
+	long keyID;
+	KeyEventType type;
+	unsigned short modifiers;
+} KeyStroke;
+
 
 /*
  *
@@ -169,6 +181,46 @@ boolean
 EventListener_removeCallback (AccessibleEventListener *listener,
                               AccessibleEventListenerCB callback);
 
+/**
+ * createKeyListener:
+ * @callback : an #KeystrokeListenerCB callback function, or NULL.
+ *
+ * Create a new #KeystrokeListener with a specified callback function.
+ *
+ * Returns: a pointer to a newly-created #KeystrokeListener.
+ *
+ **/
+KeystrokeListener *
+createKeystrokeListener (KeystrokeListenerCB callback);
+
+/**
+ * KeystrokeListener_addCallback:
+ * @listener: the #KeystrokeListener instance to modify.
+ * @callback: an #KeystrokeListenerCB function pointer.
+ *
+ * Add an in-process callback function to an existing #KeystrokeListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+boolean
+KeystrokeListener_addCallback (KeystrokeListener *listener,
+			       KeystrokeListenerCB callback);
+
+/**
+ * KeystrokeListener_removeCallback:
+ * @listener: the #KeystrokeListener instance to modify.
+ * @callback: an #KeystrokeListenerCB function pointer.
+ *
+ * Remove an in-process callback function from an existing #KeystrokeListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
+boolean
+KeystrokeListener_removeCallback (KeystrokeListener *listener,
+				  KeystrokeListenerCB callback);
+
 /*
  *
  * Global functions serviced by the registry
@@ -253,7 +305,7 @@ getDesktopList (Accessible **list);
  *
  **/
 void
-registerKeystrokeListener (KeystrokeListener *listener);
+registerKeystrokeListener (KeystrokeListener *listener, KeyMaskType keymask);
 
 /**
  * generateKeyEvent:
