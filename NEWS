@@ -1,5 +1,14 @@
 (top)
 in HEAD:
+What's new in at-spi-1.3.13:
+
+* Build improvements: Requires automake-1.7, and calls GTK_DOC_CHECK.
+  (Padraig O'Briain, Matthias Clasen, some from Tomas Kloczko)
+
+* bugfixes (bad g_free, and a null string issue that caused SEGV on
+  Solaris when running sample programs).
+
+
 What's new in at-spi-1.3.11:
 
 * Fix for docs bug #129728 (Sebastien Bacher).

@@ -15,7 +15,7 @@ DOC_MAIN_SGML_FILE=at-spi-cspi-docs.sgml
 DOC_SOURCE_DIR=../../../cspi 
 
 # Used for dependencies
-HFILE_GLOB = $(top_srcdir)/cpsi/*.h
+HFILE_GLOB = $(top_srcdir)/cspi/*.h
 CFILE_GLOB = $(top_srcdir)/cspi/*.c
 
 # CFLAGS and LDFLAGS for compiling scan program. Only needed
