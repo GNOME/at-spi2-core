@@ -1,0 +1,312 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ATK.GNOME-2.1\n"
+"POT-Creation-Date: 2002-12-12 05:56+0100\n"
+"PO-Revision-Date: 2002-12-27 17:12+0530\n"
+"Last-Translator: Pramod <rpramod@postmaster.co.uk>\n"
+"Language-Team: Kannada <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr ""
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr ""
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr ""
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "ಸಜೀವಿಸುವಿಕೆ"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "ತೀರ"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "ಪಂಚಾಂಗ"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr ""
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr ""
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr ""
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr ""
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr ""
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "ದಿನಾಂಕ-ಸಂಪಾದಕ"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr ""
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr ""
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "ಕರೆ"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "ಸಂವಾದ"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr ""
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr ""
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr ""
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr ""
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr ""
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "ಚೌಕಟ್ಟು"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr ""
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr ""
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ಪ್ರತಿಮೆ"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "ಚಿತ್ರ"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "ಒಳಗಿನ-ಚೌಕ"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr ""
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr ""
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "ಪಟ್ಟಿ"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr ""
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "ಪರಿವಿಡಿ"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "ಪರಿವಿಡಿ-ಪಟ್ಟಿ"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr ""
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr ""
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr ""
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "ಮುಖ್ಯ ಪಟ್ಟಿ"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr ""
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr ""
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr ""
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr ""
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr ""
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr ""
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr ""
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr ""
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr ""
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr ""
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr ""
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr ""
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr ""
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "ಸ್ಥಿತಿ ಪಟ್ಟಿಕೆ"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr ""
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr ""
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr ""
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr ""
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "ಗಣಕ ಘಟಕ"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "ಪಠ್ಯ"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "ಅಂತರಣ-ಗುಂಡಿ"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "ಉಪಕರಣ-ಪಟ್ಟಿ"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr ""
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "ವೃಕ್ಷ"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr ""
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "ಗೊತ್ತಾಗದ"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "ನೋಟದ ಮಿತಿ"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "ಕಿಟಕಿ"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "ಶಿರೋ ಲೇಖ"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "ಪಾದ ಲೇಖ"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr ""
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr ""
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "ಅನ್ವಯ"
+
