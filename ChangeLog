@@ -1,3 +1,7 @@
+2004-09-13  Padraig O'Briain <padraig.vriain@sun.com>
+
+	* configure.in, NEWS, README: Revved to 1.6.0.
+
 2004-09-12  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Rev and re-dist, since the 1.5.4 tarball

@@ -1,3 +1,7 @@
+What's new in at-spi-1.6.0: 
+
+Nothing.
+
 What's new in at-spi-1.5.4: 
 
 * Registration failure at SPI_init is now detected and
