@@ -1,3 +1,13 @@
+What's new in at-spi-1.6.2: 
+
+* fixes for problems at logout time (hangs, crashes)
+
+* bugfixes for #160862, #152147.
+
+* minor enhancements to test login-helper-server-test.
+
+(Padraig O'Briain)
+
 What's new in at-spi-1.6.1: 
 
 * LoginHelper API docs improved.
