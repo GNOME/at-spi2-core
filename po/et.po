@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: atk Gnome 2.6\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-15 11:33+0100\n"
-"PO-Revision-Date: 2005-02-11 07:08+0200\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"PO-Revision-Date: 2005-02-21 08:45+0200\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee> \n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,7 +131,7 @@ msgstr "failivalija"
 
 #: atk/atkobject.c:102
 msgid "filler"
-msgstr ""
+msgstr "täitja"
 
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
@@ -256,11 +256,11 @@ msgstr "liugur"
 
 #: atk/atkobject.c:134
 msgid "split pane"
-msgstr ""
+msgstr "poolitamispaan"
 
 #: atk/atkobject.c:135
 msgid "spin button"
-msgstr ""
+msgstr "kerimisnupp"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
