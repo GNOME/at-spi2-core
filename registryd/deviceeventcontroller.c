@@ -49,6 +49,7 @@
 
 /* A pointer to our parent object class */
 static GObjectClass *spi_device_event_controller_parent_class;
+static int spi_error_code = 0;
 
 int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
@@ -89,6 +90,7 @@ static gboolean spi_controller_register_device_listener       (SpiDEController  
 							       CORBA_Environment         *ev);
 static void     spi_device_event_controller_forward_key_event (SpiDEController           *controller,
 							       const XEvent              *event);
+static gboolean spi_clear_error_state (void);
 
 #define spi_get_display() GDK_DISPLAY()
 
@@ -338,6 +340,7 @@ _spi_controller_device_error_handler (Display *display, XErrorEvent *error)
   if (error->error_code == BadAccess) 
     {  
       g_message ("Could not complete key grab: grab already in use.\n");
+      spi_error_code = BadAccess;
       return 0;
     }
   else 
@@ -527,6 +530,14 @@ spi_notify_keylisteners (GList                          **key_listeners,
   if (is_consumed) g_message ("consumed\n");
 #endif
   return is_consumed;
+}
+
+static gboolean
+spi_clear_error_state ()
+{
+	gboolean retval = spi_error_code != 0;
+	spi_error_code = 0;
+	return retval;
 }
 
 static Accessibility_DeviceEvent
@@ -732,6 +743,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 		    True,
 		    GrabModeAsync,
 		    GrabModeAsync);
+	/* TODO: set retval to FALSE if an X error occurrs here */
 	}
 
       grab_mask->pending_add = FALSE;
@@ -750,7 +762,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
       /* TODO: check calls for errors and return FALSE if error occurs */
     } 
 
-  return TRUE;
+  return ! spi_clear_error_state ();
 }
 
 /*

@@ -324,10 +324,11 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
   Accessibility_ControllerEventMask   controller_event_mask;
   Accessibility_DeviceEventController device_event_controller;
   Accessibility_EventListenerMode     listener_mode;
+  SPIBoolean                          retval = FALSE;
 
   if (!listener)
     {
-      return FALSE;
+      return retval;
     }
 
   device_event_controller = 
@@ -394,7 +395,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
   listener_mode.global =
 	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0);
 
-  Accessibility_DeviceEventController_registerKeystrokeListener (
+  retval = Accessibility_DeviceEventController_registerKeystrokeListener (
     device_event_controller,
     cspi_event_listener_get_corba (listener),
     &key_set,
@@ -407,7 +408,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
 
   cspi_release_unref (device_event_controller);
 
-  return TRUE;
+  return retval;
 }
 
 /**

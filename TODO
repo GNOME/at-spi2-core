@@ -1,35 +1,24 @@
-TODO:
+2.0.0:
 
-idl: 
-	+ audit IDL for conformance with bonobo/doc/FAQ's [Java]
-	  naming practice [Michael]
+	+ fix bug #82509 which prevents return of boolean FALSE from 
+	  SPI_registerKeystrokeListener for ALL_WINDOWS events
+	  when XGrabKey fails.
 
-cspi: 
-	+ ensure spi-listener-impl's list notification methods don't
-	  have a re-enterancy hazard. [Michael]
-	+ Put LGPL headers everywhere.
+	+ fix bug #84100 which means that keygrabs are not released
+          by the registry when a client dies.  Test to make sure
+          grabs are released when a client requests deregistration
+	  of a key listener.
 
-registry:
-	+ move code into here from libspi [Michael]
-	+ fire an event on dead application & re-factor the listen for
-	  broken code.
+2.0.1:
+	+ fix bug affecting multihead at-spi behavior.
 
-bridge:
-	+ move code into here from libspi
 
-libspi: 
-	+ remove redundant casts throughout
-	+ determine if there are other headers we don't need to install
-	+ consider moving the non-impl. parts into registryd/ bridge/ etc.
-	+ complete implementation of support for RelationSet and
-	StateSet, and export to cspi. [Marc]
-	+ complete conversion of static methods to "spi_" namespace. [Bill]
+1.1 API Proposed Additions:
 
-test:
-	+ update test-simple to do complete API tests
-	+ Expand tests for AtkTable
+        + Need API for getting stacking order of toplevel windows.
+	  (bug #84097)
 
-2.2 API Proposed Additions:
+1.2 API Proposed Additions:
 
 	+ SPI_dupString ()
 	+ Additional relation types: FLOWS_TO, FLOWS_FROM
@@ -50,4 +39,34 @@ test:
 					long height,
 					SPI_COORD_TYPE type);
 
+/* *********************************************************** */
 					
+TODO:
+
+idl: 
+
+//	+ audit IDL for conformance with bonobo/doc/FAQ's [Java]
+//	  naming practice [Michael]
+
+cspi: 
+	+ ensure spi-listener-impl's list notification methods don't
+	  have a re-enterancy hazard. [Michael]
+
+registry:
+	+ move code into here from libspi [Michael]
+	+ fire an event on dead application & re-factor the listen for
+	  broken code.
+
+bridge:
+	+ move code into here from libspi
+
+libspi: 
+	+ remove redundant casts throughout
+	+ determine if there are other headers we don't need to install
+	+ consider moving the non-impl. parts into registryd/ bridge/ etc.
+	+ complete conversion of static methods to "spi_" namespace. [Bill]
+
+test:
+	+ update test-simple to do complete API tests
+	+ Expand tests for AtkTable
+

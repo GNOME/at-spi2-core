@@ -33,7 +33,6 @@
 
 
 /* Known bugs */
-#undef  KEY_IMPL_WORKS
 #define WHOLE_STRING -1
 
 static void validate_accessible (Accessible *accessible,
@@ -47,6 +46,8 @@ static void validate_accessible (Accessible *accessible,
 static int      print_tree_depth = 0;
 static gboolean print_tree = FALSE;
 static gboolean do_poke = FALSE;
+static gboolean key_press_received = FALSE;
+static gboolean key_release_received = FALSE;
 
 typedef struct {
 	gulong     magic;
@@ -669,32 +670,31 @@ global_listener_cb (const AccessibleEvent *event,
 	validate_accessible (event->source, TRUE, TRUE);
 }
 
-#ifdef KEY_IMPL_WORKS
 static SPIBoolean
 key_listener_cb (const AccessibleKeystroke *stroke,
 		 void                      *user_data)
 {
 	AccessibleKeystroke *s = user_data;
-
+	
 	*s = *stroke;
-
+	
+	if (s->type == SPI_KEY_PRESSED) key_press_received = TRUE;
+	else if (s->type == SPI_KEY_RELEASED) key_release_received = TRUE;
+	
 	return TRUE;
 }
-#endif
+
 
 static void
 test_keylisteners (void)
 {
-#ifdef KEY_IMPL_WORKS
 	int i;
 	AccessibleKeystroke stroke;
 	AccessibleKeystrokeListener *key_listener;
 	AccessibleKeySet *test_keyset;
-#endif
 
 	fprintf (stderr, "Testing keyboard listeners ...\n");
 
-#ifdef KEY_IMPL_WORKS
 	key_listener = SPI_createAccessibleKeystrokeListener (
 		key_listener_cb, &stroke);
 
@@ -710,13 +710,15 @@ test_keylisteners (void)
 	for (i = 0; i < 3; i++) {
 		memset (&stroke, 0, sizeof (AccessibleKeystroke));
 		g_assert (SPI_generateKeyboardEvent ('=', NULL, SPI_KEY_SYM));
-		while (!(stroke.type & SPI_KEY_PRESSED))
+		while (!(key_press_received))
 			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "p");
 	        g_assert (!strcmp (stroke.keystring, "="));
-		while (!(stroke.type & SPI_KEY_RELEASED))
+		while (!(key_release_received))
 			g_main_context_iteration (NULL, TRUE);
 		fprintf (stderr, "r ");
+		key_press_received = FALSE;
+		key_release_received = FALSE;
 	}
 	g_assert (SPI_deregisterAccessibleKeystrokeListener (key_listener, 0));
 	SPI_freeAccessibleKeySet (test_keyset);
@@ -724,9 +726,6 @@ test_keylisteners (void)
 	fprintf (stderr, "\n");
 
 	AccessibleKeystrokeListener_unref (key_listener);
-#else
-	fprintf (stderr, " key impl. impossibly broken\n");
-#endif
 
 	g_assert (SPI_generateMouseEvent (100, 100, "rel"));
         g_assert (SPI_generateMouseEvent (-50, -50, "rel"));		  

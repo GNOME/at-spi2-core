@@ -1,3 +1,22 @@
+2002-06-03  Bill Haneman  <bill.haneman@sun.com>
+
+	* test/test-simple.c:
+	(key_listener_cb):
+	Removed #ifdef KEY_IMPL_WORKS guards.
+	(test_keylisteners):
+	Removed #ifdef KEY_IMPL_WORKS guards.
+	Fixed bug which was causing a hang waiting for a 
+	"press" event (which was already overwritten by a "release" 
+	event) from SPI_generateKeyboardEvent with synth-type of SPI_KEY_SYM.
+	(key_listener_cb):
+	Added code to set globals 'key_press_received' and
+	'key_release_received'.
+
+	* TODO:
+	Added section "1.1 API Proposed Additions" which
+	lists API additions desired for at-spi-1.1 (only one so far).
+	Updated TODO list a little.
+	
 2002-06-02  Bill Haneman  <bill.haneman@sun.com>
 
 	AT-SPI 1.0 API FINAL: at-spi 1.0 is now
