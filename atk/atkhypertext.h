@@ -27,14 +27,9 @@
 extern "C" {
 #endif /* __cplusplus */
 
-/* The AtkHypertext class is the base class for all classes that present 
- * hypertext information on the display. This class provides the standard 
- * mechanism for an assistive technology to access that text via its 
- * content, attributes, and spatial location. It also provides standard 
- * mechanisms for manipulating hyperlinks.
- *
- * I do not think that there is a GTK+ widget for this but I assume that 
- * there will be a custom widget so we define the interface.
+/*
+ * The AtkHypertext interface provides standard  mechanisms for manipulating 
+ * hyperlinks.
  */
 
 #define ATK_TYPE_HYPERTEXT                    (atk_hypertext_get_type ())
