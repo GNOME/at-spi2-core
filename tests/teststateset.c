@@ -19,11 +19,13 @@
 
 #include <atk/atk.h>
 
-static gboolean  test_state_set ();
-static gboolean  test_state ();
+#include <string.h>
+
+static gboolean  test_state_set (void);
+static gboolean  test_state (void);
 
 static gboolean
-test_state_set ()
+test_state_set (void)
 {
   AtkStateSet *state_set1, *state_set2, *state_set3;
   AtkStateType state_array[3];
@@ -203,7 +205,7 @@ test_state_set ()
 }
 
 static gboolean
-test_state ()
+test_state (void)
 {
   AtkStateType type1, type2;
   G_CONST_RETURN gchar *name;

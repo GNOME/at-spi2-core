@@ -19,6 +19,8 @@
 
 #include "atkstate.h"
 
+#include <string.h>
+
 #define NUM_POSSIBLE_STATES               (sizeof(AtkState)*8)
 
 static gchar* state_names[NUM_POSSIBLE_STATES] = {

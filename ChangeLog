@@ -1,5 +1,10 @@
 2001-07-13  Darin Adler  <darin@bentspoon.com>
 
+	* atk/atkstate.c: Add missing <string.h> include.
+	* tests/teststateset.c: Add missing <string.h> include.
+
+2001-07-13  Darin Adler  <darin@bentspoon.com>
+
 	* .cvsignore: Ignore some generated files.
 	* autogen.sh: Get rid of call to autoheader since the
 	configure file doesn't include AM_CONFIG_HEADER.
