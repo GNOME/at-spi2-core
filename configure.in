@@ -185,7 +185,6 @@ docs/reference/cspi/Makefile
 idl/Makefile
 libspi/Makefile
 registryd/Makefile
-registryd/Accessibility_Registry.server.in
 atk-bridge/Makefile
 test/Makefile
 cspi/Makefile

@@ -1,3 +1,9 @@
+2002-05-29  Bill Haneman  <bill.haneman@sun.com>
+
+	* configure.in: Fixed bug in AC_OUTPUT that was
+        causing path substitution in Accessibility_Registry.server
+	to fail.
+
 2002-05-23  Bill Haneman  <bill.haneman@sun.com>
 
 	* text/screen-review-test.c:
