@@ -90,7 +90,7 @@ extern "C" {
  *@ATK_ROLE_SLIDER: An object that allows the user to select from a bounded range
  *@ATK_ROLE_SPLIT_PANE: A specialized panel that presents two other panels at the same time
  *@ATK_ROLE_SPIN_BUTTON: An object used to get an integer or floating point number from the user
- *@ATK_ROLE_STATUS_BAR: An object which reports messages of minor importance to the user
+ *@ATK_ROLE_STATUSBAR: An object which reports messages of minor importance to the user
  *@ATK_ROLE_TABLE: An object used to rpesent information in terms of rows and columns
  *@ATK_ROLE_TABLE_CELL: A cell in a table
  *@ATK_ROLE_TABLE_COLUMN_HEADER: The header for a column of a table
@@ -163,7 +163,7 @@ typedef enum
   ATK_ROLE_SLIDER,
   ATK_ROLE_SPLIT_PANE,
   ATK_ROLE_SPIN_BUTTON,
-  ATK_ROLE_STATUS_BAR,
+  ATK_ROLE_STATUSBAR,
   ATK_ROLE_TABLE,
   ATK_ROLE_TABLE_CELL,
   ATK_ROLE_TABLE_COLUMN_HEADER,
