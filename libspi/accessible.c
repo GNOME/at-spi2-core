@@ -101,8 +101,8 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_STATUSBAR] =        Accessibility_ROLE_STATUS_BAR;
   role_table [ATK_ROLE_TABLE] =            Accessibility_ROLE_TABLE;
   role_table [ATK_ROLE_TABLE_CELL] =       Accessibility_ROLE_TABLE_CELL;
-  role_table [ATK_ROLE_TABLE_COLUMN_HEADER] = Accessibility_ROLE_COLUMN_HEADER;
-  role_table [ATK_ROLE_TABLE_ROW_HEADER] = Accessibility_ROLE_ROW_HEADER;
+  role_table [ATK_ROLE_TABLE_COLUMN_HEADER] = Accessibility_ROLE_TABLE_COLUMN_HEADER;
+  role_table [ATK_ROLE_TABLE_ROW_HEADER] = Accessibility_ROLE_TABLE_ROW_HEADER;
   role_table [ATK_ROLE_TEAR_OFF_MENU_ITEM] = Accessibility_ROLE_TEAROFF_MENU_ITEM;
   role_table [ATK_ROLE_TERMINAL] =         Accessibility_ROLE_TERMINAL;
   role_table [ATK_ROLE_TEXT] =             Accessibility_ROLE_TEXT;

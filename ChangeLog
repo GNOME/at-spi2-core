@@ -1,3 +1,8 @@
+2002-09-24  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* libspi/accessible.c (spi_init_role_lookup_table): Correct typos
+	in some role names.
+
 2002-09-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* registryd/Makefile: Add CLEANFILES so that .server file is removed
