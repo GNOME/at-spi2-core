@@ -43,7 +43,7 @@ atk_hyperlink_get_type (void)
         (GClassInitFunc) atk_hyperlink_class_init,
         (GClassFinalizeFunc) NULL,
         NULL,
-        sizeof (AtkObject),
+        sizeof (AtkHyperlink),
         0,
         (GInstanceInitFunc) atk_hyperlink_init,
       } ;
