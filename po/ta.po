@@ -1,3 +1,4 @@
+# translation of atk.HEAD.ta.po to Tamil
 # translation of ta.po to Tamil
 # Tamil translation of ATK.
 # Copyright (C) 2003 ATK'S COPYRIGHT HOLDER
@@ -8,8 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
-"POT-Creation-Date: 2003-05-28 19:59+0200\n"
-"PO-Revision-Date: 2004-08-10 13:48+0530\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-08-16 02:57+0200\n"
+"PO-Revision-Date: 2004-08-16 11:25+0530\n"
 "Last-Translator: Jayaradha N <jaya@pune.redhat.com>\n"
 "Language-Team: Tamil <zhakanini@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,299 +19,462 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "தேர்வு செய்யப்பட்ட இணைப்பு"
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "AtkHyperlink பொருள் தேர்வு செய்யப்பட்டதா என குறிப்பிடவும்"
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "இணைப்புகளின் எண்ணிக்கை"
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "AtkHyperlink பொருளோடு தொடர்புடைய இணைப்புகளின் எண்ணிக்கை"
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "அட்டவணை முடிவு"
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink பொருளின் அட்டவணை முடிவு"
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "அட்டவணையை துவக்கு"
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink பொருளின் அட்டவணை துவக்கம்"
+
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "செல்லுபடியற்றது"
 
-#: atk/atkobject.c:1245
-msgid "accel-label"
-msgstr "ஆர்முடுகல்-அடையாளம்"
+#: atk/atkobject.c:83
+msgid "accelerator label"
+msgstr "முடக்கல் அடையாளம்ளம்"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "விழிப்புணர்வு"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "அசைவூட்டம்"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "அம்பு"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "நாள்காட்டி"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "வரையும்மிடம்"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
-msgstr "தெரிவுப்-பெட்டி"
+#: atk/atkobject.c:89
+msgid "check box"
+msgstr "சோதனைப்பெட்டிி"
 
-#: atk/atkobject.c:1266
-msgid "check-menu-item"
-msgstr "தெரிவு-பட்டி-உருப்படி"
+#: atk/atkobject.c:90
+msgid "check menu item"
+msgstr "மெனு உருப்படிகளை சோதி"
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
-msgstr "வண்ண-தேர்வாலர்"
+#: atk/atkobject.c:91
+msgid "color chooser"
+msgstr "வண்ண தேர்வாளர்"
 
-#: atk/atkobject.c:1272
-msgid "column-header"
-msgstr "நெடுவா¢சை-தலைப்பு"
+#: atk/atkobject.c:92
+msgid "column header"
+msgstr "நெடுவா¢சை தலைப்பு"
 
-#: atk/atkobject.c:1275
-msgid "combo-box"
-msgstr "þழுப்புத் தெரிவுப்-பெட்டி"
+#: atk/atkobject.c:93
+msgid "combo box"
+msgstr "தேர்வுப்பெட்டி"
 
-#: atk/atkobject.c:1278
-msgid "date-editor"
-msgstr "திகதி-பதிப்பான்"
+#: atk/atkobject.c:94
+msgid "dateeditor"
+msgstr "தேதி தொகுப்பி்"
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
-msgstr "கணிமேசை-குறும்படம்"
+#: atk/atkobject.c:95
+msgid "desktop icon"
+msgstr "மேல் மேசை சின்னம்"
 
-#: atk/atkobject.c:1284
-msgid "desktop-frame"
-msgstr "கணிமேசை-சட்டம்"
+#: atk/atkobject.c:96
+msgid "desktop frame"
+msgstr "மேல் மேசை சட்டம்"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "சுழற்று"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "உரையாடல்"
 
-#: atk/atkobject.c:1293
-msgid "directory-pane"
-msgstr "அடைவு-பகுதி"
+#: atk/atkobject.c:99
+msgid "directory pane"
+msgstr "அடைவு பகுதி"
 
-#: atk/atkobject.c:1296
-msgid "drawing-area"
-msgstr "வரையும்-þடம்"
+#: atk/atkobject.c:100
+msgid "drawing area"
+msgstr "வரையும் þடம்"
 
-#: atk/atkobject.c:1299
-msgid "file-chooser"
-msgstr "கோப்பு-தேர்வாலர்"
+#: atk/atkobject.c:101
+msgid "file chooser"
+msgstr "கோப்பு தேர்வாளர்"
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "நிரப்புக் கருவி"
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
-msgstr "எழுத்துரு-தேர்வாலர்"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+msgid "fontchooser"
+msgstr "எழுத்துரு தேர்வாளர்"
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "சட்டம்"
 
-#: atk/atkobject.c:1311
-msgid "glass-pane"
-msgstr "கண்ணாடி-பகுதி"
+#: atk/atkobject.c:106
+msgid "glass pane"
+msgstr "கண்ணாடி பகுதி"
 
-#: atk/atkobject.c:1314
-msgid "html-container"
-msgstr "html-தாங்கி"
+#: atk/atkobject.c:107
+msgid "html container"
+msgstr "html தாங்கி"
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "குறும்படம்"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "உருவம்"
 
-#: atk/atkobject.c:1323
-msgid "internal-frame"
-msgstr "உள்ளமை-சட்டம்"
+#: atk/atkobject.c:110
+msgid "internal frame"
+msgstr "உள்ளமை சட்டம்"
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "அடையாளம்"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
-msgstr "அடுக்களுடன்-பலகம்"
+#: atk/atkobject.c:112
+msgid "layered pane"
+msgstr "அடுக்களுடன் பலகம்"
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "பட்டியல்"
 
-#: atk/atkobject.c:1335
-msgid "list-item"
-msgstr "பட்டியல்-உருப்படி"
+#: atk/atkobject.c:114
+msgid "list item"
+msgstr "பட்டியல் உருப்படி"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "பட்டி"
 
-#: atk/atkobject.c:1341
-msgid "menu-bar"
-msgstr "பட்டி-பட்டை"
+#: atk/atkobject.c:116
+msgid "menu bar"
+msgstr "மெனு பட்டி்டை"
 
-#: atk/atkobject.c:1344
-msgid "menu-item"
-msgstr "பட்டி-உருப்படி"
+#: atk/atkobject.c:117
+msgid "menu item"
+msgstr "மெனு உருப்படி"
 
-#: atk/atkobject.c:1347
-msgid "option-pane"
-msgstr "விருப்பப்-பகுதி"
+#: atk/atkobject.c:118
+msgid "option pane"
+msgstr "விருப்பப் பலகம்"
 
-#: atk/atkobject.c:1350
-msgid "page-tab"
-msgstr "பக்கம்-தத்தல்"
+#: atk/atkobject.c:119
+msgid "page tab"
+msgstr "பக்கம் தத்தல்"
 
-#: atk/atkobject.c:1353
-msgid "page-tab-list"
-msgstr "பக்கம்-தத்தல்-பட்டியல்"
+#: atk/atkobject.c:120
+msgid "page tab list"
+msgstr "பக்கம் தத்தல் பட்டியல்"
 
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "பலகம்"
 
-#: atk/atkobject.c:1359
-msgid "password-text"
-msgstr "கடவுச் சொல்-உரை"
+#: atk/atkobject.c:122
+msgid "password text"
+msgstr "கடவுச் சொல் உரை"
 
-#: atk/atkobject.c:1362
-msgid "popup-menu"
-msgstr "மேல்மீட்பு-பட்டி"
+#: atk/atkobject.c:123
+msgid "popup menu"
+msgstr "நிறு சாளர பட்டி"
 
-#: atk/atkobject.c:1365
-msgid "progress-bar"
-msgstr "முன்னேற்றம்-பட்டை"
+#: atk/atkobject.c:124
+msgid "progress bar"
+msgstr "முன்னேற்ற பட்டி"
 
-#: atk/atkobject.c:1368
-msgid "push-button"
-msgstr "அழுத்தும்-பொத்தான்"
+#: atk/atkobject.c:125
+msgid "push button"
+msgstr "அழுத்தும் பட்டன்"
 
-#: atk/atkobject.c:1371
-msgid "radio-button"
-msgstr "ஒற்றைத் தெரிவுப்-பெட்டி"
+#: atk/atkobject.c:126
+msgid "radio button"
+msgstr "ஒற்றைத் தேர்வு பெட்டி"
 
-#: atk/atkobject.c:1374
-msgid "radio-menu-item"
-msgstr "ஒற்றைப் பட்டி-உருப்படி"
+#: atk/atkobject.c:127
+msgid "radio menu item"
+msgstr "ஒற்றைப் மெனு உருப்படி"
 
-#: atk/atkobject.c:1377
-msgid "root-pane"
-msgstr "வேர்-பகுதி"
+#: atk/atkobject.c:128
+msgid "root pane"
+msgstr "மூல பலகம்"
 
-#: atk/atkobject.c:1380
-msgid "row-header"
-msgstr "கிடைவரிசை-தலைப்பு"
+#: atk/atkobject.c:129
+msgid "row header"
+msgstr "கிடைவரிசை தலைப்பு"
 
-#: atk/atkobject.c:1383
-msgid "scroll-bar"
-msgstr "உருளல்-பட்டை"
+#: atk/atkobject.c:130
+msgid "scroll bar"
+msgstr "உருளல் பட்டி"
 
-#: atk/atkobject.c:1386
-msgid "scroll-pane"
-msgstr "உருளல்-பகுதி"
+#: atk/atkobject.c:131
+msgid "scroll pane"
+msgstr "உருளல் பலகம்"
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "பிரிவாலர்"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "þழுப்புப் பட்டை"
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
-msgstr "பிரிவு-பகுதி"
+#: atk/atkobject.c:134
+msgid "split pane"
+msgstr "பிரிவு பலகம்"
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
-msgstr "சிழல்-பொத்தான்"
+#: atk/atkobject.c:135
+msgid "spin button"
+msgstr "சுழல் பட்டன்"
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "நிலை பலகம்"
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "அட்டவணை"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
-msgstr "அட்டவணை-சிற்றறை"
+#: atk/atkobject.c:138
+msgid "table cell"
+msgstr "அட்டவணை செல்"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
-msgstr "அட்டவணை-நெடுவா¢சை-தலைப்பு"
+#: atk/atkobject.c:139
+msgid "table column header"
+msgstr "அட்டவணை நெடுவா¢சை தலைப்பு"
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
-msgstr "அட்டவணை-கிடைவரிசை-தலைப்பு"
+#: atk/atkobject.c:140
+msgid "table row header"
+msgstr "அட்டவணை கிடைவரிசை தலைப்பு"
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
-msgstr "கிழிக்கக்கூடிய-பட்டி-உருப்படி"
+#: atk/atkobject.c:141
+msgid "tear off menu item"
+msgstr "கிழிக்கக்கூடிய பட்டி உருப்படி"
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "முனையம்"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "உரை"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
-msgstr "இருநிலை-பொத்தான்"
+#: atk/atkobject.c:144
+msgid "toggle button"
+msgstr "இருநிலை பொத்தான்"
 
-#: atk/atkobject.c:1428
-msgid "tool-bar"
-msgstr "கருவி-பட்டை"
+#: atk/atkobject.c:145
+msgid "tool bar"
+msgstr "கருவி பட்டை"
 
-#: atk/atkobject.c:1431
-msgid "tool-tip"
-msgstr "கருவி-உதவி"
+#: atk/atkobject.c:146
+msgid "tool tip"
+msgstr "கருவி உதவி"
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "மரம்"
 
-#: atk/atkobject.c:1437
-msgid "tree-table"
-msgstr "மரம்-அட்டவணை"
+#: atk/atkobject.c:148
+msgid "tree table"
+msgstr "கிளை அட்டவணை"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "தெரியாதது"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "காட்சி சாளரம்"
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "சாளரம்"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "தலைக்குறிப்பு"
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "அடிக்குறிப்பு"
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "பத்தி"
 
-#: atk/atkobject.c:1458
-msgid "ruler"
-msgstr "அளவுகோல்"
-
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "செயல்பாடு"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr "தானாக முடி"
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr "திருத்தல் பட்டி"
+
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr "பொதிந்த பொருள்"
+
+#: atk/atkobject.c:296
+msgid "Accessible Name"
+msgstr "அணுகக்கூடிய பெயர்"
+
+#: atk/atkobject.c:297
+msgid "Object instance's name formatted for assistive technology access"
+msgstr "தொழில்நுட்ப அணுகலுக்காக நிகழ்வின் பெயர் வடிவமைக்கப்பட்டது"
+
+#: atk/atkobject.c:303
+msgid "Accessible Description"
+msgstr "அணுகக்கூடிய விளக்கம்"
+
+#: atk/atkobject.c:304
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "தொழில் நுட்ப அணுகலுக்காக வடிவமைக்கப்பட்ட பொருளின் விளக்கம்"
+
+#: atk/atkobject.c:310
+msgid "Accessible Parent"
+msgstr "அணுகக்கூடிய முதன்மை"
+
+#: atk/atkobject.c:311
+msgid "Is used to notify that the parent has changed"
+msgstr "முதன்மை அடைவு மாற்றப்பட்டதா என்பதை குறிப்பிட பயன்படும்"
+
+#: atk/atkobject.c:317
+msgid "Accessible Value"
+msgstr "அணுகக்கூடிய மதிப்பு"
+
+#: atk/atkobject.c:318
+msgid "Is used to notify that the value has changed"
+msgstr "மதிப்பு மாற்றப்பட்டதா என்பதை தெரிந்துகொள்ள பயன்படும்"
+
+#: atk/atkobject.c:326
+msgid "Accessible Role"
+msgstr "அணுகக்கூடிய பங்களிப்பு"
+
+#: atk/atkobject.c:327
+msgid "The accessible role of this object"
+msgstr "பொருளின் அணுகக்கூடிய பங்களிப்பு"
+
+#: atk/atkobject.c:335
+msgid "Accessible Layer"
+msgstr "அணுகக்கூடிய மட்டம்"
+
+#: atk/atkobject.c:336
+msgid "The accessible layer of this object"
+msgstr "இந்த பொருளின் அணுகக்கூடிய மட்டம்"
+
+#: atk/atkobject.c:344
+msgid "Accessible MDI Value"
+msgstr "அணுகக்கூடிய MDI மதிப்பு"
+
+#: atk/atkobject.c:345
+msgid "The accessible MDI value of this object"
+msgstr "இந்த பொருளின் அணுகக்கூடிய MDI மதிப்பு"
+
+#: atk/atkobject.c:353
+msgid "Accessible Table Caption"
+msgstr "அணுகக்கூடிய அட்டவணை தலைப்பு"
+
+#: atk/atkobject.c:354
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr "இது பட்டியலின் தலைப்பு மாற்றப்பட்டதை அறிவிக்க பயன்படும். அணுகக்கூடிய-அட்டவணை-தலைப்பு-பொருளை பயன்படுத்த வேண்டும்"
+
+#: atk/atkobject.c:360
+msgid "Accessible Table Column Header"
+msgstr "அணுகக்கூடிய அட்டவணை நெடுவரிசை தலைப்பு"
+
+#: atk/atkobject.c:361
+msgid "Is used to notify that the table column header has changed"
+msgstr "இது அட்டவணை தலைப்பு மாற்றப்பட்டதை குறிக்க பயன்படும்"
+
+#: atk/atkobject.c:367
+msgid "Accessible Table Column Description"
+msgstr "அணுகக்கூடிய அட்டவணை நெடுவரிசை விளக்கம்"
+
+#: atk/atkobject.c:368
+msgid "Is used to notify that the table column description has changed"
+msgstr "இது அட்டவணை தலைப்பு விளக்கம் மாற்றப்பட்டதை அறிவிக்க பயன்படும்"
+
+#: atk/atkobject.c:374
+msgid "Accessible Table Row Header"
+msgstr "அணுகக்கூடிய நெடுவரிசை அட்டவணை தலைப்பு"
+
+#: atk/atkobject.c:375
+msgid "Is used to notify that the table row header has changed"
+msgstr "அட்டவணை நெடுவரிசை தலைப்பு மாற்றப்பட்டதை அறிவிக்க பயன்படும்"
+
+#: atk/atkobject.c:381
+msgid "Accessible Table Row Description"
+msgstr "அணுகக்கூடிய அட்டவணை நெடுவரிசை விளக்கம்"
+
+#: atk/atkobject.c:382
+msgid "Is used to notify that the table row description has changed"
+msgstr "அணுகக்கூடிய அட்டவணை நெடுவரிசை விளக்கம் மாற்றப்பட்டதை குறிக்க பயன்படும்"
+
+#: atk/atkobject.c:388
+msgid "Accessible Table Summary"
+msgstr "அணுகக்கூடிய அட்டவணை சுருக்கம்"
+
+#: atk/atkobject.c:389
+msgid "Is used to notify that the table summary has changed"
+msgstr "அட்டவணை சுருக்கம் மாற்றப்பட்டதை குறிப்பிட பயன்படும்"
+
+#: atk/atkobject.c:395
+msgid "Accessible Table Caption Object"
+msgstr "அணுகக்கூடிய அட்டவணை தலைப்பு பொருள்"
+
+#: atk/atkobject.c:396
+msgid "Is used to notify that the table caption has changed"
+msgstr "அட்டவணை தலைப்பு மாற்றப்பட்டதை குறிப்பிட பயன்படும்"
+
+#: atk/atkobject.c:402
+msgid "Number of Accessible Hypertext Links"
+msgstr "அணுகக்கூடிய மீஉரை இணைப்புகளின் எண்ணிக்கை"
+
+#: atk/atkobject.c:403
+msgid "The number of links which the current AtkHypertext has"
+msgstr "தற்போதுோதைய AtkHypertஇல் உள்ள இணைப்புகளின் எண்ணிக்கைext "
 
