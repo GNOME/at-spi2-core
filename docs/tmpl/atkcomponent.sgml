@@ -27,6 +27,7 @@ provided by #AtkText.
 
 <!-- ##### STRUCT AtkComponent ##### -->
 <para>
+The AtkComponent structure does not contain any fields.
 
 </para>
 

@@ -18,6 +18,7 @@ create an accessible object of a particular type.
 
 <!-- ##### STRUCT AtkNoOpObjectFactory ##### -->
 <para>
+The AtkNoOpObjectFactory structure should not be accessed directly.
 
 </para>
 

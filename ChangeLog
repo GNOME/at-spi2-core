@@ -1,3 +1,20 @@
+2002-09-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	*  atk/atkutil.h: Add documentation for AtkKeyEventType
+
+	* docs/tmpl/action.sgml docs/tmpl/atkcomponent.sgml
+	docs/tmpl/atkdocument.sgml docs/tmpl/atkeditabletext.sgml
+	docs/tmpl/atkgobjectaccessible.sgml docs/tmpl/atkhyperlink.sgml
+	docs/tmpl/atkhypertext.sgml docs/tmpl/atkimage.sgml 
+	docs/tmpl/atknoopobject.sgml docs/tmp[l/atknoopobjectfactory.sgml
+	docs/tmpl/atkobject.sgml docs/tmpl/atkobjectfacory.sgml
+	docs/tmpl/atkregistry.sgml docs/tmpl/atkrelation.sgml
+	docs/tmpl/atkselection.sgml docs/tmpl/atkstate.sgml
+	docs/tmpl/atkstreamablecontent.sgml docs/tmpl/atktable.sgml
+	docs/tmpl/atktext.sml docs/tmpl/atkutil.sgml
+	docs/tmpl/atkutil.sgml:
+	Reduce number of undocumented symbols
+
 2002-08-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atknoopobjectfactory.c:
@@ -17,7 +34,7 @@
 	information about properties and signals.
 
 	* configure.in:
-	Add atktargetlibi, STRIP_BEGIN, STRIP_END and STRIP_DUMMY for
+	Add atktargetlib, STRIP_BEGIN, STRIP_END and STRIP_DUMMY for
 	use in docs Makefile.am
 
 	* atk/atk.h:

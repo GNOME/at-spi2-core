@@ -17,6 +17,7 @@ It implements the AtkAction interface.
 
 <!-- ##### STRUCT AtkHyperlink ##### -->
 <para>
+The AtkHyperlink structure should not be accessed directly.
 
 </para>
 

@@ -18,7 +18,7 @@ object is requested for an object type for which no factory type is specified.
 
 <!-- ##### STRUCT AtkNoOpObject ##### -->
 <para>
-
+The AtkNoOpObject structure should not be accessed directly.
 </para>
 
 

@@ -35,6 +35,7 @@ implement other interfaces (#AtkText, #AtkImage, etc.) as appropriate.
 
 <!-- ##### STRUCT AtkTable ##### -->
 <para>
+The AtkTable structure does not contain any fields.
 
 </para>
 

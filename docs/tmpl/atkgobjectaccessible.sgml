@@ -21,7 +21,7 @@ for GnomeCanvasItem in the GAIL library.
 
 <!-- ##### STRUCT AtkGObjectAccessible ##### -->
 <para>
-
+The AtkGObjectAccessible structure should not be accessed directly.
 </para>
 
 

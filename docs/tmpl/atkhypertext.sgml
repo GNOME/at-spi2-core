@@ -16,7 +16,7 @@ The ATK interface which provides standard mechanism for manipulating hyperlinks.
 
 <!-- ##### STRUCT AtkHypertext ##### -->
 <para>
-
+The AtkHypertext structure does not contain any fields.
 </para>
 
 

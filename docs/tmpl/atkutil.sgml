@@ -19,6 +19,7 @@ same thread. The file also contains a number of utility functions.
 
 <!-- ##### STRUCT AtkUtil ##### -->
 <para>
+The AtkObject structure should not be accessed directly.
 
 </para>
 
@@ -66,7 +67,9 @@ same thread. The file also contains a number of utility functions.
 
 <!-- ##### USER_FUNCTION AtkEventListener ##### -->
 <para>
-
+An AtkEventListener is user specified function which is called when an event,
+such as receiving focus, occurs. The parameter of the AtkEventListener is the
+AtkObject on which the event occurred.
 </para>
 
 @Param1: 
@@ -74,6 +77,9 @@ same thread. The file also contains a number of utility functions.
 
 <!-- ##### USER_FUNCTION AtkEventListenerInit ##### -->
 <para>
+An AtkEventListenerInit is an initialization function in an implementation 
+of the ATK interface used to perform implementation-specific initialization
+when enabling focus tracking.
 
 </para>
 
@@ -99,7 +105,7 @@ same thread. The file also contains a number of utility functions.
 
 <!-- ##### STRUCT AtkKeyEventStruct ##### -->
 <para>
-
+The AtkKeyEventStruct describes a keyboard event.
 </para>
 
 @type: 
@@ -121,7 +127,7 @@ same thread. The file also contains a number of utility functions.
 
 <!-- ##### USER_FUNCTION AtkKeySnoopFunc ##### -->
 <para>
-
+An AtkKeySnoopFunc is a function which is called when a keyboard event occurs.
 </para>
 
 @event: 

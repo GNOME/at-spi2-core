@@ -60,6 +60,14 @@ struct _AtkKeyEventStruct {
   guint32 timestamp;	
 };
 
+/**
+ *AtkKeyEventType:
+ *@ATK_KEY_EVENT_PRESS: specifies a key press event
+ *@ATK_KEY_EVENT_RELEASE: specifies a key release event
+ *@ATK_KEY_EVENT_LAST_DEFINED: Not a valid value; specifies end of enumeration
+ *
+ *Specifies the type of a keyboard evemt.
+ **/
 typedef enum
 {
   ATK_KEY_EVENT_PRESS,

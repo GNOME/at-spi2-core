@@ -18,6 +18,8 @@ standard mechanism allowing an assistive technology access to the DOM.
 
 <!-- ##### STRUCT AtkDocument ##### -->
 <para>
+The AtkDocument structure does not contain any fields.
+
 
 </para>
 

@@ -2,8 +2,8 @@
 AtkRegistry
 
 <!-- ##### SECTION Short_Description ##### -->
-An object used to store the GType of a factory used to create an accessible
-object for an object of a particluar GType.
+An object used to store the GType of the factories used to create an accessible
+object for an object of a particular GType.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -17,6 +17,7 @@ object for an object of a particluar GType.
 
 <!-- ##### STRUCT AtkRegistry ##### -->
 <para>
+The AtkRegistry structure should not be accessed directly.
 
 </para>
 

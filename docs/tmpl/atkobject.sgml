@@ -33,6 +33,7 @@ See also: #AtkObjectFactory, #AtkRegistry.
 
 <!-- ##### STRUCT AtkObject ##### -->
 <para>
+The AtkObject structure should not be accessed directly.
 
 </para>
 
@@ -141,6 +142,7 @@ determinations of when components occlude one another.
 
 <!-- ##### STRUCT AtkImplementor ##### -->
 <para>
+The AtkImplementor structure does not contain any fields.
 
 </para>
 
@@ -148,7 +150,7 @@ determinations of when components occlude one another.
 <!-- ##### STRUCT AtkImplementorIface ##### -->
 <para>
 This interface provides an alternative means of obtaining AtkObjects
-from a GOBject instance, and for querying whether a GObject instance
+from a GObject instance, and for querying whether a GObject instance
 provides ATK functionality.
 </para>
 
@@ -157,12 +159,21 @@ provides ATK functionality.
 
 <!-- ##### STRUCT AtkRelationSet ##### -->
 <para>
+The AtkRelationSet structure should not be accessed directly.
 
 </para>
 
 
 <!-- ##### STRUCT AtkPropertyValues ##### -->
 <para>
+The Atk PropertyValue structure is used when notifying a change in property.
+Currently, the only property for which old_value is used is
+accessible-state; for instance if there is a focus change the
+property change handler will be called for the object which lost the focus
+with the old_value containing the AtkState value corresponding to focused
+and the property change handler will be called for the object which
+received the focus with the new_value containing the AtkState value
+corresponding to focused.
 
 </para>
 
@@ -172,6 +183,8 @@ provides ATK functionality.
 
 <!-- ##### USER_FUNCTION AtkFunction ##### -->
 <para>
+An AtkFunction is a function definition used for padding which has been added 
+to class and interface structures to allow for expansion in the future.
 
 </para>
 
@@ -181,7 +194,8 @@ provides ATK functionality.
 
 <!-- ##### USER_FUNCTION AtkPropertyChangeHandler ##### -->
 <para>
-
+An AtkPropertyChangeHandler is a function which is executed when an AtkObject's property changes value. It is specified in a call to 
+atk_object_connect_property_change_handler().
 </para>
 
 @Param1: 

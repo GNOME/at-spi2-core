@@ -22,6 +22,7 @@ implements #AtkEditableText is by definition an #AtkText implementor as well.
 
 <!-- ##### STRUCT AtkEditableText ##### -->
 <para>
+The AtkEditableText structure does not contain any fields.
 
 </para>
 

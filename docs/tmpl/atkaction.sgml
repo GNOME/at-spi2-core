@@ -43,7 +43,7 @@ terminology for #AtkAction names.
 
 <!-- ##### STRUCT AtkAction ##### -->
 <para>
-
+The AtkAction structure does not contain any fields.
 </para>
 
 
