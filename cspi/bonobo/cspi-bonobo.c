@@ -35,7 +35,7 @@ cspi_dup_ref (CORBA_Object object)
 void
 cspi_release_unref (CORBA_Object object)
 {
-  bonobo_object_release_unref (object, NULL);
+    bonobo_object_release_unref (object, NULL); 
 }
 
 SPIBoolean

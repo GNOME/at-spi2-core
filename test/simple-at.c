@@ -114,6 +114,7 @@ main (int argc, char **argv)
   SPI_registerGlobalEventListener (text_listener, "object:text-changed"); 
   SPI_registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
   SPI_registerGlobalEventListener (window_listener, "window:minimize");
+  SPI_registerGlobalEventListener (window_listener, "window:activate");
   n_desktops = SPI_getDesktopCount ();
 
   for (i=0; i<n_desktops; ++i)
@@ -352,6 +353,10 @@ void
 report_window_event (const AccessibleEvent *event, void *user_data)
 {
   fprintf (stderr, "%s event received\n", event->type);
+  if (!strcmp (event->type, "window:activate"))
+  {
+      print_accessible_tree (event->source, "window");
+  }
 }
 
 void

@@ -428,6 +428,8 @@ Accessible_getRelationSet (Accessible *obj)
 
   cspi_return_val_if_fail (obj != NULL, NULL);
 
+  g_assert (!cspi_exception ());
+
   relation_set =
     Accessibility_Accessible_getRelationSet (CSPI_OBJREF (obj), cspi_ev ());
 
