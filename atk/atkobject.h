@@ -197,6 +197,7 @@ AtkRole                  atk_role_register        (const gchar *name);
  *@ATK_LAYER_MDI: This layer is used for layered components
  *@ATK_LAYER_POPUP: This layer is used for popup components, such as menus
  *@ATK_LAYER_OVERLAY: This layer is reserved for future use.
+ *@ATK_LAYER_WINDOW: This layer is used for toplevel windows.
  *
  * Describes the layer of a component
  **/
@@ -208,7 +209,8 @@ typedef enum
   ATK_LAYER_WIDGET,
   ATK_LAYER_MDI,
   ATK_LAYER_POPUP,
-  ATK_LAYER_OVERLAY
+  ATK_LAYER_OVERLAY,
+  ATK_LAYER_WINDOW
 } AtkLayer;
 
 #define ATK_TYPE_OBJECT                           (atk_object_get_type ())

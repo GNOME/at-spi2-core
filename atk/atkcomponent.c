@@ -344,7 +344,7 @@ atk_component_get_layer (AtkComponent *component)
  * @component: an #AtkComponent
  *
  * Gets the zorder of the component. The value G_MININT will be returned 
- * if the layer of the component is not ATK_LAYER_MDI.
+ * if the layer of the component is not ATK_LAYER_MDI or ATK_LAYER_WINDOW.
  *
  * Returns: a gint which is the zorder of the component, i.e. the depth at 
  * which the component is shown in relation to other components in the same 
