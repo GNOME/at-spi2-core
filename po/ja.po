@@ -5,307 +5,469 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.2.2\n"
-"POT-Creation-Date: 2003-03-18 11:51+0000\n"
-"PO-Revision-Date: 2003-01-28 00:27+0900\n"
+"Project-Id-Version: atk HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-12-14 19:41+0900\n"
+"PO-Revision-Date: 2003-12-14 19:37+0900\n"
 "Last-Translator: Takeshi AIHANA <aihana@gnome.gr.jp>\n"
-"Language-Team: Japanese <translation@gnome.gr.jp>\n"
+"Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "リンクの選択"
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "AtkHyperlink オブジェクトを選択するかどうかを指定します"
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "アンカーの数"
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "AtkHyperlink オブジェクトに対応づけられたアンカーの数です"
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "終了インデックス"
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink オブジェクトの終端インデックスです"
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "開始インデックス"
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink オブジェクトの先頭インデックスです"
+
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "無効"
 
-#: atk/atkobject.c:1245
-msgid "accel-label"
+#: atk/atkobject.c:83
+msgid "accel label"
 msgstr "アクセラレーション・ラベル"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "警告"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "アニメーション"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "矢印"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "カレンダ"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "キャンバス"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
+#: atk/atkobject.c:89
+msgid "check box"
 msgstr "チェック・ボックス"
 
-#: atk/atkobject.c:1266
-msgid "check-menu-item"
+#: atk/atkobject.c:90
+msgid "check menu item"
 msgstr "チェック・メニュー項目"
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
+#: atk/atkobject.c:91
+msgid "color chooser"
 msgstr "色の選択"
 
-#: atk/atkobject.c:1272
-msgid "column-header"
-msgstr "桁ヘッダ"
+#: atk/atkobject.c:92
+msgid "column header"
+msgstr "列ヘッダ"
 
-#: atk/atkobject.c:1275
-msgid "combo-box"
+#: atk/atkobject.c:93
+msgid "combo box"
 msgstr "コンボ・ボックス"
 
-#: atk/atkobject.c:1278
-msgid "date-editor"
-msgstr "日付・エディタ"
+#: atk/atkobject.c:94
+msgid "dateeditor"
+msgstr "日付エディタ"
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
+#: atk/atkobject.c:95
+msgid "desktop icon"
 msgstr "デスクトップ・アイコン"
 
-#: atk/atkobject.c:1284
-msgid "desktop-frame"
+#: atk/atkobject.c:96
+msgid "desktop frame"
 msgstr "デスクトップ・フレーム"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "ダイアル"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "ダイアログ"
 
-#: atk/atkobject.c:1293
-msgid "directory-pane"
+#: atk/atkobject.c:99
+msgid "directory pane"
 msgstr "フォルダ・ペイン"
 
-#: atk/atkobject.c:1296
-msgid "drawing-area"
+#: atk/atkobject.c:100
+msgid "drawing area"
 msgstr "描画領域"
 
-#: atk/atkobject.c:1299
-msgid "file-chooser"
+#: atk/atkobject.c:101
+msgid "file chooser"
 msgstr "ファイルの選択"
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "ファイラ"
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+msgid "fontchooser"
 msgstr "フォントの選択"
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "フレーム"
 
-#: atk/atkobject.c:1311
-msgid "glass-pane"
+#: atk/atkobject.c:106
+msgid "glass pane"
 msgstr "ガラスのペイン"
 
-#: atk/atkobject.c:1314
-msgid "html-container"
-msgstr "HTML-コンテナ"
+#: atk/atkobject.c:107
+msgid "html container"
+msgstr "HTML コンテナ"
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "アイコン"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "画像"
 
-#: atk/atkobject.c:1323
-msgid "internal-frame"
+#: atk/atkobject.c:110
+msgid "internal frame"
 msgstr "内部フレーム"
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "ラベル"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
+#: atk/atkobject.c:112
+msgid "layered pane"
 msgstr "階層ペイン"
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:113
 msgid "list"
-msgstr "一覧"
+msgstr "リスト"
 
-#: atk/atkobject.c:1335
-msgid "list-item"
-msgstr "一覧の項目"
+#: atk/atkobject.c:114
+msgid "list item"
+msgstr "リストの項目"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "メニュー"
 
-#: atk/atkobject.c:1341
-msgid "menu-bar"
+#: atk/atkobject.c:116
+msgid "menu bar"
 msgstr "メニュー・バー"
 
-#: atk/atkobject.c:1344
-msgid "menu-item"
+#: atk/atkobject.c:117
+msgid "menu item"
 msgstr "メニューの項目"
 
-#: atk/atkobject.c:1347
-msgid "option-pane"
+#: atk/atkobject.c:118
+msgid "option pane"
 msgstr "オプション・ペイン"
 
-#: atk/atkobject.c:1350
-msgid "page-tab"
+#: atk/atkobject.c:119
+msgid "page tab"
 msgstr "ページ・タブ"
 
-#: atk/atkobject.c:1353
-msgid "page-tab-list"
-msgstr "ページ・タブの一覧"
+#: atk/atkobject.c:120
+msgid "page tab list"
+msgstr "ページ・タブのリスト"
 
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "パネル"
 
-#: atk/atkobject.c:1359
-msgid "password-text"
+#: atk/atkobject.c:122
+msgid "password text"
 msgstr "パスワード"
 
-#: atk/atkobject.c:1362
-msgid "popup-menu"
+#: atk/atkobject.c:123
+msgid "popup menu"
 msgstr "ポップアップ・メニュー"
 
-#: atk/atkobject.c:1365
-msgid "progress-bar"
+#: atk/atkobject.c:124
+msgid "progress bar"
 msgstr "進捗バー"
 
-#: atk/atkobject.c:1368
-msgid "push-button"
+#: atk/atkobject.c:125
+msgid "push button"
 msgstr "プッシュ・ボタン"
 
-#: atk/atkobject.c:1371
-msgid "radio-button"
+#: atk/atkobject.c:126
+msgid "radio button"
 msgstr "ラジオ・ボタン"
 
-#: atk/atkobject.c:1374
-msgid "radio-menu-item"
+#: atk/atkobject.c:127
+msgid "radio menu item"
 msgstr "ラジオ・ボタンの項目"
 
-#: atk/atkobject.c:1377
-msgid "root-pane"
+#: atk/atkobject.c:128
+msgid "root pane"
 msgstr "ルート・ペイン"
 
-#: atk/atkobject.c:1380
-msgid "row-header"
+#: atk/atkobject.c:129
+msgid "row header"
 msgstr "行ヘッダ"
 
-#: atk/atkobject.c:1383
-msgid "scroll-bar"
+#: atk/atkobject.c:130
+msgid "scroll bar"
 msgstr "スクロール・バー"
 
-#: atk/atkobject.c:1386
-msgid "scroll-pane"
+#: atk/atkobject.c:131
+msgid "scroll pane"
 msgstr "スクロール・ペイン"
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "セパレータ"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "スライダ"
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
+#: atk/atkobject.c:134
+msgid "split pane"
 msgstr "分割ペイン"
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
+#: atk/atkobject.c:135
+msgid "spin button"
 msgstr "スピン・ボタン"
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "ステータスバー"
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "表"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
+#: atk/atkobject.c:138
+msgid "table cell"
 msgstr "表のセル"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
-msgstr "表の桁ヘッダ"
+#: atk/atkobject.c:139
+msgid "table column header"
+msgstr "表の列ヘッダ"
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
+#: atk/atkobject.c:140
+msgid "table row header"
 msgstr "表の行ヘッダ"
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
+#: atk/atkobject.c:141
+msgid "tear off menu item"
 msgstr "取り外しメニュー項目"
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "端末"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "テキスト"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
+#: atk/atkobject.c:144
+msgid "toggle button"
 msgstr "トグル・ボタン"
 
-#: atk/atkobject.c:1428
-msgid "tool-bar"
+#: atk/atkobject.c:145
+msgid "tool bar"
 msgstr "ツール・バー"
 
-#: atk/atkobject.c:1431
-msgid "tool-tip"
+#: atk/atkobject.c:146
+msgid "tool tip"
 msgstr "ツール・チップ"
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "ツリー"
 
-#: atk/atkobject.c:1437
-msgid "tree-table"
+#: atk/atkobject.c:148
+msgid "tree table"
 msgstr "ツリーの表"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "不明"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "ビューポート"
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "ウィンドウ"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "ヘッダ"
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "フッタ"
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "段落"
 
-#: atk/atkobject.c:1458
-msgid "ruler"
-msgstr "ルーラ"
-
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "アプリケーション"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr "自動補完"
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr "編集バー"
+
+#: atk/atkobject.c:295
+msgid "Accessible Name"
+msgstr "アクセシブルの名前"
+
+#: atk/atkobject.c:296
+msgid "Object instance's name formatted for assistive technology access"
+msgstr "支援技術アクセス形式のオブジェクト・インスタンスの名前です"
+
+#: atk/atkobject.c:302
+msgid "Accessible Description"
+msgstr "アクセシブルの説明"
+
+#: atk/atkobject.c:303
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "支援技術アクセス形式のオブジェクトの説明です"
+
+#: atk/atkobject.c:309
+msgid "Accessible Parent"
+msgstr "親アクセシブル"
+
+#: atk/atkobject.c:310
+msgid "Is used to notify that the parent has changed"
+msgstr "親が変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:316
+msgid "Accessible Value"
+msgstr "アクセシブル値"
+
+#: atk/atkobject.c:317
+msgid "Is used to notify that the value has changed"
+msgstr "値が変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:325
+msgid "Accessible Role"
+msgstr "アクセイブル・ロール"
+
+#: atk/atkobject.c:326
+msgid "The accessible role of this object"
+msgstr "このオブジェクトのアクセイブルの役割です"
+
+#: atk/atkobject.c:334
+msgid "Accessible Layer"
+msgstr "アクセシブル・レイヤ"
+
+#: atk/atkobject.c:335
+msgid "The accessible layer of this object"
+msgstr "このオブジェクトが定義されるアクセシブルのレイヤです"
+
+#: atk/atkobject.c:343
+msgid "Accessible MDI Value"
+msgstr "アクセシブル MDI 値"
+
+#: atk/atkobject.c:344
+msgid "The accessible MDI value of this object"
+msgstr "このオブジェクトのアクセシブル MDI の値です"
+
+#: atk/atkobject.c:352
+msgid "Accessible Table Caption"
+msgstr "アクセシブル表のタイトル"
+
+#: atk/atkobject.c:353
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"表のタイトルが変更されたことを通知するのに使用します (このプロパティを使用せ"
+"ずに  accessible-table-caption-object を使用して下さい)"
+
+#: atk/atkobject.c:359
+msgid "Accessible Table Column Header"
+msgstr "アクセシブル表の列ヘッダ"
+
+#: atk/atkobject.c:360
+msgid "Is used to notify that the table column header has changed"
+msgstr "表の列のヘッダが変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:366
+msgid "Accessible Table Column Description"
+msgstr "アクセシブル表の列の内容"
+
+#: atk/atkobject.c:367
+msgid "Is used to notify that the table column description has changed"
+msgstr "表の列の内容が変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:373
+msgid "Accessible Table Row Header"
+msgstr "アクセシブル表の行ヘッダ"
+
+#: atk/atkobject.c:374
+msgid "Is used to notify that the table row header has changed"
+msgstr "表の行のヘッダが変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:380
+msgid "Accessible Table Row Description"
+msgstr "アクセシブル表の行の内容"
+
+#: atk/atkobject.c:381
+msgid "Is used to notify that the table row description has changed"
+msgstr "表の行の内容が変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:387
+msgid "Accessible Table Summary"
+msgstr "アクセシブル表のサマリ"
+
+#: atk/atkobject.c:388
+msgid "Is used to notify that the table summary has changed"
+msgstr "表のサマリが変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:394
+msgid "Accessible Table Caption Object"
+msgstr "アクセシブル表のタイトル・オブジェクト"
+
+#: atk/atkobject.c:395
+msgid "Is used to notify that the table caption has changed"
+msgstr "表のタイトルが変更されたことを通知するのに使用します"
+
+#: atk/atkobject.c:401
+msgid "Accessible Hypertext Number of Links"
+msgstr "アクセシブル HyperText リンクの数"
+
+#: atk/atkobject.c:402
+msgid "The number of links which the current AtkHypertext has"
+msgstr "この AtkHypertext オブジェクトが持つリンクの数です"
