@@ -37,6 +37,10 @@ int main(int argc, char ** argv){
 	  printf ("destroying/clearing all regions.\n");
 	  magnifier_clear_all_regions ();
 	  break;
+ 	case 'q':
+	  printf ("exiting magnifier.\n");
+	  magnifier_exit ();
+	  break;
 	case 'c':
 	  printf ("creating 3x region at 100,100; 300x200\n");
 	  magnifier_create_region (3.0, 3.0, 100, 100, 400, 300);
@@ -152,3 +156,10 @@ magnifier_set_magnification (int zoom_region, float mag_factor_x, float mag_fact
 					     &ev);
 }
 
+void
+magnifier_exit (void)
+{
+  Accessibility_Magnifier magnifier = get_magnifier();
+  if (magnifier)
+    Accessibility_Magnifier_exit (magnifier, &ev);
+}

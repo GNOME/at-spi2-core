@@ -33,6 +33,7 @@
 
 static void report_focus_event    (const AccessibleEvent *event, void *user_data);
 static void report_generic_event  (const AccessibleEvent *event, void *user_data);
+static void report_window_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_event     (const AccessibleEvent *event, void *user_data);
 static void report_button_press   (const AccessibleEvent *event, void *user_data);
 static void check_property_change (const AccessibleEvent *event, void *user_data);
@@ -56,6 +57,7 @@ static SPIBoolean name_changed = FALSE;
 static AccessibleEventListener *focus_listener;
 static AccessibleEventListener *property_listener;
 static AccessibleEventListener *generic_listener;
+static AccessibleEventListener *window_listener;
 static AccessibleEventListener *button_listener;
 static AccessibleEventListener *text_listener;
 static AccessibleKeystrokeListener *command_key_listener;
@@ -92,6 +94,7 @@ main (int argc, char **argv)
   focus_listener = SPI_createAccessibleEventListener (report_focus_event, NULL);
   property_listener = SPI_createAccessibleEventListener (check_property_change, NULL); 
   generic_listener = SPI_createAccessibleEventListener (report_generic_event, NULL); 
+  window_listener = SPI_createAccessibleEventListener (report_window_event, NULL); 
   text_listener = SPI_createAccessibleEventListener (report_text_event, NULL); 
   button_listener = SPI_createAccessibleEventListener (report_button_press, NULL);
   SPI_registerGlobalEventListener (focus_listener, "focus:");
@@ -105,6 +108,7 @@ main (int argc, char **argv)
   SPI_registerGlobalEventListener (text_listener, "object:text-caret-moved"); 
   SPI_registerGlobalEventListener (generic_listener, "object:text-changed"); 
   SPI_registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
+  SPI_registerGlobalEventListener (window_listener, "Gtk:GtkWidget:window-state-event");
   n_desktops = SPI_getDesktopCount ();
 
   for (i=0; i<n_desktops; ++i)
@@ -327,6 +331,12 @@ report_focus_event (const AccessibleEvent *event, void *user_data)
 
 void
 report_generic_event (const AccessibleEvent *event, void *user_data)
+{
+  fprintf (stderr, "%s event received\n", event->type);
+}
+
+void
+report_window_event (const AccessibleEvent *event, void *user_data)
 {
   fprintf (stderr, "%s event received\n", event->type);
 }

@@ -1,3 +1,13 @@
+2002-04-13  Bill Haneman <bill.haneman@sun.com>
+
+        * util/magnifier.c:
+	Added implementation code for Accessibility_Magnifier_exit ().
+
+	* util/mag_control.c:
+	Added test code for above method; you can
+	now kill an existing magnifier via 
+	./mag_control q, from the util directory.
+
 2002-04-11  Bill Haneman <bill.haneman@sun.com>
 
 	* test/app.c, test/keysynth-demo.c:

@@ -1,6 +1,8 @@
 NULL=
 
-noinst_PROGRAMS = test-simple at app simple-at keysynth-demo accessx-gui
+noinst_PROGRAMS = test-simple at app simple-at keysynth-demo accessx-gui wm_test
+
+wm_test_SOURCES = wm_mode_test.c
 
 at_SOURCES = at.c 
 

@@ -531,7 +531,11 @@ impl_magnifier_clear_all_zoom_regions (PortableServer_Servant servant,
 static void
 impl_magnifier_exit (PortableServer_Servant servant, CORBA_Environment *ev)
 {
-	;
+	Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+	if (magnifier->mag_data->zoom_regions) 
+		g_list_free (magnifier->mag_data->zoom_regions);
+	g_free (magnifier->mag_data);
+	magnifier_exit();
 }
 
 static void
