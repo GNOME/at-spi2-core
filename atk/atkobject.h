@@ -412,6 +412,17 @@ void                 atk_object_remove_property_change_handler  (AtkObject      
  *   "accessible-child"
  *   "accessible-role"
  *   "accessible-state"
+ *   "accessible-parent"
+ *   "accessible-text"
+ *   "accessible-caret"
+ *   "accessible-selection"
+ *   "accessible-value"
+ *   "accessible-visible-data"
+ *   "accessible-table-caption"
+ *   "accessible-table-column-header"
+ *   "accessible-table-row-heaer"
+ *   "accessible-table-summary"
+ *   "accessible-model"
  *
  * accessibility property change listeners should use the
  *   normal GObject property interfaces and "properties_changed"

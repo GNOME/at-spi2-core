@@ -1,3 +1,12 @@
+2001-09-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c:
+	Correct property definitions for "accessible-table-caption", 
+	"accessible-table-column-description", 
+	"accessible-table-row-description" 
+	* atk/atkobject.h:
+	Update comments to include all properties defined
+
 2001-08-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkhyperlink.h:

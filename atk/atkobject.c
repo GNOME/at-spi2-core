@@ -275,10 +275,10 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_CAPTION,
-                                   g_param_spec_object (atk_object_name_property_table_caption,
+                                   g_param_spec_string (atk_object_name_property_table_caption,
                                                         "Accessible Table Caption",
                                                         "Is used to notify that the table caption has changed ",
-                                                        ATK_TYPE_OBJECT,
+                                                        NULL,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_COLUMN_HEADER,
@@ -289,12 +289,10 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_COLUMN_DESCRIPTION,
-                                   g_param_spec_int    (atk_object_name_property_table_column_description,
+                                   g_param_spec_string (atk_object_name_property_table_column_description,
                                                         "Accessible Table Column Description",
                                                         "Is used to notify that the table columnscription has changed ",
-                                                        0,
-                                                        G_MAXINT,
-                                                        0,
+                                                        NULL,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_ROW_HEADER,
@@ -305,12 +303,10 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_ROW_DESCRIPTION,
-                                   g_param_spec_int    (atk_object_name_property_table_row_description,
+                                   g_param_spec_string (atk_object_name_property_table_row_description,
                                                         "Accessible Table Row Description",
                                                         "Is used to notify that the table row description has changed ",
-                                                        0,
-                                                        G_MAXINT,
-                                                        0,
+                                                        NULL,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_SUMMARY,
