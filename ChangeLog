@@ -1,0 +1,6 @@
+2001-06-29  Michael Meeks  <michael@ximian.com>
+
+	* configure.in: add AM_CONFIG_HEADER to gen config.h
+
+	* acconfig.h: add.
+

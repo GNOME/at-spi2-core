@@ -1,0 +1,484 @@
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
+AS = @AS@
+AT_SPI_BINARY_AGE = @AT_SPI_BINARY_AGE@
+AT_SPI_INTERFACE_AGE = @AT_SPI_INTERFACE_AGE@
+AT_SPI_MAJOR_VERSION = @AT_SPI_MAJOR_VERSION@
+AT_SPI_MICRO_VERSION = @AT_SPI_MICRO_VERSION@
+AT_SPI_MINOR_VERSION = @AT_SPI_MINOR_VERSION@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+CFLAGS = @CFLAGS@
+CPPFLAGS = @CPPFLAGS@
+DATADIRNAME = @DATADIRNAME@
+DLLTOOL = @DLLTOOL@
+ECHO = @ECHO@
+EXEEXT = @EXEEXT@
+GENCAT = @GENCAT@
+GMOFILES = @GMOFILES@
+GMSGFMT = @GMSGFMT@
+GNOME_ACLOCAL_DIR = @GNOME_ACLOCAL_DIR@
+GNOME_ACLOCAL_FLAGS = @GNOME_ACLOCAL_FLAGS@
+GNOME_INTERFACE_VERSION = @GNOME_INTERFACE_VERSION@
+GTKDOC = @GTKDOC@
+GT_NO = @GT_NO@
+GT_YES = @GT_YES@
+HAVE_GTK_DOC = @HAVE_GTK_DOC@
+INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
+INSTOBJEXT = @INSTOBJEXT@
+INTLDEPS = @INTLDEPS@
+INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+LIBBONOBO_IDL_DIR = @LIBBONOBO_IDL_DIR@
+LIBSPI_CFLAGS = @LIBSPI_CFLAGS@
+LIBSPI_LIBS = @LIBSPI_LIBS@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+LT_AGE = @LT_AGE@
+LT_CURRENT = @LT_CURRENT@
+LT_RELEASE = @LT_RELEASE@
+LT_REVISION = @LT_REVISION@
+LT_VERSION_INFO = @LT_VERSION_INFO@
+MAINT = @MAINT@
+MAKEINFO = @MAKEINFO@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+OAF_IDL_DIR = @OAF_IDL_DIR@
+OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
+ORBIT_IDL = @ORBIT_IDL@
+PACKAGE = @PACKAGE@
+PKG_CONFIG = @PKG_CONFIG@
+POFILES = @POFILES@
+POSUB = @POSUB@
+RANLIB = @RANLIB@
+REGISTRYD_CFLAGS = @REGISTRYD_CFLAGS@
+REGISTRYD_LIBS = @REGISTRYD_LIBS@
+STRIP = @STRIP@
+TESTS_CFLAGS = @TESTS_CFLAGS@
+TESTS_LIBS = @TESTS_LIBS@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+USE_NLS = @USE_NLS@
+VERSION = @VERSION@
+WARN_CFLAGS = @WARN_CFLAGS@
+XML_I18N_EXTRACT = @XML_I18N_EXTRACT@
+XML_I18N_MERGE = @XML_I18N_MERGE@
+XML_I18N_TOOLS_PERL = @XML_I18N_TOOLS_PERL@
+XML_I18N_UPDATE = @XML_I18N_UPDATE@
+cxxflags_set = @cxxflags_set@
+l = @l@
+
+lib_LTLIBRARIES = libspi.la
+
+INCLUDES = -I $(top_srcdir)                      -I $(top_builddir)                    -I $(top_srcdir)/libspi               -I $(top_builddir)/libspi             $(LIBSPI_CFLAGS)
+
+
+LDFLAGS = $(LIBSPI_LIBS) @LT_VERSION_INFO@
+
+libspiincludedir = $(includedir)/libspi
+
+libspiinclude_HEADERS = accessible.h                               application.h                              atksimpleobject.h                          desktop.h                                  listener.h                                 registry.h                                 Accessible.h                               Application.h                              Desktop.h                                  Event.h                                    Registry.h                                 Relation.h                                 Role.h                                     State.h
+
+
+Accessible_IDLOUT = Accessible.h Accessible-stubs.c Accessible-skels.c Accessible-common.c
+Application_IDLOUT = Application.h Application-stubs.c Application-skels.c Application-common.c
+Desktop_IDLOUT = Desktop.h Desktop-stubs.c Desktop-skels.c Desktop-common.c
+Event_IDLOUT = Event.h Event-stubs.c Event-skels.c Event-common.c
+Registry_IDLOUT = Registry.h Registry-stubs.c Registry-skels.c Registry-common.c
+Relation_IDLOUT = Relation.h Relation-stubs.c Relation-skels.c Relation-common.c
+Role_IDLOUT = Role.h Role-stubs.c Role-skels.c Role-common.c
+State_IDLOUT = State.h State-stubs.c State-skels.c State-common.c
+
+BUILT_SOURCES = $(Accessible_IDLOUT)                     $(Application_IDLOUT)                    $(Desktop_IDLOUT)                        $(Event_IDLOUT)                          $(Registry_IDLOUT)	                 $(Relation_IDLOUT)                       $(Role_IDLOUT)                           $(State_IDLOUT)
+
+
+libspi_la_SOURCES = accessible.c                             accessible.h                             application.c                            application.h                            atksimpleobject.c                        atksimpleobject.h                        desktop.c                                desktop.h                                listener.c                               listener.h                               registry.c                               registry.h                               $(BUILT_SOURCES)
+
+
+IDLFLAGS = -I$(OAF_IDL_DIR) -I$(LIBBONOBO_IDL_DIR) -I$(top_srcdir)/idl --noimodule
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../config.h
+CONFIG_CLEAN_FILES = 
+LTLIBRARIES =  $(lib_LTLIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I..
+LIBS = @LIBS@
+libspi_la_LDFLAGS = 
+libspi_la_LIBADD = 
+libspi_la_OBJECTS =  accessible.lo application.lo atksimpleobject.lo \
+desktop.lo listener.lo registry.lo Accessible-stubs.lo \
+Accessible-skels.lo Accessible-common.lo Application-stubs.lo \
+Application-skels.lo Application-common.lo Desktop-stubs.lo \
+Desktop-skels.lo Desktop-common.lo Event-stubs.lo Event-skels.lo \
+Event-common.lo Registry-stubs.lo Registry-skels.lo Registry-common.lo \
+Relation-stubs.lo Relation-skels.lo Relation-common.lo Role-stubs.lo \
+Role-skels.lo Role-common.lo State-stubs.lo State-skels.lo \
+State-common.lo
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+HEADERS =  $(libspiinclude_HEADERS)
+
+DIST_COMMON =  Makefile.am Makefile.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = gtar
+GZIP_ENV = --best
+DEP_FILES =  .deps/Accessible-common.P .deps/Accessible-skels.P \
+.deps/Accessible-stubs.P .deps/Application-common.P \
+.deps/Application-skels.P .deps/Application-stubs.P \
+.deps/Desktop-common.P .deps/Desktop-skels.P .deps/Desktop-stubs.P \
+.deps/Event-common.P .deps/Event-skels.P .deps/Event-stubs.P \
+.deps/Registry-common.P .deps/Registry-skels.P .deps/Registry-stubs.P \
+.deps/Relation-common.P .deps/Relation-skels.P .deps/Relation-stubs.P \
+.deps/Role-common.P .deps/Role-skels.P .deps/Role-stubs.P \
+.deps/State-common.P .deps/State-skels.P .deps/State-stubs.P \
+.deps/accessible.P .deps/application.P .deps/atksimpleobject.P \
+.deps/desktop.P .deps/listener.P .deps/registry.P
+SOURCES = $(libspi_la_SOURCES)
+OBJECTS = $(libspi_la_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .lo .o .obj .s
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu libspi/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-libLTLIBRARIES:
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+
+distclean-libLTLIBRARIES:
+
+maintainer-clean-libLTLIBRARIES:
+
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+# FIXME: We should only use cygpath when building on Windows,
+# and only if it is available.
+.c.obj:
+	$(COMPILE) -c `cygpath -w $<`
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+	-rm -f *.$(OBJEXT)
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+libspi.la: $(libspi_la_OBJECTS) $(libspi_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libspi_la_LDFLAGS) $(libspi_la_OBJECTS) $(libspi_la_LIBADD) $(LIBS)
+
+install-libspiincludeHEADERS: $(libspiinclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libspiincludedir)
+	@list='$(libspiinclude_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libspiincludedir)/$$p"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libspiincludedir)/$$p; \
+	done
+
+uninstall-libspiincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	list='$(libspiinclude_HEADERS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(libspiincludedir)/$$p; \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = libspi
+
+distdir: $(DISTFILES)
+	here=`cd $(top_builddir) && pwd`; \
+	top_distdir=`cd $(top_distdir) && pwd`; \
+	distdir=`cd $(distdir) && pwd`; \
+	cd $(top_srcdir) \
+	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu libspi/Makefile
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
+
+-include $(DEP_FILES)
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf .deps
+
+maintainer-clean-depend:
+
+%.o: %.c
+	@echo '$(COMPILE) -c $<'; \
+	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm .deps/$(*F).pp
+
+%.lo: %.c
+	@echo '$(LTCOMPILE) -c $<'; \
+	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
+	  < .deps/$(*F).pp > .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm -f .deps/$(*F).pp
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am: install-libLTLIBRARIES
+install-exec: install-exec-am
+
+install-data-am: install-libspiincludeHEADERS
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-libLTLIBRARIES uninstall-libspiincludeHEADERS
+uninstall: uninstall-am
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(libspiincludedir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-tags mostlyclean-depend \
+		mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool clean-tags \
+		clean-depend clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-libLTLIBRARIES distclean-compile \
+		distclean-libtool distclean-tags distclean-depend \
+		distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-tags maintainer-clean-depend \
+		maintainer-clean-generic distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
+distclean-compile clean-compile maintainer-clean-compile \
+mostlyclean-libtool distclean-libtool clean-libtool \
+maintainer-clean-libtool uninstall-libspiincludeHEADERS \
+install-libspiincludeHEADERS tags mostlyclean-tags distclean-tags \
+clean-tags maintainer-clean-tags distdir mostlyclean-depend \
+distclean-depend clean-depend maintainer-clean-depend info-am info \
+dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+install-exec install-data-am install-data install-am install \
+uninstall-am uninstall all-redirect all-am all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+$(Accessible_IDLOUT): $(top_srcdir)/idl/Accessible.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_ACCESSIBLE_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Accessible.idl
+
+$(Application_IDLOUT): $(top_srcdir)/idl/Application.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_APPLICATION_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Application.idl
+
+$(Desktop_IDLOUT): $(top_srcdir)/idl/Desktop.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_DESKTOP_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Desktop.idl
+
+$(Event_IDLOUT): $(top_srcdir)/idl/Event.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_EVENT_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Event.idl
+
+$(Registry_IDLOUT): $(top_srcdir)/idl/Registry.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_REGISTRY_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Registry.idl
+
+$(Relation_IDLOUT): $(top_srcdir)/idl/Relation.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_RELATION_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Relation.idl
+
+$(Role_IDLOUT): $(top_srcdir)/idl/Role.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_ROLE_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/Role.idl
+
+$(State_IDLOUT): $(top_srcdir)/idl/State.idl $(ORBIT_IDL)
+	$(ORBIT_IDL) -D__ACCESSIBILITY_STATE_COMPILATION $(IDLFLAGS) $(top_srcdir)/idl/State.idl
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

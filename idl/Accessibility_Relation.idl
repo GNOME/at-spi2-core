@@ -1,0 +1,37 @@
+#ifndef _ACCESSIBILITY_RELATION_IDL
+#define _ACCESSIBILITY_RELATION_IDL
+
+#if !defined(__ACCESSIBILITY_RELATION_COMPILATION) && defined(__ORBIT_IDL__)
+%{
+#pragma include_defs Relation.h
+%}
+#pragma inhibit push
+#endif
+
+module Accessibility {
+
+  enum RelationType {
+    RELATION_LABEL_FOR,
+    RELATION_LABELLED_BY,
+    RELATION_CONTROLLER_FOR,
+    RELATION_CONTROLLED_BY,
+    RELATION_MEMBER_OF
+  };
+
+  /*
+   *
+   * This interface inherits from a base class implementing ref counts.
+   *
+   */
+
+  interface Relation {
+    RelationType        getRelationType ();
+    Object		getTarget ();
+  };
+};
+
+#if !defined(__ACCESSIBILITY_RELATION_COMPILATION) && defined(__ORBIT_IDL__)
+#pragma inhibit pop
+#endif
+
+#endif

@@ -1,0 +1,178 @@
+#include <Bonobo.idl>
+#include <Event.idl>
+#include <Application.idl>
+#include <Desktop.idl>
+
+module Accessibility {
+
+  typedef sequence<Desktop> DesktopSeq;
+
+  interface DeviceEventController;
+
+  interface Registry : EventListener {
+
+  	/**
+         * registerApplication:
+         * @application: a reference to the requesting @Application
+	 * return values: void
+         *
+         * Register a new application with the accessibility broker.
+         *
+	 **/
+        void registerApplication (in Application application);
+
+  	/**
+         * deregisterApplication:
+         * @application: a reference to the @Application 
+         * to be deregistered.
+	 * return values: void
+         *
+         * De-register an application previously registered with the broker.
+         *
+	 **/
+        void deregisterApplication (in Application application);
+
+  	/**
+         * registerGlobalEventListener:
+         * @listener: a reference to the requesting @EventListener.
+         * @eventName: a string which indicates the type of events about 
+         * which the client desires notification.
+	 * return values: void
+         *
+         * Register a client's interest in (all) application events of 
+         * a certain type.
+         *
+	 **/
+        void registerGlobalEventListener (in EventListener listener,
+                                           in string eventName);
+
+  	/**
+         * deregisterGlobalEventListener:
+         * @listener: the requesting @EventListener
+         * @eventName: a string indicating the type of events
+	 * return values: void
+         *
+         * Request that a previously registered client stop receiving
+         * global notifications for events of a certain type.
+         *
+	 **/
+
+        void deregisterGlobalEventListener (in EventListener listener);
+        /** 
+         * event types: "Window" "Desktop"
+         *              "Window:Create" "Window:Destroy"
+         *              "Window:Iconify" "Window:Restore"
+         *              "Window:Fullscreen" "Window:Resize"
+         *              "Desktop:Create" "Desktop:Destroy"  
+         *              "Desktop:Focus" "Desktop:Defocus"
+         *              "Desktop:Reorder" 
+         *              "Focus"
+         *              "GtkWidget:show"
+         *              "GObject:notify:<propertyname>" 
+         *
+         *  ( not sure we should allow these last 2 forms, 
+         *    since they are toolkit-specific, but they're powerful )
+         *
+         **/              
+
+  	/**
+         * getDesktopCount:
+	 * return values: a short integer indicating the current number of 
+         * @Desktops.
+         *
+         * Get the current number of desktops.
+         *
+	 **/
+        short getDesktopCount ();
+
+  	/**
+         * getDesktop:
+         * @n: the index of the requested @Desktop.
+	 * return values: a reference to the requested @Desktop.
+         *
+         * Get the nth accessible desktop. 
+         *
+	 **/
+        Desktop getDesktop (in short n);
+
+  	/**
+         * getDesktopList:
+	 * return values: a sequence containing references to
+         * the @Desktops.
+         *
+         * Get a list of accessible desktops. 
+         *
+	 **/
+        DesktopSeq getDesktopList ();
+
+  	/**
+         * getDeviceEventController:
+	 * return values: an object implementing DeviceEventController
+         *
+	 **/
+        DeviceEventController getDeviceEventController ();
+
+    };
+
+  enum KeyEventType {
+    KEY_PRESSED,
+    KEY_RELEASED
+  };
+
+  enum ModifierType {
+    MODIFIER_ALT,
+    MODIFIER_META,
+    MODIFIER_CONTROL,
+    MODIFIER_SHIFT,
+    MODIFIER_META2,
+    MODIFIER_META3
+  };
+
+  typedef sequence<ModifierType> ModifierSeq;
+
+  struct KeyStroke {
+    long keyID;
+    KeyEventType type; 
+    ModifierSeq modifiers;
+  };
+
+  interface KeystrokeListener {
+        boolean keyEvent (in KeyStroke key);
+  };
+
+  interface DeviceEventController {
+
+  	/**
+         * registerKeystrokeListener:
+         * @listener: a @KeystrokeListener which will intercept key events.
+	 * Returns: void
+         *
+         * Register to intercept keyboard events, and either pass them on or
+         * consume them. 
+         *
+	 **/
+        void registerKeystrokeListener (in KeystrokeListener listener);
+    
+        /**
+         * generateKeyEvent:
+         * @keyEventID: a long integer indicating which keypress is synthesized.
+         * Returns: void
+         *
+         * Synthesize a keypress event.
+         *
+         **/
+         void generateKeyEvent (in long keyEventID);
+
+        /**
+         * generateMouseEvent:
+         * @x: a long integer indicating the screen x coord for the mouse event.
+         * @y: a long integer indicating the screen y coord for the mouse event.
+         * @eventName: a string indicating the type of mouse event, e.g. "button1up"
+         * Returns: void
+         *
+         * Synthesize a mouse event.
+         *
+         **/
+         void generateMouseEvent (in long x, in long y, in string eventName);
+    }; 
+};

@@ -1,0 +1,68 @@
+#ifndef __ACCESSIBILITY_APPLICATION_DEFINED__
+#define __ACCESSIBILITY_APPLICATION_DEFINED__
+
+#include <Bonobo.idl>
+#include <Accessible.idl>
+
+#if !defined(__ACCESSIBILITY_APPLICATION_COMPILATION) && defined(__ORBIT_IDL__)
+%{
+#pragma include_defs Application.h
+%}
+#pragma inhibit push
+#endif
+
+#pragma inhibit push
+#include "Accessible.idl"
+#pragma inhibit pop
+
+module Accessibility {
+  interface Application : Accessible {
+
+    /**
+     * Get a string indicating the type of user interface toolkit
+     * which is used by the application.
+     * Ordinarily clients of @AccessibleApplication should be
+     * toolkit-agnostic, dependencies on this method probably
+     * should be reconsidered!
+     **/
+    readonly attribute string toolkitName;
+
+    /**
+     * Get a string indicating the version number of the application's
+     * accessibility bridge implementation.
+     **/
+    readonly attribute string version;
+
+    /**
+     * Get the application's process ID in the operating system's 
+     * process table.
+     *
+     **/
+    readonly attribute string id;
+
+    /**
+     * pause:
+     * Returns: %true if the request succeeded, %false otherwise.
+     *
+     * Request that the application temporarily stop sending events.
+     * In most cases this should pause the application's main event loop.
+     *
+     **/
+    boolean       pause ();
+
+    /**
+     * resume:
+     * Returns: %true if the request succeeded, %false otherwise.
+     *
+     * Request that the application resume sending events.
+     *
+     **/
+    boolean       resume ();
+  };
+};
+
+#if !defined(__ACCESSIBILITY_APPLICATION_COMPILATION) && defined(__ORBIT_IDL__)
+#pragma inhibit pop
+#endif
+
+#endif

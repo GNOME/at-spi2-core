@@ -1,0 +1,100 @@
+AC_INIT(idl/Accessible.idl)
+
+AT_SPI_MAJOR_VERSION=0
+AT_SPI_MINOR_VERSION=0
+AT_SPI_MICRO_VERSION=1
+AT_SPI_INTERFACE_AGE=0
+AT_SPI_BINARY_AGE=0
+AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
+AM_INIT_AUTOMAKE(at-spi, $AT_SPI_VERSION)
+AC_SUBST(AT_SPI_MAJOR_VERSION)
+AC_SUBST(AT_SPI_MINOR_VERSION)
+AC_SUBST(AT_SPI_MICRO_VERSION)
+AC_SUBST(AT_SPI_INTERFACE_AGE)
+AC_SUBST(AT_SPI_BINARY_AGE)
+
+# libtool versioning
+LT_RELEASE=$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION
+LT_CURRENT=`expr $AT_SPI_MICRO_VERSION - $AT_SPI_INTERFACE_AGE`
+LT_REVISION=$AT_SPI_INTERFACE_AGE
+LT_AGE=`expr $AT_SPI_BINARY_AGE - $AT_SPI_INTERFACE_AGE`
+LT_VERSION_INFO='-version-info ${LT_CURRENT}:${LT_REVISION}:${LT_AGE}'
+AC_SUBST(LT_VERSION_INFO)
+AC_SUBST(LT_RELEASE)
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+dnl Specify a header configuration file
+AM_CONFIG_HEADER(config.h)
+
+dnl Initialize maintainer mode
+AM_MAINTAINER_MODE
+
+AM_PROG_XML_I18N_TOOLS
+
+dnl Checks for programs
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_ISC_POSIX
+
+GNOME_COMMON_INIT
+GNOME_PLATFORM_GNOME_2(yes, force)
+GNOME_COMPILE_WARNINGS(maximum)
+
+dnl Initialize libtool
+AM_DISABLE_STATIC
+AM_PROG_LIBTOOL
+
+dnl internationalization support
+ALL_LINGUAS=""
+AM_GNOME2_GETTEXT
+
+dnl Checks for libraries
+PKG_CHECK_MODULES(LIBSPI, oaf-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
+AC_SUBST(LIBSPI_LIBS)
+AC_SUBST(LIBSPI_CFLAGS)
+
+PKG_CHECK_MODULES(REGISTRYD, oaf-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 atk >= 0.2)
+AC_SUBST(REGISTRYD_LIBS)
+AC_SUBST(REGISTRYD_CFLAGS)
+
+PKG_CHECK_MODULES(TESTS, oaf-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 atk >= 0.2)
+AC_SUBST(TESTS_LIBS)
+AC_SUBST(TESTS_CFLAGS)
+
+dnl orbit-idl.
+ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
+AC_SUBST(ORBIT_IDL)
+
+dnl Bonobo and OAF idl files
+OAF_IDL_DIR="`$PKG_CONFIG --variable=idldir oaf-2.0`"
+LIBBONOBO_IDL_DIR="`$PKG_CONFIG --variable=idldir libbonobo-2.0`"
+AC_SUBST(OAF_IDL_DIR)
+AC_SUBST(LIBBONOBO_IDL_DIR)
+
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
+AC_SUBST(LDFLAGS)
+
+AC_OUTPUT([
+Makefile
+po/Makefile.in
+intl/Makefile
+docs/Makefile
+idl/Makefile
+libspi/Makefile
+registryd/Makefile
+registryd/Accessibility_Registry.oaf
+test/Makefile
+])
+
+echo "AT-SPI setup:
+
+	Source code location:	${srcdir}
+	Compiler:		${CC} 
+	Prefix:			${prefix}
+
+	Welcome to the wonderful world of Accessibility.
+	   http://developer.gnome.org/projects/gap/
+"
