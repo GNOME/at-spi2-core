@@ -79,6 +79,7 @@ create_test_window (void)
 	TestWindow *win = g_new0 (TestWindow, 1);
 	GtkWidget  *widget, *vbox;
 	GtkListStore *store;
+	GtkTreeViewColumn *column;
 	GtkTreeIter iter;
 
 	win->magic  = WINDOW_MAGIC;
@@ -98,10 +99,14 @@ create_test_window (void)
 	gtk_range_set_range (GTK_RANGE (widget), 0.0, 100.0);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
-	store = gtk_list_store_new (1, G_TYPE_INT);
-	widget = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	store = gtk_list_store_new (1, G_TYPE_STRING);
 	gtk_list_store_append (store, &iter);
-	gtk_list_store_set (store, &iter, 0, 100, -1);
+	gtk_list_store_set (store, &iter, 0, TEST_STRING_A, -1); 
+	column = gtk_tree_view_column_new_with_attributes ("String",
+	        gtk_cell_renderer_text_new (), "text", 0, NULL);
+	widget = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store)); 
+	g_object_unref (G_OBJECT (store));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (widget), column);
 	test_window_add_and_show (GTK_CONTAINER (vbox), widget);
 
 	g_idle_add ((GSourceFunc) focus_me, win->window);
@@ -213,7 +218,7 @@ test_table (AccessibleTable *table)
 
 	rows = AccessibleTable_getNRows (table);
 	g_assert (rows > 0);
-#if 0	
+
 	columns = AccessibleTable_getNColumns (table);
 	g_assert (columns > 0); /* weird that this fails, surely a bug ? */
 
@@ -225,7 +230,7 @@ test_table (AccessibleTable *table)
 
 	g_assert (AccessibleTable_getColumnHeader (table, 0));
                   /* maybe bogus assertion */
-#endif
+
 	AccessibleTable_isSelected (table, 0, 0);
                   /* no assertion, but see if warnings are thrown */
 	

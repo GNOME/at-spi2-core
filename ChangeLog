@@ -4,8 +4,8 @@
 	* test/test-simple.c:
 	Added test_table (GtkTreeView widget in test window to follow).
 	Un-commented test_value, added GtkRange widget.
-	Added GtkTreeView widget with GtkListStore, but it does not
-	pass regression test yet (test is now partially commented out).
+	Added GtkTreeView widget with GtkListStore.  It passes regression
+	test but leaks one SPI object for some reason.
 
 	* libspi/value.c:
 	Fixed bug in impl__set_currentValue.
