@@ -1,20 +1,21 @@
+# translation of pa.po to Punjabi
 # Copyright (C) 2004 THE atk.HEAD'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the atk.HEAD package.
 # Amanpreet Singh Alam <amanlinux@netscape.net>, 2004.
-# , fuzzy
-# 
-# 
+# Amanpreet Singh Alam <aalam@redhat.com>, 2004.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD VERSION\n"
+"Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-23 20:30+0530\n"
-"PO-Revision-Date: 2004-06-14 20:39+0530\n"
-"Last-Translator: Amanpreet Singh Alam <amanlinux@netscape.net>\n"
-"Language-Team: Punjabi <punlinux-i18n@lists.sourceforge.>\n"
+"PO-Revision-Date: 2004-07-22 10:56+0530\n"
+"Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
+"Language-Team: Punjabi <pa@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -102,11 +103,11 @@ msgstr "ਮਿਤੀ-ਸੋਧਕ"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "ਵਿਹਡ਼ਾ ਆਇਕਾਨ"
+msgstr "ਵਿਹੜਾ ਆਇਕਾਨ"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
-msgstr "ਵਿਹਡ਼ਾ ਫਰੇਮ"
+msgstr "ਵਿਹੜਾ ਫਰੇਮ"
 
 #: atk/atkobject.c:97
 msgid "dial"
@@ -259,7 +260,7 @@ msgstr "ਵੱਖ ਪੱਟੀ"
 
 #: atk/atkobject.c:135
 msgid "spin button"
-msgstr "ਘੁਮਾਉ ਬਟਨ"
+msgstr "ਘੁੰਮਾਉ ਬਟਨ"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
@@ -299,7 +300,7 @@ msgstr "ਟਾਗਲ ਬਟਨ"
 
 #: atk/atkobject.c:145
 msgid "tool bar"
-msgstr "ਸੰਦਖਾਨਾ"
+msgstr "ਸੰਦਪੱਟੀ"
 
 #: atk/atkobject.c:146
 msgid "tool tip"
@@ -331,7 +332,7 @@ msgstr "ਸਿਰਲੇਖ"
 
 #: atk/atkobject.c:153
 msgid "footer"
-msgstr "ਫੁਟਰ"
+msgstr "ਫੁੱਟਰ"
 
 #: atk/atkobject.c:154
 msgid "paragraph"
@@ -351,11 +352,11 @@ msgstr "ਸੋਧ ਪੱਟੀ"
 
 #: atk/atkobject.c:295
 msgid "Accessible Name"
-msgstr "ਪਹੁੰਚ ਨਾਉ"
+msgstr "ਪਹੁੰਚ ਨਾਂ"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "ਆਬਜੈਕਟ ਮੌਜੂਦ ਦਾ ਨਾਉ ਫਾਰਮਿਟ ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ"
+msgstr "ਆਬਜੈਕਟ ਮੌਜੂਦ ਦਾ ਨਾਂ ਫਾਰਮਿਟ ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
@@ -407,15 +408,15 @@ msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਐਮਡੀਆਈ"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
-msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਉ"
+msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਂ"
 
 #: atk/atkobject.c:353
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਉ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ; ਇਹ ਵਿਸ਼ੇਸਤਾਤਬਦੀਲ ਨਹੀ ਹੋਣੀ "
-"ਚਾਹੀਦੀ ਹੈ । ਪਹੁੰਚ-ਸਾਰਣੀ-ਨਾਉ-ਆਬਜੈਕਟ ਵਰਤੋ"
+"ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਂ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ; ਇਹ ਵਿਸ਼ੇਸਤਾ ਤਬਦੀਲ ਨਹੀ ਹੋਣੀ "
+"ਚਾਹੀਦੀ ਹੈ । ਪਹੁੰਚ-ਸਾਰਣੀ-ਨਾਂ-ਆਬਜੈਕਟ ਵਰਤੋ"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
@@ -459,11 +460,11 @@ msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ �
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
-msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਉ ਆਬਜੈਕਟ"
+msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਂ ਆਬਜੈਕਟ"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਉ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
+msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਂ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ"
 
 #: atk/atkobject.c:401
 msgid "Number of Accessible Hypertext Links"
@@ -472,3 +473,4 @@ msgstr "ਪਹੁੰਚਯੋਗ ਹਾਈਪਰਟੈਕਸਟ ਸੰਬੰਧ 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
 msgstr "ਮੌਜੂਦਾ ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਵਿੱਚ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
+
