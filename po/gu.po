@@ -6,16 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-05 03:01+0200\n"
-"PO-Revision-Date: 2004-08-05 10:23+0530\n"
+"POT-Creation-Date: 2004-10-11 12:11+0200\n"
+"PO-Revision-Date: 2004-10-25 18:24+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
-"<magnet@magnet-i.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"<magnet@magnet-i.com>\n"
 "X-Generator: KBabel 1.3.1\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -184,7 +185,7 @@ msgstr "મેનુ"
 
 #: atk/atkobject.c:116
 msgid "menu bar"
-msgstr "મેનુુ પટ્ટી"
+msgstr "મેનુ પટ્ટી"
 
 #: atk/atkobject.c:117
 msgid "menu item"
@@ -419,7 +420,7 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે; આ ગુણધર્મનો ઉપયોગ થવો જોઇએનહિ. "
+"શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે; આ ગુણધર્મનો ઉપયોગ થવો જોઇએ નહિ. "
 "તેની જગ્યાએ પ્રાપ્ત થઇ શકે તેવુ-કોષ્ટક-નામ-વસ્તુ વાપરવુ જોઇએ"
 
 #: atk/atkobject.c:360
