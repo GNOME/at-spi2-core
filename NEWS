@@ -1,5 +1,18 @@
 (top)
 in HEAD:
+This is the gnome-2.6 beta release of at-spi.
+What's new in at-spi-1.3.15:
+
+* translations:
+	sr@ije Danilo Segan
+	pa     Guntupalli Karunakar
+
+What's new in at-spi-1.3.14:
+
+* reduced debug output in normal usage.  Don't PRIT_LEAKS
+  unless DEBUG_OBJECTS is #defined.  Reduces SEGVs when reporting
+  on noncritical refcount issues.
+
 What's new in at-spi-1.3.13:
 
 * Build improvements: Requires automake-1.7, and calls GTK_DOC_CHECK.
