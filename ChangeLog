@@ -1,3 +1,7 @@
+Thu May  3 08:38:24 2001  Owen Taylor  <otaylor@redhat.com>
+
+	* atk/atkobject.c: Add missing include of <string.h> for strcmp.
+
 Tue Apr 25 10:10:00 2001  Padraig Obriain <padraig.obriain@sun.com>
 
         * Start a ChangeLog

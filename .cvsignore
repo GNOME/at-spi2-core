@@ -1,0 +1,14 @@
+config.log
+config.h
+config.h.in
+libtool
+config.status
+Makefile
+Makefile.in
+aclocal.m4
+configure
+config.cache
+atk.pc
+missing
+install-sh
+mkinstalldirs
