@@ -74,13 +74,14 @@ atk_relation_set_new (void)
 
 /**
  * atk_relation_set_contains:
- * @set: a #AtkRelationSet
- * @relationship: a #AtkRelationType
+ * @set: an #AtkRelationSet
+ * @relationship: an #AtkRelationType
  *
  * Determines whether the relation set contains a relation that matches the
  * specified type.
  *
- * Returns: %TRUE if @relationtype is the relationship type of a relation in @set.
+ * Returns: %TRUE if @relationship is the relationship type of a relation
+ * in @set, %FALSE otherwise
  **/
 gboolean
 atk_relation_set_contains (AtkRelationSet   *set,
@@ -107,11 +108,11 @@ atk_relation_set_contains (AtkRelationSet   *set,
 
 /**
  * atk_relation_set_remove:
- * @set: a #AtkRelationSet
- * @relation: a #AtkRelation
+ * @set: an #AtkRelationSet
+ * @relation: an #AtkRelation
  *
  * Removes a relation from the relation set.
- * This function unref's the AtkRelation so it will be deleted unless there
+ * This function unref's the #AtkRelation so it will be deleted unless there
  * is another reference to it.
  **/
 void
@@ -136,8 +137,8 @@ atk_relation_set_remove (AtkRelationSet *set,
 
 /**
  * atk_relation_set_add:
- * @set: a #AtkRelationSet
- * @relation: a #AtkRelation
+ * @set: an #AtkRelationSet
+ * @relation: an #AtkRelation
  *
  * Add a new relation to the current relation set if it is not already
  * present.
@@ -163,11 +164,11 @@ atk_relation_set_add (AtkRelationSet *set,
 
 /**
  * atk_relation_set_get_n_relations:
- * @set: a #AtkRelationSet
+ * @set: an #AtkRelationSet
  *
  * Determines the number of relations in a relation set.
  *
- * Returns: a gint representing the number of relations in the set.
+ * Returns: an integer representing the number of relations in the set.
  **/
 gint
 atk_relation_set_get_n_relations (AtkRelationSet *set)
@@ -183,7 +184,7 @@ atk_relation_set_get_n_relations (AtkRelationSet *set)
 
 /**
  * atk_relation_set_get_relation
- * @set: a #AtkRelationSet
+ * @set: an #AtkRelationSet
  * @i: a gint representing a position in the set, starting from 0.
  *
  * Determines the relation at the specified position in the relation set.
@@ -213,12 +214,12 @@ atk_relation_set_get_relation (AtkRelationSet *set,
 
 /**
  * atk_relation_set_get_relation_by_type:
- * @set: a #AtkRelationSet
- * @relationship: a #AtkRelationType
+ * @set: an #AtkRelationSet
+ * @relationship: an #AtkRelationType
  *
  * Finds a relation that matches the specified type.
  *
- * Returns: a #AtkRelation, which is a relation matching the specified type.
+ * Returns: an #AtkRelation, which is a relation matching the specified type.
  **/
 AtkRelation*
 atk_relation_set_get_relation_by_type (AtkRelationSet  *set,

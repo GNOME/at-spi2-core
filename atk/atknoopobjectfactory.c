@@ -68,12 +68,12 @@ atk_no_op_object_factory_class_init (AtkNoOpObjectFactoryClass *klass)
 }
 
 /**
- *atk_no_op_object_factory_new:
+ * atk_no_op_object_factory_new:
  *
- *Creates an instance of an #AtkObjectFactory which generates primitive
- *(non-functioning) #AtkObjects. 
+ * Creates an instance of an #AtkObjectFactory which generates primitive
+ * (non-functioning) #AtkObjects. 
  *
- *Returns: an instance of an #AtkObjectFactory
+ * Returns: an instance of an #AtkObjectFactory
  **/
 AtkObjectFactory* 
 atk_no_op_object_factory_new ()

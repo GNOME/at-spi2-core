@@ -198,11 +198,6 @@ atk_object_init  (AtkObject        *accessible,
 {
 }
 
-/**
- *atk_implementor_get_type:
- *
- *Returns: a #GType
- **/
 GType
 atk_implementor_get_type (void)
 {
@@ -225,7 +220,7 @@ atk_implementor_get_type (void)
 
 /**
  * atk_object_get_name:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets the accessible name of the accessible
  *
@@ -248,11 +243,12 @@ atk_object_get_name (AtkObject *accessible)
 
 /**
  * atk_object_get_description:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets the accessible description of the accessible
  *
- * Returns: a character string representing the accessible description of the accessible.
+ * Returns: a character string representing the accessible description
+ * of the accessible.
  *
  **/
 G_CONST_RETURN gchar*
@@ -272,11 +268,11 @@ atk_object_get_description (AtkObject *accessible)
 
 /**
  * atk_object_get_parent:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
- * Gets the accessible description of the accessible
+ * Gets the accessible parent of the accessible
  *
- * Returns: a #AtkObject representing the accessible parent of the accessible.
+ * Returns: a #AtkObject representing the accessible parent of the accessible
  **/
 AtkObject*
 atk_object_get_parent (AtkObject *accessible)
@@ -295,11 +291,12 @@ atk_object_get_parent (AtkObject *accessible)
 
 /**
  * atk_object_get_n_accessible_children:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets the number of accessible children of the accessible
  *
- * Returns: a gint representing the number of accessible children of the accessible.
+ * Returns: an integer representing the number of accessible children
+ * of the accessible.
  **/
 gint
 atk_object_get_n_accessible_children (AtkObject *accessible)
@@ -318,14 +315,15 @@ atk_object_get_n_accessible_children (AtkObject *accessible)
 
 /**
  * atk_object_ref_accessible_child:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  * @i: a gint representing the position of the child, starting from 0
  *
  * Gets a reference to the specified accessible child of the object.
  * The accessible children are 0-based so the first accessible child is
  * at index 0, the second at index 1 and so on.
  *
- * Returns: a #AtkObject representing the specified accessible child of the accessible.
+ * Returns: an #AtkObject representing the specified accessible child
+ * of the accessible.
  **/
 AtkObject*
 atk_object_ref_accessible_child (AtkObject   *accessible,
@@ -345,11 +343,11 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
 
 /**
  * atk_object_ref_relation_set:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets the RelationSet associated with the object
  *
- * Returns: a #AtkRelationSet representing the relation set of the object.
+ * Returns: an #AtkRelationSet representing the relation set of the object.
  **/
 AtkRelationSet*
 atk_object_ref_relation_set (AtkObject *accessible)
@@ -370,7 +368,7 @@ atk_object_ref_relation_set (AtkObject *accessible)
  * atk_role_register:
  * @name: a character string describing the new role.
  *
- * Returns: a #AtkRole value for the new role.
+ * Returns: an #AtkRole for the new role.
  **/
 AtkRole
 atk_role_register (const gchar *name)
@@ -382,11 +380,11 @@ atk_role_register (const gchar *name)
 
 /**
  * atk_object_get_role:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets the role of the accessible
  *
- * Returns: a #AtkRole which is the role of the accessible
+ * Returns: an #AtkRole which is the role of the accessible
  **/
 AtkRole
 atk_object_get_role (AtkObject *accessible) {
@@ -404,12 +402,13 @@ atk_object_get_role (AtkObject *accessible) {
 
 /**
  * atk_object_ref_state_set:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets a reference to the state set of the accessible; the caller should
  * unreference it.
  *
- * Returns: a reference to a #AtkStateSet which is the state set of the accessible
+ * Returns: a reference to an #AtkStateSet which is the state
+ * set of the accessible
  **/
 AtkStateSet*
 atk_object_ref_state_set (AtkObject *accessible) {
@@ -427,12 +426,12 @@ atk_object_ref_state_set (AtkObject *accessible) {
 
 /**
  * atk_object_get_index_in_parent:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  *
  * Gets the 0-based index of this accessible in its parent; returns -1 if the
  * accessible does not have an accessible parent.
  *
- * Returns: a gint which is the index of the accessible in its parent
+ * Returns: an integer which is the index of the accessible in its parent
  **/
 gint
 atk_object_get_index_in_parent (AtkObject *accessible)
@@ -451,7 +450,7 @@ atk_object_get_index_in_parent (AtkObject *accessible)
 
 /**
  * atk_object_set_name:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  * @name: a character string to be set as the accessible name
  *
  * Sets the accessible name of the accessible
@@ -476,7 +475,7 @@ atk_object_set_name (AtkObject    *accessible,
 
 /**
  * atk_object_set_description:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  * @description : a character string to be set as the accessible description
  *
  * Sets the accessible description of the accessible
@@ -501,8 +500,8 @@ atk_object_set_description (AtkObject   *accessible,
 
 /**
  * atk_object_set_parent:
- * @accessible: a #AtkObject
- * @parent : a #AtkObject to be set as the accessible parent
+ * @accessible: an #AtkObject
+ * @parent : an #AtkObject to be set as the accessible parent
  *
  * Sets the accessible parent of the accessible
  **/
@@ -522,8 +521,8 @@ atk_object_set_parent (AtkObject *accessible,
 
 /**
  * atk_object_set_role:
- * @accessible: a #AtkObject
- * @role : a #AtkRole to be set as the role
+ * @accessible: an #AtkObject
+ * @role : an #AtkRole to be set as the role
  *
  * Sets the role of the accessible
  **/
@@ -543,12 +542,13 @@ atk_object_set_role (AtkObject *accessible,
 
 /**
  * atk_object_connect_property_change_handler:
- * @accessible: a #AtkObject
- * @handler : a #AtkPropertyChangeHandler, a function to be called when a property changes its value
+ * @accessible: an #AtkObject
+ * @handler : a function to be called when a property changes its value
  *
  * Specifies a function to be called when a property changes value.
  *
- * Returns: a guint which is the handler id used in atk_object_remove_property_change_handler
+ * Returns: a #guint which is the handler id used in 
+ * atk_object_remove_property_change_handler()
  **/
 guint
 atk_object_connect_property_change_handler (AtkObject *accessible,
@@ -569,7 +569,7 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
 
 /**
  * atk_object_remove_property_change_handler:
- * @accessible: a #AtkObject
+ * @accessible: an #AtkObject
  * @handler_id : a guint which identifies the handler to be removed.
  * 
  * Removes a property change handler.
@@ -590,14 +590,13 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
 
 /**
  * atk_implementor_ref_accessible:
- * @implementor: The GObject instance which should implement #AtkImplementorIface
+ * @implementor: The #GObject instance which should implement #AtkImplementorIface
  * if a non-null return value is required.
  * 
- * Returns a reference to an object's #AtkObject implementation, if
+ * Gets a reference to an object's #AtkObject implementation, if
  * the object implements #AtkObjectIface
  *
- * Returns: a reference to an object's #AtkObject implementation, if
- * the object implements #AtkObjectIface
+ * Returns: a reference to an object's #AtkObject implementation
  */
 AtkObject *
 atk_implementor_ref_accessible (AtkImplementor *object)

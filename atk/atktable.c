@@ -73,7 +73,7 @@ atk_table_ref_at (AtkTable *obj,
  * @row: a #gint representing a row in @table
  * @column: a #gint representing a column in @table
  *
- * Returns a #gint representing the index at the specified @row and @column,
+ * Gets a #gint representing the index at the specified @row and @column,
  * or 0 if value does not implement this interface.
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
@@ -106,7 +106,7 @@ atk_table_get_index_at (AtkTable *obj,
  * @table: a GObject instance that implements AtkTableInterface
  * @index: a #gint representing an index in @table
  *
- * Returns a #gint representing the row at the specified @index, or 0
+ * Gets a #gint representing the row at the specified @index, or 0
  * if the value does not implement this interface
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should
@@ -138,7 +138,7 @@ atk_table_get_row_at_index (AtkTable *obj,
  * @table: a GObject instance that implements AtkTableInterface
  * @index: a #gint representing an index in @table
  *
- * Returns a #gint representing the column at the specified @index, or 0
+ * Gets a #gint representing the column at the specified @index, or 0
  * if the value does not implement this interface
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should

@@ -41,16 +41,10 @@ atk_action_get_type ()
 
 /**
  * atk_action_do_action:
- * @action: a GObject instance that implements AtkActionIface
- * @i: a %gint indicating the action to be performed 
+ * @action: a #GObject instance that implements AtkActionIface
+ * @i: the action to be performed 
  *
- * This function would be called by an application with
- * the argument being a AtkObject object cast to (AtkAction).
- * The function will just check that * the corresponding
- * function pointer is not NULL and will call it.
- * The "real" implementation of the function for accessible will be
- * provided in a support library
- *
+ * Perform the specified action on the object
  **/
 void
 atk_action_do_action (AtkAction *obj,
@@ -69,18 +63,14 @@ atk_action_do_action (AtkAction *obj,
 
 /**
  * atk_action_get_n_actions:
- * @action: a GObject instance that implements AtkActionIface
- *
+ * @action: a #GObject instance that implements AtkActionIface
  * 
- * This function would be called by an application with
- * the argument being a AtkObject object cast to (AtkAction).
- * The function will just check that * the corresponding
- * function pointer is not NULL and will call it.
- * The "real" implementation of the function for accessible will be
- * provided in a support library
+ * Gets the number of accessible actions available on the object.
+ * If there are more than one, the first one is considered the
+ * "default" action of the object.
  *
- * Returns a %gint representing the number of actions , or 0
- * if value does not implement this interface.
+ * Returns: a the number of actions , or 0
+ * if @action does not implement this interface.
  **/
 gint
 atk_action_get_n_actions  (AtkAction *obj)
@@ -100,19 +90,13 @@ atk_action_get_n_actions  (AtkAction *obj)
 
 /**
  * atk_action_get_description:
- * @action: a GObject instance that implements AtkActionIface
+ * @action: a #GObject instance that implements AtkActionIface
  * @i: a %gint indicating the action
  *
- * 
- * This function would be called by an application with
- * the argument being a AtkObject object cast to (AtkAction).
- * The function will just check that * the corresponding
- * function pointer is not NULL and will call it.
- * The "real" implementation of the function for accessible will be
- * provided in a support library
+ * Returns a description of the specified action of the object
  *
- * Returns a #gchar representing the description, or %NULL
- * if value does not implement this interface.
+ * Returns a description string, or %NULL
+ * if @action does not implement this interface.
  **/
 G_CONST_RETURN gchar*
 atk_action_get_description (AtkAction *obj,
@@ -133,18 +117,12 @@ atk_action_get_description (AtkAction *obj,
 
 /**
  * atk_action_get_keybinding:
- * @action: a GObject instance that implements AtkActionIface
+ * @action: a #GObject instance that implements AtkActionIface
  * @i: a %gint indicating the action
  *
- * 
- * This function would be called by an application with
- * the argument being a AtkObject object cast to (AtkAction).
- * The function will just check that * the corresponding
- * function pointer is not NULL and will call it.
- * The "real" implementation of the function for accessible will be
- * provided in a support library
+ * Returns a keybinding associated with this action, if one exists.
  *
- * Returns a #gchar representing the keybinding, or %NULL
+ * Returns a string representing the keybinding, or %NULL
  * if there is no keybinding for this action.
  *
  **/

@@ -57,16 +57,16 @@ atk_object_factory_class_init (AtkObjectFactoryClass *klass)
 }
 
 /**
- *atk_object_factory_create_accessible:
- *@factory: The #AtkObjectFactory associated with @obj's
- *object type
- *@obj: a #GObject 
+ * atk_object_factory_create_accessible:
+ * @factory: The #AtkObjectFactory associated with @obj's
+ * object type
+ * @obj: a #GObject 
  * 
- *Provides a #AtkObject that implements an accessability interface 
- *on behalf of @obj
+ * Provides an #AtkObject that implements an accessability interface 
+ * on behalf of @obj
  *
- *Returns: an #AtkObject that implements an accessability interface
- *on behalf of @obj
+ * Returns: an #AtkObject that implements an accessability interface
+ * on behalf of @obj
  **/
 AtkObject* 
 atk_object_factory_create_accessible (AtkObjectFactory *factory,
@@ -90,13 +90,13 @@ atk_object_factory_create_accessible (AtkObjectFactory *factory,
 } 
 
 /**
- *atk_object_factory_invalidate:
- *@factory: an #AtkObjectFactory
+ * atk_object_factory_invalidate:
+ * @factory: an #AtkObjectFactory to invalidate
  *
- *Inform @factory that it is no longer being used to create
+ * Inform @factory that it is no longer being used to create
  * accessables. When called, @factory may need to inform
- * #AtkObject's which it has created that they need to be re-instantiated.
- * Note: primarily used for runtime replacement of #AtkObjectFactory's
+ * #AtkObjects which it has created that they need to be re-instantiated.
+ * Note: primarily used for runtime replacement of #AtkObjectFactorys
  * in object registries.
  **/
 void 

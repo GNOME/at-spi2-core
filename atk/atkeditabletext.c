@@ -49,12 +49,15 @@ atk_editable_text_get_type ()
 
 
 /**
- *atk_editable_text_select_text:
- *@text: an #AtkEditableText
- *@start_pos: start position
- *@end_pos: end position
+ * atk_editable_text_select_text:
+ * @text: an #AtkEditableText
+ * @start_pos: start position
+ * @end_pos: end position
  *
- *Select text between @start_pos and @end_pos
+ * Select text between @start_pos and @end_pos. The characters that are selected
+ * are those characters at positions from @start_pos up to, but not including
+ * @end_pos. If @end_pos is negative, then the characters selected 
+ * will be those characters from start_pos to the end of the text.
  **/
 void 
 atk_editable_text_select_text (AtkEditableText  *text,
@@ -73,13 +76,17 @@ atk_editable_text_select_text (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_set_attributes:
- *@text: an #AtkEditableText
- *@start_pos: start position
- *@end_pos: end position
- *@attributes: a #PangoAttrList to set for @text
+ * atk_editable_text_set_attributes:
+ * @text: an #AtkEditableText
+ * @start_pos: start position
+ * @end_pos: end position
+ * @attributes: a #PangoAttrList to set for text between @start_pos and @end_pos
  *
- *Set attributes for text between @start_pos and @end_pos
+ * Set attributes for text between @start_pos and @end_pos.  The characters
+ * whose attributes are set are those characters at positions from @start_pos
+ * up to, but not including @end_pos. If @end_pos is negative, then the
+ * characters selected will be those characters from start_pos to 
+ * the end of the text.
  **/
 void 
 atk_editable_text_set_attributes (AtkEditableText  *text,
@@ -99,11 +106,11 @@ atk_editable_text_set_attributes (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_set_text_contents:
- *@text: an #AtkEditableText
- *@string: string to set for text contents of @text
+ * atk_editable_text_set_text_contents:
+ * @text: an #AtkEditableText
+ * @string: string to set for text contents of @text
  *
- *Set text contents of @text
+ * Set text contents of @text
  **/
 void 
 atk_editable_text_set_text_contents (AtkEditableText  *text,
@@ -121,14 +128,15 @@ atk_editable_text_set_text_contents (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_insert_text:
- *@text: an #AtkEditableText
- *@string: a #gchar string to insert
- *@length: number of characters to insert @string
- *@position: position at which to insert @string
+ * atk_editable_text_insert_text:
+ * @text: an #AtkEditableText
+ * @string: the text to insert
+ * @length: the length of text to insert, in bytes
+ * @position: The caller initializes this to 
+ * the position at which to insert the text. After the call it
+ * points at the position after the newly inserted text.
  *
- *Insert @length characters of @string into text contents
- * of @text at position @position 
+ * Insert text at a given position
  **/
 void 
 atk_editable_text_insert_text (AtkEditableText  *text,
@@ -148,12 +156,13 @@ atk_editable_text_insert_text (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_copy_text:
- *@text: an #AtkEditableText
- *@start_pos: start position
- *@end_pos: end position
+ * atk_editable_text_copy_text:
+ * @text: an #AtkEditableText
+ * @start_pos: start position
+ * @end_pos: end position
  *
- * Copy text between @start_pos and @end_pos
+ * Copy text from @start_pos up to, but not including @end_pos 
+ * to the clipboard.
  **/
 void 
 atk_editable_text_copy_text (AtkEditableText  *text,
@@ -172,12 +181,13 @@ atk_editable_text_copy_text (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_cut_text:
- *@text: an #AtkEditableText
- *@start_pos: start position
- *@end_pos: end position
+ * atk_editable_text_cut_text:
+ * @text: an #AtkEditableText
+ * @start_pos: start position
+ * @end_pos: end position
  *
- * Cut text between @start_pos and @end_pos
+ * Copy text from @start_pos up to, but not including @end_pos
+ * to the clipboard and then delete from the widget.
  **/
 void 
 atk_editable_text_cut_text  (AtkEditableText  *text,
@@ -196,12 +206,12 @@ atk_editable_text_cut_text  (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_delete_text:
- *@text: an #AtkEditableText
- *@start_pos: start position
- *@end_pos: end position
+ * atk_editable_text_delete_text:
+ * @text: an #AtkEditableText
+ * @start_pos: start position
+ * @end_pos: end position
  *
- * Delete text between @start_pos and @end_pos
+ * Delete text @start_pos up to, but not including @end_pos
  **/
 void 
 atk_editable_text_delete_text (AtkEditableText  *text,
@@ -220,11 +230,11 @@ atk_editable_text_delete_text (AtkEditableText  *text,
 }
 
 /**
- *atk_editable_text_paste_text:
- *@text: an #AtkEditableText
- *@position: position to paste
+ * atk_editable_text_paste_text:
+ * @text: an #AtkEditableText
+ * @position: position to paste
  *
- * Paste text at @position 
+ * Paste text from clipboard to specified @position 
  **/
 void 
 atk_editable_text_paste_text (AtkEditableText  *text,

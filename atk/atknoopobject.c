@@ -132,13 +132,13 @@ atk_no_op_object_class_init (AtkNoOpObjectClass *klass)
 }
 
 /**
- *atk_no_op_object_new:
- *@obj: a #GObject
+ * atk_no_op_object_new:
+ * @obj: a #GObject
  *
- *Provides a default (non-functioning stub) #AtkObject.
- *Application maintainers should not use this method. 
+ * Provides a default (non-functioning stub) #AtkObject.
+ * Application maintainers should not use this method. 
  *
- *Returns: a default (non-functioning stub) #AtkObject
+ * Returns: a default (non-functioning stub) #AtkObject
  **/
 AtkObject*
 atk_no_op_object_new (GObject *obj)

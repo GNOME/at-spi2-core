@@ -127,7 +127,7 @@ atk_value_get_minimum_value (AtkValue *obj,
  *
  * Sets the value of this object
  *
- * Returns: %true if new value is successfully set, %false otherwise.
+ * Returns: %TRUE if new value is successfully set, %FALSE otherwise.
  **/
 gboolean
 atk_value_set_current_value (AtkValue *obj, 

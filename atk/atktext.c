@@ -95,12 +95,12 @@ atk_text_base_init (gpointer *g_class)
 }
 
 /**
- *atk_text_get_text:
- *@text: an #AtkText
- *@start_offset: start position
- *@end_offset: end position
+ * atk_text_get_text:
+ * @text: an #AtkText
+ * @start_offset: start position
+ * @end_offset: end position
  *
- *Returns the text between @start_offset and @end_offset.
+ * Returns: the text from @start_offset up to, but not including @end_offset.
  **/
 gchar*
 atk_text_get_text (AtkText      *text,
@@ -121,11 +121,11 @@ atk_text_get_text (AtkText      *text,
 }
 
 /**
- *atk_text_get_character_at_offset
- *@text: an #AtkText
- *@offset: position
+ * atk_text_get_character_at_offset
+ * @text: an #AtkText
+ * @offset: position
  *
- *Returns the character at @offset.
+ * Returns: the character at @offset.
  **/
 gunichar
 atk_text_get_character_at_offset (AtkText      *text,
@@ -145,12 +145,12 @@ atk_text_get_character_at_offset (AtkText      *text,
 }
 
 /**
- *atk_text_get_text_after_offset
- *@text: an #AtkText
- *@offset: position
- *@boundary_type: An #AtkTextBoundary
+ * atk_text_get_text_after_offset
+ * @text: an #AtkText
+ * @offset: position
+ * @boundary_type: An #AtkTextBoundary
  *
- *Returns the text after @offset up to the specified @boundary_type.
+ * Returns: the text after @offset up to the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
@@ -171,12 +171,12 @@ atk_text_get_text_after_offset (AtkText          *text,
 }
 
 /**
- *atk_text_get_text_at_offset
- *@text: an #AtkText
- *@offset: position
- *@boundary_type: An #AtkTextBoundary
+ * atk_text_get_text_at_offset
+ * @text: an #AtkText
+ * @offset: position
+ * @boundary_type: An #AtkTextBoundary
  *
- *Returns the text at @offset up to the specified @boundary_type.
+ * Returns: the text at @offset up to the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
@@ -197,12 +197,12 @@ atk_text_get_text_at_offset (AtkText          *text,
 }
 
 /**
- *atk_text_get_text_before_offset
- *@text: an #AtkText
- *@offset: position
- *@boundary_type: An #AtkTextBoundary
+ * atk_text_get_text_before_offset
+ * @text: an #AtkText
+ * @offset: position
+ * @boundary_type: An #AtkTextBoundary
  *
- *Returns the text before @offset up to the specified @boundary_type.
+ * Returns: the text before @offset up to the specified @boundary_type.
  **/
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
@@ -223,10 +223,10 @@ atk_text_get_text_before_offset (AtkText          *text,
 }
 
 /**
- *atk_text_get_caret_offset
- *@text: an #AtkText
+ * atk_text_get_caret_offset
+ * @text: an #AtkText
  *
- *Returns the position of the caret (cursor).
+ * Returns: the position of the caret (cursor).
  **/
 gint
 atk_text_get_caret_offset (AtkText *text)
@@ -245,13 +245,13 @@ atk_text_get_caret_offset (AtkText *text)
 }
 
 /**
- *atk_text_get_row_col_at_offset
- *@text: an #AtkText
- *@offset: position
- *@row: row number
- *@col: column number
+ * atk_text_get_row_col_at_offset
+ * @text: an #AtkText
+ * @offset: position
+ * @row: row number
+ * @col: column number
  *
- *Given an @offset, the @row and @col arguments are filled appropriately.
+ * Given an @offset, the @row and @col arguments are filled appropriately.
  **/
 void
 atk_text_get_row_col_at_offset (AtkText *text,
@@ -276,13 +276,13 @@ atk_text_get_row_col_at_offset (AtkText *text,
 }
 
 /**
- *atk_text_get_range_attributes
- *@text: an #AtkText
- *@start_offset: start position
- *@end_offset: end position
+ * atk_text_get_range_attributes
+ * @text: an #AtkText
+ * @start_offset: start position
+ * @end_offset: end position
  *
- *Returns a #PangoAttrList with the text attributes between the
- *@start_offset and the @end_offset.
+ * Returns a #PangoAttrList with the text attributes between the
+ * @start_offset and the @end_offset.
  **/
 PangoAttrList*
 atk_text_get_range_attributes (AtkText *text,
@@ -303,16 +303,16 @@ atk_text_get_range_attributes (AtkText *text,
 }
 
 /**
- *atk_text_get_character_extents
- *@text: an #AtkText
- *@offset: position
- *@x: x-position of character
- *@y: y-position of character
- *@length: length of character
- *@width: width of character
+ * atk_text_get_character_extents
+ * @text: an #AtkText
+ * @offset: position
+ * @x: x-position of character
+ * @y: y-position of character
+ * @length: length of character
+ * @width: width of character
  *
- *Given an @offset, the @x, @y, @length, and @width values are filled
- *appropriately.
+ * Given an @offset, the @x, @y, @length, and @width values are filled
+ * appropriately.
  **/
 void
 atk_text_get_character_extents (AtkText *text,
@@ -341,10 +341,10 @@ atk_text_get_character_extents (AtkText *text,
 }
 
 /**
- *atk_text_get_character_count
- *@text: an #AtkText
+ * atk_text_get_character_count
+ * @text: an #AtkText
  *
- *Returns the number of characters.
+ * Returns: the number of characters.
  **/
 gint
 atk_text_get_character_count (AtkText *text)
@@ -363,13 +363,13 @@ atk_text_get_character_count (AtkText *text)
 }
 
 /**
- *atk_text_get_offset_at_point
- *@text: an #AtkText
- *@x: x-position of character
- *@y: y-position of character
+ * atk_text_get_offset_at_point
+ * @text: an #AtkText
+ * @x: x-position of character
+ * @y: y-position of character
  *
- *Returns the offset to the character which is located at
- *the specified @x and @y coordinates.
+ * Returns: the offset to the character which is located at
+ * the specified @x and @y coordinates.
  **/
 gint
 atk_text_get_offset_at_point (AtkText *text,
@@ -390,10 +390,10 @@ atk_text_get_offset_at_point (AtkText *text,
 }
 
 /**
- *atk_text_get_selected_text
- *@text: an #AtkText
+ * atk_text_get_selected_text
+ * @text: an #AtkText
  *
- *Returns the selected text.
+ * Returns: the selected text.
  **/
 gchar*
 atk_text_get_selected_text (AtkText *text)
@@ -412,13 +412,13 @@ atk_text_get_selected_text (AtkText *text)
 }
 
 /**
- *atk_text_get_selection_bounds
- *@text: an #AtkText
- *@start_offset: start position
- *@end_offset: end position
+ * atk_text_get_selection_bounds
+ * @text: an #AtkText
+ * @start_offset: start position
+ * @end_offset: end position
  *
- *@start_offset and @end_offset are filled with the
- *current selection bounds.
+ * @start_offset and @end_offset are filled with the
+ * current selection bounds.
  **/
 void
 atk_text_get_selection_bounds (AtkText *text,
@@ -442,14 +442,15 @@ atk_text_get_selection_bounds (AtkText *text,
 }
 
 /**
- *atk_text_set_selection_bounds
- *@text: an #AtkText
- *@start_offset: start position
- *@end_offset: end position
+ * atk_text_set_selection_bounds
+ * @text: an #AtkText
+ * @start_offset: start position
+ * @end_offset: end position
  *
- *The selection bounds are set to the specified @start_offset
- *and @end_offset values.
- *Returns TRUE if success, FALSE otherwise.
+ * The selection bounds are set to the specified @start_offset
+ * and @end_offset values.
+ * 
+ * Returns: %TRUE if success, %FALSE otherwise.
  **/
 gboolean
 atk_text_set_selection_bounds (AtkText *text,
@@ -474,12 +475,13 @@ atk_text_set_selection_bounds (AtkText *text,
 }
 
 /**
- *atk_text_set_caret_offset
- *@text: an #AtkText
- *@offset: position
+ * atk_text_set_caret_offset
+ * @text: an #AtkText
+ * @offset: position
  *
- *Sets the caret (cursor) position to the specified @offset.
- *Returns TRUE if success, FALSE otherwise.
+ * Sets the caret (cursor) position to the specified @offset.
+ *
+ * Returns: %TRUE if success, %FALSE otherwise.
  **/
 gboolean
 atk_text_set_caret_offset (AtkText *text,

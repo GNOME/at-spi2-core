@@ -79,11 +79,11 @@ atk_state_set_new (void)
 
 /**
  * atk_state_set_is_empty:
- * @set: a #AtkStateType
+ * @set: an #AtkStateType
  *
  * Checks whether the state set is empty, i.e. has no states set.
  *
- * Returns: %TRUE if @set has no states set
+ * Returns: %TRUE if @set has no states set, otherwise %FALSE
  **/
 gboolean
 atk_state_set_is_empty (AtkStateSet   *set)
@@ -102,8 +102,8 @@ atk_state_set_is_empty (AtkStateSet   *set)
 
 /**
  * atk_state_set_add_state:
- * @set: a #AtkStateSet
- * @type: a #AtkStateType
+ * @set: an #AtkStateSet
+ * @type: an #AtkStateType
  *
  * Add a new state for the specified type to the current state set if
  * it is not already present
@@ -130,8 +130,8 @@ atk_state_set_add_state (AtkStateSet   *set,
 }
 /**
  * atk_state_set_add_states:
- * @set: a #AtkStateSet
- * @types: a array of #AtkStateType
+ * @set: an #AtkStateSet
+ * @types: an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
  * Add the states for the specified types to the current state set
@@ -156,7 +156,7 @@ atk_state_set_add_states (AtkStateSet   *set,
 
 /**
  * atk_state_set_clear_states:
- * @set: a #AtkStateSet
+ * @set: an #AtkStateSet
  *
  * Removes all states from the state set.
  **/
@@ -174,8 +174,8 @@ atk_state_set_clear_states (AtkStateSet   *set)
 
 /**
  * atk_state_set_contains_state:
- * @set: a #AtkStateSet
- * @type: a #AtkStateType
+ * @set: an #AtkStateSet
+ * @type: an #AtkStateType
  *
  * Checks whether the state for the specified type is in the specified set.
  *
@@ -199,8 +199,8 @@ atk_state_set_contains_state (AtkStateSet   *set,
 
 /**
  * atk_state_set_contains_states:
- * @set: a #AtkStateSet
- * @types: a array of #AtkStateType
+ * @set: an #AtkStateSet
+ * @types: an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
  * Checks whether the states for all the specified types are in the 
@@ -230,8 +230,8 @@ atk_state_set_contains_states (AtkStateSet   *set,
 
 /**
  * atk_state_set_remove_state:
- * @set: a #AtkStateSet
- * @type: a #AtkType
+ * @set: an #AtkStateSet
+ * @type: an #AtkType
  *
  * Removes the state for the specified type from the state set.
  *
@@ -258,10 +258,10 @@ atk_state_set_remove_state (AtkStateSet  *set,
 
 /**
  * atk_state_set_and_sets:
- * @set: a #AtkStateSet
+ * @set: an #AtkStateSet
  * @compare_set: another #AtkStateSet
  *
- * Constructs the intersection of the two sets, returning NULL if the
+ * Constructs the intersection of the two sets, returning %NULL if the
  * intersection is empty.
  *
  * Returns: a new #AtkStateSet which is the intersection of the two sets.
@@ -293,7 +293,7 @@ atk_state_set_and_sets (AtkStateSet  *set,
 
 /**
  * atk_state_set_or_sets:
- * @set: a #AtkStateSet
+ * @set: an #AtkStateSet
  * @compare_set: another #AtkStateSet
  *
  * Constructs the union of the two sets.
@@ -326,12 +326,15 @@ atk_state_set_or_sets (AtkStateSet  *set,
 
 /**
  * atk_state_set_xor_sets:
- * @set: a #AtkStateSet
+ * @set: an #AtkStateSet
  * @compare_set: another #AtkStateSet
  *
- * Constructs the xor of the two sets, returing NULL is empty. The set returned by this operation contains the4 sattes in exactly one of the two sets.
+ * Constructs the xor of the two sets, returing %NULL is empty. The set 
+ * returned by this operation contains the4 sattes in exactly one of
+ * the two sets.
  *
- * Returns: a new #AtkStateSet which contains the states which are in exactly one of ht two sets.
+ * Returns: a new #AtkStateSet which contains the states which are 
+ * in exactly one of the two sets.
  **/
 AtkStateSet*
 atk_state_set_xor_sets (AtkStateSet  *set,

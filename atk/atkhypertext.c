@@ -51,10 +51,6 @@ atk_hypertext_get_type ()
   return type;
 }
 
-
-/*
- */
-
 static void
 atk_hypertext_interface_init (AtkHypertextIfaceClass *klass)
 {
@@ -62,14 +58,14 @@ atk_hypertext_interface_init (AtkHypertextIfaceClass *klass)
 }
 
 /**
- *atk_hypertext_get_link:
- *@hypertext: an #AtkHypertext
- *@link_index: the index of the link to be returned
+ * atk_hypertext_get_link:
+ * @hypertext: an #AtkHypertext
+ * @link_index: an integer specifying the desired link
  *
  * Gets the link in this hypertext document at index 
  * @link_index
  *
- *Returns: the link in this hypertext document at
+ * Returns: the link in this hypertext document at
  * index @link_index
  **/
 AtkHyperLink* 
@@ -90,12 +86,12 @@ atk_hypertext_get_link (AtkHypertext  *hypertext,
 }
 
 /**
- *atk_hypertext_get_n_links:
- *@hypertext: an #AtkHypertext
+ * atk_hypertext_get_n_links:
+ * @hypertext: an #AtkHypertext
  *
  * Gets the number of links within this hypertext document.
  *
- *Returns: the number of links within this hypertext document
+ * Returns: the number of links within this hypertext document
  **/
 gint 
 atk_hypertext_get_n_links (AtkHypertext  *hypertext)
@@ -114,17 +110,15 @@ atk_hypertext_get_n_links (AtkHypertext  *hypertext)
 }
 
 /**
- *atk_hypertext_get_link_index:
- *@hypertext: an #AtkHypertext
- *@char_index: a character index
+ * atk_hypertext_get_link_index:
+ * @hypertext: an #AtkHypertext
+ * @char_index: a character index
  *
  * Gets the index into the array of hyperlinks that is associated with
- * @char_index character index, or -1 if there is no hyperlink associated with
- * @char_index.
+ * the character specified by @cahr_index, or -1 if there is no hyperlink
+ * associated with this character.
  *
- * Returns: the index into the array of hyperlinks that is associated with
- * @char_index character index, or -1 if there is no hyperlink associated with
- * @char_index.
+ * Returns: an index into the array of hyperlinks in @hypertext
  **/
 gint 
 atk_hypertext_get_link_index (AtkHypertext  *hypertext,
