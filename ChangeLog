@@ -1,3 +1,9 @@
+2003-03-07  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c (atk_object_set_role): Add check that role is
+	actually being changed. Do not emit notification for initial
+	role setting. (bug #107710)
+
 2003-03-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkrelationset.c: Current returning of FALSE to 0 in function 
