@@ -142,10 +142,10 @@ atk-enum-types.h: s-enum-types-h
 
 s-enum-types-h: @REBUILD@ $(atk_headers) Makefile
 	( cd $(srcdir) && glib-mkenums \
-			--fhead "#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n" \
+			--fhead "#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
 			--fprod "/* enumerations from \"@filename@\" */\n" \
 			--vhead "GType @enum_name@_get_type (void);\n#define ATK_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n"         \
-			--ftail "#endif /* __ATK_ENUM_TYPES_H__ */" \
+			--ftail "G_END_DECLS\n\n#endif /* __ATK_ENUM_TYPES_H__ */" \
 		$(atk_headers) ) > tmp-atk-enum-types.h \
 	&& (cmp -s tmp-atk-enum-types.h $(srcdir)/atk-enum-types.h || cp tmp-atk-enum-types.h $(srcdir)/atk-enum-types.h ) \
 	&& rm -f tmp-atk-enum-types.h \

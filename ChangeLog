@@ -1,3 +1,9 @@
+Wed Jan  9 11:26:56 2002  Owen Taylor  <otaylor@redhat.com>
+
+	* atk/Makefile.am (s-enum-types-h):  Include glib-object.h,
+	Add G_BEGIN_DECLS/END_DECLS to atk-enum-types.h. (#68325,
+	Mikael Hermansson)
+
 2002-01-07  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkcomponent.c (atk_component_add_focus_handler):1
