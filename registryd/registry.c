@@ -671,23 +671,17 @@ registry_flush_event_queue (SpiRegistry       *registry,
   while (!g_queue_is_empty (registry->deferred_event_queue)) {
     q_ctx = g_queue_pop_tail (registry->deferred_event_queue);
 #ifdef SPI_QUEUE_DEBUG
-    fprintf (stderr, "%s! %s [n=%d] %p\n", (discard ? "discard" : "start pop"), 
+    fprintf (stderr, "%s! %s [n=%d] %p\n", (discard ? "discard" : "pop"), 
 	     q_ctx->etype.event_name, 
 	     (int) registry->deferred_event_queue->length, q_ctx);
 #endif
     if (!discard)  {
       q_ctx->ev = ev;
       registry_emit_event (registry, q_ctx);
-      fprintf (stderr, "%s! %s [n=%d], %p\n", (discard ? "discard" : "end pop"), 
-  	     q_ctx->etype.event_name, 
-	     (int) registry->deferred_event_queue->length, q_ctx);
     }
     bonobo_object_release_unref (q_ctx->source, NULL);
     CORBA_free ((void *)q_ctx->etype.event_name);
     CORBA_free ((void *)q_ctx->e_out.type);
-#if 0
-    bonobo_object_release_unref (q_ctx->e_out.source, NULL);
-#endif
     g_free (q_ctx);
   }
   registry->is_queueing = FALSE;
@@ -760,13 +754,9 @@ registry_queue_event (SpiRegistry *registry, NotifyContext *ctx)
   NotifyContext *q_ctx = registry_clone_notify_context (ctx);
 #ifdef SPI_QUEUE_DEBUG
     if (q_ctx->etype.type_cat != ETYPE_MOUSE)
-      fprintf (stderr, "start push! %s %p\n", q_ctx->etype.event_name, q_ctx);
+      fprintf (stderr, "push! %s %p\n", q_ctx->etype.event_name, q_ctx);
 #endif    
   g_queue_push_head (registry->deferred_event_queue, q_ctx);
-#ifdef SPI_QUEUE_DEBUG
-    if (q_ctx->etype.type_cat != ETYPE_MOUSE)
-      fprintf (stderr, "end push! %s %p\n", q_ctx->etype.event_name, q_ctx);
-#endif    
 }
 
 /**
