@@ -3,6 +3,7 @@
 	* cspi/spi.h:
 	* cspi/spi_registry.c:
 	* cspi/spi_event.c:
+	* cspi/cspi-bonobo-listener.c:
 	Namespaced all methods that did not begin with an "SPI_" or
 	"Accessible" prefix to "SPI_".  
 

@@ -7,11 +7,9 @@ idl:
 cspi: 
 	+ ensure spi-listener-impl's list notification methods don't
 	  have a re-enterancy hazard. [Michael]
-	+ namespace all methods missing a prepending Accessible
-	  or SPI_ prefix. [Bill]
 	+ Put LGPL headers everywhere.
 	+ Fix the conversion of Accessibility_Role CORBA enum to
-	AccessibleRole enums. [Bill]
+	  AccessibleRole enums. [Bill]
 
 registry:
 	+ move code into here from libspi [Michael]

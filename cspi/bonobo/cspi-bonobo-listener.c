@@ -21,7 +21,7 @@ GObjectClass *keystroke_parent_class;
  */
 
 static EventHandler *
-event_handler_new (gpointer method, gpointer user_data)
+cspi_event_handler_new (gpointer method, gpointer user_data)
 {
   EventHandler *eh = g_new0 (EventHandler, 1);
 
@@ -32,13 +32,13 @@ event_handler_new (gpointer method, gpointer user_data)
 }
 
 static void
-event_handler_free (EventHandler *handler)
+cspi_event_handler_free (EventHandler *handler)
 {
   g_free (handler);
 }
 
 static GList *
-event_list_remove_by_cb (GList *list, gpointer callback)
+cspi_event_list_remove_by_cb (GList *list, gpointer callback)
 {
   GList *l, *next;
 	
@@ -49,7 +49,7 @@ event_list_remove_by_cb (GList *list, gpointer callback)
       
       list = g_list_delete_link (list, l);
       
-      event_handler_free (eh);
+      cspi_event_handler_free (eh);
     }
 
   return list;
@@ -102,7 +102,7 @@ cspi_event_listener_finalize (GObject *object)
   
   for (l = listener->callbacks; l; l = l->next)
     {
-      event_handler_free (l->data);
+      cspi_event_handler_free (l->data);
     }
   
   g_list_free (listener->callbacks);
@@ -141,7 +141,7 @@ cspi_event_listener_add_cb (AccessibleEventListener  *al,
   g_return_if_fail (CSPI_IS_EVENT_LISTENER (listener));
 
   listener->callbacks = g_list_prepend (listener->callbacks,
-					event_handler_new (callback, user_data));
+					cspi_event_handler_new (callback, user_data));
 }
 
 void
@@ -152,7 +152,7 @@ cspi_event_listener_remove_cb (AccessibleEventListener  *al,
 
   g_return_if_fail (CSPI_IS_EVENT_LISTENER (listener));
 
-  listener->callbacks = event_list_remove_by_cb (listener->callbacks, callback);
+  listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, callback);
 }
 
 /*
@@ -225,7 +225,7 @@ cspi_keystroke_listener_finalize (GObject *object)
   
   for (l = listener->callbacks; l; l = l->next)
     {
-      event_handler_free (l->data);
+      cspi_event_handler_free (l->data);
     }
   
   g_list_free (listener->callbacks);
@@ -268,7 +268,7 @@ cspi_keystroke_listener_add_cb (AccessibleKeystrokeListener  *al,
   g_return_if_fail (CSPI_IS_KEYSTROKE_LISTENER (listener));
 
   listener->callbacks = g_list_prepend (listener->callbacks,
-					event_handler_new (callback, user_data));
+					cspi_event_handler_new (callback, user_data));
 }
 
 void
@@ -279,7 +279,7 @@ cspi_keystroke_listener_remove_cb (AccessibleKeystrokeListener  *al,
 
   g_return_if_fail (CSPI_IS_KEYSTROKE_LISTENER (listener));
 
-  listener->callbacks = event_list_remove_by_cb (listener->callbacks, callback);
+  listener->callbacks = cspi_event_list_remove_by_cb (listener->callbacks, callback);
 }
 
 void
