@@ -31,7 +31,7 @@ LDFLAGS =  \
 	-no-undefined	\
 	@DEP_LIBS@
 
-libatkincludedir=$(includedir)/atk
+libatkincludedir=$(includedir)/atk-1.0/atk
 
 libatkinclude_HEADERS =	\
         atk.h			\

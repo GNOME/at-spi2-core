@@ -8,4 +8,4 @@ Description: Accessibility Toolkit
 Version: @VERSION@
 Requires: @GLIB_PACKAGES@ @PANGO_PACKAGES@
 Libs: -L${libdir} -latk
-Cflags: -I${includedir}
+Cflags: -I${includedir}/atk-1.0
