@@ -1,3 +1,11 @@
+2001-08-15  Jens Finke <jens@gnome.org>
+
+	* Makefile.am (EXTRA_DIST): Added atk.spec and atk.spec.in files.
+	* configure.in: Moved GLIB_REQUIRED_VERSION to top of file and
+	added a AC_SUBST for it. This is needed for the spec.in file.
+	Added atk.spec to output list.
+	* atk.spec.in: New file.
+
 2001-08-13  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkcomponent.[c|h]
