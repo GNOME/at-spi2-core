@@ -1,4 +1,8 @@
-2002-12- 06  Padraig O'Briain  <padraig.obriain@sun.com>
+2002-12-07  Andras Timar <timar@gnome.hu>
+
+	* configure.in (ALL_LINGUAS): Added Hungarian (hu).
+
+2002-12-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.1.4 =====
 	
