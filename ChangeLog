@@ -1,5 +1,32 @@
 2002-06-25  Bill Haneman  <bill.haneman@sun.com>
 
+	* registryd/deviceeventcontroller.c: fix for 84261
+	(spi_dec_mouse_moved):
+	Added test of mouse button mask, so that we can detect mouse
+	button release.  Unfortunately we can't otherwise detect mouse
+	button release events without consuming the mouse press event,
+	because of the way XGrabButton works.  This means that our mouse
+	release events have a latency dependent on the polling period
+	while the mouse button is down.  At least in this case we only
+	have to poll while the button is down, and not at other times.
+	If the button masks don't match with what the last press event
+	reported, we report the appropriate button release event.
+	(spi_dec_ungrab_mouse):
+	New method (not yet called).
+	(spi_device_event_controller_forward_mouse_event):
+	New method, sends mouse press event from GdkFilter.
+	(spi_dec_init_mouse_listener):
+	Added code to call XGrabButton, redirecting mouse button events to
+	the root window and our Gdk event loop.
+	(global_filter_fn):
+	Added code to filter mouse button events, and reordered.
+	
+	* test/event-listener-test.c:
+	(main):
+	Added registration for mouse events of type "mouse:button".
+
+2002-06-25  Bill Haneman  <bill.haneman@sun.com>
+
 	* registryd/deviceeventcontroller.c: partial fix for 84261
 	(spi_dec_poll_mouse_idle):
 	New method, a timeout which checks to see if the mouse

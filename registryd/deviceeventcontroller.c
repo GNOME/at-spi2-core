@@ -50,7 +50,10 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_device_event_controller_parent_class;
 static int spi_error_code = 0;
-static GdkPoint *last_mouse_pos = NULL;
+static GdkPoint *last_mouse_pos = NULL; 
+static unsigned int mouse_button_state = 0;
+static unsigned int mouse_button_mask =
+  Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
 
 int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
@@ -156,6 +159,7 @@ spi_dec_poll_mouse_moved (gpointer data)
   int win_x_return,win_y_return;
   int x, y;
   unsigned int mask_return;
+  gchar event_name[24];
   Display *display = spi_get_display ();
   if (last_mouse_pos == NULL) {
 	  last_mouse_pos = g_new0 (GdkPoint, 1);
@@ -170,11 +174,48 @@ spi_dec_poll_mouse_moved (gpointer data)
 		&root_return, &child_return,
 		&x, &y,
 		&win_x_return, &win_y_return, &mask_return);
+  if ((mask_return & mouse_button_mask) != mouse_button_state) {
+	  int button_number = 0;
+	  if (!(mask_return & Button1Mask) &&
+	      (mouse_button_state & Button1Mask)) {
+		  button_number = 1;
+	  } else if (!(mask_return & Button2Mask) &&
+		     (mouse_button_state & Button2Mask)) {
+		  button_number = 2;
+	  } else if (!(mask_return & Button3Mask) &&
+		     (mouse_button_state & Button3Mask)) {
+		  button_number = 3;
+	  } else if (!(mask_return & Button4Mask) &&
+		     (mouse_button_state & Button1Mask)) {
+		  button_number = 4;
+	  } else if (!(mask_return & Button5Mask) &&
+		     (mouse_button_state & Button5Mask)) {
+		  button_number = 5;
+	  }
+	  if (button_number) {
+#ifdef SPI_DEBUG		  
+		  fprintf (stderr, "Button %d Released\n",
+			   button_number);
+#endif
+		  snprintf (event_name, 22, "mouse:button:%dr", button_number);
+		  e.type = CORBA_string_dup (event_name);
+		  e.source = BONOBO_OBJREF (registry->desktop);
+		  e.detail1 = last_mouse_pos->x;
+		  e.detail2 = last_mouse_pos->y;
+		  CORBA_exception_init (&ev);
+		  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
+						      &e,
+						      &ev);
+	  }
+	  mouse_button_state = mask_return & mouse_button_mask;
+  }
   if (x != last_mouse_pos->x || y != last_mouse_pos->y) {
 	  e.source = BONOBO_OBJREF (registry->desktop);
 	  e.detail1 = x - last_mouse_pos->x;
 	  e.detail2 = y - last_mouse_pos->y;
 	  CORBA_exception_init (&ev);
+	  if (last_mouse_pos == NULL)
+		  last_mouse_pos = g_new0 (GdkPoint, 1);
 	  last_mouse_pos->x = x;
 	  last_mouse_pos->y = y;
 	  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
@@ -209,10 +250,35 @@ spi_dec_poll_mouse_moving (gpointer data)
     }
 }
 
+static int
+spi_dec_ungrab_mouse (gpointer data)
+{
+	Display *display = spi_get_display ();
+	fprintf (stderr, "mouse ungrab : display = %p\n", display);
+	if (display)
+	  {
+	    XUngrabButton (spi_get_display (), AnyButton, AnyModifier,
+			   XDefaultRootWindow (spi_get_display ()));
+	    fprintf (stderr, "mouse grab released\n");
+	  }
+	return FALSE;
+}
+
 static void
 spi_dec_init_mouse_listener (SpiRegistry *registry)
 {
+  Display *display = spi_get_display ();
   g_timeout_add (100, spi_dec_poll_mouse_idle, registry);
+
+  if (display)
+    {
+      XGrabButton (display, AnyButton, 0,
+		   gdk_x11_get_default_root_xwindow (),
+		   True, ButtonPressMask | ButtonReleaseMask,
+		   GrabModeSync, GrabModeAsync, None, None);
+      XSync (display, False);
+      fprintf (stderr, "mouse buttons grabbed\n");
+    }
 }
 
 static DEControllerKeyListener *
@@ -422,22 +488,78 @@ spi_controller_register_device_listener (SpiDEController      *controller,
   return FALSE; 
 }
 
+static void
+spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
+						 XEvent *xevent)
+{
+  Accessibility_Event e;
+  CORBA_Environment ev;
+  gchar event_name[24];
+  int button = ((XButtonEvent *) xevent)->button;
+  
+  mouse_button_state = ((XButtonEvent *) xevent)->state;
+
+  switch (button)
+    {
+    case 1:
+	    mouse_button_state |= Button1Mask;
+	    break;
+    case 2:
+	    mouse_button_state |= Button2Mask;
+	    break;
+    case 3:
+	    mouse_button_state |= Button3Mask;
+	    break;
+    case 4:
+	    mouse_button_state |= Button4Mask;
+	    break;
+    case 5:
+	    mouse_button_state |= Button5Mask;
+	    break;
+    }
+  last_mouse_pos->x = ((XButtonEvent *) xevent)->x_root;
+  last_mouse_pos->y = ((XButtonEvent *) xevent)->y_root;
+
+#ifdef SPI_DEBUG  
+  fprintf (stderr, "mouse button %d %s (%x)\n",
+	   ((XButtonEvent *) xevent)->button, 
+	   (xevent->type == ButtonPress) ? "Press" : "Release",
+	   mouse_button_state);
+#endif
+  snprintf (event_name, 22, "mouse:button:%d%c", button,
+	    (xevent->type == ButtonPress) ? 'p' : 'r');
+
+  e.type = CORBA_string_dup (event_name);
+  e.source = BONOBO_OBJREF (controller->registry->desktop);
+  e.detail1 = last_mouse_pos->x;
+  e.detail2 = last_mouse_pos->y;
+  CORBA_exception_init (&ev);
+  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
+				      &e,
+				      &ev);
+  
+  XAllowEvents (spi_get_display (), ReplayPointer, CurrentTime);
+}
+
 static GdkFilterReturn
 global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 {
   XEvent *xevent = gdk_xevent;
   SpiDEController *controller;
 
-  if (xevent->type != KeyPress && xevent->type != KeyRelease)
+  if (xevent->type == KeyPress && xevent->type == KeyRelease)
     {
+      controller = SPI_DEVICE_EVENT_CONTROLLER (data);
+      spi_device_event_controller_forward_key_event (controller, xevent);
+      /* FIXME: is this right ? */
       return GDK_FILTER_CONTINUE;
     }
-
-  controller = SPI_DEVICE_EVENT_CONTROLLER (data);
-
-  spi_device_event_controller_forward_key_event (controller, xevent);
-
-  /* FIXME: is this right ? */
+  if (xevent->type == ButtonPress || xevent->type == ButtonRelease)
+    {
+      controller = SPI_DEVICE_EVENT_CONTROLLER (data);
+      spi_device_event_controller_forward_mouse_event (controller, xevent);
+    }
+  
   return GDK_FILTER_CONTINUE;
 }
 

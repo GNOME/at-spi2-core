@@ -61,6 +61,8 @@ main (int argc, char **argv)
   SPI_registerGlobalEventListener (specific_listener,
 				   "mouse:rel");
   SPI_registerGlobalEventListener (specific_listener,
+				   "mouse:button");
+  SPI_registerGlobalEventListener (specific_listener,
 				   "mouse:abs");
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:property-change");
