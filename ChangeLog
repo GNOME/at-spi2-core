@@ -1,4 +1,10 @@
 2001-08-16  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* docs/atk-sections.txt, docs/tmpl/atktext.sgml:
+	Ensure that atk_attribute_set_free is in the documentation.
+
+2001-08-16  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atktext.[c|h], docs/tmpl/atktext.sgml:
 	Swapped order of width and height arguments to
 	atk_text_get_character_extents()

@@ -252,6 +252,14 @@ AtkText
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_attribute_set_free ##### -->
+<para>
+
+</para>
+
+@attrib_set: 
+
+
 <!-- ##### MACRO ATK_ATTRIBUTE_LEFT_MARGIN ##### -->
 <para>
 

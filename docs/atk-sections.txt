@@ -360,6 +360,7 @@ atk_text_add_selection
 atk_text_remove_selection
 atk_text_set_selection
 atk_text_set_caret_offset
+atk_attribute_set_free
 ATK_ATTRIBUTE_LEFT_MARGIN
 ATK_ATTRIBUTE_RIGHT_MARGIN
 ATK_ATTRIBUTE_INDENT
