@@ -69,6 +69,24 @@ API CHANGES:
   returns.
 
 * Made Accessibility_StateSet inherit from BonoboUnknown as it should;
-  this was the main existing breakage in StateSet.
+this was the main existing breakage in StateSet.
+
+
+=================
+
+
+TODO API Additions:
+
+getStateName () and STATE_EXTENDED to allow extension of State API (already 
+in ATK).
+
+AccessibleAction_getType () and AccessibleAction_getTypeName ().
+
+need getBaseAttributes () 
+for AccessibleText (available in ATK I think).
+
+table: getVisibleRange
+
+state: HEADER, etc. for spreadsheet cells
 
 

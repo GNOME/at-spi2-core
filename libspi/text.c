@@ -324,8 +324,10 @@ impl_getSelection (PortableServer_Servant servant,
   
   g_return_if_fail (text != NULL);
 
-  atk_text_get_selection (text, selectionNum,
-			  &intStartOffset, &intEndOffset);
+  /* atk_text_get_selection returns gchar* which we discard */
+  g_free (atk_text_get_selection (text, selectionNum,
+				  &intStartOffset, &intEndOffset));
+  
   *startOffset = intStartOffset;
   *endOffset = intEndOffset;
 }

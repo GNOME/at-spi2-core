@@ -1,3 +1,15 @@
+2002-08-20  Bill Haneman <bill.haneman@sun.com>
+
+	* HACKING: 
+	Clarified and reworded our commit policy.
+
+	* NEWS:
+	Started an API "todo" addition list for 2.2.
+
+	* libspi/text.c:
+	(impl_getSelection):
+	Free char pointer from atk_text_get_selection, which was being leaked.
+
 2002-08-19  Bill Haneman <bill.haneman@sun.com>
 
 	* AUTHORS: 
