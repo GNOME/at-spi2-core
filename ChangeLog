@@ -1,5 +1,8 @@
 2003-05-06  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* configure.in: Make message when pkg-config fials to find glib-2.0.pc
+	less cryptic.
+
 	* po/pl.po: Updated Polish translation from Artur Flinta.
 
 2003-05-05  Duarte Loreto <happyguy_pt@hotmail.com>
