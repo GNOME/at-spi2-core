@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ATK\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-16 14:08+0100\n"
-"PO-Revision-Date: 2004-03-16 21:30-0300\n"
+"PO-Revision-Date: 2004-03-17 20:11-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>, <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -354,7 +354,7 @@ msgstr "Nome Acessível"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Nome da instância do objeto formatado para tecnologia assistiva de acesso"
+msgstr "Nome da instância do objeto formatado para acesso da tecnologia assistiva"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
@@ -362,7 +362,7 @@ msgstr "Descrição Acessível"
 
 #: atk/atkobject.c:303
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Descrição de um objeto, formatada para tecnologia assistiva de acesso"
+msgstr "Descrição de um objeto, formatada para acesso da tecnologia assistiva"
 
 #: atk/atkobject.c:309
 msgid "Accessible Parent"
