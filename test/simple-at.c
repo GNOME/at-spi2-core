@@ -222,7 +222,7 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
      text_interface = Accessible_getText (obj);
      first_sentence = AccessibleText_getTextAtOffset (
 	       text_interface, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start_offset, &end_offset);
-     if (first_sentence)
+     if (first_sentence && use_festival)
        {
 	 _festival_say(first_sentence, "voice_don_diphone", FALSE);
 	 SPI_freeString (first_sentence);

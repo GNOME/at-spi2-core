@@ -660,27 +660,31 @@ test_keylisteners (void)
 	int i;
 	AccessibleKeystroke stroke;
 	AccessibleKeystrokeListener *key_listener;
+	AccessibleKeySet *test_keyset;
 
 	fprintf (stderr, "Testing keyboard listeners ...\n");
 
 	key_listener = SPI_createAccessibleKeystrokeListener (
 		key_listener_cb, &stroke);
 
+	test_keyset = SPI_createAccessibleKeySet (1, "=", NULL, NULL);
+	
 	g_assert (SPI_registerAccessibleKeystrokeListener (
 		key_listener,
-		SPI_KEYSET_ALL_KEYS,
+		test_keyset,
 		0,
 		SPI_KEY_PRESSED | SPI_KEY_RELEASED,
 		SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS));
 
 	for (i = 0; i < 3; i++) {
 		memset (&stroke, 0, sizeof (AccessibleKeystroke));
-		g_assert (SPI_generateKeyboardEvent (33, "!", SPI_KEY_PRESSRELEASE));
+		g_assert (SPI_generateKeyboardEvent ('=', NULL, SPI_KEY_SYM));
 		while (stroke.type == 0)
 			g_main_iteration (TRUE);
 	}
 
 	g_assert (SPI_deregisterAccessibleKeystrokeListener (key_listener, 0));
+	SPI_freeAccessibleKeySet (test_keyset);
 
 	/* FIXME: expand the validation here */
 	g_assert (stroke.type == SPI_KEY_PRESSRELEASE);

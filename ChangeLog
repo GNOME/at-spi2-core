@@ -1,4 +1,13 @@
-2002-01-11  Bill Haneman <bill.haneman@sun.com>
+2002-01-16  Bill Haneman <bill.haneman@sun.com>
+
+	* test/test-simple.c:
+	Changed key listeners test - the test was slightly mis-using the
+	(admittedly poorly documented) SPI_generateKeyboardEvent API.
+	It now uses '=' as the key event listened to and generated,
+	relying on a keysym match rather than assuming that keycode 33 
+	is always equal to keysym '!'.
+
+2002-01-15  Bill Haneman <bill.haneman@sun.com>
 
 	* test/simple-at.c:
 	Changed simple-at to use a specific keyset, rather than

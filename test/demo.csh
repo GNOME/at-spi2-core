@@ -18,10 +18,25 @@ pkill simple-at
 unsetenv GTK_MODULES
 setenv MAGNIFIER 1
 setenv FESTIVAL 1
+# start the text-to-speech service
 festival_server &
+
+# start the simple AT client, which uses the
+#  MAGNIFIER and FESTIVAL environment variables
 simple-at &
+
+# now set GTK_MODULES for use by GTK+ applications
+# this will cause the gail accessibility support, 
+# the ferret test tool, and the atk-bridge to be
+# loaded
+
 setenv GTK_MODULES "gail:ferret:atk-bridge"
+
 gtk-demo
+
+# these might be out of place, if gtk-demo backgrounds
+# itself
+
 pkill festival_server
 pkill festival
 pkill sleep
