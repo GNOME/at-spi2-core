@@ -1,3 +1,18 @@
+2002-01-24  Mark McLoughlin  <mark@skynet.ie>
+
+	* cspi/spi_accessible.c: (Accessible_getRelationSet):
+	use NULL, not CORBA_OBJECT_NIL.
+
+	* libspi/accessible.c:
+	(impl_accessibility_accessible_get_relation_set):
+	allocate the sequence correctly.
+
+	* libspi/remoteobject.h: kill spi_remote_object_new.
+
+	* test/test-simple.c: (validate_accessible): add code
+	to test relation sets, now all we need is to figure
+	out how to excercise this code path :/
+
 2002-01-18  Michael Meeks  <michael@ximian.com>
 
 	* test/test-simple.c

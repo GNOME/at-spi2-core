@@ -459,11 +459,13 @@ validate_accessible (Accessible *accessible,
 		     gboolean    has_parent,
 		     gboolean    recurse_down)
 {
-	Accessible    *tmp;
-	char          *name, *descr;
-	AccessibleRole role;
-	char          *role_name;
-	GString       *item_str = g_string_new ("");
+	Accessible          *tmp;
+	char                *name, *descr;
+	AccessibleRole       role;
+	AccessibleRelation **relations;
+	char                *role_name;
+	GString             *item_str = g_string_new ("");
+	int                  i;
 
 	name = Accessible_getName (accessible);
 	g_assert (name != NULL);
@@ -475,7 +477,26 @@ validate_accessible (Accessible *accessible,
 	g_assert (role != SPI_ROLE_INVALID);
 	role_name = Accessible_getRoleName (accessible);
 	g_assert (role_name != NULL);
-	
+
+	relations = Accessible_getRelationSet (accessible);
+	g_assert (relations != NULL);
+
+	for (i = 0; relations [i]; i++) {
+		AccessibleRelationType type;
+		int                    targets;
+
+		fprintf (stderr, "relation %d\n", i);
+
+		type = AccessibleRelation_getRelationType (relations [i]);
+		g_assert (type != SPI_RELATION_NULL);
+
+		targets = AccessibleRelation_getNTargets (relations [i]);
+		g_assert (targets != -1);
+
+		AccessibleRelation_unref (relations [i]);
+		relations [i] = NULL;
+	}
+	g_free (relations);
 
 	if (print_tree) {
 		int i;

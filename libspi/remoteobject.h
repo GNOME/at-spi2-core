@@ -42,7 +42,6 @@ typedef struct {
 } SpiRemoteObjectClass;
 
 GType                    spi_remote_object_get_type       (void);
-AtkObject               *spi_remote_object_new            (GObject           *o);
 Accessibility_Accessible spi_remote_object_get_accessible (SpiRemoteObject   *o);
 
 G_END_DECLS

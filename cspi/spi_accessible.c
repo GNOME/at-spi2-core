@@ -406,7 +406,7 @@ Accessible_getRelationSet (Accessible *obj)
       relations[i] = cspi_object_add (CORBA_Object_duplicate (
 	      relation_set->_buffer[i], cspi_ev ()));
     }
-  relations[i] = CORBA_OBJECT_NIL;
+  relations[i] = NULL;
 
   CORBA_free (relation_set);
 

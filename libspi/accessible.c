@@ -334,8 +334,11 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
   relation_set = atk_object_ref_relation_set (object);
 
   n_relations = atk_relation_set_get_n_relations (relation_set);
+
   retval = CORBA_sequence_Accessibility_Relation__alloc ();
-  CORBA_sequence_Accessibility_Relation_allocbuf (n_relations);
+  retval->_length = retval->_maximum = n_relations;
+  retval->_buffer = CORBA_sequence_Accessibility_Relation_allocbuf (n_relations);
+  CORBA_sequence_set_release (retval, CORBA_TRUE);
 	  
   for (i = 0; i < n_relations; ++i)
     {
@@ -346,7 +349,6 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
 	  ev);
     }
   
-  printf ("SpiAccessible get_relation_set.\n");
   return retval;
 }
 
