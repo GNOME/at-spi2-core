@@ -1,3 +1,8 @@
+2003-04-02  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* configure.in: Add 100 to AT_SPI_BINARY_AGE and update calculation
+	of LT_CURRENT. This fixes bug #89350.
+
 2003-04-01  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* atk-bridge/bridge.c (spi_bridge_signal_listener):  Add check for
