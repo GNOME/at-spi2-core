@@ -25,7 +25,6 @@
 	* docs/tmpl/atkhyperlink.sgml docs/tmpl/atkobject.sgml
 	Update docs.
 
->>>>>>> 1.223
 2002-11-14  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:
