@@ -16,7 +16,7 @@ dnl set ATK_BINARY_AGE _and_ ATK_INTERFACE_AGE to 0.
 
 dnl The triplet 
 m4_define([atk_major_version], [1])
-m4_define([atk_minor_version], [8])
+m4_define([atk_minor_version], [9])
 m4_define([atk_micro_version], [0])
 m4_define([atk_version],
           [atk_major_version.atk_minor_version.atk_micro_version])
@@ -53,7 +53,7 @@ dnl it too, or it will never make it into the spec file!
 dnl
 dnl ==========================================================================
 
-GLIB_REQUIRED_VERSION=2.0.0
+GLIB_REQUIRED_VERSION=2.5.7
 AC_SUBST(GLIB_REQUIRED_VERSION)
 
 
@@ -140,7 +140,7 @@ if test "x$GCC" = "xyes"; then
 fi
 changequote([,])dnl
 
-GLIB_PACKAGES="gobject-2.0 gmodule-2.0"
+GLIB_PACKAGES="gobject-2.0 gmodule-no-export-2.0"
 AC_SUBST(GLIB_PACKAGES)
 
 dnl This PATH_GLIB is somewhat redundant, but does a sanity compile and 
@@ -152,7 +152,7 @@ AM_PATH_GLIB_2_0($GLIB_REQUIRED_VERSION, :,
 *** GLIB is always available from ftp://ftp.gtk.org/. If GLIB is installed
 *** but not in the same location as pkg-config add the location of the file 
 *** glib-2.0.pc to the environment variable PKG_CONFIG_PATH.]),
-  gobject gmodule)
+  gobject gmodule-no-export)
 
 PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, ,
   AC_MSG_ERROR([

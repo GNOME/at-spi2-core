@@ -1,3 +1,10 @@
+2004-11-17  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Use gmodule-no-export.pc, requires glib 2.5.7.
+	Patch from Matthias Clasen for bug #158531. 
+	Incremented version to 1.9.0. 
+	Branch for gnome-2-8 has been created.
+	
 2004-11-11  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "as" to ALL_LINGUAS.
@@ -7,7 +14,7 @@
 	* docs/atk-docs.sgml: Add a more descriptive title in the docs.
 	Patch from Diego Gonzalez. (bug #156296)
 
-	* atk/text.c (Clarify meaning of endd_offset for 
+	* atk/text.c (Clarify meaning of end_offset for 
 	atk_text_get_text_at_offset().
 	Patch from Bill Haneman. (bug #156574)
 
