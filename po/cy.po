@@ -6,13 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi\n"
-"POT-Creation-Date: 2003-07-01 16:35+0100\n"
-"PO-Revision-Date: 2003-07-01 16:37+0100\n"
+"POT-Creation-Date: 2003-07-03 07:35+0100\n"
+"PO-Revision-Date: 2003-07-03 07:37+0100\n"
 "Last-Translator: Dafydd Harries <daf@parnassus.ath.cx>\n"
 "Language-Team: Cymraeg <gnome-cy@www.linux.org.uk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:311
+msgid "failure: no device event controller found.\n"
+msgstr "methiant: dim rheolwr digwyddiad dyfaid wedi ei ganfod.\n"
+
+#: atk-bridge/bridge.c:806
+msgid "WARNING: NULL key event reported."
+msgstr "RHYBUDD: adroddwyd digwyddiad allwedd NULL."
 
 #: registryd/Accessibility_Registry.server.in.in.h:1
 msgid "AT-SPI Registry"
@@ -21,4 +29,3 @@ msgstr "Cofrestrfa AT-SPI"
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
 msgstr "Cofrestrfa Hygyrchedd"
-
