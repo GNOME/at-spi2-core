@@ -8,6 +8,12 @@ What's new in at-spi-1.5.4:
   this prevents conflict with Xstroke.
   [a better long-term fix requires the Xevie extension]
 
+* We now register on a per-DISPLAY, but not per-SCREEN, basis.
+  This fixes several issues, see bugs #149962, #136986, #144086.
+
+* New languages in configure.in:
+  bs (Christian Rose)
+  nb (Kjartan Maraas)  
 
 ============
 
