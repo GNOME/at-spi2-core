@@ -24,7 +24,7 @@ The AtkHyperlink structure should not be accessed directly.
 
 <!-- ##### SIGNAL AtkHyperlink::link-activated ##### -->
 <para>
-
+The signal link-activated is emitted when a link is activated.
 </para>
 
 @atkhyperlink: the object which received the signal.

@@ -1285,9 +1285,9 @@ atk_role_get_name (AtkRole role)
 
 #ifdef G_OS_WIN32
 
-#undef ATKLOCALEDIR
+#undef ATK_LOCALEDIR
 
-#define ATKLOCALEDIR get_atk_locale_dir()
+#define ATK_LOCALEDIR get_atk_locale_dir()
 
 G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
 
@@ -1320,7 +1320,7 @@ atk_role_get_localized_name (AtkRole role)
     {
       gettext_initialized = TRUE;
 
-      bindtextdomain (GETTEXT_PACKAGE, ATKLOCALEDIR);
+      bindtextdomain (GETTEXT_PACKAGE, ATK_LOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
       bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 #endif

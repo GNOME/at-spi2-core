@@ -5,8 +5,7 @@ GPATH = $(srcdir)
 INCLUDES = \
 	-I$(top_srcdir)		\
 	-DG_DISABLE_DEPRECATED	\
-	$(DEP_CFLAGS)		\
-	-DATKLOCALEDIR=\""$(atklocaledir)"\"
+	$(DEP_CFLAGS)
 
 lib_LTLIBRARIES = libatk-1.0.la
 
