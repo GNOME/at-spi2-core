@@ -4,20 +4,21 @@
 # This file is distributed under the same license as the atk.HEAD package.
 # Amanpreet Singh Alam <amanlinux@netscape.net>, 2004.
 # Amanpreet Singh Alam <aalam@redhat.com>, 2004.
+# Amanpreet Singh Alam <amanpreetalam@yahoo.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-21 11:00+0200\n"
-"PO-Revision-Date: 2004-11-04 10:35+0530\n"
-"Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
+"PO-Revision-Date: 2005-02-16 10:23+0530\n"
+"Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -37,7 +38,7 @@ msgstr "AtkHyperlink ਇਕਾਈ ਨਾਲ ਅੰਕਰ ਦੀ ਗਿਣਤੀ"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
-msgstr "ਤਤਕਰਾ ਖਤਮ"
+msgstr "ਅੰਤ ਤਤਕਰਾ"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
@@ -45,11 +46,11 @@ msgstr "AtkHyperlink ਇਕਾਈ ਦੇ ਤਤਕਰੇ ਦਾ ਅੰਤ"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr "ਤਤਕਰਾ ਸ਼ੁਰੂ"
+msgstr "ਸ਼ੁਰੂ ਤਤਕਰਾ"
 
 #: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "AtkHyperlink ਇਕਾਈ ਦਾ ਤਤਕਰੇ ਸ਼ੁਰੂ"
+msgstr "AtkHyperlink ਇਕਾਈ ਦਾ ਤਤਕਰਾ ਸ਼ੁਰੂ"
 
 #: atk/atkobject.c:82
 msgid "invalid"
@@ -81,7 +82,7 @@ msgstr "ਪਰਦਾ"
 
 #: atk/atkobject.c:89
 msgid "check box"
-msgstr "ਚੈਕ-ਬਾਕਸ"
+msgstr "ਚੈਕ-ਬਕਸਾ"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
@@ -105,7 +106,7 @@ msgstr "ਮਿਤੀ-ਸੰਪਾਦਕ"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "ਵਿਹੜਾ ਆਇਕਾਨ"
+msgstr "ਵਿਹੜਾ ਆਈਕਾਨ"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
@@ -234,7 +235,7 @@ msgstr "ਰੇਡੀਉ ਮੇਨੂ ਇਕਾਈ"
 
 #: atk/atkobject.c:128
 msgid "root pane"
-msgstr "ਰੂਟ ਪੱਟੀ"
+msgstr "ਰੂਟ (root) ਬਾਹੀ"
 
 #: atk/atkobject.c:129
 msgid "row header"
@@ -246,7 +247,7 @@ msgstr "ਸਕ੍ਰੋਲ ਪੱਟੀ"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "ਸਕ੍ਰੋਲ ਪੱਟੀ"
+msgstr "ਸਕ੍ਰੋਲ ਬਾਹੀ"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -258,7 +259,7 @@ msgstr "ਸਲਾਈਡਰ"
 
 #: atk/atkobject.c:134
 msgid "split pane"
-msgstr "ਵੱਖ ਪੱਟੀ"
+msgstr "ਵੱਖ ਬਾਹੀ"
 
 #: atk/atkobject.c:135
 msgid "spin button"
@@ -318,7 +319,7 @@ msgstr "ਲੜੀ ਸਾਰਣੀ"
 
 #: atk/atkobject.c:149
 msgid "unknown"
-msgstr "ਅਣਪਛਾਤਾ"
+msgstr "ਅਣਜਾਣ"
 
 #: atk/atkobject.c:150
 msgid "viewport"
@@ -334,11 +335,11 @@ msgstr "ਸਿਰਲੇਖ"
 
 #: atk/atkobject.c:153
 msgid "footer"
-msgstr "ਫੁੱਟਰ"
+msgstr "ਪਦਲੇਖ"
 
 #: atk/atkobject.c:154
 msgid "paragraph"
-msgstr "ਪੈਰਾ"
+msgstr "ਪੈਰ੍ਹਾ"
 
 #: atk/atkobject.c:155
 msgid "application"
