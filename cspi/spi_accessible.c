@@ -17,6 +17,7 @@ static const char *role_names [] =
   "date editor",
   "desktop icon",
   "desktop frame",
+  "dial",
   "dialog",
   "directory pane",
   "file chooser",
@@ -65,6 +66,7 @@ static const char *role_names [] =
   "toolbar",
   "tooltip",
   "tree",
+  "tree-table",
   "<unknown>",
   "viewport",
   "window",
@@ -73,10 +75,104 @@ static const char *role_names [] =
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
 
+static SPIBoolean
+cspi_init_role_table (AccessibleRole *role_table)
+{
+  int i;
+  for (i = 0; i < Accessibility_ROLE_LAST_DEFINED; ++i)
+    {
+      role_table [i] = SPI_ROLE_UNKNOWN;
+    }
+  role_table [Accessibility_ROLE_INVALID] = SPI_ROLE_INVALID;
+  role_table [Accessibility_ROLE_ACCELERATOR_LABEL] = SPI_ROLE_ACCEL_LABEL;
+  role_table [Accessibility_ROLE_ALERT] = SPI_ROLE_ALERT;
+  role_table [Accessibility_ROLE_ANIMATION] = SPI_ROLE_ANIMATION;
+  role_table [Accessibility_ROLE_ARROW] = SPI_ROLE_ARROW;
+  role_table [Accessibility_ROLE_CALENDAR] = SPI_ROLE_CALENDAR;
+  role_table [Accessibility_ROLE_CANVAS] = SPI_ROLE_CANVAS;
+  role_table [Accessibility_ROLE_CHECK_BOX] = SPI_ROLE_CHECK_BOX;
+  role_table [Accessibility_ROLE_COLOR_CHOOSER] = SPI_ROLE_COLOR_CHOOSER;
+  role_table [Accessibility_ROLE_COLUMN_HEADER] = SPI_ROLE_COLUMN_HEADER;
+  role_table [Accessibility_ROLE_COMBO_BOX] = SPI_ROLE_COMBO_BOX;
+  role_table [Accessibility_ROLE_DATE_EDITOR] = SPI_ROLE_DATE_EDITOR;
+  role_table [Accessibility_ROLE_DESKTOP_ICON] = SPI_ROLE_DESKTOP_ICON;
+  role_table [Accessibility_ROLE_DESKTOP_FRAME] = SPI_ROLE_DESKTOP_FRAME;
+  role_table [Accessibility_ROLE_DIAL] = SPI_ROLE_DIAL;
+  role_table [Accessibility_ROLE_DIALOG] = SPI_ROLE_DIALOG;
+  role_table [Accessibility_ROLE_DIRECTORY_PANE] = SPI_ROLE_DIRECTORY_PANE;
+  role_table [Accessibility_ROLE_FILE_CHOOSER] = SPI_ROLE_FILE_CHOOSER;
+  role_table [Accessibility_ROLE_FILLER] = SPI_ROLE_FILLER;
+  role_table [Accessibility_ROLE_FONT_CHOOSER] = SPI_ROLE_FONT_CHOOSER;
+  role_table [Accessibility_ROLE_FRAME] = SPI_ROLE_FRAME;
+  role_table [Accessibility_ROLE_GLASS_PANE] = SPI_ROLE_GLASS_PANE;
+  role_table [Accessibility_ROLE_HTML_CONTAINER] = SPI_ROLE_HTML_CONTAINER;
+  role_table [Accessibility_ROLE_ICON] = SPI_ROLE_ICON;
+  role_table [Accessibility_ROLE_IMAGE] = SPI_ROLE_IMAGE;
+  role_table [Accessibility_ROLE_INTERNAL_FRAME] = SPI_ROLE_INTERNAL_FRAME;
+  role_table [Accessibility_ROLE_LABEL] = SPI_ROLE_LABEL;
+  role_table [Accessibility_ROLE_LAYERED_PANE] = SPI_ROLE_LAYERED_PANE;
+  role_table [Accessibility_ROLE_LIST] = SPI_ROLE_LIST;
+  role_table [Accessibility_ROLE_LIST_ITEM] = SPI_ROLE_LIST_ITEM;
+  role_table [Accessibility_ROLE_MENU] = SPI_ROLE_MENU;
+  role_table [Accessibility_ROLE_MENU_BAR] = SPI_ROLE_MENU_BAR;
+  role_table [Accessibility_ROLE_MENU_ITEM] = SPI_ROLE_MENU_ITEM;
+  role_table [Accessibility_ROLE_OPTION_PANE] = SPI_ROLE_OPTION_PANE;
+  role_table [Accessibility_ROLE_PAGE_TAB] = SPI_ROLE_PAGE_TAB;
+  role_table [Accessibility_ROLE_PAGE_TAB_LIST] = SPI_ROLE_PAGE_TAB_LIST;
+  role_table [Accessibility_ROLE_PANEL] = SPI_ROLE_PANEL;
+  role_table [Accessibility_ROLE_PASSWORD_TEXT] = SPI_ROLE_PASSWORD_TEXT;
+  role_table [Accessibility_ROLE_POPUP_MENU] = SPI_ROLE_POPUP_MENU;
+  role_table [Accessibility_ROLE_PROGRESS_BAR] = SPI_ROLE_PROGRESS_BAR;
+  role_table [Accessibility_ROLE_PUSH_BUTTON] = SPI_ROLE_PUSH_BUTTON;
+  role_table [Accessibility_ROLE_RADIO_BUTTON] = SPI_ROLE_RADIO_BUTTON;
+  role_table [Accessibility_ROLE_RADIO_MENU_ITEM] = SPI_ROLE_RADIO_MENU_ITEM;
+  role_table [Accessibility_ROLE_ROOT_PANE] = SPI_ROLE_ROOT_PANE;
+  role_table [Accessibility_ROLE_ROW_HEADER] = SPI_ROLE_ROW_HEADER;
+  role_table [Accessibility_ROLE_SCROLL_BAR] = SPI_ROLE_SCROLL_BAR;
+  role_table [Accessibility_ROLE_SCROLL_PANE] = SPI_ROLE_SCROLL_PANE;
+  role_table [Accessibility_ROLE_SEPARATOR] = SPI_ROLE_SEPARATOR;
+  role_table [Accessibility_ROLE_SLIDER] = SPI_ROLE_SLIDER;
+  role_table [Accessibility_ROLE_SPIN_BUTTON] = SPI_ROLE_SPIN_BUTTON;
+  role_table [Accessibility_ROLE_SPLIT_PANE] = SPI_ROLE_SPLIT_PANE;
+  role_table [Accessibility_ROLE_STATUS_BAR] = SPI_ROLE_STATUS_BAR;
+  role_table [Accessibility_ROLE_TABLE] = SPI_ROLE_TABLE;
+  role_table [Accessibility_ROLE_TABLE_CELL] = SPI_ROLE_TABLE_CELL;
+  role_table [Accessibility_ROLE_TEAROFF_MENU_ITEM] = SPI_ROLE_TEAROFF_MENU_ITEM;
+  role_table [Accessibility_ROLE_TEXT] = SPI_ROLE_TEXT;
+  role_table [Accessibility_ROLE_TOGGLE_BUTTON] = SPI_ROLE_TOGGLE_BUTTON;
+  role_table [Accessibility_ROLE_TOOL_BAR] = SPI_ROLE_TOOL_BAR;
+  role_table [Accessibility_ROLE_TOOL_TIP] = SPI_ROLE_TOOL_TIP;
+  role_table [Accessibility_ROLE_TREE] = SPI_ROLE_TREE;
+  role_table [Accessibility_ROLE_TREE_TABLE] = SPI_ROLE_TREE_TABLE;
+  role_table [Accessibility_ROLE_UNKNOWN] = SPI_ROLE_UNKNOWN;
+  role_table [Accessibility_ROLE_VIEWPORT] = SPI_ROLE_VIEWPORT;
+  role_table [Accessibility_ROLE_WINDOW] = SPI_ROLE_WINDOW;
+  role_table [Accessibility_ROLE_EXTENDED] = SPI_ROLE_EXTENDED;
+  role_table [Accessibility_ROLE_LAST_DEFINED] = SPI_ROLE_EXTENDED;
+
+  return TRUE;
+}
+
 static AccessibleRole
 cspi_role_from_spi_role (Accessibility_Role role)
 {
-  return role; /* FIXME: need to compare, equivalence not guaranteed */
+  /* array is sized according to IDL roles because IDL roles are the index */	
+  static AccessibleRole cspi_role_table [Accessibility_ROLE_LAST_DEFINED];
+  static SPIBoolean is_initialized = FALSE;
+  AccessibleRole cspi_role;
+  if (!is_initialized)
+    {
+      is_initialized = cspi_init_role_table (cspi_role_table);	    
+    }
+  if (role >= 0 && role < Accessibility_ROLE_LAST_DEFINED)
+    {
+      cspi_role = cspi_role_table [role];	    
+    }
+  else
+    {
+      cspi_role = SPI_ROLE_EXTENDED;
+    }
+  return cspi_role; 
 }
 
 /**
@@ -84,7 +180,7 @@ cspi_role_from_spi_role (Accessibility_Role role)
  * @role: an #AccessibleRole object to query.
  *
  * Get a localizeable string that indicates the name of an #AccessibleRole.
- * Currently broken, do not use.
+ * <em>DEPRECATED.</em>
  *
  * Returns: a localizable string name for an #AccessibleRole enumerated type.
  **/

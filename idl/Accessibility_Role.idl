@@ -44,6 +44,8 @@ module Accessibility {
    * indicator for the current state.
    */
   ROLE_CHECK_BOX,
+  /* A menu item that behaves like a check box (see ROLE_CHECK_BOX) */
+  ROLE_CHECK_MENU_ITEM,
   /* A specialized dialog that lets the user choose a color. */
   ROLE_COLOR_CHOOSER,
   /* The header for a column of data */
@@ -59,6 +61,11 @@ module Accessibility {
    * internal frames.
    */
   ROLE_DESKTOP_FRAME,
+  /* 
+   * An object that allows a value to be changed via rotating a visual element,
+   * or which displays a value via such a rotating element. 
+   */
+  ROLE_DIAL,
   /* A top level window with title bar and a border */
   ROLE_DIALOG,
   /*
@@ -199,6 +206,8 @@ module Accessibility {
   ROLE_TABLE_ROW_HEADER,
   /* Object allows menu to be removed from menubar and shown in its own window. */
   ROLE_TEAROFF_MENU_ITEM,
+  /* An object that emulates a terminal */
+  ROLE_TERMINAL,
   /* An object that presents text to the user */
   ROLE_TEXT,
   /*
@@ -216,6 +225,8 @@ module Accessibility {
   ROLE_TOOL_TIP,
   /* An object used to repsent hierarchical information to the user. */
   ROLE_TREE,
+  /* An object that presents both tabular and hierarchical info to the user */
+  ROLE_TREE_TABLE,
   /*
    * The object contains some Accessible information, but its role is
    * not known.

@@ -1,5 +1,23 @@
 2001-12-12  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/accessible.c:
+        Convert all AtkRole enumerations to Accessibility_Role enums when
+	getting a role from an AtkObject.
+	
+	* cspi/spi_accessible.c:
+	Complete the conversion of Accessibility_Role enums at runtime to
+	AccessibleRole (SPI_ROLE_*) roles in Accessible_getRole, so that
+	role enums correctly match those given in spi-roletypes.h.  
+	Re-synchronize the local names list for AccessibleRole_getName ().
+	AccessibleRole_getName is now deprecated, since it duplicates the
+	more reliable Accessible_getRoleName.
+	Added some role types from Accessibility_Role.idl.
+
+	* idl/Accessibility_Role.idl:
+	Added some role types used by AtkRole.
+
+2001-12-12  Bill Haneman <bill.haneman@sun.com>
+	
 	* cspi/spi.h:
 	* cspi/spi_registry.c:
 	* cspi/spi_event.c:

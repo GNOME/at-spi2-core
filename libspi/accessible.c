@@ -31,89 +31,114 @@
 /* Our parent Gtk object type  */
 #define PARENT_TYPE SPI_TYPE_BASE
 
+static gboolean spi_init_role_lookup_table (Accessibility_Role *role_table);
+static Accessibility_Role spi_role_from_atk_role (AtkRole role);
+
+static gboolean
+spi_init_role_lookup_table (Accessibility_Role *role_table)
+{
+  int i;
+  /* if it's not in the list below, dunno what it is */
+  for (i = 0; i < ATK_ROLE_LAST_DEFINED; ++i)
+    {
+      role_table [i] = Accessibility_ROLE_UNKNOWN;
+    }
+  
+  role_table [ATK_ROLE_INVALID] =          Accessibility_ROLE_INVALID;
+  role_table [ATK_ROLE_ACCEL_LABEL] =      Accessibility_ROLE_ACCELERATOR_LABEL;
+  role_table [ATK_ROLE_ALERT] =            Accessibility_ROLE_ALERT;
+  role_table [ATK_ROLE_ANIMATION] =        Accessibility_ROLE_ANIMATION; 
+  role_table [ATK_ROLE_ARROW] =            Accessibility_ROLE_ARROW; 
+  role_table [ATK_ROLE_CALENDAR] =         Accessibility_ROLE_CALENDAR; 
+  role_table [ATK_ROLE_CANVAS] =           Accessibility_ROLE_CANVAS;
+  role_table [ATK_ROLE_CHECK_BOX] =        Accessibility_ROLE_CHECK_BOX;
+  role_table [ATK_ROLE_CHECK_MENU_ITEM] =  Accessibility_ROLE_CHECK_MENU_ITEM;
+  role_table [ATK_ROLE_COLOR_CHOOSER] =    Accessibility_ROLE_COLOR_CHOOSER;
+  role_table [ATK_ROLE_COLUMN_HEADER] =    Accessibility_ROLE_COLUMN_HEADER;
+  role_table [ATK_ROLE_COMBO_BOX] =        Accessibility_ROLE_COMBO_BOX;
+  role_table [ATK_ROLE_DATE_EDITOR] =      Accessibility_ROLE_DATE_EDITOR;
+  role_table [ATK_ROLE_DESKTOP_ICON] =     Accessibility_ROLE_DESKTOP_ICON;
+  role_table [ATK_ROLE_DESKTOP_FRAME] =    Accessibility_ROLE_DESKTOP_FRAME;
+  role_table [ATK_ROLE_DIAL] =             Accessibility_ROLE_DIAL;
+  role_table [ATK_ROLE_DIALOG] =           Accessibility_ROLE_DIALOG;
+  role_table [ATK_ROLE_DIRECTORY_PANE] =   Accessibility_ROLE_DIRECTORY_PANE;
+  role_table [ATK_ROLE_FILE_CHOOSER] =     Accessibility_ROLE_FILE_CHOOSER;
+  role_table [ATK_ROLE_FILLER] =           Accessibility_ROLE_FILLER;
+  role_table [ATK_ROLE_FONT_CHOOSER] =     Accessibility_ROLE_FONT_CHOOSER;
+  role_table [ATK_ROLE_FRAME] =            Accessibility_ROLE_FRAME;
+  role_table [ATK_ROLE_GLASS_PANE] =       Accessibility_ROLE_GLASS_PANE;
+  role_table [ATK_ROLE_HTML_CONTAINER] =   Accessibility_ROLE_HTML_CONTAINER;
+  role_table [ATK_ROLE_ICON] =             Accessibility_ROLE_ICON;
+  role_table [ATK_ROLE_IMAGE] =            Accessibility_ROLE_IMAGE; 
+  role_table [ATK_ROLE_INTERNAL_FRAME] =   Accessibility_ROLE_INTERNAL_FRAME; 
+  role_table [ATK_ROLE_LABEL] =            Accessibility_ROLE_LABEL;
+  role_table [ATK_ROLE_LAYERED_PANE] =     Accessibility_ROLE_LAYERED_PANE;
+  role_table [ATK_ROLE_LIST] =             Accessibility_ROLE_LIST;
+  role_table [ATK_ROLE_LIST_ITEM] =        Accessibility_ROLE_LIST_ITEM;
+  role_table [ATK_ROLE_MENU] =             Accessibility_ROLE_MENU;
+  role_table [ATK_ROLE_MENU_BAR] =         Accessibility_ROLE_MENU_BAR;
+  role_table [ATK_ROLE_MENU_ITEM] =        Accessibility_ROLE_MENU_ITEM;
+  role_table [ATK_ROLE_OPTION_PANE] =      Accessibility_ROLE_OPTION_PANE;
+  role_table [ATK_ROLE_PAGE_TAB] =         Accessibility_ROLE_PAGE_TAB;
+  role_table [ATK_ROLE_PAGE_TAB_LIST] =    Accessibility_ROLE_PAGE_TAB_LIST; 
+  role_table [ATK_ROLE_PANEL] =            Accessibility_ROLE_PANEL;
+  role_table [ATK_ROLE_PASSWORD_TEXT] =    Accessibility_ROLE_PASSWORD_TEXT;
+  role_table [ATK_ROLE_POPUP_MENU] =       Accessibility_ROLE_POPUP_MENU;
+  role_table [ATK_ROLE_PROGRESS_BAR] =     Accessibility_ROLE_PROGRESS_BAR;
+  role_table [ATK_ROLE_PUSH_BUTTON] =      Accessibility_ROLE_PUSH_BUTTON;
+  role_table [ATK_ROLE_RADIO_BUTTON] =     Accessibility_ROLE_RADIO_BUTTON;
+  role_table [ATK_ROLE_RADIO_MENU_ITEM] =  Accessibility_ROLE_RADIO_MENU_ITEM;
+  role_table [ATK_ROLE_ROOT_PANE] =        Accessibility_ROLE_ROOT_PANE;
+  role_table [ATK_ROLE_ROW_HEADER] =       Accessibility_ROLE_ROW_HEADER;
+  role_table [ATK_ROLE_SCROLL_BAR] =       Accessibility_ROLE_SCROLL_BAR;
+  role_table [ATK_ROLE_SCROLL_PANE] =      Accessibility_ROLE_SCROLL_PANE;
+  role_table [ATK_ROLE_SEPARATOR] =        Accessibility_ROLE_SEPARATOR;
+  role_table [ATK_ROLE_SLIDER] =           Accessibility_ROLE_SLIDER;
+  role_table [ATK_ROLE_SPLIT_PANE] =       Accessibility_ROLE_SPLIT_PANE;
+  role_table [ATK_ROLE_SPIN_BUTTON] =      Accessibility_ROLE_SPIN_BUTTON;
+  role_table [ATK_ROLE_STATUSBAR] =        Accessibility_ROLE_STATUS_BAR;
+  role_table [ATK_ROLE_TABLE] =            Accessibility_ROLE_TABLE;
+  role_table [ATK_ROLE_TABLE_CELL] =       Accessibility_ROLE_TABLE_CELL;
+  role_table [ATK_ROLE_TABLE_COLUMN_HEADER] =
+	                                   Accessibility_ROLE_COLUMN_HEADER;
+  role_table [ATK_ROLE_TABLE_ROW_HEADER] = Accessibility_ROLE_ROW_HEADER;
+  role_table [ATK_ROLE_TEAR_OFF_MENU_ITEM] =
+	                                   Accessibility_ROLE_TEAROFF_MENU_ITEM;
+  role_table [ATK_ROLE_TERMINAL] =         Accessibility_ROLE_TERMINAL;
+  role_table [ATK_ROLE_TEXT] =             Accessibility_ROLE_TEXT;
+  role_table [ATK_ROLE_TOGGLE_BUTTON] =    Accessibility_ROLE_TOGGLE_BUTTON;
+  role_table [ATK_ROLE_TOOL_BAR] =         Accessibility_ROLE_TOOL_BAR;
+  role_table [ATK_ROLE_TOOL_TIP] =         Accessibility_ROLE_TOOL_TIP;
+  role_table [ATK_ROLE_TREE] =             Accessibility_ROLE_TREE;
+  role_table [ATK_ROLE_TREE_TABLE] =       Accessibility_ROLE_TREE_TABLE;
+  role_table [ATK_ROLE_UNKNOWN] =          Accessibility_ROLE_UNKNOWN;
+  role_table [ATK_ROLE_VIEWPORT] =         Accessibility_ROLE_VIEWPORT;
+  role_table [ATK_ROLE_WINDOW] =           Accessibility_ROLE_WINDOW;
+  role_table [ATK_ROLE_LAST_DEFINED] =     Accessibility_ROLE_EXTENDED;
+  
+  return TRUE;
+}
+
 static Accessibility_Role
 spi_role_from_atk_role (AtkRole role)
 {
+  static gboolean is_initialized = FALSE;
+  static Accessibility_Role spi_role_table [ATK_ROLE_LAST_DEFINED];
   Accessibility_Role spi_role;
 
-  /* TODO: finish and/or make efficient! */
-  switch (role)
-  {
-    case ATK_ROLE_INVALID:
-      spi_role = Accessibility_ROLE_INVALID;
-      break;
-    case ATK_ROLE_ACCEL_LABEL:
-    case ATK_ROLE_ALERT:
-    case ATK_ROLE_ANIMATION: 
-    case ATK_ROLE_ARROW: 
-    case ATK_ROLE_CALENDAR: 
-    case ATK_ROLE_CANVAS:
-    case ATK_ROLE_CHECK_BOX:
-    case ATK_ROLE_CHECK_MENU_ITEM:
-    case ATK_ROLE_COLOR_CHOOSER:
-    case ATK_ROLE_COLUMN_HEADER:
-    case ATK_ROLE_COMBO_BOX:
-    case ATK_ROLE_DATE_EDITOR:
-    case ATK_ROLE_DESKTOP_ICON:
-    case ATK_ROLE_DESKTOP_FRAME:
-    case ATK_ROLE_DIAL:
-    case ATK_ROLE_DIALOG:
-    case ATK_ROLE_DIRECTORY_PANE:
-    case ATK_ROLE_DRAWING_AREA:
-    case ATK_ROLE_FILE_CHOOSER:
-    case ATK_ROLE_FILLER:
-    case ATK_ROLE_FONT_CHOOSER:
-    case ATK_ROLE_FRAME:
-    case ATK_ROLE_GLASS_PANE: 
-    case ATK_ROLE_HTML_CONTAINER: 
-    case ATK_ROLE_ICON: 
-    case ATK_ROLE_IMAGE:
-    case ATK_ROLE_INTERNAL_FRAME:
-    case ATK_ROLE_LABEL:
-    case ATK_ROLE_LAYERED_PANE:
-    case ATK_ROLE_LIST:
-    case ATK_ROLE_LIST_ITEM:
-    case ATK_ROLE_MENU:
-    case ATK_ROLE_MENU_BAR:
-    case ATK_ROLE_MENU_ITEM:
-    case ATK_ROLE_OPTION_PANE:
-    case ATK_ROLE_PAGE_TAB:
-    case ATK_ROLE_PAGE_TAB_LIST:
-    case ATK_ROLE_PANEL:
-    case ATK_ROLE_PASSWORD_TEXT:
-    case ATK_ROLE_POPUP_MENU:
-    case ATK_ROLE_PROGRESS_BAR:
-    case ATK_ROLE_PUSH_BUTTON:
-    case ATK_ROLE_RADIO_BUTTON:
-    case ATK_ROLE_RADIO_MENU_ITEM:
-    case ATK_ROLE_ROOT_PANE:
-    case ATK_ROLE_ROW_HEADER:
-    case ATK_ROLE_SCROLL_BAR:
-    case ATK_ROLE_SCROLL_PANE:
-    case ATK_ROLE_SEPARATOR:
-    case ATK_ROLE_SLIDER:
-    case ATK_ROLE_SPLIT_PANE:
-    case ATK_ROLE_SPIN_BUTTON:
-    case ATK_ROLE_STATUSBAR:
-    case ATK_ROLE_TABLE:
-    case ATK_ROLE_TABLE_CELL:
-    case ATK_ROLE_TABLE_COLUMN_HEADER:
-    case ATK_ROLE_TABLE_ROW_HEADER:
-    case ATK_ROLE_TEAR_OFF_MENU_ITEM:
-    case ATK_ROLE_TERMINAL:
-    case ATK_ROLE_TEXT:
-    case ATK_ROLE_TOGGLE_BUTTON:
-    case ATK_ROLE_TOOL_BAR:
-    case ATK_ROLE_TOOL_TIP:
-    case ATK_ROLE_TREE:
-    case ATK_ROLE_TREE_TABLE:
-    case ATK_ROLE_UNKNOWN:
-    case ATK_ROLE_VIEWPORT:
-    case ATK_ROLE_WINDOW:
-    case ATK_ROLE_LAST_DEFINED:
-    default:
+  if (!is_initialized)
+   {
+     is_initialized = spi_init_role_lookup_table (spi_role_table);	   
+   }
+
+  if (role >= 0 && role < ATK_ROLE_LAST_DEFINED)
+    {
+      spi_role = spi_role_table [role];
+    }
+  else
+    {
       spi_role = Accessibility_ROLE_EXTENDED;	    
-  }
+    }
   return spi_role;
 }
 
