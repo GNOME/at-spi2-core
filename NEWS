@@ -1,3 +1,8 @@
+Changes in version 1.7.2
+========================
+
+* Added ATK_ROLE_EMBEDDED. (bug #147989)
+
 Changes in version 1.7.1
 ========================
 * Allow locale dir to be not hardcoded into binary. (bug #1289006)

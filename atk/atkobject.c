@@ -154,7 +154,8 @@ static AtkRoleItem role_items [] =
   { ATK_ROLE_PARAGRAPH, N_("paragraph")},
   { ATK_ROLE_APPLICATION, N_("application")},
   { ATK_ROLE_AUTOCOMPLETE, N_("autocomplete")},
-  { ATK_ROLE_EDITBAR, N_("edit bar")}
+  { ATK_ROLE_EDITBAR, N_("edit bar")},
+  { ATK_ROLE_EMBEDDED, N_("embedded component")}
 };
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);

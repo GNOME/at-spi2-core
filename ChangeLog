@@ -1,3 +1,13 @@
+2004-07-20  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkobject.h, atkobject.c, atk-object-enum.c:
+	Added ATK_ROLE_EMBEDDED, "embedded component", which is a 
+	context hint for assistive technologies that the contained
+	children share a context which differs from the embedding
+	container.  Fixes bug #147989.
+
+	* configure.in: Revved to 1.7.2.
+	
 2004-06-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkcomponent.h: Add definition for atk_rectangle_get_type
@@ -86,7 +96,7 @@
 
         * configure.in: Added "gu" (Gujarati) to ALL_LINGUAS.
 
-2004.04.02  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+2004.04.02  IÃ±aki LarraÃ±aga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
 
@@ -120,7 +130,7 @@
 
 	* NEWS: Updated.
 
-2004-03-07  Danilo Šegan  <dsegan@gmx.net>
+2004-03-07  Danilo Å egan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr@ije" to ALL_LINGAUS.
 
@@ -253,7 +263,7 @@ Mon Mar  1 20:32:06 2004  Tim Janik  <timj@gtk.org>
 
 	This fixes bug #112390.
 
-2003-11-29  Danilo Šegan  <dsegan@gmx.net>
+2003-11-29  Danilo Å egan  <dsegan@gmx.net>
 
 	* configure.in: Added "af" to ALL_LINGUAS.
 
@@ -339,7 +349,7 @@ Mon Mar  1 20:32:06 2004  Tim Janik  <timj@gtk.org>
 	* atk.spec.in: Correct typo. Fix provided by Scott Kennedy.
 	This fixes bug #121990.
 
-2003-09-21  Åsmund Skjæveland  <aasmunds@fys.uio.no>
+2003-09-21  Ãsmund SkjÃ¦veland  <aasmunds@fys.uio.no>
  
         * configure.in: Added Norwegian (nynorsk) code
         nn to ALL_LINGUAS.
@@ -489,7 +499,7 @@ Mon Mar  1 20:32:06 2004  Tim Janik  <timj@gtk.org>
 
 	* NEWS: Updated.
 
-2003-05-09  Samúel Jón Gunnarsson  <sammi@techattack.nu>
+2003-05-09  SamÃºel JÃ³n Gunnarsson  <sammi@techattack.nu>
 
 	* is.po: Added "is" into ALL_LINGUAS.
 
