@@ -136,6 +136,7 @@ at-bridge/Makefile
 test/Makefile
 cspi/Makefile
 util/Makefile
+util/Accessibility_Util.server
 ])
 
 echo "AT-SPI setup:
