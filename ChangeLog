@@ -4,6 +4,11 @@
 	Removed obsolete X event loop for passive keygrabs (which now
 	lives in libspi).
 
+	* registryd/registryd.c:
+	Removed unnecessary call to gdk_init() [cruft]. This also allows
+	removal of requisite gdk-2.0 from REGISTRYD_LIBS/CFLAGS in
+	* configure.in.
+
 2001-11-28  Bill Haneman  <bill.haneman@sun.com>
 
 	* docs/reference/cspi:
