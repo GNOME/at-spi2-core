@@ -13,6 +13,9 @@
 	* test/key-listener-test.c:
 	(report_all_key_event): Send output to stderr,
 	not stdout, for consistency with the rest of the test callbacks.
+
+	* configure.in:
+	Add -lXext to XINPUT_LIBS. Fix for bug #132237.
 	
 2004-03-22  Bill Haneman <billh@gnome.org>
 
