@@ -102,5 +102,6 @@ can be selected should support the AtkSelection interface.
 </para>
 
 @selection: 
+@Returns: 
 
 
