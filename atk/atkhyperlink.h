@@ -87,6 +87,8 @@ struct _AtkHyperlinkClass
 
   AtkFunction      pad1;
   AtkFunction      pad2;
+  AtkFunction      pad3;
+  AtkFunction      pad4;
 };
 
 GType            atk_hyperlink_get_type             (void);

@@ -1,9 +1,10 @@
 2002-02-27  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	* atk/atkdocument.h: 
+	* atk/atkhypertext.h atk/atkhyperlink.h: 
 	Add padding to class structures to allow for future expansion.
 
-2002-02-27  Padraig O'Briain  <padraig.obriain@sun.com>
+	* atk/atkdocument.h: 
+	Add padding to class structures to allow for future expansion.
 
 	* atk/atkobjectfactory.h atk/atkgobjectaccessible.h:
 	Add padding to class structures to allow for future expansion.
