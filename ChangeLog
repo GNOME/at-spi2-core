@@ -1,3 +1,7 @@
+2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
 2004-01-26  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: Revise property name. Fixes bug #132022 from

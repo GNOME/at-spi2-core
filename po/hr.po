@@ -1,11 +1,11 @@
-# Translation of atk to Croatian
-# Copyright (C) Croatian team
+# Translation of atk to Croatiann
+# Copyright (C) Croatiann team
 # Translators: Automatski Prijevod <>,Robert Sedak <robert.sedak@sk.tel.hr>,
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 0\n"
-"POT-Creation-Date: 2003-12-31 18:37+0100\n"
-"PO-Revision-Date: 2003-12-31 18:39+CET\n"
+"POT-Creation-Date: 2004-02-01 16:48+0100\n"
+"PO-Revision-Date: 2004-02-01 16:48+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -461,7 +461,8 @@ msgid "Is used to notify that the table caption has changed"
 msgstr "Koristi se za itvješćivanje da je promijenjen naslov tablice"
 
 #: atk/atkobject.c:401
-msgid "Accessible Hypertext Number of Links"
+#, fuzzy
+msgid "Number of Accessible Hypertext Links"
 msgstr "Dostupan broj hiperteksta za veze"
 
 #: atk/atkobject.c:402
