@@ -66,6 +66,10 @@ struct _AtkStreamableContentIface
   GIOChannel*               (* get_stream)        (AtkStreamableContent     *streamable,
                                                    const gchar              *mime_type);
 
+  AtkFunction               pad1;
+  AtkFunction               pad2;
+  AtkFunction               pad3;
+  AtkFunction               pad4;
 };
 GType                  atk_streamable_content_get_type (void);
 

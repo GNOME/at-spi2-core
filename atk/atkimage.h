@@ -57,6 +57,9 @@ struct _AtkImageIface
                                                    gint                  *height);
   gboolean              ( *set_image_description) (AtkImage              *image,
                                                    const gchar           *description);
+
+  AtkFunction           pad1;
+  AtkFunction           pad2;
 };
 
 GType  atk_image_get_type             (void);

@@ -226,6 +226,11 @@ struct _AtkTextIface
   void           (* text_caret_moved)             (AtkText          *text,
                                                    gint             location);
   void           (* text_selection_changed)       (AtkText          *text);
+
+  AtkFunction    pad1;
+  AtkFunction    pad2;
+  AtkFunction    pad3;
+  AtkFunction    pad4;
 };
 
 GType            atk_text_get_type (void);

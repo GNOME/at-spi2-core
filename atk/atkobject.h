@@ -242,6 +242,7 @@ struct _AtkPropertyValues
 
 typedef struct _AtkPropertyValues        AtkPropertyValues;
 
+typedef gboolean (*AtkFunction)          (gpointer data); 
 /*
  * For most properties the old_value field of AtkPropertyValues will
  * not contain a valid value.
@@ -384,6 +385,10 @@ void                      (* initialize)                         (AtkObject     
    */
   void                    (*visible_data_changed) (AtkObject                  *accessible);
 
+  AtkFunction             pad1;
+  AtkFunction             pad2;
+  AtkFunction             pad3;
+  AtkFunction             pad4;
 };
 
 GType            atk_object_get_type   (void);

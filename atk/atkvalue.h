@@ -58,6 +58,8 @@ struct _AtkValueIface
   gboolean (* set_current_value) (AtkValue     *obj,
                                   const GValue *value);
 
+  AtkFunction pad1;
+  AtkFunction pad2;
 };
 
 GType            atk_value_get_type (void);

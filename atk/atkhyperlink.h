@@ -84,6 +84,9 @@ struct _AtkHyperlinkClass
    * Returns the number of anchors associated with this link
    */
   gint	           (* get_n_anchors)	   (AtkHyperlink     *link);
+
+  AtkFunction      pad1;
+  AtkFunction      pad2;
 };
 
 GType            atk_hyperlink_get_type             (void);

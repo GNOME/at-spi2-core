@@ -95,6 +95,9 @@ struct _AtkComponentIface
   	
   AtkLayer                 (* get_layer)        (AtkObject     *accessible);
   gint                     (* get_mdi_zorder)   (AtkObject     *accessible);
+
+  AtkFunction              pad1;
+  AtkFunction              pad2;
 };
 
 GType atk_component_get_type (void);

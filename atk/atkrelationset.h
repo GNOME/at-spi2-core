@@ -48,6 +48,9 @@ struct _AtkRelationSet
 struct _AtkRelationSetClass
 {
   GObjectClass parent;
+
+  AtkFunction pad1;
+  AtkFunction pad2;
 };
 
 GType atk_relation_set_get_type (void);

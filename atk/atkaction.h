@@ -62,6 +62,9 @@ struct _AtkActionIface
   gboolean                (*set_description)   (AtkAction         *action,
                                                 gint              i,
                                                 const gchar       *desc);
+
+  AtkFunction             pad1;
+  AtkFunction             pad2;
 };
 
 GType atk_action_get_type (void);

@@ -1,3 +1,11 @@
+2002-02-13  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkaction.h atk/atkcomponent.h atk/atkeditabletext.h
+	atk/atkhyperlink.h atk/atkimage.h atk/atkobject.h 
+	atk/atkrelationset.h atk/atkselection.h atk/atkstreamablecontent.h
+	atk/atktable.h atk/atktext.h atk/atkvalue.h:
+	Add padding to class structures to allow for future expansion.
+
 2002-02-11  Bill Haneman  <bill.haneman@sun.com>
 
 	* configure.in:
