@@ -1,5 +1,6 @@
-#include <cspi/spi-private.h>
-#include <cspi/spi-listener-impl.h>
+#include <libbonobo.h>
+#include "../spi-private.h"
+#include "cspi-bonobo-listener.h"
 
 typedef struct
 {
@@ -37,7 +38,7 @@ event_handler_free (EventHandler *handler)
 }
 
 static GList *
-event_list_remove_by_callback (GList *list, gpointer callback)
+event_list_remove_by_cb (GList *list, gpointer callback)
 {
   GList *l, *next;
 	
@@ -120,28 +121,40 @@ cspi_event_listener_class_init (CSpiEventListenerClass *klass)
   klass->event = cspi_event;
 }
 
-CSpiEventListener *
+CORBA_Object
 cspi_event_listener_new (void)
 {
-  return g_object_new (cspi_event_listener_get_type (), NULL);
+  CSpiEventListener *listener;
+
+  listener = g_object_new (cspi_event_listener_get_type (), NULL);
+
+  return CORBA_Object_duplicate (BONOBO_OBJREF (listener), cspi_ev ());
 }
 
 void
-cspi_event_listener_add_callback (CSpiEventListener        *listener,
-				  AccessibleEventListenerCB callback,
-				  void                     *user_data)
+cspi_event_listener_add_cb (AccessibleEventListener  *al,
+			    AccessibleEventListenerCB callback,
+			    void                     *user_data)
 {
+  CSpiEventListener *listener = bonobo_object (
+    ORBit_small_get_servant (CSPI_OBJREF (al)));
+
   g_return_if_fail (CSPI_IS_EVENT_LISTENER (listener));
+
   listener->callbacks = g_list_prepend (listener->callbacks,
 					event_handler_new (callback, user_data));
 }
 
 void
-cspi_event_listener_remove_callback (CSpiEventListener        *listener,
-				     AccessibleEventListenerCB callback)
+cspi_event_listener_remove_cb (AccessibleEventListener  *al,
+			       AccessibleEventListenerCB callback)
 {
+  CSpiEventListener *listener = bonobo_object (
+    ORBit_small_get_servant (CSPI_OBJREF (al)));
+
   g_return_if_fail (CSPI_IS_EVENT_LISTENER (listener));
-  listener->callbacks = event_list_remove_by_callback (listener->callbacks, callback);
+
+  listener->callbacks = event_list_remove_by_cb (listener->callbacks, callback);
 }
 
 /*
@@ -238,26 +251,38 @@ BONOBO_TYPE_FUNC (CSpiKeystrokeListener,
 		  spi_keystroke_listener_get_type (),
 		  cspi_keystroke_listener);
 
-CSpiKeystrokeListener *
+CORBA_Object
 cspi_keystroke_listener_new (void)
 {
-  return g_object_new (cspi_keystroke_listener_get_type (), NULL);
+  CSpiEventListener *listener;
+
+  listener = g_object_new (cspi_keystroke_listener_get_type (), NULL);
+
+  return CORBA_Object_duplicate (BONOBO_OBJREF (listener), cspi_ev ());
 }
 
 void
-cspi_keystroke_listener_add_callback (CSpiKeystrokeListener        *listener,
-				      AccessibleKeystrokeListenerCB callback,
-				      void                         *user_data)
+cspi_keystroke_listener_add_cb (AccessibleKeystrokeListener  *al,
+				AccessibleKeystrokeListenerCB callback,
+				void                         *user_data)
 {
+  CSpiKeystrokeListener *listener = bonobo_object (
+    ORBit_small_get_servant (CSPI_OBJREF (al)));
+
   g_return_if_fail (CSPI_IS_KEYSTROKE_LISTENER (listener));
+
   listener->callbacks = g_list_prepend (listener->callbacks,
 					event_handler_new (callback, user_data));
 }
 
 void
-cspi_keystroke_listener_remove_callback (CSpiKeystrokeListener        *listener,
-					 AccessibleKeystrokeListenerCB callback)
+cspi_keystroke_listener_remove_cb (AccessibleKeystrokeListener  *al,
+				   AccessibleKeystrokeListenerCB callback)
 {
+  CSpiKeystrokeListener *listener = bonobo_object (
+    ORBit_small_get_servant (CSPI_OBJREF (al)));
+
   g_return_if_fail (CSPI_IS_KEYSTROKE_LISTENER (listener));
-  listener->callbacks = event_list_remove_by_callback (listener->callbacks, callback);
+
+  listener->callbacks = event_list_remove_by_cb (listener->callbacks, callback);
 }

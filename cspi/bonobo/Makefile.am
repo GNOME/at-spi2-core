@@ -1,7 +1,12 @@
+INCLUDES = -I $(top_srcdir)           \
+           -I $(top_builddir)         \
+           $(LIBCSPI_CFLAGS)
+
 noinst_LTLIBRARIES = libcspi-bonobo.la
 
-
 libcspi_bonobo_la_SOURCES =	\
-	spi-bonobo.h		\
-	spi-bonobo-listener.c	\
-	spi-bonobo-listener.h	\
+	cspi-bonobo.c		\
+	cspi-bonobo-listener.c	\
+	cspi-bonobo-listener.h
+
+libcspi_bonobo_la_LIBADD = $(LIBCSPI_LIBS)

@@ -14,10 +14,10 @@ G_BEGIN_DECLS
 #define CSPI_IS_EVENT_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSPI_EVENT_LISTENER_TYPE))
 #define CSPI_IS_EVENT_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), CSPI_EVENT_LISTENER_TYPE))
 
-struct _CSpiEventListener {
+typedef struct {
 	SpiEventListener parent;
 	GList           *callbacks;
-};
+} CSpiEventListener;
 typedef SpiEventListenerClass CSpiEventListenerClass;
 
 GType cspi_event_listener_get_type (void);
@@ -28,10 +28,10 @@ GType cspi_event_listener_get_type (void);
 #define CSPI_IS_KEYSTROKE_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), CSPI_KEYSTROKE_LISTENER_TYPE))
 #define CSPI_IS_KEYSTROKE_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), CSPI_KEYSTROKE_LISTENER_TYPE))
 
-struct _CSpiKeystrokeListener {
+typedef struct {
 	SpiKeystrokeListener parent;
 	GList               *callbacks;
-};
+} CSpiKeystrokeListener;
 typedef SpiKeystrokeListenerClass CSpiKeystrokeListenerClass;
 
 GType cspi_keystroke_listener_get_type (void);
