@@ -128,12 +128,6 @@ editable_text_class_init (EditableTextClass *klass)
 
   object_class->finalize = editable_text_finalize;
   
-/* */
-  fprintf(stderr, "INITIALIZING editabletext class!\n");
-  
-  fprintf (stderr, "EditableText: get-character-count is at %p\n",
-	   ((TEXT_CLASS(klass))->epv._get_characterCount));
-
   /* Initialize epv table */
 
   epv->setAttributes = impl_setAttributes;
@@ -165,8 +159,6 @@ editable_text_interface_new (AtkObject *obj)
   g_object_ref (obj);
   return new_editable;
 }
-
-
 
 static CORBA_boolean
 impl_setAttributes (PortableServer_Servant _servant,
