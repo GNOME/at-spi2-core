@@ -360,6 +360,7 @@ get_listener_list (SpiRegistry      *registry,
       case ETYPE_OBJECT:
       case ETYPE_PROPERTY:
       case ETYPE_FOCUS:
+      case ETYPE_KEYBOARD:
         ret = &registry->object_listeners;
 	break;
       case ETYPE_WINDOW:
@@ -369,7 +370,6 @@ get_listener_list (SpiRegistry      *registry,
       case ETYPE_TOOLKIT:
 	ret = &registry->toolkit_listeners;
 	break;
-      case ETYPE_KEYBOARD:
       default:
         ret = NULL;
 	break;
