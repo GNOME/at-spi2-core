@@ -217,17 +217,21 @@ atk_selection_remove_selection (AtkSelection *obj,
  *
  * Causes every child of the object to be selected if the object
  * supports multiple selections.
+ *
+ * Returns: TRUE if success, FALSE otherwise.
  **/
-void
+gboolean
 atk_selection_select_all_selection (AtkSelection *obj)
 {
   AtkSelectionIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_SELECTION (obj));
+  g_return_val_if_fail (obj != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_SELECTION (obj), FALSE);
 
   iface = ATK_SELECTION_GET_IFACE (obj);
 
   if (iface->select_all_selection)
-    (iface->select_all_selection) (obj);
+    return (iface->select_all_selection) (obj);
+  else
+    return FALSE;
 }

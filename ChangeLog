@@ -1,3 +1,8 @@
+2001-06-27  Louise Miller <lousie.miller@sun.com>
+	*atk/atkselection.h, atk/atkselection.c
+	changed return type to gboolean for 
+	atk_selection_select_all_selection
+
 2001-06-26  Brian Cameron <brian.cameron@sun.com>
 	*atk/atkstate.h atk/atkstate.c
 	docs/tmpl/atk-unused.sgml docs/tmpl/atkselection.sgml

@@ -58,7 +58,7 @@ struct _AtkSelectionIface
                                          gint           i);
   gboolean     (* remove_selection)     (AtkSelection   *selection,
                                          gint           i);
-  void         (* select_all_selection) (AtkSelection   *selection);
+  gboolean     (* select_all_selection) (AtkSelection   *selection);
 };
 GType atk_selection_get_type ();
 
@@ -78,7 +78,7 @@ gboolean     atk_selection_is_child_selected    (AtkSelection   *selection,
 gboolean     atk_selection_remove_selection     (AtkSelection   *selection,
                                                  gint           i);
 
-void         atk_selection_select_all_selection (AtkSelection   *selection);
+gboolean     atk_selection_select_all_selection (AtkSelection   *selection);
 
 #ifdef __cplusplus
 }
