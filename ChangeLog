@@ -1,5 +1,10 @@
 2001-12-10  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/registry.c:
+	Changed check of CORBA_environment on notification to be a warning
+	instead of an error for the moment, since we can recover from this
+	error when caused by a queued notification from a dead app.
+	
 	* libspi/value.c:
 	Fixes for spi_value, use G_TYPE_DOUBLE for atk_value values (as
 	used by all current implementors of AtkValue), and coerce to

@@ -515,8 +515,6 @@ _get_unique_id ()
   return ++id;
 }
 
-#define SPI_DEBUG
-
 static void
 _registry_notify_listeners (GList *listeners,
                             const Accessibility_Event *e_in,
@@ -559,7 +557,7 @@ _registry_notify_listeners (GList *listeners,
                                                    ev);
           if (ev->_major != CORBA_NO_EXCEPTION)
             {
-              g_error ("Accessibility app error: exception during event notification: %s\n",
+              g_warning ("Accessibility app error: exception during event notification: %s\n",
 		       CORBA_exception_id (ev));
 	    }
         }
