@@ -625,7 +625,6 @@ impl_registry_notify_event (PortableServer_Servant     servant,
       ctx.ev = ev;
       ctx.e_out = *e;
       ctx.source = e->source;
-      parse_event_type (&ctx.etype, e->type);
 
       spi_re_entrant_list_foreach (list, notify_listeners_cb, &ctx);
     }

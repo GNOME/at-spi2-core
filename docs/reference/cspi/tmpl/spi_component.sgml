@@ -34,6 +34,7 @@ AccessibleComponent Interface
 @SPI_LAYER_MDI: 
 @SPI_LAYER_POPUP: 
 @SPI_LAYER_OVERLAY: 
+@SPI_LAYER_WINDOW: 
 @SPI_LAYER_LAST_DEFINED: 
 
 <!-- ##### FUNCTION AccessibleComponent_ref ##### -->

@@ -28,3 +28,4 @@ serverinfo_DATA = Accessibility_Registry.server
 @INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST = Accessibility_Registry.server.in.in $(serverinfo_DATA)
+CLEANFILES = $(serverinfo_DATA) $(server_dot_in)
