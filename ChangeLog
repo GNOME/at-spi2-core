@@ -1,3 +1,51 @@
+2001-08-14  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Registry.idl : temporarily changed register_Application
+	to oneway, to work around issue with initial registration 
+	re-entrancy.
+	* idl/Application.idl : changed attribute "id" from readonly 
+	to read-write, since it needs to be assigned by Registry.
+	* registryd/registryd.c : added call to set application id 
+	on registration.
+	* registryd/registry.c : changed de-registration procedure to
+	use CORBA_Object_hash() to find matching object ref in application
+	lists and listener lists.
+	* registryd/registry.c : defined EventTypeStruct and EventTypeMajor,
+	began distinguishing between event types (work in progress).
+
+2001-08-13  Bill Haneman <bill.haneman@sun.com>
+
+	CHANGES:
+	* libspi/application.c:
+	Added implementations for get/set id, get_toolkitName,
+	get_version.
+	* registryd/registryd.c :
+	* test/at.c :
+	* test/app.c :
+	* Makefile.am :
+	Converted from use of OAF to bonobo-activation.
+	* libspi/desktop.h :
+	* libspi/desktop.c :
+	* test/app.c :
+	Removed references to atksimpleobject, since base atkobject
+	implementation now provides functionality we need.
+	* libspi/atksimpleobject.c :
+	* libspi/atksimpleobject.h :
+	Removed.
+	
+	ADDITIONS:
+	* at-bridge
+	* at-bridge/Makefile.am
+	* at-bridge/bridge.c
+	* configure.in
+	* Makefile.am
+	Added directory "bridge" and contents, and added dependencies
+	in Makefile.am/configure.in.  
+	Initial checkin of "at-bridge".
+	This code is a GTK_MODULE which automatically registers
+	GTK+ apps with the accessibility registry, using an object
+	reference to the root ATK object.
+	
 2001-08-10  Mark McLoughlin <mark@skynet.ie>
 
 	* po/Makefile.in.in: Remove. Again. If this

@@ -51,17 +51,21 @@ ALL_LINGUAS=""
 AM_GNOME2_GETTEXT
 
 dnl Checks for libraries
-PKG_CHECK_MODULES(LIBSPI, oaf-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
+PKG_CHECK_MODULES(LIBSPI, bonobo-activation-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 >= 2.3.91 atk >= 0.2)
 AC_SUBST(LIBSPI_LIBS)
 AC_SUBST(LIBSPI_CFLAGS)
 
-PKG_CHECK_MODULES(REGISTRYD, oaf-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 atk >= 0.2)
+PKG_CHECK_MODULES(REGISTRYD, bonobo-activation-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 atk >= 0.2)
 AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)
 
-PKG_CHECK_MODULES(TESTS, oaf-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 atk >= 0.2)
+PKG_CHECK_MODULES(TESTS, bonobo-activation-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 atk >= 0.2)
 AC_SUBST(TESTS_LIBS)
 AC_SUBST(TESTS_CFLAGS)
+
+PKG_CHECK_MODULES(AT_BRIDGE, bonobo-activation-2.0 >= 0.7.0 libbonobo-2.0 >= 1.97.0 ORBit-2.0 atk >= 0.2)
+AC_SUBST(AT_BRIDGE_LIBS)
+AC_SUBST(AT_BRIDGE_CFLAGS)
 
 dnl orbit-idl.
 ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
@@ -86,6 +90,7 @@ idl/Makefile
 libspi/Makefile
 registryd/Makefile
 registryd/Accessibility_Registry.oaf
+at-bridge/Makefile
 test/Makefile
 ])
 

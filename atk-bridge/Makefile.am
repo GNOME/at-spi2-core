@@ -1,0 +1,27 @@
+lib_LTLIBRARIES = libat-bridge.la
+
+libat_bridge_la_SOURCES = 	\
+	bridge.c	\
+	application.h
+
+INCLUDES = -I $(top_srcdir) \
+           -I $(top_builddir)         	\
+	   -I $(top_srcdir)/libspi	\
+	   -I $(top_builddir)/libspi	\
+           -I $(top_builddir)/at-bridge \
+           $(AT_BRIDGE_CFLAGS)
+
+DEPS = 	\
+	$(libatk)	\
+	$(libbonobo-2)	\
+	$(liboaf-2)	\
+	$(libORBit-2)	\
+	$(libat-spi)
+
+
+LDFLAGS = -no-undefined	\
+	@DEP_LIBS@
+
+libat_bridge_la_LIBADD = $(AT_BRIDGE_LIBS) -lspi
+
+CFLAGS += $(AT_BRIDGE_CFLAGS)
