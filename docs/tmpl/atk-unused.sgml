@@ -18,6 +18,26 @@
 atk
 
 
+<!-- ##### USER_FUNCTION AtkFocusHandler ##### -->
+<para>
+
+</para>
+
+@Param1: 
+@Param2: 
+
+<!-- ##### ENUM AtkImageType ##### -->
+<para>
+
+</para>
+
+@ATK_IMAGE_EMPTY: 
+@ATK_IMAGE_PIXMAP: 
+@ATK_IMAGE_IMAGE: 
+@ATK_IMAGE_PIXBUF: 
+@ATK_IMAGE_STOCK: 
+@ATK_IMAGE_ICON_SET: 
+
 <!-- ##### FUNCTION atk_editable_text_select_text ##### -->
 <para>
 
@@ -36,6 +56,37 @@ atk
 @start_pos: 
 @end_pos: 
 @attributes: 
+
+<!-- ##### FUNCTION atk_image_get_image_height ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+<!-- ##### FUNCTION atk_image_get_image_width ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+<!-- ##### FUNCTION atk_image_get_storage_type ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+<!-- ##### FUNCTION atk_streamable_content_get_type ##### -->
+<para>
+
+</para>
+
+@Returns: 
 
 <!-- ##### FUNCTION atk_text_get_range_attributes ##### -->
 <para>

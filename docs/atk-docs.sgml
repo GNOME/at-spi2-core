@@ -1,10 +1,10 @@
 <!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
 <!entity atk-AtkAction SYSTEM "sgml/atkaction.sgml">
-<!entity atk-atkcomponent SYSTEM "sgml/atkcomponent.sgml">
-<!entity atk-atkeditabletext SYSTEM "sgml/atkeditabletext.sgml">
+<!entity atk-AtkComponent SYSTEM "sgml/atkcomponent.sgml">
+<!entity atk-AtkEditabletext SYSTEM "sgml/atkeditabletext.sgml">
 <!entity atk-AtkHyperlink SYSTEM "sgml/atkhyperlink.sgml">
-<!entity atk-atkhypertext SYSTEM "sgml/atkhypertext.sgml">
-<!entity atk-atkimage SYSTEM "sgml/atkimage.sgml">
+<!entity atk-AtkHypertext SYSTEM "sgml/atkhypertext.sgml">
+<!entity atk-AtkImage SYSTEM "sgml/atkimage.sgml">
 <!entity atk-AtkNoOpObject SYSTEM "sgml/atknoopobject.sgml">
 <!entity atk-AtkNoOpObjectFactory SYSTEM "sgml/atknoopobjectfactory.sgml">
 <!entity atk-AtkObject SYSTEM "sgml/atkobject.sgml">
@@ -12,13 +12,14 @@
 <!entity atk-AtkRegistry SYSTEM "sgml/atkregistry.sgml">
 <!entity atk-AtkRelation SYSTEM "sgml/atkrelation.sgml">
 <!entity atk-AtkRelationSet SYSTEM "sgml/atkrelationset.sgml">
-<!entity atk-atkselection SYSTEM "sgml/atkselection.sgml">
+<!entity atk-AtkSelection SYSTEM "sgml/atkselection.sgml">
+<!entity atk-AtkState SYSTEM "sgml/atkstate.sgml">
 <!entity atk-AtkStateSet SYSTEM "sgml/atkstateset.sgml">
-<!entity atk-atktable SYSTEM "sgml/atktable.sgml">
-<!entity atk-atktext SYSTEM "sgml/atktext.sgml">
-<!entity atk-atkvalue SYSTEM "sgml/atkvalue.sgml">
-<!entity atk-atkstate SYSTEM "sgml/atkstate.sgml">
-<!entity atk-atkutil SYSTEM "sgml/atkutil.sgml">
+<!entity atk-AtkStreamableContent SYSTEM "sgml/atkstreamablecontent.sgml">
+<!entity atk-AtkTable SYSTEM "sgml/atktable.sgml">
+<!entity atk-AtkText SYSTEM "sgml/atktext.sgml">
+<!entity atk-AtkUtil SYSTEM "sgml/atkutil.sgml">
+<!entity atk-AtkValue SYSTEM "sgml/atkvalue.sgml">
 ]>
 
 <book>
@@ -29,11 +30,11 @@
   <chapter id="atk">
     <title>ATK Library</title>
     &atk-AtkAction;
-    &atk-atkcomponent;
-    &atk-atkeditabletext;
+    &atk-AtkComponent;
+    &atk-AtkEditabletext;
     &atk-AtkHyperlink;
-    &atk-atkhypertext;
-    &atk-atkimage;
+    &atk-AtkHypertext;
+    &atk-AtkImage;
     &atk-AtkNoOpObject;
     &atk-AtkNoOpObjectFactory;
     &atk-AtkObject;
@@ -41,13 +42,14 @@
     &atk-AtkRegistry;
     &atk-AtkRelation;
     &atk-AtkRelationSet;
-    &atk-atkselection;
+    &atk-AtkSelection;
+    &atk-AtkState;
     &atk-AtkStateSet;
-    &atk-atktable;
-    &atk-atktext;
-    &atk-atkvalue;
-    &atk-atkstate;
-    &atk-atkutil;
+    &atk-AtkStreamableContent;
+    &atk-AtkTable;
+    &atk-AtkText;
+    &atk-AtkUtil;
+    &atk-AtkValue;
    </chapter>
 </book>
 

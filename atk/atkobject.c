@@ -244,7 +244,7 @@ atk_object_class_init (AtkObjectClass *klass)
   g_object_class_install_property (gobject_class,
                                    PROP_TABLE_COLUMN_DESCRIPTION,
                                    g_param_spec_int    (atk_object_name_property_table_column_description,
-                                                        "Accessible Table Columnn Description",
+                                                        "Accessible Table Column Description",
                                                         "Is used to notify that the table columnscription has changed ",
                                                         0,
                                                         G_MAXINT,
@@ -457,7 +457,7 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
  * atk_object_ref_relation_set:
  * @accessible: an #AtkObject
  *
- * Gets the RelationSet associated with the object
+ * Gets the #AtkRelationSet associated with the object
  *
  * Returns: an #AtkRelationSet representing the relation set of the object.
  **/
@@ -516,8 +516,8 @@ atk_object_get_role (AtkObject *accessible) {
  * atk_object_ref_state_set:
  * @accessible: an #AtkObject
  *
- * Gets a reference to the state set of the accessible; the caller should
- * unreference it.
+ * Gets a reference to the state set of the accessible; the caller must
+ * unreference it when it is no longer needed.
  *
  * Returns: a reference to an #AtkStateSet which is the state
  * set of the accessible

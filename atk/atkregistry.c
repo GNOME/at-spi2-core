@@ -120,12 +120,13 @@ atk_registry_finalize (GObject *instance)
  * atk_registry_set_factory_type:
  * @registry: the #AtkRegistry in which to register the type association
  * @type: an #AtkObject type 
- * @factory_type: an #AtkObjectFactory type to associate with @type
+ * @factory_type: an #AtkObjectFactory type to associate with @type.  Must
+ * implement AtkObject appropriate for @type.
  *
  * Associate an #AtkObjectFactory subclass with a #GType. Note:
  * The associated @factory_type will thereafter be responsible for
  * the creation of new #AtkObject implementations for instances
- * of type @type.
+ * appropriate for @type.
  **/
 void
 atk_registry_set_factory_type (AtkRegistry *registry,
@@ -206,10 +207,10 @@ atk_registry_get_factory_type (AtkRegistry *registry,
  * @type: a #GType with which to look up the associated #AtkObjectFactory
  *
  * Gets an #AtkObjectFactory appropriate for creating #AtkObjects
- * of type @type.
+ * appropriate for @type.
  *
  * Returns: an #AtkObjectFactory appropriate for creating #AtkObjects
- * of type @type.
+ * appropriate for @type.
  **/
 AtkObjectFactory*
 atk_registry_get_factory (AtkRegistry *registry,
@@ -257,7 +258,7 @@ atk_registry_get_factory (AtkRegistry *registry,
  * registry for registering new #AtkObject factories. Following
  * a call to this function, maintainers may call atk_registry_set_factory_type()
  * to associate an #AtkObjectFactory subclass with the GType of objects
- * for whom accessability information will be provided.
+ * for whom accessibility information will be provided.
  *
  * Returns: a default implementation of the #AtkObjectFactory/type
  * registry

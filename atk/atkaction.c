@@ -42,7 +42,7 @@ atk_action_get_type ()
 /**
  * atk_action_do_action:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: the action to be performed 
+ * @i: the action index corresponding to the action to be performed 
  *
  * Perform the specified action on the object
  **/
@@ -69,8 +69,8 @@ atk_action_do_action (AtkAction *obj,
  * If there are more than one, the first one is considered the
  * "default" action of the object.
  *
- * Returns: a the number of actions , or 0
- * if @action does not implement this interface.
+ * Returns: a the number of actions, or 0 if @action does not
+ * implement this interface.
  **/
 gint
 atk_action_get_n_actions  (AtkAction *obj)
@@ -91,7 +91,7 @@ atk_action_get_n_actions  (AtkAction *obj)
 /**
  * atk_action_get_description:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: a %gint indicating the action
+ * @i: the action index corresponding to the action to be performed 
  *
  * Returns a description of the specified action of the object
  *
@@ -118,7 +118,7 @@ atk_action_get_description (AtkAction *obj,
 /**
  * atk_action_get_keybinding:
  * @action: a #GObject instance that implements AtkActionIface
- * @i: a %gint indicating the action
+ * @i: the action index corresponding to the action to be performed 
  *
  * Returns a keybinding associated with this action, if one exists.
  *

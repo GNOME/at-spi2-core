@@ -28,32 +28,9 @@ an assistive technology to get descriptive information about images.
 </para>
 
 @parent: 
-@get_storage_type: 
 @get_image_description: 
-@get_image_height: 
-@get_image_width: 
+@get_image_size: 
 @set_image_description: 
-
-<!-- ##### ENUM AtkImageType ##### -->
-<para>
-
-</para>
-
-@ATK_IMAGE_EMPTY: 
-@ATK_IMAGE_PIXMAP: 
-@ATK_IMAGE_IMAGE: 
-@ATK_IMAGE_PIXBUF: 
-@ATK_IMAGE_STOCK: 
-@ATK_IMAGE_ICON_SET: 
-
-<!-- ##### FUNCTION atk_image_get_storage_type ##### -->
-<para>
-
-</para>
-
-@image: 
-@Returns: 
-
 
 <!-- ##### FUNCTION atk_image_get_image_description ##### -->
 <para>
@@ -64,22 +41,14 @@ an assistive technology to get descriptive information about images.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_image_get_image_height ##### -->
+<!-- ##### FUNCTION atk_image_get_image_size ##### -->
 <para>
 
 </para>
 
 @image: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_image_get_image_width ##### -->
-<para>
-
-</para>
-
-@image: 
-@Returns: 
+@height: 
+@width: 
 
 
 <!-- ##### FUNCTION atk_image_set_image_description ##### -->

@@ -29,7 +29,7 @@ extern "C" {
 /*
  * The interface AtkAction should be supported by any object that can 
  * perform one or more actions. The interface provides the standard 
- * mechanism for an assitive technology to determine what those actions 
+ * mechanism for an assistive technology to determine what those actions 
  * are as well as tell the object to perform them. Any object that can 
  * be manipulated should support this interface.
  */
@@ -50,15 +50,15 @@ struct _AtkActionIface
 {
   GTypeInterface parent;
 
-  gboolean (*do_action)         (AtkAction         *action,
-                                 gint              i);
-  gint     (*get_n_actions)     (AtkAction         *action);
+  gboolean                (*do_action)         (AtkAction         *action,
+                                                gint              i);
+  gint                    (*get_n_actions)     (AtkAction         *action);
   G_CONST_RETURN gchar*   (*get_description)   (AtkAction         *action,
                                                 gint              i);
   G_CONST_RETURN gchar*   (*get_keybinding)    (AtkAction         *action,
                                                 gint              i);
-
 };
+
 GType atk_action_get_type ();
 
 /*

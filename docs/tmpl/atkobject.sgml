@@ -2,7 +2,7 @@
 AtkObject
 
 <!-- ##### SECTION Short_Description ##### -->
-represents the minimum information all accessable objects return
+represents the minimum information all accessible objects return
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -11,7 +11,7 @@ return. This information includes accessible name, accessible
 description, role and state of the object, as well information about
 its parent and children. It is also possible to obtain more specific
 accessibility information about a component if it supports one or more
-of the following interfaces:
+of the other ATK interfaces:
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

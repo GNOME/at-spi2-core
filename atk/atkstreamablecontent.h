@@ -47,7 +47,7 @@ struct _AtkStreamableContentIface
   gint                      (* get_n_mime_types)  (AtkStreamableContent     *streamable);
   /*
    * Gets the specified mime type supported by this object.
-   * The mime types are 0-based so the dirst mime type is 
+   * The mime types are 0-based so the first mime type is 
    * at index 0, the second at index 1 and so on.
    *
    * This assumes that the strings for the mime types are stored in the

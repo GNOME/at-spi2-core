@@ -540,7 +540,7 @@ atk_table_get_row_header (AtkTable *table, gint row)
  * use type checking/interface checking macros or the
  * atk_get_accessible_table() convenience method.
  *
- * Returns: a AtkObject* representing a sumary description of the table,
+ * Returns: a AtkObject* representing a summary description of the table,
  * or zero if value does not implement this interface.
  **/
 AtkObject*
@@ -692,7 +692,7 @@ atk_table_is_row_selected (AtkTable *table,
  * @row: a #gint representing a row in @table
  * @column: a #gint representing a column in @table
  *
- * Gets a boolean value indicating whether the acessible object
+ * Gets a boolean value indicating whether the accessible object
  * at the specified @row and @column is selected
  * Note: callers should not rely on %NULL or on a zero value for
  * indication of whether AtkSelectionIface is implemented, they should

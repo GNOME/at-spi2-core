@@ -298,7 +298,8 @@ atk_state_set_and_sets (AtkStateSet  *set,
  *
  * Constructs the union of the two sets.
  *
- * Returns: a new #AtkStateSet which is the union of the two sets.
+ * Returns: a new #AtkStateSet which is the union of the two sets,
+ * returning %NULL is empty.
  **/
 AtkStateSet*
 atk_state_set_or_sets (AtkStateSet  *set,
@@ -329,9 +330,9 @@ atk_state_set_or_sets (AtkStateSet  *set,
  * @set: an #AtkStateSet
  * @compare_set: another #AtkStateSet
  *
- * Constructs the xor of the two sets, returing %NULL is empty. The set 
- * returned by this operation contains the4 sattes in exactly one of
- * the two sets.
+ * Constructs the exclusive-or of the two sets, returning %NULL is empty.
+ * The set returned by this operation contains the states in exactly
+ * one of the two sets.
  *
  * Returns: a new #AtkStateSet which contains the states which are 
  * in exactly one of the two sets.

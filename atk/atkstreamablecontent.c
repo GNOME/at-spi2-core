@@ -41,60 +41,60 @@ atk_streamable_content_get_type ()
 
 /**
  * atk_streamable_content_get_n_mime_types:
- * @obj: a GObject instance that implements AtkStreamableContentIface
+ * @streamable: a GObject instance that implements AtkStreamableContentIface
  *
  * Gets the number of mime types supported by this object.
  *
  * Returns: a gint which is the number of mime types supported by the object.
  **/
 gint
-atk_streamable_content_get_n_mime_types (AtkStreamableContent *obj)
+atk_streamable_content_get_n_mime_types (AtkStreamableContent *streamable)
 {
   AtkStreamableContentIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (obj), 0);
+  g_return_val_if_fail (streamable != NULL, 0);
+  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), 0);
 
-  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (obj);
+  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (streamable);
 
   if (iface->get_n_mime_types)
-    return (iface->get_n_mime_types) (obj);
+    return (iface->get_n_mime_types) (streamable);
   else
     return 0;
 }
 
 /**
  * atk_streamable_content_get_mime_type:
- * @obj: a GObject instance that implements AtkStreamableContent
+ * @streamable: a GObject instance that implements AtkStreamableContent
  * @i: a gint representing the position of the mime type starting from 0
  *
  * Gets the character string of the specified mime type. The first mime
- * type is at position 0, the second at position1, and so on.
+ * type is at position 0, the second at position 1, and so on.
  *
- * Returns : a gchar* respresenting the specified mime type; the caller
+ * Returns : a gchar* representing the specified mime type; the caller
  * should not free the character string.
  **/
 G_CONST_RETURN gchar*
-atk_streamable_content_get_mime_type (AtkStreamableContent *obj,
+atk_streamable_content_get_mime_type (AtkStreamableContent *streamable,
                                       gint                 i)
 {
   AtkStreamableContentIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (streamable != NULL, NULL);
   g_return_val_if_fail (i >= 0, NULL);
-  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (obj), NULL);
+  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), NULL);
 
-  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (obj);
+  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (streamable);
 
   if (iface->get_mime_type)
-    return (iface->get_mime_type) (obj, i);
+    return (iface->get_mime_type) (streamable, i);
   else
     return NULL;
 }
 
 /**
  * atk_streamable_content_get_stream:
- * @obj: a GObject instance that implements AtkStreamableContentIface
+ * @streamable: a GObject instance that implements AtkStreamableContentIface
  * @mime_type: a gchar* representing the mime type
  *
  * Gets the content in the specified mime type
@@ -103,19 +103,19 @@ atk_streamable_content_get_mime_type (AtkStreamableContent *obj,
  * type.
  **/
 GIOChannel*
-atk_streamable_content_get_stream (AtkStreamableContent *obj,
+atk_streamable_content_get_stream (AtkStreamableContent *streamable,
                                    const gchar          *mime_type)
 {
   AtkStreamableContentIface *iface;
 
-  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (streamable != NULL, NULL);
   g_return_val_if_fail (mime_type != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (obj), NULL);
+  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), NULL);
 
-  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (obj);
+  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (streamable);
 
   if (iface->get_stream)
-    return (iface->get_stream) (obj, mime_type);
+    return (iface->get_stream) (streamable, mime_type);
   else
     return NULL;
 }

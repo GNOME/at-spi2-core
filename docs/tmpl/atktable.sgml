@@ -80,16 +80,6 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_get_row_at_index ##### -->
-<para>
-
-</para>
-
-@table: 
-@index: 
-@Returns: 
-
-
 <!-- ##### FUNCTION atk_table_get_column_at_index ##### -->
 <para>
 
@@ -100,7 +90,17 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_get_caption ##### -->
+<!-- ##### FUNCTION atk_table_get_row_at_index ##### -->
+<para>
+
+</para>
+
+@table: 
+@index: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_n_columns ##### -->
 <para>
 
 </para>
@@ -109,7 +109,38 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_get_n_columns ##### -->
+<!-- ##### FUNCTION atk_table_get_n_rows ##### -->
+<para>
+
+</para>
+
+@table: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_column_extent_at ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_row_extent_at ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_get_caption ##### -->
 <para>
 
 </para>
@@ -128,36 +159,6 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_get_column_extent_at ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_get_column_header ##### -->
-<para>
-
-</para>
-
-@table: 
-@column: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_get_n_rows ##### -->
-<para>
-
-</para>
-
-@table: 
-@Returns: 
-
-
 <!-- ##### FUNCTION atk_table_get_row_description ##### -->
 <para>
 
@@ -168,13 +169,12 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_get_row_extent_at ##### -->
+<!-- ##### FUNCTION atk_table_get_column_header ##### -->
 <para>
 
 </para>
 
 @table: 
-@row: 
 @column: 
 @Returns: 
 
@@ -196,6 +196,70 @@ two-dimensional table format.
 
 @table: 
 @Returns: 
+
+
+<!-- ##### FUNCTION atk_table_set_caption ##### -->
+<para>
+
+</para>
+
+@table: 
+@caption: 
+<!-- # Unused Parameters # -->
+@accessible: 
+
+
+<!-- ##### FUNCTION atk_table_set_row_description ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@description: 
+<!-- # Unused Parameters # -->
+@accessible: 
+
+
+<!-- ##### FUNCTION atk_table_set_column_description ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@description: 
+<!-- # Unused Parameters # -->
+@accessible: 
+
+
+<!-- ##### FUNCTION atk_table_set_row_header ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@header: 
+
+
+<!-- ##### FUNCTION atk_table_set_column_header ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@header: 
+
+
+<!-- ##### FUNCTION atk_table_set_summary ##### -->
+<para>
+
+</para>
+
+@table: 
+@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_get_selected_columns ##### -->
@@ -249,26 +313,6 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_add_row_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_table_remove_row_selection ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@Returns: 
-
-
 <!-- ##### FUNCTION atk_table_add_column_selection ##### -->
 <para>
 
@@ -276,6 +320,16 @@ two-dimensional table format.
 
 @table: 
 @column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_add_row_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
 @Returns: 
 
 
@@ -289,67 +343,13 @@ two-dimensional table format.
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_table_set_caption ##### -->
-<para>
-
-</para>
-
-@table: 
-@caption: 
-<!-- # Unused Parameters # -->
-@accessible: 
-
-
-<!-- ##### FUNCTION atk_table_set_column_description ##### -->
-<para>
-
-</para>
-
-@table: 
-@column: 
-@description: 
-<!-- # Unused Parameters # -->
-@accessible: 
-
-
-<!-- ##### FUNCTION atk_table_set_column_header ##### -->
-<para>
-
-</para>
-
-@table: 
-@column: 
-@header: 
-
-
-<!-- ##### FUNCTION atk_table_set_row_description ##### -->
+<!-- ##### FUNCTION atk_table_remove_row_selection ##### -->
 <para>
 
 </para>
 
 @table: 
 @row: 
-@description: 
-<!-- # Unused Parameters # -->
-@accessible: 
-
-
-<!-- ##### FUNCTION atk_table_set_row_header ##### -->
-<para>
-
-</para>
-
-@table: 
-@row: 
-@header: 
-
-
-<!-- ##### FUNCTION atk_table_set_summary ##### -->
-<para>
-
-</para>
-
-@table: 
-@accessible: 
+@Returns: 
 
 

@@ -40,34 +40,6 @@ atk_image_get_type ()
 }
 
 /**
- * atk_image_get_storage_type:
- * @image: a #GObject instance that implements AtkImageIface
- *
- * Gets the type of representation being used to store image data
- *
- * Returns: an #AtkStorageType representing the image storage type
- **/
-AtkImageType
-atk_image_get_storage_type (AtkImage *obj)
-{
-  AtkImageIface *iface;
-
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_IMAGE (obj), 0);
-
-  iface = ATK_IMAGE_GET_IFACE (obj);
-
-  if (iface->get_storage_type)
-    {
-      return (iface->get_storage_type) (obj);
-    }
-  else
-    {
-      return 0;
-    }
-}
-
-/**
  * atk_image_get_image_description:
  * @image: a #GObject instance that implements AtkImageIface
  *
@@ -96,65 +68,37 @@ atk_image_get_image_description (AtkImage *obj)
 }
 
 /**
- * atk_image_get_image_height:
+ * atk_image_get_image_size:
  * @image: a #GObject instance that implements AtkImageIface
+ * @height: filled with the image height
+ * @width: filled with the image width
  *
  * Get the height, in pixels/screen coords, of this image.
- *
- * Returns: an integer representing the image height in pixel coords
  **/
-gint
-atk_image_get_image_height (AtkImage *obj)
+void
+atk_image_get_image_size (AtkImage *obj, int *height, int *width)
 {
   AtkImageIface *iface;
 
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_IMAGE (obj), 0);
+  g_return_if_fail (obj != NULL);
+  g_return_if_fail (ATK_IS_IMAGE (obj));
 
   iface = ATK_IMAGE_GET_IFACE (obj);
 
-  if (iface->get_image_height)
+  if (iface->get_image_size)
     {
-      return (iface->get_image_height) (obj);
+      return (iface->get_image_size) (obj, height, width);
     }
   else
     {
-      return 0;
-    }
-}
-
-/**
- * atk_image_get_image_width:
- * @image: a #GObject instance that implements AtkImageIface
- *
- * Get the width, in pixel/screen coords, of this image.
- *
- * Returns: an integer representing the image width
- **/
-gint
-atk_image_get_image_width (AtkImage *obj)
-{
-  AtkImageIface *iface;
-
-  g_return_val_if_fail (obj != NULL, 0);
-  g_return_val_if_fail (ATK_IS_IMAGE (obj), 0);
-
-  iface = ATK_IMAGE_GET_IFACE (obj);
-
-  if (iface->get_image_width)
-    {
-      return (iface->get_image_width) (obj);
-    }
-  else
-    {
-      return 0;
+      return;
     }
 }
 
 /**
  * atk_image_set_image_description:
  * @image: a #GObject instance that implements AtkImageIface
- * @description: a string desciption to set for @image
+ * @description: a string description to set for @image
  *
  * Sets the textual description for this image.
  *

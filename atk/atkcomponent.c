@@ -308,7 +308,7 @@ atk_component_set_extents   (AtkComponent    *component,
  * @x: x coordinate
  * @y: y coordinate
  *
- * Sets the postition of @component
+ * Sets the position of @component
  **/
 void
 atk_component_set_position   (AtkComponent    *component,

@@ -2,10 +2,11 @@
 AtkUtil
 
 <!-- ##### SECTION Short_Description ##### -->
-
+general purpose utility class
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
+The AtkUtility interface provides general purpose utility functions.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

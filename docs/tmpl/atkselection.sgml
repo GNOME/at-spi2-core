@@ -1,5 +1,5 @@
 <!-- ##### SECTION Title ##### -->
-atkselection
+AtkSelection
 
 <!-- ##### SECTION Short_Description ##### -->
 accessibility interface for determining what the current selected 
@@ -7,7 +7,7 @@ children are, as well as modify the selection set
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-This AtkSelection interface provides the standard mechanism for an 
+The AtkSelection interface provides the standard mechanism for an 
 assistive technology to determine what the current selected children are, 
 as well as modify the selection set. Any object that has children that 
 can be selected should support the AtkSelection interface.

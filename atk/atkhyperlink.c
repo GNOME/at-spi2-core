@@ -107,9 +107,10 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
  * @link: an #AtkHyperlink
  * @i: a (zero-index) integer specifying the desired anchor
  *
- * Returns the item associated with this hyperlinks nth anchor. For instance,
- * the returned #AtkObject will implement #AtkText if @link is a text hyperlink, 
- * #AtkImage if @link is an image hyperlink etc. 
+ * Returns the item associated with this hyperlinks nth anchor.
+ * For instance, the returned #AtkObject will implement #AtkText
+ * if @link is a text hyperlink, #AtkImage if @link is an image
+ * hyperlink etc. 
  * 
  * Multiple anchors are primarily used by client-side image maps.
  *
@@ -181,9 +182,9 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
  * atk_hyperlink_is_valid:
  * @link: an #AtkHyperlink
  *
- * Since the document a link is associated with may have changed, this 
- * method returns whether or not this link is still valid (with respect
- * to the document is references)
+ * Since the document that a link is associated with may have changed
+ * this method returns %TRUE if the link is still valid (with
+ * respect to the document it references) and %FALSE otherwise.
  *
  * Returns: whether or not this link is still valid.
  **/

@@ -449,7 +449,7 @@ atk_text_get_n_selections (AtkText *text)
  * atk_text_get_selection:
  * @text: an #AtkText
  * @selection_num: The selection number.  The selected regions are
- * assigned numbers that corrispond to how far the region is from the
+ * assigned numbers that correspond to how far the region is from the
  * start of the text.  The selected region closest to the beginning
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
@@ -511,7 +511,7 @@ atk_text_add_selection (AtkText *text, gint start_offset,
  * atk_text_remove_selection:
  * @text: an #AtkText
  * @selection_num: The selection number.  The selected regions are
- * assigned numbers that corrispond to how far the region is from the
+ * assigned numbers that correspond to how far the region is from the
  * start of the text.  The selected region closest to the beginning
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
@@ -540,7 +540,7 @@ atk_text_remove_selection (AtkText *text, gint selection_num)
  * atk_text_set_selection:
  * @text: an #AtkText
  * @selection_num: The selection number.  The selected regions are
- * assigned numbers that corrispond to how far the region is from the
+ * assigned numbers that correspond to how far the region is from the
  * start of the text.  The selected region closest to the beginning
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.

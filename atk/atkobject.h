@@ -81,7 +81,7 @@ extern "C" {
  *@ATK_ROLE_POPUP_MENU: A temporary window that is usually used to offer the user a list of choices, and then hides when the user selects one of those choices
  *@ATK_ROLE_PROGRESS_BAR: An object used to indicate how much of a task has been completed
  *@ATK_ROLE_PUSH_BUTTON: An object the user can manipulate to tell the application to do something
- *@ATK_ROLE_RADIO_BUTTON: A specialized check box that will cause other radio buttons in the same group to become uncghecked when this one is checked
+ *@ATK_ROLE_RADIO_BUTTON: A specialized check box that will cause other radio buttons in the same group to become unchecked when this one is checked
  *@ATK_ROLE_RADIO_MENU_ITEM: A check menu item which belongs to a group. At each instant exactly one of the radio menu items from a group is selected
  *@ATK_ROLE_ROOT_PANE: A specialized pane that has a glass pane and a layered pane as its children
  *@ATK_ROLE_ROW_HEADER: The header for a row of data
@@ -92,16 +92,16 @@ extern "C" {
  *@ATK_ROLE_SPLIT_PANE: A specialized panel that presents two other panels at the same time
  *@ATK_ROLE_SPIN_BUTTON: An object used to get an integer or floating point number from the user
  *@ATK_ROLE_STATUSBAR: An object which reports messages of minor importance to the user
- *@ATK_ROLE_TABLE: An object used to rpesent information in terms of rows and columns
+ *@ATK_ROLE_TABLE: An object used to represent information in terms of rows and columns
  *@ATK_ROLE_TABLE_CELL: A cell in a table
  *@ATK_ROLE_TABLE_COLUMN_HEADER: The header for a column of a table
  *@ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
  *@ATK_ROLE_TEAR_OFF_MENU_ITEM: A menu item used to tear off and reattach its menu
  *@ATK_ROLE_TEXT: An object that presents text to the user
- *@ATK_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or unchecked, but does not procide a separate indicator for the current state
+ *@ATK_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or unchecked, but does not provide a separate indicator for the current state
  *@ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
  *@ATK_ROLE_TOOL_TIP: An object that provides information about another object
- *@ATK_ROLE_TREE: An object used to repsent hierarchical information to the user
+ *@ATK_ROLE_TREE: An object used to represent hierarchical information to the user
  *@ATK_ROLE_UNKNOWN: The object contains some Accessible information, but its role is not known
  *@ATK_ROLE_VIEWPORT: An object usually used in a scroll pane
  *@ATK_ROLE_WINDOW: A top level window with no title or border

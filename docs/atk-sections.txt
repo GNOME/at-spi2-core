@@ -20,7 +20,6 @@ atk_action_get_type
 <TITLE>AtkComponent</TITLE>
 AtkComponent
 AtkComponentIface
-AtkFocusHandler
 atk_component_add_focus_handler
 atk_component_contains
 atk_component_get_accessible_at_point
@@ -38,6 +37,7 @@ ATK_COMPONENT
 ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
 ATK_COMPONENT_GET_IFACE
+AtkFocusHandler
 atk_component_get_type
 </SECTION>
 
@@ -83,11 +83,8 @@ atk_hypertext_get_type
 <TITLE>AtkImage</TITLE>
 AtkImage
 AtkImageIface
-AtkImageType
-atk_image_get_storage_type
 atk_image_get_image_description
-atk_image_get_image_height
-atk_image_get_image_width
+atk_image_get_image_size
 atk_image_set_image_description
 <SUBSECTION Standard>
 ATK_IMAGE
@@ -287,33 +284,33 @@ AtkTable
 AtkTableIface
 atk_table_ref_at
 atk_table_get_index_at
-atk_table_get_row_at_index
 atk_table_get_column_at_index
-atk_table_get_caption
+atk_table_get_row_at_index
 atk_table_get_n_columns
-atk_table_get_column_description
-atk_table_get_column_extent_at
-atk_table_get_column_header
 atk_table_get_n_rows
-atk_table_get_row_description
+atk_table_get_column_extent_at
 atk_table_get_row_extent_at
+atk_table_get_caption
+atk_table_get_column_description
+atk_table_get_row_description
+atk_table_get_column_header
 atk_table_get_row_header
 atk_table_get_summary
+atk_table_set_caption
+atk_table_set_row_description
+atk_table_set_column_description
+atk_table_set_row_header
+atk_table_set_column_header
+atk_table_set_summary
 atk_table_get_selected_columns
 atk_table_get_selected_rows
 atk_table_is_column_selected
 atk_table_is_row_selected
 atk_table_is_selected
-atk_table_add_row_selection
-atk_table_remove_row_selection
 atk_table_add_column_selection
+atk_table_add_row_selection
 atk_table_remove_column_selection
-atk_table_set_caption
-atk_table_set_column_description
-atk_table_set_column_header
-atk_table_set_row_description
-atk_table_set_row_header
-atk_table_set_summary
+atk_table_remove_row_selection
 <SUBSECTION Standard>
 ATK_TABLE
 ATK_IS_TABLE
@@ -396,6 +393,16 @@ AtkState
 atk_state_type_register
 atk_state_type_get_name
 atk_state_type_for_name
+</SECTION>
+
+<SECTION>
+<FILE>atkstreamablecontent</FILE>
+<TITLE>AtkStreamableContent</TITLE>
+atk_streamable_content_get_n_mime_types
+atk_streamable_content_get_mime_type
+atk_streamable_content_get_stream	
+<SUBSECTION Standard>
+atk_streamable_content_get_type
 </SECTION>
 
 <SECTION>

@@ -1,3 +1,15 @@
+2001-06-27  Brian Cameron <brian.cameron@sun.com>
+	*atk/atkaction.c atk/atkaction.h atk/atkcomponent.c
+	atk/atkcomponent.h atk/atkhyperlink.c atk/atkhypertext.c
+	atk/atkimage.c atk/atkimage.h atk/atkobject.c
+	atk/atkobject.h atk/atkobjectfactory.c atk/atkregistry.c
+	atk/atkstateset.c atk/atkstreamablecontent.c
+	atk/atkstreamablecontent.h atk/atktable.c
+	atk/atktext.c, docs/atk-docs.sgml docs/atk-sections.txt
+	and some docs/tmpl files.
+	Updated gtk-docs fixing spelling errors and making minor
+	changes to the API.
+
 2001-06-27  Louise Miller <lousie.miller@sun.com>
 	*atk/atkselection.h, atk/atkselection.c
 	changed return type to gboolean for 

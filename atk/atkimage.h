@@ -43,47 +43,25 @@ typedef struct _AtkImage AtkImage;
 #endif
 typedef struct _AtkImageIface AtkImageIface;
 
-/**
- *AtkImageType:
- *@ATK_IMAGE_EMPTY:
- *@ATK_IMAGE_PIXMAP:
- *@ATK_IMAGE_IMAGE:
- *@ATK_IMAGE_PIXBUF:
- *@ATK_IMAGE_STOCK:
- *@ATK_IMAGE_ICON_SET:
- *
- *The representation being used to store the image data
- **/
-typedef enum
-{
-  ATK_IMAGE_EMPTY,
-  ATK_IMAGE_PIXMAP,
-  ATK_IMAGE_IMAGE,
-  ATK_IMAGE_PIXBUF,
-  ATK_IMAGE_STOCK,
-  ATK_IMAGE_ICON_SET
-} AtkImageType;
-
 struct _AtkImageIface
 {
   GTypeInterface parent;
 
-  AtkImageType     (*get_storage_type)              (AtkImage              *image);
-  G_CONST_RETURN   gchar* ( *get_image_description) (AtkImage              *image);
-  gint     ( *get_image_height)      (AtkImage              *image);
-  gint     ( *get_image_width)       (AtkImage              *image);
-  gboolean ( *set_image_description) (AtkImage              *image,
-                                      const gchar           *description);
-
+  G_CONST_RETURN gchar* ( *get_image_description) (AtkImage              *image);
+  void                  ( *get_image_size)        (AtkImage              *image,
+                                                   gint                  *height,
+                                                   gint                  *width);
+  gboolean              ( *set_image_description) (AtkImage              *image,
+                                                   const gchar           *description);
 };
+
 GType  atk_image_get_type             (void);
 
-AtkImageType          atk_image_get_storage_type      (AtkImage   *image);
 G_CONST_RETURN gchar* atk_image_get_image_description (AtkImage   *image);
 
-gint     atk_image_get_image_height      (AtkImage           *image);
-
-gint     atk_image_get_image_width       (AtkImage           *image);
+void     atk_image_get_image_size        (AtkImage           *image,
+                                          gint               *height,
+                                          gint               *width);
 
 gboolean atk_image_set_image_description (AtkImage           *image,
                                           const gchar       *description);
@@ -92,6 +70,4 @@ gboolean atk_image_set_image_description (AtkImage           *image,
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
-
 #endif /* __ATK_IMAGE_H__ */
