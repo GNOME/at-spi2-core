@@ -3,15 +3,31 @@ AtkObject
 
 <!-- ##### SECTION Short_Description ##### -->
 
+The base object class for the Accessibility Toolkit API.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+This class is the primary class for accessibility support via
+the Accessibility ToolKit (ATK).  Objects which are instances
+of #AtkObject (or instances of AtkObject-derived types) are
+queried for properties which relate basic (and generic) properties of a
+UI component such as name and description.  Instances of #AtkObject
+may also be queried as to whether they implement other ATK interfaces
+(e.g. #AtkAction, #AtkComponent, etc.), as appropriate to the role
+which a given UI component plays in a user interface.
 </para>
-
+<para>All UI components in an application which provide useful
+information or services to the user must provide corresponding
+#AtkObject instances on request (in GTK+, for instance, usually
+on a call to #gtk_widget_get_accessible ()), either via ATK support
+built into the toolkit for the widget class or ancestor class, or in
+the case of custom widgets, if the inherited #AtkObject implementation
+is insufficient, via instances of a new #AtkObject subclass. 
+</para>
 <!-- ##### SECTION See_Also ##### -->
 <para>
-
+See also: #AtkObjectFactory, #AtkRegistry.
+( GTK+ users see also #GtkAccessible).
 </para>
 
 <!-- ##### STRUCT AtkObject ##### -->
@@ -29,7 +45,9 @@ AtkObject
 
 <!-- ##### ENUM AtkRole ##### -->
 <para>
-
+These are the built-in enumerated roles that UI components can have in
+ATK.  Other roles may be added at runtime, so an AtkRole >=
+ATK_ROLE_LAST_DEFINED is not necessarily an error.
 </para>
 
 @ATK_ROLE_INVALID: 
@@ -114,7 +132,9 @@ AtkObject
 
 <!-- ##### ENUM AtkLayer ##### -->
 <para>
-
+These enumerated "layer values" are used when determining which UI
+rendering layer a component is drawn into, which can help in making
+determinations of when components occlude one another.
 </para>
 
 @ATK_LAYER_INVALID: 
@@ -133,7 +153,9 @@ AtkObject
 
 <!-- ##### STRUCT AtkImplementorIface ##### -->
 <para>
-
+This interface provides an alternative means of obtaining AtkObjects
+from a GOBject instance, and for querying whether a GObject instance
+provides ATK functionality.
 </para>
 
 @parent: 

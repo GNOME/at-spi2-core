@@ -1,3 +1,20 @@
+2002-01-30  Bill Haneman  <bill.haneman@sun.com>
+
+	* docs/tmpl/atkaction.sgml:
+	* docs/tmpl/atkcomponent.sgml:
+	* docs/tmpl/atkeditabletext.sgml:
+	* docs/tmpl/atkimage.sgml:
+	* docs/tmpl/atkobject.sgml:
+	* docs/tmpl/atkselection.sgml:
+	* docs/tmpl/atktable.sgml:
+	* docs/tmpl/atktext.sgml:
+	* docs/tmpl/atkvalue.sgml:
+	Initial entries into the SHORT_DESCRIPTION and LONG_DESCRIPTION
+	fields to improve docs; the documentation now gives some
+	information on the purpose and function of the various ATK
+	interfaces, and which types of UI components typically implement
+	which interfaces.
+	
 Tue Jan 29 23:29:46 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* NEWS: Retroactively write a NEWS entry for 0.9 and 0.10.
