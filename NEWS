@@ -1,3 +1,11 @@
+Changes in version 1.5.4
+========================
+* Update translations: Japanese [Takeshi AIHANA], 
+Azerbaijani [M\311\231tin \306\217mirov], Finnish [Pauli Virtanen],
+French [Christophe Merlet], Ukrainian [Maxim Dziumanenko],
+Simplified Chinese [Funda Wang], Arabic [Arafat Medini],
+Albanian [Laurent Dhima]
+
 Changes in version 1.5.3
 ========================
 * Corrected library name in atk-uninstalled.pc.in (bug #132283). [Laszlo Peter]

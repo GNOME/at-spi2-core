@@ -1,3 +1,11 @@
+2004-02-16  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.5.4=====
+	
+	* configure.in: Version 1.5.4, interface age 4, binary age 504
+
+	* NEWS: Updated.
+
 2004-02-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.5.3=====
