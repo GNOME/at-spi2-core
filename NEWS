@@ -1,3 +1,15 @@
+What's new in at-spi-1.6.1: 
+
+* LoginHelper API docs improved.
+
+* fixed bug which caused problems if an
+  app which loaded atk-bridge forks, and one fork exits.
+  (Padraig O'Briain).
+
+* New language: Galician (gl), Jesus Bravo Alvarez.
+
+* Ansi build fixes (Kjartan Maraas).
+
 What's new in at-spi-1.6.0: 
 
 Nothing.

@@ -1,5 +1,7 @@
 2004-12-02  Bill Haneman <billh@gnome.org>
 
+	* configure.in, NEWS, README: Revved to 1.6.1.
+	
 	Patch from Padraig O'Briain <padraig.obriain@sun.com>
 	* atk-bridge/bridge.c:
 	(atk_bridge_init): Save the pid when we start, to detect forks.
