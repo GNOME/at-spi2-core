@@ -1,5 +1,14 @@
 2002-03-11  Bill Haneman  <bill.haneman@sun.com>
 
+	* HACKING:
+	New file.  Explicitly allow "build sheriff" putbacks provided
+	they are tested on Solaris.
+	
+	* configure.in:
+	Incremented version number (0.9.0) for new release.
+	Changed macro that checks for popt, to better detect
+	obsolete versions of popt.
+	
 	* configure.in:
 	Added X_LIBS to AC_SUBST, for applications
 	that call Xlib API directly.

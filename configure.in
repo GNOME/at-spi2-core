@@ -1,8 +1,8 @@
 AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=0
-AT_SPI_MINOR_VERSION=0
-AT_SPI_MICRO_VERSION=8
+AT_SPI_MINOR_VERSION=9
+AT_SPI_MICRO_VERSION=0
 AT_SPI_INTERFACE_AGE=0
 AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
@@ -169,8 +169,19 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
-AC_CHECK_LIB(popt, poptDupArgv,,
-AC_MSG_ERROR([You must have popt 1.5 or greater to compile the utilities.]))
+AC_CHECK_LIB(popt, poptGetContext, [POPT_LIBS="-lpopt"],
+AC_MSG_ERROR([popt is required to build at-spi.
+You can download the latest version from ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/]))
+AC_SUBST(POPT_LIBS)
+AC_MSG_CHECKING([for POPT_ARG_FLOAT in popt.h])
+AC_TRY_CPP([#include <popt.h>
+#ifndef POPT_ARG_FLOAT
+#error popt too old
+#endif], AC_MSG_RESULT(yes), [
+  AC_MSG_RESULT(no)
+  AC_MSG_ERROR([A newer version of popt is required to build at-spi.
+You can download the latest version from ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/])
+])
 
 AC_OUTPUT([
 Makefile
