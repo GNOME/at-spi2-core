@@ -98,6 +98,7 @@ extern "C" {
  *@ATK_ROLE_TABLE_COLUMN_HEADER: The header for a column of a table
  *@ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
  *@ATK_ROLE_TEAR_OFF_MENU_ITEM: A menu item used to tear off and reattach its menu
+ *@ATK_ROLE_TERMINAL: An object that represents an accessible terminal
  *@ATK_ROLE_TEXT: An object that presents text to the user
  *@ATK_ROLE_TOGGLE_BUTTON: A specialized push button that can be checked or unchecked, but does not provide a separate indicator for the current state
  *@ATK_ROLE_TOOL_BAR: A bar or palette usually composed of push buttons or toggle buttons
@@ -171,6 +172,7 @@ typedef enum
   ATK_ROLE_TABLE_COLUMN_HEADER,
   ATK_ROLE_TABLE_ROW_HEADER,
   ATK_ROLE_TEAR_OFF_MENU_ITEM,
+  ATK_ROLE_TERMINAL,
   ATK_ROLE_TEXT,
   ATK_ROLE_TOGGLE_BUTTON,
   ATK_ROLE_TOOL_BAR,

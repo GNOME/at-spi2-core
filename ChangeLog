@@ -1,3 +1,8 @@
+2001-10-25  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.h, docs/tmpl/atkobject.sgml:
+	Add role ATK_ROLE_TERMINAL for an accessible terminal.
+
 2001-10-22  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c (atk_object_notify_state_change):
