@@ -169,7 +169,7 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 
 
 atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
-	lib -name:libatk-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@
+	lib -name:libatk-$(ATK_API_VERSION)-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@
 
 install-data-local: install-ms-lib install-libtool-import-lib
 

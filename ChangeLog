@@ -1,3 +1,8 @@
+2002-03-14  Tor Lillqvist  <tml@iki.fi>
+
+	* atk/Makefile.am: Use correct name for the DLL when generating
+	the MSVC import library.
+
 2002-03-13  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkutil.c (atk_object_get_root):
