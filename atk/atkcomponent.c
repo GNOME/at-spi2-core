@@ -87,7 +87,8 @@ atk_component_base_init (AtkComponentIface *class)
                       G_STRUCT_OFFSET (AtkComponentIface, bounds_changed),
                       (GSignalAccumulator) NULL, NULL,
                       g_cclosure_marshal_VOID__BOXED,
-                      G_TYPE_NONE, 0);
+                      G_TYPE_NONE, 1,
+                      ATK_TYPE_RECTANGLE | G_SIGNAL_TYPE_STATIC_SCOPE);
 
       initialized = TRUE;
     }
@@ -564,5 +565,24 @@ atk_component_real_get_size (AtkComponent *component,
   atk_component_get_extents (component, &x, &y, width, height, coord_type);
 }
 
+static AtkRectangle *
+atk_rectangle_copy (const AtkRectangle *rectangle)
+{
+  AtkRectangle *result = g_new (AtkRectangle, 1);
+  *result = *rectangle;
 
+  return result;
+}
+
+GType
+atk_rectangle_get_type (void)
+{
+  static GType our_type = 0;
+
+  if (our_type == 0)
+    our_type = g_boxed_type_register_static ("AtkRectangle",
+                                             (GBoxedCopyFunc)atk_rectangle_copy,
+                                             (GBoxedFreeFunc)g_free);
+  return our_type;
+}
 

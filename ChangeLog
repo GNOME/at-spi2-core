@@ -1,3 +1,12 @@
+2004-06-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkcomponent.h: Add definition for atk_rectangle_get_type
+	and ATK_TYPE_RECTANGLE.
+	* atk/atkcomponent.c (atk_component_base_init): Correct definition
+	of "bounds-changed" signal.
+	(atk_rectangle_copy): New function.
+	(atk_rectangle_get_type): New function.
+
 2004-06-08  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Increment version to 1.7.2 and interface age to 2.

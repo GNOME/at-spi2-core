@@ -57,6 +57,9 @@ struct _AtkRectangle
   gint height;
 };
 
+GType atk_rectangle_get_type (void);
+
+#define ATK_TYPE_RECTANGLE (atk_rectangle_get_type ())
 struct _AtkComponentIface
 {
   GTypeInterface parent;
