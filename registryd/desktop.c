@@ -1,4 +1,26 @@
 /*
+ * AT-SPI - Assistive Technology Service Provider Interface
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2001 Sun Microsystems Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+/*
  * desktop.c: implements Desktop.idl
  *
  */
@@ -62,9 +84,9 @@ impl_desktop_get_child_at_index (PortableServer_Servant servant,
       fprintf (stderr, "getting application %ld\n", (long) index);
       /* */
       fprintf (stderr, "object address %p\n",
-	       g_list_nth_data (desktop->applications, index));
+               g_list_nth_data (desktop->applications, index));
       retval =  CORBA_Object_duplicate (
-	      (CORBA_Object) g_list_nth_data (desktop->applications, index), ev);
+              (CORBA_Object) g_list_nth_data (desktop->applications, index), ev);
     }
   else
     {
