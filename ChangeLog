@@ -1,5 +1,10 @@
 2002-01-28  Padraig O'Briain  <padraig.obriain@sun.com>
 
+       * configure.in:
+       Update version number to 0.10, for Desktop Alpha 2
+
+2002-01-28  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkobject.h:
 	Correct inconsistencies between registered signal parameter types 
 	and default signal handler struct fields
