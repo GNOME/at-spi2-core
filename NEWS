@@ -1,3 +1,20 @@
+What's new in at-spi-1.5.1: 
+
+* Allow synthesis of keysyms that aren't in the current X keymap.
+
+* languages: Gujarati (Guntupalli Karunakar), Canadian English
+  (Alexander Winston)
+
+* Added omitted declarations for already-existing methods
+	AccessibleTable_addRowSelection(),
+	AccessibleTable_addColumnSelection(),
+	AccessibleTable_removeRowSelection(),
+	AccessibleTable_removeColumnSelection().
+
+* bug fixes: 136660, 120659 (partial), 132237, 134332.
+
+==========
+
 What's new in at-spi-1.4.0: [GNOME 2.6.0 release]
 
 * build improvements from Laszlo Peter.
