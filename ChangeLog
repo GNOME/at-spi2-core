@@ -1,3 +1,7 @@
+2003-02-21  Roozbeh Pournader  <roozbeh@sharif.edu>
+
+	* configure.in: Added "fa" to ALL_LINGUAS.
+
 2003-02-21  Metin Amiroff  <metin@karegen.com>
 
 	* configure.in: Added Azerbaijanian to ALL_LINGUAS.
