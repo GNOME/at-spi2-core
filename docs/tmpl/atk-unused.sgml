@@ -38,6 +38,15 @@ atk
 @ATK_IMAGE_STOCK: 
 @ATK_IMAGE_ICON_SET: 
 
+<!-- ##### FUNCTION atk_component_get_position_on_screen ##### -->
+<para>
+
+</para>
+
+@component: 
+@x: 
+@y: 
+
 <!-- ##### FUNCTION atk_editable_text_select_text ##### -->
 <para>
 

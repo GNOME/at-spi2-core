@@ -34,7 +34,6 @@ representation of an object.
 @get_accessible_at_point: 
 @get_extents: 
 @get_position: 
-@get_position_on_screen: 
 @get_size: 
 @grab_focus: 
 @remove_focus_handler: 
@@ -60,6 +59,7 @@ representation of an object.
 @component: 
 @x: 
 @y: 
+@coord_type: 
 @Returns: 
 
 
@@ -71,6 +71,7 @@ representation of an object.
 @component: 
 @x: 
 @y: 
+@coord_type: 
 @Returns: 
 
 
@@ -84,6 +85,7 @@ representation of an object.
 @y: 
 @width: 
 @height: 
+@coord_type: 
 
 
 <!-- ##### FUNCTION atk_component_get_position ##### -->
@@ -94,16 +96,7 @@ representation of an object.
 @component: 
 @x: 
 @y: 
-
-
-<!-- ##### FUNCTION atk_component_get_position_on_screen ##### -->
-<para>
-
-</para>
-
-@component: 
-@x: 
-@y: 
+@coord_type: 
 
 
 <!-- ##### FUNCTION atk_component_get_size ##### -->
@@ -122,6 +115,7 @@ representation of an object.
 </para>
 
 @component: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_component_remove_focus_handler ##### -->
@@ -143,6 +137,8 @@ representation of an object.
 @y: 
 @width: 
 @height: 
+@coord_type: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_component_set_position ##### -->
@@ -153,6 +149,8 @@ representation of an object.
 @component: 
 @x: 
 @y: 
+@coord_type: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_component_set_size ##### -->
@@ -163,5 +161,6 @@ representation of an object.
 @component: 
 @width: 
 @height: 
+@Returns: 
 
 

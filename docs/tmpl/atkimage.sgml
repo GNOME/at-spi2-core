@@ -28,6 +28,7 @@ an assistive technology to get descriptive information about images.
 </para>
 
 @parent: 
+@get_position: 
 @get_image_description: 
 @get_image_size: 
 @set_image_description: 

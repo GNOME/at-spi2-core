@@ -102,7 +102,7 @@ atk_no_op_object_new
 ATK_NO_OP_OBJECT
 ATK_IS_NO_OP_OBJECT
 ATK_TYPE_NO_OP_OBJECT
-agtk_widget_get_type
+atk_no_op_object_get_type
 ATK_NO_OP_OBJECT_CLASS
 ATK_IS_NO_OP_OBJECT_CLASS
 ATK_NO_OP_OBJECT_GET_CLASS

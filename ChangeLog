@@ -4,6 +4,7 @@
 	Updated so that functions that take screen coords as 
 	input/output also take an enum specifying whether
 	the coords are screen or top-level window based.
+	Updated docs as well.
 
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	*atk/atkaction.c atk/atkcomponent.c atk/atkeditabletext.c
