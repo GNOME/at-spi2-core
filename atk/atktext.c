@@ -50,7 +50,7 @@ atk_text_get_type ()
         sizeof (AtkTextIface),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) atk_text_interface_init,
+        (GClassInitFunc) NULL /* atk_text_interface_init */ ,
         (GClassFinalizeFunc) NULL,
 
       };
