@@ -160,6 +160,16 @@ if test "x$XTST_LIBS" = x; then
 fi
 AC_SUBST(XTST_LIBS)
 
+have_xkb=
+AC_CHECK_LIB(X11, XkbQueryExtension, have_xkb="maybe",,$X_LIBS)
+if test "x$have_xkb" = "xmaybe"; then 
+  AC_CHECK_HEADER(X11/XKBlib.h, have_xkb=yes)
+fi
+if test "x$have_xkb" = "xyes"; then
+  AC_MSG_RESULT(yes)
+  AC_DEFINE(HAVE_XKB)
+fi
+
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)

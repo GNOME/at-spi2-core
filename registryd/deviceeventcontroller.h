@@ -42,12 +42,12 @@ G_BEGIN_DECLS
 #define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
 
 struct _SpiDEController {
-  BonoboObject parent;
-
-  SpiRegistry *registry;
-  GList       *key_listeners;
-  GList       *mouse_listeners;
-  GList       *keygrabs_list;
+	BonoboObject parent;
+	
+	SpiRegistry *registry;
+	GList       *key_listeners;
+	GList       *mouse_listeners;
+	GList       *keygrabs_list;
 };
 
 typedef struct {

@@ -67,7 +67,6 @@ impl_notify_event (PortableServer_Servant     servant,
     fprintf(stderr,
             ("Accessibility app error: exception during event notification: %s\n"),
             CORBA_exception_id(ev));
-    exit(-1);
   }
   /*
   fprintf (stderr, "source is component ? : %s\n",

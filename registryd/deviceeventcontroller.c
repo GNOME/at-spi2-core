@@ -25,6 +25,7 @@
 
 #include <config.h>
 
+#undef  SPI_XKB_DEBUG
 #undef  SPI_DEBUG
 #undef  SPI_KEYEVENT_DEBUG
 
@@ -35,6 +36,7 @@
 
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
+#include <X11/XKBlib.h>
 #define XK_MISCELLANY
 #include <X11/keysymdef.h>
 #include <gdk/gdk.h>
@@ -57,6 +59,8 @@ static unsigned int mouse_button_mask =
   Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
 static unsigned int key_modifier_mask =
   Mod1Mask | Mod2Mask | Mod3Mask | Mod4Mask | Mod5Mask | ShiftMask | LockMask | ControlMask;
+
+static GQuark spi_dec_private_quark = 0;
 
 int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
@@ -88,6 +92,13 @@ typedef struct {
   Accessibility_KeyEventTypeSeq    *typeseq;
   Accessibility_EventListenerMode  *mode;	
 } DEControllerKeyListener;
+
+typedef struct {
+	unsigned int last_press_keycode;
+	unsigned int last_release_keycode;
+	struct timeval last_press_time;
+	struct timeval last_release_time;
+} DEControllerPrivateData;
 
 static void     spi_controller_register_with_devices          (SpiDEController           *controller);
 static gboolean spi_controller_update_key_grabs               (SpiDEController           *controller,
@@ -212,7 +223,9 @@ spi_dec_poll_mouse_moved (gpointer data)
 	  }
 	  if ((mask_return & key_modifier_mask) !=
 	      (mouse_mask_state & key_modifier_mask)) {
-		  fprintf (stderr, "MODIFIER CHANGE EVENT!\n");  
+#ifdef SPI_DEBUG
+		  fprintf (stderr, "MODIFIER CHANGE EVENT!\n");
+#endif
 		  e.type = "keyboard:modifiers";  
 		  e.source = BONOBO_OBJREF (registry->desktop);
 		  e.detail1 = mouse_mask_state;
@@ -307,7 +320,9 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
 		   True, ButtonPressMask | ButtonReleaseMask,
 		   GrabModeSync, GrabModeAsync, None, None);
       XSync (display, False);
+#ifdef SPI_DEBUG
       fprintf (stderr, "mouse buttons grabbed\n");
+#endif
     }
 }
 
@@ -1051,7 +1066,8 @@ spi_device_event_controller_object_finalize (GObject *object)
 #endif
   /* disconnect any special listeners, get rid of outstanding keygrabs */
   XUngrabKey (spi_get_display (), AnyKey, AnyModifier, DefaultRootWindow (spi_get_display ()));
-	
+
+  g_free (g_object_get_data (G_OBJECT (controller), "spi-dec-private"));
   spi_device_event_controller_parent_class->finalize (object);
 }
 
@@ -1175,6 +1191,150 @@ impl_deregister_keystroke_listener (PortableServer_Servant                  serv
   spi_dec_key_listener_free (key_listener, ev);
 }
 
+static unsigned int dec_xkb_get_slowkeys_delay (SpiDEController *controller)
+{
+	unsigned int retval = 0;
+#ifdef HAVE_XKB
+#ifdef XKB_HAS_GET_SLOW_KEYS_DELAY	
+	retval = XkbGetSlowKeysDelay (spi_get_display (),
+				      XkbUseCoreKbd, &bounce_delay);
+#else
+	XkbDescPtr xkb = XkbGetMap (spi_get_display (), 0, XkbUseCoreKbd);
+	if (!(xkb == (XkbDescPtr) BadAlloc || xkb == NULL))
+	{
+		Status s = XkbGetControls (spi_get_display (),
+					   XkbAllControlsMask, xkb);
+		if (s == Success)
+		{
+			if (xkb->ctrls->enabled_ctrls & XkbSlowKeysMask)
+				retval = xkb->ctrls->slow_keys_delay;
+		}
+		XkbFreeKeyboard (xkb, XkbAllControlsMask, True);
+	}
+#endif
+#endif
+#ifdef SPI_XKB_DEBUG
+	fprintf (stderr, "SlowKeys delay: %d\n", (int) retval);
+#endif
+        return retval;
+}
+
+static unsigned int dec_xkb_get_bouncekeys_delay (SpiDEController *controller)
+{
+	unsigned int retval = 0;
+#ifdef HAVE_XKB
+#ifdef XKB_HAS_GET_BOUNCE_KEYS_DELAY	
+	retval = XkbGetBounceKeysDelay (spi_get_display (),
+					XkbUseCoreKbd, &bounce_delay);
+#else
+	XkbDescPtr xkb = XkbGetMap (spi_get_display (), 0, XkbUseCoreKbd);
+	if (!(xkb == (XkbDescPtr) BadAlloc || xkb == NULL))
+	{
+		Status s = XkbGetControls (spi_get_display (),
+					   XkbAllControlsMask, xkb);
+		if (s == Success)
+		{
+			if (xkb->ctrls->enabled_ctrls & XkbBounceKeysMask)
+				retval = xkb->ctrls->debounce_delay;
+		}
+		XkbFreeKeyboard (xkb, XkbAllControlsMask, True);
+	}
+#endif
+#endif
+#ifdef SPI_XKB_DEBUG
+	fprintf (stderr, "BounceKeys delay: %d\n", (int) retval);
+#endif
+	return retval;
+}
+
+static gboolean
+dec_synth_keycode_press (SpiDEController *controller,
+			 unsigned int keycode)
+{
+	unsigned int time = CurrentTime;
+	unsigned int bounce_delay;
+	unsigned int elapsed_msec;
+	struct timeval tv;
+	DEControllerPrivateData *priv =
+		(DEControllerPrivateData *) g_object_get_qdata (G_OBJECT (controller),
+								spi_dec_private_quark);
+	if (keycode == priv->last_release_keycode)
+	{
+		bounce_delay = dec_xkb_get_bouncekeys_delay (controller); 
+                if (bounce_delay)
+		{
+			gettimeofday (&tv);
+			elapsed_msec =
+				(tv.tv_sec - priv->last_release_time.tv_sec) * 1000
+				+ (tv.tv_usec - priv->last_release_time.tv_usec) / 1000;
+#ifdef SPI_XKB_DEBUG			
+			fprintf (stderr, "%d ms elapsed (%ld usec)\n", elapsed_msec,
+				 (long) (tv.tv_usec - priv->last_release_time.tv_usec));
+#endif
+#ifdef THIS_IS_BROKEN
+			if (elapsed_msec < bounce_delay)
+				time = bounce_delay - elapsed_msec + 1;
+#else
+			time = bounce_delay + 10;
+			/* fudge for broken XTest */
+#endif
+#ifdef SPI_XKB_DEBUG			
+			fprintf (stderr, "waiting %d ms\n", time);
+#endif
+		}
+	}
+	fprintf (stderr, "press %d\n", (int) keycode);
+        XTestFakeKeyEvent (spi_get_display (), keycode, True, time);
+	priv->last_press_keycode = keycode;
+	XSync (spi_get_display (), False);
+	gettimeofday (&priv->last_press_time, NULL);
+	return TRUE;
+}
+
+static gboolean
+dec_synth_keycode_release (SpiDEController *controller,
+			   unsigned int keycode)
+{
+	unsigned int time = CurrentTime;
+	unsigned int slow_delay;
+	unsigned int elapsed_msec;
+	struct timeval tv;
+	DEControllerPrivateData *priv =
+		(DEControllerPrivateData *) g_object_get_qdata (G_OBJECT (controller),
+								spi_dec_private_quark);
+	if (keycode == priv->last_press_keycode)
+	{
+		slow_delay = dec_xkb_get_slowkeys_delay (controller);
+		if (slow_delay)
+		{
+			gettimeofday (&tv);
+			elapsed_msec =
+				(tv.tv_sec - priv->last_press_time.tv_sec) * 1000
+				+ (tv.tv_usec - priv->last_press_time.tv_usec) / 1000;
+#ifdef SPI_XKB_DEBUG			
+			fprintf (stderr, "%d ms elapsed (%ld usec)\n", elapsed_msec,
+				 (long) (tv.tv_usec - priv->last_press_time.tv_usec));
+#endif
+#ifdef THIS_IS_BROKEN_DUNNO_WHY
+			if (elapsed_msec < slow_delay)
+				time = slow_delay - elapsed_msec + 1;
+#else
+			time = slow_delay + 10;
+			/* our XTest seems broken, we have to add slop as above */
+#endif
+#ifdef SPI_XKB_DEBUG			
+			fprintf (stderr, "waiting %d ms\n", time);
+#endif
+		}
+	}
+	fprintf (stderr, "release %d\n", (int) keycode);
+        XTestFakeKeyEvent (spi_get_display (), keycode, False, time);
+	priv->last_release_keycode = keycode;
+	XSync (spi_get_display (), False);
+	gettimeofday (&priv->last_release_time, NULL);
+	return TRUE;
+}
+
 /*
  * CORBA Accessibility::DEController::registerKeystrokeListener
  *     method implementation
@@ -1186,16 +1346,19 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 			      const Accessibility_KeySynthType synth_type,
 			      CORBA_Environment               *ev)
 {
+  SpiDEController *controller =
+	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
   long key_synth_code;
+  unsigned int slow_keys_delay;
+  unsigned int press_time;
+  unsigned int release_time;
 
 #ifdef SPI_DEBUG
-  fprintf (stderr, "synthesizing keystroke %ld, type %d\n",
-	   (long) keycode, (int) synth_type);
+	fprintf (stderr, "synthesizing keystroke %ld, type %d\n",
+		 (long) keycode, (int) synth_type);
 #endif
   /* TODO: hide/wrap/remove X dependency */
 
-  /* TODO: be accessX-savvy so that keyrelease occurs after sufficient timeout */
-	
   /*
    * TODO: when initializing, query for XTest extension before using,
    * and fall back to XSendEvent() if XTest is not available.
@@ -1203,25 +1366,28 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   
   /* TODO: implement keystring mode also */
   gdk_error_trap_push ();
-
+  
   switch (synth_type)
     {
       case Accessibility_KEY_PRESS:
-        XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
-	break;
+	      dec_synth_keycode_press (controller, keycode);
+	      break;
       case Accessibility_KEY_PRESSRELEASE:
-	XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, True, CurrentTime);
+	      dec_synth_keycode_press (controller, keycode);
       case Accessibility_KEY_RELEASE:
-	XTestFakeKeyEvent (spi_get_display (), (unsigned int) keycode, False, CurrentTime);
-	break;
+	      dec_synth_keycode_release (controller, keycode);
+	      break;
       case Accessibility_KEY_SYM:
-	key_synth_code = keycode_for_keysym (keycode);
-	XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, True, CurrentTime);
-	XTestFakeKeyEvent (spi_get_display (), (unsigned int) key_synth_code, False, CurrentTime);
-	break;
+#ifdef SPI_XKB_DEBUG	      
+	      fprintf (stderr, "KeySym synthesis\n");
+#endif
+	      key_synth_code = keycode_for_keysym (keycode);
+	      dec_synth_keycode_press (controller, key_synth_code);
+	      dec_synth_keycode_release (controller, key_synth_code);
+	      break;
       case Accessibility_KEY_STRING:
-	fprintf (stderr, "Not yet implemented\n");
-	break;
+	      fprintf (stderr, "Not yet implemented\n");
+	      break;
     }
   if (gdk_error_trap_pop ())
     {
@@ -1393,13 +1559,21 @@ spi_device_event_controller_new (SpiRegistry *registry)
 {
   SpiDEController *retval = g_object_new (
     SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
-
+  DEControllerPrivateData *private;
+  
   retval->registry = SPI_REGISTRY (bonobo_object_ref (
 	  BONOBO_OBJECT (registry)));
 
+  private = g_new0 (DEControllerPrivateData, 1);
+  gettimeofday (&private->last_press_time, NULL);
+  gettimeofday (&private->last_release_time, NULL);
+  if (!spi_dec_private_quark)
+	  spi_dec_private_quark = g_quark_from_static_string ("spi-dec-private");
+  g_object_set_qdata (G_OBJECT (retval),
+		      spi_dec_private_quark,
+		      private);
   spi_dec_init_mouse_listener (registry);
-  /* TODO: kill mouse listener on finalize */
-  
+  /* TODO: kill mouse listener on finalize */  
   return retval;
 }
 

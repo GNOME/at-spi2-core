@@ -1,3 +1,37 @@
+2002-10-18  Bill Haneman  <bill.haneman@sun.com>
+
+	BUGFIX for #95828.
+
+	* acconfig.h:
+	Added template for HAVE_XKB.
+	
+	* configure.in:
+	Changes to check for XKB, and to set the HAVE_XKB #define if it 
+	is available.
+	
+	* libspi/listener.c:
+	()impl_notify_event): Make failure to get event source name
+	nonfatal.
+
+	* registryd/deviceeventcontroller.c:
+	(#include): include X11/XKBlib.h.
+	(DEControllerPrivateData) : New struct.
+	(dec_xkb_get_slowkeys_delay) (dec_xkb_get_boucekeys_delay) : 
+	New methods.
+	(dec_synth_keycode_press) (dec_synth_keycode_release):
+	New methods; split the key synthesis code into these methods.
+	They check XKB settings before determining the "time" values to
+	pass to Xtest; this fixes bug #95828.
+	(impl_generate_keyboard_event): Changed to use methods above,
+	instead of callng Xtest directly.
+	(spi_device_event_controller_init): Initialize new privae struct s
+	above.
+	(spi_device_event_controllr_object_finalize):
+	Free the (new) private data.
+
+	* registryd/deviceeventcontroller.h:
+	Add new gpointer to end of struct data.
+
 2002-10-16  Bill Haneman  <bill.haneman@sun.com>
 
 	* configure.in:
