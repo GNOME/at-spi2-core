@@ -24,9 +24,11 @@
 #include "atk-enum-types.h"
 
 GPtrArray *extra_names = NULL;
+
+GObjectClass *parent_class;
   
-static void            atk_relation_class_init       (AtkRelationClass  *klass);
-static void            atk_relation_finalize         (GObject           *object);
+static void atk_relation_class_init (AtkRelationClass *klass);
+static void atk_relation_finalize   (GObject          *object);
 
 GType
 atk_relation_get_type (void)
@@ -57,6 +59,8 @@ atk_relation_class_init (AtkRelationClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 
+  parent_class = g_type_class_peek_parent (klass);
+  
   gobject_class->finalize = atk_relation_finalize;
 }
 
@@ -267,4 +271,6 @@ atk_relation_finalize (GObject *object)
     }
     g_ptr_array_free (relation->target, TRUE);
   } 
+
+  parent_class->finalize (object);
 }

@@ -21,8 +21,10 @@
 
 #include "atk.h"
 
-static void            atk_relation_set_class_init       (AtkRelationSetClass  *klass);
-static void            atk_relation_set_finalize         (GObject              *object);
+static GObjectClass *parent_class;
+
+static void atk_relation_set_class_init (AtkRelationSetClass  *klass);
+static void atk_relation_set_finalize   (GObject              *object);
 
 GType
 atk_relation_set_get_type (void)
@@ -52,6 +54,8 @@ static void
 atk_relation_set_class_init (AtkRelationSetClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  parent_class = g_type_class_peek_parent (klass);
 
   gobject_class->finalize = atk_relation_set_finalize;
 }
@@ -257,4 +261,6 @@ atk_relation_set_finalize (GObject *object)
     }
     g_ptr_array_free (array, TRUE);
   }
+
+  parent_class->finalize (object);
 }
