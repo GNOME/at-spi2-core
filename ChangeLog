@@ -1,8 +1,5 @@
 Wed Nov 21 17:54:44 2001  Owen Taylor  <otaylor@redhat.com>
 
-	* configure.in (ATK_MICRO_VERSION): Versions 0.0.8,
-	interface, binary age 0.
-
 	* atk/atkobject.h (enum): Fix trailing comma on
 	enumeration.
 
