@@ -7,14 +7,14 @@
 # translation of nn.po to Norwegian (nynorsk)
 # This file is distributed under the same license as the ATK package.
 # Copyright (C) 2003 Åsmund Skjæveland.
-# Åsmund Skjæveland <aasmunds@fys.uio.no>, 2003.
+# Åsmund Skjæveland <aasmunds@fys.uio.no>, 2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-27 17:16+0100\n"
-"PO-Revision-Date: 2003-12-26 17:27+0100\n"
+"POT-Creation-Date: 2004-01-02 12:43+0100\n"
+"PO-Revision-Date: 2004-01-05 01:18+0100\n"
 "Last-Translator: Åsmund Skjæveland <aasmunds@fys.uio.no>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -170,7 +170,7 @@ msgstr "intern ramme"
 
 #: atk/atkobject.c:111
 msgid "label"
-msgstr "etikett"
+msgstr "merkelapp"
 
 #: atk/atkobject.c:112
 msgid "layered pane"
@@ -362,8 +362,7 @@ msgstr "Tilgjengeleg namn"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
-"Objektinstansen sitt namn, formatert for tilgang gjennom hjelpeteknologi"
+msgstr "Objektinstansen sitt namn, formatert for tilgang gjennom hjelpeteknologi"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
@@ -483,3 +482,4 @@ msgstr "Talet på lenkjer som noverande AtkHypertext har"
 
 #~ msgid "ruler"
 #~ msgstr "linjal"
+
