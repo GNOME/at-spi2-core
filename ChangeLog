@@ -1,4 +1,9 @@
-2002-02-13  Padraig O'Briain  <padraig.obriain@sun.com>
+2002-02-27  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkdocument.h: 
+	Add padding to class structures to allow for future expansion.
+
+2002-02-27  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobjectfactory.h atk/atkgobjectaccessible.h:
 	Add padding to class structures to allow for future expansion.

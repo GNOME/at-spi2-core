@@ -49,6 +49,15 @@ struct _AtkDocumentIface
   GTypeInterface parent;
   G_CONST_RETURN gchar* ( *get_document_type) (AtkDocument              *document);
   gpointer              ( *get_document)      (AtkDocument              *document);
+
+  AtkFunction pad1;
+  AtkFunction pad2;
+  AtkFunction pad3;
+  AtkFunction pad4;
+  AtkFunction pad5;
+  AtkFunction pad6;
+  AtkFunction pad7;
+  AtkFunction pad8;
 };
 
 GType  atk_document_get_type             (void);
