@@ -31,6 +31,7 @@ static void report_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail1_event  (const AccessibleEvent *event, void *user_data);
 static void report_text_event  (const AccessibleEvent *event, void *user_data);
+static void report_children_changed_event (const AccessibleEvent *event, void *user_data);
 static void timing_test_event (const AccessibleEvent *event, void *user_data);
 static SPIBoolean report_mouse_event  (const AccessibleDeviceEvent *event, void *user_data);
 
@@ -39,6 +40,7 @@ static AccessibleEventListener *specific_listener;
 static AccessibleEventListener *detail1_listener;
 static AccessibleEventListener *test_listener;
 static AccessibleEventListener *text_listener;
+static AccessibleEventListener *children_changed_listener;
 static AccessibleDeviceListener *mouse_device_listener;
 static gint n_elements_traversed = 0;
 static GTimer *timer;
@@ -94,6 +96,8 @@ main (int argc, char **argv)
 	  report_detail_event, NULL); 
   text_listener = SPI_createAccessibleEventListener (
 	  report_text_event, NULL);
+  children_changed_listener = SPI_createAccessibleEventListener (
+	  report_children_changed_event, NULL);
   test_listener = SPI_createAccessibleEventListener (
 	  timing_test_event, NULL);
   mouse_device_listener = SPI_createAccessibleDeviceListener (
@@ -126,10 +130,8 @@ main (int argc, char **argv)
     "object:state-changed:focused"); */
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:selection-changed"); 
-  SPI_registerGlobalEventListener (generic_listener,
+  SPI_registerGlobalEventListener (children_changed_listener,
 				   "object:children-changed"); 
-/*  SPI_registerGlobalEventListener (specific_listener,
-    "object:children-changed:add"); */
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:active-descendant"); 
   SPI_registerGlobalEventListener (generic_listener,
@@ -289,10 +291,27 @@ report_text_event (const AccessibleEvent *event, void *user_data)
   char *s = Accessible_getName (event->source);
   fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
 	   event->detail1, event->detail2);
-  if (s) SPI_freeString (s);
+  SPI_freeString (s);
   s = AccessibleTextChangedEvent_getChangeString (event);
   fprintf (stderr, "context string %s\n", (s) ? s : "<nil>");
   SPI_freeString (s);
+}
+
+void
+report_children_changed_event (const AccessibleEvent *event, void *user_data)
+{
+  char *s = Accessible_getName (event->source);
+  char *s1;
+  Accessible *ao;
+
+  ao = AccessibleChildChangedEvent_getChildAccessible (event);
+  s1 = Accessible_getName (ao);
+  fprintf (stderr, "(detail) %s parent: %s child: %s %d %d\n", event->type, 
+           s ? s : "<null>", s1 ? s1 : "<null>",
+	   event->detail1, event->detail2);
+  SPI_freeString (s);
+  SPI_freeString (s1);
+  Accessible_unref (ao);
 }
 
 SPIBoolean

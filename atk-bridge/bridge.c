@@ -57,11 +57,10 @@ static guint toplevel_handler;
    static GQuark atk_quark_property_changed_table_caption;
    static GQuark atk_quark_property_changed_table_column_description;
    static GQuark atk_quark_property_changed_table_row_description;
-   static guint atk_signal_property_changed;
 */
 
 static guint atk_signal_text_changed;
-static guint atk_signal_child_changed;
+static guint atk_signal_children_changed;
 static guint atk_signal_active_descendant_changed;
 
 /* NOT YET USED
@@ -126,7 +125,7 @@ extern void gnome_accessibility_module_shutdown (void);
 static void
 spi_atk_bridge_init_event_type_consts ()
 {
-  atk_signal_child_changed = g_signal_lookup ("child_changed", 
+  atk_signal_children_changed = g_signal_lookup ("children_changed", 
 					      ATK_TYPE_OBJECT);
   atk_signal_text_changed = g_signal_lookup ("text_changed", 
 					     ATK_TYPE_TEXT);
@@ -752,6 +751,22 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
         detail1 = g_value_get_int (param_values + 1);
       spi_init_any_nil (&any);
     }
+  else if ((signal_query.signal_id == atk_signal_children_changed) && gobject)
+    {
+      ao = atk_object_ref_accessible_child (ATK_OBJECT (gobject), 
+			        	    detail1);
+      if (ao) 
+        {
+          s_ao = spi_accessible_new (ao);
+          c_obj = BONOBO_OBJREF (s_ao);
+          spi_init_any_object (&any, &c_obj);
+	  g_object_unref (ao);
+	}
+      else
+	{
+	  spi_init_any_nil (&any);
+	}
+    }
   else
     {
       if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
@@ -765,22 +780,6 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 	    		          detail1,
 			          detail1+detail2);
           spi_init_any_string (&any, &sp);
-        }
-      else if ((signal_query.signal_id == atk_signal_child_changed) && gobject)
-        {
-          ao = atk_object_ref_accessible_child (ATK_OBJECT (gobject), 
-					        detail1);
-          if (ao) 
-	    {
-              s_ao = spi_accessible_new (ao);
-              c_obj = BONOBO_OBJREF (s_ao);
-              spi_init_any_object (&any, &c_obj);
-	      g_object_unref (ao);
-	    }
-          else
-	    {
-	      spi_init_any_nil (&any);
-	    }
         }
       else
         {

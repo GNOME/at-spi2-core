@@ -1,3 +1,13 @@
+2003-03-07  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c:
+	Change atk_signal_child_changed to atk_signal_children_changed. 
+	Reorganize code in spi_atk_bridge_signal_listener().
+
+	* test/event-listener-test.c:
+	Add children_changed_listener and report_children_changed_event()
+	to test AccessibleChildEvent_getChildAccessible.
+
 2003-03-05  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi_event.c (cspi_internal_event_get_text): Change
