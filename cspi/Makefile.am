@@ -12,7 +12,7 @@ LDFLAGS = $(LIBCSPI_LIBS) @LT_VERSION_INFO@
 
 LDADD =				\
 	../libspi/libspi.la	\
-	$(LIBCSPI_LIBS)
+	$(LIBCSPI_LIBS) $(X_LIBS)
 
 libcspidir = $(includedir)/at-spi-1.0/cspi
 libcspi_HEADERS =		\

@@ -9,4 +9,4 @@ libcspi_bonobo_la_SOURCES =	\
 	cspi-bonobo-listener.c	\
 	cspi-bonobo-listener.h
 
-libcspi_bonobo_la_LIBADD = $(LIBCSPI_LIBS)
+libcspi_bonobo_la_LIBADD = $(LIBCSPI_LIBS) $(X_LIBS)
