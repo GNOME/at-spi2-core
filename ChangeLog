@@ -1,9 +1,15 @@
+2001-12-02  Bill Haneman  <bill.haneman@sun.com>
+
+	* cspi/spi_registry.c:
+	Removed obsolete X event loop for passive keygrabs (which now
+	lives in libspi).
+
 2001-11-28  Bill Haneman  <bill.haneman@sun.com>
 
 	* docs/reference/cspi:
 	Included docs for SPI_freeString in generated documentation.
 
-	* cspi/spi-util.c:
+	* cspi/spi-util.c:c
 	Renamed spi_freeString to SPI_freeString, for consistency.  Added
 	documentation for this function.
 

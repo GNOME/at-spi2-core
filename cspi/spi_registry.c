@@ -223,28 +223,6 @@ getDesktopList (Accessible **list)
   return 0;
 }
 
-#if 0
-static gboolean
-key_event_source_func (void *p)
-{
-  GList *listeners = (GList *)p;
-  XEvent *x_event = g_new0 (XEvent, 1);
-  while (XPending (display))
-    {
-      XNextEvent (display, x_event);
-      while (listeners)
-        {
-        /* if the listener mask matches, notify it*/
-          if (1)
-  	    {
-	      ;	  
-	    }
-	}
-    }
-  return TRUE;
-}
-#endif
-
 /**
  * registerAccessibleKeystrokeListener:
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
