@@ -1,3 +1,10 @@
+2002-01-28  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.h:
+	Correct inconsistencies between registered signal parameter types 
+	and default signal handler struct fields
+	(based on patch from Murray Cumming <murray@usa.net>)
+
 2002-01-10  Bill Haneman <bill.haneman@sun.com>
 
        * configure.in:
@@ -6,12 +13,12 @@
 Wed Jan  9 11:26:56 2002  Owen Taylor  <otaylor@redhat.com>
 
 	* atk/Makefile.am (s-enum-types-h):  Include glib-object.h,
-	Add G_BEGIN_DECLS/END_DECLS to atk-enum-types.h. (#68325,
+	Add G_BEGIN_DECLS/END_DECLS to atk-enum-types.h. (#61845,
 	Mikael Hermansson)
 
 2002-01-07  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	* atk/atkcomponent.c (atk_component_add_focus_handler):1
+	* atk/atkcomponent.c (atk_component_add_focus_handler):
 	Add comments to clarify behavior if handler has already been added
 
 	* docs/tmpl/atktext.sgml:

@@ -357,8 +357,8 @@ void                      (* initialize)                         (AtkObject     
    * children of the object
    */
   void                    (* children_changed)    (AtkObject                  *accessible,
-                                                   gint                       change_index,
-                                                   AtkObject                  *changed_child);
+                                                   guint                      change_index,
+                                                   gpointer                   changed_child);
   /*
    * The signal handler which is executed  when there is a focus event
    * for an object.
@@ -369,13 +369,13 @@ void                      (* initialize)                         (AtkObject     
    * The signal handler which is executed  when there is a property_change 
    * signal for an object.
    */
-  gint                    (*property_change)      (AtkObject                  *accessible,
+  void                    (*property_change)      (AtkObject                  *accessible,
                                                    AtkPropertyValues          *values);
   /*
    * The signal handler which is executed  when there is a state_change 
    * signal for an object.
    */
-  gint                    (*state_change)         (AtkObject                  *accessible,
+  void                    (*state_change)         (AtkObject                  *accessible,
                                                    const gchar                *name,
                                                    gboolean                   state_set);
   /*
