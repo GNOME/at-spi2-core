@@ -186,15 +186,21 @@ atk_focus_tracker_notify (AtkObject       *object)
     {
       if (previous_focus_object)
         g_object_unref (previous_focus_object);
-      previous_focus_object = g_object_ref (object);
+
+      previous_focus_object = object;
+      if (object)
+        {
+          g_object_ref (object);
+
+          for (i = 0; i < trackers->len; i++)
+            {
+              item = &g_array_index (trackers, FocusTracker, i);
+              g_return_if_fail (item != NULL);
+              item->func (object);
+            }
+        }
+    
     }
-  
-  for (i = 0; i < trackers->len; i++)
-  {
-    item = &g_array_index (trackers, FocusTracker, i);
-    g_return_if_fail (item != NULL);
-    item->func (object);
-  }
 }
 
 /**

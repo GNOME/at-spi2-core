@@ -1,3 +1,11 @@
+2002-04-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkutil.c (atk_focus_tracker_notify):
+	Allow for object being NULL which means the window containing the
+	focus widget has lost focus. We update the previous_focus_object 
+	so we can emit notification for focus widget when window regains
+	focus.
+
 2002-04-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkgobjectaccessible.c:
