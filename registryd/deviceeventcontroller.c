@@ -55,6 +55,8 @@
 #include "../libspi/spi-private.h"
 #include "deviceeventcontroller.h"
 
+KeySym ucs2keysym (long ucs);
+
 #define CHECK_RELEASE_DELAY 20
 #define BIT(c, x)       (c[x/8]&(1<<(x%8)))
 static guint check_release_handler = 0;
@@ -1956,45 +1958,7 @@ dec_unlock_modifiers (SpiDEController *controller, unsigned modifiers)
 static KeySym
 dec_keysym_for_unichar (SpiDEController *controller, gunichar unichar)
 {
-	/* TODO: table lookups within a range, for various code pages! */
-	KeySym keysym = NoSymbol;
-
-	if (unichar >= 0x20 && unichar < 0x7f) { /* Basic Latin/ASCII */
-		keysym = (KeySym) unichar;
-	}
-	else if (unichar >= 0xa0 && unichar <= 0xff) { /* Latin 1 extensions */
-		keysym = (KeySym) unichar;
-	}
-	else if (unichar >= 0x100 && unichar <= 0x233) { /* unfortunately the mapping gets nasty for Latin-2 and 3... help! */
-		keysym = NoSymbol;
-	}
-	else if (unichar >= 0x7c1 && unichar <= 0x3a1) { /* let's try Greek anyway... */
-		keysym = (KeySym) (0x391 + (unichar - 0x7c1));
-	}
-	else if (unichar >= 0x3a3 && unichar <= 0x3a9) { /* let's try Greek anyway... */
-		keysym = (KeySym) (0x7d2 + (unichar - 0x3a3));
-	}
-	else if (unichar >= 0x3b1 && unichar <= 0x3c1) { /* let's try Greek anyway... */
-		keysym = (KeySym) (0x7e1 + (unichar - 0x3b1));
-	}
-	else if (unichar == 0x3c2) {
-		keysym = (KeySym) 0x7f3; /* XK_Greek_finalsmallsigma; */
-	}
-	else if (unichar >= 0x3c3 && unichar <= 0x3c9) { /* let's try Greek anyway... */
-		keysym = (KeySym) (0x7f2 + (unichar - 0x3c2));
-	}	
-	else if (unichar >= 0x5d0 && unichar <= 0x5ea) { /* Hebrew basics */
-		/* probably broken :-) */
-		keysym = (KeySym) (0xce0 + (unichar - 0x5d0));
-	}	
-	else if (unichar >= 0x30a1 && unichar <= 0x30ab) { /* partial katakana support */
-		/* TODO: complete! */
-		keysym = (KeySym) (0x4b1 + (unichar - 0x30a1)/2);
-	}
-	else if (unichar >= 0x20a0 && unichar <= 0x20ac) { /* currency */
-		keysym = (KeySym) unichar; /* how convenient ;-) */
-	}
-	return keysym;
+	return ucs2keysym ((long) unichar);
 }
 
 static gboolean

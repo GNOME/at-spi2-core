@@ -18,7 +18,8 @@ at_spi_registryd_SOURCES =		\
 	deviceeventcontroller.h	\
 	registry-main.c		\
 	registry.c		\
-	registry.h
+	registry.h		\
+	ucs2keysym.c
 
 LDADD = $(top_builddir)/libspi/libspi.la $(X_LIBS) $(XTST_LIBS) $(XEVIE_LIBS) $(REGISTRYD_LIBS) 
 
