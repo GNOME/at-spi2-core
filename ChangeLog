@@ -1,3 +1,8 @@
+2002-07-14  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* README: Updated to describe where to log bugs and mention mailing
+	list.
+
 2002-06-20  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkutil.h atk/docs/atk-docs.sgml atk/docs/tmpl/atk-component.sgml

@@ -43,3 +43,11 @@ Note that autogen.sh runs configure for you.  If you wish to pass
 options like --prefix=/usr to configure you can give those options
 to autogen.sh and they will be passed on to configure.
 
+How to report bugs
+==================
+
+Bugs should be reported to the GNOME bug tracking system.
+(http://bugzilla.gnome.org, product atk.) You will need to create an
+account for yourself.
+
+You can also mail the mailinmg list gnome-accessibility-devel@gnome.org
