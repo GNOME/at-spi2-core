@@ -135,8 +135,17 @@ register_atk_event_listeners ()
   atk_add_focus_tracker (bridge_focus_tracker);
   atk_add_global_event_listener (bridge_property_event_listener, "Gtk:AtkObject:property-change");
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:children-changed");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:model-changed");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:selection-changed");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:visible-data-changed");
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-changed");
   atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-caret-moved");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:row-inserted");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:row-reordered");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:row-deleted");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-inserted");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-reordered");
+  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-deleted");
   atk_add_key_event_listener    (bridge_key_listener, NULL);
 }
 

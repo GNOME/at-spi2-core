@@ -240,15 +240,32 @@ Accessible_getIndexInParent (Accessible *obj)
  * Accessible_getRelationSet:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Not Yet Implemented.
+ * Get the set of #AccessibleRelation objects which describe this #Accessible object's
+ *       relationships with other #Accessible objects.
  *
- * Returns: a pointer to an array of #AccessibleRelations.
+ * Returns: an array of #AccessibleRelation pointers.
  *
  **/
 AccessibleRelation **
 Accessible_getRelationSet (Accessible *obj)
 {
-  return NULL;
+  AccessibleRelation **relations;
+  int n_relations;
+  int i;
+  Accessibility_RelationSet *relation_set =	
+	  Accessibility_Accessible_getRelationSet (*obj, &ev);
+  
+  /* this looks hack-ish, but it's based on the CORBA C bindings spec */
+  n_relations = relation_set->_length;
+  relations = malloc (sizeof (AccessibleRelation *) * n_relations);
+  
+  for (i=0; i<n_relations; ++i)
+    {
+      relations[i] = Obj_Add (relation_set->_buffer[i]);
+    }
+  relations[i] = CORBA_OBJECT_NIL;
+
+  return relations;
 }
 
 /**
@@ -706,3 +723,89 @@ Accessible_queryInterface (Accessible *obj, char *interface_name)
   return (iface != NULL) ? Obj_Add (iface) : NULL;
 }
 
+
+/**
+ * AccessibleRelation_ref:
+ * @obj: a pointer to the #AccessibleRelation object on which to operate.
+ *
+ * Increment the reference count for an #AccessibleRelation object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
+int
+AccessibleRelation_ref (AccessibleRelation *obj)
+{
+  Accessibility_Relation_ref (*obj, &ev);
+  spi_check_ev (&ev, "ref");
+  return 0;
+}
+
+/**
+ * AccessibleRelation_unref:
+ * @obj: a pointer to the #AccessibleRelation object on which to operate.
+ *
+ * Decrement the reference count for an #AccessibleRelation object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
+int
+AccessibleRelation_unref (AccessibleRelation *obj)
+{
+  Accessibility_Relation_unref (*obj, &ev);
+  spi_check_ev (&ev, "unref");
+  return 0;
+}
+
+/**
+ * AccessibleRelation_getRelationType:
+ * @obj: a pointer to the #AccessibleRelation object to query.
+ *
+ * Get the type of relationship represented by an #AccessibleRelation.
+ *
+ * Returns: an #AccessibleRelationType indicating the type of relation
+ *         encapsulated in this #AccessibleRelation object.
+ *
+ **/
+AccessibleRelationType
+AccessibleRelation_getRelationType (AccessibleRelation *obj)
+{
+  return 0;
+}
+
+/**
+ * AccessibleRelation_getNTargets:
+ * @obj: a pointer to the #AccessibleRelation object to query.
+ *
+ * Get the number of objects which this relationship has as its
+ *       target objects (the subject is the #Accessible from which this
+ *       #AccessibleRelation originated).
+ *
+ * Returns: a short integer indicating how many target objects which the
+ *       originating #Accessible object has the #AccessibleRelation
+ *       relationship with.
+ **/
+int
+AccessibleRelation_getNTargets (AccessibleRelation *obj)
+{
+  return 0;
+}
+
+/**
+ * AccessibleRelation_getTarget:
+ * @obj: a pointer to the #AccessibleRelation object to query.
+ * @i: a (zero-index) integer indicating which (of possibly several) target is requested.
+ *
+ * Get the @i-th target of a specified #AccessibleRelation relationship.
+ *
+ * Returns: an #Accessible which is the @i-th object with which the
+ *      originating #Accessible has relationship specified in the
+ *      #AccessibleRelation object.
+ *
+ **/
+Accessible *
+AccessibleRelation_getTarget (AccessibleRelation *obj, int i)
+{
+  return NULL;
+}

@@ -23,6 +23,7 @@ libspiinclude_HEADERS = accessible.h       \
 			hyperlink.h\
 			hypertext.h\
 			image.h\
+			relation.h\
 			selection.h\
 			table.h\
 			text.h\
@@ -73,6 +74,8 @@ libspi_la_SOURCES = accessible.c         \
 		    image.h\
 		    keystrokelistener.c\
 		    keystrokelistener.h\
+		    relation.c\
+		    relation.h\
 		    selection.c\
 		    selection.h\
 		    table.c\

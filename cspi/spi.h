@@ -1081,8 +1081,11 @@ AccessibleRelation_unref (AccessibleRelation *obj);
 AccessibleRelationType
 AccessibleRelation_getRelationType (AccessibleRelation *obj);
 
+int
+AccessibleRelation_getNTargets (AccessibleRelation *obj);
+
 Accessible *
-AccessibleRelation_getTarget (AccessibleRelation *obj);
+AccessibleRelation_getTarget (AccessibleRelation *obj, int i);
 
 
 /*

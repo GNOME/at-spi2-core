@@ -135,18 +135,18 @@ static void
 spi_hyperlink_finalize (GObject *obj)
 {
   SpiHyperlink *hyperlink = SPI_HYPERLINK(obj);
-  g_object_unref (hyperlink->atko);
-  hyperlink->atko = NULL;
+  g_object_unref (hyperlink->hyperlink);
+  hyperlink->hyperlink = NULL;
   parent_class->finalize (obj);
 }
 
 SpiHyperlink *
-spi_hyperlink_interface_new (AtkObject *obj)
+spi_hyperlink_new (AtkHyperlink *hyperlink)
 {
   SpiHyperlink *new_hyperlink = 
     SPI_HYPERLINK(g_object_new (SPI_HYPERLINK_TYPE, NULL));
-  new_hyperlink->atko = obj;
-  g_object_ref (obj);
+  g_object_ref (hyperlink);
+  new_hyperlink->hyperlink = hyperlink;
   return new_hyperlink;
 }
 
@@ -157,7 +157,7 @@ impl__get_n_anchors (PortableServer_Servant _servant,
 		     CORBA_Environment * ev)
 {
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
-  return (CORBA_short) atk_hyperlink_get_n_anchors (ATK_HYPERLINK(link->atko));
+  return (CORBA_short) atk_hyperlink_get_n_anchors (ATK_HYPERLINK(link->hyperlink));
 }
 
 
@@ -167,7 +167,7 @@ impl__get_startIndex (PortableServer_Servant _servant,
 		      CORBA_Environment * ev)
 {
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
-  return (CORBA_long) atk_hyperlink_get_start_index (ATK_HYPERLINK(link->atko));
+  return (CORBA_long) atk_hyperlink_get_start_index (ATK_HYPERLINK(link->hyperlink));
 }
 
 
@@ -177,7 +177,7 @@ impl__get_endIndex (PortableServer_Servant _servant,
 		    CORBA_Environment * ev)
 {
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
-  return (CORBA_long) atk_hyperlink_get_end_index (ATK_HYPERLINK(link->atko));
+  return (CORBA_long) atk_hyperlink_get_end_index (ATK_HYPERLINK(link->hyperlink));
 }
 
 
@@ -189,7 +189,7 @@ impl_getURI (PortableServer_Servant _servant,
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
   gchar *uri;
   CORBA_char *rv;
-  uri = atk_hyperlink_get_uri (ATK_HYPERLINK(link->atko), (gint) i);
+  uri = atk_hyperlink_get_uri (ATK_HYPERLINK(link->hyperlink), (gint) i);
   if (uri)
     {
       rv = CORBA_string_dup (uri);
@@ -210,7 +210,7 @@ impl_getObject (PortableServer_Servant _servant,
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
   AtkObject *atk_object;
   Accessibility_Accessible rv;
-  atk_object = atk_hyperlink_get_object (ATK_HYPERLINK(link->atko), (gint) i);
+  atk_object = atk_hyperlink_get_object (ATK_HYPERLINK(link->hyperlink), (gint) i);
   rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_accessible_new(atk_object)));
   return rv;
 }
@@ -222,7 +222,7 @@ impl_isValid (PortableServer_Servant _servant,
 	      CORBA_Environment * ev)
 {
   SpiHyperlink *link = SPI_HYPERLINK(bonobo_object_from_servant(_servant));
-  return (CORBA_boolean) atk_hyperlink_is_valid (ATK_HYPERLINK(link->atko));
+  return (CORBA_boolean) atk_hyperlink_is_valid (ATK_HYPERLINK(link->hyperlink));
 }
 
 

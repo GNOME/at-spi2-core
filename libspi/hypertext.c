@@ -183,7 +183,7 @@ impl_getLink (PortableServer_Servant _servant,
   
   link = atk_hypertext_get_link (ATK_HYPERTEXT(hypertext->atko),
 				 (gint) linkIndex);
-  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_hyperlink_interface_new(ATK_OBJECT(link))));
+  rv = bonobo_object_corba_objref (BONOBO_OBJECT(spi_hyperlink_new(ATK_OBJECT(link))));
   return rv;
 }
 

@@ -1,5 +1,10 @@
 2001-16-11  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/relation.h:
+	* libspi/relation.c:
+	* cspi/spi_accessible.c:
+	Initial implementations of AccessibleRelation methods, and docs.
+
 	* libspi/accessible.c:
 	Fixed a bug that caused SEGV  if an accessible
 	object's description is NULL, and a client
@@ -10,7 +15,9 @@
 	* cspi/spi_image.c:
 	* cspi/spi_hyperlink.c:
 	* cspi/spi_table.c:
-	Added docs.  Doc coverage now 92%.
+	Added docs.  
+
+	Doc coverage now 95%.
 
 2001-16-11  Bill Haneman <bill.haneman@sun.com>
 

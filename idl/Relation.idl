@@ -39,9 +39,10 @@ module Accessibility {
    * This interface inherits from a base class implementing ref counts.
    */
 
-  interface Relation {
+  interface Relation : Bonobo::Unknown {
     RelationType        getRelationType ();
-    Object		getTarget ();
+    short               getNTargets ();
+    Object		getTarget (in short index);
   };
 };
 

@@ -225,13 +225,22 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
 						CORBA_Environment     *ev)
 {
   Accessibility_RelationSet *retval;
-/*  SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
-    AtkRelationSet *relation_set = atk_object_ref_relation_set (accessible->atko); */
+  gint n_relations;
+  gint i;
+  SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
+  AtkRelationSet *relation_set = atk_object_ref_relation_set (accessible->atko);
+  n_relations = atk_relation_set_get_n_relations (relation_set);
   retval = CORBA_sequence_Accessibility_Relation__alloc ();
-  /*
-   *  TODO: fill the sequence with relation set objects, themselves
-   *  initialized from the AtkRelation object in the AtkRelationSet.
-   */
+  CORBA_sequence_Accessibility_Relation_allocbuf (n_relations);
+	  
+  for (i=0; i<n_relations; ++i)
+    {
+      retval->_buffer[i] =
+	      CORBA_Object_duplicate (bonobo_object_corba_objref (
+		      spi_relation_new (atk_relation_set_get_relation (relation_set, i))),
+				      ev);
+    }
+  
   printf ("SpiAccessible get_relation_set.\n");
   return retval;
 }
@@ -246,7 +255,7 @@ impl_accessibility_accessible_get_role (PortableServer_Servant servant,
   Accessibility_Role retval;
   SpiAccessible *accessible = SPI_ACCESSIBLE (bonobo_object_from_servant (servant));
   AtkRole role = atk_object_get_role (accessible->atko);
-  retval = role;
+  retval = role; /* relies on ability to cast these back and forth */
   printf ("SpiAccessible get_role.\n");
   return (Accessibility_Role) retval;
 }

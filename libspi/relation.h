@@ -1,4 +1,5 @@
-/* ATK -  Accessibility Toolkit
+/* AT-SPI -  Assistive Technology Service Provider Interface
+ *
  * Copyright 2001 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
@@ -17,8 +18,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SPI_HYPERLINK_H_
-#define SPI_HYPERLINK_H_
+#ifndef SPI_RELATION_H_
+#define SPI_RELATION_H_
 
 
 #ifdef __cplusplus
@@ -29,33 +30,33 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define SPI_HYPERLINK_TYPE        (spi_hyperlink_get_type ())
-#define SPI_HYPERLINK(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERLINK_TYPE, SpiHyperlink))
-#define SPI_HYPERLINK_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_HYPERLINK_TYPE, SpiHyperlinkClass))
-#define IS_SPI_HYPERLINK(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERLINK_TYPE))
-#define IS_SPI_HYPERLINK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERLINK_TYPE))
+#define SPI_RELATION_TYPE        (spi_relation_get_type ())
+#define SPI_RELATION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_RELATION_TYPE, SpiRelation))
+#define SPI_RELATION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_RELATION_TYPE, SpiRelationClass))
+#define IS_SPI_RELATION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_RELATION_TYPE))
+#define IS_SPI_RELATION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_RELATION_TYPE))
 
-typedef struct _Hyperlink SpiHyperlink;
-typedef struct _HyperlinkClass SpiHyperlinkClass;
+typedef struct _SpiRelation SpiRelation;
+typedef struct _SpiRelationClass SpiRelationClass;
 
-struct _Hyperlink {
+struct _SpiRelation {
   BonoboObject parent;
-  AtkHyperlink *hyperlink;
+  AtkRelation *relation;
 };
 
-struct _HyperlinkClass {
+struct _SpiRelationClass {
   BonoboObjectClass parent_class;
-  POA_Accessibility_Hyperlink__epv epv;
+  POA_Accessibility_Relation__epv epv;
 };
 
 GType
-spi_hyperlink_get_type   (void);
+spi_relation_get_type   (void);
 
-SpiHyperlink *
-spi_hyperlink_new       ();
+SpiRelation *
+spi_relation_new       (AtkRelation *relation);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* SPI_HYPERLINK_H_ */
+#endif /* SPI_RELATION_H_ */

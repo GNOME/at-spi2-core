@@ -251,7 +251,6 @@ AccessibleStateSet_contains
 AccessibleStateSet_equals
 AccessibleStateSet_isEmpty
 AccessibleStateSet_remove
-
 </SECTION>
 
 <SECTION>
