@@ -30,6 +30,6 @@ DEBUG_CFLAGS=-DSPI_DEBUG
 
 CFLAGS += $(TESTS_CFLAGS) $(DEBUG_CFLAGS)
 
-LDADD = ../util/libat-util.la ../libspi/libspi.la ../cspi/libcspi.la $(TESTS_LIBS) $(X_LIBS)
+LDADD = ../libspi/libspi.la ../cspi/libcspi.la $(TESTS_LIBS) $(X_LIBS)
 
 TESTS = test-simple

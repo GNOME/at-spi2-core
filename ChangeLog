@@ -11,6 +11,14 @@
 	
 2002-05-08  Bill Haneman <bill.haneman@sun.com>
 
+	* test/Makefile.am:
+	Removed unnecessary dependency on libutil.
+
+	* configure.in:
+	Revved micro version: 0.13.1
+
+2002-05-08  Bill Haneman <bill.haneman@sun.com>
+
 	* configure.in: 
 	Removed util/Makefile from targets.
 
