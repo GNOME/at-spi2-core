@@ -1,0 +1,312 @@
+# ATK Russian translation.
+# Copyright (C) 2002 The ATK Team
+# This file is distributed under the same license as the ATK package.
+# Dmitry G. Mastrukov <dmitry@taurussoft.org>, 2002.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ATK 1.x\n"
+"POT-Creation-Date: 2002-12-18 07:33+0300\n"
+"PO-Revision-Date: 2002-12-18 07:35+0300\n"
+"Last-Translator: Dmitry G. Mastrukov <dmitry@taurussoft.org>\n"
+"Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "недопустима"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "Метка с ускорителем"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "тревога"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "анимация"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "стрелка"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "календарь"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "канва"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "кнопка-флажок"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "элемент-флажок меню"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "выбор цвета"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "заголовок столбца"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "выпадающий список с возможностью ввода"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "редактор даты"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "значок рабочего стола"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "рамка рабочего стола"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "набор номера"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "диалог"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "панель каталога"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "область рисования"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "выбор файлов"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "заполнитель"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "выбор шрифта"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "рамка"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "прозрачная панель"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "содержимое с языком html"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "значок"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "изображение"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "внутренняя рамка"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "метка"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "панель с уровнями"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "список"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "элемент списка"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "меню"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "строка меню"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "элемент меню"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "панель опций"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "вкладка страницы"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "список вкладок страницы"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "панель"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "пароль"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "всплывающее меню"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "индикатор выполнения"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "нажимаемая кнопка"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "радио-кнопка"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "радио-элемент меню"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "корневая панель"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "заголовок строки"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "полоса прокрутки"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "панель прокрутки"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "разделитель"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "бегунок"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "разделяемая панель"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "кнопка вращения"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "строка состояния"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "таблица"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "ячейка таблицы"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "заголовок столбца таблицы"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "заголовок строки таблицы"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "неразрываемый элемент меню"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "терминал"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "текст"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "кнопка-переключатель"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "панель инструментов"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "подсказка"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "дерево"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "таблица в виде дерева"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "нейзвестна"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "область просмотра"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "окно"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "заголовок"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "подвал"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "абзац"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "элемент перемещения"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "приложение"
