@@ -308,6 +308,23 @@ impl_getAttributes (PortableServer_Servant servant,
   return rv;  
 }
 
+static CORBA_string
+impl_getDefaultAttributes (PortableServer_Servant servant,
+			   CORBA_Environment *ev)
+{
+  AtkAttributeSet *set;
+  gint intstart_offset, intend_offset;
+  CORBA_char *rv;
+  AtkText *text = get_text_from_servant (servant);
+
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
+
+  set = atk_text_get_default_attributes (text);
+
+  rv = _string_from_attribute_set (set);
+  atk_attribute_set_free (set);
+  return rv;  
+}
 
 static void 
 impl_getCharacterExtents (PortableServer_Servant servant,
@@ -628,6 +645,7 @@ spi_text_class_init (SpiTextClass *klass)
   epv->getTextBeforeOffset = impl_getTextBeforeOffset;
   epv->_get_caretOffset = impl__get_caretOffset;
   epv->getAttributes = impl_getAttributes;
+  epv->getDefaultAttributes = impl_getDefaultAttributes;
   epv->getCharacterExtents = impl_getCharacterExtents;
   epv->_get_characterCount = impl__get_characterCount;
   epv->getOffsetAtPoint = impl_getOffsetAtPoint;

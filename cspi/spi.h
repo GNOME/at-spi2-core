@@ -842,6 +842,8 @@ AccessibleText_getAttributes (AccessibleText *obj,
 				 long int *startOffset,
 				 long int *endOffset);
 
+char *
+AccessibleText_getDefaultAttributes (AccessibleText *obj);
 
 SPIBoolean
 AccessibleText_setCaretOffset (AccessibleText *obj,

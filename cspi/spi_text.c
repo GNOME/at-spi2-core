@@ -267,6 +267,45 @@ AccessibleText_getAttributes (AccessibleText *obj,
 }
 
 /**
+ * AccessibleText_getDefaultAttributes:
+ * @obj: a pointer to the #AccessibleText object to query.
+ *
+ * Get the default attributes applied to an #AccessibleText
+ *          object.
+ *          The text attributes correspond to CSS attributes where possible,
+ *          keys and values are delimited from one another via ":", and
+ *          the delimiter between key/value pairs is ";". Thus 
+ *          "font-size:10;foreground-color:0,0,0" would be a valid
+ *          return string.  The combination of this attribute set and
+ *          the attributes reported by #AccessibleText_getAttributes
+ *          describes the entire set of text attributes over a range.
+ *
+ * Returns: a text string describing the default attributes 
+ *          applied to a text object, (exclusive of explicitly-set
+ *          attributes), encoded as UTF-8.
+ **/
+char *
+AccessibleText_getDefaultAttributes (AccessibleText *obj)
+{
+  char *retval;	
+
+  if (obj == NULL)
+    {
+      return NULL;
+    }
+
+  retval = Accessibility_Text_getDefaultAttributes (CSPI_OBJREF (obj),
+						    cspi_ev ());
+
+  if (!cspi_check_ev ("getAttributes"))
+    {
+      retval = NULL;
+    }
+
+  return retval;
+}
+
+/**
  * AccessibleText_setCaretOffset:
  * @obj: a pointer to the #AccessibleText object on which to operate.
  * @newOffset: the offset to which the text caret is to be moved.

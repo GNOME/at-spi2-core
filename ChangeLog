@@ -1,3 +1,21 @@
+2003-12-01  Bill Haneman <billh@gnome.org>
+
+	Fix for bug #118581.
+	* idl/Accessibility_Text.idl:
+	(getDefaultAttributes): New.
+	(unimplemented4): Removed (replaced by above method).
+
+	* libspi/text.c:
+	(impl_getDefaultAttributes): New method.
+	(spi_text_class_init):
+	initialize the get_default_attributes slot in the epv.
+
+	* cspi/spi.h:
+	(AccessibleText_getDefaultAttributes): New prototype.
+
+	* cspi/spi_text.c:
+	(AccessibleText_getDefaultAttributes): New method.
+
 2003-11-06  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi_accessible.c (cspi_init_relation_type_table): Do not

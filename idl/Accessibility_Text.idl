@@ -72,6 +72,7 @@ module Accessibility {
 							   */
     string getAttributes (in long offset,
 			  out long startOffset, out long endOffset);
+    string getDefaultAttributes ();
     void getCharacterExtents (in long offset, out long x, out long y, out long width, out long height, in short coordType);
     long getOffsetAtPoint (in long x, in long y, in short coordType);
     long getNSelections ();
@@ -87,6 +88,7 @@ module Accessibility {
 				in short coordType, 
 				in TEXT_CLIP_TYPE xClipType, 
 				in TEXT_CLIP_TYPE yClipType);
+
     /**
      * unImplemented:
      *
@@ -95,6 +97,5 @@ module Accessibility {
     void unImplemented ();
     void unImplemented2 ();
     void unImplemented3 ();
-    void unImplemented4 ();
   };
 };
