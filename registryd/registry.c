@@ -22,6 +22,8 @@
 
 /* registry.c: the main accessibility service registry implementation */
 
+#undef SPI_LISTENER_DEBUG
+
 #include <config.h>
 #ifdef SPI_DEBUG
 #  include <stdio.h>
@@ -49,15 +51,14 @@ typedef enum {
 typedef struct {
   char *event_name;
   EventTypeCategory type_cat;
-  char * major;
-  char * minor;
-  char * detail;
-  guint hash;
+  GQuark major;  /* from string segment[1] */
+  GQuark minor;  /* from string segment[1]+segment[2] */
+  GQuark detail; /* from string segment[3] (not concatenated) */
 } EventTypeStruct;
 
 typedef struct {
   Accessibility_EventListener listener;
-  guint event_type_hash;
+  GQuark event_type_quark;
   EventTypeCategory event_type_cat;
 } SpiListenerStruct;
 
@@ -173,9 +174,9 @@ register_with_toolkits (SpiRegistry *spi_registry_bonobo_object, EventTypeStruct
 }
 
 static gint
-compare_listener_hash (gconstpointer p1, gconstpointer p2)
+compare_listener_quarks (gconstpointer p1, gconstpointer p2)
 {
-  return (((SpiListenerStruct *)p2)->event_type_hash - ((SpiListenerStruct *)p1)->event_type_hash);
+  return (!((SpiListenerStruct *)p2)->event_type_quark == ((SpiListenerStruct *)p1)->event_type_quark);
 }
 
 static gint
@@ -213,37 +214,37 @@ parse_event_type (EventTypeStruct *etype, char *event_name)
 
   if (split_string[1])
     {
-      etype->major = g_strdup (split_string[1]);
       if (split_string[2])
         {
-          etype->minor = g_strdup (split_string[2]);
+          etype->minor = g_quark_from_string (s = g_strconcat (split_string[1], split_string[2], NULL));
+          g_free (s);
           if (split_string[3])
             {
-              etype->detail = g_strdup (split_string[3]);
+              etype->detail = g_quark_from_string (split_string[3]);
 	      s = g_strconcat (split_string[1], split_string[2], split_string[3], NULL);
-              etype->hash = g_str_hash (s);
+	      etype->major = g_quark_from_string (s);
 	      g_free (s);
             }
           else
             {
-              etype->detail = g_strdup ("");
+	      etype->detail = g_quark_from_static_string ("");
 	      s = g_strconcat (split_string[1], split_string[2], NULL);
-	      etype->hash = g_str_hash (s);
+	      etype->major = g_quark_from_string (s);
 	      g_free (s);
             }
         }
       else
         {
-          etype->minor = g_strdup ("");
-          etype->hash = g_str_hash ( split_string[1]);
+          etype->major = g_quark_from_string (split_string[1]);
+	  etype->minor = etype->major;
+	  etype->detail = etype->major;
         }
     }
   else
     {
-      etype->major = g_strdup ("");
-      etype->minor = g_strdup ("");
-      etype->detail = g_strdup ("");
-      etype->hash = g_str_hash ("");
+      etype->major = g_quark_from_static_string ("");
+      etype->minor = etype->major;
+      etype->detail = etype->major;
     }
 
   g_strfreev (split_string);
@@ -290,7 +291,7 @@ impl_accessibility_registry_register_global_event_listener (
 
   /* parse, check major event type and add listener accordingly */
   parse_event_type (&etype, (char*) event_name);
-  ls->event_type_hash = etype.hash;
+  ls->event_type_quark = etype.major;
   ls->event_type_cat = etype.type_cat;
 
   switch (etype.type_cat)
@@ -391,14 +392,14 @@ impl_accessibility_registry_deregister_global_event_listener (
   if (!listeners)
 	  return;
 
-  ls.event_type_hash = etype.hash;
-  list = g_list_find_custom (*listeners, &ls, compare_listener_hash);
+  ls.event_type_quark = etype.major;
+  list = g_list_find_custom (*listeners, &ls, compare_listener_quarks);
 
   while (list)
     {
       spi_listener_struct_free ((SpiListenerStruct *) list->data, ev);
       *listeners = g_list_delete_link (*listeners, list);
-      list = g_list_find_custom (*listeners, &ls, compare_listener_hash);
+      list = g_list_find_custom (*listeners, &ls, compare_listener_quarks);
     }
 }
 
@@ -524,26 +525,23 @@ _registry_notify_listeners (GList *listeners,
   Accessibility_Event e_out;
   SpiListenerStruct  *ls;
   EventTypeStruct     etype;
-  guint               minor_hash;
+#ifdef SPI_DEBUG
   CORBA_string        s;
+#endif
 
   e_out = *e_in;
   parse_event_type (&etype, e_in->type);
-
-  s = g_strconcat (etype.major, etype.minor, NULL);
-  minor_hash = g_str_hash (s);
-  g_free (s);
 
   for (l = listeners; l; l = l->next)
     {
       ls = (SpiListenerStruct *) l->data;
 
-#ifdef SPI_SPI_LISTENER_DEBUG
-      fprintf (stderr, "event hashes: %lx %lx %lx\n", ls->event_type_hash, etype.hash, minor_hash);
+#ifdef SPI_LISTENER_DEBUG
+      fprintf (stderr, "event quarks: %lx %lx %lx\n", ls->event_type_quark, etype.major, etype.minor);
       fprintf (stderr, "event name: %s\n", etype.event_name);
 #endif
 
-      if ((ls->event_type_hash == etype.hash) || (ls->event_type_hash == minor_hash))
+      if ((ls->event_type_quark == etype.major) || (ls->event_type_quark == etype.minor))
         {
 #ifdef SPI_DEBUG
           fprintf (stderr, "notifying listener %d\n", g_list_index (listeners, l->data));

@@ -3,24 +3,19 @@ TODO:
 idl: 
 	+ audit IDL for conformance with bonobo/doc/FAQ's [Java]
 	naming practice [Michael]
-        + possibly change Value.idl interface to return a value
-	union. [Bill] *DONE*
-	+ rename all IDL prepending Accessibility_ to each IDL filename
 
 cspi: 
-	+ API change required if above IDL change is made. [Bill]
 	+ ensure spi-listener-impl's list notification methods don't
 	  have a re-enterancy hazard. [Michael]
-	+ namespace all methods missing a prepending Acessible
+	+ namespace all methods missing a prepending Accessible
 	  or SPI_ prefix.
 	+ Put LGPL headers everywhere.
 
 registry:
 	+ move code into here from libspi [Michael]
-	+ kill the getDeviceWhatnot - and use queryInterface,
-	  don't inherit from the Listener interface - use aggregation
 	+ fire an event on dead application & re-factor the listen for
 	  broken code.
+        + consider use of GHashTable instead of GList for listeners [Bill]
 
 bridge:
 	+ move code into here from libspi
@@ -29,8 +24,6 @@ libspi:
 	+ remove redundant casts throughout
 	+ determine if there are other headers we don't need to install
 	+ consider moving the non-impl. parts into registryd/ bridge/ etc.
-	+ change the weird string-hash event matching to something sane,
-	using GQuark. [Bill]
 	+ merge the DeviceEvent and KeyEvent structs to avoid the
 	bogus casting of these back and forth.
 	+ complete implementation of support for RelationSet and
@@ -40,6 +33,6 @@ libspi:
 
 test:
 	+ update test-simple to do complete API tests
-	+ Add tests for AtkTable, and add table elements to the test window.
+	+ Expand tests for AtkTable
 	+ remove comment from test_value; ensure that it works.
 

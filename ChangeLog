@@ -1,5 +1,15 @@
 2001-12-12  Bill Haneman <bill.haneman@sun.com>
 
+	* registryd/registry.c:
+	Changed use of strings and string hashes in listener event
+	matching and parse_event_string to use GQuark, which is guaranteed
+	unique.
+	
+	* registryd/registry.h:
+	Squashed annoying warning.
+
+2001-12-12  Bill Haneman <bill.haneman@sun.com>
+
 	* idl/Accessibility_Value.idl:
 	Revert use of union back to CORBA_double, since the double type is
 	more efficient and can contain the other types without loss of
