@@ -1,6 +1,6 @@
 (top)
 in HEAD:
-What's new in at-spi-1.3.8:
+What's new in at-spi-1.3.9:
 
 * New api:  AccessibleApplication_getLocale (app, type),
   returns a POSIX locale string for a locale category,

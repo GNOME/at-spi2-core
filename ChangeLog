@@ -1,5 +1,7 @@
 2003-12-05  Bill Haneman <billh@gnome.org>
 
+	* configure.in: Version 1.3.9.
+
 	* docs/reference/cspi/tmpl/spi_registry.sgml:
 	Added reference to libspi/keymasks.h to the
         description of Registry queries: AccessibleKeyMaskType.

@@ -14,15 +14,11 @@ Event Listener Support
 
 </para>
 
-<!-- ##### STRUCT AccessibleEvent ##### -->
+<!-- ##### TYPEDEF AccessibleEvent ##### -->
 <para>
 AccessibleEvent is a struct used to encapsulate event information.
 </para>
 
-@type: 
-@source: 
-@detail1: 
-@detail2: 
 
 <!-- ##### USER_FUNCTION AccessibleEventListenerCB ##### -->
 <para>
