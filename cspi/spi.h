@@ -51,10 +51,10 @@ typedef enum
 } RELATION_TYPE;
 
 
-
+/* don't change the order of these ! */
 typedef enum _AccessibleCoordType {
-  COORD_TYPE_WINDOW,
-  COORD_TYPE_SCREEN
+  COORD_TYPE_SCREEN,
+  COORD_TYPE_WINDOW
 } AccessibleCoordType;
 
 

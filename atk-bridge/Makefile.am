@@ -1,8 +1,10 @@
 lib_LTLIBRARIES = libat-bridge.la
 
 libat_bridge_la_SOURCES = 	\
-	bridge.c	\
-	application.h
+	bridge.c
+
+libat_bridge_la_DEPENDENCIES =	\
+	$(top_srcdir)/libspi/application.h
 
 INCLUDES = -I $(top_srcdir) \
            -I $(top_builddir)         	\

@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACCESSIBLE_H_
-#define ACCESSIBLE_H_
+#ifndef MAGNIFIER_H_
+#define MAGNIFIER_H_
 
 
 #ifdef __cplusplus
@@ -26,31 +26,30 @@ extern "C" {
 #endif /* __cplusplus */
 
 #include <bonobo/bonobo-object.h>
-#include <atk/atkobject.h>
-#include <libspi/Accessibility.h>
+#include "Magnifier.h"
+#include "mag_image.h" /* TODO: remove this include */
 
-#define ACCESSIBLE_TYPE        (accessible_get_type ())
-#define ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ACCESSIBLE_TYPE, Accessible))
-#define ACCESSIBLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ACCESSIBLE_TYPE, AccessibleClass))
-#define IS_ACCESSIBLE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), ACCESSIBLE_TYPE))
-#define IS_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ACCESSIBLE_TYPE))
+#define MAGNIFIER_TYPE         (magnifier_get_type ())
+#define MAGNIFIER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), MAGNIFIER_TYPE, Magnifier))
+#define MAGNIFIER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), MAGNIFIER_TYPE, MagnifierClass))
+#define IS_MAGNIFIER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), MAGNIFIER_TYPE))
+#define IS_MAGNIFIER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), MAGNIFIER_TYPE))
 
 typedef struct {
         BonoboObject parent;
-        AtkObject *atko;
-} Accessible;
+	MagnifierData *mag_data;
+} Magnifier;
 
 typedef struct {
         BonoboObjectClass parent_class;
-        POA_Accessibility_Accessible__epv epv;
-} AccessibleClass;
+        POA_Accessibility_Magnifier__epv epv;
+} MagnifierClass;
 
-GType                  accessible_get_type   (void);
-Accessible             *accessible_new       (AtkObject *o);
-
+GType                  magnifier_get_type   (void);
+Magnifier              *magnifier_new  (int argc, char **argv);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* ACCESSIBLE_H_ */
+#endif /* MAGNIFIER_H_ */

@@ -25,21 +25,17 @@
 #include <sys/un.h>
 #include "spi.h"
 
-void report_focus_event (void *fp);
-
-void report_button_press (void *fp);
+static void report_focus_event (void *fp);
+static void report_button_press (void *fp);
+static void get_environment_vars (void);
 
 static int _festival_init ();
 static void _festival_say (const char *text, const char *voice, boolean shutup);
 static void _festival_write (const char *buff, int fd);
-static void _send_to_magnifier (int x, int y, int w, int h);
 
 static boolean use_magnifier = FALSE;
 static boolean use_festival = FALSE;
 static boolean festival_chatty = FALSE;
-
-static struct sockaddr_un mag_server = { AF_UNIX , "/tmp/magnifier_socket" };
-static struct sockaddr_un client = { AF_UNIX, "/tmp/mag_client"};
 
 int
 main(int argc, char **argv)
@@ -80,7 +76,15 @@ main(int argc, char **argv)
           fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
         }
     }
-  
+
+  get_environment_vars();
+
+  SPI_event_main(FALSE);
+}
+
+static void
+get_environment_vars()
+{
   if (getenv ("FESTIVAL"))
   {
     use_festival = TRUE;
@@ -93,8 +97,6 @@ main(int argc, char **argv)
   {
     use_magnifier = TRUE;
   }  
-
-  SPI_event_main(FALSE);
 }
 
 void
@@ -117,13 +119,13 @@ report_focus_event (void *p)
     {
       long x, y, width, height;
       AccessibleComponent *component = Accessible_getComponent (&ev->source);
-      fprintf (stderr, "Source implements IDL:Accessibility/Component:1.0\n");
       AccessibleComponent_getExtents (component, &x, &y, &width, &height,
                                       COORD_TYPE_SCREEN);
       fprintf (stderr, "Bounding box: (%ld, %ld) ; (%ld, %ld)\n",
                x, y, x+width, y+height);
-      if (use_magnifier)
-	      _send_to_magnifier (x, y, width, height);
+      if (use_magnifier) {
+	      magnifier_set_roi (x, y, width, height);	      
+      }
     }
 }
 
@@ -214,37 +216,3 @@ static void _festival_write (const gchar *command_string, int fd)
   write(fd, command_string, strlen(command_string));
 }
 
-static void
-_send_to_magnifier(int x, int y, int w, int h)
-{
-  int desc, length_msg;
-  gchar buff[100];
-
-  sprintf (buff, "~5:%d,%d:", x+w/2, y+h/2);
-
-#ifdef MAG_DEBUG
-  g_print ("sending magnifier: %s\n", buff);
-#endif
-
-  if((desc=socket(AF_UNIX,SOCK_STREAM,0)) == -1){
-    perror("socket");
-    return;
-  }
-  unlink("/tmp/mag_client");
-
-  if (bind(desc, (struct sockaddr*)&client, sizeof(client)) == -1)
-    {
-      perror("bind");
-      return;
-    }
-
-  if (connect(desc,(struct sockaddr*)&mag_server,sizeof(mag_server)) == -1)
-    {
-      perror("connect");
-      return;
-    }
-
-  length_msg = write(desc,buff,strlen(buff));
-  unlink("/tmp/mag_client");
-  return;
-}

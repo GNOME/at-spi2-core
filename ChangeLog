@@ -1,3 +1,45 @@
+<2001-09-27  Bill Haneman <bill.haneman@sun.com>
+
+	* util:
+	* util/Makefile.am: 
+		Created a new directory for 
+			accessibility-related utilities, primarily for
+			testing and demo purposes, but with possible
+			end-user utility.
+	
+	* util/magnifier.c:
+	* util/magnifier.h:
+	* util/mag_image.c:
+	* util/mag_image.h:
+		Onscreen magnifier utility that
+			is implemented as a bonobo service.
+	
+	* util/mag_client.c:
+	* util/mag_client.h:
+		Client-side support (simple C bindings) 
+			for Magnification service
+	
+	* util/mag_control.c:
+	        Client program example for 
+			Magnification service
+	
+	* util/Accessibility_Magnifier.server.in:
+		Bonobo-activation file for the 
+			Magnification service.
+	
+	* util/idl:
+	* util/idl/Magnifier.idl:
+		IDL defining the bonobo Magnification
+			service interface.
+
+	* test/simple-at.c:
+		Modifications to use the bonobo-activated magnifier
+			above, in place of trying to connect to an existing
+			magnifier that uses socket-listening IPC.
+
+		If env variable MAGNIFIER is set, a magnifier service
+			will be started if one does not exist.
+	
 <2001-09-25  Bill Haneman <bill.haneman@sun.com>
 	* at-bridge/bridge.c:
 		applied patch from Marc to build and run 
@@ -7,6 +49,9 @@
 		made festival-server support turned off by default.
 		Added support for a simple magnifier (off by default)
 		which will be added to a 'util' directory later.
+	* at-bridge/Makefile.am:
+		Changed "application.h" header from a 'source'
+		to a 'dependency' of libat-bridge.
 
 <2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
 	* cspi/Makefile.am:
