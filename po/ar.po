@@ -15,21 +15,22 @@ msgstr ""
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=iso-8859-6\n"
 "Content-Transfer-Encoding: 8bit"
 
 #: atk-bridge/bridge.c:308
 msgid "failure: no device event controller found.\n"
-msgstr "/n.ÙØ´Ù„: Ù„Ù… ÙŠÙˆØ¬Ø¯ Ù…ØªØ­ÙƒÙ… Ù„Ø£Ø­Ø¯Ø§Ø« Ø§Ù„Ø£Ø¬Ù‡Ø²Ø©"
+msgstr "/n.áÔä: äå êèÌÏ åÊÍãå äÃÍÏÇË ÇäÃÌçÒÉ"
 
 #: atk-bridge/bridge.c:777
 msgid "WARNING: NULL key event reported."
-msgstr "ØªÙ†Ø¨ÙŠÙ‡: ÙˆÙ‚Ø¹ ØªÙ‚Ø±ÙŠØ± Ù…ÙØªØ§Ø­ Ø­Ø¯Ø« Ù…ØµÙØ±."
+msgstr "ÊæÈêç: èâÙ ÊâÑêÑ åáÊÇÍ ÍÏË åÕáÑ."
 
 #: registryd/Accessibility_Registry.server.in.in.h:1
 msgid "AT-SPI Registry"
-msgstr "Ø³Ø¬Ù„ AT-SPI"
+msgstr "ÓÌä AT-SPI"
 
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
-msgstr "Ø³Ø¬Ù„ Ø§Ù„Ø¥Ø¹Ø§Ù†Ø©"
+msgstr "ÓÌä ÇäÅÙÇæÉ"
+
