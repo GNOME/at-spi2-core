@@ -1,3 +1,9 @@
+2002-03-12  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkgobjectaccessible.c (atk_gobject_accessible_dispose):
+	Correct name of data set to NULL from quark_accessible_object to
+	quark_object
+
 2002-03-09  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkhyperlink.c (atk_hyperlink_get_type):

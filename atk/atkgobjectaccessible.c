@@ -127,7 +127,7 @@ atk_gobject_accessible_dispose (gpointer  data)
 {
   g_return_if_fail (ATK_IS_GOBJECT_ACCESSIBLE (data));
 
-  g_object_set_qdata (G_OBJECT (data), quark_accessible_object, NULL);
+  g_object_set_qdata (G_OBJECT (data), quark_object, NULL);
   atk_object_notify_state_change (ATK_OBJECT (data), ATK_STATE_DEFUNCT,
                                   TRUE); 
   g_object_unref (data);
