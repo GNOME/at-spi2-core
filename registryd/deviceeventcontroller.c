@@ -186,9 +186,18 @@ spi_dec_set_unlatch_pending (SpiDEController *controller, unsigned mask)
   DEControllerPrivateData *priv = 
     g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
 #ifdef SPI_XKB_DEBUG
-  if (priv->xkb_latch_mask) fprintf (stderr, "unlatch pending! %x\n", mask);
+  if (priv->xkb_latch_mask) fprintf (stderr, "unlatch pending! %x\n", 
+				     priv->xkb_latch_mask);
 #endif
   priv->pending_xkb_mod_relatch_mask |= priv->xkb_latch_mask; 
+}
+ 
+static void
+spi_dec_clear_unlatch_pending (SpiDEController *controller)
+{
+  DEControllerPrivateData *priv = 
+    g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+  priv->xkb_latch_mask = 0; 
 }
  
 static gboolean
@@ -468,10 +477,11 @@ spi_dec_init_mouse_listener (SpiRegistry *registry)
 
   if (display)
     {
-      XGrabButton (display, AnyButton, AnyModifier,
+      if (XGrabButton (display, AnyButton, AnyModifier,
 		   gdk_x11_get_default_root_xwindow (),
 		   True, ButtonPressMask | ButtonReleaseMask,
-		   GrabModeSync, GrabModeAsync, None, None);
+		   GrabModeSync, GrabModeAsync, None, None) != Success)
+	fprintf (stderr, "WARNING: could not grab mouse buttons!\n");
       XSync (display, False);
 #ifdef SPI_DEBUG
       fprintf (stderr, "mouse buttons grabbed\n");
@@ -811,7 +821,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   int button = xbutton_event->button;
   
   unsigned int mouse_button_state = xbutton_event->state;
-  
+
   switch (button)
     {
     case 1:
@@ -881,7 +891,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
   /* if client wants to consume this event, and XKB latch state was
    *   unset by this button event, we reset it
    */
-  if (is_consumed && (xkb_mod_unlatch_occurred))
+  if (is_consumed && xkb_mod_unlatch_occurred)
     spi_dec_set_unlatch_pending (controller, mouse_mask_state);
   
   XAllowEvents (spi_get_display (),
@@ -950,6 +960,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 			      &= ~(XkbAX_StickyKeysFBMask);
 	        XkbChangeControls (display, priv->xkb_desc, &changes);
 	      }
+	      /* TODO: account for lock as well as latch */
 	      XkbLatchModifiers (display,
 				 XkbUseCoreKbd,
 				 priv->pending_xkb_mod_relatch_mask,
@@ -1797,6 +1808,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   SpiDEController *controller =
 	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
   long key_synth_code;
+  KeySym keysym;
 
 #ifdef SPI_DEBUG
 	fprintf (stderr, "synthesizing keystroke %ld, type %d\n",
@@ -1838,6 +1850,16 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   if (gdk_error_trap_pop ())
     {
       DBG (-1, g_warning ("Error emitting keystroke"));
+    }
+  if (synth_type == Accessibility_KEY_SYM) {
+    keysym = keycode;
+  }
+  else {
+    keysym = XkbKeycodeToKeysym (spi_get_display (), keycode, 0, 0);
+  }
+  if (XkbKeysymToModifiers (spi_get_display (), keysym) == 0) 
+    {
+      spi_dec_clear_unlatch_pending (controller);
     }
 }
 

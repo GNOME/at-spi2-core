@@ -1,5 +1,21 @@
 2003-03-07  Padraig O'Briain <padraig.obriain@sun.com>
 
+	[needed by GOK, to fix bugs 107985 and 107988]
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_clear_unlatch_pending):
+	New method, unsets the 'unlatch' mask for XkbStateNotifyEvents.
+	(spi_dec_set_unlatch_pending):Revised DEBUG comment.
+	(spi_dec_init_mouse_listener):Emit warning if mouse button
+	passive grab fails.
+	(spi_device_event_controller_forward_mouse_event):
+	Removed unnecessary parens from a conditional.
+	(global_filter_fn):Added TODO comment.
+	(impl_generate_keyboard_event):
+	Cancel a pending relatch if a 'delatching' key was 
+	synthesized.
+	
+2003-03-07  Padraig O'Briain <padraig.obriain@sun.com>
+
 	* atk-bridge/bridge.c:
 	Change atk_signal_child_changed to atk_signal_children_changed. 
 	Reorganize code in spi_atk_bridge_signal_listener().
