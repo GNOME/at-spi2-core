@@ -1,3 +1,10 @@
+2001-07-27  Mark McLoughlin <mark@skynet.ie>
+
+	* libspi/.cvsignore, registryd/.cvsignore,
+	  test/.cvsignore: updated.
+
+	* po/Makefile.in.in: gettext update.
+
 2001-07-25  Bill Haneman <bill.haneman@sun.com>
 
 	* initial CVS checkin

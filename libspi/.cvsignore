@@ -1,1 +1,15 @@
+.deps
+.libs
 Makefile.in
+Makefile
+*-common.c
+*-skels.c
+*-stubs.c
+Accessible.h
+Application.h
+Desktop.h
+Event.h
+Registry.h
+Relation.h
+Role.h
+State.h
