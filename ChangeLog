@@ -1,3 +1,16 @@
+2004-12-09  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c (spi_atk_get_registry): Do not attempt to
+	restart registry process if the registry process is found to have died
+	and the current process is exiting.
+	(spi_atk_bridge_exit_func): Do not attempt to deregister the
+	application if the registry process has died.
+	(spi_atk_emit_eventv): Return if call to spi_atk_get_registry
+	does not return a registry object.
+	(spi_atk_tidy_windows): Give up if the registry process has died.
+
+	This fixes problems with hangs and crashes when logging out.
+
 2004-12-03  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* registryd/desktop.c: Add checking that we are not exiting before
