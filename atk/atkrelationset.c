@@ -173,7 +173,7 @@ atk_relation_set_add (AtkRelationSet *set,
 gint
 atk_relation_set_get_n_relations (AtkRelationSet *set)
 {
-  g_return_val_if_fail (ATK_IS_RELATION_SET (set), FALSE);
+  g_return_val_if_fail (ATK_IS_RELATION_SET (set), 0);
 
   if (set->relations == NULL)
     return 0;

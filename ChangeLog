@@ -1,3 +1,8 @@
+2003-03-06  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkrelationset.c: Current returning of FALSE to 0 in function 
+	which returns integer; (bug #107661) reported by Morten Welinder.
+
 2003-03-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atk-relation.c
