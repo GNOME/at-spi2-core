@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-05 21:55+0200\n"
-"PO-Revision-Date: 2004-02-05 23:10+0200\n"
+"POT-Creation-Date: 2004-02-10 22:44+0200\n"
+"PO-Revision-Date: 2004-02-07 17:45+0200\n"
 "Last-Translator: Pauli Virtanen <pauli.virtanen@hut.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <gnome-fi-laatu@lists."
 "sourceforge.net>\n"
@@ -26,11 +26,11 @@ msgstr "Määrittelee, onko AtkHyperlink-olio valittu"
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "Kiintopisteiden määrä"
+msgstr "Ankkureiden määrä"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "AtkHyperlink-olioon kytkettyjen kiintopisteiden määrä"
+msgstr "AtkHyperlink-olioon kytkettyjen ankkureiden määrä"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -202,7 +202,7 @@ msgstr "välilehti"
 
 #: atk/atkobject.c:120
 msgid "page tab list"
-msgstr "lehtiö"
+msgstr "välilehtiluettelo"
 
 #: atk/atkobject.c:121
 msgid "panel"
@@ -350,7 +350,7 @@ msgstr "automaattitäydennys"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
-msgstr "valikkopalkki"
+msgstr "muokkauspalkki"
 
 #: atk/atkobject.c:295
 msgid "Accessible Name"
@@ -416,7 +416,10 @@ msgstr "Esteetön taulukon otsake"
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "Käytetään huomauttamaan, että taulukon otsake on muuttunut. Tämän ominaisuuden sijaan tulisi käyttää ominaisuutta \"accessible-table-caption-object\"."
+msgstr ""
+"Käytetään huomauttamaan, että taulukon otsake on muuttunut. Tämän "
+"ominaisuuden sijaan tulisi käyttää ominaisuutta \"accessible-table-caption-"
+"object\"."
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
