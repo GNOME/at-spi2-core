@@ -66,6 +66,7 @@ BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
 CLEANFILES+= $(IDL_OUT) Accessibility-imodule.c
 
 libspi_la_SOURCES =		\
+	$(IDL_OUT)		\
 	accessible.c		\
 	action.c		\
 	application.c		\
@@ -86,8 +87,7 @@ libspi_la_SOURCES =		\
 	util.c			\
 	value.c			\
 	listener.c		\
-	eventlistener.c		\
-	$(IDL_OUT)
+	eventlistener.c	
 
 $(top_srcdir)/libspi/accessible.c $(top_srcdir)/libspi/base.h $(top_srcdir)/libspi/keystrokelistener.h $(top_srcdir)/libspi/libspi.h $(top_srcdir)/libspi/listener.h $(top_srcdir)/libspi/remoteobject.h : Accessibility.h
 

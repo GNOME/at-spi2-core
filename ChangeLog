@@ -1,3 +1,8 @@
+2003-05-02  Frederic Crozat  <fcrozat@mandrakesoft.com>
+
+	* libspi/Makefile.am:
+	Ensure headers are generated before being used by c sources.
+
 2000-05-01  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in:
