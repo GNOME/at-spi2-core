@@ -179,6 +179,27 @@ typedef enum {
   SPI_KEYLISTENER_ALL_WINDOWS = 4
 } AccessibleKeyListenerSyncType;
 
+
+typedef struct _SPIException SPIException;
+
+typedef SPIBoolean 
+(* SPIExceptionHandler) (SPIException *err, SPIBoolean is_fatal);
+
+typedef enum {
+	SPI_EXCEPTION_UNSPECIFIED,
+	SPI_EXCEPTION_DISCONNECT,
+	SPI_EXCEPTION_NO_IMPL,
+	SPI_EXCEPTION_IO,
+	SPI_EXCEPTION_BAD_DATA
+} SPIExceptionCode;
+
+typedef enum {
+	SPI_EXCEPTION_SOURCE_UNSPECIFIED,
+	SPI_EXCEPTION_SOURCE_ACCESSIBLE,
+	SPI_EXCEPTION_SOURCE_REGISTRY,
+	SPI_EXCEPTION_SOURCE_DEVICE
+} SPIExceptionType;
+
 typedef unsigned long AccessibleKeyEventMask;
 typedef unsigned long AccessibleDeviceEventMask;
 
@@ -953,8 +974,22 @@ char *       AccessibleDescriptionChangedEvent_getDescriptionString (const Acces
 
 char *       AccessibleNameChangedEvent_getNameString (const AccessibleEvent *e);
 
-/* Misc methods */
+/* Misc methods and error handling */
 void SPI_freeString (char *s);
+
+char* SPI_dupString (char *s);
+
+SPIBoolean SPI_exceptionHandlerPush (SPIExceptionHandler *handler);
+
+SPIExceptionHandler* SPI_exceptionHandlerPop (void);
+
+SPIExceptionType SPIException_getSourceType (SPIException *err);
+
+SPIExceptionCode SPIException_getExceptionCode (SPIException *err);
+
+Accessible* SPIAccessibleException_getSource (SPIException *err);
+
+char* SPIException_getDescription (SPIException *err);
 
 #ifdef  __cplusplus
 }

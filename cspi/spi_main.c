@@ -31,12 +31,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <cspi/spi-private.h>
+#include "spi.h"
 
 #undef DEBUG_OBJECTS
 
 static CORBA_Environment ev = { 0 };
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
 static GHashTable *live_refs = NULL;
+static GQueue *exception_handlers = NULL;
 
 static guint
 cspi_object_hash (gconstpointer key)
@@ -75,6 +77,34 @@ cspi_object_release (gpointer value)
 #ifndef DEBUG_OBJECTS
   free (a);
 #endif
+}
+
+gboolean
+_cspi_exception_throw (CORBA_Environment *ev, char *desc_prefix)
+{
+  SPIExceptionHandler *handler = NULL;
+  SPIException ex;
+  if (exception_handlers) handler = g_queue_peek_head (exception_handlers);
+
+  ex.type = SPI_EXCEPTION_SOURCE_UNSPECIFIED;
+  ex.source = CORBA_OBJECT_NIL; /* can we get this from here? */
+  ex.ev = CORBA_exception__copy (ev);
+  switch (ev->_major) {
+  case CORBA_SYSTEM_EXCEPTION:
+    ex.code = SPI_EXCEPTION_UNSPECIFIED;
+    break;
+  case CORBA_USER_EXCEPTION: /* help! how to interpret this? */
+    ex.code = SPI_EXCEPTION_UNSPECIFIED;
+    break;
+  default:
+    ex.code = SPI_EXCEPTION_UNSPECIFIED;
+    break;
+  }
+  
+  if (handler)
+    return (*handler) (&ex, FALSE);
+  else
+    return FALSE; /* means exception was not handled */
 }
 
 SPIBoolean
@@ -488,4 +518,77 @@ SPI_freeString (char *s)
     {
       CORBA_free (s);
     }
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+char *
+SPI_dupString (char *s)
+{
+  if (s)
+    {
+      return CORBA_string_dup (s);
+    }
+  else 
+    return NULL;
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+SPIBoolean SPI_exceptionHandlerPush (SPIExceptionHandler *handler)
+{
+  if (!exception_handlers)
+    exception_handlers = g_queue_new ();
+  g_queue_push_head (exception_handlers, handler);
+  return TRUE;
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+SPIExceptionHandler* SPI_exceptionHandlerPop (void)
+{
+  return (SPIExceptionHandler *) g_queue_pop_head (exception_handlers);
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+SPIExceptionType SPIException_getSourceType (SPIException *err)
+{
+  if (err)
+    return err->type;
+  else
+    return SPI_EXCEPTION_UNSPECIFIED;
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+SPIExceptionCode SPIException_getExceptionCode (SPIException *err)
+{  
+  return err->code;
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+Accessible* SPIAccessibleException_getSource (SPIException *err)
+{
+  if (err->type == SPI_EXCEPTION_SOURCE_ACCESSIBLE)
+    return cspi_object_get_ref (err->source, FALSE);
+  return NULL;
+}
+
+/**
+ * DOCUMENT_ME!
+ **/
+char* SPIException_getDescription (SPIException *err)
+{
+  /* TODO: friendlier error messages? */
+  if (err->ev)
+    return CORBA_exception_id (err->ev);
+  return NULL;
 }

@@ -232,7 +232,7 @@ AccessibleRole_getName (AccessibleRole role)
     }
   else
     {
-      return g_strdup ("");
+      return CORBA_string_dup ("");
     }
 }
 
@@ -501,8 +501,6 @@ Accessible_getRoleName (Accessible *obj)
  * Accessible_getStateSet:
  * @obj: a pointer to the #Accessible object on which to operate.
  *
- * Not Yet Implemented.
- *
  * Returns: a pointer to an #AccessibleStateSet representing the object's current state.
  **/
 AccessibleStateSet *
@@ -518,6 +516,8 @@ Accessible_getStateSet (Accessible *obj)
 	  CSPI_OBJREF (obj), cspi_ev ());
   cspi_return_val_if_ev ("getState", NULL);
 
+  cspi_return_val_if_fail (corba_stateset != NULL, NULL);
+  cspi_return_val_if_fail (cspi_ping (corba_stateset), NULL);
   corba_seq = Accessibility_StateSet_getStates (corba_stateset, cspi_ev ());
   cspi_return_val_if_ev ("getState", NULL);
 

@@ -57,6 +57,14 @@ typedef struct {
   void           *data; 
 } InternalEvent;
 
+struct _SPIException {
+  SPIExceptionType type;
+  CORBA_Object source;
+  CORBA_Environment *ev;
+  SPIExceptionCode code;
+  char * desc;
+};
+
 #define CSPI_OBJREF(a) (((Accessible *)(a))->objref)
 
 CORBA_Environment     *cspi_ev               (void);

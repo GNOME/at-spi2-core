@@ -1,8 +1,10 @@
 NULL=
 
-noinst_PROGRAMS = test-simple at app simple-at stress-test keysynth-demo key-listener-test event-listener-test screen-review-test visual-bell keypad-test
+noinst_PROGRAMS = test-simple at app simple-at stress-test keysynth-demo key-listener-test event-listener-test window-listener-test screen-review-test visual-bell keypad-test
 
 stress_test_SOURCES = stress-test.c
+
+window_listener_test_SOURCES = window-listener-test.c
 
 keypad_test_SOURCES = keypad-test.c
 
