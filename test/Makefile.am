@@ -26,17 +26,16 @@ keysynth_demo_SOURCES = keysynth-demo.c
 
 test_simple_SOURCES = test-simple.c 
 
+DEBUG_CFLAGS=-DSPI_DEBUG
+
 INCLUDES = -I$(top_srcdir)           \
            -I$(top_builddir)         \
            -I$(top_srcdir)/libspi    \
            -I$(top_builddir)/libspi  \
 	   -I$(top_srcdir)/cspi	     \
 	   -I$(top_builddir)/cspi    \
-	   $(TESTS_CFLAGS)
-
-DEBUG_CFLAGS=-DSPI_DEBUG
-
-CFLAGS += $(TESTS_CFLAGS) $(DEBUG_CFLAGS)
+	   $(TESTS_CFLAGS)	     \
+	   $(DEBUG_CFLAGS)
 
 LDADD = ../libspi/libspi.la ../cspi/libcspi.la $(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS)
 

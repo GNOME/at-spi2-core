@@ -21,9 +21,7 @@ DEPS = 	\
 	$(libORBit-2)	\
 	$(libat-spi)
 
-
-LDFLAGS = @LDFLAGS@ -no-undefined -module -avoid-version
-
-libatk_bridge_la_LIBADD = $(ATK_BRIDGE_LIBS) $(top_builddir)/libspi/libspi.la
-
-CFLAGS += $(ATK_BRIDGE_CFLAGS)
+libatk_bridge_la_LDFLAGS =  	\
+	-rpath $(moduledir) -module -avoid-version \
+	@LDFLAGS@	\
+	$(top_builddir)/libspi/libspi.la

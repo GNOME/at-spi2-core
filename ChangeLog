@@ -1,3 +1,19 @@
+2004-02-11  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* autogen.sh: Require version 1.7 of automake.
+	
+	* configure.in: call GTK_DOC_CHECK([1.0])
+
+	* atk-bridge/Makefile.am: Remove use of LDFLAGS and CFLAGS
+
+	* docs/reference/cspi/Makefile.am: Update to use new gtk-doc.
+
+	* libspi/Makefile.am: Remove use of LDFLAGS and CFLAGS.
+
+	* test/Makefile.am:  Remove use of CFLAGS.
+
+	This fixes bug #132987.
+
 2004-02-11  Bill Haneman <billh@gnome.org>
 
 	* reverted most of Tomasz' patch below, since it was breaking
