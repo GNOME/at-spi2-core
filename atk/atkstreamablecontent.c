@@ -97,7 +97,7 @@ atk_streamable_content_get_mime_type (AtkStreamableContent *streamable,
  * @streamable: a GObject instance that implements AtkStreamableContentIface
  * @mime_type: a gchar* representing the mime type
  *
- * Gets the content in the specified mime type
+ * Gets the content in the specified mime type.
  *
  * Returns: A #GIOChannel which contains the content in the specified mime
  * type.

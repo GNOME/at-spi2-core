@@ -1,4 +1,11 @@
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+	*atk/atkaction.c atk/atkcomponent.c atk/atkeditabletext.c
+	atk/atkhyperlink.c atk/atkobject.c atk/atkregistry.c
+	atk/atkstate.c atk/atkstateset.c atk/atkstreamablecontent.c
+	atk/atktable.c atk/atktext.c atk/atkutil.c atk/atkvalue.c
+	Cleaned up docs.
+
+2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	*atk/atktable.h, atk/atktable.c
 	Updated signal handler definitions.
 

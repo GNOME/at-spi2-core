@@ -100,8 +100,7 @@ atk_add_focus_tracker (AtkFocusTracker   focus_tracker)
  * @tracker_id: the id of the focus tracker to remove
  *
  * Removes the specified focus tracker from the list of functions
- * to be called when any object receives focus
- *
+ * to be called when any object receives focus.
  **/
 void
 atk_remove_focus_tracker (guint            tracker_id)
@@ -132,7 +131,6 @@ atk_remove_focus_tracker (guint            tracker_id)
  *
  * Cause the focus tracker functions which have been specified to be
  * executed for the object.
- *
  **/
 void
 atk_focus_tracker_notify (AtkObject       *object)

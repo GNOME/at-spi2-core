@@ -54,7 +54,7 @@ atk_editable_text_get_type ()
  *@start_offset: start of range in which to set attributes
  *@end_offset: end of range in which to set attributes
  *
- *Sets the attributes for a specified range
+ *Sets the attributes for a specified range.
  *
  *Returns: %TRUE if attributes successfully set for the specified
  *range, otherwise %FALSE
@@ -88,7 +88,7 @@ atk_editable_text_set_run_attributes (AtkEditableText *text,
  * @text: an #AtkEditableText
  * @string: string to set for text contents of @text
  *
- * Set text contents of @text
+ * Set text contents of @text.
  **/
 void 
 atk_editable_text_set_text_contents (AtkEditableText  *text,
@@ -114,7 +114,7 @@ atk_editable_text_set_text_contents (AtkEditableText  *text,
  * the position at which to insert the text. After the call it
  * points at the position after the newly inserted text.
  *
- * Insert text at a given position
+ * Insert text at a given position.
  **/
 void 
 atk_editable_text_insert_text (AtkEditableText  *text,
@@ -189,7 +189,7 @@ atk_editable_text_cut_text  (AtkEditableText  *text,
  * @start_pos: start position
  * @end_pos: end position
  *
- * Delete text @start_pos up to, but not including @end_pos
+ * Delete text @start_pos up to, but not including @end_pos.
  **/
 void 
 atk_editable_text_delete_text (AtkEditableText  *text,
@@ -212,7 +212,7 @@ atk_editable_text_delete_text (AtkEditableText  *text,
  * @text: an #AtkEditableText
  * @position: position to paste
  *
- * Paste text from clipboard to specified @position 
+ * Paste text from clipboard to specified @position.
  **/
 void 
 atk_editable_text_paste_text (AtkEditableText  *text,

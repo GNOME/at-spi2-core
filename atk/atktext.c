@@ -392,11 +392,12 @@ atk_text_get_character_count (AtkText *text)
  * @text: an #AtkText
  * @x: screen x-position of character
  * @y: screen y-position of character
- * @coords: specify whether coordinates are relative to the screen or widget window 
+ * @coords: specify whether coordinates are relative to the screen or
+ * widget window 
  *
- * Gets the offset of the character located at coordinates @x and @y. @x and @y are
- * interpreted as being relative to the screen or this widget's window depending
- * on @coords.
+ * Gets the offset of the character located at coordinates @x and @y. @x and @y
+ * are interpreted as being relative to the screen or this widget's window
+ * depending on @coords.
  *
  * Returns: the offset to the character which is located at
  * the specified @x and @y coordinates.
@@ -516,7 +517,7 @@ atk_text_add_selection (AtkText *text, gint start_offset,
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
  *
- * Removes the specified selection
+ * Removes the specified selection.
  *
  * Returns: %TRUE if success, %FALSE otherwise
  **/
@@ -547,7 +548,7 @@ atk_text_remove_selection (AtkText *text, gint selection_num)
  * @start_offset: the new start position of the selection
  * @end_offset: the new end position of the selection
  *
- * Changes the start and end offset of the specified selection
+ * Changes the start and end offset of the specified selection.
  *
  * Returns: %TRUE if success, %FALSE otherwise
  **/
@@ -606,8 +607,7 @@ atk_text_set_caret_offset (AtkText *text,
  * @attrib_set: The #AtkAttributeSet to free
  *
  * Frees the memory used by an #AtkAttributeSet, including all its
- * #AtkAttributes
- *
+ * #AtkAttributes.
  **/
 void
 AtkAttributeSet_free(AtkAttributeSet *attrib_set)

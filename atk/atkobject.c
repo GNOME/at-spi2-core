@@ -334,7 +334,7 @@ atk_implementor_get_type (void)
  * atk_object_get_name:
  * @accessible: an #AtkObject
  *
- * Gets the accessible name of the accessible
+ * Gets the accessible name of the accessible.
  *
  * Returns: a character string representing the accessible name of the object.
  **/
@@ -357,7 +357,7 @@ atk_object_get_name (AtkObject *accessible)
  * atk_object_get_description:
  * @accessible: an #AtkObject
  *
- * Gets the accessible description of the accessible
+ * Gets the accessible description of the accessible.
  *
  * Returns: a character string representing the accessible description
  * of the accessible.
@@ -382,7 +382,7 @@ atk_object_get_description (AtkObject *accessible)
  * atk_object_get_parent:
  * @accessible: an #AtkObject
  *
- * Gets the accessible parent of the accessible
+ * Gets the accessible parent of the accessible.
  *
  * Returns: a #AtkObject representing the accessible parent of the accessible
  **/
@@ -405,7 +405,7 @@ atk_object_get_parent (AtkObject *accessible)
  * atk_object_get_n_accessible_children:
  * @accessible: an #AtkObject
  *
- * Gets the number of accessible children of the accessible
+ * Gets the number of accessible children of the accessible.
  *
  * Returns: an integer representing the number of accessible children
  * of the accessible.
@@ -457,7 +457,7 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
  * atk_object_ref_relation_set:
  * @accessible: an #AtkObject
  *
- * Gets the #AtkRelationSet associated with the object
+ * Gets the #AtkRelationSet associated with the object.
  *
  * Returns: an #AtkRelationSet representing the relation set of the object.
  **/
@@ -480,6 +480,8 @@ atk_object_ref_relation_set (AtkObject *accessible)
  * atk_role_register:
  * @name: a character string describing the new role.
  *
+ * Registers the role specified by @name.
+ *
  * Returns: an #AtkRole for the new role.
  **/
 AtkRole
@@ -494,7 +496,7 @@ atk_role_register (const gchar *name)
  * atk_object_get_role:
  * @accessible: an #AtkObject
  *
- * Gets the role of the accessible
+ * Gets the role of the accessible.
  *
  * Returns: an #AtkRole which is the role of the accessible
  **/
@@ -565,7 +567,7 @@ atk_object_get_index_in_parent (AtkObject *accessible)
  * @accessible: an #AtkObject
  * @name: a character string to be set as the accessible name
  *
- * Sets the accessible name of the accessible
+ * Sets the accessible name of the accessible.
  **/
 void
 atk_object_set_name (AtkObject    *accessible,
@@ -590,7 +592,7 @@ atk_object_set_name (AtkObject    *accessible,
  * @accessible: an #AtkObject
  * @description : a character string to be set as the accessible description
  *
- * Sets the accessible description of the accessible
+ * Sets the accessible description of the accessible.
  **/
 void
 atk_object_set_description (AtkObject   *accessible,
@@ -615,7 +617,7 @@ atk_object_set_description (AtkObject   *accessible,
  * @accessible: an #AtkObject
  * @parent : an #AtkObject to be set as the accessible parent
  *
- * Sets the accessible parent of the accessible
+ * Sets the accessible parent of the accessible.
  **/
 void
 atk_object_set_parent (AtkObject *accessible,
@@ -636,7 +638,7 @@ atk_object_set_parent (AtkObject *accessible,
  * @accessible: an #AtkObject
  * @role : an #AtkRole to be set as the role
  *
- * Sets the role of the accessible
+ * Sets the role of the accessible.
  **/
 void
 atk_object_set_role (AtkObject *accessible, 

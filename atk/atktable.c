@@ -133,7 +133,7 @@ atk_table_base_init (gpointer *g_class)
  * @row: a #gint representing a row in @table
  * @column: a #gint representing a column in @table
  *
- * Get a reference to the table cell at @row, @column
+ * Get a reference to the table cell at @row, @column.
  *
  * Returns: a AtkObject* representing the referred to accessible
  **/
@@ -604,7 +604,6 @@ atk_table_get_selected_rows (AtkTable *table, gint **selected)
  *
  * Returns: a gint representing the number of selected columns,
  * or %0 if value does not implement this interface.
- *
  **/
 gint 
 atk_table_get_selected_columns (AtkTable *table, gint **selected)
@@ -894,7 +893,7 @@ atk_table_set_column_description (AtkTable       *table,
  * @column: a #gint representing a column in @table
  * @header: an #AtkTable
  *
- * Sets the specified column header to @header
+ * Sets the specified column header to @header.
  **/
 void
 atk_table_set_column_header (AtkTable  *table,
@@ -943,7 +942,7 @@ atk_table_set_row_description (AtkTable       *table,
  * @row: a #gint representing a row in @table
  * @header: an #AtkTable 
  *
- * Sets the specified row header to @header
+ * Sets the specified row header to @header.
  **/
 void
 atk_table_set_row_header (AtkTable  *table,
@@ -967,7 +966,7 @@ atk_table_set_row_header (AtkTable  *table,
  * @accessible: an #AtkObject representing the summary description
  * to set for @table
  *
- * Sets the summary description of the table
+ * Sets the summary description of the table.
  **/
 void
 atk_table_set_summary (AtkTable       *table,

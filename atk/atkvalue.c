@@ -44,7 +44,7 @@ atk_value_get_type ()
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the current accessible value
  *
- * Gets the value of this object
+ * Gets the value of this object.
  **/
 void
 atk_value_get_current_value (AtkValue *obj,
@@ -67,7 +67,7 @@ atk_value_get_current_value (AtkValue *obj,
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the maximum accessible value
  *
- * Gets the maximum value of this object
+ * Gets the maximum value of this object.
  **/
 void
 atk_value_get_maximum_value  (AtkValue *obj,
@@ -90,7 +90,7 @@ atk_value_get_maximum_value  (AtkValue *obj,
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue representing the minimum accessible value
  *
- * Gets the minimum value of this object
+ * Gets the minimum value of this object.
  **/
 void
 atk_value_get_minimum_value (AtkValue *obj,
@@ -113,7 +113,7 @@ atk_value_get_minimum_value (AtkValue *obj,
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue which is the desired new accessible value.
  *
- * Sets the value of this object
+ * Sets the value of this object.
  *
  * Returns: %TRUE if new value is successfully set, %FALSE otherwise.
  **/

@@ -44,7 +44,7 @@ atk_action_get_type ()
  * @action: a #GObject instance that implements AtkActionIface
  * @i: the action index corresponding to the action to be performed 
  *
- * Perform the specified action on the object
+ * Perform the specified action on the object.
  **/
 void
 atk_action_do_action (AtkAction *obj,
@@ -93,7 +93,7 @@ atk_action_get_n_actions  (AtkAction *obj)
  * @action: a #GObject instance that implements AtkActionIface
  * @i: the action index corresponding to the action to be performed 
  *
- * Returns a description of the specified action of the object
+ * Returns a description of the specified action of the object.
  *
  * Returns a description string, or %NULL
  * if @action does not implement this interface.

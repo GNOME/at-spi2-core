@@ -57,7 +57,7 @@ static gchar* state_names[NUM_POSSIBLE_STATES] = {
  * atk_state_type_register:
  * @name: a character string describing the new state.
  *
- * Register a new object state
+ * Register a new object state.
  *
  * Returns: an #AtkState value for the new state.
  **/
@@ -77,7 +77,7 @@ atk_state_type_register (const gchar *name)
  * atk_state_type_get_name:
  * @type: The #AtkStateType whose name is required
  *
- * Gets the description string describing the #AtkStateType @type
+ * Gets the description string describing the #AtkStateType @type.
  *
  * Returns: the string describing the state
  */
@@ -102,7 +102,7 @@ atk_state_type_get_name (AtkStateType state)
  * atk_state_type_for_name:
  * @name: a character string state name
  *
- * Gets the #AtkStateType corresponding to the description string @name
+ * Gets the #AtkStateType corresponding to the description string @name.
  *
  * Returns: an #AtkStateType corresponding to @name 
  */

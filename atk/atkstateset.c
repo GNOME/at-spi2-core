@@ -106,7 +106,7 @@ atk_state_set_is_empty (AtkStateSet   *set)
  * @type: an #AtkStateType
  *
  * Add a new state for the specified type to the current state set if
- * it is not already present
+ * it is not already present.
  *
  * Returns: %TRUE if  the state for @type is not already in @set.
  **/
@@ -134,7 +134,7 @@ atk_state_set_add_state (AtkStateSet   *set,
  * @types: an array of #AtkStateType
  * @n_types: The number of elements in the array
  *
- * Add the states for the specified types to the current state set
+ * Add the states for the specified types to the current state set.
  **/
 void
 atk_state_set_add_states (AtkStateSet   *set,

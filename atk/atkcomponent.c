@@ -166,7 +166,6 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
  * @height: address of #gint to put height
  *
  * Gets the rectangle which gives the extent of the @component.
- *
  **/
 void
 atk_component_get_extents    (AtkComponent    *component,
@@ -216,7 +215,7 @@ atk_component_get_position   (AtkComponent    *component,
  * @x: address of #gint to put x coordinate position
  * @y: address of #gint to put y coordinate position
  *
- * Gets the position of the @component on the screen
+ * Gets the position of the @component on the screen.
  **/
 void
 atk_component_get_position_on_screen (AtkComponent    *component,
@@ -260,7 +259,7 @@ atk_component_get_size       (AtkComponent    *component,
  * atk_component_grab_focus:
  * @component: an #AtkComponent
  *
- * Grabs focus for this @component
+ * Grabs focus for this @component.
  **/
 void
 atk_component_grab_focus (AtkComponent    *component)
@@ -283,7 +282,7 @@ atk_component_grab_focus (AtkComponent    *component)
  * @width: width to set for @component
  * @height: height to set for @component
  *
- * Sets the extents of @component
+ * Sets the extents of @component.
  **/
 void
 atk_component_set_extents   (AtkComponent    *component,
@@ -308,7 +307,7 @@ atk_component_set_extents   (AtkComponent    *component,
  * @x: x coordinate
  * @y: y coordinate
  *
- * Sets the position of @component
+ * Sets the position of @component.
  **/
 void
 atk_component_set_position   (AtkComponent    *component,
@@ -331,7 +330,7 @@ atk_component_set_position   (AtkComponent    *component,
  * @width: width to set for @component
  * @height: height to set for @component
  *
- * Set the size of the @component in terms of width and height
+ * Set the size of the @component in terms of width and height.
  **/
 void
 atk_component_set_size       (AtkComponent    *component,

@@ -170,7 +170,7 @@ atk_registry_set_factory_type (AtkRegistry *registry,
  * subclass
  *
  * Provides a #GType indicating the #AtkObjectFactory subclass
- * associated with type @type
+ * associated with @type.
  *
  * Returns: a #GType associated with type @type
  **/

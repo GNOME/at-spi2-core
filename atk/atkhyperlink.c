@@ -114,7 +114,7 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
  * 
  * Multiple anchors are primarily used by client-side image maps.
  *
- * Returns: an #AtkObject associated with this hyperlinks i-th anchor.
+ * Returns: an #AtkObject associated with this hyperlinks i-th anchor
  **/
 AtkObject*
 atk_hyperlink_get_object (AtkHyperlink *link,
@@ -136,7 +136,7 @@ atk_hyperlink_get_object (AtkHyperlink *link,
  * atk_hyperlink_get_end_index:
  * @link: an #AtkHyperlink
  *
- * Gets the index with the hypertext document at which this link ends
+ * Gets the index with the hypertext document at which this link ends.
  *
  * Returns: the index with the hypertext document at which this link ends
  **/
@@ -159,7 +159,7 @@ atk_hyperlink_get_end_index (AtkHyperlink *link)
  * atk_hyperlink_get_start_index:
  * @link: an #AtkHyperlink
  *
- * Gets the index with the hypertext document at which this link begins 
+ * Gets the index with the hypertext document at which this link begins.
  *
  * Returns: the index with the hypertext document at which this link begins
  **/
@@ -186,7 +186,7 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
  * this method returns %TRUE if the link is still valid (with
  * respect to the document it references) and %FALSE otherwise.
  *
- * Returns: whether or not this link is still valid.
+ * Returns: whether or not this link is still valid
  **/
 gboolean
 atk_hyperlink_is_valid (AtkHyperlink *link)
@@ -207,7 +207,7 @@ atk_hyperlink_is_valid (AtkHyperlink *link)
  * atk_hyperlink_get_n_anchors:
  * @link: an #AtkHyperlink
  *
- * Gets the number of anchors associated with this hyperlink
+ * Gets the number of anchors associated with this hyperlink.
  *
  * Returns: the number of anchors associated with this hyperlink
  **/
