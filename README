@@ -46,7 +46,7 @@ The directories within this package are arranged as follows:
 	central accessibility registry, and the registry
 	executable is built in this directory.
 
-    at-bridge : this directory contains code that bridges 
+    atk-bridge : this directory contains code that bridges 
 	the at-spi to the GTK+ toolkit, and which is
 	loaded at runtime by GTK+-based Gnome applications.
 	The 'bridge' automatically registers GTK+-2.0
@@ -113,13 +113,13 @@ http://developer.gnome.org/projects/gap/tech-docs/at-spi-docs/book1.html).
 Though 'simple-at' will work with the test application 'app', 
 a better demonstration of the AT-SPI can be made after installing
 libspi and libcspi (via 'make install').  If you set the GTK_MODULES
-environment variable to "libgail:libat-bridge", any GTK+2.0
+environment variable to "gail:atk-bridge", any GTK+2.0
 application run subsequently will register with the at-spi registry,
 and 'simple-at' will register for and receive focus and 
 buttonpress events from those applications.
 
-At the moment application and at deregistration are broken, so you are 
-advised to kill the registry daemon if you exit either 'at' or 'app' 
+At the moment application and at deregistration are not 100% reliable, 
+so if you get you are advised to kill the registry daemon if you exit either 'at' or 'app' 
 instances, via the 'bonobo-slay' command. You may run as many instances 
 of each application or sample AT client as you like, concurrently - 
 you may find it useful to do so in separate terminal windows.  

@@ -715,7 +715,7 @@ main (int argc, char **argv)
 	test_roles ();
 	test_misc ();
 	test_desktop ();
-	test_keylisteners ();
+	test_keylisteners (); 
 
 	win = create_test_window ();
 

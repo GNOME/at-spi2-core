@@ -1,3 +1,12 @@
+2002-01-11  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Incremented revision for desktop alpha release.
+
+	* README:
+	Fixed a couple of the more glaring errors (still not 
+	very up-to-date).
+
 2002-01-11  Michael Meeks  <michael@ximian.com>
 
 	* registryd/deviceeventcontroller.c
@@ -106,6 +115,11 @@
 
 2002-01-11  Bill Haneman <bill.haneman@sun.com>
 
+        * configure.in:
+	Rev the version to 0.5 (the previous tarball was named 0.4, 
+	even though the micro number was 3), so we need to rev upwards
+	again for beta2/"desktop-alpha" 
+ 
 	* test/demo.csh:
 	Checked in a demo script, which requires editing before use!
 	Proceed with caution.
