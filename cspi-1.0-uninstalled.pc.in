@@ -1,3 +1,5 @@
+idldir=${pc_top_builddir}/${pcfiledir}/idl
+
 Name: cspi (Uninstalled)
 Description: Accessibility Technology software simple client library
 Requires: libspi-1.0

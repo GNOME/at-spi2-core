@@ -1,3 +1,5 @@
+idldir=${pc_top_builddir}/${pcfiledir}/idl
+
 Name: libspi
 Description: Accessibility Technology software library
 Requires: libbonobo-2.0 atk gtk+-2.0
