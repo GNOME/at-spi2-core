@@ -864,7 +864,7 @@ atk_attribute_set_free (AtkAttributeSet *attrib_set)
 }
 
 /**
- * atk_attribute_register:
+ * atk_text_attribute_register:
  * @name: a name string
  *
  * Associate @name with a new #AtkTextAttribute
@@ -872,7 +872,7 @@ atk_attribute_set_free (AtkAttributeSet *attrib_set)
  * Returns: an #AtkTextAttribute associated with @name
  **/
 AtkTextAttribute
-atk_attribute_register (const gchar *name)
+atk_text_attribute_register (const gchar *name)
 {
   g_return_val_if_fail (name, ATK_TEXT_ATTR_INVALID);
 
@@ -884,7 +884,7 @@ atk_attribute_register (const gchar *name)
 }
 
 /**
- * atk_attribute_get_name:
+ * atk_text_attribute_get_name:
  * @attr: The #AtkTextAttribute whose name is required
  *
  * Gets the name corresponding to the #AtkTextAttribute
@@ -892,7 +892,7 @@ atk_attribute_register (const gchar *name)
  * Returns: a string containing the name; this string should not be freed
  **/
 G_CONST_RETURN gchar*
-atk_attribute_get_name (AtkTextAttribute attr)
+atk_text_attribute_get_name (AtkTextAttribute attr)
 {
   GTypeClass *type_class;
   GEnumValue *value;
@@ -925,7 +925,7 @@ atk_attribute_get_name (AtkTextAttribute attr)
 }
 
 /**
- * atk_attribute_for_name:
+ * atk_text_attribute_for_name:
  * @name: a string which is the (non-localized) name of an ATK text attribute.
  *
  * Get the #AtkTextAttribute type corresponding to a text attribute name.
@@ -935,7 +935,7 @@ name,
  *          or #ATK_TEXT_ATTRIBUTE_INVALID if no matching text attribute is found.
  **/
 AtkTextAttribute
-atk_attribute_for_name (const gchar *name)
+atk_text_attribute_for_name (const gchar *name)
 {
   GTypeClass *type_class;
   GEnumValue *value;
@@ -979,7 +979,7 @@ atk_attribute_for_name (const gchar *name)
 
 
 /**
- * atk_attribute_get_value:
+ * atk_text_attribute_get_value:
  * @attr: The #AtkTextAttribute for which a value is required
  * @index: The index of the required value
  *
@@ -989,8 +989,8 @@ atk_attribute_for_name (const gchar *name)
  * NULL is returned if there are no values maintained for the attr value. 
  **/
 G_CONST_RETURN gchar*
-atk_attribute_get_value (AtkTextAttribute attr,
-                         gint             index)
+atk_text_attribute_get_value (AtkTextAttribute attr,
+                              gint             index)
 {
   switch (attr)
     {

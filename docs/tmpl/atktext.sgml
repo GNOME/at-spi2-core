@@ -308,7 +308,7 @@ AtkText
 @attrib_set: 
 
 
-<!-- ##### FUNCTION atk_attribute_register ##### -->
+<!-- ##### FUNCTION atk_text_attribute_register ##### -->
 <para>
 
 </para>
@@ -317,7 +317,7 @@ AtkText
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_attribute_get_name ##### -->
+<!-- ##### FUNCTION atk_text_attribute_get_name ##### -->
 <para>
 
 </para>
@@ -326,7 +326,7 @@ AtkText
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_attribute_for_name ##### -->
+<!-- ##### FUNCTION atk_text_attribute_for_name ##### -->
 <para>
 
 </para>
@@ -335,7 +335,7 @@ AtkText
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_attribute_get_value ##### -->
+<!-- ##### FUNCTION atk_text_attribute_get_value ##### -->
 <para>
 
 </para>

@@ -9,9 +9,6 @@ EXPORTS
 	atk_add_focus_tracker
 	atk_add_global_event_listener
 	atk_add_key_event_listener
-	atk_attribute_get_value
-	atk_attribute_for_name
-	atk_attribute_register
 	atk_attribute_set_free
 	atk_component_add_focus_handler
 	atk_component_contains
@@ -176,7 +173,11 @@ EXPORTS
 	atk_table_set_summary
 	atk_text_add_selection
 	atk_text_get_caret_offset
+	atk_text_attribute_get_name
 	atk_text_attribute_get_type
+	atk_text_attribute_get_value
+	atk_text_attribute_for_name
+	atk_text_attribute_register
 	atk_text_get_character_at_offset
 	atk_text_get_character_count
 	atk_text_get_character_extents

@@ -377,10 +377,10 @@ atk_text_remove_selection
 atk_text_set_selection
 atk_text_set_caret_offset
 atk_attribute_set_free
-atk_attribute_register
-atk_attribute_get_name
-atk_attribute_for_name
-atk_attribute_get_value
+atk_text_attribute_register
+atk_text_attribute_get_name
+atk_text_attribute_for_name
+atk_text_attribute_get_value
 <SUBSECTION Standard>
 ATK_TEXT
 ATK_IS_TEXT

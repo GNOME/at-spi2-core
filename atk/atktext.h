@@ -122,7 +122,7 @@ typedef enum
   ATK_TEXT_ATTR_LAST_DEFINED
 } AtkTextAttribute;
 
-AtkTextAttribute         atk_attribute_register        (const gchar *name);
+AtkTextAttribute         atk_text_attribute_register   (const gchar *name);
 
 
 #define ATK_TYPE_TEXT                    (atk_text_get_type ())
@@ -293,9 +293,9 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
 void 	      atk_attribute_set_free                      (AtkAttributeSet  *attrib_set);
-G_CONST_RETURN gchar*  atk_attribute_get_name             (AtkTextAttribute attr);
-AtkTextAttribute       atk_attribute_for_name             (const gchar      *name);
-G_CONST_RETURN gchar*  atk_attribute_get_value            (AtkTextAttribute attr,
+G_CONST_RETURN gchar*  atk_text_attribute_get_name        (AtkTextAttribute attr);
+AtkTextAttribute       atk_text_attribute_for_name        (const gchar      *name);
+G_CONST_RETURN gchar*  atk_text_attribute_get_value       (AtkTextAttribute attr,
                                                            gint             index);
 
 #ifdef __cplusplus

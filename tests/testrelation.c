@@ -152,7 +152,7 @@ test_text_attr (void)
   AtkTextAttribute attr1, attr2;
   G_CONST_RETURN gchar *name;
 
-  name = atk_attribute_get_name (ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP);
+  name = atk_text_attribute_get_name (ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP);
   g_return_val_if_fail (name, FALSE);
   if (strcmp (name, "pixels-inside-wrap") != 0)
     {
@@ -160,7 +160,7 @@ test_text_attr (void)
       return FALSE;
     }
 
-  name = atk_attribute_get_name (ATK_TEXT_ATTR_BG_STIPPLE);
+  name = atk_text_attribute_get_name (ATK_TEXT_ATTR_BG_STIPPLE);
   g_return_val_if_fail (name, FALSE);
   if (strcmp (name, "bg-stipple") != 0)
     {
@@ -168,28 +168,28 @@ test_text_attr (void)
       return FALSE;
     }
 
-  attr1 = atk_attribute_for_name ("left-margin");
+  attr1 = atk_text_attribute_for_name ("left-margin");
   if (attr1 != ATK_TEXT_ATTR_LEFT_MARGIN)
     {
       g_print ("Unexpected attribute for left-margin\n");
       return FALSE;
     }
 
-  attr1 = atk_attribute_register ("test-attribute");
-  name = atk_attribute_get_name (attr1);
+  attr1 = atk_text_attribute_register ("test-attribute");
+  name = atk_text_attribute_get_name (attr1);
   g_return_val_if_fail (name, FALSE);
   if (strcmp (name, "test-attribute") != 0)
     {
       g_print ("Unexpected name for test-attribute %s\n", name);
       return FALSE;
     }
-  attr2 = atk_attribute_for_name ("test-attribute");
+  attr2 = atk_text_attribute_for_name ("test-attribute");
   if (attr1 != attr2)
   {
     g_print ("Unexpected attribute for test-attribute\n");
     return FALSE;
   }
-  attr2 = atk_attribute_for_name ("TEST_ATTR");
+  attr2 = atk_text_attribute_for_name ("TEST_ATTR");
   if (attr2 != 0)
     {
       g_print ("Unexpected attribute for TEST_ATTR\n");
@@ -198,7 +198,7 @@ test_text_attr (void)
   /*
    * Check that a non-existent attribute returns NULL
    */
-  name = atk_attribute_get_name (ATK_TEXT_ATTR_LAST_DEFINED + 2);
+  name = atk_text_attribute_get_name (ATK_TEXT_ATTR_LAST_DEFINED + 2);
   if (name)
     {
       g_print ("Unexpected name for undefined attribute %s\n", name);

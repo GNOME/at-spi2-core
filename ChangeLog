@@ -1,3 +1,12 @@
+2001-12-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atk.def atk/atktext.c atk/atktext.h docs/atk-sections.txt 
+	docs/tmpl/atktext.sgml tests/testrelation.c:
+	Change atk_attribute_register to atk_text_attribute_register,
+	atk_attribute_get_value to atk_text_attribute_get_value,
+	atk_attribute_get_name to atk_text_attribute_get_name
+	atk_attribute_for_name to atk_text_attribuute_for_name
+
 2001-12-04  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c:
