@@ -55,9 +55,9 @@ struct _AtkUtil
 struct _AtkUtilClass
 {
    GObjectClass parent;
-   guint        (* add_global_event_listener)    (AtkEventListener listener,
-                                                 gchar*            event_type);
-   void         (* remove_global_event_listener) (guint            listener_id);
+   guint        (* add_global_event_listener)    (GSignalEmissionHook listener,
+                                                 gchar*               event_type);
+   void         (* remove_global_event_listener) (guint               listener_id);
    AtkObject*   (* get_root)                     (void);
    gchar*       (* get_toolkit_name)             (void);
    gchar*       (* get_toolkit_version)          (void);
@@ -109,7 +109,7 @@ void     atk_focus_tracker_notify  (AtkObject            *object);
  * Adds the specified function to the list of functions to be called
  * when an event of type event_type occurs.
  */
-guint	atk_add_global_event_listener (AtkEventListener listener, gchar* event_type);
+guint	atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_type);
 
 /*
  * Removes the specified event listener

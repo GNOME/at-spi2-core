@@ -197,7 +197,7 @@ atk_focus_tracker_notify (AtkObject       *object)
  * Returns: added event listener id, or 0 on failure.
  **/
 guint	
-atk_add_global_event_listener (AtkEventListener listener, gchar* event_type)
+atk_add_global_event_listener (GSignalEmissionHook listener, gchar* event_type)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
   if (klass->add_global_event_listener) 

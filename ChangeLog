@@ -1,3 +1,11 @@
+2001-07-30  Brian Cameron <brian.cameron@sun.com>
+	* atk/atkutil.[ch]
+	Changed first argument of atk_add_global_event_listener
+	so the callback function is of type GSignalEmissionHook
+	instead of AtkEventListener.  AtkEventListener is
+	appropriate for Focus event callbacks, but not generic
+	ones.
+
 2001-07-27  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c:
