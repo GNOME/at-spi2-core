@@ -397,9 +397,8 @@ Accessible_getRelationSet (Accessible *obj)
 
   cspi_return_val_if_ev ("getRelationSet", NULL); 
   
-  /* this looks hack-ish, but it's based on the CORBA C bindings spec */
   n_relations = relation_set->_length;
-  relations = malloc (sizeof (AccessibleRelation *) * n_relations);
+  relations = malloc (sizeof (AccessibleRelation *) * (n_relations + 1));
   
   for (i = 0; i < n_relations; ++i)
     {

@@ -1,12 +1,25 @@
+2002-03-04  Michael Meeks  <michael@ximian.com>
+
+	* test/test-simple.c (test_editable_text),
+	(test_text): pass G_MAXINT instead of '-1' for
+	whole string - is this a good thing !?
+
+	* cspi/spi_accessible.c
+	(Accessible_getRelationSet): fix crasher bug
+	overwriting the end of the array.
+
+	* test/test-simple.c (validate_accessible): free,
+	not g_free returned relation set.
+
 2002-02-26 Marc Mulcahy <marc.mulcahy@sun.com>
 
-	libspi/stateset.c libspi/stateset.h libspi/Makefile.am:
+	* libspi/stateset.c libspi/stateset.h libspi/Makefile.am:
 	implemented stateset support
 
-	idl/Accessibility_State.idl: Made necessary changes to the IDL to
-	support state sets.
+	* idl/Accessibility_State.idl: Made necessary changes to
+	the IDL to support state sets.
 
-	2002-02-12 Bill Haneman <bill.haneman@sun.com>
+2002-02-12 Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:
 	Added implementation for generateMouseEvent.
