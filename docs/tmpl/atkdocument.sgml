@@ -14,3 +14,36 @@ AtkDocument
 
 </para>
 
+<!-- ##### STRUCT AtkDocument ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT AtkDocumentIface ##### -->
+<para>
+
+</para>
+
+@parent: 
+@get_document_type: 
+@get_document: 
+
+<!-- ##### FUNCTION atk_document_get_document_type ##### -->
+<para>
+
+</para>
+
+@document: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_document_get_document ##### -->
+<para>
+
+</para>
+
+@document: 
+@Returns: 
+
+

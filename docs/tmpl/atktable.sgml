@@ -28,29 +28,39 @@ AtkTable
 @parent: 
 @ref_at: 
 @get_index_at: 
-@get_row_at_index: 
 @get_column_at_index: 
-@get_caption: 
+@get_row_at_index: 
 @get_n_columns: 
-@get_column_description: 
-@get_column_extent_at: 
-@get_column_header: 
 @get_n_rows: 
-@get_row_description: 
+@get_column_extent_at: 
 @get_row_extent_at: 
+@get_caption: 
+@get_column_description: 
+@get_column_header: 
+@get_row_description: 
 @get_row_header: 
 @get_summary: 
-@get_selected_columns: 
-@get_selected_rows: 
-@is_column_selected: 
-@is_row_selected: 
-@is_selected: 
 @set_caption: 
 @set_column_description: 
 @set_column_header: 
 @set_row_description: 
 @set_row_header: 
 @set_summary: 
+@get_selected_columns: 
+@get_selected_rows: 
+@is_column_selected: 
+@is_row_selected: 
+@is_selected: 
+@add_row_selection: 
+@remove_row_selection: 
+@add_column_selection: 
+@remove_column_selection: 
+@row_inserted: 
+@column_inserted: 
+@row_deleted: 
+@column_deleted: 
+@row_reordered: 
+@column_reordered: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>
@@ -159,10 +169,10 @@ AtkTable
 </para>
 
 @table: 
-@r: 
+@row: 
 @Returns: 
 <!-- # Unused Parameters # -->
-@row: 
+@r: 
 
 
 <!-- ##### FUNCTION atk_table_get_column_header ##### -->
@@ -171,9 +181,8 @@ AtkTable
 </para>
 
 @table: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @column: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_table_get_row_header ##### -->
@@ -182,9 +191,8 @@ AtkTable
 </para>
 
 @table: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @row: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_table_get_summary ##### -->
@@ -202,9 +210,9 @@ AtkTable
 </para>
 
 @table: 
-@accessible: 
-<!-- # Unused Parameters # -->
 @caption: 
+<!-- # Unused Parameters # -->
+@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_description ##### -->
@@ -214,9 +222,9 @@ AtkTable
 
 @table: 
 @row: 
-@accessible: 
-<!-- # Unused Parameters # -->
 @description: 
+<!-- # Unused Parameters # -->
+@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_column_description ##### -->
@@ -226,9 +234,9 @@ AtkTable
 
 @table: 
 @column: 
-@accessible: 
-<!-- # Unused Parameters # -->
 @description: 
+<!-- # Unused Parameters # -->
+@accessible: 
 
 
 <!-- ##### FUNCTION atk_table_set_row_header ##### -->
@@ -266,9 +274,8 @@ AtkTable
 </para>
 
 @table: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @selected: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_table_get_selected_rows ##### -->
@@ -277,9 +284,8 @@ AtkTable
 </para>
 
 @table: 
-@Returns: 
-<!-- # Unused Parameters # -->
 @selected: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_table_is_column_selected ##### -->
@@ -310,6 +316,46 @@ AtkTable
 @table: 
 @row: 
 @column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_add_column_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_add_row_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_remove_column_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_table_remove_row_selection ##### -->
+<para>
+
+</para>
+
+@table: 
+@row: 
 @Returns: 
 
 
