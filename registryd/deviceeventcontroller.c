@@ -1219,8 +1219,7 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
   char cbuf [cbuf_bytes+1];
   int nbytes;
 
-  if (!x_key_event) g_error ("invalid key event!");
-  keysym = XLookupKeysym (x_key_event, 0);
+  nbytes = XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL);  
   key_event.id = (CORBA_long)(keysym);
   key_event.hw_code = (CORBA_short) x_key_event->keycode;
   if (((XEvent *) x_key_event)->type == KeyPress)
@@ -1314,14 +1313,14 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
         key_event.event_string = CORBA_string_dup ("Right");
 	break;
       default:
-	nbytes = XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL);
         if (nbytes > 0)
           {
 	    cbuf[nbytes] = '\0'; /* OK since length is cbuf_bytes+1 */
             key_event.event_string = CORBA_string_dup (cbuf);
-	    if (keysym && g_ascii_isprint (keysym))
+	    if ((keysym && g_ascii_isprint (keysym)) || (nbytes == 1))
 	      {
-	        key_event.is_text = CORBA_TRUE; /* FIXME: incorrect for some composed chars? */
+	        key_event.is_text = CORBA_TRUE; 
+		/* FIXME: incorrect for some composed chars, unicode chars? */
 	      }
           }
         else

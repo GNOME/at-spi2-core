@@ -2,6 +2,13 @@
 
 	* registryd/deviceeventcontroller.c:
 	(spi_keystroke_from_x_key_event): 
+	Fix string and keysym return codes to match modifier state. 
+	[bug #107256]
+
+2003-02-28  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	(spi_keystroke_from_x_key_event): 
 	Fix segv due to improper use of isprint(c). [bug #107254]
 
 2003-02-24  Bill Haneman <bill.haneman@sun.com>
