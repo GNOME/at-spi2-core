@@ -34,12 +34,6 @@ extern "C" {
  * accessibility information about a component if it supports one or more
  * of the following interfaces:
  */
-typedef enum
-{
-  ATK_CHILD_ADDED,
-  ATK_CHILD_REMOVED,
-  ATK_CHILD_CHANGED
-} AtkChildChangeType;
 
 typedef enum
 {
@@ -393,9 +387,16 @@ void                      (* remove_property_change_handler)     (AtkObject
    * children of the object
    */
   void                    (* children_changed)    (AtkObject                  *accessible,
-                                                   AtkChildChangeType         change_type,
+                                                   gint                       change_index,
                                                    AtkObject                  *changed_child);
+  /*
+   * The signal handler which is executed  when there is a focus event
+   * for an object.
+   */
+  void                    (*focus_event)          (AtkObject                  *accessible,
+                                                   gboolean                   focus_in);
 };
+
 GType            atk_object_get_type   (void);
 
 struct _AtkImplementorIface

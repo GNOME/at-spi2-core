@@ -40,6 +40,7 @@ enum
 
 enum {
   CHILDREN_CHANGED,
+  FOCUS_EVENT,
   LAST_SIGNAL
 };
 
@@ -59,6 +60,9 @@ static void            atk_object_real_get_property(GObject         *object,
 static void            atk_object_finalize         (GObject         *object);
 static void            atk_object_real_set_role    (AtkObject       *object,
                                                     AtkRole         role);
+static void            atk_object_focus_event_unimplemented
+                                                   (AtkObject       *object,
+                                                    gboolean        focus_in);
 
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
 
@@ -107,6 +111,7 @@ atk_object_class_init (AtkObjectClass *klass)
 
   klass->ref_relation_set = atk_object_real_ref_relation_set;
   klass->set_role = atk_object_real_set_role;
+  klass->focus_event = atk_object_focus_event_unimplemented;
 
   klass->children_changed = NULL;
 
@@ -172,7 +177,15 @@ atk_object_class_init (AtkObjectClass *klass)
                    g_cclosure_marshal_VOID__UINT_POINTER,
                    G_TYPE_NONE,
                    2, G_TYPE_UINT, ATK_TYPE_OBJECT);
-
+  atk_object_signals[FOCUS_EVENT] =
+    g_signal_newc ("focus_event",
+                   G_TYPE_FROM_CLASS (klass),
+                   G_SIGNAL_RUN_LAST,
+                   G_STRUCT_OFFSET (AtkObjectClass, focus_event), 
+                   NULL, NULL,
+                   g_cclosure_marshal_VOID__BOOLEAN,
+                   G_TYPE_NONE,
+                   1, G_TYPE_BOOLEAN);
 }
 
 static void
@@ -668,4 +681,12 @@ atk_object_real_set_role (AtkObject *object,
                           AtkRole   role)
 {
   object->role = role;
+}
+
+static void
+atk_object_focus_event_unimplemented (AtkObject       *object,
+                                      gboolean        focus_in)
+{
+  g_warning ("AtkObjectClass::focus_event not implemented for `%s'", 
+              g_type_name (G_OBJECT_TYPE (object)));
 }
