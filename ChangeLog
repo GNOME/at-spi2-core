@@ -1,3 +1,21 @@
+2003-03-20  James Henstridge  <james@daa.com.au>
+ 
+ 	* autogen.sh: update to call automake-1.7, libtoolize, gtkdocize
+ 	and glib-gettextize.
+ 
+ 	* configure.in: cleanup to make use of newer autoconf/automake
+ 	features.
+ 
+ 	* Makefile.am: get rid of custom distcheck rule, which is no
+ 	longer necessary.
+ 
+ 	* atk/Makefile.am: cleanup makefile.  Use BUILT_SOURCES for built
+ 	sources.
+ 
+ 	* docs/Makefile.am: use common gtk-doc.make.
+ 
+ 	* docs/atk-docs.sgml: update to use gtk-doc's XML mode.
+ 
 2003-03-16  Joel Brich <joel.brich@laposte.net>
 
 	* configure.in: Added "eo" to ALL_LINGUAS
