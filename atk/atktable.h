@@ -114,12 +114,20 @@ struct _AtkTableIface
   /*
    * signal handlers
    */
-  void              (* model_changed)            (AtkTable      *table,
-                                                  gint          type,
-                                                  gint          first_row,
-                                                  gint          last_row,
-                                                  gint          first_column,
-                                                  gint          last_column);
+  void              (* row_inserted)             (AtkTable      *table,
+                                                  gint          row,
+                                                  gint          num_inserted);
+  void              (* column_inserted)          (AtkTable      *table,
+                                                  gint          column,
+                                                  gint          num_inserted);
+  void              (* row_deleted)              (AtkTable      *table,
+                                                  gint          row,
+                                                  gint          num_deleted);
+  void              (* column_deleted)           (AtkTable      *table,
+                                                  gint          column,
+                                                  gint          num_deleted);
+  void              (* row_reordered)            (AtkTable      *table);
+  void              (* column_reordered)         (AtkTable      *table);
 };
 
 GType atk_table_get_type ();

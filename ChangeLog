@@ -1,3 +1,7 @@
+2001-06-28  Brian Cameron <brian.cameron@sun.com>
+	*atk/atktable.h
+	Updated signal handler definitions.
+
 2001-06-27  Brian Cameron <brian.cameron@sun.com>
 	*atk/atktext.h
 	Updated AtkXYCoords enum.
