@@ -5,6 +5,12 @@
 	Change return value for g_return_if_fail ()
 	to CORBA_OBJECT_NIL instead of "0" (!)
 
+	* registryd/Makefile.am:
+	* registryd/Accessibility_Register.server.in:
+	Changed name of executable, "registryd",
+	to something more informative:
+	"at-spi-registryd".
+
 2002-03-13  Michael Meeks  <michael@ximian.com>
 
 	* atk-bridge/bridge.c (atk_bridge_init): don't register

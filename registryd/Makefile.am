@@ -1,4 +1,4 @@
-bin_PROGRAMS = registryd
+bin_PROGRAMS = at-spi-registryd
 
 INCLUDES = -I$(top_srcdir)          \
            -I$(top_builddir)        \
@@ -6,7 +6,7 @@ INCLUDES = -I$(top_srcdir)          \
            -I$(top_srcdir)/libspi   \
            $(REGISTRYD_CFLAGS)
 
-registryd_SOURCES =		\
+at_spi_registryd_SOURCES =		\
 	desktop.c		\
 	desktop.h		\
 	deviceeventcontroller.c	\
