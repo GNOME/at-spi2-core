@@ -1,8 +1,10 @@
-Overview of Changes in Atk 0.4
-==============================
+Changes in 0.5
+
+* Win32 updates and a small bug fix [Hans Breuer]
+
+Changes in 0.4
 
 * Miscellaneous cleanups and fixes.
-
 
 Changes in 0.3
 
