@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-07-02 11:58+0200\n"
+"POT-Creation-Date: 2004-01-24 03:14+0100\n"
 "PO-Revision-Date: 2003-07-02 17:52+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk-bridge/bridge.c:311
+#: atk-bridge/bridge.c:309
 msgid "failure: no device event controller found.\n"
 msgstr "selhání: nenalezen řadič události zařízení.\n"
 
-#: atk-bridge/bridge.c:806
+#: atk-bridge/bridge.c:778
 msgid "WARNING: NULL key event reported."
 msgstr "VAROVÁNÍ: ohlášena NULL událost klávesy."
 
