@@ -1,3 +1,21 @@
+<2001-10-09  Bill Haneman <bill.haneman@sun.com>
+	* libspi/text.c, editabletext.c:
+		Added new assertions to all casts of bonobo-objects from
+	CORBA servants, to prevent Text API calls on non-text objects.
+		Changed suspect casts of int-pointer types, so that we
+	always send a valid CORBA_long pointer to the CORBA APIs that use
+	in/out long parameters.  We then have to copy from the CORBA_long
+	into the regular long or int for return to the C bindings, or
+	vice-versa when returning parameters from ATK calls to the bonobo wrappers.
+	
+	* cspi/spi_text.c:
+	* libspi/deviceeventcontroller.c:
+		Cleaned these sources up.
+	* idl/Text.idl:
+		Changed return type for getCharacterAtOffset to
+	CORBA_unsigned_long, to allow for 32-bit characters.
+	
+		
 <2001-10-08  Bill Haneman <bill.haneman@sun.com>
 
 	* util/Makefile.am:

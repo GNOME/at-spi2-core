@@ -33,7 +33,7 @@ extern "C" {
 #define EDITABLE_TEXT_TYPE        (editable_text_get_type ())
 #define EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), EDITABLE_TEXT_TYPE, EditableText))
 #define EDITABLE_TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), EDITABLE_TEXT_TYPE, EditableText))
-#define IS_EDITABLE_TEXT(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), EDITABLE_TEXT_TYPE))
+#define IS_EDITABLE_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), EDITABLE_TEXT_TYPE))
 #define IS_EDITABLE_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), EDITABLE_TEXT_TYPE))
 
 typedef struct _EditableText EditableText;

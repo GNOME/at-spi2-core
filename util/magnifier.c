@@ -190,7 +190,7 @@ int main (int argc, char** argv){
   gdk_window_resize (window->window, magnifier->mag_data->mag_width, magnifier->mag_data->mag_height);
   magnifier->mag_data->output_window = window;
   if (global_options.fullscreen) gdk_window_stick (window->window);
-  gtk_window_set_decorated(window, FALSE);
+  gtk_window_set_decorated(GTK_WINDOW (window), FALSE);
   gdk_window_set_functions(window->window, 0);
   gdk_window_raise(window->window);
   

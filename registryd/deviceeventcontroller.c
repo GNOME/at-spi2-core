@@ -165,7 +165,7 @@ _controller_deregister_device_listener (DeviceEventController *controller,
       if (!mask_ptr->refcount)
       {
 	   controller->keymask_list = g_list_remove (controller->keymask_list, mask_ptr);
-	   ;  /* release any key grabs that are in place for this key mask */
+	   ;  /* TODO: release any key grabs that are in place for this key mask */
       }
       break;
   case DEVICE_TYPE_MOUSE:

@@ -1234,7 +1234,7 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
                                     long offset,
                                     TEXT_BOUNDARY_TYPE type,
 				   long *startOffset, long *endOffset);
-char
+unsigned long
 AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long offset);
 

@@ -53,11 +53,17 @@ AccessibleText_getAttributes (AccessibleText *obj,
 				 long *startOffset,
 				 long *endOffset)
 {
-  return (char *)
+  CORBA_long retStartOffset, retEndOffset;
+  char *retval;	
+  retval = (char *)
     Accessibility_Text_getAttributes (*obj,
 				      (CORBA_long) offset,
-				      (CORBA_long *) startOffset,
-				      (CORBA_long *) endOffset, &ev);
+				      &retStartOffset,
+				      &retEndOffset,
+				      &ev);
+  *startOffset = (long) retStartOffset;
+  *endOffset = (long) retEndOffset;
+  return retval;
 }
 
 
@@ -79,11 +85,16 @@ AccessibleText_getTextBeforeOffset (AccessibleText *obj,
                                     TEXT_BOUNDARY_TYPE type,
 				    long *startOffset, long *endOffset)
 {
-  return (char *)
+  char *retval;
+  CORBA_long retStartOffset, retEndOffset;
+  retval = (char *)
     Accessibility_Text_getTextBeforeOffset (*obj,
-					    (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
-					    (CORBA_long *) startOffset, (CORBA_long *) endOffset,
-					    &ev);
+					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
+					   &retStartOffset, &retEndOffset,
+					   &ev);
+  *startOffset = (long) retStartOffset;
+  *endOffset = (long) retEndOffset;
+  return retval;
 }
 
 
@@ -119,20 +130,25 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
                                     TEXT_BOUNDARY_TYPE type,
 				    long *startOffset, long *endOffset)
 {
-  return (char *)
+  char *retval;
+  CORBA_long retStartOffset, retEndOffset;
+  retval = (char *)
     Accessibility_Text_getTextAfterOffset (*obj,
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
-					   (CORBA_long *) startOffset, (CORBA_long *) endOffset,
+					   &retStartOffset, &retEndOffset,
 					   &ev);
+  *startOffset = (long) retStartOffset;
+  *endOffset = (long) retEndOffset;
+  return retval;
 }
 
 
 
-char
+unsigned long
 AccessibleText_getCharacterAtOffset (AccessibleText *obj,
                                      long offset)
 {
-  return (char)
+  return (unsigned long)
     Accessibility_Text_getCharacterAtOffset (*obj,
 					     (CORBA_long) offset, &ev);
 }
@@ -148,13 +164,18 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
                                     long *height,
 				    AccessibleCoordType type)
 {
+  CORBA_long retX, retY, retWidth, retHeight;
   Accessibility_Text_getCharacterExtents (*obj,
 					  (CORBA_long) offset,
-					  (CORBA_long *) x,
-					  (CORBA_long *) y,
-					  (CORBA_long *) width,
-					  (CORBA_long *) height, 
+					  &retX,
+					  &retY,
+					  &retWidth,
+					  &retHeight,
 					  (CORBA_short) type, &ev);
+  *x = (long) retX;
+  *y = (long) retY;
+  *width = (long) retWidth;
+  *height = (long) retHeight;
 }
 
 
@@ -186,10 +207,13 @@ AccessibleText_getSelection (AccessibleText *obj,
 			     long selectionNum, long *startOffset,
 			     long *endOffset)
 {
+  CORBA_long retStartOffset, retEndOffset;
   Accessibility_Text_getSelection (*obj,
 				   (CORBA_long) selectionNum,
-				   (CORBA_long *) startOffset,
-				   (CORBA_long *) endOffset, &ev);
+				   &retStartOffset, &retEndOffset, &ev);
+  
+  *startOffset = (long) retStartOffset;
+  *endOffset = (long) retEndOffset;
 }
 
 
@@ -227,7 +251,7 @@ AccessibleText_setSelection (AccessibleText *obj,
     Accessibility_Text_setSelection (*obj,
 				     (CORBA_long) selectionNum,
 				     (CORBA_long) startOffset,
- (CORBA_long) endOffset, &ev);
+				     (CORBA_long) endOffset, &ev);
 }
 
 

@@ -174,6 +174,13 @@ impl_setAttributes (PortableServer_Servant _servant,
 		       const CORBA_long endPos,
 					 CORBA_Environment * ev)
 {
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+
   g_print ("setRunAttributes not implemented.\n");
 }
 
@@ -184,7 +191,13 @@ impl_setTextContents (PortableServer_Servant _servant,
 		      const CORBA_char * newContents,
 		      CORBA_Environment * ev)
 {
-  EditableText *editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+  
   atk_editable_text_set_text_contents (ATK_EDITABLE_TEXT( TEXT (editable)->atko),
 				       (gchar *) newContents);
 }
@@ -198,7 +211,13 @@ impl_insertText (PortableServer_Servant _servant,
 		 const CORBA_long length,
 		 CORBA_Environment * ev)
 {
-  EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+
   atk_editable_text_insert_text (ATK_EDITABLE_TEXT( TEXT (editable)->atko),
 				 (gchar *) text,
 				 (gint) length,
@@ -211,7 +230,13 @@ impl_copyText (PortableServer_Servant _servant,
 	       const CORBA_long startPos, const CORBA_long endPos,
 	       CORBA_Environment * ev)
 {
-  EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+
   atk_editable_text_copy_text (ATK_EDITABLE_TEXT( TEXT(editable)->atko),
 			       (gint) startPos, (gint) endPos);
 }
@@ -223,7 +248,13 @@ impl_cutText (PortableServer_Servant _servant,
 	      const CORBA_long startPos, const CORBA_long endPos,
 	      CORBA_Environment * ev)
 {
-  EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+
   atk_editable_text_cut_text (ATK_EDITABLE_TEXT(TEXT (editable)->atko),
 				 (gint) startPos, (gint) endPos);
 }
@@ -236,7 +267,13 @@ impl_deleteText (PortableServer_Servant _servant,
 		 const CORBA_long startPos, const CORBA_long endPos,
 		 CORBA_Environment * ev)
 {
-  EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+
   atk_editable_text_delete_text (ATK_EDITABLE_TEXT( TEXT(editable)->atko),
 				 (gint) startPos, (gint) endPos);
 }
@@ -246,7 +283,13 @@ static void
 impl_pasteText (PortableServer_Servant _servant,
 		const CORBA_long position, CORBA_Environment * ev)
 {
-  EditableText *editable = EDITABLE_TEXT (bonobo_object_from_servant(_servant));
+  EditableText *editable;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_EDITABLE_TEXT (obj));
+  editable = EDITABLE_TEXT(bonobo_object_from_servant (_servant));
+  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (TEXT (obj))->atko));
+
   atk_editable_text_paste_text (ATK_EDITABLE_TEXT( TEXT(editable)->atko), position);
 }
 

@@ -70,7 +70,8 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
 		      CORBA_long * startOffset,
 		      CORBA_long * endOffset,
 		      CORBA_Environment * ev);
-static CORBA_wchar
+
+static CORBA_unsigned_long
 impl_getCharacterAtOffset (PortableServer_Servant _servant,
 			   const CORBA_long offset,
 			   CORBA_Environment * ev);
@@ -236,10 +237,16 @@ impl_getText (PortableServer_Servant _servant,
 	      const CORBA_long endOffset,
 	      CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
   gchar *txt;
   CORBA_char *rv;
-
+  BonoboObject *obj;
+  
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  
   txt = atk_text_get_text (ATK_TEXT(text->atko),
 		       (gint) startOffset, (gint) endOffset);
   if (txt)
@@ -263,14 +270,23 @@ impl_getTextAfterOffset (PortableServer_Servant _servant,
 			 CORBA_long * endOffset,
 			 CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
   gchar *txt;
   CORBA_char *rv;
+  gint intStartOffset, intEndOffset;
+  BonoboObject *obj;
 
-
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  
   txt = atk_text_get_text_after_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
-				    (gint *) startOffset, (gint *) endOffset);
+				    &intStartOffset, &intEndOffset);
+  *startOffset = (CORBA_long) intStartOffset;
+  *endOffset = (CORBA_long) intEndOffset;
+
   if (txt)
     {
       rv = CORBA_string_dup (txt);
@@ -295,13 +311,13 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
   CORBA_char *txt;
   CORBA_char *rv;
   gint intStartOffset, intEndOffset;
-
   BonoboObject *obj;
-  fprintf (stderr, "getting bonobo-object from text servant\n");
+
   obj = (bonobo_object_from_servant (_servant));
-  
-  g_return_val_if_fail (IS_TEXT (bonobo_object_from_servant (_servant)), (CORBA_char *)"");
-			g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+
   txt = (CORBA_char *) atk_text_get_text_at_offset (ATK_TEXT (text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
 				    &intStartOffset, &intEndOffset);
@@ -320,14 +336,20 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
 }
 
 
-
-static CORBA_wchar
+static CORBA_unsigned_long
 impl_getCharacterAtOffset (PortableServer_Servant _servant,
 			   const CORBA_long offset,
 			   CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
-  return (CORBA_wchar)
+  Text *text;
+  BonoboObject *obj;
+  obj = (bonobo_object_from_servant (_servant));
+  
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_unsigned_long)0);
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_unsigned_long)0);
+
+  return (CORBA_unsigned_long)
     atk_text_get_character_at_offset (ATK_TEXT(text->atko), (gint) offset);
 }
 
@@ -341,13 +363,23 @@ impl_getTextBeforeOffset (PortableServer_Servant _servant,
 			  CORBA_long * endOffset,
 			  CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
   gchar *txt;
   CORBA_char *rv;
+  gint intStartOffset, intEndOffset;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
 
   txt = atk_text_get_text_before_offset (ATK_TEXT(text->atko),
 				    (gint) offset, (AtkTextBoundary) type,
-				    (gint *) startOffset, (gint *) endOffset);
+				    &intStartOffset, &intEndOffset);
+  *startOffset = (CORBA_long) intStartOffset;
+  *endOffset = (CORBA_long) intEndOffset;
+
   if (txt)
     {
       rv = CORBA_string_dup (txt);
@@ -363,7 +395,14 @@ static CORBA_long
 impl__get_caretOffset (PortableServer_Servant _servant,
 		     CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)-1);
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_long)-1);
+  
   return (CORBA_long)
     atk_text_get_caret_offset (ATK_TEXT(text->atko));
 }
@@ -377,11 +416,16 @@ impl_getAttributes (PortableServer_Servant _servant,
 		       CORBA_long * endOffset,
 		       CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
-  g_print ("getAttributes not implemented.\n");
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
+  text = TEXT (obj);
+  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+
+  g_print ("getAttributes not yet implemented.\n");
 }
-
-
 
 static void 
 impl_getCharacterExtents (PortableServer_Servant _servant,
@@ -391,7 +435,14 @@ impl_getCharacterExtents (PortableServer_Servant _servant,
 			  const CORBA_short coordType,
 			  CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_TEXT (obj));
+  text = TEXT (obj);
+  g_return_if_fail (ATK_IS_TEXT (text->atko));
+
   atk_text_get_character_extents (ATK_TEXT(text->atko), (gint) offset,
 				  (gint *) x, (gint *) y, (gint *) width, (gint *) height,
 				  (AtkCoordType) coordType);
@@ -403,7 +454,13 @@ static CORBA_long
 impl__get_characterCount (PortableServer_Servant _servant,
 			CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)0);
+  text = TEXT (obj);
+
   return (CORBA_long)
     atk_text_get_character_count (ATK_TEXT(text->atko));
 }
@@ -416,7 +473,13 @@ impl_getOffsetAtPoint (PortableServer_Servant _servant,
 		       const CORBA_short coordType,
 		       CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)-1);
+  text = TEXT (obj);
+
   return (CORBA_long)
     atk_text_get_offset_at_point (ATK_TEXT(text->atko),
 				  (gint) x, (gint) y, (AtkCoordType) coordType);
@@ -428,7 +491,13 @@ static CORBA_long
 impl_getNSelections (PortableServer_Servant _servant,
 		     CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)0);
+  text = TEXT (obj);
+
   return (CORBA_long)
     atk_text_get_n_selections (ATK_TEXT(text->atko));
 }
@@ -441,7 +510,13 @@ impl_getSelection (PortableServer_Servant _servant,
 		   CORBA_long * startOffset, CORBA_long * endOffset,
 		   CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_TEXT (obj));
+  text = TEXT (obj);
+
   atk_text_get_selection (ATK_TEXT(text->atko), (gint) selectionNum,
 			  (gint *) startOffset, (gint *) endOffset);
 }
@@ -454,7 +529,13 @@ impl_addSelection (PortableServer_Servant _servant,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
+  text = TEXT (obj);
+
   return (CORBA_boolean)
     atk_text_add_selection (ATK_TEXT(text->atko),
 			    (gint) startOffset, (gint) endOffset);
@@ -467,7 +548,13 @@ impl_removeSelection (PortableServer_Servant _servant,
 		      const CORBA_long selectionNum,
 		      CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
+  text = TEXT (obj);
+
   return (CORBA_boolean)
     atk_text_remove_selection (ATK_TEXT(text->atko), (gint) selectionNum);
 }
@@ -481,7 +568,13 @@ impl_setSelection (PortableServer_Servant _servant,
 		   const CORBA_long endOffset,
 		   CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
+  text = TEXT (obj);
+
   return (CORBA_boolean)
     atk_text_set_selection (ATK_TEXT(text->atko),
 			    (gint) selectionNum, (gint) startOffset, (gint) endOffset);
@@ -494,7 +587,13 @@ impl_setCaretOffset (PortableServer_Servant _servant,
 		     const CORBA_long value,
 		     CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
+  text = TEXT (obj);
+
   return (CORBA_boolean)
     atk_text_set_caret_offset (ATK_TEXT(text->atko), (gint) value);
 }
@@ -506,6 +605,13 @@ impl_getRowColAtOffset (PortableServer_Servant _servant,
 			const CORBA_long offset, CORBA_long * row,
 			CORBA_long * column, CORBA_Environment * ev)
 {
-  Text *text = TEXT (bonobo_object_from_servant (_servant));
+  Text *text;
+  BonoboObject *obj;
+
+  obj = (bonobo_object_from_servant (_servant));
+  g_return_if_fail (IS_TEXT (obj));
+  text = TEXT (obj);
+
+  g_print ("getRowColAtOffset not yet implemented\n");
 }
 

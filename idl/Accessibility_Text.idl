@@ -43,9 +43,9 @@ module Accessibility {
 			    				out long startOffset, out long endOffset);
     string getTextAfterOffset (in long offset, in TEXT_BOUNDARY_TYPE type,
 			       				out long startOffset, out long endOffset);
-    wchar getCharacterAtOffset (in long offset); /* could be string instead, 
-						  * to allow unicode chars > 16 bits 
-						  */
+    unsigned long getCharacterAtOffset (in long offset);  /* long instead of wchar, 
+							   * to allow unicode chars > 16 bits 
+							   */
     /* void getRowColAtOffset (in long offset, out long row, out long column); */
     string getAttributes (in long offset,
 			  out long startOffset, out long endOffset);
