@@ -1,3 +1,8 @@
+Changes in version 1.0.2
+
+* Fixed bug with focus notification [Padraig O'Briain]
+* Fixed bug in atk_gobject_for_accessible [Padraig]
+
 Changes in version 1.0.1
 
 * Bug fixes, optimizations [Padraig O'Briain, Bill Haneman]
