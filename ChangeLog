@@ -1,3 +1,7 @@
+2002-05-13  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	* atk-bridge/bridge.c: Hooked up state-change event details.
+
 2002-05-11  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/registry.c:

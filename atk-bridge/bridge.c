@@ -53,6 +53,11 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 				guint n_param_values,
 				const GValue *param_values,
 				gpointer data);
+static gboolean
+spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
+				     guint n_param_values,
+				     const GValue *param_values,
+				     gpointer data);
 static gboolean spi_atk_bridge_signal_listener         (GSignalInvocationHint *signal_hint,
 							guint                  n_param_values,
 							const GValue          *param_values,
@@ -209,8 +214,10 @@ spi_atk_register_event_listeners (void)
   id = atk_add_global_event_listener (spi_atk_bridge_window_event_listener,
 				      "window:deactivate");
   g_array_append_val (listener_ids, id);
+  id = atk_add_global_event_listener (spi_atk_bridge_state_event_listener,
+				      "Gtk:AtkObject:state-change");
+  g_array_append_val (listener_ids, id);
 
-  add_signal_listener ("Gtk:AtkObject:state-change");
   add_signal_listener ("Gtk:AtkObject:children-changed");
   add_signal_listener ("Gtk:AtkObject:visible-data-changed");
   add_signal_listener ("Gtk:AtkSelection:selection-changed");
@@ -438,7 +445,6 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   return TRUE;
 }
 
-#if THIS_WILL_EVER_BE_USED
 static gboolean
 spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 				     guint n_param_values,
@@ -446,7 +452,9 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 				     gpointer data)
 {
   GObject *gobject;
-  AtkPropertyValues *values;
+  gchar *property_name;
+  gchar *type;
+  unsigned long detail1;
 #ifdef SPI_BRIDGE_DEBUG
   GSignalQuery signal_query;
   const gchar *name;
@@ -458,16 +466,19 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 #endif
 
   gobject = g_value_get_object (param_values + 0);
-  values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
-
+  property_name = g_strdup (g_value_get_string (param_values + 1));
+  detail1 = (g_value_get_boolean (param_values + 2))
+    ? 1 : 0;
+  type = g_strdup_printf ("object:state-change:%s", property_name);
   spi_atk_emit_eventv (gobject, 
-		       (unsigned long) values->old_value.data[0].v_ulong,
-		       (unsigned long) values->new_value.data[0].v_ulong,
-		       "object:%s:?", values->property_name);
-  
+		       detail1,
+		       0,
+		       type);
+  g_free (property_name);
+  g_free (type);
   return TRUE;
 }
-#endif
+
 
 static void
 spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
