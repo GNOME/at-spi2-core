@@ -530,8 +530,6 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 		text_chunk->text_bounds.height = y2 - text_chunk->text_bounds.y;
 		text_chunk->start_offset = start;
 		text_chunk->end_offset = end;
-		fprintf (stderr, "text at offset %d, %s, %d, %d\n",
-			 offset, s, start, end);
 		AccessibleText_unref (text);
 	} else {
 		if (role == SPI_ROLE_PUSH_BUTTON ||
@@ -710,8 +708,8 @@ text_chunk_get_clipped_substring_by_char (TextChunk *chunk, int start, int end)
 
 /*
  * Note: this routine shouldn't have to do as much as it currently does,
- *       but at the moment it works around a pango?/gail? bug which
- *       causes WORD boundary type queries to return incorrect strings.
+ *       but at the moment it works around another bug (probably one in this
+ *       code).
  */
 static char *
 string_strip_newlines (char *s, long offset, long *start_offset, long *end_offset)
@@ -786,7 +784,7 @@ text_chunk_get_clipped_string (TextChunk *chunk)
 		do {
 		    s = AccessibleText_getTextAtOffset (text,
 							start,
-						SPI_TEXT_BOUNDARY_WORD_START,
+						SPI_TEXT_BOUNDARY_WORD_END,
 							&word_start,
 							&word_end);
 		    range_end = word_end;
