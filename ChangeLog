@@ -1,3 +1,22 @@
+2003-09-10  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Remove comments about signals. The description
+	should be in files in docs/tmpl directory.
+
+	* docs/tmpl/atkhypertext.sgml: Add description for link-selected signal.
+	* docs/tmpl/atkobject.sgml:  Add descriptions for 
+	active-descendant-changed, children-changed, focus-event, 
+	property-change, state-change and visible-data-changed signals.
+	* docs/tmpl/atkselection.sgml: Add description for selection-changed
+	signal.
+	* docs/tmpl/atktable.sgml: Add descriptions for column-deleted,
+	columnn-inserted, column-reordered, model-changed, row-deleted, 
+	row-inserted and  row-reordered signals.
+	* docs/tmpl/atktext.sgml: Add description for text-attributes-changed,
+	text-caret-moved, text-changed nd text-selection-changed signals.
+
+	This fixes bug #121163.
+
 2003-09-02  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.4.0=====

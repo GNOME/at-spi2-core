@@ -307,10 +307,6 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         "Is used to notify that the table caption has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
-  /*
-   * The signal "children_changed" supports two details:
-   * "add" and "remove"
-   */
   atk_object_signals[CHILDREN_CHANGED] =
     g_signal_new ("children_changed",
 		  G_TYPE_FROM_CLASS (klass),
@@ -338,11 +334,6 @@ atk_object_class_init (AtkObjectClass *klass)
                   g_cclosure_marshal_VOID__POINTER,
                   G_TYPE_NONE, 1,
                   G_TYPE_POINTER);
-  /*
-   * The "state_change" signal supports details, one for each accessible 
-   * state type
-   * (see atkstate.c).
-   */
   atk_object_signals[STATE_CHANGE] =
     g_signal_new ("state_change",
                   G_TYPE_FROM_CLASS (klass),
