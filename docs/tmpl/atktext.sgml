@@ -32,15 +32,17 @@ AtkText provides an accessibility interface for text widgets
 @get_character_at_offset: 
 @get_text_before_offset: 
 @get_caret_offset: 
-@get_row_col_at_offset: 
-@get_range_attributes: 
+@ref_run_attributes: 
 @get_character_extents: 
 @get_character_count: 
 @get_offset_at_point: 
-@get_selected_text: 
-@get_selection_bounds: 
-@set_selection_bounds: 
+@get_n_selections: 
+@get_selection: 
+@add_selection: 
+@remove_selection: 
+@set_selection: 
 @set_caret_offset: 
+@set_run_attributes: 
 @text_changed: 
 @caret_changed: 
 
@@ -121,28 +123,6 @@ AtkText provides an accessibility interface for text widgets
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_text_get_row_col_at_offset ##### -->
-<para>
-
-</para>
-
-@text: 
-@offset: 
-@row: 
-@col: 
-
-
-<!-- ##### FUNCTION atk_text_get_range_attributes ##### -->
-<para>
-
-</para>
-
-@text: 
-@start_offset: 
-@end_offset: 
-@Returns: 
-
-
 <!-- ##### FUNCTION atk_text_get_character_extents ##### -->
 <para>
 
@@ -154,6 +134,18 @@ AtkText provides an accessibility interface for text widgets
 @y: 
 @length: 
 @width: 
+
+
+<!-- ##### FUNCTION atk_text_ref_run_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@start_offset: 
+@end_offset: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_text_get_character_count ##### -->
@@ -176,7 +168,7 @@ AtkText provides an accessibility interface for text widgets
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_text_get_selected_text ##### -->
+<!-- ##### FUNCTION atk_text_get_n_selections ##### -->
 <para>
 
 </para>
@@ -185,7 +177,19 @@ AtkText provides an accessibility interface for text widgets
 @Returns: 
 
 
-<!-- ##### FUNCTION atk_text_get_selection_bounds ##### -->
+<!-- ##### FUNCTION atk_text_get_selection ##### -->
+<para>
+
+</para>
+
+@text: 
+@selection_num: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_add_selection ##### -->
 <para>
 
 </para>
@@ -193,14 +197,26 @@ AtkText provides an accessibility interface for text widgets
 @text: 
 @start_offset: 
 @end_offset: 
+@Returns: 
 
 
-<!-- ##### FUNCTION atk_text_set_selection_bounds ##### -->
+<!-- ##### FUNCTION atk_text_remove_selection ##### -->
 <para>
 
 </para>
 
 @text: 
+@selection_num: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_text_set_selection ##### -->
+<para>
+
+</para>
+
+@text: 
+@selection_num: 
 @start_offset: 
 @end_offset: 
 @Returns: 

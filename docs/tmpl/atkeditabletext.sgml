@@ -27,7 +27,6 @@ to editing features of editable text widgets.
 </para>
 
 @parent_interface: 
-@select_text: 
 @set_attributes: 
 @set_text_contents: 
 @insert_text: 
@@ -35,27 +34,6 @@ to editing features of editable text widgets.
 @cut_text: 
 @delete_text: 
 @paste_text: 
-
-<!-- ##### FUNCTION atk_editable_text_select_text ##### -->
-<para>
-
-</para>
-
-@text: 
-@start_pos: 
-@end_pos: 
-
-
-<!-- ##### FUNCTION atk_editable_text_set_attributes ##### -->
-<para>
-
-</para>
-
-@text: 
-@start_pos: 
-@end_pos: 
-@attributes: 
-
 
 <!-- ##### FUNCTION atk_editable_text_set_text_contents ##### -->
 <para>

@@ -18,3 +18,69 @@
 atk
 
 
+<!-- ##### FUNCTION atk_editable_text_select_text ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_pos: 
+@end_pos: 
+
+<!-- ##### FUNCTION atk_editable_text_set_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_pos: 
+@end_pos: 
+@attributes: 
+
+<!-- ##### FUNCTION atk_text_get_range_attributes ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+
+<!-- ##### FUNCTION atk_text_get_row_col_at_offset ##### -->
+<para>
+
+</para>
+
+@text: 
+@offset: 
+@row: 
+@col: 
+
+<!-- ##### FUNCTION atk_text_get_selected_text ##### -->
+<para>
+
+</para>
+
+@text: 
+@Returns: 
+
+<!-- ##### FUNCTION atk_text_get_selection_bounds ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+
+<!-- ##### FUNCTION atk_text_set_selection_bounds ##### -->
+<para>
+
+</para>
+
+@text: 
+@start_offset: 
+@end_offset: 
+@Returns: 
+

@@ -46,8 +46,7 @@ atk_component_get_type
 <TITLE>AtkEditableText</TITLE>
 AtkEditableText
 AtkEditableTextIface
-atk_editable_text_select_text
-atk_editable_text_set_attributes
+atk_editable_text_set_run_attributes
 atk_editable_text_set_text_contents
 atk_editable_text_insert_text
 atk_editable_text_copy_text
@@ -331,14 +330,15 @@ atk_text_get_text_after_offset
 atk_text_get_text_at_offset
 atk_text_get_text_before_offset
 atk_text_get_caret_offset
-atk_text_get_row_col_at_offset
-atk_text_get_range_attributes
 atk_text_get_character_extents
+atk_text_ref_run_attributes
 atk_text_get_character_count
 atk_text_get_offset_at_point
-atk_text_get_selected_text
-atk_text_get_selection_bounds
-atk_text_set_selection_bounds
+atk_text_get_n_selections
+atk_text_get_selection
+atk_text_add_selection
+atk_text_remove_selection
+atk_text_set_selection
 atk_text_set_caret_offset
 <SUBSECTION Standard>
 ATK_TEXT

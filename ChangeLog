@@ -1,6 +1,11 @@
 2001-06-07  Brian Cameron <brian.cameron@sun.com>
-	* docs/atk-api.sgml
-	Removed this file since it is not used.
+	* docs/atk-api.sgml docs/atk-sections.txt
+	docs/tmpl/atk-unused.sgml docs/tmpl/atkeditabletext.sgml
+	docs/tmpl/atktext.sgml
+	Removed docs/atk-api.sgml since it is not used.
+	Updated sgml files and atk-sections.txt to reflect
+	recent changes to the atktext and atkeditabletext
+	interfaces
 
 2001-06-06  Brian Cameron <brian.cameron@sun.com>
 	* atk/atktext.h atk/atktext.h
