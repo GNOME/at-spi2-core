@@ -284,6 +284,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
           /* we overload the keyset long w/keycodes, the - bit acts as a flag */
           key_set->_buffer[i] = (keys->keysyms[i]) ? keys->keysyms[i] :
 	                                         -keys->keycodes[i];
+	  /* g_print ("key-set %d = %d\n", i, (int) key_set->_buffer[i]); */
         }
     }
   /* copy the event filter values from the C api into the CORBA KeyEventTypeSeq */

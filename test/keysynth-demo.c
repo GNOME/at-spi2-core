@@ -32,7 +32,7 @@
 #define SHIFT_R_KEYCODE 62
 
 /* these can be increased to access more keys */
-#define MAX_ROWS 5
+#define MAX_ROWS 6 /* The last row only holds Quit and ShiftLatch, special-purpose keys */
 #define MAX_COLUMNS 14
 
 static AccessibleKeystrokeListener *key_listener;
@@ -41,6 +41,187 @@ static AccessibleKeystrokeListener *switch_listener;
 static boolean shift_latched = False;
 static boolean caps_lock = False;
 static GtkButton **buttons[MAX_ROWS];
+
+typedef enum {
+	SCAN_IDLE,
+	SCAN_LINES,
+	SCAN_LINES_DONE,
+	SCAN_KEYS,
+	SCAN_KEYS_DONE
+} ScanTimerState;
+
+typedef struct {
+	ScanTimerState timer_state;
+	gint scan_row;
+	gint scan_column;
+} ScanState;
+
+GdkColor *
+button_default_bg_color (GtkButton *button)
+{
+  static GdkColor bg_color;
+  static gboolean initialized = FALSE;
+  if (!initialized)
+  {
+    bg_color = gtk_widget_get_style (GTK_WIDGET (button))->bg[GTK_STATE_NORMAL];
+    initialized = TRUE;
+  }
+  return &bg_color;
+}
+
+GdkColor *
+button_default_selected_color (GtkButton *button)
+{
+  static GdkColor selected_color;
+  static gboolean initialized = FALSE;
+  if (!initialized)
+  {
+    selected_color = gtk_widget_get_style (GTK_WIDGET (button))->bg[GTK_STATE_SELECTED];
+    initialized = TRUE;
+  }
+  return &selected_color;
+}
+
+void
+select_key (gint lineno, gint keyno)
+{
+  /*
+   * Before we do this, we need to make sure we've saved the default normal bg.
+   * The button_default_bg_color() call caches this for us (as a side-effect).
+   * Probably we should do this a cleaner way...
+   */
+  button_default_bg_color (buttons [lineno][keyno]);	
+  gtk_widget_modify_bg (GTK_WIDGET (buttons [lineno][keyno]),
+			GTK_STATE_NORMAL,
+			button_default_selected_color (buttons [lineno][keyno]));
+}
+
+void
+deselect_key (gint lineno, gint keyno)
+{
+  gtk_widget_modify_bg (GTK_WIDGET (buttons [lineno][keyno]),
+			GTK_STATE_NORMAL,
+			button_default_bg_color (buttons [lineno][keyno]));
+}
+
+void
+deselect_line (gint lineno)
+{
+  int i;
+  int max_columns = MAX_COLUMNS;
+  if (lineno == MAX_ROWS-1) max_columns = 2;
+  for (i=0; i<max_columns; ++i)
+	  deselect_key (lineno, i);
+}
+
+void
+select_line (gint lineno)
+{
+  int i;
+  int max_columns = MAX_COLUMNS;
+  if (lineno == MAX_ROWS-1) max_columns = 2;
+  for (i=0; i<max_columns; ++i)
+	  select_key (lineno, i);
+}
+
+
+static ScanState*
+scan_state ()
+{
+  static ScanState state = {SCAN_IDLE, 0, 0};
+  return &state;
+}
+
+static gboolean
+timeout_scan (gpointer data)
+{
+  ScanState *state = (ScanState *) data;
+  state->timer_state = SCAN_IDLE;
+  deselect_key (state->scan_row, state->scan_column);
+  return FALSE;
+}
+
+static gboolean
+increment_scan (gpointer data)
+{
+  ScanState *state = (ScanState *) data;
+  int max_columns;
+  switch (state->timer_state)
+    {  
+      case SCAN_IDLE: 
+/* happens if switch-break occurs before the timer fires, after SCAN_KEYS_DONE*/
+          return FALSE;
+      case SCAN_LINES:
+          deselect_line (state->scan_row);
+          state->scan_row = (++state->scan_row < MAX_ROWS) ? state->scan_row : 0;
+          select_line (state->scan_row);
+          g_print ("line %d\n", state->scan_row);
+	  break;
+      case SCAN_KEYS:
+          deselect_key (state->scan_row, state->scan_column);
+	  if (state->scan_row == MAX_ROWS-1) max_columns = 2;
+	  else max_columns = MAX_COLUMNS; /* last row has only two keys */
+          state->scan_column = (++state->scan_column < max_columns) ? state->scan_column : 0;
+          select_key (state->scan_row, state->scan_column);
+          g_print ("row %d\n", state->scan_column);
+	  break;
+      case SCAN_LINES_DONE:
+      case SCAN_KEYS_DONE:
+	  return FALSE;
+      default:
+    }
+  return TRUE;
+}
+
+static void
+scan_start (unsigned int timestamp)
+{
+  ScanState *state = scan_state();
+  switch (state->timer_state)
+    {
+    case SCAN_IDLE:
+      state->timer_state = SCAN_LINES;
+      state->scan_column = 0;
+      state->scan_row = 0;
+      g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 600, increment_scan, state, NULL);
+      select_line (state->scan_row);
+      break;
+    case SCAN_LINES_DONE:
+      state->timer_state = SCAN_KEYS;
+      g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 600, increment_scan, state, NULL);
+      deselect_line (state->scan_row);
+      select_key (state->scan_row, state->scan_column);
+      break;
+    case SCAN_KEYS_DONE:
+      gtk_button_clicked (buttons[state->scan_row][state->scan_column]);
+      deselect_key (state->scan_row, state->scan_column);
+      state->timer_state = SCAN_IDLE;
+      break;
+    default:
+      g_print("unexpected state for 'scan start'\n");
+    }
+}
+
+static void
+scan_stop (unsigned int timestamp)
+{
+  /* find the element correspondin to this event's timestamp */
+  ScanState *state = scan_state();
+  switch (state->timer_state)
+    {
+    case SCAN_LINES:
+      state->timer_state = SCAN_LINES_DONE;
+      break;
+    case SCAN_KEYS:
+      state->timer_state = SCAN_KEYS_DONE;
+      g_timeout_add_full (G_PRIORITY_HIGH_IDLE, 1200, timeout_scan, state, NULL);
+      break;
+    case SCAN_IDLE:
+      break;
+    default:
+      g_print("unexpected state for 'scan stop'\n");
+    }
+}
 
 static void
 label_buttons(boolean shifted)
@@ -52,7 +233,7 @@ label_buttons(boolean shifted)
   char *button_label;
   char *keysymstring;
   
-  for (i=0; i<MAX_ROWS; ++i)
+  for (i=0; i<MAX_ROWS-1; ++i) /* last row doesn't change */
     {
       for (j=0; j<MAX_COLUMNS; ++j, ++keycode)
         {
@@ -88,20 +269,15 @@ show_shift (GtkButton *button, boolean *is_shifted)
 }
 
 static void
-do_shift (GtkButton *button)
-{
-  static KeyCode shift_keycode = 0;
-  if (!shift_keycode) shift_keycode = XKeysymToKeycode(GDK_DISPLAY(), (KeySym) 0xFFE1);
-  /* Note: in a real onscreen keyboard shift keycode should not be hard-coded! */
+toggle_shift_latch (GtkButton *button) 
+{ 
   shift_latched = !shift_latched;
-  generateKeyEvent (shift_keycode, shift_latched ? SPI_KEY_PRESS : SPI_KEY_RELEASE);
   if (buttons) label_buttons (caps_lock || shift_latched);
 }
 
 static void
 keysynth_exit()
 {
-  if (shift_latched) do_shift (NULL);
   deregisterAccessibleKeystrokeListener (key_listener, SPI_KEYMASK_ALT );
   deregisterAccessibleKeystrokeListener (switch_listener, SPI_KEYMASK_UNMODIFIED );
   SPI_exit ();
@@ -152,13 +328,31 @@ is_command_key (void *p)
 static boolean
 switch_callback (void *p)
 {
+  AccessibleKeyStroke *key = (AccessibleKeyStroke *)p;
+  static is_down = FALSE;
+  if (key->type == Accessibility_KEY_RELEASED)
+    {
+      g_print ("spacebar up\n");
+      is_down = FALSE;
+      scan_stop (key->timestamp);
+    }
+  else 
+  if (!is_down)
+    {
+      g_print ("spacebar down\n");
+      is_down = TRUE;
+      scan_start (key->timestamp);
+    }
+  /* catch the first, ignore the rest (will repeat) until keyrelease */
   return FALSE;
 }
 
 static void
 synth_keycode (GtkButton *button, KeyCode *keycode)
 {
-  if (shift_latched) do_shift (button);
+  static KeyCode shift_keycode = 0;
+  if (!shift_keycode) shift_keycode = XKeysymToKeycode(GDK_DISPLAY(), (KeySym) 0xFFE1);
+  /* Note: in a real onscreen keyboard shift keycode should not be hard-coded! */
   if (*keycode)
     {
       if (*keycode == CAPSLOCK_KEYCODE)
@@ -166,8 +360,17 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
           caps_lock = !caps_lock;	     
           label_buttons (caps_lock || shift_latched);
         }
+      if (shift_latched)
+	      generateKeyEvent (shift_keycode, SPI_KEY_PRESS);
+      
       generateKeyEvent ((long) *keycode, SPI_KEY_PRESSRELEASE);
-    }      
+
+      if (shift_latched)
+        {
+	  generateKeyEvent (shift_keycode, SPI_KEY_RELEASE);
+	  toggle_shift_latch (button);
+	}
+    }
 }
 
 static void
@@ -197,7 +400,7 @@ create_vkbd()
 			      "GtkWidget::parent", window,
 			      "GtkWidget::visible", TRUE,
 			      NULL);
-  for (i=0; i<MAX_ROWS; ++i)
+  for (i=0; i<MAX_ROWS-1; ++i)
     {
       hbox = gtk_widget_new (gtk_hbox_get_type(),
 			     "GtkWidget::parent", container,
@@ -229,22 +432,23 @@ create_vkbd()
 			 "GtkWidget::parent", container,
 			 "GtkWidget::visible", TRUE,
 			 NULL);
-  button = g_object_connect (gtk_widget_new (gtk_button_get_type (),
-					     "GtkButton::label", "Quit",
-					     "GtkWidget::parent", hbox,
-					     "GtkWidget::visible", TRUE,
-					     NULL),
-			     "signal::clicked",
-			     button_exit, NULL,
-			     NULL);
-  button = g_object_connect (gtk_widget_new (gtk_button_get_type (),
-					     "GtkButton::label", "ShiftLatch",
-					     "GtkWidget::parent", hbox,
-					     "GtkWidget::visible", TRUE,
-					     NULL),
-			     "signal::clicked",
-			     do_shift, NULL,
-			     NULL);
+  buttons[i] = g_new0 (GtkButton*, 2);
+  buttons[i][0] = g_object_connect (gtk_widget_new (gtk_button_get_type (),
+							     "GtkButton::label", "Quit",
+							     "GtkWidget::parent", hbox,
+							     "GtkWidget::visible", TRUE,
+							     NULL),
+					     "signal::clicked",
+					     button_exit, NULL,
+					     NULL);
+  buttons[i][1] = g_object_connect (gtk_widget_new (gtk_button_get_type (),
+						    "GtkButton::label", "ShiftLatch",
+						    "GtkWidget::parent", hbox,
+						    "GtkWidget::visible", TRUE,
+						    NULL),
+				    "signal::clicked",
+				    toggle_shift_latch, NULL,
+				    NULL);
   label_buttons (caps_lock || shift_latched);
   gtk_widget_show (window);
 }
@@ -252,7 +456,7 @@ create_vkbd()
 int
 main(int argc, char **argv)
 {
-  AccessibleKeySet spacebar_set;
+  AccessibleKeySet switch_set;
   
   if ((argc > 1) && (!strncmp(argv[1],"-h",2)))
   {
@@ -273,19 +477,23 @@ main(int argc, char **argv)
 				      SPI_KEYLISTENER_CANCONSUME | SPI_KEYLISTENER_ALL_WINDOWS);
   create_vkbd();  
 
-  /* register a listener on the spacebar, to serve as a 'single switch' */
-  spacebar_set.keysyms = g_new0 (unsigned long, 1);
-  spacebar_set.keycodes = g_new0 (unsigned short, 1);
-  spacebar_set.len = 1;
-  spacebar_set.keysyms[0] = (unsigned long) ' ';
-  spacebar_set.keycodes[0] = (unsigned short) 0;
+  /*
+   * Register a listener on an 'unused' key, to serve as a 'single switch'.
+   * On most Intel boxes there is at least one 'special' system key that does not
+   * have a non-zero keycode assigned in the Xserver, so we will intercept any keycode
+   * that is 'zero'.  Often these the "windows" key or the "menu" key.
+   */
+  switch_set.keysyms = g_new0 (unsigned long, 1);
+  switch_set.keycodes = g_new0 (unsigned short, 1);
+  switch_set.len = 1;
+  switch_set.keysyms[0] = (unsigned long) 0;
+  switch_set.keycodes[0] = (unsigned short) 0;
   switch_listener = createAccessibleKeystrokeListener(switch_callback);
-  /* registerKeystrokeListener(switch_listener,
-			    &spacebar_set,
-			    SPI_KEYMASK_UNMODIFIED,
-			    (unsigned long) ( KeyPress | KeyRelease),
-			    SPI_KEYLISTENER_CANCONSUME);
-  */
+  registerAccessibleKeystrokeListener(switch_listener,
+				      &switch_set,
+				      SPI_KEYMASK_UNMODIFIED,
+				      (unsigned long) ( KeyPress | KeyRelease),
+				      SPI_KEYLISTENER_CANCONSUME);
   
   SPI_event_main(TRUE);
 }

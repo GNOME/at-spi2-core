@@ -268,11 +268,18 @@ key_set_contains_key (Accessibility_KeySet *key_set, Accessibility_KeyStroke *ke
 
   for (i=0; i<len; ++i)
     {
-      g_print ("key_set[%d] = %d\n", i, (int) key_set->_buffer[i]);
-      if (key_set->_buffer[i] == (CORBA_long) key_event->keyID) return TRUE;	    
+#ifdef SPI_KEYEVENT_DEBUG	    
+      g_print ("key_set[%d] = %d; key_event %d, code %d\n",
+	        i,
+	       (int) key_set->_buffer[i],
+	       (int) key_event->keyID,
+	       (int) key_event->keycode); 
+#endif
+      if (key_set->_buffer[i] == (CORBA_long) key_event->keyID) return TRUE;
+      if (key_set->_buffer[i] == (CORBA_long) -key_event->keycode) return TRUE;
     }
   
-  return TRUE;
+  return FALSE;
 }
 
 static gboolean
@@ -294,7 +301,7 @@ key_eventtype_seq_contains_event (Accessibility_KeyEventTypeSeq *type_seq,
 
   for (i=0; i<len; ++i)
     {
-      g_print ("type_seq[%d] = %d\n", i, (int) type_seq->_buffer[i]);
+/*      g_print ("type_seq[%d] = %d\n", i, (int) type_seq->_buffer[i]); */
       if (type_seq->_buffer[i] == (CORBA_long) key_event->type) return TRUE;	    
     }
   
@@ -339,7 +346,13 @@ notify_keylisteners (GList *key_listeners,
 	      is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, key_event, ev);
             }		
         }
-      else g_print ("no match for listener %d\n", i);
+      else
+        {
+#ifdef SPI_KEYEVENT_DEBUG
+	      g_print ("no match for listener %d\n", i);
+#endif
+	      ;
+	}
     }
   return is_consumed;
 }

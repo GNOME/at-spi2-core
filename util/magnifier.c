@@ -70,6 +70,37 @@ struct poptOption magnifier_options [] = {
 
 #define MSG_LEN 80
 
+static GtkWidget *window; /* TODO: clean up, with accessor func? */
+
+static void
+magnifier_realize (GtkWidget *widget)
+{
+  XWMHints wm_hints;
+  Atom wm_window_protocols[2];
+  static gboolean initialized = FALSE;
+  
+  if (!initialized)
+    {
+      wm_window_protocols[0] = gdk_x11_get_xatom_by_name ("WM_DELETE_WINDOW");
+      wm_window_protocols[1] = gdk_x11_get_xatom_by_name ("_NET_WM_PING");
+    }
+  
+  wm_hints.flags = InputHint;
+  wm_hints.input = False;
+  
+  XSetWMHints (GDK_WINDOW_XDISPLAY (widget->window),
+	       GDK_WINDOW_XWINDOW (widget->window), &wm_hints);
+  
+  XSetWMProtocols (GDK_WINDOW_XDISPLAY (widget->window),
+		   GDK_WINDOW_XWINDOW (widget->window), wm_window_protocols, 2);
+}
+
+static void
+magnifier_exit()
+{
+  gtk_exit(0);
+}
+
 static gboolean get_commands(GIOChannel* client,
 			     GIOCondition condition,
 			     gpointer data){
@@ -89,7 +120,6 @@ static gboolean get_commands(GIOChannel* client,
 }
 
 int main (int argc, char** argv){
-  GtkWidget *window;
   GIOChannel *mag_channel;
   char *dpyname;
   char env_string[ENV_STRING_MAX_SIZE];
@@ -127,7 +157,19 @@ int main (int argc, char** argv){
   }
   gtk_init (&argc, &argv);
 
-  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  window = g_object_connect (gtk_widget_new (gtk_window_get_type (),
+					     "user_data", NULL,
+					     "can_focus", FALSE,
+					     "type", GTK_WINDOW_TOPLEVEL,
+					     "title", "magnifier",
+					     "allow_grow", FALSE,
+					     "allow_shrink", FALSE,
+					     "border_width", 10,
+					     NULL),
+			     "signal::realize", magnifier_realize, NULL,
+			     "signal::destroy", magnifier_exit, NULL,
+			     NULL);
+  
   drawing_area = gtk_drawing_area_new();
   gtk_container_add (GTK_CONTAINER (window),drawing_area);
   gtk_widget_add_events(GTK_WIDGET(drawing_area),GDK_BUTTON_PRESS_MASK);
@@ -197,6 +239,7 @@ int main (int argc, char** argv){
   if (global_options.horizontal_split)
 	  magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display,screen_num)/2;
   else magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display, screen_num);
+  gtk_window_set_decorated(GTK_WINDOW (window), FALSE);
   gtk_widget_show_all (window);
 
   gdk_window_move(window->window,
@@ -205,7 +248,6 @@ int main (int argc, char** argv){
   gdk_window_resize (window->window, magnifier->mag_data->mag_width, magnifier->mag_data->mag_height);
   magnifier->mag_data->output_window = window;
   if (global_options.fullscreen) gdk_window_stick (window->window);
-  gtk_window_set_decorated(GTK_WINDOW (window), FALSE);
   gdk_window_set_functions(window->window, 0);
   gdk_window_raise(window->window);
   
@@ -234,6 +276,9 @@ static void
 impl_magnifier_fullscreen (PortableServer_Servant servant,
 			   CORBA_Environment *ev)
 {
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  magnifier->mag_data->mag_width = DisplayWidth (magnifier->mag_data->target_display, screen_num);
+  magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display, screen_num);
 }
 				   
 static void
@@ -244,6 +289,10 @@ impl_magnifier_set_extents (PortableServer_Servant servant,
 			    CORBA_long y2,
 			    CORBA_Environment *ev)
 {
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  magnifier->mag_data->mag_width = x2 - x1;
+  magnifier->mag_data->mag_height = y2 - y1;
+  gdk_window_move(window->window, x1, y1);
 }
 
 static void
@@ -316,8 +365,11 @@ impl_magnifier_set_mag_factor (PortableServer_Servant servant,
 			       CORBA_Environment *ev)
 {
   Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
-  magnifier->mag_data->factor_x = (float) mag_factor_x;
-  magnifier->mag_data->factor_y = (float) mag_factor_y;
+  if (zoom_region == (CORBA_short) 0) /* TODO: fix for multi-zoom-regions */
+    {
+      magnifier->mag_data->factor_x = (float) mag_factor_x;
+      magnifier->mag_data->factor_y = (float) mag_factor_y;
+    }
 }
 
 static void
@@ -326,6 +378,7 @@ impl_magnifier_mark_dirty (PortableServer_Servant servant,
 			   CORBA_Environment *ev)
 {
   Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  /* TODO: implement */
 }
 
 static void
@@ -334,6 +387,7 @@ impl_magnifier_mark_unmanaged (PortableServer_Servant servant,
 			       CORBA_Environment *ev)
 {
   Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  /* TODO: implement */
 }
 
 static CORBA_short
@@ -351,7 +405,7 @@ impl_magnifier_create_zoom_region (PortableServer_Servant servant,
 }
 
 static CORBA_boolean
-impl_magnifier_get_zoom_region_params (PortableServer_Servant _servant,
+impl_magnifier_get_zoom_region_params (PortableServer_Servant servant,
 				       const CORBA_short zoom_region,
 				       CORBA_float * zx,
 				       CORBA_float * zy, CORBA_long * x1,
@@ -359,7 +413,18 @@ impl_magnifier_get_zoom_region_params (PortableServer_Servant _servant,
 				       CORBA_long * y2,
 				       CORBA_Environment * ev)
 {
-	return CORBA_FALSE;
+  Magnifier *magnifier = MAGNIFIER (bonobo_object_from_servant (servant));
+  if (zoom_region == (CORBA_short) 0)
+  {
+    *zx = magnifier->mag_data->factor_x;
+    *zy = magnifier->mag_data->factor_y;
+    *x1 = 0;
+    *y1 = 0;
+    *x2 = *x1 + magnifier->mag_data->mag_width;
+    *y2 = *y1 + magnifier->mag_data->mag_height;
+    return CORBA_TRUE;	  
+  }
+  else return CORBA_FALSE;
 }
 
 static void

@@ -42,6 +42,8 @@ xlib_colormap * x_cmap;
 typedef struct _MagnifierData {
 	int mag_width;
 	int mag_height;
+	int mag_x;
+	int mag_y;
 	int factor_x;
 	int factor_y;
 	point center;

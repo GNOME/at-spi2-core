@@ -31,7 +31,7 @@
 #include "accessible.h"
 #include "application.h"
 
-#define SPI_BRIDGE_DEBUG 1
+/* #define SPI_BRIDGE_DEBUG 1 */
 
 #define APP_STATIC_BUFF_SZ 64
 
@@ -278,8 +278,6 @@ bridge_state_event_listener (GSignalInvocationHint *signal_hint,
     Accessibility_Registry_notifyEvent (registry, e, &ev);
   return TRUE;
 }
-
-#define SPI_DEBUG
 
 static Accessibility_KeyStroke *
 accessibility_keystroke_from_atk_key_event (AtkKeyEventStruct *event)

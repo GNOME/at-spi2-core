@@ -1,3 +1,36 @@
+2001-11-25  Bill Haneman  <bill.haneman@sun.com>
+
+	* test/keysynth-demo.c:
+	Turned this into a simple scanning keyboard, to demonstrate the
+	use of g_timeout_add () as a means of creating timers for
+	scanning, and the use of GtkStyle for visually indicating when
+	virtual keyboard elements are selected.
+
+	keysynth-demo now listens to any keyboard keys with zero-valued
+	keycodes (i.e. 'unused' keys) and interprets them as
+	single-switches.
+
+	Reworked the shiftlatch code so that shift-down state isn't held
+	for long periods (it's only synthesized immediately prior to
+	the keysynth event it's modifying).  Note that shiftlatch in this
+	demo is a convenience, not intended to take the place of AccessX 
+	which is the better choice for getting 'sticky' modifier keys.
+
+	* libspi/deviceeventcontroller.c:
+	* at-bridge/bridge.c:
+	* cspi/spi_registry.c:
+	Removed some debug print stuff, and put other verbosity in #ifdef
+	blocks.
+
+	* util/magnifier.c:
+	* util/mag_image.h:
+	Implemented some more of the magnifier IDL for the simple
+	magnifier: namely, getZoomRegionParams. 
+	Added mag_x and mag_y members to MagnifierData struct, aid of this
+	implementation.
+	Added GtkWindow::realize signal handler to magnifier, to keep it
+	from receiving keyboard focus from the WM.
+
 2001-11-23  Mark McLoughlin  <mark@skynet.ie>
 
 	* cspi/spi-private.h: my guess at what michael forgot
