@@ -1,3 +1,7 @@
+2005-01-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atk.def: Add atk_text_clip_type_get_type. Bug #165288.
+
 2004-12-29  Tor Lillqvist  <tml@iki.fi>
 
 	* atk/atk.def: Add new functions.
