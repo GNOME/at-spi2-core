@@ -465,7 +465,10 @@ gnome_accessibility_module_init (void)
 {
   atk_bridge_init (NULL, NULL);
 
-  g_print("Atk Accessibilty bridge initialized\n");
+  if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
+    {
+	g_print("Atk Accessibility bridge initialized\n");
+    }
 }
 
 void
@@ -482,7 +485,10 @@ gnome_accessibility_module_shutdown (void)
   atk_bridge_initialized = FALSE;
   this_app = NULL;
 
-  g_print("Atk Accessibilty bridge shutdown\n");
+  if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
+    {
+	g_print("Atk Accessibility bridge shutdown\n");
+    }
 
   listener_ids = NULL;
   atk_remove_focus_tracker (atk_bridge_focus_tracker_id);

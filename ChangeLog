@@ -1,3 +1,10 @@
+2004-03-24  Bill Haneman <billh@gnome.org>
+
+	* atk-bridge/bridge.c:
+	Bracketed some debug output in 
+	conditionals, to avoid printing it in normal use.
+	Fixes bug #136660.
+	
 2004-03-22  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Revved to 1.4.0, libtool 9.14.9
