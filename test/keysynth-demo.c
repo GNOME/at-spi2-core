@@ -40,8 +40,8 @@
 static AccessibleKeystrokeListener *key_listener;
 static AccessibleKeystrokeListener *switch_listener;
 
-static gboolean shift_latched = False;
-static gboolean caps_lock = False;
+static SPIBoolean shift_latched = False;
+static SPIBoolean caps_lock = False;
 static GtkButton **buttons[MAX_ROWS];
 
 typedef enum {
@@ -226,7 +226,7 @@ scan_stop (unsigned int timestamp)
 }
 
 static void
-label_buttons(gboolean shifted)
+label_buttons(SPIBoolean shifted)
 {
   int i, j;
   KeySym keysym;
@@ -265,7 +265,7 @@ label_buttons(gboolean shifted)
 }
 
 static void
-show_shift (GtkButton *button, gboolean *is_shifted)
+show_shift (GtkButton *button, SPIBoolean *is_shifted)
 {
  label_buttons (*is_shifted ^ caps_lock);	
 }
@@ -315,7 +315,7 @@ button_exit(GtkButton *notused, void *alsonotused)
 }
 
 static SPIBoolean
-is_command_key (AccessibleKeystroke *key)
+is_command_key (AccessibleKeystroke *key, void *user_data)
 {
   switch (key->keyID)
     {
@@ -328,9 +328,10 @@ is_command_key (AccessibleKeystroke *key)
 }
 
 static SPIBoolean
-switch_callback (AccessibleKeystroke *key)
+switch_callback (AccessibleKeystroke *key, void *user_data)
 {
-  static gboolean is_down = FALSE;
+  static SPIBoolean is_down = FALSE;
+
   if (key->type == SPI_KEY_RELEASED)
     {
       g_print ("spacebar up\n");
@@ -380,8 +381,8 @@ create_vkbd()
   GtkWidget *window, *container, *hbox;
   int i, j;
   KeyCode *keycodeptr, keycode = MIN_KEYCODE;
-  static gboolean true_val = True;
-  static gboolean false_val = False;
+  static SPIBoolean true_val = True;
+  static SPIBoolean false_val = False;
 
   window = g_object_connect (gtk_widget_new (gtk_window_get_type (),
 					     "user_data", NULL,
@@ -467,9 +468,9 @@ main(int argc, char **argv)
 
   gtk_init (&argc, &argv); /* must call, because this program uses GTK+ */
 
-  SPI_init ();
+  SPI_init (TRUE);
 
-  key_listener = createAccessibleKeystrokeListener (is_command_key);
+  key_listener = createAccessibleKeystrokeListener (is_command_key, NULL);
   /* will listen only to Alt-key combinations */
   registerAccessibleKeystrokeListener (key_listener,
 				       (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
@@ -489,14 +490,14 @@ main(int argc, char **argv)
   switch_set.len = 1;
   switch_set.keysyms[0] = (unsigned long) 0;
   switch_set.keycodes[0] = (unsigned short) 0;
-  switch_listener = createAccessibleKeystrokeListener (switch_callback);
+  switch_listener = createAccessibleKeystrokeListener (switch_callback, NULL);
   registerAccessibleKeystrokeListener (switch_listener,
 				       &switch_set,
 				       SPI_KEYMASK_UNMODIFIED,
 				       (unsigned long) ( KeyPress | KeyRelease),
 				       SPI_KEYLISTENER_CANCONSUME);
   
-  SPI_event_main (TRUE);
+  SPI_event_main ();
 
   return 0;
 }

@@ -27,21 +27,16 @@
 
 G_BEGIN_DECLS
 
-/* FIXME: these macro names are all messed up, probably from the namespacing */
-
-#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE        (spi_event_listener_get_type ())
-#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiEventListener))
-#define SPI_ACCESSIBLE_EVENT_SPI_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, SpiEventListenerClass))
-#define IS_SPI_ACCESSIBLE_EVENT_SPI_LISTENER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE))
-#define IS_SPI_ACCESSIBLE_EVENT_SPI_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE))
-
-typedef void (*VoidSpiEventListenerCB) (const Accessibility_Event *e);
+#define SPI_EVENT_LISTENER_TYPE        (spi_event_listener_get_type ())
+#define SPI_EVENT_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_EVENT_LISTENER_TYPE, SpiEventListener))
+#define SPI_EVENT_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_EVENT_LISTENER_TYPE, SpiEventListenerClass))
+#define SPI_IS_EVENT_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_EVENT_LISTENER_TYPE))
+#define SPI_IS_EVENT_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_EVENT_LISTENER_TYPE))
 
 typedef struct _SpiEventListener SpiEventListener;
 
 struct _SpiEventListener {
   SpiListener parent;
-  GList      *callbacks;
 };
 
 typedef struct {
@@ -55,10 +50,6 @@ typedef struct {
 
 GType              spi_event_listener_get_type        (void);
 SpiEventListener  *spi_event_listener_new             (void);
-void               spi_event_listener_add_callback    (SpiEventListener      *listener,
-						       VoidSpiEventListenerCB callback);
-void               spi_event_listener_remove_callback (SpiEventListener      *listener,
-						       VoidSpiEventListenerCB callback);
 
 G_END_DECLS
 

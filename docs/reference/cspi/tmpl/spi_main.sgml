@@ -19,6 +19,7 @@ SPI main loop and initialization
 
 </para>
 
+@isGNOMEApp: 
 @Returns: 
 
 
@@ -27,6 +28,7 @@ SPI main loop and initialization
 
 </para>
 
+<!-- # Unused Parameters # -->
 @isGNOMEApp: 
 
 

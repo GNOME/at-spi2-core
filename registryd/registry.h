@@ -33,15 +33,14 @@ G_BEGIN_DECLS
 #define SPI_REGISTRY_TYPE        (spi_registry_get_type ())
 #define SPI_REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTRY_TYPE, SpiRegistry))
 #define SPI_REGISTRY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REGISTRY_TYPE, SpiRegistryClass))
-#define IS_SPI_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
-#define IS_SPI_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
+#define SPI_IS_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
+#define SPI_IS_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
 
 typedef struct {
   SpiListener parent;
   GList *object_listeners;
   GList *window_listeners;
   GList *toolkit_listeners;
-  GList *applications;
   struct SpiDeviceEventController *device_event_controller;
   SpiDesktop *desktop;
   gboolean (*kbd_event_hook) (gpointer source);

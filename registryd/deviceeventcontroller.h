@@ -33,8 +33,8 @@ G_BEGIN_DECLS
 #define SPI_DEVICE_EVENT_CONTROLLER_TYPE        (spi_device_event_controller_get_type ())
 #define SPI_DEVICE_EVENT_CONTROLLER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventController))
 #define SPI_DEVICE_EVENT_CONTROLLER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
-#define IS_SPI_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
-#define IS_SPI_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
+#define SPI_IS_DEVICE_EVENT_CONTROLLER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
+#define SPI_IS_DEVICE_EVENT_CONTROLLER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DEVICE_EVENT_CONTROLLER_TYPE))
 #define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDeviceEventControllerClass))
 
 typedef struct {
@@ -51,8 +51,9 @@ typedef struct {
 	gboolean (*check_key_event) (SpiDeviceEventController *controller);
 } SpiDeviceEventControllerClass;
 
-GType                     spi_device_event_controller_get_type   (void);
-SpiDeviceEventController *spi_device_event_controller_new        (void *registry);
+GType                     spi_device_event_controller_get_type        (void);
+SpiDeviceEventController *spi_device_event_controller_new             (void *registry);
+gboolean                  spi_device_event_controller_check_key_event (SpiDeviceEventController *controller);
 
 G_END_DECLS
 

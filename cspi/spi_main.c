@@ -7,10 +7,103 @@
 #include <stdlib.h>
 #include <cspi/spi-private.h>
 
+#undef DEBUG_OBJECTS
+
 static CORBA_Environment ev = { 0 };
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
-static SPIBoolean is_gnome_app = FALSE;
-static GSList *live_refs = NULL;
+static SPIBoolean is_gnome_app = TRUE;
+static GHashTable *live_refs = NULL;
+
+static guint
+spi_object_hash (gconstpointer key)
+{
+  CORBA_Object object = (CORBA_Object) key;
+  guint        retval;
+  
+  retval = CORBA_Object_hash (object, 0, &ev);
+
+  return retval;
+}
+
+static gboolean
+spi_object_equal (gconstpointer a, gconstpointer b)
+{
+  CORBA_Object objecta = (CORBA_Object) a;
+  CORBA_Object objectb = (CORBA_Object) b;
+  gboolean     retval;
+
+  retval = CORBA_Object_is_equivalent (objecta, objectb, &ev);
+
+  return retval;
+}
+
+static void
+spi_object_release (gpointer  value)
+{
+  Accessible *a = (Accessible *) value;
+
+#ifdef DEBUG_OBJECTS
+  g_print ("releasing %p => %p\n", a, a->objref);
+#endif
+
+  bonobo_object_release_unref (a->objref, NULL);
+
+  memset (a, 0xaa, sizeof (Accessible));
+  a->ref_count = -1;
+
+#ifndef DEBUG_OBJECTS
+  g_free (a);
+#endif
+}
+
+
+SPIBoolean
+cspi_accessible_is_a (Accessible *obj,
+		      const char *interface_name)
+{
+  SPIBoolean        retval;
+  Bonobo_Unknown unknown;
+
+  if (obj == NULL)
+    {
+      return FALSE;
+    }
+
+  unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (obj),
+					   interface_name, cspi_ev ());
+
+  if (BONOBO_EX (cspi_ev ()))
+    {
+      g_error ("Exception '%s' checking if is '%s'",
+	       bonobo_exception_get_text (cspi_ev ()),
+	       interface_name);
+    }
+
+  if (unknown != CORBA_OBJECT_NIL)
+    {
+      retval = TRUE;
+      bonobo_object_release_unref (unknown, NULL);
+    }
+  else
+    {
+      retval = FALSE;
+    }
+
+  return retval;
+}
+
+static GHashTable *
+get_live_refs (void)
+{
+  if (!live_refs) 
+    {
+      live_refs = g_hash_table_new_full (spi_object_hash,
+					 spi_object_equal,
+					 NULL,
+					 spi_object_release);
+    }
+  return live_refs;
+}
 
 CORBA_Environment *
 cspi_ev (void)
@@ -54,21 +147,62 @@ cspi_object_add (CORBA_Object corba_object)
 {
   Accessible *ref;
 
-  if (corba_object != CORBA_OBJECT_NIL)
+  if (corba_object == CORBA_OBJECT_NIL)
     {
-      ref = g_new (Accessible, 1);
-
-      ref->objref = CORBA_Object_duplicate (corba_object, cspi_ev());
-      ref->ref_count = 1;
-
-      live_refs = g_slist_prepend (live_refs, ref);
+      ref = NULL;
     }
   else
-   {
-     ref = NULL;
-   }
+    {
+      if ((ref = g_hash_table_lookup (get_live_refs (), corba_object)))
+        {
+          g_assert (ref->ref_count > 0);
+	  ref->ref_count++;
+          bonobo_object_release_unref (corba_object, NULL);
+#ifdef DEBUG_OBJECTS
+          g_print ("returning cached %p => %p\n", ref, ref->objref);
+#endif
+	}
+      else
+        {
+          ref = g_new (Accessible, 1);
+
+#ifdef DEBUG_OBJECTS
+          g_print ("allocating %p => %p\n", ref, corba_object);
+#endif
+
+          ref->objref = corba_object;
+          ref->ref_count = 1;
+
+          g_hash_table_insert (get_live_refs (), ref->objref, ref);
+	}
+    }
 
   return ref;
+}
+
+Accessible *
+cspi_object_add_check (CORBA_Object corba_object)
+{
+  Accessible *retval;
+
+  if (ev._major == CORBA_USER_EXCEPTION &&
+      !strcmp (ev._id, ex_Accessibility_ChildGone))
+    {
+      retval = NULL;
+    }
+  else if (ev._major != CORBA_NO_EXCEPTION)
+    {
+      cspi_check_ev (cspi_ev (), "pre method check");
+      retval = NULL;
+    }
+  else
+    {
+      retval = cspi_object_add (corba_object);
+
+      cspi_check_ev (cspi_ev (), "post method check");
+    }
+
+  return retval;
 }
 
 void
@@ -82,41 +216,28 @@ cspi_object_ref (Accessible *accessible)
 void
 cspi_object_unref (Accessible *accessible)
 {
-  g_return_if_fail (accessible != NULL);
-	
+  if (accessible == NULL)
+    {
+      return;
+    }
+
   if (--accessible->ref_count == 0)
     {
-      live_refs = g_slist_remove (live_refs, accessible);
-
-      bonobo_object_release_unref (accessible->objref, cspi_ev ());
-
-      cspi_check_ev (cspi_ev (), "unref");
-
-      memset (accessible, 0xaa, sizeof (Accessible));
-
-      g_free (accessible);
+      g_hash_table_remove (get_live_refs (), accessible->objref);
     }
 }
 
 static void
 cspi_cleanup (void)
 {
-  GSList *l, *refs;
+  GHashTable *refs;
 
   refs = live_refs;
   live_refs = NULL;
-
-  for (l = refs; l; l = l->next)
+  if (refs)
     {
-      Accessible *a = l->data;
-
-      g_print ("releasing %p\n", l->data);
-      bonobo_object_release_unref (a->objref, NULL);
-
-      g_free (a);
+      g_hash_table_destroy (refs);
     }
-
-  g_slist_free (refs);
 
   if (registry != CORBA_OBJECT_NIL)
     {
@@ -125,26 +246,32 @@ cspi_cleanup (void)
     }
 }
 
+static gboolean SPI_inited = FALSE;
+
 /**
  * SPI_init:
+ * @isGNOMEApp: a #SPIBoolean indicating whether the client of the SPI
+ *              will use the Gnome event loop or not.  Clients that have
+ *              their own GUIS will usually specify #TRUE here, and must
+ *              do so if they use Gnome GUI components.
  *
  * Connects to the accessibility registry and initializes the SPI.
  *
  * Returns: 0 on success, otherwise an integer error code.
  **/
 int
-SPI_init (void)
+SPI_init (SPIBoolean isGNOMEApp)
 {
   int argc = 0;
   char *obj_id;
-  static gboolean inited = FALSE;
+  is_gnome_app = isGNOMEApp;
 
-  if (inited)
+  if (SPI_inited)
     {
       return 1;
     }
 
-  inited = TRUE;
+  SPI_inited = TRUE;
 
   CORBA_exception_init (&ev);
 
@@ -169,33 +296,30 @@ SPI_init (void)
       g_error ("Could not locate registry");
     }
 
-  Accessibility_Registry_ref (registry, &ev);
-  
   bonobo_activate ();
+
+  if (isGNOMEApp)
+    {
+      g_atexit (cspi_cleanup);
+    }
   
   return 0;
 }
 
 /**
  * SPI_event_main:
- * @isGNOMEApp: a #SPIBoolean indicating whether the client of the SPI
- *              will use the Gnome event loop or not.  Clients that have
- *              their own GUIS will usually specify #TRUE here, and must
- *              do so if they use Gnome GUI components.
  *
  * Starts/enters the main event loop for the SPI services.
  *
- * (NOTE: This method does not return control, it is exited via a call to SPI_exit()
- * from within an event handler).
+ * (NOTE: This method does not return control, it is exited via a call
+ * to SPI_exit() from within an event handler).
  *
  **/
 void
-SPI_event_main (SPIBoolean isGNOMEApp)
+SPI_event_main ()
 {
-  is_gnome_app = isGNOMEApp;
-  if (isGNOMEApp)
+  if (cspi_is_gnome_app ())
     {
-      g_atexit (cspi_cleanup);
       bonobo_main ();
     }
   else
@@ -250,7 +374,15 @@ SPI_nextEvent (SPIBoolean waitForEvent)
 void
 SPI_exit (void)
 {
-  cspi_cleanup();
+  if (!SPI_inited)
+    {
+      return;
+    }
+
+  SPI_inited = FALSE;
+
+  cspi_cleanup ();
+
   if (cspi_is_gnome_app ())
     {
       bonobo_main_quit ();

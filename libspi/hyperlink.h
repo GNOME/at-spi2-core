@@ -20,36 +20,31 @@
 #ifndef SPI_HYPERLINK_H_
 #define SPI_HYPERLINK_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
+#include <atk/atkhyperlink.h>
 
 G_BEGIN_DECLS
 
 #define SPI_HYPERLINK_TYPE        (spi_hyperlink_get_type ())
 #define SPI_HYPERLINK(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERLINK_TYPE, SpiHyperlink))
 #define SPI_HYPERLINK_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_HYPERLINK_TYPE, SpiHyperlinkClass))
-#define IS_SPI_HYPERLINK(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERLINK_TYPE))
-#define IS_SPI_HYPERLINK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERLINK_TYPE))
+#define SPI_IS_HYPERLINK(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERLINK_TYPE))
+#define SPI_IS_HYPERLINK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERLINK_TYPE))
 
-typedef struct _Hyperlink SpiHyperlink;
+typedef struct _Hyperlink      SpiHyperlink;
 typedef struct _HyperlinkClass SpiHyperlinkClass;
 
 struct _Hyperlink {
-  BonoboObject parent;
-  AtkHyperlink *hyperlink;
+  SpiBase parent;
 };
 
 struct _HyperlinkClass {
-  BonoboObjectClass parent_class;
+  SpiBaseClass parent_class;
   POA_Accessibility_Hyperlink__epv epv;
 };
 
-GType
-spi_hyperlink_get_type   (void);
-
-SpiHyperlink *
-spi_hyperlink_new       ();
+GType         spi_hyperlink_get_type (void);
+SpiHyperlink *spi_hyperlink_new      (AtkObject *object);
 
 G_END_DECLS
 

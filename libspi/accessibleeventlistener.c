@@ -79,6 +79,11 @@ impl_accessible_event_notify_event (PortableServer_Servant     servant,
     }
 
   g_signal_emit (G_OBJECT (listener), signals [EVENT], 0, e); 
+
+  if (e->source != CORBA_OBJECT_NIL)
+    {
+      Accessibility_Accessible_unref (e->source, ev);
+    }
 }
 
 static void

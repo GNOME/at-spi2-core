@@ -76,7 +76,10 @@ impl_notify_event (PortableServer_Servant     servant,
            ? "yes" : "no");
   */
 #endif
-  Accessibility_Accessible_unref (e->source, ev);
+  if (e->source != CORBA_OBJECT_NIL)
+    {
+      Accessibility_Accessible_unref (e->source, ev);
+    }
 }
 
 static void

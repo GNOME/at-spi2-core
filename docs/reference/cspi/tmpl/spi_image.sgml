@@ -62,3 +62,16 @@ AccessibleImage Interface
 @ctype: 
 
 
+<!-- ##### FUNCTION AccessibleImage_getImageExtents ##### -->
+<para>
+
+</para>
+
+@obj: 
+@x: 
+@y: 
+@width: 
+@height: 
+@ctype: 
+
+

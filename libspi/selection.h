@@ -20,36 +20,31 @@
 #ifndef SPI_SELECTION_H_
 #define SPI_SELECTION_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
+#include <atk/atkselection.h>
 
 G_BEGIN_DECLS
 
-#define SPI_SELECTION_TYPE        (spi_selection_get_type ())
-#define SPI_SELECTION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_SELECTION_TYPE, SpiSelection))
+#define SPI_SELECTION_TYPE            (spi_selection_get_type ())
+#define SPI_SELECTION(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_SELECTION_TYPE, SpiSelection))
 #define SPI_SELECTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_SELECTION_TYPE, SpiSelectionClass))
-#define IS_SPI_SELECTION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_SELECTION_TYPE))
-#define IS_SPI_SELECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_SELECTION_TYPE))
+#define SPI_IS_SELECTION(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_SELECTION_TYPE))
+#define SPI_IS_SELECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_SELECTION_TYPE))
 
-typedef struct _Selection SpiSelection;
-typedef struct _SelectionClass SpiSelectionClass;
+typedef struct _SpiSelection      SpiSelection;
+typedef struct _SpiSelectionClass SpiSelectionClass;
 
-struct _Selection {
-  BonoboObject parent;
-  AtkObject *atko;
+struct _SpiSelection {
+  SpiBase parent;
 };
 
-struct _SelectionClass {
-  BonoboObjectClass parent_class;
+struct _SpiSelectionClass {
+  SpiBaseClass parent_class;
   POA_Accessibility_Selection__epv epv;
 };
 
-GType
-spi_selection_get_type   (void);
-
-SpiSelection *
-spi_selection_interface_new       (AtkObject *obj);
+GType         spi_selection_get_type      (void);
+SpiSelection *spi_selection_interface_new (AtkObject *obj);
 
 G_END_DECLS
 

@@ -26,13 +26,10 @@
 #ifdef SPI_DEBUG
 #include <stdio.h>
 #endif
-#include <libspi/accessibleeventlistener.h>
+#include <libspi/eventlistener.h>
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_LISTENER_TYPE
-
-/* A pointer to our parent object class */
-static SpiListenerClass *spi_event_listener_parent_class;
 
 enum {
 	EVENT,
@@ -41,53 +38,29 @@ enum {
 static guint signals [LAST_SIGNAL];
 
 /*
- * Implemented GObject::finalize
- */
-static void
-spi_event_listener_object_finalize (GObject *object)
-{
-	SpiEventListener *listener = SPI_ACCESSIBLE_EVENT_SPI_LISTENER (object);
-#ifdef SPI_DEBUG
-        fprintf(stderr, "spi_listener_object_finalize called\n");
-#endif
-	g_list_free (listener->callbacks);
-
-        ((GObjectClass *) spi_event_listener_parent_class)->finalize (object);
-}
-
-/*
  * CORBA Accessibility::Listener::notifyEvent method implementation
  */
-
 static void
 impl_accessible_event_notify_event (PortableServer_Servant     servant,
                                     const Accessibility_Event *e,
                                     CORBA_Environment         *ev)
 {
-  GList *l;
-  VoidSpiEventListenerCB cb;
-  SpiEventListener *listener = SPI_ACCESSIBLE_EVENT_SPI_LISTENER (
-                                       bonobo_object_from_servant (servant));
+  SpiEventListener *listener = SPI_EVENT_LISTENER (
+	  bonobo_object_from_servant (servant));
 
-  for (l = listener->callbacks; l; l = l->next)
+  g_signal_emit (G_OBJECT (listener), signals [EVENT], 0, e);
+
+  if (e->source != CORBA_OBJECT_NIL)
     {
-      cb = (VoidSpiEventListenerCB) l->data;
-      if (cb)
-        {
-          (*cb) (e);
-        }
+      Accessibility_Accessible_unref (e->source, ev);
     }
-
-  g_signal_emit (G_OBJECT (listener), signals [EVENT], 0, e); 
 }
 
 static void
 spi_event_listener_class_init (SpiEventListenerClass *klass)
 {
-        GObjectClass * object_class = (GObjectClass *) klass;
-        SpiListenerClass * spi_listener_class = (SpiListenerClass *) klass;
+        SpiListenerClass *spi_listener_class = (SpiListenerClass *) klass;
         POA_Accessibility_EventListener__epv *epv = &spi_listener_class->epv;
-        spi_event_listener_parent_class = g_type_class_ref (SPI_LISTENER_TYPE);
 
 	signals [EVENT] = g_signal_new (
 		"event",
@@ -98,15 +71,12 @@ spi_event_listener_class_init (SpiEventListenerClass *klass)
 		g_cclosure_marshal_VOID__POINTER,
 		G_TYPE_NONE, 1, G_TYPE_POINTER);
 
-        object_class->finalize = spi_event_listener_object_finalize;
-
         epv->notifyEvent = impl_accessible_event_notify_event;
 }
 
 static void
 spi_event_listener_init (SpiEventListener *listener)
 {
-        listener->callbacks = NULL;
 }
 
 BONOBO_TYPE_FUNC (SpiEventListener,
@@ -117,20 +87,6 @@ SpiEventListener *
 spi_event_listener_new ()
 {
     SpiEventListener *retval = g_object_new (
-	    SPI_ACCESSIBLE_EVENT_SPI_LISTENER_TYPE, NULL);
+	    SPI_EVENT_LISTENER_TYPE, NULL);
     return retval;
-}
-
-void
-spi_event_listener_add_callback (SpiEventListener *listener,
-				 VoidSpiEventListenerCB callback)
-{
-  listener->callbacks = g_list_prepend (listener->callbacks, callback);
-}
-
-void
-spi_event_listener_remove_callback (SpiEventListener *listener,
-				    VoidSpiEventListenerCB callback)
-{
-  listener->callbacks = g_list_remove (listener->callbacks, callback);
 }

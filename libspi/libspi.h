@@ -37,8 +37,8 @@
 #include <libspi/text.h>
 #include <libspi/value.h>
 #include <libspi/listener.h>
+#include <libspi/eventlistener.h>
 #include <libspi/keystrokelistener.h>
-#include <libspi/accessibleeventlistener.h>
 #include <libspi/deviceeventcontroller.h>
 #include <libspi/registry.h>
 #include <libspi/keymasks.h>

@@ -31,8 +31,6 @@ static void
 spi_value_class_init (SpiValueClass *klass);
 static void
 spi_value_init (SpiValue *value);
-static void
-spi_value_finalize (GObject *obj);
 static CORBA_float
 impl__get_minimumValue (PortableServer_Servant _servant,
 			CORBA_Environment * ev);
@@ -48,24 +46,16 @@ impl__set_currentValue (PortableServer_Servant _servant,
 			CORBA_Environment * ev);
 
 
-
-static GObjectClass *parent_class;
-
-
 BONOBO_TYPE_FUNC_FULL (SpiValue,
 		       Accessibility_Value,
 		       BONOBO_TYPE_OBJECT,
 		       spi_value);
 
+
 static void
 spi_value_class_init (SpiValueClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_Value__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_value_finalize;
-
 
   /* Initialize epv table */
 
@@ -75,83 +65,100 @@ spi_value_class_init (SpiValueClass *klass)
   epv->_set_currentValue = impl__set_currentValue;
 }
 
+
 static void
 spi_value_init (SpiValue *value)
 {
 }
 
-static void
-spi_value_finalize (GObject *obj)
-{
-  SpiValue *value = SPI_VALUE (obj);
-  g_object_unref (value->atko);
-  value->atko = NULL;
-  parent_class->finalize (obj);
-}
 
 SpiValue *
 spi_value_interface_new (AtkObject *obj)
 {
   SpiValue *new_value = g_object_new (SPI_VALUE_TYPE, NULL);
-  new_value->atko = obj;
-  g_object_ref (obj);
+
+  spi_base_construct (SPI_BASE (new_value), obj);
+
   return new_value;
 }
 
 
+static AtkValue *
+get_value_from_servant (PortableServer_Servant servant)
+{
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+
+  if (!object)
+    {
+      return NULL;
+    }
+
+  return ATK_VALUE (object->atko);
+}
+
 
 static CORBA_float
-impl__get_minimumValue (PortableServer_Servant _servant,
-		       CORBA_Environment * ev)
+impl__get_minimumValue (PortableServer_Servant servant,
+			CORBA_Environment     *ev)
 {
-  SpiValue *value = SPI_VALUE (bonobo_object_from_servant (_servant));
-  GValue gvalue = {0, };
+  GValue    gvalue = {0, };
+  AtkValue *value = get_value_from_servant (servant);
+
+  g_return_val_if_fail (value != NULL, 0.0);
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
-  atk_value_get_minimum_value (ATK_VALUE(value->atko), &gvalue);
+  atk_value_get_minimum_value (value, &gvalue);
+
   return (CORBA_float) g_value_get_float (&gvalue);
 }
 
 
-
-static        CORBA_float
-impl__get_maximumValue (PortableServer_Servant _servant,
-			CORBA_Environment * ev)
+static CORBA_float
+impl__get_maximumValue (PortableServer_Servant servant,
+			CORBA_Environment     *ev)
 {
-  SpiValue *value = SPI_VALUE (bonobo_object_from_servant (_servant));
-  GValue gvalue = {0, };
+  GValue   gvalue = {0, };
+  AtkValue *value = get_value_from_servant (servant);
+
+  g_return_val_if_fail (value != NULL, 0.0);
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
-  atk_value_get_maximum_value (ATK_VALUE(value->atko), &gvalue);
+  atk_value_get_maximum_value (value, &gvalue);
+
   return (CORBA_float) g_value_get_float (&gvalue);
 }
 
 
-
 static CORBA_float
-impl__get_currentValue (PortableServer_Servant _servant,
-			CORBA_Environment * ev)
+impl__get_currentValue (PortableServer_Servant servant,
+			CORBA_Environment     *ev)
 {
-  SpiValue *value = SPI_VALUE (bonobo_object_from_servant (_servant));
-  GValue gvalue = {0, };
+  GValue   gvalue = {0, };
+  AtkValue *value = get_value_from_servant (servant);
+
+  g_return_val_if_fail (value != NULL, 0.0);
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
-  atk_value_get_current_value (ATK_VALUE(value->atko), &gvalue);
+  atk_value_get_current_value (value, &gvalue);
+
   return (CORBA_float) g_value_get_float (&gvalue);
 }
 
 
 static void 
-impl__set_currentValue (PortableServer_Servant _servant,
-			const CORBA_float value,
-			CORBA_Environment * ev)
+impl__set_currentValue (PortableServer_Servant servant,
+			const CORBA_float      value,
+			CORBA_Environment     *ev)
 {
-  SpiValue *val = SPI_VALUE (bonobo_object_from_servant (_servant));
-  GValue gvalue = {0, };
+  GValue    gvalue = {0, };
+  AtkValue *avalue = get_value_from_servant (servant);
+
+  g_return_if_fail (avalue != NULL);
 
   g_value_init (&gvalue, G_TYPE_FLOAT);
   g_value_set_float (&gvalue, (gfloat) value);
-  atk_value_set_current_value (ATK_VALUE(val->atko), &gvalue);
+
+  atk_value_set_current_value (avalue, &gvalue);
 }
 
 

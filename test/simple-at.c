@@ -27,12 +27,13 @@
 #include <sys/un.h>
 #include <cspi/spi.h>
 #include "../util/mag_client.h"
+#include "../cspi/spi-private.h" /* A hack for now */
 
-static void report_focus_event    (AccessibleEvent *event);
-static void report_button_press   (AccessibleEvent *event);
-static void check_property_change (AccessibleEvent *event);
-static SPIBoolean report_command_key_event  (AccessibleKeystroke *stroke);
-static SPIBoolean report_ordinary_key_event (AccessibleKeystroke *stroke);
+static void report_focus_event    (AccessibleEvent *event, void *user_data);
+static void report_button_press   (AccessibleEvent *event, void *user_data);
+static void check_property_change (AccessibleEvent *event, void *user_data);
+static SPIBoolean report_command_key_event  (AccessibleKeystroke *stroke, void *user_data);
+static SPIBoolean report_ordinary_key_event (AccessibleKeystroke *stroke, void *user_data);
 static void get_environment_vars (void);
 
 static int _festival_init ();
@@ -50,7 +51,7 @@ static AccessibleKeystrokeListener *command_key_listener;
 static AccessibleKeystrokeListener *ordinary_key_listener;
 
 int
-main(int argc, char **argv)
+main (int argc, char **argv)
 {
   int i, j;
   int n_desktops;
@@ -66,11 +67,11 @@ main(int argc, char **argv)
     exit(0);
   }
 
-  SPI_init();
+  SPI_init(TRUE);
 
-  focus_listener = createAccessibleEventListener (report_focus_event);
-  property_listener = createAccessibleEventListener (check_property_change); 
-  button_listener = createAccessibleEventListener (report_button_press);
+  focus_listener = createAccessibleEventListener (report_focus_event, NULL);
+  property_listener = createAccessibleEventListener (check_property_change, NULL); 
+  button_listener = createAccessibleEventListener (report_button_press, NULL);
   registerGlobalEventListener (focus_listener, "focus:");
   registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
   registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
@@ -95,8 +96,8 @@ main(int argc, char **argv)
     }
 
   /* prepare the keyboard snoopers */
-  command_key_listener = createAccessibleKeystrokeListener (report_command_key_event);
-  ordinary_key_listener = createAccessibleKeystrokeListener (report_ordinary_key_event);
+  command_key_listener = createAccessibleKeystrokeListener (report_command_key_event, NULL);
+  ordinary_key_listener = createAccessibleKeystrokeListener (report_ordinary_key_event, NULL);
   
   /* will listen only to Alt-key combinations, and only to KeyPress events */
   registerAccessibleKeystrokeListener(command_key_listener,
@@ -121,24 +122,26 @@ main(int argc, char **argv)
 
   get_environment_vars();
 
-  SPI_event_main(TRUE);
+  SPI_event_main();
 }
 
 static void
-get_environment_vars()
+get_environment_vars (void)
 {
-  if (getenv ("FESTIVAL"))
-  {
-    use_festival = TRUE;
-    if (getenv ("FESTIVAL_CHATTY"))
+  if (g_getenv ("FESTIVAL"))
     {
-      festival_chatty = TRUE;
+      fprintf (stderr, "Using festival\n");
+      use_festival = TRUE;
+      if (g_getenv ("FESTIVAL_CHATTY"))
+        {
+          festival_chatty = TRUE;
+	}
     }
-  }
-  if (getenv("MAGNIFIER"))
-  {
-    use_magnifier = TRUE;
-  }  
+  if (g_getenv ("MAGNIFIER"))
+    {
+      fprintf (stderr, "Using magnifier\n");
+      use_magnifier = TRUE;
+    }  
 }
 
 void
@@ -146,6 +149,9 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
 {
   char *s;
   int len;
+
+  g_warning ("Report focused !");
+
   if (use_festival)
     {
     if (festival_chatty) 	    
@@ -194,18 +200,33 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
 }
 
 void
-report_focus_event (AccessibleEvent *event)
+report_focus_event (AccessibleEvent *event, void *user_data)
 {
-  char *s = Accessible_getName (event->source);
-  fprintf (stderr, "%s event from %s\n", event->type, s);
-  SPI_freeString (s);
-  report_focussed_accessible (event->source, TRUE);
+  char *s;
+
+  g_warning ("report focus event");
+
+  g_return_if_fail (event->source != NULL);
+
+  s = Accessible_getName (event->source);
+  if (cspi_warn_ev (cspi_ev (), "Foobar"))
+    {
+      fprintf (stderr, "%s event from %s\n", event->type, s);
+      SPI_freeString (s);
+      report_focussed_accessible (event->source, TRUE);
+    }
+  Accessible_getParent (event->source);
 }
 
 void
-report_button_press (AccessibleEvent *event)
+report_button_press (AccessibleEvent *event, void *user_data)
 {
-  char *s = Accessible_getName (event->source);
+  char *s;
+
+  g_return_if_fail (event->source != NULL);
+
+  s = Accessible_getName (event->source);
+
   fprintf (stderr, "%s event from %s\n", event->type, s);
   SPI_freeString (s);
   s = Accessible_getDescription (event->source);
@@ -213,9 +234,8 @@ report_button_press (AccessibleEvent *event)
   SPI_freeString (s);
 }
 
-
 void
-check_property_change (AccessibleEvent *event)
+check_property_change (AccessibleEvent *event, void *user_data)
 {
   AccessibleSelection *selection = Accessible_getSelection (event->source);
   int n_selections;
@@ -242,7 +262,7 @@ check_property_change (AccessibleEvent *event)
 }
 
 static void
-simple_at_exit()
+simple_at_exit ()
 {
   deregisterGlobalEventListenerAll (focus_listener);
   deregisterGlobalEventListenerAll (property_listener);
@@ -280,7 +300,7 @@ is_command_key (AccessibleKeystroke *key)
 }
 
 static SPIBoolean
-report_command_key_event (AccessibleKeystroke *key)
+report_command_key_event (AccessibleKeystroke *key, void *user_data)
 {
   fprintf (stderr, "Command KeyEvent %s%c (keycode %d)\n",
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
@@ -292,7 +312,7 @@ report_command_key_event (AccessibleKeystroke *key)
 
 
 static SPIBoolean
-report_ordinary_key_event (AccessibleKeystroke *key)
+report_ordinary_key_event (AccessibleKeystroke *key, void *user_data)
 {
   fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
 	   (long) key->keyID,
@@ -302,7 +322,8 @@ report_ordinary_key_event (AccessibleKeystroke *key)
   return FALSE;
 }
 
-static int _festival_init ()
+static int
+_festival_init ()
 {
   int fd;
   struct sockaddr_in name;
@@ -326,7 +347,8 @@ static int _festival_init ()
   return fd;
 }
 
-static void _festival_say (const char *text, const char *voice, SPIBoolean shutup)
+static void 
+_festival_say (const char *text, const char *voice, SPIBoolean shutup)
 {
   static int fd = 0;
   gchar *quoted;
@@ -371,7 +393,8 @@ static void _festival_say (const char *text, const char *voice, SPIBoolean shutu
   g_free(quoted);
 }
 
-static void _festival_write (const gchar *command_string, int fd)
+static void
+_festival_write (const gchar *command_string, int fd)
 {
   fprintf(stderr, command_string);
   if (fd < 0) {

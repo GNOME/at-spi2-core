@@ -21,36 +21,31 @@
 #ifndef SPI_RELATION_H_
 #define SPI_RELATION_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
+#include <atk/atkrelation.h>
 
 G_BEGIN_DECLS
 
-#define SPI_RELATION_TYPE        (spi_relation_get_type ())
-#define SPI_RELATION(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_RELATION_TYPE, SpiRelation))
+#define SPI_RELATION_TYPE            (spi_relation_get_type ())
+#define SPI_RELATION(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_RELATION_TYPE, SpiRelation))
 #define SPI_RELATION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_RELATION_TYPE, SpiRelationClass))
-#define IS_SPI_RELATION(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_RELATION_TYPE))
-#define IS_SPI_RELATION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_RELATION_TYPE))
+#define SPI_IS_RELATION(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_RELATION_TYPE))
+#define SPI_IS_RELATION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_RELATION_TYPE))
 
 typedef struct _SpiRelation SpiRelation;
 typedef struct _SpiRelationClass SpiRelationClass;
 
 struct _SpiRelation {
-  BonoboObject parent;
-  AtkRelation *relation;
+  SpiBase parent;
 };
 
 struct _SpiRelationClass {
-  BonoboObjectClass parent_class;
+  SpiBaseClass parent_class;
   POA_Accessibility_Relation__epv epv;
 };
 
-GType
-spi_relation_get_type   (void);
-
-SpiRelation *
-spi_relation_new       (AtkRelation *relation);
+GType        spi_relation_get_type (void);
+SpiRelation *spi_relation_new      (AtkRelation *relation);
 
 G_END_DECLS
 

@@ -20,36 +20,30 @@
 #ifndef SPI_EDITABLE_TEXT_H_
 #define SPI_EDITABLE_TEXT_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
 #include <libspi/text.h>
 
 G_BEGIN_DECLS
 
-#define SPI_EDITABLE_TEXT_TYPE        (spi_editable_text_get_type ())
-#define SPI_EDITABLE_TEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_EDITABLE_TEXT_TYPE, SpiEditableText))
+#define SPI_EDITABLE_TEXT_TYPE            (spi_editable_text_get_type ())
+#define SPI_EDITABLE_TEXT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_EDITABLE_TEXT_TYPE, SpiEditableText))
 #define SPI_EDITABLE_TEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_EDITABLE_TEXT_TYPE, SpiEditableText))
-#define IS_SPI_EDITABLE_TEXT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_EDITABLE_TEXT_TYPE))
-#define IS_SPI_EDITABLE_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_EDITABLE_TEXT_TYPE))
+#define SPI_IS_EDITABLE_TEXT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_EDITABLE_TEXT_TYPE))
+#define SPI_IS_EDITABLE_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_EDITABLE_TEXT_TYPE))
 
-typedef struct _EditableText SpiEditableText;
-typedef struct _EditableTextClass SpiEditableTextClass;
+typedef struct _SpiEditableText      SpiEditableText;
+typedef struct _SpiEditableTextClass SpiEditableTextClass;
 
-struct _EditableText {
+struct _SpiEditableText {
   SpiText parent;
 };
 
-struct _EditableTextClass {
+struct _SpiEditableTextClass {
   SpiTextClass parent_class;
   POA_Accessibility_EditableText__epv epv;
 };
 
-GType
-spi_editable_text_get_type   (void);
-
-SpiEditableText *
-spi_editable_text_interface_new       ( AtkObject *obj);
+GType            spi_editable_text_get_type      (void);
+SpiEditableText *spi_editable_text_interface_new (AtkObject *obj);
 
 G_END_DECLS
 

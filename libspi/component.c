@@ -28,25 +28,17 @@
 #include <libspi/component.h>
 
 /* Our parent Gtk object type */
-#define PARENT_TYPE BONOBO_TYPE_OBJECT
+#define PARENT_TYPE SPI_TYPE_BASE
 
 /* A pointer to our parent object class */
 static GObjectClass *spi_component_parent_class;
 
-/*
- * Implemented GObject::finalize
- */
-static void
-accessibility_component_object_finalize (GObject *object)
+static AtkComponent *
+get_component_from_servant (PortableServer_Servant servant)
 {
-        SpiComponent *component = SPI_COMPONENT (object);
-
-        printf("spi_accessible_component_object_finalize called\n");
-        g_object_unref (component->atko);
-	component->atko = NULL;
-
-        printf("component atko freed, calling parent finalize\n");
-        spi_component_parent_class->finalize (object);
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+  g_return_val_if_fail (object != NULL, NULL);
+  return ATK_COMPONENT (object->atko);
 }
 
 /*
@@ -60,14 +52,11 @@ impl_accessibility_component_contains (PortableServer_Servant servant,
                                        CORBA_Environment     *ev)
 {
   CORBA_boolean retval;
-  BonoboObject *obj;
-  SpiComponent *component;
+  AtkComponent *component = get_component_from_servant (servant);
 
-  obj = bonobo_object_from_servant (servant);
-  g_return_val_if_fail (IS_SPI_COMPONENT(obj), FALSE);
-  component = SPI_COMPONENT (obj);
-  g_return_val_if_fail (ATK_IS_COMPONENT(component->atko), FALSE);
-  retval = atk_component_contains (ATK_COMPONENT (component->atko), (gint) x, (gint) y,
+  g_return_val_if_fail (component != NULL, FALSE);
+
+  retval = atk_component_contains (component, (gint) x, (gint) y,
                                   (AtkCoordType) coord_type);
   return retval;
 }
@@ -82,50 +71,40 @@ impl_accessibility_component_get_accessible_at_point (PortableServer_Servant ser
                                                       CORBA_short coord_type,
                                                       CORBA_Environment     *ev)
 {
-  BonoboObject *obj;
-  SpiComponent *component;
-  Accessibility_Accessible retval;
-  AtkObject *child;
+  AtkObject    *child;
+  AtkComponent *component = get_component_from_servant (servant);
 
-  obj = bonobo_object_from_servant (servant);
-  g_return_val_if_fail (IS_SPI_COMPONENT(obj), CORBA_OBJECT_NIL);
-  component = SPI_COMPONENT (obj);
-  g_return_val_if_fail (ATK_IS_COMPONENT(component->atko), CORBA_OBJECT_NIL);
+  g_return_val_if_fail (component != NULL, FALSE);
 
-  child = atk_component_ref_accessible_at_point (ATK_COMPONENT (component->atko),
-                                                  (gint) x, (gint) y,
-                                                  (AtkCoordType) coord_type);
-  retval = bonobo_object_corba_objref (bonobo_object (spi_accessible_new (child)));
-  return CORBA_Object_duplicate (retval, ev);
+  child = atk_component_ref_accessible_at_point (component,
+						 (gint) x, (gint) y,
+						 (AtkCoordType) coord_type);
+  return spi_accessible_new_return (child, TRUE, ev);
 }
 
 /*
  * CORBA Accessibility::Component::getExtents method implementation
  */
-static void
+static Accessibility_BoundingBox
 impl_accessibility_component_get_extents (PortableServer_Servant servant,
-                                          CORBA_long * x,
-                                          CORBA_long * y,
-                                          CORBA_long * width,
-                                          CORBA_long * height,
-                                          const CORBA_short coord_type,
+                                          const CORBA_short      coord_type,
                                           CORBA_Environment     *ev)
 {
-  BonoboObject *obj;
-  SpiComponent *component;
   gint ix, iy, iw, ih;
+  Accessibility_BoundingBox retval;
+  AtkComponent *component = get_component_from_servant (servant);
 
-  obj = bonobo_object_from_servant (servant);
-  g_return_if_fail (IS_SPI_COMPONENT(obj));
-  component = SPI_COMPONENT (obj);
-  g_return_if_fail (ATK_IS_COMPONENT (component->atko));
+  g_return_if_fail (component != NULL);
 
-  atk_component_get_extents (ATK_COMPONENT (component->atko), &ix, &iy, &iw, &ih,
-                                  (AtkCoordType) coord_type);
-  *x = (CORBA_long) ix;
-  *y = (CORBA_long) iy;
-  *width = (CORBA_long) iw;
-  *height = (CORBA_long) ih;
+  atk_component_get_extents (component, &ix, &iy, &iw, &ih,
+			     (AtkCoordType) coord_type);
+
+  retval.x = ix;
+  retval.y = ix;
+  retval.width = iw;
+  retval.height = ih;
+
+  return retval;
 }
 
 /*
@@ -138,15 +117,12 @@ impl_accessibility_component_get_position (PortableServer_Servant servant,
                                            const CORBA_short coord_type,
                                            CORBA_Environment     *ev)
 {
-  BonoboObject *obj = bonobo_object_from_servant (servant);
-  SpiComponent *component;
   gint ix, iy;
+  AtkComponent *component = get_component_from_servant (servant);
 
-  g_return_if_fail (IS_SPI_COMPONENT(obj));
-  component = SPI_COMPONENT(obj);
-  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
+  g_return_if_fail (component != NULL);
 
-  atk_component_get_position (ATK_COMPONENT (component->atko), &ix, &iy,
+  atk_component_get_position (component, &ix, &iy,
                               (AtkCoordType) coord_type);
   *x = (CORBA_long) ix;
   *y = (CORBA_long) iy;
@@ -161,14 +137,12 @@ impl_accessibility_component_get_size (PortableServer_Servant servant,
                                        CORBA_long * height,
                                        CORBA_Environment     *ev)
 {
-  SpiComponent *component;
-  BonoboObject *obj = bonobo_object_from_servant (servant);
   gint iw, ih;
+  AtkComponent *component = get_component_from_servant (servant);
 
-  g_return_if_fail (IS_SPI_COMPONENT(obj));
-  component = SPI_COMPONENT(obj);
-  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
-  atk_component_get_size (ATK_COMPONENT (component->atko), &iw, &ih);
+  g_return_if_fail (component != NULL);
+
+  atk_component_get_size (component, &iw, &ih);
   *width = (CORBA_long) iw;
   *height = (CORBA_long) ih;
 }
@@ -177,14 +151,12 @@ static Accessibility_ComponentLayer
 impl_accessibility_component_get_layer (PortableServer_Servant servant,
 					CORBA_Environment     *ev)
 {
-  SpiComponent *component;
-  AtkLayer atklayer;
-  BonoboObject *obj = bonobo_object_from_servant (servant);
+  AtkLayer      atklayer;
+  AtkComponent *component = get_component_from_servant (servant);
 
-  g_return_if_fail (IS_SPI_COMPONENT(obj));
-  component = SPI_COMPONENT(obj);
-  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
-  atklayer = atk_object_get_layer (ATK_OBJECT (component->atko));
+  g_return_val_if_fail (component != NULL, Accessibility_LAYER_INVALID);
+
+  atklayer = atk_object_get_layer (ATK_OBJECT (component));
   switch (atklayer)
     {
       case ATK_LAYER_BACKGROUND:
@@ -209,23 +181,18 @@ static CORBA_short
 impl_accessibility_component_get_mdi_z_order (PortableServer_Servant servant,
 					      CORBA_Environment     *ev)
 {
-  SpiComponent *component;
-  BonoboObject *obj = bonobo_object_from_servant (servant);
+  AtkComponent *component = get_component_from_servant (servant);
 
-  g_return_if_fail (IS_SPI_COMPONENT(obj));
-  component = SPI_COMPONENT(obj);
-  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
-  return (CORBA_short) atk_object_get_mdi_zorder (ATK_OBJECT (component->atko));
+  g_return_val_if_fail (component != NULL, -1);
+
+  return (CORBA_short) atk_object_get_mdi_zorder (ATK_OBJECT (component));
 }
 
 static void
 spi_component_class_init (SpiComponentClass *klass)
 {
-        GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_Component__epv *epv = &klass->epv;
         spi_component_parent_class = g_type_class_peek_parent (klass);
-
-        object_class->finalize = accessibility_component_object_finalize;
 
         epv->contains = impl_accessibility_component_contains;
         epv->getAccessibleAtPoint = impl_accessibility_component_get_accessible_at_point;
@@ -250,7 +217,8 @@ SpiComponent *
 spi_component_interface_new (AtkObject *o)
 {
     SpiComponent *retval = g_object_new (SPI_COMPONENT_TYPE, NULL);
-    retval->atko = o;
-    g_object_ref (o);
+
+    spi_base_construct (SPI_BASE (retval), o);
+
     return retval;
 }

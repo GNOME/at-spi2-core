@@ -20,32 +20,30 @@
 #ifndef SPI_ACCESSIBLE_H_
 #define SPI_ACCESSIBLE_H_
 
-#include <glib/gmacros.h>
-#include <bonobo/bonobo-object.h>
-#include <atk/atkobject.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
 
 G_BEGIN_DECLS
 
 #define SPI_ACCESSIBLE_TYPE        (spi_accessible_get_type ())
 #define SPI_ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_TYPE, SpiAccessible))
 #define SPI_ACCESSIBLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_TYPE, SpiAccessibleClass))
-#define IS_SPI_ACCESSIBLE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_ACCESSIBLE_TYPE))
-#define IS_SPI_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_TYPE))
+#define SPI_IS_ACCESSIBLE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_ACCESSIBLE_TYPE))
+#define SPI_IS_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_TYPE))
 
 typedef struct {
-        BonoboObject parent;
-        AtkObject *atko;
+	SpiBase parent;
 } SpiAccessible;
 
 typedef struct {
-        BonoboObjectClass parent_class;
+        SpiBaseClass parent_class;
         POA_Accessibility_Accessible__epv epv;
 } SpiAccessibleClass;
 
-GType          spi_accessible_get_type (void);
-SpiAccessible *spi_accessible_new      (AtkObject *o);
-
+GType                    spi_accessible_get_type   (void);
+SpiAccessible           *spi_accessible_new        (AtkObject         *o);
+Accessibility_Accessible spi_accessible_new_return (AtkObject         *o,
+						    gboolean           release_ref,
+						    CORBA_Environment *ev);
 
 G_END_DECLS
 

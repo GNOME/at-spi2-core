@@ -49,13 +49,10 @@ cspi_check_ev (CORBA_Environment *ev, const char *error_string)
 
       err = bonobo_exception_get_text (ev);
 
-      fprintf (stderr, "AT-SPI error: %s: %s\n",
-	       error_string, err);
+      g_warning ("AT-SPI error: %s: %s\n", error_string, err);
 
       g_free (err);
 
       CORBA_exception_free (ev);
-
-      exit (-1);
     }
 }

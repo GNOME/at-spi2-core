@@ -25,6 +25,7 @@
 #include <config.h>
 #include <stdio.h>
 #include <libspi/action.h>
+#include <atk/atkaction.h>
 
 /*
  * Static function declarations
@@ -34,8 +35,6 @@ static void
 spi_action_class_init (SpiActionClass *klass);
 static void
 spi_action_init (SpiAction *action);
-static void
-spi_action_finalize (GObject *obj);
 static CORBA_long
 impl__get_nActions(PortableServer_Servant servant,
 		 CORBA_Environment * ev);
@@ -55,22 +54,15 @@ impl_getKeyBinding (PortableServer_Servant servant,
 		    const CORBA_long index,
 		    CORBA_Environment * ev);
 
-static GObjectClass *parent_class;
-
 BONOBO_TYPE_FUNC_FULL (SpiAction,
 		       Accessibility_Action,
-		       BONOBO_TYPE_OBJECT,
+		       SPI_TYPE_BASE,
 		       spi_action);
 
 static void
 spi_action_class_init (SpiActionClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_Action__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_action_finalize;
-
 
   /* Initialize epv table */
 
@@ -86,66 +78,63 @@ spi_action_init (SpiAction *action)
 {
 }
 
-static void
-spi_action_finalize (GObject *obj)
-{
-  SpiAction *action = SPI_ACTION (obj);
-  g_object_unref (action->atko);
-  action->atko = NULL;
-  parent_class->finalize (obj);
-}
-
 SpiAction *
 spi_action_interface_new (AtkObject *obj)
 {
   SpiAction *new_action = g_object_new (SPI_ACTION_TYPE, NULL);
-  new_action->atko = obj;
-  g_object_ref (obj);
+
+  spi_base_construct (SPI_BASE (new_action), obj);
+
   return new_action;
 }
 
-static CORBA_long
-impl__get_nActions(PortableServer_Servant servant,
-	    CORBA_Environment * ev)
+static AtkAction *
+get_action_from_servant (PortableServer_Servant servant)
 {
-  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
-  return (CORBA_long) atk_action_get_n_actions (ATK_ACTION(action->atko));
+  SpiBase *object = SPI_BASE (servant);
+  return ATK_ACTION (object->atko);
+}
+
+static CORBA_long
+impl__get_nActions (PortableServer_Servant servant,
+		    CORBA_Environment     *ev)
+{
+  AtkAction *action = get_action_from_servant (servant);
+  return (CORBA_long) atk_action_get_n_actions (action);
 }
 
 static CORBA_boolean
 impl_doAction (PortableServer_Servant servant,
 	       const CORBA_long index, CORBA_Environment * ev)
 {
-  SpiAction *action = SPI_ACTION (bonobo_object_from_servant (servant));
-  return (CORBA_boolean) atk_action_do_action (ATK_ACTION(action->atko), (gint) index);
+  AtkAction *action = get_action_from_servant (servant);
+  return (CORBA_boolean) atk_action_do_action (action, (gint) index);
 }
-
 
 static CORBA_string
 impl_getDescription (PortableServer_Servant servant,
 		const CORBA_long index,
 		CORBA_Environment * ev)
 {
-  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
+  AtkAction *action = get_action_from_servant (servant);
   const gchar *rv;
   
-  rv = atk_action_get_description (ATK_ACTION(action->atko), (gint) index);
+  rv = atk_action_get_description (action, (gint) index);
   if (rv)
     return CORBA_string_dup (rv);
   else
     return CORBA_string_dup ("");
 }
 
-
 static CORBA_string
 impl_getName (PortableServer_Servant servant,
 		const CORBA_long index,
 		CORBA_Environment * ev)
 {
-  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
+  AtkAction *action = get_action_from_servant (servant);
   const gchar *rv;
   
-  rv = atk_action_get_name (ATK_ACTION(action->atko), (gint) index);
+  rv = atk_action_get_name (action, (gint) index);
   if (rv)
     return CORBA_string_dup (rv);
   else
@@ -157,10 +146,10 @@ impl_getKeyBinding (PortableServer_Servant servant,
 		    const CORBA_long index,
 		    CORBA_Environment * ev)
 {
-  SpiAction *action = SPI_ACTION (bonobo_object_from_servant(servant));
+  AtkAction *action = get_action_from_servant (servant);
   const gchar *rv;
   
-  rv = atk_action_get_keybinding (ATK_ACTION(action->atko), (gint) index);
+  rv = atk_action_get_keybinding (action, (gint) index);
   if (rv)
     return CORBA_string_dup (rv);
   else

@@ -1,3 +1,4 @@
+#error This is a stale header ...
 /*
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)

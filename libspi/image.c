@@ -26,81 +26,88 @@
 #include <stdio.h>
 #include <libspi/image.h>
 
-/* A pointer to our parent object class */
-static GObjectClass *parent_class;
-
-static void
-spi_image_finalize (GObject *obj)
-{
-  SpiImage *image = SPI_IMAGE (obj);
-  g_object_unref (image->atko);
-  image->atko = NULL;
-  parent_class->finalize (obj);
-}
 
 SpiImage *
 spi_image_interface_new (AtkObject *obj)
 {
   SpiImage *new_image = g_object_new (SPI_IMAGE_TYPE, NULL);
-  new_image->atko = obj;
-  g_object_ref (obj);
+
+  spi_base_construct (SPI_BASE (new_image), obj);
+
   return new_image;
 }
 
 
+static AtkImage *
+get_image_from_servant (PortableServer_Servant servant)
+{
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+
+  if (!object)
+    {
+      return NULL;
+    }
+
+  return ATK_IMAGE (object->atko);
+}
+
 
 static void 
-impl_getImagePosition (PortableServer_Servant _servant,
+impl_getImagePosition (PortableServer_Servant servant,
 		       CORBA_long * x, CORBA_long * y,
 		       const CORBA_short coordType,
-		       CORBA_Environment * ev)
+		       CORBA_Environment *ev)
 {
-  SpiImage *image = SPI_IMAGE (bonobo_object_from_servant(_servant));
-  atk_image_get_image_position (ATK_IMAGE(image->atko),
+  AtkImage *image = get_image_from_servant (servant);
+
+  g_return_if_fail (image != NULL);
+
+  atk_image_get_image_position (image,
 				(gint *) x, (gint *) y,
 				(AtkCoordType) coordType);
 }
 
 
-
 static void 
-impl_getImageSize (PortableServer_Servant _servant,
+impl_getImageSize (PortableServer_Servant servant,
 		   CORBA_long * width, CORBA_long * height,
-			    CORBA_Environment * ev)
+		   CORBA_Environment *ev)
 {
-  SpiImage *image = SPI_IMAGE (bonobo_object_from_servant(_servant));
-  atk_image_get_image_size (ATK_IMAGE(image->atko),
+  AtkImage *image = get_image_from_servant (servant);
+
+  g_return_if_fail (image != NULL);
+
+  atk_image_get_image_size (image,
 			    (gint *) width, (gint *) height);
 }
-
 
 
 static CORBA_string 
 impl__get_imageDescription (PortableServer_Servant servant,
 			    CORBA_Environment     *ev)
 {
-  SpiImage *image;
   const char *rv;
+  AtkImage   *image = get_image_from_servant (servant);
 
-  image = SPI_IMAGE (bonobo_object_from_servant (servant));
+  g_return_val_if_fail (image != NULL, CORBA_string_dup (""));
 
-  rv = atk_image_get_image_description (ATK_IMAGE (image->atko));
+  rv = atk_image_get_image_description (image);
+
   if (rv)
-    return CORBA_string_dup (rv);
+    {
+      return CORBA_string_dup (rv);
+    }
   else
-    return CORBA_string_dup ("");
+    {
+      return CORBA_string_dup ("");
+    }
 }
 
 
 static void
 spi_image_class_init (SpiImageClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_Image__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_image_finalize;
-
 
   /* Initialize epv table */
 
@@ -116,5 +123,5 @@ spi_image_init (SpiImage *image)
 
 BONOBO_TYPE_FUNC_FULL (SpiImage,
 		       Accessibility_Image,
-		       BONOBO_TYPE_OBJECT,
+		       SPI_TYPE_BASE,
 		       spi_image);

@@ -20,25 +20,23 @@
 #ifndef SPI_COMPONENT_H_
 #define SPI_COMPONENT_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
+#include <atk/atkcomponent.h>
 
 G_BEGIN_DECLS
 
 #define SPI_COMPONENT_TYPE        (spi_component_get_type ())
 #define SPI_COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_COMPONENT_TYPE, SpiComponent))
 #define SPI_COMPONENT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_COMPONENT_TYPE, SpiComponentClass))
-#define IS_SPI_COMPONENT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_COMPONENT_TYPE))
-#define IS_SPI_COMPONENT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_COMPONENT_TYPE))
+#define SPI_IS_COMPONENT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_COMPONENT_TYPE))
+#define SPI_IS_COMPONENT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_COMPONENT_TYPE))
 
 typedef struct {
-        BonoboObject parent;
-        AtkObject   *atko;
+        SpiBase parent;
 } SpiComponent;
 
 typedef struct {
-        BonoboObjectClass parent_class;
+        SpiBaseClass parent_class;
         POA_Accessibility_Component__epv epv;
 } SpiComponentClass;
 

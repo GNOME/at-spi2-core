@@ -32,94 +32,28 @@
 /* Our parent Gtk object type  */
 #define PARENT_TYPE BONOBO_TYPE_OBJECT
 
-/* A pointer to our parent object class */
-static BonoboObjectClass *keystroke_listener_parent_class;
-
 enum {
 	KEY_EVENT,
 	LAST_SIGNAL
 };
 static guint signals [LAST_SIGNAL];
 
-/* GObject::finalize */
-static void
-spi_keystroke_listener_object_finalize (GObject *object)
-{
-  SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (object);
-
-  g_list_free (listener->callbacks);
-#ifdef SPI_DEBUG
-  fprintf(stderr, "keystroke_listener_object_finalize called\n");
-#endif
-  ((GObjectClass *) keystroke_listener_parent_class)->finalize (object);
-}
-
-void   spi_keystroke_listener_add_callback (SpiKeystrokeListener *listener,
-					    BooleanKeystrokeListenerCB callback)
-{
-  listener->callbacks = g_list_append (listener->callbacks, callback);
-#ifdef SPI_DEBUG
-        fprintf(stderr, "keystroke_listener_add_callback (%p) called\n",
-		(gpointer) callback);
-#endif
-}
-
-void
-spi_keystroke_listener_remove_callback (SpiKeystrokeListener *listener,
-					BooleanKeystrokeListenerCB callback)
-{
-  listener->callbacks = g_list_remove (listener->callbacks, callback);
-}
-
 /*
  * CORBA Accessibility::KeystrokeListener::keyEvent method implementation
  */
 static CORBA_boolean
-impl_key_event (PortableServer_Servant     servant,
+impl_key_event (PortableServer_Servant         servant,
 		const Accessibility_KeyStroke *key,
-		CORBA_Environment         *ev)
+		CORBA_Environment             *ev)
 {
-  SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (bonobo_object_from_servant (servant));
-  GList *callbacks = listener->callbacks;
   gboolean was_consumed = FALSE;
+  SpiKeystrokeListener *listener = SPI_KEYSTROKE_LISTENER (
+	  bonobo_object_from_servant (servant));
 
   g_signal_emit (G_OBJECT (listener), signals [KEY_EVENT], 0, key, &was_consumed);
-  if (was_consumed)
-    {
-      return TRUE;
-    }
 
-#ifdef SPI_KEYEVENT_DEBUG
-  if (ev->_major != CORBA_NO_EXCEPTION) {
-    fprintf(stderr,
-            ("Accessibility app error: exception during keystroke notification: %s\n"),
-            CORBA_exception_id(ev));
-    exit(-1);
-  }
-  else {
-    fprintf(stderr, "%s%c",
-	    (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
-	    ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
-	    (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID));
-  }
-#endif
-  /* TODO: convert from the CORBA-based struct to a c-type-based one ? */
-#ifdef SPI_KEYSTROKE_DEBUG  
-    fprintf (stderr, "Key:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
-	   (long) key->keyID,
-	   (unsigned int) key->modifiers,
-	   (int) key->keycode,
-	   (long int) key->timestamp);
-#endif
-  while (callbacks)
-  {
-	  BooleanKeystrokeListenerCB cb = (BooleanKeystrokeListenerCB) callbacks->data;
-	  was_consumed = (*cb) (key) || was_consumed;
-	  callbacks = g_list_next (callbacks);
-  }
   return was_consumed;
 }
-
 
 static gboolean
 boolean_handled_accumulator (GSignalInvocationHint *ihint,
@@ -178,9 +112,7 @@ marshal_BOOLEAN__POINTER (GClosure     *closure,
 static void
 spi_keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_KeystrokeListener__epv *epv = &klass->epv;
-  keystroke_listener_parent_class = g_type_class_peek_parent (klass);
   
   signals [KEY_EVENT] = g_signal_new (
     "key_event",
@@ -191,15 +123,12 @@ spi_keystroke_listener_class_init (SpiKeystrokeListenerClass *klass)
     marshal_BOOLEAN__POINTER,
     G_TYPE_BOOLEAN, 1, G_TYPE_POINTER);
   
-  object_class->finalize = spi_keystroke_listener_object_finalize;
-  
   epv->keyEvent = impl_key_event;
 }
 
 static void
 spi_keystroke_listener_init (SpiKeystrokeListener *keystroke_listener)
 {
-  keystroke_listener->callbacks = NULL;
 }
 
 BONOBO_TYPE_FUNC_FULL (SpiKeystrokeListener,

@@ -20,9 +20,7 @@
 #ifndef SPI_ACTION_H_
 #define SPI_ACTION_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
 
 G_BEGIN_DECLS
 
@@ -36,20 +34,16 @@ typedef struct _Action SpiAction;
 typedef struct _ActionClass SpiActionClass;
 
 struct _Action {
-  BonoboObject parent;
-  AtkObject *atko;
+  SpiBase parent;
 };
 
 struct _ActionClass {
-  BonoboObjectClass parent_class;
+  SpiBaseClass parent_class;
   POA_Accessibility_Action__epv epv;
 };
 
-GType
-spi_action_get_type   (void);
-
-SpiAction *
-spi_action_interface_new       (AtkObject *obj);
+GType      spi_action_get_type      (void);
+SpiAction *spi_action_interface_new (AtkObject *obj);
 
 G_END_DECLS
 

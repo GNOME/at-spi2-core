@@ -1,37 +1,26 @@
 #include <stdlib.h> /* for malloc */
 #include <cspi/spi-private.h>
 
-#define MAX_ROLES 100
-
-static char *role_names [MAX_ROLES] =
+static const char *role_names [] =
 {
-  " ",
-  "accelerator label",
+  "<invalid>",
   "alert",
-  "animation",
-  "arrow",
-  "calendar",
   "canvas",
   "check box",
-  "menu item",
   "color chooser",
   "column header",
   "combo box",
-  "date editor",
   "desktop icon",
   "desktop frame",
-  "dial",
   "dialog",
   "directory pane",
-  "drawing area",
   "file chooser",
   "filler",
-  "font chooser",
+  "focus traversable",
   "frame",
   "glass pane",
   "HTML container",
   "icon",
-  "image",
   "internal frame",
   "label",
   "layered pane",
@@ -49,7 +38,6 @@ static char *role_names [MAX_ROLES] =
   "progress bar",
   "pushbutton",
   "radiobutton",
-  "radio menu item",
   "root pane",
   "row header",
   "scrollbar",
@@ -57,22 +45,37 @@ static char *role_names [MAX_ROLES] =
   "separator",
   "slider",
   "split pane",
-  "spin button",
-  "status bar",
   "table",
   "table cell",
   "table column header",
   "table row header",
-  "tearoff menu item",
   "text",
   "toggle button",
   "toolbar",
   "tooltip",
   "tree",
-  " ",
+  "<unknown>",
   "viewport",
   "window",
+
+  /* These have no equivalent AccessibleRole enum values */
+  "accelerator label",
+  "animation",
+  "arrow",
+  "calendar",
+  "menu item",
+  "date editor",
+  "dial",
+  "drawing area",
+  "font chooser",
+  "image",
+  "radio menu item",
+  "tearoff menu item",
+  "spin button",
+  "status bar",
 };
+
+#define MAX_ROLES (sizeof (role_names) / sizeof (char *))
 
 /**
  * AccessibleRole_getName:
@@ -82,16 +85,21 @@ static char *role_names [MAX_ROLES] =
  *
  * Returns: a localizable string name for an #AccessibleRole enumerated type.
  **/
-char*
+const char *
 AccessibleRole_getName (AccessibleRole role)
 {
+  if (role < MAX_ROLES)
+    {
+      return role_names [(int) role];
+    }
+  else
+    {
+      return "";
+    }
   /*
    * TODO: replace with implementation linked to ATK, which
    *  now supports Role/Name mapping
    */
-	
-  if (role < MAX_ROLES) return role_names [(int) role];
-  else return "";
 }
 
 /**
@@ -215,8 +223,7 @@ Accessible *
 Accessible_getChildAtIndex (Accessible *obj,
                             long int childIndex)
 {
-  Accessible *retval = cspi_object_add (Accessibility_Accessible_getChildAtIndex (CSPI_OBJREF (obj), childIndex, cspi_ev ()));
-  cspi_check_ev (cspi_ev (), "getChildAtIndex");
+  Accessible *retval = cspi_object_add_check (Accessibility_Accessible_getChildAtIndex (CSPI_OBJREF (obj), childIndex, cspi_ev ()));
   return retval;
 }
 
@@ -264,9 +271,11 @@ Accessible_getRelationSet (Accessible *obj)
   
   for (i=0; i<n_relations; ++i)
     {
-      relations[i] = cspi_object_add (relation_set->_buffer[i]);
+      relations[i] = cspi_object_add (CORBA_Object_duplicate (relation_set->_buffer[i], cspi_ev ()));
     }
   relations[i] = CORBA_OBJECT_NIL;
+
+  CORBA_free (relation_set);
 
   return relations;
 }
@@ -280,10 +289,10 @@ Accessible_getRelationSet (Accessible *obj)
  * Returns: a UTF-8 string indicating the UI role of the #Accessible object.
  *
  **/
-char *
+const char *
 Accessible_getRole (Accessible *obj)
 {
-  char *retval = AccessibleRole_getName (
+  const char *retval = AccessibleRole_getName (
 		  Accessibility_Accessible_getRole (CSPI_OBJREF (obj), cspi_ev ()));
   cspi_check_ev (cspi_ev (), "getRole");
   return retval;
@@ -305,36 +314,6 @@ Accessible_getStateSet (Accessible *obj)
 
 /* Interface query methods */
 
-static SPIBoolean
-cspi_accessible_is_a (Accessible *obj,
-		     const char *interface_name)
-{
-  SPIBoolean        retval;
-  Bonobo_Unknown unknown;
-
-  unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (obj),
-					   interface_name, cspi_ev ());
-
-  if (BONOBO_EX (cspi_ev ()))
-    {
-      g_error ("Exception '%s' checking if is '%s'",
-	       bonobo_exception_get_text (cspi_ev ()),
-	       interface_name);
-    }
-
-  if (unknown != CORBA_OBJECT_NIL)
-    {
-      retval = TRUE;
-      bonobo_object_release_unref (unknown, NULL);
-    }
-  else
-    {
-      retval= FALSE;
-    }
-
-  return retval;
-}
-
 /**
  * Accessible_isAction:
  * @obj: a pointer to the #Accessible instance to query.
@@ -349,6 +328,22 @@ Accessible_isAction (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
 			      "IDL:Accessibility/Action:1.0");
+}
+
+/**
+ * Accessible_isApplication:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleApplication.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleApplication interface,
+ *          #FALSE otherwise.
+ **/
+SPIBoolean
+Accessible_isApplication (Accessible *obj)
+{
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Application:1.0");
 }
 
 /**
@@ -477,6 +472,22 @@ Accessible_isValue (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
 			      "IDL:Accessibility/Value:1.0");
+}
+
+/**
+ * Accessible_getApplication:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleApplication interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleApplication interface instance, or
+ *          NULL if @obj does not implement #AccessibleApplication.
+ **/
+AccessibleApplication *
+Accessible_getApplication (Accessible *obj)
+{
+  return (AccessibleApplication *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Application:1.0");
 }
 
 /**
@@ -650,6 +661,11 @@ GenericInterface *
 Accessible_queryInterface (Accessible *obj, char *interface_name)
 {
   Bonobo_Unknown iface;
+  
+  if (!obj)
+    {
+      return NULL;
+    }
 
   iface = Accessibility_Accessible_queryInterface (CSPI_OBJREF (obj),
 						   interface_name,

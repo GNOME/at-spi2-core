@@ -1,50 +1,88 @@
-#include <libspi/base.h>
+/*
+ * AT-SPI - Assistive Technology Service Provider Interface
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2001 Ximian Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+/* object.c: the base object managing an AtkObject proxy */
+
+#include <config.h>
+#include <stdio.h>
+#include <libspi/libspi.h>
+
+/* Our parent Gtk object type  */
+#define PARENT_TYPE BONOBO_TYPE_OBJECT
 
 /* A pointer to our parent object class */
 static GObjectClass *spi_base_parent_class;
 
+/*
+ * Implemented GObject::dispose
+ */
 static void
-spi_base_dispose (GObject *object)
+spi_base_object_dispose (GObject *gobject)
 {
-	SpiBase *base = SPI_BASE (object);
+  SpiBase *object = SPI_BASE (gobject);
 
-	if (base->atko) {
-		g_object_unref (base->atko);
-		base->atko = NULL;
-	}
+  if (object->atko)
+    {
+      g_assert (ATK_IS_OBJECT (object->atko));
+      g_object_unref (G_OBJECT (object->atko));
+      object->atko = NULL;
+    }
 
-	spi_base_parent_class->dispose (object);
+  spi_base_parent_class->dispose (gobject);
 }
 
 static void
-spi_base_class_init (GObjectClass *klass)
+spi_base_class_init (SpiBaseClass *klass)
 {
-	spi_base_parent_class = g_type_klass_peek_parent (klass);
+        GObjectClass * object_class = (GObjectClass *) klass;
 
-	klass->dispose = spi_base_dispose;
+        spi_base_parent_class = g_type_class_peek_parent (klass);
+
+        object_class->dispose = spi_base_object_dispose;
 }
 
 static void
-spi_base_init (SpiBase *base)
+spi_base_init (SpiBase *object)
 {
 }
 
-BONOBO_TYPE_FUNC (SpiBase, BONOBO_TYPE_OBJECT, spi_base);
+BONOBO_TYPE_FUNC (SpiBase, PARENT_TYPE, spi_base);
 
-gpointer
-spi_base_construct (SpiBase   *base,
-		    AtkObject *o)
+void
+spi_base_construct (SpiBase *object, AtkObject *aobject)
 {
-	g_return_val_if_fail (ATK_IS_OBJECT (o), NULL);
-	g_return_val_if_fail (SPI_IS_BASE (base), NULL);
+  object->atko = g_object_ref (G_OBJECT (aobject));
+}
 
-	base->atko = g_object_ref (o);
+void
+spi_base_construct_default (SpiBase *object)
+{
+  object->atko = g_object_new (ATK_TYPE_OBJECT, NULL);
 }
 
 AtkObject *
-spi_base_get_atk_object (SpiBase *base)
+spi_base_get_atkobject (SpiBase *object)
 {
-	g_return_val_if_fail (SPI_IS_BASE (base), NULL);
+  g_return_val_if_fail (ATK_IS_OBJECT (object), NULL);
 
-	return base->atko;
+  return object->atko;
 }

@@ -27,158 +27,162 @@
 #include <libspi/accessible.h>
 #include <libspi/selection.h>
 
-/* A pointer to our parent object class */
-static GObjectClass *parent_class;
-
-static void
-spi_selection_finalize (GObject *obj)
-{
-  SpiSelection *selection = SPI_SELECTION (obj);
-  g_object_unref (selection->atko);
-  selection->atko = NULL;
-  parent_class->finalize (obj);
-}
 
 SpiSelection *
 spi_selection_interface_new (AtkObject *obj)
 {
   SpiSelection *new_selection = g_object_new (SPI_SELECTION_TYPE, NULL);
-  new_selection->atko = obj;
-  g_object_ref (obj);
+
+  spi_base_construct (SPI_BASE (new_selection), obj);
+
   return new_selection;
 }
 
 
+static AtkSelection *
+get_selection_from_servant (PortableServer_Servant servant)
+{
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+
+  if (!object)
+    {
+      return NULL;
+    }
+
+  return ATK_SELECTION (object->atko);
+}
+
 
 static CORBA_long
-impl__get_nSelectedChildren (PortableServer_Servant _servant,
-			     CORBA_Environment * ev)
+impl__get_nSelectedChildren (PortableServer_Servant servant,
+			     CORBA_Environment     *ev)
 {
-  BonoboObject *obj = bonobo_object_from_servant (_servant);
-  SpiSelection *selection;
-#ifdef SPI_DEBUG
-  fprintf (stderr, "calling impl__get_nSelectedChildren\n");
-#endif
-  g_return_val_if_fail (IS_SPI_SELECTION (obj), 0);
-  selection = SPI_SELECTION (obj);
-  g_return_val_if_fail (ATK_IS_SELECTION (selection->atko), 0);
-  return (CORBA_long)
-    atk_selection_get_selection_count (ATK_SELECTION(selection->atko));
+  AtkSelection *selection = get_selection_from_servant (servant);
+
+  g_return_val_if_fail (selection != NULL, 0);
+
+  return (CORBA_long) atk_selection_get_selection_count (selection);
 }
 
 
 static Accessibility_Accessible
-impl_getSelectedChild (PortableServer_Servant _servant,
-		       const CORBA_long selectedChildIndex,
-		       CORBA_Environment * ev)
+impl_getSelectedChild (PortableServer_Servant servant,
+		       const CORBA_long       selectedChildIndex,
+		       CORBA_Environment     *ev)
 {
-  BonoboObject *obj = bonobo_object_from_servant (_servant);
-  SpiSelection
-	  *selection;
-  AtkObject *atk_object;
-  Accessibility_Accessible rv;
+  AtkObject    *atk_object;
+  AtkSelection *selection = get_selection_from_servant (servant);
+
+  g_return_val_if_fail (selection != NULL, CORBA_OBJECT_NIL);
+
 #ifdef SPI_DEBUG
   fprintf (stderr, "calling impl_getSelectedChild\n");
 #endif
-  g_return_val_if_fail (IS_SPI_SELECTION (obj), 0);
-  selection = SPI_SELECTION (obj);
-  g_return_val_if_fail (ATK_IS_SELECTION (selection->atko), 0);
 
-  atk_object = atk_selection_ref_selection (ATK_SELECTION (selection->atko),
+  atk_object = atk_selection_ref_selection (selection,
 					    (gint) selectedChildIndex);
-  g_return_val_if_fail (ATK_IS_OBJECT (atk_object), NULL);
+
+  g_return_val_if_fail (ATK_IS_OBJECT (atk_object), CORBA_OBJECT_NIL);
+
 #ifdef SPI_DEBUG
-  fprintf (stderr, "child type is %s\n", g_type_name (G_OBJECT_TYPE (atk_object)));
+  fprintf (stderr, "child type is %s\n",
+	   g_type_name (G_OBJECT_TYPE (atk_object)));
 #endif
-  rv = bonobo_object_corba_objref (bonobo_object (spi_accessible_new (atk_object)));
-  g_object_unref (atk_object);
-  return CORBA_Object_duplicate (rv, ev);
-}
 
+  return spi_accessible_new_return (atk_object, TRUE, ev);
+}
 
 
 static CORBA_boolean
-impl_selectChild (PortableServer_Servant _servant,
-		  const CORBA_long childIndex,
-		  CORBA_Environment * ev)
+impl_selectChild (PortableServer_Servant servant,
+		  const CORBA_long       childIndex,
+		  CORBA_Environment     *ev)
 {
-  SpiSelection *selection = SPI_SELECTION (bonobo_object_from_servant (_servant));
+  AtkSelection *selection = get_selection_from_servant (servant);
+
+  g_return_val_if_fail (selection != NULL, FALSE);
+
   return (CORBA_boolean)
-    atk_selection_add_selection (ATK_SELECTION(selection->atko), (gint) childIndex);
+    atk_selection_add_selection (selection, (gint) childIndex);
 }
-
-
 
 
 static CORBA_boolean
-impl_deselectSelectedChild (PortableServer_Servant _servant,
-			    const CORBA_long selectedChildIndex,
-			    CORBA_Environment * ev)
+impl_deselectSelectedChild (PortableServer_Servant servant,
+			    const CORBA_long       selectedChildIndex,
+			    CORBA_Environment     *ev)
 {
-  SpiSelection *selection = SPI_SELECTION (bonobo_object_from_servant (_servant));
-  return (CORBA_boolean)
-    atk_selection_remove_selection (ATK_SELECTION(selection->atko), (gint) selectedChildIndex);
-}
+  AtkSelection *selection = get_selection_from_servant (servant);
 
+  g_return_val_if_fail (selection != NULL, FALSE);
+
+  return (CORBA_boolean)
+    atk_selection_remove_selection (selection, (gint) selectedChildIndex);
+}
 
 
 static CORBA_boolean
-impl_isChildSelected (PortableServer_Servant _servant,
-		      const CORBA_long childIndex,
-		      CORBA_Environment * ev)
+impl_isChildSelected (PortableServer_Servant servant,
+		      const CORBA_long       childIndex,
+		      CORBA_Environment     *ev)
 {
-  SpiSelection *selection = SPI_SELECTION (bonobo_object_from_servant (_servant));
-  return (CORBA_boolean)
-    atk_selection_is_child_selected (ATK_SELECTION(selection->atko), (gint) childIndex);
-}
+  AtkSelection *selection = get_selection_from_servant (servant);
 
+  g_return_val_if_fail (selection != NULL, FALSE);
+
+  return (CORBA_boolean)
+    atk_selection_is_child_selected (selection, (gint) childIndex);
+}
 
 
 static void 
-impl_selectAll (PortableServer_Servant _servant,
-		CORBA_Environment * ev)
+impl_selectAll (PortableServer_Servant servant,
+		CORBA_Environment     *ev)
 {
-  SpiSelection *selection = SPI_SELECTION (bonobo_object_from_servant (_servant));
-  atk_selection_select_all_selection (ATK_SELECTION(selection->atko));
-}
+  AtkSelection *selection = get_selection_from_servant (servant);
 
+  g_return_if_fail (selection != NULL);
+
+  atk_selection_select_all_selection (selection);
+}
 
 
 static void 
-impl_clearSelection (PortableServer_Servant _servant,
-		     CORBA_Environment * ev)
+impl_clearSelection (PortableServer_Servant servant,
+		     CORBA_Environment     *ev)
 {
-  SpiSelection *selection = SPI_SELECTION (bonobo_object_from_servant (_servant));
-  atk_selection_clear_selection (ATK_SELECTION(selection->atko));
+  AtkSelection *selection = get_selection_from_servant (servant);
+
+  g_return_if_fail (selection != NULL);
+
+  atk_selection_clear_selection (selection);
 }
+
 
 static void
 spi_selection_class_init (SpiSelectionClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_Selection__epv *epv = &klass->epv;
-  parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_selection_finalize;
-
 
   /* Initialize epv table */
 
   epv->_get_nSelectedChildren = impl__get_nSelectedChildren;
-  epv->getSelectedChild = impl_getSelectedChild;
-  epv->selectChild = impl_selectChild;
-  epv->deselectSelectedChild = impl_deselectSelectedChild;
-  epv->isChildSelected = impl_isChildSelected;
-  epv->selectAll = impl_selectAll;
-  epv->clearSelection = impl_clearSelection;
+  epv->getSelectedChild       = impl_getSelectedChild;
+  epv->selectChild            = impl_selectChild;
+  epv->deselectSelectedChild  = impl_deselectSelectedChild;
+  epv->isChildSelected        = impl_isChildSelected;
+  epv->selectAll              = impl_selectAll;
+  epv->clearSelection         = impl_clearSelection;
 }
+
 
 static void
 spi_selection_init (SpiSelection *selection)
 {
 }
 
+
 BONOBO_TYPE_FUNC_FULL (SpiSelection,
 		       Accessibility_Selection,
-		       BONOBO_TYPE_OBJECT,
+		       SPI_TYPE_BASE,
 		       spi_selection);

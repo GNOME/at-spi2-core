@@ -170,7 +170,7 @@ SPIBoolean
 AccessibleSelection_selectAll (AccessibleSelection *obj)
 {
   Accessibility_Selection_selectAll (CSPI_OBJREF (obj), cspi_ev ());
-  return TRUE; /* TODO: change the bonobo method to return boolean */
+  return TRUE; /* TODO: change the bonobo method to return SPIBoolean */
 }
 
 

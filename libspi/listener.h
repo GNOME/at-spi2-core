@@ -32,8 +32,8 @@ G_BEGIN_DECLS
 #define SPI_LISTENER_TYPE        (spi_listener_get_type ())
 #define SPI_LISTENER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_LISTENER_TYPE, SpiListener))
 #define SPI_LISTENER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_LISTENER_TYPE, SpiListenerClass))
-#define IS_SPI_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_LISTENER_TYPE))
-#define IS_SPI_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_LISTENER_TYPE))
+#define SPI_IS_LISTENER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_LISTENER_TYPE))
+#define SPI_IS_LISTENER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_LISTENER_TYPE))
 
 typedef struct {
         BonoboObject parent;
@@ -44,8 +44,8 @@ typedef struct {
         POA_Accessibility_EventListener__epv epv;
 } SpiListenerClass;
 
-GType               spi_listener_get_type   (void);
-SpiListener            *spi_listener_new       (void);
+GType        spi_listener_get_type (void);
+SpiListener *spi_listener_new      (void);
 
 G_END_DECLS
 

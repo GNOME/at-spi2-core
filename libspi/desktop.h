@@ -23,23 +23,19 @@
 #ifndef SPI_DESKTOP_H_
 #define SPI_DESKTOP_H_
 
-#include <bonobo/bonobo-xobject.h>
-#include <atk/atkobject.h>
 #include <libspi/accessible.h>
-#include <libspi/application.h>
-#include <libspi/Accessibility.h>
 
 G_BEGIN_DECLS
 
 #define SPI_DESKTOP_TYPE        (spi_desktop_get_type ())
 #define SPI_DESKTOP(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_DESKTOP_TYPE, SpiDesktop))
 #define SPI_DESKTOP_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_DESKTOP_TYPE, SpiDesktopClass))
-#define IS_SPI_DESKTOP(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_DESKTOP_TYPE))
-#define IS_SPI_DESKTOP_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DESKTOP_TYPE))
+#define SPI_IS_DESKTOP(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_DESKTOP_TYPE))
+#define SPI_IS_DESKTOP_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DESKTOP_TYPE))
 
 typedef struct {
         SpiAccessible parent;
-        GList *applications; /* TODO: maybe change this so it's generated on-demand ? */
+        GList        *applications;
 } SpiDesktop;
 
 typedef struct {
@@ -47,10 +43,12 @@ typedef struct {
         POA_Accessibility_Desktop__epv epv;
 } SpiDesktopClass;
 
-GType               spi_desktop_get_type           (void);
-void                spi_desktop_add_application    (SpiApplication *app);
-void                spi_desktop_remove_application (SpiApplication *app);
-SpiDesktop             *spi_desktop_new               (void);
+GType       spi_desktop_get_type           (void);
+SpiDesktop *spi_desktop_new                (void);
+void        spi_desktop_add_application    (SpiDesktop *desktop,
+					    const Accessibility_Application application);
+void        spi_desktop_remove_application (SpiDesktop *desktop,
+					    const Accessibility_Application application);
 
 G_END_DECLS
 

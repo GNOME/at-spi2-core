@@ -20,28 +20,25 @@
 #ifndef SPI_HYPERTEXT_H_
 #define SPI_HYPERTEXT_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
 #include <libspi/text.h>
 
 G_BEGIN_DECLS
 
-#define SPI_HYPERTEXT_TYPE        (spi_hypertext_get_type ())
-#define SPI_HYPERTEXT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERTEXT_TYPE, SpiHypertext))
+#define SPI_HYPERTEXT_TYPE            (spi_hypertext_get_type ())
+#define SPI_HYPERTEXT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_HYPERTEXT_TYPE, SpiHypertext))
 #define SPI_HYPERTEXT_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_HYPERTEXT_TYPE, SpiHypertextClass))
-#define IS_SPI_HYPERTEXT(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERTEXT_TYPE))
-#define IS_HYPESPI_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERTEXT_TYPE))
+#define SPI_IS_HYPERTEXT(obj)         (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_HYPERTEXT_TYPE))
+#define SPI_IS_HYPERTEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_HYPERTEXT_TYPE))
 
-typedef struct _Hypertext SpiHypertext;
-typedef struct _HypertextClass SpiHypertextClass;
+typedef struct _SpiHypertext      SpiHypertext;
+typedef struct _SpiHypertextClass SpiHypertextClass;
 
-struct _Hypertext {
+struct _SpiHypertext {
   SpiText parent;
 };
 
-struct _HypertextClass {
-  BonoboObjectClass parent_class;
+struct _SpiHypertextClass {
+  SpiTextClass parent_class;
   POA_Accessibility_Hypertext__epv epv;
 };
 

@@ -23,19 +23,15 @@
 #ifndef SPI_APPLICATION_H_
 #define SPI_APPLICATION_H_
 
-#include <glib/gmacros.h>
-#include <atk/atkobject.h>
 #include <libspi/accessible.h>
-#include <libspi/application.h>
-#include <libspi/Accessibility.h>
 
 G_BEGIN_DECLS
 
 #define SPI_APPLICATION_TYPE        (spi_application_get_type ())
 #define SPI_APPLICATION(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_APPLICATION_TYPE, SpiApplication))
 #define SPI_APPLICATION_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_APPLICATION_TYPE, SpiApplicationClass))
-#define IS_SPI_APPLICATION(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_APPLICATION_TYPE))
-#define IS_SPI_APPLICATION_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_APPLICATION_TYPE))
+#define SPI_IS_APPLICATION(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_APPLICATION_TYPE))
+#define SPI_IS_APPLICATION_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_APPLICATION_TYPE))
 
 typedef struct {
         SpiAccessible parent;
@@ -51,7 +47,11 @@ typedef struct {
 } SpiApplicationClass;
 
 GType           spi_application_get_type (void);
-SpiApplication *spi_application_new      (AtkObject *app_root);
+SpiApplication *spi_application_new      (AtkObject    *app_root);
+void            spi_emit_eventv          (GObject      *gobject,
+					  unsigned long detail1,
+					  unsigned long detail2,
+					  const char   *format, ...);
 
 G_END_DECLS
 

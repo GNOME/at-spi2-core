@@ -25,32 +25,38 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <atk/atktext.h>
 #include <libspi/text.h>
 
 /* Our parent Gtk object type */
-#define PARENT_TYPE BONOBO_TYPE_OBJECT
+#define PARENT_TYPE SPI_TYPE_BASE
 
-/* A pointer to our parent object class */
-static GObjectClass *spi_text_parent_class;
+static AtkText *
+get_text_from_servant (PortableServer_Servant servant)
+{
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+
+  if (!object)
+    {
+      return NULL;
+    }
+
+  return ATK_TEXT (object->atko);
+}
 
 static CORBA_string
-impl_getText (PortableServer_Servant _servant,
-	      const CORBA_long startOffset,
-	      const CORBA_long endOffset,
-	      CORBA_Environment * ev)
+impl_getText (PortableServer_Servant servant,
+	      const CORBA_long       startOffset,
+	      const CORBA_long       endOffset,
+	      CORBA_Environment     *ev)
 {
-  SpiText *text;
   gchar *txt;
   CORBA_string rv;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
+
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
   
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
-  
-  txt = atk_text_get_text (ATK_TEXT(text->atko),
-		       (gint) startOffset, (gint) endOffset);
+  txt = atk_text_get_text (text, (gint) startOffset, (gint) endOffset);
   if (txt)
     {
       rv = CORBA_string_dup (txt);
@@ -58,34 +64,30 @@ impl_getText (PortableServer_Servant _servant,
     }
   else
     rv = CORBA_string_dup ("");
+
   return rv;
 }
 
 
-
 CORBA_string
-impl_getTextAfterOffset (PortableServer_Servant _servant,
+impl_getTextAfterOffset (PortableServer_Servant servant,
 			 const CORBA_long offset,
 			 const
 			 Accessibility_TEXT_BOUNDARY_TYPE
 			 type, CORBA_long * startOffset,
 			 CORBA_long * endOffset,
-			 CORBA_Environment * ev)
+			 CORBA_Environment *ev)
 {
-  SpiText *text;
   gchar *txt;
   CORBA_char *rv;
   gint intStartOffset, intEndOffset;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
-  
-  txt = atk_text_get_text_after_offset (ATK_TEXT(text->atko),
-				    (gint) offset, (AtkTextBoundary) type,
-				    &intStartOffset, &intEndOffset);
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
+
+  txt = atk_text_get_text_after_offset (text,
+					(gint) offset, (AtkTextBoundary) type,
+					&intStartOffset, &intEndOffset);
   *startOffset = (CORBA_long) intStartOffset;
   *endOffset = (CORBA_long) intEndOffset;
 
@@ -93,36 +95,34 @@ impl_getTextAfterOffset (PortableServer_Servant _servant,
     {
       rv = CORBA_string_dup (txt);
       g_free (txt);
-      }
+    }
   else
     rv = CORBA_string_dup ("");
+
   return rv;
 }
 
 
-
 static CORBA_string
-impl_getTextAtOffset (PortableServer_Servant _servant,
+impl_getTextAtOffset (PortableServer_Servant servant,
 		      const CORBA_long offset,
 		      const Accessibility_TEXT_BOUNDARY_TYPE type,
 		      CORBA_long * startOffset,
 		      CORBA_long * endOffset,
-		      CORBA_Environment * ev)
+		      CORBA_Environment *ev)
 {
-  SpiText *text;
   CORBA_char *txt;
   CORBA_char *rv;
   gint intStartOffset, intEndOffset;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
-  txt = (CORBA_char *) atk_text_get_text_at_offset (ATK_TEXT (text->atko),
-				    (gint) offset, (AtkTextBoundary) type,
-				    &intStartOffset, &intEndOffset);
+  txt = (CORBA_char *) atk_text_get_text_at_offset (
+	  text,
+	  (gint) offset, (AtkTextBoundary) type,
+	  &intStartOffset, &intEndOffset);
+
   *startOffset = (CORBA_long) intStartOffset;
   *endOffset = (CORBA_long) intEndOffset;
 
@@ -139,46 +139,39 @@ impl_getTextAtOffset (PortableServer_Servant _servant,
 
 
 static CORBA_unsigned_long
-impl_getCharacterAtOffset (PortableServer_Servant _servant,
+impl_getCharacterAtOffset (PortableServer_Servant servant,
 			   const CORBA_long offset,
-			   CORBA_Environment * ev)
+			   CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_unsigned_long)0);
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_unsigned_long)0);
+  AtkText *text = get_text_from_servant (servant);
+
+  g_return_val_if_fail (text != NULL, 0);
 
   return (CORBA_unsigned_long)
-    atk_text_get_character_at_offset (ATK_TEXT(text->atko), (gint) offset);
+    atk_text_get_character_at_offset (text, (gint) offset);
 }
 
 
 static CORBA_string
-impl_getTextBeforeOffset (PortableServer_Servant _servant,
+impl_getTextBeforeOffset (PortableServer_Servant servant,
 			  const CORBA_long offset,
 			  const
 			  Accessibility_TEXT_BOUNDARY_TYPE
 			  type, CORBA_long * startOffset,
 			  CORBA_long * endOffset,
-			  CORBA_Environment * ev)
+			  CORBA_Environment *ev)
 {
-  SpiText *text;
   gchar *txt;
   CORBA_char *rv;
   gint intStartOffset, intEndOffset;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
-  txt = atk_text_get_text_before_offset (ATK_TEXT(text->atko),
-				    (gint) offset, (AtkTextBoundary) type,
-				    &intStartOffset, &intEndOffset);
+  txt = atk_text_get_text_before_offset (text,
+					 (gint) offset, (AtkTextBoundary) type,
+					 &intStartOffset, &intEndOffset);
+
   *startOffset = (CORBA_long) intStartOffset;
   *endOffset = (CORBA_long) intEndOffset;
 
@@ -189,256 +182,196 @@ impl_getTextBeforeOffset (PortableServer_Servant _servant,
     }
   else
     rv = CORBA_string_dup ("");
+
   return rv;
 }
 
 
 static CORBA_long
-impl__get_caretOffset (PortableServer_Servant _servant,
-		     CORBA_Environment * ev)
+impl__get_caretOffset (PortableServer_Servant servant,
+		     CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)-1);
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_long)-1);
-  
-  return (CORBA_long)
-    atk_text_get_caret_offset (ATK_TEXT(text->atko));
+  g_return_val_if_fail (text != NULL, -1);
+
+  return (CORBA_long) atk_text_get_caret_offset (text);
 }
 
 
-
 static CORBA_string
-impl_getAttributes (PortableServer_Servant _servant,
-		       const CORBA_long offset,
-		       CORBA_long * startOffset,
-		       CORBA_long * endOffset,
-		       CORBA_Environment * ev)
+impl_getAttributes (PortableServer_Servant servant,
+		    const CORBA_long offset,
+		    CORBA_long * startOffset,
+		    CORBA_long * endOffset,
+		    CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_char *)"");
-  text = SPI_TEXT (obj);
-  g_return_val_if_fail (ATK_IS_TEXT (text->atko), (CORBA_char *)"");
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
 
   g_print ("getAttributes not yet implemented.\n");
 
   return CORBA_string_dup ("");
 }
 
+
 static void 
-impl_getCharacterExtents (PortableServer_Servant _servant,
+impl_getCharacterExtents (PortableServer_Servant servant,
 			  const CORBA_long offset, CORBA_long * x,
 			  CORBA_long * y, CORBA_long * width,
 			  CORBA_long * height,
 			  const CORBA_short coordType,
-			  CORBA_Environment * ev)
+			  CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_TEXT (obj));
-  text = SPI_TEXT (obj);
-  g_return_if_fail (ATK_IS_TEXT (text->atko));
+  g_return_if_fail (text != NULL);
 
-  atk_text_get_character_extents (ATK_TEXT(text->atko), (gint) offset,
-				  (gint *) x, (gint *) y, (gint *) width, (gint *) height,
-				  (AtkCoordType) coordType);
+  /* FIXME: Casting a CORBA_long to a gint * is inherantly risky */
+  atk_text_get_character_extents (
+	  text, (gint) offset,
+	  (gint *) x, (gint *) y, (gint *) width, (gint *) height,
+	  (AtkCoordType) coordType);
 }
 
 
-
 static CORBA_long
-impl__get_characterCount (PortableServer_Servant _servant,
-			CORBA_Environment * ev)
+impl__get_characterCount (PortableServer_Servant servant,
+			  CORBA_Environment    *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
   CORBA_long retval;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)0);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, 0);
 
-  retval = (CORBA_long)
-    atk_text_get_character_count (ATK_TEXT(text->atko));
+  retval = (CORBA_long) atk_text_get_character_count (text);
 
   return retval;
 }
 
 
-
 static CORBA_long
-impl_getOffsetAtPoint (PortableServer_Servant _servant,
+impl_getOffsetAtPoint (PortableServer_Servant servant,
 		       const CORBA_long x, const CORBA_long y,
 		       const CORBA_short coordType,
-		       CORBA_Environment * ev)
+		       CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)-1);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, -1);
 
   return (CORBA_long)
-    atk_text_get_offset_at_point (ATK_TEXT(text->atko),
-				  (gint) x, (gint) y, (AtkCoordType) coordType);
+    atk_text_get_offset_at_point (text,
+				  (gint) x, (gint) y,
+				  (AtkCoordType) coordType);
 }
-
 
 
 static CORBA_long
-impl_getNSelections (PortableServer_Servant _servant,
-		     CORBA_Environment * ev)
+impl_getNSelections (PortableServer_Servant servant,
+		     CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_long)0);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, 0);
 
-  return (CORBA_long)
-    atk_text_get_n_selections (ATK_TEXT(text->atko));
+  return (CORBA_long) atk_text_get_n_selections (text);
 }
-
 
 
 static void 
-impl_getSelection (PortableServer_Servant _servant,
+impl_getSelection (PortableServer_Servant servant,
 		   const CORBA_long selectionNum,
 		   CORBA_long * startOffset, CORBA_long * endOffset,
-		   CORBA_Environment * ev)
+		   CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_TEXT (obj));
-  text = SPI_TEXT (obj);
+  g_return_if_fail (text != NULL);
 
-  atk_text_get_selection (ATK_TEXT(text->atko), (gint) selectionNum,
+  atk_text_get_selection (text, (gint) selectionNum,
 			  (gint *) startOffset, (gint *) endOffset);
 }
 
 
-
 static CORBA_boolean
-impl_addSelection (PortableServer_Servant _servant,
+impl_addSelection (PortableServer_Servant servant,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
-		   CORBA_Environment * ev)
+		   CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, FALSE);
 
   return (CORBA_boolean)
-    atk_text_add_selection (ATK_TEXT(text->atko),
+    atk_text_add_selection (text,
 			    (gint) startOffset, (gint) endOffset);
 }
 
 
-
 static CORBA_boolean
-impl_removeSelection (PortableServer_Servant _servant,
+impl_removeSelection (PortableServer_Servant servant,
 		      const CORBA_long selectionNum,
-		      CORBA_Environment * ev)
+		      CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, FALSE);
 
   return (CORBA_boolean)
-    atk_text_remove_selection (ATK_TEXT(text->atko), (gint) selectionNum);
+    atk_text_remove_selection (text, (gint) selectionNum);
 }
 
 
-
 static CORBA_boolean
-impl_setSelection (PortableServer_Servant _servant,
+impl_setSelection (PortableServer_Servant servant,
 		   const CORBA_long selectionNum,
 		   const CORBA_long startOffset,
 		   const CORBA_long endOffset,
-		   CORBA_Environment * ev)
+		   CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, FALSE);
 
   return (CORBA_boolean)
-    atk_text_set_selection (ATK_TEXT(text->atko),
+    atk_text_set_selection (text,
 			    (gint) selectionNum, (gint) startOffset, (gint) endOffset);
 }
 
 
-
 static CORBA_boolean
-impl_setCaretOffset (PortableServer_Servant _servant,
+impl_setCaretOffset (PortableServer_Servant servant,
 		     const CORBA_long value,
-		     CORBA_Environment * ev)
+		     CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_TEXT (obj), (CORBA_boolean)FALSE);
-  text = SPI_TEXT (obj);
+  g_return_val_if_fail (text != NULL, FALSE);
 
   return (CORBA_boolean)
-    atk_text_set_caret_offset (ATK_TEXT(text->atko), (gint) value);
+    atk_text_set_caret_offset (text, (gint) value);
 }
 
 
-
 static void 
-impl_getRowColAtOffset (PortableServer_Servant _servant,
+impl_getRowColAtOffset (PortableServer_Servant servant,
 			const CORBA_long offset, CORBA_long * row,
-			CORBA_long * column, CORBA_Environment * ev)
+			CORBA_long * column, CORBA_Environment *ev)
 {
-  SpiText *text;
-  BonoboObject *obj;
+  AtkText *text = get_text_from_servant (servant);
 
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_TEXT (obj));
-  text = SPI_TEXT (obj);
+  g_return_if_fail (text != NULL);
 
   g_print ("getRowColAtOffset not yet implemented\n");
 }
 
 static void
-spi_text_object_finalize (GObject *obj)
-{
-  SpiText *text = SPI_TEXT (obj);
-  g_object_unref (text->atko);
-  text->atko = NULL;
-  spi_text_parent_class->finalize (obj);
-}
-
-static void
 spi_text_class_init (SpiTextClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_Text__epv *epv = &klass->epv;
-  spi_text_parent_class = g_type_class_peek_parent (klass);
-
-  object_class->finalize = spi_text_object_finalize;
 
   /* Initialize epv table */
 
@@ -470,11 +403,22 @@ BONOBO_TYPE_FUNC_FULL (SpiText,
 		       PARENT_TYPE,
 		       spi_text);
 
+void
+spi_text_construct (SpiText *text, AtkObject *obj)
+{
+  spi_base_construct (SPI_BASE (text), obj);
+}
+
 SpiText *
 spi_text_interface_new (AtkObject *obj)
 {
-  SpiText *new_text = g_object_new (SPI_TEXT_TYPE, NULL);
-  new_text->atko = obj;
-  g_object_ref (obj);
-  return new_text;
+  SpiText *retval;
+
+  g_return_val_if_fail (ATK_IS_TEXT (obj), NULL);
+
+  retval = g_object_new (SPI_TEXT_TYPE, NULL);
+
+  spi_text_construct (retval, obj);
+
+  return retval;
 }

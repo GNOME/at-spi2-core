@@ -20,28 +20,26 @@
 #ifndef SPI_VALUE_H_
 #define SPI_VALUE_H_
 
-#include <bonobo/bonobo-object.h>
-#include <atk/atk.h>
-#include <libspi/Accessibility.h>
+#include <libspi/base.h>
+#include <atk/atkvalue.h>
 
 G_BEGIN_DECLS
 
-#define SPI_VALUE_TYPE        (spi_value_get_type ())
-#define SPI_VALUE(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_VALUE_TYPE, SpiValue))
-#define SPI_ACTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_VALUE_TYPE, SpiValueClass))
-#define IS_SPI_VALUE(obj)       (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_VALUE_TYPE))
-#define IS_SPI_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_VALUE_TYPE))
+#define SPI_VALUE_TYPE            (spi_value_get_type ())
+#define SPI_VALUE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_VALUE_TYPE, SpiValue))
+#define SPI_ACTION_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST((klass), SPI_VALUE_TYPE, SpiValueClass))
+#define SPI_IS_VALUE(obj)         (G_TYPE_CHECK__INSTANCE_TYPE ((obj), SPI_VALUE_TYPE))
+#define SPI_IS_VALUE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_VALUE_TYPE))
 
 typedef struct _Value SpiValue;
 typedef struct _ValueClass SpiValueClass;
 
 struct _Value {
-  BonoboObject parent;
-  AtkObject *atko;
+  SpiBase parent;
 };
 
 struct _ValueClass {
-  BonoboObjectClass parent_class;
+  SpiBaseClass parent_class;
   POA_Accessibility_Value__epv epv;
 };
 

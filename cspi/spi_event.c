@@ -33,12 +33,13 @@
  *
  **/
 AccessibleEventListener *
-createAccessibleEventListener (AccessibleEventListenerCB callback)
+createAccessibleEventListener (AccessibleEventListenerCB callback,
+			       void                     *user_data)
 {
   AccessibleEventListener *listener = cspi_event_listener_new ();
   if (callback)
     {
-      AccessibleEventListener_addCallback (listener, callback);
+      AccessibleEventListener_addCallback (listener, callback, user_data);
     }
   return listener;
 }
@@ -60,9 +61,10 @@ createAccessibleEventListener (AccessibleEventListenerCB callback)
  **/
 SPIBoolean
 AccessibleEventListener_addCallback (AccessibleEventListener *listener,
-				     AccessibleEventListenerCB callback)
+				     AccessibleEventListenerCB callback,
+				     void                     *user_data)
 {
-  cspi_event_listener_add_callback (listener, callback);
+  cspi_event_listener_add_callback (listener, callback, user_data);
   return TRUE;
 }
 
@@ -94,12 +96,13 @@ AccessibleEventListener_removeCallback (AccessibleEventListener  *listener,
  *
  **/
 AccessibleKeystrokeListener *
-createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback)
+createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback,
+				   void                         *user_data)
 {
   CSpiKeystrokeListener *listener = cspi_keystroke_listener_new ();
   if (callback)
     {
-      AccessibleKeystrokeListener_addCallback (listener, callback);
+      AccessibleKeystrokeListener_addCallback (listener, callback, user_data);
     }
   return (AccessibleKeystrokeListener *)listener;
 }
@@ -116,9 +119,10 @@ createAccessibleKeystrokeListener (AccessibleKeystrokeListenerCB callback)
  **/
 SPIBoolean
 AccessibleKeystrokeListener_addCallback (AccessibleKeystrokeListener *listener,
-					 AccessibleKeystrokeListenerCB callback)
+					 AccessibleKeystrokeListenerCB callback,
+					 void                         *user_data)
 {
-  cspi_keystroke_listener_add_callback (listener, callback);
+  cspi_keystroke_listener_add_callback (listener, callback, user_data);
   return TRUE;
 }
 
@@ -140,14 +144,14 @@ AccessibleKeystrokeListener_removeCallback (AccessibleKeystrokeListener *listene
   return TRUE;
 }
 
-
 /**
  * AccessibleKeystrokeListener_unref:
  * @listener: a pointer to the #AccessibleKeystrokeListener being operated on.
  *
  * Decrements an #AccessibleKeystrokeListener's reference count.
  **/
-void AccessibleKeystrokeListener_unref (AccessibleKeystrokeListener *listener)
+void
+AccessibleKeystrokeListener_unref (AccessibleKeystrokeListener *listener)
 {
   /* Would prefer this not to be bonobo api */
   bonobo_object_unref (BONOBO_OBJECT (listener));

@@ -146,7 +146,7 @@ typedef enum
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
 
-char* AccessibleRole_getName (AccessibleRole role);
+const char* AccessibleRole_getName (AccessibleRole role);
 
 G_END_DECLS
 

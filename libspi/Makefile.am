@@ -14,12 +14,11 @@ libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
 libspiinclude_HEADERS = Accessibility.h \
 			accessible.h \
-			accessibleeventlistener.h \
+			eventlistener.h \
 			action.h \
                         application.h \
 			base.h \
 			component.h \
-                        desktop.h \
 			deviceeventcontroller.h	\
 			editabletext.h\
 			hyperlink.h\
@@ -29,7 +28,6 @@ libspiinclude_HEADERS = Accessibility.h \
 			keymasks.h \
 			libspi.h \
                         listener.h \
-                        registry.h \
 			relation.h \
 			selection.h \
 			table.h \
@@ -58,6 +56,7 @@ libspi_la_SOURCES = accessible.c         \
 		    action.h\
 		    application.c        \
                     application.h        \
+		    base.c		 \
 		    component.c		 \
 		    component.h		 \
                     desktop.c            \
@@ -86,8 +85,7 @@ libspi_la_SOURCES = accessible.c         \
 		    value.h\
                     listener.c           \
                     listener.h           \
-		    accessibleeventlistener.c	\
-		    accessibleeventlistener.h	\
+		    eventlistener.c	 \
                     registry.c           \
                     registry.h           \
 		    keymasks.h		\

@@ -24,6 +24,7 @@
 
 #include <config.h>
 #include <stdio.h>
+#include <atk/atkeditabletext.h>
 #include <libspi/editabletext.h>
 
 /* Static function declarations */
@@ -32,42 +33,37 @@ static void
 spi_editable_text_class_init (SpiEditableTextClass *klass);
 static void
 spi_editable_text_init (SpiEditableText *editable);
-static void
-spi_editable_text_finalize (GObject *obj);
 static CORBA_boolean
-impl_setAttributes (PortableServer_Servant _servant,
+impl_setAttributes (PortableServer_Servant servant,
 		       const CORBA_char * attributes,
 		       const CORBA_long startPos,
 		       const CORBA_long endPos,
-		       CORBA_Environment * ev);
+		       CORBA_Environment *ev);
 static void
-impl_setTextContents (PortableServer_Servant _servant,
+impl_setTextContents (PortableServer_Servant servant,
 		      const CORBA_char * newContents,
-		      CORBA_Environment * ev);
+		      CORBA_Environment *ev);
 static void 
-impl_insertText (PortableServer_Servant _servant,
+impl_insertText (PortableServer_Servant servant,
 		 const CORBA_long position,
 		 const CORBA_char * text,
 		 const CORBA_long length,
-		 CORBA_Environment * ev);
+		 CORBA_Environment *ev);
 static void 
-impl_copyText (PortableServer_Servant _servant,
+impl_copyText (PortableServer_Servant servant,
 	       const CORBA_long startPos, const CORBA_long endPos,
-	       CORBA_Environment * ev);
+	       CORBA_Environment *ev);
 static void 
-impl_cutText (PortableServer_Servant _servant,
+impl_cutText (PortableServer_Servant servant,
 	      const CORBA_long startPos, const CORBA_long endPos,
-	      CORBA_Environment * ev);
+	      CORBA_Environment *ev);
 static void 
-impl_deleteText (PortableServer_Servant _servant,
+impl_deleteText (PortableServer_Servant servant,
 		 const CORBA_long startPos, const CORBA_long endPos,
-		 CORBA_Environment * ev);
+		 CORBA_Environment *ev);
 static void
-impl_pasteText (PortableServer_Servant _servant,
-		const CORBA_long position, CORBA_Environment * ev);
-
-static GObjectClass *parent_class;
-
+impl_pasteText (PortableServer_Servant servant,
+		const CORBA_long position, CORBA_Environment *ev);
 
 BONOBO_TYPE_FUNC_FULL (SpiEditableText,
 		       Accessibility_EditableText,
@@ -77,12 +73,8 @@ BONOBO_TYPE_FUNC_FULL (SpiEditableText,
 static void
 spi_editable_text_class_init (SpiEditableTextClass *klass)
 {
-  GObjectClass * object_class = (GObjectClass *) klass;
   POA_Accessibility_EditableText__epv *epv = &klass->epv;
-  parent_class = g_type_interface_peek_parent (klass);
 
-  object_class->finalize = spi_editable_text_finalize;
-  
   /* Initialize epv table */
 
   epv->setAttributes = impl_setAttributes;
@@ -94,79 +86,81 @@ spi_editable_text_class_init (SpiEditableTextClass *klass)
   epv->pasteText = impl_pasteText;
 }
 
+
 static void
 spi_editable_text_init (SpiEditableText *editable)
 {
 }
 
-static void
-spi_editable_text_finalize (GObject *obj)
-{
-  parent_class->finalize (obj);
-}
 
 SpiEditableText *
 spi_editable_text_interface_new (AtkObject *obj)
 {
   SpiEditableText *new_editable = g_object_new (
 	  SPI_EDITABLE_TEXT_TYPE, NULL);
-  (SPI_TEXT (new_editable))->atko = obj;
-  g_object_ref (obj);
+
+  spi_text_construct (SPI_TEXT (new_editable), obj);
+
   return new_editable;
 }
 
-static CORBA_boolean
-impl_setAttributes (PortableServer_Servant _servant,
-		       const CORBA_char * attributes,
-		       const CORBA_long startPos,
-		       const CORBA_long endPos,
-					 CORBA_Environment * ev)
+
+static AtkEditableText *
+get_editable_text_from_servant (PortableServer_Servant servant)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (IS_SPI_EDITABLE_TEXT (obj), FALSE);
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko), FALSE);
+  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+
+  if (!object)
+    {
+      return NULL;
+    }
+
+  return ATK_EDITABLE_TEXT (object->atko);
+}
+
+
+static CORBA_boolean
+impl_setAttributes (PortableServer_Servant servant,
+		    const CORBA_char * attributes,
+		    const CORBA_long startPos,
+		    const CORBA_long endPos,
+		    CORBA_Environment *ev)
+{
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
+
+  g_return_val_if_fail (editable != NULL, FALSE);
 
   g_print ("setRunAttributes not implemented.\n");
 
   return FALSE;
 }
 
+
 static void
-impl_setTextContents (PortableServer_Servant _servant,
-		      const CORBA_char * newContents,
-		      CORBA_Environment * ev)
+impl_setTextContents (PortableServer_Servant servant,
+		      const CORBA_char     *newContents,
+		      CORBA_Environment    *ev)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
+
+  g_return_if_fail (editable != NULL);
   
-  atk_editable_text_set_text_contents (ATK_EDITABLE_TEXT( SPI_TEXT (editable)->atko),
-				       (gchar *) newContents);
+  atk_editable_text_set_text_contents (editable, (gchar *) newContents);
 }
 
 
-
 static void 
-impl_insertText (PortableServer_Servant _servant,
-		 const CORBA_long position,
-		 const CORBA_char * text,
-		 const CORBA_long length,
-		 CORBA_Environment * ev)
+impl_insertText (PortableServer_Servant servant,
+		 const CORBA_long      position,
+		 const CORBA_char     *text,
+		 const CORBA_long      length,
+		 CORBA_Environment    *ev)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  atk_editable_text_insert_text (ATK_EDITABLE_TEXT( SPI_TEXT (editable)->atko),
+  g_return_if_fail (editable != NULL);
+
+  atk_editable_text_insert_text (editable,
 				 (gchar *) text,
 				 (gint) length,
 				 (gint *) &position);
@@ -174,70 +168,51 @@ impl_insertText (PortableServer_Servant _servant,
 
 
 static void 
-impl_copyText (PortableServer_Servant _servant,
+impl_copyText (PortableServer_Servant servant,
 	       const CORBA_long startPos, const CORBA_long endPos,
-	       CORBA_Environment * ev)
+	       CORBA_Environment *ev)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  atk_editable_text_copy_text (ATK_EDITABLE_TEXT( SPI_TEXT(editable)->atko),
-			       (gint) startPos, (gint) endPos);
+  g_return_if_fail (editable != NULL);
+
+  atk_editable_text_copy_text (editable, (gint) startPos, (gint) endPos);
 }
 
 
-
 static void 
-impl_cutText (PortableServer_Servant _servant,
+impl_cutText (PortableServer_Servant servant,
 	      const CORBA_long startPos, const CORBA_long endPos,
-	      CORBA_Environment * ev)
+	      CORBA_Environment *ev)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  atk_editable_text_cut_text (ATK_EDITABLE_TEXT(SPI_TEXT (editable)->atko),
-				 (gint) startPos, (gint) endPos);
+  g_return_if_fail (editable != NULL);
+
+  atk_editable_text_cut_text (editable, (gint) startPos, (gint) endPos);
 }
 
 
-
-
 static void 
-impl_deleteText (PortableServer_Servant _servant,
+impl_deleteText (PortableServer_Servant servant,
 		 const CORBA_long startPos, const CORBA_long endPos,
-		 CORBA_Environment * ev)
+		 CORBA_Environment *ev)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  atk_editable_text_delete_text (ATK_EDITABLE_TEXT( SPI_TEXT(editable)->atko),
-				 (gint) startPos, (gint) endPos);
+  g_return_if_fail (editable != NULL);
+
+  atk_editable_text_delete_text (editable, (gint) startPos, (gint) endPos);
 }
 
 
 static void
-impl_pasteText (PortableServer_Servant _servant,
-		const CORBA_long position, CORBA_Environment * ev)
+impl_pasteText (PortableServer_Servant servant,
+		const CORBA_long position, CORBA_Environment *ev)
 {
-  SpiEditableText *editable;
-  BonoboObject *obj;
-  obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
-  editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  AtkEditableText *editable = get_editable_text_from_servant (servant);
 
-  atk_editable_text_paste_text (ATK_EDITABLE_TEXT( SPI_TEXT(editable)->atko), position);
+  g_return_if_fail (editable != NULL);
+
+  atk_editable_text_paste_text (editable, position);
 }
-
