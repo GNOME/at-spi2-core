@@ -1,0 +1,320 @@
+# Serbian translation of atk
+# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003.
+# 
+# This file is distributed under the same license as the atk package.
+# 
+# Maintainer: Данило Шеган <dsegan@gmx.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2003-02-01 19:57+0100\n"
+"PO-Revision-Date: 2003-02-20 15:14+0100\n"
+"Last-Translator: Данило Шеган <danilo@prevod.rog>\n"
+"Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "неисправно"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "ознака-пречице"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "упозорење"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "анимација"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "стрела"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "календар"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "слика"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "кућица-са-два-стања"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "ставка-менија-са-два-стања"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "избор-боје"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "заглавље-колоне"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "комбинована-кућица"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "уредник-датума"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "десктоп-иконица"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "десктоп-оквир"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "позови"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "прозорче"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "листа-директоријума"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "површина-за-цртање"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "избор-датотеке"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "пуњач"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "избор-писма"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "оквир"
+
+#: atk/atkobject.c:1252
+#, fuzzy
+msgid "glass-pane"
+msgstr "стаклена-зона"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "садржалац-html-а"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "иконица"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "слика"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "унутрашњи-оквир"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "ознака"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "послагане-плоче"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "списак"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "ставка-списка"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "мени"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "линија-менија"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "ставка-менија"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "плоча-опција"
+
+#: atk/atkobject.c:1291
+#, fuzzy
+msgid "page-tab"
+msgstr "лист-за-странице"
+
+#: atk/atkobject.c:1294
+#, fuzzy
+msgid "page-tab-list"
+msgstr "списак-листова-за-странице"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "панел"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "текст-лозинке"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "искачући-мени"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "линија-тока"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "дугме"
+
+#: atk/atkobject.c:1312
+#, fuzzy
+msgid "radio-button"
+msgstr "искључиво-дугме"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "искључива-ставка-менија"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "корена-плоча"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "заглавље-реда"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "линија-за-померање"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "плоча-за-померање"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "раздвојник"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "клизач"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "плоча-за-раздвајање"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "вртеће-дугме"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "линија-стања"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "табела"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "поље-табеле"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "заглавље-колоне-табеле"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "заглавље-реда-табеле"
+
+#: atk/atkobject.c:1357
+#, fuzzy
+msgid "tear-off-menu-item"
+msgstr "откини-мени-ставку"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "терминал"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "текст"
+
+#: atk/atkobject.c:1366
+#, fuzzy
+msgid "toggle-button"
+msgstr "дугме-са-два-стања"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "линија-алатки"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "мали-савети"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "дрво"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "дрво-табела"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "непознато"
+
+#: atk/atkobject.c:1384
+#, fuzzy
+msgid "viewport"
+msgstr "поглед"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "прозор"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "заглавље"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "подножје"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "пасус"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "лењир"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "програм"
