@@ -1,0 +1,314 @@
+# translation of atk.po to Arabic
+# translation of atk.gnome-2-2.po to Arabic
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Arafat Medini <lumina@silverpen.de>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2003-04-27 19:28+0200\n"
+"PO-Revision-Date: 2003-05-01 17:08+0200\n"
+"Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
+"Language-Team: Arabic <doc@arabeyes.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.1\n"
+
+#: atk/atkobject.c:1192
+msgid "invalid"
+msgstr "غير صالح"
+
+#: atk/atkobject.c:1195
+msgid "accel-label"
+msgstr "علامة التعجيل"
+
+#: atk/atkobject.c:1198
+msgid "alert"
+msgstr "تنبيه"
+
+#: atk/atkobject.c:1201
+msgid "animation"
+msgstr "صور متحركة"
+
+#: atk/atkobject.c:1204
+msgid "arrow"
+msgstr "سهم"
+
+#: atk/atkobject.c:1207
+msgid "calendar"
+msgstr "يومية"
+
+#: atk/atkobject.c:1210
+msgid "canvas"
+msgstr "مساحة الرسم"
+
+#: atk/atkobject.c:1213
+msgid "check-box"
+msgstr "صندوق الضبط"
+
+#: atk/atkobject.c:1216
+msgid "check-menu-item"
+msgstr "ضبط جزء القائمة"
+
+#: atk/atkobject.c:1219
+msgid "color-chooser"
+msgstr "مختار اللون"
+
+#: atk/atkobject.c:1222
+msgid "column-header"
+msgstr "ترويسة العمود"
+
+#: atk/atkobject.c:1225
+msgid "combo-box"
+msgstr "صندوق المجموعة"
+
+#: atk/atkobject.c:1228
+msgid "date-editor"
+msgstr "محرر التاريخ"
+
+#: atk/atkobject.c:1231
+msgid "desktop-icon"
+msgstr "أيقونة سطح المكتب"
+
+#: atk/atkobject.c:1234
+msgid "desktop-frame"
+msgstr "إطار سطح المكتب"
+
+#: atk/atkobject.c:1237
+msgid "dial"
+msgstr "اتصل"
+
+#: atk/atkobject.c:1240
+msgid "dialog"
+msgstr "حوار"
+
+#: atk/atkobject.c:1243
+msgid "directory-pane"
+msgstr "شريط الدلائل"
+
+#: atk/atkobject.c:1246
+msgid "drawing-area"
+msgstr "مساحة الرسم"
+
+#: atk/atkobject.c:1249
+msgid "file-chooser"
+msgstr "مختار الملفات"
+
+#: atk/atkobject.c:1252
+msgid "filler"
+msgstr "مملئ"
+
+#: atk/atkobject.c:1255
+msgid "font-chooser"
+msgstr "مختار الخطوط"
+
+#: atk/atkobject.c:1258
+msgid "frame"
+msgstr "إطار"
+
+#: atk/atkobject.c:1261
+msgid "glass-pane"
+msgstr "شريط بلوري"
+
+#: atk/atkobject.c:1264
+msgid "html-container"
+msgstr "حاوي html"
+
+#: atk/atkobject.c:1267
+msgid "icon"
+msgstr "أيقونة"
+
+#: atk/atkobject.c:1270
+msgid "image"
+msgstr "صورة"
+
+#: atk/atkobject.c:1273
+msgid "internal-frame"
+msgstr "إطار داخلي"
+
+#: atk/atkobject.c:1276
+msgid "label"
+msgstr "علامة"
+
+#: atk/atkobject.c:1279
+msgid "layered-pane"
+msgstr "شريط مصمم"
+
+#: atk/atkobject.c:1282
+msgid "list"
+msgstr "قائمة"
+
+#: atk/atkobject.c:1285
+msgid "list-item"
+msgstr "جزء قائمة"
+
+#: atk/atkobject.c:1288
+msgid "menu"
+msgstr "قائمة"
+
+#: atk/atkobject.c:1291
+msgid "menu-bar"
+msgstr "عمود قائمة"
+
+#: atk/atkobject.c:1294
+msgid "menu-item"
+msgstr "جزء قائمة"
+
+#: atk/atkobject.c:1297
+msgid "option-pane"
+msgstr "شريط الخيارات"
+
+#: atk/atkobject.c:1300
+msgid "page-tab"
+msgstr "لسان الصفحة"
+
+#: atk/atkobject.c:1303
+msgid "page-tab-list"
+msgstr "قائمة ألسنة الصفحات"
+
+#: atk/atkobject.c:1306
+msgid "panel"
+msgstr "شريط"
+
+#: atk/atkobject.c:1309
+msgid "password-text"
+msgstr "نص كلمة السر"
+
+#: atk/atkobject.c:1312
+msgid "popup-menu"
+msgstr "قائمة بارزة"
+
+#: atk/atkobject.c:1315
+msgid "progress-bar"
+msgstr "عمود التقدم"
+
+#: atk/atkobject.c:1318
+msgid "push-button"
+msgstr "ور الضغط"
+
+#: atk/atkobject.c:1321
+msgid "radio-button"
+msgstr "زر مشع"
+
+#: atk/atkobject.c:1324
+msgid "radio-menu-item"
+msgstr "جزء قائمة مشع"
+
+#: atk/atkobject.c:1327
+msgid "root-pane"
+msgstr "شريط الجدر"
+
+#: atk/atkobject.c:1330
+msgid "row-header"
+msgstr "ترويسة السطر"
+
+#: atk/atkobject.c:1333
+msgid "scroll-bar"
+msgstr "عمود اللف"
+
+#: atk/atkobject.c:1336
+msgid "scroll-pane"
+msgstr "شريط اللف"
+
+#: atk/atkobject.c:1339
+msgid "separator"
+msgstr "فاصل"
+
+#: atk/atkobject.c:1342
+msgid "slider"
+msgstr "مزلق"
+
+#: atk/atkobject.c:1345
+msgid "split-pane"
+msgstr "شريط إنقسام"
+
+#: atk/atkobject.c:1348
+msgid "spin-button"
+msgstr "زر تدوير"
+
+#: atk/atkobject.c:1351
+msgid "statusbar"
+msgstr "عمود الحالة"
+
+#: atk/atkobject.c:1354
+msgid "table"
+msgstr "جدول"
+
+#: atk/atkobject.c:1357
+msgid "table-cell"
+msgstr "خلية الجدول"
+
+#: atk/atkobject.c:1360
+msgid "table-column-header"
+msgstr "ترويسة عمود الجدول"
+
+#: atk/atkobject.c:1363
+msgid "table-row-header"
+msgstr "ترويسة سطر الجدول"
+
+#: atk/atkobject.c:1366
+msgid "tear-off-menu-item"
+msgstr "منع الفصل جزء قائمة"
+
+#: atk/atkobject.c:1369
+msgid "terminal"
+msgstr "شاشة طرفية"
+
+#: atk/atkobject.c:1372
+msgid "text"
+msgstr "نص"
+
+#: atk/atkobject.c:1375
+msgid "toggle-button"
+msgstr "زر إستبدال"
+
+#: atk/atkobject.c:1378
+msgid "tool-bar"
+msgstr "عمود الأدوات"
+
+#: atk/atkobject.c:1381
+msgid "tool-tip"
+msgstr "تلميحة عن اﻷدوات"
+
+#: atk/atkobject.c:1384
+msgid "tree"
+msgstr "شجرة"
+
+#: atk/atkobject.c:1387
+msgid "tree-table"
+msgstr "جدول شجرة"
+
+#: atk/atkobject.c:1390
+msgid "unknown"
+msgstr "غير معروف"
+
+#: atk/atkobject.c:1393
+msgid "viewport"
+msgstr "منفد العرض"
+
+#: atk/atkobject.c:1396
+msgid "window"
+msgstr "نافذة"
+
+#: atk/atkobject.c:1399
+msgid "header"
+msgstr "ترويسة"
+
+#: atk/atkobject.c:1402
+msgid "footer"
+msgstr "هامش"
+
+#: atk/atkobject.c:1405
+msgid "paragraph"
+msgstr "فقرة"
+
+#: atk/atkobject.c:1408
+msgid "ruler"
+msgstr "مسطرة"
+
+#: atk/atkobject.c:1411
+msgid "application"
+msgstr "تطبيق"
+
