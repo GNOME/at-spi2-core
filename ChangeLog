@@ -1,6 +1,6 @@
 2003-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
 
-	* atk/atkobject.[ch]: Add new role ATK_ROLE_EDITBAR. Fixes bug #111607.
+	* atk/atkobject.[ch]: Add new role ATK_ROLE_EDITBAR. Fixes bug #116007.
 
 	* atk/docs/tmpl/atkhyperlink.sgml: Add references to new signals and 
 	properties
