@@ -62,7 +62,7 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_DIAL] =             Accessibility_ROLE_DIAL;
   role_table [ATK_ROLE_DIALOG] =           Accessibility_ROLE_DIALOG;
   role_table [ATK_ROLE_DIRECTORY_PANE] =   Accessibility_ROLE_DIRECTORY_PANE;
-  role_table[ATK_ROLE_DRAWING_AREA] = Accessibility_ROLE_DRAWING_AREA;
+  role_table [ATK_ROLE_DRAWING_AREA] =     Accessibility_ROLE_DRAWING_AREA;
   role_table [ATK_ROLE_FILE_CHOOSER] =     Accessibility_ROLE_FILE_CHOOSER;
   role_table [ATK_ROLE_FILLER] =           Accessibility_ROLE_FILLER;
   role_table [ATK_ROLE_FONT_CHOOSER] =     Accessibility_ROLE_FONT_CHOOSER;

@@ -78,6 +78,10 @@ module Accessibility {
    * the user select a file, browse a different directory, or specify a
    * filename.
    */
+  ROLE_DRAWING_AREA,
+  /*
+   * An object used for drawing custom user interface elements.
+   */
   ROLE_FILE_CHOOSER,
   /*
    * A object that fills up space in a user interface
