@@ -243,7 +243,7 @@ label_buttons(SPIBoolean shifted)
           /* Note: these routines are not i18n-savvy,  we need to use XIM, other methods here */
 	  if (keysym && g_ascii_isprint((int)keysym))
 	    {
-	      snprintf (label, 2, "%c", (int) keysym); 
+	      g_snprintf (label, 2, "%c", (int) keysym); 
 	    }
 	  else
 	    {

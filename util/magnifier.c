@@ -171,7 +171,7 @@ int main (int argc, char** argv){
   }
       /* TODO: enable fractional magnifications option? */
   if (global_options.target_display) {
-    snprintf (env_string, (size_t) (ENV_STRING_MAX_SIZE-1), "DISPLAY=%s", global_options.target_display);
+    g_snprintf (env_string, (size_t) (ENV_STRING_MAX_SIZE-1), "DISPLAY=%s", global_options.target_display);
     putenv (env_string);
   }
   gtk_init (&argc, &argv);

@@ -1,3 +1,10 @@
+2002-04-11  Bill Haneman <bill.haneman@sun.com>
+
+	* test/app.c, test/keysynth-demo.c:
+	* util/magnifier.c:
+	Replace use of snprintf with g_snprintf.
+	(fix for bugzilla 78249)
+
 2002-03-27  Michael Meeks  <michael@ximian.com>
 
 	* Version 0.10.0

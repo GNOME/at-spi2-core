@@ -51,6 +51,7 @@ static void print_accessible_tree (Accessible *accessible, char *prefix);
 static SPIBoolean use_magnifier = FALSE;
 static SPIBoolean use_festival = FALSE;
 static SPIBoolean festival_chatty = FALSE;
+static SPIBoolean name_changed = FALSE;
 
 static AccessibleEventListener *focus_listener;
 static AccessibleEventListener *property_listener;
@@ -94,7 +95,9 @@ main (int argc, char **argv)
   text_listener = SPI_createAccessibleEventListener (report_text_event, NULL); 
   button_listener = SPI_createAccessibleEventListener (report_button_press, NULL);
   SPI_registerGlobalEventListener (focus_listener, "focus:");
-  SPI_registerGlobalEventListener (property_listener, "object:property-change:accessible-selection"); 
+  SPI_registerGlobalEventListener (property_listener, "object:property-change");
+/* :accessible-selection"); */
+  SPI_registerGlobalEventListener (property_listener, "object:property-change:accessible-name");
   SPI_registerGlobalEventListener (generic_listener, "object:selection-changed"); 
   SPI_registerGlobalEventListener (generic_listener, "object:children-changed"); 
   SPI_registerGlobalEventListener (generic_listener, "object:visible-data-changed"); 
@@ -228,6 +231,8 @@ report_focussed_accessible (Accessible *obj, SPIBoolean shutup_previous_speech)
   char *s;
   int len;
   long x, y, width, height;
+  /* hack for GUADEC demo, to make sure name changes are spoken */
+  shutup_previous_speech = (shutup_previous_speech && !name_changed);
 
   if (use_festival)
     {
@@ -309,7 +314,6 @@ report_focus_event (const AccessibleEvent *event, void *user_data)
   char *s;
 
   g_return_if_fail (event->source != NULL);
-
   s = Accessible_getName (event->source);
   if (s)
     {
@@ -318,6 +322,7 @@ report_focus_event (const AccessibleEvent *event, void *user_data)
       report_focussed_accessible (event->source, TRUE);
     }
   Accessible_getParent (event->source);
+  name_changed = FALSE;
 }
 
 void
@@ -329,10 +334,10 @@ report_generic_event (const AccessibleEvent *event, void *user_data)
 void
 report_text_event (const AccessibleEvent *event, void *user_data)
 {
+  AccessibleText *text = Accessible_getText (event->source);
   fprintf (stderr, "%s event received\n", event->type);
-  if (use_magnifier)
+  if (use_magnifier && strcmp (event->type, "object:text-changed"))
     {
-      AccessibleText *text = Accessible_getText (event->source);
       long offset = AccessibleText_getCaretOffset (text);
       long x, y, w, h;
       fprintf (stderr, "offset %d\n", (int) offset);
@@ -340,6 +345,13 @@ report_text_event (const AccessibleEvent *event, void *user_data)
 					  SPI_COORD_TYPE_SCREEN);
       fprintf (stderr, "new roi %d %d %d %d\n", (int) x, (int) y, (int) w, (int) h);
       magnifier_set_roi ((short) 0, x, y, w, h);
+    }
+  if (!strcmp (event->type, "object:text-changed"))
+    {
+      long start, end;
+      char *new_text = AccessibleText_getTextAtOffset (text, (long) 0, SPI_TEXT_BOUNDARY_SENTENCE_START, &start, &end);
+      _festival_say (new_text, "voice_kal_diphone", FALSE);
+      SPI_freeString (new_text);
     }
 }
 
@@ -366,6 +378,7 @@ check_property_change (const AccessibleEvent *event, void *user_data)
   int n_selections;
   int i;
   char *s;
+  fprintf (stderr, "property change event!\n");
   if (selection)
   {
     n_selections = (int) AccessibleSelection_getNSelectedChildren (selection);
@@ -384,6 +397,15 @@ check_property_change (const AccessibleEvent *event, void *user_data)
 	report_focussed_accessible (obj, i==0);
     }
   }
+  else if (!strcmp (event->type, "object:property-change:accessible-name"))
+    {
+      name_changed = TRUE;	    
+      report_focussed_accessible (event->source, TRUE);
+    }
+  else
+    {
+      fprintf (stderr, "Property change %s received\n", event->type);
+    }
 }
 
 static void

@@ -397,8 +397,10 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 
   s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
-  fprintf (stderr, "Received (property) signal %s:%s from object %s (gail %s)\n",
-	   g_type_name (signal_query.itype), name, s, s2);
+  values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
+  fprintf (stderr, "Received (property) signal %s:%s:%s from object %s (gail %s)\n",
+	   g_type_name (signal_query.itype), name, values->property_name, s, s2);
+  
 #endif
 
   gobject = g_value_get_object (param_values + 0);
