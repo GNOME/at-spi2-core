@@ -27,6 +27,13 @@ void report_focus_event (void *fp);
 
 void report_button_press (void *fp);
 
+static int _festival_init ();
+static void _festival_say (const char *text, const char *voice, boolean shutup);
+static void _festival_write (const char *buff, int fd);
+
+static boolean use_festival = TRUE;
+static boolean festival_terse = TRUE;
+
 int
 main(int argc, char **argv)
 {
@@ -59,6 +66,12 @@ main(int argc, char **argv)
           fprintf (stderr, "app %d name: %s\n", j, Accessible_getName (application));
         }
     }
+  
+  if (getenv ("FESTIVAL"))
+  {
+    use_festival = TRUE;
+  }
+  
   SPI_event_main(FALSE);
 }
 
@@ -68,6 +81,16 @@ report_focus_event (void *p)
   AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
            Accessible_getName (&ev->source));
+  
+  if (use_festival)
+    {
+    if (!festival_terse) 	    
+      {
+        _festival_say (Accessible_getRole (&ev->source), "voice_don_diphone", TRUE);
+      }
+      _festival_say (Accessible_getName (&ev->source), "voice_kal_diphone", FALSE);
+    }
+  
   if (Accessible_isComponent (&ev->source))
     {
       long x, y, width, height;
@@ -86,4 +109,85 @@ report_button_press (void *p)
   AccessibleEvent *ev = (AccessibleEvent *) p;
   fprintf (stderr, "%s event from %s\n", ev->type,
            Accessible_getName (&ev->source));
+}
+
+static int _festival_init ()
+{
+  int fd;
+  struct sockaddr_in name;
+  int tries = 2;
+
+  name.sin_family = AF_INET;
+  name.sin_port = htons (1314);
+  name.sin_addr.s_addr = htonl(INADDR_ANY);
+  fd = socket (PF_INET, SOCK_STREAM, 0);
+
+  while (connect(fd, (struct sockaddr *) &name, sizeof (name)) < 0) {
+    if (!tries--) {
+      perror ("connect");
+      return -1;
+    }
+  }
+
+  _festival_write ("(audio_mode'async)", fd);
+  _festival_write ("(Parameter.set 'Duration_Stretch 0.5)", fd);
+  _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)", fd);
+  return fd;
+}
+
+static void _festival_say (const char *text, const char *voice, boolean shutup)
+{
+  static int fd = 0;
+  gchar *quoted;
+  gchar *p;
+  gchar prefix[50];
+  gchar voice_spec[32];
+
+  if (!fd)
+    {
+      fd = _festival_init ();
+    }
+
+  fprintf (stderr, "saying text: %s\n", text);
+  
+  quoted = g_malloc(64+strlen(text)*2);
+
+  sprintf (prefix, "(SayText \"");
+
+  strncpy(quoted, prefix, 10);
+  p = quoted+strlen(prefix);
+  while (*text) {
+    if ( *text == '\\' || *text == '"' )
+      *p = '\\';
+    *p++ = *text++;
+  }
+  *p++ = '"';
+  *p++ = ')';
+  *p++ = '\n';
+  *p = 0;
+
+  if(shutup) _festival_write ("(audio_mode'shutup)\n", fd);
+  if (voice)
+    {
+      sprintf (voice_spec, "(%s)\n", voice);	  
+      _festival_write (voice_spec, fd);
+    }
+  if (!festival_terse)
+  {
+    _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
+    _festival_write ("(Parameter.set 'Duration_Stretch 0.5)\n", fd);
+  }
+  _festival_write (quoted, fd);
+
+  g_free(quoted);
+}
+
+static void _festival_write (const gchar *command_string, int fd)
+{
+  fprintf(stderr, command_string);
+  if (fd < 0) {
+    perror("socket");
+    return;
+  }
+  write(fd, command_string, strlen(command_string));
 }

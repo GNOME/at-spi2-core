@@ -192,6 +192,22 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
   return retval;
 }
 
+/*
+ * CORBA Accessibility::Accessible::getRole method implementation
+ */
+static Accessibility_Role
+impl_accessibility_accessible_get_role (PortableServer_Servant servant,
+					const CORBA_long      index,
+					CORBA_Environment     *ev)
+{
+  Accessibility_Role retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  AtkRole role = atk_object_get_role (accessible->atko);
+  retval = role;
+  printf ("Accessible get_role.\n");
+  return (Accessibility_Role) retval;
+}
+
 static void
 accessible_class_init (AccessibleClass *klass)
 {
@@ -213,7 +229,7 @@ accessible_class_init (AccessibleClass *klass)
 
         /* epv->getRelationSet = impl_accessibility_accessible_get_relation_set;      */
         /* epv->getState = impl_accessibility_accessible_get_state;                   */
-        /* epv->getRole = impl_accessibility_accessible_get_role;                     */
+        epv->getRole = impl_accessibility_accessible_get_role;
 }
 
 static void

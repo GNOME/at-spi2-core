@@ -1,3 +1,15 @@
+<2001-09-04  Bill Haneman <bill.haneman@sun.com>
+	* cspi/spi_accessible.c:
+		Added method Accessible_Role_getName(),
+			and requisite string array (role_names).
+		Added conversion string_from_corba_strin() call
+			to Accessible_getName and _getDescription.
+	* libspi/accessible.c:
+		Added implementation for Accessible_getRole()
+	* test/simple-at.c:
+		Added festival support, used if environment variable
+			FESTIVAL is set.
+
 <2001-09-12  Marc Mulcahy <marc.mulcahy@sun.com>
 	* cspi/Makefile.am:
 		Added spi-util.c.
@@ -10,17 +22,20 @@
 			includes so they are included in libcspi.
 
 	* cspi/spi.h:
-		Changed prototype of AccessibleAction_doAction to return a boolean.
+		Changed prototype of AccessibleAction_doAction to return a
+			boolean.
 		Changed prototype of AccessibleTable_getCaption to
 			return an Accessible.
 		Changed prototype of AccessibleTable_getSelectedRows
 			and AccessibleTable_getSelectedColumns to
-			return a long (returns the number of selected rows or columns
-			respectively).
+			return a long (returns the number of selected rows
+			or columns respectively).
 		Changed name of AccessibleText_refRunAttributes to
 			AccessibleText_getAttributes.
-		Changed prototype of AccessibleText_getCharacterExtents to return a void rather than a
-			boolean. Addded support for a AccessibleCoordType parameter specifying what type of coordinates are desired.
+		Changed prototype of AccessibleText_getCharacterExtents to
+			return a void rather than a boolean. 
+		Added support for a AccessibleCoordType parameter
+			specifying what type of coordinates are desired.
 		Added an AccessibleCordType parameter to
 			AccessibleText_getPointAtOffset.
 
@@ -85,8 +100,9 @@
 		Change for nAnchors attributte name change.
 
 
-	<2001-09-05  Marc Mulcahy <marc.mulcahy@sun.com>
-		implementations-- made server implementations own AtkObject pointers
+<2001-09-05  Marc Mulcahy <marc.mulcahy@sun.com>
+
+	implementations-- made server implementations own AtkObject pointers
 	rather than their respective AtkInterrface pointers to fix
 	refcounting.  AtkHyperlink is still broken.
 	

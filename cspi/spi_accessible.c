@@ -1,9 +1,87 @@
+#define MAX_ROLES 100
+
+static char *role_names [MAX_ROLES] =
+{
+  " ",
+  "accelerator label",
+  "alert",
+  "animation",
+  "arrow",
+  "calendar",
+  "canvas",
+  "check box",
+  "menu item",
+  "color chooser",
+  "column header",
+  "combo box",
+  "date editor",
+  "desktop icon",
+  "desktop frame",
+  "dial",
+  "dialog",
+  "directory pane",
+  "drawing area",
+  "file chooser",
+  "filler",
+  "font chooser",
+  "frame",
+  "glass pane",
+  "HTML container",
+  "icon",
+  "image",
+  "internal frame",
+  "label",
+  "layered pane",
+  "list",
+  "list item",
+  "menu",
+  "menubar",
+  "menu item",
+  "option pane",
+  "page tab",
+  "page tab list",
+  "panel",
+  "password text",
+  "popup menu",
+  "progress bar",
+  "pushbutton",
+  "radiobutton",
+  "radio menu item",
+  "root pane",
+  "row header",
+  "scrollbar",
+  "scrollpane",
+  "separator",
+  "slider",
+  "split pane",
+  "spin button",
+  "status bar",
+  "table",
+  "table cell",
+  "table column header",
+  "table row header",
+  "tearoff menu item",
+  "text",
+  "toggle button",
+  "toolbar",
+  "tooltip",
+  "tree",
+  " ",
+  "viewport",
+  "window",
+};
 
 /*
- *
- * Accessible function prototypes
- *
+ * Returns a localizable string name for an AtkRole enumerated type.
  */
+char*
+Accessible_Role_getName (Accessibility_Role role)
+{
+  if (role < MAX_ROLES) return role_names [(int) role];
+  else return "";
+}
+
+
 
 /**
  * Accessible_ref:
@@ -50,7 +128,8 @@ Accessible_unref (Accessible *obj)
 char *
 Accessible_getName (Accessible *obj)
 {
-  return Accessibility_Accessible__get_name (*obj, &ev);
+  return string_from_corba_string (
+	  Accessibility_Accessible__get_name (*obj, &ev));
 }
 
 /**
@@ -65,7 +144,8 @@ Accessible_getName (Accessible *obj)
 char *
 Accessible_getDescription (Accessible *obj)
 {
-  return Accessibility_Accessible__get_description (*obj, &ev);
+  return string_from_corba_string (
+	  Accessibility_Accessible__get_description (*obj, &ev));
 }
 
 /**
@@ -164,7 +244,8 @@ Accessible_getRelationSet (Accessible *obj)
 char *
 Accessible_getRole (Accessible *obj)
 {
-  return "";
+  return Accessible_Role_getName (
+		  Accessibility_Accessible_getRole (*obj, &ev));
 }
 
 /**
