@@ -124,13 +124,6 @@ of the other ATK interfaces:
 @parent: 
 @relations: 
 
-<!-- ##### STRUCT AtkStateSet ##### -->
-<para>
-
-</para>
-
-@parent: 
-
 <!-- ##### STRUCT AtkPropertyValues ##### -->
 <para>
 

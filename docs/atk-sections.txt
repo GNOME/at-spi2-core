@@ -41,6 +41,21 @@ atk_component_get_type
 </SECTION>
 
 <SECTION>
+<FILE>atkdocument</FILE>
+<TITLE>AtkDocument</TITLE>
+AtkDocument
+AtkDocumentIface
+atk_document_get_document_type
+atk_document_get_document
+<SUBSECTION Standard>
+ATK_DOCUMENT
+ATK_IS_DOCUMENT
+ATK_TYPE_DOCUMENT
+ATK_DOCUMENT_GET_IFACE
+atk_document_get_type
+</SECTION>
+
+<SECTION>
 <FILE>atkeditabletext</FILE>
 <TITLE>AtkEditableText</TITLE>
 AtkEditableText
@@ -130,7 +145,6 @@ atk_role_register
 AtkImplementor
 AtkImplementorIface
 AtkRelationSet
-AtkStateSet
 AtkPropertyValues
 AtkPropertyChangeHandler
 atk_implementor_ref_accessible
@@ -154,14 +168,15 @@ ATK_OBJECT
 ATK_IS_OBJECT
 ATK_TYPE_OBJECT
 ATK_IMPLEMENTOR_GET_IFACE
-atk_object_get_type
 ATK_OBJECT_CLASS
 ATK_IS_OBJECT_CLASS
 ATK_OBJECT_GET_CLASS
 ATK_TYPE_IMPLEMENTOR
 ATK_IS_IMPLEMENTOR
 ATK_IMPLEMENTOR
+AtkStateSet
 atk_implementor_get_type
+atk_object_get_type
 </SECTION>
 
 <SECTION>

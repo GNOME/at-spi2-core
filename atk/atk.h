@@ -20,6 +20,7 @@
 #include <atk/atkobject.h>
 #include <atk/atkaction.h>
 #include <atk/atkcomponent.h>
+#include <atk/atkdocument.h>
 #include <atk/atkeditabletext.h>
 #include <atk/atkhyperlink.h>
 #include <atk/atkhypertext.h>

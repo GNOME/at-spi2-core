@@ -4,6 +4,7 @@ lib_LTLIBRARIES = libatk.la
 libatk_la_SOURCES = 		\
 	atkaction.c		\
 	atkcomponent.c		\
+	atkdocument.c		\
 	atkeditabletext.c	\
 	atkhyperlink.c		\
 	atkhypertext.c		\
@@ -42,6 +43,7 @@ libatkinclude_HEADERS =	\
         atk.h			\
         atkaction.h		\
         atkcomponent.h		\
+        atkdocument.h		\
         atkeditabletext.h	\
         atkhyperlink.h		\
         atkhypertext.h		\

@@ -38,6 +38,13 @@ atk
 @ATK_IMAGE_STOCK: 
 @ATK_IMAGE_ICON_SET: 
 
+<!-- ##### STRUCT AtkStateSet ##### -->
+<para>
+
+</para>
+
+@parent: 
+
 <!-- ##### FUNCTION atk_component_get_position_on_screen ##### -->
 <para>
 

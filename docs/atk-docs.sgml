@@ -1,6 +1,7 @@
 <!doctype book PUBLIC "-//Davenport//DTD DocBook V3.0//EN" [
 <!entity atk-AtkAction SYSTEM "sgml/atkaction.sgml">
 <!entity atk-AtkComponent SYSTEM "sgml/atkcomponent.sgml">
+<!entity atk-AtkDocument SYSTEM "sgml/atkdocument.sgml">
 <!entity atk-AtkEditabletext SYSTEM "sgml/atkeditabletext.sgml">
 <!entity atk-AtkHyperlink SYSTEM "sgml/atkhyperlink.sgml">
 <!entity atk-AtkHypertext SYSTEM "sgml/atkhypertext.sgml">
@@ -31,6 +32,7 @@
     <title>ATK Library</title>
     &atk-AtkAction;
     &atk-AtkComponent;
+    &atk-AtkDocument;
     &atk-AtkEditabletext;
     &atk-AtkHyperlink;
     &atk-AtkHypertext;

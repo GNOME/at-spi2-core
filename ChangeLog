@@ -1,4 +1,10 @@
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+	* atk/Makefile.am atk/atk.h atk/atkdocument.c atk/atkdocument.h
+	docs/atk-docs.sgml docs/atk-sections.txt docs/tmpl/atk-unused.sgml
+	docs/tmpl/atkobject.sgml
+	Added new atk document interface.
+
+2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	* atk/atkcomponent.c atk/atkcomponent.h atk/atkimage.c
 	atk/atkimage.h atk/atktext.c atk/atktext.h atk/atkutil.h
 	Updated so that functions that take screen coords as 
