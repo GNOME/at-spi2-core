@@ -1,3 +1,24 @@
+2001-12-17  Bill Haneman <bill.haneman@sun.com>
+
+	* at-bridge/bridge.c:
+	Namespaced local static methods to spi_atk_bridge_* where
+	previously named bridge_*, and spi_* elsewhere.
+
+	* at-bridge/bridge.c:
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	Added demarshalling/conversion for string member of
+	Accessibility_DeviceEvent to AccessibleKeystroke.
+
+	* registryd/deviceeventcontroller.c:
+	Added code to fill the Accessibility_DeviceEvent key string value
+	member for global key events (i.e. from XGrabKey), to match
+	behavior of Accessibility_DeviceEvent from the toolkit key events
+	from the bridge.  Fixed timestamp in global key event notifications.
+
+	* test/simple-at.c:
+	Added printout of key event's string value to
+	report_ordinary_key_event, for demo/debugging purposes.
+
 2001-12-15  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Registry.idl:

@@ -366,11 +366,13 @@ is_command_key (AccessibleKeystroke *key)
 static SPIBoolean
 report_command_key_event (AccessibleKeystroke *key, void *user_data)
 {
-  fprintf (stderr, "Command KeyEvent %s%c (keycode %d)\n",
+  fprintf (stderr, "Command KeyEvent %s%c (keycode %d); string=%s; time=%lx\n",
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
 	  ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
 	  (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID),
-	  (int) key->keycode);
+	  (int) key->keycode,
+   	  key->keystring,
+	  (long int) key->timestamp);
   return is_command_key (key);
 }
 
@@ -378,10 +380,11 @@ report_command_key_event (AccessibleKeystroke *key, void *user_data)
 static SPIBoolean
 report_ordinary_key_event (AccessibleKeystroke *key, void *user_data)
 {
-  fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
+  fprintf (stderr, "Received key event:\tsym %ld\n\tmods %x\n\tcode %d\n\tstring=\'%s\'\n\ttime %lx\n",
 	   (long) key->keyID,
 	   (unsigned int) key->modifiers,
 	   (int) key->keycode,
+	   key->keystring,
 	   (long int) key->timestamp);
   return FALSE;
 }

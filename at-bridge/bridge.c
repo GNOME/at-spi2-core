@@ -38,25 +38,24 @@ static CORBA_Environment ev;
 static Accessibility_Registry registry;
 static SpiApplication *this_app = NULL;
 
-static gboolean bridge_idle_init (gpointer user_data);
-static void bridge_focus_tracker (AtkObject *object);
-static void bridge_exit_func (void);
-static void register_atk_event_listeners (void);
-static gboolean bridge_property_event_listener (GSignalInvocationHint *signal_hint,
+static gboolean spi_atk_bridge_idle_init (gpointer user_data);
+static void spi_atk_bridge_focus_tracker (AtkObject *object);
+static void spi_atk_bridge_exit_func (void);
+static void spi_atk_register_event_listeners (void);
+static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
+							guint n_param_values,
+							const GValue *param_values,
+							gpointer data);
+static gboolean spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
+						     guint n_param_values,
+						     const GValue *param_values,
+						     gpointer data);
+static gboolean spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 						guint n_param_values,
 						const GValue *param_values,
 						gpointer data);
-static gboolean bridge_state_event_listener (GSignalInvocationHint *signal_hint,
-					     guint n_param_values,
-					     const GValue *param_values,
-					     gpointer data);
-static gboolean bridge_signal_listener (GSignalInvocationHint *signal_hint,
-					guint n_param_values,
-					const GValue *param_values,
-					gpointer data);
-
-static gint bridge_key_listener (AtkKeyEventStruct *event,
-				 gpointer data);
+static gint spi_atk_bridge_key_listener (AtkKeyEventStruct *event,
+					 gpointer data);
 
 int
 gtk_module_init (gint *argc, gchar **argv[])
@@ -98,17 +97,17 @@ gtk_module_init (gint *argc, gchar **argv[])
                                               BONOBO_OBJREF (this_app),
                                               &ev);
 
-  g_atexit (bridge_exit_func);
+  g_atexit (spi_atk_bridge_exit_func);
 
-  g_idle_add (bridge_idle_init, NULL);
+  g_idle_add (spi_atk_bridge_idle_init, NULL);
 
   return 0;
 }
 
 static gboolean
-bridge_idle_init (gpointer user_data)
+spi_atk_bridge_idle_init (gpointer user_data)
 {
-  register_atk_event_listeners ();
+  spi_atk_register_event_listeners ();
 
   fprintf (stderr, "Application registered & listening\n");
 
@@ -116,7 +115,7 @@ bridge_idle_init (gpointer user_data)
 }
 
 static void
-register_atk_event_listeners (void)
+spi_atk_register_event_listeners (void)
 {
   /*
    * kludge to make sure the Atk interface types are registered, otherwise
@@ -127,35 +126,35 @@ register_atk_event_listeners (void)
   
   /* Register for focus event notifications, and register app with central registry  */
 
-  atk_add_focus_tracker (bridge_focus_tracker);
-  atk_add_global_event_listener (bridge_property_event_listener, "Gtk:AtkObject:property-change");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:children-changed");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkObject:visible-data-changed");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkSelection:selection-changed");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-selection-changed");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-changed");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkText:text-caret-moved");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:row-inserted");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:row-reordered");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:row-deleted");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-inserted");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-reordered");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:column-deleted");
-  atk_add_global_event_listener (bridge_signal_listener, "Gtk:AtkTable:model-changed");
+  atk_add_focus_tracker (spi_atk_bridge_focus_tracker);
+  atk_add_global_event_listener (spi_atk_bridge_property_event_listener, "Gtk:AtkObject:property-change");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkObject:children-changed");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkObject:visible-data-changed");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkSelection:selection-changed");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkText:text-selection-changed");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkText:text-changed");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkText:text-caret-moved");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:row-inserted");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:row-reordered");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:row-deleted");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:column-inserted");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:column-reordered");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:column-deleted");
+  atk_add_global_event_listener (spi_atk_bridge_signal_listener, "Gtk:AtkTable:model-changed");
 /*
  * May add the following listeners to implement preemptive key listening for GTK+
  *
- * atk_add_global_event_listener (bridge_widgetkey_listener, "Gtk:GtkWidget:key-press-event");
- * atk_add_global_event_listener (bridge_widgetkey_listener, "Gtk:GtkWidget:key-release-event");
+ * atk_add_global_event_listener (spi_atk_bridge_widgetkey_listener, "Gtk:GtkWidget:key-press-event");
+ * atk_add_global_event_listener (spi_atk_bridge_widgetkey_listener, "Gtk:GtkWidget:key-release-event");
  */
-  atk_add_key_event_listener    (bridge_key_listener, NULL);
+  atk_add_key_event_listener    (spi_atk_bridge_key_listener, NULL);
   
   g_object_unref (G_OBJECT (bo));
   g_object_unref (ao);
 }
 
 static void
-bridge_exit_func (void)
+spi_atk_bridge_exit_func (void)
 {
   BonoboObject *app = (BonoboObject *) this_app;
 
@@ -195,7 +194,7 @@ bridge_exit_func (void)
 }
 
 static void
-bridge_focus_tracker (AtkObject *object)
+spi_atk_bridge_focus_tracker (AtkObject *object)
 {
   SpiAccessible *source;
   Accessibility_Event e;
@@ -213,10 +212,10 @@ bridge_focus_tracker (AtkObject *object)
 }
 
 static void
-emit_eventv (GObject      *gobject,
-	     unsigned long detail1,
-	     unsigned long detail2,
-	     const char   *format, ...)
+spi_atk_emit_eventv (GObject      *gobject,
+		     unsigned long detail1,
+		     unsigned long detail2,
+		     const char   *format, ...)
 {
   va_list             args;
   Accessibility_Event e;
@@ -271,10 +270,10 @@ emit_eventv (GObject      *gobject,
 }
 
 static gboolean
-bridge_property_event_listener (GSignalInvocationHint *signal_hint,
-				guint n_param_values,
-				const GValue *param_values,
-				gpointer data)
+spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
+					guint n_param_values,
+					const GValue *param_values,
+					gpointer data)
 {
   AtkPropertyValues *values;
   GObject *gobject;
@@ -296,16 +295,16 @@ bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   gobject = g_value_get_object (param_values + 0);
   values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
 
-  emit_eventv (gobject, 0, 0, "object:property-change:%s", values->property_name);
+  spi_atk_emit_eventv (gobject, 0, 0, "object:property-change:%s", values->property_name);
 
   return TRUE;
 }
 
 static gboolean
-bridge_state_event_listener (GSignalInvocationHint *signal_hint,
-			     guint n_param_values,
-			     const GValue *param_values,
-			     gpointer data)
+spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
+				     guint n_param_values,
+				     const GValue *param_values,
+				     gpointer data)
 {
   GObject *gobject;
   AtkPropertyValues *values;
@@ -322,17 +321,17 @@ bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   gobject = g_value_get_object (param_values + 0);
   values = (AtkPropertyValues*) g_value_get_pointer (param_values + 1);
 
-  emit_eventv (gobject, 
-	       (unsigned long) values->old_value.data[0].v_ulong,
-	       (unsigned long) values->new_value.data[0].v_ulong,
-	       "object:%s:?", values->property_name);
-
+  spi_atk_emit_eventv (gobject, 
+		       (unsigned long) values->old_value.data[0].v_ulong,
+		       (unsigned long) values->new_value.data[0].v_ulong,
+		       "object:%s:?", values->property_name);
+  
   return TRUE;
 }
 
 static void
-accessibility_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
-						 AtkKeyEventStruct          *event)
+spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
+				       AtkKeyEventStruct          *event)
 {
 #ifdef SPI_DEBUG
   if (event)
@@ -350,7 +349,14 @@ accessibility_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *key
   keystroke->hw_code   = (CORBA_short) event->keycode;
   keystroke->timestamp = (CORBA_unsigned_long) event->timestamp;
   keystroke->modifiers = (CORBA_unsigned_short) (event->state & 0xFFFF);
-
+  if (event->string)
+    {
+      keystroke->event_string = CORBA_string_dup (event->string);
+    }
+  else
+    {
+      keystroke->event_string = CORBA_string_dup ("");
+    }
   switch (event->type)
     {
     case (ATK_KEY_EVENT_PRESS):
@@ -366,7 +372,7 @@ accessibility_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *key
 }
 
 static gint
-bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
+spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
   CORBA_boolean             result;
   Accessibility_DeviceEvent key_event;
@@ -381,7 +387,7 @@ bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
   else
     {
 
-      accessibility_init_keystroke_from_atk_key_event (&key_event, event);
+      spi_init_keystroke_from_atk_key_event (&key_event, event);
 
       result = Accessibility_DeviceEventController_notifyListenersSync (
         controller, &key_event, &ev);
@@ -393,10 +399,10 @@ bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 }
 
 static gboolean
-bridge_signal_listener (GSignalInvocationHint *signal_hint,
-			guint n_param_values,
-			const GValue *param_values,
-			gpointer data)
+spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
+				guint n_param_values,
+				const GValue *param_values,
+				gpointer data)
 {
   GObject *gobject;
   GSignalQuery signal_query;
@@ -418,7 +424,7 @@ bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
   gobject = g_value_get_object (param_values + 0);
 
-  emit_eventv (gobject, 0, 0, "object:%s", name);
+  spi_atk_emit_eventv (gobject, 0, 0, "object:%s", name);
 
   return TRUE;
 }

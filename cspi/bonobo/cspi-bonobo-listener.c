@@ -195,6 +195,7 @@ cspi_key_event (SpiKeystrokeListener            *listener,
   akeystroke.keyID     = keystroke->id;
   akeystroke.keycode   = keystroke->hw_code;
   akeystroke.timestamp = keystroke->timestamp;
+  akeystroke.keystring = g_strdup (keystroke->event_string);
   akeystroke.modifiers = keystroke->modifiers;
 
   /* FIXME: re-enterancy hazard on this list */

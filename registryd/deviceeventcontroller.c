@@ -24,7 +24,7 @@
 
 #include <config.h>
 
-#define SPI_DEBUG
+#undef SPI_DEBUG
 
 #ifdef SPI_DEBUG
 #  include <stdio.h>
@@ -32,6 +32,8 @@
 
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
+#define XK_MISCELLANY
+#include <X11/keysymdef.h>
 #include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
 #include <gdk/gdkwindow.h>
 
@@ -436,6 +438,8 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
 {
   Accessibility_DeviceEvent key_event;
   KeySym keysym;
+  const int cbuf_bytes = 20;
+  char cbuf [cbuf_bytes];
   
   keysym = XLookupKeysym (x_key_event, 0);
   key_event.id = (CORBA_long)(keysym);
@@ -449,6 +453,33 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
       key_event.type = Accessibility_KEY_RELEASED;
     } 
   key_event.modifiers = (CORBA_unsigned_short)(x_key_event->state);
+
+  switch (keysym)
+    {
+      case ' ':
+        key_event.event_string = CORBA_string_dup ("space");
+        break;
+      case XK_Tab:
+        key_event.event_string = CORBA_string_dup ("Tab");
+	break;
+      case XK_BackSpace:
+        key_event.event_string = CORBA_string_dup ("Backspace");
+	break;
+      case XK_Return:
+        key_event.event_string = CORBA_string_dup ("Return");
+	break;
+      default:
+        if (XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL) > 0)
+          {
+            key_event.event_string = CORBA_string_dup (cbuf);
+          }
+        else
+          {
+            key_event.event_string = CORBA_string_dup ("");
+          }
+    }
+
+  key_event.timestamp = (CORBA_unsigned_long) x_key_event->time;
 #ifdef SPI_KEYEVENT_DEBUG
   fprintf (stderr,
      "Key %lu pressed (%c), modifiers %d\n",
@@ -488,7 +519,6 @@ spi_check_key_event (SpiDeviceEventController *controller)
 	    if (XFilterEvent (x_event, None)) continue;	  
 	    if (x_event->type == KeyPress || x_event->type == KeyRelease)
 	      {
-	        fprintf (stderr, "x event type=%d\n", x_event->type);      
 	        key_event = spi_keystroke_from_x_key_event ((XKeyEvent *) x_event);
 	        /* relay to listeners, and decide whether to consume it or not */
 	        is_consumed = spi_notify_keylisteners (controller->key_listeners, &key_event, CORBA_TRUE, &ev);
