@@ -8,6 +8,31 @@ accompanying README file.
 
 ---------
 
+Dependencies of at-spi:
+
+at-spi depends requires a working Gnome 2 platform
+to build and run, including but not limited to recent
+developer versions of:
+
+pkgconfig (required to build)
+autoconf (required to build)
+automake (required to build)
+gnome-common (required to build)
+glib
+atk
+pango
+gtk+
+gail (optional, but necessary for at-bridge functionality)
+xml-i18n-tools
+linc
+ORBit2
+bonobo-activation
+libbonobo
+
+(to be installed and built in approximately that order).
+
+---------
+
 Developers of Assistive Technology for Gnome :
 for technical assistance please contact
 
@@ -20,34 +45,35 @@ equal access to the Gnome desktop for everyone.
 - The (current core) Gnome Accessibility Engineering Team:
 
   Bill Haneman <bill.haneman@sun.com>
-  Padraig O'Briain <padraig.obriain@sun.com>
   Marc Mulcahy <marc.mulcahy@sun.com>
+  Padraig O'Briain <padraig.obriain@sun.com>
 
   special thanks to
 
-  Brian Cameron 
-  Mark McLoughlin
-  Lucy Brophy
-  Niall Powers
-  Louise Miller
-  Sander Vesic
-  Michael Meeks
-  Owen Taylor
-  Johnathan Blandford
-  Tim Janik 
-  Havoc Pennington 
-  Peter Korn
-  Earl Johnson
-  Lynn Monsanto
-  Marney Beard
-  Leila Chucri
-  Anne Tirsell
-  James Cleere
-  Dierdre Williams
-  Hans Breuer
-  Peter Williams
   Darin Adler
-  Jens Finke
+  Marney Beard
+  Johnathan Blandford
+  Hans Breuer
+  Lucy Brophy
+  Brian Cameron 
   Anders Carlsson
+  Leila Chucri
+  James Cleere
+  Jens Finke
+  Tim Janik 
+  Earl Johnson
+  Peter Korn
+  Mark McLoughlin
+  Michael Meeks
+  Louise Miller
+  Lynn Monsanto
+  Havoc Pennington 
+  Niall Powers
+  Owen Taylor
+  Anne Tirsell
+  Sander Vesic
+  Dierdre Williams
+  Peter Williams
 
   ... and many others!
+

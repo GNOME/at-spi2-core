@@ -1,3 +1,11 @@
+2001-08-21  Bill Haneman <bill.haneman@sun.com>
+
+        Tagged CVS repository 'EA_1_0'.
+        * README.EARLY_ACCESS:
+        Alphabetized acknowledgements list, and
+        added someone.
+        Listed some known dependencies of at-spi.
+
 2001-08-20  Bill Haneman <bill.haneman@sun.com>
 
 	* docs/at-spi-docs.sgml:
