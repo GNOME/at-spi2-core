@@ -8,9 +8,9 @@ export_symbols = -export-symbols atk.def
 no_undefined = -no-undefined
 
 install-libtool-import-lib:
-	$(INSTALL) .libs/libatk.dll.a $(DESTDIR)$(libdir)
+	$(INSTALL) .libs/libatk-$(ATK_API_VERSION).dll.a $(DESTDIR)$(libdir)
 uninstall-libtool-import-lib:
-	-rm $(DESTDIR)$(libdir)/libatk.dll.a
+	-rm $(DESTDIR)$(libdir)/libatk-$(ATK_API_VERSION).dll.a
 else
 install-libtool-import-lib:
 uninstall-libtool-import-lib:
@@ -19,13 +19,13 @@ endif
 lib_LTLIBRARIES = libatk-1.0.la
 
 if MS_LIB_AVAILABLE
-noinst_DATA = atk.lib
+noinst_DATA = atk-$(ATK_API_VERSION).lib
 
 install-ms-lib:
-	$(INSTALL) atk.lib $(DESTDIR)$(libdir)
+	$(INSTALL) atk-$(ATK_API_VERSION).lib $(DESTDIR)$(libdir)
 
 uninstall-ms-lib:
-	-rm $(DESTDIR)$(libdir)/atk.lib
+	-rm $(DESTDIR)$(libdir)/atk-$(ATK_API_VERSION).lib
 else
 install-ms-lib:
 uninstall-ms-lib:
@@ -168,7 +168,7 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 	&& echo timestamp > $(@F)
 
 
-atk.lib: libatk-$(ATK_API_VERSION).la atk.def
+atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
 	lib -name:libatk-@LT_CURRENT_MINUS_AGE@.dll -def:atk.def -out:$@
 
 install-data-local: install-ms-lib install-libtool-import-lib

@@ -8,13 +8,13 @@ cd @prefix@
 
 rm $ZIP
 zip -r $ZIP -@ <<EOF
-lib/libatk-@LT_CURRENT_MINUS_AGE@.dll
+lib/libatk-@ATK_API_VERSION@-@LT_CURRENT_MINUS_AGE@.dll
 EOF
 
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF
 include/atk-1.0
-lib/libatk.dll.a
-lib/atk.lib
+lib/libatk-@ATK_API_VERSION@.dll.a
+lib/atk-@ATK_API_VERSION@.lib
 lib/pkgconfig/atk.pc
 EOF

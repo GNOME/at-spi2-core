@@ -1,3 +1,9 @@
+2002-03-06  Tor Lillqvist  <tml@iki.fi>
+
+	* atk-zip.sh.in
+	* atk/Makefile.am: Use ATK_API_VERSION also in the Win32 import
+	library names.
+
 Tue Mar  5 16:54:21 2002  Owen Taylor  <otaylor@redhat.com>
 
         * ATK 1.0.0 rc1
