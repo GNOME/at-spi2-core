@@ -163,7 +163,7 @@ PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, ,
 # Rerun PKG_CONFIG to add gthread-2.0 cflags, but not libs
 DEP_CFLAGS=`$PKG_CONFIG --cflags $GLIB_PACKAGES gthread-2.0`
 
-ALL_LINGUAS="af am az be bg bn ca cs cy da de en_CA en_GB el eo es et eu fa fi fr ga gu he hi hr hu kn ko id is it ja li lv lt ml mk mn mr ms ne nl nn no pa pl pt pt_BR ro ru sk sl sq sr sr@ije sr@Latn sv ta tr uk vi wa yi zh_CN zh_TW"
+ALL_LINGUAS="af am az be bg bn ca cs cy da de en_CA en_GB el eo es et eu fa fi fr ga gu he hi hr hu kn ko id is it ja li lv lt ml mk mn mr ms ne nl nn no pa pl pt pt_BR ro ru sk sl sq sr sr@ije sr@Latn sv ta tk tr uk vi wa yi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 AM_GLIB_DEFINE_LOCALEDIR(ATK_LOCALEDIR)
