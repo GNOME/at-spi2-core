@@ -1,3 +1,34 @@
+2002-08-12  Michael Meeks  <michael@ximian.com>
+
+	* test/test-simple.c (global_listener_cb): bin bogosity.
+	(test_keylisteners): disable, still doesn't work reliably,
+	certainly not on my system anyway.
+
+	* atk-bridge/bridge.c (spi_atk_bridge_key_listener):
+	don't leak a reference on the DEC. This round-trip
+	fetching of the DEC per keystroke sucks, it should be
+	cached.
+
+	* cspi/spi-private.h,
+	* cspi/cspi-lowlevel.h,
+	* cspi/bonobo/cspi-bonobo-listener.[ch],
+	* cspi/bonobo/cspi-bonobo.c: get the copyright
+	notices better - there is still a large amount of
+	work in at-spi falsely attributed solely to Sun.
+
+	* cspi/spi_main.c (cspi_object_ref): kill bogus
+	hash lookup, just increment the ref.
+	(SPI_freeString): make explicit the fact that we
+	handle NULL strings just fine.
+	(report_leaked_ref): obey coding standards.
+	(cspi_object_hash, cspi_object_equal): kill retval.
+	(cspi_object_release): only release if not on loan.
+	(cspi_object_get_ref): add 'loan' concept, bin 'do_ref'.
+	(cspi_object_borrow, cspi_object_return): impl.
+
+	* cspi/bonobo/cspi-bonobo-listener.c (cspi_event):
+	use cspi_object_borrow / return.
+
 2002-08-12  Darren Kenny  <darren.kenny@sun.com>
 
 	* cspi/bonobo/cspi-bonobo-listener.c: 

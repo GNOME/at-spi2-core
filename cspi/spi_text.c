@@ -23,8 +23,7 @@
 #include <cspi/spi-private.h>
 
 static Accessibility_TEXT_BOUNDARY_TYPE
-get_accessible_text_boundary_type (
-						 AccessibleTextBoundaryType type)
+get_accessible_text_boundary_type (AccessibleTextBoundaryType type)
 {
   switch (type)
     {

@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2002 Ximian Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -91,7 +91,7 @@ cspi_event (SpiEventListener    *listener,
   GList *l;
   CSpiEventListener *clistener = (CSpiEventListener *) listener;
   AccessibleEvent    aevent;
-  Accessible        *source = cspi_object_add (cspi_dup_ref(event->source));
+  Accessible        *source = cspi_object_borrow (event->source);
   
   aevent.type    = event->type;
   aevent.source  = source;
@@ -106,7 +106,7 @@ cspi_event (SpiEventListener    *listener,
       eh->cb.event (&aevent, eh->user_data);
     }
 
-  cspi_object_unref( source );
+  cspi_object_return (source);
 }
 
 static void

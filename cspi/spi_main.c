@@ -39,11 +39,8 @@ static guint
 cspi_object_hash (gconstpointer key)
 {
   CORBA_Object object = (CORBA_Object) key;
-  guint        retval;
-  
-  retval = CORBA_Object_hash (object, 0, &ev);
 
-  return retval;
+  return CORBA_Object_hash (object, 0, &ev);
 }
 
 static gboolean
@@ -51,15 +48,12 @@ cspi_object_equal (gconstpointer a, gconstpointer b)
 {
   CORBA_Object objecta = (CORBA_Object) a;
   CORBA_Object objectb = (CORBA_Object) b;
-  gboolean     retval;
 
-  retval = CORBA_Object_is_equivalent (objecta, objectb, &ev);
-
-  return retval;
+  return CORBA_Object_is_equivalent (objecta, objectb, &ev);
 }
 
 static void
-cspi_object_release (gpointer  value)
+cspi_object_release (gpointer value)
 {
   Accessible *a = (Accessible *) value;
 
@@ -67,7 +61,10 @@ cspi_object_release (gpointer  value)
   g_print ("releasing %p => %p\n", a, a->objref);
 #endif
 
-  cspi_release_unref (a->objref);
+  if (!a->on_loan)
+    {
+      cspi_release_unref (a->objref);
+    }
 
   memset (a, 0xaa, sizeof (Accessible));
   a->ref_count = -1;
@@ -78,18 +75,18 @@ cspi_object_release (gpointer  value)
 }
 
 SPIBoolean
-cspi_accessible_is_a (Accessible *obj,
+cspi_accessible_is_a (Accessible *accessible,
 		      const char *interface_name)
 {
   SPIBoolean        retval;
   Bonobo_Unknown unknown;
 
-  if (obj == NULL)
+  if (accessible == NULL)
     {
       return FALSE;
     }
 
-  unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (obj),
+  unknown = Bonobo_Unknown_queryInterface (CSPI_OBJREF (accessible),
 					   interface_name, cspi_ev ());
 
   if (ev._major != CORBA_NO_EXCEPTION)
@@ -135,7 +132,9 @@ Accessibility_Registry
 cspi_registry (void)
 {
   if (!cspi_ping (registry))
-	  registry = cspi_init ();
+    {
+      registry = cspi_init ();
+    }
   return registry;
 }
 
@@ -157,38 +156,14 @@ cspi_exception (void)
   return retval;
 }
 
-Accessible *
-cspi_object_new (CORBA_Object corba_object)
-{
-  Accessible *ref;
-
-  if (corba_object == CORBA_OBJECT_NIL)
-    {
-      ref = NULL;
-    }
-  else if (!cspi_check_ev ("pre method check: add"))
-    {
-      ref = NULL;
-    }
-  else
-    {
-      ref = malloc (sizeof (Accessible));
-//    ref->objref = CORBA_Object_duplicate (corba_object, cspi_ev ());
-      ref->objref = corba_object;
-      ref->ref_count = 1;
-    }
-
-  return ref;
-}
-
-Accessible *
-cspi_object_add (CORBA_Object corba_object)
-{
-	return cspi_object_add_ref (corba_object, FALSE);
-}
-
-Accessible *
-cspi_object_add_ref (CORBA_Object corba_object, gboolean do_ref)
+/*
+ *   This method swallows the corba_object BonoboUnknown
+ * reference, and returns an Accessible associated with it.
+ * If the reference is loaned, it means it is only valid
+ * between a borrow / return pair.
+ */
+static Accessible *
+cspi_object_get_ref (CORBA_Object corba_object, gboolean on_loan)
 {
   Accessible *ref;
 
@@ -206,26 +181,30 @@ cspi_object_add_ref (CORBA_Object corba_object, gboolean do_ref)
         {
           g_assert (ref->ref_count > 0);
 	  ref->ref_count++;
-          if (!do_ref) 
-		cspi_release_unref (corba_object);
+	  if (!on_loan)
+	    {
+	      if (ref->on_loan) /* Convert to a permanant ref */
+		{
+                  ref->on_loan = FALSE;
+		}
+	      else
+	        {
+		  cspi_release_unref (corba_object);
+		}
+	    }
 #ifdef DEBUG_OBJECTS
           g_print ("returning cached %p => %p\n", ref, ref->objref);
 #endif
 	}
       else
         {
-	  ref = cspi_object_new (corba_object);
-
+	  ref = malloc (sizeof (Accessible));
+	  ref->objref = corba_object;
+	  ref->ref_count = 1;
+	  ref->on_loan = on_loan;
 #ifdef DEBUG_OBJECTS
           g_print ("allocated %p => %p\n", ref, corba_object);
 #endif
-	  if (do_ref) {
-#ifdef JAVA_BRIDGE_BUG_IS_FIXED
-		  g_assert (CORBA_Object_is_a (corba_object,
-						"IDL:Bonobo/Unknown:1.0", cspi_ev ()));
-#endif
-		  Bonobo_Unknown_ref (corba_object, cspi_ev ());
-	  }
           g_hash_table_insert (cspi_get_live_refs (), ref->objref, ref);
 	}
     }
@@ -233,17 +212,42 @@ cspi_object_add_ref (CORBA_Object corba_object, gboolean do_ref)
   return ref;
 }
 
+Accessible *
+cspi_object_add (CORBA_Object corba_object)
+{
+  return cspi_object_get_ref (corba_object, FALSE);
+}
+
+Accessible *
+cspi_object_borrow (CORBA_Object corba_object)
+{
+  return cspi_object_get_ref (corba_object, TRUE);
+}
+
+void
+cspi_object_return (Accessible *accessible)
+{
+  g_return_if_fail (accessible != NULL);
+
+  if (!accessible->on_loan ||
+      accessible->ref_count == 1)
+    {
+      cspi_object_unref (accessible);
+    }
+  else /* Convert to a permanant ref */
+    {
+      accessible->on_loan = FALSE;
+      accessible->objref = cspi_dup_ref (accessible->objref);
+      accessible->ref_count--;
+    }
+}
+
 void
 cspi_object_ref (Accessible *accessible)
 {
   g_return_if_fail (accessible != NULL);
 
-  if (g_hash_table_lookup (cspi_get_live_refs (), accessible->objref) == NULL) {
-	  accessible->objref = cspi_dup_ref (accessible->objref);
-	  g_hash_table_insert (cspi_get_live_refs (), accessible->objref, accessible);
-  } else {
-	  accessible->ref_count++;
-  }
+  accessible->ref_count++;
 }
 
 void
@@ -372,15 +376,25 @@ SPI_nextEvent (SPIBoolean waitForEvent)
 static void
 report_leaked_ref (gpointer key, gpointer val, gpointer user_data)
 {
-	Accessible *a = (Accessible *) val;
-	char *name, *role;
-	name = Accessible_getName (a);
-	if (cspi_exception ()) name = NULL;
-	role = Accessible_getRoleName (a);
-	if (cspi_exception ()) role = NULL;
-	fprintf (stderr, "leaked object %s, role %s\n", (name) ? name : "<?>",
-		 (role) ? role : "<?>");
-	if (name) SPI_freeString (name);
+  char *name, *role;
+  Accessible *a = (Accessible *) val;
+  
+  name = Accessible_getName (a);
+  if (cspi_exception ())
+    {
+      name = NULL;
+    }
+
+  role = Accessible_getRoleName (a);
+  if (cspi_exception ())
+    {
+      role = NULL;
+    }
+
+  fprintf (stderr, "leaked %d references to object %s, role %s\n",
+	   a->ref_count, name ? name : "<?>", role ? role : "<?>");
+
+  SPI_freeString (name);
 }
 
 
@@ -437,11 +451,15 @@ SPI_exit (void)
  *
  * Free a character string returned from an at-spi call.  Clients of
  * at-spi should use this function instead of free () or g_free().
+ * A NULL string @s will be silently ignored.
  * This API should not be used to free strings
  * from other libraries or allocated by the client.
  **/
 void
 SPI_freeString (char *s)
 {
-  CORBA_free (s);
+  if (s)
+    {
+      CORBA_free (s);
+    }
 }

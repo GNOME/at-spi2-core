@@ -20,6 +20,7 @@ Accessible Objects
 </para>
 
 @objref: 
+@on_loan: 
 @ref_count: 
 
 <!-- ##### FUNCTION Accessible_ref ##### -->

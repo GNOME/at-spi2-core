@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2002 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

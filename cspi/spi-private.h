@@ -2,7 +2,9 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2002 Ximian, Inc.
+ *           2002 Sun Microsystems Inc.
+ *           
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -33,7 +35,8 @@
 struct _Accessible {
 	CORBA_Object objref;
 	/* And some other bits */
-	guint        ref_count;
+	guint        on_loan : 1;
+	guint        ref_count : 30;
 };
 
 #define CSPI_OBJREF(a) (((Accessible *)(a))->objref)
@@ -41,13 +44,13 @@ struct _Accessible {
 CORBA_Environment     *cspi_ev               (void);
 SPIBoolean             cspi_exception        (void);
 Accessibility_Registry cspi_registry         (void);
-Accessible            *cspi_object_add       (CORBA_Object         corba_object);
-Accessible            *cspi_object_add_ref   (CORBA_Object         corba_object,
-					      gboolean             do_ref);
-void                   cspi_object_ref       (Accessible          *accessible);
-void                   cspi_object_unref     (Accessible          *accessible);
-SPIBoolean             cspi_accessible_is_a  (Accessible          *obj,
-					      const char          *interface_name);
+Accessible            *cspi_object_add       (CORBA_Object corba_object);
+void                   cspi_object_ref       (Accessible  *accessible);
+void                   cspi_object_unref     (Accessible  *accessible);
+Accessible            *cspi_object_borrow    (CORBA_Object corba_object);
+void                   cspi_object_return    (Accessible  *accessible);
+SPIBoolean             cspi_accessible_is_a  (Accessible  *accessible,
+					      const char  *interface_name);
 
 #define cspi_return_if_fail(val)		\
 	if (!(val))				\
