@@ -1,0 +1,55 @@
+/* ATK -  Accessibility Toolkit
+ * Copyright 2001 Sun Microsystems Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+#ifndef COMPONENT_H_
+#define COMPONENT_H_
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+#include <bonobo/bonobo-object.h>
+#include <atk/atk.h>
+#include <libspi/Accessibility.h>
+
+#define COMPONENT_TYPE        (accessibility_component_get_type ())
+#define COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), COMPONENT_TYPE, Component))
+#define COMPONENT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), COMPONENT_TYPE, ComponentClass))
+#define IS_COMPONENT(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), COMPONENT_TYPE))
+#define IS_COMPONENT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), COMPONENT_TYPE))
+
+typedef struct {
+        BonoboObject parent;
+        AtkObject *atko;
+} Component;
+
+typedef struct {
+        BonoboObjectClass parent_class;
+        POA_Accessibility_Component__epv epv;
+} ComponentClass;
+
+GType                  accessibility_component_get_type   (void);
+Component              *component_interface_new       (AtkObject *o);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* COMPONENT_H_ */
