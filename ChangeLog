@@ -1,3 +1,17 @@
+2001-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkrelation.c:
+	Use ATK_TYPE_RELATION_TYPE in atk_relation_type_get_name() and
+	atk_relation_type_for_name()
+
+	* atk/atkstate.c:
+	Use ATK_TYPE_STATE_TYPE in atk_state_type_get_name() and
+	atk_state_type_for_name()
+
+	* tests/testrelation.c, tests/teststateset.c:
+	Update tests as name componenets are separated by hyphen (-) rather
+	than underline (_)
+
 2001-11-29  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/Makefile.am:

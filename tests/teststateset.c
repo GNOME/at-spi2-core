@@ -233,25 +233,25 @@ test_state (void)
     return FALSE;
   }
 
-  type1 = atk_state_type_register ("test_state");
+  type1 = atk_state_type_register ("test-state");
   name = atk_state_type_get_name (type1);
   g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "test_state") != 0)
+  if (strcmp (name, "test-state") != 0)
   {
-    g_print ("Unexpected name for test_state %s\n", name);
+    g_print ("Unexpected name for test-state %s\n", name);
     return FALSE;
   }
-  type2 = atk_state_type_for_name ("test_state");
+  type2 = atk_state_type_for_name ("test-state");
   g_return_val_if_fail (name, FALSE);
   if (type1 != type2)
   {
-    g_print ("Unexpected type for test_state\n");
+    g_print ("Unexpected type for test-state %d %d\n", type1, type2);
     return FALSE;
   }
-  type2 = atk_state_type_for_name ("TEST-STATE");
+  type2 = atk_state_type_for_name ("TEST_STATE");
   if (type2 != 0)
   {
-    g_print ("Unexpected type for TEST-STATE\n");
+    g_print ("Unexpected type for TEST_STATE\n");
     return FALSE;
   }
   /*

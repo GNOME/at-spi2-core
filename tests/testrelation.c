@@ -31,7 +31,7 @@ test_relation (void)
 
   name = atk_relation_type_get_name (ATK_RELATION_LABEL_FOR);
   g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "label_for") != 0)
+  if (strcmp (name, "label-for") != 0)
     {
       g_print ("Unexpected name for ATK_RELATION_LABEL_FOR %s\n", name);
       return FALSE;
@@ -39,37 +39,37 @@ test_relation (void)
 
   name = atk_relation_type_get_name (ATK_RELATION_NODE_CHILD_OF);
   g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "node_child_of") != 0)
+  if (strcmp (name, "node-child-of") != 0)
     {
       g_print ("Unexpected name for ATK_STATE_MODAL %s\n", name);
       return FALSE;
     }
 
-  type1 = atk_relation_type_for_name ("controlled_by");
+  type1 = atk_relation_type_for_name ("controlled-by");
   if (type1 != ATK_RELATION_CONTROLLED_BY)
     {
       g_print ("Unexpected type for focused\n");
       return FALSE;
     }
 
-  type1 = atk_relation_type_register ("test_state");
+  type1 = atk_relation_type_register ("test-state");
   name = atk_relation_type_get_name (type1);
   g_return_val_if_fail (name, FALSE);
-  if (strcmp (name, "test_state") != 0)
+  if (strcmp (name, "test-state") != 0)
     {
-      g_print ("Unexpected name for test_state %s\n", name);
+      g_print ("Unexpected name for test-state %s\n", name);
       return FALSE;
     }
-  type2 = atk_relation_type_for_name ("test_state");
+  type2 = atk_relation_type_for_name ("test-state");
   if (type1 != type2)
   {
-    g_print ("Unexpected type for test_state\n");
+    g_print ("Unexpected type for test-state\n");
     return FALSE;
   }
-  type2 = atk_relation_type_for_name ("TEST-STATE");
+  type2 = atk_relation_type_for_name ("TEST_STATE");
   if (type2 != 0)
     {
-      g_print ("Unexpected type for TEST-STATE\n");
+      g_print ("Unexpected type for TEST_STATE\n");
       return FALSE;
     }
   /*
@@ -78,7 +78,7 @@ test_relation (void)
   name = atk_relation_type_get_name (ATK_RELATION_LAST_DEFINED + 2);
   if (name)
     {
-      g_print ("Unexpected name for undefined type\n");
+      g_print ("Unexpected name for undefined type %s\n", name);
       return FALSE;
     }
   return TRUE;

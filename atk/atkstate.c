@@ -18,6 +18,7 @@
  */
 
 #include "atkstate.h"
+#include "atk-enum-types.h"
 
 #include <string.h>
 
@@ -25,37 +26,7 @@ static guint last_type = ATK_STATE_LAST_DEFINED;
 
 #define NUM_POSSIBLE_STATES               (sizeof(AtkState)*8)
 
-static gchar* state_names[NUM_POSSIBLE_STATES] = {
- "invalid",
- "active",
- "armed",
- "busy",
- "checked",
- "defunct",
- "editable",
- "enabled",
- "expandable",
- "expanded",
- "focusable",
- "focused",
- "horizontal",
- "iconified",
- "modal",
- "multi-line",
- "multiselectable",
- "opaque",
- "pressed",
- "resizeable",
- "selectable",
- "selected",
- "sensitive",
- "showing",
- "single-line",
- "stale",
- "transient",
- "vertical",
- "visible"
-};
+static gchar* state_names[NUM_POSSIBLE_STATES];
 
 /**
  * atk_state_type_register:
@@ -89,16 +60,29 @@ atk_state_type_register (const gchar *name)
 G_CONST_RETURN gchar*
 atk_state_type_get_name (AtkStateType type)
 {
-  gint n;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  gchar *name = NULL;
 
-  if (type < last_type)
+  type_class = g_type_class_ref (ATK_TYPE_STATE_TYPE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
+
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), type);
+
+  if (value)
     {
-      n = type; 
-      if (n >= 0)
-        return state_names[n];
+      name = value->value_nick;
+    }
+  else
+    {
+      if (type <= last_type)
+        {
+          if (type >= 0)
+            name = state_names[type];
+        }
     }
 
-  return NULL;
+  return name;
 }
 
 /**
@@ -112,17 +96,35 @@ atk_state_type_get_name (AtkStateType type)
 AtkStateType
 atk_state_type_for_name (const gchar *name)
 {
-  gint i;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  AtkStateType type = ATK_STATE_INVALID;
 
-  g_return_val_if_fail (name != NULL, 0);
-  g_return_val_if_fail (strlen (name) > 0, 0);
+  g_return_val_if_fail (name, ATK_STATE_INVALID);
 
-  for (i = 0; i < last_type; i++)
+  type_class = g_type_class_ref (ATK_TYPE_STATE_TYPE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), ATK_STATE_INVALID);
+
+  value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
+
+  if (value)
     {
-      if (state_names[i] == NULL)
-        continue; 
-      if (!strcmp(name, state_names[i])) 
-        return i;
+      type = value->value;
     }
-  return 0;
+  else
+    {
+      gint i;
+
+      for (i = ATK_STATE_LAST_DEFINED + 1; i <= last_type; i++)
+        {
+          if (state_names[i] == NULL)
+            continue; 
+          if (!strcmp(name, state_names[i])) 
+            {
+              type = i;
+              break;
+            }
+        }
+    }
+  return type;
 }

@@ -21,16 +21,7 @@
 #include <glib-object.h>
 #include "atkobject.h"
 #include "atkrelation.h"
-
-static gchar *relation_names[ATK_RELATION_LAST_DEFINED] = {
-  "null",
-  "controlled_by",
-  "controller_for",
-  "label_for",
-  "labelled_by",
-  "member_of",
-  "node_child_of"
-};
+#include "atk-enum-types.h"
 
 GPtrArray *extra_names = NULL;
   
@@ -86,7 +77,7 @@ atk_relation_type_register (const gchar *name)
     extra_names = g_ptr_array_new ();
 
   g_ptr_array_add (extra_names, g_strdup (name));
-  return extra_names->len + ATK_RELATION_LAST_DEFINED - 1;
+  return extra_names->len + ATK_RELATION_LAST_DEFINED;
 }
 
 /**
@@ -100,24 +91,33 @@ atk_relation_type_register (const gchar *name)
 G_CONST_RETURN gchar*
 atk_relation_type_get_name (AtkRelationType type)
 {
-  gint n;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  gchar *name = NULL;
 
-  n = type;
+  type_class = g_type_class_ref (ATK_TYPE_RELATION_TYPE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
 
-  if (n >= 0)
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), type);
+
+  if (value)
     {
-      if (n < ATK_RELATION_LAST_DEFINED)
-        return relation_names[n];
-      else if (extra_names)
+      name = value->value_nick;
+    }
+  else
+    {
+      if (extra_names)
         {
-          n -= ATK_RELATION_LAST_DEFINED;
+          gint n = type;
+
+          n -= ATK_RELATION_LAST_DEFINED + 1;
 
           if (n < extra_names->len)
-            return g_ptr_array_index (extra_names, n);
+            name = g_ptr_array_index (extra_names, n);
         }
     }
-  return relation_names[ATK_RELATION_NULL];
-
+  g_type_class_unref (type_class);
+  return name;
 }
 
 /**
@@ -132,29 +132,44 @@ atk_relation_type_get_name (AtkRelationType type)
 AtkRelationType
 atk_relation_type_for_name (const gchar *name)
 {
-  gint i;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  AtkRelationType type = ATK_RELATION_NULL;
 
   g_return_val_if_fail (name, ATK_RELATION_NULL);
 
-  for (i = 0; i < ATK_RELATION_LAST_DEFINED; i++)
+  type_class = g_type_class_ref (ATK_TYPE_RELATION_TYPE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), ATK_RELATION_NULL);
+
+  value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
+
+  if (value)
     {
-      if (strcmp (name, relation_names[i]) == 0)
-        return i;
+      type = value->value;
     }
-
-  if (extra_names)
+  else
     {
-      for (i = 0; i < extra_names->len; i++)
-        {
-          gchar *extra_name = (gchar *)g_ptr_array_index (extra_names, i);
+      gint i;
 
-          g_return_val_if_fail (extra_name, ATK_RELATION_NULL);
+      if (extra_names)
+        {
+          for (i = 0; i < extra_names->len; i++)
+            {
+              gchar *extra_name = (gchar *)g_ptr_array_index (extra_names, i);
+
+              g_return_val_if_fail (extra_name, ATK_RELATION_NULL);
          
-          if (strcmp (name, extra_name) == 0)
-            return i + ATK_RELATION_LAST_DEFINED;
+              if (strcmp (name, extra_name) == 0)
+                {
+                  type = i + 1 + ATK_RELATION_LAST_DEFINED;
+                  break;
+                }
+            }
         }
     }
-  return ATK_RELATION_NULL;
+  g_type_class_unref (type_class);
+ 
+  return type;
 }
 
 
