@@ -413,12 +413,9 @@ msgstr "Ixabiso elifikelelekayo le-MDI yalo mba"
 msgid "Accessible Table Caption"
 msgstr "Inkcazelo yeTheyibhile eFikelelekayo"
 
-# accessible-table-caption-object should remain verbatim. Also check
-# punctuation: ., in translation
 #: atk/atkobject.c:354
-#, fuzzy
 msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr "Isetyenziselwa ukwazisa ukuba inkcazelo yetheyibhile itshintshile; olu phawu malungasetyenziswa., kodwa makusetyenziswe umba wenkcazelo wetheyibhile efikelelekayo"
+msgstr "Isetyenziselwa ukwazisa ukuba inkcazelo yetheyibhile itshintshile; olu phawu malungasetyenziswa. Kodwa makusetyenziswe accessible-table-caption-object"
 
 #: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
