@@ -26,8 +26,10 @@
 #include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <atk/atktext.h>
 #include <libspi/text.h>
+#include <libspi/spi-private.h>
 
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_TYPE_BASE
@@ -465,8 +467,11 @@ impl_getRangeExtents(PortableServer_Servant servant,
 
   g_return_if_fail (text != NULL);
   
+  atk_text_get_character_extents (text, startOffset,
+			          &bounds.x, &bounds.y, &bounds.w, &bounds.h,
+				  (AtkCoordType) coordType);
   /* no equivalent ATK API yet, must do the hard way. :-( */
-  for (i = startOffset; i > endOffset; i++) 
+  for (i = startOffset + 1; i < endOffset; i++) 
     {
       atk_text_get_character_extents (text, i,
 				      &cbounds.x, &cbounds.y, &cbounds.w, &cbounds.h,

@@ -1,3 +1,9 @@
+2003-01-10  Padraig O'Briain <padraig.obriain@sun.com
+
+	* libspi/text.c:
+	Add includes to avoid compiler warnings on Solaris.
+	(impl_getRangeExtents): Bug fix.
+
 2002-12-17  Bill Haneman <bill.haneman@sun.com
 
         Fix for 100944, [API addition approved by Gman and murrayc].
