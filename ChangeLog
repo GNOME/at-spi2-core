@@ -1,3 +1,8 @@
+Tue Jan 28 13:52:20 2003  Manish Singh  <yosh@gimp.org>
+
+	* autogen.sh (have_automake): call the versioned automake when
+	checking the version itself.
+
 Tue Jan 28 15:18:24 2003  Owen Taylor  <otaylor@redhat.com>
 
 	* autogen.sh (have_automake): Fix version in complaint
