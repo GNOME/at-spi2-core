@@ -10,6 +10,4 @@ atk-decl-list.txt
 atk-unused.txt
 atk-undocumented.txt
 *.stamp
-
-
-
+version.xml
