@@ -68,6 +68,93 @@ enum {
   LAST_SIGNAL
 };
 
+typedef struct _AtkRoleItem AtkRoleItem;
+
+struct _AtkRoleItem
+{
+  AtkRole role;
+  gchar   *name;
+};
+
+static AtkRoleItem role_items [] =
+{
+  { ATK_ROLE_INVALID, N_("invalid")},
+  { ATK_ROLE_ACCEL_LABEL, N_("accel label")},
+  { ATK_ROLE_ALERT, N_("alert")},
+  { ATK_ROLE_ANIMATION, N_("animation")},
+  { ATK_ROLE_ARROW, N_("arrow")},
+  { ATK_ROLE_CALENDAR, N_("calendar")},
+  { ATK_ROLE_CANVAS, N_("canvas")},
+  { ATK_ROLE_CHECK_BOX, N_("check box")},
+  { ATK_ROLE_CHECK_MENU_ITEM, N_("check menu item")},
+  { ATK_ROLE_COLOR_CHOOSER, N_("color chooser")},
+  { ATK_ROLE_COLUMN_HEADER, N_("column header")},
+  { ATK_ROLE_COMBO_BOX, N_("combo box")},
+  { ATK_ROLE_DATE_EDITOR, N_("dateeditor")},
+  { ATK_ROLE_DESKTOP_ICON, N_("desktop icon")},
+  { ATK_ROLE_DESKTOP_FRAME, N_("desktop frame")},
+  { ATK_ROLE_DIAL, N_("dial")},
+  { ATK_ROLE_DIALOG, N_("dialog")},
+  { ATK_ROLE_DIRECTORY_PANE, N_("directory pane")},
+  { ATK_ROLE_DRAWING_AREA, N_("drawing area")},
+  { ATK_ROLE_FILE_CHOOSER, N_("file chooser")},
+  { ATK_ROLE_FILLER, N_("filler")},
+  /* I know it looks wrong but that is what Java returns */
+  { ATK_ROLE_FONT_CHOOSER, N_("fontchooser")},
+  { ATK_ROLE_FRAME, N_("frame")},
+  { ATK_ROLE_GLASS_PANE, N_("glass pane")},
+  { ATK_ROLE_HTML_CONTAINER, N_("html container")},
+  { ATK_ROLE_ICON, N_("icon")},
+  { ATK_ROLE_IMAGE, N_("image")},
+  { ATK_ROLE_INTERNAL_FRAME, N_("internal frame")},
+  { ATK_ROLE_LABEL, N_("label")},
+  { ATK_ROLE_LAYERED_PANE, N_("layered pane")},
+  { ATK_ROLE_LIST, N_("list")},
+  { ATK_ROLE_LIST_ITEM, N_("list item")},
+  { ATK_ROLE_MENU, N_("menu")},
+  { ATK_ROLE_MENU_BAR, N_("menu bar")},
+  { ATK_ROLE_MENU_ITEM, N_("menu item")},
+  { ATK_ROLE_OPTION_PANE, N_("option pane")},
+  { ATK_ROLE_PAGE_TAB, N_("page tab")},
+  { ATK_ROLE_PAGE_TAB_LIST, N_("page tab list")},
+  { ATK_ROLE_PANEL, N_("panel")},
+  { ATK_ROLE_PASSWORD_TEXT, N_("password text")},
+  { ATK_ROLE_POPUP_MENU, N_("popup menu")},
+  { ATK_ROLE_PROGRESS_BAR, N_("progress bar")},
+  { ATK_ROLE_PUSH_BUTTON, N_("push button")},
+  { ATK_ROLE_RADIO_BUTTON, N_("radio button")},
+  { ATK_ROLE_RADIO_MENU_ITEM, N_("radio menu item")},
+  { ATK_ROLE_ROOT_PANE, N_("root pane")},
+  { ATK_ROLE_ROW_HEADER, N_("row header")},
+  { ATK_ROLE_SCROLL_BAR, N_("scroll bar")},
+  { ATK_ROLE_SCROLL_PANE, N_("scroll pane")},
+  { ATK_ROLE_SEPARATOR, N_("separator")},
+  { ATK_ROLE_SLIDER, N_("slider")},
+  { ATK_ROLE_SPLIT_PANE, N_("split pane")},
+  { ATK_ROLE_SPIN_BUTTON, N_("spin button")},
+  { ATK_ROLE_STATUSBAR, N_("statusbar")},
+  { ATK_ROLE_TABLE, N_("table")},
+  { ATK_ROLE_TABLE_CELL, N_("table cell")},
+  { ATK_ROLE_TABLE_COLUMN_HEADER, N_("table column header")},
+  { ATK_ROLE_TABLE_ROW_HEADER, N_("table row header")},
+  { ATK_ROLE_TEAR_OFF_MENU_ITEM, N_("tear off menu item")},
+  { ATK_ROLE_TERMINAL, N_("terminal")},
+  { ATK_ROLE_TEXT, N_("text")},
+  { ATK_ROLE_TOGGLE_BUTTON, N_("toggle button")},
+  { ATK_ROLE_TOOL_BAR, N_("tool bar")},
+  { ATK_ROLE_TOOL_TIP, N_("tool tip")},
+  { ATK_ROLE_TREE, N_("tree")},
+  { ATK_ROLE_TREE_TABLE, N_("tree table")},
+  { ATK_ROLE_UNKNOWN, N_("unknown")},
+  { ATK_ROLE_VIEWPORT, N_("viewport")},
+  { ATK_ROLE_WINDOW, N_("window")},
+  { ATK_ROLE_HEADER, N_("header")},
+  { ATK_ROLE_FOOTER, N_("footer")},
+  { ATK_ROLE_PARAGRAPH, N_("paragraph")},
+  { ATK_ROLE_APPLICATION, N_("application")},
+  { ATK_ROLE_AUTOCOMPLETE, N_("autocomplete")}
+};
+
 static void            atk_object_class_init        (AtkObjectClass  *klass);
 static void            atk_object_init              (AtkObject       *accessible,
                                                      AtkObjectClass  *klass);
@@ -1157,32 +1244,24 @@ atk_object_notify (GObject     *obj,
 G_CONST_RETURN gchar*
 atk_role_get_name (AtkRole role)
 {
-  GTypeClass *type_class;
-  GEnumValue *value;
   gchar *name = NULL;
+  gint i;
 
-  type_class = g_type_class_ref (ATK_TYPE_ROLE);
-  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
-
-  value = g_enum_get_value (G_ENUM_CLASS (type_class), role);
-
-  if (value)
+  for (i = 0; i < G_N_ELEMENTS (role_items); i++)
     {
-      name = value->value_nick;
+      if (role == role_items[i].role)
+        return role_items[i].name;
     }
-  else
+
+  if (extra_roles)
     {
-      if (extra_roles)
-        {
-          gint n = role;
+      gint n = role;
 
-          n -= ATK_ROLE_LAST_DEFINED + 1;
+      n -= ATK_ROLE_LAST_DEFINED + 1;
 
-          if (n < extra_roles->len)
-            name = g_ptr_array_index (extra_roles, n);
-        }
+      if (n < extra_roles->len)
+        name = g_ptr_array_index (extra_roles, n);
     }
-  g_type_class_unref (type_class);
   return name;
 }
 
@@ -1215,7 +1294,8 @@ G_CONST_RETURN gchar*
 atk_role_get_localized_name (AtkRole role)
 {
   G_CONST_RETURN gchar *name;
-  gboolean gettext_initialized = FALSE;
+  gint i;
+  static gboolean gettext_initialized = FALSE;
 
 #ifdef ENABLE_NLS
   if (!gettext_initialized)
@@ -1229,234 +1309,13 @@ atk_role_get_localized_name (AtkRole role)
     }
 #endif
 
-  switch (role)
+  for (i = 0; i < G_N_ELEMENTS (role_items); i++)
     {
-      case ATK_ROLE_INVALID:
-        name = _("invalid");
-        break;
-      case ATK_ROLE_ACCEL_LABEL:
-        name = _("accel-label");
-        break;
-      case ATK_ROLE_ALERT:
-        name = _("alert");
-        break;
-      case ATK_ROLE_ANIMATION:
-        name = _("animation");
-        break;
-      case ATK_ROLE_ARROW:
-        name = _("arrow");
-        break;
-      case ATK_ROLE_CALENDAR:
-        name = _("calendar");
-        break;
-      case ATK_ROLE_CANVAS:
-        name = _("canvas");
-        break;
-      case ATK_ROLE_CHECK_BOX:
-        name = _("check-box");
-        break;
-      case ATK_ROLE_CHECK_MENU_ITEM:
-        name = _("check-menu-item");
-        break;
-      case ATK_ROLE_COLOR_CHOOSER:
-        name = _("color-chooser");
-        break;
-      case ATK_ROLE_COLUMN_HEADER:
-        name = _("column-header");
-        break;
-      case ATK_ROLE_COMBO_BOX:
-        name = _("combo-box");
-        break;
-      case ATK_ROLE_DATE_EDITOR:
-        name = _("date-editor");
-        break;
-      case ATK_ROLE_DESKTOP_ICON:
-        name = _("desktop-icon");
-        break;
-      case ATK_ROLE_DESKTOP_FRAME:
-        name = _("desktop-frame");
-        break;
-      case ATK_ROLE_DIAL:
-        name = _("dial");
-        break;
-      case ATK_ROLE_DIALOG:
-        name = _("dialog");
-        break;
-      case ATK_ROLE_DIRECTORY_PANE:
-        name = _("directory-pane");
-        break;
-      case ATK_ROLE_DRAWING_AREA:
-        name = _("drawing-area");
-        break;
-      case ATK_ROLE_FILE_CHOOSER:
-        name = _("file-chooser");
-        break;
-      case ATK_ROLE_FILLER:
-        name = _("filler");
-        break;
-      case ATK_ROLE_FONT_CHOOSER:
-        name = _("font-chooser");
-        break;
-      case ATK_ROLE_FRAME:
-        name = _("frame");
-        break;
-      case ATK_ROLE_GLASS_PANE:
-        name = _("glass-pane");
-        break;
-      case ATK_ROLE_HTML_CONTAINER:
-        name = _("html-container");
-        break;
-      case ATK_ROLE_ICON:
-        name = _("icon");
-        break;
-      case ATK_ROLE_IMAGE:
-        name = _("image");
-        break;
-      case ATK_ROLE_INTERNAL_FRAME:
-        name = _("internal-frame");
-        break;
-      case ATK_ROLE_LABEL:
-        name = _("label");
-        break;
-      case ATK_ROLE_LAYERED_PANE:
-        name = _("layered-pane");
-        break;
-      case ATK_ROLE_LIST:
-        name = _("list");
-        break;
-      case ATK_ROLE_LIST_ITEM:
-        name = _("list-item");
-        break;
-      case ATK_ROLE_MENU:
-        name = _("menu");
-        break;
-      case ATK_ROLE_MENU_BAR:
-        name = _("menu-bar");
-        break;
-      case ATK_ROLE_MENU_ITEM:
-        name = _("menu-item");
-        break;
-      case ATK_ROLE_OPTION_PANE:
-        name = _("option-pane");
-        break;
-      case ATK_ROLE_PAGE_TAB:
-        name = _("page-tab");
-        break;
-      case ATK_ROLE_PAGE_TAB_LIST:
-        name = _("page-tab-list");
-        break;
-      case ATK_ROLE_PANEL:
-        name = _("panel");
-        break;
-      case ATK_ROLE_PASSWORD_TEXT:
-        name = _("password-text");
-        break;
-      case ATK_ROLE_POPUP_MENU:
-        name = _("popup-menu");
-        break;
-      case ATK_ROLE_PROGRESS_BAR:
-        name = _("progress-bar");
-        break;
-      case ATK_ROLE_PUSH_BUTTON:
-        name = _("push-button");
-        break;
-      case ATK_ROLE_RADIO_BUTTON:
-        name = _("radio-button");
-        break;
-      case ATK_ROLE_RADIO_MENU_ITEM:
-        name = _("radio-menu-item");
-        break;
-      case ATK_ROLE_ROOT_PANE:
-        name = _("root-pane");
-        break;
-      case ATK_ROLE_ROW_HEADER:
-        name = _("row-header");
-        break;
-      case ATK_ROLE_SCROLL_BAR:
-        name = _("scroll-bar");
-        break;
-      case ATK_ROLE_SCROLL_PANE:
-        name = _("scroll-pane");
-        break;
-      case ATK_ROLE_SEPARATOR:
-        name = _("separator");
-        break;
-      case ATK_ROLE_SLIDER:
-        name = _("slider");
-        break;
-      case ATK_ROLE_SPLIT_PANE:
-        name = _("split-pane");
-        break;
-      case ATK_ROLE_SPIN_BUTTON:
-        name = _("spin-button");
-        break;
-      case ATK_ROLE_STATUSBAR:
-        name = _("statusbar");
-        break;
-      case ATK_ROLE_TABLE:
-        name = _("table");
-        break;
-      case ATK_ROLE_TABLE_CELL:
-        name = _("table-cell");
-        break;
-      case ATK_ROLE_TABLE_COLUMN_HEADER:
-        name = _("table-column-header");
-        break;
-      case ATK_ROLE_TABLE_ROW_HEADER:
-        name = _("table-row-header");
-        break;
-      case ATK_ROLE_TEAR_OFF_MENU_ITEM:
-        name = _("tear-off-menu-item");
-        break;
-      case ATK_ROLE_TERMINAL:
-        name = _("terminal");
-        break;
-      case ATK_ROLE_TEXT:
-        name = _("text");
-        break;
-      case ATK_ROLE_TOGGLE_BUTTON:
-        name = _("toggle-button");
-        break;
-      case ATK_ROLE_TOOL_BAR:
-        name = _("tool-bar");
-        break;
-      case ATK_ROLE_TOOL_TIP:
-        name = _("tool-tip");
-        break;
-      case ATK_ROLE_TREE:
-        name = _("tree");
-        break;
-      case ATK_ROLE_TREE_TABLE:
-        name = _("tree-table");
-        break;
-      case ATK_ROLE_UNKNOWN:
-        name = _("unknown");
-        break;
-      case ATK_ROLE_VIEWPORT:
-        name = _("viewport");
-        break;
-      case ATK_ROLE_WINDOW:
-        name = _("window");
-        break;
-      case ATK_ROLE_HEADER:
-        name = _("header");
-        break;
-      case ATK_ROLE_FOOTER:
-        name = _("footer");
-        break;
-      case ATK_ROLE_PARAGRAPH:
-        name = _("paragraph");
-        break;
-      case ATK_ROLE_RULER:
-        name = _("ruler");
-        break;
-      case ATK_ROLE_APPLICATION:
-        name = _("application");
-        break;
-      default:
-        name = atk_role_get_name (role);
-        break;
+      if (role == role_items[i].role)
+        return dgettext (GETTEXT_PACKAGE, role_items[i].name);
     }
+  name = atk_role_get_name (role);
+
   return name;
 }
 
@@ -1473,42 +1332,32 @@ name,
 AtkRole
 atk_role_for_name (const gchar *name)
 {
-  GTypeClass *type_class;
-  GEnumValue *value;
   AtkRole role = ATK_ROLE_INVALID;
+  gint i;
 
   g_return_val_if_fail (name, ATK_ROLE_INVALID);
 
-  type_class = g_type_class_ref (ATK_TYPE_ROLE);
-  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), ATK_ROLE_INVALID);
-
-  value = g_enum_get_value_by_nick (G_ENUM_CLASS (type_class), name);
-
-  if (value)
+  for (i = 0; i < G_N_ELEMENTS (role_items); i++)
     {
-      role = value->value;
+      if (strcmp (name, role_items[i].name) == 0)
+        return role_items[i].role;
     }
-  else
+
+  if (extra_roles)
     {
-     gint i;
-
-      if (extra_roles)
+      for (i = 0; i < extra_roles->len; i++)
         {
-          for (i = 0; i < extra_roles->len; i++)
+          gchar *extra_role = (gchar *)g_ptr_array_index (extra_roles, i);
+
+          g_return_val_if_fail (extra_role, ATK_ROLE_INVALID);
+
+          if (strcmp (name, extra_role) == 0)
             {
-              gchar *extra_role = (gchar *)g_ptr_array_index (extra_roles, i);
-
-              g_return_val_if_fail (extra_role, ATK_ROLE_INVALID);
-
-              if (strcmp (name, extra_role) == 0)
-                {
-                  role = i + 1 + ATK_ROLE_LAST_DEFINED;
-                  break;
-                }
+              role = i + 1 + ATK_ROLE_LAST_DEFINED;
+              break;
             }
         }
     }
-  g_type_class_unref (type_class);
   
   return role;
 }

@@ -1,3 +1,8 @@
+2003-11-26  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Change role names so that the unlocalized names
+	do not contain hyphens and match the Java role names. Fixes bug #125024.
+
 2003-11-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	*  docs/tmpl/atkhyperlink.sgml, docs/tmp/atkhypertext.sgml,
