@@ -190,8 +190,6 @@ spi_dec_set_unlatch_pending (SpiDEController *controller, unsigned mask)
   priv->pending_xkb_mod_relatch_mask |= priv->xkb_latch_mask; 
 }
  
-static gint poll_count = 0;
-
 static gboolean
 spi_dec_button_update_and_emit (SpiDEController *controller, 
 				guint mask_return)
@@ -327,7 +325,6 @@ spi_dec_mouse_check (SpiDEController *controller,
   Accessibility_Event e;
   CORBA_Environment ev;
   int win_x_return,win_y_return;
-  int poll_count_modulus = 10;
   unsigned int mask_return;
   Window root_return, child_return;
   Display *display = spi_get_display ();
@@ -349,20 +346,17 @@ spi_dec_mouse_check (SpiDEController *controller,
       while (spi_dec_button_update_and_emit (controller, mask_return));
     }
 
-  if (poll_count++ == poll_count_modulus) {
-    poll_count = 0;
-    e.type = "mouse:abs";  
-    e.source = BONOBO_OBJREF (controller->registry->desktop);
-    e.detail1 = *x;
-    e.detail2 = *y;
-    spi_init_any_nil (&e.any_data);
-    CORBA_exception_init (&ev);
-    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-					&e,
-					&ev);
-  }
   if (*x != last_mouse_pos->x || *y != last_mouse_pos->y) 
     {
+      e.type = "mouse:abs";  
+      e.source = BONOBO_OBJREF (controller->registry->desktop);
+      e.detail1 = *x;
+      e.detail2 = *y;
+      spi_init_any_nil (&e.any_data);
+      CORBA_exception_init (&ev);
+      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
+					  &e,
+					  &ev);
       e.type = "mouse:rel";  
       e.source = BONOBO_OBJREF (controller->registry->desktop);
       e.detail1 = *x - last_mouse_pos->x;

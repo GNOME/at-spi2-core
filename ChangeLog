@@ -1,3 +1,59 @@
+2002-12-17  Bill Haneman <bill.haneman@sun.com
+
+        Fix for 100944, [API addition approved by Gman and murrayc].
+	
+	* NEWS: updated.
+	
+	* configure.in:
+	Revved to 1.1.8.
+
+	* idl/Accessibility_Text.idl:
+	(Text::Range, Text::RangeList, TEXT_CLIP_TYPE): New typedefs
+	(Text::getRangeExtents): New method for efficient 
+	bounds query of a text range.
+	(Text::getBoundedRanges): New method for efficient
+	clipping of text to bounding boxes.
+	(unImplemented7, unImplemented8): 
+	Removed these padding methods to preserve bincompat.
+
+	* libspi/text.c:
+	(impl_getRangeExtents): implementation of new IDL.
+	(impl_getBoundedRanges): implementation of new IDL.
+	(SpiTextRect): Internal use struct.
+	(_spi_text_rect_union): internal method, calculates union of two
+	SpiTextRect bounding rects.
+	(_spi_text_range_seq_from_gslist): internal method, allows us
+	to build our sequence efficiently as a gslist then convert it
+	to a CORBA seq.
+	(_spi_bounds_contain): internal method, determines whether
+	a text character is "in" or "out" of a clip rect according to
+	values of TEXT_CLIP_TYPE.
+	(spi_text_class_init): Initialize the new methods in the epv.
+	
+	* cspi/spi.h:
+	(AccessibleTextClipType): New enum used by screen review api.
+	(AccessibleTextRange): New struct used by screen review api.
+	(AccessibleText_getRangeExtents): 
+	cspi binding for Accessibility_Text_getRangeExtents.
+	(AccessibleText_getBoundedRanges):
+	cspi binding for Accessibility_Text_getBoundedRanges.
+	(AccessibleTextRange_freeRanges): convenience method.
+	
+	* cspi/spi_text.c:
+	(AccessibleText_getRangeExtents): 
+	cspi binding for Accessibility_Text_getRangeExtents.
+	(AccessibleText_getBoundedRanges):
+	cspi binding for Accessibility_Text_getBoundedRanges.
+	(AccessibleTextRange_freeRanges): convenience method.
+	(get_accessible_text_clip_type): internal conversion method.
+	(get_accessible_text_ranges_from_range_seq): internal conversion method.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_mouse_check):
+	Improved behavior for mouse:abs events 
+	[same granularity as mouse:rel events, and no
+	events when mouse is idle].	
+	
 2002-12-16  Michael Meeks  <michael@ximian.com>
 
 	* cspi/spi_accessible.c (spi_state_to_corba): rename.

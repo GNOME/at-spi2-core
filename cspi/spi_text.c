@@ -62,6 +62,50 @@ get_accessible_text_boundary_type (AccessibleTextBoundaryType type)
   return Accessibility_TEXT_BOUNDARY_CHAR;
 }
 
+static Accessibility_TEXT_CLIP_TYPE
+get_accessible_text_clip_type (AccessibleTextClipType type)
+{
+  switch (type)
+    {
+    case SPI_TEXT_CLIP_NONE:
+      return Accessibility_TEXT_CLIP_NONE;
+      break;
+    case SPI_TEXT_CLIP_MIN:
+      return Accessibility_TEXT_CLIP_MIN;
+      break;
+    case SPI_TEXT_CLIP_MAX:
+      return Accessibility_TEXT_CLIP_MAX;
+      break;
+    }
+  return Accessibility_TEXT_CLIP_BOTH;
+}
+
+static AccessibleTextRange **
+get_accessible_text_ranges_from_range_seq (Accessibility_Text_RangeList *range_seq)
+{
+  AccessibleTextRange **ranges = NULL;
+  AccessibleTextRange *array = NULL;
+  int i;
+  if (range_seq && range_seq->_length > 0) 
+    {
+      ranges = g_new0 (AccessibleTextRange *, range_seq->_length + 1);
+    }
+  array = g_new0 (AccessibleTextRange, range_seq->_length);
+  for (i = 0; i < range_seq->_length; i++) 
+    {
+      AccessibleTextRange *range;
+      range = &array[i];
+      range->start = range_seq->_buffer[i].startOffset;
+      range->end = range_seq->_buffer[i].endOffset;
+      range->contents = CORBA_string_dup (range_seq->_buffer[i].content);
+      ranges[i] = range;
+    }
+  ranges[i] = NULL; /* null-terminated list! */
+  CORBA_free (range_seq);
+
+  return ranges;
+}
+
 
 /**
  * AccessibleText_ref:
@@ -536,6 +580,135 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
   cspi_return_val_if_ev ("getOffsetAtPoint", -1);
 
   return retval;
+}
+
+/**
+ * AccessibleText_getRangeExtents:
+ * @obj: a pointer to the #AccessibleText object on which to operate.
+ * @startOffset: an integer indicating the offset of the first text character for
+ *        whom boundary information is requested.
+ * @endOffset: an integer indicating the offset of the text character 
+ *        after the last character for whom boundary information is requested.
+ * @x: a pointer to a long integer into which the nominal x coordinate
+ *     of the corresponding bounding box will be returned.
+ * @y:a pointer to a long integer into which the nominal y coordinate
+ *     of the corresponding bounding box will be returned.
+ * @width:a pointer to a long integer into which the width
+ *     of the corresponding bounding box will be returned.
+ * @height: a pointer to a long integer into which the height
+ *     of the corresponding bounding box will be returned.
+ * @type: an #AccessibleCoordType indicating the coordinate system to use
+ *        for the returned values.
+ *
+ * Get the bounding box for text within a range in an  #AccessibleText object.
+ *
+ * Returns: the bounding-box extents of the specified text range,
+ *       in the specified coordinate system.
+ *
+ **/
+void
+AccessibleText_getRangeExtents (AccessibleText *obj,
+				long int startOffset,
+				long int endOffset,
+				long int *x,
+				long int *y,
+				long int *width,
+				long int *height,
+				AccessibleCoordType type)
+{
+  CORBA_long retX, retY, retWidth, retHeight;
+
+  if (obj == NULL)
+    {
+      *x = *y = -1;
+      *width = *height = -1;
+      return;
+    }
+
+  Accessibility_Text_getRangeExtents (CSPI_OBJREF (obj),
+				      startOffset,
+				      endOffset,
+				      &retX,
+				      &retY,
+				      &retWidth,
+				      &retHeight,
+				      type, cspi_ev ());
+
+  if (!cspi_check_ev ("getRangeExtents"))
+    {
+      *x = *y = -1;
+      *width = *height = -1;
+    }
+  else
+    {
+      *x = retX;
+      *y = retY;
+      *width = retWidth;
+      *height = retHeight;
+    }
+}
+
+/**
+ * AccessibleText_getBoundedRanges:
+ * @obj: a pointer to the #AccessibleText object on which to operate.
+ * @x: the 'starting' x coordinate of the bounding box.
+ * @y: the 'starting' y coordinate of the bounding box.
+ * @width: the x extent of the bounding box.
+ * @height: the y extent of the bounding box.
+ * @type: an #AccessibleCoordType indicating the coordinate system to use
+ *        for the returned values.
+ * @clipTypeX: an #AccessibleTextClipType indicating how to treat characters that
+ *        intersect the bounding box's x extents.
+ * @clipTypeY: an #AccessibleTextClipType indicating how to treat characters that
+ *        intersect the bounding box's y extents.
+ *
+ * Get the ranges of text from an #AccessibleText object which lie within the
+ *          bounds defined by (@x, @y) and (@x+@width, @y+@height).  
+ *
+ * Returns: a null-terminated list of pointers to AccessibleTextRange structs 
+ *          detailing the bounded text.
+ **/
+AccessibleTextRange **
+AccessibleText_getBoundedRanges (AccessibleText *obj,
+				 long int x,
+				 long int y,
+				 long int width,
+				 long int height,
+				 AccessibleCoordType type,
+				 AccessibleTextClipType clipTypeX,
+				 AccessibleTextClipType clipTypeY)
+{
+  Accessibility_Text_RangeList *range_seq;
+
+  cspi_return_val_if_fail (obj != NULL, NULL);
+
+  range_seq =
+    Accessibility_Text_getBoundedRanges (CSPI_OBJREF (obj), 
+					 x, y, width, height,
+					 type, 
+					 get_accessible_text_clip_type (clipTypeX), 
+					 get_accessible_text_clip_type (clipTypeY),
+					 cspi_ev ());
+
+  cspi_return_val_if_ev ("getBoundedRanges", NULL); 
+ 
+  return get_accessible_text_ranges_from_range_seq (range_seq);
+}
+
+/**
+ * AccessibleTextRange_freeRanges:
+ * @ranges: a pointer to an array of AccessibleTextRange structs.
+ *
+ * Free the memory used by a list of AccessibleTextRange structs.
+ * The argument passed in should be an array of pointers 
+ * AccessibleTextRange structs.  
+ **/
+void
+AccessibleTextRange_freeRanges (AccessibleTextRange **ranges)
+{
+  /* this was a contiguously allocated block, only free the first element */
+  g_free (ranges[0]); 
+  g_free (ranges);
 }
 
 /**

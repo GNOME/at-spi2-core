@@ -59,6 +59,17 @@ typedef enum
 } AccessibleTextBoundaryType;
 
 /*
+ * Enumerated type for text bounds clipping types
+ */
+typedef enum
+{
+  SPI_TEXT_CLIP_NONE,
+  SPI_TEXT_CLIP_MIN,
+  SPI_TEXT_CLIP_MAX,
+  SPI_TEXT_CLIP_BOTH
+} AccessibleTextClipType;
+
+/*
  *
  * Enumerated type for relation types
  *
@@ -136,6 +147,22 @@ typedef enum {
     SPI_LAYER_LAST_DEFINED	
 } AccessibleComponentLayer;
 
+
+/**
+ * AccessibleTextRange:
+ * @start: the first nominal character position within the range.
+ * @end: the first nominal character position following the range.
+ * @content: The actual text content between @start and @end, as a UTF-8 string.
+ *
+ * Structure which encapsulates a text range - must be associated with an
+ *          AccessibleText-implementing object.
+ **/
+typedef struct _AccessibleTextRange
+{
+  long int        start;
+  long int        end;
+  char           *contents;
+} AccessibleTextRange;
 
 /**
  * AccessibleKeySet:
@@ -751,6 +778,29 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
                                     long int *width,
                                     long int *height,
 				    AccessibleCoordType type);
+
+void
+AccessibleText_getRangeExtents (AccessibleText *obj,
+				long int startOffset,
+				long int endOffset,
+				long int *x,
+				long int *y,
+				long int *width,
+				long int *height,
+				AccessibleCoordType type);
+
+AccessibleTextRange **
+AccessibleText_getBoundedRanges (AccessibleText *obj,
+				 long int x,
+				 long int y,
+				 long int width,
+				 long int height,
+				 AccessibleCoordType type,
+				 AccessibleTextClipType clipTypeX,
+				 AccessibleTextClipType clipTypeY);
+
+void
+AccessibleTextRange_freeRanges (AccessibleTextRange **ranges);
 
 long
 AccessibleText_getOffsetAtPoint (AccessibleText *obj,

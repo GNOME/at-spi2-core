@@ -32,7 +32,31 @@ module Accessibility {
     TEXT_BOUNDARY_LINE_END
   };
 
+  /**
+   * TEXT_CLIP_TYPE:
+   * CLIP_MIN means text clipped by min coordinate is omitted,
+   * CLIP_MAX clips text interescted by the max coord, and CLIP_BOTH
+   * will retain only text falling fully within the min/max bounds.
+   *
+   **/
+  enum TEXT_CLIP_TYPE {
+    TEXT_CLIP_NONE,
+    TEXT_CLIP_MIN,
+    TEXT_CLIP_MAX,
+    TEXT_CLIP_BOTH
+  };
+
   interface Text : Bonobo::Unknown {
+
+    struct Range {
+      long startOffset;
+      long endOffset; 
+      string content;
+      any  data;
+    };
+    
+    typedef sequence<Range> RangeList;
+    
     readonly attribute long characterCount;
     readonly attribute long caretOffset;
     string getText (in long startOffset, in long endOffset);
@@ -48,13 +72,21 @@ module Accessibility {
 							   */
     string getAttributes (in long offset,
 			  out long startOffset, out long endOffset);
-    void getCharacterExtents (in long offset, out long x, out long y, out long length, out long width, in short coordType);
+    void getCharacterExtents (in long offset, out long x, out long y, out long width, out long height, in short coordType);
     long getOffsetAtPoint (in long x, in long y, in short coordType);
     long getNSelections ();
     void getSelection (in long selectionNum, out long startOffset, out long endOffset);
     boolean addSelection (in long startOffset, in long endOffset);
     boolean removeSelection (in long selectionNum);
     boolean setSelection (in long selectionNum, in long startOffset, in long endOffset);
+    void    getRangeExtents (in long startOffset, in long endOffset, 
+			     out long x, out long y, 
+			     out long width, out long height, in short coordType);
+    RangeList getBoundedRanges (in long x, in long y, 
+				in long width, in long height, 
+				in short coordType, 
+				in TEXT_CLIP_TYPE xClipType, 
+				in TEXT_CLIP_TYPE yClipType);
     /**
      * unImplemented:
      *
@@ -64,7 +96,5 @@ module Accessibility {
     void unImplemented2 ();
     void unImplemented3 ();
     void unImplemented4 ();
-    void unImplemented7 ();
-    void unImplemented8 ();
   };
 };

@@ -1,5 +1,14 @@
 (top)
 in HEAD:
+What's new in at-spi-1.1.8:
+
+* Added getRangeExtents() and getBoundedRanges() API for more
+  efficient screen review [100944].
+
+What's new in at-spi-1.1.7:
+
+* Added spi_keymask values for Mod4 and Mod5.
+* Performance improvements and bugfixes from Michael.
 
 What's new in at-spi-1.1.6:
 
