@@ -1,5 +1,23 @@
 (top)
 in HEAD:
+What's new in at-spi-1.3.7:
+
+This is the official GNOME 2.4.0 release of at-spi.
+
+* fixed event-name bug, "object:active-descendant" is now 
+  "object:active-descendant-changed".
+
+* fixes for 120220, 120725, some code cleanups.  
+ 
+* Improved code that rejects
+  spurious "window:activate/deactivate" pairs when X key grabs occur.
+  [108664]
+
+* Documentation improvements for SpiAccessibleKeyListenerCB and related.
+
+* new languages: hi, fi, et, mn, nl, is, ja, ro, bn.
+
+
 What's new in at-spi-1.3.6:
 
 * Add XEvIE support for those systems which have XEvIE.
