@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-03 03:15+0100\n"
-"PO-Revision-Date: 2003-12-03 03:22+0100\n"
-"Last-Translator: Данило Шеган <danilo@prevod.rog>\n"
+"POT-Creation-Date: 2003-12-08 05:40+0100\n"
+"PO-Revision-Date: 2003-12-08 05:41+0100\n"
+"Last-Translator: Данило Шеган <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -356,7 +356,8 @@ msgstr "Приступачно име"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Име инстанце објекта прилагођено приступу помоћу технологија за испомоћ"
+msgstr ""
+"Име инстанце објекта прилагођено приступу помоћу технологија за испомоћ"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
@@ -414,7 +415,9 @@ msgstr "Приступачан наслов табеле"
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "Користи се за обавештавање да је измењен наслов табеле; не треба користити ову особину, већ accessible-table-caption-object."
+msgstr ""
+"Користи се за обавештавање да је измењен наслов табеле; не треба користити "
+"ову особину, већ accessible-table-caption-object."
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
