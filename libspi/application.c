@@ -26,7 +26,7 @@
  */
 #include <config.h>
 #include <bonobo/Bonobo.h>
-#include "atksimpleobject.h"
+#include <atk/atkutil.h>
 
 /*
  * This pulls the CORBA definitions for the "Accessibility::Accessible" server
@@ -43,16 +43,85 @@
  */
 #define PARENT_TYPE ACCESSIBLE_TYPE
 
+/*
+ * A pointer to our parent object class
+ */
+static AccessibleClass *application_parent_class;
+
+/*
+ * Implemented GObject::finalize
+ */
+static void
+accessible_application_finalize (GObject *object)
+{
+  /* TODO: any necessary cleanup */
+  Accessible *accessible = ACCESSIBLE (object);
+
+  g_object_unref (accessible->atko);
+  accessible->atko = NULL;
+
+  /* TODO: chain to parent class instead */
+}
+
+static CORBA_string
+impl_accessibility_application_get_toolkit_name (PortableServer_Servant servant,
+                                                 CORBA_Environment *ev)
+{
+  CORBA_char *retval;
+  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  retval = CORBA_string_dup (atk_get_toolkit_name ());
+  return retval;
+}
+
+static CORBA_string
+impl_accessibility_application_get_version (PortableServer_Servant servant,
+                                            CORBA_Environment *ev)
+{
+  CORBA_char *retval;
+  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  retval = CORBA_string_dup (atk_get_toolkit_version ());
+  return retval;
+}
+
+static CORBA_string
+impl_accessibility_application_get_id (PortableServer_Servant servant,
+                                                 CORBA_Environment *ev)
+{
+  CORBA_char *retval;
+  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  retval = CORBA_string_dup (application->id);
+  return retval;
+}
+
+static void
+impl_accessibility_application_set_id (PortableServer_Servant servant,
+                                       const CORBA_char *id,
+                                       CORBA_Environment *ev)
+{
+  Application *application = APPLICATION (bonobo_object_from_servant (servant));
+  application->id = id;
+}
+
 static void
 application_class_init (ApplicationClass *klass)
 {
-  ;
+  GObjectClass * object_class = (GObjectClass *) klass;
+  POA_Accessibility_Application__epv *epv = &klass->epv;
+
+  application_parent_class = g_type_class_ref (ACCESSIBLE_TYPE);
+
+  object_class->finalize = accessible_application_finalize;
+
+  epv->_get_toolkitName = impl_accessibility_application_get_toolkit_name;
+  epv->_get_version = impl_accessibility_application_get_version;
+  epv->_get_id = impl_accessibility_application_get_id;
+  epv->_set_id = impl_accessibility_application_set_id;
 }
 
 static void
 application_init (Application  *application)
 {
-  ACCESSIBLE (application)->atko = atk_simple_object_new();
+  ACCESSIBLE (application)->atko = g_object_new (atk_object_get_type(), NULL);
 }
 
 GType
@@ -91,12 +160,10 @@ application_get_type (void)
 }
 
 Application *
-application_new (char *name, char *desc, char *id)
+application_new (AtkObject *app_root)
 {
     Application *retval =
                APPLICATION (g_object_new (application_get_type (), NULL));
-    atk_object_set_name (ACCESSIBLE (retval)->atko, CORBA_string_dup (name));
-    atk_object_set_description (ACCESSIBLE (retval)->atko, CORBA_string_dup (desc));
-    retval->id = CORBA_string_dup (id);
+    ACCESSIBLE (retval)->atko = app_root;
     return retval;
 }

@@ -51,6 +51,20 @@
  */
 static ListenerClass *registry_parent_class;
 
+typedef enum {
+  ETYPE_FOCUS,
+  ETYPE_WINDOW,
+  ETYPE_TOOLKIT,
+  ETYPE_LAST_DEFINED
+} EventTypeMajor;
+
+typedef struct {
+  EventTypeMajor major;
+  char * minor;
+  char * detail;
+} EventTypeStruct;
+
+
 /*
  * Implemented GObject::finalize
  */
@@ -83,13 +97,32 @@ impl_accessibility_registry_register_application (PortableServer_Servant servant
 #ifdef SPI_DEBUG
   fprintf (stderr, "registering app %p\n", application);
 #endif
+  ORBit_register_objref (application);
+  registry->desktop->applications = g_list_append (registry->desktop->applications,
+                                                   CORBA_Object_duplicate (application, ev));
 
-  registry->desktop->applications = g_list_append (registry->desktop->applications, CORBA_Object_duplicate (application, ev));
+  /* TODO: create unique string here (with libuuid call ?) */
+  Accessibility_Application__set_id (application, "test-some-unique-string", ev);
+
   /*
    * TODO: change the implementation below to a WM-aware one;
    * e.g. don't add all apps to the Desktop
    */
-  /*  registry->desktop->applications = registry->applications;*/
+}
+
+static gint
+compare_object_hash (gconstpointer p1, gconstpointer p2)
+{
+  CORBA_Environment ev;
+  long long diff = ((CORBA_Object_hash ((CORBA_Object) p2, (CORBA_unsigned_long) 0, &ev)) -
+                    (CORBA_Object_hash ((CORBA_Object) p1, (CORBA_unsigned_long) 0, &ev)));
+  return ((diff < 0) ? -1 : ((diff > 0) ? 1 : 0));
+}
+
+static void
+parse_event_type (EventTypeStruct *etype, char *event_name)
+{
+  etype->major = ETYPE_FOCUS;
 }
 
 /**
@@ -107,7 +140,12 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
                                                     CORBA_Environment * ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  registry->applications = g_list_remove (registry->applications, application);
+  GList *list = g_list_find_custom (registry->applications, application, compare_object_hash);
+  if (list)
+    {
+      fprintf (stderr, "deregistering application\n");
+      registry->applications = g_list_delete_link (registry->applications, list);
+    }
 }
 
 /*
@@ -132,6 +170,22 @@ impl_accessibility_registry_register_global_event_listener
 
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
   /* fprintf(stderr, "registering %x/%x\n", listener, *listener); */
+  EventTypeStruct etype;
+  parse_event_type (&etype, event_name);
+
+  /* parse, check major event type */
+  switch (etype.major)
+    {
+    case (ETYPE_FOCUS) :
+      break;
+    case (ETYPE_WINDOW) :
+      break;
+    case (ETYPE_TOOLKIT) :
+      break;
+    default:
+      break;
+    }
+
   registry->listeners = g_list_append (registry->listeners, CORBA_Object_duplicate(listener, ev));
   /* fprintf(stderr, "there are now %d listeners registered.\n", g_list_length(registry->listeners)); */
   /* should use hashtable and CORBA_Object_hash (...) */

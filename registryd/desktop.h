@@ -29,7 +29,6 @@ extern "C" {
 
 #include <bonobo/bonobo-xobject.h>
 #include <atk/atkobject.h>
-#include <atksimpleobject.h>
 #include <accessible.h>
 #include <application.h>
 #include <libspi/Accessibility.h>

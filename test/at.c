@@ -53,7 +53,7 @@ main(int argc, char **argv)
 
         obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
-        oclient = oaf_activate_from_id (obj_id, 0, NULL, &ev);
+        oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {
                 fprintf(stderr,
                 ("Accessibility app error: exception during registry activation from id: %s\n"),

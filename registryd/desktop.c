@@ -53,7 +53,7 @@ static AccessibleClass *parent_class;
 static void
 desktop_init (Desktop  *desktop)
 {
-  ACCESSIBLE (desktop)->atko = atk_simple_object_new();
+  ACCESSIBLE (desktop)->atko = g_object_new (atk_object_get_type(), NULL);
   atk_object_set_name (ATK_OBJECT (ACCESSIBLE (desktop)->atko), "main");
 }
 

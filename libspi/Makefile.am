@@ -16,7 +16,6 @@ libspiincludedir = $(includedir)/libspi
 
 libspiinclude_HEADERS = accessible.h       \
                         application.h      \
-                        atksimpleobject.h  \
                         desktop.h          \
                         listener.h         \
                         registry.h         \
@@ -42,8 +41,6 @@ libspi_la_SOURCES = accessible.c         \
                     accessible.h         \
                     application.c        \
                     application.h        \
-                    atksimpleobject.c    \
-                    atksimpleobject.h    \
                     desktop.c            \
                     desktop.h            \
                     listener.c           \

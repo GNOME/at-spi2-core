@@ -45,11 +45,10 @@ module Accessibility {
     readonly attribute string version;
 
     /**
-     * Get the application's process ID in the operating system's 
-     * process table.
+     * Get the application instance's unique ID as assigned by the registry.
      *
      **/
-    readonly attribute string id;
+    attribute string id;
 
     /**
      * pause:

@@ -49,7 +49,9 @@ typedef struct {
 } ApplicationClass;
 
 GType               application_get_type           (void);
-Application         *application_new               (char *name, char *desc, char *id);
+gboolean            *application_set_id            (AtkObject *app, char *id);
+Application         *application_new               (AtkObject *app_root);
+
 
 #ifdef __cplusplus
 }

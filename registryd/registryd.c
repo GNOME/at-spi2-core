@@ -43,7 +43,7 @@ main (int argc,
 
         registry = registry_new ();
 
-        oaf_active_server_register (
+        bonobo_activation_active_server_register (
                 obj_id,
                 bonobo_object_corba_objref (bonobo_object (registry)));
 

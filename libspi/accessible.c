@@ -74,7 +74,11 @@ impl_accessibility_accessible_get_name (PortableServer_Servant servant,
 {
   CORBA_char * retval;
   Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
-  retval = CORBA_string_dup (atk_object_get_name (accessible->atko));
+  retval = atk_object_get_name (accessible->atko);
+  if (retval )
+    retval = CORBA_string_dup (retval);
+  else
+    retval = CORBA_string_dup ("");
   fprintf (stderr, "Accessible get_name called: %s\n", retval);
   return retval;
 }

@@ -26,7 +26,6 @@
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
 #include "accessible.h"
-#include "atksimpleobject.h"
 #include "application.h"
 
 int
@@ -53,11 +52,12 @@ main(int argc, char **argv)
         /* Create the accesssible application server object */
         /* TODO: get app name and pid */
         sprintf(sbuf, "application-%s", argv[1]);
-        app = application_new(sbuf, "test application for accessibility SPI", "0001");
+        atko = g_object_new (atk_object_get_type(), NULL);
+        atk_object_set_name (atko, "sbuf");
+        atk_object_set_description( atko, "test application for accessibility SPI");
+        app = application_new(atko);
 
         /* Create the Accessible 'source' for the event */
-        atko = atk_simple_object_new ();
-        atk_object_set_name (atko, "dummy");
         accessible = accessible_new (atko);
         fprintf(stderr, "accessible created.\n");
 
@@ -67,7 +67,7 @@ main(int argc, char **argv)
 
         obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
-        oclient = oaf_activate_from_id (obj_id, 0, NULL, &ev);
+        oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
         if (ev._major != CORBA_NO_EXCEPTION) {
                 fprintf(stderr,
                 ("Accessibility app error: exception during registry activation from id: %s\n"),

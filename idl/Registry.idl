@@ -44,7 +44,7 @@ module Accessibility {
          * Register a new application with the accessibility broker.
          *
 	 **/
-        void registerApplication (in Application application);
+        oneway void registerApplication (in Application application);
 
   	/**
          * deregisterApplication:
