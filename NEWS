@@ -1,3 +1,9 @@
+What's new in at-spi-1.6.3: 
+
+* bugfix for #165129
+
+* Added locale 'xh' (Adi Attar)
+
 What's new in at-spi-1.6.2: 
 
 * fixes for problems at logout time (hangs, crashes)

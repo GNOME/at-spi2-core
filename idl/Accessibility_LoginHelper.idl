@@ -72,6 +72,8 @@ module Accessibility {
        * @winID: The windowing-system-dependeny Window ID of the toplevel window.
        */
       struct WindowInfo {
+	  /* string display; */
+	  /* short screen; */
 	  long winID;
       };
 

@@ -1,3 +1,7 @@
+2005-03-08  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in, NEWS, README: Revved to 1.6.3.
+
 2005-02-16  Adi Attar  <aattar@cvs.gnome.org>
 
 	* configure.in: Added "xh" to ALL_LINGUAS.
