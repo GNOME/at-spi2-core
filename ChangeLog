@@ -1,3 +1,7 @@
+2003-07-16  Dmitry G. Mastrukov  <dmitry@taurussoft.org>
+
+	* configure.in: Added Russian to ALL_LINGUAS.
+
 2003-07-16  Duarte Loreto <happyguy_pt@hotmail.com>
 
         * configure.in: Added Portuguese (pt) to ALL_LINGUAS.
