@@ -1,3 +1,7 @@
+2003-01-15  Padraig O'Briain <padraig.obriain@sun.com
+
+	* libspi/text.c (impl_getBoundedRanges): Bug fix.
+
 2003-01-10  Padraig O'Briain <padraig.obriain@sun.com
 
 	* libspi/text.c:

@@ -559,6 +559,7 @@ impl_getBoundedRanges(PortableServer_Servant servant,
   int curr_offset;
   gint minLineStart, minLineEnd, maxLineStart, maxLineEnd;
   long bounds_min_offset;
+  long bounds_max_offset;
 
   clip.x = x;
   clip.y = y;
@@ -568,14 +569,16 @@ impl_getBoundedRanges(PortableServer_Servant servant,
   /* for horizontal text layouts, at least, the following check helps. */
   bounds_min_offset =  atk_text_get_offset_at_point (text, x, y, 
 						     (AtkCoordType) coordType);
+  bounds_max_offset =  atk_text_get_offset_at_point (text, x + width, y + height, 
+						     (AtkCoordType) coordType);
   atk_text_get_text_at_offset (text, bounds_min_offset, 
 			       ATK_TEXT_BOUNDARY_LINE_START,
 			       &minLineStart, &minLineEnd);
-  atk_text_get_text_at_offset (text, bounds_min_offset, 
+  atk_text_get_text_at_offset (text, bounds_max_offset, 
 			       ATK_TEXT_BOUNDARY_LINE_START,
 			       &maxLineStart, &maxLineEnd);
   startOffset = MIN (minLineStart, maxLineStart);
-  endOffset  = MIN (minLineEnd, maxLineEnd);
+  endOffset  = MAX (minLineEnd, maxLineEnd);
 
   curr_offset = startOffset;
 
