@@ -1,3 +1,8 @@
+2001-12-11  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkcomponent.c (atk_component_ref_accessible_at_position):
+	Remove unnecessary g_retunn_val_if_fail() call.
+
 2001-12-08  Michael Meeks  <michael@ximian.com>
 
 	* atk/atkregistry.c (atk_registry_class_init):

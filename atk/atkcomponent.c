@@ -457,8 +457,6 @@ atk_component_real_ref_accessible_at_point (AtkComponent *component,
 
   count = atk_object_get_n_accessible_children (ATK_OBJECT (component));
 
-  g_return_val_if_fail (count != 0, NULL);
-
   for (i = 0; i < count; i++)
   {
     AtkObject *obj;
