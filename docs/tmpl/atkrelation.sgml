@@ -34,28 +34,9 @@ AtkRelation
 @ATK_RELATION_LABEL_FOR: 
 @ATK_RELATION_LABELLED_BY: 
 @ATK_RELATION_MEMBER_OF: 
-@ATK_RELATION_NODE_CHILD_OF: 
 @ATK_RELATION_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_relation_type_register ##### -->
-<para>
-
-</para>
-
-@name: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_relation_type_get_name ##### -->
-<para>
-
-</para>
-
-@type: 
-@Returns: 
-
-
-<!-- ##### FUNCTION atk_relation_type_for_name ##### -->
 <para>
 
 </para>

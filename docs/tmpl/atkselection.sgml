@@ -33,7 +33,6 @@ AtkSelection
 @is_child_selected: 
 @remove_selection: 
 @select_all_selection: 
-@selection_changed: 
 
 <!-- ##### FUNCTION atk_selection_add_selection ##### -->
 <para>
@@ -42,6 +41,7 @@ AtkSelection
 
 @selection: 
 @i: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -51,6 +51,7 @@ AtkSelection
 </para>
 
 @selection: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -90,6 +91,7 @@ AtkSelection
 
 @selection: 
 @i: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
@@ -99,6 +101,7 @@ AtkSelection
 </para>
 
 @selection: 
+<!-- # Unused Parameters # -->
 @Returns: 
 
 
