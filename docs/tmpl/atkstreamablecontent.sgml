@@ -29,6 +29,10 @@ AtkStreamableContent
 @get_n_mime_types: 
 @get_mime_type: 
 @get_stream: 
+@pad1: 
+@pad2: 
+@pad3: 
+@pad4: 
 
 <!-- ##### FUNCTION atk_streamable_content_get_n_mime_types ##### -->
 <para>

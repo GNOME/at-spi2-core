@@ -4,6 +4,7 @@ AtkComponent
 <!-- ##### SECTION Short_Description ##### -->
 ATK Interface provided by UI components which occupy a physical area on
 the screen.
+
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 #AtkComponent should be implemented by most if not all UI elements with
@@ -47,6 +48,10 @@ provided by #AtkText.
 @set_extents: 
 @set_position: 
 @set_size: 
+@get_layer: 
+@get_mdi_zorder: 
+@pad1: 
+@pad2: 
 
 <!-- ##### FUNCTION atk_component_add_focus_handler ##### -->
 <para>
@@ -81,6 +86,24 @@ provided by #AtkText.
 @width: 
 @height: 
 @coord_type: 
+
+
+<!-- ##### FUNCTION atk_component_get_layer ##### -->
+<para>
+
+</para>
+
+@component: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_component_get_mdi_zorder ##### -->
+<para>
+
+</para>
+
+@component: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_component_get_position ##### -->

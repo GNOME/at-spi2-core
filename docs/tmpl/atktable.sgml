@@ -27,6 +27,7 @@ headers and captions.  Headers and captions are #AtkObjects which may
 implement other interfaces (#AtkText, #AtkImage, etc.) as appropriate.
 #AtkTable summaries may themselves be (simplified) #AtkTables, etc.
 </para>
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 #AtkObject, #ATK_STATE_TRANSIENT
@@ -80,6 +81,10 @@ implement other interfaces (#AtkText, #AtkImage, etc.) as appropriate.
 @row_reordered: 
 @column_reordered: 
 @model_changed: 
+@pad1: 
+@pad2: 
+@pad3: 
+@pad4: 
 
 <!-- ##### FUNCTION atk_table_ref_at ##### -->
 <para>

@@ -4,6 +4,7 @@ AtkValue
 <!-- ##### SECTION Short_Description ##### -->
 ATK Interface implemented by valuators and components which display or
 select a value from a bounded range of values.
+
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 #AtkValue should be implemented for components which either display a
@@ -36,6 +37,8 @@ indicate failure.
 @get_maximum_value: 
 @get_minimum_value: 
 @set_current_value: 
+@pad1: 
+@pad2: 
 
 <!-- ##### FUNCTION atk_value_get_current_value ##### -->
 <para>

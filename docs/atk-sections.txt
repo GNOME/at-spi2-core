@@ -25,6 +25,8 @@ AtkComponentIface
 atk_component_add_focus_handler
 atk_component_contains
 atk_component_get_extents
+atk_component_get_layer
+atk_component_get_mdi_zorder
 atk_component_get_position
 atk_component_get_size
 atk_component_grab_focus

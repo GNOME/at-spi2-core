@@ -35,6 +35,7 @@ AtkActions.  Where mouse and keyboard actions are redundant in effect,
 actions if possible.  By convention we have been using "mouse centric"
 terminology for #AtkAction names.
 </para>
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 
@@ -58,6 +59,8 @@ terminology for #AtkAction names.
 @get_name: 
 @get_keybinding: 
 @set_description: 
+@pad1: 
+@pad2: 
 
 <!-- ##### FUNCTION atk_action_do_action ##### -->
 <para>

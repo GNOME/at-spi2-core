@@ -5,6 +5,7 @@ AtkSelection
 
 ATK Interface implemented by container objects whose #AtkObject children
 can be selected.
+
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 #AtkSelection should be implemented by UI components with children which
@@ -18,6 +19,7 @@ Note that other types of "selection" (for instance text selection) are
 accomplished a other ATK interfaces - #AtkSelection is limited to the
 selection/deselection of children.
 </para>
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 #AtkText
@@ -43,6 +45,8 @@ selection/deselection of children.
 @remove_selection: 
 @select_all_selection: 
 @selection_changed: 
+@pad1: 
+@pad2: 
 
 <!-- ##### FUNCTION atk_selection_add_selection ##### -->
 <para>

@@ -4,6 +4,7 @@ AtkImage
 <!-- ##### SECTION Short_Description ##### -->
 ATK Interface implemented by components which expose image or pixmap
 content on-screen.
+
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 #AtkImage should be implemented by #AtkObject subtypes on behalf of
@@ -41,6 +42,8 @@ most significant information present in the image.
 @get_image_description: 
 @get_image_size: 
 @set_image_description: 
+@pad1: 
+@pad2: 
 
 <!-- ##### FUNCTION atk_image_get_image_position ##### -->
 <para>

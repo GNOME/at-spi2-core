@@ -24,6 +24,7 @@ built into the toolkit for the widget class or ancestor class, or in
 the case of custom widgets, if the inherited #AtkObject implementation
 is insufficient, via instances of a new #AtkObject subclass. 
 </para>
+
 <!-- ##### SECTION See_Also ##### -->
 <para>
 See also: #AtkObjectFactory, #AtkRegistry.

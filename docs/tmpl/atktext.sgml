@@ -63,6 +63,10 @@ glyph-to-offset mapping may be complex for languages which use ligatures.
 @text_changed: 
 @text_caret_moved: 
 @text_selection_changed: 
+@pad1: 
+@pad2: 
+@pad3: 
+@pad4: 
 
 <!-- ##### ENUM AtkTextBoundary ##### -->
 <para>

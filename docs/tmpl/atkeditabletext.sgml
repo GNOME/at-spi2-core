@@ -3,6 +3,7 @@ AtkEditableText
 
 <!-- ##### SECTION Short_Description ##### -->
 ATK Interface implemented by components containing user-editable text content.
+
 <!-- ##### SECTION Long_Description ##### -->
 <para>
 #AtkEditableText should be implemented by UI components which contain
@@ -38,6 +39,8 @@ implements #AtkEditableText is by definition an #AtkText implementor as well.
 @cut_text: 
 @delete_text: 
 @paste_text: 
+@pad1: 
+@pad2: 
 
 <!-- ##### FUNCTION atk_editable_text_set_run_attributes ##### -->
 <para>
