@@ -26,6 +26,44 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#define ATK_TYPE_UTIL                   (atk_util_get_type ())
+#define ATK_IS_UTIL(obj)                G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_UTIL)
+#define ATK_UTIL(obj)                   G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_UTIL, AtkUtil)
+#define ATK_UTIL_CLASS(klass)                   (G_TYPE_CHECK_CLASS_CAST ((klass), ATK_TYPE_UTIL, AtkUtilClass))
+#define ATK_IS_UTIL_CLASS(klass)                (G_TYPE_CHECK_CLASS_TYPE ((klass), ATK_TYPE_UTIL))
+#define ATK_UTIL_GET_CLASS(obj)                 (G_TYPE_INSTANCE_GET_CLASS ((obj), ATK_TYPE_UTIL, AtkUtilClass))
+
+
+#ifndef _TYPEDEF_ATK_UTIL_
+#define _TYPEDEF_ATK_UTIL_
+typedef struct _AtkUtil      AtkUtil;
+typedef struct _AtkUtilClass AtkUtilClass;
+#endif
+
+/*
+ * A focus tracker is a function which is called when an object 
+ * receives focus.
+ */
+typedef void  (*AtkEventListener) (AtkObject*);
+typedef void  (*AtkEventListenerInit) (void);
+
+struct _AtkUtil
+{
+  GObject parent;
+};
+
+struct _AtkUtilClass
+{
+   GObjectClass parent;
+   guint        (* add_global_event_listener)    (AtkEventListener listener,
+                                                 gchar*            event_type);
+   void         (* remove_global_event_listener) (guint            listener_id);
+   AtkObject*   (* get_root)                     (void);
+   gchar*       (* get_toolkit_name)             (void);
+   gchar*       (* get_toolkit_version)          (void);
+};
+GType atk_util_get_type (void);
+
 /**
  *AtkCoordType:
  *@ATK_XY_SCREEN: specifies xy coordinates relative to the screen
@@ -40,35 +78,57 @@ typedef enum {
 }AtkCoordType;
 
 /*
- * A focus tracker is a function which is called when an object 
- * receives focus.
- */
-typedef void  (*AtkFocusTracker) (AtkObject*);
-typedef void  (*AtkFocusTrackerInit) (void);
-
-
-/*
  * Adds the specified function to the list of functions to be called
  * when an object receives focus.
  */
-guint    atk_add_focus_tracker     (AtkFocusTracker      focus_tracker);
+guint    atk_add_focus_tracker     (AtkEventListener      focus_tracker);
+
 /*
  * Removes the specified focus tracker from the list of function
  * to be called when any object receives focus
  */
 void     atk_remove_focus_tracker  (guint                tracker_id);
+
 /*
  * Specifies the function to be called for focus tracker initialization.
  * removal. This function should be called by an implementation of the
  * ATK interface if any specific work needs to be done to enable
  * focus tracking.
  */
-void     atk_focus_tracker_init    (AtkFocusTrackerInit  add_function);
+void     atk_focus_tracker_init    (AtkEventListenerInit  add_function);
+
 /*
  * Cause the focus tracker functions which have been specified to be
+F
  * executed for the object.
  */
 void     atk_focus_tracker_notify  (AtkObject            *object);
+
+/*
+ * Adds the specified function to the list of functions to be called
+ * when an event of type event_type occurs.
+ */
+guint	atk_add_global_event_listener (AtkEventListener listener, gchar* event_type);
+
+/*
+ * Removes the specified event listener
+ */
+void	atk_remove_global_event_listener (guint listener_id);
+
+/*
+ * Returns the root accessible container for the current application.
+ */
+AtkObject* atk_get_root(void);
+
+/*
+ * Returns name string for the GUI toolkit.
+ */
+gchar* atk_get_toolkit_name(void);
+
+/*
+ * Returns version string for the GUI toolkit.
+ */
+gchar* atk_get_toolkit_version(void);
 
 #ifdef __cplusplus
 }

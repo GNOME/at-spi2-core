@@ -427,8 +427,13 @@ atk_add_focus_tracker
 atk_remove_focus_tracker
 atk_focus_tracker_init
 atk_focus_tracker_notify
+atk_add_global_event_listener
+atk_remove_global_event_listener
+atk_get_root
+atk_get_toolkit_name
+atk_get_toolkit_version
 <SUBSECTION Standard>
-AtkFocusTracker
-AtkFocusTrackerInit
+AtkEventListener
+AtkEventListenerInit
 </SECTION>
 

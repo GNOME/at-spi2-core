@@ -1,4 +1,9 @@
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+	* atk/atkutil.c atk/atkutil.h docs/atk-sections.txt
+	docs/tmpl/atkutil.sgml
+	Added new functiosn to AtkUtil.
+
+2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	* atk/Makefile.am atk/atk.h atk/atkdocument.c atk/atkdocument.h
 	docs/atk-docs.sgml docs/atk-sections.txt docs/tmpl/atk-unused.sgml
 	docs/tmpl/atkobject.sgml
