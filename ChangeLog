@@ -1,3 +1,8 @@
+2005-01-25  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* tests/login-helper-server-test.c: Add return call to main
+	function. Patch from Chris Lahey. Fixes bug #165129.
+
 2004-12-20  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/spi.h: Add description for SPI_RELATION_SUBWINDOW_OF.

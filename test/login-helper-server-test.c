@@ -86,6 +86,8 @@ main (int argc, char **argv)
 	test_post_window ();
 
 	bonobo_main ();
+
+	return 0;
 }
 
 static void
