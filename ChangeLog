@@ -1,3 +1,15 @@
+2003-04-24  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* atk-bridge/bridge.c (spi_init_keystroke_from_atk_key_event):
+	Set is_text field of Accessibility_DeviceEvent data structure.
+
+	* cspi/bonobo/cspi-bonobo-listener.c (cspi_device_event): Set
+	is-text field of AccessibleDeviceEvent data structure.
+
+	This addresses part of bug #108666.
+
+	* registryd/devcideeventcontroller.c: Unset debug option.
+
 2003-04-14  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* cspi/accessible.c:

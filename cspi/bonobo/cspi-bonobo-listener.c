@@ -217,6 +217,7 @@ cspi_device_event (SpiDeviceListener               *listener,
   anevent.timestamp = event->timestamp;
   anevent.keystring = g_strdup (event->event_string);
   anevent.modifiers = event->modifiers;
+  anevent.is_text = event->is_text;
 
   /* FIXME: re-enterancy hazard on this list */
   for (l = clistener->callbacks; l; l = l->next)

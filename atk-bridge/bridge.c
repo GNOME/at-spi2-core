@@ -741,8 +741,14 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
   keystroke->modifiers = (CORBA_unsigned_short) (event->state & 0xFFFF);
   if (event->string)
     {
+      gunichar c;
+
       keystroke->event_string = CORBA_string_dup (event->string);
-      keystroke->is_text = CORBA_TRUE;
+      c = g_utf8_get_char_validated (event->string, -1);
+      if (c > 0 && g_unichar_isprint (c))
+        keystroke->is_text = CORBA_TRUE;
+      else
+        keystroke->is_text = CORBA_FALSE;
     }
   else
     {
