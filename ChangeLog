@@ -1,3 +1,7 @@
+2003-08-04  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* Remove po/Makefile.in.in. This fixes bug #119053.
+
 2003-07-08  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktable.c (atk_table_ref_at): Ensure that row and column values 
