@@ -139,6 +139,7 @@ determinations of when components occlude one another.
 @ATK_LAYER_MDI: 
 @ATK_LAYER_POPUP: 
 @ATK_LAYER_OVERLAY: 
+@ATK_LAYER_WINDOW: 
 
 <!-- ##### STRUCT AtkImplementor ##### -->
 <para>
