@@ -1,3 +1,11 @@
+2004-03-12  Bill Haneman <billh@gnome.org>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_key_listener):
+	Make sure to return consumed=FALSE if snoop 
+	event is not dispatched to listener.
+	Fixes #134037.
+	
 2004-03-01  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Revved to 1.3.15, 
