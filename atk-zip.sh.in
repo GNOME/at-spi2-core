@@ -4,12 +4,18 @@
 
 ZIP=/tmp/atk-@ATK_VERSION@-`date +%Y%m%d`.zip
 DEVZIP=/tmp/atk-dev-@ATK_VERSION@-`date +%Y%m%d`.zip
-cd @prefix@
 
+cd @prefix@
 rm $ZIP
-zip -r $ZIP -@ <<EOF
-lib/libatk-@ATK_API_VERSION@-@LT_CURRENT_MINUS_AGE@.dll
+
+DLLDIR=lib
+[ -f bin/libatk-@ATK_API_VERSION@-@LT_CURRENT_MINUS_AGE@.dll ] && DLLDIR=bin
+
+zip $ZIP -@ <<EOF
+$DLLDIR/libatk-@ATK_API_VERSION@-@LT_CURRENT_MINUS_AGE@.dll
 EOF
+
+zip $ZIP lib/locale/*/LC_MESSAGES/atk10.mo
 
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF

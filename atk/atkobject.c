@@ -1229,6 +1229,8 @@ atk_role_get_localized_name (AtkRole role)
 #ifdef ENABLE_NLS
   if (!gettext_initialized)
     {
+      gettext_initialized = TRUE;
+
       bindtextdomain (GETTEXT_PACKAGE, ATKLOCALEDIR);
 #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
       bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");

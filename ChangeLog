@@ -1,3 +1,11 @@
+2003-06-13  Tor Lillqvist  <tml@iki.fi>
+
+	* atk/atkobject.c (atk_role_get_localized_name): Set
+	gettext_initialized.
+
+	* atk-zip.sh.in (DEVZIP): libtool 1.5 installs DLLs in the bin
+	directory, so look there, too. Include the message catalogs.
+
 2003-06-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Version 1.3.4, interface age 0, binary age 304
