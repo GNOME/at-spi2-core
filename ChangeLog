@@ -1,3 +1,12 @@
+2001-10-12  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atktext.[c|h]:
+        * docs/atk-sections.txt, docs/tmpl/atktext.sgml:
+	Use enum AtkTextAttribute to specify what attribute are supported
+	rather than hash defines. Define new functions atk_attribute_get_name()
+	and atk_attribute_get_value() which return the strings for the
+	attribute name and values for those attribute which have named values.
+
 2001-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.c (atk_text_get_run_attributes):

@@ -26,6 +26,68 @@ enum {
   LAST_SIGNAL
 };
 
+static const gchar * text_attr_name[] = {
+  "left_margin",
+  "right_margin",
+  "indent",
+  "invisible",
+  "editable",
+  "pixels_above_lines",
+  "pixels_below_lines",
+  "pixels_inside_wrap",
+  "bg_full_height",
+  "rise",
+  "underline",
+  "strikethrough",
+  "size",
+  "scale",
+  "weight",
+  "language",
+  "family_name",
+  "bg_color",
+  "fg_color",
+  "bg_stipple",
+  "fg_stipple",
+  "wrap_mode",
+  "direction",
+  "stretch",
+  "justification",
+  "variant",
+  "slant_style",
+};
+
+static const gchar *bool[] = {"false",
+                              "true"};
+static const gchar *style[] = {"normal",
+                               "oblique",
+                               "italic"};
+static const gchar *variant[] = {"normal",
+                                 "small_caps"};
+static const gchar *stretch[] = {"ultra_condensed",
+                                 "extra_condensed",
+                                 "condensed",
+                                 "semi_condensed",
+                                 "normal",
+                                 "semi_expanded",
+                                 "expanded",
+                                 "extra_expanded",
+                                 "ultra_expanded"};
+static const gchar *justification[] = {"left",
+                                       "right",
+                                       "center",
+
+                                       "fill"};
+static const gchar *direction[] = {"none",
+                                   "ltr",
+                                   "rtl"};
+static const gchar *wrap_mode[] = {"none",
+                                   "char",
+                                   "word"};
+static const gchar *underline[] = {"none",
+                                   "single",
+                                   "double",
+                                   "low"};
+
 struct _AtkTextIfaceClass
 {
   GObjectClass parent;
@@ -725,4 +787,65 @@ atk_attribute_set_free(AtkAttributeSet *attrib_set)
       temp = temp->next;
     }
   g_slist_free (attrib_set);
+}
+
+/**
+ * atk_attribute_get_name:
+ * @attr: The #AtkTextAttribute whose name is required
+ *
+ * Returns the name corresponding to the attr value.
+ **/
+G_CONST_RETURN gchar*
+atk_attribute_get_name (AtkTextAttribute attr)
+{
+  g_assert (attr >= 0 && attr <= ATK_TEXT_ATTR_STYLE);
+  return text_attr_name[attr];
+}
+
+/**
+ * atk_attribute_get_value:
+ * @attr: The #AtkTextAttribute for which a value is required
+ * @index: The index of the required value
+ *
+ * Returns the value corresponding to the attr value and index.
+ * NULL is returned if there are no values maintained for the attr value. 
+ **/
+G_CONST_RETURN gchar*
+atk_attribute_get_value (AtkTextAttribute attr,
+                         gint             index)
+{
+  switch (attr)
+    {
+    case ATK_TEXT_ATTR_INVISIBLE:
+    case ATK_TEXT_ATTR_EDITABLE:
+    case ATK_TEXT_ATTR_BG_FULL_HEIGHT:
+    case ATK_TEXT_ATTR_STRIKETHROUGH:
+    case ATK_TEXT_ATTR_BG_STIPPLE:
+    case ATK_TEXT_ATTR_FG_STIPPLE:
+      g_assert (index >= 0 && index < 2);
+      return bool[index];
+    case ATK_TEXT_ATTR_UNDERLINE:
+      g_assert (index >= 0 && index < 4);
+      return underline[index];
+    case ATK_TEXT_ATTR_WRAP_MODE:
+      g_assert (index >= 0 && index < 3);
+      return wrap_mode[index];
+    case ATK_TEXT_ATTR_DIRECTION:
+      g_assert (index >= 0 && index < 3);
+      return direction[index];
+    case ATK_TEXT_ATTR_JUSTIFICATION:
+      g_assert (index >= 0 && index < 3);
+      return justification[index];
+    case ATK_TEXT_ATTR_STRETCH:
+      g_assert (index >= 0 && index < 9);
+      return stretch[index];
+    case ATK_TEXT_ATTR_VARIANT:
+      g_assert (index >= 0 && index < 2);
+      return variant[index];
+    case ATK_TEXT_ATTR_STYLE:
+      g_assert (index >= 0 && index < 3);
+      return style[index];
+    default:
+      return NULL;
+   }
 }

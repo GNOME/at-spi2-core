@@ -40,8 +40,11 @@ typedef GSList AtkAttributeSet;
 
 /**
  * AtkAttribute:
- * @name: The attribute name. See the ATK_ATTRIBUTE macros, eg #ATK_ATTRIBUTE_LEFT_MARGIN for examples.
- * @value: the value of the attribute, represented as a string. See the ATK_ATTRIBUTE macros, eg #ATK_ATTRIBUTE_LEFT_MARGIN for example.
+ * @name: The attribute name. Call atk_text_attr_get_name()
+ * @value: the value of the attribute, represented as a string. 
+ * Call atk_text_attr_get_value() for those which are strings.
+ * For values which are numbers, the string representation of the number 
+ * is in value.
  *
  * A string name/value pair representing a text attribute. 
  **/
@@ -53,220 +56,67 @@ struct _AtkAttribute {
 };
 
 /**
- * ATK_ATTRIBUTE_LEFT_MARGIN:
+ *AtkTextAttribute
+ *@ATK_TEXT_ATTR_LEFT_MARGIN: The pixel width of the left margin
+ *@ATK_TEXT_ATTR_RIGHT_MARGIN: The pixel width of the right margin
+ *@ATK_TEXT_ATTR_INDENT: The number of pixels that the text is indented
+ *@ATK_TEXT_ATTR_INVISIBLE: Either "true" or "false" indicating whether text is visible or not
+ *@ATK_TEXT_ATTR_EDITABLE: Either "true" or "false" indicating whether text is editable or not
+ *@ATK_TEXT_ATTR_PIXELS_ABOVE_LINES: Pixels of blank space to leave above each newline-terminated line. 
+ *@ATK_TEXT_ATTR_PIXELS_BELOW_LINES: Pixels of blank space to leave below each newline-terminated line.
+ *@ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP: Pixels of blank space to leave between wrapped lines inside the same newline-terminated line (paragraph).
+ *@ATK_TEXT_ATTR_BG_FULL_HEIGHT: "true" or "false" whether to make the background color for each character the height of the highest font used on the current line, or the height of the font used for the current character.
+ *@ATK_TEXT_ATTR_RISE: Number of pixels that the characters are risen above the baseline
+ *@ATK_TEXT_ATTR_UNDERLINE: "none", "single", "double" or "low"
+ *@ATK_TEXT_ATTR_STRIKETHROUGH: "true" or "false" whether the text is strikethrough 
+ *@ATK_TEXT_ATTR_SIZE: The size of the characters. 
+ *@ATK_TEXT_ATTR_SCALE: The scale of the characters. The value is a string representation of a double 
+ *@ATK_TEXT_ATTR_WEIGHT: The weight of the characters.
+ *@ATK_TEXT_ATTR_LANGUAGE: The language used
+ *@ATK_TEXT_ATTR_FAMILY_NAME: The font family name
+ *@ATK_TEXT_ATTR_BG_COLOR: The background color. The value is an RGB value of the format "%u,%u,%u"
+ *@ATK_TEXT_ATTR_FG_COLOR:The foreground color. The value is an RGB value of the format "%u,%u,%u"
+ *@ATK_TEXT_ATTR_BG_STIPPLE: "true" if a #GdkBitmap is set for stippling the background color.
+ *@ATK_TEXT_ATTR_FG_STIPPLE: "true" if a #GdkBitmap is set for stippling the foreground color.
+ *@ATK_TEXT_ATTR_WRAP_MODE: The wrap mode of the text, if any. Values are "none", "char" or "word" 
+ *@ATK_TEXT_ATTR_DIRECTION: The direction of the text, if set. Values are "none", "ltr" or "rtl" 
+ *@ATK_TEXT_ATTR_JUSTIFICATION: The justification of the text, if set. Values are "left", "right", "center" or "fill" 
+ *@ATK_TEXT_ATTR_STRETCH: The stretch of the text, if set. Values are "ultra_condensed", "extra_condensed", "condensed", "semi_condensed", "normal", "semi_expanded", "expanded", "extra_expanded" or "ultra_expanded"
+ *@ATK_TEXT_ATTR_VARIANT: The capitalization variant of the text, if set. Values are "normal" or "small_caps"
+ *@ATK_TEXT_ATTR_STYLE: The slant style of the text, if set. Values are "normal", "oblique" or "italic"
  *
- * An #AtkAttribute name/value pair. The pixel width of the left margin
+ * Describes the text attributes supported
  **/
-#define ATK_ATTRIBUTE_LEFT_MARGIN        "left_margin"
-
-/**
- * ATK_ATTRIBUTE_RIGHT_MARGIN:
- *
- * An #AtkAttribute name/value pair. The pixel width of the right margin
- **/
-#define ATK_ATTRIBUTE_RIGHT_MARGIN        "right_margin"
-
-/**
- * ATK_ATTRIBUTE_INDENT:
- *
- * An #AtkAttribute name/value pair. The number of pixels that the text is indented
- **/
-#define ATK_ATTRIBUTE_INDENT              "indent"
-
-/**
- * ATK_ATTRIBUTE_INVISIBLE:
- *
- * An #AtkAttribute name/value pair. 
- * Either "true" or "false" indicating whether text is visible or not
- **/
-#define ATK_ATTRIBUTE_INVISIBLE          "invisible"
-
-/**
- * ATK_ATTRIBUTE_EDITABLE:
- *
- * An #AtkAttribute name/value pair. 
- * Either "true" or "false" indicating whether text is editable or not
- **/
-#define ATK_ATTRIBUTE_EDITABLE           "editable"
-
-/**
- * ATK_ATTRIBUTE_PIXELS_ABOVE_LINES:
- *
- * An #AtkAttribute name/value pair.
- * Pixels of blank space to leave above each newline-terminated line. 
- **/
-#define ATK_ATTRIBUTE_PIXELS_ABOVE_LINES "pixels_above_lines"
-
-/**
- * ATK_ATTRIBUTE_PIXELS_BELOW_LINES:
- *
- * An #AtkAttribute name/value pair. 
- * Pixels of blank space to leave below each newline-terminated line.
- **/
-#define ATK_ATTRIBUTE_PIXELS_BELOW_LINES "pixels_below_lines"
-
-/**
- * ATK_ATTRIBUTE_PIXELS_INSIDE_WRAP:
- *
- * An #AtkAttribute name/value pair.
- * Pixels of blank space to leave between wrapped lines inside the same newline-terminated line (paragraph).
- **/
-#define ATK_ATTRIBUTE_PIXELS_INSIDE_WRAP "pixels_inside_wrap"
-
-/**
- * ATK_ATTRIBUTE_BG_FULL_HEIGHT:
- *
- * An #AtkAttribute name/value pair. 
- * "true" or "false" whether to make the background color for each character the height of the highest font used on the current line, or the height of the font used for the current character.
- **/
-#define ATK_ATTRIBUTE_BG_FULL_HEIGHT     "bg_full_height"
-
-/**
- * ATK_ATTRIBUTE_RISE:
- *
- * An #AtkAttribute name/value pair. 
- * Number of pixels that the characters are risen above the baseline
- * The value is a string representation of an integer 
- **/
-#define ATK_ATTRIBUTE_RISE               "rise"
-
-/**
- * ATK_ATTRIBUTE_UNDERLINE:
- *
- * An #AtkAttribute name/value pair. 
- * "true" or "false" whether the text is underlined
- **/
-#define ATK_ATTRIBUTE_UNDERLINE          "underline"
-
-/**
- * ATK_ATTRIBUTE_STRIKETHROUGH:
- *
- * An #AtkAttribute name/value pair. 
- * "true" or "false" whether the text is strikethrough 
- **/
-#define ATK_ATTRIBUTE_STRIKETHROUGH      "strikethrough"
-
-/**
- * ATK_ATTRIBUTE_SIZE:
- *
- * An #AtkAttribute name/value pair. 
- * The size of the characters. 
- * The value is a string representation of an integer 
- **/
-#define ATK_ATTRIBUTE_SIZE		 "size"
-
-/**
- * ATK_ATTRIBUTE_SCALE:
- *
- * An #AtkAttribute name/value pair. 
- * The scale of the characters. The value is a string representation of a double 
- **/
-#define ATK_ATTRIBUTE_SCALE		 "scale"
-
-/**
- * ATK_ATTRIBUTE_WEIGHT:
- *
- * An #AtkAttribute name/value pair. 
- * The weight of the characters. The value is a string representation of an integer 
- **/
-#define ATK_ATTRIBUTE_WEIGHT		 "weight"
-
-/**
- * ATK_ATTRIBUTE_LANGUAGE:
- *
- * An #AtkAttribute name/value pair. 
- * The language used
- **/
-#define ATK_ATTRIBUTE_LANGUAGE		 "language"
-
-/**
- * ATK_ATTRIBUTE_FAMILY_NAME:
- *
- * An #AtkAttribute name/value pair. 
- * The font family name
- **/
-#define ATK_ATTRIBUTE_FAMILY_NAME	 "family_name"
-
-/**
- * ATK_ATTRIBUTE_BG_COLOR:
- *
- * An #AtkAttribute name/value pair. 
- * The background color. The value is an RGB value of the format "%u,%u,%u"
- **/
-#define ATK_ATTRIBUTE_BG_COLOR   	 "bg_color"
-
-/**
- * ATK_ATTRIBUTE_FG_COLOR:
- *
- * An #AtkAttribute name/value pair. 
- * The foreground color. The value is an RGB value of the format "%u,%u,%u"
- **/
-#define ATK_ATTRIBUTE_FG_COLOR   	 "fg_color"
-
-/**
- * ATK_ATTRIBUTE_BG_STIPPLE:
- *
- * An #AtkAttribute name/value pair. 
- * "true" if a #GdkBitmap is set for stippling the background color.
- **/
-#define ATK_ATTRIBUTE_BG_STIPPLE   	 "bg_stipple"
-
-/**
- * ATK_ATTRIBUTE_FG_STIPPLE:
- *
- * An #AtkAttribute name/value pair. 
- * "true" if a #GdkBitmap is set for stippling the foreground color.
- **/
-#define ATK_ATTRIBUTE_FG_STIPPLE   	 "fg_stipple"
-
-/**
- * ATK_ATTRIBUTE_WRAP_MODE:
- *
- * An #AtkAttribute name/value pair. 
- * The wrap mode of the text, if any. Values are "none", "char" or "word" 
- **/
-#define ATK_ATTRIBUTE_WRAP_MODE   	 "wrap_mode"
-
-/**
- * ATK_ATTRIBUTE_DIRECTION:
- *
- * An #AtkAttribute name/value pair. 
- * The direction of the text, if set. Values are "none", "ltr" or "rtl" 
- **/
-#define ATK_ATTRIBUTE_DIRECTION   	 "direction"
-
-/**
- * ATK_ATTRIBUTE_JUSTIFICATION:
- *
- * An #AtkAttribute name/value pair. 
- * The justification of the text, if set. Values are "left", "right", "center" or "fill" 
- **/
-#define ATK_ATTRIBUTE_JUSTIFICATION   	 "justification"
-
-/**
- * ATK_ATTRIBUTE_STRETCH:
- *
- * An #AtkAttribute name/value pair. 
- * The stretch of the text, if set. Values are "ultra_condensed", "extra_condensed",
- * or "ultra_expanded"
- **/
-#define ATK_ATTRIBUTE_STRETCH   	 "stretch"
-
-/**
- * ATK_ATTRIBUTE_VARIANT:
- *
- * An #AtkAttribute name/value pair. 
- * The capitalization variant of the text, if set. Values are "normal" or "small_caps"
- **/
-#define ATK_ATTRIBUTE_VARIANT   	 "variant"
-
-/**
- * ATK_ATTRIBUTE_STYLE:
- *
- * An #AtkAttribute name/value pair. 
- * The slant style of the text, if set. Values are "normal", "oblique" or "italic"
- **/
-#define ATK_ATTRIBUTE_STYLE      	 "slant_style"
+typedef enum
+{
+  ATK_TEXT_ATTR_LEFT_MARGIN,
+  ATK_TEXT_ATTR_RIGHT_MARGIN,
+  ATK_TEXT_ATTR_INDENT,
+  ATK_TEXT_ATTR_INVISIBLE,
+  ATK_TEXT_ATTR_EDITABLE,
+  ATK_TEXT_ATTR_PIXELS_ABOVE_LINES,
+  ATK_TEXT_ATTR_PIXELS_BELOW_LINES,
+  ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP,
+  ATK_TEXT_ATTR_BG_FULL_HEIGHT,
+  ATK_TEXT_ATTR_RISE,
+  ATK_TEXT_ATTR_UNDERLINE,
+  ATK_TEXT_ATTR_STRIKETHROUGH,
+  ATK_TEXT_ATTR_SIZE,
+  ATK_TEXT_ATTR_SCALE,
+  ATK_TEXT_ATTR_WEIGHT,
+  ATK_TEXT_ATTR_LANGUAGE,
+  ATK_TEXT_ATTR_FAMILY_NAME,
+  ATK_TEXT_ATTR_BG_COLOR,
+  ATK_TEXT_ATTR_FG_COLOR,
+  ATK_TEXT_ATTR_BG_STIPPLE,
+  ATK_TEXT_ATTR_FG_STIPPLE,
+  ATK_TEXT_ATTR_WRAP_MODE,
+  ATK_TEXT_ATTR_DIRECTION,
+  ATK_TEXT_ATTR_JUSTIFICATION,
+  ATK_TEXT_ATTR_STRETCH,
+  ATK_TEXT_ATTR_VARIANT,
+  ATK_TEXT_ATTR_STYLE
+} AtkTextAttribute;
 
 #define ATK_TYPE_TEXT                    (atk_text_get_type ())
 #define ATK_IS_TEXT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_TEXT)
@@ -433,6 +283,9 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
 void 	      atk_attribute_set_free                      (AtkAttributeSet  *attrib_set);
+G_CONST_RETURN gchar*  atk_attribute_get_name             (AtkTextAttribute attr);
+G_CONST_RETURN gchar*  atk_attribute_get_value            (AtkTextAttribute attr,
+                                                           gint             index);
 
 #ifdef __cplusplus
 }
