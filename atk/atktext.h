@@ -51,14 +51,14 @@ typedef struct _AtkTextIface AtkTextIface;
 /**
  *AtkXYCoords:
  *@ATK_XY_SCREEN: specifies xy coordinates relative to the screen
- *@ATK_XY_WIDGET: specifies xy coordinates relative to the widgets window
+ *@ATK_XY_WINDOW: specifies xy coordinates relative to the widgets 
+ * top-level window
  *
- *Specifies what type of coordinates are to be returned for functions that
- *return position coordinates
+ *Specifies how xy coordinates are to be interpreted
  **/
 typedef enum {
   ATK_XY_SCREEN,
-  ATK_XY_WIDGET
+  ATK_XY_WINDOW
 }AtkXYCoords;
 
 /**

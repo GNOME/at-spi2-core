@@ -1,4 +1,8 @@
 2001-06-27  Brian Cameron <brian.cameron@sun.com>
+	*atk/atktext.h
+	Updated AtkXYCoords enum.
+
+2001-06-27  Brian Cameron <brian.cameron@sun.com>
 	*atk/atkaction.c atk/atkaction.h atk/atkcomponent.c
 	atk/atkcomponent.h atk/atkhyperlink.c atk/atkhypertext.c
 	atk/atkimage.c atk/atkimage.h atk/atkobject.c
