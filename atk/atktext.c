@@ -272,8 +272,7 @@ atk_text_get_text_before_offset (AtkText          *text,
  *
  * Gets the offset position of the caret (cursor).
  *
- * Returns: the offset position of the caret (cursor), or -1 if
- *    one does not exist (or is not supported by the widget).
+ * Returns: the offset position of the caret (cursor).
  **/
 gint
 atk_text_get_caret_offset (AtkText *text)

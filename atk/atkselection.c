@@ -42,7 +42,7 @@ atk_selection_get_type ()
 /**
  * atk_selection_add_selection:
  * @selection: a #GObject instance that implements AtkSelectionIface
- * @i: a #gint specifying an accessible child of @selection 
+ * @i: a #gint specifying the child index.
  *
  * Adds the specified accessible child of the object to the
  * object's selection.
@@ -94,7 +94,8 @@ atk_selection_clear_selection (AtkSelection *obj)
 /**
  * atk_selection_ref_selection:
  * @selection: a #GObject instance that implements AtkSelectionIface
- * @i: a #gint specifying an accessible child of @selection 
+ * @i: a #gint specifying the index in the selection set.  (e.g. the
+ * ith selection as opposed to the ith child).
  *
  * Gets a reference to the accessible object representing the specified 
  * selected child of the object.
@@ -155,7 +156,7 @@ atk_selection_get_selection_count (AtkSelection *obj)
 /**
  * atk_selection_is_child_selected:
  * @selection: a #GObject instance that implements AtkSelectionIface
- * @i: a #gint specifying an accessible child of @selection 
+ * @i: a #gint specifying the child index.
  *
  * Determines if the current child of this object is selected
  * Note: callers should not rely on %NULL or on a zero value for
@@ -186,7 +187,8 @@ atk_selection_is_child_selected (AtkSelection *obj,
 /**
  * atk_selection_remove_selection:
  * @selection: a #GObject instance that implements AtkSelectionIface
- * @i: a #gint specifying an accessible child of @selection 
+ * @i: a #gint specifying the index in the selection set.  (e.g. the
+ * ith selection as opposed to the ith child).
  *
  * Removes the specified child of the object from the object's selection.
  *
