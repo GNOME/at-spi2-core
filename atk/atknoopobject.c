@@ -145,10 +145,13 @@ atk_no_op_object_new (GObject *obj)
 {
   AtkObject* accessible;
 
-  g_return_val_if_fail ((obj != NULL), NULL);
+  g_return_val_if_fail (obj != NULL, NULL);
 
   accessible = g_object_new (ATK_TYPE_NO_OP_OBJECT, NULL);
-  g_return_val_if_fail ((accessible != NULL), NULL);
+  g_return_val_if_fail (accessible != NULL, NULL);
+
+  accessible->role = ATK_ROLE_INVALID;
+  accessible->layer = ATK_LAYER_INVALID;
 
   return accessible;
 }

@@ -1,5 +1,11 @@
 2001-11-22  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atknoopobject.c:
+	Specify role as ATK_ROLE_INVALID and layer as ATK_LAYER_INVALID
+	when creating object
+
+2001-11-22  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atk.def, atk/atkrelationtype.h, docs/atk-sections.txt,
 	docs/tmpl/atkrelation.sgml:
 	Change atk_relation_type_from_string to atk_relation_type_for_name
