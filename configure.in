@@ -79,4 +79,5 @@ Makefile
 atk.pc
 atk/Makefile
 tests/Makefile
+docs/Makefile
 ])
