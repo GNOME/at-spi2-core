@@ -1,0 +1,311 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk gnome-2-2 \n"
+"POT-Creation-Date: 2003-02-05 19:53+0100\n"
+"PO-Revision-Date: 2003-02-06 10:27+0700\n"
+"Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
+"Language-Team: Indonesia <id@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "tidak valid"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "accel-label"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "Alarm"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "Animasi"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "Panah"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "kalender"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "kanvas"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "check-box"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "check-menu-item"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "pemilih warna"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "header kolom"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "combo box"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "editor tanggal"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "ikon desktop"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "frame desktop"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "dial"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialog"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "kolom direktori"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "area gambar"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "pemilih file"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "filler"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "pemilih font"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "frame"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "glass-pane"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "kontainer html"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ikon"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "gambar"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "frame internal"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "label"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "kolom berlayer"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "daftar"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "item daftar"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "menu"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "menu-bar"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "menu-item"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "option-pane"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "page-tab"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr "daftar page-tab"
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "teks password"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "menu popup"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "progress bar"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "push-button"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "radio-button"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "radio-menu-item"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "root-pane"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr "header baris"
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr "scroll bar"
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr "scroll-pane"
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "pemisah"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "slider"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr "split-pane"
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr "spin-button"
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "status bar"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tabel"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "sel tabel"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr "header kolom pada tabel"
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr "header baris pada tabel"
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr "tear-off-menu-item"
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminal"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "teks"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr "tombol togel"
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr "toolbar"
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr "tooltip"
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "tree"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "tabel tree"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "tidak diketahui"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr "viewport"
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "window"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "header"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr "footer"
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "paragrap"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "penggaris"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "aplikasi"
