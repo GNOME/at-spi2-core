@@ -39,9 +39,11 @@ struct _ArgStruct {
 
 static CORBA_Environment ev;
 static Accessibility_Registry registry;
+static Application *this_app;
 
 static gboolean bridge_register_app (gpointer p);
 static void bridge_focus_tracker (AtkObject *object);
+static void bridge_exit_func(void);
 
 int
 gtk_module_init(gint *argc, gchar **argv[])
@@ -50,6 +52,7 @@ gtk_module_init(gint *argc, gchar **argv[])
   args->c = *argc;
   args->v = *argv;
   g_idle_add (bridge_register_app, args);
+  g_atexit (bridge_exit_func);
 }
 
 static gboolean
@@ -60,17 +63,15 @@ bridge_register_app (gpointer gp)
   char *obj_id;
   ArgStruct *args = (ArgStruct *)gp;
 
-  Application *app;
-
   CORBA_exception_init(&ev);
 
-  if (!bonobo_init (&(args->c), &args->v))
+  if (!bonobo_init (&(args->c), args->v))
     {
       g_error ("Could not initialize Bonobo");
     }
 
   /* Create the accesssible application server object */
-  app = application_new(atk_get_root ());
+  this_app = application_new(atk_get_root ());
 
   obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
@@ -98,9 +99,19 @@ bridge_register_app (gpointer gp)
   atk_add_focus_tracker (bridge_focus_tracker);
 
   Accessibility_Registry_registerApplication (registry,
-                                              bonobo_object_corba_objref (bonobo_object (app)),
+                                              bonobo_object_corba_objref (bonobo_object (this_app)),
                                               &ev);
   return FALSE;
+}
+
+static void bridge_exit_func()
+{
+  fprintf (stderr, "exiting bridge\n");
+  Accessibility_Registry_deregisterApplication (registry,
+						bonobo_object_corba_objref (
+							bonobo_object (this_app)),
+						&ev);
+  fprintf (stderr, "bridge exit func complete.\n");
 }
 
 static void bridge_focus_tracker (AtkObject *object)

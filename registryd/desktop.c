@@ -54,6 +54,7 @@ static void
 desktop_init (Desktop  *desktop)
 {
   ACCESSIBLE (desktop)->atko = g_object_new (atk_object_get_type(), NULL);
+  desktop->applications = NULL;
   atk_object_set_name (ATK_OBJECT (ACCESSIBLE (desktop)->atko), "main");
 }
 

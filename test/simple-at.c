@@ -157,7 +157,7 @@ static int _festival_init ()
 
   _festival_write ("(audio_mode'async)\n", fd);
   _festival_write ("(Parameter.set 'Duration_Model 'Tree_ZScore)\n", fd);
-  _festival_write ("(Parameter.set 'Duration_Stretch 0.5)\n", fd);
+  _festival_write ("(Parameter.set 'Duration_Stretch 0.7)\n", fd);
   return fd;
 }
 

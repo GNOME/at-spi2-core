@@ -21,8 +21,7 @@
  */
 
 /*
- * registry.c: test for accessibility implementation
- *
+ * registry.c: the main accessibility service registry implementation
  */
 
 #ifdef SPI_DEBUG
@@ -130,6 +129,15 @@ compare_object_hash (gconstpointer p1, gconstpointer p2)
   CORBA_Environment ev;
   long long diff = ((CORBA_Object_hash ((CORBA_Object) p2, (CORBA_unsigned_long) 0, &ev)) -
                     (CORBA_Object_hash ((CORBA_Object) p1, (CORBA_unsigned_long) 0, &ev)));
+
+#ifdef SPI_DEBUG
+  fprintf (stderr, "comparing %p to %p, via hashes %ld and %ld; diff %ld\n",
+	   p1, p2,
+	   CORBA_Object_hash ((CORBA_Object) p1, (CORBA_unsigned_long) 0, &ev),
+	   CORBA_Object_hash ((CORBA_Object) p2, (CORBA_unsigned_long) 0, &ev),
+	   (long) diff);
+#endif
+  
   return ((diff < 0) ? -1 : ((diff > 0) ? 1 : 0));
 }
 
@@ -243,12 +251,29 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
                                                     CORBA_Environment * ev)
 {
   Registry *registry = REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->applications, application, compare_object_hash);
+  GList *list = g_list_find_custom (registry->desktop->applications, application, compare_object_hash);
+
+#ifdef SPI_DEBUG
+  gint i;
+#endif
+
   if (list)
     {
-      fprintf (stderr, "deregistering application\n");
-      registry->applications = g_list_delete_link (registry->applications, list);
+#ifdef SPI_DEBUG
+      fprintf (stderr, "deregistering application %p\n", application);
+#endif
+      registry->desktop->applications = g_list_delete_link (registry->desktop->applications, list);
+#ifdef SPI_DEBUG
+      fprintf (stderr, "there are now %d apps registered.\n", g_list_length (registry->desktop->applications));
+      for (i = 0; i < g_list_length (registry->desktop->applications); ++i) {
+          fprintf (stderr, "getting application %d\n", i);
+          fprintf (stderr, "object address %p\n",
+               g_list_nth_data (registry->desktop->applications, i));
+      }
+#endif      
     }
+  else
+    fprintf (stderr, "could not deregister application\n");
 }
 
 /*
@@ -529,10 +554,11 @@ registry_class_init (RegistryClass *klass)
         epv->registerGlobalEventListener = impl_accessibility_registry_register_global_event_listener;
         epv->deregisterGlobalEventListener = impl_accessibility_registry_deregister_global_event_listener;
         epv->deregisterGlobalEventListenerAll = impl_accessibility_registry_deregister_global_event_listener_all;
+        epv->getDeviceEventController = impl_accessibility_registry_get_device_event_controller;
         epv->getDesktopCount = impl_accessibility_registry_get_desktop_count;
         epv->getDesktop = impl_accessibility_registry_get_desktop;
         epv->getDesktopList = impl_accessibility_registry_get_desktop_list;
-        epv->getDeviceEventController = impl_accessibility_registry_get_device_event_controller;
+
         ((ListenerClass *) klass)->epv.notifyEvent = impl_registry_notify_event;
 }
 

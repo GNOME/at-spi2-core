@@ -193,6 +193,42 @@ impl_accessibility_accessible_get_child_at_index (PortableServer_Servant servant
 }
 
 /*
+ * CORBA Accessibility::Accessible::getState method implementation
+ */
+static Accessibility_StateSet
+impl_accessibility_accessible_get_state (PortableServer_Servant servant,
+					 CORBA_Environment     *ev)
+{
+  Accessibility_StateSet retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  AtkStateSet *state = atk_object_ref_state_set (accessible->atko);
+  retval = CORBA_OBJECT_NIL;
+  printf ("Accessible get_state.\n");
+  /* TODO: implement the bonobo stateset class */
+  return (Accessibility_StateSet) retval;
+}
+
+/*
+ * CORBA Accessibility::Accessible::getRelationSet method implementation
+ */
+static Accessibility_RelationSet *
+impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
+						const CORBA_long      index,
+						CORBA_Environment     *ev)
+{
+  Accessibility_RelationSet *retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  AtkRelationSet *relation_set = atk_object_ref_relation_set (accessible->atko);
+  retval = CORBA_sequence_Accessibility_Relation__alloc ();
+  /*
+   *  TODO: fill the sequence with relation set objects, themselves
+   *  initialized from the AtkRelation object in the AtkRelationSet.
+   */
+  printf ("Accessible get_relation_set.\n");
+  return retval;
+}
+
+/*
  * CORBA Accessibility::Accessible::getRole method implementation
  */
 static Accessibility_Role
@@ -227,8 +263,8 @@ accessible_class_init (AccessibleClass *klass)
         epv->getChildAtIndex = impl_accessibility_accessible_get_child_at_index;
         epv->getIndexInParent = impl_accessibility_accessible_get_index_in_parent;
 
-        /* epv->getRelationSet = impl_accessibility_accessible_get_relation_set;      */
-        /* epv->getState = impl_accessibility_accessible_get_state;                   */
+        epv->getRelationSet = impl_accessibility_accessible_get_relation_set;
+        epv->getState = impl_accessibility_accessible_get_state;
         epv->getRole = impl_accessibility_accessible_get_role;
 }
 

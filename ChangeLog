@@ -1,3 +1,29 @@
+<2001-09-30  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c:
+		Stubbed-in the implementations for
+			Accessibility_Accessible_getState and
+			Accessibility_Accessible_getRelationSet.
+	* libspi/registry.c:
+		Improved de-registration process and fixed some bugs, 
+			deregistration should work correctly
+			once the compare_object_func()'s CORBA_Object_hash
+			usage is fixed (currently still broken).
+		(Probably the event listener registration still needs
+			fixing.)
+	* libspi/desktop.c:
+		Added initialization of applications list (to NULL).
+	* util/magnifier.c:
+		Reduced speech compression from 0.5 to 0.7, for demo.
+		Changed call to gdk_window_set_decorations()
+			to gtk_window_set_decorated().
+	* at-bridge/bridge.c:
+		Bridge now deregisters when app exits, via
+			registration of a cleanup function
+			with the g_atexit() call.
+			Required making 'app' static, renamed 'this_app'.
+		Fixed broken use of bonobo_init, passing argv wrongly.
+
 <2001-09-27  Bill Haneman <bill.haneman@sun.com>
 
 	* util:
