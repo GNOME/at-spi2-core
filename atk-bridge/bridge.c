@@ -147,6 +147,7 @@ static int
 atk_bridge_init (gint *argc, gchar **argv[])
 {
   const char *debug_env_string = g_getenv ("AT_SPI_DEBUG");
+  gchar *fname;
 
   if (atk_bridge_initialized)
     {
@@ -154,8 +155,15 @@ atk_bridge_init (gint *argc, gchar **argv[])
     }
   atk_bridge_initialized = TRUE;
 
-  if (debug_env_string)
-    _dbg = (int) g_ascii_strtod (debug_env_string, NULL);
+  if (g_getenv ("ATK_BRIDGE_REDIRECT_LOG"))
+  {
+      fname = g_strconcat ("/tmp/", g_get_prgname (), ".at-spi-log");
+      freopen (fname, "w", stderr);
+      g_free (fname);
+  }
+
+  if (debug_env_string) 
+      _dbg = (int) g_ascii_strtod (debug_env_string, NULL);
 
   if (!bonobo_init (argc, argv ? *argv : NULL))
     {
@@ -261,6 +269,41 @@ spi_atk_bridge_register_application (Accessibility_Registry registry)
                                               &ev);
 }
 
+/* 
+ * Returns a 'canonicalized' value for DISPLAY,
+ * with the screen number stripped off if present.
+ */
+static const gchar*
+spi_display_name (void)
+{
+    static const char *canonical_display_name = NULL;
+    if (!canonical_display_name)
+    {
+        const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+	if (!display_env)
+	{
+	    display_env = g_getenv ("DISPLAY");
+	    if (!display_env || !display_env[0]) 
+		canonical_display_name = ":0";
+	    else
+	    {
+		canonical_display_name = g_strdup (display_env);
+		gchar *display_p = strrchr (canonical_display_name, ':');
+		gchar *screen_p = strrchr (canonical_display_name, '.');
+		if (screen_p && display_p && ((guint) screen_p > (guint) display_p))
+		{
+		    *screen_p = '\0';
+		}
+	    }
+	}
+	else
+	{
+	    canonical_display_name = display_env;
+	}
+    }
+    return canonical_display_name;
+}
+
 static Accessibility_Registry
 spi_atk_bridge_get_registry (void)
 {
@@ -270,6 +313,9 @@ spi_atk_bridge_get_registry (void)
 	  CORBA_exception_init (&ev);
 	  if (registry_died) 
 	    DBG (1, g_warning ("registry died! restarting..."));
+	  
+	  bonobo_activation_set_activation_env_value ("AT_SPI_DISPLAY", spi_display_name ());
+
 	  registry = bonobo_activation_activate_from_id (
 		  "OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
 	  

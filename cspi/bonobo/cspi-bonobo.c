@@ -78,6 +78,41 @@ cspi_exception_get_text (void)
   return ret;
 }
 
+/* 
+ * Returns a 'canonicalized' value for DISPLAY,
+ * with the screen number stripped off if present.
+ */
+static const gchar*
+cspi_display_name (void)
+{
+    static const char *canonical_display_name = NULL;
+    if (!canonical_display_name)
+    {
+        const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+	if (!display_env)
+	{
+	    display_env = g_getenv ("DISPLAY");
+	    if (!display_env || !display_env[0]) 
+		canonical_display_name = ":0";
+	    else
+	    {
+		canonical_display_name = g_strdup (display_env);
+		gchar *display_p = strrchr (canonical_display_name, ':');
+		gchar *screen_p = strrchr (canonical_display_name, '.');
+		if (screen_p && display_p && ((guint) screen_p > (guint) display_p))
+		{
+		    *screen_p = '\0';
+		}
+	    }
+	}
+	else
+	{
+	    canonical_display_name = display_env;
+	}
+    }
+    return canonical_display_name;
+}
+
 CORBA_Object
 cspi_init (void)
 {
@@ -93,6 +128,9 @@ cspi_init (void)
   obj_id = "OAFIID:Accessibility_Registry:1.0";
 
   CORBA_exception_init (&ev);
+
+  bonobo_activation_set_activation_env_value ("AT_SPI_DISPLAY", 
+					      cspi_display_name ());
 
   registry = bonobo_activation_activate_from_id (
     obj_id, 0, NULL, &ev);

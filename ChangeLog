@@ -1,3 +1,25 @@
+2004-08-20  Bill Haneman    <bill.haneman@sun.com>
+
+	* registryd/registry-main.c:
+	(main): Set the reg_env to use AT_SPI_DISPLAY instead of
+	$DISPLAY.  
+	
+	* cspi/bonobo/cspi-bonobo.c:
+	(cspi_display_name): New convenience method, gets DISPLAY with
+	screen number stripped, if AT_SPI_DISPLAY isn't already set.
+	(cspi_init): Set the activation env value above before getting
+	the registry.
+	
+	* atk-bridge/bridge.c:
+	(spi_display_name): Create the AT_SPI_DISPLAY activation
+	environment for an app, based on the DISPLAY environment with the
+	screen number stripped off.
+	(atk_bridge_init):  Allow redirection of error messages to a log.
+	(spi_atk_bridge_get_registry): Call
+	bonobo_activation_set_activation_env_value for AT_SPI_DISPLAY.
+
+	Fixes for bugs #149962, #136986, #144086.
+	
 2004-08-16  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "bs" to ALL_LINGUAS.

@@ -55,7 +55,7 @@ main (int argc, char **argv)
 	g_print ("starting stress test...\n");
 
 	CORBA_exception_init (&ev);
-	
+
 	registry = bonobo_activation_activate_from_id (
 		"OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
   
