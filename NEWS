@@ -1,3 +1,11 @@
+Changes in version 1.7.1
+========================
+* Allow locale dir to be not hardcoded into binary. (bug #1289006)
+
+* Add translations: Turkmen [M\303\274hemmet Amut]
+
+* Update translations: Hungarian [Andras Timar],  Bulgarian [Rostislav Raikov]
+
 Changes in version 1.7.0
 ========================
 * Add "bounds-changed" signal for AtkComponent. (bug #140476)
