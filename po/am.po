@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
-"POT-Creation-Date: 2002-10-31 05:39+0100\n"
-"PO-Revision-Date: 2002-12-10 19:37+EDT\n"
+"POT-Creation-Date: 2003-01-06 05:49+0100\n"
+"PO-Revision-Date: 2003-01-07 10:33+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgstr ""
 
 #: atk/atkobject.c:1195
 msgid "arrow"
-msgstr ""
+msgstr "ቀስት"
 
 #: atk/atkobject.c:1198
 msgid "calendar"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: atk/atkobject.c:1219
 msgid "date-editor"
-msgstr "ሠሌዳ-አርትዒ"
+msgstr "ቀን-አርትዒ"
 
 #: atk/atkobject.c:1222
 msgid "desktop-icon"
@@ -141,7 +141,7 @@ msgstr "ዝርዝር"
 
 #: atk/atkobject.c:1276
 msgid "list-item"
-msgstr ""
+msgstr "ዝርዝር-ዕቃ"
 
 #: atk/atkobject.c:1279
 msgid "menu"
@@ -149,11 +149,11 @@ msgstr "ሜኑ"
 
 #: atk/atkobject.c:1282
 msgid "menu-bar"
-msgstr "ሜኑባር"
+msgstr "ሜኑ-ባር"
 
 #: atk/atkobject.c:1285
 msgid "menu-item"
-msgstr ""
+msgstr "ሜኑ-ዕቃ"
 
 #: atk/atkobject.c:1288
 msgid "option-pane"
@@ -213,7 +213,7 @@ msgstr ""
 
 #: atk/atkobject.c:1330
 msgid "separator"
-msgstr ""
+msgstr "መለያ"
 
 #: atk/atkobject.c:1333
 msgid "slider"
@@ -253,7 +253,7 @@ msgstr ""
 
 #: atk/atkobject.c:1360
 msgid "terminal"
-msgstr ""
+msgstr "ተርሚናል"
 
 #: atk/atkobject.c:1363
 msgid "text"
