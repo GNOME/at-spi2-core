@@ -1,3 +1,8 @@
+2004-01-23  Manish Singh  <yosh@gimp.org>
+
+	* Makefile.am: remove trailing backslash from last line of
+	DISTCLEANFILES. 
+
 2004-01-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk-uninstalled.pc.in: Correct library name. Fixes bug #132283,
