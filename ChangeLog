@@ -1,3 +1,10 @@
+2003-06-05  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/atk-bridge/bridge.c (spi_atk_bridge_exit_func): Check if 
+	there are still windows which have not been deleted and emit 
+	window:deactivate, if necessary and window:destroy events.
+	This fixes bug #114370.
+
 2003-06-03  Bill Haneman <bill.haneman@sun.com>
 
 	* cspi/spi_main.c:

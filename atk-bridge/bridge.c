@@ -924,19 +924,19 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   CORBA_any any;
   const gchar *name, *s;
 #ifdef SPI_BRIDGE_DEBUG
-  const gchar *s2;
 #endif
+  const gchar *s2;
   
   g_signal_query (signal_hint->signal_id, &signal_query);
 
   name = signal_query.signal_name;
 
 #ifdef SPI_BRIDGE_DEBUG
+#endif
   s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
   s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
   fprintf (stderr, "Received signal %s:%s from object %s (gail %s)\n",
 	   g_type_name (signal_query.itype), name, s ? s : "<NULL>" , s2);
-#endif
   
   gobject = g_value_get_object (param_values + 0);
 
