@@ -109,46 +109,15 @@ spi_desktop_class_init (SpiDesktopClass  *klass)
         epv->getChildAtIndex = impl_desktop_get_child_at_index;
 }
 
-GType
-spi_desktop_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiDesktopClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_desktop_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiDesktop),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_desktop_init,
-                        NULL /* value table */
-                };
-                /*
-                 *   Here we use bonobo_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_Desktop__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiDesktopClass, epv),
-                        &tinfo,
-                        "SpiDesktop");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiDesktop,
+		       Accessibility_Desktop,
+		       PARENT_TYPE,
+		       spi_desktop);
 
 SpiDesktop *
 spi_desktop_new (void)
 {
-    SpiDesktop *retval =
-               SPI_DESKTOP (g_object_new (spi_desktop_get_type (), NULL));
+    SpiDesktop *retval = SPI_DESKTOP (g_object_new (SPI_DESKTOP_TYPE, NULL));
+
     return retval;
 }

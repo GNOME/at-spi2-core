@@ -94,14 +94,6 @@ static void controller_register_device_listener (SpiDeviceEventController *contr
  */
 
 static gint
-_compare_listeners (gconstpointer p1, gconstpointer p2)
-{
-  DEControllerListener *l1 = (DEControllerListener *) p1;	
-  DEControllerListener *l2 = (DEControllerListener *) p2;	
-  return _compare_corba_objects (l1->object, l2->object);
-}
-
-static gint
 _compare_corba_objects (gconstpointer p1, gconstpointer p2)
 {
   CORBA_Environment ev;
@@ -114,6 +106,14 @@ _compare_corba_objects (gconstpointer p1, gconstpointer p2)
 	   retval);
 #endif
   return retval;  
+}
+
+static gint
+_compare_listeners (gconstpointer p1, gconstpointer p2)
+{
+  DEControllerListener *l1 = (DEControllerListener *) p1;	
+  DEControllerListener *l2 = (DEControllerListener *) p2;	
+  return _compare_corba_objects (l1->object, l2->object);
 }
 
 static gint
@@ -578,39 +578,8 @@ spi_device_event_controller_new (void *registryp)
   return retval;
 }
 
-GType
-spi_device_event_controller_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiDeviceEventControllerClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_device_event_controller_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiDeviceEventController),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_device_event_controller_init,
-                        NULL /* value table */
-                };
-                /*
-                 *   Here we use bonobo_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_DeviceEventController__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiDeviceEventControllerClass, epv),
-                        &tinfo,
-                        "SpiDeviceEventController");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiDeviceEventController,
+		       Accessibility_DeviceEventController,
+		       PARENT_TYPE,
+		       spi_device_event_controller);
 

@@ -29,7 +29,7 @@ extern "C" {
 #include <atk/atk.h>
 #include <libspi/Accessibility.h>
 
-#define SPI_COMPONENT_TYPE        (accessibility_component_get_type ())
+#define SPI_COMPONENT_TYPE        (spi_component_get_type ())
 #define SPI_COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_COMPONENT_TYPE, SpiComponent))
 #define SPI_COMPONENT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_COMPONENT_TYPE, SpiComponentClass))
 #define IS_SPI_COMPONENT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_COMPONENT_TYPE))
@@ -37,7 +37,7 @@ extern "C" {
 
 typedef struct {
         BonoboObject parent;
-        AtkObject *atko;
+        AtkObject   *atko;
 } SpiComponent;
 
 typedef struct {
@@ -45,8 +45,8 @@ typedef struct {
         POA_Accessibility_Component__epv epv;
 } SpiComponentClass;
 
-GType                  accessibility_component_get_type   (void);
-SpiComponent              *spi_component_interface_new       (AtkObject *o);
+GType         spi_component_get_type      (void);
+SpiComponent *spi_component_interface_new (AtkObject *o);
 
 #ifdef __cplusplus
 }

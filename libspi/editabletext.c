@@ -83,41 +83,11 @@ impl_pasteText (PortableServer_Servant _servant,
 
 static GObjectClass *parent_class;
 
-GType
-spi_editable_text_get_type (void)
-{
-  static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiEditableTextClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_editable_text_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiEditableText),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_editable_text_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       SPI_TEXT_TYPE,
-			       POA_Accessibility_EditableText__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiEditableTextClass, epv),
-			       &tinfo,
-			       "SpiAccessibleEditableText");
-  }
-
-  return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiEditableText,
+		       Accessibility_EditableText,
+		       SPI_TEXT_TYPE,
+		       spi_editable_text);
 
 static void
 spi_editable_text_class_init (SpiEditableTextClass *klass)
@@ -170,14 +140,14 @@ impl_setAttributes (PortableServer_Servant _servant,
   SpiEditableText *editable;
   BonoboObject *obj;
   obj = (bonobo_object_from_servant (_servant));
-  g_return_if_fail (IS_SPI_EDITABLE_TEXT (obj));
+  g_return_val_if_fail (IS_SPI_EDITABLE_TEXT (obj), FALSE);
   editable = SPI_EDITABLE_TEXT(bonobo_object_from_servant (_servant));
-  g_return_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko));
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT ( (SPI_TEXT (obj))->atko), FALSE);
 
   g_print ("setRunAttributes not implemented.\n");
+
+  return FALSE;
 }
-
-
 
 static void
 impl_setTextContents (PortableServer_Servant _servant,

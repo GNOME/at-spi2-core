@@ -191,7 +191,7 @@ impl_accessibility_component_get_size (PortableServer_Servant servant,
 }
 
 static void
-accessibility_component_class_init (SpiComponentClass *klass)
+spi_component_class_init (SpiComponentClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_Component__epv *epv = &klass->epv;
@@ -207,50 +207,20 @@ accessibility_component_class_init (SpiComponentClass *klass)
 }
 
 static void
-accessibility_component_init (SpiComponent *component)
+spi_component_init (SpiComponent *component)
 {
 }
 
-GType
-accessibility_component_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiComponentClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) accessibility_component_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiComponent),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) accessibility_component_init,
-                        NULL /* value table */
-                };
-                /*
-                 * Bonobo_type_unique auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_Component__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiComponentClass, epv),
-                        &tinfo,
-                        "SpiAccessibleComponent");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiComponent,
+		       Accessibility_Component,
+		       PARENT_TYPE,
+		       spi_component);
 
 SpiComponent *
 spi_component_interface_new (AtkObject *o)
 {
     SpiComponent *retval =
-               SPI_COMPONENT (g_object_new (accessibility_component_get_type (), NULL));
+               SPI_COMPONENT (g_object_new (SPI_COMPONENT_TYPE, NULL));
     retval->atko = o;
     g_object_ref (o);
     return retval;

@@ -1,3 +1,26 @@
+2001-11-19  Michael Meeks  <michael@ximian.com>
+
+	* libspi/editabletext.c (impl_setAttributes): fix warnings.
+
+	* libspi/component.c (accessibility_component_get_type): 
+	rename to (spi_component_get_type): and macroify.
+	(accessibility_component_init): rename to
+	(spi_component_init): this
+	(accessibility_component_class_init): rename to
+	(spi_component_class_init): this
+
+	* libspi/action.c (spi_action_get_type): kill, use the macro.
+
+	* libspi/deviceeventcontroller.c (_compare_listeners): re-order
+	to avoid prototype.
+
+	* libspi/application.c (spi_application_object_event_listener),
+	(impl_accessibility_application_register_object_event_listener):
+	warning fixes / const understanding updates.
+
+	* libspi/accessible.c (impl_accessibility_accessible_get_relation_set):
+	warning fixes.
+
 2001-18-11  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/spi_accessible.c: Added docs and C bindings for

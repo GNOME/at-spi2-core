@@ -57,9 +57,23 @@ static void notify_listeners (GList *listeners,
 			      Accessibility_Event *e,
 			      CORBA_Environment *ev);
 
-static char* lookup_toolkit_event_for_name (char *generic_name);
+static char *reverse_lookup_name_for_toolkit_event (char *toolkit_name);
 
-static char* reverse_lookup_name_for_toolkit_event (char *toolkit_name);
+static const char *
+lookup_toolkit_event_for_name (const char *generic_name)
+{
+    char *toolkit_specific_name;
+    SpiApplicationClass *klass = g_type_class_peek (SPI_APPLICATION_TYPE);
+#ifdef SPI_DEBUG
+    fprintf (stderr, "looking for %s in hash table.\n", generic_name);
+#endif
+    toolkit_specific_name =
+	    (char *) g_hash_table_lookup (klass->toolkit_event_names, generic_name);
+#ifdef SPI_DEBUG
+    fprintf (stderr, "generic event %s converted to %s\n", generic_name, toolkit_specific_name);
+#endif
+    return toolkit_specific_name;
+}
 
 /*
  * Implemented GObject::finalize
@@ -118,7 +132,7 @@ spi_application_object_event_listener (GSignalInvocationHint *signal_hint,
   SpiAccessible *source;
   CORBA_Environment ev;
   GSignalQuery signal_query;
-  gchar *name;
+  const gchar *name;
   char sbuf[APP_STATIC_BUFF_SZ];
   char *generic_name;
   
@@ -145,6 +159,7 @@ spi_application_object_event_listener (GSignalInvocationHint *signal_hint,
   }
   else
   {
+    aobject = NULL;
     g_error("received event from non-AtkImplementor");
   }
 
@@ -184,7 +199,7 @@ spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
   SpiAccessible *source;
   CORBA_Environment ev;
   GSignalQuery signal_query;
-  gchar *name;
+  const char *name;
   char sbuf[APP_STATIC_BUFF_SZ];
 
   g_signal_query (signal_hint->signal_id, &signal_query);
@@ -205,7 +220,7 @@ spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
       e->detail1 = 0;
       e->detail2 = 0;
       if (the_app) notify_listeners (the_app->toolkit_listeners, e, &ev);
-      bonobo_object_unref (source);
+      bonobo_object_unref (BONOBO_OBJECT (source));
       g_object_unref (G_OBJECT (aobject));
     }
   return TRUE;
@@ -219,7 +234,7 @@ impl_accessibility_application_register_toolkit_event_listener (PortableServer_S
 {
   guint spi_listener_id;
   spi_listener_id =
-     atk_add_global_event_listener (spi_application_toolkit_event_listener, event_name);
+     atk_add_global_event_listener (spi_application_toolkit_event_listener, (char *) event_name);
   the_app->toolkit_listeners = g_list_append (the_app->toolkit_listeners,
 					      CORBA_Object_duplicate (listener, ev));
 #ifdef SPI_DEBUG
@@ -235,8 +250,9 @@ impl_accessibility_application_register_object_event_listener (PortableServer_Se
 							       const CORBA_char *event_name,
 							       CORBA_Environment *ev)
 {
-  guint spi_listener_id;
-  char *toolkit_specific_event_name = lookup_toolkit_event_for_name (event_name);
+  guint spi_listener_id = 0;
+  const char *toolkit_specific_event_name =
+	  lookup_toolkit_event_for_name (event_name);
   if (toolkit_specific_event_name)
   {
     spi_listener_id =
@@ -269,22 +285,6 @@ notify_listeners (GList *listeners, Accessibility_Event *e, CORBA_Environment *e
 	 * Bonobo_Unknown refcount will be decremented by the recipient
 	 */
     }
-}
-
-static char *
-lookup_toolkit_event_for_name (char *generic_name)
-{
-    char *toolkit_specific_name;
-    SpiApplicationClass *klass = g_type_class_peek (SPI_APPLICATION_TYPE);
-#ifdef SPI_DEBUG
-    fprintf (stderr, "looking for %s in hash table.\n", generic_name);
-#endif
-    toolkit_specific_name =
-	    (char *) g_hash_table_lookup (klass->toolkit_event_names, generic_name);
-#ifdef SPI_DEBUG
-    fprintf (stderr, "generic event %s converted to %s\n", generic_name, toolkit_specific_name);
-#endif
-    return toolkit_specific_name;
 }
 
 static char *
@@ -345,40 +345,9 @@ spi_application_init (SpiApplication  *application)
   the_app = application;
 }
 
-GType
-spi_application_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiApplicationClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_application_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiApplication),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_application_init,
-                        NULL /* value table */
-                };
-                /*
-                 * Bonobo_type_unique auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_Application__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiApplicationClass, epv),
-                        &tinfo,
-                        "SpiApplication");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiApplication,
+		       Accessibility_Application,
+		       PARENT_TYPE, spi_application);
 
 SpiApplication *
 spi_application_new (AtkObject *app_root)

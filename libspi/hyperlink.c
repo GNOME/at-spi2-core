@@ -38,6 +38,7 @@
  * This pulls the definition of the hyperlink bonobo object
  */
 #include "hyperlink.h"
+#include "accessible.h"
 
 /*
  * Static function declarations
@@ -71,41 +72,11 @@ impl_isValid (PortableServer_Servant _servant,
 
 static GObjectClass *parent_class;
 
-GType
-spi_hyperlink_get_type (void)
-{
-  static GType type = 0;
 
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiHyperlinkClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_hyperlink_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiHyperlink),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_hyperlink_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_Hyperlink__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiHyperlinkClass, epv),
-			       &tinfo,
-			       "SpiAccessibleHyperlink");
-  }
-
-  return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiHyperlink,
+		       Accessibility_Hyperlink,
+		       BONOBO_OBJECT_TYPE,
+		       spi_hyperlink);
 
 static void
 spi_hyperlink_class_init (SpiHyperlinkClass *klass)

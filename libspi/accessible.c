@@ -48,6 +48,7 @@
 #include "text.h"
 #include "value.h"
 #include "action.h"
+#include "relation.h"
 
 /*
  * Our parent Gtk object type
@@ -237,7 +238,7 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
     {
       retval->_buffer[i] =
 	      CORBA_Object_duplicate (bonobo_object_corba_objref (
-		      spi_relation_new (atk_relation_set_get_relation (relation_set, i))),
+		      BONOBO_OBJECT (spi_relation_new (atk_relation_set_get_relation (relation_set, i)))),
 				      ev);
     }
   
@@ -289,40 +290,10 @@ spi_accessible_init (SpiAccessible *accessible)
 {
 }
 
-GType
-spi_accessible_get_type (void)
-{
-        static GType type = 0;
-
-        if (!type) {
-                static const GTypeInfo tinfo = {
-                        sizeof (SpiAccessibleClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) spi_accessible_class_init,
-                        (GClassFinalizeFunc) NULL,
-                        NULL, /* class data */
-                        sizeof (SpiAccessible),
-                        0, /* n preallocs */
-                        (GInstanceInitFunc) spi_accessible_init,
-                        NULL /* value table */
-                };
-                /*
-                 * Bonobo_type_unique auto-generates a load of
-                 * CORBA structures for us. All derived types must
-                 * use bonobo_type_unique.
-                 */
-                type = bonobo_type_unique (
-                        PARENT_TYPE,
-                        POA_Accessibility_Accessible__init,
-                        NULL,
-                        G_STRUCT_OFFSET (SpiAccessibleClass, epv),
-                        &tinfo,
-                        "SpiAccessible");
-        }
-
-        return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiAccessible,
+		       Accessibility_Accessible,
+		       PARENT_TYPE,
+		       spi_accessible);
 
 SpiAccessible *
 spi_accessible_new (AtkObject *o)

@@ -70,41 +70,10 @@ impl_getKeyBinding (PortableServer_Servant servant,
 
 static GObjectClass *parent_class;
 
-GType
-spi_action_get_type (void)
-{
-  static GType type = 0;
-
-  if (!type) {
-    static const GTypeInfo tinfo = {
-      sizeof (SpiActionClass),
-      (GBaseInitFunc) NULL,
-      (GBaseFinalizeFunc) NULL,
-      (GClassInitFunc) spi_action_class_init,
-      (GClassFinalizeFunc) NULL,
-      NULL, /* class data */
-      sizeof (SpiAction),
-      0, /* n preallocs */
-      (GInstanceInitFunc) spi_action_init,
-                        NULL /* value table */
-    };
-
-    /*
-     * Bonobo_type_unique auto-generates a load of
-     * CORBA structures for us. All derived types must
-     * use bonobo_type_unique.
-     */
-    type = bonobo_type_unique (
-			       BONOBO_OBJECT_TYPE,
-			       POA_Accessibility_Action__init,
-			       NULL,
-			       G_STRUCT_OFFSET (SpiActionClass, epv),
-			       &tinfo,
-			       "SpiAccessibleAction");
-  }
-
-  return type;
-}
+BONOBO_TYPE_FUNC_FULL (SpiAction,
+		       Accessibility_Action,
+		       BONOBO_OBJECT_TYPE,
+		       spi_action);
 
 static void
 spi_action_class_init (SpiActionClass *klass)
