@@ -1,5 +1,13 @@
 2001-08-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
+	* atk/atktable.c
+	Add functions atk_table_real_get_index_at(), 
+	atk_table_real_get_row_at_index(), atk_table_real_get_column_at_index()	
+	as default implementations for atk_table_get_index_at(),
+	atk_table_get_row_at_index(), atk_table_get_column_at_index()
+
+2001-08-23  Padraig O'Briain  <padraig.obriain@sun.com>
+
 	* atk/atkaction.c:
 	Refer to return value in function documentation for 
 	atk_action_do_action
