@@ -1,3 +1,29 @@
+2003-08-19  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* cspi/spi-private.h: Add declaration for _cspi_exceptoin_throw
+	* cspi/spi_accessible.c (cspi_init_relation_type_table): Add call
+	to return a value.
+	* cspi/spi_event.c: (AccessibleEvent_unref); Add casts to gfree
+	arguments.
+	* cspi/spi_main.c (SPI_Exception_getSourceType); Return the correct
+	type for unspecified exception.
+	* cspi_streamablecontect): Add include of string.h for memcpy.
+	(stream_release): Correct call to bonobo_object_release_unref
+	(stream_cache_item_free): Correct call to bonobo_object_release_unref
+	* cspi/bonobo/spi-bonobo.c: (cspi_check_event): Add cast to second
+	argument of _cspi_expection_throw.
+	* libspi/hyperlink.c: Add include of libspi/action.h:
+	(spi_hyperlink_new): Cast argument to spi_action_interface_new.
+	* libspi/streamablecontent.c: add include of libspi/component.h.
+	* regisrtyd/deviceeventcontroller.c:
+	(spi_dec_translate_mask): Removed unused variable priv.
+	(dec_synth_keysym): Initialize lock_mods to avoid compilker warning/
+	* registryd/registry.c:
+	(registry_filter_event): Remove unused variable queue_is-empty.
+	(impl_registry_notify_event): Use correct modifier in fprintf call.
+
+	This fixes compiler warnings reported in bug #120220.
+	
 2003-08-18  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* registryd/registryd.c: Remove this file.

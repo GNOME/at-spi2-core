@@ -706,10 +706,10 @@ AccessibleEvent_unref (const AccessibleEvent *e)
 	  if (event->ref_count < 1)
             {
 	      cspi_internal_event_remove (event);
-              g_free (e->type);
+              g_free ((gpointer)e->type);
               Accessible_unref (e->source);
               CORBA_free (event->data);
-              g_free (e);
+              g_free ((gpointer)e);
             }
 	}
     }

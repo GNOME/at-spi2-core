@@ -569,7 +569,7 @@ SPIExceptionType SPIException_getSourceType (SPIException *err)
   if (err)
     return err->type;
   else
-    return SPI_EXCEPTION_UNSPECIFIED;
+    return SPI_EXCEPTION_SOURCE_UNSPECIFIED;
 }
 
 /**

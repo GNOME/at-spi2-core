@@ -21,6 +21,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
+#include <libbonobo.h>
 #include <cspi/spi-private.h>
 
 
@@ -41,15 +43,18 @@ streams_equal_func (gconstpointer a, gconstpointer b)
 static void
 stream_release (gpointer a)
 {
-  bonobo_object_release_unref (a);
+  CORBA_Environment ev;
+
+  bonobo_object_release_unref (a, &ev);
 }
 
 static void
 stream_cache_item_free (gpointer a)
 {
   struct StreamCacheItem *cache_item = a;
+  CORBA_Environment ev;
   if (cache_item) {
-    bonobo_object_release_unref (cache_item->stream);
+    bonobo_object_release_unref (cache_item->stream, &ev);
     SPI_freeString (cache_item->mimetype);
     g_free (cache_item);
   }

@@ -989,6 +989,7 @@ cspi_init_relation_type_table (AccessibleRelationType *relation_type_table)
   relation_type_table [Accessibility_RELATION_EMBEDDED_BY] = SPI_RELATION_EMBEDDED_BY;
   relation_type_table [Accessibility_RELATION_POPUP_FOR] = SPI_RELATION_POPUP_FOR;
   relation_type_table [Accessibility_RELATION_LAST_DEFINED] = SPI_RELATION_LAST_DEFINED;
+  return TRUE;
 }
 
 static AccessibleRelationType
