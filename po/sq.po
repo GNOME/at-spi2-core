@@ -1,0 +1,313 @@
+# Albanian translation of atk.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# This file is distributed under the same license as the atk package.
+# Deep_Dark <epidamus@netscape.net>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ATK\n"
+"POT-Creation-Date: 2003-01-08 05:50+0100\n"
+"PO-Revision-Date: 2003-01-11 22:55+0100\n"
+"Last-Translator: Deep_Dark <epidamus@netscape.net>\n"
+"Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
+
+#: atk/atkobject.c:1183
+msgid "invalid"
+msgstr "I pavlefshëm"
+
+#: atk/atkobject.c:1186
+msgid "accel-label"
+msgstr "accel-label"
+
+#: atk/atkobject.c:1189
+msgid "alert"
+msgstr "alarm"
+
+#: atk/atkobject.c:1192
+msgid "animation"
+msgstr "Animizim"
+
+#: atk/atkobject.c:1195
+msgid "arrow"
+msgstr "shigjetë"
+
+#: atk/atkobject.c:1198
+msgid "calendar"
+msgstr "kalendar"
+
+#: atk/atkobject.c:1201
+msgid "canvas"
+msgstr "plani i punës"
+
+#: atk/atkobject.c:1204
+msgid "check-box"
+msgstr "seleksiono kutinë"
+
+#: atk/atkobject.c:1207
+msgid "check-menu-item"
+msgstr "seleksiono një item(send) nga menuja"
+
+#: atk/atkobject.c:1210
+msgid "color-chooser"
+msgstr "zgjedhës i ngjyrave"
+
+#: atk/atkobject.c:1213
+msgid "column-header"
+msgstr "titulli"
+
+#: atk/atkobject.c:1216
+msgid "combo-box"
+msgstr "boks i kombinuar"
+
+#: atk/atkobject.c:1219
+msgid "date-editor"
+msgstr "editor i datës"
+
+#: atk/atkobject.c:1222
+msgid "desktop-icon"
+msgstr "ikonë e desktop-it"
+
+#: atk/atkobject.c:1225
+msgid "desktop-frame"
+msgstr "frame e desktop-it"
+
+#: atk/atkobject.c:1228
+msgid "dial"
+msgstr "telefono"
+
+#: atk/atkobject.c:1231
+msgid "dialog"
+msgstr "dialog"
+
+#: atk/atkobject.c:1234
+msgid "directory-pane"
+msgstr "paneli i direktorisë"
+
+#: atk/atkobject.c:1237
+msgid "drawing-area"
+msgstr "zona e vizatimit"
+
+#: atk/atkobject.c:1240
+msgid "file-chooser"
+msgstr "zgjedhësi i file-ve"
+
+#: atk/atkobject.c:1243
+msgid "filler"
+msgstr "futësi"
+
+#: atk/atkobject.c:1246
+msgid "font-chooser"
+msgstr "zgjedhësi i font-eve(llojit të shkronjave)"
+
+#: atk/atkobject.c:1249
+msgid "frame"
+msgstr "frame"
+
+#: atk/atkobject.c:1252
+msgid "glass-pane"
+msgstr "paneli i pasqyrës"
+
+#: atk/atkobject.c:1255
+msgid "html-container"
+msgstr "përmbajtës i html"
+
+#: atk/atkobject.c:1258
+msgid "icon"
+msgstr "ikonë"
+
+#: atk/atkobject.c:1261
+msgid "image"
+msgstr "imazh"
+
+#: atk/atkobject.c:1264
+msgid "internal-frame"
+msgstr "frame i brendshëm"
+
+#: atk/atkobject.c:1267
+msgid "label"
+msgstr "kornizë"
+
+#: atk/atkobject.c:1270
+msgid "layered-pane"
+msgstr "panel i përkufizuar"
+
+#: atk/atkobject.c:1273
+msgid "list"
+msgstr "list"
+
+#: atk/atkobject.c:1276
+msgid "list-item"
+msgstr "rendit item-set"
+
+#: atk/atkobject.c:1279
+msgid "menu"
+msgstr "menu"
+
+#: atk/atkobject.c:1282
+msgid "menu-bar"
+msgstr "menu-bar"
+
+#: atk/atkobject.c:1285
+msgid "menu-item"
+msgstr "menu-item"
+
+#: atk/atkobject.c:1288
+msgid "option-pane"
+msgstr "paneli i opsioneve"
+
+#: atk/atkobject.c:1291
+msgid "page-tab"
+msgstr "tab i faqeve"
+
+#: atk/atkobject.c:1294
+msgid "page-tab-list"
+msgstr ""
+
+#: atk/atkobject.c:1297
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1300
+msgid "password-text"
+msgstr "teksti i paswordit"
+
+#: atk/atkobject.c:1303
+msgid "popup-menu"
+msgstr "menu popup"
+
+#: atk/atkobject.c:1306
+msgid "progress-bar"
+msgstr "Bar-i i progresit"
+
+#: atk/atkobject.c:1309
+msgid "push-button"
+msgstr "Shtyp butonin"
+
+#: atk/atkobject.c:1312
+msgid "radio-button"
+msgstr "Tasti-radios"
+
+#: atk/atkobject.c:1315
+msgid "radio-menu-item"
+msgstr "Ikona e menu-së së radios"
+
+#: atk/atkobject.c:1318
+msgid "root-pane"
+msgstr "Paneli i root-it"
+
+#: atk/atkobject.c:1321
+msgid "row-header"
+msgstr ""
+
+#: atk/atkobject.c:1324
+msgid "scroll-bar"
+msgstr ""
+
+#: atk/atkobject.c:1327
+msgid "scroll-pane"
+msgstr ""
+
+#: atk/atkobject.c:1330
+msgid "separator"
+msgstr "Ndarës"
+
+#: atk/atkobject.c:1333
+msgid "slider"
+msgstr "Rrëshkitës"
+
+#: atk/atkobject.c:1336
+msgid "split-pane"
+msgstr ""
+
+#: atk/atkobject.c:1339
+msgid "spin-button"
+msgstr ""
+
+#: atk/atkobject.c:1342
+msgid "statusbar"
+msgstr "statusbar"
+
+#: atk/atkobject.c:1345
+msgid "table"
+msgstr "tavolinë"
+
+#: atk/atkobject.c:1348
+msgid "table-cell"
+msgstr "Kutia e tavolinës"
+
+#: atk/atkobject.c:1351
+msgid "table-column-header"
+msgstr ""
+
+#: atk/atkobject.c:1354
+msgid "table-row-header"
+msgstr ""
+
+#: atk/atkobject.c:1357
+msgid "tear-off-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1360
+msgid "terminal"
+msgstr "terminal"
+
+#: atk/atkobject.c:1363
+msgid "text"
+msgstr "tekst"
+
+#: atk/atkobject.c:1366
+msgid "toggle-button"
+msgstr ""
+
+#: atk/atkobject.c:1369
+msgid "tool-bar"
+msgstr ""
+
+#: atk/atkobject.c:1372
+msgid "tool-tip"
+msgstr ""
+
+#: atk/atkobject.c:1375
+msgid "tree"
+msgstr "pemë"
+
+#: atk/atkobject.c:1378
+msgid "tree-table"
+msgstr "Tabela e pemës"
+
+#: atk/atkobject.c:1381
+msgid "unknown"
+msgstr "e panjohur"
+
+#: atk/atkobject.c:1384
+msgid "viewport"
+msgstr ""
+
+#: atk/atkobject.c:1387
+msgid "window"
+msgstr "dritare"
+
+#: atk/atkobject.c:1390
+msgid "header"
+msgstr "titull"
+
+#: atk/atkobject.c:1393
+msgid "footer"
+msgstr ""
+
+#: atk/atkobject.c:1396
+msgid "paragraph"
+msgstr "paragraf"
+
+#: atk/atkobject.c:1399
+msgid "ruler"
+msgstr "rregullues"
+
+#: atk/atkobject.c:1402
+msgid "application"
+msgstr "aplikacion"
+
