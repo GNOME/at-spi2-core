@@ -1,0 +1,314 @@
+# Copyright (C) 2001-2003 Free Software Foundation, Inc.
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Aktualną wersję tego pliku możesz odnaleźć w repozytorium cvs.gnome.pl
+# (:pserver:anonymous@cvs.gnome.pl:/home/cvs, puste hasło)
+# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
+# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas na adres:
+# translators@gnome.pl
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2003-01-02 00:20+0100\n"
+"PO-Revision-Date: 2003-01-02 00:20+0100\n"
+"Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1
+msgid "invalid"
+msgstr "niepoprawny"
+
+#: atk/atkobject.c:1
+msgid "accel-label"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "alert"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "animation"
+msgstr "animacja"
+
+#: atk/atkobject.c:1
+msgid "arrow"
+msgstr "strzałka"
+
+#: atk/atkobject.c:1
+msgid "calendar"
+msgstr "kalendarz"
+
+#: atk/atkobject.c:1
+msgid "canvas"
+msgstr "płótno"
+
+#: atk/atkobject.c:1
+msgid "check-box"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "check-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "color-chooser"
+msgstr "okno-wyboru-kolorów"
+
+#: atk/atkobject.c:1
+msgid "column-header"
+msgstr "nagłówek-kolumny"
+
+#: atk/atkobject.c:1
+msgid "combo-box"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "date-editor"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "desktop-icon"
+msgstr "ikona-pulpitu"
+
+#: atk/atkobject.c:1
+msgid "desktop-frame"
+msgstr "ramka-pulpitu"
+
+#: atk/atkobject.c:1
+msgid "dial"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "dialog"
+msgstr "okno-dialogowe"
+
+#: atk/atkobject.c:1
+msgid "directory-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "drawing-area"
+msgstr "obszar-rysowania"
+
+#: atk/atkobject.c:1
+msgid "file-chooser"
+msgstr "okno-wyboru-pliku"
+
+#: atk/atkobject.c:1
+msgid "filler"
+msgstr "wypełniacz"
+
+#: atk/atkobject.c:1
+msgid "font-chooser"
+msgstr "okno-wyboru-czcionki"
+
+#: atk/atkobject.c:1
+msgid "frame"
+msgstr "ramka"
+
+#: atk/atkobject.c:1
+msgid "glass-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "html-container"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "icon"
+msgstr "ikona"
+
+#: atk/atkobject.c:1
+msgid "image"
+msgstr "obraz"
+
+#: atk/atkobject.c:1
+msgid "internal-frame"
+msgstr "wewnętrzna-ramka"
+
+#: atk/atkobject.c:1
+msgid "label"
+msgstr "etykieta"
+
+#: atk/atkobject.c:1
+msgid "layered-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "list"
+msgstr "lista"
+
+#: atk/atkobject.c:1
+msgid "list-item"
+msgstr "obiekt-listy"
+
+#: atk/atkobject.c:1
+msgid "menu"
+msgstr "menu"
+
+#: atk/atkobject.c:1
+msgid "menu-bar"
+msgstr "pasek-menu"
+
+#: atk/atkobject.c:1
+msgid "menu-item"
+msgstr "obiekt-menu"
+
+#: atk/atkobject.c:1
+msgid "option-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "page-tab"
+msgstr "zakładka-strony"
+
+#: atk/atkobject.c:1
+msgid "page-tab-list"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "panel"
+msgstr "panel"
+
+#: atk/atkobject.c:1
+msgid "password-text"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "popup-menu"
+msgstr "menu-podręczne"
+
+#: atk/atkobject.c:1
+msgid "progress-bar"
+msgstr "pasek-postępu"
+
+#: atk/atkobject.c:1
+msgid "push-button"
+msgstr "przycisk"
+
+#: atk/atkobject.c:1
+msgid "radio-button"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "radio-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "root-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "row-header"
+msgstr "nagłówek-wiersza"
+
+#: atk/atkobject.c:1
+msgid "scroll-bar"
+msgstr "pasek-przewijania"
+
+#: atk/atkobject.c:1
+msgid "scroll-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "separator"
+msgstr "separator"
+
+#: atk/atkobject.c:1
+msgid "slider"
+msgstr "suwak"
+
+#: atk/atkobject.c:1
+msgid "split-pane"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "spin-button"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "statusbar"
+msgstr "pasek-stanu"
+
+#: atk/atkobject.c:1
+msgid "table"
+msgstr "tabela"
+
+#: atk/atkobject.c:1
+msgid "table-cell"
+msgstr "komórka-tabeli"
+
+#: atk/atkobject.c:1
+msgid "table-column-header"
+msgstr "nagłówek-kolumny-tabeli"
+
+#: atk/atkobject.c:1
+msgid "table-row-header"
+msgstr "nagłówek-wiersza-tabeli"
+
+#: atk/atkobject.c:1
+msgid "tear-off-menu-item"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "terminal"
+msgstr "terminal"
+
+#: atk/atkobject.c:1
+msgid "text"
+msgstr "napis"
+
+#: atk/atkobject.c:1
+msgid "toggle-button"
+msgstr "przełączalny-przycisk"
+
+#: atk/atkobject.c:1
+msgid "tool-bar"
+msgstr "pasek-narzędziowy"
+
+#: atk/atkobject.c:1
+msgid "tool-tip"
+msgstr "podpowiedź"
+
+#: atk/atkobject.c:1
+msgid "tree"
+msgstr "drzewo"
+
+#: atk/atkobject.c:1
+msgid "tree-table"
+msgstr "tabela-drzewiasta"
+
+#: atk/atkobject.c:1
+msgid "unknown"
+msgstr "nieznany"
+
+#: atk/atkobject.c:1
+msgid "viewport"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "window"
+msgstr "okno"
+
+#: atk/atkobject.c:1
+msgid "header"
+msgstr "nagłówek"
+
+#: atk/atkobject.c:1
+msgid "footer"
+msgstr "stopka"
+
+#: atk/atkobject.c:1
+msgid "paragraph"
+msgstr "akapit"
+
+#: atk/atkobject.c:1
+msgid "ruler"
+msgstr ""
+
+#: atk/atkobject.c:1
+msgid "application"
+msgstr "aplikacja"
