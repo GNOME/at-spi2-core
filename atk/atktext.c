@@ -222,8 +222,9 @@ atk_text_get_character_at_offset (AtkText      *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: the start offset of the returned string.
- * @end_offset: the end offset of the returned string.
+ * @start_offset: the start offset of the returned string
+ * @end_offset: the offset of the first character after the 
+ *              returned substring
  *
  * Gets the specified text.
  *
@@ -303,8 +304,9 @@ atk_text_get_text_after_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: the start offset of the returned string.
- * @end_offset: the end offset of the returned string.
+ * @start_offset: the start offset of the returned string
+ * @end_offset: the offset of the first character after the 
+ *              returned substring
  *
  * Gets the specified text.
  *
@@ -391,8 +393,9 @@ atk_text_get_text_at_offset (AtkText          *text,
  * @text: an #AtkText
  * @offset: position
  * @boundary_type: An #AtkTextBoundary
- * @start_offset: the start offset of the returned string.
- * @end_offset: the end offset of the returned string.
+ * @start_offset: the start offset of the returned string
+ * @end_offset: the offset of the first character after the 
+ *              returned substring
  *
  * Gets the specified text.
  *
@@ -499,10 +502,10 @@ atk_text_get_caret_offset (AtkText *text)
  * atk_text_get_character_extents:
  * @text: an #AtkText
  * @offset: The offset of the text character for which bounding information is required.
- * @x: Pointer for the x cordinate of the bounding box.
- * @y: Pointer for the y cordinate of the bounding box.
+ * @x: Pointer for the x cordinate of the bounding box
+ * @y: Pointer for the y cordinate of the bounding box
  * @width: Pointer for the width of the bounding box
- * @height: Pointer for the height of the bounding box.
+ * @height: Pointer for the height of the bounding box
  * @coords: specify whether coordinates are relative to the screen or widget window 
  *
  * Get the bounding box containing the glyph representing the character at 
@@ -570,8 +573,10 @@ atk_text_get_character_extents (AtkText *text,
  *Creates an #AtkAttributeSet which consists of the attributes explicitly
  *set at the position @offset in the text. @start_offset and @end_offset are
  *set to the start and end of the range around @offset where the attributes are
- *invariant. See the enum AtkTextAttribute for types of text attributes that 
- *can be returned. Note that other attributes may also be returned.
+ *invariant. Note that @end_offset is the offset of the first character
+ *after the range.  See the enum AtkTextAttribute for types of text 
+ *attributes that can be returned. Note that other attributes may also be 
+ *returned.
  *
  *Returns: an #AtkAttributeSet which contains the attributes explicitly set
  *at @offset. This #AtkAttributeSet should be freed by a call to
@@ -726,7 +731,8 @@ atk_text_get_n_selections (AtkText *text)
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
  * @start_offset: passes back the start position of the selected region
- * @end_offset: passes back the end position of the selected region
+ * @end_offset: passes back the end position of (e.g. offset immediately past) 
+ * the selected region
  *
  * Gets the text from the specified selection.
  *
@@ -768,7 +774,7 @@ atk_text_get_selection (AtkText *text,
  * atk_text_add_selection:
  * @text: an #AtkText
  * @start_offset: the start position of the selected region
- * @end_offset: the end position of the selected region
+ * @end_offset: the offset of the first character after the selected region.
  *
  * Adds a selection bounded by the specified offsets.
  *
@@ -829,7 +835,8 @@ atk_text_remove_selection (AtkText *text,
  * of the text region is assigned the number 0, etc.  Note that adding,
  * moving or deleting a selected region can change the numbering.
  * @start_offset: the new start position of the selection
- * @end_offset: the new end position of the selection
+ * @end_offset: the new end position of (e.g. offset immediately past) 
+ * the selection
  *
  * Changes the start and end offset of the specified selection.
  *

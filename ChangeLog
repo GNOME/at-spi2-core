@@ -1,3 +1,12 @@
+2004-10-28  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* docs/atk-docs.sgml: Add a more descriptive title in the docs.
+	Patch from Diego Gonzalez. (bug #156296)
+
+	* atk/text.c (Clarify meaning of endd_offset for 
+	atk_text_get_text_at_offset().
+	Patch from Bill Haneman. (bug #156574)
+
 2004-09-14  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Added "ar" to ALL_LINGUAS.
