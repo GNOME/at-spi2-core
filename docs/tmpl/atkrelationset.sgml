@@ -14,6 +14,13 @@ A set of AtkRelations, normally the set of AtkRelations which an AtkObject has.
 
 </para>
 
+<!-- ##### STRUCT AtkRelationSet ##### -->
+<para>
+The AtkRelationSet structure should not be accessed directly.
+
+</para>
+
+
 <!-- ##### FUNCTION atk_relation_set_new ##### -->
 <para>
 

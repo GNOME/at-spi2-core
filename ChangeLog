@@ -1,3 +1,11 @@
+2002-09-06  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* docs/atk-sections.txt: Add ...Iface symbols to Standard sections to 
+	avoid unused declarations
+
+	* docs/tmpl/atkobject.sgml docs/tmpl/atkrelationset.sgml:
+	Move AtkRelationSet from atkobject to atkrelationset.
+
 2002-09-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* docs/atk-sections.txt docs/tmpl/atkaction.sgml

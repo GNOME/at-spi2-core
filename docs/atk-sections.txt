@@ -9,6 +9,7 @@ atk_action_get_name
 atk_action_get_keybinding
 atk_action_set_description
 <SUBSECTION Standard>
+AtkActionIface
 ATK_ACTION
 ATK_IS_ACTION
 ATK_TYPE_ACTION
@@ -34,6 +35,7 @@ atk_component_set_extents
 atk_component_set_position
 atk_component_set_size
 <SUBSECTION Standard>
+AtkComponentIface
 ATK_COMPONENT
 ATK_IS_COMPONENT
 ATK_TYPE_COMPONENT
@@ -49,6 +51,7 @@ AtkDocument
 atk_document_get_document_type
 atk_document_get_document
 <SUBSECTION Standard>
+AtkDocumentIface
 ATK_DOCUMENT
 ATK_IS_DOCUMENT
 ATK_TYPE_DOCUMENT
@@ -68,6 +71,7 @@ atk_editable_text_cut_text
 atk_editable_text_delete_text
 atk_editable_text_paste_text
 <SUBSECTION Standard>
+AtkEditableTextIface
 ATK_EDITABLE_TEXT
 ATK_IS_EDITABLE_TEXT
 ATK_TYPE_EDITABLE_TEXT
@@ -83,6 +87,7 @@ atk_hypertext_get_link
 atk_hypertext_get_n_links
 atk_hypertext_get_link_index
 <SUBSECTION Standard>
+AtkHypertextIface
 ATK_HYPERTEXT
 ATK_IS_HYPERTEXT
 ATK_TYPE_HYPERTEXT
@@ -99,6 +104,7 @@ atk_image_get_image_description
 atk_image_set_image_description
 atk_image_get_image_size
 <SUBSECTION Standard>
+AtkImageIface
 ATK_IMAGE
 ATK_IS_IMAGE
 ATK_TYPE_IMAGE
@@ -144,7 +150,6 @@ AtkRole
 atk_role_register
 AtkLayer
 AtkImplementor
-AtkRelationSet
 AtkPropertyValues
 AtkFunction
 AtkPropertyChangeHandler
@@ -171,6 +176,7 @@ atk_object_initialize
 atk_role_get_name
 atk_role_for_name
 <SUBSECTION Standard>
+AtkImplementorIface
 ATK_OBJECT
 ATK_IS_OBJECT
 ATK_TYPE_OBJECT
@@ -251,6 +257,7 @@ ATK_RELATION_GET_CLASS
 <SECTION>
 <FILE>atkrelationset</FILE>
 <TITLE>AtkRelationSet</TITLE>
+AtkRelationSet
 atk_relation_set_new
 atk_relation_set_contains
 atk_relation_set_remove
@@ -280,6 +287,7 @@ atk_selection_is_child_selected
 atk_selection_remove_selection
 atk_selection_select_all_selection
 <SUBSECTION Standard>
+AtkSelectionIface
 ATK_SELECTION
 ATK_IS_SELECTION
 ATK_TYPE_SELECTION
@@ -345,6 +353,7 @@ atk_table_add_row_selection
 atk_table_remove_column_selection
 atk_table_remove_row_selection
 <SUBSECTION Standard>
+AtkTableIface
 ATK_TABLE
 ATK_IS_TABLE
 ATK_TYPE_TABLE
@@ -383,6 +392,7 @@ atk_text_attribute_get_name
 atk_text_attribute_for_name
 atk_text_attribute_get_value
 <SUBSECTION Standard>
+AtkTextIface
 ATK_TEXT
 ATK_IS_TEXT
 ATK_TYPE_TEXT
@@ -403,6 +413,7 @@ atk_value_get_maximum_value
 atk_value_get_minimum_value
 atk_value_set_current_value
 <SUBSECTION Standard>
+AtkValueIface
 ATK_VALUE
 ATK_IS_VALUE
 ATK_TYPE_VALUE
@@ -451,6 +462,7 @@ atk_streamable_content_get_n_mime_types
 atk_streamable_content_get_mime_type
 atk_streamable_content_get_stream	
 <SUBSECTION Standard>
+AtkStreamableContentIface
 ATK_STREAMABLE_CONTENT
 ATK_IS_STREAMABLE_CONTENT
 ATK_TYPE_STREAMABLE_CONTENT
