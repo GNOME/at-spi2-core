@@ -22,7 +22,7 @@
 
 module Accessibility {
 
-  interface Action {
+  interface Action : Bonobo::Unknown {
 
         /**
          * getNActions:

@@ -20,6 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <Bonobo_Storage.idl>
+
 module Accessibility {
 
   typedef sequence<string> StringSeq;
@@ -32,16 +34,9 @@ module Accessibility {
     SEEK_CURRENT
   };
 
-  interface InputStream {
-    void open ();
-    long read (inout OctetSeq buffer, in long howmany);
-    boolean seek (in long offset, in SeekType type);
-    boolean rewind ();
-    void close ();
-  };
-
   interface StreamableContent {
     StringSeq getContentTypes ();
-    InputStream getContent (in string contentType);
+    Bonobo::Stream getContent (in string contentType);
+    /* methods used from Bonobo::Stream : seek, read.  Others unsupported. */
   };
 };

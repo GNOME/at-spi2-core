@@ -22,7 +22,7 @@
 
 module Accessibility {
 
-  interface Image {
+  interface Image : Bonobo::Unknown  {
         string getImageDescription ();
         long getImageHeight ();
         long getImageWidth ();

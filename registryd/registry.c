@@ -309,7 +309,7 @@ registry_get_type (void)
                  * CORBA structures for us. All derived types must
                  * use bonobo_x_type_unique.
                  */
-                type = bonobo_x_type_unique (
+                type = bonobo_type_unique (
                         PARENT_TYPE,
                         POA_Accessibility_Registry__init,
                         NULL,

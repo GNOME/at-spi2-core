@@ -25,7 +25,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include <bonobo/bonobo-xobject.h>
+#include <bonobo/bonobo-object.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
 
@@ -36,12 +36,12 @@ extern "C" {
 #define IS_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), ACCESSIBLE_TYPE))
 
 typedef struct {
-        BonoboXObject parent;
+        BonoboObject parent;
         AtkObject *atko;
 } Accessible;
 
 typedef struct {
-        BonoboXObjectClass parent_class;
+        BonoboObjectClass parent_class;
         POA_Accessibility_Accessible__epv epv;
 } AccessibleClass;
 

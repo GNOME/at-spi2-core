@@ -42,7 +42,7 @@
 /*
  * Our parent Gtk object type
  */
-#define PARENT_TYPE BONOBO_X_OBJECT_TYPE
+#define PARENT_TYPE BONOBO_OBJECT_TYPE
 
 /*
  * A pointer to our parent object class
@@ -59,6 +59,7 @@ accessible_object_finalize (GObject *object)
 
         printf("accessible_object_finalize called\n");
         g_object_unref (accessible->atko);
+        accessible->atko = NULL;
 
         printf("atko freed, calling parent finalize\n");
         accessible_parent_class->finalize (object);
@@ -91,18 +92,54 @@ impl_accessibility_accessible_set_name (PortableServer_Servant servant,
   printf ("Accessible set_name called: %s\n", name);
 }
 
+/*
+ * CORBA Accessibility::Accessible::get_description method implementation
+ */
+static CORBA_char *
+impl_accessibility_accessible_get_description (PortableServer_Servant servant,
+                                               CORBA_Environment     *ev)
+{
+  CORBA_char * retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  retval = CORBA_string_dup (atk_object_get_description (accessible->atko));
+  fprintf (stderr, "Accessible get_description called: %s\n", retval);
+  return retval;
+}
+
+/*
+ * CORBA Accessibility::Accessible::set_description method implementation
+ */
+static void
+impl_accessibility_accessible_set_description (PortableServer_Servant servant,
+                                               const CORBA_char      *name,
+                                               CORBA_Environment     *ev)
+{
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  atk_object_set_description (accessible->atko, name);
+  printf ("Accessible set_description called: %s\n", name);
+}
+
 static void
 accessible_class_init (AccessibleClass *klass)
 {
         GObjectClass * object_class = (GObjectClass *) klass;
         POA_Accessibility_Accessible__epv *epv = &klass->epv;
-        accessible_parent_class = g_type_class_ref (BONOBO_X_OBJECT_TYPE);
-        /*accessible_parent_class = g_type_class_peek_parent (klass);*/
+        accessible_parent_class = g_type_class_peek_parent (klass);
 
         object_class->finalize = accessible_object_finalize;
 
         epv->_get_name = impl_accessibility_accessible_get_name;
         epv->_set_name = impl_accessibility_accessible_set_name;
+        epv->_get_description = impl_accessibility_accessible_get_description;
+        epv->_set_description = impl_accessibility_accessible_set_description;
+
+        /* epv->_get_parent = impl_accessibility_accessible_get_parent;               */
+        /* epv->_get_childCount = impl_accessibility_accessible_get_child_count;      */
+        /* epv->getChildAtIndex = impl_accessibility_accessible_get_child_at_index;   */
+        /* epv->getIndexInParent = impl_accessibility_accessible_get_index_in_parent; */
+        /* epv->getRelationSet = impl_accessibility_accessible_get_relation_set;      */
+        /* epv->getState = impl_accessibility_accessible_get_state;                   */
+        /* epv->getRole = impl_accessibility_accessible_get_role;                     */
 }
 
 static void
@@ -129,12 +166,11 @@ accessible_get_type (void)
                         NULL /* value table */
                 };
                 /*
-                 *   Here we use bonobo_x_type_unique instead of
-                 * gtk_type_unique, this auto-generates a load of
+                 * Bonobo_type_unique auto-generates a load of
                  * CORBA structures for us. All derived types must
-                 * use bonobo_x_type_unique.
+                 * use bonobo_type_unique.
                  */
-                type = bonobo_x_type_unique (
+                type = bonobo_type_unique (
                         PARENT_TYPE,
                         POA_Accessibility_Accessible__init,
                         NULL,

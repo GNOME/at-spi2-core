@@ -24,7 +24,7 @@
 
 module Accessibility {
 
-  interface Hyperlink {
+  interface Hyperlink : Bonobo::Unknown {
         Accessible getAnchor (in long i);
         Accessible getObject (in long i);
         long getStartIndex ();

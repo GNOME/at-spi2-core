@@ -24,7 +24,7 @@
 
 module Accessibility {
 
-  interface Hypertext {
+  interface Hypertext : Text {
         long getNLinks ();
         Hyperlink getLink (in long linkIndex);
         long getLinkIndex (in long characterIndex);

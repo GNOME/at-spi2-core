@@ -127,12 +127,12 @@ desktop_get_type (void)
                         NULL /* value table */
                 };
                 /*
-                 *   Here we use bonobo_x_type_unique instead of
+                 *   Here we use bonobo_type_unique instead of
                  * gtk_type_unique, this auto-generates a load of
                  * CORBA structures for us. All derived types must
-                 * use bonobo_x_type_unique.
+                 * use bonobo_type_unique.
                  */
-                type = bonobo_x_type_unique (
+                type = bonobo_type_unique (
                         PARENT_TYPE,
                         POA_Accessibility_Desktop__init,
                         NULL,

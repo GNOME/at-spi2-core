@@ -24,7 +24,7 @@
 
 module Accessibility {
 
-  interface Selection {
+  interface Selection : Bonobo::Unknown {
         long getNSelectedChildren ();
         Accessible getSelectedChild (in long selectedChildIndex);
         boolean selectChild (in long childIndex);

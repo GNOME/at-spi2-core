@@ -24,7 +24,7 @@
 
 module Accessibility {
 
-  interface Component {
+  interface Component : Bonobo::Unknown {
 
         boolean contains (in long x, in long y);
         Accessible getAccessibleAtPoint (in long x, in long y);

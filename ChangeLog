@@ -1,7 +1,27 @@
+2001-07-31  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c
+	* libspi/desktop.c
+	* libspi/registry.c : changed to use bonobo_object instead of bonobo_x_object
+	    (since the two are now equivalent in libbonobo)
+	* idl/Action.idl
+	* idl/Component.idl
+	* idl/Hyperlink.idl
+	* idl/Image.idl
+	* idl/Selection.idl
+	* idl/Table.idl
+	* idl/Text.idl
+	* idl/Value.idl : changed these 'secondary' interfaces to inherit from
+	     Bonobo::Unknown as does Accessibility::Accessible.
+	* idl/StreamableContent.idl : as above, and replaced internal InputStream
+	     interface with Bonobo::Stream, since it was redundant with it.
+	     (The Stream returned by a StreamableContext object is expected to
+	     implement only a subset of Bonobo::Stream)
+
 2001-07-28  Anders Carlsson  <andersca@gnome.org>
 
-       * libspi/accessible.c (accessible_object_finalize): Change
-       g_free to g_object_unref since the AtkObject is a GObject.
+        * libspi/accessible.c (accessible_object_finalize): Change
+          g_free to g_object_unref since the AtkObject is a GObject.
 
 2001-07-30  Bill Haneman <bill.haneman@sun.com>
 
