@@ -290,11 +290,11 @@ atk_text_get_caret_offset (AtkText *text)
  * @offset: position
  * @x: x-position of character
  * @y: y-position of character
- * @length: height of character
  * @width: width of character
+ * @height: height of character
  * @coords: specify whether coordinates are relative to the screen or widget window 
  *
- * Given an @offset, the @x, @y, @length, and @width values are filled
+ * Given an @offset, the @x, @y, @width, and @height values are filled
  * appropriately. 
  **/
 void
@@ -302,8 +302,8 @@ atk_text_get_character_extents (AtkText *text,
                                 gint offset,
                                 gint *x,
                                 gint *y,
-                                gint *height,
                                 gint *width,
+                                gint *height,
 			        AtkCoordType coords)
 {
   AtkTextIface *iface;
@@ -313,13 +313,13 @@ atk_text_get_character_extents (AtkText *text,
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_extents)
-    (*(iface->get_character_extents)) (text, offset, x, y, height, width, coords);
+    (*(iface->get_character_extents)) (text, offset, x, y, width, height, coords);
   else
     {
       *x = 0;
       *x = 0;
-      *height = 0;
       *width = 0;
+      *height = 0;
     }
 }
 
@@ -589,14 +589,14 @@ atk_text_set_caret_offset (AtkText *text,
 }
 
 /**
- * AtkAttributeSet_free:
+ * atk_attribute_set_free:
  * @attrib_set: The #AtkAttributeSet to free
  *
  * Frees the memory used by an #AtkAttributeSet, including all its
  * #AtkAttributes.
  **/
 void
-AtkAttributeSet_free(AtkAttributeSet *attrib_set)
+atk_attribute_set_free(AtkAttributeSet *attrib_set)
 {
   gint index;
 

@@ -1,3 +1,9 @@
+2001-08-16  Padraig O'Briain  <padraig.obriain@sun.com>
+	* atk/atktext.[c|h], docs/tmpl/atktext.sgml:
+	Swapped order of width and height arguments to
+	atk_text_get_character_extents()
+	Changed AtkAttrributeSet_free to atk_attribute_set_free
+
 2001-08-15  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.[c|h], docs/tmpl/atktext.sgml:

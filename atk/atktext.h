@@ -333,8 +333,8 @@ struct _AtkTextIface
                                                    gint             offset,
                                                    gint             *x,
                                                    gint             *y,
-                                                   gint             *height,
                                                    gint             *width,
+                                                   gint             *height,
                                                    AtkCoordType	    coords);
   gint           (* get_character_count)          (AtkText          *text);
   gint           (* get_offset_at_point)          (AtkText          *text,
@@ -401,8 +401,8 @@ void          atk_text_get_character_extents              (AtkText          *tex
                                                            gint             offset,
                                                            gint             *x,
                                                            gint             *y,
-                                                           gint             *height,
                                                            gint             *width,
+                                                           gint             *height,
                                                            AtkCoordType	    coords);
 AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,
 						           gint	  	    offset,
@@ -429,7 +429,7 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 							   gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
-void 	      AtkAttributeSet_free	                  (AtkAttributeSet  *attrib_set);
+void 	      atk_attribute_set_free                      (AtkAttributeSet  *attrib_set);
 
 #ifdef __cplusplus
 }
