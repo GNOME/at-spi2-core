@@ -1098,6 +1098,7 @@ atk_object_notify (GObject     *obj,
   g_signal_emit (obj, atk_object_signals[PROPERTY_CHANGE],
                  g_quark_from_string (pspec->name),
                  &values, NULL);
+  g_value_unset (&values.new_value);
 }
 
 /**

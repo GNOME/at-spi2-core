@@ -1,3 +1,10 @@
+2002-10-01  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c (atk_object_notify): Fix leak; report and patch
+	supplied by Sebastian Rittau (srittau@jroger.in-berlin.de)
+
+	Bug #94548.
+
 2002-09-24  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.1.0 =====
