@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 11:01+0200\n"
+"POT-Creation-Date: 2004-08-19 11:01+0200\n"
 "PO-Revision-Date: 2004-07-27 11:03+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -68,9 +68,10 @@ msgstr "Animacion"
 msgid "arrow"
 msgstr "shigjetë"
 
+#. GRUT modified this item
 #: atk/atkobject.c:87
 msgid "calendar"
-msgstr "kalendar"
+msgstr "kalendari"
 
 #: atk/atkobject.c:88
 msgid "canvas"
@@ -177,9 +178,10 @@ msgstr "lista"
 msgid "list item"
 msgstr "element liste"
 
+#. GRUT modified this item
 #: atk/atkobject.c:115
 msgid "menu"
-msgstr "menu"
+msgstr "menuja"
 
 #: atk/atkobject.c:116
 msgid "menu bar"
@@ -483,3 +485,4 @@ msgstr "Numri i lidhjeve hypertext"
 #: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numri i lidhjeve që ka AtkHypertext-i aktual"
+
