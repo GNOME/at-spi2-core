@@ -1,3 +1,7 @@
+2004-09-14  Abel Cheung  <maddog@linuxhall.org>
+
+	* configure.in: Added "ar" to ALL_LINGUAS.
+
 2004-09-10  Theppitak Karoonboonyanan  <thep@linux.thai.net>
 
 	* configure.in: Added "th" to ALL_LINGUAS.
