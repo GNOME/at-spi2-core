@@ -6,16 +6,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD.sq\n"
+"Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-12 13:56+0100\n"
-"PO-Revision-Date: 2004-02-12 12:36+0100\n"
+"POT-Creation-Date: 2004-02-20 01:31+0100\n"
+"PO-Revision-Date: 2004-02-20 01:34+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -63,7 +62,7 @@ msgstr "alarm"
 
 #: atk/atkobject.c:85
 msgid "animation"
-msgstr "Animizim"
+msgstr "Animacion"
 
 #: atk/atkobject.c:86
 msgid "arrow"
@@ -79,11 +78,11 @@ msgstr "plani i punës"
 
 #: atk/atkobject.c:89
 msgid "check box"
-msgstr "kutia zgjedhjes"
+msgstr "kutia e zgjedhjes"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
-msgstr "seleksiono një element nga menu-ja"
+msgstr "zgjidh një element nga menuja"
 
 #: atk/atkobject.c:91
 msgid "color chooser"
@@ -156,11 +155,11 @@ msgstr "ikonë"
 
 #: atk/atkobject.c:109
 msgid "image"
-msgstr "imazh"
+msgstr "figurë"
 
 #: atk/atkobject.c:110
 msgid "internal frame"
-msgstr "frame i brendshëm"
+msgstr "frame e brendshme"
 
 #: atk/atkobject.c:111
 msgid "label"
@@ -184,15 +183,15 @@ msgstr "menu"
 
 #: atk/atkobject.c:116
 msgid "menu bar"
-msgstr "paneli i menu"
+msgstr "paneli i menusë"
 
 #: atk/atkobject.c:117
 msgid "menu item"
-msgstr "elementi i menu"
+msgstr "elementi i menusë"
 
 #: atk/atkobject.c:118
 msgid "option pane"
-msgstr "paneli i opcioneve"
+msgstr "paneli i mundësive"
 
 #: atk/atkobject.c:119
 msgid "page tab"
@@ -208,7 +207,7 @@ msgstr "panel"
 
 #: atk/atkobject.c:122
 msgid "password text"
-msgstr "teksti i pasword-it"
+msgstr "teksti i fjalëkalimit"
 
 #: atk/atkobject.c:123
 msgid "popup menu"
@@ -216,7 +215,7 @@ msgstr "menu popup"
 
 #: atk/atkobject.c:124
 msgid "progress bar"
-msgstr "paneli i progresit"
+msgstr "paneli i progresionit"
 
 #: atk/atkobject.c:125
 msgid "push button"
@@ -228,11 +227,11 @@ msgstr "buton radio"
 
 #: atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "element radio i menu-së"
+msgstr "element radio i menusë"
 
 #: atk/atkobject.c:128
 msgid "root pane"
-msgstr "paneli qendror"
+msgstr "paneli bazë"
 
 #: atk/atkobject.c:129
 msgid "row header"
@@ -240,11 +239,11 @@ msgstr "kreu i rreshtit"
 
 #: atk/atkobject.c:130
 msgid "scroll bar"
-msgstr "panel rrëshqitës"
+msgstr "panel rrëshkitës"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "panel rrëshqitës"
+msgstr "panel rrëshkitës"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -264,11 +263,11 @@ msgstr "pulsant shtyrës"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr "statusbar"
+msgstr "paneli i gjendjes"
 
 #: atk/atkobject.c:137
 msgid "table"
-msgstr "tavolinë"
+msgstr "tabelë"
 
 #: atk/atkobject.c:138
 msgid "table cell"
@@ -284,7 +283,7 @@ msgstr "kreu i rreshtit të tabelës"
 
 #: atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "shkëput elementin e menu-së"
+msgstr "shkëput elementin e menusë"
 
 #: atk/atkobject.c:142
 msgid "terminal"
@@ -316,7 +315,7 @@ msgstr "tabela e degëzimit"
 
 #: atk/atkobject.c:149
 msgid "unknown"
-msgstr "i/e panjohur"
+msgstr "nuk njihet"
 
 #: atk/atkobject.c:150
 msgid "viewport"
@@ -332,7 +331,7 @@ msgstr "titull"
 
 #: atk/atkobject.c:153
 msgid "footer"
-msgstr "footer"
+msgstr "fund'faqe"
 
 #: atk/atkobject.c:154
 msgid "paragraph"
@@ -437,8 +436,7 @@ msgstr "Përshkrim i shqiptueshëm i kollonës së tabelës"
 
 #: atk/atkobject.c:367
 msgid "Is used to notify that the table column description has changed"
-msgstr ""
-"Përdoret për të njoftuar kur përshkrimi i kollonës së tabelës ndryshohet"
+msgstr "Përdoret për të njoftuar kur përshkrimi i kollonës së tabelës ndryshohet"
 
 #: atk/atkobject.c:373
 msgid "Accessible Table Row Header"
@@ -454,8 +452,7 @@ msgstr "Përshkrim i shqiptueshëm i rreshtit të tabelës"
 
 #: atk/atkobject.c:381
 msgid "Is used to notify that the table row description has changed"
-msgstr ""
-"Përdoret për të njoftuar kur përshkrimi i rreshtit të tabelës ndryshohet"
+msgstr "Përdoret për të njoftuar kur përshkrimi i rreshtit të tabelës ndryshohet"
 
 #: atk/atkobject.c:387
 msgid "Accessible Table Summary"
@@ -480,3 +477,4 @@ msgstr "Numri i lidhjeve hypertext"
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numri i lidhjeve që ka AtkHypertext-i aktual"
+
