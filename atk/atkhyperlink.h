@@ -62,51 +62,20 @@ struct _AtkHyperlinkClass
 {
   GObjectClass parent;
 
-  /*
-   * Returns a string specifying the URI associated with the nth anchor
-   * of this link.
-   */
   gchar*           (* get_uri)             (AtkHyperlink     *link_,
                                             gint             i);
-  /*
-   * Returns an object which represents the link action, as appropriate for 
-   * that link.
-   */
   AtkObject*       (* get_object)          (AtkHyperlink     *link_,
                                             gint             i);
-  /*
-   * Gets the index with the hypertext document at which this link ends
-   */
   gint             (* get_end_index)       (AtkHyperlink     *link_);
-
-  /* 
-   * Gets the index with the hypertext document at which this link begins 
-   */
   gint             (* get_start_index)     (AtkHyperlink     *link_);
-
-  /*
-   * Since the document a link is associated with may have changed, this 
-   * method returns whether or not this link is still valid (with respect
-   * to the document is references)
-   */
   gboolean         (* is_valid)            (AtkHyperlink     *link_);
-
-  /* 
-   * Returns the number of anchors associated with this link
-   */
   gint	           (* get_n_anchors)	   (AtkHyperlink     *link_);
-
-  /*
-   * Returns a set of bitflags which encode state information.
-   * Used by non-virtualized state query methods, not intended,
-   * for direct client use.  It is virtualized, but clients should use
-   * atk_hyperlink_is_inline (), etc.
-   */
   guint	           (* link_state)	   (AtkHyperlink     *link_);
-  
   gboolean         (* is_selected_link)    (AtkHyperlink     *link_);
+
+  /* Signals */
+  void             ( *link_activated)      (AtkHyperlink     *link_);
   AtkFunction      pad1;
-  AtkFunction      pad2;
 };
 
 GType            atk_hyperlink_get_type             (void);

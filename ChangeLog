@@ -1,3 +1,18 @@
+2003-12-03  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: (atk_object_class_init): Make nicks and blurbs of
+	properties translatable. Add new property "accessible-hypertext-nlinks".
+	(atk_object_real_get_property): Add support for new property
+	"accessible-hypertext-nlinks".
+
+	* atk/atkhyperlink.h: Remove unnecessary comments. Add signal
+	link_activated.
+
+	* atk/atkhyperlink.c: aAdd signals link_activated and new properties
+	"number-of-anchors, end-index and start-index.
+
+	This fixes bug #112390.
+
 2003-11-29  Danilo Šegan  <dsegan@gmx.net>
 
 	* configure.in: Added "af" to ALL_LINGUAS.
