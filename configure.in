@@ -185,6 +185,7 @@ atk/Makefile
 atk/atk.rc
 tests/Makefile
 docs/Makefile
+docs/version.xml
 atk.spec
 atk-zip.sh
 ])

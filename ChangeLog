@@ -1,3 +1,10 @@
+2003-10-31  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* configure.in: Add reference to docs/version.xml
+
+	Shopuld have been done in previous commit but was omitted.
+	Fixes build break reported in bugs #1258548 and #125902.
+
 2003-10-29  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* configure.in: Add reference to docs/version.xml
