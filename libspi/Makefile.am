@@ -31,6 +31,7 @@ libspiinclude_HEADERS =		\
 	relation.h		\
 	remoteobject.h		\
 	selection.h		\
+	stateset.h		\
 	table.h			\
 	text.h			\
 	value.h
@@ -78,9 +79,8 @@ libspi_la_SOURCES =		\
 	remoteobject.c		\
 	selection.c		\
 	spi-private.h		\
-	stateset.c\
-	stateset.h\
-table.c			\
+	stateset.c		\
+	table.c			\
 	text.c			\
 	util.c			\
 	value.c			\
