@@ -28,8 +28,6 @@ static void              atk_registry_finalize       (GObject          *instance
 static void              atk_registry_class_init     (AtkRegistryClass *klass);
 
 static AtkRegistry*      atk_registry_new            ();
-static GType           atk_registry_get_factory_type (AtkRegistry      *registry,
-                                                      GType            type);
 
 GType
 atk_registry_get_type (void)
