@@ -37,6 +37,7 @@ enum
   PROP_CARET,       /* Used only by AtkText implementors */
   PROP_SELECTION,
   PROP_VALUE,
+  PROP_VIBIBLE_DATA,
   PROP_LAST         /* gobject convention */
 };
 
@@ -76,6 +77,7 @@ static const gchar* atk_object_name_property_text = "accessible-text";
 static const gchar* atk_object_name_property_caret = "accessible-caret";
 static const gchar* atk_object_name_property_selection = "accessible-selection";
 static const gchar* atk_object_name_property_value = "accessible-value";
+static const gchar* atk_object_name_property_visible = "accessible-visible-data";
 
 GType
 atk_object_get_type (void)
@@ -158,21 +160,21 @@ atk_object_class_init (AtkObjectClass *klass)
                                     PROP_PARENT,
                                    g_param_spec_object (atk_object_name_property_parent,
                                                         "Accessible Parent",
-                                                        "Is used to notify that the parent has been changed ",
+                                                        "Is used to notify that the parent has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TEXT,
                                    g_param_spec_object (atk_object_name_property_text,
                                                         "Accessible Text",
-                                                        "Is used to notify that the text has been changed ",
+                                                        "Is used to notify that the text has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_CARET,
                                    g_param_spec_int    (atk_object_name_property_caret,
                                                         "Accessible Caret",
-                                                        "Is used to notify that the caret position has been changed ",
+                                                        "Is used to notify that the caret position has changed ",
                                                         0,
                                                         G_MAXINT,
                                                         0,
@@ -181,17 +183,24 @@ atk_object_class_init (AtkObjectClass *klass)
                                    PROP_SELECTION,
                                    g_param_spec_object (atk_object_name_property_selection,
                                                         "Accessible Selection",
-                                                        "Is used to notify that the selection has been changed ",
+                                                        "Is used to notify that the selection has changed ",
                                                         ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_VALUE,
                                    g_param_spec_double (atk_object_name_property_value,
                                                         "Accessible Value",
-                                                        "Is used to notify that the value has been changed ",
+                                                        "Is used to notify that the value has changed ",
                                                         0.0,
                                                         G_MAXDOUBLE,
                                                         0.0,
+                                                        G_PARAM_READWRITE));
+  g_object_class_install_property (gobject_class,
+                                   PROP_SELECTION,
+                                   g_param_spec_object (atk_object_name_property_visible,
+                                                        "Accessible Visible Data",
+                                                        "Is used to notify that the visual appearance of the object has changed ",
+                                                        ATK_TYPE_OBJECT,
                                                         G_PARAM_READWRITE));
   /*
    * The signal "children_changed" supports two details:

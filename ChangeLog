@@ -1,3 +1,7 @@
+2001-06-05  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Add property accessible-visible-data
+
 2001-06-01  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.c: Add support for setting and getting 
