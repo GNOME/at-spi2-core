@@ -75,19 +75,20 @@ atk_hyperlink_init  (AtkHyperlink        *link,
 }
 
 /**
- *atk_hyperlink_get_anchor:
- *@link: an #AtkHyperlink
- *@i:
+ * atk_hyperlink_get_uri:
+ * @link: an #AtkHyperlink
+ * @i: a (zero-index) integer specifying the desired anchor
  *
- * Returns an object which represents the link anchor, as appropriate for 
- * that link.
+ * Get a the URI associated with the anchor specified 
+ * by @i of @link. 
  *
- * Returns: an object which represents the link anchor, as appropriate for 
- * that link.
+ * Multiple anchors are primarily used by client-side image maps.
+ *
+ * Returns: a string specifying the URI 
  **/
-GObject*
-atk_hyperlink_get_anchor (AtkHyperlink *link,
-                          gint         i)
+gchar*
+atk_hyperlink_get_uri (AtkHyperlink *link,
+                       gint         i)
 {
   AtkHyperlinkClass *klass;
 
@@ -95,23 +96,25 @@ atk_hyperlink_get_anchor (AtkHyperlink *link,
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), NULL);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->get_anchor != NULL), NULL);
+  g_return_val_if_fail ((klass->get_uri != NULL), NULL);
 
-  return (klass->get_anchor) (link, i);
+  return (klass->get_uri) (link, i);
 }
 
 /**
- *atk_hyperlink_get_object:
- *@link: an #AtkHyperlink
- *@i:
+ * atk_hyperlink_get_object:
+ * @link: an #AtkHyperlink
+ * @i: a (zero-index) integer specifying the desired anchor
  *
- * Returns an object which represents the link action, as appropriate for 
- * that link.
+ * Returns the item associated with this hyperlinks nth anchor. For instance,
+ * the returned #AtkObject will implement #AtkText if @link is a text hyperlink, 
+ * #AtkImage if @link is an image hyperlink etc. 
+ * 
+ * Multiple anchors are primarily used by client-side image maps.
  *
- * Returns: an object which represents the link action, as appropriate for 
- * that link.
+ * Returns: an #AtkObject associated with this hyperlinks i-th anchor.
  **/
-GObject*
+AtkObject*
 atk_hyperlink_get_object (AtkHyperlink *link,
                           gint         i)
 {
@@ -127,32 +130,12 @@ atk_hyperlink_get_object (AtkHyperlink *link,
 }
 
 /**
- *atk_hyperlink_get_end_actions:
- *@link: an #AtkHyperlink
- *
- *
- **/
-//gint
-//atk_hyperlink_get_end_actions (AtkHyperlink *link)
-//{
-//  AtkHyperlinkClass *klass;
-//
-//  g_return_val_if_fail ((link != NULL), 0);
-//  g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
-//
-//  klass = ATK_HYPERLINK_GET_CLASS (link);
-//  g_return_val_if_fail ((klass->get_end_index != NULL), 0);
-//
-//  return (klass->get_end_index) (link);
-//}
-
-/**
- *atk_hyperlink_get_end_index:
- *@link: an #AtkHyperlink
+ * atk_hyperlink_get_end_index:
+ * @link: an #AtkHyperlink
  *
  * Gets the index with the hypertext document at which this link ends
  *
- *Returns: the index with the hypertext document at which this link ends
+ * Returns: the index with the hypertext document at which this link ends
  **/
 gint
 atk_hyperlink_get_end_index (AtkHyperlink *link)
@@ -169,12 +152,12 @@ atk_hyperlink_get_end_index (AtkHyperlink *link)
 }
 
 /**
- *atk_hyperlink_get_start_index:
- *@link: an #AtkHyperlink
+ * atk_hyperlink_get_start_index:
+ * @link: an #AtkHyperlink
  *
  * Gets the index with the hypertext document at which this link begins 
  *
- *Returns: the index with the hypertext document at which this link begins
+ * Returns: the index with the hypertext document at which this link begins
  **/
 gint
 atk_hyperlink_get_start_index (AtkHyperlink *link)
@@ -187,21 +170,21 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
   klass = ATK_HYPERLINK_GET_CLASS (link);
   g_return_val_if_fail ((klass->get_start_index != NULL), 0);
 
-  return (klass->get_end_index) (link);
+  return (klass->get_start_index) (link);
 }
 
 /**
- *atk_hyperlink_is_valid:
- *@link: an #AtkHyperlink
+ * atk_hyperlink_is_valid:
+ * @link: an #AtkHyperlink
  *
  * Since the document a link is associated with may have changed, this 
  * method returns whether or not this link is still valid (with respect
  * to the document is references)
  *
- *Returns: whether or not this link is still valid.
+ * Returns: whether or not this link is still valid.
  **/
 gboolean
-atk_hyperlink_get_valid (AtkHyperlink *link)
+atk_hyperlink_is_valid (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
@@ -212,6 +195,28 @@ atk_hyperlink_get_valid (AtkHyperlink *link)
   g_return_val_if_fail ((klass->is_valid != NULL), FALSE);
 
   return (klass->is_valid) (link);
+}
+
+/**
+ * atk_hyperlink_get_n_anchors:
+ * @link: an #AtkHyperlink
+ *
+ * Gets the number of anchors associated with this hyperlink
+ *
+ * Returns: the number of anchors associated with this hyperlink
+ **/
+gint
+atk_hyperlink_get_n_anchors (AtkHyperlink *link)
+{
+  AtkHyperlinkClass *klass;
+
+  g_return_val_if_fail ((link != NULL), 0);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
+
+  klass = ATK_HYPERLINK_GET_CLASS (link);
+  g_return_val_if_fail ((klass->get_n_anchors != NULL), 0);
+
+  return (klass->get_n_anchors) (link);
 }
 
 static void atk_hyperlink_action_iface_init (AtkActionIface *iface)
