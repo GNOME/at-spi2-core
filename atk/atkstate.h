@@ -58,7 +58,7 @@ typedef enum
   ATK_STATE_FOCUSABLE,
   /* Indicates this object currently has the keyboard focus */
   ATK_STATE_FOCUSED,
-  /* Indicates the orientation of thsi object is horizontal */
+  /* Indicates the orientation of this object is horizontal */
   ATK_STATE_HORIZONTAL,
   /* Indicates this object is minimized and is represented only by an icon */
   ATK_STATE_ICONIFIED,

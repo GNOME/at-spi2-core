@@ -32,8 +32,7 @@ enum
   PROP_DESCRIPTION,
   PROP_PARENT,      /* ancestry has changed */
   PROP_CHILD,       /* children have changed in number or identity */
-  PROP_ROLE,        /* AtkRole has changed  */
-  PROP_STATE,       /* AtkState has changed */
+  PROP_STATE,       /* AtkStateSet for the object has changed */
   PROP_TEXT,        /* Used only by AtkText implementors */
   PROP_CARET,       /* Used only by AtkText implementors */
   PROP_LAST         /* gobject convention */
@@ -58,6 +57,8 @@ static void            atk_object_real_get_property(GObject         *object,
                                                     GValue          *value,
                                                     GParamSpec      *pspec);
 static void            atk_object_finalize         (GObject         *object);
+static void            atk_object_real_set_role    (AtkObject       *object,
+                                                    AtkRole         role);
 
 #if 0
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
@@ -105,6 +106,7 @@ atk_object_class_init (AtkObjectClass *klass)
   gobject_class->finalize = atk_object_finalize;
 
   klass->ref_relation_set = atk_object_real_ref_relation_set;
+  klass->set_role = atk_object_real_set_role;
 
   klass->children_changed = NULL;
 
@@ -127,13 +129,13 @@ atk_object_class_init (AtkObjectClass *klass)
   g_object_class_install_property (gobject_class,
                                    PROP_STATE,
                                    g_param_spec_int    (atk_object_name_property_state,
-                                                        "Accessible State",
-                                                        "The current state of this object "
+                                                        "Accessible State Set",
+                                                        "The accessible state set of this object "
                                                         "or its UI component",
                                                         0,
                                                         G_MAXINT,
                                                         0,
-                                                        G_PARAM_WRITABLE));
+                                                        G_PARAM_READWRITE));
 #if 0
   /* register some properties - these could be change signals instead */
   g_object_class_install_property (gobject_class,
@@ -143,18 +145,6 @@ atk_object_class_init (AtkObjectClass *klass)
                                                            "which this object is a descendant of",
                                                            G_PARAM_READWRITE));
 
-
-  g_object_class_install_property (gobject_class,
-                                   PROP_ROLE,
-                                   g_param_spec_ccallback ("accessible_role", "Accessible Role",
-                                                           "The user-interface role of this object",
-                                                           G_PARAM_READWRITE));
-  g_object_class_install_property (gobject_class,
-                                   PROP_STATE,
-                                   g_param_spec_ccallback ("accessible_state", "Accessible State",
-                                                           "The current state of this object "
-                                                           "or its UI component",
-                                                           G_PARAM_READWRITE));
   g_object_class_install_property (gobject_class,
                                    PROP_TEXT,
                                    g_param_spec_ccallback ("accessible_text", "Accessible Text",
@@ -613,7 +603,7 @@ atk_object_real_set_property (GObject      *object,
       atk_object_set_description (accessible, g_value_get_string (value));
       break;
     case PROP_STATE:
-      g_print ("This interface does not support setting the state of an accessible object\n");
+      g_print ("This interface does not support setting the state set of an accessible object\n");
       break;
     default:
       break;
@@ -664,4 +654,11 @@ atk_object_finalize (GObject *object)
   }
 
   G_OBJECT_CLASS (parent_class)->finalize (object);
+}
+
+static void
+atk_object_real_set_role (AtkObject *object,
+                          AtkRole   role)
+{
+  object->role = role;
 }
