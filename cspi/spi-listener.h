@@ -1,13 +1,10 @@
 #ifndef _SPI_LISTENER_H_
 #define _SPI_LISTENER_H_
 
+#include <libspi/accessibleeventlistener.h>
+#include <libspi/keystrokelistener.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
-#include "accessibleeventlistener.h"
-#include "keystrokelistener.h"
+G_BEGIN_DECLS
 
 /*
  *
@@ -31,9 +28,6 @@ typedef Accessibility_Event AccessibleEvent;
 typedef VoidSpiEventListenerCB AccessibleEventListenerCB;
 typedef BooleanKeystrokeListenerCB    AccessibleKeystrokeListenerCB;
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif

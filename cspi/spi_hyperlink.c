@@ -1,3 +1,5 @@
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleHyperlink_ref:
  * @obj: a pointer to the #AccessibleHyperlink object on which to operate.
@@ -10,7 +12,7 @@
 int
 AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_ref (*obj, &ev);
+  Accessibility_Hyperlink_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -28,7 +30,7 @@ AccessibleHyperlink_ref (AccessibleHyperlink *obj)
 int
 AccessibleHyperlink_unref (AccessibleHyperlink *obj)
 {
-  Accessibility_Hyperlink_unref (*obj, &ev);
+  Accessibility_Hyperlink_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -49,7 +51,7 @@ long
 AccessibleHyperlink_getNAnchors (AccessibleHyperlink *obj)
 {
   return (long)
-    Accessibility_Hyperlink__get_nAnchors (*obj, &ev);
+    Accessibility_Hyperlink__get_nAnchors (*obj, spi_ev ());
 }
 
 
@@ -69,7 +71,7 @@ AccessibleHyperlink_getURI (AccessibleHyperlink *obj,
 {
   return (char *)
     Accessibility_Hyperlink_getURI (*obj,
-				    (CORBA_long) i, &ev);
+				    (CORBA_long) i, spi_ev ());
 }
 
 /**
@@ -87,9 +89,9 @@ Accessible*
 AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
                                long int i)
 {
-  return Obj_Add (
+  return spi_object_add (
     Accessibility_Hyperlink_getObject (*obj,
-				       (CORBA_long) i, &ev));
+				       (CORBA_long) i, spi_ev ()));
 }
 
 /**
@@ -111,9 +113,9 @@ AccessibleHyperlink_getIndexRange (AccessibleHyperlink *obj,
                                    long int *endIndex)
 {
   *startIndex = (long)
-    Accessibility_Hyperlink__get_startIndex (*obj, &ev);
+    Accessibility_Hyperlink__get_startIndex (*obj, spi_ev ());
   *endIndex = (long)
-    Accessibility_Hyperlink__get_endIndex (*obj, &ev);
+    Accessibility_Hyperlink__get_endIndex (*obj, spi_ev ());
 }
 
 
@@ -133,7 +135,7 @@ boolean
 AccessibleHyperlink_isValid (AccessibleHyperlink *obj)
 {
   return (boolean)
-    Accessibility_Hyperlink_isValid (*obj, &ev);
+    Accessibility_Hyperlink_isValid (*obj, spi_ev ());
 }
 
 

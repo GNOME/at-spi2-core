@@ -1,6 +1,10 @@
 #ifndef _SPI_STATETYPES_H_
 #define _SPI_STATETYPES_H_
 
+#include <glib/gmacros.h>
+
+G_BEGIN_DECLS
+
 /*
  *
  * Enumerated type for accessible state
@@ -85,5 +89,7 @@ typedef enum
   SPI_STATE_VISIBLE,
   SPI_STATE_LAST_DEFINED
 } AccessibleState;
+
+G_END_DECLS
 
 #endif

@@ -10,11 +10,9 @@
 #ifndef _SPI_IMPL_H_
 #define _SPI_IMPL_H_
 
-#include <stdlib.h>
-#include <orbit/orbit.h>
-#include "accessibleeventlistener.h"
-#include "keystrokelistener.h"
-#include "Accessibility.h"
+#include <libspi/accessibleeventlistener.h>
+#include <libspi/keystrokelistener.h>
+#include <libspi/Accessibility.h>
 
 typedef unsigned int boolean;
 

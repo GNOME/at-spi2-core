@@ -1,9 +1,10 @@
-
 /*
  *
  * AccessibleApplication function prototypes
  *
  */
+
+#include <cspi/spi-private.h>
 
 /**
  * AccessibleApplication_ref:
@@ -17,7 +18,7 @@
 int
 AccessibleApplication_ref (AccessibleApplication *obj)
 {
-  Accessibility_Application_ref (*obj, &ev);
+  Accessibility_Application_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -33,7 +34,7 @@ AccessibleApplication_ref (AccessibleApplication *obj)
 int
 AccessibleApplication_unref (AccessibleApplication *obj)
 {
-  Accessibility_Application_unref (*obj, &ev);
+  Accessibility_Application_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -50,7 +51,7 @@ AccessibleApplication_unref (AccessibleApplication *obj)
 char *
 AccessibleApplication_getToolkitName (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_toolkitName (*obj, &ev);
+  return Accessibility_Application__get_toolkitName (*obj, spi_ev ());
 }
 
 /**
@@ -67,7 +68,7 @@ AccessibleApplication_getToolkitName (AccessibleApplication *obj)
 char *
 AccessibleApplication_getVersion (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_version (*obj, &ev);
+  return Accessibility_Application__get_version (*obj, spi_ev ());
 }
 
 /**
@@ -84,7 +85,7 @@ AccessibleApplication_getVersion (AccessibleApplication *obj)
 long
 AccessibleApplication_getID (AccessibleApplication *obj)
 {
-  return Accessibility_Application__get_id (*obj, &ev);
+  return Accessibility_Application__get_id (*obj, spi_ev ());
 }
 
 /**

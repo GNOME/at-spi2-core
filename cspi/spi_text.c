@@ -1,3 +1,5 @@
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleText_ref:
  * @obj: a pointer to the #AccessibleText object on which to operate.
@@ -10,7 +12,7 @@
 int
 AccessibleText_ref (AccessibleText *obj)
 {
-  Accessibility_Text_ref (*obj, &ev);
+  Accessibility_Text_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -28,7 +30,7 @@ AccessibleText_ref (AccessibleText *obj)
 int
 AccessibleText_unref (AccessibleText *obj)
 {
-  Accessibility_Text_unref (*obj, &ev);
+  Accessibility_Text_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -48,11 +50,11 @@ AccessibleText_getCharacterCount (AccessibleText *obj)
 {
   long retval;
 
-  CORBA_exception_init (&ev);
+  CORBA_exception_init (spi_ev ());
   retval = (long)
-    Accessibility_Text__get_characterCount (*obj, &ev);
+    Accessibility_Text__get_characterCount (*obj, spi_ev ());
 
-  spi_check_ev (&ev, "SpiAccessibleText_getCharacterCount");
+  spi_check_ev (spi_ev (), "SpiAccessibleText_getCharacterCount");
 
   return retval;
 }
@@ -80,7 +82,7 @@ AccessibleText_getText (AccessibleText *obj,
 {
   return (char *)
     Accessibility_Text_getText (*obj,
-				(CORBA_long) startOffset, (CORBA_long) endOffset, &ev);
+				(CORBA_long) startOffset, (CORBA_long) endOffset, spi_ev ());
 }
 
 /**
@@ -96,7 +98,7 @@ long
 AccessibleText_getCaretOffset (AccessibleText *obj)
 {
   return (long)
-    Accessibility_Text__get_caretOffset (*obj, &ev);
+    Accessibility_Text__get_caretOffset (*obj, spi_ev ());
 }
 
 
@@ -129,7 +131,7 @@ AccessibleText_getAttributes (AccessibleText *obj,
 				      (CORBA_long) offset,
 				      &retStartOffset,
 				      &retEndOffset,
-				      &ev);
+				      spi_ev ());
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
   return retval;
@@ -153,7 +155,7 @@ AccessibleText_setCaretOffset (AccessibleText *obj,
 {
   return (boolean)
     Accessibility_Text_setCaretOffset (*obj,
-				       (CORBA_long) newOffset, &ev);
+				       (CORBA_long) newOffset, spi_ev ());
 }
 
 /**
@@ -191,7 +193,7 @@ AccessibleText_getTextBeforeOffset (AccessibleText *obj,
     Accessibility_Text_getTextBeforeOffset (*obj,
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
-					   &ev);
+					   spi_ev ());
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
   return retval;
@@ -233,7 +235,7 @@ AccessibleText_getTextAtOffset (AccessibleText *obj,
 					       (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					       &corbaStartOffset,
 					       &corbaEndOffset,
-					       &ev);
+					       spi_ev ());
   *startOffset = (long) corbaStartOffset;
   *endOffset = (long) corbaEndOffset;
 #ifdef SPI_DEBUG
@@ -277,7 +279,7 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
     Accessibility_Text_getTextAfterOffset (*obj,
 					   (CORBA_long) offset, (Accessibility_TEXT_BOUNDARY_TYPE) type,
 					   &retStartOffset, &retEndOffset,
-					   &ev);
+					   spi_ev ());
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
   return retval;
@@ -305,7 +307,7 @@ AccessibleText_getCharacterAtOffset (AccessibleText *obj,
 {
   return (unsigned long)
     Accessibility_Text_getCharacterAtOffset (*obj,
-					     (CORBA_long) offset, &ev);
+					     (CORBA_long) offset, spi_ev ());
 }
 
 /**
@@ -344,7 +346,7 @@ AccessibleText_getCharacterExtents (AccessibleText *obj,
 					  &retY,
 					  &retWidth,
 					  &retHeight,
-					  (CORBA_short) type, &ev);
+					  (CORBA_short) type, spi_ev ());
   *x = (long) retX;
   *y = (long) retY;
   *width = (long) retWidth;
@@ -374,7 +376,7 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
 {
   return (long)
     Accessibility_Text_getOffsetAtPoint (*obj,
-					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, &ev);
+					 (CORBA_long) x, (CORBA_long) y, (CORBA_short) type, spi_ev ());
 }
 
 
@@ -394,7 +396,7 @@ long
 AccessibleText_getNSelections (AccessibleText *obj)
 {
   return (long)
-    Accessibility_Text_getNSelections (*obj, &ev);
+    Accessibility_Text_getNSelections (*obj, spi_ev ());
 }
 
 
@@ -421,7 +423,7 @@ AccessibleText_getSelection (AccessibleText *obj,
   CORBA_long retStartOffset, retEndOffset;
   Accessibility_Text_getSelection (*obj,
 				   (CORBA_long) selectionNum,
-				   &retStartOffset, &retEndOffset, &ev);
+				   &retStartOffset, &retEndOffset, spi_ev ());
   
   *startOffset = (long) retStartOffset;
   *endOffset = (long) retEndOffset;
@@ -447,7 +449,7 @@ AccessibleText_addSelection (AccessibleText *obj,
   return (boolean)
     Accessibility_Text_addSelection (*obj,
 				     (CORBA_long) startOffset, (CORBA_long) endOffset,
-				     &ev);
+				     spi_ev ());
 }
 
 
@@ -468,7 +470,7 @@ AccessibleText_removeSelection (AccessibleText *obj,
 {
   return (boolean)
     Accessibility_Text_removeSelection (*obj,
-					(CORBA_long) selectionNum, &ev);
+					(CORBA_long) selectionNum, spi_ev ());
 }
 
 /**
@@ -494,7 +496,7 @@ AccessibleText_setSelection (AccessibleText *obj,
     Accessibility_Text_setSelection (*obj,
 				     (CORBA_long) selectionNum,
 				     (CORBA_long) startOffset,
-				     (CORBA_long) endOffset, &ev);
+				     (CORBA_long) endOffset, spi_ev ());
 }
 
 

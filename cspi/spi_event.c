@@ -20,6 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <cspi/spi-private.h>
+
 /**
  * createAccessibleEventListener:
  * @callback : an #AccessibleEventListenerCB callback function, or NULL.
@@ -77,7 +79,7 @@ boolean
 AccessibleEventListener_removeCallback (AccessibleEventListener *listener,
 					AccessibleEventListenerCB callback)
 {
-  spi_event_listener_remove_callback (listener, callback);
+/*  spi_event_listener_remove_callback (listener, callback); */
   return TRUE;
 }
 

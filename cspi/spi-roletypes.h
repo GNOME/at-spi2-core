@@ -1,6 +1,10 @@
 #ifndef _SPI_ROLETYPES_H_
 #define _SPI_ROLETYPES_H_
 
+#include <glib/gmacros.h>
+
+G_BEGIN_DECLS
+
 /**
  * AccessibleRole:
  * @SPI_ROLE_INVALID: role is not legal, something is wrong with this object
@@ -143,5 +147,7 @@ typedef enum
 } AccessibleRole;
 
 char* AccessibleRole_getName (AccessibleRole role);
+
+G_END_DECLS
 
 #endif

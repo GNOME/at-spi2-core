@@ -1,3 +1,40 @@
+2001-11-23  Michael Meeks  <michael@ximian.com>
+
+	* cspi/spi_event.c (AccessibleEventListener_removeCallback):
+	comment out non existant method invoke so we link.
+
+	* cspi/spi-util.c (spi_warn_ev): conform to gtk+ style,
+	use bonobo_exception_get_text for more friendly warnings.
+
+	* cspi/spi.c (Obj_Add): move into spi_main & rename
+	spi_object_add; kill spi.c
+
+	* cspi/spi_registry.c
+	(deregisterGlobalEventListener),
+	(deregisterGlobalEventListenerAll),
+	(registerGlobalEventListener): fix exception leaks.
+
+	* cspi/spi_main.c (spi_exception): impl. helper, so we
+	don't leak exceptions.
+
+	* cspi/spi_selection.c
+	(AccessibleSelection_deselectSelectedChild): return the
+	success state.
+
+	* cspi/spi_main.c (spi_ev): impl; hack - gack.
+	(spi_registry): ditto.
+	(SPI_init): guard against double inits.
+
+	* cspi/*.c: use spi_ev (), and spi_registry () where
+	appropriate - a temporary hack until we have something
+	better. Use spi_object_add
+
+2001-11-22  Michael Meeks  <michael@ximian.com>
+
+	* cspi/Makefile.am: re organise, install the headers.
+
+	* cspi/*.h: add G_BEGIN/END_DECLS
+
 2001-22-11  Bill Haneman  <bill.haneman@sun.com>
 
 	* test/simple-at.c:

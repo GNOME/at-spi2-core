@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <libbonobo.h>
+#include <cspi/spi-private.h>
+
 void
 spi_freeString (char *s)
 {
@@ -5,31 +9,45 @@ spi_freeString (char *s)
 }
 
 boolean
-spi_warn_ev (CORBA_Environment *c_ev, char *error_string) {
+spi_warn_ev (CORBA_Environment *ev, const char *error_string)
+{
+  if (ev->_major != CORBA_NO_EXCEPTION)
+    {
+      char *err;
 
-  if (c_ev->_major != CORBA_NO_EXCEPTION) {
-    fprintf (stderr,
-            "Warning: AT-SPI error: %s: %s\n",
-	     error_string,
-             CORBA_exception_id(c_ev));
-        CORBA_exception_init (c_ev);
-        return FALSE;
-  }
+      err = bonobo_exception_get_text (ev);
+
+      fprintf (stderr, "Warning: AT-SPI error: %s: %s\n",
+	       error_string, err);
+
+      g_free (err);
+
+      CORBA_exception_free (ev);
+
+      return FALSE;
+    }
   else
-  {
-        return TRUE;
-  }
+    {
+      return TRUE;
+    }
 }
 
 void
-spi_check_ev (CORBA_Environment *c_ev, char *error_string) {
+spi_check_ev (CORBA_Environment *ev, const char *error_string)
+{
+  if (ev->_major != CORBA_NO_EXCEPTION)
+    {
+      char *err;
 
-  if (c_ev->_major != CORBA_NO_EXCEPTION) {
-    fprintf (stderr,
-            ("AT-SPI error: %s: %s\n"),
-	     error_string,
-            CORBA_exception_id(c_ev));
-    CORBA_exception_free(c_ev);
-    exit(-1);
-  }
+      err = bonobo_exception_get_text (ev);
+
+      fprintf (stderr, "AT-SPI error: %s: %s\n",
+	       error_string, err);
+
+      g_free (err);
+
+      CORBA_exception_free (ev);
+
+      exit (-1);
+    }
 }

@@ -1,3 +1,5 @@
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleImage_ref:
  * @obj: a pointer to the #AccessibleImage implementor on which to operate.
@@ -10,7 +12,7 @@
 int
 AccessibleImage_ref (AccessibleImage *obj)
 {
-  Accessibility_Image_ref (*obj, &ev);
+  Accessibility_Image_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -28,7 +30,7 @@ AccessibleImage_ref (AccessibleImage *obj)
 int
 AccessibleImage_unref (AccessibleImage *obj)
 {
-  Accessibility_Image_unref (*obj, &ev);
+  Accessibility_Image_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -46,7 +48,7 @@ char *
 AccessibleImage_getImageDescription (AccessibleImage *obj)
 {
   return (char *)
-    Accessibility_Image__get_imageDescription (*obj, &ev);
+    Accessibility_Image__get_imageDescription (*obj, spi_ev ());
 }
 
 
@@ -66,7 +68,7 @@ AccessibleImage_getImageSize (AccessibleImage *obj,
                               long int *height)
 {
   Accessibility_Image_getImageSize (*obj,
-				    (CORBA_long *) width, (CORBA_long *) height, &ev);
+				    (CORBA_long *) width, (CORBA_long *) height, spi_ev ());
 }
 
 
@@ -91,5 +93,5 @@ AccessibleImage_getImagePosition (AccessibleImage *obj,
 {
   Accessibility_Image_getImagePosition (*obj,
 					(CORBA_long *) x, (CORBA_long *) y, (CORBA_short) ctype,
-					&ev);
+					spi_ev ());
 }

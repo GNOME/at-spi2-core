@@ -1,3 +1,5 @@
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleValue_ref:
  * @obj: a pointer to the #AccessibleValue implementor on which to operate.
@@ -10,7 +12,7 @@
 int
 AccessibleValue_ref (AccessibleValue *obj)
 {
-  Accessibility_Value_ref (*obj, &ev);
+  Accessibility_Value_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -28,7 +30,7 @@ AccessibleValue_ref (AccessibleValue *obj)
 int
 AccessibleValue_unref (AccessibleValue *obj)
 {
-  Accessibility_Value_unref (*obj, &ev);
+  Accessibility_Value_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -47,7 +49,7 @@ float
 AccessibleValue_getMinimumValue (AccessibleValue *obj)
 {
   return (float)
-    Accessibility_Value__get_minimumValue (*obj, &ev);
+    Accessibility_Value__get_minimumValue (*obj, spi_ev ());
 }
 
 
@@ -65,7 +67,7 @@ float
 AccessibleValue_getCurrentValue (AccessibleValue *obj)
 {
   return (float)
-    Accessibility_Value__get_currentValue (*obj, &ev);
+    Accessibility_Value__get_currentValue (*obj, spi_ev ());
 }
 
 
@@ -83,7 +85,7 @@ float
 AccessibleValue_getMaximumValue (AccessibleValue *obj)
 {
   return (float)
-    Accessibility_Value__get_maximumValue (*obj, &ev);
+    Accessibility_Value__get_maximumValue (*obj, spi_ev ());
 }
 
 
@@ -104,7 +106,7 @@ AccessibleValue_setCurrentValue (AccessibleValue *obj,
                                  float newValue)
 {
   Accessibility_Value__set_currentValue (*obj,
-					 (CORBA_float) newValue, &ev);
+					 (CORBA_float) newValue, spi_ev ());
   return TRUE;
 }
 

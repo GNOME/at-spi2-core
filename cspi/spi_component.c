@@ -4,6 +4,8 @@
  *
  */
 
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleComponent_ref:
  * @obj: a pointer to an object implementing #AccessibleComponent on which to operate.
@@ -16,7 +18,7 @@
 int
 AccessibleComponent_ref (AccessibleComponent *obj)
 {
-  Accessibility_Component_ref (*obj, &ev);
+  Accessibility_Component_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -32,7 +34,7 @@ AccessibleComponent_ref (AccessibleComponent *obj)
 int
 AccessibleComponent_unref (AccessibleComponent *obj)
 {
-  Accessibility_Component_unref (*obj, &ev);
+  Accessibility_Component_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -59,7 +61,7 @@ AccessibleComponent_contains (AccessibleComponent *obj,
                                            (CORBA_long) x,
                                            (CORBA_long) y,
                                            ctype,
-                                           &ev);
+                                           spi_ev ());
 }
 
 /**
@@ -86,8 +88,8 @@ AccessibleComponent_getAccessibleAtPoint (AccessibleComponent *obj,
                                                        (CORBA_long) x,
                                                        (CORBA_long) y,
                                                        ctype,
-                                                       &ev);
-  return (child != NULL) ? Obj_Add (child) : NULL;
+                                                       spi_ev ());
+  return spi_object_add (child);
 }
 
 /**
@@ -118,8 +120,8 @@ AccessibleComponent_getExtents (AccessibleComponent *obj,
                                       &cw,
                                       &ch,
 				      ctype,
-				      &ev);
-  spi_warn_ev (&ev, "AccessibleComponent_getExtents");
+				      spi_ev ());
+  spi_warn_ev (spi_ev (), "AccessibleComponent_getExtents");
   *x = (long) cx;
   *y = (long) cy;
   *width = (long) cw;
@@ -147,7 +149,7 @@ AccessibleComponent_getPosition (AccessibleComponent *obj,
                                        (CORBA_long *) x,
                                        (CORBA_long *) y,
                                        ctype,
-                                       &ev);
+                                       spi_ev ());
 }
 
 /**
@@ -167,7 +169,7 @@ AccessibleComponent_getSize (AccessibleComponent *obj,
   Accessibility_Component_getSize (*obj,
                                    (CORBA_long *) width,
                                    (CORBA_long *) height,
-                                   &ev);
+                                   spi_ev ());
 }
 
 /**

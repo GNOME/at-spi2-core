@@ -20,6 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <cspi/spi-private.h>
+
 /*
  *
  * Global functions serviced by the registry
@@ -91,21 +93,18 @@ boolean
 registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType)
 {
+  boolean retval;
+
   Accessibility_Registry_registerGlobalEventListener (
-                         registry,
+                         spi_registry (),
                          (Accessibility_EventListener)
                             bonobo_object_corba_objref (bonobo_object (listener)),
                          eventType,
-                         &ev);
+                         spi_ev ());
 
-  if (ev._major != CORBA_NO_EXCEPTION)
-    {
-    return FALSE;
-    }
-  else
-    {
-      return TRUE;
-    }
+  retval = !spi_exception ();
+ 
+  return retval;
 }
 
 /**
@@ -123,21 +122,14 @@ boolean
 deregisterGlobalEventListenerAll (AccessibleEventListener *listener)
 {
   Accessibility_Registry_deregisterGlobalEventListenerAll (
-                         registry,
+                         spi_registry (),
                          (Accessibility_EventListener)
                             CORBA_Object_duplicate (
 				    bonobo_object_corba_objref (
-					    bonobo_object (listener)), &ev),
-                         &ev);
+					    bonobo_object (listener)), spi_ev ()),
+                         spi_ev ());
 
-  if (ev._major != CORBA_NO_EXCEPTION)
-    {
-    return FALSE;
-    }
-  else
-    {
-      return TRUE;
-    }
+  return !spi_exception ();
 }
 /**
  * deregisterGlobalEventListener:
@@ -156,21 +148,14 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
 			       char *eventType)
 {
   Accessibility_Registry_deregisterGlobalEventListener (
-	  registry,
+	  spi_registry (),
 	  (Accessibility_EventListener)
 	  CORBA_Object_duplicate (
-		  bonobo_object_corba_objref (bonobo_object (listener)), &ev),
+		  bonobo_object_corba_objref (bonobo_object (listener)), spi_ev ()),
 	  (CORBA_char *) eventType,
-	  &ev);
+	  spi_ev ());
 
-  if (ev._major != CORBA_NO_EXCEPTION)
-    {
-    return FALSE;
-    }
-  else
-    {
-      return TRUE;
-    }
+  return !spi_exception ();
 }
 
 /**
@@ -186,7 +171,8 @@ deregisterGlobalEventListener (AccessibleEventListener *listener,
 int
 getDesktopCount ()
 {
-  return Accessibility_Registry_getDesktopCount (registry, &ev);
+  return Accessibility_Registry_getDesktopCount (
+	  spi_registry (), spi_ev ());
 }
 
 /**
@@ -203,7 +189,7 @@ getDesktopCount ()
 Accessible*
 getDesktop (int i)
 {
-  return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) i, &ev));
+  return spi_object_add (Accessibility_Registry_getDesktop (spi_registry (), (CORBA_short) i, spi_ev ()));
 }
 
 /**
@@ -280,12 +266,12 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
   Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+	  Accessibility_Registry_getDeviceEventController (spi_registry (), spi_ev ());
   Accessibility_KeySet *key_set = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
   Accessibility_KeystrokeListener spi_listener_corba_ref;
   gint i, mask;
-  Accessibility_DeviceEventController_ref (device_event_controller, &ev);
+  Accessibility_DeviceEventController_ref (device_event_controller, spi_ev ());
 
   /* copy the keyval filter values from the C api into the CORBA KeySet */
   if (keys)
@@ -325,7 +311,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
   spi_listener_corba_ref = (Accessibility_KeystrokeListener)
-	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev);
+	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), spi_ev ());
   
 	  Accessibility_DeviceEventController_registerKeystrokeListener (
 	  device_event_controller,
@@ -334,7 +320,7 @@ registerAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 	  controller_event_mask,
 	  key_events,
 	  (CORBA_boolean) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0),
-	  &ev);
+	  spi_ev ());
 }
 
 /**
@@ -354,16 +340,16 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
   Accessibility_ControllerEventMask *controller_event_mask =
 	  Accessibility_ControllerEventMask__alloc();
   Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+	  Accessibility_Registry_getDeviceEventController (spi_registry (), spi_ev ());
   Accessibility_KeySet *all_keys = Accessibility_KeySet__alloc();
   Accessibility_KeyEventTypeSeq *key_events = Accessibility_KeyEventTypeSeq__alloc();
   Accessibility_KeystrokeListener spi_listener_corba_ref;
-  Accessibility_DeviceEventController_unref (device_event_controller, &ev);
+  Accessibility_DeviceEventController_unref (device_event_controller, spi_ev ());
   controller_event_mask->value = (CORBA_unsigned_long) modmask;
   controller_event_mask->refcount = (CORBA_unsigned_short) 1;
 
   spi_listener_corba_ref = (Accessibility_KeystrokeListener)
-	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), &ev);
+	  CORBA_Object_duplicate (bonobo_object_corba_objref (bonobo_object (listener)), spi_ev ());
   
   Accessibility_DeviceEventController_deregisterKeystrokeListener (
 	  device_event_controller,
@@ -372,7 +358,7 @@ deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 	  controller_event_mask,
 	  key_events,
 	  (CORBA_boolean) TRUE,
-	  &ev);
+	  spi_ev ());
 }
 
 /**
@@ -395,11 +381,11 @@ generateKeyEvent (long int keyval, AccessibleKeySynthType synth_type)
  *  send keycode to alter, if necessary
  */
   Accessibility_DeviceEventController device_event_controller = 
-	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+	  Accessibility_Registry_getDeviceEventController (spi_registry (), spi_ev ());
   Accessibility_DeviceEventController_generateKeyEvent (device_event_controller,
 							keyval,
 							(unsigned long) synth_type,
-							&ev);
+							spi_ev ());
 }
 
 /**

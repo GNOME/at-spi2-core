@@ -1,3 +1,5 @@
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleEditableText_ref:
  * @obj: a pointer to the #AccessibleEditableText object on which to operate.
@@ -12,7 +14,7 @@
 int
 AccessibleEditableText_ref (AccessibleEditableText *obj)
 {
-  Accessibility_EditableText_ref (*obj, &ev);
+  Accessibility_EditableText_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -32,7 +34,7 @@ AccessibleEditableText_ref (AccessibleEditableText *obj)
 int
 AccessibleEditableText_unref (AccessibleEditableText *obj)
 {
-  Accessibility_EditableText_unref (*obj, &ev);
+  Accessibility_EditableText_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -62,7 +64,7 @@ AccessibleEditableText_setAttributes (AccessibleEditableText *obj,
     Accessibility_EditableText_setAttributes (*obj,
 					      (CORBA_char *) attributes,
 					      (CORBA_long) startPos,
-					      (CORBA_long) endPos, &ev);
+					      (CORBA_long) endPos, spi_ev ());
 }
 
 
@@ -83,7 +85,7 @@ AccessibleEditableText_setTextContents (AccessibleEditableText *obj,
                                         const char *newContents)
 {
   Accessibility_EditableText_setTextContents (*obj,
-					      (CORBA_char *) newContents, &ev);
+					      (CORBA_char *) newContents, spi_ev ());
   return TRUE; /* TODO: make bonobo method return a boolean */
 }
 
@@ -113,7 +115,7 @@ AccessibleEditableText_insertText (AccessibleEditableText *obj,
 {
   Accessibility_EditableText_insertText (*obj,
 					 (CORBA_long) position, (CORBA_char *) text,
-					 (CORBA_long) length, &ev);
+					 (CORBA_long) length, spi_ev ());
   return TRUE;
 }
 
@@ -140,7 +142,7 @@ AccessibleEditableText_copyText (AccessibleText *obj,
                                  long int endPos)
 {
   Accessibility_EditableText_copyText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
+				       (CORBA_long) startPos, (CORBA_long) endPos, spi_ev ());
   return TRUE;
 }
 
@@ -167,7 +169,7 @@ AccessibleEditableText_cutText (AccessibleEditableText *obj,
                                 long int endPos)
 {
   Accessibility_EditableText_cutText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
+				       (CORBA_long) startPos, (CORBA_long) endPos, spi_ev ());
   return TRUE;
 }
 
@@ -195,7 +197,7 @@ AccessibleEditableText_deleteText (AccessibleEditableText *obj,
                                    long endPos)
 {
   Accessibility_EditableText_deleteText (*obj,
-				       (CORBA_long) startPos, (CORBA_long) endPos, &ev);
+				       (CORBA_long) startPos, (CORBA_long) endPos, spi_ev ());
   return TRUE;
 }
 
@@ -220,7 +222,7 @@ AccessibleEditableText_pasteText (AccessibleEditableText *obj,
                                   long int position)
 {
   Accessibility_EditableText_pasteText (*obj,
-					(CORBA_long) position, &ev);
+					(CORBA_long) position, spi_ev ());
   return TRUE;
 }
 

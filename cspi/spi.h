@@ -1,31 +1,27 @@
-
 #ifndef _SPI_H
 #define _SPI_H
 
-/* Implementation private definitions */
+#include <glib/gmacros.h>
 
-#include "spi-impl.h"
-
+#include <cspi/spi-impl.h>
 /*
- * Definitions for  AccessibleRole, AccessibleState, AccessibleEvent,
- *      and event listeners.
+ * Definitions for AccessibleRole, AccessibleState,
+ * AccessibleEvent, and event listeners.
  */
-
-#include "spi-roletypes.h"
-#include "spi-statetypes.h"
-#include "spi-listener.h"
+#include <cspi/spi-roletypes.h>
+#include <cspi/spi-statetypes.h>
+#include <cspi/spi-listener.h>
 
 /*
  * Auxiliary typedefs and mask definitions
  */
-#include <keymasks.h>
+#include <libspi/keymasks.h>
+
+G_BEGIN_DECLS
 
 /*
- *
  * Enumerated type for text boundary types
- *
  */
-
 typedef enum
 {
   SPI_TEXT_BOUNDARY_CHAR,
@@ -1386,5 +1382,7 @@ AccessibleValue_setCurrentValue (AccessibleValue *obj,
 
 void
 spi_freeString (char *s);
+
+G_END_DECLS
 
 #endif

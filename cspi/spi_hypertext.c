@@ -1,3 +1,5 @@
+#include <cspi/spi-private.h>
+
 /**
  * AccessibleHypertext_ref:
  * @obj: a pointer to the #AccessibleHypertext object on which to operate.
@@ -12,7 +14,7 @@
 int
 AccessibleHypertext_ref (AccessibleHypertext *obj)
 {
-  Accessibility_Hypertext_ref (*obj, &ev);
+  Accessibility_Hypertext_ref (*obj, spi_ev ());
   return 0;
 }
 
@@ -31,7 +33,7 @@ AccessibleHypertext_ref (AccessibleHypertext *obj)
 int
 AccessibleHypertext_unref (AccessibleHypertext *obj)
 {
-  Accessibility_Hypertext_unref (*obj, &ev);
+  Accessibility_Hypertext_unref (*obj, spi_ev ());
   return 0;
 }
 
@@ -55,7 +57,7 @@ long
 AccessibleHypertext_getNLinks (AccessibleHypertext *obj)
 {
   return (long)
-    Accessibility_Hypertext_getNLinks (*obj, &ev);
+    Accessibility_Hypertext_getNLinks (*obj, spi_ev ());
 }
 
 
@@ -75,7 +77,7 @@ AccessibleHypertext_getLink (AccessibleHypertext *obj,
 {
   return (AccessibleHyperlink *)
     Accessibility_Hypertext_getLink (*obj,
-				     (CORBA_long) linkIndex, &ev);
+				     (CORBA_long) linkIndex, spi_ev ());
 }
 
 
@@ -98,7 +100,7 @@ AccessibleHypertext_getLinkIndex (AccessibleHypertext *obj,
 {
   return (long)
     Accessibility_Hypertext_getLinkIndex (*obj,
-					  (CORBA_long) characterOffset, &ev);
+					  (CORBA_long) characterOffset, spi_ev ());
 }
 
 

@@ -1,9 +1,61 @@
-
 /*
  *
  * Basic SPI initialization and event loop function prototypes
  *
  */
+#include <stdlib.h>
+#include <libbonobo.h>
+#include <cspi/spi-private.h>
+
+static CORBA_Environment ev = { 0 };
+static AccessibilityRegistry registry = CORBA_OBJECT_NIL;
+
+CORBA_Environment *
+spi_ev (void)
+{
+  /* This method is an ugly hack */
+  return &ev;
+}
+
+AccessibilityRegistry
+spi_registry (void)
+{
+  /* This method is an ugly hack */
+  return registry;
+}
+
+boolean
+spi_exception (void)
+{
+  boolean retval;
+
+  if (BONOBO_EX (&ev))
+    {
+      CORBA_exception_free (&ev);
+      retval = TRUE;
+    }
+  else
+    {
+      retval = FALSE;
+    }
+
+  return retval;
+}
+
+Accessible *
+spi_object_add (Accessible corba_object)
+{
+  /* TODO: keep list of live object refs */
+  Accessible *oref = NULL;
+
+  if (corba_object != CORBA_OBJECT_NIL)
+    {
+      oref = g_malloc (sizeof (Accessible));
+      *oref = corba_object;
+    }
+ 
+  return oref;
+}
 
 /**
  * SPI_init:
@@ -16,10 +68,18 @@ int
 SPI_init (void)
 {
   int argc = 0;
-  CORBA_Object oclient;
   char *obj_id;
+  CORBA_Object oclient;
+  static gboolean inited = FALSE;
 
-  CORBA_exception_init(&ev);
+  if (inited)
+    {
+      return 1;
+    }
+
+  inited = TRUE;
+
+  CORBA_exception_init (&ev);
 
   if (!bonobo_init (&argc, NULL))
     {
@@ -28,19 +88,18 @@ SPI_init (void)
 
   obj_id = "OAFIID:Accessibility_Registry:proto0.1";
 
-  oclient = bonobo_activation_activate_from_id (obj_id, 0, NULL, &ev);
-  if (ev._major != CORBA_NO_EXCEPTION) {
-    fprintf (stderr,
-            ("AT-SPI error: during registry activation: %s\n"),
-            CORBA_exception_id(&ev));
-    CORBA_exception_free(&ev);
-    exit(-1);
-  }
+  oclient = bonobo_activation_activate_from_id (
+	  obj_id, 0, NULL, spi_ev ());
 
-  if (CORBA_Object_is_nil (oclient, &ev))
+  if (ev._major != CORBA_NO_EXCEPTION)
+    {
+      g_error ("AT-SPI error: during registry activation: %s\n",
+	       bonobo_exception_get_text (spi_ev ()));
+    }
+
+  if (CORBA_Object_is_nil (oclient, spi_ev ()))
     {
       g_error ("Could not locate registry");
-      exit(-1);
     }
 
   registry = (Accessibility_Registry) oclient;
@@ -66,15 +125,17 @@ SPI_init (void)
 void
 SPI_event_main (boolean isGNOMEApp)
 {
-  if (isGNOMEApp) {	  
-    g_atexit(SPI_exit);
-    bonobo_main();
-  }
-  else {
-    /* TODO: install signal handlers to do cleanup */
-    CORBA_ORB_run (bonobo_orb(), &ev);
-    fprintf (stderr, "orb loop exited...\n");
-  }
+  if (isGNOMEApp)
+    {
+      g_atexit (SPI_exit);
+      bonobo_main ();
+    }
+  else
+    {
+      /* TODO: install signal handlers to do cleanup */
+      CORBA_ORB_run (bonobo_orb(), spi_ev ());
+      fprintf (stderr, "orb loop exited...\n");
+    }
 }
 
 /**
