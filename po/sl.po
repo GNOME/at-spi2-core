@@ -308,7 +308,7 @@ msgstr "ravnilo"	# G:1 K:0 O:0
 
 #: atk/atkobject.c:1402
 msgid "application"
-msgstr "Program"	# G:0 K:1 O:0
+msgstr "program"	# G:0 K:1 O:0
 
 # Smart report:
 # Total untranslated messages in file: 74 
