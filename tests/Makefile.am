@@ -18,9 +18,11 @@ libteststateset_la_LDFLAGS = \
 	-rpath $(moduledir) \
 	-avoid-version	\
 	-module
+libteststateset_la_LIBADD = $(libatk) $(DEP_LIBS)
 
 libtestrelation_la_SOURCES = testrelation.c
 libtestrelation_la_LDFLAGS = \
 	-rpath $(moduledir) \
 	-avoid-version	\
 	-module
+libtestrelation_la_LIBADD = $(libatk) $(DEP_LIBS)
