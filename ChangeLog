@@ -1,3 +1,20 @@
+2001-08-19  Bill Haneman <bill.haneman@sun.com>
+
+	* cspi/spi.h:
+	* cspi/spi.c:
+	Made method naming consistent: methods taking object args
+	start with uppercase, other methods (except those using
+	acronyms) start with lowercase.  Underscores delimit between
+	object names and method names:
+	SPI_init() - uppercase since it starts with an acronym.
+	getDesktopCount () - lowercase start since no object param0.
+	Accessible_getName() - uppercase object type name, studlyCaps method
+	                       name.
+
+	*cspi/spi.h:
+	Added gtk-doc documentation for all currently implemented
+	methods in the C bindings API.
+
 2001-08-18  Bill Haneman <bill.haneman@sun.com>
 
 	* Makefile.am : changed build order to build test last.

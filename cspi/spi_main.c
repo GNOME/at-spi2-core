@@ -5,7 +5,7 @@
 static CORBA_Environment ev;
 static AccessibilityRegistry registry;
 
-Accessible *
+static Accessible *
 Obj_Add (Accessible object)
 {
   /* TODO: keep list of live object refs */
@@ -86,7 +86,7 @@ SPI_exit (void)
 }
 
 AccessibleEventListener *
-CreateEventListener (AccessibleEventListenerCB callback)
+createEventListener (AccessibleEventListenerCB callback)
 {
   AccessibleEventListener *listener = accessible_event_listener_new ();
   if (callback)
@@ -119,7 +119,7 @@ EventListener_removeCallback (AccessibleEventListener *listener,
  */
 
 boolean
-RegisterGlobalEventListener (AccessibleEventListener *listener,
+registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType)
 {
   Accessibility_Registry_registerGlobalEventListener (
@@ -140,13 +140,13 @@ RegisterGlobalEventListener (AccessibleEventListener *listener,
 }
 
 int
-GetDesktopCount ()
+getDesktopCount ()
 {
   return Accessibility_Registry_getDesktopCount (registry, &ev);
 }
 
-Accessible
-*getDesktop (int n)
+Accessible*
+getDesktop (int n)
 {
   return Obj_Add (Accessibility_Registry_getDesktop (registry, (CORBA_short) n, &ev));
 }

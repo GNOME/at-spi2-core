@@ -40,13 +40,13 @@ main(int argc, char **argv)
 
   SPI_init();
 
-  focus_listener = CreateEventListener (report_focus_event);
-  button_listener = CreateEventListener (report_button_press);
+  focus_listener = createEventListener (report_focus_event);
+  button_listener = createEventListener (report_button_press);
 
-  RegisterGlobalEventListener (focus_listener, "focus:");
-  RegisterGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
+  registerGlobalEventListener (focus_listener, "focus:");
+  registerGlobalEventListener (button_listener, "Gtk:GtkWidget:button-press-event");
 
-  n_desktops = GetDesktopCount ();
+  n_desktops = getDesktopCount ();
 
   for (i=0; i<n_desktops; ++i)
     {

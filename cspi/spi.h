@@ -2,9 +2,14 @@
 #ifndef _SPI_H
 #define _SPI_H
 
+/* Implementation private definitions */
 #include "spi-impl.h"
 
-/* definitions for ACCESSIBLE_STATE */
+/*
+ * Definitions for ACCESSIBLE_STATE , ACCESSIBLE_ROLE, AccessibleEvent,
+ *      and event listeners.
+ */
+
 #include "spi-roletypes.h"
 #include "spi-statetypes.h"
 #include "spi-listener.h"
@@ -59,18 +64,64 @@ typedef enum _AccessibleCoordType {
  *
  */
 
+/**
+ * SPI_init:
+ *
+ * Connects to the accessibility registry and initializes the SPI.
+ *
+ * Returns: 0 on success, otherwise an integer error code.
+ **/
 int
 SPI_init (void);
 
+/**
+ * SPI_event_main:
+ * @isGNOMEApp: a #boolean indicating whether the client of the SPI
+ *              will use the Gnome event loop or not.
+ *
+ * Starts/enters the main event loop for the SPI services.
+ *
+ * (NOTE: This method does not return control, it is exited via a call to exit()
+ * from within an event handler).
+ *
+ **/
 void
 SPI_event_main (boolean isGNOMEApp);
 
+/**
+ * SPI_event_is_ready:
+ *
+ * Checks to see if an SPI event is waiting in the event queue.
+ * Used by clients that don't wish to use SPI_event_main().
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if an event is waiting, otherwise #FALSE.
+ *
+ **/
 boolean
 SPI_eventIsReady ();
 
+/**
+ * SPI_nextEvent:
+ *
+ * Gets the next event in the SPI event queue; blocks if no event
+ * is pending.
+ * Used by clients that don't wish to use SPI_event_main().
+ * Not Yet Implemented.
+ *
+ * Returns: the next #AccessibleEvent in the SPI event queue.
+ *
+ **/
 AccessibleEvent *
 SPI_nextEvent (boolean waitForEvent);
 
+/**
+ * SPI_exit:
+ *
+ * Disconnects from the Accessibility Registry and releases resources.
+ * Not Yet Implemented.
+ *
+ **/
 void
 SPI_exit (void);
 
@@ -78,13 +129,42 @@ SPI_exit (void);
  * Event Listener creation and support.
  */
 
+/**
+ * createEventListener:
+ * @callback : an #AccessibleEventListenerCB callback function, or NULL.
+ *
+ * Create a new #AccessibleEventListener with a specified callback function.
+ *
+ * Returns: a pointer to a newly-created #AccessibleEventListener.
+ *
+ **/
 AccessibleEventListener *
-CreateEventListener (AccessibleEventListenerCB callback);
+createEventListener (AccessibleEventListenerCB callback);
 
+/**
+ * EventListener_addCallback:
+ * @listener: the #AccessibleEventListener instance to modify.
+ * @callback: an #AccessibleEventListenerCB function pointer.
+ *
+ * Add an in-process callback function to an existing AccessibleEventListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
 boolean
 EventListener_addCallback (AccessibleEventListener *listener,
                            AccessibleEventListenerCB callback);
 
+/**
+ * EventListener_removeCallback:
+ * @listener: the #AccessibleEventListener instance to modify.
+ * @callback: an #AccessibleEventListenerCB function pointer.
+ *
+ * Remove an in-process callback function from an existing AccessibleEventListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
 boolean
 EventListener_removeCallback (AccessibleEventListener *listener,
                               AccessibleEventListenerCB callback);
@@ -95,25 +175,112 @@ EventListener_removeCallback (AccessibleEventListener *listener,
  *
  */
 
+/**
+ * registerGlobalEventListener:
+ * @listener: the #AccessibleEventListener to be registered against an event type.
+ * @callback: a character string indicating the type of events for which
+ *            notification is requested.  Format is
+ *            EventClass:major_type:minor_type:detail
+ *            where all subfields other than EventClass are optional.
+ *            EventClasses include "Focus", "Window", "Mouse",
+ *            and toolkit events (e.g. "Gtk", "AWT").
+ *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
+ *
+ * NOTE: this string may be UTF-8, but should not contain byte value 56 (ascii ':'),
+ *            except as a delimiter, since non-UTF-8 string delimiting
+ *            functions are used internally.  In general, listening to
+ *            toolkit-specific events is not recommended.
+ *
+ * Add an in-process callback function to an existing AccessibleEventListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
 boolean
-RegisterGlobalEventListener (AccessibleEventListener *listener,
+registerGlobalEventListener (AccessibleEventListener *listener,
                              char *eventType);
 
+/**
+ * getDesktopCount:
+ *
+ * Get the number of virtual desktops.
+ * NOTE: currently multiple virtual desktops are not implemented, this
+ *       function always returns '1'.
+ *
+ * Returns: an integer indicating the number of active virtual desktops.
+ *
+ **/
 int
-GetDesktopCount ();
+getDesktopCount ();
 
-Accessible
-*getDesktop (int n);
+/**
+ * getDesktop:
+ * @i: an integer indicating which of the accessible desktops is to be returned.
+ *
+ * Get the virtual desktop indicated by index @i.
+ * NOTE: currently multiple virtual desktops are not implemented, this
+ *       function always returns '1'.
+ *
+ * Returns: a pointer to the 'i-th' virtual desktop's #Accessible representation.
+ *
+ **/
+Accessible*
+getDesktop (int n);
 
+/**
+ * getDesktopList:
+ * @list: a pointer to an array of #Accessible objects.
+ *
+ * Get the list of virtual desktops.  On return, @list will point
+ *     to a newly-created array of virtual desktop pointers.
+ *     It is the responsibility of the caller to free this array when
+ *     it is no longer needed.
+ *
+ * Not Yet Implemented.
+ *
+ * Returns: an integer indicating how many virtual desktops have been
+ *          placed in the list pointed to by parameter @list.
+ **/
 int
 getDesktopList (Accessible **list);
 
+/**
+ * registerKeystrokeListener:
+ * @listener: a pointer to the #KeystrokeListener for which
+ *            keystroke events are requested.
+ *
+ * Not Yet Implemented.
+ *
+ **/
 void
 registerKeystrokeListener (KeystrokeListener *listener);
 
+/**
+ * generateKeyEvent:
+ * @keycode: a #long indicating the keycode of the key event
+ *           being synthesized.
+ * @meta: a #long indicating the key modifiers to be sent
+ *        with the event, if any.
+ *
+ * Synthesize a keyboard event (as if a hardware keyboard event occurred in the
+ * current UI context).
+ * Not Yet Implemented.
+ *
+ **/
 void
 generateKeyEvent (long keyCode, long meta);
 
+/**
+ * generateMouseEvent:
+ * @x: a #long indicating the screen x coordinate of the mouse event.
+ * @y: a #long indicating the screen y coordinate of the mouse event.
+ * @name: a string indicating which mouse event to be synthesized
+ *        (e.g. "button1", "button2", "mousemove").
+ *
+ * Synthesize a mouse event at a specific screen coordinate.
+ * Not Yet Implemented.
+ *
+ **/
 void
 generateMouseEvent (long x, long y, char *name);
 
@@ -123,37 +290,139 @@ generateMouseEvent (long x, long y, char *name);
  *
  */
 
+/**
+ * Accessible_ref:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Increment the reference count for an #Accessible object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
 int
 Accessible_ref (Accessible *obj);
 
+/**
+ * Accessible_unref:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Decrement the reference count for an #Accessible object.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
 int
 Accessible_unref (Accessible *obj);
 
+/**
+ * Accessible_getName:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get the name of an #Accessible object.
+ *
+ * Returns: a UTF-8 string indicating the name of the #Accessible object.
+ *
+ **/
 char *
 Accessible_getName (Accessible *obj);
 
+/**
+ * Accessible_getDescription:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get the description of an #Accessible object.
+ *
+ * Returns: a UTF-8 string describing the #Accessible object.
+ *
+ **/
 char *
 Accessible_getDescription (Accessible *obj);
 
+/**
+ * Accessible_getParent:
+ * @obj: a pointer to the #Accessible object to query.
+ *
+ * Get an #Accessible object's parent container.
+ *
+ * Returns: a pointer to the #Accessible object which contains the given
+ *          #Accessible instance, or NULL if the @obj has no parent container.
+ *
+ **/
 Accessible *
 Accessible_getParent (Accessible *obj);
 
+/**
+ * Accessible_getChildCount:
+ *
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get the number of children contained by an #Accessible object.
+ *
+ * Returns: a #long indicating the number of #Accessible children
+ *          contained by an #Accessible object.
+ *
+ **/
 long
 Accessible_getChildCount (Accessible *obj);
 
+/**
+ * Accessible_getChildAtIndex:
+ *
+ * @obj: a pointer to the #Accessible object on which to operate.
+ * @childIndex: a #long indicating which child is specified.
+ *
+ * Get the #Accessible child of an #Accessible object at a given index.
+ *
+ * Returns: a pointer to the #Accessible child object at index
+ *          @childIndex.
+ *
+ **/
 Accessible *
 Accessible_getChildAtIndex (Accessible *obj,
                             long childIndex);
 
+/**
+ * Accessible_getIndexInParent:
+ *
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get the index of an #Accessible object in its containing #Accessible.
+ *
+ * Returns: a #long indicating the index of the #Accessible object
+ *          in its parent (i.e. containing) #Accessible instance,
+ *          or -1 if @obj has no containing parent.
+ *
+ **/
 long
 Accessible_getIndexInParent (Accessible *obj);
 
+/**
+ * Accessible_getRelationSet:
+ *
+ * Not Yet Implemented.
+ *
+ **/
 AccessibleRelation **
 Accessible_getRelationSet (Accessible *obj);
 
+/**
+ * Accessible_getRole:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Get the UI role of an #Accessible object.
+ *
+ * Returns: a UTF-8 string indicating the UI role of the #Accessible object.
+ *
+ **/
 char *
 Accessible_getRole (Accessible *obj);
 
+/**
+ * Accessible_getStateSet:
+ *
+ * Not Yet Implemented.
+ *
+ **/
 AccessibleStateSet *
 Accessible_getStateSet (Accessible *obj);
 
@@ -174,6 +443,18 @@ AccessibleAction_unref (AccessibleAction *obj);
 long
 AccessibleAction_getNActions (AccessibleAction *obj);
 
+/**
+ * AccessibleAction_getDescription:
+ * @obj: a pointer to the #AccessibleAction to query.
+ *
+ * Get the description of 'i-th' action invokable on an
+ *      object implementing #AccessibleAction.
+ *
+ * Not Yet Implemented.
+ *
+ * Returns: a UTF-8 string describing the 'i-th' invokable action.
+ *
+ **/
 char *
 AccessibleAction_getDescription (AccessibleAction *obj,
                                  long index);
@@ -192,24 +473,93 @@ AccessibleAction_getKeyBinding (AccessibleAction *obj,
  *
  */
 
+/**
+ * AccessibleApplication_unref:
+ * @obj: a pointer to the #AccessibleApplication on which to operate.
+ *
+ * Decrement the reference count for an #AccessibleApplication.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
 int
 AccessibleApplication_ref (AccessibleApplication *obj);
 
+/**
+ * AccessibleApplication_unref:
+ * @obj: a pointer to the #AccessibleApplication object on which to operate.
+ *
+ * Decrement the reference count for an #AccessibleApplication.
+ *
+ * Returns: (no return code implemented yet).
+ *
+ **/
 int
 AccessibleApplication_unref (AccessibleApplication *obj);
 
+/**
+ * AccessibleApplication_getToolkitName:
+ * @obj: a pointer to the #AccessibleApplication to query.
+ *
+ * Get the name of the UI toolkit used by an #AccessibleApplication.
+ *
+ * Returns: a UTF-8 string indicating which UI toolkit is
+ *          used by an application.
+ *
+ **/
 char *
 AccessibleApplication_getToolkitName (AccessibleApplication *obj);
 
+/**
+ * AccessibleApplication_getVersion:
+ * @obj: a pointer to the #AccessibleApplication being queried.
+ *
+ * Get the version of the at-spi bridge exported by an
+ *      #AccessibleApplication instance.
+ *
+ * Returns: a UTF-8 string indicating the application's
+ *          at-spi version.
+ *
+ **/
 char *
 AccessibleApplication_getVersion (AccessibleApplication *obj);
 
+/**
+ * AccessibleApplication_getID:
+ * @obj: a pointer to the #AccessibleApplication being queried.
+ *
+ * Get the unique ID assigned by the Registry to an
+ *      #AccessibleApplication instance.
+ * (Not Yet Implemented by the registry).
+ *
+ * Returns: a unique #long integer associated with the application
+ *          by the Registry, or 0 if the application is not registered.
+ **/
 long
 AccessibleApplication_getID (AccessibleApplication *obj);
 
+/**
+ * AccessibleApplication_pause:
+ *
+ * Attempt to pause the application (used when client event queue is
+ *  over-full).
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if the application was paused successfully, #FALSE otherwise.
+ *
+ **/
 boolean
 AccessibleApplication_pause (AccessibleApplication *obj);
 
+/**
+ * AccessibleApplication_pause:
+ *
+ * Attempt to resume the application (used after #AccessibleApplication_pause).
+ * Not Yet Implemented.
+ *
+ * Returns: #TRUE if application processing resumed successfully, #FALSE otherwise.
+ *
+ **/
 boolean
 AccessibleApplication_resume (AccessibleApplication *obj);
 
