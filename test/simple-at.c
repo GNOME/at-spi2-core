@@ -116,20 +116,13 @@ main (int argc, char **argv)
   command_key_listener = SPI_createAccessibleKeystrokeListener (report_command_key_event, NULL);
   ordinary_key_listener = SPI_createAccessibleKeystrokeListener (report_ordinary_key_event, NULL);
   
-  /* will listen only to Alt-key combinations, and only to KeyPress events */
+  /* will listen only to Control-Alt-key combinations, and only to KeyPress events */
   SPI_registerAccessibleKeystrokeListener(command_key_listener,
 					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-					  SPI_KEYMASK_ALT,
+					  SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL,
 					  (unsigned long) ( SPI_KEY_PRESSED ),
 					  SPI_KEYLISTENER_ALL_WINDOWS);
   
-  /* will listen only to unshifted key events, both press and release */
-  SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
-					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
-					  SPI_KEYMASK_UNMODIFIED,
-					  (unsigned long) ( SPI_KEY_PRESSED | SPI_KEY_RELEASED ),
-					  SPI_KEYLISTENER_NOSYNC);
-				      
   /* will listen only to shifted key events, both press and release */
   SPI_registerAccessibleKeystrokeListener(ordinary_key_listener,
 					  (AccessibleKeySet *) SPI_KEYSET_ALL_KEYS,
@@ -353,10 +346,12 @@ is_command_key (AccessibleKeystroke *key)
     case 'M':
     case 'm':
 	    use_magnifier = ! use_magnifier;
+            fprintf (stderr, "%ssing magnifier\n", use_magnifier ? "U" : "Not u");
 	    return TRUE;
     case 'F':
     case 'f':
 	    use_festival = ! use_festival;
+            fprintf (stderr, "%speech output\n", use_festival ? "S" : "No s");
 	    return TRUE;
     default:
 	    return FALSE;

@@ -595,22 +595,15 @@ spi_controller_grab_keyboard (SpiDeviceEventController *controller)
 #ifdef SPI_DEBUG
       fprintf (stderr, "mask=%lx\n", maskVal);
 #endif
-      if (!(maskVal & ControlMask))
-  	{
-	  XGrabKey (spi_get_display (),
-		    keyVal, 
-		    maskVal,
-		    root_window,
-		    True,
-		    GrabModeAsync,
-		    GrabModeAsync);
+      XGrabKey (spi_get_display (),
+		keyVal, 
+		maskVal,
+		root_window,
+		True,
+		GrabModeAsync,
+		GrabModeAsync);
 	  /* TODO: check call for errors and return FALSE if error occurs */
-	}
-      else
-        {
-	  return FALSE; /* can't do control key yet */
-        }
-    }
+    } 
   return TRUE;
 }
 

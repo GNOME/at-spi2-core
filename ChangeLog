@@ -4,6 +4,20 @@
 	Added check to see if AtkObject is an SpiRemoteObject before
 	creating an SpiAccessible.
 	
+2002-05-01  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c (spi_controller_grab_keyboard):
+	Enable keygrabs using the Control modifier, now that they are
+	working properly (they were previously disabled).
+
+	* test/simple-at.c:
+	Change the command keygrab for this demo to "Control+Alt", so as
+	to conflict with fewer other key commands on the system; this
+	means that the quit command for "simple-at" is now "Ctrl-Alt-q".
+
+	Removed a pointlessly-chatty keylistener for unshifted keys
+	(shifted keys are still reported).
+	
 2002-02-01  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/remoteobject.h:
