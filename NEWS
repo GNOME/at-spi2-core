@@ -2,6 +2,10 @@
 in HEAD:
 What's new in at-spi-1.3.1:
 
+* Fix for #113268.
+
+What's new in at-spi-1.3.1:
+
 * Fixes for 109626, 89350, 100424, 100426, 110419, 107261, 107479,
   108666, 104730, 111793.
 

@@ -33,6 +33,7 @@ libspiinclude_HEADERS =		\
 	remoteobject.h		\
 	selection.h		\
 	stateset.h		\
+	streamablecontent.h	\
 	table.h			\
 	text.h			\
 	value.h
@@ -81,6 +82,7 @@ libspi_la_SOURCES =		\
 	remoteobject.c		\
 	selection.c		\
 	spi-private.h		\
+	streamablecontent.c	\
 	stateset.c		\
 	table.c			\
 	text.c			\

@@ -38,6 +38,7 @@ libcspi_la_SOURCES =		\
 	spi-private.h		\
 	spi_registry.c		\
 	spi_selection.c		\
+	spi_streamablecontent.c	\
 	spi_table.c		\
 	spi_text.c		\
 	spi_value.c

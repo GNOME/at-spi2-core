@@ -54,7 +54,7 @@ cspi_object_equal (gconstpointer a, gconstpointer b)
   CORBA_Object objecta = (CORBA_Object) a;
   CORBA_Object objectb = (CORBA_Object) b;
 
-  return CORBA_Object_is_equivalent (objecta, objectb, &ev);
+  return CORBA_Object_is_equivalent (objecta, objectb, cspi_ev ());
 }
 
 static void
@@ -324,6 +324,8 @@ static void
 cspi_cleanup (void)
 {
   GHashTable *refs;
+
+  cspi_streams_close_all ();
 
   refs = live_refs;
   live_refs = NULL;

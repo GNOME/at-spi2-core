@@ -1,6 +1,21 @@
 2003-06-11  Bill Haneman <bill.haneman@sun.com>
 
-        Fix for #108664.
+	* libspi/streamablecontent.h:
+	* libspi/streamablecontent.c:
+	New files, provide implementation/wrappers for
+	Accessibility_StreamableContent.
+
+	* cspi/spi_streamablecontent.c:
+	Connected the C wrappers to the libspi C bindings.
+	(AccessibleStreamableContent_close): New method.
+
+	* cspi/spi.h:
+	(AccessibleStreamableContent_close): New method, needed
+	since we have an "open, [seek], read, close" model in cspi.
+	
+2003-06-11  Bill Haneman <bill.haneman@sun.com>
+
+        Fix for #108664; Padraig's revision of my original patch.
 	
 	* registryd/registry.h:
 	Added event queue list, is_queuing, and exit_notify_timeout

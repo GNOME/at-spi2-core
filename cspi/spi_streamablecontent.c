@@ -23,6 +23,57 @@
 
 #include <cspi/spi-private.h>
 
+
+/* TODO: factor/wrap Bonobo_Stream dependency to cspi/bonobo */
+
+struct StreamCacheItem {
+  Bonobo_Stream stream;
+  gchar *mimetype;
+};
+
+static gboolean
+streams_equal_func (gconstpointer a, gconstpointer b)
+{
+  const struct StreamCacheItem *c1 = a, *c2 = b;
+  return CORBA_Object_is_equivalent (c1->stream, c2->stream, cspi_ev ());
+}
+
+static void
+stream_release (gpointer a)
+{
+  bonobo_object_release_unref (a);
+}
+
+static void
+stream_cache_item_free (gpointer a)
+{
+  struct StreamCacheItem *cache_item = a;
+  if (cache_item) {
+    bonobo_object_release_unref (cache_item->stream);
+    SPI_freeString (cache_item->mimetype);
+    g_free (cache_item);
+  }
+}
+
+static GHashTable *streams = NULL;
+
+GHashTable *
+get_streams (void) 
+{
+  if (streams == NULL) {
+    streams = g_hash_table_new_full (g_direct_hash, streams_equal_func, 
+				     stream_release, stream_cache_item_free);
+  }
+  return streams;
+}
+
+/* internal use only, declared in cspi-private.h */
+void
+cspi_streams_close_all (void)
+{
+  g_hash_table_destroy (get_streams ());
+}
+
 /**
  * AccessibleStreamableContent_ref:
  * @obj: a pointer to the #AccessibleStreamableContent implementor on which to
@@ -65,10 +116,20 @@ AccessibleStreamableContent_unref (AccessibleStreamableContent *obj)
 char **
 AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
 {
-  char **content_types = malloc (sizeof (char *));
-  content_types [0] = NULL;
+  Accessibility_StringSeq *mimeseq;
+  char **content_types;
+  int i;
 
-  /* TODO: connect this to the correct libspi implementation code */
+  mimeseq = Accessibility_StreamableContent_getContentTypes (CSPI_OBJREF (obj),
+							     cspi_ev ());
+
+  content_types = g_new0 (char *, mimeseq->_length + 1);
+  for (i = 0; i < mimeseq->_length; ++i) {
+    content_types[i] = CORBA_string_dup (mimeseq->_buffer[i]);
+  }
+  content_types [mimeseq->_length] = NULL;
+  CORBA_free (mimeseq);
+
   return content_types;
 }
 
@@ -88,7 +149,39 @@ SPIBoolean
 AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
 				  const char *content_type)
 {
-  /* TODO: connect this to the correct libspi implementation code */
+  Bonobo_Stream stream;
+  struct StreamCacheItem *cache;
+  stream = Accessibility_StreamableContent_getContent (CSPI_OBJREF (obj),
+						       content_type,
+						       cspi_ev ());    
+  if (stream != CORBA_OBJECT_NIL) {
+    cache = g_new0 (struct StreamCacheItem, 1);
+    cache->stream = stream;
+    cache->mimetype = CORBA_string_dup (content_type);
+    g_hash_table_replace (get_streams (), stream, cache);
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * AccessibleStreamableContent_close:
+ * @obj: a pointer to the #AccessibleStreamableContent implementor on which to operate.
+ *
+ * Close the current streaming connection to an AccessibleStreamableContent implementor.
+ * This must be called before any subsequent AccessibleStreamableContent_open
+ * calls on the same object.
+ *
+ * Returns: #TRUE if successful, #FALSE if unsuccessful.
+ *
+ **/
+SPIBoolean
+AccessibleStreamableContent_close (AccessibleStreamableContent *obj)
+{
+  if (CSPI_OBJREF (obj) != CORBA_OBJECT_NIL) {
+    if (g_hash_table_remove (get_streams (), CSPI_OBJREF (obj)))
+      return TRUE;
+  }
   return FALSE;
 }
 
@@ -111,7 +204,7 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 				  long int offset,
 				  unsigned int seek_type)
 {
-  /* TODO: connect this to the correct libspi implementation code */
+  /* currently Bonobo_Stream does not appear to support seek operations */
   return FALSE;
 }
 
@@ -136,7 +229,20 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
 				  long int nbytes,
 				  unsigned int read_type)
 {
-  /* TODO: connect this to the correct libspi implementation code */
-  return -1;
+  Bonobo_Stream stream;
+  struct StreamCacheItem *cached; 
+  cached = g_hash_table_lookup (get_streams (), CSPI_OBJREF (obj));
+  if (cached) {
+    CORBA_long len_read;
+    stream = cached->stream;
+    if (stream != CORBA_OBJECT_NIL) {
+      guint8 *mem;
+      mem = bonobo_stream_client_read (stream, (size_t) nbytes, &len_read, cspi_ev ());
+      if (mem) memcpy (buff, mem, len_read);	
+      if (mem && ((nbytes == -1) || (len_read == nbytes)))
+	return TRUE;
+    }
+  }
+  return FALSE;
 }
 
