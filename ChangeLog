@@ -1,3 +1,11 @@
+2004-09-12  Tomasz Kłoczko <kloczek@pld.org.pl>
+
+	* configure.in: only cleanups:
+	- better looking PKG_CHECK_MODULES() output,
+	- justification,
+	- declare in one common place required versions of other tools using
+	  m4_define().
+
 2004-09-11  J.H.M. Dassen (Ray) <jdassen@debian.org>
 
 	* configure.in: libspi/accessible.c uses ATK_ROLE_EMBEDDED
