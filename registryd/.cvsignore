@@ -2,5 +2,5 @@
 .libs
 Makefile
 Makefile.in
-Accessibility_Registry.oaf
+Accessibility_Registry.server
 registryd

@@ -19,8 +19,8 @@ ltconfig
 ltmain.sh
 mkinstalldirs
 missing
-oaf.spec
-oaf.spec.in
 stamp-h
 stamp-h.in
-xml-i18n-*
+intltool-*
+libspi-1.0.pc
+cspi-1.0.pc
