@@ -3,6 +3,9 @@
 	* atk/atktext.c (atk_text_get_run_attributes):
 	Correct typo.
 
+	* atk/atktext.c (atk_text_get_default_attributes):
+	Add call to set iface.
+
 2001-10-10  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atktext.[c|h]:

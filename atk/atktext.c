@@ -443,6 +443,8 @@ atk_text_get_default_attributes (AtkText          *text)
 
   g_return_val_if_fail (ATK_IS_TEXT (text), NULL);
 
+  iface = ATK_TEXT_GET_IFACE (text);
+
   if (iface->get_default_attributes)
     return (*(iface->get_default_attributes)) (text);
   else
