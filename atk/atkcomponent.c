@@ -65,9 +65,11 @@ atk_component_get_type ()
  * @handler: The #AtkFocusHandler to be attached to @component
  *
  * Add the specified handler to the set of functions to be called 
- * when this object receives focus events (in or out).
+ * when this object receives focus events (in or out). If the handler is
+ * already added it is not added again
  *
- * Returns:
+ * Returns: a handler id which can be used in atk_component_remove_focus_handler
+ * or zero if the handler was already added.
  **/
 guint
 atk_component_add_focus_handler (AtkComponent    *component,

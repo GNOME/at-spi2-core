@@ -44,7 +44,7 @@ AtkText
 @set_selection: 
 @set_caret_offset: 
 @text_changed: 
-@caret_changed: 
+@text_caret_moved: 
 @text_selection_changed: 
 
 <!-- ##### ENUM AtkTextBoundary ##### -->
