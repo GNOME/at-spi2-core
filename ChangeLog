@@ -1,3 +1,7 @@
+2002-05-29  jacob berkman  <jacob@ximian.com>
+
+	* registryd/Makefile.am (EXTRA_DIST): dist the .in.in
+
 2002-05-29  Bill Haneman  <bill.haneman@sun.com>
 
 	* configure.in: Fixed bug in AC_OUTPUT that was

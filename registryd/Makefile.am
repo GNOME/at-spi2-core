@@ -27,4 +27,4 @@ serverinfo_DATA = Accessibility_Registry.server
 
 @INTLTOOL_SERVER_RULE@
 
-EXTRA_DIST = Accessibility_Registry.server.in $(serverinfo_DATA)
+EXTRA_DIST = Accessibility_Registry.server.in.in $(serverinfo_DATA)
