@@ -1,3 +1,15 @@
+Changes in version 1.4.1
+========================
+* Add translations: Lithuanian [Gedminas Paulauskas], 
+Norwegian [(nynorsk [\303\205smund Skj\303\246veland]
+
+* Update translations: German [Christian Neumair],
+Romanian [Mi\305\237u Moldovan]
+
+* Add description of signals to the documentation [Padraig O'Briain]
+
+* Fix bug which caused building of rpms to fail [Scott Kennedy]
+
 Changes in version 1.4.0
 ========================
 * Add translations: Nepali [Pawan Chitrakar]

@@ -1,3 +1,11 @@
+2003-10-09  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* ===== Released 1.4.1=====
+	
+	* configure.in: Version 1.4.1, interface age 1, binary age 401
+
+	* NEWS: Updated.
+
 2003-09-28  Gediminas Paulauskas  <menesis@delfi.lt>
 
     * configure.in: Added lt to ALL_LINGUAS.
@@ -27,7 +35,7 @@
 	columnn-inserted, column-reordered, model-changed, row-deleted, 
 	row-inserted and  row-reordered signals.
 	* docs/tmpl/atktext.sgml: Add description for text-attributes-changed,
-	text-caret-moved, text-changed nd text-selection-changed signals.
+	text-caret-moved, text-changed and text-selection-changed signals.
 
 	This fixes bug #121163.
 
