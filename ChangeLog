@@ -1,3 +1,8 @@
+2003-12-17  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/atkobject.c: Change "accel label" to "accelerator label".
+	Fixes bug #129499.
+
 2003-12-04  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* ===== Released 1.5.1=====

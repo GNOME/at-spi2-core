@@ -80,7 +80,7 @@ struct _AtkRoleItem
 static AtkRoleItem role_items [] =
 {
   { ATK_ROLE_INVALID, N_("invalid")},
-  { ATK_ROLE_ACCEL_LABEL, N_("accel label")},
+  { ATK_ROLE_ACCEL_LABEL, N_("accelerator label")},
   { ATK_ROLE_ALERT, N_("alert")},
   { ATK_ROLE_ANIMATION, N_("animation")},
   { ATK_ROLE_ARROW, N_("arrow")},
