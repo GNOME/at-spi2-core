@@ -241,10 +241,12 @@ int main (int argc, char** argv){
   else magnifier->mag_data->mag_height = DisplayHeight (magnifier->mag_data->target_display, screen_num);
   gtk_window_set_decorated(GTK_WINDOW (window), FALSE);
   gtk_widget_show_all (window);
-
+  
   gdk_window_move(window->window,
 		  gdk_screen_width() - magnifier->mag_data->mag_width,
 		  gdk_screen_height() - magnifier->mag_data->mag_height);
+  g_print ("setting size to %d by %d pixels\n",
+	   magnifier->mag_data->mag_width, magnifier->mag_data->mag_height);
   gdk_window_resize (window->window, magnifier->mag_data->mag_width, magnifier->mag_data->mag_height);
   magnifier->mag_data->output_window = window;
   if (global_options.fullscreen) gdk_window_stick (window->window);

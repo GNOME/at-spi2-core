@@ -452,10 +452,6 @@ spi_accessible_new (AtkObject *o)
 	return retval;
       }
 
-   else if (SPI_IS_REMOTE_OBJECT (o))
-     {
-       retval = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (o)); 
-     }
    else
      {
        retval = g_object_new (SPI_ACCESSIBLE_TYPE, NULL);
@@ -543,18 +539,26 @@ spi_accessible_new_return (AtkObject         *o,
 			   CORBA_Environment *ev)
 {
   SpiAccessible *accessible;
+  Accessibility_Accessible retval;
 
   if (!o)
     {
       return CORBA_OBJECT_NIL;
     }
-
-  accessible = spi_accessible_new (o);
+  else if (SPI_IS_REMOTE_OBJECT (o))
+    {
+      retval = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (o)); 
+    }
+  else
+    {
+      accessible = spi_accessible_new (o);
+      retval = CORBA_Object_duplicate (BONOBO_OBJREF (accessible), ev); 
+    }
 
   if (release_ref)
     {
       g_object_unref (G_OBJECT (o));
     }
-
-  return CORBA_Object_duplicate (BONOBO_OBJREF (accessible), ev);
+  
+  return retval;
 }
