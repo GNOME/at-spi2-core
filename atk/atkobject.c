@@ -1516,7 +1516,6 @@ atk_object_remove_relationship (AtkObject       *object,
       if (atk_relation_get_relation_type (relation) == relationship)
         {
           GPtrArray *array;
-          gint j;
 
           array = atk_relation_get_target (relation);
         

@@ -69,6 +69,15 @@ The AtkHyperlink structure should not be accessed directly.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_hyperlink_is_inline ##### -->
+<para>
+
+</para>
+
+@link_: 
+@Returns: 
+
+
 <!-- ##### FUNCTION atk_hyperlink_get_n_anchors ##### -->
 <para>
 

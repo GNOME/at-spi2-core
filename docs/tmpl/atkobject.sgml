@@ -422,6 +422,14 @@ atk_object_connect_property_change_handler().
 @Returns: 
 
 
+<!-- ##### SIGNAL AtkObject::active-descendant-changed ##### -->
+<para>
+
+</para>
+
+@atkobject: the object which received the signal.
+@arg1: 
+
 <!-- ##### SIGNAL AtkObject::children-changed ##### -->
 <para>
 The children_changed signal supports two details, "add" and "remove" which

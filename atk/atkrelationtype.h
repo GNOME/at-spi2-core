@@ -37,7 +37,12 @@ extern "C" {
  *  AtkObject in a sequential way, (for instance text-flow).
  *@ATK_RELATION_FLOWS_FROM: Indicates that the object has content that flows logically from
  *  another AtkObject in a sequential way, (for instance text-flow).
- *@ATK_RELATION_SUBWINDOW_OF: [not sure about this one, ask peter]
+ *@ATK_RELATION_SUBWINDOW_OF: [not sure about this one, ask Peter]
+ *@ATK_RELATION_EMBEDS: Indicates that the object visually embeds 
+ *  another object's content, i.e. this object's content flows around 
+ *  another's content.
+ *@ATK_RELATION_EMBEDDED_BY: Inverse of %ATK_RELATION_EMBEDS, indicates that
+ *  this object's content is visualy embedded in another object.
  *@ATK_RELATION_LAST_DEFINED:
  * 
  *Describes the type of the relation
@@ -53,7 +58,9 @@ typedef enum
   ATK_RELATION_NODE_CHILD_OF,
   ATK_RELATION_FLOWS_TO,
   ATK_RELATION_FLOWS_FROM,
-  ATK_RELATION_SUBWINDOW_OF, /* not sure about this one, ask Peter */
+  ATK_RELATION_SUBWINDOW_OF, 
+  ATK_RELATION_EMBEDS, 
+  ATK_RELATION_EMBEDDED_BY, 
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 

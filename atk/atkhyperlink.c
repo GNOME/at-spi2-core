@@ -199,6 +199,32 @@ atk_hyperlink_is_valid (AtkHyperlink *link)
 }
 
 /**
+ * atk_hyperlink_is_inline:
+ * @link_: an #AtkHyperlink
+ *
+ * Indicates whether the link currently displays some or all of its
+ *           content inline.  Ordinary HTML links will usually return
+ *           %FALSE, but an inline &lt;src&gt; HTML element will return
+ *           %TRUE.
+a *
+ * Returns: whether or not this link displays its content inline.
+ *
+ **/
+gboolean
+atk_hyperlink_is_inline (AtkHyperlink *link)
+{
+  AtkHyperlinkClass *klass;
+
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
+
+  klass = ATK_HYPERLINK_GET_CLASS (link);
+  if (klass->link_state)
+    return (klass->link_state (link) & ATK_HYPERLINK_IS_INLINE);
+  else
+    return FALSE;
+}
+
+/**
  * atk_hyperlink_get_n_anchors:
  * @link_: an #AtkHyperlink
  *

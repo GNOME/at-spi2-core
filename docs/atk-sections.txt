@@ -429,11 +429,13 @@ atk_value_get_type
 <FILE>atkhyperlink</FILE>
 <TITLE>AtkHyperlink</TITLE>
 AtkHyperlink
+AtkHyperlinkStateFlags
 atk_hyperlink_get_uri
 atk_hyperlink_get_object
 atk_hyperlink_get_end_index
 atk_hyperlink_get_start_index
 atk_hyperlink_is_valid
+atk_hyperlink_is_inline
 atk_hyperlink_get_n_anchors
 <SUBSECTION Standard>
 ATK_HYPERLINK
@@ -443,6 +445,8 @@ atk_hyperlink_get_type
 ATK_HYPERLINK_CLASS
 ATK_IS_HYPERLINK_CLASS
 ATK_HYPERLINK_GET_CLASS
+atk_hyperlink_state_flags_get_type
+ATK_TYPE_HYPERLINK_STATE_FLAGS
 </SECTION>
 
 <SECTION>

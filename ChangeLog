@@ -1,3 +1,29 @@
+2002-11-14  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in:
+	Revved to 1.1.2, interface age 0, binary age 102.
+	
+	* atk/atkrelationtype.h:
+	(ATK_RELATION_EMBEDS, ATK_RELATION_EMBEDDED_BY):
+	New relations to handle content embedding, for instance
+	text that embeds or flows around images.
+
+	* atk/atkhyperlink.h:
+	(atk_hyperlink_is_inline):
+	New API, returns whether a hyperlink's content is
+	partially displayed inline; useful for small images
+	emedded in text, and for HTML <src> elements.
+	(AtkHyperlinkClass->link_state):
+	New virtualized method, used to implement various
+	state query API such as atk_hyperlink_is_inline().
+
+	* atk/atkhyperlink.c:
+	(atk_hyperlink_is_inline):
+	New method.
+
+	* docs/atk-sections.txt: 
+	Additions for above API.
+
 2002-11-13  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atkobject.[ch]: Add signal active-descendant-changed

@@ -52,10 +52,25 @@ test_relation (void)
       return FALSE;
     }
 
+  name = atk_relation_type_get_name (ATK_RELATION_EMBEDS);
+  g_return_val_if_fail (name, FALSE);
+  if (strcmp (name, "embeds") != 0)
+    {
+      g_print ("Unexpected name for ATK_RELATION_EMBEDS %s\n", name);
+      return FALSE;
+    }
+
+  type1 = atk_relation_type_for_name ("embedded-by");
+  if (type1 != ATK_RELATION_EMBEDDED_BY)
+    {
+      g_print ("Unexpected role for ATK_RELATION_EMBEDDED_BY\n");
+      return FALSE;
+    }
+
   type1 = atk_relation_type_for_name ("controlled-by");
   if (type1 != ATK_RELATION_CONTROLLED_BY)
     {
-      g_print ("Unexpected type for focused\n");
+      g_print ("Unexpected name for ATK_RELATION_CONTROLLED_BY\n");
       return FALSE;
     }
 

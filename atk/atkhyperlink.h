@@ -32,6 +32,17 @@ extern "C" {
  * It implements the AtkAction interface.
  */
 
+/**
+ *AtkHyperlinkStateFlags
+ *@ATK_HYPERLINK_IS_INLINE: Link is inline
+ *
+ *Describes the type of link
+ **/ 
+typedef enum 
+{
+  ATK_HYPERLINK_IS_INLINE = 1 << 0
+} AtkHyperlinkStateFlags;
+
 #define ATK_TYPE_HYPERLINK                        (atk_hyperlink_get_type ())
 #define ATK_HYPERLINK(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_HYPERLINK, AtkHyperlink))
 #define ATK_HYPERLINK_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATK_TYPE_HYPERLINK, AtkHyperlinkClass))
@@ -85,10 +96,17 @@ struct _AtkHyperlinkClass
    */
   gint	           (* get_n_anchors)	   (AtkHyperlink     *link_);
 
+  /*
+   * Returns a set of bitflags which encode state information.
+   * Used by non-virtualized state query methods, not intended,
+   * for direct client use.  It is virtualized, but clients should use
+   * atk_hyperlink_is_inline (), etc.
+   */
+  guint	           (* link_state)	   (AtkHyperlink     *link_);
+  
   AtkFunction      pad1;
   AtkFunction      pad2;
   AtkFunction      pad3;
-  AtkFunction      pad4;
 };
 
 GType            atk_hyperlink_get_type             (void);
@@ -104,6 +122,8 @@ gint             atk_hyperlink_get_end_index        (AtkHyperlink     *link_);
 gint             atk_hyperlink_get_start_index      (AtkHyperlink     *link_);
 
 gboolean         atk_hyperlink_is_valid             (AtkHyperlink     *link_);
+
+gboolean         atk_hyperlink_is_inline             (AtkHyperlink     *link_);
 
 gint		 atk_hyperlink_get_n_anchors        (AtkHyperlink     *link_);
 
