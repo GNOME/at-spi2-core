@@ -49,6 +49,8 @@ IDL = $(top_srcdir)/util/$(idl_DATA)
 BUILT_SOURCES = $(IDL_OUT)
 CLEANFILES+=$(IDL_OUT)
 
+mag_client.c mag_client.h mag_control.c magnifier.h : Magnifier.h
+
 IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) 	\
 	-I$(LIBBONOBO_IDL_DIR)			\
 	-I$(top_srcdir)/util/idl		

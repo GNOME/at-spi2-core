@@ -88,6 +88,8 @@ libspi_la_SOURCES =		\
 	eventlistener.c		\
 	$(IDL_OUT)
 
+accessibility.c base.h keystrokelistener.h libspi.h listener.h remoteobject.h : Accessibility.h
+
 IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
 	   -I$(LIBBONOBO_IDL_DIR)         \
 	   -I$(top_srcdir)/idl            \
@@ -100,11 +102,11 @@ orbittypelibdir = $(libdir)/orbit-2.0
 orbittypelib_LTLIBRARIES = Accessibility_module.la
 
 Accessibility_module_la_LDFLAGS = \
-	-export-dynamic -module
+	-export-dynamic -module -avoid-version
 Accessibility_module_la_SOURCES = \
 	Accessibility-imodule.c
 
-DONT_DIST_SOURCE = $(IDL_OUT)
+DONT_DIST_SOURCE = $(IDL_OUT) Accessibility-imodule.c
 
 dist-hook:
 	for file in $(DONT_DIST_SOURCE) ; do \

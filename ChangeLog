@@ -1,3 +1,9 @@
+2002-04-22  jacob berkman  <jacob@ximian.com>
+
+	* util/Makefile.am: 
+	* libspi/Makefile.am: add deps on the built files to help
+	automake, and don't version the ORBit typelib
+
 2002-04-19  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* cspi/cspi-lowlevel.h cspi/spi-impl.h cspi/spi-listener.h 
