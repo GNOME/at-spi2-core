@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-27 03:00+0200\n"
+"POT-Creation-Date: 2004-08-18 11:01+0200\n"
 "PO-Revision-Date: 2004-07-27 11:03+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -440,7 +440,8 @@ msgstr "Përshkrim i shqiptueshëm i kollonës së tabelës"
 
 #: atk/atkobject.c:368
 msgid "Is used to notify that the table column description has changed"
-msgstr "Përdoret për të njoftuar kur përshkrimi i kollonës së tabelës ndryshohet"
+msgstr ""
+"Përdoret për të njoftuar kur përshkrimi i kollonës së tabelës ndryshohet"
 
 #: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
@@ -456,7 +457,8 @@ msgstr "Përshkrim i shqiptueshëm i rreshtit të tabelës"
 
 #: atk/atkobject.c:382
 msgid "Is used to notify that the table row description has changed"
-msgstr "Përdoret për të njoftuar kur përshkrimi i rreshtit të tabelës ndryshohet"
+msgstr ""
+"Përdoret për të njoftuar kur përshkrimi i rreshtit të tabelës ndryshohet"
 
 #: atk/atkobject.c:388
 msgid "Accessible Table Summary"
@@ -481,4 +483,3 @@ msgstr "Numri i lidhjeve hypertext"
 #: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numri i lidhjeve që ka AtkHypertext-i aktual"
-
