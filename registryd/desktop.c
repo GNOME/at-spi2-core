@@ -75,7 +75,7 @@ static void spi_atk_desktop_get_extents	 (AtkComponent    *component,
                                           AtkCoordType    coord_type);
 
 static GType 
-spi_atk_desktop_get_type ()
+spi_atk_desktop_get_type (void)
 {
   static GType type = 0;
 

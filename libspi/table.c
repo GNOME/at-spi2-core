@@ -172,7 +172,7 @@ impl_getRowDescription (PortableServer_Servant servant,
   const char *rv;
   AtkTable   *table = get_table_from_servant (servant);
 
-  g_return_val_if_fail (table != NULL, 0);
+  g_return_val_if_fail (table != NULL, NULL);
   
   rv = atk_table_get_row_description (table, row);
 

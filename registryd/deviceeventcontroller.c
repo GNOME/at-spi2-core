@@ -1480,7 +1480,7 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
 }
 
 static gboolean
-spi_clear_error_state ()
+spi_clear_error_state (void)
 {
 	gboolean retval = spi_error_code != 0;
 	spi_error_code = 0;
@@ -2264,7 +2264,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 			       keystring);
 	      break;
     }
-  if (err = gdk_error_trap_pop ())
+  if ((err = gdk_error_trap_pop ()))
     {
       DBG (-1, g_warning ("Error [%d] emitting keystroke", err));
     }

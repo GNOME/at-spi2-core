@@ -76,7 +76,7 @@ impl_accessibility_component_get_accessible_at_point (PortableServer_Servant ser
   AtkObject    *child;
   AtkComponent *component = get_component_from_servant (servant);
 
-  g_return_val_if_fail (component != NULL, FALSE);
+  g_return_val_if_fail (component != NULL, NULL);
 
   child = atk_component_ref_accessible_at_point (component,
 						 x, y,

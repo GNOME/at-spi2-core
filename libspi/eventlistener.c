@@ -81,7 +81,7 @@ BONOBO_TYPE_FUNC (SpiEventListener,
 		  spi_event_listener)
 
 SpiEventListener *
-spi_event_listener_new ()
+spi_event_listener_new (void)
 {
     SpiEventListener *retval = g_object_new (
 	    SPI_EVENT_LISTENER_TYPE, NULL);

@@ -43,7 +43,7 @@ static SPIBoolean report_command_key_event  (const AccessibleKeystroke *stroke, 
 static SPIBoolean report_ordinary_key_event (const AccessibleKeystroke *stroke, void *user_data);
 static void get_environment_vars (void);
 
-static int _festival_init ();
+static int _festival_init (void);
 static void _festival_say (const char *text, const char *voice, SPIBoolean shutup);
 static void _festival_write (const char *buff, int fd);
 
@@ -452,7 +452,7 @@ check_property_change (const AccessibleEvent *event, void *user_data)
 }
 
 static void
-simple_at_exit ()
+simple_at_exit (void)
 {
   SPI_deregisterGlobalEventListenerAll (focus_listener);
   AccessibleEventListener_unref        (focus_listener);
@@ -532,7 +532,7 @@ report_ordinary_key_event (const AccessibleKeystroke *key, void *user_data)
 }
 
 static int
-_festival_init ()
+_festival_init (void)
 {
   int fd;
   struct sockaddr_in name;

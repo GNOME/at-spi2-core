@@ -395,7 +395,7 @@ impl_accessibility_accessible_get_role_name (PortableServer_Servant servant,
   AtkRole    role;
   AtkObject *object = get_atkobject_from_servant (servant);
 
-  g_return_val_if_fail (object != NULL, 0);
+  g_return_val_if_fail (object != NULL, NULL);
 
   role = atk_object_get_role (object);
 
@@ -417,7 +417,7 @@ impl_accessibility_accessible_get_local_role_name (PortableServer_Servant servan
   AtkRole    role;
   AtkObject *object = get_atkobject_from_servant (servant);
 
-  g_return_val_if_fail (object != NULL, 0);
+  g_return_val_if_fail (object != NULL, NULL);
 
   role = atk_object_get_role (object);
 

@@ -569,7 +569,7 @@ timing_test_event (const AccessibleEvent *event, void *user_data)
 }
 
 void
-test_exit ()
+test_exit (void)
 {
   SPI_deregisterGlobalEventListenerAll (generic_listener);
   AccessibleEventListener_unref (generic_listener);

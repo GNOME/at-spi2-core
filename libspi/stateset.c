@@ -260,7 +260,7 @@ impl_compare (PortableServer_Servant servant,
   AtkStateSet *set2, *return_set;
   SpiStateSet *spi_set;
   
-  g_return_val_if_fail (set, FALSE);
+  g_return_val_if_fail (set, NULL);
 
   set2 = atk_state_set_from_accessibility_state_set (compareState, ev);
   g_return_val_if_fail (set2, CORBA_OBJECT_NIL);

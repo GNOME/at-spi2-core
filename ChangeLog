@@ -1,3 +1,28 @@
+2004-09-30  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* libspi/accessible.c:
+	(impl_accessibility_accessible_get_role_name),
+	(impl_accessibility_accessible_get_local_role_name):
+	NULL vs. 0 cleanups.
+	* libspi/component.c:
+	(impl_accessibility_component_get_accessible_at_point):
+	Same here.
+	* libspi/eventlistener.c: (spi_event_listener_new):
+	ANSIfication.
+	* libspi/stateset.c: (impl_compare): More of the same
+	* libspi/table.c: (impl_getRowDescription): Again.
+	* registryd/desktop.c: (spi_atk_desktop_get_type): Same
+	* registryd/deviceeventcontroller.c: (spi_clear_error_state),
+	(impl_generate_keyboard_event): Same.
+	* registryd/registry-main.c: (main): Same
+	* test/event-listener-test.c: (test_exit): Same
+	* test/keysynth-demo.c: (scan_state), (create_vkbd): Same
+	* test/keysynth-test.c: (test_key_synthesis): Same
+	* test/login-helper-server-test.c: (main): Fix warning.
+	* test/screen-review-test.c: (test_exit): Fix include.
+	* test/simple-at.c: (simple_at_exit), (_festival_init):
+	ANSIfication.
+
 2004-09-13  Padraig O'Briain <padraig.vriain@sun.com>
 
 	* configure.in, NEWS, README: Revved to 1.6.0.

@@ -22,7 +22,7 @@
  */
 
 #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 #include <stdlib.h>
 #include "../cspi/spi-private.h"
 
@@ -1128,7 +1128,7 @@ report_screen_review_line (const AccessibleEvent *event, void *user_data)
 }
 
 void
-test_exit ()
+test_exit (void)
 {
   SPI_deregisterGlobalEventListenerAll (mouseclick_listener);
   AccessibleEventListener_unref (mouseclick_listener);

@@ -129,7 +129,7 @@ select_line (gint lineno)
 
 
 static ScanState*
-scan_state ()
+scan_state (void)
 {
   static ScanState state = {SCAN_IDLE, 0, 0};
   return &state;
@@ -382,7 +382,7 @@ synth_keycode (GtkButton *button, KeyCode *keycode)
 }
 
 static void
-create_vkbd()
+create_vkbd(void)
 {
   GtkWidget *window, *container, *hbox;
   int i, j;

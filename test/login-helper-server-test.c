@@ -70,7 +70,7 @@ main (int argc, char **argv)
 
 	/* this is a testing hack - we are changing the LoginHelperClass's vpointers here */
 	
-	test_init_login_helper_vpointers (helper, test_set_safe, test_get_device_reqs, test_get_raise_windows);
+	test_init_login_helper_vpointers ((LoginHelper*)helper, test_set_safe, test_get_device_reqs, test_get_raise_windows);
 
 	bonobo_main ();
 }

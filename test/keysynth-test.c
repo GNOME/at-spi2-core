@@ -46,7 +46,7 @@ static TextTest text[] = {
 };
 
 static void
-test_key_synthesis ()
+test_key_synthesis (void)
 {
 	int i;
 	for (i = 0; i < G_N_ELEMENTS (text); ++i) {
