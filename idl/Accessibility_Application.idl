@@ -30,7 +30,8 @@ module Accessibility {
   interface Application : Accessible {
 
     /**
-     * Get a string indicating the type of user interface toolkit
+     * @toolkitName:
+     * A string indicating the type of user interface toolkit
      * which is used by the application.
      * Ordinarily clients of @AccessibleApplication should be
      * toolkit-agnostic, dependencies on this method probably
@@ -39,46 +40,63 @@ module Accessibility {
     readonly attribute string toolkitName;
 
     /**
-     * Get a string indicating the version number of the application's
+     * @version:
+     * A string indicating the version number of the application's
      * accessibility bridge implementation.
      **/
     readonly attribute string version;
 
     /**
-     * Get the application instance's unique ID as assigned by the registry.
-     *
+     * @id:
+     * The application instance's unique ID as assigned by the registry.
      **/
     attribute long id;
 
     /**
+     * registerToolkitEventListener:
+     * @listener: an #EventListener object which will receive the requested
+     *            events from the application's toolkits via toolit 'bridges'
+     * @eventName: a UTF-8 string indicating the type of (toolkit-specific) event
+     *            being requested.  Not all applications can generate toolkit events of
+     *            a given type.
+     *
      * Register with this application's toolkit for "toolkit-specific" event notifications.
+     *       For most event support, clients should use non-toolkit-specific events
+     *       whenever possible, via #Registry::registerGlobalEventListener - this method 
+     *       is provided as a 'back door' when generic names do not exist for the events in question.
+     * SUBJECT TO DEPRECATION in favor of Registry::registerGlobalEventListener forms.
      *
      **/
     void registerToolkitEventListener (in EventListener listener, in string eventName);
 
     /**
-     * Register with this application's toolkit for "Accessibility::Accessible" 
-     * event notifications.
+     * registerObjectEventListener:
+     * @listener: an #EventListener object which will receive the requested
+     *            events
+     * @eventName: a UTF-8 string indicating the type of (toolkit-specific) event
+     *            being requested.  
+     * Register with this application toolkit for "Accessibility::Accessible" 
+     * event notifications. SUBJECT TO DEPRECATION
      *
      **/
     void registerObjectEventListener (in EventListener listener, in string eventName);
 
     /**
      * pause:
-     * Returns: %true if the request succeeded, %false otherwise.
      *
      * Request that the application temporarily stop sending events.
      * In most cases this should pause the application's main event loop.
      *
+     * Returns: %true if the request succeeded, %false otherwise.
      **/
     boolean       pause ();
 
     /**
      * resume:
-     * Returns: %true if the request succeeded, %false otherwise.
      *
      * Request that the application resume sending events.
      *
+     * Returns: %true if the request succeeded, %false otherwise.
      **/
     boolean       resume ();
   };

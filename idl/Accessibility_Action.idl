@@ -25,7 +25,7 @@ module Accessibility {
   interface Action : Bonobo::Unknown {
 
     /**
-     * nActionss: a @long containing the number of actions this object supports.
+     * nActions: a @long containing the number of actions this object supports.
      * 
      **/
     readonly attribute long nActions;
@@ -37,7 +37,7 @@ module Accessibility {
      *
      * Gets the description of the specified action.
      *
-     * return values: a @wstring containing the description of the specified action.
+     * Returns: a @wstring containing the description of the specified action.
      *
      **/
     string getDescription (in long index);
@@ -49,7 +49,7 @@ module Accessibility {
      *
      * Gets the name of the specified action.
      *
-     * return values: a @string containing the name of the specified action.
+     * Returns: a @string containing the name of the specified action.
      *
      **/
     string getName (in long index);
@@ -60,20 +60,20 @@ module Accessibility {
      *
      * Causes the object to perform the specified action.
      *
-     * return values: a @boolean indicating success or failure.
+     * Returns: a @boolean indicating success or failure.
      *
      **/
     boolean doAction (in long index);
 
     /**
      * getKeyBinding:
-     * return values: a @string containing the key binding for the specified action,
-     *   "" if none exists.
      * @index: an %in parameter specifying the 0-based index of the action 
      *   for which a key binding is requested.
      *
      * Gets the key binding associated with a specific action.
      *
+     * Returns: a @string containing the key binding for the specified action,
+     *   "" if none exists.
      **/
     string getKeyBinding (in long index);
   };

@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 
 typedef struct {
         BonoboObject parent;
-	struct SpiRegistry *registry;
+	void  *registry;
         GList *key_listeners;
         GList *mouse_listeners;
 	GList *keymask_list;

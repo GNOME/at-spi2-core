@@ -64,8 +64,7 @@ static gboolean bridge_signal_listener (GSignalInvocationHint *signal_hint,
 					const GValue *param_values,
 					gpointer data);
 
-static gint bridge_key_listener (AtkImplementor *atk_impl,
-				 AtkKeyEventStruct *event,
+static gint bridge_key_listener (AtkKeyEventStruct *event,
 				 gpointer data);
 
 int
@@ -137,13 +136,9 @@ register_atk_event_listeners ()
    * the AtkText signal handlers below won't get registered
    */
 
-  AtkNoOpObject *o = atk_no_op_object_new (g_object_new (ATK_TYPE_OBJECT, NULL));
+  AtkObject *o = atk_no_op_object_new (g_object_new (ATK_TYPE_OBJECT, NULL));
 
   /* Register for focus event notifications, and register app with central registry  */
-
-  g_type_class_ref (ATK_TYPE_TEXT);
-  g_type_class_ref (ATK_TYPE_SELECTION);
-  g_type_class_ref (ATK_TYPE_TABLE);
 
   atk_add_focus_tracker (bridge_focus_tracker);
   atk_add_global_event_listener (bridge_property_event_listener, "Gtk:AtkObject:property-change");
@@ -284,17 +279,49 @@ bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   return TRUE;
 }
 
-static gint
-bridge_key_listener (AtkImplementor *atk_impl, AtkKeyEventStruct *event, gpointer data)
+#define SPI_DEBUG
+
+static Accessibility_KeyStroke *
+accessibility_keystroke_from_atk_key_event (AtkKeyEventStruct *event)
 {
-  Accessibility_KeyStroke *key_event;
-  static Accessibility_DeviceEventController controller = CORBA_OBJECT_NIL;
-  if (controller == CORBA_OBJECT_NIL)
+  Accessibility_KeyStroke *keystroke;
+  keystroke = Accessibility_KeyStroke__alloc ();
+
+#ifdef SPI_DEBUG
+  if (event) g_print ("event %c (%d)\n", (int) event->keyval, (int) event->keycode);
+  else
+#endif
+  if (!event) g_print ("WARNING: NULL key event!");
+  
+  keystroke->keyID = (CORBA_long) event->keyval;
+  keystroke->keycode = (CORBA_short) event->keycode;
+  keystroke->timestamp = (CORBA_unsigned_long) event->timestamp;
+  keystroke->modifiers = (CORBA_unsigned_short) (event->state & 0xFFFF);
+
+  switch (event->type)
     {
-      controller = Accessibility_Registry_getDeviceEventController (registry, &ev);
+    case (ATK_KEY_EVENT_PRESS):
+	    keystroke->type = Accessibility_KEY_PRESSED;
+	    break;
+    case (ATK_KEY_EVENT_RELEASE):
+	    keystroke->type = Accessibility_KEY_RELEASED;
+	    break;
+    default:
     }
-  g_print ("bridge key listener fired!\n");
-/* Accessibility_DeviceEventController_notifyListenersSync (controller, key_event, &ev); */
+  
+  return keystroke;
+}
+
+static gint
+bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
+{
+  Accessibility_KeyStroke *key_event = accessibility_keystroke_from_atk_key_event (event);
+  CORBA_boolean result;
+  Accessibility_DeviceEventController controller =
+	  Accessibility_Registry_getDeviceEventController (registry, &ev);
+  result = Accessibility_DeviceEventController_notifyListenersSync (controller,
+								    (Accessibility_DeviceEvent *) key_event,
+								    &ev);
 }
 
 static gboolean

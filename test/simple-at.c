@@ -237,11 +237,16 @@ static boolean
 report_key_event (void *p)
 {
   AccessibleKeyStroke *key = (AccessibleKeyStroke *) p;
-  fprintf(stderr, "KeyEvent %s%c (keycode %d)\n",
+  fprintf (stderr, "KeyEvent %s%c (keycode %d)\n",
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
 	  ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?
 	  (char) toupper((int) key->keyID) : (char) tolower((int) key->keyID),
 	  (int) key->keycode);
+  fprintf (stderr, "Key:\tsym %ld\n\tmods %x\n\tcode %d\n\ttime %ld\n",
+	   (long) key->keyID,
+	   (unsigned int) key->modifiers,
+	   (int) key->keycode,
+	   (long int) key->timestamp);
   return is_command_key (key);
 }
 

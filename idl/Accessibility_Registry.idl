@@ -39,7 +39,6 @@ module Accessibility {
   	/**
          * registerApplication:
          * @application: a reference to the requesting @Application
-	 * return values: void
          *
          * Register a new application with the accessibility broker.
          *
@@ -50,8 +49,7 @@ module Accessibility {
          * deregisterApplication:
          * @application: a reference to the @Application 
          * to be deregistered.
-	 * return values: void
-         *
+	 *
          * De-register an application previously registered with the broker.
          *
 	 **/
@@ -62,7 +60,6 @@ module Accessibility {
          * @listener: a reference to the requesting @EventListener.
          * @eventName: a string which indicates the type of events about 
          * which the client desires notification.
-	 * return values: void
          *
          * Register a client's interest in (all) application events of 
          * a certain type.
@@ -75,7 +72,6 @@ module Accessibility {
          * deregisterGlobalEventListener:
          * @listener: the requesting @EventListener
          * @eventName: a string indicating the type of events
-	 * return values: void
          *
          * Request that a previously registered client stop receiving
          * global notifications for events of a certain type.
@@ -87,7 +83,6 @@ module Accessibility {
          * deregisterGlobalEventListener:
          * @listener: the requesting @EventListener
          * @eventName: a string indicating the type of events
-	 * return values: void
          *
          * Request that a previously registered client stop receiving
          * global notifications for events of a certain type.
@@ -115,38 +110,37 @@ module Accessibility {
 
   	/**
          * getDesktopCount:
-	 * return values: a short integer indicating the current number of 
-         * @Desktops.
          *
          * Get the current number of desktops.
-         *
+	 * Returns: a short integer indicating the current number of 
+         * @Desktops.
 	 **/
         short getDesktopCount ();
 
   	/**
          * getDesktop:
          * @n: the index of the requested @Desktop.
-	 * return values: a reference to the requested @Desktop.
          *
          * Get the nth accessible desktop. 
          *
+	 * Returns: a reference to the requested @Desktop.
 	 **/
         Desktop getDesktop (in short n);
 
   	/**
          * getDesktopList:
-	 * return values: a sequence containing references to
-         * the @Desktops.
          *
          * Get a list of accessible desktops. 
          *
+	 * Returns: a sequence containing references to
+         * the @Desktops.
 	 **/
         DesktopSeq getDesktopList ();
 
   	/**
          * getDeviceEventController:
-	 * return values: an object implementing DeviceEventController
          *
+	 * Returns: an object implementing DeviceEventController
 	 **/
         DeviceEventController getDeviceEventController ();
 
@@ -257,11 +251,9 @@ module Accessibility {
 					in KeyEventTypeSeq type,
 					in boolean is_synchronous);
     
-        boolean notifyListenersSync (in DeviceEventListener listener,
-				     in DeviceEvent event);
+        boolean notifyListenersSync (in DeviceEvent event);
 
-        oneway void notifyListenersAsync (in DeviceEventListener listener,
-					  in DeviceEvent event);
+        oneway void notifyListenersAsync (in DeviceEvent event);
 
         /**
          * generateKeyEvent:

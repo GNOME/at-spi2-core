@@ -127,10 +127,15 @@ dec_key_listener_new (CORBA_Object l,
   DEControllerKeyListener *key_listener = g_new0 (DEControllerKeyListener, 1);
   key_listener->listener.object = CORBA_Object_duplicate (l, ev);
   key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
-  key_listener->keys = keys;
-  key_listener->mask = mask;
+  key_listener->keys = ORBit_copy_value (keys, TC_Accessibility_KeySet);
+  key_listener->mask = ORBit_copy_value (mask, TC_Accessibility_ControllerEventMask);
   key_listener->is_system_global = is_system_global;
 
+  g_print ("new listener, with mask %x, is_global %d, keys %p\n",
+	   (unsigned int) key_listener->mask->value,
+           (int) key_listener->is_system_global,
+	   (void *) key_listener->keys);
+  
   return key_listener;	
 }
 
@@ -243,23 +248,49 @@ _controller_register_with_devices (SpiDeviceEventController *controller)
 
 
 static gboolean
-notify_keylisteners (GList *key_listeners, Accessibility_KeyStroke *key_event, CORBA_Environment *ev)
+key_event_matches_listener (Accessibility_KeyStroke *key_event,
+			    DEControllerKeyListener *listener,
+			    CORBA_boolean is_system_global)
+{
+  g_print ("mask=%x, listener mask= %x\n", (unsigned int) key_event->modifiers,
+	   (unsigned int) (listener->mask->value & 0xFFFF));	
+  if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask->value && 0xFFFF)) &&
+      ((listener->keys == NULL) || (1)) && /* in keyset seq */
+      (1) && /* in event type seq */
+      (is_system_global == listener->is_system_global))
+    {
+      return TRUE;
+    }
+  else
+    return FALSE;
+}
+
+static gboolean
+notify_keylisteners (GList *key_listeners,
+		     Accessibility_KeyStroke *key_event,
+		     CORBA_boolean is_system_global,
+		     CORBA_Environment *ev)
 {
   int i, n_listeners = g_list_length (key_listeners);
   gboolean is_consumed = FALSE;
+
   for (i=0; i<n_listeners && !is_consumed; ++i)
     {
       Accessibility_KeystrokeListener ls;
-      ls = (Accessibility_KeystrokeListener)
+      DEControllerKeyListener *key_listener = (DEControllerKeyListener *)
 	    g_list_nth_data (key_listeners, i);
-      if (!CORBA_Object_is_nil(ls, ev))
+      ls = (Accessibility_KeystrokeListener) key_listener->listener.object;
+      if (key_event_matches_listener (key_event, key_listener, is_system_global))
         {
-	    is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, key_event, ev);
-        }		
+          if (!CORBA_Object_is_nil(ls, ev))
+            {
+	      is_consumed = Accessibility_KeystrokeListener_keyEvent (ls, key_event, ev);
+            }		
+        }
+      else g_print ("no match for listener %d\n", i);
     }
   return is_consumed;
 }
-
 
 static gboolean
 _check_key_event (SpiDeviceEventController *controller)
@@ -311,11 +342,11 @@ _check_key_event (SpiDeviceEventController *controller)
 #endif
 	    }
 	    /* relay to listeners, and decide whether to consume it or not */
-	    is_consumed = notify_keylisteners (controller->key_listeners, &key_event, &ev);
+	    is_consumed = notify_keylisteners (controller->key_listeners, &key_event, CORBA_TRUE, &ev);
 
 	    if (is_consumed)
 	    {
-	      XAllowEvents (display, SyncKeyboard, CurrentTime);
+	      XAllowEvents (display, AsyncKeyboard, CurrentTime);
 	    }
 	    else
 	    {
@@ -361,7 +392,7 @@ _controller_grab_keyboard (SpiDeviceEventController *controller)
 				  root_window,
 				  True,
 				  GrabModeAsync,
-				  GrabModeSync);
+				  GrabModeAsync);
 			/* TODO: check call for errors and return FALSE if error occurs */
 		} else {
 			return FALSE; /* can't do control key yet */
@@ -503,10 +534,7 @@ impl_generate_key_event (PortableServer_Servant     servant,
 	}
 }
 
-/*
- * CORBA Accessibility::DeviceEventController::generateMouseEvent
- *     method implementation
- */
+/* Accessibility::DeviceEventController::generateMouseEvent */
 static void
 impl_generate_mouse_event (PortableServer_Servant servant,
 			   const CORBA_long       x,
@@ -515,8 +543,40 @@ impl_generate_mouse_event (PortableServer_Servant servant,
 			   CORBA_Environment     *ev)
 {
 #ifdef SPI_DEBUG
-	fprintf (stderr, "generating mouse %s event at %ld, %ld\n", eventName, x, y);
+  fprintf (stderr, "generating mouse %s event at %ld, %ld\n", eventName, x, y);
 #endif
+}
+
+/* Accessibility::DeviceEventController::notifyListenersSync */
+static CORBA_boolean
+impl_notify_listeners_sync(PortableServer_Servant     servant,
+			   const Accessibility_DeviceEvent *event,
+			   CORBA_Environment         *ev)
+{
+  SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER (
+                                         bonobo_object_from_servant (servant));
+  Accessibility_KeyStroke *key_event = (Accessibility_KeyStroke *) event;	
+#ifdef SPI_DEBUG
+  g_print ("notifying listeners synchronously: controller %x, event id %d\n",
+	   (void *) controller, (int) event->eventID);
+#endif
+  return (notify_keylisteners (controller->key_listeners, key_event, CORBA_FALSE, ev) ?
+	  CORBA_TRUE : CORBA_FALSE); 
+}
+
+/* Accessibility::DeviceEventController::notifyListenersAsync */
+static void
+impl_notify_listeners_async (PortableServer_Servant     servant,
+			     const Accessibility_DeviceEvent *event,
+			     CORBA_Environment         *ev)
+{
+  SpiDeviceEventController *controller = SPI_DEVICE_EVENT_CONTROLLER(
+	                                 bonobo_object_from_servant (servant));
+  Accessibility_KeyStroke *key_event = (Accessibility_KeyStroke *) event;	
+#ifdef SPI_DEBUG
+  fprintf (stderr, "notifying listeners asynchronously\n");
+#endif
+  notify_keylisteners (controller->key_listeners, key_event, CORBA_FALSE, ev); 
 }
 
 static void
@@ -533,6 +593,8 @@ spi_device_event_controller_class_init (SpiDeviceEventControllerClass *klass)
 /*        epv->registerMouseListener = impl_register_mouse_listener; */
         epv->generateKeyEvent = impl_generate_key_event;
         epv->generateMouseEvent = impl_generate_mouse_event;
+	epv->notifyListenersSync = impl_notify_listeners_sync;
+	epv->notifyListenersAsync = impl_notify_listeners_async;
 	klass->check_key_event = _check_key_event;
 }
 
@@ -557,7 +619,7 @@ spi_device_event_controller_check_key_event (SpiDeviceEventController *controlle
 SpiDeviceEventController *
 spi_device_event_controller_new (void *registryp)
 {
-  SpiRegistry *registry = SPI_REGISTRY (registryp);	
+  BonoboObject *registry = (BonoboObject *) registryp;	
   SpiDeviceEventController *retval = g_object_new (
 	  SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
   retval->registry = registry;

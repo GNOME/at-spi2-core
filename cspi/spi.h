@@ -86,6 +86,7 @@ typedef struct _AccessibleKeyStroke
 {
 	long keyID;
 	short keycode;
+	long timestamp;
 	AccessibleKeyEventType type;
 	unsigned short modifiers;
 } AccessibleKeyStroke;

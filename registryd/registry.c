@@ -71,7 +71,7 @@ typedef struct {
 } SpiListenerStruct;
 
 /* static function prototypes */
-static void _registry_notify_listeners ( GList *listeners,
+static void _registry_notify_listeners (GList *listeners,
                                         const Accessibility_Event *e,
                                         CORBA_Environment *ev);
 
@@ -258,7 +258,7 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
                                                     CORBA_Environment * ev)
 {
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
-  GList *list = g_list_find_custom (registry->desktop->applications, &application, compare_corba_objects);
+  GList *list = g_list_find_custom (registry->desktop->applications, application, compare_corba_objects);
 
 #ifdef SPI_DEBUG
   gint i;
@@ -272,15 +272,18 @@ impl_accessibility_registry_deregister_application (PortableServer_Servant serva
       registry->desktop->applications = g_list_delete_link (registry->desktop->applications, list);
 #ifdef SPI_DEBUG
       fprintf (stderr, "there are now %d apps registered.\n", g_list_length (registry->desktop->applications));
-      for (i = 0; i < g_list_length (registry->desktop->applications); ++i) {
+      for (i = 0; i < g_list_length (registry->desktop->applications); ++i)
+        {
           fprintf (stderr, "getting application %d\n", i);
           fprintf (stderr, "object address %p\n",
-               g_list_nth_data (registry->desktop->applications, i));
-      }
+		       g_list_nth_data (registry->desktop->applications, i));
+        }
 #endif      
     }
   else
-    fprintf (stderr, "could not deregister application\n");
+    {
+      fprintf (stderr, "could not deregister application %p\n", application);
+    }
 }
 
 /*
@@ -523,16 +526,17 @@ _get_unique_id ()
 }
 
 static void
-_registry_notify_listeners ( GList *listeners,
-                            const Accessibility_Event *e,
+_registry_notify_listeners (GList *listeners,
+                            const Accessibility_Event *e_in,
                             CORBA_Environment *ev)
 {
   int n;
   int len;
   SpiListenerStruct *ls;
   EventTypeStruct etype;
+  Accessibility_Event *e_out;
   guint minor_hash;
-  parse_event_type (&etype, e->type);
+  parse_event_type (&etype, e_in->type);
   minor_hash = g_str_hash (g_strconcat (etype.major, etype.minor, NULL));
   len = g_list_length (listeners);
 
@@ -547,13 +551,16 @@ _registry_notify_listeners ( GList *listeners,
         {
 #ifdef SPI_DEBUG
           fprintf(stderr, "notifying listener #%d\n", n);
-          fprintf(stderr, "event source name %s\n", Accessibility_Accessible__get_name(e->source, ev));
+          fprintf(stderr, "event source name %s\n", Accessibility_Accessible__get_name(e_in->source, ev));
 #endif
-	  e->source = CORBA_Object_duplicate (e->source, ev);
-          Accessibility_Accessible_ref ( e->source, ev);
+	  e_out = ORBit_copy_value (e_in, TC_Accessibility_Event);
+	  e_out->source = CORBA_Object_duplicate (e_in->source, ev);
+          Accessibility_Accessible_ref ( e_out->source, ev);
           Accessibility_EventListener_notifyEvent ((Accessibility_EventListener) ls->listener,
-                                                   e,
+                                                   e_out,
                                                    ev);
+	  /* is it safe to free e_out now ? notifyEvent is a oneway... */
+	  CORBA_free (e_out);
           if (ev->_major != CORBA_NO_EXCEPTION) {
                 fprintf(stderr,
                 ("Accessibility app error: exception during event notification: %s\n"),

@@ -928,6 +928,9 @@ AccessibleStateSet_equals (AccessibleStateSet *obj,
  * AccessibleStateSet_compare:
  * @obj: a pointer to the first #AccessibleStateSet object on which to operate.
  * @obj2: a pointer to the second #AccessibleStateSet object on which to operate.
+ * @differenceSet: a pointer to an array of #AccessibleStates, which is set when the
+ *        fuction returns to point to an array of states representing the states which
+ *        the two state sets do not have in common.
  *
  * Determine the differences between two instances of #AccessibleStateSet.
  *.

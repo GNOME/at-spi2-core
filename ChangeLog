@@ -1,4 +1,40 @@
-2001-11-20  Michael Meeks  <michael@ximian.com>
+2001-18-11  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessible.idl:
+	* idl/Application.idl:
+	* idl/Registry.idl:
+	* idl/Action.idl:
+	Started gtk-doc cleanup on IDL.
+
+	* libspi/deviceeventcontroller.c:
+	Added and connected non-preemptive key notification from the
+	toolkits (in addition to the pre-emptive support from XServer
+	which we had before, but which causes 'focus flashing').  Filters
+	are presently limited to key modifiers and global/non-global,
+	KeySets are presently ignored, as are KeyEvent masks.
+
+	Fixed naughtiness in dec_key_listener_new(), we copy the CORBA
+	structs into the persistant structure rather than just storing
+	pointers to things that might not persist across servant
+	invocations.
+
+	The XGrabKey call now does async keygrabs, because synchronous
+	ones were deadlocking with GDK_event code in a very nasty way.
+
+	Added boolean to internal method notify_keylisteners, to indicate
+	whether the event came from the 'toolkit source' or the 'global
+	(XServer) source' - this is used in the notification process to
+	determine which listeners to send the event to.
+	
+	* libspi/registry.c:
+	Fixed regression in application de-registration.
+	Also fixed some really brain-dead weirdness having to do with
+	event dispatching - event structs are now duplicated before being
+	re-marshalled in the dispatch to listeners.  This also fixes a
+	Solaris build problem.
+	
+	
+2001-20-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/registry.c
 	(impl_accessibility_registry_deregister_global_event_listener): 
@@ -15,7 +51,7 @@
 	* libspi/application.h: kill unused ( and whacked out )
 	gboolean *spi_application_set_id (AtkObject *app, long id);
 
-2001-11-20  Michael Meeks  <michael@ximian.com>
+2001-20-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/*.[ch]: further convert to bonobo's type func
 	macros, remove redundnant casts etc.
@@ -32,7 +68,7 @@
 
 	* */.cvsignore: update
 	
-2001-11-20  Michael Meeks  <michael@ximian.com>
+2001-20-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/deviceeventcontroller.c
 	(_controller_register_with_devices): use g_getenv,
@@ -47,7 +83,7 @@
 
 	* libspi/*.[ch]: more headers, includes and over commenting.
 	
-2001-11-20  Michael Meeks  <michael@ximian.com>
+2001-20-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/*.[ch]: fixup headers, includes and over commenting.
 
@@ -59,7 +95,7 @@
 
 	* libspi/libspi.h: add.
 
-2001-11-19  Michael Meeks  <michael@ximian.com>
+2001-19-11  Michael Meeks  <michael@ximian.com>
 
 	* libspi/editabletext.c (impl_setAttributes): fix warnings.
 

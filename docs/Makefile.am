@@ -12,7 +12,7 @@ DOC_MODULE=at-spi
 DOC_MAIN_SGML_FILE=at-spi-docs.sgml
 
 # The directory containing the source code (if it contains documentation).
-DOC_SOURCE_DIR=../cspi
+DOC_SOURCE_DIR=../cspi ../idl
 
 INSTALLDIR=$(prefix)/share/gtk-doc
 

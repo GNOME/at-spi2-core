@@ -36,33 +36,32 @@ module Accessibility {
   interface Accessible : Bonobo::Unknown {
 
     /**
-     * #attribute name: a (short) @string representing the object's name.
+     * @name: a (short) #string representing the object's name.
      **/
     attribute string name;
 
     /**
-     * #attribute description: a @string describing the object in more detail than @name.
+     * @description: a #string describing the object in more detail than @name.
      **/
     attribute string description;
 
     /**
-     * #attribute parent: an @Accessible object which is this object's containing object.
+     * @parent: an #Accessible object which is this object's containing object.
      **/
     readonly attribute Accessible parent;
 
     /**
-     * getChildCount:
-     * return values: the number of children contained by this object (zero if none).
-     *
-     * Get the number of children contained by this object.
-     *
+     * @childCount: the number of children contained by this object.
      **/
     readonly attribute long    	childCount;
 
     /**
      * isEqual:
-     * @object: an #Accessible object reference to compare to
-     * return values: a #boolean indicating whether the two object references
+     * @obj: an #Accessible object reference to compare to
+     *
+     * Determine whether an #Accessible refers to the same object as another
+     *
+     * Returns: a #boolean indicating whether the two object references
      *         point to the same object. 
      **/
     boolean isEqual (in Accessible obj);
@@ -70,45 +69,44 @@ module Accessibility {
     /**
      * getChildAtIndex:
      * @index: an in parameter indicating which child is requested (zero-indexed).
-     * return values: the 'nth' @Accessible child of this object.
      *
      * Get the accessible child of this object at index @index.
      *
+     * Returns: the 'nth' @Accessible child of this object.
      **/
     Accessible 	getChildAtIndex (in long index);
 
     /**
      * getIndexInParent:
-     * return values: a long integer indicating this object's index in the parent's list.
      *
      * Get the index of this object in its parent's child list.
      *
+     * Returns: a long integer indicating this object's index in the parent's list.
      **/
     long		getIndexInParent ();
 
     /**
      * getRelationSet:
-     * return values: a @RelationSet defining this object's relationships.
      *
      * Get a set defining this object's relationship to other accessible objects.
      *
+     * Returns: a @RelationSet defining this object's relationships.
      **/
     RelationSet	getRelationSet ();
 
     /**
      * getRole:
-     * return values: the @Role of this object.
-     *
      * Get the @Role indicating the type of UI role played by this object.
      *
+     * Returns: a @Role indicating the type of UI role played by this object.
      **/
     Role		getRole ();
 
     /**
      * getState:
-     * return values: a @StateSet encapsulating the currently true states of the object.
      *
      * Get the current state of the object as a @StateSet.
+     * Returns: a @StateSet encapsulating the currently true states of the object.
      **/
     StateSet	getState ();
   };
