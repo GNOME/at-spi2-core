@@ -59,7 +59,6 @@ EXPORTS
 	atk_image_set_image_description
 	atk_implementor_get_type
 	atk_implementor_ref_accessible
-	atk_marshal_VOID__INT_INT
 	atk_no_op_object_factory_get_type
 	atk_no_op_object_factory_new
 	atk_no_op_object_get_type
@@ -70,11 +69,14 @@ EXPORTS
 	atk_object_factory_invalidate
 	atk_object_get_description
 	atk_object_get_index_in_parent
+	atk_object_get_layer
+	atk_object_get_mdi_zorder
 	atk_object_get_n_accessible_children
 	atk_object_get_name
 	atk_object_get_parent
 	atk_object_get_role
 	atk_object_get_type
+	atk_object_notify_state_change
 	atk_object_ref_accessible_child
 	atk_object_ref_relation_set
 	atk_object_ref_state_set
@@ -99,8 +101,8 @@ EXPORTS
 	atk_relation_set_get_type
 	atk_relation_set_new
 	atk_relation_set_remove
-	atk_relation_type_get_name
 	atk_relation_type_for_name
+	atk_relation_type_get_name
 	atk_relation_type_register
 	atk_remove_focus_tracker
 	atk_remove_global_event_listener

@@ -284,7 +284,7 @@ atk_remove_key_event_listener (guint listener_id)
  * Returns: the root accessible container for the current application
  **/
 AtkObject*
-atk_get_root(void)
+atk_get_root (void)
 {
   AtkUtilClass *klass = g_type_class_peek (ATK_TYPE_UTIL);
   if (klass->get_root)

@@ -870,7 +870,7 @@ atk_text_set_caret_offset (AtkText *text,
  * #AtkAttributes.
  **/
 void
-atk_attribute_set_free(AtkAttributeSet *attrib_set)
+atk_attribute_set_free (AtkAttributeSet *attrib_set)
 {
   GSList *temp;
 

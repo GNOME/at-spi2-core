@@ -1,3 +1,13 @@
+2001-11-23  Hans Breuer  <hans@breuer.org>
+
+	* atk/atk.def : updated externals
+
+	* atk/atktext.c atk/atkutil.c : added two spaces to fix
+	minor coding style issues. Found by my exports generator.
+
+	* atk/makefile.msc : version 0.7, use build dir from
+	$(TOP)\glib
+
 Thu Nov 22 14:37:40 2001  Owen Taylor  <otaylor@redhat.com>
 
 	* Version 0.7
