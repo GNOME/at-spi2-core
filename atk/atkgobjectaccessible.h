@@ -51,6 +51,9 @@ GType atk_gobject_accessible_get_type (void);
 struct _AtkGObjectAccessibleClass
 {
   AtkObjectClass parent_class;
+
+  AtkFunction pad1;
+  AtkFunction pad2;
 };
 
 AtkObject *atk_gobject_accessible_for_object      (GObject           *obj);

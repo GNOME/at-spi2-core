@@ -49,6 +49,9 @@ struct _AtkObjectFactoryClass
   AtkObject* (* create_accessible) (GObject          *obj);
   void       (* invalidate)        (AtkObjectFactory *factory);
   GType      (* get_accessible_type)    (void);
+
+  AtkFunction pad1;
+  AtkFunction pad2;
 };
 
 GType atk_object_factory_get_type(void);
