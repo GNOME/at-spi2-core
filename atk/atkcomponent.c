@@ -22,7 +22,8 @@
 
 static AtkObject* atk_component_real_get_accessible_at_point (AtkComponent *component,
                                                               gint         x,
-                                                              gint         y);
+                                                              gint         y,
+                                                              AtkCoordType coord_type);
 
 GType
 atk_component_get_type ()
@@ -97,12 +98,12 @@ atk_component_remove_focus_handler (AtkComponent    *component,
 /**
  * atk_component_contains:
  * @component: the #AtkComponent
- * @x: x coordinate relative to the coordinate system of @component
- * @y: y coordinate relative to the coordinate system of @component
+ * @x: x coordinate
+ * @y: y coordinate
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  *
- * Checks whether the specified point is within the extent of the @component,
- * the x and y coordinates are defined to be relative to the 
- * coordinate system of the @component.
+ * Checks whether the specified point is within the extent of the @component.
  *
  * Returns: %TRUE or %FALSE indicating whether the specified point is within
  * the extent of the @component or not
@@ -110,7 +111,8 @@ atk_component_remove_focus_handler (AtkComponent    *component,
 gboolean
 atk_component_contains (AtkComponent    *component,
                         gint            x,
-                        gint            y)
+                        gint            y,
+                        AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (component != NULL, FALSE);
@@ -119,7 +121,7 @@ atk_component_contains (AtkComponent    *component,
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->contains)
-    return (iface->contains) (component, x, y);
+    return (iface->contains) (component, x, y, coord_type);
   else
     return FALSE;
 }
@@ -127,10 +129,12 @@ atk_component_contains (AtkComponent    *component,
 /**
  * atk_component_get_accessible_at_point:
  * @component: the #AtkComponent
- * @x: local x coordinate
- * @y: local y coordinate
+ * @x: x coordinate
+ * @y: y coordinate
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  *
- * Gets the accessible child, if one exists, contained at the local
+ * Gets the accessible child, if one exists, contained at the
  * coordinate point specified by @x and @y.
  *
  * Returns: the accessible child, if one exists
@@ -138,7 +142,8 @@ atk_component_contains (AtkComponent    *component,
 AtkObject*
 atk_component_get_accessible_at_point (AtkComponent    *component,
                                        gint            x,
-                                       gint            y)
+                                       gint            y,
+                                       AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_val_if_fail (component != NULL, NULL);
@@ -147,13 +152,13 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_accessible_at_point)
-    return (iface->get_accessible_at_point) (component, x, y);
+    return (iface->get_accessible_at_point) (component, x, y, coord_type);
   else
   {
     /*
      * if this method is not overridden use the default implementation.
      */
-    return atk_component_real_get_accessible_at_point (component, x, y);
+    return atk_component_real_get_accessible_at_point (component, x, y, coord_type);
   }
 }
 
@@ -164,15 +169,19 @@ atk_component_get_accessible_at_point (AtkComponent    *component,
  * @y: address of #gint to put y coordinate
  * @width: address of #gint to put width
  * @height: address of #gint to put height
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  *
  * Gets the rectangle which gives the extent of the @component.
+ *
  **/
 void
 atk_component_get_extents    (AtkComponent    *component,
                               gint            *x,
                               gint            *y,
                               gint            *width,
-                              gint            *height)
+                              gint            *height,
+                              AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_if_fail (component != NULL);
@@ -181,7 +190,7 @@ atk_component_get_extents    (AtkComponent    *component,
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_extents)
-    (iface->get_extents) (component, x, y, width, height);
+    (iface->get_extents) (component, x, y, width, height, coord_type);
 }
 
 /**
@@ -189,15 +198,17 @@ atk_component_get_extents    (AtkComponent    *component,
  * @component: an #AtkComponent
  * @x: address of #gint to put x coordinate position
  * @y: address of #gint to put y coordinate position
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  *
- * Gets the position of @component relative to the parent in the form of 
- * a point specifying @component's top-left corner in the screen's
- * coordinate space.
+ * Gets the position of @component in the form of 
+ * a point specifying @component's top-left corner.
  **/
 void
 atk_component_get_position   (AtkComponent    *component,
                               gint            *x,
-                              gint            *y)
+                              gint            *y,
+                              AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
   g_return_if_fail (component != NULL);
@@ -206,30 +217,7 @@ atk_component_get_position   (AtkComponent    *component,
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->get_position)
-    (iface->get_position) (component, x, y);
-}
-
-/**
- * atk_component_get_position_on_screen:
- * @component: an #AtkComponent
- * @x: address of #gint to put x coordinate position
- * @y: address of #gint to put y coordinate position
- *
- * Gets the position of the @component on the screen.
- **/
-void
-atk_component_get_position_on_screen (AtkComponent    *component,
-                                      gint            *x,
-                                      gint            *y)
-{
-  AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
-  g_return_if_fail (ATK_IS_COMPONENT (component));
-
-  iface = ATK_COMPONENT_GET_IFACE (component);
-
-  if (iface->get_position_on_screen)
-    (iface->get_position_on_screen) (component, x, y);
+    (iface->get_position) (component, x, y, coord_type);
 }
 
 /**
@@ -261,17 +249,19 @@ atk_component_get_size       (AtkComponent    *component,
  *
  * Grabs focus for this @component.
  **/
-void
+gboolean
 atk_component_grab_focus (AtkComponent    *component)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
-  g_return_if_fail (ATK_IS_COMPONENT (component));
+  g_return_val_if_fail (component != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->grab_focus)
-    (iface->grab_focus) (component);
+    return (iface->grab_focus) (component);
+  else
+    return FALSE;
 }
 
 /**
@@ -281,24 +271,31 @@ atk_component_grab_focus (AtkComponent    *component)
  * @y: y coordinate
  * @width: width to set for @component
  * @height: height to set for @component
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  *
  * Sets the extents of @component.
+ *
+ * Returns: %TRUE or %FALSE whether the extents were set or not
  **/
-void
+gboolean
 atk_component_set_extents   (AtkComponent    *component,
                              gint            x,
                              gint            y,
                              gint            width,
-                             gint            height)
+                             gint            height,
+                             AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
-  g_return_if_fail (ATK_IS_COMPONENT (component));
+  g_return_val_if_fail (component != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->set_extents)
-    (iface->set_extents) (component, x, y, width, height);
+    return (iface->set_extents) (component, x, y, width, height, coord_type);
+  else
+    return FALSE;
 }
 
 /**
@@ -306,22 +303,29 @@ atk_component_set_extents   (AtkComponent    *component,
  * @component: an #AtkComponent
  * @x: x coordinate
  * @y: y coordinate
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
  *
- * Sets the position of @component.
+ * Sets the postition of @component.
+ * 
+ * Returns: %TRUE or %FALSE whether or not the position was set or not
  **/
-void
+gboolean
 atk_component_set_position   (AtkComponent    *component,
                               gint            x,
-                              gint            y)
+                              gint            y,
+                              AtkCoordType    coord_type)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
-  g_return_if_fail (ATK_IS_COMPONENT (component));
+  g_return_val_if_fail (component != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->set_position)
-    (iface->set_position) (component, x, y);
+    return (iface->set_position) (component, x, y, coord_type);
+  else
+    return FALSE;
 }
 
 /**
@@ -331,26 +335,31 @@ atk_component_set_position   (AtkComponent    *component,
  * @height: height to set for @component
  *
  * Set the size of the @component in terms of width and height.
+ *
+ * Returns: %TRUE or %FALSE whether the size was set or not
  **/
-void
+gboolean
 atk_component_set_size       (AtkComponent    *component,
                               gint            x,
                               gint            y)
 {
   AtkComponentIface *iface = NULL;
-  g_return_if_fail (component != NULL);
-  g_return_if_fail (ATK_IS_COMPONENT (component));
+  g_return_val_if_fail (component != NULL, FALSE);
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), FALSE);
 
   iface = ATK_COMPONENT_GET_IFACE (component);
 
   if (iface->set_size)
-    (iface->set_size) (component, x, y);
+    return (iface->set_size) (component, x, y);
+  else
+    return FALSE;
 }
 
 static AtkObject* 
 atk_component_real_get_accessible_at_point (AtkComponent *component,
                                             gint         x,
-                                            gint         y)
+                                            gint         y,
+                                            AtkCoordType coord_type)
 {
   gint count, i;
 
@@ -366,7 +375,7 @@ atk_component_real_get_accessible_at_point (AtkComponent *component,
 
     if (obj != NULL)
     {
-      if (atk_component_contains (ATK_COMPONENT (obj), x, y))
+      if (atk_component_contains (ATK_COMPONENT (obj), x, y, coord_type))
       {
         g_object_unref (obj);
         return obj;

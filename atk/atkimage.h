@@ -21,6 +21,7 @@
 #define __ATK_IMAGE_H__
 
 #include <atk/atkobject.h>
+#include <atk/atkutil.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,7 +47,10 @@ typedef struct _AtkImageIface AtkImageIface;
 struct _AtkImageIface
 {
   GTypeInterface parent;
-
+  void          	( *get_position)          (AtkImage		 *image,
+                                                   gint                  *x,
+				                   gint	                 *y,
+    			                           AtkCoordType	         coord_type);
   G_CONST_RETURN gchar* ( *get_image_description) (AtkImage              *image);
   void                  ( *get_image_size)        (AtkImage              *image,
                                                    gint                  *height,
@@ -65,7 +69,10 @@ void     atk_image_get_image_size        (AtkImage           *image,
 
 gboolean atk_image_set_image_description (AtkImage           *image,
                                           const gchar       *description);
-
+void     atk_image_get_position          (AtkImage	     *image,
+                                          gint               *x,
+					  gint	             *y,
+    					  AtkCoordType	     coord_type);
 
 #ifdef __cplusplus
 }

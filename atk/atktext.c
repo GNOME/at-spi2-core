@@ -310,7 +310,7 @@ atk_text_get_character_extents (AtkText *text,
                                 gint *y,
                                 gint *length,
                                 gint *width,
-			        AtkXYCoords coords)
+			        AtkCoordType coords)
 {
   AtkTextIface *iface;
 
@@ -406,7 +406,7 @@ gint
 atk_text_get_offset_at_point (AtkText *text,
                               gint x,
                               gint y,
-			      AtkXYCoords coords)
+			      AtkCoordType coords)
 {
   AtkTextIface *iface;
 

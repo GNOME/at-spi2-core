@@ -24,6 +24,7 @@
 #include <pango/pango.h>
 #include <glib-object.h>
 #include <atk/atkobject.h>
+#include <atk/atkutil.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,20 +47,6 @@ typedef struct _AtkAttribute {
 typedef struct _AtkText AtkText;
 #endif
 typedef struct _AtkTextIface AtkTextIface;
-
-
-/**
- *AtkXYCoords:
- *@ATK_XY_SCREEN: specifies xy coordinates relative to the screen
- *@ATK_XY_WINDOW: specifies xy coordinates relative to the widgets 
- * top-level window
- *
- *Specifies how xy coordinates are to be interpreted
- **/
-typedef enum {
-  ATK_XY_SCREEN,
-  ATK_XY_WINDOW
-}AtkXYCoords;
 
 /**
  *AtkTextBoundary:
@@ -118,12 +105,12 @@ struct _AtkTextIface
                                                    gint             *y,
                                                    gint             *length,
                                                    gint             *width,
-                                                   AtkXYCoords	    coords);
+                                                   AtkCoordType	    coords);
   gint           (* get_character_count)          (AtkText          *text);
   gint           (* get_offset_at_point)          (AtkText          *text,
                                                    gint             x,
                                                    gint             y,
-                                                   AtkXYCoords	    coords);
+                                                   AtkCoordType	    coords);
   gint		 (* get_n_selections)		  (AtkText          *text);
   gchar*         (* get_selection)	          (AtkText          *text,
 						   gint		    selection_num,
@@ -186,7 +173,7 @@ void          atk_text_get_character_extents              (AtkText          *tex
                                                            gint             *y,
                                                            gint             *length,
                                                            gint             *width,
-                                                           AtkXYCoords	    coords);
+                                                           AtkCoordType	    coords);
 AtkAttributeSet* atk_text_ref_run_attributes              (AtkText	    *text,
 						           gint	  	    offset,
 						           gint             *start_offset,
@@ -195,7 +182,7 @@ gint          atk_text_get_character_count                (AtkText          *tex
 gint          atk_text_get_offset_at_point                (AtkText          *text,
                                                            gint             x,
                                                            gint             y,
-                                                           AtkXYCoords	    coords);
+                                                           AtkCoordType	    coords);
 gint          atk_text_get_n_selections			  (AtkText          *text);
 gchar*        atk_text_get_selection			  (AtkText          *text,
 							   gint		    selection_num,

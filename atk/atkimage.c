@@ -74,6 +74,8 @@ atk_image_get_image_description (AtkImage *obj)
  * @width: filled with the image width
  *
  * Get the height, in pixels/screen coords, of this image.
+ *
+ * Returns: an integer representing the image height in pixel coords
  **/
 void
 atk_image_get_image_size (AtkImage *obj, int *height, int *width)
@@ -125,3 +127,37 @@ atk_image_set_image_description (AtkImage        *obj,
       return FALSE;
     }
 }
+
+/**
+ * atk_image_get_position:
+ * @image: a #GObject instance that implements AtkImageIface
+ * @x: address of #gint to put x coordinate position
+ * @y: address of #gint to put y coordinate position
+ * @coord_type: specifies whether the coordinates are relative to the screen
+ * or to the components top level window
+ * 
+ * Gets the position of the image in the form of a point specifying the
+ * images top-left corner
+ **/
+void     
+atk_image_get_position (AtkImage *image,
+                        gint *x,
+		        gint *y,
+    		        AtkCoordType coord_type)
+{
+  AtkImageIface *iface;
+
+  g_return_if_fail (image != NULL);
+  g_return_if_fail (ATK_IS_IMAGE (image));
+
+  iface = ATK_IMAGE_GET_IFACE (image);
+
+  if (iface->get_position)
+    (iface->get_position) (image, x, y, coord_type);
+}
+
+
+
+
+
+

@@ -26,6 +26,19 @@
 extern "C" {
 #endif /* __cplusplus */
 
+/**
+ *AtkCoordType:
+ *@ATK_XY_SCREEN: specifies xy coordinates relative to the screen
+ *@ATK_XY_WINDOW: specifies xy coordinates relative to the widgets 
+ * top-level window
+ *
+ *Specifies how xy coordinates are to be interpreted 
+ **/
+typedef enum {
+  ATK_XY_SCREEN,
+  ATK_XY_WINDOW
+}AtkCoordType;
+
 /*
  * A focus tracker is a function which is called when an object 
  * receives focus.

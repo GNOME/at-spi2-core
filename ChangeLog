@@ -1,4 +1,11 @@
 2001-06-28  Brian Cameron <brian.cameron@sun.com>
+	* atk/atkcomponent.c atk/atkcomponent.h atk/atkimage.c
+	atk/atkimage.h atk/atktext.c atk/atktext.h atk/atkutil.h
+	Updated so that functions that take screen coords as 
+	input/output also take an enum specifying whether
+	the coords are screen or top-level window based.
+
+2001-06-28  Brian Cameron <brian.cameron@sun.com>
 	*atk/atkaction.c atk/atkcomponent.c atk/atkeditabletext.c
 	atk/atkhyperlink.c atk/atkobject.c atk/atkregistry.c
 	atk/atkstate.c atk/atkstateset.c atk/atkstreamablecontent.c
