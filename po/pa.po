@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD.pa\n"
+"Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-21 11:00+0200\n"
-"PO-Revision-Date: 2004-08-21 18:27+0530\n"
+"PO-Revision-Date: 2004-11-04 10:35+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "ਚੁਣਿਆ ਸੰਬੰਧ"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "ਨਿਰਧਾਰਿਤ ਕਰੋ ਕਿ ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਆਬਜੈਕਟ ਚੁਣਿਆ"
+msgstr "ਨਿਰਧਾਰਿਤ ਕਰੋ ਕਿ AtkHyperlink ਇਕਾਈ ਚੁਣੀ ਹੈ"
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
@@ -33,7 +33,7 @@ msgstr "ਅੰਕਰ ਦੀ ਗਿਣਤੀ"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਆਬਜੈਕਟ ਨਾਲ  ਅੰਕਰ ਦੀ ਗਿਣਤੀ"
+msgstr "AtkHyperlink ਇਕਾਈ ਨਾਲ ਅੰਕਰ ਦੀ ਗਿਣਤੀ"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -41,7 +41,7 @@ msgstr "ਤਤਕਰਾ ਖਤਮ"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਆਬਜੈਕਟ ਦੇ ਤਤਕਰੇ ਦਾ ਅੰਤ"
+msgstr "AtkHyperlink ਇਕਾਈ ਦੇ ਤਤਕਰੇ ਦਾ ਅੰਤ"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
@@ -49,7 +49,7 @@ msgstr "ਤਤਕਰਾ ਸ਼ੁਰੂ"
 
 #: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਆਬਜੈਕਟ ਦੇ ਤਤਕਰੇ ਸ਼ੁਰੂ"
+msgstr "AtkHyperlink ਇਕਾਈ ਦਾ ਤਤਕਰੇ ਸ਼ੁਰੂ"
 
 #: atk/atkobject.c:82
 msgid "invalid"
@@ -57,7 +57,7 @@ msgstr "ਗਲਤ"
 
 #: atk/atkobject.c:83
 msgid "accelerator label"
-msgstr "ਐਕਸਲੇਟ ਲੇਬਲ"
+msgstr "ਪ੍ਰਵੇਸ਼ਕ ਲੇਬਲ"
 
 #: atk/atkobject.c:84
 msgid "alert"
@@ -101,7 +101,7 @@ msgstr "ਕੰਬੋ ਬਾਕਸ"
 
 #: atk/atkobject.c:94
 msgid "dateeditor"
-msgstr "ਮਿਤੀ-ਸੋਧਕ"
+msgstr "ਮਿਤੀ-ਸੰਪਾਦਕ"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
@@ -117,15 +117,15 @@ msgstr "ਡਾਇਲ"
 
 #: atk/atkobject.c:98
 msgid "dialog"
-msgstr "ਤਖਤੀ"
+msgstr "ਵਾਰਤਾਲਾਪ"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
-msgstr "ਡਾਇਰੈਕਟਰੀ ਪਾਸਾ"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਬਾਹੀ"
 
 #: atk/atkobject.c:100
 msgid "drawing area"
-msgstr "ਡਰਾਇੰਗ ਖੇਤਰ"
+msgstr "ਚਿੱਤਰਕਾਰੀ ਖੇਤਰ"
 
 #: atk/atkobject.c:101
 msgid "file chooser"
@@ -138,7 +138,7 @@ msgstr "ਭਰਨ ਵਾਲਾ"
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
-msgstr "ਫੋਟ ਚੋਣਕਾਰ"
+msgstr "ਫੋਂਟ ਚੋਣਕਾਰ"
 
 #: atk/atkobject.c:105
 msgid "frame"
@@ -146,11 +146,11 @@ msgstr "ਫਰੇਮ"
 
 #: atk/atkobject.c:106
 msgid "glass pane"
-msgstr "ਗਲਾਸ ਪਾਸਾ"
+msgstr "ਗਲਾਸ ਬਾਹੀ"
 
 #: atk/atkobject.c:107
 msgid "html container"
-msgstr "ਐਚਟੀਐਮਐਲ ਕੰਟੇਨਰ"
+msgstr "html ਬਕਸਾ"
 
 #: atk/atkobject.c:108
 msgid "icon"
@@ -170,7 +170,7 @@ msgstr "ਲੇਬਲ"
 
 #: atk/atkobject.c:112
 msgid "layered pane"
-msgstr "ਪਰਤਦਾਰ ਪਾਸਾ"
+msgstr "ਪਰਤਦਾਰ ਬਾਹੀ"
 
 #: atk/atkobject.c:113
 msgid "list"
@@ -182,11 +182,11 @@ msgstr "ਸੂਚੀ ਇਕਾਈ"
 
 #: atk/atkobject.c:115
 msgid "menu"
-msgstr "ਮੇਨੂ-ਸੂਚੀ"
+msgstr "ਮੇਨੂ"
 
 #: atk/atkobject.c:116
 msgid "menu bar"
-msgstr "ਮੇਨੂ-ਪੱਟੀ"
+msgstr "ਮੇਨੂ ਬਾਹੀ"
 
 #: atk/atkobject.c:117
 msgid "menu item"
@@ -194,7 +194,7 @@ msgstr "ਮੇਨੂ ਇਕਾਈ"
 
 #: atk/atkobject.c:118
 msgid "option pane"
-msgstr "ਚੋਣ ਪੱਟੀ"
+msgstr "ਚੋਣ ਬਾਹੀ"
 
 #: atk/atkobject.c:119
 msgid "page tab"
@@ -242,11 +242,11 @@ msgstr "ਕਤਾਰ ਸਿਰਲੇਖ"
 
 #: atk/atkobject.c:130
 msgid "scroll bar"
-msgstr "ਸਕਰੋਲ ਪੱਟੀ"
+msgstr "ਸਕ੍ਰੋਲ ਪੱਟੀ"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "ਸਕਰੋਲ ਪੱਟੀ"
+msgstr "ਸਕ੍ਰੋਲ ਪੱਟੀ"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -298,7 +298,7 @@ msgstr "ਪਾਠ"
 
 #: atk/atkobject.c:144
 msgid "toggle button"
-msgstr "ਟਾਗਲ ਬਟਨ"
+msgstr "ਤਬਦੀਲ ਬਟਨ"
 
 #: atk/atkobject.c:145
 msgid "tool bar"
@@ -310,11 +310,11 @@ msgstr "ਸੰਦ ਸੰਕੇਤ"
 
 #: atk/atkobject.c:147
 msgid "tree"
-msgstr "ਟਰੀ"
+msgstr "ਲੜੀ"
 
 #: atk/atkobject.c:148
 msgid "tree table"
-msgstr "ਟਰੀ ਸਾਰਣੀ"
+msgstr "ਲੜੀ ਸਾਰਣੀ"
 
 #: atk/atkobject.c:149
 msgid "unknown"
@@ -362,7 +362,7 @@ msgstr "ਪਹੁੰਚ ਨਾਂ"
 
 #: atk/atkobject.c:297
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "ਆਬਜੈਕਟ ਮੌਜੂਦ ਦਾ ਨਾਂ ਫਾਰਮਿਟ ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ"
+msgstr "ਇਕਈ ਮੌਜੂਦਾ ਦਾ ਨਾਂ ਫਾਰਮਿਟ ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ"
 
 #: atk/atkobject.c:303
 msgid "Accessible Description"
@@ -370,7 +370,7 @@ msgstr "ਪਹੁੰਚ ਵੇਰਵਾ"
 
 #: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ ਆਬਜੈਕਟ ਦਾ ਵੇਰਵਾ ਫਾਰਮਿਟ"
+msgstr "ਸਹਾਇਕ ਤਕਨੀਕ ਲਈ ਇਕਾਈ ਦਾ ਵੇਰਵਾ ਫਾਰਮਿਟ"
 
 #: atk/atkobject.c:310
 msgid "Accessible Parent"
@@ -394,7 +394,7 @@ msgstr "ਪਹੁੰਚ ਭਾਗ"
 
 #: atk/atkobject.c:327
 msgid "The accessible role of this object"
-msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਭਾਗ"
+msgstr "ਇਸ ਇਕਾਈ ਦਾ ਪਹੁੰਚ ਭਾਗ"
 
 #: atk/atkobject.c:335
 msgid "Accessible Layer"
@@ -402,15 +402,15 @@ msgstr "ਪਹੁੰਚ ਪਰਤ"
 
 #: atk/atkobject.c:336
 msgid "The accessible layer of this object"
-msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਪਰਤ"
+msgstr "ਇਸ ਇਕਾਈ ਦਾ ਪਹੁੰਚ ਪਰਤ"
 
 #: atk/atkobject.c:344
 msgid "Accessible MDI Value"
-msgstr "ਪਹੁੰਚ ਐਮਡੀਆਈ ਮੁੱਲ"
+msgstr "ਪਹੁੰਚ MDI ਮੁੱਲ"
 
 #: atk/atkobject.c:345
 msgid "The accessible MDI value of this object"
-msgstr "ਇਸ ਆਬਜੈਕਟ ਦਾ ਪਹੁੰਚ ਐਮਡੀਆਈ"
+msgstr "ਇਸ ਇਕਈ ਦਾ ਪਹੁੰਚ MDI"
 
 #: atk/atkobject.c:353
 msgid "Accessible Table Caption"
@@ -422,7 +422,7 @@ msgid ""
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ ਸਾਰਣੀ ਨਾਂ ਤਬਦੀਲ ਹੋ ਗਿਆ ਹੈ; ਇਹ ਵਿਸ਼ੇਸਤਾ ਤਬਦੀਲ ਨਹੀ ਹੋਣੀ "
-"ਚਾਹੀਦੀ ਹੈ । ਪਹੁੰਚ-ਸਾਰਣੀ-ਨਾਂ-ਆਬਜੈਕਟ ਵਰਤੋ"
+"ਚਾਹੀਦੀ ਹੈ। ਪਹੁੰਚ-ਸਾਰਣੀ-ਨਾਂ-ਇਕਾਈ ਇਸਤੇਮਾਲ ਕਰੋ"
 
 #: atk/atkobject.c:360
 msgid "Accessible Table Column Header"
@@ -466,7 +466,7 @@ msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ �
 
 #: atk/atkobject.c:395
 msgid "Accessible Table Caption Object"
-msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਂ ਆਬਜੈਕਟ"
+msgstr "ਪਹੁੰਚ ਸਾਰਣੀ ਨਾਂ ਇਕਾਈ"
 
 #: atk/atkobject.c:396
 msgid "Is used to notify that the table caption has changed"
@@ -474,9 +474,9 @@ msgstr "ਕੀ ਇਹ ਟਿੱਪਣੀ ਲਈ ਵਰਤਣਾ ਹੈ ਕਿ �
 
 #: atk/atkobject.c:402
 msgid "Number of Accessible Hypertext Links"
-msgstr "ਪਹੁੰਚਯੋਗ ਹਾਈਪਰਟੈਕਸਟ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
+msgstr "ਪਹੁੰਚਯੋਗ ਹਾਈਪ੍ਰਟੈਕਸਟ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
 
 #: atk/atkobject.c:403
 msgid "The number of links which the current AtkHypertext has"
-msgstr "ਮੌਜੂਦਾ ਏਟੀਕੇ-ਹਾਈਪਰਟੈਕਸਟ ਵਿੱਚ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
+msgstr "ਮੌਜੂਦਾ AtkHypertext ਵਿੱਚ ਸੰਬੰਧ ਦੀ ਗਿਣਤੀ"
 
