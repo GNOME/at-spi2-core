@@ -1,4 +1,8 @@
-<2001-10-09  Bill Haneman <bill.haneman@sun.com>
+<2001-09-10  Marc Mulcahy <marc.mulcahy@sun.com
+	libspi/component.c libspi/component.h:
+		Fixed typo.  Added assertions for object checks in AccessibleComponent code.
+
+	<2001-10-09  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessible.idl:
 		Added 'isEqual (Accessible *object)' 

@@ -32,7 +32,7 @@ extern "C" {
 #define COMPONENT_TYPE        (accessibility_component_get_type ())
 #define COMPONENT(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), COMPONENT_TYPE, Component))
 #define COMPONENT_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), COMPONENT_TYPE, ComponentClass))
-#define IS_COMPONENT(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), COMPONENT_TYPE))
+#define IS_COMPONENT(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), COMPONENT_TYPE))
 #define IS_COMPONENT_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), COMPONENT_TYPE))
 
 typedef struct {

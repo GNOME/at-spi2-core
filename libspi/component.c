@@ -77,10 +77,15 @@ impl_accessibility_component_contains (PortableServer_Servant servant,
                                        CORBA_Environment     *ev)
 {
   CORBA_boolean retval;
-  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  BonoboObject *obj;
+  Component *component;
+
+  obj = bonobo_object_from_servant (servant);
+  g_return_val_if_fail (IS_COMPONENT(obj), FALSE);
+  component = COMPONENT (obj);
+  g_return_val_if_fail (ATK_IS_COMPONENT(component->atko), FALSE);
   retval = atk_component_contains (ATK_COMPONENT (component->atko), (gint) x, (gint) y,
                                   (AtkCoordType) coord_type);
-  fprintf (stderr, "Component contains() called: %s\n", retval ? "true" : "false" );
   return retval;
 }
 
@@ -94,9 +99,16 @@ impl_accessibility_component_get_accessible_at_point (PortableServer_Servant ser
                                                       CORBA_short coord_type,
                                                       CORBA_Environment     *ev)
 {
+  BonoboObject *obj;
+  Component *component;
   Accessibility_Accessible retval;
-  Component *component = COMPONENT (bonobo_object_from_servant (servant));
   AtkObject *child;
+
+  obj = bonobo_object_from_servant (servant);
+  g_return_val_if_fail (IS_COMPONENT(obj), CORBA_OBJECT_NIL);
+  component = COMPONENT (obj);
+  g_return_val_if_fail (ATK_IS_COMPONENT(component->atko), CORBA_OBJECT_NIL);
+
   child = atk_component_ref_accessible_at_point (ATK_COMPONENT (component->atko),
                                                   (gint) x, (gint) y,
                                                   (AtkCoordType) coord_type);
@@ -116,8 +128,15 @@ impl_accessibility_component_get_extents (PortableServer_Servant servant,
                                           const CORBA_short coord_type,
                                           CORBA_Environment     *ev)
 {
-  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  BonoboObject *obj;
+  Component *component;
   gint ix, iy, iw, ih;
+
+  obj = bonobo_object_from_servant (servant);
+  g_return_if_fail (IS_COMPONENT(obj));
+  component = COMPONENT (obj);
+  g_return_if_fail (ATK_IS_COMPONENT (component->atko));
+
   atk_component_get_extents (ATK_COMPONENT (component->atko), &ix, &iy, &iw, &ih,
                                   (AtkCoordType) coord_type);
   *x = (CORBA_long) ix;
@@ -136,8 +155,14 @@ impl_accessibility_component_get_position (PortableServer_Servant servant,
                                            const CORBA_short coord_type,
                                            CORBA_Environment     *ev)
 {
-  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  BonoboObject *obj = bonobo_object_from_servant (servant);
+  Component *component;
   gint ix, iy;
+
+  g_return_if_fail (IS_COMPONENT(obj));
+  component = COMPONENT(obj);
+  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
+
   atk_component_get_position (ATK_COMPONENT (component->atko), &ix, &iy,
                               (AtkCoordType) coord_type);
   *x = (CORBA_long) ix;
@@ -153,8 +178,13 @@ impl_accessibility_component_get_size (PortableServer_Servant servant,
                                        CORBA_long * height,
                                        CORBA_Environment     *ev)
 {
-  Component *component = COMPONENT (bonobo_object_from_servant (servant));
+  Component *component;
+  BonoboObject *obj = bonobo_object_from_servant (servant);
   gint iw, ih;
+
+  g_return_if_fail (IS_COMPONENT(obj));
+  component = COMPONENT(obj);
+  g_return_if_fail (ATK_IS_COMPONENT(component->atko));
   atk_component_get_size (ATK_COMPONENT (component->atko), &iw, &ih);
   *width = (CORBA_long) iw;
   *height = (CORBA_long) ih;
