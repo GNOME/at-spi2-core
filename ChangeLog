@@ -1,3 +1,11 @@
+2001-11-12  Bill Haneman <bill.haneman@sun.com>
+
+        * test/keysynth-demo.c:
+        Use a 'realize' signal-handler to set the WM properties for
+        the virtual keyboard, rather than making it a "POPUP" type
+        override-redirect window (thanks to anders carlsson for that
+        tip!)
+
 2001-11-11  Bill Haneman <bill.haneman@sun.com>
 
 	* test/Makefile.am:
