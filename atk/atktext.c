@@ -600,3 +600,27 @@ atk_text_set_caret_offset (AtkText *text,
       return FALSE;
     }
 }
+
+/**
+ * AtkAttributeSet_free:
+ * @attrib_set: The #AtkAttributeSet to free
+ *
+ * Frees the memory used by an #AtkAttributeSet, including all its
+ * #AtkAttributes
+ *
+ **/
+void
+AtkAttributeSet_free(AtkAttributeSet *attrib_set)
+{
+  gint index;
+
+  if (attrib_set == NULL)
+    return;
+
+  for (index = 0; index < g_slist_length(attrib_set); index++)
+  {
+    g_free(((AtkAttribute*) (g_slist_nth(attrib_set,index)->data))->name);
+    g_free(((AtkAttribute*) (g_slist_nth(attrib_set,index)->data))->value);
+  }
+  g_slist_free(attrib_set);
+}

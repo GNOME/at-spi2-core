@@ -22,6 +22,7 @@
 
 #include <pango/pango.h>
 #include <atk/atkobject.h>
+#include <atk/atktext.h>
 
 #ifdef __cplusplus
 extern "C" {

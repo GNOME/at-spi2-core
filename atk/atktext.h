@@ -29,6 +29,13 @@
 extern "C" {
 #endif /* __cplusplus */
 
+typedef GSList AtkAttributeSet;
+
+typedef struct _AtkAttribute {
+  gchar* name;
+  gchar* value;
+}AtkAttribute;
+
 #define ATK_TYPE_TEXT                    (atk_text_get_type ())
 #define ATK_IS_TEXT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_TEXT)
 #define ATK_TEXT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_TEXT, AtkText)
@@ -202,6 +209,7 @@ gboolean      atk_text_set_selection                      (AtkText          *tex
 							   gint             end_offset);
 gboolean      atk_text_set_caret_offset                   (AtkText          *text,
                                                            gint             offset);
+void 	      AtkAttributeSet_free	                  (AtkAttributeSet  *attrib_set);
 
 #ifdef __cplusplus
 }
