@@ -127,7 +127,7 @@ main (int argc, char **argv)
         {
           application = Accessible_getChildAtIndex (desktop, j);
 	  s = Accessible_getName (application);
-          fprintf (stderr, "app %d name: %s\n", j, s);
+          fprintf (stderr, "app %d name: %s\n", j, s ? s : "(nil)");
 #ifdef PRINT_TREE
 	  print_accessible_tree (application, "*");
 #endif
@@ -222,7 +222,9 @@ print_accessible_tree (Accessible *accessible, char *prefix)
 	name = Accessible_getName (accessible);
 	role_name = Accessible_getRoleName (accessible);
 	fprintf (stdout, "%sAccessible [%s] \"%s\"; parent [%s] %s.\n",
-		 prefix, role_name, name, parent_role, parent_name);
+		 prefix, role_name, name ? name : "(nil)",
+		 parent_role ? parent_role : "(nil)",
+		 parent_name ? parent_name : "(nil)");
 	SPI_freeString (name);
 	SPI_freeString (role_name);
 	SPI_freeString (parent_name);
