@@ -1,3 +1,7 @@
+2003-09-28  Gediminas Paulauskas  <menesis@delfi.lt>
+
+    * configure.in: Added lt to ALL_LINGUAS.
+
 2003-09-23  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk.spec.in: Correct typo. Fix provided by Scott Kennedy.

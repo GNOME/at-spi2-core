@@ -1,0 +1,310 @@
+# Lithuanian translation of atk.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Tomas Kuliavas <tokul@users.sourceforge.net>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: atk\n"
+"POT-Creation-Date: 2003-09-28 21:26+0300\n"
+"PO-Revision-Date: 2003-09-22 19:17+0200\n"
+"Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk/atkobject.c:1235
+msgid "invalid"
+msgstr "klaidingas"
+
+#: atk/atkobject.c:1238
+msgid "accel-label"
+msgstr "greita-žymė"
+
+#: atk/atkobject.c:1241
+msgid "alert"
+msgstr "perspėjimas"
+
+#: atk/atkobject.c:1244
+msgid "animation"
+msgstr "animacija"
+
+#: atk/atkobject.c:1247
+msgid "arrow"
+msgstr "rodyklė"
+
+#: atk/atkobject.c:1250
+msgid "calendar"
+msgstr "kalendorius"
+
+#: atk/atkobject.c:1253
+msgid "canvas"
+msgstr "lapas"
+
+#: atk/atkobject.c:1256
+msgid "check-box"
+msgstr "žymimasis-langelis"
+
+#: atk/atkobject.c:1259
+msgid "check-menu-item"
+msgstr "žymimojo-meniu-punktas"
+
+#: atk/atkobject.c:1262
+msgid "color-chooser"
+msgstr "spalvų-parinkimas"
+
+#: atk/atkobject.c:1265
+msgid "column-header"
+msgstr "stulpelio-antraštė"
+
+#: atk/atkobject.c:1268
+msgid "combo-box"
+msgstr "laukas-su-sąrašu"
+
+#: atk/atkobject.c:1271
+msgid "date-editor"
+msgstr "datos-redaktorius"
+
+#: atk/atkobject.c:1274
+msgid "desktop-icon"
+msgstr "darbastalio-ikona"
+
+#: atk/atkobject.c:1277
+msgid "desktop-frame"
+msgstr "darbastalio-rėmelis"
+
+#: atk/atkobject.c:1280
+msgid "dial"
+msgstr "rinkiklis"
+
+#: atk/atkobject.c:1283
+msgid "dialog"
+msgstr "dialogas"
+
+#: atk/atkobject.c:1286
+msgid "directory-pane"
+msgstr "katalogo-rėmelis"
+
+#: atk/atkobject.c:1289
+msgid "drawing-area"
+msgstr "braižymo-laukas"
+
+#: atk/atkobject.c:1292
+msgid "file-chooser"
+msgstr "bylų-parinkimas"
+
+#: atk/atkobject.c:1295
+msgid "filler"
+msgstr "užpildiklis"
+
+#: atk/atkobject.c:1298
+msgid "font-chooser"
+msgstr "šriftų-parinkimas"
+
+#: atk/atkobject.c:1301
+msgid "frame"
+msgstr "rėmelis"
+
+#: atk/atkobject.c:1304
+msgid "glass-pane"
+msgstr "skaidus-skydelis"
+
+#: atk/atkobject.c:1307
+msgid "html-container"
+msgstr "html-konteineris"
+
+#: atk/atkobject.c:1310
+msgid "icon"
+msgstr "ikona"
+
+#: atk/atkobject.c:1313
+msgid "image"
+msgstr "piešinys"
+
+#: atk/atkobject.c:1316
+msgid "internal-frame"
+msgstr "vidinis-rėmelis"
+
+#: atk/atkobject.c:1319
+msgid "label"
+msgstr "žymė"
+
+#: atk/atkobject.c:1322
+msgid "layered-pane"
+msgstr "lygmenų-skydelis"
+
+#: atk/atkobject.c:1325
+msgid "list"
+msgstr "sąrašas"
+
+#: atk/atkobject.c:1328
+msgid "list-item"
+msgstr "sąrašo-punktas"
+
+#: atk/atkobject.c:1331
+msgid "menu"
+msgstr "meniu"
+
+#: atk/atkobject.c:1334
+msgid "menu-bar"
+msgstr "meniu-juosta"
+
+#: atk/atkobject.c:1337
+msgid "menu-item"
+msgstr "meniu-punktas"
+
+#: atk/atkobject.c:1340
+msgid "option-pane"
+msgstr "nustatymų-skydelis"
+
+#: atk/atkobject.c:1343
+msgid "page-tab"
+msgstr "lango-lapas"
+
+#: atk/atkobject.c:1346
+msgid "page-tab-list"
+msgstr "lango-lapų-sąrašas"
+
+#: atk/atkobject.c:1349
+msgid "panel"
+msgstr "skydelis"
+
+#: atk/atkobject.c:1352
+msgid "password-text"
+msgstr "slaptažodžio-tekstas"
+
+#: atk/atkobject.c:1355
+msgid "popup-menu"
+msgstr "išsiskleidžiantis-meniu"
+
+#: atk/atkobject.c:1358
+msgid "progress-bar"
+msgstr "progreso-juosta"
+
+#: atk/atkobject.c:1361
+msgid "push-button"
+msgstr "paspaudimo-mygtukas"
+
+#: atk/atkobject.c:1364
+msgid "radio-button"
+msgstr "žymimoji-akutė"
+
+#: atk/atkobject.c:1367
+msgid "radio-menu-item"
+msgstr "žymimojo-meniu-punktas"
+
+#: atk/atkobject.c:1370
+msgid "root-pane"
+msgstr "pagrindinis-skydelis"
+
+#: atk/atkobject.c:1373
+msgid "row-header"
+msgstr "eilutės-antraštė"
+
+#: atk/atkobject.c:1376
+msgid "scroll-bar"
+msgstr "persukimo-juosta"
+
+#: atk/atkobject.c:1379
+msgid "scroll-pane"
+msgstr "persukimo-skydelis"
+
+#: atk/atkobject.c:1382
+msgid "separator"
+msgstr "skyriklis"
+
+#: atk/atkobject.c:1385
+msgid "slider"
+msgstr "šliaužiklis"
+
+#: atk/atkobject.c:1388
+msgid "split-pane"
+msgstr "perskyrimo-skydelis"
+
+#: atk/atkobject.c:1391
+msgid "spin-button"
+msgstr "pasukimo-mygtukas"
+
+#: atk/atkobject.c:1394
+msgid "statusbar"
+msgstr "būklės-juosta"
+
+#: atk/atkobject.c:1397
+msgid "table"
+msgstr "lentelė"
+
+#: atk/atkobject.c:1400
+msgid "table-cell"
+msgstr "lentelės-langelis"
+
+#: atk/atkobject.c:1403
+msgid "table-column-header"
+msgstr "lentelės-stulpelio-antraštė"
+
+#: atk/atkobject.c:1406
+msgid "table-row-header"
+msgstr "lentelės-eilutės-antraštė"
+
+#: atk/atkobject.c:1409
+msgid "tear-off-menu-item"
+msgstr "nuplėšiamo-meniu-punktas"
+
+#: atk/atkobject.c:1412
+msgid "terminal"
+msgstr "terminalas"
+
+#: atk/atkobject.c:1415
+msgid "text"
+msgstr "tekstas"
+
+#: atk/atkobject.c:1418
+msgid "toggle-button"
+msgstr "perjungimo-mygtukas"
+
+#: atk/atkobject.c:1421
+msgid "tool-bar"
+msgstr "įrankių-juosta"
+
+#: atk/atkobject.c:1424
+msgid "tool-tip"
+msgstr "paaiškinimas"
+
+#: atk/atkobject.c:1427
+msgid "tree"
+msgstr "medis"
+
+#: atk/atkobject.c:1430
+msgid "tree-table"
+msgstr "medžio-lentelė"
+
+#: atk/atkobject.c:1433
+msgid "unknown"
+msgstr "nežinomas"
+
+#: atk/atkobject.c:1436
+msgid "viewport"
+msgstr "peržiūros-kampas"
+
+#: atk/atkobject.c:1439
+msgid "window"
+msgstr "langas"
+
+#: atk/atkobject.c:1442
+msgid "header"
+msgstr "antraštė"
+
+#: atk/atkobject.c:1445
+msgid "footer"
+msgstr "poraštė"
+
+#: atk/atkobject.c:1448
+msgid "paragraph"
+msgstr "pastraipa"
+
+#: atk/atkobject.c:1451
+msgid "ruler"
+msgstr "liniuotė"
+
+#: atk/atkobject.c:1454
+msgid "application"
+msgstr "programa"
