@@ -1,61 +1,61 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of atk.HEAD.hi.po to Hindi
 # Copyright (C) 2003, G Karunakar
 # This file is distributed under the same license as the atk package.
 # G Karunakar <karunakar@freedomink.org>, 2003.
-# 
+# Ravishankar Shrivastava <raviratlami@yahoo.com>, 2004.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 2.2\n"
+"Project-Id-Version: atk.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-23 18:22+0530\n"
-"PO-Revision-Date: 2003-08-08 21:25+0530\n"
-"Last-Translator: Anand Subramanian <anand.subra@wipro.com>\n"
-"Language-Team: Gnome Hindi Team <indlinux-hindi-gnome@lists.sourceforge."
-"net>\n"
+"POT-Creation-Date: 2004-07-21 14:38+0530\n"
+"PO-Revision-Date: 2004-06-18 16:46+0530\n"
+"Last-Translator: Ravishankar Shrivastava <raviratlami@yahoo.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
-msgstr ""
+msgstr "चयनित लिंक"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr ""
+msgstr "उल्लेखित करता है कि क्या एटीके-हायपरलिंक ऑब्जेक्ट चयनित है"
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr ""
+msgstr "एंकर्स की संख्या"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr ""
+msgstr "एटीके-हायपरलिंक ऑब्जेक्ट के साथ सम्बद्ध एंकर्स की संख्या"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
-msgstr ""
+msgstr "अंतिम निर्देशिका"
 
 #: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr ""
+msgstr "एटीके-हायपरलिंक ऑब्जेक्ट की अंतिम निर्देशिका"
 
 #: atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr ""
+msgstr "प्रारंभ निर्देशिका"
 
 #: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr ""
+msgstr "एटीके-हायपरलिंक ऑब्जेक्ट का प्रारंभ निर्देशिका"
 
 #: atk/atkobject.c:82
 msgid "invalid"
 msgstr "अवैध"
 
 #: atk/atkobject.c:83
-#, fuzzy
 msgid "accelerator label"
-msgstr "accel-label"
+msgstr "त्वरक लेबल"
 
 #: atk/atkobject.c:84
 msgid "alert"
@@ -63,7 +63,7 @@ msgstr "सावधान"
 
 #: atk/atkobject.c:85
 msgid "animation"
-msgstr "जीवन्तता"
+msgstr "एनीमेशन"
 
 #: atk/atkobject.c:86
 msgid "arrow"
@@ -71,51 +71,43 @@ msgstr "तीर"
 
 #: atk/atkobject.c:87
 msgid "calendar"
-msgstr "केलेण्डर"
+msgstr "तिथि पत्री"
 
 #: atk/atkobject.c:88
 msgid "canvas"
 msgstr "कैनवास"
 
 #: atk/atkobject.c:89
-#, fuzzy
 msgid "check box"
-msgstr "चेक-बाक्स"
+msgstr "चेक बक्सा"
 
 #: atk/atkobject.c:90
-#, fuzzy
 msgid "check menu item"
-msgstr "चेक-मेनू-अईटेम"
+msgstr "चेक मेनू आइटम"
 
 #: atk/atkobject.c:91
-#, fuzzy
 msgid "color chooser"
-msgstr "रंग चुननेवाला"
+msgstr "रंग चयनक"
 
 #: atk/atkobject.c:92
-#, fuzzy
 msgid "column header"
-msgstr "कालम-हैडर"
+msgstr "कॉलम हेडर"
 
 #: atk/atkobject.c:93
-#, fuzzy
 msgid "combo box"
-msgstr "काम्बो-बाक्स"
+msgstr "कॉम्बो बक्सा"
 
 #: atk/atkobject.c:94
-#, fuzzy
 msgid "dateeditor"
 msgstr "तिथि-सम्पादक"
 
 #: atk/atkobject.c:95
-#, fuzzy
 msgid "desktop icon"
-msgstr "डेस्कटाप-आयकन"
+msgstr "डेस्कटॉप चिह्न"
 
 #: atk/atkobject.c:96
-#, fuzzy
 msgid "desktop frame"
-msgstr "डेस्कटाप-रूपरेखा"
+msgstr "डेस्कटॉप रूपरेखा"
 
 #: atk/atkobject.c:97
 msgid "dial"
@@ -123,57 +115,51 @@ msgstr "डॉयल"
 
 #: atk/atkobject.c:98
 msgid "dialog"
-msgstr "डॉयलॉग"
+msgstr "संवाद"
 
 #: atk/atkobject.c:99
-#, fuzzy
 msgid "directory pane"
-msgstr "डायरेक्टरी-फलक"
+msgstr "डिरेक्टरी फलक"
 
 #: atk/atkobject.c:100
-#, fuzzy
 msgid "drawing area"
-msgstr "ड्रॉइंग-क्षेत्र"
+msgstr "आरेखण-क्षेत्र"
 
 #: atk/atkobject.c:101
-#, fuzzy
 msgid "file chooser"
-msgstr "फाइल-चुननेवाला"
+msgstr "फ़ाइल-चयनक"
 
 #: atk/atkobject.c:102
 msgid "filler"
-msgstr "फिल्लर"
+msgstr "फिलर"
 
+#  I know it looks wrong but that is what Java returns
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
-#, fuzzy
 msgid "fontchooser"
-msgstr "फोन्ट-चुने"
+msgstr "फ़ॉन्ट-चयनक"
 
 #: atk/atkobject.c:105
 msgid "frame"
 msgstr "रूपरेखा"
 
 #: atk/atkobject.c:106
-#, fuzzy
 msgid "glass pane"
-msgstr "काँच का फलक"
+msgstr "काँच-फलक"
 
 #: atk/atkobject.c:107
-#, fuzzy
 msgid "html container"
-msgstr "HTML कन्टेनर"
+msgstr "एचटीएमएल-कन्टेनर"
 
 #: atk/atkobject.c:108
 msgid "icon"
-msgstr "आयकन"
+msgstr "चिह्न"
 
 #: atk/atkobject.c:109
 msgid "image"
-msgstr "चित्र"
+msgstr "छवि"
 
 #: atk/atkobject.c:110
-#, fuzzy
 msgid "internal frame"
 msgstr "आन्तरिक रूपरेखा"
 
@@ -182,101 +168,84 @@ msgid "label"
 msgstr "लेबल"
 
 #: atk/atkobject.c:112
-#, fuzzy
 msgid "layered pane"
-msgstr "परतीला-फलक"
+msgstr "परतीला फलक"
 
 #: atk/atkobject.c:113
 msgid "list"
 msgstr "सूची"
 
 #: atk/atkobject.c:114
-#, fuzzy
 msgid "list item"
-msgstr "सूची-अईटेम"
+msgstr "सूची आइटम"
 
 #: atk/atkobject.c:115
 msgid "menu"
 msgstr "मेनू"
 
 #: atk/atkobject.c:116
-#, fuzzy
 msgid "menu bar"
-msgstr "मेनू-बार"
+msgstr "मेनू पट्टी"
 
 #: atk/atkobject.c:117
-#, fuzzy
 msgid "menu item"
-msgstr "मेनू-अईटेम"
+msgstr "मेनू आइटम"
 
 #: atk/atkobject.c:118
-#, fuzzy
 msgid "option pane"
-msgstr "विकल्प-फलक"
+msgstr "विकल्प फलक"
 
 #: atk/atkobject.c:119
-#, fuzzy
 msgid "page tab"
-msgstr "पेज-टैब"
+msgstr "पृष्ठ टैब"
 
 #: atk/atkobject.c:120
-#, fuzzy
 msgid "page tab list"
-msgstr "पेज-टैब-सूची"
+msgstr "पृष्ठ टैब सूची"
 
 #: atk/atkobject.c:121
 msgid "panel"
-msgstr "पेनल"
+msgstr "पटल"
 
 #: atk/atkobject.c:122
-#, fuzzy
 msgid "password text"
-msgstr "संकेत-शब्द पाठ्य"
+msgstr "पासवर्ड पाठ"
 
 #: atk/atkobject.c:123
-#, fuzzy
 msgid "popup menu"
-msgstr "पाॅप-अप मेनू"
+msgstr "पॉपअप मेन्यू"
 
 #: atk/atkobject.c:124
-#, fuzzy
 msgid "progress bar"
-msgstr "प्रगति-बार"
+msgstr "प्रगति पट्टी"
 
 #: atk/atkobject.c:125
-#, fuzzy
 msgid "push button"
-msgstr "पुश्-बटन"
+msgstr "पुश बटन"
 
 #: atk/atkobject.c:126
-#, fuzzy
 msgid "radio button"
-msgstr "रेडियो-बटन"
+msgstr "रेडियो बटन"
 
 #: atk/atkobject.c:127
-#, fuzzy
 msgid "radio menu item"
-msgstr "रेडियो-मेनू-अईटेम"
+msgstr "रेडियो मेनू आइटम"
 
 #: atk/atkobject.c:128
-#, fuzzy
 msgid "root pane"
 msgstr "रूट फलक"
 
 #: atk/atkobject.c:129
-#, fuzzy
 msgid "row header"
-msgstr "पंक्ति-हैडर"
+msgstr "पंक्ति हेडर"
 
 #: atk/atkobject.c:130
-#, fuzzy
 msgid "scroll bar"
-msgstr "स्क्रोल-बार"
+msgstr "स्क्रॉल पट्टी"
 
 #: atk/atkobject.c:131
-#, fuzzy
 msgid "scroll pane"
-msgstr "स्क्रोल-फलक"
+msgstr "स्क्रॉल फलक"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -287,42 +256,36 @@ msgid "slider"
 msgstr "स्लाइडर"
 
 #: atk/atkobject.c:134
-#, fuzzy
 msgid "split pane"
-msgstr "कटा-फलक"
+msgstr "कटा फलक"
 
 #: atk/atkobject.c:135
-#, fuzzy
 msgid "spin button"
-msgstr "स्पिन-बटन"
+msgstr "स्पिन बटन"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr "स्टेटस-बार"
+msgstr "स्थिति-पट्टी"
 
 #: atk/atkobject.c:137
 msgid "table"
 msgstr "टेबल"
 
 #: atk/atkobject.c:138
-#, fuzzy
 msgid "table cell"
-msgstr "टेबल-सेल"
+msgstr "टेबल सेल"
 
 #: atk/atkobject.c:139
-#, fuzzy
 msgid "table column header"
-msgstr "टेबल-कालम-हैडर"
+msgstr "टेबल कॉलम हेडर"
 
 #: atk/atkobject.c:140
-#, fuzzy
 msgid "table row header"
-msgstr "टेबल-पंक्ति-हैडर"
+msgstr "टेबल पंक्ति हेडर"
 
 #: atk/atkobject.c:141
-#, fuzzy
 msgid "tear off menu item"
-msgstr "टेर-आफ्-मेनू-अईटेम"
+msgstr "टीयर ऑफ मेनू आइटम"
 
 #: atk/atkobject.c:142
 msgid "terminal"
@@ -330,35 +293,31 @@ msgstr "टर्मिनल"
 
 #: atk/atkobject.c:143
 msgid "text"
-msgstr "फाठ्य"
+msgstr "पाठ"
 
 #: atk/atkobject.c:144
-#, fuzzy
 msgid "toggle button"
-msgstr "टागल-बटन"
+msgstr "टॉगल बटन"
 
 #: atk/atkobject.c:145
-#, fuzzy
 msgid "tool bar"
-msgstr "टूलबार"
+msgstr "उपकरण पट्टी"
 
 #: atk/atkobject.c:146
-#, fuzzy
 msgid "tool tip"
-msgstr "टूलटिप"
+msgstr "उपकरण युक्ति"
 
 #: atk/atkobject.c:147
 msgid "tree"
 msgstr "ट्री"
 
 #: atk/atkobject.c:148
-#, fuzzy
 msgid "tree table"
 msgstr "ट्री-टेबल"
 
 #: atk/atkobject.c:149
 msgid "unknown"
-msgstr "अंजान"
+msgstr "अज्ञात"
 
 #: atk/atkobject.c:150
 msgid "viewport"
@@ -370,7 +329,7 @@ msgstr "विंडो"
 
 #: atk/atkobject.c:152
 msgid "header"
-msgstr "हैडर"
+msgstr "हेडर"
 
 #: atk/atkobject.c:153
 msgid "footer"
@@ -386,130 +345,132 @@ msgstr "अनुप्रयोग"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
-msgstr ""
+msgstr "स्वचालित-पूर्ण"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
-msgstr ""
+msgstr "संपादन पट्टी"
 
 #: atk/atkobject.c:295
 msgid "Accessible Name"
-msgstr ""
+msgstr "पंहुचयोग्य नाम"
 
 #: atk/atkobject.c:296
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
+msgstr "असिस्टिव तकनॉलाज़ी पँहुच हेतु फॉर्मेटेड ऑब्जेक्ट इंस्टैन्स का नाम"
 
 #: atk/atkobject.c:302
 msgid "Accessible Description"
-msgstr ""
+msgstr "पहुँचयोग्य वर्णन"
 
 #: atk/atkobject.c:303
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
+msgstr "असिस्टिव तकनॉलाज़ी पँहुच हेतु फॉर्मेटेड ऑब्जेक्ट का वर्णन"
 
 #: atk/atkobject.c:309
 msgid "Accessible Parent"
-msgstr ""
+msgstr "पहुँचयोग्य पैरेंट"
 
 #: atk/atkobject.c:310
 msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgstr "पैरेंट बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:316
 msgid "Accessible Value"
-msgstr ""
+msgstr "पहुँचयोग्य मूल्य"
 
 #: atk/atkobject.c:317
 msgid "Is used to notify that the value has changed"
-msgstr ""
+msgstr "मूल्य बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:325
 msgid "Accessible Role"
-msgstr ""
+msgstr "पहुँचयोग्य भूमिका"
 
 #: atk/atkobject.c:326
 msgid "The accessible role of this object"
-msgstr ""
+msgstr "इस ऑब्जेक्ट की पहुँचयोग्य भूमिका"
 
 #: atk/atkobject.c:334
 msgid "Accessible Layer"
-msgstr ""
+msgstr "पहुँचयोग्य परत"
 
 #: atk/atkobject.c:335
 msgid "The accessible layer of this object"
-msgstr ""
+msgstr "इस ऑब्जेक्ट की पहुँचयोग्य परत"
 
 #: atk/atkobject.c:343
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "पहुँचयोग्य एमडीआई मूल्य"
 
 #: atk/atkobject.c:344
 msgid "The accessible MDI value of this object"
-msgstr ""
+msgstr "इस ऑब्जेक्ट का पहुँचयोग्य एमडीआई मूल्य"
 
 #: atk/atkobject.c:352
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल शीर्षक"
 
 #: atk/atkobject.c:353
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
+"टेबल शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए. "
+"बदले में पहुँचयोग्य-टेबल-शीर्षक-ऑब्जेक्ट उपयोग में लेना चाहिए"
 
 #: atk/atkobject.c:359
 msgid "Accessible Table Column Header"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल कॉलम हेडर"
 
 #: atk/atkobject.c:360
 msgid "Is used to notify that the table column header has changed"
-msgstr ""
+msgstr "टेबल कॉलम हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:366
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल कॉलम वर्णन"
 
 #: atk/atkobject.c:367
 msgid "Is used to notify that the table column description has changed"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल कॉलम वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:373
 msgid "Accessible Table Row Header"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल पंक्ति हेडर"
 
 #: atk/atkobject.c:374
 msgid "Is used to notify that the table row header has changed"
-msgstr ""
+msgstr "टेबल पंक्ति हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:380
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल पंक्ति वर्णन"
 
 #: atk/atkobject.c:381
 msgid "Is used to notify that the table row description has changed"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:387
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल सारांश"
 
 #: atk/atkobject.c:388
 msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgstr "टेबल कॉलम सारांश बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:394
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "पहुँचयोग्य टेबल शीर्षक ऑब्जेक्ट"
 
 #: atk/atkobject.c:395
 msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgstr "टेबल शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: atk/atkobject.c:401
 msgid "Number of Accessible Hypertext Links"
-msgstr ""
+msgstr "पहुँचयोग्य हायपरटेक्स्ट लिंक्स की संख्या"
 
 #: atk/atkobject.c:402
 msgid "The number of links which the current AtkHypertext has"
-msgstr ""
+msgstr "लिंक्स की संख्या जो कि वर्तमान एटीके-हायपरटेक्स्ट में हैं"
