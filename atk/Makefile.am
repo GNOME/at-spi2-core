@@ -100,11 +100,11 @@ atk_headers = \
         atkutil.h		\
         atkvalue.h
 
-libatkinclude_HEADERS =	\
-	$(atk_headers)	\
+libatkinclude_HEADERS =		\
+	$(atk_headers)		\
 	$(atk_built_headers)
 
-$(libatk_la_OBJECTS): atkmarshal.c atkmarshal.h
+$(libatk_la_OBJECTS): atkmarshal.c atkmarshal.h $(atk_built_headers)
 
 atkmarshal.h: @REBUILD@ stamp-atkmarshal.h
 	@true

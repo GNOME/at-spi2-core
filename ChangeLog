@@ -1,3 +1,9 @@
+2001-12-07  Padraig O'Briain  <padraig.obriain@sun.com>
+
+	* atk/Makefile.am:
+	Update to create atk-enum-types.h before compiling source files
+	(Problem reported by xavier ordoquy <xordoquy@aurora-linux.com>)
+
 2001-12-05  Padraig O'Briain  <padraig.obriain@sun.com>
 
 	* atk/atk.def atk/atktext.c atk/atktext.h docs/atk-sections.txt 
