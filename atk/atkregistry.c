@@ -20,7 +20,7 @@
 #include "atkregistry.h"
 #include "atknoopobjectfactory.h"
 
-static AtkRegistry *default_registry = NULL;;
+static AtkRegistry *default_registry = NULL;
 
 static void              atk_registry_init           (AtkRegistry      *instance,
                                                       AtkRegistryClass *klass);
@@ -86,8 +86,10 @@ atk_registry_class_finalize (GObjectClass *klass)
 static void
 atk_registry_init (AtkRegistry *instance, AtkRegistryClass *klass)
 {
-  instance->factory_type_registry = g_hash_table_new (NULL, NULL);
-  instance->factory_singleton_cache = g_hash_table_new (NULL, NULL);
+  instance->factory_type_registry = g_hash_table_new ((GHashFunc) NULL, 
+                                                      (GEqualFunc) NULL);
+  instance->factory_singleton_cache = g_hash_table_new ((GHashFunc) NULL, 
+                                                        (GEqualFunc) NULL);
 }
 
 static AtkRegistry*
@@ -97,7 +99,7 @@ atk_registry_new ()
 
   object = g_object_new (ATK_TYPE_REGISTRY, NULL);
 
-  g_return_val_if_fail ((object != NULL), NULL);
+  g_return_val_if_fail (object != NULL, NULL);
   g_return_val_if_fail (ATK_IS_REGISTRY (object), NULL);
 
   return (AtkRegistry *) object;

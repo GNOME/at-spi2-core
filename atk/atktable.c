@@ -28,8 +28,8 @@ atk_table_get_type ()
     GTypeInfo tinfo =
     {
       sizeof (AtkTableIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

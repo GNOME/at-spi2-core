@@ -28,8 +28,8 @@ atk_image_get_type ()
     static const GTypeInfo tinfo =
     {
       sizeof (AtkImageIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

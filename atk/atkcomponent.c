@@ -33,8 +33,8 @@ atk_component_get_type ()
     static const GTypeInfo tinfo =
     {
       sizeof (AtkComponentIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

@@ -36,8 +36,8 @@ atk_editable_text_get_type ()
     static const GTypeInfo tinfo =
     {
       sizeof (AtkEditableTextIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

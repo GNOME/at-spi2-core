@@ -28,8 +28,8 @@ atk_selection_get_type ()
     GTypeInfo tinfo =
     {
       sizeof (AtkSelectionIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

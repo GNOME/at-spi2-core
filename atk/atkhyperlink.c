@@ -92,13 +92,14 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail ((link != NULL), NULL);
+  g_return_val_if_fail (link != NULL, NULL);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), NULL);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->get_uri != NULL), NULL);
-
-  return (klass->get_uri) (link, i);
+  if (klass->get_uri)
+    return (klass->get_uri) (link, i);
+  else
+    return NULL;
 }
 
 /**
@@ -120,13 +121,14 @@ atk_hyperlink_get_object (AtkHyperlink *link,
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail ((link != NULL), NULL);
+  g_return_val_if_fail (link != NULL, NULL);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), NULL);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->get_object != NULL), NULL);
-
-  return (klass->get_object) (link, i);
+  if (klass->get_object)
+    return (klass->get_object) (link, i);
+  else
+    return NULL;
 }
 
 /**
@@ -142,13 +144,14 @@ atk_hyperlink_get_end_index (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail ((link != NULL), 0);
+  g_return_val_if_fail (link != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->get_end_index != NULL), 0);
-
-  return (klass->get_end_index) (link);
+  if (klass->get_end_index)
+    return (klass->get_end_index) (link);
+  else
+    return 0;
 }
 
 /**
@@ -164,13 +167,14 @@ atk_hyperlink_get_start_index (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail ((link != NULL), 0);
+  g_return_val_if_fail (link != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->get_start_index != NULL), 0);
-
-  return (klass->get_start_index) (link);
+  if (klass->get_start_index)
+    return (klass->get_start_index) (link);
+  else
+    return 0;
 }
 
 /**
@@ -188,13 +192,14 @@ atk_hyperlink_is_valid (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail ((link != NULL), FALSE);
+  g_return_val_if_fail (link != NULL, FALSE);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->is_valid != NULL), FALSE);
-
-  return (klass->is_valid) (link);
+  if (klass->is_valid)
+    return (klass->is_valid) (link);
+  else
+    return FALSE;
 }
 
 /**
@@ -210,13 +215,14 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
 {
   AtkHyperlinkClass *klass;
 
-  g_return_val_if_fail ((link != NULL), 0);
+  g_return_val_if_fail (link != NULL, 0);
   g_return_val_if_fail (ATK_IS_HYPERLINK (link), 0);
 
   klass = ATK_HYPERLINK_GET_CLASS (link);
-  g_return_val_if_fail ((klass->get_n_anchors != NULL), 0);
-
-  return (klass->get_n_anchors) (link);
+  if (klass->get_n_anchors)
+    return (klass->get_n_anchors) (link);
+  else
+    return 0;
 }
 
 static void atk_hyperlink_action_iface_init (AtkActionIface *iface)

@@ -28,8 +28,8 @@ atk_action_get_type ()
     GTypeInfo tinfo =
     {
       sizeof (AtkActionIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

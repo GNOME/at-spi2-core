@@ -40,8 +40,8 @@ atk_hypertext_get_type ()
     static const GTypeInfo tinfo =
     {
       sizeof (AtkHypertextIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
       (GInterfaceInitFunc) atk_hypertext_interface_init,
     };
 

@@ -28,8 +28,8 @@ atk_value_get_type ()
     GTypeInfo tinfo =
     {
       sizeof (AtkValueIface),
-      NULL,
-      NULL,
+      (GBaseInitFunc) NULL,
+      (GBaseFinalizeFunc) NULL,
 
     };
 

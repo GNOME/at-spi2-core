@@ -23,7 +23,7 @@
  * This file supports the addition and removal of multiple focus handlers
  * as long as they are all called in the same thread.
  */
-static AtkFocusTrackerInit  focus_tracker_init = NULL;
+static AtkFocusTrackerInit  focus_tracker_init = (AtkFocusTrackerInit) NULL;
 
 static gboolean init_done = FALSE;
 
@@ -51,7 +51,7 @@ typedef struct _FocusTracker FocusTracker;
 void
 atk_focus_tracker_init (AtkFocusTrackerInit    init)
 {
-  if (focus_tracker_init == NULL)
+  if (!focus_tracker_init)
     focus_tracker_init = init;
 }
 
@@ -68,11 +68,11 @@ atk_focus_tracker_init (AtkFocusTrackerInit    init)
 guint
 atk_add_focus_tracker (AtkFocusTracker   focus_tracker)
 {
-  g_return_val_if_fail ((focus_tracker != NULL), 0);
+  g_return_val_if_fail (focus_tracker, 0);
 
   if (!init_done)
   {
-    if (focus_tracker_init != NULL)
+    if (focus_tracker_init)
     {
       focus_tracker_init ();
     }
