@@ -31,7 +31,7 @@ enum
   PROP_NAME,
   PROP_DESCRIPTION,
   PROP_PARENT,      /* ancestry has changed */
-  PROP_CHILD,       /* children have changed in number or identity */
+  PROP_CHILD,       /* a child has been added or removed */
   PROP_STATE,       /* AtkStateSet for the object has changed */
   PROP_TEXT,        /* Used only by AtkText implementors */
   PROP_CARET,       /* Used only by AtkText implementors */
@@ -60,15 +60,15 @@ static void            atk_object_finalize         (GObject         *object);
 static void            atk_object_real_set_role    (AtkObject       *object,
                                                     AtkRole         role);
 
-#if 0
 static guint atk_object_signals[LAST_SIGNAL] = { 0, };
-#endif
 
 static gpointer parent_class = NULL;
 
 static const gchar* atk_object_name_property_name = "accessible-name";
 static const gchar* atk_object_name_property_state = "accessible-state";
 static const gchar* atk_object_name_property_description = "accessible-description";
+static const gchar* atk_object_name_property_child = "accessible-child";
+static const gchar* atk_object_name_property_parent = "accessible-parent";
 
 GType
 atk_object_get_type (void)
@@ -136,15 +136,21 @@ atk_object_class_init (AtkObjectClass *klass)
                                                         G_MAXINT,
                                                         0,
                                                         G_PARAM_READWRITE));
-#if 0
-  /* register some properties - these could be change signals instead */
   g_object_class_install_property (gobject_class,
-                                   PROP_PARENT,
-                                   g_param_spec_ccallback ("accessible_parent", "Accessible Parent",
-                                                           "First accessible ancestor (container or object) "
-                                                           "which this object is a descendant of",
-                                                           G_PARAM_READWRITE));
-
+                                   PROP_CHILD,
+                                   g_param_spec_object (atk_object_name_property_child,
+                                                        "Accessible Child",
+                                                        "Is used to notify that a child has been added or removed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+   g_object_class_install_property (gobject_class,
+                                    PROP_PARENT,
+                                   g_param_spec_object (atk_object_name_property_parent,
+                                                        "Accessible Parent",
+                                                        "Is used to notify that the parent has been changed ",
+                                                        ATK_TYPE_OBJECT,
+                                                        G_PARAM_READWRITE));
+#if 0
   g_object_class_install_property (gobject_class,
                                    PROP_TEXT,
                                    g_param_spec_ccallback ("accessible_text", "Accessible Text",
@@ -156,16 +162,17 @@ atk_object_class_init (AtkObjectClass *klass)
                                                            "The current text caret state and position "
                                                            "for this component",
                                                            G_PARAM_READWRITE));
-  gaccessible_signals[CHILDREN_CHANGED] =
+#endif
+  atk_object_signals[CHILDREN_CHANGED] =
     g_signal_newc ("accessible_children_changed",
                    G_TYPE_FROM_CLASS (klass),
                    G_SIGNAL_RUN_LAST,
                    G_STRUCT_OFFSET (AtkObjectClass, children_changed), /* still need to declare and define this func */
-                   NULL,
+                   NULL, NULL,
                    g_cclosure_marshal_VOID__UINT_POINTER,
                    G_TYPE_NONE,
                    2, G_TYPE_UINT, ATK_TYPE_OBJECT);
-#endif
+
 }
 
 static void
