@@ -1,3 +1,13 @@
+2004-05-28  Padraig O'Briain <padraig.obriain@sun.com>
+
+	* libloginhelper-1.0.pc.in:
+	* idl/Accessibility_LoginHelper.idl: 
+	* login-helper/Makefile.am:
+	* login-helper/login-helper.[ch]:
+	* test/login-helper-client-test.c:
+	* test/login-helper-server-test.c: Added files missing from CVS.
+	Files obtained from at-spi-1.5.2 tarball.
+
 2004-05-27  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Create login-helper/Makefile.  

@@ -1,0 +1,104 @@
+/* 
+ * AT-SPI - Assistive Technology Service Provider Interface 
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2001 Sun Microsystems Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+#include <Bonobo_Unknown.idl>
+
+#ifndef _ACCESSIBILITY_LOGIN_HELPER_IDL_
+#define _ACCESSIBILITY_LOGIN_HELPER_IDL_
+
+module Accessibility {
+
+  interface LoginHelper : Bonobo::Unknown {
+
+      struct WindowInfo {
+	  long winID;
+      };	
+
+      typedef sequence<WindowInfo> WindowList;
+
+      enum DeviceReq {
+	  GUI_EVENTS,
+	  CORE_KEYBOARD,
+	  CORE_POINTER,
+	  EXT_INPUT,
+	  POST_WINDOWS,
+	  AUDIO_OUT,
+	  AUDIO_IN,
+	  NETWORK,
+	  LOCALHOST,
+	  SERIAL_OUT,
+	  SERIAL_IN
+      };
+
+      typedef sequence<DeviceReq> DeviceReqList;
+
+  	/**
+         * setSafe:
+         * 
+         * Request a LoginHelper to enter "safe" mode, or
+	 *         inform LoginHelper that "safe" mode may be exited.
+	 *         If @safe_mode is %TRUE, but the return value is %FALSE,
+	 *         the requesting client may wish to deny services to the 
+	 *         %LoginHelper, for instance avoid raising its toplevels.
+	 *
+         * Returns: whether the %LoginHelper is now "safe" or not.
+	 **/
+        boolean setSafe (in boolean safe_mode);
+
+  	/**
+         * getDeviceReqs:
+         * 
+         * Query a @LoginHelper for the types of
+	 *    device I/O it requires, in order to do its job.
+	 *    For instance, a @LoginHelper which needs to receive keyboard
+	 *    events will include 
+	 *    Accessibility_LoginHelper_CORE_KEYBOARD in this list.
+	 *
+         * Returns: A sequence of @LoginHelper_DeviceFlags indicating
+	 *    the device I/O required.
+	 **/
+        DeviceReqList getDeviceReqs ();
+
+  	/**
+         * getRaiseWindows:
+         *
+         * Get a list of window IDs that need raising on login. 
+         *
+	 * Returns: a sequence containing window IDS for toplevels which
+	 *          need to be raised/made visible during user authentication.
+	 **/
+        WindowList getRaiseWindows ();
+
+	/**
+	 * unImplemented:
+	 *
+	 * placeholders for future expansion.
+	 */
+	void unImplemented ();
+	void unImplemented2 ();
+	void unImplemented3 ();
+	void unImplemented4 ();
+    };
+
+};
+
+#endif
