@@ -160,6 +160,8 @@ atk_bridge_init (gint *argc, gchar **argv[])
       g_error ("Could not initialize Bonobo");
     }
 
+  /* Create the accessible application server object */
+  this_app = spi_application_new (atk_get_root ());
   /*
    * We only want to enable the bridge for top level
    * applications, we detect bonobo components by seeing
@@ -204,8 +206,8 @@ spi_atk_bridge_do_registration (void)
   bonobo_activate ();
 
   /* Create the accessible application server object */
-
-  this_app = spi_application_new (atk_get_root ());
+  if (this_app == NULL)
+    this_app = spi_application_new (atk_get_root ());
 
   DBG (1, g_message ("About to register application\n"));
 
