@@ -52,7 +52,7 @@ AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
 dnl internationalization support; uncomment if translatable strings are reintroduced
-dnl ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB eo es et eu fa fi fr gl gu he hi hr id is it ja ka ko lt mn ms nb ne nl nn no or pa pl pt_BR pt ro ru sk sl sq sr@ije sr@Latn sr sv uk vi wa xh zh_CN"
+dnl ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB eo es et eu fa fi fr gl gu he hi hr hu id is it ja ka ko lt mn ms nb ne nl nn no or pa pl pt_BR pt ro ru sk sl sq sr@ije sr@Latn sr sv uk vi wa xh zh_CN"
 dnl AM_GLIB_GNU_GETTEXT
 
 GTK_DOC_CHECK([1.0])
