@@ -1,3 +1,20 @@
+2001-08-18  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/accessible.c: 
+	Add implementation for get_index_in_parent().
+	* cspi/spi.h : 
+	Added #include of "spi-roletypes.h", and
+	added enumerated type AccessibleCoordType.
+	Added definition for KeystrokeListener (function type).
+
+	ADDED FILES:
+	* cspi/spi-statetypes.h :
+	* cspi/spi-roletypes.h :
+	* cspi/spi-impl.h :
+	Added these headers, used by spi.h.
+	* cspi/spi_main.c : 
+	Added code (NOTE: not yet built by make).
+
 2001-08-18  Mark McLoughlin <mark@skynet.ie>
 
 	* libspi/Makefile.am: generate imodule

@@ -140,6 +140,20 @@ impl_accessibility_accessible_get_parent (PortableServer_Servant servant,
 }
 
 /*
+ * CORBA Accessibility::Accessible::get_IndexInParent method implementation
+ */
+static CORBA_long
+impl_accessibility_accessible_get_index_in_parent (PortableServer_Servant servant,
+                                                   CORBA_Environment     *ev)
+{
+  CORBA_long retval;
+  Accessible *accessible = ACCESSIBLE (bonobo_object_from_servant (servant));
+  retval = (CORBA_long) atk_object_get_index_in_parent (accessible->atko);
+  printf ("Accessible get_index_in_parent called\n");
+  return retval;
+}
+
+/*
  * CORBA Accessibility::Accessible::get_childCount method implementation
  */
 static CORBA_long
@@ -186,8 +200,8 @@ accessible_class_init (AccessibleClass *klass)
         epv->_get_parent = impl_accessibility_accessible_get_parent;
         epv->_get_childCount = impl_accessibility_accessible_get_child_count;
         epv->getChildAtIndex = impl_accessibility_accessible_get_child_at_index;
+        epv->getIndexInParent = impl_accessibility_accessible_get_index_in_parent;
 
-        /* epv->getIndexInParent = impl_accessibility_accessible_get_index_in_parent; */
         /* epv->getRelationSet = impl_accessibility_accessible_get_relation_set;      */
         /* epv->getState = impl_accessibility_accessible_get_state;                   */
         /* epv->getRole = impl_accessibility_accessible_get_role;                     */

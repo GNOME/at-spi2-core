@@ -5,6 +5,7 @@
 #include "spi-impl.h"
 
 /* definitions for ACCESSIBLE_STATE */
+#include "spi-roletypes.h"
 #include "spi-statetypes.h"
 
 /*
@@ -58,7 +59,10 @@ typedef struct _AccessibleEvent {
   char *detail2;
 } AccessibleEvent;
 
-
+typedef enum _AccessibleCoordType {
+  COORD_TYPE_WINDOW,
+  COORD_TYPE_SCREEN
+} AccessibleCoordType;
 
 /*
  *
@@ -67,6 +71,7 @@ typedef struct _AccessibleEvent {
  */
 
 typedef void (*AccessibleEventListener) (AccessibleEvent *e);
+typedef void (*KeystrokeListener) (AccessibleEvent *e);
 
 
 
