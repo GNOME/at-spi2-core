@@ -91,6 +91,9 @@ atk_gobject_accessible_for_object (GObject *obj)
            * The AtkObject which was created was not a AtkGObjectAccessible
            */
           quark_accessible_object = g_quark_from_static_string ("accessible-object");
+          g_object_weak_ref (obj,
+                             (GWeakNotify) g_object_unref,
+                             accessible); 
         }
       g_object_set_qdata (obj, quark_accessible_object, accessible);
     }
