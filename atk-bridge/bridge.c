@@ -161,8 +161,10 @@ atk_bridge_init (gint *argc, gchar **argv[])
 
   if (g_getenv ("ATK_BRIDGE_REDIRECT_LOG"))
   {
-      fname = g_strconcat ("/tmp/", g_get_prgname (), ".at-spi-log");
-      freopen (fname, "w", stderr);
+      fname = g_strconcat ("/tmp/", g_get_prgname (), ".at-spi-log", NULL);
+      /* make sure we're not being redirected - security issue */
+      if (!g_file_test (fname, G_FILE_TEST_IS_SYMLINK))
+	  freopen (fname, "w", stderr);
       g_free (fname);
   }
 

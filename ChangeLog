@@ -1,3 +1,10 @@
+2005-02-07  Bill Haneman <bill.haneman@sun.com>
+
+	* atk-bridge/bridge.c: 
+	(atk_bridge_init): Added missing NULL in g_strconcat(),
+	also check for symlink before logging to 
+	insecure directory.  Thanks to meissner@suse.de.
+
 2005-01-25  Padraig O'Briain <padraig.obriain@sun.com>
 
 	* tests/login-helper-server-test.c: Add return call to main
