@@ -1,3 +1,8 @@
+2005-04-09  Hans Breuer  <hans@breuer.org>
+
+	* atk/makefile.msc : updated $(LIBINTL_LIBS)
+	atkrelationtype.h to atk_headers, PKG_VER
+
 2005-04-05  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkstate.h: Added ATK_STATE_REQUIRED, to

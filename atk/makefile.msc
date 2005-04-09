@@ -10,7 +10,7 @@ PACKAGE = atk
 PERL = perl
 !ENDIF
 
-PKG_VER = 0.8
+PKG_VER = 1.0
 
 top_srcdir = $(PRJ_TOP)
 top_builddir = $(PRJ_TOP)
@@ -20,7 +20,7 @@ LT_RELEASE = $(PKG_VER)
 INCLUDES = -FImsvc_recommended_pragmas.h \
 	-I. -I$(top_srcdir) $(GLIB_CFLAGS) $(PANGO_CFLAGS)
 
-PKG_LINK = $(GLIB_LIBS) $(PANGO_LIBS)
+PKG_LINK = $(GLIB_LIBS) $(INTL_LIBS) $(PANGO_LIBS)
 
 MAINTAINERCLEANFILES = \
 	atkmarshal.c
@@ -71,6 +71,7 @@ atk_headers = \
 	atkregistry.h \
 	atkrelation.h \
 	atkrelationset.h \
+	atkrelationtype.h \
 	atkselection.h \
 	atkstate.h \
 	atkstateset.h \
