@@ -647,9 +647,10 @@ spi_atk_emit_eventv (const GObject         *gobject,
 #endif
       CORBA_exception_init (&ev);
       registry = spi_atk_bridge_get_registry ();
-      if (registry_died)
+      if (registry_died) {
+        g_free (e.type);
         return;
-        
+      }  
       Accessibility_Registry_notifyEvent (registry, 
 					  &e, &ev);
 #ifdef SPI_BRIDGE_DEBUG

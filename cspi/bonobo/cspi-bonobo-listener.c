@@ -236,7 +236,8 @@ cspi_device_event (SpiDeviceListener               *listener,
 	  break;
 	}
     }
-  
+  g_free (anevent.keystring);
+
   return handled;
 }
 
