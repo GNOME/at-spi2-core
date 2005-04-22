@@ -9,7 +9,7 @@
 	and the redefinition of ATK_LOCALEDIR before
 	gettext_initialization() as it uses ATK_LOCALEDIR. Fixes #170948
 	for atk's part. Thanks to Robert Ögren, Daniel Atallah and Kevin
-	Strange.
+	Stange.
 
 2005-04-09  Hans Breuer  <hans@breuer.org>
 
