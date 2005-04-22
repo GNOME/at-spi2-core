@@ -6,7 +6,7 @@
 	function gettext_initialization() and call that from
 	atk_object_class_init() and atk_role_get_localized_name(). Move
 	the Win32-specific DllMain() and get_atk_locale_dir() functions
-	and theredefinition of ATK_LOCALEDIR before
+	and the redefinition of ATK_LOCALEDIR before
 	gettext_initialization() as it uses ATK_LOCALEDIR. Fixes #170948
 	for atk's part. Thanks to Robert Ögren, Daniel Atallah and Kevin
 	Strange.
