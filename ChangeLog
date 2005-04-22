@@ -1,3 +1,16 @@
+2005-04-22  Tor Lillqvist  <tml@novell.com>
+
+	* atk/atkobject.c: Initialize gettext before use. Calling
+	bindtextdomain() and bind_textdomain_codeset() in
+	atk_role_get_localized_name() was too late. Put the calls in new
+	function gettext_initialization() and call that from
+	atk_object_class_init() and atk_role_get_localized_name(). Move
+	the Win32-specific DllMain() and get_atk_locale_dir() functions
+	and theredefinition of ATK_LOCALEDIR before
+	gettext_initialization() as it uses ATK_LOCALEDIR. Fixes #170948
+	for atk's part. Thanks to Robert Ögren, Daniel Atallah and Kevin
+	Strange.
+
 2005-04-09  Hans Breuer  <hans@breuer.org>
 
 	* atk/makefile.msc : updated $(LIBINTL_LIBS)

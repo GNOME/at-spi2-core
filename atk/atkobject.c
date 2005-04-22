@@ -224,6 +224,45 @@ static const gchar* atk_object_name_property_table_summary = "accessible-table-s
 static const gchar* atk_object_name_property_table_caption_object = "accessible-table-caption-object";
 static const gchar* atk_object_name_property_hypertext_num_links = "accessible-hypertext-nlinks";
 
+#ifdef G_OS_WIN32
+
+#undef ATK_LOCALEDIR
+
+#define ATK_LOCALEDIR get_atk_locale_dir()
+
+G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
+
+static char *
+get_atk_locale_dir (void)
+{
+  return g_win32_get_package_installation_subdirectory
+    (GETTEXT_PACKAGE, dll_name, "lib/locale");
+}
+
+#endif
+
+static void
+gettext_initialization (void)
+{
+#ifdef ENABLE_NLS
+  static gboolean gettext_initialized = FALSE;
+
+  if (!gettext_initialized)
+    {
+      const char *dir = g_getenv ("ATK_ALT_LOCALEDIR");
+
+      gettext_initialized = TRUE;
+      if (dir == NULL)
+        dir = ATK_LOCALEDIR;
+
+      bindtextdomain (GETTEXT_PACKAGE, dir);
+#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
+      bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+#endif
+    }
+#endif
+}
+
 GType
 atk_object_get_type (void)
 {
@@ -289,6 +328,8 @@ atk_object_class_init (AtkObjectClass *klass)
   klass->property_change = NULL;
   klass->visible_data_changed = NULL;
   klass->active_descendant_changed = NULL;
+
+  gettext_initialization ();
 
   g_object_class_install_property (gobject_class,
                                    PROP_NAME,
@@ -1286,23 +1327,6 @@ atk_role_get_name (AtkRole role)
   return name;
 }
 
-#ifdef G_OS_WIN32
-
-#undef ATK_LOCALEDIR
-
-#define ATK_LOCALEDIR get_atk_locale_dir()
-
-G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
-
-static char *
-get_atk_locale_dir (void)
-{
-  return g_win32_get_package_installation_subdirectory
-    (GETTEXT_PACKAGE, dll_name, "lib/locale");
-}
-
-#endif
-
 /**
  * atk_role_get_localized_name:
  * @role: The #AtkRole whose localized name is required
@@ -1316,23 +1340,8 @@ atk_role_get_localized_name (AtkRole role)
 {
   G_CONST_RETURN gchar *name;
   gint i;
-  static gboolean gettext_initialized = FALSE;
 
-#ifdef ENABLE_NLS
-  if (!gettext_initialized)
-    {
-      const char *dir = g_getenv ("ATK_ALT_LOCALEDIR");
-
-      gettext_initialized = TRUE;
-      if (dir == NULL)
-        dir = ATK_LOCALEDIR;
-
-      bindtextdomain (GETTEXT_PACKAGE, dir);
-#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-      bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-#endif
-    }
-#endif
+  gettext_initialization ();
 
   for (i = 0; i < G_N_ELEMENTS (role_items); i++)
     {
