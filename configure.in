@@ -17,7 +17,7 @@ dnl set ATK_BINARY_AGE _and_ ATK_INTERFACE_AGE to 0.
 dnl The triplet 
 m4_define([atk_major_version], [1])
 m4_define([atk_minor_version], [10])
-m4_define([atk_micro_version], [0])
+m4_define([atk_micro_version], [1])
 m4_define([atk_version],
           [atk_major_version.atk_minor_version.atk_micro_version])
 
@@ -28,10 +28,10 @@ dnl Number of releases since we've added interfaces
 m4_define([atk_interface_age], [0])
 
 m4_define([atk_binary_age],
-          [m4_eval(100 * atk_minor_version + atk_micro_version)])
+          [m4_eval(100 * atk_minor_version + 10 + atk_micro_version)])
 
 m4_define([lt_current],
-          [m4_eval(100 * atk_minor_version + atk_micro_version - atk_interface_age)])`
+          [m4_eval(100 * atk_minor_version + 10 + atk_micro_version - atk_interface_age)])`
 m4_define([lt_revision], [atk_interface_age])
 m4_define([lt_age], [m4_eval(atk_binary_age - atk_interface_age)])
 m4_define([lt_version_info], [lt_current:lt_revision:lt_age])
@@ -52,10 +52,6 @@ dnl If you add a version number here, you *must* add an AC_SUBST line for
 dnl it too, or it will never make it into the spec file!
 dnl
 dnl ==========================================================================
-
-GLIB_REQUIRED_VERSION=2.5.7
-AC_SUBST(GLIB_REQUIRED_VERSION)
-
 
 ATK_MAJOR_VERSION=atk_major_version
 ATK_MINOR_VERSION=atk_minor_version
@@ -140,8 +136,17 @@ if test "x$GCC" = "xyes"; then
 fi
 changequote([,])dnl
 
-GLIB_PACKAGES="gobject-2.0 gmodule-no-export-2.0"
+AM_PATH_GLIB_2_0(2.5.7,have_no_export=true,have_no_export=false)
+if test "x$have_no_export" = "xtrue"; then
+   GLIB_REQUIRED_VERSION=2.5.7
+   glib_no_export_package="gmodule-no-export-2.0"
+else
+   GLIB_REQUIRED_VERSION=2.0.0
+   glib_no_export_package=
+fi
+GLIB_PACKAGES="gobject-2.0 $glib_no_export_package"
 AC_SUBST(GLIB_PACKAGES)
+AC_SUBST(GLIB_REQUIRED_VERSION)
 
 dnl This PATH_GLIB is somewhat redundant, but does a sanity compile and 
 dnl importantly defines the GLIB_GENMARSHAL variable for subst into the

@@ -1,3 +1,10 @@
+Changes in version 1.10.1
+=========================
+
+* added ATK_STATE_REQUIRED; see bug #172663.
+
+* New locale, 'rw'
+
 Changes in version 1.9.1
 ========================
 

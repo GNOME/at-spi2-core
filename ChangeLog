@@ -1,3 +1,12 @@
+2005-04-28  Bill Haneman <billh@gnome.org>
+
+	* configure.in: Patch from Michael Meeks to
+	make atk 1.9's dependency on gtk+ 2.6 soft, i.e. 
+	don't require gmodule-no-export-2.0.
+	Restores compatibility of atk 1.9 series with gtK 2.4.X.
+
+	Revved to 1.10.1.
+
 2005-04-22  Tor Lillqvist  <tml@novell.com>
 
 	* atk/atkobject.c: Initialize gettext before use. Calling
