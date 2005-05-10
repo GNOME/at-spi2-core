@@ -5,6 +5,11 @@
 	Fixed one of tertiary AC_CHECK_HEADER tests for XEvie.
 	Fixes bug #303694.
 
+	* tests/event-listener-test.c: Tweaked the tests - more detail
+	from caret events, and some interrogation of AccessibleText APIs.
+	Commented-out the bounds-changed events by default, since they can
+	be very noisy.
+
 2005-04-14  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* atk-bridge/bridge.c: (spi_atk_emit_eventv): Plug a leak.

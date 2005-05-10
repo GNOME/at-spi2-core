@@ -29,6 +29,7 @@
 static void traverse_accessible_tree (Accessible *accessible);
 
 static void report_event  (const AccessibleEvent *event, void *user_data);
+static void report_caret_event  (const AccessibleEvent *event, void *user_data);
 static void report_bounds_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail_event  (const AccessibleEvent *event, void *user_data);
 static void report_detail1_event  (const AccessibleEvent *event, void *user_data);
@@ -54,6 +55,7 @@ static AccessibleEventListener *bounds_listener;
 static AccessibleEventListener *detail1_listener;
 static AccessibleEventListener *test_listener;
 static AccessibleEventListener *text_listener;
+static AccessibleEventListener *caret_listener;
 static AccessibleEventListener *text_selection_listener;
 static AccessibleEventListener *active_descendant_changed_listener;
 static AccessibleEventListener *children_changed_listener;
@@ -123,6 +125,8 @@ main (int argc, char **argv)
 	  report_bounds_event, NULL);
   text_listener = SPI_createAccessibleEventListener (
 	  report_text_event, NULL);
+  caret_listener = SPI_createAccessibleEventListener (
+	  report_caret_event, NULL);
   text_selection_listener = SPI_createAccessibleEventListener (
 	  report_text_selection_event, NULL);
   active_descendant_changed_listener = SPI_createAccessibleEventListener (
@@ -155,7 +159,7 @@ main (int argc, char **argv)
 	  report_detail1_event, NULL); 
 
   SPI_registerGlobalEventListener (generic_listener,
-				   "focus:");
+                                   "focus:");
   if ( report_mouse_events ) {
       SPI_registerGlobalEventListener (specific_listener,
 				       "mouse:rel");
@@ -169,6 +173,7 @@ main (int argc, char **argv)
 				   NULL);
   SPI_registerGlobalEventListener (specific_listener,
 				   "keyboard:modifiers");
+
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:property-change");
   SPI_registerGlobalEventListener (name_changed_listener,
@@ -183,6 +188,7 @@ main (int argc, char **argv)
     "object:state-changed:focused"); */
   SPI_registerGlobalEventListener (generic_listener,
 				   "object:selection-changed"); 
+
   SPI_registerGlobalEventListener (children_changed_listener,
 				   "object:children-changed"); 
   SPI_registerGlobalEventListener (active_descendant_changed_listener,
@@ -191,8 +197,7 @@ main (int argc, char **argv)
 				   "object:visible-data-changed"); 
   SPI_registerGlobalEventListener (text_selection_listener,
 				   "object:text-selection-changed"); 
-
-  SPI_registerGlobalEventListener (generic_listener,
+  SPI_registerGlobalEventListener (caret_listener,
 				   "object:text-caret-moved"); 
   SPI_registerGlobalEventListener (text_listener,
 				   "object:text-changed"); 
@@ -212,8 +217,10 @@ main (int argc, char **argv)
 				   "object:model-changed"); 
   SPI_registerGlobalEventListener (detail1_listener,
 				   "object:link-selected"); 
+#if 0
   SPI_registerGlobalEventListener (bounds_listener,
 				   "object:bounds-changed");
+#endif
   SPI_registerGlobalEventListener (window_listener,
 				   "window:minimize");
   SPI_registerGlobalEventListener (window_listener,
@@ -222,6 +229,8 @@ main (int argc, char **argv)
 	                           "window:restore");
   SPI_registerGlobalEventListener (window_listener,
 	                           "window:activate");
+  SPI_registerGlobalEventListener (window_listener,
+	                           "window:create");
   SPI_registerGlobalEventListener (window_listener,
 	                           "window:deactivate");
   SPI_registerGlobalEventListener (window_listener,
@@ -335,6 +344,49 @@ report_event (const AccessibleEvent *event, void *user_data)
 }
 
 void
+report_caret_event (const AccessibleEvent *event, void *user_data)
+{
+  char *s = Accessible_getName (event->source);
+  long int start, end, offset, line_start_begin;
+  long int line_start_end, line_end_begin, line_end_end;
+
+  AccessibleText *text = Accessible_getText (event->source);
+  offset = event->detail1;
+  AccessibleText_getTextAtOffset (text, offset, 
+				  SPI_TEXT_BOUNDARY_SENTENCE_START,
+				  &start, &end);
+  fprintf (stderr, 
+	   "caret event from %s %s: offset %d, SENTENCE_START offsets start=%d, end=%d\n", 
+	   event->type, s, offset, start, end);
+  AccessibleText_getTextAtOffset (text, offset, 
+				  SPI_TEXT_BOUNDARY_SENTENCE_END,
+				  &start, &end);
+  AccessibleText_getTextAtOffset (text, offset, 
+				  SPI_TEXT_BOUNDARY_LINE_START,
+				  &line_start_begin, &line_start_end);
+  AccessibleText_getTextAtOffset (text, offset, 
+				  SPI_TEXT_BOUNDARY_LINE_END,
+				  &line_end_begin, &line_end_end);
+  fprintf (stderr, 
+	   "SENTENCE_END: %d - %d; LINE_START: %d - %d; LINE_END: %d - %d\n", 
+	   start, end, line_start_begin, line_start_end,
+	   line_end_begin, line_end_end);
+
+  AccessibleText_getTextAtOffset (text, offset, 
+				  SPI_TEXT_BOUNDARY_WORD_START,
+				  &line_start_begin, &line_start_end);
+  AccessibleText_getTextAtOffset (text, offset, 
+				  SPI_TEXT_BOUNDARY_WORD_END,
+				  &line_end_begin, &line_end_end);
+  fprintf (stderr, 
+	   "WORD_START: %d - %d; WORD_END: %d - %d\n", 
+	   line_start_begin, line_start_end,
+	   line_end_begin, line_end_end);
+
+  if (s) SPI_freeString (s);
+}
+
+void
 report_detail_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
@@ -373,7 +425,7 @@ report_text_event (const AccessibleEvent *event, void *user_data)
   SPI_freeString (s);
   s = AccessibleTextChangedEvent_getChangeString (event);
   fprintf (stderr, "context string %s\n", (s) ? s : "<nil>");
-  SPI_freeString (s);
+  if (s) SPI_freeString (s);
 }
 
 void
@@ -408,16 +460,24 @@ void
 report_children_changed_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  char *s1;
+  char *s1 = NULL, *s2, *s3 = NULL;
   Accessible *ao;
 
   ao = AccessibleChildChangedEvent_getChildAccessible (event);
-  s1 = Accessible_getName (ao);
-  fprintf (stderr, "(detail) %s parent: %s child: %s %d %d\n", event->type, 
-           s ? s : "<null>", s1 ? s1 : "<null>",
+  if (ao) s1 = Accessible_getName (ao);
+  s2 = Accessible_getRoleName (event->source);
+  if (ao) s3 = Accessible_getRoleName (ao);
+  fprintf (stderr, "(detail) %s parent: %s [%s] child: %s [%s] %d %d\n", 
+           event->type, 
+           s ? s : "<null>", 
+	   s2,
+           s1 ? s1 : "<null>",
+	   s3 ? s3 : "<null>",
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   SPI_freeString (s1);
+  SPI_freeString (s2);
+  SPI_freeString (s3);
   Accessible_unref (ao);
 }
 
