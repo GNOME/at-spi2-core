@@ -1,6 +1,9 @@
-2005-04-15  Abduxukur Abdurixit <abduxukur.abdurixit@t-systems.ch>
+2005-04-05  Bill Haneman <bill.haneman@sun.com>
 
-	* configure.in: Added "ug" to ALL_LINGUAS.
+	* configure.in: Revved to 1.6.4.
+	Remember to put quotes around XEVIE_LIBS assignment.
+	Fixed one of tertiary AC_CHECK_HEADER tests for XEvie.
+	Fixes bug #303694.
 
 2005-04-14  Kjartan Maraas  <kmaraas@gnome.org>
 
