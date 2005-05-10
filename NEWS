@@ -1,3 +1,13 @@
+What's new in at-spi-1.6.4:
+
+* Fixed XEVIE detection and configuration on XOrg version 6.8.2.
+
+* Added locale 'rw' (Steve Murphy)
+
+* Tweaked event-listener-test program.
+
+* Leakfixes, from billh and Kjartan Marass.
+ 
 What's new in at-spi-1.6.3: 
 
 * bugfix for #165129
