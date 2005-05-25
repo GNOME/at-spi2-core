@@ -1,3 +1,8 @@
+2005-05-25  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/registry.c (remove_listener_cb):
+	Make deregistration filter rules match the event emission rules.
+
 2005-05-25  Michael Meeks  <michael.meeks@novell.com>
 
 	* registryd/registry.c (remove_listener_cb),

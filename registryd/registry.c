@@ -438,7 +438,8 @@ remove_listener_cb (GList * const *list, gpointer user_data)
 
   CORBA_exception_init (&ev);
 
-  if (cl->remove_all || (cl->etype.minor == ls->event_type_quark &&
+  if (cl->remove_all || (((cl->etype.minor == ls->event_type_quark) || 
+			 (cl->etype.major == ls->event_type_quark)) &&
 			 cl->etype.type_cat == ls->event_type_cat ) )
   {
     if (CORBA_Object_is_equivalent (ls->listener, cl->listener, &ev))
