@@ -423,20 +423,30 @@ impl_accessibility_registry_register_global_event_listener (
     }
 }
 
+typedef struct {
+  gboolean                    remove_all;
+  Accessibility_EventListener listener;
+  EventTypeStruct             etype;
+} RemoveListenerClosure;
+
 static SpiReEntrantContinue
 remove_listener_cb (GList * const *list, gpointer user_data)
 {
   SpiListenerStruct *ls = (SpiListenerStruct *) (*list)->data;
   CORBA_Environment  ev;
-  Accessibility_EventListener listener = user_data;
+  RemoveListenerClosure *cl = user_data;
 
   CORBA_exception_init (&ev);
-	
-  if (CORBA_Object_is_equivalent (ls->listener, listener, &ev))
-    {
-       spi_re_entrant_list_delete_link (list);
-       spi_listener_struct_free (ls, &ev);
-    }
+
+  if (cl->remove_all || (cl->etype.minor == ls->event_type_quark &&
+			 cl->etype.type_cat == ls->event_type_cat ) )
+  {
+    if (CORBA_Object_is_equivalent (ls->listener, cl->listener, &ev))
+      {
+        spi_re_entrant_list_delete_link (list);
+        spi_listener_struct_free (ls, &ev);
+      }
+  }
 
   CORBA_exception_free (&ev);
 
@@ -455,14 +465,18 @@ impl_accessibility_registry_deregister_global_event_listener_all (
   int i;
   GList **lists[3];
   SpiRegistry *registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
+  RemoveListenerClosure cl = { 0, };
 
   lists[0] = &registry->object_listeners;
   lists[1] = &registry->window_listeners;
   lists[2] = &registry->toolkit_listeners;
 
+  cl.remove_all = TRUE;
+  cl.listener = listener;
+
   for (i = 0; i < sizeof (lists) / sizeof (lists[0]); i++)
     {
-      spi_re_entrant_list_foreach (lists [i], remove_listener_cb, listener);
+      spi_re_entrant_list_foreach (lists [i], remove_listener_cb, &cl);
     }
 }
 
@@ -478,14 +492,16 @@ impl_accessibility_registry_deregister_global_event_listener (
 	CORBA_Environment          *ev)
 {
   SpiRegistry    *registry;
-  EventTypeStruct etype;
+  RemoveListenerClosure cl = { 0, };
 
   registry = SPI_REGISTRY (bonobo_object_from_servant (servant));
 
-  parse_event_type (&etype, (char *) event_name);
+  cl.remove_all = FALSE;
+  parse_event_type (&cl.etype, (char *) event_name);
+  cl.listener = listener;
 
-  spi_re_entrant_list_foreach (get_listener_list (registry, etype.type_cat),
-				remove_listener_cb, listener);
+  spi_re_entrant_list_foreach (get_listener_list (registry, cl.etype.type_cat),
+				remove_listener_cb, &cl);
 }
 
 

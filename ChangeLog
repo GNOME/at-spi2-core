@@ -1,3 +1,11 @@
+2005-05-25  Michael Meeks  <michael.meeks@novell.com>
+
+	* registryd/registry.c (remove_listener_cb),
+	(impl_accessibility_registry_deregister_global_event_listener),
+	(impl_accessibility_registry_deregister_global_event_listener_all): 
+	pass a closure to the remove callback to filter listeners more
+	accurately on remove.
+
 2005-04-05  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Revved to 1.6.4.
