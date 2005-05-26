@@ -71,10 +71,12 @@ cspi_event_list_remove_by_cb (GList *list, gpointer callback)
     {
       EventHandler *eh = l->data;
       next = l->next;
-      
-      list = g_list_delete_link (list, l);
-      
-      cspi_event_handler_free (eh);
+
+      if (eh->method == callback)
+      {
+        list = g_list_delete_link (list, l);
+	cspi_event_handler_free (eh);
+      }
     }
 
   return list;
