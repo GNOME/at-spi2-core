@@ -1,3 +1,8 @@
+2005-05-27  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* cspi/bonobo/cspi-bonobo-listener.c:
+	(cspi_event_list_remove_by_cb): Fix the build.
+
 2005-05-26  Michael Meeks  <michael.meeks@novell.com>
 
 	* cspi/bonobo/cspi-bonobo-listener.c
