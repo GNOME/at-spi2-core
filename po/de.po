@@ -2,15 +2,15 @@
 # Copyright (C) 2002-2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
 # Christian Neumair <chris@gnome-de.org>, 2002-2004.
-# Hendrik Richter <hendrik@gnome-de.org>, 2004
+# Hendrik Richter <hendrik@gnome-de.org>, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.5.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-04 11:57+0000\n"
-"PO-Revision-Date: 2004-02-21 12:16+0100\n"
-"Last-Translator: Hendrik Richter <hendrik@gnome-de.org>\n"
+"PO-Revision-Date: 2005-07-04 17:07+0200\n"
+"Last-Translator: Hendrik Richter <hendi@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -447,7 +447,7 @@ msgstr ""
 
 #: atk/atkobject.c:374
 msgid "Accessible Table Row Header"
-msgstr "Barrierfreie Überschrift der Tabellenzeile"
+msgstr "Barrierefreie Überschrift der Tabellenzeile"
 
 #: atk/atkobject.c:375
 msgid "Is used to notify that the table row header has changed"
