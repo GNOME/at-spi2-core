@@ -691,12 +691,13 @@ key_listener_cb (const AccessibleKeystroke *stroke,
 	AccessibleKeystroke *s = user_data;
 	
 	*s = *stroke;
+	if (stroke->keystring) s->keystring = g_strdup (stroke->keystring);
 	
 	if (s->type == SPI_KEY_PRESSED)
 		key_press_received = TRUE;
 	else if (s->type == SPI_KEY_RELEASED)
 		key_release_received = TRUE;
-	
+
 	return TRUE;
 }
 
@@ -728,11 +729,11 @@ test_keylisteners (void)
 		g_assert (SPI_generateKeyboardEvent ('=', NULL, SPI_KEY_SYM));
 		while (!(key_press_received))
 			g_main_context_iteration (NULL, TRUE);
-		fprintf (stderr, "p");
+		fprintf (stderr, "p [%s]", stroke.keystring);
 	        g_assert (!strcmp (stroke.keystring, "="));
 		while (!(key_release_received))
 			g_main_context_iteration (NULL, TRUE);
-		fprintf (stderr, "r ");
+		fprintf (stderr, "r [%s]", stroke.keystring);
 		key_press_received = FALSE;
 		key_release_received = FALSE;
 	}

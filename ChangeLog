@@ -1,3 +1,10 @@
+2005-07-15  Bill Haneman <bill.haneman@sun.com>
+
+	* tests/test-simple.c: 
+	(key_listener_cb): Ensure that the keystring is dup'ed instead of
+	relying on the old string from the key event hanging around after
+	the event handler returns.  Fixes broken 'make check'.
+	
 2005-06-06  Swapnil Hajare  <dreamil@gmail.com>
 
 	* Added Marathi (mr_IN) translations.
