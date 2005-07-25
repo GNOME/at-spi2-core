@@ -1,3 +1,8 @@
+2005-07-25  Matthias Clasen  <mclasen@redhat.com>
+
+	* test/window-listener-test.c: Fix a printf
+	format error.  (#169453)
+
 2005-07-15  Bill Haneman <bill.haneman@sun.com>
 
 	* tests/test-simple.c: 

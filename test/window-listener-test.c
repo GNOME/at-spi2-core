@@ -79,7 +79,7 @@ report_window_event (const AccessibleEvent *event, void *user_data)
   char *t, *s = Accessible_getName (event->source);
   t = AccessibleWindowEvent_getTitleString (event);
   if (t == NULL) t = "";
-  fprintf (stderr, "%s %s\n", event->type, s, t);
+  fprintf (stderr, "%s %s %s\n", event->type, s, t);
   SPI_freeString (s);
   SPI_freeString (t);
 }
