@@ -130,20 +130,20 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 # ---------- Win32 stuff ----------
 
 if OS_WIN32
-libatk_1_0_la_LDFLAGS += -export-symbols atk.def -no-undefined
-libatk_1_0_la_LIBADD += atk-win32res.lo
+libatk_1_0_la_LDFLAGS += -export-symbols atk.def -no-undefined -Wl,atk-win32-res.o
+libatk_1_0_la_DEPENDENCIES = atk-win32-res.o
 
-install-libtool-import-lib:
-	$(INSTALL) .libs/libatk-$(ATK_API_VERSION).dll.a $(DESTDIR)$(libdir)
-uninstall-libtool-import-lib:
-	-rm $(DESTDIR)$(libdir)/libatk-$(ATK_API_VERSION).dll.a
+install-def-file:
+	$(INSTALL) $(srcdir)atk.def $(DESTDIR)$(libdir)/atk-1.0.def
+uninstall-def-file:
+	-rm $(DESTDIR)$(libdir)/atk-1.0.def
 else
-install-libtool-import-lib:
-uninstall-libtool-import-lib:
+install-def-file:
+uninstall-def-file:
 endif
 
-atk-win32res.lo: atk.rc
-	$(top_srcdir)/../glib/build/win32/lt-compile-resource $< $@
+atk-win32-res.o: atk.rc
+	$(WINDRES) $< $@
 
 if MS_LIB_AVAILABLE
 noinst_DATA = atk-$(ATK_API_VERSION).lib
@@ -173,6 +173,6 @@ distclean-local:
 	  rm -f atkmarshal.h atkmarshal.c atk-enum-types.h atk-enum-types.c; \
 	fi
 
-install-data-local: install-ms-lib install-libtool-import-lib
+install-data-local: install-ms-lib install-def-file
 
-uninstall-local: uninstall-ms-lib uninstall-libtool-import-lib
+uninstall-local: uninstall-ms-lib uninstall-def-file

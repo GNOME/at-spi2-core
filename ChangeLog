@@ -1,3 +1,16 @@
+2005-08-04  Tor Lillqvist  <tml@novell.com>
+
+	* configure.in: Look for windres on Win32.
+
+	* atk/Makefile.am: Don't use the script in GLib's build/win32 to
+	compile the rc file into a resource object file. (This means we
+	lose the build number increment magic, but I doubt it was that
+	useful anyway.) Instead use windres directly. To pass a normal .o
+	file produced by windres through libtool, which wants .lo files,
+	pass it directly to the linker using a -Wl option.
+
+	* atk/atk.rc.in: Correspondingly, replace BUILDNUMBER with 0.
+
 2005-07-18  Abduxukur Abdurixit <abdurixit@gmail.com>      
 
 	* configure.in: Added 'ug' to ALL_LINGUAS.

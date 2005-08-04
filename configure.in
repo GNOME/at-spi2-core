@@ -112,7 +112,12 @@ AC_MSG_RESULT([$atk_native_win32])
 AM_CONDITIONAL(OS_WIN32, test "$atk_native_win32" = "yes")
 
 if test "$atk_native_win32" = "yes"; then
+  AC_CHECK_TOOL(WINDRES, windres, no)
+  if test "$WINDRES" = no; then
+    AC_MSG_ERROR([*** Could not find an implementation of windres in your PATH.])
+  fi
   AC_CHECK_PROG(ms_librarian, lib.exe, yes, no)
+
 fi
 AM_CONDITIONAL(MS_LIB_AVAILABLE, test x$ms_librarian = xyes)
 
