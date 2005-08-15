@@ -1,417 +1,417 @@
 # Romanian translation for atk
-# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
-# Mişu Moldovan <dumol@go.ro>, 2003, 2004.
+# Copyright (C) 2003 - 2005 Free Software Foundation, Inc.
+# Mişu Moldovan <dumol@gnome.ro>, 2003 - 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-28 11:01+0200\n"
-"PO-Revision-Date: 2004-08-28 14:22+0300\n"
-"Last-Translator: Mişu Moldovan <dumol@go.ro>\n"
+"POT-Creation-Date: 2005-08-14 13:34+0000\n"
+"PO-Revision-Date: 2005-08-14 20:15+0300\n"
+"Last-Translator: Mişu Moldovan <dumol@gnome.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
 msgstr "Legătură selectată"
 
-#: atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Specifică dacă obiectul AtkHyperlink este selectat"
 
-#: atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
 msgstr "Număr de ancore"
 
-#: atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Numărul ancorelor asociat cu obiectul AtkHyperlink"
 
-#: atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:119
 msgid "End index"
 msgstr "Index final"
 
-#: atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
 msgstr "Indexul final al obiectului AtkHypelink"
 
-#: atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:128
 msgid "Start index"
 msgstr "Index iniţial"
 
-#: atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
 msgstr "Indexul de început al obiectului AtkHyperlink"
 
-#: atk/atkobject.c:82
+#: ../atk/atkobject.c:82
 msgid "invalid"
 msgstr "invalid"
 
-#: atk/atkobject.c:83
+#: ../atk/atkobject.c:83
 msgid "accelerator label"
 msgstr "etichetă accelerator"
 
-#: atk/atkobject.c:84
+#: ../atk/atkobject.c:84
 msgid "alert"
 msgstr "alertă"
 
-#: atk/atkobject.c:85
+#: ../atk/atkobject.c:85
 msgid "animation"
 msgstr "animaţie"
 
-#: atk/atkobject.c:86
+#: ../atk/atkobject.c:86
 msgid "arrow"
 msgstr "săgeată"
 
-#: atk/atkobject.c:87
+#: ../atk/atkobject.c:87
 msgid "calendar"
 msgstr "calendar"
 
-#: atk/atkobject.c:88
+#: ../atk/atkobject.c:88
 msgid "canvas"
 msgstr "canava"
 
-#: atk/atkobject.c:89
+#: ../atk/atkobject.c:89
 msgid "check box"
 msgstr "căsuţă bifare"
 
-#: atk/atkobject.c:90
+#: ../atk/atkobject.c:90
 msgid "check menu item"
 msgstr "item meniu bifare"
 
-#: atk/atkobject.c:91
+#: ../atk/atkobject.c:91
 msgid "color chooser"
 msgstr "selector culoare"
 
-#: atk/atkobject.c:92
+#: ../atk/atkobject.c:92
 msgid "column header"
 msgstr "antet coloană"
 
-#: atk/atkobject.c:93
+#: ../atk/atkobject.c:93
 msgid "combo box"
 msgstr "căsuţă combo"
 
-#: atk/atkobject.c:94
+#: ../atk/atkobject.c:94
 msgid "dateeditor"
 msgstr "editor dată"
 
-#: atk/atkobject.c:95
+#: ../atk/atkobject.c:95
 msgid "desktop icon"
 msgstr "iconiţă desktop"
 
-#: atk/atkobject.c:96
+#: ../atk/atkobject.c:96
 msgid "desktop frame"
 msgstr "cadru desktop"
 
-#: atk/atkobject.c:97
+#: ../atk/atkobject.c:97
 msgid "dial"
 msgstr "cadran"
 
-#: atk/atkobject.c:98
+#: ../atk/atkobject.c:98
 msgid "dialog"
 msgstr "dialog"
 
-#: atk/atkobject.c:99
+#: ../atk/atkobject.c:99
 msgid "directory pane"
 msgstr "vedere directoare"
 
-#: atk/atkobject.c:100
+#: ../atk/atkobject.c:100
 msgid "drawing area"
 msgstr "arie desenare"
 
-#: atk/atkobject.c:101
+#: ../atk/atkobject.c:101
 msgid "file chooser"
 msgstr "selector fişiere"
 
-#: atk/atkobject.c:102
+#: ../atk/atkobject.c:102
 msgid "filler"
 msgstr "umplere"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:104
+#: ../atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "selector fonturi"
 
-#: atk/atkobject.c:105
+#: ../atk/atkobject.c:105
 msgid "frame"
 msgstr "cadru"
 
-#: atk/atkobject.c:106
+#: ../atk/atkobject.c:106
 msgid "glass pane"
 msgstr "vedere parţială"
 
-#: atk/atkobject.c:107
+#: ../atk/atkobject.c:107
 msgid "html container"
 msgstr "recipient html"
 
-#: atk/atkobject.c:108
+#: ../atk/atkobject.c:108
 msgid "icon"
 msgstr "iconiţă"
 
-#: atk/atkobject.c:109
+#: ../atk/atkobject.c:109
 msgid "image"
 msgstr "imagine"
 
-#: atk/atkobject.c:110
+#: ../atk/atkobject.c:110
 msgid "internal frame"
 msgstr "cadru intern"
 
-#: atk/atkobject.c:111
+#: ../atk/atkobject.c:111
 msgid "label"
 msgstr "etichetă"
 
-#: atk/atkobject.c:112
+#: ../atk/atkobject.c:112
 msgid "layered pane"
 msgstr "vedere suprapusă"
 
-#: atk/atkobject.c:113
+#: ../atk/atkobject.c:113
 msgid "list"
 msgstr "listă"
 
-#: atk/atkobject.c:114
+#: ../atk/atkobject.c:114
 msgid "list item"
 msgstr "item listă"
 
-#: atk/atkobject.c:115
+#: ../atk/atkobject.c:115
 msgid "menu"
 msgstr "meniu"
 
-#: atk/atkobject.c:116
+#: ../atk/atkobject.c:116
 msgid "menu bar"
 msgstr "bară meniu"
 
-#: atk/atkobject.c:117
+#: ../atk/atkobject.c:117
 msgid "menu item"
 msgstr "item meniu"
 
-#: atk/atkobject.c:118
+#: ../atk/atkobject.c:118
 msgid "option pane"
 msgstr "vedere opţiuni"
 
-#: atk/atkobject.c:119
+#: ../atk/atkobject.c:119
 msgid "page tab"
 msgstr "tab pagină"
 
-#: atk/atkobject.c:120
+#: ../atk/atkobject.c:120
 msgid "page tab list"
 msgstr "listă taburi pagină"
 
-#: atk/atkobject.c:121
+#: ../atk/atkobject.c:121
 msgid "panel"
 msgstr "panou"
 
-#: atk/atkobject.c:122
+#: ../atk/atkobject.c:122
 msgid "password text"
 msgstr "text parolă"
 
-#: atk/atkobject.c:123
+#: ../atk/atkobject.c:123
 msgid "popup menu"
 msgstr "meniu popup"
 
-#: atk/atkobject.c:124
+#: ../atk/atkobject.c:124
 msgid "progress bar"
 msgstr "bară de progres"
 
-#: atk/atkobject.c:125
+#: ../atk/atkobject.c:125
 msgid "push button"
 msgstr "buton normal"
 
-#: atk/atkobject.c:126
+#: ../atk/atkobject.c:126
 msgid "radio button"
 msgstr "buton radio"
 
-#: atk/atkobject.c:127
+#: ../atk/atkobject.c:127
 msgid "radio menu item"
 msgstr "item meniu radio"
 
-#: atk/atkobject.c:128
+#: ../atk/atkobject.c:128
 msgid "root pane"
 msgstr "vedere rădăcină"
 
-#: atk/atkobject.c:129
+#: ../atk/atkobject.c:129
 msgid "row header"
 msgstr "antet rând"
 
-#: atk/atkobject.c:130
+#: ../atk/atkobject.c:130
 msgid "scroll bar"
 msgstr "bară defilare"
 
-#: atk/atkobject.c:131
+#: ../atk/atkobject.c:131
 msgid "scroll pane"
 msgstr "vedere defilare"
 
-#: atk/atkobject.c:132
+#: ../atk/atkobject.c:132
 msgid "separator"
 msgstr "separator"
 
-#: atk/atkobject.c:133
+#: ../atk/atkobject.c:133
 msgid "slider"
 msgstr "derulator"
 
-#: atk/atkobject.c:134
+#: ../atk/atkobject.c:134
 msgid "split pane"
 msgstr "vedere împărţită"
 
-#: atk/atkobject.c:135
+#: ../atk/atkobject.c:135
 msgid "spin button"
 msgstr "iconiţă animată"
 
-#: atk/atkobject.c:136
+#: ../atk/atkobject.c:136
 msgid "statusbar"
 msgstr "bară de stare"
 
-#: atk/atkobject.c:137
+#: ../atk/atkobject.c:137
 msgid "table"
 msgstr "tabel"
 
-#: atk/atkobject.c:138
+#: ../atk/atkobject.c:138
 msgid "table cell"
 msgstr "celulă tabel"
 
-#: atk/atkobject.c:139
+#: ../atk/atkobject.c:139
 msgid "table column header"
 msgstr "antet coloană tabel"
 
-#: atk/atkobject.c:140
+#: ../atk/atkobject.c:140
 msgid "table row header"
 msgstr "antet rând tabel"
 
-#: atk/atkobject.c:141
+#: ../atk/atkobject.c:141
 msgid "tear off menu item"
 msgstr "item meniu desprins"
 
-#: atk/atkobject.c:142
+#: ../atk/atkobject.c:142
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:143
+#: ../atk/atkobject.c:143
 msgid "text"
 msgstr "text"
 
-#: atk/atkobject.c:144
+#: ../atk/atkobject.c:144
 msgid "toggle button"
 msgstr "buton comutator"
 
-#: atk/atkobject.c:145
+#: ../atk/atkobject.c:145
 msgid "tool bar"
 msgstr "bară cu unelte"
 
-#: atk/atkobject.c:146
+#: ../atk/atkobject.c:146
 msgid "tool tip"
 msgstr "indiciu unealtă"
 
-#: atk/atkobject.c:147
+#: ../atk/atkobject.c:147
 msgid "tree"
 msgstr "arbore"
 
-#: atk/atkobject.c:148
+#: ../atk/atkobject.c:148
 msgid "tree table"
 msgstr "tabel arbore"
 
-#: atk/atkobject.c:149
+#: ../atk/atkobject.c:149
 msgid "unknown"
 msgstr "necunoscut"
 
-#: atk/atkobject.c:150
+#: ../atk/atkobject.c:150
 msgid "viewport"
 msgstr "vedere hublou"
 
-#: atk/atkobject.c:151
+#: ../atk/atkobject.c:151
 msgid "window"
 msgstr "fereastră"
 
-#: atk/atkobject.c:152
+#: ../atk/atkobject.c:152
 msgid "header"
 msgstr "antet"
 
-#: atk/atkobject.c:153
+#: ../atk/atkobject.c:153
 msgid "footer"
 msgstr "notă de subsol"
 
-#: atk/atkobject.c:154
+#: ../atk/atkobject.c:154
 msgid "paragraph"
 msgstr "paragraf"
 
-#: atk/atkobject.c:155
+#: ../atk/atkobject.c:155
 msgid "application"
 msgstr "aplicaţie"
 
-#: atk/atkobject.c:156
+#: ../atk/atkobject.c:156
 msgid "autocomplete"
 msgstr "autocompletare"
 
-#: atk/atkobject.c:157
+#: ../atk/atkobject.c:157
 msgid "edit bar"
 msgstr "bară de editare"
 
-#: atk/atkobject.c:158
+#: ../atk/atkobject.c:158
 msgid "embedded component"
 msgstr "componentă încapsulată"
 
-#: atk/atkobject.c:296
+#: ../atk/atkobject.c:337
 msgid "Accessible Name"
 msgstr "Nume accesibil"
 
-#: atk/atkobject.c:297
+#: ../atk/atkobject.c:338
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Numele instanţei obiectului formatat pentru accesul asistat"
 
-#: atk/atkobject.c:303
+#: ../atk/atkobject.c:344
 msgid "Accessible Description"
 msgstr "Descriere accesibilă"
 
-#: atk/atkobject.c:304
+#: ../atk/atkobject.c:345
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Descrierea unui obiect, formatată pentru accesul asistat"
 
-#: atk/atkobject.c:310
+#: ../atk/atkobject.c:351
 msgid "Accessible Parent"
 msgstr "Părinte accesibil"
 
-#: atk/atkobject.c:311
+#: ../atk/atkobject.c:352
 msgid "Is used to notify that the parent has changed"
 msgstr "Utilizat pentru a notifica schimbarea părintelui"
 
-#: atk/atkobject.c:317
+#: ../atk/atkobject.c:358
 msgid "Accessible Value"
 msgstr "Valoare accesibilă"
 
-#: atk/atkobject.c:318
+#: ../atk/atkobject.c:359
 msgid "Is used to notify that the value has changed"
 msgstr "Utilizat pentru a notifica schimbarea valorii"
 
-#: atk/atkobject.c:326
+#: ../atk/atkobject.c:367
 msgid "Accessible Role"
 msgstr "Rol accesibil"
 
-#: atk/atkobject.c:327
+#: ../atk/atkobject.c:368
 msgid "The accessible role of this object"
 msgstr "Rolul accesibil al acestui obiect"
 
-#: atk/atkobject.c:335
+#: ../atk/atkobject.c:376
 msgid "Accessible Layer"
 msgstr "Nivel accesibil"
 
-#: atk/atkobject.c:336
+#: ../atk/atkobject.c:377
 msgid "The accessible layer of this object"
 msgstr "Nivelul accesibil al acestui obiect"
 
-#: atk/atkobject.c:344
+#: ../atk/atkobject.c:385
 msgid "Accessible MDI Value"
 msgstr "Valoare MDI accesibilă"
 
-#: atk/atkobject.c:345
+#: ../atk/atkobject.c:386
 msgid "The accessible MDI value of this object"
 msgstr "Valoarea accesibilă MDI a acestui obiect"
 
-#: atk/atkobject.c:353
+#: ../atk/atkobject.c:394
 msgid "Accessible Table Caption"
 msgstr "Etichetă tabel accesibilă"
 
-#: atk/atkobject.c:354
+#: ../atk/atkobject.c:395
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -420,58 +420,58 @@ msgstr ""
 "proprietate nu ar trebui folosită. A se utiliza accessible-table-caption-"
 "object"
 
-#: atk/atkobject.c:360
+#: ../atk/atkobject.c:401
 msgid "Accessible Table Column Header"
 msgstr "Antet accesibil coloană tabel"
 
-#: atk/atkobject.c:361
+#: ../atk/atkobject.c:402
 msgid "Is used to notify that the table column header has changed"
 msgstr "Utilizat pentru a notifica schimbarea antetului coloanei în tabel"
 
-#: atk/atkobject.c:367
+#: ../atk/atkobject.c:408
 msgid "Accessible Table Column Description"
 msgstr "Descriere accesibilă coloană tabel"
 
-#: atk/atkobject.c:368
+#: ../atk/atkobject.c:409
 msgid "Is used to notify that the table column description has changed"
 msgstr "Utilizat pentru a notifica schimbarea descrierii coloanei în tabel"
 
-#: atk/atkobject.c:374
+#: ../atk/atkobject.c:415
 msgid "Accessible Table Row Header"
 msgstr "Antet accesibil rând tabel"
 
-#: atk/atkobject.c:375
+#: ../atk/atkobject.c:416
 msgid "Is used to notify that the table row header has changed"
 msgstr "Utilizat pentru a notifica schimbarea antetului rândului în tabel"
 
-#: atk/atkobject.c:381
+#: ../atk/atkobject.c:422
 msgid "Accessible Table Row Description"
 msgstr "Descriere accesibilă rând tabel"
 
-#: atk/atkobject.c:382
+#: ../atk/atkobject.c:423
 msgid "Is used to notify that the table row description has changed"
 msgstr "Utilizat pentru a notifica schimbarea descrierii rândului în tabel"
 
-#: atk/atkobject.c:388
+#: ../atk/atkobject.c:429
 msgid "Accessible Table Summary"
 msgstr "Sumar tabel accesibil"
 
-#: atk/atkobject.c:389
+#: ../atk/atkobject.c:430
 msgid "Is used to notify that the table summary has changed"
 msgstr "Utilizat pentru a notifica schimbarea sumarului tabelului"
 
-#: atk/atkobject.c:395
+#: ../atk/atkobject.c:436
 msgid "Accessible Table Caption Object"
 msgstr "Obiect-etichetă tabel accesibil"
 
-#: atk/atkobject.c:396
+#: ../atk/atkobject.c:437
 msgid "Is used to notify that the table caption has changed"
 msgstr "Utilizat pentru a notifica schimbarea etichetei tabelului"
 
-#: atk/atkobject.c:402
+#: ../atk/atkobject.c:443
 msgid "Number of Accessible Hypertext Links"
 msgstr "Număr de legături hipertext accesibile"
 
-#: atk/atkobject.c:403
+#: ../atk/atkobject.c:444
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numărul de legături din instanţa curentă AtkHypertext"
