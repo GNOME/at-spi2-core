@@ -134,7 +134,7 @@ libatk_1_0_la_LDFLAGS += -export-symbols atk.def -no-undefined -Wl,atk-win32-res
 libatk_1_0_la_DEPENDENCIES = atk-win32-res.o
 
 install-def-file:
-	$(INSTALL) $(srcdir)atk.def $(DESTDIR)$(libdir)/atk-1.0.def
+	$(INSTALL) $(srcdir)/atk.def $(DESTDIR)$(libdir)/atk-1.0.def
 uninstall-def-file:
 	-rm $(DESTDIR)$(libdir)/atk-1.0.def
 else
