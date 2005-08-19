@@ -2,8 +2,8 @@
 
 # Build zipfiles for ATK on Win32
 
-ZIP=/tmp/atk-@ATK_VERSION@-`date +%Y%m%d`.zip
-DEVZIP=/tmp/atk-dev-@ATK_VERSION@-`date +%Y%m%d`.zip
+ZIP=/tmp/atk-@ATK_VERSION@.zip
+DEVZIP=/tmp/atk-dev-@ATK_VERSION@.zip
 
 cd @prefix@
 rm $ZIP
@@ -22,5 +22,6 @@ zip -r $DEVZIP -@ <<EOF
 include/atk-1.0
 lib/libatk-@ATK_API_VERSION@.dll.a
 lib/atk-@ATK_API_VERSION@.lib
+lib/atk-@ATK_API_VERSION@.def
 lib/pkgconfig/atk.pc
 EOF

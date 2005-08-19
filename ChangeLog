@@ -1,5 +1,8 @@
 2005-08-19  Tor Lillqvist  <tml@novell.com>
 
+	* atk-zip.sh.in: Drop the timestamp from the zip file
+	names. Include the .def file.
+
 	* atk/Makefile.am (install-def-file): Fix typo.
 
 2005-08-04  Tor Lillqvist  <tml@novell.com>
