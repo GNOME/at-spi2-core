@@ -28,5 +28,5 @@ msgstr "Μητρώο AT-SPI"
 
 #: registryd/Accessibility_Registry.server.in.in.h:2
 msgid "Accessibility Registry"
-msgstr "Μητρώο Προσβασιμότητας"
+msgstr "Μητρώο Προσιτότητας"
 
