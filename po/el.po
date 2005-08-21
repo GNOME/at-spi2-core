@@ -368,7 +368,7 @@ msgstr ""
 
 #: atk/atkobject.c:303
 msgid "Accessible Description"
-msgstr "Περιγραφή Προσβασιμότητας"
+msgstr "Προσιτή περιγραφή"
 
 #: atk/atkobject.c:304
 msgid "Description of an object, formatted for assistive technology access"
