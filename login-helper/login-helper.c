@@ -161,7 +161,7 @@ impl_login_helper_get_raise_windows (PortableServer_Servant servant,
 				     CORBA_Environment *ev)
 {
   LoginHelper *helper = LOGIN_HELPER (bonobo_object_from_servant (servant));
-  long *wids;
+  unsigned long *wids;
   Accessibility_LoginHelper_WindowList *windows;
 
   wids = login_helper_get_raise_windows (helper);
