@@ -1,3 +1,10 @@
+Changes in version 1.10.2
+=========================
+
+* Minor build fixes incl Win32 (Tor Lillqvist)
+
+* New locales, "ug" (Abduxukur Abdurixit) and "gl" (Ognacio Casal Quinteiro)
+
 Changes in version 1.10.1
 =========================
 

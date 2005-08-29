@@ -1,3 +1,7 @@
+2005-08-29  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in, NEWS: Release 0.10.2.
+
 2005-08-19  Tor Lillqvist  <tml@novell.com>
 
 	* atk-zip.sh.in: Drop the timestamp from the zip file
