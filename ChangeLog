@@ -1,3 +1,7 @@
+2005-08-29 Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in, README, NEWS: Release 1.6.5.
+	
 2005-07-25  Matthias Clasen  <mclasen@redhat.com>
 
 	* test/window-listener-test.c: Fix a printf

@@ -1,3 +1,10 @@
+What's new in at-spi-1.6.5:
+
+* Fixed some discrepancies in event listener deregistration, improves
+on-the-fly deregistration of event listeners.  Fixed some tests.
+
+* Fixed brokenness in 'make check.'
+
 What's new in at-spi-1.6.4:
 
 * Fixed XEVIE detection and configuration on XOrg version 6.8.2.
