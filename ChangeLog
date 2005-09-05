@@ -1,6 +1,11 @@
+2005-09-05  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in, NEWS: Release 1.10.3, 
+	with a working libtool (1.10.2 was a bad release, don't use).
+
 2005-08-29  Bill Haneman <bill.haneman@sun.com>
 
-	* configure.in, NEWS: Release 0.10.2.
+	* configure.in, NEWS: Release 1.10.2.
 
 2005-08-19  Tor Lillqvist  <tml@novell.com>
 

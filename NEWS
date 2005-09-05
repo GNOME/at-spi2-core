@@ -1,5 +1,10 @@
-Changes in version 1.10.2
+Changes in version 1.10.3:
 =========================
+
+  Libtool fix.	
+  N.B. : 1.10.2 was released with a buggy libtool!
+
+  in version 1.10.2:
 
 * Minor build fixes incl Win32 (Tor Lillqvist)
 
