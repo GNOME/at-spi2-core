@@ -1451,7 +1451,8 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
       DEControllerKeyListener *key_listener = l2->data;	    
       Accessibility_DeviceEventListener ls = key_listener->listener.object;
 
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (ls, key_event, ev);
+      is_consumed = Accessibility_DeviceEventListener_notifyEvent (ls, key_event, ev) &&
+	            key_listener->mode->preemptive;
 
       if (BONOBO_EX (ev))
         {

@@ -1,3 +1,10 @@
+2005-10-27 Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	(spi_controller_notify_keylisteners): Check
+	to make sure the event listener has requested 'preemptive'
+	status before pre-empting an event.
+	
 2005-08-29 Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in, README, NEWS: Release 1.6.5.
