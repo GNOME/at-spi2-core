@@ -1,3 +1,7 @@
+2005-11-01  Simos Xenitellis  <simos@gnome.org>
+
+	* configure.in: Added tt (Tatar) to ALL_LINGUAS.
+
 2005-09-05  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in, NEWS: Release 1.10.3, 
