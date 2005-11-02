@@ -932,7 +932,6 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   CORBA_Object c_obj;
   char *sp = NULL;
   AtkObject *ao;
-  AtkText *text;
   gint detail1 = 0, detail2 = 0;
   SpiAccessible *s_ao = NULL;
 #ifdef SPI_BRIDGE_DEBUG
@@ -1022,8 +1021,6 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
         }
       else if (signal_query.signal_id == atk_signal_text_selection_changed)
         {
-          text = ATK_TEXT (gobject);
- 
           /* Return NULL as the selected string */
 	  spi_init_any_nil (&any);
         }

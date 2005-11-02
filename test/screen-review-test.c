@@ -161,13 +161,11 @@ main (int argc, char **argv)
 static inline gboolean
 chunk_bounds_within (TextChunk *chunk, TextChunk *test_chunk)
 {
-	int x1, x2, tx1, tx2;
+	int x1, tx1;
 	gboolean gtx1, ltx2;
 
 	x1 = chunk->clip_bounds.x;
-	x2 = x1 + chunk->clip_bounds.width;
 	tx1 = test_chunk->clip_bounds.x;
-	tx2 = tx1 + test_chunk->clip_bounds.width;
 	gtx1 = (chunk->clip_bounds.x >= test_chunk->clip_bounds.x);
 	ltx2 = (chunk->clip_bounds.x + chunk->clip_bounds.width
 		<= test_chunk->clip_bounds.x + test_chunk->clip_bounds.width);

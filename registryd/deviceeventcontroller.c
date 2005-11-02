@@ -920,8 +920,9 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
   GSList  *notify = NULL, *l2;
   GList  **listeners = &controller->mouse_listeners;
   gboolean is_consumed;
+#ifdef SPI_KEYEVENT_DEBUG
   gboolean found = FALSE;
-
+#endif
   if (!listeners)
     {
       return FALSE;
@@ -940,7 +941,9 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
 	       /* we clone (don't dup) the listener, to avoid refcount inc. */
 	       notify = g_slist_prepend (notify,
 					 spi_listener_clone (listener, ev));
+#ifdef SPI_KEYEVENT_DEBUG
                found = TRUE;
+#endif
 	     }
          }
     }
@@ -2220,7 +2223,6 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 {
   SpiDEController *controller =
 	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
-  long key_synth_code;
   gint err;
   KeySym keysym;
 
@@ -2236,7 +2238,6 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
    */
   
   gdk_error_trap_push ();
-  key_synth_code = keycode;
 
   switch (synth_type)
     {

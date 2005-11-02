@@ -273,7 +273,7 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 	  }
 	  /* bonobo-client doesn't wrap seek yet, so we have to. */
 	  ret_offset = accessible_bonobo_stream_client_seek (stream, offset, 
-							     seek_type, cspi_ev ());
+							     bonobo_seek_type, cspi_ev ());
 	  cspi_return_val_if_ev ("seek", FALSE);
 	}
     }

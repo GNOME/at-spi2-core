@@ -1,3 +1,14 @@
+2005-11-02  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* atk-bridge/bridge.c: (spi_atk_bridge_signal_listener):
+	* cspi/spi_streamablecontent.c: (AccessibleStreamableContent_seek):
+	* registryd/deviceeventcontroller.c:
+	(spi_controller_notify_mouselisteners),
+	(impl_generate_keyboard_event):
+	* test/screen-review-test.c: (chunk_bounds_within):
+	* test/test-simple.c: (test_desktop): Remove lots of unused code
+	and fix compiler warnings. Closes bug #320049.
+
 2005-10-27 Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/deviceeventcontroller.c:

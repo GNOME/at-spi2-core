@@ -196,7 +196,6 @@ test_desktop (void)
 {
 	Accessible  *desktop;
 	Accessible  *application;
-	int          length;
 	Accessible **list;
 
 	fprintf (stderr, "Testing desktop...\n");
@@ -205,7 +204,7 @@ test_desktop (void)
 	desktop = SPI_getDesktop (0);
 	g_assert (desktop != NULL);
 
-	g_assert ((length = SPI_getDesktopList (&list)) > 0);
+	g_assert ((SPI_getDesktopList (&list)) > 0);
 	g_assert (list[0] == desktop);
 	SPI_freeDesktopList (list);
 
