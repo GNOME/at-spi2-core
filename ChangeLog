@@ -1,3 +1,10 @@
+2005-11-16  Michael Meeks  <michael.meeks@novell.com>
+
+	* atk-bridge/bridge.c (spi_atk_emit_eventv):
+	do a faster, less problematic _unref call on this local
+	object, rather than a slower (potentially cross-thread
+	complicated) CORBA call.
+
 2005-11-02  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* atk-bridge/bridge.c: (spi_atk_bridge_signal_listener):

@@ -661,7 +661,7 @@ spi_atk_emit_eventv (const GObject         *gobject,
 		   CORBA_exception_id(&ev));
 #endif	      
       if (BONOBO_EX (&ev)) registry_died = TRUE;
-      Accessibility_Accessible_unref (e.source, &ev);
+      bonobo_object_unref (BONOBO_OBJCT (source));
       
       CORBA_exception_free (&ev);
       
