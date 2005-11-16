@@ -1,3 +1,13 @@
+2005-11-16  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkimage.c:
+	* atk/atkhypertext.c:
+	* atk/atkobjectfactory.c:
+	* atk/atktable.c: Moved error return code
+	description to 'Returns' section.
+	* docs/tmpl/atkutil.sgml:
+	Committed a docs patch from Bill Abt.
+	
 2005-11-01  Simos Xenitellis  <simos@gnome.org>
 
 	* configure.in: Added tt (Tatar) to ALL_LINGUAS.

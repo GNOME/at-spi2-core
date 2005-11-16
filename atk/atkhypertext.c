@@ -129,10 +129,10 @@ atk_hypertext_get_n_links (AtkHypertext  *hypertext)
  * @char_index: a character index
  *
  * Gets the index into the array of hyperlinks that is associated with
- * the character specified by @char_index, or -1 if there is no hyperlink
- * associated with this character.
+ * the character specified by @char_index.
  *
- * Returns: an index into the array of hyperlinks in @hypertext
+ * Returns: an index into the array of hyperlinks in @hypertext,
+ * or -1 if there is no hyperlink associated with this character.
  **/
 gint 
 atk_hypertext_get_link_index (AtkHypertext  *hypertext,

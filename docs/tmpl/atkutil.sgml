@@ -17,6 +17,9 @@ same thread. The file also contains a number of utility functions.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkUtil ##### -->
 <para>
 The AtkObject structure should not be accessed directly.
@@ -72,7 +75,7 @@ such as receiving focus, occurs. The parameter of the AtkEventListener is the
 AtkObject on which the event occurred.
 </para>
 
-@Param1: 
+@Param1: an #AtkObject
 
 
 <!-- ##### USER_FUNCTION AtkEventListenerInit ##### -->
@@ -130,9 +133,9 @@ The AtkKeyEventStruct describes a keyboard event.
 An AtkKeySnoopFunc is a function which is called when a keyboard event occurs.
 </para>
 
-@event: 
-@func_data: 
-@Returns: 
+@event: keyboard event
+@func_data: a data gpointer for the function
+@Returns: return code
 
 
 <!-- ##### FUNCTION atk_add_key_event_listener ##### -->

@@ -166,10 +166,10 @@ atk_table_ref_at (AtkTable *table,
  * @column: a #gint representing a column in @table
  *
  * Gets a #gint representing the index at the specified @row and @column.
+ *
+ * Returns: a #gint representing the index at specified position.
  * The value -1 is returned if the object at row,column is not a child
  * of table or table does not implement this interface.
- *
- * Returns: a #gint representing the index at specified position 
  **/
 gint
 atk_table_get_index_at (AtkTable *table,
@@ -195,10 +195,10 @@ atk_table_get_index_at (AtkTable *table,
  * @table: a GObject instance that implements AtkTableInterface
  * @index_: a #gint representing an index in @table
  *
- * Gets a #gint representing the row at the specified @index_, or -1
- * if the table does not implement this interface
+ * Gets a #gint representing the row at the specified @index_.
  *
- * Returns: a gint representing the row at the specified index.
+ * Returns: a gint representing the row at the specified index,
+ * or -1 if the table does not implement this interface
  **/
 gint
 atk_table_get_row_at_index (AtkTable *table,
@@ -221,10 +221,10 @@ atk_table_get_row_at_index (AtkTable *table,
  * @table: a GObject instance that implements AtkTableInterface
  * @index_: a #gint representing an index in @table
  *
- * Gets a #gint representing the column at the specified @index_, or -1
- * if the table does not implement this interface
+ * Gets a #gint representing the column at the specified @index_. 
  *
- * Returns: a gint representing the column at the specified index.
+ * Returns: a gint representing the column at the specified index,
+ * or -1 if the table does not implement this interface
  **/
 gint
 atk_table_get_column_at_index (AtkTable *table,

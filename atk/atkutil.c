@@ -81,7 +81,7 @@ struct _FocusTracker {
 
 /**
  * atk_focus_tracker_init:
- * @add_function: Function to be called for focus tracker initialization
+ * @init: Function to be called for focus tracker initialization
  *
  * Specifies the function to be called for focus tracker initialization.
  * This function should be called by an implementation of the
