@@ -1,3 +1,53 @@
+2005-11-17  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkobject.h:
+	(AtkRoleType): Added ATK_ROLE_ENTRY, ATK_ROLE_CHART,
+	ATK_ROLE_CAPTION, ATK_ROLE_DOCUMENT_FRAME, ATK_ROLE_HEADING,
+	ATK_ROLE_PAGE, ATK_ROLE_SECTION, ATK_ROLE_REDUNDANT_OBJECT.
+	(AtkAttributeSet): Moved here from AtkText.
+	(AtkObjectClass): Added get_attributes vfunc pointer.
+	(atk_object_get_attributes): New public method.
+	
+	* atk/atkobject.c:
+	(atk_object_get_attributes): New method implementation, 
+	uses AtkObjectClass->get_attributes.   This method allows
+	the assignment of weakly-type attributes to any AtkObject
+	instance, as name-value pairs.
+	(AtkRoleItem): Added names for the new roles.
+	
+	* atk/atkstate.h:
+	(AtkStateType): Added ATK_STATE_INVALID_ENTRY, 
+	ATK_STATE_SUPPORTS_AUTOCOMPLETION, ATK_STATE_SELECTABLE_TEXT.
+	Tweaked docs for other states.
+	
+	* atk/atkimage.h:
+	(AtkImageClass): Added get_image_locale vfunc.
+	(atk_image_get_image_locale): New method.
+
+	* atk/atkimage.c:
+	(atk_image_get_image_locale): New method.
+
+	* atk/atkcomponent.h:
+	(AtkComponentClass): Added get_alpha vfunc.
+	(atk_component_get_alpha): New method.
+	
+	* atk/atkcomponent.c:
+	(atk_component_get_alpha): New method.
+
+	* atk/atkdocument.h:
+	(AtkDocument): Added vfuncs for document locale and
+	document attributes.
+	(atk_document_get_locale): New.
+	(atk_document_get_attributes): New.
+	(atk_document_get_attribute_value): New.
+	(atk_document_set_attribute_value): New.
+
+	* atk/atkdocument.c: 
+	(atk_document_get_locale): New.
+	(atk_document_get_attributes): New.
+	(atk_document_get_attribute_value): New.
+	(atk_document_set_attribute_value): New.	
+	
 2005-11-16  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkimage.c:

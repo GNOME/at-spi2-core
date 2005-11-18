@@ -14,6 +14,9 @@ The ATK interface which provides access to streamable content.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkStreamableContent ##### -->
 <para>
 The AtkStreamableContent structure does not contain any fields.

@@ -155,7 +155,15 @@ static AtkRoleItem role_items [] =
   { ATK_ROLE_APPLICATION, N_("application")},
   { ATK_ROLE_AUTOCOMPLETE, N_("autocomplete")},
   { ATK_ROLE_EDITBAR, N_("edit bar")},
-  { ATK_ROLE_EMBEDDED, N_("embedded component")}
+  { ATK_ROLE_EMBEDDED, N_("embedded component")},
+  { ATK_ROLE_ENTRY, N_("entry")},
+  { ATK_ROLE_CHART, N_("chart")},
+  { ATK_ROLE_CAPTION, N_("caption")},
+  { ATK_ROLE_DOCUMENT_FRAME, N_("document frame")},
+  { ATK_ROLE_HEADING, N_("heading")},
+  { ATK_ROLE_PAGE, N_("page")},
+  { ATK_ROLE_SECTION, N_("section")},
+  { ATK_ROLE_REDUNDANT_OBJECT, N_("redundant object")}
 };
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);
@@ -1005,6 +1013,29 @@ atk_implementor_ref_accessible (AtkImplementor *object)
   g_return_val_if_fail ((accessible != NULL), NULL);
 
   return accessible;
+}
+
+    	
+/**
+ * Get a list of properties applied to this object as a whole, as an #AtkAttributeSet consisting of 
+ * name-value pairs. As such these attributes may be considered weakly-typed properties or annotations, 
+ * as distinct from strongly-typed object data available via other get/set methods.
+ * Not all objects have explicit "name-value pair" #AtkAttributeSet properties.
+ * @Since ATK 1.12
+ */
+AtkAttributeSet *
+atk_object_get_attributes (AtkObject                  *accessible)
+{
+  AtkObjectClass *klass;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), NULL);
+
+  klass = ATK_OBJECT_GET_CLASS (accessible);
+  if (klass->get_attributes)
+    return (klass->get_attributes) (accessible); 
+  else 
+    return NULL;
+	
 }
 
 static AtkRelationSet*

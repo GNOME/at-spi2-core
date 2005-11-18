@@ -16,6 +16,9 @@ create an accessible object of a particular type.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkNoOpObjectFactory ##### -->
 <para>
 The AtkNoOpObjectFactory structure should not be accessed directly.

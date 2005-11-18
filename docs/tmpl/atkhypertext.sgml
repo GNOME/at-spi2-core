@@ -14,11 +14,23 @@ The ATK interface which provides standard mechanism for manipulating hyperlinks.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkHypertext ##### -->
 <para>
 The AtkHypertext structure does not contain any fields.
 </para>
 
+
+<!-- ##### SIGNAL AtkHypertext::link-selected ##### -->
+<para>
+The "link-selected" signal is emitted by an AtkHyperText object when one of
+the hyperlinks associated with the object is selected.
+</para>
+
+@atkhypertext: the object which received the signal.
+@arg1: the index of the hyperlink which is selected
 
 <!-- ##### FUNCTION atk_hypertext_get_link ##### -->
 <para>
@@ -48,13 +60,4 @@ The AtkHypertext structure does not contain any fields.
 @char_index: 
 @Returns: 
 
-
-<!-- ##### SIGNAL AtkHypertext::link-selected ##### -->
-<para>
-The "link-selected" signal is emitted by an AtkHyperText object when one of
-the hyperlinks associated with the object is selected.
-</para>
-
-@atkhypertext: the object which received the signal.
-@arg1: the index of the hyperlink which is selected
 

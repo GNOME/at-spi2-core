@@ -20,6 +20,9 @@ AtkRegistry
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkObjectFactory ##### -->
 <para>
 The AtkObjectFactory structure should not be accessed directly.

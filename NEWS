@@ -1,3 +1,20 @@
+Changes in version 1.11.0:
+=========================
+
+  Added new APIs - minor enhancements to AtkImage,
+  AtkDocument, AtkObject, AtkComponent, AtkState.
+
+  Significant API additions:  Added locale attribute to
+  AtkImage instances, and Document instances.  
+  Added the ability to assign weakly-typed attributes to
+  AtkObject as name-value pairs; also added similar
+  name-value pairs to AtkDocument for attributes which are
+  intended to be valid over the entire document.
+
+  Minor documentation fixes (thanks to Bill Abt).
+
+  Added 'tt' (Tatar) locale, Simos Xenitellis  
+
 Changes in version 1.10.3:
 =========================
 

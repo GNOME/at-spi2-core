@@ -15,6 +15,9 @@ object for an object of a particular GType.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkRegistry ##### -->
 <para>
 The AtkRegistry structure should not be accessed directly.

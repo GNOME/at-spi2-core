@@ -95,3 +95,131 @@ atk_document_get_document (AtkDocument *document)
     }
 }
 
+/**
+ * atk_document_get_locale:
+ * @document: a #GObject instance that implements AtkDocumentIface
+ *
+ * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
+ *          of the content of this document instance.  Individual
+ *          text substrings or images within this document may have
+ *          a different locale, see atk_text_get_attributes and
+ *          atk_image_get_image_locale.
+ *
+ * Returns: a UTF-8 string indicating the POSIX-style LC_MESSAGES
+ *          locale of the document content as a whole, or NULL if
+ *          the document content does not specify a locale.
+ **/
+G_CONST_RETURN gchar *
+atk_document_get_locale (AtkDocument *document)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), NULL);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->get_document_locale)
+    {
+      return (iface->get_document_locale) (document);
+    }
+  else
+    {
+      return NULL;
+    }
+}
+
+
+/**
+ * atk_document_get_attributes:
+ * @document: a #GObject instance that implements AtkDocumentIface
+ *
+ * Gets an AtkAttributeSet which describes document-wide
+ *          attributes as name-value pairs.
+ *
+ * Returns: An AtkAttributeSet containing the explicitly
+ *          set name-value-pair attributes associated with this document
+ *          as a whole.
+ * @Since: ATK 1.12
+ **/
+AtkAttributeSet *
+atk_document_get_attributes (AtkDocument *document)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), NULL);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->get_document_attributes)
+    {
+      return (iface->get_document_attributes) (document);
+    }
+  else
+    {
+      return NULL;
+    }
+}
+
+/**
+ * atk_document_get_attribute_value:
+ * @document: a #GObject instance that implements AtkDocumentIface
+ * @attribute_name: a character string representing the name of the attribute
+ *            whose value is being queried.
+ *
+ * Returns: a string value associated with the named attribute for this
+ *    document, or NULL if a value for #attribute_name has not been specified
+ *    for this document.
+ * @Since: ATK 1.12
+ */
+G_CONST_RETURN gchar *
+atk_document_get_attribute_value (AtkDocument *document, 
+				  const gchar *attribute_name)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), NULL);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->get_document_attribute_value)
+    {
+      return (iface->get_document_attribute_value) (document, attribute_name);
+    }
+  else
+    {
+      return NULL;
+    }
+}
+
+/**
+ * atk_document_set_attribute_value:
+ * @document: a #GObject instance that implements AtkDocumentIface
+ * @attribute_name: a character string representing the name of the attribute
+ *            whose value is being set.
+ * @value: a string value to be associated with #attribute_name.
+ *
+ * Returns: TRUE if #value is successfully associated with #attribute_name
+ *          for this document, FALSE otherwise (e.g. if the document does not
+ *          allow the attribute to be modified).
+ * @Since ATK 1.12
+ */
+gboolean
+atk_document_set_attribute_value (AtkDocument *document, 
+				  const gchar *attribute_name,
+				  const gchar *value)
+{
+  AtkDocumentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_DOCUMENT (document), FALSE);
+
+  iface = ATK_DOCUMENT_GET_IFACE (document);
+
+  if (iface->set_document_attribute)
+    {
+      return (iface->set_document_attribute) (document, attribute_name, value);
+    }
+  else
+    {
+      return FALSE;
+    }
+}

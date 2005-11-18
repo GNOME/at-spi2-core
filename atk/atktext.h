@@ -30,32 +30,6 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * AtkAttributeSet:
- *
- * This is a singly-linked list (a #GSList) of #AtkAttribute. It is
- * used by atk_text_get_run_attributes(), atk_text_get_default_attributes()
- * and atk_editable_text_set_run_attributes()
- **/
-typedef GSList AtkAttributeSet;
-
-/**
- * AtkAttribute:
- * @name: The attribute name. Call atk_text_attr_get_name()
- * @value: the value of the attribute, represented as a string. 
- * Call atk_text_attr_get_value() for those which are strings.
- * For values which are numbers, the string representation of the number 
- * is in value.
- *
- * A string name/value pair representing a text attribute. 
- **/
-typedef struct _AtkAttribute AtkAttribute;
-
-struct _AtkAttribute {
-  gchar* name;
-  gchar* value;
-};
-
-/**
  *AtkTextAttribute
  *@ATK_TEXT_ATTR_INVALID: Invalid attribute
  *@ATK_TEXT_ATTR_LEFT_MARGIN: The pixel width of the left margin

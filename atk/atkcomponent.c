@@ -377,6 +377,31 @@ atk_component_get_mdi_zorder (AtkComponent *component)
 }
 
 /**
+ * atk_component_get_alpha:
+ * @component: an #AtkComponent
+ *
+ * Returns the alpha value (i.e. the opacity) for this
+ * @component, on a scale from 0 (fully transparent) to 1.0
+ * (fully opaque).
+ *
+ * Returns: An alpha value from 0 to 1.0, inclusive.
+ * @Since: ATK 1.12
+ **/
+gdouble
+atk_component_get_alpha (AtkComponent    *component)
+{
+  AtkComponentIface *iface;
+
+  g_return_val_if_fail (ATK_IS_COMPONENT (component), G_MININT);
+
+  iface = ATK_COMPONENT_GET_IFACE (component);
+  if (iface->get_alpha)
+    return (iface->get_alpha) (component);
+  else
+    return (gdouble) 1.0;
+}
+
+/**
  * atk_component_grab_focus:
  * @component: an #AtkComponent
  *
@@ -563,6 +588,12 @@ atk_component_real_get_size (AtkComponent *component,
   coord_type = ATK_XY_WINDOW;
 
   atk_component_get_extents (component, &x, &y, width, height, coord_type);
+}
+
+gdouble
+atk_component_real_get_alpha (AtkComponent    *component)
+{
+    return (gdouble) 1.0;
 }
 
 static AtkRectangle *

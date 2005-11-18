@@ -15,6 +15,9 @@ of AtkStates.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### FUNCTION atk_state_set_new ##### -->
 <para>
 

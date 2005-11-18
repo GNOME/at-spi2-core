@@ -41,6 +41,9 @@ terminology for #AtkAction names.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkAction ##### -->
 <para>
 The AtkAction structure does not contain any fields.

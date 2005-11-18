@@ -19,12 +19,25 @@ are defined as an AtkRelationSet, which is a set of AtkRelations.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkRelation ##### -->
 <para>
 The AtkRelation structure should not be accessed directly.
 
 </para>
 
+
+<!-- ##### ARG AtkRelation:relation-type ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG AtkRelation:target ##### -->
+<para>
+
+</para>
 
 <!-- ##### ENUM AtkRelationType ##### -->
 <para>
@@ -111,14 +124,4 @@ The AtkRelation structure should not be accessed directly.
 @relation: 
 @target: 
 
-
-<!-- ##### ARG AtkRelation:relation-type ##### -->
-<para>
-
-</para>
-
-<!-- ##### ARG AtkRelation:target ##### -->
-<para>
-
-</para>
 

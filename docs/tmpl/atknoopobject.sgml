@@ -16,6 +16,9 @@ object is requested for an object type for which no factory type is specified.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AtkNoOpObject ##### -->
 <para>
 The AtkNoOpObject structure should not be accessed directly.
