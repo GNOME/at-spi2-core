@@ -1,3 +1,7 @@
+2005-11-21  Pablo Saratxaga  <pablo@walon.org>
+
+	* wa.po: Updated Walloon file
+
 2005-11-21  Ales Nyakhaychyk  <nab@mail.by>
 
 	* be.po: Updated Belarusian translation by Vital Khilko.
@@ -421,10 +425,10 @@
 
 2004-03-23  Guntupalli Karunakar  <karunakar@freedomink.org>
 
-        * pa.po: Added Punjabi translation by
-        Amanpreet Singh Alam <amanlinux@netscape.net>.
+	* pa.po: Added Punjabi translation by
+	Amanpreet Singh Alam <amanlinux@netscape.net>.
 
-2004-03-23  Pablo Saratxaga  <pablo@mandrakesoft.com>
+2004-03-23  Pablo Saratxaga  <pablo@mandriva.com>
 
 	* wa.po: Added Walloon file
 
@@ -1094,7 +1098,7 @@
 	* pl.po: Added Polish translation by
 	GNOME PL Team <translators@gnome.pl>.
 
-2002-12-26  Pablo Saratxaga  <pablo@mandrakesoft.com>
+2002-12-26  Pablo Saratxaga  <pablo@mandriva.com>
 
 	* vi.po: Updated Vietnamese file
 	* el.po,en_GB.po,ru.po: enabled/corrected headers
@@ -1127,7 +1131,7 @@
 
 2002-12-16  Hasbullah Bin Pit <sebol@ikhlas.com>
 
-        * ms.po: Updated Malay translation.
+	* ms.po: Updated Malay translation.
 
 2002-12-13  Daniel Yacob <locales@geez.org>
 
@@ -1137,7 +1141,7 @@
 
 	* bg.po (added): Added Bulgarian translation.
 
-2002-12-11  Pablo Saratxaga  <pablo@mandrakesoft.com>
+2002-12-11  Pablo Saratxaga  <pablo@mandriva.com>
 
 	* vi.po: Added Vietnamese file
 
