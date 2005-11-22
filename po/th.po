@@ -1,32 +1,28 @@
-# translation of atk.po to 
-# translation of atk10.po to
-# translation of atk10.po to
-# translation of atk10.po to
-# translation of atk10.po to
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Thai translation of atk
+# This file is distributed under the same license as the atk package.
+# Copyright (C) 2004-2005 Free Software Foundation, Inc.
 # Supranee Thirawatthanasuk <supranee@opentle.org>, 2004.
+# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-09 03:00+0200\n"
-"PO-Revision-Date: 2004-09-09 16:48+0700\n"
-"Last-Translator: Supranee Thirawatthanasuk <supranee@opentle.org>\n"
+"POT-Creation-Date: 2005-11-22 08:56+0700\n"
+"PO-Revision-Date: 2005-11-22 09:33+0700\n"
+"Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team:  <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
-msgstr "ลิงก์ที่เลือก"
+msgstr "ลิงก์ถูกเลือก"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr ""
+msgstr "ระบุว่าออบเจกต์ AtkHyperlink ถูกเลือกอยู่หรือไม่"
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
@@ -58,11 +54,11 @@ msgstr "ไม่ถูกต้อง"
 
 #: atk/atkobject.c:83
 msgid "accelerator label"
-msgstr ""
+msgstr "ฉลากคีย์ด่วน"
 
 #: atk/atkobject.c:84
 msgid "alert"
-msgstr "เตือน"
+msgstr "แจ้งเหตุ"
 
 #: atk/atkobject.c:85
 msgid "animation"
@@ -78,7 +74,7 @@ msgstr "ปฏิทิน"
 
 #: atk/atkobject.c:88
 msgid "canvas"
-msgstr ""
+msgstr "ผ้าใบวาดรูป"
 
 #: atk/atkobject.c:89
 msgid "check box"
@@ -90,7 +86,7 @@ msgstr ""
 
 #: atk/atkobject.c:91
 msgid "color chooser"
-msgstr "ตัวเลือกสี"
+msgstr "กล่องเลือกสี"
 
 #: atk/atkobject.c:92
 msgid "column header"
@@ -102,7 +98,7 @@ msgstr "กล่องคอมโบ"
 
 #: atk/atkobject.c:94
 msgid "dateeditor"
-msgstr "ตัวแก้ไขวันที่"
+msgstr "กล่องแก้ไขวันที่"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
@@ -114,11 +110,11 @@ msgstr "กรอบเดสก์ท็อป"
 
 #: atk/atkobject.c:97
 msgid "dial"
-msgstr ""
+msgstr "หมุนโทรศัพท์"
 
 #: atk/atkobject.c:98
 msgid "dialog"
-msgstr "กรอบข้อความ"
+msgstr "กล่องโต้ตอบ"
 
 #: atk/atkobject.c:99
 msgid "directory pane"
@@ -130,7 +126,7 @@ msgstr "พื้นที่วาดรูป"
 
 #: atk/atkobject.c:101
 msgid "file chooser"
-msgstr "ตัวเลือกแฟ้ม"
+msgstr "กล่องเลือกแฟ้ม"
 
 #: atk/atkobject.c:102
 msgid "filler"
@@ -139,7 +135,7 @@ msgstr ""
 #. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
-msgstr "ตัวเลือกอักษร"
+msgstr "กล่องเลือกแบบอักษร"
 
 #: atk/atkobject.c:105
 msgid "frame"
@@ -199,15 +195,15 @@ msgstr ""
 
 #: atk/atkobject.c:119
 msgid "page tab"
-msgstr ""
+msgstr "แท็บของหน้า"
 
 #: atk/atkobject.c:120
 msgid "page tab list"
-msgstr ""
+msgstr "รายการแท็บของหน้า"
 
 #: atk/atkobject.c:121
 msgid "panel"
-msgstr "แพเนล"
+msgstr "พาเนล"
 
 #: atk/atkobject.c:122
 msgid "password text"
@@ -223,7 +219,7 @@ msgstr "แถบบอกความคืบหน้า"
 
 #: atk/atkobject.c:125
 msgid "push button"
-msgstr ""
+msgstr "ปุ่มกด"
 
 #: atk/atkobject.c:126
 msgid "radio button"
@@ -255,7 +251,7 @@ msgstr "ตัวแบ่ง"
 
 #: atk/atkobject.c:133
 msgid "slider"
-msgstr ""
+msgstr "ปุ่มรางเลื่อน"
 
 #: atk/atkobject.c:134
 msgid "split pane"
@@ -267,7 +263,7 @@ msgstr ""
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr "แถบบอกสถานะ"
+msgstr "แถบสถานะ"
 
 #: atk/atkobject.c:137
 msgid "table"
@@ -339,7 +335,7 @@ msgstr "ท้ายกระดาษ"
 
 #: atk/atkobject.c:154
 msgid "paragraph"
-msgstr ""
+msgstr "ย่อหน้า"
 
 #: atk/atkobject.c:155
 msgid "application"
@@ -347,7 +343,7 @@ msgstr "โปรแกรม"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
-msgstr ""
+msgstr "เติมเต็มคำอัตโนมัติ"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
@@ -355,127 +351,160 @@ msgstr "แถบแก้ไข"
 
 #: atk/atkobject.c:158
 msgid "embedded component"
+msgstr "องค์ประกอบฝังตัว"
+
+#: atk/atkobject.c:159
+msgid "entry"
 msgstr ""
 
-#: atk/atkobject.c:296
+#: atk/atkobject.c:160
+msgid "chart"
+msgstr "แผนภูมิ"
+
+#: atk/atkobject.c:161
+msgid "caption"
+msgstr "ป้ายบรรยาย"
+
+#: atk/atkobject.c:162
+msgid "document frame"
+msgstr "กรอบเอกสาร"
+
+#: atk/atkobject.c:163
+msgid "heading"
+msgstr ""
+
+#: atk/atkobject.c:164
+msgid "page"
+msgstr "หน้า"
+
+#: atk/atkobject.c:165
+msgid "section"
+msgstr "หัวข้อ"
+
+#: atk/atkobject.c:166
+msgid "redundant object"
+msgstr "ออบเจกต์ส่วนเกิน"
+
+#: atk/atkobject.c:345
 msgid "Accessible Name"
 msgstr "ชื่อที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:297
+#: atk/atkobject.c:346
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
+msgstr "ชื่ออินสแตนซ์ของออบเจกต์ ซึ่งจัดรูปแบบไว้สำหรับใช้กับเทคโนโลยีอำนวยการใช้งาน"
 
-#: atk/atkobject.c:303
+#: atk/atkobject.c:352
 msgid "Accessible Description"
 msgstr "คำอธิบายที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:304
+#: atk/atkobject.c:353
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
+msgstr "คำอธิบายของออบเจกต์ ซึ่งจัดรูปแบบไว้สำหรับใช้กับเทคโนโลยีอำนวยการใช้งาน"
 
-#: atk/atkobject.c:310
+#: atk/atkobject.c:359
 msgid "Accessible Parent"
-msgstr ""
+msgstr "ออบเจกต์แม่ที่เข้าถึงได้"
 
-#: atk/atkobject.c:311
+#: atk/atkobject.c:360
 msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgstr "ใช้สำหรับแจ้งให้ทราบเมื่อออบเจกต์แม่มีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:317
+#: atk/atkobject.c:366
 msgid "Accessible Value"
 msgstr "ค่าที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:318
+#: atk/atkobject.c:367
 msgid "Is used to notify that the value has changed"
-msgstr "ใช้เพื่อที่จะเตือนเมื่อค่าได้เปลี่ยนแปลงไป"
+msgstr "ใช้เพื่อแจ้งให้ทราบเมื่อค่ามีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:326
+#: atk/atkobject.c:375
 msgid "Accessible Role"
-msgstr ""
+msgstr "บทบาทที่เข้าถึงได้"
 
-#: atk/atkobject.c:327
+#: atk/atkobject.c:376
 msgid "The accessible role of this object"
-msgstr ""
+msgstr "บทบาทที่เข้าถึงได้ของออบเจกต์นี้"
 
-#: atk/atkobject.c:335
+#: atk/atkobject.c:384
 msgid "Accessible Layer"
 msgstr ""
 
-#: atk/atkobject.c:336
+#: atk/atkobject.c:385
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:344
+#: atk/atkobject.c:393
 msgid "Accessible MDI Value"
 msgstr "ค่า MDI ที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:345
+#: atk/atkobject.c:394
 msgid "The accessible MDI value of this object"
 msgstr "ค่า MDI ที่สามารถเข้าถึงได้ของวัตถุนี้"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:402
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "ป้ายบรรยายตารางที่เข้าถึงได้"
 
-#: atk/atkobject.c:354
+#: atk/atkobject.c:403
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr ""
+msgstr "ใช้แจ้งให้ทราบเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง ไม่ควรใช้ช่องข้อมูลนี้ "
+"แต่ควรใช้ accessible-table-caption-object แทน"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:409
 msgid "Accessible Table Column Header"
 msgstr "หัวคอลัมน์ของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:361
+#: atk/atkobject.c:410
 msgid "Is used to notify that the table column header has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อหัวคอลัมน์ของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:416
 msgid "Accessible Table Column Description"
 msgstr "คำอธิบายคอลัมน์ของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:368
+#: atk/atkobject.c:417
 msgid "Is used to notify that the table column description has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อคำอธิบายคอลัมน์ของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:374
+#: atk/atkobject.c:423
 msgid "Accessible Table Row Header"
 msgstr "หัวแถวของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:375
+#: atk/atkobject.c:424
 msgid "Is used to notify that the table row header has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อหัวแถวของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:381
+#: atk/atkobject.c:430
 msgid "Accessible Table Row Description"
 msgstr "คำอธิบายแถวของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:382
+#: atk/atkobject.c:431
 msgid "Is used to notify that the table row description has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อคำอธิบายแถวของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:388
+#: atk/atkobject.c:437
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "คำสรุปตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:389
+#: atk/atkobject.c:438
 msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgstr "ใช้แจ้งให้ทราบเมื่อคำสรุปตารางมีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:444
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "ออบเจกต์ป้ายบรรยายตารางที่เข้าถึงได้"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:445
 msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgstr "ใช้แจ้งให้ทราบเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:451
 msgid "Number of Accessible Hypertext Links"
 msgstr "จำนวนของ Hypertext Links ที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:403
+#: atk/atkobject.c:452
 msgid "The number of links which the current AtkHypertext has"
 msgstr "จำนวนของลิงก์ที่ AtkHypertext ปัจจุบันมี"
 
