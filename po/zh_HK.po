@@ -1,5 +1,5 @@
-# Chinese (Taiwan) translation of atk.
-# Copyright (C) 2003, 04, 05 Free Software Foundation, Inc.
+# Chinese (Hong Kong) translation of atk.
+# Copyright (C) 2005 Free Software Foundation, Inc.
 # Abel Cheung <abel@oaka.org>, 2003.
 # Li-Jen Hsin <hsin@med.cgu.edu.tw>, 2004.
 #
