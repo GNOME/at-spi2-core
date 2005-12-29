@@ -1,3 +1,8 @@
+2005-12-29  Abel Cheung  <maddog@linuxhall.org>
+
+	* configure.in: Add zh_HK, zh_TW to ALL_LINGUAS
+	(yes I know that's useless)
+
 2005-11-20  Theppitak Karoonboonyanan  <thep@linux.thai.net>
 
 	* configure.in: Added "th" (Thai) to ALL_LINGUAS.
