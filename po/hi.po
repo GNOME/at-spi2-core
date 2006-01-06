@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the atk package.
 # G Karunakar <karunakar@freedomink.org>, 2003.
 # Ravishankar Shrivastava <raviratlami@yahoo.com>, 2004.
-# Rajesh Ranjan <rranjan@redhat.com>, 2005.
+# Rajesh Ranjan <rranjan@redhat.com>, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-02 13:39+0000\n"
-"PO-Revision-Date: 2005-09-02 20:42+0530\n"
+"POT-Creation-Date: 2006-01-06 05:23+0100\n"
+"PO-Revision-Date: 2006-01-06 15:06+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 
 #: ../atk/atkhyperlink.c:103
@@ -38,19 +39,19 @@ msgstr "एटीके-हायपरलिंक ऑब्जेक्ट क
 
 #: ../atk/atkhyperlink.c:119
 msgid "End index"
-msgstr "अंतिम निर्देशिका"
+msgstr "अंतिम सूची"
 
 #: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "एटीके-हायपरलिंक ऑब्जेक्ट की अंतिम निर्देशिका"
+msgstr "एटीके-हायपरलिंक ऑब्जेक्ट की अंतिम सूची"
 
 #: ../atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr "प्रारंभ निर्देशिका"
+msgstr "प्रारंभ सूची"
 
 #: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "एटीके-हायपरलिंक ऑब्जेक्ट का प्रारंभ निर्देशिका"
+msgstr "एटीके-हायपरलिंक ऑब्जेक्ट का प्रारंभ सूची"
 
 #: ../atk/atkobject.c:82
 msgid "invalid"
@@ -74,7 +75,7 @@ msgstr "तीर"
 
 #: ../atk/atkobject.c:87
 msgid "calendar"
-msgstr "तिथि पत्री"
+msgstr "कैलेंडर"
 
 #: ../atk/atkobject.c:88
 msgid "canvas"
@@ -82,11 +83,11 @@ msgstr "कैनवास"
 
 #: ../atk/atkobject.c:89
 msgid "check box"
-msgstr "चेक बक्सा"
+msgstr "जांच पेटी"
 
 #: ../atk/atkobject.c:90
 msgid "check menu item"
-msgstr "चेक मेनू आइटम"
+msgstr "चेक मेनू मद"
 
 #: ../atk/atkobject.c:91
 msgid "color chooser"
@@ -122,7 +123,7 @@ msgstr "संवाद"
 
 #: ../atk/atkobject.c:99
 msgid "directory pane"
-msgstr "डिरेक्टरी फलक"
+msgstr "निर्देशिका फलक"
 
 #: ../atk/atkobject.c:100
 msgid "drawing area"
@@ -134,7 +135,7 @@ msgstr "फ़ाइल-चयनक"
 
 #: ../atk/atkobject.c:102
 msgid "filler"
-msgstr "फिलर"
+msgstr "भरनेवाला"
 
 #  I know it looks wrong but that is what Java returns
 #. I know it looks wrong but that is what Java returns
@@ -172,7 +173,7 @@ msgstr "लेबल"
 
 #: ../atk/atkobject.c:112
 msgid "layered pane"
-msgstr "परतीला फलक"
+msgstr "स्तरित फलक"
 
 #: ../atk/atkobject.c:113
 msgid "list"
@@ -180,7 +181,7 @@ msgstr "सूची"
 
 #: ../atk/atkobject.c:114
 msgid "list item"
-msgstr "सूची आइटम"
+msgstr "सूची मद"
 
 #: ../atk/atkobject.c:115
 msgid "menu"
@@ -192,7 +193,7 @@ msgstr "मेनू पट्टी"
 
 #: ../atk/atkobject.c:117
 msgid "menu item"
-msgstr "मेनू आइटम"
+msgstr "मेनू मद"
 
 #: ../atk/atkobject.c:118
 msgid "option pane"
@@ -232,7 +233,7 @@ msgstr "रेडियो बटन"
 
 #: ../atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "रेडियो मेनू आइटम"
+msgstr "रेडियो मेनू मद"
 
 #: ../atk/atkobject.c:128
 msgid "root pane"
@@ -272,23 +273,23 @@ msgstr "स्थिति-पट्टी"
 
 #: ../atk/atkobject.c:137
 msgid "table"
-msgstr "टेबल"
+msgstr "तालिका"
 
 #: ../atk/atkobject.c:138
 msgid "table cell"
-msgstr "टेबल सेल"
+msgstr "तालिका सेल"
 
 #: ../atk/atkobject.c:139
 msgid "table column header"
-msgstr "टेबल कॉलम हेडर"
+msgstr "तालिका कॉलम हेडर"
 
 #: ../atk/atkobject.c:140
 msgid "table row header"
-msgstr "टेबल पंक्ति हेडर"
+msgstr "तालिका पंक्ति हेडर"
 
 #: ../atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "टीयर ऑफ मेनू आइटम"
+msgstr "टीयर ऑफ मेनू मद"
 
 #: ../atk/atkobject.c:142
 msgid "terminal"
@@ -316,7 +317,7 @@ msgstr "ट्री"
 
 #: ../atk/atkobject.c:148
 msgid "tree table"
-msgstr "ट्री-टेबल"
+msgstr "ट्री-तालिका"
 
 #: ../atk/atkobject.c:149
 msgid "unknown"
@@ -348,7 +349,7 @@ msgstr "अनुप्रयोग"
 
 #: ../atk/atkobject.c:156
 msgid "autocomplete"
-msgstr "स्वचालित-पूर्ण"
+msgstr "स्वतः-पूर्ण"
 
 #: ../atk/atkobject.c:157
 msgid "edit bar"
@@ -358,127 +359,159 @@ msgstr "संपादन पट्टी"
 msgid "embedded component"
 msgstr "एंबेडेड घटक"
 
-#: ../atk/atkobject.c:337
+#: ../atk/atkobject.c:159
+msgid "entry"
+msgstr "प्रविष्टि"
+
+#: ../atk/atkobject.c:160
+msgid "chart"
+msgstr "चार्ट"
+
+#: ../atk/atkobject.c:161
+msgid "caption"
+msgstr "कैप्शन"
+
+#: ../atk/atkobject.c:162
+msgid "document frame"
+msgstr "दस्तावेज ढांचा"
+
+#: ../atk/atkobject.c:163
+msgid "heading"
+msgstr "शीर्षक"
+
+#: ../atk/atkobject.c:164
+msgid "page"
+msgstr "पृष्ठ"
+
+#: ../atk/atkobject.c:165
+msgid "section"
+msgstr "खंड"
+
+#: ../atk/atkobject.c:166
+msgid "redundant object"
+msgstr ""
+
+#: ../atk/atkobject.c:345
 msgid "Accessible Name"
 msgstr "पंहुचयोग्य नाम"
 
-#: ../atk/atkobject.c:338
+#: ../atk/atkobject.c:346
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "असिस्टिव तकनॉलाज़ी पँहुच हेतु फॉर्मेटेड ऑब्जेक्ट इंस्टैन्स का नाम"
 
-#: ../atk/atkobject.c:344
+#: ../atk/atkobject.c:352
 msgid "Accessible Description"
-msgstr "पहुँचयोग्य वर्णन"
+msgstr "पहुँच योग्य वर्णन"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:353
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "असिस्टिव तकनॉलाज़ी पँहुच हेतु फॉर्मेटेड ऑब्जेक्ट का वर्णन"
 
-#: ../atk/atkobject.c:351
+#: ../atk/atkobject.c:359
 msgid "Accessible Parent"
-msgstr "पहुँचयोग्य पैरेंट"
+msgstr "पहुँच योग्य पैरेंट"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:360
 msgid "Is used to notify that the parent has changed"
 msgstr "पैरेंट बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:358
+#: ../atk/atkobject.c:366
 msgid "Accessible Value"
-msgstr "पहुँचयोग्य मूल्य"
+msgstr "पहुँच योग्य मूल्य"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:367
 msgid "Is used to notify that the value has changed"
 msgstr "मूल्य बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:375
 msgid "Accessible Role"
-msgstr "पहुँचयोग्य भूमिका"
-
-#: ../atk/atkobject.c:368
-msgid "The accessible role of this object"
-msgstr "इस ऑब्जेक्ट की पहुँचयोग्य भूमिका"
+msgstr "पहुँच योग्य भूमिका"
 
 #: ../atk/atkobject.c:376
-msgid "Accessible Layer"
-msgstr "पहुँचयोग्य परत"
+msgid "The accessible role of this object"
+msgstr "इस वस्तु की पहुँच योग्य भूमिका"
 
-#: ../atk/atkobject.c:377
-msgid "The accessible layer of this object"
-msgstr "इस ऑब्जेक्ट की पहुँचयोग्य परत"
+#: ../atk/atkobject.c:384
+msgid "Accessible Layer"
+msgstr "पहुँच योग्य परत"
 
 #: ../atk/atkobject.c:385
-msgid "Accessible MDI Value"
-msgstr "पहुँचयोग्य एमडीआई मूल्य"
+msgid "The accessible layer of this object"
+msgstr "इस वस्तु की पहुँच योग्य परत"
 
-#: ../atk/atkobject.c:386
-msgid "The accessible MDI value of this object"
-msgstr "इस ऑब्जेक्ट का पहुँचयोग्य एमडीआई मूल्य"
+#: ../atk/atkobject.c:393
+msgid "Accessible MDI Value"
+msgstr "पहुँच योग्य एमडीआई मूल्य"
 
 #: ../atk/atkobject.c:394
-msgid "Accessible Table Caption"
-msgstr "पहुँचयोग्य टेबल शीर्षक"
+msgid "The accessible MDI value of this object"
+msgstr "इस ऑब्जेक्ट का पहुँच योग्य एमडीआई मूल्य"
 
-#: ../atk/atkobject.c:395
+#: ../atk/atkobject.c:402
+msgid "Accessible Table Caption"
+msgstr "पहुँच योग्य तालिका शीर्षक"
+
+#: ../atk/atkobject.c:403
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"टेबल शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए. "
-"बदले में पहुँचयोग्य-टेबल-शीर्षक-ऑब्जेक्ट उपयोग में लेना चाहिए"
-
-#: ../atk/atkobject.c:401
-msgid "Accessible Table Column Header"
-msgstr "पहुँचयोग्य टेबल कॉलम हेडर"
-
-#: ../atk/atkobject.c:402
-msgid "Is used to notify that the table column header has changed"
-msgstr "टेबल कॉलम हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
-
-#: ../atk/atkobject.c:408
-msgid "Accessible Table Column Description"
-msgstr "पहुँचयोग्य टेबल कॉलम वर्णन"
+"तालिका शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए. "
+"बदले में पहुँच योग्य-तालिका-शीर्षक-ऑब्जेक्ट उपयोग में लेना चाहिए"
 
 #: ../atk/atkobject.c:409
-msgid "Is used to notify that the table column description has changed"
-msgstr "पहुँचयोग्य टेबल कॉलम वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgid "Accessible Table Column Header"
+msgstr "पहुँच योग्य तालिका कॉलम हेडर"
 
-#: ../atk/atkobject.c:415
-msgid "Accessible Table Row Header"
-msgstr "पहुँचयोग्य टेबल पंक्ति हेडर"
+#: ../atk/atkobject.c:410
+msgid "Is used to notify that the table column header has changed"
+msgstr "तालिका कॉलम हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: ../atk/atkobject.c:416
-msgid "Is used to notify that the table row header has changed"
-msgstr "टेबल पंक्ति हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgid "Accessible Table Column Description"
+msgstr "पहुँच योग्य तालिका कॉलम वर्णन"
 
-#: ../atk/atkobject.c:422
-msgid "Accessible Table Row Description"
-msgstr "पहुँचयोग्य टेबल पंक्ति वर्णन"
+#: ../atk/atkobject.c:417
+msgid "Is used to notify that the table column description has changed"
+msgstr "पहुँच योग्य तालिका कॉलम वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: ../atk/atkobject.c:423
-msgid "Is used to notify that the table row description has changed"
-msgstr "पहुँचयोग्य टेबल पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgid "Accessible Table Row Header"
+msgstr "पहुँच योग्य तालिका पंक्ति हेडर"
 
-#: ../atk/atkobject.c:429
-msgid "Accessible Table Summary"
-msgstr "पहुँचयोग्य टेबल सारांश"
+#: ../atk/atkobject.c:424
+msgid "Is used to notify that the table row header has changed"
+msgstr "तालिका पंक्ति हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: ../atk/atkobject.c:430
-msgid "Is used to notify that the table summary has changed"
-msgstr "टेबल कॉलम सारांश बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgid "Accessible Table Row Description"
+msgstr "पहुँच योग्य तालिका पंक्ति वर्णन"
 
-#: ../atk/atkobject.c:436
-msgid "Accessible Table Caption Object"
-msgstr "पहुँचयोग्य टेबल शीर्षक ऑब्जेक्ट"
+#: ../atk/atkobject.c:431
+msgid "Is used to notify that the table row description has changed"
+msgstr "पहुँच योग्य तालिका पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: ../atk/atkobject.c:437
-msgid "Is used to notify that the table caption has changed"
-msgstr "टेबल शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है"
+msgid "Accessible Table Summary"
+msgstr "पहुँच योग्य तालिका सारांश"
 
-#: ../atk/atkobject.c:443
-msgid "Number of Accessible Hypertext Links"
-msgstr "पहुँचयोग्य हायपरटेक्स्ट लिंक्स की संख्या"
+#: ../atk/atkobject.c:438
+msgid "Is used to notify that the table summary has changed"
+msgstr "तालिका कॉलम सारांश बदल चुका है यह बताने हेतु उपयोग में आता है"
 
 #: ../atk/atkobject.c:444
+msgid "Accessible Table Caption Object"
+msgstr "पहुँच योग्य तालिका शीर्षक ऑब्जेक्ट"
+
+#: ../atk/atkobject.c:445
+msgid "Is used to notify that the table caption has changed"
+msgstr "तालिका शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है"
+
+#: ../atk/atkobject.c:451
+msgid "Number of Accessible Hypertext Links"
+msgstr "पहुँच योग्य हायपरटेक्स्ट लिंक्स की संख्या"
+
+#: ../atk/atkobject.c:452
 msgid "The number of links which the current AtkHypertext has"
 msgstr "लिंक्स की संख्या जो कि वर्तमान एटीके-हायपरटेक्स्ट में हैं"
 
