@@ -1,15 +1,15 @@
 # Lithuanian translation of atk.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003-2006 Free Software Foundation, Inc.
 # Tomas Kuliavas <tokul@users.sourceforge.net>, 2003-2004.
-# Žygimantas Beručka <uid0@akl.lt>, 2005.
+# Žygimantas Beručka <zygis@gnome.org>, 2005-2006.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-07 14:56+0200\n"
-"PO-Revision-Date: 2005-12-07 15:09+0200\n"
+"POT-Creation-Date: 2006-01-07 14:31+0200\n"
+"PO-Revision-Date: 2006-01-07 14:33+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,7 @@ msgstr "piešimo laukas"
 
 #: ../atk/atkobject.c:101
 msgid "file chooser"
-msgstr "bylų parinkiklis"
+msgstr "rinkmenų parinkiklis"
 
 #: ../atk/atkobject.c:102
 msgid "filler"
@@ -143,7 +143,7 @@ msgstr "rėmelis"
 
 #: ../atk/atkobject.c:106
 msgid "glass pane"
-msgstr "skairus polangis"
+msgstr "skaidrus polangis"
 
 #: ../atk/atkobject.c:107
 msgid "html container"
@@ -508,4 +508,4 @@ msgstr "Prieinamų hiperteksto nuorodų skaičius"
 
 #: ../atk/atkobject.c:452
 msgid "The number of links which the current AtkHypertext has"
-msgstr "Nuorodų kiekis tarp esamo AtkHypertext objekto"
+msgstr "Nuorodų kiekis esamame AtkHypertext objekte"
