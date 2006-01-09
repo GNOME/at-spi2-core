@@ -453,6 +453,7 @@ SPI_nextEvent (SPIBoolean waitForEvent)
   return NULL;
 }
 
+#ifdef PRINT_LEAKS
 static void
 report_leaked_ref (gpointer key, gpointer val, gpointer user_data)
 {
@@ -476,7 +477,7 @@ report_leaked_ref (gpointer key, gpointer val, gpointer user_data)
 
   SPI_freeString (name);
 }
-
+#endif
 
 /**
  * SPI_exit:

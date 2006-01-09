@@ -389,7 +389,7 @@ report_text_event (const AccessibleEvent *event, void *user_data)
       long start, end;
       char *word_text = AccessibleText_getTextAtOffset (text, (long) event->detail1, SPI_TEXT_BOUNDARY_WORD_START, &start, &end);
       char *sentence_text = AccessibleText_getTextAtOffset (text, (long) event->detail1, SPI_TEXT_BOUNDARY_SENTENCE_START, &start, &end);
-      fprintf (stderr, "text changed: word %s; sentence %s at %d",
+      fprintf (stderr, "text changed: word %s; sentence %s at %ld",
 	       (word_text ? word_text : ""),
       	       (sentence_text ? sentence_text : ""),
 	       event->detail1);

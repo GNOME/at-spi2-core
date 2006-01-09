@@ -90,7 +90,6 @@
 
 static void report_screen_review_line  (const AccessibleEvent *event, void *user_data);
 
-static gint n_elements_traversed = 0;
 static AccessibleEventListener *mouseclick_listener;
 
 typedef struct _BoundaryRect {
@@ -123,16 +122,6 @@ static gboolean isJava = FALSE;
 int
 main (int argc, char **argv)
 {
-  int i, j;
-  int n_desktops;
-  int n_apps;
-  char *s;
-  GTimer *timer;
-  gdouble elapsed_time;
-  Accessible *desktop;
-  Accessible *application;
-  const char *modules;
-
   SPI_init ();
 
   mouseclick_listener = SPI_createAccessibleEventListener (
@@ -312,7 +301,7 @@ text_chunk_split_insert (GList *chunk_list, GList *iter, TextChunk *chunk)
 static void
 print_chunk_debug (TextChunk *chunk, char *opname, GList *prev, GList *next)
 {
-	fprintf (stderr, "%sing chunk %s between %s and %s; %d-%d\n",
+	fprintf (stderr, "%sing chunk %s between %s and %s; %ld-%ld\n",
 		 opname,
 		 chunk->string,
 		 (prev ? ((TextChunk *) prev->data)->string : "<null>"),
@@ -459,7 +448,6 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 	AccessibleText *text = NULL;
 	AccessibleRole role;
 	TextChunk *text_chunk;
-	BoundaryRect start_char_bounds, end_char_bounds;
 	char *s = NULL;
 	int offset;
 	long start, end;
@@ -585,13 +573,14 @@ review_buffer_get_text_chunk (ScreenReviewBuffer *reviewBuffer,
 	return text_chunk;
 }
 
+#ifdef CHUNK_LIST_DEBUG
 static void
 debug_chunk_list (GList *iter)
 {
 	TextChunk *chunk;
 	while (iter) {
 		chunk = (TextChunk *)iter->data;
-		fprintf (stderr, "Chunk %s, clip %d-%d, text %d-%d\n",
+		fprintf (stderr, "Chunk %s, clip %ld-%ld, text %ld-%ld\n",
 			 chunk->string,
 			 chunk->clip_bounds.x,
 			 chunk->clip_bounds.x + chunk->clip_bounds.width,
@@ -600,6 +589,7 @@ debug_chunk_list (GList *iter)
 		iter = iter->next;
 	}
 }
+#endif
 
 static void
 clip_into_buffers (Accessible *accessible,  BoundaryRect* parentClipBounds[],
@@ -745,7 +735,7 @@ string_guess_clip (TextChunk *chunk)
 			start_offset = len * (chunk->text_bounds.x - b.x) / b.width;
 			end_offset = len * (chunk->text_bounds.x +
 					    chunk->text_bounds.width - b.x) / b.width;
-			fprintf (stderr, "String len %d, clipped to %d-%d\n",
+			fprintf (stderr, "String len %ld, clipped to %ld-%ld\n",
 				 len, start_offset, end_offset);
 			len = end_offset - start_offset;
 			sp = g_utf8_offset_to_pointer (chunk->string, start_offset);
@@ -763,7 +753,6 @@ static char*
 text_chunk_get_clipped_string (TextChunk *chunk)
 {
 	char *s, *string = "";
-	int i;
 	long start = chunk->start_offset, end = chunk->end_offset;
 	long word_start, word_end, range_end;
 	BoundaryRect start_bounds, end_bounds;
@@ -893,7 +882,6 @@ text_chunk_list_to_string (GList *iter)
 	char *s = "";
 	char *string;
 	TextChunk *chunk = NULL;
-	int offset = 0;
 	while (iter) {
 		chunk = (TextChunk *)iter->data;
 		if (chunk) {
@@ -983,14 +971,14 @@ static char *
 get_screen_review_line_at (int x, int y)
 {
   char *string;
-  Accessible *desktop, *app, *toplevel, *child;
+  Accessible *desktop, *app, *toplevel;
   AccessibleComponent *component;
   AccessibleStateSet *states;
   GList *toplevels = NULL, *actives = NULL, *iter;
   ScreenReviewBuffer* reviewBuffers[SPI_LAYER_LAST_DEFINED];
   BoundaryRect* clip_bounds[SPI_LAYER_LAST_DEFINED];
   BoundaryRect toplevel_bounds;
-  int n_apps, n_toplevels, n_children, app_n, toplevel_n, child_n;
+  int n_apps, n_toplevels, app_n, toplevel_n;
   GTimer *timer = g_timer_new ();
   int i;
 
@@ -1045,8 +1033,8 @@ get_screen_review_line_at (int x, int y)
 	  if (Accessible_isComponent (toplevel)) {
   	      /* make sure toplevel is visible and not iconified or shaded */
 	      states = Accessible_getStateSet (toplevel);
-	      if (AccessibleStateSet_contains (states, SPI_STATE_VISIBLE)
-		  && !AccessibleStateSet_contains (states, SPI_STATE_ICONIFIED)
+	      if ((AccessibleStateSet_contains (states, SPI_STATE_VISIBLE)
+		  && (!AccessibleStateSet_contains (states, SPI_STATE_ICONIFIED)))
 		  || isJava) { /* isJava hack! */
 		      component = Accessible_getComponent (toplevel);
 		      AccessibleComponent_getExtents (component,

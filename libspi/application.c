@@ -25,6 +25,7 @@
 
 #include <string.h>
 #include <config.h>
+#include <glib.h>
 #include <atk/atkutil.h>
 #include <libspi/application.h>
 #include <locale.h>

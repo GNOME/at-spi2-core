@@ -1,3 +1,41 @@
+2006-01-09  Kjartan Maraas <kmaraas@gnome.org>
+
+	* configure.in: Generate po/Makefile.in
+	* cspi/spi_main.c: Add #ifdef PRINT_LEAKS around a function
+	* cspi/spi_streamablecontent.c: 
+	(accessible_bonobo_stream_client_seek),
+	(AccessibleStreamableContent_seek): Remove unused vars.
+	* libspi/application.c: Missing header.
+	* libspi/text.c: (impl_getDefaultAttributes): Unused vars
+	* login-helper/login-helper.c: (login_helper_finalize),
+	(login_helper_init): Remove unused stuff
+	* registryd/deviceeventcontroller.c: (spi_dec_replace_map_keysym),
+	(spi_dec_init_mouse_listener), (is_key_released): Remove unused vars
+	and surround some with #ifdef GRAB_BUTTON.
+	* test/event-listener-test.c: (main), (report_event),
+	(report_caret_event), (report_detail_event),
+	(report_detail1_event), (report_bounds_event), (report_text_event),
+	(report_text_selection_event),
+	(report_active_descendant_changed_event),
+	(report_children_changed_event), (report_name_changed_event),
+	(report_description_changed_event), (report_parent_changed_event),
+	(report_window_event), (report_table_summary_event),
+	(report_table_header_event), (report_table_caption_event),
+	(report_table_row_description_event),
+	(report_table_column_description_event), (timing_test_event):
+	Remove a bunch of unused variables and fix a slew of format specifiers
+	* test/key-listener-test.c: (report_all_key_event): Format specifier
+	* test/keypad-test.c: (print_key_event): Same
+	* test/login-helper-server-test.c: (main): Include gtkmain.h and remove
+	unused var.
+	* test/screen-review-test.c: (main), (print_chunk_debug),
+	(review_buffer_get_text_chunk), (debug_chunk_list),
+	(string_guess_clip), (text_chunk_get_clipped_string),
+	(text_chunk_list_to_string), (get_screen_review_line_at):
+	Remove unused variables and fix format specifiers.
+	* test/simple-at.c: (report_text_event): Format specifier fix.
+	* test/stress-test.c: (main): Remove unused var.
+
 2005-12-29  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Add zh_HK, zh_TW to ALL_LINGUAS

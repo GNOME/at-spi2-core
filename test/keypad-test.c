@@ -165,7 +165,7 @@ get_keypad_keycodes (void)
 static void
 print_key_event (const AccessibleKeystroke *key, char *prefix)
 {
-  fprintf (stderr, "%s KeyEvent %s%c [keysym 0x%x] (keycode %d); string=%s; time=%lx\n",
+  fprintf (stderr, "%s KeyEvent %s%c [keysym 0x%ld] (keycode %d); string=%s; time=%lx\n",
 	   prefix,
 	  (key->modifiers & SPI_KEYMASK_ALT)?"Alt-":"",
 	  ((key->modifiers & SPI_KEYMASK_SHIFT)^(key->modifiers & SPI_KEYMASK_SHIFTLOCK))?

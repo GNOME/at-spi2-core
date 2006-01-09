@@ -67,7 +67,6 @@ accessible_bonobo_stream_client_seek (const Bonobo_Stream stream,
 				      Bonobo_Stream_SeekType seek_type,
 				      CORBA_Environment  *opt_ev)
 {
-	Bonobo_StorageInfo *info;
 	CORBA_Environment  *ev, temp_ev;
 	CORBA_long ret_offset;
        
@@ -258,7 +257,6 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
       stream = cached->stream;
       if (stream != CORBA_OBJECT_NIL)
 	{
-          guint8 *mem;
 	  switch (seek_type) {
 	  case SPI_STREAM_SEEK_SET:
 	    bonobo_seek_type = Bonobo_Stream_SeekSet; 

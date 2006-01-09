@@ -1,5 +1,6 @@
 #include <libbonobo.h>
 #include <login-helper/login-helper.h>
+#include <gtk/gtkmain.h>
 #include <gtk/gtkwindow.h>
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
@@ -25,7 +26,7 @@ int
 main (int argc, char **argv)
 {
 	int          ret;
-	char        *obj_id, *display_name;
+	char        *obj_id;
 	BonoboObject *helper;
 	
 	if (!bonobo_init (&argc, argv))

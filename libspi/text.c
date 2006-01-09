@@ -313,7 +313,6 @@ impl_getDefaultAttributes (PortableServer_Servant servant,
 			   CORBA_Environment *ev)
 {
   AtkAttributeSet *set;
-  gint intstart_offset, intend_offset;
   CORBA_char *rv;
   AtkText *text = get_text_from_servant (servant);
 

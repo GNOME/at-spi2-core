@@ -87,14 +87,7 @@ usage_and_exit( void )
 int
 main (int argc, char **argv)
 {
-  int i, j, c;
-  int n_desktops;
-  int n_apps;
-  char *s;
-  gdouble elapsed_time;
-  Accessible *desktop;
-  Accessible *application;
-  const char *modules;
+  int c;
 
   /* Parse Command-line */
   if ( argc > 1 ) {
@@ -337,7 +330,7 @@ report_event (const AccessibleEvent *event, void *user_data)
   }
   ++count;
   if ((count % 100) == 0) {
-	  g_print ("%d events received, %f events/sec\n",
+	  g_print ("%ld events received, %f events/sec\n",
 		   count,
 		   count/g_timer_elapsed(timer, NULL));
   }
@@ -356,7 +349,7 @@ report_caret_event (const AccessibleEvent *event, void *user_data)
 				  SPI_TEXT_BOUNDARY_SENTENCE_START,
 				  &start, &end);
   fprintf (stderr, 
-	   "caret event from %s %s: offset %d, SENTENCE_START offsets start=%d, end=%d\n", 
+	   "caret event from %s %s: offset %ld, SENTENCE_START offsets start=%ld, end=%ld\n", 
 	   event->type, s, offset, start, end);
   AccessibleText_getTextAtOffset (text, offset, 
 				  SPI_TEXT_BOUNDARY_SENTENCE_END,
@@ -368,7 +361,7 @@ report_caret_event (const AccessibleEvent *event, void *user_data)
 				  SPI_TEXT_BOUNDARY_LINE_END,
 				  &line_end_begin, &line_end_end);
   fprintf (stderr, 
-	   "SENTENCE_END: %d - %d; LINE_START: %d - %d; LINE_END: %d - %d\n", 
+	   "SENTENCE_END: %ld - %ld; LINE_START: %ld - %ld; LINE_END: %ld - %ld\n", 
 	   start, end, line_start_begin, line_start_end,
 	   line_end_begin, line_end_end);
 
@@ -379,7 +372,7 @@ report_caret_event (const AccessibleEvent *event, void *user_data)
 				  SPI_TEXT_BOUNDARY_WORD_END,
 				  &line_end_begin, &line_end_end);
   fprintf (stderr, 
-	   "WORD_START: %d - %d; WORD_END: %d - %d\n", 
+	   "WORD_START: %ld - %ld; WORD_END: %ld - %ld\n", 
 	   line_start_begin, line_start_end,
 	   line_end_begin, line_end_end);
 
@@ -390,7 +383,7 @@ void
 report_detail_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   if (s) SPI_freeString (s);
 }
@@ -399,7 +392,7 @@ void
 report_detail1_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld\n", event->type, s,
 	   event->detail1);
   if (s) SPI_freeString (s);
 }
@@ -410,7 +403,7 @@ report_bounds_event (const AccessibleEvent *event, void *user_data)
   char *s = Accessible_getName (event->source);
   SPIRect *bounds = AccessibleBoundsChangedEvent_getNewBounds (event);
   if (!bounds) fprintf (stderr, "bounds-changed event with no bounds?\n");
-  fprintf (stderr, "(bounds-changed) %s %s %d,%d - %d,%d\n", event->type, s,
+  fprintf (stderr, "(bounds-changed) %s %s %ld,%ld - %ld,%ld\n", event->type, s,
 	   bounds->x, bounds->y, bounds->x + bounds->width, bounds->y + bounds->height);
   SPI_freeRect (bounds);
   if (s) SPI_freeString (s);
@@ -420,7 +413,7 @@ void
 report_text_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleTextChangedEvent_getChangeString (event);
@@ -432,7 +425,7 @@ void
 report_text_selection_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleTextSelectionChangedEvent_getSelectionString (event);
@@ -449,7 +442,7 @@ report_active_descendant_changed_event (const AccessibleEvent *event, void *user
 
   ao = AccessibleActiveDescendantChangedEvent_getActiveDescendant (event);
   s1 = Accessible_getName (ao);
-  fprintf (stderr, "(detail) %s parent: %s child: %s %d %d\n", event->type, 
+  fprintf (stderr, "(detail) %s parent: %s child: %s %ld %ld\n", event->type, 
            s ? s : "<null>", s1 ? s1 : "<null>",
 	   event->detail1, event->detail2);
   SPI_freeString (s);
@@ -467,7 +460,7 @@ report_children_changed_event (const AccessibleEvent *event, void *user_data)
   if (ao) s1 = Accessible_getName (ao);
   s2 = Accessible_getRoleName (event->source);
   if (ao) s3 = Accessible_getRoleName (ao);
-  fprintf (stderr, "(detail) %s parent: %s [%s] child: %s [%s] %d %d\n", 
+  fprintf (stderr, "(detail) %s parent: %s [%s] child: %s [%s] %ld %ld\n", 
            event->type, 
            s ? s : "<null>", 
 	   s2,
@@ -485,7 +478,7 @@ void
 report_name_changed_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleNameChangedEvent_getNameString (event);
@@ -497,7 +490,7 @@ void
 report_description_changed_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleDescriptionChangedEvent_getDescriptionString (event);
@@ -514,7 +507,7 @@ report_parent_changed_event (const AccessibleEvent *event, void *user_data)
 
   ao = AccessibleParentChangedEvent_getParentAccessible (event);
   s1 = Accessible_getName (ao);
-  fprintf (stderr, "(detail) %s parent: %s child: %s %d %d\n", event->type, 
+  fprintf (stderr, "(detail) %s parent: %s child: %s %ld %ld\n", event->type, 
            s ? s : "<null>", s1 ? s1 : "<null>",
 	   event->detail1, event->detail2);
   SPI_freeString (s);
@@ -526,7 +519,7 @@ void
 report_window_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleWindowEvent_getTitleString (event);
@@ -543,7 +536,7 @@ report_table_summary_event (const AccessibleEvent *event, void *user_data)
 
   ao = AccessibleTableSummaryChangedEvent_getSummaryAccessible (event);
   s1 = Accessible_getName (ao);
-  fprintf (stderr, "(detail) %s parent: %s child: %s %d %d\n", event->type, 
+  fprintf (stderr, "(detail) %s parent: %s child: %s %ld %ld\n", event->type, 
            s ? s : "<null>", s1 ? s1 : "<null>",
 	   event->detail1, event->detail2);
   SPI_freeString (s);
@@ -560,7 +553,7 @@ report_table_header_event (const AccessibleEvent *event, void *user_data)
 
   ao = AccessibleTableHeaderChangedEvent_getHeaderAccessible (event);
   s1 = Accessible_getName (ao);
-  fprintf (stderr, "(detail) %s parent: %s child: %s %d %d\n", event->type, 
+  fprintf (stderr, "(detail) %s parent: %s child: %s %ld %ld\n", event->type, 
            s ? s : "<null>", s1 ? s1 : "<null>",
 	   event->detail1, event->detail2);
   SPI_freeString (s);
@@ -572,7 +565,7 @@ void
 report_table_caption_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleTableCaptionChangedEvent_getCaptionString (event);
@@ -584,7 +577,7 @@ void
 report_table_row_description_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleTableRowDescriptionChangedEvent_getDescriptionString (event);
@@ -596,7 +589,7 @@ void
 report_table_column_description_event (const AccessibleEvent *event, void *user_data)
 {
   char *s = Accessible_getName (event->source);
-  fprintf (stderr, "(detail) %s %s %d %d\n", event->type, s,
+  fprintf (stderr, "(detail) %s %s %ld %ld\n", event->type, s,
 	   event->detail1, event->detail2);
   SPI_freeString (s);
   s = AccessibleTableColumnDescriptionChangedEvent_getDescriptionString (event);
@@ -622,7 +615,7 @@ timing_test_event (const AccessibleEvent *event, void *user_data)
 	if (count == 0) g_timer_start (timer);
 	++count;
 	if ((count % 500) == 0) {
-		g_print ("%d events received, %f events/sec\n",
+		g_print ("%ld events received, %f events/sec\n",
 			 count,
 			 count/g_timer_elapsed(timer, NULL));
 	}

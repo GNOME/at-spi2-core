@@ -221,7 +221,6 @@ spi_dec_replace_map_keysym (DEControllerPrivateData *priv, KeyCode keycode, KeyS
   if (desc && desc->map)
     {
       gint offset = desc->map->key_sym_map[keycode].offset;
-      long old_sym = desc->map->syms[offset]; 
       desc->map->syms[offset] = keysym; 
     }
   else
@@ -617,7 +616,9 @@ spi_dec_ungrab_mouse (gpointer data)
 static void
 spi_dec_init_mouse_listener (SpiRegistry *registry)
 {
+#ifdef GRAB_BUTTON
   Display *display = spi_get_display ();
+#endif
   g_timeout_add (100, spi_dec_poll_mouse_idle, registry);
 
 #ifdef GRAB_BUTTON
@@ -2519,7 +2520,6 @@ is_key_released (KeyCode code)
 {
   char keys[32];
   int down;
-  int i;
 
   XQueryKeymap (spi_get_display (), keys);
   down = BIT (keys, code);

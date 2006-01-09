@@ -34,9 +34,6 @@ static BonoboObjectClass *bonobo_object_parent_class;
 static void
 login_helper_finalize (GObject *object)
 {
-  LoginHelper *helper = (LoginHelper *) object;
-  CORBA_Environment ev;
-
   (G_OBJECT_CLASS (bonobo_object_parent_class))->finalize (object);
 }
 
@@ -209,7 +206,6 @@ login_helper_class_init (LoginHelperClass *klass)
 static void
 login_helper_init (GObject *object)
 {
-    LoginHelper *helper = LOGIN_HELPER (object);
 }
 
 BONOBO_TYPE_FUNC_FULL (LoginHelper,

@@ -43,7 +43,6 @@ main (int argc, char **argv)
 	GObject *object;
 	AtkObject *atko;
 	GTimer *timer;
-	gdouble elapsed_time;
 
 	gtk_init (&argc, &argv);
 	SPI_init ();
