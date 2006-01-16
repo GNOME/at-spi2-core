@@ -24,15 +24,108 @@
 
 module Accessibility {
 
+  /** 
+   * An interface which indicates that an object exposes a 'selection' model,
+   * allowing the selection of one or more of its children.  Read-only Selection
+   * instances are possible, in which case the interface is used to programmatically
+   * determine the selected-ness of its children.  A selected child has ::State::STATE_SELECTED,
+   * and a child which may hypothetically be selected (though possibly not programmatically
+   * selectable) has ::State::STATE_SELECTABLE.
+   * @note Events emitted by implementors of Selection include:
+   * \li \c "object:selection-changed" An instance of Selection has undergone a change in the
+   *                                  'selected-ness' of its children, i.e. had a selection added,
+   *                                  removed, and/or modified.  Usually accompanied by
+   *                                  corresponding \c "object:state-changed:selected" events
+   *                                  from the corresponding children, unless the children are
+   *                                  previously un-queried via AT-SPI and the Selection instance
+   *                                  has ::State::STATE_MANAGES_DESCENDANTS.
+   **/
   interface Selection : Bonobo::Unknown {
+    /**
+     * The number of children of a Selection implementor which are
+     *        currently selected.
+     */
     readonly attribute long nSelectedChildren;
+    /**
+     * Get the i-th selected Accessible child of a Selection.
+     * @note \c selectedChildIndex refers to the index in the list of 
+     * 'selected' children as opposed to the more general 'child index'
+     * of an object;  as such it generally differs from that used in
+     * Accessible::getChildAtIndex() or returned by
+     * Accessible::getIndexInParent(). 
+     * \c selectedChildIndex must lie between 0
+     * and Selection::nSelectedChildren-1, inclusive.
+     * @param selectedChildIndex: a long integer indicating which of the 
+     * selected children of an object is being requested.
+     * @returns a pointer to a selected Accessible child object,
+     *          specified by \c selectedChildIndex.
+     */
     Accessible getSelectedChild (in long selectedChildIndex);
+   /**
+    * Add a child to the selected children list of a Selection.
+    * @note For Selection implementors that only allow
+    *       single selections, this call may result in the
+    *       replacement of the (single) current
+    *       selection.  The call may return \c False if
+    *       the child is not selectable (i.e. does not have ::State::STATE_SELECTABLE), 
+    *       if the user does not have permission to change the selection, 
+    *       or if the Selection instance does not have ::State::STATE_SENSITIVE.
+    *
+    * @param childIndex: a long integer indicating which child of the
+    *              Selection is to be selected.
+    *
+    * @returns \c True if the child was successfully selected, 
+    *          \c False otherwise.
+    */
     boolean selectChild (in long childIndex);
+   /**
+    * Remove a child to the selected children list of a Selection.
+    * @note \c childIndex is the index in the selected-children list,
+    *       not the index in the parent container.  \c selectedChildIndex in this
+    *       method, and \c childIndex in Selection::selectChild
+    *       are asymmettric.
+    *
+    * @param selectedChildIndex: a long integer indicating which of the 
+    *         selected children of the Selection is to be deselected.  The index
+    *         is a zero-offset index into the 'selected child list', not
+    *         a zero-offset index into the list of all children of the Selection.
+    *
+    * @returns \c True if the child was successfully deselected, 
+    *          \c False otherwise.
+    *
+    * @see deselectChild
+    **/    
     boolean deselectSelectedChild (in long selectedChildIndex);
+   /**
+    * Determine whether a particular child of an Selection implementor
+    *        is currently selected.  Note that \c childIndex is the zero-offset
+    *        index into the standard Accessible container's list of children.
+    *
+    * @param childIndex: an index into the Selection's list of children.
+    *
+    * @returns \c True if the specified child is currently selected,
+    *          \c False otherwise.
+    **/
     boolean isChildSelected (in long childIndex);
+    /**
+     * Attempt to select all of the children of a Selection implementor.
+     * Not all Selection implementors support this operation (for instance, 
+     * implementations which support only "single selection" do not support this operation).
+     *
+     * @returns \c True if successful, \c False otherwise.
+     */
     boolean selectAll ();
+    /**
+     * Attempt to clear all selections (i.e. deselect all children) of a Selection.
+     * Not all Selection implementations allow the removal of all selections.
+     *
+     * @note this operation may fail if the object must have at least one selected child,
+     * if the user does not have permission to change the selection, or if the Selection
+     * does not have ::State::STATE_SENSITIVE.
+     *
+     * @returns \c True if the selections were successfully cleared, \c False otherwise.
+     */
     boolean clearSelection ();
-
     /**
      * unImplemented:
      *

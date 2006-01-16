@@ -36,6 +36,12 @@ static GSList *working_list = NULL; /* of Iteration */
 
 static char *spi_atk_bridge_null_string = "";
 
+Accessibility_Role
+spi_role_from_atk_role (AtkRole role)
+{
+    return spi_accessible_role_from_atk_role (role);
+}
+
 /*
  *   deletes an element from the list - in a re-entrant
  * safe fashion; advances the element pointer to the next
@@ -107,45 +113,94 @@ spi_re_entrant_list_foreach (GList         **list,
 }
 
 void 
-spi_init_any_nil (CORBA_any *any)
+spi_init_any_nil (CORBA_any *any_details, 
+		  Accessibility_Application app, 
+		  Accessibility_Role role,
+		  CORBA_string name)
 {
-  any->_type = TC_null;
-  any->_value = NULL;
-  any->_release = FALSE;
+  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
+
+  any_details->_type = TC_Accessibility_EventDetails;
+  any_details->_value = details;
+  any_details->_release = TRUE;
+
+  details->host_application = app;
+  details->source_role = role;
+  details->source_name = CORBA_string_dup (name);
+
+  details->any_data._type = TC_null;
+  details->any_data._value = NULL;
+  details->any_data._release = FALSE;
 }
 
 void 
-spi_init_any_object (CORBA_any *any, CORBA_Object *o)
+spi_init_any_object (CORBA_any *any_details, Accessibility_Application app, 
+		     Accessibility_Role role,
+		     CORBA_string name, 
+		     CORBA_Object *o)
 {
-  CORBA_Environment ev;
-  CORBA_exception_init (&ev);
+  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
+
+  any_details->_type = TC_Accessibility_EventDetails;
+  any_details->_value = details;
+  any_details->_release = TRUE;
+
+  details->host_application = app;
+  details->source_role = role;
+  details->source_name = CORBA_string_dup (name);
   
-  any->_type = TC_CORBA_Object;
-  any->_value = o;
-  any->_release = FALSE;
-  CORBA_exception_free (&ev);
+  details->any_data._type = TC_CORBA_Object;
+  details->any_data._value = o;
+  details->any_data._release = FALSE;
 }
 
 void
-spi_init_any_string (CORBA_any *any, char **string_pointer)
+spi_init_any_string (CORBA_any *any_details, Accessibility_Application app, 
+		     Accessibility_Role role,
+		     CORBA_string name, 
+		     char **string_pointer)
 {  
-  any->_type = (CORBA_TypeCode) TC_CORBA_string;
+  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
+
+  any_details->_type = TC_Accessibility_EventDetails;
+  any_details->_value = details;
+  any_details->_release = TRUE;
+
+  details->host_application = app;
+  details->source_role = role;
+  details->source_name = CORBA_string_dup (name);
+  
+  details->any_data._type = (CORBA_TypeCode) TC_CORBA_string;
   if (string_pointer && *string_pointer)
-    any->_value = string_pointer;
+    details->any_data._value = string_pointer;
   else
-    any->_value = &spi_atk_bridge_null_string;
-  any->_release = FALSE;
+    details->any_data._value = &spi_atk_bridge_null_string;
+  details->any_data._release = FALSE;
 }
 
 void
-spi_init_any_rect (CORBA_any *any, AtkRectangle *rect)
+spi_init_any_rect (CORBA_any *any_details, 
+		   Accessibility_Application app, 
+		   Accessibility_Role role,
+		   CORBA_string name, 
+		   AtkRectangle *rect)
 {
-    Accessibility_BoundingBox *box = Accessibility_BoundingBox__alloc ();
-    box->x = rect->x;
-    box->y = rect->y;
-    box->width = rect->width;
-    box->height = rect->height;
-    any->_type = TC_Accessibility_BoundingBox;
-    any->_value = box;
-    any->_release = TRUE;
+  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
+  Accessibility_BoundingBox *box = Accessibility_BoundingBox__alloc ();
+
+  any_details->_type = TC_Accessibility_EventDetails;
+  any_details->_value = details;
+  any_details->_release = TRUE;
+
+  details->host_application = app;
+  details->source_role = role;
+  details->source_name = CORBA_string_dup (name);
+  
+  box->x = rect->x;
+  box->y = rect->y;
+  box->width = rect->width;
+  box->height = rect->height;
+  details->any_data._type = TC_Accessibility_BoundingBox;
+  details->any_data._value = box;
+  details->any_data._release = TRUE;
 }

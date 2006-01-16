@@ -34,63 +34,90 @@ module Accessibility {
 
   interface DeviceEventController;
 
+    /** 
+     * The Registry is a service through which applications providing 
+     * accessibility services (servers) can rendezvous with consumers of those
+     * services (Assistive Technologies).  The Registry is the first "port of call" for 
+     * accessible applications and for assistive technologies wishing to query and
+     * interact with those applications.
+     *
+     * The Registry service provides four basic functions to Assistive Technology (AT) clients:
+     * \li it provides a list of the applications who have registered with the AT-SPI
+     * framework, thereby announcing their participation in the AT-SPI framework;
+     * \li it allows AT clients to register for notification of changes in application
+     * state (at-spi Events);
+     * \li it dispatches/relays said events from participating applications to
+     * the registered listeners;
+     * \li it gives access to system device events via the associated DeviceEventController
+     * interface.
+     *
+     * From the point of view of accessible applications (i.e. AT-SPI service producers), 
+     * the Registry is primarily a registration and event delivery service.  Applications 
+     * normally only call the registerApplication and deregisterApplication Registry methods,
+     * and its inherited EventListener::notifyEvent method.
+     *
+     * @note Although all application events are dispatched via the Registry, other AT client 
+     * calls are serviced directly by the applications, rather than being relayed via the
+     * Registry.  The AT client obtains references to these application objects
+     * via the enumeration of Desktop instances whose children are Application instances
+     * (Registry::getDesktopList) and via examination of the 'source' member of the Event 
+     * structure. 
+     *
+     * The Registry normally lives in its own process space; communication via Registry and
+     * both application services and AT clients takes place via IPC.  A process space diagram
+     * illustrating the relationship between applications, Registry, and AT is shown below.
+     * @image html "http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png"
+     * 
+     *
+     * @see Desktop, Application, Event, EventListener
+     **/
   interface Registry : EventListener {
 
   	/**
-         * registerApplication:
-         * @application: a reference to the requesting @Application
-         *
          * Register a new application with the accessibility broker.
-         *
+         * @param application: a reference to the requesting Application
 	 **/
         oneway void registerApplication (in Application application);
 
   	/**
-         * deregisterApplication:
-         * @application: a reference to the @Application 
-         * to be deregistered.
-	 *
          * De-register an application previously registered with the broker.
-         *
+         * deregisterApplication:
+         * @param application: a reference to the Application 
+         * to be deregistered.
 	 **/
         void deregisterApplication (in Application application);
 
   	/**
-         * registerGlobalEventListener:
-         * @listener: a reference to the requesting @EventListener.
-         * @eventName: a string which indicates the type of events about 
-         * which the client desires notification.
-         *
          * Register a client's interest in (all) application events of 
          * a certain type.
-         *
+         * @param listener: a reference to the requesting ::EventListener.
+         * @param eventName: a string which indicates the type of events about 
+         * which the client desires notification.
 	 **/
         void registerGlobalEventListener (in EventListener listener,
 					  in string eventName);
 
   	/**
-         * deregisterGlobalEventListener:
-         * @listener: the requesting @EventListener
-         * @eventName: a string indicating the type of events
+         * deregisterGlobalEventListenerAll:
+         * @param listener: the requesting EventListener
          *
          * Request that a previously registered client stop receiving
-         * global notifications for events of a certain type.
+         * global notifications for all events for which it was registered.
          *
 	 **/
-
         void deregisterGlobalEventListenerAll (in EventListener listener);
+
   	/**
          * deregisterGlobalEventListener:
-         * @listener: the requesting @EventListener
-         * @eventName: a string indicating the type of events
+         * @param listener: the requesting EventListener
+         * @param eventName: a string indicating the type of events
          *
          * Request that a previously registered client stop receiving
          * global notifications for events of a certain type.
          *
 	 **/
-
         void deregisterGlobalEventListener (in EventListener listener, 
-					    in string event_name);
+					    in string eventName);
         /** 
          * event types: "Window" "Desktop"
          *              "Window:Create" "Window:Destroy"
@@ -112,39 +139,37 @@ module Accessibility {
          * getDesktopCount:
          *
          * Get the current number of desktops.
-	 * Returns: a short integer indicating the current number of 
-         * @Desktops.
+	 * @returns a short integer indicating the current number of 
+         * Desktops.
 	 **/
         short getDesktopCount ();
 
   	/**
          * getDesktop:
-         * @n: the index of the requested @Desktop.
+         * @n: the index of the requested Desktop.
          *
          * Get the nth accessible desktop. 
          *
-	 * Returns: a reference to the requested @Desktop.
+	 * @returns a reference to the requested Desktop.
 	 **/
         Desktop getDesktop (in short n);
 
   	/**
-         * getDesktopList:
-         *
          * Get a list of accessible desktops. 
          *
-	 * Returns: a sequence containing references to
-         * the @Desktops.
+	 * @returns: a sequence containing references to
+         * the Desktops.
 	 **/
         DesktopSeq getDesktopList ();
 
   	/**
-         * getDeviceEventController:
+         * Obtain an object which can be used to request device event notifications.
          *
-	 * Returns: an object implementing DeviceEventController
+	 * @returns: an object implementing DeviceEventController
 	 **/
         DeviceEventController getDeviceEventController ();
 
-	/**
+	/** \cond
 	 * unImplemented:
 	 *
 	 * placeholders for future expansion.
@@ -155,58 +180,191 @@ module Accessibility {
 	void unImplemented4 ();
 	void unImplemented5 ();
 	void unImplemented6 ();
+      /** \endcond */
     };
 
-  /* Deprecated, DO NOT USE! */
+    /** Deprecated, DO NOT USE! */
   enum KeyEventType {
     KEY_PRESSED,
     KEY_RELEASED
   };
 
+  /** Used to specify the event types of interest to an EventListener, or
+   * to identify the type of an event for which notification has been sent. 
+   * @see EventTypeSeq, DeviceEvent::type
+   */
   enum EventType {
-    KEY_PRESSED_EVENT,
-    KEY_RELEASED_EVENT,
-    BUTTON_PRESSED_EVENT,
-    BUTTON_RELEASED_EVENT
+      KEY_PRESSED_EVENT, /**< key on a keyboard device was pressed. */
+      KEY_RELEASED_EVENT, /**< key on a keyboard device was released. */
+      BUTTON_PRESSED_EVENT,/**< button on a non-keyboard human interface device 
+			    * (HID) was pressed */
+      BUTTON_RELEASED_EVENT /**< button on a non-keyboard human interface device 
+			     * (HID) was pressed */
   };
 
+    /** Used when synthesizing keyboard input via DeviceEventController:generateKeyboardEvent.*/
   enum KeySynthType {
-    KEY_PRESS,
-    KEY_RELEASE,
-    KEY_PRESSRELEASE,
-    KEY_SYM,
-    KEY_STRING
+    KEY_PRESS,/** emulate the pressing of a hardware keyboard key. */
+    KEY_RELEASE,/** emulate the release of a hardware keyboard key. */
+    KEY_PRESSRELEASE,/** a hardware keyboard key is pressed and immediately released. */
+    KEY_SYM,/** a symbolic key event is generated, without specifying a hardware key. 
+	     * @note if the keysym is not present in the current keyboard map,
+	     * the DeviceEventController instance has a limited ability to generate
+	     * such keysyms on-the-fly.  Reliability of generateKeyboardEvent calls
+	     * using out-of-keymap keysyms will vary from system to system, and on the
+	     * number of different out-of-keymap being generated in quick succession.
+	     * In practice this is rarely significant, since the keysyms of interest to
+	     * AT clients and keyboard emulators are usually part of the current keymap, i.e.
+	     * present on the system keyboard for the current locale (even if a physical
+	     * hardware keyboard is not connected.
+	     */
+    KEY_STRING /** a string is converted to its equivalent keyboard events and emitted. 
+		* If the string consists of complex character or composed characters
+		* which are not in the current keymap, string emission is subject to the
+		* out-of-keymap limitations described for KeySynthType::KEY_SYM.
+		* In practice this limitation primarily effects Chinese and Japanese locales.
+		*/
   };
 
   enum ModifierType {
-    MODIFIER_SHIFT,
-    MODIFIER_SHIFTLOCK,
-    MODIFIER_CONTROL,
-    MODIFIER_ALT,
-    MODIFIER_META,
+    MODIFIER_SHIFT, /** The left or right 'Shift' key */
+    MODIFIER_SHIFTLOCK, /** The ShiftLock or CapsLock key */
+    MODIFIER_CONTROL,/** 'Control'/'Ctrl' */
+    MODIFIER_ALT,/** The Alt key (as opposed to AltGr) */
+    MODIFIER_META,/** depending on the platform this may map to 'Window', 'Function', 'Meta',
+		   * 'Menu', or 'NumLock'.  
+		   *  Such 'Meta keys' will map to one of META, META2, META3.
+		   * On X Windows platforms these META values map to 
+		   * the modifier masks Mod1Mask, Mod2Mask, Mod3Mask, e.g. an event having
+		   * ModifierType::MODIFIER_META2 means that the 'Mod2Mask' bit is
+		   * set in the corresponding XEvent.
+		   */
     MODIFIER_META2,
     MODIFIER_META3,
-    MODIFIER_NUMLOCK
+    MODIFIER_NUMLOCK/** A symbolic meta key name that is mapped by AT-SPI to the 
+		     *  appropriate META value, for the convenience of the client.
+		     */
   };
 
+  /** A structure that encapsulates the characteristics of the event notifications
+   * that should be sent to an EventListener in response to a call to
+   * DeviceEventController::registerKeystrokeListener or 
+   * DeviceEventController::registerDeviceEventListener. */
   struct EventListenerMode {
-    boolean synchronous;
-    boolean preemptive;
-    boolean global;	  
+    boolean synchronous; /**< If \c True, specifies that
+			  * DeviceEventController should block while waiting 
+			  * for client to process the requested event notifications; 
+			  * ordinarily should be used only when client needs to perform
+			  * operations synchronously with event delivery. Note that because
+			  * of the architecture of device event systems in general,
+			  * use of this flag may not block delivery of the event to 
+			  * the currently focussed application unless it is used in 
+			  * conjunction with the preemptive flag. */
+    boolean preemptive; /**< If \c True, specifies that 
+			 * Listener is allowed to pre-empt the delivery of the event,
+			 * effectively "consuming" it such that it is not delivered 
+			 * to the currently focussed desktop application. 
+			 * Key events consumed via this API will not be 
+			 * available for use by other applications or services, so this
+			 * option should be used sparingly. */
+    boolean global; /**< If \c True, specifies that
+		     * Event notifications should be sent regardless of whether the
+		     * currently focussed application participates in the AT-SPI 
+		     * infrastructure.  On systems with the XEvIE X extension, this flag
+		     * also allows access to events which are already subject to 
+		     * interception via a "system keygrab" (as described in the X Window System
+		     * documentation for XGrabKey).  The 'global' and 'preemptive' flags
+		     * should only be used together for the purposes of registering
+		     * "system global key shortcuts" i.e. command keys for use by the
+		     * assistive technology. */
   };
 
+  /** 
+   * an unsigned short int consisting of zero or more of the following
+   * values OR'ed together:
+   *
+   * \li \c 1<<::KEY_PRESSED_EVENT  = 1
+   * \li \c 1<<::KEY_RELEASED_EVENT = 2
+   * \li \c 1<<::BUTTON_PRESSED_EVENT = 3,
+   * \li \c 1<<::BUTTON_RELEASED_EVENT = 4
+   **/
   typedef unsigned long ControllerEventMask;
 
+  /** A structure which encapsulates information about a device event. */
   struct DeviceEvent {
-    EventType type; 
-    long  id;
-    short hw_code;
-    unsigned short modifiers;
-    unsigned long timestamp;
-    string event_string;
-    boolean is_text;
+    EventType type; /**< Identifies the type of the containing DeviceEvent. */
+    long  id; /**< an identifier which identifies this event in the event stream. 
+	       * On X Window systems this corresponds to the XEvent serial number.
+	       */
+    short hw_code; /**< a numeric code which is hardware and system-dependent, identifying the
+		    * specific hardware button or key on the device for which the event has
+		    * occurred. On X Window systems, for global key notifications and for most
+		    * non-global key notifications as well, this code corresponds to the
+		    * XKeycode.  For switch and button events it indicates the switch
+		    * or button number.
+		    * @note
+		    * For technical reasons, this code may differ from the XKeycode
+		    * when generated by Java applications for consumption by non-global
+		    * key listeners.  This is subject to change in future versions of the
+		    * DeviceEventController implementation.
+		    */
+
+    unsigned short modifiers; /**< an unsigned short int consisting of zero or more of the following
+			       * values OR'ed together:
+			       * \li \c 1<<::MODIFIER_SHIFT   (=1, corresponds to Xlib's ShiftMask)
+			       * \li \c 1<<::MODIFIER_SHIFTLOCK    (=2, corresponds to Xlib's LockMask)
+			       * \li \c 1<<::MODIFIER_CONTROL (=4, corresponds to Xlib's ControlMask)
+			       * \li \c 1<<::MODIFIER_ALT    (=8, corresponds to Xlib's Mod1Mask)
+			       * \li \c 1<<::MODIFIER_META    (=16, corresponds to Xlib's Mod2Mask)
+			       * \li \c 1<<::MODIFIER_META2    (=32, corresponds to Xlib's Mod3Mask)
+			       * \li \c 1<<::MODIFIER_META3    (=64, corresponds to Xlib's Mod4Mask)
+			       **/
+    unsigned long timestamp; /**< an unsigned integer representing the time that the 
+			      * event occurred.  On X Window systems this event is 
+			      * a time in milliseconds from some arbitrary starting
+			      * point; it therefore has a cycle time of approximately
+			      * 50 days.
+			      */
+    string event_string; /**< A string representation of the event.  If is_text is
+			  * \c True, then this string represents the character or typographic
+			  * sequence that would be received by a focussed text input field.
+			  * event_string is in general suitable for exposure to the
+			  * end-user for purposes of keyboard echo.
+			  */
+    boolean is_text; /**< \c True if the event results in the insertion of characters 
+		      * into an input text buffer, or would do so if delivered to a focussed
+		      * text input field. ¨Typographical¨ key events have this field set to
+		      * \c True, whereas ¨control¨ key events generally do not.
+		      */
   };
 
+  /** 
+   * A structure which defines the identity of a key for which notifications
+   * are to be requested.  The data in the members of a ::KeyDefinition are used to
+   * determine which keyboard events 'match' the notification request filed by a client.
+   *
+   * @note Ordinarily a KeyDefinition specifies one and only one of the criteria below; 
+   * the result of using a KeyDefinition with multiple members defined as nonzero is
+   * undefined.
+   *
+   * @param keycode if nonzero, the numeric, system-dependent value corresponding to a 
+   * physical key on the keyboard.  Keycode values have no semantic meaning to the end-user,
+   * and may depend on the user's hardware and operating environment.  They therefore are
+   * rarely useful "as-is" to AT clients, unless the client has used operating system
+   * services to identify the hardward keycode associated with a particular key symbol.
+   * Notifications for key events requested by keycode are less dependent on modifier state
+   * than \c keysym based notifications, but some hardware (notably many laptops) may generate
+   * more than one keycode for the same physical key, depending on the state of physical 
+   * shift/modifier keys.
+   * @param keysym if nonzero, the numeric value corresponding to the X Keysym of the key for which 
+   * notification is requested.  Note that the presence of active modifiers will affect
+   * whether notification for key events requested via "keysym" specification takes place, 
+   * since the keysym depends on the modifier state for most keys.
+   * @param keystring if non-NULL, the string value of the inserted characters if the corresponding
+   * key event has ::KeyEvent:is_text set to \c True, or the string representing the
+   * 'name' of the key.  On X11 systems, the string 'name' of non-printing keysyms corresponds
+   * to the values in "keysymdef.h" as provided by Xlib, with the leading "XK_" stripped off.
+   **/
   struct KeyDefinition {
     long keycode;
     long keysym;
@@ -218,33 +376,56 @@ module Accessibility {
   typedef sequence< EventType > KeyEventTypeSeq;
   typedef sequence< EventType > EventTypeSeq;
 
+  /** This interface should be implemented by AT-SPI clients who wish to 
+   * make use of the DeviceEventController to receive device event notifications.
+   * DeviceEvents include keyboard events and mouse button/motion events.
+   **/
   interface DeviceEventListener : Bonobo::Unknown {
+      /** Notify an interested DeviceEventListener that a DeviceEvent has occurred.
+       * @returns \c True if the recipient/consumer wishes to consume the event, i.e.
+       * prevent it from being delivered to the desktop, \c False if the event should 
+       * continue to be delivered as normal.
+       */
         boolean notifyEvent (in DeviceEvent event);
+      /** \cond */
         void    unImplemented__ ();
         void    unImplemented_2_ ();
         void    unImplemented_3_ ();
         void    unImplemented_4_ ();
         void    unImplemented_5_ ();
         void    unImplemented_6_ ();
+      /** \endcond */
   };
 
+  /** 
+   * The interface via which clients request notification of device events, and
+   * through which device events may be simulated.
+   ***/
   interface DeviceEventController : Bonobo::Unknown {
 
   	/**
-         * registerKeystrokeListener:
-         * @listener: a @DeviceEventListener which will intercept key events.
-         * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
-         * @mask:     a @ControllerEventMask filtering the intercepted key events.
-	 * @type:     an @EventType mask that may created by ORing event types together.
-	 * @is_synchronous: a @boolean indicating whether the listener should 
-	 *            receive the events synchronously, potentially consuming them,
-	 *            or just be notified asynchronously of those events that have
-	 *            been generated.
-	 * Returns: %true if successful, %false if not
-         *
          * Register to intercept keyboard events, and either pass them on or
          * consume them. 
          *
+         * @param listener: a DeviceEventListener which will intercept key events.
+         * @param keys:     a KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+         * @param mask:     a ControllerEventMask filtering the intercepted key events.
+	 * @param type:     a KeyEventTypeSeq that may created by ORing event types together.
+	 * @param mode: an EventListenerMode indicating whether the listener should 
+	 *            receive the events synchronously, potentially consuming them,
+	 *            or just be notified asynchronously of those events that have
+	 *            been generated.
+	 * @note Some platforms have limited support for global, preemptive EventListenerMode.
+	 * Such a registration may fail if another client already has priority for preemptive
+	 * access to one or more of the members of the KeySet.  AT consumers have the option
+	 * of re-trying the request without the global flag, or without the preemptive flag,
+	 * or of re-trying with a different KeySet.  The best support for pre-emptive
+	 * global keyboard listeners is provided on platforms whose Xserver implementation
+	 * provides the XEvIE extension.
+	 *
+	 * @returns \c True if the DeviceEventListener was successfully registered
+	 * for the requested KeySet, ControllerEventMask, event types, and EventListenerMode; 
+	 * otherwise returns \c False.
 	 **/
         boolean registerKeystrokeListener (in DeviceEventListener listener,
 					in KeySet keys,
@@ -253,16 +434,11 @@ module Accessibility {
 					in EventListenerMode mode);
     
   	/**
-         * deregisterKeystrokeListener:
-         * @listener: a @DeviceEventListener which will intercept key events.
-         * @keys:     a @KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
-         * @mask:     a @ControllerEventMask filtering the intercepted key events.
-	 * @type:     an @EventType mask that may created by ORing event types together.
-	 *
-	 * Returns: void
-         *
          * De-register a previously registered keyboard eventlistener.
-         *
+         * @param listener: a DeviceEventListener which will intercept key events.
+         * @param keys:     a KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+         * @param mask:     a ControllerEventMask filtering the intercepted key events.
+	 * @param type:     an EventType mask that may created by ORing event types together.
 	 **/
         void deregisterKeystrokeListener (in DeviceEventListener listener,
 					  in KeySet keys,
@@ -270,78 +446,88 @@ module Accessibility {
 					  in KeyEventTypeSeq type);
     
   	/**
-         * registerDeviceEventListener:
-         * @listener: a @DeviceEventListener which will intercept events.
-	 * @typeseq:  an @EventTypeSeq indicating which event types to listen for.
-	 * Returns: %true if successful, %false if not
-         *
          * Register to intercept events, and either pass them on or
          * consume them. To listen to keyboard events use registerKeystrokeListener
 	 * instead.
-         *
+         * @param listener: a DeviceEventListener which will intercept events.
+	 * @param typeseq:  an EventTypeSeq indicating which event types to listen for.
+	 * @returns \c True if successful, \c False if not
 	 **/
         boolean registerDeviceEventListener (in DeviceEventListener listener,
 					     in EventTypeSeq typeseq);
     
   	/**
-         * deregisterDeviceEventListener:
-         * @listener: a @DeviceEventListener which will intercept events.
-	 * @typeseq:  an @EventTypeSeq indicating which event types to stop
-	 *            listening for.
-	 *
-	 * Returns: void
-         *
          * De-register a previously registered keyboard eventlistener.
-         *
+         * @param listener: a DeviceEventListener which will intercept events.
+	 * @param typeseq:  an EventTypeSeq indicating which event types to stop
+	 *            listening for.
 	 **/
         void deregisterDeviceEventListener (in DeviceEventListener listener,
 					    in EventTypeSeq typeseq);
     
+      /** 
+       * Notify the Registry instance that a device event has taken place, and
+       *       allow pre-emptive listeners the opportunity to 'consume' the event
+       *       and thus prevent its further issuance/forwarding.  This is the 
+       *       method used by accessibility bridges to forward "toolkit dependent"
+       *       device events to the Registry from the application's process space.
+       *
+       * @note AT clients do not normally need to use this method, it is intended for use
+       *       by toolkit bridges and special-purpose applications.
+       *
+       * @returns \c True if the event was consumed by a (pre-emptive) listener,
+       *          \c False if not (in which case the device event will be forwarded
+       *          as normal to any application which would normally receive it, e.g.
+       *          the currently active application in the case of mouse or keyboard events).
+       **/
         boolean notifyListenersSync (in DeviceEvent event);
 
+      /** 
+       * Notify the Registry instance that a device event has taken place in
+       *       an asynchronous manner.  This is the 
+       *       method used by accessibility bridges to forward "toolkit dependent"
+       *       device events to the Registry from the application's process space.
+       *       If the event in question is potentially pre-emptible.
+       *       ::notifyListenersSync should be used instead.
+       *
+       * @note AT clients do not normally need to use this method, it is intended for use
+       *       by toolkit bridges and special-purpose applications.
+       **/
         oneway void notifyListenersAsync (in DeviceEvent event);
 
         /**
-         * generateKeyboardEvent:
-         * @keycode: a long integer indicating the keycode of
+         * Synthesize a keyboard event.
+         * @param keycode: a long integer indicating the keycode of
 	 *          the keypress to be synthesized.
-	 * @keystring: an optional UTF-8 string indicating a complex
+	 * @param keystring: an optional UTF-8 string indicating a complex
 	 *          keyboard input event.
-	 * @type: a #KeySynthType indicating the type of event(s) to be 
+	 * @param type: a KeySynthType indicating the type of event(s) to be 
 	 *          synthesized: a key press, release, press-release pair,
 	 *          or a complex input string (for instance from an
 	 *          internationalized or complex text input method, or
 	 *          a composed character).
 	 *
-	 * Note that @keycode may be truncated before being
+	 * @note keycode may be truncated before being
 	 *          processed, as keycode length may be platform-dependent
 	 *          and keycode ranges are generally much smaller than
 	 *          CORBA_long. 
-	 * One or the other of @keycode or @keystring are generally NULL, 
-	 *          (but not both), depending on the value of @type.
+	 * One or the other of keycode or keystring are generally NULL, 
+	 *          (but not both), depending on the value of \c type.
 	 *
-         * Returns: void
-         *
-         * Synthesize a keyboard event.
-         *
          **/
          void generateKeyboardEvent (in long keycode, 
 				     in string keystring, 
 				     in KeySynthType type);
 
         /**
-         * generateMouseEvent:
-         * @x: a long integer indicating the screen x coord for the mouse event.
-         * @y: a long integer indicating the screen y coord for the mouse event.
-         * @eventName: a string indicating the type of mouse event, e.g. "button1up"
-         * Returns: void
-         *
          * Synthesize a mouse event.
-         *
+         * @param x: a long integer indicating the screen x coord for the mouse event.
+         * @param y: a long integer indicating the screen y coord for the mouse event.
+         * @param eventName: a string indicating the type of mouse event, e.g. "button1up"
          **/
          void generateMouseEvent (in long x, in long y, in string eventName);
 
-	 /**
+	 /** \cond
 	  * unImplemented:
 	  *
 	  * placeholders for future expansion.
@@ -350,6 +536,7 @@ module Accessibility {
 	 void unImplemented2 ();
 	 void unImplemented3 ();
 	 void unImplemented4 ();
+      /** \endcond */
     }; 
 };
 

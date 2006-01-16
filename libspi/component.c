@@ -201,6 +201,17 @@ impl_accessibility_component_grab_focus (PortableServer_Servant servant,
   return atk_component_grab_focus (component);
 }
 
+static double
+impl_accessibility_component_get_alpha (PortableServer_Servant servant,
+					CORBA_Environment     *ev)
+{
+  AtkComponent *component = get_component_from_servant (servant);
+
+  g_return_val_if_fail (component != NULL, FALSE);
+
+  return atk_component_get_alpha (component);
+}
+
 static void
 spi_component_class_init (SpiComponentClass *klass)
 {
@@ -215,6 +226,7 @@ spi_component_class_init (SpiComponentClass *klass)
 	epv->getLayer = impl_accessibility_component_get_layer;
 	epv->getMDIZOrder = impl_accessibility_component_get_mdi_z_order;
 	epv->grabFocus = impl_accessibility_component_grab_focus;
+	epv->getAlpha = impl_accessibility_component_get_alpha;
 }
 
 static void

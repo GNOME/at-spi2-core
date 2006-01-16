@@ -1,3 +1,13 @@
+What's new in at-spi-1.7.0:
+
+* NEW API:
+
+  idl:
+  cspi:
+
+* BUGFIXES:
+
+
 What's new in at-spi-1.6.5:
 
 * Fixed some discrepancies in event listener deregistration, improves

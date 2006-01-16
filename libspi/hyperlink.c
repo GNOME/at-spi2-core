@@ -103,9 +103,14 @@ spi_hyperlink_new (AtkHyperlink *object)
        * spi_action_interface_new(), because of the above convention, 
        * even though it means we may be violating the func prototype.
        * See discussion in bugzilla bug #120659.
+       * !!!
+       * IMPORTANT! The 'AtkObject' typecast, instead of the cast macro,
+       * is used below, because 'object' may NOT really be an AtkObject;
+       * it will be cast back to a G_OBJECT inside spi_action_interface_new
+       * before use, so this is OK though very ropey coding style.
        */
       bonobo_object_add_interface (bonobo_object (new_hyperlink),
-				   BONOBO_OBJECT (spi_action_interface_new (object)));
+				   BONOBO_OBJECT (spi_action_interface_new ((AtkObject *) object)));
     }
   return new_hyperlink;
 }

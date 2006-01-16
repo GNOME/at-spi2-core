@@ -161,7 +161,10 @@ spi_application_toolkit_event_listener (GSignalInvocationHint *signal_hint,
   e.source = CORBA_OBJECT_NIL;
   e.detail1 = 0;
   e.detail2 = 0;
-  spi_init_any_nil (&e.any_data);
+  spi_init_any_nil (&e.any_data, 
+		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
+		    Accessibility_ROLE_UNKNOWN,
+		    CORBA_string_dup (""));
   notify_listeners (the_app->toolkit_listeners, source, &e);
 
   bonobo_object_unref (BONOBO_OBJECT (source));

@@ -26,34 +26,273 @@ module Accessibility {
 
 typedef sequence<long> LongSeq;
 
+  /**
+   * An interface used by containers whose contained data is arranged in 
+   * a "tabular" (i.e.\ row-column) fashion.  Tables may resemble a two-dimensional
+   * grid, as in a spreadsheet, or may feature objects which span multiple rows and/or
+   * columns, but whose bounds are aligned on a row/column matrix.  Thus, the Table
+   * interface may be used to represent "spreadsheets" as well as "frames".
+   *
+   * Objects within tables are children of the Table instance, and they may be referenced
+   * either via a child index or via a row/column pair.  
+   * Their role may be ROLE_TABLE_CELL, but table 'cells' may have other roles as well.
+   * These 'cells' may implement other interfaces, such as Text, Action, Image, 
+   * and Component, and should do so as appropriate to their onscreen representation
+   * and/or behavior.
+   */
  interface Table : Bonobo::Unknown {
+   /** 
+    * The total number of rows in this table (including empty rows),
+    * exclusive of any rows which are programmatically hidden.
+    * Rows which are merely scrolled out of view are included.
+    */
    readonly attribute long nRows;
+   /** 
+    * The total number of columns in this table (including empty columns),
+    * exclusive of columns which are programmatically hidden.
+    * Columns which are scrolled out of view or clipped by the current
+    * viewport are included. 
+    */
    readonly attribute long nColumns;
+   /**
+    * An Accessible which represents of a caption for a Table.
+    **/
    readonly attribute Accessible caption;
+   /**
+    * An accessible object which summarizes the contents of a Table.
+    * This object is frequently itself a Table instance, albeit a simplified one.
+    */
    readonly attribute Accessible summary;
+   /** 
+    * The number of rows currently selected.  
+    * A selected row is one in which all included cells are selected.
+    * @note Not all tables support row selection.
+    */
    readonly attribute long nSelectedRows;
+   /** 
+    * The number of columns currently selected.  
+    * A selected column is one in which all included cells are selected.
+    * @note Not all tables support column selection.
+    */
    readonly attribute long nSelectedColumns;
-
+   /**
+    * Get the table cell at the specified row and column indices.
+    * @note    To get the accessible object at a particular (x, y) screen coordinate,
+    *          use Accessible::getAccessibleAtPoint ().
+    *
+    * @param row: the specified table row, zero-indexed.
+    * @param column: the specified table column, zero-indexed.
+    *
+    * @returns an Accessible object representing the specified table cell.
+    **/   
    Accessible getAccessibleAt (in long row, in long column);
+   /**
+    * Get the 1-D child index corresponding to the specified 2-D row and column indices.
+    * @note    To get the accessible object at a particular (x, y) screen coordinate,
+    *          use Accessible::getAccessibleAtPoint.
+    *
+    * @param row: the specified table row, zero-indexed.
+    * @param column: the specified table column, zero-indexed.
+    *
+    * @see getRowAtIndex, getColumnAtIndex
+    *
+    * @returns a long integer which serves as the index of a specified cell in the
+    *          table, in a form usable by Accessible::getChildAtIndex.
+    **/   
    long getIndexAt (in long row, in long column);
+   /**
+    * Get the table row index occupied by the child at a particular 1-D child index.
+    *
+    * @param index: the specified child index, zero-indexed.
+    *
+    * @see getIndexAt(), getColumnAtIndex()
+    *
+    * @returns a long integer indicating the first row spanned by the child of a
+    *          table, at the specified 1-D (zero-offset) \c index.
+    **/
    long getRowAtIndex (in long index);
+   /**
+    * Get the table column index occupied by the child at a particular 1-D child index.
+    *
+    * @param index: the specified child index, zero-indexed.
+    *
+    * @see getIndexAt(), getRowAtIndex()
+    *
+    * @returns a long integer indicating the first column spanned by the child of a
+    *          table, at the specified 1-D (zero-offset) \c index.
+    **/
    long getColumnAtIndex (in long index);
+   /**
+    * Get a text description of a particular table row.  This differs from
+    * AccessibleTable_getRowHeader, which returns an Accessible.
+    * @param row: the specified table row, zero-indexed.
+    *
+    * @returns a UTF-8 string describing the specified table row, if available.
+    **/ 
    string getRowDescription (in long row);
+   /**
+    * Get a text description of a particular table column.  This differs from
+    * AccessibleTable_getColumnHeader, which returns an Accessible.
+    * @param column: the specified table column, zero-indexed.
+    *
+    * @returns a UTF-8 string describing the specified table column, if available.
+    **/ 
    string getColumnDescription (in long column);
+   /**
+    * Get the number of rows spanned by the table cell at the specific row and column.
+    * (some tables can have cells which span multiple rows and/or columns).
+    *
+    * @param row: the specified table row, zero-indexed.
+    * @param column: the specified table column, zero-indexed.
+    *
+    * @returns a long integer indicating the number of rows spanned by the specified cell.
+    **/
    long getRowExtentAt (in long row, in long column);
+   /**
+    * Get the number of columns spanned by the table cell at the specific row and column.
+    * (some tables can have cells which span multiple rows and/or columns).
+    *
+    * @param row: the specified table row, zero-indexed.
+    * @param column: the specified table column, zero-indexed.
+    *
+    * @returns a long integer indicating the number of columns spanned by the 
+    * specified cell.
+    **/
    long getColumnExtentAt (in long row, in long column);
+   /**
+    * Get the header associated with a table row, if available.  This differs from
+    * getRowDescription, which returns a string.
+    *
+    * @param row: the specified table row, zero-indexed.
+    *
+    * @returns an Accessible representatin of the specified table row, if available.
+    **/
    Accessible getRowHeader (in long row);
+   /**
+    * Get the header associated with a table column, if available, as an 
+    * instance of Accessible.  This differs from
+    * getColumnDescription, which returns a string.
+    *
+    * @param column: the specified table column, zero-indexed.
+    *
+    * @returns an Accessible representatin of the specified table column, if available.
+    **/
    Accessible getColumnHeader (in long column);
+   /**
+    * Obtain the indices of all rows which are currently selected.  
+    * @note Not all tables support row selection.
+    *
+    * @returns a sequence of integers comprising the indices of rows currently selected.
+    **/
    LongSeq getSelectedRows ();
+   /**
+    * Obtain the indices of all columns which are currently selected.  
+    * @note Not all tables support column selection.
+    *
+    * @returns a sequence of integers comprising the indices of columns currently selected.
+    **/
    LongSeq getSelectedColumns ();
+   /**
+    * Determine whether a table row is selected.  
+    * @note Not all tables support row selection.
+    *
+    * @param row: the row being queried.
+    *
+    * @returns \c True if the specified row is currently selected, \c False if not.
+    **/
    boolean isRowSelected (in long row);
+   /**
+    * Determine whether a table column is selected.  
+    * @note Not all tables support column selection.
+    *
+    * @param column: the column being queried.
+    *
+    * @returns \c True if the specified column is currently selected, \c False if not.
+    **/
    boolean isColumnSelected (in long column);
+   /**
+    * Determine whether the cell at a specific row and column is selected.
+    * @param row a row occupied by the cell whose state is being queried.
+    * @param column a column occupied by the cell whose state is being queried.
+    *
+    * @returns \c True if the specified cell is currently selected, 
+    * \c False if not.
+    **/
    boolean isSelected (in long row, in long column);
+   /**
+    * Select the specified row, adding it to the current row selection,
+    * if the table's selection model permits it.
+    *
+    * @param row
+    * @note Possible reasons for addRowSelection to return \c False
+    * include:
+    * \li The table does not support Selection
+    * \li The table row includes cells which do not have STATE_SELECTABLE
+    * \li The table does not support selection by row
+    * \li The table does not support selection of multiple rows, and
+    * one row is already selected.
+    * \li The table does not support non-contiguous selections (i.e.
+    * does not include STATE_MULTISELECTABLE), and the specified row
+    * would result in selection of non-contiguous rows.
+    * \li The table does not support user-instigated selection.
+    *
+    * @returns \c True if the specified row was successfully selected, 
+    * \c False if not. 
+    **/
    boolean addRowSelection (in long row);
+   /**
+    * Select the specified column, adding it to the current column selection,
+    * if the table's selection model permits it.
+    *
+    * @param column
+    * @note Possible reasons for addColumnSelection to return \c False
+    * include:
+    * \li The table does not support Selection
+    * \li The table column includes cells which do not have STATE_SELECTABLE
+    * \li The table does not support selection by column
+    * \li The table does not support selection of multiple columns, and
+    * one column is already selected.
+    * \li The table does not support non-contiguous selections (i.e.
+    * does not include STATE_MULTISELECTABLE), and the specified column
+    * would result in selection of non-contiguous columns.
+    * \li The table does not support user-instigated selection.
+    *
+    * @returns \c True if the specified column was successfully selected, 
+    * \c False if not. 
+    **/
    boolean addColumnSelection (in long column);
+   /**
+    * Remove the specified row from current row selection,
+    * if the table's selection model permits it.
+    *
+    * @param row
+    * @note Possible reasons for removeRowSelection to return \c False
+    * include:
+    * \li The table does not support user-instigated Selection
+    * \li The table has no selected rows or does not support deselection by row
+    *
+    * @returns \c True if the specified row was successfully de-selected, 
+    * \c False if not. 
+    **/
    boolean removeRowSelection (in long row);
+   /**
+    * Remove the specified column from current column selection,
+    * if the table's selection model permits it.
+    *
+    * @param column
+    * @note Possible reasons for removeColumnSelection to return \c False
+    * include:
+    * \li The table does not support user-instigated modification of
+    * selection state
+    * \li The table has no selected columns or does not support 
+    * deselection by column.
+    *
+    * @returns \c True if the specified column was successfully de-selected, 
+    * \c False if not. 
+    **/
    boolean removeColumnSelection (in long column);
-    /**
+
+    /** \cond
      * unImplemented:
      *
      * placeholders for future expansion.
@@ -66,5 +305,6 @@ typedef sequence<long> LongSeq;
     void unImplemented6 ();
     void unImplemented7 ();
     void unImplemented8 ();
+    /** \endcond */
   };
 };

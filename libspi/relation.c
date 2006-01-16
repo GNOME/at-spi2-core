@@ -49,6 +49,7 @@ spi_init_relation_type_table (Accessibility_RelationType *types)
   types[ATK_RELATION_EMBEDS] = Accessibility_RELATION_EMBEDS;
   types[ATK_RELATION_EMBEDDED_BY] = Accessibility_RELATION_EMBEDDED_BY;
   types[ATK_RELATION_POPUP_FOR] = Accessibility_RELATION_POPUP_FOR;
+  types[ATK_RELATION_PARENT_WINDOW_OF] = Accessibility_RELATION_PARENT_WINDOW_OF;
   return TRUE;
 }
 

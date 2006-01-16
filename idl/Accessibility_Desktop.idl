@@ -27,12 +27,14 @@
 #include <Accessibility_Accessible.idl>
 
 module Accessibility {
-  interface Desktop : Accessible {
     /**
      * At the moment this is only a marker interface, it acts just like
-     * any other Accessible.
+     * any other Accessible.  In all known implementations, the
+     * children are all instances of Application, but this is not
+     * guaranteed by this interface.
      **/
-	  /**
+    interface Desktop : Accessible {
+	  /** \cond
 	   * unImplemented:
 	   *
 	   * placeholders for future expansion.
@@ -41,6 +43,7 @@ module Accessibility {
 	  void unImplemented2_ ();
 	  void unImplemented3_ ();
 	  void unImplemented4_ ();
+	/** \endcond */
   };
 };
 

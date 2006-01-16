@@ -116,7 +116,11 @@ desktop_add_application (SpiDesktop *desktop,
   /* FIXME
   spi_init_any_object (&e.any_data, a);
   */
-  spi_init_any_nil (&e.any_data);
+  spi_init_any_nil (&e.any_data,
+		    e.source,
+		    Accessibility_ROLE_DESKTOP_FRAME,
+		    CORBA_string_dup (""));
+
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
   bonobo_object_release_unref (a, &ev);
@@ -145,7 +149,10 @@ desktop_remove_application (SpiDesktop *desktop,
   /* FIXME
   spi_init_any_object (&e.any_data, a);
   */
-  spi_init_any_nil (&e.any_data);
+  spi_init_any_nil (&e.any_data,
+		    e.source,
+		    Accessibility_ROLE_DESKTOP_FRAME,
+		    CORBA_string_dup (""));
   Accessibility_Accessible_unref (a, &ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);

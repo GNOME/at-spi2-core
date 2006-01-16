@@ -28,7 +28,10 @@
 module Accessibility {
 
     /**
-     * LoginHelper:
+     * @brief An interface for use by assistive technologies by which
+     * they can access system information and services on a 'need to know'
+     * basis while the screen is locked, during user authentication, or
+     * during other sensitive operations.
      *
      * This interface is intended for use by assistive technologies
      * and related user-enabling services, and by applications and
@@ -38,23 +41,23 @@ module Accessibility {
      * service.
      *
      * Such 'applications' (for instance, screen lock dialogs and
-     * security-enabled web browsers) use the @LoginHelper client
+     * security-enabled web browsers) use the ::LoginHelper client
      * interfaces, and the bonobo-activation query service, to
-     * query for assistive technologies which advertise the @LoginHelper
+     * query for assistive technologies which advertise the ::LoginHelper
      * service.  The client then queries these assistive technologies 
-     * for their device I/O requirements, via the @getDeviceReqs call.
-     * The client may then issue the advisory request @setSafe (TRUE), 
-     * which requests that the @LoginHelper-implementing service make a
+     * for their device I/O requirements, via the ::getDeviceReqs call.
+     * The client may then issue the advisory request ::setSafe (TRUE), 
+     * which requests that the ::LoginHelper -implementing service make a
      * best-effort attempt to make itself more secure (for instance, 
      * an onscreen keyboard might turn off word prediction, and a
      * screenreader may turn off keyboard echo via speech).  The return
-     * value of @setSafe is an advisory indication of whether this attempt
+     * value of ::setSafe is an advisory indication of whether this attempt
      * was successful (no specific guarantees are implied).
      * Once the 'security sensitive' state is exited, the client should 
-     * call @setSafe (FALSE).
+     * call ::setSafe (FALSE).
      * 
-     * The return values from @getDeviceReqs inform the client of which
-     * services the @LoginHelper service (e. g. assistive technology) needs
+     * The return values from ::getDeviceReqs inform the client of which
+     * services the ::LoginHelper service (e. g. assistive technology) needs
      * in order to do its job.  The client may use this information to
      * loosen any restrictions on access which it may currently have in 
      * place (for instance, keyboard grabs, etc.).  If it does not do so,
@@ -64,12 +67,11 @@ module Accessibility {
      **/
   interface LoginHelper : Bonobo::Unknown {
 
-      /* 
-       * WindowInfo:
+      /** 
        * A structure containing info about toplevel X windows that
-       * the @LoginHelper instance wishes to have raised.
+       * the ::LoginHelper instance wishes to have raised.
        *
-       * @winID: The windowing-system-dependeny Window ID of the toplevel window.
+       * @param winID: The windowing-system-dependeny Window ID of the toplevel window.
        */
       struct WindowInfo {
 	  /* string display; */
@@ -82,7 +84,7 @@ module Accessibility {
       /*
        * DeviceReq:
        *
-       * The system and device access and services which the @LoginHelper-implementing 
+       * The system and device access and services which the LoginHelper-implementing 
        * assistive technology requires in order to enable the user to use the system.
        *
        */
@@ -104,30 +106,33 @@ module Accessibility {
 
   	/**
          * setSafe:
+	 * @param safe_mode: \c TRUE if the client is requesting that 'safe mode' be 
+	 *         initiated, \c FALSE if the client is advising that 'safe mode' may be
+	 *         exited, i.e. normal operation may be resumed.
          * 
          * Request a LoginHelper to enter "safe" mode, or
 	 *         inform LoginHelper that "safe" mode may be exited.
-	 *         If @safe_mode is %TRUE, but the return value is %FALSE,
+	 *         If \a safe_mode is \c TRUE, but the return value is \c FALSE,
 	 *         the requesting client may wish to deny services to the 
-	 *         %LoginHelper, for instance avoid raising its toplevels.
+	 *         ::LoginHelper, for instance avoid raising its toplevels.
 	 *         The return value is purely advisory, and no guarantees are 
 	 *         intended about what the implementing LoginHelper will do 
 	 *         to improve security when in "safe" mode.
 	 *
-         * Returns: whether the %LoginHelper is now "safe" or not.
+         * @returns: whether the ::LoginHelper is now "safe" or not.
 	 **/
         boolean setSafe (in boolean safe_mode);
 
   	/**
          * getDeviceReqs:
          * 
-         * Query a @LoginHelper for the types of
+         * Query a ::LoginHelper for the types of
 	 *    device I/O it requires, in order to do its job.
-	 *    For instance, a @LoginHelper which needs to receive keyboard
+	 *    For instance, a ::LoginHelper which needs to receive keyboard
 	 *    events will include 
 	 *    Accessibility_LoginHelper_CORE_KEYBOARD in this list.
 	 *
-         * Returns: A sequence of @LoginHelper_DeviceReq indicating
+         * @returns: A sequence of ::LoginHelper_DeviceReq indicating
 	 *    the device I/O required in order to facilitate end-user access 
 	 *    to the system.
 	 **/
@@ -138,14 +143,15 @@ module Accessibility {
          *
          * Get a list of window IDs that need raising on login. 
          *
-	 * Returns: a sequence containing window IDS for toplevels which
+	 * @returns: a sequence containing window IDS for toplevels which
 	 *          need to be raised/made visible during user authentication, in
-	 *          order for the @LoginHelper to facilitate end-user access to the 
+	 *          order for the ::LoginHelper to facilitate end-user access to the 
 	 *          system.
 	 **/
         WindowList getRaiseWindows ();
 
 	/**
+	 * \cond
 	 * unImplemented:
 	 *
 	 * placeholders for future expansion.
@@ -154,6 +160,7 @@ module Accessibility {
 	void unImplemented2 ();
 	void unImplemented3 ();
 	void unImplemented4 ();
+      /** \endcond */
     };
 
 };

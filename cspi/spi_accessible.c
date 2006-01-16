@@ -195,7 +195,7 @@ cspi_init_role_table (AccessibleRole *role_table)
   return TRUE;
 }
 
-static AccessibleRole
+AccessibleRole
 cspi_role_from_spi_role (Accessibility_Role role)
 {
   /* array is sized according to IDL roles because IDL roles are the index */	

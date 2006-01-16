@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface 
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001-2004 Sun Microsystems Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -28,102 +28,97 @@
 
 module Accessibility {
 
-  enum LOCALE_TYPE {
-      LOCALE_TYPE_MESSAGES,
-      LOCALE_TYPE_COLLATE,
-      LOCALE_TYPE_CTYPE,
-      LOCALE_TYPE_MONETARY,
-      LOCALE_TYPE_NUMERIC,
-      LOCALE_TYPE_TIME
-  };
-
+  /** 
+   * An interface identifying an object which is the root of the
+   * user interface Accessible hierarchy associated with a running application.
+   * Children of Application are typically, but not exclusively, 
+   * top-level windows.
+   * @note It is possible for an element deeper in an Accessibility stack to
+   * implement Application, for instance in the case of "embedded applications"
+   * which draw into toplevel windows associated with other applications
+   * from the user's point of view.
+   */
   interface Application : Accessible {
 
     /**
-     * @toolkitName:
      * A string indicating the type of user interface toolkit
      * which is used by the application.
-     * Ordinarily clients of @AccessibleApplication should be
-     * toolkit-agnostic, dependencies on this method probably
-     * should be reconsidered!
+     * @note Ordinarily clients of ::Application should be
+     * toolkit-agnostic, dependencies on this property should
+     * be avoided where possible.
      **/
     readonly attribute string toolkitName;
 
     /**
-     * @version:
      * A string indicating the version number of the application's
      * accessibility bridge implementation.
      **/
     readonly attribute string version;
 
     /**
-     * @id:
      * The application instance's unique ID as assigned by the registry.
      **/
     attribute long id;
 
     /**
-     * registerToolkitEventListener:
-     * @listener: an #EventListener object which will receive the requested
+     * @param listener: an ::EventListener object which will receive the requested
      *            events from the application's toolkits via toolit 'bridges'
-     * @eventName: a UTF-8 string indicating the type of (toolkit-specific) event
+     * @param eventName: a UTF-8 string indicating the type of (toolkit-specific) event
      *            being requested.  Not all applications can generate toolkit events of
      *            a given type.
      *
      * Register with this application's toolkit for "toolkit-specific" event notifications.
+     * @note
      *       For most event support, clients should use non-toolkit-specific events
-     *       whenever possible, via #Registry::registerGlobalEventListener - this method 
-     *       is provided as a 'back door' when generic names do not exist for the events in question.
-     * SUBJECT TO DEPRECATION in favor of Registry::registerGlobalEventListener forms.
-     *
+     *       whenever possible, via ::Registry::registerGlobalEventListener - this method 
+     *       is provided as a 'back door' when generic names do not exist for the events in 
+     *       question.
      **/
     void registerToolkitEventListener (in EventListener listener, in string eventName);
 
     /**
      * registerObjectEventListener:
-     * @listener: an #EventListener object which will receive the requested
+     * @param listener: an ::EventListener object which will receive the requested
      *            events
-     * @eventName: a UTF-8 string indicating the type of (toolkit-specific) event
+     * @param eventName: a UTF-8 string indicating the type of (toolkit-specific) event
      *            being requested.  
      * Register with this application toolkit for "Accessibility::Accessible" 
-     * event notifications. SUBJECT TO DEPRECATION
-     *
+     * event notifications. 
+     * @note: SUBJECT TO DEPRECATION.
      **/
     void registerObjectEventListener (in EventListener listener, in string eventName);
 
     /**
-     * pause:
-     *
      * Request that the application temporarily stop sending events.
      * In most cases this should pause the application's main event loop.
      *
-     * Returns: %true if the request succeeded, %false otherwise.
+     * @returns: \c true if the request succeeded, \c false otherwise.
+     *
+     * @note: This method is not implemented in most toolkits, and therefore should be treated with caution.
      **/
     boolean       pause ();
 
     /**
-     * resume:
-     *
      * Request that the application resume sending events.
      *
-     * Returns: %true if the request succeeded, %false otherwise.
+     * @returns: \c True if the request succeeded, \c False otherwise.
      **/
     boolean       resume ();
 
-     /**
-     * getLocale:
-     *
-     * @lctype: the LocaleType for which the locale is queried.
+    /**
      * Gets the locale in which the application is currently operating.
-     * For the current message locale, use @lctype LOCALE_TYPE_MESSAGES.
+     * For the current message locale, use \a lctype LOCALE_TYPE_MESSAGES.
      *
-     * Returns: a string compliant with the POSIX standard for locale description.
+     * @param lctype The LocaleType for which the locale is queried.
+     * @returns a string compliant with the POSIX standard for locale description.
      **/
     string       getLocale (in LOCALE_TYPE lctype);
 
+    /**\cond (This comment tells doxygen not to document these) */
     void          unImplemented_ ();
     void          unImplemented2_ ();
     void          unImplemented3_ ();
+    /**\endcond */
   };
 };
 

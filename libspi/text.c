@@ -309,6 +309,45 @@ impl_getAttributes (PortableServer_Servant servant,
 }
 
 static CORBA_string
+impl_getAttributeValue (PortableServer_Servant servant,
+			const CORBA_long offset,
+			const CORBA_char *attributename,
+			CORBA_long * startOffset,
+			CORBA_long * endOffset,
+			CORBA_boolean * defined,
+			CORBA_Environment *ev)
+{
+  AtkAttributeSet *set;
+  gint intstart_offset, intend_offset;
+  GSList *cur_attr;
+  CORBA_string rv = NULL;
+  AtkText *text = get_text_from_servant (servant);
+  AtkAttribute *at;
+
+  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
+
+  set = atk_text_get_run_attributes (text, offset,
+				     &intstart_offset, &intend_offset);
+  *startOffset = intstart_offset;
+  *endOffset = intend_offset;
+  *defined = FALSE;
+  cur_attr = (GSList *) set;
+  while (cur_attr)
+    {
+      at = (AtkAttribute *) cur_attr->data;
+      if (!strcmp (at->name, attributename))
+      {
+	  rv = CORBA_string_dup (at->value);
+	  *defined = TRUE;
+	  break;
+      }
+      cur_attr = cur_attr->next;
+    }
+  atk_attribute_set_free (set);
+  return (rv ? rv : CORBA_string_dup (""));  
+}
+
+static CORBA_string
 impl_getDefaultAttributes (PortableServer_Servant servant,
 			   CORBA_Environment *ev)
 {
@@ -514,7 +553,9 @@ _spi_text_range_seq_from_gslist (GSList *range_list)
   for (i = 0; i < len; ++i) 
     {
       memcpy (&rangeList->_buffer[i], list->data, sizeof (Accessibility_Text_Range));
-      spi_init_any_nil (&rangeList->_buffer[i].data);
+      rangeList->_buffer[i].data._type = TC_null;
+      rangeList->_buffer[i].data._value = NULL;
+      rangeList->_buffer[i].data._release = TRUE;
       g_free (list->data);
       list = g_slist_next (range_list);
     }
@@ -656,6 +697,7 @@ spi_text_class_init (SpiTextClass *klass)
   epv->setCaretOffset = impl_setCaretOffset;
   epv->getRangeExtents = impl_getRangeExtents;
   epv->getBoundedRanges = impl_getBoundedRanges;
+  epv->getAttributeValue = impl_getAttributeValue;
 }
 
 static void

@@ -25,39 +25,97 @@
 
 module Accessibility {
 
+    /** 
+     * RelationType specifies a relationship between objects (possibly one-to-many or many-to-one)
+     * outside of the normal parent/child hierarchical relationship.  It allows better semantic
+     * identification of how objects are associated with one another.
+     * For instance the RELATION_LABELLED_BY relationship may be used to identify labelling information
+     * that should accompany the accessibleName property when presenting an object's content or identity
+     * to the end user.  Similarly, RELATION_CONTROLLER_FOR can be used to further specify the context
+     * in which a valuator is useful, and/or the other UI components which are directly effected by
+     * user interactions with the valuator.  Common examples include association of scrollbars with
+     * the viewport or panel which they control.
+     */
   enum RelationType {
+    /** Not a meaningful relationship; clients should not normally encounter this RelationType value. */
     RELATION_NULL,
+    /** Object is a label for one or more other objects. */
     RELATION_LABEL_FOR,
+    /** Object is labelled by one or more other objects. */
     RELATION_LABELLED_BY,
+    /** Object is an interactive object which modifies the state, onscreen location, or other attributes
+     * of one or more target objects. */
     RELATION_CONTROLLER_FOR,
+    /** Object state, position, etc. is modified/controlled by user interaction with one or 
+     * more other objects.   For instance a viewport or scroll pane may be CONTROLLED_BY scrollbars. */
     RELATION_CONTROLLED_BY,
+    /** Object has a grouping relationship (e.g. ¨same group as¨) to one or more other objects.  */
     RELATION_MEMBER_OF,
+    /** Object is a tooltip associated with another object. */
     RELATION_TOOLTIP_FOR,
+    /** Reserved for future use. */
     RELATION_NODE_CHILD_OF,
+    /** Used to indicate that a relationship exists, but its type is not specified in the enumeration
+     * and must be obtained via a call to getRelationTypeName.  */
     RELATION_EXTENDED,
+    /** Object renders content which flows logically to another object.  
+     * For instance, text in a paragraph may flow to another object which is not the 
+     * ¨next sibling¨ in the accessibility hierarchy. */
     RELATION_FLOWS_TO,
+    /** Reciprocal of RELATION_FLOWS_TO. */
     RELATION_FLOWS_FROM,
+    /** Object is visually and semantically considered a subwindow of another object, even though
+     * it is not the object's child.  Useful when dealing with embedded applications and other cases
+     * where the widget hierarchy does not map cleanly to the onscreen presentation.  */
     RELATION_SUBWINDOW_OF,
+    /** Similar to SUBWINDOW_OF, but specifically used for cross-process embedding.  */
     RELATION_EMBEDS,
+    /** Reciprocal of RELATION_EMBEDS; Used to denote content rendered by embedded renderers that
+     * live in a separate process space from the embedding context.  */
     RELATION_EMBEDDED_BY,
+    /** Denotes that the object is a transient window or frame associated with another onscreen object.
+     * Similar to TOOLTIP_FOR, but more general.  Useful for windows which are technically 
+     * toplevels but which, for one or more reasons, do not explicitly cause their associated
+     * window to lose ¨window focus¨.   Creation of a ROLE_WINDOW object with the POPUP_FOR relation
+     * usually requires some presentation action on the part of assistive technology clients, even though
+     * the previous toplevel ROLE_FRAME object may still be the active window.  */
     RELATION_POPUP_FOR,
+    /** This is the reciprocal relation to RELATION_POPUP_FOR. */
+    RELATION_PARENT_WINDOW_OF,
+    /** Do not use as a parameter value, used to determine the size of the enumeration. */
     RELATION_LAST_DEFINED
   };
 
-  /*
-   * This interface inherits from a base class implementing ref counts.
+  /** 
+   * An interface via which objects' non-hierarchical relationships to one another 
+   * are indicated.  An instance of Relations represents a "one-to-many" correspondance.
+   *
+   * @note This interface inherits from a base class implementing ref counts.
    */
-
   interface Relation : Bonobo::Unknown {
+
+    /** @returns the RelationType of this Relation. */
     RelationType        getRelationType ();
-    string getRelationTypeName ();
+
+    /** @returns an unlocalized string representing the relation type. */
+    string              getRelationTypeName ();
+
+    /** @returns the number of objects to which this relationship applies. */
     short               getNTargets ();
+
+    /** @returns an Object which is the 'nth'target of this Relation, e.g. the Object at index i
+     * in the list of Objects having the specified relationship to this Accessible.  
+     * \note This target should always implement Accessible, though it is returned as an Object.
+     * (In this respect this method is probably ill-specified.)
+     **/
     Object		getTarget (in short index);
-    /* placeholders for future expansion */
+
+    /** \cond placeholders for future expansion */
     void unImplemented ();
     void unImplemented2 ();
     void unImplemented3 ();
     void unImplemented4 ();
+    /** \endcond */
   };
 };
 

@@ -116,6 +116,16 @@ spi_init_state_type_tables (void)
   atk_state_types[Accessibility_STATE_MANAGES_DESCENDANTS] = ATK_STATE_MANAGES_DESCENDANTS;
   accessible_state_types[ATK_STATE_INDETERMINATE] = Accessibility_STATE_INDETERMINATE;
   atk_state_types[Accessibility_STATE_INDETERMINATE] = ATK_STATE_INDETERMINATE;
+  accessible_state_types[ATK_STATE_TRUNCATED] = Accessibility_STATE_TRUNCATED;
+  atk_state_types[Accessibility_STATE_TRUNCATED] = ATK_STATE_TRUNCATED;
+  accessible_state_types[ATK_STATE_REQUIRED] = Accessibility_STATE_REQUIRED;
+  atk_state_types[Accessibility_STATE_REQUIRED] = ATK_STATE_REQUIRED;
+  accessible_state_types[ATK_STATE_INVALID_ENTRY] = Accessibility_STATE_INVALID_ENTRY;
+  atk_state_types[Accessibility_STATE_INVALID_ENTRY] = ATK_STATE_INVALID_ENTRY;
+  accessible_state_types[ATK_STATE_SUPPORTS_AUTOCOMPLETION] = Accessibility_STATE_SUPPORTS_AUTOCOMPLETION;
+  atk_state_types[Accessibility_STATE_SUPPORTS_AUTOCOMPLETION] = ATK_STATE_SUPPORTS_AUTOCOMPLETION;
+  accessible_state_types[ATK_STATE_SELECTABLE_TEXT] = Accessibility_STATE_SELECTABLE_TEXT;
+  atk_state_types[Accessibility_STATE_SELECTABLE_TEXT] = ATK_STATE_SELECTABLE_TEXT;
 
   return TRUE;
 }

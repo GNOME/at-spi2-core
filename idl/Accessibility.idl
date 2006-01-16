@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface 
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Ximian, Inc.
+ * Copyright 2001-2005 Ximian, Inc. and Sun Microsystems, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -31,6 +31,67 @@
 #pragma inhibit push
 #endif
 #endif
+
+#ifndef _BONOBO_IDL_INCLUDED_
+#define _BONOBO_IDL_INCLUDED_
+#include <Bonobo_Unknown.idl>
+#endif /* _BONOBO_IDL_INCLUDED_ */
+
+/*!\mainpage AT-SPI Interfaces and Subinterfaces
+ *
+ * This is the main documentation page for the 
+ * Assistive Technology Service Provider Interface (AT-SPI). 
+ * 
+ * \section apps Applications and Interface Components
+ * Namespace Accessibility includes service APIs implemented by
+ * participating applications and their user interface components:\n\n
+ * Accessibility::Accessible\n 
+ * Accessibility::Application\n
+ * Accessibility::Desktop\n
+ * Accessibility::Component\n
+ * Accessibility::Hypertext\n
+ * Accessibility::Image\n
+ * Accessibility::Selection\n
+ * Accessibility::StreamableContent\n
+ * Accessibility::Table\n
+ * Accessibility::Text\n
+ * Accessibility::EditableText\n
+ * Accessibility::Value
+ *
+ * \section types Enumerated Types
+ * Accessibility defines a number of key enumerated types, including:\n\n
+ * Accessibility::RelationType\n
+ * Accessibility::Role\n
+ * Accessibility::StateType\n
+ * Accessibility::Event\n
+ * Accessibility::EventDetails \n
+ *
+ * \section Registry
+ * Accessibility also includes Accessibility::Registry,
+ * which is the service used by assistive technologies and related
+ * AT-SPI clients to register interest in certain classes of events,
+ * enumerate the currently available desktop and application list,
+ * and to synthesize certain kinds of device events.
+ *
+ * \section listeners Event Listener Interfaces
+ * Accessibility::EventListener\n
+ * Accessibility::DeviceEventListener
+ *
+ * \section helpers Helper Interfaces
+ *
+ * The following interfaces may be implemented by assistive technologies 
+ * themselves, in order to export their services in a consistent manner or
+ * in order to interoperate with other applications or desktop services.\n
+ *
+ * Accessibility::LoginHelper : Implemented by adaptive technologies which 
+ * need to participate in user-authentication or login activities, and which
+ * therefore may need negotiation with authentication agents or processes.\n
+ *
+ * Accessibility::Selector [NEW]: Implemented by user agents or assistive 
+ * technologies which export lists of choices from which the end-user is 
+ * expected to make selections.  Useful for various types of remote
+ * activation or intercommunication between multiple ATs.
+ **/
 
 /*
  * Accessibility interfaces and subinterfaces
@@ -64,6 +125,8 @@
 #include <Accessibility_Event.idl>
 #include <Accessibility_Registry.idl>
 #include <Accessibility_Role.idl>
+#include <Accessibility_LoginHelper.idl>
+#include <Accessibility_Selector.idl>
 
 #ifndef __ACCESSIBILITY_COMPILATION__
 #ifdef  __ORBIT_IDL__

@@ -1,3 +1,46 @@
+2006-01-09  Bill Haneman <billh@gnome.org>
+
+	* configure.in: Removed po/Makefile.in inclusion, we do not need
+	it.  Revved to 1.7.0.
+
+	* idl/
+
+	* libspi/spi_event.c:
+
+	* cspi/spi-private.h:
+	(cspi_role_from_spi_role): Expose this adapter method, since
+	we need it in the bridge (see below).
+
+	* cspi/spi.h:
+	(AccessibleEvent_getSourceName):
+	(AccessibleEvent_getSourceRole):
+	(AccessibleEvent_getSourceApplication):
+	(AccessibleEvent_getSourceDetails):
+
+	* cspi/spi_accessible.c: Use cspi_role_from_spi_role.
+	Make use of the new EventDetails struct in events, if present.
+	():
+	():
+	():
+	():
+	():
+	(AccessibleEvent_getSourceName)
+	(AccessibleEvent_getSourceRole)
+	(AccessibleEvent_getSourceApplication)
+	(AccessibleEvent_getSourceDetails): Implement the newly exposed
+	methods from spi.h.
+	
+	* atk-bridge/bridge.c:
+	Use new prototyped for init_any methods.
+	(spi_atk_bridge_init_nil, spi_atk_bridge_init_object)
+	(spi_atk_bridge_init_string, spi_atk_bridge_init_rect)
+	(spi_atk_bridge_init_base): Wrappers
+	for spi_init_any_* methods, due to refactor; include extended
+	information in the Accessibility_EventDetails struct, for instance
+	accessible-name, Role, and containing Application.
+	
+	* registryd/registry.c:	
+
 2006-01-09  Kjartan Maraas <kmaraas@gnome.org>
 
 	* configure.in: Generate po/Makefile.in

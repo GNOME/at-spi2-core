@@ -336,7 +336,12 @@ cspi_internal_event_get_text (const InternalEvent *e)
   g_return_val_if_fail (e, NULL);
   g_return_val_if_fail (e->data, NULL);
   any = (CORBA_any *) e->data;
-  if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
+  if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_EventDetails, NULL)) 
+    {
+      Accessibility_EventDetails *details = (Accessibility_EventDetails *)any->_value;
+      return CORBA_string_dup (* (char **) (details->any_data._value));
+    }
+  else if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
     {
       return CORBA_string_dup (* (char **) any->_value);
     } 
@@ -359,7 +364,12 @@ cspi_internal_event_get_object (const InternalEvent *e)
   g_return_val_if_fail (e->data, NULL);
 
   any = (CORBA_any *) e->data;
-  if (CORBA_TypeCode_equal (any->_type, TC_CORBA_Object, cspi_ev()))
+  if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_EventDetails, NULL)) 
+    {
+      Accessibility_EventDetails *details = (Accessibility_EventDetails *)any->_value;
+      return cspi_object_take (* (CORBA_Object *) (details->any_data._value));
+    }
+  else if (CORBA_TypeCode_equal (any->_type, TC_CORBA_Object, cspi_ev()))
     return cspi_object_take (* (CORBA_Object *) any->_value);
   else 
     return NULL;
@@ -372,6 +382,17 @@ cspi_internal_event_get_rect (const InternalEvent *e)
   g_return_val_if_fail (e, NULL);
   g_return_val_if_fail (e->data, NULL);
   any = (CORBA_any *) e->data;
+  if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_EventDetails, NULL)) 
+    {
+      Accessibility_EventDetails *details = (Accessibility_EventDetails *)any->_value;
+      SPIRect *rect = g_new (SPIRect, 1);
+      Accessibility_BoundingBox *bounds = (Accessibility_BoundingBox *) details->any_data._value;
+      rect->x = bounds->x;
+      rect->y = bounds->y;
+      rect->width = bounds->width;
+      rect->height = bounds->height;
+      return rect;
+    }
   if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_BoundingBox, NULL)) 
     {
       SPIRect *rect = g_new (SPIRect, 1);
@@ -390,6 +411,117 @@ cspi_internal_event_get_rect (const InternalEvent *e)
 #endif
       return NULL;
     }
+}
+
+/**
+ * AccessibleEvent_getSourceName:
+ *
+ * Get the 'accessible-name' of the object emitting the event.
+ * @event: an #AccessibleEvent to be queried. 
+ *
+ * Returns: The name of the event source, or NULL if the event source cannot be identified
+ *          or does not report a name.
+ */
+char*        AccessibleEvent_getSourceName (const AccessibleEvent *e)
+{
+    InternalEvent *ie = (InternalEvent *)e;
+    CORBA_any *any = ((ie && ie->data) ? (CORBA_any *)ie->data : NULL);
+    if (any &&
+	CORBA_TypeCode_equivalent (any->_type, 
+				   TC_Accessibility_EventDetails, NULL))
+      {
+	  Accessibility_EventDetails *details = (Accessibility_EventDetails *) any->_value;
+	  return CORBA_string_dup (details->source_name);
+      }
+    else
+	return NULL;
+}
+
+/**
+ * AccessibleEvent_getSourceRole:
+ *
+ * Get the #AccessibleRole of the object emitting the event.
+ * @event: an #AccessibleEvent to be queried. 
+ *
+ * Returns: #AccessibleRole of the event source, or SPI_ROLE_UNKNOWN
+ *          if the event source's role is unknown or unspecified.
+ *          (Some kinds of events, such as 'mouse:' events or
+ *          toolkit events, don't have associated object roles.)
+ */
+AccessibleRole AccessibleEvent_getSourceRole (const AccessibleEvent *e)
+{
+    InternalEvent *ie = (InternalEvent *)e;
+    CORBA_any *any = ((ie && ie->data) ? (CORBA_any *)ie->data : NULL);
+    if (any &&
+	CORBA_TypeCode_equivalent (any->_type, 
+				   TC_Accessibility_EventDetails, NULL))
+      {
+	  Accessibility_EventDetails *details = (Accessibility_EventDetails *) any->_value;
+	  return cspi_role_from_spi_role (details->source_role);
+      }
+    else
+	return SPI_ROLE_UNKNOWN;
+}
+
+/**
+ * AccessibleEvent_getSourceApplication:
+ *
+ * Get the #Application hosting the object which emitted the event.
+ * @event: an #AccessibleEvent to be queried. 
+ *
+ * Returns: A pointer to the host #Application contining the event source
+ *          component.
+ */
+AccessibleApplication* AccessibleEvent_getSourceApplication (const AccessibleEvent *e)
+{
+    InternalEvent *ie = (InternalEvent *)e;
+    CORBA_any *any = ((ie && ie->data) ? (CORBA_any *)ie->data : NULL);
+    if (any &&
+	CORBA_TypeCode_equivalent (any->_type, 
+				   TC_Accessibility_EventDetails, NULL))
+      {
+	  Accessibility_EventDetails *details = (Accessibility_EventDetails *) any->_value;
+	  return  cspi_object_take (details->host_application);
+      }
+    else
+	return NULL;
+}
+
+/**
+ * AccessibleEvent_getSourceApplication:
+ *
+ * Get the host #Application, "accessible name", and #AccessibleRole 
+ * of the object which emitted the event.
+ *
+ * @event: an #AccessibleEvent to be queried. 
+ *
+ * Returns: TRUE if the source details were successfully retrieved, 
+ *          FALSE if they were not, either due to error, incomplete data,
+ *          or the fact that the event did not encapsulate the required data.
+ */
+SPIBoolean   AccessibleEvent_getSourceDetails (const AccessibleEvent *e, 
+					       char **name, AccessibleRole *role, 
+					       AccessibleApplication **app)
+{
+    InternalEvent *ie = (InternalEvent *)e;
+    CORBA_any *any = ((ie && ie->data) ? (CORBA_any *)ie->data : NULL);
+    if (any &&
+	CORBA_TypeCode_equivalent (any->_type, 
+				   TC_Accessibility_EventDetails, NULL))
+      {
+	  Accessibility_EventDetails *details = (Accessibility_EventDetails *) any->_value;
+	  *name = CORBA_string_dup (details->source_name);
+	  *role = cspi_role_from_spi_role (details->source_role);
+	  *app = cspi_object_take (details->host_application);
+	  return TRUE;
+      }
+    else
+      {
+        *name = NULL;
+	*role = SPI_ROLE_UNKNOWN;
+	*app = NULL;
+	return FALSE;
+      }
 }
 
 /**

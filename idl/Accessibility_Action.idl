@@ -21,63 +21,78 @@
  */
 
 module Accessibility {
-
+    /**
+     * An interface through which a user-actionable user interface
+     * component can be manipulated.  Components which react to mouse or
+     * keyboard input from the user, (with the exception of pure text entry
+     * fields with no other function), should implement this interface.
+     * Typical actions include "click", "press", "release" (for instance for
+     * buttons), "menu" (for objects which have context menus invokable from 
+     * mouse or keyboard), "open" for icons representing files folders, and others.
+     */
   interface Action : Bonobo::Unknown {
 
     /**
-     * nActions: a @long containing the number of actions this object supports.
+     * nActions: a \c long containing the number of actions this object supports.
      * 
      **/
     readonly attribute long nActions;
 
     /**
      * getDescription:
-     * @index: an %in parameter specifying the index of the action 
+     * @param index: the index of the action 
      *   for which a description is desired.
      *
-     * Gets the description of the specified action.
+     * Get the description of the specified action.  The description of an action
+     * may provide information about the result of action invocation, unlike the
+     * action name.
+     * @see getName.
      *
-     * Returns: a @wstring containing the description of the specified action.
+     * @returns: a \c string containing the description of the specified action.
      *
      **/
     string getDescription (in long index);
 
     /**
      * getName:
-     * @index: an %in parameter specifying the index of the action 
+     * @param index: the index of the action 
      *   whose name is requested.
      *
-     * Gets the name of the specified action.
+     * Get the name of the specified action.  Action names generally describe
+     * the user action, i.e. "click" or "press", rather then the result of 
+     * invoking the action.
      *
-     * Returns: a @string containing the name of the specified action.
+     * @returns: a \c string containing the name of the specified action.
      *
      **/
     string getName (in long index);
 
     /**
      * doAction:
-     * @index: an %in parameter specifying the 0-based index of the action to perform.
+     * @param index: the 0-based index of the action to perform.
      *
      * Causes the object to perform the specified action.
      *
-     * Returns: a @boolean indicating success or failure.
+     * @returns: a \c boolean indicating success or failure.
      *
      **/
     boolean doAction (in long index);
 
     /**
      * getKeyBinding:
-     * @index: an %in parameter specifying the 0-based index of the action 
+     * @param index: the 0-based index of the action 
      *   for which a key binding is requested.
      *
-     * Gets the key binding associated with a specific action.
+     * Get the key binding associated with a specific action.
      *
-     * Returns: a @string containing the key binding for the specified action,
-     *   "" if none exists.
+     * @returns: a \c string containing the key binding for the specified action,
+     *   or an empty string ("") if none exists.
      **/
     string getKeyBinding (in long index);
 
+      
     /**
+     * \cond
      * unImplemented:
      *
      * placeholders for future expansion.
@@ -86,6 +101,7 @@ module Accessibility {
     void unImplemented2 ();
     void unImplemented3 ();
     void unImplemented4 ();
+      /** \endcond */
   };
 };
 

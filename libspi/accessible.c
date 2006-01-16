@@ -28,12 +28,13 @@
 #include <bonobo/bonobo-exception.h>
 #include <atk/atk.h>
 #include <libspi/libspi.h>
+#include "spi-private.h"
 
 /* Our parent Gtk object type  */
 #define PARENT_TYPE SPI_TYPE_BASE
 
 static gboolean spi_init_role_lookup_table (Accessibility_Role *role_table);
-static Accessibility_Role spi_role_from_atk_role (AtkRole role);
+Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
 
 static gboolean
 spi_init_role_lookup_table (Accessibility_Role *role_table)
@@ -122,11 +123,18 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_AUTOCOMPLETE] =        Accessibility_ROLE_AUTOCOMPLETE;
   role_table [ATK_ROLE_EDITBAR] =             Accessibility_ROLE_EDITBAR;
   role_table [ATK_ROLE_EMBEDDED] =            Accessibility_ROLE_EMBEDDED;
+  role_table [ATK_ROLE_ENTRY] =               Accessibility_ROLE_ENTRY;
+  role_table [ATK_ROLE_CHART] =               Accessibility_ROLE_CHART;
+  role_table [ATK_ROLE_CAPTION] =             Accessibility_ROLE_CAPTION;
+  role_table [ATK_ROLE_DOCUMENT_FRAME] =      Accessibility_ROLE_DOCUMENT_FRAME;
+  role_table [ATK_ROLE_HEADING] =             Accessibility_ROLE_HEADING;
+  role_table [ATK_ROLE_PAGE] =                Accessibility_ROLE_PAGE;
+  role_table [ATK_ROLE_SECTION] =             Accessibility_ROLE_SECTION;
   return TRUE;
 }
 
-static Accessibility_Role
-spi_role_from_atk_role (AtkRole role)
+Accessibility_Role
+spi_accessible_role_from_atk_role (AtkRole role)
 {
   static gboolean is_initialized = FALSE;
   static Accessibility_Role spi_role_table [ATK_ROLE_LAST_DEFINED];
@@ -428,6 +436,43 @@ impl_accessibility_accessible_get_local_role_name (PortableServer_Servant servan
     return CORBA_string_dup ("");
 }
 
+static Accessibility_Accessible 
+impl_accessibility_accessible_get_application (PortableServer_Servant servant,
+					       CORBA_Environment     *ev)
+{
+    return spi_accessible_new_return (atk_get_root (), FALSE, ev);
+}
+
+static Accessibility_AttributeSet* 
+impl_accessibility_accessible_get_attributes (PortableServer_Servant servant,
+					       CORBA_Environment     *ev)
+{
+    Accessibility_AttributeSet *retval;
+    GSList *attributes;
+    gint n_attributes = 0;
+    gint i;
+    
+    AtkObject *object = get_atkobject_from_servant (servant);
+    
+    g_return_val_if_fail (object != NULL, NULL);
+    attributes = atk_object_get_attributes (object);
+    
+    bonobo_return_val_if_fail (attributes != NULL, NULL, ev);
+    n_attributes = g_slist_length (attributes);
+    
+    retval = CORBA_sequence_CORBA_string__alloc ();
+    retval->_length = retval->_maximum = n_attributes;
+    retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (n_attributes);
+    CORBA_sequence_set_release (retval, CORBA_TRUE);
+    
+    for (i = 0; i < n_attributes; ++i)
+    {
+	retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+    }
+    
+  return retval;
+}
+
 static void
 spi_accessible_class_init (SpiAccessibleClass *klass)
 {
@@ -448,6 +493,8 @@ spi_accessible_class_init (SpiAccessibleClass *klass)
         epv->getRole = impl_accessibility_accessible_get_role;
         epv->getRoleName = impl_accessibility_accessible_get_role_name;
 	epv->getLocalizedRoleName = impl_accessibility_accessible_get_local_role_name;
+	epv->getApplication = impl_accessibility_accessible_get_application;
+	epv->getAttributes = impl_accessibility_accessible_get_attributes;
 }
 
 static void

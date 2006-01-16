@@ -26,12 +26,91 @@ module Accessibility {
 
   typedef sequence<string> StringSeq;
 
+  /** 
+   * An interface whereby an object allows its backing content
+   * to be streamed to clients.  Negotiation of content type
+   * is allowed.  Clients may examine the backing data and
+   * transform, convert, or parse the content in order to
+   * present it in an alternate form to end-users.
+   *
+   * @note The StreamableContent interface is particularly useful for saving, 
+   * printing, or post-processing entire documents, or for persisting 
+   * alternate views of a document.
+   * If document content itself is being serialized, stored, or converted,
+   * then use of the StreamableContent interface can help address performance
+   * issues.  Unlike most AT-SPI/Accessibility interfaces, this interface
+   * is not strongly tied to the current user-agent view of the
+   * a particular document, but may in some cases give access to the 
+   * underlying model data.
+   */
   interface StreamableContent {
+
+      /** 
+       * Specifies the meaning of a seek 'offset'.  Not all SeekTypes are 
+       * supported by all StreamableContent data sources, for instance 
+       * some streams may not support seeking from the beginning or other
+       * types of 'backwards' seeks.
+       */
+      enum SeekType {
+	  SEEK_SET, /**< Seek from the start of the stream or data source.*/
+	  SEEK_CURRENT, /**< Seek relative to the current position. */
+	  SEEK_END /**< Seek from the end of the file, stream, or data source. */
+      };
+
+      /** 
+       * Indicates that a transmission error has occurred while 
+       * reading or seeking the stream or data source. 
+       */
+      exception IOError {
+	  string reason;
+      };
+      /** 
+       * Indicates that the requested operation is not supported by the stream instance.
+       */
+      exception NotSupported {
+	  string reason;
+      };
+
+      /**
+       * The operation is supported, but the current requestor does not have
+       * permission to t the request, for instance does not have permission to read 
+       * the stream.
+       */
+      exception NoPermission {
+	  string reason;
+      };
+
+      /**
+       * getContentTypes:
+       * @returns the list of available mimetypes for this object's content.
+       */
     StringSeq getContentTypes ();
+      /**
+       * Retrieve this object's content, in a format appropriate to a
+       * requested mimetype.
+       *
+       * @note the data is returned as an object of type ::Bonobo::Stream.
+       * The primary methods which are supported on Bonobo::Streams for the
+       * purposes of the ::StreamableContent API are \c seek and \c read.
+       * \c seek may not be supported for all mimetypes or
+       * all implementors.
+       * 
+       \verbatim
+        long Bonobo::Stream:seek (in long offset, in SeekType whence)
+                raises (NoPermission, IOError)
+        void Bonobo::Stream:read (in long count, out iobuf buffer)
+                raises (NoPermission, IOError)
+       \endverbatim
+       *  
+       * @see ::Bonobo::Stream
+       *
+       * @returns a ::Bonobo::Stream whose mimetype matches \a contentType,
+       *          if available, or \c NIL.
+       */
     Bonobo::Stream getContent (in string contentType);
-    /* methods used from Bonobo::Stream : seek, read.  Others unsupported. */
 
     /**
+     * \cond
      * unImplemented:
      *
      * placeholders for future expansion.
@@ -40,5 +119,6 @@ module Accessibility {
     void unImplemented2 ();
     void unImplemented3 ();
     void unImplemented4 ();
+      /** \endcond */
   };
 };

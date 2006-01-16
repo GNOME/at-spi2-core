@@ -23,14 +23,52 @@
 #include <Accessibility.idl>
 
 module Accessibility {
-
+  /** 
+   * An interface used for objects which implement linking between
+   * multiple resource or content locations, or multiple 'markers'
+   * within a single document.  A Hypertext instance is associated with
+   * one or more Hyperlinks, which are associated with particular
+   * offsets within the Hypertext's included content.
+   *
+   * @note While this interface is derived from ::Text, 
+   *       there is no requirement that Hypertext instances have
+   *       textual content; they may implement ::Image as well,
+   *       and Hyperlinks need not have non-zero text offsets.
+   */
   interface Hypertext : Bonobo::Unknown {
+    /** 
+     * Query the hypertext object for the number of Hyperlinks it
+     * contains.
+     *
+     * @returns the number of Hyperlinks associated with this Hypertext
+     *  object, as a long integer.
+     */
     long getNLinks ();
+    /** 
+     * Get one of the Hyperlinks associated with this Hypertext object,
+     * by index.
+     *
+     * @param linkIndex an integer from 0 to getNLinks() - 1.
+     * @returns the Hyperlink in this Hypertext object.
+     */
     Hyperlink getLink (in long linkIndex);
+    /** 
+     * Get the hyperlink index, if any, associated with a 
+     * particular character offset in the Hypertext object.
+     * For Hypertext implementors without textual content, all
+     * hyperlinks are associated with character offset '0'.
+     *
+     * @return the index of the Hyperlink associated with character
+     *     offset \c characterIndex, or -1 if no Hyperlink is associated
+     *     with that character offset.
+     */
     long getLinkIndex (in long characterIndex);
+
+    /** \cond */
     void unImplemented ();
     void unImplemented2 ();
     void unImplemented3 ();
     void unImplemented4 ();
+    /** \endcond */
   };
 };

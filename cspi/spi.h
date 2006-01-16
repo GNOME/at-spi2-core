@@ -998,6 +998,13 @@ void AccessibleEvent_unref (const AccessibleEvent *e);
  * information for accessible events.
  */
 
+char*                  AccessibleEvent_getSourceName (const AccessibleEvent *e);
+AccessibleRole         AccessibleEvent_getSourceRole (const AccessibleEvent *e);
+AccessibleApplication* AccessibleEvent_getSourceApplication (const AccessibleEvent *e);
+SPIBoolean             AccessibleEvent_getSourceDetails (const AccessibleEvent *e, char **name, 
+							 AccessibleRole *role, 
+							 AccessibleApplication **app);
+
 char*        AccessibleTextChangedEvent_getChangeString (const AccessibleEvent *e);
 Accessible * AccessibleChildChangedEvent_getChildAccessible (const AccessibleEvent *e);
 

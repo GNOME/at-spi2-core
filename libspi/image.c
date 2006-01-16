@@ -130,6 +130,27 @@ impl__get_imageDescription (PortableServer_Servant servant,
     }
 }
 
+static CORBA_string 
+impl__get_imageLocale (PortableServer_Servant servant,
+		       CORBA_Environment     *ev)
+{
+  const char *rv;
+  AtkImage   *image = get_image_from_servant (servant);
+
+  g_return_val_if_fail (image != NULL, CORBA_string_dup ("C"));
+
+  rv = atk_image_get_image_locale (image);
+
+  if (rv)
+    {
+      return CORBA_string_dup (rv);
+    }
+  else
+    {
+      return CORBA_string_dup ("C");
+    }
+}
+
 static void
 spi_image_class_init (SpiImageClass *klass)
 {
@@ -140,6 +161,7 @@ spi_image_class_init (SpiImageClass *klass)
   epv->getImageSize          = impl_getImageSize;
   epv->getImageExtents       = impl_getImageExtents;
   epv->_get_imageDescription = impl__get_imageDescription;
+  epv->_get_imageLocale      = impl__get_imageLocale;
 }
 
 static void

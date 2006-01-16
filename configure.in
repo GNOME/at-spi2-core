@@ -1,10 +1,10 @@
 AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=1
-AT_SPI_MINOR_VERSION=6
-AT_SPI_MICRO_VERSION=5
-AT_SPI_INTERFACE_AGE=5
-AT_SPI_BINARY_AGE=5
+AT_SPI_MINOR_VERSION=7
+AT_SPI_MICRO_VERSION=0
+AT_SPI_INTERFACE_AGE=0
+AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
 AM_INIT_AUTOMAKE(at-spi, $AT_SPI_VERSION)
 AC_SUBST(AT_SPI_MAJOR_VERSION)
@@ -16,7 +16,7 @@ AC_SUBST(AT_SPI_BINARY_AGE)
 # libtool versioning
 LT_RELEASE=$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION
 LT_CURRENT=10
-LT_REVISION=5
+LT_REVISION=6
 LT_AGE=10
 LT_VERSION_INFO='-version-info ${LT_CURRENT}:${LT_REVISION}:${LT_AGE}'
 AC_SUBST(LT_VERSION_INFO)
@@ -51,6 +51,8 @@ dnl Initialize libtool
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
+dnl DO NOT PUT THIS BACK: at-spi DOES NOT INCLUDE TRANSLATABLE STRINGS. wph 2006.
+dnl
 dnl internationalization support; uncomment if translatable strings are reintroduced
 dnl ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB eo es et eu fa fi fr gl gu he hi hr hu id is it ja ka ko lt mn mr ms nb ne nl nn no or pa pl pt_BR pt ro ru rw sk sl sq sr@ije sr@Latn sr sv th ug uk vi wa xh zh_CN zh_HK zh_TW"
 dnl AM_GLIB_GNU_GETTEXT
@@ -202,7 +204,6 @@ AC_SUBST(REBUILD)
 
 AC_OUTPUT([
 Makefile
-po/Makefile.in
 libspi-1.0.pc
 libspi-1.0-uninstalled.pc
 libloginhelper-1.0.pc
