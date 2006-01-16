@@ -329,3 +329,23 @@ AccessibleComponent_grabFocus (AccessibleComponent *obj)
   return retval;
 }
 
+/**
+ * AccessibleComponent_getAlpha:
+ * Return the opacity/alpha value of a component, if alpha blending is in use.
+ * @obj: The #AccessibleComponent to be queried.
+ * Returns: the opacity value of a component, as a double between 0.0 and 1.0. 
+ */
+double      
+AccessibleComponent_getAlpha    (AccessibleComponent *obj)
+{
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, 1.0);
+
+  retval = Accessibility_Component_getAlpha (CSPI_OBJREF (obj),
+					      cspi_ev ());
+
+  cspi_return_val_if_ev ("getAlpha", 1.0);
+
+  return retval;
+}

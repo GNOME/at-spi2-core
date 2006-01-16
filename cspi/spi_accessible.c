@@ -217,6 +217,21 @@ cspi_role_from_spi_role (Accessibility_Role role)
   return cspi_role; 
 }
 
+AccessibleAttributeSet *
+cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq)
+{
+    AccessibleAttributeSet *set = g_new0 (AccessibleAttributeSet, 1);
+    int i;
+
+    set->len = seq->_length;
+    set->attributes = g_newa (char *, set->len);
+    for (i = 0; i < set->len; ++i)
+    {
+	set->attributes[i] = g_strdup (seq->_buffer [i]);
+    }
+    return set;
+}
+
 /**
  * AccessibleRole_getName:
  * @role: an #AccessibleRole object to query.
@@ -558,6 +573,54 @@ Accessible_getStateSet (Accessible *obj)
   cspi_release_unref (corba_stateset);
 
   return retval;
+}
+
+/**
+ * Accessible_getAttributes:
+ * Get the #AttributeSet representing any assigned 
+ * name-value pair attributes or annotations for this object.
+ * For typographic, textual, or textually-semantic attributes, see
+ * AccessibleText_getAttributes instead.
+ * @obj: The #Accessible being queried.
+ * Returns: The name-value-pair attributes assigned to this object.
+ */
+AccessibleAttributeSet *
+Accessible_getAttributes (Accessible *obj)
+{
+    AccessibleAttributeSet *retval;
+    Accessibility_AttributeSet *corba_seq;
+
+    cspi_return_val_if_fail (obj != NULL, NULL);
+
+    corba_seq = Accessibility_Accessible_getAttributes (
+	CSPI_OBJREF (obj), cspi_ev ());
+    cspi_return_val_if_ev ("getAttributes", NULL);
+    
+    retval = cspi_attribute_set_from_sequence (corba_seq);
+    CORBA_free (corba_seq);
+
+    return NULL;
+}
+
+/**
+ * Accessible_getHostApplication:
+ * Get the containing #AccessibleApplication for an object.
+ * @obj: The #Accessible being queried.
+ * Returns: the containing AccessibleApplication instance for this object.
+ */
+AccessibleApplication *
+Accessible_getHostApplication (Accessible *obj)
+{
+    AccessibleApplication *retval;
+
+    cspi_return_val_if_fail (obj != NULL, NULL);
+
+    retval = Accessible_getApplication (cspi_object_add (
+					    Accessibility_Accessible_getApplication (CSPI_OBJREF (obj),
+										     cspi_ev ())));
+    cspi_return_val_if_ev ("getApplication", NULL);
+
+    return retval;
 }
 
 /* Interface query methods */

@@ -313,6 +313,12 @@ typedef unsigned long AccessibleModifierMaskType;
 
 typedef AccessibleModifierMaskType AccessibleKeyMaskType;
 
+typedef struct _AccessibleAttributeSet
+{
+    int len;
+    char **attributes;
+} AccessibleAttributeSet;
+
 /* Basic SPI initialization and event loop function prototypes */
 
 int              SPI_init         (void);
@@ -429,6 +435,8 @@ AccessibleRole       Accessible_getRole          (Accessible *obj);
 char *               Accessible_getRoleName      (Accessible *obj);
 char *               Accessible_getLocalizedRoleName (Accessible *obj);
 AccessibleStateSet * Accessible_getStateSet      (Accessible *obj);
+AccessibleAttributeSet *Accessible_getAttributes (Accessible *obj);
+AccessibleApplication *Accessible_getHostApplication (Accessible *obj);
 
 /* Interface query methods */
 
@@ -513,6 +521,7 @@ AccessibleComponentLayer
             AccessibleComponent_getLayer    (AccessibleComponent *obj);
 SPIBoolean  AccessibleComponent_grabFocus   (AccessibleComponent *obj);
 short       AccessibleComponent_getMDIZOrder(AccessibleComponent *obj);
+double      AccessibleComponent_getAlpha    (AccessibleComponent *obj);
 
 /* AccessibleEditableText function prototypes  */
 
@@ -642,6 +651,9 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
 				 long int *width,
 				 long int *height,
 				 AccessibleCoordType ctype);
+char *
+AccessibleImage_getImageLocale  (AccessibleImage *obj);
+
 /*
  *
  * AccessibleRelation function prototypes

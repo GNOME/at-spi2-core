@@ -3,9 +3,88 @@
 	* configure.in: Removed po/Makefile.in inclusion, we do not need
 	it.  Revved to 1.7.0.
 
-	* idl/
+	* idl/Accessibility.idl: Improved documentation here, and for all
+	IDL in the 'GNOME::Accessibility' namespace.
 
-	* libspi/spi_event.c:
+	* idl/Accessibility_Accessible.idl:
+	(LOCALE_TYPE): Added enum.
+	(AttributeSet): New, for returning multiple name/value attribute pairs.
+	(RoleSet): New, sequence of Roles, to be used in upcoming
+	Collection API.
+	(getAttributes): New API, allows retrieval of name/value pair
+	annotations for all kinds of Accessible objects.  C.f. 
+	Text:getAttributes, which is only for typographic/textual/semantic tags in
+	text content.
+	(getApplication): New, retrieves the host/containing Application
+	instance for an object (without having to walk up the whole tree).
+
+	* idl/Accessibility_Component.idl:
+	(getAlpha): New method, returns the alpha blending (aka 'opacity')
+	value for an object.  An alpha of 1.0 is fully opaque, 0.0 is
+	fully transparent.
+
+	* idl/Accessibility_Event.idl:
+	(EventDetails): New struct definition, for encapsulating
+	commonly-queried information about emitted events.  The use of
+	this structure in emitted events (in the 'any' member of
+	Accessibility_Event) should greatly reduce the number of
+	client-server roundtrips necessary.
+
+	* idl/Accessibility_Image.idl:
+	(imageLocale): New, a readonly attribute indicating the POSIX 
+	LC_MESSAGES locale of the image and associated Alt/descriptive
+	text.
+
+	* idl/Accessibility_Relation.idl:
+	(RELATION_PARENT_WINDOW_OF): Include, as complement to
+	RELATION_POPUP_FOR.
+
+	* idl/Accessibility_Role.idl:
+	(ROLE_ENTRY, ROLE_CHART, ROLE_CAPTION, ROLE_DOCUMENT_FRAME)
+	(ROLE_HEADING, ROLE_PAGE, ROLE_SECTION): New roles for
+	complex document and form support.
+
+	* idl/Accessibility_State.idl:
+	(STATE_REQUIRED, STATE_TRUNCATED, STATE_ANIMATED)
+	(STATE_INVALID_ENTRY, STATE_SUPPORTS_AUTOCOMPLETION)
+	(STATE_SELECTABLE_TEXT, STATE_IS_DEFAULT): New states,
+	for support of complex documents and forms.
+
+	* idl/Accessibility_StreamableContent.idl:
+	(SeekType, IOError, NotSupported, NoPermission): New enum and exceptions, to
+	allow old bonobo-stream interfaces to be deprecated in the next
+	release.
+
+	* idl/Accessibility_Text.idl:
+	(getAttributeValue): New method, allows query-by-name of single
+	attributes.
+
+	* libspi/accessible.c:
+	Added support for new roles.  Implemented new methods
+	(impl_accessibility_accessible_get_application): New
+	(impl_accessibility_accessible_get_attributes): New
+
+	* libspi/component.c:
+	(impl_accessibility_component_get_alpha): New.
+
+	* libspi/image.c:
+	(impl_accessibility_image_get_locale): New.
+
+	* libspi/relation.c: Added support for new relation type.
+
+	* libspi/stateset.c: Added support for new state types.
+
+	* libspi/text.c: 
+	(impl_getAttributeValue): New.
+	
+	* libspi/util.c:
+	New prototypes for private methods
+	spi_init_any_nil,
+	spi_init_any_object, spi_init_any_string,
+	spi_init_any_rect.
+	
+	* libspi/spi_event.c: 
+	Use EventDetails in the event emission methods.
 
 	* cspi/spi-private.h:
 	(cspi_role_from_spi_role): Expose this adapter method, since
@@ -16,19 +95,29 @@
 	(AccessibleEvent_getSourceRole):
 	(AccessibleEvent_getSourceApplication):
 	(AccessibleEvent_getSourceDetails):
+	New methods for interrogating/demarshalling
+	event details (i.e. source's accessible name, role, 
+	and host app).
 
 	* cspi/spi_accessible.c: Use cspi_role_from_spi_role.
 	Make use of the new EventDetails struct in events, if present.
-	():
-	():
-	():
-	():
-	():
 	(AccessibleEvent_getSourceName)
 	(AccessibleEvent_getSourceRole)
 	(AccessibleEvent_getSourceApplication)
 	(AccessibleEvent_getSourceDetails): Implement the newly exposed
 	methods from spi.h.
+	(Accessible_getAttributes): New, wraps
+	Accessibility_Accessible_getAttributes.
+	(Accessible_getHostApplication): New, wraps
+	Accessibility_Accessible_getApplication.
+
+	* cspi/spi_image.c:
+	(AccessibleImage_getImageLocale): New wrapper for
+	Accessibility_Image_get_imageLocale.
+
+	* cspi/spi_component.c:
+	(AccessibleComponent_getAlpha): New wrapper for
+	Accessibility_Component_getAlpha.
 	
 	* atk-bridge/bridge.c:
 	Use new prototyped for init_any methods.
@@ -38,8 +127,12 @@
 	for spi_init_any_* methods, due to refactor; include extended
 	information in the Accessibility_EventDetails struct, for instance
 	accessible-name, Role, and containing Application.
-	
+
 	* registryd/registry.c:	
+	Use new event emission (with EventDetails).
+	
+	* registryd/deviceeventcontroller.c:
+	Use new event emission (with EventDetails).
 
 2006-01-09  Kjartan Maraas <kmaraas@gnome.org>
 

@@ -296,21 +296,6 @@ module Accessibility {
   ROLE_EMBEDDED,
 
   /**
-   * The object is a link to some other content, for instance to a URI in this or another 
-   * document.  ROLE_LINK can occur primarily in two situations; as the role of an 
-   * object returned via the Hypertext::getLink, or, more importantly, as the role
-   * of a standalone object that implements the Hypertext interface but points to only
-   * one link object. 
-   *
-   * @note NOT SURE ABOUT THIS ONE, the description makes it sound pretty ropy.
-   * Why aren't links just identified via the Hypertext interface?  For non-textual
-   * hyperlinks (as allowed in XHTML 2.0), shouldn't this role be ROLE_IMAGE
-   * or ROLE_ICON?  
-   *
-   * @since AT-SPI 1.7.0
-   */
-  ROLE_LINK,
-  /**
    * The object is a component whose textual content may be entered or modified by the user,
    * provided STATE_EDITABLE is present.  
    * @note a readonly ROLE_ENTRY object (i.e. where STATE_EDITABLE is not present) implies a

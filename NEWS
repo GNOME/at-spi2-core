@@ -1,12 +1,52 @@
 What's new in at-spi-1.7.0:
 
+* DOCS:
+  
+  All the IDL is now documented with doxygen-compatible docs.
+  Just run 'doxygen oxyfile' in the IDL directory.  (This will
+  be automated in a future version).
+
 * NEW API:
 
-  idl:
+  idl: 
+	Accessibility::Accessible:getAttributes (name/value pair annotation
+	for all objects)
+	Accessibility::Accessible:getApplication (retrieves ref to host app)
+	Accessibility::Component:getAlpha (get transparency/opacity value of component)
+	Accessibility::Image:getLocale (get POSIX locale for image and
+	imagedesc)
+	Accessibility::Text:getAttributeValue (retrieve a single named
+	attribute value)
+	Accessibility::Relation:RELATION_PARENT_WINDOW_OF
+	Accessibility::Role:ROLE_ENTRY, ROLE_CHART, ROLE_CAPTION,
+	ROLE_DOCUMENT_FRAME, ROLE_HEADING, ROLE_PAGE, ROLE_SECTION (New roles
+	for complex docs and forms.)
+	Accessibility::State:STATE_REQUIRED, STATE_TRUNCATED, STATE_ANIMATED, 
+	STATE_INVALID_ENTRY, STATE_SUPPORTS_AUTOCOMPLETION,
+	STATE_SELECTABLE_TEXT, STATE_IS_DEFAULT (New states, for complex forms)
+	Accessibility::EventDetails (new, more detailed info marshalled with events)
+
   cspi:
+  	(AccessibleEvent_getSourceName):
+	(AccessibleEvent_getSourceRole):
+	(AccessibleEvent_getSourceApplication):
+	(AccessibleEvent_getSourceDetails):
+	New methods for interrogating/demarshalling
+	event details i.e. source's accessible name, role, 
+	and host app.
+	(Accessible_getAttributes): New, retrieve annotations/attributes 
+	on objects.
+	(Accessible_getHostApplication): New, retrieve enclosing Application
+	instance for an object.
+	(AccessibleImage_getImageLocale): New, retrieve Locale info for an
+  	image.
+	(AccessibleComponent_getAlpha): New, retrieve alpha value for 
+	an AccessibleComponent (see discussion in idl section above).
 
 * BUGFIXES:
-
+	Some compiler fixes from Kjartan Marass.
+	Some thread-related fixes from Michael Meeks.
+	Don't allow non-preemptive listeners to pre-empt events! (Bill Haneman).
 
 What's new in at-spi-1.6.5:
 

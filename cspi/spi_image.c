@@ -180,3 +180,24 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
       *height = bbox.height;
     }
 }
+
+/**
+ * AccessibleImage_getImageLocale:
+ * Get the locale associated with an image and its textual representation.
+ * @obj: The #AccessibleImage being queried.
+ * Returns: A POSIX LC_MESSAGES-style Locale value for image description and text.
+ */
+char *
+AccessibleImage_getImageLocale  (AccessibleImage *obj)
+{
+    char *retval = "C";
+
+    cspi_return_val_if_fail (obj != NULL, "C");
+
+    retval = Accessibility_Image__get_imageLocale (CSPI_OBJREF (obj), cspi_ev ());
+
+    cspi_return_val_if_ev ("getImageLocale", NULL);
+
+    return retval;
+}
+
