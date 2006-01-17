@@ -1,3 +1,7 @@
+2006-01-17  Bill Haneman <billh@gnome.org>
+
+	* configure.in: Revved to 1.7.1, re-dist to include docs.
+
 2006-01-09  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Removed po/Makefile.in inclusion, we do not need
