@@ -1,6 +1,6 @@
-server_dot_in = Accessibility_Registry.server.in
+server = Accessibility_Registry.server
 
-$(server_dot_in): $(server_dot_in).in
+$(server): $(server).in.in
 	sed -e "s|\@REGISTRYD_PATH\@|$(libexecdir)|" $< > $@ 
 
 libexec_PROGRAMS = at-spi-registryd
@@ -25,8 +25,6 @@ LDADD = $(top_builddir)/libspi/libspi.la $(X_LIBS) $(XTST_LIBS) $(XEVIE_LIBS) $(
 
 serverinfodir = $(libdir)/bonobo/servers
 serverinfo_DATA = Accessibility_Registry.server
-
-@INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST = Accessibility_Registry.server.in.in $(serverinfo_DATA)
 CLEANFILES = $(serverinfo_DATA) $(server_dot_in)
