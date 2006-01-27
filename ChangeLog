@@ -1,3 +1,9 @@
+2006-01-27  Bill Haneman <billh@gnome.org>
+
+	* idl/Accessibility_Selector.idl: Added to the cvs repository.
+
+	* configure.in: Revved to 1.7.3, re-dist.
+	
 2006-01-17  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Revved to 1.7.2, re-dist to include docs.

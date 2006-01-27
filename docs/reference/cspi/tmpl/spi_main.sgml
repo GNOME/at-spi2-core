@@ -14,6 +14,9 @@ SPI main loop and initialization
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### FUNCTION SPI_init ##### -->
 <para>
 

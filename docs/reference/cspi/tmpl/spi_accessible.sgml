@@ -14,6 +14,9 @@ Accessible Objects
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT Accessible ##### -->
 <para>
 An Accessible object is an opaque object used to refer to an accessible

@@ -1,4 +1,7 @@
-What's new in at-spi-1.7.0:
+What's new in at-spi-1.7.0 through 1.7.3:
+
+* Added idl/Accessibility_Selector.idl to the repository (missing in 1.7.0
+        through 1.7.2, added in 1.7.3)
 
 * DOCS:
   

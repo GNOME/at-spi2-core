@@ -1,0 +1,160 @@
+/* 
+ * AT-SPI - Assistive Technology Service Provider Interface 
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2001 Sun Microsystems Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+#include <Bonobo_Unknown.idl>
+
+#ifndef _ACCESSIBILITY_SELECTOR_IDL_
+#define _ACCESSIBILITY_SELECTOR_IDL_
+
+module Accessibility {
+
+    /** A structure which encapsulates both a string representation of a command and a unique command ID **/
+    struct Command {
+	  string name;
+	  long   id;
+     };
+
+    /** A list of Command objects **/
+    typedef sequence<Command> CommandList;
+
+    /** 
+    * An interface which should be implemented by assistive technologies or other
+    * clients of the ::Selector interface, over which notifications to the list of
+    * available commands is made.  The notifyCommands() method of the client is then called by 
+    * the ::Selector instance.
+    * @since AT-SPI 1.7.0
+    **/
+    interface CommandListener {
+	/**
+	 * Notify the CommandListener instance of changes to the currently
+	 * available commands, by sending the current ::CommandList.
+	 *
+	 * @param commands The newly-available list of ::Command objects which
+	 * may be invoked by the listener.
+	 **/
+	void notifyCommands (in CommandList commands);
+    };
+
+    /**
+     * This interface is intended for use by assistive technologies
+     * and related user-agents.  Via this interface, an assistive technology or
+     * user agent may expose a series of choices or selections in textual form,
+     * which can be activated on demand by a client of the Selector interface.
+     *
+     * Examples of the use of this interface include voice-command and remote-control
+     * applications, in which the user interaction is wholly or partly delegated by the 
+     * implementor to an external agent.  
+     * @since AT-SPI 1.7.0
+     **/
+  interface Selector : Bonobo::Unknown {
+
+      /** 
+       * A code returned by a call to ::activateCommand, indicating 
+       * the result of the activation request.
+       **/
+      enum CommandResult {
+	  COMMAND_RESULT_INVALID, /**< The command was invalid or ill-formed; usually indicates
+				   * an error condition. */
+	  COMMAND_RESULT_SUCCESS, /**< The command was successfully activated. */
+	  COMMAND_RESULT_FAILED, /**< The command was valid, but could not be activated.
+				  * This may be due to problems with permissions or error conditions.
+				  */
+	  COMMAND_RESULT_OBSOLETE, /**< The command is no longer valid in the current program context. 
+				    * This may mean that the application has changed state in such a
+				    * way that the specified command it no longer applicable, or
+				    * because changes to the application state have rendered it
+				    * ambiguous.  Commands should be re-fetched and a new selection
+				    * made.
+				    */
+	  COMMAND_RESULT_LAST_DEFINED /**< Defines size of enumeration; 
+					 do not use this value as a parameter.*/
+      };
+
+      /** This attribute is TRUE if this Selector allows its ::CommandList to be specified by the client **/
+      readonly attribute boolean supportsReplace;
+
+      /** 
+       * Query the ::Selector for the current ::CommandList.
+       *
+       * @returns the currently available ::CommandList 
+       **/
+      CommandList getCommands ();
+
+      /**
+       * @returns TRUE if the replacement request was successful, 
+       * FALSE if the request could not be honored.
+       **/
+      boolean replaceCommands (in CommandList commands);
+
+      /** 
+       * Ask the ::Selector to re-calculate its ::CommandList.
+       * @note in most cases the ::Selector will continuously
+       * update its ::CommandList without recourse to this call.
+       * This call is equivalent to ::getCommands, except that
+       * after ::refreshCommands the new ::CommandList will be returned
+       * via any registered ::CommandListener instances rather than
+       * synchronously via this call.
+       *
+       * @returns TRUE if the ::CommandList changed.
+       **/
+      boolean refreshCommands ();
+
+      /** 
+       * Request that the ::Selector invoke the specified ::Command.
+       * @param command the ::Command to activate/invoke.
+       * @returns a ::CommandResult indicating whether the 
+       * request was honored, and the reason for failure if the
+       * ::Command could not be activated or invoked.
+       **/
+      CommandResult activateCommand (in Command command);
+
+      /** 
+       * Register a :CommandListener instance for notification of 
+       * changes to the command set.
+       * @param listener the ::CommandListener to be notified of changes.
+       **/
+      void registerChangeListener (in CommandListener listener);
+
+      /** 
+       * Tell the ::Selector instance to cease notifying the
+       * specified ::CommandListener of changes to the command list.
+       * @param listener the ::CommandListener to remove from the
+       * notification list.
+       **/
+      void deregisterChangeListener (in CommandListener listener);
+
+	/**
+	 *\cond
+	 * unImplemented:
+	 *
+	 * placeholders for future expansion.
+	 */
+	void unImplemented ();
+	void unImplemented2 ();
+	void unImplemented3 ();
+	void unImplemented4 ();
+        /**\endcond */
+    };
+
+};
+
+#endif
