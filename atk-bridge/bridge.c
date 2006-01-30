@@ -33,6 +33,7 @@
 #include <atk/atknoopobject.h>
 #include <libspi/Accessibility.h>
 #include <libspi/spi-private.h>
+#include "remoteobject.h"
 #include "accessible.h"
 #include "application.h"
 #include <bonobo-activation/bonobo-activation-register.h>
@@ -621,12 +622,12 @@ spi_atk_emit_eventv (const GObject         *gobject,
 {
   va_list             args;
   Accessibility_Event e;
-  SpiAccessible      *source;
   AtkObject          *aobject;
+  SpiAccessible      *source = NULL;
   Accessibility_Registry registry;
   const gchar *name;
 #ifdef SPI_BRIDGE_DEBUG
-  CORBA_string s;
+  CORBA_string s = NULL;
 #endif
   
   va_start (args, format);
@@ -640,53 +641,59 @@ spi_atk_emit_eventv (const GObject         *gobject,
   else if (ATK_IS_OBJECT (gobject))
     {
       aobject = ATK_OBJECT (gobject);
-      source  = spi_accessible_new (aobject);
+      if (SPI_IS_REMOTE_OBJECT (aobject))
+         e.source = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (aobject));
+      else
+         source  = spi_accessible_new (aobject);
     }
   else
     {
       aobject = NULL;
-      source  = NULL;
       DBG (0, g_warning ("received property-change event from non-AtkImplementor"));
+      va_end (args);
+      return;
     }
   name = atk_object_get_name (aobject);
-  if (source) 
-    {
-      e.type = g_strdup_vprintf (format, args);
-      e.source = BONOBO_OBJREF (source);
-      e.detail1 = detail1;
-      e.detail2 = detail2;
-      if (any) e.any_data = *any;
-      else spi_atk_bridge_init_nil (&e.any_data, aobject);
+  e.type = g_strdup_vprintf (format, args);
+  if (source) e.source = BONOBO_OBJREF (source);
+  e.detail1 = detail1;
+  e.detail2 = detail2;
+  if (any) e.any_data = *any;
+  else spi_atk_bridge_init_nil (&e.any_data, aobject);
 
 #ifdef SPI_BRIDGE_DEBUG
-      s = Accessibility_Accessible__get_name (BONOBO_OBJREF (source), &ev);
-      g_warning ("Emitting event '%s' (%lu, %lu) on %s",
-		 e.type, e.detail1, e.detail2, s);
-      CORBA_free (s);
+  if (e.source != CORBA_OBJECT_NIL)
+      s = Accessibility_Accessible__get_name (e.source, &ev);
+  g_message ("Emitting event '%s' (%lu, %lu) on %s",
+	     e.type, e.detail1, e.detail2, s);
+  CORBA_free (s);
 #endif
-      CORBA_exception_init (&ev);
-      registry = spi_atk_bridge_get_registry ();
-      if (registry_died) {
-        g_free (e.type);
-        return;
-      }  
-      Accessibility_Registry_notifyEvent (registry, 
-					  &e, &ev);
-#ifdef SPI_BRIDGE_DEBUG
-      if (ev._major != CORBA_NO_EXCEPTION)
-	g_warning ("error emitting event %s, (%d) %s",
-		   e.type,
-		   ev._major,
-		   CORBA_exception_id(&ev));
-#endif	      
-      if (BONOBO_EX (&ev)) registry_died = TRUE;
-      bonobo_object_unref (BONOBO_OBJECT (source));
-      
-      CORBA_exception_free (&ev);
-      
+  CORBA_exception_init (&ev);
+  registry = spi_atk_bridge_get_registry ();
+  if (registry_died) {
       g_free (e.type);
-    }
-
+      return;
+  }  
+  Accessibility_Registry_notifyEvent (registry, 
+				      &e, &ev);
+#ifdef SPI_BRIDGE_DEBUG
+  if (ev._major != CORBA_NO_EXCEPTION)
+      g_message ("error emitting event %s, (%d) %s",
+		 e.type,
+		 ev._major,
+		 CORBA_exception_id(&ev));
+#endif	      
+  if (BONOBO_EX (&ev)) registry_died = TRUE;
+  
+  if (source)
+      bonobo_object_unref (BONOBO_OBJECT (source));
+  else
+      Bonobo_Unknown_unref (e.source, &ev);
+  
+  CORBA_exception_free (&ev);
+  
+  g_free (e.type);
+  
   va_end (args);
 
 }
