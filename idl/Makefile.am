@@ -16,6 +16,7 @@ idl_DATA =					\
 	Accessibility_Relation.idl		\
 	Accessibility_Role.idl			\
 	Accessibility_Selection.idl		\
+	Accessibility_Selector.idl		\
 	Accessibility_State.idl			\
 	Accessibility_StreamableContent.idl	\
 	Accessibility_Table.idl			\

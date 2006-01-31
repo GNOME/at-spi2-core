@@ -1,4 +1,9 @@
-2006-01-27  Bill Haneman <billh@gnome.org>
+2006-01-31  Bill Haneman <billh@gnome.org>
+
+	* idl/Makefile.am: Include Selector.idl in dist.
+	Fixes bug #328859.
+
+2006-01-30  Bill Haneman <billh@gnome.org>
 
 	* Released 1.7.3.
 
