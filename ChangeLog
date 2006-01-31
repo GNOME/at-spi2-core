@@ -1,7 +1,17 @@
 2006-01-31  Bill Haneman <billh@gnome.org>
 
+	* configure.in: Rev to 1.7.4 (to include build fix below).
+	
 	* idl/Makefile.am: Include Selector.idl in dist.
 	Fixes bug #328859.
+
+	* cspi/spi_event.c:
+	(cspi_internal_event_get_object): Handle case where
+	"object" isn't present, i.e. CORBA_TC_Object doesn't match
+	the EventDetails data.
+	(cspi_internal_event_get_text): Handle NULL string.
+	(cspi_internal_event_get_rect): Handle missing/empty rect
+	data, Accessibility_TC_RectBounds doesn't match any_data.
 
 2006-01-30  Bill Haneman <billh@gnome.org>
 

@@ -1,3 +1,11 @@
+What's new in at-spi-1.7.4:
+
+* Fixed dist to include Accessibility_Selector.idl (missing from dist though
+  in cvs since 1.7.3).
+
+* Bugfixes to EventDetails event support, and fixed event emission for 
+  implementors of SPI_REMOTE_OBJECT.
+
 What's new in at-spi-1.7.0 through 1.7.3:
 
 * Added idl/Accessibility_Selector.idl to the repository (missing in 1.7.0

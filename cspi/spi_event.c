@@ -339,6 +339,10 @@ cspi_internal_event_get_text (const InternalEvent *e)
   if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_EventDetails, NULL)) 
     {
       Accessibility_EventDetails *details = (Accessibility_EventDetails *)any->_value;
+      if (CORBA_TypeCode_equal (details->any_data._type, TC_CORBA_string, cspi_ev()))
+	  return CORBA_string_dup (* (char **) (details->any_data._value));
+      else
+	  return CORBA_string_dup ("");
       return CORBA_string_dup (* (char **) (details->any_data._value));
     }
   else if (CORBA_TypeCode_equivalent (any->_type, TC_CORBA_string, NULL)) 
@@ -367,7 +371,10 @@ cspi_internal_event_get_object (const InternalEvent *e)
   if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_EventDetails, NULL)) 
     {
       Accessibility_EventDetails *details = (Accessibility_EventDetails *)any->_value;
-      return cspi_object_take (* (CORBA_Object *) (details->any_data._value));
+      if (CORBA_TypeCode_equal (details->any_data._type, TC_CORBA_Object, cspi_ev()))
+	  return cspi_object_take (* (CORBA_Object *) (details->any_data._value));
+      else
+	  return NULL;
     }
   else if (CORBA_TypeCode_equal (any->_type, TC_CORBA_Object, cspi_ev()))
     return cspi_object_take (* (CORBA_Object *) any->_value);
@@ -386,12 +393,17 @@ cspi_internal_event_get_rect (const InternalEvent *e)
     {
       Accessibility_EventDetails *details = (Accessibility_EventDetails *)any->_value;
       SPIRect *rect = g_new (SPIRect, 1);
-      Accessibility_BoundingBox *bounds = (Accessibility_BoundingBox *) details->any_data._value;
-      rect->x = bounds->x;
-      rect->y = bounds->y;
-      rect->width = bounds->width;
-      rect->height = bounds->height;
-      return rect;
+      if (CORBA_TypeCode_equal (details->any_data._type, TC_Accessibility_BoundingBox, cspi_ev()))
+      {
+	  Accessibility_BoundingBox *bounds = (Accessibility_BoundingBox *) details->any_data._value;
+	  rect->x = bounds->x;
+	  rect->y = bounds->y;
+	  rect->width = bounds->width;
+	  rect->height = bounds->height;
+	  return rect;
+      }
+      else
+	  return NULL;
     }
   if (CORBA_TypeCode_equivalent (any->_type, TC_Accessibility_BoundingBox, NULL)) 
     {
