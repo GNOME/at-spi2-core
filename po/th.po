@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-22 08:56+0700\n"
-"PO-Revision-Date: 2005-11-22 09:33+0700\n"
+"PO-Revision-Date: 2006-02-11 09:31+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team:  <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "กล่องกาเครื่องหมาย"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
-msgstr ""
+msgstr "รายการเมนูกาเครื่องหมาย"
 
 #: atk/atkobject.c:91
 msgid "color chooser"
@@ -211,7 +211,7 @@ msgstr "ข้อความรหัสผ่าน"
 
 #: atk/atkobject.c:123
 msgid "popup menu"
-msgstr "เมนูแบบผุดขึ้น"
+msgstr "เมนูผุดขึ้น"
 
 #: atk/atkobject.c:124
 msgid "progress bar"
@@ -247,7 +247,7 @@ msgstr ""
 
 #: atk/atkobject.c:132
 msgid "separator"
-msgstr "ตัวแบ่ง"
+msgstr "เส้นแบ่ง"
 
 #: atk/atkobject.c:133
 msgid "slider"
