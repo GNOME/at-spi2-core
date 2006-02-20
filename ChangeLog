@@ -1,3 +1,13 @@
+2006-02-20  Bill Haneman <billh@gnome.org>
+
+	* configure.in: Rev to 1.7.5.
+	Reinstate localization of this module.  Thanks for Rodney
+	Dawes for fixing my patch.
+
+	* registryd/Makefile.am: Remove Accessibility_Registry.server 
+	from dist, since it needs to be re-created at configure time.
+	Fixes bug #3331484.
+	
 2006-01-31  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Rev to 1.7.4 (to include build fix below).

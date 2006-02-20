@@ -2,7 +2,7 @@ AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=1
 AT_SPI_MINOR_VERSION=7
-AT_SPI_MICRO_VERSION=4
+AT_SPI_MICRO_VERSION=5
 AT_SPI_INTERFACE_AGE=0
 AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
@@ -26,7 +26,7 @@ AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
 dnl required versions of other tools.
-m4_define([req_ver_atk],	[1.7.2])
+m4_define([req_ver_atk],	[1.9.0])
 m4_define([req_ver_libbonobo],	[1.107.0])
 m4_define([req_ver_gail],	[1.3.0])
 m4_define([req_ver_gtk],	[2.0.0])
@@ -37,8 +37,8 @@ AM_CONFIG_HEADER(config.h)
 dnl Initialize maintainer mode
 AM_MAINTAINER_MODE
 
-dnl we don't need translation of any at-spi strings
-dnl AC_PROG_INTLTOOL
+dnl translation of any at-spi strings: used only for .server
+AC_PROG_INTLTOOL([0.31])
 
 dnl Checks for programs
 AC_PROG_CC
@@ -52,11 +52,16 @@ dnl Initialize libtool
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
-dnl DO NOT PUT THIS BACK: at-spi DOES NOT INCLUDE TRANSLATABLE STRINGS. wph 2006.
-dnl
+GETTEXT_PACKAGE="${PACKAGE}"
+AC_SUBST(GETTEXT_PACKAGE)
 dnl internationalization support; uncomment if translatable strings are reintroduced
-dnl ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB eo es et eu fa fi fr gl gu he hi hr hu id is it ja ka ko lt mn mr ms nb ne nl nn no or pa pl pt_BR pt ro ru rw sk sl sq sr@ije sr@Latn sr sv th ug uk vi wa xh zh_CN zh_HK zh_TW"
-dnl AM_GLIB_GNU_GETTEXT
+ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB eo es et eu fa fi fr gl gu he hi hr hu id is it ja ka ko lt mn mr ms nb ne nl nn no or pa pl pt_BR pt ro ru rw sk sl sq sr@ije sr@Latn sr sv th ug uk vi wa xh zh_CN zh_HK zh_TW"
+AM_GLIB_GNU_GETTEXT
+
+# AM_GLIB_GNU_GETTEXT above subst. $DATADIRNAME
+# this is the directory where the *.{mo,gmo} files are installed
+localedir='${prefix}/${DATADIRNAME}/locale'
+AC_SUBST(localedir)
 
 GTK_DOC_CHECK([1.0])
 
@@ -205,6 +210,7 @@ AC_SUBST(REBUILD)
 
 AC_OUTPUT([
 Makefile
+po/Makefile.in
 libspi-1.0.pc
 libspi-1.0-uninstalled.pc
 libloginhelper-1.0.pc
