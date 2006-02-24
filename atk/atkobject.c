@@ -77,7 +77,7 @@ struct _AtkRoleItem
   gchar   *name;
 };
 
-static AtkRoleItem role_items [] =
+static const AtkRoleItem role_items [] =
 {
   { ATK_ROLE_INVALID, N_("invalid")},
   { ATK_ROLE_ACCEL_LABEL, N_("accelerator label")},
@@ -216,21 +216,21 @@ static guint atk_object_signals[LAST_SIGNAL] = { 0, };
 
 static gpointer parent_class = NULL;
 
-static const gchar* atk_object_name_property_name = "accessible-name";
-static const gchar* atk_object_name_property_description = "accessible-description";
-static const gchar* atk_object_name_property_parent = "accessible-parent";
-static const gchar* atk_object_name_property_value = "accessible-value";
-static const gchar* atk_object_name_property_role = "accessible-role";
-static const gchar* atk_object_name_property_component_layer = "accessible-component-layer";
-static const gchar* atk_object_name_property_component_mdi_zorder = "accessible-component-mdi-zorder";
-static const gchar* atk_object_name_property_table_caption = "accessible-table-caption";
-static const gchar* atk_object_name_property_table_column_description = "accessible-table-column-description";
-static const gchar* atk_object_name_property_table_column_header = "accessible-table-column-header";
-static const gchar* atk_object_name_property_table_row_description = "accessible-table-row-description";
-static const gchar* atk_object_name_property_table_row_header = "accessible-table-row-header";
-static const gchar* atk_object_name_property_table_summary = "accessible-table-summary";
-static const gchar* atk_object_name_property_table_caption_object = "accessible-table-caption-object";
-static const gchar* atk_object_name_property_hypertext_num_links = "accessible-hypertext-nlinks";
+static const gchar* const atk_object_name_property_name = "accessible-name";
+static const gchar* const atk_object_name_property_description = "accessible-description";
+static const gchar* const atk_object_name_property_parent = "accessible-parent";
+static const gchar* const atk_object_name_property_value = "accessible-value";
+static const gchar* const atk_object_name_property_role = "accessible-role";
+static const gchar* const atk_object_name_property_component_layer = "accessible-component-layer";
+static const gchar* const atk_object_name_property_component_mdi_zorder = "accessible-component-mdi-zorder";
+static const gchar* const atk_object_name_property_table_caption = "accessible-table-caption";
+static const gchar* const atk_object_name_property_table_column_description = "accessible-table-column-description";
+static const gchar* const atk_object_name_property_table_column_header = "accessible-table-column-header";
+static const gchar* const atk_object_name_property_table_row_description = "accessible-table-row-description";
+static const gchar* const atk_object_name_property_table_row_header = "accessible-table-row-header";
+static const gchar* const atk_object_name_property_table_summary = "accessible-table-summary";
+static const gchar* const atk_object_name_property_table_caption_object = "accessible-table-caption-object";
+static const gchar* const atk_object_name_property_hypertext_num_links = "accessible-hypertext-nlinks";
 
 #ifdef G_OS_WIN32
 
@@ -240,11 +240,21 @@ static const gchar* atk_object_name_property_hypertext_num_links = "accessible-h
 
 G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
 
-static char *
+static const char *
 get_atk_locale_dir (void)
 {
-  return g_win32_get_package_installation_subdirectory
-    (GETTEXT_PACKAGE, dll_name, "lib/locale");
+  static gchar *atk_localedir = NULL;
+
+  if (!atk_localedir)
+    {
+      gchar temp;
+
+      temp = g_win32_get_package_installation_subdirectory
+        (GETTEXT_PACKAGE, dll_name, "lib\\locale");
+      atk_localedir = g_win32_locale_filename_from_utf8 (temp);
+      g_free (temp);
+    }
+  return atk_localedir;
 }
 
 #endif

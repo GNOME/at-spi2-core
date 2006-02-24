@@ -1,3 +1,14 @@
+2006-02-24 Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkobject.c:
+	(get_atk_locale_dir): Make sure to convert from UTF-8 to
+	correct filename encoding; bug #317458 from Kazuzi IWAMOTO.
+
+	* atk/atkobject.c:
+	* atk/atktext.c:
+	Const patch from Arjan Van de Van; adds 'const' to 
+	internal atk structures and methods where appropriate.
+
 2006-01-17 Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Revved to 1.11.1.

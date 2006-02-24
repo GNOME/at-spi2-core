@@ -33,36 +33,36 @@ enum {
   LAST_SIGNAL
 };
 
-static const gchar *bool[] = {"false",
-                              "true"};
-static const gchar *style[] = {"normal",
-                               "oblique",
-                               "italic"};
-static const gchar *variant[] = {"normal",
-                                 "small_caps"};
-static const gchar *stretch[] = {"ultra_condensed",
-                                 "extra_condensed",
-                                 "condensed",
-                                 "semi_condensed",
-                                 "normal",
-                                 "semi_expanded",
-                                 "expanded",
-                                 "extra_expanded",
-                                 "ultra_expanded"};
-static const gchar *justification[] = {"left",
-                                       "right",
-                                       "center",
-                                       "fill"};
-static const gchar *direction[] = {"none",
-                                   "ltr",
-                                   "rtl"};
-static const gchar *wrap_mode[] = {"none",
-                                   "char",
-                                   "word"};
-static const gchar *underline[] = {"none",
-                                   "single",
-                                   "double",
-                                   "low"};
+static const gchar * const bool[] = {"false",
+                                     "true"};
+static const gchar * const style[] = {"normal",
+                                      "oblique",
+                                      "italic"};
+static const gchar * const variant[] = {"normal",
+                                        "small_caps"};
+static const gchar * const stretch[] = {"ultra_condensed",
+                                        "extra_condensed",
+                                        "condensed",
+                                        "semi_condensed",
+                                        "normal",
+                                        "semi_expanded",
+                                        "expanded",
+                                        "extra_expanded",
+                                        "ultra_expanded"};
+static const gchar * const justification[] = {"left",
+                                              "right",
+                                              "center",
+                                              "fill"};
+static const gchar * const direction[] = {"none",
+                                          "ltr",
+                                          "rtl"};
+static const gchar * const wrap_mode[] = {"none",
+                                          "char",
+                                          "word"};
+static const gchar * const underline[] = {"none",
+                                          "single",
+                                          "double",
+                                          "low"};
 
 static void atk_text_base_init (AtkTextIface *class);
 
