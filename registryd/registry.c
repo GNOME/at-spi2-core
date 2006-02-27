@@ -718,6 +718,8 @@ registry_flush_event_queue (SpiRegistry       *registry,
     }
     CORBA_free ((void *)q_ctx->etype.event_name);
     CORBA_free ((void *)q_ctx->e_out.type);
+    if (q_ctx->e_out.any_data._type != TC_null) 
+	CORBA_free ((void *)q_ctx->e_out.any_data._value);
     g_free (q_ctx);
   }
   registry->is_queueing = FALSE;
@@ -848,6 +850,8 @@ registry_queue_event (SpiRegistry *registry, NotifyContext *ctx)
       bonobo_object_release_unref (q_ctx->source, NULL);
       CORBA_free ((void *)q_ctx->etype.event_name);
       CORBA_free ((void *)q_ctx->e_out.type);
+      if (q_ctx->e_out.any_data._type != TC_null) 
+	  CORBA_free ((void *)q_ctx->e_out.any_data._value);
       g_free (q_ctx);
       return TRUE; 
     }

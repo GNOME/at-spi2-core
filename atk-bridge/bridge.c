@@ -693,6 +693,8 @@ spi_atk_emit_eventv (const GObject         *gobject,
   CORBA_exception_free (&ev);
   
   g_free (e.type);
+
+  if (e.any_data._release) CORBA_free (&e.any_data._value);
   
   va_end (args);
 
@@ -952,6 +954,8 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
   result = Accessibility_DeviceEventController_notifyListenersSync (
 	  spi_atk_bridget_get_dec (), &key_event, &ev);
 
+  if (key_event.event_string) CORBA_free (key_event.event_string);
+
   if (BONOBO_EX(&ev)) {
       result = FALSE;
       CORBA_exception_free (&ev);
@@ -1080,10 +1084,8 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     spi_atk_emit_eventv (gobject, detail1, detail2, &any,
 			 "object:%s", name);
 
-  if (sp)
+  if (sp) 
     g_free (sp);
-  if (any._release)
-    CORBA_free (any._value);
 
   return TRUE;
 }
@@ -1173,7 +1175,7 @@ spi_atk_bridge_init_base (CORBA_any *any, AtkObject *obj,
     const gchar *s = atk_object_get_name (obj);
     *app = spi_accessible_new_return (atk_get_root (), FALSE, NULL);
     *role = spi_role_from_atk_role (atk_object_get_role (obj));
-    *name = CORBA_string_dup (s ? s : "");
+    *name = s ? s : ""; /* string gets dup-ed in util.c spi_init_any_* */
 }
 
 static void     

@@ -1,5 +1,29 @@
 2006-02-20  Bill Haneman <billh@gnome.org>
 
+	* configure.in: Rev to 1.7.6.
+
+	Leak fixes for bug #331924.
+	
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_init_base): Don't dup the string, it's already
+	been dup-ed.  Fixes a leak.
+	(spi_atk_emit_eventv): Move the CORBA_free call here, 
+	instead of spi_atk_state_event_listener; fixes another leak.
+	(spi_atk_bridge_key_listener):Free the dup'ed key strings after
+	notifying the registry; fixes another leak.
+
+	* registryd/registry.c:
+	(registry_flush_event_queue): Free the CORBA_any when 
+	flushing the event, not just the string.  Fixes another leak.
+	(registry_queue_event): Free the CORBA_any when dropping
+	events on the floor; fixes another leak.
+
+	* libspi/util.c:
+	(spi_init_any_object, spi_init_any_nil): 
+	Always set _release to TRUE.  Fixes another leak.
+
+2006-02-20  Bill Haneman <billh@gnome.org>
+
 	* configure.in: Rev to 1.7.5.
 	Reinstate localization of this module.  Thanks for Rodney
 	Dawes for fixing my patch.

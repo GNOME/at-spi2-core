@@ -130,7 +130,7 @@ spi_init_any_nil (CORBA_any *any_details,
 
   details->any_data._type = TC_null;
   details->any_data._value = NULL;
-  details->any_data._release = FALSE;
+  details->any_data._release = TRUE;
 }
 
 void 
@@ -151,7 +151,7 @@ spi_init_any_object (CORBA_any *any_details, Accessibility_Application app,
   
   details->any_data._type = TC_CORBA_Object;
   details->any_data._value = o;
-  details->any_data._release = FALSE;
+  details->any_data._release = TRUE;
 }
 
 void
