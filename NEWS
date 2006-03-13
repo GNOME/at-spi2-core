@@ -1,3 +1,9 @@
+Changes in version 1.11.2:
+=========================
+
+ * Fix for localization bug #317458 from Kazuzi IWAMOTO.
+ * Included docs in tarball as appropriate.
+
 Changes in version 1.11.0:
 =========================
 
