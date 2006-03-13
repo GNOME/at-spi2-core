@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-06 05:23+0100\n"
-"PO-Revision-Date: 2006-01-06 15:06+0530\n"
+"POT-Creation-Date: 2006-03-13 05:44+0100\n"
+"PO-Revision-Date: 2006-03-13 15:30+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 
@@ -389,129 +390,129 @@ msgstr "खंड"
 
 #: ../atk/atkobject.c:166
 msgid "redundant object"
-msgstr ""
+msgstr "वैकल्पिक वस्तु"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:355
 msgid "Accessible Name"
 msgstr "पंहुचयोग्य नाम"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:356
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "असिस्टिव तकनॉलाज़ी पँहुच हेतु फॉर्मेटेड ऑब्जेक्ट इंस्टैन्स का नाम"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:362
 msgid "Accessible Description"
 msgstr "पहुँच योग्य वर्णन"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:363
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "असिस्टिव तकनॉलाज़ी पँहुच हेतु फॉर्मेटेड ऑब्जेक्ट का वर्णन"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:369
 msgid "Accessible Parent"
 msgstr "पहुँच योग्य पैरेंट"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:370
 msgid "Is used to notify that the parent has changed"
 msgstr "पैरेंट बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:376
 msgid "Accessible Value"
 msgstr "पहुँच योग्य मूल्य"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:377
 msgid "Is used to notify that the value has changed"
 msgstr "मूल्य बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:385
 msgid "Accessible Role"
 msgstr "पहुँच योग्य भूमिका"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:386
 msgid "The accessible role of this object"
 msgstr "इस वस्तु की पहुँच योग्य भूमिका"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:394
 msgid "Accessible Layer"
 msgstr "पहुँच योग्य परत"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:395
 msgid "The accessible layer of this object"
 msgstr "इस वस्तु की पहुँच योग्य परत"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:403
 msgid "Accessible MDI Value"
 msgstr "पहुँच योग्य एमडीआई मूल्य"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:404
 msgid "The accessible MDI value of this object"
 msgstr "इस ऑब्जेक्ट का पहुँच योग्य एमडीआई मूल्य"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:412
 msgid "Accessible Table Caption"
 msgstr "पहुँच योग्य तालिका शीर्षक"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:413
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"तालिका शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना चाहिए. "
-"बदले में पहुँच योग्य-तालिका-शीर्षक-ऑब्जेक्ट उपयोग में लेना चाहिए"
+"तालिका शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है, यह गुण उपयोग में नहीं लेना "
+"चाहिए. बदले में पहुँच योग्य-तालिका-शीर्षक-ऑब्जेक्ट उपयोग में लेना चाहिए"
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:419
 msgid "Accessible Table Column Header"
 msgstr "पहुँच योग्य तालिका कॉलम हेडर"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:420
 msgid "Is used to notify that the table column header has changed"
 msgstr "तालिका कॉलम हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:426
 msgid "Accessible Table Column Description"
 msgstr "पहुँच योग्य तालिका कॉलम वर्णन"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:427
 msgid "Is used to notify that the table column description has changed"
 msgstr "पहुँच योग्य तालिका कॉलम वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:433
 msgid "Accessible Table Row Header"
 msgstr "पहुँच योग्य तालिका पंक्ति हेडर"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:434
 msgid "Is used to notify that the table row header has changed"
 msgstr "तालिका पंक्ति हेडर बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:440
 msgid "Accessible Table Row Description"
 msgstr "पहुँच योग्य तालिका पंक्ति वर्णन"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:441
 msgid "Is used to notify that the table row description has changed"
 msgstr "पहुँच योग्य तालिका पंक्ति वर्णन बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:447
 msgid "Accessible Table Summary"
 msgstr "पहुँच योग्य तालिका सारांश"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:448
 msgid "Is used to notify that the table summary has changed"
 msgstr "तालिका कॉलम सारांश बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:454
 msgid "Accessible Table Caption Object"
 msgstr "पहुँच योग्य तालिका शीर्षक ऑब्जेक्ट"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:455
 msgid "Is used to notify that the table caption has changed"
 msgstr "तालिका शीर्षक बदल चुका है यह बताने हेतु उपयोग में आता है"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:461
 msgid "Number of Accessible Hypertext Links"
 msgstr "पहुँच योग्य हायपरटेक्स्ट लिंक्स की संख्या"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:462
 msgid "The number of links which the current AtkHypertext has"
 msgstr "लिंक्स की संख्या जो कि वर्तमान एटीके-हायपरटेक्स्ट में हैं"
 
