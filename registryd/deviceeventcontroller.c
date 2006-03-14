@@ -448,7 +448,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	spi_init_any_nil (&e.any_data, 
 		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
 		    Accessibility_ROLE_UNKNOWN,
-		    CORBA_string_dup (""));
+		    "");
 	CORBA_exception_init (&ev);
 	if (!is_consumed)
 	  {
@@ -505,7 +505,7 @@ spi_dec_mouse_check (SpiDEController *controller,
       spi_init_any_nil (&e.any_data,
 		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
 		    Accessibility_ROLE_UNKNOWN,
-		    CORBA_string_dup (""));
+		    "");
       CORBA_exception_init (&ev);
       Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 					  &e,
@@ -517,7 +517,7 @@ spi_dec_mouse_check (SpiDEController *controller,
       spi_init_any_nil (&e.any_data,
 		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
 		    Accessibility_ROLE_UNKNOWN,
-		    CORBA_string_dup (""));
+		    "");
       CORBA_exception_init (&ev);
       last_mouse_pos->x = *x;
       last_mouse_pos->y = *y;
@@ -559,7 +559,7 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
   spi_init_any_nil (&e.any_data,
 		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
 		    Accessibility_ROLE_UNKNOWN,
-		    CORBA_string_dup (""));
+		    "");
   CORBA_exception_init (&ev);
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 				      &e,
@@ -1077,7 +1077,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
       spi_init_any_nil (&e.any_data,
 		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
 		    Accessibility_ROLE_UNKNOWN,
-		    CORBA_string_dup (""));
+		    "");
       CORBA_exception_init (&ev);
       
       Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),

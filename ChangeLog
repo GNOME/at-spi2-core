@@ -1,3 +1,19 @@
+2006-03-11  Vincent Untz  <vuntz@gnome.org>
+
+	Leak fix for bug #334217.
+
+	* libspi/application.c: spi_application_toolkit_event_listener():
+	don't duplicate the string we pass as an argument to
+	spi_init_any_nil() since spi_init_any_nil() already does it
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_button_update_and_emit): ditto
+	(spi_dec_mouse_check): ditto
+	(spi_dec_emit_modifier_event): ditto
+	(spi_device_event_controller_forward_mouse): ditto
+	* registryd/registry.c:
+	(desktop_add_application): ditto
+	(desktop_remove_application): ditto
+
 2006-02-20  Bill Haneman <billh@gnome.org>
 
 	* configure.in: Rev to 1.7.6.
