@@ -103,8 +103,8 @@ atk_image_get_image_size (AtkImage *image,
   }
   else
   {
-    *width = -1;
-    *height = -1;
+    *real_width = -1;
+    *real_height = -1;
   }
 }
 
@@ -182,8 +182,8 @@ atk_image_get_image_position (AtkImage *image,
   }
   else
   {
-    *x = -1;
-    *y = -1;
+    *real_x = -1;
+    *real_y = -1;
   }
 }
 
