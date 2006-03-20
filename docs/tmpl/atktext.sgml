@@ -67,8 +67,8 @@ change was an insertion or a deletion
 </para>
 
 @atktext: the object which received the signal.
-@arg1: The position of the insertion or deletion.
-@arg2: The length of text inserted or deleted.
+@arg1: The position (character offset) of the insertion or deletion.
+@arg2: The length (in characters) of text inserted or deleted.
 
 <!-- ##### SIGNAL AtkText::text-selection-changed ##### -->
 <para>
