@@ -2,14 +2,13 @@
 AtkUtil
 
 <!-- ##### SECTION Short_Description ##### -->
-This is a utility class which supports the adding and removal of event listeners.
+A set of ATK utility functions for event and toolkit support.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-This is a utility class which supports the adding and removal of event 
-listeners. The adding and removing of the listeners must be done in the 
-same thread. The file also contains a number of utility functions.
-
+A set of ATK utility functions which are used to support event registration of
+various types, and obtaining the 'root' accessible of a process and
+information about the current ATK implementation and toolkit version.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
@@ -22,7 +21,6 @@ same thread. The file also contains a number of utility functions.
 
 <!-- ##### STRUCT AtkUtil ##### -->
 <para>
-The AtkObject structure should not be accessed directly.
 
 </para>
 
@@ -57,6 +55,8 @@ The AtkObject structure should not be accessed directly.
 
 </para>
 
+@init: 
+<!-- # Unused Parameters # -->
 @add_function: 
 
 
@@ -70,19 +70,14 @@ The AtkObject structure should not be accessed directly.
 
 <!-- ##### USER_FUNCTION AtkEventListener ##### -->
 <para>
-An AtkEventListener is user specified function which is called when an event,
-such as receiving focus, occurs. The parameter of the AtkEventListener is the
-AtkObject on which the event occurred.
+
 </para>
 
-@Param1: an #AtkObject
+@obj: 
 
 
 <!-- ##### USER_FUNCTION AtkEventListenerInit ##### -->
 <para>
-An AtkEventListenerInit is an initialization function in an implementation 
-of the ATK interface used to perform implementation-specific initialization
-when enabling focus tracking.
 
 </para>
 
@@ -108,7 +103,7 @@ when enabling focus tracking.
 
 <!-- ##### STRUCT AtkKeyEventStruct ##### -->
 <para>
-The AtkKeyEventStruct describes a keyboard event.
+
 </para>
 
 @type: 
@@ -130,12 +125,12 @@ The AtkKeyEventStruct describes a keyboard event.
 
 <!-- ##### USER_FUNCTION AtkKeySnoopFunc ##### -->
 <para>
-An AtkKeySnoopFunc is a function which is called when a keyboard event occurs.
+
 </para>
 
-@event: keyboard event
-@func_data: a data gpointer for the function
-@Returns: return code
+@event: 
+@func_data: 
+@Returns: 
 
 
 <!-- ##### FUNCTION atk_add_key_event_listener ##### -->

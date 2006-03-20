@@ -60,7 +60,7 @@ removed form an object. It supports two details: "add" and "remove"
 
 @atkobject: the object which received the signal.
 @arg1: The index of the added or removed child
-@arg2: The child which was added or removed
+@arg2: A gpointer to the child AtkObject which was added or removed
 
 <!-- ##### SIGNAL AtkObject::focus-event ##### -->
 <para>

@@ -1,4 +1,17 @@
 2006-03-20 Bill Haneman <bill.haneman@sun.com>
+	
+	* atk/atkutil.h: Added missing info on AtkEventListener,
+	AtkEventListenerInit, and AtkKeySnoopFunc. bug #320911.
+
+	* atk/atkimage.h: Moved information about '-1' return values
+	to the corresponding parameters.  bug #320916.
+	
+	* atk/atkobject.c: Fixed some docs issues in comment blocks.
+
+	* docs/tmpl/atkobject.sgml: Clarify children-changed signal
+	params. bug #162410.
+	
+2006-03-20 Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkimage.c: Bug detected by Behdad Estafood
 	(atk_image_get_position): Allow for NULL-in params.

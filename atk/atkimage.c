@@ -68,12 +68,12 @@ atk_image_get_image_description (AtkImage *image)
 /**
  * atk_image_get_image_size:
  * @image: a #GObject instance that implements AtkImageIface
- * @width: filled with the image width
- * @height: filled with the image height
+ * @width: filled with the image width, or -1 if the value cannot be obtained.
+ * @height: filled with the image height, or -1 if the value cannot be obtained.
  *
  * Get the width and height in pixels for the specified image.
  * The values of @width and @height are returned as -1 if the
- * values cannot be obtained.
+ * values cannot be obtained (for instance, if the object is not onscreen).
  **/
 void
 atk_image_get_image_size (AtkImage *image, 
@@ -189,6 +189,7 @@ atk_image_get_image_position (AtkImage *image,
 
 /** 
  * Returns a string corresponding to the POSIX LC_MESSAGES locale used by the image description, or NULL if the image does not specify a locale. 
+ * @image: An #AtkImage
  * @Since ATK 1.12
  */
 G_CONST_RETURN gchar* 

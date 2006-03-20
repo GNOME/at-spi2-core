@@ -1008,17 +1008,17 @@ atk_object_notify_state_change (AtkObject *accessible,
  * Returns: a reference to an object's #AtkObject implementation
  */
 AtkObject *
-atk_implementor_ref_accessible (AtkImplementor *object)
+atk_implementor_ref_accessible (AtkImplementor *implementor)
 {
   AtkImplementorIface *iface;
   AtkObject           *accessible = NULL;
 
-  g_return_val_if_fail (ATK_IS_IMPLEMENTOR (object), NULL);
+  g_return_val_if_fail (ATK_IS_IMPLEMENTOR (implementor), NULL);
 
-  iface = ATK_IMPLEMENTOR_GET_IFACE (object);
+  iface = ATK_IMPLEMENTOR_GET_IFACE (implementor);
 
   if (iface != NULL) 
-    accessible =  iface->ref_accessible (object);
+    accessible =  iface->ref_accessible (implementor);
 
   g_return_val_if_fail ((accessible != NULL), NULL);
 
@@ -1027,6 +1027,9 @@ atk_implementor_ref_accessible (AtkImplementor *object)
 
     	
 /**
+ * atk_object_get_attributes:
+ *
+ * @accessible: An #AtkObject.
  * Get a list of properties applied to this object as a whole, as an #AtkAttributeSet consisting of 
  * name-value pairs. As such these attributes may be considered weakly-typed properties or annotations, 
  * as distinct from strongly-typed object data available via other get/set methods.
