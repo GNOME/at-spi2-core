@@ -1,3 +1,11 @@
+2006-03-20  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/table.c:
+	(impl_get_selected_rows): Don't free the selection if it's
+	empty or has not been assigned; init it to NULL so you can tell.
+	Also, allow for zero selected rows.
+	(impl_getSelectedColumns): Ditto.  Bug #319088.
+
 2006-03-11  Vincent Untz  <vuntz@gnome.org>
 
 	Leak fix for bug #334217.

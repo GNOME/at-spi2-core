@@ -274,7 +274,7 @@ static Accessibility_LongSeq *
 impl_getSelectedRows (PortableServer_Servant servant,
 		      CORBA_Environment     *ev)
 {
-  gint *selectedRows;
+  gint *selectedRows = NULL;
   gint length;
   Accessibility_LongSeq *retval;
   AtkTable *table = get_table_from_servant (servant);
@@ -283,7 +283,7 @@ impl_getSelectedRows (PortableServer_Servant servant,
 
   length = atk_table_get_selected_rows (table, &selectedRows);
 
-  bonobo_return_val_if_fail (length > 0, NULL, ev);
+  bonobo_return_val_if_fail (length >= 0, NULL, ev);
 
   retval = Accessibility_LongSeq__alloc ();
   retval->_maximum = retval->_length = length;
@@ -294,7 +294,7 @@ impl_getSelectedRows (PortableServer_Servant servant,
       retval->_buffer[length] = selectedRows[length];
     }
 
-  g_free (selectedRows);
+  if (selectedRows) g_free (selectedRows);
 
   return retval;
 }
@@ -304,7 +304,7 @@ static Accessibility_LongSeq *
 impl_getSelectedColumns (PortableServer_Servant servant,
 			 CORBA_Environment     *ev)
 {
-  gint *selectedColumns;
+  gint *selectedColumns = NULL;
   gint length;
   Accessibility_LongSeq *retval;
   AtkTable *table = get_table_from_servant (servant);
@@ -324,7 +324,7 @@ impl_getSelectedColumns (PortableServer_Servant servant,
       retval->_buffer[length] = (CORBA_long) selectedColumns[length];
     }
 
-  g_free (selectedColumns);
+  if (selectedColumns) g_free (selectedColumns);
 
   return retval;
 }
