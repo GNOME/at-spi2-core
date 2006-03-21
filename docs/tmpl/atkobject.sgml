@@ -317,8 +317,8 @@ to class and interface structures to allow for expansion in the future.
 
 </para>
 
-@data: 
-@Returns: 
+@data: a gpointer to parameter data.
+@Returns: Nothing useful, this is only a dummy prototype.
 
 
 <!-- ##### USER_FUNCTION AtkPropertyChangeHandler ##### -->
@@ -533,6 +533,15 @@ atk_object_connect_property_change_handler().
 @object: 
 @relationship: 
 @target: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_object_get_attributes ##### -->
+<para>
+
+</para>
+
+@accessible: 
 @Returns: 
 
 

@@ -35,6 +35,7 @@ atk_component_remove_focus_handler
 atk_component_set_extents
 atk_component_set_position
 atk_component_set_size
+atk_component_get_alpha
 <SUBSECTION Standard>
 AtkComponentIface
 ATK_COMPONENT
@@ -54,6 +55,10 @@ atk_rectangle_get_type
 AtkDocument
 atk_document_get_document_type
 atk_document_get_document
+atk_document_get_attribute_value
+atk_document_set_attribute_value
+atk_document_get_attributes
+atk_document_get_locale
 <SUBSECTION Standard>
 AtkDocumentIface
 ATK_DOCUMENT
@@ -107,6 +112,7 @@ atk_image_get_image_position
 atk_image_get_image_description
 atk_image_set_image_description
 atk_image_get_image_size
+atk_image_get_image_locale
 <SUBSECTION Standard>
 AtkImageIface
 ATK_IMAGE
@@ -181,6 +187,7 @@ atk_object_notify_state_change
 atk_object_initialize
 atk_object_add_relationship
 atk_object_remove_relationship
+atk_object_get_attributes
 atk_role_get_name
 atk_role_get_localized_name
 atk_role_for_name

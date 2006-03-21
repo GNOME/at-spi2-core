@@ -45,3 +45,42 @@ The AtkDocument structure does not contain any fields.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_document_get_attribute_value ##### -->
+<para>
+
+</para>
+
+@document: 
+@attribute_name: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_document_set_attribute_value ##### -->
+<para>
+
+</para>
+
+@document: 
+@attribute_name: 
+@attribute_value: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_document_get_attributes ##### -->
+<para>
+
+</para>
+
+@document: 
+@Returns: 
+
+
+<!-- ##### FUNCTION atk_document_get_locale ##### -->
+<para>
+
+</para>
+
+@document: 
+@Returns: 
+
+

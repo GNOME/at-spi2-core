@@ -737,9 +737,9 @@ atk_object_get_role (AtkObject *accessible)
  *
  * Gets the layer of the accessible.
  *
- * Returns: an #AtkLayer which is the layer of the accessible
- *
  * @Deprecated: Use atk_component_get_layer instead.
+ *
+ * Returns: an #AtkLayer which is the layer of the accessible
  **/
 AtkLayer
 atk_object_get_layer (AtkObject *accessible) 
@@ -762,11 +762,12 @@ atk_object_get_layer (AtkObject *accessible)
  * Gets the zorder of the accessible. The value G_MININT will be returned 
  * if the layer of the accessible is not ATK_LAYER_MDI.
  *
+ * @Deprecated: Use atk_component_get_mdi_zorder instead.
+ *
  * Returns: a gint which is the zorder of the accessible, i.e. the depth at 
  * which the component is shown in relation to other components in the same 
  * container.
  *
- * @Deprecated: Use atk_component_get_mdi_zorder instead.
  **/
 gint
 atk_object_get_mdi_zorder (AtkObject *accessible) 
@@ -1028,13 +1029,17 @@ atk_implementor_ref_accessible (AtkImplementor *implementor)
     	
 /**
  * atk_object_get_attributes:
- *
  * @accessible: An #AtkObject.
+ *
  * Get a list of properties applied to this object as a whole, as an #AtkAttributeSet consisting of 
  * name-value pairs. As such these attributes may be considered weakly-typed properties or annotations, 
  * as distinct from strongly-typed object data available via other get/set methods.
  * Not all objects have explicit "name-value pair" #AtkAttributeSet properties.
+ *
  * @Since ATK 1.12
+ *
+ * Returns: an #AtkAttributeSet consisting of all explicit properties/annotations applied to 
+ * the object, or an empty set if the object has no name-value pair attributes assigned to it.
  */
 AtkAttributeSet *
 atk_object_get_attributes (AtkObject                  *accessible)

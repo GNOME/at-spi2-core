@@ -1,3 +1,23 @@
+2006-03-21 Bill Haneman <bill.haneman@sun.com>
+
+	gtk-doc documentation fixes: ATK now has 100% API coverage
+	with no incomplete function/struct descriptions.
+	
+	* atk/atkdocument.c: Edited docs to make gtk-doc happier.
+	* atk/atkimage.c: Ditto.
+	* atk/atkobject.c: Moved 'Deprecated' tag relative to 'Returns',
+	to make gtk-doc happier.
+	* atk/atkobject.h: Documented AtkPropertyValues.
+	* atk/atkrelationtypes: Documented the unused/invalid types
+	ATK_RELATION_TYPE_NULL and ATK_RELATION_TYPE_LAST_DEFINED.
+	* atk/atktext.h: Documented AtkTextBoundaryType.
+	* atk/atkutil.h: Documented AtkKeyEventStruct.
+	* docs/atksections.txt: Added missing function entries.
+	* docs/tmpl/atkhypertext.sgml: Added long description.
+	* docs/tmpl/atkregistry.sgml: Added long description.
+	* docs/tmpl/atkrelationset.sgml: Added long description.
+	* docs/tmpl/atkstreamablecontent.sgml: Added long description.
+	
 2006-03-21  Tor Lillqvist  <tml@novell.com>
 
 	* atk/atkobject.c (get_atk_locale_dir): Fix fatal typo.

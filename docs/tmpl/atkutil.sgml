@@ -21,7 +21,7 @@ information about the current ATK implementation and toolkit version.
 
 <!-- ##### STRUCT AtkUtil ##### -->
 <para>
-
+The AtkUtil struct does not contain any fields.
 </para>
 
 

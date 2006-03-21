@@ -136,10 +136,11 @@ atk_document_get_locale (AtkDocument *document)
  * Gets an AtkAttributeSet which describes document-wide
  *          attributes as name-value pairs.
  *
+ * @Since: ATK 1.12
+ *
  * Returns: An AtkAttributeSet containing the explicitly
  *          set name-value-pair attributes associated with this document
  *          as a whole.
- * @Since: ATK 1.12
  **/
 AtkAttributeSet *
 atk_document_get_attributes (AtkDocument *document)
@@ -166,10 +167,11 @@ atk_document_get_attributes (AtkDocument *document)
  * @attribute_name: a character string representing the name of the attribute
  *            whose value is being queried.
  *
+ * @Since: ATK 1.12
+ *
  * Returns: a string value associated with the named attribute for this
  *    document, or NULL if a value for #attribute_name has not been specified
  *    for this document.
- * @Since: ATK 1.12
  */
 G_CONST_RETURN gchar *
 atk_document_get_attribute_value (AtkDocument *document, 
@@ -196,17 +198,18 @@ atk_document_get_attribute_value (AtkDocument *document,
  * @document: a #GObject instance that implements AtkDocumentIface
  * @attribute_name: a character string representing the name of the attribute
  *            whose value is being set.
- * @value: a string value to be associated with #attribute_name.
+ * @attribute_value: a string value to be associated with #attribute_name.
+ *
+ * @Since: ATK 1.12
  *
  * Returns: TRUE if #value is successfully associated with #attribute_name
  *          for this document, FALSE otherwise (e.g. if the document does not
  *          allow the attribute to be modified).
- * @Since ATK 1.12
  */
 gboolean
 atk_document_set_attribute_value (AtkDocument *document, 
 				  const gchar *attribute_name,
-				  const gchar *value)
+				  const gchar *attribute_value)
 {
   AtkDocumentIface *iface;
 
@@ -216,7 +219,7 @@ atk_document_set_attribute_value (AtkDocument *document,
 
   if (iface->set_document_attribute)
     {
-      return (iface->set_document_attribute) (document, attribute_name, value);
+      return (iface->set_document_attribute) (document, attribute_name, attribute_value);
     }
   else
     {

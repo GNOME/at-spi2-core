@@ -76,3 +76,12 @@ The AtkImage structure does not contain any fields.
 @height: 
 
 
+<!-- ##### FUNCTION atk_image_get_image_locale ##### -->
+<para>
+
+</para>
+
+@image: 
+@Returns: 
+
+

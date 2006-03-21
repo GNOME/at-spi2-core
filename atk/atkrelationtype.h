@@ -26,7 +26,7 @@ extern "C" {
 
 /**
  *AtkRelationType:
- *@ATK_RELATION_NULL:
+ *@ATK_RELATION_NULL: Not used, represens "no relationship" or an error condition.
  *@ATK_RELATION_CONTROLLED_BY: Indicates an object controlled by one or more target objects.
  *@ATK_RELATION_CONTROLLER_FOR: Indicates an object is an controller for one or more target objects.
  *@ATK_RELATION_LABEL_FOR: Indicates an object is a label for one or more target objects.
@@ -45,7 +45,7 @@ extern "C" {
  *  this object's content is visualy embedded in another object.
  *@ATK_RELATION_POPUP_FOR: Indicates that an object is a popup for another object.
  *@ATK_RELATION_PARENT_WINDOW_OF: Indicates that an object is a parent window of another object.
- *@ATK_RELATION_LAST_DEFINED:
+ *@ATK_RELATION_LAST_DEFINED: Not used, this value indicates the end of the enumeration.
  * 
  *Describes the type of the relation
  **/

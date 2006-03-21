@@ -7,7 +7,11 @@ object for an object of a particular GType.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+The AtkRegistry is normally used to create appropriate ATK "peers" for user
+interface components.  Application developers usually need only interact with
+the AtkRegistry by associating appropriate ATK implementation classes with
+GObject classes via the atk_registry_set_factory_type call, passing the
+appropriate GType for application custom widget classes.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->
