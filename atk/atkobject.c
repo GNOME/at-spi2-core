@@ -247,7 +247,7 @@ get_atk_locale_dir (void)
 
   if (!atk_localedir)
     {
-      gchar temp;
+      gchar *temp;
 
       temp = g_win32_get_package_installation_subdirectory
         (GETTEXT_PACKAGE, dll_name, "lib\\locale");
