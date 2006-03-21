@@ -13,6 +13,7 @@ EXPORTS
 	atk_attribute_set_free
 	atk_component_add_focus_handler
 	atk_component_contains
+	atk_component_get_alpha
 	atk_component_get_extents
 	atk_component_get_layer
 	atk_component_get_mdi_zorder
@@ -26,9 +27,13 @@ EXPORTS
 	atk_component_set_position
 	atk_component_set_size
 	atk_coord_type_get_type
+	atk_document_get_attribute_value
+	atk_document_get_attributes
+	atk_document_get_locale
 	atk_document_get_document
 	atk_document_get_document_type
 	atk_document_get_type
+	atk_document_set_attribute_value
 	atk_editable_text_copy_text
 	atk_editable_text_cut_text
 	atk_editable_text_delete_text
@@ -61,6 +66,7 @@ EXPORTS
 	atk_hypertext_get_n_links
 	atk_hypertext_get_type
 	atk_image_get_image_description
+	atk_image_get_image_locale
 	atk_image_get_image_position
 	atk_image_get_image_size
 	atk_image_get_type
@@ -79,6 +85,7 @@ EXPORTS
 	atk_object_factory_get_accessible_type
 	atk_object_factory_get_type
 	atk_object_factory_invalidate
+	atk_object_get_attributes
 	atk_object_get_description
 	atk_object_get_index_in_parent
 	atk_object_get_layer

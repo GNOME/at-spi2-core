@@ -1,3 +1,7 @@
+2006-03-21  Tor Lillqvist  <tml@novell.com>
+
+	* atk/atk.def: Add some missing functions.
+
 2006-03-20  Vladimer Sichinava  <vlsichinava@gmail.com>
 
         * configure.in: Added "ka" (Georgian) to ALL_LINGUAS
