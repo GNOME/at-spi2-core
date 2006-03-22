@@ -1,480 +1,513 @@
-# Indonesia translation of atk gnome-2-2.
-# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Indonesia translation of atk HEAD.
+# Copyright (C) 2005 THE atk's COPYRIGHT HOLDER
+# This file is distributed under the same license as the atk package.
+# Ahmad Riza H Nst  <rizahnst@gnome.org>, 2006
 # Mohammad DAMT <mdamt@bisnisweb.com>, 2005.
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: atk gnome-2-2\n"
+"Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-16 21:15+0300\n"
-"PO-Revision-Date: 2005-05-16 21:31+0300\n"
+"POT-Creation-Date: 2006-03-22 21:29+0700\n"
+"PO-Revision-Date: 2006-03-22 21:31+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
-"Language-Team: Indonesia <id@li.org>\n"
+"Language-Team: Indonesia <kontak@id.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
-#: ../atk/atkhyperlink.c:103
+#: atk/atkhyperlink.c:103
 msgid "Selected Link"
 msgstr "Taut Terpilih"
 
-#: ../atk/atkhyperlink.c:104
+#: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Menentukan apakah objek AtkHyperlink dipilih atau tidak"
 
-#: ../atk/atkhyperlink.c:110
+#: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
 msgstr "Jumlah Jangkar/Anchor"
 
-#: ../atk/atkhyperlink.c:111
+#: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "Jumlah jangkar/anchor yang dihubungkan dengan objek AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:119
+#: atk/atkhyperlink.c:119
 msgid "End index"
 msgstr "Indeks akhir"
 
-#: ../atk/atkhyperlink.c:120
+#: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
 msgstr "Akhir indeks objek AtkHyperlink"
 
-#: ../atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:128
 msgid "Start index"
 msgstr "Indeks awal"
 
-#: ../atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
 msgstr "Indeks awal objek AtkHyperlink"
 
-#: ../atk/atkobject.c:82
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "tidak valid"
 
-#: ../atk/atkobject.c:83
+#: atk/atkobject.c:83
 msgid "accelerator label"
 msgstr "label akselerator"
 
-#: ../atk/atkobject.c:84
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "waspada"
 
-#: ../atk/atkobject.c:85
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "animasi"
 
-#: ../atk/atkobject.c:86
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "panah"
 
-#: ../atk/atkobject.c:87
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "kalender"
 
-#: ../atk/atkobject.c:88
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "kanvas"
 
-#: ../atk/atkobject.c:89
+#: atk/atkobject.c:89
 msgid "check box"
 msgstr "kotak centang"
 
-#: ../atk/atkobject.c:90
+#: atk/atkobject.c:90
 msgid "check menu item"
 msgstr "isi menu centang"
 
-#: ../atk/atkobject.c:91
+#: atk/atkobject.c:91
 msgid "color chooser"
 msgstr "pemilih warna"
 
-#: ../atk/atkobject.c:92
+#: atk/atkobject.c:92
 msgid "column header"
 msgstr "kepala kolom"
 
-#: ../atk/atkobject.c:93
+#: atk/atkobject.c:93
 msgid "combo box"
 msgstr "kotak kombo"
 
-#: ../atk/atkobject.c:94
+#: atk/atkobject.c:94
 msgid "dateeditor"
 msgstr "penyunting tanggal"
 
-#: ../atk/atkobject.c:95
+#: atk/atkobject.c:95
 msgid "desktop icon"
 msgstr "ikon desktop"
 
-#: ../atk/atkobject.c:96
+#: atk/atkobject.c:96
 msgid "desktop frame"
 msgstr "bingkai desktop"
 
-#: ../atk/atkobject.c:97
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "tombol pemutar"
 
-#: ../atk/atkobject.c:98
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "dialog"
 
-#: ../atk/atkobject.c:99
+#: atk/atkobject.c:99
 msgid "directory pane"
 msgstr "panel direktori"
 
-#: ../atk/atkobject.c:100
+#: atk/atkobject.c:100
 msgid "drawing area"
 msgstr "area gambar"
 
-#: ../atk/atkobject.c:101
+#: atk/atkobject.c:101
 msgid "file chooser"
 msgstr "pemilih berkas"
 
-#: ../atk/atkobject.c:102
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "isian"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:104
+#: atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "pemilih font"
 
-#: ../atk/atkobject.c:105
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "bingkai"
 
-#: ../atk/atkobject.c:106
+#: atk/atkobject.c:106
 msgid "glass pane"
 msgstr "panel kaca"
 
-#: ../atk/atkobject.c:107
+#: atk/atkobject.c:107
 msgid "html container"
 msgstr "kontainer html"
 
-#: ../atk/atkobject.c:108
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "ikon"
 
-#: ../atk/atkobject.c:109
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "gambar"
 
-#: ../atk/atkobject.c:110
+#: atk/atkobject.c:110
 msgid "internal frame"
 msgstr "bingkai internal"
 
-#: ../atk/atkobject.c:111
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "label"
 
-#: ../atk/atkobject.c:112
+#: atk/atkobject.c:112
 msgid "layered pane"
 msgstr "panel  berlayer"
 
-#: ../atk/atkobject.c:113
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "daftar"
 
-#: ../atk/atkobject.c:114
+#: atk/atkobject.c:114
 msgid "list item"
 msgstr "isi daftar"
 
-#: ../atk/atkobject.c:115
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "menu"
 
-#: ../atk/atkobject.c:116
+#: atk/atkobject.c:116
 msgid "menu bar"
 msgstr "kotak menu"
 
-#: ../atk/atkobject.c:117
+#: atk/atkobject.c:117
 msgid "menu item"
 msgstr "anggota menu"
 
-#: ../atk/atkobject.c:118
+#: atk/atkobject.c:118
 msgid "option pane"
 msgstr "panel pilihan"
 
-#: ../atk/atkobject.c:119
+#: atk/atkobject.c:119
 msgid "page tab"
 msgstr "halaman tab"
 
-#: ../atk/atkobject.c:120
+#: atk/atkobject.c:120
 msgid "page tab list"
 msgstr "daftar halaman tab"
 
-#: ../atk/atkobject.c:121
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "panel"
 
-#: ../atk/atkobject.c:122
+#: atk/atkobject.c:122
 msgid "password text"
 msgstr "teks sandi"
 
-#: ../atk/atkobject.c:123
+#: atk/atkobject.c:123
 msgid "popup menu"
 msgstr "menu popup"
 
-#: ../atk/atkobject.c:124
+#: atk/atkobject.c:124
 msgid "progress bar"
 msgstr "indikator kemajuan"
 
-#: ../atk/atkobject.c:125
+#: atk/atkobject.c:125
 msgid "push button"
 msgstr "tombol tekan"
 
-#: ../atk/atkobject.c:126
+#: atk/atkobject.c:126
 msgid "radio button"
 msgstr "tombol radio"
 
-#: ../atk/atkobject.c:127
+#: atk/atkobject.c:127
 msgid "radio menu item"
 msgstr "anggota menu radio"
 
-#: ../atk/atkobject.c:128
+#: atk/atkobject.c:128
 msgid "root pane"
 msgstr "panel dasar"
 
-#: ../atk/atkobject.c:129
+#: atk/atkobject.c:129
 msgid "row header"
 msgstr "kepala baris"
 
-#: ../atk/atkobject.c:130
+#: atk/atkobject.c:130
 msgid "scroll bar"
 msgstr "batang penggeser"
 
-#: ../atk/atkobject.c:131
+#: atk/atkobject.c:131
 msgid "scroll pane"
 msgstr "panel penggeser"
 
-#: ../atk/atkobject.c:132
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "pemisah"
 
-#: ../atk/atkobject.c:133
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "slider"
 
-#: ../atk/atkobject.c:134
+#: atk/atkobject.c:134
 msgid "split pane"
 msgstr "panel pemisah"
 
-#: ../atk/atkobject.c:135
+#: atk/atkobject.c:135
 msgid "spin button"
 msgstr "tombol putar"
 
-#: ../atk/atkobject.c:136
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "kolom status"
 
-#: ../atk/atkobject.c:137
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "tabel"
 
-#: ../atk/atkobject.c:138
+#: atk/atkobject.c:138
 msgid "table cell"
 msgstr "sel tabel"
 
-#: ../atk/atkobject.c:139
+#: atk/atkobject.c:139
 msgid "table column header"
 msgstr "kepala kolom pada tabel"
 
-#: ../atk/atkobject.c:140
+#: atk/atkobject.c:140
 msgid "table row header"
 msgstr "kepala baris pada tabel"
 
-#: ../atk/atkobject.c:141
+#: atk/atkobject.c:141
 msgid "tear off menu item"
 msgstr "anggota menu yang dapat dilepas"
 
-#: ../atk/atkobject.c:142
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "terminal"
 
-#: ../atk/atkobject.c:143
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "teks"
 
-#: ../atk/atkobject.c:144
+#: atk/atkobject.c:144
 msgid "toggle button"
 msgstr "tombol togel"
 
-#: ../atk/atkobject.c:145
+#: atk/atkobject.c:145
 msgid "tool bar"
 msgstr "batang alat"
 
-#: ../atk/atkobject.c:146
+#: atk/atkobject.c:146
 msgid "tool tip"
 msgstr "teks bantuan"
 
-#: ../atk/atkobject.c:147
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "pohon"
 
-#: ../atk/atkobject.c:148
+#: atk/atkobject.c:148
 msgid "tree table"
 msgstr "tabel pohon"
 
-#: ../atk/atkobject.c:149
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "tidak diketahui"
 
-#: ../atk/atkobject.c:150
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "viewport"
 
-#: ../atk/atkobject.c:151
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "jendela"
 
-#: ../atk/atkobject.c:152
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "kepala"
 
-#: ../atk/atkobject.c:153
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "kaki"
 
-#: ../atk/atkobject.c:154
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "paragraf"
 
-#: ../atk/atkobject.c:155
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "aplikasi"
 
-#: ../atk/atkobject.c:156
+#: atk/atkobject.c:156
 msgid "autocomplete"
 msgstr "lengkap secara otomatis"
 
-#: ../atk/atkobject.c:157
+#: atk/atkobject.c:157
 msgid "edit bar"
 msgstr "batang penyunting"
 
-#: ../atk/atkobject.c:158
+#: atk/atkobject.c:158
 msgid "embedded component"
 msgstr "komponen tercangkok"
 
-#: ../atk/atkobject.c:337
+#: atk/atkobject.c:159
+msgid "entry"
+msgstr ""
+
+#: atk/atkobject.c:160
+msgid "chart"
+msgstr ""
+
+#: atk/atkobject.c:161
+msgid "caption"
+msgstr ""
+
+#: atk/atkobject.c:162
+msgid "document frame"
+msgstr "bingkai dokumen"
+
+#: atk/atkobject.c:163
+msgid "heading"
+msgstr "judul"
+
+#: atk/atkobject.c:164
+msgid "page"
+msgstr "halaman"
+
+#: atk/atkobject.c:165
+msgid "section"
+msgstr "bagian"
+
+#: atk/atkobject.c:166
+msgid "redundant object"
+msgstr ""
+
+#: atk/atkobject.c:355
 msgid "Accessible Name"
 msgstr "Nama Akses"
 
-#: ../atk/atkobject.c:338
+#: atk/atkobject.c:356
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Nama turunan objek yang digunakan untuk teknologi kemudahan akses"
 
-#: ../atk/atkobject.c:344
+#: atk/atkobject.c:362
 msgid "Accessible Description"
 msgstr "Keterangan Akses"
 
-#: ../atk/atkobject.c:345
+#: atk/atkobject.c:363
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Keterangan objek yang digunakan dalam teknologi kemudahan akses"
 
-#: ../atk/atkobject.c:351
+#: atk/atkobject.c:369
 msgid "Accessible Parent"
 msgstr "Induk Akses"
 
-#: ../atk/atkobject.c:352
+#: atk/atkobject.c:370
 msgid "Is used to notify that the parent has changed"
 msgstr "Digunakan untuk memberitahu bahwa induk telah berubah"
 
-#: ../atk/atkobject.c:358
+#: atk/atkobject.c:376
 msgid "Accessible Value"
 msgstr "Nilai Akses"
 
-#: ../atk/atkobject.c:359
+#: atk/atkobject.c:377
 msgid "Is used to notify that the value has changed"
 msgstr "Digunakan untuk memberitahukan bahwa nilai telah berubah"
 
-#: ../atk/atkobject.c:367
+#: atk/atkobject.c:385
 msgid "Accessible Role"
 msgstr "Peran Akses"
 
-#: ../atk/atkobject.c:368
+#: atk/atkobject.c:386
 msgid "The accessible role of this object"
 msgstr "Peran akses objek ini"
 
-#: ../atk/atkobject.c:376
+#: atk/atkobject.c:394
 msgid "Accessible Layer"
 msgstr "Tapis Akses"
 
-#: ../atk/atkobject.c:377
+#: atk/atkobject.c:395
 msgid "The accessible layer of this object"
 msgstr "Tapis akses objek ini"
 
-#: ../atk/atkobject.c:385
+#: atk/atkobject.c:403
 msgid "Accessible MDI Value"
 msgstr "Nilai MDI Akses"
 
-#: ../atk/atkobject.c:386
+#: atk/atkobject.c:404
 msgid "The accessible MDI value of this object"
 msgstr "Nilai MDI akses objek ini"
 
-#: ../atk/atkobject.c:394
+#: atk/atkobject.c:412
 msgid "Accessible Table Caption"
 msgstr "Judul Tabel Akses"
 
-#: ../atk/atkobject.c:395
+#: atk/atkobject.c:413
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Digunakan untuk memberi peringatan bahwa judul tabel telah berubah,"
-"nilai ini sebaiknya tidak digunakan, silakan gunakan "
-"accessible-table-caption-object saja."
+"Digunakan untuk memberi peringatan bahwa judul tabel telah berubah,nilai ini "
+"sebaiknya tidak digunakan, silakan gunakan accessible-table-caption-object "
+"saja."
 
-#: ../atk/atkobject.c:401
+#: atk/atkobject.c:419
 msgid "Accessible Table Column Header"
 msgstr "Kepala Kolom Tabel Akses"
 
-#: ../atk/atkobject.c:402
+#: atk/atkobject.c:420
 msgid "Is used to notify that the table column header has changed"
 msgstr "Digunakan untuk memberitahu bahwa kepala kolom telah berubah"
 
-#: ../atk/atkobject.c:408
+#: atk/atkobject.c:426
 msgid "Accessible Table Column Description"
 msgstr "Keterangan Kolom Tabel Akses"
 
-#: ../atk/atkobject.c:409
+#: atk/atkobject.c:427
 msgid "Is used to notify that the table column description has changed"
-msgstr "Digunakan untuk memberitahu bahwa keterangan kolom "
-"tabel telah berubah"
+msgstr "Digunakan untuk memberitahu bahwa keterangan kolom tabel telah berubah"
 
-#: ../atk/atkobject.c:415
+#: atk/atkobject.c:433
 msgid "Accessible Table Row Header"
 msgstr "Kepala Baris Tabel Akses"
 
-#: ../atk/atkobject.c:416
+#: atk/atkobject.c:434
 msgid "Is used to notify that the table row header has changed"
 msgstr "Digunakan untuk memberitahu bawha kepala baris tabel telah berubah"
 
-#: ../atk/atkobject.c:422
+#: atk/atkobject.c:440
 msgid "Accessible Table Row Description"
 msgstr "Keterangan Baris Tabel Akses"
 
-#: ../atk/atkobject.c:423
+#: atk/atkobject.c:441
 msgid "Is used to notify that the table row description has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan baris tabel telah berubah"
 
-#: ../atk/atkobject.c:429
+#: atk/atkobject.c:447
 msgid "Accessible Table Summary"
 msgstr "Ringkasan Tabel Akses"
 
-#: ../atk/atkobject.c:430
+#: atk/atkobject.c:448
 msgid "Is used to notify that the table summary has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan tabel telah berubah"
 
-#: ../atk/atkobject.c:436
+#: atk/atkobject.c:454
 msgid "Accessible Table Caption Object"
 msgstr "Objek Judul Tabel Akses"
 
-#: ../atk/atkobject.c:437
+#: atk/atkobject.c:455
 msgid "Is used to notify that the table caption has changed"
 msgstr "Digunakan untuk memberitahu bahwa judul tabel telah berubah"
 
-#: ../atk/atkobject.c:443
+#: atk/atkobject.c:461
 msgid "Number of Accessible Hypertext Links"
 msgstr "Jumlah Akses Taut Hiperteks"
 
-#: ../atk/atkobject.c:444
+#: atk/atkobject.c:462
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Jumlah taut yang dimiliki AtkHypertext saat ini"
 
