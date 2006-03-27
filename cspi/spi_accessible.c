@@ -525,6 +525,8 @@ Accessible_getRoleName (Accessible *obj)
  * This method will return useful values for roles that fall outside the
  * enumeration used in Accessible_getRole ().
  *
+ * @Since: AT-SPI 1.4
+ *
  * Returns: a UTF-8 string specifying the role of this #Accessible object.
  *
  **/
@@ -546,6 +548,8 @@ Accessible_getLocalizedRoleName (Accessible *obj)
 /**
  * Accessible_getStateSet:
  * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Gets the current state of an object.
  *
  * Returns: a pointer to an #AccessibleStateSet representing the object's current state.
  **/
@@ -577,11 +581,13 @@ Accessible_getStateSet (Accessible *obj)
 
 /**
  * Accessible_getAttributes:
+ * @obj: The #Accessible being queried.
+ *
  * Get the #AttributeSet representing any assigned 
  * name-value pair attributes or annotations for this object.
  * For typographic, textual, or textually-semantic attributes, see
  * AccessibleText_getAttributes instead.
- * @obj: The #Accessible being queried.
+ *
  * Returns: The name-value-pair attributes assigned to this object.
  */
 AccessibleAttributeSet *
@@ -604,8 +610,10 @@ Accessible_getAttributes (Accessible *obj)
 
 /**
  * Accessible_getHostApplication:
- * Get the containing #AccessibleApplication for an object.
  * @obj: The #Accessible being queried.
+ *
+ * Get the containing #AccessibleApplication for an object.
+ *
  * Returns: the containing AccessibleApplication instance for this object.
  */
 AccessibleApplication *

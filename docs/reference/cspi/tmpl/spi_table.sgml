@@ -242,3 +242,43 @@ AccessibleTable Interface
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleTable_addColumnSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_addRowSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_removeColumnSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@column: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleTable_removeRowSelection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@row: 
+@Returns: 
+
+

@@ -80,7 +80,7 @@ cspi_object_release (gpointer value)
 }
 
 gboolean
-_cspi_exception_throw (CORBA_Environment *ev, char *desc_prefix)
+cspi_exception_throw (CORBA_Environment *ev, char *desc_prefix)
 {
   SPIExceptionHandler *handler = NULL;
   SPIException ex;
@@ -550,6 +550,8 @@ SPI_freeString (char *s)
  * A NULL rect @r will be silently ignored.
  * This API should not be used to free data
  * from other libraries or allocated by the client.
+ *
+ * @Since: AT-SPI 1.6
  **/
 void
 SPI_freeRect (SPIRect *r)
@@ -563,7 +565,13 @@ SPI_freeRect (SPIRect *r)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPI_dupString:
+ * @s: a UTF-8 string to be duplicated
+ * 
+ * @Since: AT-SPI 1.4
+ *
+ * Returns: a duplicate of the string passed as a parameter, which should
+ * be freed via SPI_freeString after use.
  **/
 char *
 SPI_dupString (char *s)
@@ -577,7 +585,15 @@ SPI_dupString (char *s)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPI_exceptionHandlerPush:
+ * @handler: an #SPIExceptionHandler to install as the first code to deal with exceptions.
+ *
+ * Install a client-side handler for #SPIException instances, which can see and handle any
+ * exceptions before chaining them to the next exception handler in the stack.
+ *
+ * @Since: AT-SPI 1.4
+ *
+ * Returns %TRUE if the result succeeded, %FALSE if @hander could not be registered.
  **/
 SPIBoolean SPI_exceptionHandlerPush (SPIExceptionHandler *handler)
 {
@@ -588,7 +604,13 @@ SPIBoolean SPI_exceptionHandlerPush (SPIExceptionHandler *handler)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPI_exceptionHandlerPop:
+ * 
+ * Remove/pop an #SPIExceptionHandler off the error handler stack and return the new handler.
+ *
+ * @Since: AT-SPI 1.4
+ *
+ * Returns the #SPIExceptionHandler which is now at the top of the error handler stack after the call.
  **/
 SPIExceptionHandler* SPI_exceptionHandlerPop (void)
 {
@@ -596,7 +618,14 @@ SPIExceptionHandler* SPI_exceptionHandlerPop (void)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPIException_getSourceType:
+ * @err: the exception being queried
+ *
+ * Get the #SPIExceptionType of an exception which has been thrown.
+ *
+ * @Since: AT-SPI 1.4
+ *
+ * Returns: the #SPIExceptionType corresponding to exception @err.
  **/
 SPIExceptionType SPIException_getSourceType (SPIException *err)
 {
@@ -607,7 +636,14 @@ SPIExceptionType SPIException_getSourceType (SPIException *err)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPIException_getExceptionCode:
+ * @err: the #SPIException being queried.
+ *
+ * Get the #SPIExceptionCode telling what type of exception condition has occurred.
+ *
+ * @Since: AT-SPI 1.4
+ *
+ * Returns: the #SPIExceptionCode corresponding to exception @err.
  **/
 SPIExceptionCode SPIException_getExceptionCode (SPIException *err)
 {  
@@ -615,7 +651,14 @@ SPIExceptionCode SPIException_getExceptionCode (SPIException *err)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPIAccessibleException_getSource:
+ * @err: the #SPIException being queried.
+ *
+ * Get the identity of the object which threw an exception.
+ *
+ * @Since: AT-SPI 1.4
+ *
+ * Returns: a pointer to the #Accessible object which threw the exception.
  **/
 Accessible* SPIAccessibleException_getSource (SPIException *err)
 {
@@ -625,7 +668,14 @@ Accessible* SPIAccessibleException_getSource (SPIException *err)
 }
 
 /**
- * DOCUMENT_ME!
+ * SPIException_getDescription:
+ * @err: the #SPIException being queried.
+ *
+ * Get a text description of the exception that has been thrown.
+ * Unfortunately these descriptions tend to be terse and limited in
+ * the detail which they can provide.
+ *
+ * Returns: a brief character string describing the exception.
  **/
 char* SPIException_getDescription (SPIException *err)
 {

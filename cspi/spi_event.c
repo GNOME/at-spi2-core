@@ -427,9 +427,9 @@ cspi_internal_event_get_rect (const InternalEvent *e)
 
 /**
  * AccessibleEvent_getSourceName:
+ * @e: an #AccessibleEvent to be queried. 
  *
  * Get the 'accessible-name' of the object emitting the event.
- * @event: an #AccessibleEvent to be queried. 
  *
  * Returns: The name of the event source, or NULL if the event source cannot be identified
  *          or does not report a name.
@@ -451,9 +451,9 @@ char*        AccessibleEvent_getSourceName (const AccessibleEvent *e)
 
 /**
  * AccessibleEvent_getSourceRole:
+ * @e: an #AccessibleEvent to be queried. 
  *
  * Get the #AccessibleRole of the object emitting the event.
- * @event: an #AccessibleEvent to be queried. 
  *
  * Returns: #AccessibleRole of the event source, or SPI_ROLE_UNKNOWN
  *          if the event source's role is unknown or unspecified.
@@ -477,9 +477,9 @@ AccessibleRole AccessibleEvent_getSourceRole (const AccessibleEvent *e)
 
 /**
  * AccessibleEvent_getSourceApplication:
+ * @e: an #AccessibleEvent to be queried. 
  *
  * Get the #Application hosting the object which emitted the event.
- * @event: an #AccessibleEvent to be queried. 
  *
  * Returns: A pointer to the host #Application contining the event source
  *          component.
@@ -500,12 +500,17 @@ AccessibleApplication* AccessibleEvent_getSourceApplication (const AccessibleEve
 }
 
 /**
- * AccessibleEvent_getSourceApplication:
+ * AccessibleEvent_getSourceDetails:
+ * @e: an #AccessibleEvent to be queried. 
+ * @name: a pointer to a character string which will point to the name of the event source 
+ * on successful completion of the call.
+ * @role: a pointer to an #AccessibleRole which will point to the role of the event source
+ * on successful completion of the call.
+ * @app: A pointer to an #AccessibleApplication which points to the host application for this event
+ * on successful completion of the call.
  *
  * Get the host #Application, "accessible name", and #AccessibleRole 
  * of the object which emitted the event.
- *
- * @event: an #AccessibleEvent to be queried. 
  *
  * Returns: TRUE if the source details were successfully retrieved, 
  *          FALSE if they were not, either due to error, incomplete data,
@@ -773,6 +778,8 @@ AccessibleDescriptionChangedEvent_getDescriptionString (const AccessibleEvent *e
  *         new bounds, or NULL on error.
  *         The returned structure should be freed with SPI_freeRect when 
  *         the caller has finished referencing it.
+ *
+ * @Since: AT-SPI 1.6
  *
  * Returns: a pointer to an SPIRect defining the new object bounds.
  **/

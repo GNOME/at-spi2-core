@@ -60,6 +60,16 @@ AccessibleApplication API
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleApplication_getLocale ##### -->
+<para>
+
+</para>
+
+@obj: 
+@lc_category: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleApplication_pause ##### -->
 <para>
 

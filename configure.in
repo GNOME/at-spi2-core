@@ -199,6 +199,11 @@ AC_TRY_CPP([#include <popt.h>
 You can download the latest version from ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.0.x/])
 ])
 
+#libtool option to strip symbols starting with cspi
+#
+LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
+AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
+
 REBUILD=\#
 if test "x$enable_rebuilds" = "xyes" && \
 	test -n "$PERL" && \

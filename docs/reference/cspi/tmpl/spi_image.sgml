@@ -76,3 +76,12 @@ AccessibleImage Interface
 @ctype: 
 
 
+<!-- ##### FUNCTION AccessibleImage_getImageLocale ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+

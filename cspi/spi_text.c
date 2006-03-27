@@ -280,6 +280,8 @@ AccessibleText_getAttributes (AccessibleText *obj,
  *          the attributes reported by #AccessibleText_getAttributes
  *          describes the entire set of text attributes over a range.
  *
+ * @Since: AT-SPI 1.4
+ *
  * Returns: a text string describing the default attributes 
  *          applied to a text object, (exclusive of explicitly-set
  *          attributes), encoded as UTF-8.
@@ -643,6 +645,7 @@ AccessibleText_getOffsetAtPoint (AccessibleText *obj,
  *
  * Get the bounding box for text within a range in an  #AccessibleText object.
  *
+ * @Since: AT-SPI 1.2
  **/
 void
 AccessibleText_getRangeExtents (AccessibleText *obj,
@@ -703,6 +706,8 @@ AccessibleText_getRangeExtents (AccessibleText *obj,
  * Get the ranges of text from an #AccessibleText object which lie within the
  *          bounds defined by (@x, @y) and (@x+@width, @y+@height).  
  *
+ * @Since: AT-SPI 1.2
+ *
  * Returns: a null-terminated list of pointers to AccessibleTextRange structs 
  *          detailing the bounded text.
  **/
@@ -740,6 +745,8 @@ AccessibleText_getBoundedRanges (AccessibleText *obj,
  * Free the memory used by a list of AccessibleTextRange structs.
  * The argument passed in should be an array of pointers 
  * AccessibleTextRange structs.  
+ *
+ * @Since: AT-SPI 1.2
  **/
 void
 AccessibleTextRange_freeRanges (AccessibleTextRange **ranges)

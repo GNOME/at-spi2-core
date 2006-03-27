@@ -183,10 +183,12 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
 
 /**
  * AccessibleImage_getImageLocale:
- * Get the locale associated with an image and its textual representation.
  * @obj: The #AccessibleImage being queried.
+ *
+ * Get the locale associated with an image and its textual representation.
+ *
  * Returns: A POSIX LC_MESSAGES-style Locale value for image description and text.
- */
+ **/
 char *
 AccessibleImage_getImageLocale  (AccessibleImage *obj)
 {

@@ -331,10 +331,12 @@ AccessibleComponent_grabFocus (AccessibleComponent *obj)
 
 /**
  * AccessibleComponent_getAlpha:
- * Return the opacity/alpha value of a component, if alpha blending is in use.
  * @obj: The #AccessibleComponent to be queried.
+ *
+ * Get the opacity/alpha value of a component, if alpha blending is in use.
+ *
  * Returns: the opacity value of a component, as a double between 0.0 and 1.0. 
- */
+ **/
 double      
 AccessibleComponent_getAlpha    (AccessibleComponent *obj)
 {

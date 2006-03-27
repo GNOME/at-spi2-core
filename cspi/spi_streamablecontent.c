@@ -52,7 +52,7 @@ stream_cache_item_free (gpointer a)
 
 static GHashTable *streams = NULL;
 
-GHashTable *
+static GHashTable *
 get_streams (void) 
 {
   if (streams == NULL)
@@ -104,6 +104,7 @@ cspi_streams_close_all (void)
  *
  * Increment the reference count for an #AccessibleStreamableContent object.
  *
+ * @Since: AT-SPI 1.4
  **/
 void
 AccessibleStreamableContent_ref (AccessibleStreamableContent *obj)
@@ -118,6 +119,7 @@ AccessibleStreamableContent_ref (AccessibleStreamableContent *obj)
  *
  * Decrement the reference count for an #AccessibleStreamableContent object.
  *
+ * @Since: AT-SPI 1.4
  **/
 void
 AccessibleStreamableContent_unref (AccessibleStreamableContent *obj)
@@ -131,6 +133,8 @@ AccessibleStreamableContent_unref (AccessibleStreamableContent *obj)
  *
  * Get a list of strings containing the content mimetypes available from an
  *       #AccessibleStreamableContent implementor.
+ *
+ * @Since: AT-SPI 1.4
  *
  * Returns: an array of strings, terminated by a NULL string, specifying the
  *       mimetypes for which the streamed content is available.
@@ -156,7 +160,17 @@ AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
 
   return content_types;
 }
-
+/**
+* AccessibleStreamableContent_freeContentTypesList:
+* @obj: the AccessibleStreamableContent implementor on which to operate.
+* @content_types: a list of content types previously returned by 
+*     #AccessibleStreamableContent_getContentTypes.
+*
+* Free the memory associated with a call to #AccessibleStreamableContent_getContentTypes, once 
+* the result has been used.
+*
+* @Since: AT-SPI 1.4
+**/
 void
 AccessibleStreamableContent_freeContentTypesList (AccessibleStreamableContent *obj,
 						  char **content_types)
@@ -181,6 +195,8 @@ AccessibleStreamableContent_freeContentTypesList (AccessibleStreamableContent *o
  *
  * Open a streaming connection to an AccessibleStreamableContent implementor,
  *       of a particular content type
+ *
+ * @Since: AT-SPI 1.4
  *
  * Returns: #TRUE if successful, #FALSE if unsuccessful.
  *
@@ -213,6 +229,8 @@ AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
  * Close the current streaming connection to an AccessibleStreamableContent implementor.
  * This must be called before any subsequent AccessibleStreamableContent_open
  * calls on the same object.
+ * 
+ * @Since: AT-SPI 1.4
  *
  * Returns: #TRUE if successful, #FALSE if unsuccessful.
  *
@@ -237,6 +255,8 @@ AccessibleStreamableContent_close (AccessibleStreamableContent *obj)
  * Cause the current streamable content connection (obtained via
  *     #AccessibleStreamableContent_open()) to seek to a particular offset in the
  *     stream.
+ *
+ * @Since: AT-SPI 1.4
  *
  * Returns: #TRUE if successful, #FALSE if unsuccessful.
  *
@@ -291,6 +311,8 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
  *     to a buffer.  This is a blocking API, in the sense that it does not 
  *     return until the bytes have been read, or an error condition is 
  *     detected.
+ *
+ * @Since: AT-SPI 1.4
  *
  * Returns: an integer indicating the number of bytes read, or -1 on error.
  *

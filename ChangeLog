@@ -1,5 +1,20 @@
 2006-03-27  Bill Haneman <bill.haneman@sun.com>
 
+	* configure.in: Define $LIBTOOL_EXPORT_OPTIONS
+	to strip "cspi_*" from the symbol table.
+	
+	* cspi/spi_streamablecontent.c:
+	(get_streams): Make this method static.
+
+	* cspi/spi_main.c:
+	(_cspi_exception_throw): rename to cspi_exception_throw,
+	so we can strip it with the rest...
+
+	* cspi/Makefile.am:
+	Add LIBTOOL_EXPORT_OPTIONS to libcspi_la_LDFLAGS.
+	
+2006-03-27  Bill Haneman <bill.haneman@sun.com>
+
 	Add doxygen-generated IDL docs to tarball, and enable 
 	doxygen during build/install when available.  Bug #301345.
 	

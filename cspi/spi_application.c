@@ -134,9 +134,13 @@ AccessibleApplication_getID (AccessibleApplication *obj)
 /**
  * AccessibleApplication_getLocale:
  * @obj: a pointer to the #AccessibleApplication being queried.
+ * @lc_category: one of the POSIX LC_TYPE enumeration, for instance
+ * LC_MESSAGES.
  *
  * Get a POSIX-compliant string describing the application's current
  * locale setting for a particular @lctype category.
+ *
+ * @Since: AT-SPI 1.4
  *
  * Returns: a POSIX-compliant locale string, e.g. "C", "pt_BR", "sr@latn", etc.
  **/

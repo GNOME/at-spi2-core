@@ -49,6 +49,14 @@ typedef Accessible AccessibleText;
 typedef Accessible AccessibleValue;
 typedef Accessible AccessibilityRegistry;
 
+/** 
+ * AccessibleStateSet:
+ * @ref_count: private
+ * @states: private
+ *
+ * An opaque structure representing an accessible object's state,
+ * which can then be queried via AccessibleStateSet APIs.
+ **/
 typedef void AccessibleStateSet;
 typedef void AccessibleEventListener;
 typedef void AccessibleKeystrokeListener;

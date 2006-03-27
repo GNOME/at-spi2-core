@@ -72,3 +72,115 @@ SPI main loop and initialization
 @s: 
 
 
+<!-- ##### FUNCTION SPIAccessibleException_getSource ##### -->
+<para>
+
+</para>
+
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPIException_getDescription ##### -->
+<para>
+
+</para>
+
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPIException_getExceptionCode ##### -->
+<para>
+
+</para>
+
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPIException_getSourceType ##### -->
+<para>
+
+</para>
+
+@err: 
+@Returns: 
+
+
+<!-- ##### STRUCT SPIException ##### -->
+<para>
+
+</para>
+
+@type: 
+@source: 
+@ev: 
+@code: 
+@desc: 
+
+<!-- ##### ENUM SPIExceptionCode ##### -->
+<para>
+
+</para>
+
+@SPI_EXCEPTION_UNSPECIFIED: 
+@SPI_EXCEPTION_DISCONNECT: 
+@SPI_EXCEPTION_NO_IMPL: 
+@SPI_EXCEPTION_IO: 
+@SPI_EXCEPTION_BAD_DATA: 
+
+<!-- ##### ENUM SPIExceptionType ##### -->
+<para>
+
+</para>
+
+@SPI_EXCEPTION_SOURCE_UNSPECIFIED: 
+@SPI_EXCEPTION_SOURCE_ACCESSIBLE: 
+@SPI_EXCEPTION_SOURCE_REGISTRY: 
+@SPI_EXCEPTION_SOURCE_DEVICE: 
+
+<!-- ##### STRUCT SPIRect ##### -->
+<para>
+
+</para>
+
+@x: 
+@y: 
+@width: 
+@height: 
+
+<!-- ##### FUNCTION SPI_freeRect ##### -->
+<para>
+
+</para>
+
+@r: 
+
+
+<!-- ##### FUNCTION SPI_dupString ##### -->
+<para>
+
+</para>
+
+@s: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPI_exceptionHandlerPush ##### -->
+<para>
+
+</para>
+
+@handler: 
+@Returns: 
+
+
+<!-- ##### FUNCTION SPI_exceptionHandlerPop ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+

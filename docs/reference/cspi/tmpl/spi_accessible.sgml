@@ -23,9 +23,9 @@ An Accessible object is an opaque object used to refer to an accessible
 object corresponding to an user interface element.
 </para>
 
-@objref: 
-@on_loan: 
-@ref_count: 
+@objref: private data
+@on_loan: private data
+@ref_count: private data
 
 <!-- ##### FUNCTION Accessible_ref ##### -->
 <para>
@@ -126,6 +126,33 @@ object corresponding to an user interface element.
 
 
 <!-- ##### FUNCTION Accessible_getStateSet ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getAttributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getHostApplication ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getLocalizedRoleName ##### -->
 <para>
 
 </para>

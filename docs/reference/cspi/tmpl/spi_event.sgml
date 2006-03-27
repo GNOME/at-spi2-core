@@ -37,6 +37,45 @@ It is called when an event being listened for occurs.
 @user_data: 
 
 
+<!-- ##### FUNCTION AccessibleEvent_getSourceApplication ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEvent_getSourceDetails ##### -->
+<para>
+
+</para>
+
+@e: 
+@name: 
+@role: 
+@app: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEvent_getSourceName ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleEvent_getSourceRole ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleEvent_ref ##### -->
 <para>
 
@@ -130,6 +169,15 @@ It is called when an event being listened for occurs.
 
 
 <!-- ##### FUNCTION AccessibleParentChangedEvent_getParentAccessible ##### -->
+<para>
+
+</para>
+
+@e: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleBoundsChangedEvent_getNewBounds ##### -->
 <para>
 
 </para>

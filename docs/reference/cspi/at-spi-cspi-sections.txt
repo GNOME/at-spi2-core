@@ -9,6 +9,19 @@ SPI_nextEvent
 SPI_exit
 <SUBSECTION Utility Functions>
 SPI_freeString
+SPIAccessibleException_getSource
+SPIException_getDescription
+SPIException_getExceptionCode
+SPIException_getSourceType
+SPIException
+SPIExceptionCode
+SPIExceptionType
+SPIBoolean
+SPIRect
+SPI_freeRect
+SPI_dupString
+SPI_exceptionHandlerPush
+SPI_exceptionHandlerPop
 </SECTION>
 
 <SECTION>
@@ -16,6 +29,10 @@ SPI_freeString
 <TITLE>Event Listener Support</TITLE>
 AccessibleEvent
 AccessibleEventListenerCB
+AccessibleEvent_getSourceApplication
+AccessibleEvent_getSourceDetails
+AccessibleEvent_getSourceName
+AccessibleEvent_getSourceRole
 AccessibleEvent_ref
 AccessibleEvent_unref
 SPI_createAccessibleEventListener
@@ -28,6 +45,7 @@ AccessibleChildChangedEvent_getChildAccessible
 AccessibleDescriptionChangedEvent_getDescriptionString
 AccessibleNameChangedEvent_getNameString
 AccessibleParentChangedEvent_getParentAccessible
+AccessibleBoundsChangedEvent_getNewBounds
 AccessibleTableCaptionChangedEvent_getCaptionString
 AccessibleTableColumnDescriptionChangedEvent_getDescriptionString
 AccessibleTableHeaderChangedEvent_getHeaderAccessible
@@ -97,6 +115,9 @@ Accessible_getRelationSet
 Accessible_getRole
 Accessible_getRoleName
 Accessible_getStateSet
+Accessible_getAttributes
+Accessible_getHostApplication
+Accessible_getLocalizedRoleName
 <SUBSECTION Interface Queries>
 Accessible_isAction
 Accessible_isApplication
@@ -190,6 +211,7 @@ AccessibleApplication_unref
 AccessibleApplication_getToolkitName
 AccessibleApplication_getVersion
 AccessibleApplication_getID
+AccessibleApplication_getLocale
 AccessibleApplication_pause
 AccessibleApplication_resume
 </SECTION>
@@ -221,6 +243,7 @@ AccessibleComponent_getSize
 AccessibleComponent_getLayer
 AccessibleComponent_getMDIZOrder
 AccessibleComponent_grabFocus
+AccessibleComponent_getAlpha
 </SECTION>
 
 <SECTION>
@@ -256,6 +279,7 @@ AccessibleImage_getImageDescription
 AccessibleImage_getImageSize
 AccessibleImage_getImagePosition
 AccessibleImage_getImageExtents
+AccessibleImage_getImageLocale
 </SECTION>
 
 <SECTION>
@@ -281,6 +305,8 @@ AccessibleStreamableContent_getContentTypes
 AccessibleStreamableContent_open
 AccessibleStreamableContent_seek
 AccessibleStreamableContent_read
+AccessibleStreamableContent_close
+AccessibleStreamableContent_freeContentTypeList
 </SECTION>
 
 <SECTION>
@@ -309,6 +335,10 @@ AccessibleTable_getSummary
 AccessibleTable_isColumnSelected
 AccessibleTable_isRowSelected
 AccessibleTable_isSelected
+AccessibleTable_addColumnSelection
+AccessibleTable_addRowSelection
+AccessibleTable_removeColumnSelection
+AccessibleTable_removeRowSelection
 </SECTION>
 
 <SECTION>
@@ -335,6 +365,8 @@ AccessibleText_getTextAtOffset
 AccessibleText_removeSelection
 AccessibleText_setCaretOffset
 AccessibleText_setSelection
+AccessibleText_getCharacterAtOffset
+AccessibleText_getDefaultAttributes
 AccessibleTextRange_freeRanges
 </SECTION>
 

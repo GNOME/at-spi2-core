@@ -44,17 +44,24 @@ extern "C" {
 
 /**
  *AccessibleTextBoundaryType:
- *@SPI_TEXT_BOUNDARY_CHAR:
- *@SPI_TEXT_BOUNDARY_CURSOR_POS:
- *@SPI_TEXT_BOUNDARY_WORD_START:
- *@SPI_TEXT_BOUNDARY_WORD_END:
- *@SPI_TEXT_BOUNDARY_SENTENCE_START:
- *@SPI_TEXT_BOUNDARY_SENTENCE_END:
- *@SPI_TEXT_BOUNDARY_LINE_START:
- *@SPI_TEXT_BOUNDARY_LINE_END:
- *@SPI_TEXT_BOUNDARY_ATTRIBUTE_RANGE:
+ *@SPI_TEXT_BOUNDARY_CHAR: Delimiter is the current character's bounds.
+ *@SPI_TEXT_BOUNDARY_CURSOR_POS: Delimiter is the current text caret position.
+ *@SPI_TEXT_BOUNDARY_WORD_START: Bounds run from the first character of a word to the first 
+ * character of the following word (i.e. including trailing whitespace, if any) within the text object.
+ *@SPI_TEXT_BOUNDARY_WORD_END: Bounds run from the last character of a word to the last 
+ * character of the following word (i.e. including leading whitespace) within the text object.
+ *@SPI_TEXT_BOUNDARY_SENTENCE_START: Bounds run from the first character of a sentence to the first 
+ * character of the next sentence in the text object.
+ *@SPI_TEXT_BOUNDARY_SENTENCE_END: Bounds run from the last character of a sentence to the last 
+ * character of the next sentence in the text object.
+ *@SPI_TEXT_BOUNDARY_LINE_START: Bounds span one line of text, with the line delimiter at the end of the
+ * bounds, if present, within the current text object.
+ *@SPI_TEXT_BOUNDARY_LINE_END: Bounds span one line of text, including a preceding line delimiter
+ * if present within the current text object.
+ *@SPI_TEXT_BOUNDARY_ATTRIBUTE_RANGE: Bounds span the run, relative to the specified offset and
+ * text accessor API rules, over which the attributes of the text object are invariant.  
  *
- *Text boundary types used for specifying boundaries for regions of text
+ *Text boundary types used for specifying boundaries for regions of text.
  **/
 typedef enum
 {
@@ -88,7 +95,7 @@ typedef enum
 
 /**
  *AccessibleRelationType:
- *@SPI_RELATION_NULL:
+ *@SPI_RELATION_NULL: Not used, this is an invalid value for this enumeration.
  *@SPI_RELATION_LABEL_FOR: Indicates an object is a label for one or more target objects.
  *@SPI_RELATION_LABELED_BY: Indicates an object is labelled by one or more target objects.
  *@SPI_RELATION_CONTROLLED_BY: Indicates an object controlled by one or more target objects.
@@ -96,7 +103,8 @@ typedef enum
  *@SPI_RELATION_MEMBER_OF: Indicates an object is a member of a group of one or
 more target objects.
  *@SPI_RELATION_NODE_CHILD_OF: Indicates an object is a cell in a treetable which is displayed because a cell in the same column is expanded and identifies that cell.
- *@SPI_RELATION_EXTENDED:
+ *@SPI_RELATION_EXTENDED: This value indicates that a relation other than those pre-specified by this version of AT-SPI
+ * is present.
  *@SPI_RELATION_FLOWS_TO: Indicates that the object has content that flows logically to another
  *  AtkObject in a sequential way, (for instance text-flow).
  *@SPI_RELATION_FLOWS_FROM: Indicates that the object has content that flows logically from
@@ -109,7 +117,8 @@ more target objects.
  *  this object's content is visualy embedded in another object.
  *@SPI_RELATION_POPUP_FOR: Indicates that an object is a popup for another objec
 t.
- *@SPI_RELATION_LAST_DEFINED:
+ *@SPI_RELATION_LAST_DEFINED: Do not use, this is an implementation detail used
+ *  to identify the size of this enumeration.
  *
  *Describes the type of the relation
  **/
@@ -150,13 +159,18 @@ typedef enum {
 
 /**
  *AccessibleKeySynthType:
- *@SPI_KEY_PRESS:
- *@SPI_KEY_RELEASE:
- *@SPI_KEY_PRESSRELEASE:
- *@SPI_KEY_SYM:
- *@SPI_KEY_STRING:
+ *@SPI_KEY_PRESS: Generates a keypress event (requires a subsequent #SPI_KEY_RELEASE event)
+ *@SPI_KEY_RELEASE: Generates a key-release event
+ *@SPI_KEY_PRESSRELEASE: Generates a key press/release event pair.
+ *@SPI_KEY_SYM: Injects a "keysym" event into the stream, as if a press/release pair occurred; allows 
+ * the user to specify the key via its symbolic name, as opposed to simulating a hardware press of a 
+ * specific key.
+ *@SPI_KEY_STRING: Injects one or more keysym events into the keyboard buffer, or directly inserts 
+ * a string value into the currently focussed text widget, if the widgets supports this.
+ * #SPI_KEY_STRING synthesis provides a shortcut for text substring insertion, and also allows the
+ * insertion of text which is not currently available via the current keyboard's keymap.
  *
- *Specified the type of a generated event.
+ * Specifies the type of a generated event.
  **/
 typedef enum {
   SPI_KEY_PRESS,
@@ -168,12 +182,28 @@ typedef enum {
 
 /**
  *AccessibleKeyListenerSyncType:
- *@SPI_KEYLISTENER_NOSYNC:
- *@SPI_KEYLISTENER_SYNCHRONOUS:
- *@SPI_KEYLISTENER_CANCONSUME:
- *@SPI_KEYLISTENER_ALL_WINDOWS:
+ *@SPI_KEYLISTENER_NOSYNC: Events may be delivered asynchronously, 
+ * which means in some cases they may already have been delivered to the 
+ * application before the AT client receives the notification.  
+ *@SPI_KEYLISTENER_SYNCHRONOUS: Events are delivered synchronously, before the 
+ * currently focussed application sees them.  
+ *@SPI_KEYLISTENER_CANCONSUME: Events may be consumed by the AT client.  Presumes and
+ * requires #SPI_KEYLISTENER_SYNCHRONOUS, incompatible with #SPI_KEYLISTENER_NOSYNC.
+ *@SPI_KEYLISTENER_ALL_WINDOWS: Events are received not from the application toolkit layer, but
+ * from the device driver or windowing system subsystem; such notifications are 'global' in the 
+ * sense that they are not broken or defeated by applications that participate poorly
+ * in the accessibility APIs, or not at all; however because of the intrusive nature of
+ * such snooping, it can have side-effects on certain older platforms.  If unconditional
+ * event notifications, even when inaccessible or "broken" applications have focus, are not
+ * required, it may be best to avoid this enum value/flag.
  *
  *Specified the tyupe of a key listener event.
+ * Certain of the values above can and should be bitwise-'OR'ed
+ * together, observing the compatibility limitations specified in the description of
+ * each value.  For instance, #SPI_KEYLISTENER_ALL_WINDOWS | #SPI_KEYLISTENER_CANCONSUME is
+ * a commonly used combination which gives the AT complete control over the delivery of matching
+ * events.  However, such filters should be used sparingly as they may have a negative impact on 
+ * system performance.
  **/
 typedef enum {
   SPI_KEYLISTENER_NOSYNC = 0,
@@ -198,11 +228,33 @@ typedef enum
   SPI_STREAM_SEEK_END
 } AccessibleStreamableContentSeekType;
 
+/**
+ * SPIException:
+ * @type: private
+ * @source: private
+ * @ev: private
+ * @code: private
+ * @desc: private
+ *
+ * An opaque object encapsulating information about thrown exceptions.
+ **/
 typedef struct _SPIException SPIException;
 
-typedef SPIBoolean 
-(* SPIExceptionHandler) (SPIException *err, SPIBoolean is_fatal);
 
+typedef SPIBoolean (*SPIExceptionHandler) (SPIException *err, SPIBoolean is_fatal);
+
+/**
+ * SPIExceptionCode:
+ * @SPI_EXCEPTION_UNSPECIFIED: An exception of unknown type, or which doesn't fit the other types.
+ * @SPI_EXCEPTION_DISCONNECT: Communication with the object or service has been disconnected;
+ * this usually means that the object or service has died or exited.
+ * @SPI_EXCEPTION_NO_IMPL: The object or service is missing the implementation for a request.
+ * @SPI_EXCEPTION_IO: The communications channel has become corrupted, blocked, or is otherwise in a bad state.
+ * @SPI_EXCEPTION_BAD_DATA: The data received or sent over the interface has been identified as 
+ * improperly formatted or otherwise fails to match the expectations.
+ *
+ * Exception codes indicating what's gone wrong in an AT-SPI call.
+ **/
 typedef enum {
 	SPI_EXCEPTION_UNSPECIFIED,
 	SPI_EXCEPTION_DISCONNECT,
@@ -211,6 +263,15 @@ typedef enum {
 	SPI_EXCEPTION_BAD_DATA
 } SPIExceptionCode;
 
+/**
+ * SPIExceptionType:
+ * @SPI_EXCEPTION_SOURCE_UNSPECIFIED: Don't know or can't tell where the problem is
+ * @SPI_EXCEPTION_SOURCE_ACCESSIBLE: The source of an event or query (i.e. an app) has thrown the exception.
+ * @SPI_EXCEPTION_SOURCE_REGISTRY: The AT-SPI registry has thrown the exception or cannot be reached.
+ * @SPI_EXCEPTION_SOURCE_DEVICE: The device event subsystem has encountered an error condition.
+ *
+ * The general source of the failure, i.e. whether the app, registry, or device system has encountered trouble.
+ **/
 typedef enum {
 	SPI_EXCEPTION_SOURCE_UNSPECIFIED,
 	SPI_EXCEPTION_SOURCE_ACCESSIBLE,
@@ -220,7 +281,15 @@ typedef enum {
 
 typedef unsigned long AccessibleKeyEventMask;
 typedef unsigned long AccessibleDeviceEventMask;
-
+/**
+ * SPIRect:
+ * @x: The position of the minimum x value of the rectangle (i.e. left hand corner)
+ * @y: The position of the minimum y value of the rectangle's bounds.
+ * @width: Width of the rectangle in pixels.
+ * @height: Height of the rectangle in pixels.
+ *
+ * A structure encapsulating a rectangle. 
+ **/
 typedef struct {
 	long x;
 	long y;
@@ -746,16 +815,19 @@ void
 AccessibleStreamableContent_unref (AccessibleStreamableContent *obj);
 char **
 AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj);
+
 void
-AccessibleStreamableContent_freeContentTypeList (AccessibleStreamableContent *obj,
-						 char **list);
+AccessibleStreamableContent_freeContentTypesList (AccessibleStreamableContent *obj,
+						 char **content_types);
+#define AccessibleStreamableContent_freeContentTypeList(a, b) AccessibleStreamableContent_freeContentTypesList(a,b)
+
 SPIBoolean
 AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
 				  const char *content_type);
 SPIBoolean
 AccessibleStreamableContent_close (AccessibleStreamableContent *obj);
 
-long int
+long
 AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 				  long int offset,
 				  AccessibleStreamableContentSeekType seek_type);
@@ -1048,7 +1120,7 @@ void SPI_freeString (char *s);
 
 char* SPI_dupString (char *s);
 
-void SPI_freeRect (SPIRect *rect);
+void SPI_freeRect (SPIRect *r);
 
 SPIBoolean SPI_exceptionHandlerPush (SPIExceptionHandler *handler);
 

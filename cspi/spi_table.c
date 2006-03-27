@@ -559,7 +559,7 @@ AccessibleTable_getSelectedColumns (AccessibleTable *obj,
 /**
  * AccessibleTable_isRowSelected:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @row:
+ * @row: the zero-indexed row number of the row being queried.
  *
  * Determine whether a table row is selected.  Not all tables support row selection.
  *
@@ -585,7 +585,7 @@ AccessibleTable_isRowSelected (AccessibleTable *obj,
 /**
  * AccessibleTable_isColumnSelected:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @column:
+ * @column: the zero-indexed column number of the column being queried.
  *
  * Determine whether specified table column is selected.
  * Not all tables support column selection.
@@ -612,7 +612,7 @@ AccessibleTable_isColumnSelected (AccessibleTable *obj,
 /**
  * AccessibleTable_addRowSelection:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @row:
+ * @row: the zero-indexed row number of the row being selected.
  *
  * Select the specified row, adding it to the current row selection.
  * Not all tables support row selection.
@@ -639,7 +639,7 @@ AccessibleTable_addRowSelection (AccessibleTable *obj,
 /**
  * AccessibleTable_addColumnSelection:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @column:
+ * @column: the zero-indexed column number of the column being selected.
  *
  * Select the specified column, adding it to the current column selection.
  * Not all tables support column selection.
@@ -666,7 +666,7 @@ AccessibleTable_addColumnSelection (AccessibleTable *obj,
 /**
  * AccessibleTable_removeRowSelection:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @row:
+ * @row: the zero-indexed number of the row being deselected.
  *
  * De-select the specified row, removing it to the current row selection.
  * Not all tables support row selection.
@@ -693,7 +693,7 @@ AccessibleTable_removeRowSelection (AccessibleTable *obj,
 /**
  * AccessibleTable_removeColumnSelection:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @column:
+ * @column: the zero-indexed column number of the column being de-selected.
  *
  * De-select the specified column, removing it to the current column selection.
  * Not all tables support column selection.
@@ -720,8 +720,8 @@ AccessibleTable_removeColumnSelection (AccessibleTable *obj,
 /**
  * AccessibleTable_isSelected:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.
- * @row:
- * @column:
+ * @row: the zero-indexed row of the cell being queried.
+ * @column: the zero-indexed column of the cell being queried.
  *
  * Determine whether the cell at a specific row and column is selected.
  *
