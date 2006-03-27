@@ -71,8 +71,6 @@ a set of AccessibleState values.
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleStateSet_unref ##### -->
@@ -81,8 +79,6 @@ a set of AccessibleState values.
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleStateSet_add ##### -->
@@ -102,8 +98,6 @@ a set of AccessibleState values.
 @obj: 
 @obj2: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@differenceSet: 
 
 
 <!-- ##### FUNCTION AccessibleStateSet_contains ##### -->

@@ -1,3 +1,15 @@
+2006-03-27  Bill Haneman <bill.haneman@sun.com>
+
+	Add doxygen-generated IDL docs to tarball, and enable 
+	doxygen during build/install when available.  Bug #301345.
+	
+	* configure.in: Add docs/reference/idl/Makefile to AC_OUTPUT.
+
+	* docs/reference/Makefile.am: Add idl to SUBDIRS.
+
+	* docs/reference/idl/Makefile.am: Optionally use
+	doxygen to create docs.
+	
 2006-03-20  Vladimer Sichinava  <vlsichinava@gmail.com>
 
         * configure.in: Added "ka" (Georgian) to ALL_LINGUAS

@@ -219,6 +219,7 @@ cspi-1.0-uninstalled.pc
 docs/Makefile
 docs/reference/Makefile
 docs/reference/cspi/Makefile
+docs/reference/idl/Makefile
 idl/Makefile
 libspi/Makefile
 registryd/Makefile

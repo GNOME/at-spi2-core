@@ -23,8 +23,6 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_unref ##### -->
@@ -33,8 +31,6 @@ AccessibleSelection Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleSelection_getNSelectedChildren ##### -->

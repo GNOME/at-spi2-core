@@ -23,8 +23,6 @@ AccessibleApplication API
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleApplication_unref ##### -->
@@ -33,8 +31,6 @@ AccessibleApplication API
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleApplication_getToolkitName ##### -->

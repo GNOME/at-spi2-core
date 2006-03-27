@@ -52,8 +52,6 @@ Registry queries
 
 @desktop_list: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@list: 
 
 
 <!-- ##### FUNCTION SPI_freeDesktopList ##### -->

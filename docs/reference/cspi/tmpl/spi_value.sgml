@@ -23,8 +23,6 @@ AccessibleValue Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleValue_unref ##### -->
@@ -33,8 +31,6 @@ AccessibleValue Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleValue_getCurrentValue ##### -->

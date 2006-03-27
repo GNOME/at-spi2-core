@@ -44,8 +44,6 @@ AccessibleRelations and RelationSets
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleRelation_unref ##### -->
@@ -54,8 +52,6 @@ AccessibleRelations and RelationSets
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleRelation_getNTargets ##### -->

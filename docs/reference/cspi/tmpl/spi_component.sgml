@@ -46,8 +46,6 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleComponent_unref ##### -->
@@ -56,8 +54,6 @@ AccessibleComponent Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleComponent_contains ##### -->

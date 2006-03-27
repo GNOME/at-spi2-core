@@ -33,8 +33,6 @@ object corresponding to an user interface element.
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION Accessible_unref ##### -->
@@ -43,8 +41,6 @@ object corresponding to an user interface element.
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION Accessible_getName ##### -->

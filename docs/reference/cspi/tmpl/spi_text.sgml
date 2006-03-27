@@ -48,8 +48,6 @@ AccessibleText Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_unref ##### -->
@@ -58,8 +56,6 @@ AccessibleText Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleText_addSelection ##### -->

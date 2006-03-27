@@ -23,8 +23,6 @@ SPI main loop and initialization
 </para>
 
 @Returns: 
-<!-- # Unused Parameters # -->
-@isGNOMEApp: 
 
 
 <!-- ##### FUNCTION SPI_event_main ##### -->
@@ -32,8 +30,6 @@ SPI main loop and initialization
 
 </para>
 
-<!-- # Unused Parameters # -->
-@isGNOMEApp: 
 
 
 <!-- ##### FUNCTION SPI_event_quit ##### -->

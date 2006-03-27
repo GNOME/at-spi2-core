@@ -23,8 +23,6 @@ AccessibleHypertext Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleHypertext_unref ##### -->
@@ -33,8 +31,6 @@ AccessibleHypertext Interface
 </para>
 
 @obj: 
-<!-- # Unused Parameters # -->
-@Returns: 
 
 
 <!-- ##### FUNCTION AccessibleHypertext_getNLinks ##### -->
