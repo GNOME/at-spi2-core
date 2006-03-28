@@ -1,3 +1,7 @@
+2006-03-28 Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in, NEWS: Revved to 1.11.4, to include docs improvements.
+	
 2006-03-24  Gora Mohanty  <gmohanty@cvs.gnome.org>
 
         * configure.in: Added 'or' (Oriya) to ALL_LINGUAS.

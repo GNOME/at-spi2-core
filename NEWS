@@ -1,3 +1,14 @@
+Changes in version 1.11.4:
+=========================
+
+ * Enhanced documentation: gtk-doc API docs are
+   now at 100% coverage.
+
+ * allow for NULL in-params to AtkImage coordinate APIs. 
+
+ * New langs: Georgian (ka)   Vladimir Sichinava
+              Oriya (or)      Gora Mohanty
+
 Changes in version 1.11.3:
 =========================
 
