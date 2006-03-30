@@ -1,3 +1,7 @@
+2006-03-30  Guntupalli Karunakar  <karunakar@indlinux.org>
+
+	* configure.in: Added 'dz' (Dzongkha) to ALL_LINGUAS.
+
 2006-03-27  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Define $LIBTOOL_EXPORT_OPTIONS
