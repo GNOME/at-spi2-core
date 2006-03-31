@@ -590,7 +590,7 @@ atk_component_real_get_size (AtkComponent *component,
   atk_component_get_extents (component, &x, &y, width, height, coord_type);
 }
 
-gdouble
+static gdouble
 atk_component_real_get_alpha (AtkComponent    *component)
 {
     return (gdouble) 1.0;
