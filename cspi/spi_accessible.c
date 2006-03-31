@@ -217,7 +217,7 @@ cspi_role_from_spi_role (Accessibility_Role role)
   return cspi_role; 
 }
 
-AccessibleAttributeSet *
+static AccessibleAttributeSet *
 cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq)
 {
     AccessibleAttributeSet *set = g_new0 (AccessibleAttributeSet, 1);
