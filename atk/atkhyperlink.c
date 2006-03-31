@@ -356,6 +356,8 @@ atk_hyperlink_get_n_anchors (AtkHyperlink *link)
  *
  * Determines whether this AtkHyperlink is selected
  *
+ * Since: ATK 1.4
+ *
  * Returns: True is the AtkHyperlink is selected, False otherwise
  **/
 gboolean

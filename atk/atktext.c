@@ -903,6 +903,8 @@ atk_text_set_caret_offset (AtkText *text,
  * @rect: A pointer to a AtkTextRectangle which is filled in by this function.
  *
  * Get the bounding box for text within the specified range.
+ *
+ * Since: ATK 1.3
  **/
 void
 atk_text_get_range_extents (AtkText          *text,
@@ -934,6 +936,8 @@ atk_text_get_range_extents (AtkText          *text,
  * @y_clip_type: Specify the vertical clip type.
  *
  * Get the ranges of text in the specified bounding box.
+ *
+ * Since: ATK 1.3
  *
  * Returns: Array of AtkTextRange. The last element of the array returned 
  *          by this function will be NULL.
@@ -1310,6 +1314,8 @@ atk_text_real_get_bounded_ranges (AtkText          *text,
  * Frees the memory associated with an array of AtkTextRange. It is assumed
  * that the array was returned by the function atk_text_get_bounded_ranges
  * and is NULL terminated.
+ *
+ * Since: ATK 1.3
  **/
 void
 atk_text_free_ranges (AtkTextRange **ranges)
