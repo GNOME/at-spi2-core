@@ -1,3 +1,9 @@
+2006-04-05  Matthias Clasen  <mclasen@redhat.com>
+
+	* atk-bridge/bridge.c (spi_atk_emit_eventv): Fix a 
+	memory-management error that caused crashes on x86_64.
+	(#337239)
+
 2006-03-30  Guntupalli Karunakar  <karunakar@indlinux.org>
 
 	* configure.in: Added 'dz' (Dzongkha) to ALL_LINGUAS.
