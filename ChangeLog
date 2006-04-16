@@ -51,7 +51,7 @@
 	
 2006-03-20 Bill Haneman <bill.haneman@sun.com>
 
-	* atk/atkimage.c: Bug detected by Behdad Estafood
+	* atk/atkimage.c: Bug detected by Behdad Esfahbod
 	(atk_image_get_position): Allow for NULL-in params.
 	(atk_image_get_size): Allow for NULL in-params.
 	
