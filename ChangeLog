@@ -1,3 +1,8 @@
+2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Remove obssolete no_NO locale
+	* po/no.po: And the translation.
+
 2006-04-05  Matthias Clasen  <mclasen@redhat.com>
 
 	* atk-bridge/bridge.c (spi_atk_emit_eventv): Fix a 
