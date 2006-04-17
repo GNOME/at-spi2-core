@@ -1,3 +1,7 @@
+2006-04-17  Matthias Clasen  <mclasen@redhat.com>
+
+	* revert my previous change
+
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Remove obssolete no_NO locale
