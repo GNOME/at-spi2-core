@@ -1,3 +1,8 @@
+2006-04-17  Kjartan Maraas,,23491770  <kmaraas@gnome.org>
+
+	* configure.in: Remove obsolete no.po referrals
+	* po/no.po: Same.
+
 2006-03-28 Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in, NEWS: Revved to 1.11.4, to include docs improvements.
