@@ -1,5 +1,5 @@
-# Chinese (Hong Kong) translation of atk.
-# Copyright (C) 2005 Free Software Foundation, Inc.
+# Chinese (Taiwan) translation of atk.
+# Copyright (C) 2003-06 Free Software Foundation, Inc.
 # Abel Cheung <abel@oaka.org>, 2003.
 # Li-Jen Hsin <hsin@med.cgu.edu.tw>, 2004.
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-23 21:10+0000\n"
-"PO-Revision-Date: 2005-12-28 06:22+0800\n"
+"POT-Creation-Date: 2006-04-18 04:25+0200\n"
+"PO-Revision-Date: 2006-04-17 19:17+0800\n"
 "Last-Translator: Li-Jen Hsin <hsin@med.cgu.edu.tw>\n"
 "Language-Team: Chinese (traditional) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
@@ -362,127 +362,162 @@ msgstr "編輯列"
 msgid "embedded component"
 msgstr "內嵌組成元件"
 
-#: ../atk/atkobject.c:337
+#: ../atk/atkobject.c:159
+msgid "entry"
+msgstr "項目"
+
+#: ../atk/atkobject.c:160
+msgid "chart"
+msgstr "圖表"
+
+#: ../atk/atkobject.c:161
+msgid "caption"
+msgstr "題目"
+
+#: ../atk/atkobject.c:162
+msgid "document frame"
+msgstr "文件框架"
+
+#: ../atk/atkobject.c:163
+msgid "heading"
+msgstr "標題"
+
+#: ../atk/atkobject.c:164
+msgid "page"
+msgstr "頁"
+
+#: ../atk/atkobject.c:165
+msgid "section"
+msgstr "節"
+
+#: ../atk/atkobject.c:166
+msgid "redundant object"
+msgstr "冗餘物件"
+
+#: ../atk/atkobject.c:355
 msgid "Accessible Name"
 msgstr "輔助鍵名稱"
 
 # instance 可翻為'實例','案例','實體' I prefer 3 (hsin)
 # assistive technology 翻為 輔助技術
 # (Abel) OK, 就用「實體」，好像多人用了
-#: ../atk/atkobject.c:338
+#: ../atk/atkobject.c:356
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "已格式化的物件實體名稱，便於輔助技術存取"
 
-#: ../atk/atkobject.c:344
+#: ../atk/atkobject.c:362
 msgid "Accessible Description"
 msgstr "輔助鍵描述"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:363
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "已格式化的物件描述，便於輔助技術存取"
 
-#: ../atk/atkobject.c:351
+#: ../atk/atkobject.c:369
 msgid "Accessible Parent"
 msgstr "輔助鍵母元件"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:370
 msgid "Is used to notify that the parent has changed"
 msgstr "用來知會母元件已有變動"
 
-#: ../atk/atkobject.c:358
+#: ../atk/atkobject.c:376
 msgid "Accessible Value"
 msgstr "輔助鍵設定值"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:377
 msgid "Is used to notify that the value has changed"
 msgstr "用來知會該設定值已有變動"
 
 # 我覺得 '類型' 或 '型態' 優於 '角色' 這樣的直譯 (Hsin)
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:385
 msgid "Accessible Role"
 msgstr "輔助鍵類型"
 
-#: ../atk/atkobject.c:368
+#: ../atk/atkobject.c:386
 msgid "The accessible role of this object"
 msgstr "此物件的輔助鍵類型"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:394
 msgid "Accessible Layer"
 msgstr "輔助鍵層級"
 
-#: ../atk/atkobject.c:377
+#: ../atk/atkobject.c:395
 msgid "The accessible layer of this object"
 msgstr "此物件的輔助鍵層級"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:403
 msgid "Accessible MDI Value"
 msgstr "輔助鍵 MDI 值"
 
-#: ../atk/atkobject.c:386
+#: ../atk/atkobject.c:404
 msgid "The accessible MDI value of this object"
 msgstr "此物件的輔助鍵 MDI 值"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:412
 msgid "Accessible Table Caption"
 msgstr "輔助鍵表格標題"
 
-#: ../atk/atkobject.c:395
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr "用來知會表格標題已經改變；不應使用此屬性。應使用 accessible-table-caption-object 代替"
+#: ../atk/atkobject.c:413
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"用來知會表格標題已經改變；不應使用此屬性。應使用 accessible-table-caption-"
+"object 代替"
 
-#: ../atk/atkobject.c:401
+#: ../atk/atkobject.c:419
 msgid "Accessible Table Column Header"
 msgstr "輔助鍵表格直欄標頭"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:420
 msgid "Is used to notify that the table column header has changed"
 msgstr "用來知會表格直列標頭已變動"
 
-#: ../atk/atkobject.c:408
+#: ../atk/atkobject.c:426
 msgid "Accessible Table Column Description"
 msgstr "輔助鍵表格直欄描述"
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:427
 msgid "Is used to notify that the table column description has changed"
 msgstr "用來知會表格直欄描述以已變動"
 
-#: ../atk/atkobject.c:415
+#: ../atk/atkobject.c:433
 msgid "Accessible Table Row Header"
 msgstr "輔助鍵表格橫列標頭"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:434
 msgid "Is used to notify that the table row header has changed"
 msgstr "用來知會表格橫列標頭已變動"
 
-#: ../atk/atkobject.c:422
+#: ../atk/atkobject.c:440
 msgid "Accessible Table Row Description"
 msgstr "輔助鍵表格橫列描述"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:441
 msgid "Is used to notify that the table row description has changed"
 msgstr "用來知會表格橫列描述已變動"
 
-#: ../atk/atkobject.c:429
+#: ../atk/atkobject.c:447
 msgid "Accessible Table Summary"
 msgstr "輔助鍵表格總結"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:448
 msgid "Is used to notify that the table summary has changed"
 msgstr "用來知會表格總結描述已變動"
 
-#: ../atk/atkobject.c:436
+#: ../atk/atkobject.c:454
 msgid "Accessible Table Caption Object"
 msgstr "輔助鍵表格標題物件"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:455
 msgid "Is used to notify that the table caption has changed"
 msgstr "用來知會表格標題物件已變動"
 
-#: ../atk/atkobject.c:443
+#: ../atk/atkobject.c:461
 msgid "Number of Accessible Hypertext Links"
 msgstr "輔助鍵超連結總數"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:462
 msgid "The number of links which the current AtkHypertext has"
 msgstr "目前 AtkHypertext 含有的超連結數目"
-
