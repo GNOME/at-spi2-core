@@ -66,6 +66,7 @@ extern "C" {
  *@ATK_STATE_INVALID_ENTRY: Indicates that the object has encountered an error condition due to failure of input validation. For instance, a form control may acquire this state in response to invalid or malformed user input.
  *@ATK_STATE_SUPPORTS_AUTOCOMPLETION: Indicates that the object may exhibit "typeahead" behavior in response to user keystrokes, e.g. one keystroke may result in the insertion of several characters into an entry, or result in the auto-selection of an item in a list.  This state supplants @ATK_ROLE_AUTOCOMPLETE.
  *@ATK_STATE_SELECTABLE_TEXT:Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from @ATK_STATE_SELECTABLE, which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.
+ *@ATK_STATE_DEFAULT: Indicates that the object is the "default" active component, i.e. the object which is activated by an end-user press of the "Enter" or "Return" key.  Typically a "close" or "submit" button.
  *@ATK_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possible types of states of an object
@@ -108,6 +109,7 @@ typedef enum
   ATK_STATE_INVALID_ENTRY,
   ATK_STATE_SUPPORTS_AUTOCOMPLETION,
   ATK_STATE_SELECTABLE_TEXT,
+  ATK_STATE_DEFAULT,
 	
   ATK_STATE_LAST_DEFINED
 } AtkStateType;

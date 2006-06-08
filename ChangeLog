@@ -7,6 +7,8 @@
 	
 	* atk/atkrelationtype.h: Added ATK_RELATION_DESCRIPTION_FOR, 
 	ATK_RELATION_DESCRIBED_BY (bug #344144).
+
+	* atk/atkstate.h: Added ATK_STATE_DEFAULT (bug #344281).
 	
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 
