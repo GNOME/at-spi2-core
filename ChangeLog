@@ -1,3 +1,13 @@
+2006-06-08 Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Revved to 1.12.0 after tagging the repository with
+	gnome-2-14 (if we need to create/work on the old branch).
+	
+	* atk/atkobject.h, atkobject.c: Added ATK_ROLE_FORM (bug #344142).
+	
+	* atk/atkrelationtype.h: Added ATK_RELATION_DESCRIPTION_FOR, 
+	ATK_RELATION_DESCRIBED_BY (bug #344144).
+	
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Remove obsolete no.po referrals

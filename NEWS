@@ -1,3 +1,9 @@
+Changes in version 1.12.0: [ongoing]
+=========================
+
+* Added ATK_ROLE_FORM
+* Added ATK_RELATION_DESCRIPTION_FOR, ATK_RELATION_DESCRIBED_BY
+
 Changes in version 1.11.4:
 =========================
 

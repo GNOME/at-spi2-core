@@ -124,7 +124,11 @@ extern "C" {
  *@ATK_ROLE_HEADING: The object serves as a heading for content which follows it in a document. The 'heading level' of the heading, if availabe, may be obtained by querying the object's attributes.
  *@ATK_ROLE_PAGE: The object is a containing instance which encapsulates a page of information. @ATK_ROLE_PAGE is used in documents and content which support a paginated navigation model.
  *@ATK_ROLE_SECTION: The object is a containing instance of document content which constitutes a particular 'logical' section of the document. The type of content within a section, and the nature of the section division itself, may be obtained by querying the object's attributes. Sections may be nested.
- *@ATK_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in the hierarchy, and is exposed for purely technical reasons.  Objects of this role should normally be ignored by clients.
+ *@ATK_ROLE_REDUNDANT_OBJECT: The object is redundant with another object in the hierarchy, and is exposed for purely technical reasons.  Objects of this role should normally be ignored by clients. 
+ *@ATK_ROLE_FORM: The object is a container for form controls, for instance as part of a 
+ * web form or user-input form within a document.  This role is primarily a tag/convenience for 
+ * clients when navigating complex documents, it is not expected that ordinary GUI containers will 
+ * always have ATK_ROLE_FORM.
  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  * 
  * Describes the role of an object
@@ -220,6 +224,7 @@ typedef enum
   ATK_ROLE_PAGE,
   ATK_ROLE_SECTION,
   ATK_ROLE_REDUNDANT_OBJECT,
+  ATK_ROLE_FORM,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 

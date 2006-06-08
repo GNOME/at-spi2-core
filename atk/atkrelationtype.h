@@ -45,6 +45,8 @@ extern "C" {
  *  this object's content is visualy embedded in another object.
  *@ATK_RELATION_POPUP_FOR: Indicates that an object is a popup for another object.
  *@ATK_RELATION_PARENT_WINDOW_OF: Indicates that an object is a parent window of another object.
+ *@ATK_RELATION_DESCRIBED_BY: Indicates that another object provides descriptive information about this object; more verbose than ATK_RELATION_LABELLED_BY.
+ *@ATK_RELATION_DESCRIPTION_FOR: Indicates that an object provides descriptive information about another object; more verbose than ATK_RELATION_LABEL_FOR.
  *@ATK_RELATION_LAST_DEFINED: Not used, this value indicates the end of the enumeration.
  * 
  *Describes the type of the relation
@@ -65,6 +67,8 @@ typedef enum
   ATK_RELATION_EMBEDDED_BY, 
   ATK_RELATION_POPUP_FOR, 
   ATK_RELATION_PARENT_WINDOW_OF, 
+  ATK_RELATION_DESCRIBED_BY,
+  ATK_RELATION_DESCRIPTION_FOR,
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 
