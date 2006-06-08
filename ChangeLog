@@ -9,6 +9,9 @@
 	ATK_RELATION_DESCRIBED_BY (bug #344144).
 
 	* atk/atkstate.h: Added ATK_STATE_DEFAULT (bug #344281).
+
+	* atk/atkvalue.h, atkvalue.c: Add atk_value_get_minimum_increment
+	(missing despite being in AT-SPI's IDL for Value: bug #341875)
 	
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 

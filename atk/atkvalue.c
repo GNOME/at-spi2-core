@@ -128,6 +128,37 @@ atk_value_get_minimum_value (AtkValue *obj,
 }
 
 /**
+ * atk_value_get_minimum_increment:
+ * @obj: a GObject instance that implements AtkValueIface
+ * @value: a #GValue representing the minimum increment by which the accessible value may be changed
+ *
+ * Gets the minimum increment by which the value of this object may be changed.  If zero,
+ * the minimum increment is undefined, which may mean that it is limited only by the 
+ * floating point precision of the platform.
+ **/
+void
+atk_value_get_minimum_increment (AtkValue *obj,
+                             GValue   *value)
+{
+  AtkValueIface *iface;
+
+  g_return_if_fail (value != NULL);
+  g_return_if_fail (ATK_IS_VALUE (obj));
+
+  iface = ATK_VALUE_GET_IFACE (obj);
+
+  if (iface->get_minimum_increment)
+    {
+      if (G_IS_VALUE (value))
+        g_value_unset (value);
+      else
+        memset (value, 0, sizeof (*value));
+
+      (iface->get_minimum_increment) (obj, value);
+    }
+}
+
+/**
  * atk_value_set_current_value:
  * @obj: a GObject instance that implements AtkValueIface
  * @value: a #GValue which is the desired new accessible value.
