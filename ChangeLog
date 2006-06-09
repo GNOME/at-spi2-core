@@ -8,7 +8,8 @@
 	* atk/atkrelationtype.h: Added ATK_RELATION_DESCRIPTION_FOR, 
 	ATK_RELATION_DESCRIBED_BY (bug #344144).
 
-	* atk/atkstate.h: Added ATK_STATE_DEFAULT (bug #344281).
+	* atk/atkstate.h: Added ATK_STATE_DEFAULT (bug #344281) and
+	ATK_STATE_VISITED (bug #344384).
 
 	* atk/atkvalue.h, atkvalue.c: Add atk_value_get_minimum_increment
 	(missing despite being in AT-SPI's IDL for Value: bug #341875)
