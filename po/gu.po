@@ -1,14 +1,14 @@
 # translation of atk.HEAD.gu.po to Gujarati
-# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
 # MagNet <magnet@magnet-i.com>, 2004.
 # Ankit Patel <ankit@redhat.com>, 2004.
-# Ankit Patel <ankit644@yahoo.com>, 2005.
+# Ankit Patel <ankit644@yahoo.com>, 2005, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-09 05:36+0100\n"
-"PO-Revision-Date: 2005-12-09 12:30+0530\n"
+"POT-Creation-Date: 2006-06-09 05:47+0200\n"
+"PO-Revision-Date: 2006-06-09 10:20+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "<magnet@magnet-i.com>\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 
@@ -389,67 +390,71 @@ msgstr "વિભાગ"
 msgid "redundant object"
 msgstr "રીડન્ડન્ટ ઓબ્જેક્ટ"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "ફોર્મ"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ નામ"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "સહાયક તકનીકને પ્રાપ્ત કરવા માટે વસ્તુના નમૂનાના નામનુ બંધારણ કર્યુ"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ વર્ણન"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "વસ્તુનુ વર્ણન, સહાયક તકનીકને પ્રાપ્ત કરવા માટે બંધારણ કર્યુ"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "પ્રાપ્ત થઇ શકે તેવો પિતૃ"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "શું તે પિતૃ બદલાઇ ગયો તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "પ્રાપ્ત થઇ શકે તેવી કિંમત"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "શું તે કિંમત બદલાઇ ગયો તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "પ્રાપ્ત થઇ શકે તેવો રોલ"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "આ વસ્તુનો પ્રાપ્ત થઇ શકે તેવો રોલ"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ સ્તર"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "આ વસ્તુનુ પ્રાપ્ત થઇ શકે તેવુ સ્તર"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "પ્રાપ્ત થઇ શકે તેવી MDI કિંમત"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "આ વસ્તુની પ્રાપ્ત થઇ શકે તેવી MDI કિંમત"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ કોષ્ટકનુ નામ"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -457,59 +462,59 @@ msgstr ""
 "શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે; આ ગુણધર્મનો ઉપયોગ થવો જોઇએ નહિ. "
 "તેની જગ્યાએ પ્રાપ્ત થઇ શકે તેવુ-કોષ્ટક-નામ-વસ્તુ વાપરવુ જોઇએ"
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "પ્રાપ્ત થઇ શકે તેવુ કોષ્ટક સ્તંભ હેડર"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "શું તે કોષ્ટકના સ્તંભના હેડરનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકના સ્તંભનુ વર્ણન"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "શું તે કોષ્ટકના સ્તંભનુ વર્ણન બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકની હરોળનુ હેડર"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "શું તે કોષ્ટકના હરોળની હેડરનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકની હરોળનુ વર્ણન"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "શું તે કોષ્ટકના હરોળનુ વર્ણન બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકનો સારાંશ"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "શું તે કોષ્ટકનો સારાંશ બદલાઇ ગયો છે તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "પ્રાપ્ત થઇ શકે તેવા કોષ્ટકના નામની વસ્તુ"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "શું તે કોષ્ટકનુ નામ બદલાઇ ગયુ છે તેની નોંધ માટે વપરાય છે"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "પ્રાપ્ત થઇ શકે તેવી હાઇપરલખાણની કડીઓની સંખ્યા"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "વર્તમાન એટીકેહાઇપરલખાણ ધરાવે છે તે કડીઓની સંખ્યા"
 
