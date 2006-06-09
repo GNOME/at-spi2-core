@@ -4,6 +4,15 @@
 	(impl_get_nSelectedRows, impl_get_nSelectedColumns):
 	New, missing implementations of attribute reading methods
 	in epv.  Bug #339021.
+
+	* cspi/spi.h, spi_value.c:
+	(AccessibleValue_getMinimumIncrement): New methods wrapping 
+	the (formerly unimplemented) property from Value.idl.
+	
+	* libspi/value.c:
+	(impl_get_minimumIncrement): Implementation for retrieving
+	the minimum valuator increment, (formerly unimplemented).
+	Bug #344265.
 	
 2006-06-09  Bill Haneman <bill.haneman@sun.com>
 

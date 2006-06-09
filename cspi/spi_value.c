@@ -140,4 +140,29 @@ AccessibleValue_setCurrentValue (AccessibleValue *obj,
   return TRUE;
 }
 
+/**
+ * AccessibleValue_getMinimumIncrement:
+ * @obj: a pointer to the #AccessibleValue implementor on which to operate. 
+ *
+ * Get the minimum increment by which an #AccessibleValue can be adjusted.
+ *
+ * Returns: the minimum increment by which the value may be changed, or
+ * zero if the minimum increment cannot be determined.
+ *
+ **/
+double
+AccessibleValue_getMinimumIncrement (AccessibleValue *obj)
+{
+  double retval;
+
+  cspi_return_val_if_fail (obj != NULL, 0.0);
+
+  retval = 
+    Accessibility_Value__get_minimumIncrement (CSPI_OBJREF (obj), cspi_ev ());
+  
+  cspi_return_val_if_ev ("getMinimumIncrement", 0.0);
+
+  return retval;
+}
+
 

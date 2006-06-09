@@ -52,6 +52,9 @@ static void
 impl__set_currentValue (PortableServer_Servant _servant,
 			const CORBA_double     value,
 			CORBA_Environment *    ev);
+static double
+impl__get_minimumIncrement (PortableServer_Servant _servant,
+			CORBA_Environment *    ev);
 
 
 BONOBO_TYPE_FUNC_FULL (SpiValue,
@@ -71,6 +74,7 @@ spi_value_class_init (SpiValueClass *klass)
   epv->_get_maximumValue = impl__get_maximumValue;
   epv->_get_currentValue = impl__get_currentValue;
   epv->_set_currentValue = impl__set_currentValue;
+  epv->_get_minimumIncrement = impl__get_minimumIncrement;
 }
 
 
@@ -246,6 +250,20 @@ impl__set_currentValue (PortableServer_Servant servant,
   gvalue_set_from_double (&gvalue, value);
 
   atk_value_set_current_value (avalue, &gvalue);
+}
+
+static double
+impl__get_minimumIncrement (PortableServer_Servant servant,
+			    CORBA_Environment     *ev)
+{
+  GValue    gvalue = {0, };
+  AtkValue *value = get_value_from_servant (servant);
+
+  g_return_val_if_fail (value != NULL, 0.0);
+
+  atk_value_get_minimum_increment (value, &gvalue);
+
+  return get_double_from_gvalue (&gvalue);
 }
 
 

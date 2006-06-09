@@ -1076,6 +1076,7 @@ double     AccessibleValue_getCurrentValue (AccessibleValue *obj);
 double     AccessibleValue_getMaximumValue (AccessibleValue *obj);
 SPIBoolean AccessibleValue_setCurrentValue (AccessibleValue *obj,
 					    double           newValue);
+double     AccessibleValue_getMinimumIncrement (AccessibleValue *obj);
 
 /* Persistance and lifecycle control for AccessibleEvents. */
 SPIBoolean AccessibleEvent_ref (const AccessibleEvent *e);
