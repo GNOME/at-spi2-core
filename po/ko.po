@@ -4,10 +4,10 @@
 # Changwoo Ryu <cwryu@debian.org>, 2004, 2006
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.11.0\n"
+"Project-Id-Version: atk 1.12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-28 03:28+0900\n"
-"PO-Revision-Date: 2006-01-28 03:30+0900\n"
+"POT-Creation-Date: 2006-06-10 01:37+0900\n"
+"PO-Revision-Date: 2006-06-10 01:37+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -383,67 +383,71 @@ msgstr "절"
 msgid "redundant object"
 msgstr "추가 객체"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "폼"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "접근성 이름"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "접근성 기술로 접근할 때 사용할 오브젝트 인스턴스의 이름"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "접근성 설명"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "접근성 기술로 접근할 때 사용할 오브젝트의 설명"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "접근성 상위"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "상위 오브젝트가 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "접근성 값"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "값이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "접근 역할"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "이 오브젝트의 접근성 역할"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "접근성 레이어"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "이 오브젝트의 접근성 레이어"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "접근성 MDI 값"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "이 오브젝트의 접근성 MDI 값"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "접근성 테이블 캡션"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -451,58 +455,58 @@ msgstr ""
 "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다; 이 속성은 사용하지 않아야 합니다. 대"
 "신에 accessible-table-caption-object를 사용해야 합니다"
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "접근성 테이블 열 머리말"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "테이블 열 머리말이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "접근성 테이블 열 설명"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "테이블 열 설명이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "접근성 테이블 행 머리말"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "테이블 행 머리말이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "접근성 테이블 행 설명"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "테이블 행 설명이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "접근성 테이블 요약"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "테이블 요약이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "접근성 테이블 캡션 오브젝트"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "접근성 하이퍼텍스트 바로가기 개수"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "현재 AtkHyperlink에 들어 있는 바로가기의 개수"
