@@ -115,8 +115,9 @@ more target objects.
  *  another's content.
  *@SPI_RELATION_EMBEDDED_BY: Inverse of %SPI_RELATION_EMBEDS, indicates that
  *  this object's content is visualy embedded in another object.
- *@SPI_RELATION_POPUP_FOR: Indicates that an object is a popup for another objec
-t.
+ *@SPI_RELATION_POPUP_FOR: Indicates that an object is a popup for another objec *@SPI_RELATION_PARENT_WINDOW_OF: Indicates that an object is a parent window of another object.
+ *@SPI_RELATION_DESCRIBED_BY: Indicates that another object provides descriptive information about this object; more verbose than %SPI_RELATION_LABELLED_BY.
+ *@SPI_RELATION_DESCRIPTION_FOR: Indicates that an object provides descriptive information about another object; more verbose than %SPI_RELATION_LABEL_FOR.
  *@SPI_RELATION_LAST_DEFINED: Do not use, this is an implementation detail used
  *  to identify the size of this enumeration.
  *
@@ -138,6 +139,9 @@ typedef enum
   SPI_RELATION_EMBEDS,
   SPI_RELATION_EMBEDDED_BY,
   SPI_RELATION_POPUP_FOR,
+  SPI_RELATION_PARENT_WINDOW_OF,
+  SPI_RELATION_DESCRIPTION_FOR,
+  SPI_RELATION_DESCRIBED_BY,
   SPI_RELATION_LAST_DEFINED
 } AccessibleRelationType;
 

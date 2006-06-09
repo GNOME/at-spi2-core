@@ -82,6 +82,12 @@ module Accessibility {
     RELATION_POPUP_FOR,
     /** This is the reciprocal relation to RELATION_POPUP_FOR. */
     RELATION_PARENT_WINDOW_OF,
+    /** Indicates that an object provides descriptive information 
+     * about another object; more verbose than RELATION_LABEL_FOR. */
+    RELATION_DESCRIPTION_FOR, 
+    /** Indicates that another object provides descriptive information 
+     * about this object; more verbose than RELATION_LABELLED_BY. */
+    RELATION_DESCRIBED_BY,
     /** Do not use as a parameter value, used to determine the size of the enumeration. */
     RELATION_LAST_DEFINED
   };

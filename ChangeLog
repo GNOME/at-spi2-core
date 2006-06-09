@@ -15,7 +15,14 @@
 	* cspi/spi-roletypes.h, spi_accessible.c: Added marshalling 
 	definitions/conversions for new roles from ATK.
 
-	* libspi/accessible.c: Fixed marshalling of new role types from ATK.
+	* idl/Accessibility_Relation.idl:
+	* libspi/relation.c:
+	* cspi/spi.h, spi_accessible.c: Added SPI_RELATION_DESCRIBED_BY and 
+	SPI_RELATION_DESCRIPTION_FOR.  (bug #344264) Also
+	SPI_PARENT_WINDOW_OF, which was in ATK but not AT-SPI.
+
+	* libspi/accessible.c: Fixed marshalling of new role types from
+	ATK.
 	
 2006-04-17  Matthias Clasen  <mclasen@redhat.com>
 
