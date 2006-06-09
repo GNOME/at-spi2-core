@@ -357,6 +357,15 @@ module Accessibility {
    * @since AT-SPI 1.7.0
    */
   ROLE_SECTION,
+  /**
+   * The object is a containing instance of document content which constitutes
+   * a particular 'logical' section of the document.  The type of content within
+   * a section, and the nature of the section division itself, may be obtained
+   * by querying the object's attributes.  Sections may be nested.
+   *
+   * @since AT-SPI 1.7.1
+   */
+  ROLE_FORM,
 
   /** not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED

@@ -460,6 +460,14 @@ object corresponding to an user interface element.
 @SPI_ROLE_AUTOCOMPLETE: 
 @SPI_ROLE_EDITBAR: 
 @SPI_ROLE_EMBEDDED: 
+@SPI_ROLE_ENTRY: 
+@SPI_ROLE_CHART: 
+@SPI_ROLE_CAPTION: 
+@SPI_ROLE_DOCUMENT_FRAME: 
+@SPI_ROLE_HEADING: 
+@SPI_ROLE_PAGE: 
+@SPI_ROLE_SECTION: 
+@SPI_ROLE_FORM: 
 @SPI_ROLE_LAST_DEFINED: 
 
 <!-- ##### FUNCTION AccessibleRole_getName ##### -->

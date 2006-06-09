@@ -101,7 +101,18 @@ static const char *role_names [] =
   "fooler",
   "paragraph",
   "ruler",
-  "application"
+  "application",
+  "autocomplete",
+  "editbar",
+  "embedded",
+  "entry",
+  "chart",
+  "caption",
+  "document_frame",
+  "heading",
+  "page",
+  "section",
+  "form"
 };
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
@@ -191,6 +202,14 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_AUTOCOMPLETE] = SPI_ROLE_AUTOCOMPLETE;
   role_table [Accessibility_ROLE_EDITBAR] = SPI_ROLE_EDITBAR;
   role_table [Accessibility_ROLE_EMBEDDED] = SPI_ROLE_EMBEDDED;
+  role_table [Accessibility_ROLE_ENTRY] = SPI_ROLE_ENTRY;
+  role_table [Accessibility_ROLE_CHART] = SPI_ROLE_CHART;
+  role_table [Accessibility_ROLE_CAPTION] = SPI_ROLE_CAPTION;
+  role_table [Accessibility_ROLE_DOCUMENT_FRAME] = SPI_ROLE_DOCUMENT_FRAME;
+  role_table [Accessibility_ROLE_HEADING] = SPI_ROLE_HEADING;
+  role_table [Accessibility_ROLE_PAGE] = SPI_ROLE_PAGE;
+  role_table [Accessibility_ROLE_SECTION] = SPI_ROLE_SECTION;
+  role_table [Accessibility_ROLE_FORM] = SPI_ROLE_FORM;
 
   return TRUE;
 }
@@ -1253,7 +1272,7 @@ spi_state_to_corba (AccessibleState state)
       MAP_STATE (TRUNCATED);
       MAP_STATE (REQUIRED);
       MAP_STATE (INVALID_ENTRY);
-      MAP_STATE (SUPPORTS_AUTOCOMPLETE);
+      MAP_STATE (SUPPORTS_AUTOCOMPLETION);
       MAP_STATE (SELECTABLE_TEXT);
       MAP_STATE (IS_DEFAULT);
       MAP_STATE (VISITED);

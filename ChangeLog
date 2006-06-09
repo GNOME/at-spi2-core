@@ -7,8 +7,15 @@
 	(spi_state_to_corba) Fixed marshalling of new statetypes.
 	
 	* libspi/stateset.c:
-	(spi_init_state_tables, impl_getStates): Fixed conversion of new statetypes
-	to/from ATK.
+	(spi_init_state_tables, impl_getStates): 
+	Fixed conversion of new statetypes to/from ATK.
+
+	* idl/Accessibility_Role.idl: Added ROLE_FORM (bug #344266).
+
+	* cspi/spi-roletypes.h, spi_accessible.c: Added marshalling 
+	definitions/conversions for new roles from ATK.
+
+	* libspi/accessible.c: Fixed marshalling of new role types from ATK.
 	
 2006-04-17  Matthias Clasen  <mclasen@redhat.com>
 
