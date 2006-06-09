@@ -269,6 +269,36 @@ impl_getColumnHeader (PortableServer_Servant servant,
   return spi_accessible_new_return (header, FALSE, ev);
 }
 
+static CORBA_long
+impl__get_nSelectedRows (PortableServer_Servant servant,
+		         CORBA_Environment     *ev)
+{
+  gint *selectedRows = NULL;
+  gint retval = 0;
+  AtkTable *table = get_table_from_servant (servant);
+
+  bonobo_return_val_if_fail (table != NULL, 0, ev);
+
+  retval = atk_table_get_selected_rows (table, &selectedRows);
+  if (selectedRows) g_free (selectedRows);
+  return retval;
+}
+
+
+static CORBA_long
+impl__get_nSelectedColumns (PortableServer_Servant servant,
+			    CORBA_Environment     *ev)
+{
+  gint *selectedColumns = NULL;
+  gint retval = 0;
+  AtkTable *table = get_table_from_servant (servant);
+
+  bonobo_return_val_if_fail (table != NULL, 0, ev);
+
+  retval = atk_table_get_selected_columns (table, &selectedColumns);
+  if (selectedColumns) g_free (selectedColumns);
+  return retval;
+}
 
 static Accessibility_LongSeq *
 impl_getSelectedRows (PortableServer_Servant servant,
@@ -433,6 +463,8 @@ spi_table_class_init (SpiTableClass *klass)
   epv->_get_summary = impl__get_summary;
   epv->_get_nRows = impl__get_nRows;
   epv->_get_nColumns = impl__get_nColumns;
+  epv->_get_nSelectedRows = impl__get_nSelectedRows;
+  epv->_get_nSelectedColumns = impl__get_nSelectedColumns;
   epv->getAccessibleAt = impl_getAccessibleAt;
   epv->getIndexAt = impl_getIndexAt;
   epv->getRowAtIndex = impl_getRowAtIndex;

@@ -1,5 +1,12 @@
 2006-06-09  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/table.c:
+	(impl_get_nSelectedRows, impl_get_nSelectedColumns):
+	New, missing implementations of attribute reading methods
+	in epv.  Bug #339021.
+	
+2006-06-09  Bill Haneman <bill.haneman@sun.com>
+
 	* idl/Accessibility_State.idl:
 	Added STATE_VISITED (bug #338369).
 	
