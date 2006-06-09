@@ -126,6 +126,11 @@ spi_init_state_type_tables (void)
   atk_state_types[Accessibility_STATE_SUPPORTS_AUTOCOMPLETION] = ATK_STATE_SUPPORTS_AUTOCOMPLETION;
   accessible_state_types[ATK_STATE_SELECTABLE_TEXT] = Accessibility_STATE_SELECTABLE_TEXT;
   atk_state_types[Accessibility_STATE_SELECTABLE_TEXT] = ATK_STATE_SELECTABLE_TEXT;
+  accessible_state_types[ATK_STATE_DEFAULT] = Accessibility_STATE_IS_DEFAULT;
+  atk_state_types[Accessibility_STATE_IS_DEFAULT] = ATK_STATE_DEFAULT;
+  accessible_state_types[ATK_STATE_VISITED] = Accessibility_STATE_VISITED;
+  atk_state_types[Accessibility_STATE_VISITED] = ATK_STATE_VISITED;
+
 
   return TRUE;
 }
@@ -367,6 +372,20 @@ impl_getStates (PortableServer_Servant servant,
     states = g_slist_append (states, (gpointer) Accessibility_STATE_MANAGES_DESCENDANTS);
   if (atk_state_set_contains_state (set, ATK_STATE_INDETERMINATE))
     states = g_slist_append (states, (gpointer) Accessibility_STATE_INDETERMINATE);
+  if (atk_state_set_contains_state (set, ATK_STATE_REQUIRED))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_REQUIRED);
+  if (atk_state_set_contains_state (set, ATK_STATE_TRUNCATED))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_TRUNCATED);
+  if (atk_state_set_contains_state (set, ATK_STATE_ANIMATED))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_ANIMATED);
+  if (atk_state_set_contains_state (set, ATK_STATE_INVALID_ENTRY))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_INVALID_ENTRY);
+  if (atk_state_set_contains_state (set, ATK_STATE_SUPPORTS_AUTOCOMPLETION))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_SUPPORTS_AUTOCOMPLETION);
+  if (atk_state_set_contains_state (set, ATK_STATE_DEFAULT))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_IS_DEFAULT);
+  if (atk_state_set_contains_state (set, ATK_STATE_VISITED))
+    states = g_slist_append (states, (gpointer) Accessibility_STATE_VISITED);
 
   rv = Accessibility_StateSeq__alloc ();
   rv->_length = rv->_maximum = g_slist_length (states);

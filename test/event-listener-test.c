@@ -334,6 +334,21 @@ report_event (const AccessibleEvent *event, void *user_data)
 		   count,
 		   count/g_timer_elapsed(timer, NULL));
   }
+
+  /* check for Table interface - if present, query selections */
+  if (Accessible_isTable (event->source)) 
+  {
+      gint n_selected_rows = 0;
+      gint n_selected_cols = 0;
+      long int *rows, *cols;
+      AccessibleTable *table = Accessible_getTable (event->source);
+
+      n_selected_rows = AccessibleTable_getSelectedRows (table, &rows);
+      n_selected_cols  = AccessibleTable_getSelectedColumns (table, &cols);
+
+      g_print ("TABLE interface: selectedRows=%d, selectedCols = %d\n",
+	       n_selected_rows, n_selected_cols);
+  }
 }
 
 void

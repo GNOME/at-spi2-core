@@ -2,11 +2,14 @@
 AccessibleComponent Interface
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface implemented by objects which occupy area on screen.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+The Component interface is implemented by objects which are visible, or are
+potentially visible, onscreen.  The interface exposes onscreen bounds, the
+approximate "layer" in which the object resides, sometimes including z-order
+information, and allows objects to explicitly be told to request focus.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

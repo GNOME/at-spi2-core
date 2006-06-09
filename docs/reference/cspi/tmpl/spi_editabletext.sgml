@@ -2,11 +2,13 @@
 AccessibleEditableText Interface
 
 <!-- ##### SECTION Short_Description ##### -->
-
+An interface which allows editable text fields to be programmatically manipulated.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+An interface implemented by objects whose text content may be (potentially or
+actually) directly modified by user activity.  Text entry fields and text
+editor compose panes are examples of EditableText implementors.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

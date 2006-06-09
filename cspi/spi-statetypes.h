@@ -65,6 +65,13 @@ extern "C" {
  * to onscreen).  Used to prevent need to enumerate all children in very large 
  * containers, like tables.
  *@SPI_STATE_INDETERMINATE: Indicates that a check box is in a state other than checked or not checked.
+ *@SPI_STATE_TRUNCATED: Indicates that an object is truncated, e.g. a text value in a speradsheet cell.
+ *@SPI_STATE_REQUIRED: Indicates that explicit user interaction with an object is required by the user interface, e.g. a required field in a "web-form" interface.
+ *@SPI_STATE_INVALID_ENTRY: Indicates that the object has encountered an error condition due to failure of input validation. For instance, a form control may acquire this state in response to invalid or malformed user input.
+ *@SPI_STATE_SUPPORTS_AUTOCOMPLETION: Indicates that the object may exhibit "typeahead" behavior in response to user keystrokes, e.g. one keystroke may result in the insertion of several characters into an entry, or result in the auto-selection of an item in a list.  This state supplants @SPI_ROLE_AUTOCOMPLETE.
+ *@SPI_STATE_SELECTABLE_TEXT:Indicates that the object in question supports text selection. It should only be exposed on objects which implement the Text interface, in order to distinguish this state from @SPI_STATE_SELECTABLE, which infers that the object in question is a selectable child of an object which implements Selection. While similar, text selection and subelement selection are distinct operations.
+ *@SPI_STATE_IS_DEFAULT: Indicates that the object is the "default" active component, i.e. the object which is activated by an end-user press of the "Enter" or "Return" key.  Typically a "close" or "submit" button.
+ *@SPI_STATE_VISITED: Indicates that the object (typically a hyperlink) has already been 'activated', and/or its backing data has already been downloaded, rendered, or otherwise "visited".
  *@SPI_STATE_LAST_DEFINED: Not a valid state, used for finding end of enumeration
  *
  *The possibles states of an object.
@@ -103,6 +110,13 @@ typedef enum
   SPI_STATE_VISIBLE,
   SPI_STATE_MANAGES_DESCENDANTS, 
   SPI_STATE_INDETERMINATE, 
+  SPI_STATE_TRUNCATED,
+  SPI_STATE_REQUIRED,
+  SPI_STATE_INVALID_ENTRY,
+  SPI_STATE_SUPPORTS_AUTOCOMPLETE,
+  SPI_STATE_SELECTABLE_TEXT,
+  SPI_STATE_IS_DEFAULT,
+  SPI_STATE_VISITED,
   SPI_STATE_LAST_DEFINED
 } AccessibleState;
 

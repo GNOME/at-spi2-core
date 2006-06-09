@@ -1250,6 +1250,13 @@ spi_state_to_corba (AccessibleState state)
       MAP_STATE (VISIBLE);
       MAP_STATE (MANAGES_DESCENDANTS);
       MAP_STATE (INDETERMINATE);
+      MAP_STATE (TRUNCATED);
+      MAP_STATE (REQUIRED);
+      MAP_STATE (INVALID_ENTRY);
+      MAP_STATE (SUPPORTS_AUTOCOMPLETE);
+      MAP_STATE (SELECTABLE_TEXT);
+      MAP_STATE (IS_DEFAULT);
+      MAP_STATE (VISITED);
     default:
       return Accessibility_STATE_INVALID;
   }

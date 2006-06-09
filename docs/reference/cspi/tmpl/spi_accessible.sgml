@@ -2,11 +2,19 @@
 Accessible Objects
 
 <!-- ##### SECTION Short_Description ##### -->
-
+The base accessibility interface which all accessible objects implement.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+The Accessible interface provides for a hierarchical tree of accessible
+objects corresponding to user interface components and content in an
+accessible application.  Accessible objects provide name, descriptive
+information, state information, and information on the "role" of the object in
+the user interface.  The capabilities of these objects may be queried via
+interface queries, as they are implemented via interface aggregation.  These
+objects are located in a containment hierarchy with parent/child
+relationships, and may have other functional relationships to objects within
+the tree.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

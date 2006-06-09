@@ -1,3 +1,15 @@
+2006-06-09  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_State.idl:
+	Added STATE_VISITED (bug #338369).
+	
+	* cspi/spi_accessible.c: 
+	(spi_state_to_corba) Fixed marshalling of new statetypes.
+	
+	* libspi/stateset.c:
+	(spi_init_state_tables, impl_getStates): Fixed conversion of new statetypes
+	to/from ATK.
+	
 2006-04-17  Matthias Clasen  <mclasen@redhat.com>
 
 	* revert my previous change

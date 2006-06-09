@@ -2,11 +2,15 @@
 AccessibleApplication API
 
 <!-- ##### SECTION Short_Description ##### -->
-
+The interface implemented by the topmost Accessible in an application's
+hierarchy of Accessible objects.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
-
+This interface is implemented on the topmost object in an application's
+hierarchy.  It is primarily a marker interface, though certain properties
+associated with an application, such as the application's current default
+locale, are also exposed.
 </para>
 
 <!-- ##### SECTION See_Also ##### -->

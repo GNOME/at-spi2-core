@@ -306,7 +306,7 @@ AccessibleStreamableContent_open
 AccessibleStreamableContent_seek
 AccessibleStreamableContent_read
 AccessibleStreamableContent_close
-AccessibleStreamableContent_freeContentTypeList
+AccessibleStreamableContent_freeContentTypesList
 </SECTION>
 
 <SECTION>
