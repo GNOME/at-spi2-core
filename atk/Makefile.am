@@ -130,7 +130,7 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 # ---------- Win32 stuff ----------
 
 if OS_WIN32
-libatk_1_0_la_LDFLAGS += -export-symbols atk.def -no-undefined -Wl,atk-win32-res.o
+libatk_1_0_la_LDFLAGS += -export-symbols $(srcdir)/atk.def -no-undefined -Wl,atk-win32-res.o
 libatk_1_0_la_DEPENDENCIES = atk-win32-res.o
 
 install-def-file:

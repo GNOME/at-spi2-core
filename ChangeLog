@@ -1,5 +1,12 @@
 2006-06-08 Bill Haneman <bill.haneman@sun.com>
 
+	* atk/Makefile.am: Added $(srcfile) to win32
+	libatk_1_0_la_LDFLAGS,
+	bug #336802.  Hope that works, as I don't have a win32 build env
+	to test on.
+	
+2006-06-08 Bill Haneman <bill.haneman@sun.com>
+
 	* configure.in: Revved to 1.12.0 after tagging the repository with
 	gnome-2-14 (if we need to create/work on the old branch).
 	
