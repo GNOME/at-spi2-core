@@ -2,6 +2,14 @@
 
 	* configure.in: Require atk-1.12.0, to pick up
 	new API. (bug #344412).
+
+	* libspi-1.0-uninstalled.pc.in:
+	* libspi-1.0.pc.in:
+	* libloginhelper-1.0.pc.in: Remove gtk+ dependency.
+	Fix for #341488 from Samual Thibault.
+
+	* configure.in, LINGUAS: Use LINGUAS, bug #338023.
+	Thanks to Brian Pepple.
 	
 2006-06-09  Bill Haneman <bill.haneman@sun.com>
 
