@@ -2,7 +2,7 @@
 # Copyright (C) 2002 COPYRIGHTHOLDER
 # This file is distributed under the same license as the atk package.
 # V. van Adrighem <V.vanAdrighem@dirck.mine.nu>, 2002.
-# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005.
+# Tino Meinen <a.t.meinen@chello.nl>, 2004, 2005, 2006
 # ---
 # 2004: verwijzing omgezet naar link (ingeburgerd woord)
 #
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-21 21:35+0100\n"
-"PO-Revision-Date: 2005-12-22 03:07+0100\n"
+"POT-Creation-Date: 2006-06-11 04:45+0200\n"
+"PO-Revision-Date: 2006-06-11 08:14+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +72,7 @@ msgstr "pijl"
 
 #: ../atk/atkobject.c:87
 msgid "calendar"
-msgstr "kalender"
+msgstr "agenda"
 
 #: ../atk/atkobject.c:88
 msgid "canvas"
@@ -84,12 +84,13 @@ msgstr "aankruisvakje"
 
 #: ../atk/atkobject.c:90
 msgid "check menu item"
-msgstr "aankruis-menu-item"
+msgstr "aankruismenu-item"
 
 #: ../atk/atkobject.c:91
 msgid "color chooser"
-msgstr "kleurkiezer"
+msgstr "kleurenkiezer"
 
+# kolomkop/kolomtitel
 #: ../atk/atkobject.c:92
 msgid "column header"
 msgstr "kolomtitel"
@@ -100,7 +101,7 @@ msgstr "keuzevak"
 
 #: ../atk/atkobject.c:94
 msgid "dateeditor"
-msgstr "datum bewerken"
+msgstr "datum-editor"
 
 #: ../atk/atkobject.c:95
 msgid "desktop icon"
@@ -110,10 +111,12 @@ msgstr "bureaubladpictogram"
 msgid "desktop frame"
 msgstr "bureaublad-frame"
 
+# opbellen/inbellen/bellen
 #: ../atk/atkobject.c:97
 msgid "dial"
 msgstr "bellen"
 
+# dialoog/dialoogvenster
 #: ../atk/atkobject.c:98
 msgid "dialog"
 msgstr "dialoogvenster"
@@ -126,9 +129,10 @@ msgstr "mappenpaneel"
 msgid "drawing area"
 msgstr "tekengebied"
 
+# bestandsselectie/kiezer
 #: ../atk/atkobject.c:101
 msgid "file chooser"
-msgstr "bestandsselectie"
+msgstr "bestandskiezer"
 
 #: ../atk/atkobject.c:102
 msgid "filler"
@@ -235,6 +239,7 @@ msgstr "radio-menu-item"
 msgid "root pane"
 msgstr "hoofdpaneel"
 
+# rijkop/rijtitel
 #: ../atk/atkobject.c:129
 msgid "row header"
 msgstr "rijtitel"
@@ -247,10 +252,12 @@ msgstr "schuifbalk"
 msgid "scroll pane"
 msgstr "schuifpaneel"
 
+# scheidingsteken/scheider/scheiding
 #: ../atk/atkobject.c:132
 msgid "separator"
 msgstr "scheiding"
 
+# schuifknop/schuiver
 #: ../atk/atkobject.c:133
 msgid "slider"
 msgstr "schuiver"
@@ -259,6 +266,7 @@ msgstr "schuiver"
 msgid "split pane"
 msgstr "gedeeld paneel"
 
+# draaiknop/tellerknop/teller/spinknop
 #: ../atk/atkobject.c:135
 msgid "spin button"
 msgstr "omhoog/omlaag-knop"
@@ -295,6 +303,7 @@ msgstr "terminal"
 msgid "text"
 msgstr "tekst"
 
+# schakelaar/schakelknop
 #: ../atk/atkobject.c:144
 msgid "toggle button"
 msgstr "schakelknop"
@@ -359,7 +368,7 @@ msgstr "ingebedde component"
 # item/invoerveld/onderdeel
 #: ../atk/atkobject.c:159
 msgid "entry"
-msgstr "onderdeel"
+msgstr "invoerveld"
 
 #: ../atk/atkobject.c:160
 msgid "chart"
@@ -389,71 +398,73 @@ msgstr "sectie"
 msgid "redundant object"
 msgstr "overbodig object"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "formulier"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "Toegankelijke naam"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
-"Naam van dit object, speciaal opgemaakt voor toegang van ondersteunende "
-"technologie"
+msgstr "Naam van dit object, speciaal opgemaakt voor toegankelijkstechnologie"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
-msgstr "Toekankelijke beschrijving"
+msgstr "Toekankelijke omschrijving"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
-"Beschrijving van dit object, speciaal opgemaakt voor toegang van "
+"Omschrijving van dit object, speciaal opgemaakt voor toegang van "
 "ondersteunende technologie"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "Toegankelijke ouder"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Wordt gebruikt om aan te geven dat de ouder is veranderd"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "Toegankelijke waarde"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Wordt gebruikt om aan te geven dat de waarde is veranderd"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "Toegankelijke rol"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "De toegankelijke rol van dit object"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "Toegankelijke laag"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "De toegankelijke laag van dit object"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "Toegankelijke MDI-waarde"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "De toegankelijke MDI-waarde van dit object"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "Toegankelijke tabeltitel"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -461,58 +472,58 @@ msgstr ""
 "Wordt gebruikt om aan te geven dat de tabeltitel is veranderd (niet "
 "gebruiken). U kunt beter accessible-table-caption-object gebruiken."
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "Toegankelijke tabel kolomtitel"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Wordt gebruikt om aan te geven dat de kolomtitel is veranderd"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
-msgstr "Toegankelijke kolombeschrijving"
+msgstr "Toegankelijke kolomomschrijving"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "Wordt gebruikt om aan te geven dat de kolombeschrijving is veranderd"
+msgstr "Wordt gebruikt om aan te geven dat de kolomomschrijving is veranderd"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "Toegankelijke rijtitel"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Wordt gebruikt om aan te geven dat de rijtitel is veranderd"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
-msgstr "Toegankelijke rijbeschrijving"
+msgstr "Toegankelijke rijomschrijving"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
-msgstr "Wordt gebruikt om aan te geven dat de rijbeschrijving is veranderd"
+msgstr "Wordt gebruikt om aan te geven dat de rijomschrijving is veranderd"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "Toegankelijke tabelsamenvatting"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Wordt gebruikt om aan te geven dat de tabelsamenvatting is veranderd"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "Toegankelijk tabeltitelobject"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Wordt gebruikt om aan te geven dat de tabeltitel is veranderd"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Aantal toegankelijke hypertext links"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Het huidig aantal links van de huidige AtkHypertext"
