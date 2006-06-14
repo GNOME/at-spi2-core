@@ -5,6 +5,9 @@
 
 	* configure.in, */Makefile.am: mingw patch, modified from
 	original patch by yselkowitz.  Bug #314216.
+
+	* cspi/spi-impl.h: Added #defines SPI_TRUE and SPI_FALSE
+	for completeness.  Bug #163111.
 	
 2006-06-12  Bill Haneman <bill.haneman@sun.com>
 

@@ -63,7 +63,8 @@ typedef void AccessibleKeystrokeListener;
 typedef void AccessibleDeviceListener;
 
 typedef unsigned int SPIBoolean;
-
+#define SPI_FALSE (0)
+#define SPI_TRUE (!SPI_FALSE)
 
 #ifdef  __cplusplus
 }
