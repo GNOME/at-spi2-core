@@ -2,6 +2,9 @@
 
 	* */Makefile.am: Add WARN_CFLAGS to INCLUDES.
 	Bug #308239.
+
+	* configure.in, */Makefile.am: mingw patch, modified from
+	original patch by yselkowitz.  Bug #314216.
 	
 2006-06-12  Bill Haneman <bill.haneman@sun.com>
 

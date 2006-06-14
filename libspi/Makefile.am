@@ -8,7 +8,7 @@ INCLUDES = -I$(top_srcdir)	\
            $(WARN_CFLAGS)	\
            $(LIBSPI_CFLAGS)
 
-libspi_la_LDFLAGS = @LT_VERSION_INFO@
+libspi_la_LDFLAGS = @LT_VERSION_INFO@ -no-undefined
 libspi_la_LIBADD = $(LIBSPI_LIBS) $(XTST_LIBS)
 
 libspiincludedir = $(includedir)/at-spi-1.0/libspi
@@ -106,7 +106,11 @@ orbittypelibdir = $(libdir)/orbit-2.0
 orbittypelib_LTLIBRARIES = Accessibility_module.la
 
 Accessibility_module_la_LDFLAGS = \
-	-export-dynamic -module -avoid-version
+	-export-dynamic -module -avoid-version -no-undefined
+
+Accessibility_module_la_LIBADD = \
+	$(ORBIT_LIBS)
+
 Accessibility_module_la_SOURCES = \
 	Accessibility-imodule.c
 

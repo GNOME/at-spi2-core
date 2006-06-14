@@ -10,10 +10,10 @@ INCLUDES = -I $(top_srcdir)           \
            $(WARN_CFLAGS)                \
            $(LIBCSPI_CFLAGS)
 
-libcspi_la_LDFLAGS = @LDFLAGS@ ../libspi/libspi.la $(LIBCSPI_LIBS) @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@
+libcspi_la_LDFLAGS = @LDFLAGS@ @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@ -no-undefined
 
 LDADD =				\
-	$(top_srcdir)/libspi/libspi.la	\
+	$(top_builddir)/libspi/libspi.la	\
 	$(LIBCSPI_LIBS) $(X_LIBS)
 
 libcspidir = $(includedir)/at-spi-1.0/cspi
@@ -45,4 +45,6 @@ libcspi_la_SOURCES =		\
 	spi_value.c
 
 libcspi_la_LIBADD =		\
-	bonobo/libcspi-bonobo.la
+	bonobo/libcspi-bonobo.la	\
+	$(top_builddir)/libspi/libspi.la \
+	$(LIBCSPI_LIBS) $(X_LIBS)

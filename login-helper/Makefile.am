@@ -4,6 +4,7 @@ LDADD = $(X_LIBS) $(LOGIN_HELPER_LIBS)
 
 INCLUDES = -I$(top_srcdir)          \
            -I$(top_builddir)        \
+	   $(WARN_CFLAGS)	\
            $(REGISTRYD_CFLAGS)
 
 IDL_OUT = Accessibility_LoginHelper.h Accessibility_LoginHelper-stubs.c Accessibility_LoginHelper-skels.c Accessibility_LoginHelper-common.c
@@ -15,6 +16,9 @@ BUILT_SOURCES = $(IDL_OUT) Accessibility_LoginHelper-imodule.c
 CLEANFILES = $(IDL_OUT) Accessibility_LoginHelper-imodule.c
 
 libloginhelperincludedir = $(includedir)/at-spi-1.0/login-helper
+
+libloginhelper_la_LDFLAGS = -no-undefined
+libloginhelper_la_LIBADD = $(REGISTRYD_LIBS)
 
 libloginhelperinclude_HEADERS = \
 	Accessibility_LoginHelper.h	\
@@ -36,7 +40,9 @@ orbittypelibdir = $(libdir)/orbit-2.0
 orbittypelib_LTLIBRARIES = Accessibility_LoginHelper_module.la
 
 Accessibility_LoginHelper_module_la_LDFLAGS = \
-	-export-dynamic -module -avoid-version
+	-export-dynamic -module -avoid-version -no-undefined
+Accessibility_LoginHelper_module_la_LIBADD = \
+	$(ORBIT_LIBS)
 Accessibility_LoginHelper_module_la_SOURCES = \
 	Accessibility_LoginHelper-imodule.c
 

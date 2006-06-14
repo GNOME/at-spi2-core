@@ -12,6 +12,7 @@ INCLUDES = -I $(top_srcdir) \
 	   -I $(top_srcdir)/libspi	\
 	   -I $(top_builddir)/libspi	\
            -I $(top_builddir)/atk-bridge \
+	   $(WARN_CFLAGS)	\
            $(ATK_BRIDGE_CFLAGS)
 
 DEPS = 	\
@@ -22,6 +23,9 @@ DEPS = 	\
 	$(libat-spi)
 
 libatk_bridge_la_LDFLAGS =  	\
-	-rpath $(moduledir) -module -avoid-version \
-	@LDFLAGS@	\
-	$(top_builddir)/libspi/libspi.la
+	-rpath $(moduledir) -module -avoid-version -no-undefined \
+	@LDFLAGS@
+
+libatk_bridge_la_LIBADD = \
+	$(top_builddir)/libspi/libspi.la	\
+	$(ATK_BRIDGE_LIBS)	
