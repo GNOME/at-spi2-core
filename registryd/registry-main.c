@@ -56,7 +56,7 @@ main (int argc, char **argv)
       display_name = g_strdup (gdk_display_get_name (gdk_display_get_default ()));
       cp = strrchr (display_name, '.');
       dp = strrchr (display_name, ':');
-      if (cp && dp && ((guint) cp > (guint) dp)) *cp = '\0';
+      if (cp && dp && (cp > dp)) *cp = '\0';
   }
 
   reg_env = bonobo_activation_registration_env_set ( reg_env, "AT_SPI_DISPLAY", 

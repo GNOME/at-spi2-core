@@ -100,7 +100,7 @@ cspi_display_name (void)
 		canonical_display_name = g_strdup (display_env);
 		display_p = strrchr (canonical_display_name, ':');
 		screen_p = strrchr (canonical_display_name, '.');
-		if (screen_p && display_p && ((guint) screen_p > (guint) display_p))
+		if (screen_p && display_p && (screen_p > display_p))
 		{
 		    *screen_p = '\0';
 		}

@@ -8,6 +8,11 @@
 
 	* cspi/spi-impl.h: Added #defines SPI_TRUE and SPI_FALSE
 	for completeness.  Bug #163111.
+
+	* atk-bridge/bridge.c, cspi/bonobo/cspi-bonobo.c:
+	* libspi/util.c,  registryd/registry-main.c:
+	Fix guint/char* casts.
+	Patch from chpe, bug #333883.
 	
 2006-06-12  Bill Haneman <bill.haneman@sun.com>
 

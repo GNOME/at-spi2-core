@@ -36,6 +36,8 @@ static GSList *working_list = NULL; /* of Iteration */
 
 static char *spi_atk_bridge_null_string = "";
 
+Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
+
 Accessibility_Role
 spi_role_from_atk_role (AtkRole role)
 {
