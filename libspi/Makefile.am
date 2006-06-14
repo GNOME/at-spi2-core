@@ -5,6 +5,7 @@ lib_LTLIBRARIES = libspi.la
 INCLUDES = -I$(top_srcdir)	\
            -I$(top_builddir)	\
            $(LIBSPI_DEBUG_CFLAGS)	\
+           $(WARN_CFLAGS)	\
            $(LIBSPI_CFLAGS)
 
 libspi_la_LDFLAGS = @LT_VERSION_INFO@

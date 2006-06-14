@@ -7,6 +7,7 @@ lib_LTLIBRARIES = libcspi.la
 INCLUDES = -I $(top_srcdir)           \
            -I $(top_builddir)         \
            $(X_CFLAGS)                \
+           $(WARN_CFLAGS)                \
            $(LIBCSPI_CFLAGS)
 
 libcspi_la_LDFLAGS = @LDFLAGS@ ../libspi/libspi.la $(LIBCSPI_LIBS) @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@

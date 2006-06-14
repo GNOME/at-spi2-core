@@ -9,6 +9,7 @@ INCLUDES = -I$(top_srcdir)          \
            -I$(top_builddir)        \
            -I$(top_builddir)/libspi \
            -I$(top_srcdir)/libspi   \
+           $(WARN_CFLAGS)	\
            $(REGISTRYD_CFLAGS)
 
 at_spi_registryd_SOURCES =		\

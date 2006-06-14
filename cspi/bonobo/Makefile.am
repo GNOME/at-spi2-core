@@ -1,6 +1,7 @@
 INCLUDES = -I $(top_srcdir)           \
            -I $(top_builddir)         \
            $(X_CFLAGS)                \
+           $(WARN_CFLAGS)                \
            $(LIBCSPI_CFLAGS)
 
 noinst_LTLIBRARIES = libcspi-bonobo.la

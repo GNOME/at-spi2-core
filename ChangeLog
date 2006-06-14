@@ -1,3 +1,8 @@
+2006-06-14  Bill Haneman <bill.haneman@sun.com>
+
+	* */Makefile.am: Add WARN_CFLAGS to INCLUDES.
+	Bug #308239.
+	
 2006-06-12  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Require atk-1.12.0, to pick up
