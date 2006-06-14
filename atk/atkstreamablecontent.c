@@ -116,3 +116,38 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
   else
     return NULL;
 }
+
+/*
+ * atk_streamable_content_get_uri:
+ * @streamable: a GObject instance that implements AtkStreamableContentIface
+ * @mime_type: a gchar* representing the mime type, or NULL to request a URI 
+ * for the default mime type.
+ *
+ * Get a string representing a URI in IETF standard format
+ * (see http://www.ietf.org/rfc/rfc2396.txt) from which the object's content
+ * may be streamed in the specified mime-type, if one is available.
+ * If mime_type is NULL, the URI for the default (and possibly only) mime-type is
+ * returned. 
+ *
+ * Note that it is possible for get_uri to return NULL but for
+ * get_stream to work nonetheless, since not all GIOChannels connect to URIs.
+ *
+ * Returns:  Returns a string representing a URI, or NULL if no corresponding URI
+ * can be constructed.
+ */
+ GIOChannel*
+atk_streamable_content_get_uri (AtkStreamableContent *streamable,
+				const gchar          *mime_type)
+{
+  AtkStreamableContentIface *iface;
+
+  g_return_val_if_fail (mime_type != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_STREAMABLE_CONTENT (streamable), NULL);
+
+  iface = ATK_STREAMABLE_CONTENT_GET_IFACE (streamable);
+
+  if (iface->get_uri)
+    return (iface->get_uri) (streamable, mime_type);
+  else
+    return NULL;
+}

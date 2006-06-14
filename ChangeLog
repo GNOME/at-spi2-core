@@ -1,3 +1,10 @@
+2006-06-14 Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkstreamablecontent.h, atkstreamablecontent.c:
+	(atk_streamable_content_get_uri): New method, returns a string
+	representing a URI from which content may be streamed.
+	See RFE #344885.
+	
 2006-06-08 Bill Haneman <bill.haneman@sun.com>
 
 	* atk/Makefile.am: Added $(srcfile) to win32
