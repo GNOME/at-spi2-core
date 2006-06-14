@@ -23,8 +23,6 @@
 #ifndef __ACCESSIBILITY_EVENT_DEFINED__
 #define __ACCESSIBILITY_EVENT_DEFINED__
 
-#include <Bonobo_Unknown.idl>
-
 module Accessibility
 {
   interface Accessible;

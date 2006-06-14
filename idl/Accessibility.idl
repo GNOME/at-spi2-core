@@ -93,6 +93,8 @@
  * activation or intercommunication between multiple ATs.
  **/
 
+#include <Bonobo_Unknown.idl>
+
 /*
  * Accessibility interfaces and subinterfaces
  */
