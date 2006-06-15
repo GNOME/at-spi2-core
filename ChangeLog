@@ -1,7 +1,7 @@
 2006-06-15 Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkstreamablecontent.h, atkstreamablecontent.c:
-	
+	Fix nasty typo.  Bug #344915.
 	
 2006-06-14 Bill Haneman <bill.haneman@sun.com>
 
