@@ -135,7 +135,7 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
  * Returns:  Returns a string representing a URI, or NULL if no corresponding URI
  * can be constructed.
  */
- GIOChannel*
+gchar*
 atk_streamable_content_get_uri (AtkStreamableContent *streamable,
 				const gchar          *mime_type)
 {

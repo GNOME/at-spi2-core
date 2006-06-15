@@ -94,7 +94,7 @@ G_CONST_RETURN gchar*  atk_streamable_content_get_mime_type    (AtkStreamableCon
                                                                 gint                     i);
 GIOChannel*             atk_streamable_content_get_stream       (AtkStreamableContent     *streamable,
                                                                  const gchar              *mime_type);
-);
+
 gchar*                  atk_streamable_content_get_uri          (AtkStreamableContent     *streamable,
                                                                  const gchar              *mime_type);
 
