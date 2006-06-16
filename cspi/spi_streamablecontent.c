@@ -25,11 +25,10 @@
 #include <libbonobo.h>
 #include <cspi/spi-private.h>
 
-
-/* TODO: factor/wrap Bonobo_Stream dependency to cspi/bonobo */
+#define CORBA_BLOCK_SIZE 65536 /* see libbonobo, dunno where this is officially dictated */
 
 struct StreamCacheItem {
-  Bonobo_Stream stream;
+  Accessibility_ContentStream stream;
   gchar *mimetype;
 };
 
@@ -62,9 +61,9 @@ get_streams (void)
 }
 
 static CORBA_long
-accessible_bonobo_stream_client_seek (const Bonobo_Stream stream,
+accessible_content_stream_client_seek (const Accessibility_ContentStream stream,
 				      CORBA_long offset,
-				      Bonobo_Stream_SeekType seek_type,
+				      Accessibility_ContentStream_SeekType seek_type,
 				      CORBA_Environment  *opt_ev)
 {
 	CORBA_Environment  *ev, temp_ev;
@@ -76,7 +75,7 @@ accessible_bonobo_stream_client_seek (const Bonobo_Stream stream,
 	} else
 		ev = opt_ev;
 
-	ret_offset = Bonobo_Stream_seek (stream, offset, seek_type, ev);
+	ret_offset = Accessibility_ContentStream_seek (stream, offset, seek_type, ev);
 	if (BONOBO_EX (ev))
 	        ret_offset = -1;
 
@@ -84,6 +83,65 @@ accessible_bonobo_stream_client_seek (const Bonobo_Stream stream,
 		CORBA_exception_free (&temp_ev);
 	
 	return ret_offset;
+}
+
+static guint8*
+accessible_content_stream_client_read (const Accessibility_ContentStream stream,
+				       const size_t size,
+				       CORBA_long *length_read,
+				       CORBA_Environment  *ev)
+{
+	size_t  pos;
+	guint8 *mem;
+	size_t  length;
+
+	g_return_val_if_fail (ev != NULL, NULL);
+
+	if (length_read)
+		*length_read = size;
+
+	length = size;
+
+	if (length == 0)
+		return NULL;
+
+	mem = g_try_malloc (length);
+	if (!mem) {
+		CORBA_exception_set_system (ev, ex_CORBA_NO_MEMORY,
+					    CORBA_COMPLETED_NO);
+		return NULL;
+	}
+
+	*length_read = 0;
+
+	for (pos = 0; pos < length;) {
+		Bonobo_Stream_iobuf *buf;
+		CORBA_long           len;
+
+		len = (pos + CORBA_BLOCK_SIZE < length) ?
+			CORBA_BLOCK_SIZE : length - pos;
+
+		Accessibility_ContentStream_read (stream, len, &buf, ev);
+
+		if (BONOBO_EX (ev) || !buf)
+			goto io_error;
+
+		if (buf->_length > 0) {
+			memcpy (mem + pos, buf->_buffer, buf->_length);
+			pos += buf->_length;
+		} else {
+			g_warning ("Buffer length %d", buf->_length);
+			goto io_error;
+		}
+		*length_read += buf->_length;
+
+		CORBA_free (buf);
+	}
+
+	return mem;
+
+ io_error:
+	return NULL;
 }
 
 /* internal use only, declared in cspi-private.h */
@@ -205,7 +263,7 @@ SPIBoolean
 AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
 				  const char *content_type)
 {
-  Bonobo_Stream stream;
+  Accessibility_ContentStream stream;
   struct StreamCacheItem *cache;
   stream = Accessibility_StreamableContent_getContent (CSPI_OBJREF (obj),
 						       content_type,
@@ -266,10 +324,10 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 				  long int offset,
 				  AccessibleStreamableContentSeekType seek_type)
 {
-  Bonobo_Stream stream;
+  Accessibility_ContentStream stream;
   long int ret_offset = 0;
   struct StreamCacheItem *cached; 
-  Bonobo_Stream_SeekType bonobo_seek_type;
+  Accessibility_ContentStream_SeekType content_seek_type;
 
   cached = g_hash_table_lookup (get_streams (), CSPI_OBJREF (obj));
   if (cached)
@@ -279,19 +337,18 @@ AccessibleStreamableContent_seek (AccessibleStreamableContent *obj,
 	{
 	  switch (seek_type) {
 	  case SPI_STREAM_SEEK_SET:
-	    bonobo_seek_type = Bonobo_Stream_SeekSet; 
+	    content_seek_type = Accessibility_ContentStream_SEEK_SET; 
 	    break;
 	  case SPI_STREAM_SEEK_END:
-	    bonobo_seek_type = Bonobo_Stream_SeekEnd; 
+	    content_seek_type = Accessibility_ContentStream_SEEK_END; 
 	    break;
 	  case SPI_STREAM_SEEK_CUR:
 	  default:
-	    bonobo_seek_type = Bonobo_Stream_SeekCur; 
+	    content_seek_type = Accessibility_ContentStream_SEEK_CURRENT; 
 	    break;
 	  }
-	  /* bonobo-client doesn't wrap seek yet, so we have to. */
-	  ret_offset = accessible_bonobo_stream_client_seek (stream, offset, 
-							     bonobo_seek_type, cspi_ev ());
+	  ret_offset = accessible_content_stream_client_seek (stream, offset, 
+							     content_seek_type, cspi_ev ());
 	  cspi_return_val_if_ev ("seek", FALSE);
 	}
     }
@@ -323,7 +380,7 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
 				  long int nbytes,
 				  unsigned int read_type)
 {
-  Bonobo_Stream stream;
+  Accessibility_ContentStream stream;
   struct StreamCacheItem *cached; 
   cached = g_hash_table_lookup (get_streams (), CSPI_OBJREF (obj));
   if (cached)
@@ -333,7 +390,7 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
       if (stream != CORBA_OBJECT_NIL)
 	{
           guint8 *mem;
-	  mem = bonobo_stream_client_read (stream, (size_t) nbytes, &len_read, cspi_ev ());
+	  mem = accessible_content_stream_client_read (stream, (size_t) nbytes, &len_read, cspi_ev ());
 	  cspi_return_val_if_ev ("read", FALSE);
 	  if (mem)
             {

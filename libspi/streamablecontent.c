@@ -35,6 +35,146 @@
 /* A pointer to our parent object class */
 static GObjectClass *spi_streamable_parent_class;
 
+#define SPI_CONTENT_STREAM_TYPE            (spi_content_stream_get_type ())
+#define SPI_CONTENT_STREAM(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_CONTENT_STREAM_TYPE, SpiContentStream))
+#define SPI_CONTENT_STREAM_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_CONTENT_STREAM_TYPE, SpiContentStreamClass))
+#define SPI_IS_CONTENT_STREAM(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_CONTENT_STREAM_TYPE))
+#define SPI_IS_CONTENT_STREAM_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_CONTENT_STREAM_TYPE))
+
+typedef struct _SpiContentStream SpiContentStream;
+typedef struct _SpiContentStreamClass SpiContentStreamClass;
+
+struct _SpiContentStream {
+  BonoboObject parent;
+  GIOChannel *gio;
+};
+
+struct _SpiContentStreamClass {
+  BonoboObjectClass parent_class;
+  POA_Accessibility_ContentStream__epv epv;
+};
+
+GType        spi_content_stream_get_type (void);
+
+static SpiContentStream*
+spi_content_stream_new (GIOChannel *gio)
+{
+  SpiContentStream *new_stream = g_object_new (SPI_CONTENT_STREAM_TYPE, NULL);
+  new_stream->gio = gio;
+  return new_stream;
+}
+
+static void
+spi_content_stream_dispose (GObject *o)
+{
+    if (SPI_IS_CONTENT_STREAM (o))
+    {
+	SpiContentStream *stream = SPI_CONTENT_STREAM (o);
+	if (stream->gio) g_io_channel_unref (stream->gio);
+    }
+}
+
+static CORBA_long
+impl_content_stream_seek (PortableServer_Servant servant,
+			  const CORBA_long offset, 
+			  const Accessibility_ContentStream_SeekType whence,
+			  CORBA_Environment *ev)
+{
+  SpiContentStream *stream = SPI_CONTENT_STREAM (bonobo_object_from_servant(servant));
+  if (stream && stream->gio)
+  {
+      GError *err;
+      GSeekType seektype = G_SEEK_SET;
+      switch (whence) {
+	  case Accessibility_ContentStream_SEEK_CURRENT:
+	      seektype = G_SEEK_CUR;
+	      break;
+	  case Accessibility_ContentStream_SEEK_END:
+	      seektype = G_SEEK_END;
+	      break;
+      }
+      if (g_io_channel_seek_position (stream->gio, (gint64) offset, 
+				     seektype, &err) == G_IO_STATUS_NORMAL)
+	  return offset;
+      else
+	  return -1;
+  }
+  else
+      return -1;
+}
+
+static CORBA_long
+impl_content_stream_read (PortableServer_Servant servant,
+			  const CORBA_long count, 
+			  Accessibility_ContentStream_iobuf** buffer,
+			  CORBA_Environment *ev)
+{
+  SpiContentStream *stream = SPI_CONTENT_STREAM (bonobo_object_from_servant(servant));
+  CORBA_long realcount = 0;
+  if (stream && stream->gio)
+  {
+      gchar *gbuf = NULL;
+      GIOStatus status;
+      GError *err;
+      /* read the giochannel and determine the actual bytes read...*/
+      if (count != -1)
+	  status = g_io_channel_read_chars (stream->gio, &gbuf, count, &realcount, &err);
+      else
+	  status = g_io_channel_read_to_end (stream->gio, &gbuf, &realcount, &err);
+
+      if (status == G_IO_STATUS_NORMAL || status == G_IO_STATUS_EOF)
+      {
+	  *buffer = Bonobo_Stream_iobuf__alloc ();
+	  CORBA_sequence_set_release (*buffer, TRUE);
+
+	  (*buffer)->_buffer = CORBA_sequence_CORBA_octet_allocbuf (realcount);
+	  (*buffer)->_length = realcount;
+      
+	  memcpy ((*buffer)->_buffer, gbuf, realcount);  
+      }
+
+      g_free (gbuf);
+  }
+
+  return realcount;
+}
+
+static void
+impl_content_stream_close (PortableServer_Servant servant, 
+			   CORBA_Environment *ev)
+{
+    GIOStatus status;
+    GError *err;
+    SpiContentStream *stream = SPI_CONTENT_STREAM (bonobo_object_from_servant(servant));
+    if (stream && stream->gio) status = g_io_channel_shutdown (stream->gio, TRUE, &err);
+    if (err) g_free (err);
+}
+
+static void
+spi_content_stream_class_init (SpiContentStreamClass *klass)
+{
+  POA_Accessibility_ContentStream__epv *epv = &klass->epv;
+  GObjectClass * object_class = (GObjectClass *) klass;
+
+  epv->seek = impl_content_stream_seek;
+  epv->read = impl_content_stream_read;
+  epv->close = impl_content_stream_close;
+
+  object_class->dispose = spi_content_stream_dispose;
+}
+
+
+static void
+spi_content_stream_init (SpiContentStream *stream)
+{
+}
+
+
+BONOBO_TYPE_FUNC_FULL (SpiContentStream,
+		       Accessibility_ContentStream,
+		       BONOBO_TYPE_OBJECT,
+		       spi_content_stream)
+
 static AtkStreamableContent *
 get_streamable_from_servant (PortableServer_Servant servant)
 {
@@ -90,6 +230,45 @@ impl_accessibility_streamable_get_content (PortableServer_Servant servant,
   return stream;
 }
 
+/*
+ * CORBA Accessibility::StreamableContent::getStream method implementation
+ */
+static Accessibility_ContentStream
+impl_accessibility_streamable_get_stream (PortableServer_Servant servant,
+					   const CORBA_char * content_type,
+					   CORBA_Environment     *ev)
+{
+  SpiContentStream *stream;
+  AtkStreamableContent *streamable = get_streamable_from_servant (servant);
+  GIOChannel *gio;
+
+  g_return_val_if_fail (streamable != NULL, NULL);
+
+  gio = atk_streamable_content_get_stream (streamable, content_type);
+
+  stream = spi_content_stream_new (gio); 
+
+  return bonobo_object_dup_ref (BONOBO_OBJREF (stream), ev);
+}
+
+/*
+ * CORBA Accessibility::StreamableContent::getURI method implementation
+ */
+static CORBA_string
+impl_accessibility_streamable_get_uri (PortableServer_Servant servant,
+					   const CORBA_char * content_type,
+					   CORBA_Environment     *ev)
+{
+  gchar *uri;
+  AtkStreamableContent *streamable = get_streamable_from_servant (servant);
+
+  g_return_val_if_fail (streamable != NULL, NULL);
+
+  uri = atk_streamable_content_get_uri (streamable, content_type);
+
+  return (uri != NULL ? CORBA_string_dup (uri) : CORBA_string_dup (""));
+}
+
 static void
 spi_streamable_class_init (SpiStreamableClass *klass)
 {
@@ -98,6 +277,8 @@ spi_streamable_class_init (SpiStreamableClass *klass)
 
         epv->getContentTypes = impl_accessibility_streamable_get_content_types;
         epv->getContent = impl_accessibility_streamable_get_content;
+	epv->getStream = impl_accessibility_streamable_get_stream;
+	epv->getURI = impl_accessibility_streamable_get_uri;
 }
 
 static void

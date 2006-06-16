@@ -1,3 +1,51 @@
+2006-06-16  Bill Haneman <bill.haneman@sun.com>
+
+	RFE #326532:
+	
+	* idl/Accessibility_StreambleContent.idl:
+	Deprecate the Bonobo_Stream-based methods in favor of
+	a self-contained "ContentStream" interface.  This should 
+	allow us to remove BonoboStream dependencies entirely, since
+	there were no non-NIL implementations of the old methods anyway.
+	(ContentStream): New interface.
+	(ContentStream::SeekType): Enum.
+	(ContentStream::seek): New.
+	(ContentStream::read): New.
+	(ContentStream::close): New.
+	(getContent): Deprecate.
+	(getURI): New method, returns a URI pointing to the content, if available.
+	
+	* libspi/streamablecontent.c:
+	(SpiContentStream): Internal object type definition used to
+	implement Accessibility::StreamableContent::ContentStream via
+	AtkStreamableContent's GIOChannel back-end.
+	(spi_content_stream_new, spi_content_stream_dispose): See above;
+	static methods.
+	(impl_content_stream_seek, impl_content_stream_read):
+	(impl_content_stream_close): New, implementations of
+	ContentStream's IDL.
+	(impl_accessibility_streamable_get_stream): Implement the 
+	public method Accessibility::StreamableContent::getStream.
+	(impl_accessibility_streamable_get_uri): Implement the 
+	public method Accessibility::StreamableContent::getURI.
+
+	* cspi/spi_streamablecontent.c:
+	(accessible_bonobo_stream_client_seek): Replaced by
+	(accessible_content_stream_client_seek).
+	(accessible_bonobo_stream_client_read): Replaced by
+	(accessible_content_stream_client_read).
+	(AccessibleStreamableContent_open):
+	(AccessibleStreamableContent_seek):
+	(AccessibleStreamableContent_read):
+	(AccessibleStreamableContent_close): Use the new 'getStream'
+	API instead of the deprecated 'getContent' API, inside the cspi wrappers.
+	
+2006-06-15  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility.idl: #include Bonobo_Unknown.idl,
+	remove from other .idl files (except LoginHelper).
+	See bug #313122.
+
 2006-06-14  Bill Haneman <bill.haneman@sun.com>
 
 	* */Makefile.am: Add WARN_CFLAGS to INCLUDES.

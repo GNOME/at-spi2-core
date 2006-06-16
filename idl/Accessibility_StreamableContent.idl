@@ -27,35 +27,16 @@ module Accessibility {
   typedef sequence<string> StringSeq;
 
   /** 
-   * An interface whereby an object allows its backing content
-   * to be streamed to clients.  Negotiation of content type
-   * is allowed.  Clients may examine the backing data and
-   * transform, convert, or parse the content in order to
-   * present it in an alternate form to end-users.
+   * An interface by which the requested data from a StreamableContent object
+   * may be read by the client.
+   * @note this interface supercedes the use of BonoboStream by previous
+   * versions of StreamableContent.
    *
-   * @note The StreamableContent interface is particularly useful for saving, 
-   * printing, or post-processing entire documents, or for persisting 
-   * alternate views of a document.
-   * If document content itself is being serialized, stored, or converted,
-   * then use of the StreamableContent interface can help address performance
-   * issues.  Unlike most AT-SPI/Accessibility interfaces, this interface
-   * is not strongly tied to the current user-agent view of the
-   * a particular document, but may in some cases give access to the 
-   * underlying model data.
+   * @since AT-SPI 1.7.0 
    */
-  interface StreamableContent {
+  interface ContentStream {
 
-      /** 
-       * Specifies the meaning of a seek 'offset'.  Not all SeekTypes are 
-       * supported by all StreamableContent data sources, for instance 
-       * some streams may not support seeking from the beginning or other
-       * types of 'backwards' seeks.
-       */
-      enum SeekType {
-	  SEEK_SET, /**< Seek from the start of the stream or data source.*/
-	  SEEK_CURRENT, /**< Seek relative to the current position. */
-	  SEEK_END /**< Seek from the end of the file, stream, or data source. */
-      };
+      typedef sequence<octet> iobuf;
 
       /** 
        * Indicates that a transmission error has occurred while 
@@ -80,12 +61,76 @@ module Accessibility {
 	  string reason;
       };
 
+      /** 
+       * Specifies the meaning of a seek 'offset'.  Not all SeekTypes are 
+       * supported by all StreamableContent data sources, for instance 
+       * some streams may not support seeking from the beginning or other
+       * types of 'backwards' seeks.
+       */
+      enum SeekType {
+	  SEEK_SET, /**< Seek from the start of the stream or data source.*/
+	  SEEK_CURRENT, /**< Seek relative to the current position. */
+	  SEEK_END /**< Seek from the end of the file, stream, or data source. */
+      };
+
+      /** 
+       * Seek to a specified position in the Stream.
+       * @param offset an offset specifying the requested position in the stream,
+       * relative to the SeekType specified in \c whence.
+       * @param whence a SeekType specifying the reference point from which the 
+       * seek offset is calculated.  Some forms of seek are not supported by certain
+       * implementations of Stream, in which case a NotSupported exception will be raised.
+       * @returns the actual resulting offset, if no exception was raised.
+       **/
+      long seek (in long offset, in SeekType whence)
+	  raises (NoPermission, IOError, NotSupported);
+      /** 
+       * Request/read a specified amount of data from a Stream.
+       * @returns the number of bytes actually read into the client buffer.
+       **/
+      long read (in long count, out iobuf buffer)  
+	  raises (NoPermission, IOError);
+      /** 
+       * close the stream and release associated resources.  
+       * A client should not perform further operations on a 
+       * StreamableContent::Stream object after closing it.
+       **/
+      void close ();
+
+      /** /cond */
+      void unimplemented ();
+      void unimplemented2 ();
+      /** /endcond */
+  };
+
+
+  /** 
+   * An interface whereby an object allows its backing content
+   * to be streamed to clients.  Negotiation of content type
+   * is allowed.  Clients may examine the backing data and
+   * transform, convert, or parse the content in order to
+   * present it in an alternate form to end-users.
+   *
+   * @note The StreamableContent interface is particularly useful for saving, 
+   * printing, or post-processing entire documents, or for persisting 
+   * alternate views of a document.
+   * If document content itself is being serialized, stored, or converted,
+   * then use of the StreamableContent interface can help address performance
+   * issues.  Unlike most AT-SPI/Accessibility interfaces, this interface
+   * is not strongly tied to the current user-agent view of the
+   * a particular document, but may in some cases give access to the 
+   * underlying model data.
+   */
+  interface StreamableContent {
+
       /**
        * getContentTypes:
        * @returns the list of available mimetypes for this object's content.
        */
     StringSeq getContentTypes ();
       /**
+       * \n DEPRECATED, use getStream instead.
+       * getContent:
        * Retrieve this object's content, in a format appropriate to a
        * requested mimetype.
        *
@@ -109,6 +154,33 @@ module Accessibility {
        */
     Bonobo::Stream getContent (in string contentType);
 
+      /**
+       * Retrieve this object's content, in a format appropriate to a
+       * requested mimetype, as a ::ContentStream instance.
+       *
+       * @note This method supercedes the older getContent method, which
+       * relied on the Bonobo::Stream API.
+       * \c seek may not be supported for all mimetypes or
+       * all implementors.
+       * 
+       * @param contentType a string specifying the desired mimetype for the content stream.
+       * @returns a Stream whose mimetype matches \a contentType,
+       *          if available, or \c NIL.
+       * @since AT-SPI 1.8.0
+       */
+    ContentStream getStream (in string contentType);
+
+      /**
+       * Get a URI pointing to the content of the specified type, if such a URI
+       * can be obtained.  Not all streamable content providers have URI representations.
+       *
+       * @param contentType a string specifying the desired mimetype for the content stream.
+       * If NULL, then a URI for the default content type will be returned, if available.
+       *
+       * @returns a string which constitutes a URI for a stream of the specified
+       * content type, or NULL if no such URI can be obtained.
+       */
+    string getURI (in string contentType);
     /**
      * \cond
      * unImplemented:
@@ -117,8 +189,7 @@ module Accessibility {
      */
     void unImplemented ();
     void unImplemented2 ();
-    void unImplemented3 ();
-    void unImplemented4 ();
       /** \endcond */
   };
+
 };
