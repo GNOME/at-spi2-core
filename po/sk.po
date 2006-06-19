@@ -1,10 +1,10 @@
 # translation of atk.HEAD.po to 
 # translation of atk.sk.po to Slovak
 # translation of atk.HEAD.po to Slovak
-# Copyright (C) 2003, 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
 # Stanislav Visnovsky <visnovsky@kde.org>, 2003, 2004.
-# Marcel Telka <marcel@telka.sk>, 2005.
+# Marcel Telka <marcel@telka.sk>, 2005, 2006.
 #
 # $Id$
 #
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-22 20:08+0100\n"
-"PO-Revision-Date: 2005-11-22 20:10+0100\n"
+"POT-Creation-Date: 2006-06-19 21:40+0200\n"
+"PO-Revision-Date: 2006-06-19 21:42+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -389,67 +389,71 @@ msgstr "oddiel"
 msgid "redundant object"
 msgstr "prebytočný objekt"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "formulár"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "Prístupné meno"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Meno inštancie objektu naformátované pre prístupnosť"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "Prístupný popis"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Popis objektu, formátovaný pre prístupnosť"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "Prístupný rodič"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Používa sa pre upozornenie, že je rodič zmenený"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "Prístupná hodnota"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Používa sa pre upozornenie, že sa hodnota zmenila"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "Úloha prístupnosti"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "Úloha tohto objektu v prístupnosti"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "Vrstva prístupnosti"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "Vrstva prístupnosti tohto objektu"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "Prístupná MDI hodnota"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "Prístupná hodnota MDI pre tento objekt"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "Prístupná hlavička tabuľky"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -457,58 +461,58 @@ msgstr ""
 "Používa sa pre upozornenie, že sa hlavička tabuľky zmenila. Táto vlastnosť "
 "by sa nemala používať. Použite accessible-table-caption-object."
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "Prístupná hlavička stĺpca tabuľky"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Používa sa pre upozornenie, že sa hlavička stĺpca tabuľky zmenila"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "Prístupný popis stĺpca tabuľky"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "Používa sa pre upozornenie, že sa popis stĺpca tabuľky zmenil"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "Prístupná hlavička riadku tabuľky"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Používa sa pre upozornenie, že sa hlavička riadku tabuľky zmenila"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "Prístupný popis riadku tabuľky"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "Používa sa pre upozornenie, že sa popis riadku tabuľky zmenil"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "Prístupný súhrn tabuľky"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Používa sa pre upozornenie, že sa súhrn tabuľky zmenil"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "Prístupný objekt hlavičky tabuľky"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Používa sa pre upozornenie, že sa hlavička tabuľky zmenila"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Počet Prístupných odkazov"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Počet odkazov, ktoré AtkHypertext obsahuje"
