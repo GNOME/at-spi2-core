@@ -1,3 +1,9 @@
+2006-06-21 Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkstateset.c:
+	(ATK_STATE): Patch from Ginn Chen, bug #345407.
+	Fix ATK_STATE macro for state values > 32.
+	
 2006-06-15 Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkstreamablecontent.h, atkstreamablecontent.c:

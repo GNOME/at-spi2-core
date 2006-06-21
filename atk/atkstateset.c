@@ -22,7 +22,7 @@
 #include "atkobject.h"
 #include "atkstateset.h"
 
-#define ATK_STATE(state_enum)             ((AtkState)(1 << ((guint64)(state_enum)%64)))
+#define ATK_STATE(state_enum)             ((AtkState)((guint64)1 << ((state_enum)%64)))
 
 struct _AtkRealStateSet
 {
