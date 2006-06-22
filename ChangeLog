@@ -1,3 +1,42 @@
+2006-06-22  Bill Haneman <bill.haneman@sun.com>
+
+	Bug #345701.
+	
+	* idl/Accessibility_StreamableContent.idl:
+	Fix derivation of StreamableContent and ContentStream.
+
+	* cspi/spi_streamablecontent.c:
+	(accessible_content_stream_client_read):
+	Fix the datatype of the content stream used.
+	Interpret short reads as EOF, and stop trying to 
+	read when we've fulfilled the request.
+	(AccessibleStreamableContent_getContentTypes):
+	Use g_strdup, not CORBA_string_dup, for the strings.
+	(AccessibleStreamableContent_open):
+	Correctly use the new getStream method for opening,
+	not the deprecated getContent method.
+	Use the object reference as the stream hash key.
+	Make note of the 'one stream per client per streamable'
+	limitation in the docs.
+	
+	* libspi/libspi.h:
+	Add streamablecontent.h to the list of #includes.
+
+	* libspi/streamablecontent.c:
+	(impl_content_stream_read): Initialize the GError.
+	Allocate the incoming buffer if reading a fixed length of
+	data.  Use g_memmove instead of memcpy.
+	(impl_accessibility_streamable_get_content_types):
+	Init typelist->_maximum.  Only allocate the buffer if
+	there is a non-zero number of content types available.
+	(BONOBO_TYPE_FUNC_FULL(SpiStreamable): Move to end.
+
+	* libspi/streamablecontent.h:
+	(SPI_STREAMABLE_TYPE): Fix this macro, it was totally broken.
+
+	* libspi/value.h: 
+	(SPI_IS_VALUE): Fix a typo in this macro too.
+	
 2006-06-16  Bill Haneman <bill.haneman@sun.com>
 
 	RFE #326532:

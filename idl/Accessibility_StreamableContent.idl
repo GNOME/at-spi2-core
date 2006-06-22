@@ -34,7 +34,7 @@ module Accessibility {
    *
    * @since AT-SPI 1.7.0 
    */
-  interface ContentStream {
+  interface ContentStream : Bonobo::Unknown {
 
       typedef sequence<octet> iobuf;
 
@@ -121,7 +121,7 @@ module Accessibility {
    * a particular document, but may in some cases give access to the 
    * underlying model data.
    */
-  interface StreamableContent {
+  interface StreamableContent : Bonobo::Unknown {
 
       /**
        * getContentTypes:

@@ -44,5 +44,6 @@
 #include <libspi/devicelistener.h>
 #include <libspi/keymasks.h>
 #include <libspi/remoteobject.h>
+#include <libspi/streamablecontent.h>
 
 #endif /* LIBSPI_H_ */

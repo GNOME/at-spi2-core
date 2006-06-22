@@ -29,7 +29,7 @@
 
 G_BEGIN_DECLS
 
-#define SPI_STREAMABLE_TYPE        (spi_component_get_type ())
+#define SPI_STREAMABLE_TYPE        (spi_streamable_get_type ())
 #define SPI_STREAMABLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_STREAMABLE_TYPE, SpiStreamable))
 #define SPI_STREAMABLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_STREAMABLE_TYPE, SpiStreamableClass))
 #define SPI_IS_STREAMABLE(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_STREAMABLE_TYPE))

@@ -1,7 +1,6 @@
 /*
  * AT-SPI - Assistive Technology Service Provider Interface
- * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
- *
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap) *
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -111,14 +110,18 @@ impl_content_stream_read (PortableServer_Servant servant,
 {
   SpiContentStream *stream = SPI_CONTENT_STREAM (bonobo_object_from_servant(servant));
   CORBA_long realcount = 0;
+
   if (stream && stream->gio)
   {
       gchar *gbuf = NULL;
       GIOStatus status;
-      GError *err;
+      GError *err = NULL;
+ 
       /* read the giochannel and determine the actual bytes read...*/
-      if (count != -1)
-	  status = g_io_channel_read_chars (stream->gio, &gbuf, count, &realcount, &err);
+      if (count != -1) {
+	  gbuf = g_malloc (count+1);
+	  status = g_io_channel_read_chars (stream->gio, gbuf, count, &realcount, &err);
+      }
       else
 	  status = g_io_channel_read_to_end (stream->gio, &gbuf, &realcount, &err);
 
@@ -130,7 +133,7 @@ impl_content_stream_read (PortableServer_Servant servant,
 	  (*buffer)->_buffer = CORBA_sequence_CORBA_octet_allocbuf (realcount);
 	  (*buffer)->_length = realcount;
       
-	  memcpy ((*buffer)->_buffer, gbuf, realcount);  
+	  g_memmove ((*buffer)->_buffer, gbuf, realcount);  
       }
 
       g_free (gbuf);
@@ -195,17 +198,21 @@ impl_accessibility_streamable_get_content_types (PortableServer_Servant servant,
   AtkStreamableContent *streamable = get_streamable_from_servant (servant);
   int n_types, i;
 
-  typelist->_length = 0;
+  typelist->_length = typelist->_maximum = 0;
+
   g_return_val_if_fail (streamable != NULL, typelist);
 
   n_types = atk_streamable_content_get_n_mime_types (streamable);
-  typelist->_length = n_types;
-  typelist->_buffer = Accessibility_StringSeq_allocbuf (n_types);
-  for (i = 0; i < n_types; ++i) {
-    const gchar *mimetype = atk_streamable_content_get_mime_type (streamable, i);
-    typelist->_buffer[i] = CORBA_string_dup (mimetype ? mimetype : "");
-  }
 
+  if (n_types)
+  {
+      typelist->_length = typelist->_maximum = n_types;
+      typelist->_buffer = Accessibility_StringSeq_allocbuf (n_types);
+      for (i = 0; i < n_types; ++i) {
+	  const gchar *mimetype = atk_streamable_content_get_mime_type (streamable, i);
+	  typelist->_buffer[i] = CORBA_string_dup (mimetype ? mimetype : "");
+      }
+  }
   return typelist;
 }
 
@@ -225,8 +232,10 @@ impl_accessibility_streamable_get_content (PortableServer_Servant servant,
 
   gio = atk_streamable_content_get_stream (streamable, content_type);
 
-  stream = CORBA_OBJECT_NIL; /* FIXME! */
-
+  stream = CORBA_OBJECT_NIL; /* deprecated, 
+			      * and it was never implemented,
+			      * so don't bother fixing this 
+			      */
   return stream;
 }
 
@@ -286,10 +295,6 @@ spi_streamable_init (SpiStreamable *streamable)
 {
 }
 
-BONOBO_TYPE_FUNC_FULL (SpiStreamable,
-		       Accessibility_StreamableContent,
-		       PARENT_TYPE,
-		       spi_streamable)
 
 SpiStreamable *
 spi_streamable_interface_new (AtkObject *o)
@@ -300,3 +305,8 @@ spi_streamable_interface_new (AtkObject *o)
 
     return retval;
 }
+
+BONOBO_TYPE_FUNC_FULL (SpiStreamable,
+		       Accessibility_StreamableContent,
+		       PARENT_TYPE,
+		       spi_streamable)

@@ -115,7 +115,7 @@ accessible_content_stream_client_read (const Accessibility_ContentStream stream,
 	*length_read = 0;
 
 	for (pos = 0; pos < length;) {
-		Bonobo_Stream_iobuf *buf;
+		Accessibility_ContentStream_iobuf *buf;
 		CORBA_long           len;
 
 		len = (pos + CORBA_BLOCK_SIZE < length) ?
@@ -129,6 +129,10 @@ accessible_content_stream_client_read (const Accessibility_ContentStream stream,
 		if (buf->_length > 0) {
 			memcpy (mem + pos, buf->_buffer, buf->_length);
 			pos += buf->_length;
+			*length_read += buf->_length;
+			/* we assume a short read equals EOF ... is that right? */
+			if (buf->_length < len || *length_read == size)
+			    return mem;
 		} else {
 			g_warning ("Buffer length %d", buf->_length);
 			goto io_error;
@@ -206,16 +210,17 @@ AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
   char **content_types;
   int i;
 
+  g_return_val_if_fail (obj != NULL, NULL);
+
   mimeseq = Accessibility_StreamableContent_getContentTypes (CSPI_OBJREF (obj),
 							     cspi_ev ());
   cspi_return_val_if_ev ("getContentTypes", NULL); 
-
   content_types = g_new0 (char *, mimeseq->_length + 1);
   for (i = 0; i < mimeseq->_length; ++i)
-    content_types[i] = CORBA_string_dup (mimeseq->_buffer[i]);
+    content_types[i] = g_strdup (mimeseq->_buffer[i]);
   content_types [mimeseq->_length] = NULL;
   CORBA_free (mimeseq);
-
+  
   return content_types;
 }
 /**
@@ -252,7 +257,9 @@ AccessibleStreamableContent_freeContentTypesList (AccessibleStreamableContent *o
  * of the return strings from #AccessibleStreamableContent_getContentTypes ()).
  *
  * Open a streaming connection to an AccessibleStreamableContent implementor,
- *       of a particular content type
+ *       of a particular content type.  Note that a client may only have one
+ *       open stream per streamable interface instance in the current 
+ *       implementation.
  *
  * @Since: AT-SPI 1.4
  *
@@ -265,16 +272,24 @@ AccessibleStreamableContent_open (AccessibleStreamableContent *obj,
 {
   Accessibility_ContentStream stream;
   struct StreamCacheItem *cache;
-  stream = Accessibility_StreamableContent_getContent (CSPI_OBJREF (obj),
-						       content_type,
-						       cspi_ev ());
+  stream = Accessibility_StreamableContent_getStream (CSPI_OBJREF (obj),
+						      content_type,
+						      cspi_ev ());
   cspi_return_val_if_ev ("getContent", FALSE); 
 
   if (stream != CORBA_OBJECT_NIL) {
     cache = g_new0 (struct StreamCacheItem, 1);
     cache->stream = stream;
     cache->mimetype = CORBA_string_dup (content_type);
-    g_hash_table_replace (get_streams (), stream, cache);
+
+    g_hash_table_replace (get_streams (), CSPI_OBJREF (obj), cache);
+    /* FIXME 
+     * This limits us to one concurrent stream per streamable interface
+     * for a given client.
+     * It might be reasonable for a client to open more than one stream
+     * to content, in different mime-types, at the same time.
+     */
+
     return TRUE;
   }
   return FALSE;
@@ -390,6 +405,7 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
       if (stream != CORBA_OBJECT_NIL)
 	{
           guint8 *mem;
+
 	  mem = accessible_content_stream_client_read (stream, (size_t) nbytes, &len_read, cspi_ev ());
 	  cspi_return_val_if_ev ("read", FALSE);
 	  if (mem)
@@ -401,6 +417,7 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
 	    }
 	}
     }
+  else g_message ("no matching stream was opened...");
   return FALSE;
 }
 

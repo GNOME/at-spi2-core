@@ -615,6 +615,12 @@ spi_accessible_construct (GType type, AtkObject *o)
 				     BONOBO_OBJECT (spi_value_interface_new (o)));
       }
 
+    if (ATK_IS_STREAMABLE_CONTENT (o))
+      {
+        bonobo_object_add_interface (bonobo_object (retval),
+				     BONOBO_OBJECT (spi_streamable_interface_new (o)));
+      }
+
     return retval;
 }
 
