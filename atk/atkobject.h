@@ -134,7 +134,10 @@ extern "C" {
  * content which may also use the Hypertext/Hyperlink interfaces
  * to indicate the range/location within a text object where
  * an inline or embedded object lies.
-  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
+ *@ATK_ROLE_INPUT_METHOD_WINDOW: The object is a window or similar viewport 
+ * which is used to allow composition or input of a 'complex character',
+ * in other words it is an "input method window."
+ *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  * 
  * Describes the role of an object
  *
@@ -230,6 +233,8 @@ typedef enum
   ATK_ROLE_SECTION,
   ATK_ROLE_REDUNDANT_OBJECT,
   ATK_ROLE_FORM,
+  ATK_ROLE_LINK,
+  ATK_ROLE_INPUT_METHOD_WINDOW,
   ATK_ROLE_LAST_DEFINED
 } AtkRole;
 

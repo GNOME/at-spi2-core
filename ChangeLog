@@ -5,7 +5,8 @@
 	index xsl parser can find them.  Bug #313183.
 
 	* atk/atkobject.h:
-	Added ATK_ROLE_LINK, bug #345367.
+	Added ATK_ROLE_LINK and ATK_ROLE_INPUT_METHOD_WINDOW, 
+	bug #345367 and #140635.
 	
 2006-06-21 Bill Haneman <bill.haneman@sun.com>
 
