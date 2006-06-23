@@ -358,14 +358,40 @@ module Accessibility {
    */
   ROLE_SECTION,
   /**
+   * The object is redundant with another object in the hierarchy, 
+   * and is exposed for purely technical reasons.  Objects of this role 
+   * should be ignored by clients, if they are encountered at all. 
+   *
+   * @since AT-SPI 1.7.6
+   */
+  ROLE_REDUNDANT_OBJECT,
+  /**
    * The object is a containing instance of document content which constitutes
    * a particular 'logical' section of the document.  The type of content within
    * a section, and the nature of the section division itself, may be obtained
    * by querying the object's attributes.  Sections may be nested.
    *
-   * @since AT-SPI 1.7.1
+   * @since AT-SPI 1.7.6
    */
   ROLE_FORM,
+  /**
+   * The object is a hypertext anchor, i.e. a "link" in a
+   * hypertext document.  Such objects are distinct from 'inline'
+   * content which may also use the Hypertext/Hyperlink interfaces
+   * to indicate the range/location within a text object where
+   * an inline or embedded object lies.
+   *
+   * @since AT-SPI 1.7.6
+   */
+  ROLE_LINK,
+  /**
+   * The object is a window or similar viewport which is used
+   * to allow composition or input of a 'complex character',
+   * in other words it is an "input method window."
+   *
+   * @since AT-SPI 1.7.6
+   */
+  ROLE_INPUT_METHOD_WINDOW,
 
   /** not a valid role, used for finding end of enumeration. */
   ROLE_LAST_DEFINED

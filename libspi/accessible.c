@@ -131,6 +131,9 @@ spi_init_role_lookup_table (Accessibility_Role *role_table)
   role_table [ATK_ROLE_PAGE] =                Accessibility_ROLE_PAGE;
   role_table [ATK_ROLE_SECTION] =             Accessibility_ROLE_SECTION;
   role_table [ATK_ROLE_FORM] =                Accessibility_ROLE_FORM;
+  role_table [ATK_ROLE_REDUNDANT_OBJECT] =    Accessibility_ROLE_REDUNDANT_OBJECT;
+  role_table [ATK_ROLE_LINK] =                Accessibility_ROLE_LINK;
+  role_table [ATK_ROLE_INPUT_METHOD_WINDOW] = Accessibility_ROLE_INPUT_METHOD_WINDOW;
   return TRUE;
 }
 

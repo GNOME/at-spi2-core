@@ -159,6 +159,9 @@ extern "C" {
  * web form or user-input form within a document.  This role is primarily a tag/convenience for 
  * clients when navigating complex documents, it is not expected that ordinary GUI containers will 
  * always have ATK_ROLE_FORM.
+ * @SPI_ROLE_LINK: The object is a hypertext anchor.
+ * @SPI_ROLE_INPUT_METHOD_WINDOW: The object is an input method window used
+ * to input or compose a text character (typically a "complex text" character).
  * @SPI_ROLE_LAST_DEFINED: Used to determine the end of the role enumeration.
  *
  * Describes the role of an object
@@ -255,6 +258,9 @@ typedef enum
   SPI_ROLE_PAGE,
   SPI_ROLE_SECTION,
   SPI_ROLE_FORM,
+  SPI_ROLE_REDUNDANT_OBJECT,
+  SPI_ROLE_LINK,
+  SPI_ROLE_INPUT_METHOD_WINDOW,
   SPI_ROLE_LAST_DEFINED
 } AccessibleRole;
 

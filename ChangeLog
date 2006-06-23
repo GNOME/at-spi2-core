@@ -1,3 +1,12 @@
+2006-06-23  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_Role.idl: 
+	* libspi/accessiblerole.c:
+	* cspi/spi_accessible.c: Added ROLE_LINK,
+	ROLE_REDUNDANT_OBJECT, and ROLE_INPUT_METHOD_WINDOW.
+	Bug #345758 and bug #140635.
+
+	
 2006-06-22  Bill Haneman <bill.haneman@sun.com>
 
 	Bug #345701.

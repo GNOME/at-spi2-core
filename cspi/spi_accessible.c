@@ -112,7 +112,10 @@ static const char *role_names [] =
   "heading",
   "page",
   "section",
-  "form"
+  "form",
+  "redundant object",
+  "link",
+  "input method window"
 };
 
 #define MAX_ROLES (sizeof (role_names) / sizeof (char *))
@@ -210,6 +213,9 @@ cspi_init_role_table (AccessibleRole *role_table)
   role_table [Accessibility_ROLE_PAGE] = SPI_ROLE_PAGE;
   role_table [Accessibility_ROLE_SECTION] = SPI_ROLE_SECTION;
   role_table [Accessibility_ROLE_FORM] = SPI_ROLE_FORM;
+  role_table [Accessibility_ROLE_REDUNDANT_OBJECT] = SPI_ROLE_REDUNDANT_OBJECT;
+  role_table [Accessibility_ROLE_LINK] = SPI_ROLE_LINK;
+  role_table [Accessibility_ROLE_INPUT_METHOD_WINDOW] = SPI_ROLE_INPUT_METHOD_WINDOW;
 
   return TRUE;
 }
