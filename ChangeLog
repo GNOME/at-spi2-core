@@ -3,6 +3,9 @@
 	* docs/atk-docs.sgml: Add index sections.
 	* atk/*.c: Fix 'Since' and 'Deprecated' tags so that
 	index xsl parser can find them.  Bug #313183.
+
+	* atk/atkobject.h:
+	Added ATK_ROLE_LINK, bug #345367.
 	
 2006-06-21 Bill Haneman <bill.haneman@sun.com>
 

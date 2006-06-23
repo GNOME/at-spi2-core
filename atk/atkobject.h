@@ -129,7 +129,12 @@ extern "C" {
  * web form or user-input form within a document.  This role is primarily a tag/convenience for 
  * clients when navigating complex documents, it is not expected that ordinary GUI containers will 
  * always have ATK_ROLE_FORM.
- *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
+ *@ATK_ROLE_LINK: The object is a hypertext anchor, i.e. a "link" in a
+ * hypertext document.  Such objects are distinct from 'inline'
+ * content which may also use the Hypertext/Hyperlink interfaces
+ * to indicate the range/location within a text object where
+ * an inline or embedded object lies.
+  *@ATK_ROLE_LAST_DEFINED: not a valid role, used for finding end of the enumeration
  * 
  * Describes the role of an object
  *
