@@ -1,3 +1,9 @@
+2006-06-23 Bill Haneman <bill.haneman@sun.com>
+
+	* docs/atk-docs.sgml: Add index sections.
+	* atk/*.c: Fix 'Since' and 'Deprecated' tags so that
+	index xsl parser can find them.  Bug #313183.
+	
 2006-06-21 Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkstateset.c:

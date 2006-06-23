@@ -59,6 +59,9 @@ an component is described by its AtkStateSet, which is a set of AtkStates.
 @ATK_STATE_INVALID_ENTRY: 
 @ATK_STATE_SUPPORTS_AUTOCOMPLETION: 
 @ATK_STATE_SELECTABLE_TEXT: 
+@ATK_STATE_DEFAULT: 
+@ATK_STATE_ANIMATED: 
+@ATK_STATE_VISITED: 
 @ATK_STATE_LAST_DEFINED: 
 
 <!-- ##### TYPEDEF AtkState ##### -->

@@ -385,7 +385,7 @@ atk_component_get_mdi_zorder (AtkComponent *component)
  * (fully opaque).
  *
  * Returns: An alpha value from 0 to 1.0, inclusive.
- * @Since: ATK 1.12
+ * Since: ATK 1.12
  **/
 gdouble
 atk_component_get_alpha (AtkComponent    *component)

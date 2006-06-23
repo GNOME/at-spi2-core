@@ -488,7 +488,7 @@ void                      (* initialize)                         (AtkObject     
 
   /*    	
    * Gets a list of properties applied to this object as a whole, as an #AtkAttributeSet consisting of name-value pairs. 
-   * @since ATK 1.12
+   * Since ATK 1.12
    */
   AtkAttributeSet* 	  (*get_attributes)            (AtkObject                  *accessible);
   AtkFunction             pad1;

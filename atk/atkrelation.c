@@ -312,7 +312,7 @@ delete_object_while_in_relation (gpointer callback_data,
  * Adds the specified AtkObject to the target for the relation, if it is
  * not already present.
  *
- * Since: 1.9
+ * Since: ATK 1.9
  **/
 void
 atk_relation_add_target (AtkRelation *relation,

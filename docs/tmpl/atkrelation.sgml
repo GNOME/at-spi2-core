@@ -58,6 +58,8 @@ The AtkRelation structure should not be accessed directly.
 @ATK_RELATION_EMBEDDED_BY: 
 @ATK_RELATION_POPUP_FOR: 
 @ATK_RELATION_PARENT_WINDOW_OF: 
+@ATK_RELATION_DESCRIBED_BY: 
+@ATK_RELATION_DESCRIPTION_FOR: 
 @ATK_RELATION_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_relation_type_register ##### -->

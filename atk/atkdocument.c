@@ -136,7 +136,7 @@ atk_document_get_locale (AtkDocument *document)
  * Gets an AtkAttributeSet which describes document-wide
  *          attributes as name-value pairs.
  *
- * @Since: ATK 1.12
+ * Since: ATK 1.12
  *
  * Returns: An AtkAttributeSet containing the explicitly
  *          set name-value-pair attributes associated with this document
@@ -167,7 +167,7 @@ atk_document_get_attributes (AtkDocument *document)
  * @attribute_name: a character string representing the name of the attribute
  *            whose value is being queried.
  *
- * @Since: ATK 1.12
+ * Since: ATK 1.12
  *
  * Returns: a string value associated with the named attribute for this
  *    document, or NULL if a value for #attribute_name has not been specified
@@ -200,7 +200,7 @@ atk_document_get_attribute_value (AtkDocument *document,
  *            whose value is being set.
  * @attribute_value: a string value to be associated with #attribute_name.
  *
- * @Since: ATK 1.12
+ * Since: ATK 1.12
  *
  * Returns: TRUE if #value is successfully associated with #attribute_name
  *          for this document, FALSE otherwise (e.g. if the document does not

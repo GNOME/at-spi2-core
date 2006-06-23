@@ -262,6 +262,7 @@ the object changed.
 @ATK_ROLE_PAGE: 
 @ATK_ROLE_SECTION: 
 @ATK_ROLE_REDUNDANT_OBJECT: 
+@ATK_ROLE_FORM: 
 @ATK_ROLE_LAST_DEFINED: 
 
 <!-- ##### FUNCTION atk_role_register ##### -->

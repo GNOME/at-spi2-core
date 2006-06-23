@@ -191,7 +191,7 @@ atk_image_get_image_position (AtkImage *image,
  * atk_image_get_image_locale: 
  * @image: An #AtkImage
  *
- * @Since ATK 1.12
+ * Since ATK 1.12
  *
  * Returns a string corresponding to the POSIX LC_MESSAGES locale used by the image description, or NULL if the image does not specify a locale. 
  *
