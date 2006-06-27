@@ -1,3 +1,9 @@
+2006-06-27  Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/streamablecontent.c:
+	(impl_content_stream_close):
+	Unref the GIOChannel on close.
+	
 2006-06-23  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Role.idl: 

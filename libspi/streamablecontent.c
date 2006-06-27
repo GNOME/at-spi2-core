@@ -149,7 +149,10 @@ impl_content_stream_close (PortableServer_Servant servant,
     GIOStatus status;
     GError *err;
     SpiContentStream *stream = SPI_CONTENT_STREAM (bonobo_object_from_servant(servant));
-    if (stream && stream->gio) status = g_io_channel_shutdown (stream->gio, TRUE, &err);
+    if (stream && stream->gio) {
+	status = g_io_channel_shutdown (stream->gio, TRUE, &err);
+	g_io_channel_unref (stream->gio);
+    }
     if (err) g_free (err);
 }
 
