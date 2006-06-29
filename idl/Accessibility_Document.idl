@@ -1,0 +1,81 @@
+/* 
+ * AT-SPI - Assistive Technology Service Provider Interface 
+ * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+ *
+ * Copyright 2005 Sun Microsystems Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ */
+
+#ifndef __ACCESSIBILITY_DOCUMENT_DEFINED__
+#define __ACCESSIBILITY_DOCUMENT_DEFINED__
+
+module Accessibility {
+
+    /**
+     * Primarily a 'tagging' interface which indicates the start of 
+     * document content in the Accessibility hierarchy.  
+     * Accessible objects below the node implementing
+     * Document are normally assumed to be part of the document content.
+     * Attributes of Document are those attributes associated with the document 
+     * as a whole.  Objects that implement Document are normally expected to
+     * implement Collection as well.
+     *
+     * \see Accessibility::Collection
+     */
+  interface Document : Bonobo::Unknown {
+
+     /**
+     * Gets the locale associated with the document's content.
+     * e.g. the locale for LOCALE_TYPE_MESSAGES.
+     *
+     * @returns a string compliant with the POSIX standard for locale description.
+     **/
+    string       getLocale ();
+
+      /**
+       * Gets the value of a single attribute, if specified for the document as a whole.
+       *
+       * @param attributename: a string indicating the name of a specific attribute 
+       * (name-value pair) being queried.
+       * 
+       * @returns a string corresponding to the value of the specified attribute, or
+       * an empty string if the attribute is unspecified for the object.
+       **/
+    string       getAttributeValue (in string attributename);
+
+      /**
+       * Gets all attributes specified for a document as a whole.  
+       * For attributes which change within 
+       * the document content, see Accessibility::Text::getAttributes instead.
+       * 
+       * @returns an ::AttributeSet containing the attributes of the document, 
+       * as name-value pairs.
+       *
+       * @since AT-SPI 1.8.0
+       **/
+    AttributeSet  getAttributes ();
+
+    /**\cond **/
+    void          unImplemented_ ();
+    void          unImplemented2_ ();
+    void          unImplemented3_ ();
+    void          unImplemented4_ ();
+    /**\endcond **/
+  };
+};
+
+#endif
