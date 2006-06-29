@@ -7,6 +7,8 @@
 	AtkHyperlink instance associated with an AtkObject.
 	See RFE #344284.
 
+	* configure.in: Bumped to 1.12.1.
+
 2006-06-23 Bill Haneman <bill.haneman@sun.com>
 
 	* docs/atk-docs.sgml: Add index sections.
