@@ -1,3 +1,12 @@
+2006-06-29 Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkhyperlinkimpl.h:
+	* atk/atkhyperlinkimpl.c:
+	(atk_hyperlink_impl_get_hyperlink): New method and 
+	interface, allows a client to obtain the 
+	AtkHyperlink instance associated with an AtkObject.
+	See RFE #344284.
+
 2006-06-23 Bill Haneman <bill.haneman@sun.com>
 
 	* docs/atk-docs.sgml: Add index sections.

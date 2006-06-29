@@ -480,6 +480,19 @@ AtkHyperlinkClass
 </SECTION>
 
 <SECTION>
+<FILE>atkhyperlinkimpl</FILE>
+<TITLE>AtkHyperlinkImpl</TITLE>
+AtkHyperlinkImpl
+atk_hyperlink_impl_get_hyperlink
+<SUBSECTION Standard>
+ATK_HYPERLINK_IMPL
+ATK_IS_HYPERLINK_IMPL
+ATK_TYPE_HYPERLINK_IMPL
+atk_hyperlink_impl_get_type
+ATK_HYPERLINK_IMPL_GET_IFACE
+</SECTION>
+
+<SECTION>
 <FILE>atkstate</FILE>
 <TITLE>AtkState</TITLE>
 AtkStateType
