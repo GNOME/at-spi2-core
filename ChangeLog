@@ -1,3 +1,9 @@
+2006-06-29  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_Document.idl: New interface
+	for complex documents.  First stage of fix for RFE
+	#326520.
+	
 2006-06-27  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/streamablecontent.c:
