@@ -1,21 +1,24 @@
-# The Bengali translation for ATK
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# The Bengali India (bn_IN) translation for ATK
+# Copyright (C) 2002, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the ATK package.
 # Sayamindu Dasgupta <unmadindu@Softhome.net>, 2003.
 # Mahay Alam Khan <makl10n@yahoo.com>, 2005.
 # Samia Niamatullah <mailsamia2001@yahoo.com>, 2005.
+# Runa Bhattacharjee <runabh@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-03 06:17+0200\n"
-"PO-Revision-Date: 2005-10-01 00:05+0600\n"
-"Last-Translator: Mahay Alam Khan <makl10n@yahoo.com>\n"
-"Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
+"PO-Revision-Date: 2006-07-04 13:08+0530\n"
+"Last-Translator: Runa Bhattacharjee <runabh@gmail.com>\n"
+"Language-Team: Bangla (INDIA) <gnome-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -23,32 +26,32 @@ msgstr "নির্বাচিত লিঙ্ক"
 
 #: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "AtkHyperlink অবজেক্ট নির্বাচিত কিনা তা উল্লেখ করে"
+msgstr "AtkHyperlink অবজেক্ট নির্বাচিত কিনা চিহ্নিত করা হয়"
 
 #: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "এঙ্কর এর সংখ্যা"
+msgstr "অ্যাঙ্করে'র সংখ্যা"
 
 #: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "AtkHyperlink অবজেক্টের সাথে সংশ্লিষ্ট এঙ্কর এর সংখ্যা"
+msgstr "AtkHyperlink অবজেক্টের সাথে যুক্ত অ্যাঙ্কর সংখ্যা"
 
 #: ../atk/atkhyperlink.c:119
 msgid "End index"
-msgstr "শেষ ইনডেক্স"
+msgstr "সমাপ্তি ইনডেক্স"
 
 # sam: index  !=  সূচী so changing all index to ইনডেক্স
 #: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "AtkHyperlink অবজেক্টের শেষ ইনডেক্স"
+msgstr "AtkHyperlink অবজেক্টের সমাপ্তি ইনডেক্স"
 
 #: ../atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr "প্রথম ইনডেক্স"
+msgstr "প্রারম্ভিক ইনডেক্স"
 
 #: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "AtkHyperlink অবজেক্টের প্রথম ইনডেক্স"
+msgstr "AtkHyperlink অবজেক্টের প্রারম্ভিক ইনডেক্স"
 
 #: ../atk/atkobject.c:82
 msgid "invalid"
@@ -56,51 +59,51 @@ msgstr "অবৈধ"
 
 #: ../atk/atkobject.c:83
 msgid "accelerator label"
-msgstr "গতিবর্ধক লেবেল"
+msgstr "গতিবর্ধকের লেবেল"
 
 #: ../atk/atkobject.c:84
 msgid "alert"
-msgstr "সতর্কবার্তা"
+msgstr "সতর্কতা"
 
 #: ../atk/atkobject.c:85
 msgid "animation"
-msgstr "চলচ্চিত্র "
+msgstr "অ্যানিমেশন"
 
 #: ../atk/atkobject.c:86
 msgid "arrow"
-msgstr "নির্দেশক"
+msgstr "তিরচিহ্ন"
 
 #: ../atk/atkobject.c:87
 msgid "calendar"
-msgstr "দিনপঞ্জি"
+msgstr "বর্ষপঞ্জি"
 
 #: ../atk/atkobject.c:88
 msgid "canvas"
-msgstr "চিত্রপট"
+msgstr "ক্যানভাস"
 
 #: ../atk/atkobject.c:89
 msgid "check box"
-msgstr "চেকবাক্স‌"
+msgstr "চেক-বক্স"
 
 #: ../atk/atkobject.c:90
 msgid "check menu item"
-msgstr "মেনু আইটেম চেক করুন"
+msgstr "মেনু বস্তু চেক চিহ্ন"
 
 #: ../atk/atkobject.c:91
 msgid "color chooser"
-msgstr "রং বাছাইকারক"
+msgstr "রং নির্বাচন"
 
 #: ../atk/atkobject.c:92
 msgid "column header"
-msgstr "কলাম হেডার"
+msgstr "কলামের শিরোনাম"
 
 #: ../atk/atkobject.c:93
 msgid "combo box"
-msgstr "কম্বো বাক্স"
+msgstr "কম্বো-বক্স"
 
 #: ../atk/atkobject.c:94
 msgid "dateeditor"
-msgstr "তারিখ সম্পাদক"
+msgstr "dateeditor"
 
 #: ../atk/atkobject.c:95
 msgid "desktop icon"
@@ -112,16 +115,16 @@ msgstr "ডেস্কটপ ফ্রেম"
 
 #: ../atk/atkobject.c:97
 msgid "dial"
-msgstr "ডায়াল"
+msgstr "dial"
 
-# সাম: depends on the context.... ডায়ালগ in case of dialog box 
+# সাম: depends on the context.... ডায়ালগ in case of dialog box
 #: ../atk/atkobject.c:98
 msgid "dialog"
-msgstr "সংলাপ"
+msgstr "ডায়লগ"
 
 #: ../atk/atkobject.c:99
 msgid "directory pane"
-msgstr "ডিরেক্টরি পেন"
+msgstr "ডিরেক্টরি পেইন"
 
 #: ../atk/atkobject.c:100
 msgid "drawing area"
@@ -129,29 +132,29 @@ msgstr "আঁকার ক্ষেত্র"
 
 #: ../atk/atkobject.c:101
 msgid "file chooser"
-msgstr "ফাইল বাছাইকারক"
+msgstr "ফাইল নির্বাচক"
 
 #: ../atk/atkobject.c:102
 msgid "filler"
-msgstr "পূরনকারী"
+msgstr "পূর্ণকারী"
 
 #. I know it looks wrong but that is what Java returns
 #: ../atk/atkobject.c:104
 msgid "fontchooser"
-msgstr "fontchooser"
+msgstr "ফন্ট নির্বাচক"
 
 # sam: or ফ্রেম
 #: ../atk/atkobject.c:105
 msgid "frame"
-msgstr "কাঠামো"
+msgstr "ফ্রেম"
 
 #: ../atk/atkobject.c:106
 msgid "glass pane"
-msgstr "গ্লাস পেন"
+msgstr "গ্লাস পেইন"
 
 #: ../atk/atkobject.c:107
 msgid "html container"
-msgstr "html ধারক"
+msgstr "html ধারণকারী"
 
 #: ../atk/atkobject.c:108
 msgid "icon"
@@ -163,15 +166,15 @@ msgstr "ছবি"
 
 #: ../atk/atkobject.c:110
 msgid "internal frame"
-msgstr "অভ্যন্তরীন ফ্রেম"
+msgstr "অভ্যন্তরীণ ফ্রেম"
 
 #: ../atk/atkobject.c:111
 msgid "label"
-msgstr "শিরোনাম"
+msgstr "লেবেল"
 
 #: ../atk/atkobject.c:112
 msgid "layered pane"
-msgstr "স্তরীকৃত প্যান"
+msgstr "স্তরযুক্ত পেইন"
 
 #: ../atk/atkobject.c:113
 msgid "list"
@@ -179,7 +182,7 @@ msgstr "তালিকা"
 
 #: ../atk/atkobject.c:114
 msgid "list item"
-msgstr "তালিকার আইটেম"
+msgstr "তালিকার বস্তু"
 
 #: ../atk/atkobject.c:115
 msgid "menu"
@@ -187,23 +190,23 @@ msgstr "মেনু"
 
 #: ../atk/atkobject.c:116
 msgid "menu bar"
-msgstr "মেনুবার"
+msgstr "মেনু-বার"
 
 #: ../atk/atkobject.c:117
 msgid "menu item"
-msgstr "মেনু আইটেম"
+msgstr "মেনুর বস্তু"
 
 #: ../atk/atkobject.c:118
 msgid "option pane"
-msgstr "অপশন পেন"
+msgstr "বিকল্প উল্লেখকারী পেইন"
 
 #: ../atk/atkobject.c:119
 msgid "page tab"
-msgstr "পৃষ্ঠা ট্যাব"
+msgstr "পৃষ্ঠার ট্যাব"
 
 #: ../atk/atkobject.c:120
 msgid "page tab list"
-msgstr "পৃষ্ঠা ট্যাব তালিকা"
+msgstr "পৃষ্ঠা ট্যাবের তালিকা"
 
 #: ../atk/atkobject.c:121
 msgid "panel"
@@ -211,7 +214,7 @@ msgstr "প্যানেল"
 
 #: ../atk/atkobject.c:122
 msgid "password text"
-msgstr "পাসওয়ার্ড টেক্সট"
+msgstr "পাসওয়ার্ডের লেখনি"
 
 #: ../atk/atkobject.c:123
 msgid "popup menu"
@@ -219,35 +222,35 @@ msgstr "পপ-আপ মেনু"
 
 #: ../atk/atkobject.c:124
 msgid "progress bar"
-msgstr "অগ্রগতি বার"
+msgstr "প্রগ্রতিসূচক-বার"
 
 #: ../atk/atkobject.c:125
 msgid "push button"
-msgstr "পুস বাটন"
+msgstr "পুশ-বাটন"
 
 #: ../atk/atkobject.c:126
 msgid "radio button"
-msgstr "রেডিও বাটন"
+msgstr "রেডিও-বাটন"
 
 #: ../atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "রেডিও মেনু আইটেম"
+msgstr "রেডিও মেনুর বস্তু"
 
 #: ../atk/atkobject.c:128
 msgid "root pane"
-msgstr "মূল প্যান"
+msgstr "মূল পেইল"
 
 #: ../atk/atkobject.c:129
 msgid "row header"
-msgstr "সারি হেডার"
+msgstr "সারির শিরোনাম"
 
 #: ../atk/atkobject.c:130
 msgid "scroll bar"
-msgstr "স্ক্রল বার"
+msgstr "স্ক্রোল-বার"
 
 #: ../atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "স্ক্রল প্যান"
+msgstr "স্ক্রোল-পেইন"
 
 #: ../atk/atkobject.c:132
 msgid "separator"
@@ -259,35 +262,35 @@ msgstr "স্লাইডার"
 
 #: ../atk/atkobject.c:134
 msgid "split pane"
-msgstr "বিভাজিত প্যান"
+msgstr "বিভাজিত পেইন"
 
 #: ../atk/atkobject.c:135
 msgid "spin button"
-msgstr "ঘোরানোর বাটন"
+msgstr "স্পিন-বাটন"
 
 #: ../atk/atkobject.c:136
 msgid "statusbar"
-msgstr "স্ট্যাটাস বার"
+msgstr "অবস্থাসূচক-বার"
 
 #: ../atk/atkobject.c:137
 msgid "table"
-msgstr "ছক"
+msgstr "টেবিল"
 
 #: ../atk/atkobject.c:138
 msgid "table cell"
-msgstr "টেবিলের ছক"
+msgstr "টেবিলের সেল"
 
 #: ../atk/atkobject.c:139
 msgid "table column header"
-msgstr "টেবিল কলাম হেডার"
+msgstr "টেবিলের কলামের শিরোনাম"
 
 #: ../atk/atkobject.c:140
 msgid "table row header"
-msgstr "টেবিল সারি হেডার"
+msgstr "টেবিল সারির শিরোনাম"
 
 #: ../atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "মেনু আইটেম আলাদা করো"
+msgstr "মেনুর বস্তু বিচ্ছিন্ন করুন"
 
 #: ../atk/atkobject.c:142
 msgid "terminal"
@@ -300,31 +303,31 @@ msgstr "টেক্সট"
 # :D
 #: ../atk/atkobject.c:144
 msgid "toggle button"
-msgstr "অদলবদল বাটন"
+msgstr "অদলবদলকারী বাটন"
 
 #: ../atk/atkobject.c:145
 msgid "tool bar"
-msgstr "টুলবার"
+msgstr "টুল-বার"
 
 #: ../atk/atkobject.c:146
 msgid "tool tip"
-msgstr "টুল টীকা"
+msgstr "টুল-টিপ"
 
 #: ../atk/atkobject.c:147
 msgid "tree"
-msgstr "ট্রী"
+msgstr "ট্রি"
 
 #: ../atk/atkobject.c:148
 msgid "tree table"
-msgstr "ট্রী টেবিল"
+msgstr "ট্রি-টেবিল"
 
 #: ../atk/atkobject.c:149
 msgid "unknown"
-msgstr "অজ্ঞাত"
+msgstr "অজানা"
 
 #: ../atk/atkobject.c:150
 msgid "viewport"
-msgstr "ভিউপোর্ট"
+msgstr "ভিউ-পোর্ট"
 
 #: ../atk/atkobject.c:151
 msgid "window"
@@ -353,179 +356,169 @@ msgstr "স্বয়ংসম্পন্ন"
 
 #: ../atk/atkobject.c:157
 msgid "edit bar"
-msgstr "সম্পাদন বার"
+msgstr "সম্পাদনার-বার"
 
 # ূওূ
 #: ../atk/atkobject.c:158
 msgid "embedded component"
-msgstr "সন্নিবেশিত কম্পোনেন্ট"
+msgstr "সন্নিবেশিত বস্তু"
 
 #: ../atk/atkobject.c:159
 msgid "entry"
-msgstr ""
+msgstr "তথ্য"
 
 #: ../atk/atkobject.c:160
-#, fuzzy
 msgid "chart"
-msgstr "সতর্কবার্তা"
+msgstr "ছক"
 
 #: ../atk/atkobject.c:161
-#, fuzzy
 msgid "caption"
-msgstr "অ্যাপ্লিকেশন"
+msgstr "শীর্ষক"
 
 #: ../atk/atkobject.c:162
-#, fuzzy
 msgid "document frame"
-msgstr "ডেস্কটপ ফ্রেম"
+msgstr "ডকুমেন্টের ফ্রেম"
 
 #: ../atk/atkobject.c:163
-#, fuzzy
 msgid "heading"
-msgstr "হেডার"
+msgstr "শিরোনাম"
 
 #: ../atk/atkobject.c:164
-#, fuzzy
 msgid "page"
-msgstr "প্যানেল"
+msgstr "পৃষ্ঠা"
 
 #: ../atk/atkobject.c:165
 msgid "section"
-msgstr ""
+msgstr "বিভাগ"
 
 #: ../atk/atkobject.c:166
 msgid "redundant object"
-msgstr ""
+msgstr "অবচিত বস্তু"
 
 # sam: or ফ্রেম
 #: ../atk/atkobject.c:167
-#, fuzzy
 msgid "form"
-msgstr "কাঠামো"
+msgstr "ফর্ম"
 
 #: ../atk/atkobject.c:356
 msgid "Accessible Name"
-msgstr "প্রবেশযোগ্য নাম"
+msgstr "ব্যবহারযোগ্য নাম"
 
 #: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "সহায়তাকরী প্রযুক্তিতে প্রবেশের জন্য অবজেক্টির ইন্সটেন্স নাম বিন্যাস করা হয়েছে"
+msgstr "সহায়ক প্রযুক্তি ব্যবহারের উদ্দেশ্যে বিন্যস্ত অবজেক্ট ইনস্ট্যান্সের নাম"
 
 #: ../atk/atkobject.c:363
 msgid "Accessible Description"
-msgstr "প্রবেশযোগ্য বর্ণনা"
+msgstr "ব্যবহারযোগ্য বর্ণনা"
 
 #: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "একটি অবজেক্টের বর্ণনা যা কিনা সহায়তাকারী প্রযুক্তিতে প্রবেশের জন্য বিন্যাসকৃত"
+msgstr "সহায়ক প্রযুক্তি ব্যবহারের উদ্দেশ্যে বিন্যস্ত অবজেক্টের বর্ণনা"
 
 #: ../atk/atkobject.c:370
 msgid "Accessible Parent"
-msgstr "প্রবেশযোগ্য প্যারেন্ট"
+msgstr "ব্যবহারযোগ্য ঊর্ধ্বস্থ বস্তু"
 
 #: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
-msgstr "প্যারেন্ট পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "ঊর্ধ্বস্থ বস্তুর পরিবর্তন সম্বন্ধে সূচিত করতে ব্যবহৃত"
 
 #: ../atk/atkobject.c:377
 msgid "Accessible Value"
-msgstr "প্রবেশযোগ্য মান"
+msgstr "ব্যবহারযোগ্য মান"
 
 #: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
-msgstr "মানটি পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "মান পরিবর্তন সম্বন্ধে সূচিত করতে ব্যবহৃত"
 
 #: ../atk/atkobject.c:386
 msgid "Accessible Role"
-msgstr "প্রবেশযোগ্য ভূমিকা"
+msgstr "ব্যবহারযোগ্য ভূমিকা"
 
 #: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
-msgstr "এই অবজেক্টের প্রবেশযোগ্য ভুমিকা"
+msgstr "চিহ্নিত বস্তুর ব্যবহারযোগ্য ভূমিকা"
 
 #: ../atk/atkobject.c:395
 msgid "Accessible Layer"
-msgstr "প্রবেশযোগ্য স্তর"
+msgstr "ব্যবহারযোগ্য স্তর"
 
 #: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
-msgstr "এই অবজেক্টের প্রবেশযোগ্য স্তর"
+msgstr "চিহ্নিত বস্তুর ব্যবহারযোগ্য স্তর"
 
 #: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
-msgstr "প্রবেশযোগ্য MDI মান"
+msgstr "ব্যবহারযোগ্য MDI মান"
 
 #: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
-msgstr "এই অবজেক্টের প্রবেশযোগ্য MDI মান"
+msgstr "চিহ্নিত বস্তুর ব্যবহারযোগ্য MDI মান"
 
 #: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
-msgstr "প্রবেশযোগ্য টেবিল শিরোনাম"
+msgstr "টেবিলের ব্যবহারযোগ্য শীর্ষক"
 
 #: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr ""
-"টেবিলটির শিরোনাম পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত; এই বৈশিষ্ট্য ব্যবহার করা "
-"উচিত নয়। পরিবর্তে প্রবেশযোগ্য-টেবিল-শিরোনাম-অবজেক্ট ব্যবহার করা উচিত"
+msgstr "টেবিলের শীর্ষক পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত; এই বৈশিষ্ট্য ব্যবহার করা উচিত নয়। পরিবর্তে accessible-table-caption-object ব্যবহার করুন।"
 
 #: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
-msgstr "প্রবেশযোগ্য টেবিল কলাম হেডার"
+msgstr "ব্যবহারযোগ্য টেবিলের কলামের শিরোনাম"
 
 #: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
-msgstr "টেবিলটির কলাম হেডার পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "টেবিলের কলামের শিরোনাম পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত"
 
 #: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
-msgstr "প্রবেশযোগ্য টেবিল কলামের বর্ণনা"
+msgstr "ব্যবহারযোগ্য টেবিলের কলামের বর্ণনা"
 
 #: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "টেবিলটির কলামের বর্ণনা পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "টেবিলের কলামের বর্ণনার পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত"
 
 #: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
-msgstr "প্রবেশযোগ্য টেবিল সারি হেডার"
+msgstr "ব্যবহারযোগ্য টেবিলের সারির বর্ণনা"
 
 #: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
-msgstr "টেবিল সারির হেডার পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "টেবিলের সারির শিরোনাম পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত"
 
 #: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
-msgstr "প্রবেশযোগ্য টেবিল সারির বর্ণনা"
+msgstr "ব্যবহারযোগ্য টেবিলের সারির বর্ণনা"
 
 #: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
-msgstr "টেবিলটির সারির বর্ণনা পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "টেবিলের সারির বর্ণনার পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত"
 
 #: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
-msgstr "প্রবেশযোগ্য টেবিল সারসংক্ষেপ"
+msgstr "ব্যবহারযোগ্য টেবিলের সংক্ষিপ্ত বিবরণ"
 
 #: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
-msgstr "টেবিলটির সারসংক্ষেপ পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "টেবিলের সংক্ষিপ্ত বিবরণের পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত"
 
 #: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
-msgstr "প্রবেশযোগ্য টেবিল শিরোনাম অবজেক্ট"
+msgstr "ব্যবহারযোগ্য টেবিলের শীর্ষক অবজেক্ট"
 
 #: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
-msgstr "টেবিলটির শিরোনাম পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
+msgstr "টেবিলের শীর্ষক পরিবর্তন সম্বন্ধে সূচনাপ্রদানের উদ্দেশ্যে ব্যবহৃত"
 
 #: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
-msgstr "প্রবেশযোগ্য হাইপারটেক্সট লিঙ্ক এর সংখ্যা"
+msgstr "ব্যবহারযোগ্য হাইপার-টেক্সট লিঙ্কের সংখ্যা"
 
 #: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
-msgstr "বর্তমান AtkHyperlink এর যত সংখ্যক লিঙ্ক রয়েছে"
+msgstr "বর্তমান AtkHypertext'র মধ্য উপস্থিত লিঙ্কের সংখ্যা"
 
-#~ msgid "ruler"
-#~ msgstr "রুলার"
