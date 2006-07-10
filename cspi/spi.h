@@ -516,6 +516,7 @@ AccessibleApplication *Accessible_getHostApplication (Accessible *obj);
 SPIBoolean Accessible_isAction            (Accessible *obj);
 SPIBoolean Accessible_isApplication       (Accessible *obj);
 SPIBoolean Accessible_isComponent         (Accessible *obj);
+SPIBoolean Accessible_isDocument          (Accessible *obj);
 SPIBoolean Accessible_isEditableText      (Accessible *obj);
 SPIBoolean Accessible_isHypertext         (Accessible *obj);
 SPIBoolean Accessible_isImage             (Accessible *obj);
@@ -528,6 +529,7 @@ SPIBoolean Accessible_isValue             (Accessible *obj);
 AccessibleAction *            Accessible_getAction            (Accessible *obj);
 AccessibleApplication *       Accessible_getApplication       (Accessible *obj);
 AccessibleComponent *         Accessible_getComponent         (Accessible *obj);
+AccessibleDocument *          Accessible_getDocument          (Accessible *obj);
 AccessibleEditableText *      Accessible_getEditableText      (Accessible *obj);
 AccessibleHypertext *         Accessible_getHypertext         (Accessible *obj);
 AccessibleImage *             Accessible_getImage             (Accessible *obj);
@@ -595,6 +597,15 @@ AccessibleComponentLayer
 SPIBoolean  AccessibleComponent_grabFocus   (AccessibleComponent *obj);
 short       AccessibleComponent_getMDIZOrder(AccessibleComponent *obj);
 double      AccessibleComponent_getAlpha    (AccessibleComponent *obj);
+
+/* AccessibleDocument function prototypes  */
+
+void        AccessibleDocument_ref               (AccessibleDocument *obj);
+void        AccessibleDocument_unref             (AccessibleDocument *obj);
+char       *AccessibleDocument_getLocale         (AccessibleDocument *obj);
+char       *AccessibleDocument_getAttributeValue (AccessibleDocument *obj,
+						  char *attribute);
+AccessibleAttributeSet *AccessibleDocument_getAttributes     (AccessibleDocument *obj);
 
 /* AccessibleEditableText function prototypes  */
 

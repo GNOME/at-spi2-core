@@ -37,6 +37,7 @@ typedef AccessibleUnknown  Accessible;
 typedef Accessible AccessibleAction;
 typedef Accessible AccessibleApplication;
 typedef Accessible AccessibleComponent;
+typedef Accessible AccessibleDocument;
 typedef Accessible AccessibleEditableText;
 typedef Accessible AccessibleHyperlink;
 typedef Accessible AccessibleHypertext;

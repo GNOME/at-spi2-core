@@ -30,6 +30,7 @@ libcspi_la_SOURCES =		\
 	spi_action.c		\
 	spi_application.c	\
 	spi_component.c		\
+	spi_document.c		\
 	spi_editabletext.c	\
 	spi_event.c		\
 	spi_hyperlink.c		\

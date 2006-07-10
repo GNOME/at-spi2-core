@@ -1,5 +1,51 @@
 2006-06-29  Bill Haneman <bill.haneman@sun.com>
 
+	Added Document interface (see bug #326520), 
+	with work from Ariel Rios <arios@us.ibm.com>.
+
+	* configure.in: Bump to 1.7.7.
+	
+	* libspi/Makefile.am: Added document.[ch] to sources 
+
+	* libspi/document.h: 
+	(SpiDocument, SpiDocumentClass):
+	       New interface implementation.
+	(spi_document_get_type, spi_document_construct)
+	(spi_document_interface_new): New methods added. 
+	(SPI_DOCUMENT_TYPE, SPI_DOCUMENT)
+	(SPI_DOCUMENT_CLASS, IS_DOCUMENT, IS_DOCUMENT_CLASS): 
+	Added macros for SpiDocument 
+	for new object.                     
+
+	* libspi/document.c: 
+	(spi_document_interface_new): Get a  
+	new document interface. New.
+	(get_document_from_servant): Get an AtkDocument from servant New.
+	(impl_getLocale, impl_getAttributeValue, impl_getAttributes): 
+	Implementation of methods defined on idl.
+	(spi_document_class_init, spi_document_init) 
+	Init methods for SpiDocument. new
+
+	* idl/Accessibility.idl: Added Accessibility_Document.idl.
+
+	* cspi/Makefile.am: Added spi_document.c to sources.
+
+	* cspi/spi_document.c: 
+	(AccessibleDocument_ref, AccessibleDocument_unref):      Added.
+	(AccessibleDocument_getLocale, AccesibleDocument_getAttributeValue)
+	(AccessibleDocument_getAttributes): Bindings for methods defined
+	on libspi
+
+	* cspi/spi_accessible.c: 
+	(Accessible_isDocument, Accessible_getDocument) New.
+	* cspi/spi.h: 
+	(Accessible_isDocument, Accessible_getDocument)
+	(AccessibleDocument_ref, AccessibleDocument_unref)
+	(AccessibleDocument_getLocale, AccessibleDocument_getAttributeValue)
+	(AccessibleDocument_getAttributes): Bindings added.
+	
+2006-06-29  Bill Haneman <bill.haneman@sun.com>
+
 	* idl/Accessibility_Document.idl: New interface
 	for complex documents.  First stage of fix for RFE
 	#326520.

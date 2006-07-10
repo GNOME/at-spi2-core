@@ -242,7 +242,7 @@ cspi_role_from_spi_role (Accessibility_Role role)
   return cspi_role; 
 }
 
-static AccessibleAttributeSet *
+AccessibleAttributeSet *
 cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq)
 {
     AccessibleAttributeSet *set = g_new0 (AccessibleAttributeSet, 1);
@@ -630,7 +630,7 @@ Accessible_getAttributes (Accessible *obj)
     retval = cspi_attribute_set_from_sequence (corba_seq);
     CORBA_free (corba_seq);
 
-    return NULL;
+    return retval;
 }
 
 /**
@@ -704,6 +704,22 @@ Accessible_isComponent (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
 			      "IDL:Accessibility/Component:1.0");
+}
+
+/**
+ * Accessible_isDocument:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleDocument.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleDocument interface,
+ *          #FALSE otherwise.
+ **/
+SPIBoolean
+Accessible_isDocument (Accessible *obj)
+{
+  return cspi_accessible_is_a (obj,
+			      "IDL:Accessibility/Document:1.0");
 }
 
 /**
@@ -881,6 +897,21 @@ Accessible_getComponent (Accessible *obj)
 {
   return (AccessibleComponent *) Accessible_queryInterface (
 	  obj, "IDL:Accessibility/Component:1.0");
+}
+/**
+ * Accessible_getDocument:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleDocument interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleDocument interface instance, or
+ *          NULL if @obj does not implement #AccessibleDocument.
+ **/
+AccessibleDocument *
+Accessible_getDocument (Accessible *obj)
+{
+  return (AccessibleDocument *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Document:1.0");
 }
 
 /**

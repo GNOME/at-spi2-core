@@ -21,6 +21,7 @@ libspiinclude_HEADERS =		\
 	application.h		\
 	base.h			\
 	component.h		\
+	document.h		\
 	editabletext.h		\
 	hyperlink.h		\
 	hypertext.h		\
@@ -74,6 +75,7 @@ libspi_la_SOURCES =		\
 	application.c		\
 	base.c			\
 	component.c		\
+	document.c		\
 	editabletext.c		\
 	hyperlink.c		\
 	hypertext.c		\
