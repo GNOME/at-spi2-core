@@ -468,6 +468,9 @@ object corresponding to an user interface element.
 @SPI_ROLE_PAGE: 
 @SPI_ROLE_SECTION: 
 @SPI_ROLE_FORM: 
+@SPI_ROLE_REDUNDANT_OBJECT: 
+@SPI_ROLE_LINK: 
+@SPI_ROLE_INPUT_METHOD_WINDOW: 
 @SPI_ROLE_LAST_DEFINED: 
 
 <!-- ##### FUNCTION AccessibleRole_getName ##### -->

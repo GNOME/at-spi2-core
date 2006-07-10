@@ -7,6 +7,7 @@ idl_DATA =					\
 	Accessibility_Application.idl		\
 	Accessibility_Component.idl		\
 	Accessibility_Desktop.idl		\
+	Accessibility_Document.idl		\
 	Accessibility_EditableText.idl		\
 	Accessibility_Event.idl			\
 	Accessibility_Hyperlink.idl		\
