@@ -44,6 +44,9 @@
 	(AccessibleDocument_getLocale, AccessibleDocument_getAttributeValue)
 	(AccessibleDocument_getAttributes): Bindings added.
 	
+	* idl/Makefile.am: Added Accessibility_Document.idl to
+	idl_DATA.
+	
 2006-06-29  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Document.idl: New interface
