@@ -3,7 +3,7 @@
 	Added Document interface (see bug #326520), 
 	with work from Ariel Rios <arios@us.ibm.com>.
 
-	* configure.in: Bump to 1.7.7.
+	* configure.in: Bump to 1.7.8.
 	
 	* libspi/Makefile.am: Added document.[ch] to sources 
 
