@@ -1,6 +1,26 @@
 2006-07-12  Bill Haneman <billh@gnome.org> modifications to patch from
 2006-07-12  Ariel Rios  <arios@us.ibm.com>
 
+	See RFE #326536.
+	
+	* idl/Accessibility_Table.idl:
+	(getRowColumnExtentsAtIndex): New method for getting
+	selection status and extents in one API call.
+
+	* libspi/table.c:
+	(impl_getRowColumnExtentsAtIndex): Implementation of
+	new method above.
+	(spi_table_class_init): Add above to epv.
+
+	* cspi/spi.h:
+	* cspi/spi_table.c:
+	(AccessibleTable_getRowColumnExtentsAtIndex): New
+	method, retrieves selection status and row/col extents
+	for a table cell in a single API call.
+
+2006-07-12  Bill Haneman <billh@gnome.org> modifications to patch from
+2006-07-12  Ariel Rios  <arios@us.ibm.com>
+
 	* cspi/bonobo/cspi-bonobo.c: Remove warning adding <cspi/spi-private.h>
 
 	* cspi/spi_text.c: 

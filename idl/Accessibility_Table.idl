@@ -291,7 +291,52 @@ typedef sequence<long> LongSeq;
     * \c False if not. 
     **/
    boolean removeColumnSelection (in long column);
-
+   /** 
+    * Given a child index, determine the row and column indices and 
+    * extents, and whether the cell is currently selected.  If
+    * the child at \c index is not a cell (for instance, if it is 
+    * a summary, caption, etc.), \c False is returned.
+    *
+    * @param index the index of the Table child whose row/column 
+    * extents are requested.
+    * @param row back-filled with the first table row associated with
+    * the cell with child index \c index.
+    * @param col back-filled with the first table column associated 
+    * with the cell with child index \c index.
+    * @param row_extents back-filled with the number of table rows 
+    * across which child \c i extends.
+    * @param col_extents back-filled with the number of table columns
+    * across which child \c i extends.
+    * @param is_selected a boolean which is back-filled with \c True
+    * if the child at index \c i corresponds to a selected table cell,
+    * \c False otherwise.
+    *
+    * Example:
+    * If the Table child at index '6' extends across columns 5 and 6 of
+    * row 2 of a Table instance, and is currently selected, then
+    * \code
+    * retval = table::getRowColumnExtentsAtIndex (6, row, col, 
+    *                                             row_extents,
+    *                                             col_extents,
+    *                                             is_selected);
+    * \endcode
+    * will return True, and after the call
+    * \c row, \c col, \c row_extents, \c col_extents,
+    * and \c is_selected will contain \c 2, \c 5, \c 1, \c 2, and 
+    * \c True, respectively.
+    *
+    * @returns \c True if the index is associated with a valid table
+    * cell, \c False if the index does not correspond to a cell.  If 
+    * \c False is returned, the values of the out parameters are 
+    * undefined.
+    * 
+    * @since AT-SPI 1.7.0
+    **/
+    boolean getRowColumnExtentsAtIndex (in long index, out long row, 
+					out long col, 
+					out long row_extents, 
+					out long col_extents, 
+					out boolean is_selected);
     /** \cond
      * unImplemented:
      *
@@ -304,7 +349,6 @@ typedef sequence<long> LongSeq;
     void unImplemented5 ();
     void unImplemented6 ();
     void unImplemented7 ();
-    void unImplemented8 ();
     /** \endcond */
   };
 };

@@ -717,6 +717,47 @@ AccessibleTable_removeColumnSelection (AccessibleTable *obj,
   return retval;
 }
 
+
+SPIBoolean
+AccessibleTable_getRowColumnExtentsAtIndex (AccessibleTable *obj,
+					    long int index, long int *row, long int *col, 
+					    long int *row_extents, long int *col_extents, 
+					    long int *is_selected){
+  SPIBoolean retval;
+  CORBA_long cRow,  cCol, cRow_extents, cCol_extents; 
+  CORBA_boolean cIs_selected;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval = Accessibility_Table_getRowColumnExtentsAtIndex (CSPI_OBJREF (obj),
+							   index, &cRow, &cCol,
+							   &cRow_extents, &cCol_extents,
+							   &cIs_selected,
+							   cspi_ev ());
+
+  if (!cspi_check_ev ("getRowColumnExtentsAtIndex")){
+    
+    *row = 0;
+    *col = 0;
+    *row_extents = 0;
+    *col_extents = 0;
+    *is_selected = FALSE;
+    retval = FALSE;
+  }
+
+  else {
+    *row = cRow;
+    *col = cCol;
+    *row_extents = cRow_extents;;
+    *col_extents = cCol_extents;
+    *is_selected = cIs_selected;;
+  }
+  
+  return retval;
+
+}
+
+
 /**
  * AccessibleTable_isSelected:
  * @obj: a pointer to the #AccessibleTable implementor on which to operate.

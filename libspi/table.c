@@ -438,6 +438,47 @@ impl_removeColumnSelection (PortableServer_Servant servant,
 
 
 static CORBA_boolean
+impl_getRowColumnExtentsAtIndex (PortableServer_Servant servant,
+				 const CORBA_long index,
+				 CORBA_long *row,
+				 CORBA_long *column,
+				 CORBA_long *row_extents,
+				 CORBA_long *col_extents,
+				 CORBA_boolean *is_selected,
+				 CORBA_Environment *ev)
+{
+
+  AtkObject *cell;
+  AtkRole role;
+  AtkTable *table = get_table_from_servant (servant);
+  gint intColumn, intRow, intRow_extents, intCol_extents;
+  gboolean boolIs_selected;
+
+  g_return_val_if_fail (table != NULL, FALSE);
+
+  intColumn = atk_table_get_column_at_index (table, index);
+  intRow = atk_table_get_row_at_index (table, index);
+  intRow_extents = atk_table_get_row_extent_at (table, intRow, intColumn);
+  intCol_extents = atk_table_get_column_extent_at (table, intRow, intColumn);
+  boolIs_selected = atk_table_is_selected (table, intRow, intColumn);
+
+  *column = intColumn;
+  *row = intRow;
+  *row_extents = intRow_extents;
+  *col_extents = intCol_extents;
+  *is_selected = boolIs_selected;
+
+  cell = atk_table_ref_at (table, intRow, intColumn);
+  role = atk_object_get_role (cell);
+
+  if (role == ATK_ROLE_TABLE_CELL)
+    return TRUE;
+  
+  return FALSE;
+
+}
+
+static CORBA_boolean
 impl_isSelected (PortableServer_Servant servant,
 		 const CORBA_long       row,
 		 const CORBA_long       column,
@@ -484,6 +525,7 @@ spi_table_class_init (SpiTableClass *klass)
   epv->removeRowSelection = impl_removeRowSelection;
   epv->removeColumnSelection = impl_removeColumnSelection;
   epv->isSelected = impl_isSelected;
+  epv->getRowColumnExtentsAtIndex = impl_getRowColumnExtentsAtIndex;
 }
 
 static void

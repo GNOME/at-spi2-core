@@ -908,6 +908,12 @@ AccessibleTable_getColumnExtentAt (AccessibleTable *obj,
                                    long int row,
                                    long int column);
 
+SPIBoolean
+AccessibleTable_getRowColumnExtentsAtIndex (AccessibleTable *obj,
+					    long int index, long int *row, long int *col, 
+					    long int *row_extents, long int *col_extents, 
+					    long int *is_selected);
+
 Accessible *
 AccessibleTable_getRowHeader (AccessibleTable *obj,
 			      long int row);
