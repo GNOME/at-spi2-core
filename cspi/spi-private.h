@@ -81,9 +81,10 @@ SPIBoolean             cspi_accessible_is_a   (Accessible  *accessible,
 					       const char  *interface_name);
 AccessibleRole         cspi_role_from_spi_role (Accessibility_Role role);
 void                   cspi_streams_close_all (void);
-gboolean              _cspi_exception_throw (CORBA_Environment *ev, char *desc_prefix);
+gboolean               cspi_exception_throw (CORBA_Environment *ev, char *desc_prefix);
 
-
+AccessibleAttributeSet 
+                     *cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq);
 #define cspi_return_if_fail(val)		\
 	if (!(val))				\
 		return

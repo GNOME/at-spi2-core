@@ -1077,6 +1077,14 @@ AccessibleText_setSelection (AccessibleText *obj,
 			     long int selectionNum,
 			     long int startOffset,
 			     long int endOffset);
+AccessibleAttributeSet *
+AccessibleText_getAttributeRun  (AccessibleText *obj,
+				 long int offset,
+				 long int *startOffset,
+				 long int *endOffset,
+				 long int includeDefaults);
+AccessibleAttributeSet *
+AccessibleText_getDefaultAttributeSet (AccessibleText *obj);
 
 /* AccessibleValue Function Prototypes:  */
 

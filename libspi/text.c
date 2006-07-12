@@ -126,7 +126,7 @@ impl_getText (PortableServer_Servant servant,
 }
 
 
-CORBA_string
+static CORBA_string
 impl_getTextAfterOffset (PortableServer_Servant servant,
 			 const CORBA_long offset,
 			 const
@@ -598,7 +598,7 @@ _spi_bounds_contain (SpiTextRect *clip, SpiTextRect *cbounds,
     return FALSE;
 }
 
-Accessibility_Text_RangeList *
+static Accessibility_Text_RangeList *
 impl_getBoundedRanges(PortableServer_Servant servant,
 		      const CORBA_long x,
 		      const CORBA_long y,
@@ -671,6 +671,94 @@ impl_getBoundedRanges(PortableServer_Servant servant,
 }
 
 
+
+static Accessibility_AttributeSet *	
+impl_getAttributeRun (PortableServer_Servant servant,		   
+		      const CORBA_long offset, 
+		      CORBA_long *startOffset, CORBA_long *endOffset, 
+		      const CORBA_boolean includeDefaults, 
+		      CORBA_Environment *ev){
+		      
+     AtkAttributeSet *attributes, *default_attributes = NULL;
+     gint intstart_offset, intend_offset;
+     Accessibility_AttributeSet *retval = NULL;
+     AtkText *text = get_text_from_servant (servant);
+     gint n_attributes = 0, total_attributes = 0, n_default_attributes = 0;
+     gint i, j;
+     
+     g_return_val_if_fail (text != NULL, NULL);
+
+     attributes = atk_text_get_run_attributes (text, offset,
+					       &intstart_offset, &intend_offset);
+
+     if (attributes) total_attributes = n_attributes = g_slist_length (attributes);
+     if (includeDefaults)
+     {
+	 default_attributes = atk_text_get_default_attributes (text);
+	 if (default_attributes)
+	     n_default_attributes = g_slist_length (default_attributes);
+	 total_attributes += n_default_attributes;
+     }
+
+     *startOffset = intstart_offset;
+     *endOffset = intend_offset; 
+
+     if (total_attributes)
+     {
+	 retval = CORBA_sequence_CORBA_string__alloc ();
+	 retval->_length = retval->_maximum = total_attributes;
+	 retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (total_attributes);
+	 CORBA_sequence_set_release (retval, CORBA_TRUE);
+	 
+	 for (i = 0; i < n_attributes; ++i)
+	 {
+	     retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+	 }
+	 
+	 for (j = 0; j < n_default_attributes; ++i, ++j)
+	 {
+	     retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (default_attributes, j));
+	 }
+	 
+	 atk_attribute_set_free (attributes);
+	 if (default_attributes)
+	     atk_attribute_set_free (default_attributes);
+     }
+     return retval;
+}
+
+static Accessibility_AttributeSet *
+impl_getDefaultAttributeSet (PortableServer_Servant servant,
+			     CORBA_Environment *ev){
+     AtkAttributeSet *attributes;
+     Accessibility_AttributeSet *retval = NULL;
+     AtkText *text = get_text_from_servant (servant);
+     gint n_attributes = 0;
+     gint i;
+     
+     g_return_val_if_fail (text != NULL, NULL);
+     
+     attributes = atk_text_get_default_attributes (text);
+     
+     if (attributes) 
+     {
+	 n_attributes = g_slist_length (attributes);
+
+	 retval = CORBA_sequence_CORBA_string__alloc ();
+	 retval->_length = retval->_maximum = n_attributes;
+	 retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (n_attributes);
+	 CORBA_sequence_set_release (retval, CORBA_TRUE);
+	 
+	 for (i = 0; i < n_attributes; ++i)
+	 {
+	     retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+	 }
+	 atk_attribute_set_free (attributes);
+     }     
+     return retval;       
+}
+
+
 static void
 spi_text_class_init (SpiTextClass *klass)
 {
@@ -698,6 +786,8 @@ spi_text_class_init (SpiTextClass *klass)
   epv->getRangeExtents = impl_getRangeExtents;
   epv->getBoundedRanges = impl_getBoundedRanges;
   epv->getAttributeValue = impl_getAttributeValue;
+  epv->getAttributeRun = impl_getAttributeRun;
+  epv->getDefaultAttributeSet = impl_getDefaultAttributeSet;
 }
 
 static void

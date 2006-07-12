@@ -385,6 +385,72 @@ module Accessibility {
 				in TEXT_CLIP_TYPE xClipType, 
 				in TEXT_CLIP_TYPE yClipType);
 
+    /** 
+     * Query a particular text object for the text attributes defined at a given offset, 
+     * obtaining the start and end of the "attribute run" over which these attributes are currently 
+     * invariant.  Text attributes are those presentational, typographic, or semantic attributes or 
+     * qualitites which apply to a range of text specifyable by starting and ending offsets.  
+     * Attributes relevant to localization should be provided in 
+     * accordance with the w3c "Internationalization and Localization Markup Requirements", 
+     * http://www.w3.org/TR/2005/WD-itsreq-20051122/
+     * Other text attributes should choose their names and value semantics in accordance with relevant
+     * standards such as CSS level 2 (http://www.w3.org/TR/1998/REC-CSS2-19980512), 
+     * XHTML 1.0 (http://www.w3.org/TR/2002/REC-xhtml1-20020801), and
+     * WICD (http://www.w3.org/TR/2005/WD-WICD-20051121/).  Those attributes from the aforementioned
+     * specifications and recommendations which do not concern typographic, presentational, or 
+     * semantic aspects of text should be exposed via the more general Accessible::getAttributes() API
+     * (if at all).
+     *
+     * For example, CSS attributes which should be exposed on text (either as default attributes, or 
+     * as explicitly-set attributes when non-default values are specified in the content view) include
+     * the Font attributes (i.e. "css2:font-weight", "css2:font-style"), 
+     * the "css2:color" and "css2:background-color" attributes, and "css2:text-decoration" attribute. 
+     * 
+     * If includeDefaults is TRUE, then this AttributeSet should include the default
+     * attributes as well as those which are explicitly assigned to the attribute run in question.
+     * startOffset and endOffset will be back-filled to indicate the start and end of the attribute run
+     * which contains 'offset' - an attribute run is a contiguous section of text whose attributes are
+     * homogeneous.
+     * @param offset the offset of the character whose attributes will be reported.
+     * @param startOffset backfilled with the starting offset of the character range over which all
+     *                    text attributes match those of \c offset, i.e. the start of the homogeneous
+     *                    attribute run including \c offset.
+     * @param endOffset backfilled with the offset of the first character past the character range over which all
+     *                    text attributes match those of \c offset, i.e. the character immediately after 
+     *                    the homogeneous attribute run including \c offset.
+     * @param includeDefaults if False, the call should only return those attributes which are
+     * explicitly set on the current attribute run, omitting any attributes which are inherited from 
+     * the default values.  See also Text::getDefaultAttributes.
+     *
+     * @note Clients seeking annotations or properties of a more general nature, which 
+     * are not specific to the onscreen textual content of objects and cannot logically be applied
+     * to specific character offset ranges,
+     * should use Accessible::getAttributes instead.
+     * The attributes returned by Text::getAttributeRun (with or without 'default attributes'), 
+     * are distinct from the properties/attributes returned by Accessible::getAttributes.
+     * 
+     * @see Accessible::getAttributes
+     *
+     * @returns the AttributeSet defined at offset, optionally including the 'default' attributes. 
+     *
+     * @since AT-SPI 1.7.0
+     **/
+    AttributeSet getAttributeRun (in long offset,
+				  out long startOffset, 
+				  out long endOffset,
+				  in boolean includeDefaults);
+      /** 
+       * Return an ::AttributeSet containing the text attributes which apply to all text in the object
+       * by virtue of the default settings of the document, view, or user agent; e.g. those
+       * attributes which are implied rather than explicitly applied to the text object.
+       * For instance, an object whose entire text content has been explicitly marked as 'bold' will
+       * report the 'bold' attribute via getAttributeRun(), whereas an object whose text weight is
+       * inspecified may report the default or implied text weight in the default AttributeSet.
+       * 
+       * @since AT-SPI 1.7.0
+       **/
+    AttributeSet getDefaultAttributeSet ();
+
     /** \cond
      * unImplemented:
      *
@@ -392,8 +458,6 @@ module Accessibility {
      */
     void unImplemented ();
     void unImplemented2 ();
-    void unImplemented3 ();
-    void unImplemented4 ();
     /** \endcond **/
   };
 };

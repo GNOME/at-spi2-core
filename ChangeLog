@@ -1,3 +1,25 @@
+2006-07-12  Bill Haneman <billh@gnome.org> modifications to patch from
+2006-07-12  Ariel Rios  <arios@us.ibm.com>
+
+	* cspi/bonobo/cspi-bonobo.c: Remove warning adding <cspi/spi-private.h>
+
+	* cspi/spi_text.c: 
+	(AccessibleText_getAttributeRun,AccessibleText_getDefaultAttributes):
+	New bindings for new methods defined in idl and libspi.
+
+	* cspi/spi.h: 
+	(AccessibleText_getAttributeRun,AccessibleText_getDefaultAttributes):
+       Added prototype functions.
+
+	* libspi/text.c: 
+	(impl_getAttributeRun, impl_getDefaultAttributeSet): New method implementation
+	Bug #326520
+	(spi_text_class_init): Added previous methods.
+       
+	* libspi/spi.h:  
+	(impl_getAttributeRun, impl_getDefaultAttributeSet): Added prototypes
+	* libspi/spi-private.h: Corrections.
+
 2006-06-29  Bill Haneman <bill.haneman@sun.com>
 
 	Added Document interface (see bug #326520), 

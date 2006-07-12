@@ -912,4 +912,94 @@ AccessibleText_setSelection (AccessibleText *obj,
 }
 
 
+/**
+ * AccessibleText_getAttributeRun:
+ * @obj: a pointer to the #AccessibleText object to query.
+ * @offset: a long integer indicating the offset from which the attribute
+ *        search is based.
+ * @startOffset: a #long indicating the start of the desired text range.
+ * @endOffset: a #long indicating the first character past the desired range.
+ * @includeDefaults: a #bool if False, the call should only return those 
+ *                 attributes which are explicitly set on the current attribute 
+ *                 run, omitting any attributes which are inherited from the 
+ *                 default values.
+ *
+ *  @Since: AT-SPI 1.7
+ *
+ * Returns: the AttributeSet defined at offset, optionally including the 'default' attributes.
+ **/
 
+AccessibleAttributeSet *
+AccessibleText_getAttributeRun (AccessibleText *obj,
+				long int offset,
+				long int *startOffset,
+				long int *endOffset,
+			        long int includeDefaults){
+
+  CORBA_long retStartOffset, retEndOffset;
+  AccessibleAttributeSet *retval;
+  Accessibility_AttributeSet *attributes;
+
+  if (obj == NULL)
+  {
+       *startOffset = *endOffset = -1;
+       return NULL;
+  }
+
+  attributes = Accessibility_Text_getAttributeRun (CSPI_OBJREF (obj),
+					       offset,
+					       &retStartOffset,
+					       &retEndOffset,
+					       (includeDefaults)? TRUE : FALSE,
+					       cspi_ev ());
+
+  if (!cspi_check_ev ("getAttributeRun"))
+    {
+      *startOffset = *endOffset = -1;
+      retval = NULL;
+    }
+  else 
+  {
+      *startOffset = retStartOffset;
+      *endOffset   = retEndOffset;
+  }
+
+  retval =  cspi_attribute_set_from_sequence (attributes);
+
+  return retval;
+				     
+}
+
+/**
+ * AccessibleText_getDefaultAttributeSet:
+ * @obj: a pointer to the #AccessibleText object to query.
+ *
+ *
+ *  @Since: AT-SPI 1.7
+ *
+ * Returns: an AttributeSet containing the text attributes 
+ * which apply to all text in the object by virtue of the
+ * default settings of the document, view, or user agent; e.g.
+ * those attributes which are implied rather than explicitly 
+ * applied to the text object. For instance, an object whose 
+ * entire text content has been explicitly marked as 'bold' 
+ * will report the 'bold' attribute via getAttributeRun(), 
+ * whereas an object whose text weight is inspecified may 
+ * report the default or implied text weight in the default AttributeSet.
+ *
+ **/
+
+AccessibleAttributeSet *
+AccessibleText_getDefaultAttributeSet (AccessibleText *obj){
+   AccessibleAttributeSet *retval;
+   Accessibility_AttributeSet *attributes;
+
+   cspi_return_val_if_fail (obj != NULL, NULL);
+
+  attributes = Accessibility_Text_getDefaultAttributeSet (CSPI_OBJREF (obj), cspi_ev ());
+  cspi_return_val_if_ev ("getDefaultAttributeSet", NULL);
+  
+  retval = cspi_attribute_set_from_sequence (attributes);
+  retval = NULL;
+  return retval;
+}
