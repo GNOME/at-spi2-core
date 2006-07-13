@@ -144,7 +144,7 @@ cspi_init (void)
 
   if (registry == CORBA_OBJECT_NIL)
     {
-      g_error ("Could not locate registry");
+      g_warning ("Could not locate registry");
     }
 
   bonobo_activate ();
