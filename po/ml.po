@@ -1,360 +1,517 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# translation of atk.HEAD to Malayalam
+# This file is distributed under the same license as the atk.HEAD package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # FSF-India <locale@gnu.org.in>, 2003.
+# Ani Peter <peter.ani@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:atk.HEAD\n"
-"POT-Creation-Date: 2003-06-06 03:42+0200\n"
-"PO-Revision-Date: 2003-07-05 10:29+0530\n"
-"Last-Translator: FSF-India <locale@gnu.org.in>\n"
-"Language-Team: Malayalam <locale@gnu.org.in>\n"
+"Project-Id-Version: atk.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-06-30 05:56+0200\n"
+"PO-Revision-Date: 2006-07-17 17:14+0530\n"
+"Last-Translator: Ani Peter <peter.ani@gmail.com>\n"
+"Language-Team: Malayalam\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
-#: atk/atkobject.c:1242
+#: ../atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr "തിരഞ്ഞെടുക്കപ്പെട്ട ലിങ്ക്"
+
+#: ../atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr "AtkHyperlink ഒബ്ജക്റ്റ് തിരഞ്ഞെടുത്തുവോ എന്ന് നമുക്ക് വ്യക്തമാക്കി തരുന്നു"
+
+#: ../atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr "ആന്‍കറുകളുടെ എണ്ണം"
+
+#: ../atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr "AtkHyperlink ഒബ്ജക്റ്റുമായി ബന്ധമുളള ആന്‍കറുകളുടെ എണ്ണം"
+
+#: ../atk/atkhyperlink.c:119
+msgid "End index"
+msgstr "ഇന്‍ഡക്സിന്‍റെ അവസാനം"
+
+#: ../atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr "AtkHyperlink ഒബ്ജക്റ്റിന്‍റെ ഇന്‍ഡക്സിന്‍റെ അവസാനം"
+
+#: ../atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr "ഇന്‍ഡക്സിന്‍റെ തുടക്കം"
+
+#: ../atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr "AtkHyperlink ഒബ്ജക്റ്റിന്‍റെ ഇന്‍ഡക്സിന്‍റെ തുടക്കം"
+
+#: ../atk/atkobject.c:82
 msgid "invalid"
-msgstr "സാധുതയില്ലാത്ത"
+msgstr "അസാധു"
 
-#: atk/atkobject.c:1245
-#, fuzzy
-msgid "accel-label"
-msgstr "ലിഖിതം"
+#: ../atk/atkobject.c:83
+msgid "accelerator label"
+msgstr "അക്സലറേറ്റര്‍ ലേബല്‍"
 
-#: atk/atkobject.c:1248
-#, fuzzy
+#: ../atk/atkobject.c:84
 msgid "alert"
-msgstr "അറിയിപ്പ്"
+msgstr "മുന്നറിയിപ്പ്"
 
-#: atk/atkobject.c:1251
+#: ../atk/atkobject.c:85
 msgid "animation"
 msgstr "ചലനചിത്രം"
 
-#: atk/atkobject.c:1254
+#: ../atk/atkobject.c:86
 msgid "arrow"
 msgstr "സൂചകം"
 
-#: atk/atkobject.c:1257
+#: ../atk/atkobject.c:87
 msgid "calendar"
-msgstr "കലണ്ടര്"
+msgstr "കലണ്ടര്‍"
 
-#: atk/atkobject.c:1260
+#: ../atk/atkobject.c:88
 msgid "canvas"
 msgstr "ക്യാന്വാസ്"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
-msgstr "മറുകുറി"
+#: ../atk/atkobject.c:89
+msgid "check box"
+msgstr "മറുകുറി(ചെക്ക് ബോക്സ്)"
 
-#: atk/atkobject.c:1266
-#, fuzzy
-msgid "check-menu-item"
-msgstr "ചെക്ക്-മെനു ഇനം"
+#: ../atk/atkobject.c:90
+msgid "check menu item"
+msgstr "മെന്യു പരിശോധിക്കുക"
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
-msgstr "നിറം തെരെ‌‌‌ഞ്ഞെടുപ്പ്"
+#: ../atk/atkobject.c:91
+msgid "color chooser"
+msgstr "നിറം തിരഞ്ഞെടുക്കുന്ന സഹായി"
 
-#: atk/atkobject.c:1272
-#, fuzzy
-msgid "column-header"
-msgstr "വരി തലക്കെ‌ട്ട"
+#: ../atk/atkobject.c:92
+msgid "column header"
+msgstr "വരി തലക്കെ‌ട്ട്"
 
-#: atk/atkobject.c:1275
-#, fuzzy
-msgid "combo-box"
-msgstr "കോംബോ പെട്ടി"
+#: ../atk/atkobject.c:93
+msgid "combo box"
+msgstr "കോംബോ ബോക്സ്"
 
-#: atk/atkobject.c:1278
-#, fuzzy
-msgid "date-editor"
-msgstr "തിയതി തിരുത്ത്"
+#: ../atk/atkobject.c:94
+msgid "dateeditor"
+msgstr "തിയതി തിരുത്തല്‍ സംവിധാനം"
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
-msgstr "പണിയിടം ചിഹ്നം"
+#: ../atk/atkobject.c:95
+msgid "desktop icon"
+msgstr "പണിയിടത്ത് കാണപ്പെടുന്ന ചിഹ്നം"
 
-#: atk/atkobject.c:1284
-#, fuzzy
-msgid "desktop-frame"
-msgstr "‌‌ഡെസ്ക് ടോപ്പ് ചട്ടക്കൂട്"
+#: ../atk/atkobject.c:96
+msgid "desktop frame"
+msgstr "‌‌ഡെസ്ക് ടോപ്പ് ചട്ടക്കൂട് "
 
-#: atk/atkobject.c:1287
-#, fuzzy
+#: ../atk/atkobject.c:97
 msgid "dial"
-msgstr "ഡയല്"
+msgstr "ഡയല്‍"
 
-#: atk/atkobject.c:1290
+#: ../atk/atkobject.c:98
 msgid "dialog"
 msgstr "സംവാദം 1"
 
-#: atk/atkobject.c:1293
-#, fuzzy
-msgid "directory-pane"
-msgstr "കൂട്"
+#: ../atk/atkobject.c:99
+msgid "directory pane"
+msgstr "ഡയറക്ടറി പെയിന്‍"
 
-#: atk/atkobject.c:1296
-#, fuzzy
-msgid "drawing-area"
-msgstr "വര മൂല"
+#: ../atk/atkobject.c:100
+msgid "drawing area"
+msgstr "വരയ്ക്കുവാനുളള സ്ഥലം"
 
-#: atk/atkobject.c:1299
-#, fuzzy
-msgid "file-chooser"
-msgstr "ഫയല് തെരെ‌ഞ്ഞെടുപ്പ്"
+#: ../atk/atkobject.c:101
+msgid "file chooser"
+msgstr "ഫയല്‍ തെരെ‌ഞ്ഞെടുപ്പ്"
 
-#: atk/atkobject.c:1302
-#, fuzzy
+#: ../atk/atkobject.c:102
 msgid "filler"
-msgstr "വെള്ളി"
+msgstr "ഫില്ലര്‍"
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
-msgstr "അച്ച് തെരെഞ്ഞെടുപ്പ്"
+#. I know it looks wrong but that is what Java returns
+#: ../atk/atkobject.c:104
+msgid "fontchooser"
+msgstr "അച്ച് തെരെഞ്ഞെടുപ്പ് "
 
-#: atk/atkobject.c:1308
-#, fuzzy
+#: ../atk/atkobject.c:105
 msgid "frame"
-msgstr "ചട്ടക്കൂട്"
+msgstr "ചട്ടക്കൂട് "
 
-#: atk/atkobject.c:1311
-#, fuzzy
-msgid "glass-pane"
-msgstr "ഗ്ളാസ്-പാളി"
+#: ../atk/atkobject.c:106
+msgid "glass pane"
+msgstr "ഗ്ളാസ് പാളി"
 
-#: atk/atkobject.c:1314
-#, fuzzy
-msgid "html-container"
-msgstr "html-ഉള്‍ക്കൊള്ളുന്നു"
+#: ../atk/atkobject.c:107
+msgid "html container"
+msgstr "html കണ്ടയിനര്‍"
 
-#: atk/atkobject.c:1317
+#: ../atk/atkobject.c:108
 msgid "icon"
 msgstr "ചിഹ്നം"
 
-#: atk/atkobject.c:1320
+#: ../atk/atkobject.c:109
 msgid "image"
 msgstr "ചിത്രം"
 
-#: atk/atkobject.c:1323
-#, fuzzy
-msgid "internal-frame"
-msgstr "അച്ചടിച്ച തലക്കുറിപ്പ്"
+#: ../atk/atkobject.c:110
+msgid "internal frame"
+msgstr "ഇന്‍റേണല്‍ ഫ്രെയിം"
 
-#: atk/atkobject.c:1326
+#: ../atk/atkobject.c:111
 msgid "label"
 msgstr "ലിഖിതം"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
-msgstr "നിരവധി തലങ്ങളുളള പാളി"
+#: ../atk/atkobject.c:112
+msgid "layered pane"
+msgstr "നിരവധി തലങ്ങളുളള പാളി "
 
-#: atk/atkobject.c:1332
+#: ../atk/atkobject.c:113
 msgid "list"
 msgstr "നാമാവലി"
 
-#: atk/atkobject.c:1335
-#, fuzzy
-msgid "list-item"
-msgstr "വിതരണം"
+#: ../atk/atkobject.c:114
+msgid "list item"
+msgstr "ഐറ്റങ്ങള്‍ ചിട്ടയില്‍ നിരത്തുക"
 
-#: atk/atkobject.c:1338
-#, fuzzy
+#: ../atk/atkobject.c:115
 msgid "menu"
-msgstr "പട്ടിക"
+msgstr "പട്ടിക "
 
-#: atk/atkobject.c:1341
-#, fuzzy
-msgid "menu-bar"
-msgstr "പട്ടികപ്പട്ട കാണിക്കുക"
+#: ../atk/atkobject.c:116
+msgid "menu bar"
+msgstr "മെന്യു ബാര്‍"
 
-#: atk/atkobject.c:1344
-#, fuzzy
-msgid "menu-item"
-msgstr "മിനിട്ട്"
+#: ../atk/atkobject.c:117
+msgid "menu item"
+msgstr "മെന്യു ഐറ്റം"
 
-#: atk/atkobject.c:1347
-#, fuzzy
-msgid "option-pane"
-msgstr "പ്ളവന പാളി"
+#: ../atk/atkobject.c:118
+msgid "option pane"
+msgstr "ഓപ്ഷന്‍ പെയിന്‍"
 
-#: atk/atkobject.c:1350
-#, fuzzy
-msgid "page-tab"
-msgstr "അനുബന്ധങ്ങള്"
+#: ../atk/atkobject.c:119
+msgid "page tab"
+msgstr "പേജ് റ്റാബ്"
 
-#: atk/atkobject.c:1353
-#, fuzzy
-msgid "page-tab-list"
-msgstr "അനുബന്ധങ്ങളുടെ പട്ടിക"
+#: ../atk/atkobject.c:120
+msgid "page tab list"
+msgstr "അനുബന്ധങ്ങളുടെ പട്ടിക "
 
-#: atk/atkobject.c:1356
-#, fuzzy
+#: ../atk/atkobject.c:121
 msgid "panel"
-msgstr "പാളി"
+msgstr "പാളി "
 
-#: atk/atkobject.c:1359
-#, fuzzy
-msgid "password-text"
-msgstr "അടയാളവാക്യം"
+#: ../atk/atkobject.c:122
+msgid "password text"
+msgstr "അടയാളവാക്യം "
 
-#: atk/atkobject.c:1362
-#, fuzzy
-msgid "popup-menu"
-msgstr "പോപ് അപ്പ് പട്ടിക"
+#: ../atk/atkobject.c:123
+msgid "popup menu"
+msgstr "പോപ് അപ്പ് പട്ടിക "
 
-#: atk/atkobject.c:1365
-#, fuzzy
-msgid "progress-bar"
-msgstr "പൂരോഗതി‌"
+#: ../atk/atkobject.c:124
+msgid "progress bar"
+msgstr "പ്രോഗ്രസ്സ് ബാര്‍"
 
-#: atk/atkobject.c:1368
-#, fuzzy
-msgid "push-button"
-msgstr "പുഷ് ബട്ടണ്"
+#: ../atk/atkobject.c:125
+msgid "push button"
+msgstr "പുഷ് ബട്ടണ്‍"
 
-#: atk/atkobject.c:1371
-#, fuzzy
-msgid "radio-button"
-msgstr "റേ‌ഡിയോ ബട്ടണ്"
+#: ../atk/atkobject.c:126
+msgid "radio button"
+msgstr "റേ‌ഡിയോ ബട്ടണ്‍"
 
-#: atk/atkobject.c:1374
-#, fuzzy
-msgid "radio-menu-item"
-msgstr "റേഡിയോ പട്ടിക ഇനം"
+#: ../atk/atkobject.c:127
+msgid "radio menu item"
+msgstr "റേഡിയോ മെന്യു ഐറ്റം"
 
-#: atk/atkobject.c:1377
-#, fuzzy
-msgid "root-pane"
-msgstr "അടിസ്ഥാന പാളി"
+#: ../atk/atkobject.c:128
+msgid "root pane"
+msgstr "അടിസ്ഥാന പാളി "
 
-#: atk/atkobject.c:1380
-#, fuzzy
-msgid "row-header"
-msgstr "എല്ലാ തലവാചകങ്ങളും കാണിക്കുക"
+#: ../atk/atkobject.c:129
+msgid "row header"
+msgstr "എല്ലാ തലവാചകങ്ങളും കാണിക്കുക "
 
-#: atk/atkobject.c:1383
-#, fuzzy
-msgid "scroll-bar"
-msgstr "നിരക്കിനീക്കാന്"
+#: ../atk/atkobject.c:130
+msgid "scroll bar"
+msgstr "സ്ക്ക്രോള്‍ ബാര്‍"
 
-#: atk/atkobject.c:1386
-#, fuzzy
-msgid "scroll-pane"
+#: ../atk/atkobject.c:131
+msgid "scroll pane"
 msgstr "നിരക്കിനീക്കാവുന്ന പാളി"
 
-#: atk/atkobject.c:1389
+#: ../atk/atkobject.c:132
 msgid "separator"
-msgstr "വേ‍ര്തിരി"
+msgstr "സെപ്പറേറ്റര്‍"
 
-#: atk/atkobject.c:1392
-#, fuzzy
+#: ../atk/atkobject.c:133
 msgid "slider"
-msgstr "കൂട്"
+msgstr "സ്ലൈഡര്‍"
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
-msgstr ""
+#: ../atk/atkobject.c:134
+msgid "split pane"
+msgstr "രണ്ടായി തിരിച്ച പാളി"
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
-msgstr ""
+#: ../atk/atkobject.c:135
+msgid "spin button"
+msgstr "സ്പിന്‍ ബട്ടണ്‍"
 
-#: atk/atkobject.c:1401
-#, fuzzy
+#: ../atk/atkobject.c:136
 msgid "statusbar"
-msgstr "അവസ്ഥാപ്പട്ട"
+msgstr "സ്റ്റേറ്റസ് ബാര്‍"
 
-#: atk/atkobject.c:1404
-#, fuzzy
+#: ../atk/atkobject.c:137
 msgid "table"
-msgstr "ചിട്ടപ്പെടുത്തിയ"
+msgstr "ടേബിള്‍"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
-msgstr ""
+#: ../atk/atkobject.c:138
+msgid "table cell"
+msgstr "ടേബിള്‍ സെല്ല്"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
-msgstr ""
+#: ../atk/atkobject.c:139
+msgid "table column header"
+msgstr "ടേബിള്‍ കോളം തലകെട്ട്"
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
-msgstr ""
+#: ../atk/atkobject.c:140
+msgid "table row header"
+msgstr "ടേബിള്‍ വരി തലകെട്ട്"
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
-msgstr ""
+#: ../atk/atkobject.c:141
+msgid "tear off menu item"
+msgstr "tear off menu item"
 
-#: atk/atkobject.c:1419
-#, fuzzy
+#: ../atk/atkobject.c:142
 msgid "terminal"
-msgstr "ടെ‍ര്മിനല്"
+msgstr "ടെ‍ര്‍മിനല്‍"
 
-#: atk/atkobject.c:1422
+#: ../atk/atkobject.c:143
 msgid "text"
 msgstr "വാക്യം"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
-msgstr ""
+#: ../atk/atkobject.c:144
+msgid "toggle button"
+msgstr "ടൊഗ്ഗിള്‍ ബട്ടണ്‍"
 
-#: atk/atkobject.c:1428
-#, fuzzy
-msgid "tool-bar"
-msgstr "പണി ആയുധപ്പട്ട"
+#: ../atk/atkobject.c:145
+msgid "tool bar"
+msgstr "പണി ആയുധപ്പെട്ടി"
 
-#: atk/atkobject.c:1431
-#, fuzzy
-msgid "tool-tip"
+#: ../atk/atkobject.c:146
+msgid "tool tip"
 msgstr "സൂചന"
 
-#: atk/atkobject.c:1434
-#, fuzzy
+#: ../atk/atkobject.c:147
 msgid "tree"
-msgstr "വൃക്ഷം"
+msgstr "വൃക്ഷം "
 
-#: atk/atkobject.c:1437
-#, fuzzy
-msgid "tree-table"
-msgstr "തെരഞ്ഞെടുക്കാവുന്ന"
+#: ../atk/atkobject.c:148
+msgid "tree table"
+msgstr "ട്രീ ടേബിള്‍"
 
-#: atk/atkobject.c:1440
+#: ../atk/atkobject.c:149
 msgid "unknown"
-msgstr "അറിയാത്ത"
+msgstr "അപരിചിതം"
 
-#: atk/atkobject.c:1443
-#, fuzzy
+#: ../atk/atkobject.c:150
 msgid "viewport"
-msgstr "ദറ്ശന മണ്ഡലം"
+msgstr "ദര്‍ശന മണ്ഡലം"
 
-#: atk/atkobject.c:1446
+#: ../atk/atkobject.c:151
 msgid "window"
 msgstr "ജാലകം"
 
-#: atk/atkobject.c:1449
-#, fuzzy
+#: ../atk/atkobject.c:152
 msgid "header"
-msgstr ""
-"മുഴുവന്‌\n"
-"തലവാചകങ്ങളിലും"
+msgstr "ഹെഡ്ഡര്‍"
 
-#: atk/atkobject.c:1452
-#, fuzzy
+#: ../atk/atkobject.c:153
 msgid "footer"
-msgstr "foo"
+msgstr "ഫൂട്ടര്‍"
 
-#: atk/atkobject.c:1455
-#, fuzzy
+#: ../atk/atkobject.c:154
 msgid "paragraph"
-msgstr "ഖണ്ഡം"
+msgstr "ഖണ്ഡിക"
 
-#: atk/atkobject.c:1458
-#, fuzzy
-msgid "ruler"
-msgstr "വൃക്ഷം"
-
-#: atk/atkobject.c:1461
+#: ../atk/atkobject.c:155
 msgid "application"
 msgstr "പ്രയോഗം"
+
+#: ../atk/atkobject.c:156
+msgid "autocomplete"
+msgstr "ഓട്ടോമാറ്റിക്കായി പൂര്‍ത്തിയാക്കുക"
+
+#: ../atk/atkobject.c:157
+msgid "edit bar"
+msgstr "പട്ടികയില്‍ മാറ്റം വരുത്തുക"
+
+#: ../atk/atkobject.c:158
+msgid "embedded component"
+msgstr "എംബഡട് കോംപൊണന്‍റ്"
+
+#: ../atk/atkobject.c:159
+msgid "entry"
+msgstr "എന്‍ട്രി"
+
+#: ../atk/atkobject.c:160
+msgid "chart"
+msgstr "ചാര്‍ട്ട്"
+
+#: ../atk/atkobject.c:161
+msgid "caption"
+msgstr "തലകെട്ട്"
+
+#: ../atk/atkobject.c:162
+msgid "document frame"
+msgstr "ഡോക്യുമെന്‍റ് "
+
+#: ../atk/atkobject.c:163
+msgid "heading"
+msgstr "തലകെട്ട്"
+
+#: ../atk/atkobject.c:164
+msgid "page"
+msgstr "പാളി"
+
+#: ../atk/atkobject.c:165
+msgid "section"
+msgstr "സെക്ഷന്‍"
+
+#: ../atk/atkobject.c:166
+msgid "redundant object"
+msgstr "redundant object"
+
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "ഫോറം"
+
+#: ../atk/atkobject.c:356
+msgid "Accessible Name"
+msgstr "ആക്സസ്സിബിളായ പേര്"
+
+#: ../atk/atkobject.c:357
+msgid "Object instance's name formatted for assistive technology access"
+msgstr "Object instance's name formatted for assistive technology access"
+
+#: ../atk/atkobject.c:363
+msgid "Accessible Description"
+msgstr "അക്സസ്സിബിളായ വിവരണം"
+
+#: ../atk/atkobject.c:364
+msgid "Description of an object, formatted for assistive technology access"
+msgstr "Description of an object, formatted for assistive technology access"
+
+#: ../atk/atkobject.c:370
+msgid "Accessible Parent"
+msgstr "ആക്സസ്സിബിള്‍ പേരന്‍റ്"
+
+#: ../atk/atkobject.c:371
+msgid "Is used to notify that the parent has changed"
+msgstr "പേരന്‍റ് മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:377
+msgid "Accessible Value"
+msgstr "ആക്സസ്സിബിളായ മൂല്ല്യം"
+
+#: ../atk/atkobject.c:378
+msgid "Is used to notify that the value has changed"
+msgstr "മൂല്ല്യം മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:386
+msgid "Accessible Role"
+msgstr "ആക്സസ്സിബിളായ റോള്‍"
+
+#: ../atk/atkobject.c:387
+msgid "The accessible role of this object"
+msgstr "ഈ ഒബ്ജക്റ്റിന്‍റെ ആക്സസ്സിബിളായ റോള്‍"
+
+#: ../atk/atkobject.c:395
+msgid "Accessible Layer"
+msgstr "ആക്സസ്സിബിളായ ലെയര്‍"
+
+#: ../atk/atkobject.c:396
+msgid "The accessible layer of this object"
+msgstr "ഈ ഒബ്ജക്റ്റിന്‍റെ ആക്സസ്സിബിളായ ലെയര്‍"
+
+#: ../atk/atkobject.c:404
+msgid "Accessible MDI Value"
+msgstr "ആക്സസ്സിബിളായ MDI മൂല്ല്യം"
+
+#: ../atk/atkobject.c:405
+msgid "The accessible MDI value of this object"
+msgstr "ഈ ഒബ്ജക്റ്റിന്‍റെ ആക്സസ്സിബിളായ MDI മൂല്ല്യം"
+
+#: ../atk/atkobject.c:413
+msgid "Accessible Table Caption"
+msgstr "ആക്സസ്സിബിളായ ടേബിളിന്‍റെ തലക്കെട്ട്"
+
+#: ../atk/atkobject.c:414
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"ടേബിളിന്‍റെ തലക്കെട്ട് മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു; എന്നാല്‍ "
+"ഇതിന് പകരമായി accessible-table-caption-object ഉപയോഗിക്കേണ്ടതാണ്."
+
+#: ../atk/atkobject.c:420
+msgid "Accessible Table Column Header"
+msgstr "ആക്സസ്സിബിളായ ടേബിളിന്‍റെ കോളം തലക്കെട്ട്"
+
+#: ../atk/atkobject.c:421
+msgid "Is used to notify that the table column header has changed"
+msgstr "ടേബിളിന്‍റെ കോളം തലക്കെട്ട് മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:427
+msgid "Accessible Table Column Description"
+msgstr "ആക്സസ്സിബിളായ ടേബിളിന്‍റെ കോളം വിവരണം"
+
+#: ../atk/atkobject.c:428
+msgid "Is used to notify that the table column description has changed"
+msgstr "ടേബിളിന്‍റെ കോളം വിവരണം മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:434
+msgid "Accessible Table Row Header"
+msgstr "ആക്സസ്സിബിളായ ടേബിളിന്‍റെ വരി തലക്കെട്ട്"
+
+#: ../atk/atkobject.c:435
+msgid "Is used to notify that the table row header has changed"
+msgstr "ടേബിളിന്‍റെ വരി തലക്കെട്ട് മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:441
+msgid "Accessible Table Row Description"
+msgstr "ആക്സസ്സിബിളായ ടേബിളിന്‍റെ വരി വിവരണം"
+
+#: ../atk/atkobject.c:442
+msgid "Is used to notify that the table row description has changed"
+msgstr "ടേബിളിന്‍റെ വരി വിവരണം മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:448
+msgid "Accessible Table Summary"
+msgstr "ആക്സസ്സിബിള്‍ ടേബിള്‍ സമ്മറി"
+
+#: ../atk/atkobject.c:449
+msgid "Is used to notify that the table summary has changed"
+msgstr "ടേബിളിന്‍റെ സമ്മറി മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:455
+msgid "Accessible Table Caption Object"
+msgstr "ആക്സസ്സിബിള്‍ ടേബിള്‍ കാപ്ഷന്‍ ഒബ്ജക്റ്റ്"
+
+#: ../atk/atkobject.c:456
+msgid "Is used to notify that the table caption has changed"
+msgstr "ടേബിളിന്‍റെ കാപ്ഷന്‍ മാറിയിട്ടുണ്ട് എന്ന് അറിയിക്കുന്നതിനായി ഉപയോഗിക്കുന്നു"
+
+#: ../atk/atkobject.c:462
+msgid "Number of Accessible Hypertext Links"
+msgstr "ആക്സസ്സിബിളായ ഹൈപ്പര്‍ ടെക്സ്റ്റിന്‍റെ ലിങ്കുകളുടെ എണ്ണം"
+
+#: ../atk/atkobject.c:463
+msgid "The number of links which the current AtkHypertext has"
+msgstr "ഇപ്പോള്‍ നിലവിലുളള AtkHypertext നുളള ലിങ്കുകളുടെ എണ്ണം"
+
