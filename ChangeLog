@@ -2,6 +2,11 @@
 
 	* configure.in:
 	Revved to 1.7.10, and edited the Xevie check (bug #319994).
+
+	* idl/Accessibility.idl:
+	Reworked inclusion of Bonobo_Unknown.idl, to 
+	avoid double-linking libs in the Bonobo environment.
+	Thanks to Michael Meeks for the workaround, see bug #313122.
 	
 2006-07-18  Bill Haneman <billh@gnome.org> modifications to patch from
 

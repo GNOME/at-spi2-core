@@ -33,6 +33,17 @@
 #endif
 
 #ifndef _BONOBO_IDL_INCLUDED_
+#ifdef __ORBIT_IDL__
+%{
+#pragma include_defs bonobo/Bonobo.h
+%}
+#pragma inhibit push
+#endif
+#include <Bonobo_Unknown.idl>
+#ifdef __ORBIT_IDL__
+#pragma inhibit pop
+#endif
+
 #define _BONOBO_IDL_INCLUDED_
 #include <Bonobo_Unknown.idl>
 #endif /* _BONOBO_IDL_INCLUDED_ */
