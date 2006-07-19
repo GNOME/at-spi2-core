@@ -22,6 +22,7 @@
  */
 
 /* login-helper.c: minimal implementation of Accessibility_LoginHelper.idl */
+#include <config.h>
 #include <libbonobo.h>
 #include "login-helper.h"
 

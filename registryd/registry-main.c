@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #endif
 
+#include <config.h>
 #include <string.h>
 #include <gdk/gdk.h>
 #include <libbonobo.h>

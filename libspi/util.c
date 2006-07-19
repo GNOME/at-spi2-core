@@ -21,6 +21,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <config.h>
 #include <glib/gmessages.h>
 #include <glib/gslist.h>
 #include <Accessibility.h>
