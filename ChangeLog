@@ -7,6 +7,12 @@
 	Reworked inclusion of Bonobo_Unknown.idl, to 
 	avoid double-linking libs in the Bonobo environment.
 	Thanks to Michael Meeks for the workaround, see bug #313122.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_controller_notify_keylisteners): 
+	Set the SPI_NUMLOCK_MASK bit if the modifier 
+	corresponding to the conceptual numlock state is set.
+	Bug #143702.
 	
 2006-07-18  Bill Haneman <billh@gnome.org> modifications to patch from
 

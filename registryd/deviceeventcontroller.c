@@ -1440,6 +1440,10 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
       return FALSE;
     }
 
+  /* set the NUMLOCK event mask bit if appropriate: see bug #143702 */
+  if (key_event->modifiers & _numlock_physical_mask)
+      key_event->modifiers |= SPI_KEYMASK_NUMLOCK;
+
   for (l = *key_listeners; l; l = l->next)
     {
        DEControllerKeyListener *key_listener = l->data;
