@@ -1,3 +1,27 @@
+What's new in at-spi-1.7.10:
+
+* New method Selection::deselectChild.  RFE #326535.
+
+What's new in at-spi-1.7.9:
+
+* I18n uses po/LINGUAS now.
+
+* Table enhancement: new method Table::getRowColumnExtentsAtIndex
+  RFE #326536.  Assistance from Ariel Rios.
+
+* Text enhancement: Text::getAttributeRun, Text::getDefaultAttributeSet
+  RFE #326540.  Assistance from Ariel Rios.
+
+* New interface, Document.  RFE #326520.
+
+* New roles, LINK, REDUNDANT_OBJECT, INPUT_METHOD_WINDOW, FORM.
+
+* Meaningful implementation and bridges for StreamableContent. 
+  RFE #326532.
+
+* Added STATE_VISITED, and relations DESCRIBED_BY, DESCRIPTION_FOR, 
+  and PARENT_WINDOW_OF.
+
 What's new in at-spi-1.7.4:
 
 * Fixed dist to include Accessibility_Selector.idl (missing from dist though

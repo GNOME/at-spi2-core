@@ -117,6 +117,31 @@ impl_deselectSelectedChild (PortableServer_Servant servant,
 }
 
 
+
+static CORBA_boolean
+impl_deselectChild (PortableServer_Servant servant,
+		    const CORBA_long       selectedChildIndex,
+		    CORBA_Environment     *ev)
+{
+  AtkSelection *selection = get_selection_from_servant (servant);
+  gint i, nselected;
+
+  g_return_val_if_fail (selection != NULL, FALSE);
+  nselected = atk_selection_get_selection_count (selection);
+  for (i=0; i<nselected; ++i)
+  {
+      AtkObject *selected_obj = atk_selection_ref_selection (selection, i);
+      if (atk_object_get_index_in_parent (selected_obj) == selectedChildIndex)
+      {
+	  g_object_unref (G_OBJECT (selected_obj));
+	  return atk_selection_remove_selection (selection, i);
+      }
+      g_object_unref (G_OBJECT (selected_obj));
+  }
+  return FALSE;
+}
+
+
 static CORBA_boolean
 impl_isChildSelected (PortableServer_Servant servant,
 		      const CORBA_long       childIndex,
@@ -166,6 +191,7 @@ spi_selection_class_init (SpiSelectionClass *klass)
   epv->getSelectedChild       = impl_getSelectedChild;
   epv->selectChild            = impl_selectChild;
   epv->deselectSelectedChild  = impl_deselectSelectedChild;
+  epv->deselectChild          = impl_deselectChild;
   epv->isChildSelected        = impl_isChildSelected;
   epv->selectAll              = impl_selectAll;
   epv->clearSelection         = impl_clearSelection;

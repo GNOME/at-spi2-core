@@ -1,3 +1,17 @@
+2006-07-18  Bill Haneman <billh@gnome.org> modifications to patch from
+
+	* idl/Accessibility_Selection.idl:
+	(deselectChild): New method.
+
+	* libspi/selection.c:
+	(impl_deselectChild): Implement the new IDL method.
+
+	* cspi/spi.h:
+	(AccessibleSelection_deselectChild): Added new method.
+	
+	* cspi/spi_selection.c:
+	(AccessibleSelection_deselectChild): New method implemented.
+	
 2006-07-13  Bill Haneman <billh@gnome.org> modifications to patch from
 
 	* cspi/bonobo/cspi-bonobo.c:

@@ -782,6 +782,10 @@ AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
                                            long int selectedChildIndex);
 
 SPIBoolean
+AccessibleSelection_deselectChild (AccessibleSelection *obj,
+				   long int childIndex);
+
+SPIBoolean
 AccessibleSelection_isChildSelected (AccessibleSelection *obj,
                                      long int childIndex);
 

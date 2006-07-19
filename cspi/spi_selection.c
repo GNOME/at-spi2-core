@@ -169,6 +169,38 @@ AccessibleSelection_deselectSelectedChild (AccessibleSelection *obj,
 }
 
 /**
+ * AccessibleSelection_deselectChild:
+ * @obj: a pointer to the #AccessibleSelection on which to operate.
+ * @childIndex: a #long indicating which of the children
+ *              of the #Accessible is to be de-selected.
+ *
+ * Deselect a specific child of an #AccessibleSelection.
+ *          Note that @childIndex is the index of the child
+ *          in the parent container.
+ * 
+ * See #AccessibleSelection_deselectSelectedChild
+ *
+ * Since AT-SPI 1.8.0
+ * 
+ * Returns: #TRUE if the child was successfully deselected, #FALSE otherwise.
+ **/
+SPIBoolean
+AccessibleSelection_deselectChild (AccessibleSelection *obj,
+				   long int childIndex)
+{
+  SPIBoolean retval;
+
+  cspi_return_val_if_fail (obj != NULL, FALSE);
+
+  retval = Accessibility_Selection_deselectChild (
+    CSPI_OBJREF (obj), childIndex, cspi_ev ());
+
+  cspi_return_val_if_ev ("deselectChild", FALSE);
+
+  return retval;
+}
+
+/**
  * AccessibleSelection_isChildSelected:
  * @obj: a pointer to the #AccessibleSelection implementor on which to operate.
  * @childIndex: an index into the #AccessibleSelection's list of children.
