@@ -173,9 +173,9 @@ if test x$enable_xevie = xyes ; then
 		XEVIE_LIBS="-lXext"
 		AC_DEFINE(HAVE_XEVIE)
 	else
-	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,-lXext)
+	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,-lXevie -lXext)
 	   if test "x$have_xevie" = "xmaybe"; then
-	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xevie=yes)
+	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xevie=yes, [], [#include <X11/Xlib.h>])
 	      if test "x$have_xevie" = "xyes"; then
 	      	      XEVIE_LIBS="-lXext -lXevie"	       
 		      AC_DEFINE(HAVE_XEVIE)

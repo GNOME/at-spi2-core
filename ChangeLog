@@ -1,3 +1,8 @@
+2006-07-19  Bill Haneman <billh@gnome.org> modifications to patch from
+
+	* configure.in:
+	Revved to 1.7.10, and edited the Xevie check (bug #319994).
+	
 2006-07-18  Bill Haneman <billh@gnome.org> modifications to patch from
 
 	* idl/Accessibility_Selection.idl:
