@@ -1426,7 +1426,7 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 
 static gboolean
 spi_controller_notify_keylisteners (SpiDEController                 *controller,
-				    const Accessibility_DeviceEvent *key_event,
+				    Accessibility_DeviceEvent       *key_event,
 				    CORBA_boolean                    is_system_global,
 				    CORBA_Environment               *ev)
 {
@@ -2381,7 +2381,9 @@ impl_notify_listeners_sync (PortableServer_Servant           servant,
   g_print ("notifylistening listeners synchronously: controller %p, event id %d\n",
 	   controller, (int) event->id);
 #endif
-  return spi_controller_notify_keylisteners (controller, event, CORBA_FALSE, ev) ?
+  return spi_controller_notify_keylisteners (controller,
+					     (Accessibility_DeviceEvent *) 
+					     event, CORBA_FALSE, ev) ?
 	  CORBA_TRUE : CORBA_FALSE; 
 }
 
@@ -2396,7 +2398,8 @@ impl_notify_listeners_async (PortableServer_Servant           servant,
 #ifdef SPI_DEBUG
   fprintf (stderr, "notifying listeners asynchronously\n");
 #endif
-  spi_controller_notify_keylisteners (controller, event, CORBA_FALSE, ev); 
+  spi_controller_notify_keylisteners (controller, (Accessibility_DeviceEvent *)
+				      event, CORBA_FALSE, ev); 
 }
 
 static void
