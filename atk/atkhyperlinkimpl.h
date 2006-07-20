@@ -59,7 +59,7 @@ struct _AtkHyperlinkImplIface
 {
   GTypeInterface parent;
     
-  AtkHyperlink  (* get_hyperlink) (AtkHyperlinkImpl *impl);
+  AtkHyperlink*  (* get_hyperlink) (AtkHyperlinkImpl *impl);
 
   AtkFunction pad1;
 };

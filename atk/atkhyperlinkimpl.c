@@ -53,8 +53,8 @@ atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *obj)
 {
   AtkHyperlinkImplIface *iface;
 
-  g_return_if_fail (obj != NULL);
-  g_return_if_fail (ATK_IS_HYPERLINK_IMPL (obj));
+  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (ATK_IS_HYPERLINK_IMPL (obj), NULL);
 
   iface = ATK_HYPERLINK_IMPL_GET_IFACE (obj);
 
@@ -62,5 +62,6 @@ atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *obj)
     {
       (iface->get_hyperlink) (obj);
     }
+  return NULL;
 }
 
