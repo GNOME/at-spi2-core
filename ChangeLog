@@ -1,3 +1,9 @@
+2006-07-21  Bill Haneman <billh@gnome.org>
+
+	* idl/Accessibility.idl:
+	Reverted pragma changes, this broke the build in some envs
+	including the Debian team's build and some tinderbox builds.
+	
 2006-07-19  Bill Haneman <billh@gnome.org> modifications to patch from
 
 	* configure.in:
