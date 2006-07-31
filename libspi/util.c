@@ -153,7 +153,7 @@ spi_init_any_object (CORBA_any *any_details, Accessibility_Application app,
   details->source_name = CORBA_string_dup (name);
   
   details->any_data._type = TC_CORBA_Object;
-  details->any_data._value = o;
+  details->any_data._value = ORBit_copy_value (o, TC_CORBA_Object);
   details->any_data._release = TRUE;
 }
 

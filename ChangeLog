@@ -1,3 +1,17 @@
+2006-07-31  Bill Haneman <bill.haneman@sun.com>
+
+	* atk-bridge/bridge.c: 
+	(spi_atk_emit_eventv): Fix the CORBA_free call which was
+	causing 64-bit troubles and memory leaks.
+	Special thanks to Alexander Larsson who finally seems to 
+	have tracked down the problem, not just here but in
+	libspi/util.c...
+	
+	* libspi/util.c:
+	(spi_init_any_object): Make sure we copy the CORBA value
+	when initializing an object for passing as a CORBA_Any.
+	Bug #337239.
+	
 2006-07-21  Bill Haneman <billh@gnome.org>
 
 	* idl/Accessibility.idl:

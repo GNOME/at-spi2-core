@@ -696,7 +696,7 @@ spi_atk_emit_eventv (const GObject         *gobject,
   
   g_free (e.type);
 
-  if (e.any_data._release) CORBA_free (&e.any_data._value);
+  if (!any && e.any_data._release) CORBA_free (e.any_data._value);
   
   va_end (args);
 
