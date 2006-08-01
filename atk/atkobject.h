@@ -42,7 +42,7 @@ extern "C" {
  *AtkRole:
  *@ATK_ROLE_INVALID: Invalid role
  *@ATK_ROLE_ACCEL_LABEL: A label which represents an accelerator
- *@ATK_ROLE_ALERT: An object which is an alert to the user
+ *@ATK_ROLE_ALERT: An object which is an alert to the user. Assistive Technologies typically respond to ATK_ROLE_ALERT by reading the entire onscreen contents of containers advertising this role.  Should be used for warning dialogs, etc.
  *@ATK_ROLE_ANIMATION: An object which is an animated image
  *@ATK_ROLE_ARROW: An arrow in one of the four cardinal directions
  *@ATK_ROLE_CALENDAR:  An object that displays a calendar and allows the user to select a date
@@ -113,7 +113,7 @@ extern "C" {
  *@ATK_ROLE_FOOTER: An object that serves as a document footer.
  *@ATK_ROLE_PARAGRAPH: An object which is contains a paragraph of text content.
  *@ATK_ROLE_RULER: An object which describes margins and tab stops, etc. for text objects which it controls (should have CONTROLLER_FOR relation to such).
- *@ATK_ROLE_APPLICATION: The object is an application object, which may contain @ATK_ROLE_FRAME objects or other types of accessibles.
+ *@ATK_ROLE_APPLICATION: The object is an application object, which may contain @ATK_ROLE_FRAME objects or other types of accessibles.  The root accessible of any application's ATK hierarchy should have ATK_ROLE_APPLICATION.
  *@ATK_ROLE_AUTOCOMPLETE: The object is a dialog or list containing items for insertion into an entry widget, for instance a list of words for completion of a text entry.
  *@ATK_ROLE_EDITBAR: The object is an editable text object in a toolbar
  *@ATK_ROLE_EMBEDDED: The object is an embedded container within a document or panel.  This role is a grouping "hint" indicating that the contained objects share a context.
