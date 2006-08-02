@@ -1,26 +1,22 @@
 # translation of mk.po to Macedonian
-# translation of atk.HEAD.mk.po to Macedonian
-# translation of atk.HEAD.po to Macedonian
 # This file is distributed under the same license as the PACKAGE package.
-# Ime, 2002
-# Ime, 2002
-# Ime, 2002
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER.
-# Maratonec 3 <maraton@unknown3>, 2002.
-# Arangel Angov <ufo@linux.net.mk>, 2004, 2005.
 #
+# Ime, 2002.
+# Maratonec 3 <maraton@unknown3>, 2002.
+# Arangel Angov <ufo@linux.net.mk>, 2004, 2005, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-20 05:26+0100\n"
-"PO-Revision-Date: 2005-12-20 11:24+0100\n"
+"POT-Creation-Date: 2006-08-02 04:38+0200\n"
+"PO-Revision-Date: 2006-08-02 08:33+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -391,69 +387,73 @@ msgstr "оддел"
 msgid "redundant object"
 msgstr "дуплиран објект"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "форма"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "Пристапно име"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "Името на објектот форматирано за да се овозможи пристапот до помошните "
 "технологии"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "Пристапен опис"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Опис на објекотот, форматиран за пристап до помошните технологии"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "Пристапен процес"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Се користи за известување дека процесот е променет"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "Пристапна вредност"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Се користи за известување дека вредноста е променета"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "Пристапна улога"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "Пристапната улога на овој објект"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "Пристапен слој"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "Пристапниот слој на овој објект"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "Пристапна вредност за MDI"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "Пристапната вредност на MDI за овој објект"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "Пристапен наслов за табелата"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -462,59 +462,59 @@ msgstr ""
 "не треба да се користи. Наместо него треба да се користи accessible-table-"
 "caption-object"
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "Пристапно заглавје за колоната во табелата"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Се користи за известување кога заглавјето на колоната во табелата е променето"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "Пристапен опис за колоната во табелата"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "Се користи за известување кога описот на колоната во табелата е променет"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "Пристапно заглавје за редот во табелата"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Се користи за известување кога е променето заглавјето на редот во табелата"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "Пристапен опис за редот во табелата"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "Се користи за известување кога е променет описот на редот во табелата"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "Пристапна кратка содржина за табелата"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Се користи за известување кога кратката содржина на табелата е променета"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "Пристапен објект за наслов на табелата"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Се користи за известување кога насловот на табелата е променет"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Број на пристапни хајпертекст врски"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Бројот на врски кои што во моментов ги има AtkHypertext"
 
