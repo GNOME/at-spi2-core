@@ -41,56 +41,6 @@ typedef struct {
   gint h;
 } SpiTextRect;
 
-static SpiTextRect *
-_spi_text_rect_union (SpiTextRect *aggregate, SpiTextRect *subrect)
-{
-  if (subrect != NULL)
-    {
-      /* 'normalize' subrect */
-      if (subrect->w < 0)
-	{
-	  subrect->x += subrect->w;
-	  subrect->w *= -1;
-	}
-      if (subrect->h < 0)
-	{
-	  subrect->y += subrect->h;
-	  subrect->h *= -1;
-	}
-      if (aggregate == NULL)
-	{
-	  aggregate = g_new (SpiTextRect, 1);
-	  memcpy (aggregate, subrect, sizeof (SpiTextRect));
-	}
-      else
-	{
-	  gint ax2 = aggregate->x + aggregate->w;
-	  gint ay2 = aggregate->y + aggregate->h; 
-	  gint sx2 = subrect->x + subrect->w; 
-	  gint sy2 = subrect->y + subrect->h;
-	  if (subrect->x < aggregate->x)
-	    {
-	      aggregate->w += (aggregate->x - subrect->x);
-	      aggregate->x = subrect->x;
-	    }
-	  if (sx2 > ax2)
-	    {
-	      aggregate->w += (sx2 - ax2);
-	    }
-	  if (subrect->y < aggregate->y)
-	    {
-	      aggregate->h += (aggregate->y - subrect->y);
-	      aggregate->y = subrect->y;
-	    }
-	  if (sy2 > ay2)
-	    {
-	      aggregate->h += (sy2 - ay2);
-	    }
-	}
-    }
-  return aggregate;
-}
-
 static AtkText *
 get_text_from_servant (PortableServer_Servant servant)
 {
@@ -504,8 +454,6 @@ impl_setCaretOffset (PortableServer_Servant servant,
   return atk_text_set_caret_offset (text, value);
 }
 
-#define SPI_TEXT_MIN_RANGE_FOR_LINE_CHECK 6
-
 static void
 impl_getRangeExtents(PortableServer_Servant servant,
 		     const CORBA_long startOffset,
@@ -517,85 +465,39 @@ impl_getRangeExtents(PortableServer_Servant servant,
 		     CORBA_Environment * ev)
 {
   AtkText *text = get_text_from_servant (servant);
-  SpiTextRect cbounds, bounds;
-  int i;
+  AtkTextRectangle rect;
 
   g_return_if_fail (text != NULL);
   
-  atk_text_get_character_extents (text, startOffset,
-			          &bounds.x, &bounds.y, &bounds.w, &bounds.h,
-				  (AtkCoordType) coordType);
-  /* no equivalent ATK API yet, must do the hard way. :-( */
-  for (i = startOffset + 1; i < endOffset; i++) 
-    {
-      atk_text_get_character_extents (text, i,
-				      &cbounds.x, &cbounds.y, &cbounds.w, &cbounds.h,
-				      (AtkCoordType) coordType);
-      _spi_text_rect_union (&bounds, &cbounds);
-    }
-
-  *x = bounds.x;
-  *y = bounds.y;
-  *width = bounds.w;
-  *height = bounds.h;
+  atk_text_get_range_extents (text, (gint) startOffset, (gint) endOffset, 
+			      (AtkCoordType) coordType, &rect);
+  *x = rect.x;
+  *y = rect.y;
+  *width = rect.width;
+  *height = rect.height;
 }
 
+#define MAXRANGELEN 512
+
 static Accessibility_Text_RangeList *
-_spi_text_range_seq_from_gslist (GSList *range_list) 
+_spi_text_range_seq_from_atkrangelist (AtkTextRange **range_list) 
 { 
   Accessibility_Text_RangeList *rangeList = 
     Accessibility_Text_RangeList__alloc ();
-  int i, len = g_slist_length (range_list);
-  GSList *list = range_list;
+  int i, len;
+
+  for (len = 0; len < MAXRANGELEN && range_list[len]; ++len);
 
   rangeList->_length = len;
   rangeList->_buffer = Accessibility_Text_RangeList_allocbuf (len);
   for (i = 0; i < len; ++i) 
     {
-      memcpy (&rangeList->_buffer[i], list->data, sizeof (Accessibility_Text_Range));
-      rangeList->_buffer[i].data._type = TC_null;
-      rangeList->_buffer[i].data._value = NULL;
-      rangeList->_buffer[i].data._release = TRUE;
-      g_free (list->data);
-      list = g_slist_next (range_list);
+      rangeList->_buffer[i].startOffset = range_list[i]->start_offset; 
+      rangeList->_buffer[i].endOffset = range_list[i]->end_offset;
+      rangeList->_buffer[i].content = CORBA_string_dup (range_list[i]->content);
     }
-  g_slist_free (range_list);
 
   return rangeList;
-}
-
-static gboolean
-_spi_bounds_contain (SpiTextRect *clip, SpiTextRect *cbounds, 
-		     Accessibility_TEXT_CLIP_TYPE xClipType, 
-		     Accessibility_TEXT_CLIP_TYPE yClipType)
-{
-  gint clipx2 = clip->x + clip->w;
-  gint clipy2 = clip->y + clip->h;
-  gint charx2 = cbounds->x + cbounds->w;
-  gint chary2 = cbounds->y + cbounds->h;
-  gboolean x_min_ok, y_min_ok, x_max_ok, y_max_ok;
-
-  x_min_ok = (cbounds->x >= clip->x) || 
-    ((charx2 >= clip->x) && 
-     ((xClipType == Accessibility_TEXT_CLIP_NONE) || 
-      (xClipType == Accessibility_TEXT_CLIP_MAX)));
-  x_max_ok = (charx2 <= clipx2) || 
-    ((cbounds->x <= clipx2) && 
-     ((xClipType == Accessibility_TEXT_CLIP_NONE) || 
-      (xClipType == Accessibility_TEXT_CLIP_MIN)));
-  y_min_ok = (cbounds->y >= clip->y) || 
-    ((chary2 >= clip->y) && 
-     ((yClipType == Accessibility_TEXT_CLIP_NONE) || 
-      (yClipType == Accessibility_TEXT_CLIP_MAX)));
-  y_max_ok = (chary2 <= clipy2) || 
-    ((cbounds->y <= clipy2) && 
-     ((yClipType == Accessibility_TEXT_CLIP_NONE) || 
-      (yClipType == Accessibility_TEXT_CLIP_MIN)));
-  
-  if (x_min_ok && y_min_ok && x_max_ok && y_max_ok)
-    return TRUE;
-  else 
-    return FALSE;
 }
 
 static Accessibility_Text_RangeList *
@@ -610,64 +512,20 @@ impl_getBoundedRanges(PortableServer_Servant servant,
 		      CORBA_Environment * ev)
 {
   AtkText *text = get_text_from_servant (servant);
-  GSList *range_list = NULL;
-  SpiTextRect clip;
-  int startOffset = 0, endOffset = atk_text_get_character_count (text);
-  int curr_offset;
-  gint minLineStart, minLineEnd, maxLineStart, maxLineEnd;
-  long bounds_min_offset;
-  long bounds_max_offset;
+  AtkTextRange **range_list = NULL;
+  AtkTextRectangle rect;
 
-  clip.x = x;
-  clip.y = y;
-  clip.w = width;
-  clip.h = height;
+  rect.x = x;
+  rect.y = y;
+  rect.width = width;
+  rect.height = height;
 
-  /* for horizontal text layouts, at least, the following check helps. */
-  bounds_min_offset =  atk_text_get_offset_at_point (text, x, y, 
-						     (AtkCoordType) coordType);
-  bounds_max_offset =  atk_text_get_offset_at_point (text, x + width, y + height, 
-						     (AtkCoordType) coordType);
-  atk_text_get_text_at_offset (text, bounds_min_offset, 
-			       ATK_TEXT_BOUNDARY_LINE_START,
-			       &minLineStart, &minLineEnd);
-  atk_text_get_text_at_offset (text, bounds_max_offset, 
-			       ATK_TEXT_BOUNDARY_LINE_START,
-			       &maxLineStart, &maxLineEnd);
-  startOffset = MIN (minLineStart, maxLineStart);
-  endOffset  = MAX (minLineEnd, maxLineEnd);
+  range_list = atk_text_get_bounded_ranges (text, &rect, 
+					    (AtkCoordType) coordType,
+					    (AtkTextClipType) xClipType,
+					    (AtkTextClipType) yClipType);
 
-  curr_offset = startOffset;
-
-  while (curr_offset < endOffset) 
-    {
-      int offset = startOffset;
-      SpiTextRect cbounds;
-      while (curr_offset < endOffset) 
-	{
-	  atk_text_get_character_extents (text, curr_offset, 
-					  &cbounds.x, &cbounds.y, 
-					  &cbounds.w, &cbounds.h, 
-					  (AtkCoordType) coordType);
-	  if (!_spi_bounds_contain (&clip, &cbounds, xClipType, yClipType))
-	    break;
-	  curr_offset++;
-	}
-      /* add the range to our list */
-      if (curr_offset > offset) 
-	{
-	  Accessibility_Text_Range *range = g_malloc (sizeof (Accessibility_Text_Range));
-	  char *s;
-	  range->startOffset = offset;
-	  range->endOffset = curr_offset;
-	  s = atk_text_get_text (text, offset, curr_offset);
-	  range->content = CORBA_string_dup (s ? s : "");
-	  range_list = g_slist_append (range_list, range);
-	  offset = curr_offset;
-	}
-      offset++;
-    }  
-  return _spi_text_range_seq_from_gslist (range_list); /* frees the GSList too */
+  return _spi_text_range_seq_from_atkrangelist (range_list); 
 }
 
 

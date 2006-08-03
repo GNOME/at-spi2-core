@@ -1,5 +1,15 @@
 2006-07-31  Bill Haneman <bill.haneman@sun.com>
 
+	* libspi/text.c:
+	(impl_getRangeExtents): Use the atk_text_get_range_extents
+	API instead of looping over character bounds, now that
+	ATK includes it.
+	(impl_getBoundedRanges): Use atk_text_get_bounded_ranges.
+	(_spi_text_bounds_contain): Remove, not needed anymore.
+	(_spi_text_rect_union): Remove, not needed anymore.
+	
+2006-07-31  Bill Haneman <bill.haneman@sun.com>
+
 	* atk-bridge/bridge.c: 
 	(spi_atk_emit_eventv): Fix the CORBA_free call which was
 	causing 64-bit troubles and memory leaks.
