@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-02 05:53+0100\n"
+"POT-Creation-Date: 2006-08-15 09:13+0200\n"
 "PO-Revision-Date: 2005-08-14 10:00+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -389,67 +389,73 @@ msgstr "szakasz"
 msgid "redundant object"
 msgstr "redundáns objektum"
 
-#: ../atk/atkobject.c:355
+#: ../atk/atkobject.c:167
+#, fuzzy
+msgid "form"
+msgstr "keret"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "Akadálymentes név"
 
-#: ../atk/atkobject.c:356
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Az objektumpéldány neve a kisegítő technológiás hozzáféréshez formázva"
 
-#: ../atk/atkobject.c:362
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "Akadálymentes leírás"
 
-#: ../atk/atkobject.c:363
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Az objektumpéldány leírása, a kisegítő technológiás hozzáféréshez formázva"
+msgstr ""
+"Az objektumpéldány leírása, a kisegítő technológiás hozzáféréshez formázva"
 
-#: ../atk/atkobject.c:369
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "Akadálymentes szülő"
 
-#: ../atk/atkobject.c:370
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Értesítésre szolgál, ha a szülő módosult"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "Akadálymentes érték"
 
-#: ../atk/atkobject.c:377
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Értesítésre szolgál, ha az érték módosult"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "Akadálymentes szerep"
 
-#: ../atk/atkobject.c:386
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "Az objektum akadálymentes szerepe"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "Akadálymentes réteg"
 
-#: ../atk/atkobject.c:395
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "Az objektum akadálymentes rétege"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "Akadálymentes MDI-érték"
 
-#: ../atk/atkobject.c:404
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "Az objektum akadálymentes MDI-értéke"
 
-#: ../atk/atkobject.c:412
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "Akadálymentes táblázatcím"
 
-#: ../atk/atkobject.c:413
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -458,59 +464,58 @@ msgstr ""
 "szabad használni, helyette az accessible-table-caption-object tulajdonság "
 "használandó"
 
-#: ../atk/atkobject.c:419
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "Akadálymentes táblázat-oszlopfejléc"
 
-#: ../atk/atkobject.c:420
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Értesítésre szolgál, ha a táblázat oszlopfejléc módosult"
 
-#: ../atk/atkobject.c:426
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "Akadálymentes táblázat-oszlopleírás"
 
-#: ../atk/atkobject.c:427
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "Értesítésre szolgál, ha a táblázat oszlopleírás módosult"
 
-#: ../atk/atkobject.c:433
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "Akadálymentes táblázat-sorfejléc"
 
-#: ../atk/atkobject.c:434
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Értesítésre szolgál, ha a táblázat sorfejléc módosult"
 
-#: ../atk/atkobject.c:440
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "Akadálymentes táblázat-sorleírás"
 
-#: ../atk/atkobject.c:441
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "Értesítésre szolgál, ha a táblázat sorleírás módosult"
 
-#: ../atk/atkobject.c:447
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "Akadálymentes táblázat-összefoglalás"
 
-#: ../atk/atkobject.c:448
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Értesítésre szolgál, ha a táblázat-összefoglalás módosult"
 
-#: ../atk/atkobject.c:454
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "Akadálymentes táblázatcím objektum"
 
-#: ../atk/atkobject.c:455
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Értesítésre szolgál, ha a táblázatcím módosult"
 
-#: ../atk/atkobject.c:461
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Az akadálymentes hiperszöveg-hivatkozások száma"
 
-#: ../atk/atkobject.c:462
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Az aktuális AtkHypertext hivatkozásainak száma"
-
