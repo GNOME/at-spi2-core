@@ -3,7 +3,7 @@ AtkHyperlinkImpl
 
 <!-- ##### SECTION Short_Description ##### -->
 An interface from which the AtkHyperlink associated with an
-AtkObject may be obtained. 
+AtkObject may be obtained.
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>

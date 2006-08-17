@@ -7,6 +7,7 @@
   <!ENTITY atk-AtkEditabletext SYSTEM "xml/atkeditabletext.xml">
   <!ENTITY atk-AtkGObjectAccessible SYSTEM "xml/atkgobjectaccessible.xml">
   <!ENTITY atk-AtkHyperlink SYSTEM "xml/atkhyperlink.xml">
+  <!ENTITY atk-AtkHyperlinkImpl SYSTEM "xml/atkhyperlinkimpl.xml">
   <!ENTITY atk-AtkHypertext SYSTEM "xml/atkhypertext.xml">
   <!ENTITY atk-AtkImage SYSTEM "xml/atkimage.xml">
   <!ENTITY atk-AtkNoOpObject SYSTEM "xml/atknoopobject.xml">
@@ -42,6 +43,7 @@
     &atk-AtkEditabletext;
     &atk-AtkGObjectAccessible;
     &atk-AtkHyperlink;
+    &atk-AtkHyperlinkImpl;
     &atk-AtkHypertext;
     &atk-AtkImage;
     &atk-AtkNoOpObject;

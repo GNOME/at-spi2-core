@@ -68,3 +68,12 @@ The AtkValue structure does not contain any fields.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_value_get_minimum_increment ##### -->
+<para>
+
+</para>
+
+@obj: 
+@value: 
+
+

@@ -1,7 +1,15 @@
-Changes in version 1.12.0: [ongoing]
+Changes in version 1.12.1: 
+=========================
+* Added AtkHyperlinkImpl
+* New language: Bengali India (bn_IN) - Runa Bhattacharjee.
+* Fixed tags in docs so that indices of
+  new and deprecated methods are created.
+* Added "get_uri" method to AtkStreamableContent.
+
+Changes in version 1.12.0: 
 =========================
 
-* Added ATK_ROLE_FORM
+* Added ATK_ROLE_FORM, ATK_STATE_ANIMATED, ATK_STATE_VISITED, ATK_STATE_DEFAULT
 * Added ATK_RELATION_DESCRIPTION_FOR, ATK_RELATION_DESCRIBED_BY
 
 Changes in version 1.11.4:

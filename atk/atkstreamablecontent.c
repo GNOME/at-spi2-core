@@ -117,7 +117,7 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
     return NULL;
 }
 
-/*
+/**
  * atk_streamable_content_get_uri:
  * @streamable: a GObject instance that implements AtkStreamableContentIface
  * @mime_type: a gchar* representing the mime type, or NULL to request a URI 
@@ -134,7 +134,9 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
  *
  * Returns:  Returns a string representing a URI, or NULL if no corresponding URI
  * can be constructed.
- */
+ *
+ * Since: ATK 1.12
+ **/
 gchar*
 atk_streamable_content_get_uri (AtkStreamableContent *streamable,
 				const gchar          *mime_type)

@@ -56,8 +56,6 @@ The AtkUtil struct does not contain any fields.
 </para>
 
 @init: 
-<!-- # Unused Parameters # -->
-@add_function: 
 
 
 <!-- ##### FUNCTION atk_focus_tracker_notify ##### -->
