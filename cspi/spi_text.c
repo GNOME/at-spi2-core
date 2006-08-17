@@ -964,7 +964,7 @@ AccessibleText_getAttributeRun (AccessibleText *obj,
       *endOffset   = retEndOffset;
   }
 
-  retval =  cspi_attribute_set_from_sequence (attributes);
+  retval =  _cspi_attribute_set_from_sequence (attributes);
 
   return retval;
 				     
@@ -999,7 +999,7 @@ AccessibleText_getDefaultAttributeSet (AccessibleText *obj){
   attributes = Accessibility_Text_getDefaultAttributeSet (CSPI_OBJREF (obj), cspi_ev ());
   cspi_return_val_if_ev ("getDefaultAttributeSet", NULL);
   
-  retval = cspi_attribute_set_from_sequence (attributes);
+  retval = _cspi_attribute_set_from_sequence (attributes);
   retval = NULL;
   return retval;
 }

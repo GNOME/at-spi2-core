@@ -717,7 +717,49 @@ AccessibleTable_removeColumnSelection (AccessibleTable *obj,
   return retval;
 }
 
-
+/**
+ * AccessibleTable_getRowColumnExtentsAtIndex:
+ * @obj: a pointer to the #AccessibleTable implementor on which to operate.
+ * @index: the index of the Table child whose row/column 
+ * extents are requested.
+ * @row: back-filled with the first table row associated with
+ * the cell with child index \c index.
+ * @col: back-filled with the first table column associated 
+ * with the cell with child index \c index.
+ * @row_extents: back-filled with the number of table rows 
+ * across which child \c i extends.
+ * @col_extents: back-filled with the number of table columns
+ * across which child \c i extends.
+ * @is_selected: a boolean which is back-filled with \c True
+ * if the child at index \c i corresponds to a selected table cell,
+ * \c False otherwise.
+ *
+ * Given a child index, determine the row and column indices and 
+ * extents, and whether the cell is currently selected.  If
+ * the child at \c index is not a cell (for instance, if it is 
+ * a summary, caption, etc.), \c False is returned.
+ *
+ * Example:
+ * If the Table child at index '6' extends across columns 5 and 6 of
+ * row 2 of a Table instance, and is currently selected, then
+ * 
+ * retval = table::getRowColumnExtentsAtIndex (6, row, col, 
+ *                                             row_extents,
+ *                                             col_extents,
+ *                                             is_selected);
+ * 
+ * will return True, and after the call
+ * row, col, row_extents, col_extents,
+ * and \c is_selected will contain 2, 5, 1, 2, and 
+ * True, respectively.
+ *
+ * Returns: \c True if the index is associated with a valid table
+ * cell, \c False if the index does not correspond to a cell.  If 
+ * \c False is returned, the values of the out parameters are 
+ * undefined.
+ * 
+ * Since AT-SPI 1.7.0
+ **/
 SPIBoolean
 AccessibleTable_getRowColumnExtentsAtIndex (AccessibleTable *obj,
 					    long int index, long int *row, long int *col, 

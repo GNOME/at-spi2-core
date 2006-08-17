@@ -196,6 +196,15 @@ object corresponding to an user interface element.
 @Returns: 
 
 
+<!-- ##### FUNCTION Accessible_isDocument ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION Accessible_isEditableText ##### -->
 <para>
 
@@ -287,6 +296,15 @@ object corresponding to an user interface element.
 
 
 <!-- ##### FUNCTION Accessible_getComponent ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
+<!-- ##### FUNCTION Accessible_getDocument ##### -->
 <para>
 
 </para>

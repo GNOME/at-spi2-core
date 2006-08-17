@@ -1,3 +1,33 @@
+2006-08-17  Bill Haneman <bill.haneman@sun.com>
+
+	* cspi/spi-private.h, cspi/spi_accessible.c:
+	(_cspi_attribute_set_from_sequence): Renamed from
+	cspi_attribute_set_from_sequence, to suppress export.
+
+	* cspi/spi.h:
+	(SPIRelationType): Fixed typo in PARENT_WINDOW_OF 
+	inline docs, which was keeping the doc from appearing.
+	(SPIExceptionHandler): Doc this.
+	
+	* cspi/spi_document.c:
+	Added inline gtk-docs cut-n-pasted from the doxygen
+	docs in the corresponding IDL files.
+	(AccessibleDocument_getAttributes): Fix the retval here.
+
+	* cspi/spi_streamablecontent.c:
+	Fixed some 'Since' tags that were accidentally doxygen-style.
+
+	* cspi/spi_table.c:
+	(AccessibleTable_getRowColumnExtentsAtIndex): Cut and pasted
+	docs from the IDL file.
+
+	* docs/reference/cspi/at-spi-cspi-docs.sgml:
+	Added entities for Document and StreamableContent interfaces.
+
+	* docs/reference/cspi/at-spi-cspi-sections.txt:
+	Added some docs that were present inline but not getting
+	exported to HTML.
+	
 2006-07-31  Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/text.c:

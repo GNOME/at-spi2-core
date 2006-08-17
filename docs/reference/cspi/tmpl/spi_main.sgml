@@ -140,15 +140,21 @@ SPI main loop and initialization
 @SPI_EXCEPTION_SOURCE_REGISTRY: 
 @SPI_EXCEPTION_SOURCE_DEVICE: 
 
+<!-- ##### USER_FUNCTION SPIExceptionHandler ##### -->
+<para>
+
+</para>
+
+@err: 
+@is_fatal: 
+@Returns: 
+
+
 <!-- ##### STRUCT SPIRect ##### -->
 <para>
 
 </para>
 
-@x: 
-@y: 
-@width: 
-@height: 
 
 <!-- ##### FUNCTION SPI_freeRect ##### -->
 <para>

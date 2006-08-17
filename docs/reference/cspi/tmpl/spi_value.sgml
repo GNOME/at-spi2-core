@@ -77,3 +77,12 @@ be programmatically set, if the implementor's state does not include READONLY.
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleValue_getMinimumIncrement ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+

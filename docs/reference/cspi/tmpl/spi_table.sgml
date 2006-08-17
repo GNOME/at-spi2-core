@@ -141,6 +141,21 @@ AccessibleTable Interface
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleTable_getRowColumnExtentsAtIndex ##### -->
+<para>
+
+</para>
+
+@obj: 
+@index: 
+@row: 
+@col: 
+@row_extents: 
+@col_extents: 
+@is_selected: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleTable_getRowAtIndex ##### -->
 <para>
 

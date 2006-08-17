@@ -82,6 +82,16 @@ AccessibleSelection Interface
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleSelection_deselectChild ##### -->
+<para>
+
+</para>
+
+@obj: 
+@childIndex: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleSelection_clearSelection ##### -->
 <para>
 

@@ -42,7 +42,7 @@ static TextTest text[] = {
 	{65, NULL, SPI_KEY_PRESSRELEASE},
 	{64, NULL, SPI_KEY_SYM},
 	{0,  "--hello!", SPI_KEY_STRING},
-	{0, "StudlyCaps", SPI_KEY_STRING}
+	{0, "StudlyCaps!", SPI_KEY_STRING}
 };
 
 static void

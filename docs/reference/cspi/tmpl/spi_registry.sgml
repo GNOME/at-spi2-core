@@ -259,9 +259,7 @@ This is a synonym for AccessibleDeviceEvent.
 AccessibleDeviceEvent is a struct which encapsulates a device event.
 </para>
 
-@keyID: 
 @keystring: 
-@timestamp: 
 @type: 
 @is_text: 
 

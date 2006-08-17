@@ -243,7 +243,7 @@ cspi_role_from_spi_role (Accessibility_Role role)
 }
 
 AccessibleAttributeSet *
-cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq)
+_cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq)
 {
     AccessibleAttributeSet *set = g_new0 (AccessibleAttributeSet, 1);
     int i;
@@ -627,7 +627,7 @@ Accessible_getAttributes (Accessible *obj)
 	CSPI_OBJREF (obj), cspi_ev ());
     cspi_return_val_if_ev ("getAttributes", NULL);
     
-    retval = cspi_attribute_set_from_sequence (corba_seq);
+    retval = _cspi_attribute_set_from_sequence (corba_seq);
     CORBA_free (corba_seq);
 
     return retval;

@@ -40,3 +40,8 @@ INCLUDES = -I$(top_srcdir)           \
 LDADD = ../libspi/libspi.la ../cspi/libcspi.la ../login-helper/libloginhelper.la $(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS)
 
 TESTS = test-simple
+
+TESTS_ENVIRONMENT =					\
+	LD_LIBRARY_PATH=$(top_builddir)/libspi/.libs/:$(top_builddir)/cspi/.libs/	\
+	PATH=$(top_builddir)/registryd/.libs
+

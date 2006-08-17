@@ -16,6 +16,7 @@ SPIException_getSourceType
 SPIException
 SPIExceptionCode
 SPIExceptionType
+SPIExceptionHandler
 SPIBoolean
 SPIRect
 SPI_freeRect
@@ -122,6 +123,7 @@ Accessible_getLocalizedRoleName
 Accessible_isAction
 Accessible_isApplication
 Accessible_isComponent
+Accessible_isDocument
 Accessible_isEditableText
 Accessible_isHypertext
 Accessible_isImage
@@ -133,6 +135,7 @@ Accessible_isValue
 Accessible_getAction
 Accessible_getApplication
 Accessible_getComponent
+Accessible_getDocument
 Accessible_getEditableText
 Accessible_getHypertext
 Accessible_getImage
@@ -164,13 +167,17 @@ cspi_return_val_if_fail
 cspi_return_if_ev
 cspi_return_val_if_ev
 cspi_check_ev
+cspi_peek_ev
 cspi_dup_ref
 cspi_release_unref
 cspi_exception_get_text
+cspi_exception_throw
 cspi_init
 cspi_ping
 cspi_main
 cspi_main_quit
+cspi_role_from_spi_role
+cspi_streams_close_all
 cspi_event_listener_get_type
 cspi_event_listener_new
 cspi_event_listener_get_corba
@@ -247,6 +254,16 @@ AccessibleComponent_getAlpha
 </SECTION>
 
 <SECTION>
+<FILE>spi_document</FILE>
+<TITLE>AccessibleDocument Interface</TITLE>
+AccessibleDocument_ref
+AccessibleDocument_unref
+AccessibleDocument_getAttributeValue
+AccessibleDocument_getAttributes
+AccessibleDocument_getLocale
+</SECTION>
+
+<SECTION>
 <FILE>spi_editabletext</FILE>
 <TITLE>AccessibleEditableText Interface</TITLE>
 AccessibleEditableText_ref
@@ -292,6 +309,7 @@ AccessibleSelection_getSelectedChild
 AccessibleSelection_selectChild
 AccessibleSelection_isChildSelected
 AccessibleSelection_deselectSelectedChild
+AccessibleSelection_deselectChild
 AccessibleSelection_clearSelection
 AccessibleSelection_selectAll
 </SECTION>
@@ -299,6 +317,8 @@ AccessibleSelection_selectAll
 <SECTION>
 <FILE>spi_streamable_content</FILE>
 <TITLE>AccessibleStreamableContent Interface</TITLE>
+AccessibleStreamableContentSeekType
+AccessibleStreamableContent_freeContentTypesList
 AccessibleStreamableContent_ref
 AccessibleStreamableContent_unref
 AccessibleStreamableContent_getContentTypes
@@ -325,6 +345,7 @@ AccessibleTable_getNColumns
 AccessibleTable_getNRows
 AccessibleTable_getNSelectedColumns
 AccessibleTable_getNSelectedRows
+AccessibleTable_getRowColumnExtentsAtIndex
 AccessibleTable_getRowAtIndex
 AccessibleTable_getRowDescription
 AccessibleTable_getRowExtentAt
@@ -367,6 +388,8 @@ AccessibleText_setCaretOffset
 AccessibleText_setSelection
 AccessibleText_getCharacterAtOffset
 AccessibleText_getDefaultAttributes
+AccessibleText_getAttributeRun
+AccessibleText_getDefaultAttributeSet
 AccessibleTextRange_freeRanges
 </SECTION>
 
@@ -379,6 +402,7 @@ AccessibleValue_getCurrentValue
 AccessibleValue_getMaximumValue
 AccessibleValue_getMinimumValue
 AccessibleValue_setCurrentValue
+AccessibleValue_getMinimumIncrement
 </SECTION>
 
 <SECTION>

@@ -24,8 +24,6 @@ AccessibleEvent is a struct used to encapsulate event information.
 
 @type: 
 @source: 
-@detail1: 
-@detail2: 
 
 <!-- ##### USER_FUNCTION AccessibleEventListenerCB ##### -->
 <para>

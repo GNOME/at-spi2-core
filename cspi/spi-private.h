@@ -84,7 +84,7 @@ void                   cspi_streams_close_all (void);
 gboolean               cspi_exception_throw (CORBA_Environment *ev, char *desc_prefix);
 
 AccessibleAttributeSet 
-                     *cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq);
+                     *_cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq);
 #define cspi_return_if_fail(val)		\
 	if (!(val))				\
 		return

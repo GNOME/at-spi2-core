@@ -24,7 +24,6 @@
 #include <cspi/spi.h>
 #include <cspi/spi-private.h>
 
-
 /**
  * AccessibleDocument_ref:
  * @obj: a pointer to the #AccessibleDocument object on which to operate.
@@ -51,6 +50,15 @@ AccessibleDocument_unref (AccessibleDocument *obj)
 }
 
 
+/**
+ * AccessibleDocument_getLocale:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ *
+ * Gets the locale associated with the document's content.
+ * e.g. the locale for LOCALE_TYPE_MESSAGES.
+ *
+ * Returns: a string compliant with the POSIX standard for locale description.
+ **/
 char *
 AccessibleDocument_getLocale (AccessibleDocument *obj)
 {
@@ -67,6 +75,18 @@ AccessibleDocument_getLocale (AccessibleDocument *obj)
 
 }
 
+/**
+ * AccessibleDocument_getAttributeValue:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ * @attribute: a string indicating the name of a specific attribute 
+ *
+ * Gets the value of a single attribute, if specified for the document as a whole.
+ *
+ * (name-value pair) being queried.
+ * 
+ * Returns a string corresponding to the value of the specified attribute, or
+ * an empty string if the attribute is unspecified for the object.
+ **/
 char *
 AccessibleDocument_getAttributeValue (AccessibleDocument *obj,
 				      char *attribute)
@@ -87,17 +107,35 @@ AccessibleDocument_getAttributeValue (AccessibleDocument *obj,
 }
 				      
 
+/**
+ * AccessibleDocument_getAttributes:
+ * @obj: a pointer to the #Accessible object on which to operate.
+ * 
+ * Gets all attributes specified for a document as a whole.  
+ *
+ * For attributes which change within 
+ * the document content, see Accessibility::Text::getAttributes instead.
+ * 
+ * Returns an ::AttributeSet containing the attributes of the document, 
+ * as name-value pairs.
+ *
+ * Since AT-SPI 1.8.0
+ **/
 AccessibleAttributeSet * 
 AccessibleDocument_getAttributes (AccessibleDocument *obj){
 
   AccessibleAttributeSet *retval;
+  Accessibility_AttributeSet *corba_seq;
 
   cspi_return_val_if_fail (obj != NULL, NULL);
 
-  retval = Accessibility_Document_getAttributes (CSPI_OBJREF (obj),
+  corba_seq = Accessibility_Document_getAttributes (CSPI_OBJREF (obj),
 						    cspi_ev ());
   cspi_return_val_if_ev ("getAttributes", NULL);
   
+  retval = _cspi_attribute_set_from_sequence (corba_seq);
+  CORBA_free (corba_seq);
+
   return retval;
 
 }

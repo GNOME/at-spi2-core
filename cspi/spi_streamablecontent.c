@@ -232,7 +232,7 @@ AccessibleStreamableContent_getContentTypes (AccessibleStreamableContent *obj)
 * Free the memory associated with a call to #AccessibleStreamableContent_getContentTypes, once 
 * the result has been used.
 *
-* @Since: AT-SPI 1.4
+* Since: AT-SPI 1.4
 **/
 void
 AccessibleStreamableContent_freeContentTypesList (AccessibleStreamableContent *obj,

@@ -277,6 +277,28 @@ AccessibleText Interface
 @Returns: 
 
 
+<!-- ##### FUNCTION AccessibleText_getAttributeRun ##### -->
+<para>
+
+</para>
+
+@obj: 
+@offset: 
+@startOffset: 
+@endOffset: 
+@includeDefaults: 
+@Returns: 
+
+
+<!-- ##### FUNCTION AccessibleText_getDefaultAttributeSet ##### -->
+<para>
+
+</para>
+
+@obj: 
+@Returns: 
+
+
 <!-- ##### FUNCTION AccessibleTextRange_freeRanges ##### -->
 <para>
 

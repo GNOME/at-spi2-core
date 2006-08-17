@@ -115,7 +115,8 @@ more target objects.
  *  another's content.
  *@SPI_RELATION_EMBEDDED_BY: Inverse of %SPI_RELATION_EMBEDS, indicates that
  *  this object's content is visualy embedded in another object.
- *@SPI_RELATION_POPUP_FOR: Indicates that an object is a popup for another objec *@SPI_RELATION_PARENT_WINDOW_OF: Indicates that an object is a parent window of another object.
+ *@SPI_RELATION_POPUP_FOR: Indicates that an object is a popup for another object.
+ *@SPI_RELATION_PARENT_WINDOW_OF: Indicates that an object is a parent window of another object.
  *@SPI_RELATION_DESCRIBED_BY: Indicates that another object provides descriptive information about this object; more verbose than %SPI_RELATION_LABELLED_BY.
  *@SPI_RELATION_DESCRIPTION_FOR: Indicates that an object provides descriptive information about another object; more verbose than %SPI_RELATION_LABEL_FOR.
  *@SPI_RELATION_LAST_DEFINED: Do not use, this is an implementation detail used
@@ -244,7 +245,15 @@ typedef enum
  **/
 typedef struct _SPIException SPIException;
 
-
+/**
+ * SPIExceptionHandler:
+ * @err: points to the SPIException opaque object.
+ * @is_fatal: indicates whether the exception is a fatal error or not.
+ *
+ * A function type for functions to be called when exceptions occur.
+ *
+ * Returns 
+ **/
 typedef SPIBoolean (*SPIExceptionHandler) (SPIException *err, SPIBoolean is_fatal);
 
 /**
