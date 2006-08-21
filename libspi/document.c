@@ -97,6 +97,7 @@ impl_getAttributes (PortableServer_Servant servant,
   
   AtkDocument *document = get_document_from_servant (servant);
   AtkAttributeSet *attributes = NULL;
+  AtkAttribute *attr = NULL;
   Accessibility_AttributeSet *retval;
   gint n_attributes = 0;
   gint i;
@@ -119,7 +120,8 @@ impl_getAttributes (PortableServer_Servant servant,
   
   for (i = 0; i < n_attributes; ++i)
   {
-      retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+      attr = g_slist_nth_data (attributes, i);
+      retval->_buffer [i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
   }
     
   atk_attribute_set_free (attributes);

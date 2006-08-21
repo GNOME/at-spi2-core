@@ -1,3 +1,22 @@
+2006-08-21  Bill Haneman <bill.haneman@sun.com>
+
+	Patch section from Ginn Chen...
+
+	* cspi/spi_accessible.c:
+	(_cspi_accessible_set_from_sequence): 
+	Changed g_newa to g_new0 on Ginn Chen's suggestion.
+
+	* libspi/accessible.c:
+	(impl_getAttributes): Fixed to use the AtkAttribute struct properly.
+	(spi_accessible_new): Add the Document interface if present.
+
+	* libspi/document.c:
+	(impl_getAttributes): Fixed to use AtkAttribute properly.
+
+	* libspi/text.c:
+	(impl_getAttributes, impl_getDefaultAttributes): 
+	(impl_getAttributeRun): Fixed to use AtkAttribute struct properly.
+	
 2006-08-17  Bill Haneman <bill.haneman@sun.com>
 
 	* cspi/spi-private.h, cspi/spi_accessible.c:

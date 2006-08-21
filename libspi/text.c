@@ -538,6 +538,7 @@ impl_getAttributeRun (PortableServer_Servant servant,
 		      CORBA_Environment *ev){
 		      
      AtkAttributeSet *attributes, *default_attributes = NULL;
+     AtkAttribute *attr = NULL;
      gint intstart_offset, intend_offset;
      Accessibility_AttributeSet *retval = NULL;
      AtkText *text = get_text_from_servant (servant);
@@ -570,12 +571,14 @@ impl_getAttributeRun (PortableServer_Servant servant,
 	 
 	 for (i = 0; i < n_attributes; ++i)
 	 {
-	     retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+	     attr = g_slist_nth_data (attributes, i);
+	     retval->_buffer[i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
 	 }
 	 
 	 for (j = 0; j < n_default_attributes; ++i, ++j)
 	 {
-	     retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (default_attributes, j));
+	     attr = g_slist_nth_data (default_attributes, i);
+	     retval->_buffer[i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
 	 }
 	 
 	 atk_attribute_set_free (attributes);
@@ -589,6 +592,7 @@ static Accessibility_AttributeSet *
 impl_getDefaultAttributeSet (PortableServer_Servant servant,
 			     CORBA_Environment *ev){
      AtkAttributeSet *attributes;
+     AtkAttribute *attr = NULL;
      Accessibility_AttributeSet *retval = NULL;
      AtkText *text = get_text_from_servant (servant);
      gint n_attributes = 0;
@@ -609,7 +613,8 @@ impl_getDefaultAttributeSet (PortableServer_Servant servant,
 	 
 	 for (i = 0; i < n_attributes; ++i)
 	 {
-	     retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+	     attr = g_slist_nth_data (attributes, i);
+	     retval->_buffer [i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
 	 }
 	 atk_attribute_set_free (attributes);
      }     

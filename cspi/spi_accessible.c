@@ -249,7 +249,7 @@ _cspi_attribute_set_from_sequence (const Accessibility_AttributeSet *seq)
     int i;
 
     set->len = seq->_length;
-    set->attributes = g_newa (char *, set->len);
+    set->attributes = g_new0 (char *, set->len);
     for (i = 0; i < set->len; ++i)
     {
 	set->attributes[i] = g_strdup (seq->_buffer [i]);

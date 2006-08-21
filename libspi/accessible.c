@@ -452,7 +452,8 @@ impl_accessibility_accessible_get_attributes (PortableServer_Servant servant,
 					       CORBA_Environment     *ev)
 {
     Accessibility_AttributeSet *retval;
-    GSList *attributes;
+    AtkAttributeSet *attributes = NULL;
+    AtkAttribute *attr = NULL;
     gint n_attributes = 0;
     gint i;
     
@@ -471,8 +472,11 @@ impl_accessibility_accessible_get_attributes (PortableServer_Servant servant,
     
     for (i = 0; i < n_attributes; ++i)
     {
-	retval->_buffer[i] = CORBA_string_dup (g_slist_nth_data (attributes, i));
+	attr = g_slist_nth_data (attributes, i);
+	retval->_buffer[i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
     }
+
+    atk_attribute_set_free (attributes);
     
   return retval;
 }
@@ -622,6 +626,11 @@ spi_accessible_construct (GType type, AtkObject *o)
       {
         bonobo_object_add_interface (bonobo_object (retval),
 				     BONOBO_OBJECT (spi_streamable_interface_new (o)));
+      }
+    if (ATK_IS_DOCUMENT (o))
+      {
+	bonobo_object_add_interface (bonobo_object (retval),
+	                             BONOBO_OBJECT (spi_document_interface_new (o)));
       }
 
     return retval;
