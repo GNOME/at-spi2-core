@@ -1,3 +1,19 @@
+2006-08-21 Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Revved to 1.12.2.
+	
+2006-08-17 Bill Haneman <bill.haneman@sun.com>
+
+	* docs/atk-docs.sgml: Added entity for AtkHyperlinkImpl.
+
+	* docs/atk-sections.txt: Added entries for newly added API.
+
+	* atk/atkvalue.c:
+	(atk_value_get_minimum_increment): Added the right number of
+	asterisks to make gtk-doc happy (!) so that inline docs are exposed.
+	
+	Fixes bug #351580.
+	
 2006-08-01 Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkobject.h:

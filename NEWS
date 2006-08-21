@@ -1,3 +1,8 @@
+Changes in version 1.12.2: 
+=========================
+* Documentation fixes.
+* New language: Bengali (Runa Bhattacharjee)
+
 Changes in version 1.12.1: 
 =========================
 * Added AtkHyperlinkImpl
