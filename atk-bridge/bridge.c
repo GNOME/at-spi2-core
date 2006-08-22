@@ -591,7 +591,6 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
 {
   SpiAccessible *source;
   Accessibility_Event e;
-  const gchar *name = atk_object_get_name (object);
   
   source = spi_accessible_new (object);
   
@@ -1033,6 +1032,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     }
   else if ((signal_query.signal_id == atk_signal_children_changed) && gobject)
     {
+      detail1 = g_value_get_uint (param_values + 1);
       ao = atk_object_ref_accessible_child (ATK_OBJECT (gobject), 
 			        	    detail1);
       if (ao) 

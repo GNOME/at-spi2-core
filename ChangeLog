@@ -1,5 +1,27 @@
+2006-08-22  Bill Haneman <bill.haneman@sun.com>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_signal_listener): 
+	Patch from Ginn Chen, assign detail1 in children-changed
+	so that the child object can be assigned to the Any when the
+	at-spi event is emitted.  Bug #350552.
+	
 2006-08-21  Bill Haneman <bill.haneman@sun.com>
 
+	* configure.in: Revved to AT-SPI 1.7.11.
+
+	* libspi/accessible.c:
+	(spi_accessible_new): Aggregate Hyperlink interface
+	if the GObject is an ATK_HYPERLINK_IMPL. See bug #352227.
+
+	* libspi/hyperlink.c:
+	(spi_hyperlink_new): Don't aggregate Action a second time if this
+	interface is created for an AtkHyperlinkImpl object (i.e. for a 
+	child Accessible, as opposed to the Hyperlink instance from
+	Hypertext:getLink.
+	(get_hyperlink_from_servant): Obtain the hyperlink from
+	atk_hyperlink_impl_get_hyperlink, if ATK_IS_HYPERLINK_IMPL.
+	
 	Patch section from Ginn Chen...
 
 	* cspi/spi_accessible.c:
