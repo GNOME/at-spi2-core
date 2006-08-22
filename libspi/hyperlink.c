@@ -109,8 +109,13 @@ spi_hyperlink_new (AtkHyperlink *object)
        * it will be cast back to a G_OBJECT inside spi_action_interface_new
        * before use, so this is OK though very ropey coding style.
        */
-      bonobo_object_add_interface (bonobo_object (new_hyperlink),
-				   BONOBO_OBJECT (spi_action_interface_new ((AtkObject *) object)));
+
+	/* Don't aggregate action twice... if this is from AtkHyperlinkImpl */
+	if (!bonobo_object_query_interface (bonobo_object (new_hyperlink), "IDL:Accessibility/Action:1.0",
+					    NULL))
+	    
+	    bonobo_object_add_interface (bonobo_object (new_hyperlink),
+					 BONOBO_OBJECT (spi_action_interface_new ((AtkObject *) object)));
     }
   return new_hyperlink;
 }
@@ -121,8 +126,16 @@ get_hyperlink_from_servant (PortableServer_Servant servant)
   SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
 
   g_return_val_if_fail (object != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_HYPERLINK(object->gobj), NULL);
-  return ATK_HYPERLINK (object->gobj);
+  if (ATK_IS_HYPERLINK(object->gobj)) 
+  {
+      return ATK_HYPERLINK (object->gobj);
+  }
+  else if (ATK_IS_HYPERLINK_IMPL(object->gobj))
+  {
+      return atk_hyperlink_impl_get_hyperlink (ATK_HYPERLINK_IMPL (object->gobj));
+  }
+  else
+      return NULL;
 }
 
 

@@ -67,7 +67,6 @@ spi_accessible_application_finalize (GObject *object)
   g_list_free (application->toolkit_listeners);
   application->toolkit_listeners = NULL;
 
-  g_print ("application finalize called\n");
   (G_OBJECT_CLASS (spi_application_parent_class))->finalize (object);
 }
 

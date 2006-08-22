@@ -26,6 +26,7 @@
 
 #include <libspi/base.h>
 #include <atk/atkhyperlink.h>
+#include <atk/atkhyperlinkimpl.h>
 
 G_BEGIN_DECLS
 

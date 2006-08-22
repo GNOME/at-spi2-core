@@ -91,7 +91,7 @@ impl_getAttributeValue (PortableServer_Servant servant,
 }
 
 
-static CORBA_string
+static Accessibility_AttributeSet*
 impl_getAttributes (PortableServer_Servant servant,
 		    CORBA_Environment *ev){
   
@@ -102,7 +102,7 @@ impl_getAttributes (PortableServer_Servant servant,
   gint n_attributes = 0;
   gint i;
   
-  g_return_val_if_fail (document != NULL, CORBA_string_dup (""));
+  g_return_val_if_fail (document != NULL, NULL);
   
   attributes = atk_document_get_attributes (document);
   

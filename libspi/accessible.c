@@ -632,6 +632,16 @@ spi_accessible_construct (GType type, AtkObject *o)
 	bonobo_object_add_interface (bonobo_object (retval),
 	                             BONOBO_OBJECT (spi_document_interface_new (o)));
       }
+    if (ATK_IS_HYPERLINK_IMPL (o))
+      {
+	  /* !!! the cast below is used instead of the ATK_HYPERLINK macro, since 
+	   the object 'o' is not really a hyperlink, but is in fact an AtkHyperlinkImpl.
+	   Ouch.  This works since it gets cast back to GObject, but it's nasty and needs
+	   to be cleaned up.
+	  */
+	bonobo_object_add_interface (bonobo_object (retval),
+				     BONOBO_OBJECT (spi_hyperlink_new ((AtkHyperlink*)o)));
+      }
 
     return retval;
 }

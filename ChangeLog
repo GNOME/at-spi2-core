@@ -5,6 +5,10 @@
 	Patch from Ginn Chen, assign detail1 in children-changed
 	so that the child object can be assigned to the Any when the
 	at-spi event is emitted.  Bug #350552.
+
+	* libspi/application.c:
+	(spi_application_finalize): Remove g_print debug output.
+	Bug #350958.
 	
 2006-08-21  Bill Haneman <bill.haneman@sun.com>
 
