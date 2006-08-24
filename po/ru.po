@@ -1,3 +1,4 @@
+# translation of atk.HEAD.po to
 # ATK Russian translation.
 # Copyright (C) 2002 The ATK Team
 # This file is distributed under the same license as the ATK package.
@@ -8,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-01 13:35+0100\n"
-"PO-Revision-Date: 2006-02-01 17:36+0200\n"
+"POT-Creation-Date: 2006-08-24 07:09+0200\n"
+"PO-Revision-Date: 2006-08-24 17:39+0300\n"
 "Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
-"Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"Language-Team:  <gnome-cyr@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11\n"
+"X-Generator: KBabel 1.11.2\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../atk/atkhyperlink.c:103
@@ -387,67 +388,71 @@ msgstr "раздел"
 msgid "redundant object"
 msgstr "Избыточный объект"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "форма"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "Облегчённое имя"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Имя экземпляра объекта для доступа с использованием облегчающих технологий"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "Облегчённое описание"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Описание объекта для доступа с использованием облегчающих технологий"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "Облегчённый предок"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Используется для уведомления, что предок изменился"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "Облегчённое значение"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Используется для уведомления, что значение изменилось"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "Облегчённая роль"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "Роль этого объекта в облегчающих технологиях"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "Облегчённый уровень"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "Уровень этого объекта в облегчающих технологиях"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "Облегчённое значение MDI"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "Значение MDI этого объекта в облегчающих технологиях"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "Облегчённый заголовок таблицы"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -456,59 +461,59 @@ msgstr ""
 "свойство не должно использоваться. Вместо неого должно использоваться "
 "свойство accessible-table-caption-object."
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "Облегчённый заголовок столбца таблицы"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Используется для уведомления о том, что заголовок столбца таблицы изменился"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "Облегчённое описание столбца таблицы"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "Используется для уведомления о том, что описание столбца таблицы изменилось"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "Облегчённый заголовок строки таблицы"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Используется для уведомления о том, что заголовок строки таблицы изменился"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "Облегчённое описание строки таблицы"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "Используется для уведомления о том, что описание строки таблицы изменилось"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "Облегчённая сводка таблицы"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Используется для уведомления о том, что сводка таблицы изменилась"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "Облегчённый объект заголовка таблицы"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Используется для уведомления о том, что заголовок таблицы изменился"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Число облегчённых гипертекстовых ссылок"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Число ссылок, которые имеет текущий объект AtkHypertext"
 
