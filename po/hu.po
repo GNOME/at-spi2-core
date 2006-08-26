@@ -1,24 +1,24 @@
 # Hungarian translation of atk.
-# Copyright (C) 2002, 2003, 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
+#
 # Andras Timar <timar@gnome.hu>, 2002, 2003.
 # Laszlo Dvornik <dvornik@gnome.hu>, 2004.
 # Szabolcs Varga <shirokuma@shirokuma.hu>, 2005.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2005.
-#
+# Gabor Kelemen <kelemeng@gnome.hu>, 2005, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-15 09:13+0200\n"
-"PO-Revision-Date: 2005-08-14 10:00+0200\n"
+"POT-Creation-Date: 2006-08-17 09:12+0200\n"
+"PO-Revision-Date: 2006-08-26 13:09+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
-"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -390,9 +390,8 @@ msgid "redundant object"
 msgstr "redundáns objektum"
 
 #: ../atk/atkobject.c:167
-#, fuzzy
 msgid "form"
-msgstr "keret"
+msgstr "űrlap"
 
 #: ../atk/atkobject.c:356
 msgid "Accessible Name"
@@ -408,8 +407,7 @@ msgstr "Akadálymentes leírás"
 
 #: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
-"Az objektumpéldány leírása, a kisegítő technológiás hozzáféréshez formázva"
+msgstr "Az objektumpéldány leírása, a kisegítő technológiás hozzáféréshez formázva"
 
 #: ../atk/atkobject.c:370
 msgid "Accessible Parent"
@@ -519,3 +517,4 @@ msgstr "Az akadálymentes hiperszöveg-hivatkozások száma"
 #: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Az aktuális AtkHypertext hivatkozásainak száma"
+
