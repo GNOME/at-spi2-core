@@ -74,17 +74,17 @@ module Accessibility {
 
   	/**
          * Register a new application with the accessibility broker.
-         * @param application: a reference to the requesting Application
+         * @param app: a reference to the requesting Application
 	 **/
-        oneway void registerApplication (in Application application);
+        oneway void registerApplication (in Application app);
 
   	/**
          * De-register an application previously registered with the broker.
          * deregisterApplication:
-         * @param application: a reference to the Application 
+         * @param app: a reference to the Application 
          * to be deregistered.
 	 **/
-        void deregisterApplication (in Application application);
+        void deregisterApplication (in Application app);
 
   	/**
          * Register a client's interest in (all) application events of 

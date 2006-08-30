@@ -259,10 +259,10 @@ module Accessibility {
     void 		remove (in StateType state);
 
     /** Compare two statesets for equivalence.
-     * @param stateSet the StateSet to be compared with this one.
+     * @param tarStateSet the StateSet to be compared with this one.
      * @returns \c TRUE if the two StateSet objects are composed of the same StateTypes. 
      */
-    boolean		equals (in StateSet stateSet);
+    boolean		equals (in StateSet tarStateSet);
 
     /** Compare two StateSet instances and obtain their differences.
      * @returns a 'difference set', i.e. a StateSet consisting of those states 

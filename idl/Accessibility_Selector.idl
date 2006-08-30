@@ -120,12 +120,12 @@ module Accessibility {
 
       /** 
        * Request that the ::Selector invoke the specified ::Command.
-       * @param command the ::Command to activate/invoke.
+       * @param cmd the ::Command to activate/invoke.
        * @returns a ::CommandResult indicating whether the 
        * request was honored, and the reason for failure if the
        * ::Command could not be activated or invoked.
        **/
-      CommandResult activateCommand (in Command command);
+      CommandResult activateCommand (in Command cmd);
 
       /** 
        * Register a :CommandListener instance for notification of 

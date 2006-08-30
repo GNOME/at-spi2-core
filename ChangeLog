@@ -1,3 +1,10 @@
+2006-08-30  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/*.idl:
+	Changed some parameter names so as not to 
+	collide with class names - allows IDL to be compiled with
+	OMNIorb compiler.  Thanks to Gary Cramblitt for this patch.
+	
 2006-08-22  Bill Haneman <bill.haneman@sun.com>
 
 	* atk-bridge/bridge.c:
