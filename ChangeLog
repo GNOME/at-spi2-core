@@ -1,3 +1,7 @@
+2006-09-01  Abel Cheung  <abel@oaka.org>
+
+	* configure.in: Added 'dz' 'ku' to ALL_LINGUAS.
+
 2006-08-21 Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Revved to 1.12.2.
