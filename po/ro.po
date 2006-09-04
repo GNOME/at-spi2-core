@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-11 13:36+0100\n"
-"PO-Revision-Date: 2006-03-11 16:29+0200\n"
+"POT-Creation-Date: 2006-09-03 07:13+0200\n"
+"PO-Revision-Date: 2006-09-03 16:40+0300\n"
 "Last-Translator: Mişu Moldovan <dumol@gnome.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -80,7 +80,7 @@ msgstr "căsuţă de bifare"
 
 #: ../atk/atkobject.c:90
 msgid "check menu item"
-msgstr "item meniu de bifare"
+msgstr "element meniu de bifare"
 
 #: ../atk/atkobject.c:91
 msgid "color chooser"
@@ -173,7 +173,7 @@ msgstr "listă"
 
 #: ../atk/atkobject.c:114
 msgid "list item"
-msgstr "item listă"
+msgstr "element listă"
 
 #: ../atk/atkobject.c:115
 msgid "menu"
@@ -185,7 +185,7 @@ msgstr "bară meniu"
 
 #: ../atk/atkobject.c:117
 msgid "menu item"
-msgstr "item meniu"
+msgstr "element meniu"
 
 #: ../atk/atkobject.c:118
 msgid "option pane"
@@ -225,7 +225,7 @@ msgstr "buton radio"
 
 #: ../atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "item meniu radio"
+msgstr "element meniu radio"
 
 #: ../atk/atkobject.c:128
 msgid "root pane"
@@ -281,7 +281,7 @@ msgstr "antet rând tabel"
 
 #: ../atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "item meniu desprins"
+msgstr "element meniu desprins"
 
 #: ../atk/atkobject.c:142
 msgid "terminal"
@@ -383,67 +383,71 @@ msgstr "secţiune"
 msgid "redundant object"
 msgstr "obiect redundant"
 
-#: ../atk/atkobject.c:355
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "formular"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "Nume accesibil"
 
-#: ../atk/atkobject.c:356
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Numele instanţei obiectului formatat pentru accesul asistat"
 
-#: ../atk/atkobject.c:362
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "Descriere accesibilă"
 
-#: ../atk/atkobject.c:363
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Descrierea unui obiect, formatată pentru accesul asistat"
 
-#: ../atk/atkobject.c:369
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "Părinte accesibil"
 
-#: ../atk/atkobject.c:370
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Utilizat pentru a notifica schimbarea părintelui"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "Valoare accesibilă"
 
-#: ../atk/atkobject.c:377
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Utilizată pentru a notifica schimbarea valorii"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "Rol accesibil"
 
-#: ../atk/atkobject.c:386
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "Rolul accesibil al acestui obiect"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "Nivel accesibil"
 
-#: ../atk/atkobject.c:395
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "Nivelul accesibil al acestui obiect"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "Valoare MDI accesibilă"
 
-#: ../atk/atkobject.c:404
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "Valoarea accesibilă MDI a acestui obiect"
 
-#: ../atk/atkobject.c:412
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "Etichetă tabel accesibilă"
 
-#: ../atk/atkobject.c:413
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -452,59 +456,58 @@ msgstr ""
 "proprietate nu ar trebui folosită. A se utiliza accessible-table-caption-"
 "object"
 
-#: ../atk/atkobject.c:419
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "Antet accesibil coloană tabel"
 
-#: ../atk/atkobject.c:420
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Utilizat pentru a notifica schimbarea antetului coloanei în tabel"
 
-#: ../atk/atkobject.c:426
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "Descriere accesibilă coloană tabel"
 
-#: ../atk/atkobject.c:427
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "Utilizată pentru a notifica schimbarea descrierii coloanei în tabel"
 
-#: ../atk/atkobject.c:433
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "Antet accesibil rând tabel"
 
-#: ../atk/atkobject.c:434
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Utilizat pentru a notifica schimbarea antetului rândului în tabel"
 
-#: ../atk/atkobject.c:440
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "Descriere accesibilă rând tabel"
 
-#: ../atk/atkobject.c:441
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "Utilizată pentru a notifica schimbarea descrierii rândului în tabel"
 
-#: ../atk/atkobject.c:447
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "Sumar tabel accesibil"
 
-#: ../atk/atkobject.c:448
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Utilizat pentru a notifica schimbarea sumarului tabelului"
 
-#: ../atk/atkobject.c:454
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "Obiect etichetă tabel accesibil"
 
-#: ../atk/atkobject.c:455
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Utilizat pentru a notifica schimbarea etichetei tabelului"
 
-#: ../atk/atkobject.c:461
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Număr de legături hipertext accesibile"
 
-#: ../atk/atkobject.c:462
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numărul de legături din instanţa curentă AtkHypertext"
-
