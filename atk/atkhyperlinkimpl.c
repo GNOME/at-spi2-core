@@ -62,7 +62,7 @@ atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *obj)
 
   if (iface->get_hyperlink)
     {
-      (iface->get_hyperlink) (obj);
+      return (iface->get_hyperlink) (obj);
     }
   return NULL;
 }

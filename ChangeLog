@@ -1,3 +1,10 @@
+2006-09-08  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atkhyperlinkimpl.c:
+	(atk_hyperlink_impl_get_hyperlink): Add missing
+	return statement - thanks to Neo Liu for finding this.
+	Bug #352227.
+
 2006-09-01  Abel Cheung  <abel@oaka.org>
 
 	* configure.in: Added 'dz' 'ku' to ALL_LINGUAS.
