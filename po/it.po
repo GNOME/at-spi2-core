@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-09 19:15+0200\n"
-"PO-Revision-Date: 2006-09-09 19:20+0200\n"
+"PO-Revision-Date: 2006-09-12 10:07+0200\n"
 "Last-Translator: Luca Ferretti <elle.uca@libero.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -102,12 +102,12 @@ msgstr "voce di menù di spunta"
 # @ATK_ROLE_COLOR_CHOOSER: A specialized dialog that lets the user choose a color
 #: ../atk/atkobject.c:91
 msgid "color chooser"
-msgstr "selettore colori"
+msgstr "selettore colore"
 
 # @ATK_ROLE_COLUMN_HEADER: The header for a column of data
 #: ../atk/atkobject.c:92
 msgid "column header"
-msgstr "intestazione colonna"
+msgstr "intestazione di colonna"
 
 # @ATK_ROLE_COMBO_BOX: A list of choices the user can select from
 #: ../atk/atkobject.c:93
@@ -290,7 +290,7 @@ msgstr "riquadro radice"
 # @ATK_ROLE_ROW_HEADER: The header for a row of data
 #: ../atk/atkobject.c:129
 msgid "row header"
-msgstr "intestazione riga"
+msgstr "intestazione di riga"
 
 # @ATK_ROLE_SCROLL_BAR: An object usually used to allow a user to incrementally view a large amount of data.
 #: ../atk/atkobject.c:130
@@ -340,12 +340,12 @@ msgstr "cella di tabella"
 # @ATK_ROLE_TABLE_COLUMN_HEADER: The header for a column of a table
 #: ../atk/atkobject.c:139
 msgid "table column header"
-msgstr "intestazione colonna di tabella"
+msgstr "intestazione di colonna per tabella"
 
 # @ATK_ROLE_TABLE_ROW_HEADER: The header for a row of a table
 #: ../atk/atkobject.c:140
 msgid "table row header"
-msgstr "intestazione riga di tabella"
+msgstr "intestazione di riga per tabella"
 
 # @ATK_ROLE_TEAR_OFF_MENU_ITEM: A menu item used to tear off and reattach its menu
 #: ../atk/atkobject.c:141
@@ -478,8 +478,12 @@ msgid "redundant object"
 msgstr "oggetto ridondante"
 
 # @ATK_ROLE_FRAME: A top level window with a title bar, border, menubar, etc.
+#
+#
+# Traduzione non ottimale, ma visto l'originale non penso si potesse
+# fare molto altro -Luca
+#
 #: ../atk/atkobject.c:167
-#, fuzzy
 msgid "form"
 msgstr "modulo"
 
