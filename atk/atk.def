@@ -65,6 +65,7 @@ EXPORTS
 	atk_hypertext_get_link_index
 	atk_hypertext_get_n_links
 	atk_hypertext_get_type
+	atk_hyperlink_state_flags_get_type
 	atk_image_get_image_description
 	atk_image_get_image_locale
 	atk_image_get_image_position
@@ -203,6 +204,7 @@ EXPORTS
 	atk_text_attribute_register
 	atk_text_boundary_get_type
 	atk_text_clip_type_get_type
+	atk_text_free_ranges
 	atk_text_get_bounded_ranges
 	atk_text_get_caret_offset
 	atk_text_get_character_at_offset

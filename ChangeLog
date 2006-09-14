@@ -1,5 +1,13 @@
 2006-09-14  Bill Haneman <bill.haneman@sun.com>
 
+	* atk/atk.def: Added some missing symbols for win32 build.
+	Patch from Cedric Gustin, bug #355912.
+	
+	* atk/atkhyperlink.c:
+	(atk_hyperlink_is_selected_link): Mark deprecated, since
+	ATK_STATE_SELECTED gives the same information for hyperlinks.
+	Bug #340553.
+	
 	* atk/atktext.c:
 	(atk_text_attribute_get_value): Allow value of
 	PANGO_UNDERLINE_ERROR, since this is not an error condition, but
