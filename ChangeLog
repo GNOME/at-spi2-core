@@ -1,3 +1,11 @@
+2006-09-14  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atktext.c:
+	(atk_text_attribute_get_value): Allow value of
+	PANGO_UNDERLINE_ERROR, since this is not an error condition, but
+	denotes the underline style used to indicate spelling errors.
+	Bug #346464.
+	
 2006-09-08  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atkhyperlinkimpl.c:
