@@ -1,3 +1,7 @@
+2006-09-19  Sunil Mohan Adapa  <sunil@atc.tcs.co.in>
+
+	* configure.in: Added "te" to ALL_LINGUAS
+
 2006-09-14  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atk.def: Added some missing symbols for win32 build.
