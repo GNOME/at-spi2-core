@@ -18,3 +18,11 @@
 atk
 
 
+<!-- ##### SIGNAL AtkDocument:: ##### -->
+<para>
+The 'reload' signal is emitted when 
+</para>
+
+@atkdocument: the object which received the signal.
+@arg1: 
+

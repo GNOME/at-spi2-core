@@ -109,6 +109,12 @@ atk_no_op_object_get_type (void)
         NULL
     };
 
+    static const GInterfaceInfo atk_document_info =
+    {
+        (GInterfaceInitFunc) NULL,
+        (GInterfaceFinalizeFunc) NULL,
+        NULL
+    };
 
     type = g_type_register_static (ATK_TYPE_OBJECT,
                                     "AtkNoOpObject", &tinfo, 0);
@@ -130,6 +136,8 @@ atk_no_op_object_get_type (void)
                                  &atk_hypertext_info);
     g_type_add_interface_static (type, ATK_TYPE_VALUE,
                                  &atk_value_info);
+    g_type_add_interface_static (type, ATK_TYPE_DOCUMENT,
+                                 &atk_document_info);
   }
   return type;
 }

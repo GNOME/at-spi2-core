@@ -1,3 +1,18 @@
+2006-09-14  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/docs/atkdocument.sgml:
+	Update docs to include signals, and revise description.
+	
+	Following code changes from Neo Liu <nian.lui@sun.com>
+
+	* atkdocument.c:
+	(atk_document_base_init): New, add signals
+	"load_complete", "load_stopped", "reload".
+
+	* atknoopobject;c:
+	(atk_no_op_object_get_type): Add 'AtkDocument'
+	interface type to this test AtkObject class.
+	
 2006-09-19  Sunil Mohan Adapa  <sunil@atc.tcs.co.in>
 
 	* configure.in: Added "te" to ALL_LINGUAS

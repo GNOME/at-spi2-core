@@ -19,6 +19,17 @@
 
 #include "atkdocument.h"
 
+enum {
+  LOAD_COMPLETE,
+  RELOAD,
+  LOAD_STOPPED,
+  LAST_SIGNAL
+};
+
+static void atk_document_base_init (AtkDocumentIface *class);
+
+static guint atk_document_signals[LAST_SIGNAL] = {0};
+
 GType
 atk_document_get_type (void)
 {
@@ -28,7 +39,7 @@ atk_document_get_type (void)
     static const GTypeInfo tinfo =
     {
       sizeof (AtkDocumentIface),
-      (GBaseInitFunc) NULL,
+      (GBaseInitFunc) atk_document_base_init,
       (GBaseFinalizeFunc) NULL,
 
     };
@@ -37,6 +48,41 @@ atk_document_get_type (void)
   }
 
   return type;
+}
+
+static void
+atk_document_base_init (AtkDocumentIface *class)
+{
+  static gboolean initialized = FALSE;
+  if (!initialized)
+    {
+      atk_document_signals[LOAD_COMPLETE] =
+        g_signal_new ("load_complete",
+                      ATK_TYPE_DOCUMENT,
+                      G_SIGNAL_RUN_LAST,
+                      0,
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+      atk_document_signals[RELOAD] =
+        g_signal_new ("reload",
+                      ATK_TYPE_DOCUMENT,
+                      G_SIGNAL_RUN_LAST,
+                      0,
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+      atk_document_signals[LOAD_STOPPED] =
+        g_signal_new ("load_stopped",
+                      ATK_TYPE_DOCUMENT,
+                      G_SIGNAL_RUN_LAST,
+                      0,
+                      (GSignalAccumulator) NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
+      initialized = TRUE;
+    }
 }
 
 /**
