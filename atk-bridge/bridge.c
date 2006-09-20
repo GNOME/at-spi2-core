@@ -107,6 +107,11 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 				const GValue *param_values,
 				gpointer data);
 static gboolean
+spi_atk_bridge_document_event_listener (GSignalInvocationHint *signal_hint,
+                                guint n_param_values,
+                                const GValue *param_values,
+                                gpointer data);
+static gboolean
 spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 				     guint n_param_values,
 				     const GValue *param_values,
@@ -452,6 +457,15 @@ spi_atk_register_event_listeners (void)
   g_array_append_val (listener_ids, id);
   id = atk_add_global_event_listener (spi_atk_bridge_window_event_listener,
 				      "window:deactivate");
+  g_array_append_val (listener_ids, id);
+  id = atk_add_global_event_listener (spi_atk_bridge_document_event_listener,
+				      "Gtk:AtkDocument:load-complete");
+  g_array_append_val (listener_ids, id);
+  id = atk_add_global_event_listener (spi_atk_bridge_document_event_listener,
+				      "Gtk:AtkDocument:reload");
+  g_array_append_val (listener_ids, id);
+  id = atk_add_global_event_listener (spi_atk_bridge_document_event_listener,
+				      "Gtk:AtkDocument:load-stopped");
   g_array_append_val (listener_ids, id);
   id = atk_add_global_event_listener (spi_atk_bridge_state_event_listener,
 				      "Gtk:AtkObject:state-change");
@@ -1124,6 +1138,41 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   
   spi_atk_emit_eventv (gobject, 0, 0, &any,
 		       "window:%s", name);
+  return TRUE;
+}
+
+static gboolean
+spi_atk_bridge_document_event_listener (GSignalInvocationHint *signal_hint,
+                                      guint n_param_values,
+                                      const GValue *param_values,
+                                      gpointer data)
+{
+  GObject *gobject;
+  GSignalQuery signal_query;
+  CORBA_any any;
+  const gchar *name, *s;
+#ifdef SPI_BRIDGE_DEBUG
+  const gchar *s2;
+#endif
+
+  g_signal_query (signal_hint->signal_id, &signal_query);
+
+  name = signal_query.signal_name;
+
+#ifdef SPI_BRIDGE_DEBUG
+  s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
+  s = atk_object_get_name (ATK_OBJECT (g_value_get_object (param_values + 0)));
+  fprintf (stderr, "Received signal %s:%s from object %s (gail %s)\n",
+           g_type_name (signal_query.itype), name, s ? s : "<NULL>" , s2);
+#endif
+
+  gobject = g_value_get_object (param_values + 0);
+
+  s = atk_object_get_name (ATK_OBJECT (gobject));
+  spi_atk_bridge_init_string (&any, ATK_OBJECT (gobject), (gchar **) &s);
+
+  spi_atk_emit_eventv (gobject, 0, 0, &any,
+                       "document:%s", name);
   return TRUE;
 }
 
