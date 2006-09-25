@@ -1,3 +1,12 @@
+2006-09-25  Bill Haneman <bill.haneman@sun.com>
+
+	* registryd/registry.c:
+	(desktop_remove_application): Don't pass a ref to the
+	dead application with the event, since it's probably
+	defunct and will cause SEGV if we try to unref, 
+	extract app name, etc.
+	Bug #353226.
+	
 2006-09-20  Bill Haneman <bill.haneman@sun.com>
 
 	Patch from Neo Liu <nian.liu@sun.com>,

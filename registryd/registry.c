@@ -135,7 +135,7 @@ desktop_remove_application (SpiDesktop *desktop,
 {
   BonoboObject *registry = BONOBO_OBJECT (data);
   Accessibility_Event e;
-  Accessibility_Accessible a;
+  /* Accessibility_Accessible a; FIXME */
   CORBA_Environment ev;
   
   CORBA_exception_init (&ev);
@@ -144,16 +144,16 @@ desktop_remove_application (SpiDesktop *desktop,
   e.source = BONOBO_OBJREF (desktop);
   e.detail1 = index;
   e.detail2 = 0;
+  /* FIXME
   a = Accessibility_Accessible_getChildAtIndex (BONOBO_OBJREF (desktop), 
 						index, &ev);
-  /* FIXME
   spi_init_any_object (&e.any_data, a);
   */
   spi_init_any_nil (&e.any_data,
 		    e.source,
 		    Accessibility_ROLE_DESKTOP_FRAME,
 		    "");
-  Accessibility_Accessible_unref (a, &ev);
+  /* Accessibility_Accessible_unref (a, &ev); */
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (registry),
 				      &e, &ev);
   Accessibility_Desktop_unref (e.source, &ev);
