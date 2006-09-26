@@ -1,3 +1,9 @@
+2006-09-26  Bill Haneman <bill.haneman@sun.com>
+
+	* atk/atktext.c:
+	(atk_text_attribute_get_value): Allow 
+	the wrap value to be 3 (bug #357847).
+
 2006-09-14  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/docs/atkdocument.sgml:

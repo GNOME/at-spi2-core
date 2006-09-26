@@ -1132,7 +1132,7 @@ atk_text_attribute_get_value (AtkTextAttribute attr,
       g_assert (index >= 0 && index < 5);
       return underline[index];
     case ATK_TEXT_ATTR_WRAP_MODE:
-      g_assert (index >= 0 && index < 3);
+      g_assert (index >= 0 && index < 4);
       return wrap_mode[index];
     case ATK_TEXT_ATTR_DIRECTION:
       g_assert (index >= 0 && index < 3);
