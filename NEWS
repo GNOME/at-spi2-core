@@ -1,3 +1,12 @@
+Changes in version 1.12.3: 
+=========================
+*
+* Add missing signals to fix win32 build (Cedric Gustin, bug #355912).
+* New linguas: 'te' (Sunil Mohan Adapa), 'dz', 'ku' (Abel Cheung).
+* Implement AtkDocument signals (Neo Liu)
+* Update docs to include info on AtkDocument signals.
+* Bugfixes: #357847, #340553, #346464, #352227, 
+
 Changes in version 1.12.2: 
 =========================
 * Documentation fixes.

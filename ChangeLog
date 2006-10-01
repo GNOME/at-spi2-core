@@ -1,3 +1,8 @@
+2006-10-01  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in, NEWS:
+	Bump to 1.12.3, for gnome 2.16.1.
+	
 2006-09-26  Bill Haneman <bill.haneman@sun.com>
 
 	* atk/atktext.c:
