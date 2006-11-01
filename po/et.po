@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-17 06:16+0200\n"
-"PO-Revision-Date: 2006-10-27 11:10+0300\n"
+"PO-Revision-Date: 2006-11-01 09:51+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -399,7 +399,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
+msgstr "Objekti nimetus vormindatuna abistava tehnikaga kasutamiseks"
 
 #: ../atk/atkobject.c:363
 msgid "Accessible Description"
@@ -407,7 +407,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
+msgstr "Objekti kirjeldus vormindatuna abistava tehnikaga kasutamiseks"
 
 #: ../atk/atkobject.c:370
 msgid "Accessible Parent"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgstr "Kasutatakse vanema muutumisest teavitamiseks"
 
 #: ../atk/atkobject.c:377
 msgid "Accessible Value"
@@ -423,7 +423,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
-msgstr ""
+msgstr "Kasutatakse väärtuse muutumisest teavitamiseks"
 
 #: ../atk/atkobject.c:386
 msgid "Accessible Role"
@@ -513,4 +513,4 @@ msgstr ""
 
 #: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
-msgstr ""
+msgstr "Käesoleva AtkHypertext'i viitade arv"
