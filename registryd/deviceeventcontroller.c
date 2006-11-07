@@ -458,6 +458,8 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	  }
 	else
 	  spi_dec_set_unlatch_pending (controller, mask_return);
+
+        CORBA_free (e.any_data._value);
       }
       return TRUE;
     }
@@ -473,6 +475,7 @@ spi_dec_mouse_check (SpiDEController *controller,
 		     int *x, int *y, gboolean *moved)
 {
   Accessibility_Event e;
+  Accessibility_EventDetails *details;
   CORBA_Environment ev;
   int win_x_return,win_y_return;
   unsigned int mask_return;
@@ -510,6 +513,8 @@ spi_dec_mouse_check (SpiDEController *controller,
       Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 					  &e,
 					  &ev);
+      details = e.any_data._value;
+      CORBA_free (details);
       e.type = "mouse:rel";  
       e.source = BONOBO_OBJREF (controller->registry->desktop);
       e.detail1 = *x - last_mouse_pos->x;
@@ -524,6 +529,8 @@ spi_dec_mouse_check (SpiDEController *controller,
       Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 					  &e,
 					  &ev);
+      details = e.any_data._value;
+      CORBA_free (details);
       *moved = True;
     }
   else
@@ -564,6 +571,7 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
   Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 				      &e,
 				      &ev);
+  CORBA_free (e.any_data._value);
 }
 
 static gboolean
@@ -1083,6 +1091,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
       Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
 					  &e,
 					  &ev);
+      CORBA_free (e.any_data._value);
     }
 
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
@@ -2509,6 +2518,7 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
 {
   CORBA_Environment ev;
   Accessibility_DeviceEvent key_event;
+  gboolean ret;
 
   g_assert (event->type == KeyPress || event->type == KeyRelease);
 
@@ -2520,7 +2530,9 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
     spi_controller_update_key_grabs (controller, &key_event);
 
   /* relay to listeners, and decide whether to consume it or not */
-  return spi_controller_notify_keylisteners (controller, &key_event, CORBA_TRUE, &ev);
+  ret = spi_controller_notify_keylisteners (controller, &key_event, CORBA_TRUE, &ev);
+  CORBA_free(key_event.event_string);
+  return ret;
 }
 
 SpiDEController *

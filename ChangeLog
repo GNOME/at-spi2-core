@@ -1,5 +1,24 @@
 2006-11-07  Bill Haneman <bill.haneman@sun.com>
 
+	Patches from Padraig O'Briain for bugs #361386 and #369377.
+	
+	* registryd/registry.c:
+	(struct NotifyContext): Change the e_out
+	member from an Accessibility_Event struct to a pointer to 
+	struct.
+	(notify_listeners_cb): Modify to use the new struct definition above.
+	Allows use of ORBit_copy_value instead of CORBA_any__copy.
+
+	* registryd/deviceeventcontroller.c:
+	(spi_dec_button_update_and_emit): Free the event's any_data
+	after emission.
+	(spi_dec_mouse_check):Free the event details any struct
+	after emission.
+	(spi_device_event_controller_forward_mouse_event): Free any.
+	(spi_device_event_controller_forward_key_event): Ditto.
+	
+2006-11-07  Bill Haneman <bill.haneman@sun.com>
+
 	* configure.in: Uprev/release 1.7.13 for gnome 2.17.2.
 	Don't require gtk+ and gail for building most of at-spi
 	including libspi.

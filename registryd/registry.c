@@ -602,7 +602,7 @@ typedef struct {
   CORBA_Environment  *ev;
   Bonobo_Unknown      source;
   EventTypeStruct     etype;
-  Accessibility_Event e_out;
+  Accessibility_Event *e_out;
 } NotifyContext;
 
 static SpiReEntrantContinue
@@ -634,12 +634,12 @@ notify_listeners_cb (GList * const *list, gpointer user_data)
 	}
 #endif
       
-      ctx->e_out.source = ctx->source;
+      ctx->e_out->source = ctx->source;
       
       if ((*list) && (*list)->data == ls)
         {
           Accessibility_EventListener_notifyEvent (
-            (Accessibility_EventListener) ls->listener, &ctx->e_out, ctx->ev);
+            (Accessibility_EventListener) ls->listener, ctx->e_out, ctx->ev);
           if (ctx->ev->_major != CORBA_NO_EXCEPTION)
             {
               DBG (1, g_warning ("Accessibility app error: exception during "
@@ -679,11 +679,7 @@ registry_clone_notify_context (NotifyContext *ctx)
   new_ctx->etype.major = ctx->etype.major;
   new_ctx->etype.minor = ctx->etype.minor;
   new_ctx->etype.detail = ctx->etype.detail;
-  new_ctx->e_out.type = CORBA_string_dup (ctx->e_out.type);
-  new_ctx->e_out.source = ctx->e_out.source;
-  new_ctx->e_out.detail1 = ctx->e_out.detail1;
-  new_ctx->e_out.detail2 = ctx->e_out.detail2;
-  CORBA_any__copy (&(new_ctx->e_out.any_data), &(ctx->e_out.any_data));
+  new_ctx->e_out = ORBit_copy_value (ctx->e_out, TC_Accessibility_Event);
   return new_ctx;
 }
 
@@ -717,9 +713,7 @@ registry_flush_event_queue (SpiRegistry       *registry,
       bonobo_object_release_unref (q_ctx->source, NULL);
     }
     CORBA_free ((void *)q_ctx->etype.event_name);
-    CORBA_free ((void *)q_ctx->e_out.type);
-    if (q_ctx->e_out.any_data._type != TC_null) 
-	CORBA_free ((void *)q_ctx->e_out.any_data._value);
+    CORBA_free (q_ctx->e_out);
     g_free (q_ctx);
   }
   registry->is_queueing = FALSE;
@@ -834,25 +828,20 @@ registry_defer_on_event (SpiRegistry *registry, NotifyContext *ctx)
 static gboolean
 registry_queue_event (SpiRegistry *registry, NotifyContext *ctx)
 {
-  NotifyContext *q_ctx = registry_clone_notify_context (ctx);
 #ifdef SPI_QUEUE_DEBUG
-    if (q_ctx->etype.type_cat != ETYPE_MOUSE)
-      fprintf (stderr, "push! %s %p\n", q_ctx->etype.event_name, q_ctx);
+    if (ctx->etype.type_cat != ETYPE_MOUSE)
+      fprintf (stderr, "push! %s %p\n", ctx->etype.event_name, ctx);
 #endif    
   if (registry->is_queueing)
     {
+      NotifyContext *q_ctx = registry_clone_notify_context (ctx);
+
       g_queue_push_head (registry->deferred_event_queue, q_ctx);
 
       return FALSE;
     }
   else
     {
-      bonobo_object_release_unref (q_ctx->source, NULL);
-      CORBA_free ((void *)q_ctx->etype.event_name);
-      CORBA_free ((void *)q_ctx->e_out.type);
-      if (q_ctx->e_out.any_data._type != TC_null) 
-	  CORBA_free ((void *)q_ctx->e_out.any_data._value);
-      g_free (q_ctx);
       return TRUE; 
     }
 }
@@ -917,7 +906,7 @@ impl_registry_notify_event (PortableServer_Servant     servant,
   parse_event_type (&ctx.etype, e->type);
 
   ctx.ev = ev;
-  ctx.e_out = *e;
+  ctx.e_out = (Accessibility_Event *)e;
   ctx.source = e->source;
 
 #ifdef SPI_QUEUE_DEBUG
