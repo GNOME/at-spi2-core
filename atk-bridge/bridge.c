@@ -23,6 +23,8 @@
 
 #include "config.h"
 
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -72,7 +74,7 @@ static guint atk_signal_link_selected;
 static guint atk_signal_bounds_changed;
 
 static Accessibility_Registry spi_atk_bridge_get_registry (void);
-static void     spi_atk_bridge_do_registration         (void);
+static gboolean spi_atk_bridge_do_registration         (void);
 static void     spi_atk_bridge_toplevel_added          (AtkObject             *object,
                                                         guint                 index,
                                                         AtkObject             *child);
@@ -83,6 +85,7 @@ static void     spi_atk_bridge_toplevel_removed        (AtkObject             *o
 static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
+static gchar   *spi_atk_bridge_get_registry_ior        (void);
 static void     spi_atk_bridge_register_application    (Accessibility_Registry registry);
 static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 							guint                  n_param_values,
@@ -172,6 +175,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
 {
   const char *debug_env_string = g_getenv ("AT_SPI_DEBUG");
   gchar *fname;
+  gboolean success = FALSE;
 
   if (atk_bridge_initialized)
     {
@@ -219,16 +223,22 @@ atk_bridge_init (gint *argc, gchar **argv[])
     }
   else
     {
-      spi_atk_bridge_do_registration ();
+      success = spi_atk_bridge_do_registration ();
     }
-  spi_atk_register_event_listeners ();
-  spi_atk_bridge_init_event_type_consts ();
- 
+  if (success) 
+    {
+      spi_atk_register_event_listeners ();
+      spi_atk_bridge_init_event_type_consts ();
+    }
+  else
+    {
+      atk_bridge_initialized = FALSE;
+    }
   return 0;
 }
 
 
-static void
+static gboolean
 spi_atk_bridge_do_registration (void)
 {
   CORBA_Environment ev;
@@ -238,6 +248,7 @@ spi_atk_bridge_do_registration (void)
   if (spi_atk_bridge_get_registry () == CORBA_OBJECT_NIL)
     {
       g_error ("Could not locate registry");
+      return FALSE;
     }
 
   bonobo_activate ();
@@ -253,7 +264,7 @@ spi_atk_bridge_do_registration (void)
   g_atexit (spi_atk_bridge_exit_func);
 
   DBG (1, g_message ("Application registered & listening\n"));
-
+  return TRUE;
 }
 
 static void
@@ -332,10 +343,41 @@ spi_display_name (void)
     return canonical_display_name;
 }
 
+static     Display *bridge_display = NULL;
+
+static gchar *
+spi_atk_bridge_get_registry_ior (void)
+{
+     
+     Atom AT_SPI_IOR;
+     Atom actual_type;
+     int actual_format;
+     unsigned char *data = NULL;  
+     unsigned long nitems;
+     unsigned long leftover;
+     if (!bridge_display) 
+       bridge_display = XOpenDisplay (spi_display_name ());
+
+     AT_SPI_IOR = XInternAtom (bridge_display, "AT_SPI_IOR", False); 
+     XGetWindowProperty(bridge_display, 
+			XDefaultRootWindow (bridge_display),
+			AT_SPI_IOR, 0L, 
+			(long)BUFSIZ, False, 
+			(Atom) 31, &actual_type, &actual_format,
+			&nitems, &leftover, &data);
+     if (data == NULL)
+	  g_critical (_("AT_SPI_REGISTRY was not started at session startup."));
+     
+     return (gchar *) data;
+     
+}
+
+
 static Accessibility_Registry
 spi_atk_bridge_get_registry (void)
 {
   CORBA_Environment ev;
+  char *ior =  NULL;
 
   if (registry_died || (registry == CORBA_OBJECT_NIL)) {
 	  CORBA_exception_init (&ev);
@@ -346,10 +388,17 @@ spi_atk_bridge_get_registry (void)
               else
 	        DBG (1, g_warning ("registry died! restarting..."));
             }
-	  bonobo_activation_set_activation_env_value ("AT_SPI_DISPLAY", spi_display_name ());
 
-	  registry = bonobo_activation_activate_from_id (
-		  "OAFIID:Accessibility_Registry:1.0", 0, NULL, &ev);
+	  /* XXX: This presumes that the registry has successfully restarted itself already...*/
+	  ior = (char *) spi_atk_bridge_get_registry_ior ();
+
+	  if (ior != NULL)
+	       registry = CORBA_ORB_string_to_object (bonobo_activation_orb_get (), 
+						      ior, &ev);
+	  else {
+	       g_warning ("IOR not set.");  
+	       registry = CORBA_OBJECT_NIL;
+	  }
 	  
 	  if (ev._major != CORBA_NO_EXCEPTION)
 	  {
@@ -555,6 +604,8 @@ spi_atk_bridge_exit_func (void)
     {
       g_assert (!bonobo_debug_shutdown ());
     }
+  if (bridge_display)
+    XCloseDisplay (bridge_display);
 }
 
 void
@@ -588,14 +639,16 @@ gnome_accessibility_module_shutdown (void)
     }
 
   listener_ids = NULL;
-  atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
+  if (atk_bridge_focus_tracker_id)
+        atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
   
   for (i = 0; ids && i < ids->len; i++)
   {
           atk_remove_global_event_listener (g_array_index (ids, guint, i));
   }
   
-  atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
+  if (atk_bridge_key_event_listener_id)
+          atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
 
   deregister_application (app);
 }

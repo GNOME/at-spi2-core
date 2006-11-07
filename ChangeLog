@@ -1,3 +1,25 @@
+2006-11-07  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Uprev/release 1.7.13 for gnome 2.17.2.
+	Don't require gtk+ and gail for building most of at-spi
+	including libspi.
+
+	* registryd/registry-main.c: 
+	(main): Call registry_set_ior.
+	(registry_set_ior): New, puts the registry's stringified IOR
+	on the root property as an XAtom, for discovery by all interested
+	X clients.  See bug #163132.
+
+	* registryd/registry.h: Remove unneeded #include of gdk.
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_get_registry_ior): New, use this to 
+	obtain the registry's IOR instead of using bonobo-activation.
+
+2006-10-01  Bill Haneman <bill.haneman@sun.com>
+
+	* configure.in: Uprev/release 1.7.12 for gnome 2.16.1.
+
 2006-09-25  Bill Haneman <bill.haneman@sun.com>
 
 	* registryd/registry.c:
