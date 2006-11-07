@@ -4,17 +4,20 @@
 	Don't require gtk+ and gail for building most of at-spi
 	including libspi.
 
-	* registryd/registry-main.c: 
-	(main): Call registry_set_ior.
-	(registry_set_ior): New, puts the registry's stringified IOR
-	on the root property as an XAtom, for discovery by all interested
-	X clients.  See bug #163132.
+	* registryd/registry-main.c (main): We now get te value of display
+	using the env var DISPLAY rather than using the gdk_display_get_default
+	to avoid dependancy of gdk. Also, once the registry is started, we set 
+	the ior of the registry as an X property.
+	(registry_set_ior): Set ior as the AT_SPI_IOR Root window property.
 
-	* registryd/registry.h: Remove unneeded #include of gdk.
-
-	* atk-bridge/bridge.c:
-	(spi_atk_bridge_get_registry_ior): New, use this to 
-	obtain the registry's IOR instead of using bonobo-activation.
+	* atk-bridge/bridge.c (atk_bridge_init): We keep track whether 
+	the registration was successfull.
+	(spi_atk_bridge_do_registration): This function now returns success 
+	or not on activating the registry. 
+	(spi_atk_bridge_get_registry_ior): Look whether the AT_SPI_IOR property
+	has been set in the X root window and return it if available.
+	(spi_atk_bridge_get_registry): We now get the registry using the IOR 
+	saved as  a X property rather than using the OAFID. 
 
 2006-10-01  Bill Haneman <bill.haneman@sun.com>
 
