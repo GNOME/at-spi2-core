@@ -6,19 +6,20 @@
 # Copyright (C) 2003 THE atk.HEAD.ar'S COPYRIGHT HOLDER
 # Arafat Medini <lumina@silverpen.de>, 2003.
 # Arafat Medini <kinryu@silverpen.de>, 2004.
-#
+# Djihed Afifi <djihed@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-23 07:06+0200\n"
-"PO-Revision-Date: 2006-10-06 12:17-0000\n"
+"PO-Revision-Date: 2006-11-12 03:05+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
-"Language-Team:  <en@li.org>\n"
+"Language-Team: Arabeyes <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Arabic\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -358,47 +359,38 @@ msgid "embedded component"
 msgstr "مكوّن مضمّن"
 
 #: ../atk/atkobject.c:159
-#, fuzzy
 msgid "entry"
-msgstr "إدخال مباشر"
+msgstr "خانة"
 
 #: ../atk/atkobject.c:160
-#, fuzzy
 msgid "chart"
-msgstr "تنبيه"
+msgstr "شكل"
 
 #: ../atk/atkobject.c:161
-#, fuzzy
 msgid "caption"
-msgstr "نعقيب الجدول"
+msgstr "عنوان"
 
 #: ../atk/atkobject.c:162
-#, fuzzy
 msgid "document frame"
-msgstr "معدل الإطارات"
+msgstr "إطار المستند"
 
 #: ../atk/atkobject.c:163
-#, fuzzy
 msgid "heading"
 msgstr "ترويس"
 
 #: ../atk/atkobject.c:164
-#, fuzzy
 msgid "page"
-msgstr "الصّفحة %d من %d"
+msgstr "صفحة"
 
 #: ../atk/atkobject.c:165
-#, fuzzy
 msgid "section"
-msgstr "الفصل 2"
+msgstr "فصل"
 
 #: ../atk/atkobject.c:166
-#, fuzzy
 msgid "redundant object"
-msgstr "مميّز الجسم (%s)"
+msgstr "جسم فائض"
 
 #: ../atk/atkobject.c:167
-#, fuzzy
 msgid "form"
 msgstr "استمارة"
 
