@@ -1,20 +1,21 @@
 # Përkthimi i mesazheve të atk në shqip
-# Copyright (C) 2002, 2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2004, 2005, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
-# Deep_Dark <epidamus@netscape.net>, 2003.
-# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005.
 #
+# Deep_Dark <epidamus@netscape.net>, 2003.
+# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD\n"
+"Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-19 05:28+0100\n"
-"PO-Revision-Date: 2005-11-19 12:16+0100\n"
+"POT-Creation-Date: 2006-11-24 20:52+0100\n"
+"PO-Revision-Date: 2006-08-28 08:41+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
-"Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
+"Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -22,15 +23,15 @@ msgstr "Lidhja e zgjedhur"
 
 #: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr "Specifikon zgjedhjen e objektit AtkHyperlink"
+msgstr "Specifikon nëse është zgjedhur objekti AtkHyperlink"
 
 #: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "Numri i pikave të lidhjes"
+msgstr "Numri i lidhjeve"
 
 #: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "Numri i pikave të lidhjes shoqëruar me objektin AtkHyperlink"
+msgstr "Numri i spirancave shoqëruar me objektin AtkHyperlink"
 
 #: ../atk/atkhyperlink.c:119
 msgid "End index"
@@ -50,7 +51,7 @@ msgstr "Fillimi i treguesit të objektit AtkHyperlink"
 
 #: ../atk/atkobject.c:82
 msgid "invalid"
-msgstr "i pavlefshëm"
+msgstr "I pavlefshëm"
 
 #: ../atk/atkobject.c:83
 msgid "accelerator label"
@@ -70,11 +71,11 @@ msgstr "shigjetë"
 
 #: ../atk/atkobject.c:87
 msgid "calendar"
-msgstr "kalendari"
+msgstr "kalendar"
 
 #: ../atk/atkobject.c:88
 msgid "canvas"
-msgstr "sipërfaqja e punës"
+msgstr "pëlhurë (canvas)"
 
 #: ../atk/atkobject.c:89
 msgid "check box"
@@ -98,11 +99,11 @@ msgstr "kuti e kombinuar"
 
 #: ../atk/atkobject.c:94
 msgid "dateeditor"
-msgstr "ndryshuesi datës"
+msgstr "ndryshues date"
 
 #: ../atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "ikonë desktop-i"
+msgstr "ikonë për desktop"
 
 #: ../atk/atkobject.c:96
 msgid "desktop frame"
@@ -110,7 +111,7 @@ msgstr "kornizë desktop-i"
 
 #: ../atk/atkobject.c:97
 msgid "dial"
-msgstr "telefonim"
+msgstr "telefonatë"
 
 #: ../atk/atkobject.c:98
 msgid "dialog"
@@ -135,11 +136,11 @@ msgstr "mbushës"
 #. I know it looks wrong but that is what Java returns
 #: ../atk/atkobject.c:104
 msgid "fontchooser"
-msgstr "zgjedhësi i gërmave"
+msgstr "zgjedhës gërmash"
 
 #: ../atk/atkobject.c:105
 msgid "frame"
-msgstr "korniza"
+msgstr "kornizë"
 
 #: ../atk/atkobject.c:106
 msgid "glass pane"
@@ -163,15 +164,15 @@ msgstr "kornizë e brendshme"
 
 #: ../atk/atkobject.c:111
 msgid "label"
-msgstr "etiketa"
+msgstr "etiketë"
 
 #: ../atk/atkobject.c:112
 msgid "layered pane"
-msgstr "panel tre dimensional"
+msgstr "panel me nivele"
 
 #: ../atk/atkobject.c:113
 msgid "list"
-msgstr "lista"
+msgstr "listë"
 
 #: ../atk/atkobject.c:114
 msgid "list item"
@@ -179,11 +180,11 @@ msgstr "element liste"
 
 #: ../atk/atkobject.c:115
 msgid "menu"
-msgstr "menuja"
+msgstr "menu"
 
 #: ../atk/atkobject.c:116
 msgid "menu bar"
-msgstr "shtylla e menusë"
+msgstr "shtyllë menuje"
 
 #: ../atk/atkobject.c:117
 msgid "menu item"
@@ -191,23 +192,23 @@ msgstr "element menuje"
 
 #: ../atk/atkobject.c:118
 msgid "option pane"
-msgstr "paneli i opcioneve"
+msgstr "panel opsionesh"
 
 #: ../atk/atkobject.c:119
 msgid "page tab"
-msgstr "skeda e faqes"
+msgstr "skedë"
 
 #: ../atk/atkobject.c:120
 msgid "page tab list"
-msgstr "lista e skedave të faqes"
+msgstr "listë skedash"
 
 #: ../atk/atkobject.c:121
 msgid "panel"
-msgstr "paneli"
+msgstr "panel"
 
 #: ../atk/atkobject.c:122
 msgid "password text"
-msgstr "teksti i fjalëkalimit"
+msgstr "tekst fjalëkalimi"
 
 #: ../atk/atkobject.c:123
 msgid "popup menu"
@@ -215,23 +216,23 @@ msgstr "menu e shpalosëshme"
 
 #: ../atk/atkobject.c:124
 msgid "progress bar"
-msgstr "shtylla e ecurisë"
+msgstr "shtyllë ecurie"
 
 #: ../atk/atkobject.c:125
 msgid "push button"
-msgstr "pulsant shtypjeje"
+msgstr "pulsant"
 
 #: ../atk/atkobject.c:126
 msgid "radio button"
-msgstr "buton radio"
+msgstr "pulsant radio"
 
 #: ../atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "element i menusë radio"
+msgstr "element menuje radio"
 
 #: ../atk/atkobject.c:128
 msgid "root pane"
-msgstr "paneli kryesor"
+msgstr "panel bazë"
 
 #: ../atk/atkobject.c:129
 msgid "row header"
@@ -239,31 +240,31 @@ msgstr "kreu i rreshtit"
 
 #: ../atk/atkobject.c:130
 msgid "scroll bar"
-msgstr "shtylla rrëshkitjes"
+msgstr "shtyllë rrëshkitje"
 
 #: ../atk/atkobject.c:131
 msgid "scroll pane"
-msgstr "paneli rrëshkitjes"
+msgstr "panel me rrëshkitje"
 
 #: ../atk/atkobject.c:132
 msgid "separator"
-msgstr "veçues"
+msgstr "ndarës"
 
 #: ../atk/atkobject.c:133
 msgid "slider"
-msgstr "rrëshkitës"
+msgstr "kontrollues me rrëshkitje"
 
 #: ../atk/atkobject.c:134
 msgid "split pane"
-msgstr "panel i shkëputshëm"
+msgstr "panel i ndarë"
 
 #: ../atk/atkobject.c:135
 msgid "spin button"
-msgstr "pulsanti shtyrës"
+msgstr "kontrollues zgjedhjës"
 
 #: ../atk/atkobject.c:136
 msgid "statusbar"
-msgstr "shtylla e gjëndjes"
+msgstr "shtyllë gjëndjeje"
 
 #: ../atk/atkobject.c:137
 msgid "table"
@@ -275,15 +276,15 @@ msgstr "qeli tabele"
 
 #: ../atk/atkobject.c:139
 msgid "table column header"
-msgstr "kreu i kollonës së tabelës"
+msgstr "kreu kollone tabele"
 
 #: ../atk/atkobject.c:140
 msgid "table row header"
-msgstr "kreu i rreshtit të tabelës"
+msgstr "kreu rresht tabele"
 
 #: ../atk/atkobject.c:141
 msgid "tear off menu item"
-msgstr "shkëput elementin e menusë"
+msgstr "element i shkëputshëm menuje"
 
 #: ../atk/atkobject.c:142
 msgid "terminal"
@@ -295,23 +296,23 @@ msgstr "tekst"
 
 #: ../atk/atkobject.c:144
 msgid "toggle button"
-msgstr "pulsant kthimi"
+msgstr "pulsant shkëmbimi"
 
 #: ../atk/atkobject.c:145
 msgid "tool bar"
-msgstr "shtylla e veglave"
+msgstr "shtyllë veglash"
 
 #: ../atk/atkobject.c:146
 msgid "tool tip"
-msgstr "instruksione"
+msgstr "propozim"
 
 #: ../atk/atkobject.c:147
 msgid "tree"
-msgstr "degëzimi"
+msgstr "degëzim"
 
 #: ../atk/atkobject.c:148
 msgid "tree table"
-msgstr "tabela e degëzimit"
+msgstr "tabelë e degëzuar"
 
 #: ../atk/atkobject.c:149
 msgid "unknown"
@@ -319,7 +320,7 @@ msgstr "nuk njihet"
 
 #: ../atk/atkobject.c:150
 msgid "viewport"
-msgstr "pikëvështrimi"
+msgstr "zonë e dukshme"
 
 #: ../atk/atkobject.c:151
 msgid "window"
@@ -339,7 +340,7 @@ msgstr "paragraf"
 
 #: ../atk/atkobject.c:155
 msgid "application"
-msgstr "aplikativi"
+msgstr "aplikativ"
 
 #: ../atk/atkobject.c:156
 msgid "autocomplete"
@@ -347,19 +348,19 @@ msgstr "plotësim automatik"
 
 #: ../atk/atkobject.c:157
 msgid "edit bar"
-msgstr "shtylla e ndryshimit"
+msgstr "shtyllë ndryshimi"
 
 #: ../atk/atkobject.c:158
 msgid "embedded component"
-msgstr "komponent i përfshirë"
+msgstr "komponent i trupëzuar"
 
 #: ../atk/atkobject.c:159
 msgid "entry"
-msgstr "zë"
+msgstr "fushë shtimi"
 
 #: ../atk/atkobject.c:160
 msgid "chart"
-msgstr "tabelë"
+msgstr "diagramë"
 
 #: ../atk/atkobject.c:161
 msgid "caption"
@@ -367,7 +368,7 @@ msgstr "titull"
 
 #: ../atk/atkobject.c:162
 msgid "document frame"
-msgstr "struktura e dokumentit"
+msgstr "kornizë dokumenti"
 
 #: ../atk/atkobject.c:163
 msgid "heading"
@@ -383,134 +384,141 @@ msgstr "seksion"
 
 #: ../atk/atkobject.c:166
 msgid "redundant object"
-msgstr "objekt i tepërt"
+msgstr "objekt i përsëritur"
 
-#: ../atk/atkobject.c:345
+#: ../atk/atkobject.c:167
+msgid "form"
+msgstr "formular"
+
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
-msgstr "Emër i thjeshtuar"
+msgstr "Emër i përshtatshëm"
 
-#: ../atk/atkobject.c:346
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
-"emri i instancës së objektit i formatuar për të qenë i pranueshëm nga "
-"teknollogjitë asistuese"
+"Emri i instancës së objektit i formatuar për hyrje me anë të teknollogjisë "
+"asistuese"
 
-#: ../atk/atkobject.c:352
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
-msgstr "Përshkrim i thjeshtë"
+msgstr "Përshkrim i përshtatshëm"
 
-#: ../atk/atkobject.c:353
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
-"Përshkrimi i një objekti, formatuar për të qenë i pranueshëm nga "
-"teknollogjitë asistuese"
+"Përshkrimi i një objekti, formatuar për hyrje me anë të teknollogjisë "
+"asistuese"
 
-#: ../atk/atkobject.c:359
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
-msgstr "Prind i thjeshtuar"
+msgstr "Prind i përshtatshëm"
 
-#: ../atk/atkobject.c:360
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
-msgstr "Përdoret për të njoftuar ndryshimet e prindit"
+msgstr "Përdoret për të njoftuar që prindi është ndryshuar"
 
-#: ../atk/atkobject.c:366
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
-msgstr "Vlerë e thjeshtuar"
+msgstr "Vlerë e përshtatshme"
 
-#: ../atk/atkobject.c:367
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
-msgstr "Përdoret për të njoftuar kur vlera ndryshon"
+msgstr "Përdoret për të njoftuar që vlera është ndryshuar"
 
-#: ../atk/atkobject.c:375
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
-msgstr "Rol i thjeshtuar"
+msgstr "Rol i përshtatshëm"
 
-#: ../atk/atkobject.c:376
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
-msgstr "Roli i thjeshtuar i këtij objekti"
+msgstr "Roli i përshtatshëm i këtij objekti"
 
-#: ../atk/atkobject.c:384
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
-msgstr "Paraqitje e thjeshtuar"
+msgstr "Nivel i përshtatshëm"
 
-#: ../atk/atkobject.c:385
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
-msgstr "Paraqitja e thjeshtuar e këtij objekti"
+msgstr "Niveli i përshtatshëm i këtij objekti"
 
-#: ../atk/atkobject.c:393
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
-msgstr "Vlera MDI e thjeshtuar"
+msgstr "Vlerë MDI e përshtatshme"
 
-#: ../atk/atkobject.c:394
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
-msgstr "Vlera e thjeshtuar MDI e këtij objekti"
+msgstr "Vlera e përshtatshme MDI e këtij objekti"
 
-#: ../atk/atkobject.c:402
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
-msgstr "Seksion i thjeshtuar tabele"
+msgstr "Titull i përshtatshëm tabele"
 
-#: ../atk/atkobject.c:403
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"Përdoret për të njoftuar kur seksioni i tabelës është ndryshuar; kjo pronësi "
-"nuk duhet përdorur. Në vend të saj duhet përdorur accessible-table-caption-"
-"object"
+"Përdoret për të njoftuar që përshkrimi i tabelës është ndryshuar; kjo "
+"pronësi nuk duhet përdorur. Në vend të saj duhet përdorur accessible-table-"
+"caption-object"
 
-#: ../atk/atkobject.c:409
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
-msgstr "Titulli i thjeshtuar i kollonës së tabelës"
+msgstr "Titulli i përshtatshëm i kollonës së tabelës"
 
-#: ../atk/atkobject.c:410
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
-msgstr "Përdoret për të njoftuar kur titulli i kollonës së tabelës ndryshohet"
+msgstr ""
+"Përdoret për të njoftuar që titulli i kollonës së tabelës është ndryshuar"
 
-#: ../atk/atkobject.c:416
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
-msgstr "Përshkrim i thjeshtuar i kollonës së tabelës"
+msgstr "Përshkrim i përshtatshëm i kollonës së tabelës"
 
-#: ../atk/atkobject.c:417
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "Përdoret për të njoftuar kur përshkrimi i kollonës së tabelës ndryshohet"
+msgstr ""
+"Përdoret për të njoftuar që përshkrimi i kollonës së tabelës është ndryshuar"
 
-#: ../atk/atkobject.c:423
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
-msgstr "Titulli i thjeshtuar i rreshtit të tabelës"
+msgstr "Titulli i përshtatshëm i rreshtit të tabelës"
 
-#: ../atk/atkobject.c:424
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
-msgstr "Përdoret për të njoftuar kur titulli i rreshtit të tabelës ndryshohet"
+msgstr ""
+"Përdoret për të njoftuar që titulli i rreshtit të tabelës është ndryshuar"
 
-#: ../atk/atkobject.c:430
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
-msgstr "Përshkrim i thjeshtuar i rreshtit të tabelës"
+msgstr "Përshkrim i përshtatshëm i rreshtit të tabelës"
 
-#: ../atk/atkobject.c:431
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
-msgstr "Përdoret për të njoftuar kur përshkrimi i rreshtit të tabelës ndryshohet"
+msgstr ""
+"Përdoret për të njoftuar që përshkrimi i rreshtit të tabelës është ndryshuar"
 
-#: ../atk/atkobject.c:437
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
-msgstr "Përmbledhje e thjeshtuar e tabelës"
+msgstr "Përmbledhje e përshtatshme e tabelës"
 
-#: ../atk/atkobject.c:438
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
-msgstr "Përdoret për të njoftuar kur përmbledhja e tabelës ka ndryshuar"
+msgstr "Përdoret për të njoftuar që përmbledhja e tabelës është ndryshuar"
 
-#: ../atk/atkobject.c:444
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
-msgstr "Objekt i thjeshtuar i titullit të tabelës"
+msgstr "Objekt titulli i përshtatshëm tabele"
 
-#: ../atk/atkobject.c:445
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
-msgstr "Përdoret për të njoftuar kur titulli i tabelës ka ndryshuar"
+msgstr "Përdoret për të njoftuar që titulli i tabelës është ndryshuar"
 
-#: ../atk/atkobject.c:451
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
-msgstr "Numri i lidhjeve të thjeshta hypertext"
+msgstr "Numër lidhjesh të përshtatshme në hypertext"
 
-#: ../atk/atkobject.c:452
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numri i lidhjeve që ka AtkHypertext-i aktual"
-
