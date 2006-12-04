@@ -366,10 +366,17 @@ module Accessibility {
    */
   ROLE_REDUNDANT_OBJECT,
   /**
-   * The object is a containing instance of document content which constitutes
-   * a particular 'logical' section of the document.  The type of content within
-   * a section, and the nature of the section division itself, may be obtained
-   * by querying the object's attributes.  Sections may be nested.
+   * The object is a containing instance of document content which
+   * has within it components with which the user can interact in order to
+   * input information; i.e. the object is a container for pushbuttons,
+   * comboboxes, text input fields, and other 'GUI' components.
+   * ROLE_FORM should not, in general, be used for toplevel GUI containers
+   * or dialogs, but should be reserved for 'GUI' containers which occur within
+   * document content, for instance within Web documents, presentations, or 
+   * text documents.  Unlike other GUI containers and dialogs which occur inside
+   * application instances, ROLE_FORM containers' components are associated with
+   * the current document, rather than the current foreground application or
+   * viewer instance.
    *
    * @since AT-SPI 1.7.6
    */

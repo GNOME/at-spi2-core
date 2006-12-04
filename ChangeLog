@@ -1,4 +1,9 @@
 2006-12-04  Bill Haneman <bill.haneman@sun.com>
+
+	* idl/Accessibility_Role.idl: Fixed the documentation for
+	ROLE_FORM; bug #382271.  Thanks to George Kraft for finding this.
+	
+2006-12-04  Bill Haneman <bill.haneman@sun.com>
 	
 	* Added Li Yuan <li.yuan@sun.com> to MAINTAINERS.
 
