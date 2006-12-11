@@ -551,6 +551,7 @@ impl_getAttributeRun (PortableServer_Servant servant,
 					       &intstart_offset, &intend_offset);
 
      if (attributes) total_attributes = n_attributes = g_slist_length (attributes);
+
      if (includeDefaults)
      {
 	 default_attributes = atk_text_get_default_attributes (text);
@@ -562,13 +563,13 @@ impl_getAttributeRun (PortableServer_Servant servant,
      *startOffset = intstart_offset;
      *endOffset = intend_offset; 
 
+     retval = CORBA_sequence_CORBA_string__alloc ();
+     retval->_length = retval->_maximum = total_attributes;
+     retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (total_attributes);
+     CORBA_sequence_set_release (retval, CORBA_TRUE);
+
      if (total_attributes)
-     {
-	 retval = CORBA_sequence_CORBA_string__alloc ();
-	 retval->_length = retval->_maximum = total_attributes;
-	 retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (total_attributes);
-	 CORBA_sequence_set_release (retval, CORBA_TRUE);
-	 
+     {	 
 	 for (i = 0; i < n_attributes; ++i)
 	 {
 	     attr = g_slist_nth_data (attributes, i);

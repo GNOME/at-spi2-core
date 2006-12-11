@@ -1,3 +1,10 @@
+2006-12-11 Bill Haneman <bill.haneman@sun.com>
+
+	* libspi/text.c:
+	(impl_getAttributeRun):Return an empty CORBA_seq instead of NULL,
+	if there are no non-default attributes defined at the current offset.
+	Fixes bug #372172.
+
 2006-12-04  Bill Haneman <bill.haneman@sun.com>
 
 	* idl/Accessibility_Role.idl: Fixed the documentation for
