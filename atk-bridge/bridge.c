@@ -247,7 +247,7 @@ spi_atk_bridge_do_registration (void)
 
   if (spi_atk_bridge_get_registry () == CORBA_OBJECT_NIL)
     {
-      g_error ("Could not locate registry");
+      g_warning ("Could not locate registry");
       return FALSE;
     }
 
@@ -366,7 +366,7 @@ spi_atk_bridge_get_registry_ior (void)
 			(Atom) 31, &actual_type, &actual_format,
 			&nitems, &leftover, &data);
      if (data == NULL)
-	  g_critical (_("AT_SPI_REGISTRY was not started at session startup."));
+	  g_warning (_("AT_SPI_REGISTRY was not started at session startup."));
      
      return (gchar *) data;
      

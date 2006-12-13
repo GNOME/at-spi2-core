@@ -1,3 +1,10 @@
+2006-12-13  Li Yuan <li.yuan@sun.com>
+
+	Patch from Ariel Rios to fix #163132 and #377079.
+	* atk-bridge/bridge.c: (spi_atk_bridge_do_registration),
+	(spi_atk_bridge_get_registry_ior):
+	Use g_warning instead of g_error and g_critical to avoid crash.
+
 2006-12-11 Bill Haneman <bill.haneman@sun.com>
 
 	* libspi/text.c:
