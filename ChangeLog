@@ -1,3 +1,11 @@
+2006-12-14  Li Yuan  <li.yuan@sun.com>
+
+	Fix for #352444
+	* atk-bridge/bridge.c: (spi_atk_emit_eventv),
+	(spi_atk_bridge_property_event_listener),
+	(spi_atk_bridge_signal_listener):
+	Free some CORBA objects to fix memory leak and crash.
+
 2006-12-13  Li Yuan <li.yuan@sun.com>
 
 	Patch from Ariel Rios to fix #163132 and #377079.

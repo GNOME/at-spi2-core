@@ -763,6 +763,8 @@ spi_atk_emit_eventv (const GObject         *gobject,
   g_free (e.type);
 
   if (!any && e.any_data._release) CORBA_free (e.any_data._value);
+
+  if (any && any->_release) CORBA_free (any->_value);
   
   va_end (args);
 
@@ -914,6 +916,8 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   spi_atk_emit_eventv (gobject, 0, 0, &any,
 		       "object:property-change:%s", prop_name);
 
+  if (s_ao) 
+    bonobo_object_unref (BONOBO_OBJECT (s_ao));
 
   return TRUE;
 }
@@ -1155,6 +1159,9 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
   if (sp) 
     g_free (sp);
+
+  if (s_ao)
+     bonobo_object_unref (BONOBO_OBJECT (s_ao));
 
   return TRUE;
 }
