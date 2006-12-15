@@ -1,3 +1,12 @@
+What's new in at-spi-1.7.14:
+
+* We now get te value of display using the env var DISPLAY rather than
+  using the gdk_display_get_default to avoid dependancy of gdk. Also, 
+  once the registry is started, we set the ior of the registry as 
+  an X property.
+
+* Bugfixes: #361386, #369377, #382271, #372172, #163132, #377079, #352444
+
 What's new in at-spi-1.7.12:
 
 * Modified parameter names in some IDL to avoid class name collisions
