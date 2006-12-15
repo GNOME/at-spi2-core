@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-22 08:56+0700\n"
+"POT-Creation-Date: 2006-12-15 12:59+0800\n"
 "PO-Revision-Date: 2006-02-11 09:31+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team:  <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -385,126 +385,131 @@ msgstr "หัวข้อ"
 msgid "redundant object"
 msgstr "ออบเจกต์ส่วนเกิน"
 
-#: atk/atkobject.c:345
+#: atk/atkobject.c:167
+#, fuzzy
+msgid "form"
+msgstr "กรอบ"
+
+#: atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "ชื่อที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:346
+#: atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "ชื่ออินสแตนซ์ของออบเจกต์ ซึ่งจัดรูปแบบไว้สำหรับใช้กับเทคโนโลยีอำนวยการใช้งาน"
 
-#: atk/atkobject.c:352
+#: atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "คำอธิบายที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:353
+#: atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "คำอธิบายของออบเจกต์ ซึ่งจัดรูปแบบไว้สำหรับใช้กับเทคโนโลยีอำนวยการใช้งาน"
 
-#: atk/atkobject.c:359
+#: atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "ออบเจกต์แม่ที่เข้าถึงได้"
 
-#: atk/atkobject.c:360
+#: atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "ใช้สำหรับแจ้งให้ทราบเมื่อออบเจกต์แม่มีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:366
+#: atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "ค่าที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:367
+#: atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "ใช้เพื่อแจ้งให้ทราบเมื่อค่ามีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:375
+#: atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "บทบาทที่เข้าถึงได้"
 
-#: atk/atkobject.c:376
+#: atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "บทบาทที่เข้าถึงได้ของออบเจกต์นี้"
 
-#: atk/atkobject.c:384
+#: atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr ""
 
-#: atk/atkobject.c:385
+#: atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr ""
 
-#: atk/atkobject.c:393
+#: atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "ค่า MDI ที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:394
+#: atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "ค่า MDI ที่สามารถเข้าถึงได้ของวัตถุนี้"
 
-#: atk/atkobject.c:402
+#: atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "ป้ายบรรยายตารางที่เข้าถึงได้"
 
-#: atk/atkobject.c:403
+#: atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
-msgstr "ใช้แจ้งให้ทราบเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง ไม่ควรใช้ช่องข้อมูลนี้ "
-"แต่ควรใช้ accessible-table-caption-object แทน"
+msgstr ""
+"ใช้แจ้งให้ทราบเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง ไม่ควรใช้ช่องข้อมูลนี้ แต่ควรใช้ accessible-"
+"table-caption-object แทน"
 
-#: atk/atkobject.c:409
+#: atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "หัวคอลัมน์ของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:410
+#: atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อหัวคอลัมน์ของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:416
+#: atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "คำอธิบายคอลัมน์ของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:417
+#: atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อคำอธิบายคอลัมน์ของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:423
+#: atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "หัวแถวของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:424
+#: atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อหัวแถวของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:430
+#: atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "คำอธิบายแถวของตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:431
+#: atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "ใช้เพื่อที่จะเตือนเมื่อคำอธิบายแถวของตารางมีการเปลี่ยนแปลงไป"
 
-#: atk/atkobject.c:437
+#: atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "คำสรุปตารางที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:438
+#: atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "ใช้แจ้งให้ทราบเมื่อคำสรุปตารางมีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:444
+#: atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "ออบเจกต์ป้ายบรรยายตารางที่เข้าถึงได้"
 
-#: atk/atkobject.c:445
+#: atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "ใช้แจ้งให้ทราบเมื่อป้ายบรรยายตารางมีการเปลี่ยนแปลง"
 
-#: atk/atkobject.c:451
+#: atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "จำนวนของ Hypertext Links ที่สามารถเข้าถึงได้"
 
-#: atk/atkobject.c:452
+#: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "จำนวนของลิงก์ที่ AtkHypertext ปัจจุบันมี"
-

@@ -2,11 +2,11 @@
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # Paul Duffy <dubhthach@frink.nuigalway.ie>, 2003.
 #
-
 msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
-"POT-Creation-Date: 2003-06-05 19:23+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-15 12:59+0800\n"
 "PO-Revision-Date: 2003-06-05 19:30+0100\n"
 "Last-Translator: Paul Duffy <dubhthach@frink.nuigalway.ie>\n"
 "Language-Team: Irish\n"
@@ -14,298 +14,515 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: atk/atkobject.c:1242
+#: atk/atkhyperlink.c:103
+msgid "Selected Link"
+msgstr ""
+
+#: atk/atkhyperlink.c:104
+msgid "Specifies whether the AtkHyperlink object is selected"
+msgstr ""
+
+#: atk/atkhyperlink.c:110
+msgid "Number of Anchors"
+msgstr ""
+
+#: atk/atkhyperlink.c:111
+msgid "The number of anchors associated with the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkhyperlink.c:119
+msgid "End index"
+msgstr ""
+
+#: atk/atkhyperlink.c:120
+msgid "The end index of the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkhyperlink.c:128
+msgid "Start index"
+msgstr ""
+
+#: atk/atkhyperlink.c:129
+msgid "The start index of the AtkHyperlink object"
+msgstr ""
+
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "easlán"
 
-#: atk/atkobject.c:1245
-msgid "accel-label"
+#: atk/atkobject.c:83
+#, fuzzy
+msgid "accelerator label"
 msgstr "lipéad-accel"
 
-#: atk/atkobject.c:1248
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "airdeallach"
 
-#: atk/atkobject.c:1251
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "beochan"
 
-#: atk/atkobject.c:1254
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "saighead"
 
-#: atk/atkobject.c:1257
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "féilire"
 
-#: atk/atkobject.c:1260
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "canbhás"
 
-#: atk/atkobject.c:1263
-msgid "check-box"
+#: atk/atkobject.c:89
+#, fuzzy
+msgid "check box"
 msgstr "bosca-seiceáil"
 
-#: atk/atkobject.c:1266
-msgid "check-menu-item"
+#: atk/atkobject.c:90
+msgid "check menu item"
 msgstr ""
 
-#: atk/atkobject.c:1269
-msgid "color-chooser"
+#: atk/atkobject.c:91
+msgid "color chooser"
 msgstr ""
 
-#: atk/atkobject.c:1272
-msgid "column-header"
+#: atk/atkobject.c:92
+msgid "column header"
 msgstr ""
 
-#: atk/atkobject.c:1275
-msgid "combo-box"
+#: atk/atkobject.c:93
+msgid "combo box"
 msgstr ""
 
-#: atk/atkobject.c:1278
-msgid "date-editor"
+#: atk/atkobject.c:94
+msgid "dateeditor"
 msgstr ""
 
-#: atk/atkobject.c:1281
-msgid "desktop-icon"
+#: atk/atkobject.c:95
+#, fuzzy
+msgid "desktop icon"
 msgstr "dealbh as an deasc"
 
-#: atk/atkobject.c:1284
-msgid "desktop-frame"
+#: atk/atkobject.c:96
+#, fuzzy
+msgid "desktop frame"
 msgstr "framá as an deasc"
 
-#: atk/atkobject.c:1287
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "diail"
 
-#: atk/atkobject.c:1290
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "agallamh"
 
-#: atk/atkobject.c:1293
-msgid "directory-pane"
+#: atk/atkobject.c:99
+msgid "directory pane"
 msgstr ""
 
-#: atk/atkobject.c:1296
-msgid "drawing-area"
+#: atk/atkobject.c:100
+msgid "drawing area"
 msgstr ""
 
-#: atk/atkobject.c:1299
-msgid "file-chooser"
+#: atk/atkobject.c:101
+msgid "file chooser"
 msgstr ""
 
-#: atk/atkobject.c:1302
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr ""
 
-#: atk/atkobject.c:1305
-msgid "font-chooser"
+#. I know it looks wrong but that is what Java returns
+#: atk/atkobject.c:104
+msgid "fontchooser"
 msgstr ""
 
-#: atk/atkobject.c:1308
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "framá"
 
-#: atk/atkobject.c:1311
-msgid "glass-pane"
+#: atk/atkobject.c:106
+#, fuzzy
+msgid "glass pane"
 msgstr "gloinefuinneoige"
 
-#: atk/atkobject.c:1314
-msgid "html-container"
+#: atk/atkobject.c:107
+msgid "html container"
 msgstr ""
 
-#: atk/atkobject.c:1317
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "dealbh"
 
-#: atk/atkobject.c:1320
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "íomha"
 
-#: atk/atkobject.c:1323
-msgid "internal-frame"
+#: atk/atkobject.c:110
+msgid "internal frame"
 msgstr ""
 
-#: atk/atkobject.c:1326
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "lipéad"
 
-#: atk/atkobject.c:1329
-msgid "layered-pane"
+#: atk/atkobject.c:112
+msgid "layered pane"
 msgstr ""
 
-#: atk/atkobject.c:1332
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "liosta"
 
-#: atk/atkobject.c:1335
-msgid "list-item"
-msgstr ""
+#: atk/atkobject.c:114
+#, fuzzy
+msgid "list item"
+msgstr "liosta"
 
-#: atk/atkobject.c:1338
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "roghchlár"
 
-#: atk/atkobject.c:1341
-msgid "menu-bar"
+#: atk/atkobject.c:116
+#, fuzzy
+msgid "menu bar"
+msgstr "roghchlár"
+
+#: atk/atkobject.c:117
+#, fuzzy
+msgid "menu item"
+msgstr "roghchlár"
+
+#: atk/atkobject.c:118
+msgid "option pane"
 msgstr ""
 
-#: atk/atkobject.c:1344
-msgid "menu-item"
+#: atk/atkobject.c:119
+msgid "page tab"
 msgstr ""
 
-#: atk/atkobject.c:1347
-msgid "option-pane"
+#: atk/atkobject.c:120
+msgid "page tab list"
 msgstr ""
 
-#: atk/atkobject.c:1350
-msgid "page-tab"
-msgstr ""
-
-#: atk/atkobject.c:1353
-msgid "page-tab-list"
-msgstr ""
-
-#: atk/atkobject.c:1356
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "painéal"
 
-#: atk/atkobject.c:1359
-msgid "password-text"
+#: atk/atkobject.c:122
+#, fuzzy
+msgid "password text"
 msgstr "téasc an passfhocal"
 
-#: atk/atkobject.c:1362
-msgid "popup-menu"
+#: atk/atkobject.c:123
+msgid "popup menu"
 msgstr ""
 
-#: atk/atkobject.c:1365
-msgid "progress-bar"
+#: atk/atkobject.c:124
+msgid "progress bar"
 msgstr ""
 
-#: atk/atkobject.c:1368
-msgid "push-button"
+#: atk/atkobject.c:125
+msgid "push button"
 msgstr ""
 
-#: atk/atkobject.c:1371
-msgid "radio-button"
+#: atk/atkobject.c:126
+msgid "radio button"
 msgstr ""
 
-#: atk/atkobject.c:1374
-msgid "radio-menu-item"
+#: atk/atkobject.c:127
+msgid "radio menu item"
 msgstr ""
 
-#: atk/atkobject.c:1377
-msgid "root-pane"
+#: atk/atkobject.c:128
+msgid "root pane"
 msgstr ""
 
-#: atk/atkobject.c:1380
-msgid "row-header"
+#: atk/atkobject.c:129
+msgid "row header"
 msgstr ""
 
-#: atk/atkobject.c:1383
-msgid "scroll-bar"
+#: atk/atkobject.c:130
+msgid "scroll bar"
 msgstr ""
 
-#: atk/atkobject.c:1386
-msgid "scroll-pane"
+#: atk/atkobject.c:131
+msgid "scroll pane"
 msgstr ""
 
-#: atk/atkobject.c:1389
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "scartóir"
 
-#: atk/atkobject.c:1392
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr ""
 
-#: atk/atkobject.c:1395
-msgid "split-pane"
+#: atk/atkobject.c:134
+msgid "split pane"
 msgstr ""
 
-#: atk/atkobject.c:1398
-msgid "spin-button"
+#: atk/atkobject.c:135
+msgid "spin button"
 msgstr ""
 
-#: atk/atkobject.c:1401
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr ""
 
-#: atk/atkobject.c:1404
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "tábla"
 
-#: atk/atkobject.c:1407
-msgid "table-cell"
+#: atk/atkobject.c:138
+#, fuzzy
+msgid "table cell"
 msgstr "cealla i tábla"
 
-#: atk/atkobject.c:1410
-msgid "table-column-header"
+#: atk/atkobject.c:139
+msgid "table column header"
 msgstr ""
 
-#: atk/atkobject.c:1413
-msgid "table-row-header"
+#: atk/atkobject.c:140
+msgid "table row header"
 msgstr ""
 
-#: atk/atkobject.c:1416
-msgid "tear-off-menu-item"
+#: atk/atkobject.c:141
+msgid "tear off menu item"
 msgstr ""
 
-#: atk/atkobject.c:1419
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "terminéal"
 
-#: atk/atkobject.c:1422
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "téasc"
 
-#: atk/atkobject.c:1425
-msgid "toggle-button"
+#: atk/atkobject.c:144
+msgid "toggle button"
 msgstr ""
 
-#: atk/atkobject.c:1428
-msgid "tool-bar"
+#: atk/atkobject.c:145
+msgid "tool bar"
 msgstr ""
 
-#: atk/atkobject.c:1431
-msgid "tool-tip"
+#: atk/atkobject.c:146
+msgid "tool tip"
 msgstr ""
 
-#: atk/atkobject.c:1434
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "crann"
 
-#: atk/atkobject.c:1437
-msgid "tree-table"
+#: atk/atkobject.c:148
+#, fuzzy
+msgid "tree table"
 msgstr "tábla an crann"
 
-#: atk/atkobject.c:1440
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "gan aithnid"
 
-#: atk/atkobject.c:1443
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr ""
 
-#: atk/atkobject.c:1446
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "fuinneog"
 
-#: atk/atkobject.c:1449
+#: atk/atkobject.c:152
 msgid "header"
 msgstr ""
 
-#: atk/atkobject.c:1452
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr ""
 
-#: atk/atkobject.c:1455
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "paragraf"
 
-#: atk/atkobject.c:1458
-msgid "ruler"
-msgstr "rialóir"
-
-#: atk/atkobject.c:1461
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "feidhmchlár"
+
+#: atk/atkobject.c:156
+msgid "autocomplete"
+msgstr ""
+
+#: atk/atkobject.c:157
+msgid "edit bar"
+msgstr ""
+
+#: atk/atkobject.c:158
+msgid "embedded component"
+msgstr ""
+
+#: atk/atkobject.c:159
+msgid "entry"
+msgstr ""
+
+#: atk/atkobject.c:160
+#, fuzzy
+msgid "chart"
+msgstr "airdeallach"
+
+#: atk/atkobject.c:161
+#, fuzzy
+msgid "caption"
+msgstr "feidhmchlár"
+
+#: atk/atkobject.c:162
+msgid "document frame"
+msgstr ""
+
+#: atk/atkobject.c:163
+msgid "heading"
+msgstr ""
+
+#: atk/atkobject.c:164
+#, fuzzy
+msgid "page"
+msgstr "íomha"
+
+#: atk/atkobject.c:165
+msgid "section"
+msgstr ""
+
+#: atk/atkobject.c:166
+msgid "redundant object"
+msgstr ""
+
+#: atk/atkobject.c:167
+#, fuzzy
+msgid "form"
+msgstr "framá"
+
+#: atk/atkobject.c:356
+msgid "Accessible Name"
+msgstr ""
+
+#: atk/atkobject.c:357
+msgid "Object instance's name formatted for assistive technology access"
+msgstr ""
+
+#: atk/atkobject.c:363
+msgid "Accessible Description"
+msgstr ""
+
+#: atk/atkobject.c:364
+msgid "Description of an object, formatted for assistive technology access"
+msgstr ""
+
+#: atk/atkobject.c:370
+msgid "Accessible Parent"
+msgstr ""
+
+#: atk/atkobject.c:371
+msgid "Is used to notify that the parent has changed"
+msgstr ""
+
+#: atk/atkobject.c:377
+msgid "Accessible Value"
+msgstr ""
+
+#: atk/atkobject.c:378
+msgid "Is used to notify that the value has changed"
+msgstr ""
+
+#: atk/atkobject.c:386
+msgid "Accessible Role"
+msgstr ""
+
+#: atk/atkobject.c:387
+msgid "The accessible role of this object"
+msgstr ""
+
+#: atk/atkobject.c:395
+msgid "Accessible Layer"
+msgstr ""
+
+#: atk/atkobject.c:396
+msgid "The accessible layer of this object"
+msgstr ""
+
+#: atk/atkobject.c:404
+msgid "Accessible MDI Value"
+msgstr ""
+
+#: atk/atkobject.c:405
+msgid "The accessible MDI value of this object"
+msgstr ""
+
+#: atk/atkobject.c:413
+msgid "Accessible Table Caption"
+msgstr ""
+
+#: atk/atkobject.c:414
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+
+#: atk/atkobject.c:420
+msgid "Accessible Table Column Header"
+msgstr ""
+
+#: atk/atkobject.c:421
+msgid "Is used to notify that the table column header has changed"
+msgstr ""
+
+#: atk/atkobject.c:427
+msgid "Accessible Table Column Description"
+msgstr ""
+
+#: atk/atkobject.c:428
+msgid "Is used to notify that the table column description has changed"
+msgstr ""
+
+#: atk/atkobject.c:434
+msgid "Accessible Table Row Header"
+msgstr ""
+
+#: atk/atkobject.c:435
+msgid "Is used to notify that the table row header has changed"
+msgstr ""
+
+#: atk/atkobject.c:441
+msgid "Accessible Table Row Description"
+msgstr ""
+
+#: atk/atkobject.c:442
+msgid "Is used to notify that the table row description has changed"
+msgstr ""
+
+#: atk/atkobject.c:448
+msgid "Accessible Table Summary"
+msgstr ""
+
+#: atk/atkobject.c:449
+msgid "Is used to notify that the table summary has changed"
+msgstr ""
+
+#: atk/atkobject.c:455
+msgid "Accessible Table Caption Object"
+msgstr ""
+
+#: atk/atkobject.c:456
+msgid "Is used to notify that the table caption has changed"
+msgstr ""
+
+#: atk/atkobject.c:462
+msgid "Number of Accessible Hypertext Links"
+msgstr ""
+
+#: atk/atkobject.c:463
+msgid "The number of links which the current AtkHypertext has"
+msgstr ""
+
+#~ msgid "ruler"
+#~ msgstr "rialóir"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.3.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-25 05:29+0200\n"
+"POT-Creation-Date: 2006-12-15 12:59+0800\n"
 "PO-Revision-Date: 2005-11-01 12:39+0300\n"
 "Last-Translator: Albert Fazlí <tatarish.l10n@gmail.com>\n"
 "Language-Team: Tatarish <tatarish.l10n@gmail.com>\n"
@@ -13,460 +13,507 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../atk/atkhyperlink.c:103
+#: atk/atkhyperlink.c:103
 msgid "Selected Link"
 msgstr "Saylanğan Bäy"
 
-#: ../atk/atkhyperlink.c:104
+#: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Saylanğan AtkHyperlink cisem bilgeli"
 
-#: ../atk/atkhyperlink.c:110
+#: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
 msgstr "Irğaq Sanı"
 
-#: ../atk/atkhyperlink.c:111
+#: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink cisem belän kileşterelgän ırğaq sanı"
 
-#: ../atk/atkhyperlink.c:119
+#: atk/atkhyperlink.c:119
 msgid "End index"
 msgstr "Töptezmä azağı"
 
-#: ../atk/atkhyperlink.c:120
+#: atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink cisemeneñ töptezmä azağı"
 
-#: ../atk/atkhyperlink.c:128
+#: atk/atkhyperlink.c:128
 msgid "Start index"
 msgstr "Töptezmä başı"
 
-#: ../atk/atkhyperlink.c:129
+#: atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink cisemeneñ töptezmä başı"
 
-#: ../atk/atkobject.c:82
+#: atk/atkobject.c:82
 msgid "invalid"
 msgstr "yaraqsız"
 
-#: ../atk/atkobject.c:83
+#: atk/atkobject.c:83
 msgid "accelerator label"
 msgstr "tizlätkeç yazması"
 
-#: ../atk/atkobject.c:84
+#: atk/atkobject.c:84
 msgid "alert"
 msgstr "beldergeç"
 
-#: ../atk/atkobject.c:85
+#: atk/atkobject.c:85
 msgid "animation"
 msgstr "canlandıru"
 
-#: ../atk/atkobject.c:86
+#: atk/atkobject.c:86
 msgid "arrow"
 msgstr "uq"
 
-#: ../atk/atkobject.c:87
+#: atk/atkobject.c:87
 msgid "calendar"
 msgstr "täqwim"
 
-#: ../atk/atkobject.c:88
+#: atk/atkobject.c:88
 msgid "canvas"
 msgstr "öslek"
 
-#: ../atk/atkobject.c:89
+#: atk/atkobject.c:89
 msgid "check box"
 msgstr "tamğalı qır"
 
-#: ../atk/atkobject.c:90
+#: atk/atkobject.c:90
 msgid "check menu item"
 msgstr "tamğalı saylaq-kerem"
 
-#: ../atk/atkobject.c:91
+#: atk/atkobject.c:91
 msgid "color chooser"
 msgstr "tös saylağıç"
 
-#: ../atk/atkobject.c:92
+#: atk/atkobject.c:92
 msgid "column header"
 msgstr "buy başlığı"
 
-#: ../atk/atkobject.c:93
+#: atk/atkobject.c:93
 msgid "combo box"
 msgstr "atılma tezmä"
 
-#: ../atk/atkobject.c:94
+#: atk/atkobject.c:94
 msgid "dateeditor"
 msgstr "çor-tözätkeç"
 
-#: ../atk/atkobject.c:95
+#: atk/atkobject.c:95
 msgid "desktop icon"
 msgstr "östäl tamğası"
 
-#: ../atk/atkobject.c:96
+#: atk/atkobject.c:96
 msgid "desktop frame"
 msgstr "östäl qısası"
 
-#: ../atk/atkobject.c:97
+#: atk/atkobject.c:97
 msgid "dial"
 msgstr "şaltırat"
 
-#: ../atk/atkobject.c:98
+#: atk/atkobject.c:98
 msgid "dialog"
 msgstr "dialog"
 
-#: ../atk/atkobject.c:99
+#: atk/atkobject.c:99
 msgid "directory pane"
 msgstr "törgäk tiräse"
 
-#: ../atk/atkobject.c:100
+#: atk/atkobject.c:100
 msgid "drawing area"
 msgstr "sızu alanı"
 
-#: ../atk/atkobject.c:101
+#: atk/atkobject.c:101
 msgid "file chooser"
 msgstr "birem saylağıç"
 
-#: ../atk/atkobject.c:102
+#: atk/atkobject.c:102
 msgid "filler"
 msgstr "tutırğıç"
 
 #. I know it looks wrong but that is what Java returns
-#: ../atk/atkobject.c:104
+#: atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "yazu-saylağıç"
 
-#: ../atk/atkobject.c:105
+#: atk/atkobject.c:105
 msgid "frame"
 msgstr "qısa"
 
-#: ../atk/atkobject.c:106
+#: atk/atkobject.c:106
 msgid "glass pane"
 msgstr "pıyalalı tirä"
 
-#: ../atk/atkobject.c:107
+#: atk/atkobject.c:107
 msgid "html container"
 msgstr "html sídırması"
 
-#: ../atk/atkobject.c:108
+#: atk/atkobject.c:108
 msgid "icon"
 msgstr "tamğa"
 
-#: ../atk/atkobject.c:109
+#: atk/atkobject.c:109
 msgid "image"
 msgstr "sürät"
 
-#: ../atk/atkobject.c:110
+#: atk/atkobject.c:110
 msgid "internal frame"
 msgstr "eçke qısa"
 
-#: ../atk/atkobject.c:111
+#: atk/atkobject.c:111
 msgid "label"
 msgstr "yazma"
 
-#: ../atk/atkobject.c:112
+#: atk/atkobject.c:112
 msgid "layered pane"
 msgstr "qatlanğan tirä"
 
-#: ../atk/atkobject.c:113
+#: atk/atkobject.c:113
 msgid "list"
 msgstr "tezmä"
 
-#: ../atk/atkobject.c:114
+#: atk/atkobject.c:114
 msgid "list item"
 msgstr "tezmä kereme"
 
-#: ../atk/atkobject.c:115
+#: atk/atkobject.c:115
 msgid "menu"
 msgstr "saylaq"
 
-#: ../atk/atkobject.c:116
+#: atk/atkobject.c:116
 msgid "menu bar"
 msgstr "saylaq tiräse"
 
-#: ../atk/atkobject.c:117
+#: atk/atkobject.c:117
 msgid "menu item"
 msgstr "saylaq kereme"
 
-#: ../atk/atkobject.c:118
+#: atk/atkobject.c:118
 msgid "option pane"
 msgstr "köylämä tiräse"
 
-#: ../atk/atkobject.c:119
+#: atk/atkobject.c:119
 msgid "page tab"
 msgstr "bit tabı"
 
-#: ../atk/atkobject.c:120
+#: atk/atkobject.c:120
 msgid "page tab list"
 msgstr "bit tabı tezmäse"
 
-#: ../atk/atkobject.c:121
+#: atk/atkobject.c:121
 msgid "panel"
 msgstr "tirä"
 
-#: ../atk/atkobject.c:122
+#: atk/atkobject.c:122
 msgid "password text"
 msgstr "sersüz-yazma"
 
-#: ../atk/atkobject.c:123
+#: atk/atkobject.c:123
 msgid "popup menu"
 msgstr "atılma-saylaq"
 
-#: ../atk/atkobject.c:124
+#: atk/atkobject.c:124
 msgid "progress bar"
 msgstr "alğabarış tiräse"
 
-#: ../atk/atkobject.c:125
+#: atk/atkobject.c:125
 msgid "push button"
 msgstr "basu-töymä"
 
-#: ../atk/atkobject.c:126
+#: atk/atkobject.c:126
 msgid "radio button"
 msgstr "saylaw-töymä"
 
-#: ../atk/atkobject.c:127
+#: atk/atkobject.c:127
 msgid "radio menu item"
 msgstr "saylawlı saylaq-kerem"
 
-#: ../atk/atkobject.c:128
+#: atk/atkobject.c:128
 msgid "root pane"
 msgstr "asıl-tirä"
 
-#: ../atk/atkobject.c:129
+#: atk/atkobject.c:129
 msgid "row header"
 msgstr "yul başlığı"
 
-#: ../atk/atkobject.c:130
+#: atk/atkobject.c:130
 msgid "scroll bar"
 msgstr "çornaw tiräse"
 
-#: ../atk/atkobject.c:131
+#: atk/atkobject.c:131
 msgid "scroll pane"
 msgstr "çornaw tiräse"
 
-#: ../atk/atkobject.c:132
+#: atk/atkobject.c:132
 msgid "separator"
 msgstr "ayırğıç"
 
-#: ../atk/atkobject.c:133
+#: atk/atkobject.c:133
 msgid "slider"
 msgstr "şudırma"
 
-#: ../atk/atkobject.c:134
+#: atk/atkobject.c:134
 msgid "split pane"
 msgstr "bülgeç=tirä"
 
-#: ../atk/atkobject.c:135
+#: atk/atkobject.c:135
 msgid "spin button"
 msgstr "çornaw töymäse"
 
-#: ../atk/atkobject.c:136
+#: atk/atkobject.c:136
 msgid "statusbar"
 msgstr "torıştirä"
 
-#: ../atk/atkobject.c:137
+#: atk/atkobject.c:137
 msgid "table"
 msgstr "cäymä"
 
-#: ../atk/atkobject.c:138
+#: atk/atkobject.c:138
 msgid "table cell"
 msgstr "tüşämä küzänäge"
 
-#: ../atk/atkobject.c:139
+#: atk/atkobject.c:139
 msgid "table column header"
 msgstr "tüşämä buy başlığı"
 
-#: ../atk/atkobject.c:140
+#: atk/atkobject.c:140
 msgid "table row header"
 msgstr "tüşämä yul başlığı"
 
-#: ../atk/atkobject.c:141
+#: atk/atkobject.c:141
 msgid "tear off menu item"
 msgstr "özmäle saylaq-kerem"
 
-#: ../atk/atkobject.c:142
+#: atk/atkobject.c:142
 msgid "terminal"
 msgstr "terminal"
 
-#: ../atk/atkobject.c:143
+#: atk/atkobject.c:143
 msgid "text"
 msgstr "yazma"
 
-#: ../atk/atkobject.c:144
+#: atk/atkobject.c:144
 msgid "toggle button"
 msgstr "tätek-töymä"
 
-#: ../atk/atkobject.c:145
+#: atk/atkobject.c:145
 msgid "tool bar"
 msgstr "qoral-tirä"
 
-#: ../atk/atkobject.c:146
+#: atk/atkobject.c:146
 msgid "tool tip"
 msgstr "qoral-kiñäş"
 
-#: ../atk/atkobject.c:147
+#: atk/atkobject.c:147
 msgid "tree"
 msgstr "ağaç"
 
-#: ../atk/atkobject.c:148
+#: atk/atkobject.c:148
 msgid "tree table"
 msgstr "ağaçlı tüşämä"
 
-#: ../atk/atkobject.c:149
+#: atk/atkobject.c:149
 msgid "unknown"
 msgstr "bilgesez"
 
-#: ../atk/atkobject.c:150
+#: atk/atkobject.c:150
 msgid "viewport"
 msgstr "kürsäsü tiräse"
 
-#: ../atk/atkobject.c:151
+#: atk/atkobject.c:151
 msgid "window"
 msgstr "täräzä"
 
-#: ../atk/atkobject.c:152
+#: atk/atkobject.c:152
 msgid "header"
 msgstr "başlıq"
 
-#: ../atk/atkobject.c:153
+#: atk/atkobject.c:153
 msgid "footer"
 msgstr "astlıq"
 
-#: ../atk/atkobject.c:154
+#: atk/atkobject.c:154
 msgid "paragraph"
 msgstr "paragraf"
 
-#: ../atk/atkobject.c:155
+#: atk/atkobject.c:155
 msgid "application"
 msgstr "yazılım"
 
-#: ../atk/atkobject.c:156
+#: atk/atkobject.c:156
 msgid "autocomplete"
 msgstr "üzennän tutıru"
 
-#: ../atk/atkobject.c:157
+#: atk/atkobject.c:157
 msgid "edit bar"
 msgstr "üzgärtü tiräse"
 
-#: ../atk/atkobject.c:158
+#: atk/atkobject.c:158
 msgid "embedded component"
 msgstr "símalı komponent"
 
-#: ../atk/atkobject.c:337
+#: atk/atkobject.c:159
+msgid "entry"
+msgstr ""
+
+#: atk/atkobject.c:160
+#, fuzzy
+msgid "chart"
+msgstr "beldergeç"
+
+#: atk/atkobject.c:161
+#, fuzzy
+msgid "caption"
+msgstr "yazılım"
+
+#: atk/atkobject.c:162
+#, fuzzy
+msgid "document frame"
+msgstr "östäl qısası"
+
+#: atk/atkobject.c:163
+#, fuzzy
+msgid "heading"
+msgstr "başlıq"
+
+#: atk/atkobject.c:164
+#, fuzzy
+msgid "page"
+msgstr "sürät"
+
+#: atk/atkobject.c:165
+msgid "section"
+msgstr ""
+
+#: atk/atkobject.c:166
+msgid "redundant object"
+msgstr ""
+
+#: atk/atkobject.c:167
+#, fuzzy
+msgid "form"
+msgstr "qısa"
+
+#: atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "İreşmäle Atama"
 
-#: ../atk/atkobject.c:338
+#: atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Cisem aşırmasınıñ adı"
 
-#: ../atk/atkobject.c:344
+#: atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "İreşmäle Açıqlama"
 
-#: ../atk/atkobject.c:345
+#: atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Cisem açıqlaması"
 
-#: ../atk/atkobject.c:351
+#: atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "İreşmäle Ana"
 
-#: ../atk/atkobject.c:352
+#: atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "Ana-cisem üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:358
+#: atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "İreşmäle Bäyä"
 
-#: ../atk/atkobject.c:359
+#: atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "Bäyä üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:367
+#: atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "İreşmäle Çağılış"
 
-#: ../atk/atkobject.c:368
+#: atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "Bu cisemneñ ireşmäle çağılışı bu"
 
-#: ../atk/atkobject.c:376
+#: atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "İreşmäle Qat"
 
-#: ../atk/atkobject.c:377
+#: atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "Bu cisemneñ ireşmäle qatı bu"
 
-#: ../atk/atkobject.c:385
+#: atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "İreşmäle MDI-Bäyä"
 
-#: ../atk/atkobject.c:386
+#: atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "Bu cisemneñ ireşmäle MDI-bäyäse bu"
 
-#: ../atk/atkobject.c:394
+#: atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "İreşmäle Tüşämä Başlığı"
 
-#: ../atk/atkobject.c:395
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr "Tüşämä başlığı üzgärelgän buluı turında belderü öçen qullanıla; bu üzençälek urınına accessible-table-caption-object qullanılğan bulırğa tieş."
+#: atk/atkobject.c:414
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Tüşämä başlığı üzgärelgän buluı turında belderü öçen qullanıla; bu üzençälek "
+"urınına accessible-table-caption-object qullanılğan bulırğa tieş."
 
-#: ../atk/atkobject.c:401
+#: atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "İreşmäle Tüşämä Buy Başlığı"
 
-#: ../atk/atkobject.c:402
+#: atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "Tüşämä bayınıñ başlığı üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:408
+#: atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "İreşmäle Tüşämä Buy Açıqlaması"
 
-#: ../atk/atkobject.c:409
+#: atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "Tüşämä buyınıñ açıqlaması üzgärelgän buluı turında belderü öçen qullanıla"
+msgstr ""
+"Tüşämä buyınıñ açıqlaması üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:415
+#: atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "İreşmäle Tüşämä Yul Başlığı"
 
-#: ../atk/atkobject.c:416
+#: atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "Tüşämä yulınıñ başlığı üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:422
+#: atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "İreşmäle Tüşämä Yul Açıqlaması"
 
-#: ../atk/atkobject.c:423
+#: atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
-msgstr "Tüşämä yulınıñ açıqlaması üzgärelgän buluı turında belderü öçen qullanıla"
+msgstr ""
+"Tüşämä yulınıñ açıqlaması üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:429
+#: atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "İreşmäle Tüşämä Yomğağı"
 
-#: ../atk/atkobject.c:430
+#: atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "Tüşämä yomğağı üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:436
+#: atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "İreşmäle Tüşämä Başlıq Ciseme"
 
-#: ../atk/atkobject.c:437
+#: atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "Tüşämä başlığı üzgärelgän buluı turında belderü öçen qullanıla"
 
-#: ../atk/atkobject.c:443
+#: atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "Tereyazmağa İreşmäle Bäy Sanı"
 
-#: ../atk/atkobject.c:444
+#: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Ağımdağı AtkHypertext taba bäylär sanı bu"
-
