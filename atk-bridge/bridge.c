@@ -1256,15 +1256,16 @@ spi_atk_tidy_windows (void)
       stateset = atk_object_ref_state_set (child);
       
       name = atk_object_get_name (child);
-      spi_atk_bridge_init_string (&any, child, (gchar**) &name);
       if (atk_state_set_contains_state (stateset, ATK_STATE_ACTIVE))
         {
+          spi_atk_bridge_init_string (&any, child, (gchar**) &name);
           spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:deactivate");
           if (registry_died)
             return;
         }
       g_object_unref (stateset);
 
+      spi_atk_bridge_init_string (&any, child, (gchar**) &name);
       spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:destroy");
       g_object_unref (child);
     }
