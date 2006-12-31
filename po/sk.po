@@ -6,7 +6,7 @@
 # Stanislav Visnovsky <visnovsky@kde.org>, 2003, 2004.
 # Marcel Telka <marcel@telka.sk>, 2005, 2006.
 #
-# $Id$
+# $Id: sk.po,v 1.8 2006/12/15 05:17:55 liyuan Exp $
 #
 msgid ""
 msgstr ""
