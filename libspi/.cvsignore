@@ -1,9 +1,0 @@
-.deps
-.libs
-Makefile.in
-Makefile
-*-common.c
-*-skels.c
-*-stubs.c
-*-imodule.c
-Accessibility.h

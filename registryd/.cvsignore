@@ -1,7 +1,0 @@
-.deps
-.libs
-Makefile
-Makefile.in
-Accessibility_Registry.server
-Accessibility_Registry.server.in
-at-spi-registryd
