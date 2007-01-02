@@ -578,7 +578,7 @@ impl_getAttributeRun (PortableServer_Servant servant,
 	 
 	 for (j = 0; j < n_default_attributes; ++i, ++j)
 	 {
-	     attr = g_slist_nth_data (default_attributes, i);
+	     attr = g_slist_nth_data (default_attributes, j);
 	     retval->_buffer[i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
 	 }
 	 
