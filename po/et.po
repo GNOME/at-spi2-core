@@ -2,517 +2,521 @@
 # Estonian translation of Atk.
 #
 # Copyright (C) 1999, 2003, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2007, The GNOME Project.
 # This file is distributed under the same license as the atk package.
 #
-# Priit Laes <amd@tt.ee>, 2003.
+# Priit Laes <amd@store20.com>, 2003, 2007
 # Ivar Smolin <okul@linux.ee>, 2005, 2006.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-15 12:59+0800\n"
-"PO-Revision-Date: 2006-11-01 09:51+0200\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
+"POT-Creation-Date: 2007-01-02 03:25+0000\n"
+"PO-Revision-Date: 2007-01-07 09:51+0200\n"
+"Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
 msgstr "Valitud viit"
 
-#: atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "Määrab, milline AtkHyperlink on valitud"
 
-#: atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
 msgstr "Ankrute arv"
 
-#: atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "AtkHyperlink objektiga seotud ankrute arv"
 
-#: atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:119
 msgid "End index"
 msgstr "Lõpuindeks"
 
-#: atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
 msgstr "AtkHyperlink objekti lõpuindeks"
 
-#: atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:128
 msgid "Start index"
 msgstr "Algusindeks"
 
-#: atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
 msgstr "AtkHyperlink objekti algusindeks"
 
-#: atk/atkobject.c:82
+#: ../atk/atkobject.c:82
 msgid "invalid"
 msgstr "vigane"
 
-#: atk/atkobject.c:83
+#: ../atk/atkobject.c:83
 msgid "accelerator label"
 msgstr "kiirendi märk"
 
-#: atk/atkobject.c:84
+#: ../atk/atkobject.c:84
 msgid "alert"
 msgstr "häire"
 
-#: atk/atkobject.c:85
+#: ../atk/atkobject.c:85
 msgid "animation"
 msgstr "animatsioon"
 
-#: atk/atkobject.c:86
+#: ../atk/atkobject.c:86
 msgid "arrow"
 msgstr "nool"
 
-#: atk/atkobject.c:87
+#: ../atk/atkobject.c:87
 msgid "calendar"
 msgstr "kalender"
 
-#: atk/atkobject.c:88
+#: ../atk/atkobject.c:88
 msgid "canvas"
 msgstr "lõuend"
 
-#: atk/atkobject.c:89
+#: ../atk/atkobject.c:89
 msgid "check box"
 msgstr "märkeruut"
 
-#: atk/atkobject.c:90
+#: ../atk/atkobject.c:90
 msgid "check menu item"
 msgstr "märgitav menüükirje"
 
-#: atk/atkobject.c:91
+#: ../atk/atkobject.c:91
 msgid "color chooser"
 msgstr "värvivalija"
 
-#: atk/atkobject.c:92
+#: ../atk/atkobject.c:92
 msgid "column header"
 msgstr "veeru päis"
 
-#: atk/atkobject.c:93
+#: ../atk/atkobject.c:93
 msgid "combo box"
 msgstr "valikukast"
 
-#: atk/atkobject.c:94
+#: ../atk/atkobject.c:94
 msgid "dateeditor"
 msgstr "kuupäevaredaktor"
 
-#: atk/atkobject.c:95
+#: ../atk/atkobject.c:95
 msgid "desktop icon"
 msgstr "töölaua ikoon"
 
-#: atk/atkobject.c:96
+#: ../atk/atkobject.c:96
 msgid "desktop frame"
 msgstr "töölaua raam"
 
-#: atk/atkobject.c:97
+#: ../atk/atkobject.c:97
 msgid "dial"
-msgstr ""
+msgstr "häälestusnupp"
 
-#: atk/atkobject.c:98
+#: ../atk/atkobject.c:98
 msgid "dialog"
 msgstr "dialoog"
 
-#: atk/atkobject.c:99
+#: ../atk/atkobject.c:99
 msgid "directory pane"
 msgstr "kataloogipaan"
 
-#: atk/atkobject.c:100
+#: ../atk/atkobject.c:100
 msgid "drawing area"
 msgstr "joonistamise ala"
 
-#: atk/atkobject.c:101
+#: ../atk/atkobject.c:101
 msgid "file chooser"
 msgstr "failivalija"
 
-#: atk/atkobject.c:102
+#: ../atk/atkobject.c:102
 msgid "filler"
 msgstr "täitja"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:104
+#: ../atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "kirjatüübivalija"
 
-#: atk/atkobject.c:105
+#: ../atk/atkobject.c:105
 msgid "frame"
 msgstr "raam"
 
-#: atk/atkobject.c:106
+#: ../atk/atkobject.c:106
 msgid "glass pane"
 msgstr "klaaspaan"
 
-#: atk/atkobject.c:107
+#: ../atk/atkobject.c:107
 msgid "html container"
 msgstr "html konteiner"
 
-#: atk/atkobject.c:108
+#: ../atk/atkobject.c:108
 msgid "icon"
 msgstr "ikoon"
 
-#: atk/atkobject.c:109
+#: ../atk/atkobject.c:109
 msgid "image"
 msgstr "pilt"
 
-#: atk/atkobject.c:110
+#: ../atk/atkobject.c:110
 msgid "internal frame"
 msgstr "sisemine raam"
 
-#: atk/atkobject.c:111
+#: ../atk/atkobject.c:111
 msgid "label"
 msgstr "silt"
 
-#: atk/atkobject.c:112
+#: ../atk/atkobject.c:112
 msgid "layered pane"
 msgstr "kihiline paan"
 
-#: atk/atkobject.c:113
+#: ../atk/atkobject.c:113
 msgid "list"
 msgstr "nimekiri"
 
-#: atk/atkobject.c:114
+#: ../atk/atkobject.c:114
 msgid "list item"
 msgstr "nimekirja element"
 
-#: atk/atkobject.c:115
+#: ../atk/atkobject.c:115
 msgid "menu"
 msgstr "menüü"
 
-#: atk/atkobject.c:116
+#: ../atk/atkobject.c:116
 msgid "menu bar"
 msgstr "menüüriba"
 
-#: atk/atkobject.c:117
+#: ../atk/atkobject.c:117
 msgid "menu item"
 msgstr "menüüelement"
 
-#: atk/atkobject.c:118
+#: ../atk/atkobject.c:118
 msgid "option pane"
 msgstr "valikupaan"
 
-#: atk/atkobject.c:119
+#: ../atk/atkobject.c:119
 msgid "page tab"
 msgstr "leheküljesakk"
 
-#: atk/atkobject.c:120
+#: ../atk/atkobject.c:120
 msgid "page tab list"
 msgstr "leheküljesakkide nimekiri"
 
-#: atk/atkobject.c:121
+#: ../atk/atkobject.c:121
 msgid "panel"
 msgstr "paneel"
 
-#: atk/atkobject.c:122
+#: ../atk/atkobject.c:122
 msgid "password text"
 msgstr "parooli tekst"
 
-#: atk/atkobject.c:123
+#: ../atk/atkobject.c:123
 msgid "popup menu"
 msgstr "hüpikmenüü"
 
-#: atk/atkobject.c:124
+#: ../atk/atkobject.c:124
 msgid "progress bar"
 msgstr "edenemisriba"
 
-#: atk/atkobject.c:125
+#: ../atk/atkobject.c:125
 msgid "push button"
 msgstr "lülitamisnupp"
 
-#: atk/atkobject.c:126
+#: ../atk/atkobject.c:126
 msgid "radio button"
 msgstr "raadionupp"
 
-#: atk/atkobject.c:127
+#: ../atk/atkobject.c:127
 msgid "radio menu item"
 msgstr "raadionupuga menüükirje"
 
-#: atk/atkobject.c:128
+#: ../atk/atkobject.c:128
 msgid "root pane"
 msgstr "põhipaan"
 
-#: atk/atkobject.c:129
+#: ../atk/atkobject.c:129
 msgid "row header"
 msgstr "rea päis"
 
-#: atk/atkobject.c:130
+#: ../atk/atkobject.c:130
 msgid "scroll bar"
 msgstr "kerimisriba"
 
-#: atk/atkobject.c:131
+#: ../atk/atkobject.c:131
 msgid "scroll pane"
 msgstr "kerimispaan"
 
-#: atk/atkobject.c:132
+#: ../atk/atkobject.c:132
 msgid "separator"
 msgstr "eraldaja"
 
-#: atk/atkobject.c:133
+#: ../atk/atkobject.c:133
 msgid "slider"
 msgstr "liugur"
 
-#: atk/atkobject.c:134
+#: ../atk/atkobject.c:134
 msgid "split pane"
 msgstr "poolitamispaan"
 
-#: atk/atkobject.c:135
+#: ../atk/atkobject.c:135
 msgid "spin button"
 msgstr "kerimisnupp"
 
-#: atk/atkobject.c:136
+#: ../atk/atkobject.c:136
 msgid "statusbar"
 msgstr "olekuriba"
 
-#: atk/atkobject.c:137
+#: ../atk/atkobject.c:137
 msgid "table"
 msgstr "tabel"
 
-#: atk/atkobject.c:138
+#: ../atk/atkobject.c:138
 msgid "table cell"
 msgstr "tabeli lahter"
 
-#: atk/atkobject.c:139
+#: ../atk/atkobject.c:139
 msgid "table column header"
 msgstr "tabeli veerupäis"
 
-#: atk/atkobject.c:140
+#: ../atk/atkobject.c:140
 msgid "table row header"
 msgstr "tabeli reapäis"
 
-#: atk/atkobject.c:141
+#: ../atk/atkobject.c:141
 msgid "tear off menu item"
 msgstr "rebi-küljest menüüelement"
 
-#: atk/atkobject.c:142
+#: ../atk/atkobject.c:142
 msgid "terminal"
 msgstr "terminal"
 
-#: atk/atkobject.c:143
+#: ../atk/atkobject.c:143
 msgid "text"
 msgstr "tekst"
 
-#: atk/atkobject.c:144
+#: ../atk/atkobject.c:144
 msgid "toggle button"
-msgstr ""
+msgstr "lülitinupp"
 
-#: atk/atkobject.c:145
+#: ../atk/atkobject.c:145
 msgid "tool bar"
 msgstr "tööriistariba"
 
-#: atk/atkobject.c:146
+#: ../atk/atkobject.c:146
 msgid "tool tip"
 msgstr "tööriistavihje"
 
-#: atk/atkobject.c:147
+#: ../atk/atkobject.c:147
 msgid "tree"
 msgstr "puu"
 
-#: atk/atkobject.c:148
+#: ../atk/atkobject.c:148
 msgid "tree table"
 msgstr "puutabel"
 
-#: atk/atkobject.c:149
+#: ../atk/atkobject.c:149
 msgid "unknown"
 msgstr "tundmatu"
 
-#: atk/atkobject.c:150
+#: ../atk/atkobject.c:150
 msgid "viewport"
 msgstr "vaatepunkt"
 
-#: atk/atkobject.c:151
+#: ../atk/atkobject.c:151
 msgid "window"
 msgstr "aken"
 
-#: atk/atkobject.c:152
+#: ../atk/atkobject.c:152
 msgid "header"
 msgstr "päis"
 
-#: atk/atkobject.c:153
+#: ../atk/atkobject.c:153
 msgid "footer"
 msgstr "jalus"
 
-#: atk/atkobject.c:154
+#: ../atk/atkobject.c:154
 msgid "paragraph"
 msgstr "lõik"
 
-#: atk/atkobject.c:155
+#: ../atk/atkobject.c:155
 msgid "application"
 msgstr "rakendus"
 
-#: atk/atkobject.c:156
+#: ../atk/atkobject.c:156
 msgid "autocomplete"
 msgstr "automaatlõpetus"
 
-#: atk/atkobject.c:157
+#: ../atk/atkobject.c:157
 msgid "edit bar"
 msgstr "redigeerimisriba"
 
-#: atk/atkobject.c:158
+#: ../atk/atkobject.c:158
 msgid "embedded component"
 msgstr "põimitud komponent"
 
-#: atk/atkobject.c:159
+#: ../atk/atkobject.c:159
 msgid "entry"
-msgstr ""
+msgstr "sisestus"
 
-#: atk/atkobject.c:160
+#: ../atk/atkobject.c:160
 msgid "chart"
 msgstr "tabel"
 
-#: atk/atkobject.c:161
+#: ../atk/atkobject.c:161
 msgid "caption"
-msgstr ""
+msgstr "seletus"
 
-#: atk/atkobject.c:162
+#: ../atk/atkobject.c:162
 msgid "document frame"
 msgstr "dokumendi raam"
 
-#: atk/atkobject.c:163
+#: ../atk/atkobject.c:163
 msgid "heading"
 msgstr "päis"
 
-#: atk/atkobject.c:164
+#: ../atk/atkobject.c:164
 msgid "page"
 msgstr "lehekülg"
 
-#: atk/atkobject.c:165
+#: ../atk/atkobject.c:165
 msgid "section"
 msgstr "osa"
 
-#: atk/atkobject.c:166
+#: ../atk/atkobject.c:166
 msgid "redundant object"
-msgstr ""
+msgstr "üleliigne objekt"
 
-#: atk/atkobject.c:167
+#: ../atk/atkobject.c:167
 msgid "form"
 msgstr "vorm"
 
-#: atk/atkobject.c:356
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
-msgstr ""
+msgstr "Kasutatav nimi"
 
-#: atk/atkobject.c:357
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Objekti nimetus vormindatuna abistava tehnikaga kasutamiseks"
 
-#: atk/atkobject.c:363
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
-msgstr ""
+msgstr "Kasutatav kirjeldus"
 
-#: atk/atkobject.c:364
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Objekti kirjeldus vormindatuna abistava tehnikaga kasutamiseks"
 
-#: atk/atkobject.c:370
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
-msgstr ""
+msgstr "Kasutatav vanem"
 
-#: atk/atkobject.c:371
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
-msgstr "Kasutatakse vanema muutumisest teavitamiseks"
+msgstr "Kasutatakse vanema muutustest teavitamiseks"
 
-#: atk/atkobject.c:377
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
-msgstr ""
+msgstr "Kasutatav väärtus"
 
-#: atk/atkobject.c:378
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
-msgstr "Kasutatakse väärtuse muutumisest teavitamiseks"
+msgstr "Kasutatakse väärtuse muutustest teavitamiseks"
 
-#: atk/atkobject.c:386
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
-msgstr ""
+msgstr "Kasutatav roll"
 
-#: atk/atkobject.c:387
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
-msgstr ""
+msgstr "Objekti kasutatav roll"
 
-#: atk/atkobject.c:395
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
-msgstr ""
+msgstr "Kasutatav kiht"
 
-#: atk/atkobject.c:396
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
-msgstr ""
+msgstr "Objekti kasutatav kiht"
 
-#: atk/atkobject.c:404
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "Kasutatav MDI väärtus"
 
-#: atk/atkobject.c:405
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
-msgstr ""
+msgstr "Objekti kasutatav MDI (mitme dokumendi liides) väärtus"
 
-#: atk/atkobject.c:413
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "Kasutatav tabeli seletus"
 
-#: atk/atkobject.c:414
+#: ../atk/atkobject.c:414
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
+"Kasutatakse tabeli seletuuse muutustest teavitamiseks; seda omadust oleks "
+"soovitatav mitte kasutada. Selle asmele võiks kasutada "
+"accessible-table-caption-object omadust"
 
-#: atk/atkobject.c:420
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
-msgstr ""
+msgstr "Kasutatav tabeli veeru päis"
 
-#: atk/atkobject.c:421
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
-msgstr "Kasutatakse kokkuvõtete tabeli veeru päise muudatustest teavitamiseks"
+msgstr "Kasutatakse tabeli veeru päise muutustest teavitamiseks"
 
-#: atk/atkobject.c:427
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "Kasutatav tabeli veeru kirjeldus"
 
-#: atk/atkobject.c:428
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
-"Kasutatakse kokkuvõtete tabeli veeru kirjelduse muudatustest teavitamiseks"
+"Kasutatakse tabeli veeru kirjelduse muutustest teavitamiseks"
 
-#: atk/atkobject.c:434
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
-msgstr ""
+msgstr "Kasutatav tabeli rea päis"
 
-#: atk/atkobject.c:435
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
-msgstr "Kasutatakse kokkuvõtete tabeli rea päise muudatustest teavitamiseks"
+msgstr "Kasutatakse tabeli rea päise muutustest teavitamiseks"
 
-#: atk/atkobject.c:441
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "Kasutatav tabeli rea kirjeldus"
 
-#: atk/atkobject.c:442
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr ""
-"Kasutatakse kokkuvõtete tabeli rea kirjelduse muudatustest teavitamiseks"
+"Kasutatakse tabeli rea kirjelduse muutustest teavitamiseks"
 
-#: atk/atkobject.c:448
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "Kasutatav tabeli kokkuvõte"
 
-#: atk/atkobject.c:449
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
-msgstr "Kasutatakse kokkuvõtete tabeli muudatustest teavitamiseks"
+msgstr "Kasutatakse tabeli kokkuvõtte muutustest teavitamiseks"
 
-#: atk/atkobject.c:455
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "Kasutatav tabeli seletuse objekt"
 
-#: atk/atkobject.c:456
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgstr "Kasutatakse tabeli seletuse muutustest teavitamiseks"
 
-#: atk/atkobject.c:462
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
-msgstr ""
+msgstr "Kasutatavate viitade arv"
 
-#: atk/atkobject.c:463
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Käesoleva AtkHypertext'i viitade arv"
