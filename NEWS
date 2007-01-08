@@ -1,3 +1,7 @@
+What's new in at-spi-1.7.15:
+
+* Bugfixes: #372988, #381670, #387960, #364839.
+
 What's new in at-spi-1.7.14:
 
 * We now get te value of display using the env var DISPLAY rather than
