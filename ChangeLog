@@ -1,3 +1,11 @@
+2007-01-08  Li Yuan  <li.yuan@sun.com>
+
+	* registryd/registry-main.c:
+	(main): set registry ior only when register server successfully.
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_register_application), (spi_atk_emit_eventv):
+	Bug #372988, #381670. Fix memory leak.
+
 2007-01-02  Bill Haneman <billh@gnome.org>
 
 	* libspi/text.c:

@@ -305,6 +305,8 @@ spi_atk_bridge_register_application (Accessibility_Registry registry)
   Accessibility_Registry_registerApplication (spi_atk_bridge_get_registry (),
                                               BONOBO_OBJREF (this_app),
                                               &ev);
+  if (ev._major != CORBA_NO_EXCEPTION)
+    CORBA_exception_free (&ev);
 }
 
 /* 
@@ -738,21 +740,21 @@ spi_atk_emit_eventv (const GObject         *gobject,
 #endif
   CORBA_exception_init (&ev);
   registry = spi_atk_bridge_get_registry ();
-  if (registry_died) {
-      g_free (e.type);
-      return;
-  }  
-  Accessibility_Registry_notifyEvent (registry, 
-				      &e, &ev);
+  if (!registry_died)
+  {
+ 
+    Accessibility_Registry_notifyEvent (registry, 
+                                        &e, &ev);
 #ifdef SPI_BRIDGE_DEBUG
-  if (ev._major != CORBA_NO_EXCEPTION)
-      g_message ("error emitting event %s, (%d) %s",
-		 e.type,
-		 ev._major,
-		 CORBA_exception_id(&ev));
+    if (ev._major != CORBA_NO_EXCEPTION)
+        g_message ("error emitting event %s, (%d) %s",
+                   e.type,
+                   ev._major,
+                   CORBA_exception_id(&ev));
 #endif	      
-  if (BONOBO_EX (&ev)) registry_died = TRUE;
-  
+    if (BONOBO_EX (&ev)) registry_died = TRUE;
+  }
+
   if (source)
       bonobo_object_unref (BONOBO_OBJECT (source));
   else

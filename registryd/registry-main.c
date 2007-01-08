@@ -68,8 +68,6 @@ main (int argc, char **argv)
 	  bonobo_object_corba_objref (bonobo_object (registry)),
 	  NULL);
 
-  registry_set_ior (registry);
-
   if (ret != Bonobo_ACTIVATION_REG_SUCCESS)
     {
 #ifdef AT_SPI_DEBUG
@@ -81,6 +79,7 @@ main (int argc, char **argv)
 #ifdef AT_SPI_DEBUG
       fprintf (stderr, "SpiRegistry Message: SpiRegistry daemon is running.\n");
 #endif
+      registry_set_ior (registry);
       bonobo_main ();
     }
 
