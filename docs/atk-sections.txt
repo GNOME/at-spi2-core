@@ -562,6 +562,23 @@ AtkUtilClass
 </SECTION>
 
 <SECTION>
+<FILE>atkmisc</FILE>
+<TITLE>AtkMisc</TITLE>
+AtkMisc
+atk_misc_threads_enter
+atk_misc_threads_leave
+atk_misc_get_instance
+<SUBSECTION Standard>
+ATK_MISC
+ATK_IS_MISC
+ATK_TYPE_MISC
+ATK_MISC_CLASS
+ATK_IS_MISC_CLASS
+ATK_MISC_GET_CLASS
+AtkMiscClass
+</SECTION>
+
+<SECTION>
 <FILE>atkgobjectaccessible</FILE>
 <TITLE>AtkGObjectAccessible</TITLE>
 AtkGObjectAccessible

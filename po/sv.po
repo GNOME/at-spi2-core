@@ -4,13 +4,13 @@
 # Daniel Nylander <po@danielnylander.se>, 2006.
 # Christian Rose <menthos@menthos.com>, 2002, 2003, 2004, 2005, 2006.
 #
-# $Id$
+# $Id: sv.po,v 1.13 2006/12/15 05:17:55 liyuan Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-15 12:59+0800\n"
+"POT-Creation-Date: 2007-01-08 14:18+0000\n"
 "PO-Revision-Date: 2006-06-14 09:02+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"

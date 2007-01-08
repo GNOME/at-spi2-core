@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ku\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-01 18:47+0100\n"
+"POT-Creation-Date: 2007-01-08 14:18+0000\n"
 "PO-Revision-Date: 2006-12-23 21:49+0100\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -135,6 +135,7 @@ msgstr "bijarkerê pelan"
 msgid "filler"
 msgstr "tijeker"
 
+#. I know it looks wrong but that is what Java returns
 #: atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "hilbijêrê curetîpan"
@@ -397,7 +398,8 @@ msgstr "Navê Gihiştbar"
 
 #: atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
-msgstr "Navê hêmana bireserê, ji bo gihiştina teknolojiya alîkar hate teşekirin"
+msgstr ""
+"Navê hêmana bireserê, ji bo gihiştina teknolojiya alîkar hate teşekirin"
 
 #: atk/atkobject.c:363
 msgid "Accessible Description"
@@ -452,7 +454,9 @@ msgid "Accessible Table Caption"
 msgstr "Sernavê Tabloya ku Gihiştbar"
 
 #: atk/atkobject.c:414
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 
 #: atk/atkobject.c:420
@@ -510,4 +514,3 @@ msgstr "Gihandinda Hejmara Hypertext"
 #: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Hejmara Girêdanan yên di AtkHypertext de hene"
-

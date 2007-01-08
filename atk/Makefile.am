@@ -44,6 +44,7 @@ libatk_1_0_la_SOURCES = 	\
 	atktable.c		\
 	atktext.c		\
 	atkutil.c		\
+	atkmisc.c		\
 	atkvalue.c		\
 	atk-enum-types.c
 
@@ -75,6 +76,7 @@ atk_headers = \
         atktable.h		\
         atktext.h		\
         atkutil.h		\
+        atkmisc.h		\
         atkvalue.h
 
 libatkinclude_HEADERS =		\
