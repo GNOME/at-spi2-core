@@ -17,8 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_UTIL_H__
-#define __ATK_UTIL_H__
+#ifndef __ATK_MISC_H__
+#define __ATK_MISC_H__
 
 #include <glib-object.h>
 

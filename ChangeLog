@@ -1,4 +1,10 @@
-2006-01-08  Bill Haneman <bill.haneman@sun.com>
+2007-01-10  Li Yuan <li.yuan@sun.com>
+
+	* configure.in:
+	* atk/atkmisc.h:
+	Revved to 1.13.1.
+
+2007-01-08  Bill Haneman <bill.haneman@sun.com>
 
 	* configure.in: Revved to 1.13.0, since new API
 	has been added for gnome 2.17.5.  (ATK is
