@@ -34,6 +34,7 @@ OBJECTS = \
 	atkgobjectaccessible.obj \
 	atkhyperlink.obj \
 	atkhypertext.obj \
+	atkmisc.obj \
 	atkimage.obj \
 	atknoopobject.obj \
 	atknoopobjectfactory.obj \
@@ -68,6 +69,7 @@ atk_headers = \
 	atkobject.h \
 	atkobjectfactory.h \
 	atkimage.h \
+	atkmisc.h \
 	atkregistry.h \
 	atkrelation.h \
 	atkrelationset.h \
@@ -88,7 +90,7 @@ GENERATED = atkmarshal.c atkmarshal.h
 
 all : \
 	$(GENERATED) \
-	$(PACKAGE)-$(PKG_VER).dll
+	lib$(PACKAGE)-$(PKG_VER)-0.dll
 
 atkmarshal.h : atkmarshal.list
 	$(GLIB)\gobject\glib-genmarshal --prefix=atk_marshal atkmarshal.list --header >atkmarshal.h
@@ -129,8 +131,8 @@ RESOURCE = $(PACKAGE).res
 $(PACKAGE).lib : $(OBJECTS)
 	lib /out:$(PACKAGE).lib $(OBJECTS)
 
-$(PACKAGE)-$(PKG_VER).dll : $(OBJECTS) $(PACKAGE).def
-	$(CC) $(CFLAGS) -LD -Fe$(PACKAGE)-$(PKG_VER).dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
+lib$(PACKAGE)-$(PKG_VER)-0.dll : $(OBJECTS) $(PACKAGE).def
+	$(CC) $(CFLAGS) -LD -Felib$(PACKAGE)-$(PKG_VER)-0.dll $(OBJECTS) $(PKG_LINK) user32.lib advapi32.lib wsock32.lib $(LDFLAGS) /def:$(PACKAGE).def
 
 $(PACKAGE).exe : $(OBJECTS) $(PACKAGE).def $(PACKAGE).res
 	$(CC) $(CFLAGS) -Fe$(PACKAGE).exe $(PACKAGE).res $(OBJECTS) $(PKG_LINK) \

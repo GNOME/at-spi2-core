@@ -1,3 +1,7 @@
+2007-01-13  Hans Breuer  <hans@breuer.org>
+
+	* atk/makefile.msc : adapt lib name to "auto-standard", add atkmisc
+
 2007-01-10  Li Yuan <li.yuan@sun.com>
 
 	* configure.in:
