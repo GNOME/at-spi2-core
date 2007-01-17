@@ -122,7 +122,20 @@ atk_action_get_description (AtkAction *obj,
  * @action: a #GObject instance that implements AtkActionIface
  * @i: the action index corresponding to the action to be performed 
  *
- * Returns the name of the specified action of the object.
+ * Returns a non-localized string naming the specified action of the 
+ * object. This name is generally not descriptive of the end result 
+ * of the action, but instead names the 'interaction type' which the 
+ * object supports. By convention, the above strings should be used to 
+ * represent the actions which correspond to the common point-and-click 
+ * interaction techniques of the same name: i.e. 
+ * "click", "press", "release", "drag", "drop", "popup", etc.
+ * The "popup" action should be used to pop up a context menu for the 
+ * object, if one exists.
+ *
+ * For technical reasons, some toolkits cannot guarantee that the 
+ * reported action is actually 'bound' to a nontrivial user event;
+ * i.e. the result of some actions via atk_action_do_action() may be
+ * NIL.
  *
  * Returns a name string, or %NULL
  * if @action does not implement this interface.
@@ -175,8 +188,18 @@ atk_action_get_localized_name (AtkAction *obj,
  * @i: the action index corresponding to the action to be performed 
  *
  * Returns a keybinding associated with this action, if one exists.
+ * The returned string is in the format "<a>;<b>;<c>"
+ * (i.e. semicolon-delimited), where <a> is the keybinding which
+ * activates the object if it is presently enabled onscreen, 
+ * <b> corresponds to the keybinding or sequence of keys
+ * which invokes the action even if the relevant element is not
+ * currently posted on screen (for instance, for a menu item it
+ * posts the parent menus before invoking).  The last token in the
+ * above string, if non-empty, represents a keyboard shortcut which
+ * invokes the same action without posting the component or its
+ * enclosing menus or dialogs. 
  *
- * Returns a string representing the keybinding, or %NULL
+ * Returns a string representing the available keybindings, or %NULL
  * if there is no keybinding for this action.
  *
  **/
