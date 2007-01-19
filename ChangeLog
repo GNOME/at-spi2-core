@@ -1,3 +1,10 @@
+2007-01-19  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkmisc.c:
+	(atk_misc_threads_enter), (atk_misc_threads_leave):
+	Bug #329454. Use ATK_MISC_GET_CLASS to get AtkMiscClass
+	to use the overloaded functions. 
+
 2007-01-13  Hans Breuer  <hans@breuer.org>
 
 	* atk/makefile.msc : adapt lib name to "auto-standard", add atkmisc

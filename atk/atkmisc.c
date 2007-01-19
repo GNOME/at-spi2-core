@@ -67,12 +67,11 @@ atk_misc_class_init (AtkMiscClass *klass)
 void
 atk_misc_threads_enter (AtkMisc *misc)
 {
-  AtkMiscClass *klass = g_type_class_ref (ATK_TYPE_MISC);
+  AtkMiscClass *klass = ATK_MISC_GET_CLASS (misc);
   if (klass->threads_enter)
     {
       klass->threads_enter (misc);
     }
-  g_type_class_unref (klass);
 }
 
 /**
@@ -95,12 +94,11 @@ atk_misc_threads_enter (AtkMisc *misc)
 void
 atk_misc_threads_leave (AtkMisc *misc)
 {
-  AtkMiscClass *klass = g_type_class_ref (ATK_TYPE_MISC);
+  AtkMiscClass *klass = ATK_MISC_GET_CLASS (misc);
   if (klass->threads_leave)
     {
       klass->threads_leave (misc);
     }
-  g_type_class_unref (klass);
 }
 
 AtkMisc *atk_misc_instance = NULL;
