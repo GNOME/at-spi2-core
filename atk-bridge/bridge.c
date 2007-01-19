@@ -55,6 +55,7 @@ static gboolean registry_died = FALSE;
 static gboolean atk_listeners_registered = FALSE;
 static gint toplevels = 0;
 static gboolean exiting = FALSE;
+static AtkMisc *misc = NULL;
 
 static guint atk_signal_text_changed;
 static guint atk_signal_children_changed;
@@ -184,6 +185,8 @@ atk_bridge_init (gint *argc, gchar **argv[])
   atk_bridge_initialized = TRUE;
   atk_bridge_pid = getpid ();
 
+  misc = atk_misc_get_instance();
+
   if (g_getenv ("ATK_BRIDGE_REDIRECT_LOG"))
   {
       fname = g_strconcat ("/tmp/", g_get_prgname (), ".at-spi-log", NULL);
@@ -302,9 +305,11 @@ spi_atk_bridge_toplevel_removed (AtkObject *object,
 static void
 spi_atk_bridge_register_application (Accessibility_Registry registry)
 {
+  atk_misc_threads_leave (misc);
   Accessibility_Registry_registerApplication (spi_atk_bridge_get_registry (),
                                               BONOBO_OBJREF (this_app),
                                               &ev);
+  atk_misc_threads_enter (misc);
   if (ev._major != CORBA_NO_EXCEPTION)
     CORBA_exception_free (&ev);
 }
@@ -554,8 +559,10 @@ spi_atk_register_event_listeners (void)
 static void
 deregister_application (BonoboObject *app)
 {
-  Accessibility_Registry registry = spi_atk_bridge_get_registry ();	
+  Accessibility_Registry registry = spi_atk_bridge_get_registry ();
+  atk_misc_threads_leave (misc);
   Accessibility_Registry_deregisterApplication (registry, BONOBO_OBJREF (app), &ev);
+  atk_misc_threads_enter (misc);
 
   device_event_controller = bonobo_object_release_unref (device_event_controller, &ev);
   registry = bonobo_object_release_unref (registry, &ev);
@@ -672,9 +679,12 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   spi_atk_bridge_init_nil (&e.any_data, object);
   if (BONOBO_EX (&ev))
       registry_died = TRUE;
-  else		    
+  else {
+      atk_misc_threads_leave (misc);   
       Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), 
 					  &e, &ev);
+      atk_misc_threads_enter (misc);
+  }
   if (BONOBO_EX (&ev))
     registry_died = TRUE;
 
@@ -742,9 +752,10 @@ spi_atk_emit_eventv (const GObject         *gobject,
   registry = spi_atk_bridge_get_registry ();
   if (!registry_died)
   {
- 
+    atk_misc_threads_leave (misc); 
     Accessibility_Registry_notifyEvent (registry, 
                                         &e, &ev);
+    atk_misc_threads_enter (misc);
 #ifdef SPI_BRIDGE_DEBUG
     if (ev._major != CORBA_NO_EXCEPTION)
         g_message ("error emitting event %s, (%d) %s",

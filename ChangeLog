@@ -1,3 +1,12 @@
+2007-01-19  Li Yuan  <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c:
+	(atk_bridge_init), (spi_atk_bridge_register_application),
+	(deregister_application), (spi_atk_bridge_focus_tracker),
+	(spi_atk_emit_eventv): 
+	Bug #329454. Use atk_misc_threads_enter/atk_misc_threads_leave
+	to prevent deadlock.
+
 2007-01-08  Li Yuan  <li.yuan@sun.com>
 
 	* configure.in, NEWS: Uprev/release 1.7.15 for gnome 2.17.5.
