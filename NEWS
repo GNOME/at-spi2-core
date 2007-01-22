@@ -1,3 +1,7 @@
+What's new in at-spi-1.7.16:
+
+* Bugfixes: #329454, #393010.
+
 What's new in at-spi-1.7.15:
 
 * Bugfixes: #372988, #381670, #387960, #364839.

@@ -1,5 +1,9 @@
 2007-01-22  Li Yuan  <li.yuan@sun.com>
 
+	* configure.in, NEWS: Uprev/release 1.7.16 for gnome 2.18.0 Beta 1.
+
+2007-01-22  Li Yuan  <li.yuan@sun.com>
+
 	* cspi/bonobo/cspi-bonobo.c:
 	(cspi_get_registry_ior), (cspi_init):
 	Bug #393010. Use REGISTRY IOR XAtom to get registryd.
