@@ -1,3 +1,9 @@
+2007-01-22  Li Yuan  <li.yuan@sun.com>
+
+	* cspi/bonobo/cspi-bonobo.c:
+	(cspi_get_registry_ior), (cspi_init):
+	Bug #393010. Use REGISTRY IOR XAtom to get registryd.
+
 2007-01-19  Li Yuan  <li.yuan@sun.com>
 
 	* atk-bridge/bridge.c:

@@ -25,6 +25,8 @@
 #include <string.h>
 #include <libbonobo.h>
 #include "../cspi-lowlevel.h"
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
 
 CORBA_Object
 cspi_dup_ref (CORBA_Object object)
@@ -114,27 +116,53 @@ cspi_display_name (void)
     return canonical_display_name;
 }
 
+static gchar *
+cspi_get_registry_ior (void)
+{
+  Atom AT_SPI_IOR;
+  Atom actual_type;
+  int actual_format;
+  unsigned char *data = NULL;
+  unsigned long nitems;
+  unsigned long leftover;
+  static Display *display = NULL;
+  if (!display)
+    display = XOpenDisplay (cspi_display_name ());
+
+  AT_SPI_IOR = XInternAtom (display, "AT_SPI_IOR", False);
+  XGetWindowProperty(display,
+                     XDefaultRootWindow (display),
+                     AT_SPI_IOR, 0L,
+                     (long)BUFSIZ, False,
+                     (Atom) 31, &actual_type, &actual_format,
+                     &nitems, &leftover, &data);
+  if (data == NULL)
+    g_warning ("AT_SPI_REGISTRY was not started at session startup.");
+
+  return (gchar *) data;
+}
+
 CORBA_Object
 cspi_init (void)
 {
   char *obj_id;
   CORBA_Object registry;
   CORBA_Environment ev;
+  char *ior =  NULL;
 
   if (!bonobo_init (0, NULL))
     {
       g_error ("Could not initialize Bonobo");
     }
 
-  obj_id = "OAFIID:Accessibility_Registry:1.0";
-
   CORBA_exception_init (&ev);
 
-  bonobo_activation_set_activation_env_value ("AT_SPI_DISPLAY", 
-					      cspi_display_name ());
-
-  registry = bonobo_activation_activate_from_id (
-    obj_id, 0, NULL, &ev);
+  ior = (char *) cspi_get_registry_ior ();
+  if (ior != NULL)
+    {
+      registry = CORBA_ORB_string_to_object (bonobo_activation_orb_get (),
+			  			 ior, &ev);
+    }
 
   if (ev._major != CORBA_NO_EXCEPTION)
     {
