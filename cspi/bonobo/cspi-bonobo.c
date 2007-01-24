@@ -145,12 +145,11 @@ cspi_get_registry_ior (void)
 CORBA_Object
 cspi_init (void)
 {
-  char *obj_id;
-  CORBA_Object registry;
+  CORBA_Object registry = NULL;
   CORBA_Environment ev;
   char *ior =  NULL;
 
-  if (!bonobo_init (0, NULL))
+  if (!bonobo_init (NULL, NULL))
     {
       g_error ("Could not initialize Bonobo");
     }

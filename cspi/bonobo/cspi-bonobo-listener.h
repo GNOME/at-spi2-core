@@ -56,6 +56,8 @@ typedef struct {
 } CSpiDeviceListener;
 typedef SpiDeviceListenerClass CSpiDeviceListenerClass;
 
+CORBA_Object
+cspi_device_listener_get_corba (AccessibleDeviceListener *listener);
 GType cspi_device_listener_get_type (void);
 gpointer cspi_device_listener_new (void);
 void cspi_device_listener_add_cb (AccessibleDeviceListener  *al,

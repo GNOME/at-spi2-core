@@ -81,7 +81,7 @@ spi_registry_set_debug (const char *debug_flag_string)
     _dbg = (int) g_ascii_strtod (debug_flag_string, NULL);
 }
 
-SpiListenerStruct *
+static SpiListenerStruct *
 spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment *ev)
 {
   SpiListenerStruct *retval = g_malloc (sizeof (SpiListenerStruct));
@@ -90,7 +90,7 @@ spi_listener_struct_new (Accessibility_EventListener listener, CORBA_Environment
 }
 
 
-void
+static void
 spi_listener_struct_free (SpiListenerStruct *ls, CORBA_Environment *ev)
 {
   bonobo_object_release_unref (ls->listener, ev);

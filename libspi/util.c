@@ -66,7 +66,7 @@ spi_re_entrant_list_delete_link (GList * const *element_ptr)
   next = element->next;
   first_item = (element->prev == NULL);
 
-  g_list_remove_link (NULL, element);
+  element = g_list_remove_link (NULL, element);
 
   for (l = working_list; l; l = l->next)
     {

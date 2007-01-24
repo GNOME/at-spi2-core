@@ -94,7 +94,7 @@ AccessibleHypertext_getLink (AccessibleHypertext *obj,
 {
   AccessibleHyperlink *retval;
 	
-  cspi_return_val_if_fail (obj != NULL, FALSE);
+  cspi_return_val_if_fail (obj != NULL, NULL);
 
   retval = cspi_object_add (
     Accessibility_Hypertext_getLink (CSPI_OBJREF (obj),

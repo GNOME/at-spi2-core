@@ -38,7 +38,7 @@ login_helper_finalize (GObject *object)
   (G_OBJECT_CLASS (bonobo_object_parent_class))->finalize (object);
 }
 
-gboolean
+static gboolean
 login_helper_set_safe (LoginHelper *helper, gboolean safe)
 {
   LoginHelperClass *klass = LOGIN_HELPER_GET_CLASS (helper);
@@ -59,7 +59,7 @@ impl_login_helper_set_safe (PortableServer_Servant servant,
   return login_helper_set_safe (helper, safe);
 }
 
-LoginHelperDeviceReqFlags
+static LoginHelperDeviceReqFlags
 login_helper_get_device_reqs (LoginHelper *helper)
 {
   LoginHelperClass *klass = LOGIN_HELPER_GET_CLASS (helper);
@@ -143,7 +143,7 @@ impl_login_helper_get_device_reqs (PortableServer_Servant servant,
   return list;
 }
 
-Window*
+static Window*
 login_helper_get_raise_windows (LoginHelper *helper)
 {
   LoginHelperClass *klass = LOGIN_HELPER_GET_CLASS (helper);

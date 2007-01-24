@@ -83,7 +83,7 @@ static unsigned int _numlock_physical_mask = Mod2Mask; /* a guess, will be reset
 
 static GQuark spi_dec_private_quark = 0;
 
-int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
+static int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
 typedef enum {
   SPI_DEVICE_TYPE_KBD,
@@ -1236,7 +1236,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
   return GDK_FILTER_CONTINUE;
 }
 
-int
+static int
 _spi_controller_device_error_handler (Display *display, XErrorEvent *error)
 {
   if (error->error_code == BadAccess) 
@@ -1677,7 +1677,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 {
   GList *l, *next;
   gboolean   update_failed = FALSE;
-  KeyCode keycode;
+  KeyCode keycode = 0;
   
   g_return_val_if_fail (controller != NULL, FALSE);
 
@@ -2435,15 +2435,12 @@ spi_device_event_controller_class_init (SpiDEControllerClass *klass)
 }
 
 #ifdef HAVE_XEVIE
-Bool isEvent(dpy,event,arg)
-     Display *dpy;
-     XEvent *event;
-     char *arg;
+static Bool isEvent(Display *dpy, XEvent *event, char *arg)
 {
    return TRUE;
 }
 
-gboolean
+static gboolean
 handle_io (GIOChannel *source,
            GIOCondition condition,
            gpointer data) 

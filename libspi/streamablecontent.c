@@ -24,6 +24,7 @@
 
 #include <config.h>
 #include <stdio.h>
+#include <string.h>
 #include <libspi/accessible.h>
 #include <libspi/component.h>
 #include <libspi/streamablecontent.h>

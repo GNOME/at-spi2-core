@@ -400,7 +400,7 @@ AccessibleStreamableContent_read (AccessibleStreamableContent *obj,
   cached = g_hash_table_lookup (get_streams (), CSPI_OBJREF (obj));
   if (cached)
     {
-      CORBA_long len_read;
+      CORBA_long len_read = 0;
       stream = cached->stream;
       if (stream != CORBA_OBJECT_NIL)
 	{

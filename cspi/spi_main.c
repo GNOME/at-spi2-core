@@ -35,7 +35,7 @@
 
 #undef DEBUG_OBJECTS
 
-static CORBA_Environment ev = { 0 };
+static CORBA_Environment ev = { NULL };
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
 static GHashTable *live_refs = NULL;
 static GQueue *exception_handlers = NULL;
@@ -430,7 +430,7 @@ SPI_event_quit (void)
  *
  **/
 SPIBoolean
-SPI_eventIsReady ()
+SPI_eventIsReady (void)
 {
   return FALSE;
 }

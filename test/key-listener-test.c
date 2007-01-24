@@ -114,7 +114,7 @@ main (int argc, char **argv)
 }
 
 static void
-simple_at_exit ()
+simple_at_exit (void)
 {
   SPI_deregisterAccessibleKeystrokeListener (command_key_listener, SPI_KEYMASK_ALT | SPI_KEYMASK_CONTROL);
   AccessibleKeystrokeListener_unref         (command_key_listener);

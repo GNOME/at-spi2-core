@@ -126,7 +126,7 @@ test_get_raise_windows (LoginHelper *helper)
 
 
 void
-test_set_wm_dock ()
+test_set_wm_dock (void)
 {
   Atom atom_type[1], atom_window_type;
 
@@ -149,7 +149,7 @@ test_set_wm_dock ()
 }
 
 static void
-test_post_window ()
+test_post_window (void)
 {
         mainwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
