@@ -91,7 +91,7 @@ msgstr "vybar koleraŭ"
 
 #: ../atk/atkobject.c:92
 msgid "column header"
-msgstr "šapka słupka"
+msgstr "šapka kalony"
 
 #: ../atk/atkobject.c:93
 msgid "combo box"
@@ -456,19 +456,19 @@ msgstr "Vykarystoŭvajecca, kab paviedamlać pra źmienu zahałoŭka tablicy; za
 
 #: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
-msgstr "Zahałovak słupka tablicy dastupnaści"
+msgstr "Zahałovak kalony tablicy dastupnaści"
 
 #: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
-msgstr "Vykarystoŭvajecca, kab paviedamlać pra źmienu zahałoŭka słupka tablicy"
+msgstr "Vykarystoŭvajecca, kab paviedamlać pra źmienu zahałoŭka kalony tablicy"
 
 #: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
-msgstr "Apisańnie słupka tablicy dastupnaści"
+msgstr "Apisańnie kalony tablicy dastupnaści"
 
 #: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "Vykarystoŭvajecca, kab paviedamlać pra źmienu apisańnia zahałoŭka ŭ słupku tablicy"
+msgstr "Vykarystoŭvajecca, kab paviedamlać pra źmienu apisańnia zahałoŭka ŭ kalonie tablicy"
 
 #: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
