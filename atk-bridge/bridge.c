@@ -223,11 +223,17 @@ atk_bridge_init (gint *argc, gchar **argv[])
                         "children-changed::remove",
                         (GCallback) spi_atk_bridge_toplevel_removed, 
                         NULL);
+      /* in this case we redefine 'success' to mean 'registry is present' */
+      success = (spi_atk_bridge_get_registry () != CORBA_OBJECT_NIL);
     }
   else
     {
       success = spi_atk_bridge_do_registration ();
     }
+  /*
+   * we must emit events even if we are not registered as a
+   * full-fledged app; See bugzilla #400709.
+   */
   if (success) 
     {
       spi_atk_register_event_listeners ();
@@ -660,6 +666,8 @@ gnome_accessibility_module_shutdown (void)
           atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
 
   deregister_application (app);
+
+  misc = NULL;
 }
 
 static void

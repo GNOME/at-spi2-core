@@ -1,3 +1,12 @@
+2007-02-12  Li Yuan  <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c:
+	(atk_bridge_init): bug #400709. we must emit events even if we are not
+	registered as a full-fledged app.
+	(gnome_accessibility_module_shutdown): bug #404592, unset misc when
+	application like openoffice shutdown. They need to unload gtk before
+	the is spi_atk_bridge_exit_func called.
+
 2007-01-22  Li Yuan  <li.yuan@sun.com>
 
 	* configure.in, NEWS: Uprev/release 1.7.16 for gnome 2.18.0 Beta 1.
