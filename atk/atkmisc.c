@@ -67,7 +67,13 @@ atk_misc_class_init (AtkMiscClass *klass)
 void
 atk_misc_threads_enter (AtkMisc *misc)
 {
-  AtkMiscClass *klass = ATK_MISC_GET_CLASS (misc);
+  AtkMiscClass *klass;
+
+  if (misc == NULL)
+    return;
+
+  klass = ATK_MISC_GET_CLASS (misc);
+
   if (klass->threads_enter)
     {
       klass->threads_enter (misc);
@@ -94,7 +100,13 @@ atk_misc_threads_enter (AtkMisc *misc)
 void
 atk_misc_threads_leave (AtkMisc *misc)
 {
-  AtkMiscClass *klass = ATK_MISC_GET_CLASS (misc);
+  AtkMiscClass *klass;
+
+  if (misc == NULL)
+    return;
+
+  klass = ATK_MISC_GET_CLASS (misc);
+
   if (klass->threads_leave)
     {
       klass->threads_leave (misc);
