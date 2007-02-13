@@ -223,7 +223,7 @@ atk_relation_type_for_name (const gchar *name)
  *  #AtkRelation
  *
  * Create a new relation for the specified key and the specified list
- * of targets.
+ * of targets.  See also atk_object_add_relationship().
  *
  * Returns: a pointer to a new #AtkRelation
  **/
@@ -310,7 +310,8 @@ delete_object_while_in_relation (gpointer callback_data,
  * @target: an #AtkObject
  *
  * Adds the specified AtkObject to the target for the relation, if it is
- * not already present.
+ * not already present.  See also atk_object_add_relationship().
+ *
  *
  * Since: ATK 1.9
  **/

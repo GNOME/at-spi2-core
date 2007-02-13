@@ -2,6 +2,9 @@
 
 	* atk/atkstate.h: Clarified documentation for
 	ATK_STATE enumerations.  See bug #398038.
+
+	* atk/atkrelation.c: Point to atk_object_add_relationship, 
+	to clarify and simplify use of AtkRelation.  See bug #367627.
 	
 2007-02-12  Li Yuan  <li.yuan@sun.com>
 
