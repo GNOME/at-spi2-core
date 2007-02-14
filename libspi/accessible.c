@@ -461,8 +461,10 @@ impl_accessibility_accessible_get_attributes (PortableServer_Servant servant,
     
     g_return_val_if_fail (object != NULL, NULL);
     attributes = atk_object_get_attributes (object);
-    
-    bonobo_return_val_if_fail (attributes != NULL, NULL, ev);
+
+    if (attributes == NULL)
+      return NULL;
+
     n_attributes = g_slist_length (attributes);
     
     retval = CORBA_sequence_CORBA_string__alloc ();
