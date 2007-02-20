@@ -3,6 +3,7 @@
 SUBDIRS=atk tests docs po
 
 EXTRA_DIST = 			\
+	MAINTAINERS		\
 	atk-uninstalled.pc.in	\
 	atk.pc.in		\
 	atk.spec.in		\
