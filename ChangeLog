@@ -1,3 +1,37 @@
+2007-02-20  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* Makefile.am: Dist MAINTAINERS.
+
+2007-01-24  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* atk-bridge/bridge.c: (spi_atk_bridge_init_event_type_consts),
+	(atk_bridge_init), (spi_atk_bridge_get_registry),
+	(spi_atk_bridge_exit_func), (spi_atk_bridge_init_base):
+	Fix some compiler warnings and plug a leak. Closes part of
+	bug #375319.
+
+2007-01-24  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* cspi/bonobo/cspi-bonobo-listener.h:
+	* cspi/bonobo/cspi-bonobo.c: (cspi_init):
+	* cspi/spi_hypertext.c: (AccessibleHypertext_getLink):
+	* cspi/spi_main.c: (SPI_eventIsReady):
+	* cspi/spi_streamablecontent.c: (AccessibleStreamableContent_read):
+	* libspi/streamablecontent.c:
+	* libspi/util.c: (spi_re_entrant_list_delete_link):
+	* login-helper/login-helper.c:
+	* registryd/deviceeventcontroller.c:
+	(spi_controller_update_key_grabs), (isEvent):
+	* registryd/registry.c:
+	* test/key-listener-test.c: (simple_at_exit):
+	* test/login-helper-server-test.c: (test_set_wm_dock),
+	(test_post_window):
+	Fix a bunch of warnings from sparse:
+	- ANSIfication of function declarations
+	- NULL vs 0
+	- Add some prototypes
+	- make some stuff static
+
 2007-02-14  Li Yuan  <li.yuan@sun.com>
 
 	* libspi/accessible.c:
