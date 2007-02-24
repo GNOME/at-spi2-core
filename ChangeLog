@@ -1,3 +1,10 @@
+2007-02-25  Tor Lillqvist  <tml@novell.com>
+
+	* atk/atkmisc.h: Fix typo: declare atk_misc_get_type(), not
+	atk_util_get_type().
+
+	* atk/atk.def: Add atkmisc entry points.
+
 2007-02-20  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* Makefile.am: Dist MAINTAINERS.

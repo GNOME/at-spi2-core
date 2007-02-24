@@ -59,7 +59,7 @@ struct _AtkMiscClass
    void   (* threads_leave)                     (AtkMisc *misc);
    gpointer vfuncs[32]; /* future bincompat */
 };
-GType atk_util_get_type (void);
+GType atk_misc_get_type (void);
 
 /*
  * Wrapper for thread lock, i.e. take the thread mutex for the GUI toolkit, 

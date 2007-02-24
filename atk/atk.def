@@ -76,6 +76,10 @@ EXPORTS
 	atk_implementor_ref_accessible
 	atk_key_event_type_get_type
 	atk_layer_get_type
+	atk_misc_get_instance
+	atk_misc_get_type
+	atk_misc_threads_enter
+	atk_misc_threads_leave
 	atk_no_op_object_factory_get_type
 	atk_no_op_object_factory_new
 	atk_no_op_object_get_type
