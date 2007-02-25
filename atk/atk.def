@@ -78,6 +78,7 @@ EXPORTS
 	atk_layer_get_type
 	atk_misc_get_instance
 	atk_misc_get_type
+	atk_misc_instance DATA
 	atk_misc_threads_enter
 	atk_misc_threads_leave
 	atk_no_op_object_factory_get_type
