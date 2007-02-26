@@ -1,6 +1,8 @@
 README
 
-at-spi version 1.17.0
+at-spi version 1.17.1
+
+This version of at-spi requires atk 1.17.0 or later.
 
 *** Welcome to the Gnome Accessibility Project! ***
 

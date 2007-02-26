@@ -1,3 +1,11 @@
+2007-02-26  Li Yuan <li.yuan@sun.com>
+
+	* libspi/accessible.c:
+	(impl_accessibility_accessible_get_attributes),
+	(impl_accessibility_accessible_get_relation_set):
+	Bug #404584 and #401299. Return an empty object instead of return NULL.
+	* configure.in, NEWS: Uprev/release 1.17.1.
+
 2007-02-20  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* Makefile.am: Dist MAINTAINERS.

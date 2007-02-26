@@ -349,7 +349,7 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
 						CORBA_Environment     *ev)
 {
   Accessibility_RelationSet *retval;
-  gint n_relations;
+  gint n_relations = 0;
   gint i;
   AtkRelationSet *relation_set;
   AtkObject      *object = get_atkobject_from_servant (servant);
@@ -358,7 +358,8 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
 
   relation_set = atk_object_ref_relation_set (object);
 
-  n_relations = atk_relation_set_get_n_relations (relation_set);
+  if (relation_set)
+    n_relations = atk_relation_set_get_n_relations (relation_set);
 
   retval = CORBA_sequence_Accessibility_Relation__alloc ();
   retval->_length = retval->_maximum = n_relations;
@@ -462,10 +463,8 @@ impl_accessibility_accessible_get_attributes (PortableServer_Servant servant,
     g_return_val_if_fail (object != NULL, NULL);
     attributes = atk_object_get_attributes (object);
 
-    if (attributes == NULL)
-      return NULL;
-
-    n_attributes = g_slist_length (attributes);
+    if (attributes)
+      n_attributes = g_slist_length (attributes);
     
     retval = CORBA_sequence_CORBA_string__alloc ();
     retval->_length = retval->_maximum = n_attributes;

@@ -2,7 +2,7 @@ AC_INIT(idl/Accessibility.idl)
 
 AT_SPI_MAJOR_VERSION=1
 AT_SPI_MINOR_VERSION=17	
-AT_SPI_MICRO_VERSION=0
+AT_SPI_MICRO_VERSION=1
 AT_SPI_INTERFACE_AGE=0
 AT_SPI_BINARY_AGE=0
 AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
@@ -26,7 +26,7 @@ AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
 dnl required versions of other tools.
-m4_define([req_ver_atk],	[1.12.0])
+m4_define([req_ver_atk],	[1.17.0])
 m4_define([req_ver_gtk],	[2.10.0])
 m4_define([req_ver_gail],	[1.9.0])
 m4_define([req_ver_libbonobo],	[1.107.0])
