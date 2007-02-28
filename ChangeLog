@@ -1,3 +1,10 @@
+2007-02-27  Li Yuan <li.yuan@sun.com>
+
+	* libspi/util.c:
+	(spi_re_entrant_list_delete_link):
+	Bug #412286. Reverse previous patch.
+	* configure.in, NEWS: Uprev/release 1.17.2.
+
 2007-02-26  Li Yuan <li.yuan@sun.com>
 
 	* libspi/accessible.c:
