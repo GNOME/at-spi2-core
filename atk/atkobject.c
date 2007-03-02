@@ -993,6 +993,8 @@ atk_object_notify_state_change (AtkObject *accessible,
 {
   G_CONST_RETURN gchar* name;
 
+  g_return_if_fail (ATK_IS_OBJECT (accessible));
+
   name = atk_state_type_get_name (state);
   g_signal_emit (accessible, atk_object_signals[STATE_CHANGE],
                  g_quark_from_string (name),

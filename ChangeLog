@@ -1,3 +1,9 @@
+2007-03-02  Li Yuan <li.yuan@sun.com>
+
+	* atk/atkobject.c: 
+	(atk_object_notify_state_change):
+	Fix #408527. Add a check.
+
 2007-02-25  Tor Lillqvist  <tml@novell.com>
 
 	* atk/atkmisc.h: Fix typo: declare atk_misc_get_type(), not
