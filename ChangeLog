@@ -1,3 +1,12 @@
+2007-03-02  Li Yuan <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c
+	(spi_atk_bridge_register_application),
+	(deregister_application), (spi_atk_bridge_focus_tracker),
+	(spi_atk_emit_eventv), (post_init), (spi_atk_bridge_exit_func),
+	(gnome_accessibility_module_shutdown): Bug #329454. Add guard variable
+	to prevent calling threads_enter/leave during the init and shutdown.
+
 2007-02-27  Li Yuan <li.yuan@sun.com>
 
 	* libspi/util.c:

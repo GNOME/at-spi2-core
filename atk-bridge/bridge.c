@@ -46,6 +46,11 @@
 
 #define DBG(a,b) if(_dbg>=(a))b
 
+#define bridge_threads_leave() \
+  if (!during_init_shutdown) atk_misc_threads_leave(misc)
+#define bridge_threads_enter() \
+  if (!during_init_shutdown) atk_misc_threads_enter(misc)
+
 int _dbg = 0;
 static CORBA_Environment ev;
 static Accessibility_Registry registry = CORBA_OBJECT_NIL;
@@ -56,6 +61,7 @@ static gboolean atk_listeners_registered = FALSE;
 static gint toplevels = 0;
 static gboolean exiting = FALSE;
 static AtkMisc *misc = NULL;
+static gboolean during_init_shutdown = TRUE;
 
 static guint atk_signal_text_changed;
 static guint atk_signal_children_changed;
@@ -171,6 +177,13 @@ spi_atk_bridge_init_event_type_consts ()
   done = TRUE;
 }
 
+static gboolean
+post_init (void)
+{
+  during_init_shutdown = FALSE;
+  return FALSE;
+}
+
 static int
 atk_bridge_init (gint *argc, gchar **argv[])
 {
@@ -243,6 +256,8 @@ atk_bridge_init (gint *argc, gchar **argv[])
     {
       atk_bridge_initialized = FALSE;
     }
+  g_idle_add (post_init, NULL);
+
   return 0;
 }
 
@@ -311,11 +326,11 @@ spi_atk_bridge_toplevel_removed (AtkObject *object,
 static void
 spi_atk_bridge_register_application (Accessibility_Registry registry)
 {
-  atk_misc_threads_leave (misc);
+  bridge_threads_leave ();
   Accessibility_Registry_registerApplication (spi_atk_bridge_get_registry (),
                                               BONOBO_OBJREF (this_app),
                                               &ev);
-  atk_misc_threads_enter (misc);
+  bridge_threads_enter ();
   if (ev._major != CORBA_NO_EXCEPTION)
     CORBA_exception_free (&ev);
 }
@@ -566,9 +581,9 @@ static void
 deregister_application (BonoboObject *app)
 {
   Accessibility_Registry registry = spi_atk_bridge_get_registry ();
-  atk_misc_threads_leave (misc);
+  bridge_threads_leave ();
   Accessibility_Registry_deregisterApplication (registry, BONOBO_OBJREF (app), &ev);
-  atk_misc_threads_enter (misc);
+  bridge_threads_enter ();
 
   device_event_controller = bonobo_object_release_unref (device_event_controller, &ev);
   registry = bonobo_object_release_unref (registry, &ev);
@@ -593,6 +608,7 @@ spi_atk_bridge_exit_func (void)
       _exit (0);
     }
 
+  during_init_shutdown = TRUE;
   exiting = TRUE;
   /*
    * Check whether we still have windows which have not been deleted.
@@ -645,6 +661,7 @@ gnome_accessibility_module_shutdown (void)
     {
       return;
     }
+  during_init_shutdown = TRUE;
   atk_bridge_initialized = FALSE;
   this_app = NULL;
 
@@ -688,10 +705,10 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   if (BONOBO_EX (&ev))
       registry_died = TRUE;
   else {
-      atk_misc_threads_leave (misc);   
+      bridge_threads_leave ();   
       Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), 
 					  &e, &ev);
-      atk_misc_threads_enter (misc);
+      bridge_threads_enter ();
   }
   if (BONOBO_EX (&ev))
     registry_died = TRUE;
@@ -760,10 +777,10 @@ spi_atk_emit_eventv (const GObject         *gobject,
   registry = spi_atk_bridge_get_registry ();
   if (!registry_died)
   {
-    atk_misc_threads_leave (misc); 
+    bridge_threads_leave (); 
     Accessibility_Registry_notifyEvent (registry, 
                                         &e, &ev);
-    atk_misc_threads_enter (misc);
+    bridge_threads_enter ();
 #ifdef SPI_BRIDGE_DEBUG
     if (ev._major != CORBA_NO_EXCEPTION)
         g_message ("error emitting event %s, (%d) %s",
