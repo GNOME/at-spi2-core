@@ -1,3 +1,8 @@
+2007-03-12  Li Yuan <li.yuan@sun.com>
+
+	* configure.in, NEWS:
+	Revved to 1.18.0 for GNOME 2.18.0.
+
 2007-03-02  Li Yuan <li.yuan@sun.com>
 
 	* atk/atkobject.c: 
