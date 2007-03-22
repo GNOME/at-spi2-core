@@ -1,3 +1,10 @@
+2007-03-22  Christian Persch <chpe@gnome.org>
+
+	Fix for #382328.
+	* atk/atkrelation.c: (atk_relation_type_get_name): add missing const.
+	* atk/atkstate.c: (atk_state_type_get_name): ditto.
+	* atk/atktext.c: (atk_text_attribute_get_name): ditto.
+
 2007-03-12  Li Yuan <li.yuan@sun.com>
 
 	* configure.in, NEWS:
