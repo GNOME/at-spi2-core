@@ -1,3 +1,8 @@
+2007-03-22 Li Yuan <li.yuan@sun.com> 
+
+	* atk-bridge/bridge.c: don't call threads_leave and enter if own the 
+	main context. Fix for #329454.
+
 2007-03-12  Li Yuan <li.yuan@sun.com>
 
 	* configure.in, NEWS: Uprev/release 1.18.0 for GNOME 2.18.0.

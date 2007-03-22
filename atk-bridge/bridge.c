@@ -47,9 +47,9 @@
 #define DBG(a,b) if(_dbg>=(a))b
 
 #define bridge_threads_leave() \
-  if (!during_init_shutdown) atk_misc_threads_leave(misc)
+  if (!during_init_shutdown && !g_main_context_is_owner (NULL)) atk_misc_threads_leave(misc);
 #define bridge_threads_enter() \
-  if (!during_init_shutdown) atk_misc_threads_enter(misc)
+  if (!during_init_shutdown && !g_main_context_is_owner (NULL)) atk_misc_threads_enter(misc);
 
 int _dbg = 0;
 static CORBA_Environment ev;
