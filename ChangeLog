@@ -1,5 +1,11 @@
 2007-03-22  Christian Persch <chpe@gnome.org>
 
+	Fix for #418194.
+	* atk/Makefile.am: use -DATK_LOCALEDIR.
+	* configure.in: remove AM_GLIB_DEFINE_LOCALEDIR.
+
+2007-03-22  Christian Persch <chpe@gnome.org>
+
 	Fix for #382328.
 	* atk/atkrelation.c: (atk_relation_type_get_name): add missing const.
 	* atk/atkstate.c: (atk_state_type_get_name): ditto.

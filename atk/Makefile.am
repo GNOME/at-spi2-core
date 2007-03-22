@@ -11,6 +11,7 @@ endif
 INCLUDES = \
 	-I$(top_srcdir)		\
 	-DG_DISABLE_DEPRECATED	\
+	-DATK_LOCALEDIR="\"$(datadir)/locale\""	\
 	$(DEP_CFLAGS)
 
 lib_LTLIBRARIES = libatk-1.0.la
