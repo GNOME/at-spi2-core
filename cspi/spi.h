@@ -401,6 +401,13 @@ typedef struct _AccessibleAttributeSet
     char **attributes;
 } AccessibleAttributeSet;
 
+typedef struct _AccessibleRoleSet
+{
+     int len;
+     AccessibleRole *roles;
+} AccessibleRoleSet;
+
+
 /* Basic SPI initialization and event loop function prototypes */
 
 int              SPI_init         (void);

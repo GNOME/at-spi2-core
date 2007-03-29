@@ -1,3 +1,7 @@
+2007-03-29  Ariel Rios  <ariel@gnu.org>
+
+	* cspi/spi.h (AccessibleRoleSet): bug #407600. Define RoleSet structure.
+
 2007-03-22 Li Yuan <li.yuan@sun.com> 
 
 	* atk-bridge/bridge.c: don't call threads_leave and enter if own the 
