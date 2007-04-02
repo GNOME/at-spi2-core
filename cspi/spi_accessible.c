@@ -690,6 +690,21 @@ Accessible_isApplication (Accessible *obj)
 			      "IDL:Accessibility/Application:1.0");
 }
 
+/**                      
+ * Accessible_isCollection:                                                                                                                                                                          * @obj: a pointer to the #Accessible instance to query.                                                                                                                                          
+ *                          
+ * Query whether the specified #Accessible implements #AccessibleCollection.    
+ * Returns: #TRUE if @obj implements the #AccessibleCollection interface,                                                                                                               
+ *          #FALSE otherwise.
+ **/
+
+SPIBoolean
+Accessible_isCollection (Accessible *obj)
+{
+     return cspi_accessible_is_a (obj,
+				  "IDL:Accessibility/Collection:1.0");
+}
+
 /**
  * Accessible_isComponent:
  * @obj: a pointer to the #Accessible instance to query.
@@ -736,6 +751,22 @@ Accessible_isEditableText (Accessible *obj)
 {
   return cspi_accessible_is_a (obj,
 			      "IDL:Accessibility/EditableText:1.0");
+}
+                                                                                                                                                                        
+/**
+ * Accessible_isMatchRule:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Query whether the specified #Accessible implements #AccessibleMatchRule.
+ *
+ * Returns: #TRUE if @obj implements the #AccessibleMatchRule interface,
+ *          #FALSE otherwise.
+ **/
+SPIBoolean
+Accessible_isMatchRule (Accessible *obj)
+{
+     return cspi_accessible_is_a (obj, 
+				  "IDL:Accessibility/MatchRule:1.0");
 }
 
 /**
@@ -883,6 +914,23 @@ Accessible_getAction (Accessible *obj)
 	  obj, "IDL:Accessibility/Action:1.0");
 }
 
+
+/**
+ * Accessible_getCollection:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleCollection interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleCollection interface instance, or
+ *          NULL if @obj does not implement #AccessibleCollection.
+ **/
+AccessibleCollection *
+Accessible_getCollection (Accessible *obj)
+{
+  return (AccessibleCollection *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/Collection:1.0");
+}
+
 /**
  * Accessible_getComponent:
  * @obj: a pointer to the #Accessible instance to query.
@@ -966,7 +1014,21 @@ Accessible_getImage (Accessible *obj)
 	  obj, "IDL:Accessibility/Image:1.0");
 }
 
-
+/**
+ * Accessible_getMatchRule:
+ * @obj: a pointer to the #Accessible instance to query.
+ *
+ * Get the #AccessibleMatchRule interface for an #Accessible.
+ *
+ * Returns: a pointer to an #AccessibleMatchRule interface instance, or
+ *          NULL if @obj does not implement #AccessibleMatchRule.
+ **/
+AccessibleMatchRule *
+Accessible_getMatchRule (Accessible *obj)
+{
+  return (AccessibleMatchRule *) Accessible_queryInterface (
+	  obj, "IDL:Accessibility/MatchRule:1.0");
+}
 
 /**
  * Accessible_getSelection:

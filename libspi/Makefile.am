@@ -20,6 +20,7 @@ libspiinclude_HEADERS =		\
 	action.h		\
 	application.h		\
 	base.h			\
+	collection.h   		\
 	component.h		\
 	document.h		\
 	editabletext.h		\
@@ -31,6 +32,7 @@ libspiinclude_HEADERS =		\
 	keymasks.h		\
 	libspi.h		\
 	listener.h		\
+	matchrule.h		\
 	relation.h		\
 	remoteobject.h		\
 	selection.h		\
@@ -47,6 +49,7 @@ IDL_DEPS = \
 	$(top_srcdir)/idl/Accessibility_Accessible.idl		\
 	$(top_srcdir)/idl/Accessibility_Action.idl		\
 	$(top_srcdir)/idl/Accessibility_Application.idl		\
+	$(top_srcdir)/idl/Accessibility_Collection.idl		\
 	$(top_srcdir)/idl/Accessibility_Component.idl		\
 	$(top_srcdir)/idl/Accessibility_Desktop.idl		\
 	$(top_srcdir)/idl/Accessibility_EditableText.idl	\
@@ -74,6 +77,7 @@ libspi_la_SOURCES =		\
 	action.c		\
 	application.c		\
 	base.c			\
+	collection.c		\
 	component.c		\
 	document.c		\
 	editabletext.c		\
@@ -81,6 +85,7 @@ libspi_la_SOURCES =		\
 	hypertext.c		\
 	image.c			\
 	devicelistener.c	\
+	matchrule.c		\
 	relation.c		\
 	remoteobject.c		\
 	selection.c		\

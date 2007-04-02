@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Ximian, Inc.
+ * Copyright 2007 IBM Corp.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,34 +18,42 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
- *
- * libspi.h: the main include header for libspi.
  */
-#ifndef LIBSPI_H_
-#define LIBSPI_H_
 
-#include <libspi/Accessibility.h>
-#include <libspi/accessible.h>
-#include <libspi/action.h>
-#include <libspi/application.h>
-#include <libspi/collection.h>
-#include <libspi/component.h>
-#include <libspi/document.h>
-#include <libspi/editabletext.h>
-#include <libspi/hyperlink.h>
-#include <libspi/hypertext.h>
-#include <libspi/image.h>
-#include <libspi/relation.h>
-#include <libspi/selection.h>
-#include <libspi/stateset.h>
-#include <libspi/table.h>
-#include <libspi/text.h>
-#include <libspi/value.h>
-#include <libspi/listener.h>
-#include <libspi/eventlistener.h>
-#include <libspi/devicelistener.h>
-#include <libspi/keymasks.h>
-#include <libspi/remoteobject.h>
-#include <libspi/streamablecontent.h>
+/* matchrule.c: implements the Matchrule interface */
 
-#endif /* LIBSPI_H_ */
+
+#include <config.h>
+#include <stdio.h>
+#include <bonobo/bonobo-exception.h>
+#include <libspi/matchrule.h> 
+#include <libspi/spi-private.h>
+
+SpiMatchrule *
+spi_matchrule_interface_new ()
+{
+
+     SpiMatchrule *new_matchrule = g_object_new (SPI_MATCHRULE_TYPE, NULL);
+
+     spi_base_construct_default (SPI_BASE (new_matchrule));
+
+     return new_matchrule;
+
+}
+
+static void
+spi_matchrule_class_init (SpiMatchruleClass *klass)
+{
+}
+
+static void
+spi_matchrule_init (SpiMatchrule *matchrule)
+{
+}
+
+BONOBO_TYPE_FUNC_FULL (SpiMatchrule,
+		      Accessibility_MatchRule,
+		      SPI_TYPE_BASE,
+		      spi_matchrule)
+
+

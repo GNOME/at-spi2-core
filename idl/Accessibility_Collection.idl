@@ -1,0 +1,104 @@
+ /* 
+  * AT-SPI - Assistive Technology Service Provider Interface 
+  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
+  *
+  * Copyright 2005 Sun Microsystems, Inc.
+  *
+  * This library is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU Library General Public
+  * License as published by the Free Software Foundation; either
+  * version 2 of the License, or (at your option) any later version.
+  *
+  * This library is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  * Library General Public License for more details.
+  *
+  * You should have received a copy of the GNU Library General Public
+  * License along with this library; if not, write to the
+  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  * Boston, MA 02111-1307, USA.
+  */
+
+#ifndef __ACCESSIBILITY_COLLECTION_DEFINED__
+#define __ACCESSIBILITY_COLLECTION_DEFINED__
+ 
+module Accessibility {
+
+struct AccessibleSetEntry {
+         Accessible accessible;
+         string     name;
+         Role       role;
+};
+
+typedef sequence<AccessibleSetEntry> AccessibleSet;
+ 
+     interface MatchRule {
+     };
+
+
+     interface Collection : Bonobo::Unknown {
+ 
+       enum SortOrder {
+	    SORT_ORDER_INVALID,
+	    SORT_ORDER_CANONICAL, 
+	    SORT_ORDER_FLOW, 
+	    SORT_ORDER_TAB, 
+	    SORT_ORDER_REVERSE_CANONICAL, 
+	    SORT_ORDER_REVERSE_FLOW, 
+	    SORT_ORDER_REVERSE_TAB, 
+	    SORT_ORDER_LAST_DEFINED
+       };
+   
+       enum MatchType {
+           MATCH_INVALID, 
+           MATCH_ALL, 
+           MATCH_ANY, 
+	   MATCH_NONE,
+	   MATCH_EMPTY,
+           MATCH_LAST_DEFINED
+	   };
+
+
+	boolean isAncestorOf (in Accessible object); 
+  
+	MatchRule        createMatchRule (in StateSet states,
+					  in MatchType statematchtype,
+                                          in AttributeSet attributes,
+                                          in MatchType attributematchtype,
+                                          in RoleSet roles,
+					  in MatchType rolematchtype,
+                                          in string interfaces,
+                                          in MatchType interfacematchtype,
+                                          in boolean invert);
+
+	void             freeMatchRule (in MatchRule rule);
+
+	AccessibleSet getChildren (in MatchRule rule,
+                                   in SortOrder sortby,
+				   in boolean recurse,
+                                   inout long count); /* inOut not accepted */
+
+	AccessibleSet getPreviousChildren (in Accessible current_object,
+                                           in MatchRule rule, 
+                                           in SortOrder sortby, 
+                                           in boolean recurse,
+                                           inout long count);
+
+
+        AccessibleSet getNextChildren (in Accessible current_object,
+				       in MatchRule rule, 
+                                       in SortOrder sortby, 
+                                       in boolean recurse,
+                                       inout long count);
+
+        Accessible getActiveDescendant ();
+        
+	void unImplemented ();
+	void unImplemented2 ();
+        void unImplemented3 ();
+        void unImplemented4 ();	
+   };
+};
+
+#endif

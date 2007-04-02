@@ -36,12 +36,14 @@ typedef AccessibleUnknown  Accessible;
 
 typedef Accessible AccessibleAction;
 typedef Accessible AccessibleApplication;
+typedef Accessible AccessibleCollection;
 typedef Accessible AccessibleComponent;
 typedef Accessible AccessibleDocument;
 typedef Accessible AccessibleEditableText;
 typedef Accessible AccessibleHyperlink;
 typedef Accessible AccessibleHypertext;
 typedef Accessible AccessibleImage;
+typedef Accessible AccessibleMatchRule;
 typedef Accessible AccessibleRelation;
 typedef Accessible AccessibleSelection;
 typedef Accessible AccessibleStreamableContent;

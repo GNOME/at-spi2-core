@@ -29,6 +29,7 @@ libcspi_la_SOURCES =		\
 	spi_accessible.c	\
 	spi_action.c		\
 	spi_application.c	\
+	spi_collection.c	\
 	spi_component.c		\
 	spi_document.c		\
 	spi_editabletext.c	\
@@ -37,6 +38,7 @@ libcspi_la_SOURCES =		\
 	spi_hypertext.c		\
 	spi_image.c		\
 	spi_main.c		\
+	spi_matchrule.c		\
 	spi-private.h		\
 	spi_registry.c		\
 	spi_selection.c		\

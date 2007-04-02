@@ -1,3 +1,26 @@
+2007-04-02  Ariel Rios  <ariel@gnu.org>
+
+	Implement the Matchrule interface required for Collection.
+	See bug #405774.
+
+	* cspi/Makefile.am:
+	* cspi/spi-impl.h:
+	* cspi/spi.h:
+	* cspi/spi_accessible.c: (Accessible_isCollection),
+	(Accessible_isMatchRule), (Accessible_getCollection),
+	(Accessible_getMatchRule):
+	* cspi/spi_collection.c:  new file.
+	* cspi/spi_matchrule.c:  new file.
+	* idl/Accessibility.idl:
+	* idl/Accessibility_Collection.idl: new file.
+	* idl/Makefile.am:
+	* libspi/Makefile.am:
+	* libspi/collection.c: new file.
+	* libspi/collection.h: new file.
+	* libspi/libspi.h:
+	* libspi/matchrule.c: new file.
+	* libspi/matchrule.h: new file.
+
 2007-03-29  Ariel Rios  <ariel@gnu.org>
 
 	* cspi/spi.h (AccessibleRoleSet): bug #407600. Define RoleSet structure.

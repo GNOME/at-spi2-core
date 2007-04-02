@@ -5,6 +5,7 @@ idl_DATA =					\
 	Accessibility_Accessible.idl		\
 	Accessibility_Action.idl		\
 	Accessibility_Application.idl		\
+	Accessibility_Collection.idl		\
 	Accessibility_Component.idl		\
 	Accessibility_Desktop.idl		\
 	Accessibility_Document.idl		\

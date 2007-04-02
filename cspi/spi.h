@@ -43,6 +43,29 @@ extern "C" {
 #endif
 
 /**
+ *AccessibleCollectionMatchType:
+ *
+ *@SPI_COLLECTION_MATCH_INVALID 	
+ *@SPI_COLLECTION_MATCH_ALL 	TRUE if all of the criteria are met
+ *@SPI_COLLECTION_MATCH_ANY 	TRUE if any of the criteria are met
+ *@SPI_COLLECTION_MATCH_NONE 	TRUE if none of the criteria are met
+ *@SPI_COLLECTION_MATCH_EMPTY 	Same as MATCH_ALL if the criteria is non-empty; 
+ * for empty criteria this rule requires returned value to also have empty set.
+ *@SPI_COLLECTION_MATCH_LAST_DEFINED 	
+ *
+ **/
+typedef enum
+{
+     SPI_COLLECTION_MATCH_INVALID,
+     SPI_COLLECTION_MATCH_ALL,
+     SPI_COLLECTION_MATCH_ANY,
+     SPI_COLLECTION_MATCH_NONE,
+     SPI_COLLECTION_MATCH_EMPTY,
+     SPI_COLLECTION_MATCH_LAST_DEFINED
+}AccessibleCollectionMatchType;
+
+
+/**
  *AccessibleTextBoundaryType:
  *@SPI_TEXT_BOUNDARY_CHAR: Delimiter is the current character's bounds.
  *@SPI_TEXT_BOUNDARY_CURSOR_POS: Delimiter is the current text caret position.
@@ -408,6 +431,7 @@ typedef struct _AccessibleRoleSet
 } AccessibleRoleSet;
 
 
+
 /* Basic SPI initialization and event loop function prototypes */
 
 int              SPI_init         (void);
@@ -531,11 +555,13 @@ AccessibleApplication *Accessible_getHostApplication (Accessible *obj);
 
 SPIBoolean Accessible_isAction            (Accessible *obj);
 SPIBoolean Accessible_isApplication       (Accessible *obj);
+SPIBoolean Accessible_isCollection        (Accessible *obj);
 SPIBoolean Accessible_isComponent         (Accessible *obj);
 SPIBoolean Accessible_isDocument          (Accessible *obj);
 SPIBoolean Accessible_isEditableText      (Accessible *obj);
 SPIBoolean Accessible_isHypertext         (Accessible *obj);
 SPIBoolean Accessible_isImage             (Accessible *obj);
+SPIBoolean Accessible_isMatchRule         (Accessible *obj);
 SPIBoolean Accessible_isSelection         (Accessible *obj);
 SPIBoolean Accessible_isStreamableContent (Accessible *obj);
 SPIBoolean Accessible_isTable             (Accessible *obj);
@@ -544,11 +570,13 @@ SPIBoolean Accessible_isValue             (Accessible *obj);
 
 AccessibleAction *            Accessible_getAction            (Accessible *obj);
 AccessibleApplication *       Accessible_getApplication       (Accessible *obj);
+AccessibleCollection *        Accessible_getCollection        (Accessible *obj);
 AccessibleComponent *         Accessible_getComponent         (Accessible *obj);
 AccessibleDocument *          Accessible_getDocument          (Accessible *obj);
 AccessibleEditableText *      Accessible_getEditableText      (Accessible *obj);
 AccessibleHypertext *         Accessible_getHypertext         (Accessible *obj);
 AccessibleImage *             Accessible_getImage             (Accessible *obj);
+AccessibleMatchRule *         Accessible_getMatchRule         (Accessible *obj);
 AccessibleSelection *         Accessible_getSelection         (Accessible *obj);
 AccessibleStreamableContent * Accessible_getStreamableContent (Accessible *obj);
 AccessibleTable *             Accessible_getTable             (Accessible *obj);
@@ -582,6 +610,23 @@ char      *AccessibleApplication_getLocale      (AccessibleApplication *obj, int
 SPIBoolean AccessibleApplication_pause          (AccessibleApplication *obj);
 SPIBoolean AccessibleApplication_resume         (AccessibleApplication *obj);
 
+/* AccessibleCollection function prototypes */
+void       AccessibleCollection_ref (AccessibleCollection *obj);
+void       AccessibleCollection_unref (AccessibleCollection *obj);
+AccessibleMatchRule *
+AccessibleCollection_createMatchRule (AccessibleCollection *obj,
+				      AccessibleStateSet *states,
+				      AccessibleCollectionMatchType statematchtype,
+				      AccessibleAttributeSet *attributes,
+				      AccessibleCollectionMatchType attributematchtype,
+				      AccessibleRoleSet *roles,
+				      AccessibleCollectionMatchType rolematchtype,
+				      char *interfaces,
+				      AccessibleCollectionMatchType interfacematchtype,
+				      long int invert);
+void
+AccessibleCollection_freeMatchRule (AccessibleCollection *obj,
+				    AccessibleMatchRule  *matchrule);
 /* AccessibleComponent function prototypes */
 
 void        AccessibleComponent_ref         (AccessibleComponent *obj);
@@ -753,6 +798,14 @@ AccessibleImage_getImageExtents (AccessibleImage *obj,
 				 AccessibleCoordType ctype);
 char *
 AccessibleImage_getImageLocale  (AccessibleImage *obj);
+
+/*
+ *
+ * AccessibleMatchRule function prototypes
+ *
+ */
+void       AccessibleMatchRule_ref (AccessibleMatchRule *obj);
+void       AccessibleMatchRule_unref (AccessibleMatchRule *obj);
 
 /*
  *

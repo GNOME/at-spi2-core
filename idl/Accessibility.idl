@@ -100,6 +100,7 @@
  */
 #include <Accessibility_Accessible.idl>
 #include <Accessibility_Action.idl>
+#include <Accessibility_Collection.idl>
 #include <Accessibility_Component.idl>
 #include <Accessibility_Document.idl>
 #include <Accessibility_Hyperlink.idl>
