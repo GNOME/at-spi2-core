@@ -31,7 +31,7 @@ m4_define([atk_binary_age],
           [m4_eval(100 * atk_minor_version + 10 + atk_micro_version)])
 
 m4_define([lt_current],
-          [m4_eval(100 * atk_minor_version + 10 + atk_micro_version - atk_interface_age)])`
+          [m4_eval(100 * atk_minor_version + 10 + atk_micro_version - atk_interface_age)])
 m4_define([lt_revision], [atk_interface_age])
 m4_define([lt_age], [m4_eval(atk_binary_age - atk_interface_age)])
 m4_define([lt_version_info], [lt_current:lt_revision:lt_age])
@@ -178,6 +178,7 @@ AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_FUNCS(bind_textdomain_codeset)
 
+GNOME_DOC_INIT
 GTK_DOC_CHECK([1.0])
 
 # define a MAINT-like variable REBUILD which is set if Perl

@@ -1,3 +1,8 @@
+2007-04-11  Li Yuan <li.yuan@sun.com>
+
+	* autogen.sh, configure.in: use gnome-autogen.sh to simplify
+	autogen.sh.
+
 2007-03-22  Christian Persch <chpe@gnome.org>
 
 	Fix for #418194.
