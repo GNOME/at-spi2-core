@@ -1,3 +1,9 @@
+2007-04-12  Li Yuan <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c: (spi_atk_bridge_get_registry),
+	(spi_atk_bridge_focus_tracker), (spi_atk_bridge_key_listener):
+	Fix #427836. Fix leak and unify the code style.
+
 2007-04-12  Yi Jin <yi.jin@sun.com>
 
 	* atk-bridge/bridge.c:

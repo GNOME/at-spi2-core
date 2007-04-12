@@ -201,13 +201,13 @@ atk_bridge_init (gint *argc, gchar **argv[])
   misc = atk_misc_get_instance();
 
   if (g_getenv ("ATK_BRIDGE_REDIRECT_LOG"))
-  {
+    {
       fname = g_strconcat ("/tmp/", g_get_prgname (), ".at-spi-log", NULL);
       /* make sure we're not being redirected - security issue */
       if (!g_file_test (fname, G_FILE_TEST_IS_SYMLINK))
 	  freopen (fname, "w", stderr);
       g_free (fname);
-  }
+    }
 
   if (debug_env_string) 
       _dbg = (int) g_ascii_strtod (debug_env_string, NULL);
@@ -344,30 +344,30 @@ spi_display_name (void)
 {
     static const char *canonical_display_name = NULL;
     if (!canonical_display_name)
-    {
+      {
         const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
 	if (!display_env)
-	{
+	  {
 	    display_env = g_getenv ("DISPLAY");
 	    if (!display_env || !display_env[0]) 
 		canonical_display_name = ":0";
 	    else
-	    {
+	      {
 		gchar *display_p, *screen_p;
 		canonical_display_name = g_strdup (display_env);
 		display_p = strrchr (canonical_display_name, ':');
 		screen_p = strrchr (canonical_display_name, '.');
 		if (screen_p && display_p && (screen_p > display_p))
-		{
+		  {
 		    *screen_p = '\0';
-		}
-	    }
-	}
+		  }
+	      }
+	  }
 	else
-	{
+	  {
 	    canonical_display_name = display_env;
-	}
-    }
+	  }
+      }
     return canonical_display_name;
 }
 
@@ -407,40 +407,46 @@ spi_atk_bridge_get_registry (void)
   CORBA_Environment ev;
   char *ior =  NULL;
 
-  if (registry_died || (registry == CORBA_OBJECT_NIL)) {
-	  CORBA_exception_init (&ev);
-	  if (registry_died) 
-            {
-              if (exiting)
-                return CORBA_OBJECT_NIL;
-              else
-	        DBG (1, g_warning ("registry died! restarting..."));
-            }
+  if (registry_died || (registry == CORBA_OBJECT_NIL))
+    {
+      CORBA_exception_init (&ev);
+      if (registry_died) 
+        {
+          if (exiting)
+            return CORBA_OBJECT_NIL;
+          else
+            DBG (1, g_warning ("registry died! restarting..."));
+        }
 
-	  /* XXX: This presumes that the registry has successfully restarted itself already...*/
-	  ior = (char *) spi_atk_bridge_get_registry_ior ();
+      /* XXX: This presumes that the registry has successfully restarted itself already...*/
+      ior = (char *) spi_atk_bridge_get_registry_ior ();
 
-	  if (ior != NULL)
-	       registry = CORBA_ORB_string_to_object (bonobo_activation_orb_get (), 
-						      ior, &ev);
-	  else {
-	       g_warning ("IOR not set.");  
-	       registry = CORBA_OBJECT_NIL;
-	  }
+      if (ior != NULL) 
+        {
+          registry = CORBA_ORB_string_to_object (bonobo_activation_orb_get (), 
+						 ior, &ev);
+          XFree (ior);
+        }
+      else
+        {
+          g_warning ("IOR not set.");  
+          registry = CORBA_OBJECT_NIL;
+        }
 	  
-	  if (ev._major != CORBA_NO_EXCEPTION)
-	  {
-		  g_error ("Accessibility app error: exception during "
-			   "registry activation from id: %s\n",
-			   CORBA_exception_id (&ev));
-		  CORBA_exception_free (&ev);
-	  }
+      if (ev._major != CORBA_NO_EXCEPTION)
+        {
+          g_error ("Accessibility app error: exception during "
+		   "registry activation from id: %s\n",
+		   CORBA_exception_id (&ev));
+          CORBA_exception_free (&ev);
+        }
 	  
-	  if (registry_died && registry) {
-		  registry_died = FALSE;
-		  spi_atk_bridge_register_application (registry);
-	  }
-  }
+      if (registry_died && registry) 
+        {
+          registry_died = FALSE;
+          spi_atk_bridge_register_application (registry);
+        }
+    }
   return registry;
 }
 
@@ -675,9 +681,9 @@ gnome_accessibility_module_shutdown (void)
         atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
   
   for (i = 0; ids && i < ids->len; i++)
-  {
+    {
           atk_remove_global_event_listener (g_array_index (ids, guint, i));
-  }
+    }
   
   if (atk_bridge_key_event_listener_id)
           atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
@@ -704,12 +710,13 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
   spi_atk_bridge_init_nil (&e.any_data, object);
   if (BONOBO_EX (&ev))
       registry_died = TRUE;
-  else {
+  else
+    {
       bridge_threads_leave ();   
       Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), 
 					  &e, &ev);
       bridge_threads_enter ();
-  }
+    }
   if (BONOBO_EX (&ev))
     registry_died = TRUE;
 
@@ -779,7 +786,7 @@ spi_atk_emit_eventv (const GObject         *gobject,
   CORBA_exception_init (&ev);
   registry = spi_atk_bridge_get_registry ();
   if (!registry_died)
-  {
+    {
     bridge_threads_leave (); 
     Accessibility_Registry_notifyEvent (registry, 
                                         &e, &ev);
@@ -792,7 +799,7 @@ spi_atk_emit_eventv (const GObject         *gobject,
                    CORBA_exception_id(&ev));
 #endif	      
     if (BONOBO_EX (&ev)) registry_died = TRUE;
-  }
+    }
 
   if (source)
       bonobo_object_unref (BONOBO_OBJECT (source));
@@ -1069,10 +1076,11 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 
   if (key_event.event_string) CORBA_free (key_event.event_string);
 
-  if (BONOBO_EX(&ev)) {
+  if (BONOBO_EX(&ev))
+    {
       result = FALSE;
       CORBA_exception_free (&ev);
-  }
+    }
 
   return result;
 }
