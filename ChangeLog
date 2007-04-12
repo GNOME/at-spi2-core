@@ -1,3 +1,9 @@
+2007-04-12  Yi Jin <yi.jin@sun.com>
+
+	* atk-bridge/bridge.c:
+	(spi_atk_bridge_focus_tracker):
+	Bug #428007. Fix a memory leak.
+
 2007-04-02  Ariel Rios  <ariel@gnu.org>
 
 	Implement the Matchrule interface required for Collection.

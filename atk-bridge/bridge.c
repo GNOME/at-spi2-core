@@ -714,7 +714,10 @@ spi_atk_bridge_focus_tracker (AtkObject *object)
     registry_died = TRUE;
 
   bonobo_object_unref (source);
-  
+
+  if (e.any_data._release)
+    CORBA_free (e.any_data._value);
+
   CORBA_exception_free (&ev);
 }
 
