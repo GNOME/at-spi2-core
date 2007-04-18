@@ -1,3 +1,14 @@
+2007-04-18  Li Yuan <li.yuan@sun.com>
+
+	* pyatspi/__init__.py:
+	* pyatspi/accessible.py:
+	* pyatspi/constants.py:
+	* pyatspi/event.py:
+	* pyatspi/registry.py:
+	* pyatspi/utils.py:
+	Bug #430938. Add some files to create the uniform Python
+	wrapper for at-spi.
+
 2007-04-12  Li Yuan <li.yuan@sun.com>
 
 	* atk-bridge/bridge.c: (spi_atk_bridge_get_registry),
