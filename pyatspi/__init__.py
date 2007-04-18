@@ -51,11 +51,14 @@ ORBit.load_typelib(TYPELIB_NAME)
 import registry
 # wrap the raw registry object in our convenience singleton
 Registry = registry.Registry(reg)
+# overwrite the registry class in the module, so all other imports get our
+# singleton
+registry.Registry = Registry
 # now throw the module away immediately
 del registry
 
 # pull the cache level functions into this namespace, but nothing else
-from accessible import setCacheLevel, getCacheLevel
+from accessible import setCacheLevel, getCacheLevel, clearCache, printCache
 
 # pull constants and utilities directly into this namespace; rest of code
 # never has to be touched externally

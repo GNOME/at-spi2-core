@@ -79,6 +79,11 @@ MOUSE_REL = 'rel'
 CACHE_INTERFACES = 0
 CACHE_PROPERTIES = 1
 
+# events that clear cached properties
+CACHE_EVENTS = ['object:property-change:accessible-name',
+                'object:property-change:accessible-description',
+                'object:property-change:accessible-parent']
+
 # dictionary used to correct the bug of not being able to register for all the
 # subevents given only an AT-SPI event class (i.e. first part of the event
 # name) keys are event names having subevents and values are the subevents

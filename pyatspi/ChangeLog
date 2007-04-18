@@ -1,5 +1,14 @@
 2007-04-18  Li Yuan <li.yuan@sun.com>
 
+	* __init__.py:
+	* accessible.py:
+	* constants.py:
+	* registry.py:
+	* utils.py:
+	Some updates from Peter Parente.
+
+2007-04-18  Li Yuan <li.yuan@sun.com>
+
 	* pyatspi/__init__.py:
 	* pyatspi/accessible.py:
 	* pyatspi/constants.py:

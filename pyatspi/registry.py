@@ -45,18 +45,18 @@ import event
 class _Observer(object):
   '''
   Parent class for all event observers. Dispatches all received events to the 
-  L{Registry} that created this L{Observer}. Provides basic reference counting
-  functionality needed by L{Registry} to determine when an L{Observer} can be
+  L{Registry} that created this L{_Observer}. Provides basic reference counting
+  functionality needed by L{Registry} to determine when an L{_Observer} can be
   released for garbage collection. 
   
   The reference counting provided by this class is independent of the reference
   counting used by CORBA. Keeping the counts separate makes it easier for the
-  L{Registry} to detect when an L{Observer} can be freed in the 
+  L{Registry} to detect when an L{_Observer} can be freed in the 
   L{Registry._unregisterObserver} method.
   
-  @ivar registry: Reference to the L{Registry} that created this L{Observer}
+  @ivar registry: Reference to the L{Registry} that created this L{_Observer}
   @type registry: weakref.proxy to L{Registry}
-  @ivar ref_count: Reference count on this L{Observer}
+  @ivar ref_count: Reference count on this L{_Observer}
   @type ref_count: integer
   '''
   def __init__(self, registry):
@@ -80,8 +80,8 @@ class _Observer(object):
     
   def clientUnref(self):
     '''    
-    Decrements the L{pyLinAcc} reference count on this L{_Observer} by one.
-    This method is called when a client is unregistered in L{Registry} to stop
+    Decrements the pyatspi reference count on this L{_Observer} by one. This
+    method is called when a client is unregistered in L{Registry} to stop
     receiving notifications of an event type monitored by this L{_Observer}.
     '''
     self.ref_count -= 1
@@ -140,8 +140,8 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
     '''
     Starts keyboard event monitoring.
     
-    @param reg: Reference to the raw registry object
-    @type reg: Accessibility.Registry
+    @param dc: Reference to a device controller
+    @type dc: Accessibility.DeviceEventController
     @param key_set: Set of keys to monitor
     @type key_set: list of integer
     @param mask: Integer modifier mask or an iterable over multiple masks to
@@ -165,8 +165,8 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
     '''
     Stops keyboard event monitoring.
     
-    @param reg: Reference to the raw registry object
-    @type reg: Accessibility.Registry
+    @param dc: Reference to a device controller
+    @type dc: Accessibility.DeviceEventController
     @param key_set: Set of keys to monitor
     @type key_set: list of integer
     @param mask: Integer modifier mask or an iterable over multiple masks to
@@ -285,17 +285,18 @@ class Registry(object):
   reference to the Accessibility.Registry singleton. Doing so is harmless and
   has no point.
   
-  @ivar async
+  @ivar async: Should event dispatch to local listeners be decoupled from event
+    receiving from the registry?
   @type async: boolean
-  @ivar reg:
+  @ivar reg: Reference to the real, wrapped registry object
   @type reg: Accessibility.Registry
-  @ivar dev:
+  @ivar dev: Reference to the device controller
   @type dev: Accessibility.DeviceEventController
-  @ivar queue:
+  @ivar queue: Queue of events awaiting local dispatch
   @type queue: Queue.Queue
-  @ivar clients:
+  @ivar clients: Map of event names to client listeners
   @type clients: dictionary
-  @ivar observers: 
+  @ivar observers: Map of event names to AT-SPI L{_Observer} objects
   @type observers: dictionary
   '''
   def __init__(self, reg):
@@ -399,7 +400,7 @@ class Registry(object):
     
     Registered clients will not be automatically removed when the client dies.
     To ensure the client is properly garbage collected, call 
-    L{Manager.removeClient}.
+    L{deregisterEventListener}.
 
     @param client: Callable to be invoked when the event occurs
     @type client: callable
@@ -416,8 +417,8 @@ class Registry(object):
     unregistration for all subevents if only partial event name is specified.
     Do not include a trailing colon.
     
-    This method must be called to ensure a client registered by 
-    L{Manager.addClient} is properly garbage collected.
+    This method must be called to ensure a client registered by
+    L{registerEventListener} is properly garbage collected.
 
     @param client: Client callback to remove
     @type client: callable
@@ -574,7 +575,7 @@ class Registry(object):
   def handleEvent(self, event):
     '''    
     Handles an AT-SPI event by either queuing it for later dispatch when the
-    L{async} flag is set, or dispatching it immediately.
+    L{Registry.async} flag is set, or dispatching it immediately.
 
     @param event: AT-SPI event
     @type event: L{event.Event}
@@ -717,9 +718,9 @@ class Registry(object):
     return ob
     
   def _unregisterObserver(self, name):
-    '''
-    Destroys an existing L{Observer} for the given event type only if no clients 
-    are registered for the events it is monitoring.
+    '''    
+    Destroys an existing L{_Observer} for the given event type only if no
+    clients are registered for the events it is monitoring.
     
     @param name: Name of the event to observe
     @type name: string

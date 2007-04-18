@@ -3,10 +3,13 @@ Creates functions at import time that are mixed into the
 Accessibility.Accessible base class to make it more Pythonic.
 
 Based on public domain code originally posted at 
-http://wwwx.cs.unc.edu/~parente/cgi-bin/RuntimeClassMixins.
+U{http://wwwx.cs.unc.edu/~parente/cgi-bin/RuntimeClassMixins}.
 
-@todo: PP: implement caching for basic attributes
-
+@var _ACCESSIBLE_CACHE: Pairs hash values for accessible objects to 
+  L{_PropertyCache} bags. We do not store actual accessibles in the dictionary
+  because that would +1 their ref counts and cause __del__ to never be called
+  which is the method we rely on to properly invalidate cache entries.
+@type _ACCESSIBLE_CACHE: dictionary
 @var _CACHE_LEVEL: Current level of caching enabled. Checked dynamically by
   L{_AccessibleMixin}
 @type _CACHE_LEVEL: integer
@@ -41,8 +44,14 @@ import ORBit
 import Accessibility
 import constants
 import utils
+import registry
 
+_ACCESSIBLE_CACHE = {}
 _CACHE_LEVEL = None
+
+class _PropertyCache(object):
+  '''Fixed-size bag class for holding cached values.'''
+  __slots__ = ('name', 'description', 'rolename')
 
 def getCacheLevel():
   '''
@@ -59,22 +68,58 @@ def getCacheLevel():
 def setCacheLevel(val):
   '''
   Sets the desired level of caching for all accessible objects created after
-  this function is invoked.
+  this function is invoked. Immediately clears the current accessible cache.
   
   @param val: None indicating no caching is in effect. 
     L{constants.CACHE_INTERFACES} indicating all interface query results are
     cached. L{constants.CACHE_PROPERTIES} indicating all basic accessible
-    properties are cached.
+    properties are cached plus all interfaces.
   @type val: integer
   '''
   global _CACHE_LEVEL
+  if _CACHE_LEVEL != val:
+    # empty our accessible cache  
+    _ACCESSIBLE_CACHE.clear()
+    # need to register/unregister for listeners depending on caching level
+    if val == constants.CACHE_PROPERTIES:
+      r = registry.Registry()
+      r.registerEventListener(_updateCache, *constants.CACHE_EVENTS)
+    else:
+      r = registry.Registry()
+      r.deregisterEventListener(_updateCache, *constants.CACHE_EVENTS)
   _CACHE_LEVEL = val
+  
+def clearCache():
+  '''Forces a clear of the entire cache.'''
+  _ACCESSIBLE_CACHE.clear()
+  
+def printCache(template='%s'):
+  '''
+  Prints the contents of the cache.
+  
+  @param template: Format string to use when printing
+  @type template: string
+  '''
+  print template % _ACCESSIBLE_CACHE
+
+def _updateCache(event):
+  '''
+  Invalidates an entry in the cache when the hash value of a source of an event
+  matches an entry in the cache.
+  
+  @param event: One of the L{constants.CACHE_EVENTS} event types
+  @type event: L{event.Event}
+  '''
+  try:
+    del _ACCESSIBLE_CACHE[hash(event.source)]
+  except KeyError:
+    return
 
 def _makeQuery(iid):
   '''
   Builds a function querying to a specific interface and returns it.
   
-  @ivar iid: Interface identifier to use when querying
+  @param iid: Interface identifier to use when querying
   @type iid: string
   @return: Function querying to the given interface
   @rtype: function
@@ -88,19 +133,33 @@ def _makeQuery(iid):
     @raise NotImplementedError: When the desired interface is not supported    
     '''
     try:
-      return self._cache[iid]
+      i = self._icache[iid]
     except KeyError:
       # interface not cached
       caching = True
-    except AttributeError:
-      # not caching at present
-      caching = False
-    
+    except TypeError:
+      # determine if we're caching
+      caching = _CACHE_LEVEL is not None
+      if caching:
+        # initialize the cache
+        self._icache = {}
+    else:
+      # check if our cached result was an interface, or an indicator that the
+      # interface is not supported
+      if i is None:
+        raise NotImplementedError
+      else:
+        return i
+
     try:
+      # do the query remotely
       i = self.queryInterface(iid)
     except Exception, e:
       raise LookupError(e)
     if i is None:
+      # cache that the interface is not supported
+      if caching:
+        self._icache[iid] = None
       raise NotImplementedError
     
     # not needed according to ORBit2 spec, but makes Java queries work
@@ -108,7 +167,7 @@ def _makeQuery(iid):
     i._narrow(i.__class__)
     if caching:
       # cache the narrow'ed result, but only if we're caching for this object
-      self._cache[iid] = i
+      self._icache[iid] = i
     return i
   
   return _inner
@@ -179,17 +238,19 @@ def _mixExceptions(cls):
     elif isinstance(obj, property):
       # wrap the getters and setters
       if obj.fget:
-        getter = _makeExceptionHandler(getattr(cls, obj.fget.__name__))
+        func = getattr(cls, obj.fget.__name__)
+        getter = _makeExceptionHandler(func)
       else:
         getter = None
       if obj.fset:
-        setter = _makeExceptionHandler(getattr(cls, obj.fset.__name__))
+        func = getattr(cls, obj.fset.__name__)
+        setter = _makeExceptionHandler(func)
       else:
         setter = None
       setattr(cls, name, property(getter, setter))
 
 def _mixClass(cls, new_cls):
-  '''  
+  '''
   Adds the methods in new_cls to cls. After mixing, all instances of cls will
   have the new methods. If there is a method name clash, the method already in
   cls will be prefixed with '_mix_' before the new method of the same name is 
@@ -206,8 +267,9 @@ def _mixClass(cls, new_cls):
   '''
   # loop over all names in the new class
   for name, func in new_cls.__dict__.items():
-    # get only functions from the new_class
-    if (isinstance(func, types.FunctionType)):
+    if name in ['_get_name', '_get_description']:
+      continue
+    if isinstance(func, types.FunctionType):
       # build a new function that is a clone of the one from new_cls
       method = new.function(func.func_code, func.func_globals, name, 
                             func.func_defaults, func.func_closure)
@@ -231,6 +293,21 @@ def _mixClass(cls, new_cls):
         # rename the old method so we can still call it if need be
         setattr(cls, '_mix_'+name, old_method)
       setattr(cls, name, func)
+    elif isinstance(func, property):
+      try:
+        # check if a method of the same name already exists in the target
+        old_prop = getattr(cls, name)
+      except AttributeError:
+        pass
+      else:
+        # IMPORTANT: We save the old property before overwriting it, even 
+        # though we never end up calling the old prop from our mixin class.
+        # If we don't save the old one, we seem to introduce a Python ref count
+        # problem where the property get/set methods disappear before we can
+        # use them at a later time. This is a minor waste of memory because
+        # a property is a class object and we only overwrite a few of them.
+        setattr(cls, '_mix_'+name, old_prop)
+      setattr(cls, name, func)
 
 class _AccessibleMixin(object):
   '''
@@ -246,7 +323,7 @@ class _AccessibleMixin(object):
   @type SLOTS: tuple
   '''
   SLOTTED_CLASSES = {}
-  SLOTS = ('_cache', '_cache_level')
+  SLOTS = ('_icache',)
   
   def __new__(cls):
     '''
@@ -272,18 +349,21 @@ class _AccessibleMixin(object):
                       '__slots__' : _AccessibleMixin.SLOTS})
       _AccessibleMixin.SLOTTED_CLASSES[cls] = new_cls
     obj = cls._mix___new__(new_cls)
-    obj._cache_level = _CACHE_LEVEL
-    if obj._cache_level is not None:
-      # be sure to create the cache dictionary, if we're caching
-      obj._cache = {}
+    # don't create the interface cache until we need it
+    obj._icache = None
     return obj
   
   def __del__(self):
-    '''
+    '''    
     Decrements the reference count on the accessible object when there are no
-    Python references to this object. This provides automatic reference 
-    counting for AT-SPI objects.
+    Python references to this object. This provides automatic reference
+    counting for AT-SPI objects. Also removes this object from the cache if
+    we're caching properties. 
     '''
+    try:
+      del _ACCESSIBLE_CACHE[hash(self)]
+    except KeyError:
+      pass
     try:
       self.unref()
     except Exception:
@@ -350,15 +430,27 @@ class _AccessibleMixin(object):
     @return: Name of the accessible
     @rtype: string
     '''
-    if self._cache_level != constants.CACHE_PROPERTIES:
-      return self._mix__get_name()
-
+    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
+      return self._get_name()
+    
+    cache = _ACCESSIBLE_CACHE
+    h = hash(self)
     try:
-      return self._cache['name']
+      return cache[h].name
     except KeyError:
-      name = self._mix__get_name()
-      self._cache['name'] = name
+      # no cached info for this object yet
+      name = self._get_name()
+      pc = _PropertyCache()
+      pc.name = name
+      cache[h] = pc
       return name
+    except AttributeError:
+      # no cached name for this object yet
+      name = self._get_name()
+      cache[h].name = name
+      return name
+    
+  name = property(_get_name, Accessibility.Accessible._set_name)
   
   def getRoleName(self):
     '''
@@ -368,15 +460,25 @@ class _AccessibleMixin(object):
     @return: Role name of the accessible
     @rtype: string
     '''
-    if self._cache_level != constants.CACHE_PROPERTIES:
+    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
       return self._mix_getRoleName()
 
+    cache = _ACCESSIBLE_CACHE
+    h = hash(self)
     try:
-      return self._cache['rolename']
-    except KeyError:
-      name = self._mix_getRoleName()
-      self._cache['rolename'] = name
-      return name
+      return cache[h].rolename
+    except KeyError, e:
+      # no cached info for this object yet
+      rolename = self._mix_getRoleName()
+      pc = _PropertyCache()
+      pc.rolename = rolename
+      cache[h] = pc
+      return rolename
+    except AttributeError, e:
+      # no cached name for this object yet
+      rolename = self._mix_getRoleName()
+      cache[h].rolename = rolename
+      return rolename
   
   def _get_description(self):
     '''    
@@ -386,15 +488,28 @@ class _AccessibleMixin(object):
     @return: Description of the accessible
     @rtype: string
     '''
-    if self._cache_level != constants.CACHE_PROPERTIES:
-      return self._mix__get_description()
+    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
+      return self._get_description()
 
+    cache = _ACCESSIBLE_CACHE
+    h = hash(self)
     try:
-      return self._cache['description']
+      return cache[h].description
     except KeyError:
-      name = self._mix__get_description()
-      self._cache['description'] = name
-      return name
+      # no cached info for this object yet
+      description = self._get_description()
+      pc = _PropertyCache()
+      pc.description = description
+      cache[h] = pc
+      return description
+    except AttributeError:
+      # no cached name for this object yet
+      description = self._get_description()
+      cache[h].description = description
+      return description
+    
+  description = property(_get_description, 
+                         Accessibility.Accessible._set_description)
   
   def getIndexInParent(self):
     '''
@@ -439,11 +554,11 @@ class _AccessibleMixin(object):
     # return None if the application isn't reachable for any reason
     return None
 
-# mix the new functions
-_mixClass(Accessibility.Accessible, _AccessibleMixin)
-# mix queryInterface convenience methods
-_mixInterfaces(Accessibility.Accessible, constants.ALL_INTERFACES)
-# mix the exception handlers into all queryable interfaces
+# 1. mix the exception handlers into all queryable interfaces
 map(_mixExceptions, constants.ALL_INTERFACES)
-# mix the exception handlers into other Accessibility objects
+# 2. mix the exception handlers into other Accessibility objects
 map(_mixExceptions, [Accessibility.StateSet])
+# 3. mix the new functions
+_mixClass(Accessibility.Accessible, _AccessibleMixin)
+# 4. mix queryInterface convenience methods
+_mixInterfaces(Accessibility.Accessible, constants.ALL_INTERFACES)
