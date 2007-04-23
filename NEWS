@@ -1,3 +1,7 @@
+What's new in at-spi-1.19.1:
+
+* Bugfixes: #430938, #427836, #428007, #405774, #407600, #329454.
+
 What's new in at-spi-1.18.0:
 
 * Release 1.18.0 for GNOME 2.18.0.
