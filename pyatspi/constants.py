@@ -82,6 +82,7 @@ CACHE_PROPERTIES = 1
 # events that clear cached properties
 CACHE_EVENTS = ['object:property-change:accessible-name',
                 'object:property-change:accessible-description',
+                'object:property-change:accessible-role',
                 'object:property-change:accessible-parent']
 
 # dictionary used to correct the bug of not being able to register for all the

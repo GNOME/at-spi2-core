@@ -1,3 +1,8 @@
+2007-04-27  Li Yuan <li.yuan@sun.com>
+
+	* constants.py:
+	Bug 431057. Adds messing event.
+
 2007-04-18  Li Yuan <li.yuan@sun.com>
 
 	* __init__.py:
