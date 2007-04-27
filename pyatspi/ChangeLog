@@ -1,7 +1,14 @@
 2007-04-27  Li Yuan <li.yuan@sun.com>
 
+	Patch from Peter.
+	* registry.py:
+	Bug #433627. Adds default handling, fixes docs.
+
+2007-04-27  Li Yuan <li.yuan@sun.com>
+
+	Patch from Peter.
 	* constants.py:
-	Bug 431057. Adds messing event.
+	Bug #431057. Adds messing event.
 
 2007-04-18  Li Yuan <li.yuan@sun.com>
 

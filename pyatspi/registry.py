@@ -146,7 +146,7 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
     @type key_set: list of integer
     @param mask: Integer modifier mask or an iterable over multiple masks to
       unapply all at once
-    @type mask: integer or iterable
+    @type mask: integer, iterable, or None
     @param kind: Kind of events to monitor
     @type kind: integer
     '''
@@ -171,7 +171,7 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
     @type key_set: list of integer
     @param mask: Integer modifier mask or an iterable over multiple masks to
       unapply all at once
-    @type mask: integer or iterable
+    @type mask: integer, iterable, or None
     @param kind: Kind of events to monitor
     @type kind: integer
     '''
@@ -453,7 +453,7 @@ class Registry(object):
       the mask are held. When the mask is an iterable over more than one 
       integer, keys in the key_set will be monitored when any of the modifier
       combinations in the set are held.
-    @type mask: integer
+    @type mask: integer, iterable, None
     @param kind: Kind of events to watch, KEY_PRESSED_EVENT or 
       KEY_RELEASED_EVENT.
     @type kind: list
@@ -476,6 +476,9 @@ class Registry(object):
       # store the observer to client mapping, and the inverse
       self.clients[ob] = client
       self.clients[client] = ob
+    if mask is None:
+      # None means all modifier combinations
+      mask = utils.allModifiers()
     # register for new keystrokes on the observer
     ob.register(self.dev, key_set, mask, kind)
 
@@ -496,7 +499,7 @@ class Registry(object):
       the mask are held. When the mask is an iterable over more than one 
       integer, keys in the key_set will be monitored when any of the modifier
       combinations in the set are held.
-    @type mask: integer
+    @type mask: integer, iterable, None
     @param kind: Kind of events to stop watching, KEY_PRESSED_EVENT or 
       KEY_RELEASED_EVENT.
     @type kind: list
@@ -504,6 +507,9 @@ class Registry(object):
     '''
     # see if we already have an observer for this client
     ob = self.clients[client]
+    if mask is None:
+      # None means all modifier combinations
+      mask = utils.allModifiers()
     # register for new keystrokes on the observer
     ob.unregister(self.dev, key_set, mask, kind)
 
