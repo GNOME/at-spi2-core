@@ -380,7 +380,7 @@ class _AccessibleMixin(object):
     for i in xrange(self.childCount):
       try:
         yield self.getChildAtIndex(i)
-      except constants.CORBAException:
+      except LookupError:
         yield None
     
   def __str__(self):

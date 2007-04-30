@@ -1,3 +1,8 @@
+2007-04-30  Peter Parente <parente@cs.unc.edu>
+
+	* accessible.py: 
+	Fixed bug #434686, wrong exception caught
+	
 2007-04-27  Li Yuan <li.yuan@sun.com>
 
 	Patch from Peter.
