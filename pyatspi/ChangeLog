@@ -1,5 +1,10 @@
 2007-05-03  Peter Parente  <parente@cs.unc.edu>
 
+	* accessible.py: 
+	Fixed bug #435504, Add ignore flag to _mixClass
+
+2007-05-03  Peter Parente  <parente@cs.unc.edu>
+
 	Patch from Eitan.
 	* registry.py: 
 	Fixed bug #435284, Wrong params to deregister keystrokes

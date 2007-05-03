@@ -249,7 +249,7 @@ def _mixExceptions(cls):
         setter = None
       setattr(cls, name, property(getter, setter))
 
-def _mixClass(cls, new_cls):
+def _mixClass(cls, new_cls, ignore=[]):
   '''
   Adds the methods in new_cls to cls. After mixing, all instances of cls will
   have the new methods. If there is a method name clash, the method already in
@@ -264,10 +264,12 @@ def _mixClass(cls, new_cls):
   @type cls: class
   @param new_cls: Class containing features to add
   @type new_cls: class
+  @param ignore: Ignore these methods from the mixin
+  @type ignore: iterable
   '''
   # loop over all names in the new class
   for name, func in new_cls.__dict__.items():
-    if name in ['_get_name', '_get_description']:
+    if name in ignore:
       continue
     if isinstance(func, types.FunctionType):
       # build a new function that is a clone of the one from new_cls
@@ -559,6 +561,7 @@ map(_mixExceptions, constants.ALL_INTERFACES)
 # 2. mix the exception handlers into other Accessibility objects
 map(_mixExceptions, [Accessibility.StateSet])
 # 3. mix the new functions
-_mixClass(Accessibility.Accessible, _AccessibleMixin)
+_mixClass(Accessibility.Accessible, _AccessibleMixin,
+          ['_get_name', '_get_description'])
 # 4. mix queryInterface convenience methods
 _mixInterfaces(Accessibility.Accessible, constants.ALL_INTERFACES)
