@@ -180,12 +180,10 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
       iter(mask)
     except TypeError:
       # unregister a single integer if not
-      dc.deregisterKeystrokeListener(self._this(), key_set, mask, kind, 
-                                     self.mode)
+      dc.deregisterKeystrokeListener(self._this(), key_set, mask, kind)
     else:
       for m in mask:
-        dc.deregisterKeystrokeListener(self._this(), key_set, m, kind, 
-                                       self.mode)
+        dc.deregisterKeystrokeListener(self._this(), key_set, m, kind)
       
   def queryInterface(self, repo_id):
     '''
