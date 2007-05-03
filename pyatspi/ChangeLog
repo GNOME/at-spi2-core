@@ -1,5 +1,10 @@
 2007-05-03  Peter Parente  <parente@cs.unc.edu>
 
+	* accessible.py: 
+	Fixed bug #435177, Not saving narrow'ed interface
+
+2007-05-03  Peter Parente  <parente@cs.unc.edu>
+
 	* registry.py: 
 	Fixed bug #435282, Wrong instance variable name
 

@@ -164,7 +164,7 @@ def _makeQuery(iid):
     
     # not needed according to ORBit2 spec, but makes Java queries work
     # more reliably according to Orca experience
-    i._narrow(i.__class__)
+    i = i._narrow(i.__class__)
     if caching:
       # cache the narrow'ed result, but only if we're caching for this object
       self._icache[iid] = i
