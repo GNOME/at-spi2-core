@@ -737,5 +737,5 @@ class Registry(object):
     ob = self.observers[et.name]
     ob.clientUnref()
     if ob.getClientRefCount() == 0:
-      ob.unregister(self.registry, name)
+      ob.unregister(self.reg, name)
       del self.observers[et.name]
