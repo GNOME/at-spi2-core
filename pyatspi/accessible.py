@@ -222,6 +222,8 @@ def _mixExceptions(cls):
   @param cls: Class to mix interface methods into
   @type cls: class
   '''
+  # get a method type as a reference from a known method
+  method_type = Accessibility.Accessible.getRole.__class__
   # loop over all names in the new class
   for name in cls.__dict__.keys():
     obj = cls.__dict__[name]
@@ -229,10 +231,10 @@ def _mixExceptions(cls):
     if name.startswith('_'):
       continue
     # check if we're on a method
-    elif isinstance(obj, types.FunctionType):
+    elif isinstance(obj, method_type):
       # wrap the function in an exception handler
       method = _makeExceptionHandler(obj)
-      # add the wrpped function to the class
+      # add the wrapped function to the class
       setattr(cls, name, method)
     # check if we're on a property
     elif isinstance(obj, property):

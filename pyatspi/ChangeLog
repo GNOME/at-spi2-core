@@ -1,5 +1,10 @@
 2007-05-04  Peter Parente  <parente@cs.unc.edu>
 
+	* accessible.py: 
+	Fixed bug #435832, Catch CORBA errors for ORBit.Methods
+
+2007-05-04  Peter Parente  <parente@cs.unc.edu>
+
 	* setup.py: 
 	* Makefile.am:
 	Fixed bug #435809, Add setup.py and Makefile.am
