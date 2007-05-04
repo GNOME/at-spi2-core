@@ -415,6 +415,13 @@ class _AccessibleMixin(object):
     @return: Accessible child
     @rtype: Accessibility.Accessible
     '''
+    n = self.childCount
+    if index >= n:
+      raise IndexError
+    elif index < -n:
+      raise IndexError:
+    elif index < 0:
+      index += n
     return self.getChildAtIndex(index)
   
   def __len__(self):
