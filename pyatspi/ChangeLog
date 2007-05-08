@@ -1,5 +1,12 @@
 2007-05-08  Peter Parente  <parente@cs.unc.edu>
 
+	* constants.py: 
+	* accessible.py: 
+	* utils.py:
+	Fixed bug #436949, Need util to list all supported interfaces
+
+2007-05-08  Peter Parente  <parente@cs.unc.edu>
+
         Patch from Eitan Isaacson
 	* accessible.py: 
 	Fixed bug #436930, Syntax error when raising IndexError

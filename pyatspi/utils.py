@@ -28,33 +28,57 @@ U{http://www.opensource.org/licenses/bsd-license.php}
 '''
 import Accessibility__POA
 
-def getInterfaceIID(cls):
+def getInterfaceIID(obj):
   '''
-  Gets the ID of an interface class in string format for use in queryInterface.
+  Gets the ID of an interface class or object in string format for use in
+  queryInterface.
   
-  @param cls: Class representing an AT-SPI interface
-  @type cls: class
+  @param obj: Class representing an AT-SPI interface or instance
+  @type obj: object
   @return: IID for the interface
   @rtype: string
   @raise AttributeError: When the parameter does not provide typecode info
   '''
-  return cls.__typecode__.repo_id
+  return obj.__typecode__.repo_id
 
-def getInterfaceName(cls):
+def getInterfaceName(obj):
   '''
-  Gets the human readable name of an interface class in string format.
+  Gets the human readable name of an interface class or object in string
+  format.
   
-  @param cls: Class representing an AT-SPI interface
-  @type cls: class
+  @param obj: Class representing an AT-SPI interface or instance
+  @type obj: class
   @return: Name of the interface
   @rtype: string
   @raise AttributeError: When the parameter does not provide typecode info
   '''
-  return cls.__typecode__.name
+  return obj.__typecode__.name
 
 # we're importing here to avoid cyclic importants; constants relies on the
 # two functions above
 import constants
+
+def listInterfaces(obj):
+  '''
+  Gets a list of the names of all interfaces supported by this object. The
+  names are the short-hand interface names like "Accessible" and "Component",
+  not the full interface identifiers.
+
+  @param obj: Arbitrary object to query for all accessibility related
+  interfaces. Must provide a queryInterface method.
+  @type obj: object
+  @return: Set of supported interface names
+  @rtype: set
+  @raise AttributeError: If the object provide does not implement
+  queryInterface
+  '''
+  names = set()
+  for ic in constants.ALL_INTERFACES:
+    io = obj.queryInterface(getInterfaceIID(ic))
+    if io is None:
+      continue
+    names.add(getInterfaceName(ic))
+  return names
 
 def stringToConst(prefix, suffix):
   '''
@@ -68,11 +92,12 @@ def stringToConst(prefix, suffix):
   in the L{constants} module. If such a constant does not exist, the string
   suffix is returned instead.
 
-  This method allows strings to be used to refer to roles, relations, etc. 
+  This method allows strings to be used to refer to roles, relations, etc.
   without direct access to the constants. It also supports the future expansion
   of roles, relations, etc. by allowing arbitrary strings which may or may not
-  map to the current standard set of roles, relations, etc., but may still match
-  some non-standard role, relation, etc. being reported by an application.
+  map to the current standard set of roles, relations, etc., but may still
+  match some non-standard role, relation, etc. being reported by an
+  application.
   
   @param prefix: Prefix of the constant name such as role, relation, state, 
     text, modifier, key
@@ -87,7 +112,7 @@ def stringToConst(prefix, suffix):
 
 def stateToString(value):
   '''
-  Converts a state value to a string based on the name of the state constant in 
+  Converts a state value to a string based on the name of the state constant in
   the L{constants} module that has the given value.
   
   @param value: An AT-SPI state
@@ -127,7 +152,7 @@ def findDescendant(acc, pred, breadth_first=False):
   
   my_win = findDescendant(lambda x: x.name == 'My Window')
   
-  will search all descendants of node until one is located with the name 'My
+  will search all descendants of x until one is located with the name 'My
   Window' or all nodes are exausted. Calls L{_findDescendantDepth} or
   L{_findDescendantBreadth} to start the recursive search.
   

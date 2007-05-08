@@ -52,8 +52,8 @@ for obj in acc_dict.values():
       utils.getInterfaceName(obj) not in not_interfaces):
     # this is an interface class
     ALL_INTERFACES.append(obj)
-# get rid of our temporary list
-del not_interfaces
+# get rid of our temporary vars
+del not_interfaces, obj, kind
 
 # constants used in the Component interface to get screen coordinates
 DESKTOP_COORDS = 0
