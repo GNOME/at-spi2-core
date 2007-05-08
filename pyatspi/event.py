@@ -160,6 +160,11 @@ class Event(object):
       self.host_application = details.host_application
       self.source_name = details.source_name
       self.source_role = details.source_role
+    try:
+      # if we received an accessible, be sure to increment the ref count
+      self.any_data.ref()
+    except AttributeError:
+      pass
 
   def __str__(self):
     '''

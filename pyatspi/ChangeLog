@@ -1,3 +1,9 @@
+2007-05-08  Peter Parente  <parente@cs.unc.edu>
+
+	Patch from Eitan Isaacson
+	* event.py: 
+	Fixed bug #435947, Fix reference count error
+
 2007-05-04  Peter Parente  <parente@cs.unc.edu>
 
 	* accessible.py: 
@@ -21,7 +27,7 @@
 
 2007-05-03  Peter Parente  <parente@cs.unc.edu>
 
-	Patch from Eitan.
+	Patch from Eitan Isaacson
 	* registry.py: 
 	Fixed bug #435284, Wrong params to deregister keystrokes
 
