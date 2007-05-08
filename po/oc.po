@@ -1,21 +1,20 @@
 # Occitan translation of atk.
 # Copyright (C) 2007 Free Software Foundation, Inc.
 # This file is distributed under GNU Library General Public License Version 2.
+# Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
 #
-# Yannig MARCHEGAY <yannig@marchegay.org>. 2007
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.19.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-25 21:14+0200\n"
-"PO-Revision-Date: 2007-04-18 09:18+0200\n"
+"PO-Revision-Date: 2007-05-08 14:51+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -51,7 +50,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:82
 msgid "invalid"
-msgstr ""
+msgstr "non valid"
 
 #: ../atk/atkobject.c:83
 msgid "accelerator label"
@@ -140,7 +139,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:105
 msgid "frame"
-msgstr ""
+msgstr "encastre"
 
 #: ../atk/atkobject.c:106
 msgid "glass pane"
@@ -156,7 +155,7 @@ msgstr "icòna"
 
 #: ../atk/atkobject.c:109
 msgid "image"
-msgstr ""
+msgstr "imatge"
 
 #: ../atk/atkobject.c:110
 msgid "internal frame"
@@ -316,7 +315,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:149
 msgid "unknown"
-msgstr ""
+msgstr "desconegut"
 
 #: ../atk/atkobject.c:150
 msgid "viewport"
@@ -360,7 +359,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:160
 msgid "chart"
-msgstr ""
+msgstr "diagrama"
 
 #: ../atk/atkobject.c:161
 msgid "caption"
@@ -511,3 +510,4 @@ msgstr ""
 #: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr ""
+
