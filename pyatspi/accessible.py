@@ -419,7 +419,7 @@ class _AccessibleMixin(object):
     if index >= n:
       raise IndexError
     elif index < -n:
-      raise IndexError:
+      raise IndexError
     elif index < 0:
       index += n
     return self.getChildAtIndex(index)
