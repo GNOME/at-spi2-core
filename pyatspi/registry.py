@@ -347,20 +347,22 @@ class Registry(object):
       i = gobject.idle_add(releaseGIL)
       
     # enter the main loop
+    exc = None
     try:
       bonobo.main()
-    except KeyboardInterrupt, e:
-      # re-raise the keyboard interrupt
-      raise e
-    finally:
-      # clear all observers
-      for name, ob in self.observers.items():
-        ob.unregister(self.reg, name)
-      if gil:
-        gobject.source_remove(i)
-        if releaseGIL.keyboard_exception is not None:
-          # re-raise the keyboard interrupt we got during the GIL release
-          raise releaseGIL.keyboard_exception
+    except Exception, e:
+      # re-raise the keyboard interrupt later
+      exc = e
+
+    # clear all observers
+    for name, ob in self.observers.items():
+      ob.unregister(self.reg, name)
+    if gil:
+      gobject.source_remove(i)
+      exc = releaseGIL.keyboard_exception
+    if exc is not None:
+      # raise an keyboard exception we may have gotten earlier
+      raise exc  
 
   def stop(self, *args):
     '''Quits the main loop.'''

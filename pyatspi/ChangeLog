@@ -1,5 +1,10 @@
 2007-05-09  Peter Parente  <parente@cs.unc.edu>
 
+	* registry.py: Corrected patch for bug #436982 so it works with
+	Python 2.4, not just 2.5
+
+2007-05-09  Peter Parente  <parente@cs.unc.edu>
+
 	* registry.py: Fixed bug #436982 (Patch from Eitan), crash on exit
 	* utils.py: Fixed bug #437153, bad StateSet add/remove impl.
 
