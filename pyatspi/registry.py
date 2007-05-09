@@ -333,22 +333,35 @@ class Registry(object):
     '''
     self.async = async
     
-    # register a signal handler for gracefully killing the loop
-    signal.signal(signal.SIGINT, self.stop)
-    signal.signal(signal.SIGTERM, self.stop)
-  
     if gil:
       def releaseGIL():
-        time.sleep(1e-5)
+        try:
+          time.sleep(1e-5)
+        except KeyboardInterrupt, e:
+          # store the exception for later
+          releaseGIL.keyboard_exception = e
+          self.stop()
         return True
+      # make room for an exception if one occurs during the 
+      releaseGIL.keyboard_exception = None
       i = gobject.idle_add(releaseGIL)
       
     # enter the main loop
-    bonobo.main()
-    
-    if gil:
-      gobject.source_remove(i)
-    
+    try:
+      bonobo.main()
+    except KeyboardInterrupt, e:
+      # re-raise the keyboard interrupt
+      raise e
+    finally:
+      # clear all observers
+      for name, ob in self.observers.items():
+        ob.unregister(self.reg, name)
+      if gil:
+        gobject.source_remove(i)
+        if releaseGIL.keyboard_exception is not None:
+          # re-raise the keyboard interrupt we got during the GIL release
+          raise releaseGIL.keyboard_exception
+
   def stop(self, *args):
     '''Quits the main loop.'''
     try:

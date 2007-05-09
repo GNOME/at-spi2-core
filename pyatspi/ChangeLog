@@ -1,3 +1,8 @@
+2007-05-09  Peter Parente  <parente@cs.unc.edu>
+
+	* registry.py: Fixed bug #436982 (Patch from Eitan), crash on exit
+	* utils.py: Fixed bug #437153, bad StateSet add/remove impl.
+
 2007-05-08  Peter Parente  <parente@cs.unc.edu>
 
 	* constants.py: 

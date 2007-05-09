@@ -341,7 +341,7 @@ class StateSet(Accessibility__POA.StateSet):
     @param state: State(s) to add
     @type state: Accessibility.StateType
     '''
-    self.states.add(state)
+    map(self.states.add, state)
   
   def remove(self, *state):
     '''
@@ -350,7 +350,7 @@ class StateSet(Accessibility__POA.StateSet):
     @param state: State(s) to remove
     @type state: Accessibility.StateType
     '''
-    self.states.remove(state)
+    map(self.states.remove, state)
   
   def equals(self, state_set):
     '''
