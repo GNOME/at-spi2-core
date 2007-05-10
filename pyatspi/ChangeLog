@@ -1,3 +1,7 @@
+2007-05-10  Peter Parente  <parente@cs.unc.edu>
+
+	* registry.py: Fixed bug #436982 again (Patch from Eitan)
+
 2007-05-09  Peter Parente  <parente@cs.unc.edu>
 
 	* registry.py: Corrected patch for bug #436982 so it works with
