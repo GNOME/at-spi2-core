@@ -362,7 +362,7 @@ class StateSet(Accessibility__POA.StateSet):
     @return: Are the sets equivalent in terms of their contents?
     @rtype: boolean
     '''
-    return self.state_set == self.states
+    return state_set.states == self.states
   
   def compare(self, state_set):
     '''
