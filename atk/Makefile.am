@@ -108,7 +108,7 @@ stamp-atkmarshal.c: @REBUILD@ atkmarshal.list
 atk-enum-types.h: s-enum-types-h
 	@true
 s-enum-types-h: @REBUILD@ $(atk_headers) Makefile
-	( cd $(srcdir) && glib-mkenums \
+	( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
 			--fprod "/* enumerations from \"@filename@\" */\n" \
 			--vhead "GType @enum_name@_get_type (void);\n#define ATK_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n"         \
@@ -121,7 +121,7 @@ s-enum-types-h: @REBUILD@ $(atk_headers) Makefile
 atk-enum-types.c: s-enum-types-c
 	@true
 s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
-	( cd $(srcdir) && glib-mkenums \
+	( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#include <atk.h>" \
 			--fprod "\n/* enumerations from \"@filename@\" */" \
 			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {"     \

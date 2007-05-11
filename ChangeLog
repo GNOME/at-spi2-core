@@ -1,3 +1,9 @@
+2007-05-11  Brian Cameron  <brian.cameron@sun.com>
+
+	* Use $(GLIB_MKENUMS) instead of calling glib-mkenums directly.
+	  This works better when you build with glib via an
+	  uninstalled.pc file.
+
 2007-04-25  Christophe Merlet  <redfox@redfoxcenter.org>
 
 	* configure.in: added "oc" (Occitan) to ALL_LINGUAS.
