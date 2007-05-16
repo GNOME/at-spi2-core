@@ -1,3 +1,7 @@
+2007-05-16  Peter Parente  <parente@cs.unc.edu>
+
+	* registry.py: Fixed bug #438623, state change events missing
+
 2007-05-10  Peter Parente  <parente@cs.unc.edu>
 
 	* utils.py: Fixed bug #437528, StateSet equals

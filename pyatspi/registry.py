@@ -612,12 +612,19 @@ class Registry(object):
     @param event: AT-SPI event
     @type event: L{event.Event}
     '''
+    et = event.type
     try:
       # try to get the client registered for this event type
-      clients = self.clients[event.type.name]
+      clients = self.clients[et.name]
     except KeyError:
-      # client may have unregistered recently, ignore event
-      return
+      try:
+        # we may not have registered for the complete subtree of events
+        # if our tree does not list all of a certain type (e.g.
+        # object:state-changed:*); try again with klass and major only
+        clients = self.clients['%s:%s' % (et.klass, et.major)]
+      except KeyError:
+        # client may have unregistered recently, ignore event
+        return
     # make the call to each client
     for client in clients:
       try:
