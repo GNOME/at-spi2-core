@@ -43,5 +43,5 @@ TESTS = test-simple
 
 TESTS_ENVIRONMENT =					\
 	LD_LIBRARY_PATH=$(top_builddir)/libspi/.libs/:$(top_builddir)/cspi/.libs/	\
-	PATH=$(top_builddir)/registryd/.libs
+	PATH=$(top_builddir)/registryd/.libs/:$(PATH)
 

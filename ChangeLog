@@ -1,3 +1,8 @@
+2007-05-17  Li Yuan <li.yuan@sun.com>
+
+	* test/Makefile.am:
+	Bug #439057. Add the original PATH to PATH.
+
 2007-04-23  Li Yuan <li.yuan@sun.com>
 
 	* configure.in, NEWS:
