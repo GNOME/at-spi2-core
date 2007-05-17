@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: atk 1.19.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-25 21:14+0200\n"
-"PO-Revision-Date: 2007-05-08 14:51+0200\n"
+"PO-Revision-Date: 2007-05-17 13:57+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "animacion"
 
 #: ../atk/atkobject.c:86
 msgid "arrow"
-msgstr ""
+msgstr "flècha"
 
 #: ../atk/atkobject.c:87
 msgid "calendar"
@@ -183,11 +183,11 @@ msgstr "menut"
 
 #: ../atk/atkobject.c:116
 msgid "menu bar"
-msgstr ""
+msgstr "barra de menuts"
 
 #: ../atk/atkobject.c:117
 msgid "menu item"
-msgstr ""
+msgstr "element de menut"
 
 #: ../atk/atkobject.c:118
 msgid "option pane"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:167
 msgid "form"
-msgstr ""
+msgstr "formulari"
 
 #: ../atk/atkobject.c:356
 msgid "Accessible Name"
