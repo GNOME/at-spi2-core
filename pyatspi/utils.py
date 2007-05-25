@@ -26,6 +26,7 @@ Portions of this code originally licensed and copyright (c) 2005, 2007
 IBM Corporation under the BSD license, available at
 U{http://www.opensource.org/licenses/bsd-license.php}
 '''
+import ORBit
 import Accessibility__POA
 
 def getInterfaceIID(obj):
@@ -311,21 +312,21 @@ def getPath(acc):
       raise LookupError
     acc = acc.parent
 
-class StateSet(Accessibility__POA.StateSet):
+class _StateSetImpl(Accessibility__POA.StateSet):
   '''
-  Convenience implementation of AT-SPI StateSet, for future use with Collection
-  interface.
+  Implementation of the StateSet interface. Clients should not use this class
+  directly, but rather the L{StateSet} proxy class.
   
   @param states: Set of states
   @type states: set
   '''
-  def __init__(self, *states):
-    '''Initializes the state set with the given states.'''
-    self.states = set(states)
+  def __init__(self):
+    '''Initializes the state set.'''
+    self.states = set()
     
   def contains(self, state):
     '''
-    Checks if this L{StateSet} contains the given state.
+    Checks if this StateSet contains the given state.
     
     @param state: State to check
     @type state: Accessibility.StateType
@@ -334,48 +335,66 @@ class StateSet(Accessibility__POA.StateSet):
     '''
     return state in self.states
   
-  def add(self, *state):
+  def add(self, state):
     '''
-    Adds one or more states to this set.
+    Adds a state to this set.
     
-    @param state: State(s) to add
+    @param state: State to add
     @type state: Accessibility.StateType
     '''
-    map(self.states.add, state)
+    self.states.add(state)
   
-  def remove(self, *state):
+  def remove(self, state):
     '''
-    Removes one or more states from this set.
+    Removes a state from this set.
     
-    @param state: State(s) to remove
+    @param state: State to remove
     @type state: Accessibility.StateType
     '''
-    map(self.states.remove, state)
+    self.states.remove(state)
   
   def equals(self, state_set):
     '''
-    Checks if this L{StateSet} contains exactly the same members as the given
-    L{StateSet}.
+    Checks if this StateSet contains exactly the same members as the given
+    StateSet.
     
     @param state_set: Another set
-    @type state_set: L{StateSet}
+    @type state_set: Accessibility.StateSet
     @return: Are the sets equivalent in terms of their contents?
     @rtype: boolean
     '''
-    return state_set.states == self.states
+    # don't check private members, object might be from another process
+    # or implementation
+    return set(state_set.getStates()) == self.states
   
   def compare(self, state_set):
     '''
     Computes the symmetric differences of this L{StateSet} and the given
     L{StateSet}.
+
+    @note: This method is not currently implemented because of difficulties
+    with reference counting. This method needs to return a new
+    Accessibility.StateSet object, but the Python implementation for that
+    object needs to be kept alive. The problem is who will keep that
+    server implementation alive? As soon as it goes out of scope, it's
+    GC'ed. This object cannot keep it alive either as it may go out of
+    scope before the new object is ready to be finalized. With a global
+    cache of objects, we don't know when to invalidate.
     
     @param state_set: Another set
-    @type state_set: L{StateSet}
+    @type state_set: Accessibility.StateSet
     @return: Elements in only one of the two sets
-    @rtype: L{StateSet}
+    @rtype: Accessibility.StateSet
     '''
-    diff = self.states.symmetric_difference(state_set.states)
-    return StateSet(*diff)
+    raise ORBit.CORBA.NO_IMPLEMENT
+    
+    # don't check private members, object might be from another process
+    # or implementation
+    #states = set(state_set.getStates())
+    #diff = self.states.symmetric_difference(states)
+    #new_ss = _StateSetImpl()
+    #map(new_ss._this().add, diff)
+    #return new_ss._this()
   
   def isEmpty(self):
     '''
@@ -394,3 +413,113 @@ class StateSet(Accessibility__POA.StateSet):
     @rtype: list
     '''
     return list(self.states)
+
+class StateSet(object):
+  '''
+  Python proxy for the L{_StateSetImpl} class. Use this to safely instantiate
+  new StateSet objects in Python.
+
+  @param impl: State set implementation
+  @type impl: L{_StateSetImpl}
+  '''
+  def __init__(self, *states):
+    '''
+    Initializes the state set with the given states.
+
+    @param states: States to add immediately
+    @type states: list
+    '''
+    self.impl = _StateSetImpl()
+    map(self.impl._this().add, states)
+    
+  def contains(self, state):
+    '''
+    Checks if this StateSet contains the given state.
+    
+    @param state: State to check
+    @type state: Accessibility.StateType
+    @return: True if the set contains the given state
+    @rtype: boolean
+    '''
+    return self.impl._this().contains(state)
+  
+  def add(self, *states):
+    '''
+    Adds states to this set.
+    
+    @param states: State(s) to add
+    @type states: Accessibility.StateType
+    '''
+    map(self.impl._this().add, state)
+    
+  def remove(self, state):
+    '''
+    Removes states from this set.
+    
+    @param states: State(s) to remove
+    @type states: Accessibility.StateType
+    '''
+    map(self.impl._this().remove, state)
+  
+  def equals(self, state_set):
+    '''
+    Checks if this StateSet contains exactly the same members as the given
+    StateSet.
+    
+    @param state_set: Another set
+    @type state_set: Accessibility.StateSet
+    @return: Are the sets equivalent in terms of their contents?
+    @rtype: boolean
+    '''
+    if isinstance(state_set, self.__class__):
+      # convenience if we're given a proxy
+      state_set = state_set.raw()
+    return self.impl._this().equals(state_set)
+  
+  def compare(self, state_set):
+    '''
+    Finds the symmetric difference between this state set andthe one provided,
+    and returns it as a new StateSet.
+
+    @note: This does not use L{_StateSetImpl.compare} which cannot be
+    implemented at this time
+    @param state_set: Set to compare against
+    @type state_set: Accessibility.StateSet
+    @return: Proxy for the new set
+    @rtype: L{StateSet}
+    '''
+    if isinstance(state_set, self.__class__):
+      # shortcut if it's another one of our proxies
+      state_set = state_set.raw()
+    a = set(self.impl._this().getStates())
+    b = set(state_set.getStates())
+    diff = a.symmetric_difference(b)
+    return StateSet(*diff)
+  
+  def isEmpty(self):
+    '''
+    Checks if this StateSet is empty.
+    
+    @return: Is it empty?
+    @rtype: boolean
+    '''
+    return self.impl._this().isEmpty()
+
+  def getStates(self):
+    '''
+    Gets the sequence of all states in this set.
+    
+    @return: List of states
+    @rtype: list
+    '''
+    return self.impl._this().getStates()
+
+  def raw(self):
+    '''
+    Gets the Accessibility.StateSet object proxied for use in a remote
+    call.
+
+    @return: State set
+    @rtype: Accessibility.StateSet
+    '''
+    return self.impl._this()

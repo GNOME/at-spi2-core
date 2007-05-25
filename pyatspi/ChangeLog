@@ -1,3 +1,8 @@
+2007-05-25  Peter Parente  <parente@cs.unc.edu>
+
+	* utils.py: Partial fix for bug #437944, state set object fails when
+	used remotely. See bug about what it not fixed.
+
 2007-05-16  Peter Parente  <parente@cs.unc.edu>
 
 	* registry.py: Fixed bug #438623, state change events missing
