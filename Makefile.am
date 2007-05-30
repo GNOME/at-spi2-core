@@ -1,4 +1,4 @@
-SUBDIRS = docs idl libspi login-helper registryd atk-bridge cspi test po
+SUBDIRS = docs idl libspi login-helper registryd atk-bridge cspi pyatspi test po
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libspi-1.0.pc cspi-1.0.pc libloginhelper-1.0.pc

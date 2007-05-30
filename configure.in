@@ -45,6 +45,10 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_ISC_POSIX
 
+# Check for Python
+
+AM_PATH_PYTHON(2.4)
+
 GNOME_COMMON_INIT
 GNOME_COMPILE_WARNINGS(maximum)
 
@@ -236,6 +240,7 @@ login-helper/Makefile
 test/Makefile
 cspi/Makefile
 cspi/bonobo/Makefile
+pyatspi/Makefile
 ])
 
 echo "AT-SPI setup:
