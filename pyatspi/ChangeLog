@@ -1,3 +1,8 @@
+2007-05-31  Peter Parente  <parente@cs.unc.edu>
+
+	* accessible.py: Fix for bug #439531, unable to define instance 
+	variables in accessible
+
 2007-05-25  Peter Parente  <parente@cs.unc.edu>
 
 	* utils.py: Partial fix for bug #437944, state set object fails when

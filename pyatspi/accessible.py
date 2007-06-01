@@ -137,7 +137,7 @@ def _makeQuery(iid):
     except KeyError:
       # interface not cached
       caching = True
-    except TypeError:
+    except AttributeError:
       # determine if we're caching
       caching = _CACHE_LEVEL is not None
       if caching:
@@ -324,16 +324,22 @@ class _AccessibleMixin(object):
   @type SLOTS: tuple
   '''
   SLOTTED_CLASSES = {}
-  SLOTS = ('_icache',)
+  SLOTS = ('_icache', 'user_data')
   
   def __new__(cls):
     '''
-    Creates a new class mimicking the one requested, but with an extra _cache
-    attribute set in the __slots__ tuple. This field can be set to a dictionary
-    or other object to allow caching to occur.
+    Creates a new class mimicking the one requested, but with extra named 
+    defined in __slots__. The _cache attribute is used internally for interface
+    caching. The user_data field may be populated with whatever data structure
+    a client wishes to use. Neither is set to a default value by default.
     
     Note that we can't simply mix __slots__ into this class because __slots__
-    has an effect only at class creation time.
+    has an effect only at class creation time. 
+    
+    We also do not completely obliterate __slots__ to allow __dict__ to be
+    instantiated as normal as reducing the initialization and memory overhead
+    of the millions of accessible objects that are created is a good thing for
+    many clients.
     
     @param cls: Accessibility object class
     @type cls: class
@@ -350,8 +356,6 @@ class _AccessibleMixin(object):
                       '__slots__' : _AccessibleMixin.SLOTS})
       _AccessibleMixin.SLOTTED_CLASSES[cls] = new_cls
     obj = cls._mix___new__(new_cls)
-    # don't create the interface cache until we need it
-    obj._icache = None
     return obj
   
   def __del__(self):
