@@ -1,6 +1,6 @@
 README
 
-at-spi version 1.19.1
+at-spi version 1.19.3
 
 This version of at-spi requires atk 1.17.0 or later.
 
@@ -61,6 +61,8 @@ The directories within this package are arranged as follows:
 	ATs, and the code which adapts the implementation-specific
 	code to the C bindings API.  The header file
 	"spi.h" contains the API declarations used by AT clients.
+
+    pyatspi: this directory is an unified python binding used by ATs.
 
     tests : this directory should be called 'examples', since
 	it contains not only test programs, but examples

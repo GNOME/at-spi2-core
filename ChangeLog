@@ -1,3 +1,8 @@
+2007-06-04  Li Yuan <li.yuan@sun.com>
+
+	* configure.in, README, NEWS:
+	Uprev/release 1.19.3 for GNOME 2.19.3.
+
 2007-05-30  Willie Walker <william.walker@sun.com>
 
 	* configure.in, Makefile.am, pyatspi/Makefile.am: Fix for bug
