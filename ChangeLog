@@ -1,3 +1,9 @@
+2007-06-04  Li Yuan <li.yuan@sun.com>
+
+	* configure.in, NEWS:
+	Revved to 1.19.3 for GNOME 2.19.3.
+	Remove gnome-doc-utils dependence.
+
 2007-05-11  Brian Cameron  <brian.cameron@sun.com>
 
 	* Use $(GLIB_MKENUMS) instead of calling glib-mkenums directly.

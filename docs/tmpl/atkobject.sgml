@@ -294,6 +294,7 @@ the object changed.
 The AtkImplementor interface is implemented by objects for which AtkObject peers may be obtained via calls to iface->(ref_accessible)(implementor);
 </para>
 
+
 <!-- ##### STRUCT AtkPropertyValues ##### -->
 <para>
 The Atk PropertyValue structure is used when notifying a change in property.

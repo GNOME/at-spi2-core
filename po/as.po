@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-12 19:56+0800\n"
+"POT-Creation-Date: 2007-06-04 22:19+0800\n"
 "PO-Revision-Date: 2007-05-08 17:27+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <assam@mm.assam-glug.org>\n"
@@ -406,7 +406,8 @@ msgstr "সুগম বিৱৰণ"
 
 #: atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "এটা পদাৰ্থৰ বিৱৰণ, যিহক সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে পুনৰাকৃত কৰা হ'ল"
+msgstr ""
+"এটা পদাৰ্থৰ বিৱৰণ, যিহক সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে পুনৰাকৃত কৰা হ'ল"
 
 #: atk/atkobject.c:370
 msgid "Accessible Parent"
@@ -457,8 +458,8 @@ msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
-"নিৰ্ঘন্ট বিজ্ঞপ্তি সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়;  এই ধৰ্মটো ব্যৱহাৰ কৰা উচিত নহয় । "
-"ইয়াৰ সলনি সুগম-নিৰ্ঘন্ট-বিজ্ঞপ্তি-পদাৰ্থ ব্যৱহাৰ কৰা উচিত"
+"নিৰ্ঘন্ট বিজ্ঞপ্তি সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়;  এই ধৰ্মটো ব্যৱহাৰ কৰা উচিত নহয় "
+"। ইয়াৰ সলনি সুগম-নিৰ্ঘন্ট-বিজ্ঞপ্তি-পদাৰ্থ ব্যৱহাৰ কৰা উচিত"
 
 #: atk/atkobject.c:420
 msgid "Accessible Table Column Header"
@@ -515,4 +516,3 @@ msgstr "সুগম Hypertext সূত্ৰ সংখ্যা"
 #: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "সাম্প্ৰতিক AtkHypertext ৰ সূত্ৰ সংখ্যা"
-
