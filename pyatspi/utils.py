@@ -197,7 +197,7 @@ def _findDescendantBreadth(acc, pred):
       pass
   for child in acc:
     try:
-      ret = _findDescedantBreadth(child, pred)
+      ret = _findDescendantBreadth(child, pred)
     except Exception:
       ret = None
     if ret is not None: return ret
