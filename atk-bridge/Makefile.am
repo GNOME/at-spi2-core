@@ -1,3 +1,5 @@
+NULL =
+
 moduledir = $(libdir)/gtk-2.0/modules
 module_LTLIBRARIES = libatk-bridge.la
 
@@ -8,12 +10,14 @@ libatk_bridge_la_DEPENDENCIES =	\
 	$(top_srcdir)/libspi/application.h
 
 INCLUDES = -I $(top_srcdir) \
-           -I $(top_builddir)         	\
-	   -I $(top_srcdir)/libspi	\
-	   -I $(top_builddir)/libspi	\
-           -I $(top_builddir)/atk-bridge \
-	   $(WARN_CFLAGS)	\
-           $(ATK_BRIDGE_CFLAGS)
+	   -I $(top_builddir) \
+	   -I $(top_srcdir)/libspi \
+	   -I $(top_builddir)/libspi \
+	   -I $(top_builddir)/atk-bridge \
+	   $(WARN_CFLAGS) \
+	   $(ATK_BRIDGE_CFLAGS) \
+	   -DG_LOG_DOMAIN=\"atk-bridge\" \
+	   $(NULL)
 
 DEPS = 	\
 	$(libatk)	\

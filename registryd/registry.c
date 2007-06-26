@@ -293,6 +293,10 @@ parse_event_type (EventTypeStruct *etype, const char *event_name)
     {
       etype->type_cat = ETYPE_OBJECT;
     }
+  else if (!g_ascii_strncasecmp (event_name, "document:", 9))
+    {
+      etype->type_cat = ETYPE_OBJECT;
+    }
   else if (!g_ascii_strncasecmp (event_name, "window:", 7))
     {
       etype->type_cat = ETYPE_WINDOW;

@@ -1,3 +1,12 @@
+2007-06-26  Li Yuan <li.yuan@sun.com>
+
+	* atk-bridge/Makefile.am:
+	Bug #450897. Set logging domain.
+	* registryd/registry.c: (parse_event_type):
+	Bug #433802.
+	Handle the "document:" signal, set the type to
+	ETYPE_OBJECT.
+
 2007-06-04  Li Yuan <li.yuan@sun.com>
 
 	* configure.in, README, NEWS:
