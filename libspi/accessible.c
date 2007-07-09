@@ -338,6 +338,9 @@ impl_accessibility_accessible_get_state (PortableServer_Servant servant,
 				  BONOBO_OBJREF(set),
 				  ev);
 
+  g_object_unref (atk_set);
+  Bonobo_Unknown_unref (retval, ev);
+
   return retval;
 }
 
