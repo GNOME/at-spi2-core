@@ -1,3 +1,7 @@
+What's new in at-spi-1.19.5:
+
+* Bugfixes: #446277, #450897, #433802.
+
 What's new in at-spi-1.19.3:
 
 * We add pyatspi into at-spi. pyatspi is an unified python binding.

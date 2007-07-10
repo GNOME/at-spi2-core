@@ -1,5 +1,10 @@
 2007-07-09  Li Yuan <li.yuan@sun.com>
 
+	* configure.in, README, NEWS:
+	Uprev/release 1.19.5.
+
+2007-07-09  Li Yuan <li.yuan@sun.com>
+
 	* libspi/accessible.c: (impl_accessibility_accessible_get_state):
 	Bug #446277. Control the ref_count to 1, so Orca can unref the
 	state_set and avoid the memory leak.
