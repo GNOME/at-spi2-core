@@ -1,3 +1,7 @@
+2007-07-25  Eitan Isaacson  <eitan@ascender.com>
+
+	* utils.py: Fixed typo in call for _findAllDescendants (bug #454090).
+
 2007-06-20  Peter Parente  <parente@cs.unc.edu>
 
 	* utils.py: Fix for bug #449356, typo in _findDescendantBreadth method

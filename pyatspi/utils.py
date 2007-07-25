@@ -258,7 +258,7 @@ def _findAllDescendants(acc, pred, matches):
       if pred(child): matches.append(child)
     except Exception:
       pass
-    findAllDescendants(child, pred, matches)
+    _findAllDescendants(child, pred, matches)
   
 def findAncestor(acc, pred):
   '''
