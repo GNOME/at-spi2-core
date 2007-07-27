@@ -1,3 +1,9 @@
+2007-07-27  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkutil.c: (atk_get_version):
+	* atk/atkutil.h:
+	Bug #460851. A new API to get the current version of ATK.
+
 2007-06-04  Li Yuan <li.yuan@sun.com>
 
 	* configure.in, NEWS:

@@ -19,6 +19,7 @@
 
 #include "atkutil.h"
 #include "atkmarshal.c"
+#include "config.h"
 
 static void atk_util_class_init (AtkUtilClass *klass);
 
@@ -381,3 +382,18 @@ atk_get_toolkit_version (void)
 
   return retval;
 }
+
+/**
+ * atk_get_version:
+ *
+ * Gets the current version for ATK.
+ *
+ * Returns: version string for ATK
+ **/
+
+G_CONST_RETURN gchar *
+atk_get_version (void)
+{
+  return VERSION;
+}
+
