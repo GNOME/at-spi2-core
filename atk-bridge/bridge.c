@@ -1071,8 +1071,10 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 
   spi_init_keystroke_from_atk_key_event (&key_event, event);
 
+  bridge_threads_leave ();
   result = Accessibility_DeviceEventController_notifyListenersSync (
 	  spi_atk_bridget_get_dec (), &key_event, &ev);
+  bridge_threads_enter ();
 
   if (key_event.event_string) CORBA_free (key_event.event_string);
 

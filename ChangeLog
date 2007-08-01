@@ -1,3 +1,8 @@
+2007-08-01  Li Yuan  <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c: (spi_atk_bridge_key_listener):
+	Fix a potential dead-lock issue. Bug #462412.
+
 2007-07-09  Li Yuan <li.yuan@sun.com>
 
 	* configure.in, README, NEWS:
