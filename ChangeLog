@@ -1,3 +1,7 @@
+2007-08-03  Danishka Navin  <danishka@gmail.com>
+
+	* configure.in: added "si" (Sinhala) to ALL_LINGUAS.
+
 2007-07-30  Li Yuan  <li.yuan@sun.com>
 
 	* configure.in, NEWS:
