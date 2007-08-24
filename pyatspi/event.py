@@ -178,7 +178,7 @@ class Event(object):
            (self.type, self.detail1, self.detail2, self.any_data,
             self.source, self.host_application)
   
-class EventType(object):
+class EventType(str):
   '''
   Wraps the AT-SPI event type string so its components can be accessed 
   individually as klass (can't use the keyword class), major, minor, and detail 
@@ -212,23 +212,17 @@ class EventType(object):
     @raise AttributeError: When the given event name is not a valid string 
     '''
     # get rid of any leading and trailing ':' separators
-    self.name = name.strip(':')
+    self.value = name.strip(':')
+    self.name = self.value # Backward compatability
     self.klass = None
     self.major = None
     self.minor = None
     self.detail = None
     
     # split type according to delimiters
-    split = self.name.split(':')
+    split = self.value.split(':')
     # loop over all the components
     for i in xrange(len(split)):
       # store values of attributes in this object
       setattr(self, self.format[i], split[i])
       
-  def __str__(self):
-    '''
-    @return: Full event name as human readable representation of this event 
-      type
-    @rtype: string
-    '''
-    return self.name

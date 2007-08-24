@@ -1,3 +1,8 @@
+2007-08-24  Eitan Isaacson  <eitan@ascender.com>
+
+	* event.py: Make EventType a string descendent, it is now IDL
+	compatable. Bug #467366.
+
 2007-07-25  Eitan Isaacson  <eitan@ascender.com>
 
 	* utils.py: Fixed typo in call for _findAllDescendants (bug #454090).
