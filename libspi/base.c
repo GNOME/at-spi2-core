@@ -71,7 +71,7 @@ BONOBO_TYPE_FUNC (SpiBase, PARENT_TYPE, spi_base)
 void
 spi_base_construct (SpiBase *object, GObject *gobject)
 {
- g_assert (G_IS_OBJECT (gobject));
+ g_return_if_fail (G_IS_OBJECT (gobject));
  object->gobj = g_object_ref (gobject);
 }
 
