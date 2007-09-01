@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.19.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-17 16:05+0100\n"
-"PO-Revision-Date: 2007-08-20 23:30+0200\n"
+"POT-Creation-Date: 2007-08-21 11:48+0100\n"
+"PO-Revision-Date: 2007-08-31 23:45+0200\n"
 "Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:95
 msgid "desktop icon"
-msgstr ""
+msgstr "icòna de burèu"
 
 #: ../atk/atkobject.c:96
 msgid "desktop frame"
@@ -299,7 +299,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:145
 msgid "tool bar"
-msgstr ""
+msgstr "barra d'espleches"
 
 #: ../atk/atkobject.c:146
 msgid "tool tip"
@@ -391,7 +391,7 @@ msgstr "formulari"
 
 #: ../atk/atkobject.c:356
 msgid "Accessible Name"
-msgstr ""
+msgstr "Nom accessible"
 
 #: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
@@ -399,7 +399,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:363
 msgid "Accessible Description"
-msgstr ""
+msgstr "Descripcion accessibla"
 
 #: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
@@ -407,7 +407,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:370
 msgid "Accessible Parent"
-msgstr ""
+msgstr "Parent accessible"
 
 #: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: ../atk/atkobject.c:377
 msgid "Accessible Value"
-msgstr ""
+msgstr "Valor accessibla"
 
 #: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
