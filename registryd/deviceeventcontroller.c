@@ -1420,7 +1420,7 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 				DEControllerKeyListener         *listener,
 				CORBA_boolean                    is_system_global)
 {
-  if ((key_event->modifiers == (CORBA_unsigned_short) (listener->mask & 0xFF)) &&
+  if (((key_event->modifiers & 0xFF) == (CORBA_unsigned_short) (listener->mask & 0xFF)) &&
        spi_key_set_contains_key (listener->keys, key_event) &&
        spi_eventtype_seq_contains_event (listener->listener.typeseq, key_event) && 
       (is_system_global == listener->mode->global))

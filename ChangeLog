@@ -1,3 +1,10 @@
+2007-09-08  Li Yuan  <li.yuan@sun.com>
+
+	* registryd/deviceeventcontroller.c:
+	(spi_key_event_matches_listener):
+	Bug #474796. Should not checkmask bit 14 when sond out 
+	device event.
+
 2007-08-20  Li Yuan  <li.yuan@sun.com>
 
 	* libspi/base.c: (spi_base_construct):
