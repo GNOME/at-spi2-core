@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-30 18:22+0800\n"
-"PO-Revision-Date: 2007-09-07 15:58+0700\n"
+"PO-Revision-Date: 2007-09-11 18:03+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -307,15 +307,15 @@ msgstr "คำแนะนำเครื่องมือ"
 
 #: atk/atkobject.c:147
 msgid "tree"
-msgstr ""
+msgstr "ต้นไม้"
 
 #: atk/atkobject.c:148
 msgid "tree table"
-msgstr ""
+msgstr "ตารางแบบต้นไม้"
 
 #: atk/atkobject.c:149
 msgid "unknown"
-msgstr "ไม่รู้จัก"
+msgstr "ไม่ทราบ"
 
 #: atk/atkobject.c:150
 msgid "viewport"
