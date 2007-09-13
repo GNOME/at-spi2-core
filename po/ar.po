@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-30 18:22+0800\n"
+"POT-Creation-Date: 2006-07-23 07:06+0200\n"
 "PO-Revision-Date: 2007-01-19 18:52+0200\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -21,502 +21,498 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Arabic\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && "
-"n<=10 ? 2 : 3\n"
+"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && n<=10 ? 2 : 3\n"
 
-#: atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
 msgstr "الوصلة المنتقاة"
 
-#: atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
 msgstr "يحدد فيما اذا انتُقِيَ كائِن AtkHyperlink"
 
-#: atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
 msgstr "عدد المثبتات"
 
-#: atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
 msgstr "عدد المثبتات المرتبطة بكائن AtkHyperlink"
 
-#: atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:119
 msgid "End index"
 msgstr "الفهرس النهائي"
 
-#: atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
 msgstr "الفهرس النهائي لكائن AtkHyperlink"
 
-#: atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:128
 msgid "Start index"
 msgstr "فهرس البداية"
 
-#: atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
 msgstr "فهرس البداية لكائن AtkHyperlink"
 
-#: atk/atkobject.c:82
+#: ../atk/atkobject.c:82
 msgid "invalid"
 msgstr "غير صالح"
 
-#: atk/atkobject.c:83
+#: ../atk/atkobject.c:83
 msgid "accelerator label"
 msgstr "شارة الاختصار"
 
-#: atk/atkobject.c:84
+#: ../atk/atkobject.c:84
 msgid "alert"
 msgstr "تنبيه"
 
-#: atk/atkobject.c:85
+#: ../atk/atkobject.c:85
 msgid "animation"
 msgstr "رسوم متحركة"
 
-#: atk/atkobject.c:86
+#: ../atk/atkobject.c:86
 msgid "arrow"
 msgstr "سهم"
 
-#: atk/atkobject.c:87
+#: ../atk/atkobject.c:87
 msgid "calendar"
 msgstr "تقويم"
 
-#: atk/atkobject.c:88
+#: ../atk/atkobject.c:88
 msgid "canvas"
 msgstr "لوح رسم"
 
-#: atk/atkobject.c:89
+#: ../atk/atkobject.c:89
 msgid "check box"
 msgstr "صندوق ضبط"
 
-#: atk/atkobject.c:90
+#: ../atk/atkobject.c:90
 msgid "check menu item"
 msgstr "عنصر قائمة ضبط"
 
-#: atk/atkobject.c:91
+#: ../atk/atkobject.c:91
 msgid "color chooser"
 msgstr "مختار الألوان"
 
-#: atk/atkobject.c:92
+#: ../atk/atkobject.c:92
 msgid "column header"
 msgstr "رأس العمود"
 
-#: atk/atkobject.c:93
+#: ../atk/atkobject.c:93
 msgid "combo box"
 msgstr "صندوق مركب"
 
-#: atk/atkobject.c:94
+#: ../atk/atkobject.c:94
 msgid "dateeditor"
 msgstr "محرر التاريخ"
 
-#: atk/atkobject.c:95
+#: ../atk/atkobject.c:95
 msgid "desktop icon"
 msgstr "أيقونة المكتب"
 
-#: atk/atkobject.c:96
+#: ../atk/atkobject.c:96
 msgid "desktop frame"
 msgstr "إطار المكتب"
 
-#: atk/atkobject.c:97
+#: ../atk/atkobject.c:97
 msgid "dial"
 msgstr "اتصال"
 
-#: atk/atkobject.c:98
+#: ../atk/atkobject.c:98
 msgid "dialog"
 msgstr "حوار"
 
-#: atk/atkobject.c:99
+#: ../atk/atkobject.c:99
 msgid "directory pane"
 msgstr "لوح الدلائل"
 
-#: atk/atkobject.c:100
+#: ../atk/atkobject.c:100
 msgid "drawing area"
 msgstr "مساحة الرسم"
 
-#: atk/atkobject.c:101
+#: ../atk/atkobject.c:101
 msgid "file chooser"
 msgstr "مختار الملفات"
 
-#: atk/atkobject.c:102
+#: ../atk/atkobject.c:102
 msgid "filler"
 msgstr "مملئ"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:104
+#: ../atk/atkobject.c:104
 msgid "fontchooser"
 msgstr "مختار الخطوط"
 
-#: atk/atkobject.c:105
+#: ../atk/atkobject.c:105
 msgid "frame"
 msgstr "إطار"
 
-#: atk/atkobject.c:106
+#: ../atk/atkobject.c:106
 msgid "glass pane"
 msgstr "لوح بلوري"
 
-#: atk/atkobject.c:107
+#: ../atk/atkobject.c:107
 msgid "html container"
 msgstr "حاوي html"
 
-#: atk/atkobject.c:108
+#: ../atk/atkobject.c:108
 msgid "icon"
 msgstr "أيقونة"
 
-#: atk/atkobject.c:109
+#: ../atk/atkobject.c:109
 msgid "image"
 msgstr "صورة"
 
-#: atk/atkobject.c:110
+#: ../atk/atkobject.c:110
 msgid "internal frame"
 msgstr "إطار داخلي"
 
-#: atk/atkobject.c:111
+#: ../atk/atkobject.c:111
 msgid "label"
 msgstr "شارة"
 
-#: atk/atkobject.c:112
+#: ../atk/atkobject.c:112
 msgid "layered pane"
 msgstr "لوح ذي مستويات"
 
-#: atk/atkobject.c:113
+#: ../atk/atkobject.c:113
 msgid "list"
 msgstr "قائمة"
 
-#: atk/atkobject.c:114
+#: ../atk/atkobject.c:114
 msgid "list item"
 msgstr "عنصر قائمة"
 
-#: atk/atkobject.c:115
+#: ../atk/atkobject.c:115
 msgid "menu"
 msgstr "قائمة"
 
-#: atk/atkobject.c:116
+#: ../atk/atkobject.c:116
 msgid "menu bar"
 msgstr "شريط قوائم"
 
-#: atk/atkobject.c:117
+#: ../atk/atkobject.c:117
 msgid "menu item"
 msgstr "عنصر قائمة"
 
-#: atk/atkobject.c:118
+#: ../atk/atkobject.c:118
 msgid "option pane"
 msgstr "لوح خيارات"
 
-#: atk/atkobject.c:119
+#: ../atk/atkobject.c:119
 msgid "page tab"
 msgstr "لسان الصفحة"
 
-#: atk/atkobject.c:120
+#: ../atk/atkobject.c:120
 msgid "page tab list"
 msgstr "قائمة ألسنة الصفحات"
 
-#: atk/atkobject.c:121
+#: ../atk/atkobject.c:121
 msgid "panel"
 msgstr "شريط"
 
-#: atk/atkobject.c:122
+#: ../atk/atkobject.c:122
 msgid "password text"
 msgstr "نص كلمة السر"
 
-#: atk/atkobject.c:123
+#: ../atk/atkobject.c:123
 msgid "popup menu"
 msgstr "قائمة منبثقة"
 
-#: atk/atkobject.c:124
+#: ../atk/atkobject.c:124
 msgid "progress bar"
 msgstr "شريط التقدم"
 
-#: atk/atkobject.c:125
+#: ../atk/atkobject.c:125
 msgid "push button"
 msgstr "زر ضغط"
 
-#: atk/atkobject.c:126
+#: ../atk/atkobject.c:126
 msgid "radio button"
 msgstr "زر مذياع"
 
-#: atk/atkobject.c:127
+#: ../atk/atkobject.c:127
 msgid "radio menu item"
 msgstr "عنصر قائمة مذياعي"
 
-#: atk/atkobject.c:128
+#: ../atk/atkobject.c:128
 msgid "root pane"
 msgstr "اللوح الجذر"
 
-#: atk/atkobject.c:129
+#: ../atk/atkobject.c:129
 msgid "row header"
 msgstr "رأس الصف"
 
-#: atk/atkobject.c:130
+#: ../atk/atkobject.c:130
 msgid "scroll bar"
 msgstr "شريط اللف"
 
-#: atk/atkobject.c:131
+#: ../atk/atkobject.c:131
 msgid "scroll pane"
 msgstr "لوح اللف"
 
-#: atk/atkobject.c:132
+#: ../atk/atkobject.c:132
 msgid "separator"
 msgstr "فاصل"
 
-#: atk/atkobject.c:133
+#: ../atk/atkobject.c:133
 msgid "slider"
 msgstr "مزلق"
 
-#: atk/atkobject.c:134
+#: ../atk/atkobject.c:134
 msgid "split pane"
 msgstr "لوح الإنقسام"
 
-#: atk/atkobject.c:135
+#: ../atk/atkobject.c:135
 msgid "spin button"
 msgstr "زر تدوير"
 
-#: atk/atkobject.c:136
+#: ../atk/atkobject.c:136
 msgid "statusbar"
 msgstr "شريط الحالة"
 
-#: atk/atkobject.c:137
+#: ../atk/atkobject.c:137
 msgid "table"
 msgstr "جدول"
 
-#: atk/atkobject.c:138
+#: ../atk/atkobject.c:138
 msgid "table cell"
 msgstr "خلية الجدول"
 
-#: atk/atkobject.c:139
+#: ../atk/atkobject.c:139
 msgid "table column header"
 msgstr "رأس عمود الجدول"
 
-#: atk/atkobject.c:140
+#: ../atk/atkobject.c:140
 msgid "table row header"
 msgstr "رأس صف الجدول"
 
-#: atk/atkobject.c:141
+#: ../atk/atkobject.c:141
 msgid "tear off menu item"
 msgstr "افصِل عنصر القائمة"
 
-#: atk/atkobject.c:142
+#: ../atk/atkobject.c:142
 msgid "terminal"
 msgstr "طرفية"
 
-#: atk/atkobject.c:143
+#: ../atk/atkobject.c:143
 msgid "text"
 msgstr "نص"
 
-#: atk/atkobject.c:144
+#: ../atk/atkobject.c:144
 msgid "toggle button"
 msgstr "زر تبديل"
 
-#: atk/atkobject.c:145
+#: ../atk/atkobject.c:145
 msgid "tool bar"
 msgstr "شريط الأدوات"
 
-#: atk/atkobject.c:146
+#: ../atk/atkobject.c:146
 msgid "tool tip"
 msgstr "تلميحة أداه"
 
-#: atk/atkobject.c:147
+#: ../atk/atkobject.c:147
 msgid "tree"
 msgstr "شجرة"
 
-#: atk/atkobject.c:148
+#: ../atk/atkobject.c:148
 msgid "tree table"
 msgstr "جدول شجرة"
 
-#: atk/atkobject.c:149
+#: ../atk/atkobject.c:149
 msgid "unknown"
 msgstr "مجهول"
 
-#: atk/atkobject.c:150
+#: ../atk/atkobject.c:150
 msgid "viewport"
 msgstr "منفذ عرض"
 
-#: atk/atkobject.c:151
+#: ../atk/atkobject.c:151
 msgid "window"
 msgstr "نافذة"
 
-#: atk/atkobject.c:152
+#: ../atk/atkobject.c:152
 msgid "header"
 msgstr "ترويسة"
 
-#: atk/atkobject.c:153
+#: ../atk/atkobject.c:153
 msgid "footer"
 msgstr "هامش"
 
-#: atk/atkobject.c:154
+#: ../atk/atkobject.c:154
 msgid "paragraph"
 msgstr "فقرة"
 
-#: atk/atkobject.c:155
+#: ../atk/atkobject.c:155
 msgid "application"
 msgstr "تطبيق"
 
-#: atk/atkobject.c:156
+#: ../atk/atkobject.c:156
 msgid "autocomplete"
 msgstr "أكمل آليا"
 
-#: atk/atkobject.c:157
+#: ../atk/atkobject.c:157
 msgid "edit bar"
 msgstr "حرّر الشريط"
 
-#: atk/atkobject.c:158
+#: ../atk/atkobject.c:158
 msgid "embedded component"
 msgstr "مكوّن مضمّن"
 
-#: atk/atkobject.c:159
+#: ../atk/atkobject.c:159
 msgid "entry"
 msgstr "خانة"
 
-#: atk/atkobject.c:160
+#: ../atk/atkobject.c:160
 msgid "chart"
 msgstr "شكل"
 
-#: atk/atkobject.c:161
+#: ../atk/atkobject.c:161
 msgid "caption"
 msgstr "عنوان"
 
-#: atk/atkobject.c:162
+#: ../atk/atkobject.c:162
 msgid "document frame"
 msgstr "إطار المستند"
 
-#: atk/atkobject.c:163
+#: ../atk/atkobject.c:163
 msgid "heading"
 msgstr "ترويس"
 
-#: atk/atkobject.c:164
+#: ../atk/atkobject.c:164
 msgid "page"
 msgstr "صفحة"
 
-#: atk/atkobject.c:165
+#: ../atk/atkobject.c:165
 msgid "section"
 msgstr "فصل"
 
-#: atk/atkobject.c:166
+#: ../atk/atkobject.c:166
 msgid "redundant object"
 msgstr "كائن فائض"
 
-#: atk/atkobject.c:167
+#: ../atk/atkobject.c:167
 msgid "form"
 msgstr "نموذج"
 
-#: atk/atkobject.c:356
+#: ../atk/atkobject.c:356
 msgid "Accessible Name"
 msgstr "اسم ممكن النفاذ إليه"
 
-#: atk/atkobject.c:357
+#: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "اسم نموذج الكائن المهيئ للاستخدام من قبل التقنية المعينة"
 
-#: atk/atkobject.c:363
+#: ../atk/atkobject.c:363
 msgid "Accessible Description"
 msgstr "وصف ممكن النفاذ إليه"
 
-#: atk/atkobject.c:364
+#: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "وصف جسم، مهيئ للنفاذ عبره إلى تقنية مساعدة المعوقين"
 
-#: atk/atkobject.c:370
+#: ../atk/atkobject.c:370
 msgid "Accessible Parent"
 msgstr "أب يمكن النفاذ إليه"
 
-#: atk/atkobject.c:371
+#: ../atk/atkobject.c:371
 msgid "Is used to notify that the parent has changed"
 msgstr "يستخدم للتبليغ عن تغير الأب"
 
-#: atk/atkobject.c:377
+#: ../atk/atkobject.c:377
 msgid "Accessible Value"
 msgstr "قيمة يمكن النفاذ إليها"
 
-#: atk/atkobject.c:378
+#: ../atk/atkobject.c:378
 msgid "Is used to notify that the value has changed"
 msgstr "يستخدم للتبليغ عن تغير القيمة"
 
-#: atk/atkobject.c:386
+#: ../atk/atkobject.c:386
 msgid "Accessible Role"
 msgstr "دور ميسر"
 
-#: atk/atkobject.c:387
+#: ../atk/atkobject.c:387
 msgid "The accessible role of this object"
 msgstr "الدور الميسر لهذا الكائن"
 
-#: atk/atkobject.c:395
+#: ../atk/atkobject.c:395
 msgid "Accessible Layer"
 msgstr "طبقة ميسرة"
 
-#: atk/atkobject.c:396
+#: ../atk/atkobject.c:396
 msgid "The accessible layer of this object"
 msgstr "الطبقة الميسرة لهذا الكائن"
 
-#: atk/atkobject.c:404
+#: ../atk/atkobject.c:404
 msgid "Accessible MDI Value"
 msgstr "قيمة MDI الميسرة"
 
-#: atk/atkobject.c:405
+#: ../atk/atkobject.c:405
 msgid "The accessible MDI value of this object"
 msgstr "قيمة MDI الميسرة لهذا الجسم"
 
-#: atk/atkobject.c:413
+#: ../atk/atkobject.c:413
 msgid "Accessible Table Caption"
 msgstr "العنوان الفرعي للجدول الداعم للاعانة"
 
-#: atk/atkobject.c:414
-msgid ""
-"Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
-msgstr ""
-"يستخدم للتبليغ عن تغيير العنوان الفرعي للجدول،من المفروض عدم استخدامهذه "
-"الخاصية. من المفروض استخدام accessible-table-caption-object عوضا عنها."
+#: ../atk/atkobject.c:414
+msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
+msgstr "يستخدم للتبليغ عن تغيير العنوان الفرعي للجدول،من المفروض عدم استخدامهذه الخاصية. من المفروض استخدام accessible-table-caption-object عوضا عنها."
 
-#: atk/atkobject.c:420
+#: ../atk/atkobject.c:420
 msgid "Accessible Table Column Header"
 msgstr "رأس عمود الجدول الميسر"
 
-#: atk/atkobject.c:421
+#: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
 msgstr "يستخدم للتبليغ عن تغير رأس عمود الجدول"
 
-#: atk/atkobject.c:427
+#: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
 msgstr "الوصف الميسر لعمود الجدول"
 
-#: atk/atkobject.c:428
+#: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
 msgstr "يستخدم للتبليغ عن تغير وصف عمود الجدول"
 
-#: atk/atkobject.c:434
+#: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
 msgstr "ترويسة صف الجدول الميسرة"
 
-#: atk/atkobject.c:435
+#: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
 msgstr "يستخدم للتبليغ عن تغير ترويسة صف الجدول"
 
-#: atk/atkobject.c:441
+#: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
 msgstr "الوصف الميسر لصف الجدول"
 
-#: atk/atkobject.c:442
+#: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
 msgstr "يستخدم للتبليغ عن تغير وصف صف الجدول"
 
-#: atk/atkobject.c:448
+#: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
 msgstr "خلاصة الجدول الميسرة"
 
-#: atk/atkobject.c:449
+#: ../atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
 msgstr "يستخدم للتبليغ عن تغير خلاصة الجدول"
 
-#: atk/atkobject.c:455
+#: ../atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
 msgstr "جسم العنوان الفرعي للجدول الداعم للإعانة"
 
-#: atk/atkobject.c:456
+#: ../atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
 msgstr "يستخدم للتبليغ عن تغيير العنوان الفرعي للجدول"
 
-#: atk/atkobject.c:462
+#: ../atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
 msgstr "عدد وصلات النّصّ الفائق الدّاعمة للإعانة"
 
-#: atk/atkobject.c:463
+#: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "عدد الوصلات لـ AtkHypertext الحالي"
+
