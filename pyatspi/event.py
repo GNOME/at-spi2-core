@@ -220,7 +220,7 @@ class EventType(str):
     self.detail = None
     
     # split type according to delimiters
-    split = self.value.split(':')
+    split = self.value.split(':', 3)
     # loop over all the components
     for i in xrange(len(split)):
       # store values of attributes in this object

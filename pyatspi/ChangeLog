@@ -1,3 +1,12 @@
+2007-09-15  Eitan Isaacson  <eitan@ascender.com>
+
+	* registry.py: Fix to allow notification of events with
+	annotations of details to the event type (bug #467366). Make
+	keyboard event consume behavior conform with the IDL (bug
+	#472301). Freeze break approved.
+	* event.py: Limit splitting of event types (bug #467366). Freeze
+	break approved.
+	
 2007-08-24  Eitan Isaacson  <eitan@ascender.com>
 
 	* event.py: Make EventType a string descendent, it is now IDL

@@ -204,9 +204,8 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
     '''
     Notifies the L{Registry} that an event has occurred. Wraps the raw event 
     object in our L{Event} class to support automatic ref and unref calls. An
-    observer can set the L{Event} consume flag to True to indicate this event
-    should not be allowed to pass to other AT-SPI observers or the underlying
-    application.
+    observer can return True to indicate this event should not be allowed to pass 
+    to other AT-SPI observers or the underlying application.
     
     @param ev: Keyboard event
     @type ev: Accessibility.DeviceEvent
@@ -216,8 +215,7 @@ class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
     '''
     # wrap the device event
     ev = event.DeviceEvent(ev)
-    self.registry.handleDeviceEvent(ev, self)
-    return ev.consume
+    return self.registry.handleDeviceEvent(ev, self)
 
 class _EventObserver(_Observer, Accessibility__POA.EventListener):
   '''
@@ -560,10 +558,9 @@ class Registry(object):
     '''
     Dispatches L{event.DeviceEvent}s to registered clients. Clients are called
     in the order they were registered for the given AT-SPI event. If any
-    client sets the L{event.DeviceEvent.consume} flag to True, callbacks cease
-    for the event for clients of this registry instance. Clients of other
-    registry instances and clients in other processes may be affected
-    depending on the values of synchronous and preemptive used when invoking
+    client returns True, callbacks cease for the event for clients of this registry 
+    instance. Clients of other registry instances and clients in other processes may 
+    be affected depending on the values of synchronous and preemptive used when invoking
     L{registerKeystrokeListener}. 
     
     @note: Asynchronous dispatch of device events is not supported.
@@ -572,16 +569,20 @@ class Registry(object):
     @type event: L{event.DeviceEvent}
     @param ob: Observer that received the event
     @type ob: L{_DeviceObserver}
+
+    @return: Should the event be consumed (True) or allowed to pass on to other
+      AT-SPI observers (False)?
+    @rtype: boolean
     '''
     try:
       # try to get the client registered for this event type
       client = self.clients[ob]
     except KeyError:
       # client may have unregistered recently, ignore event
-      return
+      return False
     # make the call to the client
     try:
-      client(event)
+      return client(event) or event.consume
     except Exception:
       # print the exception, but don't let it stop notification
       traceback.print_exc()
@@ -605,9 +606,9 @@ class Registry(object):
     '''
     Dispatches L{event.Event}s to registered clients. Clients are called in
     the order they were registered for the given AT-SPI event. If any client
-    sets the L{Event} consume flag to True, callbacks cease for the event for
-    clients of this registry instance. Clients of other registry instances and
-    clients in other processes are unaffected.
+    returns True, callbacks cease for the event for clients of this registry 
+    instance. Clients of other registry instances and clients in other processes 
+    are unaffected.
 
     @param event: AT-SPI event
     @type event: L{event.Event}
@@ -621,19 +622,25 @@ class Registry(object):
         # we may not have registered for the complete subtree of events
         # if our tree does not list all of a certain type (e.g.
         # object:state-changed:*); try again with klass and major only
-        clients = self.clients['%s:%s' % (et.klass, et.major)]
+        if et.detail is not None:
+          # Strip the 'detail' field.
+          clients = self.clients['%s:%s:%s' % (et.klass, et.major, et.minor)]
+        elif et.minor is not None:
+          # The event could possibly be object:state-changed:*.
+          clients = self.clients['%s:%s' % (et.klass, et.major)]
       except KeyError:
         # client may have unregistered recently, ignore event
         return
     # make the call to each client
+    consume = False
     for client in clients:
       try:
-        client(event)
+        consume = client(event) or False
       except Exception:
         # print the exception, but don't let it stop notification
         traceback.print_exc()
-      if event.consume:
-        # don't allow further processing if the consume flag is set
+      if consume or event.consume:
+        # don't allow further processing if a client returns True
         break
 
   def _registerClients(self, client, name):
