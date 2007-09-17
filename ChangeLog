@@ -1,3 +1,8 @@
+2007-09-17  Li Yuan  <li.yuan@sun.com>
+
+	* configure.in, NEWS:
+	Revved to 1.20.0 for GNOME 2.20.0.
+
 2007-08-03  Danishka Navin  <danishka@gmail.com>
 
 	* configure.in: added "si" (Sinhala) to ALL_LINGUAS.
