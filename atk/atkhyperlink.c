@@ -123,7 +123,7 @@ atk_hyperlink_class_init (AtkHyperlinkClass *klass)
                                                      0,
                                                      G_PARAM_READABLE));
   g_object_class_install_property (gobject_class,
-                                   PROP_END_INDEX,
+                                   PROP_START_INDEX,
                                    g_param_spec_int ("start-index",
                                                      _("Start index"),
                                                      _("The start index of the AtkHyperlink object"),
