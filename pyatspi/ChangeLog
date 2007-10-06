@@ -1,3 +1,7 @@
+2007-10-06  Eitan Isaacson  <eitan@ascender.com>
+
+	* utils.py (StateSet.add): Fixed type (bug #484201).
+
 2007-09-15  Eitan Isaacson  <eitan@ascender.com>
 
 	* registry.py: Fix to allow notification of events with

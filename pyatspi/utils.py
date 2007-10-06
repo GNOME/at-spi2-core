@@ -450,7 +450,7 @@ class StateSet(object):
     @param states: State(s) to add
     @type states: Accessibility.StateType
     '''
-    map(self.impl._this().add, state)
+    map(self.impl._this().add, states)
     
   def remove(self, state):
     '''
