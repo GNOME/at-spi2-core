@@ -115,12 +115,12 @@ def _updateCache(event):
   except KeyError:
     return
 
-def _makeQuery(iid):
+def _makeQuery(interface):
   '''
   Builds a function querying to a specific interface and returns it.
   
-  @param iid: Interface identifier to use when querying
-  @type iid: string
+  @param interface: Class representing an AT-SPI interface
+  @type interface: class
   @return: Function querying to the given interface
   @rtype: function
   '''
@@ -132,6 +132,7 @@ def _makeQuery(iid):
     @rtype: object
     @raise NotImplementedError: When the desired interface is not supported    
     '''
+    iid = utils.getInterfaceIID(interface)
     try:
       i = self._icache[iid]
     except KeyError:
@@ -154,8 +155,10 @@ def _makeQuery(iid):
     try:
       # do the query remotely
       i = self.queryInterface(iid)
+      if i is not None:
+        i = i._narrow(interface)
     except Exception, e:
-      raise LookupError(e)
+      raise LookupError(e)      
     if i is None:
       # cache that the interface is not supported
       if caching:
@@ -204,7 +207,7 @@ def _mixInterfaces(cls, interfaces):
     # build name of converter from the name of the interface
     name = 'query%s' % utils.getInterfaceName(interface)
     # build a function that queries to the given interface
-    func = _makeQuery(utils.getInterfaceIID(interface))
+    func = _makeQuery(interface)
     # build a new method that is a clone of the original function
     method = new.function(func.func_code, func.func_globals, name, 
                           func.func_defaults, func.func_closure)
@@ -566,6 +569,25 @@ class _AccessibleMixin(object):
     # return None if the application isn't reachable for any reason
     return None
 
+class _RelationMixin(object):
+  '''
+  Defines methods to be added to the Relation class. At this time it only
+  overrides L{_RelationMixin.getTarget} which by the IDL's standard is
+  supposed to return CORBA.Objects but we expect LAccessibility.Accessible
+  objects (see http://bugzilla.gnome.org/show_bug.cgi?id=435833). 
+  This seems to be a problem especially with the Java implementation of CORBA.
+  '''
+  def getTarget(self, index):
+    '''
+    Overrides the regular getTarget to return Accessibility.Accessible
+    objects.
+
+    @return: The 'nth' target of this Relation.
+    @rtype: Accessibility.Accessible
+    '''
+    target = self._mix_getTarget(index)
+    return target._narrow(Accessibility.Accessible)
+
 # 1. mix the exception handlers into all queryable interfaces
 map(_mixExceptions, constants.ALL_INTERFACES)
 # 2. mix the exception handlers into other Accessibility objects
@@ -575,3 +597,5 @@ _mixClass(Accessibility.Accessible, _AccessibleMixin,
           ['_get_name', '_get_description'])
 # 4. mix queryInterface convenience methods
 _mixInterfaces(Accessibility.Accessible, constants.ALL_INTERFACES)
+# 5. mix Relation class
+_mixClass(Accessibility.Relation, _RelationMixin)
