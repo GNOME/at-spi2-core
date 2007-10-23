@@ -586,6 +586,7 @@ class _RelationMixin(object):
     @rtype: Accessibility.Accessible
     '''
     target = self._mix_getTarget(index)
+    target.ref()
     return target._narrow(Accessibility.Accessible)
 
 # 1. mix the exception handlers into all queryable interfaces

@@ -1,3 +1,8 @@
+2007-10-22  Eitan Isaacson  <eitan@ascender.com>
+
+	* accessible.py (_RelationMixin.getTarget): Add a ref() to the
+	retrieved target (bug #489273).
+
 2007-10-12  Eitan Isaacson  <eitan@ascender.com>
 
 	* accessible.py: Narrow queried interfaces (bug #478124). Narrow
