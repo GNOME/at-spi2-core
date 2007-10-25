@@ -140,8 +140,11 @@ class Event(object):
     # store the event source and increase the reference count since event 
     # sources are borrowed references; the AccessibleMixin automatically
     # decrements it later
+    try:
+      event.source.ref()
+    except AttributeError:
+      pass
     self.source = event.source
-    self.source.ref()
 
     # process any_data in a at-spi version independent manner
     details = event.any_data.value()
