@@ -1,3 +1,8 @@
+What's new in at-spi-1.21.1:
+
+* Bugfixes: #490205, #490202, #489273.
+* Add Willie Walker and Eitan Isaacson to maintainers.
+
 What's new in at-spi-1.20.0:
 
 * Bugfixes: #462412, #467612, #474796, #467366, #472301.

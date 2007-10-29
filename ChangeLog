@@ -1,3 +1,8 @@
+2007-10-29  Li Yuan  <li.yuan@sun.com>
+
+	* configure.in, README, NEWS:
+	Uprev/release 1.21.1.
+
 2007-10-15  Li Yuan  <li.yuan@sun.com>
 
 	* MAINTAINERS: add Willie Walker and Eitan Isaacson
