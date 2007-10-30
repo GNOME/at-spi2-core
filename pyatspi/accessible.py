@@ -372,7 +372,7 @@ class _AccessibleMixin(object):
     '''
     try:
       del _ACCESSIBLE_CACHE[hash(self)]
-    except KeyError:
+    except Exception:
       pass
     try:
       self.unref()

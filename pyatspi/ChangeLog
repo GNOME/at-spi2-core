@@ -1,3 +1,8 @@
+2007-10-30  Eitan Isaacson  <eitan@ascender.com>
+
+	* accessible.py (_AccessibleMixin.__del__): Catch TypeError 
+	exception when _ACCESSIBLE_CACHE[hash(self)] is None (bug #491805).
+
 2007-10-25  Eitan Isaacson  <eitan@ascender.com>
 
 	* event.py (Event.__init__): Catch AttributeError when ref()ing 
