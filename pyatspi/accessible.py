@@ -183,9 +183,7 @@ def _makeExceptionHandler(func):
   def _inner(self, *args, **kwargs):
     try:
       # try calling the original func
-      rv = func(self, *args, **kwargs)
-      if isinstance(rv, ORBit.CORBA.Object): rv.ref()
-      return rv
+      return func(self, *args, **kwargs)
     except ORBit.CORBA.NO_IMPLEMENT, e:
       # raise Python exception
       raise NotImplementedError(e)

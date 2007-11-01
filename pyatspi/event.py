@@ -168,6 +168,11 @@ class Event(object):
       self.any_data.ref()
     except AttributeError:
       pass
+    try:
+      # if we received a host application, be sure to increment the ref count
+      self.host_application.ref()
+    except AttributeError:
+      pass
 
   def __str__(self):
     '''

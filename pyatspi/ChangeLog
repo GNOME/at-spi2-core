@@ -1,3 +1,11 @@
+2007-11-01  Eitan Isaacson  <eitan@ascender.com>
+
+	* event.py (Event.__init__): Ref() the host_application attribute
+	if it is available (bug #492469).
+	* accessible.py (_makeExceptionHandler._inner): Revert patch from
+	bug #490202. This was the wrong fix. Objects that are returned
+	from methods are already reffed.
+
 2007-10-30  Eitan Isaacson  <eitan@ascender.com>
 
 	* accessible.py (_AccessibleMixin.__del__): Catch TypeError 
