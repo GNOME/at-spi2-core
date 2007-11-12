@@ -1,3 +1,9 @@
+2007-11-12  Li Yuan  <li.yuan@sun.com>
+
+	* libspi/accessible.c: (impl_accessibility_accessible_get_state),
+	(impl_accessibility_accessible_get_relation_set):
+	Fix for #446277. Decrease the ref count to 1.
+
 2007-10-29  Li Yuan  <li.yuan@sun.com>
 
 	* configure.in, README, NEWS:
