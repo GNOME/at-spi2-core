@@ -334,12 +334,11 @@ impl_accessibility_accessible_get_state (PortableServer_Servant servant,
   atk_set = atk_object_ref_state_set (object);
   
   set = spi_state_set_new (atk_set);
-  retval = bonobo_object_dup_ref (
+  retval = CORBA_Object_duplicate (
 				  BONOBO_OBJREF(set),
-				  ev);
+				  NULL);
 
   g_object_unref (atk_set);
-  Bonobo_Unknown_unref (retval, ev);
 
   return retval;
 }
@@ -372,10 +371,10 @@ impl_accessibility_accessible_get_relation_set (PortableServer_Servant servant,
   for (i = 0; i < n_relations; ++i)
     {
       retval->_buffer[i] =
-        bonobo_object_dup_ref (
+        CORBA_Object_duplicate (
           BONOBO_OBJREF (
             spi_relation_new (atk_relation_set_get_relation (relation_set, i))),
-	  ev);
+	  NULL);
     }
   
   return retval;
