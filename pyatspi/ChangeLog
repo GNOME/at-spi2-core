@@ -1,3 +1,9 @@
+2007-11-15  Eitan Isaacson  <eitan@ascender.com>
+
+	* accessible.py: Added new caching (bug #495077). Put in a mixin
+	for remote objects that need to be unreffed at deletion time 
+	(bug #446277).
+
 2007-11-01  Eitan Isaacson  <eitan@ascender.com>
 
 	* event.py (Event.__init__): Ref() the host_application attribute

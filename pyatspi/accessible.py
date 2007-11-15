@@ -45,13 +45,17 @@ import Accessibility
 import constants
 import utils
 import registry
+import weakref
 
-_ACCESSIBLE_CACHE = {}
+_ACCESSIBLE_CACHE = weakref.WeakValueDictionary()
+_ACCESSIBLE_USER_DATA = weakref.WeakValueDictionary()
 _CACHE_LEVEL = None
 
-class _PropertyCache(object):
-  '''Fixed-size bag class for holding cached values.'''
-  __slots__ = ('name', 'description', 'rolename')
+class _PropertyCache:
+  pass
+
+class _UserData:
+  value = None
 
 def getCacheLevel():
   '''
@@ -114,6 +118,34 @@ def _updateCache(event):
     del _ACCESSIBLE_CACHE[hash(event.source)]
   except KeyError:
     return
+
+def _getAndCache(acc, value_name, get_method):
+    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
+      return get_method()
+    
+    cache = _ACCESSIBLE_CACHE
+    h = hash(acc)
+
+    try:
+      pc = acc._property_cache
+    except AttributeError:
+      try:
+        pc = cache[h]
+      except KeyError:
+        # no cached info for this accessible yet
+        pc = _PropertyCache()
+        cache[h] = pc
+      acc._property_cache = pc  
+    
+    try:
+      value = getattr(pc, value_name)
+    except AttributeError:
+      # no cached property of this type
+      value = get_method()
+      setattr(pc, value_name, value)
+    
+    return value
+  
 
 def _makeQuery(interface):
   '''
@@ -327,7 +359,7 @@ class _AccessibleMixin(object):
   @type SLOTS: tuple
   '''
   SLOTTED_CLASSES = {}
-  SLOTS = ('_icache', 'user_data')
+  SLOTS = ('_icache', '_property_cache', '_user_data')
   
   def __new__(cls):
     '''
@@ -368,10 +400,6 @@ class _AccessibleMixin(object):
     counting for AT-SPI objects. Also removes this object from the cache if
     we're caching properties. 
     '''
-    try:
-      del _ACCESSIBLE_CACHE[hash(self)]
-    except Exception:
-      pass
     try:
       self.unref()
     except Exception:
@@ -437,6 +465,54 @@ class _AccessibleMixin(object):
     '''
     return self.childCount
   
+  def _get_user_data(self):
+    '''
+    Get user_data from global dictionay fo this accessible.
+
+    @return: Any data the user assigned, or None.
+    @rtype: object
+    '''
+    global _ACCESSIBLE_USER_DATA
+    h = hash(self)
+    
+    try:
+      ud = self._user_data
+    except AttributeError:
+      try:
+        ud = _ACCESSIBLE_USER_DATA[h]
+      except KeyError:
+        # no cached info for this object yet
+        ud = _UserData()
+        _ACCESSIBLE_USER_DATA[h] = ud
+
+    self._user_data = ud
+    return ud.value
+
+  def _set_user_data(self, value):
+    '''
+    Set arbitrary data to user_data.
+
+    @param value: Value to set in user_data
+    @type value: object
+    '''
+    global _ACCESSIBLE_USER_DATA
+    h = hash(self)
+    
+    try:
+      ud = self._user_data
+    except AttributeError:
+      try:
+        ud = _ACCESSIBLE_USER_DATA[h]
+      except KeyError:
+        # no cached info for this object yet
+        ud = _UserData()
+        _ACCESSIBLE_USER_DATA[h] = ud
+
+    self._user_data = ud
+    ud.value = value
+
+  user_data = property(_get_user_data, _set_user_data)
+
   def _get_name(self):
     '''
     Gets the name of the accessible from the cache if it is available, 
@@ -445,27 +521,21 @@ class _AccessibleMixin(object):
     @return: Name of the accessible
     @rtype: string
     '''
-    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
-      return self._get_name()
-    
-    cache = _ACCESSIBLE_CACHE
-    h = hash(self)
-    try:
-      return cache[h].name
-    except KeyError:
-      # no cached info for this object yet
-      name = self._get_name()
-      pc = _PropertyCache()
-      pc.name = name
-      cache[h] = pc
-      return name
-    except AttributeError:
-      # no cached name for this object yet
-      name = self._get_name()
-      cache[h].name = name
-      return name
-    
+    return _getAndCache(self, 'name', self._get_name)
+
   name = property(_get_name, Accessibility.Accessible._set_name)
+
+  def _get_parent(self):
+    '''
+    Gets the parent of the accessible from the cache if it is available, 
+    otherwise, fetches it remotely.
+    
+    @return: Parent of the accessible
+    @rtype: Accessibility.Accessible
+    '''
+    return _getAndCache(self, 'parent', self._get_parent)
+
+  parent = property(_get_parent)
   
   def getRoleName(self):
     '''
@@ -475,26 +545,18 @@ class _AccessibleMixin(object):
     @return: Role name of the accessible
     @rtype: string
     '''
-    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
-      return self._mix_getRoleName()
+    return _getAndCache(self, 'rolename', self._mix_getRoleName)
 
-    cache = _ACCESSIBLE_CACHE
-    h = hash(self)
-    try:
-      return cache[h].rolename
-    except KeyError, e:
-      # no cached info for this object yet
-      rolename = self._mix_getRoleName()
-      pc = _PropertyCache()
-      pc.rolename = rolename
-      cache[h] = pc
-      return rolename
-    except AttributeError, e:
-      # no cached name for this object yet
-      rolename = self._mix_getRoleName()
-      cache[h].rolename = rolename
-      return rolename
-  
+  def getRole(self):
+    '''
+    Gets the role of the accessible from the cache if it is 
+    available, otherwise, fetches it remotely.
+    
+    @return: Role of the accessible
+    @rtype: Accessibility.Role
+    '''
+    return _getAndCache(self, 'role', self._mix_getRole)
+
   def _get_description(self):
     '''    
     Gets the description of the accessible from the cache if it is available,
@@ -503,25 +565,7 @@ class _AccessibleMixin(object):
     @return: Description of the accessible
     @rtype: string
     '''
-    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
-      return self._get_description()
-
-    cache = _ACCESSIBLE_CACHE
-    h = hash(self)
-    try:
-      return cache[h].description
-    except KeyError:
-      # no cached info for this object yet
-      description = self._get_description()
-      pc = _PropertyCache()
-      pc.description = description
-      cache[h] = pc
-      return description
-    except AttributeError:
-      # no cached name for this object yet
-      description = self._get_description()
-      cache[h].description = description
-      return description
+    return _getAndCache(self, 'description', self._get_description)
     
   description = property(_get_description, 
                          Accessibility.Accessible._set_description)
@@ -589,14 +633,30 @@ class _RelationMixin(object):
     target.ref()
     return target._narrow(Accessibility.Accessible)
 
+class _UnrefMixin(object):
+  '''
+  This mixin addresses the issue we have with unreferencing non-primitives.
+  '''
+  def __del__(self):
+    '''
+    Unrefence the instance when Python GCs it. Why do we need this twice?
+    '''
+    try:
+      self.unref()
+    except Exception:
+      pass
+
 # 1. mix the exception handlers into all queryable interfaces
 map(_mixExceptions, constants.ALL_INTERFACES)
 # 2. mix the exception handlers into other Accessibility objects
 map(_mixExceptions, [Accessibility.StateSet])
 # 3. mix the new functions
 _mixClass(Accessibility.Accessible, _AccessibleMixin,
-          ['_get_name', '_get_description'])
+          ['_get_name', '_get_description', '_get_parent'])
 # 4. mix queryInterface convenience methods
 _mixInterfaces(Accessibility.Accessible, constants.ALL_INTERFACES)
 # 5. mix Relation class
 _mixClass(Accessibility.Relation, _RelationMixin)
+# 6. mix in neccessary unrefs
+map(lambda cls: _mixClass(cls, _UnrefMixin), 
+    (Accessibility.StateSet,Accessibility.Relation))
