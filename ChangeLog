@@ -1,3 +1,9 @@
+2007-12-03  Li Yuan <li.yuan@sun.com>
+
+	* atk-bridge/Makefile.am:
+	* libspi/Makefile.am:
+	Bug #493547. Add X_CFLAGS to INCLUDES to fix build error.
+
 2007-11-12  Li Yuan  <li.yuan@sun.com>
 
 	* libspi/accessible.c: (impl_accessibility_accessible_get_state),

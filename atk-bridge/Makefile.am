@@ -17,6 +17,7 @@ INCLUDES = -I $(top_srcdir) \
 	   $(WARN_CFLAGS) \
 	   $(ATK_BRIDGE_CFLAGS) \
 	   -DG_LOG_DOMAIN=\"atk-bridge\" \
+	   $(X_CFLAGS) \
 	   $(NULL)
 
 DEPS = 	\

@@ -6,7 +6,8 @@ INCLUDES = -I$(top_srcdir)	\
            -I$(top_builddir)	\
            $(LIBSPI_DEBUG_CFLAGS)	\
            $(WARN_CFLAGS)	\
-           $(LIBSPI_CFLAGS)
+           $(LIBSPI_CFLAGS)     \
+           $(X_CFLAGS)
 
 libspi_la_LDFLAGS = @LT_VERSION_INFO@ -no-undefined
 libspi_la_LIBADD = $(LIBSPI_LIBS) $(XTST_LIBS)
