@@ -30,15 +30,31 @@ G_BEGIN_DECLS
 #define SPI_COLLECTION_TYPE         (spi_collection_get_type ())
 #define SPI_COLLECTION(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_COLLECTION_TYPE, SpiCollection))
 #define SPI_COLLECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST((klass), SPI_COLLECTION_TYPE, SpiCollectionClass))
-#define IS_COLLECTION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj, SPI_COLLECTION_TYPE))
+#define IS_COLLECTION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_COLLECTION_TYPE))
 #define IS_COLLECTION_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_COLLECTION_TYPE))
+
+typedef struct _MatchRulePrivate MatchRulePrivate;
+
+struct _MatchRulePrivate {
+
+     Accessibility_StateSet states; 
+     Accessibility_Collection_MatchType statematchtype;
+     Accessibility_AttributeSet  *attributes;
+     Accessibility_Collection_MatchType attributematchtype;
+     Accessibility_RoleSet *roles;
+     Accessibility_Collection_MatchType rolematchtype;
+     CORBA_char *interfaces;
+     Accessibility_Collection_MatchType interfacematchtype;
+     gboolean invert;
+
+};
 
 typedef struct _SpiCollection SpiCollection;
 typedef struct _SpiCollectionClass SpiCollectionClass;
 
 struct _SpiCollection {
   SpiBase parent;
-
+  MatchRulePrivate *_mrp;
 
 };
 
@@ -51,7 +67,7 @@ GType        spi_collection_get_type       (void);
 
 void         spi_collection_construct      (SpiCollection *collection);
 					    
-SpiCollection *spi_collection_interface_new  (void);
+SpiCollection *spi_collection_interface_new  (AtkObject *obj);
 
 G_END_DECLS
 

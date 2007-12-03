@@ -1,3 +1,23 @@
+2007-12-03  Li Yuan  <li.yuan@sun.com>
+
+	* idl/Accessibility_Collection.idl:
+	* libspi/accessible.c: (spi_accessible_construct):
+	* libspi/collection.c: (spi_collection_interface_new),
+	(get_atkobject_from_servant), (get_collection_from_servant),
+	(impl_createMatchRule), (impl_freeMatchRule), (child_interface_p),
+	(match_states_all_p), (match_states_any_p), (match_states_none_p),
+	(match_states_lookup), (match_roles_all_p), (match_roles_any_p),
+	(match_roles_none_p), (match_roles_lookup),
+	(match_interfaces_all_p), (match_interfaces_any_p),
+	(match_interfaces_none_p), (match_interfaces_lookup),
+	(match_attributes_all_p), (match_attributes_any_p),
+	(match_attributes_none_p), (match_attributes_lookup), (traverse_p),
+	(sort_order_canonical), (query_exec), (_accessible_list_to_set),
+	(impl_getMatchesFrom), (impl_getMatchesTo), (impl_getMatches),
+	(spi_collection_class_init), (spi_collection_init):
+	* libspi/collection.h:
+	Bug #326516. Patch from Ariel. Enhance collection support.
+
 2007-12-03  Li Yuan <li.yuan@sun.com>
 
 	* atk-bridge/Makefile.am:

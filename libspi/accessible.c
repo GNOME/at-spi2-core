@@ -630,10 +630,16 @@ spi_accessible_construct (GType type, AtkObject *o)
         bonobo_object_add_interface (bonobo_object (retval),
 				     BONOBO_OBJECT (spi_streamable_interface_new (o)));
       }
-    if (ATK_IS_DOCUMENT (o))
+    if (ATK_IS_DOCUMENT (o)) /* We add collection interface to document */
       {
-	bonobo_object_add_interface (bonobo_object (retval),
-	                             BONOBO_OBJECT (spi_document_interface_new (o)));
+
+	   
+	 SpiDocument *doc = spi_document_interface_new (o);
+	 bonobo_object_add_interface (BONOBO_OBJECT (doc), 
+				      BONOBO_OBJECT (spi_collection_interface_new (o)));
+
+	 bonobo_object_add_interface (bonobo_object (retval),
+					BONOBO_OBJECT (doc));
       }
     if (ATK_IS_HYPERLINK_IMPL (o))
       {

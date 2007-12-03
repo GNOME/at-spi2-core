@@ -24,14 +24,10 @@
 #define __ACCESSIBILITY_COLLECTION_DEFINED__
  
 module Accessibility {
+  
 
-struct AccessibleSetEntry {
-         Accessible accessible;
-         string     name;
-         Role       role;
-};
+  typedef sequence<Accessible> AccessibleSet;
 
-typedef sequence<AccessibleSetEntry> AccessibleSet;
  
      interface MatchRule {
      };
@@ -74,23 +70,25 @@ typedef sequence<AccessibleSetEntry> AccessibleSet;
 
 	void             freeMatchRule (in MatchRule rule);
 
-	AccessibleSet getChildren (in MatchRule rule,
-                                   in SortOrder sortby,
-				   in boolean recurse,
-                                   inout long count); /* inOut not accepted */
+	AccessibleSet getMatches (in MatchRule rule,
+                                  in SortOrder sortby,
+				  in long count,
+                                  in boolean traverse); 
 
-	AccessibleSet getPreviousChildren (in Accessible current_object,
+	AccessibleSet getMatchesTo (in Accessible current_object,
                                            in MatchRule rule, 
                                            in SortOrder sortby, 
                                            in boolean recurse,
-                                           inout long count);
+                                           in long count,
+                                           in boolean traverse);
 
 
-        AccessibleSet getNextChildren (in Accessible current_object,
+        AccessibleSet getMatchesFrom (in Accessible current_object,
 				       in MatchRule rule, 
                                        in SortOrder sortby, 
-                                       in boolean recurse,
-                                       inout long count);
+                                       in boolean restrict,
+				       in long count,
+                                       in boolean traverse);
 
         Accessible getActiveDescendant ();
         
