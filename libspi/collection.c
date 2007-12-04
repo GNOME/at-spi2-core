@@ -643,7 +643,7 @@ impl_getMatchesFrom (PortableServer_Servant servant,
 		      const Accessibility_Accessible current_object,
 		      const Accessibility_MatchRule rule,
 		      const Accessibility_Collection_SortOrder sortby,
-		      const CORBA_boolean restrict,
+		      const CORBA_boolean isrestrict,
 		      CORBA_long  count,
 		      const CORBA_boolean traverse,
 		      CORBA_Environment *ev){
@@ -657,7 +657,7 @@ impl_getMatchesFrom (PortableServer_Servant servant,
      ls = g_list_append (ls, current_object);
      mrp =  get_collection_from_servant (servant)->_mrp;;
           
-     if (!restrict){
+     if (!isrestrict){
           parent = Accessibility_Accessible__get_parent (current_object, ev);
 	  kount = query_exec (mrp,  sortby, ls, 0, count, parent, index, FALSE, CORBA_OBJECT_NIL, TRUE, traverse, ev);
 
@@ -680,7 +680,7 @@ impl_getMatchesTo (PortableServer_Servant servant,
 		      const Accessibility_Accessible current_object,
 		      const Accessibility_MatchRule rule,
 		      const Accessibility_Collection_SortOrder sortby,
-		      const CORBA_boolean restrict, 
+		      const CORBA_boolean recurse, 
 		      CORBA_long  count,
 		      const CORBA_boolean traverse,
 		      CORBA_Environment *ev){
@@ -697,7 +697,7 @@ impl_getMatchesTo (PortableServer_Servant servant,
   mrp =  get_collection_from_servant (servant)->_mrp;
   
   
-  if (restrict){
+  if (recurse){
     obj = Accessibility_Accessible__get_parent (current_object, ev);
     kount =  query_exec (mrp,  sortby, ls, 0, count,  obj, 0, TRUE, current_object, TRUE, traverse, ev);
   }

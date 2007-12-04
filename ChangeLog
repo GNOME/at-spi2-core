@@ -1,5 +1,17 @@
 2007-12-03  Li Yuan  <li.yuan@sun.com>
 
+	* configure.in, README, NEWS:
+	Uprev/release 1.21.3.
+
+2007-12-03  Li Yuan  <li.yuan@sun.com>
+
+	* idl/Accessibility_Collection.idl:
+	* libspi/collection.c: 
+	(impl_getMatchesFrom), (impl_getMatchesTo):
+	Fix build error in Solaris, for restrict is a keyword in SS cc.
+
+2007-12-03  Li Yuan  <li.yuan@sun.com>
+
 	* idl/Accessibility_Collection.idl:
 	* libspi/accessible.c: (spi_accessible_construct):
 	* libspi/collection.c: (spi_collection_interface_new),

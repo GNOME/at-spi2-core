@@ -86,8 +86,8 @@ module Accessibility {
         AccessibleSet getMatchesFrom (in Accessible current_object,
 				       in MatchRule rule, 
                                        in SortOrder sortby, 
-                                       in boolean restrict,
-				       in long count,
+                                       in boolean isrestrict,
+                                       in long count,
                                        in boolean traverse);
 
         Accessible getActiveDescendant ();
