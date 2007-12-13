@@ -1,3 +1,8 @@
+2007-12-13  Eitan Isaacson  <eitan@ascender.com>
+
+	* accessible.py (_getAndCache): Cleaned up: Fixed indent width and
+	added epydoc string.
+
 2007-11-15  Eitan Isaacson  <eitan@ascender.com>
 
 	* accessible.py: Added new caching (bug #495077). Put in a mixin

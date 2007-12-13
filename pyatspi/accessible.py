@@ -120,31 +120,44 @@ def _updateCache(event):
     return
 
 def _getAndCache(acc, value_name, get_method):
-    if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
-      return get_method()
-    
-    cache = _ACCESSIBLE_CACHE
-    h = hash(acc)
+  '''
+  If property caching is enabled, use the cached proprty, or get the 
+  property and cache it. If property caching is disabled, simply get the 
+  property.
 
-    try:
-      pc = acc._property_cache
-    except AttributeError:
-      try:
-        pc = cache[h]
-      except KeyError:
-        # no cached info for this accessible yet
-        pc = _PropertyCache()
-        cache[h] = pc
-      acc._property_cache = pc  
+  @param value_name: The name of the value, like 'role' or 'description'.
+  @type value_name: string
+  @param get_method: Method used to get the property, should not have any 
+  arguments.
+  @type get_method: callable
+  @return: Value of property we are retrieving.
+  @rtype: object
+  '''
+  if _CACHE_LEVEL != constants.CACHE_PROPERTIES:
+    return get_method()
     
+  cache = _ACCESSIBLE_CACHE
+  h = hash(acc)
+
+  try:
+    pc = acc._property_cache
+  except AttributeError:
     try:
-      value = getattr(pc, value_name)
-    except AttributeError:
-      # no cached property of this type
-      value = get_method()
-      setattr(pc, value_name, value)
+      pc = cache[h]
+    except KeyError:
+      # no cached info for this accessible yet
+      pc = _PropertyCache()
+      cache[h] = pc
+    acc._property_cache = pc  
     
-    return value
+  try:
+    value = getattr(pc, value_name)
+  except AttributeError:
+    # no cached property of this type
+    value = get_method()
+    setattr(pc, value_name, value)
+    
+  return value
   
 
 def _makeQuery(interface):
