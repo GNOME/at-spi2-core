@@ -1,3 +1,11 @@
+2008-01-02  Li Yuan  <li.yuan@sun.com>
+
+	Patch from Luke Yelavich <themuso@themuso.com>
+	* registryd/Accessibility_Registry.server.in.in:
+	Marks translatable strings in 
+	registryd/Accessibility_Registry.server.in.in, so that intltool picks
+	them up.
+
 2007-12-03  Li Yuan  <li.yuan@sun.com>
 
 	* configure.in, README, NEWS:

@@ -5,8 +5,8 @@
 			<item value="IDL:Bonobo/Unknown:1.0"/>
 			<item value="IDL:Accessibility/Registry:1.0"/>
 		</oaf_attribute>
-		<oaf_attribute name="name" type="string" value="AT-SPI Registry"/>
+		<oaf_attribute name="name" type="string" _value="AT-SPI Registry"/>
 		<oaf_attribute name="description" type="string"
-		 value="Accessibility Registry"/>
+		 _value="Accessibility Registry"/>
 	</oaf_server>
 </oaf_info>
