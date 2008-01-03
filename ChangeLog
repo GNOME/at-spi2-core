@@ -1,3 +1,9 @@
+2008-01-03  Li Yuan  <li.yuan@sun.com>
+
+	Patch from Gilles Casse <gcasse@oralux.org>
+	* atk-bridge/bridge.c: (spi_atk_register_event_listeners):
+	Bug #474480. Fix memory leak.
+
 2008-01-02  Li Yuan  <li.yuan@sun.com>
 
 	Patch from Luke Yelavich <themuso@themuso.com>

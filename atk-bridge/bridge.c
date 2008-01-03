@@ -507,7 +507,12 @@ spi_atk_register_event_listeners (void)
   AtkObject *bo = atk_no_op_object_new (ao);
 
 
-  if (atk_listeners_registered) return;
+  if (atk_listeners_registered) 
+    {
+      g_object_unref (G_OBJECT (bo));
+      g_object_unref (ao);
+      return;
+    }
 
   atk_listeners_registered = TRUE;
 
