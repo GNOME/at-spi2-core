@@ -1,3 +1,11 @@
+2008-01-04  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkutil.h:
+	Bug #502840. Derived type definition convenience macros
+	* tests/Makefile.am:
+	Bug #500978. Fixes the building of the test modules 
+	as dynamic on Cygwin and MinGW.
+
 2007-09-24  Li Yuan  <li.yuan@sun.com>
 
 	* atk/atkhyperlink.c: (atk_hyperlink_class_init):

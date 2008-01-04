@@ -239,6 +239,74 @@ G_CONST_RETURN gchar *atk_get_toolkit_version (void);
  */
 G_CONST_RETURN gchar *atk_get_version (void);
 
+/* --- GType boilerplate --- */
+/* convenience macros for atk type implementations, which for a type GtkGadgetAccessible will:
+ * - prototype: static void     gtk_gadget_accessible_class_init (GtkGadgetClass *klass);
+ * - prototype: static void     gtk_gadget_accessible_init       (GtkGadget      *self);
+ * - define:    static gpointer gtk_gadget_accessible_parent_class = NULL;
+ *   gtk_gadget_accessible_parent_class is initialized prior to calling gtk_gadget_class_init()
+ * - implement: GType           gtk_gadget_accessible_get_type (void) { ... }
+ * - support custom code in gtk_gadget_accessible_get_type() after the type is registered.
+ *
+ * macro arguments: TypeName, type_name, TYPE_PARENT, CODE
+ * example: ATK_DEFINE_TYPE_WITH_CODE (GtkGadgetAccessible, gtk_gadget_accessible, GTK_TYPE_GADGET,
+ *                                     G_IMPLEMENT_INTERFACE (ATK_TYPE_TABLE, gtk_gadget_accessible_table_iface_init))
+ */
+
+#define ATK_DEFINE_TYPE(TN, t_n, T_P)			       ATK_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, 0, {})
+#define ATK_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)	      _ATK_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, 0) {_C_;} _ATK_DEFINE_TYPE_EXTENDED_END()
+#define ATK_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P)		       ATK_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, {})
+#define ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_) _ATK_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT) {_C_;} _ATK_DEFINE_TYPE_EXTENDED_END()
+#define ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)      _ATK_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, _f_) {_C_;} _ATK_DEFINE_TYPE_EXTENDED_END()
+
+#define _ATK_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE, flags) \
+\
+static void     type_name##_init              (TypeName        *self); \
+static void     type_name##_class_init        (TypeName##Class *klass); \
+static gpointer type_name##_parent_class = NULL; \
+static void     type_name##_class_intern_init (gpointer klass) \
+{ \
+  type_name##_parent_class = g_type_class_peek_parent (klass); \
+  type_name##_class_init ((TypeName##Class*) klass); \
+} \
+\
+GType \
+type_name##_get_type (void) \
+{ \
+  static volatile gsize g_define_type_id__volatile = 0; \
+  if (g_once_init_enter (&g_define_type_id__volatile))  \
+    { \
+      AtkObjectFactory *factory; \
+      GType derived_type; \
+      GTypeQuery query; \
+      GType derived_atk_type; \
+      GType g_define_type_id; \
+\
+      /* Figure out the size of the class and instance we are deriving from */ \
+      derived_type = g_type_parent (TYPE); \
+      factory = atk_registry_get_factory (atk_get_default_registry (), \
+                                          derived_type); \
+      derived_atk_type = atk_object_factory_get_accessible_type (factory); \
+      g_type_query (derived_atk_type, &query); \
+\
+      g_define_type_id = \
+        g_type_register_static_simple (derived_atk_type, \
+                                       g_intern_static_string (#TypeName), \
+                                       query.class_size, \
+                                       (GClassInitFunc) type_name##_class_intern_init, \
+                                       query.instance_size, \
+                                       (GInstanceInitFunc) type_name##_init, \
+                                       (GTypeFlags) flags); \
+      { /* custom code follows */
+#define _ATK_DEFINE_TYPE_EXTENDED_END()	\
+        /* following custom code */	\
+      }					\
+      g_once_init_leave (&g_define_type_id__volatile, g_define_type_id); \
+    }					\
+  return g_define_type_id__volatile;	\
+} /* closes type_name##_get_type() */
+
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
