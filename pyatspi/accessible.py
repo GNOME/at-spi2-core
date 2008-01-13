@@ -603,9 +603,9 @@ class _AccessibleMixin(object):
 
   def getApplication(self):
     '''
-    Gets the most-parent accessible (the application) of this accessible. Tries 
-    using the getApplication method introduced in AT-SPI 1.7.0 first before 
-    resorting to traversing parent links.
+    Gets the most-parent accessible (the application) of this
+    accessible. Tries using the getApplication method introduced in
+    AT-SPI 1.7.0 first before resorting to traversing parent links.
     
     @warning: Cycles involving more than the previously traversed accessible 
       are not detected by this code.
@@ -613,18 +613,26 @@ class _AccessibleMixin(object):
     @rtype: Accessibility.Application
     '''
     try:
-      return self._mix_getApplication()
+      app = self._mix_getApplication()
     except AttributeError:
-      pass
+      app = None
+
+    # Some toolkits (e.g., Java) do not support getApplication yet and
+    # will return None as a result.
+    #
+    if app:
+      return app
+
+    # If we didn't find anything, traverse up the tree, making sure to
+    # attempt to turn the thing we found into an Application object.
+    #
     curr = self
     try:
       while curr.parent is not None and (not curr.parent == curr):
         curr = curr.parent
-      return curr
-    except Exception:
-      pass
-    # return None if the application isn't reachable for any reason
-    return None
+      return curr._narrow(Accessibility.Application)
+    except:
+      return None
 
 class _RelationMixin(object):
   '''
