@@ -1,3 +1,10 @@
+2008-01-14  Li Yuan  <li.yuan@sun.com>
+
+	* NEWS:
+	* README:
+	* configure.in:
+	Uprev/release 1.21.5.
+
 2008-01-03  Li Yuan  <li.yuan@sun.com>
 
 	Patch from Gilles Casse <gcasse@oralux.org>

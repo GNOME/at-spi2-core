@@ -1,3 +1,7 @@
+What's new in at-spi-1.21.5:
+
+* Bugfixes: #474480, #503091.
+
 What's new in at-spi-1.21.3:
 
 * Bugfixes: #446277, #493547, #326516, #491805, #492469, #490202.
