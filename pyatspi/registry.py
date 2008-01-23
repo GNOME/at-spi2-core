@@ -364,6 +364,7 @@ class Registry(object):
     except RuntimeError:
       # ignore errors when quitting (probably already quitting)
       pass
+    self.flushEvents()
     
   def getDesktopCount(self):
     '''
@@ -643,6 +644,37 @@ class Registry(object):
         # don't allow further processing if a client returns True
         break
 
+  def flushEvents(self):
+    '''
+    Flushes the event queue by destroying it and recreating it.
+    '''
+    self.queue = Queue.Queue()
+
+  def pumpQueuedEvents(self, num=-1):
+    '''
+    Provides asynch processing of events in the queue by executeing them with 
+    _dispatchEvent() (as is done immediately when synch processing). 
+    This method would normally be called from a main loop or idle function.
+
+    @param num: Number of events to pump. If number is negative it pumps
+    the entire queue. Default is -1.
+    @type num: integer
+    @return: True if queue is not empty after events were pumped.
+    @rtype: boolean
+    '''
+    if num < 0:
+      # Dequeue as many events as currently in the queue.
+      num = self.queue.qsize()
+    for i in xrange(num):
+      try:
+        # get next waiting event
+        event = self.queue.get_nowait()
+      except Queue.Empty:
+        break
+      self._dispatchEvent(event)
+
+    return not self.queue.empty()
+ 
   def _registerClients(self, client, name):
     '''
     Internal method that recursively associates a client with AT-SPI event 
