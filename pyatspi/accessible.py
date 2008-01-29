@@ -630,6 +630,7 @@ class _AccessibleMixin(object):
     try:
       while curr.parent is not None and (not curr.parent == curr):
         curr = curr.parent
+      curr.ref()
       return curr._narrow(Accessibility.Application)
     except:
       return None

@@ -1,3 +1,9 @@
+2008-01-28  Eitan Isaacson  <eitan@ascender.com>
+
+	* accessible.py (_AccessibleMixin.getApplication): Added a ref()
+	which is required when holding a reference to a _narrow()ed
+	instance (bug #512702).
+
 2008-01-23  Eitan Isaacson  <eitan@ascender.com>
 
 	* registry.py (Registry.pumpQueuedEvents): Added this method for
