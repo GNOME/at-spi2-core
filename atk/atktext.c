@@ -206,9 +206,6 @@ atk_text_get_character_at_offset (AtkText      *text,
 
   g_return_val_if_fail (ATK_IS_TEXT (text), (gunichar) 0);
 
-  if (offset < 0)
-    return (gunichar) 0;
-
   iface = ATK_TEXT_GET_IFACE (text);
 
   if (iface->get_character_at_offset)
@@ -376,9 +373,6 @@ atk_text_get_text_at_offset (AtkText          *text,
     real_end_offset = end_offset;
   else
     real_end_offset = &local_end_offset;
-
-  if (offset < 0)
-    return NULL;
 
   iface = ATK_TEXT_GET_IFACE (text);
 
