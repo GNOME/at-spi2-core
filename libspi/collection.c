@@ -154,14 +154,14 @@ static void impl_freeMatchRule (PortableServer_Servant servant,
      MatchRulePrivate *mrp;  
 
      spimatchrule = SPI_COLLECTION (object);
-     mrp =  spimatchrule->_mrp;
+     mrp = spimatchrule->_mrp;
      
      CORBA_free (mrp->attributes);
      CORBA_free (mrp->roles);
      CORBA_free (mrp->interfaces);
 
      g_free (mrp);
-
+     spimatchrule->_mrp = NULL;
 }
 
 
