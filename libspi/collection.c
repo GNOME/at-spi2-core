@@ -456,8 +456,10 @@ match_attributes_all_p (Accessibility_Accessible child, Accessibility_AttributeS
 
      for (i = 0; i < attributes->_length; i++){
 	  for (k = 0; k < oa->_length; k++)
-	       if (!g_ascii_strcasecmp (oa->_buffer [k], attributes->_buffer [i]))
+	       if (!g_ascii_strcasecmp (oa->_buffer [k], attributes->_buffer [i])){
 		    flag = TRUE;
+                    break;
+               }
 	       else
 		    flag = FALSE;
 	  if (!flag) 
@@ -485,8 +487,6 @@ match_attributes_any_p (Accessibility_Accessible child, Accessibility_AttributeS
      return FALSE;
 }
 
-
-
 static gboolean 
 match_attributes_none_p (Accessibility_Accessible child, Accessibility_AttributeSet  *attributes, CORBA_Environment *ev){
 
@@ -502,17 +502,10 @@ match_attributes_none_p (Accessibility_Accessible child, Accessibility_Attribute
      for (i = 0; i < attributes->_length; i++){
 	  for (k = 0; k < oa->_length; k++)
 	       if (!g_ascii_strcasecmp (oa->_buffer [k], attributes->_buffer [i]))
-		    flag = FALSE;
-	       else
-		    flag = TRUE;
-	  if (flag) 
-	       return TRUE; 
+		    return FALSE;
      }
-     return FALSE;
+     return TRUE;
 }
-
-
-
 
 static gboolean
 match_attributes_lookup (Accessibility_Accessible child, MatchRulePrivate *mrp, CORBA_Environment *ev){

@@ -1,3 +1,8 @@
+2008-02-22  Scott Haeger  <scott@bashautomation.com>
+
+        * libspi/collection.c:
+        Fixed bug #517761, Collection match rules not working for attributes.
+
 2008-02-19  Li Yuan  <li.yuan@sun.com>
 
 	Patch from Scott Haeger <scott@bashautomation.com>
