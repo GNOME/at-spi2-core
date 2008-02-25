@@ -1,7 +1,15 @@
+2008-02-25  Li Yuan  <li.yuan@sun.com>
+
+	* registryd/deviceeventcontroller.c: (global_filter_fn),
+	(dec_lock_modifiers), (dec_unlock_modifiers),
+	(impl_generate_keyboard_event): patch from Franz.Netykafka@runbox.no.
+	Bug #508147. Lock/Unlock modifier keys when xkb extension is
+	missing.
+
 2008-02-22  Scott Haeger  <scott@bashautomation.com>
 
-        * libspi/collection.c:
-        Fixed bug #517761, Collection match rules not working for attributes.
+	* libspi/collection.c:
+	Fixed bug #517761, Collection match rules not working for attributes.
 
 2008-02-19  Li Yuan  <li.yuan@sun.com>
 

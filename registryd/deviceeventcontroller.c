@@ -82,6 +82,7 @@ static unsigned int key_modifier_mask =
 static unsigned int _numlock_physical_mask = Mod2Mask; /* a guess, will be reset */
 
 static GQuark spi_dec_private_quark = 0;
+static XModifierKeymap* xmkeymap = NULL;
 
 static int (*x_default_error_handler) (Display *display, XErrorEvent *error_event);
 
@@ -1119,6 +1120,9 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
   priv = (DEControllerPrivateData *)
 	  g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);  
 
+  if (xevent->type == MappingNotify)
+    xmkeymap = NULL;
+
   if (xevent->type == KeyPress || xevent->type == KeyRelease)
     {
       if (controller->xevie_display == NULL)
@@ -2130,15 +2134,37 @@ dec_get_modifier_state (SpiDEController *controller)
 static gboolean
 dec_lock_modifiers (SpiDEController *controller, unsigned modifiers)
 {
-	return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
-			  modifiers, modifiers);
+    DEControllerPrivateData *priv = (DEControllerPrivateData *) 
+    g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);	 
+    
+    if (priv->have_xkb) {
+        return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
+                                  modifiers, modifiers);
+    } else {
+	int mod_index;
+	for (mod_index=0;mod_index<8;mod_index++)
+	    if (modifiers & (1<<mod_index))
+	        dec_synth_keycode_press(controller, xmkeymap->modifiermap[mod_index]);
+	return TRUE;
+    }
 }
 
 static gboolean
 dec_unlock_modifiers (SpiDEController *controller, unsigned modifiers)
 {
-	return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
-			  modifiers, 0);
+    DEControllerPrivateData *priv = (DEControllerPrivateData *) 
+    g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);	 
+    
+    if (priv->have_xkb) {
+        return XkbLockModifiers (spi_get_display (), XkbUseCoreKbd, 
+                                  modifiers, 0);
+    } else {
+	int mod_index;
+	for (mod_index=0;mod_index<8;mod_index++)
+	    if (modifiers & (1<<mod_index))
+	        dec_synth_keycode_release(controller, xmkeymap->modifiermap[mod_index]);
+	return TRUE;
+    }
 }
 
 static KeySym
@@ -2267,6 +2293,13 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
    */
   
   gdk_error_trap_push ();
+
+  DEControllerPrivateData *priv = (DEControllerPrivateData *) 
+      g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+
+  if (!priv->have_xkb && xmkeymap==NULL) {
+    xmkeymap = XGetModifierMapping(spi_get_display ());
+  }
 
   switch (synth_type)
     {
