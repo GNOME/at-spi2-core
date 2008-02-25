@@ -1,5 +1,12 @@
 2008-02-25  Li Yuan  <li.yuan@sun.com>
 
+	* NEWS:
+	* README:
+	* configure.in:
+	Uprev/release 1.21.92.
+
+2008-02-25  Li Yuan  <li.yuan@sun.com>
+
 	* registryd/deviceeventcontroller.c: (global_filter_fn),
 	(dec_lock_modifiers), (dec_unlock_modifiers),
 	(impl_generate_keyboard_event): patch from Franz.Netykafka@runbox.no.
