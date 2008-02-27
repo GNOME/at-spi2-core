@@ -55,6 +55,13 @@ module Accessibility {
            MATCH_LAST_DEFINED
 	   };
 
+       enum TreeTraversalType {
+	 
+	 TREE_RESTRICT_CHILDREN,
+	 TREE_RESTRICT_SIBLING,
+	 TREE_INORDER,
+	 TREE_LAST_DEFINED
+       };
 
 	boolean isAncestorOf (in Accessible object); 
   
@@ -74,21 +81,22 @@ module Accessibility {
                                   in SortOrder sortby,
 				  in long count,
                                   in boolean traverse); 
-
+       
 	AccessibleSet getMatchesTo (in Accessible current_object,
-                                           in MatchRule rule, 
-                                           in SortOrder sortby, 
-                                           in boolean recurse,
-                                           in long count,
-                                           in boolean traverse);
+				    in MatchRule rule, 
+				    in SortOrder sortby,
+				    in TreeTraversalType tree,
+				    in boolean recurse,
+				    in long count,
+				    in boolean traverse);
 
 
         AccessibleSet getMatchesFrom (in Accessible current_object,
-				       in MatchRule rule, 
-                                       in SortOrder sortby, 
-                                       in boolean isrestrict,
-                                       in long count,
-                                       in boolean traverse);
+				      in MatchRule rule, 
+				      in SortOrder sortby, 
+				      in TreeTraversalType tree,
+				      in long count,
+				      in boolean traverse);
 
         Accessible getActiveDescendant ();
         

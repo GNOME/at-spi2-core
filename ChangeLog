@@ -1,3 +1,34 @@
+2008-02-27  Ariel Rios  <ariel@gnu.org>
+
+	* idl/Accessibility_Collection.idl:(getMatchesTo,
+	getMatchesFrom) API Change that adds in order querys.
+	* libspi/collection.c: 
+	(sort_order_rev_canonical): Method to do querys and get results in
+	canonical reverse. New.
+	(inorder): Help method for getMatchesInOrder.
+	(getMatchesInOrder):New method to get next matches from a given object
+	in order.
+	(getMatchesInBackOrder): New method to get previous matches from a
+	given object in order.
+	(getMatchesFrom), (getMatchesTo): Old impl_getMatches[From/To] to be
+	able to accomodate in order querys.
+	(impl_getMatchesFrom), (impl_getMatchesTo): New implementation that
+	accomodate in order querys.
+	(spi_collection_interface_new),
+	(get_collection_from_servant), (impl_createMatchRule),
+	(child_interface_p), (match_states_all_p), (match_states_any_p),
+	(match_states_none_p), (match_states_lookup), (match_roles_all_p),
+	(match_roles_any_p), (match_roles_none_p), (match_roles_lookup),
+	(match_interfaces_all_p), (match_interfaces_any_p),
+	(match_interfaces_none_p), (match_interfaces_lookup),
+	(match_attributes_all_p), (match_attributes_any_p),
+	(match_attributes_none_p), (match_attributes_lookup), (traverse_p),
+	(sort_order_canonical), (query_exec), (impl_getMatches),
+	(spi_collection_init): Clean code.
+
+	Bug #496232. Work by Ariel Rios <ariel@gnu.org> and
+	Scott Haeger <scott@bashautomation.com>.
+
 2008-02-25  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:
