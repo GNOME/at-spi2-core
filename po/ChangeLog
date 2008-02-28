@@ -1,3 +1,9 @@
+2008-02-28  Li Yuan  <li.yuan@sun.com>
+
+	* POTFILES.skip:
+	Added Accessibility_Registry.server.in to POTFILES.skip since
+	we have translation strings in Accessibility_Registry.server.in.in.
+
 2006-03-30  Guntupalli Karunakar  <karunakar@indlinux.org>
 
 	* dz.po: Added Dzongkha translation.
