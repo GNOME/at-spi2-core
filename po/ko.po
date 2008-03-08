@@ -1,13 +1,14 @@
 # atk ko.po
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the atk package.
 # Nam SungHyun <namsh@kldp.org>, 2002
-# Changwoo Ryu <cwryu@debian.org>, 2004, 2006
+# Changwoo Ryu <cwryu@debian.org>, 2004, 2006, 2008.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: atk 1.12.0\n"
+"Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-01-14 19:49+0800\n"
-"PO-Revision-Date: 2006-06-10 01:37+0900\n"
+"PO-Revision-Date: 2008-03-08 19:23+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +17,7 @@ msgstr ""
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
-msgstr "바로가기 선택"
+msgstr "링크 선택"
 
 #: atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
@@ -100,11 +101,11 @@ msgstr "날짜 편집기"
 
 #: atk/atkobject.c:95
 msgid "desktop icon"
-msgstr "바탕화면 아이콘"
+msgstr "바탕 화면 아이콘"
 
 #: atk/atkobject.c:96
 msgid "desktop frame"
-msgstr "바탕화면 프레임"
+msgstr "바탕 화면 프레임"
 
 #: atk/atkobject.c:97
 msgid "dial"
@@ -205,7 +206,7 @@ msgstr "패널"
 
 #: atk/atkobject.c:122
 msgid "password text"
-msgstr "열쇠글 텍스트"
+msgstr "암호 텍스트"
 
 #: atk/atkobject.c:123
 msgid "popup menu"
@@ -245,7 +246,7 @@ msgstr "스크롤 창"
 
 #: atk/atkobject.c:132
 msgid "separator"
-msgstr "구분자"
+msgstr "구분선"
 
 #: atk/atkobject.c:133
 msgid "slider"
@@ -505,8 +506,8 @@ msgstr "테이블 캡션이 바뀐 걸 알릴 때 쓰입니다"
 
 #: atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
-msgstr "접근성 하이퍼텍스트 바로가기 개수"
+msgstr "접근성 하이퍼텍스트 링크 개수"
 
 #: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
-msgstr "현재 AtkHyperlink에 들어 있는 바로가기의 개수"
+msgstr "현재 AtkHyperlink에 들어 있는 링크의 개수"
