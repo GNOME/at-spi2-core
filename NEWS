@@ -1,3 +1,8 @@
+What's new in at-spi-1.22.0:
+
+* Translation update.
+* Bugfixes: #496232.
+
 What's new in at-spi-1.21.92:
 
 * bugfixes: #508147, #517761, #517250, #512702.

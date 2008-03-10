@@ -1,3 +1,10 @@
+2008-03-10  Li Yuan  <li.yuan@sun.com>
+
+	* NEWS:
+	* README:
+	* configure.in:
+	Uprev/release 1.22.0.
+
 2008-02-27  Ariel Rios  <ariel@gnu.org>
 
 	* idl/Accessibility_Collection.idl:(getMatchesTo,
