@@ -1,3 +1,9 @@
+2008-03-10  Li Yuan  <li.yuan@sun.com>
+
+	* NEWS:
+	* configure.in:
+	Revved to 1.22.0 for GNOME 2.22.0.
+
 2008-02-25  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:
