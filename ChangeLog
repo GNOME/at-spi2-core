@@ -1,3 +1,10 @@
+2008-03-14  Li Yuan  <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c: (deregister_application):
+	Bug #522356. Since in desktop.c:spi_desktop_remove_application, we
+	call bonobo_object_release_unref for the object, we don't need to
+	unref the object again.
+
 2008-03-10  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:

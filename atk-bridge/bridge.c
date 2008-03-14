@@ -598,8 +598,6 @@ deregister_application (BonoboObject *app)
 
   device_event_controller = bonobo_object_release_unref (device_event_controller, &ev);
   registry = bonobo_object_release_unref (registry, &ev);
-  
-  app = bonobo_object_unref (app);
 }
 
 static void
