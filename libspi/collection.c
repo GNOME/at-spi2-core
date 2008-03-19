@@ -496,7 +496,6 @@ match_attributes_none_p (Accessibility_Accessible child,
 
      int i, k;
      Accessibility_AttributeSet *oa;
-     gboolean flag = FALSE;
 
      if (attributes->_length == 0 || attributes == NULL)
 	  return TRUE;
@@ -758,10 +757,9 @@ inorder (Accessibility_Accessible collection, MatchRulePrivate *mrp,
   while ((max == 0 || kount < max) 
           && ! CORBA_Object_is_equivalent (obj, collection, ev))
   {
-
-    i = Accessibility_Accessible_getIndexInParent (obj, ev);
     Accessibility_Accessible parent =  
                                 Accessibility_Accessible__get_parent (obj, ev);
+    i = Accessibility_Accessible_getIndexInParent (obj, ev);
     kount  = sort_order_canonical (mrp, ls, kount, max, parent, 
                                    i+1, TRUE, FALSE, TRUE, TRUE, ev);
     obj = parent;
@@ -792,7 +790,7 @@ getMatchesInOrder (PortableServer_Servant servant,
 		   CORBA_Environment *ev){
   GList *ls = NULL;
   AtkObject *aobj;
-  Accessibility_Accessible obj, collection;
+  Accessibility_Accessible obj;
   MatchRulePrivate *mrp;
   gint kount = 0;
 

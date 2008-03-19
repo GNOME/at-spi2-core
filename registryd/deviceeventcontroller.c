@@ -2280,6 +2280,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
 	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
   gint err;
   KeySym keysym;
+  DEControllerPrivateData *priv;
 
 #ifdef SPI_DEBUG
 	fprintf (stderr, "synthesizing keystroke %ld, type %d\n",
@@ -2294,7 +2295,7 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
   
   gdk_error_trap_push ();
 
-  DEControllerPrivateData *priv = (DEControllerPrivateData *) 
+  priv = (DEControllerPrivateData *) 
       g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
 
   if (!priv->have_xkb && xmkeymap==NULL) {

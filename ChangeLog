@@ -1,3 +1,14 @@
+2008-03-19  Li Yuan  <li.yuan@sun.com>
+
+	* libspi/collection.c: (match_attributes_none_p), (inorder),
+	(getMatchesInOrder):
+	* registryd/deviceeventcontroller.c:
+	(impl_generate_keyboard_event):
+	Bug #521667. Patch from Jens Granseuer <jensgr@gmx.net>.
+	Fixes several C99 idioms that lead to compilation errors
+	with older compilers like gcc 2.x. Also removes a few unused
+	variables.
+
 2008-03-14  Li Yuan  <li.yuan@sun.com>
 
 	* atk-bridge/bridge.c: (deregister_application):
