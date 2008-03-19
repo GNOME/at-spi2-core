@@ -743,7 +743,6 @@ spi_atk_emit_eventv (const GObject         *gobject,
   AtkObject          *aobject;
   SpiAccessible      *source = NULL;
   Accessibility_Registry registry;
-  const gchar *name;
 #ifdef SPI_BRIDGE_DEBUG
   CORBA_string s = NULL;
 #endif
@@ -771,7 +770,6 @@ spi_atk_emit_eventv (const GObject         *gobject,
       va_end (args);
       return;
     }
-  name = atk_object_get_name (aobject);
   e.type = g_strdup_vprintf (format, args);
   if (source) e.source = BONOBO_OBJREF (source);
   e.detail1 = detail1;
