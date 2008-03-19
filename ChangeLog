@@ -1,5 +1,11 @@
 2008-03-19  Li Yuan  <li.yuan@sun.com>
 
+	* libspi/document.c: (impl_getAttributes):
+	Bug #451553. Return NULL is there are no attributes. Patch from Ginn
+	Chen.
+
+2008-03-19  Li Yuan  <li.yuan@sun.com>
+
 	* atk-bridge/bridge.c: (spi_atk_emit_eventv):
 	Bug #520490. Remove unused call.
 

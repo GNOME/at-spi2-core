@@ -105,10 +105,9 @@ impl_getAttributes (PortableServer_Servant servant,
   g_return_val_if_fail (document != NULL, NULL);
   
   attributes = atk_document_get_attributes (document);
-  
-  bonobo_return_val_if_fail (attributes != NULL, NULL, ev);
 
-  bonobo_return_val_if_fail (attributes != NULL, NULL, ev);
+  if (!attributes)
+    return NULL;  
 
   /* according to atkobject.h, AtkAttributeSet is a GSList */
   n_attributes = g_slist_length (attributes);
