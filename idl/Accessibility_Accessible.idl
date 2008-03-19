@@ -114,7 +114,7 @@ module Accessibility {
    * \li \c "object:property-change" A base (strongly-typed) object attribute has changed,
    *         for instance "object:property-change:accessible-name".
    *         Notifed property subtypes include accessible-name, accessible-description,
-   *         and accessible-parent. 
+   *         accessible-parent and accessible-role. 
    *
    * \li \c "object:children-changed" The number or identity of an object's children
    *         has changed.

@@ -1,5 +1,10 @@
 2008-03-19  Li Yuan  <li.yuan@sun.com>
 
+	* idl/Accessibility_Accessible.idl:
+	Bug #431053. add accessible-role event in idl doc.
+
+2008-03-19  Li Yuan  <li.yuan@sun.com>
+
 	* libspi/document.c: (impl_getAttributes):
 	Bug #451553. Return NULL is there are no attributes. Patch from Ginn
 	Chen.
