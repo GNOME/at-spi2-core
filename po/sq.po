@@ -2,14 +2,14 @@
 # Copyright (C) 2002, 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
 #
-# Deep_Dark <epidamus@netscape.net>, 2003.
-# Laurent Dhima <laurenti@alblinux.net>, 2004, 2005, 2006, 2008.
+# Deep_Dark	<epidamus@netscape.net>,	2003.
+# Laurent Dhima	<laurenti@alblinux.net>,	2004, 2005, 2006, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-17 17:21+0100\n"
-"PO-Revision-Date: 2008-03-18 16:40+0100\n"
+"PO-Revision-Date: 2008-03-20 11:42+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "kuti zgjedhjeje"
 
 #: ../atk/atkobject.c:90
 msgid "check menu item"
-msgstr "element i menusë së zgjedhjes"
+msgstr "element menu zgjedhur"
 
 #: ../atk/atkobject.c:91
 msgid "color chooser"
@@ -228,11 +228,11 @@ msgstr "pulsant"
 
 #: ../atk/atkobject.c:126
 msgid "radio button"
-msgstr "pulsant radio"
+msgstr "pulsant zgjedhje"
 
 #: ../atk/atkobject.c:127
 msgid "radio menu item"
-msgstr "element menuje radio"
+msgstr "element menu zgjedhje"
 
 #: ../atk/atkobject.c:128
 msgid "root pane"
@@ -264,7 +264,7 @@ msgstr "panel i ndarë"
 
 #: ../atk/atkobject.c:135
 msgid "spin button"
-msgstr "kontrollues zgjedhjës"
+msgstr "pulsant numerik"
 
 #: ../atk/atkobject.c:136
 msgid "statusbar"
@@ -301,11 +301,11 @@ msgstr "tekst"
 
 #: ../atk/atkobject.c:144
 msgid "toggle button"
-msgstr "pulsant shkëmbimi"
+msgstr "pulsant me dy gjëndje"
 
 #: ../atk/atkobject.c:145
 msgid "tool bar"
-msgstr "shtyllë veglash"
+msgstr "panel instrumentësh"
 
 #: ../atk/atkobject.c:146
 msgid "tool tip"
@@ -325,7 +325,7 @@ msgstr "nuk njihet"
 
 #: ../atk/atkobject.c:150
 msgid "viewport"
-msgstr "zonë e dukshme"
+msgstr "viewport"
 
 #: ../atk/atkobject.c:151
 msgid "window"
@@ -397,23 +397,21 @@ msgstr "formular"
 
 #: ../atk/atkobject.c:356
 msgid "Accessible Name"
-msgstr "Emër i përshtatshëm"
+msgstr "Emri açesibël"
 
 #: ../atk/atkobject.c:357
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
-"Emri i instancës së objektit i formatuar për hyrje me anë të teknollogjisë "
-"asistuese"
+"Emri i instancës së objektit i formatuar për të qenë i shfrytëzueshëm nga "
+"teknollogjitë asistuese"
 
 #: ../atk/atkobject.c:363
 msgid "Accessible Description"
-msgstr "Përshkrim i përshtatshëm"
+msgstr "Përshkrimi açesibël"
 
 #: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
-"Përshkrimi i një objekti, formatuar për hyrje me anë të teknollogjisë "
-"asistuese"
+msgstr "Përshkrimi i një objekti, formatuar për hyrje nga teknollogjia asistuese"
 
 #: ../atk/atkobject.c:370
 msgid "Accessible Parent"
