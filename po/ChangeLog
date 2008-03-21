@@ -1,3 +1,8 @@
+2008-03-21  Erdal Ronahi  <erdal dot ronahi at gmail dot com>
+
+	* LINGUAS: Added Kurdish (ku)
+	* ku.po: Added Kurdish translation.
+
 2008-03-16  Ihar Hrachyshka <booxter@lacinka.org>
 
 	* be@latin.po: Added Belarusian Latin translation.
