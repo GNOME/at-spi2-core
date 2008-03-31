@@ -217,6 +217,8 @@ atk_bridge_init (gint *argc, gchar **argv[])
       g_error ("Could not initialize Bonobo");
     }
 
+  bonobo_activate ();
+
   /* Create the accessible application server object */
   this_app = spi_application_new (atk_get_root ());
   /*
@@ -274,8 +276,6 @@ spi_atk_bridge_do_registration (void)
       g_warning ("Could not locate registry");
       return FALSE;
     }
-
-  bonobo_activate ();
 
   /* Create the accessible application server object */
   if (this_app == NULL)

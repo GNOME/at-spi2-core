@@ -1,3 +1,10 @@
+2008-03-31  Li Yuan  <li.yuan@sun.com>
+
+	* atk-bridge/bridge.c: (atk_bridge_init),
+	(spi_atk_bridge_do_registration):
+	Bug #498668. Call bonobo_activate at the beginning of the
+	initialization.
+
 2008-03-19  Li Yuan  <li.yuan@sun.com>
 
 	* idl/Accessibility_Accessible.idl:
