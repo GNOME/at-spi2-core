@@ -1,4 +1,4 @@
-AC_INIT(idl/Accessibility.idl)
+AC_INIT(xml/Accessibility.xml)
 
 AT_SPI_MAJOR_VERSION=1
 AT_SPI_MINOR_VERSION=22
@@ -29,7 +29,7 @@ dnl required versions of other tools.
 m4_define([req_ver_atk],	[1.17.0])
 m4_define([req_ver_gtk],	[2.10.0])
 m4_define([req_ver_gail],	[1.9.0])
-m4_define([req_ver_libbonobo],	[1.107.0])
+m4_define([req_ver_dbus_glib],	[0.7.0])
 
 dnl Specify a header configuration file
 AM_CONFIG_HEADER(config.h)
@@ -86,14 +86,14 @@ dnl fi
 
 dnl Checks for libraries
 PKG_CHECK_MODULES(LIBSPI, [
-	libbonobo-2.0	>= req_ver_libbonobo
+	dbus-glib-1	>= req_ver_dbus_glib
 	atk		>= req_ver_atk
 ])
 AC_SUBST(LIBSPI_LIBS)
 AC_SUBST(LIBSPI_CFLAGS)
 
 PKG_CHECK_MODULES(REGISTRYD, [
-	libbonobo-2.0	>= req_ver_libbonobo
+	dbus-glib-1	>= req_ver_dbus_glib
 	atk		>= req_ver_atk
 	gtk+-2.0	>= req_ver_gtk
 ])
@@ -101,7 +101,7 @@ AC_SUBST(REGISTRYD_LIBS)
 AC_SUBST(REGISTRYD_CFLAGS)
 
 PKG_CHECK_MODULES(TESTS, [
-	libbonobo-2.0	>= req_ver_libbonobo
+	dbus-glib-1	>= req_ver_dbus_glib
 	atk		>= req_ver_atk
 	gtk+-2.0	>= req_ver_gtk
 	gail		>= req_ver_gail
@@ -110,14 +110,14 @@ AC_SUBST(TESTS_LIBS)
 AC_SUBST(TESTS_CFLAGS)
 
 PKG_CHECK_MODULES(ATK_BRIDGE, [
-	libbonobo-2.0	>= req_ver_libbonobo
+	dbus-glib-1	>= req_ver_dbus_glib
 	atk		>= req_ver_atk
 ])	
 AC_SUBST(ATK_BRIDGE_LIBS)
 AC_SUBST(ATK_BRIDGE_CFLAGS)
 
 PKG_CHECK_MODULES(LIBCSPI, [
-	libbonobo-2.0	>= req_ver_libbonobo
+	dbus-glib-1	>= req_ver_dbus_glib
 	atk		>= req_ver_atk
 ])
 AC_SUBST(LIBCSPI_LIBS)
@@ -132,12 +132,6 @@ AC_SUBST(ORBIT_CFLAGS)
 dnl orbit-idl.
 ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
 AC_SUBST(ORBIT_IDL)
-
-dnl Bonobo and Bonobo-Activation idl files
-BONOBO_ACTIVATION_IDL_DIR="`$PKG_CONFIG --variable=idldir bonobo-activation-2.0`"
-LIBBONOBO_IDL_DIR="`$PKG_CONFIG --variable=idldir libbonobo-2.0`"
-AC_SUBST(BONOBO_ACTIVATION_IDL_DIR)
-AC_SUBST(LIBBONOBO_IDL_DIR)
 
 LIBS="$LIBS $X_LIBS"
 dnl path to Xtst
@@ -228,19 +222,9 @@ libspi-1.0-uninstalled.pc
 libloginhelper-1.0.pc
 cspi-1.0.pc
 cspi-1.0-uninstalled.pc
-docs/Makefile
-docs/reference/Makefile
-docs/reference/cspi/Makefile
-docs/reference/idl/Makefile
-idl/Makefile
 libspi/Makefile
-registryd/Makefile
-atk-bridge/Makefile
-login-helper/Makefile
-test/Makefile
-cspi/Makefile
-cspi/bonobo/Makefile
-pyatspi/Makefile
+tools/Makefile
+xml/Makefile
 ])
 
 echo "AT-SPI setup:

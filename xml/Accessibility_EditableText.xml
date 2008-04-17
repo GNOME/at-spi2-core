@@ -1,0 +1,159 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.accessibility.EditableText">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>Derived from interface Text, EditableText provides methods for
+      modifying textual content of components which support editing.
+      EditableText also interacts with the system clipboard via copyText,
+      cutText, and pasteText.  </p>
+
+    <p>@note read-only instances of EditableText are possible; 
+      These may be instances of a general-purpose component type which are
+      sometimes, but not always, user-editable, or may be
+      components which are temporarily or circumstantially
+      in a non-editable state. </p>
+  </tp:docstring>
+  <method name="setTextContents">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Replace the text contents with a new string, discarding the old contents.    </p>
+
+      <p>@param newContents a UTF-8 string with which the text object's contents will be replaced.</p>
+    </tp:docstring>
+    <arg direction="in" name="newContents" type="s"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the text content was successfully changed, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="insertText">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Insert new text contents into an existing text object at a given location, while retaining
+        the old contents.
+        @param position the character offset into the Text implementor's content at which the
+        new content will be inserted.
+        @param text a UTF-8 string of which \c length characters will be inserted into the text 
+        object's text buffer.
+        @param length the number of characters of \c text to insert.  If the character count
+        of \c text is less than or equal to \c length, the entire contents of \c text
+        will be inserted.    </p>
+    </tp:docstring>
+    <arg direction="in" name="position" type="i"/>
+    <arg direction="in" name="text" type="s"/>
+    <arg direction="in" name="length" type="i"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the text content was successfully inserted, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="setAttributes">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Apply a particular set of attributes to a range of text.    </p>
+    </tp:docstring>
+    <arg direction="in" name="attributes" type="s"/>
+    <arg direction="in" name="startPos" type="i"/>
+    <arg direction="in" name="endPos" type="i"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the text attributes were successfully modified, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="copyText">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Copy a range of text into the system clipboard.
+        @param startPos the character offset of the first character in the range of text being
+        copied.
+        @param endPos the offset of the first character past the end of the range of text
+        being copied.</p>
+    </tp:docstring>
+    <arg direction="in" name="startPos" type="i"/>
+    <arg direction="in" name="endPos" type="i"/>
+  </method>
+  <method name="cutText">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Excise a range of text from a Text object, copying it into the system clipboard.
+        @param startPos the character offset of the first character in the range of text being
+        cut.
+        @param endPos the offset of the first character past the end of the range of text
+        being cut.</p>
+    </tp:docstring>
+    <arg direction="in" name="startPos" type="i"/>
+    <arg direction="in" name="endPos" type="i"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the text was successfully cut, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deleteText">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Excise a range of text from a Text object without copying it into the system clipboard.
+        @param startPos the character offset of the first character in the range of text being
+        deleted.
+        @param endPos the offset of the first character past the end of the range of text
+        being deleted.</p>
+    </tp:docstring>
+    <arg direction="in" name="startPos" type="i"/>
+    <arg direction="in" name="endPos" type="i"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the text was successfully deleted, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="pasteText">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Copy the text contents of the system clipboard, if any, into a Text object, 
+        inserting it at a particular character offset.    </p>
+
+      <p>@param position the character offset before which the text will be inserted.</p>
+    </tp:docstring>
+    <arg direction="in" name="position" type="i"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the text was successfully pasted into the Text object, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="unImplemented5">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>unImplemented:    </p>
+
+      <p>placeholders for future expansion. Note that these are named
+        'unimplemented5 and unimplemented6' to avoid conflict with 
+        placeholders from Accessibility::Text.</p>
+    </tp:docstring>
+  </method>
+  <method name="unImplemented6">
+  </method>
+  <method name="unImplemented9">
+  </method>
+  <method name="unImplemented10">
+  </method>
+  <method name="unImplemented11">
+  </method>
+  <method name="unImplemented12">
+  </method>
+</interface>
+</node>

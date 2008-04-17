@@ -1,0 +1,152 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001, 2002 Sun Microsystems Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<tp:struct name="EventDetails">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A struct encapsulating detailed information about an Event.
+      This struct supercedes the previous use of the 'any' field 
+      in EventDetails; the content previously stored in Event::any_data
+      is now stored in EventDetails::any_data, and Event::any_data
+      points to an instance of the EventDetails structure, if
+      the object's implementation supports event detail reporting,
+      otherwise Event::any_data contains CORBA_OBJECT_NIL.  </p>
+
+    <p>@since AT-SPI 1.7.0</p>
+  </tp:docstring>
+  <tp:member type="o" tp:name="host_application"/>
+  <tp:member type="u" tp:name="source_role"/>
+  <tp:member type="s" tp:name="source_name"/>
+  <tp:member type="v" tp:name="any_data"/>
+</tp:struct>
+<tp:struct name="Event">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A structure encapsulating information about an event
+      for which notification was requested.  Usually such notification
+      is requested via a call to Registry::registerGlobalEventListener.
+      The structure contains a colon-delimited string indicating the event
+      type, a reference to the generating Accessible, two detail fields whose
+      interpretation is event-type-specific, and a final field containing 
+      event-type-specific data.  </p>
+
+    <p>@note Since AT-SPI 1.7.0 the 'any' field contains an EventDetails
+      struct, which encapsulates additional information about the event
+      and its generating object.</p>
+  </tp:docstring>
+  <tp:member type="s" tp:name="type">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A colon-delimited string indicating the type of the event.
+      The string can be interpreted as 
+      \c class:type:subtype
+      For instance ¨object:text-changed:insert¨ is an event 
+      from the 'Object' class, which corresponds to Accessible objects
+      general, the type of the event is a ¨text-changed¨ event (i.e. a change in the
+      content of an implementor of the Text interface), and the
+      specific subtype of the change is an insertion event.  </p>
+
+    <p>Event classes include the following:
+      \li focus:   an object has received keyboard focus.  This event has no type or subtype.
+      \li window:  a toplevel window has changed state.
+      \li object:  an object (i.e. Accessible) has undergone some change in state, content, 
+      or hierarchy
+      \li document:a change to a document's content has occurred, or its
+      content loading status has changed.
+      \li mouse:   an event originating from the pointing device.  Rarely used;
+      in most cases clients will wish to register for pointer events via
+      the DeviceEventController::registerDeviceEvent method instead.
+      \li keyboard: an event indicating that the keyboard state (for example, the
+      modifier state) has changed significantly.
+      &quot;keyboard:&quot; events are not sent for individual keystrokes except as
+      a side-effect of certain keys, for instance modifier keys.
+      Clients interested in key events should listen for DeviceEvents
+      via DeviceEventController::registerKeystrokeListener instead.  </p>
+
+    <p>@note For more information on specific event types, see the documentation for
+      each of the individual interfaces supported by some Accessible objects.  </p>
+
+    <p>@see Accessible, Component, Image, Selection, Table, Text, Value.</p>
+  </tp:docstring>
+  </tp:member>
+  <tp:member type="o" tp:name="source">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>The Accessible object which is the source of the event.  The source object is the object
+      to which the change inferred by the event emission occurs; for instance,
+      the object emitting a ¨object:parent-changed¨ event is the child, not the parent.
+      Likewise, the event source of an ¨object:children-changed:insert¨ event is the parent,
+      not the inserted child.</p>
+  </tp:docstring>
+  </tp:member>
+  <tp:member type="i" tp:name="detail1">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>An integer whose meaning is event type dependent.  It may indicate the offset of
+      text being inserted, in the case of ¨object:text-changed:insert¨, or the index of a
+      newly added child in the case of ¨object:children-changed:add¨.  
+      @note since most AT-SPI clients react to events via an asynchronous queue, for 
+      performance reasons, this field may be of limited utility unless the client maintains
+      a large client-side cache of the hierarchy and contained data.  This is because by the time
+      such an event is asynchronously processed, the state of the originating object may have 
+      changed.  In other words, the data in the detail1 member is not state-coherent outside
+      of the event handler.  More useful results are gotten by examination of the 'any_data' field.</p>
+  </tp:docstring>
+  </tp:member>
+  <tp:member type="i" tp:name="detail2">
+  <tp:docstring>
+    see description of detail2 
+  </tp:docstring>
+  </tp:member>
+  <tp:member type="v" tp:name="any_data">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A generic storage location for event-type-specific data which provides more specific
+      information about the event; for instance, in AT-SPI versions prior to 1.7.0,
+      in the case of ¨object:text-changed:insert¨ events, this field contains a string 
+      indicating the inserted text.  </p>
+
+    <p>@note Since AT-SPI 1.7.0, the data contained in this field is an EventDetails struct.</p>
+  </tp:docstring>
+  </tp:member>
+</tp:struct>
+<interface name="org.freedesktop.accessibility.EventListener">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A generic interface implemented by objects for the 
+      receipt of event notifications.  EventListener is the interface from which 
+      Accessibility::Registry is derived, and via which clients of the Registry
+      receive notification of changes to an application's user interface and content.</p>
+  </tp:docstring>
+  <method name="notifyEvent">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Synchronously notify an EventListener that an event has occurred, by passing it an 
+        Event struct. 
+        @param e The Event about which the listener is being notified.</p>
+    </tp:docstring>
+    <arg direction="in" name="e" type="(soiiv)" tp:type="Event"/>
+  </method>
+  <method name="unImplemented_">
+    <tp:docstring>
+      \cond 
+    </tp:docstring>
+  </method>
+  <method name="unImplemented2_">
+  </method>
+  <method name="unImplemented3_">
+  </method>
+  <method name="unImplemented4_">
+  </method>
+</interface>
+</node>

@@ -1,0 +1,121 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 - 2005 Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.accessibility.Image">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>An interface implemented by objects which render image data or 
+      pictorial information to the screen.  When onscreen components include
+      graphical information that is not purely intended to enhance &quot;3d effect&quot;
+      or visual layout, but which conveys some semantic or informational 
+      content to the sighted user, they should implement Image, and that 
+      semantic content should be conveyed textually to the extent possible 
+      via the image description, as well as the Accessible::name and 
+      Accessible::description properties.  </p>
+  </tp:docstring>
+  <tp:property name="imageDescription" type="s" access="read">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A UTF-8 string providing a textual description
+      of what is visually depicted in the image.  </p>
+
+    <p>@note It is recommended that imageDescription be the shorter
+      of the available image descriptions, for instance &quot;alt text&quot;
+      in HTML images, and a longer description be provided in
+      Accessible::accessible-description, if available.
+      A short, one or two word label for the image should be provided in
+      Accessible::accessible-name.</p>
+  </tp:docstring>
+  </tp:property>
+  <tp:property name="imageLocale" type="s" access="read">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A string corresponding to the POSIX LC_MESSAGES locale used 
+      by the imageDescription.
+      @since AT-SPI 1.7.0</p>
+  </tp:docstring>
+  </tp:property>
+  <method name="getImageExtents">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Obtain a bounding box which entirely contains the image contents,
+        as displayed on screen.  The bounds returned do not account for
+        any viewport clipping or the fact that the image may be
+        partially or wholly obscured by other onscreen content.
+        @note This method returns the bounds of the current onscreen
+        view, and not the nominal size of the source data in the
+        event that the original image has been rescaled.    </p>
+
+      <p>@param coordType If 0, the returned bounding box position is returned
+        relative to the screen; if 1, the bounding box position is returned 
+        relative to the containing window.</p>
+    </tp:docstring>
+    <arg direction="in" name="coordType" type="n" tp:type="short"/>
+    <arg direction="out" type="(uuuu)" tp:type="BoundingBox">
+    <tp:docstring>
+      a BoundingBox enclosing the image's onscreen representation.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getImagePosition">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Get the coordinates of the current image position on screen.    </p>
+
+      <p>@param x Back-filled with the x coordinate of the 
+        onscreen image (i.e. the minimum x coordinate)
+        @param y Back-filled with the y coordinate of the 
+        onscreen image (i.e. the minimum y coordinate)
+        @param coordType If 0, the returned x and y coordinates are 
+        returned relative to the screen; 
+        if 1, they are returned relative to the containing window.</p>
+    </tp:docstring>
+    <arg direction="out" name="x" type="i"/>
+    <arg direction="out" name="y" type="i"/>
+    <arg direction="in" name="coordType" type="n" tp:type="short"/>
+  </method>
+  <method name="getImageSize">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Obtain the width and height of the current onscreen view of the
+        image.  The extents returned do not account for
+        any viewport clipping or the fact that the image may be
+        partially or wholly obscured by other onscreen content.
+        @note This method returns the size of the current onscreen
+        view, and not the nominal or &quot;original&quot; size of the source 
+        image, in the event that the original image has been rescaled.    </p>
+
+      <p>@param width Back-filled with the x extents of the 
+        onscreen image (i.e. the image width in pixels)
+        @param height Back-filled with the y extents of the 
+        onscreen image (i.e. the image height in pixels)</p>
+    </tp:docstring>
+    <arg direction="out" name="width" type="i"/>
+    <arg direction="out" name="height" type="i"/>
+  </method>
+  <method name="unImplemented">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>\cond
+        unImplemented:    </p>
+
+      <p>placeholders for future expansion.</p>
+    </tp:docstring>
+  </method>
+  <method name="unImplemented2">
+  </method>
+  <method name="unImplemented3">
+  </method>
+</interface>
+</node>

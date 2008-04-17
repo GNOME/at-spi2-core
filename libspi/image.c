@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,155 +22,160 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* image.c : implements the Image interface */
+#include "accessible.h"
 
-#include <config.h>
-#include <stdio.h>
-#include <libspi/image.h>
-
-
-SpiImage *
-spi_image_interface_new (AtkObject *obj)
+static AtkImage *
+get_image (DBusMessage * message)
 {
-  SpiImage *new_image = g_object_new (SPI_IMAGE_TYPE, NULL);
-
-  spi_base_construct (SPI_BASE (new_image), G_OBJECT(obj));
-
-  return new_image;
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_IMAGE (obj);
 }
 
 static AtkImage *
-get_image_from_servant (PortableServer_Servant servant)
+get_image_from_path (const char *path, void *user_data)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
-  return ATK_IMAGE (object->gobj);
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_IMAGE (obj);
 }
 
-static void 
-impl_getImagePosition (PortableServer_Servant servant,
-		       CORBA_long * x, CORBA_long * y,
-		       const CORBA_short coordType,
-		       CORBA_Environment *ev)
+static dbus_bool_t
+impl_get_imageDescription (const char *path, DBusMessageIter * iter,
+			   void *user_data)
 {
-  AtkImage *image = get_image_from_servant (servant);
-  gint ix, iy;
-
-  g_return_if_fail (image != NULL);
-
-  atk_image_get_image_position (image,
-				&ix, &iy,
-				(AtkCoordType) coordType);
-  *x = ix;
-  *y = iy;
+  AtkImage *image = get_image_from_path (path, user_data);
+  if (!image)
+    return FALSE;
+  return droute_return_v_string (iter,
+				 atk_image_get_image_description (image));
 }
 
-static void 
-impl_getImageSize (PortableServer_Servant servant,
-		   CORBA_long * width, CORBA_long * height,
-		   CORBA_Environment *ev)
+static char *
+impl_get_imageDescription_str (void *datum)
 {
-  AtkImage *image = get_image_from_servant (servant);
-  gint iw, ih;
-  
-  g_return_if_fail (image != NULL);
-
-  atk_image_get_image_size (image,
-			    &iw, &ih);
-  *width = iw;
-  *height = ih;
+  AtkImage *image = (AtkImage *) datum;
+  g_assert (ATK_IS_IMAGE (datum));
+  return g_strdup (atk_image_get_image_description (image));
 }
 
-static Accessibility_BoundingBox
-impl_getImageExtents (PortableServer_Servant servant,
-		      const CORBA_short      coordType,
-		      CORBA_Environment     *ev)
+static dbus_bool_t
+impl_get_imageLocale (const char *path, DBusMessageIter * iter,
+		      void *user_data)
 {
-  AtkImage *image;
-  gint x, y, width, height;
-  Accessibility_BoundingBox bbox;
+  AtkImage *image = get_image_from_path (path, user_data);
+  if (!image)
+    return FALSE;
+  return droute_return_v_string (iter, atk_image_get_image_locale (image));
+}
 
-  bbox.x = bbox.y = bbox.width = bbox.height = -1;
+static char *
+impl_get_imageLocale_str (void *datum)
+{
+  AtkImage *image = (AtkImage *) datum;
+  g_assert (ATK_IS_IMAGE (datum));
+  return g_strdup (atk_image_get_image_locale (image));
+}
 
-  image = get_image_from_servant (servant);
+static DBusMessage *
+impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
+{
+  AtkImage *image = get_image (message);
+  DBusError error;
+  dbus_uint32_t coordType;
+  gint ix, iy, iwidth, iheight;
 
-  if (image)
+  if (!image)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
     {
-      atk_image_get_image_size (image, &width, &height);
-      atk_image_get_image_position (image, &x, &y, coordType);
-
-      bbox.x = x;
-      bbox.y = y;
-      bbox.width = width;
-      bbox.height = height;
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-
-  return bbox;
+  atk_image_get_image_size (image, &iwidth, &iheight);
+  atk_image_get_image_position (image, &ix, &iy, (AtkCoordType) coordType);
+  return spi_dbus_return_rect (message, ix, iy, iwidth, iheight);
 }
 
-static CORBA_string 
-impl__get_imageDescription (PortableServer_Servant servant,
-			    CORBA_Environment     *ev)
+static DBusMessage *
+impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
+		       void *user_data)
 {
-  const char *rv;
-  AtkImage   *image = get_image_from_servant (servant);
+  AtkImage *image = get_image (message);
+  DBusError error;
+  dbus_uint32_t coord_type;
+  gint ix = 0, iy = 0;
+  dbus_int32_t x, y;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (image != NULL, CORBA_string_dup (""));
-
-  rv = atk_image_get_image_description (image);
-
-  if (rv)
+  if (!image)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
-      return CORBA_string_dup (rv);
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-  else
+  atk_image_get_image_position (image, &ix, &iy, (AtkCoordType) coord_type);
+  x = ix;
+  y = iy;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      return CORBA_string_dup ("");
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32,
+				&y, DBUS_TYPE_INVALID);
     }
+  return reply;
 }
 
-static CORBA_string 
-impl__get_imageLocale (PortableServer_Servant servant,
-		       CORBA_Environment     *ev)
+static DBusMessage *
+impl_getImageSize (DBusConnection * bus, DBusMessage * message,
+		   void *user_data)
 {
-  const char *rv;
-  AtkImage   *image = get_image_from_servant (servant);
+  AtkImage *image = get_image (message);
+  gint iwidth = 0, iheight = 0;
+  dbus_int32_t width, height;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (image != NULL, CORBA_string_dup ("C"));
-
-  rv = atk_image_get_image_locale (image);
-
-  if (rv)
+  if (!image)
+    return spi_dbus_general_error (message);
+  atk_image_get_image_size (image, &iwidth, &iheight);
+  width = iwidth;
+  height = iheight;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      return CORBA_string_dup (rv);
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &width,
+				DBUS_TYPE_INT32, &height, DBUS_TYPE_INVALID);
     }
-  else
-    {
-      return CORBA_string_dup ("C");
-    }
+  return reply;
 }
 
-static void
-spi_image_class_init (SpiImageClass *klass)
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_getImageExtents, "getImageExtents",
+   "n,coordType,i:(uuuu),,o"},
+  {DROUTE_METHOD, impl_getImagePosition, "getImagePosition",
+   "i,x,o:i,y,o:n,coordType,i"},
+  {DROUTE_METHOD, impl_getImageSize, "getImageSize", "i,width,o:i,height,o"},
+  {0, NULL, NULL, NULL}
+};
+
+static DRouteProperty properties[] = {
+  {impl_get_imageDescription, impl_get_imageDescription_str, NULL, NULL,
+   "imageDescription", "s"},
+  {impl_get_imageLocale, impl_get_imageLocale_str, NULL, NULL, "imageLocale",
+   "s"},
+  {NULL, NULL, NULL, NULL, NULL, NULL}
+};
+
+void
+spi_initialize_image (DRouteData * data)
 {
-  POA_Accessibility_Image__epv *epv = &klass->epv;
-
-  /* Initialize epv table */
-  epv->getImagePosition      = impl_getImagePosition;
-  epv->getImageSize          = impl_getImageSize;
-  epv->getImageExtents       = impl_getImageExtents;
-  epv->_get_imageDescription = impl__get_imageDescription;
-  epv->_get_imageLocale      = impl__get_imageLocale;
-}
-
-static void
-spi_image_init (SpiImage *image)
-{
-}
-
-BONOBO_TYPE_FUNC_FULL (SpiImage,
-		       Accessibility_Image,
-		       SPI_TYPE_BASE,
-		       spi_image)
+  droute_add_interface (data, "org.freedesktop.accessibility.Image", methods,
+			properties,
+			(DRouteGetDatumFunction) get_image_from_path, NULL);
+};

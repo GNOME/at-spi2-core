@@ -1,0 +1,184 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.accessibility.Selection">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>An interface which indicates that an object exposes a 'selection' model,
+      allowing the selection of one or more of its children.  Read-only Selection
+      instances are possible, in which case the interface is used to programmatically
+      determine the selected-ness of its children.  A selected child has ::State::STATE_SELECTED,
+      and a child which may hypothetically be selected (though possibly not programmatically
+      selectable) has ::State::STATE_SELECTABLE.
+      @note Events emitted by implementors of Selection include:
+      \li \c &quot;object:selection-changed&quot; An instance of Selection has undergone a change in the
+      'selected-ness' of its children, i.e. had a selection added,
+      removed, and/or modified.  Usually accompanied by
+      corresponding \c &quot;object:state-changed:selected&quot; events
+      from the corresponding children, unless the children are
+      previously un-queried via AT-SPI and the Selection instance
+      has ::State::STATE_MANAGES_DESCENDANTS.</p>
+  </tp:docstring>
+  <tp:property name="nSelectedChildren" type="i" access="read">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>The number of children of a Selection implementor which are
+      currently selected.</p>
+  </tp:docstring>
+  </tp:property>
+  <method name="getSelectedChild">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Get the i-th selected Accessible child of a Selection.
+        @note \c selectedChildIndex refers to the index in the list of 
+        'selected' children as opposed to the more general 'child index'
+        of an object;  as such it generally differs from that used in
+        Accessible::getChildAtIndex() or returned by
+        Accessible::getIndexInParent(). 
+        \c selectedChildIndex must lie between 0
+        and Selection::nSelectedChildren-1, inclusive.</p>
+    </tp:docstring>
+    <arg direction="in" name="selectedChildIndex" type="i">
+    <tp:docstring>
+      a long integer indicating which of the selected children of an object is being requested.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="o" tp:type="Accessible">
+    <tp:docstring>
+      a pointer to a selected Accessible child object,specified by \c selectedChildIndex.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="selectChild">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Add a child to the selected children list of a Selection.
+        @note For Selection implementors that only allow
+        single selections, this call may result in the
+        replacement of the (single) current
+        selection.  The call may return \c False if
+        the child is not selectable (i.e. does not have ::State::STATE_SELECTABLE), 
+        if the user does not have permission to change the selection, 
+        or if the Selection instance does not have ::State::STATE_SENSITIVE.    </p>
+    </tp:docstring>
+    <arg direction="in" name="childIndex" type="i">
+    <tp:docstring>
+      a long integer indicating which child of theSelection is to be selected.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the child was successfully selected, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deselectSelectedChild">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Remove a child to the selected children list of a Selection.
+        @note \c childIndex is the index in the selected-children list,
+        not the index in the parent container.  \c selectedChildIndex in this
+        method, and \c childIndex in Selection::selectChild
+        are asymmettric.    </p>
+    </tp:docstring>
+    <arg direction="in" name="selectedChildIndex" type="i">
+    <tp:docstring>
+      a long integer indicating which of the selected children of the Selection is to be deselected.  The indexis a zero-offset index into the 'selected child list', nota zero-offset index into the list of all children of the Selection.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the child was successfully deselected, \c False otherwise.@see deselectChild
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="isChildSelected">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Determine whether a particular child of an Selection implementor
+        is currently selected.  Note that \c childIndex is the zero-offset
+        index into the standard Accessible container's list of children.    </p>
+    </tp:docstring>
+    <arg direction="in" name="childIndex" type="i">
+    <tp:docstring>
+      an index into the Selection's list of children.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the specified child is currently selected,\c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="selectAll">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Attempt to select all of the children of a Selection implementor.
+        Not all Selection implementors support this operation (for instance, 
+        implementations which support only &quot;single selection&quot; do not support this operation).    </p>
+    </tp:docstring>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if successful, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="clearSelection">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Attempt to clear all selections (i.e. deselect all children) of a Selection.
+        Not all Selection implementations allow the removal of all selections.    </p>
+
+      <p>@note this operation may fail if the object must have at least one selected child,
+        if the user does not have permission to change the selection, or if the Selection
+        does not have ::State::STATE_SENSITIVE.    </p>
+    </tp:docstring>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the selections were successfully cleared, \c False otherwise.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deselectChild">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Remove a child from the selected children list of a Selection,
+        if the child is currently selected.    </p>
+
+      <p>@note unlike deselectSelectedChild, \c childIndex is the zero-offset
+        index into the Accessible instance's list of children,
+        not the index into the 'selected child list'.    </p>
+    </tp:docstring>
+    <arg direction="in" name="childIndex" type="i">
+    <tp:docstring>
+      a long integer (the zero offset index into the Accessibleobject's list of children) indicating which child of theSelection is to be selected.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the child was successfully selected, \c False otherwise.@see deselectSelectedChild@since AT-SPI 1.8.0
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="unImplemented">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>unImplemented:    </p>
+
+      <p>placeholders for future expansion.</p>
+    </tp:docstring>
+  </method>
+  <method name="unImplemented2">
+  </method>
+  <method name="unImplemented3">
+  </method>
+</interface>
+</node>

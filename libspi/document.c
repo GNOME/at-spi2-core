@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,133 +22,130 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* document.c: implements the Document interface */
+#include "accessible.h"
 
-
-#include <config.h>
-#include <stdio.h>
-#include <bonobo/bonobo-exception.h>
-#include <libspi/document.h>
-#include <libspi/spi-private.h>
-
-SpiDocument *
-spi_document_interface_new (AtkObject *obj)
+static AtkDocument *
+get_document (DBusMessage * message)
 {
-  SpiDocument *new_document = g_object_new (SPI_DOCUMENT_TYPE, NULL);
-
-  spi_base_construct (SPI_BASE (new_document), G_OBJECT(obj));
-
-  return new_document;
-
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_DOCUMENT (obj);
 }
 
 static AtkDocument *
-get_document_from_servant (PortableServer_Servant servant)
+get_document_from_path (const char *path, void *user_data)
 {
-
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT (object->gobj), NULL);
-
-  return ATK_DOCUMENT (object->gobj);
-
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_DOCUMENT (obj);
 }
 
-static CORBA_string
-impl_getLocale (PortableServer_Servant servant,
-		CORBA_Environment *ev)
+static DBusMessage *
+impl_getLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
+  AtkDocument *document = get_document (message);
   const gchar *lc;
-  AtkDocument *document = get_document_from_servant (servant);
+  DBusMessage *reply;
 
-  g_return_val_if_fail (document != NULL, "");
-
+  if (!document)
+    return spi_dbus_general_error (message);
   lc = atk_document_get_locale (document);
-
-  if (lc)
-    return CORBA_string_dup (lc);
-  else
-      return CORBA_string_dup (""); /* Should we return 'C' by default? */
+  if (!lc)
+    lc = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &lc,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static CORBA_string 
-impl_getAttributeValue (PortableServer_Servant servant,
-			const CORBA_char *attributename,
-			CORBA_Environment *ev){
-
+static DBusMessage *
+impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
+			void *user_data)
+{
+  AtkDocument *document = get_document (message);
+  DBusError error;
+  gchar *attributename;
   const gchar *atr;
-  
-  AtkDocument *document = get_document_from_servant (servant);
-   
-  g_return_val_if_fail (document != NULL, "");
+  DBusMessage *reply;
 
+  if (!document)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   atr = atk_document_get_attribute_value (document, attributename);
-
-  if (atr)
-    return CORBA_string_dup (atr);
-  else
-    return CORBA_string_dup ("");
+  if (!atr)
+    atr = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &atr,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static Accessibility_AttributeSet*
-impl_getAttributes (PortableServer_Servant servant,
-		    CORBA_Environment *ev){
-  
-  AtkDocument *document = get_document_from_servant (servant);
-  AtkAttributeSet *attributes = NULL;
+static DBusMessage *
+impl_getAttributes (DBusConnection * bus, DBusMessage * message,
+		    void *user_data)
+{
+  AtkDocument *document = get_document (message);
+  DBusMessage *reply;
+  AtkAttributeSet *attributes;
   AtkAttribute *attr = NULL;
-  Accessibility_AttributeSet *retval;
+  char **retval;
   gint n_attributes = 0;
   gint i;
-  
-  g_return_val_if_fail (document != NULL, NULL);
-  
+
+  if (!document)
+    return spi_dbus_general_error (message);
+
   attributes = atk_document_get_attributes (document);
+  if (attributes)
+    n_attributes = g_slist_length (attributes);
 
-  if (!attributes)
-    return NULL;  
+  retval = (char **) g_malloc (n_attributes * sizeof (char *));
 
-  /* according to atkobject.h, AtkAttributeSet is a GSList */
-  n_attributes = g_slist_length (attributes);
-    
-  retval = CORBA_sequence_CORBA_string__alloc ();
-  retval->_length = retval->_maximum = n_attributes;
-  retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (n_attributes);
-  CORBA_sequence_set_release (retval, CORBA_TRUE);
-  
   for (i = 0; i < n_attributes; ++i)
-  {
+    {
       attr = g_slist_nth_data (attributes, i);
-      retval->_buffer [i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
-  }
-    
-  atk_attribute_set_free (attributes);
-
-  return retval;
-  
+      retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
+    }
+  if (attributes)
+    atk_attribute_set_free (attributes);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_STRING,
+				&retval, n_attributes, DBUS_TYPE_INVALID);
+    }
+  for (i = 0; i < n_attributes; i++)
+    g_free (retval[i]);
+  g_free (retval);
+  return reply;
 }
 
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_getLocale, "getLocale", "s,,o"},
+  {DROUTE_METHOD, impl_getAttributeValue, "getAttributeValue",
+   "s,attributename,i:s,,o"},
+  {DROUTE_METHOD, impl_getAttributes, "getAttributes", "as,,o"},
+  {0, NULL, NULL, NULL}
+};
 
-static void
-spi_document_class_init (SpiDocumentClass *klass)
+void
+spi_initialize_document (DRouteData * data)
 {
-
- 
-  POA_Accessibility_Document__epv *epv = &klass->epv;
-
-  epv->getLocale = impl_getLocale;
-  epv->getAttributeValue = impl_getAttributeValue;
-  epv->getAttributes = impl_getAttributes;
-
-}
-
-static void
-spi_document_init (SpiDocument *document)
-{
-}
-BONOBO_TYPE_FUNC_FULL (SpiDocument,
-		       Accessibility_Document,
-		       SPI_TYPE_BASE,
-		       spi_document)
+  droute_add_interface (data, "org.freedesktop.accessibility.Document",
+			methods, NULL,
+			(DRouteGetDatumFunction) get_document_from_path,
+			NULL);
+};

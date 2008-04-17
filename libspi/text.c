@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,205 +22,315 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* text.c : implements the Text interface */
-
-#include <config.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "accessible.h"
 #include <string.h>
-#include <atk/atktext.h>
-#include <libspi/text.h>
-#include <libspi/spi-private.h>
-
-/* Our parent Gtk object type */
-#define PARENT_TYPE SPI_TYPE_BASE
-
-typedef struct {
-  gint x;
-  gint y;
-  gint w;
-  gint h;
-} SpiTextRect;
 
 static AtkText *
-get_text_from_servant (PortableServer_Servant servant)
+get_text (DBusMessage * message)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
-  return ATK_TEXT (object->gobj);
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_TEXT (obj);
 }
 
-static CORBA_string
-impl_getText (PortableServer_Servant servant,
-	      const CORBA_long       startOffset,
-	      const CORBA_long       endOffset,
-	      CORBA_Environment     *ev)
+static AtkText *
+get_text_from_path (const char *path, void *user_data)
 {
-  gchar *txt;
-  CORBA_string rv;
-  AtkText *text = get_text_from_servant (servant);
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_TEXT (obj);
+}
 
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
-  
+static dbus_bool_t
+impl_get_characterCount (const char *path, DBusMessageIter * iter,
+			 void *user_data)
+{
+  AtkText *text = get_text_from_path (path, user_data);
+  if (!text)
+    return FALSE;
+  return droute_return_v_int32 (iter, atk_text_get_character_count (text));
+}
+
+static char *
+impl_get_characterCount_str (void *datum)
+{
+  g_assert (ATK_IS_TEXT (datum));
+
+  return g_strdup_printf ("%d",
+			  atk_text_get_character_count ((AtkText *) datum));
+}
+
+static dbus_bool_t
+impl_get_caretOffset (const char *path, DBusMessageIter * iter,
+		      void *user_data)
+{
+  AtkText *text = get_text_from_path (path, user_data);
+  if (!text)
+    return FALSE;
+  return droute_return_v_int32 (iter, atk_text_get_caret_offset (text));
+}
+
+static char *
+impl_get_caretOffset_str (void *datum)
+{
+  g_assert (ATK_IS_TEXT (datum));
+
+  return g_strdup_printf ("%d",
+			  atk_text_get_caret_offset ((AtkText *) datum));
+}
+
+static DBusMessage *
+impl_getText (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkText *text = get_text (message);
+  dbus_int32_t startOffset, endOffset;
+  gchar *txt;
+  DBusError error;
+  DBusMessage *reply;
+
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
+       &endOffset, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   txt = atk_text_get_text (text, startOffset, endOffset);
-  if (txt)
+  if (!txt)
+    txt = g_strdup ("");
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      rv = CORBA_string_dup (txt);
-      g_free (txt);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt,
+				DBUS_TYPE_INVALID);
     }
-  else
-    rv = CORBA_string_dup ("");
-
-  return rv;
+  g_free (txt);
+  return reply;
 }
 
-
-static CORBA_string
-impl_getTextAfterOffset (PortableServer_Servant servant,
-			 const CORBA_long offset,
-			 const
-			 Accessibility_TEXT_BOUNDARY_TYPE
-			 type, CORBA_long * startOffset,
-			 CORBA_long * endOffset,
-			 CORBA_Environment *ev)
+static DBusMessage *
+impl_setCaretOffset (DBusConnection * bus, DBusMessage * message,
+		     void *user_data)
 {
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
+
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_text_set_caret_offset (text, offset);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_getTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
+			  void *user_data)
+{
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_uint32_t type;
   gchar *txt;
-  CORBA_char *rv;
-  gint intStartOffset, intEndOffset;
-  AtkText *text = get_text_from_servant (servant);
+  dbus_int32_t startOffset, endOffset;
+  gint intstart_offset = 0, intend_offset = 0;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
-
-  txt = atk_text_get_text_after_offset (text,
-					offset, (AtkTextBoundary) type,
-					&intStartOffset, &intEndOffset);
-  *startOffset = intStartOffset;
-  *endOffset = intEndOffset;
-
-  if (txt)
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
+       DBUS_TYPE_INVALID))
     {
-      rv = CORBA_string_dup (txt);
-      g_free (txt);
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-  else
-    rv = CORBA_string_dup ("");
-
-  return rv;
+  txt =
+    atk_text_get_text_before_offset (text, offset, (AtkTextBoundary) type,
+				     &intstart_offset, &intend_offset);
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  if (!txt)
+    txt = g_strdup ("");
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
+				&txt, DBUS_TYPE_INVALID);
+    }
+  g_free (txt);
+  return reply;
 }
 
-
-static CORBA_string
-impl_getTextAtOffset (PortableServer_Servant servant,
-		      const CORBA_long offset,
-		      const Accessibility_TEXT_BOUNDARY_TYPE type,
-		      CORBA_long * startOffset,
-		      CORBA_long * endOffset,
-		      CORBA_Environment *ev)
+static DBusMessage *
+impl_getTextAtOffset (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
+  AtkText *text = get_text (message);
+  dbus_int32_t offset, type;
   gchar *txt;
-  CORBA_char *rv;
-  gint intStartOffset, intEndOffset;
-  AtkText *text = get_text_from_servant (servant);
+  dbus_int32_t startOffset, endOffset;
+  gint intstart_offset = 0, intend_offset = 0;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
-
-  txt = atk_text_get_text_at_offset (
-	  text,
-	  offset, (AtkTextBoundary) type,
-	  &intStartOffset, &intEndOffset);
-
-  *startOffset = intStartOffset;
-  *endOffset = intEndOffset;
-
-  if (txt)
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
+       DBUS_TYPE_INVALID))
     {
-      rv = CORBA_string_dup (txt);
-      g_free (txt);
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-  else
-    rv = CORBA_string_dup ("");
-
-  return rv;
+  txt =
+    atk_text_get_text_at_offset (text, offset, (AtkTextBoundary) type,
+				 &intstart_offset, &intend_offset);
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  if (!txt)
+    txt = g_strdup ("");
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
+				&txt, DBUS_TYPE_INVALID);
+    }
+  g_free (txt);
+  return reply;
 }
 
-
-static CORBA_unsigned_long
-impl_getCharacterAtOffset (PortableServer_Servant servant,
-			   const CORBA_long offset,
-			   CORBA_Environment *ev)
+static DBusMessage *
+impl_getTextAfterOffset (DBusConnection * bus, DBusMessage * message,
+			 void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
-
-  g_return_val_if_fail (text != NULL, 0);
-
-  return atk_text_get_character_at_offset (text, offset);
-}
-
-
-static CORBA_string
-impl_getTextBeforeOffset (PortableServer_Servant servant,
-			  const CORBA_long offset,
-			  const
-			  Accessibility_TEXT_BOUNDARY_TYPE
-			  type, CORBA_long * startOffset,
-			  CORBA_long * endOffset,
-			  CORBA_Environment *ev)
-{
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_uint32_t type;
   gchar *txt;
-  CORBA_char *rv;
-  gint intStartOffset, intEndOffset;
-  AtkText *text = get_text_from_servant (servant);
+  dbus_int32_t startOffset, endOffset;
+  gint intstart_offset = 0, intend_offset = 0;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
-
-  txt = atk_text_get_text_before_offset (text,
-					 offset, (AtkTextBoundary) type,
-					 &intStartOffset, &intEndOffset);
-
-  *startOffset = intStartOffset;
-  *endOffset = intEndOffset;
-
-  if (txt)
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &type,
+       DBUS_TYPE_INVALID))
     {
-      rv = CORBA_string_dup (txt);
-      g_free (txt);
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-  else
-    rv = CORBA_string_dup ("");
-
-  return rv;
+  txt =
+    atk_text_get_text_after_offset (text, offset, (AtkTextBoundary) type,
+				    &intstart_offset, &intend_offset);
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  if (!txt)
+    txt = g_strdup ("");
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
+				&txt, DBUS_TYPE_INVALID);
+    }
+  g_free (txt);
+  return reply;
 }
 
-
-static CORBA_long
-impl__get_caretOffset (PortableServer_Servant servant,
-		     CORBA_Environment *ev)
+static DBusMessage *
+impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
+			void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
-
-  g_return_val_if_fail (text != NULL, -1);
-
-  return atk_text_get_caret_offset (text);
-}
-
-
-static CORBA_char *
-_string_from_attribute_set (AtkAttributeSet *set)
-{
-  gchar *attributes, *tmp, *tmp2;
-  CORBA_char *rv;
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  char *attributeName;
+  dbus_int32_t startOffset, endOffset;
+  dbus_bool_t defined;
+  gint intstart_offset = 0, intend_offset = 0;
+  char *rv;
+  DBusError error;
+  DBusMessage *reply;
+  AtkAttributeSet *set;
   GSList *cur_attr;
   AtkAttribute *at;
-  
+
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_STRING,
+       &attributeName, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+
+  set = atk_text_get_run_attributes (text, offset,
+				     &intstart_offset, &intend_offset);
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  defined = FALSE;
+  cur_attr = (GSList *) set;
+  while (cur_attr)
+    {
+      at = (AtkAttribute *) cur_attr->data;
+      if (!strcmp (at->name, attributeName))
+	{
+	  rv = at->value;
+	  defined = TRUE;
+	  break;
+	}
+      cur_attr = cur_attr->next;
+    }
+  if (!rv)
+    rv = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset,
+				DBUS_TYPE_BOOLEAN, &defined, DBUS_TYPE_STRING,
+				&rv, DBUS_TYPE_INVALID);
+    }
+  atk_attribute_set_free (set);
+  return reply;
+}
+
+static char *
+_string_from_attribute_set (AtkAttributeSet * set)
+{
+  gchar *attributes, *tmp, *tmp2;
+  GSList *cur_attr;
+  AtkAttribute *at;
+
   attributes = g_strdup ("");
   cur_attr = (GSList *) set;
   while (cur_attr)
     {
       at = (AtkAttribute *) cur_attr->data;
       tmp = g_strdup_printf ("%s%s:%s%s",
-			     ((GSList *)(set) == cur_attr) ? "" : " ",
+			     ((GSList *) (set) == cur_attr) ? "" : " ",
 			     at->name, at->value,
 			     (cur_attr->next) ? ";" : "");
       tmp2 = g_strconcat (attributes, tmp, NULL);
@@ -228,459 +339,565 @@ _string_from_attribute_set (AtkAttributeSet *set)
       attributes = tmp2;
       cur_attr = cur_attr->next;
     }
-  rv = CORBA_string_dup (attributes);
-  g_free (attributes);
-  return rv;
+  return attributes;
 }
 
-
-
-static CORBA_string
-impl_getAttributes (PortableServer_Servant servant,
-		    const CORBA_long offset,
-		    CORBA_long * startOffset,
-		    CORBA_long * endOffset,
-		    CORBA_Environment *ev)
+static DBusMessage *
+impl_getAttributes (DBusConnection * bus, DBusMessage * message,
+		    void *user_data)
 {
-  AtkAttributeSet *set;
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_int32_t startOffset, endOffset;
   gint intstart_offset, intend_offset;
-  CORBA_char *rv;
-  AtkText *text = get_text_from_servant (servant);
-
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
-
-  set = atk_text_get_run_attributes (text, offset,
-				     &intstart_offset, &intend_offset);
-  *startOffset = intstart_offset;
-  *endOffset = intend_offset;
-  rv = _string_from_attribute_set (set);
-  atk_attribute_set_free (set);
-  return rv;  
-}
-
-static CORBA_string
-impl_getAttributeValue (PortableServer_Servant servant,
-			const CORBA_long offset,
-			const CORBA_char *attributename,
-			CORBA_long * startOffset,
-			CORBA_long * endOffset,
-			CORBA_boolean * defined,
-			CORBA_Environment *ev)
-{
+  char *rv;
+  DBusError error;
+  DBusMessage *reply;
   AtkAttributeSet *set;
-  gint intstart_offset, intend_offset;
-  GSList *cur_attr;
-  CORBA_string rv = NULL;
-  AtkText *text = get_text_from_servant (servant);
-  AtkAttribute *at;
 
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
-
-  set = atk_text_get_run_attributes (text, offset,
-				     &intstart_offset, &intend_offset);
-  *startOffset = intstart_offset;
-  *endOffset = intend_offset;
-  *defined = FALSE;
-  cur_attr = (GSList *) set;
-  while (cur_attr)
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
     {
-      at = (AtkAttribute *) cur_attr->data;
-      if (!strcmp (at->name, attributename))
-      {
-	  rv = CORBA_string_dup (at->value);
-	  *defined = TRUE;
-	  break;
-      }
-      cur_attr = cur_attr->next;
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
+
+  set = atk_text_get_run_attributes (text, offset,
+				     &intstart_offset, &intend_offset);
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  rv = _string_from_attribute_set (set);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
+				&rv, DBUS_TYPE_INVALID);
+    }
+  g_free (rv);
   atk_attribute_set_free (set);
-  return (rv ? rv : CORBA_string_dup (""));  
+  return reply;
 }
 
-static CORBA_string
-impl_getDefaultAttributes (PortableServer_Servant servant,
-			   CORBA_Environment *ev)
+static DBusMessage *
+impl_getDefaultAttributes (DBusConnection * bus, DBusMessage * message,
+			   void *user_data)
 {
+  AtkText *text = get_text (message);
+  char *rv;
+  DBusError error;
+  DBusMessage *reply;
   AtkAttributeSet *set;
-  CORBA_char *rv;
-  AtkText *text = get_text_from_servant (servant);
 
-  g_return_val_if_fail (text != NULL, CORBA_string_dup (""));
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
 
   set = atk_text_get_default_attributes (text);
-
   rv = _string_from_attribute_set (set);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  g_free (rv);
   atk_attribute_set_free (set);
-  return rv;  
+  return reply;
 }
 
-static void 
-impl_getCharacterExtents (PortableServer_Servant servant,
-			  const CORBA_long offset, CORBA_long * x,
-			  CORBA_long * y, CORBA_long * width,
-			  CORBA_long * height,
-			  const CORBA_short coordType,
-			  CORBA_Environment *ev)
+static DBusMessage *
+impl_getCharacterExtents (DBusConnection * bus, DBusMessage * message,
+			  void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
-  gint ix, iy, iw, ih;
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_uint32_t coordType;
+  dbus_int32_t x, y, width, height;
+  gint ix = 0, iy = 0, iw = 0, ih = 0;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_if_fail (text != NULL);
-
-  atk_text_get_character_extents (
-	  text, offset,
-	  &ix, &iy, &iw, &ih,
-	  (AtkCoordType) coordType);
-  *x = ix;
-  *y = iy;
-  *width = iw;
-  *height = ih;
-}
-
-
-static CORBA_long
-impl__get_characterCount (PortableServer_Servant servant,
-			  CORBA_Environment    *ev)
-{
-  AtkText *text = get_text_from_servant (servant);
-
-  g_return_val_if_fail (text != NULL, 0);
-
-  return atk_text_get_character_count (text);
-}
-
-
-static CORBA_long
-impl_getOffsetAtPoint (PortableServer_Servant servant,
-		       const CORBA_long x, const CORBA_long y,
-		       const CORBA_short coordType,
-		       CORBA_Environment *ev)
-{
-  AtkText *text = get_text_from_servant (servant);
-
-  g_return_val_if_fail (text != NULL, -1);
-
-  return atk_text_get_offset_at_point (text,
-				  x, y,
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INT32, &coordType,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  atk_text_get_character_extents (text, offset, &ix, &iy, &iw, &ih,
 				  (AtkCoordType) coordType);
+  x = ix;
+  y = iy;
+  width = iw;
+  height = ih;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32,
+				&y, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT32,
+				&height, DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_long
-impl_getNSelections (PortableServer_Servant servant,
-		     CORBA_Environment *ev)
+static DBusMessage *
+impl_getOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
+		       void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t x, y;
+  dbus_uint32_t coordType;
+  dbus_int32_t rv;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, 0);
-
-  return atk_text_get_n_selections (text);
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+       DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_text_get_offset_at_point (text, x, y, coordType);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static void 
-impl_getSelection (PortableServer_Servant servant,
-		   const CORBA_long selectionNum,
-		   CORBA_long * startOffset, CORBA_long * endOffset,
-		   CORBA_Environment *ev)
+static DBusMessage *
+impl_getNSelections (DBusConnection * bus, DBusMessage * message,
+		     void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
-  gint intStartOffset, intEndOffset;
-  
-  g_return_if_fail (text != NULL);
+  AtkText *text = get_text (message);
+  dbus_int32_t rv;
+  DBusMessage *reply;
 
-  /* atk_text_get_selection returns gchar* which we discard */
-  g_free (atk_text_get_selection (text, selectionNum,
-				  &intStartOffset, &intEndOffset));
-  
-  *startOffset = intStartOffset;
-  *endOffset = intEndOffset;
+  if (!text)
+    return spi_dbus_general_error (message);
+  rv = atk_text_get_n_selections (text);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_addSelection (PortableServer_Servant servant,
-		   const CORBA_long startOffset,
-		   const CORBA_long endOffset,
-		   CORBA_Environment *ev)
+static DBusMessage *
+impl_getSelection (DBusConnection * bus, DBusMessage * message,
+		   void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t selectionNum;
+  dbus_int32_t startOffset, endOffset;
+  gint intstart_offset = 0, intend_offset = 0;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, FALSE);
-
-  return atk_text_add_selection (text,
-			    startOffset, endOffset);
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  /* atk_text_get_selection returns gchar * which we discard */
+  g_free (atk_text_get_selection
+	  (text, selectionNum, &intstart_offset, &intend_offset));
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_removeSelection (PortableServer_Servant servant,
-		      const CORBA_long selectionNum,
-		      CORBA_Environment *ev)
+static DBusMessage *
+impl_addSelection (DBusConnection * bus, DBusMessage * message,
+		   void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t startOffset, endOffset;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, FALSE);
-
-  return atk_text_remove_selection (text, selectionNum);
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
+       &endOffset, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_text_add_selection (text, startOffset, endOffset);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_setSelection (PortableServer_Servant servant,
-		   const CORBA_long selectionNum,
-		   const CORBA_long startOffset,
-		   const CORBA_long endOffset,
-		   CORBA_Environment *ev)
+static DBusMessage *
+impl_removeSelection (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t selectionNum;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, FALSE);
-
-  return atk_text_set_selection (text,
-			    selectionNum, startOffset, endOffset);
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_text_remove_selection (text, selectionNum);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_setCaretOffset (PortableServer_Servant servant,
-		     const CORBA_long value,
-		     CORBA_Environment *ev)
+static DBusMessage *
+impl_setSelection (DBusConnection * bus, DBusMessage * message,
+		   void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t selectionNum, startOffset, endOffset;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (text != NULL, FALSE);
-
-  return atk_text_set_caret_offset (text, value);
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &selectionNum, DBUS_TYPE_INT32,
+       &startOffset, DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_text_set_selection (text, selectionNum, startOffset, endOffset);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static void
-impl_getRangeExtents(PortableServer_Servant servant,
-		     const CORBA_long startOffset,
-		     const CORBA_long endOffset,
-		     CORBA_long * x, CORBA_long * y,
-		     CORBA_long * width,
-		     CORBA_long * height,
-		     const CORBA_short coordType,
-		     CORBA_Environment * ev)
+static DBusMessage *
+impl_getRangeExtents (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t startOffset, endOffset;
+  dbus_uint32_t coordType;
   AtkTextRectangle rect;
+  dbus_int32_t x, y, width, height;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_if_fail (text != NULL);
-  
-  atk_text_get_range_extents (text, (gint) startOffset, (gint) endOffset, 
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
+       &endOffset, DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  memset (&rect, 0, sizeof (rect));
+  atk_text_get_range_extents (text, startOffset, endOffset,
 			      (AtkCoordType) coordType, &rect);
-  *x = rect.x;
-  *y = rect.y;
-  *width = rect.width;
-  *height = rect.height;
+  x = rect.x;
+  y = rect.y;
+  width = rect.width;
+  height = rect.height;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32,
+				&y, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT32,
+				&height, DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
 #define MAXRANGELEN 512
 
-static Accessibility_Text_RangeList *
-_spi_text_range_seq_from_atkrangelist (AtkTextRange **range_list) 
-{ 
-  Accessibility_Text_RangeList *rangeList = 
-    Accessibility_Text_RangeList__alloc ();
-  int i, len;
-
-  for (len = 0; len < MAXRANGELEN && range_list[len]; ++len);
-
-  rangeList->_length = len;
-  rangeList->_buffer = Accessibility_Text_RangeList_allocbuf (len);
-  for (i = 0; i < len; ++i) 
-    {
-      rangeList->_buffer[i].startOffset = range_list[i]->start_offset; 
-      rangeList->_buffer[i].endOffset = range_list[i]->end_offset;
-      rangeList->_buffer[i].content = CORBA_string_dup (range_list[i]->content);
-    }
-
-  return rangeList;
-}
-
-static Accessibility_Text_RangeList *
-impl_getBoundedRanges(PortableServer_Servant servant,
-		      const CORBA_long x,
-		      const CORBA_long y,
-		      const CORBA_long width,
-		      const CORBA_long height,
-		      const CORBA_short coordType,
-		      const Accessibility_TEXT_CLIP_TYPE xClipType,
-		      const Accessibility_TEXT_CLIP_TYPE yClipType, 
-		      CORBA_Environment * ev)
+static DBusMessage *
+impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
+		       void *user_data)
 {
-  AtkText *text = get_text_from_servant (servant);
+  AtkText *text = get_text (message);
+  dbus_int32_t x, y, width, height;
+  dbus_uint32_t coordType, xClipType, yClipType;
+  DBusError error;
   AtkTextRange **range_list = NULL;
   AtkTextRectangle rect;
+  DBusMessage *reply;
+  DBusMessageIter iter, array, struc, variant;
 
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+       DBUS_TYPE_INT32, &height, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT32,
+       &coordType, DBUS_TYPE_INT32, &xClipType, DBUS_TYPE_INT32, &yClipType,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   rect.x = x;
   rect.y = y;
   rect.width = width;
   rect.height = height;
 
-  range_list = atk_text_get_bounded_ranges (text, &rect, 
-					    (AtkCoordType) coordType,
-					    (AtkTextClipType) xClipType,
-					    (AtkTextClipType) yClipType);
-
-  return _spi_text_range_seq_from_atkrangelist (range_list); 
+  range_list =
+    atk_text_get_bounded_ranges (text, &rect, (AtkCoordType) coordType,
+				 (AtkTextClipType) xClipType,
+				 (AtkTextClipType) yClipType);
+  reply = dbus_message_new_method_return (message);
+  if (!reply)
+    return NULL;
+  /* This isn't pleasant. */
+  dbus_message_iter_init_append (reply, &iter);
+  if (dbus_message_iter_open_container
+      (&iter, DBUS_TYPE_ARRAY, "(iisv)", &array))
+    {
+      int len;
+      for (len = 0; len < MAXRANGELEN && range_list[len]; ++len)
+	{
+	  if (dbus_message_iter_open_container
+	      (&array, DBUS_TYPE_STRUCT, NULL, &struc))
+	    {
+	      dbus_int32_t val;
+	      val = range_list[len]->start_offset;
+	      dbus_message_iter_append_basic (&struc, DBUS_TYPE_INT32, &val);
+	      val = range_list[len]->end_offset;
+	      dbus_message_iter_append_basic (&struc, DBUS_TYPE_INT32, &val);
+	      dbus_message_iter_append_basic (&struc, DBUS_TYPE_STRING,
+					      &range_list[len]->content);
+	      /* The variant is unimplemented in atk, but I don't want to
+	       * unilaterally muck with the spec and remove it, so I'll just
+	       * throw in a dummy value */
+	      if (dbus_message_iter_open_container
+		  (&array, DBUS_TYPE_VARIANT, "i", &variant))
+		{
+		  dbus_uint32_t dummy = 0;
+		  dbus_message_iter_append_basic (&variant, DBUS_TYPE_INT32,
+						  &dummy);
+		  dbus_message_iter_close_container (&struc, &variant);
+		}
+	      dbus_message_iter_close_container (&array, &struc);
+	    }
+	}
+      dbus_message_iter_close_container (&iter, &array);
+    }
+  return reply;
 }
 
-
-
-static Accessibility_AttributeSet *	
-impl_getAttributeRun (PortableServer_Servant servant,		   
-		      const CORBA_long offset, 
-		      CORBA_long *startOffset, CORBA_long *endOffset, 
-		      const CORBA_boolean includeDefaults, 
-		      CORBA_Environment *ev){
-		      
-     AtkAttributeSet *attributes, *default_attributes = NULL;
-     AtkAttribute *attr = NULL;
-     gint intstart_offset, intend_offset;
-     Accessibility_AttributeSet *retval = NULL;
-     AtkText *text = get_text_from_servant (servant);
-     gint n_attributes = 0, total_attributes = 0, n_default_attributes = 0;
-     gint i, j;
-     
-     g_return_val_if_fail (text != NULL, NULL);
-
-     attributes = atk_text_get_run_attributes (text, offset,
-					       &intstart_offset, &intend_offset);
-
-     if (attributes) total_attributes = n_attributes = g_slist_length (attributes);
-
-     if (includeDefaults)
-     {
-	 default_attributes = atk_text_get_default_attributes (text);
-	 if (default_attributes)
-	     n_default_attributes = g_slist_length (default_attributes);
-	 total_attributes += n_default_attributes;
-     }
-
-     *startOffset = intstart_offset;
-     *endOffset = intend_offset; 
-
-     retval = CORBA_sequence_CORBA_string__alloc ();
-     retval->_length = retval->_maximum = total_attributes;
-     retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (total_attributes);
-     CORBA_sequence_set_release (retval, CORBA_TRUE);
-
-     if (total_attributes)
-     {	 
-	 for (i = 0; i < n_attributes; ++i)
-	 {
-	     attr = g_slist_nth_data (attributes, i);
-	     retval->_buffer[i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
-	 }
-	 
-	 for (j = 0; j < n_default_attributes; ++i, ++j)
-	 {
-	     attr = g_slist_nth_data (default_attributes, j);
-	     retval->_buffer[i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
-	 }
-	 
-	 atk_attribute_set_free (attributes);
-	 if (default_attributes)
-	     atk_attribute_set_free (default_attributes);
-     }
-     return retval;
-}
-
-static Accessibility_AttributeSet *
-impl_getDefaultAttributeSet (PortableServer_Servant servant,
-			     CORBA_Environment *ev){
-     AtkAttributeSet *attributes;
-     AtkAttribute *attr = NULL;
-     Accessibility_AttributeSet *retval = NULL;
-     AtkText *text = get_text_from_servant (servant);
-     gint n_attributes = 0;
-     gint i;
-     
-     g_return_val_if_fail (text != NULL, NULL);
-     
-     attributes = atk_text_get_default_attributes (text);
-     
-     if (attributes) 
-     {
-	 n_attributes = g_slist_length (attributes);
-
-	 retval = CORBA_sequence_CORBA_string__alloc ();
-	 retval->_length = retval->_maximum = n_attributes;
-	 retval->_buffer = CORBA_sequence_CORBA_string_allocbuf (n_attributes);
-	 CORBA_sequence_set_release (retval, CORBA_TRUE);
-	 
-	 for (i = 0; i < n_attributes; ++i)
-	 {
-	     attr = g_slist_nth_data (attributes, i);
-	     retval->_buffer [i] = CORBA_string_dup (g_strconcat (attr->name, ":", attr->value, NULL));
-	 }
-	 atk_attribute_set_free (attributes);
-     }     
-     return retval;       
-}
-
-
-static void
-spi_text_class_init (SpiTextClass *klass)
+static DBusMessage *
+impl_getAttributeRun (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
-  POA_Accessibility_Text__epv *epv = &klass->epv;
+  DBusError error;
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_bool_t includeDefaults;
+  dbus_int32_t startOffset, endOffset;
+  gint intstart_offset = 0, intend_offset = 0;
+  DBusMessage *reply;
+  AtkAttributeSet *attributes, *default_attributes = NULL;
+  AtkAttribute *attr = NULL;
+  char **retval;
+  gint n_attributes = 0, total_attributes = 0, n_default_attributes = 0;
+  gint i, j;
 
-  /* Initialize epv table */
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_BOOLEAN,
+       &includeDefaults, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
 
-  epv->getText = impl_getText;
-  epv->getTextAfterOffset = impl_getTextAfterOffset;
-  epv->getCharacterAtOffset = impl_getCharacterAtOffset;
-  epv->getTextAtOffset = impl_getTextAtOffset;
-  epv->getTextBeforeOffset = impl_getTextBeforeOffset;
-  epv->_get_caretOffset = impl__get_caretOffset;
-  epv->getAttributes = impl_getAttributes;
-  epv->getDefaultAttributes = impl_getDefaultAttributes;
-  epv->getCharacterExtents = impl_getCharacterExtents;
-  epv->_get_characterCount = impl__get_characterCount;
-  epv->getOffsetAtPoint = impl_getOffsetAtPoint;
-  epv->getNSelections = impl_getNSelections;
-  epv->getSelection = impl_getSelection;
-  epv->addSelection = impl_addSelection;
-  epv->removeSelection = impl_removeSelection;
-  epv->setSelection = impl_setSelection;
-  epv->setCaretOffset = impl_setCaretOffset;
-  epv->getRangeExtents = impl_getRangeExtents;
-  epv->getBoundedRanges = impl_getBoundedRanges;
-  epv->getAttributeValue = impl_getAttributeValue;
-  epv->getAttributeRun = impl_getAttributeRun;
-  epv->getDefaultAttributeSet = impl_getDefaultAttributeSet;
+  attributes =
+    atk_text_get_run_attributes (text, offset, &intstart_offset,
+				 &intend_offset);
+
+  if (attributes)
+    total_attributes = n_attributes = g_slist_length (attributes);
+
+  if (includeDefaults)
+    {
+      default_attributes = atk_text_get_default_attributes (text);
+      if (default_attributes)
+	n_default_attributes = g_slist_length (default_attributes);
+      total_attributes += n_default_attributes;
+    }
+
+  startOffset = intstart_offset;
+  endOffset = intend_offset;
+
+  retval = (char **) g_malloc (total_attributes * sizeof (char *));
+
+  if (total_attributes)
+    {
+      for (i = 0; i < n_attributes; ++i)
+	{
+	  attr = g_slist_nth_data (attributes, i);
+	  retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
+	}
+
+      for (j = 0; j < n_default_attributes; ++i, ++j)
+	{
+	  attr = g_slist_nth_data (default_attributes, j);
+	  retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
+	}
+
+      atk_attribute_set_free (attributes);
+      if (default_attributes)
+	atk_attribute_set_free (default_attributes);
+    }
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_ARRAY,
+				DBUS_TYPE_STRING, &retval, total_attributes,
+				DBUS_TYPE_INVALID);
+    }
+  for (i = 0; i < total_attributes; i++)
+    g_free (retval[i]);
+  g_free (retval);
+  return reply;
 }
 
-static void
-spi_text_init (SpiText *text)
+static DBusMessage *
+impl_getDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
+			     void *user_data)
 {
+  AtkText *text = get_text (message);
+  DBusMessage *reply;
+  AtkAttributeSet *attributes;
+  AtkAttribute *attr = NULL;
+  char **retval;
+  gint n_attributes = 0;
+  gint i;
+
+  if (!text)
+    return spi_dbus_general_error (message);
+
+  attributes = atk_text_get_default_attributes (text);
+  if (attributes)
+    n_attributes = g_slist_length (attributes);
+
+  retval = (char **) malloc (n_attributes * sizeof (char *));
+
+  for (i = 0; i < n_attributes; ++i)
+    {
+      attr = g_slist_nth_data (attributes, i);
+      retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
+    }
+  if (attributes)
+    atk_attribute_set_free (attributes);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_STRING,
+				&retval, n_attributes, DBUS_TYPE_INVALID);
+    }
+  for (i = 0; i < n_attributes; i++)
+    g_free (retval[i]);
+  g_free (retval);
+  return reply;
 }
 
-BONOBO_TYPE_FUNC_FULL (SpiText,
-		       Accessibility_Text,
-		       PARENT_TYPE,
-		       spi_text)
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_getText, "getText",
+   "i,startOffset,i:i,endOffset,i:s,,o"},
+  {DROUTE_METHOD, impl_setCaretOffset, "setCaretOffset", "i,offset,i:b,,o"},
+  {DROUTE_METHOD, impl_getTextBeforeOffset, "getTextBeforeOffset",
+   "i,offset,i:u,type,i:i,startOffset,o:i,endOffset,o:s,,o"},
+  {DROUTE_METHOD, impl_getTextAtOffset, "getTextAtOffset",
+   "i,offset,i:u,type,i:i,startOffset,o:i,endOffset,o:s,,o"},
+  {DROUTE_METHOD, impl_getTextAfterOffset, "getTextAfterOffset",
+   "i,offset,i:u,type,i:i,startOffset,o:i,endOffset,o:s,,o"},
+  {DROUTE_METHOD, impl_getAttributeValue, "getAttributeValue",
+   "i,offset,i:s,attributeName,i:i,startOffset,o:i,endOffset,o:b,defined,o:s,,o"},
+  {DROUTE_METHOD, impl_getAttributes, "getAttributes",
+   "i,offset,i:i,startOffset,o:i,endOffset,o:s,,o"},
+  {DROUTE_METHOD, impl_getDefaultAttributes, "getDefaultAttributes", "s,,o"},
+  {DROUTE_METHOD, impl_getCharacterExtents, "getCharacterExtents",
+   "i,offset,i:i,x,o:i,y,o:i,width,o:i,height,o:u,coordType,i"},
+  {DROUTE_METHOD, impl_getOffsetAtPoint, "getOffsetAtPoint",
+   "i,x,i:i,y,i:u,coordType,i:i,,o"},
+  {DROUTE_METHOD, impl_getNSelections, "getNSelections", "i,,o"},
+  {DROUTE_METHOD, impl_getSelection, "getSelection",
+   "i,selectionNum,i:i,startOffset,o:i,endOffset,o"},
+  {DROUTE_METHOD, impl_addSelection, "addSelection",
+   "i,startOffset,i:i,endOffset,i:b,,o"},
+  {DROUTE_METHOD, impl_removeSelection, "removeSelection",
+   "i,selectionNum,i:b,,o"},
+  {DROUTE_METHOD, impl_setSelection, "setSelection",
+   "i,selectionNum,i:i,startOffset,i:i,endOffset,i:b,,o"},
+  {DROUTE_METHOD, impl_getRangeExtents, "getRangeExtents",
+   "i,startOffset,i:i,endOffset,i:i,x,o:i,y,o:i,width,o:i,height,o:u,coordType,i"},
+  {DROUTE_METHOD, impl_getBoundedRanges, "getBoundedRanges",
+   "i,x,i:i,y,i:i,width,i:i,height,i:u,coordType,i:u,xClipType,i:u,yClipType,i:a(iisv),,o"},
+  {DROUTE_METHOD, impl_getAttributeRun, "getAttributeRun",
+   "i,offset,i:i,startOffset,o:i,endOffset,o:b,includeDefaults,i:as,,o"},
+  {DROUTE_METHOD, impl_getDefaultAttributeSet, "getDefaultAttributeSet",
+   "as,,o"},
+  {0, NULL, NULL, NULL}
+};
+
+static DRouteProperty properties[] = {
+  {impl_get_characterCount, impl_get_characterCount_str, NULL, NULL,
+   "characterCount", "i"},
+  {impl_get_caretOffset, impl_get_caretOffset_str, NULL, NULL, "caretOffset",
+   "i"},
+  {NULL, NULL, NULL, NULL, NULL, NULL}
+};
 
 void
-spi_text_construct (SpiText *text, AtkObject *obj)
+spi_initialize_text (DRouteData * data)
 {
-  spi_base_construct (SPI_BASE (text), G_OBJECT(obj));
-}
-
-
-SpiText *
-spi_text_interface_new (AtkObject *obj)
-{
-  SpiText *retval;
-
-  g_return_val_if_fail (ATK_IS_TEXT (obj), NULL);
-
-  retval = g_object_new (SPI_TEXT_TYPE, NULL);
-
-  spi_text_construct (retval, obj);
-
-  return retval;
-}
+  droute_add_interface (data, "org.freedesktop.accessibility.Text", methods,
+			properties,
+			(DRouteGetDatumFunction) get_text_from_path, NULL);
+};

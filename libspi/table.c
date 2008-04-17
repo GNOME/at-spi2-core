@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,519 +22,760 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* table.c : implements the Table interface */
-
-#include <config.h>
-#include <stdio.h>
-#include <bonobo/bonobo-exception.h>
-#include <atk/atktable.h>
-#include <libspi/accessible.h>
-#include <libspi/table.h>
-
-
-SpiTable *
-spi_table_interface_new (AtkObject *obj)
-{
-  SpiTable *new_table = g_object_new (SPI_TABLE_TYPE, NULL);
-
-  spi_base_construct (SPI_BASE (new_table), G_OBJECT(obj));
-
-  return new_table;
-}
-
+#include "accessible.h"
 
 static AtkTable *
-get_table_from_servant (PortableServer_Servant servant)
+get_table (DBusMessage * message)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_TABLE (obj);
+}
 
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
-  return ATK_TABLE (object->gobj);
+static AtkTable *
+get_table_from_path (const char *path, void *user_data)
+{
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_TABLE (obj);
+}
+
+static dbus_bool_t
+impl_get_nRows (const char *path, DBusMessageIter * iter, void *user_data)
+{
+  AtkTable *table = get_table_from_path (path, user_data);
+  if (!table)
+    return FALSE;
+  return droute_return_v_int32 (iter, atk_table_get_n_rows (table));
+}
+
+static char *
+impl_get_nRows_str (void *datum)
+{
+  g_assert (ATK_IS_TABLE (datum));
+  return g_strdup_printf ("%d", atk_table_get_n_rows ((AtkTable *) datum));
+}
+
+static dbus_bool_t
+impl_get_nColumns (const char *path, DBusMessageIter * iter, void *user_data)
+{
+  AtkTable *table = get_table_from_path (path, user_data);
+  if (!table)
+    return FALSE;
+  return droute_return_v_int32 (iter, atk_table_get_n_columns (table));
+}
+
+static char *
+impl_get_nColumns_str (void *datum)
+{
+  g_assert (ATK_IS_TABLE (datum));
+  return g_strdup_printf ("%d", atk_table_get_n_columns ((AtkTable *) datum));
+}
+
+static dbus_bool_t
+impl_get_caption (const char *path, DBusMessageIter * iter, void *user_data)
+{
+  AtkTable *table = get_table_from_path (path, user_data);
+  if (!table)
+    return FALSE;
+  return spi_dbus_return_v_object (iter, atk_table_get_caption (table),
+				   FALSE);
+}
+
+static char *
+impl_get_caption_str (void *datum)
+{
+  AtkTable *table = (AtkTable *) datum;
+  g_assert (ATK_IS_TABLE (datum));
+  return spi_dbus_get_path (atk_table_get_caption (table));
+}
+
+static dbus_bool_t
+impl_get_summary (const char *path, DBusMessageIter * iter, void *user_data)
+{
+  AtkTable *table = get_table_from_path (path, user_data);
+  if (!table)
+    return FALSE;
+  return spi_dbus_return_v_object (iter, atk_table_get_summary (table),
+				   FALSE);
+}
+
+static char *
+impl_get_summary_str (void *datum)
+{
+  AtkTable *table = (AtkTable *) datum;
+  g_assert (ATK_IS_TABLE (datum));
+  return spi_dbus_get_path (atk_table_get_summary (table));
+}
+
+static dbus_bool_t
+impl_get_nSelectedRows (const char *path, DBusMessageIter * iter,
+			void *user_data)
+{
+  AtkTable *table = get_table_from_path (path, user_data);
+  gint *selected_rows = NULL;
+  int count;
+  if (!table)
+    return FALSE;
+  count = atk_table_get_selected_rows (table, &selected_rows);
+  if (selected_rows)
+    g_free (selected_rows);
+  return droute_return_v_int32 (iter, count);
+}
+
+static char *
+impl_get_nSelectedRows_str (void *datum)
+{
+  gint count;
+  gint *selected_rows = NULL;
+  g_assert (ATK_IS_TABLE (datum));
+  count = atk_table_get_selected_rows ((AtkTable *) datum, &selected_rows);
+  if (selected_rows)
+    g_free (selected_rows);
+  return g_strdup_printf ("%d", count);
+}
+
+static dbus_bool_t
+impl_get_nSelectedColumns (const char *path, DBusMessageIter * iter,
+			   void *user_data)
+{
+  AtkTable *table = get_table_from_path (path, user_data);
+  gint *selected_columns = NULL;
+  int count;
+  if (!table)
+    return FALSE;
+  count = atk_table_get_selected_columns (table, &selected_columns);
+  if (selected_columns)
+    g_free (selected_columns);
+  return droute_return_v_int32 (iter, count);
+}
+
+static char *
+impl_get_nSelectedColumns_str (void *datum)
+{
+  gint count;
+  gint *selected_columns = NULL;
+  g_assert (ATK_IS_TABLE (datum));
+  count =
+    atk_table_get_selected_columns ((AtkTable *) datum, &selected_columns);
+  if (selected_columns)
+    g_free (selected_columns);
+  return g_strdup_printf ("%d", count);
 }
 
 
-static Accessibility_Accessible
-impl__get_caption (PortableServer_Servant servant,
-		   CORBA_Environment     *ev)
+static DBusMessage *
+impl_getAccessibleAt (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
-  AtkObject *atk_object;
-  AtkTable  *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t row, column;
+  DBusError error;
+  AtkObject *obj;
 
-  g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
-
-  atk_object = atk_table_get_caption (table);
-
-  return spi_accessible_new_return (atk_object, FALSE, ev);
-}
-
-
-static Accessibility_Accessible
-impl__get_summary (PortableServer_Servant servant,
-		   CORBA_Environment     *ev)
-{
-  AtkObject *atk_object;
-  AtkTable  *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
-
-  atk_object = atk_table_get_summary (table);
-
-  return spi_accessible_new_return (atk_object, FALSE, ev);
-}
-
-
-static CORBA_long
-impl__get_nRows (PortableServer_Servant servant,
-		 CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, 0);
-
-  return atk_table_get_n_rows (table);
-}
-
-
-static CORBA_long
-impl__get_nColumns (PortableServer_Servant servant,
-		    CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, 0);
-
-  return atk_table_get_n_columns (table);
-}
-
-
-static Accessibility_Accessible
-impl_getAccessibleAt (PortableServer_Servant servant,
-		      const CORBA_long       row,
-		      const CORBA_long       column,
-		      CORBA_Environment     *ev)
-{
-  AtkObject *atk_object;
-  AtkTable  *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
-
-  atk_object = atk_table_ref_at (table, row, column);
-
-  return spi_accessible_new_return (atk_object, TRUE, ev);
-}
-
-
-static CORBA_long
-impl_getIndexAt (PortableServer_Servant servant,
-		 const CORBA_long       row,
-		 const CORBA_long       column,
-		 CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, 0);
-
-  return atk_table_get_index_at (table, row, column);
-}
-
-
-static CORBA_long
-impl_getRowAtIndex (PortableServer_Servant servant,
-		    const CORBA_long       index,
-		    CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, 0);
-
-  return atk_table_get_row_at_index (table, index);
-}
-
-
-static CORBA_long
-impl_getColumnAtIndex (PortableServer_Servant servant,
-		       const CORBA_long       index,
-		       CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, 0);
-
-  return atk_table_get_column_at_index (table, index);
-}
-
-
-static CORBA_string
-impl_getRowDescription (PortableServer_Servant servant,
-			const CORBA_long       row,
-			CORBA_Environment     *ev)
-{
-  const char *rv;
-  AtkTable   *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, NULL);
-  
-  rv = atk_table_get_row_description (table, row);
-
-  if (rv)
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+       DBUS_TYPE_INVALID))
     {
-      return CORBA_string_dup (rv);
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-  else
+  obj = atk_table_ref_at (table, row, column);
+  return spi_dbus_return_object (message, obj, TRUE);
+}
+
+static DBusMessage *
+impl_getIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t row, column;
+  dbus_int32_t index;
+  DBusError error;
+  DBusMessage *reply;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+       DBUS_TYPE_INVALID))
     {
-      return CORBA_string_dup ("");
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-}
-
-
-static CORBA_string
-impl_getColumnDescription (PortableServer_Servant servant,
-			   const CORBA_long       column,
-			   CORBA_Environment     *ev)
-{
-  const char *rv;
-  AtkTable   *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, CORBA_string_dup (""));
-  
-  rv = atk_table_get_column_description (table, column);
-
-  if (rv)
+  index = atk_table_get_index_at (table, row, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      return CORBA_string_dup (rv);
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &index,
+				DBUS_TYPE_INVALID);
     }
-  else
+  return reply;
+}
+
+static DBusMessage *
+impl_getRowAtIndex (DBusConnection * bus, DBusMessage * message,
+		    void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t index;
+  dbus_int32_t row;
+  DBusError error;
+  DBusMessage *reply;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
-      return CORBA_string_dup ("");
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-}
-
-
-static CORBA_long
-impl_getRowExtentAt (PortableServer_Servant servant,
-		     const CORBA_long       row,
-		     const CORBA_long       column,
-		     CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, -1);
-
-  return atk_table_get_row_extent_at (table, row, column);
-}
-
-
-static CORBA_long
-impl_getColumnExtentAt (PortableServer_Servant servant,
-			const CORBA_long       row,
-			const CORBA_long       column,
-			CORBA_Environment     *ev)
-{
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, -1);
-
-  return atk_table_get_column_extent_at (table, row, column);
-}
-
-
-static Accessibility_Table
-impl_getRowHeader (PortableServer_Servant servant,
-		   const CORBA_long       row,
-		   CORBA_Environment     *ev)
-{
-  AtkObject *header;
-  AtkTable  *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
-
-  header = atk_table_get_row_header (table, row);
-
-  return spi_accessible_new_return (header, FALSE, ev);
-}
-
-
-static Accessibility_Table
-impl_getColumnHeader (PortableServer_Servant servant,
-		      const CORBA_long       column,
-		      CORBA_Environment     *ev)
-{
-  AtkObject *header;
-  AtkTable  *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, CORBA_OBJECT_NIL);
-
-  header = atk_table_get_column_header (table, column);
-
-  return spi_accessible_new_return (header, FALSE, ev);
-}
-
-static CORBA_long
-impl__get_nSelectedRows (PortableServer_Servant servant,
-		         CORBA_Environment     *ev)
-{
-  gint *selectedRows = NULL;
-  gint retval = 0;
-  AtkTable *table = get_table_from_servant (servant);
-
-  bonobo_return_val_if_fail (table != NULL, 0, ev);
-
-  retval = atk_table_get_selected_rows (table, &selectedRows);
-  if (selectedRows) g_free (selectedRows);
-  return retval;
-}
-
-
-static CORBA_long
-impl__get_nSelectedColumns (PortableServer_Servant servant,
-			    CORBA_Environment     *ev)
-{
-  gint *selectedColumns = NULL;
-  gint retval = 0;
-  AtkTable *table = get_table_from_servant (servant);
-
-  bonobo_return_val_if_fail (table != NULL, 0, ev);
-
-  retval = atk_table_get_selected_columns (table, &selectedColumns);
-  if (selectedColumns) g_free (selectedColumns);
-  return retval;
-}
-
-static Accessibility_LongSeq *
-impl_getSelectedRows (PortableServer_Servant servant,
-		      CORBA_Environment     *ev)
-{
-  gint *selectedRows = NULL;
-  gint length;
-  Accessibility_LongSeq *retval;
-  AtkTable *table = get_table_from_servant (servant);
-
-  bonobo_return_val_if_fail (table != NULL, NULL, ev);
-
-  length = atk_table_get_selected_rows (table, &selectedRows);
-
-  bonobo_return_val_if_fail (length >= 0, NULL, ev);
-
-  retval = Accessibility_LongSeq__alloc ();
-  retval->_maximum = retval->_length = length;
-  retval->_buffer = Accessibility_LongSeq_allocbuf (length);
-
-  while (--length >= 0)
+  row = atk_table_get_row_at_index (table, index);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      retval->_buffer[length] = selectedRows[length];
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &row,
+				DBUS_TYPE_INVALID);
     }
-
-  if (selectedRows) g_free (selectedRows);
-
-  return retval;
+  return reply;
 }
 
-
-static Accessibility_LongSeq *
-impl_getSelectedColumns (PortableServer_Servant servant,
-			 CORBA_Environment     *ev)
+static DBusMessage *
+impl_getColumnAtIndex (DBusConnection * bus, DBusMessage * message,
+		       void *user_data)
 {
-  gint *selectedColumns = NULL;
-  gint length;
-  Accessibility_LongSeq *retval;
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t index;
+  dbus_int32_t column;
+  DBusError error;
+  DBusMessage *reply;
 
-  bonobo_return_val_if_fail (table != NULL, NULL, ev);
-
-  length = atk_table_get_selected_columns (table, &selectedColumns);
-
-  bonobo_return_val_if_fail (length >= 0, NULL, ev);
-
-  retval = Accessibility_LongSeq__alloc ();
-  retval->_maximum = retval->_length = length;
-  retval->_buffer = Accessibility_LongSeq_allocbuf (length);
-
-  while (--length >= 0)
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
-      retval->_buffer[length] = (CORBA_long) selectedColumns[length];
+      return SPI_DBUS_RETURN_ERROR (message, &error);
     }
-
-  if (selectedColumns) g_free (selectedColumns);
-
-  return retval;
+  column = atk_table_get_column_at_index (table, index);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &column,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_isRowSelected (PortableServer_Servant servant,
-		    const CORBA_long       row,
-		    CORBA_Environment     *ev)
+static DBusMessage *
+impl_getRowDescription (DBusConnection * bus, DBusMessage * message,
+			void *user_data)
 {
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t row;
+  const gchar *description;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_is_row_selected (table, row);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  description = atk_table_get_row_description (table, row);
+  if (!description)
+    description = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &description,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_isColumnSelected (PortableServer_Servant servant,
-		       const CORBA_long       column,
-		       CORBA_Environment     *ev)
+static DBusMessage *
+impl_getColumnDescription (DBusConnection * bus, DBusMessage * message,
+			   void *user_data)
 {
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t column;
+  const char *description;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_is_column_selected (table, column);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  description = atk_table_get_column_description (table, column);
+  if (!description)
+    description = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &description,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static CORBA_boolean
-impl_addRowSelection (PortableServer_Servant servant,
-		      const CORBA_long       row,
-		      CORBA_Environment     *ev)
+static DBusMessage *
+impl_getRowExtentAt (DBusConnection * bus, DBusMessage * message,
+		     void *user_data)
 {
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t row, column;
+  dbus_int32_t extent;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_add_row_selection (table, row);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  extent = atk_table_get_row_extent_at (table, row, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &extent,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_addColumnSelection (PortableServer_Servant servant,
-			 const CORBA_long       column,
-			 CORBA_Environment     *ev)
+static DBusMessage *
+impl_getColumnExtentAt (DBusConnection * bus, DBusMessage * message,
+			void *user_data)
 {
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t row, column;
+  dbus_int32_t extent;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_add_column_selection (table, column);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  extent = atk_table_get_column_extent_at (table, row, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &extent,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_removeRowSelection (PortableServer_Servant servant,
-			 const CORBA_long       row,
-			 CORBA_Environment     *ev)
+static DBusMessage *
+impl_getRowHeader (DBusConnection * bus, DBusMessage * message,
+		   void *user_data)
 {
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t row;
+  DBusError error;
+  AtkObject *obj;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_remove_row_selection (table, row);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  obj = atk_table_get_row_header (table, row);
+  return spi_dbus_return_object (message, obj, FALSE);
 }
 
-
-static CORBA_boolean
-impl_removeColumnSelection (PortableServer_Servant servant,
-			    const CORBA_long       column,
-			    CORBA_Environment     *ev)
+static DBusMessage *
+impl_getColumnHeader (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
-  AtkTable *table = get_table_from_servant (servant);
+  AtkTable *table = get_table (message);
+  dbus_int32_t column;
+  DBusError error;
+  AtkObject *obj;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_remove_column_selection (table, column);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  obj = atk_table_get_column_header (table, column);
+  return spi_dbus_return_object (message, obj, FALSE);
 }
 
-
-static CORBA_boolean
-impl_getRowColumnExtentsAtIndex (PortableServer_Servant servant,
-				 const CORBA_long index,
-				 CORBA_long *row,
-				 CORBA_long *column,
-				 CORBA_long *row_extents,
-				 CORBA_long *col_extents,
-				 CORBA_boolean *is_selected,
-				 CORBA_Environment *ev)
+static DBusMessage *
+impl_getSelectedRows (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
+  AtkTable *table = get_table (message);
+  gint *selected_rows = NULL;
+  gint count;
+  DBusMessage *reply;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  count = atk_table_get_selected_rows (table, &selected_rows);
+  if (!selected_rows)
+    count = 0;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      /* tbd - figure out if this is safe for a 0-length array */
+      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_INT32,
+				&selected_rows, count, DBUS_TYPE_INVALID);
+    }
+  if (selected_rows)
+    g_free (selected_rows);
+  return reply;
+}
+
+static DBusMessage *
+impl_getSelectedColumns (DBusConnection * bus, DBusMessage * message,
+			 void *user_data)
+{
+  AtkTable *table = get_table (message);
+  gint *selected_columns = NULL;
+  gint count;
+  DBusMessage *reply;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  count = atk_table_get_selected_columns (table, &selected_columns);
+  if (!selected_columns)
+    count = 0;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      /* tbd - figure out if this is safe for a 0-length array */
+      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_INT32,
+				&selected_columns, count, DBUS_TYPE_INVALID);
+    }
+  if (selected_columns)
+    g_free (selected_columns);
+  return reply;
+}
+
+static DBusMessage *
+impl_isRowSelected (DBusConnection * bus, DBusMessage * message,
+		    void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t row;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_is_row_selected (table, row);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_isColumnSelected (DBusConnection * bus, DBusMessage * message,
+		       void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t column;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_is_column_selected (table, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_isSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t row, column;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32, &column,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_is_selected (table, row, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_addRowSelection (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t row;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_add_row_selection (table, row);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_addColumnSelection (DBusConnection * bus, DBusMessage * message,
+			 void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t column;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_add_column_selection (table, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_removeRowSelection (DBusConnection * bus, DBusMessage * message,
+			 void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t row;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &row, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_remove_row_selection (table, row);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_removeColumnSelection (DBusConnection * bus, DBusMessage * message,
+			    void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t column;
+  DBusError error;
+  DBusMessage *reply;
+  dbus_bool_t ret;
+
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &column, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ret = atk_table_remove_column_selection (table, column);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_getRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
+				 void *user_data)
+{
+  AtkTable *table = get_table (message);
+  dbus_int32_t index;
+  DBusError error;
+  dbus_int32_t row, column, row_extents, col_extents;
+  dbus_bool_t is_selected;
+  dbus_bool_t ret;
+  DBusMessage *reply;
 
   AtkObject *cell;
   AtkRole role;
-  AtkTable *table = get_table_from_servant (servant);
-  gint intColumn, intRow, intRow_extents, intCol_extents;
-  gboolean boolIs_selected;
 
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  intColumn = atk_table_get_column_at_index (table, index);
-  intRow = atk_table_get_row_at_index (table, index);
-  intRow_extents = atk_table_get_row_extent_at (table, intRow, intColumn);
-  intCol_extents = atk_table_get_column_extent_at (table, intRow, intColumn);
-  boolIs_selected = atk_table_is_selected (table, intRow, intColumn);
-
-  *column = intColumn;
-  *row = intRow;
-  *row_extents = intRow_extents;
-  *col_extents = intCol_extents;
-  *is_selected = boolIs_selected;
-
-  cell = atk_table_ref_at (table, intRow, intColumn);
+  if (!table)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  column = atk_table_get_column_at_index (table, index);
+  row = atk_table_get_row_at_index (table, index);
+  row_extents = atk_table_get_row_extent_at (table, row, column);
+  col_extents = atk_table_get_column_extent_at (table, row, column);
+  is_selected = atk_table_is_selected (table, row, column);
+  cell = atk_table_ref_at (table, row, column);
   role = atk_object_get_role (cell);
-
-  if (role == ATK_ROLE_TABLE_CELL)
-    return TRUE;
-  
-  return FALSE;
-
+  g_object_unref (cell);
+  ret = (role == ATK_ROLE_TABLE_CELL ? TRUE : FALSE);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, row, DBUS_TYPE_INT32,
+				column, DBUS_TYPE_INT32, row_extents,
+				DBUS_TYPE_INT32, col_extents,
+				DBUS_TYPE_BOOLEAN, is_selected,
+				DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static CORBA_boolean
-impl_isSelected (PortableServer_Servant servant,
-		 const CORBA_long       row,
-		 const CORBA_long       column,
-		 CORBA_Environment     *ev)
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_getAccessibleAt, "getAccessibleAt",
+   "i,row,i:i,column,i:o,,o"},
+  {DROUTE_METHOD, impl_getIndexAt, "getIndexAt", "i,row,i:i,column,i:i,,o"},
+  {DROUTE_METHOD, impl_getRowAtIndex, "getRowAtIndex", "i,index,i:i,,o"},
+  {DROUTE_METHOD, impl_getColumnAtIndex, "getColumnAtIndex",
+   "i,index,i:i,,o"},
+  {DROUTE_METHOD, impl_getRowDescription, "getRowDescription",
+   "i,row,i:s,,o"},
+  {DROUTE_METHOD, impl_getColumnDescription, "getColumnDescription",
+   "i,column,i:s,,o"},
+  {DROUTE_METHOD, impl_getRowExtentAt, "getRowExtentAt",
+   "i,row,i:i,column,i:i,,o"},
+  {DROUTE_METHOD, impl_getColumnExtentAt, "getColumnExtentAt",
+   "i,row,i:i,column,i:i,,o"},
+  {DROUTE_METHOD, impl_getRowHeader, "getRowHeader", "i,row,i:o,,o"},
+  {DROUTE_METHOD, impl_getColumnHeader, "getColumnHeader", "i,column,i:o,,o"},
+  {DROUTE_METHOD, impl_getSelectedRows, "getSelectedRows", "ai,,o"},
+  {DROUTE_METHOD, impl_getSelectedColumns, "getSelectedColumns", "ai,,o"},
+  {DROUTE_METHOD, impl_isRowSelected, "isRowSelected", "i,row,i:b,,o"},
+  {DROUTE_METHOD, impl_isColumnSelected, "isColumnSelected",
+   "i,column,i:b,,o"},
+  {DROUTE_METHOD, impl_isSelected, "isSelected", "i,row,i:i,column,i:b,,o"},
+  {DROUTE_METHOD, impl_addRowSelection, "addRowSelection", "i,row,i:b,,o"},
+  {DROUTE_METHOD, impl_addColumnSelection, "addColumnSelection",
+   "i,column,i:b,,o"},
+  {DROUTE_METHOD, impl_removeRowSelection, "removeRowSelection",
+   "i,row,i:b,,o"},
+  {DROUTE_METHOD, impl_removeColumnSelection, "removeColumnSelection",
+   "i,column,i:b,,o"},
+  {DROUTE_METHOD, impl_getRowColumnExtentsAtIndex,
+   "getRowColumnExtentsAtIndex",
+   "i,index,i:i,row,o:i,col,o:i,row_extents,o:i,col_extents,o:b,is_selected,o:b,,o"},
+  {0, NULL, NULL, NULL}
+};
+
+static DRouteProperty properties[] = {
+  {impl_get_nRows, impl_get_nRows_str, NULL, NULL, "nRows", "i"},
+  {impl_get_nColumns, impl_get_nColumns_str, NULL, NULL, "nColumns", "i"},
+  {impl_get_caption, impl_get_caption_str, NULL, NULL, "caption", "o"},
+  {impl_get_summary, impl_get_summary_str, NULL, NULL, "summary", "o"},
+  {impl_get_nSelectedRows, impl_get_nSelectedRows_str, NULL, NULL,
+   "nSelectedRows", "i"},
+  {impl_get_nSelectedColumns, impl_get_nSelectedColumns_str, NULL, NULL,
+   "nSelectedColumns", "i"},
+  {NULL, NULL, NULL, NULL, NULL, NULL}
+};
+
+void
+spi_initialize_table (DRouteData * data)
 {
-  AtkTable *table = get_table_from_servant (servant);
-
-  g_return_val_if_fail (table != NULL, FALSE);
-
-  return atk_table_is_selected (table,
-				row, column);
-}
-
-
-static void
-spi_table_class_init (SpiTableClass *klass)
-{
-  POA_Accessibility_Table__epv *epv = &klass->epv;
-
-  /* Initialize epv table */
-
-  epv->_get_caption = impl__get_caption;
-  epv->_get_summary = impl__get_summary;
-  epv->_get_nRows = impl__get_nRows;
-  epv->_get_nColumns = impl__get_nColumns;
-  epv->_get_nSelectedRows = impl__get_nSelectedRows;
-  epv->_get_nSelectedColumns = impl__get_nSelectedColumns;
-  epv->getAccessibleAt = impl_getAccessibleAt;
-  epv->getIndexAt = impl_getIndexAt;
-  epv->getRowAtIndex = impl_getRowAtIndex;
-  epv->getColumnAtIndex = impl_getColumnAtIndex;
-  epv->getRowDescription = impl_getRowDescription;
-  epv->getColumnDescription = impl_getColumnDescription;
-  epv->getRowExtentAt = impl_getRowExtentAt;
-  epv->getColumnExtentAt = impl_getColumnExtentAt;
-  epv->getRowHeader = impl_getRowHeader;
-  epv->getColumnHeader = impl_getColumnHeader;
-  epv->getSelectedRows = impl_getSelectedRows;
-  epv->getSelectedColumns = impl_getSelectedColumns;
-  epv->isRowSelected = impl_isRowSelected;
-  epv->isColumnSelected = impl_isColumnSelected;
-  epv->addRowSelection = impl_addRowSelection;
-  epv->addColumnSelection = impl_addColumnSelection;
-  epv->removeRowSelection = impl_removeRowSelection;
-  epv->removeColumnSelection = impl_removeColumnSelection;
-  epv->isSelected = impl_isSelected;
-  epv->getRowColumnExtentsAtIndex = impl_getRowColumnExtentsAtIndex;
-}
-
-static void
-spi_table_init (SpiTable *table)
-{
-}
-
-BONOBO_TYPE_FUNC_FULL (SpiTable,
-		       Accessibility_Table,
-		       SPI_TYPE_BASE,
-		       spi_table)
+  droute_add_interface (data, "org.freedesktop.accessibility.Table", methods,
+			properties,
+			(DRouteGetDatumFunction) get_table_from_path, NULL);
+};

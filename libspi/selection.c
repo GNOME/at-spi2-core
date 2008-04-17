@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,190 +22,259 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* selection.c : implements the Selection interface */
-
-#include <config.h>
-#include <stdio.h>
-#include <libspi/accessible.h>
-#include <libspi/selection.h>
-
-
-SpiSelection *
-spi_selection_interface_new (AtkObject *obj)
-{
-  SpiSelection *new_selection = g_object_new (SPI_SELECTION_TYPE, NULL);
-
-  spi_base_construct (SPI_BASE (new_selection), G_OBJECT(obj));
-
-  return new_selection;
-}
-
+#include "accessible.h"
 
 static AtkSelection *
-get_selection_from_servant (PortableServer_Servant servant)
+get_selection (DBusMessage * message)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
-  return ATK_SELECTION (object->gobj);
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_SELECTION (obj);
 }
 
-
-static CORBA_long
-impl__get_nSelectedChildren (PortableServer_Servant servant,
-			     CORBA_Environment     *ev)
+static AtkSelection *
+get_selection_from_path (const char *path, void *user_data)
 {
-  AtkSelection *selection = get_selection_from_servant (servant);
-
-  g_return_val_if_fail (selection != NULL, 0);
-
-  return atk_selection_get_selection_count (selection);
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_SELECTION (obj);
 }
 
-
-static Accessibility_Accessible
-impl_getSelectedChild (PortableServer_Servant servant,
-		       const CORBA_long       selectedChildIndex,
-		       CORBA_Environment     *ev)
+static dbus_bool_t
+impl_get_nSelectedChildren (const char *path, DBusMessageIter * iter,
+			    void *user_data)
 {
-  AtkObject    *atk_object;
-  AtkSelection *selection = get_selection_from_servant (servant);
-
-  g_return_val_if_fail (selection != NULL, CORBA_OBJECT_NIL);
-
-#ifdef SPI_DEBUG
-  fprintf (stderr, "calling impl_getSelectedChild\n");
-#endif
-
-  atk_object = atk_selection_ref_selection (selection,
-					    selectedChildIndex);
-
-  g_return_val_if_fail (ATK_IS_OBJECT (atk_object), CORBA_OBJECT_NIL);
-
-#ifdef SPI_DEBUG
-  fprintf (stderr, "child type is %s\n",
-	   g_type_name (G_OBJECT_TYPE (atk_object)));
-#endif
-
-  return spi_accessible_new_return (atk_object, TRUE, ev);
+  AtkSelection *selection = get_selection_from_path (path, user_data);
+  if (!selection)
+    return FALSE;
+  return droute_return_v_int32 (iter,
+				atk_selection_get_selection_count
+				(selection));
 }
 
-
-static CORBA_boolean
-impl_selectChild (PortableServer_Servant servant,
-		  const CORBA_long       childIndex,
-		  CORBA_Environment     *ev)
+static char *
+impl_get_nSelectedChildren_str (void *datum)
 {
-  AtkSelection *selection = get_selection_from_servant (servant);
-
-  g_return_val_if_fail (selection != NULL, FALSE);
-
-  return atk_selection_add_selection (selection, childIndex);
+  g_assert (ATK_IS_HYPERLINK (datum));
+  return g_strdup_printf ("%d",
+			  atk_selection_get_selection_count ((AtkSelection *)
+							     datum));
 }
 
-
-static CORBA_boolean
-impl_deselectSelectedChild (PortableServer_Servant servant,
-			    const CORBA_long       selectedChildIndex,
-			    CORBA_Environment     *ev)
+static DBusMessage *
+impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
+		       void *user_data)
 {
-  AtkSelection *selection = get_selection_from_servant (servant);
+  AtkSelection *selection = get_selection (message);
+  DBusError error;
+  dbus_int32_t selectedChildIndex;
+  AtkObject *atk_object;
 
-  g_return_val_if_fail (selection != NULL, FALSE);
-
-  return atk_selection_remove_selection (selection, selectedChildIndex);
+  if (!selection)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  atk_object = atk_selection_ref_selection (selection, selectedChildIndex);
+  return spi_dbus_return_object (message, atk_object, TRUE);
 }
 
-
-
-static CORBA_boolean
-impl_deselectChild (PortableServer_Servant servant,
-		    const CORBA_long       selectedChildIndex,
-		    CORBA_Environment     *ev)
+static DBusMessage *
+impl_selectChild (DBusConnection * bus, DBusMessage * message,
+		  void *user_data)
 {
-  AtkSelection *selection = get_selection_from_servant (servant);
+  AtkSelection *selection = get_selection (message);
+  DBusError error;
+  dbus_int32_t childIndex;
+  dbus_bool_t rv;
+  DBusMessage *reply;
+
+  if (!selection)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_selection_add_selection (selection, childIndex);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_deselectSelectedChild (DBusConnection * bus, DBusMessage * message,
+			    void *user_data)
+{
+  AtkSelection *selection = get_selection (message);
+  DBusError error;
+  dbus_int32_t selectedChildIndex;
+  dbus_bool_t rv;
+  DBusMessage *reply;
+
+  if (!selection)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_selection_remove_selection (selection, selectedChildIndex);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
+{
+  AtkSelection *selection = get_selection (message);
+  DBusError error;
+  dbus_int32_t childIndex;
+  dbus_bool_t rv;
+  DBusMessage *reply;
+
+  if (!selection)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_selection_is_child_selected (selection, childIndex);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_selectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkSelection *selection = get_selection (message);
+  dbus_bool_t rv;
+  DBusMessage *reply;
+
+  if (!selection)
+    return spi_dbus_general_error (message);
+  rv = atk_selection_select_all_selection (selection);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_clearSelection (DBusConnection * bus, DBusMessage * message,
+		     void *user_data)
+{
+  AtkSelection *selection = get_selection (message);
+  dbus_bool_t rv;
+  DBusMessage *reply;
+
+  if (!selection)
+    return spi_dbus_general_error (message);
+  rv = atk_selection_clear_selection (selection);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
+impl_deselectChild (DBusConnection * bus, DBusMessage * message,
+		    void *user_data)
+{
+  AtkSelection *selection = get_selection (message);
+  DBusError error;
+  dbus_int32_t selectedChildIndex;
+  dbus_bool_t rv = FALSE;
   gint i, nselected;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (selection != NULL, FALSE);
+  if (!selection)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   nselected = atk_selection_get_selection_count (selection);
-  for (i=0; i<nselected; ++i)
-  {
+  for (i = 0; i < nselected; ++i)
+    {
       AtkObject *selected_obj = atk_selection_ref_selection (selection, i);
       if (atk_object_get_index_in_parent (selected_obj) == selectedChildIndex)
-      {
+	{
 	  g_object_unref (G_OBJECT (selected_obj));
-	  return atk_selection_remove_selection (selection, i);
-      }
+	  rv = atk_selection_remove_selection (selection, i);
+	  break;
+	}
       g_object_unref (G_OBJECT (selected_obj));
-  }
-  return FALSE;
+    }
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_getSelectedChild, "getSelectedChild",
+   "i,selectedChildIndex,i:o,,o"},
+  {DROUTE_METHOD, impl_selectChild, "selectChild", "i,childIndex,i:b,,o"},
+  {DROUTE_METHOD, impl_deselectSelectedChild, "deselectSelectedChild",
+   "i,selectedChildIndex,i:b,,o"},
+  {DROUTE_METHOD, impl_isChildSelected, "isChildSelected",
+   "i,childIndex,i:b,,o"},
+  {DROUTE_METHOD, impl_selectAll, "selectAll", "b,,o"},
+  {DROUTE_METHOD, impl_clearSelection, "clearSelection", "b,,o"},
+  {DROUTE_METHOD, impl_deselectChild, "deselectChild", "i,childIndex,i:b,,o"},
+  {0, NULL, NULL, NULL}
+};
 
-static CORBA_boolean
-impl_isChildSelected (PortableServer_Servant servant,
-		      const CORBA_long       childIndex,
-		      CORBA_Environment     *ev)
+static DRouteProperty properties[] = {
+  {impl_get_nSelectedChildren, impl_get_nSelectedChildren_str, NULL, NULL,
+   "nSelectedChildren"},
+  {NULL, NULL, NULL, NULL, NULL}
+};
+
+void
+spi_initialize_selection (DRouteData * data)
 {
-  AtkSelection *selection = get_selection_from_servant (servant);
-
-  g_return_val_if_fail (selection != NULL, FALSE);
-
-  return atk_selection_is_child_selected (selection, childIndex);
-}
-
-
-static CORBA_boolean 
-impl_selectAll (PortableServer_Servant servant,
-		CORBA_Environment     *ev)
-{
-  AtkSelection *selection = get_selection_from_servant (servant);
-
-  g_return_val_if_fail (selection != NULL, FALSE);
-
-  return atk_selection_select_all_selection (selection);
-
-}
-
-
-static CORBA_boolean
-impl_clearSelection (PortableServer_Servant servant,
-		     CORBA_Environment     *ev)
-{
-  AtkSelection *selection = get_selection_from_servant (servant);
-
-  g_return_val_if_fail (selection != NULL, FALSE);
-
-  return atk_selection_clear_selection (selection);
-}
-
-
-static void
-spi_selection_class_init (SpiSelectionClass *klass)
-{
-  POA_Accessibility_Selection__epv *epv = &klass->epv;
-
-  /* Initialize epv table */
-
-  epv->_get_nSelectedChildren = impl__get_nSelectedChildren;
-  epv->getSelectedChild       = impl_getSelectedChild;
-  epv->selectChild            = impl_selectChild;
-  epv->deselectSelectedChild  = impl_deselectSelectedChild;
-  epv->deselectChild          = impl_deselectChild;
-  epv->isChildSelected        = impl_isChildSelected;
-  epv->selectAll              = impl_selectAll;
-  epv->clearSelection         = impl_clearSelection;
-}
-
-
-static void
-spi_selection_init (SpiSelection *selection)
-{
-}
-
-
-BONOBO_TYPE_FUNC_FULL (SpiSelection,
-		       Accessibility_Selection,
-		       SPI_TYPE_BASE,
-		       spi_selection)
+  droute_add_interface (data, "org.freedesktop.accessibility.Selection",
+			methods, properties,
+			(DRouteGetDatumFunction) get_selection_from_path,
+			NULL);
+};

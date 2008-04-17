@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,208 +22,249 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* editabletext.c : implements the EditableText interface */
-
-#include <config.h>
-#include <stdio.h>
-#include <atk/atkeditabletext.h>
-#include <libspi/editabletext.h>
-
-/* Static function declarations */
-
-static void
-spi_editable_text_class_init (SpiEditableTextClass *klass);
-static void
-spi_editable_text_init (SpiEditableText *editable);
-static CORBA_boolean
-impl_setAttributes (PortableServer_Servant servant,
-		       const CORBA_char * attributes,
-		       const CORBA_long startPos,
-		       const CORBA_long endPos,
-		       CORBA_Environment *ev);
-static CORBA_boolean
-impl_setTextContents (PortableServer_Servant servant,
-		      const CORBA_char * newContents,
-		      CORBA_Environment *ev);
-static CORBA_boolean 
-impl_insertText (PortableServer_Servant servant,
-		 const CORBA_long position,
-		 const CORBA_char * text,
-		 const CORBA_long length,
-		 CORBA_Environment *ev);
-static void 
-impl_copyText (PortableServer_Servant servant,
-	       const CORBA_long startPos, const CORBA_long endPos,
-	       CORBA_Environment *ev);
-static CORBA_boolean
-impl_cutText (PortableServer_Servant servant,
-	      const CORBA_long startPos, const CORBA_long endPos,
-	      CORBA_Environment *ev);
-static CORBA_boolean
-impl_deleteText (PortableServer_Servant servant,
-		 const CORBA_long startPos, const CORBA_long endPos,
-		 CORBA_Environment *ev);
-static CORBA_boolean
-impl_pasteText (PortableServer_Servant servant,
-		const CORBA_long position, CORBA_Environment *ev);
-
-BONOBO_TYPE_FUNC_FULL (SpiEditableText,
-		       Accessibility_EditableText,
-		       SPI_TEXT_TYPE,
-		       spi_editable_text)
-
-static void
-spi_editable_text_class_init (SpiEditableTextClass *klass)
-{
-  POA_Accessibility_EditableText__epv *epv = &klass->epv;
-
-  /* Initialize epv table */
-
-  epv->setAttributes = impl_setAttributes;
-  epv->setTextContents = impl_setTextContents;
-  epv->insertText = impl_insertText;
-  epv->copyText = impl_copyText;
-  epv->cutText = impl_cutText;
-  epv->deleteText = impl_deleteText;
-  epv->pasteText = impl_pasteText;
-}
-
-
-static void
-spi_editable_text_init (SpiEditableText *editable)
-{
-}
-
-
-SpiEditableText *
-spi_editable_text_interface_new (AtkObject *obj)
-{
-  SpiEditableText *new_editable = g_object_new (
-	  SPI_EDITABLE_TEXT_TYPE, NULL);
-
-  spi_text_construct (SPI_TEXT (new_editable), obj);
-
-  return new_editable;
-}
-
+#include "accessible.h"
 
 static AtkEditableText *
-get_editable_text_from_servant (PortableServer_Servant servant)
+get_editable (DBusMessage * message)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
-  return ATK_EDITABLE_TEXT (object->gobj);
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_EDITABLE_TEXT (obj);
 }
 
-
-static CORBA_boolean
-impl_setAttributes (PortableServer_Servant servant,
-		    const CORBA_char * attributes,
-		    const CORBA_long startPos,
-		    const CORBA_long endPos,
-		    CORBA_Environment *ev)
+static AtkEditableText *
+get_editable_from_path (const char *path, void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
-
-  g_return_val_if_fail (editable != NULL, FALSE);
-
-  g_print ("setRunAttributes not implemented.\n");
-
-  return FALSE;
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_EDITABLE_TEXT (obj);
 }
 
-
-static CORBA_boolean
-impl_setTextContents (PortableServer_Servant servant,
-		      const CORBA_char     *newContents,
-		      CORBA_Environment    *ev)
+static DBusMessage *
+impl_setTextContents (DBusConnection * bus, DBusMessage * message,
+		      void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
+  AtkEditableText *editable = get_editable (message);
+  const char *newContents;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (editable != NULL, FALSE);
-  
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   atk_editable_text_set_text_contents (editable, newContents);
-
-  return TRUE;
+  rv = TRUE;
+  // TODO decide if we really need this return value
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_insertText (PortableServer_Servant servant,
-		 const CORBA_long      position,
-		 const CORBA_char     *text,
-		 const CORBA_long      length,
-		 CORBA_Environment    *ev)
+static DBusMessage *
+impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
+  AtkEditableText *editable = get_editable (message);
+  dbus_int32_t position, length;
+  char *text;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
   gint ip;
 
-  g_return_val_if_fail (editable != NULL, FALSE);
-
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
+       DBUS_TYPE_INT32, &length, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   ip = position;
-  atk_editable_text_insert_text (editable,
-				 text,
-				 length,
-				 &ip);
-  return TRUE;
+  atk_editable_text_insert_text (editable, text, length, &ip);
+  rv = TRUE;
+  // TODO decide if we really need this return value
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static void 
-impl_copyText (PortableServer_Servant servant,
-	       const CORBA_long startPos, const CORBA_long endPos,
-	       CORBA_Environment *ev)
+static DBusMessage *
+impl_setAttributes (DBusConnection * bus, DBusMessage * message,
+		    void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
+  AtkEditableText *editable = get_editable (message);
+  const char *attributes;
+  dbus_int32_t startPos, endPos;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
 
-  g_return_if_fail (editable != NULL);
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_STRING, &attributes, DBUS_TYPE_INT32,
+       &startPos, DBUS_TYPE_INT32, &endPos, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  // TODO implement
+  rv = FALSE;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
 
+static DBusMessage *
+impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkEditableText *editable = get_editable (message);
+  dbus_int32_t startPos, endPos;
+  DBusError error;
+
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   atk_editable_text_copy_text (editable, startPos, endPos);
-  
+  return NULL;
 }
 
-
-static CORBA_boolean
-impl_cutText (PortableServer_Servant servant,
-	      const CORBA_long startPos, const CORBA_long endPos,
-	      CORBA_Environment *ev)
+static DBusMessage *
+impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
+  AtkEditableText *editable = get_editable (message);
+  dbus_int32_t startPos, endPos;
+  DBusError error;
+  dbus_bool_t rv;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (editable != NULL, FALSE);
-
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   atk_editable_text_cut_text (editable, startPos, endPos);
-
-  return TRUE;
+  rv = TRUE;
+  // TODO decide if we really need this return value
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_deleteText (PortableServer_Servant servant,
-		 const CORBA_long startPos, const CORBA_long endPos,
-		 CORBA_Environment *ev)
+static DBusMessage *
+impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
+  AtkEditableText *editable = get_editable (message);
+  dbus_int32_t startPos, endPos;
+  DBusError error;
+  dbus_bool_t rv;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (editable != NULL, FALSE);
-
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
+       DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   atk_editable_text_delete_text (editable, startPos, endPos);
-
-  return TRUE;
+  rv = TRUE;
+  // TODO decide if we really need this return value
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-
-static CORBA_boolean
-impl_pasteText (PortableServer_Servant servant,
-		const CORBA_long position, CORBA_Environment *ev)
+static DBusMessage *
+impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable_text_from_servant (servant);
+  AtkEditableText *editable = get_editable (message);
+  dbus_int32_t position;
+  DBusError error;
+  dbus_bool_t rv;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (editable != NULL, FALSE);
-
+  if (!editable)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
   atk_editable_text_paste_text (editable, position);
-
-  return TRUE;
+  rv = TRUE;
+  // TODO decide if we really need this return value
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
+
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_setTextContents, "setTextContents",
+   "s,newContents,i:b,,o"},
+  {DROUTE_METHOD, impl_insertText, "insertText",
+   "i,position,i:s,text,i:i,length,i:b,,o"},
+  {DROUTE_METHOD, impl_setAttributes, "setAttributes",
+   "s,attributes,i:i,startPos,i:i,endPos,i:b,,o"},
+  {DROUTE_METHOD, impl_copyText, "copyText", "i,startPos,i:i,endPos,i"},
+  {DROUTE_METHOD, impl_cutText, "cutText", "i,startPos,i:i,endPos,i:b,,o"},
+  {DROUTE_METHOD, impl_deleteText, "deleteText",
+   "i,startPos,i:i,endPos,i:b,,o"},
+  {DROUTE_METHOD, impl_pasteText, "pasteText", "i,position,i:b,,o"},
+  {0, NULL, NULL, NULL}
+};
+
+void
+spi_initialize_editabletext (DRouteData * data)
+{
+  droute_add_interface (data, "org.freedesktop.accessibility.EditableText",
+			methods, NULL,
+			(DRouteGetDatumFunction) get_editable_from_path,
+			NULL);
+};

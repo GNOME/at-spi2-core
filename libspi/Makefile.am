@@ -16,113 +16,34 @@ libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
 libspiinclude_HEADERS =		\
 	Accessibility.h		\
-	accessible.h		\
-	eventlistener.h		\
-	action.h		\
-	application.h		\
-	base.h			\
-	collection.h   		\
-	component.h		\
-	document.h		\
-	editabletext.h		\
-	hyperlink.h		\
-	hypertext.h		\
-	image.h			\
-	devicelistener.h	\
-	keystrokelistener.h	\
-	keymasks.h		\
-	libspi.h		\
-	listener.h		\
-	matchrule.h		\
-	relation.h		\
-	remoteobject.h		\
-	selection.h		\
-	stateset.h		\
-	streamablecontent.h	\
-	table.h			\
-	text.h			\
-	value.h
+	bitarray.h \
+	dbus.h \
+	droute.h
 
-IDL_OUT = Accessibility.h Accessibility-stubs.c Accessibility-skels.c Accessibility-common.c
-
-IDL_DEPS = \
-	$(top_srcdir)/idl/Accessibility.idl			\
-	$(top_srcdir)/idl/Accessibility_Accessible.idl		\
-	$(top_srcdir)/idl/Accessibility_Action.idl		\
-	$(top_srcdir)/idl/Accessibility_Application.idl		\
-	$(top_srcdir)/idl/Accessibility_Collection.idl		\
-	$(top_srcdir)/idl/Accessibility_Component.idl		\
-	$(top_srcdir)/idl/Accessibility_Desktop.idl		\
-	$(top_srcdir)/idl/Accessibility_EditableText.idl	\
-	$(top_srcdir)/idl/Accessibility_Event.idl		\
-	$(top_srcdir)/idl/Accessibility_Hyperlink.idl		\
-	$(top_srcdir)/idl/Accessibility_Hypertext.idl		\
-	$(top_srcdir)/idl/Accessibility_Image.idl		\
-	$(top_srcdir)/idl/Accessibility_Registry.idl		\
-	$(top_srcdir)/idl/Accessibility_Relation.idl		\
-	$(top_srcdir)/idl/Accessibility_Role.idl		\
-	$(top_srcdir)/idl/Accessibility_Selection.idl		\
-	$(top_srcdir)/idl/Accessibility_State.idl		\
-	$(top_srcdir)/idl/Accessibility_StreamableContent.idl	\
-	$(top_srcdir)/idl/Accessibility_Table.idl		\
-	$(top_srcdir)/idl/Accessibility_Text.idl		\
-	$(top_srcdir)/idl/Accessibility_Value.idl
-
-
-BUILT_SOURCES = $(IDL_OUT) Accessibility-imodule.c
-CLEANFILES = $(IDL_OUT) Accessibility-imodule.c
+BUILT_SOURCES = Accessibility.h
+CLEANFILES = Accessibility.h
 
 libspi_la_SOURCES =		\
-	$(IDL_OUT)		\
+	Accessibility.h \
 	accessible.c		\
-	action.c		\
 	application.c		\
-	base.c			\
-	collection.c		\
 	component.c		\
+	dbus.c \
 	document.c		\
+	droute.c \
 	editabletext.c		\
 	hyperlink.c		\
 	hypertext.c		\
 	image.c			\
-	devicelistener.c	\
-	matchrule.c		\
-	relation.c		\
-	remoteobject.c		\
 	selection.c		\
-	spi-private.h		\
-	streamablecontent.c	\
-	stateset.c		\
 	table.c			\
 	text.c			\
-	util.c			\
-	value.c			\
-	listener.c		\
-	eventlistener.c	
+	value.c
 
-$(top_srcdir)/libspi/accessible.c $(top_srcdir)/libspi/base.h $(top_srcdir)/libspi/keystrokelistener.h $(top_srcdir)/libspi/libspi.h $(top_srcdir)/libspi/listener.h $(top_srcdir)/libspi/remoteobject.h : Accessibility.h
+Accessibility.h: ../xml/spec.xml ../tools/c-constants-generator.xsl
+	xsltproc --stringparam mixed-case-prefix Accessibility_ ../tools/c-constants-generator.xsl $< >$@
 
-IDLFLAGS = -I$(BONOBO_ACTIVATION_IDL_DIR) \
-	   -I$(LIBBONOBO_IDL_DIR)         \
-	   -I$(top_srcdir)/idl            \
-	   --add-imodule
-
-$(IDL_OUT) Accessibility-imodule.c : $(IDL_DEPS) $(ORBIT_IDL)
-	$(ORBIT_IDL) -D__ACCESSIBILITY_COMPILATION__ $(IDLFLAGS) $(top_srcdir)/idl/Accessibility.idl
-
-orbittypelibdir = $(libdir)/orbit-2.0
-orbittypelib_LTLIBRARIES = Accessibility_module.la
-
-Accessibility_module_la_LDFLAGS = \
-	-export-dynamic -module -avoid-version -no-undefined
-
-Accessibility_module_la_LIBADD = \
-	$(ORBIT_LIBS)
-
-Accessibility_module_la_SOURCES = \
-	Accessibility-imodule.c
-
-DONT_DIST_SOURCE = $(IDL_OUT) Accessibility-imodule.c
+DONT_DIST_SOURCE = Accessibility.h
 
 dist-hook:
 	for file in $(DONT_DIST_SOURCE) ; do \

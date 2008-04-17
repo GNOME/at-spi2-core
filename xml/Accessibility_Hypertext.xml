@@ -1,0 +1,86 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.accessibility.Hypertext">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>An interface used for objects which implement linking between
+      multiple resource or content locations, or multiple 'markers'
+      within a single document.  A Hypertext instance is associated with
+      one or more Hyperlinks, which are associated with particular
+      offsets within the Hypertext's included content.  </p>
+
+    <p>@note While this interface is derived from ::Text, 
+      there is no requirement that Hypertext instances have
+      textual content; they may implement ::Image as well,
+      and Hyperlinks need not have non-zero text offsets.</p>
+  </tp:docstring>
+  <method name="getNLinks">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Query the hypertext object for the number of Hyperlinks it
+        contains.    </p>
+    </tp:docstring>
+    <arg direction="out" type="i">
+    <tp:docstring>
+      the number of Hyperlinks associated with this Hypertextobject, as a long integer.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getLink">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Get one of the Hyperlinks associated with this Hypertext object,
+        by index.    </p>
+
+      <p>@param linkIndex an integer from 0 to getNLinks() - 1.</p>
+    </tp:docstring>
+    <arg direction="in" name="linkIndex" type="i"/>
+    <arg direction="out" type="o" tp:type="Hyperlink">
+    <tp:docstring>
+      the Hyperlink in this Hypertext object.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getLinkIndex">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Get the hyperlink index, if any, associated with a 
+        particular character offset in the Hypertext object.
+        For Hypertext implementors without textual content, all
+        hyperlinks are associated with character offset '0'.    </p>
+
+      <p>@return the index of the Hyperlink associated with character
+        offset \c characterIndex, or -1 if no Hyperlink is associated
+        with that character offset.</p>
+    </tp:docstring>
+    <arg direction="in" name="characterIndex" type="i"/>
+    <arg direction="out" type="i"/>
+  </method>
+  <method name="unImplemented">
+    <tp:docstring>
+      \cond 
+    </tp:docstring>
+  </method>
+  <method name="unImplemented2">
+  </method>
+  <method name="unImplemented3">
+  </method>
+  <method name="unImplemented4">
+  </method>
+</interface>
+</node>

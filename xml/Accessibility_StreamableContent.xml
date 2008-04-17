@@ -1,0 +1,226 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.accessibility.ContentStream">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>An interface by which the requested data from a StreamableContent object
+      may be read by the client.
+      @note this interface supercedes the use of BonoboStream by previous
+      versions of StreamableContent.  </p>
+
+    <p>@since AT-SPI 1.7.0 </p>
+  </tp:docstring>
+</interface>
+<tp:enum name="SeekType" type="u">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>Specifies the meaning of a seek 'offset'.  Not all SeekTypes are 
+      supported by all StreamableContent data sources, for instance 
+      some streams may not support seeking from the beginning or other
+      types of 'backwards' seeks.</p>
+  </tp:docstring>
+  <tp:enumvalue suffix="SEEK_SET">
+  <tp:docstring>
+    &lt; Seek from the start of the stream or data source.
+  </tp:docstring>
+  </tp:enumvalue>
+  <tp:enumvalue suffix="SEEK_CURRENT" value="1">
+  <tp:docstring>
+    &lt; Seek relative to the current position. 
+  </tp:docstring>
+  </tp:enumvalue>
+  <tp:enumvalue suffix="SEEK_END" value="2">
+  <tp:docstring>
+    &lt; Seek from the end of the file, stream, or data source. 
+  </tp:docstring>
+  </tp:enumvalue>
+</tp:enum>
+<tp:errors xmlns="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace="org.freedesktop.accessibility.error">
+  <tp:error name="IOError">
+  <tp:docstring>
+    Indicates that a transmission error has occurred while reading or seeking the stream or data source. 
+  </tp:docstring>
+  </tp:error>
+  <tp:error name="NotSupported">
+  <tp:docstring>
+    Indicates that the requested operation is not supported by the stream instance.
+  </tp:docstring>
+  </tp:error>
+  <tp:error name="NoPermission">
+  <tp:docstring>
+    The operation is supported, but the current requestor does not havepermission to t the request, for instance does not have permission to read the stream.
+  </tp:docstring>
+  </tp:error>
+</tp:errors>
+<method name="seek">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>Seek to a specified position in the Stream.
+      @param offset an offset specifying the requested position in the stream,
+      relative to the SeekType specified in \c whence.
+      @param whence a SeekType specifying the reference point from which the 
+      seek offset is calculated.  Some forms of seek are not supported by certain
+      implementations of Stream, in which case a NotSupported exception will be raised.</p>
+  </tp:docstring>
+  <arg direction="in" name="offset" type="i"/>
+  <arg direction="in" name="whence" type="u" tp:type="SeekType"/>
+  <arg direction="out" type="i">
+  <tp:docstring>
+    the actual resulting offset, if no exception was raised.
+  </tp:docstring>
+  </arg>
+  <tp:possible-errors>
+    <tp:error name="org.freedesktop.accessibility.error.(NoPermission"/>
+    <tp:error name="org.freedesktop.accessibility.error.IOError"/>
+    <tp:error name="org.freedesktop.accessibility.error.NotSupported"/>
+  </tp:possible-errors>
+</method>
+<method name="read">
+  <tp:docstring>
+    Request/read a specified amount of data from a Stream.
+  </tp:docstring>
+  <arg direction="in" name="count" type="i"/>
+  <arg direction="out" name="buffer" type="ay" tp:type="iobuf"/>
+  <arg direction="out" type="i">
+  <tp:docstring>
+    the number of bytes actually read into the client buffer.
+  </tp:docstring>
+  </arg>
+  <tp:possible-errors>
+    <tp:error name="org.freedesktop.accessibility.error.(NoPermission"/>
+    <tp:error name="org.freedesktop.accessibility.error.IOError"/>
+  </tp:possible-errors>
+</method>
+<method name="close">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>close the stream and release associated resources.  
+      A client should not perform further operations on a 
+      StreamableContent::Stream object after closing it.</p>
+  </tp:docstring>
+</method>
+<method name="unimplemented">
+  <tp:docstring>
+    /cond 
+  </tp:docstring>
+</method>
+<method name="unimplemented2">
+</method>
+<interface name="org.freedesktop.accessibility.StreamableContent">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>An interface whereby an object allows its backing content
+      to be streamed to clients.  Negotiation of content type
+      is allowed.  Clients may examine the backing data and
+      transform, convert, or parse the content in order to
+      present it in an alternate form to end-users.  </p>
+
+    <p>@note The StreamableContent interface is particularly useful for saving, 
+      printing, or post-processing entire documents, or for persisting 
+      alternate views of a document.
+      If document content itself is being serialized, stored, or converted,
+      then use of the StreamableContent interface can help address performance
+      issues.  Unlike most AT-SPI/Accessibility interfaces, this interface
+      is not strongly tied to the current user-agent view of the
+      a particular document, but may in some cases give access to the 
+      underlying model data.</p>
+  </tp:docstring>
+  <method name="getContentTypes">
+    <tp:docstring>
+      getContentTypes:
+    </tp:docstring>
+    <arg direction="out" type="as" tp:type="StringSeq">
+    <tp:docstring>
+      the list of available mimetypes for this object's content.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getContent">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>\n DEPRECATED, use getStream instead.
+        getContent:
+        Retrieve this object's content, in a format appropriate to a
+        requested mimetype.    </p>
+
+      <p>@note the data is returned as an object of type ::Bonobo::Stream.
+        The primary methods which are supported on Bonobo::Streams for the
+        purposes of the ::StreamableContent API are \c seek and \c read.
+        \c seek may not be supported for all mimetypes or
+        all implementors.    </p>
+
+      <p>\verbatim
+        long Bonobo::Stream:seek (in long offset, in SeekType whence)
+        raises (NoPermission, IOError)
+        void Bonobo::Stream:read (in long count, out iobuf buffer)
+        raises (NoPermission, IOError)
+        \endverbatim    </p>
+
+      <p>@see ::Bonobo::Stream    </p>
+    </tp:docstring>
+    <arg direction="in" name="contentType" type="s"/>
+    <arg direction="out" type="FIXME" tp:type="Bonobo::Stream">
+    <tp:docstring>
+      a ::Bonobo::Stream whose mimetype matches \a contentType,if available, or \c NIL.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getStream">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Retrieve this object's content, in a format appropriate to a
+        requested mimetype, as a ::ContentStream instance.    </p>
+
+      <p>@note This method supercedes the older getContent method, which
+        relied on the Bonobo::Stream API.
+        \c seek may not be supported for all mimetypes or
+        all implementors.    </p>
+
+      <p>@param contentType a string specifying the desired mimetype for the content stream.</p>
+    </tp:docstring>
+    <arg direction="in" name="contentType" type="s"/>
+    <arg direction="out" type="FIXME" tp:type="ContentStream">
+    <tp:docstring>
+      a Stream whose mimetype matches \a contentType,if available, or \c NIL.@since AT-SPI 1.8.0
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getURI">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Get a URI pointing to the content of the specified type, if such a URI
+        can be obtained.  Not all streamable content providers have URI representations.    </p>
+
+      <p>@param contentType a string specifying the desired mimetype for the content stream.
+        If NULL, then a URI for the default content type will be returned, if available.    </p>
+    </tp:docstring>
+    <arg direction="in" name="contentType" type="s"/>
+    <arg direction="out" type="s">
+    <tp:docstring>
+      a string which constitutes a URI for a stream of the specifiedcontent type, or NULL if no such URI can be obtained.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="unImplemented">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>\cond
+        unImplemented:    </p>
+
+      <p>placeholders for future expansion.</p>
+    </tp:docstring>
+  </method>
+  <method name="unImplemented2">
+  </method>
+</interface>
+</node>

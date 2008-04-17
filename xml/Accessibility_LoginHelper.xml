@@ -1,0 +1,193 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.accessibility.LoginHelper">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>@brief An interface for use by assistive technologies by which
+      they can access system information and services on a 'need to know'
+      basis while the screen is locked, during user authentication, or
+      during other sensitive operations.  </p>
+
+    <p>This interface is intended for use by assistive technologies
+      and related user-enabling services, and by applications and
+      utilities which may wish to restrict access to certain system 
+      devices and services during security-sensitive states, e.g. when 
+      the screen is locked or during authentication into some secure
+      service.  </p>
+
+    <p>Such 'applications' (for instance, screen lock dialogs and
+      security-enabled web browsers) use the ::LoginHelper client
+      interfaces, and the bonobo-activation query service, to
+      query for assistive technologies which advertise the ::LoginHelper
+      service.  The client then queries these assistive technologies 
+      for their device I/O requirements, via the ::getDeviceReqs call.
+      The client may then issue the advisory request ::setSafe (TRUE), 
+      which requests that the ::LoginHelper -implementing service make a
+      best-effort attempt to make itself more secure (for instance, 
+      an onscreen keyboard might turn off word prediction, and a
+      screenreader may turn off keyboard echo via speech).  The return
+      value of ::setSafe is an advisory indication of whether this attempt
+      was successful (no specific guarantees are implied).
+      Once the 'security sensitive' state is exited, the client should 
+      call ::setSafe (FALSE).  </p>
+
+    <p>The return values from ::getDeviceReqs inform the client of which
+      services the ::LoginHelper service (e. g. assistive technology) needs
+      in order to do its job.  The client may use this information to
+      loosen any restrictions on access which it may currently have in 
+      place (for instance, keyboard grabs, etc.).  If it does not do so,
+      the likely outcome is that the end-user will experience loss
+      of access to the system.  </p>
+  </tp:docstring>
+  <tp:struct name="WindowInfo">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A structure containing info about toplevel X windows that
+        the ::LoginHelper instance wishes to have raised.    </p>
+    </tp:docstring>
+    <tp:member type="i" tp:name="winID">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>string display; 
+        short screen; </p>
+    </tp:docstring>
+    </tp:member>
+  </tp:struct>
+  <tp:enum name="DeviceReq" type="u">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>DeviceReq:    </p>
+
+      <p>The system and device access and services which the LoginHelper-implementing 
+        assistive technology requires in order to enable the user to use the system.    </p>
+    </tp:docstring>
+    <tp:enumvalue suffix="GUI_EVENTS">
+    <tp:docstring>
+      !&lt;: Needs access to the GUI event subsystem (e.g. Xserver) 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="CORE_KEYBOARD" value="1">
+    <tp:docstring>
+      !&lt;: Needs access to the system keyboard events (read and write) 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="CORE_POINTER" value="2">
+    <tp:docstring>
+      !&lt;: Needs access to the onscreen pointer (e.g. mouse pointer) 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="EXT_INPUT" value="3">
+    <tp:docstring>
+      !&lt;: Reads XInput extended input devices 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="POST_WINDOWS" value="4">
+    <tp:docstring>
+      !&lt;: Posts Windows, and needs for toplevel windows to be visible 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="AUDIO_OUT" value="5">
+    <tp:docstring>
+      !&lt;: Writes to audio device 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="AUDIO_IN" value="6">
+    <tp:docstring>
+      !&lt;: Reads from audio device 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="NETWORK" value="7">
+    <tp:docstring>
+      !&lt;: Requires access to general network services, including remote access 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="LOCALHOST" value="8">
+    <tp:docstring>
+      !&lt;: Requires network services hosted on LOCALHOST only 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="SERIAL_OUT" value="9">
+    <tp:docstring>
+      !&lt;: Writes to a serial port 
+    </tp:docstring>
+    </tp:enumvalue>
+    <tp:enumvalue suffix="SERIAL_IN" value="10">
+    <tp:docstring>
+      !&lt;: Reads from a serial port 
+    </tp:docstring>
+    </tp:enumvalue>
+  </tp:enum>
+  <method name="setSafe">
+    <tp:docstring>
+      setSafe:
+    </tp:docstring>
+    <arg direction="in" name="safe_mode" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c TRUE if the client is requesting that 'safe mode' be initiated, \c FALSE if the client is advising that 'safe mode' may beexited, i.e. normal operation may be resumed.Request a LoginHelper to enter &quot;safe&quot; mode, orinform LoginHelper that &quot;safe&quot; mode may be exited.If \a safe_mode is \c TRUE, but the return value is \c FALSE,the requesting client may wish to deny services to the ::LoginHelper, for instance avoid raising its toplevels.The return value is purely advisory, and no guarantees are intended about what the implementing LoginHelper will do to improve security when in &quot;safe&quot; mode.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      whether the ::LoginHelper is now &quot;safe&quot; or not.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getDeviceReqs">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>getDeviceReqs:    </p>
+
+      <p>Query a ::LoginHelper for the types of
+        device I/O it requires, in order to do its job.
+        For instance, a ::LoginHelper which needs to receive keyboard
+        events will include 
+        Accessibility_LoginHelper_CORE_KEYBOARD in this list.    </p>
+    </tp:docstring>
+    <arg direction="out" type="au" tp:type="DeviceReqList">
+    <tp:docstring>
+      A sequence of ::LoginHelper_DeviceReq indicatingthe device I/O required in order to facilitate end-user access to the system.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getRaiseWindows">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>getRaiseWindows:    </p>
+
+      <p>Get a list of window IDs that need raising on login.     </p>
+    </tp:docstring>
+    <arg direction="out" type="a(i)" tp:type="WindowList">
+    <tp:docstring>
+      a sequence containing window IDS for toplevels whichneed to be raised/made visible during user authentication, inorder for the ::LoginHelper to facilitate end-user access to the system.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="unImplemented">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>\cond
+        unImplemented:    </p>
+
+      <p>placeholders for future expansion.</p>
+    </tp:docstring>
+  </method>
+  <method name="unImplemented2">
+  </method>
+  <method name="unImplemented3">
+  </method>
+  <method name="unImplemented4">
+  </method>
+</interface>
+</node>

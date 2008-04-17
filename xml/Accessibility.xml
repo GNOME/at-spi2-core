@@ -1,0 +1,114 @@
+<tp:spec
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+<tp:title>AT-SPI D-Bus Interface Specification</tp:title>
+<tp:version>1.24.0</tp:version>
+
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001-2005 Ximian, Inc. and Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Library General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Library General Public
+License along with this library; if not, write to the
+Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+Boston, MA 02111-1307, USA.</p>
+</tp:license>
+
+<tp:docstring>
+ !\mainpage AT-SPI Interfaces and Subinterfaces
+
+  This is the main documentation page for the 
+  Assistive Technology Service Provider Interface (AT-SPI). 
+  
+  \section apps Applications and Interface Components
+  Namespace Accessibility includes service APIs implemented by
+  participating applications and their user interface components:\n\n
+  Accessibility::Accessible\n 
+  Accessibility::Application\n
+  Accessibility::Desktop\n
+  Accessibility::Component\n
+  Accessibility::Hypertext\n
+  Accessibility::Image\n
+  Accessibility::Selection\n
+  Accessibility::StreamableContent\n
+  Accessibility::Table\n
+  Accessibility::Text\n
+  Accessibility::EditableText\n
+  Accessibility::Value
+ 
+  \section types Enumerated Types
+  Accessibility defines a number of key enumerated types, including:\n\n
+  Accessibility::RelationType\n
+  Accessibility::Role\n
+  Accessibility::StateType\n
+  Accessibility::Event\n
+  Accessibility::EventDetails \n
+ 
+  \section Registry
+  Accessibility also includes Accessibility::Registry,
+  which is the service used by assistive technologies and related
+  AT-SPI clients to register interest in certain classes of events,
+  enumerate the currently available desktop and application list,
+  and to synthesize certain kinds of device events.
+ 
+  \section listeners Event Listener Interfaces
+  Accessibility::EventListener\n
+  Accessibility::DeviceEventListener
+ 
+  \section helpers Helper Interfaces
+ 
+  The following interfaces may be implemented by assistive technologies 
+  themselves, in order to export their services in a consistent manner or
+  in order to interoperate with other applications or desktop services.\n
+ 
+  Accessibility::LoginHelper : Implemented by adaptive technologies which 
+  need to participate in user-authentication or login activities, and which
+  therefore may need negotiation with authentication agents or processes.\n
+ 
+  Accessibility::Selector [NEW]: Implemented by user agents or assistive 
+  technologies which export lists of choices from which the end-user is 
+  expected to make selections.  Useful for various types of remote
+  activation or intercommunication between multiple ATs.
+</tp:docstring>
+
+<!-- Accessibility interfaces and subinterfaces -->
+
+<xi:include href="Accessibility_Accessible.xml"/>
+<xi:include href="Accessibility_Action.xml"/>
+<xi:include href="Accessibility_Collection.xml"/>
+<xi:include href="Accessibility_Component.xml"/>
+<xi:include href="Accessibility_Document.xml"/>
+<xi:include href="Accessibility_Hyperlink.xml"/>
+<xi:include href="Accessibility_Image.xml"/>
+<xi:include href="Accessibility_Selection.xml"/>
+<xi:include href="Accessibility_StreamableContent.xml"/>
+<xi:include href="Accessibility_Table.xml"/>
+<xi:include href="Accessibility_Text.xml"/>
+<xi:include href="Accessibility_Value.xml"/>
+
+<!-- Interfaces derived from Accessibility::Text -->
+<xi:include href="Accessibility_EditableText.xml"/>
+<xi:include href="Accessibility_Hypertext.xml"/>
+
+<!-- Utility interfaces and interfaces derived from Accessibility::Accessible -->
+
+<xi:include href="Accessibility_Relation.xml"/>
+<xi:include href="Accessibility_State.xml"/>
+<xi:include href="Accessibility_Application.xml"/>
+<xi:include href="Accessibility_Desktop.xml"/>
+<xi:include href="Accessibility_Event.xml"/>
+<xi:include href="Accessibility_Registry.xml"/>
+<xi:include href="Accessibility_Role.xml"/>
+<xi:include href="Accessibility_LoginHelper.xml"/>
+<xi:include href="Accessibility_Selector.xml"/>
+</tp:spec>

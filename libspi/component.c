@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,230 +22,298 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* component.c : implements the Component interface */
-
-#include <config.h>
-#include <stdio.h>
-#include <libspi/accessible.h>
-#include <libspi/component.h>
-
-/* Our parent Gtk object type */
-#define PARENT_TYPE SPI_TYPE_BASE
-
-/* A pointer to our parent object class */
-static GObjectClass *spi_component_parent_class;
+#include "accessible.h"
 
 static AtkComponent *
-get_component_from_servant (PortableServer_Servant servant)
+get_component (DBusMessage * message)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-  g_return_val_if_fail (object != NULL, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL);
-  return ATK_COMPONENT (object->gobj);
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_COMPONENT (obj);
 }
 
-/*
- * CORBA Accessibility::Component::contains method implementation
- */
-static CORBA_boolean
-impl_accessibility_component_contains (PortableServer_Servant servant,
-                                       const CORBA_long x,
-                                       const CORBA_long y,
-                                       CORBA_short coord_type,
-                                       CORBA_Environment     *ev)
+static AtkComponent *
+get_component_from_path (const char *path, void *user_data)
 {
-  CORBA_boolean retval;
-  AtkComponent *component = get_component_from_servant (servant);
-
-  g_return_val_if_fail (component != NULL, FALSE);
-
-  retval = atk_component_contains (component, x, y,
-                                  (AtkCoordType) coord_type);
-  return retval;
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_COMPONENT (obj);
 }
 
-/*
- * CORBA Accessibility::Component::getAccessibleAtPoint method implementation
- */
-static Accessibility_Accessible
-impl_accessibility_component_get_accessible_at_point (PortableServer_Servant servant,
-                                                      const CORBA_long x,
-                                                      const CORBA_long y,
-                                                      CORBA_short coord_type,
-                                                      CORBA_Environment     *ev)
+static DBusMessage *
+impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkObject    *child;
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  dbus_int32_t x, y;
+  dbus_uint32_t coord_type;
+  DBusError error;
+  dbus_bool_t retval;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (component != NULL, NULL);
-
-  child = atk_component_ref_accessible_at_point (component,
-						 x, y,
-						 (AtkCoordType) coord_type);
-  return spi_accessible_new_return (child, TRUE, ev);
+  if (!component)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_UINT32, &y,
+       DBUS_TYPE_INT32, &coord_type, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  retval =
+    atk_component_contains (component, x, y, (AtkCoordType) coord_type);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &retval,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-/*
- * CORBA Accessibility::Component::getExtents method implementation
- */
-static Accessibility_BoundingBox
-impl_accessibility_component_get_extents (PortableServer_Servant servant,
-                                          const CORBA_short      coord_type,
-                                          CORBA_Environment     *ev)
+static DBusMessage *
+impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
+			   void *user_data)
 {
-  gint ix, iy, iw, ih;
-  Accessibility_BoundingBox retval;
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  dbus_int32_t x, y;
+  dbus_uint32_t coord_type;
+  DBusError error;
+  AtkObject *child;
 
-  atk_component_get_extents (component, &ix, &iy, &iw, &ih,
+  if (!component)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
+       DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  child =
+    atk_component_ref_accessible_at_point (component, x, y,
+					   (AtkCoordType) coord_type);
+  return spi_dbus_return_object (message, child, TRUE);
+}
+
+static DBusMessage *
+impl_getExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkComponent *component = get_component (message);
+  DBusError error;
+  dbus_uint32_t coord_type;
+  gint ix, iy, iwidth, iheight;
+
+  if (!component)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  atk_component_get_extents (component, &ix, &iy, &iwidth, &iheight,
 			     (AtkCoordType) coord_type);
-
-  retval.x = ix;
-  retval.y = iy;
-  retval.width = iw;
-  retval.height = ih;
-
-  return retval;
+  return spi_dbus_return_rect (message, ix, iy, iwidth, iheight);
 }
 
-/*
- * CORBA Accessibility::Component::getPosition method implementation
- */
-static void
-impl_accessibility_component_get_position (PortableServer_Servant servant,
-                                           CORBA_long * x,
-                                           CORBA_long * y,
-                                           const CORBA_short coord_type,
-                                           CORBA_Environment     *ev)
+static DBusMessage *
+impl_getPosition (DBusConnection * bus, DBusMessage * message,
+		  void *user_data)
 {
-  gint ix, iy;
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  DBusError error;
+  dbus_uint32_t coord_type;
+  gint ix = 0, iy = 0;
+  dbus_int32_t x, y;
+  DBusMessage *reply;
 
-  g_return_if_fail (component != NULL);
-
-  atk_component_get_position (component, &ix, &iy,
-                              (AtkCoordType) coord_type);
-  *x = ix;
-  *y = iy;
+  if (!component)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  atk_component_get_position (component, &ix, &iy, (AtkCoordType) coord_type);
+  x = ix;
+  y = iy;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32,
+				&y, DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-/*
- * CORBA Accessibility::Component::getSize method implementation
- */
-static void
-impl_accessibility_component_get_size (PortableServer_Servant servant,
-                                       CORBA_long * width,
-                                       CORBA_long * height,
-                                       CORBA_Environment     *ev)
+static DBusMessage *
+impl_getSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  gint iw, ih;
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  gint iwidth = 0, iheight = 0;
+  dbus_int32_t width, height;
+  DBusMessage *reply;
 
-  g_return_if_fail (component != NULL);
-
-  atk_component_get_size (component, &iw, &ih);
-  *width = iw;
-  *height = ih;
+  if (!component)
+    return spi_dbus_general_error (message);
+  atk_component_get_size (component, &iwidth, &iheight);
+  width = iwidth;
+  height = iheight;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &width,
+				DBUS_TYPE_INT32, &height, DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static Accessibility_ComponentLayer
-impl_accessibility_component_get_layer (PortableServer_Servant servant,
-					CORBA_Environment     *ev)
+static DBusMessage *
+impl_getLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkLayer      atklayer;
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  AtkLayer atklayer;
+  dbus_uint32_t rv;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (component != NULL, Accessibility_LAYER_INVALID);
-
+  if (!component)
+    return spi_dbus_general_error (message);
   atklayer = atk_component_get_layer (component);
+
   switch (atklayer)
     {
-      case ATK_LAYER_BACKGROUND:
-        return Accessibility_LAYER_BACKGROUND;
-      case ATK_LAYER_CANVAS:
-        return Accessibility_LAYER_CANVAS;
-      case ATK_LAYER_WIDGET:
-        return Accessibility_LAYER_WIDGET;
-      case ATK_LAYER_MDI:
-        return Accessibility_LAYER_MDI;
-      case ATK_LAYER_POPUP:
-        return Accessibility_LAYER_POPUP;
-      case ATK_LAYER_OVERLAY:
-        return Accessibility_LAYER_OVERLAY;
-      case ATK_LAYER_WINDOW:
-        return Accessibility_LAYER_WINDOW;
-      default:
-        break;      
+    case ATK_LAYER_BACKGROUND:
+      rv = Accessibility_LAYER_BACKGROUND;
+      break;
+    case ATK_LAYER_CANVAS:
+      rv = Accessibility_LAYER_CANVAS;
+      break;
+    case ATK_LAYER_WIDGET:
+      rv = Accessibility_LAYER_WIDGET;
+      break;
+    case ATK_LAYER_MDI:
+      rv = Accessibility_LAYER_MDI;
+      break;
+    case ATK_LAYER_POPUP:
+      rv = Accessibility_LAYER_POPUP;
+      break;
+    case ATK_LAYER_OVERLAY:
+      rv = Accessibility_LAYER_OVERLAY;
+      break;
+    case ATK_LAYER_WINDOW:
+      rv = Accessibility_LAYER_WINDOW;
+      break;
+    default:
+      rv = Accessibility_LAYER_INVALID;
+      break;
     }
-  return Accessibility_LAYER_INVALID;
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static CORBA_short
-impl_accessibility_component_get_mdi_z_order (PortableServer_Servant servant,
-					      CORBA_Environment     *ev)
+static DBusMessage *
+impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
+		   void *user_data)
 {
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  dbus_int16_t rv;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (component != NULL, -1);
-
-  return atk_component_get_mdi_zorder (component);
+  if (!component)
+    return spi_dbus_general_error (message);
+  rv = atk_component_get_mdi_zorder (component);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static CORBA_boolean
-impl_accessibility_component_grab_focus (PortableServer_Servant servant,
-					 CORBA_Environment     *ev)
+static DBusMessage *
+impl_grabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component_from_servant (servant);
+  AtkComponent *component = get_component (message);
+  dbus_bool_t rv;
+  DBusMessage *reply;
 
-  g_return_val_if_fail (component != NULL, FALSE);
-
-  return atk_component_grab_focus (component);
+  if (!component)
+    return spi_dbus_general_error (message);
+  rv = atk_component_grab_focus (component);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static double
-impl_accessibility_component_get_alpha (PortableServer_Servant servant,
-					CORBA_Environment     *ev)
-{
-  AtkComponent *component = get_component_from_servant (servant);
-
-  g_return_val_if_fail (component != NULL, FALSE);
-
-  return atk_component_get_alpha (component);
-}
-
-static void
-spi_component_class_init (SpiComponentClass *klass)
-{
-        POA_Accessibility_Component__epv *epv = &klass->epv;
-        spi_component_parent_class = g_type_class_peek_parent (klass);
-
-        epv->contains = impl_accessibility_component_contains;
-        epv->getAccessibleAtPoint = impl_accessibility_component_get_accessible_at_point;
-        epv->getExtents = impl_accessibility_component_get_extents;
-        epv->getPosition = impl_accessibility_component_get_position;
-        epv->getSize = impl_accessibility_component_get_size;
-	epv->getLayer = impl_accessibility_component_get_layer;
-	epv->getMDIZOrder = impl_accessibility_component_get_mdi_z_order;
-	epv->grabFocus = impl_accessibility_component_grab_focus;
-	epv->getAlpha = impl_accessibility_component_get_alpha;
-}
-
-static void
-spi_component_init (SpiComponent *component)
+#if 0
+static DBusMessage *
+impl_registerFocusHandler (DBusConnection * bus, DBusMessage * message,
+			   void *user_data)
 {
 }
 
-BONOBO_TYPE_FUNC_FULL (SpiComponent,
-		       Accessibility_Component,
-		       PARENT_TYPE,
-		       spi_component)
-
-SpiComponent *
-spi_component_interface_new (AtkObject *o)
+static DBusMessage *
+impl_deregisterFocusHandler (DBusConnection * bus, DBusMessage * message,
+			     void *user_data)
 {
-    SpiComponent *retval = g_object_new (SPI_COMPONENT_TYPE, NULL);
-
-    spi_base_construct (SPI_BASE (retval), G_OBJECT(o));
-
-    return retval;
 }
+#endif
+
+static DBusMessage *
+impl_getAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  AtkComponent *component = get_component (message);
+  double rv;
+  DBusMessage *reply;
+
+  if (!component)
+    return spi_dbus_general_error (message);
+  rv = atk_component_get_alpha (component);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_DOUBLE, &rv,
+				DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DRouteMethod methods[] = {
+  {DROUTE_METHOD, impl_contains, "contains",
+   "i,x,i:i,y,i:u,coord_type,i:b,,o"},
+  {DROUTE_METHOD, impl_getAccessibleAtPoint, "getAccessibleAtPoint",
+   "i,x,i:i,y,i:u,coord_type,i:o,,o"},
+  {DROUTE_METHOD, impl_getExtents, "getExtents", "u,coord_type,i:(uuuu),,o"},
+  {DROUTE_METHOD, impl_getPosition, "getPosition",
+   "i,x,o:i,y,o:u,coord_type,i"},
+  {DROUTE_METHOD, impl_getSize, "getSize", "i,width,o:i,height,o"},
+  {DROUTE_METHOD, impl_getLayer, "getLayer", "g,,o"},
+  {DROUTE_METHOD, impl_getMDIZOrder, "getMDIZOrder", "n,,o"},
+  {DROUTE_METHOD, impl_grabFocus, "grabFocus", "b,,o"},
+  //{ DROUTE_METHOD, impl_registerFocusHandler, "registerFocusHandler", "o,handler,i" },
+  //{ DROUTE_METHOD, impl_deregisterFocusHandler, "deregisterFocusHandler", "o,handler,i" },
+  {DROUTE_METHOD, impl_getAlpha, "getAlpha", "d,,o"},
+  {0, NULL, NULL, NULL}
+};
+
+void
+spi_initialize_component (DRouteData * data)
+{
+  droute_add_interface (data, "org.freedesktop.accessibility.Component",
+			methods, NULL,
+			(DRouteGetDatumFunction) get_component_from_path,
+			NULL);
+};
