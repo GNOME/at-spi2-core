@@ -139,6 +139,7 @@ impl_getChildren (DBusConnection * bus, DBusMessage * message,
     return spi_dbus_general_error (message);
   count = atk_object_get_n_accessible_children (object);
   reply = dbus_message_new_method_return (message);
+  if (!reply) goto oom;
   dbus_message_iter_init_append (reply, &iter);
   if (!dbus_message_iter_open_container
       (&iter, DBUS_TYPE_ARRAY, "o", &iter_array))
