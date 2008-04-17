@@ -85,7 +85,6 @@ Boston, MA 02111-1307, USA.</p>
 
 <xi:include href="Accessibility_Accessible.xml"/>
 <xi:include href="Accessibility_Action.xml"/>
-<xi:include href="Accessibility_Collection.xml"/>
 <xi:include href="Accessibility_Component.xml"/>
 <xi:include href="Accessibility_Document.xml"/>
 <xi:include href="Accessibility_Hyperlink.xml"/>
@@ -102,13 +101,9 @@ Boston, MA 02111-1307, USA.</p>
 
 <!-- Utility interfaces and interfaces derived from Accessibility::Accessible -->
 
-<xi:include href="Accessibility_Relation.xml"/>
-<xi:include href="Accessibility_State.xml"/>
 <xi:include href="Accessibility_Application.xml"/>
-<xi:include href="Accessibility_Desktop.xml"/>
 <xi:include href="Accessibility_Event.xml"/>
 <xi:include href="Accessibility_Registry.xml"/>
-<xi:include href="Accessibility_Role.xml"/>
 <xi:include href="Accessibility_LoginHelper.xml"/>
 <xi:include href="Accessibility_Selector.xml"/>
 </tp:spec>
