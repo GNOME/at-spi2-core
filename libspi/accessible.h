@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
 
 void spi_initialize_accessible(DRouteData *data);
+void spi_initialize_action(DRouteData *data);
 void spi_initialize_application(DRouteData *data);
 void spi_initialize_component(DRouteData *data);
 void spi_initialize_document(DRouteData *data);

@@ -29,48 +29,37 @@
       buttons), &quot;menu&quot; (for objects which have context menus invokable from 
       mouse or keyboard), &quot;open&quot; for icons representing files folders, and others.</p>
   </tp:docstring>
-  <tp:property name="nActions" type="i" access="read">
-  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>nActions: a \c long containing the number of actions this object supports.  </p>
-  </tp:docstring>
-  </tp:property>
-  <method name="getDescription">
-    <tp:docstring>
-      getDescription:
-    </tp:docstring>
-    <arg direction="in" name="index" type="i">
-    <tp:docstring>
-      the index of the action for which a description is desired.Get the description of the specified action.  The description of an actionmay provide information about the result of action invocation, unlike theaction name.@see getName.
-    </tp:docstring>
-    </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
+  <tp:struct name="Action">
+    <tp:member type="s" tp:name="name">
+      <tp:docstring>
       a \c string containing the description of the specified action.
+      </tp:docstring>
+    </tp:member>
+    <tp:member type="s" tp:name="description">
+      <tp:docstring>
+	the description of the specified action.  The description of an actionmay provide information about the result of action invocation, unlike the action name.
     </tp:docstring>
-    </arg>
-  </method>
-  <method name="getName">
+  </tp:member>
+    <tp:member type="s" tp:name="keyBinding">
+      <tp:docstring>
+        a \c string containing the key binding for the specified action,or an empty string (&quot;&quot;) if none exists.
+      </tp:docstring>
+    </tp:member>
+  </tp:struct>
+
+  <method name="getActions">
     <tp:docstring>
-      getName:
+      Retrieves the actions associated with the object.
     </tp:docstring>
-    <arg direction="in" name="index" type="i">
-    <tp:docstring>
-      the index of the action whose name is requested.Get the name of the specified action.  Action names generally describethe user action, i.e. &quot;click&quot; or &quot;press&quot;, rather then the result of invoking the action.
-    </tp:docstring>
-    </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
-      a \c string containing the name of the specified action.
-    </tp:docstring>
-    </arg>
+    <arg direction="out" name="index" type="a(sss)" tp:type="Action"/>
   </method>
   <method name="doAction">
     <tp:docstring>
-      doAction:
+      Causes the object to perform the specified action.
     </tp:docstring>
     <arg direction="in" name="index" type="i">
     <tp:docstring>
-      the 0-based index of the action to perform.Causes the object to perform the specified action.
+      the 0-based index of the action to perform.
     </tp:docstring>
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
@@ -78,35 +67,6 @@
       a \c boolean indicating success or failure.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="getKeyBinding">
-    <tp:docstring>
-      getKeyBinding:
-    </tp:docstring>
-    <arg direction="in" name="index" type="i">
-    <tp:docstring>
-      the 0-based index of the action for which a key binding is requested.Get the key binding associated with a specific action.
-    </tp:docstring>
-    </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
-      a \c string containing the key binding for the specified action,or an empty string (&quot;&quot;) if none exists.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
   </method>
 </interface>
 </node>

@@ -1,7 +1,9 @@
+
 /*
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,141 +23,102 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* component.c : bonobo wrapper for accessible component implementation */
+#include "accessible.h"
 
-#include <config.h>
-#include <stdio.h>
-#include <libspi/action.h>
-#include <atk/atkaction.h>
-
-/*
- * Static function declarations
- */
-
-static void
-spi_action_class_init (SpiActionClass *klass);
-static void
-spi_action_init (SpiAction *action);
-static CORBA_long
-impl__get_nActions(PortableServer_Servant servant,
-		 CORBA_Environment * ev);
-static CORBA_string
-impl_getDescription (PortableServer_Servant servant,
-		     const CORBA_long index,
-		     CORBA_Environment * ev);
-static CORBA_boolean 
-impl_doAction (PortableServer_Servant servant,
-	       const CORBA_long index, CORBA_Environment * ev);
-static CORBA_string
-impl_getName (PortableServer_Servant servant,
-	      const CORBA_long index,
-	      CORBA_Environment * ev);
-static CORBA_string
-impl_getKeyBinding (PortableServer_Servant servant,
-		    const CORBA_long index,
-		    CORBA_Environment * ev);
-
-BONOBO_TYPE_FUNC_FULL (SpiAction,
-		       Accessibility_Action,
-		       SPI_TYPE_BASE,
-		       spi_action)
-
-static void
-spi_action_class_init (SpiActionClass *klass)
+static AtkAction *
+get_action (DBusMessage * message)
 {
-  POA_Accessibility_Action__epv *epv = &klass->epv;
-
-  /* Initialize epv table */
-
-  epv->_get_nActions = impl__get_nActions;
-  epv->doAction = impl_doAction;
-  epv->getDescription = impl_getDescription;
-  epv->getName = impl_getName;
-  epv->getKeyBinding = impl_getKeyBinding;
-}
-
-static void
-spi_action_init (SpiAction *action)
-{
-}
-
-SpiAction *
-spi_action_interface_new (AtkObject *obj)
-{
-  SpiAction *new_action = g_object_new (SPI_ACTION_TYPE, NULL);
-
-  spi_base_construct (SPI_BASE (new_action), G_OBJECT(obj));
-
-  return new_action;
+  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  if (!obj)
+    return NULL;
+  return ATK_ACTION (obj);
 }
 
 static AtkAction *
-get_action_from_servant (PortableServer_Servant servant)
+get_action_from_path (const char *path, void *user_data)
 {
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-  g_return_val_if_fail (object != NULL, NULL);
-  /* the convention of making hyperlinks actionable breaks the assertion below */
-  /* g_return_val_if_fail (ATK_IS_OBJECT(object->gobj), NULL); */
-  return ATK_ACTION (object->gobj);
+  AtkObject *obj = spi_dbus_get_object (path);
+  if (!obj)
+    return NULL;
+  return ATK_ACTION (obj);
 }
 
-static CORBA_long
-impl__get_nActions (PortableServer_Servant servant,
-		    CORBA_Environment     *ev)
+static DBusMessage *impl_getActions(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkAction *action = get_action_from_servant (servant);
-  return atk_action_get_n_actions (action);
+  AtkAction *action = get_action(message);
+  DBusMessage *reply;
+  gint count;
+  gint i;
+  DBusMessageIter iter, iter_array, iter_struct;
+
+  if (!action)
+    return spi_dbus_general_error (message);
+  count = atk_action_get_n_actions(action);
+  reply = dbus_message_new_method_return (message);
+  if (!reply) goto oom;
+  dbus_message_iter_init_append (reply, &iter);
+  if (!dbus_message_iter_open_container
+      (&iter, DBUS_TYPE_ARRAY, "(sss)", &iter_array))
+    goto oom;
+  for (i = 0; i < count; i++)
+    {
+      const char *name = atk_action_get_name(action, i);
+      const char *desc = atk_action_get_description(action, i);
+      const char *kb = atk_action_get_keybinding(action, i);
+      if (!name) name = "";
+      if (!desc) desc = "";
+      if (!kb) kb = "";
+      if (!dbus_message_iter_open_container(&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct)) goto oom;
+      dbus_message_iter_append_basic(&iter_struct, DBUS_TYPE_STRING, &name);
+      dbus_message_iter_append_basic(&iter_struct, DBUS_TYPE_STRING, &desc);
+      dbus_message_iter_append_basic(&iter_struct, DBUS_TYPE_STRING, &kb);
+      if (!dbus_message_iter_close_container(&iter_array, &iter_struct)) goto oom;
+    }
+  if (!dbus_message_iter_close_container (&iter, &iter_array))
+    goto oom;
+  return reply;
+oom:
+  // TODO: handle out-of-memory
+  return reply;
 }
 
-static CORBA_boolean
-impl_doAction (PortableServer_Servant servant,
-	       const CORBA_long index, CORBA_Environment * ev)
+static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkAction *action = get_action_from_servant (servant);
-  return atk_action_do_action (action, (gint) index);
+  AtkAction *action = get_action(message);
+  DBusError error;
+  dbus_int32_t index;
+  dbus_bool_t rv;
+  DBusMessage *reply;
+
+  if (!action)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  rv = atk_action_do_action(action, index);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv, DBUS_TYPE_INVALID);
+    }
+  return reply;
 }
 
-static CORBA_string
-impl_getDescription (PortableServer_Servant servant,
-		const CORBA_long index,
-		CORBA_Environment * ev)
+DRouteMethod methods[] =
 {
-  AtkAction *action = get_action_from_servant (servant);
-  const gchar *rv;
-  
-  rv = atk_action_get_description (action, index);
-  if (rv)
-    return CORBA_string_dup (rv);
-  else
-    return CORBA_string_dup ("");
-}
+  { DROUTE_METHOD, impl_getActions, "getActions", "a(sss),,o" },
+  { DROUTE_METHOD, impl_doAction, "doAction", "i,index,i:b,,o" },
+  { 0, NULL, NULL, NULL }
+};
 
-static CORBA_string
-impl_getName (PortableServer_Servant servant,
-		const CORBA_long index,
-		CORBA_Environment * ev)
+void
+spi_initialize_action (DRouteData * data)
 {
-  AtkAction *action = get_action_from_servant (servant);
-  const gchar *rv;
-  
-  rv = atk_action_get_name (action, index);
-  if (rv)
-    return CORBA_string_dup (rv);
-  else
-    return CORBA_string_dup ("");
-}
-
-static CORBA_string
-impl_getKeyBinding (PortableServer_Servant servant,
-		    const CORBA_long index,
-		    CORBA_Environment * ev)
-{
-  AtkAction *action = get_action_from_servant (servant);
-  const gchar *rv;
-  
-  rv = atk_action_get_keybinding (action, index);
-  if (rv)
-    return CORBA_string_dup (rv);
-  else
-    return CORBA_string_dup ("");
-}
+  droute_add_interface (data, "org.freedesktop.accessibility.Action",
+			methods, NULL,
+			(DRouteGetDatumFunction) get_action_from_path,
+			NULL);
+};
