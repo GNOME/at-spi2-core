@@ -16,6 +16,7 @@ libspiincludedir = $(includedir)/at-spi-1.0/libspi
 
 libspiinclude_HEADERS =		\
 	Accessibility.h		\
+	accessible.h \
 	bitarray.h \
 	dbus.h \
 	droute.h

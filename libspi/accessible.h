@@ -24,32 +24,27 @@
 #ifndef SPI_ACCESSIBLE_H_
 #define SPI_ACCESSIBLE_H_
 
-#include <libspi/base.h>
+#include <libspi/dbus.h>
+#include <libspi/droute.h>
+#include "Accessibility.h"
+#include "atk/atk.h"
 
 G_BEGIN_DECLS
 
-#define SPI_ACCESSIBLE_TYPE        (spi_accessible_get_type ())
-#define SPI_ACCESSIBLE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_ACCESSIBLE_TYPE, SpiAccessible))
-#define SPI_ACCESSIBLE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_ACCESSIBLE_TYPE, SpiAccessibleClass))
-#define SPI_IS_ACCESSIBLE(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), SPI_ACCESSIBLE_TYPE))
-#define SPI_IS_ACCESSIBLE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_ACCESSIBLE_TYPE))
+Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
 
-typedef struct {
-	SpiBase parent;
-} SpiAccessible;
-
-typedef struct {
-        SpiBaseClass parent_class;
-        POA_Accessibility_Accessible__epv epv;
-} SpiAccessibleClass;
-
-GType                    spi_accessible_get_type   (void);
-SpiAccessible           *spi_accessible_new        (AtkObject         *o);
-SpiAccessible           *spi_accessible_construct  (GType              type,
-						    AtkObject         *o);
-Accessibility_Accessible spi_accessible_new_return (AtkObject         *o,
-						    gboolean           release_ref,
-						    CORBA_Environment *ev);
+void spi_initialize_accessible(DRouteData *data);
+void spi_initialize_application(DRouteData *data);
+void spi_initialize_component(DRouteData *data);
+void spi_initialize_document(DRouteData *data);
+void spi_initialize_editabletext(DRouteData *data);
+void spi_initialize_hyperlink(DRouteData *data);
+void spi_initialize_hypertext(DRouteData *data);
+void spi_initialize_image(DRouteData *data);
+void spi_initialize_selection(DRouteData *data);
+void spi_initialize_table(DRouteData *data);
+void spi_initialize_text(DRouteData *data);
+void spi_initialize_value(DRouteData *data);
 
 G_END_DECLS
 
