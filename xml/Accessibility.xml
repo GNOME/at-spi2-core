@@ -98,12 +98,14 @@ Boston, MA 02111-1307, USA.</p>
 <!-- Interfaces derived from Accessibility::Text -->
 <xi:include href="Accessibility_EditableText.xml"/>
 <xi:include href="Accessibility_Hypertext.xml"/>
+<xi:include href="Accessibility_State.xml"/>
 
 <!-- Utility interfaces and interfaces derived from Accessibility::Accessible -->
 
 <xi:include href="Accessibility_Application.xml"/>
 <xi:include href="Accessibility_Event.xml"/>
 <xi:include href="Accessibility_Registry.xml"/>
+<xi:include href="Accessibility_Role.xml"/>
 <xi:include href="Accessibility_LoginHelper.xml"/>
 <xi:include href="Accessibility_Selector.xml"/>
 </tp:spec>

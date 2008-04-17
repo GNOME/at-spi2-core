@@ -12,8 +12,10 @@ XML= \
 	Accessibility_Image.xml \
 	Accessibility_LoginHelper.xml \
 	Accessibility_Registry.xml \
+	Accessibility_Role.xml \
 	Accessibility_Selection.xml \
 	Accessibility_Selector.xml \
+	Accessibility_State.xml \
 	Accessibility_StreamableContent.xml \
 	Accessibility_Table.xml \
 	Accessibility_Text.xml \
