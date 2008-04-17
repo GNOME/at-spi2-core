@@ -125,36 +125,6 @@ impl_get_childCount_str (void *datum)
   return g_strdup_printf ("%d", count);
 }
 
-#if 0
-static DBusMessage *
-impl_isEqual (DBusConnection * bus, DBusMessage * message, void *user_data)
-{
-}
-#endif
-
-#if 0
-static DBusMessage *
-impl_getChildAtIndex (DBusConnection * bus, DBusMessage * message,
-		      void *user_data)
-{
-  AtkObject *object = get_object (message);
-  dbus_int32_t index;
-  DBusError error;
-  AtkObject *child;
-
-  if (!object)
-    return spi_dbus_general_error (message);
-  dbus_error_init (&error);
-  if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
-    {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
-    }
-  child = atk_object_ref_accessible - child (object, index);
-  return spi_dbus_return_object (message, child, TRUE);
-}
-#endif
-
 static DBusMessage *
 impl_getChildren (DBusConnection * bus, DBusMessage * message,
 		  void *user_data)
@@ -643,12 +613,11 @@ impl_getApplication (DBusConnection * bus, DBusMessage * message,
   return spi_dbus_return_object (message, root, FALSE);
 }
 
-// TODO: sync spec with updates made here
 static DRouteMethod methods[] = {
   //{ DROUTE_METHOD, impl_isEqual, "isEqual", "o,obj,i:b,,o" },
   {DROUTE_METHOD, impl_getChildren, "getChildren", "ao,,o"},
   {DROUTE_METHOD, impl_getIndexInParent, "getIndexInParent", "i,,o"},
-  //{ DROUTE_METHOD, impl_getRelationSet, "getRelationSet", "a{so},,o" },
+  //{ DROUTE_METHOD, impl_getRelationSet, "getRelationSet", "a{uao},,o" },
   {DROUTE_METHOD, impl_getRole, "getRole", "u,,o"},
   {DROUTE_METHOD, impl_getRoleName, "getRoleName", "s,,o"},
   {DROUTE_METHOD, impl_getLocalizedRoleName, "getLocalizedRoleName", "s,,o"},

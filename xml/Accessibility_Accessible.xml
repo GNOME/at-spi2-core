@@ -109,36 +109,13 @@
     childCount: the number of children contained by this object.
   </tp:docstring>
   </tp:property>
-  <method name="isEqual">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Determine whether an ::Accessible refers to the same object as another.
-        This method should be used rather than brute-force comparison of
-        object references (i.e. &quot;by-value&quot; comparison), as two object references
-        may have different apparent values yet refer to the same object.    </p>
-    </tp:docstring>
-    <arg direction="in" name="obj" type="o" tp:type="Accessible">
+  <method name="getChildren">
     <tp:docstring>
-      an ::Accessible object reference to compare to
+      Get the accessible children of this object.
     </tp:docstring>
-    </arg>
-    <arg direction="out" type="b" tp:type="boolean">
+    <arg direction="out" type="ao" tp:type="AccessibleSet">
     <tp:docstring>
-      a \c boolean indicating whether the two object referencespoint to the same object. 
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="getChildAtIndex">
-    <tp:docstring>
-      Get the accessible child of this object at \c index.
-    </tp:docstring>
-    <arg direction="in" name="index" type="i">
-    <tp:docstring>
-      an in parameter indicating which child is requested (zero-indexed).
-    </tp:docstring>
-    </arg>
-    <arg direction="out" type="o" tp:type="Accessible">
-    <tp:docstring>
-      the 'nth' ::Accessible child of this object.
+      the ::Accessible children of this object.
     </tp:docstring>
     </arg>
   </method>
@@ -152,16 +129,18 @@
     </tp:docstring>
     </arg>
   </method>
+  <!-- TODO: Decide whether to implement this, or put these in the tree
   <method name="getRelationSet">
     <tp:docstring>
       Get a set defining this object's relationship to other accessible objects.
     </tp:docstring>
-    <arg direction="out" type="au" tp:type="RelationSet">
+    <arg direction="out" type="a{uao}" tp:type="RelationSet">
     <tp:docstring>
       a ::RelationSet defining this object's relationships.
     </tp:docstring>
     </arg>
   </method>
+  -->
   <method name="getRole">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the ::Role indicating the type of UI role played by this object.    </p>
@@ -197,9 +176,10 @@
     <tp:docstring>
       Get the current state of the object as a ::StateSet.
     </tp:docstring>
-    <arg direction="out" type="o" tp:type="StateSet">
+    <arg direction="out" type="au" tp:type="StateSet">
     <tp:docstring>
       a ::StateSet encapsulating the currently true states of the object.
+      Returns an array of (currently two) 32-bit integers giving bitwise flags.
     </tp:docstring>
     </arg>
   </method>
