@@ -37,7 +37,7 @@ static AtkAction *
 get_action_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_ACTION(obj))
     return NULL;
   return ATK_ACTION (obj);
 }

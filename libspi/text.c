@@ -38,7 +38,7 @@ static AtkText *
 get_text_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_TEXT(obj))
     return NULL;
   return ATK_TEXT (obj);
 }

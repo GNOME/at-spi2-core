@@ -37,7 +37,7 @@ static AtkImage *
 get_image_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_IMAGE(obj))
     return NULL;
   return ATK_IMAGE (obj);
 }
