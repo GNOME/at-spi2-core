@@ -27,6 +27,7 @@ CLEANFILES = Accessibility.h
 libspi_la_SOURCES =		\
 	Accessibility.h \
 	accessible.c		\
+	action.c \
 	application.c		\
 	component.c		\
 	dbus.c \
