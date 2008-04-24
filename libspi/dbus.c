@@ -89,7 +89,7 @@ DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
 {
   return dbus_message_new_error (message,
-				 "org.freedesktop.accessibility.GeneralError",
+				 "org.freedesktop.atspi.GeneralError",
 				 "General error");
 }
 

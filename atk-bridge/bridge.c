@@ -210,7 +210,7 @@ spi_app_init (AtkObject *root)
   }
   spi_dbus_initialize (&ad->droute);
   /* Below line for testing -- it should be removed once at-spi-registryd is working */
-  if (dbus_bus_request_name(ad->bus, "org.freedesktop.atspi.test", 0, &error)) printf("Got test name.\n");
+  if (dbus_bus_request_name(ad->bus, "org.freedesktop.at-spi.test", 0, &error)) printf("Got test name.\n");
 printf("droute initialized\n");
   if (!dbus_connection_try_register_fallback (ad->bus, "/org/freedesktop/atspi", &droute_vtable, &ad->droute, &error))
   {

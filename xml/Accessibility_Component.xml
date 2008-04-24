@@ -93,7 +93,7 @@
   </tp:docstring>
   </tp:enumvalue>
 </tp:enum>
-<interface name="org.freedesktop.accessibility.Component">
+<interface name="org.freedesktop.atspi.Component">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The Component interface is implemented by objects which occupy on-screen space, e.g. objects
       which have onscreen visual representations.  The methods in Component allow clients to identify

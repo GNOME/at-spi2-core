@@ -36,7 +36,7 @@
   </tp:docstring>
   <arg direction="in" name="commands" type="a(si)" tp:type="CommandList"/>
 </method>
-<interface name="org.freedesktop.accessibility.Selector">
+<interface name="org.freedesktop.atspi.Selector">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>This interface is intended for use by assistive technologies
       and related user-agents.  Via this interface, an assistive technology or

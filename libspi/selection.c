@@ -273,7 +273,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_selection (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Selection",
+  droute_add_interface (data, "org.freedesktop.atspi.Selection",
 			methods, properties,
 			(DRouteGetDatumFunction) get_selection_from_path,
 			NULL);

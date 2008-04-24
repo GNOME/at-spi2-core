@@ -312,7 +312,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_component (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Component",
+  droute_add_interface (data, "org.freedesktop.atspi.Component",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_component_from_path,
 			NULL);

@@ -19,7 +19,7 @@
     Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.</p>
 </tp:license>
-<interface name="org.freedesktop.accessibility.ContentStream">
+<interface name="org.freedesktop.atspi.ContentStream">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface by which the requested data from a StreamableContent object
       may be read by the client.
@@ -52,7 +52,7 @@
   </tp:docstring>
   </tp:enumvalue>
 </tp:enum>
-<tp:errors xmlns="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace="org.freedesktop.accessibility.error">
+<tp:errors xmlns="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace="org.freedesktop.atspi.error">
   <tp:error name="IOError">
   <tp:docstring>
     Indicates that a transmission error has occurred while reading or seeking the stream or data source. 
@@ -86,9 +86,9 @@
   </tp:docstring>
   </arg>
   <tp:possible-errors>
-    <tp:error name="org.freedesktop.accessibility.error.(NoPermission"/>
-    <tp:error name="org.freedesktop.accessibility.error.IOError"/>
-    <tp:error name="org.freedesktop.accessibility.error.NotSupported"/>
+    <tp:error name="org.freedesktop.atspi.error.(NoPermission"/>
+    <tp:error name="org.freedesktop.atspi.error.IOError"/>
+    <tp:error name="org.freedesktop.atspi.error.NotSupported"/>
   </tp:possible-errors>
 </method>
 <method name="read">
@@ -103,8 +103,8 @@
   </tp:docstring>
   </arg>
   <tp:possible-errors>
-    <tp:error name="org.freedesktop.accessibility.error.(NoPermission"/>
-    <tp:error name="org.freedesktop.accessibility.error.IOError"/>
+    <tp:error name="org.freedesktop.atspi.error.(NoPermission"/>
+    <tp:error name="org.freedesktop.atspi.error.IOError"/>
   </tp:possible-errors>
 </method>
 <method name="close">
@@ -121,7 +121,7 @@
 </method>
 <method name="unimplemented2">
 </method>
-<interface name="org.freedesktop.accessibility.StreamableContent">
+<interface name="org.freedesktop.atspi.StreamableContent">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface whereby an object allows its backing content
       to be streamed to clients.  Negotiation of content type

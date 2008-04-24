@@ -263,7 +263,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_editabletext (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.EditableText",
+  droute_add_interface (data, "org.freedesktop.atspi.EditableText",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_editable_from_path,
 			NULL);

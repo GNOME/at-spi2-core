@@ -89,7 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <xsl:variable name="suffix">
       <xsl:choose>
         <xsl:when test="ancestor::interface">
-          <xsl:value-of select="concat(str:replace(ancestor::interface/@name, 'org.freedesktop.accessibility.', ''), '_', @suffix)"/>
+          <xsl:value-of select="concat(str:replace(ancestor::interface/@name, 'org.freedesktop.atspi.', ''), '_', @suffix)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="@suffix"/>
@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <xsl:variable name="name">
       <xsl:choose>
         <xsl:when test="ancestor::interface">
-          <xsl:value-of select="concat(str:replace(ancestor::interface/@name, 'org.freedesktop.accessibility.', ''), '_', @name)"/>
+          <xsl:value-of select="concat(str:replace(ancestor::interface/@name, 'org.freedesktop.atspi.', ''), '_', @name)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="@name"/>
@@ -222,7 +222,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <xsl:variable name="suffix">
       <xsl:choose>
         <xsl:when test="ancestor::interface">
-          <xsl:value-of select="concat(str:replace(ancestor::interface/@name, 'org.freedesktop.accessibility.', ''), '_', @suffix)"/>
+          <xsl:value-of select="concat(str:replace(ancestor::interface/@name, 'org.freedesktop.atspi.', ''), '_', @suffix)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="@suffix"/>

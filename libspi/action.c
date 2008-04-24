@@ -1,4 +1,3 @@
-
 /*
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
@@ -117,7 +116,7 @@ DRouteMethod methods[] =
 void
 spi_initialize_action (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Action",
+  droute_add_interface (data, "org.freedesktop.atspi.Action",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_action_from_path,
 			NULL);

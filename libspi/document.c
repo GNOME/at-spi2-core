@@ -144,7 +144,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_document (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Document",
+  droute_add_interface (data, "org.freedesktop.atspi.Document",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_document_from_path,
 			NULL);

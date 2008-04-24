@@ -47,6 +47,16 @@ void spi_initialize_table(DRouteData *data);
 void spi_initialize_text(DRouteData *data);
 void spi_initialize_value(DRouteData *data);
 
+typedef struct Accessibility_Event_type Accessibility_Event;
+struct Accessibility_Event_type {
+  char *type;
+  char *source;
+  char *source_name;
+  long detail1;
+  long detail2;
+  GValue any_data;
+};
+
 G_END_DECLS
 
 #endif /* SPI_ACCESSIBLE_H_ */
