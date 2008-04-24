@@ -37,9 +37,11 @@ deregister_object (gpointer obj)
 static guint
 register_object (AtkObject * obj)
 {
+  gint *new_int;
+
   if (!path2ptr)
     {
-      path2ptr = g_hash_table_new (g_int_hash, g_int_equal);
+      path2ptr = g_hash_table_new_full (g_int_hash, g_int_equal, g_free, NULL);
       if (!path2ptr)
 	return ++objindex;
     }
@@ -51,7 +53,12 @@ register_object (AtkObject * obj)
       if (objindex == 0)
 	objindex++;
     }
-  g_hash_table_insert (path2ptr, &objindex, obj);
+  new_int = (gint *)g_malloc(sizeof(gint));
+  if (new_int)
+  {
+    *new_int = objindex;
+    g_hash_table_insert (path2ptr, new_int, obj);
+  }
   g_object_set_data_full (G_OBJECT (obj), "dbus-id", (gpointer) objindex,
 			  deregister_object);
   return objindex;
@@ -64,13 +71,13 @@ spi_dbus_get_object (const char *path)
   void *data;
 
   g_assert (path);
-  if (strcmp(path, "/org/freedesktop/atspi/accessible", 33) != 0) return NULL;
+  if (strncmp(path, "/org/freedesktop/atspi/accessible", 33) != 0) return NULL;
   path += 33;	/* skip over preamble */
   if (path[0] == '\0') return atk_get_root();
   if (path[0] != '/') return NULL;
   path++;
   index = atoi (path);
-  data = g_hash_table_lookup (path2ptr, (gpointer) index);
+  data = g_hash_table_lookup (path2ptr, &index);
   if (data)
     return ATK_OBJECT (data);
   return NULL;
