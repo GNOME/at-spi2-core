@@ -83,7 +83,7 @@ spi_dbus_get_object (const char *path)
   return NULL;
 }
 
-char *
+gchar *
 spi_dbus_get_path (AtkObject * obj)
 {
   guint index = (guint) g_object_get_data (G_OBJECT (obj), "dbus-id");
@@ -179,6 +179,7 @@ spi_dbus_initialize (DRouteData * data)
   spi_initialize_image (data);
   spi_initialize_selection (data);
   spi_initialize_table (data);
+  spi_initialize_tree (data);
   spi_initialize_text (data);
   spi_initialize_value (data);
 }

@@ -31,7 +31,7 @@
 
 AtkObject *spi_dbus_get_object(const char *path);
 
-char *spi_dbus_get_path(AtkObject *obj);
+gchar *spi_dbus_get_path(AtkObject *obj);
 DBusMessage *spi_dbus_general_error(DBusMessage *message);
 DBusMessage *spi_dbus_return_rect(DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
 DBusMessage *spi_dbus_return_object(DBusMessage *message, AtkObject *obj, int unref);
