@@ -40,6 +40,7 @@ libspi_la_SOURCES =		\
 	selection.c		\
 	table.c			\
 	text.c			\
+	tree.c \
 	value.c
 
 Accessibility.h: ../xml/spec.xml ../tools/c-constants-generator.xsl
