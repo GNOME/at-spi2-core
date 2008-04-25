@@ -109,10 +109,12 @@ prop (DBusConnection * bus, DBusMessage * message, DRouteData * data)
   else
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   reply = dbus_message_new_method_return (message);
-  dbus_message_iter_init ((set ? reply : message), &iter);
+  dbus_message_iter_init (message, &iter);
   dbus_message_iter_get_basic (&iter, &iface);
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &member);
+  if (!set)
+    dbus_message_iter_init_append (reply, &iter);
   iface_def = find_iface (data, iface);
   if (!iface_def)
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
@@ -134,7 +136,7 @@ prop (DBusConnection * bus, DBusMessage * message, DRouteData * data)
       (*prop->get) (path, &iter, data->user_data);
     }
   dbus_connection_send (bus, reply, NULL);
-  dbus_message_unref (message);
+  dbus_message_unref (reply);
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
@@ -214,9 +216,12 @@ introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
   for (l = data->interfaces; l; l = g_slist_next (l))
     {
       iface_def = (DRouteInterface *) l->data;
-      datum = (*iface_def->get_datum) (path, data->user_data);
-      if (!datum)
-	continue;
+      if (iface_def->get_datum)
+	{
+	  datum = (*iface_def->get_datum) (path, data->user_data);
+	  if (!datum)
+	    continue;
+	}
       g_string_append_printf (xml, "<interface name=\"%s\">\n",
 			      iface_def->name);
       if (iface_def->methods)
