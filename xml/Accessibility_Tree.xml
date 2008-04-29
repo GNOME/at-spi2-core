@@ -1,0 +1,141 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+	<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+	<tp:copyright>Copyright 2008 Codethink Ltd.</tp:copyright>
+	<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+	<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
+	<tp:license xmlns="http://www.w3.org/1999/xhtml">
+		<p>This library is free software; you can redistribute it and/or
+		modify it under the terms of the GNU Library General Public
+		License as published by the Free Software Foundation; either
+		version 2 of the License, or (at your option) any later version.</p>
+	
+		<p>This library is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+		Library General Public License for more details.</p>
+
+		<p>You should have received a copy of the GNU Library General Public
+		License along with this library; if not, write to the
+		Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+		Boston, MA 02111-1307, USA.</p>
+	</tp:license>
+
+	<tp:enum name="TreeUpdateFlag" type="q">
+  		<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+			<p>Flag indicating whether an accessible object proxy should be
+			removed or updated.</p>
+		</tp:docstring>
+		<tp:enumvalue suffix="TREE_UPDATE_ACCESSIBLE" value="0">
+  			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>The accessible object proxies cached values should be updated</p>
+			</tp:docstring>
+		</tp:enumvalue>
+		<tp:enumvalue suffix="TREE_REMOVE_ACCESSIBLE" value="1">
+  			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>The accessible object proxy should be removed or set to invalid.</p>
+			</tp:docstring>
+		</tp:enumvalue>
+	</tp:enum>
+
+	<tp:struct name="AccessibleProxy" array-name="AccessibleProxyArray">
+		<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+			<p>The wire structure of an Accessible object proxy</p>
+		</tp:docstring>
+	
+		<tp:member type="q" tp:name="update" tp:type="TreeUpdateFlag">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Flag stating whether the object is to be updated or removed</p>
+			</tp:docstring>
+  		</tp:member>
+
+		<tp:member type="o" tp:name="path">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>D-Bus path of the object.</p>
+			</tp:docstring>
+  		</tp:member>
+	
+		<tp:member type="o" tp:name="parent">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>D-Bus path of the parent accessible.</p>
+			</tp:docstring>
+  		</tp:member>
+		
+		<tp:member type="ao" tp:name="children">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Array of all the child accessibles.</p>
+			</tp:docstring>
+  		</tp:member>
+	
+		<tp:member type="as" tp:name="interfaces">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Names of all the interfaces this accessible object supports.</p>
+			</tp:docstring>
+  		</tp:member>
+	
+		<tp:member type="s" tp:name="name">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Names of the object.</p>
+			</tp:docstring>
+  		</tp:member>
+	
+		<tp:member type="u" tp:name="role">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Accessible role of object.</p>
+			</tp:docstring>
+  		</tp:member>
+	
+		<tp:member type="s" tp:name="description">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Extended description of the object.</p>
+			</tp:docstring>
+  		</tp:member>
+	</tp:struct>
+
+	<interface name="org.freedesktop.atspi.Tree">
+		<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+			<p>The Tree interface provides access to all
+			of the Accessible objects that an application
+			has available. Information about the objects is 
+			transferred as a collection to reduce IPC usage.</p>
+		</tp:docstring>
+
+		<method name="getRoot">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Gets the D-Bus object path of the 
+				root accessible object of the application.</p>
+			</tp:docstring>
+			<arg name="root" type="o" direction="out">
+				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+					<p>Path of root Accessible object.</p>
+				</tp:docstring>
+			</arg>
+		</method>
+
+		<method name="getTree">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Transfers structures representing ALL
+				Accessible objects that currently exist in the
+				application. This should be used to create
+				a mirror of the tree of Accessibles within the AT.</p>
+			</tp:docstring>
+			<arg name="nodes" type="a(qooaoassus)" direction="out" tp:type="AccessibleProxy[]">
+				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+					<p>Array of Accessible Object proxy structures.</p>
+				</tp:docstring>
+			</arg>
+		</method>
+
+		<signal name="updateTree">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>Updates all mirrors. Re-sends all all the 
+				accessible objects that have changed since the last
+				updateTree signal was send</p>
+			</tp:docstring>
+			<arg name="nodes" type="a(qooaoassus)" tp:type="AccessibleProxy[]">
+				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+					<p>Array of Accessible Object proxy structures.</p>
+				</tp:docstring>
+			</arg>
+		</signal>
+	</interface>
+</node>
