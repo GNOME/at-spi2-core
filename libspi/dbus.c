@@ -31,7 +31,7 @@ static guint objindex;
 static void
 deregister_object (gpointer obj)
 {
-  g_hash_table_remove (path2ptr, obj);
+  g_hash_table_remove (path2ptr, &obj);
 }
 
 static guint
@@ -86,6 +86,7 @@ spi_dbus_get_object (const char *path)
 gchar *
 spi_dbus_get_path (AtkObject * obj)
 {
+  if (!obj) return NULL;
   guint index = (guint) g_object_get_data (G_OBJECT (obj), "dbus-id");
   if (!index)
     index = register_object (obj);
