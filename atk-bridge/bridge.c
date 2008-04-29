@@ -30,17 +30,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include <libbonobo.h>
-#include <orbit/orbit.h>
 #include <atk/atk.h>
 #include <atk/atkobject.h>
 #include <atk/atknoopobject.h>
-#include <libspi/Accessibility.h>
-#include <libspi/spi-private.h>
-#include "remoteobject.h"
 #include "accessible.h"
-#include "application.h"
-#include <bonobo-activation/bonobo-activation-register.h>
 
 #undef SPI_BRIDGE_DEBUG
 
@@ -51,11 +44,18 @@
 #define bridge_threads_enter() \
   if (!during_init_shutdown && !g_main_context_is_owner (NULL)) atk_misc_threads_enter(misc);
 
+typedef struct _SpiAppData SpiAppData;
+struct _SpiAppData
+{
+  DBusConnection *bus;
+  AtkObject *root;
+  DRouteData droute;
+};
+
 int _dbg = 0;
-static CORBA_Environment ev;
-static Accessibility_Registry registry = CORBA_OBJECT_NIL;
-static Accessibility_DeviceEventController device_event_controller = CORBA_OBJECT_NIL;
-static SpiApplication *this_app = NULL;
+static const char *registry = NULL;
+static char *device_event_controller = NULL;
+static SpiAppData *this_app = NULL;
 static gboolean registry_died = FALSE;
 static gboolean atk_listeners_registered = FALSE;
 static gint toplevels = 0;
@@ -80,7 +80,7 @@ static guint atk_signal_text_selection_changed;
 static guint atk_signal_link_selected;
 static guint atk_signal_bounds_changed;
 
-static Accessibility_Registry spi_atk_bridge_get_registry (void);
+static const char *spi_atk_bridge_get_registry (void);
 static gboolean spi_atk_bridge_do_registration         (void);
 static void     spi_atk_bridge_toplevel_added          (AtkObject             *object,
                                                         guint                 index,
@@ -93,12 +93,13 @@ static void     spi_atk_bridge_exit_func               (void);
 static void     spi_atk_register_event_listeners       (void);
 static void     spi_atk_bridge_focus_tracker           (AtkObject             *object);
 static gchar   *spi_atk_bridge_get_registry_ior        (void);
-static void     spi_atk_bridge_register_application    (Accessibility_Registry registry);
+static void     spi_atk_bridge_register_application    (const char *registry);
 static gboolean spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 							guint                  n_param_values,
 							const GValue          *param_values,
 							gpointer               data);
 
+#if 0
 static void     spi_atk_bridge_init_nil                (CORBA_any *any, 
 							AtkObject *obj);
 static void     spi_atk_bridge_init_object             (CORBA_any *any, 
@@ -110,6 +111,7 @@ static void     spi_atk_bridge_init_string             (CORBA_any *any,
 static void     spi_atk_bridge_init_rect               (CORBA_any *any, 
 							AtkObject *obj, 
 							AtkRectangle *rect);
+#endif
 
 static gboolean
 spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
@@ -133,8 +135,8 @@ static gboolean spi_atk_bridge_signal_listener         (GSignalInvocationHint *s
 static gint     spi_atk_bridge_key_listener            (AtkKeyEventStruct     *event,
 							gpointer               data);
 static void     spi_atk_tidy_windows                   (void);
-static void     deregister_application                 (BonoboObject          *app);
-static void     reinit_register_vars                   (void);
+static void     deregister_application                 ();
+static void reinit_register_vars (void);
 
 /* For automatic libgnome init */
 extern void gnome_accessibility_module_init     (void);
@@ -184,6 +186,40 @@ post_init (void)
   return FALSE;
 }
 
+static DBusObjectPathVTable droute_vtable =
+{
+  NULL,
+  &droute_message,
+  NULL, NULL, NULL, NULL
+};
+
+SpiAppData *
+spi_app_init (AtkObject *root)
+{
+  DBusError error;
+  dbus_error_init(&error);
+  SpiAppData *ad = (SpiAppData *)malloc(sizeof(SpiAppData));
+  if (!ad) return NULL;
+  ad->root = root;
+  ad->bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+  if (!ad->bus)
+  {
+    g_warning("Couldn't connect to dbus: %s\n", error.message);
+    free(ad);
+    return NULL;
+  }
+  spi_dbus_initialize (&ad->droute);
+  /* Below line for testing -- it should be removed once at-spi-registryd is working */
+  if (dbus_bus_request_name(ad->bus, "org.freedesktop.at-spi.test", 0, &error)) printf("Got test name.\n");
+printf("droute initialized\n");
+  if (!dbus_connection_try_register_fallback (ad->bus, "/org/freedesktop/atspi", &droute_vtable, &ad->droute, &error))
+  {
+    printf("Couldn't register droute.\n");
+  }
+  dbus_connection_setup_with_g_main(ad->bus, g_main_context_default());
+  return ad;
+}
+
 static int
 atk_bridge_init (gint *argc, gchar **argv[])
 {
@@ -212,22 +248,21 @@ atk_bridge_init (gint *argc, gchar **argv[])
   if (debug_env_string) 
       _dbg = (int) g_ascii_strtod (debug_env_string, NULL);
 
-  if (!bonobo_init (argc, argv ? *argv : NULL))
-    {
-      g_error ("Could not initialize Bonobo");
-    }
+  /* Connect to dbus */
+  this_app = spi_app_init (atk_get_root ());
 
-  bonobo_activate ();
-
-  /* Create the accessible application server object */
-  this_app = spi_application_new (atk_get_root ());
   /*
    * We only want to enable the bridge for top level
    * applications, we detect bonobo components by seeing
    * if they were activated with the intention of extracting
    * an impl. by IID - very solid.
    */
+#ifdef WITH_BONOBO
+  // TODO: Figure out if this is still needed
   if (bonobo_activation_iid_get ())
+#else
+  if (0)
+#endif
     {
       DBG (1, g_message ("Found Bonobo component\n"));
       g_signal_connect (atk_get_root (), 
@@ -239,7 +274,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
                         (GCallback) spi_atk_bridge_toplevel_removed, 
                         NULL);
       /* in this case we redefine 'success' to mean 'registry is present' */
-      success = (spi_atk_bridge_get_registry () != CORBA_OBJECT_NIL);
+      success = (spi_atk_bridge_get_registry () != NULL);
     }
   else
     {
@@ -263,15 +298,10 @@ atk_bridge_init (gint *argc, gchar **argv[])
   return 0;
 }
 
-
 static gboolean
 spi_atk_bridge_do_registration (void)
 {
-  CORBA_Environment ev;
-
-  CORBA_exception_init(&ev);
-
-  if (spi_atk_bridge_get_registry () == CORBA_OBJECT_NIL)
+  if (spi_atk_bridge_get_registry () == NULL)
     {
       g_warning ("Could not locate registry");
       return FALSE;
@@ -279,7 +309,7 @@ spi_atk_bridge_do_registration (void)
 
   /* Create the accessible application server object */
   if (this_app == NULL)
-    this_app = spi_application_new (atk_get_root ());
+    this_app = spi_app_init (atk_get_root ());
 
   DBG (1, g_message ("About to register application\n"));
 
@@ -308,12 +338,10 @@ spi_atk_bridge_toplevel_removed (AtkObject *object,
                                  guint     index,
                                  AtkObject *child)
 {
-  BonoboObject *app = (BonoboObject *) this_app;
-
   toplevels--;
   if (toplevels == 0)
     {
-      deregister_application (app);
+      deregister_application (this_app);
       reinit_register_vars ();
     }
   if (toplevels < 0)
@@ -324,15 +352,11 @@ spi_atk_bridge_toplevel_removed (AtkObject *object,
 }
 
 static void
-spi_atk_bridge_register_application (Accessibility_Registry registry)
+spi_atk_bridge_register_application (const char *registry)
 {
   bridge_threads_leave ();
-  Accessibility_Registry_registerApplication (spi_atk_bridge_get_registry (),
-                                              BONOBO_OBJREF (this_app),
-                                              &ev);
+  // TODO: register
   bridge_threads_enter ();
-  if (ev._major != CORBA_NO_EXCEPTION)
-    CORBA_exception_free (&ev);
 }
 
 /* 
@@ -401,81 +425,17 @@ spi_atk_bridge_get_registry_ior (void)
 }
 
 
-static Accessibility_Registry
+static const char *
 spi_atk_bridge_get_registry (void)
 {
-  CORBA_Environment ev;
-  char *ior =  NULL;
-
-  if (registry_died || (registry == CORBA_OBJECT_NIL))
-    {
-      CORBA_exception_init (&ev);
-      if (registry_died) 
-        {
-          if (exiting)
-            return CORBA_OBJECT_NIL;
-          else
-            DBG (1, g_warning ("registry died! restarting..."));
-        }
-
-      /* XXX: This presumes that the registry has successfully restarted itself already...*/
-      ior = (char *) spi_atk_bridge_get_registry_ior ();
-
-      if (ior != NULL) 
-        {
-          registry = CORBA_ORB_string_to_object (bonobo_activation_orb_get (), 
-						 ior, &ev);
-          XFree (ior);
-        }
-      else
-        {
-          g_warning ("IOR not set.");  
-          registry = CORBA_OBJECT_NIL;
-        }
-	  
-      if (ev._major != CORBA_NO_EXCEPTION)
-        {
-          g_error ("Accessibility app error: exception during "
-		   "registry activation from id: %s\n",
-		   CORBA_exception_id (&ev));
-          CORBA_exception_free (&ev);
-        }
-	  
-      if (registry_died && registry) 
-        {
-          registry_died = FALSE;
-          spi_atk_bridge_register_application (registry);
-        }
-    }
-  return registry;
+  // TODO: check for registry dying, as the old code attempted to do
+  return "org.freedesktop.atspi.registry";
 }
 
-static Accessibility_DeviceEventController
+static const char *
 spi_atk_bridget_get_dec (void)
 {
-  CORBA_Environment ev;
-
-  if (device_event_controller != CORBA_OBJECT_NIL)
-    {
-      if (ORBit_small_get_connection_status (device_event_controller)
-	  == ORBIT_CONNECTION_CONNECTED)
-        return device_event_controller;
-    }
-
-  CORBA_exception_init (&ev);
-
-  device_event_controller =
-    Accessibility_Registry_getDeviceEventController (
-	    spi_atk_bridge_get_registry (), &ev);
-
-  if (BONOBO_EX (&ev))
-    {
-      g_warning (_("failure: no device event controller found.\n"));
-      registry_died = TRUE;
-      device_event_controller = CORBA_OBJECT_NIL;
-    }
-
-  return device_event_controller;
+  return "/dec";
 }
 
 int
@@ -589,21 +549,18 @@ spi_atk_register_event_listeners (void)
 }
 
 static void
-deregister_application (BonoboObject *app)
+deregister_application (SpiAppData *app)
 {
-  Accessibility_Registry registry = spi_atk_bridge_get_registry ();
+  const char *registry = spi_atk_bridge_get_registry ();
   bridge_threads_leave ();
-  Accessibility_Registry_deregisterApplication (registry, BONOBO_OBJREF (app), &ev);
+  // todo: deregister
   bridge_threads_enter ();
-
-  device_event_controller = bonobo_object_release_unref (device_event_controller, &ev);
-  registry = bonobo_object_release_unref (registry, &ev);
 }
 
 static void
 spi_atk_bridge_exit_func (void)
 {
-  BonoboObject *app = (BonoboObject *) this_app;
+  SpiAppData *app = (SpiAppData *) this_app;
 
   DBG (1, g_message ("exiting bridge\n"));
 
@@ -611,7 +568,6 @@ spi_atk_bridge_exit_func (void)
     {
       return;
     }
-  this_app = NULL;
   if (atk_bridge_pid != getpid ())
     {
       _exit (0);
@@ -628,21 +584,13 @@ spi_atk_bridge_exit_func (void)
    *  shutdown, until we can explicitly shutdown to get the ordering
    *  right.
    */
-  if (!bonobo_is_initialized ())
-    {
-      DBG (1, g_warning ("Re-initializing bonobo\n"));
-      g_assert (bonobo_init (0, NULL));
-      g_assert (bonobo_activate ());
-    }
-  
   if (!registry_died)
-    deregister_application (app);
-
+    deregister_application (this_app);
+  this_app = NULL;
   DBG (1, g_message ("bridge exit func complete.\n"));
 
   if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
     {
-      g_assert (!bonobo_debug_shutdown ());
     }
   if (bridge_display)
     XCloseDisplay (bridge_display);
@@ -662,7 +610,6 @@ gnome_accessibility_module_init (void)
 void
 gnome_accessibility_module_shutdown (void)
 {
-  BonoboObject *app = (BonoboObject *) this_app;
   int     i;
   GArray *ids = listener_ids;
   
@@ -672,7 +619,6 @@ gnome_accessibility_module_shutdown (void)
     }
   during_init_shutdown = TRUE;
   atk_bridge_initialized = FALSE;
-  this_app = NULL;
 
   if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
     {
@@ -691,7 +637,8 @@ gnome_accessibility_module_shutdown (void)
   if (atk_bridge_key_event_listener_id)
           atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
 
-  deregister_application (app);
+  deregister_application (this_app);
+  this_app = NULL;
 
   misc = NULL;
 }
@@ -699,52 +646,40 @@ gnome_accessibility_module_shutdown (void)
 static void
 spi_atk_bridge_focus_tracker (AtkObject *object)
 {
-  SpiAccessible *source;
   Accessibility_Event e;
   
-  source = spi_accessible_new (object);
-  
-  CORBA_exception_init (&ev);
-  
   e.type = "focus:";
-  e.source = BONOBO_OBJREF (source);
+  e.source = spi_dbus_get_path(object);
   e.detail1 = 0;
   e.detail2 = 0;
-  spi_atk_bridge_init_nil (&e.any_data, object);
-  if (BONOBO_EX (&ev))
+  if (0)	// TODO: check for registry died
       registry_died = TRUE;
   else
     {
       bridge_threads_leave ();   
-      Accessibility_Registry_notifyEvent (spi_atk_bridge_get_registry (), 
-					  &e, &ev);
+      // TODO
+      //spi_dbus_notify_event (this_app->bus, spi_atk_bridge_get_registry (), &e);
       bridge_threads_enter ();
     }
-  if (BONOBO_EX (&ev))
-    registry_died = TRUE;
+  // TODO: check for registry died?
 
-  bonobo_object_unref (source);
-
-  if (e.any_data._release)
-    CORBA_free (e.any_data._value);
-
-  CORBA_exception_free (&ev);
+  g_free(e.source);
 }
 
 static void
 spi_atk_emit_eventv (const GObject         *gobject,
 		     long                   detail1,
 		     long                   detail2,
-		     CORBA_any             *any,
+		     GValue *any,
 		     const char            *format, ...)
 {
   va_list             args;
   Accessibility_Event e;
   AtkObject          *aobject;
-  SpiAccessible      *source = NULL;
-  Accessibility_Registry registry;
+  const char *registry;
+
 #ifdef SPI_BRIDGE_DEBUG
-  CORBA_string s = NULL;
+  char *s = NULL;
 #endif
   
   va_start (args, format);
@@ -752,16 +687,14 @@ spi_atk_emit_eventv (const GObject         *gobject,
   if (ATK_IS_IMPLEMENTOR (gobject))
     {
       aobject = atk_implementor_ref_accessible (ATK_IMPLEMENTOR (gobject));
-      source  = spi_accessible_new (aobject);
+      e.source  = spi_dbus_get_path (aobject);
       g_object_unref (G_OBJECT (aobject));
     }
   else if (ATK_IS_OBJECT (gobject))
     {
       aobject = ATK_OBJECT (gobject);
-      if (SPI_IS_REMOTE_OBJECT (aobject))
-         e.source = spi_remote_object_get_accessible (SPI_REMOTE_OBJECT (aobject));
-      else
-         source  = spi_accessible_new (aobject);
+      // TODO: Do we need to specially handle remote objects?
+      e.source = spi_dbus_get_path (aobject);
     }
   else
     {
@@ -771,52 +704,34 @@ spi_atk_emit_eventv (const GObject         *gobject,
       return;
     }
   e.type = g_strdup_vprintf (format, args);
-  if (source) e.source = BONOBO_OBJREF (source);
   e.detail1 = detail1;
   e.detail2 = detail2;
-  if (any) e.any_data = *any;
-  else spi_atk_bridge_init_nil (&e.any_data, aobject);
 
 #ifdef SPI_BRIDGE_DEBUG
-  if (e.source != CORBA_OBJECT_NIL)
-      s = Accessibility_Accessible__get_name (e.source, &ev);
   g_message ("Emitting event '%s' (%lu, %lu) on %s",
-	     e.type, e.detail1, e.detail2, s);
-  CORBA_free (s);
+	     e.type, e.detail1, e.detail2, e.source);
 #endif
-  CORBA_exception_init (&ev);
   registry = spi_atk_bridge_get_registry ();
   if (!registry_died)
     {
     bridge_threads_leave (); 
-    Accessibility_Registry_notifyEvent (registry, 
-                                        &e, &ev);
+#if 0	// TODO
+      if (!value) spi_dbus_notify_event (this_app->bus, registry, &e);
+    else
+    {
+      g_warning("TODO: support sending event with value");
+    }
+#endif
     bridge_threads_enter ();
 #ifdef SPI_BRIDGE_DEBUG
-    if (ev._major != CORBA_NO_EXCEPTION)
-        g_message ("error emitting event %s, (%d) %s",
-                   e.type,
-                   ev._major,
-                   CORBA_exception_id(&ev));
+    // TODO: display message for error
 #endif	      
-    if (BONOBO_EX (&ev)) registry_died = TRUE;
+    // TODO: check for error, set registry_died
     }
 
-  if (source)
-      bonobo_object_unref (BONOBO_OBJECT (source));
-  else
-      Bonobo_Unknown_unref (e.source, &ev);
-  
-  CORBA_exception_free (&ev);
-  
   g_free (e.type);
 
-  if (!any && e.any_data._release) CORBA_free (e.any_data._value);
-
-  if (any && any->_release) CORBA_free (any->_value);
-  
   va_end (args);
-
 }
 
 static gboolean
@@ -825,14 +740,13 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
 					const GValue *param_values,
 					gpointer data)
 {
+#if 0	// TODO
   AtkPropertyValues *values;
   GObject *gobject;
   const gchar *prop_name;
-  CORBA_any any;
   const gchar *sp = NULL;
   AtkObject *ao;
-  SpiAccessible *s_ao = NULL;
-  CORBA_Object c_obj;
+  char *s_ao = NULL;
   gint i;
   const gchar *name = NULL;
 
@@ -859,16 +773,12 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   prop_name = values->property_name;
   if (strcmp (prop_name, "accessible-name") == 0)
     {
-      spi_atk_bridge_init_string (&any, 
-				  ATK_OBJECT (gobject),
-				  (gchar **)&name);
+      g_value_set_string(value, name);
     }
   else if (strcmp (prop_name, "accessible-description") == 0)
     {
       sp = atk_object_get_description (ATK_OBJECT (gobject));
-      spi_atk_bridge_init_string (&any, 
-				  ATK_OBJECT (gobject),
-				  (gchar **)&sp);
+      g_value_set_string(value, sp);
     }
   else if (strcmp (prop_name, "accessible-parent") == 0)
     {
@@ -968,6 +878,7 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   if (s_ao) 
     bonobo_object_unref (BONOBO_OBJECT (s_ao));
 
+#endif
   return TRUE;
 }
 
@@ -977,6 +888,7 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 				     const GValue *param_values,
 				     gpointer data)
 {
+#if 0
   GObject *gobject;
   gchar *property_name;
   gchar *type;
@@ -1003,9 +915,11 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 		       type);
   g_free (property_name);
   g_free (type);
+#endif	// TODO
   return TRUE;
 }
 
+#if 0
 static void
 spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 				       AtkKeyEventStruct          *event)
@@ -1061,11 +975,13 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 	   keystroke->event_string, (int) keystroke->is_text, (unsigned long) keystroke->timestamp);
 #endif
 }
+#endif
 
 static gint
 spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
-  CORBA_boolean             result;
+  gboolean             result;
+#if 0
   Accessibility_DeviceEvent key_event;
 
   CORBA_exception_init (&ev);
@@ -1085,6 +1001,7 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
       CORBA_exception_free (&ev);
     }
 
+#endif
   return result;
 }
 
@@ -1094,12 +1011,11 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 				const GValue *param_values,
 				gpointer data)
 {
+#if 0
   GObject *gobject;
   GSignalQuery signal_query;
   const gchar *name;
   const gchar *detail;
-  CORBA_any any;
-  CORBA_Object c_obj;
   char *sp = NULL;
   AtkObject *ao;
   gint detail1 = 0, detail2 = 0;
@@ -1126,6 +1042,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   
   gobject = g_value_get_object (param_values + 0);
 
+xyzzy
   if (signal_query.signal_id == atk_signal_active_descendant_changed)
     {
       gpointer child = g_value_get_pointer (param_values + 1);
@@ -1215,6 +1132,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   if (s_ao)
      bonobo_object_unref (BONOBO_OBJECT (s_ao));
 
+#endif
   return TRUE;
 }
 
@@ -1224,6 +1142,7 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 				      const GValue *param_values,
 				      gpointer data)
 {
+#if 0
   GObject *gobject;
   GSignalQuery signal_query;
   CORBA_any any;
@@ -1250,6 +1169,7 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
   
   spi_atk_emit_eventv (gobject, 0, 0, &any,
 		       "window:%s", name);
+#endif
   return TRUE;
 }
 
@@ -1259,6 +1179,7 @@ spi_atk_bridge_document_event_listener (GSignalInvocationHint *signal_hint,
                                       const GValue *param_values,
                                       gpointer data)
 {
+#if 0
   GObject *gobject;
   GSignalQuery signal_query;
   CORBA_any any;
@@ -1285,12 +1206,14 @@ spi_atk_bridge_document_event_listener (GSignalInvocationHint *signal_hint,
 
   spi_atk_emit_eventv (gobject, 0, 0, &any,
                        "document:%s", name);
+#endif
   return TRUE;
 }
 
 static void
 spi_atk_tidy_windows (void)
 {
+#if 0
   AtkObject *root;
   gint n_children;
   gint i;
@@ -1321,16 +1244,18 @@ spi_atk_tidy_windows (void)
       spi_atk_emit_eventv (G_OBJECT (child), 0, 0, &any, "window:destroy");
       g_object_unref (child);
     }
+#endif
 }
 
 static void
 reinit_register_vars (void)
 {
-  registry = CORBA_OBJECT_NIL;
-  device_event_controller = CORBA_OBJECT_NIL;
+  registry = NULL;
+  device_event_controller = NULL;
   this_app = NULL;
 }
 
+#if 0
 static void
 spi_atk_bridge_init_base (CORBA_any *any, AtkObject *obj, 
 			  Accessibility_Application *app, Accessibility_Role *role,
@@ -1381,4 +1306,4 @@ spi_atk_bridge_init_rect (CORBA_any *any, AtkObject *obj, AtkRectangle *rect)
     spi_atk_bridge_init_base (any, obj, &app, &role, &name);
     spi_init_any_rect (any, app, role, name, rect);
 }
-
+#endif

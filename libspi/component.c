@@ -37,7 +37,7 @@ static AtkComponent *
 get_component_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_COMPONENT(obj))
     return NULL;
   return ATK_COMPONENT (obj);
 }
@@ -312,7 +312,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_component (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Component",
+  droute_add_interface (data, "org.freedesktop.atspi.Component",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_component_from_path,
 			NULL);

@@ -37,7 +37,7 @@ static AtkHypertext *
 get_hypertext_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_HYPERTEXT(obj))
     return NULL;
   return ATK_HYPERTEXT (obj);
 }
@@ -120,7 +120,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_hypertext (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Hypertext",
+  droute_add_interface (data, "org.freedesktop.atspi.Hypertext",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_hypertext_from_path,
 			NULL);

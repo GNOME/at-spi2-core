@@ -19,7 +19,7 @@
     Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.</p>
 </tp:license>
-<interface name="org.freedesktop.accessibility.Registry">
+<interface name="org.freedesktop.atspi.Registry">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The Registry is a service through which applications providing 
       accessibility services (servers) can rendezvous with consumers of those
@@ -466,7 +466,7 @@
   <tp:member type="s" tp:name="keystring"/>
   <tp:member type="i" tp:name="unused"/>
 </tp:struct>
-<interface name="org.freedesktop.accessibility.DeviceEventListener">
+<interface name="org.freedesktop.atspi.DeviceEventListener">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>This interface should be implemented by AT-SPI clients who wish to 
       make use of the DeviceEventController to receive device event notifications.
@@ -499,7 +499,7 @@
   <method name="unImplemented_6_">
   </method>
 </interface>
-<interface name="org.freedesktop.accessibility.DeviceEventController">
+<interface name="org.freedesktop.atspi.DeviceEventController">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The interface via which clients request notification of device events, and
       through which device events may be simulated.</p>

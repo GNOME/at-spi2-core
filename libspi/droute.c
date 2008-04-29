@@ -109,10 +109,12 @@ prop (DBusConnection * bus, DBusMessage * message, DRouteData * data)
   else
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   reply = dbus_message_new_method_return (message);
-  dbus_message_iter_init ((set ? reply : message), &iter);
+  dbus_message_iter_init (message, &iter);
   dbus_message_iter_get_basic (&iter, &iface);
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &member);
+  if (!set)
+    dbus_message_iter_init_append (reply, &iter);
   iface_def = find_iface (data, iface);
   if (!iface_def)
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
@@ -134,7 +136,7 @@ prop (DBusConnection * bus, DBusMessage * message, DRouteData * data)
       (*prop->get) (path, &iter, data->user_data);
     }
   dbus_connection_send (bus, reply, NULL);
-  dbus_message_unref (message);
+  dbus_message_unref (reply);
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
@@ -149,6 +151,7 @@ introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
   char *str;
   DBusMessage *reply;
   GSList *l;
+  void *datum;
 
   if (strcmp (dbus_message_get_member (message), "Introspect"))
     {
@@ -157,6 +160,7 @@ introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
   xml = g_string_new (NULL);
   /* below code stolen from dbus-glib */
   g_string_append (xml, DBUS_INTROSPECT_1_0_XML_DOCTYPE_DECL_NODE);
+  g_string_append_printf (xml, "<node name=\"%s\">\n", path);
 
   /* We are introspectable, though I guess that was pretty obvious */
   g_string_append_printf (xml, "  <interface name=\"%s\">\n",
@@ -207,14 +211,17 @@ introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
 
   g_string_append (xml, "    </method>\n");
   g_string_append (xml, "  </interface>\n");
-  g_string_append_printf (xml, "<node name=\"%s\">\n", path);
   /* end of stolen code */
 
   for (l = data->interfaces; l; l = g_slist_next (l))
     {
       iface_def = (DRouteInterface *) l->data;
-      if (!(*iface_def->get_datum) (path, data->user_data))
-	continue;
+      if (iface_def->get_datum)
+	{
+	  datum = (*iface_def->get_datum) (path, data->user_data);
+	  if (!datum)
+	    continue;
+	}
       g_string_append_printf (xml, "<interface name=\"%s\">\n",
 			      iface_def->name);
       if (iface_def->methods)
@@ -225,21 +232,30 @@ introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
 				    (method->type ==
 				     DROUTE_METHOD ? "method" : "signal"),
 				    method->name);
-	    g_string_append (xml, "<arg type=\"");
-	    g_string_append_len (xml, p, strcspn (p, ",:"));
-	    p += strcspn (p, ",");
-	    if (*p == ',')
-	      p++;
-	    g_string_append (xml, "\" name=\"");
-	    g_string_append_len (xml, p, strcspn (p, ",:"));
-	    p += strcspn (p, ",");
-	    if (*p == ',')
-	      p++;
-	    g_string_append_printf (xml, "\" direction=\"%s\"/>\n",
-				    (*p == 'o' ? "out" : "in"));
-	    p += strcspn (p, ":");
-	    if (*p == ':')
-	      p++;
+	    while (*p)
+	      {
+		g_string_append (xml, "<arg type=\"");
+		g_string_append_len (xml, p, strcspn (p, ",:"));
+		p += strcspn (p, ",");
+		if (*p == ',')
+		  p++;
+		if (strcspn (p, ",:") > 0)
+		  {
+		    g_string_append (xml, "\" name=\"");
+		    g_string_append_len (xml, p, strcspn (p, ",:"));
+		    p += strcspn (p, ",");
+		  }
+		if (*p == ',')
+		  p++;
+		g_string_append_printf (xml, "\" direction=\"%s\"/>\n",
+					(*p == 'o' ? "out" : "in"));
+		p += strcspn (p, ":");
+		if (*p == ':')
+		  p++;
+	      }
+	    g_string_append_printf (xml, "</%s>\n",
+				    (method->type ==
+				     DROUTE_METHOD ? "method" : "signal"));
 	  }
       if (iface_def->properties)
 	for (property = iface_def->properties; property->name; property++)
@@ -252,8 +268,15 @@ introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
 				    (property->get ? "read" : ""),
 				    (property->set ? "write" : ""));
 	  }
+      if (iface_def->free_datum)
+	(*iface_def->free_datum) (datum);
+      g_string_append (xml, "</interface>\n");
     }
-  (*data->introspect_children) (path, xml, data->user_data);
+  if (data->introspect_children)
+    {
+      (*data->introspect_children) (path, xml, data->user_data);
+    }
+  g_string_append (xml, "</node>\n");
   str = g_string_free (xml, FALSE);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -282,13 +305,13 @@ droute_message (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_error_init (&error);
   if (!member)
     return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-  if (iface && !strcmp (iface, "org.freedesktop.dbus.Properties"))
+  if (iface && !strcmp (iface, "org.freedesktop.DBus.Properties"))
     {
       if (!strcmp (member, "GetAll"))
 	return prop_get_all (bus, message, data);
       return prop (bus, message, data);
     }
-  else if (iface && !strcmp (iface, "org.freedesktop.dbus.Introspectable"))
+  else if (iface && !strcmp (iface, "org.freedesktop.DBus.Introspectable"))
     {
       return introspect (bus, message, data);
     }

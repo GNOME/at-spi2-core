@@ -1,4 +1,4 @@
-SUBDIRS=xml tools libspi
+SUBDIRS=xml tools libspi atk-bridge
 
 XMLSUB= \
 	Accessibility_Accessible.xml \

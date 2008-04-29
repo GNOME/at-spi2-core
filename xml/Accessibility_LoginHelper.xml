@@ -19,7 +19,7 @@
     Free Software Foundation, Inc., 59 Temple Place - Suite 330,
     Boston, MA 02111-1307, USA.</p>
 </tp:license>
-<interface name="org.freedesktop.accessibility.LoginHelper">
+<interface name="org.freedesktop.atspi.LoginHelper">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>@brief An interface for use by assistive technologies by which
       they can access system information and services on a 'need to know'

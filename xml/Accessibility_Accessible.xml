@@ -61,7 +61,7 @@
   </tp:docstring>
   </tp:member>
 </tp:struct>
-<interface name="org.freedesktop.accessibility.Accessible">
+<interface name="org.freedesktop.atspi.Accessible">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The base interface which is implemented by all accessible objects. 
       All objects support interfaces for querying their contained 'children' 

@@ -37,7 +37,7 @@ static AtkImage *
 get_image_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_IMAGE(obj))
     return NULL;
   return ATK_IMAGE (obj);
 }
@@ -175,7 +175,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_image (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Image", methods,
+  droute_add_interface (data, "org.freedesktop.atspi.Image", methods,
 			properties,
 			(DRouteGetDatumFunction) get_image_from_path, NULL);
 };

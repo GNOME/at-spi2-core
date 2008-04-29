@@ -37,7 +37,7 @@ static AtkSelection *
 get_selection_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || ~ATK_IS_SELECTION(obj))
     return NULL;
   return ATK_SELECTION (obj);
 }
@@ -273,7 +273,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_selection (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Selection",
+  droute_add_interface (data, "org.freedesktop.atspi.Selection",
 			methods, properties,
 			(DRouteGetDatumFunction) get_selection_from_path,
 			NULL);

@@ -7,7 +7,7 @@ libatk_bridge_la_SOURCES = 	\
 	bridge.c
 
 libatk_bridge_la_DEPENDENCIES =	\
-	$(top_srcdir)/libspi/application.h
+	$(top_srcdir)/libspi/accessible.h
 
 INCLUDES = -I $(top_srcdir) \
 	   -I $(top_builddir) \
@@ -22,9 +22,8 @@ INCLUDES = -I $(top_srcdir) \
 
 DEPS = 	\
 	$(libatk)	\
-	$(libbonobo-2)	\
-	$(liboaf-2)	\
-	$(libORBit-2)	\
+	$(libdbus-1) \
+	$(libdbus-glib-1) \
 	$(libat-spi)
 
 libatk_bridge_la_LDFLAGS =  	\

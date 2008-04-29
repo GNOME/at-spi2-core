@@ -37,7 +37,7 @@ static AtkHyperlink *
 get_hyperlink_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_HYPERLINK(obj))
     return NULL;
   return ATK_HYPERLINK (obj);
 }
@@ -186,7 +186,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_hyperlink (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Hyperlink",
+  droute_add_interface (data, "org.freedesktop.atspi.Hyperlink",
 			methods, properties,
 			(DRouteGetDatumFunction) get_hyperlink_from_path,
 			NULL);

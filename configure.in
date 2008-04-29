@@ -222,6 +222,7 @@ libspi-1.0-uninstalled.pc
 libloginhelper-1.0.pc
 cspi-1.0.pc
 cspi-1.0-uninstalled.pc
+atk-bridge/Makefile
 libspi/Makefile
 tools/Makefile
 xml/Makefile

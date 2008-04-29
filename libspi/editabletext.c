@@ -37,7 +37,7 @@ static AtkEditableText *
 get_editable_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_EDITABLE_TEXT(obj))
     return NULL;
   return ATK_EDITABLE_TEXT (obj);
 }
@@ -263,7 +263,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_editabletext (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.EditableText",
+  droute_add_interface (data, "org.freedesktop.atspi.EditableText",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_editable_from_path,
 			NULL);

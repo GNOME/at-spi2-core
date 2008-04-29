@@ -1,4 +1,3 @@
-
 /*
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
@@ -38,7 +37,7 @@ static AtkAction *
 get_action_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_ACTION(obj))
     return NULL;
   return ATK_ACTION (obj);
 }
@@ -117,7 +116,7 @@ DRouteMethod methods[] =
 void
 spi_initialize_action (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Action",
+  droute_add_interface (data, "org.freedesktop.atspi.Action",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_action_from_path,
 			NULL);

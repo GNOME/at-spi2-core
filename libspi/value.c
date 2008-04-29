@@ -29,7 +29,7 @@ static AtkValue *
 get_value_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_VALUE(obj))
     return NULL;
   return ATK_VALUE (obj);
 }
@@ -304,7 +304,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_value (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Value", NULL,
+  droute_add_interface (data, "org.freedesktop.atspi.Value", NULL,
 			properties,
 			(DRouteGetDatumFunction) get_value_from_path, NULL);
 };

@@ -37,19 +37,28 @@ deregister_object (gpointer obj)
 static guint
 register_object (AtkObject * obj)
 {
+  gint *new_int;
+
   if (!path2ptr)
     {
-      path2ptr = g_hash_table_new (g_int_hash, g_int_equal);
+      path2ptr = g_hash_table_new_full (g_int_hash, g_int_equal, g_free, NULL);
       if (!path2ptr)
 	return ++objindex;
     }
-  while (g_hash_table_lookup (path2ptr, (gpointer)++ objindex))
+  objindex++;
+  while (g_hash_table_lookup (path2ptr, &objindex))
     {
+      objindex++;
       /* g_object_get_data returning 0 means no data, so handle wrap-around */
       if (objindex == 0)
 	objindex++;
     }
-  g_hash_table_insert (path2ptr, (gpointer) objindex, obj);
+  new_int = (gint *)g_malloc(sizeof(gint));
+  if (new_int)
+  {
+    *new_int = objindex;
+    g_hash_table_insert (path2ptr, new_int, obj);
+  }
   g_object_set_data_full (G_OBJECT (obj), "dbus-id", (gpointer) objindex,
 			  deregister_object);
   return objindex;
@@ -62,14 +71,19 @@ spi_dbus_get_object (const char *path)
   void *data;
 
   g_assert (path);
+  if (strncmp(path, "/org/freedesktop/atspi/accessible", 33) != 0) return NULL;
+  path += 33;	/* skip over preamble */
+  if (path[0] == '\0') return atk_get_root();
+  if (path[0] != '/') return NULL;
+  path++;
   index = atoi (path);
-  data = g_hash_table_lookup (path2ptr, (gpointer) index);
+  data = g_hash_table_lookup (path2ptr, &index);
   if (data)
     return ATK_OBJECT (data);
   return NULL;
 }
 
-char *
+gchar *
 spi_dbus_get_path (AtkObject * obj)
 {
   guint index = (guint) g_object_get_data (G_OBJECT (obj), "dbus-id");
@@ -82,7 +96,7 @@ DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
 {
   return dbus_message_new_error (message,
-				 "org.freedesktop.accessibility.GeneralError",
+				 "org.freedesktop.atspi.GeneralError",
 				 "General error");
 }
 
@@ -165,6 +179,7 @@ spi_dbus_initialize (DRouteData * data)
   spi_initialize_image (data);
   spi_initialize_selection (data);
   spi_initialize_table (data);
+  spi_initialize_tree (data);
   spi_initialize_text (data);
   spi_initialize_value (data);
 }

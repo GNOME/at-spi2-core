@@ -37,7 +37,7 @@ static AtkDocument *
 get_document_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_DOCUMENT(obj))
     return NULL;
   return ATK_DOCUMENT (obj);
 }
@@ -144,7 +144,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_document (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Document",
+  droute_add_interface (data, "org.freedesktop.atspi.Document",
 			methods, NULL,
 			(DRouteGetDatumFunction) get_document_from_path,
 			NULL);

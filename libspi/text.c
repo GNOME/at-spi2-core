@@ -38,7 +38,7 @@ static AtkText *
 get_text_from_path (const char *path, void *user_data)
 {
   AtkObject *obj = spi_dbus_get_object (path);
-  if (!obj)
+  if (!obj || !ATK_IS_TEXT(obj))
     return NULL;
   return ATK_TEXT (obj);
 }
@@ -897,7 +897,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_text (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.accessibility.Text", methods,
+  droute_add_interface (data, "org.freedesktop.atspi.Text", methods,
 			properties,
 			(DRouteGetDatumFunction) get_text_from_path, NULL);
 };

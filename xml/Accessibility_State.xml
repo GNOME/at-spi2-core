@@ -313,7 +313,7 @@
   </tp:docstring>
   </tp:enumvalue>
 </tp:enum>
-<interface name="org.freedesktop.accessibility.StateSet">
+<interface name="org.freedesktop.atspi.StateSet">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The StateSet interface encapsulates a collection of state information.
       It allows comparison of state information between object instances, and comparisons

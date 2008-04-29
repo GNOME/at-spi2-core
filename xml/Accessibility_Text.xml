@@ -103,7 +103,7 @@
   </tp:docstring>
   </tp:enumvalue>
 </tp:enum>
-<interface name="org.freedesktop.accessibility.Text">
+<interface name="org.freedesktop.atspi.Text">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The text interface should be implemented by objects which place textual information onscreen as character
       strings or glyphs.  The text interface allows access to textual content, including display attributes and
