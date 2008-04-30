@@ -73,7 +73,7 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
   for (l = data->interfaces; l; l = g_slist_next (l))
     {
       DRouteInterface *iface_def = (DRouteInterface *) l->data;
-      void *datum;
+      void *datum = NULL;
       if (iface_def->get_datum)
 	{
 	  datum = (*iface_def->get_datum) (path, data->user_data);
@@ -134,34 +134,43 @@ spi_dbus_append_tree (DBusMessage * message, AtkObject * obj,
 }
 
 static DBusMessage *
-impl_getTree (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_getRoot (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
+  AtkObject *root = atk_get_root();
+  char *path;
   DBusMessage *reply;
-  AtkObject *root;
-  gchar *path;
 
-  root = atk_get_root ();
-  if (root)
-    path = spi_dbus_get_path (root);
+  if (root) path = spi_dbus_get_path(root);
   if (!root || !path)
     return spi_dbus_general_error (message);
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path,
 			    DBUS_TYPE_INVALID);
   g_free (path);
+  return reply;
+}
+
+static DBusMessage *
+impl_getTree (DBusConnection * bus, DBusMessage * message, void *user_data)
+{
+  DBusMessage *reply;
+  AtkObject *root = atk_get_root();
+
+  if (!root) return spi_dbus_general_error(message);
+  reply = dbus_message_new_method_return (message);
   spi_dbus_append_tree (reply, root, (DRouteData *) user_data);
   return reply;
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getTree, "getTree", "o,root,o:a(qooaoassus),tree,o",
-   TRUE},
+  {DROUTE_METHOD, impl_getRoot, "getRoot", "o,root,o" },
+  {DROUTE_METHOD, impl_getTree, "getTree", "a(qooaoassus),tree,o", TRUE},
   {0, NULL, NULL, NULL}
 };
 
 void
 spi_initialize_tree (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.AccessibleTree",
+  droute_add_interface (data, "org.freedesktop.atspi.Tree",
 			methods, NULL, NULL, NULL);
 };
