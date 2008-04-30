@@ -30,8 +30,9 @@ static dbus_bool_t
 spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
 			     DRouteData * data)
 {
-  DBusMessageIter iter_struct, iter_sub, iter_sub_array;
+  DBusMessageIter iter_struct, iter_sub_array;
   char *path = NULL;
+  char *path_parent;
   const char *name, *desc;
   dbus_uint16_t updating = 1;
   int i;
@@ -45,9 +46,11 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT16, &updating);
   path = spi_dbus_get_path (obj);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL,
-				    &iter_sub);
-  dbus_message_iter_open_container (&iter_sub, DBUS_TYPE_ARRAY, "o",
+  path_parent = spi_dbus_get_path (atk_object_get_parent(obj));
+  if (!path_parent) path_parent = g_strdup("/dev/null");
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
+  g_free(path_parent);
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o",
 				    &iter_sub_array);
   childcount = atk_object_get_n_accessible_children (obj);
   for (i = 0; i < childcount; i++)
@@ -63,9 +66,9 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
       if (child)
 	g_object_unref (child);
     }
-  if (!dbus_message_iter_close_container (&iter_sub, &iter_sub_array))
+  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub_array))
     goto oom;
-  dbus_message_iter_open_container (&iter_sub, DBUS_TYPE_ARRAY, "s",
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
 				    &iter_sub_array);
   for (l = data->interfaces; l; l = g_slist_next (l))
     {
@@ -82,20 +85,18 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
       if (iface_def->free_datum)
 	(*iface_def->free_datum) (datum);
     }
-  if (!dbus_message_iter_close_container (&iter_sub, &iter_sub_array))
+  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub_array))
     goto oom;
   name = atk_object_get_name (obj);
   if (!name)
     name = "";
-  dbus_message_iter_append_basic (&iter_sub, DBUS_TYPE_STRING, &name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
   role = spi_accessible_role_from_atk_role (atk_object_get_role (obj));
-  dbus_message_iter_append_basic (&iter_sub, DBUS_TYPE_UINT32, &role);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &role);
   desc = atk_object_get_description (obj);
   if (!desc)
     desc = "";
-  dbus_message_iter_append_basic (&iter_sub, DBUS_TYPE_STRING, &desc);
-  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub))
-    goto oom;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
   if (!dbus_message_iter_close_container (iter_array, &iter_struct))
     goto oom;
   for (i = 0; i < childcount; i++)
@@ -124,7 +125,7 @@ spi_dbus_append_tree (DBusMessage * message, AtkObject * obj,
   dbus_bool_t result;
 
   dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(qo(aoassus))",
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(qooaoassus)",
 				    &iter_array);
   result = spi_dbus_append_tree_helper (&iter_array, obj, data);
   if (result)
@@ -153,7 +154,7 @@ impl_getTree (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getTree, "getTree", "o,root,o:a(go(aoassus)),tree,o",
+  {DROUTE_METHOD, impl_getTree, "getTree", "o,root,o:a(qooaoassus),tree,o",
    TRUE},
   {0, NULL, NULL, NULL}
 };
