@@ -185,7 +185,7 @@ spi_app_init (AtkObject *root)
 {
   DBusError error;
   dbus_error_init(&error);
-  SpiAppData *ad = (SpiAppData *)malloc(sizeof(SpiAppData));
+  SpiAppData *ad = (SpiAppData *)calloc(sizeof(SpiAppData), 1);
   if (!ad) return NULL;
   ad->root = root;
   ad->bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
@@ -195,6 +195,8 @@ spi_app_init (AtkObject *root)
     free(ad);
     return NULL;
   }
+  //dbus_connection_set_exit_on_disconnect(ad->bus, FALSE);
+  //dbus_bus_register(ad->bus, &error);
   spi_dbus_initialize (&ad->droute);
   /* Below line for testing -- it should be removed once at-spi-registryd is working */
   if (dbus_bus_request_name(ad->bus, "org.freedesktop.at-spi.test", 0, &error)) printf("Got test name.\n");
@@ -718,7 +720,6 @@ oom:
 static void cache_dirty(AtkObject *obj, gboolean include_children)
 {
   // TODO: cache
-  printf("Dirty dirty: %p\n", obj);
 }
 
 static gboolean
