@@ -1025,7 +1025,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
           sp = atk_text_get_text (ATK_TEXT (obj),
 	    		          detail1,
 			          detail1+detail2);
-          emit(obj, sig_name, DBUS_TYPE_UINT32, detail1, DBUS_TYPE_UINT32, detail2, DBUS_TYPE_STRING, &sp, DBUS_TYPE_INVALID);
+          emit(obj, sig_name, DBUS_TYPE_UINT32, &detail1, DBUS_TYPE_UINT32, &detail2, DBUS_TYPE_STRING, &sp, DBUS_TYPE_INVALID);
         }
       else if (signal_query.signal_id == atk_signal_text_selection_changed)
         {
