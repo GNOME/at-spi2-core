@@ -26,6 +26,9 @@
 
 #define get_object(message) spi_dbus_get_object(dbus_message_get_path(message))
 
+#define TREE_UPDATE_ACCESSIBLE 0
+#define TREE_REMOVE_ACCESSIBLE 1
+
 static dbus_bool_t
 spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
 			     DRouteData * data)
@@ -34,7 +37,7 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
   char *path = NULL;
   char *path_parent;
   const char *name, *desc;
-  dbus_uint16_t updating = 1;
+  dbus_uint16_t updating = TREE_UPDATE_ACCESSIBLE;
   int i;
   dbus_uint32_t role;
 
