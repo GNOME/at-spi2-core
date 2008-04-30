@@ -199,7 +199,7 @@ spi_app_init (AtkObject *root)
   //dbus_bus_register(ad->bus, &error);
   spi_dbus_initialize (&ad->droute);
   /* Below line for testing -- it should be removed once at-spi-registryd is working */
-  if (dbus_bus_request_name(ad->bus, "org.freedesktop.at-spi.test", 0, &error)) printf("Got test name.\n");
+  if (dbus_bus_request_name(ad->bus, "test.atspi.tree", 0, &error)) printf("Got test name.\n");
   if (!dbus_connection_try_register_fallback (ad->bus, "/org/freedesktop/atspi", &droute_vtable, &ad->droute, &error))
   {
     printf("Couldn't register droute.\n");
@@ -946,6 +946,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   gint detail1 = 0, detail2 = 0;
   char *s_ao = NULL;
   gchar *sig_name;
+  char *p;
 #ifdef SPI_BRIDGE_DEBUG
   const gchar *s, *s2;
 #endif 
@@ -963,6 +964,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     detail = NULL;
     sig_name = g_strdup_printf("object_%s", name);
   }
+  while ((p = strchr(sig_name, '-')) != NULL) *p = '_';
 
 #ifdef SPI_BRIDGE_DEBUG
   s2 = g_type_name (G_OBJECT_TYPE (g_value_get_object (param_values + 0)));
