@@ -47,7 +47,7 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
   path = spi_dbus_get_path (obj);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
   path_parent = spi_dbus_get_path (atk_object_get_parent(obj));
-  if (!path_parent) path_parent = g_strdup("/dev/null");
+  if (!path_parent) path_parent = g_strdup("/");
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
   g_free(path_parent);
   dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o",
