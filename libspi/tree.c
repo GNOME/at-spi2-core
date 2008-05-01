@@ -30,8 +30,8 @@
 #define TREE_REMOVE_ACCESSIBLE 1
 
 static dbus_bool_t
-spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
-			     DRouteData * data)
+append_update (DBusMessageIter * iter_array, AtkObject * obj,
+			     dbus_bool_t include_children, DRouteData * data)
 {
   DBusMessageIter iter_struct, iter_sub_array;
   char *path = NULL;
@@ -102,13 +102,14 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
   if (!dbus_message_iter_close_container (iter_array, &iter_struct))
     goto oom;
+  if (!include_children) childcount = 0;
   for (i = 0; i < childcount; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (obj, i);
       dbus_bool_t result;
       if (!child)
 	continue;
-      result = spi_dbus_append_tree_helper (iter_array, child, data);
+      result = append_update (iter_array, child, TRUE, data);
       g_object_unref (child);
       if (!result)
 	goto oom;
@@ -117,6 +118,43 @@ spi_dbus_append_tree_helper (DBusMessageIter * iter_array, AtkObject * obj,
   return TRUE;
 oom:
   if (path) g_free(path);
+  return FALSE;
+}
+
+static dbus_bool_t
+append_remove (DBusMessageIter * iter_array, const char *path,
+			     DRouteData * data)
+{
+  DBusMessageIter iter_struct, iter_sub_array;
+  char *path_parent;
+  const char *name, *desc;
+  dbus_uint16_t updating = TREE_REMOVE_ACCESSIBLE;
+  dbus_uint32_t role;
+
+  dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
+				    &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT16, &updating);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  path_parent = "/";
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o",
+				    &iter_sub_array);
+  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub_array))
+    goto oom;
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
+				    &iter_sub_array);
+  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub_array))
+    goto oom;
+  name = "";
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
+  role = 0;
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &role);
+  desc = "";
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
+  if (!dbus_message_iter_close_container (iter_array, &iter_struct))
+    goto oom;
+  return TRUE;
+oom:
   return FALSE;
 }
 
@@ -130,7 +168,7 @@ spi_dbus_append_tree (DBusMessage * message, AtkObject * obj,
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(qooaoassus)",
 				    &iter_array);
-  result = spi_dbus_append_tree_helper (&iter_array, obj, data);
+  result = append_update (&iter_array, obj, TRUE, data);
   if (result)
     result = dbus_message_iter_close_container (&iter, &iter_array);
   return result;
@@ -177,3 +215,128 @@ spi_initialize_tree (DRouteData * data)
   droute_add_interface (data, "org.freedesktop.atspi.Tree",
 			methods, NULL, NULL, NULL);
 };
+
+static GHashTable *cache_list;
+
+#define UPDATE_NEW     1
+#define UPDATE_REFRESH 2
+#define UPDATE_REMOVE 3
+
+static int update_pending = 0;
+static gint update_pending_id;
+
+typedef struct
+{
+  DBusMessageIter iter;
+  DRouteData *droute;
+} CacheIterData;
+
+static void handle_cache_item(char *path, guint action, CacheIterData *d)
+{
+  AtkObject *obj;
+
+  switch (action)
+  {
+  case UPDATE_NEW:
+  case UPDATE_REFRESH:
+  default:
+    obj = spi_dbus_get_object(path);
+//printf("update %s\n", path);
+    append_update(&d->iter, obj, FALSE, d->droute);
+    break;
+  case UPDATE_REMOVE:
+//printf("remove: %s\n", path);
+    append_remove(&d->iter, path, d->droute);
+    break;
+  }
+  g_hash_table_remove(cache_list, path);
+  }
+
+gboolean spi_dbus_update_cache(DRouteData *data)
+{
+  DBusMessage *message;
+  DBusMessageIter iter;
+  CacheIterData d;
+
+  if (update_pending == 0) return FALSE;
+//printf("Sending cache\n");
+  message = dbus_message_new_signal("/org/freedesktop/atspi/tree", "org.freedesktop.atspi.Tree", "UpdateTree");
+  if (!message) goto done;
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(qooaoassus)",
+				    &d.iter);
+  d.droute = data;
+  do
+  {
+    /* This loop is needed because appending an item may cause new children
+     * to be registered and consequently added to the hash, so they, too,
+     * will need to be sent with the update */
+    update_pending = 0;
+    g_hash_table_foreach(cache_list, (GHFunc)handle_cache_item, &d);
+  } while (update_pending);
+  dbus_message_iter_close_container(&iter, &d.iter);
+  dbus_connection_send(data->bus, message, NULL);
+done:
+  return FALSE;
+}
+
+void spi_dbus_notify_change(AtkObject *obj, gboolean new, DRouteData *data)
+{
+  guint action = (new? UPDATE_NEW: UPDATE_REFRESH);
+  char *path = spi_dbus_get_path(obj);
+
+  if (!cache_list)
+  {
+    cache_list = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+    if (!cache_list)
+    {
+      g_free(path);
+      return;
+    }
+  }
+  if (g_hash_table_lookup(cache_list, path))
+  {
+    g_free(path);
+    return;
+  }
+//printf("change: %s\n", path);
+  g_hash_table_insert(cache_list, path, (gpointer)action);
+  if (update_pending != 2 && data)
+  {
+    update_pending_id = g_idle_add((GSourceFunc)spi_dbus_update_cache, data);
+    update_pending = 2;
+  }
+  else if (!update_pending) update_pending = 1;
+}
+
+void spi_dbus_notify_remove(AtkObject *obj, DRouteData *data)
+{
+  guint action = UPDATE_REMOVE;
+  guint cur_action;
+  gchar *path = spi_dbus_get_path(obj);
+
+//printf("notify remove: %s\n", path);
+  if (!cache_list)
+  {
+    g_free(path);
+    return;
+  }
+  cur_action = (guint)g_hash_table_lookup(cache_list, path);
+  if (cur_action == UPDATE_NEW)
+  {
+    /* No one knew that this object ever existed, so just remove it */
+//printf("Removing object from send queue\n");
+    g_hash_table_remove(cache_list, path);
+    g_free(path);
+  }
+  else
+  {
+    g_hash_table_insert(cache_list, path, (gpointer)action);
+    if (update_pending != 2 && data)
+    {
+      update_pending_id = g_idle_add((GSourceFunc)spi_dbus_update_cache, data);
+      update_pending = 2;
+    }
+    else if (!update_pending) update_pending = 1;
+  }
+}

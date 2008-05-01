@@ -41,4 +41,8 @@ dbus_bool_t spi_dbus_return_v_object(DBusMessageIter *iter, AtkObject *obj, int 
 
 void spi_dbus_initialize(DRouteData *data);
 
+/* tree.c */
+void spi_dbus_notify_change(AtkObject *obj, gboolean new, DRouteData *data);
+void spi_dbus_notify_remove(AtkObject *obj, DRouteData *data);
+gboolean spi_dbus_update_cache(DRouteData *data);
 #endif	/* _ATSPI_DBUS_H */
