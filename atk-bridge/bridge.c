@@ -48,7 +48,6 @@
 typedef struct _SpiAppData SpiAppData;
 struct _SpiAppData
 {
-  DBusConnection *bus;
   AtkObject *root;
   DRouteData droute;
 };
@@ -188,23 +187,23 @@ spi_app_init (AtkObject *root)
   SpiAppData *ad = (SpiAppData *)calloc(sizeof(SpiAppData), 1);
   if (!ad) return NULL;
   ad->root = root;
-  ad->bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
-  if (!ad->bus)
+  ad->droute.bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+  if (!ad->droute.bus)
   {
     g_warning("Couldn't connect to dbus: %s\n", error.message);
     free(ad);
     return NULL;
   }
-  //dbus_connection_set_exit_on_disconnect(ad->bus, FALSE);
-  //dbus_bus_register(ad->bus, &error);
+  //dbus_connection_set_exit_on_disconnect(ad->droute.bus, FALSE);
+  //dbus_bus_register(ad->droute.bus, &error);
   spi_dbus_initialize (&ad->droute);
   /* Below line for testing -- it should be removed once at-spi-registryd is working */
-  if (dbus_bus_request_name(ad->bus, "test.atspi.tree", 0, &error)) printf("Got test name.\n");
-  if (!dbus_connection_try_register_fallback (ad->bus, "/org/freedesktop/atspi", &droute_vtable, &ad->droute, &error))
+  if (dbus_bus_request_name(ad->droute.bus, "test.atspi.tree", 0, &error)) printf("Got test name.\n");
+  if (!dbus_connection_try_register_fallback (ad->droute.bus, "/org/freedesktop/atspi", &droute_vtable, &ad->droute, &error))
   {
-    printf("Couldn't register droute.\n");
+    g_warning("Couldn't register droute.\n");
   }
-  dbus_connection_setup_with_g_main(ad->bus, g_main_context_default());
+  dbus_connection_setup_with_g_main(ad->droute.bus, g_main_context_default());
   return ad;
 }
 
@@ -637,6 +636,7 @@ static void emit(AtkObject *object, const char *name, int first_arg_type, ...)
   DBusMessage *sig;
   char *path = spi_dbus_get_path(object);
 
+  spi_dbus_update_cache(&this_app->droute);
   sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", name);
   va_start(args, first_arg_type);
   if (first_arg_type != DBUS_TYPE_INVALID)
@@ -644,7 +644,7 @@ static void emit(AtkObject *object, const char *name, int first_arg_type, ...)
     dbus_message_append_args_valist(sig, first_arg_type, args);
   }
   va_end(args);
-  dbus_connection_send(this_app->bus, sig, NULL);
+  dbus_connection_send(this_app->droute.bus, sig, NULL);
   g_free(path);
   dbus_message_unref(sig);
 }
@@ -662,6 +662,7 @@ static void emit_property_change(AtkObject *object, const char *name, int type, 
   DBusMessageIter iter, sub;
   const char *type_as_string = NULL;
 
+  spi_dbus_update_cache(&this_app->droute);
   if (type == DBUS_TYPE_OBJECT_PATH)
   {
     type_as_string = "o";
@@ -680,7 +681,7 @@ static void emit_property_change(AtkObject *object, const char *name, int type, 
   dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, type_as_string, &sub);
   dbus_message_iter_append_basic(&sub, type, val);
   dbus_message_iter_close_container(&iter, &sub);
-  dbus_connection_send(this_app->bus, sig, NULL);
+  dbus_connection_send(this_app->droute.bus, sig, NULL);
   g_free(path);
   dbus_message_unref(sig);
 }
@@ -692,6 +693,7 @@ static void emit_rect(AtkObject *object, const char *name, AtkRectangle *rect)
   DBusMessageIter iter, sub;
   dbus_uint32_t x, y, width, height;
 
+  spi_dbus_update_cache(&this_app->droute);
   x = rect->x;
   y = rect->y;
   width = rect->width;
@@ -711,15 +713,10 @@ static void emit_rect(AtkObject *object, const char *name, AtkRectangle *rect)
       if (!dbus_message_iter_close_container (&iter, &sub))
 	goto oom;
     }
-  dbus_connection_send(this_app->bus, sig, NULL);
+  dbus_connection_send(this_app->droute.bus, sig, NULL);
 oom:
   g_free(path);
   dbus_message_unref(sig);
-}
-
-static void cache_dirty(AtkObject *obj, gboolean include_children)
-{
-  // TODO: cache
 }
 
 static gboolean
@@ -760,15 +757,15 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
   prop_name = values->property_name;
   if (strcmp (prop_name, "accessible-name") == 0)
     {
-      cache_dirty(obj, FALSE);
+      spi_dbus_notify_change(obj, FALSE, &this_app->droute);
     }
   else if (strcmp (prop_name, "accessible-description") == 0)
     {
-      cache_dirty(obj, FALSE);
+      spi_dbus_notify_change(obj, FALSE, &this_app->droute);
     }
   else if (strcmp (prop_name, "accessible-parent") == 0)
     {
-      cache_dirty(obj, FALSE);
+      spi_dbus_notify_change(obj, FALSE, &this_app->droute);
     }
   else if (strcmp (prop_name, "accessible-table-summary") == 0)
     {
@@ -838,6 +835,12 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 
   obj = ATK_OBJECT(g_value_get_object (param_values + 0));
   property_name = g_strdup (g_value_get_string (param_values + 1));
+  if (property_name && !strcmp(property_name, "defunct"))
+  {
+    /* Ignore this for now; we'll send a tree update to remove it when
+       the object goes away */
+    return;
+  }
   detail1 = (g_value_get_boolean (param_values + 2))
     ? 1 : 0;
   emit(obj, "StateChanged", DBUS_TYPE_STRING, &property_name, DBUS_TYPE_UINT32, &detail1, DBUS_TYPE_INVALID);
@@ -1005,7 +1008,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
     }
   else if ((signal_query.signal_id == atk_signal_children_changed) && obj)
     {
-      cache_dirty(obj, TRUE);
+      spi_dbus_notify_change(obj, FALSE, &this_app->droute);
     }
   else
     {

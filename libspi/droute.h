@@ -72,6 +72,7 @@ struct _DRouteInterface
 typedef struct _DRouteData DRouteData;
 struct _DRouteData
 {
+  DBusConnection *bus;
   GSList *interfaces;
   char (*introspect_children)(const char *, GString *, void *);
   void *user_data;
