@@ -23,14 +23,16 @@
 #include "accessible.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "dbus.h"
 
 static GHashTable *path2ptr;
 static guint objindex;
 
 static void
-deregister_object (gpointer obj)
+deregister_object (gpointer data, GObject *obj)
 {
+  spi_dbus_notify_remove(ATK_OBJECT(obj), NULL);
   g_hash_table_remove (path2ptr, &obj);
 }
 
@@ -59,8 +61,9 @@ register_object (AtkObject * obj)
     *new_int = objindex;
     g_hash_table_insert (path2ptr, new_int, obj);
   }
-  g_object_set_data_full (G_OBJECT (obj), "dbus-id", (gpointer) objindex,
-			  deregister_object);
+  g_object_set_data (G_OBJECT (obj), "dbus-id", (gpointer) objindex);
+  g_object_weak_ref(G_OBJECT(obj), deregister_object, NULL);
+  spi_dbus_notify_change(obj, TRUE, NULL);
   return objindex;
 }
 
