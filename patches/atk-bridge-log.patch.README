@@ -1,0 +1,12 @@
+This is a patch to the original CORBA-based atk-bridge that causes it to
+log events to standard error.  Events are counted, and an idle handler
+is added when an event is received that logs the number of events that
+have occurred since it was last called.  This allows one to analyze
+the number of events that a program generated along with the amount of
+consolidation that could theoretically be done by deferring the sending
+to an idle handler.
+
+Lines starting with "semi" track the number of events that
+could be combined if certain types of events break the flow
+(currently all events other than object:children-changed,
+object:property-change:accessible-praent, and object:state-changed).

@@ -1,0 +1,43 @@
+Index: atk-bridge/bridge.c
+===================================================================
+--- atk-bridge/bridge.c	(revision 1010)
++++ atk-bridge/bridge.c	(working copy)
+@@ -731,6 +731,17 @@
+   CORBA_exception_free (&ev);
+ }
+ 
++static gint evcount = 0, evcount_orig = 0, evcount_semi = 0;
++static gboolean have_idle = FALSE;
++
++gboolean theoretical_sig_dispatch(gpointer data)
++{
++  have_idle = FALSE;
++  printf("%s: idle: %d %d\n", atk_object_get_name(atk_get_root()), evcount - evcount_orig, evcount - evcount_semi);
++  evcount_orig = evcount_semi = evcount;
++  return FALSE;
++}
++
+ static void
+ spi_atk_emit_eventv (const GObject         *gobject,
+ 		     long                   detail1,
+@@ -791,6 +802,20 @@
+     bridge_threads_leave (); 
+     Accessibility_Registry_notifyEvent (registry, 
+                                         &e, &ev);
++  if (!strcmp(e.type, "object:children-changed:add") ||
++      !strcmp(e.type, "object:children-changed:remove") ||
++      !strcmp(e.type, "object:property-change:accessible-parent") ||
++      !strncmp(e.type, "object:state-change", 19) ||
++      !strcmp(e.type, "object:property-change:accessible-role"))
++  {
++  }
++  else
++  {
++    if (evcount - evcount_semi > 10) printf("%s: semi: %d %s\n", atk_object_get_name(atk_get_root()), evcount - evcount_semi, e.type);
++    evcount_semi = evcount;
++  }
++printf("%s: %d: %s: %p %d %d\n", atk_object_get_name(atk_get_root()), ++evcount, e.type, gobject, detail1, detail2);
++if (!have_idle) g_idle_add(theoretical_sig_dispatch, NULL); have_idle = TRUE;
+     bridge_threads_enter ();
+ #ifdef SPI_BRIDGE_DEBUG
+     if (ev._major != CORBA_NO_EXCEPTION)
