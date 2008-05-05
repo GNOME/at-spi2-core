@@ -45,4 +45,5 @@ void spi_dbus_initialize(DRouteData *data);
 void spi_dbus_notify_change(AtkObject *obj, gboolean new, DRouteData *data);
 void spi_dbus_notify_remove(AtkObject *obj, DRouteData *data);
 gboolean spi_dbus_update_cache(DRouteData *data);
+gboolean spi_dbus_object_is_known(AtkObject *obj);
 #endif	/* _ATSPI_DBUS_H */

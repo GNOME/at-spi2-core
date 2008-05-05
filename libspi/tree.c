@@ -26,9 +26,6 @@
 
 #define get_object(message) spi_dbus_get_object(dbus_message_get_path(message))
 
-#define TREE_UPDATE_ACCESSIBLE 0
-#define TREE_REMOVE_ACCESSIBLE 1
-
 static dbus_bool_t
 append_update (DBusMessageIter * iter_array, AtkObject * obj,
 			     dbus_bool_t include_children, DRouteData * data)
@@ -37,7 +34,6 @@ append_update (DBusMessageIter * iter_array, AtkObject * obj,
   char *path = NULL;
   char *path_parent;
   const char *name, *desc;
-  dbus_uint16_t updating = TREE_UPDATE_ACCESSIBLE;
   int i;
   dbus_uint32_t role;
 
@@ -46,7 +42,6 @@ append_update (DBusMessageIter * iter_array, AtkObject * obj,
 
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
 				    &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT16, &updating);
   path = spi_dbus_get_path (obj);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
   path_parent = spi_dbus_get_path (atk_object_get_parent(obj));
@@ -121,43 +116,6 @@ oom:
   return FALSE;
 }
 
-static dbus_bool_t
-append_remove (DBusMessageIter * iter_array, const char *path,
-			     DRouteData * data)
-{
-  DBusMessageIter iter_struct, iter_sub_array;
-  char *path_parent;
-  const char *name, *desc;
-  dbus_uint16_t updating = TREE_REMOVE_ACCESSIBLE;
-  dbus_uint32_t role;
-
-  dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
-				    &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT16, &updating);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-  path_parent = "/";
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
-  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o",
-				    &iter_sub_array);
-  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub_array))
-    goto oom;
-  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
-				    &iter_sub_array);
-  if (!dbus_message_iter_close_container (&iter_struct, &iter_sub_array))
-    goto oom;
-  name = "";
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
-  role = 0;
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &role);
-  desc = "";
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
-  if (!dbus_message_iter_close_container (iter_array, &iter_struct))
-    goto oom;
-  return TRUE;
-oom:
-  return FALSE;
-}
-
 dbus_bool_t
 spi_dbus_append_tree (DBusMessage * message, AtkObject * obj,
 		      DRouteData * data)
@@ -166,7 +124,7 @@ spi_dbus_append_tree (DBusMessage * message, AtkObject * obj,
   dbus_bool_t result;
 
   dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(qooaoassus)",
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassus)",
 				    &iter_array);
   result = append_update (&iter_array, obj, TRUE, data);
   if (result)
@@ -205,7 +163,7 @@ impl_getTree (DBusConnection * bus, DBusMessage * message, void *user_data)
 
 static DRouteMethod methods[] = {
   {DROUTE_METHOD, impl_getRoot, "getRoot", "o,root,o" },
-  {DROUTE_METHOD, impl_getTree, "getTree", "a(qooaoassus),tree,o", TRUE},
+  {DROUTE_METHOD, impl_getTree, "getTree", "a(ooaoassus),tree,o", TRUE},
   {0, NULL, NULL, NULL}
 };
 
@@ -229,6 +187,7 @@ typedef struct
 {
   DBusMessageIter iter;
   DRouteData *droute;
+  gboolean removing;
 } CacheIterData;
 
 static void handle_cache_item(char *path, guint action, CacheIterData *d)
@@ -240,13 +199,15 @@ static void handle_cache_item(char *path, guint action, CacheIterData *d)
   case UPDATE_NEW:
   case UPDATE_REFRESH:
   default:
+    if (d->removing) return;
     obj = spi_dbus_get_object(path);
 //printf("update %s\n", path);
     append_update(&d->iter, obj, FALSE, d->droute);
     break;
   case UPDATE_REMOVE:
 //printf("remove: %s\n", path);
-    append_remove(&d->iter, path, d->droute);
+    if (!d->removing) return;
+    dbus_message_iter_append_basic(&d->iter, DBUS_TYPE_OBJECT_PATH, &path);
     break;
   }
   g_hash_table_remove(cache_list, path);
@@ -263,9 +224,10 @@ gboolean spi_dbus_update_cache(DRouteData *data)
   message = dbus_message_new_signal("/org/freedesktop/atspi/tree", "org.freedesktop.atspi.Tree", "UpdateTree");
   if (!message) goto done;
   dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(qooaoassus)",
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassus)",
 				    &d.iter);
   d.droute = data;
+  d.removing = FALSE;
   do
   {
     /* This loop is needed because appending an item may cause new children
@@ -274,6 +236,10 @@ gboolean spi_dbus_update_cache(DRouteData *data)
     update_pending = 0;
     g_hash_table_foreach(cache_list, (GHFunc)handle_cache_item, &d);
   } while (update_pending);
+  dbus_message_iter_close_container(&iter, &d.iter);
+  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &d.iter);
+  d.removing = TRUE;
+  g_hash_table_foreach(cache_list, (GHFunc)handle_cache_item, &d);
   dbus_message_iter_close_container(&iter, &d.iter);
   dbus_connection_send(data->bus, message, NULL);
 done:
@@ -339,4 +305,14 @@ void spi_dbus_notify_remove(AtkObject *obj, DRouteData *data)
     }
     else if (!update_pending) update_pending = 1;
   }
+}
+
+gboolean spi_dbus_object_is_known(AtkObject *obj)
+{
+  guint cur_action;
+  char *path = spi_dbus_get_path(obj);
+  if (!path) return FALSE;
+  cur_action = (guint)g_hash_table_lookup(cache_list, path);
+  g_free(path);
+  return (cur_action != UPDATE_NEW);
 }

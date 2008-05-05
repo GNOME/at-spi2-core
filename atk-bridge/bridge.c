@@ -835,10 +835,13 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
 
   obj = ATK_OBJECT(g_value_get_object (param_values + 0));
   property_name = g_strdup (g_value_get_string (param_values + 1));
-  if (property_name && !strcmp(property_name, "defunct"))
+  /* Ignore defunct for now; we'll send a tree update to remove it when
+     the object goes away */
+  /* Also ignore state changes for objects not yet broadcast */
+  if ((property_name && !strcmp(property_name, "defunct")) ||
+      !spi_dbus_object_is_known(obj))
   {
-    /* Ignore this for now; we'll send a tree update to remove it when
-       the object goes away */
+    g_free(property_name);
     return;
   }
   detail1 = (g_value_get_boolean (param_values + 2))
