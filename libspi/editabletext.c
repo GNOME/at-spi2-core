@@ -246,18 +246,14 @@ impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_setTextContents, "setTextContents",
-   "s,newContents,i:b,,o"},
-  {DROUTE_METHOD, impl_insertText, "insertText",
-   "i,position,i:s,text,i:i,length,i:b,,o"},
-  {DROUTE_METHOD, impl_setAttributes, "setAttributes",
-   "s,attributes,i:i,startPos,i:i,endPos,i:b,,o"},
-  {DROUTE_METHOD, impl_copyText, "copyText", "i,startPos,i:i,endPos,i"},
-  {DROUTE_METHOD, impl_cutText, "cutText", "i,startPos,i:i,endPos,i:b,,o"},
-  {DROUTE_METHOD, impl_deleteText, "deleteText",
-   "i,startPos,i:i,endPos,i:b,,o"},
-  {DROUTE_METHOD, impl_pasteText, "pasteText", "i,position,i:b,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_setTextContents, "setTextContents"},
+  {impl_insertText, "insertText"},
+  {impl_setAttributes, "setAttributes"},
+  {impl_copyText, "copyText"},
+  {impl_cutText, "cutText"},
+  {impl_deleteText, "deleteText"},
+  {impl_pasteText, "pasteText"},
+  {NULL, NULL}
 };
 
 void

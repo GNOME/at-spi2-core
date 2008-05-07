@@ -53,14 +53,6 @@ impl_get_imageDescription (const char *path, DBusMessageIter * iter,
 				 atk_image_get_image_description (image));
 }
 
-static char *
-impl_get_imageDescription_str (void *datum)
-{
-  AtkImage *image = (AtkImage *) datum;
-  g_assert (ATK_IS_IMAGE (datum));
-  return g_strdup (atk_image_get_image_description (image));
-}
-
 static dbus_bool_t
 impl_get_imageLocale (const char *path, DBusMessageIter * iter,
 		      void *user_data)
@@ -69,14 +61,6 @@ impl_get_imageLocale (const char *path, DBusMessageIter * iter,
   if (!image)
     return FALSE;
   return droute_return_v_string (iter, atk_image_get_image_locale (image));
-}
-
-static char *
-impl_get_imageLocale_str (void *datum)
-{
-  AtkImage *image = (AtkImage *) datum;
-  g_assert (ATK_IS_IMAGE (datum));
-  return g_strdup (atk_image_get_image_locale (image));
 }
 
 static DBusMessage *
@@ -156,20 +140,16 @@ impl_getImageSize (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getImageExtents, "getImageExtents",
-   "n,coordType,i:(uuuu),,o"},
-  {DROUTE_METHOD, impl_getImagePosition, "getImagePosition",
-   "i,x,o:i,y,o:n,coordType,i"},
-  {DROUTE_METHOD, impl_getImageSize, "getImageSize", "i,width,o:i,height,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getImageExtents, "getImageExtents"},
+  {impl_getImagePosition, "getImagePosition"},
+  {impl_getImageSize, "getImageSize"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_imageDescription, impl_get_imageDescription_str, NULL, NULL,
-   "imageDescription", "s"},
-  {impl_get_imageLocale, impl_get_imageLocale_str, NULL, NULL, "imageLocale",
-   "s"},
-  {NULL, NULL, NULL, NULL, NULL, NULL}
+  {impl_get_imageDescription, NULL, "imageDescription"},
+  {impl_get_imageLocale, NULL, "imageLocale"},
+  {NULL, NULL, NULL}
 };
 
 void

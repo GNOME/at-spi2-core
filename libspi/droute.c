@@ -140,156 +140,6 @@ prop (DBusConnection * bus, DBusMessage * message, DRouteData * data)
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
-static DBusHandlerResult
-introspect (DBusConnection * bus, DBusMessage * message, DRouteData * data)
-{
-  const char *path = dbus_message_get_path (message);
-  GString *xml;
-  DRouteInterface *iface_def;
-  DRouteMethod *method;
-  DRouteProperty *property;
-  char *str;
-  DBusMessage *reply;
-  GSList *l;
-  void *datum;
-
-  if (strcmp (dbus_message_get_member (message), "Introspect"))
-    {
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
-  xml = g_string_new (NULL);
-  /* below code stolen from dbus-glib */
-  g_string_append (xml, DBUS_INTROSPECT_1_0_XML_DOCTYPE_DECL_NODE);
-  g_string_append_printf (xml, "<node name=\"%s\">\n", path);
-
-  /* We are introspectable, though I guess that was pretty obvious */
-  g_string_append_printf (xml, "  <interface name=\"%s\">\n",
-			  DBUS_INTERFACE_INTROSPECTABLE);
-  g_string_append (xml, "    <method name=\"Introspect\">\n");
-  g_string_append_printf (xml,
-			  "      <arg name=\"data\" direction=\"out\" type=\"%s\"/>\n",
-			  DBUS_TYPE_STRING_AS_STRING);
-  g_string_append (xml, "    </method>\n");
-  g_string_append (xml, "  </interface>\n");
-
-  /* We support get/set/getall properties */
-  g_string_append_printf (xml, "  <interface name=\"%s\">\n",
-			  DBUS_INTERFACE_PROPERTIES);
-  g_string_append (xml, "    <method name=\"Get\">\n");
-  g_string_append_printf (xml,
-			  "      <arg name=\"interface\" direction=\"in\" type=\"%s\"/>\n",
-			  DBUS_TYPE_STRING_AS_STRING);
-  g_string_append_printf (xml,
-			  "      <arg name=\"propname\" direction=\"in\" type=\"%s\"/>\n",
-			  DBUS_TYPE_STRING_AS_STRING);
-  g_string_append_printf (xml,
-			  "      <arg name=\"value\" direction=\"out\" type=\"%s\"/>\n",
-			  DBUS_TYPE_VARIANT_AS_STRING);
-  g_string_append (xml, "    </method>\n");
-  g_string_append (xml, "    <method name=\"Set\">\n");
-  g_string_append_printf (xml,
-			  "      <arg name=\"interface\" direction=\"in\" type=\"%s\"/>\n",
-			  DBUS_TYPE_STRING_AS_STRING);
-  g_string_append_printf (xml,
-			  "      <arg name=\"propname\" direction=\"in\" type=\"%s\"/>\n",
-			  DBUS_TYPE_STRING_AS_STRING);
-  g_string_append_printf (xml,
-			  "      <arg name=\"value\" direction=\"in\" type=\"%s\"/>\n",
-			  DBUS_TYPE_VARIANT_AS_STRING);
-  g_string_append (xml, "    </method>\n");
-  g_string_append (xml, "    <method name=\"GetAll\">\n");
-  g_string_append_printf (xml,
-			  "      <arg name=\"interface\" direction=\"in\" type=\"%s\"/>\n",
-			  DBUS_TYPE_STRING_AS_STRING);
-  g_string_append_printf (xml,
-			  "      <arg name=\"props\" direction=\"out\" type=\"%s\"/>\n",
-			  DBUS_TYPE_ARRAY_AS_STRING
-			  DBUS_DICT_ENTRY_BEGIN_CHAR_AS_STRING
-			  DBUS_TYPE_STRING_AS_STRING
-			  DBUS_TYPE_VARIANT_AS_STRING
-			  DBUS_DICT_ENTRY_END_CHAR_AS_STRING);
-
-  g_string_append (xml, "    </method>\n");
-  g_string_append (xml, "  </interface>\n");
-  /* end of stolen code */
-
-  for (l = data->interfaces; l; l = g_slist_next (l))
-    {
-      iface_def = (DRouteInterface *) l->data;
-      if (iface_def->get_datum)
-	{
-	  datum = (*iface_def->get_datum) (path, data->user_data);
-	  if (!datum)
-	    continue;
-	}
-      g_string_append_printf (xml, "<interface name=\"%s\">\n",
-			      iface_def->name);
-      if (iface_def->methods)
-	for (method = iface_def->methods; method->name; method++)
-	  {
-	    const char *p = method->arg_desc;
-	    g_string_append_printf (xml, "<%s name=\"%s\">\n",
-				    (method->type ==
-				     DROUTE_METHOD ? "method" : "signal"),
-				    method->name);
-	    while (*p)
-	      {
-		g_string_append (xml, "<arg type=\"");
-		g_string_append_len (xml, p, strcspn (p, ",:"));
-		p += strcspn (p, ",");
-		if (*p == ',')
-		  p++;
-		if (strcspn (p, ",:") > 0)
-		  {
-		    g_string_append (xml, "\" name=\"");
-		    g_string_append_len (xml, p, strcspn (p, ",:"));
-		    p += strcspn (p, ",");
-		  }
-		if (*p == ',')
-		  p++;
-		g_string_append_printf (xml, "\" direction=\"%s\"/>\n",
-					(*p == 'o' ? "out" : "in"));
-		p += strcspn (p, ":");
-		if (*p == ':')
-		  p++;
-	      }
-	    g_string_append_printf (xml, "</%s>\n",
-				    (method->type ==
-				     DROUTE_METHOD ? "method" : "signal"));
-	  }
-      if (iface_def->properties)
-	for (property = iface_def->properties; property->name; property++)
-	  {
-	    if (!property->get && !property->set)
-	      continue;
-	    g_string_append_printf (xml,
-				    "<property name=\"%s\" type=\"%s\" access=\"%s%s\"/>\n",
-				    property->name, property->type,
-				    (property->get ? "read" : ""),
-				    (property->set ? "write" : ""));
-	  }
-      if (iface_def->free_datum)
-	(*iface_def->free_datum) (datum);
-      g_string_append (xml, "</interface>\n");
-    }
-  if (data->introspect_children)
-    {
-      (*data->introspect_children) (path, xml, data->user_data);
-    }
-  g_string_append (xml, "</node>\n");
-  str = g_string_free (xml, FALSE);
-  reply = dbus_message_new_method_return (message);
-  if (reply)
-    {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &str,
-				DBUS_TYPE_INVALID);
-    }
-  g_free (str);
-  dbus_connection_send (bus, reply, NULL);
-  dbus_message_unref (reply);
-  return DBUS_HANDLER_RESULT_HANDLED;
-}
-
 DBusHandlerResult
 droute_message (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
@@ -311,25 +161,6 @@ droute_message (DBusConnection * bus, DBusMessage * message, void *user_data)
 	return prop_get_all (bus, message, data);
       return prop (bus, message, data);
     }
-  else if (iface && !strcmp (iface, "org.freedesktop.DBus.Introspectable"))
-    {
-      return introspect (bus, message, data);
-    }
-  else
-    {
-      int message_type = dbus_message_get_type (message);
-      switch (message_type)
-	{
-	case DBUS_MESSAGE_TYPE_METHOD_CALL:
-	  type = DROUTE_METHOD;
-	  break;
-	case DBUS_MESSAGE_TYPE_SIGNAL:
-	  type = DROUTE_SIGNAL;
-	  break;
-	default:
-	  return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-	}
-    }
   if (iface)
     {
       iface_def = find_iface (data, iface);
@@ -338,7 +169,7 @@ droute_message (DBusConnection * bus, DBusMessage * message, void *user_data)
       if (iface_def->methods)
 	for (method = iface_def->methods; method->func; method++)
 	  {
-	    if (method->type == type && !strcmp (method->name, member))
+	    if (!strcmp (method->name, member))
 	      {
 		reply =
 		  (*method->func) (bus, message,
@@ -364,7 +195,7 @@ droute_message (DBusConnection * bus, DBusMessage * message, void *user_data)
 	  if (iface_def->methods)
 	    for (method = iface_def->methods; method->func; method++)
 	      {
-		if (method->type == type && !strcmp (method->name, member))
+		if (!strcmp (method->name, member))
 		  {
 		    reply = (*method->func) (bus, message, data->user_data);
 		    if (reply)

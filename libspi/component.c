@@ -292,21 +292,18 @@ impl_getAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_contains, "contains",
-   "i,x,i:i,y,i:u,coord_type,i:b,,o"},
-  {DROUTE_METHOD, impl_getAccessibleAtPoint, "getAccessibleAtPoint",
-   "i,x,i:i,y,i:u,coord_type,i:o,,o"},
-  {DROUTE_METHOD, impl_getExtents, "getExtents", "u,coord_type,i:(uuuu),,o"},
-  {DROUTE_METHOD, impl_getPosition, "getPosition",
-   "i,x,o:i,y,o:u,coord_type,i"},
-  {DROUTE_METHOD, impl_getSize, "getSize", "i,width,o:i,height,o"},
-  {DROUTE_METHOD, impl_getLayer, "getLayer", "g,,o"},
-  {DROUTE_METHOD, impl_getMDIZOrder, "getMDIZOrder", "n,,o"},
-  {DROUTE_METHOD, impl_grabFocus, "grabFocus", "b,,o"},
-  //{ DROUTE_METHOD, impl_registerFocusHandler, "registerFocusHandler", "o,handler,i" },
-  //{ DROUTE_METHOD, impl_deregisterFocusHandler, "deregisterFocusHandler", "o,handler,i" },
-  {DROUTE_METHOD, impl_getAlpha, "getAlpha", "d,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_contains, "contains"},
+  {impl_getAccessibleAtPoint, "getAccessibleAtPoint"},
+  {impl_getExtents, "getExtents"},
+  {impl_getPosition, "getPosition"},
+  {impl_getSize, "getSize"},
+  {impl_getLayer, "getLayer"},
+  {impl_getMDIZOrder, "getMDIZOrder"},
+  {impl_grabFocus, "grabFocus"},
+  //{impl_registerFocusHandler, "registerFocusHandler"},
+  //{impl_deregisterFocusHandler, "deregisterFocusHandler"},
+  {impl_getAlpha, "getAlpha"},
+  {NULL, NULL}
 };
 
 void

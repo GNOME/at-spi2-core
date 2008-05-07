@@ -108,9 +108,9 @@ static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, voi
 
 DRouteMethod methods[] =
 {
-  { DROUTE_METHOD, impl_getActions, "getActions", "a(sss),,o" },
-  { DROUTE_METHOD, impl_doAction, "doAction", "i,index,i:b,,o" },
-  { 0, NULL, NULL, NULL }
+  {impl_getActions, "getActions"},
+  {impl_doAction, "doAction"},
+  {NULL, NULL }
 };
 
 void

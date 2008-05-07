@@ -42,13 +42,6 @@ impl_get_name (const char *path, DBusMessageIter * iter, void *user_data)
   return droute_return_v_string (iter, atk_object_get_name (object));
 }
 
-static char *
-impl_get_name_str (void *datum)
-{
-  g_assert (ATK_IS_OBJECT (datum));
-  return g_strdup (atk_object_get_name ((AtkObject *) datum));
-}
-
 static dbus_bool_t
 impl_set_name (const char *path, DBusMessageIter * iter, void *user_data)
 {
@@ -66,13 +59,6 @@ impl_get_description (const char *path, DBusMessageIter * iter,
   if (!object)
     return FALSE;
   return droute_return_v_string (iter, atk_object_get_description (object));
-}
-
-static char *
-impl_get_description_str (void *datum)
-{
-  g_assert (ATK_IS_OBJECT (datum));
-  return g_strdup (atk_object_get_description ((AtkObject *) datum));
 }
 
 static dbus_bool_t
@@ -96,13 +82,6 @@ impl_get_parent (const char *path, DBusMessageIter * iter, void *user_data)
 				   FALSE);
 }
 
-static char *
-impl_get_parent_str (void *datum)
-{
-  g_assert (ATK_IS_OBJECT (datum));
-  return spi_dbus_get_path (atk_object_get_parent ((AtkObject *) datum));
-}
-
 static dbus_bool_t
 impl_get_childCount (const char *path, DBusMessageIter * iter,
 		     void *user_data)
@@ -114,15 +93,6 @@ impl_get_childCount (const char *path, DBusMessageIter * iter,
   return droute_return_v_int32 (iter,
 				atk_object_get_n_accessible_children
 				(object));
-}
-
-static char *
-impl_get_childCount_str (void *datum)
-{
-  int count;
-  g_assert (ATK_IS_OBJECT (datum));
-  count = atk_object_get_n_accessible_children ((AtkObject *) datum);
-  return g_strdup_printf ("%d", count);
 }
 
 static DBusMessage *
@@ -615,27 +585,26 @@ impl_getApplication (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  //{ DROUTE_METHOD, impl_isEqual, "isEqual", "o,obj,i:b,,o" },
-  {DROUTE_METHOD, impl_getChildren, "getChildren", "ao,,o"},
-  {DROUTE_METHOD, impl_getIndexInParent, "getIndexInParent", "i,,o"},
-  //{ DROUTE_METHOD, impl_getRelationSet, "getRelationSet", "a{uao},,o" },
-  {DROUTE_METHOD, impl_getRole, "getRole", "u,,o"},
-  {DROUTE_METHOD, impl_getRoleName, "getRoleName", "s,,o"},
-  {DROUTE_METHOD, impl_getLocalizedRoleName, "getLocalizedRoleName", "s,,o"},
-  {DROUTE_METHOD, impl_getState, "getState", "o,,au"},
-  {DROUTE_METHOD, impl_getAttributes, "getAttributes", "as,,o"},
-  {DROUTE_METHOD, impl_getApplication, "getApplication", "o,,o"},
-  {0, NULL, NULL, NULL}
+  //{impl_isEqual, "isEqual"},
+  {impl_getChildren, "getChildren"},
+  {impl_getIndexInParent, "getIndexInParent"},
+  //{impl_getRelationSet, "getRelationSet"},,o" },
+  {impl_getRole, "getRole"},
+  {impl_getRoleName, "getRoleName"},
+  {impl_getLocalizedRoleName, "getLocalizedRoleName"},
+  {impl_getState, "getState"},
+  {impl_getAttributes, "getAttributes"},
+  {impl_getApplication, "getApplication"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_name, impl_get_name_str, impl_set_name, NULL, "name", "s"},
-  {impl_get_description, impl_get_description_str, impl_set_description, NULL,
-   "description", "s"},
-  {impl_get_parent, impl_get_parent_str, NULL, NULL, "parent", "o"},
-  //{ impl_get_childCount, impl_get_childCount_str, NULL, NULL, "childCount", "n" },
-  {NULL, impl_get_role_str, NULL, NULL, "role", "u"},
-  {NULL, NULL, NULL, NULL, NULL, NULL}
+  {impl_get_name, impl_set_name, "name"},
+  {impl_get_description, impl_set_description, "description"},
+  {impl_get_parent, NULL, "parent"},
+  //{impl_get_childCount, NULL, "childCount"},
+  //{NULL, NULL, NULL, "role"},
+  {NULL, NULL, NULL}
 };
 
 void

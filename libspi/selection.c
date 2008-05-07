@@ -251,23 +251,19 @@ impl_deselectChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getSelectedChild, "getSelectedChild",
-   "i,selectedChildIndex,i:o,,o"},
-  {DROUTE_METHOD, impl_selectChild, "selectChild", "i,childIndex,i:b,,o"},
-  {DROUTE_METHOD, impl_deselectSelectedChild, "deselectSelectedChild",
-   "i,selectedChildIndex,i:b,,o"},
-  {DROUTE_METHOD, impl_isChildSelected, "isChildSelected",
-   "i,childIndex,i:b,,o"},
-  {DROUTE_METHOD, impl_selectAll, "selectAll", "b,,o"},
-  {DROUTE_METHOD, impl_clearSelection, "clearSelection", "b,,o"},
-  {DROUTE_METHOD, impl_deselectChild, "deselectChild", "i,childIndex,i:b,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getSelectedChild, "getSelectedChild"},
+  {impl_selectChild, "selectChild"},
+  {impl_deselectSelectedChild, "deselectSelectedChild"},
+  {impl_isChildSelected, "isChildSelected"},
+  {impl_selectAll, "selectAll"},
+  {impl_clearSelection, "clearSelection"},
+  {impl_deselectChild, "deselectChild"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_nSelectedChildren, impl_get_nSelectedChildren_str, NULL, NULL,
-   "nSelectedChildren"},
-  {NULL, NULL, NULL, NULL, NULL}
+  {impl_get_nSelectedChildren, NULL, "nSelectedChildren"},
+  {NULL, NULL, NULL}
 };
 
 void

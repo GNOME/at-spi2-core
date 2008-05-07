@@ -51,13 +51,6 @@ impl_get_nRows (const char *path, DBusMessageIter * iter, void *user_data)
   return droute_return_v_int32 (iter, atk_table_get_n_rows (table));
 }
 
-static char *
-impl_get_nRows_str (void *datum)
-{
-  g_assert (ATK_IS_TABLE (datum));
-  return g_strdup_printf ("%d", atk_table_get_n_rows ((AtkTable *) datum));
-}
-
 static dbus_bool_t
 impl_get_nColumns (const char *path, DBusMessageIter * iter, void *user_data)
 {
@@ -65,13 +58,6 @@ impl_get_nColumns (const char *path, DBusMessageIter * iter, void *user_data)
   if (!table)
     return FALSE;
   return droute_return_v_int32 (iter, atk_table_get_n_columns (table));
-}
-
-static char *
-impl_get_nColumns_str (void *datum)
-{
-  g_assert (ATK_IS_TABLE (datum));
-  return g_strdup_printf ("%d", atk_table_get_n_columns ((AtkTable *) datum));
 }
 
 static dbus_bool_t
@@ -84,14 +70,6 @@ impl_get_caption (const char *path, DBusMessageIter * iter, void *user_data)
 				   FALSE);
 }
 
-static char *
-impl_get_caption_str (void *datum)
-{
-  AtkTable *table = (AtkTable *) datum;
-  g_assert (ATK_IS_TABLE (datum));
-  return spi_dbus_get_path (atk_table_get_caption (table));
-}
-
 static dbus_bool_t
 impl_get_summary (const char *path, DBusMessageIter * iter, void *user_data)
 {
@@ -100,14 +78,6 @@ impl_get_summary (const char *path, DBusMessageIter * iter, void *user_data)
     return FALSE;
   return spi_dbus_return_v_object (iter, atk_table_get_summary (table),
 				   FALSE);
-}
-
-static char *
-impl_get_summary_str (void *datum)
-{
-  AtkTable *table = (AtkTable *) datum;
-  g_assert (ATK_IS_TABLE (datum));
-  return spi_dbus_get_path (atk_table_get_summary (table));
 }
 
 static dbus_bool_t
@@ -125,18 +95,6 @@ impl_get_nSelectedRows (const char *path, DBusMessageIter * iter,
   return droute_return_v_int32 (iter, count);
 }
 
-static char *
-impl_get_nSelectedRows_str (void *datum)
-{
-  gint count;
-  gint *selected_rows = NULL;
-  g_assert (ATK_IS_TABLE (datum));
-  count = atk_table_get_selected_rows ((AtkTable *) datum, &selected_rows);
-  if (selected_rows)
-    g_free (selected_rows);
-  return g_strdup_printf ("%d", count);
-}
-
 static dbus_bool_t
 impl_get_nSelectedColumns (const char *path, DBusMessageIter * iter,
 			   void *user_data)
@@ -151,20 +109,6 @@ impl_get_nSelectedColumns (const char *path, DBusMessageIter * iter,
     g_free (selected_columns);
   return droute_return_v_int32 (iter, count);
 }
-
-static char *
-impl_get_nSelectedColumns_str (void *datum)
-{
-  gint count;
-  gint *selected_columns = NULL;
-  g_assert (ATK_IS_TABLE (datum));
-  count =
-    atk_table_get_selected_columns ((AtkTable *) datum, &selected_columns);
-  if (selected_columns)
-    g_free (selected_columns);
-  return g_strdup_printf ("%d", count);
-}
-
 
 static DBusMessage *
 impl_getAccessibleAt (DBusConnection * bus, DBusMessage * message,
@@ -725,51 +669,37 @@ impl_getRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getAccessibleAt, "getAccessibleAt",
-   "i,row,i:i,column,i:o,,o"},
-  {DROUTE_METHOD, impl_getIndexAt, "getIndexAt", "i,row,i:i,column,i:i,,o"},
-  {DROUTE_METHOD, impl_getRowAtIndex, "getRowAtIndex", "i,index,i:i,,o"},
-  {DROUTE_METHOD, impl_getColumnAtIndex, "getColumnAtIndex",
-   "i,index,i:i,,o"},
-  {DROUTE_METHOD, impl_getRowDescription, "getRowDescription",
-   "i,row,i:s,,o"},
-  {DROUTE_METHOD, impl_getColumnDescription, "getColumnDescription",
-   "i,column,i:s,,o"},
-  {DROUTE_METHOD, impl_getRowExtentAt, "getRowExtentAt",
-   "i,row,i:i,column,i:i,,o"},
-  {DROUTE_METHOD, impl_getColumnExtentAt, "getColumnExtentAt",
-   "i,row,i:i,column,i:i,,o"},
-  {DROUTE_METHOD, impl_getRowHeader, "getRowHeader", "i,row,i:o,,o"},
-  {DROUTE_METHOD, impl_getColumnHeader, "getColumnHeader", "i,column,i:o,,o"},
-  {DROUTE_METHOD, impl_getSelectedRows, "getSelectedRows", "ai,,o"},
-  {DROUTE_METHOD, impl_getSelectedColumns, "getSelectedColumns", "ai,,o"},
-  {DROUTE_METHOD, impl_isRowSelected, "isRowSelected", "i,row,i:b,,o"},
-  {DROUTE_METHOD, impl_isColumnSelected, "isColumnSelected",
-   "i,column,i:b,,o"},
-  {DROUTE_METHOD, impl_isSelected, "isSelected", "i,row,i:i,column,i:b,,o"},
-  {DROUTE_METHOD, impl_addRowSelection, "addRowSelection", "i,row,i:b,,o"},
-  {DROUTE_METHOD, impl_addColumnSelection, "addColumnSelection",
-   "i,column,i:b,,o"},
-  {DROUTE_METHOD, impl_removeRowSelection, "removeRowSelection",
-   "i,row,i:b,,o"},
-  {DROUTE_METHOD, impl_removeColumnSelection, "removeColumnSelection",
-   "i,column,i:b,,o"},
-  {DROUTE_METHOD, impl_getRowColumnExtentsAtIndex,
-   "getRowColumnExtentsAtIndex",
-   "i,index,i:i,row,o:i,col,o:i,row_extents,o:i,col_extents,o:b,is_selected,o:b,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getAccessibleAt, "getAccessibleAt"},
+  {impl_getIndexAt, "getIndexAt"},
+  {impl_getRowAtIndex, "getRowAtIndex"},
+  {impl_getColumnAtIndex, "getColumnAtIndex"},
+  {impl_getRowDescription, "getRowDescription"},
+  {impl_getColumnDescription, "getColumnDescription"},
+  {impl_getRowExtentAt, "getRowExtentAt"},
+  {impl_getColumnExtentAt, "getColumnExtentAt"},
+  {impl_getRowHeader, "getRowHeader"},
+  {impl_getColumnHeader, "getColumnHeader"},
+  {impl_getSelectedRows, "getSelectedRows"},
+  {impl_getSelectedColumns, "getSelectedColumns"},
+  {impl_isRowSelected, "isRowSelected"},
+  {impl_isColumnSelected, "isColumnSelected"},
+  {impl_isSelected, "isSelected"},
+  {impl_addRowSelection, "addRowSelection"},
+  {impl_addColumnSelection, "addColumnSelection"},
+  {impl_removeRowSelection, "removeRowSelection"},
+  {impl_removeColumnSelection, "removeColumnSelection"},
+  {impl_getRowColumnExtentsAtIndex, "getRowColumnExtentsAtIndex"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_nRows, impl_get_nRows_str, NULL, NULL, "nRows", "i"},
-  {impl_get_nColumns, impl_get_nColumns_str, NULL, NULL, "nColumns", "i"},
-  {impl_get_caption, impl_get_caption_str, NULL, NULL, "caption", "o"},
-  {impl_get_summary, impl_get_summary_str, NULL, NULL, "summary", "o"},
-  {impl_get_nSelectedRows, impl_get_nSelectedRows_str, NULL, NULL,
-   "nSelectedRows", "i"},
-  {impl_get_nSelectedColumns, impl_get_nSelectedColumns_str, NULL, NULL,
-   "nSelectedColumns", "i"},
-  {NULL, NULL, NULL, NULL, NULL, NULL}
+  {impl_get_nRows, NULL, "nRows"},
+  {impl_get_nColumns, NULL, "nColumns"},
+  {impl_get_caption, NULL, "caption"},
+  {impl_get_summary, NULL, "summary"},
+  {impl_get_nSelectedRows, NULL, "nSelectedRows"},
+  {impl_get_nSelectedColumns, NULL, "nSelectedColumns"},
+  {NULL, NULL, NULL}
 };
 
 void

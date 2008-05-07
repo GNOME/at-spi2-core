@@ -51,14 +51,6 @@ impl_get_nAnchors (const char *path, DBusMessageIter * iter, void *user_data)
   return droute_return_v_int32 (iter, atk_hyperlink_get_n_anchors (link));
 }
 
-static char *
-impl_get_nAnchors_str (void *datum)
-{
-  g_assert (ATK_IS_HYPERLINK (datum));
-  return g_strdup_printf ("%d",
-			  atk_hyperlink_get_n_anchors ((AtkHyperlink *)
-						       datum));
-}
 
 static dbus_bool_t
 impl_get_startIndex (const char *path, DBusMessageIter * iter,
@@ -70,15 +62,6 @@ impl_get_startIndex (const char *path, DBusMessageIter * iter,
   return droute_return_v_int32 (iter, atk_hyperlink_get_start_index (link));
 }
 
-static char *
-impl_get_startIndex_str (void *datum)
-{
-  g_assert (ATK_IS_HYPERLINK (datum));
-  return g_strdup_printf ("%d",
-			  atk_hyperlink_get_start_index ((AtkHyperlink *)
-							 datum));
-}
-
 static dbus_bool_t
 impl_get_endIndex (const char *path, DBusMessageIter * iter, void *user_data)
 {
@@ -86,15 +69,6 @@ impl_get_endIndex (const char *path, DBusMessageIter * iter, void *user_data)
   if (!link)
     return FALSE;
   return droute_return_v_int32 (iter, atk_hyperlink_get_end_index (link));
-}
-
-static char *
-impl_get_endIndex_str (void *datum)
-{
-  g_assert (ATK_IS_HYPERLINK (datum));
-  return g_strdup_printf ("%d",
-			  atk_hyperlink_get_end_index ((AtkHyperlink *)
-						       datum));
 }
 
 static DBusMessage *
@@ -170,17 +144,17 @@ impl_isValid (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getObject, "getObject", "i,i,i:o,,o"},
-  {DROUTE_METHOD, impl_getURI, "getURI", "i,i,i:s,,o"},
-  {DROUTE_METHOD, impl_isValid, "isValid", "b,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getObject, "getObject"},
+  {impl_getURI, "getURI"},
+  {impl_isValid, "isValid"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_nAnchors, impl_get_nAnchors_str, NULL, NULL, "nAnchors"},
-  {impl_get_startIndex, impl_get_startIndex_str, NULL, NULL, "startIndex"},
-  {impl_get_endIndex, impl_get_endIndex_str, NULL, NULL, "endIndex"},
-  {NULL, NULL, NULL, NULL, NULL}
+  {impl_get_nAnchors, NULL, "nAnchors"},
+  {impl_get_startIndex, NULL, "startIndex"},
+  {impl_get_endIndex, NULL, "endIndex"},
+  {NULL, NULL, NULL}
 };
 
 void

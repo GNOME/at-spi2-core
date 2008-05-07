@@ -110,11 +110,10 @@ impl_getLinkIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getNLinks, "getNLinks", "i,,o"},
-  {DROUTE_METHOD, impl_getLink, "getLink", "i,linkIndex,i:o,,o"},
-  {DROUTE_METHOD, impl_getLinkIndex, "getLinkIndex",
-   "i,characterIndex,i:i,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getNLinks, "getNLinks"},
+  {impl_getLink, "getLink"},
+  {impl_getLinkIndex, "getLinkIndex"},
+  {NULL, NULL}
 };
 
 void

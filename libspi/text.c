@@ -53,15 +53,6 @@ impl_get_characterCount (const char *path, DBusMessageIter * iter,
   return droute_return_v_int32 (iter, atk_text_get_character_count (text));
 }
 
-static char *
-impl_get_characterCount_str (void *datum)
-{
-  g_assert (ATK_IS_TEXT (datum));
-
-  return g_strdup_printf ("%d",
-			  atk_text_get_character_count ((AtkText *) datum));
-}
-
 static dbus_bool_t
 impl_get_caretOffset (const char *path, DBusMessageIter * iter,
 		      void *user_data)
@@ -70,15 +61,6 @@ impl_get_caretOffset (const char *path, DBusMessageIter * iter,
   if (!text)
     return FALSE;
   return droute_return_v_int32 (iter, atk_text_get_caret_offset (text));
-}
-
-static char *
-impl_get_caretOffset_str (void *datum)
-{
-  g_assert (ATK_IS_TEXT (datum));
-
-  return g_strdup_printf ("%d",
-			  atk_text_get_caret_offset ((AtkText *) datum));
 }
 
 static DBusMessage *
@@ -848,50 +830,32 @@ impl_getDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getText, "getText",
-   "i,startOffset,i:i,endOffset,i:s,,o"},
-  {DROUTE_METHOD, impl_setCaretOffset, "setCaretOffset", "i,offset,i:b,,o"},
-  {DROUTE_METHOD, impl_getTextBeforeOffset, "getTextBeforeOffset",
-   "i,offset,i:u,type,i:i,startOffset,o:i,endOffset,o:s,,o"},
-  {DROUTE_METHOD, impl_getTextAtOffset, "getTextAtOffset",
-   "i,offset,i:u,type,i:i,startOffset,o:i,endOffset,o:s,,o"},
-  {DROUTE_METHOD, impl_getTextAfterOffset, "getTextAfterOffset",
-   "i,offset,i:u,type,i:i,startOffset,o:i,endOffset,o:s,,o"},
-  {DROUTE_METHOD, impl_getAttributeValue, "getAttributeValue",
-   "i,offset,i:s,attributeName,i:i,startOffset,o:i,endOffset,o:b,defined,o:s,,o"},
-  {DROUTE_METHOD, impl_getAttributes, "getAttributes",
-   "i,offset,i:i,startOffset,o:i,endOffset,o:s,,o"},
-  {DROUTE_METHOD, impl_getDefaultAttributes, "getDefaultAttributes", "s,,o"},
-  {DROUTE_METHOD, impl_getCharacterExtents, "getCharacterExtents",
-   "i,offset,i:i,x,o:i,y,o:i,width,o:i,height,o:u,coordType,i"},
-  {DROUTE_METHOD, impl_getOffsetAtPoint, "getOffsetAtPoint",
-   "i,x,i:i,y,i:u,coordType,i:i,,o"},
-  {DROUTE_METHOD, impl_getNSelections, "getNSelections", "i,,o"},
-  {DROUTE_METHOD, impl_getSelection, "getSelection",
-   "i,selectionNum,i:i,startOffset,o:i,endOffset,o"},
-  {DROUTE_METHOD, impl_addSelection, "addSelection",
-   "i,startOffset,i:i,endOffset,i:b,,o"},
-  {DROUTE_METHOD, impl_removeSelection, "removeSelection",
-   "i,selectionNum,i:b,,o"},
-  {DROUTE_METHOD, impl_setSelection, "setSelection",
-   "i,selectionNum,i:i,startOffset,i:i,endOffset,i:b,,o"},
-  {DROUTE_METHOD, impl_getRangeExtents, "getRangeExtents",
-   "i,startOffset,i:i,endOffset,i:i,x,o:i,y,o:i,width,o:i,height,o:u,coordType,i"},
-  {DROUTE_METHOD, impl_getBoundedRanges, "getBoundedRanges",
-   "i,x,i:i,y,i:i,width,i:i,height,i:u,coordType,i:u,xClipType,i:u,yClipType,i:a(iisv),,o"},
-  {DROUTE_METHOD, impl_getAttributeRun, "getAttributeRun",
-   "i,offset,i:i,startOffset,o:i,endOffset,o:b,includeDefaults,i:as,,o"},
-  {DROUTE_METHOD, impl_getDefaultAttributeSet, "getDefaultAttributeSet",
-   "as,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getText, "getText"},
+  {impl_setCaretOffset, "setCaretOffset"},
+  {impl_getTextBeforeOffset, "getTextBeforeOffset"},
+  {impl_getTextAtOffset, "getTextAtOffset"},
+  {impl_getTextAfterOffset, "getTextAfterOffset"},
+  {impl_getAttributeValue, "getAttributeValue"},
+  {impl_getAttributes, "getAttributes"},
+  {impl_getDefaultAttributes, "getDefaultAttributes"},
+  {impl_getCharacterExtents, "getCharacterExtents"},
+  {impl_getOffsetAtPoint, "getOffsetAtPoint"},
+  {impl_getNSelections, "getNSelections"},
+  {impl_getSelection, "getSelection"},
+  {impl_addSelection, "addSelection"},
+  {impl_removeSelection, "removeSelection"},
+  {impl_setSelection, "setSelection"},
+  {impl_getRangeExtents, "getRangeExtents"},
+  {impl_getBoundedRanges, "getBoundedRanges"},
+  {impl_getAttributeRun, "getAttributeRun"},
+  {impl_getDefaultAttributeSet, "getDefaultAttributeSet"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_characterCount, impl_get_characterCount_str, NULL, NULL,
-   "characterCount", "i"},
-  {impl_get_caretOffset, impl_get_caretOffset_str, NULL, NULL, "caretOffset",
-   "i"},
-  {NULL, NULL, NULL, NULL, NULL, NULL}
+  {impl_get_characterCount, NULL, "characterCount"},
+  {impl_get_caretOffset, NULL, "caretOffset"},
+  {NULL, NULL, NULL}
 };
 
 void

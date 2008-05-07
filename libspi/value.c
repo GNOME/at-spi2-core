@@ -192,17 +192,6 @@ impl_get_minimumValue (const char *path, DBusMessageIter * iter,
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
 }
 
-static char *
-impl_get_minimumValue_str (void *datum)
-{
-  AtkValue *value = (AtkValue *) datum;
-  GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
-  atk_value_get_minimum_value (value, &gvalue);
-  return g_strdup_printf ("%lf", get_double_from_gvalue (&gvalue));
-}
-
 static dbus_bool_t
 impl_get_maximumValue (const char *path, DBusMessageIter * iter,
 		       void *user_data)
@@ -213,17 +202,6 @@ impl_get_maximumValue (const char *path, DBusMessageIter * iter,
     return FALSE;
   atk_value_get_maximum_value (value, &gvalue);
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
-}
-
-static char *
-impl_get_maximumValue_str (void *datum)
-{
-  AtkValue *value = (AtkValue *) datum;
-  GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
-  atk_value_get_maximum_value (value, &gvalue);
-  return g_strdup_printf ("%lf", get_double_from_gvalue (&gvalue));
 }
 
 static dbus_bool_t
@@ -238,17 +216,6 @@ impl_get_minimumIncrement (const char *path, DBusMessageIter * iter,
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
 }
 
-static char *
-impl_get_minimumIncrement_str (void *datum)
-{
-  AtkValue *value = (AtkValue *) datum;
-  GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
-  atk_value_get_minimum_value (value, &gvalue);
-  return g_strdup_printf ("%lf", get_double_from_gvalue (&gvalue));
-}
-
 static dbus_bool_t
 impl_get_currentValue (const char *path, DBusMessageIter * iter,
 		       void *user_data)
@@ -259,17 +226,6 @@ impl_get_currentValue (const char *path, DBusMessageIter * iter,
     return FALSE;
   atk_value_get_current_value (value, &gvalue);
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
-}
-
-static char *
-impl_get_currentValue_str (void *datum)
-{
-  AtkValue *value = (AtkValue *) datum;
-  GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
-  atk_value_get_current_value (value, &gvalue);
-  return g_strdup_printf ("%lf", get_double_from_gvalue (&gvalue));
 }
 
 static dbus_bool_t
@@ -290,15 +246,11 @@ impl_set_currentValue (const char *path, DBusMessageIter * iter,
 }
 
 static DRouteProperty properties[] = {
-  {impl_get_minimumValue, impl_get_minimumValue_str, NULL, NULL,
-   "minimumValue", "d"},
-  {impl_get_maximumValue, impl_get_maximumValue_str, NULL, NULL,
-   "maximumValue", "d"},
-  {impl_get_minimumIncrement, impl_get_minimumIncrement_str, NULL, NULL,
-   "minimumIncrement", "d"},
-  {impl_get_currentValue, impl_get_currentValue_str, impl_set_currentValue,
-   NULL, "currentValue", "d"},
-  {NULL, NULL, NULL, NULL, NULL, NULL}
+  {impl_get_minimumValue, NULL, "minimumValue"},
+  {impl_get_maximumValue, NULL, "maximumValue"},
+  {impl_get_minimumIncrement, NULL, "minimumIncrement"},
+  {impl_get_currentValue, impl_set_currentValue, "currentValue"},
+  {NULL, NULL, NULL}
 };
 
 void

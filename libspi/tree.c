@@ -162,9 +162,9 @@ impl_getTree (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getRoot, "getRoot", "o,root,o" },
-  {DROUTE_METHOD, impl_getTree, "getTree", "a(ooaoassus),tree,o", TRUE},
-  {0, NULL, NULL, NULL}
+  {impl_getRoot, "getRoot"},
+  {impl_getTree, "getTree", TRUE},
+  {NULL, NULL}
 };
 
 void

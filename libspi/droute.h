@@ -30,18 +30,12 @@
 
 typedef DBusMessage *(*DRouteFunction)(DBusConnection *, DBusMessage *, void *);
 typedef dbus_bool_t (*DRoutePropertyFunction)(const char *, DBusMessageIter *, void *);
-typedef char *(*DRoutePropertyStrFunction)(void *);
 
 typedef struct _DRouteMethod DRouteMethod;
 struct _DRouteMethod
 {
-  /* DROUTE_(METHOD|SIGNAL) */
-  int type;
   DRouteFunction func;
   const char *name;
-  /* arg_desc contains argument information used for introspection.
-   * It is a colon-delimited string of type,name,dir values */
-  const char *arg_desc;
   dbus_bool_t wants_droute_data;
 };
 
@@ -49,11 +43,8 @@ typedef struct _DRouteProperty DRouteProperty;
 struct _DRouteProperty
 {
   DRoutePropertyFunction get;
-  DRoutePropertyStrFunction get_str;
   DRoutePropertyFunction set;
-  DRoutePropertyStrFunction set_str;
   const char *name;
-  const char *type;
 };
 
   typedef void *(*DRouteGetDatumFunction)(const char *, void *);

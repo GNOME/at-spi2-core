@@ -31,22 +31,10 @@ impl_get_toolkitName (const char *path, DBusMessageIter * iter,
   return droute_return_v_string (iter, atk_get_toolkit_name ());
 }
 
-static char *
-impl_get_toolkitName_str (void *datum)
-{
-  return g_strdup (atk_get_toolkit_name ());
-}
-
 static dbus_bool_t
 impl_get_version (const char *path, DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_string (iter, atk_get_toolkit_version ());
-}
-
-static char *
-impl_get_version_str (void *datum)
-{
-  return g_strdup (atk_get_toolkit_version ());
 }
 
 static dbus_int32_t id;
@@ -55,12 +43,6 @@ static dbus_bool_t
 impl_get_id (const char *path, DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_int32 (iter, id);
-}
-
-static char *
-impl_get_id_str (void *datum)
-{
-  return g_strdup_printf ("%d", id);
 }
 
 static dbus_bool_t
@@ -74,46 +56,48 @@ static DBusMessage *
 impl_registerToolkitEventListener (DBusConnection * bus,
 				   DBusMessage * message, void *user_data)
 {
+  return NULL;
 }
 
 static DBusMessage *
 impl_registerObjectEventListener (DBusConnection * bus, DBusMessage * message,
 				  void *user_data)
 {
+  return NULL;
 }
 
 static DBusMessage *
 impl_pause (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
+  return NULL;
 }
 
 static DBusMessage *
 impl_resume (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
+  return NULL;
 }
 
 static DBusMessage *
 impl_getLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
+  return NULL;
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_registerToolkitEventListener,
-   "registerToolkitEventListener", "o,listener,i:s,eventName,i"},
-  {DROUTE_METHOD, impl_registerObjectEventListener,
-   "registerObjectEventListener", "o,listener,i:s,eventName,i"},
-  {DROUTE_METHOD, impl_pause, "pause", "b,,o"},
-  {DROUTE_METHOD, impl_resume, "resume", "b,,o"},
-  {DROUTE_METHOD, impl_getLocale, "getLocale", "u,lctype,i:s,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_registerToolkitEventListener, "registerToolkitEventListener"},
+  {impl_registerObjectEventListener, "registerObjectEventListener"},
+  {impl_pause, "pause"},
+  {impl_resume, "resume"},
+  {impl_getLocale, "getLocale"},
+  {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_toolkitName, impl_get_toolkitName_str, NULL, NULL, "toolkitName",
-   "s"},
-  {impl_get_version, impl_get_version_str, NULL, NULL, "version", "s"},
-  {impl_get_id, impl_get_id_str, impl_set_id, NULL, "id", "i"},
-  {NULL, NULL, NULL, NULL, NULL, NULL}
+  {impl_get_toolkitName, NULL, "toolkitName"},
+  {impl_get_version, NULL, "version"},
+  {impl_get_id, impl_set_id, "id"},
+  {NULL, NULL, NULL}
 };
 
 static long

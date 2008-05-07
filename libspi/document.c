@@ -134,11 +134,10 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {DROUTE_METHOD, impl_getLocale, "getLocale", "s,,o"},
-  {DROUTE_METHOD, impl_getAttributeValue, "getAttributeValue",
-   "s,attributename,i:s,,o"},
-  {DROUTE_METHOD, impl_getAttributes, "getAttributes", "as,,o"},
-  {0, NULL, NULL, NULL}
+  {impl_getLocale, "getLocale"},
+  {impl_getAttributeValue, "getAttributeValue"},
+  {impl_getAttributes, "getAttributes"},
+  {NULL, NULL}
 };
 
 void
