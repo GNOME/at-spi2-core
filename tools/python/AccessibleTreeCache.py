@@ -1,8 +1,5 @@
 import dbus
 
-TREE_UPDATE_ACCESSIBLE = 0
-TREE_REMOVE_ACCESSIBLE = 1
-
 class AccessibleObjectDoesNotExist(Exception):
 	def __init__(self, path):
 		self.path = path
@@ -16,6 +13,7 @@ class AccessibleTreeCache():
 	"""
 
 	_TREE_INTERFACE = 'org.freedesktop.atspi.Tree'
+	_UPDATE_SIGNAL = 'updateTree'
 
 	def __init__(self, connection, busName, objectStorePath):
 		"""
@@ -36,6 +34,10 @@ class AccessibleTreeCache():
 		self._root = self._accessibleStore.getRoot()
 
 		self._updateObjects(self._accessibleStore.getTree())
+
+		#Connect to update signal
+		self._signalMatch = self._accessibleStore.connect_to_signal(self._UPDATE_SIGNAL,
+									    self._updateHandler)
 
 	def getRootAccessible(self):
 		"""
@@ -58,37 +60,42 @@ class AccessibleTreeCache():
 		array of wire format Accessible objects.
 		"""
 		for object in objects:
-			(flag, 
-			 path,
+			(path,
 			 parent,
 			 children,
 			 interfaces,
 			 name, 
 			 role,
 			 description) = object
-			if flag == TREE_REMOVE_ACCESSIBLE:
-				#TODO need to set object as invalid
-				del(self._objects[path])
+			if path in self._objects:
+				self._objects[path].update(path,
+							   parent,
+							   children, 
+							   interfaces, 
+							   name, 
+							   role, 
+							   description)
 			else:
-				if path in self._objects:
-					self._objects[path].update(path,
-								   parent,
-								   children, 
-								   interfaces, 
-								   name, 
-								   role, 
-								   description)
-				else:
-					acc = AccessibleObjectProxy(self,
-								    self._busName,
-								    path,
-								    parent,
-								    children,
-								    interfaces,
-								    name,
-								    role,
-								    description)
-					self._objects[path] = acc;
+				acc = AccessibleObjectProxy(self,
+							    self._busName,
+							    path,
+							    parent,
+							    children,
+							    interfaces,
+							    name,
+							    role,
+							    description)
+				self._objects[path] = acc;
+
+	def _removeObjects(self, paths):
+		for path in paths:
+			#Probably want to set object as invalid first
+			del(self._objects[path])
+
+	def _updateHandler(self, updates):
+		objects, paths = updates
+		self._removeObjects(paths)
+		self._updateObjects(objects)
 
 class AccessibleObjectProxy():
 	"""

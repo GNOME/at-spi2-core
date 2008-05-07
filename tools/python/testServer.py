@@ -1,8 +1,7 @@
 import sys
-from dbus.mainloop.glib import DBusGMainLoop
-
 import gobject
 import dbus
+from dbus.mainloop.glib import DBusGMainLoop
 
 from xml.dom import minidom
 

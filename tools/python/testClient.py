@@ -1,9 +1,13 @@
 import sys
+import gobject
 import dbus
+from dbus.mainloop.glib import DBusGMainLoop
 
 from xml.dom import minidom
 
 from AccessibleTreeCache import AccessibleTreeCache, AccessibleObjectProxy
+
+DBusGMainLoop(set_as_default=True)
 
 def createNode(accessible, parentRef, parentElement):
 	e = minidom.Element("accessible")
@@ -27,6 +31,9 @@ def createNode(accessible, parentRef, parentElement):
 def main(argv):
 	filename = argv[1]
 	bus = dbus.SessionBus()
+	
+	loop = gobject.MainLoop()
+
 	cache = AccessibleTreeCache(bus, 'test.atspi.tree', '/org/freedesktop/atspi/tree')
 	root = cache.getRootAccessible()
 

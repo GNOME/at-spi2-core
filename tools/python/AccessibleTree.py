@@ -1,9 +1,6 @@
 import dbus
 import dbus.service
 
-TREE_UPDATE_ACCESSIBLE = 0
-TREE_REMOVE_ACCESSIBLE = 1
-
 class AccessibleTree(dbus.service.Object):
 	"""
 	The Accessible tree provides the interface,
@@ -20,6 +17,7 @@ class AccessibleTree(dbus.service.Object):
 		"""
 		dbus.service.Object.__init__(self, bus, path)
 		self._toSend = {}
+		self._toRemove = []
 		self._objects = {}
 		self._root = '/'
 
@@ -29,29 +27,29 @@ class AccessibleTree(dbus.service.Object):
 		return self._root
 
 	@dbus.service.method(dbus_interface='org.freedesktop.atspi.Tree',
-			     out_signature='a(qooaoassus)')
+			     out_signature='a(ooaoassus)')
 	def getTree(self):
-		wireObjects = []
-		for object in self._objects.values():
-			wireObjects.append((TREE_UPDATE_ACCESSIBLE,) + object)
-		return wireObjects
+		return self._objects.values()
 
 	@dbus.service.signal(dbus_interface='org.freedesktop.atspi.Tree',
-			     signature='a(qooaoassus)')
-	def updateTree(self, values):
+			     signature=('a(ooaoassus)ao'))
+	def updateTree(self, objects, paths):
 		#There are some locking issues here.
 		#Need to make sure that updates are not missed.
 		oldSend = self._toSend.values()
 		self._toSend = {}
-		return oldSend
+		oldRemove = self._toRemove
+		self._toRemove = []
+		return (oldSend, oldRemove)
 
 	def updateObject(self, path, object):
 		self._objects[path] = object
-		self._toSend[path] = (TREE_UPDATE_ACCESSIBLE,) + object
+		self._toSend[path] = object
 		
 	def removeObject(self, path):
-		self._toSend[path] = (TREE_REMOVE_ACCESSIBLE,) + self._objects[path]
-		del(self._objects[path])
+		if path in self._objects:
+			self._toRemove.append(path)
+			del(self._objects[path])
 
 	def setRoot(self, root):
 		self._root = root
