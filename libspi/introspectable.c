@@ -37,11 +37,7 @@
     #error "No introspection XML directory defined"
 #endif
 
-/*
- * This may be modified at run time to support 
- * command parameters for the introspection directory.
- */
-char *atspi_introspection_directory = ATSPI_DBUS_INTROSPECTION_DIRECTORY;
+char *spi_introspection_directory = ATSPI_DBUS_INTROSPECTION_DIRECTORY;
 
 static const char *introspection_header =
 "<?xml version=\"1.0\"?>\n";
@@ -52,6 +48,9 @@ static const char *introspection_node_element =
 static const char *introspection_footer =
 "</node>";
 
+void
+spi_initialize_introspectable (DRouteData *data);
+
 static void
 append_interface (GString *str, const char *interface)
 {
@@ -61,7 +60,7 @@ append_interface (GString *str, const char *interface)
 
   GError *err = NULL;
 
-  filename = g_build_filename(introspection_directory, interface);
+  filename = g_build_filename(spi_introspection_directory, interface, NULL);
 
   if (g_file_get_contents(filename, &contents, &len, &err))
     {
@@ -71,7 +70,7 @@ append_interface (GString *str, const char *interface)
     {
       g_warning("AT-SPI: Cannot find introspection XML file %s - %s",
 		filename, err->message);
-      g_error_free();
+      g_error_free(err);
     }
 
   g_string_append(str, "\n");
@@ -95,60 +94,56 @@ impl_introspect (DBusConnection *bus, DBusMessage *message,
   AtkObject *object;
   const char *path;
   GString *output;
+  char *final;
 
   DBusMessage *reply;
 
   path = dbus_message_get_path(message);
-  object = spi_dbus_get_path(path);
+  object = spi_dbus_get_object(path);
 
   output = g_string_new(introspection_header);
   
   g_string_append_printf(output, introspection_node_element, path);
 
-  if (ATK_IS_ACTION (o))
+  if (ATK_IS_ACTION (object))
       append_interface(output, "org.freedesktop.atspi.Action");
 
-  if (ATK_IS_COMPONENT (o))
-      bonobo_object_add_interface (bonobo_object (retval), BONOBO_OBJECT (spi_component_interface_new (o)));
+  if (ATK_IS_COMPONENT (object))
       append_interface(output, "org.freedesktop.atspi.Component");
 
-  if (ATK_IS_EDITABLE_TEXT (o))
+  if (ATK_IS_EDITABLE_TEXT (object))
       append_interface(output, "org.freedesktop.atspi.EditableText");
-  else if (ATK_IS_TEXT (o))
+  else if (ATK_IS_TEXT (object))
       append_interface(output, "org.freedesktop.atspi.Text");
 
-  if (ATK_IS_HYPERTEXT (o))
-      bonobo_object_add_interface (bonobo_object (retval), BONOBO_OBJECT (spi_hypertext_interface_new (o)));
+  if (ATK_IS_HYPERTEXT (object))
       append_interface(output, "org.freedesktop.atspi.Hypertext");
 
-  if (ATK_IS_IMAGE (o))
-      bonobo_object_add_interface (bonobo_object (retval), BONOBO_OBJECT (spi_image_interface_new (o)));
+  if (ATK_IS_IMAGE (object))
       append_interface(output, "org.freedesktop.atspi.Image");
 
-  if (ATK_IS_SELECTION (o))
-      bonobo_object_add_interface (bonobo_object (retval), BONOBO_OBJECT (spi_selection_interface_new (o)));
+  if (ATK_IS_SELECTION (object))
       append_interface(output, "org.freedesktop.atspi.Selection");
 
-  if (ATK_IS_TABLE (o))
-      bonobo_object_add_interface (bonobo_object (retval), BONOBO_OBJECT (spi_table_interface_new (o)));
+  if (ATK_IS_TABLE (object))
       append_interface(output, "org.freedesktop.atspi.Table");
 
-  if (ATK_IS_VALUE (o))
+  if (ATK_IS_VALUE (object))
       append_interface(output, "org.freedesktop.atspi.Value");
 
-  if (ATK_IS_STREAMABLE_CONTENT (o))
+  if (ATK_IS_STREAMABLE_CONTENT (object))
       append_interface(output, "org.freedesktop.atspi.StreamableContent");
 
-  if (ATK_IS_DOCUMENT (o))
+  if (ATK_IS_DOCUMENT (object))
     {
       append_interface(output, "org.freedesktop.atspi.Collection");
       append_interface(output, "org.freedesktop.atspi.Document");
     }
 
-  if (ATK_IS_HYPERLINK_IMPL (o))
+  if (ATK_IS_HYPERLINK_IMPL (object))
       append_interface(output, "org.freedesktop.atspi.Hyperlink");
 
-  g_string_append(introspection_footer);
+  g_string_append(output, introspection_footer);
   final = g_string_free(output, FALSE);
 
   reply = dbus_message_new_method_return (message);
@@ -159,7 +154,6 @@ impl_introspect (DBusConnection *bus, DBusMessage *message,
   g_free(final);
   return reply;
 }
-
 
 static DRouteMethod methods[] = {
   {impl_introspect, "Introspect"},
