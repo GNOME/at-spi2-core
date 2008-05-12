@@ -24,7 +24,6 @@
 #ifndef SPI_ACCESSIBLE_H_
 #define SPI_ACCESSIBLE_H_
 
-#include <libspi/dbus.h>
 #include <libspi/droute.h>
 #include "Accessibility.h"
 #include "atk/atk.h"
@@ -50,6 +49,62 @@ void spi_initialize_value(DRouteData *data);
 
 dbus_bool_t spi_dbus_append_tree (DBusMessage * message, AtkObject * obj, DRouteData * data);
 
+typedef unsigned long Accessibility_ControllerEventMask;
+
+// TODO: auto-generate the below structs
+typedef struct _Accessibility_DeviceEvent Accessibility_DeviceEvent;
+struct _Accessibility_DeviceEvent
+{
+  Accessibility_EventType type;
+  dbus_uint32_t id;
+dbus_uint16_t hw_code;
+  dbus_uint16_t modifiers;
+  dbus_uint32_t timestamp;
+  char * event_string;
+  dbus_bool_t is_text;
+};
+
+typedef struct _Accessibility_EventListenerMode Accessibility_EventListenerMode;
+struct _Accessibility_EventListenerMode
+{
+  dbus_bool_t synchronous;
+  dbus_bool_t preemptive;
+  dbus_bool_t global;
+};
+
+typedef struct _Accessibility_KeyDefinition Accessibility_KeyDefinition;
+struct _Accessibility_KeyDefinition
+{
+  dbus_int32_t keycode;
+  dbus_int32_t keysym;
+  char *keystring;
+  dbus_int32_t unused;
+};
+
+#define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.registry"
+#define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
+
+AtkObject *spi_dbus_get_object(const char *path);
+
+gchar *spi_dbus_get_path(AtkObject *obj);
+DBusMessage *spi_dbus_general_error(DBusMessage *message);
+DBusMessage *spi_dbus_return_rect(DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
+DBusMessage *spi_dbus_return_object(DBusMessage *message, AtkObject *obj, int unref);
+dbus_bool_t spi_dbus_return_v_object(DBusMessageIter *iter, AtkObject *obj, int unref);
+
+#define SPI_DBUS_RETURN_ERROR(m, e) dbus_message_new_error(m, (e)->name, (e)->message)
+
+void spi_dbus_initialize(DRouteData *data);
+dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...);
+dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
+dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e);
+dbus_bool_t spi_dbus_demarshall_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e);
+
+/* tree.c */
+void spi_dbus_notify_change(AtkObject *obj, gboolean new, DRouteData *data);
+void spi_dbus_notify_remove(AtkObject *obj, DRouteData *data);
+gboolean spi_dbus_update_cache(DRouteData *data);
+gboolean spi_dbus_object_is_known(AtkObject *obj);
 G_END_DECLS
 
 #endif /* SPI_ACCESSIBLE_H_ */
