@@ -26,7 +26,6 @@
 
 #include <glib/glist.h>
 #include <atk/atk.h>
-#include <orbit/orbit.h>
 #include <Accessibility.h>
 
 G_BEGIN_DECLS
@@ -48,25 +47,6 @@ void spi_re_entrant_list_delete_link (GList * const  *element_ptr);
 void spi_re_entrant_list_foreach     (GList         **list,
 				      SpiReEntrantFn  func,
 				      gpointer        user_data);
-void spi_init_any_nil                (CORBA_any *any_details, 
-				      Accessibility_Application app,
-				      Accessibility_Role role,
-				      CORBA_string name);
-void spi_init_any_string             (CORBA_any *any, 
-				      Accessibility_Application app,
-				      Accessibility_Role role,
-				      CORBA_string name,
-				      char **string);
-void spi_init_any_object             (CORBA_any *any, 
-				      Accessibility_Application app,
-				      Accessibility_Role role,
-				      CORBA_string name,
-				      CORBA_Object *o);
-void spi_init_any_rect               (CORBA_any *any, 
-				      Accessibility_Application app,
-				      Accessibility_Role role,
-				      CORBA_string name,
-				      AtkRectangle *rect);
 
 G_END_DECLS
 
