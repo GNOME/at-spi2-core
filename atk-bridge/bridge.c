@@ -22,7 +22,7 @@
  */
 
 #include "config.h"
-#include "dbus/dbus-glib.h"
+#include "dbus/dbus-glib-lowlevel.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -121,7 +121,7 @@ static gboolean spi_atk_bridge_signal_listener         (GSignalInvocationHint *s
 static gint     spi_atk_bridge_key_listener            (AtkKeyEventStruct     *event,
 							gpointer               data);
 static void     spi_atk_tidy_windows                   (void);
-static void     deregister_application                 ();
+static void     deregister_application                 (SpiAppData *app);
 static void reinit_register_vars (void);
 
 /* For automatic libgnome init */
@@ -166,7 +166,7 @@ spi_atk_bridge_init_event_type_consts ()
 }
 
 static gboolean
-post_init (void)
+post_init (gpointer data)
 {
   during_init_shutdown = FALSE;
   return FALSE;
@@ -420,7 +420,7 @@ spi_atk_bridge_get_registry (void)
 }
 
 static const char *
-spi_atk_bridget_get_dec (void)
+spi_atk_bridge_get_dec (void)
 {
   return "/dec";
 }
@@ -842,7 +842,7 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
       !spi_dbus_object_is_known(obj))
   {
     g_free(property_name);
-    return;
+    return TRUE;
   }
   detail1 = (g_value_get_boolean (param_values + 2))
     ? 1 : 0;
@@ -851,7 +851,6 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   return TRUE;
 }
 
-#if 0
 static void
 spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 				       AtkKeyEventStruct          *event)
@@ -868,25 +867,25 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
       g_print (_("WARNING: NULL key event reported."));
     }
   
-  keystroke->id        = (CORBA_long) event->keyval;
-  keystroke->hw_code   = (CORBA_short) event->keycode;
-  keystroke->timestamp = (CORBA_unsigned_long) event->timestamp;
-  keystroke->modifiers = (CORBA_unsigned_short) (event->state & 0xFFFF);
+  keystroke->id        = (dbus_int32_t) event->keyval;
+  keystroke->hw_code   = (dbus_int16_t) event->keycode;
+  keystroke->timestamp = (dbus_uint32_t) event->timestamp;
+  keystroke->modifiers = (dbus_uint16_t) (event->state & 0xFFFF);
   if (event->string)
     {
       gunichar c;
 
-      keystroke->event_string = CORBA_string_dup (event->string);
+      keystroke->event_string = g_strdup (event->string);
       c = g_utf8_get_char_validated (event->string, -1);
       if (c > 0 && g_unichar_isprint (c))
-        keystroke->is_text = CORBA_TRUE;
+        keystroke->is_text = TRUE;
       else
-        keystroke->is_text = CORBA_FALSE;
+        keystroke->is_text = FALSE;
     }
   else
     {
-      keystroke->event_string = CORBA_string_dup ("");
-      keystroke->is_text = CORBA_FALSE;
+      keystroke->event_string = g_strdup ("");
+      keystroke->is_text = FALSE;
     }
   switch (event->type)
     {
@@ -907,33 +906,43 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 	   keystroke->event_string, (int) keystroke->is_text, (unsigned long) keystroke->timestamp);
 #endif
 }
-#endif
+
+static gboolean Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
+{
+  DBusMessage *message = dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, "org.freedesktop.atspi.DeviceEventController", "notifyListenersSync");
+  DBusError error;
+  dbus_bool_t consumed = FALSE;
+
+  dbus_error_init(&error);
+  if (spi_dbus_marshall_deviceEvent(message, key_event))
+  {
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block(this_app->droute.bus, message, 1000, &error);
+    if (reply)
+    {
+      DBusError error;
+      dbus_error_init(&error);
+      dbus_message_get_args(reply, &error, DBUS_TYPE_BOOLEAN, &consumed, DBUS_TYPE_INVALID);
+      dbus_message_unref(reply);
+    }
+  }
+  dbus_message_unref(message);
+  return consumed;
+}
 
 static gint
 spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 {
   gboolean             result;
-#if 0
   Accessibility_DeviceEvent key_event;
-
-  CORBA_exception_init (&ev);
 
   spi_init_keystroke_from_atk_key_event (&key_event, event);
 
   bridge_threads_leave ();
-  result = Accessibility_DeviceEventController_notifyListenersSync (
-	  spi_atk_bridget_get_dec (), &key_event, &ev);
+  result = Accessibility_DeviceEventController_notifyListenersSync (&key_event);
   bridge_threads_enter ();
 
-  if (key_event.event_string) CORBA_free (key_event.event_string);
+  if (key_event.event_string) g_free (key_event.event_string);
 
-  if (BONOBO_EX(&ev))
-    {
-      result = FALSE;
-      CORBA_exception_free (&ev);
-    }
-
-#endif
   return result;
 }
 
