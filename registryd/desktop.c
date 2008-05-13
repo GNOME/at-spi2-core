@@ -25,11 +25,14 @@
 
 #include <config.h>
 #include <stdio.h>
-#include <libbonobo.h>
+#include <string.h>
 #include "desktop.h"
+#include "registry.h"
 #include <atk/atkcomponent.h>
 #include <gdk/gdkscreen.h>
 #include <gdk/gdkx.h>
+
+G_DEFINE_TYPE(SpiDesktop, spi_desktop, G_TYPE_OBJECT)
 
 /* SpiDesktop signals */
 enum {
@@ -45,13 +48,13 @@ static guint spi_desktop_signals[LAST_SIGNAL];
 
 typedef struct {
 	SpiDesktop *desktop;
-	Accessibility_Application ref;
+	const char *path;
 } Application;
 
 static gboolean exiting = FALSE;
 
 /* A pointer to our parent object class */
-static SpiAccessibleClass *parent_class;
+static GObjectClass *parent_class;
 
 #define SPI_TYPE_ATK_DESKTOP		(spi_atk_desktop_get_type ())
 #define SPI_ATK_DESKTOP(o)		(G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_TYPE_ATK_DESKTOP, SpiAtkDesktop))
@@ -150,7 +153,6 @@ static void
 spi_desktop_init (SpiDesktop *desktop)
 {
   desktop->applications = NULL;
-  bonobo_object_set_immortal (BONOBO_OBJECT (desktop), TRUE);
 }
 
 static void
@@ -161,54 +163,54 @@ spi_desktop_dispose (GObject *object)
   while (desktop->applications)
     {
       Application *app = desktop->applications->data;
-      g_assert (app->ref != CORBA_OBJECT_NIL);
-      spi_desktop_remove_application (desktop, app->ref);
+      g_assert (app != NULL);
+      spi_desktop_remove_application (desktop, app->path);
     }
 
   G_OBJECT_CLASS (parent_class)->dispose (object); 
 }
 
-static CORBA_long
-impl_desktop_get_child_count (PortableServer_Servant servant,
-                              CORBA_Environment     *ev)
+static dbus_bool_t
+impl_desktop_get_child_count (const char *path, DBusMessageIter * iter,
+		     void *user_data)
 {
-  SpiDesktop *desktop = SPI_DESKTOP (bonobo_object_from_servant (servant));
+  SpiDesktop *desktop = SPI_REGISTRY(user_data)->desktop;
 
   if (desktop->applications)
     {
-      return g_list_length (desktop->applications);
+      return droute_return_v_int32(iter, g_list_length (desktop->applications));
     }
   else
     {
-      return 0;
+      return droute_return_v_int32(iter, 0);
     }
 }
 
-static Accessibility_Accessible
-impl_desktop_get_child_at_index (PortableServer_Servant servant,
-                                 const CORBA_long       index,
-                                 CORBA_Environment     *ev)
+static DBusMessage *
+impl_desktop_get_child_at_index (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDesktop  *desktop = SPI_DESKTOP (bonobo_object_from_servant (servant));
-  CORBA_Object retval;
+  SpiDesktop *desktop = SPI_REGISTRY(user_data)->desktop;
+  DBusError error;
+  dbus_int32_t index;
   Application *app;
+  const char *path;
+  DBusMessage *reply;
 
+  dbus_error_init (&error);
+  if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
   app = g_list_nth_data (desktop->applications, index);
+  path = (app? app->path: SPI_DBUS_PATH_NULL);
 
-  if (app)
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      retval = bonobo_object_dup_ref (app->ref, ev);
-      if (BONOBO_EX (ev))
-        {
-	  retval = CORBA_OBJECT_NIL;
-	}
-    }
-  else
-    {
-      retval = CORBA_OBJECT_NIL;
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
     }
 
-  return (Accessibility_Accessible) retval;
+  return reply;
 }
 
 static void
@@ -221,12 +223,10 @@ static void
 spi_desktop_class_init (SpiDesktopClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  SpiAccessibleClass * spi_accessible_class = (SpiAccessibleClass *) klass;
-  POA_Accessibility_Accessible__epv *epv = &spi_accessible_class->epv;
 
   object_class->dispose = spi_desktop_dispose;
   
-  parent_class = g_type_class_ref (SPI_ACCESSIBLE_TYPE);
+  parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
   spi_desktop_signals[APPLICATION_ADDED] =
     g_signal_new ("application_added",
@@ -246,27 +246,13 @@ spi_desktop_class_init (SpiDesktopClass *klass)
 		  g_cclosure_marshal_VOID__UINT,
 		  G_TYPE_NONE,
 		  1, G_TYPE_UINT);
-  epv->_get_childCount = impl_desktop_get_child_count;
-  epv->getChildAtIndex = impl_desktop_get_child_at_index;
   g_atexit (spi_desktop_exiting);
 }
-
-BONOBO_TYPE_FUNC_FULL (SpiDesktop,
-		       Accessibility_Desktop,
-		       PARENT_TYPE,
-		       spi_desktop)
 
 SpiDesktop *
 spi_desktop_new (void)
 {
-  SpiDesktop *desktop; 
-  SpiAccessible *accessible; 
-
-  accessible = spi_accessible_construct (SPI_DESKTOP_TYPE, g_object_new (SPI_TYPE_ATK_DESKTOP, NULL));
-  g_assert (SPI_IS_DESKTOP (accessible));
-  desktop = SPI_DESKTOP (accessible);
-
-  return desktop;
+  return g_object_new (SPI_DESKTOP_TYPE, NULL);
 }
 
 static void
@@ -275,70 +261,53 @@ abnormal_application_termination (gpointer object, Application *app)
   g_return_if_fail (SPI_IS_DESKTOP (app->desktop));
 
   if (!exiting)
-    spi_desktop_remove_application (app->desktop, app->ref);
+    spi_desktop_remove_application (app->desktop, app->path);
 }
 
 void
 spi_desktop_add_application (SpiDesktop *desktop,
-			     const Accessibility_Application application)
+			     const char *application)
 {
-  CORBA_Environment ev;
   Application       *app;
-  Accessibility_Application ref;
 
   g_return_if_fail (SPI_IS_DESKTOP (desktop));
 
   spi_desktop_remove_application (desktop, application);
 
-  CORBA_exception_init (&ev);
-
-  ref = bonobo_object_dup_ref (application, &ev);
-
-  if (!BONOBO_EX (&ev))
-    {
-      app = g_new (Application, 1);
-      app->desktop = desktop;
-      app->ref = ref;
+  app = g_new (Application, 1);
+  app->desktop = desktop;
+  app->path = application;
 
       desktop->applications = g_list_append (desktop->applications, app);
 
-      ORBit_small_listen_for_broken (
-	      app->ref, G_CALLBACK (abnormal_application_termination), app);
+  // TODO: Listen for termination, and call abnormal_application_termination
 
-      g_signal_emit (G_OBJECT (desktop),
-		     spi_desktop_signals[APPLICATION_ADDED], 0,
-		     g_list_index (desktop->applications, app));
-    }
-
-  CORBA_exception_free (&ev);
+  g_signal_emit (G_OBJECT (desktop),
+		 spi_desktop_signals[APPLICATION_ADDED], 0,
+		 g_list_index (desktop->applications, app));
 }
 
 void
 spi_desktop_remove_application (SpiDesktop *desktop,
-				const Accessibility_Application app_ref)
+				const char *path)
 {
   guint idx;
   GList *l;
-  CORBA_Environment ev;
 
-  g_return_if_fail (app_ref != CORBA_OBJECT_NIL);
+  g_return_if_fail (path != NULL);
   g_return_if_fail (SPI_IS_DESKTOP (desktop));
-
-  CORBA_exception_init (&ev);
 
   idx = 0;
   for (l = desktop->applications; l; l = l->next)
     {
       Application *app = (Application *) l->data;
 
-      if (CORBA_Object_is_equivalent (app->ref, app_ref, &ev))
+      if (!strcmp(app->path, path))
         {
 	  break;
 	}
       idx++;
     }
-
-  CORBA_exception_free (&ev);
 
   if (l)
     {
@@ -346,10 +315,28 @@ spi_desktop_remove_application (SpiDesktop *desktop,
 
       desktop->applications = g_list_delete_link (desktop->applications, l);
 
-      ORBit_small_unlisten_for_broken (app->ref, G_CALLBACK (abnormal_application_termination));
-      bonobo_object_release_unref (app->ref, NULL);
+      // TODO: unlisten for broken app, if appropriate
       g_free (app);
       
       g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_REMOVED], 0, idx);
     }
 }
+
+static DRouteMethod methods[] =
+{
+  { impl_desktop_get_child_at_index, "getChildAtIndex" },
+  { NULL, NULL }
+};
+
+static DRouteProperty properties[] =
+{
+  { impl_desktop_get_child_count, NULL, "getChildCount" },
+  { NULL, NULL, NULL }
+};
+
+void
+spi_registry_initialize_desktop_interface (DRouteData * data)
+{
+  droute_add_interface (data, "org.freedesktop.atspi.Desktop", methods,
+			properties, NULL, NULL);
+};

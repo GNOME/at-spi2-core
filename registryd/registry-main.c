@@ -28,7 +28,6 @@
 #include <config.h>
 #include <string.h>
 #include <gdk/gdkx.h>
-#include <libbonobo.h>
 #include <glib/gmain.h>
 #include "registry.h"
 
@@ -44,11 +43,10 @@ main (int argc, char **argv)
   const char  *display_name;
   char        *cp, *dp;
   SpiRegistry *registry;
+  DBusError error;
+  GMainLoop *mainloop;
 
-  if (!bonobo_init (&argc, argv))
-    {
-      g_error ("Could not initialize oaf / Bonobo");
-    }
+  g_type_init();
 
   obj_id = "OAFIID:Accessibility_Registry:1.0";
 
@@ -63,12 +61,11 @@ main (int argc, char **argv)
       if (cp && dp && (cp > dp)) *cp = '\0';
   }
 
-  ret = bonobo_activation_register_active_server (
-	  obj_id,
-	  bonobo_object_corba_objref (bonobo_object (registry)),
-	  NULL);
+  dbus_error_init (&error);
+  mainloop = g_main_loop_new (NULL, FALSE);
+  ret= dbus_bus_request_name(registry->droute.bus, SPI_DBUS_NAME_REGISTRY, 0, &error);
 
-  if (ret != Bonobo_ACTIVATION_REG_SUCCESS)
+  if (!ret)
     {
 #ifdef AT_SPI_DEBUG
       fprintf (stderr, "SpiRegistry Message: SpiRegistry daemon was already running.\n");
@@ -80,7 +77,7 @@ main (int argc, char **argv)
       fprintf (stderr, "SpiRegistry Message: SpiRegistry daemon is running.\n");
 #endif
       registry_set_ior (registry);
-      bonobo_main ();
+      g_main_loop_run (mainloop);
     }
 
   return 0;
@@ -88,15 +85,10 @@ main (int argc, char **argv)
 
 static void
 registry_set_ior (SpiRegistry *registry){
-  CORBA_Environment ev;
   Atom  AT_SPI_IOR = XInternAtom (spi_get_display (), "AT_SPI_IOR", FALSE);
   char *iorstring = NULL;
 
-  CORBA_exception_init (&ev);
-
-  iorstring = CORBA_ORB_object_to_string (bonobo_activation_orb_get (),
-                                     bonobo_object_corba_objref (bonobo_object (registry)),
-                                     &ev);
+  iorstring = SPI_DBUS_NAME_REGISTRY;
 
   XChangeProperty (spi_get_display(),
 		   XDefaultRootWindow (spi_get_display ()),
@@ -104,14 +96,4 @@ registry_set_ior (SpiRegistry *registry){
 		   PropModeReplace,
 		   (unsigned char *) iorstring,
 		   iorstring ? strlen (iorstring) : 0);
-
-  if (ev._major != CORBA_NO_EXCEPTION)
-	  {
-		  g_error ("Error setting IOR %s",
-			   CORBA_exception_id (&ev));
-                  CORBA_exception_free (&ev);
-           }
-
-  CORBA_exception_free (&ev);
-
 }
