@@ -21,7 +21,7 @@
  */
 
 #include <glib.h>
-#include <dbus.h>
+#include <accessible.h>
 
 /*
  * This file contains utilities for loading introspection XML
