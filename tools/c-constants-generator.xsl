@@ -289,6 +289,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <xsl:text>&#10;</xsl:text>
     <xsl:text> */&#10;</xsl:text>
     <xsl:text>&#10;</xsl:text>
+    <xsl:text>#ifndef _ACCESSIBILITY_H_&#10;</xsl:text>
+    <xsl:text>#define _ACCESSIBILITY_H_&#10;</xsl:text>
     <xsl:text>#ifdef __cplusplus&#10;</xsl:text>
     <xsl:text>extern "C" {&#10;</xsl:text>
     <xsl:text>#endif&#10;</xsl:text>
@@ -297,6 +299,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <xsl:text>&#10;</xsl:text>
     <xsl:text>#ifdef __cplusplus&#10;</xsl:text>
     <xsl:text>}&#10;</xsl:text>
+    <xsl:text>#endif&#10;</xsl:text>
     <xsl:text>#endif&#10;</xsl:text>
   </xsl:template>
 
