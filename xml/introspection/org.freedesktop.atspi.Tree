@@ -1,0 +1,12 @@
+  <interface name="org.freedesktop.atspi.Tree">
+    <method name="getRoot">
+      <arg name="root" type="o" direction="out"/>
+    </method>
+    <method name="getTree">
+      <arg name="nodes" type="a(ooaoassus)" direction="out"/>
+    </method>
+    <signal name="updateTree">
+      <arg name="nodesAdded" type="a(ooaoassus)"/>
+      <arg name="nodesRemoved" type="ao"/>
+    </signal>
+  </interface>

@@ -10,6 +10,7 @@ INCLUDES = -I$(top_srcdir)	\
            $(X_CFLAGS)
 
 libspi_la_LDFLAGS = @LT_VERSION_INFO@ -no-undefined
+libspi_la_CFLAGS = -DATSPI_DBUS_INTROSPECTION_DIRECTORY="\"$(datadir)/at-spi/dbus\""
 libspi_la_LIBADD = $(LIBSPI_LIBS) $(XTST_LIBS)
 
 libspiincludedir = $(includedir)/at-spi-1.0/libspi
@@ -18,20 +19,21 @@ libspiinclude_HEADERS =		\
 	Accessibility.h		\
 	accessible.h \
 	bitarray.h \
-	droute.h
+	droute.h \
+	introspect-loader.h
 
 BUILT_SOURCES = Accessibility.h
 CLEANFILES = Accessibility.h
 
 libspi_la_SOURCES =		\
-	Accessibility.h \
+	Accessibility.h         \
 	accessible.c		\
-	action.c \
+	action.c                \
 	application.c		\
 	component.c		\
-	dbus.c \
+	dbus.c                  \
 	document.c		\
-	droute.c \
+	droute.c                \
 	editabletext.c		\
 	hyperlink.c		\
 	hypertext.c		\
@@ -39,9 +41,11 @@ libspi_la_SOURCES =		\
 	selection.c		\
 	table.c			\
 	text.c			\
-	tree.c \
+	tree.c                  \
 	util.c \
-	value.c
+	value.c                 \
+	introspect-loader.c     \
+	introspectable.c 
 
 Accessibility.h: ../xml/spec.xml ../tools/c-constants-generator.xsl
 	xsltproc --stringparam mixed-case-prefix Accessibility_ ../tools/c-constants-generator.xsl $< >$@
