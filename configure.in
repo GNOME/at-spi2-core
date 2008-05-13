@@ -224,6 +224,7 @@ cspi-1.0.pc
 cspi-1.0-uninstalled.pc
 atk-bridge/Makefile
 libspi/Makefile
+registryd/Makefile
 tools/Makefile
 xml/Makefile
 ])
