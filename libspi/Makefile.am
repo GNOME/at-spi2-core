@@ -18,7 +18,6 @@ libspiinclude_HEADERS =		\
 	Accessibility.h		\
 	accessible.h \
 	bitarray.h \
-	dbus.h \
 	droute.h
 
 BUILT_SOURCES = Accessibility.h
@@ -41,6 +40,7 @@ libspi_la_SOURCES =		\
 	table.c			\
 	text.c			\
 	tree.c \
+	util.c \
 	value.c
 
 Accessibility.h: ../xml/spec.xml ../tools/c-constants-generator.xsl
