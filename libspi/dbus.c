@@ -182,9 +182,9 @@ spi_dbus_initialize (DRouteData * data)
   spi_initialize_image (data);
   spi_initialize_selection (data);
   spi_initialize_table (data);
-  spi_initialize_tree (data);
   spi_initialize_text (data);
   spi_initialize_value (data);
+  spi_initialize_introspectable(data);
 }
 
 static GString *
