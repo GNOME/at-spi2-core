@@ -35,8 +35,6 @@ typedef struct {
 
 static GSList *working_list = NULL; /* of Iteration */
 
-static char *spi_atk_bridge_null_string = "";
-
 Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
 
 Accessibility_Role
@@ -113,97 +111,4 @@ spi_re_entrant_list_foreach (GList         **list,
 	}
 
 	working_list = g_slist_remove (working_list, &i);
-}
-
-void 
-spi_init_any_nil (CORBA_any *any_details, 
-		  Accessibility_Application app, 
-		  Accessibility_Role role,
-		  CORBA_string name)
-{
-  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
-
-  any_details->_type = TC_Accessibility_EventDetails;
-  any_details->_value = details;
-  any_details->_release = TRUE;
-
-  details->host_application = app;
-  details->source_role = role;
-  details->source_name = CORBA_string_dup (name);
-
-  details->any_data._type = TC_null;
-  details->any_data._value = NULL;
-  details->any_data._release = TRUE;
-}
-
-void 
-spi_init_any_object (CORBA_any *any_details, Accessibility_Application app, 
-		     Accessibility_Role role,
-		     CORBA_string name, 
-		     CORBA_Object *o)
-{
-  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
-
-  any_details->_type = TC_Accessibility_EventDetails;
-  any_details->_value = details;
-  any_details->_release = TRUE;
-
-  details->host_application = app;
-  details->source_role = role;
-  details->source_name = CORBA_string_dup (name);
-  
-  details->any_data._type = TC_CORBA_Object;
-  details->any_data._value = ORBit_copy_value (o, TC_CORBA_Object);
-  details->any_data._release = TRUE;
-}
-
-void
-spi_init_any_string (CORBA_any *any_details, Accessibility_Application app, 
-		     Accessibility_Role role,
-		     CORBA_string name, 
-		     char **string_pointer)
-{  
-  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
-
-  any_details->_type = TC_Accessibility_EventDetails;
-  any_details->_value = details;
-  any_details->_release = TRUE;
-
-  details->host_application = app;
-  details->source_role = role;
-  details->source_name = CORBA_string_dup (name);
-  
-  details->any_data._type = (CORBA_TypeCode) TC_CORBA_string;
-  if (string_pointer && *string_pointer)
-    details->any_data._value = string_pointer;
-  else
-    details->any_data._value = &spi_atk_bridge_null_string;
-  details->any_data._release = FALSE;
-}
-
-void
-spi_init_any_rect (CORBA_any *any_details, 
-		   Accessibility_Application app, 
-		   Accessibility_Role role,
-		   CORBA_string name, 
-		   AtkRectangle *rect)
-{
-  Accessibility_EventDetails *details = Accessibility_EventDetails__alloc();
-  Accessibility_BoundingBox *box = Accessibility_BoundingBox__alloc ();
-
-  any_details->_type = TC_Accessibility_EventDetails;
-  any_details->_value = details;
-  any_details->_release = TRUE;
-
-  details->host_application = app;
-  details->source_role = role;
-  details->source_name = CORBA_string_dup (name);
-  
-  box->x = rect->x;
-  box->y = rect->y;
-  box->width = rect->width;
-  box->height = rect->height;
-  details->any_data._type = TC_Accessibility_BoundingBox;
-  details->any_data._value = box;
-  details->any_data._release = TRUE;
 }
