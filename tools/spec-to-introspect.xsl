@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
   exclude-result-prefixes="tp">
 
+<xsl:template match="node">
+<xsl:apply-templates/>
+</xsl:template>
   <xsl:template match="*">
     <xsl:copy>
       <xsl:for-each select="@*">
