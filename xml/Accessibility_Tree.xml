@@ -112,6 +112,7 @@
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures to be added.</p>
 				</tp:docstring>
+			</arg>
 			<arg name="nodesRemoved" type="ao">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures to be removed.</p>
