@@ -35,14 +35,12 @@ G_BEGIN_DECLS
 #define SPI_IS_DESKTOP_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_DESKTOP_TYPE))
 
 typedef struct {
-        SpiAccessible parent;
+        GObject parent;
         GList        *applications;
 } SpiDesktop;
 
 typedef struct {
-        SpiAccessibleClass parent_class;
-        POA_Accessibility_Desktop__epv epv;
-
+        GObjectClass parent_class;
         /*Signals */
         void (*application_added) (SpiDesktop *desktop,
 				   guint index);
@@ -53,9 +51,9 @@ typedef struct {
 GType       spi_desktop_get_type           (void);
 SpiDesktop *spi_desktop_new                (void);
 void        spi_desktop_add_application    (SpiDesktop *desktop,
-					    const Accessibility_Application application);
+					    const char *app_path);
 void        spi_desktop_remove_application (SpiDesktop *desktop,
-					    const Accessibility_Application application);
+					    const char *app_path);
 
 G_END_DECLS
 

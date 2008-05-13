@@ -24,9 +24,9 @@
 #ifndef SPI_DEVICE_EVENT_CONTROLLER_H_
 #define SPI_DEVICE_EVENT_CONTROLLER_H_
 
-#include <bonobo/bonobo-object.h>
+#include <X11/Xlib.h>
+#include <gdk/gdk.h>
 #include <libspi/Accessibility.h>
-#include <libspi/devicelistener.h>
 
 typedef struct _SpiDEController SpiDEController;
 
@@ -42,7 +42,7 @@ G_BEGIN_DECLS
 #define SPI_DEVICE_EVENT_CONTROLLER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), SPI_DEVICE_EVENT_CONTROLLER_TYPE, SpiDEControllerClass))
 
 struct _SpiDEController {
-	BonoboObject parent;
+	GObject parent;
 	
 	SpiRegistry *registry;
 	GList       *key_listeners;
@@ -52,9 +52,7 @@ struct _SpiDEController {
 };
 
 typedef struct {
-  BonoboObjectClass parent_class;
-
-  POA_Accessibility_DeviceEventController__epv epv;
+  GObjectClass parent_class;
 } SpiDEControllerClass;
 
 GType            spi_device_event_controller_get_type (void);

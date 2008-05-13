@@ -1,7 +1,7 @@
-server_dot_in = Accessibility_Registry.server.in
+#server_dot_in = Accessibility_Registry.server.in
 
-$(server_dot_in): $(server_dot_in).in
-	sed -e "s|\@REGISTRYD_PATH\@|$(libexecdir)|" $< > $@ 
+#$(server_dot_in): $(server_dot_in).in
+#	sed -e "s|\@REGISTRYD_PATH\@|$(libexecdir)|" $< > $@ 
 
 libexec_PROGRAMS = at-spi-registryd
 
@@ -20,14 +20,15 @@ at_spi_registryd_SOURCES =		\
 	registry-main.c		\
 	registry.c		\
 	registry.h		\
+	server-glue.h \
 	ucs2keysym.c
 
 LDADD = $(top_builddir)/libspi/libspi.la $(X_LIBS) $(XTST_LIBS) $(XEVIE_LIBS) $(REGISTRYD_LIBS) 
 
-serverinfodir = $(libdir)/bonobo/servers
-serverinfo_DATA = Accessibility_Registry.server
+#serverinfodir = $(libdir)/bonobo/servers
+#serverinfo_DATA = Accessibility_Registry.server
 
 @INTLTOOL_SERVER_RULE@
 
 EXTRA_DIST = Accessibility_Registry.server.in.in
-CLEANFILES = $(serverinfo_DATA) $(server_dot_in)
+#CLEANFILES = $(serverinfo_DATA) $(server_dot_in)
