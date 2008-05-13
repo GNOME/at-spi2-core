@@ -115,4 +115,6 @@ gboolean spi_dbus_update_cache(DRouteData *data);
 gboolean spi_dbus_object_is_known(AtkObject *obj);
 G_END_DECLS
 
+/* introspect-loader.c */
+void spi_append_interface (GString *str, const char *interface);
 #endif /* SPI_ACCESSIBLE_H_ */

@@ -21,7 +21,7 @@
  */
 
 #include <glib.h>
-#include <dbus.h>
+#include <accessible.h>
 
 #include "droute.h"
 #include "introspect-loader.h"
