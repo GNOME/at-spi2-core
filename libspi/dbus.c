@@ -187,6 +187,19 @@ spi_dbus_initialize (DRouteData * data)
   spi_initialize_introspectable(data);
 }
 
+void spi_dbus_emit_valist(DBusConnection *bus, const char *path, const char *interface, const char *name, int first_arg_type, va_list args)
+{
+  DBusMessage *sig;
+
+  sig = dbus_message_new_signal(path, interface, name);
+  if (first_arg_type != DBUS_TYPE_INVALID)
+  {
+    dbus_message_append_args_valist(sig, first_arg_type, args);
+  }
+  dbus_connection_send(bus, sig, NULL);
+  dbus_message_unref(sig);
+}
+
 static GString *
 spi_get_tree (AtkObject * obj, GString * str, DRouteData * data)
 {
@@ -266,7 +279,7 @@ dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...)
   int type;
   void *ptr;
 
-  if (!dbus_message_iter_open_container(iter, &iter_struct)) return FALSE;
+  if (!dbus_message_iter_open_container(iter, DBUS_TYPE_STRUCT, NULL, &iter_struct)) return FALSE;
   va_start(args, iter);
   for (;;)
   {
