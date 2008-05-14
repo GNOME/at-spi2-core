@@ -19,7 +19,6 @@ libspiinclude_HEADERS =		\
 	Accessibility.h		\
 	accessible.h \
 	bitarray.h \
-	dbus.h \
 	droute.h \
 	introspect-loader.h
 
@@ -43,6 +42,7 @@ libspi_la_SOURCES =		\
 	table.c			\
 	text.c			\
 	tree.c                  \
+	util.c \
 	value.c                 \
 	introspect-loader.c     \
 	introspectable.c 

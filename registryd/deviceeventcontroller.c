@@ -33,7 +33,6 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <sys/time.h>
-#include <bonobo/bonobo-exception.h>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
@@ -55,6 +54,7 @@
 
 #include "../libspi/spi-private.h"
 #include "deviceeventcontroller.h"
+#include "libspi/keymasks.h"
 
 KeySym ucs2keysym (long ucs);
 long keysym2ucs(KeySym keysym); 
@@ -67,10 +67,9 @@ static SpiDEController *saved_controller;
 static void wait_for_release_event (XEvent *event, SpiDEController *controller);
 
 /* Our parent Gtk object type */
-#define PARENT_TYPE BONOBO_TYPE_OBJECT
+#define PARENT_TYPE G_TYPE_OBJECT
 
 /* A pointer to our parent object class */
-static GObjectClass *spi_device_event_controller_parent_class;
 static int spi_error_code = 0;
 static GdkPoint last_mouse_pos_static = {0, 0}; 
 static GdkPoint *last_mouse_pos = &last_mouse_pos_static;
@@ -98,19 +97,20 @@ typedef struct {
   guint                             pending_remove : 1;
 
   Accessibility_ControllerEventMask mod_mask;
-  CORBA_unsigned_long               key_val;  /* KeyCode */
+  dbus_uint32_t               key_val;  /* KeyCode */
 } DEControllerGrabMask;
 
 typedef struct {
-  CORBA_Object          object;
+  char *app_path;
+  char *path;
   SpiDeviceTypeCategory type;
-  Accessibility_EventTypeSeq    *typeseq;
+  gulong types;
 } DEControllerListener;
 
 typedef struct {
   DEControllerListener listener;
 
-  Accessibility_KeySet             *keys;
+ GSList *keys;
   Accessibility_ControllerEventMask mask;
   Accessibility_EventListenerMode  *mode;	
 } DEControllerKeyListener;
@@ -136,21 +136,17 @@ static void     spi_controller_register_with_devices          (SpiDEController  
 static gboolean spi_controller_update_key_grabs               (SpiDEController           *controller,
 							       Accessibility_DeviceEvent *recv);
 static gboolean spi_controller_register_device_listener       (SpiDEController           *controller,
-							       DEControllerListener      *l,
-							       CORBA_Environment         *ev);
+							       DEControllerListener      *l);
 static gboolean spi_device_event_controller_forward_key_event (SpiDEController           *controller,
 							       const XEvent              *event);
-static void     spi_deregister_controller_device_listener (SpiDEController            *controller,
-					                   DEControllerListener *listener,
-					                   CORBA_Environment          *ev);
+static void     spi_controller_deregister_device_listener (SpiDEController            *controller,
+					                   DEControllerListener *listener);
 static void     spi_deregister_controller_key_listener (SpiDEController         *controller,
-							DEControllerKeyListener *key_listener,
-							CORBA_Environment       *ev);
+							DEControllerKeyListener *key_listener);
 static gboolean spi_controller_notify_mouselisteners (SpiDEController                 *controller,
-						      const Accessibility_DeviceEvent *event,
-						      CORBA_Environment               *ev);
+						      const Accessibility_DeviceEvent *event);
 
-static gboolean spi_eventtype_seq_contains_event (Accessibility_EventTypeSeq      *type_seq,
+static gboolean spi_eventtype_seq_contains_event (dbus_uint32_t types,
 						  const Accessibility_DeviceEvent *event);
 static gboolean spi_clear_error_state (void);
 static gboolean spi_dec_poll_mouse_moved (gpointer data);
@@ -158,6 +154,8 @@ static gboolean spi_dec_poll_mouse_moving (gpointer data);
 static gboolean spi_dec_poll_mouse_idle (gpointer data);
 
 #define spi_get_display() GDK_DISPLAY()
+
+G_DEFINE_TYPE(SpiDEController, spi_device_event_controller, G_TYPE_OBJECT)
 
 /* Private methods */
 
@@ -338,12 +336,19 @@ spi_dec_clear_unlatch_pending (SpiDEController *controller)
   priv->xkb_latch_mask = 0; 
 }
  
+static void emit(SpiDEController *controller, const char *name, int first_type, ...)
+{
+  va_list arg;
+
+  va_start(arg, first_type);
+  spi_dbus_emit_valist(controller->registry->droute.bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
+  va_end(arg);
+}
+
 static gboolean
 spi_dec_button_update_and_emit (SpiDEController *controller, 
 				guint mask_return)
 {
-  CORBA_Environment ev;
-  Accessibility_Event e;
   Accessibility_DeviceEvent mouse_e;
   gchar event_name[24];
   gboolean is_consumed = FALSE;
@@ -434,33 +439,20 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	  Accessibility_BUTTON_RELEASED_EVENT;
 	mouse_e.id        = button_number;
 	mouse_e.hw_code   = button_number;
-	mouse_e.modifiers = (CORBA_unsigned_short) mouse_mask_state; 
+	mouse_e.modifiers = (dbus_uint16_t) mouse_mask_state; 
 	mouse_e.timestamp = 0;
 	mouse_e.event_string = "";
-	mouse_e.is_text   = CORBA_FALSE;
+	mouse_e.is_text   = FALSE;
 	is_consumed = 
 	  spi_controller_notify_mouselisteners (controller, 
-						&mouse_e, 
-						&ev);
-	e.type = event_name;
-	e.source = BONOBO_OBJREF (controller->registry->desktop);
-	e.detail1 = last_mouse_pos->x;
-	e.detail2 = last_mouse_pos->y;
-	spi_init_any_nil (&e.any_data, 
-		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
-		    Accessibility_ROLE_UNKNOWN,
-		    "");
-	CORBA_exception_init (&ev);
+						&mouse_e);
 	if (!is_consumed)
 	  {
-	    Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-						&e,
-						&ev);  
+	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
+	    emit(controller, event_name, DBUS_TYPE_UINT32, &x, DBUS_TYPE_UINT32, &y, DBUS_TYPE_INVALID);
 	  }
 	else
 	  spi_dec_set_unlatch_pending (controller, mask_return);
-
-        CORBA_free (e.any_data._value);
       }
       return TRUE;
     }
@@ -475,9 +467,6 @@ static guint
 spi_dec_mouse_check (SpiDEController *controller, 
 		     int *x, int *y, gboolean *moved)
 {
-  Accessibility_Event e;
-  Accessibility_EventDetails *details;
-  CORBA_Environment ev;
   int win_x_return,win_y_return;
   unsigned int mask_return;
   Window root_return, child_return;
@@ -502,36 +491,14 @@ spi_dec_mouse_check (SpiDEController *controller,
 
   if (*x != last_mouse_pos->x || *y != last_mouse_pos->y) 
     {
-      e.type = "mouse:abs";  
-      e.source = BONOBO_OBJREF (controller->registry->desktop);
-      e.detail1 = *x;
-      e.detail2 = *y;
-      spi_init_any_nil (&e.any_data,
-		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
-		    Accessibility_ROLE_UNKNOWN,
-		    "");
-      CORBA_exception_init (&ev);
-      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-					  &e,
-					  &ev);
-      details = e.any_data._value;
-      CORBA_free (details);
-      e.type = "mouse:rel";  
-      e.source = BONOBO_OBJREF (controller->registry->desktop);
-      e.detail1 = *x - last_mouse_pos->x;
-      e.detail2 = *y - last_mouse_pos->y;
-      spi_init_any_nil (&e.any_data,
-		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
-		    Accessibility_ROLE_UNKNOWN,
-		    "");
-      CORBA_exception_init (&ev);
+      // TODO: combine these two signals?
+      dbus_uint32_t ix = *x, iy = *y;
+      emit(controller, "mouse_abs", DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
+      ix -= last_mouse_pos->x;
+      iy -= last_mouse_pos->y;
+      emit(controller, "mouse_rel", DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
       last_mouse_pos->x = *x;
       last_mouse_pos->y = *y;
-      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-					  &e,
-					  &ev);
-      details = e.any_data._value;
-      CORBA_free (details);
       *moved = True;
     }
   else
@@ -546,8 +513,7 @@ static void
 spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask, 
 			     guint current_mask)
 {
-  Accessibility_Event e;
-  CORBA_Environment ev;
+  dbus_uint32_t d1, d2;
 
 #ifdef SPI_XKB_DEBUG
   fprintf (stderr, "MODIFIER CHANGE EVENT! %x to %x\n", 
@@ -560,19 +526,9 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
   if (current_mask & _numlock_physical_mask) 
     current_mask |= SPI_KEYMASK_NUMLOCK;
 
-  e.type = "keyboard:modifiers";  
-  e.source = BONOBO_OBJREF (controller->registry->desktop);
-  e.detail1 = prev_mask & key_modifier_mask;
-  e.detail2 = current_mask & key_modifier_mask;
-  spi_init_any_nil (&e.any_data,
-		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
-		    Accessibility_ROLE_UNKNOWN,
-		    "");
-  CORBA_exception_init (&ev);
-  Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-				      &e,
-				      &ev);
-  CORBA_free (e.any_data._value);
+  d1 = prev_mask & key_modifier_mask;
+  d2 = current_mask & key_modifier_mask;
+      emit(controller, "keyboard_modifiers", DBUS_TYPE_UINT32, &d1, DBUS_TYPE_UINT32, &d2, DBUS_TYPE_INVALID);
 }
 
 static gboolean
@@ -687,21 +643,25 @@ spi_dec_translate_mask (Accessibility_ControllerEventMask mask)
 }
 
 static DEControllerKeyListener *
-spi_dec_key_listener_new (CORBA_Object                            l,
-			  const Accessibility_KeySet             *keys,
+spi_dec_key_listener_new (const char *app_path,
+			  const char *path,
+			  GSList *keys,
 			  const Accessibility_ControllerEventMask mask,
-			  const Accessibility_EventTypeSeq    *typeseq,
-			  const Accessibility_EventListenerMode  *mode,
-			  CORBA_Environment                      *ev)
+			  const dbus_uint32_t types,
+			  const Accessibility_EventListenerMode  *mode)
 {
   DEControllerKeyListener *key_listener = g_new0 (DEControllerKeyListener, 1);
-  key_listener->listener.object = bonobo_object_dup_ref (l, ev);
+  key_listener->listener.app_path = g_strdup(app_path);
+  key_listener->listener.path = g_strdup(path);
   key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
-  key_listener->keys = ORBit_copy_value (keys, TC_Accessibility_KeySet);
+  key_listener->keys = keys;
   key_listener->mask = spi_dec_translate_mask (mask);
-  key_listener->listener.typeseq = ORBit_copy_value (typeseq, TC_Accessibility_EventTypeSeq);
+  key_listener->listener.types = types;
   if (mode)
-    key_listener->mode = ORBit_copy_value (mode, TC_Accessibility_EventListenerMode);
+  {
+    key_listener->mode = (Accessibility_EventListenerMode *) g_malloc(sizeof(Accessibility_EventListenerMode));
+    memcpy(key_listener->mode, mode, sizeof(*mode));
+  }
   else
     key_listener->mode = NULL;
 
@@ -710,82 +670,118 @@ spi_dec_key_listener_new (CORBA_Object                            l,
 	   (unsigned int) key_listener->mask,
            (int) (mode ? mode->global : 0),
 	   (void *) key_listener->keys,
-	   (int) (key_listener->keys ? key_listener->keys->_length : 0));
+	   (int) (key_listener->keys ? g_slist_length(key_listener->keys) : 0));
 #endif
 
   return key_listener;	
 }
 
 static DEControllerListener *
-spi_dec_listener_new (CORBA_Object                            l,
-		      const Accessibility_EventTypeSeq    *typeseq,
-		      CORBA_Environment                      *ev)
+spi_dec_listener_new (const char *app_path,
+		      const char *path,
+		      dbus_uint32_t types)
 {
   DEControllerListener *listener = g_new0 (DEControllerListener, 1);
-  listener->object = bonobo_object_dup_ref (l, ev);
+  listener->app_path = g_strdup(app_path);
+  listener->path = g_strdup(path);
   listener->type = SPI_DEVICE_TYPE_MOUSE;
-  listener->typeseq = ORBit_copy_value (typeseq, TC_Accessibility_EventTypeSeq);
+  listener->types = types;
   return listener;	
 }
 
 static DEControllerListener *
-spi_listener_clone (DEControllerListener *listener, CORBA_Environment *ev)
+spi_listener_clone (DEControllerListener *listener)
 {
   DEControllerListener *clone = g_new0 (DEControllerListener, 1);
-  clone->object =
-	  CORBA_Object_duplicate (listener->object, ev);
+  clone->app_path = g_strdup (listener->app_path);
+  clone->path = g_strdup (listener->path);
   clone->type = listener->type;
-  clone->typeseq = ORBit_copy_value (listener->typeseq, TC_Accessibility_EventTypeSeq);
+  clone->types = listener->types;
   return clone;
 }
 
+static GSList *keylist_clone (GSList *s)
+{
+  GSList *d = NULL;
+  GSList *l;
+
+  for (l = s; l; l = g_slist_next(l))
+  {
+    Accessibility_KeyDefinition *kd = (Accessibility_KeyDefinition *)g_malloc(sizeof(Accessibility_KeyDefinition));
+    if (kd)
+    {
+      Accessibility_KeyDefinition *kds = (Accessibility_KeyDefinition *)l->data;
+      kd->keycode = kds->keycode;
+      kd->keysym = kds->keysym;
+      kd->keystring = g_strdup(kds->keystring);
+      d = g_slist_append(d, kd);
+    }
+  }
+  return d;
+}
+
 static DEControllerKeyListener *
-spi_key_listener_clone (DEControllerKeyListener *key_listener, CORBA_Environment *ev)
+spi_key_listener_clone (DEControllerKeyListener *key_listener)
 {
   DEControllerKeyListener *clone = g_new0 (DEControllerKeyListener, 1);
-  clone->listener.object =
-	  CORBA_Object_duplicate (key_listener->listener.object, ev);
+  clone->listener.app_path = g_strdup (key_listener->listener.app_path);
+  clone->listener.path = g_strdup (key_listener->listener.path);
   clone->listener.type = SPI_DEVICE_TYPE_KBD;
-  clone->keys = ORBit_copy_value (key_listener->keys, TC_Accessibility_KeySet);
+  clone->keys = keylist_clone (key_listener->keys);
   clone->mask = key_listener->mask;
-  clone->listener.typeseq = ORBit_copy_value (key_listener->listener.typeseq, TC_Accessibility_EventTypeSeq);
+  clone->listener.types = key_listener->listener.types;
   if (key_listener->mode)
-    clone->mode = ORBit_copy_value (key_listener->mode, TC_Accessibility_EventListenerMode);
+  {
+    clone->mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
+    if (clone->mode) memcpy(clone->mode, key_listener->mode, sizeof(Accessibility_EventListenerMode));
+  }
   else
     clone->mode = NULL;
   return clone;
 }
 
-static void
-spi_key_listener_data_free (DEControllerKeyListener *key_listener, CORBA_Environment *ev)
+static void keylist_free(GSList *keys)
 {
-  CORBA_free (key_listener->listener.typeseq);
-  CORBA_free (key_listener->keys);
+  GSList *l;
+
+  for (l = keys; l; l = g_slist_next(l))
+  {
+    Accessibility_KeyDefinition *kd = (Accessibility_KeyDefinition *)l->data;
+    g_free(kd->keystring);
+    g_free(kd);
+  }
+  g_slist_free (keys);
+}
+
+static void
+spi_key_listener_data_free (DEControllerKeyListener *key_listener)
+{
+  keylist_free(key_listener->keys);
+  if (key_listener->mode) g_free(key_listener->mode);
   g_free (key_listener);
 }
 
 static void
-spi_key_listener_clone_free (DEControllerKeyListener *clone, CORBA_Environment *ev)
+spi_key_listener_clone_free (DEControllerKeyListener *clone)
 {
-  CORBA_Object_release (clone->listener.object, ev);
-  spi_key_listener_data_free (clone, ev);
+  spi_key_listener_data_free (clone);
 }
 
 static void
-spi_listener_clone_free (DEControllerListener *clone, CORBA_Environment *ev)
+spi_listener_clone_free (DEControllerListener *clone)
 {
-  CORBA_Object_release (clone->object, ev);
-  CORBA_free (clone->typeseq);
+  g_free (clone->path);
+  g_free (clone->app_path);
   g_free (clone);
 }
 
 static void
-spi_dec_listener_free (DEControllerListener    *listener,
-		       CORBA_Environment       *ev)
+spi_dec_listener_free (DEControllerListener    *listener)
 {
-  bonobo_object_release_unref (listener->object, ev);
+  g_free (listener->app_path);
+  g_free (listener->path);
   if (listener->type == SPI_DEVICE_TYPE_KBD) 
-    spi_key_listener_data_free ((DEControllerKeyListener *) listener, ev);
+    spi_key_listener_data_free ((DEControllerKeyListener *) listener);
 }
 
 static void
@@ -848,7 +844,7 @@ handle_keygrab (SpiDEController         *controller,
   DEControllerGrabMask grab_mask = { 0 };
 
   grab_mask.mod_mask = key_listener->mask;
-  if (key_listener->keys->_length == 0) /* special case means AnyKey/AllKeys */
+  if (g_slist_length (key_listener->keys) == 0) /* special case means AnyKey/AllKeys */
     {
       grab_mask.key_val = AnyKey;
 #ifdef SPI_DEBUG
@@ -858,16 +854,16 @@ handle_keygrab (SpiDEController         *controller,
     }
   else
     {
-      int i;
+      GSList *l;
 
-      for (i = 0; i < key_listener->keys->_length; ++i)
+      for (l = key_listener->keys; l; l = g_slist_next(l))
         {
-	  Accessibility_KeyDefinition keydef = key_listener->keys->_buffer[i];	
-	  long int key_val = keydef.keysym;
+	  Accessibility_KeyDefinition *keydef = l->data;
+	  long int key_val = keydef->keysym;
 	  /* X Grabs require keycodes, not keysyms */
-	  if (keydef.keystring && keydef.keystring[0])
+	  if (keydef->keystring && keydef->keystring[0])
 	    {
-	      key_val = XStringToKeysym(keydef.keystring);		    
+	      key_val = XStringToKeysym(keydef->keystring);		    
 	    }
 	  if (key_val > 0)
 	    {
@@ -875,7 +871,7 @@ handle_keygrab (SpiDEController         *controller,
 	    }
 	  else
 	    {
-	      key_val = keydef.keycode;
+	      key_val = keydef->keycode;
 	    }
 	  grab_mask.key_val = key_val;
 	  process_cb (controller, &grab_mask);
@@ -905,8 +901,7 @@ spi_controller_deregister_global_keygrabs (SpiDEController         *controller,
 
 static gboolean
 spi_controller_register_device_listener (SpiDEController      *controller,
-					 DEControllerListener *listener,
-					 CORBA_Environment    *ev)
+					 DEControllerListener *listener)
 {
   DEControllerKeyListener *key_listener;
   
@@ -933,10 +928,33 @@ spi_controller_register_device_listener (SpiDEController      *controller,
   return FALSE; 
 }
 
+static gboolean Accessibility_DeviceEventListener_notifyEvent(SpiRegistry *registry, DEControllerListener *listener, const Accessibility_DeviceEvent *key_event)
+{
+  DBusMessage *message = dbus_message_new_method_call(listener->app_path, listener->path, "org.freedesktop.atspi.Registry", "notifyEvent");
+  DBusError error;
+  dbus_bool_t consumed = FALSE;
+
+  dbus_error_init(&error);
+  if (spi_dbus_marshall_deviceEvent(message, key_event))
+  {
+    // TODO: Evaluate performance: perhaps rework this whole architecture
+    // to avoid blocking calls
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block(registry->droute.bus, message, 1000, &error);
+    if (reply)
+    {
+      DBusError error;
+      dbus_error_init(&error);
+      dbus_message_get_args(reply, &error, DBUS_TYPE_BOOLEAN, &consumed, DBUS_TYPE_INVALID);
+      dbus_message_unref(reply);
+    }
+  }
+  dbus_message_unref(message);
+  return consumed;
+}
+
 static gboolean
 spi_controller_notify_mouselisteners (SpiDEController                 *controller,
-				      const Accessibility_DeviceEvent *event,
-				      CORBA_Environment               *ev)
+				      const Accessibility_DeviceEvent *event)
 {
   GList   *l;
   GSList  *notify = NULL, *l2;
@@ -954,19 +972,14 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
     {
        DEControllerListener *listener = l->data;
 
-       if (spi_eventtype_seq_contains_event (listener->typeseq, event))
+       if (spi_eventtype_seq_contains_event (listener->types, event))
          {
-           Accessibility_DeviceEventListener ls = listener->object;
-
-	   if (ls != CORBA_OBJECT_NIL)
-	     {
-	       /* we clone (don't dup) the listener, to avoid refcount inc. */
-	       notify = g_slist_prepend (notify,
-					 spi_listener_clone (listener, ev));
+	   /* we clone (don't dup) the listener, to avoid refcount inc. */
+	   notify = g_slist_prepend (notify,
+				     spi_listener_clone (listener));
 #ifdef SPI_KEYEVENT_DEBUG
-               found = TRUE;
+           found = TRUE;
 #endif
-	     }
          }
     }
 
@@ -981,26 +994,16 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
   for (l2 = notify; l2 && !is_consumed; l2 = l2->next)
     {
       DEControllerListener *listener = l2->data;	    
-      Accessibility_DeviceEventListener ls = listener->object;
 
-      CORBA_exception_init (ev);
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (ls, event, ev);
-      if (BONOBO_EX (ev))
-        {
-          is_consumed = FALSE;
-	  DBG (2, g_warning ("error notifying listener, removing it\n"));
-	  spi_deregister_controller_device_listener (controller, listener,
-						     ev);
-          CORBA_exception_free (ev);
-        }
+      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller->registry, listener, event);
       
-      spi_listener_clone_free ((DEControllerListener *) l2->data, ev);
+      spi_listener_clone_free ((DEControllerListener *) l2->data);
     }
 
   for (; l2; l2 = l2->next)
     {
       DEControllerListener *listener = l2->data;	    
-      spi_listener_clone_free (listener, ev);
+      spi_listener_clone_free (listener);
       /* clone doesn't have its own ref, so don't use spi_device_listener_free */
     }
 
@@ -1016,13 +1019,12 @@ static void
 spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 						 XEvent *xevent)
 {
-  Accessibility_Event e;
   Accessibility_DeviceEvent mouse_e;
-  CORBA_Environment ev;
   gchar event_name[24];
   gboolean is_consumed = FALSE;
   gboolean xkb_mod_unlatch_occurred;
   XButtonEvent *xbutton_event = (XButtonEvent *) xevent;
+  dbus_uint32_t ix, iy;
 
   int button = xbutton_event->button;
   
@@ -1056,7 +1058,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 	   (xevent->type == ButtonPress) ? "Press" : "Release",
 	   mouse_button_state);
 #endif
-  snprintf (event_name, 22, "mouse:button:%d%c", button,
+  snprintf (event_name, 22, "mouse:button_%d%c", button,
 	    (xevent->type == ButtonPress) ? 'p' : 'r');
 
   /* TODO: FIXME distinguish between physical and logical buttons */
@@ -1065,10 +1067,10 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
                       Accessibility_BUTTON_RELEASED_EVENT;
   mouse_e.id        = button;
   mouse_e.hw_code   = button;
-  mouse_e.modifiers = (CORBA_unsigned_short) xbutton_event->state;
-  mouse_e.timestamp = (CORBA_unsigned_long) xbutton_event->time;
+  mouse_e.modifiers = (dbus_uint16_t) xbutton_event->state;
+  mouse_e.timestamp = (dbus_uint32_t) xbutton_event->time;
   mouse_e.event_string = "";
-  mouse_e.is_text   = CORBA_FALSE;
+  mouse_e.is_text   = FALSE;
   if ((mouse_button_state & mouse_button_mask) != 
        (mouse_mask_state & mouse_button_mask))
     { 
@@ -1078,21 +1080,10 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 				     mouse_mask_state, mouse_button_state);
       mouse_mask_state = mouse_button_state;
       is_consumed = 
-	spi_controller_notify_mouselisteners (controller, &mouse_e, &ev);
-      e.type = CORBA_string_dup (event_name);
-      e.source = BONOBO_OBJREF (controller->registry->desktop);
-      e.detail1 = last_mouse_pos->x;
-      e.detail2 = last_mouse_pos->y;
-      spi_init_any_nil (&e.any_data,
-		    spi_accessible_new_return (atk_get_root (), FALSE, NULL),
-		    Accessibility_ROLE_UNKNOWN,
-		    "");
-      CORBA_exception_init (&ev);
-      
-      Accessibility_Registry_notifyEvent (BONOBO_OBJREF (controller->registry),
-					  &e,
-					  &ev);
-      CORBA_free (e.any_data._value);
+	spi_controller_notify_mouselisteners (controller, &mouse_e);
+      ix = last_mouse_pos->x;
+      iy = last_mouse_pos->y;
+      emit(controller, event_name, DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
     }
 
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
@@ -1334,11 +1325,12 @@ spi_controller_register_with_devices (SpiDEController *controller)
 }
 
 static gboolean
-spi_key_set_contains_key (Accessibility_KeySet            *key_set,
+spi_key_set_contains_key (GSList                          *key_set,
 			  const Accessibility_DeviceEvent *key_event)
 {
   gint i;
   gint len;
+  GSList *l;
 
   if (!key_set)
     {
@@ -1346,35 +1338,38 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
       return TRUE;
     }
 
-  len = key_set->_length;
+  len = g_slist_length (key_set);
   
   if (len == 0) /* special case, means "all keys/any key" */
     {
+#ifdef SPI_DEBUG
       g_print ("anykey\n");	    
+#endif
       return TRUE;
     }
 
-  for (i = 0; i < len; ++i)
+  for (l = key_set,i = 0; l; l = g_slist_next(l),i++)
     {
+      Accessibility_KeyDefinition *kd = l->data;
 #ifdef SPI_KEYEVENT_DEBUG	    
       g_print ("key_set[%d] event = %d, code = %d; key_event %d, code %d, string %s\n",
                 i,
-                (int)key_set->_buffer[i].keysym,
-                (int) key_set->_buffer[i].keycode,
+                (int) kd->keysym,
+                (int) kd->keycode,
                 (int) key_event->id,
                 (int) key_event->hw_code,
                 key_event->event_string); 
 #endif
-      if (key_set->_buffer[i].keysym == (CORBA_long) key_event->id)
+      if (kd->keysym == (dbus_uint32_t) key_event->id)
         {
           return TRUE;
 	}
-      if (key_set->_buffer[i].keycode == (CORBA_long) key_event->hw_code)
+      if (kd->keycode == (dbus_uint32_t) key_event->hw_code)
         {
           return TRUE;
 	}
       if (key_event->event_string && key_event->event_string[0] &&
-	  !strcmp (key_set->_buffer[i].keystring, key_event->event_string))
+	  !strcmp (kd->keystring, key_event->event_string))
         {
           return TRUE;
 	}
@@ -1384,49 +1379,25 @@ spi_key_set_contains_key (Accessibility_KeySet            *key_set,
 }
 
 static gboolean
-spi_eventtype_seq_contains_event (Accessibility_EventTypeSeq      *type_seq,
+spi_eventtype_seq_contains_event (dbus_uint32_t types,
 				  const Accessibility_DeviceEvent *event)
 {
-  gint i;
-  gint len;
-
-
-  if (!type_seq)
-    {
-      g_print ("null type seq!");
-      return TRUE;
-    }
-
-  len = type_seq->_length;
-  
-  if (len == 0) /* special case, means "all events/any event" */
+  if (types == 0) /* special case, means "all events/any event" */
     {
       return TRUE;
     }
 
-  for (i = 0; i < len; ++i)
-    {
-#ifdef SPI_DEBUG	    
-      g_print ("type_seq[%d] = %d; event type = %d\n", i,
-	       (int) type_seq->_buffer[i], (int) event->type);
-#endif      
-      if (type_seq->_buffer[i] == (CORBA_long) event->type)
-        {
-          return TRUE;
-	}
-    }
-  
-  return FALSE;
+  return (types & (1 << event->type));
 }
 
 static gboolean
 spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 				DEControllerKeyListener         *listener,
-				CORBA_boolean                    is_system_global)
+				dbus_bool_t                    is_system_global)
 {
-  if (((key_event->modifiers & 0xFF) == (CORBA_unsigned_short) (listener->mask & 0xFF)) &&
+  if (((key_event->modifiers & 0xFF) == (dbus_uint16_t) (listener->mask & 0xFF)) &&
        spi_key_set_contains_key (listener->keys, key_event) &&
-       spi_eventtype_seq_contains_event (listener->listener.typeseq, key_event) && 
+       spi_eventtype_seq_contains_event (listener->listener.types, key_event) && 
       (is_system_global == listener->mode->global))
     {
       return TRUE;
@@ -1440,8 +1411,7 @@ spi_key_event_matches_listener (const Accessibility_DeviceEvent *key_event,
 static gboolean
 spi_controller_notify_keylisteners (SpiDEController                 *controller,
 				    Accessibility_DeviceEvent       *key_event,
-				    CORBA_boolean                    is_system_global,
-				    CORBA_Environment               *ev)
+				    dbus_bool_t                    is_system_global)
 {
   GList   *l;
   GSList  *notify = NULL, *l2;
@@ -1463,14 +1433,9 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
 
        if (spi_key_event_matches_listener (key_event, key_listener, is_system_global))
          {
-           Accessibility_DeviceEventListener ls = key_listener->listener.object;
-
-	   if (ls != CORBA_OBJECT_NIL)
-	     {
-	       /* we clone (don't dup) the listener, to avoid refcount inc. */
-	       notify = g_slist_prepend (notify,
-					 spi_key_listener_clone (key_listener, ev));
-	     }
+	   /* we clone (don't dup) the listener, to avoid refcount inc. */
+	   notify = g_slist_prepend (notify,
+				     spi_key_listener_clone (key_listener));
          }
     }
 
@@ -1485,26 +1450,17 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
   for (l2 = notify; l2 && !is_consumed; l2 = l2->next)
     {
       DEControllerKeyListener *key_listener = l2->data;	    
-      Accessibility_DeviceEventListener ls = key_listener->listener.object;
 
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (ls, key_event, ev) &&
+      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller->registry, &key_listener->listener, key_event) &&
 	            key_listener->mode->preemptive;
 
-      if (BONOBO_EX (ev))
-        {
-          is_consumed = FALSE;
-	  spi_deregister_controller_key_listener (controller, key_listener,
-						  ev);
-	  CORBA_exception_free (ev);
-        }
-
-      spi_key_listener_clone_free (key_listener, ev);
+      spi_key_listener_clone_free (key_listener);
     }
 
   for (; l2; l2 = l2->next)
     {
       DEControllerKeyListener *key_listener = l2->data;	    
-      spi_key_listener_clone_free (key_listener, ev);
+      spi_key_listener_clone_free (key_listener);
       /* clone doesn't have its own ref, so don't use spi_dec_listener_free */
     }
 
@@ -1534,8 +1490,8 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
   int nbytes;
 
   nbytes = XLookupString (x_key_event, cbuf, cbuf_bytes, &keysym, NULL);  
-  key_event.id = (CORBA_long)(keysym);
-  key_event.hw_code = (CORBA_short) x_key_event->keycode;
+  key_event.id = (dbus_int32_t)(keysym);
+  key_event.hw_code = (dbus_int16_t) x_key_event->keycode;
   if (((XEvent *) x_key_event)->type == KeyPress)
     {
       key_event.type = Accessibility_KEY_PRESSED_EVENT;
@@ -1544,105 +1500,105 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
     {
       key_event.type = Accessibility_KEY_RELEASED_EVENT;
     } 
-  key_event.modifiers = (CORBA_unsigned_short)(x_key_event->state);
-  key_event.is_text = CORBA_FALSE;
+  key_event.modifiers = (dbus_uint16_t)(x_key_event->state);
+  key_event.is_text = FALSE;
   switch (keysym)
     {
       case ' ':
-        key_event.event_string = CORBA_string_dup ("space");
+        key_event.event_string = g_strdup ("space");
         break;
       case XK_Tab:
-        key_event.event_string = CORBA_string_dup ("Tab");
+        key_event.event_string = g_strdup ("Tab");
 	break;
       case XK_BackSpace:
-        key_event.event_string = CORBA_string_dup ("Backspace");
+        key_event.event_string = g_strdup ("Backspace");
 	break;
       case XK_Return:
-        key_event.event_string = CORBA_string_dup ("Return");
+        key_event.event_string = g_strdup ("Return");
 	break;
       case XK_Home:
-        key_event.event_string = CORBA_string_dup ("Home");
+        key_event.event_string = g_strdup ("Home");
 	break;
       case XK_Page_Down:
-        key_event.event_string = CORBA_string_dup ("Page_Down");
+        key_event.event_string = g_strdup ("Page_Down");
 	break;
       case XK_Page_Up:
-        key_event.event_string = CORBA_string_dup ("Page_Up");
+        key_event.event_string = g_strdup ("Page_Up");
 	break;
       case XK_F1:
-        key_event.event_string = CORBA_string_dup ("F1");
+        key_event.event_string = g_strdup ("F1");
 	break;
       case XK_F2:
-        key_event.event_string = CORBA_string_dup ("F2");
+        key_event.event_string = g_strdup ("F2");
 	break;
       case XK_F3:
-        key_event.event_string = CORBA_string_dup ("F3");
+        key_event.event_string = g_strdup ("F3");
 	break;
       case XK_F4:
-        key_event.event_string = CORBA_string_dup ("F4");
+        key_event.event_string = g_strdup ("F4");
 	break;
       case XK_F5:
-        key_event.event_string = CORBA_string_dup ("F5");
+        key_event.event_string = g_strdup ("F5");
 	break;
       case XK_F6:
-        key_event.event_string = CORBA_string_dup ("F6");
+        key_event.event_string = g_strdup ("F6");
 	break;
       case XK_F7:
-        key_event.event_string = CORBA_string_dup ("F7");
+        key_event.event_string = g_strdup ("F7");
 	break;
       case XK_F8:
-        key_event.event_string = CORBA_string_dup ("F8");
+        key_event.event_string = g_strdup ("F8");
 	break;
       case XK_F9:
-        key_event.event_string = CORBA_string_dup ("F9");
+        key_event.event_string = g_strdup ("F9");
 	break;
       case XK_F10:
-        key_event.event_string = CORBA_string_dup ("F10");
+        key_event.event_string = g_strdup ("F10");
 	break;
       case XK_F11:
-        key_event.event_string = CORBA_string_dup ("F11");
+        key_event.event_string = g_strdup ("F11");
 	break;
       case XK_F12:
-        key_event.event_string = CORBA_string_dup ("F12");
+        key_event.event_string = g_strdup ("F12");
 	break;
       case XK_End:
-        key_event.event_string = CORBA_string_dup ("End");
+        key_event.event_string = g_strdup ("End");
 	break;
       case XK_Escape:
-        key_event.event_string = CORBA_string_dup ("Escape");
+        key_event.event_string = g_strdup ("Escape");
 	break;
       case XK_Up:
-        key_event.event_string = CORBA_string_dup ("Up");
+        key_event.event_string = g_strdup ("Up");
 	break;
       case XK_Down:
-        key_event.event_string = CORBA_string_dup ("Down");
+        key_event.event_string = g_strdup ("Down");
 	break;
       case XK_Left:
-        key_event.event_string = CORBA_string_dup ("Left");
+        key_event.event_string = g_strdup ("Left");
 	break;
       case XK_Right:
-        key_event.event_string = CORBA_string_dup ("Right");
+        key_event.event_string = g_strdup ("Right");
 	break;
       default:
         if (nbytes > 0)
           {
 	    gunichar c;
 	    cbuf[nbytes] = '\0'; /* OK since length is cbuf_bytes+1 */
-            key_event.event_string = CORBA_string_dup (cbuf);
+            key_event.event_string = g_strdup (cbuf);
 	    c = keysym2ucs (keysym);
 	    if (c > 0 && !g_unichar_iscntrl (c))
 	      {
-	        key_event.is_text = CORBA_TRUE; 
+	        key_event.is_text = TRUE; 
 		/* incorrect for some composed chars? */
 	      }
           }
         else
           {
-            key_event.event_string = CORBA_string_dup ("");
+            key_event.event_string = g_strdup ("");
           }
     }
 
-  key_event.timestamp = (CORBA_unsigned_long) x_key_event->time;
+  key_event.timestamp = (dbus_uint32_t) x_key_event->time;
 #ifdef SPI_KEYEVENT_DEBUG
   {
     char *pressed_str  = "pressed";
@@ -1662,7 +1618,7 @@ spi_keystroke_from_x_key_event (XKeyEvent *x_key_event)
 	     (int) x_key_event->state,
 	     key_event.event_string,
 	     key_event.event_string[0],
-	     (key_event.is_text == CORBA_TRUE) ? "(text)" : "(not text)");
+	     (key_event.is_text == TRUE) ? "(text)" : "(not text)");
   }
 #endif
 #ifdef SPI_DEBUG
@@ -1783,7 +1739,7 @@ spi_device_event_controller_object_finalize (GObject *object)
   SpiDEController *controller;
   DEControllerPrivateData *private;
   controller = SPI_DEVICE_EVENT_CONTROLLER (object);
-
+  GObjectClass *parent_class = G_OBJECT_CLASS(spi_device_event_controller_parent_class);
 #ifdef SPI_DEBUG
   fprintf(stderr, "spi_device_event_controller_object_finalize called\n");
 #endif
@@ -1804,56 +1760,104 @@ spi_device_event_controller_object_finalize (GObject *object)
   if (private->xkb_desc)
 	  XkbFreeKeyboard (private->xkb_desc, 0, True);
   g_free (private);
-  spi_device_event_controller_parent_class->finalize (object);
+  parent_class->finalize (object);
 }
 
 /*
- * CORBA Accessibility::DEController::registerKeystrokeListener
+ * DBus Accessibility::DEController::registerKeystrokeListener
  *     method implementation
  */
-static CORBA_boolean
-impl_register_keystroke_listener (PortableServer_Servant                  servant,
-				  const Accessibility_DeviceEventListener l,
-				  const Accessibility_KeySet             *keys,
-				  const Accessibility_ControllerEventMask mask,
-				  const Accessibility_EventTypeSeq       *type,
-				  const Accessibility_EventListenerMode  *mode,
-				  CORBA_Environment                      *ev)
+static DBusMessage *
+impl_register_keystroke_listener (DBusConnection *bus,
+				  DBusMessage *message,
+				  void *user_data)
 {
-  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (
-	  bonobo_object_from_servant (servant));
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
   DEControllerKeyListener *dec_listener;
+  DBusMessageIter iter, iter_array;
+  const char *path;
+  GSList *keys = NULL;
+  dbus_int32_t mask, type;
+  Accessibility_EventListenerMode *mode;
+  dbus_bool_t ret;
+  DBusMessage *reply;
+  char *keystring;
+
+  dbus_message_iter_init(message, &iter);
+  // TODO: verify type signature
+  dbus_message_iter_get_basic(&iter, &path);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_recurse(&iter, &iter_array);
+  while (dbus_message_iter_get_arg_type(&iter_array) != DBUS_TYPE_INVALID)
+  {
+    Accessibility_KeyDefinition *kd = (Accessibility_KeyDefinition *)g_malloc(sizeof(Accessibility_KeyDefinition));
+    if (!spi_dbus_message_iter_get_struct(&iter_array, DBUS_TYPE_INT32, &kd->keycode, DBUS_TYPE_INT32, &kd->keysym, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_INVALID))
+    {
+      break;
+    }
+    kd->keystring = g_strdup (keystring);
+    keys = g_slist_append(keys, kd);
+  }
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &mask);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &type);
+  dbus_message_iter_next(&iter);
+  mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
+  if (mode)
+  {
+    spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_BOOLEAN, &mode->synchronous, DBUS_TYPE_BOOLEAN, &mode->preemptive, DBUS_TYPE_BOOLEAN, &mode->global, DBUS_TYPE_INVALID);
+  }
 #ifdef SPI_DEBUG
-  fprintf (stderr, "registering keystroke listener %p with maskVal %lu\n",
-	   (void *) l, (unsigned long) mask);
+  fprintf (stderr, "registering keystroke listener %s:%s with maskVal %lu\n",
+	   dbus_message_get_sender(message), path, (unsigned long) mask);
 #endif
-  dec_listener = spi_dec_key_listener_new (l, keys, mask, type, mode, ev);
-  return spi_controller_register_device_listener (
-	  controller, (DEControllerListener *) dec_listener, ev);
+  dec_listener = spi_dec_key_listener_new (dbus_message_get_sender(message), path, keys, mask, type, mode);
+  ret = spi_controller_register_device_listener (
+	  controller, (DEControllerListener *) dec_listener);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+  {
+    dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
+  }
+  return reply;
 }
 
-
 /*
- * CORBA Accessibility::DEController::registerDeviceEventListener
+ * DBus Accessibility::DEController::registerDeviceEventListener
  *     method implementation
  */
-static CORBA_boolean
-impl_register_device_listener (PortableServer_Servant                  servant,
-			       const Accessibility_DeviceEventListener l,
-			       const Accessibility_EventTypeSeq       *event_types,
-			       CORBA_Environment                      *ev)
+static DBusMessage *
+impl_register_device_listener (DBusConnection *bus,
+				  DBusMessage *message,
+				  void *user_data)
 {
-  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (
-	  bonobo_object_from_servant (servant));
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
   DEControllerListener *dec_listener;
+  DBusError error;
+  const char *path;
+  dbus_int32_t event_types;
+  dbus_bool_t ret;
+  DBusMessage *reply;
 
-  dec_listener = spi_dec_listener_new (l, event_types, ev);
-  return spi_controller_register_device_listener (
-	  controller, (DEControllerListener *) dec_listener, ev);
+  dbus_error_init(&error);
+  if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
+  dec_listener = spi_dec_listener_new (dbus_message_get_sender(message), path, event_types);
+  ret =  spi_controller_register_device_listener (
+	  controller, (DEControllerListener *) dec_listener);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+  {
+    dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
+  }
+  return reply;
 }
 
 typedef struct {
-	CORBA_Environment       *ev;
+	DBusConnection *bus;
 	DEControllerListener    *listener;
 } RemoveListenerClosure;
 
@@ -1864,11 +1868,11 @@ remove_listener_cb (GList * const *list,
   DEControllerListener  *listener = (*list)->data;
   RemoveListenerClosure *ctx = user_data;
 
-  if (CORBA_Object_is_equivalent (ctx->listener->object,
-				  listener->object, ctx->ev))
+  if (!strcmp(ctx->listener->app_path, listener->app_path) &&
+      !strcmp(ctx->listener->path, listener->path))
     {
       spi_re_entrant_list_delete_link (list);
-      spi_dec_listener_free (listener, ctx->ev);
+      spi_dec_listener_free (listener);
     }
 
   return SPI_RE_ENTRANT_CONTINUE;
@@ -1881,27 +1885,26 @@ copy_key_listener_cb (GList * const *list,
   DEControllerKeyListener  *key_listener = (*list)->data;
   RemoveListenerClosure    *ctx = user_data;
 
-  if (CORBA_Object_is_equivalent (ctx->listener->object,
-				  key_listener->listener.object, ctx->ev))
+  if (!strcmp(ctx->listener->app_path, key_listener->listener.app_path) &&
+      !strcmp(ctx->listener->path, key_listener->listener.path))
     {
       /* TODO: FIXME aggregate keys in case the listener is registered twice */
       DEControllerKeyListener *ctx_key_listener = 
 	(DEControllerKeyListener *) ctx->listener; 
-      CORBA_free (ctx_key_listener->keys);	    
-      ctx_key_listener->keys = ORBit_copy_value (key_listener->keys, TC_Accessibility_KeySet);
+      keylist_free (ctx_key_listener->keys);	    
+      ctx_key_listener->keys = keylist_clone(key_listener->keys);
     }
 
   return SPI_RE_ENTRANT_CONTINUE;
 }
 
 static void
-spi_deregister_controller_device_listener (SpiDEController            *controller,
-					   DEControllerListener *listener,
-					   CORBA_Environment          *ev)
+spi_controller_deregister_device_listener (SpiDEController            *controller,
+					   DEControllerListener *listener)
 {
   RemoveListenerClosure  ctx;
 
-  ctx.ev = ev;
+  ctx.bus = controller->registry->droute.bus;
   ctx.listener = listener;
 
   spi_re_entrant_list_foreach (&controller->mouse_listeners,
@@ -1910,16 +1913,15 @@ spi_deregister_controller_device_listener (SpiDEController            *controlle
 
 static void
 spi_deregister_controller_key_listener (SpiDEController            *controller,
-					DEControllerKeyListener    *key_listener,
-					CORBA_Environment          *ev)
+					DEControllerKeyListener    *key_listener)
 {
   RemoveListenerClosure  ctx;
 
-  ctx.ev = ev;
+  ctx.bus = controller->registry->droute.bus;
   ctx.listener = (DEControllerListener *) key_listener;
 
   /* special case, copy keyset from existing controller list entry */
-  if (key_listener->keys->_length == 0) 
+  if (g_slist_length(key_listener->keys) == 0)
     {
       spi_re_entrant_list_foreach (&controller->key_listeners,
 				  copy_key_listener_cb, &ctx);
@@ -1933,53 +1935,83 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
 }
 
 /*
- * CORBA Accessibility::DEController::deregisterKeystrokeListener
+ * DBus Accessibility::DEController::deregisterKeystrokeListener
  *     method implementation
  */
-static void
-impl_deregister_keystroke_listener (PortableServer_Servant                  servant,
-				    const Accessibility_DeviceEventListener l,
-				    const Accessibility_KeySet             *keys,
-				    const Accessibility_ControllerEventMask mask,
-				    const Accessibility_EventTypeSeq       *type,
-				    CORBA_Environment                      *ev)
+static DBusMessage *
+impl_deregister_keystroke_listener (DBusConnection *bus,
+				  DBusMessage *message,
+				  void *user_data)
 {
-  DEControllerKeyListener  *key_listener;
-  SpiDEController *controller;
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  DEControllerKeyListener *key_listener;
+  DBusMessageIter iter, iter_array;
+  const char *path;
+  GSList *keys = NULL;
+  dbus_int32_t mask, type;
+  DBusMessage *reply;
 
-  controller = SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
+  dbus_message_iter_init(message, &iter);
+  // TODO: verify type signature
+  dbus_message_iter_get_basic(&iter, &path);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_recurse(&iter, &iter_array);
+  while (dbus_message_iter_get_arg_type(&iter_array) != DBUS_TYPE_INVALID)
+  {
+    Accessibility_KeyDefinition *kd = (Accessibility_KeyDefinition *)g_malloc(sizeof(Accessibility_KeyDefinition));
+  char *keystring;
 
-  key_listener = spi_dec_key_listener_new (l, keys, mask, type, NULL, ev);
-
+    if (!spi_dbus_message_iter_get_struct(&iter_array, DBUS_TYPE_INT32, &kd->keycode, DBUS_TYPE_INT32, &kd->keysym, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_INVALID))
+    {
+      break;
+    }
+    kd->keystring = g_strdup (keystring);
+    keys = g_slist_append(keys, kd);
+  }
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &mask);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &type);
+  dbus_message_iter_next(&iter);
+  key_listener = spi_dec_key_listener_new (dbus_message_get_sender(message), path, keys, mask, type, NULL);
 #ifdef SPI_DEREGISTER_DEBUG
   fprintf (stderr, "deregistering keystroke listener %p with maskVal %lu\n",
 	   (void *) l, (unsigned long) mask->value);
 #endif
 
-  spi_deregister_controller_key_listener (controller, key_listener, ev);
+  spi_deregister_controller_key_listener (controller, key_listener);
 
-  spi_dec_listener_free ((DEControllerListener *) key_listener, ev);
+  spi_dec_listener_free ((DEControllerListener *) key_listener);
+  reply = dbus_message_new_method_return (message);
+  return reply;
 }
 
 /*
- * CORBA Accessibility::DEController::deregisterDeviceEventListener
+ * DBus Accessibility::DEController::deregisterDeviceEventListener
  *     method implementation
  */
-static void
-impl_deregister_device_listener (PortableServer_Servant                  servant,
-				 const Accessibility_DeviceEventListener l,
-				 const Accessibility_EventTypeSeq       *event_types,
-				 CORBA_Environment                      *ev)
+static DBusMessage *
+impl_deregister_device_listener (DBusConnection *bus,
+				  DBusMessage *message,
+				  void *user_data)
 {
-  SpiDEController *controller;
-  DEControllerListener *listener = 
-          spi_dec_listener_new (l, event_types, ev);
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  DEControllerListener *listener;
+  DBusError error;
+  const char *path;
+  dbus_int32_t event_types;
+  DBusMessage *reply;
 
-  controller = SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
-
-  spi_deregister_controller_device_listener (controller, listener, ev);
-
-  spi_dec_listener_free (listener, ev);
+  dbus_error_init(&error);
+  if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
+  listener = spi_dec_listener_new (dbus_message_get_sender(message), path, event_types);
+  spi_controller_deregister_device_listener (
+	  controller, listener);
+  reply = dbus_message_new_method_return (message);
+  return reply;
 }
 
 static unsigned int dec_xkb_get_slowkeys_delay (SpiDEController *controller)
@@ -2202,7 +2234,7 @@ dec_synth_keysym (SpiDEController *controller, KeySym keysym)
 
 
 static gboolean
-dec_synth_keystring (SpiDEController *controller, const CORBA_char *keystring)
+dec_synth_keystring (SpiDEController *controller, const char *keystring)
 {
 	/* probably we need to create and inject an XIM handler eventually. */
 	/* for now, try to match the string to existing 
@@ -2266,21 +2298,26 @@ dec_synth_keystring (SpiDEController *controller, const CORBA_char *keystring)
 
 
 /*
- * CORBA Accessibility::DEController::registerKeystrokeListener
+ * DBus Accessibility::DEController::registerKeystrokeListener
  *     method implementation
  */
-static void
-impl_generate_keyboard_event (PortableServer_Servant           servant,
-			      const CORBA_long                 keycode,
-			      const CORBA_char                *keystring,
-			      const Accessibility_KeySynthType synth_type,
-			      CORBA_Environment               *ev)
+static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDEController *controller =
-	SPI_DEVICE_EVENT_CONTROLLER (bonobo_object (servant));
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  DBusError error;
+  dbus_int32_t keycode;
+  char *keystring;
+  dbus_uint32_t synth_type;
   gint err;
   KeySym keysym;
   DEControllerPrivateData *priv;
+  DBusMessage *reply;
+
+  dbus_error_init(&error);
+  if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &keycode, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_UINT32, &synth_type, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
 
 #ifdef SPI_DEBUG
 	fprintf (stderr, "synthesizing keystroke %ld, type %d\n",
@@ -2343,19 +2380,27 @@ impl_generate_keyboard_event (PortableServer_Servant           servant,
     {
       spi_dec_clear_unlatch_pending (controller);
     }
+  reply = dbus_message_new_method_return (message);
+  return reply;
 }
 
 /* Accessibility::DEController::generateMouseEvent */
-static void
-impl_generate_mouse_event (PortableServer_Servant servant,
-			   const CORBA_long       x,
-			   const CORBA_long       y,
-			   const CORBA_char      *eventName,
-			   CORBA_Environment     *ev)
+static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
+  DBusError error;
+  dbus_int32_t       x;
+  dbus_int32_t       y;
+  char *eventName;
+  DBusMessage *reply;
   int button = 0;
-  gboolean error = FALSE;
+  gboolean err = FALSE;
   Display *display = spi_get_display ();
+
+  if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y, DBUS_TYPE_STRING, &eventName, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
+
 #ifdef SPI_DEBUG
   fprintf (stderr, "generating mouse %s event at %ld, %ld\n",
 	   eventName, (long int) x, (long int) y);
@@ -2382,9 +2427,9 @@ impl_generate_mouse_event (PortableServer_Servant servant,
 	          button = 5;
 	          break;
 	  default:
-		  error = TRUE;
+		  err = TRUE;
 	  }
-	if (!error)
+	if (!err)
 	  {
 	    if (x != -1 && y != -1)
 	      {
@@ -2410,59 +2455,68 @@ impl_generate_mouse_event (PortableServer_Servant servant,
 			      x, y, 0);
         break;
     }
+  reply = dbus_message_new_method_return (message);
+  return reply;
 }
 
 /* Accessibility::DEController::notifyListenersSync */
-static CORBA_boolean
-impl_notify_listeners_sync (PortableServer_Servant           servant,
-			    const Accessibility_DeviceEvent *event,
-			    CORBA_Environment               *ev)
+static DBusMessage *
+impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (
-    bonobo_object_from_servant (servant));
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  Accessibility_DeviceEvent event;
+  dbus_bool_t ret;
+  DBusMessage *reply;
+
+  if (!spi_dbus_demarshall_deviceEvent(message, &event))
+  {
+    return spi_dbus_general_error (message);
+  }
 #ifdef SPI_DEBUG
   g_print ("notifylistening listeners synchronously: controller %p, event id %d\n",
-	   controller, (int) event->id);
+	   controller, (int) event.id);
 #endif
-  return spi_controller_notify_keylisteners (controller,
+  ret = spi_controller_notify_keylisteners (controller,
 					     (Accessibility_DeviceEvent *) 
-					     event, CORBA_FALSE, ev) ?
-	  CORBA_TRUE : CORBA_FALSE; 
+					     &event, FALSE) ?
+	  TRUE : FALSE; 
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+  {
+    dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
+  }
+  return reply;
 }
 
-/* Accessibility::DEController::notifyListenersAsync */
-static void
-impl_notify_listeners_async (PortableServer_Servant           servant,
-			     const Accessibility_DeviceEvent *event,
-			     CORBA_Environment               *ev)
+static DBusMessage *
+impl_notify_listeners_async (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER (
-    bonobo_object_from_servant (servant));
+  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  Accessibility_DeviceEvent event;
+  DBusMessage *reply;
+
+  if (!spi_dbus_demarshall_deviceEvent(message, &event))
+  {
+    return spi_dbus_general_error (message);
+  }
 #ifdef SPI_DEBUG
-  fprintf (stderr, "notifying listeners asynchronously\n");
+  g_print ("notifylistening listeners asynchronously: controller %p, event id %d\n",
+	   controller, (int) event.id);
 #endif
   spi_controller_notify_keylisteners (controller, (Accessibility_DeviceEvent *)
-				      event, CORBA_FALSE, ev); 
+				      &event, FALSE); 
+  reply = dbus_message_new_method_return (message);
+  return reply;
 }
 
 static void
 spi_device_event_controller_class_init (SpiDEControllerClass *klass)
 {
   GObjectClass * object_class = (GObjectClass *) klass;
-  POA_Accessibility_DeviceEventController__epv *epv = &klass->epv;
 
   spi_device_event_controller_parent_class = g_type_class_peek_parent (klass);
   
   object_class->finalize = spi_device_event_controller_object_finalize;
-	
-  epv->registerKeystrokeListener   = impl_register_keystroke_listener;
-  epv->deregisterKeystrokeListener = impl_deregister_keystroke_listener;
-  epv->registerDeviceEventListener = impl_register_device_listener;
-  epv->deregisterDeviceEventListener = impl_deregister_device_listener;
-  epv->generateKeyboardEvent       = impl_generate_keyboard_event;
-  epv->generateMouseEvent          = impl_generate_mouse_event;
-  epv->notifyListenersSync         = impl_notify_listeners_sync;
-  epv->notifyListenersAsync        = impl_notify_listeners_async;
 
   if (!spi_dec_private_quark)
 	  spi_dec_private_quark = g_quark_from_static_string ("spi-dec-private");
@@ -2547,13 +2601,10 @@ static gboolean
 spi_device_event_controller_forward_key_event (SpiDEController *controller,
 					       const XEvent    *event)
 {
-  CORBA_Environment ev;
   Accessibility_DeviceEvent key_event;
   gboolean ret;
 
   g_assert (event->type == KeyPress || event->type == KeyRelease);
-
-  CORBA_exception_init (&ev);
 
   key_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);
 
@@ -2561,8 +2612,8 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
     spi_controller_update_key_grabs (controller, &key_event);
 
   /* relay to listeners, and decide whether to consume it or not */
-  ret = spi_controller_notify_keylisteners (controller, &key_event, CORBA_TRUE, &ev);
-  CORBA_free(key_event.event_string);
+  ret = spi_controller_notify_keylisteners (controller, &key_event, TRUE);
+  g_free(key_event.event_string);
   return ret;
 }
 
@@ -2572,8 +2623,7 @@ spi_device_event_controller_new (SpiRegistry *registry)
   SpiDEController *retval = g_object_new (
     SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
   
-  retval->registry = SPI_REGISTRY (bonobo_object_ref (
-	  BONOBO_OBJECT (registry)));
+  retval->registry = g_object_ref (registry);
 
   spi_dec_init_mouse_listener (registry);
   /* TODO: kill mouse listener on finalize */  
@@ -2597,7 +2647,6 @@ check_release (gpointer data)
   gboolean released;
   Accessibility_DeviceEvent *event = (Accessibility_DeviceEvent *)data;
   KeyCode code = event->hw_code;
-  CORBA_Environment ev;
 
   released = is_key_released (code);
 
@@ -2605,8 +2654,7 @@ check_release (gpointer data)
     {
       check_release_handler = 0;
       event->type = Accessibility_KEY_RELEASED_EVENT;
-      ev._major = CORBA_NO_EXCEPTION;
-      spi_controller_notify_keylisteners (saved_controller, event, CORBA_TRUE, &ev);
+      spi_controller_notify_keylisteners (saved_controller, event, TRUE);
     }
   return (released == 0);
 }
@@ -2619,7 +2667,22 @@ static void wait_for_release_event (XEvent          *event,
   check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
 }
 
-BONOBO_TYPE_FUNC_FULL (SpiDEController,
-		       Accessibility_DeviceEventController,
-		       PARENT_TYPE,
-		       spi_device_event_controller)
+static DRouteMethod methods[] =
+{
+  { impl_register_keystroke_listener, "registerKeystrokeListener" },
+  { impl_register_device_listener, "registerDeviceListener" },
+  { impl_deregister_keystroke_listener, "deregisterKeystrokeListener" },
+  { impl_deregister_device_listener, "deregisterDeviceListener" },
+  { impl_generate_keyboard_event, "generateKeyboardEvent" },
+  { impl_generate_mouse_event, "generateMouseEvent" },
+  { impl_notify_listeners_sync, "notifyListenersSync" },
+  { impl_notify_listeners_async, "notifyListenersAsync" },
+  { NULL, NULL }
+};
+
+void
+spi_registry_initialize_dec_interface (DRouteData * data)
+{
+  droute_add_interface (data, "org.freedesktop.atspi.DeviceEventController", methods,
+			NULL, NULL, NULL);
+};

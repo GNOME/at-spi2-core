@@ -85,6 +85,11 @@ struct _Accessibility_KeyDefinition
 
 #define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.registry"
 #define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
+#define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.registry"
+#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/dec"
+#define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.deviceEventController"
+#define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/registry/desktop"
+#define SPI_DBUS_PATH_NULL "/"
 
 AtkObject *spi_dbus_get_object(const char *path);
 
@@ -97,6 +102,7 @@ dbus_bool_t spi_dbus_return_v_object(DBusMessageIter *iter, AtkObject *obj, int 
 #define SPI_DBUS_RETURN_ERROR(m, e) dbus_message_new_error(m, (e)->name, (e)->message)
 
 void spi_dbus_initialize(DRouteData *data);
+void spi_dbus_emit_valist(DBusConnection *bus, const char *path, const char *interface, const char *name, int first_arg_type, va_list args);
 dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e);
@@ -109,4 +115,6 @@ gboolean spi_dbus_update_cache(DRouteData *data);
 gboolean spi_dbus_object_is_known(AtkObject *obj);
 G_END_DECLS
 
+/* introspect-loader.c */
+void spi_append_interface (GString *str, const char *interface);
 #endif /* SPI_ACCESSIBLE_H_ */

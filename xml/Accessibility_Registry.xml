@@ -162,7 +162,7 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get a list of accessible desktops.     </p>
     </tp:docstring>
-    <arg direction="out" type="ao" tp:type="DesktopSeq">
+    <arg direction="out" type="as" tp:type="DesktopSeq">
     <tp:docstring>
       a sequence containing references tothe Desktops.
     </tp:docstring>
@@ -177,24 +177,6 @@
       an object implementing DeviceEventController
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
-  </method>
-  <method name="unImplemented5">
-  </method>
-  <method name="unImplemented6">
   </method>
 </interface>
 <tp:enum name="KeyEventType" type="u">
@@ -483,21 +465,6 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="unImplemented__">
-    <tp:docstring>
-      \cond 
-    </tp:docstring>
-  </method>
-  <method name="unImplemented_2_">
-  </method>
-  <method name="unImplemented_3_">
-  </method>
-  <method name="unImplemented_4_">
-  </method>
-  <method name="unImplemented_5_">
-  </method>
-  <method name="unImplemented_6_">
-  </method>
 </interface>
 <interface name="org.freedesktop.atspi.DeviceEventController">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -576,7 +543,7 @@
       a DeviceEventListener which will intercept events.
     </tp:docstring>
     </arg>
-    <arg direction="in" name="typeseq" type="au" tp:type="EventTypeSeq">
+    <arg direction="in" name="types" type="u" tp:type="EventTypeSeq">
     <tp:docstring>
       an EventTypeSeq indicating which event types to listen for.
     </tp:docstring>
@@ -596,7 +563,7 @@
       a DeviceEventListener which will intercept events.
     </tp:docstring>
     </arg>
-    <arg direction="in" name="typeseq" type="au" tp:type="EventTypeSeq">
+    <arg direction="in" name="types" type="u" tp:type="EventTypeSeq">
     <tp:docstring>
       an EventTypeSeq indicating which event types to stoplistening for.
     </tp:docstring>
@@ -673,20 +640,6 @@
       a string indicating the type of mouse event, e.g. &quot;button1up&quot;
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
   </method>
 </interface>
 </node>

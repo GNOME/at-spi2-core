@@ -25,7 +25,6 @@
 #define SPI_REGISTRY_H_
 
 #include <glib/gmain.h>
-#include <libspi/listener.h>
 
 typedef struct _SpiRegistry SpiRegistry;
 
@@ -41,7 +40,7 @@ G_BEGIN_DECLS
 #define SPI_IS_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
 
 struct _SpiRegistry {
-  SpiListener      parent;
+  GObject      parent;
 
   GList           *object_listeners;
   GList           *window_listeners;
@@ -50,20 +49,25 @@ struct _SpiRegistry {
   gboolean         is_queueing;
   guint            exit_notify_timeout;
   guint            queue_handler_id;
-  Bonobo_Unknown    focus_object;
+  char *focus_object_bus;
+  char *focus_object_path;
   SpiDEController *de_controller;
   SpiDesktop      *desktop;
+  DRouteData droute;
 };
 
 typedef struct {
-  SpiListenerClass parent_class;
-
-  POA_Accessibility_Registry__epv epv;
+  GObjectClass parent_class;
 } SpiRegistryClass;
 
 GType        spi_registry_get_type (void);
 SpiRegistry *spi_registry_new      (void);
 
+void spi_registry_emit(SpiRegistry *registry, const char *name, int first_arg_type, ...);
+
+void spi_registry_initialize_registry_interface (DRouteData * data);
+void spi_registry_initialize_dec_interface (DRouteData * data);
+void spi_registry_initialize_desktop_interface (DRouteData * data);
 G_END_DECLS
 
 #endif /* SPI_REGISTRY_H_ */
