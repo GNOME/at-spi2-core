@@ -27,9 +27,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
   exclude-result-prefixes="tp">
 
-<xsl:template match="node">
-<xsl:apply-templates/>
-</xsl:template>
+  <xsl:template match="node">
+    <xsl:apply-templates/>
+  </xsl:template>
+
   <xsl:template match="*">
     <xsl:copy>
       <xsl:for-each select="@*">
@@ -45,9 +46,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   <xsl:template match="text()"/>
 
   <xsl:output method="xml" indent="yes" encoding="UTF-8"
-    omit-xml-declaration="no"
-    doctype-system="http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd"
-    doctype-public="-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" />
+    omit-xml-declaration="yes"/>
 
 </xsl:stylesheet>
 
