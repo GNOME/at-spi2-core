@@ -33,4 +33,5 @@ INTROSPECT_FILES = $(addprefix introspection/,$(patsubst %.xml,%,$(filter org.fr
 $(INTROSPECT_FILES): introspection/%: %.xml ../tools/spec-to-introspect.xsl
 	xsltproc ../tools/spec-to-introspect.xsl $< |sed -e 's@xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec.extensions-v0"@@g' >$@
 
-dist_pkgdata_DATA = $(INTROSPECT_FILES)
+introspectdir = $(pkgdatadir)/dbus
+dist_introspect_DATA = $(INTROSPECT_FILES)
