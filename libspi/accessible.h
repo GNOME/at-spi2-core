@@ -45,7 +45,7 @@ void spi_initialize_selection(DRouteData *data);
 void spi_initialize_table(DRouteData *data);
 void spi_initialize_text(DRouteData *data);
 void spi_initialize_value(DRouteData *data);
-void spi_initialize_introspectable(DRouteData *data);
+void spi_initialize_introspectable(DRouteData *data, DRouteGetDatumFunction verify_object);
 
 void spi_register_tree_object(DBusConnection *bus, const char *path);
 

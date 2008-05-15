@@ -184,7 +184,7 @@ spi_dbus_initialize (DRouteData * data)
   spi_initialize_table (data);
   spi_initialize_text (data);
   spi_initialize_value (data);
-  spi_initialize_introspectable(data);
+  spi_initialize_introspectable(data, (DRouteGetDatumFunction) spi_dbus_get_object);
 }
 
 void spi_dbus_emit_valist(DBusConnection *bus, const char *path, const char *interface, const char *name, int first_arg_type, va_list args)

@@ -112,9 +112,9 @@ static DRouteMethod methods[] = {
  * Adds the introspectable interface to the DRoute object provided
  */
 void
-spi_initialize_introspectable (DRouteData *data)
+spi_initialize_introspectable (DRouteData *data, DRouteGetDatumFunction verify_object)
 {
   droute_add_interface (data, "org.freedesktop.atspi.Introspectable",
 			methods, NULL,
-			(DRouteGetDatumFunction) spi_dbus_get_path, NULL);
+			verify_object, NULL);
 };
