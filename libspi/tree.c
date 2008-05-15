@@ -71,7 +71,7 @@ append_update (DBusMessageIter * iter_array, AtkObject * obj,
     goto oom;
   dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
 				    &iter_sub_array);
-  for (l = data->interfaces; l; l = g_slist_next (l))
+  if (data) for (l = data->interfaces; l; l = g_slist_next (l))
     {
       DRouteInterface *iface_def = (DRouteInterface *) l->data;
       void *datum = NULL;
