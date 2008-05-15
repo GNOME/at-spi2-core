@@ -93,6 +93,7 @@ Boston, MA 02111-1307, USA.</p>
 <xi:include href="org.freedesktop.atspi.StreamableContent.xml"/>
 <xi:include href="org.freedesktop.atspi.Table.xml"/>
 <xi:include href="org.freedesktop.atspi.Text.xml"/>
+<xi:include href="org.freedesktop.atspi.Tree.xml"/>
 <xi:include href="org.freedesktop.atspi.Value.xml"/>
 
 <!-- Interfaces derived from Accessibility::Text -->
