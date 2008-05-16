@@ -1,0 +1,182 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.atspi.Registry">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>The Registry is a service through which applications providing 
+      accessibility services (servers) can rendezvous with consumers of those
+      services (Assistive Technologies).  The Registry is the first &quot;port of call&quot; for 
+      accessible applications and for assistive technologies wishing to query and
+      interact with those applications.  </p>
+
+    <p>The Registry service provides four basic functions to Assistive Technology (AT) clients:
+      \li it provides a list of the applications who have registered with the AT-SPI
+      framework, thereby announcing their participation in the AT-SPI framework;
+      \li it allows AT clients to register for notification of changes in application
+      state (at-spi Events);
+      \li it dispatches/relays said events from participating applications to
+      the registered listeners;
+      \li it gives access to system device events via the associated DeviceEventController
+      interface.  </p>
+
+    <p>From the point of view of accessible applications (i.e. AT-SPI service producers), 
+      the Registry is primarily a registration and event delivery service.  Applications 
+      normally only call the registerApplication and deregisterApplication Registry methods,
+      and its inherited EventListener::notifyEvent method.  </p>
+
+    <p>@note Although all application events are dispatched via the Registry, other AT client 
+      calls are serviced directly by the applications, rather than being relayed via the
+      Registry.  The AT client obtains references to these application objects
+      via the enumeration of Desktop instances whose children are Application instances
+      (Registry::getDesktopList) and via examination of the 'source' member of the Event 
+      structure.   </p>
+
+    <p>The Registry normally lives in its own process space; communication via Registry and
+      both application services and AT clients takes place via IPC.  A process space diagram
+      illustrating the relationship between applications, Registry, and AT is shown below.
+      @image html &quot;http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png&quot;  </p>
+
+    <p>@see Desktop, Application, Event, EventListener</p>
+  </tp:docstring>
+  <method name="registerApplication">
+    <tp:docstring>
+      Register a new application with the accessibility broker.
+    </tp:docstring>
+    <arg direction="in" name="app" type="o" tp:type="Application">
+    <tp:docstring>
+      a reference to the requesting Application
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deregisterApplication">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>De-register an application previously registered with the broker.
+        deregisterApplication:</p>
+    </tp:docstring>
+    <arg direction="in" name="app" type="o" tp:type="Application">
+    <tp:docstring>
+      a reference to the Application to be deregistered.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="registerGlobalEventListener">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Register a client's interest in (all) application events of 
+        a certain type.</p>
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="EventListener">
+    <tp:docstring>
+      a reference to the requesting ::EventListener.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="eventName" type="s">
+    <tp:docstring>
+      a string which indicates the type of events about which the client desires notification.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deregisterGlobalEventListenerAll">
+    <tp:docstring>
+      deregisterGlobalEventListenerAll:
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="EventListener">
+    <tp:docstring>
+      the requesting EventListenerRequest that a previously registered client stop receivingglobal notifications for all events for which it was registered.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deregisterGlobalEventListener">
+    <tp:docstring>
+      deregisterGlobalEventListener:
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="EventListener">
+    <tp:docstring>
+      the requesting EventListener
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="eventName" type="s">
+    <tp:docstring>
+      a string indicating the type of eventsRequest that a previously registered client stop receivingglobal notifications for events of a certain type.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getDesktopCount">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>event types: &quot;Window&quot; &quot;Desktop&quot;
+        &quot;Window:Create&quot; &quot;Window:Destroy&quot;
+        &quot;Window:Iconify&quot; &quot;Window:Restore&quot;
+        &quot;Window:Fullscreen&quot; &quot;Window:Resize&quot;
+        &quot;Desktop:Create&quot; &quot;Desktop:Destroy&quot;  
+        &quot;Desktop:Focus&quot; &quot;Desktop:Defocus&quot;
+        &quot;Desktop:Reorder&quot; 
+        &quot;Focus&quot;
+        &quot;GtkWidget:show&quot;
+        &quot;GObject:notify:&lt;propertyname&gt;&quot;     </p>
+
+      <p>( not sure we should allow these last 2 forms, 
+        since they are toolkit-specific, but they're powerful )    </p>
+
+      <p>getDesktopCount:    </p>
+
+      <p>Get the current number of desktops.</p>
+    </tp:docstring>
+    <arg direction="out" type="n" tp:type="short">
+    <tp:docstring>
+      a short integer indicating the current number of Desktops.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getDesktop">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>getDesktop:
+        @n: the index of the requested Desktop.    </p>
+
+      <p>Get the nth accessible desktop.     </p>
+    </tp:docstring>
+    <arg direction="in" name="n" type="n" tp:type="short"/>
+    <arg direction="out" type="o" tp:type="Desktop">
+    <tp:docstring>
+      a reference to the requested Desktop.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getDesktopList">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Get a list of accessible desktops.     </p>
+    </tp:docstring>
+    <arg direction="out" type="as" tp:type="DesktopSeq">
+    <tp:docstring>
+      a sequence containing references tothe Desktops.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="getDeviceEventController">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Obtain an object which can be used to request device event notifications.    </p>
+    </tp:docstring>
+    <arg direction="out" type="o" tp:type="DeviceEventController">
+    <tp:docstring>
+      an object implementing DeviceEventController
+    </tp:docstring>
+    </arg>
+  </method>
+</interface>
+</node>
