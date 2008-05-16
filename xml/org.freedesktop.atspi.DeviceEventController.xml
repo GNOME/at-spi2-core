@@ -1,0 +1,198 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.atspi.DeviceEventController">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>The interface via which clients request notification of device events, and
+      through which device events may be simulated.</p>
+  </tp:docstring>
+  <method name="registerKeystrokeListener">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Register to intercept keyboard events, and either pass them on or
+        consume them.     </p>
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="DeviceEventListener">
+    <tp:docstring>
+      a DeviceEventListener which will intercept key events.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="keys" type="a(iisi)" tp:type="KeySet">
+    <tp:docstring>
+      a KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="mask" type="u" tp:type="ControllerEventMask">
+    <tp:docstring>
+      a ControllerEventMask filtering the intercepted key events.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="type" type="au" tp:type="KeyEventTypeSeq">
+    <tp:docstring>
+      a KeyEventTypeSeq that may created by ORing event types together.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="mode" type="(bbb)" tp:type="EventListenerMode">
+    <tp:docstring>
+      an EventListenerMode indicating whether the listener should receive the events synchronously, potentially consuming them,or just be notified asynchronously of those events that havebeen generated.@note Some platforms have limited support for global, preemptive EventListenerMode.Such a registration may fail if another client already has priority for preemptiveaccess to one or more of the members of the KeySet.  AT consumers have the optionof re-trying the request without the global flag, or without the preemptive flag,or of re-trying with a different KeySet.  The best support for pre-emptiveglobal keyboard listeners is provided on platforms whose Xserver implementationprovides the XEvIE extension.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the DeviceEventListener was successfully registeredfor the requested KeySet, ControllerEventMask, event types, and EventListenerMode; otherwise returns \c False.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deregisterKeystrokeListener">
+    <tp:docstring>
+      De-register a previously registered keyboard eventlistener.
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="DeviceEventListener">
+    <tp:docstring>
+      a DeviceEventListener which will intercept key events.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="keys" type="a(iisi)" tp:type="KeySet">
+    <tp:docstring>
+      a KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="mask" type="u" tp:type="ControllerEventMask">
+    <tp:docstring>
+      a ControllerEventMask filtering the intercepted key events.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="type" type="au" tp:type="KeyEventTypeSeq">
+    <tp:docstring>
+      an EventType mask that may created by ORing event types together.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="registerDeviceEventListener">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Register to intercept events, and either pass them on or
+        consume them. To listen to keyboard events use registerKeystrokeListener
+        instead.</p>
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="DeviceEventListener">
+    <tp:docstring>
+      a DeviceEventListener which will intercept events.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="types" type="u" tp:type="EventTypeSeq">
+    <tp:docstring>
+      an EventTypeSeq indicating which event types to listen for.
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if successful, \c False if not
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="deregisterDeviceEventListener">
+    <tp:docstring>
+      De-register a previously registered keyboard eventlistener.
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="DeviceEventListener">
+    <tp:docstring>
+      a DeviceEventListener which will intercept events.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="types" type="u" tp:type="EventTypeSeq">
+    <tp:docstring>
+      an EventTypeSeq indicating which event types to stoplistening for.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="notifyListenersSync">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Notify the Registry instance that a device event has taken place, and
+        allow pre-emptive listeners the opportunity to 'consume' the event
+        and thus prevent its further issuance/forwarding.  This is the 
+        method used by accessibility bridges to forward &quot;toolkit dependent&quot;
+        device events to the Registry from the application's process space.    </p>
+
+      <p>@note AT clients do not normally need to use this method, it is intended for use
+        by toolkit bridges and special-purpose applications.    </p>
+    </tp:docstring>
+    <arg direction="in" name="event" type="(uinnisb)" tp:type="DeviceEvent"/>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+      \c True if the event was consumed by a (pre-emptive) listener,\c False if not (in which case the device event will be forwardedas normal to any application which would normally receive it, e.g.the currently active application in the case of mouse or keyboard events).
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="notifyListenersAsync">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Notify the Registry instance that a device event has taken place in
+        an asynchronous manner.  This is the 
+        method used by accessibility bridges to forward &quot;toolkit dependent&quot;
+        device events to the Registry from the application's process space.
+        If the event in question is potentially pre-emptible.
+        ::notifyListenersSync should be used instead.    </p>
+
+      <p>@note AT clients do not normally need to use this method, it is intended for use
+        by toolkit bridges and special-purpose applications.</p>
+    </tp:docstring>
+    <arg direction="in" name="event" type="(uinnisb)" tp:type="DeviceEvent"/>
+  </method>
+  <method name="generateKeyboardEvent">
+    <tp:docstring>
+      Synthesize a keyboard event.
+    </tp:docstring>
+    <arg direction="in" name="keycode" type="i">
+    <tp:docstring>
+      a long integer indicating the keycode ofthe keypress to be synthesized.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="keystring" type="s">
+    <tp:docstring>
+      an optional UTF-8 string indicating a complexkeyboard input event.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="type" type="u" tp:type="KeySynthType">
+    <tp:docstring>
+      a KeySynthType indicating the type of event(s) to be synthesized: a key press, release, press-release pair,or a complex input string (for instance from aninternationalized or complex text input method, ora composed character).@note keycode may be truncated before beingprocessed, as keycode length may be platform-dependentand keycode ranges are generally much smaller thanCORBA_long. One or the other of keycode or keystring are generally NULL, (but not both), depending on the value of \c type.
+    </tp:docstring>
+    </arg>
+  </method>
+  <method name="generateMouseEvent">
+    <tp:docstring>
+      Synthesize a mouse event.
+    </tp:docstring>
+    <arg direction="in" name="x" type="i">
+    <tp:docstring>
+      a long integer indicating the screen x coord for the mouse event.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="y" type="i">
+    <tp:docstring>
+      a long integer indicating the screen y coord for the mouse event.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="eventName" type="s">
+    <tp:docstring>
+      a string indicating the type of mouse event, e.g. &quot;button1up&quot;
+    </tp:docstring>
+    </arg>
+  </method>
+</interface>
+</node>
