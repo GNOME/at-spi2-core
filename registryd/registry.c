@@ -39,10 +39,6 @@
 
 /* Our parent GObject type  */
 #define PARENT_TYPE G_OBJECT_TYPE
-<<<<<<< HEAD:registryd/registry.c
-=======
-
->>>>>>> 6d509d490749c6bac3149a5ec45862352ffcf290:registryd/registry.c
 
 int _dbg = 0;
 

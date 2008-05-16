@@ -61,7 +61,6 @@
 
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"
-#include "libspi/keymasks.h"
 
 KeySym ucs2keysym (long ucs);
 long keysym2ucs(KeySym keysym); 

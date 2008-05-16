@@ -29,47 +29,6 @@
 
 #include "spi-types.h"
 
-GHashTable *path2ptr;
-static guint objindex;
-
-static void
-deregister_object (gpointer data, GObject *obj)
-{
-  spi_dbus_notify_remove(ATK_OBJECT(obj), NULL);
-  g_hash_table_remove (path2ptr, &obj);
-}
-
-static guint
-register_object (GObject * obj)
-{
-  gint *new_int;
-
-  if (!path2ptr)
-    {
-      path2ptr = g_hash_table_new_full (g_int_hash, g_int_equal, g_free, NULL);
-      if (!path2ptr)
-	return ++objindex;
-    }
-  objindex++;
-  while (g_hash_table_lookup (path2ptr, &objindex))
-    {
-      objindex++;
-      /* g_object_get_data returning 0 means no data, so handle wrap-around */
-      if (objindex == 0)
-	objindex++;
-    }
-  new_int = (gint *)g_malloc(sizeof(gint));
-  if (new_int)
-  {
-    *new_int = objindex;
-    g_hash_table_insert (path2ptr, new_int, obj);
-  }
-  g_object_set_data (G_OBJECT (obj), "dbus-id", (gpointer) objindex);
-  g_object_weak_ref(G_OBJECT(obj), deregister_object, NULL);
-  spi_dbus_notify_change(obj, TRUE, NULL);
-  return objindex;
-}
-
 DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
 {

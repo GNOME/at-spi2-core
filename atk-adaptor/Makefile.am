@@ -10,7 +10,7 @@ libspiatk_la_LDFLAGS = -no-undefined       \
 
 libspiatk_la_LIBADD = $(DBUS_GLIB_LIBS)			\
 		      $(ATK_LIBS)			\
-		      $(top_builddir)/droute/libdroute.la	\
+		      $(top_builddir)/droute/libdroute.la\
 		      $(top_builddir)/spi-common/libspicommon.la
 
 libspiatk_la_SOURCES =		\

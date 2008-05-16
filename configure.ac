@@ -90,9 +90,10 @@ if test x$enable_xevie = xyes ; then
 fi
 
 AC_ARG_VAR([DEFAULT_ATSPI_INTROSPECTION_PATH],
-	   [Set the default path for the DBus introspection XML])
+	   [Set the default path for the install ofDBus introspection XML
+	    relative to the pkgdatadir.])
 if test -z "$DEFAULT_ATSPI_INTROSPECTION_PATH"; then
-	  DEFAULT_ATSPI_INTROSPECTION_PATH=atspi/dbus
+	  DEFAULT_ATSPI_INTROSPECTION_PATH=dbus
 fi
 
 AC_ARG_VAR([GTK_MODULE_DIR],
