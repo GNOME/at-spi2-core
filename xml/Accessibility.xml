@@ -83,29 +83,32 @@ Boston, MA 02111-1307, USA.</p>
 
 <!-- Accessibility interfaces and subinterfaces -->
 
-<xi:include href="Accessibility_Accessible.xml"/>
-<xi:include href="Accessibility_Action.xml"/>
-<xi:include href="Accessibility_Component.xml"/>
-<xi:include href="Accessibility_Document.xml"/>
-<xi:include href="Accessibility_Hyperlink.xml"/>
-<xi:include href="Accessibility_Image.xml"/>
-<xi:include href="Accessibility_Selection.xml"/>
-<xi:include href="Accessibility_StreamableContent.xml"/>
-<xi:include href="Accessibility_Table.xml"/>
-<xi:include href="Accessibility_Text.xml"/>
-<xi:include href="Accessibility_Value.xml"/>
+<xi:include href="org.freedesktop.atspi.Accessible.xml"/>
+<xi:include href="org.freedesktop.atspi.Action.xml"/>
+<xi:include href="org.freedesktop.atspi.Component.xml"/>
+<xi:include href="org.freedesktop.atspi.Document.xml"/>
+<xi:include href="org.freedesktop.atspi.Hyperlink.xml"/>
+<xi:include href="org.freedesktop.atspi.Image.xml"/>
+<xi:include href="org.freedesktop.atspi.Selection.xml"/>
+<xi:include href="org.freedesktop.atspi.StreamableContent.xml"/>
+<xi:include href="org.freedesktop.atspi.Table.xml"/>
+<xi:include href="org.freedesktop.atspi.Text.xml"/>
+<xi:include href="org.freedesktop.atspi.Tree.xml"/>
+<xi:include href="org.freedesktop.atspi.Value.xml"/>
 
 <!-- Interfaces derived from Accessibility::Text -->
-<xi:include href="Accessibility_EditableText.xml"/>
-<xi:include href="Accessibility_Hypertext.xml"/>
+<xi:include href="org.freedesktop.atspi.EditableText.xml"/>
+<xi:include href="org.freedesktop.atspi.Hypertext.xml"/>
 <xi:include href="Accessibility_State.xml"/>
 
 <!-- Utility interfaces and interfaces derived from Accessibility::Accessible -->
 
-<xi:include href="Accessibility_Application.xml"/>
-<xi:include href="Accessibility_Event.xml"/>
-<xi:include href="Accessibility_Registry.xml"/>
+<xi:include href="org.freedesktop.atspi.Application.xml"/>
+<xi:include href="Accessibility_Registry_Common.xml"/>
+<xi:include href="org.freedesktop.atspi.Registry.xml"/>
+<xi:include href="org.freedesktop.atspi.DeviceEventController.xml"/>
+<xi:include href="org.freedesktop.atspi.DeviceEventListener.xml"/>
 <xi:include href="Accessibility_Role.xml"/>
-<xi:include href="Accessibility_LoginHelper.xml"/>
-<xi:include href="Accessibility_Selector.xml"/>
+<xi:include href="org.freedesktop.atspi.LoginHelper.xml"/>
+<xi:include href="org.freedesktop.atspi.Selector.xml"/>
 </tp:spec>
