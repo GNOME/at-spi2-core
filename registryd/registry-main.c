@@ -29,6 +29,9 @@
 #include <string.h>
 #include <gdk/gdkx.h>
 #include <glib/gmain.h>
+
+#include <spi-common/spi-dbus.h>
+
 #include "registry.h"
 
 #define spi_get_display() GDK_DISPLAY()

@@ -22,8 +22,9 @@ XML= \
 	Accessibility_Value.xml
 
 spec.xml: $(XML)
-	xsltproc --xinclude ../tools/identity.xsl $< >$@
+	xsltproc --xinclude $(top_srcdir)/tools/identity.xsl $< >$@
 
 EXTRA_DIST = $(XML)
 
 BUILT_SOURCES = spec.xml
+CLEANFILES = spec.xml

@@ -25,6 +25,7 @@
 #define SPI_REGISTRY_H_
 
 #include <glib/gmain.h>
+#include <droute/droute.h>
 
 typedef struct _SpiRegistry SpiRegistry;
 

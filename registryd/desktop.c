@@ -26,11 +26,14 @@
 #include <config.h>
 #include <stdio.h>
 #include <string.h>
-#include "desktop.h"
-#include "registry.h"
 #include <atk/atkcomponent.h>
 #include <gdk/gdkscreen.h>
 #include <gdk/gdkx.h>
+
+#include <spi-common/spi-dbus.h>
+
+#include "desktop.h"
+#include "registry.h"
 
 G_DEFINE_TYPE(SpiDesktop, spi_desktop, G_TYPE_OBJECT)
 

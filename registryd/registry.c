@@ -32,13 +32,13 @@
 #  include <stdio.h>
 #endif
 
-#include "../libspi/spi-private.h"
+#include <spi-common/spi-dbus.h>
+
 #include "registry.h"
 #include "dbus/dbus-glib-lowlevel.h"
 
 /* Our parent GObject type  */
 #define PARENT_TYPE G_OBJECT_TYPE
-
 
 int _dbg = 0;
 

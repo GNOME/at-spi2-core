@@ -1,6 +1,4 @@
-idldir = $(datadir)/idl/at-spi-1.0
-
-idl_DATA =					\
+IDL_FILES =					\
 	Accessibility.idl			\
 	Accessibility_Accessible.idl		\
 	Accessibility_Action.idl		\
@@ -26,4 +24,4 @@ idl_DATA =					\
 	Accessibility_Value.idl			\
 	Accessibility_LoginHelper.idl
 
-EXTRA_DIST=$(idl_DATA)
+EXTRA_DIST=$(IDL_FILES)

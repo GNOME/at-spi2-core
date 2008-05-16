@@ -26,7 +26,6 @@
 
 #include <X11/Xlib.h>
 #include <gdk/gdk.h>
-#include <libspi/Accessibility.h>
 
 typedef struct _SpiDEController SpiDEController;
 

@@ -1,18 +1,22 @@
-#server_dot_in = Accessibility_Registry.server.in
-
-#$(server_dot_in): $(server_dot_in).in
-#	sed -e "s|\@REGISTRYD_PATH\@|$(libexecdir)|" $< > $@ 
-
 libexec_PROGRAMS = at-spi-registryd
 
-INCLUDES = -I$(top_srcdir)          \
-           -I$(top_builddir)        \
-           -I$(top_builddir)/libspi \
-           -I$(top_srcdir)/libspi   \
-           $(WARN_CFLAGS)	\
-           $(REGISTRYD_CFLAGS)
+at_spi_registryd_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
+			  $(GOBJ_CFLAGS)	\
+			  $(ATK_CFLAGS)		\
+			  $(GDK_CFLAGS)		\
+			  -I$(top_srcdir) 
 
-at_spi_registryd_SOURCES =		\
+at_spi_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
+			 $(GOBJ_CFLAGS)		\
+			 $(ATK_LIBS)		\
+			 $(GDK_LIBS)		\
+			 $(X_LIBS)		\
+			 $(XTST_LIBS)		\
+			 $(XEVIE_LIBS)		\
+			 $(top_builddir)/droute/libdroute.la\
+			 $(top_builddir)/spi-common/libspicommon.la
+
+at_spi_registryd_SOURCES =	\
 	desktop.c		\
 	desktop.h		\
 	deviceeventcontroller.c	\
@@ -20,15 +24,6 @@ at_spi_registryd_SOURCES =		\
 	registry-main.c		\
 	registry.c		\
 	registry.h		\
-	server-glue.h \
+	reentrant-list.c	\
+	reentrant-list.h	\
 	ucs2keysym.c
-
-LDADD = $(top_builddir)/libspi/libspi.la $(X_LIBS) $(XTST_LIBS) $(XEVIE_LIBS) $(REGISTRYD_LIBS) 
-
-#serverinfodir = $(libdir)/bonobo/servers
-#serverinfo_DATA = Accessibility_Registry.server
-
-@INTLTOOL_SERVER_RULE@
-
-EXTRA_DIST = Accessibility_Registry.server.in.in
-#CLEANFILES = $(serverinfo_DATA) $(server_dot_in)

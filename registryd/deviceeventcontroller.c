@@ -47,14 +47,20 @@
 #include <X11/extensions/Xevie.h>
 #endif /* HAVE_XEVIE */
 
+#include <glib.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkwindow.h>
 
-#include "../libspi/spi-private.h"
+#include <atk-adaptor/spi-private.h>
+#include <atk-adaptor/keymasks.h>
+#include <droute/droute.h>
+#include <spi-common/spi-dbus.h>
+#include <spi-common/spi-types.h>
+
 #include "deviceeventcontroller.h"
-#include "libspi/keymasks.h"
+#include "reentrant-list.h"
 
 KeySym ucs2keysym (long ucs);
 long keysym2ucs(KeySym keysym); 

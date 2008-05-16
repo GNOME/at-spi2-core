@@ -1,5 +1,0 @@
-You need to have doxygen installed.
-
-make targets:
-
-all: builds the reference documentation

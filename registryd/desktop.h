@@ -24,7 +24,7 @@
 #ifndef SPI_DESKTOP_H_
 #define SPI_DESKTOP_H_
 
-#include <libspi/accessible.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
