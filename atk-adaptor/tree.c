@@ -204,6 +204,8 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *member = dbus_message_get_member (message);
 
   DBusMessage *reply = NULL;
+
+  g_return_val_if_fail(iface != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   
   if (!strcmp(iface, "org.freedesktop.atspi.Tree"))
     {

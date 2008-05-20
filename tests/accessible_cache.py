@@ -19,7 +19,27 @@ from weakref import ref
 from dbus.proxies import Interface, ProxyObject
 
 ATSPI_ACCESSIBLE = 'org.freedesktop.atspi.Accessible'
-ATSPI_ACCESSIBLE_TREE = 'org.freedesktop.atspi.Tree'
+ATSPI_ACTION = 'org.freedesktop.atspi.Action'
+ATSPI_APPLICATION = 'org.freedesktop.atspi.Application'
+ATSPI_COMPONENT = 'org.freedesktop.atspi.Component'
+ATSPI_DEVICE_EVENT_CONTROLLER = 'org.freedesktop.atspi.DeviceEventController'
+ATSPI_DEVICE_EVENT_LISTENER = 'org.freedesktop.atspi.DeviceEventListener'
+ATSPI_DOCUMENT = 'org.freedesktop.atspi.Document'
+ATSPI_EDITABLE_TEXT = 'org.freedesktop.atspi.EditableText'
+ATSPI_HYPERLINK = 'org.freedesktop.atspi.Hyperlink'
+ATSPI_HYPERTEXT = 'org.freedesktop.atspi.Hypertext'
+ATSPI_IMAGE = 'org.freedesktop.atspi.Image'
+ATSPI_LOGIN_HELPER = 'org.freedesktop.atspi.LoginHelper'
+ATSPI_REGISTRY = 'org.freedesktop.atspi.Registry'
+ATSPI_SELECTION = 'org.freedesktop.atspi.Selection'
+ATSPI_SELECTOR = 'org.freedesktop.atspi.Selector'
+ATSPI_STREAMABLE_CONTENT = 'org.freedesktop.atspi.Content'
+ATSPI_TABLE = 'org.freedesktop.atspi.Table'
+ATSPI_TEXT = 'org.freedesktop.atspi.Text'
+ATSPI_TREE = 'org.freedesktop.atspi.Tree'
+ATSPI_VALUE = 'org.freedesktop.atspi.Value'
+
+DBUS_INTROSPECTABLE = 'org.freedesktop.DBus.Introspectable'
 
 class AccessibleObjectDoesNotExist(Exception):
 	pass
@@ -76,7 +96,7 @@ class AccessibleCache(object):
 
 		self._connection = connection
 		self._busName = busName
-		self._accessibleStore = dbus.Interface(storeObject, ATSPI_ACCESSIBLE_TREE)
+		self._accessibleStore = dbus.Interface(storeObject, ATSPI_TREE)
 		self._objects = {}
 		#TODO are we caching the root accessible or not?
 		#Do we need a roundtrip to access this?
