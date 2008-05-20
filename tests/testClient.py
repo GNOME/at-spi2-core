@@ -5,7 +5,7 @@ from dbus.mainloop.glib import DBusGMainLoop
 
 from xml.dom import minidom
 
-from AccessibleTreeCache import AccessibleTreeCache, AccessibleObjectProxy
+from accessible_cache import AccessibleCache
 
 DBusGMainLoop(set_as_default=True)
 
@@ -13,7 +13,10 @@ def createNode(accessible, parentRef, parentElement):
 	e = minidom.Element("accessible")
 
 	e.attributes["reference"] = accessible.path
-	e.attributes["parent"] = accessible.parent
+	try:
+		e.attributes["parent"] = accessible.parent.path
+	except:
+		pass
 	e.attributes["name"] = accessible.name
 	e.attributes["role"] = str(int(accessible.role))
 	e.attributes["description"] = accessible.description
@@ -23,8 +26,8 @@ def createNode(accessible, parentRef, parentElement):
 		itf.attributes["name"] = i
 		e.appendChild(itf)
 
-	for c in accessible.getChildren():
-		createNode(c, accessible.path, e)
+	for i in range(0, accessible.numChildren):
+		createNode(accessible.getChild(i), accessible.path, e)
 
 	parentElement.appendChild(e)
 
@@ -34,7 +37,7 @@ def main(argv):
 	
 	loop = gobject.MainLoop()
 
-	cache = AccessibleTreeCache(bus, 'test.atspi.tree', '/org/freedesktop/atspi/tree')
+	cache = AccessibleCache(bus, 'test.atspi.tree', '/org/freedesktop/atspi/tree')
 	root = cache.getRootAccessible()
 
 	doc = minidom.Document()
