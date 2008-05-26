@@ -631,37 +631,13 @@ gnome_accessibility_module_shutdown (void)
   misc = NULL;
 }
 
-static void emit(AtkObject *object, const char *name, int first_arg_type, ...)
-{
-  va_list args;
-  DBusMessage *sig;
-  char *path = spi_dbus_get_path(object);
-
-  spi_dbus_update_cache(&this_app->droute);
-  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", name);
-  va_start(args, first_arg_type);
-  if (first_arg_type != DBUS_TYPE_INVALID)
-  {
-    dbus_message_append_args_valist(sig, first_arg_type, args);
-  }
-  va_end(args);
-  dbus_connection_send(this_app->droute.bus, sig, NULL);
-  g_free(path);
-  dbus_message_unref(sig);
-}
-
-static void
-spi_atk_bridge_focus_tracker (AtkObject *object)
-{
-  emit(object, "focus", DBUS_TYPE_INVALID);
-}
-
-static void emit_property_change(AtkObject *object, const char *name, int type, void *val)
+static void emit(AtkObject *object, const char *name, const char *detail, dbus_int32_t detail1, dbus_int32_t detail2, int type, const void *val)
 {
   DBusMessage *sig;
   char *path = spi_dbus_get_path(object);
   DBusMessageIter iter, sub;
   const char *type_as_string = NULL;
+  dbus_int32_t dummy = 0;
 
   spi_dbus_update_cache(&this_app->droute);
   if (type == DBUS_TYPE_OBJECT_PATH)
@@ -671,47 +647,70 @@ static void emit_property_change(AtkObject *object, const char *name, int type, 
   }
   else if (type == DBUS_TYPE_STRING) type_as_string = "s";
   else if (type == DBUS_TYPE_INT32) type_as_string = "i";
-  else if (type == DBUS_TYPE_UINT32) type_as_string = "o";
+  else if (type == DBUS_TYPE_UINT32) type_as_string = "u";
+  else if (type == DBUS_TYPE_INVALID)
+  {
+    type = DBUS_TYPE_UINT32;
+    type_as_string = "u";
+    if (!val) val = &dummy;
+  }
   else
   {
     g_warning("Unknown type %d in property change signal", type);
   }
-  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", "PropertyChanged");
+  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", name);
   dbus_message_iter_init_append(sig, &iter);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &name);
+  if (!detail) detail = "";
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &detail);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
   dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, type_as_string, &sub);
-  dbus_message_iter_append_basic(&sub, type, val);
+  dbus_message_iter_append_basic(&sub, type, &val);
   dbus_message_iter_close_container(&iter, &sub);
+printf("emit: %s %s\n", name, detail);
   dbus_connection_send(this_app->droute.bus, sig, NULL);
   g_free(path);
   dbus_message_unref(sig);
 }
 
-static void emit_rect(AtkObject *object, const char *name, AtkRectangle *rect)
+static void
+spi_atk_bridge_focus_tracker (AtkObject *object)
+{
+  emit(object, "focus", NULL, 0, 0, DBUS_TYPE_INVALID, NULL);
+}
+
+static void emit_rect(AtkObject *object, const char *name, const char *detail, AtkRectangle *rect)
 {
   DBusMessage *sig;
   char *path = spi_dbus_get_path(object);
-  DBusMessageIter iter, sub;
+  DBusMessageIter iter, iter_variant, sub;
   dbus_uint32_t x, y, width, height;
+  dbus_int32_t dummy = 0;
 
   spi_dbus_update_cache(&this_app->droute);
   x = rect->x;
   y = rect->y;
   width = rect->width;
   height = rect->height;
-  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", "PropertyChanged");
+  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", name);
+  if (!detail) detail = "";
   if (sig)
     {
       dbus_message_iter_init_append (sig, &iter);
-      dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &name);
-      if (!dbus_message_iter_open_container
-	  (&iter, DBUS_TYPE_STRUCT, NULL, &sub))
+      dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &detail);
+      dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &dummy);
+      dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &dummy);
+      if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(iiii)", &iter_variant))
+	goto oom;
+      if (!dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL, &sub))
 	goto oom;
       dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &x);
       dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &y);
       dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &width);
       dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &height);
-      if (!dbus_message_iter_close_container (&iter, &sub))
+      if (!dbus_message_iter_close_container (&iter_variant, &sub))
+	goto oom;
+      if (!dbus_message_iter_close_container (&iter, &iter_variant))
 	goto oom;
     }
   dbus_connection_send(this_app->droute.bus, sig, NULL);
@@ -719,6 +718,8 @@ oom:
   g_free(path);
   dbus_message_unref(sig);
 }
+
+static const char *PropertyChange = "object_property_change";
 
 static gboolean
 spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
@@ -772,44 +773,43 @@ spi_atk_bridge_property_event_listener (GSignalInvocationHint *signal_hint,
     {
       ao = atk_table_get_summary (ATK_TABLE (obj));
       s_ao = spi_dbus_get_path(ao);
-      emit_property_change(obj, prop_name, DBUS_TYPE_OBJECT_PATH, s_ao);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_OBJECT_PATH, s_ao);
     }
   else if (strcmp (prop_name, "accessible-table-column-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       ao = atk_table_get_column_header (ATK_TABLE (obj), i);
       s_ao = spi_dbus_get_path(ao);
-      emit_property_change(obj, prop_name, DBUS_TYPE_OBJECT_PATH, s_ao);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_OBJECT_PATH, s_ao);
     }
   else if (strcmp (prop_name, "accessible-table-row-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       ao = atk_table_get_row_header (ATK_TABLE (obj), i);
       s_ao = spi_dbus_get_path(ao);
-      emit_property_change(obj, prop_name, DBUS_TYPE_OBJECT_PATH, s_ao);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_OBJECT_PATH, s_ao);
     }
   else if (strcmp (prop_name, "accessible-table-row-description") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       sp = atk_table_get_row_description (ATK_TABLE (obj), i);
-      emit_property_change(obj, prop_name, DBUS_TYPE_STRING, (void *)&sp);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_STRING, sp);
     }
   else if (strcmp (prop_name, "accessible-table-column-description") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       sp = atk_table_get_column_description (ATK_TABLE(obj), i);
-      emit_property_change(obj, prop_name, DBUS_TYPE_STRING, (void *)&sp);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_STRING, sp);
     }
   else if (strcmp (prop_name, "accessible-table-caption-object") == 0)
     {
       ao = atk_table_get_caption (ATK_TABLE(obj));
       sp = atk_object_get_name (ao);
-      emit_property_change(obj, prop_name, DBUS_TYPE_STRING, (void *)&sp);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_STRING, sp);
     }
   else
     {
-      long v = 0;
-      emit_property_change(obj, prop_name, DBUS_TYPE_INT32, &v);
+      emit(obj, PropertyChange, prop_name, 0, 0, DBUS_TYPE_INVALID, NULL);
     }
   if (s_ao) g_free(s_ao);
   return TRUE;
@@ -847,7 +847,7 @@ spi_atk_bridge_state_event_listener (GSignalInvocationHint *signal_hint,
   }
   detail1 = (g_value_get_boolean (param_values + 2))
     ? 1 : 0;
-  emit(obj, "StateChanged", DBUS_TYPE_STRING, &property_name, DBUS_TYPE_UINT32, &detail1, DBUS_TYPE_INVALID);
+  emit(obj, "object_state_changed", property_name, detail1, 0, DBUS_TYPE_INVALID, NULL);
   g_free (property_name);
   return TRUE;
 }
@@ -956,7 +956,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   AtkObject *obj;
   GSignalQuery signal_query;
   const gchar *name;
-  const gchar *detail;
+  const gchar *detail = NULL;
   char *sp = NULL;
   AtkObject *ao;
   gint detail1 = 0, detail2 = 0;
@@ -973,13 +973,8 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
   if (signal_hint->detail)
   {
     detail = g_quark_to_string (signal_hint->detail);
-    sig_name = g_strdup_printf("object_%s_%s", name, detail);
   }
-  else
-  {
-    detail = NULL;
-    sig_name = g_strdup_printf("object_%s", name);
-  }
+  sig_name = g_strdup_printf("object_%s", name);
   while ((p = strchr(sig_name, '-')) != NULL) *p = '_';
 
 #ifdef SPI_BRIDGE_DEBUG
@@ -1002,14 +997,14 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
       detail1 = atk_object_get_index_in_parent (ao);
       s_ao = spi_dbus_get_path(child);
-      emit(obj, "name", DBUS_TYPE_OBJECT_PATH, s_ao, DBUS_TYPE_UINT32, &detail1, DBUS_TYPE_INVALID);
+      emit(obj, sig_name, detail, detail1, 0, DBUS_TYPE_OBJECT_PATH, s_ao);
       g_free(s_ao);
     }
   else if (signal_query.signal_id == atk_signal_link_selected)
     {
       if (G_VALUE_TYPE (param_values + 1) == G_TYPE_INT)
         detail1 = g_value_get_int (param_values + 1);
-      emit(obj, "LinkSelected", DBUS_TYPE_UINT32, &detail1, DBUS_TYPE_INVALID);
+      emit(obj, sig_name, detail, detail1, 0, DBUS_TYPE_INVALID, NULL);
     }
   else if (signal_query.signal_id == atk_signal_bounds_changed)
     {
@@ -1017,7 +1012,7 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
 
       if (G_VALUE_HOLDS_BOXED (param_values + 1))
 	  atk_rect = g_value_get_boxed (param_values + 1);
-      emit_rect(obj, "BoundsChanged", atk_rect);
+      emit_rect(obj, sig_name, detail, atk_rect);
     }
   else if ((signal_query.signal_id == atk_signal_children_changed) && obj)
     {
@@ -1041,17 +1036,16 @@ spi_atk_bridge_signal_listener (GSignalInvocationHint *signal_hint,
           sp = atk_text_get_text (ATK_TEXT (obj),
 	    		          detail1,
 			          detail1+detail2);
-          emit(obj, sig_name, DBUS_TYPE_UINT32, &detail1, DBUS_TYPE_UINT32, &detail2, DBUS_TYPE_STRING, &sp, DBUS_TYPE_INVALID);
+          emit(obj, sig_name, detail, detail1, detail2, DBUS_TYPE_STRING, sp);
         }
       else if (signal_query.signal_id == atk_signal_text_selection_changed)
         {
           /* Return NULL as the selected string */
-          // TODO
-          emit(obj, sig_name, DBUS_TYPE_INVALID);
+          emit(obj, sig_name, detail, detail1, detail2, DBUS_TYPE_STRING, "");
         }
       else
         {
-          emit(obj, sig_name, DBUS_TYPE_INVALID);
+          emit(obj, sig_name, detail, 0, 0, DBUS_TYPE_INVALID, NULL);
         }
     }
 
@@ -1094,7 +1088,7 @@ spi_atk_bridge_window_event_listener (GSignalInvocationHint *signal_hint,
 
   s = atk_object_get_name (obj);
   sig_name = g_strdup_printf("window_%s", name);
-  emit(obj, sig_name, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID);
+  emit(obj, sig_name, NULL, 0, 0, DBUS_TYPE_STRING, s);
   g_free(sig_name);
 
   return TRUE;
@@ -1129,7 +1123,7 @@ spi_atk_bridge_document_event_listener (GSignalInvocationHint *signal_hint,
 
   s = atk_object_get_name (obj);
   sig_name = g_strdup_printf("document_%s", name);
-  emit(obj, sig_name, DBUS_TYPE_STRING, &s, DBUS_TYPE_INVALID);
+  emit(obj, sig_name, NULL, 0, 0, DBUS_TYPE_STRING, s);
   g_free(sig_name);
   return TRUE;
 }
@@ -1155,11 +1149,11 @@ spi_atk_tidy_windows (void)
       name = atk_object_get_name (child);
       if (atk_state_set_contains_state (stateset, ATK_STATE_ACTIVE))
         {
-	  emit(child, "window:deactivate", DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+	  emit(child, "window:deactivate", NULL, 0, 0, DBUS_TYPE_STRING, name);
         }
       g_object_unref (stateset);
 
-      emit(child, "window:destroy", DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+      emit(child, "window:destroy", NULL, 0, 0, DBUS_TYPE_STRING, name);
       g_object_unref (child);
     }
 }
