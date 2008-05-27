@@ -1,23 +1,22 @@
 # translation of mn.po to Mongolian
-# translation of atk.HEAD.po to mongolian
 # This file is distributed under the same license as the atk.HEAD package.
 # Copyright (C) 2004
-# Sanlig Badral <badral@openmn.org>, 2003, 2004.
+#
+#
+# Sanlig Badral <badral@openmn.org>, 2003, 2004, 2008.
 # Sanlig Badral <badral@users.sourceforge.net>, 2004.
-#
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: mn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-10 15:37+0800\n"
-"PO-Revision-Date: 2004-08-06 08:38+0200\n"
-"Last-Translator: Sanlig Badral <badral@users.sourceforge.net>\n"
-"Language-Team: Mongolian <openmn-translation@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2008-05-27 21:38+0200\n"
+"Last-Translator: Badral <badral@openmn.org>\n"
+"Language-Team: Mongolian <openmn-translation@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -29,11 +28,11 @@ msgstr "AtkHyperlink объект сонгогдох эсэхийг өгнө ү�
 
 #: atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr "Анчорын тоо"
+msgstr "Гадасны тоо"
 
 #: atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "AtkHyperlink объекттой холбогдсон анчорын тоо"
+msgstr "AtkHyperlink объекттой холбогдсон гадасны тоо"
 
 #: atk/atkhyperlink.c:119
 msgid "End index"
@@ -73,7 +72,7 @@ msgstr "Сум"
 
 #: atk/atkobject.c:87
 msgid "calendar"
-msgstr "Календар"
+msgstr "Цаглабар"
 
 #: atk/atkobject.c:88
 msgid "canvas"
@@ -81,11 +80,11 @@ msgstr "зураг(canvas)"
 
 #: atk/atkobject.c:89
 msgid "check box"
-msgstr "хирээст талбар"
+msgstr "хэрээст талбар"
 
 #: atk/atkobject.c:90
 msgid "check menu item"
-msgstr "хирээст цэсний элемент"
+msgstr "хэрээст цэсний элемент"
 
 #: atk/atkobject.c:91
 msgid "color chooser"
@@ -93,7 +92,7 @@ msgstr "Өнгө сонгогч"
 
 #: atk/atkobject.c:92
 msgid "column header"
-msgstr "баганы толгой"
+msgstr "баганын толгой"
 
 #: atk/atkobject.c:93
 msgid "combo box"
@@ -266,7 +265,7 @@ msgstr "spin-товч"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
-msgstr "Төлвийн самбар"
+msgstr "Төлөвийн самбар"
 
 #: atk/atkobject.c:137
 msgid "table"
@@ -278,7 +277,7 @@ msgstr "хүснэгт-нүд"
 
 #: atk/atkobject.c:139
 msgid "table column header"
-msgstr "хүснэгтийн баганы толгой"
+msgstr "хүснэгтийн баганын толгой"
 
 #: atk/atkobject.c:140
 msgid "table row header"
@@ -358,45 +357,39 @@ msgstr "Холбоотой бүрэлдэхүүн"
 
 #: atk/atkobject.c:159
 msgid "entry"
-msgstr ""
+msgstr "бичлэг"
 
 #: atk/atkobject.c:160
-#, fuzzy
 msgid "chart"
-msgstr "Сонордуулга"
+msgstr "диаграмм"
 
 #: atk/atkobject.c:161
-#, fuzzy
 msgid "caption"
-msgstr "х.программ"
+msgstr "гарчиг"
 
 #: atk/atkobject.c:162
-#, fuzzy
 msgid "document frame"
-msgstr "Ажлын тавцангийн хүрээ"
+msgstr "баримтын блок"
 
 #: atk/atkobject.c:163
-#, fuzzy
 msgid "heading"
-msgstr "толгой"
+msgstr "гарчиг"
 
 #: atk/atkobject.c:164
-#, fuzzy
 msgid "page"
-msgstr "Зураг"
+msgstr "хуудас"
 
 #: atk/atkobject.c:165
 msgid "section"
-msgstr ""
+msgstr "хэсэг"
 
 #: atk/atkobject.c:166
 msgid "redundant object"
-msgstr ""
+msgstr "илүүдэл объект"
 
 #: atk/atkobject.c:167
-#, fuzzy
 msgid "form"
-msgstr "хүрээ"
+msgstr "маягт"
 
 #: atk/atkobject.c:356
 msgid "Accessible Name"
@@ -412,7 +405,7 @@ msgstr "Чөлөөт тодорхойлолт"
 
 #: atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Туслагч-технологоор хэлбэржсэн объектын тодорхойлолт"
+msgstr "Туслагч-технологиор хэлбэржсэн объектын тодорхойлолт"
 
 #: atk/atkobject.c:370
 msgid "Accessible Parent"
@@ -440,7 +433,7 @@ msgstr "Энэ объектийн чөлөөт дүр"
 
 #: atk/atkobject.c:395
 msgid "Accessible Layer"
-msgstr "Чөлөөт үе"
+msgstr "Чөлөөт давхарга"
 
 #: atk/atkobject.c:396
 msgid "The accessible layer of this object"
@@ -468,19 +461,19 @@ msgstr ""
 
 #: atk/atkobject.c:420
 msgid "Accessible Table Column Header"
-msgstr "Чөлөөт хүснэгтийн баганы толгой"
+msgstr "Чөлөөт хүснэгтийн баганын толгой"
 
 #: atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
-msgstr "Баганы толгой өөрчлөгдөхөд сонордуулга хэрэглэх үү"
+msgstr "Баганын толгой өөрчлөгдөхөд сонордуулга хэрэглэх үү"
 
 #: atk/atkobject.c:427
 msgid "Accessible Table Column Description"
-msgstr "Чөлөөт хүснэгтийн баганы гарчиг"
+msgstr "Чөлөөт хүснэгтийн баганын гарчиг"
 
 #: atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "Хүснэгтийн баганы гарчиг өөрчлөгдөхөд сонордуулга хэрэглэх үү"
+msgstr "Хүснэгтийн баганын гарчиг өөрчлөгдөхөд сонордуулга хэрэглэх үү"
 
 #: atk/atkobject.c:434
 msgid "Accessible Table Row Header"
@@ -500,11 +493,11 @@ msgstr "Хүснэгтийн мөрийн гарчиг өөрчлөгдөхөд 
 
 #: atk/atkobject.c:448
 msgid "Accessible Table Summary"
-msgstr "Чөлөөт хүснэгтийн товчилол"
+msgstr "Чөлөөт хүснэгтийн товчлол"
 
 #: atk/atkobject.c:449
 msgid "Is used to notify that the table summary has changed"
-msgstr "Хүснэгтийн товчилол өөрчлөгдөхөд сонордуулга хэрэглэх үү"
+msgstr "Хүснэгтийн товчлол өөрчлөгдөхөд сонордуулга хэрэглэх үү"
 
 #: atk/atkobject.c:455
 msgid "Accessible Table Caption Object"
@@ -512,7 +505,7 @@ msgstr "Чөлөөт хүснэгт тодорхойлох объект"
 
 #: atk/atkobject.c:456
 msgid "Is used to notify that the table caption has changed"
-msgstr "Хүснэгтийн тодорхойлолт өөрчлөгдөхөд сонордуулага хэрэглэх үү"
+msgstr "Хүснэгтийн тодорхойлолт өөрчлөгдөхөд сонордуулга хэрэглэх үү"
 
 #: atk/atkobject.c:462
 msgid "Number of Accessible Hypertext Links"
@@ -521,3 +514,4 @@ msgstr "Хандах боломжтой гипертекст холбоосын 
 #: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Идэвхитэй AtkHypertext·дэх холбоосуудын тоо"
+
