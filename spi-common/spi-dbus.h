@@ -38,6 +38,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.deviceEventController"
 #define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/registry/desktop"
 #define SPI_DBUS_PATH_NULL "/"
+#define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"
 
 DBusMessage *spi_dbus_general_error(DBusMessage *message);
 DBusMessage *spi_dbus_return_rect(DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
@@ -49,5 +50,6 @@ dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e);
 dbus_bool_t spi_dbus_demarshall_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e);
+dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error);
 
 #endif /* SPI_DBUS_H_ */

@@ -27,7 +27,7 @@
 #include <bonobo/bonobo-object.h>
 #include <atk/atkobject.h>
 #include <libspi/Accessibility.h>
-#include <libspi/keymasks.h>
+#include <spi-common/keymasks.h>
 
 G_BEGIN_DECLS
 

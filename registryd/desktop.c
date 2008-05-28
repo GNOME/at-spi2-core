@@ -216,6 +216,42 @@ impl_desktop_get_child_at_index (DBusConnection *bus, DBusMessage *message, void
   return reply;
 }
 
+static DBusMessage *
+impl_desktop_get_children (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  SpiDesktop *desktop = SPI_REGISTRY(user_data)->desktop;
+  DBusError error;
+  gint count;
+  gint i;
+  Application *app;
+  const char *path;
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_array;
+
+  reply = dbus_message_new_method_return (message);
+  if (!reply) return NULL;
+  dbus_message_iter_init_append (reply, &iter);
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "o", &iter_array))
+  {
+    goto oom;
+  }
+  count = g_list_length (desktop->applications);
+  for (i = 0; i < count; i++)
+  {
+    app = g_list_nth_data (desktop->applications, i);
+    path = (app? app->path: SPI_DBUS_PATH_NULL);
+    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
+  }
+  if (!dbus_message_iter_close_container (&iter, &iter_array))
+  {
+    goto oom;
+  }
+  return reply;
+oom:
+  // TODO: Handle out of memory
+  return reply;
+}
+
 static void
 spi_desktop_exiting (void)
 {
@@ -328,6 +364,7 @@ spi_desktop_remove_application (SpiDesktop *desktop,
 static DRouteMethod methods[] =
 {
   { impl_desktop_get_child_at_index, "getChildAtIndex" },
+  { impl_desktop_get_children, "getChildren" },
   { NULL, NULL }
 };
 
@@ -340,6 +377,6 @@ static DRouteProperty properties[] =
 void
 spi_registry_initialize_desktop_interface (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Desktop", methods,
+  droute_add_interface (data, "org.freedesktop.atspi.Accessible", methods,
 			properties, NULL, NULL);
 };

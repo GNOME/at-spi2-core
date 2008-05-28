@@ -54,7 +54,7 @@
 #include <gdk/gdkwindow.h>
 
 #include <atk-adaptor/spi-private.h>
-#include <atk-adaptor/keymasks.h>
+#include <spi-common/keymasks.h>
 #include <droute/droute.h>
 #include <spi-common/spi-dbus.h>
 #include <spi-common/spi-types.h>
@@ -941,7 +941,7 @@ static gboolean Accessibility_DeviceEventListener_notifyEvent(SpiRegistry *regis
   dbus_bool_t consumed = FALSE;
 
   dbus_error_init(&error);
-  if (spi_dbus_marshall_deviceEvent(message, key_event))
+  if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
     // TODO: Evaluate performance: perhaps rework this whole architecture
     // to avoid blocking calls
@@ -2474,7 +2474,7 @@ impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *use
   dbus_bool_t ret;
   DBusMessage *reply;
 
-  if (!spi_dbus_demarshall_deviceEvent(message, &event))
+  if (!spi_dbus_demarshal_deviceEvent(message, &event))
   {
     return spi_dbus_general_error (message);
   }
@@ -2501,7 +2501,7 @@ impl_notify_listeners_async (DBusConnection *bus, DBusMessage *message, void *us
   Accessibility_DeviceEvent event;
   DBusMessage *reply;
 
-  if (!spi_dbus_demarshall_deviceEvent(message, &event))
+  if (!spi_dbus_demarshal_deviceEvent(message, &event))
   {
     return spi_dbus_general_error (message);
   }
