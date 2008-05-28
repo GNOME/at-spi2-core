@@ -1,3 +1,5 @@
+SUBDIRS=dummyatk testapps
+
 EXTRA_DIST = \
 	AccessibleTree.py      \
 	AccessibleTreeCache.py \
