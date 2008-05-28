@@ -1,8 +1,12 @@
-#include "MyAtkComponent.h"
 #include <stdio.h>
+#include <atk/atk.h>
+#include <limits.h>
+
+#include "my-atk-object.h"
+#include "my-atk-component.h"
 
 //*************************implementation***********************
-static MyParentChildClass *component_parent_class = NULL;
+static MyAtkObjectClass *component_parent_class = NULL;
 //current focus object
 static AtkComponent* focus_object = NULL;
 
@@ -263,7 +267,7 @@ static guint my_atk_component_add_focus_handler(AtkComponent *component, AtkFocu
             g_cclosure_new( (GCallback)handler,
                 NULL,
                 NULL),
-            NULL);
+            FALSE);
     }
     else/* found_handler_id != 0*/
     {
@@ -301,7 +305,7 @@ static void my_atk_component_instance_init(GTypeInstance *obj, gpointer g_class)
     self->extent.height = 10;
     self->is_extent_may_changed = TRUE;
     self->layer = ATK_LAYER_INVALID;
-    self->zorder = -2147483648;
+    self->zorder = -2147;
 }
 static void my_atk_component_instance_finalize(GObject* obj)
 {
@@ -390,7 +394,7 @@ GType my_atk_component_get_type()
             NULL,                               /* interface_finalize*/
             NULL                                /* interface_data */
         };
-        type = g_type_register_static(MY_TYPE_PARENT_CHILD, "MyAtkComponent", &typeInfo, 0);
+        type = g_type_register_static(MY_TYPE_ATK_OBJECT, "MyAtkComponent", &typeInfo, 0);
         g_type_add_interface_static(type,
             ATK_TYPE_COMPONENT,
             &iface_info);

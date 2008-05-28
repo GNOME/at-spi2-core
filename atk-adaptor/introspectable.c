@@ -53,6 +53,8 @@ impl_introspect (DBusConnection *bus, DBusMessage *message,
   
   g_string_append_printf(output, spi_introspection_node_element, path);
 
+  spi_append_interface(output, "org.freedesktop.atspi.Accessible");
+
   if (ATK_IS_ACTION (object))
       spi_append_interface(output, "org.freedesktop.atspi.Action");
 
@@ -114,7 +116,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_introspectable (DRouteData *data, DRouteGetDatumFunction verify_object)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Introspectable",
+  droute_add_interface (data, "org.freedesktop.DBus.Introspectable",
 			methods, NULL,
 			verify_object, NULL);
 };

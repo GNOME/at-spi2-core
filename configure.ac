@@ -18,6 +18,10 @@ PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
 
+PKG_CHECK_MODULES(GMODULE, [gmodule-2.0 >= 2.0.0])	
+AC_SUBST(GMODULE_LIBS)
+AC_SUBST(GMODULE_CFLAGS)
+
 PKG_CHECK_MODULES(ATK, [atk >= 1.17.0])
 AC_SUBST(ATK_LIBS)
 AC_SUBST(ATK_CFLAGS)
@@ -110,6 +114,8 @@ AC_CONFIG_FILES([Makefile
 		 droute/Makefile
 		 spi-common/Makefile
 		 registryd/Makefile
-		 atk-adaptor/Makefile])
+		 atk-adaptor/Makefile
+		 tests/dummyatk/Makefile
+		 tests/testapps/Makefile])
 
 AC_OUTPUT

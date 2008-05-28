@@ -199,8 +199,8 @@ spi_app_init (AtkObject *root)
   spi_dbus_initialize (&ad->droute);
   /* Below line for testing -- it should be removed once at-spi-registryd is working */
   if (dbus_bus_request_name(ad->droute.bus, "test.atspi.tree", 0, &error)) printf("Got test name.\n");
-  spi_register_tree_object(ad->droute.bus, "/org/freedesktop/atspi/tree");
-  if (!dbus_connection_try_register_fallback (ad->droute.bus, "/org/freedesktop/atspi/accessible/", &droute_vtable, &ad->droute, &error))
+  spi_register_tree_object(ad->droute.bus, &ad->droute, "/org/freedesktop/atspi/tree");
+  if (!dbus_connection_try_register_fallback (ad->droute.bus, "/org/freedesktop/atspi/accessible", &droute_vtable, &ad->droute, &error))
   {
     g_warning("Couldn't register droute.\n");
   }

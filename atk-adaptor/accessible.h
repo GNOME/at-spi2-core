@@ -57,7 +57,7 @@ DBusMessage *spi_dbus_return_object(DBusMessage *message, AtkObject *obj, int un
 dbus_bool_t spi_dbus_return_v_object(DBusMessageIter *iter, AtkObject *obj, int unref);
 
 /* tree.c */
-void spi_register_tree_object(DBusConnection *bus, const char *path);
+void spi_register_tree_object(DBusConnection *bus, DRouteData *data, const char *path);
 
 dbus_bool_t spi_dbus_append_tree (DBusMessage * message, AtkObject * obj, DRouteData * data);
 

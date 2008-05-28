@@ -43,6 +43,8 @@ append_update (DBusMessageIter * iter_array, AtkObject * obj,
   gint childcount;
   GSList *l;
 
+  g_assert(data != NULL);
+
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
 				    &iter_struct);
   path = spi_dbus_get_path (obj);
@@ -126,6 +128,8 @@ spi_dbus_append_tree (DBusMessage * message, AtkObject * obj,
   DBusMessageIter iter, iter_array;
   dbus_bool_t result;
 
+  g_assert(data != NULL);
+
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassus)",
 				    &iter_array);
@@ -200,6 +204,8 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *member = dbus_message_get_member (message);
 
   DBusMessage *reply = NULL;
+
+  g_return_val_if_fail(iface != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   
   if (!strcmp(iface, "org.freedesktop.atspi.Tree"))
     {
@@ -240,10 +246,11 @@ static DBusObjectPathVTable tree_vtable =
 
 void
 spi_register_tree_object(DBusConnection *bus,
+			 DRouteData *data,
 			 const char *path)
 {
   dbus_bool_t mem = FALSE;
-  mem = dbus_connection_register_object_path(bus, path, &tree_vtable, NULL);
+  mem = dbus_connection_register_object_path(bus, path, &tree_vtable, data);
   g_assert(mem == TRUE);
 }
 
@@ -284,13 +291,15 @@ static void handle_cache_item(char *path, guint action, CacheIterData *d)
     break;
   }
   g_hash_table_remove(cache_list, path);
-  }
+}
 
 gboolean spi_dbus_update_cache(DRouteData *data)
 {
   DBusMessage *message;
   DBusMessageIter iter;
   CacheIterData d;
+
+  g_assert(data != NULL);
 
   if (update_pending == 0) return FALSE;
 //printf("Sending cache\n");

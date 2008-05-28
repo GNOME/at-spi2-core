@@ -1,6 +1,8 @@
-#include "MyAtkAction.h"
 #include <stdio.h>
 #include <string.h>
+#include <atk/atk.h>
+
+#include "my-atk-action.h"
 
 static GObjectClass *parent_class = NULL;
 //implementaion of the interface

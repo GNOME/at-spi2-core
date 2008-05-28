@@ -5,10 +5,8 @@
  * and implements AtkComponent.
  */
 #include <atk/atk.h>
-#include <glib-object.h>
-#include <limits.h>
 
-#include "AtkObject_parent_child.h"
+#include "my-atk-object.h"
 
 #define MY_TYPE_ATK_COMPONENT             (my_atk_component_get_type ())
 #define MY_ATK_COMPONENT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_COMPONENT, MyAtkComponent))
@@ -22,7 +20,7 @@ typedef struct _MyAtkComponentClass MyAtkComponentClass;
 
 struct _MyAtkComponent
 {
-    MyParentChild parent;
+    MyAtkObject parent;
     //relative coordinates, which coincides with absolute ones
     AtkRectangle extent;
     //whether component may be relocated
@@ -36,7 +34,7 @@ struct _MyAtkComponent
 
 struct _MyAtkComponentClass
 {
-    MyParentChildClass parent;
+    MyAtkObjectClass parent;
 };
 
 GType my_atk_component_get_type();
