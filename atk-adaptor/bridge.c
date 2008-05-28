@@ -915,7 +915,7 @@ static gboolean Accessibility_DeviceEventController_notifyListenersSync(const Ac
   dbus_bool_t consumed = FALSE;
 
   dbus_error_init(&error);
-  if (spi_dbus_marshall_deviceEvent(message, key_event))
+  if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
     DBusMessage *reply = dbus_connection_send_with_reply_and_block(this_app->droute.bus, message, 1000, &error);
     if (reply)

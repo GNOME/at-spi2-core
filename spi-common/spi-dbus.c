@@ -131,7 +131,7 @@ dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...)
   return TRUE;
 }
 
-dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e)
+dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e)
 {
   DBusMessageIter iter;
 
@@ -140,10 +140,39 @@ dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibil
   return spi_dbus_message_iter_append_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
 }
 
-dbus_bool_t spi_dbus_demarshall_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e)
+dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e)
 {
   DBusMessageIter iter;
 
   dbus_message_iter_init(message, &iter);
   return spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
+}
+
+dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error)
+{
+  DBusMessage *message, *reply;
+  DBusMessageIter iter, iter_variant;
+  int typ;
+
+  dbus_error_init (error);
+  message = dbus_message_new_method_call (dest, path, "org.freedesktop.DBus.Properties", "get");
+  if (!message) return FALSE;
+  if (!dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &prop, DBUS_TYPE_INVALID))
+  {
+    return FALSE;
+  }
+  reply = dbus_connection_send_with_reply_and_block (bus, message, 1000, error);
+  dbus_message_unref (message);
+  if (!reply) return FALSE;
+  dbus_message_iter_init (reply, &iter);
+  dbus_message_iter_recurse (&iter, &iter_variant);
+  typ = dbus_message_iter_get_arg_type (&iter_variant);
+  if (type) *type = typ;
+  if (typ == DBUS_TYPE_INVALID || typ == DBUS_TYPE_STRUCT || typ == DBUS_TYPE_ARRAY)
+  {
+    return FALSE;
+  }
+  dbus_message_iter_get_basic (&iter_variant, ptr);
+  dbus_message_unref (reply);
+  return TRUE;
 }

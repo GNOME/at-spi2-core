@@ -44,7 +44,7 @@
 #include <libspi/listener.h>
 #include <libspi/eventlistener.h>
 #include <libspi/devicelistener.h>
-#include <libspi/keymasks.h>
+#include <spi-common/keymasks.h>
 #include <libspi/remoteobject.h>
 #include <libspi/streamablecontent.h>
 
