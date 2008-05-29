@@ -1,5 +1,6 @@
 #include <atk/atk.h>
 
+#include "my-atk-object.h"
 #include "my-atk-streamable-content.h"
 
 //*************************implementation***********************
@@ -86,7 +87,7 @@ GType my_atk_streamable_content_get_type()
             NULL,                               /* interface_finalize*/
             NULL                                /* interface_data */
         };
-        type = g_type_register_static(G_TYPE_OBJECT, "MyAtkStreamableContent", &typeInfo, 0);
+        type = g_type_register_static(MY_TYPE_ATK_OBJECT, "MyAtkStreamableContent", &typeInfo, 0);
         g_type_add_interface_static(type,
             ATK_TYPE_STREAMABLE_CONTENT,
             &iface_info);

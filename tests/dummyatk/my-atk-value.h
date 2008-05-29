@@ -18,7 +18,7 @@ typedef struct _MyAtkValueClass MyAtkValueClass;
 
 struct _MyAtkValue
 {
-    AtkObject parent;
+    MyAtkObject parent;
     
     gint minimum, maximum, current;
     gboolean readonly;
@@ -26,7 +26,7 @@ struct _MyAtkValue
 
 struct _MyAtkValueClass
 {
-    AtkObjectClass parent;
+    MyAtkObjectClass parent;
 };
 
 MyAtkValue* my_atk_value_new(gint minimum, gint maximium, gint current);

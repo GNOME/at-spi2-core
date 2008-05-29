@@ -18,6 +18,7 @@ struct _MyAtkObject
     AtkObject parent;
     //array of children
     GPtrArray* children;
+    gint id;
 };
 
 struct _MyAtkObjectClass
