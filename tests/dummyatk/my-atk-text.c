@@ -1277,7 +1277,7 @@ GType my_atk_text_get_type()
             NULL,                               /* interface_finalize*/
             NULL                                /* interface_data */
         };
-        type = g_type_register_static(ATK_TYPE_OBJECT, "MyAtkText", &typeInfo, 0);
+        type = g_type_register_static(MY_TYPE_ATK_OBJECT, "MyAtkText", &typeInfo, 0);
         g_type_add_interface_static(type,
             ATK_TYPE_TEXT,
             &AtkTextIface_info);

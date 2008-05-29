@@ -2,6 +2,7 @@
 #include <string.h>
 #include <atk/atk.h>
 
+#include "my-atk-object.h"
 #include "my-atk-action.h"
 
 static GObjectClass *parent_class = NULL;
@@ -210,7 +211,7 @@ GType my_atk_action_get_type(void)
             NULL,                                       /* interface_finalize */
             NULL                                        /* interface_data */
         };
-        type = g_type_register_static (G_TYPE_OBJECT,
+        type = g_type_register_static (MY_TYPE_ATK_OBJECT,
             "MyAtkAction",
             &info, 0);
         g_type_add_interface_static (type,
