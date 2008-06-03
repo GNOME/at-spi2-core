@@ -28,4 +28,8 @@ struct _MyAtkObjectClass
 
 GType my_atk_object_get_type();
 
+void my_atk_object_add_child(MyAtkObject* parent, MyAtkObject* child);
+
+void my_atk_object_remove_child(MyAtkObject* parent, MyAtkObject* child);
+
 #endif /*MY_ATK_OBJECT_H*/

@@ -1,9 +1,3 @@
-SUBDIRS=dummyatk testapps
+SUBDIRS=dummyatk apps clients
 
-EXTRA_DIST = \
-	AccessibleTree.py      \
-	AccessibleTreeCache.py \
-	desktop.xml            \
-	makeTree.py            \
-	testClient.py          \
-	testServer.py
+EXTRA_DIST = testrunner.py
