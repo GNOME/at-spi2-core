@@ -1,3 +1,18 @@
+2008-06-05  Michael Natterer  <mitch@imendio.com>
+
+	* configure.in: add G_DISABLE_SINGLE_INCLUDES and
+	ATK_DISABLE_SINGLE_INCLUDES to CPPFLAGS.
+
+	* atk/atk.h: define __ATK_H_INSIDE__ around including all other
+	headers.
+
+	* atk/atk*.h: add single-include guards that #error out if
+	ATK_DISABLE_SINGLE_INCLUDES is defined and any of these files is
+	included individually. Use G_BEGIN_DECLS/G_END_DECLS in all files.
+
+	* atk/Makefile.am: define ATK_COMPILATION while building ATK.
+	Add single-include guards to the generated atk-enum-types.h too.
+
 2008-03-10  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:

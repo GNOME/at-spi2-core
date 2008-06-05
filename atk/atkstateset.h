@@ -17,16 +17,18 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_STATE_SET_H__
 #define __ATK_STATE_SET_H__
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
 
 #include <glib-object.h>
 #include <atk/atkobject.h>
 #include <atk/atkstate.h>
+
+G_BEGIN_DECLS
 
 #define ATK_TYPE_STATE_SET                        (atk_state_set_get_type ())
 #define ATK_STATE_SET(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_STATE_SET, AtkStateSet))
@@ -73,9 +75,6 @@ AtkStateSet*    atk_state_set_or_sets           (AtkStateSet  *set,
 AtkStateSet*    atk_state_set_xor_sets          (AtkStateSet  *set,
                                                  AtkStateSet  *compare_set);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_STATE_SET_H__ */

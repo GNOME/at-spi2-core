@@ -17,15 +17,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_GOBJECT_ACCESSIBLE_H__
 #define __ATK_GOBJECT_ACCESSIBLE_H__
 
 #include <atk/atk.h>
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /*
  * The AtkGObjectAccessible class is provided as a basis for implementing
@@ -59,9 +60,6 @@ struct _AtkGObjectAccessibleClass
 AtkObject *atk_gobject_accessible_for_object      (GObject           *obj);
 GObject   *atk_gobject_accessible_get_object      (AtkGObjectAccessible *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_GOBJECT_ACCESSIBLE_H__ */

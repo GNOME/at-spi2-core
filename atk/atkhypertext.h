@@ -17,15 +17,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_HYPERTEXT_H__
 #define __ATK_HYPERTEXT_H__
 
 #include <atk/atkobject.h>
 #include <atk/atkhyperlink.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /*
  * The AtkHypertext interface provides standard  mechanisms for manipulating 
@@ -71,10 +73,6 @@ gint          atk_hypertext_get_n_links    (AtkHypertext *hypertext);
 gint          atk_hypertext_get_link_index (AtkHypertext *hypertext,
                                             gint          char_index);
 
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_HYPERTEXT_H__ */

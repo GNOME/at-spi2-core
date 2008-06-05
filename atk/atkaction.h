@@ -17,14 +17,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_ACTION_H__
 #define __ATK_ACTION_H__
 
 #include <atk/atkobject.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /*
  * The interface AtkAction should be supported by any object that can 
@@ -104,9 +106,6 @@ G_CONST_RETURN gchar* atk_action_get_localized_name (AtkAction       *action,
  *       (an accessible action, or the list of actions, has changed)
  */
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_ACTION_H__ */

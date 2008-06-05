@@ -17,12 +17,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_RELATION_H__
 #define __ATK_RELATION_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #include <glib-object.h>
 #include <atk/atkrelationtype.h>
@@ -79,10 +81,7 @@ AtkRelationType       atk_relation_get_relation_type  (AtkRelation     *relation
 GPtrArray*            atk_relation_get_target         (AtkRelation     *relation);
 void                  atk_relation_add_target         (AtkRelation     *relation,
                                                        AtkObject       *target);
-                
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __ATK_RELATION_H__ */

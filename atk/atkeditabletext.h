@@ -17,15 +17,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_EDITABLE_TEXT_H__
 #define __ATK_EDITABLE_TEXT_H__
 
 #include <atk/atkobject.h>
 #include <atk/atktext.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /*
  * AtkEditableText is used to support access in an "accessibility" context
@@ -96,10 +98,7 @@ void atk_editable_text_delete_text          (AtkEditableText  *text,
                                              gint             end_pos);
 void atk_editable_text_paste_text           (AtkEditableText  *text,
                                              gint             position);
- 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
+G_END_DECLS
 
 #endif /* __ATK_EDITABLE_TEXT_H__ */

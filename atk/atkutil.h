@@ -17,14 +17,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_UTIL_H__
 #define __ATK_UTIL_H__
 
 #include <atk/atkobject.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define ATK_TYPE_UTIL                   (atk_util_get_type ())
 #define ATK_IS_UTIL(obj)                G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATK_TYPE_UTIL)
@@ -306,10 +308,6 @@ type_name##_get_type (void) \
   return g_define_type_id__volatile;	\
 } /* closes type_name##_get_type() */
 
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_UTIL_H__ */

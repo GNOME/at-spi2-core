@@ -17,15 +17,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_DOCUMENT_H__
 #define __ATK_DOCUMENT_H__
 
 #include <atk/atkobject.h>
 #include <atk/atkutil.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /*
  * The AtkDocument interface should be supported by any object that is a container
@@ -75,7 +77,7 @@ G_CONST_RETURN gchar* atk_document_get_attribute_value (AtkDocument *document,
 gboolean              atk_document_set_attribute_value (AtkDocument *document,
                                                         const gchar *attribute_name,
                                                         const gchar *attribute_value);
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+
+G_END_DECLS
+
 #endif /* __ATK_DOCUMENT_H__ */

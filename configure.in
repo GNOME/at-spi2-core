@@ -132,6 +132,8 @@ AC_ARG_ENABLE(rebuilds,
                               [disable all source autogeneration rules])],,
               [enable_rebuilds=yes])
 
+CPPFLAGS="$CPPFLAGS -DG_DISABLE_SINGLE_INCLUDES -DATK_DISABLE_SINGLE_INCLUDES"
+
 changequote(,)dnl
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in

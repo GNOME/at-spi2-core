@@ -17,6 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
 
 #ifndef __ATK_TEXT_H__
 #define __ATK_TEXT_H__
@@ -25,9 +28,7 @@
 #include <atk/atkobject.h>
 #include <atk/atkutil.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /**
  *AtkTextAttribute
@@ -359,9 +360,6 @@ AtkTextAttribute       atk_text_attribute_for_name        (const gchar      *nam
 G_CONST_RETURN gchar*  atk_text_attribute_get_value       (AtkTextAttribute attr,
                                                            gint             index_);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_TEXT_H__ */

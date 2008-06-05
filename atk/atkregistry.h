@@ -17,15 +17,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_REGISTRY_H__
 #define __ATK_REGISTRY_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
 #include <glib-object.h>
 #include "atkobjectfactory.h"
+
+G_BEGIN_DECLS
 
 #define ATK_TYPE_REGISTRY                (atk_registry_get_type ())
 #define ATK_REGISTRY(obj)                (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATK_TYPE_REGISTRY, AtkRegistry))
@@ -61,9 +63,7 @@ AtkObjectFactory* atk_registry_get_factory      (AtkRegistry *registry,
 
 AtkRegistry*      atk_get_default_registry      (void);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __ATK_REGISTRY_H__ */
 

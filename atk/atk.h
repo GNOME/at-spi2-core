@@ -20,6 +20,8 @@
 #ifndef __ATK_H__
 #define __ATK_H__
 
+#define __ATK_H_INSIDE__
+
 #include <atk/atkobject.h>
 #include <atk/atkaction.h>
 #include <atk/atkcomponent.h>
@@ -46,5 +48,7 @@
 #include <atk/atkutil.h>
 #include <atk/atkmisc.h>
 #include <atk/atkvalue.h>
+
+#undef __ATK_H_INSIDE__
 
 #endif /* __ATK_H__ */

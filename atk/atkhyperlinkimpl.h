@@ -17,15 +17,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_HYPERLINK_IMPL_H__
 #define __ATK_HYPERLINK_IMPL_H__
 
 #include <atk/atkobject.h>
 #include <atk/atkhyperlink.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 /*
  * The AtkHyperlinkImpl interface should be supported by objects
@@ -68,9 +70,6 @@ GType            atk_hyperlink_impl_get_type (void);
 
 AtkHyperlink    *atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *obj);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
-
+G_END_DECLS
 
 #endif /* __ATK_HYPERLINK_IMPL_H__ */

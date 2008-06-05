@@ -17,12 +17,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)
+#error "Only <atk/atk.h> can be included directly."
+#endif
+
 #ifndef __ATK_RELATION_TYPE_H__
 #define __ATK_RELATION_TYPE_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
+#include <glib.h>
+
+G_BEGIN_DECLS
 
 /**
  *AtkRelationType:
@@ -72,8 +76,6 @@ typedef enum
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* __ATK_RELATION_TYPE_H__ */
