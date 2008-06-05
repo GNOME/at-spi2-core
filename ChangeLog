@@ -1,5 +1,7 @@
 2008-06-05  Michael Natterer  <mitch@imendio.com>
 
+	Bug #535704:
+
 	* configure.in: add G_DISABLE_SINGLE_INCLUDES and
 	ATK_DISABLE_SINGLE_INCLUDES to CPPFLAGS.
 
