@@ -40,10 +40,16 @@ class AccessibleObjectTestCase(unittest.TestCase):
 
 	def runTest(self):
 		root = self._cache.getRootAccessible()
+
 		doc = minidom.Document()
 		createNode(root, doc)
 		answer = doc.toprettyxml()
-		correct = os.path.join(testutil.testdata, "object-test-stage1.xml")
+
+		correct = os.path.join(testutil.testdata, "object-test-stage1-results.xml")
 		file = open(correct)
 		cstring = file.read()
+		
+		#import difflib
+		#print ''.join(difflib.unified_diff(answer.splitlines(), cstring.splitlines()))
+		
 		self.assertEqual(answer, cstring, "Object tree not passed correctly")

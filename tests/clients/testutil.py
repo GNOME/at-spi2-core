@@ -17,11 +17,21 @@ testmodules = "../apps/.libs"
 #Atk to at-spi adaptor library location.
 atspilib = "../../atk-adaptor/.libs/libspiatk.so"
 
-from subprocess import Popen
-from os.path import join
 
 def runTestApp(module_name):
-	testmodule = join(testmodules, module_name)
-	print testmodule
-	print testapp
-	return Popen([testapp , "-a", atspilib, "-t", testmodule, "-d", testdata])
+	import os
+	from subprocess import Popen
+
+	testmodule = os.path.join(testmodules, module_name)
+	pop = Popen([testapp , "-a", atspilib, "-t", testmodule, "-d", testdata])
+
+	wait_envar = "TEST_APP_WAIT_FOR_DEBUG"
+
+	wait_message = """
+	The test application %s has been started with PID %d.
+	
+	To continue the test press ENTER.\n\n
+	"""
+
+	if (wait_envar in os.environ.keys()):
+		raw_input(wait_message % (module_name, pop.pid))
