@@ -136,7 +136,7 @@
       Obtain the Component's bounding box, in pixels, relative to the specified coordinate system. 
     </tp:docstring>
     <arg direction="in" name="coord_type" type="n" tp:type="short"/>
-    <arg direction="out" type="(uuuu)" tp:type="BoundingBox">
+    <arg direction="out" type="(iiii)" tp:type="BoundingBox">
     <tp:docstring>
       a BoundingBox which entirely contains the object's onscreen visual representation.
     </tp:docstring>
