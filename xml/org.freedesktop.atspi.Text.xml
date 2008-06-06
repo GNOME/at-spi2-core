@@ -278,11 +278,18 @@
     </tp:docstring>
     </arg>
   </method>
+  <method name="getCharacterOffset">
+    <arg name="offset" type="i" direction="in"/>
+    <arg type="i" direction="out">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        an unsigned long integer whose value corresponds to the UCS-4 representation of the
+        character at the specified text offset, or 0 if offset is out of range.
+        long instead of wchar, to allow unicode chars > 16 bits
+      </tp:docstring>
+    </arg>
+  </method>
   <method name="getAttributeValue">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>long instead of wchar, 
-        to allow unicode chars &gt; 16 bits     </p>
-
       <p>Get the string value of a named attribute at a given offset, if defined.
         @param offset the offset of the character for which the attribute run is to be obtained.
         @param attributeName the name of the attribute for which the value is to be returned, if defined.
