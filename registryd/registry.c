@@ -298,6 +298,7 @@ spi_registry_init (SpiRegistry *registry)
     g_warning("Couldn't connect to dbus: %s\n", error.message);
     return;
   }
+  registry->droute.user_data = registry;
   spi_registry_initialize_registry_interface (&registry->droute);
   spi_registry_initialize_desktop_interface (&registry->droute);
   spi_registry_initialize_dec_interface (&registry->droute);
