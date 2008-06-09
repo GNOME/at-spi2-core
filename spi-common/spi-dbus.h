@@ -31,14 +31,28 @@
 
 extern int _dbg;
 
-#define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.registry"
-#define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
-#define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.registry"
 #define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/dec"
-#define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.deviceEventController"
+#define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"
+#define SPI_DBUS_INTERFACE_ACTION "org.freedesktop.atspi.Action"
+#define SPI_DBUS_INTERFACE_APPLICATION "org.freedesktop.atspi.Application"
+#define SPI_DBUS_INTERFACE_COMPONENT "org.freedesktop.atspi.Component"
+#define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.DeviceEventController"
+#define SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER "org.freedesktop.atspi.DeviceEventListener"
+#define SPI_DBUS_INTERFACE_DOCUMENT "org.freedesktop.atspi.Document"
+#define SPI_DBUS_INTERFACE_EDITABLE_TEXT "org.freedesktop.atspi.EditableText"
+#define SPI_DBUS_INTERFACE_HYPERLINK "org.freedesktop.atspi.Hyperlink"
+#define SPI_DBUS_INTERFACE_HYPERTEXT "org.freedesktop.atspi.Hypertext"
+#define SPI_DBUS_INTERFACE_IMAGE "org.freedesktop.atspi.Image"
+#define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.registry"
+#define SPI_DBUS_INTERFACE_SELECTION "org.freedesktop.atspi.Selection"
+#define SPI_DBUS_INTERFACE_TABLE "org.freedesktop.atspi.Table"
+#define SPI_DBUS_INTERFACE_TEXT "org.freedesktop.atspi.Text"
+#define SPI_DBUS_INTERFACE_TREE "org.freedesktop.atspi.Tree"
+#define SPI_DBUS_INTERFACE_VALUE "org.freedesktop.atspi.Value"
+#define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.registry"
 #define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/registry/desktop"
 #define SPI_DBUS_PATH_NULL "/"
-#define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"
+#define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
 
 DBusMessage *spi_dbus_general_error(DBusMessage *message);
 DBusMessage *spi_dbus_return_rect(DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);
