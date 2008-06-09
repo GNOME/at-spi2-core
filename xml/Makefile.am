@@ -14,6 +14,7 @@ XML_SPEC= \
 	org.freedesktop.atspi.Registry.xml \
 	org.freedesktop.atspi.DeviceEventController.xml \
 	org.freedesktop.atspi.DeviceEventListener.xml \
+	Accessibility_Relation.xml \
 	Accessibility_Role.xml \
 	org.freedesktop.atspi.Selection.xml \
 	org.freedesktop.atspi.Selector.xml \
