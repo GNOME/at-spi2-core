@@ -134,7 +134,7 @@
     <tp:docstring>
       Get a set defining this object's relationship to other accessible objects.
     </tp:docstring>
-    <arg direction="out" type="a{uao}" tp:type="RelationSet">
+    <arg direction="out" type="a(uao)" tp:type="RelationSet">
     <tp:docstring>
       a ::RelationSet defining this object's relationships.
     </tp:docstring>
