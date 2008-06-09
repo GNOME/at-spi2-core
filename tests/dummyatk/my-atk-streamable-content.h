@@ -7,6 +7,8 @@
 
 #include <atk/atk.h>
 
+#include "my-atk-object.h"
+
 #define MY_TYPE_ATK_STREAMABLE_CONTENT             (my_atk_streamable_content_get_type ())
 #define MY_ATK_STREAMABLE_CONTENT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_STREAMABLE_CONTENT, MyAtkStreamableContent))
 #define MY_ATK_STREAMABLE_CONTENT_CLASS(vtable)    (G_TYPE_CHECK_CLASS_CAST ((vtable), MY_TYPE_ATK_STREAMABLE_CONTENT, MyAtkStreamableContentClass))
@@ -21,12 +23,12 @@ static const gchar* mime_types[]={"text/plain", "text/richtext"};
 static const gchar* file_names[]={"file1", "file2"};
 struct _MyAtkStreamableContent
 {
-    GObject parent;
+    MyAtkObject parent;
 };
 
 struct _MyAtkStreamableContentClass
 {
-    GObjectClass parent;
+    MyAtkObjectClass parent;
 };
 
 GType my_atk_streamable_content_get_type();

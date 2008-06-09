@@ -85,8 +85,10 @@ load_atspi_module(const char *path, int argc, char *argv[])
   ((GtkModuleInit) init)(argc, argv);
 }
 
+typedef void (*TestModuleInit) (gchar *path);
+
 static void
-load_test_module(const char *path, int argc, char *argv[])
+load_test_module(const char *path, const char *tdpath)
 {
   gpointer init;
 
@@ -100,17 +102,19 @@ load_test_module(const char *path, int argc, char *argv[])
   if (!g_module_symbol(test_module, "test_get_root", &test_module_get_root))
     g_error("Couldn't load symbol \"test_get_root\"\n");
 
-  ((GtkModuleInit) init)(argc, argv);
+  ((TestModuleInit) init)((gchar *)tdpath);
 }
 
 /*Command line data*/
-static gchar *tmodule_path;
-static gchar *amodule_path;
+static gchar *tmodule_path = NULL;
+static gchar *amodule_path = NULL;
+static gchar *tdata_path = NULL;
 
 static GOptionEntry optentries[] = 
 {
   {"test-module", 't', 0, G_OPTION_ARG_STRING, &tmodule_path, "Module containing test scenario", NULL},
   {"atspi-module", 'a', 0, G_OPTION_ARG_STRING, &amodule_path, "Gtk module with atk-atspi adaptor", NULL},
+  {"test-data", 'd', 0, G_OPTION_ARG_STRING, &tdata_path, "Path to directory of test data", NULL},
   {NULL}
 };
 
@@ -127,16 +131,19 @@ main(int argc, char *argv[])
   /*Parse command options*/
   opt = g_option_context_new(NULL);
   g_option_context_add_main_entries(opt, optentries, NULL);
+  g_option_context_set_ignore_unknown_options(opt, TRUE);
   if (!g_option_context_parse(opt, &argc, &argv, &err))
-    {
-      g_print("Option parsing failed: %s\n", err->message);
-      exit(1);
-    }
+      g_error("Option parsing failed: %s\n", err->message);
+
+  if (tmodule_path == NULL)
+      g_error("No test module provided");
+  if (amodule_path == NULL)
+      g_error("No atspi module provided");
 
   g_type_init();
 
   setup_atk_util();
-  load_test_module(tmodule_path, argc, argv);
+  load_test_module(tmodule_path, tdata_path);
   load_atspi_module(amodule_path, argc, argv);
 
   mainloop = g_main_loop_new (NULL, FALSE);

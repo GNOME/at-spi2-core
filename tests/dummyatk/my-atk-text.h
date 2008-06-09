@@ -4,6 +4,8 @@
  * MyAtkText: implements AtkText and AtkEditableText
  */
 #include <atk/atk.h>
+
+#include "my-atk-object.h"
 	
 #define MY_TYPE_ATK_TEXT             (my_atk_text_get_type ())
 #define MY_ATK_TEXT(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_TEXT, MyAtkText))
@@ -33,7 +35,7 @@ typedef struct
 
 struct _MyAtkText
 {
-    AtkObject parent;
+    MyAtkObject parent;
     
     gchar* str;//string, containing text
     GList* attributes;//running atributes
@@ -48,7 +50,7 @@ struct _MyAtkText
 
 struct _MyAtkTextClass
 {
-    AtkObjectClass parent;
+    MyAtkObjectClass parent;
     gchar* clipboard;
 };
 

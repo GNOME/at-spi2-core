@@ -22,7 +22,7 @@ libnoopapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
 libnoopapp_la_LIBADD = $(TEST_APP_LIBADD)
 libnoopapp_la_SOURCES = noop-app.c
 
-libobjectapp_la_CFLAGS = $(TEST_APP_CFLAGS)
+libobjectapp_la_CFLAGS = $(TEST_APP_CFLAGS) $(LIB_XML_CFLAGS)
 libobjectapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
-libobjectapp_la_LIBADD = $(TEST_APP_LIBADD)
-libobjectapp_la_SOURCES = object-app.c
+libobjectapp_la_LIBADD = $(TEST_APP_LIBADD) $(LIB_XML_LIBS)
+libobjectapp_la_SOURCES = object-app.c atk-object-xml-loader.c atk-object-xml-loader.h

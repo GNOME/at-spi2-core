@@ -2,7 +2,7 @@
 #include <atk/atk.h>
 
 G_MODULE_EXPORT void
-test_init (void)
+test_init (int argc, char *argv[])
 {
   ;
 }

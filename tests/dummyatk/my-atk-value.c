@@ -1,6 +1,7 @@
 #include <atk/atk.h>
 #include <limits.h>
 
+#include "my-atk-object.h"
 #include "my-atk-value.h"
 
 //*************************implementation***********************
@@ -103,7 +104,7 @@ GType my_atk_value_get_type()
             NULL,                               /* interface_finalize*/
             NULL                                /* interface_data */
         };
-        type = g_type_register_static(ATK_TYPE_OBJECT, "MyAtkValue", &typeInfo, 0);
+        type = g_type_register_static(MY_TYPE_ATK_OBJECT, "MyAtkValue", &typeInfo, 0);
         g_type_add_interface_static(type,
             ATK_TYPE_VALUE,
             &iface_info);

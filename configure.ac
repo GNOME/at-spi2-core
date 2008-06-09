@@ -14,6 +14,10 @@ PKG_CHECK_MODULES(DBUS_GLIB, [dbus-glib-1 >= 0.7.0])
 AC_SUBST(DBUS_GLIB_LIBS)
 AC_SUBST(DBUS_GLIB_CFLAGS)
 
+PKG_CHECK_MODULES(LIB_XML, [libxml-2.0 >= 2.0.0])
+AC_SUBST(LIB_XML_LIBS)
+AC_SUBST(LIB_XML_CFLAGS)
+
 PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
@@ -116,6 +120,7 @@ AC_CONFIG_FILES([Makefile
 		 registryd/Makefile
 		 atk-adaptor/Makefile
 		 tests/dummyatk/Makefile
-		 tests/testapps/Makefile])
+		 tests/clients/Makefile
+		 tests/apps/Makefile])
 
 AC_OUTPUT

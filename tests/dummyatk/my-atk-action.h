@@ -5,6 +5,8 @@
 #include <glib-object.h>
 #include <atk/atk.h>
 
+#include "my-atk-object.h"
+
 //declarations
 #define MY_TYPE_ATK_ACTION             (my_atk_action_get_type ())
 #define MY_ATK_ACTION(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), MY_TYPE_ATK_ACTION, MyAtkAction))
@@ -34,7 +36,7 @@ typedef struct _MyAtkActionClass MyAtkActionClass;
 
 struct _MyAtkAction
 {
-    GObject parent;
+    MyAtkObject parent;
 
     gboolean disposed;
     struct OneAction
@@ -49,7 +51,7 @@ struct _MyAtkAction
 
 struct _MyAtkActionClass
 {
-    GObjectClass parent;
+    MyAtkObjectClass parent;
 };
 GType my_atk_action_get_type(void);
 

@@ -5,18 +5,16 @@
 
 static AtkObjectClass *atk_object_parent_class = NULL;
 
-
-//add/remove child to/from array of parent(for internal use)
-static void my_atk_object_add_child(MyAtkObject* parent, MyAtkObject* child)
+void my_atk_object_add_child(MyAtkObject* parent, MyAtkObject* child)
 {
     g_ptr_array_add(parent->children, child);
-    g_object_ref(child);
+    g_object_ref_sink(child);
     
     g_signal_emit_by_name(parent, "children-changed::add",
         parent->children->len - 1, child);
 }
 
-static void my_atk_object_remove_child(MyAtkObject* parent, MyAtkObject* child)
+void my_atk_object_remove_child(MyAtkObject* parent, MyAtkObject* child)
 {
     gint i;
     for(i = parent->children->len - 1; i >= 0; i--)
