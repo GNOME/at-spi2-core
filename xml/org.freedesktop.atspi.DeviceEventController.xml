@@ -79,7 +79,7 @@
       a ControllerEventMask filtering the intercepted key events.
     </tp:docstring>
     </arg>
-    <arg direction="in" name="type" type="au" tp:type="KeyEventTypeSeq">
+    <arg direction="in" name="type" type="u" tp:type="KeyEventTypeSeq">
     <tp:docstring>
       an EventType mask that may created by ORing event types together.
     </tp:docstring>
