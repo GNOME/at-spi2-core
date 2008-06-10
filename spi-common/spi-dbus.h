@@ -43,7 +43,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_HYPERLINK "org.freedesktop.atspi.Hyperlink"
 #define SPI_DBUS_INTERFACE_HYPERTEXT "org.freedesktop.atspi.Hypertext"
 #define SPI_DBUS_INTERFACE_IMAGE "org.freedesktop.atspi.Image"
-#define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.registry"
+#define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.Registry"
 #define SPI_DBUS_INTERFACE_SELECTION "org.freedesktop.atspi.Selection"
 #define SPI_DBUS_INTERFACE_TABLE "org.freedesktop.atspi.Table"
 #define SPI_DBUS_INTERFACE_TEXT "org.freedesktop.atspi.Text"
