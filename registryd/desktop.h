@@ -55,6 +55,11 @@ void        spi_desktop_add_application    (SpiDesktop *desktop,
 void        spi_desktop_remove_application (SpiDesktop *desktop,
 					    const char *app_path);
 
+typedef struct {
+	SpiDesktop *desktop;
+	const char *path;
+} SpiDesktopApplication;
+
 G_END_DECLS
 
 #endif /* SPI_DESKTOP_H_ */

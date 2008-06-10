@@ -84,9 +84,9 @@ desktop_add_application (SpiDesktop *desktop,
 			 guint index, gpointer data)
 {
   SpiRegistry *registry = SPI_REGISTRY (data);
-  const char *name = g_list_nth_data(desktop->applications, index);
+  const SpiDesktopApplication *app = g_list_nth_data(desktop->applications, index);
   
-  emit(registry, "ApplicationAdd", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+  emit(registry, "ApplicationAdd", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->path, DBUS_TYPE_INVALID);
 }
 
 

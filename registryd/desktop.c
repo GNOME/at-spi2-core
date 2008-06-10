@@ -49,11 +49,6 @@ static guint spi_desktop_signals[LAST_SIGNAL];
 /* Our parent Gtk object type */
 #define PARENT_TYPE SPI_ACCESSIBLE_TYPE
 
-typedef struct {
-	SpiDesktop *desktop;
-	const char *path;
-} Application;
-
 static gboolean exiting = FALSE;
 
 /* A pointer to our parent object class */
@@ -165,7 +160,7 @@ spi_desktop_dispose (GObject *object)
 
   while (desktop->applications)
     {
-      Application *app = desktop->applications->data;
+      SpiDesktopApplication *app = desktop->applications->data;
       g_assert (app != NULL);
       spi_desktop_remove_application (desktop, app->path);
     }
@@ -195,7 +190,7 @@ impl_desktop_get_child_at_index (DBusConnection *bus, DBusMessage *message, void
   SpiDesktop *desktop = SPI_REGISTRY(user_data)->desktop;
   DBusError error;
   dbus_int32_t index;
-  Application *app;
+  SpiDesktopApplication *app;
   const char *path;
   DBusMessage *reply;
 
@@ -223,7 +218,7 @@ impl_desktop_get_children (DBusConnection *bus, DBusMessage *message, void *user
   DBusError error;
   gint count;
   gint i;
-  Application *app;
+  SpiDesktopApplication *app;
   const char *path;
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -295,7 +290,7 @@ spi_desktop_new (void)
 }
 
 static void
-abnormal_application_termination (gpointer object, Application *app)
+abnormal_application_termination (gpointer object, SpiDesktopApplication *app)
 {
   g_return_if_fail (SPI_IS_DESKTOP (app->desktop));
 
@@ -307,13 +302,13 @@ void
 spi_desktop_add_application (SpiDesktop *desktop,
 			     const char *application)
 {
-  Application       *app;
+  SpiDesktopApplication       *app;
 
   g_return_if_fail (SPI_IS_DESKTOP (desktop));
 
   spi_desktop_remove_application (desktop, application);
 
-  app = g_new (Application, 1);
+  app = g_new (SpiDesktopApplication, 1);
   app->desktop = desktop;
   app->path = application;
 
@@ -339,7 +334,7 @@ spi_desktop_remove_application (SpiDesktop *desktop,
   idx = 0;
   for (l = desktop->applications; l; l = l->next)
     {
-      Application *app = (Application *) l->data;
+      SpiDesktopApplication *app = (SpiDesktopApplication *) l->data;
 
       if (!strcmp(app->path, path))
         {
@@ -350,7 +345,7 @@ spi_desktop_remove_application (SpiDesktop *desktop,
 
   if (l)
     {
-      Application *app = (Application *) l->data;
+      SpiDesktopApplication *app = (SpiDesktopApplication *) l->data;
 
       desktop->applications = g_list_delete_link (desktop->applications, l);
 
