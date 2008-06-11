@@ -25,7 +25,7 @@
 
 #include <config.h>
 #include <stdio.h>
-#include <libspi/stateset.h>
+#include "spi-stateset.h"
 
 
 static Accessibility_StateType *accessible_state_types = NULL;
@@ -152,17 +152,8 @@ spi_atk_state_from_spi_state (Accessibility_StateType state)
   return state_spi_to_atk (state);
 }
 
-static AtkStateSet *
-atk_state_set_from_servant (PortableServer_Servant servant)
-{
-  SpiBase *base = SPI_BASE (bonobo_object_from_servant(servant));
-
-  g_return_val_if_fail (base, NULL);
-  return  ATK_STATE_SET(base->gobj);
-}
-
 AtkStateSet *
-spi_state_set_cache_from_sequence (const Accessibility_StateSeq *seq)
+spi_state_set_cache_from_sequence (const GArray *seq)
 {
   int i;
   AtkStateSet *set;
@@ -170,260 +161,15 @@ spi_state_set_cache_from_sequence (const Accessibility_StateSeq *seq)
 
   spi_init_state_type_tables ();
   
-  states = g_newa (AtkStateType, seq->_length);
-  for (i = 0; i < seq->_length; i++)
-    states [i] = state_spi_to_atk (seq->_buffer [i]);
+  states = g_newa (AtkStateType, seq->len);
+  for (i = 0; i < seq->len; i++)
+    states [i] = state_spi_to_atk (g_array_index (seq, dbus_int32_t, i));
 
   set = atk_state_set_new ();
-  atk_state_set_add_states (set, states, seq->_length);
+  atk_state_set_add_states (set, states, seq->len);
 
+  g_free (states);
+  g_array_free (seq, TRUE);
   return set;
 }
 
-static AtkStateSet *
-atk_state_set_from_accessibility_state_set (Accessibility_StateSet set, CORBA_Environment *ev)
-{
-  AtkStateSet *rv;
-  Accessibility_StateSeq *seq;
-  
-  seq = Accessibility_StateSet_getStates (set, ev);
-  rv = spi_state_set_cache_from_sequence (seq);
-  CORBA_free (seq);
-
-  return rv;
-}
-
-
-SpiStateSet *
-spi_state_set_new (AtkStateSet *obj)
-{
-  SpiStateSet *new_set = g_object_new (SPI_STATE_SET_TYPE, NULL);
-  spi_base_construct (SPI_BASE (new_set), G_OBJECT (obj));
-  return new_set;
-}
-
-
-static CORBA_boolean
-impl_contains (PortableServer_Servant servant,
-	       const Accessibility_StateType state,
-	       CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-
-  g_return_val_if_fail (set, FALSE);
-  return atk_state_set_contains_state (set, state_spi_to_atk (state));
-}
-
-
-static void 
-impl_add (PortableServer_Servant servant,
-	  const Accessibility_StateType state,
-	  CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-
-  g_return_if_fail (set);
-  atk_state_set_add_state (set, state_spi_to_atk (state));
-}
-
-
-static void 
-impl_remove (PortableServer_Servant servant,
-	     const Accessibility_StateType state,
-	     CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-
-  g_return_if_fail (set);
-  atk_state_set_remove_state (set, state_spi_to_atk (state));
-}
-
-
-static CORBA_boolean
-impl_equals (PortableServer_Servant servant,
-	     const Accessibility_StateSet stateSet,
-	     CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-  AtkStateSet *set2, *return_set;
-  CORBA_boolean rv;
-  
-  g_return_val_if_fail (set, FALSE);
-
-  set2 = atk_state_set_from_accessibility_state_set (stateSet, ev);
-  g_return_val_if_fail (set2, FALSE);
-
-  return_set = atk_state_set_xor_sets (set, set2);
-  g_object_unref (G_OBJECT(set2));
-  if (return_set)
-    {
-      rv = atk_state_set_is_empty (return_set);
-      g_object_unref (G_OBJECT(return_set));
-    }
-  else
-    rv = FALSE;
-  return rv;
-}
-
-
-static Accessibility_StateSet
-impl_compare (PortableServer_Servant servant,
-	      const Accessibility_StateSet compareState,
-	      CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-  AtkStateSet *set2, *return_set;
-  SpiStateSet *spi_set;
-  
-  g_return_val_if_fail (set, NULL);
-
-  set2 = atk_state_set_from_accessibility_state_set (compareState, ev);
-  g_return_val_if_fail (set2, CORBA_OBJECT_NIL);
-
-  return_set = atk_state_set_xor_sets (set, set2);
-  g_object_unref (G_OBJECT(set2));
-  spi_set = spi_state_set_new (return_set);
-  return bonobo_object_corba_objref (BONOBO_OBJECT(spi_set));
-}
-
-
-static CORBA_boolean
-impl_isEmpty (PortableServer_Servant servant,
-	      CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-
-  g_return_val_if_fail (set, TRUE);
-  return atk_state_set_is_empty (set);
-}
-
-
-static Accessibility_StateSeq *
-impl_getStates (PortableServer_Servant servant,
-		CORBA_Environment * ev)
-{
-  AtkStateSet *set = atk_state_set_from_servant (servant);
-  GSList *states = NULL;
-  GSList *tmp;
-  gint i = 0;
-  Accessibility_StateSeq *rv;
-  
-  g_return_val_if_fail (set, CORBA_OBJECT_NIL);
-
-  /* Argh-- this is bad!!! */
-
-  if (atk_state_set_contains_state (set, ATK_STATE_ACTIVE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_ACTIVE);
-  if (atk_state_set_contains_state (set, ATK_STATE_ARMED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_ARMED);
-  if (atk_state_set_contains_state (set, ATK_STATE_BUSY))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_BUSY);
-  if (atk_state_set_contains_state (set, ATK_STATE_CHECKED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_CHECKED);
-  if (atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_DEFUNCT);
-  if (atk_state_set_contains_state (set, ATK_STATE_EDITABLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_EDITABLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_ENABLED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_ENABLED);
-  if (atk_state_set_contains_state (set, ATK_STATE_EXPANDABLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_EXPANDABLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_EXPANDED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_EXPANDED);
-  if (atk_state_set_contains_state (set, ATK_STATE_FOCUSABLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_FOCUSABLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_FOCUSED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_FOCUSED);
-  if (atk_state_set_contains_state (set, ATK_STATE_HORIZONTAL))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_HORIZONTAL);
-  if (atk_state_set_contains_state (set, ATK_STATE_ICONIFIED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_ICONIFIED);
-  if (atk_state_set_contains_state (set, ATK_STATE_MODAL))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_MODAL);
-  if (atk_state_set_contains_state (set, ATK_STATE_MULTI_LINE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_MULTI_LINE);
-  if (atk_state_set_contains_state (set, ATK_STATE_MULTISELECTABLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_MULTISELECTABLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_OPAQUE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_OPAQUE);
-  if (atk_state_set_contains_state (set, ATK_STATE_PRESSED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_PRESSED);
-  if (atk_state_set_contains_state (set, ATK_STATE_RESIZABLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_RESIZABLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_SELECTABLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_SELECTABLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_SELECTED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_SELECTED);
-  if (atk_state_set_contains_state (set, ATK_STATE_SENSITIVE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_SENSITIVE);
-  if (atk_state_set_contains_state (set, ATK_STATE_SHOWING))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_SHOWING);
-  if (atk_state_set_contains_state (set, ATK_STATE_SINGLE_LINE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_SINGLE_LINE);
-  if (atk_state_set_contains_state (set, ATK_STATE_STALE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_STALE);
-  if (atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_TRANSIENT);
-  if (atk_state_set_contains_state (set, ATK_STATE_VERTICAL))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_VERTICAL);
-  if (atk_state_set_contains_state (set, ATK_STATE_VISIBLE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_VISIBLE);
-  if (atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_MANAGES_DESCENDANTS);
-  if (atk_state_set_contains_state (set, ATK_STATE_INDETERMINATE))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_INDETERMINATE);
-  if (atk_state_set_contains_state (set, ATK_STATE_REQUIRED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_REQUIRED);
-  if (atk_state_set_contains_state (set, ATK_STATE_TRUNCATED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_TRUNCATED);
-  if (atk_state_set_contains_state (set, ATK_STATE_ANIMATED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_ANIMATED);
-  if (atk_state_set_contains_state (set, ATK_STATE_INVALID_ENTRY))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_INVALID_ENTRY);
-  if (atk_state_set_contains_state (set, ATK_STATE_SUPPORTS_AUTOCOMPLETION))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_SUPPORTS_AUTOCOMPLETION);
-  if (atk_state_set_contains_state (set, ATK_STATE_DEFAULT))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_IS_DEFAULT);
-  if (atk_state_set_contains_state (set, ATK_STATE_VISITED))
-    states = g_slist_append (states, (gpointer) Accessibility_STATE_VISITED);
-
-  rv = Accessibility_StateSeq__alloc ();
-  rv->_length = rv->_maximum = g_slist_length (states);
-  rv->_buffer = Accessibility_StateSeq_allocbuf (rv->_length);
-  tmp = states;
-  while (tmp)
-    {
-      rv->_buffer[i++] = (Accessibility_StateType) tmp->data;
-      tmp = tmp->next;
-    }
-  g_slist_free (states);
-  return rv;
-}
-
-
-static void
-spi_state_set_class_init (SpiStateSetClass *klass)
-{
-  POA_Accessibility_StateSet__epv *epv = &klass->epv;
-
-  spi_init_state_type_tables ();
-  epv->contains = impl_contains;
-  epv->add = impl_add;
-  epv->remove = impl_remove;
-  epv->equals = impl_equals;
-  epv->compare = impl_compare;
-  epv->isEmpty = impl_isEmpty;
-  epv->getStates = impl_getStates;  
-}
-
-
-static void
-spi_state_set_init (SpiStateSet *set)
-{
-}
-
-
-BONOBO_TYPE_FUNC_FULL (SpiStateSet,
-		       Accessibility_StateSet,
-		       SPI_TYPE_BASE,
-		       spi_state_set)
