@@ -226,7 +226,7 @@ impl_desktop_get_children (DBusConnection *bus, DBusMessage *message, void *user
   reply = dbus_message_new_method_return (message);
   if (!reply) return NULL;
   dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "o", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "s", &iter_array))
   {
     goto oom;
   }
@@ -235,7 +235,7 @@ impl_desktop_get_children (DBusConnection *bus, DBusMessage *message, void *user
   {
     app = g_list_nth_data (desktop->applications, i);
     path = (app? app->path: SPI_DBUS_PATH_NULL);
-    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
+    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &path);
   }
   if (!dbus_message_iter_close_container (&iter, &iter_array))
   {
@@ -372,6 +372,6 @@ static DRouteProperty properties[] =
 void
 spi_registry_initialize_desktop_interface (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Accessible", methods,
+  droute_add_interface (data, SPI_DBUS_INTERFACE_DESKTOP, methods,
 			properties, NULL, NULL);
 };

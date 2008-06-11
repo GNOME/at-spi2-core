@@ -4,6 +4,7 @@ XML_SPEC= \
 	org.freedesktop.atspi.Action.xml \
 	org.freedesktop.atspi.Application.xml \
 	org.freedesktop.atspi.Component.xml \
+	org.freedesktop.atspi.Desktop.xml \
 	org.freedesktop.atspi.Document.xml \
 	org.freedesktop.atspi.EditableText.xml \
 	org.freedesktop.atspi.Hyperlink.xml \

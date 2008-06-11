@@ -38,6 +38,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_COMPONENT "org.freedesktop.atspi.Component"
 #define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.DeviceEventController"
 #define SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER "org.freedesktop.atspi.DeviceEventListener"
+#define SPI_DBUS_INTERFACE_DESKTOP "org.freedesktop.atspi.Desktop"
 #define SPI_DBUS_INTERFACE_DOCUMENT "org.freedesktop.atspi.Document"
 #define SPI_DBUS_INTERFACE_EDITABLE_TEXT "org.freedesktop.atspi.EditableText"
 #define SPI_DBUS_INTERFACE_HYPERLINK "org.freedesktop.atspi.Hyperlink"
