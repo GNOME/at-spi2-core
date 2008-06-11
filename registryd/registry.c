@@ -234,7 +234,7 @@ impl_accessibility_registry_get_desktop_list (DBusConnection *bus, DBusMessage *
   if (!reply) return NULL;
   dbus_message_iter_init_append(reply, &iter);
   if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "o", &iter_array)) goto oom;
-  dbus_message_iter_append_basic(&iter_array, DBUS_TYPE_STRING, &path);
+  dbus_message_iter_append_basic(&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
   if (!dbus_message_iter_close_container (&iter, &iter_array)) goto oom;
   return reply;
 oom:
