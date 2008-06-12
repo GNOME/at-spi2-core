@@ -176,3 +176,33 @@ dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest,
   dbus_message_unref (reply);
   return TRUE;
 }
+
+dbus_bool_t
+spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name)
+{
+  char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
+  if (match)
+  {
+    DBusError error;
+    dbus_error_init (&error);
+    dbus_bus_add_match (bus, match, &error);
+    g_free (match);
+    return !dbus_error_is_set (&error);
+  }
+  else return FALSE;
+}
+
+dbus_bool_t
+spi_dbus_remove_disconnect_match (DBusConnection *bus, const char *name)
+{
+  char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
+  if (match)
+  {
+    DBusError error;
+    dbus_error_init (&error);
+    dbus_bus_remove_match (bus, match, &error);
+    g_free (match);
+    return !dbus_error_is_set (&error);
+  }
+  else return FALSE;
+}
