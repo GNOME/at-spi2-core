@@ -86,7 +86,7 @@ desktop_add_application (SpiDesktop *desktop,
   SpiRegistry *registry = SPI_REGISTRY (data);
   const SpiDesktopApplication *app = g_list_nth_data(desktop->applications, index);
   
-  emit(registry, "ApplicationAdd", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->path, DBUS_TYPE_INVALID);
+  emit(registry, "ApplicationAdd", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->bus_name, DBUS_TYPE_INVALID);
 }
 
 
@@ -96,9 +96,10 @@ desktop_remove_application (SpiDesktop *desktop,
 			    guint index, gpointer data)
 {
   SpiRegistry *registry = SPI_REGISTRY (data);
-  const char *name = g_list_nth_data(desktop->applications, index);
+  SpiDesktopApplication *app = g_list_nth_data(desktop->applications, index);
   
-  emit(registry, "ApplicationRemove", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+  spi_dbus_remove_disconnect_match (registry->droute.bus, app->bus_name);
+  emit(registry, "ApplicationRemove", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->bus_name, DBUS_TYPE_INVALID);
 }
 
 
@@ -129,6 +130,8 @@ impl_accessibility_registry_register_application (DBusConnection *bus, DBusMessa
   fprintf (stderr, "registering app %s\n", application);
 #endif
   spi_desktop_add_application (registry->desktop, application);
+
+  spi_dbus_add_disconnect_match (registry->droute.bus, application);
 
   /*
    * TODO: change the implementation below to a WM-aware one;
@@ -275,6 +278,28 @@ static DBusObjectPathVTable droute_vtable =
   NULL, NULL, NULL, NULL
 };
 
+DBusHandlerResult
+disconnect_watch (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  SpiRegistry *registry = SPI_REGISTRY (user_data);
+  const char *name, *old, *new;
+
+  if (!dbus_message_is_signal (message, DBUS_INTERFACE_DBUS, "NameOwnerChanged"))
+  {
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+  }
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &name, DBUS_TYPE_STRING, &old, DBUS_TYPE_STRING, &new, DBUS_TYPE_INVALID))
+  {
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+  }
+  if (*old != '\0' && *new == '\0')
+  {
+    spi_desktop_remove_application (registry->desktop, old);
+    spi_remove_device_listeners (registry->de_controller, old);
+  }
+  return DBUS_HANDLER_RESULT_HANDLED;
+}
+
 static void
 spi_registry_init (SpiRegistry *registry)
 {
@@ -323,6 +348,8 @@ spi_registry_init (SpiRegistry *registry)
 		    registry);
 
   registry->de_controller = spi_device_event_controller_new (registry);
+
+  dbus_connection_add_filter (registry->droute.bus, disconnect_watch, registry, NULL);
 }
 
 SpiRegistry *

@@ -162,7 +162,7 @@ spi_desktop_dispose (GObject *object)
     {
       SpiDesktopApplication *app = desktop->applications->data;
       g_assert (app != NULL);
-      spi_desktop_remove_application (desktop, app->path);
+      spi_desktop_remove_application (desktop, app->bus_name);
     }
 
   G_OBJECT_CLASS (parent_class)->dispose (object); 
@@ -191,7 +191,7 @@ impl_desktop_get_child_at_index (DBusConnection *bus, DBusMessage *message, void
   DBusError error;
   dbus_int32_t index;
   SpiDesktopApplication *app;
-  const char *path;
+  const char *bus_name;
   DBusMessage *reply;
 
   dbus_error_init (&error);
@@ -200,12 +200,12 @@ impl_desktop_get_child_at_index (DBusConnection *bus, DBusMessage *message, void
     return spi_dbus_general_error (message);
   }
   app = g_list_nth_data (desktop->applications, index);
-  path = (app? app->path: SPI_DBUS_PATH_NULL);
+  bus_name = (app? app->bus_name: "");
 
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &bus_name, DBUS_TYPE_INVALID);
     }
 
   return reply;
@@ -219,7 +219,7 @@ impl_desktop_get_children (DBusConnection *bus, DBusMessage *message, void *user
   gint count;
   gint i;
   SpiDesktopApplication *app;
-  const char *path;
+  const char *bus_name;
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
 
@@ -234,8 +234,8 @@ impl_desktop_get_children (DBusConnection *bus, DBusMessage *message, void *user
   for (i = 0; i < count; i++)
   {
     app = g_list_nth_data (desktop->applications, i);
-    path = (app? app->path: SPI_DBUS_PATH_NULL);
-    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &path);
+    bus_name = (app? app->bus_name: "");
+    dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &bus_name);
   }
   if (!dbus_message_iter_close_container (&iter, &iter_array))
   {
@@ -295,7 +295,7 @@ abnormal_application_termination (gpointer object, SpiDesktopApplication *app)
   g_return_if_fail (SPI_IS_DESKTOP (app->desktop));
 
   if (!exiting)
-    spi_desktop_remove_application (app->desktop, app->path);
+    spi_desktop_remove_application (app->desktop, app->bus_name);
 }
 
 void
@@ -306,11 +306,9 @@ spi_desktop_add_application (SpiDesktop *desktop,
 
   g_return_if_fail (SPI_IS_DESKTOP (desktop));
 
-  spi_desktop_remove_application (desktop, application);
-
   app = g_new (SpiDesktopApplication, 1);
   app->desktop = desktop;
-  app->path = application;
+  app->bus_name = application;
 
       desktop->applications = g_list_append (desktop->applications, app);
 
@@ -323,12 +321,12 @@ spi_desktop_add_application (SpiDesktop *desktop,
 
 void
 spi_desktop_remove_application (SpiDesktop *desktop,
-				const char *path)
+				const char *bus_name)
 {
   guint idx;
   GList *l;
 
-  g_return_if_fail (path != NULL);
+  g_return_if_fail (  bus_name != NULL);
   g_return_if_fail (SPI_IS_DESKTOP (desktop));
 
   idx = 0;
@@ -336,24 +334,22 @@ spi_desktop_remove_application (SpiDesktop *desktop,
     {
       SpiDesktopApplication *app = (SpiDesktopApplication *) l->data;
 
-      if (!strcmp(app->path, path))
+      if (!strcmp(app->bus_name, bus_name))
         {
 	  break;
 	}
       idx++;
     }
 
-  if (l)
-    {
-      SpiDesktopApplication *app = (SpiDesktopApplication *) l->data;
+  if (!l) return;
 
-      desktop->applications = g_list_delete_link (desktop->applications, l);
+  g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_REMOVED], 0, idx);
 
-      // TODO: unlisten for broken app, if appropriate
-      g_free (app);
-      
-      g_signal_emit (G_OBJECT (desktop), spi_desktop_signals[APPLICATION_REMOVED], 0, idx);
-    }
+  SpiDesktopApplication *app = (SpiDesktopApplication *) l->data;
+
+  desktop->applications = g_list_delete_link (desktop->applications, l);
+
+  g_free (app);
 }
 
 static DRouteMethod methods[] =

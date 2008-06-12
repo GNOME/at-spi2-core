@@ -51,13 +51,13 @@ typedef struct {
 GType       spi_desktop_get_type           (void);
 SpiDesktop *spi_desktop_new                (void);
 void        spi_desktop_add_application    (SpiDesktop *desktop,
-					    const char *app_path);
+					    const char *bus_name);
 void        spi_desktop_remove_application (SpiDesktop *desktop,
-					    const char *app_path);
+					    const char *bus_name);
 
 typedef struct {
 	SpiDesktop *desktop;
-	const char *path;
+	const char *bus_name;
 } SpiDesktopApplication;
 
 G_END_DECLS

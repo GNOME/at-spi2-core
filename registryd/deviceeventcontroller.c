@@ -107,7 +107,7 @@ typedef struct {
 } DEControllerGrabMask;
 
 typedef struct {
-  char *app_path;
+  char *bus_name;
   char *path;
   SpiDeviceTypeCategory type;
   gulong types;
@@ -649,7 +649,7 @@ spi_dec_translate_mask (Accessibility_ControllerEventMask mask)
 }
 
 static DEControllerKeyListener *
-spi_dec_key_listener_new (const char *app_path,
+spi_dec_key_listener_new (const char *bus_name,
 			  const char *path,
 			  GSList *keys,
 			  const Accessibility_ControllerEventMask mask,
@@ -657,7 +657,7 @@ spi_dec_key_listener_new (const char *app_path,
 			  const Accessibility_EventListenerMode  *mode)
 {
   DEControllerKeyListener *key_listener = g_new0 (DEControllerKeyListener, 1);
-  key_listener->listener.app_path = g_strdup(app_path);
+  key_listener->listener.bus_name = g_strdup(bus_name);
   key_listener->listener.path = g_strdup(path);
   key_listener->listener.type = SPI_DEVICE_TYPE_KBD;
   key_listener->keys = keys;
@@ -683,12 +683,12 @@ spi_dec_key_listener_new (const char *app_path,
 }
 
 static DEControllerListener *
-spi_dec_listener_new (const char *app_path,
+spi_dec_listener_new (const char *bus_name,
 		      const char *path,
 		      dbus_uint32_t types)
 {
   DEControllerListener *listener = g_new0 (DEControllerListener, 1);
-  listener->app_path = g_strdup(app_path);
+  listener->bus_name = g_strdup(bus_name);
   listener->path = g_strdup(path);
   listener->type = SPI_DEVICE_TYPE_MOUSE;
   listener->types = types;
@@ -699,7 +699,7 @@ static DEControllerListener *
 spi_listener_clone (DEControllerListener *listener)
 {
   DEControllerListener *clone = g_new0 (DEControllerListener, 1);
-  clone->app_path = g_strdup (listener->app_path);
+  clone->bus_name = g_strdup (listener->bus_name);
   clone->path = g_strdup (listener->path);
   clone->type = listener->type;
   clone->types = listener->types;
@@ -730,7 +730,7 @@ static DEControllerKeyListener *
 spi_key_listener_clone (DEControllerKeyListener *key_listener)
 {
   DEControllerKeyListener *clone = g_new0 (DEControllerKeyListener, 1);
-  clone->listener.app_path = g_strdup (key_listener->listener.app_path);
+  clone->listener.bus_name = g_strdup (key_listener->listener.bus_name);
   clone->listener.path = g_strdup (key_listener->listener.path);
   clone->listener.type = SPI_DEVICE_TYPE_KBD;
   clone->keys = keylist_clone (key_listener->keys);
@@ -777,14 +777,14 @@ static void
 spi_listener_clone_free (DEControllerListener *clone)
 {
   g_free (clone->path);
-  g_free (clone->app_path);
+  g_free (clone->bus_name);
   g_free (clone);
 }
 
 static void
 spi_dec_listener_free (DEControllerListener    *listener)
 {
-  g_free (listener->app_path);
+  g_free (listener->bus_name);
   g_free (listener->path);
   if (listener->type == SPI_DEVICE_TYPE_KBD) 
     spi_key_listener_data_free ((DEControllerKeyListener *) listener);
@@ -917,6 +917,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
 
       controller->key_listeners = g_list_prepend (controller->key_listeners,
 						  key_listener);
+      spi_dbus_add_disconnect_match (controller->registry->droute.bus, key_listener->listener.bus_name);
       if (key_listener->mode->global)
         {
 	  return spi_controller_register_global_keygrabs (controller, key_listener);	
@@ -926,6 +927,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       break;
   case SPI_DEVICE_TYPE_MOUSE:
       controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
+      spi_dbus_add_disconnect_match (controller->registry->droute.bus, listener->bus_name);
       break;
   default:
       DBG (1, g_warning ("listener registration for unknown device type.\n"));
@@ -936,7 +938,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
 
 static gboolean Accessibility_DeviceEventListener_notifyEvent(SpiRegistry *registry, DEControllerListener *listener, const Accessibility_DeviceEvent *key_event)
 {
-  DBusMessage *message = dbus_message_new_method_call(listener->app_path, listener->path, "org.freedesktop.atspi.Registry", "notifyEvent");
+  DBusMessage *message = dbus_message_new_method_call(listener->bus_name, listener->path, "org.freedesktop.atspi.Registry", "notifyEvent");
   DBusError error;
   dbus_bool_t consumed = FALSE;
 
@@ -1874,10 +1876,11 @@ remove_listener_cb (GList * const *list,
   DEControllerListener  *listener = (*list)->data;
   RemoveListenerClosure *ctx = user_data;
 
-  if (!strcmp(ctx->listener->app_path, listener->app_path) &&
+  if (!strcmp(ctx->listener->bus_name, listener->bus_name) &&
       !strcmp(ctx->listener->path, listener->path))
     {
       spi_re_entrant_list_delete_link (list);
+      spi_dbus_remove_disconnect_match (ctx->bus, listener->bus_name);
       spi_dec_listener_free (listener);
     }
 
@@ -1891,7 +1894,7 @@ copy_key_listener_cb (GList * const *list,
   DEControllerKeyListener  *key_listener = (*list)->data;
   RemoveListenerClosure    *ctx = user_data;
 
-  if (!strcmp(ctx->listener->app_path, key_listener->listener.app_path) &&
+  if (!strcmp(ctx->listener->bus_name, key_listener->listener.bus_name) &&
       !strcmp(ctx->listener->path, key_listener->listener.path))
     {
       /* TODO: FIXME aggregate keys in case the listener is registered twice */
@@ -1938,6 +1941,33 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
   spi_re_entrant_list_foreach (&controller->key_listeners,
 				remove_listener_cb, &ctx);
 
+}
+
+void
+spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
+{
+  GList *l, *tmp;
+
+  for (l = controller->mouse_listeners; l; l = tmp)
+  {
+    DEControllerListener *listener = l->data;
+    tmp = l->next;
+    if (!strcmp (listener->bus_name, bus_name))
+    {
+printf("Removing mouse listener %s %s\n", listener->bus_name, listener->path);
+      spi_controller_deregister_device_listener (controller, listener);
+    }
+  }
+  for (l = controller->key_listeners; l; l = tmp)
+  {
+    DEControllerKeyListener *key_listener = l->data;
+    tmp = l->next;
+    if (!strcmp (key_listener->listener.bus_name, bus_name))
+    {
+printf("Removing key listener: %s %s\n", key_listener->listener.bus_name, key_listener->listener.path);
+      spi_deregister_controller_key_listener (controller, key_listener);
+    }
+  }
 }
 
 /*
