@@ -197,18 +197,63 @@ impl_introspect (DBusConnection *bus, DBusMessage *message, void *user_data)
   return reply;
 }
 
-static DRouteMethod methods[] = {
-  {impl_getRoot, "getRoot"},
-  {impl_getTree, "getTree", TRUE},
-  {NULL, NULL}
+static DBusHandlerResult
+message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  const char *iface = dbus_message_get_interface (message);
+  const char *member = dbus_message_get_member (message);
+
+  DBusMessage *reply = NULL;
+
+  g_return_val_if_fail(iface != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
+  
+  if (!strcmp(iface, "org.freedesktop.atspi.Tree"))
+    {
+      if (!strcmp(member, "getRoot"))
+	{
+	  reply = impl_getRoot(bus, message, user_data);
+	}
+
+      if (!strcmp(member, "getTree"))
+	{
+	  reply = impl_getTree(bus, message, user_data);
+	}
+    }
+
+  if (!strcmp(iface, "org.freedesktop.DBus.Introspectable"))
+    {
+      if (!strcmp(member, "Introspect"))
+	{
+	  reply = impl_introspect(bus, message, user_data);
+	}
+    }
+
+  if (reply)
+    {
+      dbus_connection_send (bus, reply, NULL);
+      dbus_message_unref (reply);
+    }
+
+  return DBUS_HANDLER_RESULT_HANDLED;
+}
+
+static DBusObjectPathVTable tree_vtable =
+{
+  NULL,
+  &message_handler,
+  NULL, NULL, NULL, NULL
 };
 
 void
-spi_initialize_tree (DRouteData * data)
+spi_register_tree_object(DBusConnection *bus,
+			 DRouteData *data,
+			 const char *path)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Tree", methods,
-			NULL, NULL, NULL);
-};
+  dbus_bool_t mem = FALSE;
+  mem = dbus_connection_register_object_path(bus, path, &tree_vtable, data);
+  g_assert(mem == TRUE);
+}
+
 static GHashTable *cache_list;
 
 #define UPDATE_NEW     1

@@ -45,7 +45,6 @@ void spi_initialize_hypertext(DRouteData *data);
 void spi_initialize_image(DRouteData *data);
 void spi_initialize_selection(DRouteData *data);
 void spi_initialize_table(DRouteData *data);
-void spi_initialize_tree(DRouteData *data);
 void spi_initialize_text(DRouteData *data);
 void spi_initialize_value(DRouteData *data);
 void spi_initialize_introspectable(DRouteData *data, DRouteGetDatumFunction verify_object);

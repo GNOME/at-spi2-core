@@ -197,7 +197,8 @@ spi_app_init (AtkObject *root)
   //dbus_connection_set_exit_on_disconnect(ad->droute.bus, FALSE);
   dbus_bus_register(ad->droute.bus, &error);
   spi_dbus_initialize (&ad->droute);
-  if (!dbus_connection_try_register_fallback (ad->droute.bus, "/org/freedesktop/atspi", &droute_vtable, &ad->droute, &error))
+  spi_register_tree_object(ad->droute.bus, &ad->droute, "/org/freedesktop/atspi/tree");
+  if (!dbus_connection_try_register_fallback (ad->droute.bus, "/org/freedesktop/atspi/accessible", &droute_vtable, &ad->droute, &error))
   {
     g_warning("Couldn't register droute.\n");
   }
