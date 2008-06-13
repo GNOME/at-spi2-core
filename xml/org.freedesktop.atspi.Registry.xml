@@ -60,11 +60,6 @@
     <tp:docstring>
       Register a new application with the accessibility broker.
     </tp:docstring>
-    <arg direction="in" name="app" type="o" tp:type="Application">
-    <tp:docstring>
-      a reference to the requesting Application
-    </tp:docstring>
-    </arg>
   </method>
   <method name="deregisterApplication">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

@@ -155,13 +155,107 @@ impl_getIndexInParent (DBusConnection * bus, DBusMessage * message,
   return reply;
 }
 
-#if 0
+static gboolean
+spi_init_relation_type_table (Accessibility_RelationType *types)
+{
+  gint i;
+
+  for (i = 0; i < ATK_RELATION_LAST_DEFINED; i++)
+    types[i] = Accessibility_RELATION_NULL;
+
+  types[ATK_RELATION_CONTROLLED_BY] = Accessibility_RELATION_CONTROLLED_BY;
+  types[ATK_RELATION_CONTROLLER_FOR] = Accessibility_RELATION_CONTROLLER_FOR;
+  types[ATK_RELATION_LABEL_FOR] = Accessibility_RELATION_LABEL_FOR;
+  types[ATK_RELATION_LABELLED_BY] = Accessibility_RELATION_LABELLED_BY;
+  types[ATK_RELATION_MEMBER_OF] = Accessibility_RELATION_MEMBER_OF;
+  types[ATK_RELATION_NODE_CHILD_OF] = Accessibility_RELATION_NODE_CHILD_OF;
+  types[ATK_RELATION_FLOWS_TO] = Accessibility_RELATION_FLOWS_TO;
+  types[ATK_RELATION_FLOWS_FROM] = Accessibility_RELATION_FLOWS_FROM;
+  types[ATK_RELATION_SUBWINDOW_OF] = Accessibility_RELATION_SUBWINDOW_OF;
+  types[ATK_RELATION_EMBEDS] = Accessibility_RELATION_EMBEDS;
+  types[ATK_RELATION_EMBEDDED_BY] = Accessibility_RELATION_EMBEDDED_BY;
+  types[ATK_RELATION_POPUP_FOR] = Accessibility_RELATION_POPUP_FOR;
+  types[ATK_RELATION_PARENT_WINDOW_OF] = Accessibility_RELATION_PARENT_WINDOW_OF;
+  types[ATK_RELATION_DESCRIPTION_FOR] = Accessibility_RELATION_DESCRIPTION_FOR;
+  types[ATK_RELATION_DESCRIBED_BY] = Accessibility_RELATION_DESCRIBED_BY;
+
+  return TRUE;
+}
+
+static Accessibility_RelationType
+spi_relation_type_from_atk_relation_type (AtkRelationType type)
+{
+  static gboolean is_initialized = FALSE;
+  static Accessibility_RelationType spi_relation_type_table [ATK_RELATION_LAST_DEFINED];
+  Accessibility_RelationType spi_type;
+
+  if (!is_initialized)
+    is_initialized = spi_init_relation_type_table (spi_relation_type_table);	   
+
+  if (type > ATK_RELATION_NULL && type < ATK_RELATION_LAST_DEFINED)
+    spi_type = spi_relation_type_table[type];
+  else
+    spi_type = Accessibility_RELATION_EXTENDED;
+  return spi_type;
+}
+
 static DBusMessage *
 impl_getRelationSet (DBusConnection * bus, DBusMessage * message,
 		     void *user_data)
 {
+  AtkObject *object = get_object (message);
+  DBusMessage *reply;
+  AtkRelationSet *set;
+  DBusMessageIter iter, iter_array, iter_struct, iter_targets;
+  gint count;
+  gint i, j;
+
+  if (!object)
+    return spi_dbus_general_error (message);
+  reply = dbus_message_new_method_return (message);
+  if (!reply) return NULL;
+  set = atk_object_ref_relation_set (object);
+  dbus_message_iter_init_append (reply, &iter);
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(uao)", &iter_array))
+  {
+    goto oom;
+  }
+  count = atk_relation_set_get_n_relations (set);
+  for (i = 0; i < count; i++)
+  {
+    AtkRelation *r = atk_relation_set_get_relation (set, i);
+    AtkRelationType rt;
+    GPtrArray *target;
+    dbus_uint32_t type;
+    if (!r) continue;
+    rt= atk_relation_get_relation_type (r);
+    type = spi_relation_type_from_atk_relation_type (rt);
+    target = atk_relation_get_target (r);
+    if (!dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct))
+    {
+      goto oom;
+    }
+    dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &type);
+    if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o", &iter_targets))
+    {
+      goto oom;
+    }
+    for (j = 0; j < target->len; j++)
+    {
+      AtkObject *obj = target->pdata[j];
+      char *path;
+      if (!obj) continue;
+      path = spi_dbus_get_path (obj);
+      dbus_message_iter_append (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
+    }
+    dbus_message_iter_close_container (&iter_struct, &iter_targets);
+    dbus_message_iter_close_container (&iter_array, &iter_struct);
+  }
+  dbus_message_iter_close_container (&iter, &iter_array);
+oom:
+  // TODO: handle out of memory */
+  return reply;
 }
-#endif
 
 static gboolean
 spi_init_role_lookup_table (Accessibility_Role * role_table)
@@ -588,7 +682,7 @@ static DRouteMethod methods[] = {
   //{impl_isEqual, "isEqual"},
   {impl_getChildren, "getChildren"},
   {impl_getIndexInParent, "getIndexInParent"},
-  //{impl_getRelationSet, "getRelationSet"},,o" },
+  {impl_getRelationSet, "getRelationSet"},
   {impl_getRole, "getRole"},
   {impl_getRoleName, "getRoleName"},
   {impl_getLocalizedRoleName, "getLocalizedRoleName"},

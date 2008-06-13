@@ -242,6 +242,33 @@ impl_getTextAfterOffset (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
+impl_getCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
+			 void *user_data)
+{
+  AtkText *text = get_text (message);
+  dbus_int32_t offset;
+  dbus_int32_t ch;
+  DBusError error;
+  DBusMessage *reply;
+
+  if (!text)
+    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INVALID))
+    {
+      return SPI_DBUS_RETURN_ERROR (message, &error);
+    }
+  ch = atk_text_get_character_at_offset (text, offset);
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &ch, DBUS_TYPE_INVALID);
+    }
+  return reply;
+}
+
+static DBusMessage *
 impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
 			void *user_data)
 {
@@ -808,7 +835,7 @@ impl_getDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
   if (attributes)
     n_attributes = g_slist_length (attributes);
 
-  retval = (char **) malloc (n_attributes * sizeof (char *));
+  retval = g_new (char *, n_attributes);
 
   for (i = 0; i < n_attributes; ++i)
     {
@@ -835,6 +862,7 @@ static DRouteMethod methods[] = {
   {impl_getTextBeforeOffset, "getTextBeforeOffset"},
   {impl_getTextAtOffset, "getTextAtOffset"},
   {impl_getTextAfterOffset, "getTextAfterOffset"},
+  {impl_getCharacterAtOffset, "getCharacterAtOffset"},
   {impl_getAttributeValue, "getAttributeValue"},
   {impl_getAttributes, "getAttributes"},
   {impl_getDefaultAttributes, "getDefaultAttributes"},

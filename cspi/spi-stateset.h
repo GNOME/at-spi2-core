@@ -24,34 +24,13 @@
 #ifndef SPI_STATE_SET_H_
 #define SPI_STATE_SET_H_
 
-#include <libspi/base.h>
+#include "spi-private.h"
 #include <atk/atkstateset.h>
 
 G_BEGIN_DECLS
 
-#define SPI_STATE_SET_TYPE            (spi_state_set_get_type ())
-#define SPI_STATE_SET(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), SPI_STATE_SET_TYPE, SpiStateSet))
-#define SPI_STATE_SET_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), SPI_STATE_SET_TYPE, SpiStateSetClass))
-#define SPI_IS_STATE_SET(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SPI_STATE_SET_TYPE))
-#define SPI_IS_STATE_SET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), SPI_STATE_SET_TYPE))
-
-typedef struct _SpiStateSet SpiStateSet;
-typedef struct _SpiStateSetClass SpiStateSetClass;
-
-struct _SpiStateSet {
-  SpiBase parent;
-};
-
-struct _SpiStateSetClass {
-  SpiBaseClass parent_class;
-  POA_Accessibility_StateSet__epv epv;
-};
-
-GType        spi_state_set_get_type (void);
-SpiStateSet *spi_state_set_new      (AtkStateSet *set);
-
 /* private - internal API to abstract away atk API */
-AtkStateSet *spi_state_set_cache_from_sequence(const Accessibility_StateSeq *seq);
+AtkStateSet *spi_state_set_cache_from_sequence(const GArray *seq);
 AtkState     spi_atk_state_from_spi_state     (Accessibility_StateType state);
 #define      spi_state_set_cache_ref(s)        g_object_ref (s)
 #define      spi_state_set_cache_unref(s)      g_object_unref (s)

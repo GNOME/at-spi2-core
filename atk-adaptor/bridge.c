@@ -373,8 +373,16 @@ spi_atk_bridge_toplevel_removed (AtkObject *object,
 static void
 spi_atk_bridge_register_application (const char *registry)
 {
+  DBusMessage *message, *reply;
+  DBusError error;
+
   bridge_threads_leave ();
-  // TODO: register
+  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_REGISTRY, "registerApplication");
+  dbus_error_init (&error);
+  reply = dbus_connection_send_with_reply_and_block(this_app->droute.bus, message, 1000, &error);
+  if (error.message) g_warning (error.message);
+  if (reply) dbus_message_unref (reply);
+  if (message) dbus_message_unref (message);
   bridge_threads_enter ();
 }
 

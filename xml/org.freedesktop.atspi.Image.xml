@@ -65,7 +65,7 @@
         relative to the containing window.</p>
     </tp:docstring>
     <arg direction="in" name="coordType" type="n" tp:type="short"/>
-    <arg direction="out" type="(uuuu)" tp:type="BoundingBox">
+    <arg direction="out" type="(iiii)" tp:type="BoundingBox">
     <tp:docstring>
       a BoundingBox enclosing the image's onscreen representation.
     </tp:docstring>

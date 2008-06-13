@@ -106,8 +106,10 @@ Boston, MA 02111-1307, USA.</p>
 <xi:include href="org.freedesktop.atspi.Application.xml"/>
 <xi:include href="Accessibility_Registry_Common.xml"/>
 <xi:include href="org.freedesktop.atspi.Registry.xml"/>
+<xi:include href="org.freedesktop.atspi.Desktop.xml"/>
 <xi:include href="org.freedesktop.atspi.DeviceEventController.xml"/>
 <xi:include href="org.freedesktop.atspi.DeviceEventListener.xml"/>
+<xi:include href="Accessibility_Relation.xml"/>
 <xi:include href="Accessibility_Role.xml"/>
 <xi:include href="org.freedesktop.atspi.LoginHelper.xml"/>
 <xi:include href="org.freedesktop.atspi.Selector.xml"/>
