@@ -179,32 +179,63 @@ static DBusObjectPathVTable droute_vtable =
   NULL, NULL, NULL, NULL
 };
 
-static SpiAppData *
-spi_app_init (AtkObject *root)
+static gchar* atspi_dbus_name;
+static gboolean atspi_no_register; 
+
+static GOptionEntry atspi_option_entries[] = 
 {
+  {"atspi-dbus-name", 0, 0, G_OPTION_ARG_STRING, &atspi_dbus_name, "D-Bus bus name to register as", NULL},
+  {"atspi-no-register", 0, 0, G_OPTION_ARG_NONE, &atspi_no_register, "Do not register with Registry Daemon", NULL},
+  {NULL}
+};
+
+static SpiAppData *
+spi_app_init (AtkObject *root, gint *argc, gchar **argv[])
+{
+  GOptionContext *opt;
+  SpiAppData *ad = g_new0(SpiAppData, 1);
+  GError *err = NULL;
   DBusError error;
+  int i;
+
+  opt = g_option_context_new(NULL);
+  g_option_context_add_main_entries(opt, atspi_option_entries, NULL);
+  g_option_context_set_ignore_unknown_options(opt, TRUE);
+  if (!g_option_context_parse(opt, argc, argv, &err))
+      g_warning("Option parsing failed: %s\n", err->message);
+
   dbus_error_init(&error);
-  SpiAppData *ad = (SpiAppData *)calloc(sizeof(SpiAppData), 1);
-  if (!ad) return NULL;
   ad->root = root;
   ad->droute.bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+
   if (!ad->droute.bus)
   {
     g_warning("Couldn't connect to dbus: %s\n", error.message);
     free(ad);
     return NULL;
   }
-  //dbus_connection_set_exit_on_disconnect(ad->droute.bus, FALSE);
-  //dbus_bus_register(ad->droute.bus, &error);
-  spi_dbus_initialize (&ad->droute);
-  /* Below line for testing -- it should be removed once at-spi-registryd is working */
-  if (dbus_bus_request_name(ad->droute.bus, "test.atspi.tree", 0, &error)) printf("Got test name.\n");
+  if (atspi_dbus_name != NULL && dbus_bus_request_name(ad->droute.bus, 
+			    			       atspi_dbus_name,
+						       0,
+						       &error))
+  {
+    g_print("\nRecieved D-Bus name - %s\n", atspi_dbus_name);
+  }
   spi_register_tree_object(ad->droute.bus, &ad->droute, "/org/freedesktop/atspi/tree");
-  if (!dbus_connection_try_register_fallback (ad->droute.bus, "/org/freedesktop/atspi/accessible", &droute_vtable, &ad->droute, &error))
+  if (!dbus_connection_try_register_fallback (ad->droute.bus, 
+					      "/org/freedesktop/atspi/accessible", 
+					      &droute_vtable, 
+					      &ad->droute, 
+					      &error))
   {
     g_warning("Couldn't register droute.\n");
+    free(ad);
+    return NULL;
   }
+
   dbus_connection_setup_with_g_main(ad->droute.bus, g_main_context_default());
+
+  spi_dbus_initialize (&ad->droute);
   return ad;
 }
 
@@ -237,7 +268,7 @@ atk_bridge_init (gint *argc, gchar **argv[])
       _dbg = (int) g_ascii_strtod (debug_env_string, NULL);
 
   /* Connect to dbus */
-  this_app = spi_app_init (atk_get_root ());
+  this_app = spi_app_init (atk_get_root (), argc, argv);
 
   /*
    * We only want to enable the bridge for top level
@@ -297,7 +328,7 @@ spi_atk_bridge_do_registration (void)
 
   /* Create the accessible application server object */
   if (this_app == NULL)
-    this_app = spi_app_init (atk_get_root ());
+    this_app = spi_app_init (atk_get_root (), 0, NULL);
 
   DBG (1, g_message ("About to register application\n"));
 
@@ -429,6 +460,7 @@ spi_atk_bridge_get_dec (void)
 int
 gtk_module_init (gint *argc, gchar **argv[])
 {
+	//printf("Pointer to argc %x %x\n", (short) ((argc && 0xffff0000) >> 16), (short) (argc && 0xffff));
 	return atk_bridge_init (argc, argv);
 }
 
@@ -587,7 +619,7 @@ spi_atk_bridge_exit_func (void)
 void
 gnome_accessibility_module_init (void)
 {
-  atk_bridge_init (NULL, NULL);
+  atk_bridge_init (0, NULL);
 
   if (g_getenv ("AT_BRIDGE_SHUTDOWN"))
     {

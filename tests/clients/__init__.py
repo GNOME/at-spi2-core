@@ -1,5 +1,4 @@
 
-from accessibleobject import AccessibleObjectTestCase
+from accessibletest import AccessibleTestCase
+from componenttest import ComponentTestCase
 import testutil
-
-del accessibleobject
