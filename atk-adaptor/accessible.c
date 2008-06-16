@@ -704,7 +704,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_accessible (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Accessible",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_ACCESSIBLE,
 			methods, properties,
 			(DRouteGetDatumFunction) get_object_from_path, NULL);
 };

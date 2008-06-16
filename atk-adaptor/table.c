@@ -705,7 +705,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_table (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Table", methods,
+  droute_add_interface (data, SPI_DBUS_INTERFACE_TABLE, methods,
 			properties,
 			(DRouteGetDatumFunction) get_table_from_path, NULL);
 };

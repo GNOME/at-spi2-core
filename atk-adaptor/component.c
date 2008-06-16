@@ -309,7 +309,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_component (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Component",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_COMPONENT,
 			methods, NULL,
 			(DRouteGetDatumFunction) get_component_from_path,
 			NULL);

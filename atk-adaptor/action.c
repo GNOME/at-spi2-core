@@ -116,7 +116,7 @@ DRouteMethod methods[] =
 void
 spi_initialize_action (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Action",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_ACTION,
 			methods, NULL,
 			(DRouteGetDatumFunction) get_action_from_path,
 			NULL);

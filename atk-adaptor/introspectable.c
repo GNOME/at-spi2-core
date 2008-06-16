@@ -53,33 +53,34 @@ impl_introspect (DBusConnection *bus, DBusMessage *message,
   
   g_string_append_printf(output, spi_introspection_node_element, path);
 
-  spi_append_interface(output, "org.freedesktop.atspi.Accessible");
+  spi_append_interface(output, SPI_DBUS_INTERFACE_ACCESSIBLE);
 
   if (ATK_IS_ACTION (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Action");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_ACTION);
 
   if (ATK_IS_COMPONENT (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Component");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_COMPONENT);
 
   if (ATK_IS_EDITABLE_TEXT (object))
-      spi_append_interface(output, "org.freedesktop.atspi.EditableText");
-  else if (ATK_IS_TEXT (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Text");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_EDITABLE_TEXT);
+
+  if (ATK_IS_TEXT (object))
+      spi_append_interface(output, SPI_DBUS_INTERFACE_TEXT);
 
   if (ATK_IS_HYPERTEXT (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Hypertext");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_HYPERTEXT);
 
   if (ATK_IS_IMAGE (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Image");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_IMAGE);
 
   if (ATK_IS_SELECTION (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Selection");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_SELECTION);
 
   if (ATK_IS_TABLE (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Table");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_TABLE);
 
   if (ATK_IS_VALUE (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Value");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_VALUE);
 
   if (ATK_IS_STREAMABLE_CONTENT (object))
       spi_append_interface(output, "org.freedesktop.atspi.StreamableContent");
@@ -87,11 +88,11 @@ impl_introspect (DBusConnection *bus, DBusMessage *message,
   if (ATK_IS_DOCUMENT (object))
     {
       spi_append_interface(output, "org.freedesktop.atspi.Collection");
-      spi_append_interface(output, "org.freedesktop.atspi.Document");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_DOCUMENT);
     }
 
   if (ATK_IS_HYPERLINK_IMPL (object))
-      spi_append_interface(output, "org.freedesktop.atspi.Hyperlink");
+      spi_append_interface(output, SPI_DBUS_INTERFACE_HYPERLINK);
 
   g_string_append(output, spi_introspection_footer);
   final = g_string_free(output, FALSE);

@@ -155,7 +155,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_image (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Image", methods,
+  droute_add_interface (data, SPI_DBUS_INTERFACE_IMAGE, methods,
 			properties,
 			(DRouteGetDatumFunction) get_image_from_path, NULL);
 };

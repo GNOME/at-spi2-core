@@ -303,7 +303,7 @@ gboolean spi_dbus_update_cache(DRouteData *data)
 
   if (update_pending == 0) return FALSE;
 //printf("Sending cache\n");
-  message = dbus_message_new_signal("/org/freedesktop/atspi/tree", "org.freedesktop.atspi.Tree", "UpdateTree");
+  message = dbus_message_new_signal (SPI_DBUS_INTERFACE_TREE, "org.freedesktop.atspi.Tree", "updateTree");
   if (!message) goto done;
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassus)",

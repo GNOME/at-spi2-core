@@ -143,7 +143,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_document (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Document",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_DOCUMENT,
 			methods, NULL,
 			(DRouteGetDatumFunction) get_document_from_path,
 			NULL);

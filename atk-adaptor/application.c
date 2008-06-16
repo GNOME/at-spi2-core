@@ -110,7 +110,7 @@ obj_is_root (const char *path, void *user_data)
 void
 spi_initialize_application (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Application",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_APPLICATION,
 			methods, properties,
 			(DRouteGetDatumFunction) obj_is_root, NULL);
 };

@@ -889,7 +889,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_text (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Text", methods,
+  droute_add_interface (data, SPI_DBUS_INTERFACE_TEXT, methods,
 			properties,
 			(DRouteGetDatumFunction) get_text_from_path, NULL);
 };

@@ -160,7 +160,7 @@ static DRouteProperty properties[] = {
 void
 spi_initialize_hyperlink (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Hyperlink",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_HYPERLINK,
 			methods, properties,
 			(DRouteGetDatumFunction) get_hyperlink_from_path,
 			NULL);

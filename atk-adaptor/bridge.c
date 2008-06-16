@@ -664,7 +664,7 @@ static void emit(AtkObject *object, const char *name, const char *detail, dbus_i
   {
     g_warning("Unknown type %d in property change signal", type);
   }
-  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", name);
+  sig = dbus_message_new_signal(path, SPI_DBUS_INTERFACE_ACCESSIBLE, name);
   dbus_message_iter_init_append(sig, &iter);
   if (!detail) detail = "";
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &detail);
@@ -698,7 +698,7 @@ static void emit_rect(AtkObject *object, const char *name, const char *detail, A
   y = rect->y;
   width = rect->width;
   height = rect->height;
-  sig = dbus_message_new_signal(path, "org.freedesktop.atspi.Accessible", name);
+  sig = dbus_message_new_signal(path, SPI_DBUS_INTERFACE_ACCESSIBLE, name);
   if (!detail) detail = "";
   if (sig)
     {
@@ -916,7 +916,7 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 
 static gboolean Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
 {
-  DBusMessage *message = dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, "org.freedesktop.atspi.DeviceEventController", "notifyListenersSync");
+  DBusMessage *message = dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_DEC);
   DBusError error;
   dbus_bool_t consumed = FALSE;
 

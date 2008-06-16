@@ -119,7 +119,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_hypertext (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.Hypertext",
+  droute_add_interface (data, SPI_DBUS_INTERFACE_HYPERTEXT,
 			methods, NULL,
 			(DRouteGetDatumFunction) get_hypertext_from_path,
 			NULL);
