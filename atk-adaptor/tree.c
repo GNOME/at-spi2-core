@@ -183,7 +183,7 @@ impl_introspect (DBusConnection *bus, DBusMessage *message, void *user_data)
   
   g_string_append_printf(output, spi_introspection_node_element, path);
 
-  spi_append_interface(output, "org.freedesktop.atspi.Tree");
+  spi_append_interface(output, SPI_DBUS_INTERFACE_TREE);
 
   g_string_append(output, spi_introspection_footer);
   final = g_string_free(output, FALSE);
@@ -207,7 +207,7 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   g_return_val_if_fail(iface != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   
-  if (!strcmp(iface, "org.freedesktop.atspi.Tree"))
+  if (!strcmp(iface, SPI_DBUS_INTERFACE_TREE))
     {
       if (!strcmp(member, "getRoot"))
 	{
@@ -303,7 +303,7 @@ gboolean spi_dbus_update_cache(DRouteData *data)
 
   if (update_pending == 0) return FALSE;
 //printf("Sending cache\n");
-  message = dbus_message_new_signal (SPI_DBUS_INTERFACE_TREE, "org.freedesktop.atspi.Tree", "updateTree");
+  message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateTree");
   if (!message) goto done;
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassus)",
