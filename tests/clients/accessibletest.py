@@ -1,14 +1,15 @@
-import unittest
 import testutil
 
 import dbus
 import gobject
 import os.path
+import coretest 
 from dbus.mainloop.glib import DBusGMainLoop
 
 from accessible_cache import AccessibleCache
 
 from xml.dom import minidom
+import os
 
 def createNode(accessible, parentElement):
 	e = minidom.Element("accessible")
@@ -22,30 +23,20 @@ def createNode(accessible, parentElement):
 
 	parentElement.appendChild(e)
 
-class AccessibleObjectTestCase(unittest.TestCase):
-	def setUp(self):
-		DBusGMainLoop(set_as_default=True)
-		self._app = testutil.runTestApp("libobjectapp.so")
-
-		self._bus = dbus.SessionBus()
-		self._loop = gobject.MainLoop()
-		self._cache = AccessibleCache(self._bus, testutil.busname, testutil.objectpath)
-
-	def tearDown(self):
-		del(self._bus)
-		del(self._loop)
-		del(self._cache)
-		#TODO Shut down the test application.
-		del(self._app)
-
+class AccessibleTestCase(coretest.CoreTestCase):
 	def runTest(self):
+		self._app = testutil.runTestApp("libobjectapp.so", self._name)
+		self._loop.run()
+
+	def post_application_test(self):
 		root = self._cache.getRootAccessible()
 
 		doc = minidom.Document()
 		createNode(root, doc)
 		answer = doc.toprettyxml()
 
-		correct = os.path.join(testutil.testdata, "object-test-stage1-results.xml")
+		correct = os.path.join(os.environ["TEST_DATA_DIRECTORY"],
+					"object-test-stage1-results.xml")
 		file = open(correct)
 		cstring = file.read()
 		

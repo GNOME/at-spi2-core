@@ -1,5 +1,5 @@
 check_PROGRAMS = test-application
-check_LTLIBRARIES = libnoopapp.la libobjectapp.la
+check_LTLIBRARIES = libnoopapp.la libobjectapp.la libcomponentapp.la
 
 test_application_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
 			  $(ATK_CFLAGS)		\
@@ -26,3 +26,8 @@ libobjectapp_la_CFLAGS = $(TEST_APP_CFLAGS) $(LIB_XML_CFLAGS)
 libobjectapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
 libobjectapp_la_LIBADD = $(TEST_APP_LIBADD) $(LIB_XML_LIBS)
 libobjectapp_la_SOURCES = object-app.c atk-object-xml-loader.c atk-object-xml-loader.h
+
+libcomponentapp_la_CFLAGS = $(TEST_APP_CFLAGS)
+libcomponentapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
+libcomponentapp_la_LIBADD = $(TEST_APP_LIBADD)
+libcomponentapp_la_SOURCES = component-app.c
