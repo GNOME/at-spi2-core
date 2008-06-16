@@ -916,7 +916,7 @@ spi_init_keystroke_from_atk_key_event (Accessibility_DeviceEvent  *keystroke,
 
 static gboolean Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
 {
-  DBusMessage *message = dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_DEC);
+  DBusMessage *message = dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_DEC, "notifyListenersSync");
   DBusError error;
   dbus_bool_t consumed = FALSE;
 
