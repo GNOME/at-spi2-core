@@ -86,7 +86,7 @@ desktop_add_application (SpiDesktop *desktop,
   SpiRegistry *registry = SPI_REGISTRY (data);
   const SpiDesktopApplication *app = g_list_nth_data(desktop->applications, index);
   
-  emit(registry, "ApplicationAdd", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->bus_name, DBUS_TYPE_INVALID);
+  emit(registry, "applicationAdd", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->bus_name, DBUS_TYPE_INVALID);
 }
 
 
@@ -99,7 +99,7 @@ desktop_remove_application (SpiDesktop *desktop,
   SpiDesktopApplication *app = g_list_nth_data(desktop->applications, index);
   
   spi_dbus_remove_disconnect_match (registry->droute.bus, app->bus_name);
-  emit(registry, "ApplicationRemove", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->bus_name, DBUS_TYPE_INVALID);
+  emit(registry, "applicationRemove", DBUS_TYPE_UINT32, &index, DBUS_TYPE_STRING, &app->bus_name, DBUS_TYPE_INVALID);
 }
 
 
