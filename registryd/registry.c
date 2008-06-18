@@ -75,7 +75,7 @@ static void emit(SpiRegistry *registry, const char *name, int first_type, ...)
   va_list arg;
 
   va_start(arg, first_type);
-  spi_dbus_emit_valist(registry->droute.bus, SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_REGISTRY, name, first_type, arg);
+  spi_dbus_emit_valist(registry->droute.bus, SPI_DBUS_PATH_DESKTOP, SPI_DBUS_INTERFACE_REGISTRY, name, first_type, arg);
   va_end(arg);
 }
 
