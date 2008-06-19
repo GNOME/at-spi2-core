@@ -134,5 +134,6 @@ The signal link-activated is emitted when a link is activated.
 
 @link_: 
 @Returns: 
+@Deprecated: Please use ATK_STATE_SELECTED to indicate when a hyperlink within a Hypertext container is selected.
 
 

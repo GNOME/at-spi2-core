@@ -404,6 +404,7 @@ atk_object_connect_property_change_handler().
 
 @accessible: 
 @Returns: 
+@Deprecated: Use atk_component_get_layer instead.
 
 
 <!-- ##### FUNCTION atk_object_get_mdi_zorder ##### -->
@@ -413,6 +414,7 @@ atk_object_connect_property_change_handler().
 
 @accessible: 
 @Returns: 
+@Deprecated: Use atk_component_get_mdi_zorder instead.
 
 
 <!-- ##### FUNCTION atk_object_get_role ##### -->

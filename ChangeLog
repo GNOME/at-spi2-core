@@ -1,3 +1,15 @@
+2008-06-19  Li Yuan  <li.yuan@sun.com>
+
+	* atk/Makefile.am:
+	* atk/atk.def:
+	* atk/atk.symbols:
+	* atk/atkhyperlink.h:
+	* atk/atkobject.h:
+	* docs/tmpl/atkhyperlink.sgml:
+	* docs/tmpl/atkobject.sgml:
+	Patch from Mike Gorse <mgorse@novell.com>. Bug #526752.
+	Mark deprecated symbols with ATK_DISABLE_DEPRECATED.
+
 2008-06-05  Michael Natterer  <mitch@imendio.com>
 
 	Bug #535704:

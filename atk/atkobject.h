@@ -543,8 +543,10 @@ AtkObject*              atk_object_ref_accessible_child           (AtkObject *ac
                                                                    gint        i);
 AtkRelationSet*         atk_object_ref_relation_set               (AtkObject *accessible);
 AtkRole                 atk_object_get_role                       (AtkObject *accessible);
+#ifndef ATK_DISABLE_DEPRECATED
 AtkLayer                atk_object_get_layer                      (AtkObject *accessible);
 gint                    atk_object_get_mdi_zorder                 (AtkObject *accessible);
+#endif /* ATK_DISABLE_DEPRECATED */
 AtkAttributeSet*        atk_object_get_attributes                 (AtkObject *accessible);
 AtkStateSet*            atk_object_ref_state_set                  (AtkObject *accessible);
 gint                    atk_object_get_index_in_parent            (AtkObject *accessible);

@@ -1,4 +1,6 @@
-EXPORTS
+/* 
+ * This list defines the ATK ABI. It is used to generate the atk.def file.
+ */
 	atk_action_do_action
 	atk_action_get_description
 	atk_action_get_keybinding
@@ -59,7 +61,9 @@ EXPORTS
 	atk_hyperlink_get_type
 	atk_hyperlink_get_uri
 	atk_hyperlink_is_inline
+#ifndef ATK_DISABLE_DEPRECATED
 	atk_hyperlink_is_selected_link
+#endif /* ATK_DISABLE_DEPRECATED */
 	atk_hyperlink_is_valid
 	atk_hypertext_get_link
 	atk_hypertext_get_link_index
@@ -94,8 +98,10 @@ EXPORTS
 	atk_object_get_attributes
 	atk_object_get_description
 	atk_object_get_index_in_parent
+#ifndef ATK_DISABLE_DEPRECATED
 	atk_object_get_layer
 	atk_object_get_mdi_zorder
+#endif /* ATK_DISABLE_DEPRECATED */
 	atk_object_get_n_accessible_children
 	atk_object_get_name
 	atk_object_get_parent

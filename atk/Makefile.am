@@ -11,6 +11,7 @@ endif
 INCLUDES = \
 	-I$(top_srcdir)		\
 	-DG_DISABLE_DEPRECATED	\
+	-DATK_DISABLE_DEPRECATED	\
 	-DATK_COMPILATION	\
 	-DATK_LOCALEDIR="\"$(datadir)/locale\""	\
 	$(DEP_CFLAGS)
@@ -136,8 +137,12 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 # ---------- Win32 stuff ----------
 
 if OS_WIN32
+atk_def = atk.def
 libatk_1_0_la_LDFLAGS += -export-symbols $(srcdir)/atk.def -no-undefined -Wl,atk-win32-res.o
 libatk_1_0_la_DEPENDENCIES = atk-win32-res.o
+
+atk.def: atk.symbols
+	(echo -e EXPORTS; $(CPP) -P -DINCLUDE_VARIABLES -DG_OS_WIN32 -DALL_FILES - <$(srcdir)/atk.symbols | sed -e '/^$$/d' -e 's/^/	/' -e 's/G_GNUC_[^ ]*//g') > atk.def
 
 install-def-file:
 	$(INSTALL) $(srcdir)/atk.def $(DESTDIR)$(libdir)/atk-1.0.def
