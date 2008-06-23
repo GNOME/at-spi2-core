@@ -707,7 +707,6 @@ static void emit(AtkObject *object, const char *name, const char *detail, dbus_i
   dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, type_as_string, &sub);
   dbus_message_iter_append_basic(&sub, type, &val);
   dbus_message_iter_close_container(&iter, &sub);
-printf("emit: %s %s\n", name, detail);
   dbus_connection_send(this_app->droute.bus, sig, NULL);
   g_free(path);
   dbus_message_unref(sig);
