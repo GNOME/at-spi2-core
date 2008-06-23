@@ -1,1 +1,1 @@
-SUBDIRS=xml idl tools droute spi-common atk-adaptor registryd dbind cspi tests
+SUBDIRS=xml tools droute spi-common atk-adaptor registryd dbind cspi tests
