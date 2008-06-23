@@ -1,5 +1,30 @@
 
 AC_INIT([at-spi], [1.9.0], [accessibility-atspi@lists.linux-foundation.org])
+
+AT_SPI_MAJOR_VERSION=1
+AT_SPI_MINOR_VERSION=23
+AT_SPI_MICRO_VERSION=3
+AT_SPI_INTERFACE_AGE=0
+AT_SPI_BINARY_AGE=0
+AT_SPI_VERSION="$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION.$AT_SPI_MICRO_VERSION"
+AC_SUBST(AT_SPI_MAJOR_VERSION)
+AC_SUBST(AT_SPI_MINOR_VERSION)
+AC_SUBST(AT_SPI_MICRO_VERSION)
+AC_SUBST(AT_SPI_INTERFACE_AGE)
+AC_SUBST(AT_SPI_BINARY_AGE)
+
+# libtool versioning
+LT_RELEASE=$AT_SPI_MAJOR_VERSION.$AT_SPI_MINOR_VERSION
+LT_CURRENT=10
+LT_REVISION=11
+LT_AGE=10
+LT_VERSION_INFO='-version-info ${LT_CURRENT}:${LT_REVISION}:${LT_AGE}'
+AC_SUBST(LT_VERSION_INFO)
+AC_SUBST(LT_RELEASE)
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
 AM_INIT_AUTOMAKE([-Wall foreign])
 
 AC_PROG_CC
@@ -9,6 +34,14 @@ AM_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
 
 AC_CONFIG_HEADERS([config.h])
+
+PKG_CHECK_MODULES(DBUS, [dbus-1 >= 1.0])
+AC_SUBST(DBUS_LIBS)
+AC_SUBST(DBUS_CFLAGS)
+
+PKG_CHECK_MODULES(GLIB, [glib-2.0])
+AC_SUBST(GLIB_LIBS)
+AC_SUBST(GLIB_CFLAGS)
 
 PKG_CHECK_MODULES(DBUS_GLIB, [dbus-glib-1 >= 0.7.0])
 AC_SUBST(DBUS_GLIB_LIBS)
@@ -110,9 +143,26 @@ if test -z "$GTK_MODULE_DIR"; then
 	  GTK_MODULE_DIR=gtk-2.0/modules
 fi
 
+dnl find sizes & alignments
+orig_CPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS $DBUS_CFLAGS"
+DBIND_CHECK_ALIGNOF(char)
+DBIND_CHECK_ALIGNOF(dbus_bool_t)
+DBIND_CHECK_ALIGNOF(dbus_int16_t)
+DBIND_CHECK_ALIGNOF(dbus_int32_t)
+DBIND_CHECK_ALIGNOF(dbus_int64_t)
+DBIND_CHECK_ALIGNOF(double)
+DBIND_CHECK_ALIGNOF(dbind_pointer)
+DBIND_CHECK_ALIGNOF(dbind_struct)
+CPPFLAGS=$orig_CPPFLAGS 
+
+#libtool option to strip symbols starting with cspi
+#
+LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
+AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
+
 AC_CONFIG_FILES([Makefile
 		 xml/Makefile
-		 idl/Makefile
 		 tests/Makefile
 		 tools/Makefile
 		 droute/Makefile
@@ -121,6 +171,9 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/Makefile
 		 tests/dummyatk/Makefile
 		 tests/clients/Makefile
-		 tests/apps/Makefile])
+		 tests/apps/Makefile
+		 dbind/Makefile
+		 cspi/Makefile
+		 dbind-config.h])
 
 AC_OUTPUT
