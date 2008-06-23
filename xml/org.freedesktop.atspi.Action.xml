@@ -47,6 +47,46 @@
     </tp:member>
   </tp:struct>
 
+  <tp:property name="nActions" type="i" access="read">
+    <tp:docstring>the number of actions this object supports</tp:docstring>
+  </tp:property>
+
+  <method name="getDescription">
+    <tp:docstring>
+      <p>Get the description for the specified action.  The description of an action may provide information about the result of action invocation, unlike the action name.</p>
+    </tp:docstring>
+    <arg type="i" name="index" direction="in">
+      <tp:docstring>the index of the action</tp:docstring>
+    </arg>
+    <arg type="s" direction="out">
+      <tp:docstring>A string containing the description of the specified action</tp:docstring>
+    </arg>
+  </method>
+
+  <method name="getName">
+    <tp:docstring>
+      <p>Get the name of the specified action.  Action names generally describe the user action, i.e. &quot;click&quot; or &quot;press&quot;, rather than the result of invoking the action.</p>
+    </tp:docstring>
+    <arg type="i" name="index" direction="in">
+      <tp:docstring>the index of the action</tp:docstring>
+    </arg>
+    <arg type="s" direction="out">
+      <tp:docstring>A string containing the name of the specified action</tp:docstring>
+    </arg>
+  </method>
+
+  <method name="getKeyBinding">
+    <tp:docstring>
+      <p>Get the key binding associated with a specific action.</p>
+    </tp:docstring>
+    <arg type="i" name="index" direction="in">
+      <tp:docstring>the index of the action</tp:docstring>
+    </arg>
+    <arg type="s" direction="out">
+      <tp:docstring>A string containing the key binding for the specified action, or an empty string (&quot;&quot;) if none exists.</tp:docstring>
+    </arg>
+  </method>
+
   <method name="getActions">
     <tp:docstring>
       Retrieves the actions associated with the object.

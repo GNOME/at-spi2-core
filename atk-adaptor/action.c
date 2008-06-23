@@ -42,6 +42,84 @@ get_action_from_path (const char *path, void *user_data)
   return ATK_ACTION (obj);
 }
 
+static dbus_bool_t
+impl_get_nActions (const char *path, DBusMessageIter *iter, void *user_data)
+{
+  AtkAction *action = get_action_from_path (path, user_data);
+  if (!action)
+    return FALSE;
+  return droute_return_v_int32 (iter, atk_action_get_n_actions (action));
+}
+
+static DBusMessage *
+impl_get_description (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  DBusMessage *reply;
+  dbus_int32_t index;
+  const char *desc;
+  AtkAction *action = get_action (message);
+
+  if (!action) return spi_dbus_general_error (message);
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
+  desc = atk_action_get_description(action, index);
+  if (!desc) desc = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+  {
+    dbus_message_append_args (reply, DBUS_TYPE_STRING, &desc, DBUS_TYPE_INVALID);
+  }
+  return reply;
+}
+
+static DBusMessage *
+impl_get_name (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  DBusMessage *reply;
+  dbus_int32_t index;
+  const char *name;
+  AtkAction *action = get_action (message);
+
+  if (!action) return spi_dbus_general_error (message);
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
+  name = atk_action_get_name(action, index);
+  if (!name) name = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+  {
+    dbus_message_append_args (reply, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+  }
+  return reply;
+}
+
+static DBusMessage *
+impl_get_keybinding (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  DBusMessage *reply;
+  dbus_int32_t index;
+  const char *kb;
+  AtkAction *action = get_action (message);
+
+  if (!action) return spi_dbus_general_error (message);
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  {
+    return spi_dbus_general_error (message);
+  }
+  kb = atk_action_get_keybinding(action, index);
+  if (!kb) kb = "";
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+  {
+    dbus_message_append_args (reply, DBUS_TYPE_STRING, &kb, DBUS_TYPE_INVALID);
+  }
+  return reply;
+}
+
 static DBusMessage *impl_getActions(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkAction *action = get_action(message);
@@ -108,16 +186,25 @@ static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, voi
 
 DRouteMethod methods[] =
 {
+  { impl_get_description, "getDescription" },
+  { impl_get_name, "getName" },
+  { impl_get_keybinding, "getKeyBinding" },
   {impl_getActions, "getActions"},
   {impl_doAction, "doAction"},
   {NULL, NULL }
+};
+
+static DRouteProperty properties[] =
+{
+  { impl_get_nActions, NULL, "nActions" },
+  { NULL, NULL }
 };
 
 void
 spi_initialize_action (DRouteData * data)
 {
   droute_add_interface (data, SPI_DBUS_INTERFACE_ACTION,
-			methods, NULL,
+			methods, properties,
 			(DRouteGetDatumFunction) get_action_from_path,
 			NULL);
 };
