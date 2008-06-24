@@ -889,14 +889,22 @@ parse_eventType (const char *eventType, char **type, char **detail, char **match
   char *t, *d;
 
   p = strchr (eventType, ':');
-  if (!p) return FALSE;
-  p = strchr (p + 1, ':');
+  if (p) p = strchr (p + 1, ':');
   if (!p) p = eventType + strlen (eventType);
   t = g_malloc (p - eventType + 1);
   if (t)
   {
     memcpy (t, eventType, p - eventType);
     t[p - eventType] = '\0';
+    if (!strchr (t, ':'))
+    {
+      char *q = g_strconcat (t, ":", NULL);
+      if (1)
+      {
+	g_free (t);
+	t = q;
+      }
+    }
   }
   else return FALSE;
   if (*p == ':')
@@ -1042,7 +1050,11 @@ SPI_registerGlobalEventListener (AccessibleEventListener *listener,
   e = g_new (CSpiEventListenerEntry, 1);
   if (!e) return FALSE;
   e->listener = listener;
-  parse_eventType (eventType, &e->event, &e->detail, &matchrule);
+  if (!parse_eventType (eventType, &e->event, &e->detail, &matchrule))
+  {
+    g_free (e);
+    return FALSE;
+  }
   new_list = g_list_prepend (event_listeners, e);
   if (!new_list)
   {
@@ -1146,7 +1158,11 @@ cspi_dispatch_event (AccessibleEvent *e)
   char *event, *detail;
   GList *l;
 
-  parse_eventType (e->type, &event, &detail, NULL);
+  if (!parse_eventType (e->type, &event, &detail, NULL))
+  {
+    g_warning ("Couldn't parse event: %s\n", e->type);
+    return;
+  }
   for (l = event_listeners; l; l = g_list_next (l))
   {
     CSpiEventListenerEntry *entry = l->data;
@@ -1183,24 +1199,25 @@ cspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   dbus_message_iter_get_basic (&iter, &detail2);
   e.detail2 = detail2;
   dbus_message_iter_next (&iter);
-printf("event: %s %s\n", event, detail);
   e.type = g_strdup (event);
   p = strchr (e.type, '_');
   if (p) *p = ':';
-  p = g_strconcat (e.type, ":", detail, NULL);
-  if (p)
+  if (detail[0] != '\0')
   {
-    g_free (e.type);
-    e.type = p;
+    p = g_strconcat (e.type, ":", detail, NULL);
+    if (p)
+    {
+      g_free (e.type);
+      e.type = p;
+    }
   }
-    while ((p = strchr (p, '_'))) *p = '-';
+    while ((p = strchr (e.type, '_'))) *p = '-';
   e.source = cspi_ref_accessible (dbus_message_get_sender(message), dbus_message_get_path(message));
   dbus_message_iter_recurse (&iter, &iter_variant);
   switch (dbus_message_iter_get_arg_type (&iter_variant))
   {
     case DBUS_TYPE_OBJECT_PATH:
     {
-      char *p;
       dbus_message_iter_get_basic (&iter_variant, &p);
       e.v_type = EVENT_DATA_OBJECT;
       e.v.accessible = cspi_ref_accessible (dbus_message_get_sender(message), p);
@@ -1208,7 +1225,6 @@ printf("event: %s %s\n", event, detail);
     }
     case DBUS_TYPE_STRING:
     {
-      char *p;
       dbus_message_iter_get_basic (&iter_variant, &p);
       e.v_type = EVENT_DATA_STRING;
       e.v.text = g_strdup (p);

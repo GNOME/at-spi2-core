@@ -181,7 +181,6 @@ cspi_object_ref (Accessible *accessible)
 {
   g_return_if_fail (accessible != NULL);
 
-printf("ref: %p (%d)\n", accessible, accessible->ref_count);fflush(stdout);
   accessible->ref_count++;
   g_hash_table_insert (live_refs, accessible, accessible);
 }
@@ -198,7 +197,6 @@ cspi_object_unref_internal (Accessible *accessible, gboolean defunct)
       return;
     }
 
-printf("unref: %p (%d)\n", accessible, accessible->ref_count - 1);fflush(stdout);
   if (--accessible->ref_count == 0 || (accessible->ref_count == 1 && !defunct) && g_hash_table_lookup (live_refs, accessible))
   {
     AccessibleEvent e;
@@ -258,7 +256,6 @@ ref_accessible (CSpiApplication *app, const char *path)
   if (a)
   {
     cspi_object_ref (a);
-printf("Got %p from %p for %d\n", a, app->hash, id);fflush(stdout);
     return a;
   }
   id_val = g_new (guint, 1);
@@ -270,7 +267,6 @@ printf("Got %p from %p for %d\n", a, app->hash, id);fflush(stdout);
     g_free (id_val);
     return NULL;
   }
-printf("Inserting %p into %p for %d\n", a, app->hash, *id_val);
   g_hash_table_insert (app->hash, id_val, a);
   a->app = app;
   a->v.id = id;
@@ -428,12 +424,12 @@ add_app_to_desktop (Accessible *a, const char *bus_name)
 }
 
 static void
-send_children_change (Accessible *parent, Accessible *child, gboolean add)
+send_children_changed (Accessible *parent, Accessible *child, gboolean add)
 {
   AccessibleEvent e;
 
   memset (&e, 0, sizeof(e));
-  e.type = (add? "object:children-change:add": "object:children-change:remove");
+  e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
   e.detail1 = g_list_index (parent->children, child);
   cspi_dispatch_event (&e);
@@ -467,7 +463,7 @@ remove_app_from_desktop (Accessible *a, const char *bus_name)
     g_warning ("Removing unregistered app %s; doing nothing\n", bus_name);
     return FALSE;
   }
-  send_children_change (a, child, FALSE);
+  send_children_changed (a, child, FALSE);
   a->children = g_list_remove (a->children, child);
   unref_object_and_children (child);
   return TRUE;
@@ -483,7 +479,6 @@ ref_accessible_desktop (CSpiApplication *app, const char *path)
   gint i;
 
   Accessible *a = g_hash_table_lookup (app->hash, path);
-printf("got %p from %p for %s\n", a, app_hash, path);
   if (a)
   {
     cspi_object_ref (a);
@@ -497,7 +492,6 @@ printf("got %p from %p for %s\n", a, app_hash, path);
     g_free (path_dup);
     return NULL;
   }
-printf("Inserting %p into %p for %s\n", a, app->hash, path_dup);
   g_hash_table_insert (app->hash, path_dup, a);
   a->app = app;
   a->v.path = path_dup;
@@ -567,7 +561,6 @@ cspi_dbus_handle_update_tree (DBusConnection *bus, DBusMessage *message, void *u
   CSpiApplication *app = cspi_get_application (sender);
   const char *type = cacheSignalType;
 
-printf("update tree: %p\n", app);
   if (!app)
   {
     g_warning ("UpdateTree from unknown app.  Should we add it?", sender);
@@ -597,10 +590,9 @@ cspi_dbus_handle_add_application (DBusConnection *bus, DBusMessage *message, voi
     return DBUS_HANDLER_RESULT_HANDLED;
   }
   a = cspi_ref_accessible ("org.freedesktop.atspi.registry", dbus_message_get_path(message));
-printf("Adding %s to %p\n", bus_name, a);
   if (add_app_to_desktop (a, bus_name))
   {
-    send_children_change (a, g_list_last (a->children)->data, TRUE);
+    send_children_changed (a, g_list_last (a->children)->data, TRUE);
   }
   cspi_object_unref (a);
   return DBUS_HANDLER_RESULT_HANDLED;
@@ -622,7 +614,6 @@ cspi_dbus_handle_remove_application (DBusConnection *bus, DBusMessage *message, 
     return DBUS_HANDLER_RESULT_HANDLED;
   }
   a = cspi_ref_accessible ("org.freedesktop.atspi.registry", dbus_message_get_path(message));
-printf("Removing %s from %p\n", bus_name, a);
   remove_app_from_desktop (a, bus_name);
   cspi_object_unref (a);
   return DBUS_HANDLER_RESULT_HANDLED;
