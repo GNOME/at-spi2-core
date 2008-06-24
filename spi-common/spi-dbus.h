@@ -50,7 +50,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_TEXT "org.freedesktop.atspi.Text"
 #define SPI_DBUS_INTERFACE_TREE "org.freedesktop.atspi.Tree"
 #define SPI_DBUS_INTERFACE_VALUE "org.freedesktop.atspi.Value"
-#define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.registry"
+#define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.Registry"
 #define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/registry/desktop"
 #define SPI_DBUS_PATH_NULL "/"
 #define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
