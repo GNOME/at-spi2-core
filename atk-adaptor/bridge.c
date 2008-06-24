@@ -685,7 +685,11 @@ static void emit(AtkObject *object, const char *name, const char *detail, dbus_i
     type_as_string = "o";
     if (!val) val = "";
   }
-  else if (type == DBUS_TYPE_STRING) type_as_string = "s";
+  else if (type == DBUS_TYPE_STRING)
+  {
+    type_as_string = "s";
+    if (!val) val = "";
+  }
   else if (type == DBUS_TYPE_INT32) type_as_string = "i";
   else if (type == DBUS_TYPE_UINT32) type_as_string = "u";
   else if (type == DBUS_TYPE_INVALID)
