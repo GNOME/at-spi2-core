@@ -185,7 +185,7 @@ cspi_object_ref (Accessible *accessible)
   g_hash_table_insert (live_refs, accessible, accessible);
 }
 
-#define APP_IS_REGISTRY(app) (!strcmp (app->bus_name, "org.freedesktop.atspi.registry"))
+#define APP_IS_REGISTRY(app) (!strcmp (app->bus_name, SPI_DBUS_NAME_REGISTRY))
 
 static void
 cspi_object_unref_internal (Accessible *accessible, gboolean defunct)
