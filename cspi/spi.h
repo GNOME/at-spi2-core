@@ -24,6 +24,8 @@
 #ifndef _SPI_H
 #define _SPI_H
 
+#include <glib.h>
+#include <spi-common/spi-types.h>
 #include <cspi/spi-impl.h>
 /*
  * Definitions for AccessibleRole, AccessibleState,
