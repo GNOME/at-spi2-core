@@ -6,8 +6,9 @@ EXTRA_DIST = \
 
 CLEANFILES = *.pyc
 
-noinst_PROGRAMS = keysynth-test simple-at
+noinst_PROGRAMS = key-listener-test keysynth-test simple-at
 
+key_listener_test_SOURCES = key-listener-test.c 
 keysynth_test_SOURCES = keysynth-test.c 
 simple_at_SOURCES = simple-at.c 
 
