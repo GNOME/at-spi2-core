@@ -2281,7 +2281,7 @@ dec_synth_keystring (SpiDEController *controller, const char *keystring)
 	gboolean retval = TRUE;
 	const gchar *c;
 
-	maxlen = strlen (keystring);
+	maxlen = strlen (keystring) + 1;
 	keysyms = g_new0 (KeySym, maxlen);
 	if (!(keystring && *keystring && g_utf8_validate (keystring, -1, &c))) { 
 		retval = FALSE;
