@@ -92,7 +92,7 @@ SPIBoolean             cspi_accessible_is_a   (Accessible  *accessible,
 					       const char  *interface_name);
 AccessibleRole         cspi_role_from_spi_role (Accessibility_Role role);
 void                   cspi_streams_close_all (void);
-gboolean               cspi_exception_throw (DBusError *error, char *desc_prefix);
+gboolean               cspi_exception_throw (DBusError *error, const char *desc_prefix);
 
 AccessibleAttributeSet 
                      *_cspi_attribute_set_from_sequence (const GArray *seq);

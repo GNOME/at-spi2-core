@@ -47,7 +47,7 @@ cspi_object_release (gpointer value)
 }
 
 gboolean
-cspi_exception_throw (DBusError *error, char *desc_prefix)
+cspi_exception_throw (DBusError *error, const char *desc_prefix)
 {
   SPIExceptionHandler *handler = NULL;
   SPIException ex;
@@ -163,10 +163,15 @@ cspi_exception (void)
   return FALSE;
 }
 
-SPIBoolean cspi_check_ev (const char *error_string)
+SPIBoolean
+cspi_check_ev (const char *error_string)
 {
-  // TODO: Store exception
-  return FALSE;
+  if (dbus_error_is_set (&exception))
+  {
+    cspi_exception_throw (&exception, error_string);
+    return FALSE;
+  }
+  return TRUE;
 }
 
 Accessible *
