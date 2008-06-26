@@ -185,7 +185,7 @@ cspi_object_ref (Accessible *accessible)
   g_hash_table_insert (live_refs, accessible, accessible);
 }
 
-#define APP_IS_REGISTRY(app) (!strcmp (app->bus_name, SPI_DBUS_NAME_REGISTRY))
+#define APP_IS_REGISTRY(app) (!strcmp (app->bus_name, spi_bus_registry))
 
 static void
 cspi_object_unref_internal (Accessible *accessible, gboolean defunct)
@@ -589,7 +589,7 @@ cspi_dbus_handle_add_application (DBusConnection *bus, DBusMessage *message, voi
     dbus_error_free (&error);
     return DBUS_HANDLER_RESULT_HANDLED;
   }
-  a = cspi_ref_accessible ("org.freedesktop.atspi.registry", dbus_message_get_path(message));
+  a = cspi_ref_accessible (spi_bus_registry, dbus_message_get_path(message));
   if (add_app_to_desktop (a, bus_name))
   {
     send_children_changed (a, g_list_last (a->children)->data, TRUE);
@@ -613,7 +613,7 @@ cspi_dbus_handle_remove_application (DBusConnection *bus, DBusMessage *message, 
     dbus_error_free (&error);
     return DBUS_HANDLER_RESULT_HANDLED;
   }
-  a = cspi_ref_accessible ("org.freedesktop.atspi.registry", dbus_message_get_path(message));
+  a = cspi_ref_accessible (spi_bus_registry, dbus_message_get_path(message));
   remove_app_from_desktop (a, bus_name);
   cspi_object_unref (a);
   return DBUS_HANDLER_RESULT_HANDLED;
@@ -693,7 +693,7 @@ SPI_init (void)
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
-  match = g_strdup_printf ("type='signal',sender='%s'", SPI_DBUS_NAME_REGISTRY);
+  match = g_strdup_printf ("type='signal',sender='%s'", spi_bus_registry);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
   return 0;
