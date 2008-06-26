@@ -655,7 +655,6 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   {
     return cspi_dbus_handle_remove_application (bus, message, data);
   }
-if (type == DBUS_MESSAGE_TYPE_SIGNAL) printf("got %s of %s from %s\n", dbus_message_get_member (message), dbus_message_get_interface(message), dbus_message_get_sender(message));
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
