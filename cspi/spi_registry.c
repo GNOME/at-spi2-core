@@ -310,7 +310,7 @@ SPI_registerDeviceEventListener (AccessibleDeviceListener  *listener,
     }
 
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerDeviceEventListener", &error, "ou=>b", path, &event_types, &retval);
+    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerDeviceEventListener", &error, "ou=>b", path, event_types, &retval);
   g_free (path);
   return retval;
 }
@@ -343,7 +343,7 @@ SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
   event_types |= (1 << Accessibility_BUTTON_RELEASED_EVENT);
 
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "deregisterDeviceEventListener", &error, "ou", path, &event_types);
+    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "deregisterDeviceEventListener", &error, "ou", path, event_types);
   g_free (path);
   return TRUE;
 }
@@ -373,7 +373,7 @@ SPI_generateKeyboardEvent (long int keyval,
 			   AccessibleKeySynthType synth_type)
 {
   dbus_uint32_t keysynth_type;
-  dbus_int16_t keycode = keyval;
+  dbus_int32_t keycode = keyval;
   DBusError error;
 
   switch (synth_type)
@@ -399,7 +399,7 @@ SPI_generateKeyboardEvent (long int keyval,
 
   if (!keystring) keystring = "";
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateKeyboardEvent", &error, "isu", &keycode, &keystring, &keysynth_type);
+    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateKeyboardEvent", &error, "isu", keycode, keystring, keysynth_type);
 
   return TRUE;
 }
@@ -427,7 +427,7 @@ SPI_generateMouseEvent (long x, long y, char *name)
   DBusError error;
 
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateMouseEvent", &error, "iis", &x, &y, &name);
+    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateMouseEvent", &error, "iis", x, y, name);
   return TRUE;
 }
 
