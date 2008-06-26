@@ -1954,7 +1954,6 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
     tmp = l->next;
     if (!strcmp (listener->bus_name, bus_name))
     {
-printf("Removing mouse listener %s %s\n", listener->bus_name, listener->path);
       spi_controller_deregister_device_listener (controller, listener);
     }
   }
@@ -1964,7 +1963,6 @@ printf("Removing mouse listener %s %s\n", listener->bus_name, listener->path);
     tmp = l->next;
     if (!strcmp (key_listener->listener.bus_name, bus_name))
     {
-printf("Removing key listener: %s %s\n", key_listener->listener.bus_name, key_listener->listener.path);
       spi_deregister_controller_key_listener (controller, key_listener);
     }
   }
@@ -2719,6 +2717,6 @@ static DRouteMethod methods[] =
 void
 spi_registry_initialize_dec_interface (DRouteData * data)
 {
-  droute_add_interface (data, "org.freedesktop.atspi.DeviceEventController", methods,
+  droute_add_interface (data, SPI_DBUS_INTERFACE_DEC, methods,
 			NULL, NULL, NULL);
 };
