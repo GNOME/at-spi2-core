@@ -226,7 +226,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
 	  (dbus_bool_t) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0);
 
     dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerKeystrokeListener", &error, "oa(iisi)uu(bbb)=>b", path, key_set, key_events, controller_event_mask, &listener_mode, &retval);
+    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerKeystrokeListener", &error, "oa(iisi)uu(bbb)=>b", path, key_set, controller_event_mask, key_set, &listener_mode, &retval);
 
   g_array_free (key_set, TRUE);
   g_free (path);
