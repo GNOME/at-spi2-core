@@ -66,9 +66,9 @@ main (int argc, char **argv)
 
   dbus_error_init (&error);
   mainloop = g_main_loop_new (NULL, FALSE);
-  ret= dbus_bus_request_name(registry->droute.bus, SPI_DBUS_NAME_REGISTRY, 0, &error);
+  ret= dbus_bus_request_name(registry->droute.bus, SPI_DBUS_NAME_REGISTRY, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
 
-  if (!ret)
+  if (ret == DBUS_REQUEST_NAME_REPLY_EXISTS)
     {
 #ifdef AT_SPI_DEBUG
       fprintf (stderr, "SpiRegistry Message: SpiRegistry daemon was already running.\n");
