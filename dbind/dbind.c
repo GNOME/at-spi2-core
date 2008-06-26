@@ -163,10 +163,13 @@ dbind_connection_method_call_va (DBusConnection *cnx,
             case DBUS_TYPE_OBJECT_PATH:
             case DBUS_TYPE_SIGNATURE:
             case DBUS_TYPE_ARRAY:
-            case DBUS_STRUCT_BEGIN_CHAR:
             case DBUS_TYPE_DICT_ENTRY:
                 ptrarg = va_arg (args, void *);
                 arg = &ptrarg;
+                break;
+            case DBUS_STRUCT_BEGIN_CHAR:
+                ptrarg = va_arg (args, void *);
+                arg = ptrarg;
                 break;
 
             case DBUS_TYPE_VARIANT:
