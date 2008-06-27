@@ -293,12 +293,15 @@ static void handle_cache_item(char *path, guint action, CacheIterData *d)
   g_hash_table_remove(cache_list, path);
 }
 
-gboolean spi_dbus_update_cache(DRouteData *data)
+gboolean
+spi_dbus_update_cache(DRouteData *data)
 {
   DBusMessage *message;
   DBusMessageIter iter;
   CacheIterData d;
+  static gboolean in_update_cache = FALSE;
 
+  if (in_update_cache) return TRUE;
   g_assert(data != NULL);
 
   if (update_pending == 0) return FALSE;
@@ -310,6 +313,7 @@ gboolean spi_dbus_update_cache(DRouteData *data)
 				    &d.iter);
   d.droute = data;
   d.removing = FALSE;
+  in_update_cache = TRUE;
   do
   {
     /* This loop is needed because appending an item may cause new children
@@ -322,6 +326,7 @@ gboolean spi_dbus_update_cache(DRouteData *data)
   dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &d.iter);
   d.removing = TRUE;
   g_hash_table_foreach(cache_list, (GHFunc)handle_cache_item, &d);
+  in_update_cache = FALSE;
   dbus_message_iter_close_container(&iter, &d.iter);
   dbus_connection_send(data->bus, message, NULL);
 done:
