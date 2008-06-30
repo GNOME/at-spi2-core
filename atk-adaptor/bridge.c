@@ -1192,11 +1192,11 @@ spi_atk_tidy_windows (void)
       name = atk_object_get_name (child);
       if (atk_state_set_contains_state (stateset, ATK_STATE_ACTIVE))
         {
-	  emit(child, "window:deactivate", NULL, 0, 0, DBUS_TYPE_STRING, name);
+	  emit(child, "window_deactivate", NULL, 0, 0, DBUS_TYPE_STRING, name);
         }
       g_object_unref (stateset);
 
-      emit(child, "window:destroy", NULL, 0, 0, DBUS_TYPE_STRING, name);
+      emit(child, "window_destroy", NULL, 0, 0, DBUS_TYPE_STRING, name);
       g_object_unref (child);
     }
 }
