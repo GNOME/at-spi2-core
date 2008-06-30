@@ -47,7 +47,7 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = get_component (message);
   dbus_int32_t x, y;
-  dbus_uint32_t coord_type;
+  dbus_int16_t coord_type;
   DBusError error;
   dbus_bool_t retval;
   DBusMessage *reply;
@@ -57,7 +57,7 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_UINT32, &y,
-       DBUS_TYPE_INT32, &coord_type, DBUS_TYPE_INVALID))
+       DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
     }
@@ -78,7 +78,7 @@ impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 {
   AtkComponent *component = get_component (message);
   dbus_int32_t x, y;
-  dbus_uint32_t coord_type;
+  dbus_int16_t coord_type;
   DBusError error;
   AtkObject *child;
 
@@ -87,7 +87,7 @@ impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+       DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
     }
@@ -102,14 +102,14 @@ impl_getExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = get_component (message);
   DBusError error;
-  dbus_uint32_t coord_type;
+  dbus_int16_t coord_type;
   gint ix, iy, iwidth, iheight;
 
   if (!component)
     return spi_dbus_general_error (message);
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
     }
@@ -124,7 +124,7 @@ impl_getPosition (DBusConnection * bus, DBusMessage * message,
 {
   AtkComponent *component = get_component (message);
   DBusError error;
-  dbus_uint32_t coord_type;
+  dbus_int16_t coord_type;
   gint ix = 0, iy = 0;
   dbus_int32_t x, y;
   DBusMessage *reply;
@@ -133,7 +133,7 @@ impl_getPosition (DBusConnection * bus, DBusMessage * message,
     return spi_dbus_general_error (message);
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
     }

@@ -69,14 +69,14 @@ impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
 {
   AtkImage *image = get_image (message);
   DBusError error;
-  dbus_uint32_t coordType;
+  dbus_int16_t coordType;
   gint ix, iy, iwidth, iheight;
 
   if (!image)
     return spi_dbus_general_error (message);
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_INT16, &coordType, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
     }
@@ -91,7 +91,7 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
 {
   AtkImage *image = get_image (message);
   DBusError error;
-  dbus_uint32_t coord_type;
+  dbus_int16_t coord_type;
   gint ix = 0, iy = 0;
   dbus_int32_t x, y;
   DBusMessage *reply;
@@ -100,7 +100,7 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
     return spi_dbus_general_error (message);
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
     }
