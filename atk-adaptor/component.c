@@ -56,7 +56,7 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
     return spi_dbus_general_error (message);
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_UINT32, &y,
+      (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
       return SPI_DBUS_RETURN_ERROR (message, &error);
