@@ -98,6 +98,31 @@ dbind_connection_method_call (DBusConnection *cnx,
     return success;
 }
 
+static void set_reply (DBusPendingCall *pending, void *user_data)
+{
+  void **replyptr = (void **)user_data;
+
+  *replyptr = dbus_pending_call_steal_reply (pending);
+}
+
+static DBusMessage *
+send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, DBusError *error)
+{
+  DBusPendingCall *pending;
+  DBusMessage *reply = NULL;
+
+  if (!dbus_connection_send_with_reply (bus, message, &pending, timeout))
+  {
+    return NULL;
+  }
+  dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
+  while (!reply)
+  {
+    if (!dbus_connection_read_write_dispatch (bus, timeout)) return NULL;
+  }
+  return reply;
+}
+
 dbus_bool_t
 dbind_connection_method_call_va (DBusConnection *cnx,
                                  const char *bus_name,
@@ -186,10 +211,25 @@ dbind_connection_method_call_va (DBusConnection *cnx,
             }
     }
 
-    reply = dbus_connection_send_with_reply_and_block (cnx, msg, -1, err);
+    if (!strcmp (dbus_bus_get_unique_name(cnx), dbus_message_get_destination(msg)))
+    {
+      /* Can't use dbus_message_send_with_reply_and_block because it will
+       * not pass messages on to the provider side, causing deadlock */
+      reply = send_and_allow_reentry (cnx, msg, -1, err);
+    }
+    else
+    {
+      reply = dbus_connection_send_with_reply_and_block (cnx, msg, -1, err);
+    }
     if (!reply)
         goto out;
 
+    if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
+    {
+      char *name = dbus_message_get_error_name (reply);
+      dbus_set_error (err, name, g_strdup (""));
+      goto out;
+    }
     /* demarshal */
     if (p[0] == '=' && p[1] == '>')
     {
