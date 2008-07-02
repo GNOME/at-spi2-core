@@ -1,0 +1,32 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2002 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# pclouds <pclouds@gmx.net>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-09-28 11:13+0200\n"
+"PO-Revision-Date: 2003-07-03 19:05+0700\n"
+"Last-Translator: pclouds <pclouds@gmx.net>\n"
+"Language-Team: GnomeVI <gnomevi-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:308
+msgid "failure: no device event controller found.\n"
+msgstr "lỗi: không tìm thấy bộ điều khiển sự kiện thiết bị.\n"
+
+#: atk-bridge/bridge.c:777
+msgid "WARNING: NULL key event reported."
+msgstr "CẢNH BÁO: sự kiện bàn phím NULL được báo cáo."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Registry AT-SPI"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Registry Truy nhập"

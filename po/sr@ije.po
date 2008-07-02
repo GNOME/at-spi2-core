@@ -1,0 +1,35 @@
+# Serbian translation of at-spi
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004.
+#
+# This file is distributed under the same license as the at-spi package.
+#
+# Maintainer: Данило Шеган <dsegan@gmx.net>
+# Reviewed on 2004-02-12 by: Данило Шеган <dsegan@gmx.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-07 16:10+0100\n"
+"PO-Revision-Date: 2004-02-27 19:43+0100\n"
+"Last-Translator: Bojan Suzic <bojans@teol.net>\n"
+"Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:309
+msgid "failure: no device event controller found.\n"
+msgstr "грешка: није нађен управљач за догађаје на уређају.\n"
+
+#: atk-bridge/bridge.c:778
+msgid "WARNING: NULL key event reported."
+msgstr "УПОЗОРЕЊЕ: Примио је NULL тастер."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI регистар"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Регистар за приступачност"

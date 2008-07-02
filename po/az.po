@@ -1,0 +1,32 @@
+# at-spi.HEAD.po faylının Azərbaycan dilirnə tərcüməsi.
+# Copyright (C) 2003 THE Mətin Əmirov
+# This file is distributed under the same license as the at-spi package.
+# Mətin Əmirov <metin@karegen.com>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-08-11 11:14+0200\n"
+"PO-Revision-Date: 2003-08-06 18:06+0200\n"
+"Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
+"Language-Team: Azerbaijani <gnome@azitt.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:311
+msgid "failure: no device event controller found.\n"
+msgstr "bacarılmadı: avadanlıq hadisə idarəçisi tapılmadı.\n"
+
+#: atk-bridge/bridge.c:806
+msgid "WARNING: NULL key event reported."
+msgstr "XƏBƏRDARLIQ: NULL açar hadisəsi raport edildi."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI Qeydi"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Yetişmə Qabiliyyəti Qeydi"

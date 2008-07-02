@@ -1,0 +1,26 @@
+# translation of at-spi to Malayalam
+# Copyright (C) 2008 at-spi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi package.
+# Jeffrey|ജെഫ്രി  Antony|ആന്റണി <jeffreyantony@gmail.com>, 2008.
+# Reviewed by Praveen|പ്രവീണ്‍ Arimbrathodiyil|അരിമ്പ്രത്തൊടിയില്‍ <pravi.a@gmail.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-04-23 03:06+0000\n"
+"PO-Revision-Date: 2008-04-23 19:58+0530\n"
+"Last-Translator: Jeffrey|ജെഫ്രി  Antony|ആന്റണി <jeffreyantony@gmail.com>\n"
+"Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc-"
+"discuss@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "എടി-സ്പൈ രെജിസ്ട്രി"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "സാമീപ്യതാ രെജിസ്ട്രി "

@@ -1,0 +1,24 @@
+# translation of at-spi.hi.po to Hindi
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# G Karunakar <karunakar@freedomink.org>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi.hi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-07-21 14:41+0530\n"
+"PO-Revision-Date: 2004-06-16 13:34+0530\n"
+"Last-Translator: Ravishankar Shrivastava <raviratlami@yahoo.com>\n"
+"Language-Team: Hindi <indlinux-hindi-gnome@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "एटी-एसपीआई रजिस्ट्री"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "पहुँचयोग्य रजिस्ट्री"

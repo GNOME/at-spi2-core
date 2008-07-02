@@ -1,0 +1,31 @@
+# at-spi Russian translation.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi package.
+# Dmitry G. Mastrukov <dmitry@taurussoft.org>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"POT-Creation-Date: 2003-07-15 09:13+0400\n"
+"PO-Revision-Date: 2003-07-15 09:22+0400\n"
+"Last-Translator: Dmitry G. Mastrukov <dmitry@taurussoft.org>\n"
+"Language-Team: Russian <gnome-cyr@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: atk-bridge/bridge.c:311
+msgid "failure: no device event controller found.\n"
+msgstr "произошёл сбой: контроллер событий устройства не найден.\n"
+
+#: atk-bridge/bridge.c:806
+msgid "WARNING: NULL key event reported."
+msgstr "ПРЕДУПРЕЖДЕНИЕ: сообщено о пустом ключевом событии."
+
+#: registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Регистр системы AT-SPI"
+
+#: registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Регистр системы специальных возможностей"
