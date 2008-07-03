@@ -157,7 +157,7 @@
         events will include 
         Accessibility_LoginHelper_CORE_KEYBOARD in this list.    </p>
     </tp:docstring>
-    <arg direction="out" type="au" tp:type="DeviceReqList">
+    <arg direction="out" type="u" tp:type="DeviceReqList">
     <tp:docstring>
       A sequence of ::LoginHelper_DeviceReq indicatingthe device I/O required in order to facilitate end-user access to the system.
     </tp:docstring>
@@ -169,7 +169,7 @@
 
       <p>Get a list of window IDs that need raising on login.     </p>
     </tp:docstring>
-    <arg direction="out" type="a(i)" tp:type="WindowList">
+    <arg direction="out" type="ai" tp:type="WindowList">
     <tp:docstring>
       a sequence containing window IDS for toplevels whichneed to be raised/made visible during user authentication, inorder for the ::LoginHelper to facilitate end-user access to the system.
     </tp:docstring>

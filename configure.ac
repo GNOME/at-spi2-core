@@ -33,6 +33,16 @@ AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
 
+GETTEXT_PACKAGE="${PACKAGE}"
+AC_SUBST(GETTEXT_PACKAGE)
+dnl internationalization support; uncomment if translatable strings are reintroduced
+AM_GLIB_GNU_GETTEXT
+
+# AM_GLIB_GNU_GETTEXT above subst. $DATADIRNAME
+# this is the directory where the *.{mo,gmo} files are installed
+localedir='${prefix}/${DATADIRNAME}/locale'
+AC_SUBST(localedir)
+
 AC_CONFIG_HEADERS([config.h])
 
 PKG_CHECK_MODULES(DBUS, [dbus-1 >= 1.0])
@@ -162,6 +172,11 @@ LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_CONFIG_FILES([Makefile
+		 po/Makefile.in
+		 libspi-1.0.pc
+		 libspi-1.0-uninstalled.pc
+		 cspi-1.0.pc
+		 cspi-1.0-uninstalled.pc
 		 xml/Makefile
 		 tests/Makefile
 		 tools/Makefile
@@ -169,6 +184,7 @@ AC_CONFIG_FILES([Makefile
 		 spi-common/Makefile
 		 registryd/Makefile
 		 atk-adaptor/Makefile
+		 login-helper/Makefile
 		 tests/dummyatk/Makefile
 		 tests/clients/Makefile
 		 tests/apps/Makefile
