@@ -58,7 +58,6 @@ void cspi_dispatch_event (AccessibleEvent *e);
 DBusHandlerResult cspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *user_data);
 DBusHandlerResult cspi_dbus_handle_deviceEvent (DBusConnection *bus, DBusMessage *message, void *user_data);
 
-DBusConnection *cspi_bus();
 Accessible *cspi_ref_accessible (const char *app, const char *path);
 Accessible *cspi_ref_related_accessible (Accessible *obj, const char *path);
 
