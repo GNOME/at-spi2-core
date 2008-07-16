@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-17 17:21+0100\n"
+"POT-Creation-Date: 2008-07-16 15:24+0200\n"
 "PO-Revision-Date: 2008-03-20 11:42+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -411,7 +411,8 @@ msgstr "Përshkrimi açesibël"
 
 #: ../atk/atkobject.c:364
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Përshkrimi i një objekti, formatuar për hyrje nga teknollogjia asistuese"
+msgstr ""
+"Përshkrimi i një objekti, formatuar për hyrje nga teknollogjia asistuese"
 
 #: ../atk/atkobject.c:370
 msgid "Accessible Parent"
@@ -474,7 +475,8 @@ msgstr "Titulli i përshtatshëm i kollonës së tabelës"
 
 #: ../atk/atkobject.c:421
 msgid "Is used to notify that the table column header has changed"
-msgstr "Përdoret për të njoftuar që titulli i kollonës së tabelës është ndryshuar"
+msgstr ""
+"Përdoret për të njoftuar që titulli i kollonës së tabelës është ndryshuar"
 
 #: ../atk/atkobject.c:427
 msgid "Accessible Table Column Description"
@@ -482,7 +484,8 @@ msgstr "Përshkrim i përshtatshëm i kollonës së tabelës"
 
 #: ../atk/atkobject.c:428
 msgid "Is used to notify that the table column description has changed"
-msgstr "Përdoret për të njoftuar që përshkrimi i kollonës së tabelës është ndryshuar"
+msgstr ""
+"Përdoret për të njoftuar që përshkrimi i kollonës së tabelës është ndryshuar"
 
 #: ../atk/atkobject.c:434
 msgid "Accessible Table Row Header"
@@ -490,7 +493,8 @@ msgstr "Titulli i përshtatshëm i rreshtit të tabelës"
 
 #: ../atk/atkobject.c:435
 msgid "Is used to notify that the table row header has changed"
-msgstr "Përdoret për të njoftuar që titulli i rreshtit të tabelës është ndryshuar"
+msgstr ""
+"Përdoret për të njoftuar që titulli i rreshtit të tabelës është ndryshuar"
 
 #: ../atk/atkobject.c:441
 msgid "Accessible Table Row Description"
@@ -498,7 +502,8 @@ msgstr "Përshkrim i përshtatshëm i rreshtit të tabelës"
 
 #: ../atk/atkobject.c:442
 msgid "Is used to notify that the table row description has changed"
-msgstr "Përdoret për të njoftuar që përshkrimi i rreshtit të tabelës është ndryshuar"
+msgstr ""
+"Përdoret për të njoftuar që përshkrimi i rreshtit të tabelës është ndryshuar"
 
 #: ../atk/atkobject.c:448
 msgid "Accessible Table Summary"
@@ -523,4 +528,3 @@ msgstr "Numër lidhjesh të përshtatshme në hypertext"
 #: ../atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Numri i lidhjeve që ka AtkHypertext-i aktual"
-
