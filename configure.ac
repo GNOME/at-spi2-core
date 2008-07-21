@@ -187,7 +187,8 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/Makefile
 		 login-helper/Makefile
 		 tests/dummyatk/Makefile
-		 tests/clients/Makefile
+		 tests/cspi/Makefile
+		 tests/pyatspi/Makefile
 		 tests/apps/Makefile
 		 dbind/Makefile
 		 cspi/Makefile

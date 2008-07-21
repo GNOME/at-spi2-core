@@ -1,7 +1,7 @@
-SUBDIRS = dummyatk apps clients
+SUBDIRS = dummyatk apps cspi pyatspi
 EXTRA_DIST = testrunner.py runtests.sh
 
-TESTS=testrunner.py
+#TESTS=testrunner.py
 TESTS_ENVIRONMENT = PYTHONPATH=$(abs_top_srcdir)/python					\
 		    ATSPI_INTROSPECTION_PATH=$(top_srcdir)/xml/introspection		\
 		    TEST_DATA_DIRECTORY=$(abs_top_srcdir)/tests/data			\

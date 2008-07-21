@@ -1,11 +1,3 @@
-EXTRA_DIST = \
-	__init__.py		\
-	accessibleobject.py	\
-	component.py		\
-	testutil.py
-
-CLEANFILES = *.pyc
-
 noinst_PROGRAMS = key-listener-test keysynth-test simple-at
 
 key_listener_test_SOURCES = key-listener-test.c 
@@ -20,5 +12,6 @@ INCLUDES = -I$(top_srcdir)           \
 	   $(ATK_CFLAGS)	     \
 	   $(DEBUG_CFLAGS)
 
-#LDADD = ../spi-common/libspicommon.la ../cspi/libcspi.la ../login-helper/libloginhelper.la $(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS)
-LDADD = ../../spi-common/libspicommon.la ../../cspi/libcspi.la $(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS) $(ATK_LIBS) $(GTK_LIBS)
+LDADD = $(top_builddir)/spi-common/libspicommon.la 			\
+	$(top_builddir)/cspi/libcspi.la 				\
+	$(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS) $(ATK_LIBS) $(GTK_LIBS)
