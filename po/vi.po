@@ -2,12 +2,12 @@
 # Copyright © 2006 Gnome i18n Project for Vietnamese.
 # T.M.Thanh <tmthanh@yahoo.com>, 2002.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ATK for Gnome HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-10 15:37+0800\n"
+"POT-Creation-Date: 2008-07-21 14:54+0800\n"
 "PO-Revision-Date: 2007-02-27 11:13+0700\n"
 "Last-Translator: Pham Thanh Long <lngt@ngonngu.net>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"

@@ -1,12 +1,12 @@
 # translation of atk to Uighur 
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret T.Kenji <gheyret@yahoo.com>, 2005.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 2.12 \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-10 15:37+0800\n"
+"POT-Creation-Date: 2008-07-21 14:54+0800\n"
 "PO-Revision-Date: 2005-06-17 13:10+0000\n"
 "Last-Translator: Gheyret Tohti <gheyret@yahoo.com>\n"
 "Language-Team: Gnome Uighur Translation Project <gnome-uighur@yahoogroups."

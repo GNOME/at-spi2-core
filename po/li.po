@@ -2,12 +2,12 @@
 # Copyright (C) 2002 COPYRIGHTHOLDER
 # This file is distributed under the same license as the atk package.
 # Mathieu van Woerkom <mathieu@brabants.org>, 2003.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: atk cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-10 15:37+0800\n"
+"POT-Creation-Date: 2008-07-21 14:54+0800\n"
 "PO-Revision-Date: 2003-06-04 16:08+0100\n"
 "Last-Translator: Mathieu van Woerkom <mathieu@brabants.org>\n"
 "Language-Team: Limburgish\n"

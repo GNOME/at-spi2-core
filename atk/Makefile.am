@@ -141,9 +141,6 @@ atk_def = atk.def
 libatk_1_0_la_LDFLAGS += -export-symbols $(srcdir)/atk.def -no-undefined -Wl,atk-win32-res.o
 libatk_1_0_la_DEPENDENCIES = atk-win32-res.o
 
-atk.def: atk.symbols
-	(echo -e EXPORTS; $(CPP) -P -DINCLUDE_VARIABLES -DG_OS_WIN32 -DALL_FILES - <$(srcdir)/atk.symbols | sed -e '/^$$/d' -e 's/^/	/' -e 's/G_GNUC_[^ ]*//g') > atk.def
-
 install-def-file:
 	$(INSTALL) $(srcdir)/atk.def $(DESTDIR)$(libdir)/atk-1.0.def
 uninstall-def-file:
@@ -169,11 +166,14 @@ install-ms-lib:
 uninstall-ms-lib:
 endif
 
+atk.def: atk.symbols
+	(echo -e EXPORTS; $(CPP) -P -DINCLUDE_VARIABLES -DG_OS_WIN32 -DALL_FILES - <$(srcdir)/atk.symbols | sed -e '/^$$/d' -e 's/^/	/' -e 's/G_GNUC_[^ ]*//g') > atk.def
+
 atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
 	lib -name:libatk-$(ATK_API_VERSION)-$(LT_CURRENT_MINUS_AGE).dll -def:atk.def -out:$@
 
 
-EXTRA_DIST = atk.def atk.rc.in atkmarshal.list atkintl.h
+EXTRA_DIST = atk.symbols atk.rc.in atkmarshal.list atkintl.h
 
 DISTCLEANFILES = \
   stamp-atkmarshal.h stamp-atkmarshal.c \

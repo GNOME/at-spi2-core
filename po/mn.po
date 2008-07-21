@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-10 15:37+0800\n"
+"POT-Creation-Date: 2008-07-21 14:54+0800\n"
 "PO-Revision-Date: 2008-05-27 21:38+0200\n"
 "Last-Translator: Badral <badral@openmn.org>\n"
 "Language-Team: Mongolian <openmn-translation@lists.sf.net>\n"
@@ -514,4 +514,3 @@ msgstr "Хандах боломжтой гипертекст холбоосын 
 #: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Идэвхитэй AtkHypertext·дэх холбоосуудын тоо"
-

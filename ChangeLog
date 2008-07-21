@@ -1,3 +1,12 @@
+2008-07-21  Li Yuan  <li.yuan@sun.com>
+
+	* NEWS:
+	* configure.in:
+	Revved to 1.23.5 for GNOME 2.23.5.
+	* atk/Makefile.am:
+	generate atk.def from atk.symbols.
+
+
 2008-07-11  Runa Bhattacharjee <runabh@gmail.com>
 
 	* configure.in: Added Pashto (ps) to ALL_LINGUAS
