@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the atk package.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003.
 # Claudio André <claudio.andre@correios.net.br>, 2006.
-# Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>, 2006-2007.
+# Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>, 2006-2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-10 15:37+0800\n"
-"PO-Revision-Date: 2007-03-06 01:12-0300\n"
+"PO-Revision-Date: 2008-07-21 00:42-0300\n"
 "Last-Translator: Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -260,7 +260,7 @@ msgstr "painel ajustável"
 
 #: atk/atkobject.c:135
 msgid "spin button"
-msgstr "botão giratório"
+msgstr "botão do seletor numérico"
 
 #: atk/atkobject.c:136
 msgid "statusbar"
@@ -296,7 +296,7 @@ msgstr "texto"
 
 #: atk/atkobject.c:144
 msgid "toggle button"
-msgstr "botão de alternar"
+msgstr "botão de alternância"
 
 #: atk/atkobject.c:145
 msgid "tool bar"
@@ -340,11 +340,11 @@ msgstr "parágrafo"
 
 #: atk/atkobject.c:155
 msgid "application"
-msgstr "aplicação"
+msgstr "aplicativo"
 
 #: atk/atkobject.c:156
 msgid "autocomplete"
-msgstr "auto-completar"
+msgstr "completar automaticamente"
 
 #: atk/atkobject.c:157
 msgid "edit bar"
