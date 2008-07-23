@@ -1,5 +1,3 @@
-README
-
 at-spi version 1.9.0
 
 This version of at-spi requires atk 1.17.0 or later.
@@ -7,8 +5,6 @@ This version of at-spi requires atk 1.17.0 or later.
 This version of at-spi is a MAJOR break from previous versions.
 It has been completely rewritten to use D-Bus rather than
 ORBIT / CORBA for its transport protocol.
-
-*** Welcome to the Gnome Accessibility Project! ***
 
 If you have not already done so, please visit 
 
@@ -26,9 +22,33 @@ The directories within this package are arranged as follows:
 	accessibility support interfaces exposed by
 	the AT central registry, accessible applications,
 	and UI components.
+
 	This is possibly historic. The idl formed the basis
 	for the XML protocol definitions now located
 	in the directory "xml".
+
+    xml : This directory contains XML documents describing
+	the D-Bus protocol in a subset of Telepathy XML.
+
+    tools : Miscellaneous tools. Mostly for converting protocol
+	XML into D-Bus introspection, 'C' types and documentation.
+
+    droute : Contains a framework for registering objects
+	with a D-Bus connection and for routing messages to
+	the implementing object.
+
+	Used by the ATK adaptor.
+
+    dbind : Library to ease making D-Bus method calls, contains
+	marshalling code to convert function arguments
+	and a provided D-Bus signature into a D-Bus message.
+	
+	Used by cspi.
+
+    spi-common : Contains 'C' types derived from the D-Bus
+	protocol specification. These types are used by 
+	both the registry daemon and the ATK adaptor.
+	Structures are mainly related to events.
 
     registryd : This directory contains code specific to the
 	central accessibility registry, and the registry
@@ -43,3 +63,10 @@ The directories within this package are arranged as follows:
 	It is also responsible for servicing requests from
 	the registry to register handlers for specific event
 	types.
+
+    cspi : The client (AT) side interface - 'C' bindings.
+
+    registryd : The registry daemon code. The registry daemon
+	keeps a register of accessible applications and presents
+	this to clients (ATs).
+	It is also responsible for delivering device events.
