@@ -1,5 +1,3 @@
-NULL=
-
 lib_LTLIBRARIES = libcspi.la
 
 libcspi_la_LDFLAGS = @LDFLAGS@ @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@ -no-undefined
@@ -19,22 +17,22 @@ libcspi_HEADERS =		\
 
 libcspi_la_SOURCES =		\
 	cspi-lowlevel.h		\
-	spi_accessible.c \
-	spi_action.c \
-	spi_component.c \
-	spi_editabletext.c \
-	spi_event.c \
-	spi_hyperlink.c \
-	spi_hypertext.c \
-	spi_listener.c \
-	spi_main.c		\
-	spi_registry.c \
-	spi_selection.c \
-	spi_stateset.c \
-	spi_streamablecontent.c \
-	spi_table.c \
-	spi_text.c \
-	spi_value.c \
+	spi-accessible.c \
+	spi-action.c \
+	spi-component.c \
+	spi-editabletext.c \
+	spi-event.c \
+	spi-hyperlink.c \
+	spi-hypertext.c \
+	spi-listener.c \
+	spi-main.c		\
+	spi-registry.c \
+	spi-selection.c \
+	spi-stateset.c \
+	spi-streamablecontent.c \
+	spi-table.c \
+	spi-text.c \
+	spi-value.c \
 	spi-private.h
 
 libcspi_la_LIBADD =		\
