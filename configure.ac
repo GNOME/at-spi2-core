@@ -29,7 +29,7 @@ AC_SUBST(LT_AGE)
 AM_INIT_AUTOMAKE([-Wall foreign])
 
 dnl translation of any at-spi strings: used only for .server
-IT_PROG_INTLTOOL([0.35.0])
+dnl IT_PROG_INTLTOOL([0.35.0])
 
 AC_PROG_CC
 AM_PATH_PYTHON(2.4)
@@ -176,7 +176,6 @@ LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_CONFIG_FILES([Makefile
-		 po/Makefile.in
 		 libspi-1.0.pc
 		 libspi-1.0-uninstalled.pc
 		 libloginhelper-1.0.pc
