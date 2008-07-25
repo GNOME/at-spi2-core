@@ -28,8 +28,8 @@ AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE([-Wall foreign])
 
-#Not yet performing translation
-#IT_PROG_INTLTOOL([0.35.0])
+dnl translation of any at-spi strings: used only for .server
+dnl IT_PROG_INTLTOOL([0.35.0])
 
 AC_PROG_CC
 AM_PATH_PYTHON(2.4)

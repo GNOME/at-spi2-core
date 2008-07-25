@@ -24,7 +24,7 @@
 #ifndef SPI_STATE_SET_H_
 #define SPI_STATE_SET_H_
 
-#include "spi-private.h"
+#include "spi-types.h"
 #include <atk/atkstateset.h>
 
 G_BEGIN_DECLS

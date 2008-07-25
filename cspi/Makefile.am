@@ -28,7 +28,6 @@ libcspi_la_SOURCES =		\
 	spi-main.c		\
 	spi-registry.c \
 	spi-selection.c \
-	spi-stateset.c \
 	spi-streamablecontent.c \
 	spi-table.c \
 	spi-text.c \
