@@ -1,0 +1,2 @@
+Files in xml/ are translated into D-Bus introspection
+xml and placed in this directory.

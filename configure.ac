@@ -1,5 +1,6 @@
 
 AC_INIT([at-spi], [1.9.0], [accessibility-atspi@lists.linux-foundation.org])
+AC_CONFIG_AUX_DIR(config)
 
 AT_SPI_MAJOR_VERSION=1
 AT_SPI_MINOR_VERSION=23
