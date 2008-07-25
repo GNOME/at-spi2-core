@@ -37,6 +37,7 @@ CLEANFILES = spec.xml
 INTROSPECT_FILES = $(addprefix introspection/,$(patsubst %.xml,%,$(filter org.freedesktop.atspi%,$(XML_SPEC))))
 
 $(INTROSPECT_FILES): introspection/%: %.xml ../tools/spec-to-introspect.xsl
+	@mkdir -p introspection
 	xsltproc ../tools/spec-to-introspect.xsl $< |sed -e 's@xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec.extensions-v0"@@g' >$@
 
 introspectdir = $(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)

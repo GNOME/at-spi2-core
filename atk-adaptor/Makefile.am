@@ -27,7 +27,6 @@ libspiatk_la_SOURCES =		\
 	hypertext.c		\
 	atk-dbus.c		\
 	image.c			\
-	keymasks.h		\
 	selection.c		\
 	spi-private.h		\
 	table.c			\

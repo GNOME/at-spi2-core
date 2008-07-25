@@ -28,6 +28,9 @@ AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE([-Wall foreign])
 
+dnl translation of any at-spi strings: used only for .server
+IT_PROG_INTLTOOL([0.35.0])
+
 AC_PROG_CC
 AM_PATH_PYTHON(2.4)
 AM_DISABLE_STATIC
