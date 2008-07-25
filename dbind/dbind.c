@@ -137,6 +137,7 @@ dbind_connection_method_call_va (DBusConnection *cnx,
     DBusMessage *msg = NULL, *reply = NULL;
     DBusError *err, real_err;
     char *p;
+    char *dest;
 
     if (opt_error)
         err = opt_error;
@@ -211,7 +212,10 @@ dbind_connection_method_call_va (DBusConnection *cnx,
             }
     }
 
-    if (!strcmp (dbus_bus_get_unique_name(cnx), dbus_message_get_destination(msg)))
+    dest = dbus_message_get_destination(msg);
+    if (!dest)
+        goto out;
+    if (!strcmp (dbus_bus_get_unique_name(cnx), dest))
     {
       /* Can't use dbus_message_send_with_reply_and_block because it will
        * not pass messages on to the provider side, causing deadlock */
