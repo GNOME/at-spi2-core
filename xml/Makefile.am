@@ -29,7 +29,9 @@ XML_SPEC= \
 spec.xml: $(XML_SPEC)
 	xsltproc --xinclude $(top_srcdir)/tools/identity.xsl $< >$@
 
-EXTRA_DIST = $(XML_SPEC)
+# I'm only adding spec.xml because it is needed to build other files that
+# are currently being distributed. -MPG
+EXTRA_DIST = $(XML_SPEC) spec.xml
 
 BUILT_SOURCES = spec.xml
 CLEANFILES = spec.xml
