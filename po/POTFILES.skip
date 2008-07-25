@@ -1,4 +1,0 @@
-# List of source files containing strings that need not be translated.
-# Please keep this file sorted alphabetically.
-atk-bridge/bridge.c
-registryd/Accessibility_Registry.server.in

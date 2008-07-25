@@ -1,4 +1,4 @@
-SUBDIRS=xml tools droute spi-common atk-adaptor registryd dbind cspi login-helper tests po
+SUBDIRS=xml tools droute spi-common atk-adaptor registryd dbind cspi login-helper tests
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libspi-1.0.pc cspi-1.0.pc libloginhelper-1.0.pc
