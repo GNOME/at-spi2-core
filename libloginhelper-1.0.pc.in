@@ -2,7 +2,6 @@ prefix=@prefix@
 exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
-idldir=@datadir@/idl/at-spi-1.0
 
 Name: liblogin-helper
 Description: Login-Helper library for assistive technologies
