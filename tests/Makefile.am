@@ -1,5 +1,4 @@
 SUBDIRS = dummyatk apps cspi pyatspi
-EXTRA_DIST = testrunner.py runtests.sh
 
 #TESTS=testrunner.py
 TESTS_ENVIRONMENT = PYTHONPATH=$(abs_top_srcdir)/python					\
