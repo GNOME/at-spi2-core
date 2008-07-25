@@ -22,7 +22,7 @@
  */
 
 #include <stdlib.h> /* for malloc */
-#include "spi-stateset.h"
+#include "spi-common/spi-stateset.h"
 #include <cspi/spi-private.h>
 
 static const char *role_names [] =
