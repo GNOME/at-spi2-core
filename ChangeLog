@@ -1,3 +1,8 @@
+2008-07-28  Tor Lillqvist  <tml@novell.com>
+
+	* atk/Makefile.am (libatk_1_0_la_DEPENDENCIES): Depend on atk.def
+	on Windows so that we build it before trying to use it.
+
 2008-07-21  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:
