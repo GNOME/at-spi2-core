@@ -26,6 +26,7 @@
 #include <config.h>
 #include <stdio.h>
 #include "spi-stateset.h"
+#include "bitarray.h"
 
 
 static Accessibility_StateType *accessible_state_types = NULL;
@@ -173,3 +174,27 @@ spi_state_set_cache_from_sequence (const GArray *seq)
   return set;
 }
 
+void
+spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array)
+{
+  AtkStateSet *set = atk_object_ref_state_set (object);
+  int i;
+
+  array[0] = 0;
+  array[1] = 0;
+  if (!set)
+    return;
+  spi_init_state_type_tables ();
+
+  g_assert (ATK_STATE_LAST_DEFINED <= 64);
+  for (i = 0; i < ATK_STATE_LAST_DEFINED; i++)
+    {
+      if (atk_state_set_contains_state (set, i))
+	{
+	  int a = accessible_state_types[i];
+	  g_assert (a < 64);
+	  BITARRAY_SET (array, a);
+	}
+    }
+  g_object_unref (set);
+}
