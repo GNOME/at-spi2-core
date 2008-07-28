@@ -1,0 +1,77 @@
+<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
+<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
+<tp:copyright>Copyright 2005 Sun Microsystems, Inc.</tp:copyright>
+<tp:license xmlns="http://www.w3.org/1999/xhtml">
+  <p>This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.</p>
+
+  <p>This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.</p>
+
+  <p>You should have received a copy of the GNU Library General Public
+    License along with this library; if not, write to the
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.</p>
+</tp:license>
+<interface name="org.freedesktop.atspi.Collection">
+  <tp:enum name="SortOrder" type="u">
+    <tp:enumvalue suffix="SORT_ORDER_INVALID"/>
+    <tp:enumvalue suffix="SORT_ORDER_CANONICAL" value="1"/>
+    <tp:enumvalue suffix="SORT_ORDER_FLOW" value="2"/>
+    <tp:enumvalue suffix="SORT_ORDER_TAB" value="3"/>
+    <tp:enumvalue suffix="SORT_ORDER_REVERSE_CANONICAL" value="4"/>
+    <tp:enumvalue suffix="SORT_ORDER_REVERSE_FLOW" value="5"/>
+    <tp:enumvalue suffix="SORT_ORDER_REVERSE_TAB" value="6"/>
+    <tp:enumvalue suffix="SORT_ORDER_LAST_DEFINED" value="7"/>
+  </tp:enum>
+  <tp:enum name="MatchType" type="u">
+    <tp:enumvalue suffix="MATCH_INVALID"/>
+    <tp:enumvalue suffix="MATCH_ALL" value="1"/>
+    <tp:enumvalue suffix="MATCH_ANY" value="2"/>
+    <tp:enumvalue suffix="MATCH_NONE" value="3"/>
+    <tp:enumvalue suffix="MATCH_EMPTY" value="4"/>
+    <tp:enumvalue suffix="MATCH_LAST_DEFINED" value="5"/>
+  </tp:enum>
+  <tp:enum name="TreeTraversalType" type="u">
+    <tp:enumvalue suffix="TREE_RESTRICT_CHILDREN"/>
+    <tp:enumvalue suffix="TREE_RESTRICT_SIBLING" value="1"/>
+    <tp:enumvalue suffix="TREE_INORDER" value="2"/>
+    <tp:enumvalue suffix="TREE_LAST_DEFINED" value="3"/>
+  </tp:enum>
+  <method name="getMatches">
+    <arg direction="in" name="rule" type="(auuasuauusub)" tp:type="MatchRule"/>
+    <arg direction="in" name="sortby" type="u" tp:type="SortOrder"/>
+    <arg direction="in" name="count" type="i"/>
+    <arg direction="in" name="traverse" type="b" tp:type="boolean"/>
+    <arg direction="out" type="ao" tp:type="AccessibleSet"/>
+  </method>
+  <method name="getMatchesTo">
+    <arg direction="in" name="current_object" type="o" tp:type="Accessible"/>
+    <arg direction="in" name="rule" type="(auuasuauusub)" tp:type="MatchRule"/>
+    <arg direction="in" name="sortby" type="u" tp:type="SortOrder"/>
+    <arg direction="in" name="tree" type="u" tp:type="TreeTraversalType"/>
+    <arg direction="in" name="recurse" type="b" tp:type="boolean"/>
+    <arg direction="in" name="count" type="i"/>
+    <arg direction="in" name="traverse" type="b" tp:type="boolean"/>
+    <arg direction="out" type="ao" tp:type="AccessibleSet"/>
+  </method>
+  <method name="getMatchesFrom">
+    <arg direction="in" name="current_object" type="o" tp:type="Accessible"/>
+    <arg direction="in" name="rule" type="(auuasuauusub)" tp:type="MatchRule"/>
+    <arg direction="in" name="sortby" type="u" tp:type="SortOrder"/>
+    <arg direction="in" name="tree" type="u" tp:type="TreeTraversalType"/>
+    <arg direction="in" name="count" type="i"/>
+    <arg direction="in" name="traverse" type="b" tp:type="boolean"/>
+    <arg direction="out" type="ao" tp:type="AccessibleSet"/>
+  </method>
+  <method name="getActiveDescendant">
+    <arg direction="out" type="o" tp:type="Accessible"/>
+  </method>
+</interface>
+</node>

@@ -36,6 +36,7 @@ Boston, MA 02111-1307, USA.</p>
   Accessibility::Accessible\n 
   Accessibility::Application\n
   Accessibility::Desktop\n
+  Accessibility::Collecgtion\n
   Accessibility::Component\n
   Accessibility::Hypertext\n
   Accessibility::Image\n
@@ -85,6 +86,7 @@ Boston, MA 02111-1307, USA.</p>
 
 <xi:include href="org.freedesktop.atspi.Accessible.xml"/>
 <xi:include href="org.freedesktop.atspi.Action.xml"/>
+<xi:include href="org.freedesktop.atspi.Collection.xml"/>
 <xi:include href="org.freedesktop.atspi.Component.xml"/>
 <xi:include href="org.freedesktop.atspi.Document.xml"/>
 <xi:include href="org.freedesktop.atspi.Hyperlink.xml"/>
