@@ -20,6 +20,7 @@ libspiatk_la_SOURCES =		\
 	action.c                \
 	application.c		\
 	bridge.c		\
+	collection.c \
 	component.c		\
 	document.c		\
 	editabletext.c		\

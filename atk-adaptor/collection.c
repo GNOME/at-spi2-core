@@ -22,233 +22,143 @@
 
 /* collection.c: implements the Collection interface */
 
-#include <config.h>
-#include <glib.h>
-#include <stdio.h>
-#include <bonobo/bonobo-exception.h>
-#include <libspi/accessible.h>
-#include <libspi/collection.h>
-#include <libspi/matchrule.h> 
-#include <libspi/stateset.h>
-#include <libspi/spi-private.h>
+#include "accessible.h"
+#include "bitarray.h"
+#include <string.h>
 
-SpiCollection *
-spi_collection_interface_new (AtkObject *obj)
+#define get_object(message) spi_dbus_get_object(dbus_message_get_path(message))
+
+typedef struct _MatchRulePrivate MatchRulePrivate;
+struct _MatchRulePrivate
 {
-     SpiCollection *new_collection = g_object_new (SPI_COLLECTION_TYPE, NULL);
-     spi_base_construct (SPI_BASE (new_collection), G_OBJECT (obj));
+  gint *states;
+     Accessibility_Collection_MatchType statematchtype;
+  AtkAttributeSet *attributes;
+     Accessibility_Collection_MatchType attributematchtype;
+  gint *roles;
+     Accessibility_Collection_MatchType rolematchtype;
+     gchar **ifaces;
+     Accessibility_Collection_MatchType interfacematchtype;
+     gboolean invert;
+};
 
-     return  new_collection;
-}
-
-static AtkObject *
-get_atkobject_from_servant (PortableServer_Servant servant){
-
-  SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-  g_return_val_if_fail (object, NULL);
-  g_return_val_if_fail (ATK_IS_OBJECT (object->gobj), NULL);
-
-  return ATK_OBJECT (object->gobj);
-}
-
-static SpiCollection *
-get_collection_from_servant (PortableServer_Servant servant)
+static gboolean
+child_interface_p (AtkObject *child, 
+                   gchar *repo_id)
 {
-     SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-
-     g_return_val_if_fail (object, NULL);
-     g_return_val_if_fail (IS_COLLECTION (object), NULL);
-
-     return SPI_COLLECTION (object);
+  if (!strcasecmp(repo_id, "action")) return atk_is_action(child);
+  if (!strcasecmp(repo_id, "component")) return atk_is_component(child);
+  if (!strcasecmp(repo_id, "editabletext")) return atk_is_editable_text(child);
+  if (!strcasecmp(repo_id, "text")) return atk_is_text(child);
+  if (!strcasecmp(repo_id, "hypertext")) return atk_is_hypertext(child);
+  if (!strcasecmp(repo_id, "image")) return atk_is_image(child);
+  if (!strcasecmp(repo_id, "selection")) return atk_is_selection(child);
+  if (!strcasecmp(repo_id, "table")) return atk_is_table(child);
+  if (!strcasecmp(repo_id, "value")) return atk_is_value(child);
+  if (!strcasecmp(repo_id, "streamablecontent")) return atk_is_streamable_content(child);
+  if (!strcasecmp(repo_id, "document")) return atk_is_document(child);
+  return FALSE;
 }
 
-static Accessibility_MatchRule 
-impl_createMatchRule (PortableServer_Servant servant,
-                const Accessibility_StateSet states,
-                const Accessibility_Collection_MatchType statematchtype,
-                const Accessibility_AttributeSet *attributes,
-                const Accessibility_Collection_MatchType attributematchtype,
-                const Accessibility_RoleSet *roles,
-                const Accessibility_Collection_MatchType rolematchtype,
-                const CORBA_char *interfaces,
-                const Accessibility_Collection_MatchType interfacematchtype,
-                const CORBA_boolean invert,
-                CORBA_Environment *ev){
+#define child_collection_p(ch) (TRUE)
 
-     Accessibility_MatchRule  retval = NULL;
-
-     SpiMatchrule *matchrule = spi_matchrule_interface_new ();
-     MatchRulePrivate *mrp   = get_collection_from_servant (servant)->_mrp;     
-     Accessibility_StateSet ss = CORBA_Object_duplicate (states, ev);
+static gboolean
+match_states_all_p (AtkObject *child, 
+                    gint *set)
+{
+     AtkStateSet *chs;
      gint i;
+     gboolean ret = TRUE;
 
-     if (mrp != NULL){
-       CORBA_free (mrp->attributes);
-       CORBA_free (mrp->roles);
-       CORBA_free (mrp->interfaces);
+     if (set == NULL)
+	  return TRUE;
 
-       g_free (mrp);
+     chs = atk_object_ref_state_set (child);
+
+     // TODO: use atk-state_set_contains_states; would be more efficient
+     for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
+     {
+	  if (!atk_state_set_contains_state(chs, set[i]))
+	  {
+	       ret = FALSE;
+	       break;
+	  }
      }
-
-     get_collection_from_servant (servant)->_mrp  = g_new(MatchRulePrivate, 1);
-     mrp   = get_collection_from_servant (servant)->_mrp;
-
-     /* states */
-     mrp->states  = ss;
-     mrp->statematchtype = statematchtype;
-
-     /* attributes */
-     mrp->attributes = CORBA_sequence_CORBA_string__alloc ();
-     mrp->attributes->_maximum = attributes->_maximum;
-     mrp->attributes->_length = attributes->_length;
-     mrp->attributes->_buffer = 
-                   CORBA_sequence_CORBA_string_allocbuf (attributes->_length);
-
-     for (i = 0; i < mrp->attributes->_length; i++)
-	  mrp->attributes->_buffer [i] = 
-                   CORBA_string_dup (attributes->_buffer [i]);
-    
-     CORBA_sequence_set_release (mrp->attributes, TRUE);
-     mrp->attributematchtype = attributematchtype;
-
-     /* roles */
-     mrp->roles = Accessibility_RoleSet__alloc ();
-     mrp->roles->_maximum = roles->_maximum;
-     mrp->roles->_length = roles->_length;
-     mrp->roles->_buffer = Accessibility_RoleSet_allocbuf (roles->_length);
-
-     for (i = 0; i < roles->_length; i++)
-	  mrp->roles->_buffer [i] = roles->_buffer [i];
-
-     CORBA_sequence_set_release (mrp->roles, TRUE);
-     mrp->rolematchtype = rolematchtype;
-
-     /* interfaces */
-     mrp->interfaces = CORBA_string_dup (interfaces);
-     mrp->interfacematchtype = interfacematchtype;
-
-     mrp->invert = invert;
-
-     retval = CORBA_Object_duplicate (BONOBO_OBJREF (matchrule), ev);
-
-     return retval;
-}
-
-static void impl_freeMatchRule (PortableServer_Servant servant,
-				Accessibility_MatchRule matchrule,     
-				CORBA_Environment *ev){
-
-     SpiBase *object = SPI_BASE (bonobo_object_from_servant (servant));
-     SpiCollection *spimatchrule;
-
-     MatchRulePrivate *mrp;  
-
-     spimatchrule = SPI_COLLECTION (object);
-     mrp = spimatchrule->_mrp;
-
-     CORBA_free (mrp->attributes);
-     CORBA_free (mrp->roles);     
-     CORBA_free (mrp->interfaces);
-
-     g_free (mrp);
-     spimatchrule->_mrp = NULL;
-}
-
-static gboolean
-child_interface_p (Accessibility_Accessible child, 
-                   gchar *repo_id, 
-                   CORBA_Environment *ev) {
-
-     CORBA_Object retval;
-
-     retval = Bonobo_Unknown_queryInterface (child, repo_id, ev);
-
-     return (retval != CORBA_OBJECT_NIL)? TRUE : FALSE;
-}
-
-#define child_collection_p(ch,ev) (child_interface_p (ch,"IDL:Accessibility/Collection:1.0", ev))
-
-static gboolean
-match_states_all_p (Accessibility_Accessible child, 
-                    Accessibility_StateSet set,  
-                    CORBA_Environment *ev){
-     
-     Accessibility_StateSet chs  ;
-     Accessibility_StateSeq *seq = Accessibility_StateSet_getStates (set, ev); 
-     gint i;
-
-     if (seq->_length == 0 || seq == NULL)
-	  return TRUE;
-
-     chs = Accessibility_Accessible_getState (child, ev);
-
-     for (i = 0; i < seq->_length; i++)
-	  if (!Accessibility_StateSet_contains (chs, seq->_buffer [i], ev))
-	       return FALSE;
    
-     return TRUE;
+     g_object_unref(chs);
+     return ret;
 }
 
 static gboolean
-match_states_any_p  (Accessibility_Accessible child, 
-                     Accessibility_StateSet set,  
-                     CORBA_Environment *ev){
-
-     Accessibility_StateSet chs; 
-     Accessibility_StateSeq *seq = Accessibility_StateSet_getStates (set, ev);
+match_states_any_p  (AtkObject *child, 
+                     gint *set)
+{
+     AtkStateSet *chs;
      gint i;
+     gboolean ret = FALSE;
 
-     if (seq->_length == 0 || seq == NULL)
+     if (set == NULL)
 	  return TRUE;
 
-     chs = Accessibility_Accessible_getState (child, ev);
+     chs = atk_object_ref_state_set (child);
 
-     for (i = 0; i < seq->_length; i++)
-   	  if (Accessibility_StateSet_contains (chs, seq->_buffer [i], ev))
-	       return TRUE;
-
-     return FALSE;
+     for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
+     {
+	  if (!atk_state_set_contains_state(chs, set[i]))
+	  {
+	       ret = TRUE;
+	       break;
+	  }
+     }
+   
+     g_object_unref(chs);
+     return ret;
 }
 
 static gboolean
-match_states_none_p (Accessibility_Accessible child, 
-                     Accessibility_StateSet set,  
-                     CORBA_Environment *ev){
-     
-     Accessibility_StateSet chs; 
-     Accessibility_StateSeq *seq = Accessibility_StateSet_getStates (set, ev);
+match_states_none_p  (AtkObject *child, 
+                     gint *set)
+{
+     AtkStateSet *chs;
      gint i;
+     gboolean ret = TRUE;
 
-     if (seq->_length == 0)
-	  return TRUE; 
-     chs = Accessibility_Accessible_getState (child, ev);
-     
-     for (i = 0; i < seq->_length; i++)
-	  if (Accessibility_StateSet_contains (chs, seq->_buffer [i], ev))
-	       return FALSE;
+     if (set == NULL)
+	  return TRUE;
 
-     return TRUE;
+     chs = atk_object_ref_state_set (child);
+
+     for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
+     {
+	  if (atk_state_set_contains_state(chs, set[i]))
+	  {
+	       ret = FALSE;
+	       break;
+	  }
+     }
+   
+     g_object_unref(chs);
+     return ret;
 }
 
+// TODO: need to convert at-spi roles/states to atk roles/states */
 static gboolean
-match_states_lookup (Accessibility_Accessible child,  
-                     MatchRulePrivate *mrp, 
-                     CORBA_Environment *ev){
-
+match_states_lookup (AtkObject *child,  
+                     MatchRulePrivate *mrp)
+{
      switch (mrp->statematchtype){
      case Accessibility_Collection_MATCH_ALL : 
-	  if (match_states_all_p (child, mrp->states, ev))
+	  if (match_states_all_p (child, mrp->states))
 	       return TRUE;
 	  break;
 	  
      case  Accessibility_Collection_MATCH_ANY :
-	  if (match_states_any_p (child, mrp->states, ev))
+	  if (match_states_any_p (child, mrp->states))
 	       return TRUE;
 	  break;
 	  
      case  Accessibility_Collection_MATCH_NONE :
-	  if (match_states_none_p (child, mrp->states, ev))
+	  if (match_states_none_p (child, mrp->states))
 	       return TRUE;
 	  break;
 
@@ -258,85 +168,76 @@ match_states_lookup (Accessibility_Accessible child,
      return FALSE;    
 }
 
-static gboolean
-match_roles_all_p (Accessibility_Accessible child, 
-                   Accessibility_RoleSet *roles,  
-                   CORBA_Environment *ev){
+// TODO: Map at-spi -> atk roles at mrp creation instead of doing this;
+// would be more efficient
+#define spi_get_role(obj) spi_accessible_role_from_atk_role(atk_object_get_role(obj))
 
+static gboolean
+match_roles_all_p (AtkObject *child, 
+                   gint *roles)
+{
    Accessibility_Role role; 
 
-     if (roles->_length > 1) 
-	  return FALSE;
-     else if (roles->_length == 0 || roles == NULL)
-	  return TRUE;
+     if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM) return TRUE;
+     else if (roles[1] != BITARRAY_SEQ_TERM) return FALSE;
 
-     role  = Accessibility_Accessible_getRole (child, ev);
-
-     if (role  == roles->_buffer [0])
-	  return TRUE;
-     else 
-	  return FALSE;
+     return (atk_object_get_role(child) == roles[0]);
     
 }
 
 static gboolean
-match_roles_any_p (Accessibility_Accessible child, 
-                   Accessibility_RoleSet *roles, 
-                   CORBA_Environment *ev){
-
-     Accessibility_Role role; 
+match_roles_any_p (AtkObject *child, 
+                   gint *roles)
+{
+     AtkRole role;
      int i;
 
-     if (roles->_length == 0 || roles == NULL)
-	  return TRUE;
+     if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM) return TRUE;
 
-     role =  Accessibility_Accessible_getRole (child, ev);
+     role = atk_object_get_role(child);
 
-     for (i = 0; i < roles->_length; i++)
-	  if (role  == roles->_buffer [i])
+     for (i = 0; roles[i] != BITARRAY_SEQ_TERM; i++)
+	  if (role  == roles[i])
 	       return TRUE;
 
      return FALSE;
 }
 
 static gboolean
-match_roles_none_p (Accessibility_Accessible child, 
-                    Accessibility_RoleSet *roles,  
-                    CORBA_Environment *ev){
-
-  Accessibility_Role role ; 
+match_roles_none_p (AtkObject *child, 
+                    gint *roles)
+{
+  AtkRole role;
      int i;
 
-     if (roles->_length == 0 || roles == NULL)
-	  return TRUE;
+     if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM) return TRUE;
 
-     role =  Accessibility_Accessible_getRole (child, ev);
+     role = atk_object_get_role(child);
 
-     for (i = 0; i < roles->_length; i++)
-	  if (role == roles->_buffer [i])
+     for (i = 0; roles[i] != BITARRAY_SEQ_TERM; i++)
+	  if (role == roles[i])
 	       return FALSE;
 
      return TRUE;
 }
 
 static gboolean
-match_roles_lookup (Accessibility_Accessible child,  
-                    MatchRulePrivate *mrp, 
-                    CORBA_Environment *ev){
-
+match_roles_lookup (AtkObject *child,  
+                    MatchRulePrivate *mrp)
+{
       switch (mrp->rolematchtype){
 	 case Accessibility_Collection_MATCH_ALL : 
-	      if (match_roles_all_p (child, mrp->roles, ev))
+	      if (match_roles_all_p (child, mrp->roles))
 		   return TRUE;
 	      break;
 
 	 case  Accessibility_Collection_MATCH_ANY :
-	      if (match_roles_any_p (child, mrp->roles, ev))
+	      if (match_roles_any_p (child, mrp->roles))
 		   return TRUE;
 	      break;
 
 	 case  Accessibility_Collection_MATCH_NONE :
-	      if (match_roles_none_p (child, mrp->roles, ev))
+	      if (match_roles_none_p (child, mrp->roles))
 		   return TRUE;
 	      break;
 
@@ -346,87 +247,70 @@ match_roles_lookup (Accessibility_Accessible child,
       return FALSE;
 }
 
-#define split_ifaces(ifaces) (g_strsplit (ifaces, ";", 0))
-
 static gboolean
-match_interfaces_all_p (Accessibility_Accessible obj, 
-                        gchar *interfaces, 
-                        CORBA_Environment *ev){
-     gchar **ifaces; 
-     gint i, length; 
+match_interfaces_all_p (AtkObject *obj, 
+                        gchar **ifaces)
+{
+     gint i;
 
-     if (interfaces == NULL)
+     if (ifaces == NULL)
        return TRUE;
 
-     ifaces = split_ifaces (interfaces);
-     length = g_strv_length (ifaces);
-
-     for (i = 0; i < length; i++)
-       if (!child_interface_p (obj, ifaces [i], ev)){
-	    g_free (ifaces);
+     for (i = 0; ifaces[i]; i++)
+       if (!child_interface_p (obj, ifaces [i])){
 	       return FALSE;
        }
      return TRUE;
 }
 
 static gboolean
-match_interfaces_any_p (Accessibility_Accessible obj, 
-                        gchar *interfaces, 
-                        CORBA_Environment *ev){
-     gchar **ifaces; 
-     gint i, length; 
+match_interfaces_any_p (AtkObject *obj, 
+                        gchar **ifaces)
+{
+     gint i;
 
-     if (interfaces == NULL)
+     if (ifaces == NULL)
        return TRUE;
 
-     ifaces = split_ifaces (interfaces);
-     length = g_strv_length (ifaces);
 
-     for (i = 0; i < length; i++)
-       if (child_interface_p (obj, ifaces [i], ev)){
-	        g_free (ifaces);
+     for (i = 0; ifaces[i]; i++)
+       if (child_interface_p (obj, ifaces [i])){
 		return TRUE;
        }
      return FALSE;
 }
 
 static gboolean
-match_interfaces_none_p (Accessibility_Accessible obj, 
-                         gchar *interfaces, 
-                         CORBA_Environment *ev){
+match_interfaces_none_p (AtkObject *obj, 
+                         gchar **ifaces)
+{
+     gint i;
 
- gchar **ifaces = split_ifaces (interfaces);
-     gint i, length = g_strv_length (ifaces);
-
-     if (length == 0)
-	  return TRUE;
-
-     for (i = 0; i < length; i++)
-	   if (child_interface_p (obj, ifaces [i], ev))
+     for (i = 0; ifaces[i]; i++)
+	   if (child_interface_p (obj, ifaces [i]))
 		return FALSE;
      
      return TRUE;
 }
 
 static gboolean
-match_interfaces_lookup (Accessibility_Accessible child, 
-                         MatchRulePrivate *mrp, 
-                         CORBA_Environment *ev){
-
+match_interfaces_lookup (AtkObject *child, 
+                         MatchRulePrivate *mrp)
+{
      switch (mrp->interfacematchtype){
 
      case Accessibility_Collection_MATCH_ALL : 
-	  if (match_interfaces_all_p (child, mrp->interfaces, ev))
+	  if (match_interfaces_all_p (child, mrp->ifaces))
 	       return TRUE;
 	  break;
 
      case  Accessibility_Collection_MATCH_ANY :
-	  if (match_interfaces_any_p (child, mrp->interfaces, ev))
+	  if (match_interfaces_any_p (child, mrp->ifaces))
 	       return TRUE;
 	  break;
 
      case  Accessibility_Collection_MATCH_NONE :
-	  if (match_interfaces_none_p (child, mrp->interfaces, ev))
+	  if (match_interfaces_none_p (child, mrp->ifaces))
 	       return TRUE;
 	  break;
 
@@ -439,95 +323,121 @@ match_interfaces_lookup (Accessibility_Accessible child,
 #define split_attributes(attributes) (g_strsplit (attributes, ";", 0))
 
 static gboolean 
-match_attributes_all_p (Accessibility_Accessible child, 
-                        Accessibility_AttributeSet *attributes, 
-                        CORBA_Environment *ev){
-
+match_attributes_all_p (AtkObject *child, 
+                        AtkAttributeSet *attributes)
+{
      int i, k;
-     Accessibility_AttributeSet *oa ;
+     AtkAttributeSet *oa;
+     gint length, oa_length;
      gboolean flag = FALSE;
 
-     if (attributes->_length == 0 || attributes == NULL)
+     if (attributes == NULL || g_slist_length (attributes) == 0)
 	  return TRUE;
      
-     oa =  Accessibility_Accessible_getAttributes (child, ev);
+     oa =  atk_object_get_attributes(child);
+     length = g_slist_length(attributes);
+     oa_length = g_slist_length(oa);
 
-     for (i = 0; i < attributes->_length; i++){
-	  for (k = 0; k < oa->_length; k++)
-	       if (!g_ascii_strcasecmp (oa->_buffer [k], 
-                                             attributes->_buffer [i])){
+     for (i = 0; i < length; i++) {
+	  AtkAttribute *attr = g_slist_nth_data(attributes, i);
+	  for (k = 0; k < oa_length; k++) {
+	       AtkAttribute *oa_attr = g_slist_nth_data(attributes, i);
+	       if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
+	           !g_ascii_strcasecmp (oa_attr->value, attr->value)){
 		    flag = TRUE;
                     break;
                }
 	       else
 		    flag = FALSE;
-	  if (!flag) 
+	       }
+	  if (!flag) {
+	       atk_attribute_set_free(oa);
 	       return FALSE; 
+	  }
      }
+     atk_attribute_set_free(oa);
      return TRUE;
 }
 
 static gboolean 
-match_attributes_any_p (Accessibility_Accessible child, 
-                        Accessibility_AttributeSet *attributes, 
-                        CORBA_Environment *ev){
-
+match_attributes_any_p (AtkObject *child, 
+                        AtkAttributeSet *attributes)
+{
      int i, k;
 
-     Accessibility_AttributeSet *oa;
+     AtkAttributeSet *oa;
+     gint length, oa_length;
 
-     if (attributes->_length == 0 || attributes == NULL)
+     length = g_slist_length(attributes);
+     if (length == 0)
 	  return TRUE;
 
-     oa =  Accessibility_Accessible_getAttributes (child, ev);
+     oa = atk_object_get_attributes(child);
+     oa_length = g_slist_length(oa);
 
-     for (i = 0; i < attributes->_length; i++)
-	  for (k = 0; k < oa->_length; k++)
-	       if (!g_ascii_strcasecmp (oa->_buffer [k], 
-                                            attributes->_buffer[i]))
+     for (i = 0; i < length; i++){
+	  AtkAttribute *attr = g_slist_nth_data(attributes, i);
+	  for (k = 0; k < oa_length; k++){
+	       AtkAttribute *oa_attr = g_slist_nth_data(attributes, i);
+	       if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
+	           !g_ascii_strcasecmp (oa_attr->value, attr->value)){
+		    atk_attribute_set_free(oa);
 		    return TRUE;
+		    }
+	       }
+	  }
+     atk_attribute_set_free(oa);
      return FALSE;
 }
 
 static gboolean 
-match_attributes_none_p (Accessibility_Accessible child, 
-                         Accessibility_AttributeSet *attributes, 
-                         CORBA_Environment *ev){
-
+match_attributes_none_p (AtkObject *child, 
+                         AtkAttributeSet *attributes)
+{
      int i, k;
-     Accessibility_AttributeSet *oa;
 
-     if (attributes->_length == 0 || attributes == NULL)
+     AtkAttributeSet *oa;
+     gint length, oa_length;
+
+     length = g_slist_length(attributes);
+     if (length == 0)
 	  return TRUE;
 
-     oa =  Accessibility_Accessible_getAttributes (child, ev);
+     oa = atk_object_get_attributes(child);
+     oa_length = g_slist_length(oa);
 
-     for (i = 0; i < attributes->_length; i++){
-	  for (k = 0; k < oa->_length; k++)
-	       if (!g_ascii_strcasecmp (oa->_buffer [k], 
-                                               attributes->_buffer [i]))
+     for (i = 0; i < length; i++){
+	  AtkAttribute *attr = g_slist_nth_data(attributes, i);
+	  for (k = 0; k < oa_length; k++){
+	       AtkAttribute *oa_attr = g_slist_nth_data(attributes, i);
+	       if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
+	           !g_ascii_strcasecmp (oa_attr->value, attr->value)){
+		    atk_attribute_set_free(oa);
 		    return FALSE;
-     }
+		    }
+	       }
+	  }
+     atk_attribute_set_free(oa);
      return TRUE;
 }
 
 static gboolean
-match_attributes_lookup (Accessibility_Accessible child, MatchRulePrivate *mrp, CORBA_Environment *ev){
-
+match_attributes_lookup (AtkObject *child, MatchRulePrivate *mrp)
+{
      switch (mrp->attributematchtype){
 
 	  case Accessibility_Collection_MATCH_ALL : 
-	  if (match_attributes_all_p (child, mrp->attributes, ev))
+	  if (match_attributes_all_p (child, mrp->attributes))
 	       return TRUE;
 	  break;
 	  
      case  Accessibility_Collection_MATCH_ANY :
-	  if (match_attributes_any_p (child, mrp->attributes, ev))
+	  if (match_attributes_any_p (child, mrp->attributes))
 	       return TRUE;
 	  break;
 	  
      case  Accessibility_Collection_MATCH_NONE :
-	  if (match_attributes_none_p (child, mrp->attributes, ev))
+	  if (match_attributes_none_p (child, mrp->attributes))
 	       return TRUE;
 	  break;
 
@@ -537,37 +447,38 @@ match_attributes_lookup (Accessibility_Accessible child, MatchRulePrivate *mrp, 
 }
 
 static gboolean
-traverse_p (Accessibility_Accessible child, 
-            const CORBA_boolean traverse,
-	    CORBA_Environment *ev){
-
+traverse_p (AtkObject *child, 
+            const gboolean traverse)
+{
   if (traverse)
     return TRUE;
-  else return !child_collection_p (child, ev);
+  else return !child_collection_p (child);
 }
 
 static int 
 sort_order_canonical (MatchRulePrivate *mrp, GList *ls, 		      
 		      gint kount, gint max,
-		      Accessibility_Accessible obj, glong index, gboolean flag,
-		      Accessibility_Accessible pobj, CORBA_boolean recurse, 
-		      CORBA_boolean traverse, CORBA_Environment *ev){
+		      AtkObject *obj, glong index, gboolean flag,
+		      AtkObject *pobj, gboolean recurse, 
+		      gboolean traverse)
+{
      gint i = index;
-     glong acount  = Accessibility_Accessible__get_childCount (obj, ev);
+     glong acount  = atk_object_get_n_accessible_children (obj);
      gboolean prev = pobj? TRUE : FALSE;
      
      for (; i < acount && (max == 0 || kount < max); i++){
-	  Accessibility_Accessible child = 
-                        Accessibility_Accessible_getChildAtIndex (obj, i, ev);
+	  AtkObject *child = 
+                        atk_object_ref_accessible_child(obj, i);
 
-	  if (prev && CORBA_Object_is_equivalent (child, pobj, ev)){
+	  g_object_unref(child);
+	  if (prev && child == pobj){
 	    return kount;           
 	  }
 	 
-	  if (flag  && match_interfaces_lookup (child, mrp, ev) 
-                    && match_states_lookup (child, mrp, ev)     
-                    && match_roles_lookup (child, mrp, ev)  
-		    && match_attributes_lookup (child, mrp, ev)
+	  if (flag  && match_interfaces_lookup (child, mrp)
+                    && match_states_lookup (child, mrp)
+                    && match_roles_lookup (child, mrp)
+		    && match_attributes_lookup (child, mrp)
 	      	    ){
 	   
 	    ls = g_list_append (ls, child);
@@ -577,10 +488,10 @@ sort_order_canonical (MatchRulePrivate *mrp, GList *ls,
 	  if (!flag)
 	       flag = TRUE;
 
-	  if (recurse && traverse_p (child, traverse, ev))
+	  if (recurse && traverse_p (child, traverse))
 	    kount = sort_order_canonical (mrp, ls,  kount, 
                                           max, child, 0, TRUE, 
-                                          pobj, recurse, traverse, ev);  
+                                          pobj, recurse, traverse);
      }
      return kount;
 } 
@@ -588,24 +499,24 @@ sort_order_canonical (MatchRulePrivate *mrp, GList *ls,
 static int 
 sort_order_rev_canonical (MatchRulePrivate *mrp, GList *ls, 		      
 		      gint kount, gint max,
-		      Accessibility_Accessible obj, gboolean flag, 
-		      Accessibility_Accessible pobj, CORBA_Environment *ev){
-    Accessibility_Accessible nextobj;
-    Accessibility_Accessible parent;
+		      AtkObject *obj, gboolean flag, 
+		      AtkObject *pobj)
+{
+    AtkObject *nextobj;
+    AtkObject *parent;
     glong indexinparent;
 
     /* This breaks us out of the recursion. */
-    if (obj == CORBA_OBJECT_NIL 
-            || CORBA_Object_is_equivalent (obj, pobj, ev))
+    if (!obj || obj == pobj)
     {
         return kount;           
     } 
 	 
     /* Add to the list if it matches */
-    if (flag && match_interfaces_lookup (obj, mrp, ev) 
-               && match_states_lookup (obj, mrp, ev)     
-               && match_roles_lookup (obj, mrp, ev)  
-               && match_attributes_lookup (obj, mrp, ev))
+    if (flag && match_interfaces_lookup (obj, mrp) 
+               && match_states_lookup (obj, mrp)
+               && match_roles_lookup (obj, mrp)
+               && match_attributes_lookup (obj, mrp))
     {
          ls = g_list_append (ls, obj);
          kount++;
@@ -614,34 +525,34 @@ sort_order_rev_canonical (MatchRulePrivate *mrp, GList *ls,
     if(!flag) flag = TRUE;
 
     /* Get the current nodes index in it's parent and the parent object. */
-    indexinparent = Accessibility_Accessible_getIndexInParent (obj, ev);
-    parent = Accessibility_Accessible__get_parent (obj, ev);
+    indexinparent = atk_object_get_index_in_parent (obj);
+    parent = atk_object_get_parent(obj);
 
     if(indexinparent > 0)
     {
          /* there are still some siblings to visit so get the previous sibling
             and get it's last descendant.
             First, get the previous sibling */
-         nextobj = Accessibility_Accessible_getChildAtIndex (parent, 
-                                                             indexinparent-1, 
-                                                             ev);
+         nextobj = atk_object_ref_accessible_child (parent, 
+                                                             indexinparent-1);
+	 g_object_unref(nextobj);
 
          /* Now, drill down the right side to the last descendant */
-         while(Accessibility_Accessible__get_childCount (nextobj, ev) > 0)
+         while(atk_object_get_n_accessible_children (nextobj) > 0)
          {
-              nextobj = Accessibility_Accessible_getChildAtIndex (nextobj, 
-                 Accessibility_Accessible__get_childCount (nextobj, ev)-1, ev);
-
+              nextobj = atk_object_ref_accessible_child(nextobj,
+                 atk_object_get_n_accessible_children (nextobj)-1);
+              g_object_unref (nextobj);
          } 
          /* recurse with the last descendant */
          kount = sort_order_rev_canonical (mrp, ls,  kount, max, 
-                                       nextobj, TRUE, pobj, ev);
+                                       nextobj, TRUE, pobj);
     } 
     else
     {
          /* no more siblings so next node must be the parent */
          kount = sort_order_rev_canonical (mrp, ls,  kount, max, 
-                                       parent, TRUE, pobj, ev);
+                                       parent, TRUE, pobj);
 
     }
     return kount;
@@ -650,20 +561,19 @@ sort_order_rev_canonical (MatchRulePrivate *mrp, GList *ls,
 static int
 query_exec (MatchRulePrivate *mrp,  Accessibility_Collection_SortOrder sortby, 
 	    GList *ls, gint kount, gint max, 
-	    Accessibility_Accessible obj, glong index, 
+	    AtkObject *obj, glong index, 
 	    gboolean flag, 
-	    Accessibility_Accessible pobj,
-	    CORBA_boolean recurse, CORBA_boolean traverse,
-            CORBA_Environment *ev){
-
+	    AtkObject *pobj,
+	    gboolean recurse, gboolean traverse)
+{
      switch (sortby) {
      case Accessibility_Collection_SORT_ORDER_CANONICAL :  
        kount = sort_order_canonical(mrp, ls, 0, max, obj, index, flag, 
-                                    pobj, recurse, traverse, ev); 
+                                    pobj, recurse, traverse); 
        break;
      case Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL :
        kount = sort_order_canonical(mrp, ls, 0, max, obj, index, flag, 
-                                    pobj, recurse, traverse, ev);    
+                                    pobj, recurse, traverse);    
        break;
      default: 
        kount = 0; 
@@ -672,66 +582,151 @@ query_exec (MatchRulePrivate *mrp,  Accessibility_Collection_SortOrder sortby,
      }
      
      return kount;
-
 }
 
+static dbus_bool_t
+read_mr(DBusMessageIter *iter, MatchRulePrivate *mrp)
+{
+  DBusMessageIter mrc, arrayc;
+  dbus_uint32_t *array;
+  dbus_int32_t matchType;
+  int array_count;
+  char *str;
+  AtkAttribute *attr;
+  int i;
+  char *interfaces = NULL;
 
-static Accessibility_AccessibleSet *
-_accessible_list_to_set (GList *ls, gint kount){
-    Accessibility_AccessibleSet *retval;
-    gint i;
-   
-     retval = Accessibility_AccessibleSet__alloc ();
-     retval->_maximum = kount; 
-     retval->_length = kount; 
-     retval->_buffer = Accessibility_AccessibleSet_allocbuf (kount);
-
-     for (i=0; i < kount; i++){
-       retval->_buffer [i] = ls->data;
-       ls = g_list_next (ls);
-     }
-     
-     CORBA_sequence_set_release (retval, TRUE);
-     
-     return retval;
+  // TODO: error checking
+  dbus_message_iter_recurse(iter, &mrc);
+  dbus_message_iter_recurse(&mrc, &arrayc);
+  dbus_message_iter_get_fixed_array(&arrayc, &array, &array_count);
+  bitarray_to_seq(array, array_count, &mrp->states);
+  for (i = 0; mrp->states[i] != BITARRAY_SEQ_TERM; i++)
+  {
+    mrp->states[i] = spi_atk_state_from_spi_state (mrp->states[i]);
+  }
+  dbus_message_iter_next(&mrc);
+  dbus_message_iter_read_basic(&mrc, &matchType);
+  dbus_message_iter_next(&mrc);
+  mrp->statematchtype = matchType;;
+  /* attributes */
+  dbus_message_iter_recurse(&mrc, &arrayc);
+  mrp->attributes = NULL;
+  while (dbus_message_iter_get_arg_type(&arrayc) != DBUS_TYPE_INVALID)
+  {
+    dbus_message_iter_get_basic(&arrayc, &str);
+    // TODO: remove this print
+    g_print("Got attribute: %s\n", str);
+    attr = g_new (AtkAttribute, 1);
+    if (attr)
+    {
+      int len = strcspn(str, ":");
+      attr->name = g_strndup(str, len);
+      if (str[len] == ':')
+      {
+	len++;
+	if (str[len] == ' ') len++;
+	attr->value = g_strdup(str + len);
+      }
+      else attr->value = NULL;
+      mrp->attributes = g_slist_prepend(mrp->attributes, attr);
+    }
+    dbus_message_iter_next(&arrayc);
+  }
+  dbus_message_iter_next(&mrc);
+  dbus_message_iter_read_basic(&mrc, &matchType);
+  mrp->attributematchtype = matchType;;
+  dbus_message_iter_next(&mrc);
+  /* Get roles and role match */
+  dbus_message_iter_recurse(&mrc, &arrayc);
+  dbus_message_iter_get_fixed_array(&arrayc, &array, &array_count);
+  bitarray_to_seq(array, array_count, &mrp->roles);
+  dbus_message_iter_next(&mrc);
+  dbus_message_iter_read_basic(&mrc, &matchType);
+  mrp->rolematchtype = matchType;;
+  dbus_message_iter_next(&mrc);
+  /* Get interfaces and interface match */
+  dbus_message_iter_read_basic(&mrc, &interfaces);
+  dbus_message_iter_next(&mrc);
+  mrp->ifaces = g_strsplit(interfaces, ";", 0);
+  dbus_message_iter_read_basic(&mrc, &matchType);
+  mrp->interfacematchtype = matchType;;
+  dbus_message_iter_next(&mrc);
+  /* get invert */
+  dbus_message_iter_read_basic(&mrc, &mrp->invert);
+  dbus_message_iter_next(iter);
+  return TRUE;
 }
 
-static Accessibility_AccessibleSet *
-getMatchesFrom (PortableServer_Servant servant,
-		     const Accessibility_Accessible current_object,
-		     const Accessibility_MatchRule rule,
+static DBusMessage *
+return_and_free_list(DBusMessage *message, GList *ls)
+{
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_array;
+  GList *item;
+
+  reply = dbus_message_new_method_return(message);
+  if (!reply) return NULL;
+  dbus_message_iter_init_append(reply, &iter);
+  if (!dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &iter_array)) goto oom;
+  for (item = ls; item; item = g_list_next(item))
+  {
+    char *path = spi_dbus_get_path((AtkObject *)item->data);
+      dbus_message_iter_append_basic(&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
+      g_free(path);
+  }
+  if (!dbus_message_iter_close_container(&iter, &iter_array)) goto oom;
+  g_list_free (ls);
+  return reply;
+oom:
+  // TODO: Handle out of memory
+  g_list_free (ls);
+  return reply;
+}
+
+static void free_mrp_data(MatchRulePrivate *mrp)
+{
+  g_free(mrp->states);
+  atk_attribute_set_free(mrp->attributes);
+  g_free(mrp->roles);
+  g_strfreev(mrp->ifaces);
+}
+
+static DBusMessage *
+getMatchesFrom (DBusMessage *message,
+		     AtkObject *current_object,
+		     MatchRulePrivate *mrp,
 		     const Accessibility_Collection_SortOrder sortby,
-		     const CORBA_boolean isrestrict,
-		     CORBA_long  count,
-		     const CORBA_boolean traverse,
-		     CORBA_Environment *ev){
-    
+		     const dbus_bool_t isrestrict,
+		     dbus_int32_t  count,
+		     const dbus_bool_t traverse)
+{
      GList *ls = NULL;
-     Accessibility_Accessible parent; 
-     MatchRulePrivate *mrp;
+     AtkObject *parent;
      glong index = 
-           Accessibility_Accessible_getIndexInParent (current_object, ev);
+           atk_object_get_index_in_parent (current_object);
      gint kount = 0;
 
      ls = g_list_append (ls, current_object);
-     mrp =  get_collection_from_servant (servant)->_mrp;;
           
-     if (!isrestrict){
-          parent = Accessibility_Accessible__get_parent (current_object, ev);
+     if (!isrestrict)
+     {
+          parent = atk_object_get_parent (current_object);
 	  kount = query_exec (mrp,  sortby, ls, 0, count, parent, index, 
-                              FALSE, CORBA_OBJECT_NIL, TRUE, traverse, ev);
+                              FALSE, NULL, TRUE, traverse);
      }
      else 
 	  kount = query_exec (mrp,  sortby, ls, 0, count, 
-                              current_object, 0, FALSE, CORBA_OBJECT_NIL, 
-                              TRUE, traverse, ev);
+                              current_object, 0, FALSE, NULL, 
+                              TRUE, traverse);
 
-     ls = g_list_next (ls); 
+     ls = g_list_remove (ls, ls->data);
 
      if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
        ls = g_list_reverse (ls);
  
-     return  _accessible_list_to_set (ls, kount);
+     free_mrp_data (mrp);
+     return return_and_free_list (message, ls);
 }
 
 /*
@@ -739,29 +734,28 @@ getMatchesFrom (PortableServer_Servant servant,
 */
 
 static int
-inorder (Accessibility_Accessible collection, MatchRulePrivate *mrp, 
+inorder (AtkObject *collection, MatchRulePrivate *mrp, 
 	GList *ls, gint kount, gint max,
-	Accessibility_Accessible obj, 
+	AtkObject *obj,
 	gboolean flag,
-	Accessibility_Accessible pobj,
-	CORBA_boolean traverse,
-	CORBA_Environment *ev){
-
+	AtkObject *pobj,
+	dbus_bool_t traverse)
+{
   int i = 0;
   
   /* First, look through the children recursively. */
   kount = sort_order_canonical (mrp, ls, kount, max, obj, 0, TRUE,
-				CORBA_OBJECT_NIL, TRUE, TRUE, ev); 
+				NULL, TRUE, TRUE); 
   
   /* Next, we look through the right subtree */
   while ((max == 0 || kount < max) 
-          && ! CORBA_Object_is_equivalent (obj, collection, ev))
+          && obj != collection)
   {
-    Accessibility_Accessible parent =  
-                                Accessibility_Accessible__get_parent (obj, ev);
-    i = Accessibility_Accessible_getIndexInParent (obj, ev);
+    AtkObject *parent =
+                                atk_object_get_parent (obj);
+    i = atk_object_get_index_in_parent (obj);
     kount  = sort_order_canonical (mrp, ls, kount, max, parent, 
-                                   i+1, TRUE, FALSE, TRUE, TRUE, ev);
+                                   i+1, TRUE, FALSE, TRUE, TRUE);
     obj = parent;
   }
 
@@ -769,7 +763,7 @@ inorder (Accessibility_Accessible collection, MatchRulePrivate *mrp,
   {
      kount = sort_order_canonical (mrp, ls, kount, max, 
                                    obj, i + 1, TRUE, FALSE, 
-                                   TRUE, TRUE, ev);
+                                   TRUE, TRUE);
   }
 
   return kount;
@@ -779,231 +773,254 @@ inorder (Accessibility_Accessible collection, MatchRulePrivate *mrp,
   GetMatchesInOrder: get matches from a given object in an inorder traversal.
 */
 
-static Accessibility_AccessibleSet *
-getMatchesInOrder (PortableServer_Servant servant,
-		   const Accessibility_Accessible current_object,
-		   const Accessibility_MatchRule rule,
+static DBusMessage *
+getMatchesInOrder (DBusMessage *message,
+		   AtkObject *current_object,
+		   MatchRulePrivate *mrp,
 		   const Accessibility_Collection_SortOrder sortby,
-		   const CORBA_boolean recurse,
-		   CORBA_long count,
-		   const CORBA_boolean traverse, 
-		   CORBA_Environment *ev){
+		   const dbus_bool_t recurse,
+		   dbus_int32_t count,
+		   const dbus_bool_t traverse)
+{
   GList *ls = NULL;
-  AtkObject *aobj;
-  Accessibility_Accessible obj;
-  MatchRulePrivate *mrp;
+  AtkObject *obj;
   gint kount = 0;
 
   ls = g_list_append (ls, current_object);
-  mrp = get_collection_from_servant (servant)->_mrp;
 
-  aobj = get_atkobject_from_servant (servant);
-  obj = spi_accessible_new_return (aobj, FALSE, ev);
+  obj = spi_dbus_get_object (dbus_message_get_path (message));
   
   kount = inorder (obj, mrp, ls, 0, count, 
-                   current_object, TRUE, CORBA_OBJECT_NIL, traverse, ev);
+                   current_object, TRUE, NULL, traverse);
 
-  ls = g_list_next (ls);
+  ls = g_list_remove (ls, ls->data);
 
   if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
-  return _accessible_list_to_set (ls, kount); 
+  free_mrp_data (mrp);
+  return return_and_free_list (message, ls);
 }
 
 /*
-  GetMatchesInOrder: get matches from a given object in an inorder traversal.
+  GetMatchesInBackOrder: get matches from a given object in a
+  reverse order traversal.
 */
 
-static Accessibility_AccessibleSet *
-getMatchesInBackOrder (PortableServer_Servant servant,
-		   const Accessibility_Accessible current_object,
-		   const Accessibility_MatchRule rule,
+static DBusMessage *
+getMatchesInBackOrder (DBusMessage *message,
+		   AtkObject *current_object,
+		   MatchRulePrivate *mrp,
 		   const Accessibility_Collection_SortOrder sortby,
-		   CORBA_long count,
-		   CORBA_Environment *ev){
+		   dbus_int32_t count)
+{
   GList *ls = NULL;
-  AtkObject *aobj;
-  Accessibility_Accessible collection;
-  MatchRulePrivate *mrp;
+  AtkObject *collection;
   gint kount = 0;
 
   ls = g_list_append (ls, current_object);
-  mrp = get_collection_from_servant (servant)->_mrp;
 
-  aobj = get_atkobject_from_servant (servant);
-  collection = spi_accessible_new_return (aobj, FALSE, ev);
+  collection = spi_dbus_get_object (dbus_message_get_path (message));
 
   kount = sort_order_rev_canonical (mrp, ls, 0, count, current_object, 
-                                   FALSE, collection, ev);
+                                   FALSE, collection);
 
-  ls = g_list_next (ls);
+  ls = g_list_remove (ls, ls->data);
 
   if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
-  return _accessible_list_to_set (ls, kount); 
+  free_mrp_data (mrp);
+  return return_and_free_list (message, ls);
 }
 
-
-static Accessibility_AccessibleSet *
-getMatchesTo (PortableServer_Servant servant,
-	      const Accessibility_Accessible current_object,
-	      const Accessibility_MatchRule rule,
+static DBusMessage *
+getMatchesTo (DBusMessage *message,
+	      AtkObject *current_object,
+	      MatchRulePrivate *mrp,
 	      const Accessibility_Collection_SortOrder sortby,
-	      const CORBA_boolean recurse, 
-	      const CORBA_boolean isrestrict,
-	      CORBA_long  count,
-	      const CORBA_boolean traverse,
-	      CORBA_Environment *ev){
-
+	      const dbus_bool_t recurse, 
+	      const dbus_bool_t isrestrict,
+	      dbus_int32_t  count,
+	      const dbus_bool_t traverse)
+{
   GList *ls = NULL;
-  AtkObject *aobj;
-  Accessibility_Accessible obj;
-  MatchRulePrivate *mrp;
+  AtkObject *obj;
   gint kount = 0;
 
   ls = g_list_append (ls, current_object); 
-  mrp =  get_collection_from_servant (servant)->_mrp;
     
   if (recurse){
-    obj = Accessibility_Accessible__get_parent (current_object, ev);
+    obj = atk_object_get_parent (current_object);
     kount =  query_exec (mrp,  sortby, ls, 0, count, 
-                         obj, 0, TRUE, current_object, TRUE, traverse, ev);
+                         obj, 0, TRUE, current_object, TRUE, traverse);
   }
   else{ 
-    aobj = get_atkobject_from_servant (servant);
-    obj = spi_accessible_new_return (aobj, FALSE, ev);
+    obj = spi_dbus_get_object (dbus_message_get_path (message));
     kount = query_exec (mrp,  sortby, ls, 0, count,
-                        obj, 0, TRUE, current_object, TRUE, traverse, ev); 
+                        obj, 0, TRUE, current_object, TRUE, traverse); 
 
   }
 
-  ls = g_list_next (ls); 
+  ls = g_list_remove (ls, ls->data);
    
   if (sortby != Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
     ls = g_list_reverse (ls);
 
-  return  _accessible_list_to_set (ls, kount);
-  
+  free_mrp_data (mrp);
+  return return_and_free_list (message, ls);
 }
 
-static Accessibility_AccessibleSet *
-impl_getMatchesFrom (PortableServer_Servant servant,
-		    const Accessibility_Accessible current_object,
-		    const Accessibility_MatchRule rule,
-		    const Accessibility_Collection_SortOrder sortby,
-		    const Accessibility_Collection_TreeTraversalType tree,
-		    CORBA_long  count,
-		    const CORBA_boolean traverse,
-		    CORBA_Environment *ev){
+static DBusMessage *
+impl_getMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  char *current_object_path = NULL;
+  AtkObject *current_object;
+  DBusMessageIter iter;
+  MatchRulePrivate rule;
+  dbus_uint16_t sortby;
+  dbus_uint16_t tree;
+  dbus_int32_t count;
+  dbus_bool_t traverse;
+  GList *ls = NULL;
+
+  dbus_message_iter_init(message, &iter);
+  dbus_message_iter_get_basic (&iter, current_object_path);
+  current_object = spi_dbus_get_object (current_object_path);
+  if (!current_object)
+  {
+    // TODO: object-not-found error
+    return spi_dbus_general_error (message);
+  }
+  dbus_message_iter_next (&iter);
+  if (!read_mr(&iter, &rule))
+  {
+    return spi_dbus_general_error (message);
+  }
+  dbus_message_iter_get_basic(&iter, &sortby);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &tree);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &count);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &traverse);
+  dbus_message_iter_next(&iter);
 
   switch (tree){
   case Accessibility_Collection_TREE_RESTRICT_CHILDREN : 
-    return getMatchesFrom (servant, current_object, 
-                           rule, sortby, TRUE, count, traverse, ev); 
+    return getMatchesFrom (message, current_object, 
+                           &rule, sortby, TRUE, count, traverse);
     break;
   case Accessibility_Collection_TREE_RESTRICT_SIBLING :
-    return getMatchesFrom (servant, current_object, 
-                           rule, sortby, FALSE, count, traverse, ev); 
+    return getMatchesFrom (message, current_object, 
+                           &rule, sortby, FALSE, count, traverse); 
     break;
   case Accessibility_Collection_TREE_INORDER :
-    return getMatchesInOrder (servant, current_object, 
-                              rule, sortby, TRUE, count, traverse, ev); 
+    return getMatchesInOrder (message, current_object, 
+                              &rule, sortby, TRUE, count, traverse); 
     break;
-  default : return CORBA_OBJECT_NIL;
+  default : return NULL;
   }
 }
 
-static Accessibility_AccessibleSet *
-impl_getMatchesTo (PortableServer_Servant servant,
-		   const Accessibility_Accessible current_object,
-		   const Accessibility_MatchRule rule,
-		   const Accessibility_Collection_SortOrder sortby,
-		   const Accessibility_Collection_TreeTraversalType tree,
-		   const CORBA_boolean recurse,
-		   CORBA_long  count,
-		   const CORBA_boolean traverse,
-		   CORBA_Environment *ev){
+static DBusMessage *
+impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  char *current_object_path = NULL;
+  AtkObject *current_object;
+  DBusMessageIter iter;
+  MatchRulePrivate rule;
+  dbus_uint16_t sortby;
+  dbus_uint16_t tree;
+  dbus_bool_t recurse;
+  dbus_int32_t count;
+  dbus_bool_t traverse;
+  GList *ls = NULL;
+
+  dbus_message_iter_init(message, &iter);
+  dbus_message_iter_get_basic (&iter, current_object_path);
+  current_object = spi_dbus_get_object (current_object_path);
+  if (!current_object)
+  {
+    // TODO: object-not-found error
+    return spi_dbus_general_error (message);
+  }
+  dbus_message_iter_next (&iter);
+  if (!read_mr(&iter, &rule))
+  {
+    return spi_dbus_general_error (message);
+  }
+  dbus_message_iter_get_basic(&iter, &sortby);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &tree);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &recurse);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &count);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &traverse);
+  dbus_message_iter_next(&iter);
 
   switch (tree){
   case Accessibility_Collection_TREE_RESTRICT_CHILDREN : 
-    return getMatchesTo (servant, current_object, 
-                         rule, sortby, recurse, TRUE, count, traverse, ev); 
+    return getMatchesTo (message, current_object, 
+                         &rule, sortby, recurse, TRUE, count, traverse); 
     break;
   case Accessibility_Collection_TREE_RESTRICT_SIBLING :
-    return getMatchesTo (servant, current_object, 
-                         rule, sortby, recurse, FALSE, count, traverse, ev); 
+    return getMatchesTo (message, current_object, 
+                         &rule, sortby, recurse, FALSE, count, traverse); 
     break;
   case Accessibility_Collection_TREE_INORDER :
-    return getMatchesInBackOrder (servant, current_object, 
-                                  rule, sortby, count, ev); 
+    return getMatchesInBackOrder (message, current_object, 
+                                  &rule, sortby, count); 
     break;
-  default : return CORBA_OBJECT_NIL;
+  default : return NULL;
   }
 }
 
-static Accessibility_AccessibleSet *
-impl_getMatches (PortableServer_Servant servant,
-		 const Accessibility_MatchRule rule,
-		 const Accessibility_Collection_SortOrder sortby,
-		 CORBA_long  count,
-                 const CORBA_boolean traverse,
-		 CORBA_Environment *ev){
-     GList *ls = NULL;
-     AtkObject *aobj = get_atkobject_from_servant (servant);
-     Accessibility_Accessible obj;
-     MatchRulePrivate *mrp;
-     gint kount = 0;
-    
-     obj = spi_accessible_new_return (aobj, FALSE, ev);
-     ls = g_list_prepend (ls, obj); 
-     mrp =  get_collection_from_servant (servant)->_mrp;
-     
-     kount = query_exec (mrp,  sortby, ls, 0, count, 
-                         obj, 0, TRUE, CORBA_OBJECT_NIL, TRUE, traverse, ev); 
+static DBusMessage *
+impl_getMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  AtkObject *obj = get_object(message);
+  DBusMessageIter iter;
+  MatchRulePrivate rule;
+  dbus_uint16_t sortby;
+  dbus_int32_t count;
+  dbus_bool_t traverse;
+  GList *ls = NULL;
 
-     ls = g_list_next (ls); 
-    
+  dbus_message_iter_init(message, &iter);
+  if (!read_mr(&iter, &rule))
+  {
+    return spi_dbus_general_error (message);
+  }
+  dbus_message_iter_get_basic(&iter, &sortby);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &count);
+  dbus_message_iter_next(&iter);
+  dbus_message_iter_get_basic(&iter, &traverse);
+  dbus_message_iter_next(&iter);
+     ls = g_list_prepend (ls, obj);
+  count = query_exec (&rule, sortby, ls, 0, count,
+                         obj, 0, TRUE, NULL, TRUE, traverse);
+     ls = g_list_remove (ls, ls->data);
+      
      if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
        ls = g_list_reverse (ls);
-
-     return  _accessible_list_to_set (ls, kount);
+     free_mrp_data (&rule);
+     return return_and_free_list (message, ls);
 }
 
-static void
-spi_collection_class_init (SpiCollectionClass *klass)
+static DRouteMethod methods[] = {
+  { impl_getMatchesFrom, "getMatchesFrom" },
+  { impl_getMatchesTo, "getMatchesTo" },
+  {impl_getMatches, "getMatches" },
+  {NULL, NULL}
+};
+
+void
+spi_initialize_collection (DRouteData * data)
 {
-
-    POA_Accessibility_Collection__epv *epv  = &klass->epv;
-
-    /*    
-      epv->isAncestorOf = impl_isAncestorOf; 
-    */
-
-    epv->createMatchRule = impl_createMatchRule;
-    epv->freeMatchRule   = impl_freeMatchRule;
-    epv->getMatches      = impl_getMatches;
-    epv->getMatchesTo    = impl_getMatchesTo;
-    epv->getMatchesFrom  = impl_getMatchesFrom;
-    
-
-    /*
-      epv->getActiveDescendant = impl_getActiveDescendant;
-    */
-
-}
-
-static void
-spi_collection_init (SpiCollection *collection)
-{
-
-  /* collection->_mrp = g_new (MatchRulePrivate, 1); */
-
-}
-
-BONOBO_TYPE_FUNC_FULL (SpiCollection,
-		       Accessibility_Collection,
-		       SPI_TYPE_BASE,
-		       spi_collection)
-
+  droute_add_interface (data, SPI_DBUS_INTERFACE_COLLECTION,
+			methods, NULL, NULL, NULL);
+};
