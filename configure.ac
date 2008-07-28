@@ -192,9 +192,11 @@ AC_CONFIG_FILES([Makefile
 		 tests/dummyatk/Makefile
 		 tests/cspi/Makefile
 		 tests/pyatspi/Makefile
+		 tests/pyatspi/pasytest/Makefile
 		 tests/apps/Makefile
 		 dbind/Makefile
 		 cspi/Makefile
+		 pyatspi/Makefile
 		 dbind-config.h])
 
 AC_OUTPUT

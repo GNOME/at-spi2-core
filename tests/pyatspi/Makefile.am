@@ -1,8 +1,11 @@
+SUBDIRS = pasytest
+
 EXTRA_DIST = \
-	__init__.py		\
-	accessibleobject.py	\
-	component.py		\
-	testrunner.py		\
-	testutil.py
+	accessibletest.py\
+	componenttest.py\
+	Makefile.am\
+	Makefile.in\
+	setvars.sh\
+	testrunner.py
 
 CLEANFILES = *.pyc

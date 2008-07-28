@@ -1,15 +1,11 @@
-import testutil
-
 import dbus
 import gobject
 import os.path
-import coretest 
-from dbus.mainloop.glib import DBusGMainLoop
-
-from accessible_cache import AccessibleCache
 
 from xml.dom import minidom
 import os
+
+from pasytest import PasyTestSuite
 
 def createNode(accessible, parentElement):
 	e = minidom.Element("accessible")
@@ -23,12 +19,15 @@ def createNode(accessible, parentElement):
 
 	parentElement.appendChild(e)
 
-class AccessibleTestCase(coretest.CoreTestCase):
-	def runTest(self):
-		self._app = testutil.runTestApp("libobjectapp.so", self._name)
-		self._loop.run()
+class TreeTestSuite(PasyTestSuite):
 
-	def post_application_test(self):
+	__tests__ = ["accessibleTree"]
+
+	def __init__(self, bus, name):
+		PasyTestSuite.__init__(self, "Tree")
+		self._cache = getAccessibleCache(bus, name)
+
+	def accessibleTree(test):
 		root = self._cache.getRootAccessible()
 
 		doc = minidom.Document()
@@ -40,7 +39,6 @@ class AccessibleTestCase(coretest.CoreTestCase):
 		file = open(correct)
 		cstring = file.read()
 		
-		#import difflib
-		#print ''.join(difflib.unified_diff(answer.splitlines(), cstring.splitlines()))
-		
-		self.assertEqual(answer, cstring, "Object tree not passed correctly")
+		test.assertEqual(answer, cstring, "Object tree not passed correctly")
+
+		test.win()
