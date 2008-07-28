@@ -26,7 +26,6 @@ nodist_libspicommon_la_SOURCES = generated-types.h
 
 libspicommon_la_SOURCES =	\
 	bitarray.h \
-	bitarray.c \
 	event-types.h		\
 	spi-types.h		\
 	spi-dbus.h		\
