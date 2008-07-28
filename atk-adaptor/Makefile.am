@@ -16,7 +16,6 @@ libspiatk_la_LIBADD = $(DBUS_GLIB_LIBS)			\
 libspiatk_la_SOURCES =		\
 	accessible.h		\
 	accessible.c		\
-	bitarray.h		\
 	action.c                \
 	application.c		\
 	bridge.c		\

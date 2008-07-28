@@ -23,7 +23,7 @@
 /* collection.c: implements the Collection interface */
 
 #include "accessible.h"
-#include "bitarray.h"
+#include "spi-common/bitarray.h"
 #include <string.h>
 
 #define get_object(message) spi_dbus_get_object(dbus_message_get_path(message))
