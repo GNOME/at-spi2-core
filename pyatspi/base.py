@@ -12,27 +12,33 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-from weakref import ref
+from weakref import proxy
 
 from dbus.proxies import Interface, ProxyObject
 from dbus.exceptions import *
-
-from factory import interfaceFactory
 
 class AccessibleObjectNoLongerExists(Exception):
 	pass
 
 #------------------------------------------------------------------------------
 
-class Enum(object):
+class Enum(int):
 	def __str__(self):
 		return self._enum_lookup(int(self))
 
 #------------------------------------------------------------------------------
 
-class BaseProxyMeta(type):
-	def __init__(cls):
-		type.__init__(cls)
+class BaseProxy(Interface):
+	"""
+	The base D-Bus proxy for a remote object that implements one or more
+	of the AT-SPI interfaces.
+
+	This class must be further specialised as the cache stores are different
+	for Desktop objects and other Accessible objects.
+	"""
+	
+	def __new__(cls, *args, **kwargs):
+		Interface.__new__(cls, *args, **kwargs)
 
 		queryable_interfaces = { 
 			'Accessible':ATSPI_ACCESSIBLE,
@@ -59,32 +65,19 @@ class BaseProxyMeta(type):
 				return self.queryInterface(object, queryable_interfaces[interface])
 			setattr(cls, name, new_query) 
 
-#------------------------------------------------------------------------------
-
-class BaseProxy(Interface):
-	"""
-	A D-Bus proxy for a remote object that implements one or more of the AT-SPI
-	Accessibility interfaces.
-	"""
-	
-	__metaclass__ = BaseProxyMeta
-
-	def __init__(self, busobject, cache, app, path, interface):
+	def __init__(self, obj, cache, path, interface):
 		"""
 		Create a D-Bus Proxy for an ATSPI interface.
 
-		busobject - The D-Bus proxy object this interface uses for D-Bus calls.
-		cache - The accessible cache that this object is owned by.
+		obj - The D-Bus proxy object this interface uses for D-Bus calls.
+		cache - Cache storing data for this object.
 		path - The object path of the remote object.
-		app - The bus name of the application this object belongs to.
 		interface - The name of the ATSPI interface that this proxy implements.
 		"""
-		Interface.__init__(self, busobject, interface)
+		Interface.__init__(self, obj, interface)
 
-		self._cache = cache
-
+		self._cobj = ref(cache)
 		self._path = path
-		self._app = app
 
 		self._pgetter = self.get_dbus_method("Get", dbus_interface="org.freedesktop.DBus.Properties")
 		self._psetter = self.get_dbus_method("Set", dbus_interface="org.freedesktop.DBus.Properties")
@@ -104,6 +97,12 @@ class BaseProxy(Interface):
 			raise LookupError(e)
 
 	@property
+	def _cache(self):
+		c = self._cobj()
+		if not c:
+			raise AccessibleObjectNoLongerExits("Application has been removed")
+
+	@property
 	def _data(self):
 		try:
 			data = self._cache._objects[self._path]
@@ -117,7 +116,7 @@ class BaseProxy(Interface):
 
 	def queryInterface(self, interface):
 		if interface in self._data.interfaces:
-			return interfaceFactory(self._obj, self._cache, self._app, self._path, interface)
+				return self._cache.proxyFactory(self._path, interface, dbus_obj=self._obj)
 		else:
 			raise NotImplementedError(
 				"%s not supported by accessible object at path %s"

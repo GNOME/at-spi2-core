@@ -39,6 +39,12 @@ MOUSE_B3D = 'b3d'
 MOUSE_ABS = 'abs'
 MOUSE_REL = 'rel'
 
+# events that clear cached properties
+CACHE_EVENTS = ['object:property-change:accessible-name',
+                'object:property-change:accessible-description',
+                'object:property-change:accessible-role',
+                'object:property-change:accessible-parent']
+
 # Dictionary used to correct the bug of not being able to register for all the
 # subevents given only an AT-SPI event class (i.e. first part of the event
 # name) keys are event names having subevents and values are the subevents
@@ -132,3 +138,21 @@ EVENT_TREE = {
   'focus' :
     ['focus:']
 }
+
+import other
+
+# Build a dictionary mapping state values to names based on the prefix of the
+# enum constants.
+STATE_VALUE_TO_NAME = dict(((value, name[6:].lower().replace('_', ' ')) 
+                            for name, value 
+                            in vars(other).items()
+                            if name.startswith('STATE_')))
+
+# Build a dictionary mapping relation values to names based on the prefix of 
+# the enum constants.
+RELATION_VALUE_TO_NAME = dict(((value, name[9:].lower().replace('_', ' ')) 
+                               for name, value 
+                               in vars(other).items()
+                               if name.startswith('RELATION_')))
+
+del other
