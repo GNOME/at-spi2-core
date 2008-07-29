@@ -134,6 +134,7 @@ spi_dbus_initialize (DRouteData * data)
 {
   spi_initialize_accessible (data);
   spi_initialize_action(data);
+  spi_initialize_collection (data);
   spi_initialize_component (data);
   spi_initialize_document (data);
   spi_initialize_editabletext (data);

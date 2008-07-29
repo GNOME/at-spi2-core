@@ -11,6 +11,7 @@ libspicommon_la_LIBADD = $(DBUS_GLIB_LIBS)
 spicommonincludedir = $(includedir)/at-spi-1.0/libspi
 
 spicommoninclude_HEADERS =		\
+	bitarray.h \
 	event-types.h \
 	generated-types.h \
 	keymasks.h \
@@ -24,6 +25,7 @@ CLEANFILES = generated-types.h
 nodist_libspicommon_la_SOURCES = generated-types.h
 
 libspicommon_la_SOURCES =	\
+	bitarray.h \
 	event-types.h		\
 	spi-types.h		\
 	spi-dbus.h		\

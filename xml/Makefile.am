@@ -3,6 +3,7 @@ XML_SPEC= \
 	org.freedesktop.atspi.Accessible.xml \
 	org.freedesktop.atspi.Action.xml \
 	org.freedesktop.atspi.Application.xml \
+	org.freedesktop.atspi.Collection.xml \
 	org.freedesktop.atspi.Component.xml \
 	org.freedesktop.atspi.Desktop.xml \
 	org.freedesktop.atspi.Document.xml \
