@@ -169,7 +169,7 @@ atk.def: atk.symbols
 	(echo -e EXPORTS; $(CPP) -P -DINCLUDE_VARIABLES -DG_OS_WIN32 -DALL_FILES - <$(srcdir)/atk.symbols | sed -e '/^$$/d' -e 's/^/	/' -e 's/G_GNUC_[^ ]*//g') > atk.def
 
 atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
-	lib -name:libatk-$(ATK_API_VERSION)-$(LT_CURRENT_MINUS_AGE).dll -def:atk.def -out:$@
+	lib -machine:$(LIB_EXE_MACHINE_FLAG) -name:libatk-$(ATK_API_VERSION)-$(LT_CURRENT_MINUS_AGE).dll -def:atk.def -out:$@
 
 
 EXTRA_DIST = atk.symbols atk.rc.in atkmarshal.list atkintl.h

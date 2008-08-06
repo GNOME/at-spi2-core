@@ -1,3 +1,10 @@
+2008-08-06  Tor Lillqvist  <tml@novell.com>
+
+	* configure.in: On Windows set LIB_EXE_MACHINE_FLAG to X86 or X64
+	depending on host architecture.
+
+	* atk/Makefile.am: Use it if/when running lib.exe.
+
 2008-07-28  Tor Lillqvist  <tml@novell.com>
 
 	* atk/Makefile.am (libatk_1_0_la_DEPENDENCIES): Depend on atk.def
