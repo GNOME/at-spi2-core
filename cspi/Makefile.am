@@ -19,11 +19,13 @@ libcspi_la_SOURCES =		\
 	cspi-lowlevel.h		\
 	spi-accessible.c \
 	spi-action.c \
+	spi-application.c \
 	spi-component.c \
 	spi-editabletext.c \
 	spi-event.c \
 	spi-hyperlink.c \
 	spi-hypertext.c \
+	spi-image.c \
 	spi-listener.c \
 	spi-main.c		\
 	spi-registry.c \
