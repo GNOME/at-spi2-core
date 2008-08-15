@@ -12,10 +12,10 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-from base import *
-from accessible import *
+from base import _BaseProxy, _Enum
+from base import Accessible as _Accessible
 
-class Action(BaseProxy):
+class Action(_BaseProxy):
     
     
     """
@@ -108,7 +108,7 @@ class Action(BaseProxy):
     nActions = property(fget=get_nActions, fset=set_nActions, doc=_nActionsDoc)
 
 
-class Application(Accessible):
+class Application(_Accessible):
     
     
     """
@@ -250,7 +250,7 @@ class BoundingBox(list):
     height = property(fget=_get_height, fset=_set_height)
 
 
-class Collection(BaseProxy):
+class Collection(_BaseProxy):
     
     def createMatchRule(self, *args, **kwargs):
         func = self.get_dbus_method("createMatchRule")
@@ -296,7 +296,7 @@ class Collection(BaseProxy):
         func = self.get_dbus_method("unImplemented4")
         return func(*args, **kwargs)
 
-    class MatchType(Enum):
+    class MatchType(_Enum):
         _enum_lookup = {
             0:'MATCH_INVALID',
             1:'MATCH_ALL',
@@ -318,7 +318,7 @@ class Collection(BaseProxy):
     
     MATCH_NONE = MatchType(3)
 
-    class SortOrder(Enum):
+    class SortOrder(_Enum):
         _enum_lookup = {
             0:'SORT_ORDER_INVALID',
             1:'SORT_ORDER_CANONICAL',
@@ -346,7 +346,7 @@ class Collection(BaseProxy):
     
     SORT_ORDER_TAB = SortOrder(3)
 
-    class TreeTraversalType(Enum):
+    class TreeTraversalType(_Enum):
         _enum_lookup = {
             0:'TREE_RESTRICT_CHILDREN',
             1:'TREE_RESTRICT_SIBLING',
@@ -379,7 +379,7 @@ class Command(list):
         self[1] = val
     id = property(fget=_get_id, fset=_set_id)
 
-class CommandListener(BaseProxy):
+class CommandListener(_BaseProxy):
     """
     An interface which should be implemented by assistive technologies
     or other clients of the Selector interface, over which notifications
@@ -400,7 +400,7 @@ class CommandListener(BaseProxy):
         return func(*args, **kwargs)
 
 
-class Component(BaseProxy):
+class Component(_BaseProxy):
     
     
     """
@@ -537,7 +537,7 @@ class Component(BaseProxy):
         return func(*args, **kwargs)
 
 
-class ComponentLayer(Enum):
+class ComponentLayer(_Enum):
     _enum_lookup = {
         0:'LAYER_INVALID',
         1:'LAYER_BACKGROUND',
@@ -551,7 +551,7 @@ class ComponentLayer(Enum):
     }
 
 
-class ContentStream(BaseProxy):
+class ContentStream(_BaseProxy):
     """
     An interface by which the requested data from a StreamableContent
     object may be read by the client.
@@ -610,7 +610,7 @@ class ContentStream(BaseProxy):
     class NotSupported(Exception):
         pass
 
-    class SeekType(Enum):
+    class SeekType(_Enum):
         """
         Specifies the meaning of a seek 'offset'. Not all SeekTypes are
         supported by all StreamableContent data sources, for instance
@@ -671,7 +671,7 @@ class DeviceEvent(list):
         self[6] = val
     is_text = property(fget=_get_is_text, fset=_set_is_text)
 
-class DeviceEventController(BaseProxy):
+class DeviceEventController(_BaseProxy):
     """
     The interface via which clients request notification of device
     events, and through which device events may be simulated.
@@ -817,7 +817,7 @@ class DeviceEventController(BaseProxy):
         return func(*args, **kwargs)
 
 
-class DeviceEventListener(BaseProxy):
+class DeviceEventListener(_BaseProxy):
     """
     This interface should be implemented by AT-SPI clients who wish
     to make use of the DeviceEventController to receive device event
@@ -861,7 +861,7 @@ class DeviceEventListener(BaseProxy):
         return func(*args, **kwargs)
 
 
-class Document(BaseProxy):
+class Document(_BaseProxy):
     """
     Primarily a 'tagging' interface which indicates the start of
     document content in the Accessibility hierarchy. Accessible objects
@@ -923,7 +923,7 @@ class Document(BaseProxy):
         func = self.get_dbus_method("unImplemented_")
         return func(*args, **kwargs)
 
-class Text(BaseProxy):
+class Text(_BaseProxy):
     """
     The text interface should be implemented by objects which place
     textual information onscreen as character strings or glyphs.
@@ -1617,7 +1617,7 @@ class EventDetails(list):
         self[3] = val
     any_data = property(fget=_get_any_data, fset=_set_any_data)
 
-class EventListener(BaseProxy):
+class EventListener(_BaseProxy):
     """
     A generic interface implemented by objects for the receipt of
     event notifications. EventListener is the interface from which
@@ -1676,7 +1676,7 @@ class EventListenerMode(list):
     global_ = property(fget=_get_global_, fset=_set_global_)
 
 
-class EventType(Enum):
+class EventType(_Enum):
     _enum_lookup = {
         0:'KEY_PRESSED_EVENT',
         1:'KEY_RELEASED_EVENT',
@@ -1684,7 +1684,7 @@ class EventType(Enum):
         3:'BUTTON_RELEASED_EVENT',
     }
 
-class Hyperlink(BaseProxy):
+class Hyperlink(_BaseProxy):
     """
     Instances of Hyperlink are returned by Hypertext objects, and
     are the means by which end users and clients interact with linked,
@@ -1785,7 +1785,7 @@ class Hyperlink(BaseProxy):
     startIndex = property(fget=get_startIndex, fset=set_startIndex, doc=_startIndexDoc)
 
 
-class Hypertext(BaseProxy):
+class Hypertext(_BaseProxy):
     """
     An interface used for objects which implement linking between
     multiple resource or content locations, or multiple 'markers'
@@ -1844,7 +1844,7 @@ class Hypertext(BaseProxy):
         return func(*args, **kwargs)
 
 
-class Image(BaseProxy):
+class Image(_BaseProxy):
     """
     An interface implemented by objects which render image data or
     pictorial information to the screen. When onscreen components
@@ -1966,13 +1966,13 @@ class KeyDefinition(list):
         self[3] = val
     unused = property(fget=_get_unused, fset=_set_unused)
 
-class KeyEventType(Enum):
+class KeyEventType(_Enum):
     _enum_lookup = {
         0:'KEY_PRESSED',
         1:'KEY_RELEASED',
     }
 
-class KeySynthType(Enum):
+class KeySynthType(_Enum):
     _enum_lookup = {
         0:'KEY_PRESS',
         1:'KEY_RELEASE',
@@ -1981,7 +1981,7 @@ class KeySynthType(Enum):
         4:'KEY_STRING',
     }
 
-class LOCALE_TYPE(Enum):
+class LOCALE_TYPE(_Enum):
     _enum_lookup = {
         0:'LOCALE_TYPE_MESSAGES',
         1:'LOCALE_TYPE_COLLATE',
@@ -1991,7 +1991,7 @@ class LOCALE_TYPE(Enum):
         5:'LOCALE_TYPE_TIME',
     }
 
-class LoginHelper(BaseProxy):
+class LoginHelper(_BaseProxy):
     """
     An interface for use by assistive technologies by which they
     can access system information and services on a 'need to know'
@@ -2086,7 +2086,7 @@ class LoginHelper(BaseProxy):
         func = self.get_dbus_method("unImplemented4")
         return func(*args, **kwargs)
 
-    class DeviceReq(Enum):
+    class DeviceReq(_Enum):
         _enum_lookup = {
             0:'GUI_EVENTS',
             1:'CORE_KEYBOARD',
@@ -2135,7 +2135,7 @@ class LoginHelper(BaseProxy):
             self[0] = val
         winID = property(fget=_get_winID, fset=_set_winID)
 
-class ModifierType(Enum):
+class ModifierType(_Enum):
     _enum_lookup = {
         0:'MODIFIER_SHIFT',
         1:'MODIFIER_SHIFTLOCK',
@@ -2297,7 +2297,7 @@ class Registry(EventListener):
         return func(*args, **kwargs)
 
 
-class Relation(BaseProxy):
+class Relation(_BaseProxy):
     """
     An interface via which objects' non-hierarchical relationships
     to one another are indicated. An instance of Relations represents
@@ -2351,7 +2351,7 @@ class Relation(BaseProxy):
         return func(*args, **kwargs)
 
 
-class RelationType(Enum):
+class RelationType(_Enum):
     _enum_lookup = {
         0:'RELATION_NULL',
         1:'RELATION_LABEL_FOR',
@@ -2374,7 +2374,7 @@ class RelationType(Enum):
         18:'RELATION_LAST_DEFINED',
     }
 
-class Role(Enum):
+class Role(_Enum):
     _enum_lookup = {
         0:'ROLE_INVALID',
         1:'ROLE_ACCELERATOR_LABEL',
@@ -2469,7 +2469,7 @@ class Role(Enum):
         90:'ROLE_LAST_DEFINED',
     }
 
-class Selection(BaseProxy):
+class Selection(_BaseProxy):
     """
     An interface which indicates that an object exposes a 'selection'
     model, allowing the selection of one or more of its children.
@@ -2593,7 +2593,7 @@ class Selection(BaseProxy):
     nSelectedChildren = property(fget=get_nSelectedChildren, fset=set_nSelectedChildren, doc=_nSelectedChildrenDoc)
 
 
-class Selector(BaseProxy):
+class Selector(_BaseProxy):
     """
     This interface is intended for use by assistive technologies
     and related user-agents. Via this interface, an assistive technology
@@ -2689,7 +2689,7 @@ class Selector(BaseProxy):
         """
     supportsReplace = property(fget=get_supportsReplace, fset=set_supportsReplace, doc=_supportsReplaceDoc)
 
-    class CommandResult(Enum):
+    class CommandResult(_Enum):
         """
         A code returned by a call to activateCommand, indicating the
         result of the activation request.
@@ -2712,7 +2712,7 @@ class Selector(BaseProxy):
     
     COMMAND_RESULT_SUCCESS = CommandResult(1)
 
-class StateSet(BaseProxy):
+class StateSet(_BaseProxy):
     """
     The StateSet interface encapsulates a collection of state information.
     It allows comparison of state information between object instances,
@@ -2792,7 +2792,7 @@ class StateSet(BaseProxy):
         return func(*args, **kwargs)
 
 
-class StateType(Enum):
+class StateType(_Enum):
     _enum_lookup = {
         0:'STATE_INVALID',
         1:'STATE_ACTIVE',
@@ -2838,7 +2838,7 @@ class StateType(Enum):
         41:'STATE_LAST_DEFINED',
     }
 
-class StreamableContent(BaseProxy):
+class StreamableContent(_BaseProxy):
     """
     An interface whereby an object allows its backing content to
     be streamed to clients. Negotiation of content type is allowed.
@@ -2907,7 +2907,7 @@ class StreamableContent(BaseProxy):
         return func(*args, **kwargs)
 
 
-class TEXT_BOUNDARY_TYPE(Enum):
+class TEXT_BOUNDARY_TYPE(_Enum):
     _enum_lookup = {
         0:'TEXT_BOUNDARY_CHAR',
         1:'TEXT_BOUNDARY_WORD_START',
@@ -2918,7 +2918,7 @@ class TEXT_BOUNDARY_TYPE(Enum):
         6:'TEXT_BOUNDARY_LINE_END',
     }
 
-class TEXT_CLIP_TYPE(Enum):
+class TEXT_CLIP_TYPE(_Enum):
     _enum_lookup = {
         0:'TEXT_CLIP_NONE',
         1:'TEXT_CLIP_MIN',
@@ -2926,7 +2926,7 @@ class TEXT_CLIP_TYPE(Enum):
         3:'TEXT_CLIP_BOTH',
     }
 
-class Table(BaseProxy):
+class Table(_BaseProxy):
     """
     An interface used by containers whose contained data is arranged
     in a "tabular" (i.e. row-column) fashion. Tables may resemble
@@ -3307,7 +3307,7 @@ class Table(BaseProxy):
 
 
 
-class Value(BaseProxy):
+class Value(_BaseProxy):
     """
     An interface supporting controls which allow a one-dimensional,
     scalar quantity to be modified or which reflect a scalar quantity.
@@ -3766,5 +3766,3 @@ TEXT_CLIP_MAX = TEXT_CLIP_TYPE(2)
 TEXT_CLIP_MIN = TEXT_CLIP_TYPE(1)
 
 TEXT_CLIP_NONE = TEXT_CLIP_TYPE(0)
-
-

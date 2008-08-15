@@ -30,7 +30,29 @@ def clearCache():
 def printCache():
 	print "Print cache function is deprecated";
 
+import other
+
+# Build a dictionary mapping state values to names based on the prefix of the
+# enum constants.
+STATE_VALUE_TO_NAME = dict(((value, name[6:].lower().replace('_', ' ')) 
+                            for name, value 
+                            in vars(other).items()
+                            if name.startswith('STATE_')))
+
+# Build a dictionary mapping relation values to names based on the prefix of 
+# the enum constants.
+RELATION_VALUE_TO_NAME = dict(((value, name[9:].lower().replace('_', ' ')) 
+                               for name, value 
+                               in vars(other).items()
+                               if name.startswith('RELATION_')))
+
+del other
+
 from constants import *
+
+from base import *
 from other import *
-from accessible import *
+
+from test import *
+
 #from utils import *

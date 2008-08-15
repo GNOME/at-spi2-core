@@ -139,20 +139,21 @@ EVENT_TREE = {
     ['focus:']
 }
 
-import other
-
-# Build a dictionary mapping state values to names based on the prefix of the
-# enum constants.
-STATE_VALUE_TO_NAME = dict(((value, name[6:].lower().replace('_', ' ')) 
-                            for name, value 
-                            in vars(other).items()
-                            if name.startswith('STATE_')))
-
-# Build a dictionary mapping relation values to names based on the prefix of 
-# the enum constants.
-RELATION_VALUE_TO_NAME = dict(((value, name[9:].lower().replace('_', ' ')) 
-                               for name, value 
-                               in vars(other).items()
-                               if name.startswith('RELATION_')))
-
-del other
+ATSPI_ACCESSIBLE = 'org.freedesktop.atspi.Accessible'
+ATSPI_ACTION = 'org.freedesktop.atspi.Action'
+ATSPI_APPLICATION = 'org.freedesktop.atspi.Application'
+ATSPI_COMPONENT = 'org.freedesktop.atspi.Component'
+ATSPI_COLLECTION = 'org.freedesktop.atspi.Collection'
+ATSPI_DESKTOP = 'org.freedesktop.atspi.Desktop'
+ATSPI_DOCUMENT = 'org.freedesktop.atspi.Document'
+ATSPI_EDITABLE_TEXT = 'org.freedesktop.atspi.EditableText'
+ATSPI_HYPERLINK = 'org.freedesktop.atspi.Hyperlink'
+ATSPI_HYPERTEXT = 'org.freedesktop.atspi.Hypertext'
+ATSPI_IMAGE = 'org.freedesktop.atspi.Image'
+ATSPI_LOGIN_HELPER = 'org.freedesktop.atspi.LoginHelper'
+ATSPI_SELECTION = 'org.freedesktop.atspi.Selection'
+ATSPI_SELECTOR = 'org.freedesktop.atspi.Selector'
+ATSPI_STREAMABLE_CONTENT = 'org.freedesktop.atspi.Content'
+ATSPI_TABLE = 'org.freedesktop.atspi.Table'
+ATSPI_TEXT = 'org.freedesktop.atspi.Text'
+ATSPI_VALUE = 'org.freedesktop.atspi.Value'

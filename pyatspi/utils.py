@@ -301,3 +301,5 @@ def getPath(acc):
 		except Exception:
 			raise LookupError
 		acc = acc.parent
+
+del constants

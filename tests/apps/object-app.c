@@ -27,13 +27,13 @@ test_init (gchar *path)
 G_MODULE_EXPORT void
 test_next (int argc, char *argv[])
 {
-  g_print("Moving to next stage\n");
+  ;
 }
 
 G_MODULE_EXPORT void
 test_finished (int argc, char *argv[])
 {
-  g_print("Test has completed\n");
+  ;
 }
 
 G_MODULE_EXPORT AtkObject *

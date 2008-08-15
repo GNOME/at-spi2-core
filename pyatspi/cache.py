@@ -12,8 +12,7 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-from base import AccessibleObjectNoLongerExists
-from factory import interfaceFactory
+import dbus as _dbus
 
 #------------------------------------------------------------------------------
 
@@ -42,13 +41,7 @@ class _CacheData(object):
 
 #------------------------------------------------------------------------------
 
-class BaseCache(object):
-	"""
-	Base object for the Desktop, Accessible and Application caches.
-
-	Abstracts common initialization.
-	"""
-
+class _BaseCache(object):
 
 	def __init__(self, connection, bus_name):
 		"""
@@ -60,22 +53,28 @@ class BaseCache(object):
 		self._connection = connection
 		self._bus_name = bus_name
 
-		obj = connection.get_object(bus_name, self._PATH)
-		itf = dbus.Interface(obj, self._INTERFACE)
+		obj = connection.get_object(bus_name, self._PATH, introspect=False)
+		itf = _dbus.Interface(obj, self._INTERFACE)
 
 		self._objects = {}
 
-		getMethod = itf.get_dbus_method(self._GET_METHOD)
-		self._updateObjects(getMethod)
+		get_method = itf.get_dbus_method(self._GET_METHOD)
+		self._update_objects(get_method())
 
-		self._signalMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._updateHandler)
+		self._signalMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_handler)
 
-	def _updateHandler(self, updates):
+	def __getitem__(self, key):
+		return self._objects[key]
+
+	def __contains__(self, key):
+		return key in self._objects
+
+	def _update_handler(self, updates):
 		update, remove = updates
-		self._removeObjects(update)
-		self._updateObjects(remove)
+		self._remove_objects(update)
+		self._update_objects(remove)
 
-	def _updateObjects(self, objects):
+	def _update_objects(self, objects):
 		for data in objects:
 			#First element is the object path.
 			path = data[0]
@@ -85,30 +84,14 @@ class BaseCache(object):
 			else:
 				self._objects[path] = _CacheData(data)
 
-	def _removeObjects(self, paths):
+	def _remove_objects(self, paths):
 		for path in paths:
 			del(self._objects[path])
 
 
-	def getAccessible(self, path, interface, dbus_object=None):
-		"""
-		Gets a client side proxy for the accessible object found
-		at the path.
-
-		path - The D-Bus path of the remote object.
-		interface - The interface that the accessible object should support.
-		dbus_object=None - The D-Bus proxy object backing this interface.
-		"""
-		if path in self._objects:
-			if not dbus_object:
-                		dbus_object = self._connection.get_object(self._bus_name, path, introspect=False)
-			return interfaceFactory(proxy, self, path, interface)
-		else:
-			raise AccessibleObjectNoLongerExists, "D-Bus reference not found in cache"
-
 #------------------------------------------------------------------------------
 
-class AccessibleCache(BaseCache):
+class AccessibleCache(_BaseCache):
 	"""
 	There is one accessible cache per application.
 	For each application the accessible cache stores
@@ -116,6 +99,9 @@ class AccessibleCache(BaseCache):
 
 	It also acts as the factory for creating client
 	side proxies for these accessible objects.
+		
+	connection - DBus connection.
+	busName    - Name of DBus connection where cache interface resides.
 	"""
 
 	_PATH = '/org/freedesktop/atspi/tree'
@@ -124,73 +110,16 @@ class AccessibleCache(BaseCache):
 	_UPDATE_SIGNAL = 'updateTree'
 
 	def __init__(self, connection, bus_name):
-		BaseCache.__init__(self, connection, bus_name)
+		_BaseCache.__init__(self, connection, bus_name)
 
-		obj = connection.get_object(_self.bus_name, self._PATH)
-		itf = dbus.Interface(obj, self._INTERFACE)
+		obj = connection.get_object(self._bus_name, self._PATH, introspect=False)
+		itf = _dbus.Interface(obj, self._INTERFACE)
 
 		self._root = itf.getRoot()
 
-	def getRootAccessible(self):
-		"""
-		Gets the accessible object at the root of the tree.
-		"""
-		return self.getAccessible(self._root)
+	def _get_root(self):
+		return self._root
 
-#------------------------------------------------------------------------------
-
-class DesktopCache(BaseCache):
-	"""
-	Cache of desktop objects obtained from the registry.
-
-	The desktop interface on the registry object is the
-	same as that of the general tree interface on the
-	applications.
-
-	The difference is that the children data refers to
-	bus names of the applications rather than the object
-	paths of particular accessible objects within an application.
-	"""
-
-	_PATH = '/org/freedesktop/atspi/registry'
-	_INTERFACE = 'org.freedesktop.atspi.Registry'
-	_GET_METHOD = 'getDesktops'
-	_UPDATE_SIGNAL = 'updateDesktops'
-	
-	def __init__(self, connection, bus_name):
-		self._app_cache = ApplicationCache(connection, bus_name)
-
-	def getApplication(self, name):
-		try:
-			self._app_cache[name].getRootAccessible()
-		except KeyError:
-			raise AccessibleObjectNoLongerExists("Application no longer exists")
-
-#------------------------------------------------------------------------------
-
-class ApplicationCache(object):
-	"""
-	Holds a mapping of bus names of each accessible application
-	to the applications accessible cache.
-
-	Makes calls and recieves updates from the registry
-	daemon to keep the cache up to date.
-	"""
-
-	_PATH = '/org/freedesktop/atspi/registry'
-	_INTERFACE = 'org.freedesktop.atspi.Registry'
-	_GET_METHOD = 'getApplications'
-	_UPDATE_SIGNAL = 'updateApplications'
-
-	def _updateApplications(self, names):
-		for name in names:
-			if name not in self._applications:
-				self._applications[name] = AccessibleCache(self._connection,
-									self._busName,
-									self._treePath)
-
-	def _removeApplications(self, names):
-		for name in names:
-			del(self._applications[name])
+	root = property(fget=_get_root)
 
 #END---------------------------------------------------------------------------

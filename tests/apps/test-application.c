@@ -131,6 +131,7 @@ static const char* introspection_string =
 "<node name=\"/org/codethink/atspi/test\">"
 "	<interface name=\"org.codethink.atspi.test\">"
 "		<method name=\"next\"/>"
+"		<method name=\"finish\"/>"
 "               <signal name=\"started\"/>"
 "	</interface>"
 "</node>";
@@ -145,8 +146,6 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   DBusMessage *reply = NULL;
 
-  g_print("\nRecieved test interface message\n");
-
   g_return_val_if_fail(iface != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   
   if (!strcmp(iface, "org.codethink.atspi.test"))
@@ -159,7 +158,7 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
 	  result = DBUS_HANDLER_RESULT_HANDLED;
 	}
 
-      if (!strcmp(member, "finished"))
+      if (!strcmp(member, "finish"))
 	{
 	  ((VoidVoid) test_module_finished)();
           reply = dbus_message_new_method_return (message);

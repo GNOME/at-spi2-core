@@ -13,7 +13,10 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
+import gobject
 from Events import Events
+
+import traceback
 
 PASY_TEST_NOT_STARTED = 0
 PASY_TEST_IN_PROGRESS = 1
@@ -30,7 +33,6 @@ class PasyTestStep(object):
 		self._state = PASY_TEST_NOT_STARTED
 
 		self._name = name
-		self._test = test
 
 	def win(self):
 		if self._state == PASY_TEST_IN_PROGRESS:
@@ -49,7 +51,15 @@ class PasyTestStep(object):
 
 	def run(self):
 		self._state = PASY_TEST_IN_PROGRESS
-		self.entry(self)
+		self.entry()
+
+	def report(self):
+		if self._state == PASY_TEST_WIN:
+			return "%s - PASSED" % (self._name,)
+		elif self._state == PASY_TEST_FAIL:
+			return "%s - FAILED - %s" % (self._name, self.failMsg)
+		else:
+			return "%s - INCOMPLETE" %s (self._name,)
 
 	@property
 	def state(self):
@@ -62,29 +72,33 @@ class PasyTestFunc(PasyTestStep):
 		self._func = func
 
 	def entry(self):
-		self._func(self)
+		try:
+			self._func()
+		except Exception, e:
+			self.fail(e.message)
+			traceback.print_exc()
+		self.win()
 
 class PasyTest(PasyTestStep):
 
 	__tests__ = []
 
 	def __init__(self, name, cont):
-		PasyTest.__init__(self, name)
+		PasyTestStep.__init__(self, name)
 
 		self._cont = cont
 		self._tests = []
 
-		for name in __tests__:
-			func = self.__getattr__(name)
+		for name in self.__tests__:
+			func = getattr(self, name)
 			self._addfunc(func.func_name, func)
 
 	def _addfunc(self, name, func):
-		functest = PasyTestFunc(self, func.func_name, func)
-		self.add(functest)
+		functest = PasyTestFunc(func.func_name, func)
 		self._tests.append(functest)
 
 	def entry(self):
-		self._iter = self._test_iterator
+		self._iter = self._test_iterator()
 		gobject.idle_add(self.idle_handler)
 
 	def idle_handler(self):
@@ -94,8 +108,8 @@ class PasyTest(PasyTestStep):
 				if step.state == PASY_TEST_WIN or self._cont == True:
 					gobject.idle_add(self.idle_handler)
 				elif step.state == PASY_TEST_FAIL and self._cont == False:
-					self.fail()
-			step.events.failed += finished_handler
+					self.fail("Sub test %s Failed" % step._name)
+			step.events.finished += finished_handler
 			step.run()
 		except StopIteration:
 			# No More tests, check for success or fail
@@ -111,3 +125,18 @@ class PasyTest(PasyTestStep):
 	def _test_iterator(self):
 		for test in self._tests:
 			yield test
+
+	def report(self):
+		if self._state == PASY_TEST_WIN:
+			header =  "%s - PASSED" % (self._name,)
+		elif self._state == PASY_TEST_FAIL:
+			header =  "%s - FAILED - %s" % (self._name, self.failMsg)
+		else:
+			header =  "%s - INCOMPLETE" %s (self._name,)
+
+		step_messages = []
+		for test in self._tests:
+			step_messages.append(test.report())
+
+		step_report =  "\n\t".join(step_messages)
+		return header + "\n\t" + step_report

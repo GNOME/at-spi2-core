@@ -5,33 +5,53 @@ import os.path
 from xml.dom import minidom
 import os
 
-from pasytest import PasyTestSuite
+from pasytest import PasyTest as _PasyTest
 
-def createNode(accessible, parentElement):
+import pyatspi
+
+def _createNode(accessible, parentElement):
 	e = minidom.Element("accessible")
 
 	e.attributes["name"] = accessible.name
-	e.attributes["role"] = str(int(accessible.role))
+	e.attributes["role"] = str(int(accessible.getRole()))
 	e.attributes["description"] = accessible.description
 
-	for i in range(0, accessible.numChildren):
-		createNode(accessible.getChild(i), e)
+	for i in range(0, accessible.childCount):
+		_createNode(accessible.getChildAtIndex(i), e)
 
 	parentElement.appendChild(e)
 
-class TreeTestSuite(PasyTestSuite):
+class AccessibleTest(_PasyTest):
 
-	__tests__ = ["accessibleTree"]
+	__tests__ = ["setup", "tree"]
 
-	def __init__(self, bus, name):
-		PasyTestSuite.__init__(self, "Tree")
-		self._cache = getAccessibleCache(bus, name)
+	def __init__(self, bus, path):
+		_PasyTest.__init__(self, "Accessible", False)
+		self._bus = bus
+		self._path = path
 
-	def accessibleTree(test):
-		root = self._cache.getRootAccessible()
+	def setup(self):
+		self._cache = pyatspi.TestApplicationCache(self._bus, self._path)
+
+	def tree(self):
+		"""
+		This is a mild stress test for the 
+		methods:
+
+		getChildAtIndex
+		
+		And the attributes:
+
+		name
+		description
+
+		It checks a tree of these values is correctly
+		passed from Application to AT.
+		"""
+		root = self._cache.root
 
 		doc = minidom.Document()
-		createNode(root, doc)
+		_createNode(root, doc)
 		answer = doc.toprettyxml()
 
 		correct = os.path.join(os.environ["TEST_DATA_DIRECTORY"],
@@ -39,6 +59,4 @@ class TreeTestSuite(PasyTestSuite):
 		file = open(correct)
 		cstring = file.read()
 		
-		test.assertEqual(answer, cstring, "Object tree not passed correctly")
-
-		test.win()
+		self.assertEqual(answer, cstring, "Object tree not passed correctly")

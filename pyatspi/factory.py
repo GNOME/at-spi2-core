@@ -12,55 +12,51 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-from base import *
-from accessible import *
-
-ATSPI_ACCESSIBLE = 'org.freedesktop.atspi.Accessible'
-ATSPI_ACTION = 'org.freedesktop.atspi.Action'
-ATSPI_APPLICATION = 'org.freedesktop.atspi.Application'
-ATSPI_COMPONENT = 'org.freedesktop.atspi.Component'
-ATSPI_DOCUMENT = 'org.freedesktop.atspi.Document'
-ATSPI_EDITABLE_TEXT = 'org.freedesktop.atspi.EditableText'
-ATSPI_HYPERLINK = 'org.freedesktop.atspi.Hyperlink'
-ATSPI_HYPERTEXT = 'org.freedesktop.atspi.Hypertext'
-ATSPI_IMAGE = 'org.freedesktop.atspi.Image'
-ATSPI_LOGIN_HELPER = 'org.freedesktop.atspi.LoginHelper'
-ATSPI_SELECTION = 'org.freedesktop.atspi.Selection'
-ATSPI_SELECTOR = 'org.freedesktop.atspi.Selector'
-ATSPI_STREAMABLE_CONTENT = 'org.freedesktop.atspi.Content'
-ATSPI_TABLE = 'org.freedesktop.atspi.Table'
-ATSPI_TEXT = 'org.freedesktop.atspi.Text'
-ATSPI_VALUE = 'org.freedesktop.atspi.Value'
-
 #------------------------------------------------------------------------------
 
-_interfaces = {
-		ATSPI_ACCESSIBLE:Accessible,
-		#ATSPI_ACTION:
-		#ATSPI_APPLICATION:
-		#ATSPI_COMPONENT:
-		#ATSPI_DOCUMENT:
-		#ATSPI_EDITABLE_TEXT:
-		#ATSPI_HYPERLINK:
-		#ATSPI_HYPERTEXT:
-		#ATSPI_IMAGE:
-		#ATSPI_LOGIN_HELPER:
-		#ATSPI_SELECTION:
-		#ATSPI_SELECTOR:
-		#ATSPI_STREAMABLE_CONTENT:
-		#ATSPI_TABLE:
-		#ATSPI_TEXT:
-		#ATSPI_TREE:
-		#ATSPI_VALUE:
-}
+class AccessibleFactory(object):
+	__accessible_interfaces = {}
 
-def interfaceFactory(self, busobject, cache, app, path, interface):
+	def create_accessible(self, cache, app_name, acc_path, parent, interface, dbus_object=None, connection=None):
+		class_ = self.__accessible_interfaces[interface]
+		return class_(cache,
+			      app_name,
+			      acc_path,
+			      parent,
+			      interface,
+			      dbus_object=dbus_object,
+			      connection=connection)
+
+	def add_accessible_class(self, name, cls):
+		self.__accessible_interfaces[name] = cls
+
+_factory = AccessibleFactory()
+
+def create_accessible(cache, app_name, acc_path, parent, interface, dbus_object=None, connection=None):
 	"""
-	The queryInterfaces method needs to return
-	different atspi interfaces depending on the interface name.
-	This class registers names and ATSPI interface
-	classes to perform this task.
+	Used to create different python classes for each of the accessible interfaces.
+
+	The decision on which class to create is based on the name of the
+	accessible interface.
+
+	cache - ApplicationCache, where the cached data for the accessible can be obtained.
+	app_name - D-Bus bus name of the application this accessible belongs to.
+	acc_path - D-Bus object path of the server side accessible object.
+	app_parent - D-Bus bus name of the parent objects application.
+	acc_parent - D-Bus object path of the parent accessible.
+	interface - D-Bus interface of the object. Used to decide which accessible class to instanciate.
+	dbus_object(kwarg) - The D-Bus proxy object used by the accessible for D-Bus method calls.
+	connection(kwarg) - Client side D-Bus connection, provided if no D-Bus proxy is available.
 	"""
-	return _interfaces[interface](object, cache, app, path, interface)
+	return _factory.create_accessible(cache,
+					  app_name,
+					  acc_path,
+					  parent,
+					  interface,
+					  dbus_object=dbus_object,
+					  connection=connection)
+
+def add_accessible_class(name, cls):
+	_factory.add_accessible_class(name, cls)
 
 #END----------------------------------------------------------------------------

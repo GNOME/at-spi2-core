@@ -1,11 +1,19 @@
 #!/usr/bin/python
 
+import gobject
 import dbus
 import sys
 import time
 from random import randint
 
-def runTestApp(module_name, dbus_name=None):
+from optparse import OptionParser
+from pasytest import PasyTest
+
+from dbus.mainloop.glib import DBusGMainLoop
+
+DBusGMainLoop(set_as_default=True)
+
+def run_test_app(module_name, dbus_name=None):
 	import os
 	from subprocess import Popen
 
@@ -46,24 +54,38 @@ def runTestApp(module_name, dbus_name=None):
 		raw_input(wait_message % (module_name, pop.pid))
 
 def main(argv):
-	testModule = argv[1]
+	parser = OptionParser()
+	parser.add_option("-l", "--library", dest="test_library")
+	parser.add_option("-m", "--module", dest="test_module")
+	parser.add_option("-n", "--name", dest="test_name")
+	(options, args) = parser.parse_args()
 
-	# TODO Modify this function to add registryd as an option
 	bus = dbus.SessionBus()
 	name = "test.atspi.R" + str(randint(1, 1000)) 
 
-	app = runTestApp(testModule, name)
-	# Wait a little time for the app to start up
-	# TODO connect this up to the apps start signal
+	app = run_test_app(options.test_library, name)
 	time.sleep(1)
+	print "Started test app on bus name %s" % (name,)
 
 	to = bus.get_object(name, "/org/codethink/atspi/test")
 	test = dbus.Interface(to, "org.codethink.atspi.test")
 
-	# Run the test script here FIXME
+	# Run the test script here
+	module = __import__(options.test_module)
+	test_class = getattr(module, options.test_name)
+	test_object = test_class(bus, name)
+	test_object.run()
 
-	# Inform the test app it can shut down.
-	test.finish()
+	loop = gobject.MainLoop()
+
+	def finished_handler():
+		loop.quit()
+		print "\n" + test_object.report() + "\n"
+		test.finish()
+
+	test_object.events.finished += finished_handler
+
+	loop.run()
 
 if __name__=="__main__":
 	sys.exit(main(sys.argv))
