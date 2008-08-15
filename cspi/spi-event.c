@@ -1063,7 +1063,7 @@ SPI_registerGlobalEventListener (AccessibleEventListener *listener,
   }
   event_listeners = new_list;
   dbus_error_init (&error);
-  dbus_bus_add_match (cspi_bus(), matchrule, &error);
+  dbus_bus_add_match (SPI_bus(), matchrule, &error);
   if (error.message)
   {
     g_warning ("Adding match: %s", error.message);
@@ -1142,7 +1142,7 @@ SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
       listener_data_free (e);
       l = g_list_remove (l, e);
       dbus_error_init (&error);
-      dbus_bus_remove_match (cspi_bus(), matchrule, &error);
+      dbus_bus_remove_match (SPI_bus(), matchrule, &error);
     }
     else l = g_list_next (l);
   }

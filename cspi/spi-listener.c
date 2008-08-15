@@ -399,7 +399,7 @@ done:
   if (reply)
   {
     dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &retval, DBUS_TYPE_INVALID);
-    dbus_connection_send (cspi_bus(), reply, NULL);
+    dbus_connection_send (SPI_bus(), reply, NULL);
     dbus_message_unref (reply);
   }
   return DBUS_HANDLER_RESULT_HANDLED;

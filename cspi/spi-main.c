@@ -147,7 +147,7 @@ cspi_get_live_refs (void)
 }
 
 DBusConnection *
-cspi_bus (void)
+SPI_bus (void)
 {
   return bus;
 }
@@ -1023,7 +1023,7 @@ cspi_dbus_call (Accessible *obj, const char *interface, const char *method, DBus
   if (!error) error = &err;
   dbus_error_init (error);
   va_start (args, type);
-  retval = dbind_connection_method_call_va (cspi_bus(), obj->app->bus_name, path, interface, method, error, type, args);
+  retval = dbind_connection_method_call_va (SPI_bus(), obj->app->bus_name, path, interface, method, error, type, args);
   va_end (args);
   g_free (path);
   if (dbus_error_is_set (error))
@@ -1056,7 +1056,7 @@ cspi_dbus_get_property (Accessible *obj, const char *interface, const char *name
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   if (!error) error = &err;
   dbus_error_init (error);
-  reply = dbus_connection_send_with_reply_and_block (cspi_bus(), message, 1000, error);
+  reply = dbus_connection_send_with_reply_and_block (SPI_bus(), message, 1000, error);
   dbus_message_unref (message);
   if (!reply)
   {

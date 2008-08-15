@@ -83,7 +83,7 @@ struct _SPIException {
   char * desc;
 };
 
-DBusConnection *spi_bus (void);
+DBusConnection *SPI_bus (void);
 SPIBoolean             cspi_exception         (void);
 Accessible            *cspi_object_add (Accessible  *accessible);
 void                   cspi_object_ref        (Accessible  *accessible);

@@ -88,7 +88,7 @@ SPI_getDesktopList (Accessible ***desktop_list)
 
   if (!desktops)
   {
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_registry, spi_interface_registry, "getDesktopList", NULL, "=>ao", &desktops);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_registry, spi_interface_registry, "getDesktopList", NULL, "=>ao", &desktops);
     if (!desktops) return 0;
   }
 
@@ -226,7 +226,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
 	  (dbus_bool_t) ((sync_type & SPI_KEYLISTENER_ALL_WINDOWS)!=0);
 
     dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerKeystrokeListener", &error, "oa(iisi)uu(bbb)=>b", path, key_set, controller_event_mask, key_set, &listener_mode, &retval);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerKeystrokeListener", &error, "oa(iisi)uu(bbb)=>b", path, key_set, controller_event_mask, key_set, &listener_mode, &retval);
 
   g_array_free (key_set, TRUE);
   g_free (path);
@@ -265,7 +265,7 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
   controller_event_mask = (dbus_uint32_t) modmask;
 
       key_set = g_array_sized_new (FALSE, TRUE, sizeof (Accessibility_KeyDefinition), 0);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "deregisterKeystrokeListener", &error, "oa(iisi)uu", path, &key_set, key_events, controller_event_mask);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "deregisterKeystrokeListener", &error, "oa(iisi)uu", path, &key_set, key_events, controller_event_mask);
   g_free (path);
   return TRUE;
 }
@@ -310,7 +310,7 @@ SPI_registerDeviceEventListener (AccessibleDeviceListener  *listener,
     }
 
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerDeviceEventListener", &error, "ou=>b", path, event_types, &retval);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "registerDeviceEventListener", &error, "ou=>b", path, event_types, &retval);
   g_free (path);
   return retval;
 }
@@ -343,7 +343,7 @@ SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
   event_types |= (1 << Accessibility_BUTTON_RELEASED_EVENT);
 
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "deregisterDeviceEventListener", &error, "ou", path, event_types);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "deregisterDeviceEventListener", &error, "ou", path, event_types);
   g_free (path);
   return TRUE;
 }
@@ -399,7 +399,7 @@ SPI_generateKeyboardEvent (long int keyval,
 
   if (!keystring) keystring = "";
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateKeyboardEvent", &error, "isu", keycode, keystring, keysynth_type);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateKeyboardEvent", &error, "isu", keycode, keystring, keysynth_type);
 
   return TRUE;
 }
@@ -427,7 +427,7 @@ SPI_generateMouseEvent (long x, long y, char *name)
   DBusError error;
 
   dbus_error_init (&error);
-    dbind_connection_method_call (cspi_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateMouseEvent", &error, "iis", x, y, name);
+    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_dec, spi_interface_dec, "generateMouseEvent", &error, "iis", x, y, name);
   return TRUE;
 }
 
