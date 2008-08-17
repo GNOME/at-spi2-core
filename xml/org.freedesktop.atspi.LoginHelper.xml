@@ -1,24 +1,10 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <interface name="org.freedesktop.atspi.LoginHelper">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>@brief An interface for use by assistive technologies by which
@@ -138,12 +124,12 @@
     </tp:docstring>
     <arg direction="in" name="safe_mode" type="b" tp:type="boolean">
     <tp:docstring>
-      \c TRUE if the client is requesting that 'safe mode' be initiated, \c FALSE if the client is advising that 'safe mode' may beexited, i.e. normal operation may be resumed.Request a LoginHelper to enter &quot;safe&quot; mode, orinform LoginHelper that &quot;safe&quot; mode may be exited.If \a safe_mode is \c TRUE, but the return value is \c FALSE,the requesting client may wish to deny services to the ::LoginHelper, for instance avoid raising its toplevels.The return value is purely advisory, and no guarantees are intended about what the implementing LoginHelper will do to improve security when in &quot;safe&quot; mode.
+      \c TRUE if the client is requesting that 'safe mode' be initiated, \c FALSE if the client is advising that 'safe mode' may beexited, i.e. normal operation may be resumed.Request a LoginHelper to enter "safe" mode, orinform LoginHelper that "safe" mode may be exited.If \a safe_mode is \c TRUE, but the return value is \c FALSE,the requesting client may wish to deny services to the ::LoginHelper, for instance avoid raising its toplevels.The return value is purely advisory, and no guarantees are intended about what the implementing LoginHelper will do to improve security when in "safe" mode.
     </tp:docstring>
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      whether the ::LoginHelper is now &quot;safe&quot; or not.
+      whether the ::LoginHelper is now "safe" or not.
     </tp:docstring>
     </arg>
   </method>

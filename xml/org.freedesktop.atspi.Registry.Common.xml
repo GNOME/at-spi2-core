@@ -1,24 +1,10 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <tp:enum name="KeyEventType" type="u">
   <tp:docstring>
     Deprecated, DO NOT USE! 
@@ -163,7 +149,7 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>&lt; If \c True, specifies that 
       Listener is allowed to pre-empt the delivery of the event,
-      effectively &quot;consuming&quot; it such that it is not delivered 
+      effectively "consuming" it such that it is not delivered 
       to the currently focussed desktop application. 
       Key events consumed via this API will not be 
       available for use by other applications or services, so this
@@ -177,10 +163,10 @@
       currently focussed application participates in the AT-SPI 
       infrastructure.  On systems with the XEvIE X extension, this flag
       also allows access to events which are already subject to 
-      interception via a &quot;system keygrab&quot; (as described in the X Window System
+      interception via a "system keygrab" (as described in the X Window System
       documentation for XGrabKey).  The 'global' and 'preemptive' flags
       should only be used together for the purposes of registering
-      &quot;system global key shortcuts&quot; i.e. command keys for use by the
+      "system global key shortcuts" i.e. command keys for use by the
       assistive technology. </p>
   </tp:docstring>
   </tp:member>
@@ -268,7 +254,7 @@
     <p>@param keycode if nonzero, the numeric, system-dependent value corresponding to a 
       physical key on the keyboard.  Keycode values have no semantic meaning to the end-user,
       and may depend on the user's hardware and operating environment.  They therefore are
-      rarely useful &quot;as-is&quot; to AT clients, unless the client has used operating system
+      rarely useful "as-is" to AT clients, unless the client has used operating system
       services to identify the hardward keycode associated with a particular key symbol.
       Notifications for key events requested by keycode are less dependent on modifier state
       than \c keysym based notifications, but some hardware (notably many laptops) may generate
@@ -276,12 +262,12 @@
       shift/modifier keys.
       @param keysym if nonzero, the numeric value corresponding to the X Keysym of the key for which 
       notification is requested.  Note that the presence of active modifiers will affect
-      whether notification for key events requested via &quot;keysym&quot; specification takes place, 
+      whether notification for key events requested via "keysym" specification takes place, 
       since the keysym depends on the modifier state for most keys.
       @param keystring if non-NULL, the string value of the inserted characters if the corresponding
       key event has ::KeyEvent:is_text set to \c True, or the string representing the
       'name' of the key.  On X11 systems, the string 'name' of non-printing keysyms corresponds
-      to the values in &quot;keysymdef.h&quot; as provided by Xlib, with the leading &quot;XK_&quot; stripped off.</p>
+      to the values in "keysymdef.h" as provided by Xlib, with the leading "XK_" stripped off.</p>
   </tp:docstring>
   <tp:member type="i" tp:name="keycode"/>
   <tp:member type="i" tp:name="keysym"/>

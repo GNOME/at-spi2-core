@@ -1,24 +1,10 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <tp:enum name="Role" type="u">
   <tp:enumvalue suffix="ROLE_INVALID">
   <tp:docstring>
@@ -264,7 +250,7 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_RADIO_MENU_ITEM" value="45">
   <tp:docstring>
-    Object is both a menu item and a &quot;radio button&quot; (see ROLE_RADIO_BUTTON) 
+    Object is both a menu item and a "radio button" (see ROLE_RADIO_BUTTON) 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_ROOT_PANE" value="46">
@@ -453,10 +439,10 @@
   <tp:enumvalue suffix="ROLE_EMBEDDED" value="78">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The object is an embedded component container.  This role is a 
-      &quot;grouping&quot; hint that the contained objects share a context which is 
+      "grouping" hint that the contained objects share a context which is 
       different from the container in which this accessible is embedded.
       In particular, it is used for some kinds of document embedding, and
-      for embedding of out-of-process component, &quot;panel applets&quot;, etc.</p>
+      for embedding of out-of-process component, "panel applets", etc.</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_ENTRY" value="79">
@@ -556,7 +542,7 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_LINK" value="88">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>The object is a hypertext anchor, i.e. a &quot;link&quot; in a
+    <p>The object is a hypertext anchor, i.e. a "link" in a
       hypertext document.  Such objects are distinct from 'inline'
       content which may also use the Hypertext/Hyperlink interfaces
       to indicate the range/location within a text object where
@@ -569,7 +555,7 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The object is a window or similar viewport which is used
       to allow composition or input of a 'complex character',
-      in other words it is an &quot;input method window.&quot;  </p>
+      in other words it is an "input method window."  </p>
 
     <p>@since AT-SPI 1.7.6</p>
   </tp:docstring>

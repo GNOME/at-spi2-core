@@ -1,29 +1,15 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 - 2005 Sun Microsystems, Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <interface name="org.freedesktop.atspi.Image">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface implemented by objects which render image data or 
       pictorial information to the screen.  When onscreen components include
-      graphical information that is not purely intended to enhance &quot;3d effect&quot;
+      graphical information that is not purely intended to enhance "3d effect"
       or visual layout, but which conveys some semantic or informational 
       content to the sighted user, they should implement Image, and that 
       semantic content should be conveyed textually to the extent possible 
@@ -36,7 +22,7 @@
       of what is visually depicted in the image.  </p>
 
     <p>@note It is recommended that imageDescription be the shorter
-      of the available image descriptions, for instance &quot;alt text&quot;
+      of the available image descriptions, for instance "alt text"
       in HTML images, and a longer description be provided in
       Accessible::accessible-description, if available.
       A short, one or two word label for the image should be provided in
@@ -94,7 +80,7 @@
         any viewport clipping or the fact that the image may be
         partially or wholly obscured by other onscreen content.
         @note This method returns the size of the current onscreen
-        view, and not the nominal or &quot;original&quot; size of the source 
+        view, and not the nominal or "original" size of the source 
         image, in the event that the original image has been rescaled.    </p>
 
       <p>@param width Back-filled with the x extents of the 
