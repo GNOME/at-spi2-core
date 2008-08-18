@@ -19,7 +19,9 @@
 
 #authors: Peter Parente, Mark Doffman
 
+import interfaces
 from base import Enum as _Enum
+from factory import create_accessible
 
 #------------------------------------------------------------------------------
 
@@ -97,7 +99,7 @@ RELATION_VALUE_TO_NAME = dict(((value, name[9:].lower().replace('_', ' '))
 
 #------------------------------------------------------------------------------
 
-def _marshal_relation_set(bitfield):
+def _marshal_relation_set(cache, dbus_object, app_name, relation_set):
 	"""
 	The D-Bus protocol has a relation set passed as an array of
 	relation types and object arrays.
@@ -105,22 +107,7 @@ def _marshal_relation_set(bitfield):
 	This function marshals the D-Bus message into a list of relation
 	objects.
 	"""
-	(lower, upper) = bitfield
-
-	states = []
-
-	pos = 0
-	while (lower):
-		if (1L)&lower:
-			#TODO Return the state objects rather than integers.
-			states.append(pos)
-		pos+=1
-	while (upper):
-		if (1L)&upper:
-			#TODO return the state objects rather than integers.
-			states.append(pos)
-
-	return StateSet(*states)
+	return [Relation(cache, dbus_object, app_name, *relation) for relation in relation_set]
 
 #------------------------------------------------------------------------------
 
@@ -130,35 +117,43 @@ class Relation(object):
     to one another are indicated. An instance of Relations represents
     a "one-to-many" correspondance.
     """
+
+    def __init__(self, cache, dbus_object, app_name, type, objects):
+	self._type = type
+	self._objects = objects
+
+	self._dbus_object = dbus_object
+	self._cache = cache
+	self._app_name = app_name
     
-    def getNTargets(self, *args, **kwargs):
+    def getNTargets(self):
         """
         @return the number of objects to which this relationship applies.
         """
-        func = self.get_dbus_method("getNTargets")
-        return func(*args, **kwargs)
+        return len(self._objects)
     
-    def getRelationType(self, *args, **kwargs):
+    def getRelationType(self):
         """
         @return the RelationType of this Relation.
         """
-        func = self.get_dbus_method("getRelationType")
-        return func(*args, **kwargs)
+        return self._type
     
-    def getRelationTypeName(self, *args, **kwargs):
+    def getRelationTypeName(self):
         """
         @return an unlocalized string representing the relation type.
         """
-        func = self.get_dbus_method("getRelationTypeName")
-        return func(*args, **kwargs)
+	return RELATION_VALUE_TO_NAME[self._type]
     
-    def getTarget(self, *args, **kwargs):
+    def getTarget(self, index):
         """
         @return an Object which is the 'nth'target of this Relation,
         e.g. the Object at index i in the list of Objects having the
         specified relationship to this Accessible.
         """
-        func = self.get_dbus_method("getTarget")
-        return func(*args, **kwargs)
+	return create_accessible(self._cache,
+			 	 self._app_name,
+				 self._objects[index],
+				 interfaces.ATSPI_ACCESSIBLE,
+				 dbus_object=self._dbus_object)
 
 #END----------------------------------------------------------------------------

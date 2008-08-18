@@ -16,6 +16,7 @@ import interfaces
 from base import BaseProxy
 from factory import create_accessible, add_accessible_class
 from stateset import StateSet, _marshal_state_set
+from relation import _marshal_relation_set
 
 __all__ = [
 	   "Accessible",
@@ -44,7 +45,7 @@ class Accessible(BaseProxy):
 				 interfaces.ATSPI_APPLICATION,
 				 dbus_object=self._dbus_object)
     
-    def getAttributes(self, *args, **kwargs):
+    def getAttributes(self):
         """
         Get a list of properties applied to this object as a whole, as
         an AttributeSet consisting of name-value pairs. As such these
@@ -70,11 +71,13 @@ class Accessible(BaseProxy):
         Similarly, relevant structural metadata should be exposed using
         attribute names and values chosen from the CSS2 and WICD specification:
         http://www.w3.org/TR/1998/REC-CSS2-19980512 WICD (http://www.w3.org/TR/2005/WD-WICD-20051121/).
-        @return : an AttributeSet encapsulating any "attribute values"
-        currently defined for the object.
+
+        @return : An AttributeSet encapsulating any "attribute values"
+        currently defined for the object. An attribute set is a list of strings
+	with each string comprising an name-value pair format 'name:value'.
         """
         func = self.get_dbus_method("getAttributes")
-        return func(*args, **kwargs)
+        return func()
     
     def getChildAtIndex(self, index):
         """
@@ -90,7 +93,7 @@ class Accessible(BaseProxy):
 				 interfaces.ATSPI_ACCESSIBLE,
 				 dbus_object=self._dbus_object)
     
-    def getIndexInParent(self, *args, **kwargs):
+    def getIndexInParent(self):
         """
         Get the index of this object in its parent's child list. 
         @return : a long integer indicating this object's index in the
@@ -102,7 +105,7 @@ class Accessible(BaseProxy):
 			return i
 	raise AccessibleObjectNoLongerExists("Child not found within parent")
     
-    def getLocalizedRoleName(self, *args, **kwargs):
+    def getLocalizedRoleName(self):
         """
         Get a string indicating the type of UI role played by this object,
         translated to the current locale.
@@ -110,16 +113,17 @@ class Accessible(BaseProxy):
         by this object.
         """
         func = self.get_dbus_method("getLocalizedRoleName")
-        return func(*args, **kwargs)
+        return func()
     
-    def getRelationSet(self, *args, **kwargs):
+    def getRelationSet(self):
         """
         Get a set defining this object's relationship to other accessible
         objects. 
         @return : a RelationSet defining this object's relationships.
         """
         func = self.get_dbus_method("getRelationSet")
-        return func(*args, **kwargs)
+        relation_set = func()
+        return _marshal_relation_set(self._cache, self._dbus_object, self._app_name, relation_set)
     
     def getRole(self):
         """
@@ -129,23 +133,23 @@ class Accessible(BaseProxy):
         """
         return self.cached_data.role
     
-    def getRoleName(self, *args, **kwargs):
+    def getRoleName(self):
         """
         Get a string indicating the type of UI role played by this object.
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
         func = self.get_dbus_method("getRoleName")
-        return func(*args, **kwargs)
+        return func()
     
-    def getState(self, *args, **kwargs):
+    def getState(self):
         """
         Get the current state of the object as a StateSet. 
         @return : a StateSet encapsulating the currently true states
         of the object.
         """
         func = self.get_dbus_method("getState")
-        bitfield = func(*args, **kwargs)
+        bitfield = func()
 	return _marshal_state_set(bitfield)
     
     def isEqual(self, accessible):
