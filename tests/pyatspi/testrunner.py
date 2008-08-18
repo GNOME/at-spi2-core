@@ -13,7 +13,7 @@ from dbus.mainloop.glib import DBusGMainLoop
 
 DBusGMainLoop(set_as_default=True)
 
-def run_test_app(module_name, dbus_name=None):
+def run_test_app(module_name, dbus_name=None, wait_for_debug=False):
 	import os
 	from subprocess import Popen
 
@@ -50,7 +50,7 @@ def run_test_app(module_name, dbus_name=None):
 	
 	To continue the test press ENTER.\n\n
 	"""
-	if ("TEST_APP_WAIT_FOR_DEBUG" in os.environ.keys()):
+	if (wait_for_debug):
 		raw_input(wait_message % (module_name, pop.pid))
 
 def main(argv):
@@ -58,12 +58,13 @@ def main(argv):
 	parser.add_option("-l", "--library", dest="test_library")
 	parser.add_option("-m", "--module", dest="test_module")
 	parser.add_option("-n", "--name", dest="test_name")
+	parser.add_option("-w", "--wait", action="store_true", dest="wait", default=False)
 	(options, args) = parser.parse_args()
 
 	bus = dbus.SessionBus()
 	name = "test.atspi.R" + str(randint(1, 1000)) 
 
-	app = run_test_app(options.test_library, name)
+	app = run_test_app(options.test_library, name, wait_for_debug=options.wait)
 	time.sleep(1)
 	print "Started test app on bus name %s" % (name,)
 
