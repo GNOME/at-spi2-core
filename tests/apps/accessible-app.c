@@ -8,7 +8,7 @@ static gchar *tdata_path = NULL;
 
 static AtkObject *root_accessible;
 
-#define OBJECT_TEST_1 "object-test-stage1.xml"
+#define OBJECT_TEST_1 "accessible-test.xml"
 
 G_MODULE_EXPORT void
 test_init (gchar *path)

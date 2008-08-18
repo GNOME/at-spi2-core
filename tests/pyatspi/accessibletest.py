@@ -98,7 +98,9 @@ class AccessibleTest(_PasyTest):
 
 
 	def test_getAttributes(self, test):
-		pass
+		root = self._cache.root
+		#TODO The AttributeSet test needs expanding. Check attributes are passed correctly.
+		attr = root.getAttributes()
 
 	def test_parent(self, test):
 		root = self._cache.root
@@ -131,7 +133,9 @@ class AccessibleTest(_PasyTest):
 				 "Expected LocalizedRoleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
 
 	def test_getRelationSet(self, test):
-		pass
+		root = self._cache.root
+		# Complete test of Relation interface is separate
+		rset = root.getRelationSet()
 
 	def test_getRole(self, test):
 		root = self._cache.root
@@ -192,7 +196,7 @@ class AccessibleTest(_PasyTest):
 		answer = doc.toprettyxml()
 
 		correct = os.path.join(os.environ["TEST_DATA_DIRECTORY"],
-					"object-test-stage1-results.xml")
+					"accessible-test-results.xml")
 		file = open(correct)
 		cstring = file.read()
 		
