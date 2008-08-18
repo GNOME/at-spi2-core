@@ -85,18 +85,19 @@
 <!-- Interfaces derived from Accessibility::Text -->
 <xi:include href="org.freedesktop.atspi.EditableText.xml"/>
 <xi:include href="org.freedesktop.atspi.Hypertext.xml"/>
-<xi:include href="Accessibility_State.xml"/>
+<xi:include href="org.freedesktop.atspi.State.xml"/>
 
 <!-- Utility interfaces and interfaces derived from Accessibility::Accessible -->
 
 <xi:include href="org.freedesktop.atspi.Application.xml"/>
-<xi:include href="Accessibility_Registry_Common.xml"/>
 <xi:include href="org.freedesktop.atspi.Registry.xml"/>
+<xi:include href="org.freedesktop.atspi.Registry.Common.xml"/>
+<xi:include href="org.freedesktop.atspi.Event.xml"/>
 <xi:include href="org.freedesktop.atspi.Desktop.xml"/>
 <xi:include href="org.freedesktop.atspi.DeviceEventController.xml"/>
 <xi:include href="org.freedesktop.atspi.DeviceEventListener.xml"/>
-<xi:include href="Accessibility_Relation.xml"/>
-<xi:include href="Accessibility_Role.xml"/>
+<xi:include href="org.freedesktop.atspi.Relation.xml"/>
+<xi:include href="org.freedesktop.atspi.Role.xml"/>
 <xi:include href="org.freedesktop.atspi.LoginHelper.xml"/>
 <xi:include href="org.freedesktop.atspi.Selector.xml"/>
 </tp:spec>
