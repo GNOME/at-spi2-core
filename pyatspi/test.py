@@ -15,7 +15,11 @@
 from cache import AccessibleCache
 from factory import create_accessible
 
-import constants
+import interfaces
+
+__all__ = [
+	   "TestApplicationCache",
+	  ]
 
 #------------------------------------------------------------------------------
 
@@ -42,8 +46,9 @@ class TestApplicationCache(object):
 		return create_accessible(self,
 					 self._bus_name, 
 					 self._accessible_cache.root, 
-					 None,
-					 constants.ATSPI_ACCESSIBLE,
+					 interfaces.ATSPI_ACCESSIBLE,
 					 connection=self._connection)
 
 	root = property(fget=get_root)
+
+#END----------------------------------------------------------------------------

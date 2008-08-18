@@ -138,22 +138,3 @@ EVENT_TREE = {
   'focus' :
     ['focus:']
 }
-
-ATSPI_ACCESSIBLE = 'org.freedesktop.atspi.Accessible'
-ATSPI_ACTION = 'org.freedesktop.atspi.Action'
-ATSPI_APPLICATION = 'org.freedesktop.atspi.Application'
-ATSPI_COMPONENT = 'org.freedesktop.atspi.Component'
-ATSPI_COLLECTION = 'org.freedesktop.atspi.Collection'
-ATSPI_DESKTOP = 'org.freedesktop.atspi.Desktop'
-ATSPI_DOCUMENT = 'org.freedesktop.atspi.Document'
-ATSPI_EDITABLE_TEXT = 'org.freedesktop.atspi.EditableText'
-ATSPI_HYPERLINK = 'org.freedesktop.atspi.Hyperlink'
-ATSPI_HYPERTEXT = 'org.freedesktop.atspi.Hypertext'
-ATSPI_IMAGE = 'org.freedesktop.atspi.Image'
-ATSPI_LOGIN_HELPER = 'org.freedesktop.atspi.LoginHelper'
-ATSPI_SELECTION = 'org.freedesktop.atspi.Selection'
-ATSPI_SELECTOR = 'org.freedesktop.atspi.Selector'
-ATSPI_STREAMABLE_CONTENT = 'org.freedesktop.atspi.Content'
-ATSPI_TABLE = 'org.freedesktop.atspi.Table'
-ATSPI_TEXT = 'org.freedesktop.atspi.Text'
-ATSPI_VALUE = 'org.freedesktop.atspi.Value'

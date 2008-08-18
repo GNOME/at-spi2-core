@@ -19,7 +19,17 @@
 
 #authors: Peter Parente, Mark Doffman
 
-#TODO Re-implement and import the stateset server
+def setCacheLevel(level):
+	pass
+
+def getCacheLevel():
+	return None
+
+def clearCache():
+	pass
+
+def printCache():
+	print "Print cache function is deprecated";
 
 def getInterfaceIID(obj):
 	"""

@@ -15,9 +15,11 @@
 from base import _BaseProxy, _Enum
 from base import Accessible as _Accessible
 
+import constants
+
+from factory import add_accessible_class
+
 class Action(_BaseProxy):
-    
-    
     """
     An interface through which a user-actionable user interface component
     can be manipulated. Components which react to mouse or keyboard
@@ -80,22 +82,6 @@ class Action(_BaseProxy):
         func = self.get_dbus_method("getName")
         return func(*args, **kwargs)
     
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-    
     def get_nActions(self):
         self._pgetter(self._dbus_interface, "nActions")
     def set_nActions(self, value):
@@ -108,119 +94,7 @@ class Action(_BaseProxy):
     nActions = property(fget=get_nActions, fset=set_nActions, doc=_nActionsDoc)
 
 
-class Application(_Accessible):
-    
-    
-    """
-    An interface identifying an object which is the root of the user
-    interface Accessible hierarchy associated with a running application.
-    Children of Application are typically, but not exclusively, top-level
-    windows.
-    """
-    
-    
-    def getLocale(self, *args, **kwargs):
-        """
-        Gets the locale in which the application is currently operating.
-        For the current message locale, use lctype LOCALE_TYPE_MESSAGES.
-        @param : lctype
-        The LocaleType for which the locale is queried. 
-        @return a string compliant with the POSIX standard for locale
-        description.
-        """
-        func = self.get_dbus_method("getLocale")
-        return func(*args, **kwargs)
-    
-    def pause(self, *args, **kwargs):
-        """
-        Request that the application temporarily stop sending events.
-        In most cases this should pause the application's main event
-        loop.
-        @return : true if the request succeeded, false otherwise.
-        """
-        func = self.get_dbus_method("pause")
-        return func(*args, **kwargs)
-    
-    def registerObjectEventListener(self, *args, **kwargs):
-        """
-        registerObjectEventListener: 
-        @param : listener
-        an EventListener object which will receive the requested events
-        @param : eventName
-        a UTF-8 string indicating the type of (toolkit-specific) event
-        being requested. Register with this application toolkit for "Accessibility::Accessible"
-        event notifications.
-        """
-        func = self.get_dbus_method("registerObjectEventListener")
-        return func(*args, **kwargs)
-    
-    def registerToolkitEventListener(self, *args, **kwargs):
-        """
-        @param : listener
-        an EventListener object which will receive the requested events
-        from the application's toolkits via toolit 'bridges' 
-        @param : eventName
-        a UTF-8 string indicating the type of (toolkit-specific) event
-        being requested. Not all applications can generate toolkit events
-        of a given type.
-        Register with this application's toolkit for "toolkit-specific"
-        event notifications.
-        """
-        func = self.get_dbus_method("registerToolkitEventListener")
-        return func(*args, **kwargs)
-    
-    def resume(self, *args, **kwargs):
-        """
-        Request that the application resume sending events.
-        @return : True if the request succeeded, False otherwise.
-        """
-        func = self.get_dbus_method("resume")
-        return func(*args, **kwargs)
-    
-    def unImplemented2_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2_")
-        return func(*args, **kwargs)
-    
-    def unImplemented3_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3_")
-        return func(*args, **kwargs)
-    
-    def unImplemented_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented_")
-        return func(*args, **kwargs)
-    
-    def get_id(self):
-        self._pgetter(self._dbus_interface, "id")
-    def set_id(self, value):
-        self._psetter(self._dbus_interface, "id", value)
-    _idDoc = \
-        """
-        The application instance's unique ID as assigned by the registry.
-        """
-    id = property(fget=get_id, fset=set_id, doc=_idDoc)
-    
-    def get_toolkitName(self):
-        self._pgetter(self._dbus_interface, "toolkitName")
-    def set_toolkitName(self, value):
-        self._psetter(self._dbus_interface, "toolkitName", value)
-    _toolkitNameDoc = \
-        """
-        A string indicating the type of user interface toolkit which
-        is used by the application.
-        """
-    toolkitName = property(fget=get_toolkitName, fset=set_toolkitName, doc=_toolkitNameDoc)
-    
-    def get_version(self):
-        self._pgetter(self._dbus_interface, "version")
-    def set_version(self, value):
-        self._psetter(self._dbus_interface, "version", value)
-    _versionDoc = \
-        """
-        A string indicating the version number of the application's accessibility
-        bridge implementation.
-        """
-    version = property(fget=get_version, fset=set_version, doc=_versionDoc)
-
+#------------------------------------------------------------------------------
 
 class BoundingBox(list):
     def __new__(cls, x, y, width, height):
@@ -800,23 +674,6 @@ class DeviceEventController(_BaseProxy):
         func = self.get_dbus_method("registerKeystrokeListener")
         return func(*args, **kwargs)
     
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-
-
 class DeviceEventListener(_BaseProxy):
     """
     This interface should be implemented by AT-SPI clients who wish
@@ -836,31 +693,6 @@ class DeviceEventListener(_BaseProxy):
         func = self.get_dbus_method("notifyEvent")
         return func(*args, **kwargs)
     
-    def unImplemented_2_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented_2_")
-        return func(*args, **kwargs)
-    
-    def unImplemented_3_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented_3_")
-        return func(*args, **kwargs)
-    
-    def unImplemented_4_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented_4_")
-        return func(*args, **kwargs)
-    
-    def unImplemented_5_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented_5_")
-        return func(*args, **kwargs)
-    
-    def unImplemented_6_(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented_6_")
-        return func(*args, **kwargs)
-    
-    def unImplemented__(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented__")
-        return func(*args, **kwargs)
-
-
 class Document(_BaseProxy):
     """
     Primarily a 'tagging' interface which indicates the start of
@@ -1359,15 +1191,7 @@ class Text(_BaseProxy):
         """
         func = self.get_dbus_method("setSelection")
         return func(*args, **kwargs)
-    
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
+
     def get_caretOffset(self):
         self._pgetter(self._dbus_interface, "caretOffset")
     def set_caretOffset(self, value):
@@ -1827,23 +1651,6 @@ class Hypertext(_BaseProxy):
         func = self.get_dbus_method("getNLinks")
         return func(*args, **kwargs)
     
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-
-
 class Image(_BaseProxy):
     """
     An interface implemented by objects which render image data or
@@ -1903,19 +1710,7 @@ class Image(_BaseProxy):
         """
         func = self.get_dbus_method("getImageSize")
         return func(*args, **kwargs)
-    
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
+
     def get_imageDescription(self):
         self._pgetter(self._dbus_interface, "imageDescription")
     def set_imageDescription(self, value):
@@ -2070,22 +1865,6 @@ class LoginHelper(_BaseProxy):
         func = self.get_dbus_method("setSafe")
         return func(*args, **kwargs)
     
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-
     class DeviceReq(_Enum):
         _enum_lookup = {
             0:'GUI_EVENTS',
@@ -2271,108 +2050,8 @@ class Registry(EventListener):
         """
         func = self.get_dbus_method("registerGlobalEventListener")
         return func(*args, **kwargs)
-    
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-    
-    def unImplemented5(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented5")
-        return func(*args, **kwargs)
-    
-    def unImplemented6(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented6")
-        return func(*args, **kwargs)
 
-
-class Relation(_BaseProxy):
-    """
-    An interface via which objects' non-hierarchical relationships
-    to one another are indicated. An instance of Relations represents
-    a "one-to-many" correspondance.
-    """
     
-    def getNTargets(self, *args, **kwargs):
-        """
-        @return the number of objects to which this relationship applies.
-        """
-        func = self.get_dbus_method("getNTargets")
-        return func(*args, **kwargs)
-    
-    def getRelationType(self, *args, **kwargs):
-        """
-        @return the RelationType of this Relation.
-        """
-        func = self.get_dbus_method("getRelationType")
-        return func(*args, **kwargs)
-    
-    def getRelationTypeName(self, *args, **kwargs):
-        """
-        @return an unlocalized string representing the relation type.
-        """
-        func = self.get_dbus_method("getRelationTypeName")
-        return func(*args, **kwargs)
-    
-    def getTarget(self, *args, **kwargs):
-        """
-        @return an Object which is the 'nth'target of this Relation,
-        e.g. the Object at index i in the list of Objects having the
-        specified relationship to this Accessible.
-        """
-        func = self.get_dbus_method("getTarget")
-        return func(*args, **kwargs)
-    
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-
-
-class RelationType(_Enum):
-    _enum_lookup = {
-        0:'RELATION_NULL',
-        1:'RELATION_LABEL_FOR',
-        2:'RELATION_LABELLED_BY',
-        3:'RELATION_CONTROLLER_FOR',
-        4:'RELATION_CONTROLLED_BY',
-        5:'RELATION_MEMBER_OF',
-        6:'RELATION_TOOLTIP_FOR',
-        7:'RELATION_NODE_CHILD_OF',
-        8:'RELATION_EXTENDED',
-        9:'RELATION_FLOWS_TO',
-        10:'RELATION_FLOWS_FROM',
-        11:'RELATION_SUBWINDOW_OF',
-        12:'RELATION_EMBEDS',
-        13:'RELATION_EMBEDDED_BY',
-        14:'RELATION_POPUP_FOR',
-        15:'RELATION_PARENT_WINDOW_OF',
-        16:'RELATION_DESCRIPTION_FOR',
-        17:'RELATION_DESCRIBED_BY',
-        18:'RELATION_LAST_DEFINED',
-    }
 
 class Role(_Enum):
     _enum_lookup = {
@@ -2662,22 +2341,6 @@ class Selector(_BaseProxy):
         func = self.get_dbus_method("replaceCommands")
         return func(*args, **kwargs)
     
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-    
     def get_supportsReplace(self):
         self._pgetter(self._dbus_interface, "supportsReplace")
     def set_supportsReplace(self, value):
@@ -2711,132 +2374,6 @@ class Selector(_BaseProxy):
     COMMAND_RESULT_OBSOLETE = CommandResult(3)
     
     COMMAND_RESULT_SUCCESS = CommandResult(1)
-
-class StateSet(_BaseProxy):
-    """
-    The StateSet interface encapsulates a collection of state information.
-    It allows comparison of state information between object instances,
-    and comparisons of an object's state with some hypothetical collection
-    of states.
-    """
-    
-    def add(self, *args, **kwargs):
-        """
-        Add a StateType to an existing StateSet, if not already present.
-        """
-        func = self.get_dbus_method("add")
-        return func(*args, **kwargs)
-    
-    def compare(self, *args, **kwargs):
-        """
-        Compare two StateSet instances and obtain their differences.
-        @return a 'difference set', i.e. a StateSet consisting of those
-        states not shared by the two sets being compared.
-        """
-        func = self.get_dbus_method("compare")
-        return func(*args, **kwargs)
-    
-    def contains(self, *args, **kwargs):
-        """
-        Query a StateSet for a specific StateType. 
-        @param : state
-        the StateType being queried for. 
-        @return TRUE if the StateSet contains StateType state.
-        """
-        func = self.get_dbus_method("contains")
-        return func(*args, **kwargs)
-    
-    def equals(self, *args, **kwargs):
-        """
-        Compare two statesets for equivalence. 
-        @param : tarStateSet
-        the StateSet to be compared with this one. 
-        @return TRUE if the two StateSet objects are composed of the
-        same StateTypes.
-        """
-        func = self.get_dbus_method("equals")
-        return func(*args, **kwargs)
-    
-    def getStates(self, *args, **kwargs):
-        func = self.get_dbus_method("getStates")
-        return func(*args, **kwargs)
-    
-    def isEmpty(self, *args, **kwargs):
-        """
-        @return TRUE if the StateSet contains no states.
-        """
-        func = self.get_dbus_method("isEmpty")
-        return func(*args, **kwargs)
-    
-    def remove(self, *args, **kwargs):
-        """
-        Remove a StateType to an existing StateSet, if it is present.
-        """
-        func = self.get_dbus_method("remove")
-        return func(*args, **kwargs)
-    
-    def unImplemented(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented")
-        return func(*args, **kwargs)
-    
-    def unImplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented2")
-        return func(*args, **kwargs)
-    
-    def unImplemented3(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented3")
-        return func(*args, **kwargs)
-    
-    def unImplemented4(self, *args, **kwargs):
-        func = self.get_dbus_method("unImplemented4")
-        return func(*args, **kwargs)
-
-
-class StateType(_Enum):
-    _enum_lookup = {
-        0:'STATE_INVALID',
-        1:'STATE_ACTIVE',
-        2:'STATE_ARMED',
-        3:'STATE_BUSY',
-        4:'STATE_CHECKED',
-        5:'STATE_COLLAPSED',
-        6:'STATE_DEFUNCT',
-        7:'STATE_EDITABLE',
-        8:'STATE_ENABLED',
-        9:'STATE_EXPANDABLE',
-        10:'STATE_EXPANDED',
-        11:'STATE_FOCUSABLE',
-        12:'STATE_FOCUSED',
-        13:'STATE_HAS_TOOLTIP',
-        14:'STATE_HORIZONTAL',
-        15:'STATE_ICONIFIED',
-        16:'STATE_MODAL',
-        17:'STATE_MULTI_LINE',
-        18:'STATE_MULTISELECTABLE',
-        19:'STATE_OPAQUE',
-        20:'STATE_PRESSED',
-        21:'STATE_RESIZABLE',
-        22:'STATE_SELECTABLE',
-        23:'STATE_SELECTED',
-        24:'STATE_SENSITIVE',
-        25:'STATE_SHOWING',
-        26:'STATE_SINGLE_LINE',
-        27:'STATE_STALE',
-        28:'STATE_TRANSIENT',
-        29:'STATE_VERTICAL',
-        30:'STATE_VISIBLE',
-        31:'STATE_MANAGES_DESCENDANTS',
-        32:'STATE_INDETERMINATE',
-        33:'STATE_REQUIRED',
-        34:'STATE_TRUNCATED',
-        35:'STATE_ANIMATED',
-        36:'STATE_INVALID_ENTRY',
-        37:'STATE_SUPPORTS_AUTOCOMPLETION',
-        38:'STATE_SELECTABLE_TEXT',
-        39:'STATE_IS_DEFAULT',
-        40:'STATE_VISITED',
-        41:'STATE_LAST_DEFINED',
-    }
 
 class StreamableContent(_BaseProxy):
     """
@@ -3441,43 +2978,6 @@ MODIFIER_SHIFT = ModifierType(0)
 
 MODIFIER_SHIFTLOCK = ModifierType(1)
 
-RELATION_CONTROLLED_BY = RelationType(4)
-
-RELATION_CONTROLLER_FOR = RelationType(3)
-
-RELATION_DESCRIBED_BY = RelationType(17)
-
-RELATION_DESCRIPTION_FOR = RelationType(16)
-
-RELATION_EMBEDDED_BY = RelationType(13)
-
-RELATION_EMBEDS = RelationType(12)
-
-RELATION_EXTENDED = RelationType(8)
-
-RELATION_FLOWS_FROM = RelationType(10)
-
-RELATION_FLOWS_TO = RelationType(9)
-
-RELATION_LABELLED_BY = RelationType(2)
-
-RELATION_LABEL_FOR = RelationType(1)
-
-RELATION_LAST_DEFINED = RelationType(18)
-
-RELATION_MEMBER_OF = RelationType(5)
-
-RELATION_NODE_CHILD_OF = RelationType(7)
-
-RELATION_NULL = RelationType(0)
-
-RELATION_PARENT_WINDOW_OF = RelationType(15)
-
-RELATION_POPUP_FOR = RelationType(14)
-
-RELATION_SUBWINDOW_OF = RelationType(11)
-
-RELATION_TOOLTIP_FOR = RelationType(6)
 
 ROLE_ACCELERATOR_LABEL = Role(1)
 
@@ -3660,90 +3160,6 @@ ROLE_UNKNOWN = Role(67)
 ROLE_VIEWPORT = Role(68)
 
 ROLE_WINDOW = Role(69)
-
-STATE_ACTIVE = StateType(1)
-
-STATE_ANIMATED = StateType(35)
-
-STATE_ARMED = StateType(2)
-
-STATE_BUSY = StateType(3)
-
-STATE_CHECKED = StateType(4)
-
-STATE_COLLAPSED = StateType(5)
-
-STATE_DEFUNCT = StateType(6)
-
-STATE_EDITABLE = StateType(7)
-
-STATE_ENABLED = StateType(8)
-
-STATE_EXPANDABLE = StateType(9)
-
-STATE_EXPANDED = StateType(10)
-
-STATE_FOCUSABLE = StateType(11)
-
-STATE_FOCUSED = StateType(12)
-
-STATE_HAS_TOOLTIP = StateType(13)
-
-STATE_HORIZONTAL = StateType(14)
-
-STATE_ICONIFIED = StateType(15)
-
-STATE_INDETERMINATE = StateType(32)
-
-STATE_INVALID = StateType(0)
-
-STATE_INVALID_ENTRY = StateType(36)
-
-STATE_IS_DEFAULT = StateType(39)
-
-STATE_LAST_DEFINED = StateType(41)
-
-STATE_MANAGES_DESCENDANTS = StateType(31)
-
-STATE_MODAL = StateType(16)
-
-STATE_MULTISELECTABLE = StateType(18)
-
-STATE_MULTI_LINE = StateType(17)
-
-STATE_OPAQUE = StateType(19)
-
-STATE_PRESSED = StateType(20)
-
-STATE_REQUIRED = StateType(33)
-
-STATE_RESIZABLE = StateType(21)
-
-STATE_SELECTABLE = StateType(22)
-
-STATE_SELECTABLE_TEXT = StateType(38)
-
-STATE_SELECTED = StateType(23)
-
-STATE_SENSITIVE = StateType(24)
-
-STATE_SHOWING = StateType(25)
-
-STATE_SINGLE_LINE = StateType(26)
-
-STATE_STALE = StateType(27)
-
-STATE_SUPPORTS_AUTOCOMPLETION = StateType(37)
-
-STATE_TRANSIENT = StateType(28)
-
-STATE_TRUNCATED = StateType(34)
-
-STATE_VERTICAL = StateType(29)
-
-STATE_VISIBLE = StateType(30)
-
-STATE_VISITED = StateType(40)
 
 TEXT_BOUNDARY_CHAR = TEXT_BOUNDARY_TYPE(0)
 
