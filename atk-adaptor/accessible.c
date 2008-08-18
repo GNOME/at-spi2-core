@@ -466,6 +466,7 @@ impl_getState (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkObject *object = get_object (message);
   dbus_uint32_t rv[2];
+  dbus_uint32_t *array = rv;
   DBusMessage *reply;
 
   if (!object)
@@ -474,7 +475,7 @@ impl_getState (DBusConnection * bus, DBusMessage * message, void *user_data)
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_INT32, &rv,
+      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_UINT32, &array,
 				2, DBUS_TYPE_INVALID);
     }
   return reply;
