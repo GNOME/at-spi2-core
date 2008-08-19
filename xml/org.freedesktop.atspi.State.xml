@@ -1,24 +1,10 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <tp:enum name="StateType" type="u">
   <tp:enumvalue suffix="STATE_INVALID"/>
   <tp:enumvalue suffix="STATE_ACTIVE" value="1">
@@ -61,7 +47,7 @@
   <tp:enumvalue suffix="STATE_ENABLED" value="8">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Indicates that this object is enabled, i.e. that it currently reflects some application state. 
-      Objects that are &quot;greyed out&quot; may lack this state, and may lack the STATE_SENSITIVE if direct user
+      Objects that are "greyed out" may lack this state, and may lack the STATE_SENSITIVE if direct user
       interaction cannot cause them to acquire STATE_ENABLED.  @see STATE_SENSITIVE.</p>
   </tp:docstring>
   </tp:enumvalue>
@@ -155,7 +141,7 @@
     <p>Indicates this object is sensitive, e.g. to user interaction. 
       STATE_SENSITIVE usually accompanies STATE_ENABLED for user-actionable controls,
       but may be found in the absence of STATE_ENABLED if the current visible state of the 
-      control is &quot;disconnected&quot; from the application state.  In such cases, direct user interaction
+      control is "disconnected" from the application state.  In such cases, direct user interaction
       can often result in the object gaining STATE_SENSITIVE, for instance if a user makes 
       an explicit selection using an object whose current state is ambiguous or undefined.
       @see STATE_ENABLED, STATE_INDETERMINATE. </p>
@@ -165,7 +151,7 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Indicates this object, the object's parent, the object's parent's
       parent, and so on, are all 'shown' to the end-user, i.e.
-      subject to &quot;exposure&quot; if blocking or obscuring objects do not interpose
+      subject to "exposure" if blocking or obscuring objects do not interpose
       between this object and the top of the window stack.</p>
   </tp:docstring>
   </tp:enumvalue>
@@ -205,7 +191,7 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_MANAGES_DESCENDANTS" value="31">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>Indicates that &quot;active-descendant-changed&quot; event is sent when children
+    <p>Indicates that "active-descendant-changed" event is sent when children
       become 'active' (i.e. are selected or navigated to onscreen).  Used to
       prevent need to enumerate all children in very large containers, like
       tables.  The presence of STATE_MANAGES_DESCENDANTS is an indication to the client.
@@ -221,7 +207,7 @@
     <p>Indicates that a check box or other boolean indicator is in a state other than 
       checked or not checked.  This usually means that the boolean value reflected or 
       controlled by the object does not apply consistently to the entire current context.
-      For example, a checkbox for the &quot;Bold&quot; attribute of text may have STATE_INDETERMINATE
+      For example, a checkbox for the "Bold" attribute of text may have STATE_INDETERMINATE
       if the currently selected text contains a mixture of weight attributes.  
       In many cases interacting with a STATE_INDETERMINATE object will cause 
       the context's corresponding boolean attribute to be homogenized, whereupon the object
@@ -291,7 +277,7 @@
   <tp:enumvalue suffix="STATE_IS_DEFAULT" value="39">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>This state indicates that the object in question is the 'default' interaction object 
-      in a dialog, i.e. the one that gets activated if the user presses &quot;Enter&quot; when the
+      in a dialog, i.e. the one that gets activated if the user presses "Enter" when the
       dialog is initially posted.  </p>
 
     <p>@since AT-SPI 1.7.0 </p>

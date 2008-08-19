@@ -1,24 +1,10 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <tp:enum name="TEXT_BOUNDARY_TYPE" type="u">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Specifies the boundary conditions determining a run of text as returned from
@@ -118,7 +104,7 @@
     <p>Typographic and semantic attributes of onscreen textual content, for instance typeface, weight, 
       language, and such qualities as 'emphasis' or 'blockquote', are represented as text attributes.
       Contiguous sequences of characters over which these attributes are unchanged are referred to as
-      &quot;attribute runs&quot;, and are available via Text::getAttributeRun.  Where possible, implementing clients
+      "attribute runs", and are available via Text::getAttributeRun.  Where possible, implementing clients
       will report textual attributes which are the same over the entire text object, for instance those
       inherited from a default or document-scope style, via getDefaultAttributes instead of reporting them
       explicitly for each character.  Therefore, for any span of text, the attributes in effect are the union
@@ -126,15 +112,15 @@
       offset via Text::getAttributeRun.  </p>
 
     <p>@note Events that may be emitted by instances of Text include:
-      \li \c &quot;object:text-attributes-changed&quot; The attributes of a range of text, or the range over 
+      \li \c "object:text-attributes-changed" The attributes of a range of text, or the range over 
       which attributes apply, has changed.
-      \li \c &quot;object:text-changed&quot; The text content of this object has changed.
-      \li \c &quot;object:text-bounds-changed&quot; The character bounds of a text object have changed, 
+      \li \c "object:text-changed" The text content of this object has changed.
+      \li \c "object:text-bounds-changed" The character bounds of a text object have changed, 
       for instance in response to a reformatting or reflow operation.
-      \li \c &quot;object:text-caret-moved&quot; The character offset of the text caret (visible or notional) within
+      \li \c "object:text-caret-moved" The character offset of the text caret (visible or notional) within
       this object has changed.  Events of this type may also be generated when an onscreen
       text caret appears or disappears.
-      \li \c &quot;object:text-selection-changed&quot; The range or number of text selections within this text object
+      \li \c "object:text-selection-changed" The range or number of text selections within this text object
       has changed.  </p>
 
     <p>@note In some cases, objects which are not onscreen may implement Text, but if such objects
@@ -172,8 +158,8 @@
   <method name="getText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain all or part of the onscreen textual content of a Text object.  If endOffset is specified as 
-        &quot;-1&quot;, then this method will return the entire onscreen textual contents of the Text object.
-        @note 'onscreen' in this context means &quot;potentially onscreen&quot;, this method does not perform any sort 
+        "-1", then this method will return the entire onscreen textual contents of the Text object.
+        @note 'onscreen' in this context means "potentially onscreen", this method does not perform any sort 
         of coordinate visibility clipping or window-stack-ordering clipping.  The text thus reported 
         corresponds to the text which would be presented onscreen if the object implementing the Text interface
         were entirely unobscured. </p>
@@ -284,7 +270,7 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         an unsigned long integer whose value corresponds to the UCS-4 representation of the
         character at the specified text offset, or 0 if offset is out of range.
-        long instead of wchar, to allow unicode chars > 16 bits
+        long instead of wchar, to allow unicode chars &gt; 16 bits
       </tp:docstring>
     </arg>
   </method>
@@ -307,7 +293,7 @@
     <arg direction="out" name="defined" type="b" tp:type="boolean"/>
     <arg direction="out" type="s">
     <tp:docstring>
-      the value of attribute (name-value pair) corresponding to &quot;name&quot;, if defined. 
+      the value of attribute (name-value pair) corresponding to "name", if defined. 
     </tp:docstring>
     </arg>
   </method>
@@ -385,7 +371,7 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the number of separate, contiguous selections in the current Text object.
         Text objects which do not implement selection of discontiguous text regions will always
-        return '0' or '1'.  Note that &quot;contiguous&quot; is defined by continuity of the offsets, i.e.
+        return '0' or '1'.  Note that "contiguous" is defined by continuity of the offsets, i.e.
         a text 'selection' is defined by a start/end offset pair.  In the case of bidirectional text,
         this means that a continguous selection may appear visually discontiguous, and vice-versa.    </p>
     </tp:docstring>
@@ -512,11 +498,11 @@
   <method name="getAttributeRun">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Query a particular text object for the text attributes defined at a given offset, 
-        obtaining the start and end of the &quot;attribute run&quot; over which these attributes are currently 
+        obtaining the start and end of the "attribute run" over which these attributes are currently 
         invariant.  Text attributes are those presentational, typographic, or semantic attributes or 
         qualitites which apply to a range of text specifyable by starting and ending offsets.  
         Attributes relevant to localization should be provided in 
-        accordance with the w3c &quot;Internationalization and Localization Markup Requirements&quot;, 
+        accordance with the w3c "Internationalization and Localization Markup Requirements", 
         http://www.w3.org/TR/2005/WD-itsreq-20051122/
         Other text attributes should choose their names and value semantics in accordance with relevant
         standards such as CSS level 2 (http://www.w3.org/TR/1998/REC-CSS2-19980512), 
@@ -528,8 +514,8 @@
 
       <p>For example, CSS attributes which should be exposed on text (either as default attributes, or 
         as explicitly-set attributes when non-default values are specified in the content view) include
-        the Font attributes (i.e. &quot;css2:font-weight&quot;, &quot;css2:font-style&quot;), 
-        the &quot;css2:color&quot; and &quot;css2:background-color&quot; attributes, and &quot;css2:text-decoration&quot; attribute.     </p>
+        the Font attributes (i.e. "css2:font-weight", "css2:font-style"), 
+        the "css2:color" and "css2:background-color" attributes, and "css2:text-decoration" attribute.     </p>
 
       <p>If includeDefaults is TRUE, then this AttributeSet should include the default
         attributes as well as those which are explicitly assigned to the attribute run in question.

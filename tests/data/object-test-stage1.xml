@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<accessible description="" name="main" role="68">
+<accessible description="The main accessible object, root of the accessible tree" name="main" role="68">
 	<accessible description="" name="gnome-settings-daemon" role="77"/>
 	<accessible description="" name="gnome-panel" role="77">
 		<accessible description="" name="Bottom Expanded Edge Panel" role="24"/>

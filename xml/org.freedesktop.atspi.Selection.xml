@@ -1,24 +1,10 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <interface name="org.freedesktop.atspi.Selection">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface which indicates that an object exposes a 'selection' model,
@@ -28,10 +14,10 @@
       and a child which may hypothetically be selected (though possibly not programmatically
       selectable) has ::State::STATE_SELECTABLE.
       @note Events emitted by implementors of Selection include:
-      \li \c &quot;object:selection-changed&quot; An instance of Selection has undergone a change in the
+      \li \c "object:selection-changed" An instance of Selection has undergone a change in the
       'selected-ness' of its children, i.e. had a selection added,
       removed, and/or modified.  Usually accompanied by
-      corresponding \c &quot;object:state-changed:selected&quot; events
+      corresponding \c "object:state-changed:selected" events
       from the corresponding children, unless the children are
       previously un-queried via AT-SPI and the Selection instance
       has ::State::STATE_MANAGES_DESCENDANTS.</p>
@@ -126,7 +112,7 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Attempt to select all of the children of a Selection implementor.
         Not all Selection implementors support this operation (for instance, 
-        implementations which support only &quot;single selection&quot; do not support this operation).    </p>
+        implementations which support only "single selection" do not support this operation).    </p>
     </tp:docstring>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>

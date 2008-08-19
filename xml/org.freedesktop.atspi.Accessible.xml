@@ -1,27 +1,9 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
-
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
-
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
 <tp:enum name="LOCALE_TYPE" type="u">
   <tp:docstring>
-    used by Text and Document: these correspond to the POSIX setlocale() enum values. 
+  Used by Text and Document interfaces these correspond to the POSIX 'setlocale' enum values. 
   </tp:docstring>
   <tp:enumvalue suffix="LOCALE_TYPE_MESSAGES"/>
   <tp:enumvalue suffix="LOCALE_TYPE_COLLATE" value="1"/>
@@ -32,32 +14,32 @@
 </tp:enum>
 <tp:struct name="BoundingBox">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>Used by Component and Text, a struct defining a bounding rectangle. 
-      The relevant coordinate system is determined by the context of the
-      API call which returned or receives the value.</p>
+    Used by Component and Text interfaces, a struct defining a bounding rectangle. 
+    The relevant coordinate system is determined by the context of the
+    API call which returned or receives the value.
   </tp:docstring>
   <tp:member type="i" tp:name="x">
   <tp:docstring>
-    &lt; the value corresponding to the minimum or leftmost x position. 
+    The value corresponding to the minimum or leftmost x position. 
   </tp:docstring>
   </tp:member>
   <tp:member type="i" tp:name="y">
   <tp:docstring>
-    &lt; the value corresponding to the minimum y value.  
+    The value corresponding to the minimum y value.  
   </tp:docstring>
   </tp:member>
   <tp:member type="i" tp:name="width">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>&lt; the horizontal extent of the bounding box,
-      that is, the difference between the maximum and minimum
-      x coordinate bounds.</p>
+    The horizontal extent of the bounding box,
+    that is, the difference between the maximum and minimum
+    x coordinate bounds.
   </tp:docstring>
   </tp:member>
   <tp:member type="i" tp:name="height">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>&lt; the vertical extent of the bounding box, 
+      The vertical extent of the bounding box, 
       that is, the difference between the maximum and minimum
-      y coordinate bounds.</p>
+      y coordinate bounds.
   </tp:docstring>
   </tp:member>
 </tp:struct>
@@ -68,45 +50,49 @@
       and position in the accessible-object hierarchy, whether or not they
       actually have children.  </p>
 
-    <p>@note Events that may be emitted by instances of Accessible include:
-      \li \c &quot;object:property-change&quot; A base (strongly-typed) object attribute has changed,
-      for instance &quot;object:property-change:accessible-name&quot;.
+    <p>Events that may be emitted by instances of Accessible include:
+      "object:property-change" A base (strongly-typed) object attribute has changed,
+      for instance "object:property-change:accessible-name".
       Notifed property subtypes include accessible-name, accessible-description,
-      accessible-parent and accessible-role.   </p>
+      accessible-parent and accessible-role.</p>
 
-    <p>\li \c &quot;object:children-changed&quot; The number or identity of an object's children
+    <p>"object:children-changed" The number or identity of an object's children
       has changed.
-      \li \c &quot;object:state-changed&quot; The object's StateSet has had a state added
+      
+      "object:state-changed" The object's StateSet has had a state added
       or removed.
-      \li \c &quot;object:active-descendant-changed&quot; If the object includes 
+      
+      "object:active-descendant-changed" If the object includes 
       STATE_MANAGES_DESCENDANTS, this event is fired to indicate that the 
       descendant having STATE_ACTIVE has changed; this corresponds to
-      &quot;micro&quot; keyboard focus when the containing/emitting object has
-      &quot;macro&quot; or technical keyboard focus.  For instance, this event is
+      "micro" keyboard focus when the containing/emitting object has
+      "macro" or technical keyboard focus.  For instance, this event is
       usually emitted while traversing tables and/or spreadsheet cells.
-      \li \c &quot;object:attribute-change&quot; A weakly-typed property, as contained in the
+      
+      "object:attribute-change" A weakly-typed property, as contained in the
       AttributeSet returned by Accessible::getAttributes, has changed in value,
       been added, or been removed from the object.
-      (&quot;object:attribute-change&quot; notifications were added in AT-SPI 1.7.0)</p>
+      ("object:attribute-change" notifications were added in AT-SPI 1.7.0)</p>
+
   </tp:docstring>
   <tp:property name="name" type="s" access="readwrite">
   <tp:docstring>
-    a (short) \c string representing the object's name.
+    A (short) string representing the object's name.
   </tp:docstring>
   </tp:property>
   <tp:property name="description" type="s" access="readwrite">
   <tp:docstring>
-    a \c string describing the object in more detail than \a name.
+    A string describing the object in more detail than name.
   </tp:docstring>
   </tp:property>
   <tp:property name="parent" type="o" access="read">
   <tp:docstring>
-    an ::Accessible object which is this object's containing object.
+    The Accessible object which is this object's containing object.
   </tp:docstring>
   </tp:property>
   <tp:property name="childCount" type="i" access="read">
   <tp:docstring>
-    childCount: the number of children contained by this object.
+    The number of children contained by this object.
   </tp:docstring>
   </tp:property>
   <method name="getChildren">
@@ -115,7 +101,7 @@
     </tp:docstring>
     <arg direction="out" type="ao" tp:type="AccessibleSet">
     <tp:docstring>
-      the ::Accessible children of this object.
+      The Accessible children of this object.
     </tp:docstring>
     </arg>
   </method>
@@ -125,60 +111,58 @@
     </tp:docstring>
     <arg direction="out" type="i">
     <tp:docstring>
-      a long integer indicating this object's index in the parent's list.
+      A long integer indicating this object's index in the parent's list.
     </tp:docstring>
     </arg>
   </method>
-  <!-- TODO: Decide whether to implement this, or put these in the tree
   <method name="getRelationSet">
     <tp:docstring>
       Get a set defining this object's relationship to other accessible objects.
     </tp:docstring>
     <arg direction="out" type="a(uao)" tp:type="RelationSet">
     <tp:docstring>
-      a ::RelationSet defining this object's relationships.
+      A RelationSet defining this object's relationships.
     </tp:docstring>
     </arg>
   </method>
-  -->
   <method name="getRole">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get the ::Role indicating the type of UI role played by this object.    </p>
+      Get the Role indicating the type of UI role played by this object.
     </tp:docstring>
     <arg direction="out" type="u" tp:type="Role">
     <tp:docstring>
-      a ::Role indicating the type of UI role played by this object.
+      A Role indicating the type of UI role played by this object.
     </tp:docstring>
     </arg>
   </method>
   <method name="getRoleName">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get a string indicating the type of UI role played by this object.    </p>
+      Get a string indicating the type of UI role played by this object.
     </tp:docstring>
     <arg direction="out" type="s">
     <tp:docstring>
-      a UTF-8 string indicating the type of UI role played by this object.
+      A UTF-8 string indicating the type of UI role played by this object.
     </tp:docstring>
     </arg>
   </method>
   <method name="getLocalizedRoleName">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get a string indicating the type of UI role played by this object,
-        translated to the current locale.    </p>
+      Get a string indicating the type of UI role played by this object,
+      translated to the current locale.
     </tp:docstring>
     <arg direction="out" type="s">
     <tp:docstring>
-      a UTF-8 string indicating the type of UI role played by this object.
+      A UTF-8 string indicating the type of UI role played by this object.
     </tp:docstring>
     </arg>
   </method>
   <method name="getState">
     <tp:docstring>
-      Get the current state of the object as a ::StateSet.
+      Get the current state of the object as a StateSet.
     </tp:docstring>
     <arg direction="out" type="au" tp:type="StateSet">
     <tp:docstring>
-      a ::StateSet encapsulating the currently true states of the object.
+      A StateSet encapsulating the currently true states of the object.
       Returns an array of (currently two) 32-bit integers giving bitwise flags.
     </tp:docstring>
     </arg>
@@ -186,22 +170,22 @@
   <method name="getAttributes">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get a list of properties applied to this object as a whole, as an 
-        ::AttributeSet consisting of name-value pairs.  As such these attributes
+        AttributeSet consisting of name-value pairs. As such these attributes
         may be considered weakly-typed properties or annotations, as distinct
         from the strongly-typed interface instance data declared using the IDL 
-        &quot;attribute&quot; keyword.    </p>
+        "attribute" keyword.</p>
 
-      <p>Not all objects have explicit &quot;name-value pair&quot; AttributeSet properties.      </p>
+      <p>Not all objects have explicit "name-value pair" AttributeSet properties.      </p>
 
       <p>Attribute names and values may have any UTF-8 string value, however where possible,
-        in order to facilitate consistent use and exposure of &quot;attribute&quot; properties by
+        in order to facilitate consistent use and exposure of "attribute" properties by
         applications and AT clients, attribute names and values should chosen from  
-        a publicly-specified namespace where appropriate.    </p>
+        a publicly-specified namespace where appropriate.</p>
 
       <p>Where possible, the names and values in the name-value pairs
         should be chosen from well-established attribute namespaces
         using standard semantics.       
-        For example, attributes of ::Accessible objects corresponding to XHTML content 
+        For example, attributes of Accessible objects corresponding to XHTML content 
         elements should correspond to attribute names and values specified in the w3c 
         XHTML specification, at http://www.w3.org/TR/xhtml2, where such values are not 
         already exposed via a more strongly-typed aspect of the AT-SPI API.
@@ -214,33 +198,27 @@
         http://www.w3.org/TR/1998/REC-CSS2-19980512
         WICD (http://www.w3.org/TR/2005/WD-WICD-20051121/).    </p>
 
-      <p>@note Clients seeking semantic or typographical attributes associated with
-        specific character spans of text content should use ::Text::getAttributeRun instead.
-        The attributes returned by Accessible::getAttributes do not include
-        &quot;text attributes&quot;.    </p>
+      <p>Clients seeking semantic or typographical attributes associated with
+        specific character spans of text content should use Text.getAttributeRun instead.
+        The attributes returned by Accessible.getAttributes do not include
+        "text attributes". (See Text.getAttributeRun)</p>
 
-      <p>@see ::Accessibility::Text::getAttributeRun    </p>
     </tp:docstring>
     <arg direction="out" type="as" tp:type="AttributeSet">
     <tp:docstring>
-      an ::AttributeSet encapsulating any &quot;attribute values&quot; currently defined for the object.@since AT-SPI 1.7.0
+      An AttributeSet encapsulating any "attribute values" currently defined for the object.
     </tp:docstring>
     </arg>
   </method>
   <method name="getApplication">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get the containing Application for this object.    </p>
+      <p>Get the containing Application for this object.</p>
     </tp:docstring>
     <arg direction="out" type="o" tp:type="Application">
     <tp:docstring>
-      the Application instance to which this object belongs.@since AT-SPI 1.7.0
+      The Application instance to which this object belongs.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unimplemented">
-    <tp:docstring>
-      /cond future expansion 
-    </tp:docstring>
   </method>
 </interface>
 </node>

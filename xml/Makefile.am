@@ -12,15 +12,15 @@ XML_SPEC= \
 	org.freedesktop.atspi.Hypertext.xml \
 	org.freedesktop.atspi.Image.xml \
 	org.freedesktop.atspi.LoginHelper.xml \
-	Accessibility_Registry_Common.xml \
+	org.freedesktop.atspi.Registry.Common.xml \
 	org.freedesktop.atspi.Registry.xml \
 	org.freedesktop.atspi.DeviceEventController.xml \
 	org.freedesktop.atspi.DeviceEventListener.xml \
-	Accessibility_Relation.xml \
-	Accessibility_Role.xml \
+	org.freedesktop.atspi.Relation.xml \
+	org.freedesktop.atspi.Role.xml \
 	org.freedesktop.atspi.Selection.xml \
 	org.freedesktop.atspi.Selector.xml \
-	Accessibility_State.xml \
+	org.freedesktop.atspi.State.xml \
 	org.freedesktop.atspi.StreamableContent.xml \
 	org.freedesktop.atspi.Table.xml \
 	org.freedesktop.atspi.Text.xml \

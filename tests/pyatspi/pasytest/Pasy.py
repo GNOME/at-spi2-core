@@ -49,6 +49,10 @@ class PasyTestStep(object):
 		if a != b:
 			self.fail(msg)
 
+	def assertNotEqual(self, a, b, msg):
+		if a == b:
+			self.fail(msg)
+
 	def run(self):
 		self._state = PASY_TEST_IN_PROGRESS
 		self.entry()
@@ -59,7 +63,7 @@ class PasyTestStep(object):
 		elif self._state == PASY_TEST_FAIL:
 			return "%s - FAILED - %s" % (self._name, self.failMsg)
 		else:
-			return "%s - INCOMPLETE" %s (self._name,)
+			return "%s - INCOMPLETE" % (self._name,)
 
 	@property
 	def state(self):
@@ -73,7 +77,7 @@ class PasyTestFunc(PasyTestStep):
 
 	def entry(self):
 		try:
-			self._func()
+			self._func(self)
 		except Exception, e:
 			self.fail(e.message)
 			traceback.print_exc()
@@ -130,7 +134,7 @@ class PasyTest(PasyTestStep):
 		if self._state == PASY_TEST_WIN:
 			header =  "%s - PASSED" % (self._name,)
 		elif self._state == PASY_TEST_FAIL:
-			header =  "%s - FAILED - %s" % (self._name, self.failMsg)
+			header =  "%s - FAILED" % (self._name,)
 		else:
 			header =  "%s - INCOMPLETE" %s (self._name,)
 

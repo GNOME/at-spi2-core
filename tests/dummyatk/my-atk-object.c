@@ -9,6 +9,8 @@ void my_atk_object_add_child(MyAtkObject* parent, MyAtkObject* child)
 {
     g_ptr_array_add(parent->children, child);
     g_object_ref_sink(child);
+
+    atk_object_set_parent(ATK_OBJECT(child), ATK_OBJECT(parent));
     
     g_signal_emit_by_name(parent, "children-changed::add",
         parent->children->len - 1, child);
@@ -31,8 +33,7 @@ void my_atk_object_remove_child(MyAtkObject* parent, MyAtkObject* child)
 
 static void my_atk_object_set_parent(AtkObject *accessible, AtkObject *parent)
 {
-    //applicable only with corresponding type of parent
-    g_return_if_fail(parent == NULL || MY_IS_ATK_OBJECT(parent));
+    g_return_if_fail(parent != NULL);
 
     MyAtkObject *self = MY_ATK_OBJECT(accessible);
     AtkObject *parent_old = (atk_object_get_parent(accessible));
@@ -49,10 +50,6 @@ static void my_atk_object_set_parent(AtkObject *accessible, AtkObject *parent)
     if(parent_old != NULL)
     {
         my_atk_object_remove_child((MyAtkObject*)parent_old, self);
-    }
-    if(parent != NULL)
-    {
-        my_atk_object_add_child((MyAtkObject*)parent, self);
     }
 }
 

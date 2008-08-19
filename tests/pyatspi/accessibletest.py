@@ -23,17 +23,154 @@ def _createNode(accessible, parentElement):
 
 class AccessibleTest(_PasyTest):
 
-	__tests__ = ["setup", "tree"]
+	__tests__ = ["setup",
+		     "test_name",
+		     "test_getChildAtIndex",
+		     "test_isEqual",
+		     "test_getApplication",
+		     "test_getAttributes",
+		     "test_parent",
+		     "test_getIndexInParent",
+		     "test_getLocalizedRoleName",
+		     "test_getRelationSet",
+		     "test_getRole",
+		     "test_getRoleName",
+		     "test_getState",
+		     "test_childCount",
+		     "test_description",
+		     "test_tree",
+		     "teardown",
+		     ]
 
 	def __init__(self, bus, path):
 		_PasyTest.__init__(self, "Accessible", False)
 		self._bus = bus
 		self._path = path
 
-	def setup(self):
+	def setup(self, test):
 		self._cache = pyatspi.TestApplicationCache(self._bus, self._path)
 
-	def tree(self):
+	def test_name(self, test):
+		root = self._cache.root
+		test.assertEqual(root.name, "main", "Expected name - \"main\". Recieved - \"%s\"" % (root.name,))
+
+	def test_getChildAtIndex(self, test):
+		root = self._cache.root
+		a = root.getChildAtIndex(0)
+		test.assertEqual(a.name, "gnome-settings-daemon",
+					 "Expected name - \"gnome-settings-daemon\". Recieved - \"%s\"" % (a.name,))
+		b = root.getChildAtIndex(1)
+		test.assertEqual(b.name, "gnome-panel",
+					 "Expected name - \"gnome-panel\". Recieved - \"%s\"" % (b.name,))
+		c = root.getChildAtIndex(2)
+		test.assertEqual(c.name, "nautilus",
+					 "Expected name - \"nautilus\". Recieved - \"%s\"" % (c.name,))
+		
+	def test_isEqual(self, test):
+		root = self._cache.root
+
+		a = root.getChildAtIndex(1)
+		if not a.isEqual(a):
+			test.fail("Same accessible found unequal to self")
+
+		b = root.getChildAtIndex(1)
+		if not a.isEqual(b):
+			test.fail("Similar accessibles found unequal")
+		if not b.isEqual(a):
+			test.fail("Similar accessibles found unequal")
+
+		c = root.getChildAtIndex(2)
+		if c.isEqual(a):
+			test.fail("Different accessibles found equal")
+		if a.isEqual(c):
+			test.fail("Different accessibles found equal")
+
+	def test_getApplication(self, test):
+		root = self._cache.root
+		application = root.getApplication()
+		if not root.isEqual(application):
+			test.fail("Root accessible does not provide itself as its Application")
+
+		a = root.getChildAtIndex(1)
+		application = a.getApplication()
+		if not root.isEqual(application):
+			test.fail("Child accessible does not provide the root as its Application")
+
+
+	def test_getAttributes(self, test):
+		pass
+
+	def test_parent(self, test):
+		root = self._cache.root
+
+		a = root.getChildAtIndex(1)
+		pa = a.parent
+		if not root.isEqual(pa):
+			test.fail("Child does not correctly report its parent")
+
+	def test_getIndexInParent(self, test):
+		root = self._cache.root
+
+		for i in range(0, root.childCount):
+			child = root.getChildAtIndex(i)
+			test.assertEqual(i, child.getIndexInParent(), "Childs index in parent reported incorrectly")
+
+	def test_getLocalizedRoleName(self, test):
+		root = self._cache.root
+
+		ans = "window"
+		res = root.getLocalizedRoleName()
+		test.assertEqual(ans, res,
+				 "Expected LocalizedRoleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
+
+		a = root.getChildAtIndex(1)
+		a = a.getChildAtIndex(0)
+		ans = "window"
+		res = a.getLocalizedRoleName()
+		test.assertEqual(ans, res,
+				 "Expected LocalizedRoleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
+
+	def test_getRelationSet(self, test):
+		pass
+
+	def test_getRole(self, test):
+		root = self._cache.root
+		test.assertEqual(root.getRole(), 69,
+				 "Expected role - \"69\". Recieved - \"%d\"" % (root.getRole(),))
+
+	def test_getRoleName(self, test):
+		root = self._cache.root
+
+		ans = "window"
+		res = root.getRoleName()
+		test.assertEqual(ans, res,
+				 "Expected roleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
+
+		a = root.getChildAtIndex(1)
+		a = a.getChildAtIndex(0)
+		ans = "window"
+		res = a.getRoleName()
+		test.assertEqual(ans, res,
+				 "Expected roleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
+
+	def test_getState(self, test):
+		# Complete test of StateSet interface is separate
+		root = self._cache.root
+		state = root.getState()
+		list = state.getStates()
+
+	def test_childCount(self, test):
+		root = self._cache.root
+		test.assertEqual(root.childCount, 11,
+				 "Expected role - \"11\". Recieved - \"%d\"" % (root.childCount,))
+
+	def test_description(self, test):
+		root = self._cache.root
+		description = "The main accessible object, root of the accessible tree"
+		test.assertEqual(root.description, description,
+				 "Expected description - \"%s\". Recieved - \"%s\"" % (description, root.description,))
+
+	def test_tree(self, test):
 		"""
 		This is a mild stress test for the 
 		methods:
@@ -59,4 +196,7 @@ class AccessibleTest(_PasyTest):
 		file = open(correct)
 		cstring = file.read()
 		
-		self.assertEqual(answer, cstring, "Object tree not passed correctly")
+		test.assertEqual(answer, cstring, "Object tree not passed correctly")
+
+	def teardown(self, test):
+		pass

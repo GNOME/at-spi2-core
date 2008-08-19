@@ -1,62 +1,44 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
-
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
-
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
 <interface name="org.freedesktop.atspi/Action">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface through which a user-actionable user interface
       component can be manipulated.  Components which react to mouse or
       keyboard input from the user, (with the exception of pure text entry
       fields with no other function), should implement this interface.
-      Typical actions include &quot;click&quot;, &quot;press&quot;, &quot;release&quot; (for instance for
-      buttons), &quot;menu&quot; (for objects which have context menus invokable from 
-      mouse or keyboard), &quot;open&quot; for icons representing files folders, and others.</p>
+      Typical actions include "click", "press", "release" (for instance for
+      buttons), "menu" (for objects which have context menus invokable from 
+      mouse or keyboard), "open" for icons representing files folders, and others.</p>
   </tp:docstring>
   <tp:struct name="Action">
     <tp:member type="s" tp:name="name">
       <tp:docstring>
-      a \c string containing the description of the specified action.
+      A string containing the description of the specified action.
       </tp:docstring>
     </tp:member>
     <tp:member type="s" tp:name="description">
       <tp:docstring>
-	the description of the specified action.  The description of an actionmay provide information about the result of action invocation, unlike the action name.
+	The description of the specified action. The description of an actionmay provide information about the result of action invocation, unlike the action name.
     </tp:docstring>
   </tp:member>
     <tp:member type="s" tp:name="keyBinding">
       <tp:docstring>
-        a \c string containing the key binding for the specified action,or an empty string (&quot;&quot;) if none exists.
+        A string containing the key binding for the specified action,or an empty string ("") if none exists.
       </tp:docstring>
     </tp:member>
   </tp:struct>
 
   <tp:property name="nActions" type="i" access="read">
-    <tp:docstring>the number of actions this object supports</tp:docstring>
+    <tp:docstring>The number of actions this object supports</tp:docstring>
   </tp:property>
 
   <method name="getDescription">
     <tp:docstring>
-      <p>Get the description for the specified action.  The description of an action may provide information about the result of action invocation, unlike the action name.</p>
+      <p>Get the description for the specified action. The description of an action may provide information about the result of action invocation, unlike the action name.</p>
     </tp:docstring>
     <arg type="i" name="index" direction="in">
-      <tp:docstring>the index of the action</tp:docstring>
+      <tp:docstring>The index of the action</tp:docstring>
     </arg>
     <arg type="s" direction="out">
       <tp:docstring>A string containing the description of the specified action</tp:docstring>
@@ -65,10 +47,10 @@
 
   <method name="getName">
     <tp:docstring>
-      <p>Get the name of the specified action.  Action names generally describe the user action, i.e. &quot;click&quot; or &quot;press&quot;, rather than the result of invoking the action.</p>
+      <p>Get the name of the specified action.  Action names generally describe the user action, i.e. "click" or "press", rather than the result of invoking the action.</p>
     </tp:docstring>
     <arg type="i" name="index" direction="in">
-      <tp:docstring>the index of the action</tp:docstring>
+      <tp:docstring>The index of the action</tp:docstring>
     </arg>
     <arg type="s" direction="out">
       <tp:docstring>A string containing the name of the specified action</tp:docstring>
@@ -80,10 +62,10 @@
       <p>Get the key binding associated with a specific action.</p>
     </tp:docstring>
     <arg type="i" name="index" direction="in">
-      <tp:docstring>the index of the action</tp:docstring>
+      <tp:docstring>The index of the action</tp:docstring>
     </arg>
     <arg type="s" direction="out">
-      <tp:docstring>A string containing the key binding for the specified action, or an empty string (&quot;&quot;) if none exists.</tp:docstring>
+      <tp:docstring>A string containing the key binding for the specified action, or an empty string ("") if none exists.</tp:docstring>
     </arg>
   </method>
 
@@ -99,12 +81,12 @@
     </tp:docstring>
     <arg direction="in" name="index" type="i">
     <tp:docstring>
-      the 0-based index of the action to perform.
+      The 0-based index of the action to perform.
     </tp:docstring>
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      a \c boolean indicating success or failure.
+      A boolean indicating success or failure.
     </tp:docstring>
     </arg>
   </method>

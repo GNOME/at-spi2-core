@@ -39,18 +39,27 @@ append_update (DBusMessageIter * iter_array, AtkObject * obj,
   const char *name, *desc;
   int i;
   dbus_uint32_t role;
+  AtkObject *parent = NULL;
 
   gint childcount;
   GSList *l;
 
   g_assert(data != NULL);
 
+  parent = atk_object_get_parent(obj);
+  if (parent == NULL)
+    {
+      path_parent = g_strdup("/");
+    }
+  else
+    {
+      path_parent = spi_dbus_get_path (parent);
+    }
+
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL,
 				    &iter_struct);
   path = spi_dbus_get_path (obj);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-  path_parent = spi_dbus_get_path (atk_object_get_parent(obj));
-  if (!path_parent) path_parent = g_strdup("/");
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
   g_free(path_parent);
   dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o",

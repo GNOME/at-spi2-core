@@ -1,29 +1,15 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001 Sun Microsystems, Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
 
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
 
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+
+
 <interface name="org.freedesktop.atspi.Hyperlink">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Instances of Hyperlink are returned by Hypertext objects, and are
       the means by which end users and clients interact with linked, and in
-      some cases embedded, content.  Hyperlinks may have multiple &quot;anchors&quot;,
+      some cases embedded, content.  Hyperlinks may have multiple "anchors",
       where an anchor corresponds to a reference to a particular resource with
       a corresponding resource identified (URI).  Hyperlinks may be 
       queried for their URIs, or queried for the objects corresponding to their
@@ -31,9 +17,9 @@
       and may be queried, and manipulated via the Action interface.   </p>
 
     <p>@note A Hyperlink implementor is normally NOT an Accessible; 
-      the preferred usage is for a Hyperlink's associated &quot;objects&quot;
+      the preferred usage is for a Hyperlink's associated "objects"
       (accessed via the ::getObject method) are Accessibles.  This means
-      that Actions such as &quot;open link&quot; are normally invoked on
+      that Actions such as "open link" are normally invoked on
       the result of Hyperlink::getObject rather than directly on the 
       Hyperlink instance. For historical reasons some implementors of Hyperlink
       implement Action as well.  This usage on the part of implementing
@@ -65,13 +51,13 @@
         Hyperlink::numAnchors - 1, inclusive) associated with a Hyperlink.
         The objects returned are usually actionable (i.e. they should implement
         Accessibility::Action), and the available actions often include
-        &quot;open&quot;, &quot;bookmark&quot;, &quot;save link as&quot;, etc.  They may also implement
+        "open", "bookmark", "save link as", etc.  They may also implement
         Accessibility::StreamableContent, although clients can normally use 
         ::getURI to obtain a resource locator via which the object's
         data may be accessed.    </p>
 
       <p>@note the most common application for 'multi anchor'
-        hyperlinks in HTML is probably &quot;client side imagemaps&quot;.
+        hyperlinks in HTML is probably "client side imagemaps".
         A clickable image which uses the HTML 'usemap' attribute
         should have one anchor for every &lt;area&gt; element that
         includes an HREF.  The objects corresponding to these map
@@ -89,7 +75,7 @@
   <method name="getURI">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain a resource locator ('URI') which can be used to 
-        access the content to which this link &quot;points&quot; or is connected.</p>
+        access the content to which this link "points" or is connected.</p>
     </tp:docstring>
     <arg direction="in" name="i" type="i"/>
     <arg direction="out" type="s">

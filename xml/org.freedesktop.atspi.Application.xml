@@ -1,40 +1,22 @@
-<node name="/node" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-
-<tp:title>AT-SPI - Assistive Technology Service Provider Interface </tp:title>
-<tp:copyright>Copyright 2008 Novell, Inc.</tp:copyright>
-<tp:copyright>Copyright 2001-2004 Sun Microsystems Inc.</tp:copyright>
-<tp:license xmlns="http://www.w3.org/1999/xhtml">
-  <p>This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.</p>
-
-  <p>This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.</p>
-
-  <p>You should have received a copy of the GNU Library General Public
-    License along with this library; if not, write to the
-    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.</p>
-</tp:license>
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 <interface name="org.freedesktop.atspi.Application">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface identifying an object which is the root of the
       user interface Accessible hierarchy associated with a running application.
       Children of Application are typically, but not exclusively, 
-      top-level windows.
-      @note It is possible for an element deeper in an Accessibility stack to
-      implement Application, for instance in the case of &quot;embedded applications&quot;
+      top-level windows.</p>
+      
+    <p>It is possible for an element deeper in an Accessibility stack to
+      implement Application, for instance in the case of "embedded applications"
       which draw into toplevel windows associated with other applications
       from the user's point of view.</p>
   </tp:docstring>
   <tp:property name="toolkitName" type="s" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A string indicating the type of user interface toolkit
-      which is used by the application.
-      @note Ordinarily clients of ::Application should be
+       which is used by the application.</p>
+      <p>Ordinarily clients of the Application should be
       toolkit-agnostic, dependencies on this property should
       be avoided where possible.</p>
   </tp:docstring>
@@ -53,48 +35,49 @@
   <method name="registerToolkitEventListener">
     <arg direction="in" name="listener" type="o" tp:type="EventListener">
     <tp:docstring>
-      an ::EventListener object which will receive the requestedevents from the application's toolkits via toolit 'bridges'
+      An EventListener object which will receive the requestedevents from the application's toolkits via toolit 'bridges'
     </tp:docstring>
     </arg>
     <arg direction="in" name="eventName" type="s">
     <tp:docstring>
-      a UTF-8 string indicating the type of (toolkit-specific) eventbeing requested.  Not all applications can generate toolkit events ofa given type.Register with this application's toolkit for &quot;toolkit-specific&quot; event notifications.@noteFor most event support, clients should use non-toolkit-specific eventswhenever possible, via ::Registry::registerGlobalEventListener - this method is provided as a 'back door' when generic names do not exist for the events in question.
+	    <p> A UTF-8 string indicating the type of (toolkit-specific) eventbeing requested.  Not all applications can generate toolkit events of a given type. Register with this application's toolkit for "toolkit-specific" event notifications.</p>
+	    
+	    <p>For most event support, clients should use non-toolkit-specific events whenever possible, Registry.registerGlobalEventListener - this method is provided as a 'back door' when generic names do not exist for the events in question.</p>
     </tp:docstring>
     </arg>
   </method>
   <method name="registerObjectEventListener">
-    <tp:docstring>
-      registerObjectEventListener:
-    </tp:docstring>
     <arg direction="in" name="listener" type="o" tp:type="EventListener">
     <tp:docstring>
-      an ::EventListener object which will receive the requestedevents
+      An EventListener object which will receive the requested events
     </tp:docstring>
     </arg>
     <arg direction="in" name="eventName" type="s">
     <tp:docstring>
-      a UTF-8 string indicating the type of (toolkit-specific) eventbeing requested.  Register with this application toolkit for &quot;Accessibility::Accessible&quot; event notifications. @note: SUBJECT TO DEPRECATION.
+      A UTF-8 string indicating the type of (toolkit-specific) event being requested. Register with this application toolkit for "Accessibility.Accessible" event notifications. DEPRECATED
     </tp:docstring>
     </arg>
   </method>
   <method name="pause">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Request that the application temporarily stop sending events.
-        In most cases this should pause the application's main event loop.    </p>
+        In most cases this should pause the application's main event loop.</p>
     </tp:docstring>
     <arg direction="out" type="b" tp:type="boolean">
-    <tp:docstring>
-      \c true if the request succeeded, \c false otherwise.@note: This method is not implemented in most toolkits, and therefore should be treated with caution.
-    </tp:docstring>
+        <tp:docstring>
+	    <p>True if the request succeeded, false otherwise.</p>
+    
+        <p>This method is not implemented in most toolkits, and therefore should be treated with caution.</p>
+        </tp:docstring>
     </arg>
   </method>
   <method name="resume">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Request that the application resume sending events.    </p>
+      <p>Request that the application resume sending events.</p>
     </tp:docstring>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the request succeeded, \c False otherwise.
+      True if the request succeeded, False otherwise.
     </tp:docstring>
     </arg>
   </method>
@@ -103,23 +86,17 @@
       <p>Gets the locale in which the application is currently operating.
         For the current message locale, use \a lctype LOCALE_TYPE_MESSAGES.    </p>
 
-      <p>@param lctype The LocaleType for which the locale is queried.</p>
     </tp:docstring>
-    <arg direction="in" name="lctype" type="u" tp:type="LOCALE_TYPE"/>
-    <arg direction="out" type="s">
+    <arg direction="in" name="lctype" type="u" tp:type="LOCALE_TYPE">
     <tp:docstring>
-      a string compliant with the POSIX standard for locale description.
+      <p>The LocaleType for which the locale is queried.</p>
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented_">
+    <arg direction="out" type="s">
     <tp:docstring>
-      \cond (This comment tells doxygen not to document these) 
+      A string compliant with the POSIX standard for locale description.
     </tp:docstring>
-  </method>
-  <method name="unImplemented2_">
-  </method>
-  <method name="unImplemented3_">
+    </arg>
   </method>
 </interface>
 </node>
