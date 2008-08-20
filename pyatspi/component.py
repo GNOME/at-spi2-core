@@ -19,10 +19,20 @@ from factory import create_accessible, add_accessible_class
 from dbus.types import Int16
 
 __all__ = [
-	   "Component",
 	   "CoordType",
 	   "XY_SCREEN",
 	   "XY_WINDOW",
+	   "ComponentLayer",
+	   "Component",
+	   "LAYER_BACKGROUND",
+	   "LAYER_CANVAS",
+	   "LAYER_INVALID",
+	   "LAYER_LAST_DEFINED",
+	   "LAYER_MDI",
+	   "LAYER_OVERLAY",
+	   "LAYER_POPUP",
+	   "LAYER_WIDGET",
+	   "LAYER_WINDOW",
 	  ]
 
 #------------------------------------------------------------------------------
@@ -35,6 +45,31 @@ class CoordType(Enum):
 
 XY_SCREEN = CoordType(0)
 XY_WINDOW = CoordType(1)
+
+#------------------------------------------------------------------------------
+
+class ComponentLayer(Enum):
+    _enum_lookup = {
+        0:'LAYER_INVALID',
+        1:'LAYER_BACKGROUND',
+        2:'LAYER_CANVAS',
+        3:'LAYER_WIDGET',
+        4:'LAYER_MDI',
+        5:'LAYER_POPUP',
+        6:'LAYER_OVERLAY',
+        7:'LAYER_WINDOW',
+        8:'LAYER_LAST_DEFINED',
+    }
+
+LAYER_BACKGROUND = ComponentLayer(1)
+LAYER_CANVAS = ComponentLayer(2)
+LAYER_INVALID = ComponentLayer(0)
+LAYER_LAST_DEFINED = ComponentLayer(8)
+LAYER_MDI = ComponentLayer(4)
+LAYER_OVERLAY = ComponentLayer(6)
+LAYER_POPUP = ComponentLayer(5)
+LAYER_WIDGET = ComponentLayer(3)
+LAYER_WINDOW = ComponentLayer(7)
 
 #------------------------------------------------------------------------------
 

@@ -13,70 +13,11 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from base import BaseProxy, Enum
-from factory import create_accessible, add_accessible_class
-from stateset import StateSet, _marshal_state_set
-from relation import _marshal_relation_set
+from factory import create_accessible
 
 __all__ = [
-	   "LOCALE_TYPE",
-	   "LOCALE_TYPE_COLLATE",
-	   "LOCALE_TYPE_CTYPE",
-	   "LOCALE_TYPE_MESSAGES",
-	   "LOCALE_TYPE_MONETARY",
-	   "LOCALE_TYPE_NUMERIC",
-	   "LOCALE_TYPE_TIME",
-	   "BoundingBox",
-	   "Accessible",
+	   "Desktop",
 	  ]
-
-#------------------------------------------------------------------------------
-
-class LOCALE_TYPE(Enum):
-    _enum_lookup = {
-        0:'LOCALE_TYPE_MESSAGES',
-        1:'LOCALE_TYPE_COLLATE',
-        2:'LOCALE_TYPE_CTYPE',
-        3:'LOCALE_TYPE_MONETARY',
-        4:'LOCALE_TYPE_NUMERIC',
-        5:'LOCALE_TYPE_TIME',
-    }
-
-LOCALE_TYPE_COLLATE = LOCALE_TYPE(1)
-LOCALE_TYPE_CTYPE = LOCALE_TYPE(2)
-LOCALE_TYPE_MESSAGES = LOCALE_TYPE(0)
-LOCALE_TYPE_MONETARY = LOCALE_TYPE(3)
-LOCALE_TYPE_NUMERIC = LOCALE_TYPE(4)
-LOCALE_TYPE_TIME = LOCALE_TYPE(5)
-
-#------------------------------------------------------------------------------
-
-class BoundingBox(list):
-    def __new__(cls, x, y, width, height):
-        list.__new__(cls, (x, y, width, height))
-    def __init__(self, x, y, width, height):
-        list.__init__(self, (x, y, width, height))
-    
-    def _get_x(self):
-        return self[0]
-    def _set_x(self, val):
-        self[0] = val
-    x = property(fget=_get_x, fset=_set_x)
-    def _get_y(self):
-        return self[1]
-    def _set_y(self, val):
-        self[1] = val
-    y = property(fget=_get_y, fset=_set_y)
-    def _get_width(self):
-        return self[2]
-    def _set_width(self, val):
-        self[2] = val
-    width = property(fget=_get_width, fset=_set_width)
-    def _get_height(self):
-        return self[3]
-    def _set_height(self, val):
-        self[3] = val
-    height = property(fget=_get_height, fset=_set_height)
 
 #------------------------------------------------------------------------------
 
@@ -93,13 +34,7 @@ class Accessible(BaseProxy):
         Get the containing Application for this object.
         @return the Application instance to which this object belongs.
         """
-	application_root = self._cache[self._app_name]._get_root()
-	#TODO Set the desktop object as the parent of this.
-	return create_accessible(self._cache,
-			 	 self._app_name,
-				 application_root,
-				 interfaces.ATSPI_APPLICATION,
-				 connection=self._cache._connection)
+	return None
     
     def getAttributes(self):
         """
@@ -132,8 +67,7 @@ class Accessible(BaseProxy):
         currently defined for the object. An attribute set is a list of strings
 	with each string comprising an name-value pair format 'name:value'.
         """
-        func = self.get_dbus_method("getAttributes")
-        return func()
+        return []
     
     def getChildAtIndex(self, index):
         """
@@ -155,11 +89,7 @@ class Accessible(BaseProxy):
         @return : a long integer indicating this object's index in the
         parent's list.
         """
-	for i in range(0, self.parent.childCount):
-		child = self.parent.getChildAtIndex(i)
-		if self.isEqual(child):
-			return i
-	raise AccessibleObjectNoLongerExists("Child not found within parent")
+	return -1
     
     def getLocalizedRoleName(self):
         """
@@ -168,8 +98,8 @@ class Accessible(BaseProxy):
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
-        func = self.get_dbus_method("getLocalizedRoleName")
-        return func()
+	#TODO Need to localize this somehow. Hmmmmm
+        return 'unknown'
     
     def getRelationSet(self):
         """
@@ -177,9 +107,7 @@ class Accessible(BaseProxy):
         objects. 
         @return : a RelationSet defining this object's relationships.
         """
-        func = self.get_dbus_method("getRelationSet")
-        relation_set = func()
-        return _marshal_relation_set(self._cache, self._dbus_object, self._app_name, relation_set)
+	return []
     
     def getRole(self):
         """
@@ -195,8 +123,7 @@ class Accessible(BaseProxy):
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
-        func = self.get_dbus_method("getRoleName")
-        return func()
+        return 'unknown'
     
     def getState(self):
         """
@@ -204,9 +131,7 @@ class Accessible(BaseProxy):
         @return : a StateSet encapsulating the currently true states
         of the object.
         """
-        func = self.get_dbus_method("getState")
-        bitfield = func()
-	return _marshal_state_set(bitfield)
+	return []
     
     def isEqual(self, accessible):
         """
@@ -232,7 +157,7 @@ class Accessible(BaseProxy):
     childCount = property(fget=get_childCount, doc=_childCountDoc)
     
     def get_description(self):
-        return self.cached_data.description
+        return ''
     _descriptionDoc = \
         """
         a string describing the object in more detail than name.
@@ -240,7 +165,7 @@ class Accessible(BaseProxy):
     description = property(fget=get_description, doc=_descriptionDoc)
     
     def get_name(self):
-        return self.cached_data.name
+        return 'main'
     _nameDoc = \
         """
         a (short) string representing the object's name.
@@ -248,22 +173,11 @@ class Accessible(BaseProxy):
     name = property(fget=get_name, doc=_nameDoc)
     
     def get_parent(self):
-	if self._parent:
-		return self._parent
-	else:
-		return create_accessible(self._cache,
-				 	 self._app_name,
-					 self.cached_data.parent,
-					 interfaces.ATSPI_ACCESSIBLE,
-				 	 connection=self._cache._connection)
-
+	return None
     _parentDoc = \
         """
-        an Accessible object which is this object's containing object.
+        An Accessible object which is this object's containing object.
         """
     parent = property(fget=get_parent, doc=_parentDoc)
-
-# Register the Accessible class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_ACCESSIBLE, Accessible)
 
 #END----------------------------------------------------------------------------

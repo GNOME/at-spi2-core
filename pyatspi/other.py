@@ -19,110 +19,6 @@ import constants
 
 from factory import add_accessible_class
 
-class Action(_BaseProxy):
-    """
-    An interface through which a user-actionable user interface component
-    can be manipulated. Components which react to mouse or keyboard
-    input from the user, (with the exception of pure text entry fields
-    with no other function), should implement this interface. Typical
-    actions include "click", "press", "release" (for instance for
-    buttons), "menu" (for objects which have context menus invokable
-    from mouse or keyboard), "open" for icons representing files
-    folders, and others.
-    """
-    
-    
-    def doAction(self, *args, **kwargs):
-        """
-        doAction: 
-        @param : index
-        the 0-based index of the action to perform.
-        Causes the object to perform the specified action.
-        @return : a boolean indicating success or failure.
-        """
-        func = self.get_dbus_method("doAction")
-        return func(*args, **kwargs)
-    
-    def getDescription(self, *args, **kwargs):
-        """
-        getDescription: 
-        @param : index
-        the index of the action for which a description is desired.
-        Get the description of the specified action. The description
-        of an action may provide information about the result of action
-        invocation, unlike the action name. 
-        @return : a string containing the description of the specified
-        action.
-        """
-        func = self.get_dbus_method("getDescription")
-        return func(*args, **kwargs)
-    
-    def getKeyBinding(self, *args, **kwargs):
-        """
-        getKeyBinding: 
-        @param : index
-        the 0-based index of the action for which a key binding is requested.
-        Get the key binding associated with a specific action.
-        @return : a string containing the key binding for the specified
-        action, or an empty string ("") if none exists.
-        """
-        func = self.get_dbus_method("getKeyBinding")
-        return func(*args, **kwargs)
-    
-    def getName(self, *args, **kwargs):
-        """
-        getName: 
-        @param : index
-        the index of the action whose name is requested.
-        Get the name of the specified action. Action names generally
-        describe the user action, i.e. "click" or "press", rather then
-        the result of invoking the action.
-        @return : a string containing the name of the specified action.
-        """
-        func = self.get_dbus_method("getName")
-        return func(*args, **kwargs)
-    
-    def get_nActions(self):
-        self._pgetter(self._dbus_interface, "nActions")
-    def set_nActions(self, value):
-        self._psetter(self._dbus_interface, "nActions", value)
-    _nActionsDoc = \
-        """
-        nActions: a long containing the number of actions this object
-        supports.
-        """
-    nActions = property(fget=get_nActions, fset=set_nActions, doc=_nActionsDoc)
-
-
-#------------------------------------------------------------------------------
-
-class BoundingBox(list):
-    def __new__(cls, x, y, width, height):
-        list.__new__(cls, (x, y, width, height))
-    def __init__(self, x, y, width, height):
-        list.__init__(self, (x, y, width, height))
-    
-    def _get_x(self):
-        return self[0]
-    def _set_x(self, val):
-        self[0] = val
-    x = property(fget=_get_x, fset=_set_x)
-    def _get_y(self):
-        return self[1]
-    def _set_y(self, val):
-        self[1] = val
-    y = property(fget=_get_y, fset=_set_y)
-    def _get_width(self):
-        return self[2]
-    def _set_width(self, val):
-        self[2] = val
-    width = property(fget=_get_width, fset=_set_width)
-    def _get_height(self):
-        return self[3]
-    def _set_height(self, val):
-        self[3] = val
-    height = property(fget=_get_height, fset=_set_height)
-
 
 class Collection(_BaseProxy):
     
@@ -260,8 +156,6 @@ class CommandListener(_BaseProxy):
     to the list of available commands is made. The notifyCommands()
     method of the client is then called by the Selector instance.
     """
-    
-    
     def notifyCommands(self, *args, **kwargs):
         """
         Notify the CommandListener instance of changes to the currently
@@ -275,18 +169,6 @@ class CommandListener(_BaseProxy):
 
 
 
-class ComponentLayer(_Enum):
-    _enum_lookup = {
-        0:'LAYER_INVALID',
-        1:'LAYER_BACKGROUND',
-        2:'LAYER_CANVAS',
-        3:'LAYER_WIDGET',
-        4:'LAYER_MDI',
-        5:'LAYER_POPUP',
-        6:'LAYER_OVERLAY',
-        7:'LAYER_WINDOW',
-        8:'LAYER_LAST_DEFINED',
-    }
 
 
 class ContentStream(_BaseProxy):
@@ -1640,15 +1522,6 @@ class KeySynthType(_Enum):
         4:'KEY_STRING',
     }
 
-class LOCALE_TYPE(_Enum):
-    _enum_lookup = {
-        0:'LOCALE_TYPE_MESSAGES',
-        1:'LOCALE_TYPE_COLLATE',
-        2:'LOCALE_TYPE_CTYPE',
-        3:'LOCALE_TYPE_MONETARY',
-        4:'LOCALE_TYPE_NUMERIC',
-        5:'LOCALE_TYPE_TIME',
-    }
 
 class LoginHelper(_BaseProxy):
     """
@@ -1916,101 +1789,6 @@ class Registry(EventListener):
         return func(*args, **kwargs)
 
     
-
-class Role(_Enum):
-    _enum_lookup = {
-        0:'ROLE_INVALID',
-        1:'ROLE_ACCELERATOR_LABEL',
-        2:'ROLE_ALERT',
-        3:'ROLE_ANIMATION',
-        4:'ROLE_ARROW',
-        5:'ROLE_CALENDAR',
-        6:'ROLE_CANVAS',
-        7:'ROLE_CHECK_BOX',
-        8:'ROLE_CHECK_MENU_ITEM',
-        9:'ROLE_COLOR_CHOOSER',
-        10:'ROLE_COLUMN_HEADER',
-        11:'ROLE_COMBO_BOX',
-        12:'ROLE_DATE_EDITOR',
-        13:'ROLE_DESKTOP_ICON',
-        14:'ROLE_DESKTOP_FRAME',
-        15:'ROLE_DIAL',
-        16:'ROLE_DIALOG',
-        17:'ROLE_DIRECTORY_PANE',
-        18:'ROLE_DRAWING_AREA',
-        19:'ROLE_FILE_CHOOSER',
-        20:'ROLE_FILLER',
-        21:'ROLE_FOCUS_TRAVERSABLE',
-        22:'ROLE_FONT_CHOOSER',
-        23:'ROLE_FRAME',
-        24:'ROLE_GLASS_PANE',
-        25:'ROLE_HTML_CONTAINER',
-        26:'ROLE_ICON',
-        27:'ROLE_IMAGE',
-        28:'ROLE_INTERNAL_FRAME',
-        29:'ROLE_LABEL',
-        30:'ROLE_LAYERED_PANE',
-        31:'ROLE_LIST',
-        32:'ROLE_LIST_ITEM',
-        33:'ROLE_MENU',
-        34:'ROLE_MENU_BAR',
-        35:'ROLE_MENU_ITEM',
-        36:'ROLE_OPTION_PANE',
-        37:'ROLE_PAGE_TAB',
-        38:'ROLE_PAGE_TAB_LIST',
-        39:'ROLE_PANEL',
-        40:'ROLE_PASSWORD_TEXT',
-        41:'ROLE_POPUP_MENU',
-        42:'ROLE_PROGRESS_BAR',
-        43:'ROLE_PUSH_BUTTON',
-        44:'ROLE_RADIO_BUTTON',
-        45:'ROLE_RADIO_MENU_ITEM',
-        46:'ROLE_ROOT_PANE',
-        47:'ROLE_ROW_HEADER',
-        48:'ROLE_SCROLL_BAR',
-        49:'ROLE_SCROLL_PANE',
-        50:'ROLE_SEPARATOR',
-        51:'ROLE_SLIDER',
-        52:'ROLE_SPIN_BUTTON',
-        53:'ROLE_SPLIT_PANE',
-        54:'ROLE_STATUS_BAR',
-        55:'ROLE_TABLE',
-        56:'ROLE_TABLE_CELL',
-        57:'ROLE_TABLE_COLUMN_HEADER',
-        58:'ROLE_TABLE_ROW_HEADER',
-        59:'ROLE_TEAROFF_MENU_ITEM',
-        60:'ROLE_TERMINAL',
-        61:'ROLE_TEXT',
-        62:'ROLE_TOGGLE_BUTTON',
-        63:'ROLE_TOOL_BAR',
-        64:'ROLE_TOOL_TIP',
-        65:'ROLE_TREE',
-        66:'ROLE_TREE_TABLE',
-        67:'ROLE_UNKNOWN',
-        68:'ROLE_VIEWPORT',
-        69:'ROLE_WINDOW',
-        70:'ROLE_EXTENDED',
-        71:'ROLE_HEADER',
-        72:'ROLE_FOOTER',
-        73:'ROLE_PARAGRAPH',
-        74:'ROLE_RULER',
-        75:'ROLE_APPLICATION',
-        76:'ROLE_AUTOCOMPLETE',
-        77:'ROLE_EDITBAR',
-        78:'ROLE_EMBEDDED',
-        79:'ROLE_ENTRY',
-        80:'ROLE_CHART',
-        81:'ROLE_CAPTION',
-        82:'ROLE_DOCUMENT_FRAME',
-        83:'ROLE_HEADING',
-        84:'ROLE_PAGE',
-        85:'ROLE_SECTION',
-        86:'ROLE_REDUNDANT_OBJECT',
-        87:'ROLE_FORM',
-        88:'ROLE_LINK',
-        89:'ROLE_INPUT_METHOD_WINDOW',
-        90:'ROLE_LAST_DEFINED',
-    }
 
 class Selection(_BaseProxy):
     """
@@ -2796,35 +2574,6 @@ KEY_STRING = KeySynthType(4)
 
 KEY_SYM = KeySynthType(3)
 
-LAYER_BACKGROUND = ComponentLayer(1)
-
-LAYER_CANVAS = ComponentLayer(2)
-
-LAYER_INVALID = ComponentLayer(0)
-
-LAYER_LAST_DEFINED = ComponentLayer(8)
-
-LAYER_MDI = ComponentLayer(4)
-
-LAYER_OVERLAY = ComponentLayer(6)
-
-LAYER_POPUP = ComponentLayer(5)
-
-LAYER_WIDGET = ComponentLayer(3)
-
-LAYER_WINDOW = ComponentLayer(7)
-
-LOCALE_TYPE_COLLATE = LOCALE_TYPE(1)
-
-LOCALE_TYPE_CTYPE = LOCALE_TYPE(2)
-
-LOCALE_TYPE_MESSAGES = LOCALE_TYPE(0)
-
-LOCALE_TYPE_MONETARY = LOCALE_TYPE(3)
-
-LOCALE_TYPE_NUMERIC = LOCALE_TYPE(4)
-
-LOCALE_TYPE_TIME = LOCALE_TYPE(5)
 
 MODIFIER_ALT = ModifierType(3)
 
@@ -2841,189 +2590,6 @@ MODIFIER_NUMLOCK = ModifierType(7)
 MODIFIER_SHIFT = ModifierType(0)
 
 MODIFIER_SHIFTLOCK = ModifierType(1)
-
-
-ROLE_ACCELERATOR_LABEL = Role(1)
-
-ROLE_ALERT = Role(2)
-
-ROLE_ANIMATION = Role(3)
-
-ROLE_APPLICATION = Role(75)
-
-ROLE_ARROW = Role(4)
-
-ROLE_AUTOCOMPLETE = Role(76)
-
-ROLE_CALENDAR = Role(5)
-
-ROLE_CANVAS = Role(6)
-
-ROLE_CAPTION = Role(81)
-
-ROLE_CHART = Role(80)
-
-ROLE_CHECK_BOX = Role(7)
-
-ROLE_CHECK_MENU_ITEM = Role(8)
-
-ROLE_COLOR_CHOOSER = Role(9)
-
-ROLE_COLUMN_HEADER = Role(10)
-
-ROLE_COMBO_BOX = Role(11)
-
-ROLE_DATE_EDITOR = Role(12)
-
-ROLE_DESKTOP_FRAME = Role(14)
-
-ROLE_DESKTOP_ICON = Role(13)
-
-ROLE_DIAL = Role(15)
-
-ROLE_DIALOG = Role(16)
-
-ROLE_DIRECTORY_PANE = Role(17)
-
-ROLE_DOCUMENT_FRAME = Role(82)
-
-ROLE_DRAWING_AREA = Role(18)
-
-ROLE_EDITBAR = Role(77)
-
-ROLE_EMBEDDED = Role(78)
-
-ROLE_ENTRY = Role(79)
-
-ROLE_EXTENDED = Role(70)
-
-ROLE_FILE_CHOOSER = Role(19)
-
-ROLE_FILLER = Role(20)
-
-ROLE_FOCUS_TRAVERSABLE = Role(21)
-
-ROLE_FONT_CHOOSER = Role(22)
-
-ROLE_FOOTER = Role(72)
-
-ROLE_FORM = Role(87)
-
-ROLE_FRAME = Role(23)
-
-ROLE_GLASS_PANE = Role(24)
-
-ROLE_HEADER = Role(71)
-
-ROLE_HEADING = Role(83)
-
-ROLE_HTML_CONTAINER = Role(25)
-
-ROLE_ICON = Role(26)
-
-ROLE_IMAGE = Role(27)
-
-ROLE_INPUT_METHOD_WINDOW = Role(89)
-
-ROLE_INTERNAL_FRAME = Role(28)
-
-ROLE_INVALID = Role(0)
-
-ROLE_LABEL = Role(29)
-
-ROLE_LAST_DEFINED = Role(90)
-
-ROLE_LAYERED_PANE = Role(30)
-
-ROLE_LINK = Role(88)
-
-ROLE_LIST = Role(31)
-
-ROLE_LIST_ITEM = Role(32)
-
-ROLE_MENU = Role(33)
-
-ROLE_MENU_BAR = Role(34)
-
-ROLE_MENU_ITEM = Role(35)
-
-ROLE_OPTION_PANE = Role(36)
-
-ROLE_PAGE = Role(84)
-
-ROLE_PAGE_TAB = Role(37)
-
-ROLE_PAGE_TAB_LIST = Role(38)
-
-ROLE_PANEL = Role(39)
-
-ROLE_PARAGRAPH = Role(73)
-
-ROLE_PASSWORD_TEXT = Role(40)
-
-ROLE_POPUP_MENU = Role(41)
-
-ROLE_PROGRESS_BAR = Role(42)
-
-ROLE_PUSH_BUTTON = Role(43)
-
-ROLE_RADIO_BUTTON = Role(44)
-
-ROLE_RADIO_MENU_ITEM = Role(45)
-
-ROLE_REDUNDANT_OBJECT = Role(86)
-
-ROLE_ROOT_PANE = Role(46)
-
-ROLE_ROW_HEADER = Role(47)
-
-ROLE_RULER = Role(74)
-
-ROLE_SCROLL_BAR = Role(48)
-
-ROLE_SCROLL_PANE = Role(49)
-
-ROLE_SECTION = Role(85)
-
-ROLE_SEPARATOR = Role(50)
-
-ROLE_SLIDER = Role(51)
-
-ROLE_SPIN_BUTTON = Role(52)
-
-ROLE_SPLIT_PANE = Role(53)
-
-ROLE_STATUS_BAR = Role(54)
-
-ROLE_TABLE = Role(55)
-
-ROLE_TABLE_CELL = Role(56)
-
-ROLE_TABLE_COLUMN_HEADER = Role(57)
-
-ROLE_TABLE_ROW_HEADER = Role(58)
-
-ROLE_TEAROFF_MENU_ITEM = Role(59)
-
-ROLE_TERMINAL = Role(60)
-
-ROLE_TEXT = Role(61)
-
-ROLE_TOGGLE_BUTTON = Role(62)
-
-ROLE_TOOL_BAR = Role(63)
-
-ROLE_TOOL_TIP = Role(64)
-
-ROLE_TREE = Role(65)
-
-ROLE_TREE_TABLE = Role(66)
-
-ROLE_UNKNOWN = Role(67)
-
-ROLE_VIEWPORT = Role(68)
-
-ROLE_WINDOW = Role(69)
 
 TEXT_BOUNDARY_CHAR = TEXT_BOUNDARY_TYPE(0)
 
