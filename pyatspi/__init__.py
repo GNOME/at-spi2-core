@@ -22,6 +22,7 @@ from constants import *
 
 from accessible import *
 from application import *
+from component import *
 from stateset import *
 from relation import *
 

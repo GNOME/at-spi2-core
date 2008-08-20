@@ -43,7 +43,7 @@ class Accessible(BaseProxy):
 			 	 self._app_name,
 				 application_root,
 				 interfaces.ATSPI_APPLICATION,
-				 dbus_object=self._dbus_object)
+				 connection=self._cache._connection)
     
     def getAttributes(self):
         """
@@ -91,7 +91,7 @@ class Accessible(BaseProxy):
 			 	 self._app_name,
 				 path,
 				 interfaces.ATSPI_ACCESSIBLE,
-				 dbus_object=self._dbus_object)
+				 connection=self._cache._connection)
     
     def getIndexInParent(self):
         """
@@ -199,7 +199,7 @@ class Accessible(BaseProxy):
 				 	 self._app_name,
 					 self.cached_data.parent,
 					 interfaces.ATSPI_ACCESSIBLE,
-				 	 dbus_object=self._dbus_object)
+				 	 connection=self._cache._connection)
 
     _parentDoc = \
         """

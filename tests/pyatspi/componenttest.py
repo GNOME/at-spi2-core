@@ -1,82 +1,143 @@
-import testutil
-
 import dbus
 import gobject
 import os.path
-import coretest
-from dbus.mainloop.glib import DBusGMainLoop
-
-from accessible_cache import AccessibleCache
-from accessible_cache import ATSPI_COMPONENT
 
 from xml.dom import minidom
+import os
+
+from pasytest import PasyTest as _PasyTest
+
+import pyatspi
+from pyatspi import Accessible
 
 ATSPI_LAYER_WIDGET = 3
 ATSPI_LAYER_MDI = 4
 ATSPI_LAYER_WINDOW = 7
 
 extents_expected = [(0,0,30,20), (40,30,30,40), (0,0,70,70)]
+sizes_expected = [(30,20), (30,40), (70,70)]
+positions_expected = [(0,0), (40,30), (0,0)]
 layers_expected = [ATSPI_LAYER_WINDOW, ATSPI_LAYER_WIDGET, ATSPI_LAYER_MDI]
-zorders_expected = [0, -100, 100]
+zorders_expected = [-100, 100]
 
-def supportsInterface(accessible, interface):
-	for itf in accessible.interfaces:
-		if itf == interface:
-			return True
-	return False
+class ComponentTest(_PasyTest):
 
-class ComponentTestCase(coretest.CoreTestCase):
-	def runTest(self):
-		self._app = testutil.runTestApp("libcomponentapp.so", self._name)
-		self._loop.run()
+	__tests__ = ["setup",
+		     "test_contains",
+		     "test_getAccessibleAtPoint",
+		     "test_getExtents",
+		     "test_getPosition",
+		     "test_getSize",
+		     "test_getLayer",
+		     "test_getMDIZOrder",
+		     "test_grabFocus",
+		     "test_registerFocusHandler",
+		     "test_deregisterFocusHandler",
+		     "test_getAlpha",
+		     "teardown",
+		     ]
 
-	def post_application_test(self):
-		#----------------------------------------
-		comps = [None, None, None]
-		comps[2] = self._cache.getRootAccessible()
+	def __init__(self, bus, path):
+		_PasyTest.__init__(self, "Accessible", False)
+		self._bus = bus
+		self._path = path
 
-		self.assertEqual(comps[2].numChildren, 2,
-		"""
-		Number of child components = %d
-		Correct number of components = 2
-		""" % comps[2].numChildren)
-		#----------------------------------------
-		comps[0] = comps[2].getChild(0)
-		comps[1] = comps[2].getChild(1)
+	def setup(self, test):
+		self._cache = pyatspi.TestApplicationCache(self._bus, self._path)
 
-		for comp in comps:
-			self.assert_(supportsInterface(comp, ATSPI_COMPONENT),
-				"""
-				An accessible object provided does not support the
-				component interface.
-				""")
-		#----------------------------------------
-		for (expected, comp) in zip(extents_expected, comps):
-			extents = comp.getExtents(dbus.types.UInt32(0))
-			self.assertEquals(extents, expected,
-					"""
-					Extents of component do not match.
-					Expected: %s
-					Recieved: %s
-					""" % (str(expected), str(extents)))
-		#----------------------------------------
-		for (expected, comp) in zip(layers_expected, comps):
+	def test_contains(self, test):
+		pass
+
+	def test_getAccessibleAtPoint(self, test):
+		pass
+
+	def test_getExtents(self, test):
+		root = self._cache.root
+		one = root.getChildAtIndex(0)
+		two = root.getChildAtIndex(1)
+
+		comps = [one.queryComponent(),
+			 two.queryComponent(),
+			 root.queryComponent(),]
+ 
+		for expected, comp in zip(extents_expected, comps):
+			extents = comp.getExtents(0)
+			test.assertEqual(extents, expected, 
+					 "Extents not correct. Expected (%d, %d, %d, %d), Recieved (%d, %d, %d, %d)"
+					 % (expected[0], expected[1], expected[2], expected[3], 
+						extents[0], extents[1], extents[2], extents[3]))
+
+	def test_getPosition(self, test):
+		pass
+		root = self._cache.root
+		one = root.getChildAtIndex(0)
+		two = root.getChildAtIndex(1)
+
+		comps = [one.queryComponent(),
+			 two.queryComponent(),
+			 root.queryComponent(),]
+ 
+		for expected, comp in zip(positions_expected, comps):
+			position = comp.getPosition(0)
+			test.assertEqual(position, expected, 
+					 "Position not correct. Expected (%d, %d) Recieved (%d, %d)"
+					 % (expected[0], expected[1], position[0], position[1]))
+
+	def test_getSize(self, test):
+		root = self._cache.root
+		one = root.getChildAtIndex(0)
+		two = root.getChildAtIndex(1)
+
+		comps = [one.queryComponent(),
+			 two.queryComponent(),
+			 root.queryComponent(),]
+ 
+		for expected, comp in zip(sizes_expected, comps):
+			size = comp.getSize()
+			test.assertEqual(size, expected, 
+					 "Size not correct. Expected (%d, %d) Recieved (%d, %d)"
+					 % (expected[0], expected[1], size[0], size[1]))
+
+	def test_getLayer(self, test):
+		root = self._cache.root
+		one = root.getChildAtIndex(0)
+		two = root.getChildAtIndex(1)
+
+		comps = [one.queryComponent(),
+			 two.queryComponent(),
+			 root.queryComponent(),]
+ 
+		for expected, comp in zip(layers_expected, comps):
 			layer = comp.getLayer()
-			self.assertEquals(layer, expected,
-					"""
-					Layer of component does not match.
-					Expected: %s
-					Recieved: %s
-					""" % (str(expected), str(layer)))
-		#----------------------------------------
-		#There is no defined value for the result when the layer is not WINDOW or MDI
-		#for (expected, comp) in zip(zorders_expected, [comps[0], comps[2]]):
-		#	zorder = comp.getMDIZOrder()
-		#	print zorder, expected
-		#	self.assertEquals(layer, expected,
-		#			"""
-		#			ZOrder of component does not match.
-		#			Expected: %s
-		#			Recieved: %s
-		#			""" % (str(expected), str(zorder)))
-		#----------------------------------------
+			test.assertEqual(layer, expected, 
+					 "Layer not correct. Expected %d, Recieved %d"
+					 % (layer, expected))
+
+	def test_getMDIZOrder(self, test):
+		root = self._cache.root
+		one = root.getChildAtIndex(0)
+		two = root.getChildAtIndex(1)
+
+		comps = [two.queryComponent(),
+			 root.queryComponent(),]
+ 
+		for expected, comp in zip(zorders_expected, comps):
+			mdizo = comp.getMDIZOrder()
+			test.assertEqual(mdizo, expected, 
+					 "ZOrder not correct. Expected %d, Recieved %d"
+					 % (expected, mdizo))
+
+	def test_grabFocus(self, test):
+		pass
+
+	def test_registerFocusHandler(self, test):
+		pass
+
+	def test_deregisterFocusHandler(self, test):
+		pass
+
+	def test_getAlpha(self, test):
+		pass
+
+	def teardown(self, test):
+		pass

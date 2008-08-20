@@ -127,7 +127,7 @@ class AccessibleTest(_PasyTest):
 
 		a = root.getChildAtIndex(1)
 		a = a.getChildAtIndex(0)
-		ans = "window"
+		ans = "html container"
 		res = a.getLocalizedRoleName()
 		test.assertEqual(ans, res,
 				 "Expected LocalizedRoleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
@@ -152,7 +152,7 @@ class AccessibleTest(_PasyTest):
 
 		a = root.getChildAtIndex(1)
 		a = a.getChildAtIndex(0)
-		ans = "window"
+		ans = "html container"
 		res = a.getRoleName()
 		test.assertEqual(ans, res,
 				 "Expected roleName - \"%s\". Recieved - \"%s\"" % (ans, res,))

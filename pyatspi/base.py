@@ -38,8 +38,8 @@ class Enum(int):
 
 
 class BaseProxyMeta(type):
-	def __init__(cls, *args, **kwargs):
-		type.__init__(cls, *args, **kwargs)
+	def __new__(meta, *args, **kwargs):
+		cls = type.__new__(meta, *args, **kwargs)
 
 		queryable_interfaces = { 
 			'Accessible':interfaces.ATSPI_ACCESSIBLE,
@@ -60,11 +60,16 @@ class BaseProxyMeta(type):
 			'Value':interfaces.ATSPI_VALUE,
 		}
 
+		def return_query(interface):
+			def new_query(self):
+				return self.queryInterface(interface)
+			return new_query
+
 		for interface in queryable_interfaces.keys():
 			name = 'query%s' % interface
-    			def new_query(self, object):
-				return self.queryInterface(object, queryable_interfaces[interface])
-			setattr(cls, name, new_query) 
+			setattr(cls, name, return_query(queryable_interfaces[interface])) 
+
+		return cls
 
 #------------------------------------------------------------------------------
 
@@ -101,6 +106,9 @@ class BaseProxy(Interface):
 		self._pgetter = self.get_dbus_method("Get", dbus_interface="org.freedesktop.DBus.Properties")
 		self._psetter = self.get_dbus_method("Set", dbus_interface="org.freedesktop.DBus.Properties")
 
+	def __getattr__(*args, **kwargs):
+		return object.__getattr__(*args, **kwargs)
+
 	def get_dbus_method(self, *args, **kwargs):
 		method =  Interface.get_dbus_method(self, *args, **kwargs)
 
@@ -126,7 +134,7 @@ class BaseProxy(Interface):
 
 	@property
 	def interfaces(self):
-		return self._data.interfaces
+		return self.cached_data.interfaces
 
 	def queryInterface(self, interface):
 		"""
@@ -134,11 +142,10 @@ class BaseProxy(Interface):
 		or raises a NotImplemented error if the given interface
 		is not supported.
 		"""
-		if interface in self._data.interfaces:
+		if interface in self.interfaces:
 			return create_accessible(self._cache,
 					 	 self._app_name,
 						 self._acc_path,
-						 self._parent,
 						 interface,
 						 dbus_object=self._dbus_object)
 		else:

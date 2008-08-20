@@ -233,8 +233,7 @@ impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
-				DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_INT16, &rv, DBUS_TYPE_INVALID);
     }
   return reply;
 }
