@@ -12,9 +12,9 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#import registry
+import registry
 
-#Registry = registry.Registry(reg)
+#Registry = registry.Registry()
 #registry.Registry = Registry
 #del registry
 
@@ -23,9 +23,9 @@ from constants import *
 from accessible import *
 from application import *
 from component import *
-from stateset import *
+from desktop import *
+from state import *
 from relation import *
-
-from test import *
+from role import *
 
 #from utils import *

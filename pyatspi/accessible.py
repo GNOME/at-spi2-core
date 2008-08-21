@@ -15,8 +15,9 @@
 import interfaces
 from base import BaseProxy, Enum
 from factory import create_accessible, add_accessible_class
-from stateset import StateSet, _marshal_state_set
+from state import StateSet, _marshal_state_set
 from relation import _marshal_relation_set
+from role import Role
 
 __all__ = [
 	   "LOCALE_TYPE",
@@ -53,7 +54,7 @@ LOCALE_TYPE_TIME = LOCALE_TYPE(5)
 
 class BoundingBox(list):
     def __new__(cls, x, y, width, height):
-        list.__new__(cls, (x, y, width, height))
+        return list.__new__(cls, (x, y, width, height))
     def __init__(self, x, y, width, height):
         list.__init__(self, (x, y, width, height))
     
@@ -87,6 +88,12 @@ class Accessible(BaseProxy):
     'children' and position in the accessible-object hierarchy,
     whether or not they actually have children.
     """
+
+    def __len__(self):
+	    return self.getChildCount()
+
+    def __getitem__(self, index):
+	    return self.getChildAtIndex(index)
     
     def getApplication(self):
         """
@@ -187,7 +194,7 @@ class Accessible(BaseProxy):
         @return : a Role indicating the type of UI role played by this
         object.
         """
-        return self.cached_data.role
+        return Role(self.cached_data.role)
     
     def getRoleName(self):
         """

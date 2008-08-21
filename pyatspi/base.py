@@ -32,7 +32,7 @@ class AccessibleObjectNoLongerExists(Exception):
 
 class Enum(int):
 	def __str__(self):
-		return self._enum_lookup(int(self))
+		return self._enum_lookup[int(self)]
 
 #------------------------------------------------------------------------------
 

@@ -9,6 +9,7 @@ from pasytest import PasyTest as _PasyTest
 
 import pyatspi
 from pyatspi import Accessible
+from pyatspi import BoundingBox
 
 ATSPI_LAYER_WIDGET = 3
 ATSPI_LAYER_MDI = 4
@@ -43,7 +44,8 @@ class ComponentTest(_PasyTest):
 		self._path = path
 
 	def setup(self, test):
-		self._cache = pyatspi.TestApplicationCache(self._bus, self._path)
+		self._registry = pyatspi.registry.Registry(self._path)
+		self._desktop = self._registry.getDesktop(0)
 
 	def test_contains(self, test):
 		pass
@@ -52,7 +54,7 @@ class ComponentTest(_PasyTest):
 		pass
 
 	def test_getExtents(self, test):
-		root = self._cache.root
+		root = self._desktop.getChildAtIndex(0)
 		one = root.getChildAtIndex(0)
 		two = root.getChildAtIndex(1)
 
@@ -62,14 +64,14 @@ class ComponentTest(_PasyTest):
  
 		for expected, comp in zip(extents_expected, comps):
 			extents = comp.getExtents(0)
-			test.assertEqual(extents, expected, 
+			test.assertEqual(extents, BoundingBox(*expected), 
 					 "Extents not correct. Expected (%d, %d, %d, %d), Recieved (%d, %d, %d, %d)"
 					 % (expected[0], expected[1], expected[2], expected[3], 
 						extents[0], extents[1], extents[2], extents[3]))
 
 	def test_getPosition(self, test):
 		pass
-		root = self._cache.root
+		root = self._desktop.getChildAtIndex(0)
 		one = root.getChildAtIndex(0)
 		two = root.getChildAtIndex(1)
 
@@ -84,7 +86,7 @@ class ComponentTest(_PasyTest):
 					 % (expected[0], expected[1], position[0], position[1]))
 
 	def test_getSize(self, test):
-		root = self._cache.root
+		root = self._desktop.getChildAtIndex(0)
 		one = root.getChildAtIndex(0)
 		two = root.getChildAtIndex(1)
 
@@ -99,7 +101,7 @@ class ComponentTest(_PasyTest):
 					 % (expected[0], expected[1], size[0], size[1]))
 
 	def test_getLayer(self, test):
-		root = self._cache.root
+		root = self._desktop.getChildAtIndex(0)
 		one = root.getChildAtIndex(0)
 		two = root.getChildAtIndex(1)
 
@@ -114,7 +116,7 @@ class ComponentTest(_PasyTest):
 					 % (layer, expected))
 
 	def test_getMDIZOrder(self, test):
-		root = self._cache.root
+		root = self._desktop.getChildAtIndex(0)
 		one = root.getChildAtIndex(0)
 		two = root.getChildAtIndex(1)
 

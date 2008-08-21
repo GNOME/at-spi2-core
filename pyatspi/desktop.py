@@ -13,7 +13,12 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from factory import create_accessible
+from base import BaseProxyMeta
+from accessible import BoundingBox
+from cache import AccessibleCache
+from state import StateSet
+from role import ROLE_UNKNOWN
+from component import LAYER_WIDGET
 
 __all__ = [
 	   "Desktop",
@@ -21,14 +26,175 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Accessible(BaseProxy):
+class ApplicationCache(object):
+
+	def __init__(self, connection, bus_name):
+		self._connection = connection
+		self._bus_name = bus_name
+		self._accessible_cache = AccessibleCache(connection, bus_name)
+
+	def __getitem__(self, key):
+		return self._accessible_cache
+
+	def __contains__(self, key):
+		if key == self._bus_name:
+			return True
+		else:
+			return False
+
+	def get_application_at_index(self, index):
+		pass
+
+	def get_application_count(self):
+		return 1
+
+#------------------------------------------------------------------------------
+
+class DesktopComponent(object):
+    """
+    The Component interface is implemented by objects which occupy
+    on-screen space, e.g. objects which have onscreen visual representations.
+    The methods in Component allow clients to identify where the
+    objects lie in the onscreen coordinate system, their relative
+    size, stacking order, and position. It also provides a mechanism
+    whereby keyboard focus may be transferred to specific user interface
+    elements programmatically. This is a 2D API, coordinates of 3D
+    objects are projected into the 2-dimensional screen view for
+    purposes of this interface.
+    """
+
+    def contains(self, *args, **kwargs):
+        """
+        @return True if the specified point lies within the Component's
+        bounding box, False otherwise.
+        """
+	return False
+    
+    def deregisterFocusHandler(self, *args, **kwargs):
+        """
+        Request that an EventListener registered via registerFocusHandler
+        no longer be notified when this object receives keyboard focus.
+        """
+        pass
+    
+    def getAccessibleAtPoint(self, *args, **kwargs):
+        """
+        @return the Accessible child whose bounding box contains the
+        specified point.
+        """
+        return None
+    
+    def getAlpha(self, *args, **kwargs):
+        """
+        Obtain the alpha value of the component. An alpha value of 1.0
+        or greater indicates that the object is fully opaque, and an
+        alpha value of 0.0 indicates that the object is fully transparent.
+        Negative alpha values have no defined meaning at this time.
+        """
+        return 1.0
+    
+    def getExtents(self, coord_type):
+        """
+        Obtain the Component's bounding box, in pixels, relative to the
+        specified coordinate system. 
+	@param coord_type
+        @return a BoundingBox which entirely contains the object's onscreen
+        visual representation.
+        """
+	#TODO This needs to return the window size
+	return BoundingBox(*(0,0,1024,768))
+    
+    def getLayer(self, *args, **kwargs):
+        """
+        @return the ComponentLayer in which this object resides.
+        """
+	return LAYER_WIDGET
+    
+    def getMDIZOrder(self):
+        """
+        Obtain the relative stacking order (i.e. 'Z' order) of an object.
+        Larger values indicate that an object is on "top" of the stack,
+        therefore objects with smaller MDIZOrder may be obscured by objects
+        with a larger MDIZOrder, but not vice-versa. 
+        @return an integer indicating the object's place in the stacking
+        order.
+        """
+        return 0
+    
+    def getPosition(self, coord_type):
+        """
+        Obtain the position of the current component in the coordinate
+        system specified by coord_type. 
+        @param : coord_type
+        @param : x
+        an out parameter which will be back-filled with the returned
+        x coordinate. 
+        @param : y
+        an out parameter which will be back-filled with the returned
+        y coordinate.
+        """
+	return (0,0)
+    
+    def getSize(self, *args, **kwargs):
+        """
+        Obtain the size, in the coordinate system specified by coord_type,
+        of the rectangular area which fully contains the object's visual
+        representation, without accounting for viewport clipping. 
+        @param : width
+        the object's horizontal extents in the specified coordinate system.
+        @param : height
+        the object's vertical extents in the specified coordinate system.
+        """
+	#TODO Need to return window size
+	return (1024, 768)
+    
+    def grabFocus(self, *args, **kwargs):
+        """
+        Request that the object obtain keyboard focus.
+        @return True if keyboard focus was successfully transferred to
+        the Component.
+        """
+	return False
+    
+    def registerFocusHandler(self, *args, **kwargs):
+        """
+        Register an EventListener for notification when this object receives
+        keyboard focus.
+        """
+	pass
+
+#------------------------------------------------------------------------------
+
+class Desktop(object):
     """
     The base interface which is implemented by all accessible objects.
     All objects support interfaces for querying their contained
     'children' and position in the accessible-object hierarchy,
     whether or not they actually have children.
     """
-    
+
+    __metaclass__ = BaseProxyMeta
+
+    def __init__(self, cache):
+	"""
+	Creates a desktop object. There should be one single desktop
+	object for the Registry object.
+
+	@param cache - The application cache.
+	@kwarf application - The application D-Bus name
+	
+	If the application name is provided the Desktop is being used for
+	test and will only report the application provided as its single child.
+	"""
+	self._cache = cache
+	self._app_name = '/'
+
+    def __len__(self):
+	    return self.getChildCount()
+
+    def __getitem__(self, index):
+	    return self.getChildAtIndex(index)
+	
     def getApplication(self):
         """
         Get the containing Application for this object.
@@ -76,12 +242,7 @@ class Accessible(BaseProxy):
         an in parameter indicating which child is requested (zero-indexed).
         @return : the 'nth' Accessible child of this object.
         """
-	path = self.cached_data.children[index]
-	return create_accessible(self._cache,
-			 	 self._app_name,
-				 path,
-				 interfaces.ATSPI_ACCESSIBLE,
-				 connection=self._cache._connection)
+	return self._cache.get_application_at_index(index)
     
     def getIndexInParent(self):
         """
@@ -115,7 +276,7 @@ class Accessible(BaseProxy):
         @return : a Role indicating the type of UI role played by this
         object.
         """
-        return self.cached_data.role
+        return ROLE_UNKNOWN
     
     def getRoleName(self):
         """
@@ -131,7 +292,7 @@ class Accessible(BaseProxy):
         @return : a StateSet encapsulating the currently true states
         of the object.
         """
-	return []
+	return StateSet()
     
     def isEqual(self, accessible):
         """
@@ -145,11 +306,10 @@ class Accessible(BaseProxy):
         @return : a boolean indicating whether the two object references
         point to the same object.
         """
-        return  (self._app_name == accessible._app_name) and \
-		(self._acc_path == accessible._acc_path)	
+        return self == accessible
     
     def get_childCount(self):
-        return len(self.cached_data.children)
+        return self._cache.get_application_count()
     _childCountDoc = \
         """
         childCount: the number of children contained by this object.
@@ -179,5 +339,20 @@ class Accessible(BaseProxy):
         An Accessible object which is this object's containing object.
         """
     parent = property(fget=get_parent, doc=_parentDoc)
+
+    def queryInterface(self, interface):
+	"""
+	Gets a different accessible interface for this object
+	or raises a NotImplemented error if the given interface
+	is not supported.
+	"""
+	if interface == interfaces.ATSPI_ACCESSIBLE:
+		return self
+	elif interface == interfaces.ATSPI_COMPONENT:
+		return DesktopComponent()
+	else:
+		raise NotImplementedError(
+			"%s not supported by accessible object at path %s"
+			% (interface, self.path))
 
 #END----------------------------------------------------------------------------

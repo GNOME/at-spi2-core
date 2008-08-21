@@ -42,13 +42,14 @@ class TestApplicationCache(object):
 		else:
 			return False
 
-	def get_root(self):
+	def get_application_at_index(self, index):
 		return create_accessible(self,
 					 self._bus_name, 
 					 self._accessible_cache.root, 
 					 interfaces.ATSPI_ACCESSIBLE,
 					 connection=self._connection)
 
-	root = property(fget=get_root)
+	def get_application_count(self):
+		return 1
 
 #END----------------------------------------------------------------------------

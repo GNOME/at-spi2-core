@@ -15,6 +15,7 @@
 import interfaces
 from base import BaseProxy, Enum
 from factory import create_accessible, add_accessible_class
+from accessible import BoundingBox
 
 from dbus.types import Int16
 
@@ -129,14 +130,15 @@ class Component(BaseProxy):
         visual representation.
         """
         func = self.get_dbus_method("getExtents")
-        return func(Int16(coord_type))
+	extents = func(Int16(coord_type))
+        return BoundingBox(*extents)
     
     def getLayer(self, *args, **kwargs):
         """
         @return the ComponentLayer in which this object resides.
         """
         func = self.get_dbus_method("getLayer")
-        return func(*args, **kwargs)
+        return ComponentLayer(func(*args, **kwargs))
     
     def getMDIZOrder(self):
         """
