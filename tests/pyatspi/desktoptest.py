@@ -41,7 +41,7 @@ class DesktopTest(_PasyTest):
 		     ]
 
 	def __init__(self, bus, path):
-		_PasyTest.__init__(self, "Accessible", False)
+		_PasyTest.__init__(self, "Desktop", False)
 		self._bus = bus
 		self._path = path
 

@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include <atk/atk.h>
 
 #include "my-atk-object.h"
@@ -90,6 +91,37 @@ static gint my_atk_object_get_index_in_parent(AtkObject *accessible)
     return i;//if error, i will be equal to -1
 }
 
+static AtkStateSet *my_atk_object_ref_state_set(AtkObject *accessible)
+{
+    MyAtkObject *obj = MY_ATK_OBJECT(accessible);
+
+    if (obj->state_set == NULL)
+        obj->state_set = atk_state_set_new();
+    return g_object_ref(G_OBJECT(obj->state_set));
+}
+
+static AtkAttributeSet *my_atk_object_get_attributes (AtkObject *accessible)
+{
+    MyAtkObject *obj = MY_ATK_OBJECT(accessible);
+    AtkAttributeSet *rs = obj->attributes = NULL;
+    AtkAttribute *a, *b, *c;
+
+    a = g_new(AtkAttribute, 1);
+    b = g_new(AtkAttribute, 1);
+    c = g_new(AtkAttribute, 1);
+
+    a->name = g_strdup("foo");
+    a->value = g_strdup("bar");
+    b->name = g_strdup("baz");
+    b->value = g_strdup("qux");
+    c->name = g_strdup("quux");
+    c->value = g_strdup("corge");
+
+    rs = g_slist_append(rs, (gpointer) a); 
+    rs = g_slist_append(rs, (gpointer) b); 
+    rs = g_slist_append(rs, (gpointer) c); 
+}
+
 //function, needed in instance_finalize()
 static void my_unref1(gpointer data, gpointer user_data)
 {
@@ -117,6 +149,8 @@ void my_atk_object_class_init(gpointer g_class, gpointer g_class_data)
     atkObjectClass->get_n_children = my_atk_object_get_n_children;
     atkObjectClass->ref_child = my_atk_object_ref_child;
     atkObjectClass->get_index_in_parent = my_atk_object_get_index_in_parent;
+    atkObjectClass->ref_state_set = my_atk_object_ref_state_set;
+    atkObjectClass->get_attributes = my_atk_object_get_attributes;
 
     atk_object_parent_class = g_type_class_peek_parent(g_class);
 }
@@ -126,6 +160,7 @@ static void my_atk_object_instance_init(GTypeInstance *obj, gpointer g_class)
     MyAtkObject *self = (MyAtkObject*)obj;
 
     self->children = g_ptr_array_sized_new(10);
+    self->attributes =  g_slist_alloc();
 }
 
 GType my_atk_object_get_type()

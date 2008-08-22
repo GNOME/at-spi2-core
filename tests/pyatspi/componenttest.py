@@ -39,7 +39,7 @@ class ComponentTest(_PasyTest):
 		     ]
 
 	def __init__(self, bus, path):
-		_PasyTest.__init__(self, "Accessible", False)
+		_PasyTest.__init__(self, "Component", False)
 		self._bus = bus
 		self._path = path
 

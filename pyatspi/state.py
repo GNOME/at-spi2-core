@@ -141,13 +141,16 @@ def _marshal_state_set(bitfield):
 	pos = 0
 	while (lower):
 		if (1L)&lower:
-			#TODO Return the state objects rather than integers.
-			states.append(pos)
+			states.append(StateType(pos))
 		pos+=1
+		lower >>= 1
+
+	pos = 32
 	while (upper):
 		if (1L)&upper:
-			#TODO return the state objects rather than integers.
-			states.append(pos)
+			states.append(StateType(pos))
+		pos+=1
+		upper >>= 1
 
 	return StateSet(*states)
 
@@ -170,8 +173,8 @@ class StateSet(object):
 		@param states: States to add immediately
 		@type states: list
 		"""
-		map(self.add, states)
 		self.states = set()
+		map(self.add, states)
 		
 	def contains(self, state):
 		"""
@@ -191,7 +194,8 @@ class StateSet(object):
 		@param states: State(s) to add
 		@type states: Accessibility.StateType
 		"""
-		self.states.add(state)
+		for state in states:
+			self.states.add(state)
 		
 	def remove(self, state):
 		"""

@@ -17,6 +17,8 @@ struct _MyAtkObject
 {
     AtkObject parent;
     //array of children
+    AtkStateSet *state_set;
+    AtkAttributeSet *attributes;
     GPtrArray* children;
     gint id;
 };

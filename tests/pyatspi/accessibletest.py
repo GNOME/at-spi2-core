@@ -8,6 +8,13 @@ import os
 from pasytest import PasyTest as _PasyTest
 
 import pyatspi
+from pyatspi import StateSet
+
+st = [pyatspi.STATE_MULTI_LINE,
+      pyatspi.STATE_MODAL,
+      pyatspi.STATE_INDETERMINATE,
+      pyatspi.STATE_SUPPORTS_AUTOCOMPLETION,
+      pyatspi.STATE_VERTICAL,]
 
 def _createNode(accessible, parentElement):
 	e = minidom.Element("accessible")
@@ -100,8 +107,10 @@ class AccessibleTest(_PasyTest):
 
 	def test_getAttributes(self, test):
 		root = self._desktop.getChildAtIndex(0)
-		#TODO The AttributeSet test needs expanding. Check attributes are passed correctly.
 		attr = root.getAttributes()
+		res = ["foo:bar", "baz:qux", "quux:corge"]
+		test.assertEqual(attr, res, "Attributes expected %s, recieved %s" % (attr, res))
+
 
 	def test_parent(self, test):
 		root = self._desktop.getChildAtIndex(0)
@@ -159,10 +168,11 @@ class AccessibleTest(_PasyTest):
 				 "Expected roleName - \"%s\". Recieved - \"%s\"" % (ans, res,))
 
 	def test_getState(self, test):
-		# Complete test of StateSet interface is separate
 		root = self._desktop.getChildAtIndex(0)
 		state = root.getState()
-		list = state.getStates()
+		res = StateSet(*st)
+		if not res.equals(state):
+			test.fail("States not reported correctly")
 
 	def test_childCount(self, test):
 		root = self._desktop.getChildAtIndex(0)
