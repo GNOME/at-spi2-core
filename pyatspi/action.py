@@ -34,7 +34,7 @@ class Action(BaseProxy):
     folders, and others.
     """
     
-    def doAction(self, *args, **kwargs):
+    def doAction(self, index):
         """
         doAction: 
         @param : index
@@ -43,9 +43,9 @@ class Action(BaseProxy):
         @return : a boolean indicating success or failure.
         """
         func = self.get_dbus_method("doAction")
-        return func(*args, **kwargs)
+        return func(index)
     
-    def getDescription(self, *args, **kwargs):
+    def getDescription(self, index):
         """
         getDescription: 
         @param : index
@@ -57,9 +57,9 @@ class Action(BaseProxy):
         action.
         """
         func = self.get_dbus_method("getDescription")
-        return func(*args, **kwargs)
+        return func(index)
     
-    def getKeyBinding(self, *args, **kwargs):
+    def getKeyBinding(self, index):
         """
         getKeyBinding: 
         @param : index
@@ -69,9 +69,9 @@ class Action(BaseProxy):
         action, or an empty string ("") if none exists.
         """
         func = self.get_dbus_method("getKeyBinding")
-        return func(*args, **kwargs)
+        return func(index)
     
-    def getName(self, *args, **kwargs):
+    def getName(self, index):
         """
         getName: 
         @param : index
@@ -82,10 +82,10 @@ class Action(BaseProxy):
         @return : a string containing the name of the specified action.
         """
         func = self.get_dbus_method("getName")
-        return func(*args, **kwargs)
+        return func(index)
     
     def get_nActions(self):
-        self._pgetter(self._dbus_interface, "nActions")
+        return self._pgetter(self._dbus_interface, "nActions")
     def set_nActions(self, value):
         self._psetter(self._dbus_interface, "nActions", value)
     _nActionsDoc = \

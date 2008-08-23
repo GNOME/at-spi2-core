@@ -106,8 +106,8 @@ class BaseProxy(Interface):
 		self._pgetter = self.get_dbus_method("Get", dbus_interface="org.freedesktop.DBus.Properties")
 		self._psetter = self.get_dbus_method("Set", dbus_interface="org.freedesktop.DBus.Properties")
 
-	def __getattr__(*args, **kwargs):
-		return object.__getattr__(*args, **kwargs)
+	def __getattr__(self, attr):
+		raise AttributeError("\'%s\' has no attribute \'%s\'" % (self.__class__.__name__, attr))
 
 	def get_dbus_method(self, *args, **kwargs):
 		method =  Interface.get_dbus_method(self, *args, **kwargs)

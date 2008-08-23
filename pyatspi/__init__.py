@@ -21,6 +21,7 @@ import registry
 from constants import *
 
 from accessible import *
+from action import *
 from application import *
 from component import *
 from desktop import *

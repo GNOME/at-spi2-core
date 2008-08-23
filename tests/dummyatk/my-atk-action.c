@@ -121,7 +121,7 @@ static void my_atk_action_instance_init(GTypeInstance *instance, gpointer g_clas
     {
         self->actions[i].name = (gchar*)strdup(DEFAULT_ACTION_NAME);
         self->actions[i].description = (gchar*)strdup(DEFAULT_ACTION_DESCRIPTION);
-        self->actions[i].keybinding = (gchar*)strdup(DEFAULT_ACTION_KEYBINDING);
+        self->actions[i].keybinding = g_strdup_printf("%d", i);
     }
     self->disposed = FALSE;
     self->last_performed_action = -1;
