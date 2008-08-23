@@ -1,15 +1,15 @@
 # Thai translation of atk
 # This file is distributed under the same license as the atk package.
-# Copyright (C) 2004-2007 Free Software Foundation, Inc.
+# Copyright (C) 2004-2008 Free Software Foundation, Inc.
 # Supranee Thirawatthanasuk <supranee@opentle.org>, 2004.
-# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2007.
+# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-21 14:54+0800\n"
-"PO-Revision-Date: 2007-09-11 18:03+0700\n"
+"PO-Revision-Date: 2008-08-23 17:53+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -243,7 +243,7 @@ msgstr "แถบเลื่อน"
 
 #: atk/atkobject.c:131
 msgid "scroll pane"
-msgstr ""
+msgstr "ช่องแถบเลื่อน"
 
 #: atk/atkobject.c:132
 msgid "separator"
@@ -355,7 +355,7 @@ msgstr "องค์ประกอบฝังตัว"
 
 #: atk/atkobject.c:159
 msgid "entry"
-msgstr ""
+msgstr "ช่องป้อนข้อความ"
 
 #: atk/atkobject.c:160
 msgid "chart"
@@ -371,7 +371,7 @@ msgstr "กรอบเอกสาร"
 
 #: atk/atkobject.c:163
 msgid "heading"
-msgstr ""
+msgstr "หัวข้อเรื่อง"
 
 #: atk/atkobject.c:164
 msgid "page"
