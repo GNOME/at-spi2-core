@@ -99,7 +99,7 @@ RELATION_VALUE_TO_NAME = dict(((value, name[9:].lower().replace('_', ' '))
 
 #------------------------------------------------------------------------------
 
-def _marshal_relation_set(cache, dbus_object, app_name, relation_set):
+def _marshal_relation_set(cache, app_name, relation_set):
 	"""
 	The D-Bus protocol has a relation set passed as an array of
 	relation types and object arrays.
@@ -107,7 +107,7 @@ def _marshal_relation_set(cache, dbus_object, app_name, relation_set):
 	This function marshals the D-Bus message into a list of relation
 	objects.
 	"""
-	return [Relation(cache, dbus_object, app_name, *relation) for relation in relation_set]
+	return [Relation(cache, app_name, *relation) for relation in relation_set]
 
 #------------------------------------------------------------------------------
 
@@ -118,11 +118,10 @@ class Relation(object):
     a "one-to-many" correspondance.
     """
 
-    def __init__(self, cache, dbus_object, app_name, type, objects):
+    def __init__(self, cache, app_name, type, objects):
 	self._type = type
 	self._objects = objects
 
-	self._dbus_object = dbus_object
 	self._cache = cache
 	self._app_name = app_name
     
@@ -154,6 +153,6 @@ class Relation(object):
 			 	 self._app_name,
 				 self._objects[index],
 				 interfaces.ATSPI_ACCESSIBLE,
-				 dbus_object=self._dbus_object)
+				 connection=self._cache._connection)
 
 #END----------------------------------------------------------------------------

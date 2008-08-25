@@ -245,7 +245,7 @@ impl_getRelationSet (DBusConnection * bus, DBusMessage * message,
       char *path;
       if (!obj) continue;
       path = spi_dbus_get_path (obj);
-      dbus_message_iter_append (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
+      dbus_message_iter_append_basic (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
     }
     dbus_message_iter_close_container (&iter_struct, &iter_targets);
     dbus_message_iter_close_container (&iter_array, &iter_struct);

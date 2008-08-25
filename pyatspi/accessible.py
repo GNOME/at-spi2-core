@@ -186,7 +186,7 @@ class Accessible(BaseProxy):
         """
         func = self.get_dbus_method("getRelationSet")
         relation_set = func()
-        return _marshal_relation_set(self._cache, self._dbus_object, self._app_name, relation_set)
+        return _marshal_relation_set(self._cache, self._app_name, relation_set)
     
     def getRole(self):
         """

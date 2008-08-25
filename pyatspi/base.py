@@ -109,6 +109,12 @@ class BaseProxy(Interface):
 	def __getattr__(self, attr):
 		raise AttributeError("\'%s\' has no attribute \'%s\'" % (self.__class__.__name__, attr))
 
+	def __str__(self):
+    		try:
+      			return '[%s | %s]' % (self.getRoleName(), self.name)
+    		except Exception:
+      			return '[DEAD]'
+
 	def get_dbus_method(self, *args, **kwargs):
 		method =  Interface.get_dbus_method(self, *args, **kwargs)
 

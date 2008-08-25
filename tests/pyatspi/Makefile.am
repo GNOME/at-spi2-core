@@ -8,6 +8,7 @@ EXTRA_DIST = \
 	Makefile.am\
 	Makefile.in\
 	setvars.sh\
+	relationtest.py\
 	testrunner.py
 
 CLEANFILES = *.pyc

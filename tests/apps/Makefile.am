@@ -2,7 +2,8 @@ check_PROGRAMS = test-application
 check_LTLIBRARIES = libnoopapp.la \
 		    libaccessibleapp.la \
 		    libcomponentapp.la \
-		    libactionapp.la
+		    libactionapp.la \
+		    librelationapp.la
 
 test_application_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
 			  $(ATK_CFLAGS)		\
@@ -39,3 +40,8 @@ libactionapp_la_CFLAGS = $(TEST_APP_CFLAGS)
 libactionapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
 libactionapp_la_LIBADD = $(TEST_APP_LIBADD)
 libactionapp_la_SOURCES = action-app.c
+
+librelationapp_la_CFLAGS = $(TEST_APP_CFLAGS)
+librelationapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
+librelationapp_la_LIBADD = $(TEST_APP_LIBADD)
+librelationapp_la_SOURCES = relation-app.c
