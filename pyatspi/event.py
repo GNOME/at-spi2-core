@@ -964,3 +964,937 @@ class Registry(object):
 		if ob.getClientRefCount() == 0:
 			ob.unregister(self.reg, name)
 			del self.observers[et.name]
+
+class DeviceEvent(list):
+    def __new__(cls, type, id, hw_code, modifiers, timestamp, event_string, is_text):
+        list.__new__(cls, (type, id, hw_code, modifiers, timestamp, event_string, is_text))
+    def __init__(self, type, id, hw_code, modifiers, timestamp, event_string, is_text):
+        list.__init__(self, (type, id, hw_code, modifiers, timestamp, event_string, is_text))
+    
+    def _get_type(self):
+        return self[0]
+    def _set_type(self, val):
+        self[0] = val
+    type = property(fget=_get_type, fset=_set_type)
+    def _get_id(self):
+        return self[1]
+    def _set_id(self, val):
+        self[1] = val
+    id = property(fget=_get_id, fset=_set_id)
+    def _get_hw_code(self):
+        return self[2]
+    def _set_hw_code(self, val):
+        self[2] = val
+    hw_code = property(fget=_get_hw_code, fset=_set_hw_code)
+    def _get_modifiers(self):
+        return self[3]
+    def _set_modifiers(self, val):
+        self[3] = val
+    modifiers = property(fget=_get_modifiers, fset=_set_modifiers)
+    def _get_timestamp(self):
+        return self[4]
+    def _set_timestamp(self, val):
+        self[4] = val
+    timestamp = property(fget=_get_timestamp, fset=_set_timestamp)
+    def _get_event_string(self):
+        return self[5]
+    def _set_event_string(self, val):
+        self[5] = val
+    event_string = property(fget=_get_event_string, fset=_set_event_string)
+    def _get_is_text(self):
+        return self[6]
+    def _set_is_text(self, val):
+        self[6] = val
+    is_text = property(fget=_get_is_text, fset=_set_is_text)
+
+class DeviceEventController(_BaseProxy):
+    """
+    The interface via which clients request notification of device
+    events, and through which device events may be simulated.
+    """
+
+    def deregisterDeviceEventListener(self, *args, **kwargs):
+        """
+        De-register a previously registered keyboard eventlistener. 
+        @param : listener
+        a DeviceEventListener which will intercept events. 
+        @param : typeseq
+        an EventTypeSeq indicating which event types to stop listening
+        for.
+        """
+        func = self.get_dbus_method("deregisterDeviceEventListener")
+        return func(*args, **kwargs)
+    
+    def deregisterKeystrokeListener(self, *args, **kwargs):
+        """
+        De-register a previously registered keyboard eventlistener. 
+        @param : listener
+        a DeviceEventListener which will intercept key events. 
+        @param : keys
+        a KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+        @param : mask
+        a ControllerEventMask filtering the intercepted key events. 
+        @param : type
+        an EventType mask that may created by ORing event types together.
+        """
+        func = self.get_dbus_method("deregisterKeystrokeListener")
+        return func(*args, **kwargs)
+    
+    def generateKeyboardEvent(self, *args, **kwargs):
+        """
+        Synthesize a keyboard event. 
+        @param : keycode
+        a long integer indicating the keycode of the keypress to be synthesized.
+        @param : keystring
+        an optional UTF-8 string indicating a complex keyboard input
+        event. 
+        @param : type
+        a KeySynthType indicating the type of event(s) to be synthesized:
+        a key press, release, press-release pair, or a complex input
+        string (for instance from an internationalized or complex text
+        input method, or a composed character).
+        """
+        func = self.get_dbus_method("generateKeyboardEvent")
+        return func(*args, **kwargs)
+    
+    def generateMouseEvent(self, *args, **kwargs):
+        """
+        Synthesize a mouse event. 
+        @param : x
+        a long integer indicating the screen x coord for the mouse event.
+        @param : y
+        a long integer indicating the screen y coord for the mouse event.
+        @param : eventName
+        a string indicating the type of mouse event, e.g. "button1up"
+        """
+        func = self.get_dbus_method("generateMouseEvent")
+        return func(*args, **kwargs)
+    
+    def notifyListenersAsync(self, *args, **kwargs):
+        """
+        Notify the Registry instance that a device event has taken place
+        in an asynchronous manner. This is the method used by accessibility
+        bridges to forward "toolkit dependent" device events to the Registry
+        from the application's process space. If the event in question
+        is potentially pre-emptible. notifyListenersSync should be used
+        instead.
+        """
+        func = self.get_dbus_method("notifyListenersAsync")
+        return func(*args, **kwargs)
+    
+    def notifyListenersSync(self, *args, **kwargs):
+        """
+        Notify the Registry instance that a device event has taken place,
+        and allow pre-emptive listeners the opportunity to 'consume'
+        the event and thus prevent its further issuance/forwarding. This
+        is the method used by accessibility bridges to forward "toolkit
+        dependent" device events to the Registry from the application's
+        process space.
+        @return True if the event was consumed by a (pre-emptive) listener,
+        False if not (in which case the device event will be forwarded
+        as normal to any application which would normally receive it,
+        e.g. the currently active application in the case of mouse or
+        keyboard events).
+        """
+        func = self.get_dbus_method("notifyListenersSync")
+        return func(*args, **kwargs)
+    
+    def registerDeviceEventListener(self, *args, **kwargs):
+        """
+        Register to intercept events, and either pass them on or consume
+        them. To listen to keyboard events use registerKeystrokeListener
+        instead. 
+        @param : listener
+        a DeviceEventListener which will intercept events. 
+        @param : typeseq
+        an EventTypeSeq indicating which event types to listen for. 
+        @return True if successful, False if not
+        """
+        func = self.get_dbus_method("registerDeviceEventListener")
+        return func(*args, **kwargs)
+    
+    def registerKeystrokeListener(self, *args, **kwargs):
+        """
+        Register to intercept keyboard events, and either pass them on
+        or consume them.
+        @param : listener
+        a DeviceEventListener which will intercept key events. 
+        @param : keys
+        a KeySet indicating which keys to intercept, or KEYSET_ALL_KEYS.
+        @param : mask
+        a ControllerEventMask filtering the intercepted key events. 
+        @param : type
+        a KeyEventTypeSeq that may created by ORing event types together.
+        @param : mode
+        an EventListenerMode indicating whether the listener should receive
+        the events synchronously, potentially consuming them, or just
+        be notified asynchronously of those events that have been generated.
+        @return True if the DeviceEventListener was successfully registered
+        for the requested KeySet, ControllerEventMask, event types, and
+        EventListenerMode; otherwise returns False.
+        """
+        func = self.get_dbus_method("registerKeystrokeListener")
+        return func(*args, **kwargs)
+    
+class DeviceEventListener(_BaseProxy):
+    """
+    This interface should be implemented by AT-SPI clients who wish
+    to make use of the DeviceEventController to receive device event
+    notifications. DeviceEvents include keyboard events and mouse
+    button/motion events.
+    """
+    
+    def notifyEvent(self, *args, **kwargs):
+        """
+        Notify an interested DeviceEventListener that a DeviceEvent has
+        occurred. 
+        @return True if the recipient/consumer wishes to consume the
+        event, i.e. prevent it from being delivered to the desktop, False
+        if the event should continue to be delivered as normal.
+        """
+        func = self.get_dbus_method("notifyEvent")
+        return func(*args, **kwargs)
+    
+
+class Event(list):
+    def __new__(cls, type, source, detail1, detail2, any_data):
+        list.__new__(cls, (type, source, detail1, detail2, any_data))
+    def __init__(self, type, source, detail1, detail2, any_data):
+        list.__init__(self, (type, source, detail1, detail2, any_data))
+    
+    def _get_type(self):
+        return self[0]
+    def _set_type(self, val):
+        self[0] = val
+    type = property(fget=_get_type, fset=_set_type)
+    def _get_source(self):
+        return self[1]
+    def _set_source(self, val):
+        self[1] = val
+    source = property(fget=_get_source, fset=_set_source)
+    def _get_detail1(self):
+        return self[2]
+    def _set_detail1(self, val):
+        self[2] = val
+    detail1 = property(fget=_get_detail1, fset=_set_detail1)
+    def _get_detail2(self):
+        return self[3]
+    def _set_detail2(self, val):
+        self[3] = val
+    detail2 = property(fget=_get_detail2, fset=_set_detail2)
+    def _get_any_data(self):
+        return self[4]
+    def _set_any_data(self, val):
+        self[4] = val
+    any_data = property(fget=_get_any_data, fset=_set_any_data)
+
+
+class EventDetails(list):
+    def __new__(cls, host_application, source_role, source_name, any_data):
+        list.__new__(cls, (host_application, source_role, source_name, any_data))
+    def __init__(self, host_application, source_role, source_name, any_data):
+        list.__init__(self, (host_application, source_role, source_name, any_data))
+    
+    def _get_host_application(self):
+        return self[0]
+    def _set_host_application(self, val):
+        self[0] = val
+    host_application = property(fget=_get_host_application, fset=_set_host_application)
+    def _get_source_role(self):
+        return self[1]
+    def _set_source_role(self, val):
+        self[1] = val
+    source_role = property(fget=_get_source_role, fset=_set_source_role)
+    def _get_source_name(self):
+        return self[2]
+    def _set_source_name(self, val):
+        self[2] = val
+    source_name = property(fget=_get_source_name, fset=_set_source_name)
+    def _get_any_data(self):
+        return self[3]
+    def _set_any_data(self, val):
+        self[3] = val
+    any_data = property(fget=_get_any_data, fset=_set_any_data)
+
+class EventListener(_BaseProxy):
+    """
+    A generic interface implemented by objects for the receipt of
+    event notifications. EventListener is the interface from which
+    Accessibility::Registry is derived, and via which clients of
+    the Registry receive notification of changes to an application's
+    user interface and content.
+    """
+    
+    def notifyEvent(self, *args, **kwargs):
+        """
+        Synchronously notify an EventListener that an event has occurred,
+        by passing it an Event struct. 
+        @param : e
+        The Event about which the listener is being notified.
+        """
+        func = self.get_dbus_method("notifyEvent")
+        return func(*args, **kwargs)
+    
+    def unImplemented2_(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented2_")
+        return func(*args, **kwargs)
+    
+    def unImplemented3_(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented3_")
+        return func(*args, **kwargs)
+    
+    def unImplemented4_(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented4_")
+        return func(*args, **kwargs)
+    
+    def unImplemented_(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented_")
+        return func(*args, **kwargs)
+
+
+class EventListenerMode(list):
+    def __new__(cls, synchronous, preemptive, global_):
+        list.__new__(cls, (synchronous, preemptive, global_))
+    def __init__(self, synchronous, preemptive, global_):
+        list.__init__(self, (synchronous, preemptive, global_))
+    
+    def _get_synchronous(self):
+        return self[0]
+    def _set_synchronous(self, val):
+        self[0] = val
+    synchronous = property(fget=_get_synchronous, fset=_set_synchronous)
+    def _get_preemptive(self):
+        return self[1]
+    def _set_preemptive(self, val):
+        self[1] = val
+    preemptive = property(fget=_get_preemptive, fset=_set_preemptive)
+    def _get_global_(self):
+        return self[2]
+    def _set_global_(self, val):
+        self[2] = val
+    global_ = property(fget=_get_global_, fset=_set_global_)
+
+
+class EventType(_Enum):
+    _enum_lookup = {
+        0:'KEY_PRESSED_EVENT',
+        1:'KEY_RELEASED_EVENT',
+        2:'BUTTON_PRESSED_EVENT',
+        3:'BUTTON_RELEASED_EVENT',
+    }
+
+
+
+    
+
+
+class KeyDefinition(list):
+    def __new__(cls, keycode, keysym, keystring, unused):
+        list.__new__(cls, (keycode, keysym, keystring, unused))
+    def __init__(self, keycode, keysym, keystring, unused):
+        list.__init__(self, (keycode, keysym, keystring, unused))
+    
+    def _get_keycode(self):
+        return self[0]
+    def _set_keycode(self, val):
+        self[0] = val
+    keycode = property(fget=_get_keycode, fset=_set_keycode)
+    def _get_keysym(self):
+        return self[1]
+    def _set_keysym(self, val):
+        self[1] = val
+    keysym = property(fget=_get_keysym, fset=_set_keysym)
+    def _get_keystring(self):
+        return self[2]
+    def _set_keystring(self, val):
+        self[2] = val
+    keystring = property(fget=_get_keystring, fset=_set_keystring)
+    def _get_unused(self):
+        return self[3]
+    def _set_unused(self, val):
+        self[3] = val
+    unused = property(fget=_get_unused, fset=_set_unused)
+
+class KeyEventType(_Enum):
+    _enum_lookup = {
+        0:'KEY_PRESSED',
+        1:'KEY_RELEASED',
+    }
+
+class KeySynthType(_Enum):
+    _enum_lookup = {
+        0:'KEY_PRESS',
+        1:'KEY_RELEASE',
+        2:'KEY_PRESSRELEASE',
+        3:'KEY_SYM',
+        4:'KEY_STRING',
+    }
+
+
+
+class ModifierType(_Enum):
+    _enum_lookup = {
+        0:'MODIFIER_SHIFT',
+        1:'MODIFIER_SHIFTLOCK',
+        2:'MODIFIER_CONTROL',
+        3:'MODIFIER_ALT',
+        4:'MODIFIER_META',
+        5:'MODIFIER_META2',
+        6:'MODIFIER_META3',
+        7:'MODIFIER_NUMLOCK',
+    }
+
+class Registry(EventListener):
+    """
+    The Registry is a service through which applications providing
+    accessibility services (servers) can rendezvous with consumers
+    of those services (Assistive Technologies). The Registry is the
+    first "port of call" for accessible applications and for assistive
+    technologies wishing to query and interact with those applications.
+    The Registry service provides four basic functions to Assistive
+    Technology (AT) clients: 
+    it provides a list of the applications who have registered with
+    the AT-SPI framework, thereby announcing their participation
+    in the AT-SPI framework; 
+    it allows AT clients to register for notification of changes
+    in application state (at-spi Events); 
+    it dispatches/relays said events from participating applications
+    to the registered listeners; 
+    it gives access to system device events via the associated DeviceEventController
+    interface.
+    From the point of view of accessible applications (i.e. AT-SPI
+    service producers), the Registry is primarily a registration
+    and event delivery service. Applications normally only call the
+    registerApplication and deregisterApplication Registry methods,
+    and its inherited EventListener::notifyEvent method.
+    The Registry normally lives in its own process space; communication
+    via Registry and both application services and AT clients takes
+    place via IPC. A process space diagram illustrating the relationship
+    between applications, Registry, and AT is shown below.
+    """
+    
+    def deregisterApplication(self, *args, **kwargs):
+        """
+        De-register an application previously registered with the broker.
+        deregisterApplication: 
+        @param : app
+        a reference to the Application to be deregistered.
+        """
+        func = self.get_dbus_method("deregisterApplication")
+        return func(*args, **kwargs)
+    
+    def deregisterGlobalEventListener(self, *args, **kwargs):
+        """
+        deregisterGlobalEventListener: 
+        @param : listener
+        the requesting EventListener 
+        @param : eventName
+        a string indicating the type of events
+        Request that a previously registered client stop receiving global
+        notifications for events of a certain type.
+        """
+        func = self.get_dbus_method("deregisterGlobalEventListener")
+        return func(*args, **kwargs)
+    
+    def deregisterGlobalEventListenerAll(self, *args, **kwargs):
+        """
+        deregisterGlobalEventListenerAll: 
+        @param : listener
+        the requesting EventListener
+        Request that a previously registered client stop receiving global
+        notifications for all events for which it was registered.
+        """
+        func = self.get_dbus_method("deregisterGlobalEventListenerAll")
+        return func(*args, **kwargs)
+    
+    def getDesktop(self, *args, **kwargs):
+        """
+        getDesktop: 
+        : the index of the requested Desktop.
+        Get the nth accessible desktop.
+        @return a reference to the requested Desktop.
+        """
+        func = self.get_dbus_method("getDesktop")
+        return func(*args, **kwargs)
+    
+    def getDesktopCount(self, *args, **kwargs):
+        """
+        event types: "Window" "Desktop" "Window:Create" "Window:Destroy"
+        "Window:Iconify" "Window:Restore" "Window:Fullscreen" "Window:Resize"
+        "Desktop:Create" "Desktop:Destroy" "Desktop:Focus" "Desktop:Defocus"
+        "Desktop:Reorder" "Focus" "GtkWidget:show" "GObject:notify:<propertyname>"
+        ( not sure we should allow these last 2 forms, since they are
+        toolkit-specific, but they're powerful ) getDesktopCount:
+        Get the current number of desktops. 
+        @return a short integer indicating the current number of Desktops.
+        """
+        func = self.get_dbus_method("getDesktopCount")
+        return func(*args, **kwargs)
+    
+    def getDesktopList(self, *args, **kwargs):
+        """
+        Get a list of accessible desktops.
+        @return : a sequence containing references to the Desktops.
+        """
+        func = self.get_dbus_method("getDesktopList")
+        return func(*args, **kwargs)
+    
+    def getDeviceEventController(self, *args, **kwargs):
+        """
+        Obtain an object which can be used to request device event notifications.
+        @return : an object implementing DeviceEventController
+        """
+        func = self.get_dbus_method("getDeviceEventController")
+        return func(*args, **kwargs)
+    
+    def registerApplication(self, *args, **kwargs):
+        """
+        Register a new application with the accessibility broker. 
+        @param : app
+        a reference to the requesting Application
+        """
+        func = self.get_dbus_method("registerApplication")
+        return func(*args, **kwargs)
+    
+    def registerGlobalEventListener(self, *args, **kwargs):
+        """
+        Register a client's interest in (all) application events of a
+        certain type. 
+        @param : listener
+        a reference to the requesting EventListener. 
+        @param : eventName
+        a string which indicates the type of events about which the client
+        desires notification.
+        """
+        func = self.get_dbus_method("registerGlobalEventListener")
+        return func(*args, **kwargs)
+
+    
+
+
+
+
+
+
+
+class Table(_BaseProxy):
+    """
+    An interface used by containers whose contained data is arranged
+    in a "tabular" (i.e. row-column) fashion. Tables may resemble
+    a two-dimensional grid, as in a spreadsheet, or may feature objects
+    which span multiple rows and/or columns, but whose bounds are
+    aligned on a row/column matrix. Thus, the Table interface may
+    be used to represent "spreadsheets" as well as "frames".
+    Objects within tables are children of the Table instance, and
+    they may be referenced either via a child index or via a row/column
+    pair. Their role may be ROLE_TABLE_CELL, but table 'cells' may
+    have other roles as well. These 'cells' may implement other interfaces,
+    such as Text, Action, Image, and Component, and should do so
+    as appropriate to their onscreen representation and/or behavior.
+    """
+    
+    def addColumnSelection(self, *args, **kwargs):
+        """
+        Select the specified column, adding it to the current column
+        selection, if the table's selection model permits it.
+        @param : column
+        @return True if the specified column was successfully selected,
+        False if not.
+        """
+        func = self.get_dbus_method("addColumnSelection")
+        return func(*args, **kwargs)
+    
+    def addRowSelection(self, *args, **kwargs):
+        """
+        Select the specified row, adding it to the current row selection,
+        if the table's selection model permits it.
+        @param : row
+        @return True if the specified row was successfully selected,
+        False if not.
+        """
+        func = self.get_dbus_method("addRowSelection")
+        return func(*args, **kwargs)
+    
+    def getAccessibleAt(self, *args, **kwargs):
+        """
+        Get the table cell at the specified row and column indices. 
+        @param : row
+        the specified table row, zero-indexed. 
+        @param : column
+        the specified table column, zero-indexed.
+        @return an Accessible object representing the specified table
+        cell.
+        """
+        func = self.get_dbus_method("getAccessibleAt")
+        return func(*args, **kwargs)
+    
+    def getColumnAtIndex(self, *args, **kwargs):
+        """
+        Get the table column index occupied by the child at a particular
+        1-D child index.
+        @param : index
+        the specified child index, zero-indexed.
+        @return a long integer indicating the first column spanned by
+        the child of a table, at the specified 1-D (zero-offset) index.
+        """
+        func = self.get_dbus_method("getColumnAtIndex")
+        return func(*args, **kwargs)
+    
+    def getColumnDescription(self, *args, **kwargs):
+        """
+        Get a text description of a particular table column. This differs
+        from AccessibleTable_getColumnHeader, which returns an Accessible.
+        @param : column
+        the specified table column, zero-indexed.
+        @return a UTF-8 string describing the specified table column,
+        if available.
+        """
+        func = self.get_dbus_method("getColumnDescription")
+        return func(*args, **kwargs)
+    
+    def getColumnExtentAt(self, *args, **kwargs):
+        """
+        Get the number of columns spanned by the table cell at the specific
+        row and column. (some tables can have cells which span multiple
+        rows and/or columns).
+        @param : row
+        the specified table row, zero-indexed. 
+        @param : column
+        the specified table column, zero-indexed.
+        @return a long integer indicating the number of columns spanned
+        by the specified cell.
+        """
+        func = self.get_dbus_method("getColumnExtentAt")
+        return func(*args, **kwargs)
+    
+    def getColumnHeader(self, *args, **kwargs):
+        """
+        Get the header associated with a table column, if available,
+        as an instance of Accessible. This differs from getColumnDescription,
+        which returns a string.
+        @param : column
+        the specified table column, zero-indexed.
+        @return an Accessible representatin of the specified table column,
+        if available.
+        """
+        func = self.get_dbus_method("getColumnHeader")
+        return func(*args, **kwargs)
+    
+    def getIndexAt(self, *args, **kwargs):
+        """
+        Get the 1-D child index corresponding to the specified 2-D row
+        and column indices. 
+        @param : row
+        the specified table row, zero-indexed. 
+        @param : column
+        the specified table column, zero-indexed.
+        @return a long integer which serves as the index of a specified
+        cell in the table, in a form usable by Accessible::getChildAtIndex.
+        """
+        func = self.get_dbus_method("getIndexAt")
+        return func(*args, **kwargs)
+    
+    def getRowAtIndex(self, *args, **kwargs):
+        """
+        Get the table row index occupied by the child at a particular
+        1-D child index.
+        @param : index
+        the specified child index, zero-indexed.
+        @return a long integer indicating the first row spanned by the
+        child of a table, at the specified 1-D (zero-offset) index.
+        """
+        func = self.get_dbus_method("getRowAtIndex")
+        return func(*args, **kwargs)
+    
+    def getRowColumnExtentsAtIndex(self, *args, **kwargs):
+        """
+        Given a child index, determine the row and column indices and
+        extents, and whether the cell is currently selected. If the child
+        at index is not a cell (for instance, if it is a summary, caption,
+        etc.), False is returned.
+        @param : index
+        the index of the Table child whose row/column extents are requested.
+        @param : row
+        back-filled with the first table row associated with the cell
+        with child index index. 
+        @param : col
+        back-filled with the first table column associated with the cell
+        with child index index. 
+        @param : row_extents
+        back-filled with the number of table rows across which child
+        i extends. 
+        @param : col_extents
+        back-filled with the number of table columns across which child
+        i extends. 
+        @param : is_selected
+        a boolean which is back-filled with True if the child at index
+        i corresponds to a selected table cell, False otherwise.
+        Example: If the Table child at index '6' extends across columns
+        5 and 6 of row 2 of a Table instance, and is currently selected,
+        then retval=table::getRowColumnExtentsAtIndex(6,row,col,
+        row_extents,
+        col_extents,
+        is_selected);
+         will return True, and after the call row, col, row_extents,
+        col_extents, and is_selected will contain 2, 5, 1, 2, and True,
+        respectively.
+        @return True if the index is associated with a valid table cell,
+        False if the index does not correspond to a cell. If False is
+        returned, the values of the out parameters are undefined.
+        """
+        func = self.get_dbus_method("getRowColumnExtentsAtIndex")
+        return func(*args, **kwargs)
+    
+    def getRowDescription(self, *args, **kwargs):
+        """
+        Get a text description of a particular table row. This differs
+        from AccessibleTable_getRowHeader, which returns an Accessible.
+        @param : row
+        the specified table row, zero-indexed.
+        @return a UTF-8 string describing the specified table row, if
+        available.
+        """
+        func = self.get_dbus_method("getRowDescription")
+        return func(*args, **kwargs)
+    
+    def getRowExtentAt(self, *args, **kwargs):
+        """
+        Get the number of rows spanned by the table cell at the specific
+        row and column. (some tables can have cells which span multiple
+        rows and/or columns).
+        @param : row
+        the specified table row, zero-indexed. 
+        @param : column
+        the specified table column, zero-indexed.
+        @return a long integer indicating the number of rows spanned
+        by the specified cell.
+        """
+        func = self.get_dbus_method("getRowExtentAt")
+        return func(*args, **kwargs)
+    
+    def getRowHeader(self, *args, **kwargs):
+        """
+        Get the header associated with a table row, if available. This
+        differs from getRowDescription, which returns a string.
+        @param : row
+        the specified table row, zero-indexed.
+        @return an Accessible representatin of the specified table row,
+        if available.
+        """
+        func = self.get_dbus_method("getRowHeader")
+        return func(*args, **kwargs)
+    
+    def getSelectedColumns(self, *args, **kwargs):
+        """
+        Obtain the indices of all columns which are currently selected.
+        @return a sequence of integers comprising the indices of columns
+        currently selected.
+        """
+        func = self.get_dbus_method("getSelectedColumns")
+        return func(*args, **kwargs)
+    
+    def getSelectedRows(self, *args, **kwargs):
+        """
+        Obtain the indices of all rows which are currently selected.
+        @return a sequence of integers comprising the indices of rows
+        currently selected.
+        """
+        func = self.get_dbus_method("getSelectedRows")
+        return func(*args, **kwargs)
+    
+    def isColumnSelected(self, *args, **kwargs):
+        """
+        Determine whether a table column is selected. 
+        @param : column
+        the column being queried.
+        @return True if the specified column is currently selected, False
+        if not.
+        """
+        func = self.get_dbus_method("isColumnSelected")
+        return func(*args, **kwargs)
+    
+    def isRowSelected(self, *args, **kwargs):
+        """
+        Determine whether a table row is selected. 
+        @param : row
+        the row being queried.
+        @return True if the specified row is currently selected, False
+        if not.
+        """
+        func = self.get_dbus_method("isRowSelected")
+        return func(*args, **kwargs)
+    
+    def isSelected(self, *args, **kwargs):
+        """
+        Determine whether the cell at a specific row and column is selected.
+        @param : row
+        a row occupied by the cell whose state is being queried. 
+        @param : column
+        a column occupied by the cell whose state is being queried.
+        @return True if the specified cell is currently selected, False
+        if not.
+        """
+        func = self.get_dbus_method("isSelected")
+        return func(*args, **kwargs)
+    
+    def removeColumnSelection(self, *args, **kwargs):
+        """
+        Remove the specified column from current column selection, if
+        the table's selection model permits it.
+        @param : column
+        @return True if the specified column was successfully de-selected,
+        False if not.
+        """
+        func = self.get_dbus_method("removeColumnSelection")
+        return func(*args, **kwargs)
+    
+    def removeRowSelection(self, *args, **kwargs):
+        """
+        Remove the specified row from current row selection, if the table's
+        selection model permits it.
+        @param : row
+        @return True if the specified row was successfully de-selected,
+        False if not.
+        """
+        func = self.get_dbus_method("removeRowSelection")
+        return func(*args, **kwargs)
+    
+    def unImplemented(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented")
+        return func(*args, **kwargs)
+    
+    def unImplemented2(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented2")
+        return func(*args, **kwargs)
+    
+    def unImplemented3(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented3")
+        return func(*args, **kwargs)
+    
+    def unImplemented4(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented4")
+        return func(*args, **kwargs)
+    
+    def unImplemented5(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented5")
+        return func(*args, **kwargs)
+    
+    def unImplemented6(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented6")
+        return func(*args, **kwargs)
+    
+    def unImplemented7(self, *args, **kwargs):
+        func = self.get_dbus_method("unImplemented7")
+        return func(*args, **kwargs)
+    
+    def get_caption(self):
+        self._pgetter(self._dbus_interface, "caption")
+    def set_caption(self, value):
+        self._psetter(self._dbus_interface, "caption", value)
+    _captionDoc = \
+        """
+        An Accessible which represents of a caption for a Table.
+        """
+    caption = property(fget=get_caption, fset=set_caption, doc=_captionDoc)
+    
+    def get_nColumns(self):
+        self._pgetter(self._dbus_interface, "nColumns")
+    def set_nColumns(self, value):
+        self._psetter(self._dbus_interface, "nColumns", value)
+    _nColumnsDoc = \
+        """
+        The total number of columns in this table (including empty columns),
+        exclusive of columns which are programmatically hidden. Columns
+        which are scrolled out of view or clipped by the current viewport
+        are included.
+        """
+    nColumns = property(fget=get_nColumns, fset=set_nColumns, doc=_nColumnsDoc)
+    
+    def get_nRows(self):
+        self._pgetter(self._dbus_interface, "nRows")
+    def set_nRows(self, value):
+        self._psetter(self._dbus_interface, "nRows", value)
+    _nRowsDoc = \
+        """
+        The total number of rows in this table (including empty rows),
+        exclusive of any rows which are programmatically hidden. Rows
+        which are merely scrolled out of view are included.
+        """
+    nRows = property(fget=get_nRows, fset=set_nRows, doc=_nRowsDoc)
+    
+    def get_nSelectedColumns(self):
+        self._pgetter(self._dbus_interface, "nSelectedColumns")
+    def set_nSelectedColumns(self, value):
+        self._psetter(self._dbus_interface, "nSelectedColumns", value)
+    _nSelectedColumnsDoc = \
+        """
+        The number of columns currently selected. A selected column is
+        one in which all included cells are selected.
+        """
+    nSelectedColumns = property(fget=get_nSelectedColumns, fset=set_nSelectedColumns, doc=_nSelectedColumnsDoc)
+    
+    def get_nSelectedRows(self):
+        self._pgetter(self._dbus_interface, "nSelectedRows")
+    def set_nSelectedRows(self, value):
+        self._psetter(self._dbus_interface, "nSelectedRows", value)
+    _nSelectedRowsDoc = \
+        """
+        The number of rows currently selected. A selected row is one
+        in which all included cells are selected.
+        """
+    nSelectedRows = property(fget=get_nSelectedRows, fset=set_nSelectedRows, doc=_nSelectedRowsDoc)
+    
+    def get_summary(self):
+        self._pgetter(self._dbus_interface, "summary")
+    def set_summary(self, value):
+        self._psetter(self._dbus_interface, "summary", value)
+    _summaryDoc = \
+        """
+        An accessible object which summarizes the contents of a Table.
+        This object is frequently itself a Table instance, albeit a simplified
+        one.
+        """
+    summary = property(fget=get_summary, fset=set_summary, doc=_summaryDoc)
+
+
+
+
+BUTTON_PRESSED_EVENT = EventType(2)
+
+BUTTON_RELEASED_EVENT = EventType(3)
+
+KEY_PRESS = KeySynthType(0)
+
+KEY_PRESSED = KeyEventType(0)
+
+KEY_PRESSED_EVENT = EventType(0)
+
+KEY_PRESSRELEASE = KeySynthType(2)
+
+KEY_RELEASE = KeySynthType(1)
+
+KEY_RELEASED = KeyEventType(1)
+
+KEY_RELEASED_EVENT = EventType(1)
+
+KEY_STRING = KeySynthType(4)
+
+KEY_SYM = KeySynthType(3)
+
+
+MODIFIER_ALT = ModifierType(3)
+
+MODIFIER_CONTROL = ModifierType(2)
+
+MODIFIER_META = ModifierType(4)
+
+MODIFIER_META2 = ModifierType(5)
+
+MODIFIER_META3 = ModifierType(6)
+
+MODIFIER_NUMLOCK = ModifierType(7)
+
+MODIFIER_SHIFT = ModifierType(0)
+
+MODIFIER_SHIFTLOCK = ModifierType(1)
+
