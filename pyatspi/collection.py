@@ -13,7 +13,7 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from base import BaseProxy
+from base import BaseProxy, Enum
 from factory import add_accessible_class
 
 __all__ = [
@@ -52,7 +52,7 @@ class Collection(BaseProxy):
         func = self.get_dbus_method("isAncestorOf")
         return func(*args, **kwargs)
     
-    class MatchType(_Enum):
+    class MatchType(Enum):
         _enum_lookup = {
             0:'MATCH_INVALID',
             1:'MATCH_ALL',
@@ -74,7 +74,7 @@ class Collection(BaseProxy):
     
     MATCH_NONE = MatchType(3)
 
-    class SortOrder(_Enum):
+    class SortOrder(Enum):
         _enum_lookup = {
             0:'SORT_ORDER_INVALID',
             1:'SORT_ORDER_CANONICAL',
@@ -102,7 +102,7 @@ class Collection(BaseProxy):
     
     SORT_ORDER_TAB = SortOrder(3)
 
-    class TreeTraversalType(_Enum):
+    class TreeTraversalType(Enum):
         _enum_lookup = {
             0:'TREE_RESTRICT_CHILDREN',
             1:'TREE_RESTRICT_SIBLING',

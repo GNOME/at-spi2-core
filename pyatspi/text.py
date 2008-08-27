@@ -13,7 +13,7 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from base import BaseProxy
+from base import BaseProxy, Enum
 from factory import add_accessible_class
 
 __all__ = [
@@ -35,7 +35,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class TEXT_BOUNDARY_TYPE(_Enum):
+class TEXT_BOUNDARY_TYPE(Enum):
     _enum_lookup = {
         0:'TEXT_BOUNDARY_CHAR',
         1:'TEXT_BOUNDARY_WORD_START',
@@ -56,7 +56,7 @@ TEXT_BOUNDARY_WORD_START = TEXT_BOUNDARY_TYPE(1)
 
 #------------------------------------------------------------------------------
 
-class TEXT_CLIP_TYPE(_Enum):
+class TEXT_CLIP_TYPE(Enum):
     _enum_lookup = {
         0:'TEXT_CLIP_NONE',
         1:'TEXT_CLIP_MIN',

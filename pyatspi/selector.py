@@ -13,7 +13,7 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from base import BaseProxy
+from base import BaseProxy, Enum
 from factory import add_accessible_class
 
 __all__ = [
@@ -143,7 +143,7 @@ class Selector(BaseProxy):
         """
     supportsReplace = property(fget=get_supportsReplace, fset=set_supportsReplace, doc=_supportsReplaceDoc)
 
-    class CommandResult(_Enum):
+    class CommandResult(Enum):
         """
         A code returned by a call to activateCommand, indicating the
         result of the activation request.

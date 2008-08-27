@@ -13,7 +13,7 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from base import BaseProxy
+from base import BaseProxy, Enum
 from factory import add_accessible_class
 
 __all__ = [
@@ -82,7 +82,7 @@ class ContentStream(BaseProxy):
     class NotSupported(Exception):
         pass
 
-    class SeekType(_Enum):
+    class SeekType(Enum):
         """
         Specifies the meaning of a seek 'offset'. Not all SeekTypes are
         supported by all StreamableContent data sources, for instance

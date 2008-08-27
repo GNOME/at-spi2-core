@@ -13,7 +13,7 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from base import BaseProxy
+from base import BaseProxy, Enum
 from factory import add_accessible_class
 
 __all__ = [
@@ -101,7 +101,7 @@ class LoginHelper(BaseProxy):
         func = self.get_dbus_method("setSafe")
         return func(*args, **kwargs)
     
-    class DeviceReq(_Enum):
+    class DeviceReq(Enum):
         _enum_lookup = {
             0:'GUI_EVENTS',
             1:'CORE_KEYBOARD',
