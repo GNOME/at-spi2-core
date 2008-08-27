@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Desktop">
   <tp:property name="childCount" type="i" access="read">
   <tp:docstring>
-    childCount: the number of children contained by this object.
+    The number of children contained by this object.
   </tp:docstring>
   </tp:property>
   <method name="getChildren">
     <tp:docstring>
-      Get the accessible children of this object.
+      Get the Accessible children of this object.
     </tp:docstring>
     <arg direction="out" type="as" tp:type="AccessibleSet">
     <tp:docstring>
-      the ::Accessible children of this object.
+      The Accessible children of this object.
     </tp:docstring>
     </arg>
   </method>
   <method name="getChildAtIndex">
     <tp:docstring>
-      Get the accessible child of this object at \c index.
+	    Get the accessible child of this object at <code>index</code>.
     </tp:docstring>
     <arg direction="in" name="index" type="i">
     <tp:docstring>
-      an in parameter indicating which child is requested (zero-indexed).
+      An parameter indicating which child is requested (zero-indexed).
     </tp:docstring>
     </arg>
     <arg direction="out" type="s" tp:type="Accessible">
     <tp:docstring>
-      the 'nth' ::Accessible child of this object.
+      The 'nth' Accessible child of this object.
     </tp:docstring>
     </arg>
   </method>

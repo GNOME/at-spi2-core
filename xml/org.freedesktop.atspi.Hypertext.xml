@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Hypertext">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface used for objects which implement linking between
@@ -13,33 +8,35 @@
       one or more Hyperlinks, which are associated with particular
       offsets within the Hypertext's included content.  </p>
 
-    <p>@note While this interface is derived from ::Text, 
+    <p>While this interface is derived from Text, 
       there is no requirement that Hypertext instances have
-      textual content; they may implement ::Image as well,
+      textual content; they may implement Image as well,
       and Hyperlinks need not have non-zero text offsets.</p>
   </tp:docstring>
   <method name="getNLinks">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Query the hypertext object for the number of Hyperlinks it
-        contains.    </p>
+        contains.</p>
     </tp:docstring>
     <arg direction="out" type="i">
     <tp:docstring>
-      the number of Hyperlinks associated with this Hypertextobject, as a long integer.
+      The number of Hyperlinks associated with this Hypertextobject, as a long integer.
     </tp:docstring>
     </arg>
   </method>
   <method name="getLink">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get one of the Hyperlinks associated with this Hypertext object,
-        by index.    </p>
-
-      <p>@param linkIndex an integer from 0 to getNLinks() - 1.</p>
+        by index.</p>
     </tp:docstring>
-    <arg direction="in" name="linkIndex" type="i"/>
+    <arg direction="in" name="linkIndex" type="i">
+	    <tp:docstring>
+      		<p>An integer from 0 to getNLinks() - 1.</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="o" tp:type="Hyperlink">
     <tp:docstring>
-      the Hyperlink in this Hypertext object.
+      The Hyperlink in this Hypertext object.
     </tp:docstring>
     </arg>
   </method>
@@ -50,23 +47,16 @@
         For Hypertext implementors without textual content, all
         hyperlinks are associated with character offset '0'.    </p>
 
-      <p>@return the index of the Hyperlink associated with character
-        offset \c characterIndex, or -1 if no Hyperlink is associated
-        with that character offset.</p>
     </tp:docstring>
     <arg direction="in" name="characterIndex" type="i"/>
-    <arg direction="out" type="i"/>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring>
-      \cond 
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
+    <arg direction="out" type="i">
+      <tp:docstring>
+        <p>The index of the Hyperlink associated with character
+           offset <code>characterIndex</code>, or -1 if no Hyperlink is associated
+	   with that character offset.
+        </p>
+      </tp:docstring>
+    </arg>
   </method>
 </interface>
 </node>

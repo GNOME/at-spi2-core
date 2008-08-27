@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Hyperlink">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Instances of Hyperlink are returned by Hypertext objects, and are
@@ -16,11 +11,11 @@
       anchors.  The objects thus obtained are instances of Accessible,
       and may be queried, and manipulated via the Action interface.   </p>
 
-    <p>@note A Hyperlink implementor is normally NOT an Accessible; 
-      the preferred usage is for a Hyperlink's associated "objects"
-      (accessed via the ::getObject method) are Accessibles.  This means
-      that Actions such as "open link" are normally invoked on
-      the result of Hyperlink::getObject rather than directly on the 
+    <p>A Hyperlink implementor is normally NOT an Accessible; 
+      the preferred usage is for a Hyperlink's associated 'objects'
+      (accessed via the getObject method) are Accessibles.  This means
+      that Actions such as 'open link' are normally invoked on
+      the result of Hyperlink.getObject rather than directly on the 
       Hyperlink instance. For historical reasons some implementors of Hyperlink
       implement Action as well.  This usage on the part of implementing
       applications and toolkits is discouraged, but clients of Hyperlink
@@ -28,18 +23,18 @@
   </tp:docstring>
   <tp:property name="nAnchors" type="n" access="read">
   <tp:docstring>
-    the number of separate anchors associated with this Hyperlink 
+    The number of separate anchors associated with this Hyperlink 
   </tp:docstring>
   </tp:property>
   <tp:property name="startIndex" type="i" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>the starting offset within the containing Hypertext content 
+    <p>The starting offset within the containing Hypertext content 
       with which this Hyperlink is associated </p>
   </tp:docstring>
   </tp:property>
   <tp:property name="endIndex" type="i" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>the ending offset within the containing Hypertext content 
+    <p>The ending offset within the containing Hypertext content 
       with which this Hyperlink is associated; that is, the offset of the
       first element past the range within the Hypertext associated with
       this Hyperlink. </p>
@@ -48,27 +43,27 @@
   <method name="getObject">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets the i'th object, (where i is an integer between 0 and
-        Hyperlink::numAnchors - 1, inclusive) associated with a Hyperlink.
+        Hyperlink.numAnchors - 1, inclusive) associated with a Hyperlink.
         The objects returned are usually actionable (i.e. they should implement
-        Accessibility::Action), and the available actions often include
-        "open", "bookmark", "save link as", etc.  They may also implement
-        Accessibility::StreamableContent, although clients can normally use 
-        ::getURI to obtain a resource locator via which the object's
+        Accessibility.Action), and the available actions often include
+        'open', 'bookmark', 'save link as', etc.  They may also implement
+        Accessibility.StreamableContent, although clients can normally use 
+        getURI to obtain a resource locator via which the object's
         data may be accessed.    </p>
 
-      <p>@note the most common application for 'multi anchor'
-        hyperlinks in HTML is probably "client side imagemaps".
+      <p>The most common application for 'multi anchor'
+        hyperlinks in HTML is probably 'client side imagemaps'.
         A clickable image which uses the HTML 'usemap' attribute
-        should have one anchor for every &lt;area&gt; element that
+        should have one anchor for every area; element that
         includes an HREF.  The objects corresponding to these map
-        areas may implement Accessibility::Component, to represent
+        areas may implement Accessibility.Component, to represent
         their onscreen bounding box, and may expose their 'shape' as
-        as name-value pair via Accessibility::Accessible::getAttributeSet.    </p>
+        as name-value pair via Accessible.getAttributeSet.</p>
     </tp:docstring>
     <arg direction="in" name="i" type="i"/>
     <arg direction="out" type="o" tp:type="Accessible">
     <tp:docstring>
-      an Accessible object instance representing theHyperlink's ith anchor, or through which the content associated withthe \c ith anchor can beaccessed.
+      An Accessible object instance representing theHyperlink's ith anchor, or through which the content associated with the ith anchor can beaccessed.
     </tp:docstring>
     </arg>
   </method>
@@ -80,37 +75,23 @@
     <arg direction="in" name="i" type="i"/>
     <arg direction="out" type="s">
     <tp:docstring>
-      a string corresponding to the URI of the Hyperlink's'ith' anchor, if one exists, or a NIL string otherwise.
+      A string corresponding to the URI of the Hyperlink's'ith' anchor, if one exists, or a NIL string otherwise.
     </tp:docstring>
     </arg>
   </method>
   <method name="isValid">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Check the hyperlink to see if a connection to its backing
-        content can be established, or if its URI is valid.
-        @note instances of invalid hyperlinks include links with malformed
+	 content can be established, or if its URI is valid. </p>
+      <p>Instances of invalid hyperlinks include links with malformed
         URIs, or for which a contact to the service provider
         specified in the URI cannot be established.</p>
     </tp:docstring>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the object's content is available, or\c False if the hyperlink's URI is invalid, or a connection to the resource can not be established.
+	    <code>True</code> if the object's content is available, or\c False if the hyperlink's URI is invalid, or a connection to the resource can not be established.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
   </method>
 </interface>
 </node>

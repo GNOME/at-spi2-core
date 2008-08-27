@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-
-
-
-
 <interface name="org.freedesktop.atspi.DeviceEventListener">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>This interface should be implemented by AT-SPI clients who wish to 
@@ -18,7 +14,7 @@
     <arg direction="in" name="event" type="(uinnisb)" tp:type="DeviceEvent"/>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the recipient/consumer wishes to consume the event, i.e.prevent it from being delivered to the desktop, \c False if the event should continue to be delivered as normal.
+	    <code>True</code> if the recipient/consumer wishes to consume the event, i.e.prevent it from being delivered to the desktop, <code>False</code> if the event should continue to be delivered as normal.
     </tp:docstring>
     </arg>
   </method>

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.LoginHelper">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>@brief An interface for use by assistive technologies by which
@@ -160,20 +155,6 @@
       a sequence containing window IDS for toplevels whichneed to be raised/made visible during user authentication, inorder for the ::LoginHelper to facilitate end-user access to the system.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
   </method>
 </interface>
 </node>
