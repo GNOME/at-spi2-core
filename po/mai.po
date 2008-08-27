@@ -1,4 +1,4 @@
-# translation of atk.HEAD.po to Hindi
+# translation of atk.HEAD.po to Maithili
 # Copyright (C) 2006 The GNOME Foundation
 # This file is distributed under the same license as the PACKAGE package.
 # BOSS GNU/Linux <bosslinux@cdac.in>, 2008.
