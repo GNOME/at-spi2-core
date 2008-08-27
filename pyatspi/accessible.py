@@ -12,7 +12,7 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
+from interfaces import ATSPI_ACCESSIBLE, ATSPI_APPLICATION
 from base import BaseProxy, Enum
 from factory import create_accessible, add_accessible_class
 from state import StateSet, _marshal_state_set
@@ -57,6 +57,9 @@ class BoundingBox(list):
         return list.__new__(cls, (x, y, width, height))
     def __init__(self, x, y, width, height):
         list.__init__(self, (x, y, width, height))
+
+    def __str__(self):
+	return ("(%d, %d, %d, %d)" % (self.x, self.y, self.width, self.height))
     
     def _get_x(self):
         return self[0]
@@ -105,7 +108,7 @@ class Accessible(BaseProxy):
 	return create_accessible(self._cache,
 			 	 self._app_name,
 				 application_root,
-				 interfaces.ATSPI_APPLICATION,
+				 ATSPI_APPLICATION,
 				 connection=self._cache._connection)
     
     def getAttributes(self):
@@ -139,7 +142,7 @@ class Accessible(BaseProxy):
         currently defined for the object. An attribute set is a list of strings
 	with each string comprising an name-value pair format 'name:value'.
         """
-        func = self.get_dbus_method("getAttributes")
+        func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_ACCESSIBLE)
         return func()
     
     def getChildAtIndex(self, index):
@@ -153,7 +156,7 @@ class Accessible(BaseProxy):
 	return create_accessible(self._cache,
 			 	 self._app_name,
 				 path,
-				 interfaces.ATSPI_ACCESSIBLE,
+				 ATSPI_ACCESSIBLE,
 				 connection=self._cache._connection)
     
     def getIndexInParent(self):
@@ -175,7 +178,7 @@ class Accessible(BaseProxy):
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
-        func = self.get_dbus_method("getLocalizedRoleName")
+        func = self.get_dbus_method("getLocalizedRoleName", dbus_interface=ATSPI_ACCESSIBLE)
         return func()
     
     def getRelationSet(self):
@@ -184,7 +187,7 @@ class Accessible(BaseProxy):
         objects. 
         @return : a RelationSet defining this object's relationships.
         """
-        func = self.get_dbus_method("getRelationSet")
+        func = self.get_dbus_method("getRelationSet", dbus_interface=ATSPI_ACCESSIBLE)
         relation_set = func()
         return _marshal_relation_set(self._cache, self._app_name, relation_set)
     
@@ -202,7 +205,7 @@ class Accessible(BaseProxy):
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
-        func = self.get_dbus_method("getRoleName")
+        func = self.get_dbus_method("getRoleName", dbus_interface=ATSPI_ACCESSIBLE)
         return func()
     
     def getState(self):
@@ -211,7 +214,7 @@ class Accessible(BaseProxy):
         @return : a StateSet encapsulating the currently true states
         of the object.
         """
-        func = self.get_dbus_method("getState")
+        func = self.get_dbus_method("getState", dbus_interface=ATSPI_ACCESSIBLE)
         bitfield = func()
 	return _marshal_state_set(bitfield)
     
@@ -261,7 +264,7 @@ class Accessible(BaseProxy):
 		return create_accessible(self._cache,
 				 	 self._app_name,
 					 self.cached_data.parent,
-					 interfaces.ATSPI_ACCESSIBLE,
+					 ATSPI_ACCESSIBLE,
 				 	 connection=self._cache._connection)
 
     _parentDoc = \
@@ -271,6 +274,6 @@ class Accessible(BaseProxy):
     parent = property(fget=get_parent, doc=_parentDoc)
 
 # Register the Accessible class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_ACCESSIBLE, Accessible)
+add_accessible_class(ATSPI_ACCESSIBLE, Accessible)
 
 #END----------------------------------------------------------------------------

@@ -207,6 +207,7 @@ spi_app_init (AtkObject *root, gint *argc, gchar **argv[])
   dbus_error_init(&error);
   ad->root = root;
   ad->droute.bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+  g_print("D-Bus unique name is : %s\n", dbus_bus_get_unique_name(ad->droute.bus));
 
   if (!ad->droute.bus)
   {
@@ -671,7 +672,13 @@ gnome_accessibility_module_shutdown (void)
   misc = NULL;
 }
 
-static void emit(AtkObject *object, const char *name, const char *detail, dbus_int32_t detail1, dbus_int32_t detail2, int type, const void *val)
+static void emit(AtkObject *object,
+		 const char *name,
+		 const char *detail,
+		 dbus_int32_t detail1,
+		 dbus_int32_t detail2,
+		 int type,
+		 const void *val)
 {
   DBusMessage *sig;
   char *path = spi_dbus_get_path(object);
