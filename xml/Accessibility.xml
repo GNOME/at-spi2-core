@@ -91,8 +91,7 @@
 
 <xi:include href="org.freedesktop.atspi.Application.xml"/>
 <xi:include href="org.freedesktop.atspi.Registry.xml"/>
-<xi:include href="org.freedesktop.atspi.Registry.Common.xml"/>
-<xi:include href="org.freedesktop.atspi.Event.xml"/>
+<xi:include href="org.freedesktop.atspi.DeviceEvent.xml"/>
 <xi:include href="org.freedesktop.atspi.Desktop.xml"/>
 <xi:include href="org.freedesktop.atspi.DeviceEventController.xml"/>
 <xi:include href="org.freedesktop.atspi.DeviceEventListener.xml"/>

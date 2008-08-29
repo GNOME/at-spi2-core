@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-	
-	
-	
-	
-	
-
 	<tp:struct name="AccessibleProxy" array-name="AccessibleProxyArray">
 		<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 			<p>The wire structure of an Accessible object proxy</p>

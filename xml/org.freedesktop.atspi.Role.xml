@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <tp:enum name="Role" type="u">
   <tp:enumvalue suffix="ROLE_INVALID">
   <tp:docstring>
@@ -119,7 +114,7 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_FOCUS_TRAVERSABLE" value="21">
   <tp:docstring>
-    XXX Don't use, reserved for future use. 
+    Don't use, reserved for future use. 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_FONT_CHOOSER" value="22">
@@ -327,7 +322,7 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An object which labels a particular row in a Table. Table rows and columns may also be 
       labelled via the RELATION_LABEL_FOR/RELATION_LABELLED_BY relationships; 
-      \see Accessibility::RelationSet. </p>
+      see Accessibility.RelationSet. </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_TEAROFF_MENU_ITEM" value="59">
@@ -406,7 +401,7 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_PARAGRAPH" value="73">
   <tp:docstring>
-    An object which is contains a single paragraph of text content. \see also ROLE_TEXT. 
+    An object which is contains a single paragraph of text content. See also ROLE_TEXT. 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_RULER" value="74">
@@ -448,11 +443,9 @@
   <tp:enumvalue suffix="ROLE_ENTRY" value="79">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The object is a component whose textual content may be entered or modified by the user,
-      provided STATE_EDITABLE is present.  
-      @note a readonly ROLE_ENTRY object (i.e. where STATE_EDITABLE is not present) implies a
-      read-only ¨text field¨ in a form, as opposed to a title, label, or caption.  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
+	    provided STATE_EDITABLE is present. </p> 
+    <p>A readonly ROLE_ENTRY object (i.e. where STATE_EDITABLE is not present) implies a
+      read-only 'text field' in a form, as opposed to a title, label, or caption.  </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_CHART" value="80">
@@ -462,17 +455,13 @@
       quantitative data and information about how the data is being presented.
       The LABELLED_BY relation is particularly important in interpreting objects of this type,
       as is the accessible-description property.  
-      @see ROLE_CAPTION  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
+      See ROLE_CAPTION  </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_CAPTION" value="81">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The object contains descriptive information, usually textual, about another user interface
       element such as a table, chart, or image.  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_DOCUMENT_FRAME" value="82">
@@ -482,8 +471,6 @@
       document may be said to be embedded in the containing instance.  HTML frames are
       often ROLE_DOCUMENT_FRAME.  Either this object, or a singleton descendant, should implement
       the Document interface.  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_HEADING" value="83">
@@ -491,8 +478,6 @@
     <p>The object serves as a heading for content which follows it in a document.
       The 'heading level' of the heading, if availabe,  may be obtained by
       querying the object's attributes.   </p>
-
-    <p>@since AT-SPI 1.7.0</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_PAGE" value="84">
@@ -500,8 +485,6 @@
     <p>The object is a containing instance which encapsulates a page of 
       information.  ROLE_PAGE is used in documents and content which support
       a paginated navigation model.  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_SECTION" value="85">
@@ -510,8 +493,6 @@
       a particular 'logical' section of the document.  The type of content within
       a section, and the nature of the section division itself, may be obtained
       by querying the object's attributes.  Sections may be nested.  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_REDUNDANT_OBJECT" value="86">
@@ -519,8 +500,6 @@
     <p>The object is redundant with another object in the hierarchy, 
       and is exposed for purely technical reasons.  Objects of this role 
       should be ignored by clients, if they are encountered at all.   </p>
-
-    <p>@since AT-SPI 1.7.6</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_FORM" value="87">
@@ -536,8 +515,6 @@
       application instances, ROLE_FORM containers' components are associated with
       the current document, rather than the current foreground application or
       viewer instance.  </p>
-
-    <p>@since AT-SPI 1.7.6</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_LINK" value="88">
@@ -547,8 +524,6 @@
       content which may also use the Hypertext/Hyperlink interfaces
       to indicate the range/location within a text object where
       an inline or embedded object lies.  </p>
-
-    <p>@since AT-SPI 1.7.6</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_INPUT_METHOD_WINDOW" value="89">
@@ -556,13 +531,11 @@
     <p>The object is a window or similar viewport which is used
       to allow composition or input of a 'complex character',
       in other words it is an "input method window."  </p>
-
-    <p>@since AT-SPI 1.7.6</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="ROLE_LAST_DEFINED" value="90">
   <tp:docstring>
-    not a valid role, used for finding end of enumeration. 
+    Not a valid role, used for finding end of enumeration. 
   </tp:docstring>
   </tp:enumvalue>
 </tp:enum>

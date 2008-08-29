@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Registry">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The Registry is a service through which applications providing 
@@ -14,33 +9,29 @@
       interact with those applications.  </p>
 
     <p>The Registry service provides four basic functions to Assistive Technology (AT) clients:
-      \li it provides a list of the applications who have registered with the AT-SPI
-      framework, thereby announcing their participation in the AT-SPI framework;
-      \li it allows AT clients to register for notification of changes in application
-      state (at-spi Events);
-      \li it dispatches/relays said events from participating applications to
-      the registered listeners;
-      \li it gives access to system device events via the associated DeviceEventController
-      interface.  </p>
+	    <ol>
+		    <li>It provides a list of the applications who have registered with the
+			    AT-SPI framework, thereby announcing their participation in the AT-SPI framework.</li>
+		    <li>It gives access to system device events via the associated DeviceEventController interface.</li>
+	    </ol>
+    </p>
 
     <p>From the point of view of accessible applications (i.e. AT-SPI service producers), 
       the Registry is primarily a registration and event delivery service.  Applications 
       normally only call the registerApplication and deregisterApplication Registry methods,
       and its inherited EventListener::notifyEvent method.  </p>
 
-    <p>@note Although all application events are dispatched via the Registry, other AT client 
+    <p>Although all application events are dispatched via the Registry, other AT client 
       calls are serviced directly by the applications, rather than being relayed via the
       Registry.  The AT client obtains references to these application objects
       via the enumeration of Desktop instances whose children are Application instances
-      (Registry::getDesktopList) and via examination of the 'source' member of the Event 
+      (Registry.getDesktopList) and via examination of the 'source' member of the Event 
       structure.   </p>
 
     <p>The Registry normally lives in its own process space; communication via Registry and
       both application services and AT clients takes place via IPC.  A process space diagram
-      illustrating the relationship between applications, Registry, and AT is shown below.
-      @image html "http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png"  </p>
-
-    <p>@see Desktop, Application, Event, EventListener</p>
+      illustrating the relationship between applications, Registry, and AT is shown at:
+      http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png  </p>
   </tp:docstring>
   <method name="registerApplication">
     <tp:docstring>
@@ -54,7 +45,7 @@
     </tp:docstring>
     <arg direction="in" name="app" type="o" tp:type="Application">
     <tp:docstring>
-      a reference to the Application to be deregistered.
+      A reference to the Application to be deregistered.
     </tp:docstring>
     </arg>
   </method>
@@ -65,43 +56,37 @@
     </tp:docstring>
     <arg direction="in" name="listener" type="o" tp:type="EventListener">
     <tp:docstring>
-      a reference to the requesting ::EventListener.
+      A reference to the requesting EventListener.
     </tp:docstring>
     </arg>
     <arg direction="in" name="eventName" type="s">
     <tp:docstring>
-      a string which indicates the type of events about which the client desires notification.
+      A string which indicates the type of events about which the client desires notification.
     </tp:docstring>
     </arg>
   </method>
   <method name="deregisterGlobalEventListenerAll">
-    <tp:docstring>
-      deregisterGlobalEventListenerAll:
-    </tp:docstring>
     <arg direction="in" name="listener" type="o" tp:type="EventListener">
     <tp:docstring>
-      the requesting EventListenerRequest that a previously registered client stop receivingglobal notifications for all events for which it was registered.
+      The requesting EventListenerRequest that a previously registered client stop receiving global notifications for all events for which it was registered.
     </tp:docstring>
     </arg>
   </method>
   <method name="deregisterGlobalEventListener">
-    <tp:docstring>
-      deregisterGlobalEventListener:
-    </tp:docstring>
     <arg direction="in" name="listener" type="o" tp:type="EventListener">
     <tp:docstring>
-      the requesting EventListener
+      The requesting EventListener
     </tp:docstring>
     </arg>
     <arg direction="in" name="eventName" type="s">
     <tp:docstring>
-      a string indicating the type of eventsRequest that a previously registered client stop receivingglobal notifications for events of a certain type.
+      A string indicating the type of eventsRequest that a previously registered client stop receiving global notifications for events of a certain type.
     </tp:docstring>
     </arg>
   </method>
   <method name="getDesktopCount">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>event types: "Window" "Desktop"
+      <p>Event types: "Window" "Desktop"
         "Window:Create" "Window:Destroy"
         "Window:Iconify" "Window:Restore"
         "Window:Fullscreen" "Window:Resize"
@@ -110,32 +95,27 @@
         "Desktop:Reorder" 
         "Focus"
         "GtkWidget:show"
-        "GObject:notify:&lt;propertyname&gt;"     </p>
+        "GObject:notify:propertyname"     </p>
 
       <p>( not sure we should allow these last 2 forms, 
         since they are toolkit-specific, but they're powerful )    </p>
-
-      <p>getDesktopCount:    </p>
 
       <p>Get the current number of desktops.</p>
     </tp:docstring>
     <arg direction="out" type="n" tp:type="short">
     <tp:docstring>
-      a short integer indicating the current number of Desktops.
+      A short integer indicating the current number of Desktops.
     </tp:docstring>
     </arg>
   </method>
   <method name="getDesktop">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>getDesktop:
-        @n: the index of the requested Desktop.    </p>
-
       <p>Get the nth accessible desktop.     </p>
     </tp:docstring>
     <arg direction="in" name="n" type="n" tp:type="short"/>
     <arg direction="out" type="o" tp:type="Desktop">
     <tp:docstring>
-      a reference to the requested Desktop.
+      A reference to the requested Desktop.
     </tp:docstring>
     </arg>
   </method>
@@ -145,7 +125,7 @@
     </tp:docstring>
     <arg direction="out" type="as" tp:type="DesktopSeq">
     <tp:docstring>
-      a sequence containing references tothe Desktops.
+      A sequence containing references tothe Desktops.
     </tp:docstring>
     </arg>
   </method>
@@ -155,7 +135,7 @@
     </tp:docstring>
     <arg direction="out" type="o" tp:type="DeviceEventController">
     <tp:docstring>
-      an object implementing DeviceEventController
+      An object implementing DeviceEventController
     </tp:docstring>
     </arg>
   </method>
