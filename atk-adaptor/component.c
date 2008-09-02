@@ -27,7 +27,7 @@
 static AtkComponent *
 get_component (DBusMessage * message)
 {
-  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
   if (!obj)
     return NULL;
   return ATK_COMPONENT (obj);
@@ -36,7 +36,7 @@ get_component (DBusMessage * message)
 static AtkComponent *
 get_component_from_path (const char *path, void *user_data)
 {
-  AtkObject *obj = spi_dbus_get_object (path);
+  AtkObject *obj = atk_dbus_get_object (path);
   if (!obj || !ATK_IS_COMPONENT(obj))
     return NULL;
   return ATK_COMPONENT (obj);

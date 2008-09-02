@@ -19,13 +19,16 @@ libspiatk_la_SOURCES =		\
 	action.c                \
 	application.c		\
 	bridge.c		\
-	collection.c \
+	bridge.h		\
+	collection.c 		\
 	component.c		\
 	document.c		\
 	editabletext.c		\
+	event.c			\
 	hyperlink.c		\
 	hypertext.c		\
 	atk-dbus.c		\
+	atk-dbus.h		\
 	image.c			\
 	selection.c		\
 	spi-private.h		\

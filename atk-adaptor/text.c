@@ -28,7 +28,7 @@
 static AtkText *
 get_text (DBusMessage * message)
 {
-  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
   if (!obj)
     return NULL;
   return ATK_TEXT (obj);
@@ -37,7 +37,7 @@ get_text (DBusMessage * message)
 static AtkText *
 get_text_from_path (const char *path, void *user_data)
 {
-  AtkObject *obj = spi_dbus_get_object (path);
+  AtkObject *obj = atk_dbus_get_object (path);
   if (!obj || !ATK_IS_TEXT(obj))
     return NULL;
   return ATK_TEXT (obj);

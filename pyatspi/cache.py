@@ -69,10 +69,9 @@ class _BaseCache(object):
 	def __contains__(self, key):
 		return key in self._objects
 
-	def _update_handler(self, updates):
-		update, remove = updates
-		self._remove_objects(update)
-		self._update_objects(remove)
+	def _update_handler(self, update, remove):
+		self._remove_objects(remove)
+		self._update_objects(update)
 
 	def _update_objects(self, objects):
 		for data in objects:

@@ -27,7 +27,7 @@
 static AtkHypertext *
 get_hypertext (DBusMessage * message)
 {
-  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
   if (!obj)
     return NULL;
   return ATK_HYPERTEXT (obj);
@@ -36,7 +36,7 @@ get_hypertext (DBusMessage * message)
 static AtkHypertext *
 get_hypertext_from_path (const char *path, void *user_data)
 {
-  AtkObject *obj = spi_dbus_get_object (path);
+  AtkObject *obj = atk_dbus_get_object (path);
   if (!obj || !ATK_IS_HYPERTEXT(obj))
     return NULL;
   return ATK_HYPERTEXT (obj);

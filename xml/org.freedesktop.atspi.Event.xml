@@ -47,6 +47,7 @@
 	<signal name="reparent"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="desktop-create"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="desktop-destroy"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="destroy"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="activate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="deactivate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="raise"><arg direction="out" type="suuv" tp:type="Event"/></signal>

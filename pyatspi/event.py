@@ -19,9 +19,37 @@ from accessible import BoundingBox
 __all__ = [
 		"Event",
 		"EventType",
+		"event_type_to_signal_reciever",
 	  ]
 
 #------------------------------------------------------------------------------
+
+_interface_to_klass = {
+		"org.freedesktop.atspi.Event.Object":"object",
+		"org.freedesktop.atspi.Event.Window":"window",
+		"org.freedesktop.atspi.Event.Mouse":"mouse",
+		"org.freedesktop.atspi.Event.Terminal":"terminal",
+		"org.freedesktop.atspi.Event.Document":"document",
+		"org.freedesktop.atspi.Event.Focus":"focus",
+		}
+
+_klass_to_interface = {
+		"object":"org.freedesktop.atspi.Event.Object",
+		"window":"org.freedesktop.atspi.Event.Window",
+		"mouse":"org.freedesktop.atspi.Event.Mouse",
+		"terminal":"org.freedesktop.atspi.Event.Terminal",
+		"document":"org.freedesktop.atspi.Event.Document",
+		"focus":"org.freedesktop.atspi.Event.Focus",
+		}
+
+#------------------------------------------------------------------------------
+
+class _ELessList(list):
+	def __getitem__(self, index):
+		try:
+			return list.__getitem__(self, index)
+		except IndexError:
+			return None
 
 class EventType(str):
 	"""
@@ -44,7 +72,8 @@ class EventType(str):
 	@cvar format: Names of the event string components
 	@type format: 4-tuple of string
 	"""
-	format = ('klass', 'major', 'minor', 'detail')
+
+	_SEPARATOR = ':'
 
 	def __init__(self, name):
 		"""		
@@ -56,20 +85,62 @@ class EventType(str):
 		@type name: string
 		@raise AttributeError: When the given event name is not a valid string 
 		"""
-		# get rid of any leading and trailing '_' separators
-		self.value = name.strip('_')
-		self.name = self.value # Backward compatability
-		self.klass = None
-		self.major = None
-		self.minor = None
-		self.detail = None
-		
-		# split type according to delimiters
-		split = self.value.split('_', 3)
-		# loop over all the components
-		for i in xrange(len(split)):
-			# store values of attributes in this object
-			setattr(self, self.format[i], split[i])
+		stripped = name.strip(self._SEPARATOR)
+		separated = stripped.split(self._SEPARATOR, 3) 
+		self._separated = _ELessList(separated)
+
+		self.klass = self._separated[0]
+		self.major = self._separated[1]
+		self.minor = self._separated[2]
+		self.detail = self._separated[3]
+
+		self._name = ":".join(separated)
+
+	def is_subtype(self, event_type):
+		"""
+		Determines if the passed event type is a subtype
+		of this event.
+		"""
+		if event_type.klass and event_type.klass !=  self.klass:
+			return False
+		else:
+			if event_type.major and event_type.major != self.major:
+				return False
+			else:
+				if event_type.minor and event_type.minor != self.minor:
+					return False
+		return True
+
+	@property
+	def name(self):
+		return self._name
+
+	@property
+	def value(self):
+		return self._name
+
+#------------------------------------------------------------------------------
+
+def event_type_to_signal_reciever(bus, cache, event_handler, event_type):
+	kwargs = {
+			'sender_keyword':'sender',
+			'interface_keyword':'interface',
+			'member_keyword':'member',
+			'path_keyword':'path',
+		 }
+	if event_type.klass:
+		kwargs['dbus_interface'] = _klass_to_interface[event_type.klass]
+	if event_type.major:
+		kwargs['signal_name'] = event_type.major
+	if event_type.minor:
+		kwargs['arg0'] = event_type.minor
+
+	def handler_wrapper(minor, detail1, detail2, any_data, 
+			    sender=None, interface=None, member=None, path=None):
+		event = Event(cache, path, sender, interface, member, (minor, detail1, detail2, any_data))
+		return event_handler(event)
+
+	return bus.add_signal_receiver(handler_wrapper, **kwargs) 
 
 #------------------------------------------------------------------------------
 
@@ -99,7 +170,7 @@ class Event(object):
 	@ivar source: Source of the event
 	@type source: Accessibility.Accessible
 	"""
-	def __init__(self, cache, source_path, source_application, name, event):
+	def __init__(self, cache, source_path, source_application, interface, name, event):
 		"""
 		Extracts information from the provided event. If the event is a "normal" 
 		event, pulls the detail1, detail2, any_data, and source values out of the
@@ -115,11 +186,16 @@ class Event(object):
 		self._cache = cache
 		self._source_path = source_path
 		self._source_application = source_application
+
 		self._source = None
 		self._application = None
 
-		self._detail = event[0]
-		self.type = EventType(name + '_' + self._detail)
+		self._klass = _interface_to_klass[interface]
+		# The replace is neccessary as '-' not legal as signal name
+		# so translated on the server side.
+		self._major = name.replace('_', '-')
+		self._minor = event[0]
+		self.type = EventType(':'.join([self._klass, self._major, self._minor]))
 		self.detail1 = event[1]
 		self.detail2 = event[2]
 
