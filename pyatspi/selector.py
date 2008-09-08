@@ -133,7 +133,7 @@ class Selector(BaseProxy):
         return func(*args, **kwargs)
     
     def get_supportsReplace(self):
-        self._pgetter(self._dbus_interface, "supportsReplace")
+        return self._pgetter(self._dbus_interface, "supportsReplace")
     def set_supportsReplace(self, value):
         self._psetter(self._dbus_interface, "supportsReplace", value)
     _supportsReplaceDoc = \

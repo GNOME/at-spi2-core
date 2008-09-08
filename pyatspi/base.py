@@ -157,6 +157,6 @@ class BaseProxy(Interface):
 		else:
 			raise NotImplementedError(
 				"%s not supported by accessible object at path %s"
-				% (interface, self.path))
+				% (interface, self._acc_path))
 
 #END----------------------------------------------------------------------------

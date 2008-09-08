@@ -62,17 +62,6 @@ class ContentStream(BaseProxy):
         func = self.get_dbus_method("seek")
         return func(*args, **kwargs)
     
-    def unimplemented(self, *args, **kwargs):
-        """
-        /cond
-        """
-        func = self.get_dbus_method("unimplemented")
-        return func(*args, **kwargs)
-    
-    def unimplemented2(self, *args, **kwargs):
-        func = self.get_dbus_method("unimplemented2")
-        return func(*args, **kwargs)
-    
     class IOError(Exception):
         pass
     

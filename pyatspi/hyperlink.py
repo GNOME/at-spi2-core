@@ -73,7 +73,7 @@ class Hyperlink(BaseProxy):
         return func(*args, **kwargs)
     
     def get_endIndex(self):
-        self._pgetter(self._dbus_interface, "endIndex")
+        return self._pgetter(self._dbus_interface, "endIndex")
     def set_endIndex(self, value):
         self._psetter(self._dbus_interface, "endIndex", value)
     _endIndexDoc = \
@@ -86,7 +86,7 @@ class Hyperlink(BaseProxy):
     endIndex = property(fget=get_endIndex, fset=set_endIndex, doc=_endIndexDoc)
     
     def get_nAnchors(self):
-        self._pgetter(self._dbus_interface, "nAnchors")
+        return self._pgetter(self._dbus_interface, "nAnchors")
     def set_nAnchors(self, value):
         self._psetter(self._dbus_interface, "nAnchors", value)
     _nAnchorsDoc = \
@@ -96,7 +96,7 @@ class Hyperlink(BaseProxy):
     nAnchors = property(fget=get_nAnchors, fset=set_nAnchors, doc=_nAnchorsDoc)
     
     def get_startIndex(self):
-        self._pgetter(self._dbus_interface, "startIndex")
+        return self._pgetter(self._dbus_interface, "startIndex")
     def set_startIndex(self, value):
         self._psetter(self._dbus_interface, "startIndex", value)
     _startIndexDoc = \

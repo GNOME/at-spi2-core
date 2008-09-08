@@ -12,12 +12,31 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-__version__ = (1, 9, 0)
+from constants import *
 
-import registry
-Registry = registry._Registry()
-registry._Registry = Registry
-del registry
-
-import constants
-from Accessibility import *
+from registry import*
+from accessible import *
+from action import *
+from application import *
+from collection import *
+from component import *
+from constants import *
+from desktop import *
+from document import *
+from editabletext import *
+from hyperlink import *
+from hypertext import *
+from image import *
+from interfaces import *
+from loginhelper import *
+from relation import *
+from role import *
+from selection import *
+from selector import *
+from state import *
+from streamablecontent import *
+from table import *
+from test import *
+from text import *
+from utils import *
+from value import *

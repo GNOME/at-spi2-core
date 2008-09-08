@@ -19,6 +19,28 @@
 
 #authors: Peter Parente, Mark Doffman
 
+import relation
+import state
+import registry
+
+__all__ = [
+		"setCacheLevel",
+		"getCacheLevel",
+		"clearCache",
+		"printCache",
+		"getInterfaceIID",
+		"getInterfaceName",
+		"listInterfaces",
+		"stringToConst",
+		"stateToString",
+		"stateToString",
+		"allModifiers",
+		"findDescendant",
+		"findAllDescendants",
+		"findAncestor",
+		"getPath",
+	 ]
+
 def setCacheLevel(level):
 	pass
 
@@ -60,10 +82,6 @@ def getInterfaceName(obj):
 	@raise AttributeError: When the parameter does not provide typecode info
 	"""
 	return obj._dbus_interface.lstrip("org.freedesktop.atspi.")
-
-# we're importing here to avoid cyclic importants; constants relies on the
-# two functions above
-import constants
 
 def listInterfaces(obj):
 	"""
@@ -121,7 +139,7 @@ def stateToString(value):
 	@return: Human readable, untranslated name of the state
 	@rtype: string
 	"""
-	return constants.STATE_VALUE_TO_NAME.get(value)
+	return state.STATE_VALUE_TO_NAME.get(value)
 
 def relationToString(value):
 	"""
@@ -133,7 +151,7 @@ def relationToString(value):
 	@return: Human readable, untranslated name of the relation
 	@rtype: string
 	"""
-	return constants.RELATION_VALUE_TO_NAME.get(value)
+	return relation.RELATION_VALUE_TO_NAME.get(value)
 
 def allModifiers():
 	"""
@@ -141,7 +159,7 @@ def allModifiers():
 	L{registry.Registry.registerKeystrokeListener}.
 	"""
 	mask = 0
-	while mask <= (1 << constants.MODIFIER_NUMLOCK):
+	while mask <= (1 << registry.MODIFIER_NUMLOCK):
 		yield mask
 		mask += 1
 
@@ -311,5 +329,3 @@ def getPath(acc):
 		except Exception:
 			raise LookupError
 		acc = acc.parent
-
-del constants

@@ -31,7 +31,7 @@ class Value(BaseProxy):
     """
 
     def get_currentValue(self):
-        self._pgetter(self._dbus_interface, "currentValue")
+        return self._pgetter(self._dbus_interface, "currentValue")
     def set_currentValue(self, value):
         self._psetter(self._dbus_interface, "currentValue", value)
     _currentValueDoc = \
@@ -41,7 +41,7 @@ class Value(BaseProxy):
     currentValue = property(fget=get_currentValue, fset=set_currentValue, doc=_currentValueDoc)
     
     def get_maximumValue(self):
-        self._pgetter(self._dbus_interface, "maximumValue")
+        return self._pgetter(self._dbus_interface, "maximumValue")
     def set_maximumValue(self, value):
         self._psetter(self._dbus_interface, "maximumValue", value)
     _maximumValueDoc = \
@@ -51,7 +51,7 @@ class Value(BaseProxy):
     maximumValue = property(fget=get_maximumValue, fset=set_maximumValue, doc=_maximumValueDoc)
     
     def get_minimumIncrement(self):
-        self._pgetter(self._dbus_interface, "minimumIncrement")
+        return self._pgetter(self._dbus_interface, "minimumIncrement")
     def set_minimumIncrement(self, value):
         self._psetter(self._dbus_interface, "minimumIncrement", value)
     _minimumIncrementDoc = \
@@ -63,7 +63,7 @@ class Value(BaseProxy):
     minimumIncrement = property(fget=get_minimumIncrement, fset=set_minimumIncrement, doc=_minimumIncrementDoc)
     
     def get_minimumValue(self):
-        self._pgetter(self._dbus_interface, "minimumValue")
+        return self._pgetter(self._dbus_interface, "minimumValue")
     def set_minimumValue(self, value):
         self._psetter(self._dbus_interface, "minimumValue", value)
     _minimumValueDoc = \

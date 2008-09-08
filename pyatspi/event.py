@@ -128,10 +128,12 @@ def event_type_to_signal_reciever(bus, cache, event_handler, event_type):
 			'member_keyword':'member',
 			'path_keyword':'path',
 		 }
+	if event_type.major:
+		major = event_type.major.replace('-', '_')
 	if event_type.klass:
 		kwargs['dbus_interface'] = _klass_to_interface[event_type.klass]
 	if event_type.major:
-		kwargs['signal_name'] = event_type.major
+		kwargs['signal_name'] = major
 	if event_type.minor:
 		kwargs['arg0'] = event_type.minor
 

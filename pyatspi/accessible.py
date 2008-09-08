@@ -92,6 +92,9 @@ class Accessible(BaseProxy):
     whether or not they actually have children.
     """
 
+    def __nonzero__(self):
+	    return True
+
     def __len__(self):
 	    return self.getChildCount()
 
@@ -232,6 +235,7 @@ class Accessible(BaseProxy):
         """
         return  (self._app_name == accessible._app_name) and \
 		(self._acc_path == accessible._acc_path)	
+
     
     def get_childCount(self):
         return len(self.cached_data.children)
@@ -240,6 +244,8 @@ class Accessible(BaseProxy):
         childCount: the number of children contained by this object.
         """
     childCount = property(fget=get_childCount, doc=_childCountDoc)
+
+    getChildCount = get_childCount
     
     def get_description(self):
         return self.cached_data.description

@@ -305,7 +305,7 @@ class Table(BaseProxy):
         return func(*args, **kwargs)
     
     def get_caption(self):
-        self._pgetter(self._dbus_interface, "caption")
+        return self._pgetter(self._dbus_interface, "caption")
     def set_caption(self, value):
         self._psetter(self._dbus_interface, "caption", value)
     _captionDoc = \
@@ -315,7 +315,7 @@ class Table(BaseProxy):
     caption = property(fget=get_caption, fset=set_caption, doc=_captionDoc)
     
     def get_nColumns(self):
-        self._pgetter(self._dbus_interface, "nColumns")
+        return self._pgetter(self._dbus_interface, "nColumns")
     def set_nColumns(self, value):
         self._psetter(self._dbus_interface, "nColumns", value)
     _nColumnsDoc = \
@@ -328,7 +328,7 @@ class Table(BaseProxy):
     nColumns = property(fget=get_nColumns, fset=set_nColumns, doc=_nColumnsDoc)
     
     def get_nRows(self):
-        self._pgetter(self._dbus_interface, "nRows")
+        return self._pgetter(self._dbus_interface, "nRows")
     def set_nRows(self, value):
         self._psetter(self._dbus_interface, "nRows", value)
     _nRowsDoc = \
@@ -340,7 +340,7 @@ class Table(BaseProxy):
     nRows = property(fget=get_nRows, fset=set_nRows, doc=_nRowsDoc)
     
     def get_nSelectedColumns(self):
-        self._pgetter(self._dbus_interface, "nSelectedColumns")
+        return self._pgetter(self._dbus_interface, "nSelectedColumns")
     def set_nSelectedColumns(self, value):
         self._psetter(self._dbus_interface, "nSelectedColumns", value)
     _nSelectedColumnsDoc = \
@@ -351,7 +351,7 @@ class Table(BaseProxy):
     nSelectedColumns = property(fget=get_nSelectedColumns, fset=set_nSelectedColumns, doc=_nSelectedColumnsDoc)
     
     def get_nSelectedRows(self):
-        self._pgetter(self._dbus_interface, "nSelectedRows")
+        return self._pgetter(self._dbus_interface, "nSelectedRows")
     def set_nSelectedRows(self, value):
         self._psetter(self._dbus_interface, "nSelectedRows", value)
     _nSelectedRowsDoc = \
@@ -362,7 +362,7 @@ class Table(BaseProxy):
     nSelectedRows = property(fget=get_nSelectedRows, fset=set_nSelectedRows, doc=_nSelectedRowsDoc)
     
     def get_summary(self):
-        self._pgetter(self._dbus_interface, "summary")
+        return self._pgetter(self._dbus_interface, "summary")
     def set_summary(self, value):
         self._psetter(self._dbus_interface, "summary", value)
     _summaryDoc = \

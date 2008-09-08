@@ -12,9 +12,11 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
+import dbus
 import interfaces
 from base import BaseProxy
 from factory import add_accessible_class
+from accessible import BoundingBox
 
 __all__ = [
 	   "Image",
@@ -34,7 +36,7 @@ class Image(BaseProxy):
     well as the Accessible::name and Accessible::description properties.
     """
     
-    def getImageExtents(self, *args, **kwargs):
+    def getImageExtents(self, coordType):
         """
         Obtain a bounding box which entirely contains the image contents,
         as displayed on screen. The bounds returned do not account for
@@ -47,7 +49,7 @@ class Image(BaseProxy):
         @return a BoundingBox enclosing the image's onscreen representation.
         """
         func = self.get_dbus_method("getImageExtents")
-        return func(*args, **kwargs)
+        return BoundingBox(*func(dbus.Int16(coordType)))
     
     def getImagePosition(self, *args, **kwargs):
         """
@@ -83,7 +85,7 @@ class Image(BaseProxy):
         return func(*args, **kwargs)
 
     def get_imageDescription(self):
-        self._pgetter(self._dbus_interface, "imageDescription")
+        return self._pgetter(self._dbus_interface, "imageDescription")
     def set_imageDescription(self, value):
         self._psetter(self._dbus_interface, "imageDescription", value)
     _imageDescriptionDoc = \
@@ -94,7 +96,7 @@ class Image(BaseProxy):
     imageDescription = property(fget=get_imageDescription, fset=set_imageDescription, doc=_imageDescriptionDoc)
     
     def get_imageLocale(self):
-        self._pgetter(self._dbus_interface, "imageLocale")
+        return self._pgetter(self._dbus_interface, "imageLocale")
     def set_imageLocale(self, value):
         self._psetter(self._dbus_interface, "imageLocale", value)
     _imageLocaleDoc = \

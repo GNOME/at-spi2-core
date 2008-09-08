@@ -12,6 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
+import dbus
+
 import interfaces
 from base import BaseProxy, Enum
 from factory import add_accessible_class
@@ -191,14 +193,14 @@ class Text(BaseProxy):
         func = self.get_dbus_method("getAttributeValue")
         return func(*args, **kwargs)
     
-    def getAttributes(self, *args, **kwargs):
+    def getAttributes(self, offset):
         """
         getAttributes is deprecated in favor of getAttributeRun. 
         @return the attributes at offset, as a semicolon-delimited set
         of colon-delimited name-value pairs.
         """
         func = self.get_dbus_method("getAttributes")
-        return func(*args, **kwargs)
+        return func(dbus.Int32(offset))
     
     def getBoundedRanges(self, *args, **kwargs):
         """
@@ -370,7 +372,7 @@ class Text(BaseProxy):
         func = self.get_dbus_method("getSelection")
         return func(*args, **kwargs)
     
-    def getText(self, *args, **kwargs):
+    def getText(self, startOffset, endOffset):
         """
         Obtain all or part of the onscreen textual content of a Text
         object. If endOffset is specified as "-1", then this method will
@@ -380,7 +382,9 @@ class Text(BaseProxy):
         at endOffset.
         """
         func = self.get_dbus_method("getText")
-        return func(*args, **kwargs)
+	if not endOffset:
+		endOffset = -1
+        return func(dbus.Int32(startOffset), dbus.Int32(endOffset))
     
     def getTextAfterOffset(self, *args, **kwargs):
         """
@@ -509,7 +513,7 @@ class Text(BaseProxy):
         return func(*args, **kwargs)
 
     def get_caretOffset(self):
-        self._pgetter(self._dbus_interface, "caretOffset")
+        return self._pgetter(self._dbus_interface, "caretOffset")
     def set_caretOffset(self, value):
         self._psetter(self._dbus_interface, "caretOffset", value)
     _caretOffsetDoc = \
@@ -524,7 +528,7 @@ class Text(BaseProxy):
     caretOffset = property(fget=get_caretOffset, fset=set_caretOffset, doc=_caretOffsetDoc)
     
     def get_characterCount(self):
-        self._pgetter(self._dbus_interface, "characterCount")
+        return self._pgetter(self._dbus_interface, "characterCount")
     def set_characterCount(self, value):
         self._psetter(self._dbus_interface, "characterCount", value)
     _characterCountDoc = \

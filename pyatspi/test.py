@@ -28,10 +28,10 @@ class TestApplicationCache(object):
 	Test application cache. Accesses single AccessibleCache.
 	"""
 
-	def __init__(self, connection, bus_name):
+	def __init__(self, registry, connection, bus_name):
 		self._connection = connection
 		self._bus_name = bus_name
-		self._accessible_cache = AccessibleCache(connection, bus_name)
+		self._accessible_cache = AccessibleCache(registry, connection, bus_name)
 
 	def __getitem__(self, key):
 		return self._accessible_cache
@@ -42,12 +42,13 @@ class TestApplicationCache(object):
 		else:
 			return False
 
-	def get_application_at_index(self, index):
+	def get_application_at_index(self, index, parent):
 		return create_accessible(self,
 					 self._bus_name, 
 					 self._accessible_cache.root, 
 					 interfaces.ATSPI_ACCESSIBLE,
-					 connection=self._connection)
+					 connection=self._connection,
+					 parent=parent)
 
 	def get_application_count(self):
 		return 1

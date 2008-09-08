@@ -138,3 +138,5 @@ EVENT_TREE = {
   'focus' :
     ['focus:']
 }
+
+from Accessibility import *

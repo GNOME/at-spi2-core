@@ -119,7 +119,7 @@ class Selection(BaseProxy):
         return func(*args, **kwargs)
     
     def get_nSelectedChildren(self):
-        self._pgetter(self._dbus_interface, "nSelectedChildren")
+        return self._pgetter(self._dbus_interface, "nSelectedChildren")
     def set_nSelectedChildren(self, value):
         self._psetter(self._dbus_interface, "nSelectedChildren", value)
     _nSelectedChildrenDoc = \

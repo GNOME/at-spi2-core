@@ -189,6 +189,9 @@ class Desktop(object):
 	self._cache = cache
 	self._app_name = '/'
 
+    def __nonzero__(self):
+	    return True
+
     def __len__(self):
 	    return self.getChildCount()
 
@@ -242,7 +245,7 @@ class Desktop(object):
         an in parameter indicating which child is requested (zero-indexed).
         @return : the 'nth' Accessible child of this object.
         """
-	return self._cache.get_application_at_index(index)
+	return self._cache.get_application_at_index(index, self)
     
     def getIndexInParent(self):
         """
@@ -307,7 +310,7 @@ class Desktop(object):
         point to the same object.
         """
         return self == accessible
-    
+
     def get_childCount(self):
         return self._cache.get_application_count()
     _childCountDoc = \
@@ -315,6 +318,8 @@ class Desktop(object):
         childCount: the number of children contained by this object.
         """
     childCount = property(fget=get_childCount, doc=_childCountDoc)
+
+    getChildCount = get_childCount
     
     def get_description(self):
         return ''
@@ -339,6 +344,10 @@ class Desktop(object):
         An Accessible object which is this object's containing object.
         """
     parent = property(fget=get_parent, doc=_parentDoc)
+
+    @property
+    def interfaces(self):
+        return [interfaces.ATSPI_ACCESSIBLE, interfaces.ATSPI_COMPONENT]
 
     def queryInterface(self, interface):
 	"""

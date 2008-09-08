@@ -67,7 +67,6 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
 
       path = atk_dbus_get_path_from_ref(GPOINTER_TO_INT(ref));
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-      g_free(path);
 
       parent = atk_object_get_parent(obj);
       if (parent == NULL)
@@ -128,6 +127,8 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
       if (!desc)
         desc = "";
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
+
+      g_free(path);
     }      
   dbus_message_iter_close_container (iter_array, &iter_struct);
 }
