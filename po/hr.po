@@ -13,6 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2008-05-28 09:25+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
@@ -351,49 +353,43 @@ msgstr "traka za uređivanje"
 
 #: ../atk/atkobject.c:158
 msgid "embedded component"
-msgstr ""
+msgstr "ugrađena komponenta"
 
 #: ../atk/atkobject.c:159
 msgid "entry"
-msgstr ""
+msgstr "zapis"
 
 #: ../atk/atkobject.c:160
-#, fuzzy
 msgid "chart"
-msgstr "upozorenje"
+msgstr "grafikon"
 
 #: ../atk/atkobject.c:161
-#, fuzzy
 msgid "caption"
-msgstr "Program"
+msgstr "opis slike"
 
 #: ../atk/atkobject.c:162
-#, fuzzy
 msgid "document frame"
-msgstr "okvir radne površine"
+msgstr "okvir dokumenta"
 
 #: ../atk/atkobject.c:163
-#, fuzzy
 msgid "heading"
 msgstr "zaglavlje"
 
 #: ../atk/atkobject.c:164
-#, fuzzy
 msgid "page"
 msgstr "slika"
 
 #: ../atk/atkobject.c:165
 msgid "section"
-msgstr ""
+msgstr "odlomak"
 
 #: ../atk/atkobject.c:166
 msgid "redundant object"
-msgstr ""
+msgstr "suvišan objekt"
 
 #: ../atk/atkobject.c:167
-#, fuzzy
 msgid "form"
-msgstr "okvir"
+msgstr "obrazac"
 
 #: ../atk/atkobject.c:356
 msgid "Accessible Name"
