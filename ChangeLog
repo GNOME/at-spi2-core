@@ -1,3 +1,8 @@
+2008-09-09  Li Yuan  <li.yuan@sun.com>
+
+	* configure.in:
+	Bug #551474. add LINGUAS file to pass make dist.
+
 2008-08-06  Tor Lillqvist  <tml@novell.com>
 
 	* configure.in: On Windows set LIB_EXE_MACHINE_FLAG to X86 or X64

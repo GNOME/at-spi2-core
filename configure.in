@@ -185,7 +185,7 @@ PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, ,
 # Rerun PKG_CONFIG to add gthread-2.0 cflags, but not libs
 DEP_CFLAGS=`$PKG_CONFIG --cflags $GLIB_PACKAGES gthread-2.0`
 
-ALL_LINGUAS="af am ar as az be be@latin bg bn bn_IN bs ca cs cy da de dz el en_CA en_GB eo es et eu fa fi fr ga gl gu he hi hr hu id is it ja ka kn ko ku li lt lv mk ml mn mr ms nb ne nl nn oc or pa pl ps pt pt_BR ro ru rw si sk sl sq sr sr@Latn sr@ije sv ta te th tk tr tt ug uk vi wa xh yi zh_CN zh_HK zh_TW"
+ALL_LINGUAS="`grep -v '^#' "$srcdir/po/LINGUAS" | tr '\n' ' '`"
 AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_FUNCS(bind_textdomain_codeset)

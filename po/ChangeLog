@@ -1,3 +1,8 @@
+2008-09-09  Li Yuan  <li.yuan@sun.com>
+
+	* LINGUAS:
+	Bug #551474. add LINGUAS file to pass make dist
+
 2008-09-08  Robert Sedak  <robert.sedak@sk.t-com.hr>
 
 	* hr.po: Updated Croatian translation.
