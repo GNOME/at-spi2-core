@@ -235,11 +235,22 @@ static const gchar* const atk_object_name_property_hypertext_num_links = "access
 
 #ifdef G_OS_WIN32
 
-#undef ATK_LOCALEDIR
+static HMODULE atk_dll;
 
-#define ATK_LOCALEDIR get_atk_locale_dir()
+BOOL WINAPI
+DllMain (HINSTANCE hinstDLL,
+	 DWORD     fdwReason,
+	 LPVOID    lpvReserved)
+{
+  switch (fdwReason)
+    {
+    case DLL_PROCESS_ATTACH:
+      atk_dll = (HMODULE) hinstDLL;
+      break;
+    }
 
-G_WIN32_DLLMAIN_FOR_DLL_NAME(static, dll_name)
+  return TRUE;
+}
 
 static const char *
 get_atk_locale_dir (void)
@@ -248,15 +259,34 @@ get_atk_locale_dir (void)
 
   if (!atk_localedir)
     {
-      gchar *temp;
+      const gchar *p;
+      gchar *root, *temp;
+      
+      /* ATK_LOCALEDIR might end in either /lib/locale or
+       * /share/locale. Scan for that slash.
+       */
+      p = ATK_LOCALEDIR + strlen (ATK_LOCALEDIR);
+      while (*--p != '/')
+	;
+      while (*--p != '/')
+	;
 
-      temp = g_win32_get_package_installation_subdirectory
-        (NULL, dll_name, "lib\\locale");
+      root = g_win32_get_package_installation_directory_of_module (atk_dll);
+      temp = g_build_filename (root, p, NULL);
+      g_free (root);
+
+      /* atk_localedir is passed to bindtextdomain() which isn't
+       * UTF-8-aware.
+       */
       atk_localedir = g_win32_locale_filename_from_utf8 (temp);
       g_free (temp);
     }
   return atk_localedir;
 }
+
+#undef ATK_LOCALEDIR
+
+#define ATK_LOCALEDIR get_atk_locale_dir()
 
 #endif
 
