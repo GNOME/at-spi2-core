@@ -1,3 +1,8 @@
+2008-09-19  Tor Lillqvist  <tml@novell.com>
+
+	* atk-zip.sh.in: Message catalogs are in share/locale, not
+	lib/locale.
+
 2008-09-13  Tor Lillqvist  <tml@novell.com>
 
 	* atk/atkobject.c: Don't use the deprectated

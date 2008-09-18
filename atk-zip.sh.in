@@ -15,7 +15,7 @@ zip $ZIP -@ <<EOF
 $DLLDIR/libatk-@ATK_API_VERSION@-@LT_CURRENT_MINUS_AGE@.dll
 EOF
 
-zip $ZIP lib/locale/*/LC_MESSAGES/atk10.mo
+zip $ZIP share/locale/*/LC_MESSAGES/atk10.mo
 
 rm $DEVZIP
 zip -r $DEVZIP -@ <<EOF
