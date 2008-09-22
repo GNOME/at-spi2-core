@@ -1,3 +1,7 @@
+2008-09-22  Sandeep Shedmake  <sshedmak@redhat.com> 
+
+	* mr.po: Bug #553151. resolves Licence problem, licence is made same as the ATK package.
+
 2008-09-20 Goran Rakić <grakic@devbase.net>
 
 	* LINGUAS, sr@latin.po: Conversion from sr@Latn to sr@latin.
