@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2006-11-14 10:38+0530\n"
 "Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
 "Language-Team: Swecha <localisation@swecha.org>\n"
@@ -388,67 +388,67 @@ msgstr "వ్యర్ధ వస్తువు"
 msgid "form"
 msgstr "రూపం"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "అందుబాటులోని పేరు"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "సహాయక సాంకేతికత అందుబాటుకు ఆకృతీకరించబడిన వస్తువు యొక్క సంకేత నామం"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "సరైన వర్ణన"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "విషయం యొక్క వివరణ, సాంకేతిక సహాయతకోసం ఆకృతీకరించబడింది"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "అందుబాటులోని మాతృక"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "మాతృక మారిందని చెప్పటానికి ఉపయోగపడుతుంది"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "సరైన విలువ"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "విలువ మారిందని చెప్పటానికి ఉపయోగపడుతుంది"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "గుర్తించదగ్గ పాత్ర"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "ఈ వస్తువుయొక్క గుర్తించదగ్గ పాత్ర"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "అందుబాటులో ఉన్న స్థరం"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "ఈ వస్తువు యొక్క అందుబాటులోని స్థరం"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "సరైన ఎండిఐ విలువ"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "ఈ వస్తువు యొక్క సరైన ఎండిఐ విలువ"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "సరైన పట్టిక శీర్షిక"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -456,58 +456,58 @@ msgstr ""
 "మీరు పట్టిక శీర్షిక మారిందని గమనిస్తే; ఈ లక్షణాన్ని ఉపయోగించకండి.  దానికి బదులు accessible-table-"
 "caption-object ఉపయోగించాలి"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "సరైన పట్టిక కాలమ్ శీర్షిక"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "పట్టిక కాలమ్ శీర్షిక మార్చబడిందని సూచించబడింది"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "సరైన పట్టిక కాలమ్ వర్ణన"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "పట్టిక కాలమ్ వర్ణన మార్చబడిందని సూచించబడింది"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "సరైన పట్టిక రో శీర్షిక"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "పట్టిక కాలమ్ రో శీర్షిక మార్చబడిందని సూచించబడింది"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "సరైన పట్టిక రో వర్ణన"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "పట్టిక రో వర్ణన మార్చబడిందని సూచించబడింది"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "అందుబాటులోఉన్న పట్టిక సంక్షిప్తత"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "పట్టిక సంక్షిప్తత మార్చబడిందని సూచించబడింది"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "అందుబాటులోఉన్న పట్టిక శీర్షికా వస్తువు"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "పట్టిక శీర్షిక మార్చబడిందని సూచించబడింది"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "అందుబాటులోఉన్న అధిపాఠ లింకుల సంఖ్య"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "ప్రస్తుత ఎటికె అధిపాఠం కలిగిఉన్న లింకుల సంఖ్య"

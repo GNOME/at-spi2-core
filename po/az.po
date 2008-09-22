@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.az\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2004-08-18 20:10+0300\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
 "Language-Team: Azerbaijani <translation-team-az@lists.sourceforge.net>\n"
@@ -396,67 +396,67 @@ msgstr ""
 msgid "form"
 msgstr "çərçivə"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "Yetişilə Bilən Ad"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Yardımçı texnologiyalara yetişmə üçün şəkilləndilirmiş cismin adı"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "Yetişilə Bilən İzahat"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Yardımçı texnologiyalara yetişmə üçün şəkilləndilirmiş cismin izahatı"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "Yetişilə Bilən Valideyn"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "Valideynin dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "Yetişilə Bilən Qiymət"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "Qiymətin dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "Yetişilə Bilən Rol"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "Bu üzvün yetişilə bilən rolu"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "Yetişilə Bilən Lay"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "Bu üzvün yetişilə bilən layı"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "Yetişilə Bilən MDI Qiyməti"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "Bu üzvün yetişilə bilən MDI qiyməti"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "Yetişilə Bilən Cədvəl Etiketi"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -464,58 +464,58 @@ msgstr ""
 "Cədvəl etiketinin dəyişildiyini bildirmək üçün işlədilir. Bunun yerinə "
 "accessible-table-caption-object işlədilməlidir."
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "Yetişilə Bilən Cədvəl Sütun Başlığı"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "Cədvəl sütun başlığının dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "Yetişilə Bilən Cədvəl Sütun İzahatı"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "Cədvəl sütun izahatının dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "Yetişilə Bilən Cədvəl Sətir Başlığı"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "Cədvəl sətir başlığının dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "Yetişilə Bilən Cədvəl Sətir İzahatı"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "Cədvəl sətir izahatının dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "Yetişilə Bilən Cədvəl Mündəricatı"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "Cədvəl icmalının dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "Yetişilə Bilən Cədvəl Etiket Obyekti"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "Cədvəl etiketinin dəyişildiyini bildirmək üçün işlədilir"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "Yetişilə Bilən Körpü Sayı"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Hazırkkı AtkHypertext-in malik olduğu körpü ədədi"

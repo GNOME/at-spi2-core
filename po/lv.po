@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2006-07-21 13:22+0300\n"
 "Last-Translator: Raivis Dejus <orvils@gmail.com>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -393,67 +393,67 @@ msgstr "pārērīgs objekts"
 msgid "form"
 msgstr "forma"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "Pieejamais vārds"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Objekta eksemplāra vārds noformēts priekš palīg tehnoloģijas pieejas"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "Pieejamais apraksts"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Apraksts no objekta, noformēts priekš palīg tehnoloģijas pieejas"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "Pieejamais vecāks"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "Lietots lai paziņot, ka tēvs ir mainīts"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "Pieejamā vērtība"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "Lietots lai paziņot, ka vērtība ir mainīta"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "Pieejamā loma"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "Pieejama loma no šī objekta"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "Pieejamais slānis"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "Pieejams slānis no šī objekta"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "Pieejamā MDI vērtība"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "Pieejamā MDI vērtība no šī objekta"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "Pieejamais tabulas virsraksts"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -461,58 +461,58 @@ msgstr ""
 "Lietots lai paziņot, ka tabulas virsraksts ir mainīts; šī īpašība nau "
 "lietojama. piekļuve-tabula-virsraksts-objekts tāpat nau lietojami"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "Pieejamā tabulas kolonnu galvene "
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "Lieto lai paziņotu, ka tabulas kolonnu galvene ir mainīta"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "Pieejamais tabulas kolonnu apraksts"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "Lieto lai paziņotu, ka tabulas kolonnu apraksts ir mainīts"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "Pieejamā tabulas rindas galvene"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "Lieto lai paziņotu, ka tabulas rinda ir mainīta"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "Pieejamais tabulas rindas apraksts"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "Lieto lai paziņotu, ka tabulas rindas apraksts ir mainīts"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "Pieejamais tabulas kopsavilkums"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "Lieto lai paziņotu, ka tabulas kopsavilkums ir mainīts"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "Pieejamais tabulas virsraksta objekts "
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "Lieto lai paziņotu, ka tabulas  virsraksts ir mainīts"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "Pieejamo hiperteksta saišu nummurs"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Saišu skaits kas ir ar AktHipertekstu tajās"

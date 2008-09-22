@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2006-03-22 21:31+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@bisnisweb.com>\n"
 "Language-Team: Indonesia <kontak@id.gnome.org>\n"
@@ -391,67 +391,67 @@ msgstr ""
 msgid "form"
 msgstr "bingkai"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "Nama Akses"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "Nama turunan objek yang digunakan untuk teknologi kemudahan akses"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "Keterangan Akses"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Keterangan objek yang digunakan dalam teknologi kemudahan akses"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "Induk Akses"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "Digunakan untuk memberitahu bahwa induk telah berubah"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "Nilai Akses"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "Digunakan untuk memberitahukan bahwa nilai telah berubah"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "Peran Akses"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "Peran akses objek ini"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "Tapis Akses"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "Tapis akses objek ini"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "Nilai MDI Akses"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "Nilai MDI akses objek ini"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "Judul Tabel Akses"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -460,59 +460,59 @@ msgstr ""
 "sebaiknya tidak digunakan, silakan gunakan accessible-table-caption-object "
 "saja."
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "Kepala Kolom Tabel Akses"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "Digunakan untuk memberitahu bahwa kepala kolom telah berubah"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "Keterangan Kolom Tabel Akses"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan kolom tabel telah berubah"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "Kepala Baris Tabel Akses"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "Digunakan untuk memberitahu bawha kepala baris tabel telah berubah"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "Keterangan Baris Tabel Akses"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan baris tabel telah berubah"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "Ringkasan Tabel Akses"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "Digunakan untuk memberitahu bahwa keterangan tabel telah berubah"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "Objek Judul Tabel Akses"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "Digunakan untuk memberitahu bahwa judul tabel telah berubah"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "Jumlah Akses Taut Hiperteks"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Jumlah taut yang dimiliki AtkHypertext saat ini"
 

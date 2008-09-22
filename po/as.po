@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2007-05-08 17:27+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <assam@mm.assam-glug.org>\n"
@@ -392,68 +392,68 @@ msgstr "পদবহিষ্কৃত পদাৰ্থ"
 msgid "form"
 msgstr "আকৃতি"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "সুগম  নাম"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে Object instance ৰ নাম পুনৰাকৃত কৰা হ'ল"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "সুগম বিৱৰণ"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "এটা পদাৰ্থৰ বিৱৰণ, যিহক সহায়ক প্ৰযুক্তিবিদ্যাৰ অভিগম্যতাৰ বাবে পুনৰাকৃত কৰা হ'ল"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "সুগম Parent"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr " parent সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "সুগম মান"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "মান সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "সুগম ভূমিকা"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "এইটো পদাৰ্থৰ সুগম ভূমিকা"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "সুগম স্তৰ"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "এইটো পদাৰ্থৰ সুগম স্তৰ"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "সুগম MDI মান"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "এইটো পদাৰ্থৰ সুগম MDI মান"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "সুগম নিৰ্ঘন্ট বিজ্ঞপ্তি"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -461,58 +461,58 @@ msgstr ""
 "নিৰ্ঘন্ট বিজ্ঞপ্তি সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়;  এই ধৰ্মটো ব্যৱহাৰ কৰা উচিত নহয় "
 "। ইয়াৰ সলনি সুগম-নিৰ্ঘন্ট-বিজ্ঞপ্তি-পদাৰ্থ ব্যৱহাৰ কৰা উচিত"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "সুগম নিৰ্ঘন্ট স্তম্ভ শিৰোণামা"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "নিৰ্ঘন্ট স্তম্ভ শিৰোণামা সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "সুগম নিৰ্ঘন্ট স্তম্ভ বিৱৰণ"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "নিৰ্ঘন্ট স্তম্ভ বিৱৰণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "সুগম নিৰ্ঘন্ট শাৰী শিৰোণামা"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "নিৰ্ঘন্ট শাৰী শিৰোণামা সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "সুগম নিৰ্ঘন্ট শাৰী বিৱৰণ"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "নিৰ্ঘন্ট শাৰী বিৱৰণ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "সুগম নিৰ্ঘন্ট সাৰাংশ"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "নিৰ্ঘন্ট সাৰাংশ সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "সুগম নিৰ্ঘন্ট বিজ্ঞপ্তি পদাৰ্থ"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "নিৰ্ঘন্ট বিজ্ঞপ্তি সলনি হোৱা বুজাবলৈ ব্যৱহাৰ কৰা হয়"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "সুগম Hypertext সূত্ৰ সংখ্যা"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "সাম্প্ৰতিক AtkHypertext ৰ সূত্ৰ সংখ্যা"

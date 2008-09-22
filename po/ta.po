@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2007-03-07 18:09+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
@@ -399,67 +399,67 @@ msgstr "மிகை பொருள்"
 msgid "form"
 msgstr "படிவம்"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "அணுகக்கூடிய பெயர்"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "தொழில்நுட்ப அணுகலுக்காக நிகழ்வின் பெயர் வடிவமைக்கப்பட்டது"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "அணுகக்கூடிய விளக்கம்"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "தொழில் நுட்ப அணுகலுக்காக வடிவமைக்கப்பட்ட பொருளின் விளக்கம்"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "அணுகக்கூடிய முதன்மை"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "முதன்மை அடைவு மாற்றப்பட்டதா என்பதை குறிப்பிட பயன்படும்"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "அணுகக்கூடிய மதிப்பு"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "மதிப்பு மாற்றப்பட்டதா என்பதை தெரிந்து கொள்ள பயன்படும்"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "அணுகக்கூடிய பங்களிப்பு"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "பொருளின் அணுகக்கூடிய பங்களிப்பு"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "அணுகக்கூடிய அடுக்கு"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "இந்தப் பொருளின் அணுகக்கூடிய அடுக்கு"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "அணுகக்கூடிய MDI மதிப்பு"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "இந்தப் பொருளின் அணுகக்கூடிய MDI மதிப்பு"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "அணுகக்கூடிய அட்டவணை தலைப்பு"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -467,58 +467,58 @@ msgstr ""
 "இது பட்டியலின் தலைப்பு மாற்றப்பட்டதை அறிவிக்க பயன்படும்; அதற்குப் பதிலாக அணுகக்கூடிய-"
 "அட்டவணை-தலைப்பு-பொருள் என பயன்படுத்த வேண்டும்"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "அணுகக்கூடிய அட்டவணை நிரல் தலைப்பு"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "இது அட்டவணை நிரல் தலைப்பு மாற்றப்பட்டதைக் குறிக்க பயன்படும்"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "அணுகக்கூடிய அட்டவணை நிரல் விளக்கம்"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "இது அட்டவணை தலைப்பு விளக்கம் மாற்றப்பட்டதை அறிவிக்க பயன்படும்"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "அணுகக்கூடிய நிரல் அட்டவணை தலைப்பு"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "அட்டவணை நிரை தலைப்பு மாற்றப்பட்டதை அறிவிக்க பயன்படும்"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "அணுகக்கூடிய அட்டவணை நிரை விளக்கம்"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "அணுகக்கூடிய அட்டவணை நிரை விளக்கம் மாற்றப்பட்டதைக் குறிக்க பயன்படும்"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "அணுகக்கூடிய அட்டவணை சுருக்கம்"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "அட்டவணை சுருக்கம் மாற்றப்பட்டதைக் குறிப்பிட பயன்படும்"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "அணுகக்கூடிய அட்டவணை தலைப்பு பொருள்"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "அட்டவணை தலைப்பு மாற்றப்பட்டதைக் குறிப்பிட பயன்படும்"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "அணுகக்கூடிய மீஉரை இணைப்புகளின் எண்ணிக்கை"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "தற்போதைய AtkHypertஇல் உள்ள இணைப்புகளின் எண்ணிக்கை"

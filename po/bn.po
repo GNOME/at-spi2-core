@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2006-08-23 20:13+0600\n"
 "Last-Translator: Khandakar Mujahidul Islam <suzan@bengalinux.org>\n"
 "Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
@@ -397,67 +397,67 @@ msgstr "অবচিত বস্তু"
 msgid "form"
 msgstr "ফর্ম"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "প্রবেশযোগ্য নাম"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr "সহায়তাকরী প্রযুক্তিতে প্রবেশের জন্য অবজেক্টির ইন্সটেন্স নাম বিন্যাস করা হয়েছে"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "প্রবেশযোগ্য বর্ণনা"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "একটি অবজেক্টের বর্ণনা যা কিনা সহায়তাকারী প্রযুক্তিতে প্রবেশের জন্য বিন্যাসকৃত"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "প্রবেশযোগ্য প্যারেন্ট"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "প্যারেন্ট পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "প্রবেশযোগ্য মান"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "মানটি পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "প্রবেশযোগ্য ভূমিকা"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "এই অবজেক্টের প্রবেশযোগ্য ভুমিকা"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "প্রবেশযোগ্য স্তর"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "এই অবজেক্টের প্রবেশযোগ্য স্তর"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "প্রবেশযোগ্য MDI মান"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "এই অবজেক্টের প্রবেশযোগ্য MDI মান"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "প্রবেশযোগ্য টেবিল শিরোনাম"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -465,59 +465,59 @@ msgstr ""
 "টেবিলটির শিরোনাম পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত; এই বৈশিষ্ট্য ব্যবহার করা "
 "উচিত নয়। পরিবর্তে প্রবেশযোগ্য-টেবিল-শিরোনাম-অবজেক্ট ব্যবহার করা উচিত"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "প্রবেশযোগ্য টেবিল কলাম হেডার"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "টেবিলটির কলাম হেডার পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "প্রবেশযোগ্য টেবিল কলামের বর্ণনা"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "টেবিলটির কলামের বর্ণনা পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "প্রবেশযোগ্য টেবিল সারি হেডার"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "টেবিল সারির হেডার পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "প্রবেশযোগ্য টেবিল সারির বর্ণনা"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "টেবিলটির সারির বর্ণনা পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "প্রবেশযোগ্য টেবিল সারসংক্ষেপ"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "টেবিলটির সারসংক্ষেপ পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "প্রবেশযোগ্য টেবিল শিরোনাম অবজেক্ট"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "টেবিলটির শিরোনাম পরিবর্তিত হয়েছে, তা জানানোর জন্য ব্যবহৃত"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "প্রবেশযোগ্য হাইপারটেক্সট লিঙ্ক এর সংখ্যা"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "বর্তমান AtkHyperlink এর যত সংখ্যক লিঙ্ক রয়েছে"
 

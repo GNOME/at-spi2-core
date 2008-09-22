@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD.kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2008-08-11 11:47+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -390,70 +390,70 @@ msgstr "ಅನವಶ್ಯಕ ಆಬ್ಜೆಕ್ಟ್‍"
 msgid "form"
 msgstr "ಫಾರ್ಮ್"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಹೆಸರು"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ನಿಲುಕಣೆ(ಅಸ್ಸಿಸ್ಟಿವ್ ಟೆಕ್ನೊಲಜಿ ಅಕ್ಸೆಸ್) ಗೆ ಹೊಂದುವಂತೆ ಬದಲಾಯಿಸಲಾದ "
 "ಆಬ್ಜೆಕ್ಟ್ ಸನ್ನಿವೇಶದ(ಇನ್‍ಸ್ಟೆನ್ಸ್‍) ಹೆಸರು"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ವಿವರಣೆ"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "ಸಹಾಯಕ ತಂತ್ರಜ್ಞಾನ ನಿಲುಕಣೆ(ಅಸ್ಸಿಸ್ಟಿವ್ ಟೆಕ್ನೊಲಜಿ ಅಕ್ಸೆಸ್) ಗೆ ಹೊಂದುವಂತಹ ಆಬ್ಜೆಕ್ಟ್ ನ ವಿವರಣೆ"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಮೂಲ"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "ಮೂಲವು ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲ್ಪಡುತ್ತದೆ"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಮೌಲ್ಯ"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "ಮೌಲ್ಯವು ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲ್ಪಡುತ್ತದೆ"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಪಾತ್ರ"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "ಪಾತ್ರವು ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲ್ಪಡುತ್ತದೆ"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಪದರ"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "ಆಬ್ಜೆಕ್ಟ್ ನ ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಪರದೆ "
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ MDI ಮೌಲ್ಯ"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "ಆಬ್ಜೆಕ್ಟ್‍ನ ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ MDI ಮೌಲ್ಯ"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಶೀರ್ಷಿಕೆ"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -461,58 +461,58 @@ msgstr ""
 "ಟೇಬಲ್ ನ ಶಿರೊನಾಮ ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲಾಗಿದೆ; ಈ ಗುಣಲಕ್ಷಣವನ್ನು ಬಳಸಬಾರದು. ಇದರ "
 "ಬದಲು ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ-ಟೇಬಲ್-ಶಿರೊನಾಮ ಆಬ್ಜೆಕ್ಟ್ ಅನ್ನು ಬಳಸಬೇಕು"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಕಾಲಂ ಹೆಡರ್"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "ಟೇಬಲ್ ನ ಕಾಲಂ ಹೆಡರ್ ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲಾಗಿದೆ"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಕಾಲಂ ವಿವರಣೆ"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "ಟೇಬಲ್ ನ ಕಾಲಂ ವಿವರಣೆ ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲಾಗಿದೆ"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಸಾಲು ಹೆಡರ್"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "ಟೇಬಲ್ ನ ಸಾಲಿನ ಹೆಡರ್ ಬದಲಾಗಿದೆ ಎಂದು ತಿಳಿಸಲು ಬಳಸಲಾಗಿದೆ"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಸಾಲು ವಿವರಣೆ"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "ಟೇಬಲ್ ನ ರೊ ವಿವರಣೆ ಬದಲಾಗಿದೆ ಅಂತ ತಿಳಿಸುವುದಕ್ಕೆ ಬಳಸಲಾಗಿದೆ"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಸಾರಾಂಶ"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "ಟೇಬಲ್ ನ ಸಾರಂಶ ಬದಲಾಗಿದೆ ಅಂತ ತಿಳಿಸುವುದಕ್ಕೆ ಬಳಸಲಾಗಿದೆ"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ ಟೇಬಲ್ ಶೀರ್ಷಿಕೆ ಆಬ್ಜೆಕ್ಟ್‍"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "ಟೇಬಲ್ ನ ಶಿರೊನಾಮ ಬದಲಾಗಿದೆ ಅಂತ ತಿಳಿಸುವುದಕ್ಕೆ ಬಳಸಲಾಗಿದೆ"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "ನಿಲುಕಿಸಿಕೊಳ್ಳಬಹುದಾದ AtkHypertext ಕೊಂಡಿಗಳ ಸಂಖ್ಯೆ"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "ಪ್ರಸಕ್ತ AtkHypertext ಹೊಂದಿರುವ ಕೊಂಡಿಗಳ ಸಂಖ್ಯೆ"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 15:52+0800\n"
+"POT-Creation-Date: 2008-09-22 18:07+0800\n"
 "PO-Revision-Date: 2006-06-29 19:15+0100\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Welsh <gnome-cy@pengwyn.linux.org.uk>\n"
@@ -399,71 +399,71 @@ msgstr "gwrthrych diangen"
 msgid "form"
 msgstr "ffurflen"
 
-#: atk/atkobject.c:356
+#: atk/atkobject.c:386
 msgid "Accessible Name"
 msgstr "Enw Hygyrchol"
 
-#: atk/atkobject.c:357
+#: atk/atkobject.c:387
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "Enw'r enghraifft gwrthrych wedi ei fformadu er mwyn ei ddefnyddio gyda "
 "technoleg hygyrchol"
 
-#: atk/atkobject.c:363
+#: atk/atkobject.c:393
 msgid "Accessible Description"
 msgstr "Disgrifiad Hygyrchol"
 
-#: atk/atkobject.c:364
+#: atk/atkobject.c:394
 msgid "Description of an object, formatted for assistive technology access"
 msgstr ""
 "Disgrifiad gwrthrych, wedi ei fformadu er mwyn ei ddefnyddio gyda technoleg "
 "hygyrchol"
 
-#: atk/atkobject.c:370
+#: atk/atkobject.c:400
 msgid "Accessible Parent"
 msgstr "Rhiant Hygyrchol"
 
-#: atk/atkobject.c:371
+#: atk/atkobject.c:401
 msgid "Is used to notify that the parent has changed"
 msgstr "Defnyddir er mwyn hysbysu fod y rhiant wedi newid"
 
-#: atk/atkobject.c:377
+#: atk/atkobject.c:407
 msgid "Accessible Value"
 msgstr "Gwerth Hygyrchol"
 
-#: atk/atkobject.c:378
+#: atk/atkobject.c:408
 msgid "Is used to notify that the value has changed"
 msgstr "Defnyddir er mwyn hysbysu fod y gwerth wedi newid"
 
-#: atk/atkobject.c:386
+#: atk/atkobject.c:416
 msgid "Accessible Role"
 msgstr "Rôl Hygyrchol"
 
-#: atk/atkobject.c:387
+#: atk/atkobject.c:417
 msgid "The accessible role of this object"
 msgstr "Rôl hygyrchol y gwrthrych hwn"
 
-#: atk/atkobject.c:395
+#: atk/atkobject.c:425
 msgid "Accessible Layer"
 msgstr "Haen Hygyrchol"
 
-#: atk/atkobject.c:396
+#: atk/atkobject.c:426
 msgid "The accessible layer of this object"
 msgstr "Haen hygyrchol y gwrthrych hwn"
 
-#: atk/atkobject.c:404
+#: atk/atkobject.c:434
 msgid "Accessible MDI Value"
 msgstr "Gwerth MDI Hygyrchol"
 
-#: atk/atkobject.c:405
+#: atk/atkobject.c:435
 msgid "The accessible MDI value of this object"
 msgstr "Gwerth MDI Hygyrchol y gwrthrych hwn"
 
-#: atk/atkobject.c:413
+#: atk/atkobject.c:443
 msgid "Accessible Table Caption"
 msgstr "Capsiwn Tabl Hygyrchol"
 
-#: atk/atkobject.c:414
+#: atk/atkobject.c:444
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -472,59 +472,59 @@ msgstr ""
 "defnyddio'r nodwedd hon. Dylid defnyddio accessible-table-caption-object yn "
 "ei lle"
 
-#: atk/atkobject.c:420
+#: atk/atkobject.c:450
 msgid "Accessible Table Column Header"
 msgstr "Pennawd Colofn Tabl Hygyrchol"
 
-#: atk/atkobject.c:421
+#: atk/atkobject.c:451
 msgid "Is used to notify that the table column header has changed"
 msgstr "Defnyddir er mwyn hysbysu fod pennawd colofn y tabl wedi newid"
 
-#: atk/atkobject.c:427
+#: atk/atkobject.c:457
 msgid "Accessible Table Column Description"
 msgstr "Disgrifiad Colofn Tabl Hygyrchol"
 
-#: atk/atkobject.c:428
+#: atk/atkobject.c:458
 msgid "Is used to notify that the table column description has changed"
 msgstr "Defnyddir er mwyn hysbysu fod disgrifiad colofn y tabl wedi newid"
 
-#: atk/atkobject.c:434
+#: atk/atkobject.c:464
 msgid "Accessible Table Row Header"
 msgstr "Pennawd Rhes Tabl Hygyrchol"
 
-#: atk/atkobject.c:435
+#: atk/atkobject.c:465
 msgid "Is used to notify that the table row header has changed"
 msgstr "Defnyddir er mwyn hysbysu fod pennawd rhes y tabl wedi newid"
 
-#: atk/atkobject.c:441
+#: atk/atkobject.c:471
 msgid "Accessible Table Row Description"
 msgstr "Disgrifiad Rhes Tabl Hygyrchol"
 
-#: atk/atkobject.c:442
+#: atk/atkobject.c:472
 msgid "Is used to notify that the table row description has changed"
 msgstr "Defnyddir er mwyn hysbysu fod disgrifiad rhes y tabl wedi newid"
 
-#: atk/atkobject.c:448
+#: atk/atkobject.c:478
 msgid "Accessible Table Summary"
 msgstr "Crynodeb Tabl Hygyrchol"
 
-#: atk/atkobject.c:449
+#: atk/atkobject.c:479
 msgid "Is used to notify that the table summary has changed"
 msgstr "Defnyddir er mwyn hysbysu fod crynodeb y tabl wedi newid"
 
-#: atk/atkobject.c:455
+#: atk/atkobject.c:485
 msgid "Accessible Table Caption Object"
 msgstr "Gwrthrych Capsiwn Tabl Hygyrchol"
 
-#: atk/atkobject.c:456
+#: atk/atkobject.c:486
 msgid "Is used to notify that the table caption has changed"
 msgstr "Defnyddir er mwyn hysbysu fod capsiwn y tabl wedi newid"
 
-#: atk/atkobject.c:462
+#: atk/atkobject.c:492
 msgid "Number of Accessible Hypertext Links"
 msgstr "Nifer Cysylltion y Gordestun Hygyrchol"
 
-#: atk/atkobject.c:463
+#: atk/atkobject.c:493
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Nifer y cysylltion sydd gan yr AtkHypertext cyfredol"
 
