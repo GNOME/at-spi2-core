@@ -1,17 +1,17 @@
-# translation of atk.HEAD.mr.po to marathi
-# Marathi translation of atk10.pot
+# translation of mr.po to marathi
 # Copyright (C) 2004  Jitendra Shah.
-# This file is distributed under GPL.
+# This file is distributed under the same license as the ATK package.
 #
 # FIRST AUTHOR Pradeep Deshpande.<npdeshpande@vsnl.com>, 2004.
 # sandeep shedmake <sandeep.shedmake@gmail.com>, 2008.
+# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: atk.HEAD.mr\n"
+"Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-09 15:52+0800\n"
-"PO-Revision-Date: 2008-01-23 14:14+0530\n"
-"Last-Translator: sandeep shedmake <sandeep.shedmake@gmail.com>\n"
+"PO-Revision-Date: 2008-09-22 09:56+0530\n"
+"Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -515,3 +515,4 @@ msgstr "प्राप्य हायपरटेक्स्ट लिंक�
 #: atk/atkobject.c:463
 msgid "The number of links which the current AtkHypertext has"
 msgstr "सद्याच्या AtkHypertext वरील एकूण लिंकची संख्या"
+
