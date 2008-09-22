@@ -1,3 +1,7 @@
+2008-09-22  Roert Sedak  <robert.sedak@sk.t-com.hr>
+
+	* hr.po: Bug #553153. resolves Licence problem, licence is made same as the ATK package.
+
 2008-09-22  Sandeep Shedmake  <sshedmak@redhat.com> 
 
 	* mr.po: Bug #553151. resolves Licence problem, licence is made same as the ATK package.
