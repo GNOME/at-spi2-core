@@ -99,5 +99,25 @@
 				</tp:docstring>
 			</arg>
 		</signal>
+		<signal name="registerApplication">
+			<tp:docstring>
+				Register a new application with the accessibility registry.
+			</tp:docstring>
+			<arg direction="out" name="app" type="s" tp:type="Application">
+				<tp:docstring>
+					D-Bus Bus name of the application that wishes to be made accessible.
+				</tp:docstring>
+			</arg>
+		</method>
+		<signal name="deregisterApplication">
+			<tp:docstring>
+				De-register an application from accessibility registry.
+			</tp:docstring>
+			<arg direction="out" name="app" type="s" tp:type="Application">
+				<tp:docstring>
+					D-Bus Bus name of the application that wishes to be made accessible.
+				</tp:docstring>
+			</arg>
+		</method>
 	</interface>
 </node>

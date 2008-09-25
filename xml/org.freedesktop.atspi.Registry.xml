@@ -33,110 +33,14 @@
       illustrating the relationship between applications, Registry, and AT is shown at:
       http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png  </p>
   </tp:docstring>
-  <method name="registerApplication">
+  <method name="getApplications">
     <tp:docstring>
-      Register a new application with the accessibility broker.
+	    Gets all the currently registered applications.
     </tp:docstring>
-  </method>
-  <method name="deregisterApplication">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>De-register an application previously registered with the broker.
-        deregisterApplication:</p>
-    </tp:docstring>
-    <arg direction="in" name="app" type="o" tp:type="Application">
-    <tp:docstring>
-      A reference to the Application to be deregistered.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="registerGlobalEventListener">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Register a client's interest in (all) application events of 
-        a certain type.</p>
-    </tp:docstring>
-    <arg direction="in" name="listener" type="o" tp:type="EventListener">
-    <tp:docstring>
-      A reference to the requesting EventListener.
-    </tp:docstring>
-    </arg>
-    <arg direction="in" name="eventName" type="s">
-    <tp:docstring>
-      A string which indicates the type of events about which the client desires notification.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="deregisterGlobalEventListenerAll">
-    <arg direction="in" name="listener" type="o" tp:type="EventListener">
-    <tp:docstring>
-      The requesting EventListenerRequest that a previously registered client stop receiving global notifications for all events for which it was registered.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="deregisterGlobalEventListener">
-    <arg direction="in" name="listener" type="o" tp:type="EventListener">
-    <tp:docstring>
-      The requesting EventListener
-    </tp:docstring>
-    </arg>
-    <arg direction="in" name="eventName" type="s">
-    <tp:docstring>
-      A string indicating the type of eventsRequest that a previously registered client stop receiving global notifications for events of a certain type.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="getDesktopCount">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Event types: "Window" "Desktop"
-        "Window:Create" "Window:Destroy"
-        "Window:Iconify" "Window:Restore"
-        "Window:Fullscreen" "Window:Resize"
-        "Desktop:Create" "Desktop:Destroy"  
-        "Desktop:Focus" "Desktop:Defocus"
-        "Desktop:Reorder" 
-        "Focus"
-        "GtkWidget:show"
-        "GObject:notify:propertyname"     </p>
-
-      <p>( not sure we should allow these last 2 forms, 
-        since they are toolkit-specific, but they're powerful )    </p>
-
-      <p>Get the current number of desktops.</p>
-    </tp:docstring>
-    <arg direction="out" type="n" tp:type="short">
-    <tp:docstring>
-      A short integer indicating the current number of Desktops.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="getDesktop">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get the nth accessible desktop.     </p>
-    </tp:docstring>
-    <arg direction="in" name="n" type="n" tp:type="short"/>
-    <arg direction="out" type="o" tp:type="Desktop">
-    <tp:docstring>
-      A reference to the requested Desktop.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="getDesktopList">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get a list of accessible desktops.     </p>
-    </tp:docstring>
-    <arg direction="out" type="as" tp:type="DesktopSeq">
-    <tp:docstring>
-      A sequence containing references tothe Desktops.
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="getDeviceEventController">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Obtain an object which can be used to request device event notifications.    </p>
-    </tp:docstring>
-    <arg direction="out" type="o" tp:type="DeviceEventController">
-    <tp:docstring>
-      An object implementing DeviceEventController
-    </tp:docstring>
+    <arg direction="out" name="applications" type="as">
+    	<tp:docstring>
+      		A list of strings containing the D-Bus bus names of the applications.
+    	</tp:docstring>
     </arg>
   </method>
 </interface>
