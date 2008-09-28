@@ -12,7 +12,7 @@ XML_SPEC= \
 	org.freedesktop.atspi.Hypertext.xml \
 	org.freedesktop.atspi.Image.xml \
 	org.freedesktop.atspi.LoginHelper.xml \
-	org.freedesktop.atspi.Registry.Common.xml \
+	org.freedesktop.atspi.DeviceEvent.xml \
 	org.freedesktop.atspi.Registry.xml \
 	org.freedesktop.atspi.DeviceEventController.xml \
 	org.freedesktop.atspi.DeviceEventListener.xml \

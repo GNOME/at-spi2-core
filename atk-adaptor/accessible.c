@@ -24,18 +24,18 @@
 
 #include "accessible.h"
 
-#define get_object(message) spi_dbus_get_object(dbus_message_get_path(message))
+#define get_object(message) atk_dbus_get_object(dbus_message_get_path(message))
 
 static AtkObject *
 get_object_from_path (const char *path, void *user_data)
 {
-  return spi_dbus_get_object (path);
+  return atk_dbus_get_object (path);
 }
 
 static dbus_bool_t
 impl_get_name (const char *path, DBusMessageIter * iter, void *user_data)
 {
-  AtkObject *object = spi_dbus_get_object (path);
+  AtkObject *object = atk_dbus_get_object (path);
   if (!object)
     return FALSE;
   return droute_return_v_string (iter, atk_object_get_name (object));
@@ -44,7 +44,7 @@ impl_get_name (const char *path, DBusMessageIter * iter, void *user_data)
 static dbus_bool_t
 impl_set_name (const char *path, DBusMessageIter * iter, void *user_data)
 {
-  AtkObject *object = spi_dbus_get_object (path);
+  AtkObject *object = atk_dbus_get_object (path);
   const char *name = droute_get_v_string (iter);
   atk_object_set_name (object, name);
   return TRUE;
@@ -54,7 +54,7 @@ static dbus_bool_t
 impl_get_description (const char *path, DBusMessageIter * iter,
 		      void *user_data)
 {
-  AtkObject *object = spi_dbus_get_object (path);
+  AtkObject *object = atk_dbus_get_object (path);
   if (!object)
     return FALSE;
   return droute_return_v_string (iter, atk_object_get_description (object));
@@ -64,7 +64,7 @@ static dbus_bool_t
 impl_set_description (const char *path, DBusMessageIter * iter,
 		      void *user_data)
 {
-  AtkObject *object = spi_dbus_get_object (path);
+  AtkObject *object = atk_dbus_get_object (path);
   const char *description = droute_get_v_string (iter);
   atk_object_set_description (object, description);
   return TRUE;
@@ -73,7 +73,7 @@ impl_set_description (const char *path, DBusMessageIter * iter,
 static dbus_bool_t
 impl_get_parent (const char *path, DBusMessageIter * iter, void *user_data)
 {
-  AtkObject *object = spi_dbus_get_object (path);
+  AtkObject *object = atk_dbus_get_object (path);
 
   if (!object)
     return FALSE;
@@ -85,7 +85,7 @@ static dbus_bool_t
 impl_get_childCount (const char *path, DBusMessageIter * iter,
 		     void *user_data)
 {
-  AtkObject *object = spi_dbus_get_object (path);
+  AtkObject *object = atk_dbus_get_object (path);
 
   if (!object)
     return FALSE;
@@ -116,7 +116,7 @@ impl_getChildren (DBusConnection * bus, DBusMessage * message,
   for (i = 0; i < count; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (object, i);
-      char *path = spi_dbus_get_path (child);
+      char *path = atk_dbus_get_path (child);
       if (path)
 	{
 	  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_OBJECT_PATH,
@@ -244,8 +244,8 @@ impl_getRelationSet (DBusConnection * bus, DBusMessage * message,
       AtkObject *obj = target->pdata[j];
       char *path;
       if (!obj) continue;
-      path = spi_dbus_get_path (obj);
-      dbus_message_iter_append (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
+      path = atk_dbus_get_path (obj);
+      dbus_message_iter_append_basic (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
     }
     dbus_message_iter_close_container (&iter_struct, &iter_targets);
     dbus_message_iter_close_container (&iter_array, &iter_struct);

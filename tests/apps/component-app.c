@@ -7,7 +7,7 @@ static gchar *tdata_path = NULL;
 static AtkComponent *comps[] = {NULL, NULL, NULL};
 static const AtkRectangle extents[] = {{0,0,30,20}, {40,30,30,40}, {0,0,70,70}};
 static const AtkLayer layers[] = {ATK_LAYER_WINDOW, ATK_LAYER_WIDGET, ATK_LAYER_MDI};
-static const guint zorders[] = {0, G_MININT, 100};
+static const guint zorders[] = {0, -100, 100};
 static const gboolean extent_may_changed[] = {TRUE, FALSE, TRUE};
 
 G_MODULE_EXPORT void
@@ -31,8 +31,9 @@ test_init (gchar *path)
       
       comps[i] = ATK_COMPONENT(mycomp);
     }
-    atk_object_set_parent((AtkObject*)comps[0],(AtkObject*)comps[2]);
-    atk_object_set_parent((AtkObject*)comps[1],(AtkObject*)comps[2]);
+    
+  my_atk_object_add_child(MY_ATK_OBJECT(comps[2]), MY_ATK_OBJECT(comps[0]));
+  my_atk_object_add_child(MY_ATK_OBJECT(comps[2]), MY_ATK_OBJECT(comps[1]));
 }
 
 G_MODULE_EXPORT void

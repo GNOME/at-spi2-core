@@ -12,14 +12,75 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import ATSPI_ACCESSIBLE, ATSPI_APPLICATION
+from base import BaseProxy, Enum
 from factory import create_accessible, add_accessible_class
-from stateset import StateSet, _marshal_state_set
+from state import StateSet, _marshal_state_set
+from relation import _marshal_relation_set
+from role import Role
 
 __all__ = [
+	   "LOCALE_TYPE",
+	   "LOCALE_TYPE_COLLATE",
+	   "LOCALE_TYPE_CTYPE",
+	   "LOCALE_TYPE_MESSAGES",
+	   "LOCALE_TYPE_MONETARY",
+	   "LOCALE_TYPE_NUMERIC",
+	   "LOCALE_TYPE_TIME",
+	   "BoundingBox",
 	   "Accessible",
 	  ]
+
+#------------------------------------------------------------------------------
+
+class LOCALE_TYPE(Enum):
+    _enum_lookup = {
+        0:'LOCALE_TYPE_MESSAGES',
+        1:'LOCALE_TYPE_COLLATE',
+        2:'LOCALE_TYPE_CTYPE',
+        3:'LOCALE_TYPE_MONETARY',
+        4:'LOCALE_TYPE_NUMERIC',
+        5:'LOCALE_TYPE_TIME',
+    }
+
+LOCALE_TYPE_COLLATE = LOCALE_TYPE(1)
+LOCALE_TYPE_CTYPE = LOCALE_TYPE(2)
+LOCALE_TYPE_MESSAGES = LOCALE_TYPE(0)
+LOCALE_TYPE_MONETARY = LOCALE_TYPE(3)
+LOCALE_TYPE_NUMERIC = LOCALE_TYPE(4)
+LOCALE_TYPE_TIME = LOCALE_TYPE(5)
+
+#------------------------------------------------------------------------------
+
+class BoundingBox(list):
+    def __new__(cls, x, y, width, height):
+        return list.__new__(cls, (x, y, width, height))
+    def __init__(self, x, y, width, height):
+        list.__init__(self, (x, y, width, height))
+
+    def __str__(self):
+	return ("(%d, %d, %d, %d)" % (self.x, self.y, self.width, self.height))
+    
+    def _get_x(self):
+        return self[0]
+    def _set_x(self, val):
+        self[0] = val
+    x = property(fget=_get_x, fset=_set_x)
+    def _get_y(self):
+        return self[1]
+    def _set_y(self, val):
+        self[1] = val
+    y = property(fget=_get_y, fset=_set_y)
+    def _get_width(self):
+        return self[2]
+    def _set_width(self, val):
+        self[2] = val
+    width = property(fget=_get_width, fset=_set_width)
+    def _get_height(self):
+        return self[3]
+    def _set_height(self, val):
+        self[3] = val
+    height = property(fget=_get_height, fset=_set_height)
 
 #------------------------------------------------------------------------------
 
@@ -30,6 +91,15 @@ class Accessible(BaseProxy):
     'children' and position in the accessible-object hierarchy,
     whether or not they actually have children.
     """
+
+    def __nonzero__(self):
+	    return True
+
+    def __len__(self):
+	    return self.getChildCount()
+
+    def __getitem__(self, index):
+	    return self.getChildAtIndex(index)
     
     def getApplication(self):
         """
@@ -41,10 +111,10 @@ class Accessible(BaseProxy):
 	return create_accessible(self._cache,
 			 	 self._app_name,
 				 application_root,
-				 interfaces.ATSPI_APPLICATION,
-				 dbus_object=self._dbus_object)
+				 ATSPI_APPLICATION,
+				 connection=self._cache._connection)
     
-    def getAttributes(self, *args, **kwargs):
+    def getAttributes(self):
         """
         Get a list of properties applied to this object as a whole, as
         an AttributeSet consisting of name-value pairs. As such these
@@ -70,11 +140,13 @@ class Accessible(BaseProxy):
         Similarly, relevant structural metadata should be exposed using
         attribute names and values chosen from the CSS2 and WICD specification:
         http://www.w3.org/TR/1998/REC-CSS2-19980512 WICD (http://www.w3.org/TR/2005/WD-WICD-20051121/).
-        @return : an AttributeSet encapsulating any "attribute values"
-        currently defined for the object.
+
+        @return : An AttributeSet encapsulating any "attribute values"
+        currently defined for the object. An attribute set is a list of strings
+	with each string comprising an name-value pair format 'name:value'.
         """
-        func = self.get_dbus_method("getAttributes")
-        return func(*args, **kwargs)
+        func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_ACCESSIBLE)
+        return func()
     
     def getChildAtIndex(self, index):
         """
@@ -87,10 +159,10 @@ class Accessible(BaseProxy):
 	return create_accessible(self._cache,
 			 	 self._app_name,
 				 path,
-				 interfaces.ATSPI_ACCESSIBLE,
-				 dbus_object=self._dbus_object)
+				 ATSPI_ACCESSIBLE,
+				 connection=self._cache._connection)
     
-    def getIndexInParent(self, *args, **kwargs):
+    def getIndexInParent(self):
         """
         Get the index of this object in its parent's child list. 
         @return : a long integer indicating this object's index in the
@@ -102,24 +174,25 @@ class Accessible(BaseProxy):
 			return i
 	raise AccessibleObjectNoLongerExists("Child not found within parent")
     
-    def getLocalizedRoleName(self, *args, **kwargs):
+    def getLocalizedRoleName(self):
         """
         Get a string indicating the type of UI role played by this object,
         translated to the current locale.
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
-        func = self.get_dbus_method("getLocalizedRoleName")
-        return func(*args, **kwargs)
+        func = self.get_dbus_method("getLocalizedRoleName", dbus_interface=ATSPI_ACCESSIBLE)
+        return func()
     
-    def getRelationSet(self, *args, **kwargs):
+    def getRelationSet(self):
         """
         Get a set defining this object's relationship to other accessible
         objects. 
         @return : a RelationSet defining this object's relationships.
         """
-        func = self.get_dbus_method("getRelationSet")
-        return func(*args, **kwargs)
+        func = self.get_dbus_method("getRelationSet", dbus_interface=ATSPI_ACCESSIBLE)
+        relation_set = func()
+        return _marshal_relation_set(self._cache, self._app_name, relation_set)
     
     def getRole(self):
         """
@@ -127,25 +200,25 @@ class Accessible(BaseProxy):
         @return : a Role indicating the type of UI role played by this
         object.
         """
-        return self.cached_data.role
+        return Role(self.cached_data.role)
     
-    def getRoleName(self, *args, **kwargs):
+    def getRoleName(self):
         """
         Get a string indicating the type of UI role played by this object.
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
-        func = self.get_dbus_method("getRoleName")
-        return func(*args, **kwargs)
+        func = self.get_dbus_method("getRoleName", dbus_interface=ATSPI_ACCESSIBLE)
+        return func()
     
-    def getState(self, *args, **kwargs):
+    def getState(self):
         """
         Get the current state of the object as a StateSet. 
         @return : a StateSet encapsulating the currently true states
         of the object.
         """
-        func = self.get_dbus_method("getState")
-        bitfield = func(*args, **kwargs)
+        func = self.get_dbus_method("getState", dbus_interface=ATSPI_ACCESSIBLE)
+        bitfield = func()
 	return _marshal_state_set(bitfield)
     
     def isEqual(self, accessible):
@@ -162,6 +235,7 @@ class Accessible(BaseProxy):
         """
         return  (self._app_name == accessible._app_name) and \
 		(self._acc_path == accessible._acc_path)	
+
     
     def get_childCount(self):
         return len(self.cached_data.children)
@@ -170,6 +244,8 @@ class Accessible(BaseProxy):
         childCount: the number of children contained by this object.
         """
     childCount = property(fget=get_childCount, doc=_childCountDoc)
+
+    getChildCount = get_childCount
     
     def get_description(self):
         return self.cached_data.description
@@ -194,8 +270,8 @@ class Accessible(BaseProxy):
 		return create_accessible(self._cache,
 				 	 self._app_name,
 					 self.cached_data.parent,
-					 interfaces.ATSPI_ACCESSIBLE,
-				 	 dbus_object=self._dbus_object)
+					 ATSPI_ACCESSIBLE,
+				 	 connection=self._cache._connection)
 
     _parentDoc = \
         """
@@ -204,6 +280,6 @@ class Accessible(BaseProxy):
     parent = property(fget=get_parent, doc=_parentDoc)
 
 # Register the Accessible class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_ACCESSIBLE, Accessible)
+add_accessible_class(ATSPI_ACCESSIBLE, Accessible)
 
 #END----------------------------------------------------------------------------

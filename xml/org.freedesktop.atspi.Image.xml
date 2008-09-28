@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Image">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface implemented by objects which render image data or 
@@ -13,27 +8,26 @@
       or visual layout, but which conveys some semantic or informational 
       content to the sighted user, they should implement Image, and that 
       semantic content should be conveyed textually to the extent possible 
-      via the image description, as well as the Accessible::name and 
-      Accessible::description properties.  </p>
+      via the image description, as well as the Accessible.name and 
+      Accessible.description properties.  </p>
   </tp:docstring>
   <tp:property name="imageDescription" type="s" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A UTF-8 string providing a textual description
       of what is visually depicted in the image.  </p>
 
-    <p>@note It is recommended that imageDescription be the shorter
+    <p>It is recommended that imageDescription be the shorter
       of the available image descriptions, for instance "alt text"
       in HTML images, and a longer description be provided in
-      Accessible::accessible-description, if available.
+      Accessible.description, if available.
       A short, one or two word label for the image should be provided in
-      Accessible::accessible-name.</p>
+      Accessible.name.</p>
   </tp:docstring>
   </tp:property>
   <tp:property name="imageLocale" type="s" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A string corresponding to the POSIX LC_MESSAGES locale used 
-      by the imageDescription.
-      @since AT-SPI 1.7.0</p>
+      by the imageDescription.</p>
   </tp:docstring>
   </tp:property>
   <method name="getImageExtents">
@@ -42,18 +36,21 @@
         as displayed on screen.  The bounds returned do not account for
         any viewport clipping or the fact that the image may be
         partially or wholly obscured by other onscreen content.
-        @note This method returns the bounds of the current onscreen
+      </p>
+      <p>This method returns the bounds of the current onscreen
         view, and not the nominal size of the source data in the
         event that the original image has been rescaled.    </p>
-
-      <p>@param coordType If 0, the returned bounding box position is returned
+    </tp:docstring>
+    <arg direction="in" name="coordType" type="n" tp:type="short">
+	    <tp:docstring>
+      <p>If 0, the returned bounding box position is returned
         relative to the screen; if 1, the bounding box position is returned 
         relative to the containing window.</p>
-    </tp:docstring>
-    <arg direction="in" name="coordType" type="n" tp:type="short"/>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="(iiii)" tp:type="BoundingBox">
     <tp:docstring>
-      a BoundingBox enclosing the image's onscreen representation.
+      A BoundingBox enclosing the image's onscreen representation.
     </tp:docstring>
     </arg>
   </method>
@@ -61,17 +58,26 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the coordinates of the current image position on screen.    </p>
 
-      <p>@param x Back-filled with the x coordinate of the 
-        onscreen image (i.e. the minimum x coordinate)
-        @param y Back-filled with the y coordinate of the 
-        onscreen image (i.e. the minimum y coordinate)
-        @param coordType If 0, the returned x and y coordinates are 
-        returned relative to the screen; 
-        if 1, they are returned relative to the containing window.</p>
     </tp:docstring>
-    <arg direction="out" name="x" type="i"/>
-    <arg direction="out" name="y" type="i"/>
-    <arg direction="in" name="coordType" type="n" tp:type="short"/>
+    <arg direction="out" name="x" type="i">
+    	<tp:docstring>
+        Back-filled with the x coordinate of the 
+        onscreen image (i.e. the minimum x coordinate)
+    	</tp:docstring>
+    </arg>
+    <arg direction="out" name="y" type="i">
+    	<tp:docstring>
+        Back-filled with the y coordinate of the 
+        onscreen image (i.e. the minimum y coordinate)
+    	</tp:docstring>
+    </arg>
+    <arg direction="in" name="coordType" type="n" tp:type="short">
+    	<tp:docstring>
+        If 0, the returned x and y coordinates are 
+        returned relative to the screen; 
+        if 1, they are returned relative to the containing window.
+    	</tp:docstring>
+    </arg>
   </method>
   <method name="getImageSize">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -79,29 +85,25 @@
         image.  The extents returned do not account for
         any viewport clipping or the fact that the image may be
         partially or wholly obscured by other onscreen content.
-        @note This method returns the size of the current onscreen
+      </p>
+      <p>This method returns the size of the current onscreen
         view, and not the nominal or "original" size of the source 
-        image, in the event that the original image has been rescaled.    </p>
+	image, in the event that the original image has been rescaled.
+      </p>
 
-      <p>@param width Back-filled with the x extents of the 
+    </tp:docstring>
+    <arg direction="out" name="width" type="i">
+	    <tp:docstring>
+        Back-filled with the x extents of the 
         onscreen image (i.e. the image width in pixels)
-        @param height Back-filled with the y extents of the 
-        onscreen image (i.e. the image height in pixels)</p>
-    </tp:docstring>
-    <arg direction="out" name="width" type="i"/>
-    <arg direction="out" name="height" type="i"/>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="height" type="i">
+	    <tp:docstring>
+        Back-filled with the y extents of the 
+        onscreen image (i.e. the image height in pixels)
+	    </tp:docstring>
+    </arg>
   </method>
 </interface>
 </node>

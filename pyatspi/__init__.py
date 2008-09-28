@@ -12,19 +12,12 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#import registry
+__version__ = (1, 9, 0)
 
-#Registry = registry.Registry(reg)
-#registry.Registry = Registry
-#del registry
+import registry
+Registry = registry._Registry()
+registry._Registry = Registry
+del registry
 
-from constants import *
-
-from accessible import *
-from application import *
-from stateset import *
-from relation import *
-
-from test import *
-
-#from utils import *
+import constants
+from Accessibility import *

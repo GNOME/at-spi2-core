@@ -29,6 +29,7 @@ libdummyatk_la_SOURCES = my-atk-action.c		\
 			 my-atk-text.h			\
 			 my-atk-value.c			\
 			 my-atk-value.h			\
+			 my-atk.h			\
 			 resources_storage.c		\
 			 resources_storage.h		\
 			 useful_functions.c		\

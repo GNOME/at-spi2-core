@@ -90,7 +90,7 @@ class Application(Accessible):
         return func(*args, **kwargs)
     
     def get_id(self):
-        self._pgetter(self._dbus_interface, "id")
+        return self._pgetter(self._dbus_interface, "id")
     def set_id(self, value):
         self._psetter(self._dbus_interface, "id", value)
     _idDoc = \
@@ -100,7 +100,7 @@ class Application(Accessible):
     id = property(fget=get_id, fset=set_id, doc=_idDoc)
     
     def get_toolkitName(self):
-        self._pgetter(self._dbus_interface, "toolkitName")
+        return self._pgetter(self._dbus_interface, "toolkitName")
     def set_toolkitName(self, value):
         self._psetter(self._dbus_interface, "toolkitName", value)
     _toolkitNameDoc = \
@@ -111,7 +111,7 @@ class Application(Accessible):
     toolkitName = property(fget=get_toolkitName, fset=set_toolkitName, doc=_toolkitNameDoc)
     
     def get_version(self):
-        self._pgetter(self._dbus_interface, "version")
+        return self._pgetter(self._dbus_interface, "version")
     def set_version(self, value):
         self._psetter(self._dbus_interface, "version", value)
     _versionDoc = \

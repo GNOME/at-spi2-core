@@ -17,9 +17,9 @@
 
 static const gchar* keybinding_note_define = "none";
 
-#define FIRST_ACTION_NAME "Default action"
-#define FIRST_ACTION_DESCRIPTION "This action will be perfomed by default"
-#define FIRST_ACTION_KEYBINDING "12345"
+#define FIRST_ACTION_NAME "First action"
+#define FIRST_ACTION_DESCRIPTION "First action performed"
+#define FIRST_ACTION_KEYBINDING "0"
 
 #define DEFAULT_NUMBER_ACTIONS 10
 #define DEFAULT_ACTION_NAME "Action"

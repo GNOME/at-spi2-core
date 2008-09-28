@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <tp:enum name="ComponentLayer" type="u">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The ComponentLayer of a Component instance indicates its relative stacking order
@@ -21,61 +16,64 @@
       overpainted by later siblings if their bounds intersect.  </p>
 
     <p>The order of layers, from bottom to top, is:
-      \li LAYER_BACKGROUND
-      \li LAYER_WINDOW
-      \li LAYER_MDI
-      \li LAYER_CANVAS
-      \li LAYER_WIDGET
-      \li LAYER_POPUP
-      \li LAYER_OVERLAY</p>
+	    <ol>
+	    	<li>LAYER_BACKGROUND</li>
+	    	<li>LAYER_WINDOW</li>
+	    	<li>LAYER_MDI</li>
+	    	<li>LAYER_CANVAS</li>
+	    	<li>LAYER_WIDGET</li>
+	    	<li>LAYER_POPUP</li>
+	    	<li>LAYER_OVERLAY</li>
+	    </ol>
+    </p>
   </tp:docstring>
   <tp:enumvalue suffix="LAYER_INVALID">
   <tp:docstring>
-    &lt; Indicates an error condition or uninitialized value. 
+    Indicates an error condition or uninitialized value. 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_BACKGROUND" value="1">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>&lt; The bottom-most layer, over which everything else is painted. 
+    <p>The bottom-most layer, over which everything else is painted. 
       The 'desktop background' is generally in this layer. </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_CANVAS" value="2">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>&lt; The 'background' layer for most content renderers and UI Component 
+    <p>The 'background' layer for most content renderers and UI Component 
       containers. </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_WIDGET" value="3">
   <tp:docstring>
-    &lt; The layer in which the majority of ordinary 'foreground' widgets reside.
+    The layer in which the majority of ordinary 'foreground' widgets reside.
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_MDI" value="4">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>&lt; A special layer between LAYER_CANVAS and LAYER_WIDGET, in which the
+    <p>A special layer between LAYER_CANVAS and LAYER_WIDGET, in which the
       'pseudo windows' (e.g. the MDI frames) reside. 
-      @see Component::getMDIZOrder </p>
+      (See Component.getMDIZOrder) </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_POPUP" value="5">
   <tp:docstring>
-    &lt; A layer for popup window content, above LAYER_WIDGET. 
+    A layer for popup window content, above LAYER_WIDGET. 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_OVERLAY" value="6">
   <tp:docstring>
-    &lt; The topmost layer. 
+    The topmost layer. 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_WINDOW" value="7">
   <tp:docstring>
-    &lt; The layer in which a toplevel window background usually resides. 
+    The layer in which a toplevel window background usually resides. 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_LAST_DEFINED" value="8">
   <tp:docstring>
-    &lt; Used only to determine the end of the enumeration. 
+    Used only to determine the end of the enumeration. 
   </tp:docstring>
   </tp:enumvalue>
 </tp:enum>
@@ -88,14 +86,12 @@
       user interface elements programmatically.  This is a 2D API, coordinates of 3D objects are projected into the
       2-dimensional screen view for purposes of this interface.  </p>
 
-    <p>@note the meaning and defined values of the \c short \c coord_type parameter used by some
-      Component methods is as follows:
-      \li 0 indicates coord_type_xy_screen, coordinates are relative to the display screen, in pixels.
-      \li 1 indicates coord_type_xy_window, coordinates are relative to the current toplevel window, in pixels.  </p>
-
-    <p>@note Events emitted by Component instances include:
-      \li \c "object:bounds-changed"
-      \li \c "object:visible-data-changed"</p>
+    <p>Events emitted by Component instances include:
+	    <ol>
+		    <li><code>"object:bounds-changed"</code></li>
+		    <li><code>"object:visible-data-changed"</code></li>
+	    </ol>
+    </p>
   </tp:docstring>
   <method name="contains">
     <arg direction="in" name="x" type="i"/>
@@ -103,7 +99,7 @@
     <arg direction="in" name="coord_type" type="n" tp:type="short"/>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified point lies within the Component's bounding box, \c False otherwise. 
+	    <code>True</code>if the specified point lies within the Component's bounding box, <code>False</code> otherwise. 
     </tp:docstring>
     </arg>
   </method>
@@ -113,7 +109,7 @@
     <arg direction="in" name="coord_type" type="n" tp:type="short"/>
     <arg direction="out" type="o" tp:type="Accessible">
     <tp:docstring>
-      the Accessible child whose bounding box contains the specified point. 
+      The Accessible child whose bounding box contains the specified point. 
     </tp:docstring>
     </arg>
   </method>
@@ -124,37 +120,57 @@
     <arg direction="in" name="coord_type" type="n" tp:type="short"/>
     <arg direction="out" type="(iiii)" tp:type="BoundingBox">
     <tp:docstring>
-      a BoundingBox which entirely contains the object's onscreen visual representation.
+      A BoundingBox which entirely contains the object's onscreen visual representation.
     </tp:docstring>
     </arg>
   </method>
   <method name="getPosition">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the position of the current component in the coordinate system specified
-        by \c coord_type.
-        @param coord_type
-        @param x an out parameter which will be back-filled with the returned x coordinate.
-        @param y an out parameter which will be back-filled with the returned y coordinate.</p>
+	 by <code>coord_type.</code>
+      </p>
     </tp:docstring>
-    <arg direction="out" name="x" type="i"/>
-    <arg direction="out" name="y" type="i"/>
-    <arg direction="in" name="coord_type" type="n" tp:type="short"/>
+    <arg direction="in" name="coord_type" type="n" tp:type="short">
+	    <tp:docstring>
+      	    <ol>
+	      <li>0 indicates coord_type_xy_screen, coordinates are relative to the display screen, in pixels.</li>
+	      <li>1 indicates coord_type_xy_window, coordinates are relative to the current toplevel window, in pixels.</li>
+	    </ol>
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="x" type="i">
+	    <tp:docstring>
+        	An out parameter which will be back-filled with the returned x coordinate.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="y" type="i">
+	    <tp:docstring>
+		    <p>An out parameter which will be back-filled with the returned y coordinate.</p>
+	    </tp:docstring>
+    </arg>
   </method>
   <method name="getSize">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the size, in the coordinate system specified by \c coord_type, 
         of the rectangular area which fully contains the object's 
         visual representation, without accounting for viewport clipping. 
-        @param width the object's horizontal extents in the specified coordinate system.
-        @param height the object's vertical extents in the specified coordinate system.</p>
+      </p>
     </tp:docstring>
-    <arg direction="out" name="width" type="i"/>
-    <arg direction="out" name="height" type="i"/>
+    <arg direction="out" name="width" type="i">
+	    <tp:docstring>
+		The object's horizontal extents in the specified coordinate system.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="height" type="i">
+	    <tp:docstring>
+		    <p>The object's vertical extents in the specified coordinate system.</p>
+	    </tp:docstring>
+    </arg>
   </method>
   <method name="getLayer">
     <arg direction="out" type="u" tp:type="ComponentLayer">
     <tp:docstring>
-      the ComponentLayer in which this object resides. 
+      The ComponentLayer in which this object resides. 
     </tp:docstring>
     </arg>
   </method>
@@ -163,30 +179,29 @@
       <p>Obtain the relative stacking order (i.e. 'Z' order) of an object.
         Larger values indicate that an object is on "top" of the stack, therefore
         objects with smaller MDIZOrder may be obscured by objects with a larger MDIZOrder,
-        but not vice-versa. 
-        @note only relevant for objects in LAYER_MDI or LAYER_WINDOW </p>
+        but not vice-versa. This is only relevant for objects in LAYER_MDI or LAYER_WINDOW </p>
     </tp:docstring>
     <arg direction="out" type="n" tp:type="short">
     <tp:docstring>
-      an integer indicating the object's place in the stacking order.
+      An integer indicating the object's place in the stacking order.
     </tp:docstring>
     </arg>
   </method>
   <method name="grabFocus">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Request that the object obtain keyboard focus.    </p>
+      <p>Request that the object obtain keyboard focus.</p>
     </tp:docstring>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if keyboard focus was successfully transferred to the Component. 
+	    <code>True</code> if keyboard focus was successfully transferred to the Component. 
     </tp:docstring>
     </arg>
   </method>
   <method name="registerFocusHandler">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Register an EventListener for notification when this object receives keyboard focus.
-        @note you probably want to register for ¨focus:¨ events via 
-        Registry::registerGlobalEventListener instead. </p>
+        You probably want to register for focus events via 
+        Registry.registerGlobalEventListener instead. </p>
     </tp:docstring>
     <arg direction="in" name="handler" type="o" tp:type="EventListener"/>
   </method>
@@ -204,27 +219,12 @@
         that the object is fully transparent.  Negative alpha values have no defined
         meaning at this time.    </p>
 
-      <p>@note alpha values are used in conjunction with Z-order calculations to
+      <p>Alpha values are used in conjunction with Z-order calculations to
         determine whether an object wholly or partially obscures another object's 
         visual intersection, in the event that their bounds intersect.    </p>
 
-      <p>@see STATE_OPAQUE    </p>
-
-      <p>@since AT-SPI 1.7.0</p>
     </tp:docstring>
     <arg direction="out" type="d"/>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
   </method>
 </interface>
 </node>

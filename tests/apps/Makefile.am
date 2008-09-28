@@ -1,5 +1,9 @@
 check_PROGRAMS = test-application
-check_LTLIBRARIES = libnoopapp.la libobjectapp.la libcomponentapp.la
+check_LTLIBRARIES = libnoopapp.la \
+		    libaccessibleapp.la \
+		    libcomponentapp.la \
+		    libactionapp.la \
+		    librelationapp.la
 
 test_application_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
 			  $(ATK_CFLAGS)		\
@@ -22,12 +26,22 @@ libnoopapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
 libnoopapp_la_LIBADD = $(TEST_APP_LIBADD)
 libnoopapp_la_SOURCES = noop-app.c
 
-libobjectapp_la_CFLAGS = $(TEST_APP_CFLAGS) $(LIB_XML_CFLAGS)
-libobjectapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
-libobjectapp_la_LIBADD = $(TEST_APP_LIBADD) $(LIB_XML_LIBS)
-libobjectapp_la_SOURCES = object-app.c atk-object-xml-loader.c atk-object-xml-loader.h
+libaccessibleapp_la_CFLAGS = $(TEST_APP_CFLAGS) $(LIB_XML_CFLAGS)
+libaccessibleapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
+libaccessibleapp_la_LIBADD = $(TEST_APP_LIBADD) $(LIB_XML_LIBS)
+libaccessibleapp_la_SOURCES = accessible-app.c atk-object-xml-loader.c atk-object-xml-loader.h
 
 libcomponentapp_la_CFLAGS = $(TEST_APP_CFLAGS)
 libcomponentapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
 libcomponentapp_la_LIBADD = $(TEST_APP_LIBADD)
 libcomponentapp_la_SOURCES = component-app.c
+
+libactionapp_la_CFLAGS = $(TEST_APP_CFLAGS)
+libactionapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
+libactionapp_la_LIBADD = $(TEST_APP_LIBADD)
+libactionapp_la_SOURCES = action-app.c
+
+librelationapp_la_CFLAGS = $(TEST_APP_CFLAGS)
+librelationapp_la_LDFLAGS = $(TEST_APP_LDFLAGS)
+librelationapp_la_LIBADD = $(TEST_APP_LIBADD)
+librelationapp_la_SOURCES = relation-app.c

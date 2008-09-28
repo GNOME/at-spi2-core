@@ -1,5 +1,4 @@
 #Copyright (C) 2008 Codethink Ltd
-#copyright: Copyright (c) 2005, 2007 IBM Corporation
 
 #This library is free software; you can redistribute it and/or
 #modify it under the terms of the GNU Lesser General Public
@@ -13,76 +12,139 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#Portions of this code originally licensed and copyright (c) 2005, 2007
-#IBM Corporation under the BSD license, available at
-#U{http://www.opensource.org/licenses/bsd-license.php}
+import interfaces
+from factory import create_accessible, add_accessible_class
+from accessible import BoundingBox
 
-#authors: Peter Parente, Mark Doffman
+__all__ = [
+		"Event",
+		"EventType",
+		"event_type_to_signal_reciever",
+	  ]
 
-import constants
+#------------------------------------------------------------------------------
 
-class DeviceEvent(object):
+_interface_to_klass = {
+		"org.freedesktop.atspi.Event.Object":"object",
+		"org.freedesktop.atspi.Event.Window":"window",
+		"org.freedesktop.atspi.Event.Mouse":"mouse",
+		"org.freedesktop.atspi.Event.Terminal":"terminal",
+		"org.freedesktop.atspi.Event.Document":"document",
+		"org.freedesktop.atspi.Event.Focus":"focus",
+		}
+
+_klass_to_interface = {
+		"object":"org.freedesktop.atspi.Event.Object",
+		"window":"org.freedesktop.atspi.Event.Window",
+		"mouse":"org.freedesktop.atspi.Event.Mouse",
+		"terminal":"org.freedesktop.atspi.Event.Terminal",
+		"document":"org.freedesktop.atspi.Event.Document",
+		"focus":"org.freedesktop.atspi.Event.Focus",
+		}
+
+#------------------------------------------------------------------------------
+
+class _ELessList(list):
+	def __getitem__(self, index):
+		try:
+			return list.__getitem__(self, index)
+		except IndexError:
+			return None
+
+class EventType(str):
 	"""
-	Wraps an AT-SPI device event with a more Pythonic interface. Primarily adds
-	a consume attribute which can be used to cease propagation of a device event.
+	Wraps the AT-SPI event type string so its components can be accessed 
+	individually as klass (can't use the keyword class), major, minor, and detail 
+	(klass_major_minor_detail).
 	
-	@ivar consume: Should this event be consumed and not allowed to pass on to
-		observers further down the dispatch chain in this process or possibly
-		system wide?
-	@type consume: boolean
-	@ivar type: Kind of event, KEY_PRESSED_EVENT or KEY_RELEASED_EVENT
-	@type type: Accessibility.EventType
-	@ivar id: Serial identifier for this key event
-	@type id: integer
-	@ivar hw_code: Hardware scan code for the key
-	@type hw_code: integer
-	@ivar modifiers: Modifiers held at the time of the key event
-	@type modifiers: integer
-	@ivar timestamp: Time at which the event occurred relative to some platform
-		dependent starting point (e.g. XWindows start time)
-	@type timestamp: integer
-	@ivar event_string: String describing the key pressed (e.g. keysym)
-	@type event_string: string
-	@ivar is_text: Is the event representative of text to be inserted (True), or 
-		of a control key (False)?
-	@type is_text: boolean
+	@note: All attributes of an instance of this class should be considered 
+		public readable as it is acting a a struct.
+	@ivar klass: Most general event type identifier (object, window, mouse, etc.)
+	@type klass: string
+	@ivar major: Second level event type description
+	@type major: string
+	@ivar minor: Third level event type description
+	@type minor: string
+	@ivar detail: Lowest level event type description
+	@type detail: string
+	@ivar name: Full, unparsed event name as received from AT-SPI
+	@type name: string
+	@cvar format: Names of the event string components
+	@type format: 4-tuple of string
 	"""
-	def __init__(self, event):
-		"""
-		Attaches event data to this object.
-		
-		@param event: Event object
-		@type event: Accessibility.DeviceEvent
-		"""
-		self.consume = False
-		self.type = event.type
-		self.id = event.id
-		self.hw_code = event.hw_code
-		self.modifiers = event.modifiers
-		self.timestamp = event.timestamp
-		self.event_string = event.event_string
-		self.is_text = event.is_text
-		
-	def __str__(self):
-		"""
-		Builds a human readable representation of the event.
 
-		@return: Event description
-		@rtype: string
+	_SEPARATOR = ':'
+
+	def __init__(self, name):
+		"""		
+		Parses the full AT-SPI event name into its components
+		(klass:major:minor:detail). If the provided event name is an integer
+		instead of a string, then the event is really a device event.
+		
+		@param name: Full AT-SPI event name
+		@type name: string
+		@raise AttributeError: When the given event name is not a valid string 
 		"""
-		if self.type == constants.KEY_PRESSED_EVENT:
-			kind = 'pressed'
-		elif self.type == constants.KEY_RELEASED_EVENT:
-			kind = 'released'
-		return """\
-%s
-\thw_code: %d
-\tevent_string: %s
-\tmodifiers: %d
-\tid: %d
-\ttimestamp: %d
-\tis_text: %s""" % (kind, self.hw_code, self.event_string, self.modifiers,
-		self.id, self.timestamp, self.is_text)
+		stripped = name.strip(self._SEPARATOR)
+		separated = stripped.split(self._SEPARATOR, 3) 
+		self._separated = _ELessList(separated)
+
+		self.klass = self._separated[0]
+		self.major = self._separated[1]
+		self.minor = self._separated[2]
+		self.detail = self._separated[3]
+
+		self._name = ":".join(separated)
+
+	def is_subtype(self, event_type):
+		"""
+		Determines if the passed event type is a subtype
+		of this event.
+		"""
+		if event_type.klass and event_type.klass !=  self.klass:
+			return False
+		else:
+			if event_type.major and event_type.major != self.major:
+				return False
+			else:
+				if event_type.minor and event_type.minor != self.minor:
+					return False
+		return True
+
+	@property
+	def name(self):
+		return self._name
+
+	@property
+	def value(self):
+		return self._name
+
+#------------------------------------------------------------------------------
+
+def event_type_to_signal_reciever(bus, cache, event_handler, event_type):
+	kwargs = {
+			'sender_keyword':'sender',
+			'interface_keyword':'interface',
+			'member_keyword':'member',
+			'path_keyword':'path',
+		 }
+	if event_type.major:
+		major = event_type.major.replace('-', '_')
+	if event_type.klass:
+		kwargs['dbus_interface'] = _klass_to_interface[event_type.klass]
+	if event_type.major:
+		kwargs['signal_name'] = major
+	if event_type.minor:
+		kwargs['arg0'] = event_type.minor
+
+	def handler_wrapper(minor, detail1, detail2, any_data, 
+			    sender=None, interface=None, member=None, path=None):
+		event = Event(cache, path, sender, interface, member, (minor, detail1, detail2, any_data))
+		return event_handler(event)
+
+	return bus.add_signal_receiver(handler_wrapper, **kwargs) 
+
+#------------------------------------------------------------------------------
 
 class Event(object):
 	"""
@@ -93,9 +155,6 @@ class Event(object):
 	@note: All unmarked attributes of this class should be considered public
 		readable and writable as the class is acting as a record object.
 		
-	@ivar consume: Should this event be consumed and not allowed to pass on to
-		observers further down the dispatch chain in this process?
-	@type consume: boolean
 	@ivar type: The type of the AT-SPI event
 	@type type: L{EventType}
 	@ivar detail1: First AT-SPI event parameter
@@ -113,7 +172,7 @@ class Event(object):
 	@ivar source: Source of the event
 	@type source: Accessibility.Accessible
 	"""
-	def __init__(self, event):
+	def __init__(self, cache, source_path, source_application, interface, name, event):
 		"""
 		Extracts information from the provided event. If the event is a "normal" 
 		event, pulls the detail1, detail2, any_data, and source values out of the
@@ -126,47 +185,56 @@ class Event(object):
 		@param event: Event from an AT-SPI callback
 		@type event: Accessibility.Event or Accessibility.DeviceEvent
 		"""
-		# always start out assuming no consume
-		self.consume = False
-		self.type = EventType(event.type)
-		self.detail1 = event.detail1
-		self.detail2 = event.detail2
-		# store the event source and increase the reference count since event 
-		# sources are borrowed references; the AccessibleMixin automatically
-		# decrements it later
-		try:
-			event.source.ref()
-		except AttributeError:
-			pass
-		self.source = event.source
+		self._cache = cache
+		self._source_path = source_path
+		self._source_application = source_application
 
-		# process any_data in a at-spi version independent manner
-		details = event.any_data.value()
-		try:
-			# see if we have a "new" any_data object which is an EventDetails struct
-			self.any_data = details.any_data.value()
-		except Exception:
-			# any kind of error means we have an "old" any_data object and None of
-			# the extra data so set them to None
-			self.any_data = details
-			self.host_application = None
-			self.source_name = None
-			self.source_role = None
+		self._source = None
+		self._application = None
+
+		self._klass = _interface_to_klass[interface]
+		# The replace is neccessary as '-' not legal as signal name
+		# so translated on the server side.
+		self._major = name.replace('_', '-')
+		self._minor = event[0]
+		self.type = EventType(':'.join([self._klass, self._major, self._minor]))
+		self.detail1 = event[1]
+		self.detail2 = event[2]
+
+		data = event[3]
+		if name == "object_bounds_changed":
+			self.any_data = BoundingBox(*data)
 		else:
-			# the rest of the data should be here, so retrieve it
-			self.host_application = details.host_application
-			self.source_name = details.source_name
-			self.source_role = details.source_role
-		try:
-			# if we received an accessible, be sure to increment the ref count
-			self.any_data.ref()
-		except AttributeError:
-			pass
-		try:
-			# if we received a host application, be sure to increment the ref count
-			self.host_application.ref()
-		except AttributeError:
-			pass
+			self.any_data = data
+
+	@property
+	def host_application(self):
+		if not self._application:
+			application_root = self._cache[self._source_application]._get_root()
+			return create_accessible(self._cache,
+					 	 self._source_application,
+						 application_root,
+						 interfaces.ATSPI_APPLICATION,
+				 	 	 connection=self._cache._connection)
+		return self._application
+
+	@property
+	def source(self):
+		if not self._source:
+			self._source = create_accessible(self._cache,
+		 	 		 		 self._source_application,
+			 		 		 self._source_path,
+			 		 		 interfaces.ATSPI_ACCESSIBLE,
+			 		 		 connection=self._cache._connection)
+		return self._source
+
+	@property
+	def source_name(self):
+		return source.name
+
+	@property
+	def source_role(self):
+		return source.getRole()
 
 	def __str__(self):
 		"""
@@ -179,51 +247,5 @@ class Event(object):
 		return '%s(%s, %s, %s)\n\tsource: %s\n\thost_application: %s' % \
 					 (self.type, self.detail1, self.detail2, self.any_data,
 						self.source, self.host_application)
-	
-class EventType(str):
-	"""
-	Wraps the AT-SPI event type string so its components can be accessed 
-	individually as klass (can't use the keyword class), major, minor, and detail 
-	(klass:major:minor:detail).
-	
-	@note: All attributes of an instance of this class should be considered 
-		public readable as it is acting a a struct.
-	@ivar klass: Most general event type identifier (object, window, mouse, etc.)
-	@type klass: string
-	@ivar major: Second level event type description
-	@type major: string
-	@ivar minor: Third level event type description
-	@type minor: string
-	@ivar detail: Lowest level event type description
-	@type detail: string
-	@ivar name: Full, unparsed event name as received from AT-SPI
-	@type name: string
-	@cvar format: Names of the event string components
-	@type format: 4-tuple of string
-	"""
-	format = ('klass', 'major', 'minor', 'detail')
 
-	def __init__(self, name):
-		"""		
-		Parses the full AT-SPI event name into its components
-		(klass:major:minor:detail). If the provided event name is an integer
-		instead of a string, then the event is really a device event.
-		
-		@param name: Full AT-SPI event name
-		@type name: string
-		@raise AttributeError: When the given event name is not a valid string 
-		"""
-		# get rid of any leading and trailing ':' separators
-		self.value = name.strip(':')
-		self.name = self.value # Backward compatability
-		self.klass = None
-		self.major = None
-		self.minor = None
-		self.detail = None
-		
-		# split type according to delimiters
-		split = self.value.split(':', 3)
-		# loop over all the components
-		for i in xrange(len(split)):
-			# store values of attributes in this object
-			setattr(self, self.format[i], split[i])
+#END----------------------------------------------------------------------------

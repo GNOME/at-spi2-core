@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <tp:enum name="StateType" type="u">
   <tp:enumvalue suffix="STATE_INVALID"/>
   <tp:enumvalue suffix="STATE_ACTIVE" value="1">
@@ -180,8 +175,8 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_VISIBLE" value="30">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>Indicates this object is visible, e.g. has been explicitly marked for exposure to the user.
-      @note: STATE_VISIBLE is no guarantee that the object is actually unobscured on the screen, only
+	  <p>Indicates this object is visible, e.g. has been explicitly marked for exposure to the user.</p>
+	  <p>STATE_VISIBLE is no guarantee that the object is actually unobscured on the screen, only
       that it is 'potentially' visible, barring obstruction, being scrolled or clipped out of the 
       field of view, or having an ancestor container that has not yet made visible.
       A widget is potentially onscreen if it has both STATE_VISIBLE and STATE_SHOWING.
@@ -222,21 +217,18 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_TRUNCATED" value="34">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>Indicates that an object's onscreen content is truncated, e.g. a text value in a spreadsheet cell. 
-      @since AT-SPI 1.7.0.</p>
+	  <p>Indicates that an object's onscreen content is truncated, e.g. a text value in a spreadsheet cell.</p> 
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_ANIMATED" value="35">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Indicates this object's visual representation is dynamic, not static.
       This state may be applied to an object during an animated 'effect' and 
-      be removed from the object once its visual representation becomes static.
-      @note some applications, notably content viewers, may not be able to detect
+      be removed from the object once its visual representation becomes static.</p>
+    <p>some applications, notably content viewers, may not be able to detect
       all kinds of animated content.  Therefore the absence of this state should not
       be taken as definitive evidence that the object's visual representation is
-      static; this state is advisory.  </p>
-
-    <p>@since AT-SPI 1.7.0</p>
+      static; this state is advisory.</p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_INVALID_ENTRY" value="36">
@@ -244,8 +236,6 @@
     <p>This object has indicated an error condition due to failure of input
       validation.  For instance, a form control may acquire this state in response
       to invalid or malformed user input.  </p>
-
-    <p>@since AT-SPI 1.7.0 </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_SUPPORTS_AUTOCOMPLETION" value="37">
@@ -258,8 +248,6 @@
       In some cases the typeahead behavior may result in full or partial ¨completion¨ of 
       the data in the input field, in which case these input events may trigger text-changed
       events from the source.  </p>
-
-    <p>@since AT-SPI 1.7.0 </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_SELECTABLE_TEXT" value="38">
@@ -270,8 +258,6 @@
       the object in question is a selectable child of an object which implements
       Selection.  While similar, text selection and subelement selection are
       distinct operations.  </p>
-
-    <p>@since AT-SPI 1.7.0 </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_IS_DEFAULT" value="39">
@@ -279,8 +265,6 @@
     <p>This state indicates that the object in question is the 'default' interaction object 
       in a dialog, i.e. the one that gets activated if the user presses "Enter" when the
       dialog is initially posted.  </p>
-
-    <p>@since AT-SPI 1.7.0 </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_VISITED" value="40">
@@ -288,8 +272,6 @@
     <p>This state indicates that the object (typically a hyperlink)
       has already been activated or invoked, with the result that some backing data
       has been downloaded or rendered.  </p>
-
-    <p>@since AT-SPI 1.7.1 </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="STATE_LAST_DEFINED" value="41">
@@ -307,13 +289,16 @@
   </tp:docstring>
   <method name="contains">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Query a StateSet for a specific StateType. 
-        @param state the StateType being queried for.</p>
+	    <p>Query a StateSet for a specific StateType.</p>
     </tp:docstring>
-    <arg direction="in" name="state" type="u" tp:type="StateType"/>
+    <arg direction="in" name="state" type="u" tp:type="StateType">
+	    <tp:docstring>
+	    <p>The StateType being queried for.</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c TRUE if the StateSet contains StateType \a state.
+	    <Code>True</Code> if the StateSet contains StateType state.
     </tp:docstring>
     </arg>
   </method>
@@ -331,13 +316,16 @@
   </method>
   <method name="equals">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Compare two statesets for equivalence.
-        @param tarStateSet the StateSet to be compared with this one.</p>
+	    <p>Compare two statesets for equivalence.</p>
     </tp:docstring>
-    <arg direction="in" name="tarStateSet" type="o" tp:type="StateSet"/>
+    <arg direction="in" name="tarStateSet" type="o" tp:type="StateSet">
+	    <tp:docstring>
+	    <p>The StateSet to be compared with this one.</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c TRUE if the two StateSet objects are composed of the same StateTypes. 
+	    <code>True</code> if the two StateSet objects are composed of the same StateTypes. 
     </tp:docstring>
     </arg>
   </method>
@@ -348,36 +336,19 @@
     <arg direction="in" name="compareState" type="o" tp:type="StateSet"/>
     <arg direction="out" type="o" tp:type="StateSet">
     <tp:docstring>
-      a 'difference set', i.e. a StateSet consisting of those states not shared by the two sets being compared. 
+      A 'difference set', i.e. a StateSet consisting of those states not shared by the two sets being compared. 
     </tp:docstring>
     </arg>
   </method>
   <method name="isEmpty">
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c TRUE if the StateSet contains no states. 
+	    <code>True</code> if the StateSet contains no states. 
     </tp:docstring>
     </arg>
   </method>
   <method name="getStates">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond 
-        Private </p>
-    </tp:docstring>
     <arg direction="out" type="au" tp:type="StateSeq"/>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
   </method>
 </interface>
 </node>

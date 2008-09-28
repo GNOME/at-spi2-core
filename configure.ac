@@ -191,6 +191,7 @@ AC_CONFIG_FILES([Makefile
 		 login-helper/Makefile
 		 tests/dummyatk/Makefile
 		 tests/cspi/Makefile
+		 tests/data/Makefile
 		 tests/pyatspi/Makefile
 		 tests/pyatspi/pasytest/Makefile
 		 tests/apps/Makefile

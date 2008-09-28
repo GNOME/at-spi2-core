@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <tp:enum name="RelationType" type="u">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>RelationType specifies a relationship between objects (possibly one-to-many or many-to-one)
@@ -14,7 +9,7 @@
       that should accompany the accessibleName property when presenting an object's content or identity
       to the end user.  Similarly, RELATION_CONTROLLER_FOR can be used to further specify the context
       in which a valuator is useful, and/or the other UI components which are directly effected by
-      user interactions with the valuator.  Common examples include association of scrollbars with
+      user interactions with the valuator. Common examples include association of scrollbars with
       the viewport or panel which they control.</p>
   </tp:docstring>
   <tp:enumvalue suffix="RELATION_NULL">
@@ -46,7 +41,7 @@
   </tp:enumvalue>
   <tp:enumvalue suffix="RELATION_MEMBER_OF" value="5">
   <tp:docstring>
-    Object has a grouping relationship (e.g. ¨same group as¨) to one or more other objects.  
+    Object has a grouping relationship (e.g. 'same group as') to one or more other objects.  
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="RELATION_TOOLTIP_FOR" value="6">
@@ -69,7 +64,7 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Object renders content which flows logically to another object.  
       For instance, text in a paragraph may flow to another object which is not the 
-      ¨next sibling¨ in the accessibility hierarchy. </p>
+      'next sibling' in the accessibility hierarchy. </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="RELATION_FLOWS_FROM" value="10">
@@ -100,7 +95,7 @@
     <p>Denotes that the object is a transient window or frame associated with another onscreen object.
       Similar to TOOLTIP_FOR, but more general.  Useful for windows which are technically 
       toplevels but which, for one or more reasons, do not explicitly cause their associated
-      window to lose ¨window focus¨.   Creation of a ROLE_WINDOW object with the POPUP_FOR relation
+      window to lose 'window focus'. Creation of a ROLE_WINDOW object with the POPUP_FOR relation
       usually requires some presentation action on the part of assistive technology clients, even though
       the previous toplevel ROLE_FRAME object may still be the active window.  </p>
   </tp:docstring>

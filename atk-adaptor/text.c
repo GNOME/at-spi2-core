@@ -28,7 +28,7 @@
 static AtkText *
 get_text (DBusMessage * message)
 {
-  AtkObject *obj = spi_dbus_get_object (dbus_message_get_path (message));
+  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
   if (!obj)
     return NULL;
   return ATK_TEXT (obj);
@@ -37,7 +37,7 @@ get_text (DBusMessage * message)
 static AtkText *
 get_text_from_path (const char *path, void *user_data)
 {
-  AtkObject *obj = spi_dbus_get_object (path);
+  AtkObject *obj = atk_dbus_get_object (path);
   if (!obj || !ATK_IS_TEXT(obj))
     return NULL;
   return ATK_TEXT (obj);
@@ -375,18 +375,19 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
 
   set = atk_text_get_run_attributes (text, offset,
 				     &intstart_offset, &intend_offset);
+
+  rv = _string_from_attribute_set (set);
+
   startOffset = intstart_offset;
   endOffset = intend_offset;
-  rv = _string_from_attribute_set (set);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
-				&rv, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv, DBUS_TYPE_INT32, &startOffset,
+				DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_INVALID);
     }
-  g_free (rv);
   atk_attribute_set_free (set);
+  g_free(rv);
   return reply;
 }
 

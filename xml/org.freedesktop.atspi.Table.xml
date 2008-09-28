@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Table">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface used by containers whose contained data is arranged in 
-      a "tabular" (i.e.\ row-column) fashion.  Tables may resemble a two-dimensional
+      a "tabular" (i.e. row/column) fashion.  Tables may resemble a two-dimensional
       grid, as in a spreadsheet, or may feature objects which span multiple rows and/or
       columns, but whose bounds are aligned on a row/column matrix.  Thus, the Table
       interface may be used to represent "spreadsheets" as well as "frames".  </p>
@@ -50,262 +45,270 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The number of rows currently selected.  
       A selected row is one in which all included cells are selected.
-      @note Not all tables support row selection.</p>
+      Not all tables support row selection.</p>
   </tp:docstring>
   </tp:property>
   <tp:property name="nSelectedColumns" type="i" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>The number of columns currently selected.  
       A selected column is one in which all included cells are selected.
-      @note Not all tables support column selection.</p>
+      Not all tables support column selection.</p>
   </tp:docstring>
   </tp:property>
   <method name="getAccessibleAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the table cell at the specified row and column indices.
-        @note    To get the accessible object at a particular (x, y) screen coordinate,
-        use Accessible::getAccessibleAtPoint ().    </p>
+        To get the accessible object at a particular (x, y) screen coordinate,
+        use Accessible.getAccessibleAtPoint ().</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the specified table row, zero-indexed.
+      The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the specified table column, zero-indexed.
+      The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="o" tp:type="Accessible">
     <tp:docstring>
-      an Accessible object representing the specified table cell.
+      An Accessible object representing the specified table cell.
     </tp:docstring>
     </arg>
   </method>
   <method name="getIndexAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the 1-D child index corresponding to the specified 2-D row and column indices.
-        @note    To get the accessible object at a particular (x, y) screen coordinate,
-        use Accessible::getAccessibleAtPoint.    </p>
+        To get the accessible object at a particular (x, y) screen coordinate,
+        use Accessible.getAccessibleAtPoint.    </p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the specified table row, zero-indexed.
+      The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the specified table column, zero-indexed.@see getRowAtIndex, getColumnAtIndex
+      The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="i">
     <tp:docstring>
-      a long integer which serves as the index of a specified cell in thetable, in a form usable by Accessible::getChildAtIndex.
+	    A long integer which serves as the index of a specified cell in the table, 
+	    in a form usable by Accessible.getChildAtIndex.
     </tp:docstring>
     </arg>
   </method>
   <method name="getRowAtIndex">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get the table row index occupied by the child at a particular 1-D child index.    </p>
+      <p>Get the table row index occupied by the child at a particular 1-D child index.</p>
     </tp:docstring>
     <arg direction="in" name="index" type="i">
     <tp:docstring>
-      the specified child index, zero-indexed.@see getIndexAt(), getColumnAtIndex()
+      The specified child index, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="i">
     <tp:docstring>
-      a long integer indicating the first row spanned by the child of atable, at the specified 1-D (zero-offset) \c index.
+      A long integer indicating the first row spanned by the child of atable, at the specified 1-D (zero-offset) index.
     </tp:docstring>
     </arg>
   </method>
   <method name="getColumnAtIndex">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get the table column index occupied by the child at a particular 1-D child index.    </p>
+      <p>Get the table column index occupied by the child at a particular 1-D child index.</p>
     </tp:docstring>
     <arg direction="in" name="index" type="i">
     <tp:docstring>
-      the specified child index, zero-indexed.@see getIndexAt(), getRowAtIndex()
+      The specified child index, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="i">
     <tp:docstring>
-      a long integer indicating the first column spanned by the child of atable, at the specified 1-D (zero-offset) \c index.
+	    A long integer indicating the first column spanned by the child of a table, 
+	    at the specified 1-D (zero-offset) index.
     </tp:docstring>
     </arg>
   </method>
   <method name="getRowDescription">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get a text description of a particular table row.  This differs from
-        AccessibleTable_getRowHeader, which returns an Accessible.</p>
+      <p>Get a text description of a particular table row. This differs from
+        AccessibleTable.getRowHeader, which returns an Accessible.</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the specified table row, zero-indexed.
+      The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="s">
     <tp:docstring>
-      a UTF-8 string describing the specified table row, if available.
+      A UTF-8 string describing the specified table row, if available.
     </tp:docstring>
     </arg>
   </method>
   <method name="getColumnDescription">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Get a text description of a particular table column.  This differs from
-        AccessibleTable_getColumnHeader, which returns an Accessible.</p>
+      <p>Get a text description of a particular table column. This differs from
+        AccessibleTable.getColumnHeader, which returns an Accessible.</p>
     </tp:docstring>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the specified table column, zero-indexed.
+      The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="s">
     <tp:docstring>
-      a UTF-8 string describing the specified table column, if available.
+      A UTF-8 string describing the specified table column, if available.
     </tp:docstring>
     </arg>
   </method>
   <method name="getRowExtentAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the number of rows spanned by the table cell at the specific row and column.
-        (some tables can have cells which span multiple rows and/or columns).    </p>
+        (some tables can have cells which span multiple rows and/or columns).</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the specified table row, zero-indexed.
+      The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the specified table column, zero-indexed.
+      The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="i">
     <tp:docstring>
-      a long integer indicating the number of rows spanned by the specified cell.
+      A long integer indicating the number of rows spanned by the specified cell.
     </tp:docstring>
     </arg>
   </method>
   <method name="getColumnExtentAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the number of columns spanned by the table cell at the specific row and column.
-        (some tables can have cells which span multiple rows and/or columns).    </p>
+        (some tables can have cells which span multiple rows and/or columns).</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the specified table row, zero-indexed.
+      The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the specified table column, zero-indexed.
+      The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="i">
     <tp:docstring>
-      a long integer indicating the number of columns spanned by the specified cell.
+      A long integer indicating the number of columns spanned by the specified cell.
     </tp:docstring>
     </arg>
   </method>
   <method name="getRowHeader">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the header associated with a table row, if available.  This differs from
-        getRowDescription, which returns a string.    </p>
+        getRowDescription, which returns a string.</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the specified table row, zero-indexed.
+      The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="o" tp:type="Accessible">
     <tp:docstring>
-      an Accessible representatin of the specified table row, if available.
+      An Accessible representatin of the specified table row, if available.
     </tp:docstring>
     </arg>
   </method>
   <method name="getColumnHeader">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the header associated with a table column, if available, as an 
-        instance of Accessible.  This differs from
-        getColumnDescription, which returns a string.    </p>
+        instance of Accessible. This differs from
+        getColumnDescription, which returns a string.</p>
     </tp:docstring>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the specified table column, zero-indexed.
+      The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
     <arg direction="out" type="o" tp:type="Accessible">
     <tp:docstring>
-      an Accessible representatin of the specified table column, if available.
+      An Accessible representatin of the specified table column, if available.
     </tp:docstring>
     </arg>
   </method>
   <method name="getSelectedRows">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the indices of all rows which are currently selected.  
-        @note Not all tables support row selection.    </p>
+         Not all tables support row selection.    </p>
     </tp:docstring>
     <arg direction="out" type="ai" tp:type="LongSeq">
     <tp:docstring>
-      a sequence of integers comprising the indices of rows currently selected.
+      A sequence of integers comprising the indices of rows currently selected.
     </tp:docstring>
     </arg>
   </method>
   <method name="getSelectedColumns">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the indices of all columns which are currently selected.  
-        @note Not all tables support column selection.    </p>
+         Not all tables support column selection.    </p>
     </tp:docstring>
     <arg direction="out" type="ai" tp:type="LongSeq">
     <tp:docstring>
-      a sequence of integers comprising the indices of columns currently selected.
+      A sequence of integers comprising the indices of columns currently selected.
     </tp:docstring>
     </arg>
   </method>
   <method name="isRowSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Determine whether a table row is selected.  
-        @note Not all tables support row selection.    </p>
+         Not all tables support row selection.    </p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
-      the row being queried.
+      The row being queried.
     </tp:docstring>
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified row is currently selected, \c False if not.
+       <code>True</code> if the specified row is currently selected, <code>False</code> if not.
     </tp:docstring>
     </arg>
   </method>
   <method name="isColumnSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Determine whether a table column is selected.  
-        @note Not all tables support column selection.    </p>
+         Not all tables support column selection.    </p>
     </tp:docstring>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
-      the column being queried.
+      The column being queried.
     </tp:docstring>
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified column is currently selected, \c False if not.
+      <code>True</code> if the specified column is currently selected, <code>False</code> if not.
     </tp:docstring>
     </arg>
   </method>
   <method name="isSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Determine whether the cell at a specific row and column is selected.
-        @param row a row occupied by the cell whose state is being queried.
-        @param column a column occupied by the cell whose state is being queried.    </p>
+	    <p>Determine whether the cell at a specific row and column is selected.</p>
     </tp:docstring>
-    <arg direction="in" name="row" type="i"/>
-    <arg direction="in" name="column" type="i"/>
+    <arg direction="in" name="row" type="i">
+	    <tp:docstring>
+        A row occupied by the cell whose state is being queried.
+	    </tp:docstring>
+    </arg>
+    <arg direction="in" name="column" type="i">
+	    <tp:docstring>
+        A column occupied by the cell whose state is being queried.
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified cell is currently selected, \c False if not.
+      <code>True</code> if the specified cell is currently selected, <code>False</code> if not.
     </tp:docstring>
     </arg>
   </method>
@@ -313,24 +316,26 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Select the specified row, adding it to the current row selection,
         if the table's selection model permits it.    </p>
-
-      <p>@param row
-        @note Possible reasons for addRowSelection to return \c False
-        include:
-        \li The table does not support Selection
-        \li The table row includes cells which do not have STATE_SELECTABLE
-        \li The table does not support selection by row
-        \li The table does not support selection of multiple rows, and
-        one row is already selected.
-        \li The table does not support non-contiguous selections (i.e.
-        does not include STATE_MULTISELECTABLE), and the specified row
-        would result in selection of non-contiguous rows.
-        \li The table does not support user-instigated selection.    </p>
     </tp:docstring>
-    <arg direction="in" name="row" type="i"/>
+    <arg direction="in" name="row" type="i">
+	    <tp:docstring>
+      <p>
+        Possible reasons for addRowSelection to return <code>False</code>
+        include:
+	<ol>
+		<li>The table does not support Selection</li>
+		<li>The table row includes cells which do not have STATE_SELECTABLE</li>
+		<li>The table does not support selection by row</li>
+		<li>The table does not support selection of multiple rows, and one row is already selected.</li>
+		<li>The table does not support non-contiguous selections (i.e.  does not include STATE_MULTISELECTABLE), and the specified row would result in selection of non-contiguous rows.</li>
+		<li>The table does not support user-instigated selection</li>
+	</ol>
+	</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified row was successfully selected, \c False if not. 
+      <code>True</code> if the specified row was successfully selected, <code>False</code> if not. 
     </tp:docstring>
     </arg>
   </method>
@@ -338,24 +343,26 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Select the specified column, adding it to the current column selection,
         if the table's selection model permits it.    </p>
-
-      <p>@param column
-        @note Possible reasons for addColumnSelection to return \c False
-        include:
-        \li The table does not support Selection
-        \li The table column includes cells which do not have STATE_SELECTABLE
-        \li The table does not support selection by column
-        \li The table does not support selection of multiple columns, and
-        one column is already selected.
-        \li The table does not support non-contiguous selections (i.e.
-        does not include STATE_MULTISELECTABLE), and the specified column
-        would result in selection of non-contiguous columns.
-        \li The table does not support user-instigated selection.    </p>
     </tp:docstring>
-    <arg direction="in" name="column" type="i"/>
+    <arg direction="in" name="column" type="i">
+	    <tp:docstring>
+      <p>
+        Possible reasons for addColumnSelection to return <code>False</code>
+        include:
+	<ol>
+		<li>The table does not support Selection</li>
+		<li>The table column includes cells which do not have STATE_SELECTABLE</li>
+		<li>The table does not support selection by column</li>
+		<li>The table does not support selection of multiple column, and one column is already selected.</li>
+		<li>The table does not support non-contiguous selections (i.e.  does not include STATE_MULTISELECTABLE), and the specified column would result in selection of non-contiguous columns.</li>
+		<li>The table does not support user-instigated selection</li>
+	</ol>
+	</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified column was successfully selected, \c False if not. 
+      <code>True</code> if the specified column was successfully selected, <code>False</code> if not. 
     </tp:docstring>
     </arg>
   </method>
@@ -364,16 +371,22 @@
       <p>Remove the specified row from current row selection,
         if the table's selection model permits it.    </p>
 
-      <p>@param row
-        @note Possible reasons for removeRowSelection to return \c False
-        include:
-        \li The table does not support user-instigated Selection
-        \li The table has no selected rows or does not support deselection by row    </p>
     </tp:docstring>
-    <arg direction="in" name="row" type="i"/>
+    <arg direction="in" name="row" type="i">
+	    <tp:docstring>
+      <p>
+        Possible reasons for removeRowSelection to return <code>False</code>
+        include:
+	<ol>
+		<li>The table does not support user-instigated Selection</li>
+		<li>The table has no selected rows or does not support deselection by row </li>
+	</ol>
+      </p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified row was successfully de-selected, \c False if not. 
+      <code>True</code> if the specified row was successfully de-selected, <code>False</code> if not. 
     </tp:docstring>
     </arg>
   </method>
@@ -382,18 +395,22 @@
       <p>Remove the specified column from current column selection,
         if the table's selection model permits it.    </p>
 
-      <p>@param column
-        @note Possible reasons for removeColumnSelection to return \c False
-        include:
-        \li The table does not support user-instigated modification of
-        selection state
-        \li The table has no selected columns or does not support 
-        deselection by column.    </p>
     </tp:docstring>
-    <arg direction="in" name="column" type="i"/>
+    <arg direction="in" name="column" type="i">
+	    <tp:docstring>
+      <p>
+        Possible reasons for removeColumnSelection to return \c <code>False</code>
+        include:
+	<ol>
+		<li>The table does not support user-instigated modification of selection state</li>
+		<li>The table has no selected columns or does not support deselection by column.</li>
+	</ol>
+      </p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the specified column was successfully de-selected, \c False if not. 
+      <code>True</code> if the specified column was successfully de-selected, <code>False</code> if not. 
     </tp:docstring>
     </arg>
   </method>
@@ -401,68 +418,69 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Given a child index, determine the row and column indices and 
         extents, and whether the cell is currently selected.  If
-        the child at \c index is not a cell (for instance, if it is 
-        a summary, caption, etc.), \c False is returned.    </p>
+        the child at index is not a cell (for instance, if it is 
+        a summary, caption, etc.), <code>False</code> is returned.    </p>
 
-      <p>@param index the index of the Table child whose row/column 
-        extents are requested.
-        @param row back-filled with the first table row associated with
-        the cell with child index \c index.
-        @param col back-filled with the first table column associated 
-        with the cell with child index \c index.
-        @param row_extents back-filled with the number of table rows 
-        across which child \c i extends.
-        @param col_extents back-filled with the number of table columns
-        across which child \c i extends.
-        @param is_selected a boolean which is back-filled with \c True
-        if the child at index \c i corresponds to a selected table cell,
-        \c False otherwise.    </p>
 
       <p>Example:
         If the Table child at index '6' extends across columns 5 and 6 of
         row 2 of a Table instance, and is currently selected, then
-        \code
+	<code>
         retval = table::getRowColumnExtentsAtIndex (6, row, col, 
         row_extents,
         col_extents,
         is_selected);
-        \endcode
-        will return True, and after the call
-        \c row, \c col, \c row_extents, \c col_extents,
-        and \c is_selected will contain \c 2, \c 5, \c 1, \c 2, and 
-        \c True, respectively.    </p>
+	</code>
+        will return <code>True</code>, and after the call
+	<code> row, col, row_extents, col_extents, </code>
+	<code>is_selected </code> will contain <code>2,  5,  1,  2,</code> and 
+	<code>True</code>, respectively.
+      </p>
     </tp:docstring>
-    <arg direction="in" name="index" type="i"/>
-    <arg direction="out" name="row" type="i"/>
-    <arg direction="out" name="col" type="i"/>
-    <arg direction="out" name="row_extents" type="i"/>
-    <arg direction="out" name="col_extents" type="i"/>
-    <arg direction="out" name="is_selected" type="b" tp:type="boolean"/>
+    <arg direction="in" name="index" type="i">
+	    <tp:docstring>
+        Ihe index of the Table child whose row/column 
+        extents are requested.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="row" type="i">
+	    <tp:docstring>
+        Back-filled with the first table row associated with
+        the cell with child index index.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="col" type="i">
+	    <tp:docstring>
+        Back-filled with the first table column associated 
+        with the cell with child index index.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="row_extents" type="i">
+	    <tp:docstring>
+        Back-filled with the number of table rows 
+        across which child i extends.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="col_extents" type="i">
+	    <tp:docstring>
+        Back-filled with the number of table columns
+        across which child i extends.
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" name="is_selected" type="b" tp:type="boolean">
+	    <tp:docstring>
+        A boolean which is back-filled with <code>True</code>
+        if the child at index i corresponds to a selected table cell,
+        <code>False</code> otherwise.
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the index is associated with a valid tablecell, \c False if the index does not correspond to a cell.  If \c False is returned, the values of the out parameters are undefined.@since AT-SPI 1.7.0
+	    <code>True</code> if the index is associated with a valid table-cell,
+	    <code>False</code> if the index does not correspond to a cell.
+	    If <code>False</code> is returned, the values of the out parameters are undefined.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
-  </method>
-  <method name="unImplemented5">
-  </method>
-  <method name="unImplemented6">
-  </method>
-  <method name="unImplemented7">
   </method>
 </interface>
 </node>

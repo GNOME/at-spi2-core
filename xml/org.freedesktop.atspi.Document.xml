@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.Document">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Primarily a 'tagging' interface which indicates the start of 
@@ -14,8 +9,6 @@
       Attributes of Document are those attributes associated with the document 
       as a whole.  Objects that implement Document are normally expected to
       implement Collection as well.  </p>
-
-    <p>\see Accessibility::Collection</p>
   </tp:docstring>
   <method name="getLocale">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -24,7 +17,7 @@
     </tp:docstring>
     <arg direction="out" type="s">
     <tp:docstring>
-      a string compliant with the POSIX standard for locale description.
+      A string compliant with the POSIX standard for locale description.
     </tp:docstring>
     </arg>
   </method>
@@ -34,12 +27,12 @@
     </tp:docstring>
     <arg direction="in" name="attributename" type="s">
     <tp:docstring>
-      a string indicating the name of a specific attribute (name-value pair) being queried.
+      A string indicating the name of a specific attribute (name-value pair) being queried.
     </tp:docstring>
     </arg>
     <arg direction="out" type="s">
     <tp:docstring>
-      a string corresponding to the value of the specified attribute, oran empty string if the attribute is unspecified for the object.
+      A string corresponding to the value of the specified attribute, oran empty string if the attribute is unspecified for the object.
     </tp:docstring>
     </arg>
   </method>
@@ -47,24 +40,13 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets all attributes specified for a document as a whole.  
         For attributes which change within 
-        the document content, see Accessibility::Text::getAttributes instead.    </p>
+        the document content, see Text.getAttributes instead.    </p>
     </tp:docstring>
     <arg direction="out" type="as" tp:type="AttributeSet">
     <tp:docstring>
-      an ::AttributeSet containing the attributes of the document, as name-value pairs.@since AT-SPI 1.8.0
+      A list of strings containing the attributes of the document, as name-value pairs.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented_">
-    <tp:docstring>
-      \cond 
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2_">
-  </method>
-  <method name="unImplemented3_">
-  </method>
-  <method name="unImplemented4_">
   </method>
 </interface>
 </node>

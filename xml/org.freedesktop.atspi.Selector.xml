@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <tp:struct name="Command">
   <tp:docstring>
     A structure which encapsulates both a string representation of a command and a unique command ID 
@@ -15,12 +10,14 @@
 <method name="notifyCommands">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Notify the CommandListener instance of changes to the currently
-      available commands, by sending the current ::CommandList.  </p>
-
-    <p>@param commands The newly-available list of ::Command objects which
-      may be invoked by the listener.</p>
+      available commands, by sending the current CommandList.  </p>
   </tp:docstring>
-  <arg direction="in" name="commands" type="a(si)" tp:type="CommandList"/>
+  <arg direction="in" name="commands" type="a(si)" tp:type="CommandList">
+	  <tp:docstring>
+    <p>The newly-available list of Command objects which
+      may be invoked by the listener.</p>
+	  </tp:docstring>
+  </arg>
 </method>
 <interface name="org.freedesktop.atspi.Selector">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -31,34 +28,33 @@
 
     <p>Examples of the use of this interface include voice-command and remote-control
       applications, in which the user interaction is wholly or partly delegated by the 
-      implementor to an external agent.  
-      @since AT-SPI 1.7.0</p>
+      implementor to an external agent.</p>  
   </tp:docstring>
   <tp:enum name="CommandResult" type="u">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>A code returned by a call to ::activateCommand, indicating 
+      <p>A code returned by a call to activateCommand, indicating 
         the result of the activation request.</p>
     </tp:docstring>
     <tp:enumvalue suffix="COMMAND_RESULT_INVALID">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>&lt; The command was invalid or ill-formed; usually indicates
+      <p>The command was invalid or ill-formed; usually indicates
         an error condition. </p>
     </tp:docstring>
     </tp:enumvalue>
     <tp:enumvalue suffix="COMMAND_RESULT_SUCCESS" value="1">
     <tp:docstring>
-      &lt; The command was successfully activated. 
+      The command was successfully activated. 
     </tp:docstring>
     </tp:enumvalue>
     <tp:enumvalue suffix="COMMAND_RESULT_FAILED" value="2">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>&lt; The command was valid, but could not be activated.
+      <p>The command was valid, but could not be activated.
         This may be due to problems with permissions or error conditions.</p>
     </tp:docstring>
     </tp:enumvalue>
     <tp:enumvalue suffix="COMMAND_RESULT_OBSOLETE" value="3">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>&lt; The command is no longer valid in the current program context. 
+      <p>The command is no longer valid in the current program context. 
         This may mean that the application has changed state in such a
         way that the specified command it no longer applicable, or
         because changes to the application state have rendered it
@@ -68,23 +64,23 @@
     </tp:enumvalue>
     <tp:enumvalue suffix="COMMAND_RESULT_LAST_DEFINED" value="4">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>&lt; Defines size of enumeration; 
+      <p>Defines size of enumeration; 
         do not use this value as a parameter.</p>
     </tp:docstring>
     </tp:enumvalue>
   </tp:enum>
   <tp:property name="supportsReplace" type="b" access="read">
   <tp:docstring>
-    This attribute is TRUE if this Selector allows its ::CommandList to be specified by the client 
+	  This attribute is <code>True</code> if this Selector allows its CommandList to be specified by the client 
   </tp:docstring>
   </tp:property>
   <method name="getCommands">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Query the ::Selector for the current ::CommandList.    </p>
+      <p>Query the Selector for the current CommandList.</p>
     </tp:docstring>
     <arg direction="out" type="a(si)" tp:type="CommandList">
     <tp:docstring>
-      the currently available ::CommandList 
+      The currently available CommandList 
     </tp:docstring>
     </arg>
   </method>
@@ -92,68 +88,64 @@
     <arg direction="in" name="commands" type="a(si)" tp:type="CommandList"/>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      TRUE if the replacement request was successful, FALSE if the request could not be honored.
+	    <code>True</code> if the replacement request was successful, <code>True</code> if the 
+	    request could not be honored.
     </tp:docstring>
     </arg>
   </method>
   <method name="refreshCommands">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Ask the ::Selector to re-calculate its ::CommandList.
-        @note in most cases the ::Selector will continuously
-        update its ::CommandList without recourse to this call.
-        This call is equivalent to ::getCommands, except that
-        after ::refreshCommands the new ::CommandList will be returned
-        via any registered ::CommandListener instances rather than
-        synchronously via this call.    </p>
+	    <p>Ask the Selector to re-calculate its CommandList.</p>
+	    <p>In most cases the Selector will continuously
+        update its CommandList without recourse to this call.
+        This call is equivalent to getCommands, except that
+        after refreshCommands the new CommandList will be returned
+        via any registered CommandListener instances rather than
+        synchronously via this call.</p>
     </tp:docstring>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      TRUE if the ::CommandList changed.
+	    <code>True</code> if the CommandList changed.
     </tp:docstring>
     </arg>
   </method>
   <method name="activateCommand">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Request that the ::Selector invoke the specified ::Command.
-        @param cmd the ::Command to activate/invoke.</p>
+	    <p>Request that the Selector invoke the specified Command.</p>
     </tp:docstring>
-    <arg direction="in" name="cmd" type="(si)" tp:type="Command"/>
+    <arg direction="in" name="cmd" type="(si)" tp:type="Command">
+	    <tp:docstring>
+	    <p>The Command to activate/invoke.</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="u" tp:type="CommandResult">
     <tp:docstring>
-      a ::CommandResult indicating whether the request was honored, and the reason for failure if the::Command could not be activated or invoked.
+      A CommandResult indicating whether the request was honored, and the reason for failure if the Command could not be activated or invoked.
     </tp:docstring>
     </arg>
   </method>
   <method name="registerChangeListener">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Register a :CommandListener instance for notification of 
-        changes to the command set.
-        @param listener the ::CommandListener to be notified of changes.</p>
+	      changes to the command set.</p>
     </tp:docstring>
-    <arg direction="in" name="listener" type="o" tp:type="CommandListener"/>
+    <arg direction="in" name="listener" type="o" tp:type="CommandListener">
+	    <tp:docstring>
+      <p>The CommandListener to be notified of changes.</p>
+	    </tp:docstring>
+    </arg>
   </method>
   <method name="deregisterChangeListener">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Tell the ::Selector instance to cease notifying the
-        specified ::CommandListener of changes to the command list.
-        @param listener the ::CommandListener to remove from the
+      <p>Tell the Selector instance to cease notifying the
+	      specified CommandListener of changes to the command list.</p>
+    </tp:docstring>
+    <arg direction="in" name="listener" type="o" tp:type="CommandListener">
+	    <tp:docstring>
+      <p>The CommandListener to remove from the
         notification list.</p>
-    </tp:docstring>
-    <arg direction="in" name="listener" type="o" tp:type="CommandListener"/>
-  </method>
-  <method name="unImplemented">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>\cond
-        unImplemented:    </p>
-
-      <p>placeholders for future expansion.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented2">
-  </method>
-  <method name="unImplemented3">
-  </method>
-  <method name="unImplemented4">
+	    </tp:docstring>
+    </arg>
   </method>
 </interface>
 </node>

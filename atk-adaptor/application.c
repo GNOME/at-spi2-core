@@ -103,7 +103,7 @@ static DRouteProperty properties[] = {
 static long
 obj_is_root (const char *path, void *user_data)
 {
-  AtkObject *obj = spi_dbus_get_object (path);
+  AtkObject *obj = atk_dbus_get_object (path);
   return (obj == atk_get_root ());
 }
 

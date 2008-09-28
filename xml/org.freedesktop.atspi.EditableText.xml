@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
-
-
-
-
-
 <interface name="org.freedesktop.atspi.EditableText">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Derived from interface Text, EditableText provides methods for
@@ -12,7 +7,7 @@
       EditableText also interacts with the system clipboard via copyText,
       cutText, and pasteText.  </p>
 
-    <p>@note read-only instances of EditableText are possible; 
+    <p>Read-only instances of EditableText are possible; 
       These may be instances of a general-purpose component type which are
       sometimes, but not always, user-editable, or may be
       components which are temporarily or circumstantially
@@ -21,13 +16,15 @@
   <method name="setTextContents">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Replace the text contents with a new string, discarding the old contents.    </p>
-
-      <p>@param newContents a UTF-8 string with which the text object's contents will be replaced.</p>
     </tp:docstring>
-    <arg direction="in" name="newContents" type="s"/>
+    <arg direction="in" name="newContents" type="s">
+    <tp:docstring>
+      A UTF-8 string with which the text object's contents will be replaced.
+    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the text content was successfully changed, \c False otherwise.
+	    <code>True</code> if the text content was successfully changed, <code>False</code> otherwise.
     </tp:docstring>
     </arg>
   </method>
@@ -35,20 +32,30 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Insert new text contents into an existing text object at a given location, while retaining
         the old contents.
-        @param position the character offset into the Text implementor's content at which the
-        new content will be inserted.
-        @param text a UTF-8 string of which \c length characters will be inserted into the text 
-        object's text buffer.
-        @param length the number of characters of \c text to insert.  If the character count
-        of \c text is less than or equal to \c length, the entire contents of \c text
-        will be inserted.    </p>
+      </p>
     </tp:docstring>
-    <arg direction="in" name="position" type="i"/>
-    <arg direction="in" name="text" type="s"/>
-    <arg direction="in" name="length" type="i"/>
+    <arg direction="in" name="position" type="i">
+	    <tp:docstring>
+        The character offset into the Text implementor's content at which the
+        new content will be inserted.
+	    </tp:docstring>
+    </arg>
+    <arg direction="in" name="text" type="s">
+	    <tp:docstring>
+		    A UTF-8 string of which <code>length</code> characters will be inserted into the text 
+        object's text buffer.
+	    </tp:docstring>
+    </arg>
+    <arg direction="in" name="length" type="i">
+	    <tp:docstring>
+		    The number of characters of <code>text</code> to insert.  If the character count
+		    of <code>text</code> is less than or equal to <code>length</code>, the entire contents
+		    of <code>text</code> will be inserted.    
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the text content was successfully inserted, \c False otherwise.
+	    <code>True</code> if the text content was successfully inserted, <code>False</code> otherwise.
     </tp:docstring>
     </arg>
   </method>
@@ -61,50 +68,69 @@
     <arg direction="in" name="endPos" type="i"/>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the text attributes were successfully modified, \c False otherwise.
+      <code>True</code> if the text attributes were successfully modified, <code>False</code> otherwise.
     </tp:docstring>
     </arg>
   </method>
   <method name="copyText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Copy a range of text into the system clipboard.
-        @param startPos the character offset of the first character in the range of text being
-        copied.
-        @param endPos the offset of the first character past the end of the range of text
-        being copied.</p>
+      </p>
     </tp:docstring>
-    <arg direction="in" name="startPos" type="i"/>
-    <arg direction="in" name="endPos" type="i"/>
+    <arg direction="in" name="startPos" type="i">
+	    <tp:docstring>
+        The character offset of the first character in the range of text being
+        copied.
+    	    </tp:docstring>
+    </arg>
+    <arg direction="in" name="endPos" type="i">
+	    <tp:docstring>
+        The offset of the first character past the end of the range of text
+	being copied.
+    	    </tp:docstring>
+    </arg>
   </method>
   <method name="cutText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Excise a range of text from a Text object, copying it into the system clipboard.
-        @param startPos the character offset of the first character in the range of text being
-        cut.
-        @param endPos the offset of the first character past the end of the range of text
-        being cut.</p>
+      <p>Excise a range of text from a Text object, copying it into the system clipboard.  </p>
     </tp:docstring>
-    <arg direction="in" name="startPos" type="i"/>
-    <arg direction="in" name="endPos" type="i"/>
+    <arg direction="in" name="startPos" type="i">
+    <tp:docstring>
+        The character offset of the first character in the range of text being
+        cut.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="endPos" type="i">
+    <tp:docstring>
+        The offset of the first character past the end of the range of text
+	being cut.
+    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the text was successfully cut, \c False otherwise.
+      <code>True</code> if the text was successfully cut, <code>False</code> otherwise.
     </tp:docstring>
     </arg>
   </method>
   <method name="deleteText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Excise a range of text from a Text object without copying it into the system clipboard.
-        @param startPos the character offset of the first character in the range of text being
-        deleted.
-        @param endPos the offset of the first character past the end of the range of text
-        being deleted.</p>
+      <p>Excise a range of text from a Text object without copying it into the system clipboard.  </p>
     </tp:docstring>
-    <arg direction="in" name="startPos" type="i"/>
-    <arg direction="in" name="endPos" type="i"/>
+    <arg direction="in" name="startPos" type="i">
+    <tp:docstring>
+        The character offset of the first character in the range of text being
+        deleted.
+    </tp:docstring>
+    </arg>
+    <arg direction="in" name="endPos" type="i">
+    <tp:docstring>
+        The offset of the first character past the end of the range of text
+	being deleted.
+    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the text was successfully deleted, \c False otherwise.
+      <code>True</code> if the text was successfully deleted, <code>False</code> otherwise.
     </tp:docstring>
     </arg>
   </method>
@@ -112,34 +138,17 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Copy the text contents of the system clipboard, if any, into a Text object, 
         inserting it at a particular character offset.    </p>
-
-      <p>@param position the character offset before which the text will be inserted.</p>
     </tp:docstring>
-    <arg direction="in" name="position" type="i"/>
+    <arg direction="in" name="position" type="i">
+	    <tp:docstring>
+      		<p>The character offset before which the text will be inserted.</p>
+	    </tp:docstring>
+    </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      \c True if the text was successfully pasted into the Text object, \c False otherwise.
+      <code>True</code> if the text was successfully pasted into the Text object, <code>False</code> otherwise.
     </tp:docstring>
     </arg>
-  </method>
-  <method name="unImplemented5">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>unImplemented:    </p>
-
-      <p>placeholders for future expansion. Note that these are named
-        'unimplemented5 and unimplemented6' to avoid conflict with 
-        placeholders from Accessibility::Text.</p>
-    </tp:docstring>
-  </method>
-  <method name="unImplemented6">
-  </method>
-  <method name="unImplemented9">
-  </method>
-  <method name="unImplemented10">
-  </method>
-  <method name="unImplemented11">
-  </method>
-  <method name="unImplemented12">
   </method>
 </interface>
 </node>

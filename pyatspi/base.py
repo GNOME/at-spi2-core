@@ -32,14 +32,14 @@ class AccessibleObjectNoLongerExists(Exception):
 
 class Enum(int):
 	def __str__(self):
-		return self._enum_lookup(int(self))
+		return self._enum_lookup[int(self)]
 
 #------------------------------------------------------------------------------
 
 
 class BaseProxyMeta(type):
-	def __init__(cls, *args, **kwargs):
-		type.__init__(cls, *args, **kwargs)
+	def __new__(meta, *args, **kwargs):
+		cls = type.__new__(meta, *args, **kwargs)
 
 		queryable_interfaces = { 
 			'Accessible':interfaces.ATSPI_ACCESSIBLE,
@@ -60,11 +60,16 @@ class BaseProxyMeta(type):
 			'Value':interfaces.ATSPI_VALUE,
 		}
 
+		def return_query(interface):
+			def new_query(self):
+				return self.queryInterface(interface)
+			return new_query
+
 		for interface in queryable_interfaces.keys():
 			name = 'query%s' % interface
-    			def new_query(self, object):
-				return self.queryInterface(object, queryable_interfaces[interface])
-			setattr(cls, name, new_query) 
+			setattr(cls, name, return_query(queryable_interfaces[interface])) 
+
+		return cls
 
 #------------------------------------------------------------------------------
 
@@ -101,6 +106,15 @@ class BaseProxy(Interface):
 		self._pgetter = self.get_dbus_method("Get", dbus_interface="org.freedesktop.DBus.Properties")
 		self._psetter = self.get_dbus_method("Set", dbus_interface="org.freedesktop.DBus.Properties")
 
+	def __getattr__(self, attr):
+		raise AttributeError("\'%s\' has no attribute \'%s\'" % (self.__class__.__name__, attr))
+
+	def __str__(self):
+    		try:
+      			return '[%s | %s]' % (self.getRoleName(), self.name)
+    		except Exception:
+      			return '[DEAD]'
+
 	def get_dbus_method(self, *args, **kwargs):
 		method =  Interface.get_dbus_method(self, *args, **kwargs)
 
@@ -126,7 +140,7 @@ class BaseProxy(Interface):
 
 	@property
 	def interfaces(self):
-		return self._data.interfaces
+		return self.cached_data.interfaces
 
 	def queryInterface(self, interface):
 		"""
@@ -134,16 +148,15 @@ class BaseProxy(Interface):
 		or raises a NotImplemented error if the given interface
 		is not supported.
 		"""
-		if interface in self._data.interfaces:
+		if interface in self.interfaces:
 			return create_accessible(self._cache,
 					 	 self._app_name,
 						 self._acc_path,
-						 self._parent,
 						 interface,
 						 dbus_object=self._dbus_object)
 		else:
 			raise NotImplementedError(
 				"%s not supported by accessible object at path %s"
-				% (interface, self.path))
+				% (interface, self._acc_path))
 
 #END----------------------------------------------------------------------------

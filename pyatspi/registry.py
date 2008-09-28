@@ -19,249 +19,86 @@
 
 #authors: Peter Parente, Mark Doffman
 
-import signal
-import time
-import weakref
-import Queue
-import traceback
-import gobject
-import utils
-import constants
-import event
+import os as _os
+import dbus as _dbus
+import gobject as _gobject
 
-ATSPI_DEVICE_EVENT_CONTROLLER = 'org.freedesktop.atspi.DeviceEventController'
-ATSPI_DEVICE_EVENT_LISTENER = 'org.freedesktop.atspi.DeviceEventListener'
+from base import Enum as _Enum
+from desktop import Desktop as _Desktop
+from event import EventType as _EventType
+from event import event_type_to_signal_reciever as _event_type_to_signal_reciever
+from test import TestApplicationCache as _TestApplicationCache
 
-class _Observer(object):
-	"""
-	Parent class for all event observers. Dispatches all received events to the 
-	L{Registry} that created this L{_Observer}. Provides basic reference counting
-	functionality needed by L{Registry} to determine when an L{_Observer} can be
-	released for garbage collection. 
-	
-	The reference counting provided by this class is independent of the reference
-	counting used by CORBA. Keeping the counts separate makes it easier for the
-	L{Registry} to detect when an L{_Observer} can be freed in the 
-	L{Registry._unregisterObserver} method.
-	
-	@ivar registry: Reference to the L{Registry} that created this L{_Observer}
-	@type registry: weakref.proxy to L{Registry}
-	@ivar ref_count: Reference count on this L{_Observer}
-	@type ref_count: integer
-	"""
-	def __init__(self, registry):
-		"""
-		Stores a reference to the creating L{Registry}. Intializes the reference
-		count on this object to zero.
-		
-		@param registry: The L{Registry} that created this observer
-		@type registry: weakref.proxy to L{Registry}
-		"""
-		self.registry = weakref.proxy(registry)
-		self.ref_count = 0
+from dbus.mainloop.glib import DBusGMainLoop as _DBusGMainLoop
+_DBusGMainLoop(set_as_default=True)
 
-	def clientRef(self):
-		"""
-		Increments the Python reference count on this L{_Observer} by one. This
-		method is called when a new client is registered in L{Registry} to receive
-		notification of an event type monitored by this L{_Observer}.
-		"""
-		self.ref_count += 1
-		
-	def clientUnref(self):
-		"""		
-		Decrements the pyatspi reference count on this L{_Observer} by one. This
-		method is called when a client is unregistered in L{Registry} to stop
-		receiving notifications of an event type monitored by this L{_Observer}.
-		"""
-		self.ref_count -= 1
-		
-	def getClientRefCount(self):
-		"""
-		@return: Current Python reference count on this L{_Observer}
-		@rtype: integer
-		"""
-		return self.ref_count
-	
-	def ref(self): 
-		"""Required by CORBA. Does nothing."""
-		pass
-		
-	def unref(self): 
-		"""Required by CORBA. Does nothing."""
-		pass
+#------------------------------------------------------------------------------
 
-class _DeviceObserver(_Observer, Accessibility__POA.DeviceEventListener):
-	"""
-	Observes keyboard press and release events.
-	
-	@ivar registry: The L{Registry} that created this observer
-	@type registry: L{Registry}
-	@ivar key_set: Set of keys to monitor
-	@type key_set: list of integer
-	@ivar mask: Watch for key events while these modifiers are held
-	@type mask: integer
-	@ivar kind: Kind of events to monitor
-	@type kind: integer
-	@ivar mode: Keyboard event mode
-	@type mode: Accessibility.EventListenerMode
-	"""
-	def __init__(self, registry, synchronous, preemptive, global_):
-		"""
-		Creates a mode object that defines when key events will be received from 
-		the system. Stores all other information for later registration.
-		
-		@param registry: The L{Registry} that created this observer
-		@type registry: L{Registry}
-		@param synchronous: Handle the key event synchronously?
-		@type synchronous: boolean
-		@param preemptive: Allow event to be consumed?
-		@type preemptive: boolean
-		@param global_: Watch for events on inaccessible applications too?
-		@type global_: boolean
-		"""
-		_Observer.__init__(self, registry)	 
-		self.mode = Accessibility.EventListenerMode()
-		self.mode.preemptive = preemptive
-		self.mode.synchronous = synchronous
-		self.mode._global = global_		
-	 
-	def register(self, dc, key_set, mask, kind):
-		"""
-		Starts keyboard event monitoring.
-		
-		@param dc: Reference to a device controller
-		@type dc: Accessibility.DeviceEventController
-		@param key_set: Set of keys to monitor
-		@type key_set: list of integer
-		@param mask: Integer modifier mask or an iterable over multiple masks to
-			unapply all at once
-		@type mask: integer, iterable, or None
-		@param kind: Kind of events to monitor
-		@type kind: integer
-		"""
-		try:
-			# check if the mask is iterable
-			iter(mask)
-		except TypeError:
-			# register a single integer if not
-			dc.registerKeystrokeListener(self._this(), key_set, mask, kind, 
-																	 self.mode)
-		else:
-			for m in mask:
-				dc.registerKeystrokeListener(self._this(), key_set, m, kind, self.mode)
+class PressedEventType(_Enum):
+    _enum_lookup = {
+        0:'KEY_PRESSED_EVENT',
+        1:'KEY_RELEASED_EVENT',
+        2:'BUTTON_PRESSED_EVENT',
+        3:'BUTTON_RELEASED_EVENT',
+    }
 
-	def unregister(self, dc, key_set, mask, kind):
-		"""
-		Stops keyboard event monitoring.
-		
-		@param dc: Reference to a device controller
-		@type dc: Accessibility.DeviceEventController
-		@param key_set: Set of keys to monitor
-		@type key_set: list of integer
-		@param mask: Integer modifier mask or an iterable over multiple masks to
-			unapply all at once
-		@type mask: integer, iterable, or None
-		@param kind: Kind of events to monitor
-		@type kind: integer
-		"""
-		try:
-			# check if the mask is iterable
-			iter(mask)
-		except TypeError:
-			# unregister a single integer if not
-			dc.deregisterKeystrokeListener(self._this(), key_set, mask, kind)
-		else:
-			for m in mask:
-				dc.deregisterKeystrokeListener(self._this(), key_set, m, kind)
-			
-	def queryInterface(self, repo_id):
-		"""
-		Reports that this class only implements the AT-SPI DeviceEventListener 
-		interface. Required by AT-SPI.
-		
-		@param repo_id: Request for an interface 
-		@type repo_id: string
-		@return: The underlying CORBA object for the device event listener
-		@rtype: Accessibility.EventListener
-		"""
-		if repo_id == utils.getInterfaceIID(Accessibility.DeviceEventListener):
-			return self._this()
-		else:
-			return None
+KEY_PRESSED_EVENT = PressedEventType(0)
+KEY_RELEASED_EVENT = PressedEventType(1)
+BUTTON_PRESSED_EVENT = PressedEventType(2)
+BUTTON_RELEASED_EVENT = PressedEventType(3)
+#------------------------------------------------------------------------------
 
-	def notifyEvent(self, ev):
-		"""
-		Notifies the L{Registry} that an event has occurred. Wraps the raw event 
-		object in our L{Event} class to support automatic ref and unref calls. An
-		observer can return True to indicate this event should not be allowed to pass 
-		to other AT-SPI observers or the underlying application.
-		
-		@param ev: Keyboard event
-		@type ev: Accessibility.DeviceEvent
-		@return: Should the event be consumed (True) or allowed to pass on to other
-			AT-SPI observers (False)?
-		@rtype: boolean
-		"""
-		# wrap the device event
-		ev = event.DeviceEvent(ev)
-		return self.registry.handleDeviceEvent(ev, self)
+class KeyEventType(_Enum):
+    _enum_lookup = {
+        0:'KEY_PRESSED',
+        1:'KEY_RELEASED',
+    }
+KEY_PRESSED = KeyEventType(0)
+KEY_RELEASED = KeyEventType(1)
 
-class _EventObserver(_Observer, Accessibility__POA.EventListener):
-	"""
-	Observes all non-keyboard AT-SPI events. Can be reused across event types.
-	"""
-	def register(self, reg, name):
-		"""
-		Starts monitoring for the given event.
-		
-		@param name: Name of the event to start monitoring
-		@type name: string
-		@param reg: Reference to the raw registry object
-		@type reg: Accessibility.Registry
-		"""
-		reg.registerGlobalEventListener(self._this(), name)
-		
-	def unregister(self, reg, name):
-		"""
-		Stops monitoring for the given event.
-		
-		@param name: Name of the event to stop monitoring
-		@type name: string
-		@param reg: Reference to the raw registry object
-		@type reg: Accessibility.Registry
-		"""
-		reg.deregisterGlobalEventListener(self._this(), name)
+#------------------------------------------------------------------------------
 
-	def queryInterface(self, repo_id):
-		"""
-		Reports that this class only implements the AT-SPI DeviceEventListener 
-		interface. Required by AT-SPI.
+class KeySynthType(_Enum):
+    _enum_lookup = {
+        0:'KEY_PRESS',
+        1:'KEY_RELEASE',
+        2:'KEY_PRESSRELEASE',
+        3:'KEY_SYM',
+        4:'KEY_STRING',
+    }
 
-		@param repo_id: Request for an interface 
-		@type repo_id: string
-		@return: The underlying CORBA object for the device event listener
-		@rtype: Accessibility.EventListener
-		"""
-		if repo_id == utils.getInterfaceIID(Accessibility.EventListener):
-			return self._this()
-		else:
-			return None
+KEY_PRESS = KeySynthType(0)
+KEY_PRESSRELEASE = KeySynthType(2)
+KEY_RELEASE = KeySynthType(1)
+KEY_STRING = KeySynthType(4)
+KEY_SYM = KeySynthType(3)
 
-	def notifyEvent(self, ev):
-		"""
-		Notifies the L{Registry} that an event has occurred. Wraps the raw event 
-		object in our L{Event} class to support automatic ref and unref calls.
-		Aborts on any exception indicating the event could not be wrapped.
-		
-		@param ev: AT-SPI event signal (anything but keyboard)
-		@type ev: Accessibility.Event
-		"""
-		# wrap raw event so ref counts are correct before queueing
-		ev = event.Event(ev)
-		self.registry.handleEvent(ev)
+#------------------------------------------------------------------------------
 
-class Registry(object):
+class ModifierType(_Enum):
+    _enum_lookup = {
+        0:'MODIFIER_SHIFT',
+        1:'MODIFIER_SHIFTLOCK',
+        2:'MODIFIER_CONTROL',
+        3:'MODIFIER_ALT',
+        4:'MODIFIER_META',
+        5:'MODIFIER_META2',
+        6:'MODIFIER_META3',
+        7:'MODIFIER_NUMLOCK',
+    }
+
+MODIFIER_ALT = ModifierType(3)
+MODIFIER_CONTROL = ModifierType(2)
+MODIFIER_META = ModifierType(4)
+MODIFIER_META2 = ModifierType(5)
+MODIFIER_META3 = ModifierType(6)
+MODIFIER_NUMLOCK = ModifierType(7)
+MODIFIER_SHIFT = ModifierType(0)
+MODIFIER_SHIFTLOCK = ModifierType(1)
+
+#------------------------------------------------------------------------------
+
+class _Registry(object):
 	"""
 	Wraps the Accessibility.Registry to provide more Pythonic registration for
 	events. 
@@ -285,7 +122,10 @@ class Registry(object):
 	@ivar observers: Map of event names to AT-SPI L{_Observer} objects
 	@type observers: dictionary
 	"""
-	def __init__(self, reg):
+
+	_REGISTRY_NAME = 'org.freedesktop.atspi.Registry'
+
+	def __init__(self):
 		"""
 		Stores a reference to the AT-SPI registry. Gets and stores a reference
 		to the DeviceEventController.
@@ -293,12 +133,28 @@ class Registry(object):
 		@param reg: Reference to the AT-SPI registry daemon
 		@type reg: Accessibility.Registry
 		"""
-		self.async = None
-		self.reg = reg
-		self.dev = self.reg.getDeviceEventController()
-		self.queue = Queue.Queue()
-		self.clients = {}
-		self.observers = {}
+		self._bus = _dbus.SessionBus()
+
+		app_name = None
+		if "ATSPI_TEST_APP_NAME" in _os.environ.keys():
+			app_name = _os.environ["ATSPI_TEST_APP_NAME"]
+		if app_name:
+			self._app_name = app_name
+			self._cache = _TestApplicationCache(self, self._bus, app_name)
+
+		self._event_listeners = {}
+
+		# All of this special casing is for the 'faked'
+		# events caused by cache updates.
+
+		self._name_type = _EventType("object:property-change:name")
+		self._name_listeners = {}
+		self._description_type = _EventType("object:property-change:description")
+		self._description_listeners = {}
+		self._parent_type = _EventType("object:property-change:parent")
+		self._parent_listeners = {}
+		self._children_changed_type = _EventType("object:children-changed")
+		self._children_changed_listeners = {}
 		
 	def __call__(self):
 		"""
@@ -317,43 +173,18 @@ class Registry(object):
 		@param gil: Add an idle callback which releases the Python GIL for a few
 			milliseconds to allow other threads to run? Necessary if other threads
 			will be used in this process.
+			Note - No Longer used.
 		@type gil: boolean
 		"""
-		self.async = async
-		
-		if gil:
-			def releaseGIL():
-				try:
-					time.sleep(1e-5)
-				except KeyboardInterrupt, e:
-					# store the exception for later
-					releaseGIL.keyboard_exception = e
-					self.stop()
-				return True
-			# make room for an exception if one occurs during the 
-			releaseGIL.keyboard_exception = None
-			i = gobject.idle_add(releaseGIL)
-			
-		# enter the main loop
+		self._loop = _gobject.MainLoop()
 		try:
-			bonobo.main()
-		finally:
-			# clear all observers
-			for name, ob in self.observers.items():
-				ob.unregister(self.reg, name)
-			if gil:
-				gobject.source_remove(i)
-				if releaseGIL.keyboard_exception is not None:
-					# raise an keyboard exception we may have gotten earlier
-					raise releaseGIL.keyboard_exception
+			self._loop.run()
+		except KeyboardInterrupt:
+			pass
 
 	def stop(self, *args):
 		"""Quits the main loop."""
-		try:
-			bonobo.main_quit()
-		except RuntimeError:
-			# ignore errors when quitting (probably already quitting)
-			pass
+		self._loop.quit()
 		self.flushEvents()
 		
 	def getDesktopCount(self):
@@ -362,12 +193,8 @@ class Registry(object):
 		
 		@return: Number of desktops
 		@rtype: integer
-		@raise LookupError: When the count cannot be retrieved
 		"""
-		try:
-			return self.reg.getDesktopCount()
-		except Exception:
-			raise LookupError
+		return 1
 		
 	def getDesktop(self, i):
 		"""
@@ -377,13 +204,64 @@ class Registry(object):
 		@type i: integer
 		@return: Desktop reference
 		@rtype: Accessibility.Desktop
-		@raise LookupError: When the i-th desktop cannot be retrieved
+		"""
+		return _Desktop(self._cache)
+
+	def _callClients(self, register, event):
+		for client in register.keys():
+			client(event)
+
+	def _notifyNameChange(self, event):
+		self._callClients(self._name_listeners, event)
+
+	def _notifyDescriptionChange(self, event):
+		self._callClients(self._description_listeners, event)
+
+	def _notifyParentChange(self, event):
+		self._callClients(self._parent_listeners, event)
+
+	def _notifyChildenChange(self, event):
+		self._callClients(self._children_changed_listeners, event)
+
+	def _registerFake(self, type, register, client, *names):
+		"""
+		Registers a client from a register of clients
+		for 'Fake' events emitted by the cache.
 		"""
 		try:
-			return self.reg.getDesktop(i)
-		except Exception, e:
-			raise LookupError(e)
+			registered = register[client]
+		except KeyError:
+			registered = []
+			register[client] = registered
 		
+		for name in names:
+			new_type = _EventType(name)
+			if new_type.is_subtype(type):
+				registered.append(new_type.name)
+
+	def _deregisterFake(self, type, register, client, *names):
+		"""
+		Deregisters a client from a register of clients
+		for 'Fake' events emitted by the cache.
+		"""
+		try:
+			registered = register[client]
+		except KeyError:
+			return True
+		
+		for name in names:
+			remove_type = _EventType(name)
+
+			for i in range(0, len(registered) - 1):
+				type_name = registered[i]
+				registered_type = _EventType(type_name)
+
+				if remove_type.is_subtype(registered_type):
+					del(registered[i])
+
+		if registered == []:
+			del(register[client])
+
 	def registerEventListener(self, client, *names):
 		"""
 		Registers a new client callback for the given event names. Supports 
@@ -404,9 +282,21 @@ class Registry(object):
 		@param names: List of full or partial event names
 		@type names: list of string
 		"""
+		try:
+			registered = self._event_listeners[client]
+		except KeyError:
+			registered = []
+			self._event_listeners[client] = registered
+
 		for name in names:
-			# store the callback for each specific event name
-			self._registerClients(client, name)
+			new_type = _EventType(name)
+			registered.append((new_type.name,
+			   	 	   _event_type_to_signal_reciever(self._bus, self._cache, client, new_type)))
+
+		self._registerFake(self._name_type, self._name_listeners, client, *names)
+		self._registerFake(self._description_type, self._description_listeners, client, *names)
+		self._registerFake(self._parent_type, self._parent_listeners, client, *names)
+		self._registerFake(self._children_changed_type, self._children_changed_listeners, client, *names)
 
 	def deregisterEventListener(self, client, *names):
 		"""
@@ -425,17 +315,47 @@ class Registry(object):
 			registered?
 		@rtype: boolean
 		"""
-		missed = False
-		for name in names:
-			# remove the callback for each specific event name
-			missed |= self._unregisterClients(client, name)
-		return missed
+		try:
+			registered = self._event_listeners[client]
+		except KeyError:
+			# Presumably if were trying to deregister a client with
+			# no names then the return type is always true.
+			return True
 
-	def registerKeystrokeListener(self, client, key_set=[], mask=0, 
-																kind=(constants.KEY_PRESSED_EVENT, 
-																			constants.KEY_RELEASED_EVENT),
-																synchronous=True, preemptive=True, 
-																global_=False):
+		missing = False
+		
+		for name in names:
+			remove_type = _EventType(name)
+
+			for i in range(0, len(registered) - 1):
+				(type_name, signal_match) = registered[i]
+				registered_type = _EventType(type_name)
+
+				if remove_type.is_subtype(registered_type):
+					signal_match.remove()
+					del(registered[i])
+				else:
+					missing = True
+
+		if registered == []:
+			del(self._event_listeners[client])
+
+		#TODO Do these account for missing also?
+		self._deregisterFake(self._name_type, self._name_listeners, client, *names)
+		self._deregisterFake(self._description_type, self._description_listeners, client, *names)
+		self._deregisterFake(self._parent_type, self._parent_listeners, client, *names)
+		self._deregisterFake(self._children_changed_type, self._children_changed_listeners, client, *names)
+
+		return missing
+
+	def registerKeystrokeListener(self,
+				      client,
+				      key_set=[],
+				      mask=0,
+				      kind=(KEY_PRESSED_EVENT, KEY_RELEASED_EVENT),
+				      synchronous=True,
+				      preemptive=True,
+				      global_=False):
 		"""
 		Registers a listener for key stroke events.
 		
@@ -464,24 +384,13 @@ class Registry(object):
 			AT-SPI is in the foreground? (requires xevie)
 		@type global_: boolean
 		"""
-		try:
-			# see if we already have an observer for this client
-			ob = self.clients[client]
-		except KeyError:
-			# create a new device observer for this client
-			ob = _DeviceObserver(self, synchronous, preemptive, global_)
-			# store the observer to client mapping, and the inverse
-			self.clients[ob] = client
-			self.clients[client] = ob
-		if mask is None:
-			# None means all modifier combinations
-			mask = utils.allModifiers()
-		# register for new keystrokes on the observer
-		ob.register(self.dev, key_set, mask, kind)
+		pass
 
-	def deregisterKeystrokeListener(self, client, key_set=[], mask=0, 
-																	kind=(constants.KEY_PRESSED_EVENT, 
-																				constants.KEY_RELEASED_EVENT)):
+	def deregisterKeystrokeListener(self,
+					client,
+					key_set=[],
+					mask=0,
+					kind=(KEY_PRESSED_EVENT, KEY_RELEASED_EVENT)):
 		"""
 		Deregisters a listener for key stroke events.
 		
@@ -502,13 +411,7 @@ class Registry(object):
 		@type kind: list
 		@raise KeyError: When the client isn't already registered for events
 		"""
-		# see if we already have an observer for this client
-		ob = self.clients[client]
-		if mask is None:
-			# None means all modifier combinations
-			mask = utils.allModifiers()
-		# register for new keystrokes on the observer
-		ob.unregister(self.dev, key_set, mask, kind)
+		pass
 
 	def generateKeyboardEvent(self, keycode, keysym, kind):
 		"""
@@ -524,10 +427,7 @@ class Registry(object):
 		@param kind: Kind of event to synthesize
 		@type kind: integer
 		"""
-		if keysym is None:
-			self.dev.generateKeyboardEvent(keycode, '', kind)
-		else:
-			self.dev.generateKeyboardEvent(None, keysym, kind)
+		pass
 	
 	def generateMouseEvent(self, x, y, name):
 		"""
@@ -543,7 +443,7 @@ class Registry(object):
 		@param name: Name of the event to generate
 		@type name: string
 		"""
-		self.dev.generateMouseEvent(x, y, name)
+		pass
 		
 	def handleDeviceEvent(self, event, ob):
 		"""
@@ -565,18 +465,7 @@ class Registry(object):
 			AT-SPI observers (False)?
 		@rtype: boolean
 		"""
-		try:
-			# try to get the client registered for this event type
-			client = self.clients[ob]
-		except KeyError:
-			# client may have unregistered recently, ignore event
-			return False
-		# make the call to the client
-		try:
-			return client(event) or event.consume
-		except Exception:
-			# print the exception, but don't let it stop notification
-			traceback.print_exc()
+		return True
  
 	def handleEvent(self, event):
 		"""		
@@ -586,59 +475,13 @@ class Registry(object):
 		@param event: AT-SPI event
 		@type event: L{event.Event}
 		"""
-		if self.async:
-			# queue for now
-			self.queue.put_nowait(event)
-		else:
-			# dispatch immediately
-			self._dispatchEvent(event)
-
-	def _dispatchEvent(self, event):
-		"""
-		Dispatches L{event.Event}s to registered clients. Clients are called in
-		the order they were registered for the given AT-SPI event. If any client
-		returns True, callbacks cease for the event for clients of this registry 
-		instance. Clients of other registry instances and clients in other processes 
-		are unaffected.
-
-		@param event: AT-SPI event
-		@type event: L{event.Event}
-		"""
-		et = event.type
-		try:
-			# try to get the client registered for this event type
-			clients = self.clients[et.name]
-		except KeyError:
-			try:
-				# we may not have registered for the complete subtree of events
-				# if our tree does not list all of a certain type (e.g.
-				# object:state-changed:*); try again with klass and major only
-				if et.detail is not None:
-					# Strip the 'detail' field.
-					clients = self.clients['%s:%s:%s' % (et.klass, et.major, et.minor)]
-				elif et.minor is not None:
-					# The event could possibly be object:state-changed:*.
-					clients = self.clients['%s:%s' % (et.klass, et.major)]
-			except KeyError:
-				# client may have unregistered recently, ignore event
-				return
-		# make the call to each client
-		consume = False
-		for client in clients:
-			try:
-				consume = client(event) or False
-			except Exception:
-				# print the exception, but don't let it stop notification
-				traceback.print_exc()
-			if consume or event.consume:
-				# don't allow further processing if a client returns True
-				break
+		pass
 
 	def flushEvents(self):
 		"""
 		Flushes the event queue by destroying it and recreating it.
 		"""
-		self.queue = Queue.Queue()
+		pass
 
 	def pumpQueuedEvents(self, num=-1):
 		"""
@@ -652,134 +495,4 @@ class Registry(object):
 		@return: True if queue is not empty after events were pumped.
 		@rtype: boolean
 		"""
-		if num < 0:
-			# Dequeue as many events as currently in the queue.
-			num = self.queue.qsize()
-		for i in xrange(num):
-			try:
-				# get next waiting event
-				event = self.queue.get_nowait()
-			except Queue.Empty:
-				break
-			self._dispatchEvent(event)
-
-		return not self.queue.empty()
- 
-	def _registerClients(self, client, name):
-		"""
-		Internal method that recursively associates a client with AT-SPI event 
-		names. Allows a client to incompletely specify an event name in order to 
-		register for subevents without specifying their full names manually.
-		
-		@param client: Client callback to receive event notifications
-		@type client: callable
-		@param name: Partial or full event name
-		@type name: string
-		"""
-		try:
-			# look for an event name in our event tree dictionary
-			events = constants.EVENT_TREE[name]
-		except KeyError:
-			# if the event name doesn't exist, it's a leaf event meaning there are
-			# no subtypes for that event
-			# add this client to the list of clients already in the dictionary 
-			# using the event name as the key; if there are no clients yet for this 
-			# event, insert an empty list into the dictionary before appending 
-			# the client
-			et = event.EventType(name)
-			clients = self.clients.setdefault(et.name, [])
-			try:
-				# if this succeeds, this client is already registered for the given
-				# event type, so ignore the request
-				clients.index(client)
-			except ValueError:
-				# else register the client
-				clients.append(client)
-				self._registerObserver(name)
-		else:
-				# if the event name does exist in the tree, there are subevents for
-				# this event; loop through them calling this method again to get to
-				# the leaf events
-				for e in events:
-					self._registerClients(client, e)
-			
-	def _unregisterClients(self, client, name):
-		"""
-		Internal method that recursively unassociates a client with AT-SPI event 
-		names. Allows a client to incompletely specify an event name in order to 
-		unregister for subevents without specifying their full names manually.
-		
-		@param client: Client callback to receive event notifications
-		@type client: callable
-		@param name: Partial or full event name
-		@type name: string
-		"""
-		missed = False
-		try:
-			# look for an event name in our event tree dictionary
-			events = constants.EVENT_TREE[name]
-		except KeyError:
-			try:
-				# if the event name doesn't exist, it's a leaf event meaning there are
-				# no subtypes for that event
-				# get the list of registered clients and try to remove the one provided
-				et = event.EventType(name)
-				clients = self.clients[et.name]
-				clients.remove(client)
-				self._unregisterObserver(name)
-			except (ValueError, KeyError):
-				# ignore any exceptions indicating the client is not registered
-				missed = True
-			return missed
-		# if the event name does exist in the tree, there are subevents for this 
-		# event; loop through them calling this method again to get to the leaf
-		# events
-		for e in events:
-			missed |= self._unregisterClients(client, e)
-		return missed
-	
-	def _registerObserver(self, name):
-		"""		
-		Creates a new L{_Observer} to watch for events of the given type or
-		returns the existing observer if one is already registered. One
-		L{_Observer} is created for each leaf in the L{constants.EVENT_TREE} or
-		any event name not found in the tree.
-	 
-		@param name: Raw name of the event to observe
-		@type name: string
-		@return: L{_Observer} object that is monitoring the event
-		@rtype: L{_Observer}
-		"""
-		et = event.EventType(name)
-		try:
-			# see if an observer already exists for this event
-			ob = self.observers[et.name]
-		except KeyError:
-			# build a new observer if one does not exist
-			ob = _EventObserver(self)
-			# we have to register for the raw name because it may be different from
-			# the parsed name determined by EventType (e.g. trailing ':' might be 
-			# missing)
-			ob.register(self.reg, name)
-			self.observers[et.name] = ob
-		# increase our client ref count so we know someone new is watching for the 
-		# event
-		ob.clientRef()
-		return ob
-		
-	def _unregisterObserver(self, name):
-		"""		
-		Destroys an existing L{_Observer} for the given event type only if no
-		clients are registered for the events it is monitoring.
-		
-		@param name: Name of the event to observe
-		@type name: string
-		@raise KeyError: When an observer for the given event is not regist
-		"""
-		et = event.EventType(name)
-		# see if an observer already exists for this event
-		ob = self.observers[et.name]
-		ob.clientUnref()
-		if ob.getClientRefCount() == 0:
-			ob.unregister(self.reg, name)
-			del self.observers[et.name]
+		return False

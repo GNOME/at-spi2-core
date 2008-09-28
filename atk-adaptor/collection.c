@@ -26,7 +26,7 @@
 #include "spi-common/bitarray.h"
 #include <string.h>
 
-#define get_object(message) spi_dbus_get_object(dbus_message_get_path(message))
+#define get_object(message) atk_dbus_get_object(dbus_message_get_path(message))
 
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
@@ -788,7 +788,7 @@ getMatchesInOrder (DBusMessage *message,
 
   ls = g_list_append (ls, current_object);
 
-  obj = spi_dbus_get_object (dbus_message_get_path (message));
+  obj = atk_dbus_get_object (dbus_message_get_path (message));
   
   kount = inorder (obj, mrp, ls, 0, count, 
                    current_object, TRUE, NULL, traverse);
@@ -820,7 +820,7 @@ getMatchesInBackOrder (DBusMessage *message,
 
   ls = g_list_append (ls, current_object);
 
-  collection = spi_dbus_get_object (dbus_message_get_path (message));
+  collection = atk_dbus_get_object (dbus_message_get_path (message));
 
   kount = sort_order_rev_canonical (mrp, ls, 0, count, current_object, 
                                    FALSE, collection);
@@ -856,7 +856,7 @@ getMatchesTo (DBusMessage *message,
                          obj, 0, TRUE, current_object, TRUE, traverse);
   }
   else{ 
-    obj = spi_dbus_get_object (dbus_message_get_path (message));
+    obj = atk_dbus_get_object (dbus_message_get_path (message));
     kount = query_exec (mrp,  sortby, ls, 0, count,
                         obj, 0, TRUE, current_object, TRUE, traverse); 
 
@@ -886,7 +886,7 @@ impl_getMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   dbus_message_iter_init(message, &iter);
   dbus_message_iter_get_basic (&iter, current_object_path);
-  current_object = spi_dbus_get_object (current_object_path);
+  current_object = atk_dbus_get_object (current_object_path);
   if (!current_object)
   {
     // TODO: object-not-found error
@@ -939,7 +939,7 @@ impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   dbus_message_iter_init(message, &iter);
   dbus_message_iter_get_basic (&iter, current_object_path);
-  current_object = spi_dbus_get_object (current_object_path);
+  current_object = atk_dbus_get_object (current_object_path);
   if (!current_object)
   {
     // TODO: object-not-found error
