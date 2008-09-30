@@ -25,7 +25,7 @@ class RelationTest(_PasyTest):
 		self._path = path
 
 	def setup(self, test):
-		self._registry = pyatspi.registry.Registry(self._path)
+		self._registry = pyatspi.Registry()
 		self._desktop = self._registry.getDesktop(0)
 		self._root = self._desktop[0]
 		self._rset = self._root.getRelationSet()

@@ -1,4 +1,4 @@
-SUBDIRS = dummyatk apps data cspi pyatspi
+SUBDIRS = dummyatk apps data pyatspi
 
 #TESTS=testrunner.py
 TESTS_ENVIRONMENT = PYTHONPATH=$(abs_top_srcdir)/python					\
