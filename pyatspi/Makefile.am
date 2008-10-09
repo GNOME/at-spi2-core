@@ -1,4 +1,6 @@
+pyatspidir = $(pythondir)/pyatspi
 pyatspi_PYTHON = \
+		Accessibility.py	\
 		accessible.py		\
 		action.py		\
 		application.py		\
@@ -30,7 +32,5 @@ pyatspi_PYTHON = \
 		text.py			\
 		utils.py		\
 		value.py
-
-pyatspidir=$(pyexecdir)/pyatspi
 
 CLEANFILES = *.pyc

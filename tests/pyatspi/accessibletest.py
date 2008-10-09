@@ -55,7 +55,8 @@ class AccessibleTest(_PasyTest):
 		self._path = path
 
 	def setup(self, test):
-		self._registry = pyatspi.registry.Registry(self._path)
+		self._registry = pyatspi.Registry()
+		print self._path
 		self._desktop = self._registry.getDesktop(0)
 
 	def test_name(self, test):
