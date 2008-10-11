@@ -2714,9 +2714,17 @@ static DRouteMethod methods[] =
   { NULL, NULL }
 };
 
-void
+static void
 spi_registry_initialize_dec_interface (DRouteData * data)
 {
   droute_add_interface (data, SPI_DBUS_INTERFACE_DEC, methods,
 			NULL, NULL, NULL);
 };
+
+SpiDEController *
+spi_registry_dec_new (DRouteData *droute)
+{
+  SpiDEController *dec = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, 1);
+  spi_registry_initialize_dec_interface (&droute);
+  return dec;
+}

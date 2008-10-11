@@ -59,6 +59,8 @@ SpiDEController *spi_device_event_controller_new      (SpiRegistry *registry);
 
 void spi_remove_device_listeners (SpiDEController *controller, const char *bus_name);
 
+void spi_registry_initialize_dec_interface (DRouteData * data);
+
 G_END_DECLS
 
 #endif /* DEVICEEVENTCONTROLLER_H_ */

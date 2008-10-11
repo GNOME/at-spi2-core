@@ -17,13 +17,10 @@ at_spi_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
 			 $(top_builddir)/spi-common/libspicommon.la
 
 at_spi_registryd_SOURCES =	\
-	desktop.c		\
-	desktop.h		\
-	deviceeventcontroller.c	\
-	deviceeventcontroller.h	\
 	registry-main.c		\
 	registry.c		\
 	registry.h		\
-	reentrant-list.c	\
-	reentrant-list.h	\
 	ucs2keysym.c
+
+#	deviceeventcontroller.c
+#	deviceeventcontroller.h
