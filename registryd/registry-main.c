@@ -32,7 +32,7 @@
 
 static gchar *dbus_name = NULL;
 
-static GOptionEntry optentries[] = 
+static GOptionEntry optentries[] =
 {
   {"dbus-name", 0, 0, G_OPTION_ARG_STRING, &dbus_name, "Well-known name to register with D-Bus", NULL},
   {NULL}
@@ -42,7 +42,11 @@ int
 main (int argc, char **argv)
 {
   SpiRegistry *registry;
+  /*SpiDEController *dec;*/
+
   GMainLoop *mainloop;
+  DBusConnection *bus;
+
   GOptionContext *opt;
 
   GError *err = NULL;
@@ -61,13 +65,17 @@ main (int argc, char **argv)
   if (dbus_name == NULL)
       dbus_name = SPI_DBUS_NAME_REGISTRY;
 
-  registry = spi_registry_new ();
+  dbus_error_init (&error);
+  bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+  if (!bus)
+  {
+    g_warning("Couldn't connect to dbus: %s\n", error.message);
+  }
 
   mainloop = g_main_loop_new (NULL, FALSE);
+  dbus_connection_setup_with_g_main(bus, g_main_context_default());
 
-  dbus_error_init (&error);
-  ret = dbus_bus_request_name(registry->droute.bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
-
+  ret = dbus_bus_request_name(bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
   if (ret == DBUS_REQUEST_NAME_REPLY_EXISTS)
     {
       g_error("Could not obtain D-Bus name - %s\n", dbus_name);
@@ -75,8 +83,11 @@ main (int argc, char **argv)
   else
     {
       g_print ("SpiRegistry daemon is running with well-known name - %s\n", dbus_name);
-      g_main_loop_run (mainloop);
     }
 
+  /*dec = spi_registry_dec_new (bus);*/
+  registry = spi_registry_new (bus);
+
+  g_main_loop_run (mainloop);
   return 0;
 }

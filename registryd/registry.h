@@ -24,13 +24,11 @@
 #ifndef SPI_REGISTRY_H_
 #define SPI_REGISTRY_H_
 
-#include <glib/gmain.h>
-#include <droute/droute.h>
+#include <glib.h>
+#include <glib-object.h>
 
 typedef struct _SpiRegistry SpiRegistry;
-
-#include "desktop.h"
-#include "deviceeventcontroller.h"
+typedef struct _SpiRegistryClass SpiRegistryClass;
 
 G_BEGIN_DECLS
 
@@ -42,33 +40,18 @@ G_BEGIN_DECLS
 
 struct _SpiRegistry {
   GObject      parent;
+  GSequence   *apps;
 
-  GList           *object_listeners;
-  GList           *window_listeners;
-  GList           *toolkit_listeners;
-  GQueue          *deferred_event_queue;
-  gboolean         is_queueing;
-  guint            exit_notify_timeout;
-  guint            queue_handler_id;
-  char *focus_object_bus;
-  char *focus_object_path;
-  SpiDEController *de_controller;
-  SpiDesktop      *desktop;
-  DRouteData droute;
+  DBusConnection *bus;
 };
 
-typedef struct {
+struct _SpiRegistryClass {
   GObjectClass parent_class;
-} SpiRegistryClass;
+};
 
 GType        spi_registry_get_type (void);
-SpiRegistry *spi_registry_new      (void);
+SpiRegistry *spi_registry_new      (DBusConnection *bus);
 
-void spi_registry_emit(SpiRegistry *registry, const char *name, int first_arg_type, ...);
-
-void spi_registry_initialize_registry_interface (DRouteData * data);
-void spi_registry_initialize_dec_interface (DRouteData * data);
-void spi_registry_initialize_desktop_interface (DRouteData * data);
 G_END_DECLS
 
 #endif /* SPI_REGISTRY_H_ */
