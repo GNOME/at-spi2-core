@@ -64,7 +64,7 @@ add_bus_name_cb (gpointer item, gpointer data)
 {
   DBusMessageIter *iter_array = (DBusMessageIter *) data;
 
-  dbus_message_iter_append_basic (iter_array, DBUS_TYPE_STRING, (gchar *) item);
+  dbus_message_iter_append_basic (iter_array, DBUS_TYPE_STRING, (gchar **) &item);
 }
 
 static DBusMessage *
@@ -215,6 +215,8 @@ signal_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
 static gchar *app_reg_sig_match = "type='signal', interface='org.freedesktop.atspi.Tree', member='registerApplication'";
 static gchar *app_dereg_sig_match = "type='signal', interface='org.freedesktop.atspi.Tree', member='deregisterApplication'";
 
+static gchar *app_sig_match_blank = "";
+
 static DBusObjectPathVTable reg_vtable =
 {
   NULL,
@@ -231,8 +233,9 @@ spi_registry_new (DBusConnection *bus)
 
   dbus_connection_register_object_path(bus, SPI_DBUS_PATH_REGISTRY, &reg_vtable, reg);
 
-  dbus_bus_add_match (bus, app_reg_sig_match, NULL);
-  dbus_bus_add_match (bus, app_dereg_sig_match, NULL);
+  //dbus_bus_add_match (bus, app_reg_sig_match, NULL);
+  //dbus_bus_add_match (bus, app_dereg_sig_match, NULL);
+  dbus_bus_add_match (bus, app_sig_match_blank, NULL);
   dbus_connection_add_filter (bus, signal_handler, reg, NULL);
 
   return reg;

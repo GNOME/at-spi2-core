@@ -13,11 +13,11 @@ class Emitter (dbus.service.Object):
 	def __init__(self, bus, object_path):
 		dbus.service.Object.__init__(self, bus, object_path)
 
-	@dbus.service.signal(dbus_interface='org.freedekstop.atspi.Tree', signature='s')
+	@dbus.service.signal(dbus_interface='org.freedesktop.atspi.Tree', signature='s')
 	def registerApplication(self, app_name):
 		pass
 
-	@dbus.service.signal(dbus_interface='org.freedekstop.atspi.Tree', signature='s')
+	@dbus.service.signal(dbus_interface='org.freedesktop.atspi.Tree', signature='s')
 	def deregisterApplication(self, app_name):
 		pass
 
@@ -35,7 +35,7 @@ class IdleStateM (object):
 
 	def setup(self):
 		self.emit = Emitter(self._bus, "/org/freedesktop/atspi/tree")
-		self.obj = self._bus.get_object("org.freedesktop.atspi.Registry", "/org/freedesktop/atspi/Registry")
+		self.obj = self._bus.get_object("org.freedesktop.atspi.Registry", "/org/freedesktop/atspi/registry")
 		self.itf = dbus.Interface(self.obj, dbus_interface="org.freedesktop.atspi.Registry")
 		return self.emit_registers
 
