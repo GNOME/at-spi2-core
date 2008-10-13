@@ -1,0 +1,57 @@
+Instructions for testing
+------------------------
+
+To test AT-SPI D-Bus both a client (AT) library and server (Application) 
+module is required.
+
+The ATK-Bridge application module
+---------------------------------
+
+Currently there is an implementation of the ATK-Bridge for AT-SPI D-Bus. This
+is a GTK module that will expose GAIL objects as accessible objects over D-Bus.
+There are a number of ways to load a GTK module into an application. A special
+directory exists on a system where all modules in the directory are loaded by
+GTK applications. The ATK-Bridge GTK module is called libspiatk.so. It is
+installed to $(libdir)/$(GTK_MODULE_DIR) meaning that if the AT-SPI D-Bus
+package were installed on a system then all GTK apps would load it at
+startup.As the library is unstable this is probably not a good idea. Instead
+individual GTK applications can be started with the libspiatk.so module using
+the command line options. --gtk-module $(install_path)/libspiatk.so. This
+should work with all GTK applications.
+
+Once a module is loaded with the libspiatk.so module it will print out its
+unique address on the D-Bus bus. You should write this down. Its currently the
+only way to access the application using a client (AT).
+
+The Python client (AT) bindings
+ -------------------------------
+
+Once we have an application made accessible over the D-Bus we need an AT to
+access the information. There is a python implementation of the pyatspi
+bindings used by Accerciser and Orca. These bindings are installed to
+$(pythondir)/pyatspi. To use these bindings set your PYTHONPATH environment
+variable to the $(pythondir) directory and use "import pyatspi".
+
+The only pyatspi based program tested so-far is Accerciser, and it can be
+problematic to run using PYTHONPATH, as it modifies the search path based on
+installation directory.
+
+When running an AT using the new pyatspi bindings it is necessary to tell the
+pyatspi module where to find the accessible application this is done by setting
+the environment variable ATSPI_TEST_APP_NAME to the D-Bus unique name of
+application.
+
+Summary
+-------
+
+    * Run a GTK application, make it accessible by either installing
+libspiatk.so to the GTK modules directory or by using the --gtk-module command
+line argument. 
+
+    * Run an AT using the new pyatspi module. Either install AT-SPI D-Bus on a
+system without the old version of pyatspi, or set the PYTHONPATH environment
+variable. 
+
+    * Dont forget to set the ATSPI_TEST_APP_NAME environment variable to that
+of the application. The Application will print its D-Bus unique name to stdout
+on connecting to the bus. 
