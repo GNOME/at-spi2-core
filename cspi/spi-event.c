@@ -851,7 +851,8 @@ AccessibleEvent_unref (const AccessibleEvent *e)
 typedef struct
 {
   CSpiEventListener *listener;
-  char *event;
+  char *category;
+  char *name;
   char *detail;
 } CSpiEventListenerEntry;
 
@@ -883,63 +884,56 @@ demarshal_rect (DBusMessageIter *iter, SPIRect *rect)
 }
 
 static gboolean
-parse_eventType (const char *eventType, char **type, char **detail, char **matchrule)
+parse_eventType (const char *eventType, char **categoryp, char **namep, char **detailp, char **matchrule)
 {
-  char *p, *q;
-  char *t, *d;
+  char *tmp = g_strdup (eventType);
+  char *category = NULL, *name = NULL, *detail = NULL;
+  char *saveptr = NULL;
+  char *p;
 
-  p = strchr (eventType, ':');
-  if (p) p = strchr (p + 1, ':');
-  if (!p) p = eventType + strlen (eventType);
-  t = g_malloc (p - eventType + 1);
-  if (t)
+  if (tmp == NULL) return FALSE;
+    while ((p = strchr (tmp, '-'))) *p = '_';
+  category = strtok_r (tmp, ":", &saveptr);
+  if (category) category = g_strdup (category);
+  if (!category) goto oom;
+  name = strtok_r (NULL, ":", &saveptr);
+  if (name)
   {
-    memcpy (t, eventType, p - eventType);
-    t[p - eventType] = '\0';
-    if (!strchr (t, ':'))
-    {
-      char *q = g_strconcat (t, ":", NULL);
-      if (1)
-      {
-	g_free (t);
-	t = q;
-      }
-    }
+    name = g_strdup (name);
+    if (!name) goto oom;
+    detail = strtok_r (NULL, ":", &saveptr);
+    if (detail) detail = g_strdup (detail);
   }
-  else return FALSE;
-  if (*p == ':')
+  else
   {
-    d = g_strdup (p + 1);
-    if (!d)
-    {
-      g_free (t);
-      return FALSE;
-    }
+    name = g_strdup (category);
+    if (!name) goto oom;
   }
-  else d = NULL;
-  if ((p = strchr (t, ':')))
-  {
-    *p = (p[1] == '\0'? '\0': '_');
-  }
-  while ((p = strchr (t, '-'))) *p = '_';
   if (matchrule)
   {
-    *matchrule = g_strdup_printf ("type='signal',interface='%s',member='%s'", spi_interface_accessible, t);
-    if (!*matchrule)
-    {
-      g_free (t);
-      if (d) g_free (d);
-      return FALSE;
-    }
+    *matchrule = g_strdup_printf ("type='signal',interface='org.freedesktop.atspi.event.%c%s',member='%s'", toupper(category[0]), category + 1, name);
+    if (!*matchrule) goto oom;
   }
-  if (type) *type = t;
-  if (detail) *detail = d;
+  if (categoryp) *categoryp = category;
+  else g_free (category);
+  if (namep) *namep = name;
+  else if (name) g_free (name);
+  if (detailp) *detailp = detail;
+  else if (detail) g_free (detail);
+  g_free (tmp);
   return TRUE;
+oom:
+  if (tmp) g_free (tmp);
+  if (category) g_free (category);
+  if (name) g_free (name);
+  if (detail) g_free (detail);
+  return FALSE;
 }
 
 static void listener_data_free (CSpiEventListenerEntry *e)
 {
-  g_free (e->event);
+  g_free (e->category);
+  g_free (e->name);
   if (e->detail) g_free (e->detail);
   g_free (e);
 }
@@ -1050,7 +1044,7 @@ SPI_registerGlobalEventListener (AccessibleEventListener *listener,
   e = g_new (CSpiEventListenerEntry, 1);
   if (!e) return FALSE;
   e->listener = listener;
-  if (!parse_eventType (eventType, &e->event, &e->detail, &matchrule))
+  if (!parse_eventType (eventType, &e->category, &e->name, &e->detail, &matchrule))
   {
     g_free (e);
     return FALSE;
@@ -1121,10 +1115,10 @@ SPIBoolean
 SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
 				   const char              *eventType)
 {
-  char *type, *detail, *matchrule;
+  char *category, *name, *detail, *matchrule;
   GList *l;
 
-  if (!parse_eventType (eventType, &type, &detail, &matchrule))
+  if (!parse_eventType (eventType, &category, &name, &detail, &matchrule))
   {
     return FALSE;
   }
@@ -1136,7 +1130,7 @@ SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
   for (l = event_listeners; l;)
   {
     CSpiEventListenerEntry *e = l->data;
-    if (e->listener == listener && !strcmp (e->event, type) && (e->detail == detail || !strcmp (e->detail, detail)))
+    if (e->listener == listener && !strcmp (e->category, category) && !strcmp (e->name, name) && (e->detail == detail || !strcmp (e->detail, detail)))
     {
       DBusError error;
       listener_data_free (e);
@@ -1146,7 +1140,8 @@ SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
     }
     else l = g_list_next (l);
   }
-  g_free (type);
+  g_free (category);
+  g_free (name);
   if (detail) g_free (detail);
   g_free (matchrule);
   return TRUE;
@@ -1155,10 +1150,10 @@ SPI_deregisterGlobalEventListener (AccessibleEventListener *listener,
 void
 cspi_dispatch_event (AccessibleEvent *e)
 {
-  char *event, *detail;
+  char *category, *name, *detail;
   GList *l;
 
-  if (!parse_eventType (e->type, &event, &detail, NULL))
+  if (!parse_eventType (e->type, &category, &name, &detail, NULL))
   {
     g_warning ("Couldn't parse event: %s\n", e->type);
     return;
@@ -1166,7 +1161,8 @@ cspi_dispatch_event (AccessibleEvent *e)
   for (l = event_listeners; l; l = g_list_next (l))
   {
     CSpiEventListenerEntry *entry = l->data;
-    if (!strcmp (event, entry->event) &&
+    if (!strcmp (category, entry->category) &&
+        (entry->name == NULL || !strcmp (name, entry->name)) &&
         (entry->detail == NULL || !strcmp (detail, entry->detail)))
     {
       CSpiEventListenerClass *klass = CSPI_EVENT_LISTENER_GET_CLASS (entry->listener);
@@ -1174,20 +1170,32 @@ cspi_dispatch_event (AccessibleEvent *e)
     }
   }
   if (detail) g_free (detail);
-  g_free (event);
+  g_free (name);
+  g_free (category);
 }
 
 DBusHandlerResult
 cspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
 {
   char *detail = NULL;
-  const char *event = dbus_message_get_member (message);
+  const char *category = dbus_message_get_interface (message);
+  const char *name = dbus_message_get_member (message);
   DBusMessageIter iter, iter_variant;
   dbus_message_iter_init (message, &iter);
   AccessibleEvent e;
   dbus_int32_t detail1, detail2;
   char *p;
 
+  if (category)
+  {
+    category = strrchr (category, '.');
+    if (category == NULL)
+    {
+      // TODO: Error
+      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+    category++;
+  }
   g_return_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_STRING);
   dbus_message_iter_get_basic (&iter, &detail);
   dbus_message_iter_next (&iter);
@@ -1199,9 +1207,16 @@ cspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   dbus_message_iter_get_basic (&iter, &detail2);
   e.detail2 = detail2;
   dbus_message_iter_next (&iter);
-  e.type = g_strdup (event);
-  p = strchr (e.type, '_');
-  if (p) *p = ':';
+  e.type = g_strdup_printf ("%c%s:", tolower (category[0]), category + 1);
+  if (strcasecmp  (category, name) != 0)
+  {
+    p = g_strconcat (e.type, ":", name, NULL);
+    if (p)
+    {
+      g_free (e.type);
+      e.type = p;
+    }
+  }
   if (detail[0] != '\0')
   {
     p = g_strconcat (e.type, ":", detail, NULL);

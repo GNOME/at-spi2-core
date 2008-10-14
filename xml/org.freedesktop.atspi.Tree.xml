@@ -46,6 +46,12 @@
 				<p>Extended description of the object.</p>
 			</tp:docstring>
   		</tp:member>
+
+		<tp:member type="au" tp:name="states">
+			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+				<p>The object's states.  Each integer contains a bitmask of 32 states (the first item contains states 0-31, and the second item contains states 32-63).</p>
+			</tp:docstring>
+  		</tp:member>
 	</tp:struct>
 
 	<interface name="org.freedesktop.atspi.Tree">
@@ -75,7 +81,7 @@
 				application. This should be used to create
 				a mirror of the tree of Accessibles within the AT.</p>
 			</tp:docstring>
-			<arg name="nodes" type="a(ooaoassus)" direction="out" tp:type="AccessibleProxy[]">
+			<arg name="nodes" type="a(ooaoassusau)" direction="out" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures.</p>
 				</tp:docstring>
@@ -88,7 +94,7 @@
 				accessible objects that have changed since the last
 				updateTree signal was send</p>
 			</tp:docstring>
-			<arg name="nodesAdded" type="a(ooaoassus)" tp:type="AccessibleProxy[]">
+			<arg name="nodesAdded" type="a(ooaoassusau)" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures to be added.</p>
 				</tp:docstring>

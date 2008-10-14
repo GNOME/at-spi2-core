@@ -39,9 +39,7 @@ static GArray *desktops;
 int
 SPI_getDesktopCount ()
 {
-  if (!desktops) SPI_getDesktopList (NULL);
-  if (!desktops) return -1;
-  return desktops->len;
+  return 1;
 }
 
 /**
@@ -57,9 +55,8 @@ SPI_getDesktopCount ()
 Accessible*
 SPI_getDesktop (int i)
 {
-  if (!desktops) SPI_getDesktopList (NULL);
-  if (!desktops) return NULL;
-  return cspi_ref_accessible (spi_bus_registry, g_array_index (desktops, char *, i));
+  if (i != 0) return NULL;
+  return cspi_ref_accessible (spi_bus_registry, NULL);
 }
 
 /**
@@ -81,29 +78,16 @@ SPI_getDesktop (int i)
 int
 SPI_getDesktopList (Accessible ***desktop_list)
 {
-  int i;
   Accessible **list;
 
-  if (desktop_list) *desktop_list = NULL;
+  list = g_new0 (Accessible *, 2);
 
-  if (!desktops)
-  {
-    dbind_connection_method_call (SPI_bus(), spi_bus_registry, spi_path_registry, spi_interface_registry, "getDesktopList", NULL, "=>ao", &desktops);
-    if (!desktops) return 0;
-  }
-
-  list = g_new0 (Accessible *, desktops->len + 1);
-
-  if (!desktop_list) return desktops->len;
-  for (i = 0; i < desktops->len; i++)
-    {
-      list [i] = cspi_ref_accessible (spi_bus_registry, g_array_index (desktops, char *, i));
-    }
-  list [i] = NULL;
+  if (!desktop_list) return 1;
+  list [0] = cspi_ref_accessible (spi_bus_registry, NULL);
 
   *desktop_list = list;
 
-  return i;
+  return 1;
 }
 
 /**
