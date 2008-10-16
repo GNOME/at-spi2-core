@@ -35,12 +35,12 @@ _DBusGMainLoop(set_as_default=True)
 #------------------------------------------------------------------------------
 
 class PressedEventType(_Enum):
-    _enum_lookup = {
-        0:'KEY_PRESSED_EVENT',
-        1:'KEY_RELEASED_EVENT',
-        2:'BUTTON_PRESSED_EVENT',
-        3:'BUTTON_RELEASED_EVENT',
-    }
+        _enum_lookup = {
+                0:'KEY_PRESSED_EVENT',
+                1:'KEY_RELEASED_EVENT',
+                2:'BUTTON_PRESSED_EVENT',
+                3:'BUTTON_RELEASED_EVENT',
+        }
 
 KEY_PRESSED_EVENT = PressedEventType(0)
 KEY_RELEASED_EVENT = PressedEventType(1)
@@ -49,23 +49,23 @@ BUTTON_RELEASED_EVENT = PressedEventType(3)
 #------------------------------------------------------------------------------
 
 class KeyEventType(_Enum):
-    _enum_lookup = {
-        0:'KEY_PRESSED',
-        1:'KEY_RELEASED',
-    }
+        _enum_lookup = {
+                0:'KEY_PRESSED',
+                1:'KEY_RELEASED',
+        }
 KEY_PRESSED = KeyEventType(0)
 KEY_RELEASED = KeyEventType(1)
 
 #------------------------------------------------------------------------------
 
 class KeySynthType(_Enum):
-    _enum_lookup = {
-        0:'KEY_PRESS',
-        1:'KEY_RELEASE',
-        2:'KEY_PRESSRELEASE',
-        3:'KEY_SYM',
-        4:'KEY_STRING',
-    }
+        _enum_lookup = {
+                0:'KEY_PRESS',
+                1:'KEY_RELEASE',
+                2:'KEY_PRESSRELEASE',
+                3:'KEY_SYM',
+                4:'KEY_STRING',
+        }
 
 KEY_PRESS = KeySynthType(0)
 KEY_PRESSRELEASE = KeySynthType(2)
@@ -76,16 +76,16 @@ KEY_SYM = KeySynthType(3)
 #------------------------------------------------------------------------------
 
 class ModifierType(_Enum):
-    _enum_lookup = {
-        0:'MODIFIER_SHIFT',
-        1:'MODIFIER_SHIFTLOCK',
-        2:'MODIFIER_CONTROL',
-        3:'MODIFIER_ALT',
-        4:'MODIFIER_META',
-        5:'MODIFIER_META2',
-        6:'MODIFIER_META3',
-        7:'MODIFIER_NUMLOCK',
-    }
+        _enum_lookup = {
+                0:'MODIFIER_SHIFT',
+                1:'MODIFIER_SHIFTLOCK',
+                2:'MODIFIER_CONTROL',
+                3:'MODIFIER_ALT',
+                4:'MODIFIER_META',
+                5:'MODIFIER_META2',
+                6:'MODIFIER_META3',
+                7:'MODIFIER_NUMLOCK',
+        }
 
 MODIFIER_ALT = ModifierType(3)
 MODIFIER_CONTROL = ModifierType(2)
@@ -99,400 +99,400 @@ MODIFIER_SHIFTLOCK = ModifierType(1)
 #------------------------------------------------------------------------------
 
 class _Registry(object):
-	"""
-	Wraps the Accessibility.Registry to provide more Pythonic registration for
-	events. 
-	
-	This object should be treated as a singleton, but such treatment is not
-	enforced. You can construct another instance of this object and give it a
-	reference to the Accessibility.Registry singleton. Doing so is harmless and
-	has no point.
-	
-	@ivar async: Should event dispatch to local listeners be decoupled from event
-		receiving from the registry?
-	@type async: boolean
-	@ivar reg: Reference to the real, wrapped registry object
-	@type reg: Accessibility.Registry
-	@ivar dev: Reference to the device controller
-	@type dev: Accessibility.DeviceEventController
-	@ivar queue: Queue of events awaiting local dispatch
-	@type queue: Queue.Queue
-	@ivar clients: Map of event names to client listeners
-	@type clients: dictionary
-	@ivar observers: Map of event names to AT-SPI L{_Observer} objects
-	@type observers: dictionary
-	"""
+        """
+        Wraps the Accessibility.Registry to provide more Pythonic registration for
+        events.
 
-	_REGISTRY_NAME = 'org.freedesktop.atspi.Registry'
+        This object should be treated as a singleton, but such treatment is not
+        enforced. You can construct another instance of this object and give it a
+        reference to the Accessibility.Registry singleton. Doing so is harmless and
+        has no point.
 
-	def __init__(self):
-		"""
-		Stores a reference to the AT-SPI registry. Gets and stores a reference
-		to the DeviceEventController.
-		
-		@param reg: Reference to the AT-SPI registry daemon
-		@type reg: Accessibility.Registry
-		"""
-		self._bus = _dbus.SessionBus()
+        @ivar async: Should event dispatch to local listeners be decoupled from event
+                receiving from the registry?
+        @type async: boolean
+        @ivar reg: Reference to the real, wrapped registry object
+        @type reg: Accessibility.Registry
+        @ivar dev: Reference to the device controller
+        @type dev: Accessibility.DeviceEventController
+        @ivar queue: Queue of events awaiting local dispatch
+        @type queue: Queue.Queue
+        @ivar clients: Map of event names to client listeners
+        @type clients: dictionary
+        @ivar observers: Map of event names to AT-SPI L{_Observer} objects
+        @type observers: dictionary
+        """
 
-		app_name = None
-		if "ATSPI_TEST_APP_NAME" in _os.environ.keys():
-			app_name = _os.environ["ATSPI_TEST_APP_NAME"]
-		if app_name:
-			self._app_name = app_name
-			self._cache = _TestApplicationCache(self, self._bus, app_name)
+        _REGISTRY_NAME = 'org.freedesktop.atspi.Registry'
 
-		self._event_listeners = {}
+        def __init__(self):
+                """
+                Stores a reference to the AT-SPI registry. Gets and stores a reference
+                to the DeviceEventController.
 
-		# All of this special casing is for the 'faked'
-		# events caused by cache updates.
+                @param reg: Reference to the AT-SPI registry daemon
+                @type reg: Accessibility.Registry
+                """
+                self._bus = _dbus.SessionBus()
 
-		self._name_type = _EventType("object:property-change:name")
-		self._name_listeners = {}
-		self._description_type = _EventType("object:property-change:description")
-		self._description_listeners = {}
-		self._parent_type = _EventType("object:property-change:parent")
-		self._parent_listeners = {}
-		self._children_changed_type = _EventType("object:children-changed")
-		self._children_changed_listeners = {}
-		
-	def __call__(self):
-		"""
-		@return: This instance of the registry
-		@rtype: L{Registry}
-		"""
-		return self
-	
-	def start(self, async=False, gil=True):
-		"""
-		Enter the main loop to start receiving and dispatching events.
-		
-		@param async: Should event dispatch be asynchronous (decoupled) from 
-			event receiving from the AT-SPI registry?
-		@type async: boolean
-		@param gil: Add an idle callback which releases the Python GIL for a few
-			milliseconds to allow other threads to run? Necessary if other threads
-			will be used in this process.
-			Note - No Longer used.
-		@type gil: boolean
-		"""
-		self._loop = _gobject.MainLoop()
-		try:
-			self._loop.run()
-		except KeyboardInterrupt:
-			pass
+                app_name = None
+                if "ATSPI_TEST_APP_NAME" in _os.environ.keys():
+                        app_name = _os.environ["ATSPI_TEST_APP_NAME"]
+                if app_name:
+                        self._app_name = app_name
+                        self._cache = _TestApplicationCache(self, self._bus, app_name)
 
-	def stop(self, *args):
-		"""Quits the main loop."""
-		self._loop.quit()
-		self.flushEvents()
-		
-	def getDesktopCount(self):
-		"""
-		Gets the number of available desktops.
-		
-		@return: Number of desktops
-		@rtype: integer
-		"""
-		return 1
-		
-	def getDesktop(self, i):
-		"""
-		Gets a reference to the i-th desktop.
-		
-		@param i: Which desktop to get
-		@type i: integer
-		@return: Desktop reference
-		@rtype: Accessibility.Desktop
-		"""
-		return _Desktop(self._cache)
+                self._event_listeners = {}
 
-	def _callClients(self, register, event):
-		for client in register.keys():
-			client(event)
+                # All of this special casing is for the 'faked'
+                # events caused by cache updates.
 
-	def _notifyNameChange(self, event):
-		self._callClients(self._name_listeners, event)
+                self._name_type = _EventType("object:property-change:name")
+                self._name_listeners = {}
+                self._description_type = _EventType("object:property-change:description")
+                self._description_listeners = {}
+                self._parent_type = _EventType("object:property-change:parent")
+                self._parent_listeners = {}
+                self._children_changed_type = _EventType("object:children-changed")
+                self._children_changed_listeners = {}
 
-	def _notifyDescriptionChange(self, event):
-		self._callClients(self._description_listeners, event)
+        def __call__(self):
+                """
+                @return: This instance of the registry
+                @rtype: L{Registry}
+                """
+                return self
 
-	def _notifyParentChange(self, event):
-		self._callClients(self._parent_listeners, event)
+        def start(self, async=False, gil=True):
+                """
+                Enter the main loop to start receiving and dispatching events.
 
-	def _notifyChildenChange(self, event):
-		self._callClients(self._children_changed_listeners, event)
+                @param async: Should event dispatch be asynchronous (decoupled) from 
+                        event receiving from the AT-SPI registry?
+                @type async: boolean
+                @param gil: Add an idle callback which releases the Python GIL for a few
+                        milliseconds to allow other threads to run? Necessary if other threads
+                        will be used in this process.
+                        Note - No Longer used.
+                @type gil: boolean
+                """
+                self._loop = _gobject.MainLoop()
+                try:
+                        self._loop.run()
+                except KeyboardInterrupt:
+                        pass
 
-	def _registerFake(self, type, register, client, *names):
-		"""
-		Registers a client from a register of clients
-		for 'Fake' events emitted by the cache.
-		"""
-		try:
-			registered = register[client]
-		except KeyError:
-			registered = []
-			register[client] = registered
-		
-		for name in names:
-			new_type = _EventType(name)
-			if new_type.is_subtype(type):
-				registered.append(new_type.name)
+        def stop(self, *args):
+                """Quits the main loop."""
+                self._loop.quit()
+                self.flushEvents()
 
-	def _deregisterFake(self, type, register, client, *names):
-		"""
-		Deregisters a client from a register of clients
-		for 'Fake' events emitted by the cache.
-		"""
-		try:
-			registered = register[client]
-		except KeyError:
-			return True
-		
-		for name in names:
-			remove_type = _EventType(name)
+        def getDesktopCount(self):
+                """
+                Gets the number of available desktops.
 
-			for i in range(0, len(registered) - 1):
-				type_name = registered[i]
-				registered_type = _EventType(type_name)
+                @return: Number of desktops
+                @rtype: integer
+                """
+                return 1
 
-				if remove_type.is_subtype(registered_type):
-					del(registered[i])
+        def getDesktop(self, i):
+                """
+                Gets a reference to the i-th desktop.
 
-		if registered == []:
-			del(register[client])
+                @param i: Which desktop to get
+                @type i: integer
+                @return: Desktop reference
+                @rtype: Accessibility.Desktop
+                """
+                return _Desktop(self._cache)
 
-	def registerEventListener(self, client, *names):
-		"""
-		Registers a new client callback for the given event names. Supports 
-		registration for all subevents if only partial event name is specified.
-		Do not include a trailing colon.
-		
-		For example, 'object' will register for all object events, 
-		'object:property-change' will register for all property change events,
-		and 'object:property-change:accessible-parent' will register only for the
-		parent property change event.
-		
-		Registered clients will not be automatically removed when the client dies.
-		To ensure the client is properly garbage collected, call 
-		L{deregisterEventListener}.
+        def _callClients(self, register, event):
+                for client in register.keys():
+                        client(event)
 
-		@param client: Callable to be invoked when the event occurs
-		@type client: callable
-		@param names: List of full or partial event names
-		@type names: list of string
-		"""
-		try:
-			registered = self._event_listeners[client]
-		except KeyError:
-			registered = []
-			self._event_listeners[client] = registered
+        def _notifyNameChange(self, event):
+                self._callClients(self._name_listeners, event)
 
-		for name in names:
-			new_type = _EventType(name)
-			registered.append((new_type.name,
-			   	 	   _event_type_to_signal_reciever(self._bus, self._cache, client, new_type)))
+        def _notifyDescriptionChange(self, event):
+                self._callClients(self._description_listeners, event)
 
-		self._registerFake(self._name_type, self._name_listeners, client, *names)
-		self._registerFake(self._description_type, self._description_listeners, client, *names)
-		self._registerFake(self._parent_type, self._parent_listeners, client, *names)
-		self._registerFake(self._children_changed_type, self._children_changed_listeners, client, *names)
+        def _notifyParentChange(self, event):
+                self._callClients(self._parent_listeners, event)
 
-	def deregisterEventListener(self, client, *names):
-		"""
-		Unregisters an existing client callback for the given event names. Supports 
-		unregistration for all subevents if only partial event name is specified.
-		Do not include a trailing colon.
-		
-		This method must be called to ensure a client registered by
-		L{registerEventListener} is properly garbage collected.
+        def _notifyChildenChange(self, event):
+                self._callClients(self._children_changed_listeners, event)
 
-		@param client: Client callback to remove
-		@type client: callable
-		@param names: List of full or partial event names
-		@type names: list of string
-		@return: Were event names specified for which the given client was not
-			registered?
-		@rtype: boolean
-		"""
-		try:
-			registered = self._event_listeners[client]
-		except KeyError:
-			# Presumably if were trying to deregister a client with
-			# no names then the return type is always true.
-			return True
+        def _registerFake(self, type, register, client, *names):
+                """
+                Registers a client from a register of clients
+                for 'Fake' events emitted by the cache.
+                """
+                try:
+                        registered = register[client]
+                except KeyError:
+                        registered = []
+                        register[client] = registered
 
-		missing = False
-		
-		for name in names:
-			remove_type = _EventType(name)
+                for name in names:
+                        new_type = _EventType(name)
+                        if new_type.is_subtype(type):
+                                registered.append(new_type.name)
 
-			for i in range(0, len(registered) - 1):
-				(type_name, signal_match) = registered[i]
-				registered_type = _EventType(type_name)
+        def _deregisterFake(self, type, register, client, *names):
+                """
+                Deregisters a client from a register of clients
+                for 'Fake' events emitted by the cache.
+                """
+                try:
+                        registered = register[client]
+                except KeyError:
+                        return True
 
-				if remove_type.is_subtype(registered_type):
-					signal_match.remove()
-					del(registered[i])
-				else:
-					missing = True
+                for name in names:
+                        remove_type = _EventType(name)
 
-		if registered == []:
-			del(self._event_listeners[client])
+                        for i in range(0, len(registered) - 1):
+                                type_name = registered[i]
+                                registered_type = _EventType(type_name)
 
-		#TODO Do these account for missing also?
-		self._deregisterFake(self._name_type, self._name_listeners, client, *names)
-		self._deregisterFake(self._description_type, self._description_listeners, client, *names)
-		self._deregisterFake(self._parent_type, self._parent_listeners, client, *names)
-		self._deregisterFake(self._children_changed_type, self._children_changed_listeners, client, *names)
+                                if remove_type.is_subtype(registered_type):
+                                        del(registered[i])
 
-		return missing
+                if registered == []:
+                        del(register[client])
 
-	def registerKeystrokeListener(self,
-				      client,
-				      key_set=[],
-				      mask=0,
-				      kind=(KEY_PRESSED_EVENT, KEY_RELEASED_EVENT),
-				      synchronous=True,
-				      preemptive=True,
-				      global_=False):
-		"""
-		Registers a listener for key stroke events.
-		
-		@param client: Callable to be invoked when the event occurs
-		@type client: callable
-		@param key_set: Set of hardware key codes to stop monitoring. Leave empty
-			to indicate all keys.
-		@type key_set: list of integer
-		@param mask: When the mask is None, the codes in the key_set will be 
-			monitored only when no modifier is held. When the mask is an 
-			integer, keys in the key_set will be monitored only when the modifiers in
-			the mask are held. When the mask is an iterable over more than one 
-			integer, keys in the key_set will be monitored when any of the modifier
-			combinations in the set are held.
-		@type mask: integer, iterable, None
-		@param kind: Kind of events to watch, KEY_PRESSED_EVENT or 
-			KEY_RELEASED_EVENT.
-		@type kind: list
-		@param synchronous: Should the callback notification be synchronous, giving
-			the client the chance to consume the event?
-		@type synchronous: boolean
-		@param preemptive: Should the callback be allowed to preempt / consume the
-			event?
-		@type preemptive: boolean
-		@param global_: Should callback occur even if an application not supporting
-			AT-SPI is in the foreground? (requires xevie)
-		@type global_: boolean
-		"""
-		pass
+        def registerEventListener(self, client, *names):
+                """
+                Registers a new client callback for the given event names. Supports 
+                registration for all subevents if only partial event name is specified.
+                Do not include a trailing colon.
 
-	def deregisterKeystrokeListener(self,
-					client,
-					key_set=[],
-					mask=0,
-					kind=(KEY_PRESSED_EVENT, KEY_RELEASED_EVENT)):
-		"""
-		Deregisters a listener for key stroke events.
-		
-		@param client: Callable to be invoked when the event occurs
-		@type client: callable
-		@param key_set: Set of hardware key codes to stop monitoring. Leave empty
-			to indicate all keys.
-		@type key_set: list of integer
-		@param mask: When the mask is None, the codes in the key_set will be 
-			monitored only when no modifier is held. When the mask is an 
-			integer, keys in the key_set will be monitored only when the modifiers in
-			the mask are held. When the mask is an iterable over more than one 
-			integer, keys in the key_set will be monitored when any of the modifier
-			combinations in the set are held.
-		@type mask: integer, iterable, None
-		@param kind: Kind of events to stop watching, KEY_PRESSED_EVENT or 
-			KEY_RELEASED_EVENT.
-		@type kind: list
-		@raise KeyError: When the client isn't already registered for events
-		"""
-		pass
+                For example, 'object' will register for all object events, 
+                'object:property-change' will register for all property change events,
+                and 'object:property-change:accessible-parent' will register only for the
+                parent property change event.
 
-	def generateKeyboardEvent(self, keycode, keysym, kind):
-		"""
-		Generates a keyboard event. One of the keycode or the keysym parameters
-		should be specified and the other should be None. The kind parameter is 
-		required and should be one of the KEY_PRESS, KEY_RELEASE, KEY_PRESSRELEASE,
-		KEY_SYM, or KEY_STRING.
-		
-		@param keycode: Hardware keycode or None
-		@type keycode: integer
-		@param keysym: Symbolic key string or None
-		@type keysym: string
-		@param kind: Kind of event to synthesize
-		@type kind: integer
-		"""
-		pass
-	
-	def generateMouseEvent(self, x, y, name):
-		"""
-		Generates a mouse event at the given absolute x and y coordinate. The kind
-		of event generated is specified by the name. For example, MOUSE_B1P 
-		(button 1 press), MOUSE_REL (relative motion), MOUSE_B3D (butten 3 
-		double-click).
-		
-		@param x: Horizontal coordinate, usually left-hand oriented
-		@type x: integer
-		@param y: Vertical coordinate, usually left-hand oriented
-		@type y: integer
-		@param name: Name of the event to generate
-		@type name: string
-		"""
-		pass
-		
-	def handleDeviceEvent(self, event, ob):
-		"""
-		Dispatches L{event.DeviceEvent}s to registered clients. Clients are called
-		in the order they were registered for the given AT-SPI event. If any
-		client returns True, callbacks cease for the event for clients of this registry 
-		instance. Clients of other registry instances and clients in other processes may 
-		be affected depending on the values of synchronous and preemptive used when invoking
-		L{registerKeystrokeListener}. 
-		
-		@note: Asynchronous dispatch of device events is not supported.
-		
-		@param event: AT-SPI device event
-		@type event: L{event.DeviceEvent}
-		@param ob: Observer that received the event
-		@type ob: L{_DeviceObserver}
+                Registered clients will not be automatically removed when the client dies.
+                To ensure the client is properly garbage collected, call 
+                L{deregisterEventListener}.
 
-		@return: Should the event be consumed (True) or allowed to pass on to other
-			AT-SPI observers (False)?
-		@rtype: boolean
-		"""
-		return True
+                @param client: Callable to be invoked when the event occurs
+                @type client: callable
+                @param names: List of full or partial event names
+                @type names: list of string
+                """
+                try:
+                        registered = self._event_listeners[client]
+                except KeyError:
+                        registered = []
+                        self._event_listeners[client] = registered
+
+                for name in names:
+                        new_type = _EventType(name)
+                        registered.append((new_type.name,
+                                               _event_type_to_signal_reciever(self._bus, self._cache, client, new_type)))
+
+                self._registerFake(self._name_type, self._name_listeners, client, *names)
+                self._registerFake(self._description_type, self._description_listeners, client, *names)
+                self._registerFake(self._parent_type, self._parent_listeners, client, *names)
+                self._registerFake(self._children_changed_type, self._children_changed_listeners, client, *names)
+
+        def deregisterEventListener(self, client, *names):
+                """
+                Unregisters an existing client callback for the given event names. Supports 
+                unregistration for all subevents if only partial event name is specified.
+                Do not include a trailing colon.
+
+                This method must be called to ensure a client registered by
+                L{registerEventListener} is properly garbage collected.
+
+                @param client: Client callback to remove
+                @type client: callable
+                @param names: List of full or partial event names
+                @type names: list of string
+                @return: Were event names specified for which the given client was not
+                        registered?
+                @rtype: boolean
+                """
+                try:
+                        registered = self._event_listeners[client]
+                except KeyError:
+                        # Presumably if were trying to deregister a client with
+                        # no names then the return type is always true.
+                        return True
+
+                missing = False
+
+                for name in names:
+                        remove_type = _EventType(name)
+
+                        for i in range(0, len(registered) - 1):
+                                (type_name, signal_match) = registered[i]
+                                registered_type = _EventType(type_name)
+
+                                if remove_type.is_subtype(registered_type):
+                                        signal_match.remove()
+                                        del(registered[i])
+                                else:
+                                        missing = True
+
+                if registered == []:
+                        del(self._event_listeners[client])
+
+                #TODO Do these account for missing also?
+                self._deregisterFake(self._name_type, self._name_listeners, client, *names)
+                self._deregisterFake(self._description_type, self._description_listeners, client, *names)
+                self._deregisterFake(self._parent_type, self._parent_listeners, client, *names)
+                self._deregisterFake(self._children_changed_type, self._children_changed_listeners, client, *names)
+
+                return missing
+
+        def registerKeystrokeListener(self,
+                                      client,
+                                      key_set=[],
+                                      mask=0,
+                                      kind=(KEY_PRESSED_EVENT, KEY_RELEASED_EVENT),
+                                      synchronous=True,
+                                      preemptive=True,
+                                      global_=False):
+                """
+                Registers a listener for key stroke events.
+
+                @param client: Callable to be invoked when the event occurs
+                @type client: callable
+                @param key_set: Set of hardware key codes to stop monitoring. Leave empty
+                        to indicate all keys.
+                @type key_set: list of integer
+                @param mask: When the mask is None, the codes in the key_set will be 
+                        monitored only when no modifier is held. When the mask is an 
+                        integer, keys in the key_set will be monitored only when the modifiers in
+                        the mask are held. When the mask is an iterable over more than one 
+                        integer, keys in the key_set will be monitored when any of the modifier
+                        combinations in the set are held.
+                @type mask: integer, iterable, None
+                @param kind: Kind of events to watch, KEY_PRESSED_EVENT or 
+                        KEY_RELEASED_EVENT.
+                @type kind: list
+                @param synchronous: Should the callback notification be synchronous, giving
+                        the client the chance to consume the event?
+                @type synchronous: boolean
+                @param preemptive: Should the callback be allowed to preempt / consume the
+                        event?
+                @type preemptive: boolean
+                @param global_: Should callback occur even if an application not supporting
+                        AT-SPI is in the foreground? (requires xevie)
+                @type global_: boolean
+                """
+                pass
+
+        def deregisterKeystrokeListener(self,
+                                        client,
+                                        key_set=[],
+                                        mask=0,
+                                        kind=(KEY_PRESSED_EVENT, KEY_RELEASED_EVENT)):
+                """
+                Deregisters a listener for key stroke events.
+
+                @param client: Callable to be invoked when the event occurs
+                @type client: callable
+                @param key_set: Set of hardware key codes to stop monitoring. Leave empty
+                        to indicate all keys.
+                @type key_set: list of integer
+                @param mask: When the mask is None, the codes in the key_set will be 
+                        monitored only when no modifier is held. When the mask is an 
+                        integer, keys in the key_set will be monitored only when the modifiers in
+                        the mask are held. When the mask is an iterable over more than one 
+                        integer, keys in the key_set will be monitored when any of the modifier
+                        combinations in the set are held.
+                @type mask: integer, iterable, None
+                @param kind: Kind of events to stop watching, KEY_PRESSED_EVENT or 
+                        KEY_RELEASED_EVENT.
+                @type kind: list
+                @raise KeyError: When the client isn't already registered for events
+                """
+                pass
+
+        def generateKeyboardEvent(self, keycode, keysym, kind):
+                """
+                Generates a keyboard event. One of the keycode or the keysym parameters
+                should be specified and the other should be None. The kind parameter is 
+                required and should be one of the KEY_PRESS, KEY_RELEASE, KEY_PRESSRELEASE,
+                KEY_SYM, or KEY_STRING.
+
+                @param keycode: Hardware keycode or None
+                @type keycode: integer
+                @param keysym: Symbolic key string or None
+                @type keysym: string
+                @param kind: Kind of event to synthesize
+                @type kind: integer
+                """
+                pass
+
+        def generateMouseEvent(self, x, y, name):
+                """
+                Generates a mouse event at the given absolute x and y coordinate. The kind
+                of event generated is specified by the name. For example, MOUSE_B1P 
+                (button 1 press), MOUSE_REL (relative motion), MOUSE_B3D (butten 3 
+                double-click).
+
+                @param x: Horizontal coordinate, usually left-hand oriented
+                @type x: integer
+                @param y: Vertical coordinate, usually left-hand oriented
+                @type y: integer
+                @param name: Name of the event to generate
+                @type name: string
+                """
+                pass
+
+        def handleDeviceEvent(self, event, ob):
+                """
+                Dispatches L{event.DeviceEvent}s to registered clients. Clients are called
+                in the order they were registered for the given AT-SPI event. If any
+                client returns True, callbacks cease for the event for clients of this registry 
+                instance. Clients of other registry instances and clients in other processes may 
+                be affected depending on the values of synchronous and preemptive used when invoking
+                L{registerKeystrokeListener}. 
+
+                @note: Asynchronous dispatch of device events is not supported.
+
+                @param event: AT-SPI device event
+                @type event: L{event.DeviceEvent}
+                @param ob: Observer that received the event
+                @type ob: L{_DeviceObserver}
+
+                @return: Should the event be consumed (True) or allowed to pass on to other
+                        AT-SPI observers (False)?
+                @rtype: boolean
+                """
+                return True
  
-	def handleEvent(self, event):
-		"""		
-		Handles an AT-SPI event by either queuing it for later dispatch when the
-		L{Registry.async} flag is set, or dispatching it immediately.
+        def handleEvent(self, event):
+                """                
+                Handles an AT-SPI event by either queuing it for later dispatch when the
+                L{Registry.async} flag is set, or dispatching it immediately.
 
-		@param event: AT-SPI event
-		@type event: L{event.Event}
-		"""
-		pass
+                @param event: AT-SPI event
+                @type event: L{event.Event}
+                """
+                pass
 
-	def flushEvents(self):
-		"""
-		Flushes the event queue by destroying it and recreating it.
-		"""
-		pass
+        def flushEvents(self):
+                """
+                Flushes the event queue by destroying it and recreating it.
+                """
+                pass
 
-	def pumpQueuedEvents(self, num=-1):
-		"""
-		Provides asynch processing of events in the queue by executeing them with 
-		_dispatchEvent() (as is done immediately when synch processing). 
-		This method would normally be called from a main loop or idle function.
+        def pumpQueuedEvents(self, num=-1):
+                """
+                Provides asynch processing of events in the queue by executeing them with 
+                _dispatchEvent() (as is done immediately when synch processing). 
+                This method would normally be called from a main loop or idle function.
 
-		@param num: Number of events to pump. If number is negative it pumps
-		the entire queue. Default is -1.
-		@type num: integer
-		@return: True if queue is not empty after events were pumped.
-		@rtype: boolean
-		"""
-		return False
+                @param num: Number of events to pump. If number is negative it pumps
+                the entire queue. Default is -1.
+                @type num: integer
+                @return: True if queue is not empty after events were pumped.
+                @rtype: boolean
+                """
+                return False

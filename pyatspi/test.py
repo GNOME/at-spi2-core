@@ -18,39 +18,39 @@ from factory import create_accessible
 import interfaces
 
 __all__ = [
-	   "TestApplicationCache",
-	  ]
+           "TestApplicationCache",
+          ]
 
 #------------------------------------------------------------------------------
 
 class TestApplicationCache(object):
-	"""
-	Test application cache. Accesses single AccessibleCache.
-	"""
+        """
+        Test application cache. Accesses single AccessibleCache.
+        """
 
-	def __init__(self, registry, connection, bus_name):
-		self._connection = connection
-		self._bus_name = bus_name
-		self._accessible_cache = AccessibleCache(registry, connection, bus_name)
+        def __init__(self, registry, connection, bus_name):
+                self._connection = connection
+                self._bus_name = bus_name
+                self._accessible_cache = AccessibleCache(registry, connection, bus_name)
 
-	def __getitem__(self, key):
-		return self._accessible_cache
+        def __getitem__(self, key):
+                return self._accessible_cache
 
-	def __contains__(self, key):
-		if key == self._bus_name:
-			return True
-		else:
-			return False
+        def __contains__(self, key):
+                if key == self._bus_name:
+                        return True
+                else:
+                        return False
 
-	def get_application_at_index(self, index, parent):
-		return create_accessible(self,
-					 self._bus_name, 
-					 self._accessible_cache.root, 
-					 interfaces.ATSPI_ACCESSIBLE,
-					 connection=self._connection,
-					 parent=parent)
+        def get_application_at_index(self, index, parent):
+                return create_accessible(self,
+                                         self._bus_name, 
+                                         self._accessible_cache.root, 
+                                         interfaces.ATSPI_ACCESSIBLE,
+                                         connection=self._connection,
+                                         parent=parent)
 
-	def get_application_count(self):
-		return 1
+        def get_application_count(self):
+                return 1
 
 #END----------------------------------------------------------------------------

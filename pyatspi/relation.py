@@ -26,66 +26,48 @@ from factory import create_accessible
 #------------------------------------------------------------------------------
 
 class RelationType(_Enum):
-    _enum_lookup = {
-        0:'RELATION_NULL',
-        1:'RELATION_LABEL_FOR',
-        2:'RELATION_LABELLED_BY',
-        3:'RELATION_CONTROLLER_FOR',
-        4:'RELATION_CONTROLLED_BY',
-        5:'RELATION_MEMBER_OF',
-        6:'RELATION_TOOLTIP_FOR',
-        7:'RELATION_NODE_CHILD_OF',
-        8:'RELATION_EXTENDED',
-        9:'RELATION_FLOWS_TO',
-        10:'RELATION_FLOWS_FROM',
-        11:'RELATION_SUBWINDOW_OF',
-        12:'RELATION_EMBEDS',
-        13:'RELATION_EMBEDDED_BY',
-        14:'RELATION_POPUP_FOR',
-        15:'RELATION_PARENT_WINDOW_OF',
-        16:'RELATION_DESCRIPTION_FOR',
-        17:'RELATION_DESCRIBED_BY',
-        18:'RELATION_LAST_DEFINED',
-    }
+        _enum_lookup = {
+                0:'RELATION_NULL',
+                1:'RELATION_LABEL_FOR',
+                2:'RELATION_LABELLED_BY',
+                3:'RELATION_CONTROLLER_FOR',
+                4:'RELATION_CONTROLLED_BY',
+                5:'RELATION_MEMBER_OF',
+                6:'RELATION_TOOLTIP_FOR',
+                7:'RELATION_NODE_CHILD_OF',
+                8:'RELATION_EXTENDED',
+                9:'RELATION_FLOWS_TO',
+                10:'RELATION_FLOWS_FROM',
+                11:'RELATION_SUBWINDOW_OF',
+                12:'RELATION_EMBEDS',
+                13:'RELATION_EMBEDDED_BY',
+                14:'RELATION_POPUP_FOR',
+                15:'RELATION_PARENT_WINDOW_OF',
+                16:'RELATION_DESCRIPTION_FOR',
+                17:'RELATION_DESCRIBED_BY',
+                18:'RELATION_LAST_DEFINED',
+        }
 
 #------------------------------------------------------------------------------
 
 RELATION_CONTROLLED_BY = RelationType(4)
-
 RELATION_CONTROLLER_FOR = RelationType(3)
-
 RELATION_DESCRIBED_BY = RelationType(17)
-
 RELATION_DESCRIPTION_FOR = RelationType(16)
-
 RELATION_EMBEDDED_BY = RelationType(13)
-
 RELATION_EMBEDS = RelationType(12)
-
 RELATION_EXTENDED = RelationType(8)
-
 RELATION_FLOWS_FROM = RelationType(10)
-
 RELATION_FLOWS_TO = RelationType(9)
-
 RELATION_LABELLED_BY = RelationType(2)
-
 RELATION_LABEL_FOR = RelationType(1)
-
 RELATION_LAST_DEFINED = RelationType(18)
-
 RELATION_MEMBER_OF = RelationType(5)
-
 RELATION_NODE_CHILD_OF = RelationType(7)
-
 RELATION_NULL = RelationType(0)
-
 RELATION_PARENT_WINDOW_OF = RelationType(15)
-
 RELATION_POPUP_FOR = RelationType(14)
-
 RELATION_SUBWINDOW_OF = RelationType(11)
-
 RELATION_TOOLTIP_FOR = RelationType(6)
 
 #------------------------------------------------------------------------------
@@ -100,59 +82,59 @@ RELATION_VALUE_TO_NAME = dict(((value, name[9:].lower().replace('_', ' '))
 #------------------------------------------------------------------------------
 
 def _marshal_relation_set(cache, app_name, relation_set):
-	"""
-	The D-Bus protocol has a relation set passed as an array of
-	relation types and object arrays.
+        """
+        The D-Bus protocol has a relation set passed as an array of
+        relation types and object arrays.
 
-	This function marshals the D-Bus message into a list of relation
-	objects.
-	"""
-	return [Relation(cache, app_name, *relation) for relation in relation_set]
+        This function marshals the D-Bus message into a list of relation
+        objects.
+        """
+        return [Relation(cache, app_name, *relation) for relation in relation_set]
 
 #------------------------------------------------------------------------------
 
 class Relation(object):
-    """
-    An interface via which objects' non-hierarchical relationships
-    to one another are indicated. An instance of Relations represents
-    a "one-to-many" correspondance.
-    """
+        """
+        An interface via which objects' non-hierarchical relationships
+        to one another are indicated. An instance of Relations represents
+        a "one-to-many" correspondance.
+        """
 
-    def __init__(self, cache, app_name, type, objects):
-	self._type = type
-	self._objects = objects
+        def __init__(self, cache, app_name, type, objects):
+                self._type = type
+                self._objects = objects
 
-	self._cache = cache
-	self._app_name = app_name
-    
-    def getNTargets(self):
-        """
-        @return the number of objects to which this relationship applies.
-        """
-        return len(self._objects)
-    
-    def getRelationType(self):
-        """
-        @return the RelationType of this Relation.
-        """
-        return self._type
-    
-    def getRelationTypeName(self):
-        """
-        @return an unlocalized string representing the relation type.
-        """
-	return RELATION_VALUE_TO_NAME[self._type]
-    
-    def getTarget(self, index):
-        """
-        @return an Object which is the 'nth'target of this Relation,
-        e.g. the Object at index i in the list of Objects having the
-        specified relationship to this Accessible.
-        """
-	return create_accessible(self._cache,
-			 	 self._app_name,
-				 self._objects[index],
-				 interfaces.ATSPI_ACCESSIBLE,
-				 connection=self._cache._connection)
+                self._cache = cache
+                self._app_name = app_name
+
+        def getNTargets(self):
+                """
+                @return the number of objects to which this relationship applies.
+                """
+                return len(self._objects)
+
+        def getRelationType(self):
+                """
+                @return the RelationType of this Relation.
+                """
+                return self._type
+
+        def getRelationTypeName(self):
+                """
+                @return an unlocalized string representing the relation type.
+                """
+                return RELATION_VALUE_TO_NAME[self._type]
+
+        def getTarget(self, index):
+                """
+                @return an Object which is the 'nth'target of this Relation,
+                e.g. the Object at index i in the list of Objects having the
+                specified relationship to this Accessible.
+                """
+                return create_accessible(self._cache,
+                                         self._app_name,
+                                         self._objects[index],
+                                         interfaces.ATSPI_ACCESSIBLE,
+                                         connection=self._cache._connection)
 
 #END----------------------------------------------------------------------------

@@ -18,116 +18,116 @@ from factory import add_accessible_class
 from text import *
 
 __all__ = [
-	   "EditableText",
-	  ]
+           "EditableText",
+          ]
 
 #------------------------------------------------------------------------------
 
 class EditableText(Text):
-    """
-    Derived from interface Text, EditableText provides methods for
-    modifying textual content of components which support editing.
-    EditableText also interacts with the system clipboard via copyText,
-    cutText, and pasteText.
-    """
-    
-    def copyText(self, *args, **kwargs):
         """
-        Copy a range of text into the system clipboard. 
-        @param : startPos
-        the character offset of the first character in the range of text
-        being copied. 
-        @param : endPos
-        the offset of the first character past the end of the range of
-        text being copied.
+        Derived from interface Text, EditableText provides methods for
+        modifying textual content of components which support editing.
+        EditableText also interacts with the system clipboard via copyText,
+        cutText, and pasteText.
         """
-        func = self.get_dbus_method("copyText")
-        return func(*args, **kwargs)
-    
-    def cutText(self, *args, **kwargs):
-        """
-        Excise a range of text from a Text object, copying it into the
-        system clipboard. 
-        @param : startPos
-        the character offset of the first character in the range of text
-        being cut. 
-        @param : endPos
-        the offset of the first character past the end of the range of
-        text being cut. 
-        @return True if the text was successfully cut, False otherwise.
-        """
-        func = self.get_dbus_method("cutText")
-        return func(*args, **kwargs)
-    
-    def deleteText(self, *args, **kwargs):
-        """
-        Excise a range of text from a Text object without copying it
-        into the system clipboard. 
-        @param : startPos
-        the character offset of the first character in the range of text
-        being deleted. 
-        @param : endPos
-        the offset of the first character past the end of the range of
-        text being deleted. 
-        @return True if the text was successfully deleted, False otherwise.
-        """
-        func = self.get_dbus_method("deleteText")
-        return func(*args, **kwargs)
-    
-    def insertText(self, *args, **kwargs):
-        """
-        Insert new text contents into an existing text object at a given
-        location, while retaining the old contents. 
-        @param : position
-        the character offset into the Text implementor's content at which
-        the new content will be inserted. 
-        @param : text
-        a UTF-8 string of which length characters will be inserted into
-        the text object's text buffer. 
-        @param : length
-        the number of characters of text to insert. If the character
-        count of text is less than or equal to length, the entire contents
-        of text will be inserted.
-        @return True if the text content was successfully inserted, False
-        otherwise.
-        """
-        func = self.get_dbus_method("insertText")
-        return func(*args, **kwargs)
-    
-    def pasteText(self, *args, **kwargs):
-        """
-        Copy the text contents of the system clipboard, if any, into
-        a Text object, inserting it at a particular character offset.
-        @param : position
-        the character offset before which the text will be inserted.
-        @return True if the text was successfully pasted into the Text
-        object, False otherwise.
-        """
-        func = self.get_dbus_method("pasteText")
-        return func(*args, **kwargs)
-    
-    def setAttributes(self, *args, **kwargs):
-        """
-        Apply a particular set of attributes to a range of text.
-        @return True if the text attributes were successfully modified,
-        False otherwise.
-        """
-        func = self.get_dbus_method("setAttributes")
-        return func(*args, **kwargs)
-    
-    def setTextContents(self, *args, **kwargs):
-        """
-        Replace the text contents with a new string, discarding the old
-        contents.
-        @param : newContents
-        a UTF-8 string with which the text object's contents will be
-        replaced. 
-        @return True if the text content was successfully changed, False
-        otherwise.
-        """
-        func = self.get_dbus_method("setTextContents")
-        return func(*args, **kwargs)
-    
+
+        def copyText(self, *args, **kwargs):
+                """
+                Copy a range of text into the system clipboard. 
+                @param : startPos
+                the character offset of the first character in the range of text
+                being copied. 
+                @param : endPos
+                the offset of the first character past the end of the range of
+                text being copied.
+                """
+                func = self.get_dbus_method("copyText")
+                return func(*args, **kwargs)
+
+        def cutText(self, *args, **kwargs):
+                """
+                Excise a range of text from a Text object, copying it into the
+                system clipboard. 
+                @param : startPos
+                the character offset of the first character in the range of text
+                being cut. 
+                @param : endPos
+                the offset of the first character past the end of the range of
+                text being cut. 
+                @return True if the text was successfully cut, False otherwise.
+                """
+                func = self.get_dbus_method("cutText")
+                return func(*args, **kwargs)
+
+        def deleteText(self, *args, **kwargs):
+                """
+                Excise a range of text from a Text object without copying it
+                into the system clipboard. 
+                @param : startPos
+                the character offset of the first character in the range of text
+                being deleted. 
+                @param : endPos
+                the offset of the first character past the end of the range of
+                text being deleted. 
+                @return True if the text was successfully deleted, False otherwise.
+                """
+                func = self.get_dbus_method("deleteText")
+                return func(*args, **kwargs)
+
+        def insertText(self, *args, **kwargs):
+                """
+                Insert new text contents into an existing text object at a given
+                location, while retaining the old contents. 
+                @param : position
+                the character offset into the Text implementor's content at which
+                the new content will be inserted. 
+                @param : text
+                a UTF-8 string of which length characters will be inserted into
+                the text object's text buffer. 
+                @param : length
+                the number of characters of text to insert. If the character
+                count of text is less than or equal to length, the entire contents
+                of text will be inserted.
+                @return True if the text content was successfully inserted, False
+                otherwise.
+                """
+                func = self.get_dbus_method("insertText")
+                return func(*args, **kwargs)
+
+        def pasteText(self, *args, **kwargs):
+                """
+                Copy the text contents of the system clipboard, if any, into
+                a Text object, inserting it at a particular character offset.
+                @param : position
+                the character offset before which the text will be inserted.
+                @return True if the text was successfully pasted into the Text
+                object, False otherwise.
+                """
+                func = self.get_dbus_method("pasteText")
+                return func(*args, **kwargs)
+
+        def setAttributes(self, *args, **kwargs):
+                """
+                Apply a particular set of attributes to a range of text.
+                @return True if the text attributes were successfully modified,
+                False otherwise.
+                """
+                func = self.get_dbus_method("setAttributes")
+                return func(*args, **kwargs)
+
+        def setTextContents(self, *args, **kwargs):
+                """
+                Replace the text contents with a new string, discarding the old
+                contents.
+                @param : newContents
+                a UTF-8 string with which the text object's contents will be
+                replaced. 
+                @return True if the text content was successfully changed, False
+                otherwise.
+                """
+                func = self.get_dbus_method("setTextContents")
+                return func(*args, **kwargs)
+
 # ATTENTION - Register the Application class with the accessible factory.
 add_accessible_class(interfaces.ATSPI_EDITABLE_TEXT, EditableText)
 
