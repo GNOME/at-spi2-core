@@ -1,8 +1,9 @@
-noinst_PROGRAMS = key-listener-test keysynth-test simple-at
+noinst_PROGRAMS = key-listener-test keysynth-test simple-at test-simple
 
 key_listener_test_SOURCES = key-listener-test.c 
 keysynth_test_SOURCES = keysynth-test.c 
 simple_at_SOURCES = simple-at.c 
+test_simple_SOURCES = test-simple.c 
 
 INCLUDES = -I$(top_srcdir)           \
            -I$(top_builddir)         \

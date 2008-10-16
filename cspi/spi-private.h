@@ -83,7 +83,7 @@ struct _SPIException {
   char * desc;
 };
 
-DBusConnection *spi_bus (void);
+DBusConnection *SPI_bus (void);
 SPIBoolean             cspi_exception         (void);
 Accessible            *cspi_object_add (Accessible  *accessible);
 void                   cspi_object_ref        (Accessible  *accessible);
@@ -113,10 +113,10 @@ AccessibleAttributeSet
 typedef struct _Accessibility_BoundingBox Accessibility_BoundingBox;
 struct _Accessibility_BoundingBox
 {
-  dbus_uint32_t x;
-  dbus_uint32_t y;
-  dbus_uint32_t width;
-  dbus_uint32_t height;
+  dbus_int32_t x;
+  dbus_int32_t y;
+  dbus_int32_t width;
+  dbus_int32_t height;
 };
 
 #endif /* _SPI_PRIVATE_H_ */

@@ -147,7 +147,7 @@ cspi_get_live_refs (void)
 }
 
 DBusConnection *
-cspi_bus (void)
+SPI_bus (void)
 {
   return bus;
 }
@@ -474,38 +474,34 @@ remove_app_from_desktop (Accessible *a, const char *bus_name)
   return TRUE;
 }
 
+static Accessible *desktop;
+
 static Accessible *
-ref_accessible_desktop (CSpiApplication *app, const char *path)
+ref_accessible_desktop (CSpiApplication *app)
 {
-  char *path_dup;
   DBusError error;
   GArray *apps = NULL;
   GArray *additions;
   gint i;
 
-  Accessible *a = g_hash_table_lookup (app->hash, path);
-  if (a)
+  if (desktop)
   {
-    cspi_object_ref (a);
-    return a;
+    cspi_object_ref (desktop);
+    return desktop;
   }
-  path_dup = g_strdup (path);
-  if (!path_dup) return NULL;
-  a = g_new0 (Accessible, 1);
-  if (!a)
+  desktop = g_new0 (Accessible, 1);
+  if (!desktop)
   {
-    g_free (path_dup);
     return NULL;
   }
-  g_hash_table_insert (app->hash, path_dup, a);
-  a->app = app;
-  a->v.path = path_dup;
-  a->ref_count = 2;	/* one for the caller, one for the hash */
-  cspi_dbus_get_property (a, SPI_DBUS_INTERFACE_ACCESSIBLE, "name", NULL, "s", &a->name);
+  g_hash_table_insert (app->hash, "", desktop);
+  desktop->app = app;
+  desktop->ref_count = 2;	/* one for the caller, one for the hash */
+  desktop->name = g_strdup ("");
   dbus_error_init (&error);
-  if (!dbind_connection_method_call (bus, spi_bus_registry, a->v.path, spi_interface_desktop, "getChildren", &error, "=>as", &apps))
+  if (!dbind_connection_method_call (bus, spi_bus_registry, spi_path_registry, spi_interface_registry, "getApplications", &error, "=>as", &apps))
   {
-    g_error ("Couldn't get desktop children: %s", error.message);
+    g_error ("Couldn't get application list: %s", error.message);
   }
   for (i = 0; i < apps->len; i++)
   {
@@ -524,10 +520,10 @@ ref_accessible_desktop (CSpiApplication *app, const char *path)
       g_warning ("getTree (%s): %s", app_name, error.message);
     }
     handle_additions (app, additions);
-    add_app_to_desktop (a, app_name);
+    add_app_to_desktop (desktop, app_name);
   }
   g_array_free (apps, TRUE);
-  return a;
+  return desktop;
 }
 
 Accessible *
@@ -537,7 +533,7 @@ cspi_ref_accessible (const char *app, const char *path)
   if (!a) return NULL;
   if ( APP_IS_REGISTRY(a))
   {
-    return ref_accessible_desktop (a, path);
+    return ref_accessible_desktop (a);
   }
   return ref_accessible (a, path);
 }
@@ -580,7 +576,7 @@ cspi_dbus_handle_update_tree (DBusConnection *bus, DBusMessage *message, void *u
 }
 
 static DBusHandlerResult
-cspi_dbus_handle_add_application (DBusConnection *bus, DBusMessage *message, void *user_data)
+cspi_dbus_handle_register_application (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusError error;
   dbus_uint32_t v;
@@ -588,14 +584,8 @@ cspi_dbus_handle_add_application (DBusConnection *bus, DBusMessage *message, voi
   char *bus_name;
 
   dbus_error_init (&error);
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_UINT32, &v, DBUS_TYPE_STRING, &bus_name, DBUS_TYPE_INVALID))
-  {
-    g_warning ("Error processing %s: %s\n", dbus_message_get_member(message), error.message);
-    dbus_error_free (&error);
-    return DBUS_HANDLER_RESULT_HANDLED;
-  }
-  a = cspi_ref_accessible (spi_bus_registry, dbus_message_get_path(message));
-  if (add_app_to_desktop (a, bus_name))
+  a = cspi_ref_accessible (spi_bus_registry, spi_path_registry);
+  if (add_app_to_desktop (a, dbus_message_get_sender (message)))
   {
     send_children_changed (a, g_list_last (a->children)->data, TRUE);
   }
@@ -604,21 +594,21 @@ cspi_dbus_handle_add_application (DBusConnection *bus, DBusMessage *message, voi
 }
 
 static DBusHandlerResult
-cspi_dbus_handle_remove_application (DBusConnection *bus, DBusMessage *message, void *user_data)
+cspi_dbus_handle_deregister_application (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  DBusError error;
-  dbus_uint32_t v;
   Accessible *a;
+  DBusError error;
   char *bus_name;
-
+ 
   dbus_error_init (&error);
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_UINT32, &v, DBUS_TYPE_STRING, &bus_name, DBUS_TYPE_INVALID))
+  if (!dbus_message_get_args (message, &error, DBUS_TYPE_STRING, &bus_name, DBUS_TYPE_INVALID))
   {
     g_warning ("Error processing %s: %s\n", dbus_message_get_member(message), error.message);
     dbus_error_free (&error);
     return DBUS_HANDLER_RESULT_HANDLED;
   }
-  a = cspi_ref_accessible (spi_bus_registry, dbus_message_get_path(message));
+
+  a = cspi_ref_accessible (spi_bus_registry, spi_path_registry);
   remove_app_from_desktop (a, bus_name);
   cspi_object_unref (a);
   return DBUS_HANDLER_RESULT_HANDLED;
@@ -647,13 +637,13 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   {
     return cspi_dbus_handle_update_tree (bus, message, data);
   }
-  if (dbus_message_is_signal (message, spi_interface_registry, "applicationAdd"))
+  if (dbus_message_is_signal (message, spi_interface_tree, "registerApplication"))
   {
-    return cspi_dbus_handle_add_application (bus, message, data);
+    return cspi_dbus_handle_register_application (bus, message, data);
   }
-  if (dbus_message_is_signal (message, spi_interface_registry, "applicationRemove"))
+  if (dbus_message_is_signal (message, spi_interface_registry, "deregisterApplication"))
   {
-    return cspi_dbus_handle_remove_application (bus, message, data);
+    return cspi_dbus_handle_deregister_application (bus, message, data);
   }
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
@@ -697,7 +687,7 @@ SPI_init (void)
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
-  match = g_strdup_printf ("type='signal',sender='%s'", spi_bus_registry);
+  match = g_strdup_printf ("type='signal',interface='%s'", spi_interface_tree);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
   return 0;
@@ -1007,7 +997,7 @@ get_path (Accessible *obj)
 {
   if (APP_IS_REGISTRY (obj->app))
   {
-    return g_strdup_printf (SPI_DBUS_PATH_DESKTOP);
+    return g_strdup_printf (SPI_DBUS_PATH_REGISTRY);
   }
   return g_strdup_printf ("/org/freedesktop/atspi/accessible/%d", obj->v.id);
 }
@@ -1023,7 +1013,7 @@ cspi_dbus_call (Accessible *obj, const char *interface, const char *method, DBus
   if (!error) error = &err;
   dbus_error_init (error);
   va_start (args, type);
-  retval = dbind_connection_method_call_va (cspi_bus(), obj->app->bus_name, path, interface, method, error, type, args);
+  retval = dbind_connection_method_call_va (SPI_bus(), obj->app->bus_name, path, interface, method, error, type, args);
   va_end (args);
   g_free (path);
   if (dbus_error_is_set (error))
@@ -1056,7 +1046,7 @@ cspi_dbus_get_property (Accessible *obj, const char *interface, const char *name
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   if (!error) error = &err;
   dbus_error_init (error);
-  reply = dbus_connection_send_with_reply_and_block (cspi_bus(), message, 1000, error);
+  reply = dbus_connection_send_with_reply_and_block (SPI_bus(), message, 1000, error);
   dbus_message_unref (message);
   if (!reply)
   {

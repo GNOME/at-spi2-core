@@ -299,11 +299,10 @@ spi_atk_bridge_register_application (const char *registry)
   DBusMessage *message, *reply;
   DBusError error;
 
-  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_REGISTRY, "registerApplication");
+  message = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY, SPI_DBUS_INTERFACE_TREE, "registerApplication");
   dbus_error_init (&error);
-  reply = dbus_connection_send_with_reply_and_block(this_app->droute.bus, message, 1000, &error);
+  dbus_connection_send (this_app->droute.bus, message, NULL);
   if (error.message) g_print (error.message);
-  if (reply) dbus_message_unref (reply);
   if (message) dbus_message_unref (message);
 }
 
