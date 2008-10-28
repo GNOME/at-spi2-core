@@ -1,0 +1,95 @@
+#Copyright (C) 2008 Codethink Ltd
+
+#This library is free software; you can redistribute it and/or
+#modify it under the terms of the GNU Lesser General Public
+#License version 2 as published by the Free Software Foundation.
+
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#You should have received a copy of the GNU Lesser General Public License
+#along with this program; if not, write to the Free Software
+#Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+from accessiblecache import AccessibleCache
+from desktop import Desktop
+from factory import accessible_factory
+
+import interfaces
+
+__all__ = [
+
+           "TestApplicationCache",
+          ]
+
+#------------------------------------------------------------------------------
+
+class TestApplicationCache(object):
+        """
+        Test application store, accesses a single application.
+
+        The store object acts as a central class for creating accessible objects.
+        It interfaces with the ATSPI registry to keep account of all accessible
+        applications. It contains the accessible cache objects from each application.
+
+        @registry:   Each accessible cache object must have a reference to the registry
+                     object to send update events.
+
+        @connection: D-Bus connection used to access applications.
+
+        @bus_name:   The test store only accesses one accessible application, this is its
+                     D-Bus path.
+        """
+
+        def __init__(self, registry, connection, bus_name):
+                self._connection = connection
+
+                self.application_list = [bus_name]
+                self.application_cache = {bus_name:AccessibleCache(registry, connection, bus_name)}
+
+        def get_cache_data(self, app_name, acc_path):
+                """
+                Returns the cache tuple for the given application and accessible
+                object path. Throws an IndexError if the cache data is not found.
+                """
+                return self.application_cache[app_name][acc_path]
+
+        def create_application(self, app_name):
+                """
+                Creates an accessible object for the root of the application
+                available at the given D-Bus name.
+                """
+                cls = accessible_factory.get_accessible_class(interfaces.ATSPI_APPLICATION)
+                return cls(app_name, self.application_cache[app_name].root, self, interfaces.ATSPI_APPLICATION)
+
+        def create_accessible(self, app_name, acc_path, interface, dbus_object=None):
+                """
+                Creates an accessible object.
+
+                @app_name: D-Bus name of the application where the accessible object resides.
+
+                @acc_path: D-Bus path of the object within the application.
+
+                @interface: D-Bus interface of the requested object. A different accessible object
+                            class will be created depending on this. Making the function much like 
+                            an accessible object factory.
+
+                @dbus_object: If a D-Bus object already exists for the accessible object it can be
+                              provided here so that another one is not created.
+                """
+                # An acc_path of '/' implies the desktop object, whatever the app_name.
+                if acc_path == '/':
+                        return Desktop(self)
+                else:
+                        cls = accessible_factory.get_accessible_class(interface)
+                        return cls(app_name, acc_path, self, interface, dbus_object=dbus_object)
+
+        @property
+        def connection(self):
+                """
+                D-Bus connection used by the store.
+                """
+                return self._connection
+
+#END----------------------------------------------------------------------------

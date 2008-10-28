@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Value",
@@ -72,7 +72,7 @@ class Value(BaseProxy):
                 """
         minimumValue = property(fget=get_minimumValue, fset=set_minimumValue, doc=_minimumValueDoc)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_VALUE, Value)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_VALUE, Value)
 
 #END----------------------------------------------------------------------------

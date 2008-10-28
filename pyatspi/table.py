@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Table",
@@ -373,7 +373,7 @@ class Table(BaseProxy):
                 """
         summary = property(fget=get_summary, fset=set_summary, doc=_summaryDoc)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_TABLE, Table)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_TABLE, Table)
 
 #END----------------------------------------------------------------------------

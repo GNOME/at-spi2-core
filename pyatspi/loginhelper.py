@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy, Enum
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "LoginHelper",
@@ -140,7 +140,7 @@ class LoginHelper(BaseProxy):
                         self[0] = val
                 winID = property(fget=_get_winID, fset=_set_winID)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_LOGIN_HELPER, LoginHelper)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_LOGIN_HELPER, LoginHelper)
 
 #END----------------------------------------------------------------------------

@@ -21,7 +21,6 @@
 
 import interfaces
 from base import Enum as _Enum
-from factory import create_accessible
 
 #------------------------------------------------------------------------------
 
@@ -131,10 +130,8 @@ class Relation(object):
                 e.g. the Object at index i in the list of Objects having the
                 specified relationship to this Accessible.
                 """
-                return create_accessible(self._cache,
-                                         self._app_name,
-                                         self._objects[index],
-                                         interfaces.ATSPI_ACCESSIBLE,
-                                         connection=self._cache._connection)
+                return self._cache.create_accessible(self._app_name,
+                                                     self._objects[index],
+                                                     interfaces.ATSPI_ACCESSIBLE)
 
 #END----------------------------------------------------------------------------

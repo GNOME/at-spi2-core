@@ -17,44 +17,12 @@
 class AccessibleFactory(object):
         __accessible_interfaces = {}
 
-        def create_accessible(self, cache, app_name, acc_path, interface, dbus_object=None, connection=None, parent=None):
-                class_ = self.__accessible_interfaces[interface]
-                return class_(cache,
-                              app_name,
-                              acc_path,
-                              interface,
-                              dbus_object=dbus_object,
-                              connection=connection,
-                              parent=parent)
-
-        def add_accessible_class(self, name, cls):
+        def register_accessible_class(self, name, cls):
                 self.__accessible_interfaces[name] = cls
 
-_factory = AccessibleFactory()
+        def get_accessible_class(self, name):
+                return self.__accessible_interfaces[name]
 
-def create_accessible(cache, app_name, acc_path, interface, dbus_object=None, connection=None, parent=None):
-        """
-        Used to create different python classes for each of the accessible interfaces.
-
-        The decision on which class to create is based on the name of the
-        accessible interface.
-
-        cache - ApplicationCache, where the cached data for the accessible can be obtained.
-        app_name - D-Bus bus name of the application this accessible belongs to.
-        acc_path - D-Bus object path of the server side accessible object.
-        interface - D-Bus interface of the object. Used to decide which accessible class to instanciate.
-        dbus_object(kwarg) - The D-Bus proxy object used by the accessible for D-Bus method calls.
-        connection(kwarg) - Client side D-Bus connection, provided if no D-Bus proxy is available.
-        """
-        return _factory.create_accessible(cache,
-                                          app_name,
-                                          acc_path,
-                                          interface,
-                                          dbus_object=dbus_object,
-                                          connection=connection,
-                                          parent=parent)
-
-def add_accessible_class(name, cls):
-        _factory.add_accessible_class(name, cls)
+accessible_factory = AccessibleFactory()
 
 #END----------------------------------------------------------------------------

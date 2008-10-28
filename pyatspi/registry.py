@@ -27,7 +27,7 @@ from base import Enum as _Enum
 from desktop import Desktop as _Desktop
 from event import EventType as _EventType
 from event import event_type_to_signal_reciever as _event_type_to_signal_reciever
-from test import TestApplicationCache as _TestApplicationCache
+from applicationcache import TestApplicationCache
 
 from dbus.mainloop.glib import DBusGMainLoop as _DBusGMainLoop
 _DBusGMainLoop(set_as_default=True)
@@ -140,7 +140,7 @@ class _Registry(object):
                         app_name = _os.environ["ATSPI_TEST_APP_NAME"]
                 if app_name:
                         self._app_name = app_name
-                        self._cache = _TestApplicationCache(self, self._bus, app_name)
+                        self._appcache = TestApplicationCache(self, self._bus, app_name)
 
                 self._event_listeners = {}
 
@@ -205,7 +205,7 @@ class _Registry(object):
                 @return: Desktop reference
                 @rtype: Accessibility.Desktop
                 """
-                return _Desktop(self._cache)
+                return _Desktop(self._appcache)
 
         def _callClients(self, register, event):
                 for client in register.keys():
@@ -291,7 +291,7 @@ class _Registry(object):
                 for name in names:
                         new_type = _EventType(name)
                         registered.append((new_type.name,
-                                               _event_type_to_signal_reciever(self._bus, self._cache, client, new_type)))
+                                           _event_type_to_signal_reciever(self._bus, self._appcache, client, new_type)))
 
                 self._registerFake(self._name_type, self._name_listeners, client, *names)
                 self._registerFake(self._description_type, self._description_listeners, client, *names)

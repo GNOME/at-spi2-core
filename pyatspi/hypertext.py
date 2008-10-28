@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Hypertext",
@@ -64,7 +64,7 @@ class Hypertext(BaseProxy):
                 func = self.get_dbus_method("getNLinks")
                 return func(*args, **kwargs)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_HYPERTEXT, Hypertext)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_HYPERTEXT, Hypertext)
 
 #END----------------------------------------------------------------------------

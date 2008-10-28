@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy, Enum
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Selector",
@@ -162,7 +162,7 @@ class Selector(BaseProxy):
         COMMAND_RESULT_OBSOLETE = CommandResult(3)
         COMMAND_RESULT_SUCCESS = CommandResult(1)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_SELECTOR, Selector)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_SELECTOR, Selector)
 
 #END----------------------------------------------------------------------------

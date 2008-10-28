@@ -13,7 +13,6 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import interfaces
-from factory import create_accessible, add_accessible_class
 from accessible import BoundingBox
 
 __all__ = [
@@ -210,22 +209,15 @@ class Event(object):
         @property
         def host_application(self):
                 if not self._application:
-                        application_root = self._cache[self._source_application]._get_root()
-                        return create_accessible(self._cache,
-                                                  self._source_application,
-                                                 application_root,
-                                                 interfaces.ATSPI_APPLICATION,
-                                                   connection=self._cache._connection)
+                        return self._cache.create_application(self._source_application)
                 return self._application
 
         @property
         def source(self):
                 if not self._source:
-                        self._source = create_accessible(self._cache,
-                                                            self._source_application,
-                                                           self._source_path,
-                                                           interfaces.ATSPI_ACCESSIBLE,
-                                                           connection=self._cache._connection)
+                        self._source = self._cache.create_accessible(self._source_application,
+                                                                     self._source_path,
+                                                                     interfaces.ATSPI_ACCESSIBLE)
                 return self._source
 
         @property

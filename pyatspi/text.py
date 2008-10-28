@@ -16,7 +16,7 @@ import dbus
 
 import interfaces
 from base import BaseProxy, Enum
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Text",
@@ -564,7 +564,7 @@ class Text(BaseProxy):
                         self[3] = val
                 data = property(fget=_get_data, fset=_set_data)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_TEXT, Text)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_TEXT, Text)
 
 #END----------------------------------------------------------------------------

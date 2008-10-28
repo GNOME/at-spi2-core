@@ -14,7 +14,7 @@
 
 from interfaces import ATSPI_ACCESSIBLE, ATSPI_APPLICATION
 from base import BaseProxy, Enum
-from factory import create_accessible, add_accessible_class
+from factory import accessible_factory
 from state import StateSet, _marshal_state_set
 from relation import _marshal_relation_set
 from role import Role
@@ -106,13 +106,7 @@ class Accessible(BaseProxy):
         Get the containing Application for this object.
         @return the Application instance to which this object belongs.
         """
-        application_root = self._cache[self._app_name]._get_root()
-        #TODO Set the desktop object as the parent of this.
-        return create_accessible(self._cache,
-                                  self._app_name,
-                                 application_root,
-                                 ATSPI_APPLICATION,
-                                 connection=self._cache._connection)
+        return self._cache.create_application(self._app_name)
 
     def getAttributes(self):
         """
@@ -147,7 +141,7 @@ class Accessible(BaseProxy):
         """
         func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_ACCESSIBLE)
         return func()
-    
+
     def getChildAtIndex(self, index):
         """
         Get the accessible child of this object at index. 
@@ -156,11 +150,7 @@ class Accessible(BaseProxy):
         @return : the 'nth' Accessible child of this object.
         """
         path = self.cached_data.children[index]
-        return create_accessible(self._cache,
-                                 self._app_name,
-                                 path,
-                                 ATSPI_ACCESSIBLE,
-                                 connection=self._cache._connection)
+        return self._cache.create_accessible(self._app_name, path, ATSPI_ACCESSIBLE)
 
     def getIndexInParent(self):
         """
@@ -264,14 +254,9 @@ class Accessible(BaseProxy):
     name = property(fget=get_name, doc=_nameDoc)
 
     def get_parent(self):
-        if self._parent:
-                return self._parent
-        else:
-                return create_accessible(self._cache,
-                                         self._app_name,
-                                         self.cached_data.parent,
-                                         ATSPI_ACCESSIBLE,
-                                         connection=self._cache._connection)
+        return self._cache.create_accessible(self._app_name,
+                                             self.cached_data.parent,
+                                             ATSPI_ACCESSIBLE)
 
     _parentDoc = \
         """
@@ -279,7 +264,7 @@ class Accessible(BaseProxy):
         """
     parent = property(fget=get_parent, doc=_parentDoc)
 
-# Register the Accessible class with the accessible factory.
-add_accessible_class(ATSPI_ACCESSIBLE, Accessible)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(ATSPI_ACCESSIBLE, Accessible)
 
 #END----------------------------------------------------------------------------

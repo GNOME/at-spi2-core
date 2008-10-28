@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy
-from factory import create_accessible, add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Action",
@@ -95,7 +95,7 @@ class Action(BaseProxy):
                 """
         nActions = property(fget=get_nActions, fset=set_nActions, doc=_nActionsDoc)
 
-# Register the Accessible class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_ACTION, Action)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_ACTION, Action)
 
 #END----------------------------------------------------------------------------

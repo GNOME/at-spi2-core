@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
            "Selection",
@@ -129,7 +129,7 @@ class Selection(BaseProxy):
                 """
         nSelectedChildren = property(fget=get_nSelectedChildren, fset=set_nSelectedChildren, doc=_nSelectedChildrenDoc)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_SELECTION, Selection)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_SELECTION, Selection)
 
 #END----------------------------------------------------------------------------

@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy, Enum
-from factory import create_accessible, add_accessible_class
+from factory import accessible_factory
 from accessible import BoundingBox
 
 from dbus.types import Int16
@@ -108,6 +108,7 @@ class Component(BaseProxy):
                 @return the Accessible child whose bounding box contains the
                 specified point.
                 """
+                #TODO this needs a real implementation
                 func = self.get_dbus_method("getAccessibleAtPoint")
                 return func(*args, **kwargs)
 
@@ -197,7 +198,7 @@ class Component(BaseProxy):
                 func = self.get_dbus_method("registerFocusHandler")
                 return func(*args, **kwargs)
 
-# Register the Accessible class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_COMPONENT, Component)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_COMPONENT, Component)
 
 #END----------------------------------------------------------------------------

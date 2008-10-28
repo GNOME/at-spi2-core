@@ -15,38 +15,14 @@
 import interfaces
 from base import BaseProxyMeta
 from accessible import BoundingBox
-from cache import AccessibleCache
 from state import StateSet
+
 from role import ROLE_UNKNOWN
 from component import LAYER_WIDGET
 
 __all__ = [
            "Desktop",
           ]
-
-#------------------------------------------------------------------------------
-
-class ApplicationCache(object):
-
-        def __init__(self, connection, bus_name):
-                self._connection = connection
-                self._bus_name = bus_name
-                self._accessible_cache = AccessibleCache(connection, bus_name)
-
-        def __getitem__(self, key):
-                return self._accessible_cache
-
-        def __contains__(self, key):
-                if key == self._bus_name:
-                        return True
-                else:
-                        return False
-
-        def get_application_at_index(self, index):
-                pass
-
-        def get_application_count(self):
-                return 1
 
 #------------------------------------------------------------------------------
 
@@ -186,8 +162,9 @@ class Desktop(object):
                 If the application name is provided the Desktop is being used for
                 test and will only report the application provided as its single child.
                 """
-                self._cache = cache
-                self._app_name = '/'
+                self._appcache = cache
+                self._app_name = ':'
+                self._acc_path = '/'
 
         def __nonzero__(self):
                         return True
@@ -196,7 +173,18 @@ class Desktop(object):
                         return self.getChildCount()
 
         def __getitem__(self, index):
+                        # IndexError thrown by getChildAtIndex
                         return self.getChildAtIndex(index)
+
+        def __eq__(self, other):
+                if self._app_name == other._app_name and \
+                   self._acc_path == other._app_path:
+                        return True
+                else:
+                        return False
+
+        def __ne__(self, other):
+                return not self.__eq__(other)
 
         def getApplication(self):
                 """
@@ -245,7 +233,7 @@ class Desktop(object):
                 an in parameter indicating which child is requested (zero-indexed).
                 @return : the 'nth' Accessible child of this object.
                 """
-                return self._cache.get_application_at_index(index, self)
+                return self._appcache.create_application(self._appcache.application_list[index])
 
         def getIndexInParent(self):
                 """
@@ -309,10 +297,11 @@ class Desktop(object):
                 @return : a boolean indicating whether the two object references
                 point to the same object.
                 """
+                #TODO Fix this method
                 return self == accessible
 
         def get_childCount(self):
-                return self._cache.get_application_count()
+                return len(self._appcache.application_list)
         _childCountDoc = \
                 """
                 childCount: the number of children contained by this object.

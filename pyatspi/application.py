@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy
-from factory import add_accessible_class
+from factory import accessible_factory
 from accessible import Accessible
 
 __all__ = [
@@ -121,7 +121,7 @@ class Application(Accessible):
                 """
         version = property(fget=get_version, fset=set_version, doc=_versionDoc)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_APPLICATION, Application)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_APPLICATION, Application)
 
 #END----------------------------------------------------------------------------

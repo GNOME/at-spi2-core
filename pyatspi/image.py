@@ -15,7 +15,7 @@
 import dbus
 import interfaces
 from base import BaseProxy
-from factory import add_accessible_class
+from factory import accessible_factory
 from accessible import BoundingBox
 
 __all__ = [
@@ -106,7 +106,7 @@ class Image(BaseProxy):
                 """
         imageLocale = property(fget=get_imageLocale, fset=set_imageLocale, doc=_imageLocaleDoc)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_IMAGE, Image)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_IMAGE, Image)
 
 #END----------------------------------------------------------------------------

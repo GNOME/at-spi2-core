@@ -14,7 +14,7 @@
 
 import interfaces
 from base import BaseProxy, Enum
-from factory import add_accessible_class
+from factory import accessible_factory
 
 __all__ = [
             "Collection",
@@ -103,7 +103,7 @@ class Collection(BaseProxy):
         TREE_RESTRICT_CHILDREN = TreeTraversalType(0)
         TREE_RESTRICT_SIBLING = TreeTraversalType(1)
 
-# ATTENTION - Register the Application class with the accessible factory.
-add_accessible_class(interfaces.ATSPI_COLLECTION, Collection)
+# Register the accessible class with the factory.
+accessible_factory.register_accessible_class(interfaces.ATSPI_COLLECTION, Collection)
 
 #END----------------------------------------------------------------------------

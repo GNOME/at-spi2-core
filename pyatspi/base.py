@@ -17,7 +17,6 @@ from dbus.proxies import Interface
 from dbus.exceptions import *
 
 import interfaces
-from factory import create_accessible
 
 __all__ = [
            "AccessibleObjectNoLongerExists",
@@ -73,7 +72,7 @@ class BaseProxyMeta(type):
 
 #------------------------------------------------------------------------------
 
-class BaseProxy(Interface):
+class BaseProxy(object):
         """
         The base D-Bus proxy for a remote object that implements one or more
         of the AT-SPI interfaces.
@@ -81,7 +80,7 @@ class BaseProxy(Interface):
 
         __metaclass__ = BaseProxyMeta
 
-        def __init__(self, cache, app_name, acc_path, interface, dbus_object=None, connection=None, parent=None):
+        def __init__(self, app_name, acc_path, cache, interface, dbus_object=None):
                 """
                 Create a D-Bus Proxy for an ATSPI interface.
 
@@ -89,25 +88,23 @@ class BaseProxy(Interface):
                 app_name - D-Bus bus name of the application this accessible belongs to.
                 acc_path - D-Bus object path of the server side accessible object.
                 parent - Parent accessible.
-                interface - D-Bus interface of the object. Used to decide which accessible class to instanciate.
                 dbus_object(kwarg) - The D-Bus proxy object used by the accessible for D-Bus method calls.
                 """
                 self._cache = cache
                 self._app_name = app_name
                 self._acc_path = acc_path
-                self._parent = parent
+                self._dbus_interface = interface
 
                 if not dbus_object:
-                        dbus_object = connection.get_object(self._app_name, self._acc_path, introspect=False)
+                        dbus_object = cache.connection.get_object(self._app_name,
+                                                                  self._acc_path,
+                                                                  introspect=False)
                 self._dbus_object = dbus_object
 
-                Interface.__init__(self, self._dbus_object, interface)
-
-                self._pgetter = self.get_dbus_method("Get", dbus_interface="org.freedesktop.DBus.Properties")
-                self._psetter = self.get_dbus_method("Set", dbus_interface="org.freedesktop.DBus.Properties")
-
-        def __getattr__(self, attr):
-                raise AttributeError("\'%s\' has no attribute \'%s\'" % (self.__class__.__name__, attr))
+                self._pgetter = self.get_dbus_method("Get",
+                                                     dbus_interface="org.freedesktop.DBus.Properties")
+                self._psetter = self.get_dbus_method("Set",
+                                                     dbus_interface="org.freedesktop.DBus.Properties")
 
         def __str__(self):
                     try:
@@ -115,14 +112,24 @@ class BaseProxy(Interface):
                     except Exception:
                               return '[DEAD]'
 
-        def get_dbus_method(self, *args, **kwargs):
-                method =  Interface.get_dbus_method(self, *args, **kwargs)
+        def __eq__(self, other):
+                if self._app_name == other._app_name and \
+                   self._acc_path == other._app_path:
+                        return True
+                else:
+                        return False
 
-                def dbus_method_func(*args, **kwargs):
+        def __ne__(self, other):
+                return not self.__eq__(other)
+
+        def get_dbus_method(self, *args, **kwargs):
+                method =  self._dbus_object.get_dbus_method(*args, **kwargs)
+
+                def dbus_method_func(*iargs, **ikwargs):
                         # TODO Need to throw an AccessibleObjectNoLongerExists exception
                         # on D-Bus error of the same type.
                         try:
-                                return method(*args, **kwargs)
+                                return method(*iargs, **ikwargs)
                         except UnknownMethodException, e:
                                 raise NotImplementedError(e)
                         except DBusException, e:
@@ -133,7 +140,7 @@ class BaseProxy(Interface):
         @property
         def cached_data(self):
                 try:
-                        return self._cache[self._app_name][self._acc_path]
+                        return self._cache.get_cache_data(self._app_name, self._acc_path)
                 except KeyError:
                         raise AccessibleObjectNoLongerExists, \
                                 'Cache data cannot be found for path %s in app %s' % (self._acc_path, self._app_name)
@@ -149,11 +156,10 @@ class BaseProxy(Interface):
                 is not supported.
                 """
                 if interface in self.interfaces:
-                        return create_accessible(self._cache,
-                                                 self._app_name,
-                                                 self._acc_path,
-                                                 interface,
-                                                 dbus_object=self._dbus_object)
+                        return self._cache.create_accessible(self._app_name,
+                                                             self._acc_path,
+                                                             interface,
+                                                             dbus_object=self._dbus_object)
                 else:
                         raise NotImplementedError(
                                 "%s not supported by accessible object at path %s"
