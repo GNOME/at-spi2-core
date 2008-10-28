@@ -93,8 +93,6 @@ class EventType(str):
                 self.minor = self._separated[2]
                 self.detail = self._separated[3]
 
-                self._name = ":".join(separated)
-
         def is_subtype(self, event_type):
                 """
                 Determines if the passed event type is a subtype
@@ -112,11 +110,11 @@ class EventType(str):
 
         @property
         def name(self):
-                return self._name
+                return str(self)
 
         @property
         def value(self):
-                return self._name
+                return str(self)
 
 #------------------------------------------------------------------------------
 
@@ -142,6 +140,22 @@ def event_type_to_signal_reciever(bus, cache, event_handler, event_type):
                 return event_handler(event)
 
         return bus.add_signal_receiver(handler_wrapper, **kwargs) 
+
+#------------------------------------------------------------------------------
+
+def signal_spec_to_event_string (interface, name, minor):
+        interface = _interface_to_klass[interface]
+        name = name.replace('_', '-')
+
+        if interface == "focus":
+                return "focus:"
+
+        result = interface + ':'
+        if name:
+                result += name + ':'
+        if minor:
+                result += minor
+        return result
 
 #------------------------------------------------------------------------------
 
@@ -191,12 +205,8 @@ class Event(object):
                 self._source = None
                 self._application = None
 
-                self._klass = _interface_to_klass[interface]
-                # The replace is neccessary as '-' not legal as signal name
-                # so translated on the server side.
-                self._major = name.replace('_', '-')
-                self._minor = event[0]
-                self.type = EventType(':'.join([self._klass, self._major, self._minor]))
+                self.type = EventType(signal_spec_to_event_string(interface, name, event[0]))
+
                 self.detail1 = event[1]
                 self.detail2 = event[2]
 

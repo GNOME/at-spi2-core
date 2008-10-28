@@ -2,10 +2,11 @@ pyatspidir = $(pythondir)/pyatspi
 pyatspi_PYTHON = \
 		Accessibility.py	\
 		accessible.py		\
+		accessiblecache.py	\
 		action.py		\
 		application.py		\
+		applicationcache.py	\
 		base.py			\
-		cache.py		\
 		collection.py		\
 		component.py		\
 		constants.py		\
@@ -28,7 +29,6 @@ pyatspi_PYTHON = \
 		state.py		\
 		streamablecontent.py	\
 		table.py		\
-		test.py			\
 		text.py			\
 		utils.py		\
 		value.py
