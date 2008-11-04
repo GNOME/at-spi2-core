@@ -28,7 +28,7 @@
 #include "bridge.h"
 #include "atk-dbus.h"
 
-extern SpiAppData *this_app;
+extern SpiAppData *app_data;
 
 static GArray *listener_ids = NULL;
 
@@ -61,7 +61,7 @@ Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_Devi
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
-    DBusMessage *reply = dbus_connection_send_with_reply_and_block(this_app->droute.bus, message, 1000, &error);
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block(app_data->droute.bus, message, 1000, &error);
     if (reply)
     {
       DBusError error;
@@ -226,7 +226,7 @@ emit(AtkObject  *accessible,
   dbus_message_iter_append_basic(&sub, (int) *type, &val);
   dbus_message_iter_close_container(&iter, &sub);
 
-  dbus_connection_send(this_app->droute.bus, sig, NULL);
+  dbus_connection_send(app_data->droute.bus, sig, NULL);
   dbus_message_unref(sig);
 }
 
@@ -279,7 +279,7 @@ emit_rect(AtkObject  *accessible,
     dbus_message_iter_close_container (&variant, &sub);
   dbus_message_iter_close_container (&iter, &variant);
 
-  dbus_connection_send(this_app->droute.bus, sig, NULL);
+  dbus_connection_send(app_data->droute.bus, sig, NULL);
 }
 
 /*---------------------------------------------------------------------------*/

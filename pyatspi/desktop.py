@@ -166,6 +166,12 @@ class Desktop(object):
                 self._app_name = ':'
                 self._acc_path = '/'
 
+        def __str__(self):
+                    try:
+                              return '[%s | %s]' % (self.getRoleName(), self.name)
+                    except Exception:
+                              return '[DEAD]'
+
         def __nonzero__(self):
                         return True
 

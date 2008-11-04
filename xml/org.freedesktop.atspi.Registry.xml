@@ -9,11 +9,11 @@
       interact with those applications.  </p>
 
     <p>The Registry service provides four basic functions to Assistive Technology (AT) clients:
-	    <ol>
-		    <li>It provides a list of the applications who have registered with the
-			    AT-SPI framework, thereby announcing their participation in the AT-SPI framework.</li>
-		    <li>It gives access to system device events via the associated DeviceEventController interface.</li>
-	    </ol>
+        <ol>
+            <li>It provides a list of the applications who have registered with the
+                AT-SPI framework, thereby announcing their participation in the AT-SPI framework.</li>
+            <li>It gives access to system device events via the associated DeviceEventController interface.</li>
+        </ol>
     </p>
 
     <p>From the point of view of accessible applications (i.e. AT-SPI service producers), 
@@ -33,15 +33,53 @@
       illustrating the relationship between applications, Registry, and AT is shown at:
       http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png  </p>
   </tp:docstring>
+
   <method name="getApplications">
     <tp:docstring>
-	    Gets all the currently registered applications.
+        Gets all the currently registered applications.
     </tp:docstring>
     <arg direction="out" name="applications" type="as">
-    	<tp:docstring>
-      		A list of strings containing the D-Bus bus names of the applications.
-    	</tp:docstring>
+        <tp:docstring>
+            A list of strings containing the D-Bus bus names of the applications.
+        </tp:docstring>
     </arg>
   </method>
+
+  <signal name="updateApplications">
+    <tp:docstring>
+        Updates an AT about recently added or removed applications.
+    </tp:docstring>
+    <arg direction="out" name="app" type="is">
+        <tp:docstring>
+                Unique bus name of the application that has been removed or added.
+                The integer is an enumeration:
+                           0 : The application has been removed.
+                           1 : The application has been added.
+        </tp:docstring>
+    </arg>
+  </signal>
+
+  <method name="registerApplication">
+    <tp:docstring>
+      Register a new application with the accessibility registry.
+   </tp:docstring>
+   <arg direction="in" name="app" type="s" tp:type="Application">
+      <tp:docstring>
+         D-Bus Bus name of the application that wishes to be made accessible.
+      </tp:docstring>
+   </arg>
+  </method>
+
+  <method name="deregisterApplication">
+   <tp:docstring>
+      De-register an application from accessibility registry.
+   </tp:docstring>
+   <arg direction="in" name="app" type="s" tp:type="Application">
+      <tp:docstring>
+         D-Bus Bus name of the application that wishes to be made accessible.
+      </tp:docstring>
+   </arg>
+  </method>
+
 </interface>
 </node>

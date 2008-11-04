@@ -93,7 +93,7 @@ load_atspi_module(const char *path, int *argc, char **argv[])
 
   bridge = g_module_open(path, G_MODULE_BIND_LOCAL|G_MODULE_BIND_LAZY);
   if (!bridge)
-    g_error("Couldn't load atk-bridge module : %s\n", path);
+    g_error("Couldn't load atk-bridge module : %s\n", g_module_error());
 
   if (!g_module_symbol(bridge, "gtk_module_init", &init))
     g_error("Couldn't load symbol \"gtk_module_init\"\n");

@@ -28,7 +28,7 @@
 #include "accessible.h"
 #include "bridge.h"
 
-extern SpiAppData *this_app;
+extern SpiAppData *app_data;
 static gboolean update_pending = FALSE;
 
 /*---------------------------------------------------------------------------*/
@@ -58,7 +58,7 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
 
   obj = ATK_OBJECT(obj_data);
   iter_array = (DBusMessageIter *) iter;
-  data = &(this_app->droute);
+  data = &(app_data->droute);
 
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
     {
@@ -163,7 +163,7 @@ send_cache_update(gpointer d)
   DBusMessageIter iter_array;
   DRouteData *data;
 
-  data = &(this_app->droute);
+  data = &(app_data->droute);
 
   message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateTree");
 

@@ -43,6 +43,20 @@ class _CacheData(object):
 
 #------------------------------------------------------------------------------
 
+def _list_items_added_removed (l1, l2):
+        """
+        Returns a tuple (boolean, boolean).
+        The first value indicates if, when
+        moving from l1 to l2, any items have been added.
+        The second value indicates whether any items have
+        been removed.
+        """
+        l1notl2 = [item for item in l1 if item not in l2]
+        l2notl1 = [item for item in l2 if item not in l1]
+        return ((len(l1notl2) > 0), (len(l2notl1) > 0))
+
+#------------------------------------------------------------------------------
+
 class AccessibleCache(object):
         """
         There is one accessible cache per application.
@@ -93,28 +107,17 @@ class AccessibleCache(object):
         def __contains__(self, key):
                 return key in self._objects
 
-        def _update_cache_dispatch_events(self, cachedata, data):
-                (path,
-                 parent,
-                 children,
-                 interfaces,
-                 name,
-                 role,
-                 description) = data
-
-                # TODO The 'self._registry._cache' statement makes me think
-                # I have serious modularization FAIL here. 
-
-                if name != cachedata.name:
+        def _dispatch_event(self, olddata, newdata):
+                if olddata.name != newdata.name:
                         event = _Event(self._registry._cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
-                                       ("name", 0, 0, name))
+                                       ("name", 0, 0, newdata.name))
                         self._registry._notifyNameChange(event)
 
-                if description != cachedata.description:
+                if olddata.description != newdata.description:
                         event = _Event(self._registry._cache,
                                        path,
                                        self._bus_name,
@@ -123,7 +126,7 @@ class AccessibleCache(object):
                                        ("description", 0, 0, description))
                         self._registry._notifyDescriptionChange(event)
 
-                if parent != cachedata.parent:
+                if olddata.parent != newdata.parent:
                         event = _Event(self._registry._cache,
                                        path,
                                        self._bus_name,
@@ -132,30 +135,44 @@ class AccessibleCache(object):
                                        ("parent", 0, 0, ""))
                         self._registry._notifyParentChange(event)
 
-                if children != cachedata.children:
+                added, removed = _list_items_added_removed (olddata.children, newdata.children):
+
+                if added:
                         event = _Event(self._registry._cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "children-changed",
-                                       ("", 0, 0, ""))
+                                       ("add", 0, 0, ""))
                         self._registry._notifyChildrenChange(event)
 
-                cachedata._update(data)
+                if removed:
+                        event = _Event(self._registry._cache,
+                                       path,
+                                       self._bus_name,
+                                       "org.freedesktop.atspi.Event.Object",
+                                       "children-changed",
+                                       ("remove", 0, 0, ""))
+                        self._registry._notifyChildrenChange(event)
 
         def _update_handler(self, update, remove):
                 self._remove_objects(remove)
                 self._update_objects(update)
 
         def _update_objects(self, objects):
+                cache_update_objects = []
                 for data in objects:
                         #First element is the object path.
                         path = data[0]
                         if path in self._objects:
-                                cachedata = self._objects[path]
-                                self._update_cache_dispatch_events(cachedata, data)
+                                olddata = self._objects[path]
+                                newdata = _CacheData(data)
+                                cache_update_objects.append((olddata, newdata))
+                                self._objects[path] = newdata
                         else:
                                 self._objects[path] = _CacheData(data)
+                for old, new in cache_update_objects:
+                        self._dispatch_event(old, new)
 
         def _remove_objects(self, paths):
                 for path in paths:
