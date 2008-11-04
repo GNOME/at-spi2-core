@@ -27,7 +27,7 @@ from base import Enum as _Enum
 from desktop import Desktop as _Desktop
 from event import EventType as _EventType
 from event import event_type_to_signal_reciever as _event_type_to_signal_reciever
-from applicationcache import TestApplicationCache
+from applicationcache import TestApplicationCache, ApplicationCache
 
 from dbus.mainloop.glib import DBusGMainLoop as _DBusGMainLoop
 _DBusGMainLoop(set_as_default=True)
@@ -123,8 +123,6 @@ class _Registry(object):
         @type observers: dictionary
         """
 
-        _REGISTRY_NAME = 'org.freedesktop.atspi.Registry'
-
         def __init__(self):
                 """
                 Stores a reference to the AT-SPI registry. Gets and stores a reference
@@ -141,6 +139,8 @@ class _Registry(object):
                 if app_name:
                         self._app_name = app_name
                         self._appcache = TestApplicationCache(self, self._bus, app_name)
+                else:
+                        self._appcache = ApplicationCache(self, self._bus)
 
                 self._event_listeners = {}
 

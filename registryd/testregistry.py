@@ -9,18 +9,6 @@ from dbus.mainloop.glib import DBusGMainLoop
 
 DBusGMainLoop(set_as_default=True)
 
-class Emitter (dbus.service.Object):
-	def __init__(self, bus, object_path):
-		dbus.service.Object.__init__(self, bus, object_path)
-
-	@dbus.service.signal(dbus_interface='org.freedesktop.atspi.Tree', signature='s')
-	def registerApplication(self, app_name):
-		pass
-
-	@dbus.service.signal(dbus_interface='org.freedesktop.atspi.Tree', signature='s')
-	def deregisterApplication(self, app_name):
-		pass
-
 class IdleStateM (object):
 	def __init__(self, bus, loop):
 		self._bus = bus
@@ -34,14 +22,15 @@ class IdleStateM (object):
 		return True
 
 	def setup(self):
-		self.emit = Emitter(self._bus, "/org/freedesktop/atspi/tree")
-		self.obj = self._bus.get_object("org.freedesktop.atspi.Registry", "/org/freedesktop/atspi/registry")
+		self.obj = self._bus.get_object("org.freedesktop.atspi.Registry",
+                                                "/org/freedesktop/atspi/registry",
+                                                introspect=False)
 		self.itf = dbus.Interface(self.obj, dbus_interface="org.freedesktop.atspi.Registry")
-		return self.emit_registers
+		return self.register_apps
 
-	def emit_registers(self):
-		self.emit.registerApplication(":R123")
-		self.emit.registerApplication(":R456")
+	def register_apps(self):
+		#self.itf.registerApplication(":R456", ignore_reply=True)
+		#self.itf.registerApplication(":R123", ignore_reply=True)
 		return self.print_applications
 
 	def print_applications(self):

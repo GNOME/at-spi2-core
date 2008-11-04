@@ -28,6 +28,12 @@
 
 #include "registry.h"
 
+enum
+{
+  REGISTRY_APPLICATION_REMOVE = 0,
+  REGISTRY_APPLICATION_ADD = 1
+};
+
 /*---------------------------------------------------------------------------*/
 
 G_DEFINE_TYPE(SpiRegistry, spi_registry, G_TYPE_OBJECT)
@@ -59,57 +65,38 @@ static void emit(SpiRegistry *reg, const char *itf, const char *name, int ftype,
 
 /*---------------------------------------------------------------------------*/
 
-static void
-add_bus_name_cb (gpointer item, gpointer data)
-{
-  DBusMessageIter *iter_array = (DBusMessageIter *) data;
-
-  dbus_message_iter_append_basic (iter_array, DBUS_TYPE_STRING, (gchar **) &item);
-}
-
-static DBusMessage *
-impl_getApplications (DBusConnection *bus, DBusMessage *message, void *user_data)
-{
-  DBusMessage *reply;
-  DBusMessageIter iter, iter_array;
-  SpiRegistry *reg = SPI_REGISTRY (user_data);
-
-  reply = dbus_message_new_method_return (message);
-
-  dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "s", &iter_array);
-  g_sequence_foreach (reg->apps, add_bus_name_cb, &iter_array);
-  dbus_message_iter_close_container(&iter, &iter_array);
-  return reply;
-}
-
-static DBusHandlerResult
-message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
-{
-  DBusMessage *reply = NULL;
-
-  if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "getApplications"))
-    {
-      reply = impl_getApplications (bus, message, user_data);
-      if (reply)
-        {
-          dbus_connection_send (bus, reply, NULL);
-          dbus_message_unref (reply);
-        }
-      return DBUS_HANDLER_RESULT_HANDLED;
-    }
-  else
-    {
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
-}
-
-/*---------------------------------------------------------------------------*/
-
 static gint
 data_str_cmp (gpointer a, gpointer b, gpointer data)
 {
   return g_strcmp0(a, b);
+}
+
+static gboolean
+seq_add_string (GSequence *seq, gchar *str)
+{
+  GSequenceIter *iter;
+  gchar *item;
+  gboolean res = FALSE;
+
+  iter = g_sequence_search (seq, str, (GCompareDataFunc) data_str_cmp, NULL);
+  iter = g_sequence_iter_prev (iter);
+
+  if (!g_sequence_iter_is_end (iter))
+    {
+      item = g_sequence_get (iter);
+      if (g_strcmp0 (item, str))
+        {
+          g_sequence_insert_sorted (seq, g_strdup(str), (GCompareDataFunc) data_str_cmp, NULL);
+          res = TRUE;
+        }
+    }
+  else
+    {
+      g_sequence_insert_sorted (seq, g_strdup(str), (GCompareDataFunc) data_str_cmp, NULL);
+      res = TRUE;
+    }
+
+  return res;
 }
 
 static gboolean
@@ -135,25 +122,128 @@ seq_remove_string (GSequence *seq, gchar *str)
 }
 
 static void
-handle_register_application (SpiRegistry *reg, DBusMessage *message)
+add_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
 {
-  gchar *app_name;
+  guint add = REGISTRY_APPLICATION_ADD;
 
-  if (dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &app_name, DBUS_TYPE_INVALID))
-      g_sequence_insert_sorted (reg->apps, app_name, (GCompareDataFunc) data_str_cmp, NULL);
+  if (seq_add_string (reg->apps, app))
+    {
+      emit (reg,
+            SPI_DBUS_INTERFACE_REGISTRY,
+            "updateApplications",
+            DBUS_TYPE_INT32,
+            &add,
+            DBUS_TYPE_STRING,
+            &app,
+            DBUS_TYPE_INVALID);
+    }
 }
 
 static void
-handle_deregister_application (SpiRegistry *reg, DBusMessage *message)
+remove_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
+{
+  guint remove = REGISTRY_APPLICATION_REMOVE;
+
+  if (seq_remove_string (reg->apps, app))
+    {
+      /*TODO spi_remove_device_listeners (registry->de_controller, old);*/
+      emit (reg,
+            SPI_DBUS_INTERFACE_REGISTRY,
+            "updateApplications",
+            DBUS_TYPE_INT32,
+            &remove,
+            DBUS_TYPE_STRING,
+            &app,
+            DBUS_TYPE_INVALID);
+    }
+}
+
+/*---------------------------------------------------------------------------*/
+
+static void
+add_bus_name_cb (gpointer item, gpointer data)
+{
+  DBusMessageIter *iter_array = (DBusMessageIter *) data;
+
+  dbus_message_iter_append_basic (iter_array, DBUS_TYPE_STRING, (gchar **) &item);
+}
+
+static DBusMessage *
+impl_getApplications (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_array;
+  SpiRegistry *reg = SPI_REGISTRY (user_data);
+
+  reply = dbus_message_new_method_return (message);
+
+  dbus_message_iter_init_append (reply, &iter);
+  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "s", &iter_array);
+  g_sequence_foreach (reg->apps, add_bus_name_cb, &iter_array);
+  dbus_message_iter_close_container(&iter, &iter_array);
+  return reply;
+}
+
+/*---------------------------------------------------------------------------*/
+
+static void
+impl_registerApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   gchar *app_name;
+  SpiRegistry *reg = SPI_REGISTRY (user_data);
 
   if (dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &app_name, DBUS_TYPE_INVALID))
-      seq_remove_string (reg->apps, app_name);
+      add_application(bus, reg, app_name);
 }
 
 static void
-handle_disconnection (SpiRegistry *reg, DBusMessage *message)
+impl_deregisterApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  gchar *app_name;
+  SpiRegistry *reg = SPI_REGISTRY (user_data);
+
+  if (dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &app_name, DBUS_TYPE_INVALID))
+      remove_application(bus, reg, app_name);
+}
+
+/*---------------------------------------------------------------------------*/
+
+static DBusHandlerResult
+message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  DBusMessage *reply = NULL;
+  guint res = DBUS_HANDLER_RESULT_HANDLED;
+
+
+  int mtype;
+  const char *itf;
+  const char *name;
+
+  mtype = dbus_message_get_type (message);
+  itf = dbus_message_get_interface (message);
+  name = dbus_message_get_member (message);
+
+  if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "getApplications"))
+      reply = impl_getApplications (bus, message, user_data);
+  else if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "registerApplication"))
+      impl_registerApplication (bus, message, user_data);
+  else if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "deregisterApplication"))
+      impl_deregisterApplication (bus, message, user_data);
+  else
+      res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+  if (reply)
+    {
+      dbus_connection_send (bus, reply, NULL);
+      dbus_message_unref (reply);
+    }
+  return res;
+}
+
+/*---------------------------------------------------------------------------*/
+
+static void
+handle_disconnection (DBusConnection *bus, SpiRegistry *reg, DBusMessage *message)
 {
   char *name, *old, *new;
 
@@ -162,17 +252,12 @@ handle_disconnection (SpiRegistry *reg, DBusMessage *message)
                              DBUS_TYPE_STRING, &old,
                              DBUS_TYPE_STRING, &new,
                              DBUS_TYPE_INVALID))
-  {
-    if (*old != '\0' && *new == '\0')
     {
-      if (seq_remove_string (reg->apps, old))
+      if (*old != '\0' && *new == '\0')
         {
-          /*Emit deregistered signal here*/
-          emit (reg, SPI_DBUS_INTERFACE_TREE, "deregisterApplication", DBUS_TYPE_STRING, old);
-          /*TODO spi_remove_device_listeners (registry->de_controller, old);*/
+          remove_application(bus, reg, old);
         }
     }
-  }
 }
 
 static DBusHandlerResult
@@ -183,27 +268,8 @@ signal_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *iface = dbus_message_get_interface (message);
   const char *member = dbus_message_get_member (message);
 
-  g_print ("\n%s", iface);
-  g_print ("\n%d", dbus_message_get_type (message));
-  g_print ("\n%s\n", member);
-
-#if 0
-  if (dbus_message_is_signal (message, DBUS_INTERFACE_DBUS, "NameOwnerChanged"))
-      handle_disconnection (registry, message);
-  else if (dbus_message_is_signal (message, SPI_DBUS_INTERFACE_TREE, "registerApplication"))
-      handle_register_application (registry, message);
-  else if (dbus_message_is_signal (message, SPI_DBUS_INTERFACE_TREE, "deregisterApplication"))
-      handle_deregister_application (registry, message);
-  else
-      res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-#endif
-
   if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) && !g_strcmp0(member, "NameOwnerChanged"))
-      handle_disconnection (registry, message);
-  else if (!g_strcmp0(iface, SPI_DBUS_INTERFACE_TREE) && !g_strcmp0(member, "registerApplication"))
-      handle_register_application (registry, message);
-  else if (!g_strcmp0(iface, SPI_DBUS_INTERFACE_TREE) && !g_strcmp0(member, "deregisterApplication"))
-      handle_deregister_application (registry, message);
+      handle_disconnection (bus, registry, message);
   else
       res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
