@@ -56,6 +56,7 @@
 #include <atk-adaptor/spi-private.h>
 #include <spi-common/keymasks.h>
 #include <droute/droute.h>
+#include <droute/introspect-loader.h>
 #include <spi-common/spi-dbus.h>
 #include <spi-common/spi-types.h>
 
@@ -339,7 +340,7 @@ spi_dec_clear_unlatch_pending (SpiDEController *controller)
 {
   DEControllerPrivateData *priv = 
     g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
-  priv->xkb_latch_mask = 0; 
+  priv->xkb_latch_mask = 0;
 }
  
 static void emit(SpiDEController *controller, const char *name, int first_type, ...)
@@ -347,12 +348,12 @@ static void emit(SpiDEController *controller, const char *name, int first_type, 
   va_list arg;
 
   va_start(arg, first_type);
-  spi_dbus_emit_valist(controller->registry->droute.bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
+  spi_dbus_emit_valist(controller->droute->bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
   va_end(arg);
 }
 
 static gboolean
-spi_dec_button_update_and_emit (SpiDEController *controller, 
+spi_dec_button_update_and_emit (SpiDEController *controller,
 				guint mask_return)
 {
   Accessibility_DeviceEvent mouse_e;
@@ -540,14 +541,13 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
 static gboolean
 spi_dec_poll_mouse_moved (gpointer data)
 {
-  SpiRegistry *registry = SPI_REGISTRY (data);
-  SpiDEController *controller = registry->de_controller;
-  int x, y;  
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(data);
+  int x, y;
   gboolean moved;
   guint mask_return;
 
   mask_return = spi_dec_mouse_check (controller, &x, &y, &moved);
-  
+
   if ((mask_return & key_modifier_mask) !=
       (mouse_mask_state & key_modifier_mask)) 
     {
@@ -561,7 +561,7 @@ spi_dec_poll_mouse_moved (gpointer data)
 static gboolean
 spi_dec_poll_mouse_idle (gpointer data)
 {
-  if (! spi_dec_poll_mouse_moved (data)) 
+  if (! spi_dec_poll_mouse_moved (data))
     return TRUE;
   else
     {
@@ -597,12 +597,12 @@ spi_dec_ungrab_mouse (gpointer data)
 #endif
 
 static void
-spi_dec_init_mouse_listener (SpiRegistry *registry)
+spi_dec_init_mouse_listener (SpiDEController *dec)
 {
 #ifdef GRAB_BUTTON
   Display *display = spi_get_display ();
 #endif
-  g_timeout_add (100, spi_dec_poll_mouse_idle, registry);
+  g_timeout_add (100, spi_dec_poll_mouse_idle, dec);
 
 #ifdef GRAB_BUTTON
   if (display)
@@ -835,10 +835,6 @@ _deregister_keygrab (SpiDEController      *controller,
           cur_mask->pending_remove = TRUE;
 	}
     }
-  else
-    {
-      DBG (1, g_warning ("De-registering non-existant grab"));
-    }
 }
 
 static void
@@ -917,7 +913,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
 
       controller->key_listeners = g_list_prepend (controller->key_listeners,
 						  key_listener);
-      spi_dbus_add_disconnect_match (controller->registry->droute.bus, key_listener->listener.bus_name);
+      spi_dbus_add_disconnect_match (controller->droute->bus, key_listener->listener.bus_name);
       if (key_listener->mode->global)
         {
 	  return spi_controller_register_global_keygrabs (controller, key_listener);	
@@ -927,16 +923,19 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       break;
   case SPI_DEVICE_TYPE_MOUSE:
       controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
-      spi_dbus_add_disconnect_match (controller->registry->droute.bus, listener->bus_name);
+      spi_dbus_add_disconnect_match (controller->droute->bus, listener->bus_name);
       break;
   default:
-      DBG (1, g_warning ("listener registration for unknown device type.\n"));
       break;
   }
-  return FALSE; 
+  return FALSE;
 }
 
-static gboolean Accessibility_DeviceEventListener_notifyEvent(SpiRegistry *registry, DEControllerListener *listener, const Accessibility_DeviceEvent *key_event)
+static gboolean
+Accessibility_DeviceEventListener_notifyEvent(SpiDEController *controller,
+                                              SpiRegistry *registry,
+                                              DEControllerListener *listener,
+                                              const Accessibility_DeviceEvent *key_event)
 {
   DBusMessage *message = dbus_message_new_method_call(listener->bus_name, listener->path, "org.freedesktop.atspi.Registry", "notifyEvent");
   DBusError error;
@@ -947,7 +946,7 @@ static gboolean Accessibility_DeviceEventListener_notifyEvent(SpiRegistry *regis
   {
     // TODO: Evaluate performance: perhaps rework this whole architecture
     // to avoid blocking calls
-    DBusMessage *reply = dbus_connection_send_with_reply_and_block(registry->droute.bus, message, 1000, &error);
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block(controller->droute->bus, message, 1000, &error);
     if (reply)
     {
       DBusError error;
@@ -1001,16 +1000,16 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
   is_consumed = FALSE;
   for (l2 = notify; l2 && !is_consumed; l2 = l2->next)
     {
-      DEControllerListener *listener = l2->data;	    
+      DEControllerListener *listener = l2->data;
 
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller->registry, listener, event);
-      
+      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller, controller->registry, listener, event);
+
       spi_listener_clone_free ((DEControllerListener *) l2->data);
     }
 
   for (; l2; l2 = l2->next)
     {
-      DEControllerListener *listener = l2->data;	    
+      DEControllerListener *listener = l2->data;
       spi_listener_clone_free (listener);
       /* clone doesn't have its own ref, so don't use spi_device_listener_free */
     }
@@ -1091,7 +1090,8 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 	spi_controller_notify_mouselisteners (controller, &mouse_e);
       ix = last_mouse_pos->x;
       iy = last_mouse_pos->y;
-      emit(controller, event_name, DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
+      /* TODO - Work out which part of the spec this emit is fulfilling */
+      //emit(controller, event_name, DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
     }
 
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||
@@ -1231,8 +1231,6 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 	      priv->xkb_latch_mask = xkb_snev->latched_mods;
 	    }
 	}
-        else
-	       DBG (2, g_warning ("XKB event %d\n", xkb_ev->xkb_type));
       XSynchronize (display, FALSE);
     }
   
@@ -1257,10 +1255,14 @@ _spi_controller_device_error_handler (Display *display, XErrorEvent *error)
 static void
 spi_controller_register_with_devices (SpiDEController *controller)
 {
-  DEControllerPrivateData *priv = (DEControllerPrivateData *) 
-	  g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);	 
-  /* FIXME: should check for extension first! */
-  XTestGrabControl (spi_get_display (), True);
+  DEControllerPrivateData *priv;
+  int event_base, error_base, major_version, minor_version;
+
+  priv = (DEControllerPrivateData *) g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
+  if (XTestQueryExtension (spi_get_display(), &event_base, &error_base, &major_version, &minor_version))
+    {
+      XTestGrabControl (spi_get_display (), True);
+    }
 
   /* calls to device-specific implementations and routines go here */
   /* register with: keyboard hardware code handler */
@@ -1459,7 +1461,7 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
     {
       DEControllerKeyListener *key_listener = l2->data;	    
 
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller->registry, &key_listener->listener, key_event) &&
+      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller, controller->registry, &key_listener->listener, key_event) &&
 	            key_listener->mode->preemptive;
 
       spi_key_listener_clone_free (key_listener);
@@ -1780,7 +1782,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
 				  DBusMessage *message,
 				  void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerKeyListener *dec_listener;
   DBusMessageIter iter, iter_array;
   const char *path;
@@ -1840,7 +1842,7 @@ impl_register_device_listener (DBusConnection *bus,
 				  DBusMessage *message,
 				  void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerListener *dec_listener;
   DBusError error;
   const char *path;
@@ -1913,7 +1915,7 @@ spi_controller_deregister_device_listener (SpiDEController            *controlle
 {
   RemoveListenerClosure  ctx;
 
-  ctx.bus = controller->registry->droute.bus;
+  ctx.bus = controller->droute->bus;
   ctx.listener = listener;
 
   spi_re_entrant_list_foreach (&controller->mouse_listeners,
@@ -1926,7 +1928,7 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
 {
   RemoveListenerClosure  ctx;
 
-  ctx.bus = controller->registry->droute.bus;
+  ctx.bus = controller->droute->bus;
   ctx.listener = (DEControllerListener *) key_listener;
 
   /* special case, copy keyset from existing controller list entry */
@@ -1935,7 +1937,7 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
       spi_re_entrant_list_foreach (&controller->key_listeners,
 				  copy_key_listener_cb, &ctx);
     }
-  
+
   spi_controller_deregister_global_keygrabs (controller, key_listener);
 
   spi_re_entrant_list_foreach (&controller->key_listeners,
@@ -1977,7 +1979,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
 				  DBusMessage *message,
 				  void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerKeyListener *key_listener;
   DBusMessageIter iter, iter_array;
   const char *path;
@@ -2029,7 +2031,7 @@ impl_deregister_device_listener (DBusConnection *bus,
 				  DBusMessage *message,
 				  void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DEControllerListener *listener;
   DBusError error;
   const char *path;
@@ -2337,7 +2339,7 @@ dec_synth_keystring (SpiDEController *controller, const char *keystring)
  */
 static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   DBusError error;
   dbus_int32_t keycode;
   char *keystring;
@@ -2399,10 +2401,6 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
 		      fprintf (stderr, "Keystring synthesis failure, string=%s\n",
 			       keystring);
 	      break;
-    }
-  if ((err = gdk_error_trap_pop ()))
-    {
-      DBG (-1, g_warning ("Error [%d] emitting keystroke", err));
     }
   if (synth_type == Accessibility_KEY_SYM) {
     keysym = keycode;
@@ -2497,7 +2495,7 @@ static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage
 static DBusMessage *
 impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   Accessibility_DeviceEvent event;
   dbus_bool_t ret;
   DBusMessage *reply;
@@ -2525,7 +2523,7 @@ impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *use
 static DBusMessage *
 impl_notify_listeners_async (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  SpiDEController *controller = SPI_REGISTRY(user_data)->de_controller;
+  SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   Accessibility_DeviceEvent event;
   DBusMessage *reply;
 
@@ -2549,7 +2547,7 @@ spi_device_event_controller_class_init (SpiDEControllerClass *klass)
   GObjectClass * object_class = (GObjectClass *) klass;
 
   spi_device_event_controller_parent_class = g_type_class_peek_parent (klass);
-  
+
   object_class->finalize = spi_device_event_controller_object_finalize;
 
   if (!spi_dec_private_quark)
@@ -2651,18 +2649,6 @@ spi_device_event_controller_forward_key_event (SpiDEController *controller,
   return ret;
 }
 
-SpiDEController *
-spi_device_event_controller_new (SpiRegistry *registry)
-{
-  SpiDEController *retval = g_object_new (
-    SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
-  
-  retval->registry = g_object_ref (registry);
-
-  spi_dec_init_mouse_listener (registry);
-  /* TODO: kill mouse listener on finalize */  
-  return retval;
-}
 
 static gboolean
 is_key_released (KeyCode code)
@@ -2701,7 +2687,37 @@ static void wait_for_release_event (XEvent          *event,
   check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
 }
 
-static DRouteMethod methods[] =
+static DBusMessage *
+impl_introspect (DBusConnection *bus, DBusMessage *message,
+                 void *user_data)
+{
+  const char *path;
+  GString *output;
+  char *final;
+
+  DBusMessage *reply;
+
+  path = dbus_message_get_path(message);
+
+  output = g_string_new(spi_introspection_header);
+
+  g_string_append_printf(output, spi_introspection_node_element, path);
+
+  spi_append_interface(output, SPI_DBUS_INTERFACE_DEC);
+
+  g_string_append(output, spi_introspection_footer);
+  final = g_string_free(output, FALSE);
+
+  reply = dbus_message_new_method_return (message);
+  g_assert(reply != NULL);
+  dbus_message_append_args(reply, DBUS_TYPE_STRING, &final,
+                           DBUS_TYPE_INVALID);
+
+  g_free(final);
+  return reply;
+}
+
+static DRouteMethod dev_methods[] =
 {
   { impl_register_keystroke_listener, "registerKeystrokeListener" },
   { impl_register_device_listener, "registerDeviceListener" },
@@ -2714,17 +2730,30 @@ static DRouteMethod methods[] =
   { NULL, NULL }
 };
 
-static void
-spi_registry_initialize_dec_interface (DRouteData * data)
-{
-  droute_add_interface (data, SPI_DBUS_INTERFACE_DEC, methods,
-			NULL, NULL, NULL);
+static DRouteMethod intro_methods[] = {
+  {impl_introspect, "Introspect"},
+  {NULL, NULL}
 };
 
 SpiDEController *
-spi_registry_dec_new (DRouteData *droute)
+spi_registry_dec_new (SpiRegistry *reg, DRouteData *droute)
 {
-  SpiDEController *dec = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, 1);
-  spi_registry_initialize_dec_interface (&droute);
+  SpiDEController *dec = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
+
+  dec->registry = g_object_ref (reg);
+  dec->droute = droute;
+
+  droute_add_interface (droute,
+                        SPI_DBUS_INTERFACE_DEC,
+                        dev_methods,
+                        NULL, NULL, NULL);
+  droute_add_interface (droute,
+                        "org.freedesktop.DBus.Introspectable",
+                        intro_methods,
+                        NULL, NULL, NULL);
+
+  spi_dec_init_mouse_listener (dec);
+  /* TODO: kill mouse listener on finalize */
+
   return dec;
 }

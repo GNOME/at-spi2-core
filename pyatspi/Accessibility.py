@@ -22,8 +22,10 @@ from collection import *
 from component import *
 from constants import *
 from desktop import *
+from deviceevent import *
 from document import *
 from editabletext import *
+from event import *
 from hyperlink import *
 from hypertext import *
 from image import *

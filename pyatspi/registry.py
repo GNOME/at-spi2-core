@@ -23,78 +23,20 @@ import os as _os
 import dbus as _dbus
 import gobject as _gobject
 
-from base import Enum as _Enum
 from desktop import Desktop as _Desktop
+
 from event import EventType as _EventType
 from event import event_type_to_signal_reciever as _event_type_to_signal_reciever
+
 from applicationcache import TestApplicationCache, ApplicationCache
 
 from dbus.mainloop.glib import DBusGMainLoop as _DBusGMainLoop
+
+from Queue import Queue
+from deviceevent import *
+from deviceevent import _TestDeviceEventController
+
 _DBusGMainLoop(set_as_default=True)
-
-#------------------------------------------------------------------------------
-
-class PressedEventType(_Enum):
-        _enum_lookup = {
-                0:'KEY_PRESSED_EVENT',
-                1:'KEY_RELEASED_EVENT',
-                2:'BUTTON_PRESSED_EVENT',
-                3:'BUTTON_RELEASED_EVENT',
-        }
-
-KEY_PRESSED_EVENT = PressedEventType(0)
-KEY_RELEASED_EVENT = PressedEventType(1)
-BUTTON_PRESSED_EVENT = PressedEventType(2)
-BUTTON_RELEASED_EVENT = PressedEventType(3)
-#------------------------------------------------------------------------------
-
-class KeyEventType(_Enum):
-        _enum_lookup = {
-                0:'KEY_PRESSED',
-                1:'KEY_RELEASED',
-        }
-KEY_PRESSED = KeyEventType(0)
-KEY_RELEASED = KeyEventType(1)
-
-#------------------------------------------------------------------------------
-
-class KeySynthType(_Enum):
-        _enum_lookup = {
-                0:'KEY_PRESS',
-                1:'KEY_RELEASE',
-                2:'KEY_PRESSRELEASE',
-                3:'KEY_SYM',
-                4:'KEY_STRING',
-        }
-
-KEY_PRESS = KeySynthType(0)
-KEY_PRESSRELEASE = KeySynthType(2)
-KEY_RELEASE = KeySynthType(1)
-KEY_STRING = KeySynthType(4)
-KEY_SYM = KeySynthType(3)
-
-#------------------------------------------------------------------------------
-
-class ModifierType(_Enum):
-        _enum_lookup = {
-                0:'MODIFIER_SHIFT',
-                1:'MODIFIER_SHIFTLOCK',
-                2:'MODIFIER_CONTROL',
-                3:'MODIFIER_ALT',
-                4:'MODIFIER_META',
-                5:'MODIFIER_META2',
-                6:'MODIFIER_META3',
-                7:'MODIFIER_NUMLOCK',
-        }
-
-MODIFIER_ALT = ModifierType(3)
-MODIFIER_CONTROL = ModifierType(2)
-MODIFIER_META = ModifierType(4)
-MODIFIER_META2 = ModifierType(5)
-MODIFIER_META3 = ModifierType(6)
-MODIFIER_NUMLOCK = ModifierType(7)
-MODIFIER_SHIFT = ModifierType(0)
-MODIFIER_SHIFTLOCK = ModifierType(1)
 
 #------------------------------------------------------------------------------
 
@@ -136,11 +78,13 @@ class _Registry(object):
                 app_name = None
                 if "ATSPI_TEST_APP_NAME" in _os.environ.keys():
                         app_name = _os.environ["ATSPI_TEST_APP_NAME"]
+
                 if app_name:
-                        self._app_name = app_name
                         self._appcache = TestApplicationCache(self, self._bus, app_name)
+                        self.dev = _TestDeviceEventController()
                 else:
                         self._appcache = ApplicationCache(self, self._bus)
+                        self.dev = DeviceEventController(self._bus)
 
                 self._event_listeners = {}
 
@@ -155,6 +99,9 @@ class _Registry(object):
                 self._parent_listeners = {}
                 self._children_changed_type = _EventType("object:children-changed")
                 self._children_changed_listeners = {}
+
+                self.queue = Queue()
+                self.clients = {}
 
         def __call__(self):
                 """
@@ -384,7 +331,20 @@ class _Registry(object):
                         AT-SPI is in the foreground? (requires xevie)
                 @type global_: boolean
                 """
-                pass
+                try:
+                        # see if we already have an observer for this client
+                        ob = self.clients[client]
+                except KeyError:
+                        # create a new device observer for this client
+                        ob = KeyboardDeviceEventListener(self, synchronous, preemptive, global_)
+                        # store the observer to client mapping, and the inverse
+                        self.clients[ob] = client
+                        self.clients[client] = ob
+                if mask is None:
+                        # None means all modifier combinations
+                        mask = utils.allModifiers()
+                # register for new keystrokes on the observer
+                ob.register(self.dev, key_set, mask, kind)
 
         def deregisterKeystrokeListener(self,
                                         client,
@@ -411,7 +371,13 @@ class _Registry(object):
                 @type kind: list
                 @raise KeyError: When the client isn't already registered for events
                 """
-                pass
+                # see if we already have an observer for this client
+                ob = self.clients[client]
+                if mask is None:
+                        # None means all modifier combinations
+                        mask = utils.allModifiers()
+                # register for new keystrokes on the observer
+                ob.unregister(self.dev, key_set, mask, kind)
 
         def generateKeyboardEvent(self, keycode, keysym, kind):
                 """
@@ -427,7 +393,10 @@ class _Registry(object):
                 @param kind: Kind of event to synthesize
                 @type kind: integer
                 """
-                pass
+                if keysym is None:
+                        self.dev.generateKeyboardEvent(keycode, '', kind)
+                else:
+                        self.dev.generateKeyboardEvent(None, keysym, kind)
 
         def generateMouseEvent(self, x, y, name):
                 """
@@ -443,7 +412,7 @@ class _Registry(object):
                 @param name: Name of the event to generate
                 @type name: string
                 """
-                pass
+                self.dev.generateMouseEvent(x, y, name)
 
         def handleDeviceEvent(self, event, ob):
                 """
@@ -459,29 +428,86 @@ class _Registry(object):
                 @param event: AT-SPI device event
                 @type event: L{event.DeviceEvent}
                 @param ob: Observer that received the event
-                @type ob: L{_DeviceObserver}
+                @type ob: L{KeyboardDeviceEventListener}
 
                 @return: Should the event be consumed (True) or allowed to pass on to other
                         AT-SPI observers (False)?
                 @rtype: boolean
                 """
-                return True
+                try:
+                        # try to get the client registered for this event type
+                        client = self.clients[ob]
+                except KeyError:
+                        # client may have unregistered recently, ignore event
+                        return False
+                # make the call to the client
+                try:
+                        return client(event) or event.consume
+                except Exception:
+                        # print the exception, but don't let it stop notification
+                        traceback.print_exc()
  
         def handleEvent(self, event):
-                """                
+                """
                 Handles an AT-SPI event by either queuing it for later dispatch when the
                 L{Registry.async} flag is set, or dispatching it immediately.
 
                 @param event: AT-SPI event
                 @type event: L{event.Event}
                 """
-                pass
+                if self.async:
+                        # queue for now
+                        self.queue.put_nowait(event)
+                else:
+                        # dispatch immediately
+                        self._dispatchEvent(event)
+
+        def _dispatchEvent(self, event):
+                """
+                Dispatches L{event.Event}s to registered clients. Clients are called in
+                the order they were registered for the given AT-SPI event. If any client
+                returns True, callbacks cease for the event for clients of this registry 
+                instance. Clients of other registry instances and clients in other processes 
+                are unaffected.
+
+                @param event: AT-SPI event
+                @type event: L{event.Event}
+                """
+                et = event.type
+                try:
+                        # try to get the client registered for this event type
+                        clients = self.clients[et.name]
+                except KeyError:
+                        try:
+                                # we may not have registered for the complete subtree of events
+                                # if our tree does not list all of a certain type (e.g.
+                                # object:state-changed:*); try again with klass and major only
+                                if et.detail is not None:
+                                        # Strip the 'detail' field.
+                                        clients = self.clients['%s:%s:%s' % (et.klass, et.major, et.minor)]
+                                elif et.minor is not None:
+                                        # The event could possibly be object:state-changed:*.
+                                        clients = self.clients['%s:%s' % (et.klass, et.major)]
+                        except KeyError:
+                                # client may have unregistered recently, ignore event
+                                return
+                # make the call to each client
+                consume = False
+                for client in clients:
+                        try:
+                                consume = client(event) or False
+                        except Exception:
+                                # print the exception, but don't let it stop notification
+                                traceback.print_exc()
+                        if consume or event.consume:
+                                # don't allow further processing if a client returns True
+                                break
 
         def flushEvents(self):
                 """
                 Flushes the event queue by destroying it and recreating it.
                 """
-                pass
+                self.queue = Queue()
 
         def pumpQueuedEvents(self, num=-1):
                 """
@@ -495,4 +521,15 @@ class _Registry(object):
                 @return: True if queue is not empty after events were pumped.
                 @rtype: boolean
                 """
-                return False
+                if num < 0:
+                        # Dequeue as many events as currently in the queue.
+                        num = self.queue.qsize()
+                for i in xrange(num):
+                        try:
+                                # get next waiting event
+                                event = self.queue.get_nowait()
+                        except Queue.Empty:
+                                break
+                        self._dispatchEvent(event)
+
+                return not self.queue.empty()

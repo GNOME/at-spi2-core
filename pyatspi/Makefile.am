@@ -11,6 +11,7 @@ pyatspi_PYTHON = \
 		component.py		\
 		constants.py		\
 		desktop.py		\
+		deviceevent.py		\
 		document.py		\
 		editabletext.py		\
 		event.py		\

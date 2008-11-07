@@ -20,7 +20,8 @@ at_spi_registryd_SOURCES =	\
 	registry-main.c		\
 	registry.c		\
 	registry.h		\
+	deviceeventcontroller.c	\
+	deviceeventcontroller.h	\
+	reentrant-list.c	\
+	reentrant-list.h	\
 	ucs2keysym.c
-
-#	deviceeventcontroller.c
-#	deviceeventcontroller.h

@@ -26,6 +26,7 @@
 
 #include <X11/Xlib.h>
 #include <gdk/gdk.h>
+#include <droute/droute.h>
 
 typedef struct _SpiDEController SpiDEController;
 
@@ -44,6 +45,7 @@ struct _SpiDEController {
 	GObject parent;
 	
 	SpiRegistry *registry;
+        DRouteData  *droute;
 	GList       *key_listeners;
 	GList       *mouse_listeners;
 	GList       *keygrabs_list;
@@ -58,8 +60,6 @@ GType            spi_device_event_controller_get_type (void);
 SpiDEController *spi_device_event_controller_new      (SpiRegistry *registry);
 
 void spi_remove_device_listeners (SpiDEController *controller, const char *bus_name);
-
-void spi_registry_initialize_dec_interface (DRouteData * data);
 
 G_END_DECLS
 

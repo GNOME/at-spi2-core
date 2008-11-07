@@ -30,3 +30,11 @@ ATSPI_STREAMABLE_CONTENT = 'org.freedesktop.atspi.Content'
 ATSPI_TABLE = 'org.freedesktop.atspi.Table'
 ATSPI_TEXT = 'org.freedesktop.atspi.Text'
 ATSPI_VALUE = 'org.freedesktop.atspi.Value'
+
+ATSPI_REGISTRY_INTERFACE = 'org.freedesktop.atspi.Registry'
+ATSPI_REGISTRY_PATH = '/org/freedesktop/atspi/registry'
+ATSPI_REGISTRY_NAME = 'org.freedesktop.atspi.Registry'
+
+ATSPI_DEVICE_EVENT_CONTROLLER_INTERFACE = 'org.freedesktop.atspi.DeviceEventController'
+ATSPI_DEVICE_EVENT_CONTROLLER_PATH = '/org/freedesktop/atspi/registry/deviceeventcontroller'
+ATSPI_DEVICE_EVENT_LISTENER_INTERFACE = 'org.freedesktop.atspi.DeviceEventListener'

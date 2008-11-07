@@ -27,8 +27,10 @@
 #include <glib/gmain.h>
 
 #include <spi-common/spi-dbus.h>
+#include <droute/droute.h>
 
 #include "registry.h"
+#include "deviceeventcontroller.h"
 
 static gchar *dbus_name = NULL;
 
@@ -38,11 +40,19 @@ static GOptionEntry optentries[] =
   {NULL}
 };
 
+static DBusObjectPathVTable droute_vtable =
+{
+  NULL,
+  &droute_message,
+  NULL, NULL, NULL, NULL
+};
+
 int
 main (int argc, char **argv)
 {
   SpiRegistry *registry;
-  /*SpiDEController *dec;*/
+  SpiDEController *dec;
+  DRouteData droute;
 
   GMainLoop *mainloop;
   DBusConnection *bus;
@@ -54,6 +64,9 @@ main (int argc, char **argv)
   int ret;
 
   g_type_init();
+
+  /* We depend on GDK as well as XLib for device event processing */
+  gdk_init(&argc, &argv);
 
   /*Parse command options*/
   opt = g_option_context_new(NULL);
@@ -67,6 +80,7 @@ main (int argc, char **argv)
 
   dbus_error_init (&error);
   bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+  droute.bus = bus;
   if (!bus)
   {
     g_warning("Couldn't connect to dbus: %s\n", error.message);
@@ -85,8 +99,19 @@ main (int argc, char **argv)
       g_print ("SpiRegistry daemon is running with well-known name - %s\n", dbus_name);
     }
 
-  /*dec = spi_registry_dec_new (bus);*/
+  /* Set up D-Route for use by the dec */
+  if (!dbus_connection_register_object_path (droute.bus,
+                                             "/org/freedesktop/atspi/registry/deviceeventcontroller",
+                                             &droute_vtable,
+                                             &droute))
+  {
+    g_error("AT-SPI Registry daemon: Couldn't register droute.\n");
+    return 0;
+  }
+
   registry = spi_registry_new (bus);
+  dec = spi_registry_dec_new (registry, &droute);
+  droute.user_data = dec;
 
   g_main_loop_run (mainloop);
   return 0;

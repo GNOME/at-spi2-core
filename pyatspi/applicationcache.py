@@ -19,7 +19,7 @@ from desktop import Desktop
 from factory import accessible_factory
 from event import Event as _Event
 
-import interfaces
+from interfaces import *
 
 __all__ = [
            "ApplicationCache",
@@ -63,8 +63,8 @@ class TestApplicationCache(object):
                 Creates an accessible object for the root of the application
                 available at the given D-Bus name.
                 """
-                cls = accessible_factory.get_accessible_class(interfaces.ATSPI_APPLICATION)
-                return cls(app_name, self.application_cache[app_name].root, self, interfaces.ATSPI_APPLICATION)
+                cls = accessible_factory.get_accessible_class(ATSPI_APPLICATION)
+                return cls(app_name, self.application_cache[app_name].root, self, ATSPI_APPLICATION)
 
         def create_accessible(self, app_name, acc_path, interface, dbus_object=None):
                 """
@@ -114,10 +114,6 @@ class ApplicationCache(object):
                      D-Bus path.
         """
 
-        _REGISTRY_PATH = '/org/freedesktop/atspi/registry'
-        _REGISTRY_INTERFACE = 'org.freedesktop.atspi.Registry'
-        _REGISTRY_NAME = 'org.freedesktop.atspi.Registry'
-
         # An accessible path of '/' implies the desktop object, whatever the application name.
         _DESKTOP_PATH = '/'
 
@@ -132,13 +128,13 @@ class ApplicationCache(object):
                 self.application_cache = {}
 
                 self._regsig = connection.add_signal_receiver(self.update_handler,
-                                                              dbus_interface=ApplicationCache._REGISTRY_INTERFACE,
+                                                              dbus_interface=ATSPI_REGISTRY_INTERFACE,
                                                               signal_name="updateApplications")
 
-                obj = connection.get_object(ApplicationCache._REGISTRY_NAME,
-                                            ApplicationCache._REGISTRY_PATH,
+                obj = connection.get_object(ATSPI_REGISTRY_NAME,
+                                            ATSPI_REGISTRY_PATH,
                                             introspect=False)
-                self._app_register = dbus.Interface(obj, ApplicationCache._REGISTRY_INTERFACE)
+                self._app_register = dbus.Interface(obj, ATSPI_REGISTRY_INTERFACE)
 
                 self.application_list.extend(self._app_register.getApplications())
                 for bus_name in self.application_list:
@@ -151,7 +147,7 @@ class ApplicationCache(object):
                         self.application_cache[bus_name] = AccessibleCache(self._registry, self._connection, bus_name)
                         event = _Event(self,
                                        ApplicationCache._DESKTOP_PATH,
-                                       ApplicationCache._REGISTRY_NAME,
+                                       ATSPI_REGISTRY_NAME,
                                        "org.freedesktop.atspi.Event.Object",
                                        "children-changed",
                                        ("add", 0, 0, ""))
@@ -161,7 +157,7 @@ class ApplicationCache(object):
                         del(self.application_cache[bus_name])
                         event = _Event(self,
                                        ApplicationCache._DESKTOP_PATH,
-                                       ApplicationCache._REGISTRY_NAME,
+                                       ATSPI_REGISTRY_NAME,
                                        "org.freedesktop.atspi.Event.Object",
                                        "children-changed",
                                        ("remove", 0, 0, ""))
@@ -180,11 +176,11 @@ class ApplicationCache(object):
                 Creates an accessible object for the root of the application
                 available at the given D-Bus name.
                 """
-                if app_name == ApplicationCache._REGISTRY_NAME:
+                if app_name == ATSPI_REGISTRY_NAME:
                         return Desktop(self)
                 else:
-                        cls = accessible_factory.get_accessible_class(interfaces.ATSPI_APPLICATION)
-                        return cls(app_name, self.application_cache[app_name].root, self, interfaces.ATSPI_APPLICATION)
+                        cls = accessible_factory.get_accessible_class(ATSPI_APPLICATION)
+                        return cls(app_name, self.application_cache[app_name].root, self, ATSPI_APPLICATION)
 
         def create_accessible(self, app_name, acc_path, interface, dbus_object=None):
                 """
