@@ -227,7 +227,7 @@ atk_add_global_event_listener (GSignalEmissionHook listener,
     }
   else
     {
-      retval = -1;
+      retval = 0;
     }
   g_type_class_unref (klass);
 
@@ -272,7 +272,7 @@ atk_add_key_event_listener (AtkKeySnoopFunc listener, gpointer data)
     }
   else
     {
-      retval = -1;
+      retval = 0;
     }
 
   return retval;

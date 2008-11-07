@@ -1,3 +1,9 @@
+2008-11-07  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkutil.c: (atk_add_global_event_listener),
+	(atk_add_key_event_listener):
+	Change the return value to 0 if failure accroding to doc.
+
 2008-09-22  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:
