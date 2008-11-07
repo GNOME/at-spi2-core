@@ -151,6 +151,8 @@ void
 atk_relation_set_add (AtkRelationSet *set,
                       AtkRelation    *relation)
 {
+  AtkRelationType relationship;
+
   g_return_if_fail (ATK_IS_RELATION_SET (set));
   g_return_if_fail (relation != NULL);
 
@@ -158,7 +160,11 @@ atk_relation_set_add (AtkRelationSet *set,
   {
     set->relations = g_ptr_array_new ();
   }
-  g_ptr_array_add (set->relations, relation);
+  relationship = atk_relation_get_relation_type (relation);
+  if (!atk_relation_set_contains (set, relationship))
+  {
+    g_ptr_array_add (set->relations, relation);
+  }
   g_object_ref (relation);
 }
 
