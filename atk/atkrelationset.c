@@ -164,8 +164,8 @@ atk_relation_set_add (AtkRelationSet *set,
   if (!atk_relation_set_contains (set, relationship))
   {
     g_ptr_array_add (set->relations, relation);
+    g_object_ref (relation);
   }
-  g_object_ref (relation);
 }
 
 /**

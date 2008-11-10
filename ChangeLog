@@ -1,3 +1,8 @@
+2008-11-10  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkrelationset.c: (atk_relation_set_add):
+	Don't ref the relation if it is not added.
+
 2008-11-07  Li Yuan  <li.yuan@sun.com>
 
 	* atk/atkrelationset.c: (atk_relation_set_add):
