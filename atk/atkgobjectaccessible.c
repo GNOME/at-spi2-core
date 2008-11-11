@@ -103,11 +103,11 @@ atk_gobject_accessible_for_object (GObject *obj)
 
 /**
  * atk_gobject_accessible_get_object:
- * @obj: a #AtkObject
+ * @obj: a #AtkGObjectAccessible
  *
  * Gets the GObject for which @obj is the accessible object.
  *
- * Returns: a #GObject which is the object for which @obj is the accessible objedct
+ * Returns: a #GObject which is the object for which @obj is the accessible object
  **/
 GObject *
 atk_gobject_accessible_get_object (AtkGObjectAccessible *obj)

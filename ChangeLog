@@ -1,3 +1,8 @@
+2008-11-11  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkgobjectaccessible.c:
+	Bug #560156. Fix parameter type description.
+
 2008-11-10  Li Yuan  <li.yuan@sun.com>
 
 	* atk/atkobject.c: (atk_object_remove_relationship):
