@@ -308,8 +308,11 @@ atk_state_set_or_sets (AtkStateSet  *set,
 
   state = real_set->state | real_compare_set->state;
 
-  return_set = atk_state_set_new();
-  ((AtkRealStateSet *) return_set)->state = state;
+  if (state)
+  {
+    return_set = atk_state_set_new();
+    ((AtkRealStateSet *) return_set)->state = state;
+  }
 
   return return_set;
 }

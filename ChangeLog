@@ -1,5 +1,19 @@
 2008-11-10  Li Yuan  <li.yuan@sun.com>
 
+	* atk/atkobject.c: (atk_object_remove_relationship):
+	Bug #477708. Only remove the target, not the relation if
+	there are still are targets.
+	* atk/atkrelation.c: (atk_relation_remove_target):
+	* atk/atkrelation.h: New API.
+	* atk/atkrelationset.c: (atk_relation_set_add),
+	(atk_relation_set_remove): 
+	Add/remove the new relation's targets to/from the existed 
+	relation if there has been a relation with the same type.
+	* atk/atkstateset.c: (atk_state_set_or_sets):
+	Bug #478595. Return NULL if sets are empty.
+
+2008-11-10  Li Yuan  <li.yuan@sun.com>
+
 	* atk/atkrelationset.c: (atk_relation_set_add):
 	Don't ref the relation if it is not added.
 

@@ -81,6 +81,8 @@ AtkRelationType       atk_relation_get_relation_type  (AtkRelation     *relation
 GPtrArray*            atk_relation_get_target         (AtkRelation     *relation);
 void                  atk_relation_add_target         (AtkRelation     *relation,
                                                        AtkObject       *target);
+gboolean              atk_relation_remove_target      (AtkRelation     *relation,
+                                                       AtkObject       *target);
 
 G_END_DECLS
 

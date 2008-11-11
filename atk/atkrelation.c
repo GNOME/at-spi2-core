@@ -333,6 +333,35 @@ atk_relation_add_target (AtkRelation *relation,
   g_object_weak_ref (G_OBJECT (target), (GWeakNotify) delete_object_while_in_relation, relation->target);
 }
 
+/**
+ * atk_relation_remove_target:
+ * @relation: an #AtkRelation
+ * @target: an #AtkObject
+ *
+ * Remove the specified AtkObject from the target for the relation.
+ *
+ * Returns TRUE if the removal is successful.
+ **/
+
+gboolean
+atk_relation_remove_target (AtkRelation *relation,
+                            AtkObject *target)
+{
+  gboolean ret = FALSE;
+  GPtrArray *array;
+
+  array = atk_relation_get_target (relation);
+
+  if (array && g_ptr_array_remove (array, target))
+    {
+      g_object_weak_unref (G_OBJECT (target),
+                           (GWeakNotify) delete_object_while_in_relation,
+                           relation->target);
+      ret = TRUE;
+    }
+  return ret;
+}
+
 static void
 atk_relation_finalize (GObject *object)
 {

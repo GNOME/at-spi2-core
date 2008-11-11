@@ -1522,32 +1522,22 @@ atk_object_remove_relationship (AtkObject       *object,
                                 AtkRelationType relationship,
                                 AtkObject       *target)
 {
-  gint n_relations, i;
   gboolean ret = FALSE;
   AtkRelation *relation;
+  GPtrArray *array;
 
   g_return_val_if_fail (ATK_IS_OBJECT (object), FALSE);
   g_return_val_if_fail (ATK_IS_OBJECT (target), FALSE);
 
-  n_relations = atk_relation_set_get_n_relations (object->relation_set);
-  for (i = 0; i < n_relations; i++)
+  relation = atk_relation_set_get_relation_by_type (object->relation_set, relationship);
+
+  if (relation)
     {
-      relation = atk_relation_set_get_relation (object->relation_set, i);
-      if (atk_relation_get_relation_type (relation) == relationship)
-        {
-          GPtrArray *array;
-
-          array = atk_relation_get_target (relation);
-        
-          if (g_ptr_array_index (array, 0) == target)
-            {
-              atk_relation_set_remove (object->relation_set, relation); 
-              ret = TRUE;
-              break;
-            }
-        }
+      ret = atk_relation_remove_target (relation, target);
+      array = atk_relation_get_target (relation);
+      if (!array || array->len == 0)
+        atk_relation_set_remove (object->relation_set, relation);
     }
-
   return ret;
 }
 
