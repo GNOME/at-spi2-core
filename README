@@ -1,72 +1,136 @@
-at-spi version 1.9.0
+D-Bus AT-SPI
+------------
 
-This version of at-spi requires atk 1.17.0 or later.
-
-This version of at-spi is a MAJOR break from previous versions.
+This version of at-spi is a major break from previous versions.
 It has been completely rewritten to use D-Bus rather than
 ORBIT / CORBA for its transport protocol.
 
-If you have not already done so, please visit 
+A page including instructions for testing, project status and
+TODO items is kept up to date at:
 
-http://developer.gnome.org/projects/gap 
+        http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
 
-for background information on accessibility, the Gnome 
-Accessibility Project, mailing list info, and project status.
+The mailing list used for general questions is:
 
-Contents of this package ==================================
+        accessibility-atspi@lists.linux-foundation.org
+
+For bug reports, feature requests, patches or enhancements please use
+bugzilla. The freedesktop project name is at-spi2.
+
+        http://bugs.freedesktop.org
+
+A git repository with the latest development code is available at:
+
+        git://anongit.freedesktop.org/git/at-spi2
+
+
+More information
+----------------
+
+The project was started with a D-Bus performance review
+the results of which are available on the GNOME wiki. Keep in
+mind that the D-Bus AT-SPI design documents on this page
+have not been kept up to date.
+
+        http://live.gnome.org/GAP/AtSpiDbusInvestigation/
+
+Other sources of relevant information about AT-SPI and Accessibility
+include:
+
+        http://live.gnome.org/Accessibility
+        http://www.sun.com/software/star/gnome/accessibility/architecture.xml
+        http://accessibility.kde.org/developer/atk.php
+        http://www.gnome.org/~billh/at-spi-idl/html/
+
+
+
+Contents of this package
+------------------------
+
+This package includes the protocol definitions for the new D-Bus
+at-spi, a gtk-module that bridges ATK to the new D-Bus based AT-SPI
+as well as 'C' and Python client libraries.
+
+Also included is the daemon neccessary for forwarding device events
+and registering accessible applicaitons.
+
+
+
+Directory structure
+-------------------
 
 The directories within this package are arranged as follows:
 
-    idl : This directory contains the interface definitions
-	(in Interface Definition Language) for the
-	accessibility support interfaces exposed by
-	the AT central registry, accessible applications,
-	and UI components.
+    idl
 
-	This is possibly historic. The idl formed the basis
-	for the XML protocol definitions now located
-	in the directory "xml".
+        This directory contains the interface definitions
+        (in Interface Definition Language) for the
+        accessibility support interfaces exposed by
+        the AT central registry, accessible applications,
+        and UI components.
 
-    xml : This directory contains XML documents describing
-	the D-Bus protocol in a subset of Telepathy XML.
+        This is possibly historic. The idl formed the basis
+        for the XML protocol definitions now located
+        in the directory "xml".
 
-    tools : Miscellaneous tools. Mostly for converting protocol
-	XML into D-Bus introspection, 'C' types and documentation.
+    xml 
 
-    droute : Contains a framework for registering objects
-	with a D-Bus connection and for routing messages to
-	the implementing object.
+        This directory contains XML documents describing
+        the D-Bus protocol in a subset of Telepathy XML.
 
-	Used by the ATK adaptor.
+    tools
 
-    dbind : Library to ease making D-Bus method calls, contains
-	marshalling code to convert function arguments
-	and a provided D-Bus signature into a D-Bus message.
-	
-	Used by cspi.
+        Miscellaneous tools. Mostly for converting protocol
+        XML into D-Bus introspection, 'C' types and documentation.
 
-    spi-common : Contains 'C' types derived from the D-Bus
-	protocol specification. These types are used by 
-	both the registry daemon and the ATK adaptor.
-	Structures are mainly related to events.
+    droute
 
-    registryd : This directory contains code specific to the
-	central accessibility registry, and the registry
-	executable is built in this directory.
+        Contains a framework for registering objects
+        with a D-Bus connection and for routing messages to
+        the implementing object.
 
-    atk-adaptor : This directory contains code that bridges 
-	the at-spi to the GTK+ toolkit, and which is
-	loaded at runtime by GTK+-based Gnome applications.
-	The 'bridge' automatically registers GTK+-2.0
-	applications with the accessibility registry, 
-	and relays UI events from application to registry.
-	It is also responsible for servicing requests from
-	the registry to register handlers for specific event
-	types.
+        Used by the ATK adaptor.
 
-    cspi : The client (AT) side interface - 'C' bindings.
+    dbind
 
-    registryd : The registry daemon code. The registry daemon
-	keeps a register of accessible applications and presents
-	this to clients (ATs).
-	It is also responsible for delivering device events.
+        Library to ease making D-Bus method calls, contains
+        marshalling code to convert function arguments
+        and a provided D-Bus signature into a D-Bus message.
+
+        Used by cspi.
+
+    spi-common
+
+        Contains 'C' types derived from the D-Bus
+        protocol specification. These types are used by 
+        both the registry daemon and the ATK adaptor.
+        Structures are mainly related to events.
+
+    registryd
+
+        This directory contains code specific to the
+        central accessibility registry, and the registry
+        executable is built in this directory.
+
+    atk-adaptor
+
+        This directory contains code that bridges 
+        the at-spi to the GTK+ toolkit, and which is
+        loaded at runtime by GTK+-based Gnome applications.
+        The 'bridge' automatically registers GTK+-2.0
+        applications with the accessibility registry, 
+        and relays UI events from application to registry.
+        It is also responsible for servicing requests from
+        the registry to register handlers for specific event
+        types.
+
+    cspi
+
+        The client (AT) side interface - 'C' bindings.
+
+    registryd
+
+        The registry daemon code. The registry daemon
+        keeps a register of accessible applications and presents
+        this to clients (ATs).
+        It is also responsible for delivering device events.
