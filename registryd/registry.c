@@ -235,7 +235,6 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
   DBusMessage *reply = NULL;
   guint res = DBUS_HANDLER_RESULT_HANDLED;
 
-
   int mtype;
   const char *itf;
   const char *name;

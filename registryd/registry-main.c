@@ -100,6 +100,7 @@ main (int argc, char **argv)
     }
 
   /* Set up D-Route for use by the dec */
+  droute.interfaces = NULL;
   if (!dbus_connection_register_object_path (droute.bus,
                                              "/org/freedesktop/atspi/registry/deviceeventcontroller",
                                              &droute_vtable,
