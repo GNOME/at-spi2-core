@@ -1,4 +1,5 @@
 # Vietnamese translation for ATK.
+# This file is distributed under the same license as the ATK package.
 # Copyright © 2006 Gnome i18n Project for Vietnamese.
 # T.M.Thanh <tmthanh@yahoo.com>, 2002.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2006.
