@@ -1,3 +1,11 @@
+2008-11-14  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkobject.c:
+	Bug #361757. Add ATK_ROLE_LINK and ATK_ROLE_INPUT_METHOD_WINDOW
+	to role_items so their name can be got.
+	* atk/atkrelation.c: (atk_relation_set_property):
+	Bug #478620. Fix memory when atk_relation_set_property.
+
 2008-11-11  Li Yuan  <li.yuan@sun.com>
 
 	* atk/atkgobjectaccessible.c:

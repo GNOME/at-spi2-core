@@ -404,6 +404,18 @@ atk_relation_set_property (GObject       *object,
       relation->relationship = g_value_get_enum (value);
       break; 
     case PROP_TARGET:
+      if (relation->target)
+      {
+        gint i;
+
+        for (i = 0; i < relation->target->len; i++)
+        {
+          g_object_weak_unref (G_OBJECT (g_ptr_array_index (relation->target, i)),
+                               (GWeakNotify) delete_object_while_in_relation,
+                               relation->target);
+        }
+        g_ptr_array_free (relation->target, TRUE);
+      }
       boxed = g_value_get_boxed (value);
       relation->target = atk_relation_get_ptr_array_from_value_array ( (GValueArray *) boxed);
       break; 

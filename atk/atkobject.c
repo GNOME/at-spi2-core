@@ -164,7 +164,9 @@ static const AtkRoleItem role_items [] =
   { ATK_ROLE_PAGE, N_("page")},
   { ATK_ROLE_SECTION, N_("section")},
   { ATK_ROLE_REDUNDANT_OBJECT, N_("redundant object")},
-  { ATK_ROLE_FORM, N_("form")}
+  { ATK_ROLE_FORM, N_("form")},
+  { ATK_ROLE_LINK, N_("link")},
+  { ATK_ROLE_INPUT_METHOD_WINDOW, N_("input method window")}
 };
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);
