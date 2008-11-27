@@ -69,105 +69,205 @@ enum {
   LAST_SIGNAL
 };
 
-typedef struct _AtkRoleItem AtkRoleItem;
-
-struct _AtkRoleItem
-{
-  AtkRole role;
-  gchar   *name;
-};
-
-static const AtkRoleItem role_items [] =
-{
-  { ATK_ROLE_INVALID, N_("invalid")},
-  { ATK_ROLE_ACCEL_LABEL, N_("accelerator label")},
-  { ATK_ROLE_ALERT, N_("alert")},
-  { ATK_ROLE_ANIMATION, N_("animation")},
-  { ATK_ROLE_ARROW, N_("arrow")},
-  { ATK_ROLE_CALENDAR, N_("calendar")},
-  { ATK_ROLE_CANVAS, N_("canvas")},
-  { ATK_ROLE_CHECK_BOX, N_("check box")},
-  { ATK_ROLE_CHECK_MENU_ITEM, N_("check menu item")},
-  { ATK_ROLE_COLOR_CHOOSER, N_("color chooser")},
-  { ATK_ROLE_COLUMN_HEADER, N_("column header")},
-  { ATK_ROLE_COMBO_BOX, N_("combo box")},
-  { ATK_ROLE_DATE_EDITOR, N_("dateeditor")},
-  { ATK_ROLE_DESKTOP_ICON, N_("desktop icon")},
-  { ATK_ROLE_DESKTOP_FRAME, N_("desktop frame")},
-  { ATK_ROLE_DIAL, N_("dial")},
-  { ATK_ROLE_DIALOG, N_("dialog")},
-  { ATK_ROLE_DIRECTORY_PANE, N_("directory pane")},
-  { ATK_ROLE_DRAWING_AREA, N_("drawing area")},
-  { ATK_ROLE_FILE_CHOOSER, N_("file chooser")},
-  { ATK_ROLE_FILLER, N_("filler")},
+/* These are listed here for extraction by intltool */
+#if 0
+  N_("invalid")
+  N_("accelerator label")
+  N_("alert")
+  N_("animation")
+  N_("arrow")
+  N_("calendar")
+  N_("canvas")
+  N_("check box")
+  N_("check menu item")
+  N_("color chooser")
+  N_("column header")
+  N_("combo box")
+  N_("dateeditor")
+  N_("desktop icon")
+  N_("desktop frame")
+  N_("dial")
+  N_("dialog")
+  N_("directory pane")
+  N_("drawing area")
+  N_("file chooser")
+  N_("filler")
   /* I know it looks wrong but that is what Java returns */
-  { ATK_ROLE_FONT_CHOOSER, N_("fontchooser")},
-  { ATK_ROLE_FRAME, N_("frame")},
-  { ATK_ROLE_GLASS_PANE, N_("glass pane")},
-  { ATK_ROLE_HTML_CONTAINER, N_("html container")},
-  { ATK_ROLE_ICON, N_("icon")},
-  { ATK_ROLE_IMAGE, N_("image")},
-  { ATK_ROLE_INTERNAL_FRAME, N_("internal frame")},
-  { ATK_ROLE_LABEL, N_("label")},
-  { ATK_ROLE_LAYERED_PANE, N_("layered pane")},
-  { ATK_ROLE_LIST, N_("list")},
-  { ATK_ROLE_LIST_ITEM, N_("list item")},
-  { ATK_ROLE_MENU, N_("menu")},
-  { ATK_ROLE_MENU_BAR, N_("menu bar")},
-  { ATK_ROLE_MENU_ITEM, N_("menu item")},
-  { ATK_ROLE_OPTION_PANE, N_("option pane")},
-  { ATK_ROLE_PAGE_TAB, N_("page tab")},
-  { ATK_ROLE_PAGE_TAB_LIST, N_("page tab list")},
-  { ATK_ROLE_PANEL, N_("panel")},
-  { ATK_ROLE_PASSWORD_TEXT, N_("password text")},
-  { ATK_ROLE_POPUP_MENU, N_("popup menu")},
-  { ATK_ROLE_PROGRESS_BAR, N_("progress bar")},
-  { ATK_ROLE_PUSH_BUTTON, N_("push button")},
-  { ATK_ROLE_RADIO_BUTTON, N_("radio button")},
-  { ATK_ROLE_RADIO_MENU_ITEM, N_("radio menu item")},
-  { ATK_ROLE_ROOT_PANE, N_("root pane")},
-  { ATK_ROLE_ROW_HEADER, N_("row header")},
-  { ATK_ROLE_SCROLL_BAR, N_("scroll bar")},
-  { ATK_ROLE_SCROLL_PANE, N_("scroll pane")},
-  { ATK_ROLE_SEPARATOR, N_("separator")},
-  { ATK_ROLE_SLIDER, N_("slider")},
-  { ATK_ROLE_SPLIT_PANE, N_("split pane")},
-  { ATK_ROLE_SPIN_BUTTON, N_("spin button")},
-  { ATK_ROLE_STATUSBAR, N_("statusbar")},
-  { ATK_ROLE_TABLE, N_("table")},
-  { ATK_ROLE_TABLE_CELL, N_("table cell")},
-  { ATK_ROLE_TABLE_COLUMN_HEADER, N_("table column header")},
-  { ATK_ROLE_TABLE_ROW_HEADER, N_("table row header")},
-  { ATK_ROLE_TEAR_OFF_MENU_ITEM, N_("tear off menu item")},
-  { ATK_ROLE_TERMINAL, N_("terminal")},
-  { ATK_ROLE_TEXT, N_("text")},
-  { ATK_ROLE_TOGGLE_BUTTON, N_("toggle button")},
-  { ATK_ROLE_TOOL_BAR, N_("tool bar")},
-  { ATK_ROLE_TOOL_TIP, N_("tool tip")},
-  { ATK_ROLE_TREE, N_("tree")},
-  { ATK_ROLE_TREE_TABLE, N_("tree table")},
-  { ATK_ROLE_UNKNOWN, N_("unknown")},
-  { ATK_ROLE_VIEWPORT, N_("viewport")},
-  { ATK_ROLE_WINDOW, N_("window")},
-  { ATK_ROLE_HEADER, N_("header")},
-  { ATK_ROLE_FOOTER, N_("footer")},
-  { ATK_ROLE_PARAGRAPH, N_("paragraph")},
-  { ATK_ROLE_APPLICATION, N_("application")},
-  { ATK_ROLE_AUTOCOMPLETE, N_("autocomplete")},
-  { ATK_ROLE_EDITBAR, N_("edit bar")},
-  { ATK_ROLE_EMBEDDED, N_("embedded component")},
-  { ATK_ROLE_ENTRY, N_("entry")},
-  { ATK_ROLE_CHART, N_("chart")},
-  { ATK_ROLE_CAPTION, N_("caption")},
-  { ATK_ROLE_DOCUMENT_FRAME, N_("document frame")},
-  { ATK_ROLE_HEADING, N_("heading")},
-  { ATK_ROLE_PAGE, N_("page")},
-  { ATK_ROLE_SECTION, N_("section")},
-  { ATK_ROLE_REDUNDANT_OBJECT, N_("redundant object")},
-  { ATK_ROLE_FORM, N_("form")},
-  { ATK_ROLE_LINK, N_("link")},
-  { ATK_ROLE_INPUT_METHOD_WINDOW, N_("input method window")}
+  N_("fontchooser")
+  N_("frame")
+  N_("glass pane")
+  N_("html container")
+  N_("icon")
+  N_("image")
+  N_("internal frame")
+  N_("label")
+  N_("layered pane")
+  N_("list")
+  N_("list item")
+  N_("menu")
+  N_("menu bar")
+  N_("menu item")
+  N_("option pane")
+  N_("page tab")
+  N_("page tab list")
+  N_("panel")
+  N_("password text")
+  N_("popup menu")
+  N_("progress bar")
+  N_("push button")
+  N_("radio button")
+  N_("radio menu item")
+  N_("root pane")
+  N_("row header")
+  N_("scroll bar")
+  N_("scroll pane")
+  N_("separator")
+  N_("slider")
+  N_("split pane")
+  N_("spin button")
+  N_("statusbar")
+  N_("table")
+  N_("table cell")
+  N_("table column header")
+  N_("table row header")
+  N_("tear off menu item")
+  N_("terminal")
+  N_("text")
+  N_("toggle button")
+  N_("tool bar")
+  N_("tool tip")
+  N_("tree")
+  N_("tree table")
+  N_("unknown")
+  N_("viewport")
+  N_("window")
+  N_("header")
+  N_("footer")
+  N_("paragraph")
+  N_("ruler")
+  N_("application")
+  N_("autocomplete")
+  N_("edit bar")
+  N_("embedded component")
+  N_("entry")
+  N_("chart")
+  N_("caption")
+  N_("document frame")
+  N_("heading")
+  N_("page")
+  N_("section")
+  N_("redundant object")
+  N_("form")
+  N_("link")
+  N_("input method window")
+#endif /* 0 */
+
+static const char roles[] =
+  "invalid\0"
+  "accelerator label\0"
+  "alert\0"
+  "animation\0"
+  "arrow\0"
+  "calendar\0"
+  "canvas\0"
+  "check box\0"
+  "check menu item\0"
+  "color chooser\0"
+  "column header\0"
+  "combo box\0"
+  "dateeditor\0"
+  "desktop icon\0"
+  "desktop frame\0"
+  "dial\0"
+  "dialog\0"
+  "directory pane\0"
+  "drawing area\0"
+  "file chooser\0"
+  "filler\0"
+  "fontchooser\0"
+  "frame\0"
+  "glass pane\0"
+  "html container\0"
+  "icon\0"
+  "image\0"
+  "internal frame\0"
+  "label\0"
+  "layered pane\0"
+  "list\0"
+  "list item\0"
+  "menu\0"
+  "menu bar\0"
+  "menu item\0"
+  "option pane\0"
+  "page tab\0"
+  "page tab list\0"
+  "panel\0"
+  "password text\0"
+  "popup menu\0"
+  "progress bar\0"
+  "push button\0"
+  "radio button\0"
+  "radio menu item\0"
+  "root pane\0"
+  "row header\0"
+  "scroll bar\0"
+  "scroll pane\0"
+  "separator\0"
+  "slider\0"
+  "split pane\0"
+  "spin button\0"
+  "statusbar\0"
+  "table\0"
+  "table cell\0"
+  "table column header\0"
+  "table row header\0"
+  "tear off menu item\0"
+  "terminal\0"
+  "text\0"
+  "toggle button\0"
+  "tool bar\0"
+  "tool tip\0"
+  "tree\0"
+  "tree table\0"
+  "unknown\0"
+  "viewport\0"
+  "window\0"
+  "header\0"
+  "footer\0"
+  "paragraph\0"
+  "ruler\0"
+  "application\0"
+  "autocomplete\0"
+  "edit bar\0"
+  "embedded component\0"
+  "entry\0"
+  "chart\0"
+  "caption\0"
+  "document frame\0"
+  "heading\0"
+  "page\0"
+  "section\0"
+  "redundant object\0"
+  "form\0"
+  "link\0"
+  "input method window";
+
+static const guint16 roles_offsets[] = {
+  0, 8, 26, 32, 42, 48, 57, 64, 
+  74, 90, 104, 118, 128, 139, 152, 166, 
+  171, 178, 193, 206, 219, 226, 238, 244, 
+  255, 270, 275, 281, 296, 302, 315, 320, 
+  330, 335, 344, 354, 366, 375, 389, 395, 
+  409, 420, 433, 445, 458, 474, 484, 495, 
+  506, 518, 528, 535, 546, 558, 568, 574, 
+  585, 605, 622, 641, 650, 655, 669, 678, 
+  687, 692, 703, 711, 720, 727, 734, 741, 
+  751, 757, 769, 782, 791, 810, 816, 822, 
+  830, 845, 853, 858, 866, 883, 888, 893
 };
+
+/* This is a static assertion */
+typedef int _assert_roles_num[(G_N_ELEMENTS (roles_offsets) == ATK_ROLE_LAST_DEFINED) ? 1 : -1];
 
 static void            atk_object_class_init        (AtkObjectClass  *klass);
 static void            atk_object_init              (AtkObject       *accessible,
@@ -1390,14 +1490,8 @@ atk_object_notify (GObject     *obj,
 G_CONST_RETURN gchar*
 atk_role_get_name (AtkRole role)
 {
-  gchar *name = NULL;
-  gint i;
-
-  for (i = 0; i < G_N_ELEMENTS (role_items); i++)
-    {
-      if (role == role_items[i].role)
-        return role_items[i].name;
-    }
+  if (role >= 0 && role < ATK_ROLE_LAST_DEFINED)
+    return roles + roles_offsets[role];
 
   if (extra_roles)
     {
@@ -1405,10 +1499,11 @@ atk_role_get_name (AtkRole role)
 
       n -= ATK_ROLE_LAST_DEFINED + 1;
 
-      if (n < extra_roles->len)
-        name = g_ptr_array_index (extra_roles, n);
+      if (n >= 0 && n < extra_roles->len)
+        return g_ptr_array_index (extra_roles, n);
     }
-  return name;
+
+  return NULL;
 }
 
 /**
@@ -1422,19 +1517,12 @@ atk_role_get_name (AtkRole role)
 G_CONST_RETURN gchar*
 atk_role_get_localized_name (AtkRole role)
 {
-  G_CONST_RETURN gchar *name;
-  gint i;
-
   gettext_initialization ();
 
-  for (i = 0; i < G_N_ELEMENTS (role_items); i++)
-    {
-      if (role == role_items[i].role)
-        return dgettext (GETTEXT_PACKAGE, role_items[i].name);
-    }
-  name = atk_role_get_name (role);
+  if (role >= 0 && role < ATK_ROLE_LAST_DEFINED)
+    return dgettext (GETTEXT_PACKAGE, roles + roles_offsets[role]);
 
-  return name;
+  return atk_role_get_name (role);
 }
 
 /**
@@ -1455,10 +1543,10 @@ atk_role_for_name (const gchar *name)
 
   g_return_val_if_fail (name, ATK_ROLE_INVALID);
 
-  for (i = 0; i < G_N_ELEMENTS (role_items); i++)
+  for (i = 0; i < G_N_ELEMENTS (roles_offsets); i++)
     {
-      if (strcmp (name, role_items[i].name) == 0)
-        return role_items[i].role;
+      if (strcmp (name, roles + roles_offsets[i]) == 0)
+        return (AtkRole) i;
     }
 
   if (extra_roles)

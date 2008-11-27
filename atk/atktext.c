@@ -33,36 +33,75 @@ enum {
   LAST_SIGNAL
 };
 
-static const gchar * const bool[] = {"false",
-                                     "true"};
-static const gchar * const style[] = {"normal",
-                                      "oblique",
-                                      "italic"};
-static const gchar * const variant[] = {"normal",
-                                        "small_caps"};
-static const gchar * const stretch[] = {"ultra_condensed",
-                                        "extra_condensed",
-                                        "condensed",
-                                        "semi_condensed",
-                                        "normal",
-                                        "semi_expanded",
-                                        "expanded",
-                                        "extra_expanded",
-                                        "ultra_expanded"};
-static const gchar * const justification[] = {"left",
-                                              "right",
-                                              "center",
-                                              "fill"};
-static const gchar * const direction[] = {"none",
-                                          "ltr",
-                                          "rtl"};
-static const gchar * const wrap_mode[] = {"none",
-                                          "char",
-                                          "word"};
-static const gchar * const underline[] = {"none",
-                                          "single",
-                                          "double",
-                                          "low"};
+static const char boolean[] =
+  "false\0"
+  "true";
+static const guint8 boolean_offsets[] = {
+  0, 6
+};
+
+static const char style[] =
+  "normal\0"
+  "oblique\0"
+  "italic";
+static const guint8 style_offsets[] = {
+  0, 7, 15
+};
+
+static const char variant[] =
+  "normal\0"
+  "small_caps";
+static const guint8 variant_offsets[] = {
+  0, 7
+};
+
+static const char stretch[] =
+  "ultra_condensed\0"
+  "extra_condensed\0"
+  "condensed\0"
+  "semi_condensed\0"
+  "normal\0"
+  "semi_expanded\0"
+  "expanded\0"
+  "extra_expanded\0"
+  "ultra_expanded";
+static const guint8 stretch_offsets[] = {
+  0, 16, 32, 42, 57, 64, 78, 87, 102
+};
+
+static const char justification[] =
+  "left\0"
+  "right\0"
+  "center\0"
+  "fill";
+static const guint8 justification_offsets[] = {
+  0, 5, 11, 18
+};
+
+static const char direction[] =
+  "none\0"
+  "ltr\0"
+  "rtl";
+static const guint8 direction_offsets[] = {
+  0, 5, 9
+};
+
+static const char wrap_mode[] =
+  "none\0"
+  "char\0"
+  "word";
+static const guint8 wrap_mode_offsets[] = {
+  0, 5, 10
+};
+
+static const char underline[] =
+  "none\0"
+  "single\0"
+  "double\0"
+  "low";
+static const guint8 underline_offsets[] = {
+  0, 5, 12, 19
+};
 
 static void atk_text_base_init (AtkTextIface *class);
 
@@ -1120,29 +1159,29 @@ atk_text_attribute_get_value (AtkTextAttribute attr,
     case ATK_TEXT_ATTR_STRIKETHROUGH:
     case ATK_TEXT_ATTR_BG_STIPPLE:
     case ATK_TEXT_ATTR_FG_STIPPLE:
-      g_assert (index >= 0 && index < 2);
-      return bool[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (boolean_offsets));
+      return boolean + boolean_offsets[index];
     case ATK_TEXT_ATTR_UNDERLINE:
-      g_assert (index >= 0 && index < 5);
-      return underline[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (underline_offsets));
+      return underline + underline_offsets[index];
     case ATK_TEXT_ATTR_WRAP_MODE:
-      g_assert (index >= 0 && index < 4);
-      return wrap_mode[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (wrap_mode_offsets));
+      return wrap_mode + wrap_mode_offsets[index];
     case ATK_TEXT_ATTR_DIRECTION:
-      g_assert (index >= 0 && index < 3);
-      return direction[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (direction_offsets));
+      return direction + direction_offsets[index];
     case ATK_TEXT_ATTR_JUSTIFICATION:
-      g_assert (index >= 0 && index < 3);
-      return justification[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (justification_offsets));
+      return justification + justification_offsets[index];
     case ATK_TEXT_ATTR_STRETCH:
-      g_assert (index >= 0 && index < 9);
-      return stretch[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (stretch_offsets));
+      return stretch + stretch_offsets[index];
     case ATK_TEXT_ATTR_VARIANT:
-      g_assert (index >= 0 && index < 2);
-      return variant[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (variant_offsets));
+      return variant + variant_offsets[index];
     case ATK_TEXT_ATTR_STYLE:
-      g_assert (index >= 0 && index < 3);
-      return style[index];
+      g_assert (index >= 0 && index < G_N_ELEMENTS (style_offsets));
+      return style + style_offsets[index];
     default:
       return NULL;
    }

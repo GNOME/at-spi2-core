@@ -1,3 +1,11 @@
+2008-11-27  Li Yuan  <li.yuan@sun.com>
+
+	* atk/atkobject.c: (atk_role_get_name),
+	(atk_role_get_localized_name), (atk_role_for_name):
+	* atk/atktext.c: (atk_text_attribute_get_value):
+	Bug #505445. Patch from Christian Persch. Removed unnecessary
+	memory relocations.
+
 2008-11-14  Li Yuan  <li.yuan@sun.com>
 
 	* atk/atkobject.c:
