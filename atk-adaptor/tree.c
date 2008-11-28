@@ -39,7 +39,7 @@ static const char *dumm = "/APath/1";
  * Marshals the given AtkObject into the provided D-Bus iterator.
  *
  * The object is marshalled including all its client side cache data.
- * The format of the strucuture is (ooaoassus).
+ * The format of the structure is (ooaoassusau).
  * This is used in the updateTree signal and the getTree method
  * of the org.freedesktop.atspi.Tree interface.
  */
@@ -50,6 +50,8 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
   DBusMessageIter *iter_array;
   DBusMessageIter iter_struct, iter_sub_array;
   DRouteData *data;
+  dbus_int32_t *states;
+  int count;
 
   const char *name, *desc;
   int i;
@@ -130,6 +132,11 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
 
       g_free(path);
     }      
+  spi_atk_state_to_dbus_array (obj, &states);
+      dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u", &iter_sub_array);
+  for (count = 0; states[count]; count++)
+    dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_UINT32, &states[count]);
+      dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
   dbus_message_iter_close_container (iter_array, &iter_struct);
 }
 
@@ -169,7 +176,7 @@ send_cache_update(gpointer d)
 
   dbus_message_iter_init_append (message, &iter);
 
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassus)", &iter_array);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
   atk_dbus_foreach_update_list(append_accessible, &iter_array);
   dbus_message_iter_close_container(&iter, &iter_array);
 
@@ -227,7 +234,7 @@ impl_getTree (DBusConnection *bus, DBusMessage *message, void *user_data)
   reply = dbus_message_new_method_return (message);
 
   dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(ooaoassus)", &iter_array);
+  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
   atk_dbus_foreach_registered(append_accessible, &iter_array);
   dbus_message_iter_close_container(&iter, &iter_array);
   return reply;

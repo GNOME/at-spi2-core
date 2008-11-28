@@ -218,6 +218,9 @@ cspi_object_unref_internal (Accessible *accessible, gboolean defunct)
     {
       g_free (accessible->v.path);
     }
+    spi_state_set_cache_unref (accessible->states);
+    g_free (accessible->description);
+    g_free (accessible->name);
     g_free(accessible);
   }
 }
@@ -319,6 +322,7 @@ typedef struct
   char *name;
   dbus_uint32_t role;
   char *description;
+  GArray *state_bitflags;
 } CACHE_ADDITION;
 
 /* Update the cache with added/modified objects and free the array */
@@ -370,8 +374,10 @@ handle_additions (CSpiApplication*app, GArray *additions)
     a->role = ca->role;
     if (a->description) g_free (a->description);
     a->description = ca->description;
+    a->states = spi_state_set_cache_new (ca->state_bitflags);
     g_array_free (ca->interfaces, TRUE);
     g_array_free (ca->children, TRUE);
+    g_array_free (ca->state_bitflags, TRUE);
     /* This is a bit of a hack since ref_accessible sets ref_count to 2
      * for a new object, one of the refs being for the cache */
     cspi_object_unref (a);
@@ -514,7 +520,7 @@ ref_accessible_desktop (CSpiApplication *app)
     CSpiApplication *app = cspi_get_application (app_name);
     additions = NULL;
     dbus_error_init (&error);
-    dbind_connection_method_call (bus, app_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getTree", &error, "=>a(ooaoassus)", &additions);
+    dbind_connection_method_call (bus, app_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getTree", &error, "=>a(ooaoassusau)", &additions);
     if (error.message)
     {
       g_warning ("getTree (%s): %s", app_name, error.message);

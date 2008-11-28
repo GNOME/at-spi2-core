@@ -557,19 +557,7 @@ Accessible_getLocalizedRoleName (Accessible *obj)
 AccessibleStateSet *
 Accessible_getStateSet (Accessible *obj)
 {
-  GArray *state_bitflags;
-  AccessibleStateSet *retval;
-
-  cspi_return_val_if_fail (obj != NULL, NULL);
-
-  cspi_dbus_call (obj, spi_interface_accessible, "getStateSet", NULL, "=>au", &state_bitflags);
-  cspi_return_val_if_ev ("getState", NULL);
-
-  retval = spi_state_set_cache_new (state_bitflags);
-
-  g_array_free (state_bitflags, TRUE);
-
-  return retval;
+  return obj->states;
 }
 
 /**

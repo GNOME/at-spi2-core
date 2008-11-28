@@ -27,13 +27,14 @@
 
 /* Private internal implementation details of at-spi. */
 
-#include <spi-common/spi-dbus.h>
-#include <cspi/spi.h>
-#include <string.h>
+#include "spi-common/spi-dbus.h"
+#include "cspi/spi.h"
+#include "string.h"
 #include "cspi/cspi-lowlevel.h"
 #include "cspi/spi-listener.h"
 #include "dbind/dbind.h"
 #include <glib-object.h>
+#include "spi-common/spi-stateset.h"
 
 typedef struct _CSpiApplication CSpiApplication;
 struct _CSpiApplication
@@ -56,11 +57,7 @@ struct _Accessible {
   gint interfaces : 24;
   char *name;
   char *description;
-};
-
-struct _AccessibleStateSet {
-	guint   ref_count;
-	GArray *states;
+  AtkStateSet *states;
 };
 
 #define SPI_INTERNAL_EVENT_MAGIC 0xc3
