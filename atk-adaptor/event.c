@@ -343,9 +343,31 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
 			       gpointer               data)
 {
   AtkObject *accessible;
+  const gchar *detail = NULL;
+  AtkObject *child;
+  gboolean child_needs_unref = FALSE;
+
+  if (signal_hint->detail)
+    detail = g_quark_to_string (signal_hint->detail);
 
   accessible = g_value_get_object (&param_values[0]);
-  atk_dbus_register_subtree(accessible);
+  if (!strcmp (detail, "add"))
+    {
+      gpointer child;
+      int index = g_value_get_uint (param_values + 1);
+      child = g_value_get_pointer (param_values + 2);
+      if (ATK_IS_OBJECT (child))
+	g_object_ref (child);
+      else
+	child = atk_object_ref_accessible_child (accessible, index);
+      if (ATK_IS_OBJECT (child))
+	{
+	  atk_dbus_register_subtree (child);
+	  g_object_unref (child);
+	}
+      else
+	atk_dbus_register_subtree(accessible);
+    }
   return TRUE;
 }
 
