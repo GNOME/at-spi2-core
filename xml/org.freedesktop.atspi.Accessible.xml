@@ -105,6 +105,21 @@
     </tp:docstring>
     </arg>
   </method>
+  <method name="getChildAtIndex">
+    <tp:docstring>
+      Get the accessible child of this object at \c index.
+    </tp:docstring>
+    <arg direction="in" name="index" type="i">
+    <tp:docstring>
+      an in parameter indicating which child is requested (zero-indexed).
+    </tp:docstring>
+    </arg>
+    <arg direction="out" type="o" tp:type="Accessible">
+    <tp:docstring>
+      the 'nth' ::Accessible child of this object.
+    </tp:docstring>
+    </arg>
+  </method>
   <method name="getIndexInParent">
     <tp:docstring>
       Get the index of this object in its parent's child list.

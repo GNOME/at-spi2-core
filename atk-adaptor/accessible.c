@@ -95,6 +95,22 @@ impl_get_childCount (const char *path, DBusMessageIter * iter,
 }
 
 static DBusMessage *
+impl_getChildAtIndex (DBusConnection * bus, DBusMessage * message,
+		  void *user_data)
+{
+  AtkObject *object = get_object (message);
+  dbus_int32_t i;
+  AtkObject *child;
+
+  if (!object)
+    return spi_dbus_general_error (message);
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
+    return spi_dbus_general_error (message);
+  child = atk_object_ref_accessible_child (object, i);
+  return spi_dbus_return_object (message, child, FALSE);
+}
+
+static DBusMessage *
 impl_getChildren (DBusConnection * bus, DBusMessage * message,
 		  void *user_data)
 {
@@ -530,7 +546,7 @@ impl_getApplication (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  //{impl_isEqual, "isEqual"},
+  {impl_getChildAtIndex, "getChildAtIndex"},
   {impl_getChildren, "getChildren"},
   {impl_getIndexInParent, "getIndexInParent"},
   {impl_getRelationSet, "getRelationSet"},
@@ -547,8 +563,7 @@ static DRouteProperty properties[] = {
   {impl_get_name, impl_set_name, "name"},
   {impl_get_description, impl_set_description, "description"},
   {impl_get_parent, NULL, "parent"},
-  //{impl_get_childCount, NULL, "childCount"},
-  //{NULL, NULL, NULL, "role"},
+  {impl_get_childCount, NULL, "childCount"},
   {NULL, NULL, NULL}
 };
 
