@@ -153,15 +153,8 @@ if test "x$GCC" = "xyes"; then
 fi
 changequote([,])dnl
 
-AM_PATH_GLIB_2_0(2.5.7,have_no_export=true,have_no_export=false)
-if test "x$have_no_export" = "xtrue"; then
-   GLIB_REQUIRED_VERSION=2.5.7
-   glib_no_export_package="gmodule-no-export-2.0"
-else
-   GLIB_REQUIRED_VERSION=2.0.0
-   glib_no_export_package=
-fi
-GLIB_PACKAGES="gobject-2.0 $glib_no_export_package"
+GLIB_REQUIRED_VERSION=2.0.0
+GLIB_PACKAGES="gobject-2.0"
 AC_SUBST(GLIB_PACKAGES)
 AC_SUBST(GLIB_REQUIRED_VERSION)
 
@@ -174,7 +167,7 @@ AM_PATH_GLIB_2_0($GLIB_REQUIRED_VERSION, :,
 *** GLIB is always available from ftp://ftp.gtk.org/. If GLIB is installed
 *** but not in the same location as pkg-config add the location of the file 
 *** glib-2.0.pc to the environment variable PKG_CONFIG_PATH.]),
-  gobject gmodule-no-export)
+  gobject)
 
 PKG_CHECK_MODULES(DEP, glib-2.0 >= $GLIB_REQUIRED_VERSION $GLIB_PACKAGES, ,
   AC_MSG_ERROR([
