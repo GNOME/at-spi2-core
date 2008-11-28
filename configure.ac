@@ -194,6 +194,7 @@ AC_CONFIG_FILES([Makefile
 		 tests/pyatspi/Makefile
 		 tests/pyatspi/pasytest/Makefile
 		 tests/apps/Makefile
+		 tests/cspi/Makefile
 		 dbind/Makefile
 		 cspi/Makefile
 		 pyatspi/Makefile
