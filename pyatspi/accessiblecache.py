@@ -26,6 +26,7 @@ class _CacheData(object):
                         'role',
                         'name',
                         'description',
+                        'state',
                     ]
 
         def __init__(self, data):
@@ -39,7 +40,8 @@ class _CacheData(object):
                 self.interfaces,
                 self.name,
                 self.role,
-                self.description) = data
+                self.description,
+                self.state) = data
 
 #------------------------------------------------------------------------------
 

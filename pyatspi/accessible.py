@@ -207,9 +207,7 @@ class Accessible(BaseProxy):
         @return : a StateSet encapsulating the currently true states
         of the object.
         """
-        func = self.get_dbus_method("getState", dbus_interface=ATSPI_ACCESSIBLE)
-        bitfield = func()
-        return _marshal_state_set(bitfield)
+        return _marshal_state_set(self.cached_data.state)
 
     def isEqual(self, accessible):
         """
