@@ -50,7 +50,7 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
   DBusMessageIter *iter_array;
   DBusMessageIter iter_struct, iter_sub_array;
   DRouteData *data;
-  dbus_int32_t *states;
+  dbus_int32_t states [2];
   int count;
 
   const char *name, *desc;
@@ -134,7 +134,7 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
     }      
   spi_atk_state_to_dbus_array (obj, &states);
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u", &iter_sub_array);
-  for (count = 0; states[count]; count++)
+  for (count = 0; count < 2; count++)
     dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_UINT32, &states[count]);
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
   dbus_message_iter_close_container (iter_array, &iter_struct);
