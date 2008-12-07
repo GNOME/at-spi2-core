@@ -3,6 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2008 Novell, Inc.
+ * Copyright 2008 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -23,60 +24,59 @@
 #define _DROUTE_H
 
 #include <dbus/dbus.h>
-#include "glib.h"	/* needed for GString */
+#include <glib.h>
 
-#define DROUTE_METHOD   0
-#define DROUTE_SIGNAL   1
+#include <droute/droute-variant.h>
 
-typedef DBusMessage *(*DRouteFunction)(DBusConnection *, DBusMessage *, void *);
-typedef dbus_bool_t (*DRoutePropertyFunction)(const char *, DBusMessageIter *, void *);
+typedef DBusMessage *(*DRouteFunction)         (DBusConnection *, DBusMessage *, void *);
+typedef dbus_bool_t  (*DRoutePropertyFunction) (DBusMessageIter *, void *);
+
+typedef void        *(*DRouteGetDatumFunction) (const char *, void *);
 
 typedef struct _DRouteMethod DRouteMethod;
 struct _DRouteMethod
 {
-  DRouteFunction func;
-  const char *name;
-  dbus_bool_t wants_droute_data;
+    DRouteFunction func;
+    const char *name;
 };
 
 typedef struct _DRouteProperty DRouteProperty;
 struct _DRouteProperty
 {
-  DRoutePropertyFunction get;
-  DRoutePropertyFunction set;
-  const char *name;
+    DRoutePropertyFunction get;
+    DRoutePropertyFunction set;
+    const char *name;
 };
 
-  typedef void *(*DRouteGetDatumFunction)(const char *, void *);
-  typedef void (*DRouteFreeDatumFunction)(void *);
+/*---------------------------------------------------------------------------*/
 
-typedef struct _DRouteInterface DRouteInterface;
-struct _DRouteInterface
-{
-  DRouteMethod *methods;
-  DRouteProperty *properties;
-  DRouteGetDatumFunction get_datum;
-  DRouteFreeDatumFunction free_datum;
-  char *name;
-};
+typedef struct _DRouteContext DRouteContext;
 
-typedef struct _DRouteData DRouteData;
-struct _DRouteData
-{
-  DBusConnection *bus;
-  GSList *interfaces;
-  char (*introspect_children)(const char *, GString *, void *);
-  void *user_data;
-};
+typedef struct _DRoutePath    DRoutePath;
 
-DBusHandlerResult droute_message(DBusConnection *bus, DBusMessage *message, void *user_data);
+/*---------------------------------------------------------------------------*/
 
-dbus_bool_t droute_return_v_int32(DBusMessageIter *iter, dbus_int32_t val);
-dbus_bool_t droute_return_v_double(DBusMessageIter *iter, double val);
-dbus_bool_t droute_return_v_string(DBusMessageIter *iter, const char *val);
-dbus_int32_t droute_get_v_int32(DBusMessageIter *iter);
-const char *droute_get_v_string(DBusMessageIter *iter);
-dbus_bool_t droute_return_v_object(DBusMessageIter *iter, const char *path);
+DRouteContext *
+droute_new      (DBusConnection *bus,
+                 const char *introspect_dir);
+void
+droute_free     (DRouteContext *cnx);
 
-dbus_bool_t droute_add_interface(DRouteData *data, const char *name, DRouteMethod *methods, DRouteProperty *properties, DRouteGetDatumFunction get_datum, DRouteFreeDatumFunction free_datum);
-#endif	/* _DROUTE_H */
+DRoutePath *
+droute_add_one  (DRouteContext *cnx,
+                 const char    *path,
+                 const void    *data);
+
+DRoutePath *
+droute_add_many (DRouteContext *cnx,
+                 const char    *path,
+                 const void    *data,
+                 const DRouteGetDatumFunction get_datum);
+
+void
+droute_path_add_interface (DRoutePath *path,
+                           const char *name,
+                           const DRouteMethod   *methods,
+                           const DRouteProperty *properties);
+
+#endif /* _DROUTE_H */

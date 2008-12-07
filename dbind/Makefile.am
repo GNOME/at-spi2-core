@@ -1,6 +1,6 @@
 lib_LTLIBRARIES = libdbind.la
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"dbind\" \
 	-I$(top_srcdir) \
 	$(WARN_CFLAGS) \

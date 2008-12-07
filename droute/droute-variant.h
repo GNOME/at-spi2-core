@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2008 Codethink Ltd.
+ * Copyright 2008 Novell, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -19,19 +19,17 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+#ifndef _DROUTE_VARIANT_H
+#define _DROUTE_VARIANT_H
 
-#ifndef SPI_INTROSPECT_LOADER_H_
-#define SPI_INTROSPECT_LOADER_H_
+#include <dbus/dbus.h>
 
-#include <glib.h>
+dbus_bool_t  droute_return_v_int32  (DBusMessageIter *iter, dbus_int32_t val);
+dbus_bool_t  droute_return_v_double (DBusMessageIter *iter, double val);
+dbus_bool_t  droute_return_v_string (DBusMessageIter *iter, const char *val);
+dbus_bool_t  droute_return_v_object (DBusMessageIter *iter, const char *path);
 
-extern const char *spi_introspection_header;
+dbus_int32_t droute_get_v_int32     (DBusMessageIter *iter);
+const char  *droute_get_v_string    (DBusMessageIter *iter);
 
-extern const char *spi_introspection_node_element;
-
-extern const char *spi_introspection_footer;
-
-void
-spi_append_interface (GString *str, const char *interface);
-
-#endif /* SPI_INTROSPECT_LOADER_H_ */
+#endif	/* _DROUTE_VARIANT_H */

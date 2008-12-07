@@ -3,6 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2008 Novell, Inc.
+ * Copyright 2008 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -24,311 +25,464 @@
 #include <string.h>
 
 #include "droute.h"
+#include "droute-pairhash.h"
 
-static DRouteInterface *
-find_iface (DRouteData * data, const char *name)
+#define CHUNKS_DEFAULT (512)
+
+#define oom() g_error ("D-Bus out of memory, this message will fail anyway")
+
+struct _DRouteContext
 {
-  GSList *l;
+    DBusConnection       *bus;
+    GPtrArray            *registered_paths;
 
-  for (l = data->interfaces; l; l = g_slist_next (l))
-    {
-      DRouteInterface *iface = (DRouteInterface *) l->data;
-      if (iface && iface->name && !strcmp (iface->name, name))
-	return iface;
-    }
-  return NULL;
-}
+    gchar                *introspect_dir;
+};
+
+struct _DRoutePath
+{
+    DRouteContext        *cnx;
+    GStringChunk         *chunks;
+    GPtrArray            *interfaces;
+    GHashTable           *methods;
+    GHashTable           *properties;
+
+    void                   *user_data;
+    DRouteGetDatumFunction  get_datum;
+};
+
+/*---------------------------------------------------------------------------*/
+
+typedef struct PropertyPair
+{
+    DRoutePropertyFunction get;
+    DRoutePropertyFunction set;
+} PropertyPair;
+
+/*---------------------------------------------------------------------------*/
 
 static DBusHandlerResult
-prop_get_all (DBusConnection * bus, DBusMessage * message, DRouteData * data)
-{
-  DRouteInterface *iface_def;
-  DRouteProperty *prop;
-  DBusError error;
-  const char *iface;
-  const char *path = dbus_message_get_path (message);
-  DBusMessage *reply;
-  DBusMessageIter iter, iter_dict, iter_dict_entry;
+handle_message (DBusConnection *bus, DBusMessage *message, void *user_data);
 
-  dbus_error_init (&error);
-  if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_STRING, &iface, DBUS_TYPE_INVALID))
-    {
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
-  reply = dbus_message_new_method_return (message);
-  /* tbd: replace tbd with todo? */
-  if (!reply)
-    goto oom;
-  dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container
-      (&iter, DBUS_TYPE_ARRAY, "{sv}", &iter_dict))
-    goto oom;
-  iface_def = find_iface (data, iface);
-  if (!iface_def)
-    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-  if (iface_def->properties)
-    for (prop = iface_def->properties; prop->name; prop++)
+/*---------------------------------------------------------------------------*/
+
+static DRoutePath *
+path_new (DRouteContext *cnx,
+          void    *user_data,
+          DRouteGetDatumFunction get_datum)
+{
+    DRoutePath *new_path;
+
+    new_path = g_new0 (DRoutePath, 0);
+    new_path->cnx = cnx;
+    new_path->chunks = g_string_chunk_new (CHUNKS_DEFAULT);
+    new_path->interfaces = g_ptr_array_new ();
+
+    new_path->methods = g_hash_table_new_full ((GHashFunc)str_pair_hash,
+                                               str_pair_equal,
+                                               g_free,
+                                               NULL);
+
+    new_path->properties = g_hash_table_new_full ((GHashFunc)str_pair_hash,
+                                                  str_pair_equal,
+                                                  g_free,
+                                                  NULL);
+
+    new_path->user_data = user_data;
+    new_path->get_datum = get_datum;
+
+    return new_path;
+}
+
+static void
+path_free (DRoutePath *path, gpointer user_data)
+{
+    g_string_chunk_free  (path->chunks);
+    g_ptr_array_free     (path->interfaces, TRUE);
+    g_hash_table_destroy (path->methods);
+    g_hash_table_destroy (path->properties);
+}
+
+static void *
+path_get_datum (DRoutePath *path, const gchar *pathstr)
+{
+    if (path->get_datum != NULL)
+        return (path->get_datum) (pathstr, path->user_data);
+    else
+        return path->user_data;
+}
+
+/*---------------------------------------------------------------------------*/
+
+DRouteContext *
+droute_new (DBusConnection *bus, const char *introspect_dir)
+{
+    DRouteContext *cnx;
+
+    cnx = g_new0 (DRouteContext, 1);
+    cnx->bus = bus;
+    cnx->registered_paths = g_ptr_array_new ();
+    cnx->introspect_dir = g_strdup(introspect_dir);
+}
+
+void
+droute_free (DRouteContext *cnx)
+{
+    g_pointer_array_foreach ((GFunc) path_free, cnx->registered_paths, NULL);
+    g_free (cnx->introspect_dir);
+    g_free (cnx);
+}
+
+/*---------------------------------------------------------------------------*/
+
+static DBusObjectPathVTable droute_vtable =
+{
+  NULL,
+  &handle_message,
+  NULL, NULL, NULL, NULL
+};
+
+DRoutePath *
+droute_add_one (DRouteContext *cnx,
+                const char    *path,
+                const void    *data)
+{
+    DRoutePath *new_path;
+
+    new_path = path_new (cnx, (void *) data, NULL);
+
+    if (!dbus_connection_register_object_path (cnx->bus, path, &droute_vtable, new_path))
+        oom();
+
+    g_ptr_array_add (cnx->registered_paths, new_path);
+    return new_path;
+}
+
+DRoutePath *
+droute_add_many (DRouteContext *cnx,
+                 const char    *path,
+                 const void    *data,
+                 const DRouteGetDatumFunction get_datum)
+{
+    DRoutePath *new_path;
+
+    new_path = path_new (cnx, (void *) data, get_datum);
+
+    if (!dbus_connection_register_fallback (cnx->bus, path, &droute_vtable, new_path))
+        oom();
+
+    g_ptr_array_add (cnx->registered_paths, new_path);
+    return new_path;
+}
+
+/*---------------------------------------------------------------------------*/
+
+void
+droute_path_add_interface(DRoutePath *path,
+                          const char *name,
+                          const DRouteMethod   *methods,
+                          const DRouteProperty *properties)
+{
+    gchar *itf;
+
+    g_return_if_fail (name == NULL);
+
+    itf = g_string_chunk_insert (path->chunks, name);
+    g_ptr_array_add (path->interfaces, itf);
+
+    for (; methods->name != NULL; methods++)
       {
-	if (!prop->get)
-	  continue;
-	if (!dbus_message_iter_open_container
-	    (&iter_dict, DBUS_TYPE_DICT_ENTRY, NULL, &iter_dict_entry))
-	  goto oom;
-	dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING,
-					&prop->name);
-	(*prop->get) (path, &iter_dict_entry, data->user_data);
-	if (!dbus_message_iter_close_container (&iter_dict, &iter_dict_entry))
-	  goto oom;
+        gchar *meth;
+
+        meth = g_string_chunk_insert (path->chunks, methods->name);
+        g_hash_table_insert (path->methods, str_pair_new (itf, meth), methods->func);
       }
-  if (!dbus_message_iter_close_container (&iter, &iter_dict))
-    goto oom;
-  dbus_connection_send (bus, reply, NULL);
-  dbus_message_unref (reply);
-  return DBUS_HANDLER_RESULT_HANDLED;
-oom:
-  /* tbd: return a standard out-of-memory error */
-  return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+    for (; properties->name != NULL; properties++)
+      {
+        gchar *prop;
+        PropertyPair *pair;
+
+        prop = g_string_chunk_insert (path->chunks, properties->name);
+        pair = g_new (PropertyPair, 1);
+        pair->get = properties->get;
+        pair->set = properties->set;
+        g_hash_table_insert (path->properties, str_pair_new (itf, prop), pair);
+      }
+}
+
+/*---------------------------------------------------------------------------*/
+
+/* The data structures don't support an efficient implementation of GetAll
+ * and I don't really care.
+ */
+static DBusMessage *
+impl_prop_GetAll (DBusMessage *message,
+                  DRoutePath  *path,
+                  const char  *pathstr)
+{
+    DBusMessageIter iter, iter_dict, iter_dict_entry;
+    DBusMessage *reply;
+    DBusError error;
+    GHashTableIter prop_iter;
+
+    StrPair *key;
+    PropertyPair *value;
+    gchar *iface;
+
+    void  *datum = path_get_datum (path, pathstr);
+
+    dbus_error_init (&error);
+
+    if (!dbus_message_get_args
+                (message, &error, DBUS_TYPE_STRING, &iface, DBUS_TYPE_INVALID))
+        return dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
+
+    reply = dbus_message_new_method_return (message);
+    if (!reply)
+        oom ();
+
+    dbus_message_iter_init_append (reply, &iter);
+    if (!dbus_message_iter_open_container
+                (&iter, DBUS_TYPE_ARRAY, "{sv}", &iter_dict))
+        oom ();
+
+    g_hash_table_iter_init (&prop_iter, path->properties);
+    while (g_hash_table_iter_next (&prop_iter, (gpointer*)&key, (gpointer*)&value))
+      {
+        if (!g_strcmp (key->one, iface))
+         {
+           if (!value->get)
+              continue;
+           if (!dbus_message_iter_open_container
+                        (&iter_dict, DBUS_TYPE_DICT_ENTRY, NULL, &iter_dict_entry))
+              oom ();
+           dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING,
+                                           key->two);
+           (value->get) (&iter_dict_entry, datum);
+           if (!dbus_message_iter_close_container (&iter_dict, &iter_dict_entry))
+               oom ();
+         }
+      }
+
+    if (!dbus_message_iter_close_container (&iter, &iter_dict))
+        oom ();
+    return reply;
+}
+
+static DBusMessage *
+impl_prop_GetSet (DBusMessage *message,
+                  DRoutePath  *path,
+                  const char  *pathstr,
+                  gboolean     get)
+{
+    DBusMessage *reply = NULL;
+    DBusError error;
+
+    StrPair pair;
+    PropertyPair *prop_funcs;
+
+    if (!dbus_message_get_args (message,
+                                &error,
+                                DBUS_TYPE_STRING,
+                                &(pair.one),
+                                DBUS_TYPE_STRING,
+                                &(pair.two),
+                                DBUS_TYPE_INVALID))
+        return dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
+
+    prop_funcs = (PropertyPair *) g_hash_table_lookup (path->properties, &pair);
+    if (!prop_funcs)
+        return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
+
+    if (get && prop_funcs->get)
+      {
+        void *datum = path_get_datum (path, pathstr);
+        DBusMessageIter iter;
+
+        reply = dbus_message_new_method_return (message);
+        dbus_message_iter_init_append (reply, &iter);
+        (prop_funcs->get) (&iter, datum);
+      }
+    else if (!get && prop_funcs->set)
+      {
+        void *datum = path_get_datum (path, pathstr);
+        DBusMessageIter iter;
+
+        dbus_message_iter_init_append (message, &iter);
+        /* Skip the interface and property name */
+        dbus_message_iter_next(&iter);
+        dbus_message_iter_next(&iter);
+        (prop_funcs->get) (&iter, datum);
+      }
+    return reply;
 }
 
 static DBusHandlerResult
-prop (DBusConnection * bus, DBusMessage * message, DRouteData * data)
+handle_properties (DBusConnection *bus,
+                   DBusMessage    *message,
+                   DRoutePath     *path,
+                   const gchar    *iface,
+                   const gchar    *member,
+                   const gchar    *pathstr)
 {
-  const char *mode = dbus_message_get_member (message);
-  const char *iface, *member;
-  const char *path = dbus_message_get_path (message);
-  int set;
-  DBusMessage *reply;
-  DBusMessageIter iter;
-  DRouteInterface *iface_def;
-  DRouteProperty *prop = NULL;
+    DBusMessage *reply;
+    DBusHandlerResult result = DBUS_HANDLER_RESULT_HANDLED;
 
-  if (!strcmp (mode, "Set"))
-    set = 1;
-  else if (!strcmp (mode, "Get"))
-    set = 0;
-  else
-    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-  reply = dbus_message_new_method_return (message);
-  dbus_message_iter_init (message, &iter);
-  dbus_message_iter_get_basic (&iter, &iface);
-  dbus_message_iter_next (&iter);
-  dbus_message_iter_get_basic (&iter, &member);
-  if (!set)
-    dbus_message_iter_init_append (reply, &iter);
-  iface_def = find_iface (data, iface);
-  if (!iface_def)
-    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-  if (iface_def->properties)
-    for (prop = iface_def->properties;
-	 prop->name && strcmp (prop->name, member); prop++)
-      if (!prop || !prop->name)
-	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-  if (set)
-    {
-      if (!prop->set)
-	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-      (*prop->set) (path, &iter, data->user_data);
-    }
-  else
-    {
-      if (!prop->get)
-	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-      (*prop->get) (path, &iter, data->user_data);
-    }
-  dbus_connection_send (bus, reply, NULL);
-  dbus_message_unref (reply);
-  return DBUS_HANDLER_RESULT_HANDLED;
+    if (!g_strcmp0(member, "GetAll"))
+       reply = impl_prop_GetAll (message, path, pathstr);
+    else if (!g_strcmp0 (member, "Get"))
+       reply = impl_prop_GetSet (message, path, pathstr, TRUE);
+    else if (!g_strcmp0 (member, "Set"))
+       reply = impl_prop_GetSet (message, path, pathstr, FALSE);
+    else
+       result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+    return result;
 }
 
-DBusHandlerResult
-droute_message (DBusConnection * bus, DBusMessage * message, void *user_data)
-{
-  DRouteData *data = (DRouteData *) user_data;
-  DRouteInterface *iface_def;
-  DRouteMethod *method;
-  const char *iface = dbus_message_get_interface (message);
-  const char *member = dbus_message_get_member (message);
-  int type;
-  DBusError error;
-  DBusMessage *reply;
+/*---------------------------------------------------------------------------*/
 
-  dbus_error_init (&error);
-  if (!member)
-    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-  if (iface && !strcmp (iface, "org.freedesktop.DBus.Properties"))
+static const char *introspection_header =
+"<?xml version=\"1.0\"?>\n";
+
+static const char *introspection_node_element =
+"<node name=\"%s\">\n";
+
+static const char *introspection_footer =
+"</node>";
+
+static void
+append_interface (GString     *str,
+                  const gchar *interface,
+                  const gchar *directory)
+{
+  gchar *filename;
+  gchar *contents;
+  gsize len;
+
+  GError *err = NULL;
+
+  filename = g_build_filename (directory, interface, NULL);
+
+  if (g_file_get_contents (filename, &contents, &len, &err))
     {
-      if (!strcmp (member, "GetAll"))
-	return prop_get_all (bus, message, data);
-      return prop (bus, message, data);
-    }
-  if (iface)
-    {
-      iface_def = find_iface (data, iface);
-      if (!iface_def)
-	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-      if (iface_def->methods)
-	for (method = iface_def->methods; method->func; method++)
-	  {
-	    if (!strcmp (method->name, member))
-	      {
-		reply =
-		  (*method->func) (bus, message,
-				   (method->wants_droute_data ? data : data->
-				    user_data));
-		if (reply)
-		  {
-		    dbus_connection_send (bus, reply, NULL);
-		    dbus_message_unref (reply);
-		  }
-		return DBUS_HANDLER_RESULT_HANDLED;
-	      }
-	  }
+      g_string_append_len (str, contents, len);
     }
   else
     {
-      GSList *l;
-      if (type == DBUS_MESSAGE_TYPE_SIGNAL)
-	return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-      for (l = data->interfaces; l; l = g_slist_next (l))
-	{
-	  iface_def = (DRouteInterface *) l->data;
-	  if (iface_def->methods)
-	    for (method = iface_def->methods; method->func; method++)
-	      {
-		if (!strcmp (method->name, member))
-		  {
-		    reply = (*method->func) (bus, message, data->user_data);
-		    if (reply)
-		      {
-			dbus_connection_send (bus, reply, NULL);
-			dbus_message_unref (reply);
-		      }
-		    return DBUS_HANDLER_RESULT_HANDLED;
-		  }
-	      }
-	}
+      g_warning ("AT-SPI: Cannot find introspection XML file %s - %s",
+                 filename, err->message);
+      g_error_free (err);
     }
-  return DBUS_HANDLER_RESULT_HANDLED;
+
+  g_string_append (str, "\n");
+  g_free (filename);
+  g_free (contents);
 }
 
-dbus_bool_t
-droute_return_v_int32 (DBusMessageIter * iter, dbus_int32_t val)
+static DBusHandlerResult
+handle_intropsection (DBusConnection *bus,
+                      DBusMessage    *message,
+                      DRoutePath     *path,
+                      const gchar    *iface,
+                      const gchar    *member,
+                      const gchar    *pathstr)
 {
-  DBusMessageIter sub;
+    GString *output;
+    gchar *final;
+    gint i;
 
-  if (!dbus_message_iter_open_container
-      (iter, DBUS_TYPE_VARIANT, DBUS_TYPE_INT32_AS_STRING, &sub))
-    {
-      return FALSE;
-    }
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &val);
-  dbus_message_iter_close_container (iter, &sub);
-  return TRUE;
+    DBusMessage *reply;
+
+    if (g_strcmp (member, "Introspect"))
+        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+    output = g_string_new(introspection_header);
+
+    g_string_append_printf(output, introspection_node_element, pathstr);
+
+    for (i=0; i < path->interfaces->len; i++)
+      {
+        gchar *interface = (gchar *) g_ptr_array_index (path->interfaces, i);
+        append_interface(output, interface, path->cnx->introspect_dir);
+      }
+
+    g_string_append(output, introspection_footer);
+    final = g_string_free(output, FALSE);
+
+    reply = dbus_message_new_method_return (message);
+    if (!reply)
+        oom ();
+    dbus_message_append_args(reply, DBUS_TYPE_STRING, &final,
+                             DBUS_TYPE_INVALID);
+    dbus_connection_send (bus, reply, NULL);
+
+    dbus_message_unref (reply);
+    g_free(final);
+    return DBUS_HANDLER_RESULT_HANDLED;
 }
 
-dbus_bool_t
-droute_return_v_double (DBusMessageIter * iter, double val)
+/*---------------------------------------------------------------------------*/
+
+static DBusHandlerResult
+handle_other (DBusConnection *bus,
+              DBusMessage    *message,
+              DRoutePath     *path,
+              const gchar    *iface,
+              const gchar    *member,
+              const gchar    *pathstr)
 {
-  DBusMessageIter sub;
+    gint result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
-  if (!dbus_message_iter_open_container
-      (iter, DBUS_TYPE_VARIANT, DBUS_TYPE_DOUBLE_AS_STRING, &sub))
-    {
-      return FALSE;
-    }
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_DOUBLE, &val);
-  dbus_message_iter_close_container (iter, &sub);
-  return TRUE;
+    StrPair pair;
+    DRouteFunction func;
+    DBusMessage *reply;
+
+    pair.one = iface;
+    pair.two = member;
+
+    func = (DRouteFunction) g_hash_table_lookup (path->methods, &pair);
+    if (func != NULL)
+      {
+        void *datum = path_get_datum (path, pathstr);
+
+        reply = (func) (bus, message, datum);
+
+        if (reply)
+          {
+            dbus_connection_send (bus, reply, NULL);
+            dbus_message_unref (reply);
+          }
+        result = DBUS_HANDLER_RESULT_HANDLED;
+      }
+    return result;
 }
 
-/* Return a string in a variant
- * will return an empty string if passed a NULL value */
-dbus_bool_t
-droute_return_v_string (DBusMessageIter * iter, const char *val)
+/*---------------------------------------------------------------------------*/
+
+static DBusHandlerResult
+handle_message (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  DBusMessageIter sub;
+    DRoutePath *path = (DRoutePath *) user_data;
+    const gchar *iface   = dbus_message_get_interface (message);
+    const gchar *member  = dbus_message_get_member (message);
+    const gint   type    = dbus_message_get_type (message);
+    const gchar *pathstr = dbus_message_get_path (message);
 
-  if (!val)
-    val = "";
-  if (!dbus_message_iter_open_container
-      (iter, DBUS_TYPE_VARIANT, DBUS_TYPE_STRING_AS_STRING, &sub))
-    {
-      return FALSE;
-    }
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_STRING, &val);
-  dbus_message_iter_close_container (iter, &sub);
-  return TRUE;
+    /* Check for basic reasons not to handle */
+    if (type   != DBUS_MESSAGE_TYPE_METHOD_CALL ||
+        member == NULL ||
+        iface  == NULL)
+        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+    if (!strcmp (iface, "org.freedesktop.DBus.Properties"))
+        return handle_properties (bus, message, path, iface, member, pathstr);
+
+    if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
+        return handle_introspection (bus, message, path, iface, member, pathstr);
+
+    return handle_other (bus, message, path, iface, member, pathstr);
 }
 
-dbus_int32_t
-droute_get_v_int32 (DBusMessageIter * iter)
-{
-  DBusMessageIter sub;
-  dbus_int32_t rv;
-
-  // TODO- ensure we have the correct type
-  dbus_message_iter_recurse (iter, &sub);
-  dbus_message_iter_get_basic (&sub, &rv);
-  return rv;
-}
-
-const char *
-droute_get_v_string (DBusMessageIter * iter)
-{
-  DBusMessageIter sub;
-  char *rv;
-
-  // TODO- ensure we have the correct type
-  dbus_message_iter_recurse (iter, &sub);
-  dbus_message_iter_get_basic (&sub, &rv);
-  return rv;
-}
-
-dbus_bool_t
-droute_return_v_object (DBusMessageIter * iter, const char *path)
-{
-  DBusMessageIter sub;
-
-  if (!dbus_message_iter_open_container
-      (iter, DBUS_TYPE_VARIANT, DBUS_TYPE_OBJECT_PATH_AS_STRING, &sub))
-    {
-      return FALSE;
-    }
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_OBJECT_PATH, &path);
-  dbus_message_iter_close_container (iter, &sub);
-  return TRUE;
-}
-
-dbus_bool_t
-droute_add_interface (DRouteData * data, const char *name,
-		      DRouteMethod * methods, DRouteProperty * properties,
-		      DRouteGetDatumFunction get_datum,
-		      DRouteFreeDatumFunction free_datum)
-{
-  DRouteInterface *iface =
-    (DRouteInterface *) malloc (sizeof (DRouteInterface));
-  GSList *new_list;
-
-  if (!iface)
-    return FALSE;
-  iface->name = strdup (name);
-  if (!iface->name)
-    {
-      free (iface);
-      return FALSE;
-    }
-  iface->methods = methods;
-  iface->properties = properties;
-  iface->get_datum = get_datum;
-  iface->free_datum = free_datum;
-  new_list = g_slist_append (data->interfaces, iface);
-  if (!new_list)
-    {
-      free (iface->name);
-      free (iface);
-      return FALSE;
-    }
-  data->interfaces = new_list;
-  return TRUE;
-}
+/*END------------------------------------------------------------------------*/

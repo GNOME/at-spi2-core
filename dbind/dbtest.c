@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <glib.h>
 #include <string.h>
-#define DBUS_API_SUBJECT_TO_CHANGE
 #include <dbind/dbind.h>
-#include <dbind/dbind-any.h>
 
 /* Wow! dbus is unpleasant to use */
 
@@ -341,7 +339,7 @@ void test_marshalling ()
     fprintf (stderr, "Marshalling ok\n");
 }
 
-void test_teamspaces (DBindContext *ctx)
+void test_teamspaces (DBusConnection *bus)
 {
     GArray *spaces;
     DBusError error;
@@ -353,9 +351,14 @@ void test_teamspaces (DBindContext *ctx)
     } TeamSpace;
 
     dbus_error_init (&error);
-    if (!dbind_context_method_call (ctx, NULL, DESKICE_PATH, DESKICE_NAMESPACE,
-                                    "GetTeamList", &error,
-                                    "=>a(sss)", &spaces)) {
+    if (!dbind_method_call_reentrant (bus,
+                                      NULL,
+                                      DESKICE_PATH,
+                                      DESKICE_NAMESPACE,
+                                      "GetTeamList",
+                                      &error,
+                                      "=>a(sss)",
+                                      &spaces)) {
         fprintf (stderr, "Error getting team spaces %s: %s\n",
                  error.name, error.message);
         dbus_error_free (&error);
@@ -375,8 +378,6 @@ void test_teamspaces (DBindContext *ctx)
     dbind_any_free_ptr ("a(sss)", spaces);
 }
 
-extern dbind_find_c_alignment (char *type);
-
 void test_helpers ()
 {
     dbind_find_c_alignment ("(sss)");
@@ -387,17 +388,14 @@ void test_helpers ()
 
 int main (int argc, char **argv)
 {
-    DBindContext *ctx;
+    DBusConnection *bus;
+    DBusError err;
 
-    ctx = dbind_create_context (DBUS_BUS_SESSION, NULL);
-    if (!ctx)
-        return 1;
+    bus = dbus_bus_get (DBUS_BUS_SESSION, &err);
 
     test_helpers ();
     test_marshalling ();
-    test_teamspaces (ctx);
-
-    dbind_context_free (ctx);
+    test_teamspaces (bus);
 
     return 0;
 }
