@@ -93,6 +93,7 @@ static const char *interfaces[] =
   SPI_DBUS_INTERFACE_ACCESSIBLE,
   SPI_DBUS_INTERFACE_ACTION,
   SPI_DBUS_INTERFACE_APPLICATION,
+  SPI_DBUS_INTERFACE_COLLECTION,
   SPI_DBUS_INTERFACE_COMPONENT,
   SPI_DBUS_INTERFACE_DOCUMENT,
   SPI_DBUS_INTERFACE_EDITABLE_TEXT,
@@ -377,7 +378,7 @@ handle_additions (CSpiApplication*app, GArray *additions)
     a->states = spi_state_set_cache_new (ca->state_bitflags);
     g_array_free (ca->interfaces, TRUE);
     g_array_free (ca->children, TRUE);
-    g_array_free (ca->state_bitflags, TRUE);
+    /* spi_state_set_cache_new frees state_bitflags */
     /* This is a bit of a hack since ref_accessible sets ref_count to 2
      * for a new object, one of the refs being for the cache */
     cspi_object_unref (a);
@@ -556,7 +557,7 @@ typedef struct
   GArray *removals;
 } CacheSignalData;
 
-static const char *cacheSignalType = "a(ooaoassus)ao";
+static const char *cacheSignalType = "a(ooaoassusau)ao";
 
 static DBusHandlerResult
 cspi_dbus_handle_update_tree (DBusConnection *bus, DBusMessage *message, void *user_data)
@@ -643,7 +644,7 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   {
     return cspi_dbus_handle_update_tree (bus, message, data);
   }
-  if (dbus_message_is_signal (message, spi_interface_tree, "registerApplication"))
+  if (dbus_message_is_signal (message, spi_interface_registry, "registerApplication"))
   {
     return cspi_dbus_handle_register_application (bus, message, data);
   }
@@ -693,7 +694,7 @@ SPI_init (void)
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
-  match = g_strdup_printf ("type='signal',interface='%s'", spi_interface_tree);
+  match = g_strdup_printf ("type='signal',interface='%s'", spi_interface_registry);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
   return 0;
