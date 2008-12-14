@@ -633,7 +633,7 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   char *bus_name;
 
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
-      !strcmp (interface, SPI_DBUS_INTERFACE_ACCESSIBLE))
+      !strncmp (interface, "org.freedesktop.atspi.Event.", 28))
   {
     return cspi_dbus_handle_event (bus, message, data);
   }
@@ -656,6 +656,17 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
+static const char *signal_interfaces[] =
+{
+  "org.freedesktop.atspi.Event.Object",
+  "org.freedesktop.atspi.Event.Window",
+  "org.freedesktop.atspi.Event.Mouse",
+  "org.freedesktop.atspi.Event.Terminal",
+  "org.freedesktop.atspi.Event.Document",
+  "org.freedesktop.atspi.Event.Focus",
+  NULL
+};
+
 /**
  * SPI_init:
  *
@@ -668,6 +679,7 @@ SPI_init (void)
 {
   DBusError error;
   char *match;
+  int i;
 
   if (SPI_inited)
     {
@@ -698,6 +710,12 @@ SPI_init (void)
   match = g_strdup_printf ("type='method_call',interface='%s'", spi_interface_registry);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
+  for (i = 0; signal_interfaces[i]; i++)
+  {
+    match = g_strdup_printf ("type='signal',interface='%s'", signal_interfaces[i]);
+    dbus_bus_add_match (bus, match, &error);
+    g_free (match);
+  }
   return 0;
 }
 
