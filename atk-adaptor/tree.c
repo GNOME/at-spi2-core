@@ -67,7 +67,7 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
       AtkObject *parent;
       gchar *path, *path_parent;
 
-      path = atk_dbus_get_path_from_ref(GPOINTER_TO_INT(ref));
+      path = atk_dbus_get_path (obj_data);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
 
       parent = atk_object_get_parent(obj);

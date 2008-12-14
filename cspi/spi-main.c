@@ -219,7 +219,8 @@ cspi_object_unref_internal (Accessible *accessible, gboolean defunct)
     {
       g_free (accessible->v.path);
     }
-    spi_state_set_cache_unref (accessible->states);
+    if (accessible->states)
+      spi_state_set_cache_unref (accessible->states);
     g_free (accessible->description);
     g_free (accessible->name);
     g_free(accessible);
@@ -644,11 +645,11 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   {
     return cspi_dbus_handle_update_tree (bus, message, data);
   }
-  if (dbus_message_is_signal (message, spi_interface_registry, "registerApplication"))
+  if (dbus_message_is_method_call (message, spi_interface_registry, "registerApplication"))
   {
     return cspi_dbus_handle_register_application (bus, message, data);
   }
-  if (dbus_message_is_signal (message, spi_interface_registry, "deregisterApplication"))
+  if (dbus_message_is_method_call (message, spi_interface_registry, "deregisterApplication"))
   {
     return cspi_dbus_handle_deregister_application (bus, message, data);
   }
@@ -694,7 +695,7 @@ SPI_init (void)
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
-  match = g_strdup_printf ("type='signal',interface='%s'", spi_interface_registry);
+  match = g_strdup_printf ("type='method_call',interface='%s'", spi_interface_registry);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
   return 0;
