@@ -12,8 +12,9 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy, Enum
+from interfaces import *
+from base import Enum
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +23,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class LoginHelper(BaseProxy):
+class LoginHelper(Accessible):
         """
         An interface for use by assistive technologies by which they
         can access system information and services on a 'need to know'
@@ -67,7 +68,7 @@ class LoginHelper(BaseProxy):
                 device I/O required in order to facilitate end-user access to
                 the system.
                 """
-                func = self.get_dbus_method("getDeviceReqs")
+                func = self.get_dbus_method("getDeviceReqs", dbus_interface=ATSPI_LOGIN_HELPER)
                 return func(*args, **kwargs)
 
         def getRaiseWindows(self, *args, **kwargs):
@@ -79,7 +80,7 @@ class LoginHelper(BaseProxy):
                 order for the LoginHelper to facilitate end-user access to the
                 system.
                 """
-                func = self.get_dbus_method("getRaiseWindows")
+                func = self.get_dbus_method("getRaiseWindows", dbus_interface=ATSPI_LOGIN_HELPER)
                 return func(*args, **kwargs)
 
         def setSafe(self, *args, **kwargs):
@@ -98,7 +99,7 @@ class LoginHelper(BaseProxy):
                 when in "safe" mode.
                 @return : whether the LoginHelper is now "safe" or not.
                 """
-                func = self.get_dbus_method("setSafe")
+                func = self.get_dbus_method("setSafe", dbus_interface=ATSPI_LOGIN_HELPER)
                 return func(*args, **kwargs)
 
         class DeviceReq(Enum):
@@ -141,6 +142,6 @@ class LoginHelper(BaseProxy):
                 winID = property(fget=_get_winID, fset=_set_winID)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_LOGIN_HELPER, LoginHelper)
+accessible_factory.register_accessible_class(ATSPI_LOGIN_HELPER, LoginHelper)
 
 #END----------------------------------------------------------------------------

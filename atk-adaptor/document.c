@@ -22,35 +22,22 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkDocument *
-get_document (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_DOCUMENT (obj);
-}
-
-static AtkDocument *
-get_document_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_DOCUMENT(obj))
-    return NULL;
-  return ATK_DOCUMENT (obj);
-}
+#include "spi-common/spi-dbus.h"
 
 static DBusMessage *
-impl_getLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_getLocale (DBusConnection *bus,
+                DBusMessage *message,
+                void *user_data)
 {
-  AtkDocument *document = get_document (message);
+  AtkDocument *document = (AtkDocument *) user_data;
   const gchar *lc;
   DBusMessage *reply;
 
-  if (!document)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_DOCUMENT (user_data),
+                        droute_not_yet_handled_error (message));
   lc = atk_document_get_locale (document);
   if (!lc)
     lc = "";
@@ -67,14 +54,14 @@ static DBusMessage *
 impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
 			void *user_data)
 {
-  AtkDocument *document = get_document (message);
+  AtkDocument *document = (AtkDocument *) user_data;
   DBusError error;
   gchar *attributename;
   const gchar *atr;
   DBusMessage *reply;
 
-  if (!document)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_DOCUMENT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
@@ -97,7 +84,7 @@ static DBusMessage *
 impl_getAttributes (DBusConnection * bus, DBusMessage * message,
 		    void *user_data)
 {
-  AtkDocument *document = get_document (message);
+  AtkDocument *document = (AtkDocument *) user_data;
   DBusMessage *reply;
   AtkAttributeSet *attributes;
   AtkAttribute *attr = NULL;
@@ -105,8 +92,8 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
   gint n_attributes = 0;
   gint i;
 
-  if (!document)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_DOCUMENT (user_data),
+                        droute_not_yet_handled_error (message));
 
   attributes = atk_document_get_attributes (document);
   if (attributes)
@@ -141,10 +128,10 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_document (DRouteData * data)
+spi_initialize_document (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_DOCUMENT,
-			methods, NULL,
-			(DRouteGetDatumFunction) get_document_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_DOCUMENT,
+                             methods,
+                             NULL);
 };

@@ -53,12 +53,11 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkwindow.h>
 
-#include <atk-adaptor/spi-private.h>
 #include <spi-common/keymasks.h>
-#include <droute/droute.h>
-#include <droute/introspect-loader.h>
 #include <spi-common/spi-dbus.h>
 #include <spi-common/spi-types.h>
+
+#include <droute/droute.h>
 
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"
@@ -348,7 +347,7 @@ static void emit(SpiDEController *controller, const char *name, int first_type, 
   va_list arg;
 
   va_start(arg, first_type);
-  spi_dbus_emit_valist(controller->droute->bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
+  spi_dbus_emit_valist(controller->bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
   va_end(arg);
 }
 
@@ -913,7 +912,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
 
       controller->key_listeners = g_list_prepend (controller->key_listeners,
 						  key_listener);
-      spi_dbus_add_disconnect_match (controller->droute->bus, key_listener->listener.bus_name);
+      spi_dbus_add_disconnect_match (controller->bus, key_listener->listener.bus_name);
       if (key_listener->mode->global)
         {
 	  return spi_controller_register_global_keygrabs (controller, key_listener);	
@@ -923,7 +922,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
       break;
   case SPI_DEVICE_TYPE_MOUSE:
       controller->mouse_listeners = g_list_prepend (controller->mouse_listeners, listener);
-      spi_dbus_add_disconnect_match (controller->droute->bus, listener->bus_name);
+      spi_dbus_add_disconnect_match (controller->bus, listener->bus_name);
       break;
   default:
       break;
@@ -946,7 +945,7 @@ Accessibility_DeviceEventListener_notifyEvent(SpiDEController *controller,
   {
     // TODO: Evaluate performance: perhaps rework this whole architecture
     // to avoid blocking calls
-    DBusMessage *reply = dbus_connection_send_with_reply_and_block(controller->droute->bus, message, 1000, &error);
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block(controller->bus, message, 1000, &error);
     if (reply)
     {
       DBusError error;
@@ -1915,7 +1914,7 @@ spi_controller_deregister_device_listener (SpiDEController            *controlle
 {
   RemoveListenerClosure  ctx;
 
-  ctx.bus = controller->droute->bus;
+  ctx.bus = controller->bus;
   ctx.listener = listener;
 
   spi_re_entrant_list_foreach (&controller->mouse_listeners,
@@ -1928,7 +1927,7 @@ spi_deregister_controller_key_listener (SpiDEController            *controller,
 {
   RemoveListenerClosure  ctx;
 
-  ctx.bus = controller->droute->bus;
+  ctx.bus = controller->bus;
   ctx.listener = (DEControllerListener *) key_listener;
 
   /* special case, copy keyset from existing controller list entry */
@@ -2687,36 +2686,6 @@ static void wait_for_release_event (XEvent          *event,
   check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
 }
 
-static DBusMessage *
-impl_introspect (DBusConnection *bus, DBusMessage *message,
-                 void *user_data)
-{
-  const char *path;
-  GString *output;
-  char *final;
-
-  DBusMessage *reply;
-
-  path = dbus_message_get_path(message);
-
-  output = g_string_new(spi_introspection_header);
-
-  g_string_append_printf(output, spi_introspection_node_element, path);
-
-  spi_append_interface(output, SPI_DBUS_INTERFACE_DEC);
-
-  g_string_append(output, spi_introspection_footer);
-  final = g_string_free(output, FALSE);
-
-  reply = dbus_message_new_method_return (message);
-  g_assert(reply != NULL);
-  dbus_message_append_args(reply, DBUS_TYPE_STRING, &final,
-                           DBUS_TYPE_INVALID);
-
-  g_free(final);
-  return reply;
-}
-
 static DRouteMethod dev_methods[] =
 {
   { impl_register_keystroke_listener, "registerKeystrokeListener" },
@@ -2730,27 +2699,23 @@ static DRouteMethod dev_methods[] =
   { NULL, NULL }
 };
 
-static DRouteMethod intro_methods[] = {
-  {impl_introspect, "Introspect"},
-  {NULL, NULL}
-};
-
 SpiDEController *
-spi_registry_dec_new (SpiRegistry *reg, DRouteData *droute)
+spi_registry_dec_new (SpiRegistry *reg, DBusConnection *bus, DRouteContext *droute)
 {
   SpiDEController *dec = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
+  DRoutePath *path;
 
   dec->registry = g_object_ref (reg);
-  dec->droute = droute;
+  dec->bus = bus;
 
-  droute_add_interface (droute,
-                        SPI_DBUS_INTERFACE_DEC,
-                        dev_methods,
-                        NULL, NULL, NULL);
-  droute_add_interface (droute,
-                        "org.freedesktop.DBus.Introspectable",
-                        intro_methods,
-                        NULL, NULL, NULL);
+  path = droute_add_one (droute,
+                         "/org/freedesktop/atspi/registry/deviceeventcontroller",
+                         dec);
+
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_DEC,
+                             dev_methods,
+                             NULL);
 
   spi_dec_init_mouse_listener (dec);
   /* TODO: kill mouse listener on finalize */

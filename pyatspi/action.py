@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Action(BaseProxy):
+class Action(Accessible):
         """
         An interface through which a user-actionable user interface component
         can be manipulated. Components which react to mouse or keyboard
@@ -42,7 +42,7 @@ class Action(BaseProxy):
                 Causes the object to perform the specified action.
                 @return : a boolean indicating success or failure.
                 """
-                func = self.get_dbus_method("doAction")
+                func = self.get_dbus_method("doAction", dbus_interface=ATSPI_ACTION)
                 return func(index)
 
         def getDescription(self, index):
@@ -56,7 +56,7 @@ class Action(BaseProxy):
                 @return : a string containing the description of the specified
                 action.
                 """
-                func = self.get_dbus_method("getDescription")
+                func = self.get_dbus_method("getDescription", dbus_interface=ATSPI_ACTION)
                 return func(index)
 
         def getKeyBinding(self, index):
@@ -68,7 +68,7 @@ class Action(BaseProxy):
                 @return : a string containing the key binding for the specified
                 action, or an empty string ("") if none exists.
                 """
-                func = self.get_dbus_method("getKeyBinding")
+                func = self.get_dbus_method("getKeyBinding", dbus_interface=ATSPI_ACTION)
                 return func(index)
 
         def getName(self, index):
@@ -81,7 +81,7 @@ class Action(BaseProxy):
                 the result of invoking the action.
                 @return : a string containing the name of the specified action.
                 """
-                func = self.get_dbus_method("getName")
+                func = self.get_dbus_method("getName", dbus_interface=ATSPI_ACTION)
                 return func(index)
 
         def get_nActions(self):
@@ -96,6 +96,6 @@ class Action(BaseProxy):
         nActions = property(fget=get_nActions, fset=set_nActions, doc=_nActionsDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_ACTION, Action)
+accessible_factory.register_accessible_class(ATSPI_ACTION, Action)
 
 #END----------------------------------------------------------------------------

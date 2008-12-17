@@ -22,9 +22,15 @@
 
 /* collection.c: implements the Collection interface */
 
-#include "accessible.h"
-#include "spi-common/bitarray.h"
 #include <string.h>
+
+#include <atk/atk.h>
+#include <droute/droute.h>
+
+#include "atk-dbus.h"
+
+#include "spi-common/bitarray.h"
+#include "spi-common/spi-dbus.h"
 
 #define get_object(message) atk_dbus_get_object(dbus_message_get_path(message))
 
@@ -671,7 +677,7 @@ return_and_free_list(DBusMessage *message, GList *ls)
   if (!dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &iter_array)) goto oom;
   for (item = ls; item; item = g_list_next(item))
   {
-    char *path = spi_dbus_get_path((AtkObject *)item->data);
+      char *path = (char *) spi_dbus_get_path((AtkObject *)item->data);
       dbus_message_iter_append_basic(&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
       g_free(path);
   }
@@ -1014,13 +1020,15 @@ impl_getMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
 static DRouteMethod methods[] = {
   { impl_getMatchesFrom, "getMatchesFrom" },
   { impl_getMatchesTo, "getMatchesTo" },
-  {impl_getMatches, "getMatches" },
+  { impl_getMatches, "getMatches" },
   {NULL, NULL}
 };
 
 void
-spi_initialize_collection (DRouteData * data)
+spi_initialize_collection (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_COLLECTION,
-			methods, NULL, NULL, NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_COLLECTION,
+                             methods,
+                             NULL);
 };

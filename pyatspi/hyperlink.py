@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Hyperlink(BaseProxy):
+class Hyperlink(Accessible):
         """
         Instances of Hyperlink are returned by Hypertext objects, and
         are the means by which end users and clients interact with linked,
@@ -48,7 +48,7 @@ class Hyperlink(BaseProxy):
                 ith anchor, or through which the content associated with the
                 ith anchor can be accessed.
                 """
-                func = self.get_dbus_method("getObject")
+                func = self.get_dbus_method("getObject", dbus_interface=ATSPI_HYPERLINK)
                 return func(*args, **kwargs)
 
         def getURI(self, *args, **kwargs):
@@ -58,7 +58,7 @@ class Hyperlink(BaseProxy):
                 @return a string corresponding to the URI of the Hyperlink's
                 'ith' anchor, if one exists, or a NIL string otherwise.
                 """
-                func = self.get_dbus_method("getURI")
+                func = self.get_dbus_method("getURI", dbus_interface=ATSPI_HYPERLINK)
                 return func(*args, **kwargs)
 
         def isValid(self, *args, **kwargs):
@@ -69,7 +69,7 @@ class Hyperlink(BaseProxy):
                 the hyperlink's URI is invalid, or a connection to the resource
                 can not be established.
                 """
-                func = self.get_dbus_method("isValid")
+                func = self.get_dbus_method("isValid", dbus_interface=ATSPI_HYPERLINK)
                 return func(*args, **kwargs)
 
         def get_endIndex(self):
@@ -107,6 +107,6 @@ class Hyperlink(BaseProxy):
         startIndex = property(fget=get_startIndex, fset=set_startIndex, doc=_startIndexDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_HYPERLINK, Hyperlink)
+accessible_factory.register_accessible_class(ATSPI_HYPERLINK, Hyperlink)
 
 #END----------------------------------------------------------------------------

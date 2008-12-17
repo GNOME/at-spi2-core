@@ -22,17 +22,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
 #include <math.h>
 
-static AtkValue *
-get_value_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_VALUE(obj))
-    return NULL;
-  return ATK_VALUE (obj);
-}
+#include <atk/atk.h>
+#include <droute/droute.h>
+
+#include "spi-common/spi-dbus.h"
 
 static double
 get_double_from_gvalue (GValue * gvalue)
@@ -181,63 +176,58 @@ gvalue_set_from_double (GValue * gvalue, double value)
 }
 
 static dbus_bool_t
-impl_get_minimumValue (const char *path, DBusMessageIter * iter,
+impl_get_minimumValue (DBusMessageIter * iter,
 		       void *user_data)
 {
-  AtkValue *value = get_value_from_path (path, user_data);
+  AtkValue *value = (AtkValue *) user_data;
   GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
   atk_value_get_minimum_value (value, &gvalue);
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
 }
 
 static dbus_bool_t
-impl_get_maximumValue (const char *path, DBusMessageIter * iter,
+impl_get_maximumValue (DBusMessageIter * iter,
 		       void *user_data)
 {
-  AtkValue *value = get_value_from_path (path, user_data);
+  AtkValue *value = (AtkValue *) user_data;
   GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
   atk_value_get_maximum_value (value, &gvalue);
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
 }
 
 static dbus_bool_t
-impl_get_minimumIncrement (const char *path, DBusMessageIter * iter,
+impl_get_minimumIncrement (DBusMessageIter * iter,
 			   void *user_data)
 {
-  AtkValue *value = get_value_from_path (path, user_data);
+  AtkValue *value = (AtkValue *) user_data;
   GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
   atk_value_get_minimum_value (value, &gvalue);
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
 }
 
 static dbus_bool_t
-impl_get_currentValue (const char *path, DBusMessageIter * iter,
+impl_get_currentValue (DBusMessageIter * iter,
 		       void *user_data)
 {
-  AtkValue *value = get_value_from_path (path, user_data);
+  AtkValue *value = (AtkValue *) user_data;
   GValue gvalue = { 0, };
-  if (!value)
-    return FALSE;
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
   atk_value_get_current_value (value, &gvalue);
   return droute_return_v_double (iter, get_double_from_gvalue (&gvalue));
 }
 
 static dbus_bool_t
-impl_set_currentValue (const char *path, DBusMessageIter * iter,
+impl_set_currentValue (DBusMessageIter * iter,
 		       void *user_data)
 {
-  AtkValue *value = get_value_from_path (path, user_data);
+  AtkValue *value = (AtkValue *) user_data;
   GValue gvalue = { 0, };
   double dbl;
 
-  if (!value)
-    return FALSE;
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
   if (!get_double_from_variant (iter, &dbl))
     return FALSE;
   atk_value_get_current_value (value, &gvalue);
@@ -254,9 +244,10 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_value (DRouteData * data)
+spi_initialize_value (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_VALUE, NULL,
-			properties,
-			(DRouteGetDatumFunction) get_value_from_path, NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_VALUE,
+                             NULL,
+                             properties);
 };

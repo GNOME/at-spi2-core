@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Table(BaseProxy):
+class Table(Accessible):
         """
         An interface used by containers whose contained data is arranged
         in a "tabular" (i.e. row-column) fashion. Tables may resemble
@@ -46,7 +46,7 @@ class Table(BaseProxy):
                 @return True if the specified column was successfully selected,
                 False if not.
                 """
-                func = self.get_dbus_method("addColumnSelection")
+                func = self.get_dbus_method("addColumnSelection", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def addRowSelection(self, *args, **kwargs):
@@ -57,7 +57,7 @@ class Table(BaseProxy):
                 @return True if the specified row was successfully selected,
                 False if not.
                 """
-                func = self.get_dbus_method("addRowSelection")
+                func = self.get_dbus_method("addRowSelection", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getAccessibleAt(self, *args, **kwargs):
@@ -70,7 +70,7 @@ class Table(BaseProxy):
                 @return an Accessible object representing the specified table
                 cell.
                 """
-                func = self.get_dbus_method("getAccessibleAt")
+                func = self.get_dbus_method("getAccessibleAt", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getColumnAtIndex(self, *args, **kwargs):
@@ -82,7 +82,7 @@ class Table(BaseProxy):
                 @return a long integer indicating the first column spanned by
                 the child of a table, at the specified 1-D (zero-offset) index.
                 """
-                func = self.get_dbus_method("getColumnAtIndex")
+                func = self.get_dbus_method("getColumnAtIndex", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getColumnDescription(self, *args, **kwargs):
@@ -94,7 +94,7 @@ class Table(BaseProxy):
                 @return a UTF-8 string describing the specified table column,
                 if available.
                 """
-                func = self.get_dbus_method("getColumnDescription")
+                func = self.get_dbus_method("getColumnDescription", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getColumnExtentAt(self, *args, **kwargs):
@@ -109,7 +109,7 @@ class Table(BaseProxy):
                 @return a long integer indicating the number of columns spanned
                 by the specified cell.
                 """
-                func = self.get_dbus_method("getColumnExtentAt")
+                func = self.get_dbus_method("getColumnExtentAt", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getColumnHeader(self, *args, **kwargs):
@@ -122,7 +122,7 @@ class Table(BaseProxy):
                 @return an Accessible representatin of the specified table column,
                 if available.
                 """
-                func = self.get_dbus_method("getColumnHeader")
+                func = self.get_dbus_method("getColumnHeader", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getIndexAt(self, *args, **kwargs):
@@ -136,7 +136,7 @@ class Table(BaseProxy):
                 @return a long integer which serves as the index of a specified
                 cell in the table, in a form usable by Accessible::getChildAtIndex.
                 """
-                func = self.get_dbus_method("getIndexAt")
+                func = self.get_dbus_method("getIndexAt", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getRowAtIndex(self, *args, **kwargs):
@@ -148,7 +148,7 @@ class Table(BaseProxy):
                 @return a long integer indicating the first row spanned by the
                 child of a table, at the specified 1-D (zero-offset) index.
                 """
-                func = self.get_dbus_method("getRowAtIndex")
+                func = self.get_dbus_method("getRowAtIndex", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getRowColumnExtentsAtIndex(self, *args, **kwargs):
@@ -187,7 +187,7 @@ class Table(BaseProxy):
                 False if the index does not correspond to a cell. If False is
                 returned, the values of the out parameters are undefined.
                 """
-                func = self.get_dbus_method("getRowColumnExtentsAtIndex")
+                func = self.get_dbus_method("getRowColumnExtentsAtIndex", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getRowDescription(self, *args, **kwargs):
@@ -199,7 +199,7 @@ class Table(BaseProxy):
                 @return a UTF-8 string describing the specified table row, if
                 available.
                 """
-                func = self.get_dbus_method("getRowDescription")
+                func = self.get_dbus_method("getRowDescription", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getRowExtentAt(self, *args, **kwargs):
@@ -214,7 +214,7 @@ class Table(BaseProxy):
                 @return a long integer indicating the number of rows spanned
                 by the specified cell.
                 """
-                func = self.get_dbus_method("getRowExtentAt")
+                func = self.get_dbus_method("getRowExtentAt", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getRowHeader(self, *args, **kwargs):
@@ -226,7 +226,7 @@ class Table(BaseProxy):
                 @return an Accessible representatin of the specified table row,
                 if available.
                 """
-                func = self.get_dbus_method("getRowHeader")
+                func = self.get_dbus_method("getRowHeader", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getSelectedColumns(self, *args, **kwargs):
@@ -235,7 +235,7 @@ class Table(BaseProxy):
                 @return a sequence of integers comprising the indices of columns
                 currently selected.
                 """
-                func = self.get_dbus_method("getSelectedColumns")
+                func = self.get_dbus_method("getSelectedColumns", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def getSelectedRows(self, *args, **kwargs):
@@ -244,7 +244,7 @@ class Table(BaseProxy):
                 @return a sequence of integers comprising the indices of rows
                 currently selected.
                 """
-                func = self.get_dbus_method("getSelectedRows")
+                func = self.get_dbus_method("getSelectedRows", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def isColumnSelected(self, *args, **kwargs):
@@ -255,7 +255,7 @@ class Table(BaseProxy):
                 @return True if the specified column is currently selected, False
                 if not.
                 """
-                func = self.get_dbus_method("isColumnSelected")
+                func = self.get_dbus_method("isColumnSelected", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def isRowSelected(self, *args, **kwargs):
@@ -266,7 +266,7 @@ class Table(BaseProxy):
                 @return True if the specified row is currently selected, False
                 if not.
                 """
-                func = self.get_dbus_method("isRowSelected")
+                func = self.get_dbus_method("isRowSelected", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def isSelected(self, *args, **kwargs):
@@ -279,7 +279,7 @@ class Table(BaseProxy):
                 @return True if the specified cell is currently selected, False
                 if not.
                 """
-                func = self.get_dbus_method("isSelected")
+                func = self.get_dbus_method("isSelected", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def removeColumnSelection(self, *args, **kwargs):
@@ -290,7 +290,7 @@ class Table(BaseProxy):
                 @return True if the specified column was successfully de-selected,
                 False if not.
                 """
-                func = self.get_dbus_method("removeColumnSelection")
+                func = self.get_dbus_method("removeColumnSelection", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def removeRowSelection(self, *args, **kwargs):
@@ -301,7 +301,7 @@ class Table(BaseProxy):
                 @return True if the specified row was successfully de-selected,
                 False if not.
                 """
-                func = self.get_dbus_method("removeRowSelection")
+                func = self.get_dbus_method("removeRowSelection", dbus_interface=ATSPI_TABLE)
                 return func(*args, **kwargs)
 
         def get_caption(self):
@@ -374,6 +374,6 @@ class Table(BaseProxy):
         summary = property(fget=get_summary, fset=set_summary, doc=_summaryDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_TABLE, Table)
+accessible_factory.register_accessible_class(ATSPI_TABLE, Table)
 
 #END----------------------------------------------------------------------------

@@ -12,8 +12,9 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
+from interfaces import *
 from base import BaseProxy, Enum
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -35,7 +36,7 @@ class ContentStream(BaseProxy):
                 not perform further operations on a StreamableContent::Stream
                 object after closing it.
                 """
-                func = self.get_dbus_method("close")
+                func = self.get_dbus_method("close", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
         def read(self, *args, **kwargs):
@@ -43,7 +44,7 @@ class ContentStream(BaseProxy):
                 Request/read a specified amount of data from a Stream. 
                 @return the number of bytes actually read into the client buffer.
                 """
-                func = self.get_dbus_method("read")
+                func = self.get_dbus_method("read", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
         def seek(self, *args, **kwargs):
@@ -59,7 +60,7 @@ class ContentStream(BaseProxy):
                 exception will be raised. 
                 @return the actual resulting offset, if no exception was raised.
                 """
-                func = self.get_dbus_method("seek")
+                func = self.get_dbus_method("seek", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
         class IOError(Exception):
@@ -90,7 +91,7 @@ class ContentStream(BaseProxy):
 
 #------------------------------------------------------------------------------
 
-class StreamableContent(BaseProxy):
+class StreamableContent(Accessible):
         """
         An interface whereby an object allows its backing content to
         be streamed to clients. Negotiation of content type is allowed.
@@ -103,7 +104,7 @@ class StreamableContent(BaseProxy):
                 """
                 DEPRECATED, use getStream instead.
                 """
-                func = self.get_dbus_method("getContent")
+                func = self.get_dbus_method("getContent", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
         def getContentTypes(self, *args, **kwargs):
@@ -111,7 +112,7 @@ class StreamableContent(BaseProxy):
                 getContentTypes: 
                 @return the list of available mimetypes for this object's content.
                 """
-                func = self.get_dbus_method("getContentTypes")
+                func = self.get_dbus_method("getContentTypes", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
         def getStream(self, *args, **kwargs):
@@ -123,7 +124,7 @@ class StreamableContent(BaseProxy):
                 @return a Stream whose mimetype matches contentType, if available,
                 or NIL.
                 """
-                func = self.get_dbus_method("getStream")
+                func = self.get_dbus_method("getStream", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
         def getURI(self, *args, **kwargs):
@@ -138,10 +139,10 @@ class StreamableContent(BaseProxy):
                 @return a string which constitutes a URI for a stream of the
                 specified content type, or NULL if no such URI can be obtained.
                 """
-                func = self.get_dbus_method("getURI")
+                func = self.get_dbus_method("getURI", dbus_interface=ATSPI_STREAMABLE_CONTENT)
                 return func(*args, **kwargs)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_STREAMABLE_CONTENT, StreamableContent)
+accessible_factory.register_accessible_class(ATSPI_STREAMABLE_CONTENT, StreamableContent)
 
 #END----------------------------------------------------------------------------

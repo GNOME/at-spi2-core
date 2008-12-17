@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Value(BaseProxy):
+class Value(Accessible):
         """
         An interface supporting controls which allow a one-dimensional,
         scalar quantity to be modified or which reflect a scalar quantity.
@@ -73,6 +73,6 @@ class Value(BaseProxy):
         minimumValue = property(fget=get_minimumValue, fset=set_minimumValue, doc=_minimumValueDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_VALUE, Value)
+accessible_factory.register_accessible_class(ATSPI_VALUE, Value)
 
 #END----------------------------------------------------------------------------

@@ -23,13 +23,100 @@
  */
 
 #include <string.h>
-#include <droute/introspect-loader.h>
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
+
+#include "atk-dbus.h"
+#include "spi-common/spi-dbus.h"
 #include "bridge.h"
 
-extern SpiAppData *app_data;
 static gboolean update_pending = FALSE;
+
+/*---------------------------------------------------------------------------*/
+
+static void
+append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter)
+{
+  const gchar *itf;
+
+  itf = SPI_DBUS_INTERFACE_ACCESSIBLE;
+  dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+
+  if (ATK_IS_ACTION (object))
+    {
+      itf = SPI_DBUS_INTERFACE_ACTION;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_COMPONENT (object))
+    {
+      itf = SPI_DBUS_INTERFACE_COMPONENT;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_EDITABLE_TEXT (object))
+    {
+      itf = SPI_DBUS_INTERFACE_EDITABLE_TEXT;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_TEXT (object))
+    {
+      itf = SPI_DBUS_INTERFACE_TEXT;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_HYPERTEXT (object))
+    {
+      itf = SPI_DBUS_INTERFACE_HYPERTEXT;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_IMAGE (object))
+    {
+      itf = SPI_DBUS_INTERFACE_IMAGE;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_SELECTION (object))
+    {
+      itf = SPI_DBUS_INTERFACE_SELECTION;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_TABLE (object))
+    {
+      itf = SPI_DBUS_INTERFACE_TABLE;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_VALUE (object))
+    {
+      itf = SPI_DBUS_INTERFACE_VALUE;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_STREAMABLE_CONTENT (object))
+    {
+      itf = "org.freedesktop.atspi.StreamableContent";
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_DOCUMENT (object))
+    {
+      itf = "org.freedesktop.atspi.Collection";
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+      itf = SPI_DBUS_INTERFACE_DOCUMENT;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
+  if (ATK_IS_HYPERLINK_IMPL (object))
+    {
+      itf = SPI_DBUS_INTERFACE_HYPERLINK;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+}
 
 /*---------------------------------------------------------------------------*/
 
@@ -49,7 +136,6 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
   AtkObject *obj;
   DBusMessageIter *iter_array;
   DBusMessageIter iter_struct, iter_sub_array;
-  DRouteData *data;
   dbus_int32_t states [2];
   int count;
 
@@ -60,7 +146,6 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
 
   obj = ATK_OBJECT(obj_data);
   iter_array = (DBusMessageIter *) iter;
-  data = &(app_data->droute);
 
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
     {
@@ -87,34 +172,18 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
             {
               AtkObject *child;
               gchar *child_path;
-	      
+
               child = atk_object_ref_accessible_child (obj, i);
-	      child_path = atk_dbus_get_path (child);
-	      g_object_unref(G_OBJECT(child));
-	      dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
-	      g_free (child_path);
-	    }
+              child_path = atk_dbus_get_path (child);
+              g_object_unref(G_OBJECT(child));
+              dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
+              g_free (child_path);
+            }
         }
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
 
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s", &iter_sub_array);
-        {
-          for (l = data->interfaces; l; l = g_slist_next (l))
-            {
-              DRouteInterface *iface_def = (DRouteInterface *) l->data;
-              void *datum = NULL;
-
-              if (iface_def->get_datum)
-	        {
-	          datum = (*iface_def->get_datum) (path, data->user_data);
-	          if (!datum)
-	            continue;
-	        }
-              dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_STRING, &iface_def->name);
-              if (iface_def->free_datum)
-	        (*iface_def->free_datum) (datum);
-            }
-        }
+      append_atk_object_interfaces (obj, &iter_sub_array);
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
 
       name = atk_object_get_name (obj);
@@ -131,7 +200,7 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &desc);
 
       g_free(path);
-    }      
+    }
   spi_atk_state_to_dbus_array (obj, &states);
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u", &iter_sub_array);
   for (count = 0; count < 2; count++)
@@ -163,14 +232,12 @@ append_accessible_path(gpointer ref_data, gpointer null, gpointer data)
 /*---------------------------------------------------------------------------*/
 
 static gboolean
-send_cache_update(gpointer d)
+send_cache_update(gpointer data)
 {
   DBusMessage *message;
   DBusMessageIter iter;
   DBusMessageIter iter_array;
-  DRouteData *data;
-
-  data = &(app_data->droute);
+  DBusConnection *bus = (DBusConnection *) data;
 
   message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateTree");
 
@@ -184,7 +251,7 @@ send_cache_update(gpointer d)
   atk_dbus_foreach_remove_list(append_accessible_path, &iter_array);
   dbus_message_iter_close_container(&iter, &iter_array);
 
-  dbus_connection_send(data->bus, message, NULL);
+  dbus_connection_send(bus, message, NULL);
   update_pending = FALSE;
 
   return FALSE;
@@ -193,11 +260,11 @@ send_cache_update(gpointer d)
 /*---------------------------------------------------------------------------*/
 
 void
-atk_tree_cache_needs_update(void)
+atk_tree_cache_needs_update(DBusConnection *bus)
 {
   if (!update_pending)
     {
-      g_idle_add(send_cache_update, NULL);
+      g_idle_add(send_cache_update, bus);
       update_pending = TRUE;
     }
 }
@@ -242,96 +309,19 @@ impl_getTree (DBusConnection *bus, DBusMessage *message, void *user_data)
 
 /*---------------------------------------------------------------------------*/
 
-static DBusMessage *
-impl_introspect (DBusConnection *bus, DBusMessage *message, void *user_data)
-{
-  const char *path;
-  GString *output;
-  char *final;
-
-  DBusMessage *reply;
-
-  path = dbus_message_get_path(message);
-
-  output = g_string_new(spi_introspection_header);
-  
-  g_string_append_printf(output, spi_introspection_node_element, path);
-
-  spi_append_interface(output, SPI_DBUS_INTERFACE_TREE);
-
-  g_string_append(output, spi_introspection_footer);
-  final = g_string_free(output, FALSE);
-
-  reply = dbus_message_new_method_return (message);
-  g_assert(reply != NULL);
-  dbus_message_append_args(reply, DBUS_TYPE_STRING, &final,
-			   DBUS_TYPE_INVALID);
-
-  g_free(final);
-  return reply;
-}
-
-/*---------------------------------------------------------------------------*/
-
-static DBusHandlerResult
-message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
-{
-  const char *iface = dbus_message_get_interface (message);
-  const char *member = dbus_message_get_member (message);
-
-  DBusMessage *reply = NULL;
-
-  g_return_val_if_fail(iface != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
-  
-  if (!strcmp(iface, SPI_DBUS_INTERFACE_TREE))
-    {
-      if (!strcmp(member, "getRoot"))
-	{
-	  reply = impl_getRoot(bus, message, user_data);
-	}
-
-      if (!strcmp(member, "getTree"))
-	{
-	  reply = impl_getTree(bus, message, user_data);
-	}
-    }
-
-  if (!strcmp(iface, "org.freedesktop.DBus.Introspectable"))
-    {
-      if (!strcmp(member, "Introspect"))
-	{
-	  reply = impl_introspect(bus, message, user_data);
-	}
-    }
-
-  if (reply)
-    {
-      dbus_connection_send (bus, reply, NULL);
-      dbus_message_unref (reply);
-    }
-
-  return DBUS_HANDLER_RESULT_HANDLED;
-}
-
-/*---------------------------------------------------------------------------*/
-
-static DBusObjectPathVTable tree_vtable =
-{
-  NULL,
-  &message_handler,
-  NULL, NULL, NULL, NULL
+static DRouteMethod methods[] = {
+  {impl_getRoot, "getRoot"},
+  {impl_getTree, "getTree"},
+  {NULL, NULL}
 };
 
-/*---------------------------------------------------------------------------*/
-
 void
-spi_register_tree_object(DBusConnection *bus,
-			 DRouteData *data,
-			 const char *path)
+spi_initialize_tree (DRoutePath *path)
 {
-  dbus_bool_t mem = FALSE;
-  mem = dbus_connection_register_object_path(bus, path, &tree_vtable, data);
-  g_assert(mem == TRUE);
-}
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_TREE,
+                             methods,
+                             NULL);
+};
 
 /*END------------------------------------------------------------------------*/

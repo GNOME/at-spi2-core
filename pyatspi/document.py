@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Document(BaseProxy):
+class Document(Accessible):
         """
         Primarily a 'tagging' interface which indicates the start of
         document content in the Accessibility hierarchy. Accessible objects
@@ -44,7 +44,7 @@ class Document(BaseProxy):
                 attribute, or an empty string if the attribute is unspecified
                 for the object.
                 """
-                func = self.get_dbus_method("getAttributeValue")
+                func = self.get_dbus_method("getAttributeValue", dbus_interface=ATSPI_DOCUMENT)
                 return func(*args, **kwargs)
 
         def getAttributes(self, *args, **kwargs):
@@ -55,7 +55,7 @@ class Document(BaseProxy):
                 @return an AttributeSet containing the attributes of the document,
                 as name-value pairs.
                 """
-                func = self.get_dbus_method("getAttributes")
+                func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_DOCUMENT)
                 return func(*args, **kwargs)
 
         def getLocale(self, *args, **kwargs):
@@ -65,10 +65,10 @@ class Document(BaseProxy):
                 @return a string compliant with the POSIX standard for locale
                 description.
                 """
-                func = self.get_dbus_method("getLocale")
+                func = self.get_dbus_method("getLocale", dbus_interface=ATSPI_DOCUMENT)
                 return func(*args, **kwargs)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_DOCUMENT, Document)
+accessible_factory.register_accessible_class(ATSPI_DOCUMENT, Document)
 
 #END----------------------------------------------------------------------------

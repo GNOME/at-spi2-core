@@ -13,8 +13,8 @@
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import dbus
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 from accessible import BoundingBox
 
@@ -24,7 +24,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Image(BaseProxy):
+class Image(Accessible):
         """
         An interface implemented by objects which render image data or
         pictorial information to the screen. When onscreen components
@@ -48,7 +48,7 @@ class Image(BaseProxy):
                 to the containing window. 
                 @return a BoundingBox enclosing the image's onscreen representation.
                 """
-                func = self.get_dbus_method("getImageExtents")
+                func = self.get_dbus_method("getImageExtents", dbus_interface=ATSPI_IMAGE)
                 return BoundingBox(*func(dbus.Int16(coordType)))
 
         def getImagePosition(self, *args, **kwargs):
@@ -65,7 +65,7 @@ class Image(BaseProxy):
                 to the screen; if 1, they are returned relative to the containing
                 window.
                 """
-                func = self.get_dbus_method("getImagePosition")
+                func = self.get_dbus_method("getImagePosition", dbus_interface=ATSPI_IMAGE)
                 return func(*args, **kwargs)
 
         def getImageSize(self, *args, **kwargs):
@@ -81,7 +81,7 @@ class Image(BaseProxy):
                 Back-filled with the y extents of the onscreen image (i.e. the
                 image height in pixels)
                 """
-                func = self.get_dbus_method("getImageSize")
+                func = self.get_dbus_method("getImageSize", dbus_interface=ATSPI_IMAGE)
                 return func(*args, **kwargs)
 
         def get_imageDescription(self):
@@ -107,6 +107,6 @@ class Image(BaseProxy):
         imageLocale = property(fget=get_imageLocale, fset=set_imageLocale, doc=_imageLocaleDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_IMAGE, Image)
+accessible_factory.register_accessible_class(ATSPI_IMAGE, Image)
 
 #END----------------------------------------------------------------------------

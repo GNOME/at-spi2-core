@@ -35,17 +35,25 @@
 #include <atk/atk.h>
 #include <atk/atkobject.h>
 #include <atk/atknoopobject.h>
-#include "accessible.h"
+
+#include <droute/droute.h>
+
 #include "bridge.h"
+#include "event.h"
 #include "atk-dbus.h"
 
-void spi_atk_register_event_listeners   (void);
-void spi_atk_deregister_event_listeners (void);
-void spi_atk_tidy_windows               (void);
+#include "spi-common/spi-dbus.h"
+
+/*
+ * Provides the path for the introspection directory.
+ */
+#if !defined ATSPI_INTROSPECTION_PATH
+    #error "No introspection XML directory defined"
+#endif
 
 /*---------------------------------------------------------------------------*/
 
-SpiAppData *app_data = NULL;
+SpiAppData *atk_adaptor_app_data = NULL;
 
 static const AtkMisc *atk_misc = NULL;
 
@@ -146,11 +154,11 @@ register_application (SpiAppData *app)
                                           "registerApplication");
   dbus_message_set_no_reply (message, TRUE);
 
-  uname = dbus_bus_get_unique_name(app->droute.bus);
+  uname = dbus_bus_get_unique_name(app->bus);
 
   dbus_message_iter_init_append(message, &iter);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &uname);
-  dbus_connection_send (app->droute.bus, message, NULL);
+  dbus_connection_send (app->bus, message, NULL);
   if (message) dbus_message_unref (message);
 }
 
@@ -172,11 +180,11 @@ deregister_application (SpiAppData *app)
                                           "deregisterApplication");
   dbus_message_set_no_reply (message, TRUE);
 
-  uname = dbus_bus_get_unique_name(app->droute.bus);
+  uname = dbus_bus_get_unique_name(app->bus);
 
   dbus_message_iter_init_append(message, &iter);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &uname);
-  dbus_connection_send (app->droute.bus, message, NULL);
+  dbus_connection_send (app->bus, message, NULL);
   if (message) dbus_message_unref (message);
 }
 
@@ -185,17 +193,17 @@ deregister_application (SpiAppData *app)
 static void
 exit_func (void)
 {
-  if (!app_data)
+  if (!atk_adaptor_app_data)
     {
       return;
     }
 
   spi_atk_tidy_windows ();
   spi_atk_deregister_event_listeners();
-  deregister_application (app_data);
+  deregister_application (atk_adaptor_app_data);
 
-  g_free(app_data);
-  app_data = NULL;
+  g_free(atk_adaptor_app_data);
+  atk_adaptor_app_data = NULL;
 
   /* Not currently creating an XDisplay */
 #if 0
@@ -205,13 +213,6 @@ exit_func (void)
 }
 
 /*---------------------------------------------------------------------------*/
-
-static DBusObjectPathVTable droute_vtable =
-{
-  NULL,
-  &droute_message,
-  NULL, NULL, NULL, NULL
-};
 
 static gchar *atspi_dbus_name;
 static gboolean atspi_no_register;
@@ -239,9 +240,10 @@ adaptor_init (gint *argc, gchar **argv[])
   GOptionContext *opt;
   GError *err = NULL;
   DBusError error;
+  DBusConnection *bus;
+  gchar *introspection_directory;
 
-  if (app_data != NULL)
-     return 0;
+  DRoutePath *treepath, *accpath;
 
   /* Parse command line options */
   opt = g_option_context_new(NULL);
@@ -251,51 +253,70 @@ adaptor_init (gint *argc, gchar **argv[])
       g_warning("AT-SPI Option parsing failed: %s\n", err->message);
 
   /* Allocate global data and do ATK initializations */
-  app_data = g_new0 (SpiAppData, 1);
+  atk_adaptor_app_data = g_new0 (SpiAppData, 1);
   atk_misc = atk_misc_get_instance ();
+  atk_adaptor_app_data->root = atk_get_root();
 
-  /* Get D-Bus connection, register D-Bus name*/
+  /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
-  app_data->root = atk_get_root();
-  app_data->droute.bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
-  if (!app_data->droute.bus)
+  atk_adaptor_app_data->bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+  if (!atk_adaptor_app_data->bus)
   {
     g_warning ("AT-SPI Couldn't connect to D-Bus: %s\n", error.message);
-    g_free(app_data);
-    app_data = NULL;
+    g_free(atk_adaptor_app_data);
+    atk_adaptor_app_data = NULL;
     return 0;
   }
   if (atspi_dbus_name != NULL &&
-      dbus_bus_request_name(app_data->droute.bus, atspi_dbus_name, 0, &error))
+      dbus_bus_request_name(atk_adaptor_app_data->bus, atspi_dbus_name, 0, &error))
   {
     g_print("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
   }
 
-  /* Finish setting up D-Bus */
-  dbus_connection_setup_with_g_main(app_data->droute.bus, g_main_context_default());
+  dbus_connection_setup_with_g_main(atk_adaptor_app_data->bus, g_main_context_default());
+
+  /* Get D-Bus introspection directory */
+  introspection_directory = (char *) g_getenv("ATSPI_INTROSPECTION_PATH");
+  if (introspection_directory == NULL)
+      introspection_directory = ATSPI_INTROSPECTION_PATH;
 
   /* Register droute for routing AT-SPI messages */
-  spi_register_tree_object(app_data->droute.bus, &app_data->droute, "/org/freedesktop/atspi/tree");
+  atk_adaptor_app_data->droute = droute_new (atk_adaptor_app_data->bus, introspection_directory);
 
-  if (!dbus_connection_register_fallback (app_data->droute.bus,
-                                          "/org/freedesktop/atspi/accessible",
-                                          &droute_vtable,
-                                          &app_data->droute))
-  {
-    g_warning("AT-SPI Couldn't register droute.\n");
-    g_free(app_data);
-    app_data = NULL;
-    return 0;
-  }
+  treepath = droute_add_one (atk_adaptor_app_data->droute,
+                             "/org/freedesktop/atspi/tree",
+                             NULL);
+
+  accpath = droute_add_many (atk_adaptor_app_data->droute,
+                             "/org/freedesktop/atspi/accessible",
+                             NULL,
+                             (DRouteGetDatumFunction) atk_dbus_get_object);
 
   /* Register all interfaces with droute and set up application accessible db */
-  atk_dbus_initialize (&app_data->droute);
+  spi_initialize_tree (treepath);
+
+  spi_initialize_accessible (accpath);
+  spi_initialize_action(accpath);
+  spi_initialize_collection (accpath);
+  spi_initialize_component (accpath);
+  spi_initialize_document (accpath);
+  spi_initialize_editabletext (accpath);
+  spi_initialize_hyperlink (accpath);
+  spi_initialize_hypertext (accpath);
+  spi_initialize_image (accpath);
+  spi_initialize_selection (accpath);
+  spi_initialize_table (accpath);
+  spi_initialize_text (accpath);
+  spi_initialize_value (accpath);
 
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
 
+  /* Initialize the AtkObject registration */
+  atk_dbus_initialize (atk_adaptor_app_data->root);
+
   /* Register this app by sending a signal out to AT-SPI registry daemon */
-  register_application (app_data);
+  register_application (atk_adaptor_app_data);
 
   g_atexit (exit_func);
 

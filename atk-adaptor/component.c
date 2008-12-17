@@ -22,38 +22,25 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkComponent *
-get_component (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_COMPONENT (obj);
-}
-
-static AtkComponent *
-get_component_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_COMPONENT(obj))
-    return NULL;
-  return ATK_COMPONENT (obj);
-}
+#include "atk-dbus.h"
+#include "spi-common/spi-dbus.h"
 
 static DBusMessage *
 impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
   dbus_int16_t coord_type;
   DBusError error;
   dbus_bool_t retval;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
@@ -76,14 +63,15 @@ static DBusMessage *
 impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 			   void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
   dbus_int16_t coord_type;
   DBusError error;
   AtkObject *child;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
@@ -100,13 +88,14 @@ impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_getExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   DBusError error;
   dbus_int16_t coord_type;
   gint ix, iy, iwidth, iheight;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
@@ -122,15 +111,16 @@ static DBusMessage *
 impl_getPosition (DBusConnection * bus, DBusMessage * message,
 		  void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   DBusError error;
   dbus_int16_t coord_type;
   gint ix = 0, iy = 0;
   dbus_int32_t x, y;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
@@ -152,13 +142,14 @@ impl_getPosition (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_getSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   gint iwidth = 0, iheight = 0;
   dbus_int32_t width, height;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   atk_component_get_size (component, &iwidth, &iheight);
   width = iwidth;
   height = iheight;
@@ -174,13 +165,14 @@ impl_getSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_getLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   AtkLayer atklayer;
   dbus_uint32_t rv;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   atklayer = atk_component_get_layer (component);
 
   switch (atklayer)
@@ -223,12 +215,13 @@ static DBusMessage *
 impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
 		   void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   dbus_int16_t rv;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   rv = atk_component_get_mdi_zorder (component);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -241,12 +234,13 @@ impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_grabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   rv = atk_component_grab_focus (component);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -274,12 +268,13 @@ impl_deregisterFocusHandler (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_getAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkComponent *component = get_component (message);
+  AtkComponent *component = (AtkComponent *) user_data;
   double rv;
   DBusMessage *reply;
 
-  if (!component)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_COMPONENT (user_data),
+                        droute_not_yet_handled_error (message));
+
   rv = atk_component_get_alpha (component);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -306,10 +301,10 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_component (DRouteData * data)
+spi_initialize_component (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_COMPONENT,
-			methods, NULL,
-			(DRouteGetDatumFunction) get_component_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_COMPONENT,
+                             methods,
+                             NULL);
 };

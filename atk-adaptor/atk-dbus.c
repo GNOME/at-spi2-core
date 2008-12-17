@@ -24,9 +24,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "bridge.h"
 #include "accessible.h"
 
-/* TODO 
+/* TODO
  * Need to add concurrency support.
  */
 
@@ -79,6 +80,13 @@ GHashTable *remove_list = NULL; /* Stores the objects that need to be removed fr
 
 static guint counter = 1;
 
+/* Amazingly the ATK event callbacks dont have a user
+ * data parameter. Instead, with great sadness, we use
+ * some global data. Data is declared and initialized
+ * in bridge.c.
+ */
+extern SpiAppData *atk_adaptor_app_data;
+
 /*---------------------------------------------------------------------------*/
 
 /*
@@ -121,7 +129,7 @@ deregister_accessible(gpointer data, GObject *accessible)
     {
       g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
       /* Add to removal list */
-      /* 
+      /*
        * TODO
        * Pyatspi client side exceptions have occured indicating
        * that an object has been removed twice.
@@ -130,7 +138,7 @@ deregister_accessible(gpointer data, GObject *accessible)
       g_hash_table_insert(remove_list, GINT_TO_POINTER(ref), NULL);
     }
 
-  atk_tree_cache_needs_update();
+  atk_tree_cache_needs_update(atk_adaptor_app_data->bus);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -157,7 +165,7 @@ register_accessible (AtkObject *accessible)
   /* Add to update list */
   g_hash_table_insert (update_list, GINT_TO_POINTER(reference), accessible);
 
-  atk_tree_cache_needs_update();
+  atk_tree_cache_needs_update(atk_adaptor_app_data->bus);
 
   return reference;
 }
@@ -201,16 +209,16 @@ atk_dbus_notify_change(AtkObject *accessible)
 {
   guint ref;
   g_assert(ATK_IS_OBJECT(accessible));
-  
+
   if (!g_object_get_data (G_OBJECT (accessible), "dbus-id"))
     {
       register_accessible(accessible);
     }
   else
     {
-      ref = g_object_get_data (G_OBJECT (accessible), "dbus-id");
-      g_hash_table_insert (update_list, ref, accessible);
-      atk_tree_cache_needs_update();
+      ref = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (accessible), "dbus-id"));
+      g_hash_table_insert (update_list, GINT_TO_POINTER (ref), accessible);
+      atk_tree_cache_needs_update(atk_adaptor_app_data->bus);
     }
 }
 
@@ -270,7 +278,7 @@ atk_dbus_get_path (AtkObject *accessible)
 
   index = GPOINTER_TO_INT(g_object_get_data (G_OBJECT (accessible), "dbus-id"));
   if (!index)
-    index = register_accessible(G_OBJECT(accessible));
+    index = register_accessible(accessible);
 
   return g_strdup_printf(ATK_BRIDGE_OBJECT_REFERENCE_TEMPLATE, index);
 }
@@ -360,7 +368,7 @@ spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
  * Initializes all of the required D-Bus interfaces.
  */
 void
-atk_dbus_initialize (DRouteData * data)
+atk_dbus_initialize (AtkObject *root)
 {
   if (!ref2ptr)
     ref2ptr = g_hash_table_new(g_direct_hash, g_direct_equal);
@@ -370,22 +378,7 @@ atk_dbus_initialize (DRouteData * data)
     remove_list = g_hash_table_new(g_direct_hash, g_direct_equal);
 
   /* Get the root accessible and add */
-  atk_dbus_register_subtree(atk_get_root());
-
-  spi_initialize_accessible (data);
-  spi_initialize_action(data);
-  spi_initialize_collection (data);
-  spi_initialize_component (data);
-  spi_initialize_document (data);
-  spi_initialize_editabletext (data);
-  spi_initialize_hyperlink (data);
-  spi_initialize_hypertext (data);
-  spi_initialize_image (data);
-  spi_initialize_selection (data);
-  spi_initialize_table (data);
-  spi_initialize_text (data);
-  spi_initialize_value (data);
-  spi_initialize_introspectable(data, (DRouteGetDatumFunction) atk_dbus_get_object);
+  atk_dbus_register_subtree(root);
 }
 
 /*END------------------------------------------------------------------------*/

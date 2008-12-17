@@ -21,40 +21,18 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SPI_REGISTRY_H_
-#define SPI_REGISTRY_H_
+#ifndef SPI_EVENT_H_
+#define SPI_EVENT_H_
 
-#include <glib.h>
-#include <glib-object.h>
-
-#include <droute/droute.h>
-
-typedef struct _SpiRegistry SpiRegistry;
-typedef struct _SpiRegistryClass SpiRegistryClass;
+#include <atk/atk.h>
+#include <spi-common/spi-types.h>
 
 G_BEGIN_DECLS
 
-#define SPI_REGISTRY_TYPE        (spi_registry_get_type ())
-#define SPI_REGISTRY(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTRY_TYPE, SpiRegistry))
-#define SPI_REGISTRY_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REGISTRY_TYPE, SpiRegistryClass))
-#define SPI_IS_REGISTRY(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTRY_TYPE))
-#define SPI_IS_REGISTRY_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTRY_TYPE))
-
-struct _SpiRegistry {
-  GObject      parent;
-  GSequence   *apps;
-
-  DBusConnection *bus;
-};
-
-struct _SpiRegistryClass {
-  GObjectClass parent_class;
-};
-
-GType        spi_registry_get_type (void);
-SpiRegistry *spi_registry_new      (DBusConnection *bus,
-                                    DRouteContext  *droute);
+void spi_atk_register_event_listeners   (void);
+void spi_atk_deregister_event_listeners (void);
+void spi_atk_tidy_windows               (void);
 
 G_END_DECLS
 
-#endif /* SPI_REGISTRY_H_ */
+#endif /* SPI_EVENT_H_ */

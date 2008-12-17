@@ -43,13 +43,12 @@ G_BEGIN_DECLS
 
 struct _SpiDEController {
 	GObject parent;
-	
-	SpiRegistry *registry;
-        DRouteData  *droute;
-	GList       *key_listeners;
-	GList       *mouse_listeners;
-	GList       *keygrabs_list;
-	Display     *xevie_display;
+	DBusConnection *bus;
+	SpiRegistry    *registry;
+	GList          *key_listeners;
+	GList          *mouse_listeners;
+	GList          *keygrabs_list;
+	Display        *xevie_display;
 };
 
 typedef struct {
@@ -57,7 +56,9 @@ typedef struct {
 } SpiDEControllerClass;
 
 GType            spi_device_event_controller_get_type (void);
-SpiDEController *spi_device_event_controller_new      (SpiRegistry *registry);
+SpiDEController *spi_device_event_controller_new      (SpiRegistry    *registry,
+                                                       DBusConnection *bus,
+                                                       DRouteContext  *droute);
 
 void spi_remove_device_listeners (SpiDEController *controller, const char *bus_name);
 

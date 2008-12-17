@@ -22,65 +22,48 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkHyperlink *
-get_hyperlink (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_HYPERLINK (obj);
-}
-
-static AtkHyperlink *
-get_hyperlink_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_HYPERLINK(obj))
-    return NULL;
-  return ATK_HYPERLINK (obj);
-}
+#include "atk-dbus.h"
+#include "spi-common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_nAnchors (const char *path, DBusMessageIter * iter, void *user_data)
+impl_get_nAnchors (DBusMessageIter * iter, void *user_data)
 {
-  AtkHyperlink *link = get_hyperlink_from_path (path, user_data);
-  if (!link)
-    return FALSE;
+  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_n_anchors (link));
 }
 
 
 static dbus_bool_t
-impl_get_startIndex (const char *path, DBusMessageIter * iter,
+impl_get_startIndex (DBusMessageIter * iter,
 		     void *user_data)
 {
-  AtkHyperlink *link = get_hyperlink_from_path (path, user_data);
-  if (!link)
-    return FALSE;
+  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_start_index (link));
 }
 
 static dbus_bool_t
-impl_get_endIndex (const char *path, DBusMessageIter * iter, void *user_data)
+impl_get_endIndex (DBusMessageIter * iter, void *user_data)
 {
-  AtkHyperlink *link = get_hyperlink_from_path (path, user_data);
-  if (!link)
-    return FALSE;
+  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_end_index (link));
 }
 
 static DBusMessage *
 impl_getObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHyperlink *link = get_hyperlink (message);
+  AtkHyperlink *link = (AtkHyperlink *) user_data;
   DBusError error;
   dbus_int32_t i;
   AtkObject *atk_object;
 
-  if (!link)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
@@ -94,14 +77,14 @@ impl_getObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHyperlink *link = get_hyperlink (message);
+  AtkHyperlink *link = (AtkHyperlink *) user_data;
   dbus_int32_t i;
   DBusError error;
   gchar *rv;
   DBusMessage *reply;
 
-  if (!link)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INT32, &i,
@@ -126,12 +109,12 @@ impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_isValid (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHyperlink *link = get_hyperlink (message);
+  AtkHyperlink *link = (AtkHyperlink *) user_data;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!link)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data),
+                        droute_not_yet_handled_error (message));
 
   rv = atk_hyperlink_is_valid (link);
   reply = dbus_message_new_method_return (message);
@@ -158,10 +141,10 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_hyperlink (DRouteData * data)
+spi_initialize_hyperlink (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_HYPERLINK,
-			methods, properties,
-			(DRouteGetDatumFunction) get_hyperlink_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_HYPERLINK,
+                             methods,
+                             properties);
 };

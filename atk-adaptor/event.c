@@ -22,19 +22,27 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <atk/atk.h>
 #include <string.h>
-#include "accessible.h"
+
+#include <atk/atk.h>
+#include <droute/droute.h>
+
 #include "bridge.h"
 #include "atk-dbus.h"
 
-extern SpiAppData *app_data;
+#include "spi-common/spi-dbus.h"
 
 static GArray *listener_ids = NULL;
 
 static gint atk_bridge_key_event_listener_id;
 static gint atk_bridge_focus_tracker_id;
 
+/* Amazingly the ATK event callbacks dont have a user
+ * data parameter. Instead, with great sadness, we use
+ * some global data. Data is declared and initialized
+ * in bridge.c.
+ */
+extern SpiAppData *atk_adaptor_app_data;
 
 /*---------------------------------------------------------------------------*/
 
@@ -61,7 +69,7 @@ Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_Devi
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
-    DBusMessage *reply = dbus_connection_send_with_reply_and_block(app_data->droute.bus, message, 1000, &error);
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block(atk_adaptor_app_data->bus, message, 1000, &error);
     if (reply)
     {
       DBusError error;
@@ -226,7 +234,7 @@ emit(AtkObject  *accessible,
   dbus_message_iter_append_basic(&sub, (int) *type, &val);
   dbus_message_iter_close_container(&iter, &sub);
 
-  dbus_connection_send(app_data->droute.bus, sig, NULL);
+  dbus_connection_send(atk_adaptor_app_data->bus, sig, NULL);
   dbus_message_unref(sig);
 }
 
@@ -279,7 +287,7 @@ emit_rect(AtkObject  *accessible,
     dbus_message_iter_close_container (&variant, &sub);
   dbus_message_iter_close_container (&iter, &variant);
 
-  dbus_connection_send(app_data->droute.bus, sig, NULL);
+  dbus_connection_send(atk_adaptor_app_data->bus, sig, NULL);
 }
 
 /*---------------------------------------------------------------------------*/

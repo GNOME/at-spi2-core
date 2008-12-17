@@ -22,38 +22,23 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkEditableText *
-get_editable (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_EDITABLE_TEXT (obj);
-}
-
-static AtkEditableText *
-get_editable_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_EDITABLE_TEXT(obj))
-    return NULL;
-  return ATK_EDITABLE_TEXT (obj);
-}
+#include "spi-common/spi-dbus.h"
 
 static DBusMessage *
 impl_setTextContents (DBusConnection * bus, DBusMessage * message,
 		      void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   const char *newContents;
   dbus_bool_t rv;
   DBusError error;
   DBusMessage *reply;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
@@ -75,7 +60,7 @@ impl_setTextContents (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position, length;
   char *text;
   dbus_bool_t rv;
@@ -83,8 +68,8 @@ impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
   DBusMessage *reply;
   gint ip;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
@@ -109,15 +94,15 @@ static DBusMessage *
 impl_setAttributes (DBusConnection * bus, DBusMessage * message,
 		    void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   const char *attributes;
   dbus_int32_t startPos, endPos;
   dbus_bool_t rv;
   DBusError error;
   DBusMessage *reply;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_STRING, &attributes, DBUS_TYPE_INT32,
@@ -139,12 +124,12 @@ impl_setAttributes (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
   DBusError error;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
@@ -159,14 +144,14 @@ impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
   DBusError error;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
@@ -189,14 +174,14 @@ impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
   DBusError error;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
@@ -219,14 +204,14 @@ impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkEditableText *editable = get_editable (message);
+  AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position;
   DBusError error;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!editable)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
@@ -257,10 +242,10 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_editabletext (DRouteData * data)
+spi_initialize_editabletext (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_EDITABLE_TEXT,
-			methods, NULL,
-			(DRouteGetDatumFunction) get_editable_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_EDITABLE_TEXT,
+                             methods,
+                             NULL);
 };

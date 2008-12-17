@@ -32,6 +32,10 @@
 #include "registry.h"
 #include "deviceeventcontroller.h"
 
+#if !defined ATSPI_INTROSPECTION_PATH
+    #error "No introspection XML directory defined"
+#endif
+
 static gchar *dbus_name = NULL;
 
 static GOptionEntry optentries[] =
@@ -40,19 +44,13 @@ static GOptionEntry optentries[] =
   {NULL}
 };
 
-static DBusObjectPathVTable droute_vtable =
-{
-  NULL,
-  &droute_message,
-  NULL, NULL, NULL, NULL
-};
-
 int
 main (int argc, char **argv)
 {
   SpiRegistry *registry;
   SpiDEController *dec;
-  DRouteData droute;
+  DRouteContext *droute;
+  gchar *introspection_directory;
 
   GMainLoop *mainloop;
   DBusConnection *bus;
@@ -80,7 +78,6 @@ main (int argc, char **argv)
 
   dbus_error_init (&error);
   bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
-  droute.bus = bus;
   if (!bus)
   {
     g_warning("Couldn't connect to dbus: %s\n", error.message);
@@ -99,20 +96,16 @@ main (int argc, char **argv)
       g_print ("SpiRegistry daemon is running with well-known name - %s\n", dbus_name);
     }
 
-  /* Set up D-Route for use by the dec */
-  droute.interfaces = NULL;
-  if (!dbus_connection_register_object_path (droute.bus,
-                                             "/org/freedesktop/atspi/registry/deviceeventcontroller",
-                                             &droute_vtable,
-                                             &droute))
-  {
-    g_error("AT-SPI Registry daemon: Couldn't register droute.\n");
-    return 0;
-  }
+  /* Get D-Bus introspection directory */
+  introspection_directory = (char *) g_getenv("ATSPI_INTROSPECTION_PATH");
+  if (introspection_directory == NULL)
+      introspection_directory = ATSPI_INTROSPECTION_PATH;
 
-  registry = spi_registry_new (bus);
-  dec = spi_registry_dec_new (registry, &droute);
-  droute.user_data = dec;
+  /* Set up D-Route for use by the dec */
+  droute = droute_new (bus, introspection_directory);
+
+  registry = spi_registry_new (bus, droute);
+  dec = spi_registry_dec_new (registry, bus, droute);
 
   g_main_loop_run (mainloop);
   return 0;

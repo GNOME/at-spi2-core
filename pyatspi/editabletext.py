@@ -12,8 +12,7 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
 from factory import accessible_factory
 from text import *
 
@@ -41,7 +40,7 @@ class EditableText(Text):
                 the offset of the first character past the end of the range of
                 text being copied.
                 """
-                func = self.get_dbus_method("copyText")
+                func = self.get_dbus_method("copyText", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
         def cutText(self, *args, **kwargs):
@@ -56,7 +55,7 @@ class EditableText(Text):
                 text being cut. 
                 @return True if the text was successfully cut, False otherwise.
                 """
-                func = self.get_dbus_method("cutText")
+                func = self.get_dbus_method("cutText", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
         def deleteText(self, *args, **kwargs):
@@ -71,7 +70,7 @@ class EditableText(Text):
                 text being deleted. 
                 @return True if the text was successfully deleted, False otherwise.
                 """
-                func = self.get_dbus_method("deleteText")
+                func = self.get_dbus_method("deleteText", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
         def insertText(self, *args, **kwargs):
@@ -91,7 +90,7 @@ class EditableText(Text):
                 @return True if the text content was successfully inserted, False
                 otherwise.
                 """
-                func = self.get_dbus_method("insertText")
+                func = self.get_dbus_method("insertText", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
         def pasteText(self, *args, **kwargs):
@@ -103,7 +102,7 @@ class EditableText(Text):
                 @return True if the text was successfully pasted into the Text
                 object, False otherwise.
                 """
-                func = self.get_dbus_method("pasteText")
+                func = self.get_dbus_method("pasteText", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
         def setAttributes(self, *args, **kwargs):
@@ -112,7 +111,7 @@ class EditableText(Text):
                 @return True if the text attributes were successfully modified,
                 False otherwise.
                 """
-                func = self.get_dbus_method("setAttributes")
+                func = self.get_dbus_method("setAttributes", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
         def setTextContents(self, *args, **kwargs):
@@ -125,10 +124,10 @@ class EditableText(Text):
                 @return True if the text content was successfully changed, False
                 otherwise.
                 """
-                func = self.get_dbus_method("setTextContents")
+                func = self.get_dbus_method("setTextContents", dbus_interface=ATSPI_EDITABLE_TEXT)
                 return func(*args, **kwargs)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_EDITABLE_TEXT, EditableText)
+accessible_factory.register_accessible_class(ATSPI_EDITABLE_TEXT, EditableText)
 
 #END----------------------------------------------------------------------------

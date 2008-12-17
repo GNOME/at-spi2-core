@@ -12,8 +12,9 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
+from interfaces import *
 from base import BaseProxy, Enum
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -58,12 +59,12 @@ class CommandListener(BaseProxy):
                 The newly-available list of Command objects which may be invoked
                 by the listener.
                 """
-                func = self.get_dbus_method("notifyCommands")
+                func = self.get_dbus_method("notifyCommands", dbus_interface=ATSPI_COMMAND_LISTENER)
                 return func(*args, **kwargs)
 
 #------------------------------------------------------------------------------
 
-class Selector(BaseProxy):
+class Selector(Accessible):
         """
         This interface is intended for use by assistive technologies
         and related user-agents. Via this interface, an assistive technology
@@ -85,7 +86,7 @@ class Selector(BaseProxy):
                 and the reason for failure if the Command could not be activated
                 or invoked.
                 """
-                func = self.get_dbus_method("activateCommand")
+                func = self.get_dbus_method("activateCommand", dbus_interface=ATSPI_SELECTOR)
                 return func(*args, **kwargs)
 
         def deregisterChangeListener(self, *args, **kwargs):
@@ -95,7 +96,7 @@ class Selector(BaseProxy):
                 @param : listener
                 the CommandListener to remove from the notification list.
                 """
-                func = self.get_dbus_method("deregisterChangeListener")
+                func = self.get_dbus_method("deregisterChangeListener", dbus_interface=ATSPI_SELECTOR)
                 return func(*args, **kwargs)
 
         def getCommands(self, *args, **kwargs):
@@ -103,7 +104,7 @@ class Selector(BaseProxy):
                 Query the Selector for the current CommandList.
                 @return the currently available CommandList
                 """
-                func = self.get_dbus_method("getCommands")
+                func = self.get_dbus_method("getCommands", dbus_interface=ATSPI_SELECTOR)
                 return func(*args, **kwargs)
 
         def refreshCommands(self, *args, **kwargs):
@@ -111,7 +112,7 @@ class Selector(BaseProxy):
                 Ask the Selector to re-calculate its CommandList. 
                 @return TRUE if the CommandList changed.
                 """
-                func = self.get_dbus_method("refreshCommands")
+                func = self.get_dbus_method("refreshCommands", dbus_interface=ATSPI_SELECTOR)
                 return func(*args, **kwargs)
 
         def registerChangeListener(self, *args, **kwargs):
@@ -121,7 +122,7 @@ class Selector(BaseProxy):
                 @param : listener
                 the CommandListener to be notified of changes.
                 """
-                func = self.get_dbus_method("registerChangeListener")
+                func = self.get_dbus_method("registerChangeListener", dbus_interface=ATSPI_SELECTOR)
                 return func(*args, **kwargs)
 
         def replaceCommands(self, *args, **kwargs):
@@ -129,7 +130,7 @@ class Selector(BaseProxy):
                 @return TRUE if the replacement request was successful, FALSE
                 if the request could not be honored.
                 """
-                func = self.get_dbus_method("replaceCommands")
+                func = self.get_dbus_method("replaceCommands", dbus_interface=ATSPI_SELECTOR)
                 return func(*args, **kwargs)
 
         def get_supportsReplace(self):
@@ -163,6 +164,6 @@ class Selector(BaseProxy):
         COMMAND_RESULT_SUCCESS = CommandResult(1)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_SELECTOR, Selector)
+accessible_factory.register_accessible_class(ATSPI_SELECTOR, Selector)
 
 #END----------------------------------------------------------------------------

@@ -87,6 +87,7 @@ dbind_method_call_reentrant (DBusConnection *cnx,
     if (!msg)
         goto out;
 
+    p = arg_types;
     dbus_message_iter_init (msg, &iter);
     dbind_any_marshal_va (&iter, &p, args);
 

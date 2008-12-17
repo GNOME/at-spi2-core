@@ -14,8 +14,9 @@
 
 import dbus
 
-import interfaces
-from base import BaseProxy, Enum
+from interfaces import *
+from accessible import Accessible
+from base import Enum
 from factory import accessible_factory
 
 __all__ = [
@@ -73,7 +74,7 @@ TEXT_CLIP_NONE = TEXT_CLIP_TYPE(0)
 
 #------------------------------------------------------------------------------
 
-class Text(BaseProxy):
+class Text(Accessible):
         """
         The text interface should be implemented by objects which place
         textual information onscreen as character strings or glyphs.
@@ -112,7 +113,7 @@ class Text(BaseProxy):
                 other reasons (for instance if the user does not have permission
                 to copy the text into the relevant selection buffer).
                 """
-                func = self.get_dbus_method("addSelection")
+                func = self.get_dbus_method("addSelection", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getAttributeRun(self, *args, **kwargs):
@@ -164,7 +165,7 @@ class Text(BaseProxy):
                 @return the AttributeSet defined at offset, optionally including
                 the 'default' attributes.
                 """
-                func = self.get_dbus_method("getAttributeRun")
+                func = self.get_dbus_method("getAttributeRun", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getAttributeValue(self, *args, **kwargs):
@@ -189,7 +190,7 @@ class Text(BaseProxy):
                 @return the value of attribute (name-value pair) corresponding
                 to "name", if defined.
                 """
-                func = self.get_dbus_method("getAttributeValue")
+                func = self.get_dbus_method("getAttributeValue", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getAttributes(self, offset):
@@ -198,7 +199,7 @@ class Text(BaseProxy):
                 @return the attributes at offset, as a semicolon-delimited set
                 of colon-delimited name-value pairs.
                 """
-                func = self.get_dbus_method("getAttributes")
+                func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_TEXT)
                 return func(dbus.Int32(offset))
 
         def getBoundedRanges(self, *args, **kwargs):
@@ -229,7 +230,7 @@ class Text(BaseProxy):
                 determines whether text which intersects the bounding box in
                 the y direction is included.
                 """
-                func = self.get_dbus_method("getBoundedRanges")
+                func = self.get_dbus_method("getBoundedRanges", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getCharacterAtOffset(self, *args, **kwargs):
@@ -238,7 +239,7 @@ class Text(BaseProxy):
                 UCS-4 representation of the character at the specified text offset,
                 or 0 if offset is out of range.
                 """
-                func = self.get_dbus_method("getCharacterAtOffset")
+                func = self.get_dbus_method("getCharacterAtOffset", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getCharacterExtents(self, *args, **kwargs):
@@ -272,7 +273,7 @@ class Text(BaseProxy):
                 window, with the x axis pointing right and the y axis pointing
                 down.
                 """
-                func = self.get_dbus_method("getCharacterExtents")
+                func = self.get_dbus_method("getCharacterExtents", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getDefaultAttributeSet(self, *args, **kwargs):
@@ -286,7 +287,7 @@ class Text(BaseProxy):
                 whereas an object whose text weight is inspecified may report
                 the default or implied text weight in the default AttributeSet.
                 """
-                func = self.get_dbus_method("getDefaultAttributeSet")
+                func = self.get_dbus_method("getDefaultAttributeSet", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getDefaultAttributes(self, *args, **kwargs):
@@ -295,7 +296,7 @@ class Text(BaseProxy):
                 @return the attributes which apply to the entire text content,
                 but which were not explicitly specified by the content creator.
                 """
-                func = self.get_dbus_method("getDefaultAttributes")
+                func = self.get_dbus_method("getDefaultAttributes", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getNSelections(self, *args, **kwargs):
@@ -310,7 +311,7 @@ class Text(BaseProxy):
                 @return the number of contiguous selections in the current Text
                 object.
                 """
-                func = self.get_dbus_method("getNSelections")
+                func = self.get_dbus_method("getNSelections", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getOffsetAtPoint(self, *args, **kwargs):
@@ -328,7 +329,7 @@ class Text(BaseProxy):
                 of the glyph whose onscreen bounds contain the point x,y, or
                 -1 if the point is outside the bounds of any glyph.
                 """
-                func = self.get_dbus_method("getOffsetAtPoint")
+                func = self.get_dbus_method("getOffsetAtPoint", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getRangeExtents(self, *args, **kwargs):
@@ -359,7 +360,7 @@ class Text(BaseProxy):
                 corner of the screen; if 1, the coordinates are reported relative
                 to the corner of the containing toplevel window.
                 """
-                func = self.get_dbus_method("getRangeExtents")
+                func = self.get_dbus_method("getRangeExtents", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getSelection(self, *args, **kwargs):
@@ -368,7 +369,7 @@ class Text(BaseProxy):
                 (i.e. for a selection which does not exist) is not strictly defined,
                 but should set endOffset equal to startOffset.
                 """
-                func = self.get_dbus_method("getSelection")
+                func = self.get_dbus_method("getSelection", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getText(self, startOffset, endOffset):
@@ -380,7 +381,7 @@ class Text(BaseProxy):
                 startOffset (inclusive) up to but not including the character
                 at endOffset.
                 """
-                func = self.get_dbus_method("getText")
+                func = self.get_dbus_method("getText", dbus_interface=ATSPI_TEXT)
                 if not endOffset:
                         endOffset = -1
                 return func(dbus.Int32(startOffset), dbus.Int32(endOffset))
@@ -410,7 +411,7 @@ class Text(BaseProxy):
                 @return a string which is a substring of the text content of
                 the object, delimited by the specified boundary condition.
                 """
-                func = self.get_dbus_method("getTextAfterOffset")
+                func = self.get_dbus_method("getTextAfterOffset", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getTextAtOffset(self, *args, **kwargs):
@@ -437,7 +438,7 @@ class Text(BaseProxy):
                 @return a string which is a substring of the text content of
                 the object, delimited by the specified boundary condition.
                 """
-                func = self.get_dbus_method("getTextAtOffset")
+                func = self.get_dbus_method("getTextAtOffset", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def getTextBeforeOffset(self, *args, **kwargs):
@@ -464,7 +465,7 @@ class Text(BaseProxy):
                 @return a string which is a substring of the text content of
                 the object, delimited by the specified boundary condition.
                 """
-                func = self.get_dbus_method("getTextBeforeOffset")
+                func = self.get_dbus_method("getTextBeforeOffset", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def removeSelection(self, *args, **kwargs):
@@ -475,7 +476,7 @@ class Text(BaseProxy):
                 @return True if the selection was successfully removed, False
                 otherwise.
                 """
-                func = self.get_dbus_method("removeSelection")
+                func = self.get_dbus_method("removeSelection", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def setCaretOffset(self, *args, **kwargs):
@@ -489,7 +490,7 @@ class Text(BaseProxy):
                 @return TRUE if the request was carried out, or FALSE if the
                 caret could not be moved to the requested position.
                 """
-                func = self.get_dbus_method("setCaretOffset")
+                func = self.get_dbus_method("setCaretOffset", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def setSelection(self, *args, **kwargs):
@@ -508,7 +509,7 @@ class Text(BaseProxy):
                 @return True if the selection corresponding to selectionNum is
                 successfully modified, False otherwise.
                 """
-                func = self.get_dbus_method("setSelection")
+                func = self.get_dbus_method("setSelection", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
         def get_caretOffset(self):
@@ -565,6 +566,6 @@ class Text(BaseProxy):
                 data = property(fget=_get_data, fset=_set_data)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_TEXT, Text)
+accessible_factory.register_accessible_class(ATSPI_TEXT, Text)
 
 #END----------------------------------------------------------------------------

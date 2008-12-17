@@ -22,44 +22,27 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkImage *
-get_image (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_IMAGE (obj);
-}
-
-static AtkImage *
-get_image_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_IMAGE(obj))
-    return NULL;
-  return ATK_IMAGE (obj);
-}
+#include "spi-common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_imageDescription (const char *path, DBusMessageIter * iter,
+impl_get_imageDescription (DBusMessageIter * iter,
 			   void *user_data)
 {
-  AtkImage *image = get_image_from_path (path, user_data);
-  if (!image)
-    return FALSE;
+  AtkImage *image = (AtkImage *) user_data;
+  g_return_val_if_fail (ATK_IS_IMAGE (user_data), FALSE);
   return droute_return_v_string (iter,
 				 atk_image_get_image_description (image));
 }
 
 static dbus_bool_t
-impl_get_imageLocale (const char *path, DBusMessageIter * iter,
+impl_get_imageLocale (DBusMessageIter * iter,
 		      void *user_data)
 {
-  AtkImage *image = get_image_from_path (path, user_data);
-  if (!image)
-    return FALSE;
+  AtkImage *image = (AtkImage *) user_data;
+  g_return_val_if_fail (ATK_IS_IMAGE (user_data), FALSE);
   return droute_return_v_string (iter, atk_image_get_image_locale (image));
 }
 
@@ -67,13 +50,13 @@ static DBusMessage *
 impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
 		      void *user_data)
 {
-  AtkImage *image = get_image (message);
+  AtkImage *image = (AtkImage *) user_data;
   DBusError error;
   dbus_int16_t coordType;
   gint ix, iy, iwidth, iheight;
 
-  if (!image)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_IMAGE (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coordType, DBUS_TYPE_INVALID))
@@ -89,15 +72,15 @@ static DBusMessage *
 impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
 		       void *user_data)
 {
-  AtkImage *image = get_image (message);
+  AtkImage *image = (AtkImage *) user_data;
   DBusError error;
   dbus_int16_t coord_type;
   gint ix = 0, iy = 0;
   dbus_int32_t x, y;
   DBusMessage *reply;
 
-  if (!image)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_IMAGE (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
@@ -120,13 +103,13 @@ static DBusMessage *
 impl_getImageSize (DBusConnection * bus, DBusMessage * message,
 		   void *user_data)
 {
-  AtkImage *image = get_image (message);
+  AtkImage *image = (AtkImage *) user_data;
   gint iwidth = 0, iheight = 0;
   dbus_int32_t width, height;
   DBusMessage *reply;
 
-  if (!image)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_IMAGE (user_data),
+                        droute_not_yet_handled_error (message));
   atk_image_get_image_size (image, &iwidth, &iheight);
   width = iwidth;
   height = iheight;
@@ -153,9 +136,10 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_image (DRouteData * data)
+spi_initialize_image (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_IMAGE, methods,
-			properties,
-			(DRouteGetDatumFunction) get_image_from_path, NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_IMAGE,
+                             methods,
+                             properties);
 };

@@ -22,35 +22,20 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkHypertext *
-get_hypertext (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_HYPERTEXT (obj);
-}
-
-static AtkHypertext *
-get_hypertext_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_HYPERTEXT(obj))
-    return NULL;
-  return ATK_HYPERTEXT (obj);
-}
+#include "spi-common/spi-dbus.h"
 
 static DBusMessage *
 impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHypertext *hypertext = get_hypertext (message);
+  AtkHypertext *hypertext = (AtkHypertext *) user_data;
   gint rv;
   DBusMessage *reply;
 
-  if (!hypertext)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
+                        droute_not_yet_handled_error (message));
   rv = atk_hypertext_get_n_links (hypertext);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -64,13 +49,13 @@ impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHypertext *hypertext = get_hypertext (message);
+  AtkHypertext *hypertext = (AtkHypertext *) user_data;
   DBusError error;
   dbus_int32_t linkIndex;
   AtkHyperlink *link;
 
-  if (!hypertext)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &linkIndex, DBUS_TYPE_INVALID))
@@ -85,14 +70,14 @@ static DBusMessage *
 impl_getLinkIndex (DBusConnection * bus, DBusMessage * message,
 		   void *user_data)
 {
-  AtkHypertext *hypertext = get_hypertext (message);
+  AtkHypertext *hypertext = (AtkHypertext *) user_data;
   DBusError error;
   dbus_int32_t characterIndex;
   dbus_int32_t rv;
   DBusMessage *reply;
 
-  if (!hypertext)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_HYPERTEXT (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &characterIndex, DBUS_TYPE_INVALID))
@@ -117,10 +102,10 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_hypertext (DRouteData * data)
+spi_initialize_hypertext (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_HYPERTEXT,
-			methods, NULL,
-			(DRouteGetDatumFunction) get_hypertext_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_HYPERTEXT,
+                             methods,
+                             NULL);
 };

@@ -26,8 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "accessible.h"
+#include <glib.h>
 
 void
 atk_dbus_foreach_registered(GHFunc func, gpointer data);
@@ -58,8 +57,5 @@ spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref);
 
 dbus_bool_t
 spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
-
-void
-atk_dbus_initialize (DRouteData * data);
 
 #endif /* __ATK_DBUS__ */

@@ -230,39 +230,6 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
 /*---------------------------------------------------------------------------*/
 
 static DBusHandlerResult
-message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
-{
-  DBusMessage *reply = NULL;
-  guint res = DBUS_HANDLER_RESULT_HANDLED;
-
-  int mtype;
-  const char *itf;
-  const char *name;
-
-  mtype = dbus_message_get_type (message);
-  itf = dbus_message_get_interface (message);
-  name = dbus_message_get_member (message);
-
-  if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "getApplications"))
-      reply = impl_getApplications (bus, message, user_data);
-  else if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "registerApplication"))
-      impl_registerApplication (bus, message, user_data);
-  else if (dbus_message_is_method_call (message, SPI_DBUS_INTERFACE_REGISTRY, "deregisterApplication"))
-      impl_deregisterApplication (bus, message, user_data);
-  else
-      res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-
-  if (reply)
-    {
-      dbus_connection_send (bus, reply, NULL);
-      dbus_message_unref (reply);
-    }
-  return res;
-}
-
-/*---------------------------------------------------------------------------*/
-
-static DBusHandlerResult
 signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
@@ -283,24 +250,33 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 static gchar *app_sig_match_name_owner =
        "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged'";
 
-static DBusObjectPathVTable reg_vtable =
+static DRouteMethod dev_methods[] =
 {
-  NULL,
-  &message_handler,
-  NULL, NULL, NULL, NULL
+  { impl_getApplications, "getApplications" },
+  { impl_registerApplication, "registerApplication" },
+  { impl_deregisterApplication, "deregisterApplication" },
+  { NULL, NULL }
 };
 
 SpiRegistry *
-spi_registry_new (DBusConnection *bus)
+spi_registry_new (DBusConnection *bus, DRouteContext *droute)
 {
   SpiRegistry *reg = g_object_new (SPI_REGISTRY_TYPE, NULL);
+  DRoutePath *path;
 
   reg->bus = bus;
 
-  dbus_connection_register_object_path(bus, SPI_DBUS_PATH_REGISTRY, &reg_vtable, reg);
-
   dbus_bus_add_match (bus, app_sig_match_name_owner, NULL);
   dbus_connection_add_filter (bus, signal_filter, reg, NULL);
+
+  path = droute_add_one (droute,
+                         SPI_DBUS_PATH_REGISTRY,
+                         reg);
+
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_DEC,
+                             dev_methods,
+                             NULL);
 
   return reg;
 }

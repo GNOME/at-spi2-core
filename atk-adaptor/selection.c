@@ -22,58 +22,42 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkSelection *
-get_selection (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_SELECTION (obj);
-}
-
-static AtkSelection *
-get_selection_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || ~ATK_IS_SELECTION(obj))
-    return NULL;
-  return ATK_SELECTION (obj);
-}
+#include "spi-common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_nSelectedChildren (const char *path, DBusMessageIter * iter,
+impl_get_nSelectedChildren (DBusMessageIter * iter,
 			    void *user_data)
 {
-  AtkSelection *selection = get_selection_from_path (path, user_data);
-  if (!selection)
-    return FALSE;
+  AtkSelection *selection = (AtkSelection *) user_data;
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data), FALSE);
   return droute_return_v_int32 (iter,
 				atk_selection_get_selection_count
 				(selection));
 }
 
-static char *
+/*static char *
 impl_get_nSelectedChildren_str (void *datum)
 {
   g_assert (ATK_IS_HYPERLINK (datum));
   return g_strdup_printf ("%d",
 			  atk_selection_get_selection_count ((AtkSelection *)
 							     datum));
-}
+}*/
 
 static DBusMessage *
 impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
 		       void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
   dbus_int32_t selectedChildIndex;
   AtkObject *atk_object;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
@@ -89,14 +73,14 @@ static DBusMessage *
 impl_selectChild (DBusConnection * bus, DBusMessage * message,
 		  void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
   dbus_int32_t childIndex;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
@@ -117,14 +101,14 @@ static DBusMessage *
 impl_deselectSelectedChild (DBusConnection * bus, DBusMessage * message,
 			    void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
   dbus_int32_t selectedChildIndex;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
@@ -146,14 +130,14 @@ static DBusMessage *
 impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
 		      void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
   dbus_int32_t childIndex;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
@@ -173,12 +157,12 @@ impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_selectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   rv = atk_selection_select_all_selection (selection);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -193,12 +177,12 @@ static DBusMessage *
 impl_clearSelection (DBusConnection * bus, DBusMessage * message,
 		     void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   rv = atk_selection_clear_selection (selection);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -213,15 +197,15 @@ static DBusMessage *
 impl_deselectChild (DBusConnection * bus, DBusMessage * message,
 		    void *user_data)
 {
-  AtkSelection *selection = get_selection (message);
+  AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
   dbus_int32_t selectedChildIndex;
   dbus_bool_t rv = FALSE;
   gint i, nselected;
   DBusMessage *reply;
 
-  if (!selection)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
@@ -267,10 +251,10 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_selection (DRouteData * data)
+spi_initialize_selection (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_SELECTION,
-			methods, properties,
-			(DRouteGetDatumFunction) get_selection_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_SELECTION,
+                             methods,
+                             properties);
 };

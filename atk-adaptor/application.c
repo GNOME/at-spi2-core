@@ -21,18 +21,21 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-#include "accessible.h"
 
+#include <atk/atk.h>
+#include <droute/droute.h>
+
+#include "spi-common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_toolkitName (const char *path, DBusMessageIter * iter,
+impl_get_toolkitName (DBusMessageIter * iter,
 		      void *user_data)
 {
   return droute_return_v_string (iter, atk_get_toolkit_name ());
 }
 
 static dbus_bool_t
-impl_get_version (const char *path, DBusMessageIter * iter, void *user_data)
+impl_get_version (DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_string (iter, atk_get_toolkit_version ());
 }
@@ -40,13 +43,13 @@ impl_get_version (const char *path, DBusMessageIter * iter, void *user_data)
 static dbus_int32_t id;
 
 static dbus_bool_t
-impl_get_id (const char *path, DBusMessageIter * iter, void *user_data)
+impl_get_id (DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_int32 (iter, id);
 }
 
 static dbus_bool_t
-impl_set_id (const char *path, DBusMessageIter * iter, void *user_data)
+impl_set_id (DBusMessageIter * iter, void *user_data)
 {
   id = droute_get_v_int32 (iter);
   return TRUE;
@@ -100,17 +103,18 @@ static DRouteProperty properties[] = {
   {NULL, NULL, NULL}
 };
 
-static long
+/*static long
 obj_is_root (const char *path, void *user_data)
 {
   AtkObject *obj = atk_dbus_get_object (path);
   return (obj == atk_get_root ());
-}
+}*/
 
 void
-spi_initialize_application (DRouteData * data)
+spi_initialize_application (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_APPLICATION,
-			methods, properties,
-			(DRouteGetDatumFunction) obj_is_root, NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_APPLICATION,
+                             methods,
+                             properties);
 };

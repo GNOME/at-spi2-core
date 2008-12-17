@@ -1,7 +1,8 @@
 gtkmoduledir = $(libdir)/$(GTK_MODULE_DIR)
 gtkmodule_LTLIBRARIES = libspiatk.la
 
-libspiatk_la_CFLAGS = $(DBUS_GLIB_CFLAGS) $(ATK_CFLAGS) -I$(top_srcdir)
+libspiatk_la_CFLAGS = $(DBUS_GLIB_CFLAGS) $(ATK_CFLAGS) -I$(top_srcdir)\
+		      -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 libspiatk_la_LDFLAGS = -no-undefined       \
 		       -module             \
@@ -31,10 +32,8 @@ libspiatk_la_SOURCES =		\
 	atk-dbus.h		\
 	image.c			\
 	selection.c		\
-	spi-private.h		\
 	table.c			\
 	text.c			\
-	tree.c                  \
-	util.c                  \
-	value.c                 \
-	introspectable.c 
+	tree.c			\
+	tree.h			\
+	value.c

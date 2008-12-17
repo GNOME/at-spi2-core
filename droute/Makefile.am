@@ -17,3 +17,18 @@ libdroute_la_SOURCES =\
 		droute-variant.h\
 		droute-pairhash.c\
 		droute-pairhash.h
+
+TESTS = droute-test
+
+droute_test_CFLAGS = $(DBUS_GLIB_CFLAGS) \
+                     -I$(top_builddir)
+
+check_PROGRAMS = droute-test
+droute_test_SOURCES  = droute-test.c
+droute_test_CPPFLAGS = $(DBUS_GLIB_CFLAGS) \
+		       -I$(top_builddir)\
+		       -DTEST_INTROSPECTION_DIRECTORY=\"$(top_srcdir)/droute\"
+
+droute_test_LDFLAGS  = $(top_builddir)/dbind/libdbind.la\
+		       libdroute.la\
+		       $(DBUS_GLIB_LIBS)

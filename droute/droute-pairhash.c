@@ -43,6 +43,7 @@ str_pair_new (const gchar *one, const gchar *two)
     pair = g_new (StrPair, 1);
     pair->one = one;
     pair->two = two;
+    return pair;
 }
 
 gint
@@ -50,6 +51,11 @@ str_pair_hash (gconstpointer key)
 {
     StrPair *pair = (StrPair *) key;
     guint hash = 0;
+
+    /*g_return_val_if_fail (pair      != NULL, 0);
+    g_return_val_if_fail (pair->one != NULL, 0);
+    g_return_val_if_fail (pair->two != NULL, 0);
+    */
 
     if (*(pair->two) != '\0')
       {

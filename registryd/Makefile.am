@@ -4,7 +4,8 @@ at_spi_registryd_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
 			  $(GOBJ_CFLAGS)	\
 			  $(ATK_CFLAGS)		\
 			  $(GDK_CFLAGS)		\
-			  -I$(top_srcdir) 
+			  -I$(top_srcdir)	\
+			  -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 at_spi_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
 			 $(GOBJ_CFLAGS)		\

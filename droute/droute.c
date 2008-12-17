@@ -31,6 +31,12 @@
 
 #define oom() g_error ("D-Bus out of memory, this message will fail anyway")
 
+#if defined DROUTE_DEBUG
+    #define _DROUTE_DEBUG(format, args...) g_print (format , ## args)
+#else
+    #define _DROUTE_DEBUG
+#endif
+
 struct _DRouteContext
 {
     DBusConnection       *bus;
@@ -73,7 +79,7 @@ path_new (DRouteContext *cnx,
 {
     DRoutePath *new_path;
 
-    new_path = g_new0 (DRoutePath, 0);
+    new_path = g_new0 (DRoutePath, 1);
     new_path->cnx = cnx;
     new_path->chunks = g_string_chunk_new (CHUNKS_DEFAULT);
     new_path->interfaces = g_ptr_array_new ();
@@ -128,9 +134,17 @@ droute_new (DBusConnection *bus, const char *introspect_dir)
 void
 droute_free (DRouteContext *cnx)
 {
-    g_pointer_array_foreach ((GFunc) path_free, cnx->registered_paths, NULL);
+    g_ptr_array_foreach (cnx->registered_paths, (GFunc) path_free, NULL);
     g_free (cnx->introspect_dir);
     g_free (cnx);
+}
+
+/*---------------------------------------------------------------------------*/
+
+DBusConnection *
+droute_get_bus (DRouteContext *cnx)
+{
+    return cnx->bus;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -185,12 +199,12 @@ droute_path_add_interface(DRoutePath *path,
 {
     gchar *itf;
 
-    g_return_if_fail (name == NULL);
+    g_return_if_fail (name != NULL);
 
     itf = g_string_chunk_insert (path->chunks, name);
     g_ptr_array_add (path->interfaces, itf);
 
-    for (; methods->name != NULL; methods++)
+    for (; methods != NULL && methods->name != NULL; methods++)
       {
         gchar *meth;
 
@@ -198,7 +212,7 @@ droute_path_add_interface(DRoutePath *path,
         g_hash_table_insert (path->methods, str_pair_new (itf, meth), methods->func);
       }
 
-    for (; properties->name != NULL; properties++)
+    for (; properties != NULL && properties->name != NULL; properties++)
       {
         gchar *prop;
         PropertyPair *pair;
@@ -233,7 +247,6 @@ impl_prop_GetAll (DBusMessage *message,
     void  *datum = path_get_datum (path, pathstr);
 
     dbus_error_init (&error);
-
     if (!dbus_message_get_args
                 (message, &error, DBUS_TYPE_STRING, &iface, DBUS_TYPE_INVALID))
         return dbus_message_new_error (message, DBUS_ERROR_FAILED, error.message);
@@ -250,7 +263,7 @@ impl_prop_GetAll (DBusMessage *message,
     g_hash_table_iter_init (&prop_iter, path->properties);
     while (g_hash_table_iter_next (&prop_iter, (gpointer*)&key, (gpointer*)&value))
       {
-        if (!g_strcmp (key->one, iface))
+        if (!g_strcmp0 (key->one, iface))
          {
            if (!value->get)
               continue;
@@ -280,8 +293,10 @@ impl_prop_GetSet (DBusMessage *message,
     DBusError error;
 
     StrPair pair;
-    PropertyPair *prop_funcs;
+    PropertyPair *prop_funcs = NULL;
 
+
+    dbus_error_init (&error);
     if (!dbus_message_get_args (message,
                                 &error,
                                 DBUS_TYPE_STRING,
@@ -300,6 +315,8 @@ impl_prop_GetSet (DBusMessage *message,
         void *datum = path_get_datum (path, pathstr);
         DBusMessageIter iter;
 
+        _DROUTE_DEBUG ("DRoute (handle prop Get): %s|%s on %s\n", pair.one, pair.two, pathstr);
+
         reply = dbus_message_new_method_return (message);
         dbus_message_iter_init_append (reply, &iter);
         (prop_funcs->get) (&iter, datum);
@@ -309,12 +326,21 @@ impl_prop_GetSet (DBusMessage *message,
         void *datum = path_get_datum (path, pathstr);
         DBusMessageIter iter;
 
+        _DROUTE_DEBUG ("DRoute (handle prop Get): %s|%s on %s\n", pair.one, pair.two, pathstr);
+
         dbus_message_iter_init_append (message, &iter);
         /* Skip the interface and property name */
         dbus_message_iter_next(&iter);
         dbus_message_iter_next(&iter);
-        (prop_funcs->get) (&iter, datum);
+        (prop_funcs->set) (&iter, datum);
+
+        reply = dbus_message_new_method_return (message);
       }
+    else
+      {
+        reply = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Getter or setter unavailable");
+      }
+
     return reply;
 }
 
@@ -338,6 +364,12 @@ handle_properties (DBusConnection *bus,
     else
        result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
+    if (reply)
+      {
+        dbus_connection_send (bus, reply, NULL);
+        dbus_message_unref (reply);
+      }
+
     return result;
 }
 
@@ -357,32 +389,32 @@ append_interface (GString     *str,
                   const gchar *interface,
                   const gchar *directory)
 {
-  gchar *filename;
-  gchar *contents;
-  gsize len;
+    gchar *filename;
+    gchar *contents;
+    gsize len;
 
-  GError *err = NULL;
+    GError *err = NULL;
 
-  filename = g_build_filename (directory, interface, NULL);
+    filename = g_build_filename (directory, interface, NULL);
 
-  if (g_file_get_contents (filename, &contents, &len, &err))
-    {
-      g_string_append_len (str, contents, len);
-    }
-  else
-    {
-      g_warning ("AT-SPI: Cannot find introspection XML file %s - %s",
-                 filename, err->message);
-      g_error_free (err);
-    }
+    if (g_file_get_contents (filename, &contents, &len, &err))
+      {
+        g_string_append_len (str, contents, len);
+      }
+    else
+      {
+        g_warning ("AT-SPI: Cannot find introspection XML file %s - %s",
+                   filename, err->message);
+        g_error_free (err);
+      }
 
-  g_string_append (str, "\n");
-  g_free (filename);
-  g_free (contents);
+    g_string_append (str, "\n");
+    g_free (filename);
+    g_free (contents);
 }
 
 static DBusHandlerResult
-handle_intropsection (DBusConnection *bus,
+handle_introspection (DBusConnection *bus,
                       DBusMessage    *message,
                       DRoutePath     *path,
                       const gchar    *iface,
@@ -395,7 +427,9 @@ handle_intropsection (DBusConnection *bus,
 
     DBusMessage *reply;
 
-    if (g_strcmp (member, "Introspect"))
+    _DROUTE_DEBUG ("DRoute (handle introspection): %s\n", pathstr);
+
+    if (g_strcmp0 (member, "Introspect"))
         return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
     output = g_string_new(introspection_header);
@@ -442,6 +476,8 @@ handle_other (DBusConnection *bus,
     pair.one = iface;
     pair.two = member;
 
+    _DROUTE_DEBUG ("DRoute (handle other): %s|%s on %s\n", member, iface, pathstr);
+
     func = (DRouteFunction) g_hash_table_lookup (path->methods, &pair);
     if (func != NULL)
       {
@@ -483,6 +519,26 @@ handle_message (DBusConnection *bus, DBusMessage *message, void *user_data)
         return handle_introspection (bus, message, path, iface, member, pathstr);
 
     return handle_other (bus, message, path, iface, member, pathstr);
+}
+
+/*---------------------------------------------------------------------------*/
+
+DBusMessage *
+droute_not_yet_handled_error (DBusMessage *message)
+{
+    DBusMessage *reply;
+    gchar       *errmsg;
+
+    errmsg= g_strdup_printf (
+            "Method \"%s\" with signature \"%s\" on interface \"%s\" doesn't exist\n",
+            dbus_message_get_member (message),
+            dbus_message_get_signature (message),
+            dbus_message_get_interface (message));
+    reply = dbus_message_new_error (message,
+                                    DBUS_ERROR_UNKNOWN_METHOD,
+                                    errmsg);
+    g_free (errmsg);
+    return reply;
 }
 
 /*END------------------------------------------------------------------------*/

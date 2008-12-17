@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Selection(BaseProxy):
+class Selection(Accessible):
         """
         An interface which indicates that an object exposes a 'selection'
         model, allowing the selection of one or more of its children.
@@ -41,7 +41,7 @@ class Selection(BaseProxy):
                 @return True if the selections were successfully cleared, False
                 otherwise.
                 """
-                func = self.get_dbus_method("clearSelection")
+                func = self.get_dbus_method("clearSelection", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def deselectChild(self, *args, **kwargs):
@@ -54,7 +54,7 @@ class Selection(BaseProxy):
                 to be selected.
                 @return True if the child was successfully selected, False otherwise.
                 """
-                func = self.get_dbus_method("deselectChild")
+                func = self.get_dbus_method("deselectChild", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def deselectSelectedChild(self, *args, **kwargs):
@@ -68,7 +68,7 @@ class Selection(BaseProxy):
                 @return True if the child was successfully deselected, False
                 otherwise.
                 """
-                func = self.get_dbus_method("deselectSelectedChild")
+                func = self.get_dbus_method("deselectSelectedChild", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def getSelectedChild(self, *args, **kwargs):
@@ -80,7 +80,7 @@ class Selection(BaseProxy):
                 @return a pointer to a selected Accessible child object, specified
                 by selectedChildIndex.
                 """
-                func = self.get_dbus_method("getSelectedChild")
+                func = self.get_dbus_method("getSelectedChild", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def isChildSelected(self, *args, **kwargs):
@@ -93,7 +93,7 @@ class Selection(BaseProxy):
                 @return True if the specified child is currently selected, False
                 otherwise.
                 """
-                func = self.get_dbus_method("isChildSelected")
+                func = self.get_dbus_method("isChildSelected", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def selectAll(self, *args, **kwargs):
@@ -104,7 +104,7 @@ class Selection(BaseProxy):
                 support this operation).
                 @return True if successful, False otherwise.
                 """
-                func = self.get_dbus_method("selectAll")
+                func = self.get_dbus_method("selectAll", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def selectChild(self, *args, **kwargs):
@@ -115,7 +115,7 @@ class Selection(BaseProxy):
                 be selected.
                 @return True if the child was successfully selected, False otherwise.
                 """
-                func = self.get_dbus_method("selectChild")
+                func = self.get_dbus_method("selectChild", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
         def get_nSelectedChildren(self):
@@ -130,6 +130,6 @@ class Selection(BaseProxy):
         nSelectedChildren = property(fget=get_nSelectedChildren, fset=set_nSelectedChildren, doc=_nSelectedChildrenDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_SELECTION, Selection)
+accessible_factory.register_accessible_class(ATSPI_SELECTION, Selection)
 
 #END----------------------------------------------------------------------------

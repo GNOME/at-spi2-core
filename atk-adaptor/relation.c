@@ -25,9 +25,12 @@
 
 #include <config.h>
 #include <stdio.h>
-#include <libspi/accessible.h>
-#include <libspi/relation.h>
 
+#include <atk/atk.h>
+#include <droute/droute.h>
+
+#include "spi-common/spi-types.h"
+#include "spi-common/spi-dbus.h"
 
 static gboolean
 spi_init_relation_type_table (Accessibility_RelationType *types)

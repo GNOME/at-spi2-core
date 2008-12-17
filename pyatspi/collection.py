@@ -12,8 +12,9 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy, Enum
+from interfaces import *
+from base import Enum
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,34 +23,34 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Collection(BaseProxy):
+class Collection(Accessible):
 
         def createMatchRule(self, *args, **kwargs):
-                func = self.get_dbus_method("createMatchRule")
+                func = self.get_dbus_method("createMatchRule", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         def freeMatchRule(self, *args, **kwargs):
-                func = self.get_dbus_method("freeMatchRule")
+                func = self.get_dbus_method("freeMatchRule", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         def getActiveDescendant(self, *args, **kwargs):
-                func = self.get_dbus_method("getActiveDescendant")
+                func = self.get_dbus_method("getActiveDescendant", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         def getMatches(self, *args, **kwargs):
-                func = self.get_dbus_method("getMatches")
+                func = self.get_dbus_method("getMatches", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         def getMatchesFrom(self, *args, **kwargs):
-                func = self.get_dbus_method("getMatchesFrom")
+                func = self.get_dbus_method("getMatchesFrom", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         def getMatchesTo(self, *args, **kwargs):
-                func = self.get_dbus_method("getMatchesTo")
+                func = self.get_dbus_method("getMatchesTo", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         def isAncestorOf(self, *args, **kwargs):
-                func = self.get_dbus_method("isAncestorOf")
+                func = self.get_dbus_method("isAncestorOf", dbus_interface=ATSPI_COLLECTION)
                 return func(*args, **kwargs)
 
         class MatchType(Enum):
@@ -104,6 +105,6 @@ class Collection(BaseProxy):
         TREE_RESTRICT_SIBLING = TreeTraversalType(1)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_COLLECTION, Collection)
+accessible_factory.register_accessible_class(ATSPI_COLLECTION, Collection)
 
 #END----------------------------------------------------------------------------

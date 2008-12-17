@@ -12,14 +12,13 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
 from factory import accessible_factory
 from accessible import Accessible
 
 __all__ = [
-                   "Application",
-                  ]
+                  "Application",
+          ]
 
 #------------------------------------------------------------------------------
 
@@ -40,7 +39,7 @@ class Application(Accessible):
                 @return a string compliant with the POSIX standard for locale
                 description.
                 """
-                func = self.get_dbus_method("getLocale")
+                func = self.get_dbus_method("getLocale", dbus_interface=ATSPI_APPLICATION)
                 return func(*args, **kwargs)
 
         def pause(self, *args, **kwargs):
@@ -50,7 +49,7 @@ class Application(Accessible):
                 loop.
                 @return : true if the request succeeded, false otherwise.
                 """
-                func = self.get_dbus_method("pause")
+                func = self.get_dbus_method("pause", dbus_interface=ATSPI_APPLICATION)
                 return func(*args, **kwargs)
 
         def registerObjectEventListener(self, *args, **kwargs):
@@ -63,7 +62,7 @@ class Application(Accessible):
                 being requested. Register with this application toolkit for "Accessibility::Accessible"
                 event notifications.
                 """
-                func = self.get_dbus_method("registerObjectEventListener")
+                func = self.get_dbus_method("registerObjectEventListener", dbus_interface=ATSPI_APPLICATION)
                 return func(*args, **kwargs)
 
         def registerToolkitEventListener(self, *args, **kwargs):
@@ -78,7 +77,7 @@ class Application(Accessible):
                 Register with this application's toolkit for "toolkit-specific"
                 event notifications.
                 """
-                func = self.get_dbus_method("registerToolkitEventListener")
+                func = self.get_dbus_method("registerToolkitEventListener", dbus_interface=ATSPI_APPLICATION)
                 return func(*args, **kwargs)
 
         def resume(self, *args, **kwargs):
@@ -86,7 +85,7 @@ class Application(Accessible):
                 Request that the application resume sending events.
                 @return : True if the request succeeded, False otherwise.
                 """
-                func = self.get_dbus_method("resume")
+                func = self.get_dbus_method("resume", dbus_interface=ATSPI_APPLICATION)
                 return func(*args, **kwargs)
 
         def get_id(self):
@@ -122,6 +121,6 @@ class Application(Accessible):
         version = property(fget=get_version, fset=set_version, doc=_versionDoc)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_APPLICATION, Application)
+accessible_factory.register_accessible_class(ATSPI_APPLICATION, Application)
 
 #END----------------------------------------------------------------------------

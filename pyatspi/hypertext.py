@@ -12,8 +12,8 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
-from base import BaseProxy
+from interfaces import *
+from accessible import Accessible
 from factory import accessible_factory
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-class Hypertext(BaseProxy):
+class Hypertext(Accessible):
         """
         An interface used for objects which implement linking between
         multiple resource or content locations, or multiple 'markers'
@@ -39,7 +39,7 @@ class Hypertext(BaseProxy):
                 an integer from 0 to getNLinks() - 1. 
                 @return the Hyperlink in this Hypertext object.
                 """
-                func = self.get_dbus_method("getLink")
+                func = self.get_dbus_method("getLink", dbus_interface=ATSPI_HYPERTEXT)
                 return func(*args, **kwargs)
 
         def getLinkIndex(self, *args, **kwargs):
@@ -52,7 +52,7 @@ class Hypertext(BaseProxy):
                 offset characterIndex, or -1 if no Hyperlink is associated with
                 that character offset.
                 """
-                func = self.get_dbus_method("getLinkIndex")
+                func = self.get_dbus_method("getLinkIndex", dbus_interface=ATSPI_HYPERTEXT)
                 return func(*args, **kwargs)
 
         def getNLinks(self, *args, **kwargs):
@@ -61,10 +61,10 @@ class Hypertext(BaseProxy):
                 @return the number of Hyperlinks associated with this Hypertext
                 object, as a long integer.
                 """
-                func = self.get_dbus_method("getNLinks")
+                func = self.get_dbus_method("getNLinks", dbus_interface=ATSPI_HYPERTEXT)
                 return func(*args, **kwargs)
 
 # Register the accessible class with the factory.
-accessible_factory.register_accessible_class(interfaces.ATSPI_HYPERTEXT, Hypertext)
+accessible_factory.register_accessible_class(ATSPI_HYPERTEXT, Hypertext)
 
 #END----------------------------------------------------------------------------

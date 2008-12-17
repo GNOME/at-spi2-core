@@ -22,106 +22,112 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-#define get_object(message) atk_dbus_get_object(dbus_message_get_path(message))
-
-static AtkObject *
-get_object_from_path (const char *path, void *user_data)
-{
-  return atk_dbus_get_object (path);
-}
+#include "atk-dbus.h"
+#include "spi-common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_name (const char *path, DBusMessageIter * iter, void *user_data)
+impl_get_name (DBusMessageIter *iter, void *user_data)
 {
-  AtkObject *object = atk_dbus_get_object (path);
-  if (!object)
-    return FALSE;
+  AtkObject *object = (AtkObject *) user_data;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
   return droute_return_v_string (iter, atk_object_get_name (object));
 }
 
 static dbus_bool_t
-impl_set_name (const char *path, DBusMessageIter * iter, void *user_data)
+impl_set_name (DBusMessageIter *iter, void *user_data)
 {
-  AtkObject *object = atk_dbus_get_object (path);
+  AtkObject *object = (AtkObject *) user_data;
   const char *name = droute_get_v_string (iter);
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
   atk_object_set_name (object, name);
   return TRUE;
 }
 
 static dbus_bool_t
-impl_get_description (const char *path, DBusMessageIter * iter,
-		      void *user_data)
+impl_get_description (DBusMessageIter *iter, void *user_data)
 {
-  AtkObject *object = atk_dbus_get_object (path);
-  if (!object)
-    return FALSE;
+  AtkObject *object = (AtkObject *) user_data;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
   return droute_return_v_string (iter, atk_object_get_description (object));
 }
 
 static dbus_bool_t
-impl_set_description (const char *path, DBusMessageIter * iter,
-		      void *user_data)
+impl_set_description (DBusMessageIter *iter, void *user_data)
 {
-  AtkObject *object = atk_dbus_get_object (path);
+  AtkObject *object = (AtkObject *) user_data;
   const char *description = droute_get_v_string (iter);
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
   atk_object_set_description (object, description);
   return TRUE;
 }
 
 static dbus_bool_t
-impl_get_parent (const char *path, DBusMessageIter * iter, void *user_data)
+impl_get_parent (DBusMessageIter *iter, void *user_data)
 {
-  AtkObject *object = atk_dbus_get_object (path);
+  AtkObject *object = (AtkObject *) user_data;
 
-  if (!object)
-    return FALSE;
-  return spi_dbus_return_v_object (iter, atk_object_get_parent (object),
-				   FALSE);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
+  return spi_dbus_return_v_object (iter,
+                                   atk_object_get_parent (object),
+                                   FALSE);
 }
 
 static dbus_bool_t
-impl_get_childCount (const char *path, DBusMessageIter * iter,
-		     void *user_data)
+impl_get_childCount (DBusMessageIter *iter, void *user_data)
 {
-  AtkObject *object = atk_dbus_get_object (path);
+  AtkObject *object = (AtkObject *) user_data;
 
-  if (!object)
-    return FALSE;
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
+
   return droute_return_v_int32 (iter,
-				atk_object_get_n_accessible_children
-				(object));
+                                atk_object_get_n_accessible_children
+                                (object));
 }
 
 static DBusMessage *
-impl_getChildAtIndex (DBusConnection * bus, DBusMessage * message,
-		  void *user_data)
+impl_getChildAtIndex (DBusConnection *bus,
+                      DBusMessage *message,
+                      void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
+  DBusError error;
   dbus_int32_t i;
   AtkObject *child;
 
-  if (!object)
-    return spi_dbus_general_error (message);
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
-    return spi_dbus_general_error (message);
+  dbus_error_init (&error);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
+  if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
+      return spi_dbus_general_error (message);
   child = atk_object_ref_accessible_child (object, i);
   return spi_dbus_return_object (message, child, FALSE);
 }
 
 static DBusMessage *
-impl_getChildren (DBusConnection * bus, DBusMessage * message,
-		  void *user_data)
+impl_getChildren (DBusConnection *bus,
+                  DBusMessage *message,
+                  void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   gint i;
   gint count;
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   count = atk_object_get_n_accessible_children (object);
   reply = dbus_message_new_method_return (message);
   if (!reply) goto oom;
@@ -151,15 +157,16 @@ oom:
 }
 
 static DBusMessage *
-impl_getIndexInParent (DBusConnection * bus, DBusMessage * message,
-		       void *user_data)
+impl_getIndexInParent (DBusConnection *bus,
+                       DBusMessage *message,
+                       void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   dbus_uint32_t rv;
   DBusMessage *reply;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   rv = atk_object_get_index_in_parent (object);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -215,18 +222,19 @@ spi_relation_type_from_atk_relation_type (AtkRelationType type)
 }
 
 static DBusMessage *
-impl_getRelationSet (DBusConnection * bus, DBusMessage * message,
-		     void *user_data)
+impl_getRelationSet (DBusConnection *bus,
+                     DBusMessage *message,
+                     void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
   AtkRelationSet *set;
   DBusMessageIter iter, iter_array, iter_struct, iter_targets;
   gint count;
   gint i, j;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   reply = dbus_message_new_method_return (message);
   if (!reply) return NULL;
   set = atk_object_ref_relation_set (object);
@@ -400,15 +408,15 @@ spi_accessible_role_from_atk_role (AtkRole role)
 }
 
 static DBusMessage *
-impl_getRole (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_getRole (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   gint role;
   dbus_uint32_t rv;
   DBusMessage *reply;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   role = atk_object_get_role (object);
   rv = spi_accessible_role_from_atk_role (role);
   reply = dbus_message_new_method_return (message);
@@ -430,16 +438,17 @@ impl_get_role_str (void *datum)
 }
 
 static DBusMessage *
-impl_getRoleName (DBusConnection * bus, DBusMessage * message,
-		  void *user_data)
+impl_getRoleName (DBusConnection *bus,
+                  DBusMessage *message,
+                  void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   gint role;
   const char *role_name;
   DBusMessage *reply;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   role = atk_object_get_role (object);
   role_name = atk_role_get_name (role);
   if (!role_name)
@@ -454,16 +463,17 @@ impl_getRoleName (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getLocalizedRoleName (DBusConnection * bus, DBusMessage * message,
-			   void *user_data)
+impl_getLocalizedRoleName (DBusConnection *bus,
+                           DBusMessage *message,
+                           void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   gint role;
   const char *role_name;
   DBusMessage *reply;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   role = atk_object_get_role (object);
   role_name = atk_role_get_localized_name (role);
   if (!role_name)
@@ -478,15 +488,17 @@ impl_getLocalizedRoleName (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getState (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_getState (DBusConnection *bus,
+               DBusMessage *message,
+               void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   dbus_uint32_t rv[2];
   dbus_uint32_t *array = rv;
   DBusMessage *reply;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
   spi_atk_state_to_dbus_array (object, rv);
   reply = dbus_message_new_method_return (message);
   if (reply)
@@ -498,10 +510,11 @@ impl_getState (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getAttributes (DBusConnection * bus, DBusMessage * message,
-		    void *user_data)
+impl_getAttributes (DBusConnection *bus,
+                    DBusMessage *message,
+                    void *user_data)
 {
-  AtkObject *object = get_object (message);
+  AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
   AtkAttributeSet *attributes;
   AtkAttribute *attr = NULL;
@@ -509,8 +522,8 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
   gint n_attributes = 0;
   gint i;
 
-  if (!object)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
 
   attributes = atk_object_get_attributes (object);
   if (attributes)
@@ -538,8 +551,9 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getApplication (DBusConnection * bus, DBusMessage * message,
-		     void *user_data)
+impl_getApplication (DBusConnection *bus,
+                     DBusMessage *message,
+                     void *user_data)
 {
   AtkObject *root = atk_get_root ();
   return spi_dbus_return_object (message, root, FALSE);
@@ -568,9 +582,10 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_accessible (DRouteData * data)
+spi_initialize_accessible (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_ACCESSIBLE,
-			methods, properties,
-			(DRouteGetDatumFunction) get_object_from_path, NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_ACCESSIBLE,
+                             methods,
+                             properties);
 };

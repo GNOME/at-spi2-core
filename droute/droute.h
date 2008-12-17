@@ -28,6 +28,7 @@
 
 #include <droute/droute-variant.h>
 
+
 typedef DBusMessage *(*DRouteFunction)         (DBusConnection *, DBusMessage *, void *);
 typedef dbus_bool_t  (*DRoutePropertyFunction) (DBusMessageIter *, void *);
 
@@ -78,5 +79,11 @@ droute_path_add_interface (DRoutePath *path,
                            const char *name,
                            const DRouteMethod   *methods,
                            const DRouteProperty *properties);
+
+DBusMessage *
+droute_not_yet_handled_error (DBusMessage *message);
+
+DBusConnection *
+droute_get_bus (DRouteContext *cnx);
 
 #endif /* _DROUTE_H */

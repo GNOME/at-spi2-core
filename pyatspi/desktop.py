@@ -12,7 +12,7 @@
 #along with this program; if not, write to the Free Software
 #Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import interfaces
+from interfaces import *
 from base import BaseProxyMeta
 from accessible import BoundingBox
 from state import StateSet
@@ -345,7 +345,7 @@ class Desktop(object):
 
         @property
         def interfaces(self):
-                return [interfaces.ATSPI_ACCESSIBLE, interfaces.ATSPI_COMPONENT]
+                return [ATSPI_ACCESSIBLE, ATSPI_COMPONENT]
 
         def queryInterface(self, interface):
                 """
@@ -353,9 +353,9 @@ class Desktop(object):
                 or raises a NotImplemented error if the given interface
                 is not supported.
                 """
-                if interface == interfaces.ATSPI_ACCESSIBLE:
+                if interface == ATSPI_ACCESSIBLE:
                                 return self
-                elif interface == interfaces.ATSPI_COMPONENT:
+                elif interface == ATSPI_COMPONENT:
                                 return DesktopComponent()
                 else:
                                 raise NotImplementedError(

@@ -22,45 +22,33 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible.h"
+#include <atk/atk.h>
+#include <droute/droute.h>
 
-static AtkAction *
-get_action (DBusMessage * message)
-{
-  AtkObject *obj = atk_dbus_get_object (dbus_message_get_path (message));
-  if (!obj)
-    return NULL;
-  return ATK_ACTION (obj);
-}
-
-static AtkAction *
-get_action_from_path (const char *path, void *user_data)
-{
-  AtkObject *obj = atk_dbus_get_object (path);
-  if (!obj || !ATK_IS_ACTION(obj))
-    return NULL;
-  return ATK_ACTION (obj);
-}
+#include "spi-common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_nActions (const char *path, DBusMessageIter *iter, void *user_data)
+impl_get_nActions (DBusMessageIter *iter, void *user_data)
 {
-  AtkAction *action = get_action_from_path (path, user_data);
-  if (!action)
-    return FALSE;
+  AtkAction *action = (AtkAction *) user_data;
+
+  g_return_val_if_fail (ATK_IS_ACTION (user_data), FALSE);
   return droute_return_v_int32 (iter, atk_action_get_n_actions (action));
 }
 
 static DBusMessage *
 impl_get_description (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
+  AtkAction *action = (AtkAction *) user_data;
+  DBusError error;
   DBusMessage *reply;
   dbus_int32_t index;
   const char *desc;
-  AtkAction *action = get_action (message);
 
-  if (!action) return spi_dbus_general_error (message);
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  dbus_error_init (&error);
+  g_return_val_if_fail (ATK_IS_ACTION (user_data),
+                        droute_not_yet_handled_error (message));
+  if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
   {
     return spi_dbus_general_error (message);
   }
@@ -78,12 +66,15 @@ static DBusMessage *
 impl_get_name (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
+  DBusError error;
   dbus_int32_t index;
   const char *name;
-  AtkAction *action = get_action (message);
+  AtkAction *action = (AtkAction *) user_data;
 
-  if (!action) return spi_dbus_general_error (message);
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  dbus_error_init (&error);
+  g_return_val_if_fail (ATK_IS_ACTION (user_data),
+                        droute_not_yet_handled_error (message));
+  if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
   {
     return spi_dbus_general_error (message);
   }
@@ -101,12 +92,15 @@ static DBusMessage *
 impl_get_keybinding (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
+  DBusError error;
   dbus_int32_t index;
   const char *kb;
-  AtkAction *action = get_action (message);
+  AtkAction *action = (AtkAction *) user_data;
 
-  if (!action) return spi_dbus_general_error (message);
-  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
+  dbus_error_init (&error);
+  g_return_val_if_fail (ATK_IS_ACTION (user_data),
+                        droute_not_yet_handled_error (message));
+  if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
   {
     return spi_dbus_general_error (message);
   }
@@ -122,14 +116,14 @@ impl_get_keybinding (DBusConnection *bus, DBusMessage *message, void *user_data)
 
 static DBusMessage *impl_getActions(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkAction *action = get_action(message);
+  AtkAction *action = (AtkAction *) user_data;
   DBusMessage *reply;
   gint count;
   gint i;
   DBusMessageIter iter, iter_array, iter_struct;
 
-  if (!action)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_ACTION (user_data),
+                        droute_not_yet_handled_error (message));
   count = atk_action_get_n_actions(action);
   reply = dbus_message_new_method_return (message);
   if (!reply) goto oom;
@@ -161,14 +155,14 @@ oom:
 
 static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkAction *action = get_action(message);
+  AtkAction *action = (AtkAction *) user_data;
   DBusError error;
   dbus_int32_t index;
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  if (!action)
-    return spi_dbus_general_error (message);
+  g_return_val_if_fail (ATK_IS_ACTION (user_data),
+                        droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
@@ -201,10 +195,10 @@ static DRouteProperty properties[] =
 };
 
 void
-spi_initialize_action (DRouteData * data)
+spi_initialize_action (DRoutePath *path)
 {
-  droute_add_interface (data, SPI_DBUS_INTERFACE_ACTION,
-			methods, properties,
-			(DRouteGetDatumFunction) get_action_from_path,
-			NULL);
+  droute_path_add_interface (path,
+                             SPI_DBUS_INTERFACE_ACTION,
+                             methods,
+                             properties);
 };
