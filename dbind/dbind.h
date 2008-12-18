@@ -6,6 +6,16 @@
 #include <dbind/dbind-any.h>
 
 dbus_bool_t
+dbind_method_call_reentrant_va (DBusConnection *cnx,
+                                const char     *bus_name,
+                                const char     *path,
+                                const char     *interface,
+                                const char     *method,
+                                DBusError      *opt_error,
+                                const char     *arg_types,
+                                va_list         args);
+
+dbus_bool_t
 dbind_method_call_reentrant (DBusConnection *cnx,
                              const char     *bus_name,
                              const char     *path,

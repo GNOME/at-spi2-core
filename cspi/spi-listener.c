@@ -388,7 +388,7 @@ cspi_dbus_handle_deviceEvent (DBusConnection *bus, DBusMessage *message, void *d
     goto done;
   }
   dbus_message_iter_init (message, &iter);
-  dbind_any_demarshal (iter, &deviceEvent_type, &p);
+  dbind_any_demarshal (&iter, (char **) &deviceEvent_type, &p);
   klass = CSPI_DEVICE_LISTENER_GET_CLASS (listener);
   if (klass->device_event)
   {

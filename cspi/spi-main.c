@@ -413,7 +413,7 @@ add_app_to_desktop (Accessible *a, const char *bus_name)
   char *root_path;
 
   dbus_error_init (&error);
-  if (dbind_connection_method_call (bus, bus_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getRoot", &error, "=>o", &root_path))
+  if (dbind_method_call_reentrant (bus, bus_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getRoot", &error, "=>o", &root_path))
   {
     Accessible *obj = cspi_ref_accessible (bus_name, root_path);
     if (obj)
@@ -505,7 +505,7 @@ ref_accessible_desktop (CSpiApplication *app)
   desktop->ref_count = 2;	/* one for the caller, one for the hash */
   desktop->name = g_strdup ("");
   dbus_error_init (&error);
-  if (!dbind_connection_method_call (bus, spi_bus_registry, spi_path_registry, spi_interface_registry, "getApplications", &error, "=>as", &apps))
+  if (!dbind_method_call_reentrant (bus, spi_bus_registry, spi_path_registry, spi_interface_registry, "getApplications", &error, "=>as", &apps))
   {
     g_error ("Couldn't get application list: %s", error.message);
   }
@@ -520,7 +520,7 @@ ref_accessible_desktop (CSpiApplication *app)
     CSpiApplication *app = cspi_get_application (app_name);
     additions = NULL;
     dbus_error_init (&error);
-    dbind_connection_method_call (bus, app_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getTree", &error, "=>a(ooaoassusau)", &additions);
+    dbind_method_call_reentrant (bus, app_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getTree", &error, "=>a(ooaoassusau)", &additions);
     if (error.message)
     {
       g_warning ("getTree (%s): %s", app_name, error.message);
@@ -1019,7 +1019,7 @@ cspi_dbus_call (Accessible *obj, const char *interface, const char *method, DBus
   if (!error) error = &err;
   dbus_error_init (error);
   va_start (args, type);
-  retval = dbind_connection_method_call_va (SPI_bus(), obj->app->bus_name, path, interface, method, error, type, args);
+  retval = dbind_method_call_reentrant_va (SPI_bus(), obj->app->bus_name, path, interface, method, error, type, args);
   va_end (args);
   g_free (path);
   if (dbus_error_is_set (error))

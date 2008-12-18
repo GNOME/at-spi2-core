@@ -40,41 +40,21 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *er
     return reply;
 }
 
-/**
- * dbind_method_call_reentrant:
- *
- * @cnx:       A D-Bus Connection used to make the method call.
- * @bus_name:  The D-Bus bus name of the program where the method call should
- *             be made.
- * @path:      The D-Bus object path that should handle the method.
- * @interface: The D-Bus interface used to scope the method name.
- * @method:    Method to be invoked.
- * @opt_error: D-Bus error.
- * @arg_types: Variable length arguments interleaving D-Bus argument types
- *             and pointers to argument data.
- *
- * Makes a D-Bus method call using the supplied location data, method name and
- * argument data.This function is re-entrant. It continuously reads from the D-Bus
- * bus and dispatches messages until a reply has been recieved.
- **/
 dbus_bool_t
-dbind_method_call_reentrant (DBusConnection *cnx,
-                             const char     *bus_name,
-                             const char     *path,
-                             const char     *interface,
-                             const char     *method,
-                             DBusError      *opt_error,
-                             const char     *arg_types,
-                             ...)
+dbind_method_call_reentrant_va (DBusConnection *cnx,
+                                const char     *bus_name,
+                                const char     *path,
+                                const char     *interface,
+                                const char     *method,
+                                DBusError      *opt_error,
+                                const char     *arg_types,
+                                va_list         args)
 {
     dbus_bool_t success = FALSE;
     DBusMessage *msg = NULL, *reply = NULL;
     DBusMessageIter iter;
     DBusError *err, real_err;
     char *p;
-    va_list args;
-
-    va_start (args, arg_types);
 
     if (opt_error)
         err = opt_error;
@@ -112,8 +92,6 @@ dbind_method_call_reentrant (DBusConnection *cnx,
 
     success = TRUE;
 out:
-    va_end (args);
-
     if (msg)
         dbus_message_unref (msg);
 
@@ -122,6 +100,50 @@ out:
 
     if (err == &real_err)
         dbus_error_free (err);
+
+    return success;
+}
+
+/**
+ * dbind_method_call_reentrant:
+ *
+ * @cnx:       A D-Bus Connection used to make the method call.
+ * @bus_name:  The D-Bus bus name of the program where the method call should
+ *             be made.
+ * @path:      The D-Bus object path that should handle the method.
+ * @interface: The D-Bus interface used to scope the method name.
+ * @method:    Method to be invoked.
+ * @opt_error: D-Bus error.
+ * @arg_types: Variable length arguments interleaving D-Bus argument types
+ *             and pointers to argument data.
+ *
+ * Makes a D-Bus method call using the supplied location data, method name and
+ * argument data.This function is re-entrant. It continuously reads from the D-Bus
+ * bus and dispatches messages until a reply has been recieved.
+ **/
+dbus_bool_t
+dbind_method_call_reentrant (DBusConnection *cnx,
+                             const char     *bus_name,
+                             const char     *path,
+                             const char     *interface,
+                             const char     *method,
+                             DBusError      *opt_error,
+                             const char     *arg_types,
+                             ...)
+{
+    dbus_bool_t success = FALSE;
+    va_list args;
+
+    va_start (args, arg_types);
+    success = dbind_method_call_reentrant_va (cnx,
+                                              bus_name,
+                                              path,
+                                              interface,
+                                              method,
+                                              opt_error,
+                                              arg_types,
+                                              args);
+    va_end (args);
 
     return success;
 }
