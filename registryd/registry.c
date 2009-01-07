@@ -274,7 +274,7 @@ spi_registry_new (DBusConnection *bus, DRouteContext *droute)
                          reg);
 
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_DEC,
+                             SPI_DBUS_INTERFACE_REGISTRY,
                              dev_methods,
                              NULL);
 
