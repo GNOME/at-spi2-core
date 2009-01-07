@@ -185,11 +185,13 @@ class Desktop(object):
         def __eq__(self, other):
                 if other is None:
                         return False
-
-                if self._app_name == other._app_name and \
-                   self._acc_path == other._acc_path:
-                        return True
-                else:
+                try:
+                        if self._app_name == other._app_name and \
+                           self._acc_path == other._acc_path:
+                                return True
+                        else:
+                                return False
+                except AttributeError:
                         return False
 
         def __ne__(self, other):

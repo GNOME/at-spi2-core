@@ -80,10 +80,10 @@ class _Registry(object):
                         app_name = _os.environ["ATSPI_TEST_APP_NAME"]
 
                 if app_name:
-                        self._appcache = TestApplicationCache(self, self._bus, app_name)
+                        self._app_cache = TestApplicationCache(self, self._bus, app_name)
                         self.dev = _TestDeviceEventController()
                 else:
-                        self._appcache = ApplicationCache(self, self._bus)
+                        self._app_cache = ApplicationCache(self, self._bus)
                         self.dev = DeviceEventController(self._bus)
 
                 self._event_listeners = {}
@@ -109,6 +109,14 @@ class _Registry(object):
                 @rtype: L{Registry}
                 """
                 return self
+
+        @property
+        def cache (self):
+                """
+                This is the accessible application cache through which
+                all accessible objects are accessed.
+                """
+                return self._app_cache
 
         def start(self, async=False, gil=True):
                 """
@@ -152,7 +160,7 @@ class _Registry(object):
                 @return: Desktop reference
                 @rtype: Accessibility.Desktop
                 """
-                return _Desktop(self._appcache)
+                return _Desktop(self._app_cache)
 
         def _callClients(self, register, event):
                 for client in register.keys():
@@ -238,7 +246,7 @@ class _Registry(object):
                 for name in names:
                         new_type = _EventType(name)
                         registered.append((new_type.name,
-                                           _event_type_to_signal_reciever(self._bus, self._appcache, client, new_type)))
+                                           _event_type_to_signal_reciever(self._bus, self._app_cache, client, new_type)))
 
                 self._registerFake(self._name_type, self._name_listeners, client, *names)
                 self._registerFake(self._description_type, self._description_listeners, client, *names)

@@ -111,7 +111,7 @@ class AccessibleCache(object):
 
         def _dispatch_event(self, olddata, newdata):
                 if olddata.name != newdata.name:
-                        event = _Event(self._registry._cache,
+                        event = _Event(self._registry.cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
@@ -120,7 +120,7 @@ class AccessibleCache(object):
                         self._registry._notifyNameChange(event)
 
                 if olddata.description != newdata.description:
-                        event = _Event(self._registry._cache,
+                        event = _Event(self._registry.cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
@@ -129,7 +129,7 @@ class AccessibleCache(object):
                         self._registry._notifyDescriptionChange(event)
 
                 if olddata.parent != newdata.parent:
-                        event = _Event(self._registry._cache,
+                        event = _Event(self._registry.cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
@@ -140,7 +140,7 @@ class AccessibleCache(object):
                 added, removed = _list_items_added_removed (olddata.children, newdata.children)
 
                 if added:
-                        event = _Event(self._registry._cache,
+                        event = _Event(self._registry.cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
@@ -149,7 +149,7 @@ class AccessibleCache(object):
                         self._registry._notifyChildrenChange(event)
 
                 if removed:
-                        event = _Event(self._registry._cache,
+                        event = _Event(self._registry.cache,
                                        path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
