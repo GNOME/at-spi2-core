@@ -31,8 +31,6 @@
 #include "spi-common/spi-dbus.h"
 #include "bridge.h"
 
-static gboolean update_pending = FALSE;
-
 /*---------------------------------------------------------------------------*/
 
 static void
@@ -122,6 +120,7 @@ append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter)
 
 static const char *dumm = "/APath/1";
 
+
 /*
  * Marshals the given AtkObject into the provided D-Bus iterator.
  *
@@ -131,7 +130,7 @@ static const char *dumm = "/APath/1";
  * of the org.freedesktop.atspi.Tree interface.
  */
 static void
-append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
+append_accessible(gpointer obj_data, gpointer iter)
 {
   AtkObject *obj;
   DBusMessageIter *iter_array;
@@ -152,14 +151,14 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
       AtkObject *parent;
       gchar *path, *path_parent;
 
-      path = atk_dbus_get_path_from_ref(GPOINTER_TO_INT(ref));
+      path = atk_dbus_object_to_path (obj);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
 
       parent = atk_object_get_parent(obj);
       if (parent == NULL)
         path_parent = g_strdup("/");
       else
-        path_parent = atk_dbus_get_path (parent);
+        path_parent = atk_dbus_object_to_path (parent);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
       g_free(path_parent);
 
@@ -174,10 +173,17 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
               gchar *child_path;
 
               child = atk_object_ref_accessible_child (obj, i);
-              child_path = atk_dbus_get_path (child);
+              child_path = atk_dbus_object_to_path (child);
               g_object_unref(G_OBJECT(child));
-              dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
-              g_free (child_path);
+              if (G_LIKELY (child_path))
+                {
+                  dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
+                }
+              else
+                {
+                  g_critical ("AT-SPI: Child object exists in accessible tree but has not been registered");
+                  g_free (child_path);
+                }
             }
         }
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
@@ -209,65 +215,48 @@ append_accessible(gpointer ref, gpointer obj_data, gpointer iter)
   dbus_message_iter_close_container (iter_array, &iter_struct);
 }
 
-/*---------------------------------------------------------------------------*/
-
-/*
- * Used to marshal array of objects to remove.
- * Marshalls an object path onto the iter provided.
- */
+/* For use as a GHFunc */
 static void
-append_accessible_path(gpointer ref_data, gpointer null, gpointer data)
+append_accessible_hf (gpointer key, gpointer obj_data, gpointer iter)
 {
-  guint ref;
-  gchar *path;
-  DBusMessageIter *iter_array;
-
-  iter_array = (DBusMessageIter *) data;
-  ref = GPOINTER_TO_INT(ref_data);
-  path = atk_dbus_get_path_from_ref(ref);
-  dbus_message_iter_append_basic (iter_array, DBUS_TYPE_OBJECT_PATH, &path);
-  g_free(path);
-}
-
-/*---------------------------------------------------------------------------*/
-
-static gboolean
-send_cache_update(gpointer data)
-{
-  DBusMessage *message;
-  DBusMessageIter iter;
-  DBusMessageIter iter_array;
-  DBusConnection *bus = (DBusConnection *) data;
-
-  message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateTree");
-
-  dbus_message_iter_init_append (message, &iter);
-
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
-  atk_dbus_foreach_update_list(append_accessible, &iter_array);
-  dbus_message_iter_close_container(&iter, &iter_array);
-
-  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &iter_array);
-  atk_dbus_foreach_remove_list(append_accessible_path, &iter_array);
-  dbus_message_iter_close_container(&iter, &iter_array);
-
-  dbus_connection_send(bus, message, NULL);
-  update_pending = FALSE;
-
-  return FALSE;
+  append_accessible (obj_data, iter);
 }
 
 /*---------------------------------------------------------------------------*/
 
 void
-atk_tree_cache_needs_update(DBusConnection *bus)
+spi_emit_cache_removal (guint ref,  DBusConnection *bus)
 {
-  if (!update_pending)
-    {
-      g_idle_add(send_cache_update, bus);
-      update_pending = TRUE;
-    }
+  DBusMessage *message;
+  DBusMessageIter iter;
+  gchar *path;
+
+  message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "removeAccessible");
+
+  dbus_message_iter_init_append (message, &iter);
+
+  path = atk_dbus_ref_to_path (ref);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &path);
+
+  dbus_connection_send(bus, message, NULL);
 }
+
+void
+spi_emit_cache_update (const GList *accessibles, DBusConnection *bus)
+{
+   DBusMessage *message;
+   DBusMessageIter iter;
+   DBusMessageIter iter_array;
+   message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateAccessible");
+
+   dbus_message_iter_init_append (message, &iter);
+   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
+   g_list_foreach ((GList *)accessibles, append_accessible, &iter_array);
+   dbus_message_iter_close_container(&iter, &iter_array);
+
+   dbus_connection_send(bus, message, NULL);
+}
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -278,9 +267,11 @@ impl_getRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
   char *path;
   DBusMessage *reply;
 
-  if (root) path = atk_dbus_get_path(root);
-  if (!root || !path)
-    return spi_dbus_general_error (message);
+  if (!root)
+      return spi_dbus_general_error (message);
+  path = atk_dbus_object_to_path (root);
+  if (!path)
+      return spi_dbus_general_error (message);
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_INVALID);
   g_free (path);
@@ -294,15 +285,12 @@ impl_getTree (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
-  AtkObject *root = atk_get_root();
 
-  if (!root) 
-     return spi_dbus_general_error(message);
   reply = dbus_message_new_method_return (message);
 
   dbus_message_iter_init_append (reply, &iter);
   dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
-  atk_dbus_foreach_registered(append_accessible, &iter_array);
+  atk_dbus_foreach_registered(append_accessible_hf, &iter_array);
   dbus_message_iter_close_container(&iter, &iter_array);
   return reply;
 }

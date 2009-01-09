@@ -26,10 +26,15 @@
 
 #include <atk/atk.h>
 #include <spi-common/spi-types.h>
+#include <dbus/dbus.h>
 
 G_BEGIN_DECLS
 
-void atk_tree_cache_needs_update(void);
+void
+spi_emit_cache_update  (AtkObject *accessible, DBusConnection *bus);
+
+void
+spi_emit_cache_removal (guint ref, DBusConnection *bus);
 
 G_END_DECLS
 

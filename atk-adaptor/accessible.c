@@ -138,7 +138,7 @@ impl_getChildren (DBusConnection *bus,
   for (i = 0; i < count; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (object, i);
-      char *path = atk_dbus_get_path (child);
+      char *path = atk_dbus_object_to_path (child);
       if (path)
 	{
 	  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_OBJECT_PATH,
@@ -268,7 +268,7 @@ impl_getRelationSet (DBusConnection *bus,
       AtkObject *obj = target->pdata[j];
       char *path;
       if (!obj) continue;
-      path = atk_dbus_get_path (obj);
+      path = atk_dbus_object_to_path (obj);
       dbus_message_iter_append_basic (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
     }
     dbus_message_iter_close_container (&iter_struct, &iter_targets);

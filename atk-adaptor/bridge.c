@@ -290,7 +290,7 @@ adaptor_init (gint *argc, gchar **argv[])
   accpath = droute_add_many (atk_adaptor_app_data->droute,
                              "/org/freedesktop/atspi/accessible",
                              NULL,
-                             (DRouteGetDatumFunction) atk_dbus_get_object);
+                             (DRouteGetDatumFunction) atk_dbus_path_to_object);
 
   /* Register all interfaces with droute and set up application accessible db */
   spi_initialize_tree (treepath);

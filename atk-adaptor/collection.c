@@ -32,8 +32,6 @@
 #include "spi-common/bitarray.h"
 #include "spi-common/spi-dbus.h"
 
-#define get_object(message) atk_dbus_get_object(dbus_message_get_path(message))
-
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
 {
@@ -677,7 +675,7 @@ return_and_free_list(DBusMessage *message, GList *ls)
   if (!dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &iter_array)) goto oom;
   for (item = ls; item; item = g_list_next(item))
   {
-      char *path = (char *) spi_dbus_get_path((AtkObject *)item->data);
+      char *path = (char *) spi_dbus_object_to_path ((AtkObject *)item->data);
       dbus_message_iter_append_basic(&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
       g_free(path);
   }
@@ -794,7 +792,7 @@ getMatchesInOrder (DBusMessage *message,
 
   ls = g_list_append (ls, current_object);
 
-  obj = atk_dbus_get_object (dbus_message_get_path (message));
+  obj = atk_dbus_path_to_object (dbus_message_get_path (message));
   
   kount = inorder (obj, mrp, ls, 0, count, 
                    current_object, TRUE, NULL, traverse);
@@ -826,7 +824,7 @@ getMatchesInBackOrder (DBusMessage *message,
 
   ls = g_list_append (ls, current_object);
 
-  collection = atk_dbus_get_object (dbus_message_get_path (message));
+  collection = atk_dbus_path_to_object (dbus_message_get_path (message));
 
   kount = sort_order_rev_canonical (mrp, ls, 0, count, current_object, 
                                    FALSE, collection);
@@ -862,7 +860,7 @@ getMatchesTo (DBusMessage *message,
                          obj, 0, TRUE, current_object, TRUE, traverse);
   }
   else{ 
-    obj = atk_dbus_get_object (dbus_message_get_path (message));
+    obj = atk_dbus_path_to_object (dbus_message_get_path (message));
     kount = query_exec (mrp,  sortby, ls, 0, count,
                         obj, 0, TRUE, current_object, TRUE, traverse); 
 
@@ -892,7 +890,7 @@ impl_getMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   dbus_message_iter_init(message, &iter);
   dbus_message_iter_get_basic (&iter, current_object_path);
-  current_object = atk_dbus_get_object (current_object_path);
+  current_object = atk_dbus_path_to_object (current_object_path);
   if (!current_object)
   {
     // TODO: object-not-found error
@@ -945,7 +943,7 @@ impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   dbus_message_iter_init(message, &iter);
   dbus_message_iter_get_basic (&iter, current_object_path);
-  current_object = atk_dbus_get_object (current_object_path);
+  current_object = atk_dbus_path_to_object (current_object_path);
   if (!current_object)
   {
     // TODO: object-not-found error
@@ -987,7 +985,7 @@ impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 static DBusMessage *
 impl_getMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkObject *obj = get_object(message);
+  AtkObject *obj = path_to_object (message);
   DBusMessageIter iter;
   MatchRulePrivate rule;
   dbus_uint16_t sortby;

@@ -37,20 +37,32 @@ atk_dbus_foreach_update_list(GHFunc func, gpointer data);
 void
 atk_dbus_foreach_remove_list(GHFunc func, gpointer data);
 
-void 
-atk_dbus_notify_change(AtkObject *accessible);
-
-AtkObject *
-atk_dbus_get_object (const char *path);
-
-gchar *
-atk_dbus_get_path_from_ref(guint ref);
-
-gchar *
-atk_dbus_get_path (AtkObject *accessible);
+/*---------------------------------------------------------------------------*/
 
 guint
-atk_dbus_register_subtree(AtkObject *accessible);
+atk_dbus_register_accessible (AtkObject *accessible);
+
+guint
+atk_dbus_update_accessible (AtkObject *accessible);
+
+/*---------------------------------------------------------------------------*/
+
+guint
+atk_dbus_object_to_ref (AtkObject *accessible);
+
+gchar *
+atk_dbus_ref_to_path (guint ref);
+
+AtkObject *
+atk_dbus_path_to_object (const char *path);
+
+gchar *
+atk_dbus_ref_to_path (guint ref);
+
+gchar *
+atk_dbus_object_to_path (AtkObject *accessible);
+
+/*---------------------------------------------------------------------------*/
 
 DBusMessage *
 spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref);

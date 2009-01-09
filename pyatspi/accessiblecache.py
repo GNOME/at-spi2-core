@@ -75,7 +75,8 @@ class AccessibleCache(object):
         _PATH = '/org/freedesktop/atspi/tree'
         _INTERFACE = 'org.freedesktop.atspi.Tree'
         _GET_METHOD = 'getTree'
-        _UPDATE_SIGNAL = 'updateTree'
+        _UPDATE_SIGNAL = 'updateAccessible'
+        _REMOVE_SIGNAL = 'removeAccessible'
 
         def __init__(self, registry, connection, bus_name):
                 """
@@ -96,7 +97,8 @@ class AccessibleCache(object):
                 get_method = itf.get_dbus_method(self._GET_METHOD)
                 self._update_objects(get_method())
 
-                self._signalMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_handler)
+                self._updateMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_objects)
+                self._removeMatch = itf.connect_to_signal(self._REMOVE_SIGNAL, self._remove_object)
 
                 obj = connection.get_object(self._bus_name, self._PATH, introspect=False)
                 itf = _dbus.Interface(obj, self._INTERFACE)
@@ -157,10 +159,6 @@ class AccessibleCache(object):
                                        ("remove", 0, 0, ""))
                         self._registry._notifyChildrenChange(event)
 
-        def _update_handler(self, update, remove):
-                self._remove_objects(remove)
-                self._update_objects(update)
-
         def _update_objects(self, objects):
                 cache_update_objects = []
                 for data in objects:
@@ -176,15 +174,14 @@ class AccessibleCache(object):
                 for old, new in cache_update_objects:
                         self._dispatch_event(old, new)
 
-        def _remove_objects(self, paths):
-                for path in paths:
-                        # TODO I'm squashing a possible error here
-                        # I've seen things appear to be deleted twice
-                        # which needs investigation
-                        try:
-                                del(self._objects[path])
-                        except KeyError:
-                                pass
+        def _remove_object(self, paths):
+                # TODO I'm squashing a possible error here
+                # I've seen things appear to be deleted twice
+                # which needs investigation
+                try:
+                        del(self._objects[path])
+                except KeyError:
+                        pass
 
         def _get_root(self):
                 return self._root

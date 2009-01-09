@@ -88,7 +88,7 @@
 			</arg>
 		</method>
 
-		<signal name="updateTree">
+		<signal name="updateAccessible">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 				<p>Updates all mirrors. Re-sends all all the 
 				accessible objects that have changed since the last
@@ -99,9 +99,12 @@
 					<p>Array of Accessible Object proxy structures to be added.</p>
 				</tp:docstring>
 			</arg>
-			<arg name="nodesRemoved" type="ao">
+		</signal>
+
+		<signal name="removeAccessible">
+			<arg name="nodeRemoved" type="o">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-					<p>Array of Accessible Object proxy structures to be removed.</p>
+					<p>Accessible Object proxy structure to be removed.</p>
 				</tp:docstring>
 			</arg>
 		</signal>

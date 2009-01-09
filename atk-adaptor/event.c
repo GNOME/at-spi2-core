@@ -53,6 +53,22 @@ extern SpiAppData *atk_adaptor_app_data;
 
 /*---------------------------------------------------------------------------*/
 
+/* When sending events it is safe to register an accessible object if
+ * one does not already exist for a given AtkObject.
+ * This is because the cache update signal should then be send before
+ * the event signal is sent.
+ */
+static gchar *
+get_object_path (AtkObject *accessible)
+{
+    guint ref;
+
+    ref = atk_dbus_register_accessible (accessible);
+    return atk_dbus_ref_to_path (ref);
+}
+
+/*---------------------------------------------------------------------------*/
+
 static gboolean
 Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
 {
@@ -178,14 +194,6 @@ provide_defaults(const gint type,
     }
 }
 
-
-/* TODO Should we bother emiting events for objects that have not yet
- * been added to the tree?
- * 
- * This gets difficult. Its entirely possible that an Accessible would have been
- * added to the tree, but not yet reached the clients.
- * In this case we would be wrongly surpressing an event.
- */
 static void 
 emit(AtkObject  *accessible,
      const char *klass,
@@ -200,6 +208,15 @@ emit(AtkObject  *accessible,
   DBusMessageIter iter, sub;
   gchar *path, *cname, *t;
 
+  path = get_object_path (accessible);
+
+  /* Tough decision here
+   * We won't send events from accessible
+   * objects that have not yet been added to the accessible tree.
+   */
+  if (path == NULL)
+      return;
+
   if (!klass) klass = "";
   if (!major) major = "";
   if (!minor) minor = "";
@@ -212,7 +229,6 @@ emit(AtkObject  *accessible,
   cname = g_strdup(major);
   while ((t = strchr(cname, '-')) != NULL) *t = '_';
 
-  path = atk_dbus_get_path(accessible);
   sig = dbus_message_new_signal(path, klass, cname);
   g_free(cname);
   g_free(path);
@@ -256,6 +272,15 @@ emit_rect(AtkObject  *accessible,
   gchar *path, *cname, *t;
   dbus_int32_t dummy = 0;
 
+  path = get_object_path (accessible);
+
+  /* Tough decision here
+   * We won't send events from accessible
+   * objects that have not yet been added to the accessible tree.
+   */
+  if (path == NULL)
+      return;
+
   if (!klass) klass = "";
   if (!major) major = "";
   if (!minor) minor = "";
@@ -268,7 +293,6 @@ emit_rect(AtkObject  *accessible,
   cname = g_strdup(major);
   while ((t = strchr(cname, '-')) != NULL) *t = '_';
 
-  path = atk_dbus_get_path(accessible);
   sig = dbus_message_new_signal(path, klass, cname);
   g_free(path);
   g_free(cname);
@@ -322,17 +346,11 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
 
   pname = values[0].property_name;
 
-  if (strcmp (pname, "accessible-name") == 0)
+  if (strcmp (pname, "accessible-name") == 0 ||
+      strcmp (pname, "accessible-description") == 0 ||
+      strcmp (pname, "accessible-parent") == 0)
     {
-      atk_dbus_notify_change(accessible);
-    }
-  else if (strcmp (pname, "accessible-description") == 0)
-    {
-      atk_dbus_notify_change(accessible);
-    }
-  else if (strcmp (pname, "accessible-parent") == 0)
-    {
-      atk_dbus_notify_change(accessible);
+      atk_dbus_update_accessible (accessible);
     }
   return TRUE;
 }
@@ -346,9 +364,9 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
  */
 static gboolean
 tree_update_children_listener (GSignalInvocationHint *signal_hint,
-	 	      	       guint                  n_param_values,
-		      	       const GValue          *param_values,
-			       gpointer               data)
+                               guint                  n_param_values,
+                               const GValue          *param_values,
+                               gpointer               data)
 {
   AtkObject *accessible;
   const gchar *detail = NULL;
@@ -364,17 +382,14 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
       gpointer child;
       int index = g_value_get_uint (param_values + 1);
       child = g_value_get_pointer (param_values + 2);
+
       if (ATK_IS_OBJECT (child))
-	g_object_ref (child);
+          g_object_ref (child);
       else
-	child = atk_object_ref_accessible_child (accessible, index);
-      if (ATK_IS_OBJECT (child))
-	{
-	  atk_dbus_register_subtree (child);
-	  g_object_unref (child);
-	}
-      else
-	atk_dbus_register_subtree(accessible);
+          child = atk_object_ref_accessible_child (accessible, index);
+
+      atk_dbus_register_accessible (child);
+      g_object_unref (child);
     }
   return TRUE;
 }
@@ -429,21 +444,21 @@ property_event_listener (GSignalInvocationHint *signal_hint,
   if (strcmp (pname, "accessible-table-summary") == 0)
     {
       otemp = atk_table_get_summary(ATK_TABLE (accessible));
-      stemp = atk_dbus_get_path(otemp);
+      stemp = get_object_path (otemp);
       emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
   else if (strcmp (pname, "accessible-table-column-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_column_header(ATK_TABLE (accessible), i);
-      stemp = atk_dbus_get_path(otemp);
+      stemp = get_object_path (otemp);
       emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
   else if (strcmp (pname, "accessible-table-row-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_row_header(ATK_TABLE (accessible), i);
-      stemp = atk_dbus_get_path(otemp);
+      stemp = get_object_path (otemp);
       emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
   else if (strcmp (pname, "accessible-table-row-description") == 0)
@@ -623,7 +638,7 @@ active_descendant_event_listener (GSignalInvocationHint *signal_hint,
   minor = g_quark_to_string (signal_hint->detail);
 
   detail1 = atk_object_get_index_in_parent (child);
-  s = atk_dbus_get_path(child);
+  s = get_object_path (child);
 
   emit(accessible, ITF_EVENT_OBJECT, name, "", detail1, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, s);
   g_free(s);
