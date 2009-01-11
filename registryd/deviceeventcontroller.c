@@ -343,13 +343,24 @@ spi_dec_clear_unlatch_pending (SpiDEController *controller)
   priv->xkb_latch_mask = 0;
 }
  
-static void emit(SpiDEController *controller, const char *name, int first_type, ...)
+static void emit(SpiDEController *controller, const char *interface, const char *name, const char *detail, int detail1, int detail2)
 {
-  va_list arg;
+  DBusMessage *sig;
+  DBusMessageIter iter, iter_variant;
 
-  va_start(arg, first_type);
-  spi_dbus_emit_valist(controller->droute->bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
-  va_end(arg);
+  sig = dbus_message_new_signal(SPI_DBUS_PATH_DEC, interface, name);
+  if (!sig) return;
+  dbus_message_iter_init_append (sig, &iter);
+  if (!detail) detail = "";
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &detail);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &detail1);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &detail2);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "u", &iter_variant);
+  /* append dummy value */
+  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_UINT32, &detail1);
+  dbus_message_iter_close_container (&iter, &iter_variant);
+  dbus_connection_send(controller->droute->bus, sig, NULL);
+  dbus_message_unref(sig);
 }
 
 static gboolean
@@ -357,7 +368,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 				guint mask_return)
 {
   Accessibility_DeviceEvent mouse_e;
-  gchar event_name[24];
+  gchar event_detail[24];
   gboolean is_consumed = FALSE;
 
   if ((mask_return & mouse_button_mask) !=
@@ -436,7 +447,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	fprintf (stderr, "Button %d %s\n",
 		 button_number, (is_down) ? "Pressed" : "Released");
 #endif
-	snprintf (event_name, 22, "mouse:button:%d%c", button_number,
+	snprintf (event_detail, 22, "%d%c", button_number,
 		  (is_down) ? 'p' : 'r');
 	/* TODO: FIXME distinguish between physical and 
 	 * logical buttons 
@@ -456,7 +467,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	if (!is_consumed)
 	  {
 	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
-	    emit(controller, event_name, DBUS_TYPE_UINT32, &x, DBUS_TYPE_UINT32, &y, DBUS_TYPE_INVALID);
+	    emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "button", event_detail, x, y);
 	  }
 	else
 	  spi_dec_set_unlatch_pending (controller, mask_return);
@@ -500,10 +511,10 @@ spi_dec_mouse_check (SpiDEController *controller,
     {
       // TODO: combine these two signals?
       dbus_uint32_t ix = *x, iy = *y;
-      emit(controller, "mouse_abs", DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "abs", NULL, ix, iy);
       ix -= last_mouse_pos->x;
       iy -= last_mouse_pos->y;
-      emit(controller, "mouse_rel", DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "rel", NULL, ix, iy);
       last_mouse_pos->x = *x;
       last_mouse_pos->y = *y;
       *moved = True;
@@ -535,7 +546,7 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
 
   d1 = prev_mask & key_modifier_mask;
   d2 = current_mask & key_modifier_mask;
-      emit(controller, "keyboard_modifiers", DBUS_TYPE_UINT32, &d1, DBUS_TYPE_UINT32, &d2, DBUS_TYPE_INVALID);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_KEYBOARD, "modifiers", NULL, d1, d2);
 }
 
 static gboolean
@@ -1027,7 +1038,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 						 XEvent *xevent)
 {
   Accessibility_DeviceEvent mouse_e;
-  gchar event_name[24];
+  gchar event_detail[24];
   gboolean is_consumed = FALSE;
   gboolean xkb_mod_unlatch_occurred;
   XButtonEvent *xbutton_event = (XButtonEvent *) xevent;
@@ -1065,7 +1076,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 	   (xevent->type == ButtonPress) ? "Press" : "Release",
 	   mouse_button_state);
 #endif
-  snprintf (event_name, 22, "mouse:button_%d%c", button,
+  snprintf (event_detail, 22, "%d%c", button,
 	    (xevent->type == ButtonPress) ? 'p' : 'r');
 
   /* TODO: FIXME distinguish between physical and logical buttons */
@@ -1091,7 +1102,7 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
       ix = last_mouse_pos->x;
       iy = last_mouse_pos->y;
       /* TODO - Work out which part of the spec this emit is fulfilling */
-      //emit(controller, event_name, DBUS_TYPE_UINT32, &ix, DBUS_TYPE_UINT32, &iy, DBUS_TYPE_INVALID);
+      //emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "button", event_detail, ix, iy);
     }
 
   xkb_mod_unlatch_occurred = (xevent->type == ButtonPress ||

@@ -65,6 +65,10 @@
 	<signal name="button"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
+<interface name="org.freedesktop.atspi.Event.Keyboard">
+	<signal name="modifiers"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+</interface>
+
 <interface name="org.freedesktop.atspi.Event.Terminal">
 	<signal name="line_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="comumncount_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
