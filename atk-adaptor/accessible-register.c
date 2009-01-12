@@ -56,9 +56,7 @@
  * In addition to accessing the objects remotely we must be able to update
  * the client side cache. This is done using the 'update' signal of the 
  * org.freedesktop.atspi.Tree interface. The update signal should send out
- * all of the cacheable data for each AtkObject that has changed since the
- * last update. It should also provide a list of objects that have been
- * removed since the last update.
+ * all of the cacheable data for an Accessible object.
  */
 
 GHashTable *ref2ptr = NULL; /* Used for converting a D-Bus path (Reference) to the object pointer */
@@ -123,6 +121,46 @@ deregister_accessible(gpointer data, GObject *accessible)
 
 /*---------------------------------------------------------------------------*/
 
+/* FIXME
+ * Horrible hack warning.
+ *
+ * Problem 1:
+ *
+ * In an ideal world there would be a signal "Accessible created" that we could
+ * use to register all new AtkObjects with D-Bus. The AtkObjects would be
+ * created at the time of their implementing widget. This is how things
+ * happen in Qt and its damn sensible.
+ *
+ * In GTK Gail objects are created 'lazily' when they are accessed. This is
+ * presumably an optimization to reduce memory. I happen to think its a very
+ * very bad one. Anyway, there is no signal, and Gail objects don't get created
+ * automatically for each widget, so how do we register AtkObjects with D-Bus?
+ *
+ * Answer, we have one guaranteed AtkObject, the root. We traverse the tree provided
+ * by the root object, registering as we go. When new objects are created we use
+ * the children-changed signal of their parent to find out. As we don't know
+ * if a new object has any children that have not been registered we must traverse
+ * the decendants of every new object to find AtkObjects that have not been registered.
+ *
+ * Problem 2:
+ *
+ * For whatever reason events are generated for objects that have not yet been
+ * registered with D-Bus. This means that when translating an Atk signal to an
+ * AT-SPI one it may be neccessary to register objects first. 
+ *
+ * The caveat is that when registering an object somewhere in the middle of the
+ * AtkObject tree there is no guarantee that its parent objects have been registered.
+ * So when registering a new object we also need to register its parents back to the
+ * root object.
+ *
+ * Other solutions:
+ *
+ * The original solution was completely recursive. So when the reference of an AtkObject
+ * was requested it would be registered there and then. I didn't like the recursive
+ * solution, it was a very very deep stack in some cases.
+ *
+ */
+
 /*
  * This function registers the object so that it is exported
  * over D-Bus and schedules an update to client side cache.
@@ -147,18 +185,35 @@ export (GList **uplist, AtkObject *accessible)
 }
 
 /*
+ * Exports all the dependencies of an AtkObject.
+ * This is the subtree and the ancestors.
+ *
+ * Dependencies are the objects that get included in the
+ * cache, and therefore need to be registered before the
+ * update signal is sent.
+ *
  * This does a depth first traversal of a subtree of AtkObject
  * and exports them as Accessible objects if they are not exported
  * already.
+ *
+ * It exports all ancestors of the object if they are not
+ * exported already.
  */
 static guint
-export_subtree (AtkObject *accessible)
+export_deps (AtkObject *accessible)
 {
   AtkObject *current, *tmp;
   GQueue    *stack;
   GList     *uplist = NULL;
   guint      i, ref;
   gboolean   recurse;
+
+
+  /* Export subtree including object itself */
+  /*========================================*/
+  ref = atk_dbus_object_to_ref (accessible);
+  if (ref)
+      return ref;
 
   stack = g_queue_new ();
 
@@ -210,6 +265,15 @@ export_subtree (AtkObject *accessible)
           g_queue_pop_head (stack);
         }
     }
+
+  /* Export all neccessary ancestors of the object */
+  /*===============================================*/
+  current = atk_object_get_parent (accessible);
+  while (current && !atk_dbus_object_to_ref (current))
+    {
+      export (&uplist, current);
+    }
+
   spi_emit_cache_update (uplist, atk_adaptor_app_data->bus);
   g_list_free (uplist);
   return ref;
@@ -224,11 +288,7 @@ atk_dbus_register_accessible (AtkObject *accessible)
   guint ref;
   g_assert(ATK_IS_OBJECT(accessible));
 
-  ref = atk_dbus_object_to_ref (accessible);
-  if (!ref)
-      return export_subtree (accessible);
-  else
-      return ref;
+  return export_deps (accessible);
 }
 
 /* Called when an already registered object is updated in such a
@@ -237,13 +297,16 @@ atk_dbus_register_accessible (AtkObject *accessible)
 guint
 atk_dbus_update_accessible (AtkObject *accessible)
 {
-  guint ref = 0;
+  guint  ref = 0;
+  GList *uplist = NULL;
   g_assert(ATK_IS_OBJECT(accessible));
 
   ref = atk_dbus_object_to_ref (accessible);
   if (ref)
     {
-      spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
+      uplist = g_list_prepend (uplist, accessible);
+      spi_emit_cache_update (uplist, atk_adaptor_app_data->bus);
+      g_list_free (uplist);
     }
   return ref;
 }

@@ -21,8 +21,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ACCESSIBLE_MARSHALLER__
-#define __ACCESSIBLE_MARSHALLER__
+#ifndef ACCESSIBLE_MARSHALLER
+#define ACCESSIBLE_MARSHALLER
 
 #include <dbus/dbus.h>
 #include <atk/atk.h>
@@ -33,4 +33,7 @@ spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref);
 dbus_bool_t
 spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
 
-#endif /* __ACCESSIBLE_MARSHALLER__ */
+void
+spi_atk_append_accessible(AtkObject *obj, gpointer iter);
+
+#endif /* ACCESSIBLE_MARSHALLER */

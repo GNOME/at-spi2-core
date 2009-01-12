@@ -27,6 +27,7 @@
 
 #include "spi-common/spi-dbus.h"
 #include "accessible-marshaller.h"
+#include "accessible-register.h"
 
 static dbus_bool_t
 impl_get_name (DBusMessageIter *iter, void *user_data)
