@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2008             Codethink Ltd.
+ * Copyright 2008, 2009 Codethink Ltd.
  * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002, 2003 Ximian, Inc.
  *
@@ -27,20 +27,17 @@
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
-#include <string.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <atk/atk.h>
-#include <atk/atkobject.h>
-#include <atk/atknoopobject.h>
 
 #include <droute/droute.h>
 
 #include "bridge.h"
 #include "event.h"
-#include "atk-dbus.h"
+#include "accessible-register.h"
+#include "adaptors.h"
 
 #include "spi-common/spi-dbus.h"
 

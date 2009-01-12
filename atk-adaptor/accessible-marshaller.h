@@ -2,8 +2,8 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2008 Novell, Inc.
+ * Copyright 2008, 2009 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,16 +21,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SPI_ACCESSIBLE_H_
-#define SPI_ACCESSIBLE_H_
+#ifndef __ACCESSIBLE_MARSHALLER__
+#define __ACCESSIBLE_MARSHALLER__
 
+#include <dbus/dbus.h>
 #include <atk/atk.h>
-#include <spi-common/spi-types.h>
 
-G_BEGIN_DECLS
+DBusMessage *
+spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref);
 
-Accessibility_Role spi_accessible_role_from_atk_role (AtkRole role);
+dbus_bool_t
+spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
 
-G_END_DECLS
-
-#endif /* SPI_ACCESSIBLE_H_ */
+#endif /* __ACCESSIBLE_MARSHALLER__ */

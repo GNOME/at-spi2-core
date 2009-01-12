@@ -4,6 +4,7 @@
  *
  * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002, 2003 Ximian, Inc.
+ * Copyright 2008, 2009 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,39 +22,21 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SPI_BRIDGE_H_
-#define SPI_BRIDGE_H_
+#ifndef BRIDGE_H
+#define BRIDGE_H
 
 #include <atk/atk.h>
 #include <droute/droute.h>
-
-G_BEGIN_DECLS
 
 typedef struct _SpiAppData SpiAppData;
 struct _SpiAppData
 {
     AtkObject      *root;
+
     DBusConnection *bus;
     DRouteContext  *droute;
 };
 
-void spi_initialize_accessible      (DRoutePath *path);
-void spi_initialize_action          (DRoutePath *path);
-void spi_initialize_application     (DRoutePath *path);
-void spi_initialize_collection      (DRoutePath *path);
-void spi_initialize_component       (DRoutePath *path);
-void spi_initialize_document        (DRoutePath *path);
-void spi_initialize_editabletext    (DRoutePath *path);
-void spi_initialize_hyperlink       (DRoutePath *path);
-void spi_initialize_hypertext       (DRoutePath *path);
-void spi_initialize_image           (DRoutePath *path);
-void spi_initialize_selection       (DRoutePath *path);
-void spi_initialize_table           (DRoutePath *path);
-void spi_initialize_text            (DRoutePath *path);
-void spi_initialize_value           (DRoutePath *path);
+extern SpiAppData *atk_adaptor_app_data;
 
-void spi_initialize_tree            (DRoutePath *path);
-
-G_END_DECLS
-
-#endif /* SPI_BRIDGE_H_ */
+#endif /* BRIDGE_H */

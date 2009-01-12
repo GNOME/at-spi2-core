@@ -25,8 +25,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "atk-dbus.h"
 #include "spi-common/spi-dbus.h"
+#include "accessible-marshaller.h"
 
 static dbus_bool_t
 impl_get_name (DBusMessageIter *iter, void *user_data)

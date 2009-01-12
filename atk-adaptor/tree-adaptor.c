@@ -5,6 +5,7 @@
  * Copyright 2008 Novell, Inc.
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2008, 2009 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -27,9 +28,9 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "atk-dbus.h"
-#include "spi-common/spi-dbus.h"
 #include "bridge.h"
+#include "accessible-register.h"
+#include "spi-common/spi-dbus.h"
 
 /*---------------------------------------------------------------------------*/
 

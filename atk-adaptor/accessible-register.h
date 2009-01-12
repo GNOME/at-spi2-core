@@ -3,6 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2008 Novell, Inc.
+ * Copyright 2008, 2009 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,22 +21,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ATK_DBUS__
-#define __ATK_DBUS__
+#ifndef ACCESSIBLE_REGISTER
+#define ACCESSIBLE_REGISTER
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <atk/atk.h>
 #include <glib.h>
 
 void
 atk_dbus_foreach_registered(GHFunc func, gpointer data);
-
-void
-atk_dbus_foreach_update_list(GHFunc func, gpointer data);
-
-void
-atk_dbus_foreach_remove_list(GHFunc func, gpointer data);
 
 /*---------------------------------------------------------------------------*/
 
@@ -57,17 +50,6 @@ AtkObject *
 atk_dbus_path_to_object (const char *path);
 
 gchar *
-atk_dbus_ref_to_path (guint ref);
-
-gchar *
 atk_dbus_object_to_path (AtkObject *accessible);
 
-/*---------------------------------------------------------------------------*/
-
-DBusMessage *
-spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref);
-
-dbus_bool_t
-spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
-
-#endif /* __ATK_DBUS__ */
+#endif /* ACCESSIBLE_REGISTER */

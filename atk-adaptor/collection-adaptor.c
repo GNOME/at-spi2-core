@@ -27,7 +27,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "atk-dbus.h"
+#include "accessible-register.h"
+#include "accessible-marshaller.h"
 
 #include "spi-common/bitarray.h"
 #include "spi-common/spi-dbus.h"

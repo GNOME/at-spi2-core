@@ -4,6 +4,7 @@
  *
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2008, 2009 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,18 +22,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef SPI_EVENT_H_
-#define SPI_EVENT_H_
+#ifndef EVENT_H
+#define EVENT_H
 
-#include <atk/atk.h>
 #include <spi-common/spi-types.h>
-
-G_BEGIN_DECLS
 
 void spi_atk_register_event_listeners   (void);
 void spi_atk_deregister_event_listeners (void);
 void spi_atk_tidy_windows               (void);
 
-G_END_DECLS
-
-#endif /* SPI_EVENT_H_ */
+#endif /* EVENT_H */

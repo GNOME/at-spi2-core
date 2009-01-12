@@ -2,7 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2008, Codethink Ltd.
+ * Copyright 2008, 2009, Codethink Ltd.
  * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002, 2003 Ximian, Inc.
  *
@@ -28,7 +28,7 @@
 #include <droute/droute.h>
 
 #include "bridge.h"
-#include "atk-dbus.h"
+#include "accessible-register.h"
 
 #include "spi-common/spi-dbus.h"
 
@@ -36,13 +36,6 @@ static GArray *listener_ids = NULL;
 
 static gint atk_bridge_key_event_listener_id;
 static gint atk_bridge_focus_tracker_id;
-
-/* Amazingly the ATK event callbacks dont have a user
- * data parameter. Instead, with great sadness, we use
- * some global data. Data is declared and initialized
- * in bridge.c.
- */
-extern SpiAppData *atk_adaptor_app_data;
 
 /*---------------------------------------------------------------------------*/
 

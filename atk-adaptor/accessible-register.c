@@ -3,6 +3,7 @@
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
  * Copyright 2008 Novell, Inc.
+ * Copyright 2008, 2009 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -25,8 +26,7 @@
 #include <string.h>
 
 #include "bridge.h"
-#include "accessible.h"
-#include "atk-dbus.h"
+#include "accessible-register.h"
 
 /* TODO
  * Need to add concurrency support.
@@ -61,17 +61,9 @@
  * removed since the last update.
  */
 
-/* Amazingly the ATK event callbacks dont have a user
- * data parameter. Instead, with great sadness, we use
- * some global data. Data is declared and initialized
- * in bridge.c.
- */
-
 GHashTable *ref2ptr = NULL; /* Used for converting a D-Bus path (Reference) to the object pointer */
 
 static guint counter = 1;
-
-extern SpiAppData *atk_adaptor_app_data;
 
 /*---------------------------------------------------------------------------*/
 
@@ -321,54 +313,6 @@ atk_dbus_object_to_path (AtkObject *accessible)
       return NULL;
   else
       return atk_dbus_ref_to_path (ref);
-}
-
-/*---------------------------------------------------------------------------*/
-
-/*
- * Marshals a single object into a D-Bus message.
- *
- * Unrefs the AtkObject if unref is true.
- */
-DBusMessage *
-spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref)
-{
-  DBusMessage *reply;
-  gchar *path;
-
-  path = atk_dbus_object_to_path (obj);
-
-  if (unref)
-    g_object_unref (obj);
-
-  reply = dbus_message_new_method_return (message);
-  if (reply)
-    {
-      dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, path,
-                                DBUS_TYPE_INVALID);
-    }
-  return reply;
-}
-
-/*---------------------------------------------------------------------------*/
-
-/*
- * Marshals a variant containing the object reference into the message iter
- * provided.
- *
- * Unrefs the object if unref is true.
- */
-dbus_bool_t
-spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
-{
-  char *path;
-
-  path = atk_dbus_object_to_path (obj);
-
-  if (unref)
-    g_object_unref (obj);
-
-  return droute_return_v_object (iter, path);
 }
 
 /*---------------------------------------------------------------------------*/
