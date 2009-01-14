@@ -28,10 +28,6 @@
 #include "bridge.h"
 #include "accessible-register.h"
 
-/* TODO
- * Need to add concurrency support.
- */
-
 #define ATK_BRIDGE_OBJECT_PATH_PREFIX "/org/freedesktop/atspi/accessible"
 #define ATK_BRIDGE_OBJECT_REFERENCE_TEMPLATE ATK_BRIDGE_OBJECT_PATH_PREFIX "/%d"
 #define ATK_BRIDGE_PATH_PREFIX_LENGTH 33
@@ -80,12 +76,22 @@ assign_reference(void)
     counter++;
 }
 
-/*---------------------------------------------------------------------------*/
-
-void
-atk_dbus_foreach_registered(GHFunc func, gpointer data)
+/*
+ * Returns the reference of the object, or 0 if it is not registered.
+ */
+static guint
+object_to_ref (AtkObject *accessible)
 {
-  g_hash_table_foreach(ref2ptr, func, data);
+  return GPOINTER_TO_INT(g_object_get_data (G_OBJECT (accessible), "dbus-id"));
+}
+
+/*
+ * Converts the Accessible object reference to its D-Bus object path
+ */
+static gchar *
+ref_to_path (guint ref)
+{
+  return g_strdup_printf(ATK_BRIDGE_OBJECT_REFERENCE_TEMPLATE, ref);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -93,7 +99,6 @@ atk_dbus_foreach_registered(GHFunc func, gpointer data)
 /*
  * Called when a registered AtkObject is deleted.
  * Removes the AtkObject from the reference lookup tables.
- * Sets the client side cache to be updated.
  */
 static void
 deregister_accessible(gpointer data, GObject *accessible)
@@ -103,74 +108,21 @@ deregister_accessible(gpointer data, GObject *accessible)
 
   g_assert(ATK_IS_OBJECT(accessible));
 
-
   ref = atk_dbus_object_to_ref (ATK_OBJECT(accessible));
 
   if (ref != 0)
     {
       g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
-      /*
-       * TODO
-       * Pyatspi client side exceptions have occured indicating
-       * that an object has been removed twice.
-       * This should not be possible and needs investigation.
-       */
-      spi_emit_cache_removal (ref, atk_adaptor_app_data->bus);
     }
 }
 
-/*---------------------------------------------------------------------------*/
-
-/* FIXME
- * Horrible hack warning.
- *
- * Problem 1:
- *
- * In an ideal world there would be a signal "Accessible created" that we could
- * use to register all new AtkObjects with D-Bus. The AtkObjects would be
- * created at the time of their implementing widget. This is how things
- * happen in Qt and its damn sensible.
- *
- * In GTK Gail objects are created 'lazily' when they are accessed. This is
- * presumably an optimization to reduce memory. I happen to think its a very
- * very bad one. Anyway, there is no signal, and Gail objects don't get created
- * automatically for each widget, so how do we register AtkObjects with D-Bus?
- *
- * Answer, we have one guaranteed AtkObject, the root. We traverse the tree provided
- * by the root object, registering as we go. When new objects are created we use
- * the children-changed signal of their parent to find out. As we don't know
- * if a new object has any children that have not been registered we must traverse
- * the decendants of every new object to find AtkObjects that have not been registered.
- *
- * Problem 2:
- *
- * For whatever reason events are generated for objects that have not yet been
- * registered with D-Bus. This means that when translating an Atk signal to an
- * AT-SPI one it may be neccessary to register objects first. 
- *
- * The caveat is that when registering an object somewhere in the middle of the
- * AtkObject tree there is no guarantee that its parent objects have been registered.
- * So when registering a new object we also need to register its parents back to the
- * root object.
- *
- * Other solutions:
- *
- * The original solution was completely recursive. So when the reference of an AtkObject
- * was requested it would be registered there and then. I didn't like the recursive
- * solution, it was a very very deep stack in some cases.
- *
- */
-
 /*
- * This function registers the object so that it is exported
- * over D-Bus and schedules an update to client side cache.
+ * Called to register an AtkObject with AT-SPI and expose it over D-Bus.
  */
-static guint
-export (GList **uplist, AtkObject *accessible)
+static void
+register_accessible (AtkObject *accessible)
 {
   guint ref;
-  gchar *path;
-
   g_assert(ATK_IS_OBJECT(accessible));
 
   ref = assign_reference();
@@ -178,29 +130,31 @@ export (GList **uplist, AtkObject *accessible)
   g_hash_table_insert (ref2ptr, GINT_TO_POINTER(ref), accessible);
   g_object_set_data (G_OBJECT(accessible), "dbus-id", GINT_TO_POINTER(ref));
   g_object_weak_ref(G_OBJECT(accessible), deregister_accessible, NULL);
-
-  *uplist = g_list_prepend (*uplist, accessible);
-
-  return ref;
 }
 
+/*---------------------------------------------------------------------------*/
+
+typedef void     (*ActionFunc) (AtkObject *);
+
+/* Return true if action should be performed */
+typedef gboolean (*FilterFunc) (AtkObject *);
+
 /*
- * Exports all the dependencies of an AtkObject.
- * This is the subtree and the ancestors.
+ * This function performs a depth first traversal of a tree of AtkObjects.
  *
- * Dependencies are the objects that get included in the
- * cache, and therefore need to be registered before the
- * update signal is sent.
+ * It uses a FilterFunc to determine if a node needs to have an action
+ * performed on it.
  *
- * This does a depth first traversal of a subtree of AtkObject
- * and exports them as Accessible objects if they are not exported
- * already.
+ * Nodes that are filtered out become leaves and no recursion is performed on
+ * them.
  *
- * It exports all ancestors of the object if they are not
- * exported already.
+ * Nodes where an action was performed are returned in a GList.
  */
-static guint
-export_deps (AtkObject *accessible)
+void
+traverse_atk_tree (AtkObject *accessible,
+                   GList **visited,
+                   ActionFunc action,
+                   FilterFunc filter)
 {
   AtkObject *current, *tmp;
   GQueue    *stack;
@@ -208,17 +162,13 @@ export_deps (AtkObject *accessible)
   guint      i, ref;
   gboolean   recurse;
 
-
-  /* Export subtree including object itself */
-  /*========================================*/
-  ref = atk_dbus_object_to_ref (accessible);
-  if (ref)
-      return ref;
+  if (!filter (accessible))
+      return;
 
   stack = g_queue_new ();
-
   current = g_object_ref (accessible);
-  ref = export (&uplist, current);
+  action (current)
+  *visited = g_list_prepend (*visited, current);
   g_queue_push_head (stack, GINT_TO_POINTER (0));
 
   /*
@@ -227,16 +177,15 @@ export_deps (AtkObject *accessible)
    */
   while (!g_queue_is_empty (stack))
     {
-      /* This while loop finds the next node that needs processing,
-       * if one exists.
-       */
+      /* Find the next child node that needs processing */
       i = GPOINTER_TO_INT(g_queue_peek_head (stack));
       recurse = FALSE;
       while (i < atk_object_get_n_accessible_children (current) &&
              recurse == FALSE)
         {
           tmp = atk_object_ref_accessible_child (current, i);
-          if (!atk_dbus_object_to_ref (tmp))
+          /* If filter function */
+          if (filter (tmp))
             {
               recurse = TRUE;
             }
@@ -246,19 +195,19 @@ export_deps (AtkObject *accessible)
               g_object_unref (G_OBJECT (tmp));
             }
         }
+
       if (recurse)
         {
-          /* Still children to process */
+          /* Push onto stack */
           current = tmp;
-          export (&uplist, current);
-          /* Update parent nodes next child index */
+          action (current);
+          *visited = g_list_prepend (*visited, current);
           g_queue_peek_head_link (stack)->data = GINT_TO_POINTER (i+1);
-          /* Push a new child index for the current node */
           g_queue_push_head (stack, GINT_TO_POINTER (0));
         }
       else
         {
-          /* No more children, move to parent */
+          /* Pop from stack */
           tmp = current;
           current = atk_object_get_parent (current);
           g_object_unref (G_OBJECT (tmp));
@@ -266,69 +215,34 @@ export_deps (AtkObject *accessible)
         }
     }
 
-  /* Export all neccessary ancestors of the object */
-  /*===============================================*/
-  current = atk_object_get_parent (accessible);
-  while (current && !atk_dbus_object_to_ref (current))
-    {
-      export (&uplist, current);
-    }
-
-  spi_emit_cache_update (uplist, atk_adaptor_app_data->bus);
-  g_list_free (uplist);
   return ref;
 }
 
 /*---------------------------------------------------------------------------*/
 
-/* Called to register an AtkObject with AT-SPI and expose it over D-Bus. */
-guint
-atk_dbus_register_accessible (AtkObject *accessible)
-{
-  guint ref;
-  g_assert(ATK_IS_OBJECT(accessible));
-
-  return export_deps (accessible);
-}
-
-/* Called when an already registered object is updated in such a
+/*
+ * Called when an already registered object is updated in such a
  * way that client side cache needs to be updated.
  */
-guint
-atk_dbus_update_accessible (AtkObject *accessible)
+static void
+update_accessible (AtkObject *accessible)
 {
   guint  ref = 0;
-  GList *uplist = NULL;
   g_assert(ATK_IS_OBJECT(accessible));
 
   ref = atk_dbus_object_to_ref (accessible);
   if (ref)
     {
-      uplist = g_list_prepend (uplist, accessible);
-      spi_emit_cache_update (uplist, atk_adaptor_app_data->bus);
-      g_list_free (uplist);
+      spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
     }
-  return ref;
 }
 
 /*---------------------------------------------------------------------------*/
 
-/*
- * Returns the reference of the object, or 0 if it is not exported over D-Bus.
- */
-guint
-atk_dbus_object_to_ref (AtkObject *accessible)
+void
+atk_dbus_foreach_registered(GHFunc func, gpointer data)
 {
-  return GPOINTER_TO_INT(g_object_get_data (G_OBJECT (accessible), "dbus-id"));
-}
-
-/*
- * Converts the Accessible object reference to its D-Bus object path
- */
-gchar *
-atk_dbus_ref_to_path (guint ref)
-{
-  return g_strdup_printf(ATK_BRIDGE_OBJECT_REFERENCE_TEMPLATE, ref);
+  g_hash_table_foreach(ref2ptr, func, data);
 }
 
 /*
@@ -361,7 +275,6 @@ atk_dbus_path_to_object (const char *path)
     return NULL;
 }
 
-
 /*
  * Used to lookup a D-Bus path from the AtkObject.
  */
@@ -381,6 +294,86 @@ atk_dbus_object_to_path (AtkObject *accessible)
 /*---------------------------------------------------------------------------*/
 
 /*
+ * Events are not evaluated for non-registered accessibles.
+ *
+ * When a property change is made on a registered accessible
+ * the client side cache should be updated.
+ *
+ * When a parent is changed the subtree is de-registered
+ * if the parent is not attached to the root accessible.
+ */
+static gboolean
+tree_update_listener (GSignalInvocationHint *signal_hint,
+                      guint                  n_param_values,
+                      const GValue          *param_values,
+                      gpointer               data)
+{
+  AtkObject *accessible;
+  AtkPropertyValues *values;
+  const gchar *pname = NULL;
+
+  accessible = g_value_get_object (&param_values[0]);
+  values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
+
+  pname = values[0].property_name;
+
+  if (!atk_dbus_object_to_ref (accessible))
+      return TRUE;
+
+  if (strcmp (pname, "accessible-name") == 0 ||
+      strcmp (pname, "accessible-description"))
+    {
+      atk_dbus_update_accessible (accessible);
+    }
+  else if (strcmp (pname, "accessible-parent"))
+    {
+      guint ref;
+
+      ref = atk_dbus_object_to_ref;
+      if (!ref)
+    }
+  return TRUE;
+}
+
+/*
+ * Events are not evaluated for non registered accessibles.
+ *
+ * When the children of a registered accessible are changed
+ * the subtree, rooted at the child is registered.
+ */
+static gboolean
+tree_update_children_listener (GSignalInvocationHint *signal_hint,
+                               guint                  n_param_values,
+                               const GValue          *param_values,
+                               gpointer               data)
+{
+  AtkObject *accessible;
+  const gchar *detail = NULL;
+  AtkObject *child;
+  gboolean child_needs_unref = FALSE;
+
+  if (signal_hint->detail)
+    detail = g_quark_to_string (signal_hint->detail);
+
+  accessible = g_value_get_object (&param_values[0]);
+  if (!strcmp (detail, "add"))
+    {
+      gpointer child;
+      int index = g_value_get_uint (param_values + 1);
+      child = g_value_get_pointer (param_values + 2);
+
+      if (ATK_IS_OBJECT (child))
+          g_object_ref (child);
+      else
+          child = atk_object_ref_accessible_child (accessible, index);
+
+      atk_dbus_register_subtree (child);
+      g_object_unref (child);
+    }
+  return TRUE;
+}
+
+/*
  * Initializes required global data. The update and removal lists
  * and the reference lookup tables.
  *
@@ -392,8 +385,10 @@ atk_dbus_initialize (AtkObject *root)
   if (!ref2ptr)
     ref2ptr = g_hash_table_new(g_direct_hash, g_direct_equal);
 
-  /* Get the root accessible and add */
   atk_dbus_register_accessible (root);
+
+  atk_add_global_event_listener (tree_update_listener, "Gtk:AtkObject:property-change");
+  atk_add_global_event_listener (tree_update_children_listener, "Gtk:AtkObject:children-changed");
 }
 
 /*END------------------------------------------------------------------------*/

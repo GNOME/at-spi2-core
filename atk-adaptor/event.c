@@ -56,7 +56,6 @@ get_object_path (AtkObject *accessible)
 {
     guint ref;
 
-    ref = atk_dbus_register_accessible (accessible);
     return atk_dbus_ref_to_path (ref);
 }
 
@@ -305,86 +304,6 @@ emit_rect(AtkObject  *accessible,
   dbus_message_iter_close_container (&iter, &variant);
 
   dbus_connection_send(atk_adaptor_app_data->bus, sig, NULL);
-}
-
-/*---------------------------------------------------------------------------*/
-
-/*
- * The tree update listener handles the following Atk signals:
- *
- * Gtk:AtkObject:property-change
- * 
- * With the folowing property names:
- *
- * accessible-name
- * accessible-description
- * accessible-parent
- *
- * It updates the server side accessible-object database, which
- * will then syncronize with the client-side accessible cache.
- * 
- */
-static gboolean
-tree_update_listener (GSignalInvocationHint *signal_hint,
-	 	      guint                  n_param_values,
-		      const GValue          *param_values,
-		      gpointer               data)
-{
-  AtkObject *accessible;
-  AtkPropertyValues *values;
-  const gchar *pname = NULL;
-
-  accessible = g_value_get_object (&param_values[0]);
-  values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
-
-  pname = values[0].property_name;
-
-  if (strcmp (pname, "accessible-name") == 0 ||
-      strcmp (pname, "accessible-description") == 0 ||
-      strcmp (pname, "accessible-parent") == 0)
-    {
-      atk_dbus_update_accessible (accessible);
-    }
-  return TRUE;
-}
-
-/* 
- * Handles the ATK signal 'Gtk:AtkObject:children-changed'.
- *
- * It updates the server side accessible-object database, which
- * will then syncronize with the client-side accessible cache.
- *
- */
-static gboolean
-tree_update_children_listener (GSignalInvocationHint *signal_hint,
-                               guint                  n_param_values,
-                               const GValue          *param_values,
-                               gpointer               data)
-{
-  AtkObject *accessible;
-  const gchar *detail = NULL;
-  AtkObject *child;
-  gboolean child_needs_unref = FALSE;
-
-  if (signal_hint->detail)
-    detail = g_quark_to_string (signal_hint->detail);
-
-  accessible = g_value_get_object (&param_values[0]);
-  if (!strcmp (detail, "add"))
-    {
-      gpointer child;
-      int index = g_value_get_uint (param_values + 1);
-      child = g_value_get_pointer (param_values + 2);
-
-      if (ATK_IS_OBJECT (child))
-          g_object_ref (child);
-      else
-          child = atk_object_ref_accessible_child (accessible, index);
-
-      atk_dbus_register_accessible (child);
-      g_object_unref (child);
-    }
-  return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -808,9 +727,6 @@ spi_atk_register_event_listeners (void)
   listener_ids = g_array_sized_new (FALSE, TRUE, sizeof (guint), 16);
 
   atk_bridge_focus_tracker_id = atk_add_focus_tracker (focus_tracker);
-
-  add_signal_listener (tree_update_listener,          "Gtk:AtkObject:property-change");
-  add_signal_listener (tree_update_children_listener, "Gtk:AtkObject:children-changed");
 
   add_signal_listener (property_event_listener,               "Gtk:AtkObject:property-change");
   add_signal_listener (window_event_listener,                 "window:create");
