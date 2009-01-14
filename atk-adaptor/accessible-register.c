@@ -97,22 +97,28 @@ ref_to_path (guint ref)
 /*---------------------------------------------------------------------------*/
 
 /*
- * Called when a registered AtkObject is deleted.
- * Removes the AtkObject from the reference lookup tables.
+ * Removes the AtkObject from the reference lookup tables, meaning
+ * it is no longer exposed over D-Bus.
  */
 static void
-deregister_accessible(gpointer data, GObject *accessible)
+deregister_accessible (guint ref)
+{
+  g_hash_table_remove(ref2ptr, ref);
+}
+
+/*
+ * Callback for when a registered AtkObject is destroyed.
+ */
+static void
+deregister_callback (gpointer data, GObject *accessible)
 {
   guint ref;
-  gchar *path;
-
-  g_assert(ATK_IS_OBJECT(accessible));
+  g_assert (ATK_IS_OBJECT (accessible));
 
   ref = atk_dbus_object_to_ref (ATK_OBJECT(accessible));
-
   if (ref != 0)
     {
-      g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
+      deregister_accessible (ref);
     }
 }
 
@@ -129,12 +135,14 @@ register_accessible (AtkObject *accessible)
 
   g_hash_table_insert (ref2ptr, GINT_TO_POINTER(ref), accessible);
   g_object_set_data (G_OBJECT(accessible), "dbus-id", GINT_TO_POINTER(ref));
-  g_object_weak_ref(G_OBJECT(accessible), deregister_accessible, NULL);
+  g_object_weak_ref(G_OBJECT(accessible), deregister_callback, NULL);
+
+  *registered = g_list_prepend (*registered, current);
 }
 
 /*---------------------------------------------------------------------------*/
 
-typedef void     (*ActionFunc) (AtkObject *);
+typedef void     (*ActionFunc) (GList **, AtkObject *);
 
 /* Return true if action should be performed */
 typedef gboolean (*FilterFunc) (AtkObject *);
@@ -147,8 +155,6 @@ typedef gboolean (*FilterFunc) (AtkObject *);
  *
  * Nodes that are filtered out become leaves and no recursion is performed on
  * them.
- *
- * Nodes where an action was performed are returned in a GList.
  */
 void
 traverse_atk_tree (AtkObject *accessible,
@@ -167,8 +173,7 @@ traverse_atk_tree (AtkObject *accessible,
 
   stack = g_queue_new ();
   current = g_object_ref (accessible);
-  action (current)
-  *visited = g_list_prepend (*visited, current);
+  action (visited, current)
   g_queue_push_head (stack, GINT_TO_POINTER (0));
 
   /*
@@ -200,8 +205,7 @@ traverse_atk_tree (AtkObject *accessible,
         {
           /* Push onto stack */
           current = tmp;
-          action (current);
-          *visited = g_list_prepend (*visited, current);
+          action (visited, current);
           g_queue_peek_head_link (stack)->data = GINT_TO_POINTER (i+1);
           g_queue_push_head (stack, GINT_TO_POINTER (0));
         }
@@ -235,6 +239,87 @@ update_accessible (AtkObject *accessible)
     {
       spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
     }
+}
+
+/*---------------------------------------------------------------------------*/
+
+static gboolean
+register_filter (AtkObject *accessible)
+{
+   if (object_to_ref (accessible))
+       return TRUE;
+   else
+       return FALSE;
+}
+
+static void
+register_action (GList **registered, AtkObject *accessible)
+{
+  register_accessible (accessible)
+  *registered = g_list_prepend (*registered, accessible);
+}
+
+static void
+register_foreach (gpointer data, gpointer user_data)
+{
+  spi_emit_cache_update (ATK_OBJECT (data), atk_adaptor_app_data->bus);
+}
+
+static void
+register_subtree (AtkObject *accessible)
+{
+  GList *registered = NULL;
+
+  traverse_atk_tree (accessible,
+                     &registered,
+                     (ActionFunc) register_accessible,
+                     (FilterFunc) register_filter);
+
+  g_list_foreach (registered, register_foreach);
+}
+
+/*---------------------------------------------------------------------------*/
+
+static gboolean
+deregister_filter (AtkObject *accessible)
+{
+   if (!object_to_ref (accessible))
+       return TRUE;
+   else
+       return FALSE;
+}
+
+static void
+deregister_action (GList **deregistered, AtkObject *accessible)
+{
+  guint ref;
+  g_assert (ATK_IS_OBJECT (accessible));
+
+  ref = atk_dbus_object_to_ref (accessible);
+  if (ref != 0)
+   {
+     deregister_accessible (ref);
+     *deregistered = g_list_prepend (*deregistered, GINT_TO_POINTER(ref));
+   }
+}
+
+static void
+deregister_foreach (gpointer data, gpointer user_data)
+{
+  spi_emit_cache_update (GPOINTER_TO_INT (data), atk_adaptor_app_data->bus);
+}
+
+static void
+deregister_subtree (AtkObject *accessible)
+{
+  GList *deregistered = NULL;
+
+  traverse_atk_tree (accessible,
+                     &deregistered,
+                     (ActionFunc) deregister_accessible,
+                     (FilterFunc) deregister_filter);
+
+  g_list_foreach (deregistered, deregister_foreach);
 }
 
 /*---------------------------------------------------------------------------*/

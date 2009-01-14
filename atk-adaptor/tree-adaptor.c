@@ -42,13 +42,6 @@ append_accessible_hf (gpointer key, gpointer obj_data, gpointer iter)
   spi_atk_append_accessible (ATK_OBJECT(obj_data), iter);
 }
 
-/* For use as a GFunc */
-static void
-append_accessible_lf (gpointer obj_data, gpointer iter)
-{
-  spi_atk_append_accessible (ATK_OBJECT(obj_data), iter);
-}
-
 /*---------------------------------------------------------------------------*/
 
 void
@@ -69,17 +62,14 @@ spi_emit_cache_removal (guint ref,  DBusConnection *bus)
 }
 
 void
-spi_emit_cache_update (const GList *accessibles, DBusConnection *bus)
+spi_emit_cache_update (AtkObject *accessible, DBusConnection *bus)
 {
    DBusMessage *message;
    DBusMessageIter iter;
-   DBusMessageIter iter_array;
    message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateAccessible");
 
    dbus_message_iter_init_append (message, &iter);
-   dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
-   g_list_foreach ((GList *)accessibles, append_accessible_lf, &iter_array);
-   dbus_message_iter_close_container(&iter, &iter_array);
+   spi_atk_append_accessible (accessible, &iter);
 
    dbus_connection_send(bus, message, NULL);
 }
