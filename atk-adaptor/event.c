@@ -46,21 +46,6 @@ static gint atk_bridge_focus_tracker_id;
 
 /*---------------------------------------------------------------------------*/
 
-/* When sending events it is safe to register an accessible object if
- * one does not already exist for a given AtkObject.
- * This is because the cache update signal should then be send before
- * the event signal is sent.
- */
-static gchar *
-get_object_path (AtkObject *accessible)
-{
-    guint ref;
-
-    return atk_dbus_ref_to_path (ref);
-}
-
-/*---------------------------------------------------------------------------*/
-
 static gboolean
 Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
 {
@@ -200,7 +185,7 @@ emit(AtkObject  *accessible,
   DBusMessageIter iter, sub;
   gchar *path, *cname, *t;
 
-  path = get_object_path (accessible);
+  path = atk_dbus_object_to_path (accessible);
 
   /* Tough decision here
    * We won't send events from accessible
@@ -264,7 +249,7 @@ emit_rect(AtkObject  *accessible,
   gchar *path, *cname, *t;
   dbus_int32_t dummy = 0;
 
-  path = get_object_path (accessible);
+  path = atk_dbus_object_to_path (accessible);
 
   /* Tough decision here
    * We won't send events from accessible
@@ -356,22 +341,25 @@ property_event_listener (GSignalInvocationHint *signal_hint,
   if (strcmp (pname, "accessible-table-summary") == 0)
     {
       otemp = atk_table_get_summary(ATK_TABLE (accessible));
-      stemp = get_object_path (otemp);
-      emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
+      stemp = atk_dbus_object_to_path (otemp);
+      if (stemp != NULL)
+          emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
   else if (strcmp (pname, "accessible-table-column-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_column_header(ATK_TABLE (accessible), i);
-      stemp = get_object_path (otemp);
-      emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
+      stemp = atk_dbus_object_to_path (otemp);
+      if (stemp != NULL)
+          emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
   else if (strcmp (pname, "accessible-table-row-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_row_header(ATK_TABLE (accessible), i);
-      stemp = get_object_path (otemp);
-      emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
+      stemp = atk_dbus_object_to_path (otemp);
+      if (stemp != NULL)
+          emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
   else if (strcmp (pname, "accessible-table-row-description") == 0)
     {
@@ -550,7 +538,12 @@ active_descendant_event_listener (GSignalInvocationHint *signal_hint,
   minor = g_quark_to_string (signal_hint->detail);
 
   detail1 = atk_object_get_index_in_parent (child);
-  s = get_object_path (child);
+  s = atk_dbus_object_to_path (child);
+  if (s == NULL)
+    {
+      g_free (s);
+      return TRUE;
+    }
 
   emit(accessible, ITF_EVENT_OBJECT, name, "", detail1, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, s);
   g_free(s);

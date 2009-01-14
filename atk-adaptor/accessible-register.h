@@ -32,20 +32,6 @@ atk_dbus_foreach_registered(GHFunc func, gpointer data);
 
 /*---------------------------------------------------------------------------*/
 
-guint
-atk_dbus_register_accessible (AtkObject *accessible);
-
-guint
-atk_dbus_update_accessible (AtkObject *accessible);
-
-/*---------------------------------------------------------------------------*/
-
-guint
-atk_dbus_object_to_ref (AtkObject *accessible);
-
-gchar *
-atk_dbus_ref_to_path (guint ref);
-
 AtkObject *
 atk_dbus_path_to_object (const char *path);
 

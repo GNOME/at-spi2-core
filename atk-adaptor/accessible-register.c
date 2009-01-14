@@ -103,7 +103,7 @@ ref_to_path (guint ref)
 static void
 deregister_accessible (guint ref)
 {
-  g_hash_table_remove(ref2ptr, ref);
+  g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
 }
 
 /*
@@ -115,7 +115,7 @@ deregister_callback (gpointer data, GObject *accessible)
   guint ref;
   g_assert (ATK_IS_OBJECT (accessible));
 
-  ref = atk_dbus_object_to_ref (ATK_OBJECT(accessible));
+  ref = object_to_ref (ATK_OBJECT(accessible));
   if (ref != 0)
     {
       deregister_accessible (ref);
@@ -136,8 +136,6 @@ register_accessible (AtkObject *accessible)
   g_hash_table_insert (ref2ptr, GINT_TO_POINTER(ref), accessible);
   g_object_set_data (G_OBJECT(accessible), "dbus-id", GINT_TO_POINTER(ref));
   g_object_weak_ref(G_OBJECT(accessible), deregister_callback, NULL);
-
-  *registered = g_list_prepend (*registered, current);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -164,8 +162,7 @@ traverse_atk_tree (AtkObject *accessible,
 {
   AtkObject *current, *tmp;
   GQueue    *stack;
-  GList     *uplist = NULL;
-  guint      i, ref;
+  guint      i;
   gboolean   recurse;
 
   if (!filter (accessible))
@@ -173,7 +170,7 @@ traverse_atk_tree (AtkObject *accessible,
 
   stack = g_queue_new ();
   current = g_object_ref (accessible);
-  action (visited, current)
+  action (visited, current);
   g_queue_push_head (stack, GINT_TO_POINTER (0));
 
   /*
@@ -218,8 +215,6 @@ traverse_atk_tree (AtkObject *accessible,
           g_queue_pop_head (stack);
         }
     }
-
-  return ref;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -234,7 +229,7 @@ update_accessible (AtkObject *accessible)
   guint  ref = 0;
   g_assert(ATK_IS_OBJECT(accessible));
 
-  ref = atk_dbus_object_to_ref (accessible);
+  ref = object_to_ref (accessible);
   if (ref)
     {
       spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
@@ -255,7 +250,7 @@ register_filter (AtkObject *accessible)
 static void
 register_action (GList **registered, AtkObject *accessible)
 {
-  register_accessible (accessible)
+  register_accessible (accessible);
   *registered = g_list_prepend (*registered, accessible);
 }
 
@@ -275,51 +270,27 @@ register_subtree (AtkObject *accessible)
                      (ActionFunc) register_accessible,
                      (FilterFunc) register_filter);
 
-  g_list_foreach (registered, register_foreach);
+  g_list_foreach (registered, register_foreach, NULL);
 }
 
-/*---------------------------------------------------------------------------*/
-
-static gboolean
-deregister_filter (AtkObject *accessible)
-{
-   if (!object_to_ref (accessible))
-       return TRUE;
-   else
-       return FALSE;
-}
 
 static void
-deregister_action (GList **deregistered, AtkObject *accessible)
+register_ancestors (AtkObject *accessible)
 {
+  AtkObject *current;
   guint ref;
-  g_assert (ATK_IS_OBJECT (accessible));
+  GList *registered = NULL;
 
-  ref = atk_dbus_object_to_ref (accessible);
-  if (ref != 0)
-   {
-     deregister_accessible (ref);
-     *deregistered = g_list_prepend (*deregistered, GINT_TO_POINTER(ref));
-   }
-}
+  current = atk_object_get_parent (accessible);
+  while (current)
+    {
+      ref = atk_dbus_ref_from_object (current);
+      if (!ref)
+          register_action (&registered, current);
+      current = atk_object_get_parent (accessible);
+    }
 
-static void
-deregister_foreach (gpointer data, gpointer user_data)
-{
-  spi_emit_cache_update (GPOINTER_TO_INT (data), atk_adaptor_app_data->bus);
-}
-
-static void
-deregister_subtree (AtkObject *accessible)
-{
-  GList *deregistered = NULL;
-
-  traverse_atk_tree (accessible,
-                     &deregistered,
-                     (ActionFunc) deregister_accessible,
-                     (FilterFunc) deregister_filter);
-
-  g_list_foreach (deregistered, deregister_foreach);
+  g_list_foreach (registered, register_foreach, NULL);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -369,7 +340,7 @@ atk_dbus_object_to_path (AtkObject *accessible)
   guint ref;
   g_assert(ATK_IS_OBJECT(accessible));
 
-  ref = atk_dbus_object_to_ref (accessible);
+  ref = object_to_ref (accessible);
   if (!ref)
       return NULL;
   else
@@ -402,7 +373,7 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
 
   pname = values[0].property_name;
 
-  if (!atk_dbus_object_to_ref (accessible))
+  if (!object_to_ref (accessible))
       return TRUE;
 
   if (strcmp (pname, "accessible-name") == 0 ||
@@ -412,10 +383,7 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
     }
   else if (strcmp (pname, "accessible-parent"))
     {
-      guint ref;
-
-      ref = atk_dbus_object_to_ref;
-      if (!ref)
+      register_ancestors (accessible);
     }
   return TRUE;
 }
@@ -452,7 +420,7 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
       else
           child = atk_object_ref_accessible_child (accessible, index);
 
-      atk_dbus_register_subtree (child);
+      register_subtree (child);
       g_object_unref (child);
     }
   return TRUE;
@@ -470,7 +438,7 @@ atk_dbus_initialize (AtkObject *root)
   if (!ref2ptr)
     ref2ptr = g_hash_table_new(g_direct_hash, g_direct_equal);
 
-  atk_dbus_register_accessible (root);
+  register_subtree (root);
 
   atk_add_global_event_listener (tree_update_listener, "Gtk:AtkObject:property-change");
   atk_add_global_event_listener (tree_update_children_listener, "Gtk:AtkObject:children-changed");
