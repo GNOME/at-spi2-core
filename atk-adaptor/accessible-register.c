@@ -165,7 +165,7 @@ traverse_atk_tree (AtkObject *accessible,
   guint      i;
   gboolean   recurse;
 
-  if (!filter (accessible))
+  if (filter (accessible))
       return;
 
   stack = g_queue_new ();
@@ -187,7 +187,7 @@ traverse_atk_tree (AtkObject *accessible,
         {
           tmp = atk_object_ref_accessible_child (current, i);
           /* If filter function */
-          if (filter (tmp))
+          if (!filter (tmp))
             {
               recurse = TRUE;
             }
@@ -267,7 +267,7 @@ register_subtree (AtkObject *accessible)
 
   traverse_atk_tree (accessible,
                      &registered,
-                     (ActionFunc) register_accessible,
+                     (ActionFunc) register_action,
                      (FilterFunc) register_filter);
 
   g_list_foreach (registered, register_foreach, NULL);
@@ -344,7 +344,7 @@ atk_dbus_object_to_path (AtkObject *accessible)
   if (!ref)
       return NULL;
   else
-      return atk_dbus_ref_to_path (ref);
+      return ref_to_path (ref);
 }
 
 /*---------------------------------------------------------------------------*/

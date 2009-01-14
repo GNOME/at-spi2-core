@@ -97,7 +97,7 @@ class AccessibleCache(object):
                 get_method = itf.get_dbus_method(self._GET_METHOD)
                 self._update_objects(get_method())
 
-                self._updateMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_objects)
+                self._updateMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_single)
                 self._removeMatch = itf.connect_to_signal(self._REMOVE_SIGNAL, self._remove_object)
 
                 obj = connection.get_object(self._bus_name, self._PATH, introspect=False)
@@ -158,6 +158,10 @@ class AccessibleCache(object):
                                        "children-changed",
                                        ("remove", 0, 0, ""))
                         self._registry._notifyChildrenChange(event)
+
+        # TODO This should be the other way around. Single is more common than many.
+        def _update_single(self, object):
+                self._update_objects ([object])
 
         def _update_objects(self, objects):
                 cache_update_objects = []
