@@ -184,7 +184,6 @@ register_accessible (AtkObject *accessible)
  * in AT-SPI D-Bus so objects that are remotely owned are not
  * allowed.
  *
- * HACK - Needs permanent soltion.
  * TODO Add debug wrapper
  */
 static gboolean
@@ -192,7 +191,7 @@ non_owned_accessible (AtkObject *accessible)
 {
    if ((G_OBJECT (accessible))->ref_count <= 1)
      {
-       g_critical ("AT-SPI: Child referenced that is not owned by its parent");
+       g_warning ("AT-SPI: Child referenced that is not owned by its parent");
        return TRUE;
      }
    else
@@ -216,7 +215,7 @@ has_manages_descendants (AtkObject *accessible)
    state = atk_object_ref_state_set (accessible);
    if (atk_state_set_contains_state (state, ATK_STATE_MANAGES_DESCENDANTS))
      {
-       g_message ("AT-SPI: Object with 'Manages descendants' states not currently handled by AT-SPI");
+       g_warning ("AT-SPI: Object with 'Manages descendants' states not currently handled by AT-SPI");
        result = TRUE;
      }
    g_object_unref (state);
@@ -271,11 +270,7 @@ register_subtree (AtkObject *accessible)
           tmp = atk_object_ref_accessible_child (current, i);
 
           /* TODO Add debug wrapper */
-          if (non_owned_accessible (tmp))
-            {
-              i++;
-              continue;
-            }
+          non_owned_accessible (tmp);
 
           if (object_to_ref (tmp))
             {
@@ -295,9 +290,10 @@ register_subtree (AtkObject *accessible)
 
           if (!recurse)
             {
-              i++;
               g_object_unref (G_OBJECT (tmp));
             }
+
+          i++;
         }
 
       if (recurse)
@@ -306,7 +302,7 @@ register_subtree (AtkObject *accessible)
           current = tmp;
           register_accessible (current);
 
-          g_queue_peek_head_link (stack)->data = GINT_TO_POINTER (i+1);
+          g_queue_peek_head_link (stack)->data = GINT_TO_POINTER (i);
           g_queue_push_head (stack, GINT_TO_POINTER (0));
         }
       else
@@ -421,30 +417,23 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
    * have their signals processed.
    */
   accessible = g_value_get_object (&param_values[0]);
+  g_assert (ATK_IS_OBJECT (accessible));
+
   if (object_to_ref (accessible))
     {
       /* TODO Add debug wrapper */
       if (recursion_check_and_set ())
-          g_critical ("AT-SPI: Recursive use of registration module");
-
-      if (!ATK_IS_OBJECT (accessible))
-          g_critical ("AT-SPI: Object data updated when not a valid AtkObject");
+          g_warning ("AT-SPI: Recursive use of registration module");
 
       values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
       pname = values[0].property_name;
       if (strcmp (pname, "accessible-name") == 0 ||
-          strcmp (pname, "accessible-description"))
+          strcmp (pname, "accessible-description") == 0)
         {
           update_accessible (accessible);
         }
-      /* Parent updates not used */
-      /* Parent value us updated buy child-add signal of parent object */
-      /*
-      else if (strcmp (pname, "accessible-parent"))
-        {
-          update_accessible (accessible);
-        }
-       */
+      /* Parent value us updated by child-add signal of parent object */
+
       recursion_check_unset ();
     }
 
@@ -475,17 +464,17 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
    * have their signals processed.
    */
   accessible = g_value_get_object (&param_values[0]);
+  g_assert (ATK_IS_OBJECT (accessible));
+
   if (object_to_ref (accessible))
     {
       /* TODO Add debug wrapper */
       if (recursion_check_and_set ())
           g_warning ("AT-SPI: Recursive use of registration module");
 
-      if (!ATK_IS_OBJECT (accessible))
-          g_critical ("AT-SPI: Object children updated when not a valid AtkObject");
-
       if (signal_hint->detail)
-        detail = g_quark_to_string (signal_hint->detail);
+          detail = g_quark_to_string (signal_hint->detail);
+
       if (!strcmp (detail, "add"))
         {
           gpointer child;
@@ -496,16 +485,9 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
             {
               child = atk_object_ref_accessible_child (accessible, index);
               /* TODO Add debug wrapper */
-              if (!non_owned_accessible (child))
-                {
-                  register_subtree (child);
-                }
+              non_owned_accessible (child);
             }
-          else
-            {
-              register_subtree (child);
-            }
-
+          register_subtree (child);
         }
 
       recursion_check_unset ();
