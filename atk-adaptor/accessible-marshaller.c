@@ -25,6 +25,8 @@
 
 #include "spi-common/spi-dbus.h"
 
+#define INVALID_PATH "/Invalid"
+
 /*---------------------------------------------------------------------------*/
 
 /*
@@ -206,8 +208,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
           path_parent = atk_dbus_object_to_path (parent);
           if (!path_parent)
             {
-              g_critical ("AT-SPI: Object registered without registering parent");
-              path_parent = g_strdup("/");
+              path_parent = g_strdup(INVALID_PATH);
             }
         }
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
@@ -227,15 +228,12 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
               child = atk_object_ref_accessible_child (obj, i);
               child_path = atk_dbus_object_to_path (child);
               g_object_unref(G_OBJECT(child));
-              if (G_LIKELY (child_path))
+              if (!G_LIKELY (child_path))
                 {
-                  dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
+                  child_path = g_strdup(INVALID_PATH);
                 }
-              else
-                {
-                  g_critical ("AT-SPI: Child object exists in accessible tree but has not been registered");
-                  g_free (child_path);
-                }
+              dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
+              g_free (child_path);
             }
         }
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);

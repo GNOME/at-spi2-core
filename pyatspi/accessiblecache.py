@@ -20,6 +20,7 @@ from event import Event as _Event
 
 class _CacheData(object):
         __slots__ = [
+                        'path',
                         'parent',
                         'interfaces',
                         'children',
@@ -33,15 +34,14 @@ class _CacheData(object):
                 self._update(data)
 
         def _update(self, data):
-                #Don't cache the path here, used as lookup in cache object dict.
-                (path,
-                self.parent,
-                self.children,
-                self.interfaces,
-                self.name,
-                self.role,
-                self.description,
-                self.state) = data
+                (self.path,
+                 self.parent,
+                 self.children,
+                 self.interfaces,
+                 self.name,
+                 self.role,
+                 self.description,
+                 self.state) = data
 
 #------------------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ class AccessibleCache(object):
         def _dispatch_event(self, olddata, newdata):
                 if olddata.name != newdata.name:
                         event = _Event(self._registry.cache,
-                                       path,
+                                       newdata.path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
@@ -123,7 +123,7 @@ class AccessibleCache(object):
 
                 if olddata.description != newdata.description:
                         event = _Event(self._registry.cache,
-                                       path,
+                                       newdata.path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
@@ -132,7 +132,7 @@ class AccessibleCache(object):
 
                 if olddata.parent != newdata.parent:
                         event = _Event(self._registry.cache,
-                                       path,
+                                       newdata.path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
@@ -143,7 +143,7 @@ class AccessibleCache(object):
 
                 if added:
                         event = _Event(self._registry.cache,
-                                       path,
+                                       newdata.path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "children-changed",
@@ -152,7 +152,7 @@ class AccessibleCache(object):
 
                 if removed:
                         event = _Event(self._registry.cache,
-                                       path,
+                                       newdata.path,
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "children-changed",
