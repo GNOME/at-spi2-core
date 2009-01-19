@@ -176,6 +176,7 @@ register_accessible (AtkObject *accessible)
 
 /*---------------------------------------------------------------------------*/
 
+#ifdef SPI_ATK_DEBUG
 /*
  * This function checks that the ref-count of an accessible
  * is greater than 1.
@@ -199,6 +200,7 @@ non_owned_accessible (AtkObject *accessible)
        return FALSE;
      }
 }
+#endif /* SPI_ATK_DEBUG */
 
 /*---------------------------------------------------------------------------*/
 
@@ -215,7 +217,9 @@ has_manages_descendants (AtkObject *accessible)
    state = atk_object_ref_state_set (accessible);
    if (atk_state_set_contains_state (state, ATK_STATE_MANAGES_DESCENDANTS))
      {
+#ifdef SPI_ATK_DEBUG
        g_warning ("AT-SPI: Object with 'Manages descendants' states not currently handled by AT-SPI");
+#endif
        result = TRUE;
      }
    g_object_unref (state);
@@ -269,8 +273,9 @@ register_subtree (AtkObject *accessible)
         {
           tmp = atk_object_ref_accessible_child (current, i);
 
-          /* TODO Add debug wrapper */
+#ifdef SPI_ATK_DEBUG
           non_owned_accessible (tmp);
+#endif
 
           if (object_to_ref (tmp))
             {
@@ -421,9 +426,10 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
 
   if (object_to_ref (accessible))
     {
-      /* TODO Add debug wrapper */
+#ifdef SPI_ATK_DEBUG
       if (recursion_check_and_set ())
           g_warning ("AT-SPI: Recursive use of registration module");
+#endif
 
       values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
       pname = values[0].property_name;
@@ -468,9 +474,10 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
 
   if (object_to_ref (accessible))
     {
-      /* TODO Add debug wrapper */
+#ifdef SPI_ATK_DEBUG
       if (recursion_check_and_set ())
           g_warning ("AT-SPI: Recursive use of registration module");
+#endif
 
       if (signal_hint->detail)
           detail = g_quark_to_string (signal_hint->detail);
@@ -484,8 +491,9 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
           if (!ATK_IS_OBJECT (child))
             {
               child = atk_object_ref_accessible_child (accessible, index);
-              /* TODO Add debug wrapper */
+#ifdef SPI_ATK_DEBUG
               non_owned_accessible (child);
+#endif
             }
           register_subtree (child);
         }
@@ -510,8 +518,10 @@ atk_dbus_initialize (AtkObject *root)
   if (!ref2ptr)
     ref2ptr = g_hash_table_new(g_direct_hash, g_direct_equal);
 
+#ifdef SPI_ATK_DEBUG
   if (g_thread_supported ())
       g_message ("AT-SPI: Threads enabled");
+#endif
 
   register_subtree (root);
 
