@@ -29,6 +29,8 @@ __all__ = [
 #------------------------------------------------------------------------------
 
 class TestApplicationCache(object):
+        _DESKTOP_PATH = '/org/freedesktop/atspi/accessible/desktop'
+
         """
         Test application store, accesses a single application.
 
@@ -82,7 +84,7 @@ class TestApplicationCache(object):
                               provided here so that another one is not created.
                 """
                 # An acc_path of '/' implies the desktop object, whatever the app_name.
-                if acc_path == '/':
+                if acc_path == TestApplicationCache._DESKTOP_PATH:
                         return Desktop(self)
                 else:
                         cls = accessible_factory.get_accessible_class(interface)
@@ -115,7 +117,7 @@ class ApplicationCache(object):
         """
 
         # An accessible path of '/' implies the desktop object, whatever the application name.
-        _DESKTOP_PATH = '/'
+        _DESKTOP_PATH = '/org/freedesktop/atspi/accessible/root'
 
         _APPLICATIONS_ADD = 1
         _APPLICATIONS_REMOVE = 0

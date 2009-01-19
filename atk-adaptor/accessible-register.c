@@ -28,10 +28,6 @@
 #include "bridge.h"
 #include "accessible-register.h"
 
-#define ATK_BRIDGE_OBJECT_PATH_PREFIX "/org/freedesktop/atspi/accessible"
-#define ATK_BRIDGE_OBJECT_REFERENCE_TEMPLATE ATK_BRIDGE_OBJECT_PATH_PREFIX "/%d"
-#define ATK_BRIDGE_PATH_PREFIX_LENGTH 33
-
 /*
  * This module is responsible for keeping track of all the AtkObjects in
  * the application, so that they can be accessed remotely and placed in
@@ -39,7 +35,7 @@
  *
  * To access an AtkObject remotely we need to provide a D-Bus object 
  * path for it. The D-Bus object paths used have a standard prefix
- * (ATK_BRIDGE_OBJECT_PATH_PREFIX). Appended to this prefix is a string
+ * (SPI_ATK_OBJECT_PATH_PREFIX). Appended to this prefix is a string
  * representation of an integer reference. So to access an AtkObject 
  * remotely we keep a Hashtable that maps the given reference to 
  * the AtkObject pointer. An object in this hash table is said to be 'registered'.
@@ -59,18 +55,25 @@
 /*
  * FIXME
  *
- * While traversing the ATK tree we may modify it unintentionally.
- * This is either a bug in the Gail implementation or this module.
- * If a change is caused that recurses, via a signal into this module
- * we should catch it.
+ * This code seems very brittle.
+ * I would prefer changes to be made to
+ * gail and the ATK interface so that all Accessible
+ * objects are registered with an exporting module.
  *
- * Things could also be changed that do not cause signal emission,
- * but do cause a failure. Not sure what these would be.
+ * This is the same system as Qt has with the QAccessibleBridge
+ * and QAccessibleBridgePlugin. It entails some rather
+ * large structural changes to ATK though:
  *
- * The other option is that there are threads that modify the GUI.
- * This IS A BUG IN THE PROGRAM. But it may happen. If seeing very 
- * odd bugs change this to take the GDK lock. Just to make sure.
+ * Removing infinite spaces (Child access no longer references child).
+ * Removing lazy creation of accessible objects.
  */
+
+#define SPI_ATK_OBJECT_PATH_PREFIX  "/org/freedesktop/atspi/accessible"
+#define SPI_ATK_OBJECT_PATH_DESKTOP "/root"
+
+#define SPI_ATK_PATH_PREFIX_LENGTH 33
+#define SPI_ATK_OBJECT_REFERENCE_TEMPLATE SPI_ATK_OBJECT_PATH_PREFIX "/%d"
+
 
 static GHashTable *ref2ptr = NULL; /* Used for converting a D-Bus path (Reference) to the object pointer */
 
@@ -134,7 +137,7 @@ object_to_ref (AtkObject *accessible)
 static gchar *
 ref_to_path (guint ref)
 {
-  return g_strdup_printf(ATK_BRIDGE_OBJECT_REFERENCE_TEMPLATE, ref);
+  return g_strdup_printf(SPI_ATK_OBJECT_REFERENCE_TEMPLATE, ref);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -361,12 +364,12 @@ atk_dbus_path_to_object (const char *path)
 
   g_assert (path);
 
-  if (strncmp(path, ATK_BRIDGE_OBJECT_PATH_PREFIX, ATK_BRIDGE_PATH_PREFIX_LENGTH) != 0) 
+  if (strncmp(path, SPI_ATK_OBJECT_PATH_PREFIX, SPI_ATK_PATH_PREFIX_LENGTH) != 0)
     return NULL;
 
-  path += ATK_BRIDGE_PATH_PREFIX_LENGTH; /* Skip over the prefix */
+  path += SPI_ATK_PATH_PREFIX_LENGTH; /* Skip over the prefix */
 
-  if (path[0] == '\0')
+  if (!g_strcmp0 (SPI_ATK_OBJECT_PATH_DESKTOP, path))
      return atk_get_root();
   if (path[0] != '/')
      return NULL;
@@ -393,6 +396,12 @@ atk_dbus_object_to_path (AtkObject *accessible)
       return NULL;
   else
       return ref_to_path (ref);
+}
+
+gchar *
+atk_dbus_desktop_object_path ()
+{
+  return g_strdup (SPI_ATK_OBJECT_PATH_PREFIX SPI_ATK_OBJECT_PATH_DESKTOP);
 }
 
 /*---------------------------------------------------------------------------*/

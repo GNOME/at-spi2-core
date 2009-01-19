@@ -20,12 +20,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "accessible-register.h"
-#include "accessible-marshaller.h"
-
 #include "spi-common/spi-dbus.h"
 
-#define INVALID_PATH "/Invalid"
+#include "accessible-register.h"
+#include "accessible-marshaller.h"
 
 /*---------------------------------------------------------------------------*/
 
@@ -201,14 +199,24 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
       parent = atk_object_get_parent(obj);
       if (parent == NULL)
         {
-          path_parent = g_strdup("/");
+          path_parent = atk_dbus_desktop_object_path ();
         }
       else
         {
           path_parent = atk_dbus_object_to_path (parent);
           if (!path_parent)
             {
-              path_parent = g_strdup(INVALID_PATH);
+              /* This should only happen if a widget is re-parented to
+               * an AtkObject that has not been registered and is then
+               * updated. Ideally objects would be de-registered when
+               * they are removed from a registered tree object, but
+               * this would invalidate a huge amount of cache when
+               * re-parenting.
+               */
+#if SPI_ATK_DEBUG
+              g_warning ("AT-SPI: Registered accessible marshalled when parent not registered");
+#endif
+              path_parent = atk_dbus_desktop_object_path ();
             }
         }
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
@@ -227,13 +235,12 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
 
               child = atk_object_ref_accessible_child (obj, i);
               child_path = atk_dbus_object_to_path (child);
-              g_object_unref(G_OBJECT(child));
-              if (!G_LIKELY (child_path))
+              if (child_path)
                 {
-                  child_path = g_strdup(INVALID_PATH);
+                  dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
+                  g_free (child_path);
                 }
-              dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
-              g_free (child_path);
+              g_object_unref(G_OBJECT(child));
             }
         }
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);

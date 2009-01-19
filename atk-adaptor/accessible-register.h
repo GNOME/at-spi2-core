@@ -38,4 +38,7 @@ atk_dbus_path_to_object (const char *path);
 gchar *
 atk_dbus_object_to_path (AtkObject *accessible);
 
+gchar *
+atk_dbus_desktop_object_path ();
+
 #endif /* ACCESSIBLE_REGISTER */
