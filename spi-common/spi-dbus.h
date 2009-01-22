@@ -42,6 +42,8 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_DESKTOP "org.freedesktop.atspi.Desktop"
 #define SPI_DBUS_INTERFACE_DOCUMENT "org.freedesktop.atspi.Document"
 #define SPI_DBUS_INTERFACE_EDITABLE_TEXT "org.freedesktop.atspi.EditableText"
+#define SPI_DBUS_INTERFACE_EVENT_KEYBOARD "org.freedesktop.atspi.Event.Keyboard"
+#define SPI_DBUS_INTERFACE_EVENT_MOUSE "org.freedesktop.atspi.Event.Mouse"
 #define SPI_DBUS_INTERFACE_HYPERLINK "org.freedesktop.atspi.Hyperlink"
 #define SPI_DBUS_INTERFACE_HYPERTEXT "org.freedesktop.atspi.Hypertext"
 #define SPI_DBUS_INTERFACE_IMAGE "org.freedesktop.atspi.Image"

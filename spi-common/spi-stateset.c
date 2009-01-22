@@ -169,7 +169,6 @@ spi_state_set_cache_from_sequence (const GArray *seq)
   set = atk_state_set_new ();
   atk_state_set_add_states (set, states, seq->len);
 
-  g_free (states);
   g_array_free (seq, TRUE);
   return set;
 }
