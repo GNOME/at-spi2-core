@@ -81,7 +81,13 @@ droute_path_add_interface (DRoutePath *path,
                            const DRouteProperty *properties);
 
 DBusMessage *
-droute_not_yet_handled_error (DBusMessage *message);
+droute_not_yet_handled_error   (DBusMessage *message);
+
+DBusMessage *
+droute_invalid_arguments_error (DBusMessage *message);
+
+DBusMessage *
+droute_out_of_memory_error     (DBusMessage *message);
 
 DBusConnection *
 droute_get_bus (DRouteContext *cnx);

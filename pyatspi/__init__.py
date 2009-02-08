@@ -21,3 +21,10 @@ del registry
 
 import constants
 from Accessibility import *
+
+#This is a re-creation of the namespace pollution implemented
+#by PyORBit.
+import sys
+import Accessibility
+sys.modules['Accessibility'] = Accessibility
+del sys

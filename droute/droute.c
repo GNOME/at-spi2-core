@@ -541,4 +541,40 @@ droute_not_yet_handled_error (DBusMessage *message)
     return reply;
 }
 
+DBusMessage *
+droute_out_of_memory_error (DBusMessage *message)
+{
+    DBusMessage *reply;
+    gchar       *errmsg;
+
+    errmsg= g_strdup_printf (
+            "Method \"%s\" with signature \"%s\" on interface \"%s\" could not be processed due to lack of memory\n",
+            dbus_message_get_member (message),
+            dbus_message_get_signature (message),
+            dbus_message_get_interface (message));
+    reply = dbus_message_new_error (message,
+                                    DBUS_ERROR_NO_MEMORY,
+                                    errmsg);
+    g_free (errmsg);
+    return reply;
+}
+
+DBusMessage *
+droute_invalid_arguments_error (DBusMessage *message)
+{
+    DBusMessage *reply;
+    gchar       *errmsg;
+
+    errmsg= g_strdup_printf (
+            "Method \"%s\" with signature \"%s\" on interface \"%s\" was supplied with invalid arguments\n",
+            dbus_message_get_member (message),
+            dbus_message_get_signature (message),
+            dbus_message_get_interface (message));
+    reply = dbus_message_new_error (message,
+                                    DBUS_ERROR_INVALID_ARGS,
+                                    errmsg);
+    g_free (errmsg);
+    return reply;
+}
+
 /*END------------------------------------------------------------------------*/
