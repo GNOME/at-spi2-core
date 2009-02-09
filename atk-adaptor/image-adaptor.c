@@ -29,17 +29,17 @@
 
 static dbus_bool_t
 impl_get_imageDescription (DBusMessageIter * iter,
-			   void *user_data)
+                           void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   g_return_val_if_fail (ATK_IS_IMAGE (user_data), FALSE);
   return droute_return_v_string (iter,
-				 atk_image_get_image_description (image));
+                                 atk_image_get_image_description (image));
 }
 
 static dbus_bool_t
 impl_get_imageLocale (DBusMessageIter * iter,
-		      void *user_data)
+                      void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   g_return_val_if_fail (ATK_IS_IMAGE (user_data), FALSE);
@@ -48,7 +48,7 @@ impl_get_imageLocale (DBusMessageIter * iter,
 
 static DBusMessage *
 impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
-		      void *user_data)
+                      void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   DBusError error;
@@ -61,7 +61,7 @@ impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coordType, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_image_get_image_size (image, &iwidth, &iheight);
   atk_image_get_image_position (image, &ix, &iy, (AtkCoordType) coordType);
@@ -70,7 +70,7 @@ impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
 
 static DBusMessage *
 impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
-		       void *user_data)
+                       void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   DBusError error;
@@ -85,7 +85,7 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_image_get_image_position (image, &ix, &iy, (AtkCoordType) coord_type);
   x = ix;
@@ -94,14 +94,14 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32,
-				&y, DBUS_TYPE_INVALID);
+                                &y, DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_getImageSize (DBusConnection * bus, DBusMessage * message,
-		   void *user_data)
+                   void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   gint iwidth = 0, iheight = 0;
@@ -117,7 +117,7 @@ impl_getImageSize (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &width,
-				DBUS_TYPE_INT32, &height, DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INT32, &height, DBUS_TYPE_INVALID);
     }
   return reply;
 }

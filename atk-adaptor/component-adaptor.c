@@ -46,7 +46,7 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   retval =
     atk_component_contains (component, x, y, (AtkCoordType) coord_type);
@@ -54,14 +54,14 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &retval,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
-			   void *user_data)
+                           void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
@@ -77,11 +77,11 @@ impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
        DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   child =
     atk_component_ref_accessible_at_point (component, x, y,
-					   (AtkCoordType) coord_type);
+                                           (AtkCoordType) coord_type);
   return spi_dbus_return_object (message, child, TRUE);
 }
 
@@ -100,16 +100,16 @@ impl_getExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_component_get_extents (component, &ix, &iy, &iwidth, &iheight,
-			     (AtkCoordType) coord_type);
+                             (AtkCoordType) coord_type);
   return spi_dbus_return_rect (message, ix, iy, iwidth, iheight);
 }
 
 static DBusMessage *
 impl_getPosition (DBusConnection * bus, DBusMessage * message,
-		  void *user_data)
+                  void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   DBusError error;
@@ -125,7 +125,7 @@ impl_getPosition (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_component_get_position (component, &ix, &iy, (AtkCoordType) coord_type);
   x = ix;
@@ -134,7 +134,7 @@ impl_getPosition (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32,
-				&y, DBUS_TYPE_INVALID);
+                                &y, DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -157,7 +157,7 @@ impl_getSize (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &width,
-				DBUS_TYPE_INT32, &height, DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INT32, &height, DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -206,14 +206,14 @@ impl_getLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
-		   void *user_data)
+                   void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int16_t rv;
@@ -246,7 +246,7 @@ impl_grabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -254,13 +254,13 @@ impl_grabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
 #if 0
 static DBusMessage *
 impl_registerFocusHandler (DBusConnection * bus, DBusMessage * message,
-			   void *user_data)
+                           void *user_data)
 {
 }
 
 static DBusMessage *
 impl_deregisterFocusHandler (DBusConnection * bus, DBusMessage * message,
-			     void *user_data)
+                             void *user_data)
 {
 }
 #endif
@@ -280,7 +280,7 @@ impl_getAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_DOUBLE, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }

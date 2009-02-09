@@ -41,7 +41,7 @@ impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -60,7 +60,7 @@ impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &linkIndex, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   link = atk_hypertext_get_link (hypertext, linkIndex);
   return spi_dbus_return_object (message, ATK_OBJECT (link), FALSE);
@@ -68,7 +68,7 @@ impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 
 static DBusMessage *
 impl_getLinkIndex (DBusConnection * bus, DBusMessage * message,
-		   void *user_data)
+                   void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
   DBusError error;
@@ -82,14 +82,14 @@ impl_getLinkIndex (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &characterIndex, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   rv = atk_hypertext_get_link_index (hypertext, characterIndex);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }

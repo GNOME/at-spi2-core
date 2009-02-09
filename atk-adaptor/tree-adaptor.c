@@ -83,12 +83,21 @@ impl_getRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
   AtkObject *root = atk_get_root();
   char *path;
   DBusMessage *reply;
+  gchar       *errmsg;
 
   if (!root)
-      return spi_dbus_general_error (message);
+    {
+      reply = dbus_message_new_error (message,
+                                      DBUS_ERROR_FAILED,
+                                      "No root accessible available");
+    }
   path = atk_dbus_object_to_path (root);
   if (!path)
-      return spi_dbus_general_error (message);
+    {
+      reply = dbus_message_new_error (message,
+                                      DBUS_ERROR_FAILED,
+                                      "No root accessible available");
+    }
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_INVALID);
   g_free (path);

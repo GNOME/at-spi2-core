@@ -164,6 +164,35 @@ static gboolean spi_dec_poll_mouse_idle (gpointer data);
 G_DEFINE_TYPE(SpiDEController, spi_device_event_controller, G_TYPE_OBJECT)
 
 /* Private methods */
+static dbus_bool_t
+spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name)
+{
+  char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
+  if (match)
+  {
+    DBusError error;
+    dbus_error_init (&error);
+    dbus_bus_add_match (bus, match, &error);
+    g_free (match);
+    return !dbus_error_is_set (&error);
+  }
+  else return FALSE;
+}
+
+static dbus_bool_t
+spi_dbus_remove_disconnect_match (DBusConnection *bus, const char *name)
+{
+  char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
+  if (match)
+  {
+    DBusError error;
+    dbus_error_init (&error);
+    dbus_bus_remove_match (bus, match, &error);
+    g_free (match);
+    return !dbus_error_is_set (&error);
+  }
+  else return FALSE;
+}
 
 static unsigned int
 keysym_mod_mask (KeySym keysym, KeyCode keycode)
@@ -1852,7 +1881,7 @@ impl_register_device_listener (DBusConnection *bus,
   dbus_error_init(&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
   dec_listener = spi_dec_listener_new (dbus_message_get_sender(message), path, event_types);
   ret =  spi_controller_register_device_listener (
@@ -2040,7 +2069,7 @@ impl_deregister_device_listener (DBusConnection *bus,
   dbus_error_init(&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
   listener = spi_dec_listener_new (dbus_message_get_sender(message), path, event_types);
   spi_controller_deregister_device_listener (
@@ -2351,7 +2380,7 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
   dbus_error_init(&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &keycode, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_UINT32, &synth_type, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
 
 #ifdef SPI_DEBUG
@@ -2429,7 +2458,7 @@ static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage
 
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y, DBUS_TYPE_STRING, &eventName, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
 
 #ifdef SPI_DEBUG
@@ -2501,7 +2530,7 @@ impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *use
 
   if (!spi_dbus_demarshal_deviceEvent(message, &event))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
 #ifdef SPI_DEBUG
   g_print ("notifylistening listeners synchronously: controller %p, event id %d\n",
@@ -2528,7 +2557,7 @@ impl_notify_listeners_async (DBusConnection *bus, DBusMessage *message, void *us
 
   if (!spi_dbus_demarshal_deviceEvent(message, &event))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
 #ifdef SPI_DEBUG
   g_print ("notifylistening listeners asynchronously: controller %p, event id %d\n",

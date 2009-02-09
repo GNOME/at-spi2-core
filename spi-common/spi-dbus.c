@@ -29,6 +29,7 @@
 
 #include "spi-types.h"
 
+/*
 DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
 {
@@ -36,6 +37,7 @@ spi_dbus_general_error (DBusMessage * message)
 				 "org.freedesktop.atspi.GeneralError",
 				 "General error");
 }
+*/
 
 
 DBusMessage *
@@ -148,6 +150,7 @@ dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_D
   return spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
 }
 
+/*
 dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error)
 {
   DBusMessage *message, *reply;
@@ -176,33 +179,4 @@ dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest,
   dbus_message_unref (reply);
   return TRUE;
 }
-
-dbus_bool_t
-spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name)
-{
-  char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
-  if (match)
-  {
-    DBusError error;
-    dbus_error_init (&error);
-    dbus_bus_add_match (bus, match, &error);
-    g_free (match);
-    return !dbus_error_is_set (&error);
-  }
-  else return FALSE;
-}
-
-dbus_bool_t
-spi_dbus_remove_disconnect_match (DBusConnection *bus, const char *name)
-{
-  char *match = g_strdup_printf ("interface=%s,member=NameOwnerChanged,arg0=%s", DBUS_INTERFACE_DBUS, name);
-  if (match)
-  {
-    DBusError error;
-    dbus_error_init (&error);
-    dbus_bus_remove_match (bus, match, &error);
-    g_free (match);
-    return !dbus_error_is_set (&error);
-  }
-  else return FALSE;
-}
+*/

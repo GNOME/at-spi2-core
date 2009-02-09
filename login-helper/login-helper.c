@@ -43,7 +43,7 @@ static gboolean
 login_helper_set_safe (LoginHelper *helper, gboolean safe)
 {
   LoginHelperClass *klass = LOGIN_HELPER_GET_CLASS (helper);
-  
+
   if (klass->set_safe)
     return (* klass->set_safe)(helper, safe);
   else
@@ -64,7 +64,7 @@ impl_set_safe (DBusConnection *bus, DBusMessage *message, void *user_data)
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_BOOLEAN, &safe, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   rv = login_helper_set_safe (helper, safe);
   reply = dbus_message_new_method_return (message);
@@ -79,7 +79,7 @@ static LoginHelperDeviceReqFlags
 login_helper_get_device_reqs (LoginHelper *helper)
 {
   LoginHelperClass *klass = LOGIN_HELPER_GET_CLASS (helper);
-  
+
   if (klass->get_device_reqs)
     return  (* klass->get_device_reqs)(helper);
   else
@@ -149,7 +149,6 @@ login_helper_class_init (LoginHelperClass *klass)
   g_object_parent_class = g_type_class_peek_parent (klass);
 
   object_class->finalize = login_helper_finalize;
-  
 }
 
 static void
@@ -157,7 +156,4 @@ login_helper_init (LoginHelper *object)
 {
 }
 
-G_DEFINE_TYPE (LoginHelper,
-		       login_helper,
-		       PARENT_TYPE)
-
+G_DEFINE_TYPE (LoginHelper, login_helper, PARENT_TYPE)

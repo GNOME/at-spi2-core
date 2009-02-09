@@ -29,7 +29,7 @@
 
 static DBusMessage *
 impl_setTextContents (DBusConnection * bus, DBusMessage * message,
-		      void *user_data)
+                      void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   const char *newContents;
@@ -43,7 +43,7 @@ impl_setTextContents (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_STRING, &newContents, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_editable_text_set_text_contents (editable, newContents);
   rv = TRUE;
@@ -52,7 +52,7 @@ impl_setTextContents (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -75,7 +75,7 @@ impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
       (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_STRING, &text,
        DBUS_TYPE_INT32, &length, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   ip = position;
   atk_editable_text_insert_text (editable, text, length, &ip);
@@ -85,14 +85,14 @@ impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_setAttributes (DBusConnection * bus, DBusMessage * message,
-		    void *user_data)
+                    void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   const char *attributes;
@@ -108,7 +108,7 @@ impl_setAttributes (DBusConnection * bus, DBusMessage * message,
       (message, &error, DBUS_TYPE_STRING, &attributes, DBUS_TYPE_INT32,
        &startPos, DBUS_TYPE_INT32, &endPos, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   // TODO implement
   rv = FALSE;
@@ -116,7 +116,7 @@ impl_setAttributes (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -135,7 +135,7 @@ impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
       (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
        DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_editable_text_copy_text (editable, startPos, endPos);
   return NULL;
@@ -157,7 +157,7 @@ impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
       (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
        DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_editable_text_cut_text (editable, startPos, endPos);
   rv = TRUE;
@@ -166,7 +166,7 @@ impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -187,7 +187,7 @@ impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
       (message, &error, DBUS_TYPE_INT32, &startPos, DBUS_TYPE_INT32, &endPos,
        DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_editable_text_delete_text (editable, startPos, endPos);
   rv = TRUE;
@@ -196,7 +196,7 @@ impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -216,7 +216,7 @@ impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &position, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_editable_text_paste_text (editable, position);
   rv = TRUE;
@@ -225,7 +225,7 @@ impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }

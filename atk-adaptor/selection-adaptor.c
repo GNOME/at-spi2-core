@@ -29,13 +29,13 @@
 
 static dbus_bool_t
 impl_get_nSelectedChildren (DBusMessageIter * iter,
-			    void *user_data)
+                            void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   g_return_val_if_fail (ATK_IS_SELECTION (user_data), FALSE);
   return droute_return_v_int32 (iter,
-				atk_selection_get_selection_count
-				(selection));
+                                atk_selection_get_selection_count
+                                (selection));
 }
 
 /*static char *
@@ -43,13 +43,13 @@ impl_get_nSelectedChildren_str (void *datum)
 {
   g_assert (ATK_IS_HYPERLINK (datum));
   return g_strdup_printf ("%d",
-			  atk_selection_get_selection_count ((AtkSelection *)
-							     datum));
+                          atk_selection_get_selection_count ((AtkSelection *)
+                                                             datum));
 }*/
 
 static DBusMessage *
 impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
-		       void *user_data)
+                       void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
@@ -63,7 +63,7 @@ impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
       (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
        DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atk_object = atk_selection_ref_selection (selection, selectedChildIndex);
   return spi_dbus_return_object (message, atk_object, TRUE);
@@ -71,7 +71,7 @@ impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
 
 static DBusMessage *
 impl_selectChild (DBusConnection * bus, DBusMessage * message,
-		  void *user_data)
+                  void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
@@ -85,21 +85,21 @@ impl_selectChild (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   rv = atk_selection_add_selection (selection, childIndex);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_deselectSelectedChild (DBusConnection * bus, DBusMessage * message,
-			    void *user_data)
+                            void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
@@ -114,21 +114,21 @@ impl_deselectSelectedChild (DBusConnection * bus, DBusMessage * message,
       (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
        DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   rv = atk_selection_remove_selection (selection, selectedChildIndex);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
-		      void *user_data)
+                      void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
@@ -142,14 +142,14 @@ impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &childIndex, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   rv = atk_selection_is_child_selected (selection, childIndex);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -168,14 +168,14 @@ impl_selectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_clearSelection (DBusConnection * bus, DBusMessage * message,
-		     void *user_data)
+                     void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_bool_t rv;
@@ -188,14 +188,14 @@ impl_clearSelection (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_deselectChild (DBusConnection * bus, DBusMessage * message,
-		    void *user_data)
+                    void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   DBusError error;
@@ -211,25 +211,25 @@ impl_deselectChild (DBusConnection * bus, DBusMessage * message,
       (message, &error, DBUS_TYPE_INT32, &selectedChildIndex,
        DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   nselected = atk_selection_get_selection_count (selection);
   for (i = 0; i < nselected; ++i)
     {
       AtkObject *selected_obj = atk_selection_ref_selection (selection, i);
       if (atk_object_get_index_in_parent (selected_obj) == selectedChildIndex)
-	{
-	  g_object_unref (G_OBJECT (selected_obj));
-	  rv = atk_selection_remove_selection (selection, i);
-	  break;
-	}
+        {
+          g_object_unref (G_OBJECT (selected_obj));
+          rv = atk_selection_remove_selection (selection, i);
+          break;
+        }
       g_object_unref (G_OBJECT (selected_obj));
     }
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }

@@ -45,14 +45,14 @@ impl_getLocale (DBusConnection *bus,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_STRING, &lc,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
-			void *user_data)
+                        void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   DBusError error;
@@ -66,7 +66,7 @@ impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_STRING, &attributename, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   atr = atk_document_get_attribute_value (document, attributename);
   if (!atr)
@@ -75,14 +75,14 @@ impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_STRING, &atr,
-				DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
 
 static DBusMessage *
 impl_getAttributes (DBusConnection * bus, DBusMessage * message,
-		    void *user_data)
+                    void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   DBusMessage *reply;
@@ -112,7 +112,7 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_STRING,
-				&retval, n_attributes, DBUS_TYPE_INVALID);
+                                &retval, n_attributes, DBUS_TYPE_INVALID);
     }
   for (i = 0; i < n_attributes; i++)
     g_free (retval[i]);

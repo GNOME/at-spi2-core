@@ -50,7 +50,7 @@ impl_get_description (DBusConnection *bus, DBusMessage *message, void *user_data
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
   desc = atk_action_get_description(action, index);
   if (!desc) desc = "";
@@ -76,7 +76,7 @@ impl_get_name (DBusConnection *bus, DBusMessage *message, void *user_data)
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
   name = atk_action_get_name(action, index);
   if (!name) name = "";
@@ -102,7 +102,7 @@ impl_get_keybinding (DBusConnection *bus, DBusMessage *message, void *user_data)
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
   {
-    return spi_dbus_general_error (message);
+    return droute_invalid_arguments_error (message);
   }
   kb = atk_action_get_keybinding(action, index);
   if (!kb) kb = "";
@@ -167,7 +167,7 @@ static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, voi
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &index, DBUS_TYPE_INVALID))
     {
-      return SPI_DBUS_RETURN_ERROR (message, &error);
+      return droute_invalid_arguments_error (message);
     }
   rv = atk_action_do_action(action, index);
   reply = dbus_message_new_method_return (message);
