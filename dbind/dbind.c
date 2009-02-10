@@ -54,7 +54,7 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
     DBusMessage *msg = NULL, *reply = NULL;
     DBusMessageIter iter;
     DBusError *err, real_err;
-    char *p;
+    const char *p;
 
     if (opt_error)
         err = opt_error;

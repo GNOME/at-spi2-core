@@ -24,7 +24,7 @@ libspiatk_la_SOURCES =		\
 	accessible-register.c	\
 	accessible-register.h	\
 	action-adaptor.c	\
-	adaptor.h		\
+	adaptors.h		\
 	application-adaptor.c	\
 	bridge.c		\
 	bridge.h		\

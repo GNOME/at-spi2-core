@@ -2,6 +2,7 @@
 #include <glib.h>
 #include <string.h>
 #include <droute/droute.h>
+#include <dbind/dbind.h>
 
 #include "dbus/dbus-glib-lowlevel.h"
 
@@ -37,9 +38,7 @@ static gboolean       success = TRUE;
 static DBusMessage *
 impl_null (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-    AnObject    *object = (AnObject *) user_data;
     DBusMessage *reply;
-    DBusError    error;
 
     reply = dbus_message_new_method_return (message);
     return reply;
@@ -107,7 +106,6 @@ impl_setString (DBusConnection *bus, DBusMessage *message, void *user_data)
 static DBusMessage *
 impl_getInterfaceOne (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-    AnObject    *object = (AnObject *) user_data;
     DBusMessage *reply;
     DBusError    error;
     gchar       *itf = TEST_INTERFACE_ONE;
@@ -122,7 +120,6 @@ impl_getInterfaceOne (DBusConnection *bus, DBusMessage *message, void *user_data
 static DBusMessage *
 impl_getInterfaceTwo (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-    AnObject    *object = (AnObject *) user_data;
     DBusMessage *reply;
     DBusError    error;
     gchar       *itf = TEST_INTERFACE_TWO;
@@ -161,8 +158,8 @@ static DRouteProperty test_properties[] = {
 gboolean
 do_tests_func (gpointer data)
 {
-    DBusError  error;
-    gchar     *bus_name;
+    DBusError    error;
+    const gchar *bus_name;
 
     gchar     *expected_string;
     gchar     *result_string;

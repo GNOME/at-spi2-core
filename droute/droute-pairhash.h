@@ -34,7 +34,7 @@ struct _StrPair
 StrPair *str_pair_new     (const gchar *one,
                            const gchar *two);
 
-gint     str_pair_hash    (gconstpointer key);
+guint    str_pair_hash    (gconstpointer key);
 gboolean str_pair_equal   (gconstpointer a,
                            gconstpointer b);
 

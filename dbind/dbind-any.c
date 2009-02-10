@@ -8,15 +8,13 @@
 
 #undef DEBUG
 
-/* Align a value upward to a boundary, expressed as a number of bytes.
-   E.g. align to an 8-byte boundary with argument of 8.  */
-
-/*
+/*  Align a value upward to a boundary, expressed as a number of bytes.
+ *  E.g. align to an 8-byte boundary with argument of 8.
+ *
  *   (this + boundary - 1)
  *          &
  *    ~(boundary - 1)
  */
-
 #define ALIGN_VALUE(this, boundary) \
   (( ((gulong)(this)) + (((gulong)(boundary)) -1)) & (~(((gulong)(boundary))-1)))
 
@@ -51,7 +49,7 @@ warn_braces ()
 static unsigned int
 dbind_find_c_alignment_r (char **type)
 {
-        unsigned int retval = 1;
+    unsigned int retval = 1;
 
     char t = **type;
     (*type)++;
@@ -82,7 +80,7 @@ dbind_find_c_alignment_r (char **type)
     case DBUS_TYPE_SIGNATURE:
     case DBUS_TYPE_ARRAY:
         return DBIND_ALIGNOF_DBIND_POINTER;
-        case DBUS_STRUCT_BEGIN_CHAR:
+    case DBUS_STRUCT_BEGIN_CHAR:
 #if DBIND_ALIGNOF_DBIND_STRUCT > 1
                 retval = MAX (retval, DBIND_ALIGNOF_DBIND_STRUCT);
 #endif
@@ -91,7 +89,7 @@ dbind_find_c_alignment_r (char **type)
                         retval = MAX (retval, elem_align);
         }
         (*type)++;
-                return retval;
+        return retval;
     case DBUS_TYPE_STRUCT:
     case DBUS_TYPE_DICT_ENTRY:
         warn_braces ();
@@ -99,9 +97,9 @@ dbind_find_c_alignment_r (char **type)
     case '\0':
         g_assert_not_reached();
         break;
-        default:
+    default:
                 return 1;
-        }
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -110,23 +108,25 @@ dbind_find_c_alignment_r (char **type)
 static size_t
 dbind_gather_alloc_info_r (char **type)
 {
-    char t = **type;
-    (*type)++;
-    if (t == DBUS_TYPE_ARRAY) {
-        switch (**type) {
-            case DBUS_STRUCT_BEGIN_CHAR:
-                while (**type != DBUS_STRUCT_END_CHAR && **type != '\0') (*type)++;
-                if (**type != '\0') (*type)++;
-                break;
-            case '\0':
-                break;
-            default:
-                (*type)++;
-                break;
-            }
+  char t = **type;
+  (*type)++;
+  if (t == DBUS_TYPE_ARRAY)
+    {
+      switch (**type)
+        {
+          case DBUS_STRUCT_BEGIN_CHAR:
+              while (**type != DBUS_STRUCT_END_CHAR && **type != '\0') (*type)++;
+              if (**type != '\0') (*type)++;
+              break;
+          case '\0':
+              break;
+          default:
+              (*type)++;
+              break;
         }
+    }
 
-        switch (t) {
+  switch (t) {
     case DBUS_TYPE_BYTE:
         return sizeof (char);
     case DBUS_TYPE_BOOLEAN:
@@ -167,15 +167,15 @@ dbind_gather_alloc_info_r (char **type)
     case DBUS_TYPE_STRUCT:
     case DBUS_TYPE_DICT_ENTRY:
         warn_braces ();
-        default:
-                return 0;
-        }
+    default:
+        return 0;
+  }
 }
 
 static size_t
 dbind_gather_alloc_info (char *type)
 {
-    return dbind_gather_alloc_info_r (&type);
+  return dbind_gather_alloc_info_r (&type);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -183,8 +183,6 @@ dbind_gather_alloc_info (char *type)
 static void
 dbind_any_free_r (char **type, void **data)
 {
-    size_t len;
-
 #ifdef DEBUG
     fprintf (stderr, "any free '%c' to %p\n", **type, *data);
 #endif
@@ -208,7 +206,7 @@ dbind_any_free_r (char **type, void **data)
         int i;
         GArray *vals = **(void ***)data;
         size_t elem_size, elem_align;
-        char *saved_child_type, *child_type_string;
+        char *saved_child_type;
 
         (*type)++;
         saved_child_type = *type;

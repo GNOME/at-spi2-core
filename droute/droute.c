@@ -34,7 +34,7 @@
 #if defined DROUTE_DEBUG
     #define _DROUTE_DEBUG(format, args...) g_print (format , ## args)
 #else
-    #define _DROUTE_DEBUG
+    #define _DROUTE_DEBUG(format, args...)
 #endif
 
 struct _DRouteContext
@@ -129,6 +129,8 @@ droute_new (DBusConnection *bus, const char *introspect_dir)
     cnx->bus = bus;
     cnx->registered_paths = g_ptr_array_new ();
     cnx->introspect_dir = g_strdup(introspect_dir);
+
+    return cnx;
 }
 
 void
@@ -162,10 +164,12 @@ droute_add_one (DRouteContext *cnx,
                 const void    *data)
 {
     DRoutePath *new_path;
+    gboolean registered;
 
     new_path = path_new (cnx, (void *) data, NULL);
 
-    if (!dbus_connection_register_object_path (cnx->bus, path, &droute_vtable, new_path))
+    registered = dbus_connection_register_object_path (cnx->bus, path, &droute_vtable, new_path);
+    if (!registered)
         oom();
 
     g_ptr_array_add (cnx->registered_paths, new_path);

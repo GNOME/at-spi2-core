@@ -25,7 +25,7 @@
 /*---------------------------------------------------------------------------*/
 
 static guint
-str_hash (guint32 h, const signed char *p)
+str_hash (guint32 h, const char *p)
 {
   for (p += 1; *p != '\0'; p++)
       h = (h << 5) - h + *p;
@@ -46,15 +46,15 @@ str_pair_new (const gchar *one, const gchar *two)
     return pair;
 }
 
-gint
+guint
 str_pair_hash (gconstpointer key)
 {
     StrPair *pair = (StrPair *) key;
     guint hash = 0;
 
     /*g_return_val_if_fail (pair      != NULL, 0);
-    g_return_val_if_fail (pair->one != NULL, 0);
-    g_return_val_if_fail (pair->two != NULL, 0);
+      g_return_val_if_fail (pair->one != NULL, 0);
+      g_return_val_if_fail (pair->two != NULL, 0);
     */
 
     if (*(pair->two) != '\0')

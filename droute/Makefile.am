@@ -8,7 +8,7 @@ libdroute_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 libdrouteinclude_HEADERS = \
 		droute.h
 		droute-variant.h
-libdrouteincludedir=$(includedir)/dbind-0.1
+libdrouteincludedir=$(includedir)/droute
 
 libdroute_la_SOURCES =\
 		droute.c\
@@ -20,14 +20,12 @@ libdroute_la_SOURCES =\
 
 TESTS = droute-test
 
-droute_test_CFLAGS = $(DBUS_GLIB_CFLAGS) \
-                     -I$(top_builddir)
-
 check_PROGRAMS = droute-test
 droute_test_SOURCES  = droute-test.c
-droute_test_CPPFLAGS = $(DBUS_GLIB_CFLAGS) \
-		       -I$(top_builddir)\
-		       -DTEST_INTROSPECTION_DIRECTORY=\"$(top_srcdir)/droute\"
+droute_test_CFLAGS = $(DBUS_GLIB_CFLAGS) \
+		     -I$(top_builddir)\
+		     -I$(top_srcdir)\
+		     -DTEST_INTROSPECTION_DIRECTORY=\"$(top_srcdir)/droute\"
 
 droute_test_LDFLAGS  = $(top_builddir)/dbind/libdbind.la\
 		       libdroute.la\

@@ -120,6 +120,7 @@ assign_reference(void)
   /* Reference of 0 not allowed as used as direct key in hash table */
   if (counter == 0)
     counter++;
+  return counter;
 }
 
 /*
