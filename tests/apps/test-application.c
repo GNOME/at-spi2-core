@@ -191,7 +191,6 @@ message_handler (DBusConnection *bus, DBusMessage *message, void *user_data)
       dbus_connection_flush(bus);
       dbus_connection_unref(bus);
       g_main_loop_quit(mainloop);
-      abort();
     }
   return result;
 }
