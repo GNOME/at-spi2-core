@@ -176,8 +176,6 @@ LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_CONFIG_FILES([Makefile
-		 libspi-1.0.pc
-		 libspi-1.0-uninstalled.pc
 		 libloginhelper-1.0.pc
 		 cspi-1.0.pc
 		 cspi-1.0-uninstalled.pc

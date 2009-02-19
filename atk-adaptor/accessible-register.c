@@ -270,6 +270,8 @@ register_subtree (AtkObject *accessible)
   GQueue    *traversal;
   GQueue    *emit_update;
 
+  g_return_if_fail (ATK_IS_OBJECT (accessible));
+
   traversal = g_queue_new ();
   emit_update = g_queue_new ();
 

@@ -238,9 +238,13 @@ adaptor_init (gint *argc, gchar **argv[])
   GError *err = NULL;
   DBusError error;
   DBusConnection *bus;
+  AtkObject *root;
   gchar *introspection_directory;
 
   DRoutePath *treepath, *accpath;
+
+  root = atk_get_root ();
+  g_return_val_if_fail (root, 0);
 
   /* Parse command line options */
   opt = g_option_context_new(NULL);
@@ -252,9 +256,7 @@ adaptor_init (gint *argc, gchar **argv[])
   /* Allocate global data and do ATK initializations */
   atk_adaptor_app_data = g_new0 (SpiAppData, 1);
   atk_misc = atk_misc_get_instance ();
-  atk_adaptor_app_data->root = atk_get_root();
-  if (!atk_adaptor_app_data->root)
-      g_warning("AT-SPI Root accessible is NULL");
+  atk_adaptor_app_data->root = root;
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
