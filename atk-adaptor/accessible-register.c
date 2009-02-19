@@ -77,7 +77,7 @@
 
 static GHashTable *ref2ptr = NULL; /* Used for converting a D-Bus path (Reference) to the object pointer */
 
-static guint counter = 1;
+static guint reference_counter = 0;
 
 static GStaticRecMutex registration_mutex = G_STATIC_REC_MUTEX_INIT;
 
@@ -116,11 +116,11 @@ recursion_check_unset ()
 static guint
 assign_reference(void)
 {
-  counter++;
+  reference_counter++;
   /* Reference of 0 not allowed as used as direct key in hash table */
-  if (counter == 0)
-    counter++;
-  return counter;
+  if (reference_counter == 0)
+    reference_counter++;
+  return reference_counter;
 }
 
 /*
@@ -231,6 +231,29 @@ has_manages_descendants (AtkObject *accessible)
    return result;
 }
 
+static void
+append_children (AtkObject *accessible, GQueue *traversal)
+{
+  AtkObject *current;
+  guint i;
+
+  for (i =0; i < atk_object_get_n_accessible_children (accessible); i++)
+    {
+      current = atk_object_ref_accessible_child (accessible, i);
+#ifdef SPI_ATK_DEBUG
+      non_owned_accessible (current);
+#endif
+      if (!has_manages_descendants (current))
+        {
+          g_queue_push_tail (traversal, current);
+        }
+      else
+        {
+          g_object_unref (G_OBJECT (current));
+        }
+    }
+}
+
 /*
  * Registers a subtree of accessible objects
  * rooted at the accessible object provided.
@@ -243,88 +266,41 @@ has_manages_descendants (AtkObject *accessible)
 void
 register_subtree (AtkObject *accessible)
 {
-  AtkObject *current, *tmp;
-  GQueue    *stack;
-  guint      i;
-  gboolean   recurse;
+  AtkObject *current;
+  GQueue    *traversal;
+  GQueue    *emit_update;
 
+  traversal = g_queue_new ();
+  emit_update = g_queue_new ();
 
-  current = g_object_ref (accessible);
-  if (has_manages_descendants (current))
+  g_object_ref (accessible);
+  g_queue_push_tail (traversal, accessible);
+
+  while (!g_queue_is_empty (traversal))
     {
-      g_object_unref (current);
-      return;
-    }
-
-  stack = g_queue_new ();
-
-  register_accessible (current);
-  g_queue_push_head (stack, GINT_TO_POINTER (0));
-
-  /*
-   * The index held on the stack is the next child node
-   * that needs processing at the corresponding level in the tree.
-   */
-  while (!g_queue_is_empty (stack))
-    {
-      /* Find the next child node that needs processing */
-
-      i = GPOINTER_TO_INT(g_queue_peek_head (stack));
-      recurse = FALSE;
-
-      while (i < atk_object_get_n_accessible_children (current) &&
-             recurse == FALSE)
+      current = g_queue_pop_head (traversal);
+      g_queue_push_tail (emit_update, current);
+      if (!object_to_ref (current))
         {
-          tmp = atk_object_ref_accessible_child (current, i);
-
-#ifdef SPI_ATK_DEBUG
-          non_owned_accessible (tmp);
-#endif
-
-          if (object_to_ref (tmp))
-            {
-              /* If its already registered, just update */
-              spi_emit_cache_update (tmp, atk_adaptor_app_data->bus);
-            }
-          else if (has_manages_descendants (tmp))
-            {
-              /* If it has manages descendants, just register and update */
-              register_accessible (tmp);
-              spi_emit_cache_update (tmp, atk_adaptor_app_data->bus);
-            }
-          else
-            {
-              recurse = TRUE;
-            }
-
-          if (!recurse)
-            {
-              g_object_unref (G_OBJECT (tmp));
-            }
-
-          i++;
-        }
-
-      if (recurse)
-        {
-          /* Push onto stack */
-          current = tmp;
           register_accessible (current);
-
-          g_queue_peek_head_link (stack)->data = GINT_TO_POINTER (i);
-          g_queue_push_head (stack, GINT_TO_POINTER (0));
-        }
-      else
-        {
-          /* Pop from stack */
-          spi_emit_cache_update (current, atk_adaptor_app_data->bus);
-          tmp = current;
-          current = atk_object_get_parent (current);
-          g_object_unref (G_OBJECT (tmp));
-          g_queue_pop_head (stack);
+#ifdef SPI_ATK_DEBUG
+          g_debug ("REG  - %s - %d - %s", atk_object_get_name     (current),
+                                          atk_object_get_role     (current),
+                                          atk_dbus_object_to_path (current));
+#endif
+          append_children (current, traversal);
         }
     }
-    g_queue_free (stack);
+
+  while (!g_queue_is_empty (emit_update))
+    {
+      current = g_queue_pop_head (emit_update);
+      spi_emit_cache_update (current, atk_adaptor_app_data->bus);
+      g_object_unref (G_OBJECT (current));
+    }
+
+  g_queue_free (traversal);
+  g_queue_free (emit_update);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -439,7 +415,10 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
 #ifdef SPI_ATK_DEBUG
       if (recursion_check_and_set ())
           g_warning ("AT-SPI: Recursive use of registration module");
+
+      g_debug ("AT-SPI: Tree update listener");
 #endif
+
 
       values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
       pname = values[0].property_name;
@@ -487,6 +466,8 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
 #ifdef SPI_ATK_DEBUG
       if (recursion_check_and_set ())
           g_warning ("AT-SPI: Recursive use of registration module");
+
+      g_debug ("AT-SPI: Tree update children listener");
 #endif
 
       if (signal_hint->detail)
@@ -531,6 +512,8 @@ atk_dbus_initialize (AtkObject *root)
 #ifdef SPI_ATK_DEBUG
   if (g_thread_supported ())
       g_message ("AT-SPI: Threads enabled");
+
+  g_debug ("AT-SPI: Initial Atk tree regisration");
 #endif
 
   register_subtree (root);
