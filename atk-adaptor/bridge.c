@@ -253,6 +253,8 @@ adaptor_init (gint *argc, gchar **argv[])
   atk_adaptor_app_data = g_new0 (SpiAppData, 1);
   atk_misc = atk_misc_get_instance ();
   atk_adaptor_app_data->root = atk_get_root();
+  if (!atk_adaptor_app_data->root)
+      g_warning("AT-SPI Root accessible is NULL");
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);

@@ -41,7 +41,7 @@ impl_get_nSelectedChildren (DBusMessageIter * iter,
 /*static char *
 impl_get_nSelectedChildren_str (void *datum)
 {
-  g_assert (ATK_IS_HYPERLINK (datum));
+  g_return_val_if_fail (ATK_IS_SELECTION (user_data), FALSE);
   return g_strdup_printf ("%d",
                           atk_selection_get_selection_count ((AtkSelection *)
                                                              datum));

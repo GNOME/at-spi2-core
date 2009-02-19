@@ -432,7 +432,7 @@ impl_getRole (DBusConnection *bus, DBusMessage *message, void *user_data)
 static char *
 impl_get_role_str (void *datum)
 {
-  g_assert (ATK_IS_OBJECT (datum));
+  g_return_val_if_fail (ATK_IS_OBJECT (datum), g_strdup (""));
   return g_strdup_printf ("%d",
 			  spi_accessible_role_from_atk_role
 			  (atk_object_get_role ((AtkObject *) datum)));

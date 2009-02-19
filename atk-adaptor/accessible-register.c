@@ -153,7 +153,7 @@ static void
 deregister_accessible (gpointer data, GObject *accessible)
 {
   guint ref;
-  g_assert (ATK_IS_OBJECT (accessible));
+  g_return_if_fail (ATK_IS_OBJECT (accessible));
 
   ref = object_to_ref (ATK_OBJECT(accessible));
   if (ref != 0)
@@ -169,7 +169,7 @@ static void
 register_accessible (AtkObject *accessible)
 {
   guint ref;
-  g_assert(ATK_IS_OBJECT(accessible));
+  g_return_if_fail (ATK_IS_OBJECT(accessible));
 
   ref = assign_reference();
 
@@ -313,7 +313,7 @@ static void
 update_accessible (AtkObject *accessible)
 {
   guint  ref = 0;
-  g_assert(ATK_IS_OBJECT(accessible));
+  g_return_if_fail (ATK_IS_OBJECT(accessible));
 
   ref = object_to_ref (accessible);
   if (ref)
@@ -339,7 +339,7 @@ atk_dbus_path_to_object (const char *path)
   guint index;
   void *data;
 
-  g_assert (path);
+  g_return_val_if_fail (path, NULL);
 
   if (strncmp(path, SPI_ATK_OBJECT_PATH_PREFIX, SPI_ATK_PATH_PREFIX_LENGTH) != 0)
     return NULL;
@@ -408,7 +408,7 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
    * have their signals processed.
    */
   accessible = g_value_get_object (&param_values[0]);
-  g_assert (ATK_IS_OBJECT (accessible));
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), TRUE);
 
   if (object_to_ref (accessible))
     {
@@ -459,7 +459,7 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
    * have their signals processed.
    */
   accessible = g_value_get_object (&param_values[0]);
-  g_assert (ATK_IS_OBJECT (accessible));
+  g_return_val_if_fail (ATK_IS_OBJECT (accessible), TRUE);
 
   if (object_to_ref (accessible))
     {
