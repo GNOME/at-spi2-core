@@ -371,13 +371,9 @@ spi_dec_clear_unlatch_pending (SpiDEController *controller)
   priv->xkb_latch_mask = 0;
 }
 
-static void emit(SpiDEController *controller, const char *name, int first_type, ...)
+static void emit(SpiDEController *controller, const char *interface, const char *name, const char *detail, dbus_uint32_t d1, dbus_uint32_t d2)
 {
-  va_list arg;
-
-  va_start(arg, first_type);
-  spi_dbus_emit_valist(controller->bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
-  va_end(arg);
+  spi_dbus_emit_signal(controller->bus, SPI_DBUS_PATH_DEC, interface, name, detail, d1, d2, NULL, NULL);
 }
 
 static gboolean
@@ -1839,7 +1835,20 @@ impl_register_keystroke_listener (DBusConnection *bus,
   dbus_message_iter_next(&iter);
   dbus_message_iter_get_basic(&iter, &mask);
   dbus_message_iter_next(&iter);
-  dbus_message_iter_get_basic(&iter, &type);
+  if (!strcmp (dbus_message_iter_get_signature (&iter), "u"))
+    dbus_message_iter_get_basic(&iter, &type);
+  else
+  {
+    dbus_message_iter_recurse(&iter, &iter_array);
+    while (dbus_message_iter_get_arg_type(&iter_array) != DBUS_TYPE_INVALID)
+    {
+      dbus_uint32_t t;
+      dbus_message_iter_get_basic (&iter_array, &t);
+      type |= (1 << t);
+      dbus_message_iter_next (&iter_array);
+    }
+    dbus_message_iter_next (&iter_array);
+  }
   dbus_message_iter_next(&iter);
   mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
   if (mode)
