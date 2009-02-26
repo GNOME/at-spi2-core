@@ -68,7 +68,7 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
         goto out;
 
     p = arg_types;
-    dbus_message_iter_init (msg, &iter);
+    dbus_message_iter_init_append (msg, &iter);
     dbind_any_marshal_va (&iter, &p, args);
 
     reply = send_and_allow_reentry (cnx, msg, err);
