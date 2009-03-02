@@ -2,14 +2,16 @@
 # Copyright © 2003, 2004, 2006, 2007, 2009 atk
 # This file is distributed under the same license as the atk package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2003, 2004, 2006, 2007, 2009.
+# Rui Batista <ruiandrebatista@gmail.com>, 2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.26\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-13 21:39+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&component=general\n"
+"POT-Creation-Date: 2009-02-13 21:35+0000\n"
 "PO-Revision-Date: 2009-02-13 21:40+0000\n"
-"Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
+"Last-Translator: Rui Batista <ruiandrebatista@gmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,23 +31,23 @@ msgstr "Número de Âncoras"
 
 #: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr "O número de âncoras associadas como o objecto AtkHyperlink"
+msgstr "O número de âncoras associadas com o objecto AtkHyperlink"
 
 #: ../atk/atkhyperlink.c:119
 msgid "End index"
-msgstr "Final de índice"
+msgstr "Índice final"
 
 #: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr "O final do índice do objecto AtkHyperlink"
+msgstr "O índice final do objecto AtkHyperlink"
 
 #: ../atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr "Início de índice"
+msgstr "Índice inicial"
 
 #: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr "O início do índice do objecto AtkHyperlink"
+msgstr "O Índice inicial do objecto AtkHyperlink"
 
 #: ../atk/atkobject.c:74
 msgid "invalid"
@@ -77,11 +79,11 @@ msgstr "tela"
 
 #: ../atk/atkobject.c:81
 msgid "check box"
-msgstr "caixa de selecção"
+msgstr "caixa de verificação"
 
 #: ../atk/atkobject.c:82
 msgid "check menu item"
-msgstr "item de menu de selecção"
+msgstr "item de menu de verificação"
 
 #: ../atk/atkobject.c:83
 msgid "color chooser"
@@ -93,7 +95,7 @@ msgstr "cabeçalho de coluna"
 
 #: ../atk/atkobject.c:85
 msgid "combo box"
-msgstr "caixa de selecção única"
+msgstr "caixa de combinação"
 
 #: ../atk/atkobject.c:86
 msgid "dateeditor"
@@ -146,7 +148,7 @@ msgstr "painel transparente"
 
 #: ../atk/atkobject.c:99
 msgid "html container"
-msgstr "contentor html"
+msgstr "contentor de html"
 
 #: ../atk/atkobject.c:100
 msgid "icon"
@@ -222,11 +224,11 @@ msgstr "botão de pressão"
 
 #: ../atk/atkobject.c:118
 msgid "radio button"
-msgstr "botão exclusivo"
+msgstr "botão de opção"
 
 #: ../atk/atkobject.c:119
 msgid "radio menu item"
-msgstr "item de menu de botão exclusivo"
+msgstr "item de menu de opção"
 
 #: ../atk/atkobject.c:120
 msgid "root pane"
@@ -238,11 +240,11 @@ msgstr "cabeçalho de linha"
 
 #: ../atk/atkobject.c:122
 msgid "scroll bar"
-msgstr "barra de rolamento"
+msgstr "barra de deslocamento"
 
 #: ../atk/atkobject.c:123
 msgid "scroll pane"
-msgstr "painel de rolamento"
+msgstr "painel de deslocamento"
 
 #: ../atk/atkobject.c:124
 msgid "separator"
@@ -262,7 +264,7 @@ msgstr "botão giratório"
 
 #: ../atk/atkobject.c:128
 msgid "statusbar"
-msgstr "barra de estados"
+msgstr "barra de estado"
 
 #: ../atk/atkobject.c:129
 msgid "table"
@@ -440,7 +442,7 @@ msgstr "Papel Acessível"
 
 #: ../atk/atkobject.c:519
 msgid "The accessible role of this object"
-msgstr "O papel acessível para este objecto"
+msgstr "O papel acessível deste objecto"
 
 #: ../atk/atkobject.c:527
 msgid "Accessible Layer"
