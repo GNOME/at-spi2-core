@@ -151,6 +151,78 @@ dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_D
 }
 
 /*
+ * This is a rather annoying function needed to replace
+ * NULL values of strings with the empty string. Null string
+ * values can be created by the atk_object_get_name or text selection
+ */
+static const void *
+provide_defaults(const gint type,
+		 const void *val)
+{
+  switch (type)
+    {
+      case DBUS_TYPE_STRING:
+      case DBUS_TYPE_OBJECT_PATH:
+	   if (!val)
+	      return "";
+	   else
+	      return val;
+      default:
+	   return val;
+    }
+}
+
+void 
+spi_dbus_emit_signal(DBusConnection *bus, const char *path,
+     const char *klass,
+     const char *major,
+     const char *minor,
+     dbus_int32_t detail1,
+     dbus_int32_t detail2,
+     const char *type,
+     const void *val)
+{
+  gchar *cname, *t;
+  DBusMessage *sig;
+  DBusMessageIter iter, sub;
+  if (!klass) klass = "";
+  if (!major) major = "";
+  if (!minor) minor = "";
+  if (!type) type = "u";
+
+  /*
+   * This is very annoying, but as '-' isn't a legal signal
+   * name in D-Bus (Why not??!?) The names need converting
+   * on this side, and again on the client side.
+   */
+  cname = g_strdup(major);
+  while ((t = strchr(cname, '-')) != NULL) *t = '_';
+
+  sig = dbus_message_new_signal(path, klass, cname);
+  g_free(cname);
+
+  dbus_message_iter_init_append(sig, &iter);
+
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
+
+  dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, type, &sub);
+  /*
+   * I need to convert the string signature to an integer type signature.
+   * DBUS_TYPE_INT32 is defined as 'i' whereas the string is "i".
+   * I should just be able to cast the first character of the string to an
+   * integer.
+   */
+  val = provide_defaults((int) *type, val);
+  dbus_message_iter_append_basic(&sub, (int) *type, &val);
+  dbus_message_iter_close_container(&iter, &sub);
+
+  dbus_connection_send(bus, sig, NULL);
+  dbus_message_unref(sig);
+}
+
+/*
 dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error)
 {
   DBusMessage *message, *reply;

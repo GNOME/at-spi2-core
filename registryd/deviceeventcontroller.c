@@ -1855,7 +1855,20 @@ impl_register_keystroke_listener (DBusConnection *bus,
   dbus_message_iter_next(&iter);
   dbus_message_iter_get_basic(&iter, &mask);
   dbus_message_iter_next(&iter);
-  dbus_message_iter_get_basic(&iter, &type);
+  if (!strcmp (dbus_message_iter_get_signature (&iter), "u"))
+    dbus_message_iter_get_basic(&iter, &type);
+  else
+  {
+    dbus_message_iter_recurse(&iter, &iter_array);
+    while (dbus_message_iter_get_arg_type(&iter_array) != DBUS_TYPE_INVALID)
+    {
+      dbus_uint32_t t;
+      dbus_message_iter_get_basic (&iter_array, &t);
+      type |= (1 << t);
+      dbus_message_iter_next (&iter_array);
+    }
+    dbus_message_iter_next (&iter_array);
+  }
   dbus_message_iter_next(&iter);
   mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
   if (mode)

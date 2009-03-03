@@ -67,6 +67,7 @@ dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
 dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e);
 dbus_bool_t spi_dbus_demarshall_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e);
 dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error);
+void spi_dbus_emit_signal(DBusConnection *bus, const char *path, const char *klass, const char *major, const char *minor, dbus_int32_t detail1, dbus_int32_t detail2, const char *type, const void *val);
 /*
 void spi_dbus_add_disconnect_match (DBusConnection *bus, const char *name);
 void spi_dbus_remove_disconnect_match (DBusConnection *bus, const char *name);

@@ -149,28 +149,6 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
  * the AT-SPI event.
  */
 
-/*
- * This is a rather annoying function needed to replace
- * NULL values of strings with the empty string. Null string
- * values can be created by the atk_object_get_name or text selection
- */
-static const void *
-provide_defaults(const gint type,
-		 const void *val)
-{
-  switch (type)
-    {
-      case DBUS_TYPE_STRING:
-      case DBUS_TYPE_OBJECT_PATH:
-	   if (!val)
-	      return "";
-	   else
-	      return val;
-      default:
-	   return val;
-    }
-}
-
 static void 
 emit(AtkObject  *accessible,
      const char *klass,
@@ -181,9 +159,7 @@ emit(AtkObject  *accessible,
      const char *type,
      const void *val)
 {
-  DBusMessage *sig;
-  DBusMessageIter iter, sub;
-  gchar *path, *cname, *t;
+  gchar *path;
 
   path = atk_dbus_object_to_path (accessible);
 
@@ -194,41 +170,8 @@ emit(AtkObject  *accessible,
   if (path == NULL)
       return;
 
-  if (!klass) klass = "";
-  if (!major) major = "";
-  if (!minor) minor = "";
-
-  /*
-   * This is very annoying, but as '-' isn't a legal signal
-   * name in D-Bus (Why not??!?) The names need converting
-   * on this side, and again on the client side.
-   */
-  cname = g_strdup(major);
-  while ((t = strchr(cname, '-')) != NULL) *t = '_';
-
-  sig = dbus_message_new_signal(path, klass, cname);
-  g_free(cname);
+  spi_dbus_emit_signal (atk_adaptor_app_data->bus, path, klass, major, minor, detail1, detail2, type, val);
   g_free(path);
-
-  dbus_message_iter_init_append(sig, &iter);
-
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
-
-  dbus_message_iter_open_container(&iter, DBUS_TYPE_VARIANT, type, &sub);
-  /*
-   * I need to convert the string signature to an integer type signature.
-   * DBUS_TYPE_INT32 is defined as 'i' whereas the string is "i".
-   * I should just be able to cast the first character of the string to an
-   * integer.
-   */
-  val = provide_defaults((int) *type, val);
-  dbus_message_iter_append_basic(&sub, (int) *type, &val);
-  dbus_message_iter_close_container(&iter, &sub);
-
-  dbus_connection_send(atk_adaptor_app_data->bus, sig, NULL);
-  dbus_message_unref(sig);
 }
 
 /*---------------------------------------------------------------------------*/
