@@ -20,11 +20,15 @@ import interfaces
 
 __all__ = [
            "AccessibleObjectNoLongerExists",
+           "AccessibleObjectNotAvailable",
            "Enum",
            "BaseProxy",
           ]
 
 class AccessibleObjectNoLongerExists(Exception):
+        pass
+
+class AccessibleObjectNotAvailable(Exception):
         pass
 
 #------------------------------------------------------------------------------

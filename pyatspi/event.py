@@ -14,6 +14,7 @@
 
 import interfaces
 from accessible import BoundingBox
+from base import AccessibleObjectNotAvailable
 
 __all__ = [
                 "Event",
@@ -27,6 +28,7 @@ _interface_to_klass = {
                 "org.freedesktop.atspi.Event.Object":"object",
                 "org.freedesktop.atspi.Event.Window":"window",
                 "org.freedesktop.atspi.Event.Mouse":"mouse",
+                "org.freedesktop.atspi.Event.Keyboard":"keyboard",
                 "org.freedesktop.atspi.Event.Terminal":"terminal",
                 "org.freedesktop.atspi.Event.Document":"document",
                 "org.freedesktop.atspi.Event.Focus":"focus",
@@ -36,6 +38,7 @@ _klass_to_interface = {
                 "object":"org.freedesktop.atspi.Event.Object",
                 "window":"org.freedesktop.atspi.Event.Window",
                 "mouse":"org.freedesktop.atspi.Event.Mouse",
+                "keyboard":"org.freedesktop.atspi.Event.Keyboard",
                 "terminal":"org.freedesktop.atspi.Event.Terminal",
                 "document":"org.freedesktop.atspi.Event.Document",
                 "focus":"org.freedesktop.atspi.Event.Focus",
@@ -134,12 +137,12 @@ def event_type_to_signal_reciever(bus, cache, event_handler, event_type):
         if event_type.minor:
                 kwargs['arg0'] = event_type.minor
 
-        def handler_wrapper(minor, detail1, detail2, any_data, 
+        def handler_wrapper(minor, detail1, detail2, any_data,
                             sender=None, interface=None, member=None, path=None):
                 event = Event(cache, path, sender, interface, member, (minor, detail1, detail2, any_data))
                 return event_handler(event)
 
-        return bus.add_signal_receiver(handler_wrapper, **kwargs) 
+        return bus.add_signal_receiver(handler_wrapper, **kwargs)
 
 #------------------------------------------------------------------------------
 
@@ -219,15 +222,21 @@ class Event(object):
         @property
         def host_application(self):
                 if not self._application:
-                        return self._cache.create_application(self._source_application)
+                        try:
+                                return self._cache.create_application(self._source_application)
+                        except AccessibleObjectNotAvailable:
+                                pass
                 return self._application
 
         @property
         def source(self):
                 if not self._source:
-                        self._source = self._cache.create_accessible(self._source_application,
-                                                                     self._source_path,
-                                                                     interfaces.ATSPI_ACCESSIBLE)
+                        try:
+                                self._source = self._cache.create_accessible(self._source_application,
+                                                                             self._source_path,
+                                                                             interfaces.ATSPI_ACCESSIBLE)
+                        except AccessibleObjectNotAvailable:
+                                pass
                 return self._source
 
         @property

@@ -18,6 +18,7 @@ from accessiblecache import AccessibleCache
 from desktop import Desktop
 from factory import accessible_factory
 from event import Event as _Event
+from base import AccessibleObjectNotAvailable
 
 from interfaces import *
 
@@ -66,7 +67,10 @@ class TestApplicationCache(object):
                 available at the given D-Bus name.
                 """
                 cls = accessible_factory.get_accessible_class(ATSPI_APPLICATION)
-                return cls(app_name, self.application_cache[app_name].root, self, ATSPI_APPLICATION)
+                try:
+                        return cls(app_name, self.application_cache[app_name].root, self, ATSPI_APPLICATION)
+                except KeyError:
+                        raise AccessibleObjectNotAvailable ()
 
         def create_accessible(self, app_name, acc_path, interface, dbus_object=None):
                 """
@@ -88,7 +92,10 @@ class TestApplicationCache(object):
                         return Desktop(self)
                 else:
                         cls = accessible_factory.get_accessible_class(interface)
-                        return cls(app_name, acc_path, self, interface, dbus_object=dbus_object)
+                        try:
+                                return cls(app_name, acc_path, self, interface, dbus_object=dbus_object)
+                        except KeyError:
+                                raise AccessibleObjectNotAvailable ()
 
         @property
         def connection(self):
@@ -182,7 +189,10 @@ class ApplicationCache(object):
                         return Desktop(self)
                 else:
                         cls = accessible_factory.get_accessible_class(ATSPI_APPLICATION)
-                        return cls(app_name, self.application_cache[app_name].root, self, ATSPI_APPLICATION)
+                        try:
+                                return cls(app_name, self.application_cache[app_name].root, self, ATSPI_APPLICATION)
+                        except KeyError:
+                                raise AccessibleObjectNotAvailable ()
 
         def create_accessible(self, app_name, acc_path, interface, dbus_object=None):
                 """
@@ -203,7 +213,10 @@ class ApplicationCache(object):
                         return Desktop(self)
                 else:
                         cls = accessible_factory.get_accessible_class(interface)
-                        return cls(app_name, acc_path, self, interface, dbus_object=dbus_object)
+                        try:
+                                return cls(app_name, acc_path, self, interface, dbus_object=dbus_object)
+                        except KeyError:
+                                raise AccessibleObjectNotAvailable ()
 
         @property
         def connection(self):

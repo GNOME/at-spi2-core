@@ -100,8 +100,8 @@ class _Registry(object):
                 self._children_changed_type = _EventType("object:children-changed")
                 self._children_changed_listeners = {}
 
-                self.queue = Queue()
                 self.clients = {}
+                self.deviceClients = {}
 
         def __call__(self):
                 """
@@ -162,6 +162,8 @@ class _Registry(object):
                 """
                 return _Desktop(self._app_cache)
 
+        # -------------------------------------------------------------------------------
+
         def _callClients(self, register, event):
                 for client in register.keys():
                         client(event)
@@ -216,6 +218,8 @@ class _Registry(object):
 
                 if registered == []:
                         del(register[client])
+
+        # -------------------------------------------------------------------------------
 
         def registerEventListener(self, client, *names):
                 """
@@ -281,9 +285,8 @@ class _Registry(object):
 
                 for name in names:
                         remove_type = _EventType(name)
-
-                        for i in range(0, len(registered) - 1):
-                                (type_name, signal_match) = registered[i]
+                        for i in range (0, len(registered)):
+                                type_name, signal_match = registered[i]
                                 registered_type = _EventType(type_name)
 
                                 if remove_type.is_subtype(registered_type):
@@ -302,6 +305,8 @@ class _Registry(object):
                 self._deregisterFake(self._children_changed_type, self._children_changed_listeners, client, *names)
 
                 return missing
+
+        # -------------------------------------------------------------------------------
 
         def registerKeystrokeListener(self,
                                       client,
@@ -341,13 +346,13 @@ class _Registry(object):
                 """
                 try:
                         # see if we already have an observer for this client
-                        ob = self.clients[client]
+                        ob = self.deviceClients[client]
                 except KeyError:
                         # create a new device observer for this client
                         ob = KeyboardDeviceEventListener(self, synchronous, preemptive, global_)
                         # store the observer to client mapping, and the inverse
-                        self.clients[ob] = client
-                        self.clients[client] = ob
+                        self.deviceClients[ob] = client
+                        self.deviceClients[client] = ob
                 if mask is None:
                         # None means all modifier combinations
                         mask = utils.allModifiers()
@@ -380,12 +385,61 @@ class _Registry(object):
                 @raise KeyError: When the client isn't already registered for events
                 """
                 # see if we already have an observer for this client
-                ob = self.clients[client]
+                ob = self.deviceClients[client]
                 if mask is None:
                         # None means all modifier combinations
                         mask = utils.allModifiers()
                 # register for new keystrokes on the observer
                 ob.unregister(self.dev, key_set, mask, kind)
+
+        def handleDeviceEvent(self, event, ob):
+                """
+                Dispatches L{event.DeviceEvent}s to registered clients. Clients are called
+                in the order they were registered for the given AT-SPI event. If any
+                client returns True, callbacks cease for the event for clients of this registry 
+                instance. Clients of other registry instances and clients in other processes may 
+                be affected depending on the values of synchronous and preemptive used when invoking
+                L{registerKeystrokeListener}. 
+
+                @note: Asynchronous dispatch of device events is not supported.
+
+                @param event: AT-SPI device event
+                @type event: L{event.DeviceEvent}
+                @param ob: Observer that received the event
+                @type ob: L{KeyboardDeviceEventListener}
+
+                @return: Should the event be consumed (True) or allowed to pass on to other
+                        AT-SPI observers (False)?
+                @rtype: boolean
+                """
+                try:
+                        # try to get the client registered for this event type
+                        client = self.clients[ob]
+                except KeyError:
+                        # client may have unregistered recently, ignore event
+                        return False
+                # make the call to the client
+                try:
+                        return client(event) or event.consume
+                except Exception:
+                        # print the exception, but don't let it stop notification
+                        traceback.print_exc()
+
+        # -------------------------------------------------------------------------------
+
+        def pumpQueuedEvents (self):
+                """
+                No Longer needed all application events are asyncronous.
+                """
+                pass
+
+        def flushEvents (self):
+                """
+                No Longer needed all application events are asyncronous.
+                """
+                pass
+
+        # -------------------------------------------------------------------------------
 
         def generateKeyboardEvent(self, keycode, keysym, kind):
                 """
@@ -421,123 +475,3 @@ class _Registry(object):
                 @type name: string
                 """
                 self.dev.generateMouseEvent(x, y, name)
-
-        def handleDeviceEvent(self, event, ob):
-                """
-                Dispatches L{event.DeviceEvent}s to registered clients. Clients are called
-                in the order they were registered for the given AT-SPI event. If any
-                client returns True, callbacks cease for the event for clients of this registry 
-                instance. Clients of other registry instances and clients in other processes may 
-                be affected depending on the values of synchronous and preemptive used when invoking
-                L{registerKeystrokeListener}. 
-
-                @note: Asynchronous dispatch of device events is not supported.
-
-                @param event: AT-SPI device event
-                @type event: L{event.DeviceEvent}
-                @param ob: Observer that received the event
-                @type ob: L{KeyboardDeviceEventListener}
-
-                @return: Should the event be consumed (True) or allowed to pass on to other
-                        AT-SPI observers (False)?
-                @rtype: boolean
-                """
-                try:
-                        # try to get the client registered for this event type
-                        client = self.clients[ob]
-                except KeyError:
-                        # client may have unregistered recently, ignore event
-                        return False
-                # make the call to the client
-                try:
-                        return client(event) or event.consume
-                except Exception:
-                        # print the exception, but don't let it stop notification
-                        traceback.print_exc()
- 
-        def handleEvent(self, event):
-                """
-                Handles an AT-SPI event by either queuing it for later dispatch when the
-                L{Registry.async} flag is set, or dispatching it immediately.
-
-                @param event: AT-SPI event
-                @type event: L{event.Event}
-                """
-                if self.async:
-                        # queue for now
-                        self.queue.put_nowait(event)
-                else:
-                        # dispatch immediately
-                        self._dispatchEvent(event)
-
-        def _dispatchEvent(self, event):
-                """
-                Dispatches L{event.Event}s to registered clients. Clients are called in
-                the order they were registered for the given AT-SPI event. If any client
-                returns True, callbacks cease for the event for clients of this registry 
-                instance. Clients of other registry instances and clients in other processes 
-                are unaffected.
-
-                @param event: AT-SPI event
-                @type event: L{event.Event}
-                """
-                et = event.type
-                try:
-                        # try to get the client registered for this event type
-                        clients = self.clients[et.name]
-                except KeyError:
-                        try:
-                                # we may not have registered for the complete subtree of events
-                                # if our tree does not list all of a certain type (e.g.
-                                # object:state-changed:*); try again with klass and major only
-                                if et.detail is not None:
-                                        # Strip the 'detail' field.
-                                        clients = self.clients['%s:%s:%s' % (et.klass, et.major, et.minor)]
-                                elif et.minor is not None:
-                                        # The event could possibly be object:state-changed:*.
-                                        clients = self.clients['%s:%s' % (et.klass, et.major)]
-                        except KeyError:
-                                # client may have unregistered recently, ignore event
-                                return
-                # make the call to each client
-                consume = False
-                for client in clients:
-                        try:
-                                consume = client(event) or False
-                        except Exception:
-                                # print the exception, but don't let it stop notification
-                                traceback.print_exc()
-                        if consume or event.consume:
-                                # don't allow further processing if a client returns True
-                                break
-
-        def flushEvents(self):
-                """
-                Flushes the event queue by destroying it and recreating it.
-                """
-                self.queue = Queue()
-
-        def pumpQueuedEvents(self, num=-1):
-                """
-                Provides asynch processing of events in the queue by executeing them with 
-                _dispatchEvent() (as is done immediately when synch processing). 
-                This method would normally be called from a main loop or idle function.
-
-                @param num: Number of events to pump. If number is negative it pumps
-                the entire queue. Default is -1.
-                @type num: integer
-                @return: True if queue is not empty after events were pumped.
-                @rtype: boolean
-                """
-                if num < 0:
-                        # Dequeue as many events as currently in the queue.
-                        num = self.queue.qsize()
-                for i in xrange(num):
-                        try:
-                                # get next waiting event
-                                event = self.queue.get_nowait()
-                        except Queue.Empty:
-                                break
-                        self._dispatchEvent(event)
-
-                return not self.queue.empty()

@@ -371,13 +371,26 @@ spi_dec_clear_unlatch_pending (SpiDEController *controller)
   priv->xkb_latch_mask = 0;
 }
 
-static void emit(SpiDEController *controller, const char *name, int first_type, ...)
+static void emit(SpiDEController *controller, const char *interface, const char *name, int a1, int a2)
 {
-  va_list arg;
+  DBusMessage *signal = NULL;
+  DBusMessageIter iter, iter_variant;
+  int nil = 0;
+  const char *minor = "";
+  const char *path = SPI_DBUS_PATH_DEC;
 
-  va_start(arg, first_type);
-  spi_dbus_emit_valist(controller->bus, SPI_DBUS_PATH_DEC, SPI_DBUS_INTERFACE_DEC, name, first_type, arg);
-  va_end(arg);
+  signal = dbus_message_new_signal (path, interface, name);
+
+  dbus_message_iter_init_append (signal, &iter);
+
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &minor);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &a1);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &a2);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
+      dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &nil);
+  dbus_message_iter_close_container (&iter, &iter_variant);
+
+  dbus_connection_send (controller->bus, signal, NULL);
 }
 
 static gboolean
@@ -484,7 +497,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	if (!is_consumed)
 	  {
 	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
-	    emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "button", event_detail, x, y);
+	    emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "button", x, y);
 	  }
 	else
 	  spi_dec_set_unlatch_pending (controller, mask_return);
@@ -528,10 +541,10 @@ spi_dec_mouse_check (SpiDEController *controller,
     {
       // TODO: combine these two signals?
       dbus_uint32_t ix = *x, iy = *y;
-      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "abs", NULL, ix, iy);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "abs", ix, iy);
       ix -= last_mouse_pos->x;
       iy -= last_mouse_pos->y;
-      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "rel", NULL, ix, iy);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "rel", ix, iy);
       last_mouse_pos->x = *x;
       last_mouse_pos->y = *y;
       *moved = True;
@@ -563,7 +576,7 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
 
   d1 = prev_mask & key_modifier_mask;
   d2 = current_mask & key_modifier_mask;
-      emit(controller, SPI_DBUS_INTERFACE_EVENT_KEYBOARD, "modifiers", NULL, d1, d2);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_KEYBOARD, "modifiers", d1, d2);
 }
 
 static gboolean
@@ -965,7 +978,10 @@ Accessibility_DeviceEventListener_notifyEvent(SpiDEController *controller,
                                               DEControllerListener *listener,
                                               const Accessibility_DeviceEvent *key_event)
 {
-  DBusMessage *message = dbus_message_new_method_call(listener->bus_name, listener->path, "org.freedesktop.atspi.Registry", "notifyEvent");
+  DBusMessage *message = dbus_message_new_method_call(listener->bus_name,
+                                                      listener->path,
+                                                      SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER,
+                                                      "notifyEvent");
   DBusError error;
   dbus_bool_t consumed = FALSE;
 
