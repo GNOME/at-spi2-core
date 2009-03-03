@@ -152,14 +152,18 @@ class ApplicationCache(object):
         def update_handler (self, update_type, bus_name):
                 if update_type == ApplicationCache._APPLICATIONS_ADD:
                         #TODO Check that app does not already exist
-                        self.application_list.append(bus_name)
-                        self.application_cache[bus_name] = AccessibleCache(self._registry, self._connection, bus_name)
-                        event = _Event(self,
-                                       ApplicationCache._DESKTOP_PATH,
-                                       ATSPI_REGISTRY_NAME,
-                                       "org.freedesktop.atspi.Event.Object",
-                                       "children-changed",
-                                       ("add", 0, 0, ""))
+                        #TODO Excuding this app is a hack, need to have re-entrant method calls.
+                        if bus_name != self._connection.get_unique_name ():
+                                self.application_list.append(bus_name)
+                                self.application_cache[bus_name] = AccessibleCache(self._registry,
+                                                                                   self._connection,
+                                                                                   bus_name)
+                                event = _Event(self,
+                                               ApplicationCache._DESKTOP_PATH,
+                                               ATSPI_REGISTRY_NAME,
+                                               "org.freedesktop.atspi.Event.Object",
+                                               "children-changed",
+                                               ("add", 0, 0, ""))
                 elif update_type == ApplicationCache._APPLICATIONS_REMOVE:
                         #TODO Fail safely if app does not exist
                         self.application_list.remove(bus_name)
