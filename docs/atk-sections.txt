@@ -321,6 +321,7 @@ atk_selection_get_type
 <SECTION>
 <FILE>atkstateset</FILE>
 <TITLE>AtkStateSet</TITLE>
+AtkStateSet
 atk_state_set_new
 atk_state_set_is_empty
 atk_state_set_add_state

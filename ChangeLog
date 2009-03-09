@@ -1,3 +1,13 @@
+2009-03-06  Sven Herzberg  <herzi@lanedo.com>
+
+	Improve the documentation
+
+	* docs/atk-sections.txt: added AtkStateSet; this will enable a link to
+	the right page, as well as display the inheritance relation to GObject
+	(so people can see that g_object_unref is the right function - instead
+	of implying this by the absence of any free function)
+	* docs/tmpl/atkstateset.sgml: updated auto-built file
+
 2008-12-01  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:

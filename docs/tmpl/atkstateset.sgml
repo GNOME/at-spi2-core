@@ -18,6 +18,12 @@ of AtkStates.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### STRUCT AtkStateSet ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### FUNCTION atk_state_set_new ##### -->
 <para>
 
