@@ -1834,7 +1834,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
   dbus_int32_t mask, type;
   Accessibility_EventListenerMode *mode;
   dbus_bool_t ret;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
   char *keystring;
 
   dbus_message_iter_init(message, &iter);
@@ -1905,7 +1905,7 @@ impl_register_device_listener (DBusConnection *bus,
   const char *path;
   dbus_int32_t event_types;
   dbus_bool_t ret;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   dbus_error_init(&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
@@ -2042,7 +2042,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
   const char *path;
   GSList *keys = NULL;
   dbus_int32_t mask, type;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   dbus_message_iter_init(message, &iter);
   // TODO: verify type signature
@@ -2093,7 +2093,7 @@ impl_deregister_device_listener (DBusConnection *bus,
   DBusError error;
   const char *path;
   dbus_int32_t event_types;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   dbus_error_init(&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_UINT32, &event_types, DBUS_TYPE_INVALID))
@@ -2404,7 +2404,7 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
   gint err;
   KeySym keysym;
   DEControllerPrivateData *priv;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   dbus_error_init(&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &keycode, DBUS_TYPE_STRING, &keystring, DBUS_TYPE_UINT32, &synth_type, DBUS_TYPE_INVALID))
@@ -2480,7 +2480,7 @@ static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage
   dbus_int32_t       x;
   dbus_int32_t       y;
   char *eventName;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
   int button = 0;
   gboolean err = FALSE;
   Display *display = spi_get_display ();
@@ -2555,7 +2555,7 @@ impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *use
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   Accessibility_DeviceEvent event;
   dbus_bool_t ret;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   if (!spi_dbus_demarshal_deviceEvent(message, &event))
   {
@@ -2582,7 +2582,7 @@ impl_notify_listeners_async (DBusConnection *bus, DBusMessage *message, void *us
 {
   SpiDEController *controller = SPI_DEVICE_EVENT_CONTROLLER(user_data);
   Accessibility_DeviceEvent event;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   if (!spi_dbus_demarshal_deviceEvent(message, &event))
   {

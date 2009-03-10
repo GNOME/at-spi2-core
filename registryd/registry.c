@@ -171,7 +171,7 @@ add_bus_name_cb (gpointer item, gpointer data)
 static DBusMessage *
 impl_getApplications (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
   DBusMessageIter iter, iter_array;
   SpiRegistry *reg = SPI_REGISTRY (user_data);
 
@@ -186,7 +186,7 @@ impl_getApplications (DBusConnection *bus, DBusMessage *message, void *user_data
 
 /*---------------------------------------------------------------------------*/
 
-static void
+static DBusMessage*
 impl_registerApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   gchar *app_name;
@@ -194,9 +194,10 @@ impl_registerApplication (DBusConnection *bus, DBusMessage *message, void *user_
 
   if (dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &app_name, DBUS_TYPE_INVALID))
       add_application(bus, reg, app_name);
+  return NULL;
 }
 
-static void
+static DBusMessage*
 impl_deregisterApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   gchar *app_name;
@@ -204,6 +205,7 @@ impl_deregisterApplication (DBusConnection *bus, DBusMessage *message, void *use
 
   if (dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &app_name, DBUS_TYPE_INVALID))
       remove_application(bus, reg, app_name);
+  return NULL;
 }
 
 /*---------------------------------------------------------------------------*/
