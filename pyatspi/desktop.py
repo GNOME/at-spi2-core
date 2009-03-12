@@ -22,7 +22,12 @@ from component import LAYER_WIDGET
 
 __all__ = [
            "Desktop",
+           "DESKTOP_PATH",
           ]
+
+#------------------------------------------------------------------------------
+
+DESKTOP_PATH = '/org/freedesktop/atspi/accessible/desktop'
 
 #------------------------------------------------------------------------------
 
@@ -164,7 +169,7 @@ class Desktop(object):
                 """
                 self._appcache = cache
                 self._app_name = ':'
-                self._acc_path = '/'
+                self._acc_path = DESKTOP_PATH
 
         def __str__(self):
                     try:
@@ -196,6 +201,9 @@ class Desktop(object):
 
         def __ne__(self, other):
                 return not self.__eq__(other)
+
+        def __hash__(self):
+                return hash(self._app_name + self._acc_path)
 
         def getApplication(self):
                 """

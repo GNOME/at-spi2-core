@@ -139,7 +139,7 @@ class AccessibleCache(object):
                                        ("parent", 0, 0, ""))
                         self._registry._notifyParentChange(event)
 
-                added, removed = _list_items_added_removed (olddata.children, newdata.children)
+                removed, added = _list_items_added_removed (olddata.children, newdata.children)
 
                 if added:
                         event = _Event(self._registry.cache,

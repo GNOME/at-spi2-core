@@ -489,6 +489,7 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
 #endif
             }
           register_subtree (child);
+          update_accessible (accessible);
         }
 
       recursion_check_unset ();
@@ -497,6 +498,63 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
   g_static_rec_mutex_unlock (&registration_mutex);
 
   return TRUE;
+}
+
+static void
+spi_atk_register_toplevel_added (AtkObject *accessible,
+                                 guint     index,
+                                 AtkObject *child)
+{
+  g_static_rec_mutex_lock (&registration_mutex);
+
+  g_return_if_fail (ATK_IS_OBJECT (accessible));
+
+  if (object_to_ref (accessible))
+    {
+#ifdef SPI_ATK_DEBUG
+      if (recursion_check_and_set ())
+          g_warning ("AT-SPI: Recursive use of registration module");
+
+      g_debug ("AT-SPI: Toplevel added listener");
+#endif
+      if (!ATK_IS_OBJECT (child))
+        {
+          child = atk_object_ref_accessible_child (accessible, index);
+#ifdef SPI_ATK_DEBUG
+          non_owned_accessible (child);
+#endif
+        }
+      register_subtree (child);
+      update_accessible (accessible);
+
+      recursion_check_unset ();
+    }
+
+  g_static_rec_mutex_unlock (&registration_mutex);
+}
+
+static void
+spi_atk_register_toplevel_removed (AtkObject *accessible,
+                                   guint     index,
+                                   AtkObject *child)
+{
+  g_static_rec_mutex_lock (&registration_mutex);
+
+  g_return_if_fail (ATK_IS_OBJECT (accessible));
+
+  if (object_to_ref (accessible))
+    {
+#ifdef SPI_ATK_DEBUG
+      if (recursion_check_and_set ())
+          g_warning ("AT-SPI: Recursive use of registration module");
+
+      g_debug ("AT-SPI: Toplevel removed listener");
+#endif
+      update_accessible (accessible);
+      recursion_check_unset ();
+    }
+
+  g_static_rec_mutex_unlock (&registration_mutex);
 }
 
 /*
@@ -522,7 +580,15 @@ atk_dbus_initialize (AtkObject *root)
 
   atk_add_global_event_listener (tree_update_listener, "Gtk:AtkObject:property-change");
   atk_add_global_event_listener (tree_update_children_listener, "Gtk:AtkObject:children-changed");
+
+  g_signal_connect (root,
+                    "children-changed::add",
+                    (GCallback) spi_atk_register_toplevel_added,
+                    NULL);
+  g_signal_connect (root,
+                    "children-changed::remove",
+                    (GCallback) spi_atk_register_toplevel_removed,
+                    NULL);
 }
 
 /*END------------------------------------------------------------------------*/
-
