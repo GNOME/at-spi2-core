@@ -196,6 +196,9 @@ class _Registry(object):
                         if new_type.is_subtype(type):
                                 registered.append(new_type.name)
 
+                if registered == []:
+                        del(register[client])
+
         def _deregisterFake(self, type, register, client, *names):
                 """
                 Deregisters a client from a register of clients
@@ -209,8 +212,9 @@ class _Registry(object):
                 for name in names:
                         remove_type = _EventType(name)
 
-                        for i in range(0, len(registered) - 1):
-                                type_name = registered[i]
+                        copy = registered[:]
+                        for i in range(0, len(copy)):
+                                type_name = copy[i]
                                 registered_type = _EventType(type_name)
 
                                 if remove_type.is_subtype(registered_type):
@@ -285,8 +289,9 @@ class _Registry(object):
 
                 for name in names:
                         remove_type = _EventType(name)
-                        for i in range (0, len(registered)):
-                                type_name, signal_match = registered[i]
+                        copy = registered[:]
+                        for i in range (0, len(copy)):
+                                type_name, signal_match = copy[i]
                                 registered_type = _EventType(type_name)
 
                                 if remove_type.is_subtype(registered_type):

@@ -131,6 +131,9 @@ class BaseProxy(object):
         def __ne__(self, other):
                 return not self.__eq__(other)
 
+        def __hash__(self):
+                return hash(self._app_name + self._acc_path)
+
         def get_dbus_method(self, *args, **kwargs):
                 method =  self._dbus_object.get_dbus_method(*args, **kwargs)
 

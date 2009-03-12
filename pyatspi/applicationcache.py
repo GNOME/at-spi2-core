@@ -15,7 +15,7 @@
 import dbus
 
 from accessiblecache import AccessibleCache
-from desktop import Desktop
+from desktop import Desktop, DESKTOP_PATH
 from factory import accessible_factory
 from event import Event as _Event
 from base import AccessibleObjectNotAvailable
@@ -29,8 +29,11 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
+ROOT_PATH    = '/org/freedesktop/atspi/accessible/root'
+
+#------------------------------------------------------------------------------
+
 class TestApplicationCache(object):
-        _DESKTOP_PATH = '/org/freedesktop/atspi/accessible/desktop'
 
         """
         Test application store, accesses a single application.
@@ -88,8 +91,10 @@ class TestApplicationCache(object):
                               provided here so that another one is not created.
                 """
                 # An acc_path of '/' implies the desktop object, whatever the app_name.
-                if acc_path == TestApplicationCache._DESKTOP_PATH:
+                if acc_path == DESKTOP_PATH:
                         return Desktop(self)
+                if acc_path == ROOT_PATH:
+                        return None
                 else:
                         cls = accessible_factory.get_accessible_class(interface)
                         try:
@@ -122,9 +127,6 @@ class ApplicationCache(object):
         @bus_name:   The test store only accesses one accessible application, this is its
                      D-Bus path.
         """
-
-        # An accessible path of '/' implies the desktop object, whatever the application name.
-        _DESKTOP_PATH = '/org/freedesktop/atspi/accessible/root'
 
         _APPLICATIONS_ADD = 1
         _APPLICATIONS_REMOVE = 0
@@ -159,7 +161,7 @@ class ApplicationCache(object):
                                                                                    self._connection,
                                                                                    bus_name)
                                 event = _Event(self,
-                                               ApplicationCache._DESKTOP_PATH,
+                                               DESKTOP_PATH,
                                                ATSPI_REGISTRY_NAME,
                                                "org.freedesktop.atspi.Event.Object",
                                                "children-changed",
@@ -169,7 +171,7 @@ class ApplicationCache(object):
                         self.application_list.remove(bus_name)
                         del(self.application_cache[bus_name])
                         event = _Event(self,
-                                       ApplicationCache._DESKTOP_PATH,
+                                       DESKTOP_PATH,
                                        ATSPI_REGISTRY_NAME,
                                        "org.freedesktop.atspi.Event.Object",
                                        "children-changed",
@@ -213,8 +215,10 @@ class ApplicationCache(object):
                 @dbus_object: If a D-Bus object already exists for the accessible object it can be
                               provided here so that another one is not created.
                 """
-                if acc_path == ApplicationCache._DESKTOP_PATH:
+                if acc_path == DESKTOP_PATH:
                         return Desktop(self)
+                if acc_path == ROOT_PATH:
+                        return None
                 else:
                         cls = accessible_factory.get_accessible_class(interface)
                         try:

@@ -154,10 +154,12 @@ class Accessible(BaseProxy):
 
     def getIndexInParent(self):
         """
-        Get the index of this object in its parent's child list. 
+        Get the index of this object in its parent's child list.
         @return : a long integer indicating this object's index in the
         parent's list.
         """
+        if self.parent == None:
+                return -1
         for i in range(0, self.parent.childCount):
                 child = self.parent.getChildAtIndex(i)
                 if self.isEqual(child):
