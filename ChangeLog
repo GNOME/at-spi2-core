@@ -1,3 +1,9 @@
+2009-03-16  Li Yuan  <li.yuan@sun.com>
+
+	* NEWS:
+	* configure.in:
+	Revved to 1.26.0 for GNOME 2.26.0.
+
 2009-03-06  Sven Herzberg  <herzi@lanedo.com>
 
 	Improve the documentation
