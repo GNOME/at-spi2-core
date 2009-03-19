@@ -135,7 +135,7 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
  * Returns:  Returns a string representing a URI, or NULL if no corresponding URI
  * can be constructed.
  *
- * Since: ATK 1.12
+ * Since: 1.12
  **/
 gchar*
 atk_streamable_content_get_uri (AtkStreamableContent *streamable,

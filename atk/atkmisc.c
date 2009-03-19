@@ -61,7 +61,7 @@ atk_misc_class_init (AtkMiscClass *klass)
  * (This method is implemented by the toolkit ATK implementation layer;
  *  for instance, for GTK+, GAIL implements this via GDK_THREADS_ENTER).
  *
- * Since: ATK 1.13
+ * Since: 1.13
  *
  **/
 void
@@ -94,7 +94,7 @@ atk_misc_threads_enter (AtkMisc *misc)
  * (This method is implemented by the toolkit ATK implementation layer;
  *  for instance, for GTK+, GAIL implements this via GDK_THREADS_LEAVE).
  *
- * Since: ATK 1.13
+ * Since: 1.13
  *
  **/
 void
@@ -120,7 +120,7 @@ AtkMisc *atk_misc_instance = NULL;
  *
  * Obtain the singleton instance of AtkMisc for this application.
  * 
- * Since: ATK 1.13
+ * Since: 1.13
  *
  * Returns: The singleton instance of AtkMisc for this application.
  *

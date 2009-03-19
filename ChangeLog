@@ -1,3 +1,21 @@
+2009-03-19  Li Yuan  <liyuan@goaltender>
+
+	Patch from Yue Wang. Bug #575794.
+	* atk/atkcomponent.c:
+	* atk/atkdocument.c:
+	* atk/atkhyperlink.c:
+	* atk/atkhyperlinkimpl.c:
+	* atk/atkmisc.c:
+	* atk/atkobject.c:
+	* atk/atkobject.h:
+	* atk/atkrelation.c:
+	* atk/atkrelationset.c:
+	* atk/atkstreamablecontent.c:
+	* atk/atktext.c:
+	* atk/atkutil.c:
+	* atk/atkvalue.c:
+	Change "ATK 1.x" to "1.x". Avoid build error.
+
 2009-03-16  Li Yuan  <li.yuan@sun.com>
 
 	* NEWS:

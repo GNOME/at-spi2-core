@@ -136,7 +136,7 @@ atk_value_get_minimum_value (AtkValue *obj,
  * the minimum increment is undefined, which may mean that it is limited only by the 
  * floating point precision of the platform.
  *
- * Since: ATK 1.12
+ * Since: 1.12
  **/
 void
 atk_value_get_minimum_increment (AtkValue *obj,

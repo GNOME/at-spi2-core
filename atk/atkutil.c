@@ -323,7 +323,7 @@ atk_get_root (void)
  *
  * Gets the currently focused object.
  * 
- * Since: ATK 1.6
+ * Since: 1.6
  *
  * Returns: the currently focused object for the current application
  **/

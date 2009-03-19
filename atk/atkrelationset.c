@@ -310,7 +310,7 @@ atk_relation_set_finalize (GObject *object)
  * of that type. If it is does contain a relation of that typea the target
  * is added to the relation.
  *
- * Since: ATK 1.9
+ * Since: 1.9
  **/
 void
 atk_relation_set_add_relation_by_type (AtkRelationSet  *set,

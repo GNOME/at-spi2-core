@@ -1171,7 +1171,7 @@ atk_implementor_ref_accessible (AtkImplementor *implementor)
  * as distinct from strongly-typed object data available via other get/set methods.
  * Not all objects have explicit "name-value pair" #AtkAttributeSet properties.
  *
- * Since: ATK 1.12
+ * Since: 1.12
  *
  * Returns: an #AtkAttributeSet consisting of all explicit properties/annotations applied to 
  * the object, or an empty set if the object has no name-value pair attributes assigned to it.

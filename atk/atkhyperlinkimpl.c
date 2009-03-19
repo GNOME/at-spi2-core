@@ -48,7 +48,7 @@ atk_hyperlink_impl_get_type (void)
  *
  * Returns an AtkHyperlink object which points to this implementing AtkObject.
  *
- * Since: ATK 1.12
+ * Since: 1.12
  **/
 AtkHyperlink *
 atk_hyperlink_impl_get_hyperlink (AtkHyperlinkImpl *obj)

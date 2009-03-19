@@ -111,7 +111,7 @@ G_BEGIN_DECLS
  *@ATK_ROLE_UNKNOWN: The object contains some Accessible information, but its role is not known
  *@ATK_ROLE_VIEWPORT: An object usually used in a scroll pane
  *@ATK_ROLE_WINDOW: A top level window with no title or border.
- *@ATK_ROLE_HEADER: An object that serves as a document header. @Since:ATK 1.1.1
+ *@ATK_ROLE_HEADER: An object that serves as a document header. @Since: ATK-1.1.1
  *@ATK_ROLE_FOOTER: An object that serves as a document footer.  @Since: ATK-1.1.1
  *@ATK_ROLE_PARAGRAPH: An object which is contains a paragraph of text content.   @Since: ATK-1.1.1
  *@ATK_ROLE_RULER: An object which describes margins and tab stops, etc. for text objects which it controls (should have CONTROLLER_FOR relation to such).   @Since: ATK-1.1.1
