@@ -31,7 +31,7 @@
 
 extern int _dbg;
 
-#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/dec"
+#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/deviceeventcontroller"
 #define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"
 #define SPI_DBUS_INTERFACE_ACTION "org.freedesktop.atspi.Action"
 #define SPI_DBUS_INTERFACE_APPLICATION "org.freedesktop.atspi.Application"
@@ -55,7 +55,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_VALUE "org.freedesktop.atspi.Value"
 #define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.Registry"
 #define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/registry/desktop"
-#define SPI_DBUS_PATH_NULL "/"
+#define SPI_DBUS_PATH_NULL "/org/freedesktop/accessible/null"
 #define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
 
 DBusMessage *spi_dbus_general_error(DBusMessage *message);

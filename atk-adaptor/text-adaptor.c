@@ -262,7 +262,7 @@ impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t startOffset, endOffset;
   dbus_bool_t defined;
   gint intstart_offset = 0, intend_offset = 0;
-  char *rv;
+  char *rv = NULL;
   DBusError error;
   DBusMessage *reply;
   AtkAttributeSet *set;
@@ -667,7 +667,7 @@ impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_INT32, &height, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT32,
+       DBUS_TYPE_INT32, &height, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT16,
        &coordType, DBUS_TYPE_INT32, &xClipType, DBUS_TYPE_INT32, &yClipType,
        DBUS_TYPE_INVALID))
     {
@@ -707,7 +707,7 @@ impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
                * unilaterally muck with the spec and remove it, so I'll just
                * throw in a dummy value */
               if (dbus_message_iter_open_container
-                  (&array, DBUS_TYPE_VARIANT, "i", &variant))
+                  (&struc, DBUS_TYPE_VARIANT, "i", &variant))
                 {
                   dbus_uint32_t dummy = 0;
                   dbus_message_iter_append_basic (&variant, DBUS_TYPE_INT32,
