@@ -1388,7 +1388,7 @@ spi_key_set_contains_key (GSList                          *key_set,
 
   if (!key_set)
     {
-      g_print ("null key set!");
+      g_print ("null key set!\n");
       return TRUE;
     }
 
