@@ -31,7 +31,7 @@
 
 extern int _dbg;
 
-#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/dec"
+#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/deviceeventcontroller"
 #define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"
 #define SPI_DBUS_INTERFACE_ACTION "org.freedesktop.atspi.Action"
 #define SPI_DBUS_INTERFACE_APPLICATION "org.freedesktop.atspi.Application"
