@@ -138,7 +138,7 @@ impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   atk_editable_text_copy_text (editable, startPos, endPos);
-  return NULL;
+  return dbus_message_new_method_return (message);
 }
 
 static DBusMessage *

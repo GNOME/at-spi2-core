@@ -1895,7 +1895,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
  *     method implementation
  */
 static DBusMessage *
-impl_register_device_listener (DBusConnection *bus,
+impl_register_device_event_listener (DBusConnection *bus,
 				  DBusMessage *message,
 				  void *user_data)
 {
@@ -2084,7 +2084,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
  *     method implementation
  */
 static DBusMessage *
-impl_deregister_device_listener (DBusConnection *bus,
+impl_deregister_device_event_listener (DBusConnection *bus,
 				  DBusMessage *message,
 				  void *user_data)
 {
@@ -2747,9 +2747,9 @@ static void wait_for_release_event (XEvent          *event,
 static DRouteMethod dev_methods[] =
 {
   { impl_register_keystroke_listener, "registerKeystrokeListener" },
-  { impl_register_device_listener, "registerDeviceListener" },
+  { impl_register_device_event_listener, "registerDeviceEventListener" },
   { impl_deregister_keystroke_listener, "deregisterKeystrokeListener" },
-  { impl_deregister_device_listener, "deregisterDeviceListener" },
+  { impl_deregister_device_event_listener, "deregisterDeviceEventListener" },
   { impl_generate_keyboard_event, "generateKeyboardEvent" },
   { impl_generate_mouse_event, "generateMouseEvent" },
   { impl_notify_listeners_sync, "notifyListenersSync" },

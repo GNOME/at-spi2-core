@@ -323,7 +323,11 @@ impl_prop_GetSet (DBusMessage *message,
 
         reply = dbus_message_new_method_return (message);
         dbus_message_iter_init_append (reply, &iter);
-        (prop_funcs->get) (&iter, datum);
+        if (!(prop_funcs->get) (&iter, datum))
+	  {
+	    dbus_message_unref (reply);
+            reply = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Get failed");
+	  }
       }
     else if (!get && prop_funcs->set)
       {
@@ -332,7 +336,7 @@ impl_prop_GetSet (DBusMessage *message,
 
         _DROUTE_DEBUG ("DRoute (handle prop Get): %s|%s on %s\n", pair.one, pair.two, pathstr);
 
-        dbus_message_iter_init_append (message, &iter);
+        dbus_message_iter_init (message, &iter);
         /* Skip the interface and property name */
         dbus_message_iter_next(&iter);
         dbus_message_iter_next(&iter);
