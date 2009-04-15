@@ -55,7 +55,7 @@ Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_Devi
 
   message = 
   dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, 
-  			       SPI_DBUS_PATH_REGISTRY,
+  			       SPI_DBUS_PATH_DEC,
 			       SPI_DBUS_INTERFACE_DEC,
 			       "notifyListenersSync");
 

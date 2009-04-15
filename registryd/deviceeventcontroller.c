@@ -2767,7 +2767,7 @@ spi_registry_dec_new (SpiRegistry *reg, DBusConnection *bus, DRouteContext *drou
   dec->bus = bus;
 
   path = droute_add_one (droute,
-                         "/org/freedesktop/atspi/registry/deviceeventcontroller",
+                         SPI_DBUS_PATH_DEC,
                          dec);
 
   droute_path_add_interface (path,
