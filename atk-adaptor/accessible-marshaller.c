@@ -40,15 +40,21 @@ spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref)
 
   path = atk_dbus_object_to_path (obj);
 
-  if (unref)
+  if (obj && unref)
     g_object_unref (obj);
+
+  if (!path)
+    path = g_strdup (SPI_DBUS_PATH_NULL);
 
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, path,
+      dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path,
                                 DBUS_TYPE_INVALID);
     }
+
+  g_free (path);
+
   return reply;
 }
 

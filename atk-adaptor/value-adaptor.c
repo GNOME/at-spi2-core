@@ -46,8 +46,7 @@ impl_get_minimumValue (DBusMessageIter * iter,
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      dbus_message_iter_append_basic (iter, DBUS_TYPE_DOUBLE, &dub);
-      return TRUE;
+      return droute_return_v_double (iter, dub);
     }
   else
     {
@@ -72,8 +71,7 @@ impl_get_maximumValue (DBusMessageIter * iter,
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      dbus_message_iter_append_basic (iter, DBUS_TYPE_DOUBLE, &dub);
-      return TRUE;
+      return droute_return_v_double (iter, dub);
     }
   else
     {
@@ -98,8 +96,7 @@ impl_get_minimumIncrement (DBusMessageIter * iter,
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      dbus_message_iter_append_basic (iter, DBUS_TYPE_DOUBLE, &dub);
-      return TRUE;
+      return droute_return_v_double (iter, dub);
     }
   else
     {
@@ -124,8 +121,7 @@ impl_get_currentValue (DBusMessageIter * iter,
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      dbus_message_iter_append_basic (iter, DBUS_TYPE_DOUBLE, &dub);
-      return TRUE;
+      return droute_return_v_double (iter, dub);
     }
   else
     {
@@ -141,10 +137,17 @@ impl_set_currentValue (DBusMessageIter * iter,
   GValue src = {0};
   GValue dest = {0};
   gdouble dub;
+  DBusMessageIter iter_variant;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
-  dbus_message_iter_get_basic (iter, &dub);
+  dbus_message_iter_recurse (iter, &iter_variant);
+  if (dbus_message_iter_get_arg_type (&iter_variant) != DBUS_TYPE_DOUBLE)
+  {
+    G_WARNING ("TODO: Support setting value from a non-double");
+    return FALSE;
+  }
+  dbus_message_iter_get_basic (&iter_variant, &dub);
   g_value_init (&src, G_TYPE_DOUBLE);
   g_value_set_double (&src, dub);
 
