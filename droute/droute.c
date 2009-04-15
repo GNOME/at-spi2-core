@@ -475,7 +475,7 @@ handle_other (DBusConnection *bus,
 
     StrPair pair;
     DRouteFunction func;
-    DBusMessage *reply;
+    DBusMessage *reply = NULL;
 
     pair.one = iface;
     pair.two = member;
@@ -489,11 +489,16 @@ handle_other (DBusConnection *bus,
 
         reply = (func) (bus, message, datum);
 
-        if (reply)
+        if (!reply)
           {
-            dbus_connection_send (bus, reply, NULL);
-            dbus_message_unref (reply);
+            /* All D-Bus method calls must have a reply.
+             * If one is not provided presume that the call has a void
+             * return and no error has occured.
+             */
+            reply = dbus_message_new_method_return (message);
           }
+        dbus_connection_send (bus, reply, NULL);
+        dbus_message_unref (reply);
         result = DBUS_HANDLER_RESULT_HANDLED;
       }
     return result;
