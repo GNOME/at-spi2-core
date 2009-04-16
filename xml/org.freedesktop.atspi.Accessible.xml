@@ -12,6 +12,15 @@
   <tp:enumvalue suffix="LOCALE_TYPE_NUMERIC" value="4"/>
   <tp:enumvalue suffix="LOCALE_TYPE_TIME" value="5"/>
 </tp:enum>
+
+<tp:enum name="COORD_TYPE" type="u">
+  <tp:docstring>
+  Used by Component, Image, and Text interfaces to specify whether coordinates are relative to the window or the screen.
+  </tp:docstring>
+  <tp:enumvalue suffix="COORD_TYPE_SCREEN"/>
+  <tp:enumvalue suffix="COORD_TYPE_WINDOW" value="1"/>
+</tp:enum>
+
 <tp:struct name="BoundingBox">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     Used by Component and Text interfaces, a struct defining a bounding rectangle. 
