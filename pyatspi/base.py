@@ -33,7 +33,7 @@ class AccessibleObjectNotAvailable(Exception):
 
 #------------------------------------------------------------------------------
 
-class Enum(int):
+class Enum(uint):
         def __str__(self):
                 return self._enum_lookup[int(self)]
 
