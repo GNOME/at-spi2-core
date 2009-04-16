@@ -238,7 +238,7 @@
     </arg>
     <arg direction="in" name="type" type="u" tp:type="TEXT_BOUNDARY_TYPE">
 	    <tp:docstring>
-        The text-boundary delimiter which determines whether the returned text constitures
+        The text-boundary delimiter which determines whether the returned text constitutes
         a character, word, line, or sentence (and possibly attendant whitespace), 
         and whether the start or ending of such a substring forms the boundary condition.
 	    </tp:docstring>
@@ -406,7 +406,7 @@
 	the character at <code>offset</code>.
 	    </tp:docstring>
     </arg>
-    <arg direction="in" name="coordType" type="n" tp:type="short">
+    <arg direction="in" name="coordType" type="u" tp:type="COORD_TYPE">
 	    <tp:docstring>
 		    <p>If 0, the results will be reported in screen coordinates, i.e. in pixels
         relative to the upper-left corner of the screen, with the x axis pointing right
@@ -423,7 +423,7 @@
     </tp:docstring>
     <arg direction="in" name="x" type="i"/>
     <arg direction="in" name="y" type="i"/>
-    <arg direction="in" name="coordType" type="n" tp:type="short">
+    <arg direction="in" name="coordType" type="u" tp:type="COORD_TYPE">
 	    <tp:docstring>
         If 0, the input coordinates are interpreted relative to the entire screen, if 1,
         they are relative to the toplevel window containing this Text object.
@@ -554,7 +554,7 @@
         An integer parameter which is back-filled with the
         vertical extent of the bounding box.
     </arg>
-    <arg direction="in" name="coordType" type="n" tp:type="short">
+    <arg direction="in" name="coordType" type="u" tp:type="COORD_TYPE">
     <tp:docstring>
         If 0, the above coordinates are reported in pixels relative to
         corner of the screen; if 1, the coordinates are reported relative to the
@@ -593,7 +593,7 @@
         is (y + height);
 	    </tp:docstring>
     </arg>
-    <arg direction="in" name="coordType" type="n" tp:type="short">
+    <arg direction="in" name="coordType" type="u" tp:type="COORD_TYPE">
 	    <tp:docstring>
         If 0, the above coordinates are interpreted as pixels relative to
         corner of the screen; if 1, the coordinates are interpreted as pixels relative to the

@@ -41,7 +41,7 @@
         view, and not the nominal size of the source data in the
         event that the original image has been rescaled.    </p>
     </tp:docstring>
-    <arg direction="in" name="coordType" type="n" tp:type="short">
+    <arg direction="in" name="coordType" type="u" tp:type="COORD_TYPE">
 	    <tp:docstring>
       <p>If 0, the returned bounding box position is returned
         relative to the screen; if 1, the bounding box position is returned 
@@ -71,7 +71,7 @@
         onscreen image (i.e. the minimum y coordinate)
     	</tp:docstring>
     </arg>
-    <arg direction="in" name="coordType" type="n" tp:type="short">
+    <arg direction="in" name="coordType" type="u" tp:type="COORD_TYPE">
     	<tp:docstring>
         If 0, the returned x and y coordinates are 
         returned relative to the screen; 

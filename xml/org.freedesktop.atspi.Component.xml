@@ -96,7 +96,7 @@
   <method name="contains">
     <arg direction="in" name="x" type="i"/>
     <arg direction="in" name="y" type="i"/>
-    <arg direction="in" name="coord_type" type="n" tp:type="short"/>
+    <arg direction="in" name="coord_type" type="u" tp:type="COORD_TYPE"/>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
 	    <code>True</code>if the specified point lies within the Component's bounding box, <code>False</code> otherwise. 
@@ -106,7 +106,7 @@
   <method name="getAccessibleAtPoint">
     <arg direction="in" name="x" type="i"/>
     <arg direction="in" name="y" type="i"/>
-    <arg direction="in" name="coord_type" type="n" tp:type="short"/>
+    <arg direction="in" name="coord_type" type="u" tp:type="COORD_TYPE"/>
     <arg direction="out" type="o" tp:type="Accessible">
     <tp:docstring>
       The Accessible child whose bounding box contains the specified point. 
@@ -117,7 +117,7 @@
     <tp:docstring>
       Obtain the Component's bounding box, in pixels, relative to the specified coordinate system. 
     </tp:docstring>
-    <arg direction="in" name="coord_type" type="n" tp:type="short"/>
+    <arg direction="in" name="coord_type" type="u" tp:type="COORD_TYPE"/>
     <arg direction="out" type="(iiii)" tp:type="BoundingBox">
     <tp:docstring>
       A BoundingBox which entirely contains the object's onscreen visual representation.
@@ -130,7 +130,7 @@
 	 by <code>coord_type.</code>
       </p>
     </tp:docstring>
-    <arg direction="in" name="coord_type" type="n" tp:type="short">
+    <arg direction="in" name="coord_type" type="u" tp:type="COORD_TYPE">
 	    <tp:docstring>
       	    <ol>
 	      <li>0 indicates coord_type_xy_screen, coordinates are relative to the display screen, in pixels.</li>

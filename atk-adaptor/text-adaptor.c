@@ -408,7 +408,7 @@ impl_getCharacterExtents (DBusConnection * bus, DBusMessage * message,
 {
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t offset;
-  dbus_int16_t coordType;
+  dbus_uint32_t coordType;
   dbus_int32_t x, y, width, height;
   gint ix = 0, iy = 0, iw = 0, ih = 0;
   DBusError error;
@@ -418,7 +418,7 @@ impl_getCharacterExtents (DBusConnection * bus, DBusMessage * message,
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_INT16, &coordType,
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &coordType,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
@@ -445,7 +445,7 @@ impl_getOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
 {
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t x, y;
-  dbus_int16_t coordType;
+  dbus_uint32_t coordType;
   dbus_int32_t rv;
   DBusError error;
   DBusMessage *reply;
@@ -455,7 +455,7 @@ impl_getOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_INT16, &coordType, DBUS_TYPE_INVALID))
+       DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -615,7 +615,7 @@ impl_getRangeExtents (DBusConnection * bus, DBusMessage * message,
 {
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t startOffset, endOffset;
-  dbus_int16_t coordType;
+  dbus_uint32_t coordType;
   AtkTextRectangle rect;
   dbus_int32_t x, y, width, height;
   DBusError error;
@@ -626,7 +626,7 @@ impl_getRangeExtents (DBusConnection * bus, DBusMessage * message,
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &startOffset, DBUS_TYPE_INT32,
-       &endOffset, DBUS_TYPE_INT16, &coordType, DBUS_TYPE_INVALID))
+       &endOffset, DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -655,7 +655,7 @@ impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
 {
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t x, y, width, height;
-  dbus_int16_t coordType, xClipType, yClipType;
+  dbus_uint32_t coordType, xClipType, yClipType;
   DBusError error;
   AtkTextRange **range_list = NULL;
   AtkTextRectangle rect;
@@ -667,8 +667,8 @@ impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
   dbus_error_init (&error);
   if (!dbus_message_get_args
       (message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y,
-       DBUS_TYPE_INT32, &height, DBUS_TYPE_INT32, &width, DBUS_TYPE_INT16,
-       &coordType, DBUS_TYPE_INT32, &xClipType, DBUS_TYPE_INT32, &yClipType,
+       DBUS_TYPE_INT32, &height, DBUS_TYPE_INT32, &width, DBUS_TYPE_UINT32,
+       &coordType, DBUS_TYPE_UINT32, &xClipType, DBUS_TYPE_UINT32, &yClipType,
        DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);

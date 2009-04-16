@@ -52,14 +52,14 @@ impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
 {
   AtkImage *image = (AtkImage *) user_data;
   DBusError error;
-  dbus_int16_t coordType;
+  dbus_uint32_t coordType;
   gint ix, iy, iwidth, iheight;
 
   g_return_val_if_fail (ATK_IS_IMAGE (user_data),
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT16, &coordType, DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_UINT32, &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -74,7 +74,7 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
 {
   AtkImage *image = (AtkImage *) user_data;
   DBusError error;
-  dbus_int16_t coord_type;
+  dbus_uint32_t coord_type;
   gint ix = 0, iy = 0;
   dbus_int32_t x, y;
   DBusMessage *reply;
@@ -83,7 +83,7 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT16, &coord_type, DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_UINT32, &coord_type, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
