@@ -33,7 +33,7 @@ class AccessibleObjectNotAvailable(Exception):
 
 #------------------------------------------------------------------------------
 
-class Enum(uint):
+class Enum(dbus.UInt32):
         def __str__(self):
                 return self._enum_lookup[int(self)]
 
