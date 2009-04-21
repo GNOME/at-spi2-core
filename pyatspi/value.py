@@ -16,6 +16,8 @@ from interfaces import *
 from accessible import Accessible
 from factory import accessible_factory
 
+import dbus
+
 __all__ = [
            "Value",
           ]
@@ -31,9 +33,9 @@ class Value(Accessible):
         """
 
         def get_currentValue(self):
-                return self._pgetter(self._dbus_interface, "currentValue")
+                return dbus.Double(self._pgetter(self._dbus_interface, "currentValue"))
         def set_currentValue(self, value):
-                self._psetter(self._dbus_interface, "currentValue", value)
+                self._psetter(self._dbus_interface, "currentValue", dbus.Double(value, variant_level=1))
         _currentValueDoc = \
                 """
                 The current value of the valuator.
@@ -41,36 +43,30 @@ class Value(Accessible):
         currentValue = property(fget=get_currentValue, fset=set_currentValue, doc=_currentValueDoc)
 
         def get_maximumValue(self):
-                return self._pgetter(self._dbus_interface, "maximumValue")
-        def set_maximumValue(self, value):
-                self._psetter(self._dbus_interface, "maximumValue", value)
+                return dbus.Double(self._pgetter(self._dbus_interface, "maximumValue"))
         _maximumValueDoc = \
                 """
                 The maximum value allowed by this valuator.
                 """
-        maximumValue = property(fget=get_maximumValue, fset=set_maximumValue, doc=_maximumValueDoc)
+        maximumValue = property(fget=get_maximumValue, doc=_maximumValueDoc)
 
         def get_minimumIncrement(self):
-                return self._pgetter(self._dbus_interface, "minimumIncrement")
-        def set_minimumIncrement(self, value):
-                self._psetter(self._dbus_interface, "minimumIncrement", value)
+                return dbus.Double(self._pgetter(self._dbus_interface, "minimumIncrement"))
         _minimumIncrementDoc = \
                 """
                 The smallest incremental change which this valuator allows. If
                 0, the incremental changes to the valuator are limited only by
                 the precision of a double precision value on the platform.
                 """
-        minimumIncrement = property(fget=get_minimumIncrement, fset=set_minimumIncrement, doc=_minimumIncrementDoc)
+        minimumIncrement = property(fget=get_minimumIncrement, doc=_minimumIncrementDoc)
 
         def get_minimumValue(self):
-                return self._pgetter(self._dbus_interface, "minimumValue")
-        def set_minimumValue(self, value):
-                self._psetter(self._dbus_interface, "minimumValue", value)
+                return dbus.Double(self._pgetter(self._dbus_interface, "minimumValue"))
         _minimumValueDoc = \
                 """
                 The minimum value allowed by this valuator.
                 """
-        minimumValue = property(fget=get_minimumValue, fset=set_minimumValue, doc=_minimumValueDoc)
+        minimumValue = property(fget=get_minimumValue, doc=_minimumValueDoc)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_VALUE, Value)

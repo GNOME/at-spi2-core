@@ -197,21 +197,6 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="registerFocusHandler">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Register an EventListener for notification when this object receives keyboard focus.
-        You probably want to register for focus events via 
-        Registry.registerGlobalEventListener instead. </p>
-    </tp:docstring>
-    <arg direction="in" name="handler" type="o" tp:type="EventListener"/>
-  </method>
-  <method name="deregisterFocusHandler">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Request that an EventListener registered via registerFocusHandler no longer be notified 
-        when this object receives keyboard focus.</p>
-    </tp:docstring>
-    <arg direction="in" name="handler" type="o" tp:type="EventListener"/>
-  </method>
   <method name="getAlpha">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the alpha value of the component.  An alpha value of 1.0 or greater

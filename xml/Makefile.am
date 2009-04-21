@@ -11,7 +11,6 @@ XML_SPEC= \
 	org.freedesktop.atspi.Hyperlink.xml \
 	org.freedesktop.atspi.Hypertext.xml \
 	org.freedesktop.atspi.Image.xml \
-	org.freedesktop.atspi.LoginHelper.xml \
 	org.freedesktop.atspi.DeviceEvent.xml \
 	org.freedesktop.atspi.Registry.xml \
 	org.freedesktop.atspi.DeviceEventController.xml \
@@ -19,9 +18,7 @@ XML_SPEC= \
 	org.freedesktop.atspi.Relation.xml \
 	org.freedesktop.atspi.Role.xml \
 	org.freedesktop.atspi.Selection.xml \
-	org.freedesktop.atspi.Selector.xml \
 	org.freedesktop.atspi.State.xml \
-	org.freedesktop.atspi.StreamableContent.xml \
 	org.freedesktop.atspi.Table.xml \
 	org.freedesktop.atspi.Text.xml \
 	org.freedesktop.atspi.Tree.xml \

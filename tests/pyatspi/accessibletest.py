@@ -110,8 +110,9 @@ class AccessibleTest(_PasyTest):
 		root = self._desktop.getChildAtIndex(0)
 		attr = root.getAttributes()
 		res = ["foo:bar", "baz:qux", "quux:corge"]
+                attr.sort()
+                res.sort()
 		test.assertEqual(attr, res, "Attributes expected %s, recieved %s" % (attr, res))
-
 
 	def test_parent(self, test):
 		root = self._desktop.getChildAtIndex(0)
@@ -151,7 +152,7 @@ class AccessibleTest(_PasyTest):
 	def test_getRole(self, test):
 		root = self._desktop.getChildAtIndex(0)
 		test.assertEqual(root.getRole(), 69,
-				 "Expected role - \"69\". Recieved - \"%d\"" % (root.getRole(),))
+				 "Expected role - \"69\". Recieved - \"%d\"" % (int(root.getRole()),))
 
 	def test_getRoleName(self, test):
 		root = self._desktop.getChildAtIndex(0)

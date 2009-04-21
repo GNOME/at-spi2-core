@@ -517,37 +517,39 @@ impl_getAttributes (DBusConnection *bus,
 {
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
+
+  GSList *attr;
   AtkAttributeSet *attributes;
-  AtkAttribute *attr = NULL;
-  char **retval;
+  DBusMessageIter iter, dictIter, dictEntryIter;
   gint n_attributes = 0;
-  gint i;
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
 
   attributes = atk_object_get_attributes (object);
+
   if (attributes)
     n_attributes = g_slist_length (attributes);
 
-  retval = (char **) g_malloc (n_attributes * sizeof (char *));
+  attr = attributes;
 
-  for (i = 0; i < n_attributes; ++i)
+  reply = dbus_message_new_method_return (message);
+  dbus_message_iter_init_append (reply, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{ss}", &dictIter);
+  while (attr)
     {
-      attr = g_slist_nth_data (attributes, i);
-      retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
+      AtkAttribute *attribute = (AtkAttribute *) attr->data;
+      dbus_message_iter_open_container (&dictIter, DBUS_TYPE_DICT_ENTRY, NULL, &dictEntryIter);
+      dbus_message_iter_append_basic (&dictEntryIter, DBUS_TYPE_STRING, &attribute->name);
+      dbus_message_iter_append_basic (&dictEntryIter, DBUS_TYPE_STRING, &attribute->value);
+      dbus_message_iter_close_container (&dictIter, &dictEntryIter);
+      attr = g_slist_next (attr);
     }
+  dbus_message_iter_close_container (&iter, &dictIter);
+
   if (attributes)
     atk_attribute_set_free (attributes);
-  reply = dbus_message_new_method_return (message);
-  if (reply)
-    {
-      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_STRING,
-				&retval, n_attributes, DBUS_TYPE_INVALID);
-    }
-  for (i = 0; i < n_attributes; i++)
-    g_free (retval[i]);
-  g_free (retval);
+
   return reply;
 }
 

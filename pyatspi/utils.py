@@ -33,7 +33,7 @@ __all__ = [
                 "listInterfaces",
                 "stringToConst",
                 "stateToString",
-                "stateToString",
+                "relationToString",
                 "allModifiers",
                 "findDescendant",
                 "findAllDescendants",

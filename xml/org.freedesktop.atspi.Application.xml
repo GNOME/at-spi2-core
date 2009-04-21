@@ -27,60 +27,6 @@
       accessibility bridge implementation.</p>
   </tp:docstring>
   </tp:property>
-  <tp:property name="id" type="i" access="readwrite">
-  <tp:docstring>
-    The application instance's unique ID as assigned by the registry.
-  </tp:docstring>
-  </tp:property>
-  <method name="registerToolkitEventListener">
-    <arg direction="in" name="listener" type="o" tp:type="EventListener">
-    <tp:docstring>
-      An EventListener object which will receive the requestedevents from the application's toolkits via toolit 'bridges'
-    </tp:docstring>
-    </arg>
-    <arg direction="in" name="eventName" type="s">
-    <tp:docstring>
-	    <p> A UTF-8 string indicating the type of (toolkit-specific) eventbeing requested.  Not all applications can generate toolkit events of a given type. Register with this application's toolkit for "toolkit-specific" event notifications.</p>
-	    
-	    <p>For most event support, clients should use non-toolkit-specific events whenever possible, Registry.registerGlobalEventListener - this method is provided as a 'back door' when generic names do not exist for the events in question.</p>
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="registerObjectEventListener">
-    <arg direction="in" name="listener" type="o" tp:type="EventListener">
-    <tp:docstring>
-      An EventListener object which will receive the requested events
-    </tp:docstring>
-    </arg>
-    <arg direction="in" name="eventName" type="s">
-    <tp:docstring>
-      A UTF-8 string indicating the type of (toolkit-specific) event being requested. Register with this application toolkit for "Accessibility.Accessible" event notifications. DEPRECATED
-    </tp:docstring>
-    </arg>
-  </method>
-  <method name="pause">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Request that the application temporarily stop sending events.
-        In most cases this should pause the application's main event loop.</p>
-    </tp:docstring>
-    <arg direction="out" type="b" tp:type="boolean">
-        <tp:docstring>
-	    <p>True if the request succeeded, false otherwise.</p>
-    
-        <p>This method is not implemented in most toolkits, and therefore should be treated with caution.</p>
-        </tp:docstring>
-    </arg>
-  </method>
-  <method name="resume">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Request that the application resume sending events.</p>
-    </tp:docstring>
-    <arg direction="out" type="b" tp:type="boolean">
-    <tp:docstring>
-      True if the request succeeded, False otherwise.
-    </tp:docstring>
-    </arg>
-  </method>
   <method name="getLocale">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets the locale in which the application is currently operating.

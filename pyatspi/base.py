@@ -23,6 +23,7 @@ __all__ = [
            "AccessibleObjectNotAvailable",
            "Enum",
            "BaseProxy",
+           "_repack_tuple",
           ]
 
 class AccessibleObjectNoLongerExists(Exception):
@@ -30,6 +31,14 @@ class AccessibleObjectNoLongerExists(Exception):
 
 class AccessibleObjectNotAvailable(Exception):
         pass
+
+#------------------------------------------------------------------------------
+
+def _repack_tuple (tup):
+        """
+        Re-packs a tuple moving the last element to the beginning.
+        """
+        return (tup[-1] ,) + tup[:-1]
 
 #------------------------------------------------------------------------------
 

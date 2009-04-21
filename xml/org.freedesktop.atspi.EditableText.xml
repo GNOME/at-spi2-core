@@ -59,19 +59,6 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="setAttributes">
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Apply a particular set of attributes to a range of text.    </p>
-    </tp:docstring>
-    <arg direction="in" name="attributes" type="s"/>
-    <arg direction="in" name="startPos" type="i"/>
-    <arg direction="in" name="endPos" type="i"/>
-    <arg direction="out" type="b" tp:type="boolean">
-    <tp:docstring>
-      <code>True</code> if the text attributes were successfully modified, <code>False</code> otherwise.
-    </tp:docstring>
-    </arg>
-  </method>
   <method name="copyText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Copy a range of text into the system clipboard.

@@ -30,7 +30,7 @@ class EditableText(Text):
         cutText, and pasteText.
         """
 
-        def copyText(self, *args, **kwargs):
+        def copyText(self, start, end):
                 """
                 Copy a range of text into the system clipboard. 
                 @param : startPos
@@ -41,9 +41,9 @@ class EditableText(Text):
                 text being copied.
                 """
                 func = self.get_dbus_method("copyText", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
+                return func(start, end)
 
-        def cutText(self, *args, **kwargs):
+        def cutText(self, start, end):
                 """
                 Excise a range of text from a Text object, copying it into the
                 system clipboard. 
@@ -56,9 +56,9 @@ class EditableText(Text):
                 @return True if the text was successfully cut, False otherwise.
                 """
                 func = self.get_dbus_method("cutText", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
+                return func(start, end)
 
-        def deleteText(self, *args, **kwargs):
+        def deleteText(self, start, end):
                 """
                 Excise a range of text from a Text object without copying it
                 into the system clipboard. 
@@ -71,9 +71,9 @@ class EditableText(Text):
                 @return True if the text was successfully deleted, False otherwise.
                 """
                 func = self.get_dbus_method("deleteText", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
+                return func(start, end)
 
-        def insertText(self, *args, **kwargs):
+        def insertText(self, position, text, length):
                 """
                 Insert new text contents into an existing text object at a given
                 location, while retaining the old contents. 
@@ -91,9 +91,9 @@ class EditableText(Text):
                 otherwise.
                 """
                 func = self.get_dbus_method("insertText", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
+                return func(position, text, length)
 
-        def pasteText(self, *args, **kwargs):
+        def pasteText(self, position):
                 """
                 Copy the text contents of the system clipboard, if any, into
                 a Text object, inserting it at a particular character offset.
@@ -103,18 +103,9 @@ class EditableText(Text):
                 object, False otherwise.
                 """
                 func = self.get_dbus_method("pasteText", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
+                return func(position)
 
-        def setAttributes(self, *args, **kwargs):
-                """
-                Apply a particular set of attributes to a range of text.
-                @return True if the text attributes were successfully modified,
-                False otherwise.
-                """
-                func = self.get_dbus_method("setAttributes", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
-
-        def setTextContents(self, *args, **kwargs):
+        def setTextContents(self, contents):
                 """
                 Replace the text contents with a new string, discarding the old
                 contents.
@@ -125,7 +116,7 @@ class EditableText(Text):
                 otherwise.
                 """
                 func = self.get_dbus_method("setTextContents", dbus_interface=ATSPI_EDITABLE_TEXT)
-                return func(*args, **kwargs)
+                return func(contents)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_EDITABLE_TEXT, EditableText)

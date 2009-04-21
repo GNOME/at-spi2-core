@@ -51,7 +51,7 @@ class Image(Accessible):
                 func = self.get_dbus_method("getImageExtents", dbus_interface=ATSPI_IMAGE)
                 return BoundingBox(*func(dbus.Int16(coordType)))
 
-        def getImagePosition(self, *args, **kwargs):
+        def getImagePosition(self, coord_type):
                 """
                 Get the coordinates of the current image position on screen.
                 @param : x
@@ -66,9 +66,9 @@ class Image(Accessible):
                 window.
                 """
                 func = self.get_dbus_method("getImagePosition", dbus_interface=ATSPI_IMAGE)
-                return func(*args, **kwargs)
+                return func(coord_type)
 
-        def getImageSize(self, *args, **kwargs):
+        def getImageSize(self):
                 """
                 Obtain the width and height of the current onscreen view of the
                 image. The extents returned do not account for any viewport clipping
@@ -82,29 +82,25 @@ class Image(Accessible):
                 image height in pixels)
                 """
                 func = self.get_dbus_method("getImageSize", dbus_interface=ATSPI_IMAGE)
-                return func(*args, **kwargs)
+                return func()
 
         def get_imageDescription(self):
-                return self._pgetter(self._dbus_interface, "imageDescription")
-        def set_imageDescription(self, value):
-                self._psetter(self._dbus_interface, "imageDescription", value)
+                return dbus.String(self._pgetter(self._dbus_interface, "imageDescription"))
         _imageDescriptionDoc = \
                 """
                 A UTF-8 string providing a textual description of what is visually
                 depicted in the image.
                 """
-        imageDescription = property(fget=get_imageDescription, fset=set_imageDescription, doc=_imageDescriptionDoc)
+        imageDescription = property(fget=get_imageDescription, doc=_imageDescriptionDoc)
 
         def get_imageLocale(self):
-                return self._pgetter(self._dbus_interface, "imageLocale")
-        def set_imageLocale(self, value):
-                self._psetter(self._dbus_interface, "imageLocale", value)
+                return dbus.String(self._pgetter(self._dbus_interface, "imageLocale"))
         _imageLocaleDoc = \
                 """
                 A string corresponding to the POSIX LC_MESSAGES locale used by
                 the imageDescription.
                 """
-        imageLocale = property(fget=get_imageLocale, fset=set_imageLocale, doc=_imageLocaleDoc)
+        imageLocale = property(fget=get_imageLocale, doc=_imageLocaleDoc)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_IMAGE, Image)

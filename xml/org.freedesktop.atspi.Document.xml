@@ -42,7 +42,7 @@
         For attributes which change within 
         the document content, see Text.getAttributes instead.    </p>
     </tp:docstring>
-    <arg direction="out" type="as" tp:type="AttributeSet">
+    <arg direction="out" type="{ss}" tp:type="AttributeSet">
     <tp:docstring>
       A list of strings containing the attributes of the document, as name-value pairs.
     </tp:docstring>

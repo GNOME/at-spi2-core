@@ -16,6 +16,8 @@ from interfaces import *
 from accessible import Accessible
 from factory import accessible_factory
 
+import dbus
+
 __all__ = [
            "Selection",
           ]
@@ -33,7 +35,7 @@ class Selection(Accessible):
         not programmatically selectable) has State::STATE_SELECTABLE.
         """
 
-        def clearSelection(self, *args, **kwargs):
+        def clearSelection(self):
                 """
                 Attempt to clear all selections (i.e. deselect all children)
                 of a Selection. Not all Selection implementations allow the removal
@@ -42,7 +44,7 @@ class Selection(Accessible):
                 otherwise.
                 """
                 func = self.get_dbus_method("clearSelection", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return func()
 
         def deselectChild(self, *args, **kwargs):
                 """
@@ -57,7 +59,7 @@ class Selection(Accessible):
                 func = self.get_dbus_method("deselectChild", dbus_interface=ATSPI_SELECTION)
                 return func(*args, **kwargs)
 
-        def deselectSelectedChild(self, *args, **kwargs):
+        def deselectSelectedChild(self, index):
                 """
                 Remove a child to the selected children list of a Selection.
                 @param : selectedChildIndex
@@ -69,9 +71,9 @@ class Selection(Accessible):
                 otherwise.
                 """
                 func = self.get_dbus_method("deselectSelectedChild", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return func(index)
 
-        def getSelectedChild(self, *args, **kwargs):
+        def getSelectedChild(self, index):
                 """
                 Get the i-th selected Accessible child of a Selection. 
                 @param : selectedChildIndex
@@ -81,9 +83,11 @@ class Selection(Accessible):
                 by selectedChildIndex.
                 """
                 func = self.get_dbus_method("getSelectedChild", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return self._cache.create_accessible(self._app_name,
+                                                     func(index),
+                                                     interfaces.ATSPI_ACCESSIBLE)
 
-        def isChildSelected(self, *args, **kwargs):
+        def isChildSelected(self, index):
                 """
                 Determine whether a particular child of an Selection implementor
                 is currently selected. Note that childIndex is the zero-offset
@@ -94,9 +98,9 @@ class Selection(Accessible):
                 otherwise.
                 """
                 func = self.get_dbus_method("isChildSelected", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return func(index)
 
-        def selectAll(self, *args, **kwargs):
+        def selectAll(self):
                 """
                 Attempt to select all of the children of a Selection implementor.
                 Not all Selection implementors support this operation (for instance,
@@ -105,9 +109,9 @@ class Selection(Accessible):
                 @return True if successful, False otherwise.
                 """
                 func = self.get_dbus_method("selectAll", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return func()
 
-        def selectChild(self, *args, **kwargs):
+        def selectChild(self, index):
                 """
                 Add a child to the selected children list of a Selection. 
                 @param : childIndex
@@ -116,18 +120,16 @@ class Selection(Accessible):
                 @return True if the child was successfully selected, False otherwise.
                 """
                 func = self.get_dbus_method("selectChild", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return func(index)
 
         def get_nSelectedChildren(self):
-                return self._pgetter(self._dbus_interface, "nSelectedChildren")
-        def set_nSelectedChildren(self, value):
-                self._psetter(self._dbus_interface, "nSelectedChildren", value)
+                return dbus.Int32(self._pgetter(self._dbus_interface, "nSelectedChildren"))
         _nSelectedChildrenDoc = \
                 """
                 The number of children of a Selection implementor which are currently
                 selected.
                 """
-        nSelectedChildren = property(fget=get_nSelectedChildren, fset=set_nSelectedChildren, doc=_nSelectedChildrenDoc)
+        nSelectedChildren = property(fget=get_nSelectedChildren, doc=_nSelectedChildrenDoc)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_SELECTION, Selection)

@@ -51,13 +51,6 @@ class DesktopComponent(object):
                 """
                 return False
 
-        def deregisterFocusHandler(self, *args, **kwargs):
-                """
-                Request that an EventListener registered via registerFocusHandler
-                no longer be notified when this object receives keyboard focus.
-                """
-                pass
-
         def getAccessibleAtPoint(self, *args, **kwargs):
                 """
                 @return the Accessible child whose bounding box contains the
@@ -136,13 +129,6 @@ class DesktopComponent(object):
                 the Component.
                 """
                 return False
-
-        def registerFocusHandler(self, *args, **kwargs):
-                """
-                Register an EventListener for notification when this object receives
-                keyboard focus.
-                """
-                pass
 
 #------------------------------------------------------------------------------
 

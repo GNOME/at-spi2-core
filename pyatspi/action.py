@@ -16,11 +16,15 @@ from interfaces import *
 from accessible import Accessible
 from factory import accessible_factory
 
+import dbus
+
 __all__ = [
            "Action",
           ]
 
 #------------------------------------------------------------------------------
+
+#TODO Perhaps use the 'getActions' method to reduce round-trips.
 
 class Action(Accessible):
         """
@@ -85,15 +89,13 @@ class Action(Accessible):
                 return func(index)
 
         def get_nActions(self):
-                return self._pgetter(self._dbus_interface, "nActions")
-        def set_nActions(self, value):
-                self._psetter(self._dbus_interface, "nActions", value)
+                return dbus.Int32(self._pgetter(self._dbus_interface, "nActions"))
         _nActionsDoc = \
                 """
                 nActions: a long containing the number of actions this object
                 supports.
                 """
-        nActions = property(fget=get_nActions, fset=set_nActions, doc=_nActionsDoc)
+        nActions = property(fget=get_nActions, doc=_nActionsDoc)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_ACTION, Action)

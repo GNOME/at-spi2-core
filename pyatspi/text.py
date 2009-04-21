@@ -16,7 +16,7 @@ import dbus
 
 from interfaces import *
 from accessible import Accessible
-from base import Enum
+from base import Enum, _repack_tuple
 from factory import accessible_factory
 
 __all__ = [
@@ -116,7 +116,7 @@ class Text(Accessible):
                 func = self.get_dbus_method("addSelection", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
-        def getAttributeRun(self, *args, **kwargs):
+        def getAttributeRun(self, offset, startOffset, endOffset, includeDefaults):
                 """
                 Query a particular text object for the text attributes defined
                 at a given offset, obtaining the start and end of the "attribute
@@ -166,7 +166,8 @@ class Text(Accessible):
                 the 'default' attributes.
                 """
                 func = self.get_dbus_method("getAttributeRun", dbus_interface=ATSPI_TEXT)
-                return func(*args, **kwargs)
+                attr = func(offset, startOffset, endOffset, includeDefaults)
+                return [key + ':' + value for key, value in attr.values()]
 
         def getAttributeValue(self, *args, **kwargs):
                 """
@@ -200,9 +201,10 @@ class Text(Accessible):
                 of colon-delimited name-value pairs.
                 """
                 func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_TEXT)
-                return func(dbus.Int32(offset))
+                return [key + ':' + value for key, value in func(dbus.Int32(offset)).values()]
 
         def getBoundedRanges(self, *args, **kwargs):
+                #TODO Return a list of range structures
                 """
                 Return the text content within a bounding box, as a list of Range
                 structures. Depending on the TEXT_CLIP_TYPE parameters, glyphs
@@ -276,7 +278,7 @@ class Text(Accessible):
                 func = self.get_dbus_method("getCharacterExtents", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
-        def getDefaultAttributeSet(self, *args, **kwargs):
+        def getDefaultAttributeSet(self):
                 """
                 Return an AttributeSet containing the text attributes which apply
                 to all text in the object by virtue of the default settings of
@@ -288,16 +290,16 @@ class Text(Accessible):
                 the default or implied text weight in the default AttributeSet.
                 """
                 func = self.get_dbus_method("getDefaultAttributeSet", dbus_interface=ATSPI_TEXT)
-                return func(*args, **kwargs)
+                return [key + ':' + value for key, value in func().values()]
 
-        def getDefaultAttributes(self, *args, **kwargs):
+        def getDefaultAttributes(self):
                 """
                 Deprecated in favor of getDefaultAttributeSet. 
                 @return the attributes which apply to the entire text content,
                 but which were not explicitly specified by the content creator.
                 """
                 func = self.get_dbus_method("getDefaultAttributes", dbus_interface=ATSPI_TEXT)
-                return func(*args, **kwargs)
+                return [key + ':' + value for key, value in func().values()]
 
         def getNSelections(self, *args, **kwargs):
                 """
@@ -414,7 +416,7 @@ class Text(Accessible):
                 func = self.get_dbus_method("getTextAfterOffset", dbus_interface=ATSPI_TEXT)
                 return func(*args, **kwargs)
 
-        def getTextAtOffset(self, *args, **kwargs):
+        def getTextAtOffset(self, offset, type):
                 """
                 Obtain a subset of the text content of an object which includes
                 the specified offset, delimited by character, word, line, or
@@ -439,7 +441,7 @@ class Text(Accessible):
                 the object, delimited by the specified boundary condition.
                 """
                 func = self.get_dbus_method("getTextAtOffset", dbus_interface=ATSPI_TEXT)
-                return func(*args, **kwargs)
+                return _repack_tuple(func(offset, type))
 
         def getTextBeforeOffset(self, *args, **kwargs):
                 """
@@ -513,9 +515,7 @@ class Text(Accessible):
                 return func(*args, **kwargs)
 
         def get_caretOffset(self):
-                return self._pgetter(self._dbus_interface, "caretOffset")
-        def set_caretOffset(self, value):
-                self._psetter(self._dbus_interface, "caretOffset", value)
+                return dbus.Int32(self._pgetter(self._dbus_interface, "caretOffset"))
         _caretOffsetDoc = \
                 """
                 The current offset of the text caret in the Text object. This
@@ -525,18 +525,16 @@ class Text(Accessible):
                 as a character offset, as opposed to a byte offset into a text
                 buffer or a column offset.
                 """
-        caretOffset = property(fget=get_caretOffset, fset=set_caretOffset, doc=_caretOffsetDoc)
+        caretOffset = property(fget=get_caretOffset, doc=_caretOffsetDoc)
 
         def get_characterCount(self):
-                return self._pgetter(self._dbus_interface, "characterCount")
-        def set_characterCount(self, value):
-                self._psetter(self._dbus_interface, "characterCount", value)
+                return dbus.Int32(self._pgetter(self._dbus_interface, "characterCount"))
         _characterCountDoc = \
                 """
                 The total current number of characters in the Text object, including
                 whitespace and non-spacing characters.
                 """
-        characterCount = property(fget=get_characterCount, fset=set_characterCount, doc=_characterCountDoc)
+        characterCount = property(fget=get_characterCount, doc=_characterCountDoc)
 
         class Range(list):
                 def __new__(cls, startOffset, endOffset, content, data):

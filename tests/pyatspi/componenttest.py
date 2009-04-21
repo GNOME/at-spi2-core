@@ -113,7 +113,7 @@ class ComponentTest(_PasyTest):
 			layer = comp.getLayer()
 			test.assertEqual(layer, expected, 
 					 "Layer not correct. Expected %d, Recieved %d"
-					 % (layer, expected))
+					 % (int(layer), int(expected)))
 
 	def test_getMDIZOrder(self, test):
 		root = self._desktop.getChildAtIndex(0)

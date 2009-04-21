@@ -17,7 +17,7 @@ from base import Enum
 from factory import accessible_factory
 from accessible import BoundingBox, Accessible
 
-from dbus.types import Int16
+from dbus.types import UInt32
 
 __all__ = [
            "CoordType",
@@ -87,32 +87,24 @@ class Component(Accessible):
         purposes of this interface.
         """
 
-        def contains(self, *args, **kwargs):
+        def contains(self, x, y, coord_type):
                 """
                 @return True if the specified point lies within the Component's
                 bounding box, False otherwise.
                 """
                 func = self.get_dbus_method("contains", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
+                return func(x, y, coord_type)
 
-        def deregisterFocusHandler(self, *args, **kwargs):
-                """
-                Request that an EventListener registered via registerFocusHandler
-                no longer be notified when this object receives keyboard focus.
-                """
-                func = self.get_dbus_method("deregisterFocusHandler", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
-
-        def getAccessibleAtPoint(self, *args, **kwargs):
+        def getAccessibleAtPoint(self, x, y, coord_type):
                 """
                 @return the Accessible child whose bounding box contains the
                 specified point.
                 """
-                #TODO this needs a real implementation
+                #TODO Need to return an actual accessible object rather than a random string.
                 func = self.get_dbus_method("getAccessibleAtPoint", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
+                return func(x, y, coord_type)
 
-        def getAlpha(self, *args, **kwargs):
+        def getAlpha(self):
                 """
                 Obtain the alpha value of the component. An alpha value of 1.0
                 or greater indicates that the object is fully opaque, and an
@@ -120,7 +112,7 @@ class Component(Accessible):
                 Negative alpha values have no defined meaning at this time.
                 """
                 func = self.get_dbus_method("getAlpha", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
+                return func()
 
         def getExtents(self, coord_type):
                 """
@@ -131,15 +123,15 @@ class Component(Accessible):
                 visual representation.
                 """
                 func = self.get_dbus_method("getExtents", dbus_interface=ATSPI_COMPONENT)
-                extents = func(Int16(coord_type))
+                extents = func(UInt32(coord_type))
                 return BoundingBox(*extents)
 
-        def getLayer(self, *args, **kwargs):
+        def getLayer(self):
                 """
                 @return the ComponentLayer in which this object resides.
                 """
                 func = self.get_dbus_method("getLayer", dbus_interface=ATSPI_COMPONENT)
-                return ComponentLayer(func(*args, **kwargs))
+                return ComponentLayer(func())
 
         def getMDIZOrder(self):
                 """
@@ -166,9 +158,9 @@ class Component(Accessible):
                 y coordinate.
                 """
                 func = self.get_dbus_method("getPosition", dbus_interface=ATSPI_COMPONENT)
-                return func(Int16(coord_type))
+                return func(UInt32(coord_type))
 
-        def getSize(self, *args, **kwargs):
+        def getSize(self):
                 """
                 Obtain the size, in the coordinate system specified by coord_type,
                 of the rectangular area which fully contains the object's visual
@@ -179,24 +171,16 @@ class Component(Accessible):
                 the object's vertical extents in the specified coordinate system.
                 """
                 func = self.get_dbus_method("getSize", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
+                return func()
 
-        def grabFocus(self, *args, **kwargs):
+        def grabFocus(self):
                 """
                 Request that the object obtain keyboard focus.
                 @return True if keyboard focus was successfully transferred to
                 the Component.
                 """
                 func = self.get_dbus_method("grabFocus", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
-
-        def registerFocusHandler(self, *args, **kwargs):
-                """
-                Register an EventListener for notification when this object receives
-                keyboard focus.
-                """
-                func = self.get_dbus_method("registerFocusHandler", dbus_interface=ATSPI_COMPONENT)
-                return func(*args, **kwargs)
+                return func()
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_COMPONENT, Component)

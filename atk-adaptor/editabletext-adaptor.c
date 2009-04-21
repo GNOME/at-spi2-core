@@ -91,37 +91,6 @@ impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_setAttributes (DBusConnection * bus, DBusMessage * message,
-                    void *user_data)
-{
-  AtkEditableText *editable = (AtkEditableText *) user_data;
-  const char *attributes;
-  dbus_int32_t startPos, endPos;
-  dbus_bool_t rv;
-  DBusError error;
-  DBusMessage *reply;
-
-  g_return_val_if_fail (ATK_IS_EDITABLE_TEXT (user_data),
-                        droute_not_yet_handled_error (message));
-  dbus_error_init (&error);
-  if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_STRING, &attributes, DBUS_TYPE_INT32,
-       &startPos, DBUS_TYPE_INT32, &endPos, DBUS_TYPE_INVALID))
-    {
-      return droute_invalid_arguments_error (message);
-    }
-  // TODO implement
-  rv = FALSE;
-  reply = dbus_message_new_method_return (message);
-  if (reply)
-    {
-      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
-                                DBUS_TYPE_INVALID);
-    }
-  return reply;
-}
-
-static DBusMessage *
 impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
@@ -233,7 +202,6 @@ impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DRouteMethod methods[] = {
   {impl_setTextContents, "setTextContents"},
   {impl_insertText, "insertText"},
-  {impl_setAttributes, "setAttributes"},
   {impl_copyText, "copyText"},
   {impl_cutText, "cutText"},
   {impl_deleteText, "deleteText"},

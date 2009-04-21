@@ -31,7 +31,7 @@ class Hypertext(Accessible):
         offsets within the Hypertext's included content.
         """
 
-        def getLink(self, *args, **kwargs):
+        def getLink(self, index):
                 """
                 Get one of the Hyperlinks associated with this Hypertext object,
                 by index.
@@ -40,9 +40,10 @@ class Hypertext(Accessible):
                 @return the Hyperlink in this Hypertext object.
                 """
                 func = self.get_dbus_method("getLink", dbus_interface=ATSPI_HYPERTEXT)
-                return func(*args, **kwargs)
+                #TODO Lookup the accessible object and call queryHyperlink on it.
+                return func(index)
 
-        def getLinkIndex(self, *args, **kwargs):
+        def getLinkIndex(self, character_index):
                 """
                 Get the hyperlink index, if any, associated with a particular
                 character offset in the Hypertext object. For Hypertext implementors
@@ -53,16 +54,16 @@ class Hypertext(Accessible):
                 that character offset.
                 """
                 func = self.get_dbus_method("getLinkIndex", dbus_interface=ATSPI_HYPERTEXT)
-                return func(*args, **kwargs)
+                return func(character_index)
 
-        def getNLinks(self, *args, **kwargs):
+        def getNLinks(self):
                 """
                 Query the hypertext object for the number of Hyperlinks it contains.
                 @return the number of Hyperlinks associated with this Hypertext
                 object, as a long integer.
                 """
                 func = self.get_dbus_method("getNLinks", dbus_interface=ATSPI_HYPERTEXT)
-                return func(*args, **kwargs)
+                return func()
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_HYPERTEXT, Hypertext)

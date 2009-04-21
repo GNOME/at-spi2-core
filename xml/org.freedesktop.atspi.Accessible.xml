@@ -104,16 +104,6 @@
     The number of children contained by this object.
   </tp:docstring>
   </tp:property>
-  <method name="getChildren">
-    <tp:docstring>
-      Get the accessible children of this object.
-    </tp:docstring>
-    <arg direction="out" type="ao" tp:type="AccessibleSet">
-    <tp:docstring>
-      The Accessible children of this object.
-    </tp:docstring>
-    </arg>
-  </method>
   <method name="getChildAtIndex">
     <tp:docstring>
       Get the accessible child of this object at \c index.
@@ -228,7 +218,7 @@
         "text attributes". (See Text.getAttributeRun)</p>
 
     </tp:docstring>
-    <arg direction="out" type="as" tp:type="AttributeSet">
+    <arg direction="out" type="{ss}" tp:type="AttributeSet">
     <tp:docstring>
       An AttributeSet encapsulating any "attribute values" currently defined for the object.
     </tp:docstring>

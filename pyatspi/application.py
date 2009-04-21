@@ -16,6 +16,8 @@ from interfaces import *
 from factory import accessible_factory
 from accessible import Accessible
 
+import dbus
+
 __all__ = [
                   "Application",
           ]
@@ -30,7 +32,7 @@ class Application(Accessible):
         windows.
         """
 
-        def getLocale(self, *args, **kwargs):
+        def getLocale(self, locale_type):
                 """
                 Gets the locale in which the application is currently operating.
                 For the current message locale, use lctype LOCALE_TYPE_MESSAGES.
@@ -40,85 +42,25 @@ class Application(Accessible):
                 description.
                 """
                 func = self.get_dbus_method("getLocale", dbus_interface=ATSPI_APPLICATION)
-                return func(*args, **kwargs)
-
-        def pause(self, *args, **kwargs):
-                """
-                Request that the application temporarily stop sending events.
-                In most cases this should pause the application's main event
-                loop.
-                @return : true if the request succeeded, false otherwise.
-                """
-                func = self.get_dbus_method("pause", dbus_interface=ATSPI_APPLICATION)
-                return func(*args, **kwargs)
-
-        def registerObjectEventListener(self, *args, **kwargs):
-                """
-                registerObjectEventListener: 
-                @param : listener
-                an EventListener object which will receive the requested events
-                @param : eventName
-                a UTF-8 string indicating the type of (toolkit-specific) event
-                being requested. Register with this application toolkit for "Accessibility::Accessible"
-                event notifications.
-                """
-                func = self.get_dbus_method("registerObjectEventListener", dbus_interface=ATSPI_APPLICATION)
-                return func(*args, **kwargs)
-
-        def registerToolkitEventListener(self, *args, **kwargs):
-                """
-                @param : listener
-                an EventListener object which will receive the requested events
-                from the application's toolkits via toolit 'bridges' 
-                @param : eventName
-                a UTF-8 string indicating the type of (toolkit-specific) event
-                being requested. Not all applications can generate toolkit events
-                of a given type.
-                Register with this application's toolkit for "toolkit-specific"
-                event notifications.
-                """
-                func = self.get_dbus_method("registerToolkitEventListener", dbus_interface=ATSPI_APPLICATION)
-                return func(*args, **kwargs)
-
-        def resume(self, *args, **kwargs):
-                """
-                Request that the application resume sending events.
-                @return : True if the request succeeded, False otherwise.
-                """
-                func = self.get_dbus_method("resume", dbus_interface=ATSPI_APPLICATION)
-                return func(*args, **kwargs)
-
-        def get_id(self):
-                return self._pgetter(self._dbus_interface, "id")
-        def set_id(self, value):
-                self._psetter(self._dbus_interface, "id", value)
-        _idDoc = \
-                """
-                The application instance's unique ID as assigned by the registry.
-                """
-        id = property(fget=get_id, fset=set_id, doc=_idDoc)
+                return func(local_type)
 
         def get_toolkitName(self):
-                return self._pgetter(self._dbus_interface, "toolkitName")
-        def set_toolkitName(self, value):
-                self._psetter(self._dbus_interface, "toolkitName", value)
+                return dbus.String(self._pgetter(self._dbus_interface, "toolkitName"))
         _toolkitNameDoc = \
                 """
                 A string indicating the type of user interface toolkit which
                 is used by the application.
                 """
-        toolkitName = property(fget=get_toolkitName, fset=set_toolkitName, doc=_toolkitNameDoc)
+        toolkitName = property(fget=get_toolkitName, doc=_toolkitNameDoc)
 
         def get_version(self):
-                return self._pgetter(self._dbus_interface, "version")
-        def set_version(self, value):
-                self._psetter(self._dbus_interface, "version", value)
+                return dbus.String(self._pgetter(self._dbus_interface, "version"))
         _versionDoc = \
                 """
                 A string indicating the version number of the application's accessibility
                 bridge implementation.
                 """
-        version = property(fget=get_version, fset=set_version, doc=_versionDoc)
+        version = property(fget=get_version, doc=_versionDoc)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_APPLICATION, Application)

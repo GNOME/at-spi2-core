@@ -88,7 +88,7 @@ class EventType(str):
                 @raise AttributeError: When the given event name is not a valid string 
                 """
                 stripped = name.strip(self._SEPARATOR)
-                separated = stripped.split(self._SEPARATOR, 3) 
+                separated = stripped.split(self._SEPARATOR, 3)
                 self._separated = _ELessList(separated)
 
                 self.klass = self._separated[0]

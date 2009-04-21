@@ -118,7 +118,7 @@ class AccessibleCache(object):
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
-                                       ("name", 0, 0, newdata.name))
+                                       ("accessible-name", 0, 0, newdata.name))
                         self._registry._notifyNameChange(event)
 
                 if olddata.description != newdata.description:
@@ -127,7 +127,7 @@ class AccessibleCache(object):
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
-                                       ("description", 0, 0, description))
+                                       ("accessible-description", 0, 0, description))
                         self._registry._notifyDescriptionChange(event)
 
                 if olddata.parent != newdata.parent:
@@ -136,7 +136,7 @@ class AccessibleCache(object):
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
-                                       ("parent", 0, 0, ""))
+                                       ("accessible-parent", 0, 0, ""))
                         self._registry._notifyParentChange(event)
 
                 removed, added = _list_items_added_removed (olddata.children, newdata.children)

@@ -16,6 +16,8 @@ from interfaces import *
 from accessible import Accessible
 from factory import accessible_factory
 
+import dbus
+
 __all__ = [
            "Hyperlink",
           ]
@@ -35,7 +37,7 @@ class Hyperlink(Accessible):
         interface.
         """
 
-        def getObject(self, *args, **kwargs):
+        def getObject(self, index):
                 """
                 Gets the i'th object, (where i is an integer between 0 and Hyperlink::numAnchors
                 - 1, inclusive) associated with a Hyperlink. The objects returned
@@ -49,9 +51,9 @@ class Hyperlink(Accessible):
                 ith anchor can be accessed.
                 """
                 func = self.get_dbus_method("getObject", dbus_interface=ATSPI_HYPERLINK)
-                return func(*args, **kwargs)
+                return func(index)
 
-        def getURI(self, *args, **kwargs):
+        def getURI(self, index):
                 """
                 Obtain a resource locator ('URI') which can be used to access
                 the content to which this link "points" or is connected. 
@@ -59,9 +61,9 @@ class Hyperlink(Accessible):
                 'ith' anchor, if one exists, or a NIL string otherwise.
                 """
                 func = self.get_dbus_method("getURI", dbus_interface=ATSPI_HYPERLINK)
-                return func(*args, **kwargs)
+                return func(index)
 
-        def isValid(self, *args, **kwargs):
+        def isValid(self):
                 """
                 Check the hyperlink to see if a connection to its backing content
                 can be established, or if its URI is valid. 
@@ -70,12 +72,10 @@ class Hyperlink(Accessible):
                 can not be established.
                 """
                 func = self.get_dbus_method("isValid", dbus_interface=ATSPI_HYPERLINK)
-                return func(*args, **kwargs)
+                return func()
 
         def get_endIndex(self):
-                return self._pgetter(self._dbus_interface, "endIndex")
-        def set_endIndex(self, value):
-                self._psetter(self._dbus_interface, "endIndex", value)
+                return dbus.Int32(self._pgetter(self._dbus_interface, "endIndex"))
         _endIndexDoc = \
                 """
                 the ending offset within the containing Hypertext content with
@@ -83,28 +83,24 @@ class Hyperlink(Accessible):
                 first element past the range within the Hypertext associated
                 with this Hyperlink.
                 """
-        endIndex = property(fget=get_endIndex, fset=set_endIndex, doc=_endIndexDoc)
+        endIndex = property(fget=get_endIndex, doc=_endIndexDoc)
 
         def get_nAnchors(self):
-                return self._pgetter(self._dbus_interface, "nAnchors")
-        def set_nAnchors(self, value):
-                self._psetter(self._dbus_interface, "nAnchors", value)
+                return dbus.Int16(self._pgetter(self._dbus_interface, "nAnchors"))
         _nAnchorsDoc = \
                 """
                 the number of separate anchors associated with this Hyperlink
                 """
-        nAnchors = property(fget=get_nAnchors, fset=set_nAnchors, doc=_nAnchorsDoc)
+        nAnchors = property(fget=get_nAnchors, doc=_nAnchorsDoc)
 
         def get_startIndex(self):
-                return self._pgetter(self._dbus_interface, "startIndex")
-        def set_startIndex(self, value):
-                self._psetter(self._dbus_interface, "startIndex", value)
+                return dbus.Int32(self._pgetter(self._dbus_interface, "startIndex"))
         _startIndexDoc = \
                 """
                 the starting offset within the containing Hypertext content with
                 which this Hyperlink is associated
                 """
-        startIndex = property(fget=get_startIndex, fset=set_startIndex, doc=_startIndexDoc)
+        startIndex = property(fget=get_startIndex, doc=_startIndexDoc)
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_HYPERLINK, Hyperlink)

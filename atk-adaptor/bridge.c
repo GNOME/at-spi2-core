@@ -297,6 +297,7 @@ adaptor_init (gint *argc, gchar **argv[])
   spi_initialize_tree (treepath);
 
   spi_initialize_accessible (accpath);
+  spi_initialize_application (accpath);
   spi_initialize_action(accpath);
   spi_initialize_collection (accpath);
   spi_initialize_component (accpath);

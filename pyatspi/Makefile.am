@@ -26,9 +26,7 @@ pyatspi_PYTHON = \
 		relation.py		\
 		role.py			\
 		selection.py		\
-		selector.py		\
 		state.py		\
-		streamablecontent.py	\
 		table.py		\
 		text.py			\
 		utils.py		\

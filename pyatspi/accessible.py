@@ -140,7 +140,7 @@ class Accessible(BaseProxy):
         with each string comprising an name-value pair format 'name:value'.
         """
         func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_ACCESSIBLE)
-        return func()
+        return [key + ':' + value for key, value in func().iteritems()]
 
     def getChildAtIndex(self, index):
         """
@@ -224,7 +224,7 @@ class Accessible(BaseProxy):
         point to the same object.
         """
         return  (self._app_name == accessible._app_name) and \
-                (self._acc_path == accessible._acc_path)        
+                (self._acc_path == accessible._acc_path)
 
 
     def get_childCount(self):

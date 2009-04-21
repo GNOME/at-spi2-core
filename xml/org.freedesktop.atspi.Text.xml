@@ -353,7 +353,7 @@
     <arg direction="in" name="offset" type="i"/>
     <arg direction="out" name="startOffset" type="i"/>
     <arg direction="out" name="endOffset" type="i"/>
-    <arg direction="out" type="s">
+    <arg direction="out" type="{ss}">
     <tp:docstring>
       The attributes at offset, as a semicolon-delimited set of colon-delimited name-value pairs. @see getAttributeRun
     </tp:docstring>
@@ -363,7 +363,7 @@
     <tp:docstring>
       Deprecated in favor of getDefaultAttributeSet.
     </tp:docstring>
-    <arg direction="out" type="s">
+    <arg direction="out" type="{ss}">
     <tp:docstring>
       The attributes which apply to the entire text content, but which were not explicitlyspecified by the content creator.
     </tp:docstring>
@@ -675,7 +675,7 @@
         the default values. See also Text.getDefaultAttributes. 
 	    </tp:docstring>
     </arg>
-    <arg direction="out" type="as" tp:type="AttributeSet">
+    <arg direction="out" type="{ss}" tp:type="AttributeSet">
     <tp:docstring>
       The AttributeSet defined at offset, optionally including the 'default' attributes.
     </tp:docstring>

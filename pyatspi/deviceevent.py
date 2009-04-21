@@ -174,6 +174,7 @@ class DeviceEvent(list):
                 @return: Event description
                 @rtype: string
                 """
+                import constants
                 if self.type == constants.KEY_PRESSED_EVENT:
                         kind = 'pressed'
                 elif self.type == constants.KEY_RELEASED_EVENT:
@@ -469,6 +470,7 @@ class KeyboardDeviceEventListener(_service.Object):
                 self._upath = self._get_unique_path()
                 _service.Object.__init__(self, registry._bus, self._upath)
                 self.mode = EventListenerMode(synchronous, preemptive, global_)
+                self._registry = registry
 
         def register(self, dc, key_set, mask, kind):
                 """
@@ -535,7 +537,13 @@ class KeyboardDeviceEventListener(_service.Object):
                 @rtype: boolean
                 """
                 # wrap the device event
-                ev = event.DeviceEvent(ev)
-                return self.registry.handleDeviceEvent(ev, self)
+                event = DeviceEvent(ev)
+                # TODO Find out where the exceptions are falling in to.
+                try:
+                        return self._registry.handleDeviceEvent(event, self)
+                except Exception, e:
+                        import traceback
+                        traceback.print_exe()
+                        return False
 
 #END---------------------------------------------------------------------------

@@ -116,6 +116,7 @@ class Relation(object):
                 """
                 @return the RelationType of this Relation.
                 """
+                # TODO Return a relation enum type
                 return self._type
 
         def getRelationTypeName(self):
