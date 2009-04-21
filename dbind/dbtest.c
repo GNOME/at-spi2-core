@@ -391,6 +391,8 @@ int main (int argc, char **argv)
     DBusConnection *bus;
     DBusError err;
 
+    dbus_error_init (&err);
+
     bus = dbus_bus_get (DBUS_BUS_SESSION, &err);
 
     test_helpers ();
