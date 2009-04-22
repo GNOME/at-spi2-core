@@ -41,7 +41,7 @@ class Action(Accessible):
                 getActions:
                 Retrieves all the actions at once.  
                 @return : an array of an array of strings in the form
-		[[name, description, keybinding], ...]
+                [[name, description, keybinding], ...]
                 """
                 func = self.get_dbus_method("getActions", dbus_interface=ATSPI_ACTION)
                 return func()
