@@ -425,7 +425,8 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
       values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
       pname = values[0].property_name;
       if (strcmp (pname, "accessible-name") == 0 ||
-          strcmp (pname, "accessible-description") == 0)
+          strcmp (pname, "accessible-description") == 0 ||
+          strcmp (pname, "accessible-parent") == 0)
         {
           update_accessible (accessible);
         }
