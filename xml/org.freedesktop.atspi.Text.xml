@@ -206,6 +206,11 @@
         and whether the start or ending of such a substring forms the boundary condition.
 	    </tp:docstring>
     </arg>
+    <arg direction="out" type="s">
+    <tp:docstring>
+      A string which is a substring of the text content of the object, delimited by the specified boundary condition.
+    </tp:docstring>
+    </arg>
     <arg direction="out" name="startOffset" type="i">
 	    <tp:docstring>
         Back-filled with the starting offset of the resulting substring, if one exists.
@@ -216,11 +221,6 @@
         Back-filled with the offset of the character immediately following the resulting
         substring, if one exists.
 	    </tp:docstring>
-    </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
-      A string which is a substring of the text content of the object, delimited by thespecified boundary condition.
-    </tp:docstring>
     </arg>
   </method>
   <method name="getTextAtOffset">
@@ -243,6 +243,11 @@
         and whether the start or ending of such a substring forms the boundary condition.
 	    </tp:docstring>
     </arg>
+    <arg direction="out" type="s">
+    <tp:docstring>
+      A string which is a substring of the text content of the object, delimited by the specified boundary condition.
+    </tp:docstring>
+    </arg>
     <arg direction="out" name="startOffset" type="i">
 	    <tp:docstring>
         Back-filled with the starting offset of the resulting substring, if one exists.
@@ -253,11 +258,6 @@
         Back-filled with the offset of the character immediately following the resulting
         substring, if one exists.
 	    </tp:docstring>
-    </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
-      A string which is a substring of the text content of the object, delimited by thespecified boundary condition.
-    </tp:docstring>
     </arg>
   </method>
   <method name="getTextAfterOffset">
@@ -281,6 +281,11 @@
         and whether the start or ending of such a substring forms the boundary condition.
     	    </tp:docstring>
     </arg>
+    <arg direction="out" type="s">
+    <tp:docstring>
+      A string which is a substring of the text content of the object, delimited by the specified boundary condition.
+    </tp:docstring>
+    </arg>
     <arg direction="out" name="startOffset" type="i">
 	    <tp:docstring>
         Back-filled with the starting offset of the resulting substring, if one exists.
@@ -292,13 +297,8 @@
         substring, if one exists.
     	    </tp:docstring>
     </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
-      A string which is a substring of the text content of the object, delimited by thespecified boundary condition.
-    </tp:docstring>
-    </arg>
   </method>
-  <method name="getCharacterOffset">
+  <method name="getCharacterAtOffset">
     <arg name="offset" type="i" direction="in"/>
     <arg type="i" direction="out">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -322,6 +322,11 @@
         The name of the attribute for which the value is to be returned, if defined.
 	    </tp:docstring>
     </arg>
+    <arg direction="out" type="s">
+    <tp:docstring>
+      The value of attribute (name-value pair) corresponding to "name", if defined. 
+    </tp:docstring>
+    </arg>
     <arg direction="out" name="startOffset" type="i">
 	    <tp:docstring>
         Back-filled with the offset of the first character in the attribute run
@@ -340,24 +345,19 @@
         <code>False</code> otherwise.
 	    </tp:docstring>
     </arg>
-    <arg direction="out" type="s">
-    <tp:docstring>
-      The value of attribute (name-value pair) corresponding to "name", if defined. 
-    </tp:docstring>
-    </arg>
   </method>
   <method name="getAttributes">
     <tp:docstring>
       getAttributes is deprecated in favor of getAttributeRun.
     </tp:docstring>
     <arg direction="in" name="offset" type="i"/>
-    <arg direction="out" name="startOffset" type="i"/>
-    <arg direction="out" name="endOffset" type="i"/>
     <arg direction="out" type="{ss}">
     <tp:docstring>
       The attributes at offset, as a semicolon-delimited set of colon-delimited name-value pairs. @see getAttributeRun
     </tp:docstring>
     </arg>
+    <arg direction="out" name="startOffset" type="i"/>
+    <arg direction="out" name="endOffset" type="i"/>
   </method>
   <method name="getDefaultAttributes">
     <tp:docstring>

@@ -36,4 +36,9 @@ spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
 void
 spi_atk_append_accessible(AtkObject *obj, gpointer iter);
 
+void
+spi_atk_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr);
+
+void
+spi_atk_append_attribute_set_inner (DBusMessageIter *iter, AtkAttributeSet *attr);
 #endif /* ACCESSIBLE_MARSHALLER */

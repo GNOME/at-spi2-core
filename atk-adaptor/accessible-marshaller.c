@@ -286,5 +286,31 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
   dbus_message_iter_close_container (iter_array, &iter_struct);
 }
 
+void
+spi_atk_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr)
+{
+  DBusMessageIter dictIter;
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_ARRAY, "{ss}", &dictIter);
+  spi_atk_append_attribute_set_inner (&dictIter, attr);
+  dbus_message_iter_close_container (iter, &dictIter);
+}
+
+void
+spi_atk_append_attribute_set_inner (DBusMessageIter *iter, AtkAttributeSet *attr)
+{
+  DBusMessageIter dictEntryIter;
+
+  while (attr)
+    {
+      AtkAttribute *attribute = (AtkAttribute *) attr->data;
+      dbus_message_iter_open_container (iter, DBUS_TYPE_DICT_ENTRY, NULL, &dictEntryIter);
+      dbus_message_iter_append_basic (&dictEntryIter, DBUS_TYPE_STRING, &attribute->name);
+      dbus_message_iter_append_basic (&dictEntryIter, DBUS_TYPE_STRING, &attribute->value);
+      dbus_message_iter_close_container (iter, &dictEntryIter);
+      attr = g_slist_next (attr);
+    }
+}
+
 /*END------------------------------------------------------------------------*/
 

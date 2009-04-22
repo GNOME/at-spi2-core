@@ -518,34 +518,17 @@ impl_getAttributes (DBusConnection *bus,
   AtkObject *object = (AtkObject *) user_data;
   DBusMessage *reply;
 
-  GSList *attr;
   AtkAttributeSet *attributes;
-  DBusMessageIter iter, dictIter, dictEntryIter;
-  gint n_attributes = 0;
+  DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
 
   attributes = atk_object_get_attributes (object);
 
-  if (attributes)
-    n_attributes = g_slist_length (attributes);
-
-  attr = attributes;
-
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{ss}", &dictIter);
-  while (attr)
-    {
-      AtkAttribute *attribute = (AtkAttribute *) attr->data;
-      dbus_message_iter_open_container (&dictIter, DBUS_TYPE_DICT_ENTRY, NULL, &dictEntryIter);
-      dbus_message_iter_append_basic (&dictEntryIter, DBUS_TYPE_STRING, &attribute->name);
-      dbus_message_iter_append_basic (&dictEntryIter, DBUS_TYPE_STRING, &attribute->value);
-      dbus_message_iter_close_container (&dictIter, &dictEntryIter);
-      attr = g_slist_next (attr);
-    }
-  dbus_message_iter_close_container (&iter, &dictIter);
+  spi_atk_append_attribute_set (&iter, attributes);
 
   if (attributes)
     atk_attribute_set_free (attributes);

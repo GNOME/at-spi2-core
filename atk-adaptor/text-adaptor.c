@@ -138,9 +138,9 @@ impl_getTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-                                DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
-                                &txt, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt, DBUS_TYPE_INT32,
+                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+                                DBUS_TYPE_INVALID);
     }
   g_free (txt);
   return reply;
@@ -177,9 +177,9 @@ impl_getTextAtOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-                                DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
-                                &txt, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt, DBUS_TYPE_INT32,
+                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+                                DBUS_TYPE_INVALID);
     }
   g_free (txt);
   return reply;
@@ -217,9 +217,9 @@ impl_getTextAfterOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-                                DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_STRING,
-                                &txt, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt, DBUS_TYPE_INT32,
+                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+                                DBUS_TYPE_INVALID);
     }
   g_free (txt);
   return reply;
@@ -301,10 +301,9 @@ impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-                                DBUS_TYPE_INT32, &endOffset,
-                                DBUS_TYPE_BOOLEAN, &defined, DBUS_TYPE_STRING,
-                                &rv, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv, DBUS_TYPE_INT32,
+                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+                                DBUS_TYPE_BOOLEAN, &defined, DBUS_TYPE_INVALID);
     }
   atk_attribute_set_free (set);
   return reply;
@@ -343,10 +342,10 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t offset;
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset, intend_offset;
-  char *rv;
   DBusError error;
   DBusMessage *reply;
   AtkAttributeSet *set;
+  DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
@@ -360,18 +359,17 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
   set = atk_text_get_run_attributes (text, offset,
                                      &intstart_offset, &intend_offset);
 
-  rv = _string_from_attribute_set (set);
-
   startOffset = intstart_offset;
   endOffset = intend_offset;
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv, DBUS_TYPE_INT32, &startOffset,
+      dbus_message_iter_init_append (reply, &iter);
+      spi_atk_append_attribute_set (&iter, set);
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
                                 DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_INVALID);
     }
   atk_attribute_set_free (set);
-  g_free(rv);
   return reply;
 }
 
@@ -380,24 +378,22 @@ impl_getDefaultAttributes (DBusConnection * bus, DBusMessage * message,
                            void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
-  char *rv;
   DBusError error;
   DBusMessage *reply;
   AtkAttributeSet *set;
+  DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
 
   set = atk_text_get_default_attributes (text);
-  rv = _string_from_attribute_set (set);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv,
-                                DBUS_TYPE_INVALID);
+      dbus_message_iter_init_append (reply, &iter);
+      spi_atk_append_attribute_set (&iter, set);
     }
-  g_free (rv);
   atk_attribute_set_free (set);
   return reply;
 }
@@ -735,9 +731,7 @@ impl_getAttributeRun (DBusConnection * bus, DBusMessage * message,
   DBusMessage *reply;
   AtkAttributeSet *attributes, *default_attributes = NULL;
   AtkAttribute *attr = NULL;
-  char **retval;
-  gint n_attributes = 0, total_attributes = 0, n_default_attributes = 0;
-  gint i, j;
+  DBusMessageIter iter, iterArray;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
@@ -753,51 +747,29 @@ impl_getAttributeRun (DBusConnection * bus, DBusMessage * message,
     atk_text_get_run_attributes (text, offset, &intstart_offset,
                                  &intend_offset);
 
-  if (attributes)
-    total_attributes = n_attributes = g_slist_length (attributes);
+  reply = dbus_message_new_method_return (message);
+  if (!reply)
+    return NULL;
 
+  dbus_message_iter_init_append (reply, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{ss}", &iterArray);
+  spi_atk_append_attribute_set_inner (&iterArray, attributes);
   if (includeDefaults)
     {
       default_attributes = atk_text_get_default_attributes (text);
-      if (default_attributes)
-        n_default_attributes = g_slist_length (default_attributes);
-      total_attributes += n_default_attributes;
+      spi_atk_append_attribute_set_inner (&iterArray, default_attributes);
     }
+  dbus_message_iter_close_container (&iter, &iterArray);
 
   startOffset = intstart_offset;
   endOffset = intend_offset;
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &startOffset);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &endOffset);
 
-  retval = (char **) g_malloc (total_attributes * sizeof (char *));
+  atk_attribute_set_free (attributes);
+  if (default_attributes)
+    atk_attribute_set_free (default_attributes);
 
-  if (total_attributes)
-    {
-      for (i = 0; i < n_attributes; ++i)
-        {
-          attr = g_slist_nth_data (attributes, i);
-          retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
-        }
-
-      for (j = 0; j < n_default_attributes; ++i, ++j)
-        {
-          attr = g_slist_nth_data (default_attributes, j);
-          retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
-        }
-
-      atk_attribute_set_free (attributes);
-      if (default_attributes)
-        atk_attribute_set_free (default_attributes);
-    }
-  reply = dbus_message_new_method_return (message);
-  if (reply)
-    {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-                                DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_ARRAY,
-                                DBUS_TYPE_STRING, &retval, total_attributes,
-                                DBUS_TYPE_INVALID);
-    }
-  for (i = 0; i < total_attributes; i++)
-    g_free (retval[i]);
-  g_free (retval);
   return reply;
 }
 
@@ -807,37 +779,24 @@ impl_getDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
 {
   AtkText *text = (AtkText *) user_data;
   DBusMessage *reply;
+  DBusMessageIter iter;
   AtkAttributeSet *attributes;
-  AtkAttribute *attr = NULL;
-  char **retval;
-  gint n_attributes = 0;
-  gint i;
 
   g_return_val_if_fail (ATK_IS_TEXT (user_data),
                         droute_not_yet_handled_error (message));
 
   attributes = atk_text_get_default_attributes (text);
-  if (attributes)
-    n_attributes = g_slist_length (attributes);
 
-  retval = g_new (char *, n_attributes);
-
-  for (i = 0; i < n_attributes; ++i)
-    {
-      attr = g_slist_nth_data (attributes, i);
-      retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
-    }
-  if (attributes)
-    atk_attribute_set_free (attributes);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_STRING,
-                                &retval, n_attributes, DBUS_TYPE_INVALID);
+      dbus_message_iter_init_append (reply, &iter);
+      spi_atk_append_attribute_set (&iter, attributes);
     }
-  for (i = 0; i < n_attributes; i++)
-    g_free (retval[i]);
-  g_free (retval);
+
+  if (attributes)
+    atk_attribute_set_free (attributes);
+
   return reply;
 }
 

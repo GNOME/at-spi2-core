@@ -87,36 +87,22 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
   AtkDocument *document = (AtkDocument *) user_data;
   DBusMessage *reply;
   AtkAttributeSet *attributes;
-  AtkAttribute *attr = NULL;
-  char **retval;
-  gint n_attributes = 0;
-  gint i;
+  DBusMessageIter iter;
 
   g_return_val_if_fail (ATK_IS_DOCUMENT (user_data),
                         droute_not_yet_handled_error (message));
 
   attributes = atk_document_get_attributes (document);
-  if (attributes)
-    n_attributes = g_slist_length (attributes);
 
-  retval = (char **) g_malloc (n_attributes * sizeof (char *));
-
-  for (i = 0; i < n_attributes; ++i)
-    {
-      attr = g_slist_nth_data (attributes, i);
-      retval[i] = g_strconcat (attr->name, ":", attr->value, NULL);
-    }
-  if (attributes)
-    atk_attribute_set_free (attributes);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_STRING,
-                                &retval, n_attributes, DBUS_TYPE_INVALID);
+      dbus_message_iter_init_append (reply, &iter);
+      spi_atk_append_attribute_set (&iter, attributes);
     }
-  for (i = 0; i < n_attributes; i++)
-    g_free (retval[i]);
-  g_free (retval);
+
+  if (attributes)
+    atk_attribute_set_free (attributes);
   return reply;
 }
 
