@@ -536,10 +536,10 @@ class KeyboardDeviceEventListener(_service.Object):
                         AT-SPI observers (False)?
                 @rtype: boolean
                 """
-                # wrap the device event
-                event = DeviceEvent(ev)
                 # TODO Find out where the exceptions are falling in to.
                 try:
+                        # wrap the device event
+                        event = DeviceEvent(*ev)
                         return self._registry.handleDeviceEvent(event, self)
                 except Exception, e:
                         import traceback
