@@ -16,7 +16,7 @@ import dbus
 
 from interfaces import *
 from accessible import Accessible
-from base import Enum, _repack_tuple
+from base import Enum
 from factory import accessible_factory
 
 __all__ = [
@@ -116,7 +116,7 @@ class Text(Accessible):
                 func = self.get_dbus_method("addSelection", dbus_interface=ATSPI_TEXT)
                 return func(index)
 
-        def getAttributeRun(self, offset, startOffset, endOffset, includeDefaults):
+        def getAttributeRun(self, offset):
                 """
                 Query a particular text object for the text attributes defined
                 at a given offset, obtaining the start and end of the "attribute
@@ -166,10 +166,11 @@ class Text(Accessible):
                 the 'default' attributes.
                 """
                 func = self.get_dbus_method("getAttributeRun", dbus_interface=ATSPI_TEXT)
-                attr = func(offset, startOffset, endOffset, includeDefaults)
-                return [key + ':' + value for key, value in attr.values()]
+                [attrs, startOffset, endOffset] = func(offset, includeDefaults)
+                dict = [key + ':' + value for key, value in attrs.values()]
+                return [dict, startOffset, endOffset]
 
-        def getAttributeValue(self, offset, attributeName, startOffset, endOffset, defined):
+        def getAttributeValue(self, offset, attributeName):
                 """
                 Get the string value of a named attribute at a given offset,
                 if defined. 
@@ -192,7 +193,7 @@ class Text(Accessible):
                 to "name", if defined.
                 """
                 func = self.get_dbus_method("getAttributeValue", dbus_interface=ATSPI_TEXT)
-                return func(offset, attributeName, startOffset, endOffset, defined)
+                return func(offset, attributeName)
 
         def getAttributes(self, offset):
                 """
@@ -201,7 +202,9 @@ class Text(Accessible):
                 of colon-delimited name-value pairs.
                 """
                 func = self.get_dbus_method("getAttributes", dbus_interface=ATSPI_TEXT)
-                return [key + ':' + value for key, value in func(dbus.Int32(offset)).values()]
+                [attrs, startOffset, endOffset] = func(dbus.Int32(offset))
+                dict = [key + ':' + value for key, value in attrs]
+                return [dict, startOffset, endOffset]
 
         def getBoundedRanges(self, x, y, width, height, coordType, xClipType, yClipType):
                 #TODO Return a list of range structures
@@ -301,7 +304,8 @@ class Text(Accessible):
                 but which were not explicitly specified by the content creator.
                 """
                 func = self.get_dbus_method("getDefaultAttributes", dbus_interface=ATSPI_TEXT)
-                return [key + ':' + value for key, value in func().values()]
+                [attributes, startOffset, endOffset] = func(values)
+                return [[key + ':' + value for key, value in func().values()], startOffset, endOffset]
 
         def getNSelections(self):
                 """
@@ -367,7 +371,7 @@ class Text(Accessible):
                 func = self.get_dbus_method("getRangeExtents", dbus_interface=ATSPI_TEXT)
                 return func(startOffset, endOffset, x, y, width, height, coordType)
 
-        def getSelection(self, selectionNum, startOffset, endOffset):
+        def getSelection(self, selectionNum):
                 """
                 The result of calling getSelection with an out-of-range selectionNum
                 (i.e. for a selection which does not exist) is not strictly defined,
@@ -382,7 +386,7 @@ class Text(Accessible):
                 the resulting substring, if one exists. 
                 """
                 func = self.get_dbus_method("getSelection", dbus_interface=ATSPI_TEXT)
-                return func(selectionNum, startOffset, endOffset)
+                return func(selectionNum)
 
         def getText(self, startOffset, endOffset):
                 """
@@ -404,7 +408,7 @@ class Text(Accessible):
                         endOffset = -1
                 return func(dbus.Int32(startOffset), dbus.Int32(endOffset))
 
-        def getTextAfterOffset(self, offset, type, startOffset, endOffset):
+        def getTextAfterOffset(self, offset, type):
                 """
                 Obtain a subset of the text content of an object which entirely
                 follows offset, delimited by character, word, line, or sentence
@@ -430,7 +434,7 @@ class Text(Accessible):
                 the object, delimited by the specified boundary condition.
                 """
                 func = self.get_dbus_method("getTextAfterOffset", dbus_interface=ATSPI_TEXT)
-                return func(offset, type, startOffset, endOffset)
+                return func(offset, type)
 
         def getTextAtOffset(self, offset, type):
                 """
@@ -457,9 +461,9 @@ class Text(Accessible):
                 the object, delimited by the specified boundary condition.
                 """
                 func = self.get_dbus_method("getTextAtOffset", dbus_interface=ATSPI_TEXT)
-                return _repack_tuple(func(offset, type))
+                return func(offset, type)
 
-        def getTextBeforeOffset(self, offset, type, startOffset, endOffset):
+        def getTextBeforeOffset(self, offset, type):
                 """
                 Obtain a subset of the text content of an object which entirely
                 precedes offset, delimited by character, word, line, or sentence
@@ -484,7 +488,7 @@ class Text(Accessible):
                 the object, delimited by the specified boundary condition.
                 """
                 func = self.get_dbus_method("getTextBeforeOffset", dbus_interface=ATSPI_TEXT)
-                return func(offset, type, startOffset, endOffset)
+                return func(offset, type)
 
         def removeSelection(self, selectionNum):
                 """
