@@ -304,8 +304,7 @@ class Text(Accessible):
                 but which were not explicitly specified by the content creator.
                 """
                 func = self.get_dbus_method("getDefaultAttributes", dbus_interface=ATSPI_TEXT)
-                [attributes, startOffset, endOffset] = func(values)
-                return [[key + ':' + value for key, value in func().values()], startOffset, endOffset]
+                return ';'.join([key + ':' + value for key, value in func().iteritems()])
 
         def getNSelections(self):
                 """
