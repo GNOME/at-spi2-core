@@ -40,8 +40,8 @@ class Hypertext(Accessible):
                 @return the Hyperlink in this Hypertext object.
                 """
                 func = self.get_dbus_method("getLink", dbus_interface=ATSPI_HYPERTEXT)
-                #TODO Lookup the accessible object and call queryHyperlink on it.
-                return func(index)
+                return self._cache.create_accessible(self._app_name, func(index),
+                                                     interfaces.ATSPI_HYPERTEXT)
 
         def getLinkIndex(self, character_index):
                 """

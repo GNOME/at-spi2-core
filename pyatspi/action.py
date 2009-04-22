@@ -24,8 +24,6 @@ __all__ = [
 
 #------------------------------------------------------------------------------
 
-#TODO Perhaps use the 'getActions' method to reduce round-trips.
-
 class Action(Accessible):
         """
         An interface through which a user-actionable user interface component
@@ -37,6 +35,16 @@ class Action(Accessible):
         from mouse or keyboard), "open" for icons representing files
         folders, and others.
         """
+
+        def getActions(self):
+                """
+                getActions:
+                Retrieves all the actions at once.  
+                @return : an array of an array of strings in the form
+                [[name, description, keybinding], ...]
+                """
+                func = self.get_dbus_method("getActions", dbus_interface=ATSPI_ACTION)
+                return func()
 
         def doAction(self, index):
                 """

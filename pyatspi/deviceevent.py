@@ -543,7 +543,7 @@ class KeyboardDeviceEventListener(_service.Object):
                         return self._registry.handleDeviceEvent(event, self)
                 except Exception, e:
                         import traceback
-                        traceback.print_exe()
+                        traceback.print_exc()
                         return False
 
 #END---------------------------------------------------------------------------

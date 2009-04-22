@@ -46,7 +46,7 @@ class Selection(Accessible):
                 func = self.get_dbus_method("clearSelection", dbus_interface=ATSPI_SELECTION)
                 return func()
 
-        def deselectChild(self, *args, **kwargs):
+        def deselectChild(self, childIndex):
                 """
                 Remove a child from the selected children list of a Selection,
                 if the child is currently selected.
@@ -57,7 +57,7 @@ class Selection(Accessible):
                 @return True if the child was successfully selected, False otherwise.
                 """
                 func = self.get_dbus_method("deselectChild", dbus_interface=ATSPI_SELECTION)
-                return func(*args, **kwargs)
+                return func(childIndex)
 
         def deselectSelectedChild(self, index):
                 """
@@ -83,8 +83,7 @@ class Selection(Accessible):
                 by selectedChildIndex.
                 """
                 func = self.get_dbus_method("getSelectedChild", dbus_interface=ATSPI_SELECTION)
-                return self._cache.create_accessible(self._app_name,
-                                                     func(index),
+                return self._cache.create_accessible(self._app_name, func(index),
                                                      interfaces.ATSPI_ACCESSIBLE)
 
         def isChildSelected(self, index):

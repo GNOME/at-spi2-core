@@ -349,7 +349,6 @@ class _Registry(object):
                         AT-SPI is in the foreground? (requires xevie)
                 @type global_: boolean
                 """
-                """
                 try:
                         # see if we already have an observer for this client
                         ob = self.deviceClients[client]
@@ -364,8 +363,6 @@ class _Registry(object):
                         mask = utils.allModifiers()
                 # register for new keystrokes on the observer
                 ob.register(self.dev, key_set, mask, kind)
-                """
-                pass
 
         def deregisterKeystrokeListener(self,
                                         client,
