@@ -46,6 +46,32 @@ static gint atk_bridge_focus_tracker_id;
 
 /*---------------------------------------------------------------------------*/
 
+static void
+set_reply (DBusPendingCall *pending, void *user_data)
+{
+    void **replyptr = (void **)user_data;
+
+    *replyptr = dbus_pending_call_steal_reply (pending);
+}
+
+static DBusMessage *
+send_and_allow_reentry (DBusConnection *bus, DBusMessage *message)
+{
+    DBusPendingCall *pending;
+    DBusMessage *reply = NULL;
+
+    if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
+    {
+        return NULL;
+    }
+    dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
+    while (!reply)
+    {
+      if (!dbus_connection_read_write_dispatch (bus, -1)) return NULL;
+    }
+    return reply;
+}
+
 static gboolean
 Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
 {
@@ -53,16 +79,16 @@ Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_Devi
   DBusError error;
   dbus_bool_t consumed = FALSE;
 
-  message = 
+  message =
   dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, 
-  			       SPI_DBUS_PATH_DEC,
-			       SPI_DBUS_INTERFACE_DEC,
-			       "notifyListenersSync");
+                               SPI_DBUS_PATH_DEC,
+                               SPI_DBUS_INTERFACE_DEC,
+                               "notifyListenersSync");
 
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
-    DBusMessage *reply = dbus_connection_send_with_reply_and_block(atk_adaptor_app_data->bus, message, 1000, &error);
+    DBusMessage *reply = send_and_allow_reentry (atk_adaptor_app_data->bus, message);
     if (reply)
     {
       DBusError error;
