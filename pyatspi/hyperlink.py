@@ -51,7 +51,8 @@ class Hyperlink(Accessible):
                 ith anchor can be accessed.
                 """
                 func = self.get_dbus_method("getObject", dbus_interface=ATSPI_HYPERLINK)
-                return func(index)
+                return self._cache.create_accessible(self._app_name, func(index),
+                                                     interfaces.ATSPI_HYPERLINK)
 
         def getURI(self, index):
                 """

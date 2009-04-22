@@ -100,9 +100,10 @@ class Component(Accessible):
                 @return the Accessible child whose bounding box contains the
                 specified point.
                 """
-                #TODO Need to return an actual accessible object rather than a random string.
                 func = self.get_dbus_method("getAccessibleAtPoint", dbus_interface=ATSPI_COMPONENT)
-                return func(x, y, coord_type)
+                return self._cache.create_accessible(self._app_name,
+                                                     func(x, y, coord_type),
+                                                     interfaces.ATSPI_COMPONENT)
 
         def getAlpha(self):
                 """
