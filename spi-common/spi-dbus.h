@@ -32,16 +32,17 @@
 extern int _dbg;
 
 #define SPI_DBUS_NAME_REGISTRY "org.freedesktop.atspi.Registry"
-#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/deviceeventcontroller"
 #define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
-#define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/registry/desktop"
-#define SPI_DBUS_PATH_NULL "/org/freedesktop/accessible/null"
 #define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.Registry"
+
+#define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/accessible/desktop"
+#define SPI_DBUS_INTERFACE_DESKTOP "org.freedesktop.atspi.Desktop"
+
+#define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/deviceeventcontroller"
+#define SPI_DBUS_PATH_NULL "/org/freedesktop/accessible/null"
 
 #define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.DeviceEventController"
 #define SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER "org.freedesktop.atspi.DeviceEventListener"
-
-#define SPI_DBUS_INTERFACE_DESKTOP "org.freedesktop.atspi.Desktop"
 
 #define SPI_DBUS_INTERFACE_TREE "org.freedesktop.atspi.Tree"
 #define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"

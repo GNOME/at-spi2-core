@@ -377,7 +377,7 @@ static void emit(SpiDEController *controller, const char *interface, const char 
   DBusMessageIter iter, iter_variant;
   int nil = 0;
   const char *minor = "";
-  const char *path = SPI_DBUS_PATH_DEC;
+  const char *path = SPI_DBUS_PATH_DESKTOP;
 
   signal = dbus_message_new_signal (path, interface, name);
 
