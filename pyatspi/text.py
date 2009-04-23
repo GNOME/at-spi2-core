@@ -339,7 +339,7 @@ class Text(Accessible):
                 func = self.get_dbus_method("getOffsetAtPoint", dbus_interface=ATSPI_TEXT)
                 return func(x, y, coordType)
 
-        def getRangeExtents(self, startOffset, endOffset, x, y, width, height, coordType):
+        def getRangeExtents(self, startOffset, endOffset, coordType):
                 """
                 Obtain the bounding box which entirely contains a given text
                 range. Negative values may be returned for the bounding box parameters
@@ -368,7 +368,7 @@ class Text(Accessible):
                 to the corner of the containing toplevel window.
                 """
                 func = self.get_dbus_method("getRangeExtents", dbus_interface=ATSPI_TEXT)
-                return func(startOffset, endOffset, x, y, width, height, coordType)
+                return func(startOffset, endOffset, coordType)
 
         def getSelection(self, selectionNum):
                 """
