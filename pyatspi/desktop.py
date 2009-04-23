@@ -358,4 +358,7 @@ class Desktop(object):
                                                 "%s not supported by accessible object at path %s"
                                                 % (interface, self._acc_path))
 
+        def flushCache(self):
+                pass
+
 #END----------------------------------------------------------------------------

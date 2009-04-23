@@ -17,7 +17,7 @@ from base import BaseProxy, Enum
 from factory import accessible_factory
 from state import StateSet, _marshal_state_set
 from relation import _marshal_relation_set
-from role import Role
+from role import Role, ROLE_NAMES
 
 __all__ = [
            "LOCALE_TYPE",
@@ -91,6 +91,8 @@ class Accessible(BaseProxy):
     'children' and position in the accessible-object hierarchy,
     whether or not they actually have children.
     """
+
+    _relation_set = None
 
     def __nonzero__(self):
             return True
@@ -182,9 +184,13 @@ class Accessible(BaseProxy):
         objects. 
         @return : a RelationSet defining this object's relationships.
         """
-        func = self.get_dbus_method("getRelationSet", dbus_interface=ATSPI_ACCESSIBLE)
-        relation_set = func()
-        return _marshal_relation_set(self._cache, self._app_name, relation_set)
+        if self._relation_set:
+                return self._relation_set
+        else:
+                func = self.get_dbus_method("getRelationSet", dbus_interface=ATSPI_ACCESSIBLE)
+                relation_set = func()
+                self._relation_set = _marshal_relation_set(self._cache, self._app_name, relation_set)
+                return self._relation_set
 
     def getRole(self):
         """
@@ -200,8 +206,11 @@ class Accessible(BaseProxy):
         @return : a UTF-8 string indicating the type of UI role played
         by this object.
         """
+        """
         func = self.get_dbus_method("getRoleName", dbus_interface=ATSPI_ACCESSIBLE)
         return func()
+        """
+        return ROLE_NAMES[self.cached_data.role]
 
     def getState(self):
         """
@@ -263,6 +272,9 @@ class Accessible(BaseProxy):
         an Accessible object which is this object's containing object.
         """
     parent = property(fget=get_parent, doc=_parentDoc)
+
+    def flushCache(self):
+            self._relation_set = None
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_ACCESSIBLE, Accessible)

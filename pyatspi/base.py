@@ -46,6 +46,15 @@ class Enum(dbus.UInt32):
         def __str__(self):
                 return self._enum_lookup[int(self)]
 
+        def __eq__(self, other):
+                if int(self) == int(other):
+                        return True
+                else:
+                        return False
+
+        def __hash__(self):
+                return int(self)
+
 #------------------------------------------------------------------------------
 
 
@@ -185,5 +194,8 @@ class BaseProxy(object):
                         raise NotImplementedError(
                                 "%s not supported by accessible object at path %s"
                                 % (interface, self._acc_path))
+
+        def flushCache(self):
+                pass
 
 #END----------------------------------------------------------------------------
