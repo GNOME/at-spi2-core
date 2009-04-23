@@ -93,7 +93,7 @@ class Component(Accessible):
                 bounding box, False otherwise.
                 """
                 func = self.get_dbus_method("contains", dbus_interface=ATSPI_COMPONENT)
-                return func(x, y, coord_type)
+                return func(x, y, UInt32(coord_type))
 
         def getAccessibleAtPoint(self, x, y, coord_type):
                 """
@@ -102,7 +102,7 @@ class Component(Accessible):
                 """
                 func = self.get_dbus_method("getAccessibleAtPoint", dbus_interface=ATSPI_COMPONENT)
                 return self._cache.create_accessible(self._app_name,
-                                                     func(x, y, coord_type),
+                                                     func(x, y, UInt32(coord_type)),
                                                      interfaces.ATSPI_COMPONENT)
 
         def getAlpha(self):
