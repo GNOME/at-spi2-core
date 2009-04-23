@@ -311,11 +311,11 @@ adaptor_init (gint *argc, gchar **argv[])
   spi_initialize_text (accpath);
   spi_initialize_value (accpath);
 
-  /* Register methods to send D-Bus signals on certain ATK events */
-  spi_atk_register_event_listeners ();
-
   /* Initialize the AtkObject registration */
   atk_dbus_initialize (atk_adaptor_app_data->root);
+
+  /* Register methods to send D-Bus signals on certain ATK events */
+  spi_atk_register_event_listeners ();
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   register_application (atk_adaptor_app_data);

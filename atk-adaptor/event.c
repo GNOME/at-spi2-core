@@ -701,7 +701,9 @@ spi_atk_register_event_listeners (void)
   add_signal_listener (document_event_listener,               "Gtk:AtkDocument:load-complete");
   add_signal_listener (document_event_listener,               "Gtk:AtkDocument:reload");
   add_signal_listener (document_event_listener,               "Gtk:AtkDocument:load-stopped");
+  /* TODO Fake this event on the client side */
   add_signal_listener (state_event_listener,                  "Gtk:AtkObject:state-change");
+  /* TODO */
   add_signal_listener (active_descendant_event_listener,      "Gtk:AtkObject:active-descendant-changed");
   add_signal_listener (bounds_event_listener,                 "Gtk:AtkComponent:bounds-changed");
   add_signal_listener (text_selection_changed_event_listener, "Gtk:AtkText:text-selection-changed");

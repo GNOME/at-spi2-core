@@ -385,6 +385,12 @@ atk_dbus_desktop_object_path ()
 
 /*---------------------------------------------------------------------------*/
 
+typedef gboolean (*TreeUpdateAction) (GSignalInvocationHint *signal_hint,
+                                      guint                  n_param_values,
+                                      const GValue          *param_values,
+                                      gpointer               data,
+                                      AtkObject             *accessible);
+
 /*
  * Events are not evaluated for non-registered accessibles.
  *
@@ -394,22 +400,22 @@ atk_dbus_desktop_object_path ()
  * When a parent is changed the subtree is de-registered
  * if the parent is not attached to the root accessible.
  */
+/* TODO Turn this function into a macro? */
 static gboolean
-tree_update_listener (GSignalInvocationHint *signal_hint,
-                      guint                  n_param_values,
-                      const GValue          *param_values,
-                      gpointer               data)
+tree_update_wrapper (GSignalInvocationHint *signal_hint,
+                     guint                  n_param_values,
+                     const GValue          *param_values,
+                     gpointer               data,
+                     TreeUpdateAction       action)
 {
   AtkObject *accessible;
-  AtkPropertyValues *values;
-  const gchar *pname = NULL;
 
   g_static_rec_mutex_lock (&registration_mutex);
 
   /* Ensure that only registered accessibles
    * have their signals processed.
    */
-  accessible = g_value_get_object (&param_values[0]);
+  accessible = ATK_OBJECT(g_value_get_object (&param_values[0]));
   g_return_val_if_fail (ATK_IS_OBJECT (accessible), TRUE);
 
   if (object_to_ref (accessible))
@@ -420,7 +426,44 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
 
       g_debug ("AT-SPI: Tree update listener");
 #endif
+      action (signal_hint, n_param_values, param_values, data, accessible);
 
+      recursion_check_unset ();
+    }
+
+  g_static_rec_mutex_unlock (&registration_mutex);
+
+  return TRUE;
+}
+
+static gboolean
+tree_update_state_action (GSignalInvocationHint *signal_hint,
+                          guint                  n_param_values,
+                          const GValue          *param_values,
+                          gpointer               data,
+                          AtkObject             *accessible)
+{
+      update_accessible (accessible);
+}
+
+static gboolean
+tree_update_state_listener (GSignalInvocationHint *signal_hint,
+                            guint                  n_param_values,
+                            const GValue          *param_values,
+                            gpointer               data)
+{
+      tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_state_action);
+}
+
+static gboolean
+tree_update_property_action (GSignalInvocationHint *signal_hint,
+                             guint                  n_param_values,
+                             const GValue          *param_values,
+                             gpointer               data,
+                             AtkObject             *accessible)
+{
+      AtkPropertyValues *values;
+      const gchar *pname = NULL;
 
       values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
       pname = values[0].property_name;
@@ -431,47 +474,26 @@ tree_update_listener (GSignalInvocationHint *signal_hint,
           update_accessible (accessible);
         }
       /* Parent value us updated by child-add signal of parent object */
-
-      recursion_check_unset ();
-    }
-
-  g_static_rec_mutex_unlock (&registration_mutex);
-
-  return TRUE;
 }
 
-/*
- * Events are not evaluated for non registered accessibles.
- *
- * When the children of a registered accessible are changed
- * the subtree, rooted at the child is registered.
- */
 static gboolean
-tree_update_children_listener (GSignalInvocationHint *signal_hint,
+tree_update_property_listener (GSignalInvocationHint *signal_hint,
                                guint                  n_param_values,
                                const GValue          *param_values,
                                gpointer               data)
 {
-  AtkObject *accessible;
-  const gchar *detail = NULL;
-  AtkObject *child;
+      tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_property_action);
+}
 
-  g_static_rec_mutex_lock (&registration_mutex);
-
-  /* Ensure that only registered accessibles
-   * have their signals processed.
-   */
-  accessible = g_value_get_object (&param_values[0]);
-  g_return_val_if_fail (ATK_IS_OBJECT (accessible), TRUE);
-
-  if (object_to_ref (accessible))
-    {
-#ifdef SPI_ATK_DEBUG
-      if (recursion_check_and_set ())
-          g_warning ("AT-SPI: Recursive use of registration module");
-
-      g_debug ("AT-SPI: Tree update children listener");
-#endif
+static gboolean
+tree_update_children_action (GSignalInvocationHint *signal_hint,
+                             guint                  n_param_values,
+                             const GValue          *param_values,
+                             gpointer               data,
+                             AtkObject             *accessible)
+{
+      const gchar *detail = NULL;
+      AtkObject *child;
 
       if (signal_hint->detail)
           detail = g_quark_to_string (signal_hint->detail);
@@ -492,14 +514,18 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
           register_subtree (child);
           update_accessible (accessible);
         }
-
-      recursion_check_unset ();
-    }
-
-  g_static_rec_mutex_unlock (&registration_mutex);
-
-  return TRUE;
 }
+
+static gboolean
+tree_update_children_listener (GSignalInvocationHint *signal_hint,
+                               guint                  n_param_values,
+                               const GValue          *param_values,
+                               gpointer               data)
+{
+      tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_children_action);
+}
+
+/*---------------------------------------------------------------------------*/
 
 static void
 spi_atk_register_toplevel_added (AtkObject *accessible,
@@ -579,8 +605,9 @@ atk_dbus_initialize (AtkObject *root)
 
   register_subtree (root);
 
-  atk_add_global_event_listener (tree_update_listener, "Gtk:AtkObject:property-change");
+  atk_add_global_event_listener (tree_update_property_listener, "Gtk:AtkObject:property-change");
   atk_add_global_event_listener (tree_update_children_listener, "Gtk:AtkObject:children-changed");
+  atk_add_global_event_listener (tree_update_state_listener, "Gtk:AtkObject:state-change");
 
   g_signal_connect (root,
                     "children-changed::add",
