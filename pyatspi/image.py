@@ -18,6 +18,8 @@ from accessible import Accessible
 from factory import accessible_factory
 from accessible import BoundingBox
 
+from dbus.types import UInt32
+
 __all__ = [
            "Image",
           ]
@@ -49,7 +51,7 @@ class Image(Accessible):
                 @return a BoundingBox enclosing the image's onscreen representation.
                 """
                 func = self.get_dbus_method("getImageExtents", dbus_interface=ATSPI_IMAGE)
-                return BoundingBox(*func(dbus.Int16(coordType)))
+                return BoundingBox(*func(UInt32(coordType)))
 
         def getImagePosition(self, coord_type):
                 """
@@ -66,7 +68,7 @@ class Image(Accessible):
                 window.
                 """
                 func = self.get_dbus_method("getImagePosition", dbus_interface=ATSPI_IMAGE)
-                return func(coord_type)
+                return func(UInt32(coord_type))
 
         def getImageSize(self):
                 """
