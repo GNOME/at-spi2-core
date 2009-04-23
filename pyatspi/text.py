@@ -19,6 +19,8 @@ from accessible import Accessible
 from base import Enum
 from factory import accessible_factory
 
+from dbus.types import UInt32
+
 __all__ = [
            "Text",
            "TEXT_BOUNDARY_TYPE",
@@ -236,7 +238,7 @@ class Text(Accessible):
                 the y direction is included.
                 """
                 func = self.get_dbus_method("getBoundedRanges", dbus_interface=ATSPI_TEXT)
-                return func(x, y, width, height, coordType, xClipType, yClipType)
+                return func(x, y, width, height, UInt32(coordType), xClipType, yClipType)
 
         def getCharacterAtOffset(self, offset):
                 """
@@ -281,7 +283,7 @@ class Text(Accessible):
                 down.
                 """
                 func = self.get_dbus_method("getCharacterExtents", dbus_interface=ATSPI_TEXT)
-                return func(offset, x, y, width, height, coordType)
+                return func(offset, x, y, width, height, UInt32(coordType))
 
         def getDefaultAttributeSet(self):
                 """
@@ -337,7 +339,7 @@ class Text(Accessible):
                 -1 if the point is outside the bounds of any glyph.
                 """
                 func = self.get_dbus_method("getOffsetAtPoint", dbus_interface=ATSPI_TEXT)
-                return func(x, y, coordType)
+                return func(x, y, UInt32(coordType))
 
         def getRangeExtents(self, startOffset, endOffset, coordType):
                 """
@@ -368,7 +370,7 @@ class Text(Accessible):
                 to the corner of the containing toplevel window.
                 """
                 func = self.get_dbus_method("getRangeExtents", dbus_interface=ATSPI_TEXT)
-                return func(startOffset, endOffset, coordType)
+                return func(startOffset, endOffset, UInt32(coordType))
 
         def getSelection(self, selectionNum):
                 """
