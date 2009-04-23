@@ -127,7 +127,7 @@ class AccessibleCache(object):
                                        self._bus_name,
                                        "org.freedesktop.atspi.Event.Object",
                                        "property-change",
-                                       ("accessible-description", 0, 0, description))
+                                       ("accessible-description", 0, 0, newdata.description))
                         self._registry._notifyDescriptionChange(event)
 
                 if olddata.parent != newdata.parent:
