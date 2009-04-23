@@ -240,16 +240,15 @@ append_children (AtkObject *accessible, GQueue *traversal)
   for (i =0; i < atk_object_get_n_accessible_children (accessible); i++)
     {
       current = atk_object_ref_accessible_child (accessible, i);
+      if (current)
+        {
 #ifdef SPI_ATK_DEBUG
-      non_owned_accessible (current);
+          non_owned_accessible (current);
 #endif
-      if (!has_manages_descendants (current))
-        {
-          g_queue_push_tail (traversal, current);
-        }
-      else
-        {
-          g_object_unref (G_OBJECT (current));
+          if (!has_manages_descendants (current))
+              g_queue_push_tail (traversal, current);
+          else
+              g_object_unref (G_OBJECT (current));
         }
     }
 }
@@ -361,6 +360,63 @@ atk_dbus_path_to_object (const char *path)
   else
     return NULL;
 }
+
+/*
+ * TODO WARNING HACK This function is dangerous.
+ * It should only be called before sending an event on an
+ * object that has not already been registered.
+ */
+gchar *
+atk_dbus_object_attempt_registration (AtkObject *accessible)
+{
+  guint ref;
+
+  ref = object_to_ref (accessible);
+  if (!ref)
+    {
+      /* See if the object is attached to the main tree */
+      AtkObject *current, *prev = NULL;
+      guint cref = 0;
+
+      /* This should iterate until it hits a NULL or registered parent */
+      prev = accessible;
+      current = atk_object_get_parent (accessible);
+      if (current)
+          cref = object_to_ref (current);
+      while (current && !cref)
+        {
+          prev = current;
+          current = atk_object_get_parent (current);
+          if (current)
+              cref = object_to_ref (current);
+        }
+
+      /* A registered parent, with non-registered child, has been found */
+      if (current)
+        {
+          register_subtree (prev);
+        }
+
+      /* The object SHOULD be registered now. If it isn't - I give up */
+      ref = object_to_ref (accessible);
+      if (ref)
+        {
+          return ref_to_path (ref);
+        }
+      else
+        {
+#ifdef SPI_ATK_DEBUG
+          g_debug ("AT-SPI: Could not register a non-attached accessible object");
+#endif
+          return NULL;
+        }
+    }
+  else
+    {
+      return ref_to_path (ref);
+    }
+}
+
 
 /*
  * Used to lookup a D-Bus path from the AtkObject.

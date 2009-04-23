@@ -187,14 +187,23 @@ emit(AtkObject  *accessible,
 {
   gchar *path;
 
-  path = atk_dbus_object_to_path (accessible);
+  /* TODO this is a hack, used becuase child-added events are not guaranteed.
+   * On recieving an event from a non-registered object we check if it can be safely 
+   * registered before sending the event.
+   */
+  path = atk_dbus_object_attempt_registration (accessible);
 
   /* Tough decision here
    * We won't send events from accessible
    * objects that have not yet been added to the accessible tree.
    */
   if (path == NULL)
+  {
+#ifdef SPI_ATK_DEBUG
+      g_debug ("AT-SPI: Event recieved from non-registered object");
+#endif
       return;
+  }
 
   spi_dbus_emit_signal (atk_adaptor_app_data->bus, path, klass, major, minor, detail1, detail2, type, val);
   g_free(path);
@@ -298,11 +307,17 @@ property_event_listener (GSignalInvocationHint *signal_hint,
   AtkObject *otemp;
   const gchar *stemp;
   gint i;
-  
+
   accessible = g_value_get_object (&param_values[0]);
   values = (AtkPropertyValues*) g_value_get_pointer (&param_values[1]);
 
   pname = values[0].property_name;
+  if (strcmp (pname, "accessible-name") == 0 ||
+      strcmp (pname, "accessible-description") == 0 ||
+      strcmp (pname, "accessible-parent") == 0)
+  {
+      return TRUE;
+  }
 
   /* TODO Could improve this control statement by matching
    * on only the end of the signal names,

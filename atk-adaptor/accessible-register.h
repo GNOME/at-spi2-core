@@ -36,6 +36,9 @@ AtkObject *
 atk_dbus_path_to_object (const char *path);
 
 gchar *
+atk_dbus_object_attempt_registration (AtkObject *accessible);
+
+gchar *
 atk_dbus_object_to_path (AtkObject *accessible);
 
 gchar *
