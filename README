@@ -106,12 +106,6 @@ The directories within this package are arranged as follows:
         both the registry daemon and the ATK adaptor.
         Structures are mainly related to events.
 
-    registryd
-
-        This directory contains code specific to the
-        central accessibility registry, and the registry
-        executable is built in this directory.
-
     atk-adaptor
 
         This directory contains code that bridges 
