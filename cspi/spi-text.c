@@ -252,7 +252,7 @@ AccessibleText_getAttributes (AccessibleText *obj,
       return NULL;
     }
 
-  cspi_dbus_call (obj, spi_interface_text, "getAttributes", NULL, "i=>iis", d_offset, &retStartOffset, &retEndOffset, &retval);
+  cspi_dbus_call (obj, spi_interface_text, "getAttributes", NULL, "i=>sii", d_offset, &retval, &retStartOffset, &retEndOffset);
 
   if (!cspi_check_ev ("getAttributes"))
     {
@@ -372,7 +372,7 @@ AccessibleText_getTextBeforeOffset (AccessibleText *obj,
       return NULL;
     }
 
-  cspi_dbus_call (obj, spi_interface_text, "getTextBeforeOffset", NULL, "iu=>iis", d_offset, d_type, &retStartOffset, &retEndOffset, &retval);
+  cspi_dbus_call (obj, spi_interface_text, "getTextBeforeOffset", NULL, "iu=>sii", d_offset, d_type, &retval, &retStartOffset, &retEndOffset);
   if (!cspi_check_ev ("getTextBeforeOffset"))
     {
       *startOffset = *endOffset = -1;
@@ -424,7 +424,7 @@ AccessibleText_getTextAtOffset (AccessibleText *obj,
       return NULL;
     }
 
-  cspi_dbus_call (obj, spi_interface_text, "getTextAtOffset", NULL, "iu=>iis", d_offset, d_type, &retStartOffset, &retEndOffset, &retval);
+  cspi_dbus_call (obj, spi_interface_text, "getTextAtOffset", NULL, "iu=>sii", d_offset, d_type, &retval, &retStartOffset, &retEndOffset);
 
   if (!cspi_check_ev ("getTextAtOffset"))
     {
@@ -477,7 +477,7 @@ AccessibleText_getTextAfterOffset (AccessibleText *obj,
       return NULL;
     }
 
-  cspi_dbus_call (obj, spi_interface_text, "getTextAfterOffset", NULL, "iu=>iis", d_offset, d_type, &retStartOffset, &retEndOffset, &retval);
+  cspi_dbus_call (obj, spi_interface_text, "getTextAfterOffset", NULL, "iu=>sii", d_offset, d_type, &retval, &retStartOffset, &retEndOffset);
 
   if (!cspi_check_ev ("getTextAfterOffset"))
     {
@@ -916,7 +916,7 @@ AccessibleText_getAttributeRun (AccessibleText *obj,
        return NULL;
   }
 
-  cspi_dbus_call (obj, spi_interface_text, "getAttributeRun", NULL, "ib=>iias", d_offset, d_includeDefaults, &retStartOffset, &retEndOffset, &attributes);
+  cspi_dbus_call (obj, spi_interface_text, "getAttributeRun", NULL, "ib=>asii", d_offset, d_includeDefaults, &attributes, &retStartOffset, &retEndOffset);
 
   if (!cspi_check_ev ("getAttributeRun"))
     {

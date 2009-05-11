@@ -654,6 +654,18 @@
         The offset of the character whose attributes will be reported.
 	    </tp:docstring>
     </arg>
+    <arg direction="in" name="includeDefaults" type="b" tp:type="boolean">
+	    <tp:docstring>
+        If False, the call should only return those attributes which are
+        explicitly set on the current attribute run, omitting any attributes which are inherited from 
+        the default values. See also Text.getDefaultAttributes. 
+	    </tp:docstring>
+    </arg>
+    <arg direction="out" type="{ss}" tp:type="AttributeSet">
+    <tp:docstring>
+      The AttributeSet defined at offset, optionally including the 'default' attributes.
+    </tp:docstring>
+    </arg>
     <arg direction="out" name="startOffset" type="i">
 	    <tp:docstring>
         Backfilled with the starting offset of the character range over which all
@@ -667,18 +679,6 @@
 	text attributes match those of <code>offset</code>, i.e. the character immediately after 
         the homogeneous attribute run including <code>offset</code>.
 	    </tp:docstring>
-    </arg>
-    <arg direction="in" name="includeDefaults" type="b" tp:type="boolean">
-	    <tp:docstring>
-        If False, the call should only return those attributes which are
-        explicitly set on the current attribute run, omitting any attributes which are inherited from 
-        the default values. See also Text.getDefaultAttributes. 
-	    </tp:docstring>
-    </arg>
-    <arg direction="out" type="{ss}" tp:type="AttributeSet">
-    <tp:docstring>
-      The AttributeSet defined at offset, optionally including the 'default' attributes.
-    </tp:docstring>
     </arg>
   </method>
   <method name="getDefaultAttributeSet">
