@@ -562,7 +562,7 @@ cspi_ref_related_accessible (Accessible *obj, const char *path)
   return ref_accessible (obj->app, path);
 }
 
-static const char *cacheSignalType = "ooaoassusau";
+static const char *cacheSignalType = "(ooaoassusau)";
 
 static DBusHandlerResult
 cspi_dbus_handle_update_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
@@ -709,7 +709,11 @@ SPI_init (void)
   dbus_bus_register (bus, &error);
   dbus_connection_setup_with_g_main(bus, g_main_context_default());
   dbus_connection_add_filter (bus, cspi_dbus_filter, NULL, NULL);
-  match = g_strdup_printf ("type='signal',interface='%s',member='updateTree'", spi_interface_tree);
+  match = g_strdup_printf ("type='signal',interface='%s',member='updateAccessible'", spi_interface_tree);
+  dbus_error_init (&error);
+  dbus_bus_add_match (bus, match, &error);
+  g_free (match);
+  match = g_strdup_printf ("type='signal',interface='%s',member='removeAccessible'", spi_interface_tree);
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
