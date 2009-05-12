@@ -94,7 +94,7 @@
 				accessible objects that have changed since the last
 				updateTree signal was send</p>
 			</tp:docstring>
-			<arg name="nodesAdded" type="a(ooaoassusau)" tp:type="AccessibleProxy[]">
+			<arg name="nodesAdded" type="(ooaoassusau)" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures to be added.</p>
 				</tp:docstring>
