@@ -327,12 +327,61 @@ typedef struct
   GArray *state_bitflags;
 } CACHE_ADDITION;
 
+static void
+handle_addition (CSpiApplication*app, CACHE_ADDITION *ca)
+{
+  gint i;
+  GList *new_list;
+
+  Accessible *a = ref_accessible (app, ca->path);
+  /* Note: children don't hold refs for their parents or vice versa */
+  a->parent = ref_accessible (app, ca->parent);
+  if (a->parent) cspi_object_unref (a->parent);
+  if (a->children)
+  {
+    g_list_free (a->children);
+    a->children = NULL;
+  }
+  for (i = 0; i < ca->children->len; i++)
+  {
+    const char *child_path = g_array_index (ca->children, const char *, i);
+    Accessible *child = ref_accessible (app, child_path);
+    new_list = g_list_append (a->children, child);
+    if (new_list) a->children = new_list;
+    cspi_object_unref (child);
+  }
+  a->interfaces = 0;
+  for (i = 0; i < ca->interfaces->len; i++)
+  {
+    const char *iface = g_array_index (ca->interfaces, const char *, i);
+    if (!strcmp (iface, "org.freedesktop.DBus.Introspectable")) continue;
+    gint n = get_iface_num (iface);
+    if (n == -1)
+    {
+      g_warning ("Unknown interface %s", iface);
+    }
+    else a->interfaces |= (1 << n);
+    g_free (iface);
+  }
+  if (a->name) g_free (a->name);
+  a->name = ca->name;
+  a->role = ca->role;
+  if (a->description) g_free (a->description);
+  a->description = ca->description;
+  a->states = spi_state_set_cache_new (ca->state_bitflags);
+  g_array_free (ca->interfaces, TRUE);
+  g_array_free (ca->children, TRUE);
+  /* spi_state_set_cache_new frees state_bitflags */
+  /* This is a bit of a hack since ref_accessible sets ref_count to 2
+   * for a new object, one of the refs being for the cache */
+  cspi_object_unref (a);
+}
+
 /* Update the cache with added/modified objects and free the array */
 static void
 handle_additions (CSpiApplication*app, GArray *additions)
 {
-  gint i, j;
-  GList *l, *new_list;
+  gint i;
 
   if (!additions)
   {
@@ -341,71 +390,32 @@ handle_additions (CSpiApplication*app, GArray *additions)
   for (i = 0; i < additions->len; i++)
   {
     CACHE_ADDITION *ca = &g_array_index (additions, CACHE_ADDITION, i);
-    Accessible *a = ref_accessible (app, ca->path);
-      /* Note: children don't hold refs for their parents or vice versa */
-    a->parent = ref_accessible (app, ca->parent);
-    if (a->parent) cspi_object_unref (a->parent);
-    if (a->children)
-    {
-      g_list_free (a->children);
-      a->children = NULL;
-    }
-    for (j = 0; j < ca->children->len; j++)
-    {
-      const char *child_path = g_array_index (ca->children, const char *, j);
-      Accessible *child = ref_accessible (app, child_path);
-      new_list = g_list_append (a->children, child);
-      if (new_list) a->children = new_list;
-      cspi_object_unref (child);
-    }
-    a->interfaces = 0;
-    for (j = 0; j < ca->interfaces->len; j++)
-    {
-      const char *iface = g_array_index (ca->interfaces, const char *, j);
-      if (!strcmp (iface, "org.freedesktop.DBus.Introspectable")) continue;
-      gint n = get_iface_num (iface);
-      if (n == -1)
-      {
-	g_warning ("Unknown interface %s", iface);
-      }
-      else a->interfaces |= (1 << n);
-      g_free (iface);
-    }
-    if (a->name) g_free (a->name);
-    a->name = ca->name;
-    a->role = ca->role;
-    if (a->description) g_free (a->description);
-    a->description = ca->description;
-    a->states = spi_state_set_cache_new (ca->state_bitflags);
-    g_array_free (ca->interfaces, TRUE);
-    g_array_free (ca->children, TRUE);
-    /* spi_state_set_cache_new frees state_bitflags */
-    /* This is a bit of a hack since ref_accessible sets ref_count to 2
-     * for a new object, one of the refs being for the cache */
-    cspi_object_unref (a);
+    handle_addition (app, ca);
   }
-  g_array_free (additions, TRUE);
 }
 
-static void
-handle_removals (CSpiApplication *app, GArray *removals)
+static DBusHandlerResult
+cspi_dbus_handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  gint j;
+  const char *sender = dbus_message_get_sender (message);
+  CSpiApplication *app = cspi_get_application (sender);
+  const char *path;
+  Accessible *a;
 
-  if (!removals) return;
-  for (j = 0; j < removals->len; j++)
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID))
   {
-    const char *path = g_array_index (removals, const char *, j);
-    Accessible *a = ref_accessible (app, path);
-    if (a->parent && g_list_find (a->parent->children, a))
-    {
-      a->parent->children = g_list_remove (a->parent->children, a);
-      /* Note: children don't hold refs for their parents or vice versa */
-    }
-    g_hash_table_remove (app->hash, &a->v.id);
-    cspi_object_unref_internal (a, TRUE);	/* unref our own ref */
+    g_warning ("Received RemoveAccessible with invalid arguments");
+    return;
   }
-  g_array_free (removals, TRUE);
+  a = ref_accessible (app, path);
+  if (a->parent && g_list_find (a->parent->children, a))
+  {
+    a->parent->children = g_list_remove (a->parent->children, a);
+    // TODO: Send children-changed:remove event
+    /* Note: children don't hold refs for their parents or vice versa */
+  }
+  g_hash_table_remove (app->hash, &a->v.id);
+  cspi_object_unref_internal (a, TRUE);	/* unref our own ref */
 }
 
 static gboolean
@@ -552,35 +562,27 @@ cspi_ref_related_accessible (Accessible *obj, const char *path)
   return ref_accessible (obj->app, path);
 }
 
-typedef struct
-{
-  GArray *additions;
-  GArray *removals;
-} CacheSignalData;
-
-static const char *cacheSignalType = "a(ooaoassusau)ao";
+static const char *cacheSignalType = "ooaoassusau";
 
 static DBusHandlerResult
-cspi_dbus_handle_update_tree (DBusConnection *bus, DBusMessage *message, void *user_data)
+cspi_dbus_handle_update_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessageIter iter;
-  CacheSignalData cd;
-  void *p = &cd;
+  CACHE_ADDITION ca;
+  void *p = &ca;
   const char *sender = dbus_message_get_sender (message);
   CSpiApplication *app = cspi_get_application (sender);
   const char *type = cacheSignalType;
 
   if (!app)
   {
-    g_warning ("UpdateTree from unknown app.  Should we add it?", sender);
+    g_warning ("UpdateAccessible from unknown app.  Should we add it?", sender);
     return;
   }
   dbus_message_iter_init (message, &iter);
   // TODO: Check signature
   dbind_any_demarshal (&iter, &type, &p);	/* additions */
-  dbind_any_demarshal (&iter, &type, &p);	/* removals */
-  handle_additions (app, cd.additions);
-  handle_removals (app, cd.removals);
+  handle_addition (app, &ca);
 }
 
 static DBusHandlerResult
@@ -641,9 +643,13 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   {
     return cspi_dbus_handle_deviceEvent (bus, message, data);
   }
-  if (dbus_message_is_signal (message, spi_interface_tree, "updateTree"))
+  if (dbus_message_is_signal (message, spi_interface_tree, "updateAccessible"))
   {
-    return cspi_dbus_handle_update_tree (bus, message, data);
+    return cspi_dbus_handle_update_accessible (bus, message, data);
+  }
+  if (dbus_message_is_signal (message, spi_interface_tree, "removeAccessible"))
+  {
+    return cspi_dbus_handle_remove_accessible (bus, message, data);
   }
   if (dbus_message_is_method_call (message, spi_interface_registry, "registerApplication"))
   {
