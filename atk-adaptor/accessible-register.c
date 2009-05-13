@@ -236,8 +236,10 @@ append_children (AtkObject *accessible, GQueue *traversal)
 {
   AtkObject *current;
   guint i;
+  gint count = atk_object_get_n_accessible_children (accessible);
 
-  for (i =0; i < atk_object_get_n_accessible_children (accessible); i++)
+  if (count < 0) count = 0;
+  for (i =0; i < count; i++)
     {
       current = atk_object_ref_accessible_child (accessible, i);
       if (current)
@@ -551,6 +553,7 @@ tree_update_children_action (GSignalInvocationHint *signal_hint,
       const gchar *detail = NULL;
       AtkObject *child;
 
+  if (has_manages_descendants (accessible)) return;
       if (signal_hint->detail)
           detail = g_quark_to_string (signal_hint->detail);
 
