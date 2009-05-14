@@ -405,7 +405,7 @@ cspi_dbus_handle_remove_accessible (DBusConnection *bus, DBusMessage *message, v
   if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID))
   {
     g_warning ("Received RemoveAccessible with invalid arguments");
-    return;
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   }
   a = ref_accessible (app, path);
   if (a->parent && g_list_find (a->parent->children, a))
@@ -583,6 +583,7 @@ cspi_dbus_handle_update_accessible (DBusConnection *bus, DBusMessage *message, v
   // TODO: Check signature
   dbind_any_demarshal (&iter, &type, &p);	/* additions */
   handle_addition (app, &ca);
+  return DBUS_HANDLER_RESULT_HANDLED;
 }
 
 static DBusHandlerResult

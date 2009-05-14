@@ -894,6 +894,7 @@ Accessible_getCollection (Accessible *obj)
 	  obj, spi_interface_collection);
 #else
   g_warning ("Collections not implemented");
+  return NULL;
 #endif
 }
 
@@ -997,6 +998,7 @@ Accessible_getMatchRule (Accessible *obj)
 	  obj, spi_interface_match_rule);
 #else
   g_warning ("Match rules not supported");
+  return NULL;
 #endif
 }
 

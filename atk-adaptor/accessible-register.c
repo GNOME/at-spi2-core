@@ -432,7 +432,7 @@ atk_dbus_object_to_path (AtkObject *accessible)
   if (!ref)
       return NULL;
   else
-      return ref_to_path (ref);
+      return atk_dbus_ref_to_path (ref);
 }
 
 gchar *
@@ -557,7 +557,7 @@ tree_update_children_action (GSignalInvocationHint *signal_hint,
       const gchar *detail = NULL;
       AtkObject *child;
 
-      if (has_manages_descendants (accessible)) return;
+      if (has_manages_descendants (accessible)) return TRUE;
       if (signal_hint->detail)
           detail = g_quark_to_string (signal_hint->detail);
 

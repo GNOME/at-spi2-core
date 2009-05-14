@@ -30,6 +30,7 @@
 #include <locale.h>
 #include <gtk/gtk.h>
 #include <cspi/spi.h>
+#include <cspi/spi-private.h>
 
 #include "dbus/dbus.h"
 
