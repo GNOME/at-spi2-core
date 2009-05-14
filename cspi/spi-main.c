@@ -416,6 +416,7 @@ cspi_dbus_handle_remove_accessible (DBusConnection *bus, DBusMessage *message, v
   }
   g_hash_table_remove (app->hash, &a->v.id);
   cspi_object_unref_internal (a, TRUE);	/* unref our own ref */
+  return DBUS_HANDLER_RESULT_HANDLED;
 }
 
 static gboolean
