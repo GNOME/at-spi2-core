@@ -26,6 +26,7 @@
 #include <droute/droute.h>
 
 #include "spi-common/spi-dbus.h"
+#include "accessible-marshaller.h"
 
 static dbus_bool_t
 impl_get_nSelectedChildren (DBusMessageIter * iter,

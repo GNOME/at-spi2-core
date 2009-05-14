@@ -44,4 +44,6 @@ atk_dbus_object_to_path (AtkObject *accessible);
 gchar *
 atk_dbus_desktop_object_path ();
 
+gchar *
+atk_dbus_ref_to_path (guint ref);
 #endif /* ACCESSIBLE_REGISTER */

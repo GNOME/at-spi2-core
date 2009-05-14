@@ -135,8 +135,8 @@ object_to_ref (AtkObject *accessible)
 /*
  * Converts the Accessible object reference to its D-Bus object path
  */
-static gchar *
-ref_to_path (guint ref)
+gchar *
+atk_dbus_ref_to_path (guint ref)
 {
   return g_strdup_printf(SPI_ATK_OBJECT_REFERENCE_TEMPLATE, ref);
 }
@@ -403,7 +403,7 @@ atk_dbus_object_attempt_registration (AtkObject *accessible)
       ref = object_to_ref (accessible);
       if (ref)
         {
-          return ref_to_path (ref);
+          return atk_dbus_ref_to_path (ref);
         }
       else
         {
@@ -415,7 +415,7 @@ atk_dbus_object_attempt_registration (AtkObject *accessible)
     }
   else
     {
-      return ref_to_path (ref);
+      return atk_dbus_ref_to_path (ref);
     }
 }
 
@@ -502,6 +502,7 @@ tree_update_state_action (GSignalInvocationHint *signal_hint,
                           AtkObject             *accessible)
 {
       update_accessible (accessible);
+  return TRUE;
 }
 
 static gboolean
@@ -511,6 +512,7 @@ tree_update_state_listener (GSignalInvocationHint *signal_hint,
                             gpointer               data)
 {
       tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_state_action);
+  return TRUE;
 }
 
 static gboolean
@@ -532,6 +534,7 @@ tree_update_property_action (GSignalInvocationHint *signal_hint,
           update_accessible (accessible);
         }
       /* Parent value us updated by child-add signal of parent object */
+      return TRUE;
 }
 
 static gboolean
@@ -540,7 +543,8 @@ tree_update_property_listener (GSignalInvocationHint *signal_hint,
                                const GValue          *param_values,
                                gpointer               data)
 {
-      tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_property_action);
+  tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_property_action);
+  return TRUE;
 }
 
 static gboolean
@@ -553,7 +557,7 @@ tree_update_children_action (GSignalInvocationHint *signal_hint,
       const gchar *detail = NULL;
       AtkObject *child;
 
-  if (has_manages_descendants (accessible)) return;
+      if (has_manages_descendants (accessible)) return;
       if (signal_hint->detail)
           detail = g_quark_to_string (signal_hint->detail);
 
@@ -573,6 +577,7 @@ tree_update_children_action (GSignalInvocationHint *signal_hint,
           register_subtree (child);
           update_accessible (accessible);
         }
+      return TRUE;
 }
 
 static gboolean
@@ -582,6 +587,7 @@ tree_update_children_listener (GSignalInvocationHint *signal_hint,
                                gpointer               data)
 {
       tree_update_wrapper (signal_hint, n_param_values, param_values, data, tree_update_children_action);
+      return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/

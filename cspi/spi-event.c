@@ -1196,14 +1196,15 @@ cspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     }
     category++;
   }
-  g_return_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_STRING);
+  g_return_val_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_STRING, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   dbus_message_iter_get_basic (&iter, &detail);
   dbus_message_iter_next (&iter);
-  g_return_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_INT32);
+  /* TODO: Return error indicating invalid arguments  in next line */
+  g_return_val_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_INT32, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   dbus_message_iter_get_basic (&iter, &detail1);
   e.detail1 = detail1;
   dbus_message_iter_next (&iter);
-  g_return_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_INT32);
+  g_return_val_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_INT32, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   dbus_message_iter_get_basic (&iter, &detail2);
   e.detail2 = detail2;
   dbus_message_iter_next (&iter);

@@ -63,7 +63,8 @@ impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   link = atk_hypertext_get_link (hypertext, linkIndex);
-  return spi_dbus_return_object (message, ATK_OBJECT (link), FALSE);
+  return NULL;	// TODO
+  //return spi_dbus_return_object (message, ATK_OBJECT (link), FALSE);
 }
 
 static DBusMessage *

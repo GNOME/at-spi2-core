@@ -293,7 +293,7 @@ cspi_get_application (const char *bus_name)
   if (!app_hash)
   {
     app_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)g_hash_table_unref);
-    if (!app_hash) return;
+    if (!app_hash) return NULL;
   }
   app = g_hash_table_lookup (app_hash, bus_name);
   if (app) return app;
@@ -577,7 +577,7 @@ cspi_dbus_handle_update_accessible (DBusConnection *bus, DBusMessage *message, v
   if (!app)
   {
     g_warning ("UpdateAccessible from unknown app.  Should we add it?", sender);
-    return;
+    return DBUS_HANDLER_RESULT_HANDLED;
   }
   dbus_message_iter_init (message, &iter);
   // TODO: Check signature

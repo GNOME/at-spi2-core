@@ -121,6 +121,7 @@ AccessibleHyperlink_getObject (AccessibleHyperlink *obj,
   cspi_dbus_call (obj, spi_interface_hyperlink, "getObject", NULL, "i=>o", d_i, &path);
   retval = cspi_ref_related_accessible (obj, path);
   g_free (path);
+  return retval;
 }
 
 /**

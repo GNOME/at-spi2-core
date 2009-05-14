@@ -1035,6 +1035,7 @@ Accessible_getStreamableContent (Accessible *obj)
 	  obj, spi_interface_streamable_content);
 #else
   g_warning ("Streamable content not supported");
+  return NULL;
 #endif
 }
 

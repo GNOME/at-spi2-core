@@ -986,7 +986,7 @@ impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 static DBusMessage *
 impl_getMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  AtkObject *obj = path_to_object (message);
+  AtkObject *obj = atk_dbus_path_to_object (dbus_message_get_path (message));
   DBusMessageIter iter;
   MatchRulePrivate rule;
   dbus_uint16_t sortby;

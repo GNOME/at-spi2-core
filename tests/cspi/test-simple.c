@@ -31,6 +31,7 @@
 #include <gtk/gtk.h>
 #include <cspi/spi.h>
 
+#include "dbus/dbus.h"
 
 /* Known bugs */
 #define WHOLE_STRING -1
