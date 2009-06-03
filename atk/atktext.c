@@ -599,7 +599,8 @@ atk_text_get_character_extents (AtkText *text,
 /**
  *atk_text_get_run_attributes:
  *@text: an #AtkText
- *@offset: the offset at which to get the attributes
+ *@offset: the offset at which to get the attributes, -1 means the offset of
+ *the character to be inserted at the caret location.
  *@start_offset: the address to put the start offset of the range
  *@end_offset: the address to put the end offset of the range
  *
@@ -636,7 +637,7 @@ atk_text_get_run_attributes (AtkText          *text,
   else
     real_end_offset = &local_end_offset;
 
-  if (offset < 0)
+  if (offset < -1)
     return NULL;
 
   iface = ATK_TEXT_GET_IFACE (text);
