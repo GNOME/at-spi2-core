@@ -275,7 +275,7 @@ class Accessible(BaseProxy):
 
     def refresh(self):
             self._relation_set = None
-            self._cache.application_cache[self._app_name].refresh()
+            self._cache.application_cache[self._app_name]._refresh()
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_ACCESSIBLE, Accessible)
