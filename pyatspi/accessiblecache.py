@@ -175,7 +175,7 @@ class AccessibleCache(object):
                 for old, new in cache_update_objects:
                         self._dispatch_event(old, new)
 
-        def _remove_object(self, paths):
+        def _remove_object(self, path):
                 # TODO I'm squashing a possible error here
                 # I've seen things appear to be deleted twice
                 # which needs investigation

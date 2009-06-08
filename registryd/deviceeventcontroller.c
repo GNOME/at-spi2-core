@@ -2485,6 +2485,7 @@ static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage
   gboolean err = FALSE;
   Display *display = spi_get_display ();
 
+  dbus_error_init (&error);
   if (!dbus_message_get_args(message, &error, DBUS_TYPE_INT32, &x, DBUS_TYPE_INT32, &y, DBUS_TYPE_STRING, &eventName, DBUS_TYPE_INVALID))
   {
     return droute_invalid_arguments_error (message);

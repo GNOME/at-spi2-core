@@ -47,6 +47,8 @@ class Enum(dbus.UInt32):
                 return self._enum_lookup[int(self)]
 
         def __eq__(self, other):
+                if other is None:
+                        return False
                 if int(self) == int(other):
                         return True
                 else:
