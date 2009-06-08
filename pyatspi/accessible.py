@@ -273,8 +273,9 @@ class Accessible(BaseProxy):
         """
     parent = property(fget=get_parent, doc=_parentDoc)
 
-    def flushCache(self):
+    def refresh(self):
             self._relation_set = None
+            self._cache.application_cache[self._app_name].refresh()
 
 # Register the accessible class with the factory.
 accessible_factory.register_accessible_class(ATSPI_ACCESSIBLE, Accessible)

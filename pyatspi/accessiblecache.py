@@ -90,20 +90,17 @@ class AccessibleCache(object):
                 self._bus_name = bus_name
 
                 obj = connection.get_object(bus_name, self._PATH, introspect=False)
-                itf = _dbus.Interface(obj, self._INTERFACE)
+                self._tree_itf = _dbus.Interface(obj, self._INTERFACE)
 
                 self._objects = {}
 
-                get_method = itf.get_dbus_method(self._GET_METHOD)
+                get_method = self._tree_itf.get_dbus_method(self._GET_METHOD)
                 self._update_objects(get_method())
 
-                self._updateMatch = itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_single)
-                self._removeMatch = itf.connect_to_signal(self._REMOVE_SIGNAL, self._remove_object)
+                self._updateMatch = self._tree_itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_single)
+                self._removeMatch = self._tree_itf.connect_to_signal(self._REMOVE_SIGNAL, self._remove_object)
 
-                obj = connection.get_object(self._bus_name, self._PATH, introspect=False)
-                itf = _dbus.Interface(obj, self._INTERFACE)
-
-                self._root = itf.getRoot()
+                self._root = self._tree_itf.getRoot()
 
         def __getitem__(self, key):
                 return self._objects[key]
@@ -189,6 +186,10 @@ class AccessibleCache(object):
 
         def _get_root(self):
                 return self._root
+
+        def _refresh(self):
+                get_method = self._tree_itf.get_dbus_method(self._GET_METHOD)
+                self._update_objects(get_method())
 
         root = property(fget=_get_root)
 

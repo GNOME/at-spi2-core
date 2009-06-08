@@ -479,4 +479,4 @@ class _Registry(object):
                 @param name: Name of the event to generate
                 @type name: string
                 """
-                self.dev.generateMouseEvent(x, y, name)
+                self.dev.generateMouseEvent(dbus.Int32(x), dbus.Int32(y), name)
