@@ -233,4 +233,8 @@ class ApplicationCache(object):
                 """
                 return self._connection
 
+        def _refresh(self):
+                self.application_list = []
+                self.application_list.extend(self._app_register.getApplications())
+
 #END----------------------------------------------------------------------------

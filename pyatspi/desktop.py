@@ -359,6 +359,6 @@ class Desktop(object):
                                                 % (interface, self._acc_path))
 
         def refresh(self):
-                pass
+                self._appcache._refresh()
 
 #END----------------------------------------------------------------------------
