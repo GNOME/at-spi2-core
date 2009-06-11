@@ -111,156 +111,6 @@ class TestApplicationCache(object):
 
 #------------------------------------------------------------------------------
 
-def _list_items_added_removed (l1, l2):
-        """
-        Returns a tuple (boolean, boolean).
-        The first value indicates if, when
-        moving from l1 to l2, any items have been added.
-        The second value indicates whether any items have
-        been removed.
-        """
-        l1notl2 = [item for item in l1 if item not in l2]
-        l2notl1 = [item for item in l2 if item not in l1]
-        return ((len(l1notl2) > 0), (len(l2notl1) > 0))
-
-#------------------------------------------------------------------------------
-
-class AccessibleCache(object):
-        """
-        There is one accessible cache per application.
-        For each application the accessible cache stores
-        data on every accessible object within the app.
-
-        It also acts as the factory for creating client
-        side proxies for these accessible objects.
-
-        connection - DBus connection.
-        busName    - Name of DBus connection where cache interface resides.
-        """
-
-        _PATH = '/org/freedesktop/atspi/tree'
-        _INTERFACE = 'org.freedesktop.atspi.Tree'
-        _GET_METHOD = 'getTree'
-        _UPDATE_SIGNAL = 'updateAccessible'
-        _REMOVE_SIGNAL = 'removeAccessible'
-
-        def __init__(self, registry, connection, bus_name):
-                """
-                Creates a cache.
-
-                connection - DBus connection.
-                busName    - Name of DBus connection where cache interface resides.
-                """
-                self._registry = registry
-                self._connection = connection
-                self._bus_name = bus_name
-
-                obj = connection.get_object(bus_name, self._PATH, introspect=False)
-                self._tree_itf = _dbus.Interface(obj, self._INTERFACE)
-
-                self._objects = {}
-
-                get_method = self._tree_itf.get_dbus_method(self._GET_METHOD)
-                self._update_objects(get_method())
-
-                self._updateMatch = self._tree_itf.connect_to_signal(self._UPDATE_SIGNAL, self._update_single)
-                self._removeMatch = self._tree_itf.connect_to_signal(self._REMOVE_SIGNAL, self._remove_object)
-
-                self._root = self._tree_itf.getRoot()
-
-        def __getitem__(self, key):
-                return self._objects[key]
-
-        def __contains__(self, key):
-                return key in self._objects
-
-        def _dispatch_event(self, olddata, newdata):
-                if olddata.name != newdata.name:
-                        event = _Event(self._registry.cache,
-                                       newdata.path,
-                                       self._bus_name,
-                                       "org.freedesktop.atspi.Event.Object",
-                                       "property-change",
-                                       ("accessible-name", 0, 0, newdata.name))
-                        self._registry._notifyNameChange(event)
-
-                if olddata.description != newdata.description:
-                        event = _Event(self._registry.cache,
-                                       newdata.path,
-                                       self._bus_name,
-                                       "org.freedesktop.atspi.Event.Object",
-                                       "property-change",
-                                       ("accessible-description", 0, 0, newdata.description))
-                        self._registry._notifyDescriptionChange(event)
-
-                if olddata.parent != newdata.parent:
-                        event = _Event(self._registry.cache,
-                                       newdata.path,
-                                       self._bus_name,
-                                       "org.freedesktop.atspi.Event.Object",
-                                       "property-change",
-                                       ("accessible-parent", 0, 0, ""))
-                        self._registry._notifyParentChange(event)
-
-                removed, added = _list_items_added_removed (olddata.children, newdata.children)
-
-                if added:
-                        event = _Event(self._registry.cache,
-                                       newdata.path,
-                                       self._bus_name,
-                                       "org.freedesktop.atspi.Event.Object",
-                                       "children-changed",
-                                       ("add", 0, 0, ""))
-                        self._registry._notifyChildrenChange(event)
-
-                if removed:
-                        event = _Event(self._registry.cache,
-                                       newdata.path,
-                                       self._bus_name,
-                                       "org.freedesktop.atspi.Event.Object",
-                                       "children-changed",
-                                       ("remove", 0, 0, ""))
-                        self._registry._notifyChildrenChange(event)
-
-        # TODO This should be the other way around. Single is more common than many.
-        def _update_single(self, object):
-                self._update_objects ([object])
-
-        def _update_objects(self, objects):
-                cache_update_objects = []
-                for data in objects:
-                        #First element is the object path.
-                        path = data[0]
-                        if path in self._objects:
-                                olddata = self._objects[path]
-                                newdata = _CacheData(data)
-                                cache_update_objects.append((olddata, newdata))
-                                self._objects[path] = newdata
-                        else:
-                                self._objects[path] = _CacheData(data)
-                for old, new in cache_update_objects:
-                        self._dispatch_event(old, new)
-
-        def _remove_object(self, path):
-                # TODO I'm squashing a possible error here
-                # I've seen things appear to be deleted twice
-                # which needs investigation
-                try:
-                        del(self._objects[path])
-                except KeyError:
-                        pass
-
-        def _get_root(self):
-                return self._root
-
-        def _refresh(self):
-                get_method = self._tree_itf.get_dbus_method(self._GET_METHOD)
-                self._update_objects(get_method())
-
-        root = property(fget=_get_root)
-
-#END---------------------------------------------------------------------------
-
 class ApplicationCache(object):
         """
         Test application store, accesses a single application.
@@ -384,11 +234,15 @@ class ApplicationCache(object):
                 return self._connection
 
         def _refresh(self):
-                app_addresses = self._app_register.getApplications()
-                added, removed = _list_items_added_removed (self.application_list, app_addresses)
+                new = self._app_register.getApplications()
+                removed = [item for item in self.application_list if item not in new]
+                added   = [item for item in new if item not in self.application_list]
                 for item in added:
-                        self.update_handler (ApplicationsCache._APPLICATIONS_ADD, item):
+                        self.update_handler (self._APPLICATIONS_ADD, item)
                 for item in removed:
-                        self.update_handler (ApplicationsCache._APPLICATIONS_REMOVE, item):
+                        self.update_handler (self._APPLICATIONS_REMOVE, item)
+
+                for item in self.application_cache.values():
+                        item._refresh()
 
 #END----------------------------------------------------------------------------
