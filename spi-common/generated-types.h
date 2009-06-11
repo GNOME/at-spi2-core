@@ -761,39 +761,6 @@ typedef enum {
 #define NUM_ACCESSIBILITY_ROLES (90+1)
 
 /**
- *
-Accessibility_LoginHelper_DeviceReq:
- * @Accessibility_LoginHelper_GUI_EVENTS: <![CDATA[        Needs access to the GUI event subsystem (e.g. Xserver)      ]]>
- * @Accessibility_LoginHelper_CORE_KEYBOARD: <![CDATA[       Needs access to the system keyboard events (read and write)      ]]>
- * @Accessibility_LoginHelper_CORE_POINTER: <![CDATA[       Needs access to the onscreen pointer (e.g. mouse pointer)      ]]>
- * @Accessibility_LoginHelper_EXT_INPUT: <![CDATA[       Reads XInput extended input devices      ]]>
- * @Accessibility_LoginHelper_POST_WINDOWS: <![CDATA[       Posts Windows, and needs for toplevel windows to be visible      ]]>
- * @Accessibility_LoginHelper_AUDIO_OUT: <![CDATA[       Writes to audio device      ]]>
- * @Accessibility_LoginHelper_AUDIO_IN: <![CDATA[       Reads from audio device      ]]>
- * @Accessibility_LoginHelper_NETWORK: <![CDATA[       Requires access to general network services, including remote access      ]]>
- * @Accessibility_LoginHelper_LOCALHOST: <![CDATA[       Requires network services hosted on LOCALHOST only      ]]>
- * @Accessibility_LoginHelper_SERIAL_OUT: <![CDATA[       Writes to a serial port      ]]>
- * @Accessibility_LoginHelper_SERIAL_IN: <![CDATA[       !<: Reads from a serial port      ]]>
- *
- * <![CDATA[       The system and device access and services which the LoginHelper-implementing          assistive technology requires in order to enable the user to use the system.         ]]>
- *
- * Bitfield/set of flags generated from the AT-SPI specification.
- */
-typedef enum {
-    Accessibility_LoginHelper_GUI_EVENTS,
-    Accessibility_LoginHelper_CORE_KEYBOARD,
-    Accessibility_LoginHelper_CORE_POINTER,
-    Accessibility_LoginHelper_EXT_INPUT,
-    Accessibility_LoginHelper_POST_WINDOWS,
-    Accessibility_LoginHelper_AUDIO_OUT,
-    Accessibility_LoginHelper_AUDIO_IN,
-    Accessibility_LoginHelper_NETWORK,
-    Accessibility_LoginHelper_LOCALHOST,
-    Accessibility_LoginHelper_SERIAL_OUT,
-    Accessibility_LoginHelper_SERIAL_IN,
-} Accessibility_LoginHelper_DeviceReq;
-
-/**
  * NUM_ACCESSIBILITY_DEVICEREQS:
  *
  * 1 higher than the highest valid value of #Accessibility_LoginHelper_DeviceReq.

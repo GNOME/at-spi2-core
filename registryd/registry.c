@@ -59,7 +59,7 @@ static void emit(SpiRegistry *reg, const char *itf, const char *name, int ftype,
   va_list arg;
 
   va_start(arg, ftype);
-  spi_dbus_emit_valist(reg->bus, SPI_DBUS_PATH_REGISTRY, itf, name, ftype, arg);
+  dbind_emit_signal_va (reg->bus, SPI_DBUS_PATH_REGISTRY, itf, name, NULL, ftype, arg);
   va_end(arg);
 }
 

@@ -150,6 +150,50 @@ dbind_method_call_reentrant (DBusConnection *cnx,
 
 /*---------------------------------------------------------------------------*/
 
+dbus_bool_t
+dbind_emit_signal_va (DBusConnection *cnx,
+                      const char     *path,
+                      const char     *interface,
+                      const char     *signal,
+                      DBusError      *opt_error,
+                      const char     *arg_types,
+                      va_list         args)
+{
+    dbus_bool_t success = FALSE;
+    DBusMessage *msg = NULL;
+    DBusMessageIter iter;
+    DBusError *err, real_err;
+    char *p;
+
+    if (opt_error)
+        err = opt_error;
+    else {
+        dbus_error_init (&real_err);
+        err = &real_err;
+    }
+
+    msg = dbus_message_new_signal (path, interface, signal);
+    if (!msg)
+        goto out;
+
+    dbus_message_iter_init (msg, &iter);
+    dbind_any_marshal_va (&iter, &p, args);
+
+    if (!dbus_connection_send (cnx, msg, NULL))
+       goto out;
+
+    success = TRUE;
+out:
+
+    if (msg)
+        dbus_message_unref (msg);
+
+    if (err == &real_err)
+        dbus_error_free (err);
+
+    return success;
+}
+
 /**
  * dbind_emit_signal:
  *
@@ -173,40 +217,11 @@ dbind_emit_signal (DBusConnection *cnx,
                    ...)
 {
     dbus_bool_t success = FALSE;
-    DBusMessage *msg = NULL;
-    DBusMessageIter iter;
-    DBusError *err, real_err;
-    char *p;
     va_list args;
 
     va_start (args, arg_types);
-
-    if (opt_error)
-        err = opt_error;
-    else {
-        dbus_error_init (&real_err);
-        err = &real_err;
-    }
-
-    msg = dbus_message_new_signal (path, interface, signal);
-    if (!msg)
-        goto out;
-
-    dbus_message_iter_init (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
-
-    if (!dbus_connection_send (cnx, msg, NULL))
-       goto out;
-
-    success = TRUE;
-out:
+    success = dbind_emit_signal_va (cnx, path, interface, signal, opt_error, arg_types, args);
     va_end (args);
-
-    if (msg)
-        dbus_message_unref (msg);
-
-    if (err == &real_err)
-        dbus_error_free (err);
 
     return success;
 }
