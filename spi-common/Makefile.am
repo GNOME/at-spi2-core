@@ -16,7 +16,6 @@ spicommoninclude_HEADERS =		\
 	generated-types.h \
 	keymasks.h \
 	spi-dbus.h \
-	spi-stateset.h \
 	spi-types.h
 
 #BUILT_SOURCES = generated-types.h
@@ -25,13 +24,11 @@ spicommoninclude_HEADERS =		\
 nodist_libspicommon_la_SOURCES = generated-types.h
 
 libspicommon_la_SOURCES =	\
-	bitarray.h \
+	bitarray.h              \
 	event-types.h		\
 	spi-types.h		\
 	spi-dbus.h		\
-	spi-dbus.c \
-	spi-stateset.h \
-	spi-stateset.c
+	spi-dbus.c
 
 #generated-types.h: $(top_srcdir)/xml/spec.xml $(top_srcdir)/tools/c-constants-generator.xsl
 #	xsltproc --stringparam mixed-case-prefix Accessibility_ $(top_srcdir)/tools/c-constants-generator.xsl $< >$@

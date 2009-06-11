@@ -17,15 +17,10 @@ Requirements
 
         pkg-config
 
-        python
-
         glib
-        gtk+
-        gail
 
         dbus
         dbus-glib
-        dbus-python
 
         X
         XEVIE (Reccomended)
