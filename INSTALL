@@ -1,13 +1,13 @@
 Install procedure
 -----------------
 
-        % gzip -cd at-spi-1.9.0.tar.gz | tar xvf -  # unpack the sources
-        % cd at-spi-1.9.0                           # change to the toplevel directory
-        % ./configure                               # run the `configure' script
-        % make                                      # build at-spi
+        % gzip -cd at-spi-core-2.0.0.tar.gz | tar xvf -  # unpack the sources
+        % cd at-spi-core-2.0.0                           # change to the toplevel directory
+        % ./configure                                    # run the `configure' script
+        % make                                           # build at-spi-core
 
         [ Become root if necessary ]
-        % make install                              # install at-spi
+        % make install                                   # install at-spi-core
 
 Requirements
 ------------

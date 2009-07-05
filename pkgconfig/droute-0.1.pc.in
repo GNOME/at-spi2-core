@@ -1,0 +1,9 @@
+prefix=@prefix@
+includedir=@includedir@
+
+Name: droute
+Description: Server side bindings helper library for libdbus
+Requires: libdbus-1.0
+Version: @DROUTE_VERSION@
+Libs: -ldroute
+Cflags: -I${includedir}/droute-@DROUTE_VERSION@ @DBUS_CFLAGS@

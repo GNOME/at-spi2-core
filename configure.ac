@@ -140,6 +140,11 @@ CPPFLAGS=$orig_CPPFLAGS
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_CONFIG_FILES([Makefile
+                 pkgconfig/dbind-0.1.pc
+                 pkgconfig/dbind-0.1-uninstalled.pc
+                 pkgconfig/droute-0.1.pc
+                 pkgconfig/droute-0.1-uninstalled.pc
+                 pkgconfig/Makefile
 		 xml/Makefile
 		 tools/Makefile
 		 droute/Makefile

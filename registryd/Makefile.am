@@ -22,7 +22,7 @@ at_spi_registryd_SOURCES =	\
 	de-marshaller.c         \
 	de-types.h              \
 	keymasks.h              \
-	paths.hi                \
+	paths.h                 \
 	registry-main.c		\
 	registry.c		\
 	registry.h		\

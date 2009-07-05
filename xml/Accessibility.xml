@@ -25,7 +25,6 @@
   Accessibility::Hypertext\n
   Accessibility::Image\n
   Accessibility::Selection\n
-  Accessibility::StreamableContent\n
   Accessibility::Table\n
   Accessibility::Text\n
   Accessibility::EditableText\n
@@ -76,7 +75,6 @@
 <xi:include href="org.freedesktop.atspi.Hyperlink.xml"/>
 <xi:include href="org.freedesktop.atspi.Image.xml"/>
 <xi:include href="org.freedesktop.atspi.Selection.xml"/>
-<xi:include href="org.freedesktop.atspi.StreamableContent.xml"/>
 <xi:include href="org.freedesktop.atspi.Table.xml"/>
 <xi:include href="org.freedesktop.atspi.Text.xml"/>
 <xi:include href="org.freedesktop.atspi.Tree.xml"/>
@@ -97,6 +95,4 @@
 <xi:include href="org.freedesktop.atspi.DeviceEventListener.xml"/>
 <xi:include href="org.freedesktop.atspi.Relation.xml"/>
 <xi:include href="org.freedesktop.atspi.Role.xml"/>
-<xi:include href="org.freedesktop.atspi.LoginHelper.xml"/>
-<xi:include href="org.freedesktop.atspi.Selector.xml"/>
 </tp:spec>

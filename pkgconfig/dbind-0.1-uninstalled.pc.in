@@ -1,0 +1,8 @@
+top_builddir=@top_builddir@
+
+Name: dbind (Uninstalled)
+Description: Client side bindings helper library for libdbus
+Requires: libdbus-1.0
+Version: @DBIND_VERSION@
+Libs: ${top_builddir}/dbind/libdbind.la
+Cflags: -I${top_builddir} @DBUS_CFLAGS@

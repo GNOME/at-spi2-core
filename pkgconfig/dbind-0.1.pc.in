@@ -1,0 +1,9 @@
+prefix=@prefix@
+includedir=@includedir@
+
+Name: dbind
+Description: Client side bindings helper library for libdbus
+Requires: libdbus-1.0
+Version: @DBIND_VERSION@
+Libs: -ldbind
+Cflags: -I${includedir}/dbind-@DBIND_VERSION@ @DBUS_CFLAGS@
