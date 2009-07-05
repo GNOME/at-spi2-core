@@ -23,9 +23,9 @@
  */
 
 #include <config.h>
-#include <common/paths.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
+#include "paths.h"
 #include "registry.h"
 
 enum

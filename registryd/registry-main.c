@@ -26,9 +26,9 @@
 #include <string.h>
 #include <glib/gmain.h>
 
-#include <common/paths.h>
 #include <droute/droute.h>
 
+#include "paths.h"
 #include "registry.h"
 #include "deviceeventcontroller.h"
 

@@ -53,12 +53,12 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkwindow.h>
 
-#include <common/paths.h>
-#include <common/keymasks.h>
-#include <common/de-types.h>
-#include <common/de-marshaller.h>
-
 #include <droute/droute.h>
+
+#include "paths.h"
+#include "keymasks.h"
+#include "de-types.h"
+#include "de-marshaller.h"
 
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"

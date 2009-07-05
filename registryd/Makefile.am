@@ -15,10 +15,14 @@ at_spi_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
 			 $(XTST_LIBS)		\
 			 $(XEVIE_LIBS)		\
 			 $(top_builddir)/droute/libdroute.la\
-			 $(top_builddir)/dbind/libdbind.la\
-			 $(top_builddir)/common/libspicommon.la
+			 $(top_builddir)/dbind/libdbind.la
 
 at_spi_registryd_SOURCES =	\
+	de-marshaller.h         \
+	de-marshaller.c         \
+	de-types.h              \
+	keymasks.h              \
+	paths.hi                \
 	registry-main.c		\
 	registry.c		\
 	registry.h		\

@@ -1,4 +1,4 @@
-SUBDIRS=xml tools dbind droute common registryd
+SUBDIRS=xml tools dbind droute registryd
 
 ACLOCAL_AMFLAGS=-I m4
 

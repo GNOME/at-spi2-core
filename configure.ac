@@ -143,7 +143,6 @@ AC_CONFIG_FILES([Makefile
 		 xml/Makefile
 		 tools/Makefile
 		 droute/Makefile
-		 common/Makefile
 		 registryd/Makefile
 		 dbind/Makefile
 		 dbind/dbind-config.h])
