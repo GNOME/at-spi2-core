@@ -2,6 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
+ * Copyright 2009  Codethink Ltd
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
  *
@@ -21,14 +22,33 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef EVENT_TYPES_H_
-#define EVENT_TYPES_H_
+#ifndef SPI_DE_TYPES_H_
+#define SPI_DE_TYPES_H_
 
 #include <dbus/dbus.h>
 
 typedef unsigned long Accessibility_ControllerEventMask;
 
-// TODO: auto-generate the below structs
+typedef enum {
+    Accessibility_KEY_PRESSED_EVENT,
+    Accessibility_KEY_RELEASED_EVENT,
+    Accessibility_BUTTON_PRESSED_EVENT,
+    Accessibility_BUTTON_RELEASED_EVENT,
+} Accessibility_EventType;
+
+typedef enum {
+    Accessibility_KEY_PRESSED,
+    Accessibility_KEY_RELEASED,
+} Accessibility_KeyEventType;
+
+typedef enum {
+    Accessibility_KEY_PRESS,
+    Accessibility_KEY_RELEASE,
+    Accessibility_KEY_PRESSRELEASE,
+    Accessibility_KEY_SYM,
+    Accessibility_KEY_STRING,
+} Accessibility_KeySynthType;
+
 typedef struct _Accessibility_DeviceEvent Accessibility_DeviceEvent;
 struct _Accessibility_DeviceEvent
 {
@@ -58,4 +78,4 @@ struct _Accessibility_KeyDefinition
   dbus_int32_t unused;
 };
 
-#endif /* EVENT_TYPES_H_ */
+#endif /* SPI_DE_TYPES_H_ */

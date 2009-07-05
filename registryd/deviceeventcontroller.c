@@ -53,9 +53,10 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkwindow.h>
 
-#include <spi-common/keymasks.h>
-#include <spi-common/spi-dbus.h>
-#include <spi-common/spi-types.h>
+#include <common/paths.h>
+#include <common/keymasks.h>
+#include <common/de-types.h>
+#include <common/de-marshaller.h>
 
 #include <droute/droute.h>
 

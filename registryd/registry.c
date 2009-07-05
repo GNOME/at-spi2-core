@@ -23,7 +23,7 @@
  */
 
 #include <config.h>
-#include <spi-common/spi-dbus.h>
+#include <common/paths.h>
 #include <dbus/dbus-glib-lowlevel.h>
 
 #include "registry.h"

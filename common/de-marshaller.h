@@ -1,8 +1,10 @@
-/* 
- * AT-SPI - Assistive Technology Service Provider Interface 
+/*
+ * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2009  Codethink Ltd
+ * Copyright 2001, 2002 Sun Microsystems Inc.,
+ * Copyright 2001, 2002 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,30 +22,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ACCESSIBILITY_DESKTOP_DEFINED__
-#define __ACCESSIBILITY_DESKTOP_DEFINED__
+#ifndef SPI_DE_MARSHALLER_H_
+#define SPI_DE_MARSHALLER_H_
 
-#include <Accessibility_Accessible.idl>
+#include <dbus/dbus.h>
 
-module Accessibility {
-    /**
-     * At the moment this is only a marker interface, it acts just like
-     * any other Accessible.  In all known implementations, the
-     * children are all instances of Application, but this is not
-     * guaranteed by this interface.
-     **/
-    interface Desktop : Accessible {
-	  /** \cond
-	   * unImplemented:
-	   *
-	   * placeholders for future expansion.
-	   */
-	  void unImplemented_ ();
-	  void unImplemented2_ ();
-	  void unImplemented3_ ();
-	  void unImplemented4_ ();
-	/** \endcond */
-  };
-};
+#include "de-types.h"
 
-#endif
+dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...);
+dbus_bool_t spi_dbus_message_iter_append_struct(DBusMessageIter *iter, ...);
+dbus_bool_t spi_dbus_marshall_deviceEvent(DBusMessage *message, const Accessibility_DeviceEvent *e);
+dbus_bool_t spi_dbus_demarshall_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e);
+
+#endif /* SPI_DE_MARSHALLER_H_ */

@@ -20,14 +20,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <dbus/dbus.h>
 
-#include "spi-types.h"
+#include "de-types.h"
 
 dbus_bool_t spi_dbus_message_iter_get_struct(DBusMessageIter *iter, ...)
 {

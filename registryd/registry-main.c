@@ -26,7 +26,7 @@
 #include <string.h>
 #include <glib/gmain.h>
 
-#include <spi-common/spi-dbus.h>
+#include <common/paths.h>
 #include <droute/droute.h>
 
 #include "registry.h"
