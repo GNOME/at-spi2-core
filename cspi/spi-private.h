@@ -27,14 +27,14 @@
 
 /* Private internal implementation details of at-spi. */
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 #include "cspi/spi.h"
 #include "string.h"
 #include "cspi/cspi-lowlevel.h"
 #include "cspi/spi-listener.h"
 #include "dbind/dbind.h"
 #include <glib-object.h>
-#include "spi-common/spi-stateset.h"
+#include "common/spi-stateset.h"
 
 typedef struct _CSpiApplication CSpiApplication;
 struct _CSpiApplication

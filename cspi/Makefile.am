@@ -2,10 +2,14 @@ lib_LTLIBRARIES = libcspi.la
 
 libcspi_la_LDFLAGS = @LDFLAGS@ @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@ -no-undefined
 
-libcspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) $(ATK_CFLAGS) -I$(top_srcdir)
+libcspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
+                    $(ATK_CFLAGS)       \
+		    $(DBIND_CFLAGS)     \
+		    $(DROUTE_CFLAGS)    \
+                    -I$(top_srcdir)
 
-LDADD = $(DBUS_GLIB_LIBS)			\
-		      $(top_builddir)/spi-common/libspicommon.la
+LDADD = $(DBUS_GLIB_LIBS)		\
+        $(top_builddir)/common/libspicommon.la
 
 libcspidir = $(includedir)/at-spi-1.0/cspi
 libcspi_HEADERS =		\
@@ -36,7 +40,8 @@ libcspi_la_SOURCES =		\
 	spi-value.c \
 	spi-private.h
 
-libcspi_la_LIBADD =		\
-	$(top_builddir)/spi-common/libspicommon.la \
-		      $(top_builddir)/dbind/libdbind.la\
-	$(LIBCSPI_LIBS) $(X_LIBS)
+libcspi_la_LIBADD =		        \
+	$(top_builddir)/common/libspicommon.la \
+	$(LIBCSPI_LIBS)                 \
+        $(DBIND_LIBS)			\
+        $(X_LIBS)

@@ -25,7 +25,7 @@
 #define SPI_DBUS_H_
 
 #include <glib.h>
-#include <spi-common/spi-types.h>
+#include <common/spi-types.h>
 
 #define DBG(a,b) if(_dbg>=(a))b
 

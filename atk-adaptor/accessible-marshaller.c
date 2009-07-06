@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 #include "accessible-register.h"
 #include "accessible-marshaller.h"

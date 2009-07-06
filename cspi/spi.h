@@ -25,7 +25,7 @@
 #define _SPI_H
 
 #include <glib.h>
-#include <spi-common/spi-types.h>
+#include <common/spi-types.h>
 #include <cspi/spi-impl.h>
 /*
  * Definitions for AccessibleRole, AccessibleState,
@@ -39,7 +39,7 @@
 /*
  * Auxiliary typedefs and mask definitions
  */
-#include <spi-common/keymasks.h>
+#include <common/keymasks.h>
 
 #ifdef  __cplusplus
 extern "C" {

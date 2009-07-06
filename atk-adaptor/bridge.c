@@ -39,7 +39,7 @@
 #include "accessible-register.h"
 #include "adaptors.h"
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 /*
  * Provides the path for the introspection directory.

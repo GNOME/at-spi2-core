@@ -25,7 +25,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 static dbus_bool_t
 impl_get_toolkitName (DBusMessageIter * iter,

@@ -30,7 +30,7 @@
 #include "bridge.h"
 #include "accessible-register.h"
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 static GArray *listener_ids = NULL;
 

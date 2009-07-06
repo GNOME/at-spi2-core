@@ -29,8 +29,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "spi-common/spi-types.h"
-#include "spi-common/spi-dbus.h"
+#include "common/spi-types.h"
+#include "common/spi-dbus.h"
 
 static gboolean
 spi_init_relation_type_table (Accessibility_RelationType *types)

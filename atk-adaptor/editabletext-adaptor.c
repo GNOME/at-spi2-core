@@ -25,7 +25,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 static DBusMessage *
 impl_setTextContents (DBusConnection * bus, DBusMessage * message,

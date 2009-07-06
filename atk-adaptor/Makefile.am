@@ -1,10 +1,11 @@
 gtkmoduledir = $(libdir)/$(GTK_MODULE_DIR)
 gtkmodule_LTLIBRARIES = libspiatk.la
 
-libspiatk_la_CFLAGS = $(DBUS_GLIB_CFLAGS)\
-		      $(ATK_CFLAGS)\
-		      -I$(top_srcdir)\
-		      -I$(top_srcdir)/atk-adaptor/adaptors\
+libspiatk_la_CFLAGS = $(DBUS_GLIB_CFLAGS)                 \
+		      $(ATK_CFLAGS)                       \
+		      $(DBIND_CFLAGS)			  \
+		      $(DROUTE_CFLAGS)			  \
+		      -I$(top_srcdir)                     \
 		      -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 libspiatk_la_LDFLAGS = -no-undefined       \
@@ -14,8 +15,9 @@ libspiatk_la_LDFLAGS = -no-undefined       \
 
 libspiatk_la_LIBADD = $(DBUS_GLIB_LIBS)			\
 		      $(ATK_LIBS)			\
-		      $(top_builddir)/droute/libdroute.la\
-		      $(top_builddir)/spi-common/libspicommon.la
+		      $(DBIND_LIBS)			\
+		      $(DROUTE_LIBS)			\
+		      $(top_builddir)/common/libspicommon.la
 
 libspiatk_la_SOURCES =		\
 	accessible-adaptor.c	\

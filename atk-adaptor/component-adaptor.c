@@ -26,7 +26,7 @@
 #include <droute/droute.h>
 
 #include "accessible-marshaller.h"
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 static DBusMessage *
 impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)

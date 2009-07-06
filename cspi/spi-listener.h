@@ -26,7 +26,7 @@
 
 #include <cspi/spi-impl.h>
 #include <glib-object.h>
-#include "spi-common/spi-types.h"
+#include "common/spi-types.h"
 
 #ifdef  __cplusplus
 extern "C" {

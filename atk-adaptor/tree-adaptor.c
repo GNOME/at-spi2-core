@@ -31,7 +31,7 @@
 #include "bridge.h"
 #include "accessible-register.h"
 #include "accessible-marshaller.h"
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 /*---------------------------------------------------------------------------*/
 

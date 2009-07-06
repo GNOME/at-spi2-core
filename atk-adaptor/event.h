@@ -25,7 +25,7 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-#include <spi-common/spi-types.h>
+#include <common/spi-types.h>
 
 void spi_atk_register_event_listeners   (void);
 void spi_atk_deregister_event_listeners (void);

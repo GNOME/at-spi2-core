@@ -30,8 +30,8 @@
 #include "accessible-register.h"
 #include "accessible-marshaller.h"
 
-#include "spi-common/bitarray.h"
-#include "spi-common/spi-dbus.h"
+#include "common/bitarray.h"
+#include "common/spi-dbus.h"
 
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate

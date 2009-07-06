@@ -28,7 +28,7 @@
 #include <gtk/gtk.h>
 #include <atk/atk.h>
 #include <atk/atknoopobject.h>
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 typedef struct {
 	long int val;

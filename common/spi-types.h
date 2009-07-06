@@ -1,8 +1,9 @@
-/* 
- * AT-SPI - Assistive Technology Service Provider Interface 
+/*
+ * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001 Sun Microsystems Inc.
+ * Copyright 2001, 2002 Sun Microsystems Inc.,
+ * Copyright 2001, 2002 Ximian, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,30 +21,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef __ACCESSIBILITY_DESKTOP_DEFINED__
-#define __ACCESSIBILITY_DESKTOP_DEFINED__
+#ifndef SPI_TYPES_H_
+#define SPI_TYPES_H_
 
-#include <Accessibility_Accessible.idl>
+#include <common/generated-types.h>
+#include <common/event-types.h>
 
-module Accessibility {
-    /**
-     * At the moment this is only a marker interface, it acts just like
-     * any other Accessible.  In all known implementations, the
-     * children are all instances of Application, but this is not
-     * guaranteed by this interface.
-     **/
-    interface Desktop : Accessible {
-	  /** \cond
-	   * unImplemented:
-	   *
-	   * placeholders for future expansion.
-	   */
-	  void unImplemented_ ();
-	  void unImplemented2_ ();
-	  void unImplemented3_ ();
-	  void unImplemented4_ ();
-	/** \endcond */
-  };
-};
-
-#endif
+#endif /* SPI_TYPES_H_ */

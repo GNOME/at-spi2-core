@@ -11,8 +11,9 @@ INCLUDES = -I$(top_srcdir)           \
 	   $(GLIB_CFLAGS)	     \
 	   $(GTK_CFLAGS)	     \
 	   $(ATK_CFLAGS)	     \
+           $(DBIND_CFLAGS)           \
 	   $(DEBUG_CFLAGS)
 
-LDADD = $(top_builddir)/spi-common/libspicommon.la 			\
+LDADD = $(top_builddir)/common/libspicommon.la 			\
 	$(top_builddir)/cspi/libcspi.la 				\
-	$(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS) $(ATK_LIBS) $(GTK_LIBS)
+	$(TESTS_LIBS) $(X_LIBS) $(XINPUT_LIBS) $(ATK_LIBS) $(GTK_LIBS) $(DBIND_LIBS)

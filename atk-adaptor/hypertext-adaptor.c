@@ -25,7 +25,7 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "spi-common/spi-dbus.h"
+#include "common/spi-dbus.h"
 
 static DBusMessage *
 impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
