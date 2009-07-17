@@ -183,6 +183,8 @@ AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_FUNCS(bind_textdomain_codeset)
 
+GOBJECT_INTROSPECTION_CHECK([0.6.4])
+
 GTK_DOC_CHECK([1.0])
 
 # define a MAINT-like variable REBUILD which is set if Perl
