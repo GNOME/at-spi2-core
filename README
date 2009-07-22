@@ -21,8 +21,12 @@ bugzilla. The freedesktop project name is at-spi2.
 
 A git repository with the latest development code is available at:
 
-        git://anongit.freedesktop.org/git/at-spi2
+        git://anongit.freedesktop.org/git/at-spi2/att-spi2-atk
 
+Code in this repository depends on at-spi2-core resources. The
+at-spi2-core repository can be found at:
+
+        git://anongit.freedesktop.org/git/at-spi2/att-spi2-core
 
 More information
 ----------------
@@ -47,63 +51,22 @@ include:
 Contents of this package
 ------------------------
 
-This package includes the protocol definitions for the new D-Bus
-at-spi, a gtk-module that bridges ATK to the new D-Bus based AT-SPI
+This package includes a gtk-module that bridges ATK to the new D-Bus based AT-SPI
 as well as 'C' and Python client libraries.
 
-Also included is the daemon neccessary for forwarding device events
-and registering accessible applicaitons.
-
-
+These libraries depend on the at-spi2-core code that contains the daemon for
+registering applications, D-Bus helper libraries and te AT-SPI D-Bus specifications.
 
 Directory structure
 -------------------
 
 The directories within this package are arranged as follows:
 
-    idl
-
-        This directory contains the interface definitions
-        (in Interface Definition Language) for the
-        accessibility support interfaces exposed by
-        the AT central registry, accessible applications,
-        and UI components.
-
-        This is possibly historic. The idl formed the basis
-        for the XML protocol definitions now located
-        in the directory "xml".
-
-    xml 
-
-        This directory contains XML documents describing
-        the D-Bus protocol in a subset of Telepathy XML.
-
-    tools
-
-        Miscellaneous tools. Mostly for converting protocol
-        XML into D-Bus introspection, 'C' types and documentation.
-
-    droute
-
-        Contains a framework for registering objects
-        with a D-Bus connection and for routing messages to
-        the implementing object.
-
-        Used by the ATK adaptor.
-
-    dbind
-
-        Library to ease making D-Bus method calls, contains
-        marshalling code to convert function arguments
-        and a provided D-Bus signature into a D-Bus message.
-
-        Used by cspi.
-
-    spi-common
+    common
 
         Contains 'C' types derived from the D-Bus
         protocol specification. These types are used by 
-        both the registry daemon and the ATK adaptor.
+        the ATK adaptor and 'Cspi'.
         Structures are mainly related to events.
 
     atk-adaptor
@@ -122,9 +85,6 @@ The directories within this package are arranged as follows:
 
         The client (AT) side interface - 'C' bindings.
 
-    registryd
+    pyatspi
 
-        The registry daemon code. The registry daemon
-        keeps a register of accessible applications and presents
-        this to clients (ATs).
-        It is also responsible for delivering device events.
+        The python client library for accessing D-Bus accessibility.
