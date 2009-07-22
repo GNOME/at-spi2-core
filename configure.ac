@@ -205,7 +205,7 @@ AC_CONFIG_FILES([Makefile
 		 droute/Makefile
 		 spi-common/Makefile
 		 registryd/Makefile
-		 registryd/at-spi-registryd.desktop.in.in
+		 registryd/at-spi-registryd.desktop.in
 		 atk-adaptor/Makefile
 		 login-helper/Makefile
 		 tests/dummyatk/Makefile
