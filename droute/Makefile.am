@@ -6,9 +6,9 @@ libdroute_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
                       -I$(top_srcdir)
 
 libdrouteinclude_HEADERS = \
-		droute.h
+		droute.h   \
 		droute-variant.h
-libdrouteincludedir=$(includedir)/droute-$(DROUTE_VERSION)
+libdrouteincludedir=$(includedir)/droute-$(DROUTE_VERSION)/droute
 
 libdroute_la_SOURCES =\
 		droute.c\

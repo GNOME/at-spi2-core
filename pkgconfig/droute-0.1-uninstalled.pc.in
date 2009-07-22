@@ -2,7 +2,7 @@ top_builddir=@top_builddir@
 
 Name: droute (Uninstalled)
 Description: Server side bindings helper library for libdbus
-Requires: libdbus-1.0
+Requires: dbus-1
 Version: @DROUTE_VERSION@
 Libs: ${top_builddir}/droute/libdroute.la
 Cflags: -I${top_builddir} @DBUS_CFLAGS@

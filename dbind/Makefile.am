@@ -10,7 +10,7 @@ AM_CPPFLAGS = \
 libdbindinclude_HEADERS = \
 	dbind-any.h \
 	dbind.h
-libdbindincludedir=$(includedir)/dbind-$(DBIND_VERSION)
+libdbindincludedir=$(includedir)/dbind-$(DBIND_VERSION)/dbind
 
 libdbind_la_SOURCES = \
 	dbind.c \
