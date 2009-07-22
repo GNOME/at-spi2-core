@@ -1,9 +1,9 @@
-AC_INIT([at-spi-core], [2.0.0], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-core], [0.1.0], [accessibility-atspi@lists.linux-foundation.org])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_MACRO_DIR([m4])
 
-AT_SPI_CORE_MAJOR_VERSION=2
-AT_SPI_CORE_MINOR_VERSION=0
+AT_SPI_CORE_MAJOR_VERSION=0
+AT_SPI_CORE_MINOR_VERSION=1
 AT_SPI_CORE_VERSION="$AT_SPI_CORE_MAJOR_VERSION.$AT_SPI_CORE_MINOR_VERSION"
 AC_SUBST(AT_SPI_CORE_VERSION)
 

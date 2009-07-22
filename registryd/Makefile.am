@@ -49,6 +49,14 @@ default_session_DATA = $(default_session_in_files:.desktop.in=.desktop)
 CLEANFILES = 			\
 	$(default_session_DATA)	\
 	$(default_session_in_files)
+EXTRA_DIST = at-spi-registryd.desktop.in.in
 
-DISTCLEANFILES =		\
-	$(default_session_in_in_files)
+servicedir       = $(DBUS_SERVICES_DIR)
+service_in_files = org.freedesktop.atspi.Registry.service.in
+service_DATA     = $(service_in_files:.service.in=.service)
+
+$(service_DATA): $(service_in_files) Makefile
+	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
+
+DISTCLEANFILES = org.freedesktop.atspi.Registry.service
+EXTRA_DIST = org.freedesktop.atspi.Registry.service.in
