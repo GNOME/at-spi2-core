@@ -25,7 +25,7 @@
 #define SPI_KEYMASKS_H_
 
 #include <X11/Xlib.h>
-#include <glib/gmacros.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 

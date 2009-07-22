@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <config.h>
 #include <string.h>
-#include <glib/gmain.h>
+#include <glib.h>
 
 #include <droute/droute.h>
 
@@ -36,8 +36,14 @@
     #error "No introspection XML directory defined"
 #endif
 
+#ifdef HAVE_SM
+#include <X11/SM/SMlib.h>
+#endif
+
+
 static gchar *dbus_name = NULL;
 
+static void registry_session_init (const char *previous_client_id, const char *exe);
 static GOptionEntry optentries[] =
 {
   {"dbus-name", 0, 0, G_OPTION_ARG_STRING, &dbus_name, "Well-known name to register with D-Bus", NULL},
@@ -107,6 +113,106 @@ main (int argc, char **argv)
   registry = spi_registry_new (bus, droute);
   dec = spi_registry_dec_new (registry, bus, droute);
 
+
+      /* If DESKTOP_AUTOSTART_ID exists, assume we're started by session
+       * manager and connect to it. */
+      const char *desktop_autostart_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+      if (desktop_autostart_id != NULL) {
+        char *client_id = g_strdup (desktop_autostart_id);
+        /* Unset DESKTOP_AUTOSTART_ID in order to avoid child processes to
+         * use the same client id. */
+        g_unsetenv ("DESKTOP_AUTOSTART_ID");
+        registry_session_init (client_id, argv[0]);
+        g_free (client_id);
+      }
+
+
   g_main_loop_run (mainloop);
   return 0;
 }
+
+void
+registry_session_init (const char *previous_client_id, const char *exe)
+{
+#ifdef HAVE_SM
+  char buf[256];
+  char *client_id;
+
+  SmcConn session_connection =
+  SmcOpenConnection (NULL, /* use SESSION_MANAGER env */
+                     NULL, /* means use existing ICE connection */
+                     SmProtoMajor,
+                     SmProtoMinor,
+                     0,
+                     NULL,
+                     (char*) previous_client_id,
+                     &client_id,
+                     255, buf);
+
+  if (session_connection != NULL) {
+    SmProp prop1, prop2, prop3, prop4, prop5, prop6, *props[6];
+    SmPropValue prop1val, prop2val, prop3val, prop4val, prop5val, prop6val;
+    char pid[32];
+    char hint = SmRestartImmediately;
+    char priority = 1; /* low to run before other apps */
+
+    prop1.name = SmProgram;
+    prop1.type = SmARRAY8;
+    prop1.num_vals = 1;
+    prop1.vals = &prop1val;
+    prop1val.value = exe;
+    prop1val.length = strlen (exe);
+
+    /* twm sets getuid() for this, but the SM spec plainly
+     * says pw_name, twm is on crack
+     */
+    prop2.name = SmUserID;
+    prop2.type = SmARRAY8;
+    prop2.num_vals = 1;
+    prop2.vals = &prop2val;
+    prop2val.value = (char*) g_get_user_name ();
+    prop2val.length = strlen (prop2val.value);
+
+    prop3.name = SmRestartStyleHint;
+    prop3.type = SmCARD8;
+    prop3.num_vals = 1;
+    prop3.vals = &prop3val;
+    prop3val.value = &hint;
+    prop3val.length = 1;
+
+    sprintf (pid, "%d", getpid ());
+    prop4.name = SmProcessID;
+    prop4.type = SmARRAY8;
+    prop4.num_vals = 1;
+    prop4.vals = &prop4val;
+    prop4val.value = pid;
+    prop4val.length = strlen (prop4val.value);
+
+    /* Always start in home directory */
+    prop5.name = SmCurrentDirectory;
+    prop5.type = SmARRAY8;
+    prop5.num_vals = 1;
+    prop5.vals = &prop5val;
+    prop5val.value = (char*) g_get_home_dir ();
+    prop5val.length = strlen (prop5val.value);
+
+    prop6.name = "_GSM_Priority";
+    prop6.type = SmCARD8;
+    prop6.num_vals = 1;
+    prop6.vals = &prop6val;
+    prop6val.value = &priority;
+    prop6val.length = 1;
+
+    props[0] = &prop1;
+    props[1] = &prop2;
+    props[2] = &prop3;
+    props[3] = &prop4;
+    props[4] = &prop5;
+    props[5] = &prop6;
+
+    SmcSetProperties (session_connection, 6, props);
+  }
+
+#endif
+}
+
