@@ -21,7 +21,7 @@ bugzilla. The freedesktop project name is at-spi2.
 
 A git repository with the latest development code is available at:
 
-        git://anongit.freedesktop.org/git/at-spi2
+        git://anongit.freedesktop.org/git/at-spi2/at-spi2-core
 
 
 More information
@@ -43,35 +43,20 @@ include:
         http://www.gnome.org/~billh/at-spi-idl/html/
 
 
-
 Contents of this package
 ------------------------
 
 This package includes the protocol definitions for the new D-Bus
-at-spi, a gtk-module that bridges ATK to the new D-Bus based AT-SPI
-as well as 'C' and Python client libraries.
+at-spi.
 
 Also included is the daemon neccessary for forwarding device events
 and registering accessible applicaitons.
-
 
 
 Directory structure
 -------------------
 
 The directories within this package are arranged as follows:
-
-    idl
-
-        This directory contains the interface definitions
-        (in Interface Definition Language) for the
-        accessibility support interfaces exposed by
-        the AT central registry, accessible applications,
-        and UI components.
-
-        This is possibly historic. The idl formed the basis
-        for the XML protocol definitions now located
-        in the directory "xml".
 
     xml 
 
@@ -98,29 +83,6 @@ The directories within this package are arranged as follows:
         and a provided D-Bus signature into a D-Bus message.
 
         Used by cspi.
-
-    spi-common
-
-        Contains 'C' types derived from the D-Bus
-        protocol specification. These types are used by 
-        both the registry daemon and the ATK adaptor.
-        Structures are mainly related to events.
-
-    atk-adaptor
-
-        This directory contains code that bridges 
-        the at-spi to the GTK+ toolkit, and which is
-        loaded at runtime by GTK+-based Gnome applications.
-        The 'bridge' automatically registers GTK+-2.0
-        applications with the accessibility registry, 
-        and relays UI events from application to registry.
-        It is also responsible for servicing requests from
-        the registry to register handlers for specific event
-        types.
-
-    cspi
-
-        The client (AT) side interface - 'C' bindings.
 
     registryd
 
