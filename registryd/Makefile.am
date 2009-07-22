@@ -12,6 +12,7 @@ at_spi_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
 			 $(ATK_LIBS)		\
 			 $(GDK_LIBS)		\
 			 $(X_LIBS)		\
+			 $(SM_LIBS)		\
 			 $(XTST_LIBS)		\
 			 $(XEVIE_LIBS)		\
 			 $(top_builddir)/droute/libdroute.la\
@@ -26,3 +27,23 @@ at_spi_registryd_SOURCES =	\
 	reentrant-list.c	\
 	reentrant-list.h	\
 	ucs2keysym.c
+
+default_sessiondir = $(sysconfdir)/xdg/autostart
+default_session_in_in_files = 				\
+	at-spi-registryd.desktop.in.in
+default_session_in_files = $(default_session_in_in_files:.desktop.in.in=.desktop.in)
+default_session_DATA = $(default_session_in_files:.desktop.in=.desktop)
+
+%.desktop: %.desktop.in Makefile.am
+	sed -e "s,\@registryddir\@,$(libexecdir)," \
+	< $< > $@
+%.desktop.in: %.desktop.in.in Makefile.am
+	sed -e "s,\@registryddir\@,$(libexecdir)," \
+	< $< > $@
+
+CLEANFILES = 			\
+	$(default_session_DATA)	\
+	$(default_session_in_files)
+
+DISTCLEANFILES =		\
+	$(default_session_in_in_files)

@@ -24,7 +24,7 @@
 #ifndef REENTRANT_LIST_H_
 #define REENTRANT_LIST_H_
 
-#include <glib/glist.h>
+#include <glib.h>
 
 G_BEGIN_DECLS
 

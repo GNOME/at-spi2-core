@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=AT SPI Registry Wrapper
+Exec=@registryddir@/at-spi-registryd
+OnlyShowIn=GNOME;
+NoDisplay=true
+AutostartCondition=GNOME /desktop/gnome/interface/accessibility
+X-GNOME-Autostart-Phase=Initialization
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=at-spi
+X-GNOME-Bugzilla-Component=general
+X-GNOME-Bugzilla-Version=1.9.0

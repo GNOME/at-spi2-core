@@ -22,3 +22,10 @@ TESTS = dbtest
 check_PROGRAMS = dbtest
 dbtest_SOURCES = dbtest.c
 dbtest_LDFLAGS = libdbind.la
+
+servicedir       = $(DBUS_SERVICES_DIR)
+service_in_files = org.freedesktop.atspi.Registry.service.in
+service_DATA     = $(service_in_files:.service.in=.service)
+
+$(service_DATA): $(service_in_files) Makefile
+	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
