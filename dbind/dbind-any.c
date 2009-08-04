@@ -351,6 +351,13 @@ dbind_any_marshal_va (DBusMessageIter *iter,
                       va_list          args)
 {
     char *p = *arg_types;
+
+    /* Guard against null arg types 
+       Fix for - http://bugs.freedesktop.org/show_bug.cgi?id=23027
+     */
+    if (p == NULL)
+        p = "";
+
     {
         /* special case base-types since we need to walk the stack worse-luck */
         for (;*p != '\0' && *p != '=';) {

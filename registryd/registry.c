@@ -54,12 +54,12 @@ spi_registry_init (SpiRegistry *registry)
 
 /*---------------------------------------------------------------------------*/
 
-static void emit(SpiRegistry *reg, const char *itf, const char *name, int ftype, ...)
+static void emit(SpiRegistry *reg, const char *itf, const char *name, const char *arg_types, ...)
 {
   va_list arg;
 
-  va_start(arg, ftype);
-  dbind_emit_signal_va (reg->bus, SPI_DBUS_PATH_REGISTRY, itf, name, NULL, ftype, arg);
+  va_start(arg, arg_types);
+  dbind_emit_signal_va (reg->bus, SPI_DBUS_PATH_REGISTRY, itf, name, NULL, arg_types, arg);
   va_end(arg);
 }
 
@@ -131,11 +131,10 @@ add_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
       emit (reg,
             SPI_DBUS_INTERFACE_REGISTRY,
             "updateApplications",
-            DBUS_TYPE_INT32,
+            "is",
             &add,
-            DBUS_TYPE_STRING,
-            &app,
-            DBUS_TYPE_INVALID);
+            &app
+           );
     }
 }
 
@@ -150,11 +149,10 @@ remove_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
       emit (reg,
             SPI_DBUS_INTERFACE_REGISTRY,
             "updateApplications",
-            DBUS_TYPE_INT32,
+            "is",
             &remove,
-            DBUS_TYPE_STRING,
-            &app,
-            DBUS_TYPE_INVALID);
+            &app
+           );
     }
 }
 
