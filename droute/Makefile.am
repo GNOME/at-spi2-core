@@ -17,6 +17,7 @@ libdroute_la_SOURCES =\
 		droute-variant.h\
 		droute-pairhash.c\
 		droute-pairhash.h
+libdroute_la_LIBADD = $(DBUS_GLIB_LIBS)
 
 TESTS = droute-test
 
