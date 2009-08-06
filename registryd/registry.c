@@ -54,14 +54,26 @@ spi_registry_init (SpiRegistry *registry)
 
 /*---------------------------------------------------------------------------*/
 
-static void emit(SpiRegistry *reg, const char *itf, const char *name, const char *arg_types, ...)
+static void emit(SpiRegistry *reg, const char *name, guint sigtype, const char *app)
 {
-  va_list arg;
+  DBusMessage *msg = NULL;
+  DBusError error;
 
-  va_start(arg, arg_types);
-  dbind_emit_signal_va (reg->bus, SPI_DBUS_PATH_REGISTRY, itf, name, NULL, arg_types, arg);
-  va_end(arg);
+  dbus_error_init (&error);
+
+  if ((msg = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,
+                                     SPI_DBUS_INTERFACE_REGISTRY, name))) {
+    dbus_message_append_args(msg, DBUS_TYPE_INT32, &sigtype,
+                                  DBUS_TYPE_STRING, &app, DBUS_TYPE_INVALID);
+
+    dbus_connection_send (reg->bus, msg, NULL);
+
+    dbus_message_unref (msg);
+  }
+
+  dbus_error_free (&error);
 }
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -128,13 +140,7 @@ add_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
 
   if (seq_add_string (reg->apps, app))
     {
-      emit (reg,
-            SPI_DBUS_INTERFACE_REGISTRY,
-            "updateApplications",
-            "is",
-            &add,
-            &app
-           );
+      emit (reg, "updateApplications", REGISTRY_APPLICATION_ADD, app);
     }
 }
 
@@ -146,13 +152,7 @@ remove_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
   if (seq_remove_string (reg->apps, app))
     {
       /*TODO spi_remove_device_listeners (registry->de_controller, old);*/
-      emit (reg,
-            SPI_DBUS_INTERFACE_REGISTRY,
-            "updateApplications",
-            "is",
-            &remove,
-            &app
-           );
+      emit (reg, "updateApplications", REGISTRY_APPLICATION_REMOVE, app);
     }
 }
 
