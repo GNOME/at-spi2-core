@@ -282,7 +282,7 @@ class DeviceEventController(object):
                 """
                 func = self._dec.get_dbus_method("registerKeystrokeListener")
                 return func(event_listener,
-                            keys,
+                            _dbus.Array(keys, signature="(iisi)"),
                             event_mask,
                             key_event_types,
                             event_listener_mode)
