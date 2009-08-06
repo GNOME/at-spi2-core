@@ -176,7 +176,8 @@ dbind_emit_signal_va (DBusConnection *cnx,
     if (!msg)
         goto out;
 
-    dbus_message_iter_init (msg, &iter);
+    p = arg_types;
+    dbus_message_iter_init_append (msg, &iter);
     dbind_any_marshal_va (&iter, &p, args);
 
     if (!dbus_connection_send (cnx, msg, NULL))
