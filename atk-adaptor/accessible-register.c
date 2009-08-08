@@ -158,6 +158,7 @@ deregister_accessible (gpointer data, GObject *accessible)
   ref = object_to_ref (ATK_OBJECT(accessible));
   if (ref != 0)
     {
+      spi_emit_cache_removal (ref, atk_adaptor_app_data->bus);
       g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
     }
 }
