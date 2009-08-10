@@ -89,9 +89,10 @@ static const guint8 direction_offsets[] = {
 static const char wrap_mode[] =
   "none\0"
   "char\0"
-  "word";
+  "word\0"
+  "word_char";
 static const guint8 wrap_mode_offsets[] = {
-  0, 5, 10
+  0, 5, 10, 15
 };
 
 static const char underline[] =
