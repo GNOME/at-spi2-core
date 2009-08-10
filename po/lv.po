@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lv\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-01 14:45+0800\n"
+"POT-Creation-Date: 2009-08-10 14:33+0800\n"
 "PO-Revision-Date: 2009-01-23 18:51+0200\n"
 "Last-Translator: Raivis Dejus <orvils@gmail.com>\n"
 "Language-Team: Latvian <locale@laka.lv>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -527,4 +528,3 @@ msgstr "Pieejamo hiperteksta saišu nummurs"
 #: atk/atkobject.c:595
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Saišu skaits kas ir ar AktHipertekstu tajās"
-

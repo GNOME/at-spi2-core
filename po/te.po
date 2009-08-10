@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-01 14:45+0800\n"
+"POT-Creation-Date: 2009-08-10 14:33+0800\n"
 "PO-Revision-Date: 2009-03-03 11:24+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 
 #: atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -526,4 +527,3 @@ msgstr "అందుబాటులోఉన్న అధిపాఠ లిం�
 #: atk/atkobject.c:595
 msgid "The number of links which the current AtkHypertext has"
 msgstr "ప్రస్తుత ఎటికె అధిపాఠం కలిగిఉన్న లింకుల సంఖ్య"
-
