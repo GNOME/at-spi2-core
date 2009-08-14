@@ -8,8 +8,6 @@ libcspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		    $(DROUTE_CFLAGS)    \
                     -I$(top_srcdir)
 
-LDADD = $(DBUS_GLIB_LIBS)		\
-        $(top_builddir)/common/libspicommon.la
 
 libcspidir = $(includedir)/at-spi-1.0/cspi
 libcspi_HEADERS =		\
@@ -41,7 +39,9 @@ libcspi_la_SOURCES =		\
 	spi-private.h
 
 libcspi_la_LIBADD =		        \
-	$(top_builddir)/common/libspicommon.la \
 	$(LIBCSPI_LIBS)                 \
         $(DBIND_LIBS)			\
-        $(X_LIBS)
+        $(X_LIBS)                       \
+        $(DBUS_GLIB_LIBS)		\
+        $(ATK_LIBS)                     \
+        $(top_builddir)/common/libspicommon.la
