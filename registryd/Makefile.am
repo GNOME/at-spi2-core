@@ -15,8 +15,7 @@ at_spi_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
 			 $(SM_LIBS)		\
 			 $(XTST_LIBS)		\
 			 $(XEVIE_LIBS)		\
-			 $(top_builddir)/droute/libdroute.la\
-			 $(top_builddir)/dbind/libdbind.la
+			 $(top_builddir)/droute/libdroute.la
 
 at_spi_registryd_SOURCES =	\
 	de-marshaller.h         \
