@@ -54,7 +54,7 @@ spi_registry_init (SpiRegistry *registry)
 
 /*---------------------------------------------------------------------------*/
 
-static void emit(SpiRegistry *reg, const char *name, guint sigtype, const char *app)
+static void emit_update_applications(SpiRegistry *reg, guint sigtype, const char *app)
 {
   DBusMessage *msg = NULL;
   DBusError error;
@@ -62,7 +62,8 @@ static void emit(SpiRegistry *reg, const char *name, guint sigtype, const char *
   dbus_error_init (&error);
 
   if ((msg = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,
-                                     SPI_DBUS_INTERFACE_REGISTRY, name))) {
+                                      SPI_DBUS_INTERFACE_REGISTRY,
+                                      "updateApplications"))) {
     dbus_message_append_args(msg, DBUS_TYPE_INT32, &sigtype,
                                   DBUS_TYPE_STRING, &app, DBUS_TYPE_INVALID);
 
@@ -136,23 +137,19 @@ seq_remove_string (GSequence *seq, gchar *str)
 static void
 add_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
 {
-  guint add = REGISTRY_APPLICATION_ADD;
-
   if (seq_add_string (reg->apps, app))
     {
-      emit (reg, "updateApplications", REGISTRY_APPLICATION_ADD, app);
+      emit_update_applications (reg, REGISTRY_APPLICATION_ADD, app);
     }
 }
 
 static void
 remove_application (DBusConnection *bus, SpiRegistry *reg, gchar *app)
 {
-  guint remove = REGISTRY_APPLICATION_REMOVE;
-
   if (seq_remove_string (reg->apps, app))
     {
       /*TODO spi_remove_device_listeners (registry->de_controller, old);*/
-      emit (reg, "updateApplications", REGISTRY_APPLICATION_REMOVE, app);
+      emit_update_applications (reg, REGISTRY_APPLICATION_REMOVE, app);
     }
 }
 
