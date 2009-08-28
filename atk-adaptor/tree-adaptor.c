@@ -39,7 +39,9 @@
 static void
 append_accessible_hf (gpointer key, gpointer obj_data, gpointer iter)
 {
-  spi_atk_append_accessible (ATK_OBJECT(obj_data), iter);
+  /* Make sure it isn't a hyperlink */
+  if (ATK_IS_OBJECT (obj_data))
+    spi_atk_append_accessible (ATK_OBJECT(obj_data), iter);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -102,7 +104,7 @@ impl_getRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
                                       DBUS_ERROR_FAILED,
                                       "No root accessible available");
     }
-  path = atk_dbus_object_to_path (root);
+  path = atk_dbus_object_to_path (root, FALSE);
   if (!path)
     {
       reply = dbus_message_new_error (message,

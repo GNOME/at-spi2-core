@@ -32,6 +32,9 @@ atk_dbus_foreach_registered(GHFunc func, gpointer data);
 
 /*---------------------------------------------------------------------------*/
 
+GObject *
+atk_dbus_path_to_gobject (const char *path);
+
 AtkObject *
 atk_dbus_path_to_object (const char *path);
 
@@ -39,7 +42,13 @@ gchar *
 atk_dbus_object_attempt_registration (AtkObject *accessible);
 
 gchar *
-atk_dbus_object_to_path (AtkObject *accessible);
+atk_dbus_object_to_path (AtkObject *accessible, gboolean do_register);
+
+gchar *
+atk_dbus_sub_object_to_path (GObject *accessible, GObject *container);
+
+gchar *
+atk_dbus_hyperlink_to_path (AtkHyperlink *hyperlink, AtkObject *container);
 
 gchar *
 atk_dbus_desktop_object_path ();

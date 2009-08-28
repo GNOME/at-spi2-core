@@ -26,6 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "accessible-marshaller.h"
 
 static DBusMessage *
 impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
@@ -63,8 +64,7 @@ impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   link = atk_hypertext_get_link (hypertext, linkIndex);
-  return NULL;	// TODO
-  //return spi_dbus_return_object (message, ATK_OBJECT (link), FALSE);
+  return spi_dbus_return_hyperlink (message, link, ATK_OBJECT(hypertext), TRUE);
 }
 
 static DBusMessage *

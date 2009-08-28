@@ -114,7 +114,7 @@ impl_getChildAtIndex (DBusConnection *bus,
   if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
       return spi_dbus_general_error (message);
   child = atk_object_ref_accessible_child (object, i);
-  return spi_dbus_return_object (message, child, FALSE);
+  return spi_dbus_return_object (message, child, FALSE, FALSE);
 }
 
 static DBusMessage *
@@ -140,7 +140,7 @@ impl_getChildren (DBusConnection *bus,
   for (i = 0; i < count; i++)
     {
       AtkObject *child = atk_object_ref_accessible_child (object, i);
-      char *path = atk_dbus_object_to_path (child);
+      char *path = atk_dbus_object_to_path (child, FALSE);
       if (path)
 	{
 	  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_OBJECT_PATH,
@@ -270,7 +270,12 @@ impl_getRelationSet (DBusConnection *bus,
       AtkObject *obj = target->pdata[j];
       char *path;
       if (!obj) continue;
-      path = atk_dbus_object_to_path (obj);
+      path = atk_dbus_object_to_path (obj, FALSE);
+      if (!path)
+      {
+	g_warning ("Unknown object in relation type %d\n", type);
+	continue;
+      }
       dbus_message_iter_append_basic (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
     }
     dbus_message_iter_close_container (&iter_struct, &iter_targets);
@@ -543,7 +548,7 @@ impl_getApplication (DBusConnection *bus,
                      void *user_data)
 {
   AtkObject *root = atk_get_root ();
-  return spi_dbus_return_object (message, root, FALSE);
+  return spi_dbus_return_object (message, root, FALSE, FALSE);
 }
 
 static DBusMessage *

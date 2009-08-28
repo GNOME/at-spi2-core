@@ -28,6 +28,16 @@
 #include "accessible-marshaller.h"
 #include "common/spi-dbus.h"
 
+static AtkHyperlink *
+get_hyperlink (void *user_data)
+{
+  if (ATK_IS_HYPERLINK (user_data))
+    return ATK_HYPERLINK (user_data);
+  if (ATK_IS_HYPERLINK_IMPL (user_data))
+    return atk_hyperlink_impl_get_hyperlink (ATK_HYPERLINK_IMPL (user_data));
+  return NULL;
+}
+
 static dbus_bool_t
 impl_get_nAnchors (DBusMessageIter * iter, void *user_data)
 {
@@ -41,7 +51,7 @@ static dbus_bool_t
 impl_get_startIndex (DBusMessageIter * iter,
                      void *user_data)
 {
-  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_start_index (link));
 }
@@ -49,7 +59,7 @@ impl_get_startIndex (DBusMessageIter * iter,
 static dbus_bool_t
 impl_get_endIndex (DBusMessageIter * iter, void *user_data)
 {
-  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_end_index (link));
 }
@@ -57,7 +67,7 @@ impl_get_endIndex (DBusMessageIter * iter, void *user_data)
 static DBusMessage *
 impl_getObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  AtkHyperlink *link = get_hyperlink (user_data);
   DBusError error;
   dbus_int32_t i;
   AtkObject *atk_object;
@@ -71,13 +81,13 @@ impl_getObject (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   atk_object = atk_hyperlink_get_object (link, i);
-  return spi_dbus_return_object (message, atk_object, FALSE);
+  return spi_dbus_return_sub_object (message, G_OBJECT (atk_object), G_OBJECT (link), FALSE);
 }
 
 static DBusMessage *
 impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  AtkHyperlink *link = get_hyperlink (user_data);
   dbus_int32_t i;
   DBusError error;
   gchar *rv;
@@ -87,8 +97,7 @@ impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INT32, &i,
-       DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -109,7 +118,7 @@ impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 static DBusMessage *
 impl_isValid (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkHyperlink *link = (AtkHyperlink *) user_data;
+  AtkHyperlink *link = get_hyperlink (user_data);
   dbus_bool_t rv;
   DBusMessage *reply;
 

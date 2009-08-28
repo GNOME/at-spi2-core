@@ -38,15 +38,47 @@
  * Unrefs the AtkObject if unref is true.
  */
 DBusMessage *
-spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref)
+spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean do_register, gboolean unref)
 {
   DBusMessage *reply;
   gchar *path;
 
-  path = atk_dbus_object_to_path (obj);
+  path = atk_dbus_object_to_path (obj, do_register);
 
   if (obj && unref)
     g_object_unref (obj);
+
+  if (!path)
+    path = g_strdup (SPI_DBUS_PATH_NULL);
+
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path,
+                                DBUS_TYPE_INVALID);
+    }
+
+  g_free (path);
+
+  return reply;
+}
+
+DBusMessage *
+spi_dbus_return_hyperlink (DBusMessage *message, AtkHyperlink *link, AtkObject *container, gboolean unref)
+{
+  return spi_dbus_return_sub_object (message, G_OBJECT (link), G_OBJECT (container), unref);
+}
+
+DBusMessage *
+spi_dbus_return_sub_object (DBusMessage *message, GObject *sub, GObject *container, gboolean unref)
+{
+  DBusMessage *reply;
+  gchar *path;
+
+  path = atk_dbus_sub_object_to_path (sub, container);
+
+  if (sub && unref)
+    g_object_unref (sub);
 
   if (!path)
     path = g_strdup (SPI_DBUS_PATH_NULL);
@@ -76,7 +108,10 @@ spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
 {
   char *path;
 
-  path = atk_dbus_object_to_path (obj);
+  path = atk_dbus_object_to_path (obj, FALSE);
+
+  if (!path)
+    path = g_strdup (SPI_DBUS_PATH_NULL);
 
   if (unref)
     g_object_unref (obj);
@@ -201,7 +236,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
       gchar *path, *path_parent;
 
       /* Marshall object path */
-      path = atk_dbus_object_to_path (obj);
+      path = atk_dbus_object_to_path (obj, FALSE);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
 
       /* Marshall parent */
@@ -212,7 +247,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
         }
       else
         {
-          path_parent = atk_dbus_object_to_path (parent);
+          path_parent = atk_dbus_object_to_path (parent, FALSE);
           if (!path_parent)
             {
               /* This should only happen if a widget is re-parented to
@@ -243,7 +278,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
               gchar *child_path;
 
               child = atk_object_ref_accessible_child (obj, i);
-              child_path = atk_dbus_object_to_path (child);
+              child_path = atk_dbus_object_to_path (child, FALSE);
               if (child_path)
                 {
                   dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);

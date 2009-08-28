@@ -128,7 +128,19 @@ assign_reference(void)
  * Returns the reference of the object, or 0 if it is not registered.
  */
 static guint
+gobject_to_ref (GObject *gobj)
+{
+  return GPOINTER_TO_INT(g_object_get_data (gobj, "dbus-id"));
+}
+
+static guint
 object_to_ref (AtkObject *accessible)
+{
+  return gobject_to_ref (G_OBJECT (accessible));
+}
+
+static guint
+hyperlink_to_ref (AtkHyperlink *accessible)
 {
   return GPOINTER_TO_INT(g_object_get_data (G_OBJECT (accessible), "dbus-id"));
 }
@@ -144,6 +156,12 @@ atk_dbus_ref_to_path (guint ref)
 
 /*---------------------------------------------------------------------------*/
 
+static void
+deregister_sub_accessible (gpointer key, gpointer obj_data, gpointer iter);
+
+static void
+deregister_sub_hyperlink (gpointer key, gpointer obj_data, gpointer iter);
+
 /*
  * Callback for when a registered AtkObject is destroyed.
  *
@@ -151,33 +169,125 @@ atk_dbus_ref_to_path (guint ref)
  * it is no longer exposed over D-Bus.
  */
 static void
-deregister_accessible (gpointer data, GObject *accessible)
+deregister_object (gpointer data, GObject *gobj)
 {
   guint ref;
-  g_return_if_fail (ATK_IS_OBJECT (accessible));
+  GHashTable *subrefs_atk;
+  GHashTable *subrefs_hyperlink;
+  g_return_if_fail (ATK_IS_OBJECT (gobj) || ATK_IS_HYPERLINK (gobj));
 
-  ref = object_to_ref (ATK_OBJECT(accessible));
+  subrefs_atk = (GHashTable *) g_object_get_data (gobj, "dbus-subrefs-atk");
+  if (subrefs_atk)
+    g_hash_table_foreach (subrefs_atk, deregister_sub_accessible, data);
+  
+  subrefs_hyperlink = (GHashTable *) g_object_get_data (gobj, "dbus-subrefs-hyperlink");
+  if (subrefs_hyperlink)
+    g_hash_table_foreach (subrefs_hyperlink, deregister_sub_hyperlink, data);
+  
+  if (ATK_IS_OBJECT (gobj))
+  {
+    ref = object_to_ref (ATK_OBJECT (gobj));
+    if (ref != 0)
+      {
+        spi_emit_cache_removal (ref, atk_adaptor_app_data->bus);
+        g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
+      }
+    }
+  }
+
+static void
+deregister_sub_accessible (gpointer key, gpointer obj_data, gpointer iter)
+{
+  GObject *obj = G_OBJECT (obj_data);
+  deregister_object (NULL, obj);
+  g_object_unref (obj);
+}
+
+static void
+deregister_sub_hyperlink (gpointer key, gpointer obj_data, gpointer iter)
+{
+  guint ref;
+  GObject *ghyperlink = G_OBJECT (obj_data);
+
+  g_return_if_fail (ATK_IS_HYPERLINK (ghyperlink));
+
+  ref = gobject_to_ref (ghyperlink);
   if (ref != 0)
     {
-      spi_emit_cache_removal (ref, atk_adaptor_app_data->bus);
       g_hash_table_remove(ref2ptr, GINT_TO_POINTER(ref));
     }
+  g_object_unref (ghyperlink);
+}
+
+static void
+register_gobject (GObject *gobj, GObject *container)
+{
+  guint ref;
+  g_return_if_fail (G_IS_OBJECT(gobj));
+
+  ref = assign_reference();
+
+  g_hash_table_insert (ref2ptr, GINT_TO_POINTER(ref), gobj);
+  g_object_set_data (G_OBJECT(gobj), "dbus-id", GINT_TO_POINTER(ref));
+  g_object_weak_ref(G_OBJECT(gobj), deregister_object, NULL);
+
+  if (container)
+  {
+    GHashTable *subrefs = (GHashTable *) g_object_get_data (G_OBJECT (container), "dbus-subrefs-atk");
+    if (!subrefs)
+    {
+      subrefs = g_hash_table_new(g_direct_hash, g_direct_equal);
+      g_object_set_data (G_OBJECT (container), "dbus-subrefs-atk", subrefs);
+    }
+    g_hash_table_insert (subrefs, GINT_TO_POINTER(ref), gobj);
+  }
+
+  if (ATK_IS_HYPERLINK (gobj))
+    g_object_ref (gobj);
+  else if (ATK_IS_OBJECT (gobj))
+  {
+    AtkObject *accessible = ATK_OBJECT (gobj);
+    AtkStateSet *state = atk_object_ref_state_set (accessible);
+    if (atk_state_set_contains_state (state, ATK_STATE_TRANSIENT) &&
+        atk_state_set_contains_state (state, ATK_STATE_SHOWING))
+    {
+      g_object_ref (gobj);
+    }
+    g_object_unref (state);
+  }
 }
 
 /*
  * Called to register an AtkObject with AT-SPI and expose it over D-Bus.
  */
 static void
-register_accessible (AtkObject *accessible)
+register_accessible (AtkObject *accessible, AtkObject *container)
+{
+  g_return_if_fail (ATK_IS_OBJECT(accessible));
+
+  register_gobject (G_OBJECT (accessible), G_OBJECT (container));
+}
+
+static void
+register_hyperlink (AtkHyperlink *hyperlink, AtkObject *container)
 {
   guint ref;
-  g_return_if_fail (ATK_IS_OBJECT(accessible));
+  g_return_if_fail (ATK_IS_HYPERLINK (hyperlink));
+  g_return_if_fail (container);
 
   ref = assign_reference();
 
-  g_hash_table_insert (ref2ptr, GINT_TO_POINTER(ref), accessible);
-  g_object_set_data (G_OBJECT(accessible), "dbus-id", GINT_TO_POINTER(ref));
-  g_object_weak_ref(G_OBJECT(accessible), deregister_accessible, NULL);
+  g_hash_table_insert (ref2ptr, GINT_TO_POINTER(ref), hyperlink);
+  g_object_set_data (G_OBJECT(hyperlink), "dbus-id", GINT_TO_POINTER(ref));
+  g_object_ref (G_OBJECT (hyperlink));
+
+  GHashTable *subrefs = (GHashTable *) g_object_get_data (G_OBJECT (container), "dbus-subrefs-hyperlink");
+  if (!subrefs)
+  {
+    subrefs = g_hash_table_new(g_direct_hash, g_direct_equal);
+    g_object_set_data (G_OBJECT (container), "dbus-subrefs-hyperlink", GINT_TO_POINTER(ref));
+  }
+  g_hash_table_insert (subrefs, GINT_TO_POINTER(ref), hyperlink);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -210,8 +320,11 @@ non_owned_accessible (AtkObject *accessible)
 
 /*---------------------------------------------------------------------------*/
 
+/* TRUE if we should not keep this object / tell the AT about it
+ * Currently true if TRANSIENT and not SHOWING
+ */
 static gboolean
-has_manages_descendants (AtkObject *accessible)
+object_is_moot (AtkObject *accessible)
 {
    AtkStateSet *state;
    gboolean result = FALSE;
@@ -221,11 +334,9 @@ has_manages_descendants (AtkObject *accessible)
     * by modifying the tree alot.
     */
    state = atk_object_ref_state_set (accessible);
-   if (atk_state_set_contains_state (state, ATK_STATE_MANAGES_DESCENDANTS))
+   if ( atk_state_set_contains_state (state, ATK_STATE_TRANSIENT) &&
+       !atk_state_set_contains_state (state, ATK_STATE_SHOWING))
      {
-#ifdef SPI_ATK_DEBUG
-       g_warning ("AT-SPI: Object with 'Manages descendants' states not currently handled by AT-SPI");
-#endif
        result = TRUE;
      }
    g_object_unref (state);
@@ -249,7 +360,7 @@ append_children (AtkObject *accessible, GQueue *traversal)
 #ifdef SPI_ATK_DEBUG
           non_owned_accessible (current);
 #endif
-          if (!has_manages_descendants (current))
+          if (!object_is_moot (current))
               g_queue_push_tail (traversal, current);
           else
               g_object_unref (G_OBJECT (current));
@@ -287,7 +398,7 @@ register_subtree (AtkObject *accessible)
       g_queue_push_tail (emit_update, current);
       if (!object_to_ref (current))
         {
-          register_accessible (current);
+          register_accessible (current, NULL);
 #ifdef SPI_ATK_DEBUG
           g_debug ("REG  - %s - %d - %s", atk_object_get_name     (current),
                                           atk_object_get_role     (current),
@@ -338,8 +449,8 @@ atk_dbus_foreach_registered(GHFunc func, gpointer data)
 /*
  * Used to lookup an AtkObject from its D-Bus path.
  */
-AtkObject *
-atk_dbus_path_to_object (const char *path)
+GObject *
+atk_dbus_path_to_gobject (const char *path)
 {
   guint index;
   void *data;
@@ -352,7 +463,7 @@ atk_dbus_path_to_object (const char *path)
   path += SPI_ATK_PATH_PREFIX_LENGTH; /* Skip over the prefix */
 
   if (!g_strcmp0 (SPI_ATK_OBJECT_PATH_DESKTOP, path))
-     return atk_get_root();
+     return G_OBJECT (atk_get_root());
   if (path[0] != '/')
      return NULL;
 
@@ -360,9 +471,15 @@ atk_dbus_path_to_object (const char *path)
   index = atoi (path);
   data = g_hash_table_lookup (ref2ptr, GINT_TO_POINTER(index));
   if (data)
-    return ATK_OBJECT (data);
+    return G_OBJECT (data);
   else
     return NULL;
+}
+
+AtkObject *
+atk_dbus_path_to_object (const char *path)
+{
+  return ATK_OBJECT (atk_dbus_path_to_gobject (path));
 }
 
 /*
@@ -426,11 +543,48 @@ atk_dbus_object_attempt_registration (AtkObject *accessible)
  * Used to lookup a D-Bus path from the AtkObject.
  */
 gchar *
-atk_dbus_object_to_path (AtkObject *accessible)
+atk_dbus_gobject_to_path_internal (GObject *gobj, gboolean do_register, GObject *container)
 {
   guint ref;
 
-  ref = object_to_ref (accessible);
+  ref = gobject_to_ref (gobj);
+  if (!ref && do_register)
+  {
+    register_gobject (gobj, container);
+    ref = gobject_to_ref (gobj);
+  }
+
+  if (!ref)
+      return NULL;
+  else
+      return atk_dbus_ref_to_path (ref);
+}
+
+gchar *
+atk_dbus_object_to_path (AtkObject *accessible, gboolean do_register)
+{
+  AtkObject *container = (accessible && do_register? atk_object_get_parent (accessible): NULL);
+  return atk_dbus_gobject_to_path_internal (G_OBJECT (accessible), do_register, G_OBJECT (container));
+}
+
+gchar *
+atk_dbus_sub_object_to_path (GObject *gobj, GObject *container)
+{
+  return atk_dbus_gobject_to_path_internal (gobj, TRUE, container);
+}
+
+gchar *
+atk_dbus_hyperlink_to_path (AtkHyperlink *hyperlink, AtkObject *container)
+{
+  guint ref;
+
+  ref = gobject_to_ref (G_OBJECT (hyperlink));
+  if (!ref && container)
+  {
+    register_hyperlink (hyperlink, container);
+    ref = hyperlink_to_ref (hyperlink);
+  }
+
   if (!ref)
       return NULL;
   else
@@ -503,6 +657,31 @@ tree_update_state_action (GSignalInvocationHint *signal_hint,
                           gpointer               data,
                           AtkObject             *accessible)
 {
+  const gchar *name;
+  gboolean state;
+
+  if (n_param_values < 3)
+  {
+    g_warning ("at-spi: Not enough params in state-changed signal");
+				return TRUE;
+  }
+
+  name = g_value_get_string (param_values + 1);
+  state = g_value_get_boolean (param_values + 2);
+  if (!strcmp (name, "visible") && state == 0)
+  {
+    if (object_is_moot (accessible))
+    {
+      int ref_count = G_OBJECT(accessible)->ref_count;
+      g_object_unref (accessible);
+      /* If the ref count was >1, then someone else is still holding a ref,
+         but our ref is gone, so remove from the cache */
+      if (ref_count > 1)
+	deregister_object (NULL, G_OBJECT (accessible));
+      return TRUE;
+    }
+  }
+
       update_accessible (accessible);
   return TRUE;
 }
@@ -559,7 +738,6 @@ tree_update_children_action (GSignalInvocationHint *signal_hint,
       const gchar *detail = NULL;
       AtkObject *child;
 
-      if (has_manages_descendants (accessible)) return TRUE;
       if (signal_hint->detail)
           detail = g_quark_to_string (signal_hint->detail);
 

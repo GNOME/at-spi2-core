@@ -227,7 +227,7 @@ emit_rect(AtkObject  *accessible,
   gchar *path, *cname, *t;
   dbus_int32_t dummy = 0;
 
-  path = atk_dbus_object_to_path (accessible);
+  path = atk_dbus_object_to_path (accessible, FALSE);
 
   /* Tough decision here
    * We won't send events from accessible
@@ -327,7 +327,7 @@ property_event_listener (GSignalInvocationHint *signal_hint,
   if (strcmp (pname, "accessible-table-summary") == 0)
     {
       otemp = atk_table_get_summary(ATK_TABLE (accessible));
-      stemp = atk_dbus_object_to_path (otemp);
+      stemp = atk_dbus_object_to_path (otemp, FALSE);
       if (stemp != NULL)
           emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
@@ -335,7 +335,7 @@ property_event_listener (GSignalInvocationHint *signal_hint,
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_column_header(ATK_TABLE (accessible), i);
-      stemp = atk_dbus_object_to_path (otemp);
+      stemp = atk_dbus_object_to_path (otemp, FALSE);
       if (stemp != NULL)
           emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
@@ -343,7 +343,7 @@ property_event_listener (GSignalInvocationHint *signal_hint,
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_row_header(ATK_TABLE (accessible), i);
-      stemp = atk_dbus_object_to_path (otemp);
+      stemp = atk_dbus_object_to_path (otemp, FALSE);
       if (stemp != NULL)
           emit(accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0, DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
     }
@@ -524,7 +524,7 @@ active_descendant_event_listener (GSignalInvocationHint *signal_hint,
   minor = g_quark_to_string (signal_hint->detail);
 
   detail1 = atk_object_get_index_in_parent (child);
-  s = atk_dbus_object_to_path (child);
+  s = atk_dbus_object_to_path (child, FALSE);
   if (s == NULL)
     {
       g_free (s);

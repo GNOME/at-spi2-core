@@ -67,7 +67,7 @@ impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   atk_object = atk_selection_ref_selection (selection, selectedChildIndex);
-  return spi_dbus_return_object (message, atk_object, TRUE);
+  return spi_dbus_return_object (message, atk_object, TRUE, TRUE);
 }
 
 static DBusMessage *

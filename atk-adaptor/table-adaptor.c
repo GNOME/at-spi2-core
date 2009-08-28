@@ -109,7 +109,7 @@ impl_getAccessibleAt (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_ref_at (table, row, column);
-  return spi_dbus_return_object (message, obj, TRUE);
+  return spi_dbus_return_object (message, obj, TRUE, TRUE);
 }
 
 static DBusMessage *
@@ -332,7 +332,7 @@ impl_getRowHeader (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_get_row_header (table, row);
-  return spi_dbus_return_object (message, obj, FALSE);
+  return spi_dbus_return_object (message, obj, TRUE, TRUE);
 }
 
 static DBusMessage *
@@ -353,7 +353,7 @@ impl_getColumnHeader (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_get_column_header (table, column);
-  return spi_dbus_return_object (message, obj, FALSE);
+  return spi_dbus_return_object (message, obj, TRUE, TRUE);
 }
 
 static DBusMessage *
@@ -639,10 +639,10 @@ impl_getRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, row, DBUS_TYPE_INT32,
-                                column, DBUS_TYPE_INT32, row_extents,
-                                DBUS_TYPE_INT32, col_extents,
-                                DBUS_TYPE_BOOLEAN, is_selected,
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32,
+                                &column, DBUS_TYPE_INT32, &row_extents,
+                                DBUS_TYPE_INT32, &col_extents,
+                                DBUS_TYPE_BOOLEAN, &is_selected,
                                 DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
     }
   return reply;

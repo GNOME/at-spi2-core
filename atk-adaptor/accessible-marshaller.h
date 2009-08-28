@@ -28,7 +28,13 @@
 #include <atk/atk.h>
 
 DBusMessage *
-spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean unref);
+spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean do_register, gboolean unref);
+
+DBusMessage *
+spi_dbus_return_hyperlink (DBusMessage *message, AtkHyperlink *link, AtkObject *container, gboolean unref);
+
+DBusMessage *
+spi_dbus_return_sub_object (DBusMessage *message, GObject *sub, GObject *container, gboolean unref);
 
 dbus_bool_t
 spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
