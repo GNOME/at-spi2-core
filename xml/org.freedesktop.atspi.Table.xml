@@ -443,6 +443,13 @@
         extents are requested.
 	    </tp:docstring>
     </arg>
+    <arg direction="out" type="b" tp:type="boolean">
+    <tp:docstring>
+	    <code>True</code> if the index is associated with a valid table-cell,
+	    <code>False</code> if the index does not correspond to a cell.
+	    If <code>False</code> is returned, the values of the out parameters are undefined.
+    </tp:docstring>
+    </arg>
     <arg direction="out" name="row" type="i">
 	    <tp:docstring>
         Back-filled with the first table row associated with
@@ -473,13 +480,6 @@
         if the child at index i corresponds to a selected table cell,
         <code>False</code> otherwise.
 	    </tp:docstring>
-    </arg>
-    <arg direction="out" type="b" tp:type="boolean">
-    <tp:docstring>
-	    <code>True</code> if the index is associated with a valid table-cell,
-	    <code>False</code> if the index does not correspond to a cell.
-	    If <code>False</code> is returned, the values of the out parameters are undefined.
-    </tp:docstring>
     </arg>
   </method>
 </interface>
