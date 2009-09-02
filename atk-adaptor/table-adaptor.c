@@ -639,11 +639,12 @@ impl_getRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32,
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &ret,
+                                DBUS_TYPE_INT32, &row, DBUS_TYPE_INT32,
                                 &column, DBUS_TYPE_INT32, &row_extents,
                                 DBUS_TYPE_INT32, &col_extents,
                                 DBUS_TYPE_BOOLEAN, &is_selected,
-                                DBUS_TYPE_BOOLEAN, &ret, DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
