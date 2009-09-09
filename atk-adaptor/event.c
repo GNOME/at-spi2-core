@@ -267,6 +267,8 @@ emit_rect(AtkObject  *accessible,
   dbus_message_iter_close_container (&iter, &variant);
 
   dbus_connection_send(atk_adaptor_app_data->bus, sig, NULL);
+
+  dbus_message_unref (sig);
 }
 
 /*---------------------------------------------------------------------------*/

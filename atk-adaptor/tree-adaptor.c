@@ -48,30 +48,41 @@ void
 spi_emit_cache_removal (guint ref,  DBusConnection *bus)
 {
   DBusMessage *message;
-  DBusMessageIter iter;
-  gchar *path;
 
-  message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "removeAccessible");
+  if ((message = dbus_message_new_signal ("/org/freedesktop/atspi/tree",
+                                          SPI_DBUS_INTERFACE_TREE,
+                                          "removeAccessible"))) {
+    DBusMessageIter iter;
+    gchar *path;
 
-  dbus_message_iter_init_append (message, &iter);
+    dbus_message_iter_init_append (message, &iter);
 
-  path = atk_dbus_ref_to_path (ref);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &path);
+    path = atk_dbus_ref_to_path (ref);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &path);
 
-  dbus_connection_send(bus, message, NULL);
+    dbus_connection_send(bus, message, NULL);
+
+    dbus_message_unref (message);
+  }
 }
 
 void
 spi_emit_cache_update (AtkObject *accessible, DBusConnection *bus)
 {
-   DBusMessage *message;
-   DBusMessageIter iter;
-   message = dbus_message_new_signal ("/org/freedesktop/atspi/tree", SPI_DBUS_INTERFACE_TREE, "updateAccessible");
+  DBusMessage *message;
 
-   dbus_message_iter_init_append (message, &iter);
-   spi_atk_append_accessible (accessible, &iter);
+  if ((message = dbus_message_new_signal ("/org/freedesktop/atspi/tree",
+                                          SPI_DBUS_INTERFACE_TREE,
+                                          "updateAccessible"))) {
+    DBusMessageIter iter;
 
-   dbus_connection_send(bus, message, NULL);
+    dbus_message_iter_init_append (message, &iter);
+    spi_atk_append_accessible (accessible, &iter);
+
+    dbus_connection_send(bus, message, NULL);
+
+    dbus_message_unref (message);
+  }
 }
 
 
