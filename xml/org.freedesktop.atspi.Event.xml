@@ -34,7 +34,6 @@
 	<signal name="text_attributes_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 	<signal name="text_caret_moved"><arg direction="out" type="suuv" tp:type="Event"/></signal> 
 	<signal name="attributes_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="text_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Window">
