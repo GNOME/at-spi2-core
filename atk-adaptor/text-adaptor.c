@@ -29,6 +29,8 @@
 
 #include "common/spi-dbus.h"
 
+#include "accessible-marshaller.h"
+
 static dbus_bool_t
 impl_get_characterCount (DBusMessageIter * iter,
                          void *user_data)

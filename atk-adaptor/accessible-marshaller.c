@@ -20,10 +20,15 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <droute/droute.h>
+
 #include "common/spi-dbus.h"
+#include "common/spi-stateset.h"
 
 #include "accessible-register.h"
 #include "accessible-marshaller.h"
+
+#include "adaptors.h"
 
 /*---------------------------------------------------------------------------*/
 
@@ -182,13 +187,11 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
 {
   DBusMessageIter *iter_array;
   DBusMessageIter iter_struct, iter_sub_array;
-  dbus_int32_t states [2];
+  dbus_uint32_t states [2];
   int count;
 
   const char *name, *desc;
-  int i;
   dbus_uint32_t role;
-  GSList *l;
 
   iter_array = (DBusMessageIter *) iter;
 
@@ -275,7 +278,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
       g_free(path);
 
       /* Marshall state set */
-      spi_atk_state_to_dbus_array (obj, &states);
+      spi_atk_state_to_dbus_array (obj, states);
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u", &iter_sub_array);
       for (count = 0; count < 2; count++)
         {

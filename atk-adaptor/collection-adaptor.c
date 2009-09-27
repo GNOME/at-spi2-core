@@ -32,6 +32,7 @@
 
 #include "common/bitarray.h"
 #include "common/spi-dbus.h"
+#include "common/spi-stateset.h"
 
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate

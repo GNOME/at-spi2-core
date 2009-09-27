@@ -26,6 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "common/spi-stateset.h"
 #include "accessible-marshaller.h"
 #include "accessible-register.h"
 

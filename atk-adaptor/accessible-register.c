@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include "bridge.h"
+#include "tree-adaptor.h"
 #include "accessible-register.h"
 
 /*
