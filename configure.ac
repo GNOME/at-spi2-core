@@ -1,5 +1,4 @@
-
-AC_INIT([at-spi2-atk], [0.1.0], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-atk], [0.1.2], [accessibility-atspi@lists.linux-foundation.org])
 AC_CONFIG_AUX_DIR(config)
 
 AT_SPI_ATK_MAJOR_VERSION=0
@@ -92,7 +91,6 @@ AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 AC_CONFIG_FILES([Makefile
 		 pkgconfig/cspi-1.0.pc
 		 pkgconfig/cspi-1.0-uninstalled.pc
-		 tests/Makefile
 		 common/Makefile
 		 atk-adaptor/Makefile
 		 cspi/Makefile
