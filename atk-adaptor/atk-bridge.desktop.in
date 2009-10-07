@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=GNOME D-Bus atk-bridge locator
+Comment=Sets GTK_PATH for gnome-session to pick up D-Bus atk-bridge module
+Exec=dbus-send --session --dest="org.gnome.SessionManager" /org/gnome/SessionManager org.gnome.SessionManager.Setenv string:"GTK_PATH" string:"@gtkpathdir@"
+OnlyShowIn=GNOME;
+AutostartCondition=GNOME /desktop/gnome/interface/atspi-dbus
+X-GNOME-Autostart-Phase=Initialization

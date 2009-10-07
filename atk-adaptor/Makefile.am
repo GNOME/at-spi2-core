@@ -1,25 +1,25 @@
 gtkmoduledir = $(libdir)/$(GTK_MODULE_DIR)
-gtkmodule_LTLIBRARIES = libspiatk.la
+gtkmodule_LTLIBRARIES = libatk-bridge.la
 
-libspiatk_la_CFLAGS = $(DBUS_GLIB_CFLAGS)                 \
-		      $(ATK_CFLAGS)                       \
-		      $(DBIND_CFLAGS)			  \
-		      $(DROUTE_CFLAGS)			  \
-		      -I$(top_srcdir)                     \
-		      -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
+libatk_bridge_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
+		          $(ATK_CFLAGS)       \
+		          $(DBIND_CFLAGS)     \
+		          $(DROUTE_CFLAGS)    \
+		          -I$(top_srcdir)     \
+		          -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
-libspiatk_la_LDFLAGS = -no-undefined       \
-		       -module             \
-		       -avoid-version      \
-		       -rpath $(gtkmoduledir)
+libatk_bridge_la_LDFLAGS = -no-undefined  \
+		           -module        \
+		           -avoid-version \
+		           -rpath $(gtkmoduledir)
 
-libspiatk_la_LIBADD = $(DBUS_GLIB_LIBS)			\
-		      $(ATK_LIBS)			\
-		      $(DBIND_LIBS)			\
-		      $(DROUTE_LIBS)			\
-		      $(top_builddir)/common/libspicommon.la
+libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
+		          $(ATK_LIBS)       \
+		          $(DBIND_LIBS)	    \
+		          $(DROUTE_LIBS)    \
+		          $(top_builddir)/common/libspicommon.la
 
-libspiatk_la_SOURCES =		\
+libatk_bridge_la_SOURCES =	\
 	accessible-adaptor.c	\
 	accessible-marshaller.c	\
 	accessible-marshaller.h	\
@@ -45,3 +45,13 @@ libspiatk_la_SOURCES =		\
 	tree-adaptor.c		\
 	tree-adaptor.h		\
 	value-adaptor.c
+
+gtkpathdir = $(gtkmoduledir)/..
+gnomeautostartdir = $(datadir)/gnome/autostart
+gnomeautostart_DATA = atk-bridge.desktop
+EXTRA_DIST = atk-bridge.desktop.in
+CLEANFILES = $(gnome_autostart_DATA)
+
+%.desktop: %.desktop.in Makefile.am
+	sed -e "s,\@gtkpathdir\@,$(gtkpathdir)," \
+	< $< > $@

@@ -88,12 +88,24 @@ fi
 LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
+# Extra libraries for sockets added by Willie Walker
+# based upon how SunStudio libraries work.
+#
+if test "$GCC" = yes; then
+    EXTRA_SOCKET_LIBS=""
+else
+    EXTRA_SOCKET_LIBS="-lsocket -lnsl"
+fi
+AC_SUBST(EXTRA_SOCKET_LIBS)
+
 AC_CONFIG_FILES([Makefile
 		 pkgconfig/cspi-1.0.pc
 		 pkgconfig/cspi-1.0-uninstalled.pc
 		 common/Makefile
 		 atk-adaptor/Makefile
 		 cspi/Makefile
+		 tests/Makefile
+		 tests/cspi/Makefile
 		])
 
 AC_OUTPUT
