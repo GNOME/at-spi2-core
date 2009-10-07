@@ -546,6 +546,30 @@ impl_getApplication (DBusConnection *bus,
   return spi_dbus_return_object (message, root, FALSE);
 }
 
+static DBusMessage *
+impl_getInterfaces (DBusConnection *bus,
+                    DBusMessage *message,
+                    void *user_data)
+{
+  AtkObject *object = (AtkObject *) user_data;
+  gint role;
+  const char *role_name;
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_array;
+
+  g_return_val_if_fail (ATK_IS_OBJECT (user_data),
+                        droute_not_yet_handled_error (message));
+  reply = dbus_message_new_method_return (message);
+  if (reply)
+    {
+      dbus_message_iter_init_append (reply, &iter);
+      dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "s", &iter_array);
+      append_atk_object_interfaces (object, &iter_array);
+      dbus_message_iter_close_container (&iter, &iter_array);
+    }
+  return reply;
+}
+
 static DRouteMethod methods[] = {
   {impl_getChildAtIndex, "getChildAtIndex"},
   {impl_getChildren, "getChildren"},
@@ -557,6 +581,7 @@ static DRouteMethod methods[] = {
   {impl_getState, "getState"},
   {impl_getAttributes, "getAttributes"},
   {impl_getApplication, "getApplication"},
+  {impl_getInterfaces, "getInterfaces"},
   {NULL, NULL}
 };
 

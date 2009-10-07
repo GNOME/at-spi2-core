@@ -86,7 +86,7 @@ spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
 
 /*---------------------------------------------------------------------------*/
 
-static void
+void
 append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter)
 {
   const gchar *itf;

@@ -41,4 +41,7 @@ spi_atk_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr);
 
 void
 spi_atk_append_attribute_set_inner (DBusMessageIter *iter, AtkAttributeSet *attr);
+
+void
+append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter);
 #endif /* ACCESSIBLE_MARSHALLER */
