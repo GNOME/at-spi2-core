@@ -119,20 +119,6 @@ if test x$enable_xevie = xyes ; then
 	AC_SUBST(XEVIE_LIBS)
 fi
 
-dnl Allow disabling SMlib
-AC_ARG_ENABLE(sm, [  --enable-sm  Enable session management support [default=yes]], enable_sm="$enableval", enable_sm=yes)
-
-if test x$enable_sm = xyes ; then
-	have_sm=
-	AC_CHECK_LIB(SM, SmcSaveYourselfDone, have_sm="yes")
-	if test x$have_sm = xyes ; then
-		SM_LIBS="-lSM -lICE"
-		AC_DEFINE(HAVE_SM, , [Building with SM support])
-	fi
-	AC_SUBST(SM_LIBS)
-fi
-
-
 AC_ARG_VAR([DEFAULT_ATSPI_INTROSPECTION_PATH],
 	   [Set the default path for the install ofDBus introspection XML
 	    relative to the pkgdatadir.])
@@ -175,7 +161,6 @@ AC_CONFIG_FILES([Makefile
 		 tools/Makefile
 		 droute/Makefile
 		 registryd/Makefile
-		 registryd/at-spi-registryd.desktop.in
 		 dbind/Makefile
 		 dbind/dbind-config.h])
 

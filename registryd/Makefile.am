@@ -32,24 +32,6 @@ at_spi_registryd_SOURCES =	\
 	reentrant-list.h	\
 	ucs2keysym.c
 
-default_sessiondir = $(sysconfdir)/xdg/autostart
-default_session_in_in_files = 				\
-	at-spi-registryd.desktop.in.in
-default_session_in_files = $(default_session_in_in_files:.desktop.in.in=.desktop.in)
-default_session_DATA = $(default_session_in_files:.desktop.in=.desktop)
-
-%.desktop: %.desktop.in Makefile.am
-	sed -e "s,\@registryddir\@,$(libexecdir)," \
-	< $< > $@
-%.desktop.in: %.desktop.in.in Makefile.am
-	sed -e "s,\@registryddir\@,$(libexecdir)," \
-	< $< > $@
-
-CLEANFILES = 			\
-	$(default_session_DATA)	\
-	$(default_session_in_files)
-EXTRA_DIST = at-spi-registryd.desktop.in.in
-
 servicedir       = $(DBUS_SERVICES_DIR)
 service_in_files = org.freedesktop.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
