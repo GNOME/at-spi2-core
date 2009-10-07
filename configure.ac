@@ -24,7 +24,6 @@ AC_SUBST(LT_AGE)
 AM_INIT_AUTOMAKE([-Wall foreign])
 
 AC_PROG_CC
-AM_PATH_PYTHON(2.4)
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 PKG_PROG_PKG_CONFIG
@@ -96,14 +95,7 @@ AC_CONFIG_FILES([Makefile
 		 tests/Makefile
 		 common/Makefile
 		 atk-adaptor/Makefile
-		 tests/dummyatk/Makefile
-		 tests/data/Makefile
-		 tests/pyatspi/Makefile
-		 tests/pyatspi/pasytest/Makefile
-		 tests/apps/Makefile
-		 tests/cspi/Makefile
 		 cspi/Makefile
-		 pyatspi/Makefile
 		])
 
 AC_OUTPUT

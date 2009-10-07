@@ -1,1 +1,1 @@
-SUBDIRS=common atk-adaptor cspi pyatspi tests
+SUBDIRS=common atk-adaptor cspi
