@@ -41,7 +41,7 @@ static gint atk_bridge_focus_tracker_id;
 
 #define ITF_EVENT_OBJECT   "org.freedesktop.atspi.Event.Object"
 #define ITF_EVENT_WINDOW   "org.freedesktop.atspi.Event.Window"
-#define ITF_EVENT_DOCUMENT "org.freedekstop.atspi.Event.Document"
+#define ITF_EVENT_DOCUMENT "org.freedesktop.atspi.Event.Document"
 #define ITF_EVENT_FOCUS    "org.freedesktop.atspi.Event.Focus"
 
 /*---------------------------------------------------------------------------*/
