@@ -77,6 +77,9 @@
 
 
 static GHashTable *ref2ptr = NULL; /* Used for converting a D-Bus path (Reference) to the object pointer */
+static GHashTable *objects_with_subrefs = NULL;
+static GHashTable *leased_refs = NULL;
+static int leased_refs_count;
 
 static guint reference_counter = 0;
 
@@ -86,6 +89,11 @@ static GStaticRecMutex registration_mutex = G_STATIC_REC_MUTEX_INIT;
 
 static GStaticMutex   recursion_check_guard = G_STATIC_MUTEX_INIT;
 static gboolean       recursion_check = FALSE;
+static int last_gc_time;
+
+static void deregister_sub_accessible (gpointer key, gpointer obj_data, gpointer iter);
+
+static void deregister_sub_hyperlink (gpointer key, gpointer obj_data, gpointer iter);
 
 static gboolean
 recursion_check_and_set ()
@@ -121,6 +129,7 @@ assign_reference(void)
   /* Reference of 0 not allowed as used as direct key in hash table */
   if (reference_counter == 0)
     reference_counter++;
+  /* TODO: If we've wrapped, ensure that two objects don't have the same ref */
   return reference_counter;
 }
 
@@ -140,9 +149,9 @@ object_to_ref (AtkObject *accessible)
 }
 
 static guint
-hyperlink_to_ref (AtkHyperlink *accessible)
+hyperlink_to_ref (AtkHyperlink *link)
 {
-  return GPOINTER_TO_INT(g_object_get_data (G_OBJECT (accessible), "dbus-id"));
+  return gobject_to_ref (G_OBJECT (link));
 }
 
 /*
@@ -155,12 +164,6 @@ atk_dbus_ref_to_path (guint ref)
 }
 
 /*---------------------------------------------------------------------------*/
-
-static void
-deregister_sub_accessible (gpointer key, gpointer obj_data, gpointer iter);
-
-static void
-deregister_sub_hyperlink (gpointer key, gpointer obj_data, gpointer iter);
 
 /*
  * Callback for when a registered AtkObject is destroyed.
@@ -177,13 +180,23 @@ deregister_object (gpointer data, GObject *gobj)
   g_return_if_fail (ATK_IS_OBJECT (gobj) || ATK_IS_HYPERLINK (gobj));
 
   subrefs_atk = (GHashTable *) g_object_get_data (gobj, "dbus-subrefs-atk");
-  if (subrefs_atk)
-    g_hash_table_foreach (subrefs_atk, deregister_sub_accessible, data);
-  
   subrefs_hyperlink = (GHashTable *) g_object_get_data (gobj, "dbus-subrefs-hyperlink");
-  if (subrefs_hyperlink)
-    g_hash_table_foreach (subrefs_hyperlink, deregister_sub_hyperlink, data);
+
+  if (subrefs_atk)
+  {
+    g_hash_table_foreach (subrefs_atk, deregister_sub_accessible, data);
+    g_hash_table_unref (subrefs_atk);
+  }
   
+  if (subrefs_hyperlink)
+  {
+    g_hash_table_foreach (subrefs_hyperlink, deregister_sub_hyperlink, data);
+    g_hash_table_unref (subrefs_hyperlink);
+  }
+  
+  if (subrefs_atk || subrefs_hyperlink)
+    g_hash_table_remove (objects_with_subrefs, gobj);
+
   if (ATK_IS_OBJECT (gobj))
   {
     ref = object_to_ref (ATK_OBJECT (gobj));
@@ -200,6 +213,7 @@ deregister_sub_accessible (gpointer key, gpointer obj_data, gpointer iter)
 {
   GObject *obj = G_OBJECT (obj_data);
   deregister_object (NULL, obj);
+  g_hash_table_remove (leased_refs, obj);
   g_object_unref (obj);
 }
 
@@ -240,6 +254,7 @@ register_gobject (GObject *gobj, GObject *container)
       g_object_set_data (G_OBJECT (container), "dbus-subrefs-atk", subrefs);
     }
     g_hash_table_insert (subrefs, GINT_TO_POINTER(ref), gobj);
+    g_hash_table_insert (objects_with_subrefs, gobj, subrefs);
   }
 
   if (ATK_IS_HYPERLINK (gobj))
@@ -248,8 +263,7 @@ register_gobject (GObject *gobj, GObject *container)
   {
     AtkObject *accessible = ATK_OBJECT (gobj);
     AtkStateSet *state = atk_object_ref_state_set (accessible);
-    if (atk_state_set_contains_state (state, ATK_STATE_TRANSIENT) &&
-        atk_state_set_contains_state (state, ATK_STATE_SHOWING))
+    if (atk_state_set_contains_state (state, ATK_STATE_TRANSIENT))
     {
       g_object_ref (gobj);
     }
@@ -360,10 +374,7 @@ append_children (AtkObject *accessible, GQueue *traversal)
 #ifdef SPI_ATK_DEBUG
           non_owned_accessible (current);
 #endif
-          if (!object_is_moot (current))
-              g_queue_push_tail (traversal, current);
-          else
-              g_object_unref (G_OBJECT (current));
+          g_queue_push_tail (traversal, current);
         }
     }
 }
@@ -471,7 +482,11 @@ atk_dbus_path_to_gobject (const char *path)
   index = atoi (path);
   data = g_hash_table_lookup (ref2ptr, GINT_TO_POINTER(index));
   if (data)
-    return G_OBJECT (data);
+  {
+    GObject *gobj = G_OBJECT (data);
+    g_object_set_data (gobj, "last-ref-time", (gpointer) time (NULL));
+    return gobj;
+  }
   else
     return NULL;
 }
@@ -542,7 +557,7 @@ atk_dbus_object_attempt_registration (AtkObject *accessible)
 /*
  * Used to lookup a D-Bus path from the AtkObject.
  */
-gchar *
+static gchar *
 atk_dbus_gobject_to_path_internal (GObject *gobj, gboolean do_register, GObject *container)
 {
   guint ref;
@@ -651,6 +666,29 @@ tree_update_wrapper (GSignalInvocationHint *signal_hint,
 }
 
 static gboolean
+maybe_expire_lease (gpointer key, gpointer obj_data, gpointer iter)
+{
+  time_t secs = time (NULL) - (time_t)obj_data;
+
+  if (secs < 30)
+    return FALSE;
+  deregister_sub_accessible (key, obj_data, iter);
+  return TRUE;
+}
+
+static void
+expire_old_leases_in (gpointer key, gpointer obj_data, gpointer iter)
+{
+  g_hash_table_foreach_remove ((GHashTable *)obj_data, maybe_expire_lease, NULL);
+}
+
+static void
+expire_old_leases ()
+{
+  g_hash_table_foreach (objects_with_subrefs, expire_old_leases_in, NULL);
+}
+
+static gboolean
 tree_update_state_action (GSignalInvocationHint *signal_hint,
                           guint                  n_param_values,
                           const GValue          *param_values,
@@ -668,18 +706,26 @@ tree_update_state_action (GSignalInvocationHint *signal_hint,
 
   name = g_value_get_string (param_values + 1);
   state = g_value_get_boolean (param_values + 2);
-  if (!strcmp (name, "visible") && state == 0)
+  if (!strcmp (name, "visible"))
   {
-    if (object_is_moot (accessible))
+    AtkStateSet *set = atk_object_ref_state_set (accessible);
+    if (atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
     {
-      int ref_count = G_OBJECT(accessible)->ref_count;
-      g_object_unref (accessible);
-      /* If the ref count was >1, then someone else is still holding a ref,
-         but our ref is gone, so remove from the cache */
-      if (ref_count > 1)
-	deregister_object (NULL, G_OBJECT (accessible));
-      return TRUE;
+      if (state == 0)
+      {
+	g_hash_table_insert (leased_refs, accessible, (gpointer) time (NULL));
+	leased_refs_count++;
+	/* todo: Set to a high number: 5 for dbg. */
+	if (leased_refs_count > 5)
+	  expire_old_leases ();
+      }
+      else
+      {
+	g_hash_table_remove (leased_refs, accessible);
+	leased_refs_count--;
+      }
     }
+    g_object_unref (set);
   }
 
       update_accessible (accessible);
@@ -840,6 +886,12 @@ atk_dbus_initialize (AtkObject *root)
 {
   if (!ref2ptr)
     ref2ptr = g_hash_table_new(g_direct_hash, g_direct_equal);
+
+  if (!objects_with_subrefs)
+    objects_with_subrefs = g_hash_table_new(g_direct_hash, g_direct_equal);
+
+  if (!leased_refs)
+    leased_refs = g_hash_table_new(g_direct_hash, g_direct_equal);
 
 #ifdef SPI_ATK_DEBUG
   if (g_thread_supported ())

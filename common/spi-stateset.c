@@ -177,6 +177,13 @@ void
 spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array)
 {
   AtkStateSet *set = atk_object_ref_state_set (object);
+  spi_atk_state_set_to_dbus_array (set, array);
+  g_object_unref (set);
+}
+
+void
+spi_atk_state_set_to_dbus_array (AtkStateSet * set, dbus_uint32_t * array)
+{
   int i;
 
   array[0] = 0;
@@ -195,5 +202,4 @@ spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array)
 	  BITARRAY_SET (array, a);
 	}
     }
-  g_object_unref (set);
 }

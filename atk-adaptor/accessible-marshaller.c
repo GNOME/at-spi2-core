@@ -224,12 +224,14 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
   DBusMessageIter iter_struct, iter_sub_array;
   dbus_uint32_t states [2];
   int count;
+  AtkStateSet *set;
 
   const char *name, *desc;
   dbus_uint32_t role;
 
   iter_array = (DBusMessageIter *) iter;
 
+  set = atk_object_ref_state_set (obj);
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
     {
       AtkObject *parent;
@@ -268,6 +270,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
 
       /* Marshall children */
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o", &iter_sub_array);
+      if (!atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
         {
           gint childcount, i;
 
@@ -313,7 +316,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
       g_free(path);
 
       /* Marshall state set */
-      spi_atk_state_to_dbus_array (obj, states);
+      spi_atk_state_set_to_dbus_array (set, states);
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u", &iter_sub_array);
       for (count = 0; count < 2; count++)
         {
@@ -322,6 +325,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
     }
   dbus_message_iter_close_container (iter_array, &iter_struct);
+  g_object_unref (set);
 }
 
 void

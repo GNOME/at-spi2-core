@@ -728,6 +728,7 @@ spi_atk_register_event_listeners (void)
   add_signal_listener (link_selected_event_listener,          "Gtk:AtkHypertext:link-selected");
   add_signal_listener (generic_event_listener,                "Gtk:AtkObject:visible-data-changed");
   add_signal_listener (generic_event_listener,                "Gtk:AtkSelection:selection-changed");
+  add_signal_listener (generic_event_listener,                "Gtk:AtkText:text-attributes-changed");
   add_signal_listener (generic_event_listener,                "Gtk:AtkText:text-caret-moved");
   add_signal_listener (generic_event_listener,                "Gtk:AtkTable:row-inserted");
   add_signal_listener (generic_event_listener,                "Gtk:AtkTable:row-reordered");

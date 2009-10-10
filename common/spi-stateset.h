@@ -33,6 +33,7 @@ G_BEGIN_DECLS
 AtkStateSet *spi_state_set_cache_from_sequence(const GArray *seq);
 AtkState     spi_atk_state_from_spi_state     (Accessibility_StateType state);
 void spi_atk_state_to_dbus_array (AtkObject * object, dbus_uint32_t * array);
+void spi_atk_state_set_to_dbus_array (AtkStateSet *set, dbus_uint32_t * array);
 #define      spi_state_set_cache_ref(s)        g_object_ref (s)
 #define      spi_state_set_cache_unref(s)      g_object_unref (s)
 #define      spi_state_set_cache_new(seq)      spi_state_set_cache_from_sequence (seq)
