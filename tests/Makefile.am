@@ -1,1 +1,1 @@
-SUBDIRS = cspi
+SUBDIRS =

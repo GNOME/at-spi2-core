@@ -99,13 +99,9 @@ fi
 AC_SUBST(EXTRA_SOCKET_LIBS)
 
 AC_CONFIG_FILES([Makefile
-		 pkgconfig/cspi-1.0.pc
-		 pkgconfig/cspi-1.0-uninstalled.pc
 		 common/Makefile
 		 atk-adaptor/Makefile
-		 cspi/Makefile
 		 tests/Makefile
-		 tests/cspi/Makefile
 		])
 
 AC_OUTPUT

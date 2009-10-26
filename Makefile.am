@@ -1,1 +1,1 @@
-SUBDIRS=common atk-adaptor cspi tests
+SUBDIRS=common atk-adaptor tests
