@@ -1,4 +1,4 @@
-libexec_PROGRAMS = at-spi-registryd
+libexec_PROGRAMS = at-spi2-registryd
 
 at_spi_registryd_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
 			  $(GOBJ_CFLAGS)	\
