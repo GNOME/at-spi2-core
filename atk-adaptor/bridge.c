@@ -330,7 +330,12 @@ adaptor_init (gint *argc, gchar **argv[])
 int
 gtk_module_init (gint *argc, gchar **argv[])
 {
-  return adaptor_init (argc, argv);
+  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
+
+  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
+    {
+	return adaptor_init (argc, argv);
+    }
 }
 
 /*END------------------------------------------------------------------------*/
