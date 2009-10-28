@@ -2,24 +2,24 @@
 # Run this to generate all the initial makefiles, etc.
 
 #name of package
-test "$PKG_NAME" || PKG_NAME=Package
-test "$srcdir" || srcdir=.
+PKG_NAME=${PKG_NAME:-Package}
+srcdir=${srcdir:-.}
 
 # default version requirements ...
-test "$REQUIRED_AUTOCONF_VERSION" || REQUIRED_AUTOCONF_VERSION=2.53
-test "$REQUIRED_AUTOMAKE_VERSION" || REQUIRED_AUTOMAKE_VERSION=1.9
-test "$REQUIRED_LIBTOOL_VERSION" || REQUIRED_LIBTOOL_VERSION=1.5
-test "$REQUIRED_GETTEXT_VERSION" || REQUIRED_GETTEXT_VERSION=0.12
-test "$REQUIRED_GLIB_GETTEXT_VERSION" || REQUIRED_GLIB_GETTEXT_VERSION=2.2.0
-test "$REQUIRED_INTLTOOL_VERSION" || REQUIRED_INTLTOOL_VERSION=0.30
-test "$REQUIRED_PKG_CONFIG_VERSION" || REQUIRED_PKG_CONFIG_VERSION=0.14.0
-test "$REQUIRED_GTK_DOC_VERSION" || REQUIRED_GTK_DOC_VERSION=1.0
-test "$REQUIRED_DOC_COMMON_VERSION" || REQUIRED_DOC_COMMON_VERSION=2.3.0
-test "$REQUIRED_GNOME_DOC_UTILS_VERSION" || REQUIRED_GNOME_DOC_UTILS_VERSION=0.4.2
+REQUIRED_AUTOCONF_VERSION=${REQUIRED_AUTOCONF_VERSION:-2.53}
+REQUIRED_AUTOMAKE_VERSION=${REQUIRED_AUTOMAKE_VERSION:-1.9}
+REQUIRED_LIBTOOL_VERSION=${REQUIRED_LIBTOOL_VERSION:-1.4.3}
+REQUIRED_GETTEXT_VERSION=${REQUIRED_GETTEXT_VERSION:-0.10.40}
+REQUIRED_GLIB_GETTEXT_VERSION=${REQUIRED_GLIB_GETTEXT_VERSION:-2.2.0}
+REQUIRED_INTLTOOL_VERSION=${REQUIRED_INTLTOOL_VERSION:-0.25}
+REQUIRED_PKG_CONFIG_VERSION=${REQUIRED_PKG_CONFIG_VERSION:-0.14.0}
+REQUIRED_GTK_DOC_VERSION=${REQUIRED_GTK_DOC_VERSION:-1.0}
+REQUIRED_DOC_COMMON_VERSION=${REQUIRED_DOC_COMMON_VERSION:-2.3.0}
+REQUIRED_GNOME_DOC_UTILS_VERSION=${REQUIRED_GNOME_DOC_UTILS_VERSION:-0.4.2}
 
 # a list of required m4 macros.  Package can set an initial value
-test "$REQUIRED_M4MACROS" || REQUIRED_M4MACROS=
-test "$FORBIDDEN_M4MACROS" || FORBIDDEN_M4MACROS=
+REQUIRED_M4MACROS=${REQUIRED_M4MACROS:-}
+FORBIDDEN_M4MACROS=${FORBIDDEN_M4MACROS:-}
 
 # Not all echo versions allow -n, so we check what is possible. This test is
 # based on the one in autoconf.
@@ -169,8 +169,7 @@ check_m4macros() {
     # but it contains only Automake's own macros, so we can ignore it.
 
     # Read the dirlist file, supported by Automake >= 1.7.
-    # If AUTOMAKE was defined, no version was detected.
-    if [ -z "$AUTOMAKE_VERSION" ] || compare_versions 1.7 $AUTOMAKE_VERSION && [ -s $cm_macrodirs/dirlist ]; then
+    if compare_versions 1.7 $AUTOMAKE_VERSION && [ -s $cm_macrodirs/dirlist ]; then
 	cm_dirlist=`sed 's/[ 	]*#.*//;/^$/d' $cm_macrodirs/dirlist`
 	if [ -n "$cm_dirlist" ] ; then
 	    for cm_dir in $cm_dirlist; do
@@ -258,6 +257,7 @@ want_intltool=false
 want_pkg_config=false
 want_gtk_doc=false
 want_gnome_doc_utils=false
+want_maintainer_mode=false
 
 configure_files="`find $srcdir -name '{arch}' -prune -o -name '_darcs' -prune -o -name '.??*' -prune -o -name configure.ac -print -o -name configure.in -print`"
 for configure_ac in $configure_files; do
@@ -290,6 +290,11 @@ for configure_ac in $configure_files; do
         want_gnome_doc_utils=true
     fi
 
+    # check that AM_MAINTAINER_MODE is used
+    if grep "^AM_MAINTAINER_MODE" $configure_ac >/dev/null; then
+	want_maintainer_mode=true
+    fi
+
     # check to make sure gnome-common macros can be found ...
     if grep "^GNOME_COMMON_INIT" $configure_ac >/dev/null ||
        grep "^GNOME_DEBUG_CHECK" $configure_ac >/dev/null ||
@@ -311,12 +316,13 @@ AUTOHEADER=`echo $AUTOCONF | sed s/autoconf/autoheader/`
 
 case $REQUIRED_AUTOMAKE_VERSION in
     1.4*) automake_progs="automake-1.4" ;;
-    1.5*) automake_progs="automake-1.10 automake-1.9 automake-1.8 automake-1.7 automake-1.6 automake-1.5" ;;
-    1.6*) automake_progs="automake-1.10 automake-1.9 automake-1.8 automake-1.7 automake-1.6" ;;
-    1.7*) automake_progs="automake-1.10 automake-1.9 automake-1.8 automake-1.7" ;;
-    1.8*) automake_progs="automake-1.10 automake-1.9 automake-1.8" ;;
-    1.9*) automake_progs="automake-1.10 automake-1.9" ;;
-    1.10*) automake_progs="automake-1.10" ;;
+    1.5*) automake_progs="automake-1.11 automake-1.10 automake-1.9 automake-1.8 automake-1.7 automake-1.6 automake-1.5" ;;
+    1.6*) automake_progs="automake-1.11 automake-1.10 automake-1.9 automake-1.8 automake-1.7 automake-1.6" ;;
+    1.7*) automake_progs="automake-1.11 automake-1.10 automake-1.9 automake-1.8 automake-1.7" ;;
+    1.8*) automake_progs="automake-1.11 automake-1.10 automake-1.9 automake-1.8" ;;
+    1.9*) automake_progs="automake-1.11 automake-1.10 automake-1.9" ;;
+    1.10*) automake_progs="automake-1.11 automake-1.10" ;;
+    1.11*) automake_progs="automake-1.11" ;;
 esac
 version_check automake AUTOMAKE "$automake_progs" $REQUIRED_AUTOMAKE_VERSION \
     "http://ftp.gnu.org/pub/gnu/automake/automake-$REQUIRED_AUTOMAKE_VERSION.tar.gz"
@@ -468,7 +474,7 @@ for configure_ac in $configure_files; do
           cp -pf INSTALL INSTALL.autogen_bak
         fi
 	if [ $REQUIRED_AUTOMAKE_VERSION != 1.4 ]; then
-	    $AUTOMAKE --gnu --add-missing --force --copy || exit 1
+	    $AUTOMAKE --gnu --add-missing --force --copy -Wno-portability || exit 1
 	else
 	    $AUTOMAKE --gnu --add-missing --copy || exit 1
 	fi
@@ -485,7 +491,11 @@ for configure_ac in $configure_files; do
     fi
 done
 
-conf_flags="--enable-maintainer-mode"
+conf_flags=""
+
+if $want_maintainer_mode; then
+    conf_flags="--enable-maintainer-mode"
+fi
 
 if test x$NOCONFIGURE = x; then
     printbold Running $srcdir/configure $conf_flags "$@" ...
