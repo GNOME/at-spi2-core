@@ -7,7 +7,7 @@
       make use of the DeviceEventController to receive device event notifications.
       DeviceEvents include keyboard events and mouse button/motion events.</p>
   </tp:docstring>
-  <method name="notifyEvent">
+  <method name="NotifyEvent">
     <tp:docstring>
       Notify an interested DeviceEventListener that a DeviceEvent has occurred.
     </tp:docstring>

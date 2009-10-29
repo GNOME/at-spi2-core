@@ -23,14 +23,14 @@
       currently selected.</p>
   </tp:docstring>
   </tp:property>
-  <method name="getSelectedChild">
+  <method name="GetSelectedChild">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Get the i-th selected Accessible child of a Selection.</p>
 	    <p><code>selectedChildIndex</code> refers to the index in the list of 
         'selected' children as opposed to the more general 'child index'
         of an object;  as such it generally differs from that used in
-        Accessible.getChildAtIndex() or returned by
-        Accessible.getIndexInParent(). 
+        Accessible.GetChildAtIndex() or returned by
+        Accessible.GetIndexInParent(). 
 	<code>selectedChildIndex</code> must lie between 0
         and Selection.nSelectedChildren-1, inclusive.</p>
     </tp:docstring>
@@ -45,7 +45,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="selectChild">
+  <method name="SelectChild">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Add a child to the selected children list of a Selection.</p>
 	    <p>For Selection implementors that only allow
@@ -67,12 +67,12 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deselectSelectedChild">
+  <method name="DeselectSelectedChild">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Remove a child to the selected children list of a Selection.</p>
 	    <p><code>childIndex</code> is the index in the selected-children list,
 		    not the index in the parent container. <code>selectedChildIndex</code> in this
-		    method, and <code>childIndex</code> in Selection.selectChild
+		    method, and <code>childIndex</code> in Selection.SelectChild
         	    are asymmettric.</p>
     </tp:docstring>
     <arg direction="in" name="selectedChildIndex" type="i">
@@ -82,11 +82,11 @@
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-	    <code>True</code> if the child was successfully deselected, <code>False</code> otherwise, see deselectChild
+	    <code>True</code> if the child was successfully deselected, <code>False</code> otherwise, see deSelectChild
     </tp:docstring>
     </arg>
   </method>
-  <method name="isChildSelected">
+  <method name="IsChildSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Determine whether a particular child of an Selection implementor
 	      is currently selected.  Note that <code>childIndex</code> is the zero-offset
@@ -103,7 +103,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="selectAll">
+  <method name="SelectAll">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Attempt to select all of the children of a Selection implementor.
         Not all Selection implementors support this operation (for instance, 
@@ -115,7 +115,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="clearSelection">
+  <method name="ClearSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Attempt to clear all selections (i.e. deselect all children) of a Selection.
         Not all Selection implementations allow the removal of all selections.    </p>
@@ -130,12 +130,12 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deselectChild">
+  <method name="deSelectChild">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Remove a child from the selected children list of a Selection,
         if the child is currently selected.    </p>
 
-	<p>Unlike deselectSelectedChild, <code>childIndex</code> is the zero-offset
+	<p>Unlike DeselectSelectedChild, <code>childIndex</code> is the zero-offset
         index into the Accessible instance's list of children,
         not the index into the 'selected child list'.    </p>
     </tp:docstring>
@@ -146,7 +146,7 @@
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
     <tp:docstring>
-      <code>True</code> if the child was successfully selected, <code>False</code> otherwise, see deselectSelectedChild.
+      <code>True</code> if the child was successfully selected, <code>False</code> otherwise, see DeselectSelectedChild.
     </tp:docstring>
     </arg>
   </method>

@@ -13,7 +13,7 @@
       textual content; they may implement Image as well,
       and Hyperlinks need not have non-zero text offsets.</p>
   </tp:docstring>
-  <method name="getNLinks">
+  <method name="GetNLinks">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Query the hypertext object for the number of Hyperlinks it
         contains.</p>
@@ -24,14 +24,14 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getLink">
+  <method name="GetLink">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get one of the Hyperlinks associated with this Hypertext object,
         by index.</p>
     </tp:docstring>
     <arg direction="in" name="linkIndex" type="i">
 	    <tp:docstring>
-      		<p>An integer from 0 to getNLinks() - 1.</p>
+      		<p>An integer from 0 to GetNLinks() - 1.</p>
 	    </tp:docstring>
     </arg>
     <arg direction="out" type="o" tp:type="Hyperlink">
@@ -40,7 +40,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getLinkIndex">
+  <method name="GetLinkIndex">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the hyperlink index, if any, associated with a 
         particular character offset in the Hypertext object.

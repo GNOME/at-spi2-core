@@ -30,7 +30,7 @@
       by the imageDescription.</p>
   </tp:docstring>
   </tp:property>
-  <method name="getImageExtents">
+  <method name="GetImageExtents">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain a bounding box which entirely contains the image contents,
         as displayed on screen.  The bounds returned do not account for
@@ -54,7 +54,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getImagePosition">
+  <method name="GetImagePosition">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the coordinates of the current image position on screen.    </p>
 
@@ -79,7 +79,7 @@
     	</tp:docstring>
     </arg>
   </method>
-  <method name="getImageSize">
+  <method name="GetImageSize">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the width and height of the current onscreen view of the
         image.  The extents returned do not account for

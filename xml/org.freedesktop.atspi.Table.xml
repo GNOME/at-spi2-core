@@ -55,11 +55,11 @@
       Not all tables support column selection.</p>
   </tp:docstring>
   </tp:property>
-  <method name="getAccessibleAt">
+  <method name="GetAccessibleAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the table cell at the specified row and column indices.
         To get the accessible object at a particular (x, y) screen coordinate,
-        use Accessible.getAccessibleAtPoint ().</p>
+        use Accessible.GetAccessibleAtPoint ().</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
@@ -77,11 +77,11 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getIndexAt">
+  <method name="GetIndexAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the 1-D child index corresponding to the specified 2-D row and column indices.
         To get the accessible object at a particular (x, y) screen coordinate,
-        use Accessible.getAccessibleAtPoint.    </p>
+        use Accessible.GetAccessibleAtPoint.    </p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
@@ -96,11 +96,11 @@
     <arg direction="out" type="i">
     <tp:docstring>
 	    A long integer which serves as the index of a specified cell in the table, 
-	    in a form usable by Accessible.getChildAtIndex.
+	    in a form usable by Accessible.GetChildAtIndex.
     </tp:docstring>
     </arg>
   </method>
-  <method name="getRowAtIndex">
+  <method name="GetRowAtIndex">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the table row index occupied by the child at a particular 1-D child index.</p>
     </tp:docstring>
@@ -115,7 +115,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getColumnAtIndex">
+  <method name="GetColumnAtIndex">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the table column index occupied by the child at a particular 1-D child index.</p>
     </tp:docstring>
@@ -131,10 +131,10 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getRowDescription">
+  <method name="GetRowDescription">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get a text description of a particular table row. This differs from
-        AccessibleTable.getRowHeader, which returns an Accessible.</p>
+        AccessibleTable.GetRowHeader, which returns an Accessible.</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
@@ -147,10 +147,10 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getColumnDescription">
+  <method name="GetColumnDescription">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get a text description of a particular table column. This differs from
-        AccessibleTable.getColumnHeader, which returns an Accessible.</p>
+        AccessibleTable.GetColumnHeader, which returns an Accessible.</p>
     </tp:docstring>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
@@ -163,7 +163,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getRowExtentAt">
+  <method name="GetRowExtentAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the number of rows spanned by the table cell at the specific row and column.
         (some tables can have cells which span multiple rows and/or columns).</p>
@@ -184,7 +184,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getColumnExtentAt">
+  <method name="GetColumnExtentAt">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the number of columns spanned by the table cell at the specific row and column.
         (some tables can have cells which span multiple rows and/or columns).</p>
@@ -205,10 +205,10 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getRowHeader">
+  <method name="GetRowHeader">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the header associated with a table row, if available.  This differs from
-        getRowDescription, which returns a string.</p>
+        GetRowDescription, which returns a string.</p>
     </tp:docstring>
     <arg direction="in" name="row" type="i">
     <tp:docstring>
@@ -221,11 +221,11 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getColumnHeader">
+  <method name="GetColumnHeader">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the header associated with a table column, if available, as an 
         instance of Accessible. This differs from
-        getColumnDescription, which returns a string.</p>
+        GetColumnDescription, which returns a string.</p>
     </tp:docstring>
     <arg direction="in" name="column" type="i">
     <tp:docstring>
@@ -238,7 +238,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getSelectedRows">
+  <method name="GetSelectedRows">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the indices of all rows which are currently selected.  
          Not all tables support row selection.    </p>
@@ -249,7 +249,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getSelectedColumns">
+  <method name="GetSelectedColumns">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the indices of all columns which are currently selected.  
          Not all tables support column selection.    </p>
@@ -260,7 +260,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="isRowSelected">
+  <method name="IsRowSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Determine whether a table row is selected.  
          Not all tables support row selection.    </p>
@@ -276,7 +276,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="isColumnSelected">
+  <method name="IsColumnSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Determine whether a table column is selected.  
          Not all tables support column selection.    </p>
@@ -292,7 +292,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="isSelected">
+  <method name="IsSelected">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Determine whether the cell at a specific row and column is selected.</p>
     </tp:docstring>
@@ -312,7 +312,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="addRowSelection">
+  <method name="AddRowSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Select the specified row, adding it to the current row selection,
         if the table's selection model permits it.    </p>
@@ -320,7 +320,7 @@
     <arg direction="in" name="row" type="i">
 	    <tp:docstring>
       <p>
-        Possible reasons for addRowSelection to return <code>False</code>
+        Possible reasons for AddRowSelection to return <code>False</code>
         include:
 	<ol>
 		<li>The table does not support Selection</li>
@@ -339,7 +339,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="addColumnSelection">
+  <method name="AddColumnSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Select the specified column, adding it to the current column selection,
         if the table's selection model permits it.    </p>
@@ -347,7 +347,7 @@
     <arg direction="in" name="column" type="i">
 	    <tp:docstring>
       <p>
-        Possible reasons for addColumnSelection to return <code>False</code>
+        Possible reasons for AddColumnSelection to return <code>False</code>
         include:
 	<ol>
 		<li>The table does not support Selection</li>
@@ -366,7 +366,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="removeRowSelection">
+  <method name="RemoveRowSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Remove the specified row from current row selection,
         if the table's selection model permits it.    </p>
@@ -375,7 +375,7 @@
     <arg direction="in" name="row" type="i">
 	    <tp:docstring>
       <p>
-        Possible reasons for removeRowSelection to return <code>False</code>
+        Possible reasons for RemoveRowSelection to return <code>False</code>
         include:
 	<ol>
 		<li>The table does not support user-instigated Selection</li>
@@ -390,7 +390,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="removeColumnSelection">
+  <method name="RemoveColumnSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Remove the specified column from current column selection,
         if the table's selection model permits it.    </p>
@@ -399,7 +399,7 @@
     <arg direction="in" name="column" type="i">
 	    <tp:docstring>
       <p>
-        Possible reasons for removeColumnSelection to return \c <code>False</code>
+        Possible reasons for RemoveColumnSelection to return \c <code>False</code>
         include:
 	<ol>
 		<li>The table does not support user-instigated modification of selection state</li>
@@ -414,7 +414,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getRowColumnExtentsAtIndex">
+  <method name="GetRowColumnExtentsAtIndex">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Given a child index, determine the row and column indices and 
         extents, and whether the cell is currently selected.  If
@@ -426,7 +426,7 @@
         If the Table child at index '6' extends across columns 5 and 6 of
         row 2 of a Table instance, and is currently selected, then
 	<code>
-        retval = table::getRowColumnExtentsAtIndex (6, row, col, 
+        retval = table::GetRowColumnExtentsAtIndex (6, row, col, 
         row_extents,
         col_extents,
         is_selected);

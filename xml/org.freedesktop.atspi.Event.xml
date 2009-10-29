@@ -13,79 +13,79 @@
 </tp:struct>
 
 <interface name="org.freedesktop.atspi.Event.Object">
-	<signal name="property_change"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="bounds_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="link_selected"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="state_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="children_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="visible_data_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="selection_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="model_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="active_descendant_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="row_inserted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="row_reordered"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="row_deleted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="column_inserted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="column_reordered"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="column_deleted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="text_bounds_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="text_selection_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="text_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="text_attributes_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="text_caret_moved"><arg direction="out" type="suuv" tp:type="Event"/></signal> 
-	<signal name="attributes_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="PropertyChange"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="BoundsChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="LinkSelected"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="StateChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ChildrenChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="VisibleDataChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="SelectionChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ModelChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ActiveDescendantChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="RowInserted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="RowReordered"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="RowDeleted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ColumnInserted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ColumnReordered"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ColumnDeleted"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="TextBoundsChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="TextSelectionChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="TextChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="TextAttributesChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="TextCaretMoved"><arg direction="out" type="suuv" tp:type="Event"/></signal> 
+	<signal name="AttributesChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Window">
-	<signal name="property_change"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="minimize"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="maximize"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="restore"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="close"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="create"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="reparent"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="desktop_create"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="desktop_destroy"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="destroy"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="activate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="deactivate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="raise"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="lower"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="move"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="resize"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="shade"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="unshade"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="restyle"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="PropertyChange"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Minimize"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Maximize"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Restore"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Close"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Create"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Reparent"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="DesktopCreate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="DesktopDestroy"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Destroy"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Activate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Deactivate"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Raise"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Lower"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Move"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Resize"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Shade"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="uUshade"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Restyle"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Mouse">
-	<signal name="abs"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="rel"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="button"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Abs"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Rel"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Button"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Keyboard">
-	<signal name="modifiers"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Modifiers"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Terminal">
-	<signal name="line_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="comumncount_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="linecount_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="application_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="charwidth_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="LineChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ColumncountChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="LinecountChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ApplicationChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="CharwidthChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Document">
-	<signal name="load_complete"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="reload"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="load_stopped"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="content_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
-	<signal name="attributes_changed"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="LoadComplete"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Reload"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="LoadStopped"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="ContentChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="AttributesChanged"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 <interface name="org.freedesktop.atspi.Event.Focus">
-	<signal name="focus"><arg direction="out" type="suuv" tp:type="Event"/></signal>
+	<signal name="Focus"><arg direction="out" type="suuv" tp:type="Event"/></signal>
 </interface>
 
 </node>

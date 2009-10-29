@@ -62,7 +62,7 @@
 			transferred as a collection to reduce IPC usage.</p>
 		</tp:docstring>
 
-		<method name="getRoot">
+		<method name="GetRoot">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 				<p>Gets the D-Bus object path of the 
 				root accessible object of the application.</p>
@@ -74,7 +74,7 @@
 			</arg>
 		</method>
 
-		<method name="getTree">
+		<method name="GetTree">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 				<p>Transfers structures representing ALL
 				Accessible objects that currently exist in the
@@ -88,7 +88,7 @@
 			</arg>
 		</method>
 
-		<signal name="updateAccessible">
+		<signal name="UpdateAccessible">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 				<p>Updates all mirrors. Re-sends all all the 
 				accessible objects that have changed since the last
@@ -101,7 +101,7 @@
 			</arg>
 		</signal>
 
-		<signal name="removeAccessible">
+		<signal name="RemoveAccessible">
 			<arg name="nodeRemoved" type="o">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Accessible Object proxy structure to be removed.</p>

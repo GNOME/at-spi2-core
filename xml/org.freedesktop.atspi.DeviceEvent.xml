@@ -38,7 +38,7 @@
 </tp:enum>
 <tp:enum name="KeySynthType" type="u">
   <tp:docstring>
-    Used when synthesizing keyboard input via DeviceEventController:generateKeyboardEvent.
+    Used when synthesizing keyboard input via DeviceEventController:GenerateKeyboardEvent.
   </tp:docstring>
   <tp:enumvalue suffix="KEY_PRESS">
   <tp:docstring>
@@ -60,7 +60,7 @@
     <p>a symbolic key event is generated, without specifying a hardware key. 
       @note if the keysym is not present in the current keyboard map,
       the DeviceEventController instance has a limited ability to generate
-      such keysyms on-the-fly.  Reliability of generateKeyboardEvent calls
+      such keysyms on-the-fly.  Reliability of GenerateKeyboardEvent calls
       using out-of-keymap keysyms will vary from system to system, and on the
       number of different out-of-keymap being generated in quick succession.
       In practice this is rarely significant, since the keysyms of interest to
@@ -124,8 +124,8 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A structure that encapsulates the characteristics of the event notifications
       that should be sent to an EventListener in response to a call to
-      DeviceEventController::registerKeystrokeListener or 
-      DeviceEventController::registerDeviceEventListener. </p>
+      DeviceEventController::RegisterKeystrokeListener or 
+      DeviceEventController::RegisterDeviceEventListener. </p>
   </tp:docstring>
   <tp:member type="b" tp:name="synchronous">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

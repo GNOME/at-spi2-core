@@ -500,7 +500,7 @@ spi_dec_button_update_and_emit (SpiDEController *controller,
 	if (!is_consumed)
 	  {
 	    dbus_uint32_t x = last_mouse_pos->x, y = last_mouse_pos->y;
-	    emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "button", x, y);
+	    emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Button", x, y);
 	  }
 	else
 	  spi_dec_set_unlatch_pending (controller, mask_return);
@@ -544,10 +544,10 @@ spi_dec_mouse_check (SpiDEController *controller,
     {
       // TODO: combine these two signals?
       dbus_uint32_t ix = *x, iy = *y;
-      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "abs", ix, iy);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Abs", ix, iy);
       ix -= last_mouse_pos->x;
       iy -= last_mouse_pos->y;
-      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "rel", ix, iy);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_MOUSE, "Rel", ix, iy);
       last_mouse_pos->x = *x;
       last_mouse_pos->y = *y;
       *moved = True;
@@ -579,7 +579,7 @@ spi_dec_emit_modifier_event (SpiDEController *controller, guint prev_mask,
 
   d1 = prev_mask & key_modifier_mask;
   d2 = current_mask & key_modifier_mask;
-      emit(controller, SPI_DBUS_INTERFACE_EVENT_KEYBOARD, "modifiers", d1, d2);
+      emit(controller, SPI_DBUS_INTERFACE_EVENT_KEYBOARD, "Modifiers", d1, d2);
 }
 
 static gboolean
@@ -983,7 +983,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
 }
 
 static gboolean
-Accessibility_DeviceEventListener_notifyEvent(SpiDEController *controller,
+Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
                                               SpiRegistry *registry,
                                               DEControllerListener *listener,
                                               const Accessibility_DeviceEvent *key_event)
@@ -991,7 +991,7 @@ Accessibility_DeviceEventListener_notifyEvent(SpiDEController *controller,
   DBusMessage *message = dbus_message_new_method_call(listener->bus_name,
                                                       listener->path,
                                                       SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER,
-                                                      "notifyEvent");
+                                                      "NotifyEvent");
   DBusError error;
   dbus_bool_t consumed = FALSE;
 
@@ -1056,7 +1056,7 @@ spi_controller_notify_mouselisteners (SpiDEController                 *controlle
     {
       DEControllerListener *listener = l2->data;
 
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller, controller->registry, listener, event);
+      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, controller->registry, listener, event);
 
       spi_listener_clone_free ((DEControllerListener *) l2->data);
     }
@@ -1517,7 +1517,7 @@ spi_controller_notify_keylisteners (SpiDEController                 *controller,
     {
       DEControllerKeyListener *key_listener = l2->data;	    
 
-      is_consumed = Accessibility_DeviceEventListener_notifyEvent (controller, controller->registry, &key_listener->listener, key_event) &&
+      is_consumed = Accessibility_DeviceEventListener_NotifyEvent (controller, controller->registry, &key_listener->listener, key_event) &&
 	            key_listener->mode->preemptive;
 
       spi_key_listener_clone_free (key_listener);
@@ -1830,7 +1830,7 @@ spi_device_event_controller_object_finalize (GObject *object)
 }
 
 /*
- * DBus Accessibility::DEController::registerKeystrokeListener
+ * DBus Accessibility::DEController::RegisterKeystrokeListener
  *     method implementation
  */
 static DBusMessage *
@@ -1903,7 +1903,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
 }
 
 /*
- * DBus Accessibility::DEController::registerDeviceEventListener
+ * DBus Accessibility::DEController::RegisterDeviceEventListener
  *     method implementation
  */
 static DBusMessage *
@@ -2042,7 +2042,7 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
 }
 
 /*
- * DBus Accessibility::DEController::deregisterKeystrokeListener
+ * DBus Accessibility::DEController::deRegisterKeystrokeListener
  *     method implementation
  */
 static DBusMessage *
@@ -2094,7 +2094,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
 }
 
 /*
- * DBus Accessibility::DEController::deregisterDeviceEventListener
+ * DBus Accessibility::DEController::deRegisterDeviceEventListener
  *     method implementation
  */
 static DBusMessage *
@@ -2405,7 +2405,7 @@ dec_synth_keystring (SpiDEController *controller, const char *keystring)
 
 
 /*
- * DBus Accessibility::DEController::registerKeystrokeListener
+ * DBus Accessibility::DEController::RegisterKeystrokeListener
  *     method implementation
  */
 static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMessage *message, void *user_data)
@@ -2487,7 +2487,7 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
   return reply;
 }
 
-/* Accessibility::DEController::generateMouseEvent */
+/* Accessibility::DEController::GenerateMouseEvent */
 static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusError error;
@@ -2563,7 +2563,7 @@ static DBusMessage * impl_generate_mouse_event (DBusConnection *bus, DBusMessage
   return reply;
 }
 
-/* Accessibility::DEController::notifyListenersSync */
+/* Accessibility::DEController::NotifyListenersSync */
 static DBusMessage *
 impl_notify_listeners_sync (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
@@ -2761,14 +2761,14 @@ static void wait_for_release_event (XEvent          *event,
 
 static DRouteMethod dev_methods[] =
 {
-  { impl_register_keystroke_listener, "registerKeystrokeListener" },
-  { impl_register_device_event_listener, "registerDeviceEventListener" },
-  { impl_deregister_keystroke_listener, "deregisterKeystrokeListener" },
-  { impl_deregister_device_event_listener, "deregisterDeviceEventListener" },
-  { impl_generate_keyboard_event, "generateKeyboardEvent" },
-  { impl_generate_mouse_event, "generateMouseEvent" },
-  { impl_notify_listeners_sync, "notifyListenersSync" },
-  { impl_notify_listeners_async, "notifyListenersAsync" },
+  { impl_register_keystroke_listener, "RegisterKeystrokeListener" },
+  { impl_register_device_event_listener, "RegisterDeviceEventListener" },
+  { impl_deregister_keystroke_listener, "deRegisterKeystrokeListener" },
+  { impl_deregister_device_event_listener, "deRegisterDeviceEventListener" },
+  { impl_generate_keyboard_event, "GenerateKeyboardEvent" },
+  { impl_generate_mouse_event, "GenerateMouseEvent" },
+  { impl_notify_listeners_sync, "NotifyListenersSync" },
+  { impl_notify_listeners_async, "NotifyListenersAsync" },
   { NULL, NULL }
 };
 

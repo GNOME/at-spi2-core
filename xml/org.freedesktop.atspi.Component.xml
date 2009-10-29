@@ -53,7 +53,7 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A special layer between LAYER_CANVAS and LAYER_WIDGET, in which the
       'pseudo windows' (e.g. the MDI frames) reside. 
-      (See Component.getMDIZOrder) </p>
+      (See Component.GetMDIZOrder) </p>
   </tp:docstring>
   </tp:enumvalue>
   <tp:enumvalue suffix="LAYER_POPUP" value="5">
@@ -103,7 +103,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getAccessibleAtPoint">
+  <method name="GetAccessibleAtPoint">
     <arg direction="in" name="x" type="i"/>
     <arg direction="in" name="y" type="i"/>
     <arg direction="in" name="coord_type" type="u" tp:type="COORD_TYPE"/>
@@ -113,7 +113,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getExtents">
+  <method name="GetExtents">
     <tp:docstring>
       Obtain the Component's bounding box, in pixels, relative to the specified coordinate system. 
     </tp:docstring>
@@ -124,7 +124,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getPosition">
+  <method name="GetPosition">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the position of the current component in the coordinate system specified
 	 by <code>coord_type.</code>
@@ -149,7 +149,7 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getSize">
+  <method name="GetSize">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the size, in the coordinate system specified by \c coord_type, 
         of the rectangular area which fully contains the object's 
@@ -167,14 +167,14 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getLayer">
+  <method name="GetLayer">
     <arg direction="out" type="u" tp:type="ComponentLayer">
     <tp:docstring>
       The ComponentLayer in which this object resides. 
     </tp:docstring>
     </arg>
   </method>
-  <method name="getMDIZOrder">
+  <method name="GetMDIZOrder">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the relative stacking order (i.e. 'Z' order) of an object.
         Larger values indicate that an object is on "top" of the stack, therefore
@@ -187,7 +187,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="grabFocus">
+  <method name="GrabFocus">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Request that the object obtain keyboard focus.</p>
     </tp:docstring>
@@ -197,7 +197,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getAlpha">
+  <method name="GetAlpha">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the alpha value of the component.  An alpha value of 1.0 or greater
         indicates that the object is fully opaque, and an alpha value of 0.0 indicates

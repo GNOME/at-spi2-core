@@ -25,14 +25,14 @@
     <tp:enumvalue suffix="TREE_INORDER" value="2"/>
     <tp:enumvalue suffix="TREE_LAST_DEFINED" value="3"/>
   </tp:enum>
-  <method name="getMatches">
+  <method name="GetMatches">
     <arg direction="in" name="rule" type="(auuasuauusub)" tp:type="MatchRule"/>
     <arg direction="in" name="sortby" type="u" tp:type="SortOrder"/>
     <arg direction="in" name="count" type="i"/>
     <arg direction="in" name="traverse" type="b" tp:type="boolean"/>
     <arg direction="out" type="ao" tp:type="AccessibleSet"/>
   </method>
-  <method name="getMatchesTo">
+  <method name="GetMatchesTo">
     <arg direction="in" name="current_object" type="o" tp:type="Accessible"/>
     <arg direction="in" name="rule" type="(auuasuauusub)" tp:type="MatchRule"/>
     <arg direction="in" name="sortby" type="u" tp:type="SortOrder"/>
@@ -42,7 +42,7 @@
     <arg direction="in" name="traverse" type="b" tp:type="boolean"/>
     <arg direction="out" type="ao" tp:type="AccessibleSet"/>
   </method>
-  <method name="getMatchesFrom">
+  <method name="GetMatchesFrom">
     <arg direction="in" name="current_object" type="o" tp:type="Accessible"/>
     <arg direction="in" name="rule" type="(auuasuauusub)" tp:type="MatchRule"/>
     <arg direction="in" name="sortby" type="u" tp:type="SortOrder"/>
@@ -51,7 +51,7 @@
     <arg direction="in" name="traverse" type="b" tp:type="boolean"/>
     <arg direction="out" type="ao" tp:type="AccessibleSet"/>
   </method>
-  <method name="getActiveDescendant">
+  <method name="GetActiveDescendant">
     <arg direction="out" type="o" tp:type="Accessible"/>
   </method>
 </interface>

@@ -5,7 +5,7 @@
     <p>The interface via which clients request notification of device events, and
       through which device events may be simulated.</p>
   </tp:docstring>
-  <method name="registerKeystrokeListener">
+  <method name="RegisterKeystrokeListener">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Register to intercept keyboard events, and either pass them on or
         consume them.     </p>
@@ -41,7 +41,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deregisterKeystrokeListener">
+  <method name="deRegisterKeystrokeListener">
     <tp:docstring>
       De-register a previously registered keyboard eventlistener.
     </tp:docstring>
@@ -66,10 +66,10 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="registerDeviceEventListener">
+  <method name="RegisterDeviceEventListener">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Register to intercept events, and either pass them on or
-        consume them. To listen to keyboard events use registerKeystrokeListener
+        consume them. To listen to keyboard events use RegisterKeystrokeListener
         instead.</p>
     </tp:docstring>
     <arg direction="in" name="listener" type="o" tp:type="DeviceEventListener">
@@ -88,7 +88,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deregisterDeviceEventListener">
+  <method name="deRegisterDeviceEventListener">
     <tp:docstring>
       De-register a previously registered keyboard eventlistener.
     </tp:docstring>
@@ -103,7 +103,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="notifyListenersSync">
+  <method name="NotifyListenersSync">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Notify the Registry instance that a device event has taken place, and
         allow pre-emptive listeners the opportunity to 'consume' the event
@@ -121,21 +121,21 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="notifyListenersAsync">
+  <method name="NotifyListenersAsync">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Notify the Registry instance that a device event has taken place in
         an asynchronous manner.  This is the 
         method used by accessibility bridges to forward "toolkit dependent"
         device events to the Registry from the application's process space.
         If the event in question is potentially pre-emptible.
-        notifyListenersSync should be used instead.    </p>
+        NotifyListenersSync should be used instead.    </p>
 
       <p>AT clients do not normally need to use this method, it is intended for use
         by toolkit bridges and special-purpose applications.</p>
     </tp:docstring>
     <arg direction="in" name="event" type="(uinnisb)" tp:type="DeviceEvent"/>
   </method>
-  <method name="generateKeyboardEvent">
+  <method name="GenerateKeyboardEvent">
     <tp:docstring>
       Synthesize a keyboard event.
     </tp:docstring>
@@ -157,7 +157,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="generateMouseEvent">
+  <method name="GenerateMouseEvent">
     <tp:docstring>
       Synthesize a mouse event.
     </tp:docstring>

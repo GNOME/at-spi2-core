@@ -63,7 +63,7 @@ static void emit_update_applications(SpiRegistry *reg, guint sigtype, const char
 
   if ((msg = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,
                                       SPI_DBUS_INTERFACE_REGISTRY,
-                                      "updateApplications"))) {
+                                      "UpdateApplications"))) {
     dbus_message_append_args(msg, DBUS_TYPE_INT32, &sigtype,
                                   DBUS_TYPE_STRING, &app, DBUS_TYPE_INVALID);
 
@@ -164,7 +164,7 @@ add_bus_name_cb (gpointer item, gpointer data)
 }
 
 static DBusMessage *
-impl_getApplications (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetApplications (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply = NULL;
   DBusMessageIter iter, iter_array;
@@ -182,7 +182,7 @@ impl_getApplications (DBusConnection *bus, DBusMessage *message, void *user_data
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage*
-impl_registerApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_RegisterApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   gchar *app_name;
   SpiRegistry *reg = SPI_REGISTRY (user_data);
@@ -193,7 +193,7 @@ impl_registerApplication (DBusConnection *bus, DBusMessage *message, void *user_
 }
 
 static DBusMessage*
-impl_deregisterApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_DeRegisterApplication (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   gchar *app_name;
   SpiRegistry *reg = SPI_REGISTRY (user_data);
@@ -249,9 +249,9 @@ static gchar *app_sig_match_name_owner =
 
 static DRouteMethod dev_methods[] =
 {
-  { impl_getApplications, "getApplications" },
-  { impl_registerApplication, "registerApplication" },
-  { impl_deregisterApplication, "deregisterApplication" },
+  { impl_GetApplications, "GetApplications" },
+  { impl_RegisterApplication, "RegisterApplication" },
+  { impl_DeRegisterApplication, "DeregisterApplication" },
   { NULL, NULL }
 };
 

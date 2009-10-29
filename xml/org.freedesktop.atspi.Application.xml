@@ -27,7 +27,7 @@
       accessibility bridge implementation.</p>
   </tp:docstring>
   </tp:property>
-  <method name="getLocale">
+  <method name="GetLocale">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets the locale in which the application is currently operating.
         For the current message locale, use \a lctype LOCALE_TYPE_MESSAGES.    </p>

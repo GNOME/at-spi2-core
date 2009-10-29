@@ -13,9 +13,9 @@
 
     <p>A Hyperlink implementor is normally NOT an Accessible; 
       the preferred usage is for a Hyperlink's associated 'objects'
-      (accessed via the getObject method) are Accessibles.  This means
+      (accessed via the GetObject method) are Accessibles.  This means
       that Actions such as 'open link' are normally invoked on
-      the result of Hyperlink.getObject rather than directly on the 
+      the result of Hyperlink.GetObject rather than directly on the 
       Hyperlink instance. For historical reasons some implementors of Hyperlink
       implement Action as well.  This usage on the part of implementing
       applications and toolkits is discouraged, but clients of Hyperlink
@@ -40,7 +40,7 @@
       this Hyperlink. </p>
   </tp:docstring>
   </tp:property>
-  <method name="getObject">
+  <method name="GetObject">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets the i'th object, (where i is an integer between 0 and
         Hyperlink.numAnchors - 1, inclusive) associated with a Hyperlink.
@@ -48,7 +48,7 @@
         Accessibility.Action), and the available actions often include
         'open', 'bookmark', 'save link as', etc.  They may also implement
         Accessibility.StreamableContent, although clients can normally use 
-        getURI to obtain a resource locator via which the object's
+        GetURI to obtain a resource locator via which the object's
         data may be accessed.    </p>
 
       <p>The most common application for 'multi anchor'
@@ -67,7 +67,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getURI">
+  <method name="GetURI">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain a resource locator ('URI') which can be used to 
         access the content to which this link "points" or is connected.</p>
@@ -79,7 +79,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="isValid">
+  <method name="IsValid">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Check the hyperlink to see if a connection to its backing
 	 content can be established, or if its URI is valid. </p>

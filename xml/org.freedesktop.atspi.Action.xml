@@ -33,7 +33,7 @@
     <tp:docstring>The number of actions this object supports</tp:docstring>
   </tp:property>
 
-  <method name="getDescription">
+  <method name="GetDescription">
     <tp:docstring>
       <p>Get the description for the specified action. The description of an action may provide information about the result of action invocation, unlike the action name.</p>
     </tp:docstring>
@@ -45,7 +45,7 @@
     </arg>
   </method>
 
-  <method name="getName">
+  <method name="GetName">
     <tp:docstring>
       <p>Get the name of the specified action.  Action names generally describe the user action, i.e. "click" or "press", rather than the result of invoking the action.</p>
     </tp:docstring>
@@ -57,7 +57,7 @@
     </arg>
   </method>
 
-  <method name="getKeyBinding">
+  <method name="GetKeyBinding">
     <tp:docstring>
       <p>Get the key binding associated with a specific action.</p>
     </tp:docstring>
@@ -69,13 +69,13 @@
     </arg>
   </method>
 
-  <method name="getActions">
+  <method name="GetActions">
     <tp:docstring>
       Retrieves the actions associated with the object.
     </tp:docstring>
     <arg direction="out" name="index" type="a(sss)" tp:type="Action"/>
   </method>
-  <method name="doAction">
+  <method name="DoAction">
     <tp:docstring>
       Causes the object to perform the specified action.
     </tp:docstring>

@@ -4,8 +4,8 @@
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Derived from interface Text, EditableText provides methods for
       modifying textual content of components which support editing.
-      EditableText also interacts with the system clipboard via copyText,
-      cutText, and pasteText.  </p>
+      EditableText also interacts with the system clipboard via CopyText,
+      CutText, and PasteText.  </p>
 
     <p>Read-only instances of EditableText are possible; 
       These may be instances of a general-purpose component type which are
@@ -13,7 +13,7 @@
       components which are temporarily or circumstantially
       in a non-editable state. </p>
   </tp:docstring>
-  <method name="setTextContents">
+  <method name="SetTextContents">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Replace the text contents with a new string, discarding the old contents.    </p>
     </tp:docstring>
@@ -28,7 +28,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="insertText">
+  <method name="InsertText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Insert new text contents into an existing text object at a given location, while retaining
         the old contents.
@@ -59,7 +59,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="copyText">
+  <method name="CopyText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Copy a range of text into the system clipboard.
       </p>
@@ -77,7 +77,7 @@
     	    </tp:docstring>
     </arg>
   </method>
-  <method name="cutText">
+  <method name="CutText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Excise a range of text from a Text object, copying it into the system clipboard.  </p>
     </tp:docstring>
@@ -99,7 +99,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deleteText">
+  <method name="DeleteText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Excise a range of text from a Text object without copying it into the system clipboard.  </p>
     </tp:docstring>
@@ -121,7 +121,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="pasteText">
+  <method name="PasteText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Copy the text contents of the system clipboard, if any, into a Text object, 
         inserting it at a particular character offset.    </p>

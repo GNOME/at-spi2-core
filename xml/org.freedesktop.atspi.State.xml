@@ -347,7 +347,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getStates">
+  <method name="GetStates">
     <arg direction="out" type="au" tp:type="StateSeq"/>
   </method>
 </interface>

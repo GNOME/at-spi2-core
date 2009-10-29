@@ -3,7 +3,7 @@
 <tp:enum name="TEXT_BOUNDARY_TYPE" type="u">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>Specifies the boundary conditions determining a run of text as returned from
-      getTextAtOffset, getTextAfterOffset, and getTextBeforeOffset.</p>
+      GetTextAtOffset, GetTextAfterOffset, and GetTextBeforeOffset.</p>
   </tp:docstring>
   <tp:enumvalue suffix="TEXT_BOUNDARY_CHAR">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -99,12 +99,12 @@
     <p>Typographic and semantic attributes of onscreen textual content, for instance typeface, weight, 
       language, and such qualities as 'emphasis' or 'blockquote', are represented as text attributes.
       Contiguous sequences of characters over which these attributes are unchanged are referred to as
-      'attribute runs', and are available via Text.getAttributeRun.  Where possible, implementing clients
+      'attribute runs', and are available via Text.GetAttributeRun.  Where possible, implementing clients
       will report textual attributes which are the same over the entire text object, for instance those
-      inherited from a default or document-scope style, via getDefaultAttributes instead of reporting them
+      inherited from a default or document-scope style, via GetDefaultAttributes instead of reporting them
       explicitly for each character.  Therefore, for any span of text, the attributes in effect are the union
-      of the set returned by Text.getDefaultAttributes, and the set returned at a particular character
-      offset via Text.getAttributeRun.  </p>
+      of the set returned by Text.GetDefaultAttributes, and the set returned at a particular character
+      offset via Text.GetAttributeRun.  </p>
 
     <p>Events that may be emitted by instances of Text include:
 	    <ol>
@@ -153,7 +153,7 @@
       a text buffer or a column offset. </p>
   </tp:docstring>
   </tp:property>
-  <method name="getText">
+  <method name="GetText">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain all or part of the onscreen textual content of a Text object.  If endOffset is specified as 
         "-1", then this method will return the entire onscreen textual contents of the Text object.
@@ -170,14 +170,14 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="setCaretOffset">
+  <method name="SetCaretOffset">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Programmatically move the text caret (visible or virtual, as above) to a given position.</p> 
     </tp:docstring>
     <arg direction="in" name="offset" type="i">
 	    <tp:docstring>
         A long int indicating the desired character offset.  Not all implementations of
-        Text will honor setCaretOffset requests, so the return value below should be checked by the client.
+        Text will honor SetCaretOffset requests, so the return value below should be checked by the client.
 	    </tp:docstring>
     </arg>
     <arg direction="out" type="b" tp:type="boolean">
@@ -186,7 +186,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getTextBeforeOffset">
+  <method name="GetTextBeforeOffset">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Obtain a subset of the text content of an object which entirely precedes <code>offset</code>,
 		    delimited by character, word, line, or sentence boundaries as specified by <code>type</code>. The
@@ -223,7 +223,7 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getTextAtOffset">
+  <method name="GetTextAtOffset">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Obtain a subset of the text content of an object which includes the specified <code>offset</code>, 
 	      delimited by character, word, line, or sentence boundaries as specified by <code>type</code>.  The
@@ -260,7 +260,7 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getTextAfterOffset">
+  <method name="GetTextAfterOffset">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	    <p>Obtain a subset of the text content of an object which entirely follows <code>offset</code>,
 		    delimited by character, word, line, or sentence boundaries as specified by <code>type</code>. The
@@ -298,7 +298,7 @@
     	    </tp:docstring>
     </arg>
   </method>
-  <method name="getCharacterAtOffset">
+  <method name="GetCharacterAtOffset">
     <arg name="offset" type="i" direction="in"/>
     <arg type="i" direction="out">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -308,7 +308,7 @@
       </tp:docstring>
     </arg>
   </method>
-  <method name="getAttributeValue">
+  <method name="GetAttributeValue">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the string value of a named attribute at a given offset, if defined.</p>
     </tp:docstring>
@@ -346,22 +346,22 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getAttributes">
+  <method name="GetAttributes">
     <tp:docstring>
-      getAttributes is deprecated in favor of getAttributeRun.
+      GetAttributes is deprecated in favor of GetAttributeRun.
     </tp:docstring>
     <arg direction="in" name="offset" type="i"/>
     <arg direction="out" type="{ss}">
     <tp:docstring>
-      The attributes at offset, as a semicolon-delimited set of colon-delimited name-value pairs. @see getAttributeRun
+      The attributes at offset, as a semicolon-delimited set of colon-delimited name-value pairs. @see GetAttributeRun
     </tp:docstring>
     </arg>
     <arg direction="out" name="startOffset" type="i"/>
     <arg direction="out" name="endOffset" type="i"/>
   </method>
-  <method name="getDefaultAttributes">
+  <method name="GetDefaultAttributes">
     <tp:docstring>
-      Deprecated in favor of getDefaultAttributeSet.
+      Deprecated in favor of GetDefaultAttributeSet.
     </tp:docstring>
     <arg direction="out" type="{ss}">
     <tp:docstring>
@@ -369,7 +369,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getCharacterExtents">
+  <method name="GetCharacterExtents">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain a the bounding box, as x, y, width, and height, of the character or glyph at a particular 
         character offset in this object's text content.  The coordinate system in which the results are
@@ -416,7 +416,7 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getOffsetAtPoint">
+  <method name="GetOffsetAtPoint">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the offset of the character at a given onscreen coordinate.  The coordinate system used to interpret
         x and y is determined by parameter coordType.</p>
@@ -435,7 +435,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getNSelections">
+  <method name="GetNSelections">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the number of separate, contiguous selections in the current Text object.
         Text objects which do not implement selection of discontiguous text regions will always
@@ -449,18 +449,18 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getSelection">
+  <method name="GetSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>The result of calling getSelection with an out-of-range selectionNum (i.e. for a selection 
+      <p>The result of calling GetSelection with an out-of-range selectionNum (i.e. for a selection 
         which does not exist) is not strictly defined, but should set endOffset equal to startOffset.</p>
     </tp:docstring>
     <arg direction="in" name="selectionNum" type="i"/>
     <arg direction="out" name="startOffset" type="i"/>
     <arg direction="out" name="endOffset" type="i"/>
   </method>
-  <method name="addSelection">
+  <method name="AddSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>The result of calling addSelection on objects which already have one selection present, and which
+      <p>The result of calling AddSelection on objects which already have one selection present, and which
         do not include STATE_MULTISELECTABLE, is undefined, other than the return value.</p>
     </tp:docstring>
     <arg direction="in" name="startOffset" type="i"/>
@@ -471,7 +471,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="removeSelection">
+  <method name="RemoveSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Deselect the text contained in the specified selectionNum, if such a selection
         exists, otherwise do nothing.  Removal of a non-existant selectionNum has no effect.</p>
@@ -483,12 +483,12 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="setSelection">
+  <method name="SetSelection">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Modify an existing selection's start or ending offset.     </p>
 
-      <p>Calling setSelection for a selectionNum that is not already defined has no effect.
-        The result of calling setSelection with a selectionNum greater than 0 for objects that
+      <p>Calling SetSelection for a selectionNum that is not already defined has no effect.
+        The result of calling SetSelection with a selectionNum greater than 0 for objects that
         do not include STATE_MULTISELECTABLE is undefined.</p>
     </tp:docstring>
     <arg direction="in" name="selectionNum" type="i">
@@ -513,7 +513,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getRangeExtents">
+  <method name="GetRangeExtents">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Obtain the bounding box which entirely contains a given text range.
         Negative values may be returned for the bounding box parameters in the event
@@ -562,7 +562,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getBoundedRanges">
+  <method name="GetBoundedRanges">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Return the text content within a bounding box, 
         as a list of Range structures.
@@ -614,7 +614,7 @@
     </arg>
     <arg direction="out" type="a(iisv)" tp:type="RangeList"/>
   </method>
-  <method name="getAttributeRun">
+  <method name="GetAttributeRun">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Query a particular text object for the text attributes defined at a given offset, 
         obtaining the start and end of the "attribute run" over which these attributes are currently 
@@ -628,7 +628,7 @@
         XHTML 1.0 (http://www.w3.org/TR/2002/REC-xhtml1-20020801), and
         WICD (http://www.w3.org/TR/2005/WD-WICD-20051121/).  Those attributes from the aforementioned
         specifications and recommendations which do not concern typographic, presentational, or 
-        semantic aspects of text should be exposed via the more general Accessible::getAttributes() API
+        semantic aspects of text should be exposed via the more general Accessible::GetAttributes() API
         (if at all).</p>
 
       <p>For example, CSS attributes which should be exposed on text (either as default attributes, or 
@@ -645,9 +645,9 @@
       <p>Clients seeking annotations or properties of a more general nature, which 
         are not specific to the onscreen textual content of objects and cannot logically be applied
         to specific character offset ranges,
-        should use Accessible.getAttributes instead.
-        The attributes returned by Text.getAttributeRun (with or without 'default attributes'), 
-        are distinct from the properties/attributes returned by Accessible.getAttributes.    </p>
+        should use Accessible.GetAttributes instead.
+        The attributes returned by Text.GetAttributeRun (with or without 'default attributes'), 
+        are distinct from the properties/attributes returned by Accessible.GetAttributes.    </p>
     </tp:docstring>
     <arg direction="in" name="offset" type="i">
 	    <tp:docstring>
@@ -658,7 +658,7 @@
 	    <tp:docstring>
         If False, the call should only return those attributes which are
         explicitly set on the current attribute run, omitting any attributes which are inherited from 
-        the default values. See also Text.getDefaultAttributes. 
+        the default values. See also Text.GetDefaultAttributes. 
 	    </tp:docstring>
     </arg>
     <arg direction="out" type="{ss}" tp:type="AttributeSet">
@@ -681,13 +681,13 @@
 	    </tp:docstring>
     </arg>
   </method>
-  <method name="getDefaultAttributeSet">
+  <method name="GetDefaultAttributeSet">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Return an AttributeSet containing the text attributes which apply to all text in the object
         by virtue of the default settings of the document, view, or user agent; e.g. those
         attributes which are implied rather than explicitly applied to the text object.
         For instance, an object whose entire text content has been explicitly marked as 'bold' will
-        report the 'bold' attribute via getAttributeRun(), whereas an object whose text weight is
+        report the 'bold' attribute via GetAttributeRun(), whereas an object whose text weight is
         inspecified may report the default or implied text weight in the default AttributeSet.    </p>
     </tp:docstring>
     <arg direction="out" type="as" tp:type="AttributeSet"/>

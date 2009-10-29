@@ -18,8 +18,8 @@
 
     <p>From the point of view of accessible applications (i.e. AT-SPI service producers), 
       the Registry is primarily a registration and event delivery service.  Applications 
-      normally only call the registerApplication and deregisterApplication Registry methods,
-      and its inherited EventListener::notifyEvent method.  </p>
+      normally only call the RegisterApplication and DeregisterApplication Registry methods,
+      and its inherited EventListener::NotifyEvent method.  </p>
 
     <p>Although all application events are dispatched via the Registry, other AT client 
       calls are serviced directly by the applications, rather than being relayed via the
@@ -34,7 +34,7 @@
       http://developer.gnome.org/projects/gap/tech-docs/SPIBlockDiagram.png  </p>
   </tp:docstring>
 
-  <method name="getApplications">
+  <method name="GetApplications">
     <tp:docstring>
         Gets all the currently registered applications.
     </tp:docstring>
@@ -45,7 +45,7 @@
     </arg>
   </method>
 
-  <signal name="updateApplications">
+  <signal name="UpdateApplications">
     <tp:docstring>
         Updates an AT about recently added or removed applications.
     </tp:docstring>
@@ -59,7 +59,7 @@
     </arg>
   </signal>
 
-  <method name="registerApplication">
+  <method name="RegisterApplication">
     <tp:docstring>
       Register a new application with the accessibility registry.
    </tp:docstring>
@@ -70,7 +70,7 @@
    </arg>
   </method>
 
-  <method name="deregisterApplication">
+  <method name="deRegisterApplication">
    <tp:docstring>
       De-register an application from accessibility registry.
    </tp:docstring>

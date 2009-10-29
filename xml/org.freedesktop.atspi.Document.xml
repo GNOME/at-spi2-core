@@ -10,7 +10,7 @@
       as a whole.  Objects that implement Document are normally expected to
       implement Collection as well.  </p>
   </tp:docstring>
-  <method name="getLocale">
+  <method name="GetLocale">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets the locale associated with the document's content.
         e.g. the locale for LOCALE_TYPE_MESSAGES.    </p>
@@ -21,7 +21,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getAttributeValue">
+  <method name="GetAttributeValue">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets the value of a single attribute, if specified for the document as a whole.    </p>
     </tp:docstring>
@@ -36,11 +36,11 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="getAttributes">
+  <method name="GetAttributes">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Gets all attributes specified for a document as a whole.  
         For attributes which change within 
-        the document content, see Text.getAttributes instead.    </p>
+        the document content, see Text.GetAttributes instead.    </p>
     </tp:docstring>
     <arg direction="out" type="{ss}" tp:type="AttributeSet">
     <tp:docstring>
