@@ -336,6 +336,7 @@ gtk_module_init (gint *argc, gchar **argv[])
     {
 	return adaptor_init (argc, argv);
     }
+  return 0;
 }
 
 /*END------------------------------------------------------------------------*/
