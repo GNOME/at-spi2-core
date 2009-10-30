@@ -211,7 +211,7 @@ append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter)
  *
  * The object is marshalled including all its client side cache data.
  * The format of the structure is (ooaoassusau).
- * This is used in the updateTree signal and the getTree method
+ * This is used in the updateTree signal and the GetTree method
  * of the org.freedesktop.atspi.Tree interface.
  *
  * To marshal an object its parent, and all its children must already

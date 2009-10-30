@@ -53,7 +53,7 @@ spi_emit_cache_removal (guint ref,  DBusConnection *bus)
 
   if ((message = dbus_message_new_signal ("/org/freedesktop/atspi/tree",
                                           SPI_DBUS_INTERFACE_TREE,
-                                          "removeAccessible"))) {
+                                          "RemoveAccessible"))) {
     DBusMessageIter iter;
     gchar *path;
 
@@ -75,7 +75,7 @@ spi_emit_cache_update (AtkObject *accessible, DBusConnection *bus)
 
   if ((message = dbus_message_new_signal ("/org/freedesktop/atspi/tree",
                                           SPI_DBUS_INTERFACE_TREE,
-                                          "updateAccessible"))) {
+                                          "UpdateAccessible"))) {
     DBusMessageIter iter;
 
     dbus_message_iter_init_append (message, &iter);
@@ -91,7 +91,7 @@ spi_emit_cache_update (AtkObject *accessible, DBusConnection *bus)
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_getRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkObject *root = atk_get_root();
   char *path;
@@ -120,7 +120,7 @@ impl_getRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_getTree (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetTree (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -137,8 +137,8 @@ impl_getTree (DBusConnection *bus, DBusMessage *message, void *user_data)
 /*---------------------------------------------------------------------------*/
 
 static DRouteMethod methods[] = {
-  {impl_getRoot, "getRoot"},
-  {impl_getTree, "getTree"},
+  {impl_GetRoot, "GetRoot"},
+  {impl_GetTree, "GetTree"},
   {NULL, NULL}
 };
 

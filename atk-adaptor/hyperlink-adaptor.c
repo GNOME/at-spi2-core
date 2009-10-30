@@ -39,7 +39,7 @@ get_hyperlink (void *user_data)
 }
 
 static dbus_bool_t
-impl_get_nAnchors (DBusMessageIter * iter, void *user_data)
+impl_get_NAnchors (DBusMessageIter * iter, void *user_data)
 {
   AtkHyperlink *link = (AtkHyperlink *) user_data;
   g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
@@ -48,7 +48,7 @@ impl_get_nAnchors (DBusMessageIter * iter, void *user_data)
 
 
 static dbus_bool_t
-impl_get_startIndex (DBusMessageIter * iter,
+impl_get_StartIndex (DBusMessageIter * iter,
                      void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
@@ -57,7 +57,7 @@ impl_get_startIndex (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_endIndex (DBusMessageIter * iter, void *user_data)
+impl_get_EndIndex (DBusMessageIter * iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
@@ -65,7 +65,7 @@ impl_get_endIndex (DBusMessageIter * iter, void *user_data)
 }
 
 static DBusMessage *
-impl_getObject (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   DBusError error;
@@ -85,7 +85,7 @@ impl_getObject (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   dbus_int32_t i;
@@ -116,7 +116,7 @@ impl_getURI (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_isValid (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_IsValid (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   dbus_bool_t rv;
@@ -136,16 +136,16 @@ impl_isValid (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_getObject, "getObject"},
-  {impl_getURI, "getURI"},
-  {impl_isValid, "isValid"},
+  {impl_GetObject, "GetObject"},
+  {impl_GetURI, "GetURI"},
+  {impl_IsValid, "IsValid"},
   {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_nAnchors, NULL, "nAnchors"},
-  {impl_get_startIndex, NULL, "startIndex"},
-  {impl_get_endIndex, NULL, "endIndex"},
+  {impl_get_NAnchors, NULL, "NAnchors"},
+  {impl_get_StartIndex, NULL, "StartIndex"},
+  {impl_get_EndIndex, NULL, "EndIndex"},
   {NULL, NULL, NULL}
 };
 

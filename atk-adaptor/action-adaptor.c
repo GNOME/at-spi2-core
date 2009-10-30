@@ -28,7 +28,7 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_nActions (DBusMessageIter *iter, void *user_data)
+impl_get_NActions (DBusMessageIter *iter, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
 
@@ -114,7 +114,7 @@ impl_get_keybinding (DBusConnection *bus, DBusMessage *message, void *user_data)
   return reply;
 }
 
-static DBusMessage *impl_getActions(DBusConnection *bus, DBusMessage *message, void *user_data)
+static DBusMessage *impl_GetActions(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
   DBusMessage *reply;
@@ -153,7 +153,7 @@ oom:
   return reply;
 }
 
-static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, void *user_data)
+static DBusMessage *impl_DoAction(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkAction *action = (AtkAction *) user_data;
   DBusError error;
@@ -180,17 +180,17 @@ static DBusMessage *impl_doAction(DBusConnection *bus, DBusMessage *message, voi
 
 DRouteMethod methods[] =
 {
-  { impl_get_description, "getDescription" },
-  { impl_get_name, "getName" },
-  { impl_get_keybinding, "getKeyBinding" },
-  {impl_getActions, "getActions"},
-  {impl_doAction, "doAction"},
+  { impl_get_description, "GetDescription" },
+  { impl_get_name, "GetName" },
+  { impl_get_keybinding, "GetKeyBinding" },
+  {impl_GetActions, "GetActions"},
+  {impl_DoAction, "DoAction"},
   {NULL, NULL }
 };
 
 static DRouteProperty properties[] =
 {
-  { impl_get_nActions, NULL, "nActions" },
+  { impl_get_NActions, NULL, "NActions" },
   { NULL, NULL }
 };
 

@@ -756,7 +756,8 @@ tree_update_property_action (GSignalInvocationHint *signal_hint,
       pname = values[0].property_name;
       if (strcmp (pname, "accessible-name") == 0 ||
           strcmp (pname, "accessible-description") == 0 ||
-          strcmp (pname, "accessible-parent") == 0)
+          strcmp (pname, "accessible-parent") == 0 ||
+          strcmp (pname, "accessible-role") == 0)
         {
           update_accessible (accessible);
         }

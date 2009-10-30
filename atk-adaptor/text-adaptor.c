@@ -32,7 +32,7 @@
 #include "accessible-marshaller.h"
 
 static dbus_bool_t
-impl_get_characterCount (DBusMessageIter * iter,
+impl_get_CharacterCount (DBusMessageIter * iter,
                          void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -41,7 +41,7 @@ impl_get_characterCount (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_caretOffset (DBusMessageIter * iter,
+impl_get_CaretOffset (DBusMessageIter * iter,
                       void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -50,7 +50,7 @@ impl_get_caretOffset (DBusMessageIter * iter,
 }
 
 static DBusMessage *
-impl_getText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t startOffset, endOffset;
@@ -81,7 +81,7 @@ impl_getText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_setCaretOffset (DBusConnection * bus, DBusMessage * message,
+impl_SetCaretOffset (DBusConnection * bus, DBusMessage * message,
                      void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -109,7 +109,7 @@ impl_setCaretOffset (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
+impl_GetTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
                           void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -149,7 +149,7 @@ impl_getTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getTextAtOffset (DBusConnection * bus, DBusMessage * message,
+impl_GetTextAtOffset (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -188,7 +188,7 @@ impl_getTextAtOffset (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getTextAfterOffset (DBusConnection * bus, DBusMessage * message,
+impl_GetTextAfterOffset (DBusConnection * bus, DBusMessage * message,
                          void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -228,7 +228,7 @@ impl_getTextAfterOffset (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
+impl_GetCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
                          void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -255,7 +255,7 @@ impl_getCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
+impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -337,7 +337,7 @@ _string_from_attribute_set (AtkAttributeSet * set)
 }
 
 static DBusMessage *
-impl_getAttributes (DBusConnection * bus, DBusMessage * message,
+impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -376,7 +376,7 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getDefaultAttributes (DBusConnection * bus, DBusMessage * message,
+impl_GetDefaultAttributes (DBusConnection * bus, DBusMessage * message,
                            void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -401,7 +401,7 @@ impl_getDefaultAttributes (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getCharacterExtents (DBusConnection * bus, DBusMessage * message,
+impl_GetCharacterExtents (DBusConnection * bus, DBusMessage * message,
                           void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -438,7 +438,7 @@ impl_getCharacterExtents (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
+impl_GetOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -468,7 +468,7 @@ impl_getOffsetAtPoint (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getNSelections (DBusConnection * bus, DBusMessage * message,
+impl_GetNSelections (DBusConnection * bus, DBusMessage * message,
                      void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -488,7 +488,7 @@ impl_getNSelections (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getSelection (DBusConnection * bus, DBusMessage * message,
+impl_GetSelection (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -522,7 +522,7 @@ impl_getSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_addSelection (DBusConnection * bus, DBusMessage * message,
+impl_AddSelection (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -551,7 +551,7 @@ impl_addSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_removeSelection (DBusConnection * bus, DBusMessage * message,
+impl_RemoveSelection (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -579,7 +579,7 @@ impl_removeSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_setSelection (DBusConnection * bus, DBusMessage * message,
+impl_SetSelection (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -608,7 +608,7 @@ impl_setSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getRangeExtents (DBusConnection * bus, DBusMessage * message,
+impl_GetRangeExtents (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -648,7 +648,7 @@ impl_getRangeExtents (DBusConnection * bus, DBusMessage * message,
 #define MAXRANGELEN 512
 
 static DBusMessage *
-impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
+impl_GetBoundedRanges (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -721,7 +721,7 @@ impl_getBoundedRanges (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getAttributeRun (DBusConnection * bus, DBusMessage * message,
+impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   DBusError error;
@@ -776,7 +776,7 @@ impl_getAttributeRun (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
+impl_GetDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
                              void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
@@ -803,32 +803,32 @@ impl_getDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getText, "getText"},
-  {impl_setCaretOffset, "setCaretOffset"},
-  {impl_getTextBeforeOffset, "getTextBeforeOffset"},
-  {impl_getTextAtOffset, "getTextAtOffset"},
-  {impl_getTextAfterOffset, "getTextAfterOffset"},
-  {impl_getCharacterAtOffset, "getCharacterAtOffset"},
-  {impl_getAttributeValue, "getAttributeValue"},
-  {impl_getAttributes, "getAttributes"},
-  {impl_getDefaultAttributes, "getDefaultAttributes"},
-  {impl_getCharacterExtents, "getCharacterExtents"},
-  {impl_getOffsetAtPoint, "getOffsetAtPoint"},
-  {impl_getNSelections, "getNSelections"},
-  {impl_getSelection, "getSelection"},
-  {impl_addSelection, "addSelection"},
-  {impl_removeSelection, "removeSelection"},
-  {impl_setSelection, "setSelection"},
-  {impl_getRangeExtents, "getRangeExtents"},
-  {impl_getBoundedRanges, "getBoundedRanges"},
-  {impl_getAttributeRun, "getAttributeRun"},
-  {impl_getDefaultAttributeSet, "getDefaultAttributeSet"},
+  {impl_GetText, "GetText"},
+  {impl_SetCaretOffset, "SetCaretOffset"},
+  {impl_GetTextBeforeOffset, "GetTextBeforeOffset"},
+  {impl_GetTextAtOffset, "GetTextAtOffset"},
+  {impl_GetTextAfterOffset, "GetTextAfterOffset"},
+  {impl_GetCharacterAtOffset, "GetCharacterAtOffset"},
+  {impl_GetAttributeValue, "GetAttributeValue"},
+  {impl_GetAttributes, "GetAttributes"},
+  {impl_GetDefaultAttributes, "GetDefaultAttributes"},
+  {impl_GetCharacterExtents, "GetCharacterExtents"},
+  {impl_GetOffsetAtPoint, "GetOffsetAtPoint"},
+  {impl_GetNSelections, "GetNSelections"},
+  {impl_GetSelection, "GetSelection"},
+  {impl_AddSelection, "AddSelection"},
+  {impl_RemoveSelection, "RemoveSelection"},
+  {impl_SetSelection, "SetSelection"},
+  {impl_GetRangeExtents, "GetRangeExtents"},
+  {impl_GetBoundedRanges, "GetBoundedRanges"},
+  {impl_GetAttributeRun, "GetAttributeRun"},
+  {impl_GetDefaultAttributeSet, "GetDefaultAttributeSet"},
   {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_characterCount, NULL, "characterCount"},
-  {impl_get_caretOffset, NULL, "caretOffset"},
+  {impl_get_CharacterCount, NULL, "CharacterCount"},
+  {impl_get_CaretOffset, NULL, "CaretOffset"},
   {NULL, NULL, NULL}
 };
 

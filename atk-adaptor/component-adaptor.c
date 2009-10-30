@@ -60,7 +60,7 @@ impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
+impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
                            void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
@@ -86,7 +86,7 @@ impl_getAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   DBusError error;
@@ -108,7 +108,7 @@ impl_getExtents (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getPosition (DBusConnection * bus, DBusMessage * message,
+impl_GetPosition (DBusConnection * bus, DBusMessage * message,
                   void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
@@ -140,7 +140,7 @@ impl_getPosition (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getSize (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   gint iwidth = 0, iheight = 0;
@@ -163,7 +163,7 @@ impl_getSize (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   AtkLayer atklayer;
@@ -212,7 +212,7 @@ impl_getLayer (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
+impl_GetMDIZOrder (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
@@ -232,7 +232,7 @@ impl_getMDIZOrder (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_grabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GrabFocus (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_bool_t rv;
@@ -266,7 +266,7 @@ impl_deregisterFocusHandler (DBusConnection * bus, DBusMessage * message,
 #endif
 
 static DBusMessage *
-impl_getAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkComponent *component = (AtkComponent *) user_data;
   double rv;
@@ -287,16 +287,16 @@ impl_getAlpha (DBusConnection * bus, DBusMessage * message, void *user_data)
 
 static DRouteMethod methods[] = {
   {impl_contains, "contains"},
-  {impl_getAccessibleAtPoint, "getAccessibleAtPoint"},
-  {impl_getExtents, "getExtents"},
-  {impl_getPosition, "getPosition"},
-  {impl_getSize, "getSize"},
-  {impl_getLayer, "getLayer"},
-  {impl_getMDIZOrder, "getMDIZOrder"},
-  {impl_grabFocus, "grabFocus"},
+  {impl_GetAccessibleAtPoint, "GetAccessibleAtPoint"},
+  {impl_GetExtents, "GetExtents"},
+  {impl_GetPosition, "GetPosition"},
+  {impl_GetSize, "GetSize"},
+  {impl_GetLayer, "GetLayer"},
+  {impl_GetMDIZOrder, "GetMDIZOrder"},
+  {impl_GrabFocus, "GrabFocus"},
   //{impl_registerFocusHandler, "registerFocusHandler"},
   //{impl_deregisterFocusHandler, "deregisterFocusHandler"},
-  {impl_getAlpha, "getAlpha"},
+  {impl_GetAlpha, "GetAlpha"},
   {NULL, NULL}
 };
 

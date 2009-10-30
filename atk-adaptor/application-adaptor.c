@@ -82,7 +82,7 @@ impl_resume (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   return NULL;
 }
@@ -92,7 +92,7 @@ static DRouteMethod methods[] = {
   {impl_registerObjectEventListener, "registerObjectEventListener"},
   {impl_pause, "pause"},
   {impl_resume, "resume"},
-  {impl_getLocale, "getLocale"},
+  {impl_GetLocale, "GetLocale"},
   {NULL, NULL}
 };
 

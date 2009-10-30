@@ -699,7 +699,7 @@ static void free_mrp_data(MatchRulePrivate *mrp)
 }
 
 static DBusMessage *
-getMatchesFrom (DBusMessage *message,
+GetMatchesFrom (DBusMessage *message,
 		     AtkObject *current_object,
 		     MatchRulePrivate *mrp,
 		     const Accessibility_Collection_SortOrder sortby,
@@ -780,7 +780,7 @@ inorder (AtkObject *collection, MatchRulePrivate *mrp,
 */
 
 static DBusMessage *
-getMatchesInOrder (DBusMessage *message,
+GetMatchesInOrder (DBusMessage *message,
 		   AtkObject *current_object,
 		   MatchRulePrivate *mrp,
 		   const Accessibility_Collection_SortOrder sortby,
@@ -814,7 +814,7 @@ getMatchesInOrder (DBusMessage *message,
 */
 
 static DBusMessage *
-getMatchesInBackOrder (DBusMessage *message,
+GetMatchesInBackOrder (DBusMessage *message,
 		   AtkObject *current_object,
 		   MatchRulePrivate *mrp,
 		   const Accessibility_Collection_SortOrder sortby,
@@ -841,7 +841,7 @@ getMatchesInBackOrder (DBusMessage *message,
 }
 
 static DBusMessage *
-getMatchesTo (DBusMessage *message,
+GetMatchesTo (DBusMessage *message,
 	      AtkObject *current_object,
 	      MatchRulePrivate *mrp,
 	      const Accessibility_Collection_SortOrder sortby,
@@ -878,7 +878,7 @@ getMatchesTo (DBusMessage *message,
 }
 
 static DBusMessage *
-impl_getMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   char *current_object_path = NULL;
   AtkObject *current_object;
@@ -914,15 +914,15 @@ impl_getMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   switch (tree){
   case Accessibility_Collection_TREE_RESTRICT_CHILDREN : 
-    return getMatchesFrom (message, current_object, 
+    return GetMatchesFrom (message, current_object, 
                            &rule, sortby, TRUE, count, traverse);
     break;
   case Accessibility_Collection_TREE_RESTRICT_SIBLING :
-    return getMatchesFrom (message, current_object, 
+    return GetMatchesFrom (message, current_object, 
                            &rule, sortby, FALSE, count, traverse); 
     break;
   case Accessibility_Collection_TREE_INORDER :
-    return getMatchesInOrder (message, current_object, 
+    return GetMatchesInOrder (message, current_object, 
                               &rule, sortby, TRUE, count, traverse); 
     break;
   default : return NULL;
@@ -930,7 +930,7 @@ impl_getMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
 }
 
 static DBusMessage *
-impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   char *current_object_path = NULL;
   AtkObject *current_object;
@@ -969,15 +969,15 @@ impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   switch (tree){
   case Accessibility_Collection_TREE_RESTRICT_CHILDREN : 
-    return getMatchesTo (message, current_object, 
+    return GetMatchesTo (message, current_object, 
                          &rule, sortby, recurse, TRUE, count, traverse); 
     break;
   case Accessibility_Collection_TREE_RESTRICT_SIBLING :
-    return getMatchesTo (message, current_object, 
+    return GetMatchesTo (message, current_object, 
                          &rule, sortby, recurse, FALSE, count, traverse); 
     break;
   case Accessibility_Collection_TREE_INORDER :
-    return getMatchesInBackOrder (message, current_object, 
+    return GetMatchesInBackOrder (message, current_object, 
                                   &rule, sortby, count); 
     break;
   default : return NULL;
@@ -985,7 +985,7 @@ impl_getMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
 }
 
 static DBusMessage *
-impl_getMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkObject *obj = atk_dbus_path_to_object (dbus_message_get_path (message));
   DBusMessageIter iter;
@@ -1018,9 +1018,9 @@ impl_getMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  { impl_getMatchesFrom, "getMatchesFrom" },
-  { impl_getMatchesTo, "getMatchesTo" },
-  { impl_getMatches, "getMatches" },
+  { impl_GetMatchesFrom, "GetMatchesFrom" },
+  { impl_GetMatchesTo, "GetMatchesTo" },
+  { impl_GetMatches, "GetMatches" },
   {NULL, NULL}
 };
 

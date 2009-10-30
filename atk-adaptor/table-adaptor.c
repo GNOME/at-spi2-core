@@ -29,7 +29,7 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_nRows (DBusMessageIter * iter, void *user_data)
+impl_get_NRows (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -37,7 +37,7 @@ impl_get_nRows (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_nColumns (DBusMessageIter * iter, void *user_data)
+impl_get_NColumns (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -45,7 +45,7 @@ impl_get_nColumns (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_caption (DBusMessageIter * iter, void *user_data)
+impl_get_Caption (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -54,7 +54,7 @@ impl_get_caption (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_summary (DBusMessageIter * iter, void *user_data)
+impl_get_Summary (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
@@ -63,7 +63,7 @@ impl_get_summary (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_nSelectedRows (DBusMessageIter * iter,
+impl_get_NSelectedRows (DBusMessageIter * iter,
                         void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -77,7 +77,7 @@ impl_get_nSelectedRows (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_nSelectedColumns (DBusMessageIter * iter,
+impl_get_NSelectedColumns (DBusMessageIter * iter,
                            void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -91,7 +91,7 @@ impl_get_nSelectedColumns (DBusMessageIter * iter,
 }
 
 static DBusMessage *
-impl_getAccessibleAt (DBusConnection * bus, DBusMessage * message,
+impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -113,7 +113,7 @@ impl_getAccessibleAt (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -141,7 +141,7 @@ impl_getIndexAt (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getRowAtIndex (DBusConnection * bus, DBusMessage * message,
+impl_GetRowAtIndex (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -169,7 +169,7 @@ impl_getRowAtIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getColumnAtIndex (DBusConnection * bus, DBusMessage * message,
+impl_GetColumnAtIndex (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -197,7 +197,7 @@ impl_getColumnAtIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getRowDescription (DBusConnection * bus, DBusMessage * message,
+impl_GetRowDescription (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
 {
   dbus_int32_t row;
@@ -227,7 +227,7 @@ impl_getRowDescription (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getColumnDescription (DBusConnection * bus, DBusMessage * message,
+impl_GetColumnDescription (DBusConnection * bus, DBusMessage * message,
                            void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -257,7 +257,7 @@ impl_getColumnDescription (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getRowExtentAt (DBusConnection * bus, DBusMessage * message,
+impl_GetRowExtentAt (DBusConnection * bus, DBusMessage * message,
                      void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -286,7 +286,7 @@ impl_getRowExtentAt (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getColumnExtentAt (DBusConnection * bus, DBusMessage * message,
+impl_GetColumnExtentAt (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -315,7 +315,7 @@ impl_getColumnExtentAt (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getRowHeader (DBusConnection * bus, DBusMessage * message,
+impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -337,7 +337,7 @@ impl_getRowHeader (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getColumnHeader (DBusConnection * bus, DBusMessage * message,
+impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -359,7 +359,7 @@ impl_getColumnHeader (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getSelectedRows (DBusConnection * bus, DBusMessage * message,
+impl_GetSelectedRows (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -385,7 +385,7 @@ impl_getSelectedRows (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getSelectedColumns (DBusConnection * bus, DBusMessage * message,
+impl_GetSelectedColumns (DBusConnection * bus, DBusMessage * message,
                          void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -411,7 +411,7 @@ impl_getSelectedColumns (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_isRowSelected (DBusConnection * bus, DBusMessage * message,
+impl_IsRowSelected (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -439,7 +439,7 @@ impl_isRowSelected (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_isColumnSelected (DBusConnection * bus, DBusMessage * message,
+impl_IsColumnSelected (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -467,7 +467,7 @@ impl_isColumnSelected (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_isSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_IsSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row, column;
@@ -495,7 +495,7 @@ impl_isSelected (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_addRowSelection (DBusConnection * bus, DBusMessage * message,
+impl_AddRowSelection (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -523,7 +523,7 @@ impl_addRowSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_addColumnSelection (DBusConnection * bus, DBusMessage * message,
+impl_AddColumnSelection (DBusConnection * bus, DBusMessage * message,
                          void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -551,7 +551,7 @@ impl_addColumnSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_removeRowSelection (DBusConnection * bus, DBusMessage * message,
+impl_RemoveRowSelection (DBusConnection * bus, DBusMessage * message,
                          void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -579,7 +579,7 @@ impl_removeRowSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_removeColumnSelection (DBusConnection * bus, DBusMessage * message,
+impl_RemoveColumnSelection (DBusConnection * bus, DBusMessage * message,
                             void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -607,7 +607,7 @@ impl_removeColumnSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
+impl_GetRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
                                  void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
@@ -652,36 +652,36 @@ impl_getRowColumnExtentsAtIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getAccessibleAt, "getAccessibleAt"},
-  {impl_getIndexAt, "getIndexAt"},
-  {impl_getRowAtIndex, "getRowAtIndex"},
-  {impl_getColumnAtIndex, "getColumnAtIndex"},
-  {impl_getRowDescription, "getRowDescription"},
-  {impl_getColumnDescription, "getColumnDescription"},
-  {impl_getRowExtentAt, "getRowExtentAt"},
-  {impl_getColumnExtentAt, "getColumnExtentAt"},
-  {impl_getRowHeader, "getRowHeader"},
-  {impl_getColumnHeader, "getColumnHeader"},
-  {impl_getSelectedRows, "getSelectedRows"},
-  {impl_getSelectedColumns, "getSelectedColumns"},
-  {impl_isRowSelected, "isRowSelected"},
-  {impl_isColumnSelected, "isColumnSelected"},
-  {impl_isSelected, "isSelected"},
-  {impl_addRowSelection, "addRowSelection"},
-  {impl_addColumnSelection, "addColumnSelection"},
-  {impl_removeRowSelection, "removeRowSelection"},
-  {impl_removeColumnSelection, "removeColumnSelection"},
-  {impl_getRowColumnExtentsAtIndex, "getRowColumnExtentsAtIndex"},
+  {impl_GetAccessibleAt, "GetAccessibleAt"},
+  {impl_GetIndexAt, "GetIndexAt"},
+  {impl_GetRowAtIndex, "GetRowAtIndex"},
+  {impl_GetColumnAtIndex, "GetColumnAtIndex"},
+  {impl_GetRowDescription, "GetRowDescription"},
+  {impl_GetColumnDescription, "GetColumnDescription"},
+  {impl_GetRowExtentAt, "GetRowExtentAt"},
+  {impl_GetColumnExtentAt, "GetColumnExtentAt"},
+  {impl_GetRowHeader, "GetRowHeader"},
+  {impl_GetColumnHeader, "GetColumnHeader"},
+  {impl_GetSelectedRows, "GetSelectedRows"},
+  {impl_GetSelectedColumns, "GetSelectedColumns"},
+  {impl_IsRowSelected, "IsRowSelected"},
+  {impl_IsColumnSelected, "IsColumnSelected"},
+  {impl_IsSelected, "IsSelected"},
+  {impl_AddRowSelection, "AddRowSelection"},
+  {impl_AddColumnSelection, "AddColumnSelection"},
+  {impl_RemoveRowSelection, "RemoveRowSelection"},
+  {impl_RemoveColumnSelection, "RemoveColumnSelection"},
+  {impl_GetRowColumnExtentsAtIndex, "GetRowColumnExtentsAtIndex"},
   {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_nRows, NULL, "nRows"},
-  {impl_get_nColumns, NULL, "nColumns"},
-  {impl_get_caption, NULL, "caption"},
-  {impl_get_summary, NULL, "summary"},
-  {impl_get_nSelectedRows, NULL, "nSelectedRows"},
-  {impl_get_nSelectedColumns, NULL, "nSelectedColumns"},
+  {impl_get_NRows, NULL, "NRows"},
+  {impl_get_NColumns, NULL, "NColumns"},
+  {impl_get_Caption, NULL, "Caption"},
+  {impl_get_Summary, NULL, "Summary"},
+  {impl_get_NSelectedRows, NULL, "nSelectedRows"},
+  {impl_get_NSelectedColumns, NULL, "nSelectedColumns"},
   {NULL, NULL, NULL}
 };
 

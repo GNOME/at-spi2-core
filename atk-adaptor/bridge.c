@@ -148,7 +148,7 @@ register_application (SpiAppData *app)
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           SPI_DBUS_PATH_REGISTRY,
                                           SPI_DBUS_INTERFACE_REGISTRY,
-                                          "registerApplication");
+                                          "RegisterApplication");
   dbus_message_set_no_reply (message, TRUE);
 
   uname = dbus_bus_get_unique_name(app->bus);
@@ -174,7 +174,7 @@ deregister_application (SpiAppData *app)
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
                                           SPI_DBUS_PATH_REGISTRY,
                                           SPI_DBUS_INTERFACE_REGISTRY,
-                                          "deregisterApplication");
+                                          "DeregisterApplication");
   dbus_message_set_no_reply (message, TRUE);
 
   uname = dbus_bus_get_unique_name(app->bus);
@@ -240,6 +240,12 @@ adaptor_init (gint *argc, gchar **argv[])
   DBusConnection *bus;
   AtkObject *root;
   gchar *introspection_directory;
+  static gboolean inited = FALSE;
+
+  if (inited)
+    return 0;
+
+  inited = TRUE;
 
   DRoutePath *treepath, *accpath;
 

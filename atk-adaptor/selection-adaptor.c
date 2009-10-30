@@ -29,7 +29,7 @@
 #include "accessible-marshaller.h"
 
 static dbus_bool_t
-impl_get_nSelectedChildren (DBusMessageIter * iter,
+impl_get_NSelectedChildren (DBusMessageIter * iter,
                             void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -40,7 +40,7 @@ impl_get_nSelectedChildren (DBusMessageIter * iter,
 }
 
 /*static char *
-impl_get_nSelectedChildren_str (void *datum)
+impl_get_NSelectedChildren_str (void *datum)
 {
   g_return_val_if_fail (ATK_IS_SELECTION (user_data), FALSE);
   return g_strdup_printf ("%d",
@@ -49,7 +49,7 @@ impl_get_nSelectedChildren_str (void *datum)
 }*/
 
 static DBusMessage *
-impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
+impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -71,7 +71,7 @@ impl_getSelectedChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_selectChild (DBusConnection * bus, DBusMessage * message,
+impl_SelectChild (DBusConnection * bus, DBusMessage * message,
                   void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -99,7 +99,7 @@ impl_selectChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_deselectSelectedChild (DBusConnection * bus, DBusMessage * message,
+impl_DeselectSelectedChild (DBusConnection * bus, DBusMessage * message,
                             void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -128,7 +128,7 @@ impl_deselectSelectedChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
+impl_IsChildSelected (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -156,7 +156,7 @@ impl_isChildSelected (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_selectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_SelectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   dbus_bool_t rv;
@@ -175,7 +175,7 @@ impl_selectAll (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_clearSelection (DBusConnection * bus, DBusMessage * message,
+impl_ClearSelection (DBusConnection * bus, DBusMessage * message,
                      void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -195,7 +195,7 @@ impl_clearSelection (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_deselectChild (DBusConnection * bus, DBusMessage * message,
+impl_DeselectChild (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
@@ -236,18 +236,18 @@ impl_deselectChild (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getSelectedChild, "getSelectedChild"},
-  {impl_selectChild, "selectChild"},
-  {impl_deselectSelectedChild, "deselectSelectedChild"},
-  {impl_isChildSelected, "isChildSelected"},
-  {impl_selectAll, "selectAll"},
-  {impl_clearSelection, "clearSelection"},
-  {impl_deselectChild, "deselectChild"},
+  {impl_GetSelectedChild, "GetSelectedChild"},
+  {impl_SelectChild, "SelectChild"},
+  {impl_DeselectSelectedChild, "DeselectSelectedChild"},
+  {impl_IsChildSelected, "IsChildSelected"},
+  {impl_SelectAll, "SelectAll"},
+  {impl_ClearSelection, "ClearSelection"},
+  {impl_DeselectChild, "DeselectChild"},
   {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_nSelectedChildren, NULL, "nSelectedChildren"},
+  {impl_get_NSelectedChildren, NULL, "NSelectedChildren"},
   {NULL, NULL, NULL}
 };
 

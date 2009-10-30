@@ -73,7 +73,7 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message)
 }
 
 static gboolean
-Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_DeviceEvent *key_event)
+Accessibility_DeviceEventController_NotifyListenersSync(const Accessibility_DeviceEvent *key_event)
 {
   DBusMessage *message;
   DBusError error;
@@ -83,7 +83,7 @@ Accessibility_DeviceEventController_notifyListenersSync(const Accessibility_Devi
   dbus_message_new_method_call(SPI_DBUS_NAME_REGISTRY, 
                                SPI_DBUS_PATH_DEC,
                                SPI_DBUS_INTERFACE_DEC,
-                               "notifyListenersSync");
+                               "NotifyListenersSync");
 
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
@@ -154,7 +154,7 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
 
   spi_init_keystroke_from_atk_key_event (&key_event, event);
 
-  result = Accessibility_DeviceEventController_notifyListenersSync (&key_event);
+  result = Accessibility_DeviceEventController_NotifyListenersSync (&key_event);
 
   if (key_event.event_string) g_free (key_event.event_string);
 
@@ -175,6 +175,23 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct *event, gpointer data)
  * the AT-SPI event.
  */
 
+static gchar *
+DBusSignalName (const gchar *s)
+{
+  gchar *ret = g_strdup (s);
+  gchar *t;
+
+  if (!ret)
+    return NULL;
+  ret [0] = toupper (ret [0]);
+  while ((t = strchr (ret, '-')) != NULL)
+  {
+    memmove (t, t + 1, strlen (t));
+    *t = toupper (*t);
+  }
+  return ret;
+}
+
 static void 
 emit(AtkObject  *accessible,
      const char *klass,
@@ -186,6 +203,7 @@ emit(AtkObject  *accessible,
      const void *val)
 {
   gchar *path;
+  gchar *cname;
 
   /* TODO this is a hack, used becuase child-added events are not guaranteed.
    * On recieving an event from a non-registered object we check if it can be safely 
@@ -205,7 +223,9 @@ emit(AtkObject  *accessible,
       return;
   }
 
-  spi_dbus_emit_signal (atk_adaptor_app_data->bus, path, klass, major, minor, detail1, detail2, type, val);
+  cname = DBusSignalName (major);
+  spi_dbus_emit_signal (atk_adaptor_app_data->bus, path, klass, cname, minor, detail1, detail2, type, val);
+  g_free (cname);
   g_free(path);
 }
 
@@ -224,7 +244,7 @@ emit_rect(AtkObject  *accessible,
 {
   DBusMessage *sig;
   DBusMessageIter iter, variant, sub;
-  gchar *path, *cname, *t;
+  gchar *path, *cname;
   dbus_int32_t dummy = 0;
 
   path = atk_dbus_object_to_path (accessible, FALSE);
@@ -245,8 +265,7 @@ emit_rect(AtkObject  *accessible,
    * name in D-Bus (Why not??!?) The names need converting
    * on this side, and again on the client side.
    */
-  cname = g_strdup(major);
-  while ((t = strchr(cname, '-')) != NULL) *t = '_';
+  cname = DBusSignalName (major);
 
   sig = dbus_message_new_signal(path, klass, cname);
   g_free(path);
@@ -316,6 +335,7 @@ property_event_listener (GSignalInvocationHint *signal_hint,
   pname = values[0].property_name;
   if (strcmp (pname, "accessible-name") == 0 ||
       strcmp (pname, "accessible-description") == 0 ||
+      strcmp (pname, "accessible-role") == 0 ||
       strcmp (pname, "accessible-parent") == 0)
   {
       return TRUE;

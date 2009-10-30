@@ -30,7 +30,7 @@
 #include "accessible-marshaller.h"
 
 static DBusMessage *
-impl_getLocale (DBusConnection *bus,
+impl_GetLocale (DBusConnection *bus,
                 DBusMessage *message,
                 void *user_data)
 {
@@ -53,7 +53,7 @@ impl_getLocale (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
+impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
@@ -83,7 +83,7 @@ impl_getAttributeValue (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getAttributes (DBusConnection * bus, DBusMessage * message,
+impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
                     void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
@@ -109,9 +109,9 @@ impl_getAttributes (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getLocale, "getLocale"},
-  {impl_getAttributeValue, "getAttributeValue"},
-  {impl_getAttributes, "getAttributes"},
+  {impl_GetLocale, "GetLocale"},
+  {impl_GetAttributeValue, "GetAttributeValue"},
+  {impl_GetAttributes, "GetAttributes"},
   {NULL, NULL}
 };
 

@@ -28,7 +28,7 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_imageDescription (DBusMessageIter * iter,
+impl_get_ImageDescription (DBusMessageIter * iter,
                            void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
@@ -38,7 +38,7 @@ impl_get_imageDescription (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_imageLocale (DBusMessageIter * iter,
+impl_get_ImageLocale (DBusMessageIter * iter,
                       void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
@@ -47,7 +47,7 @@ impl_get_imageLocale (DBusMessageIter * iter,
 }
 
 static DBusMessage *
-impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
+impl_GetImageExtents (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
@@ -69,7 +69,7 @@ impl_getImageExtents (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
+impl_GetImagePosition (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
@@ -100,7 +100,7 @@ impl_getImagePosition (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_getImageSize (DBusConnection * bus, DBusMessage * message,
+impl_GetImageSize (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
@@ -123,15 +123,15 @@ impl_getImageSize (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getImageExtents, "getImageExtents"},
-  {impl_getImagePosition, "getImagePosition"},
-  {impl_getImageSize, "getImageSize"},
+  {impl_GetImageExtents, "GetImageExtents"},
+  {impl_GetImagePosition, "GetImagePosition"},
+  {impl_GetImageSize, "GetImageSize"},
   {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_imageDescription, NULL, "imageDescription"},
-  {impl_get_imageLocale, NULL, "imageLocale"},
+  {impl_get_ImageDescription, NULL, "ImageDescription"},
+  {impl_get_ImageLocale, NULL, "ImageLocale"},
   {NULL, NULL, NULL}
 };
 

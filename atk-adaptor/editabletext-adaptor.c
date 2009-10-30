@@ -28,7 +28,7 @@
 #include "common/spi-dbus.h"
 
 static DBusMessage *
-impl_setTextContents (DBusConnection * bus, DBusMessage * message,
+impl_SetTextContents (DBusConnection * bus, DBusMessage * message,
                       void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
@@ -58,7 +58,7 @@ impl_setTextContents (DBusConnection * bus, DBusMessage * message,
 }
 
 static DBusMessage *
-impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_InsertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position, length;
@@ -91,7 +91,7 @@ impl_insertText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_CopyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
@@ -111,7 +111,7 @@ impl_copyText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_CutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
@@ -141,7 +141,7 @@ impl_cutText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_DeleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t startPos, endPos;
@@ -171,7 +171,7 @@ impl_deleteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_PasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkEditableText *editable = (AtkEditableText *) user_data;
   dbus_int32_t position;
@@ -200,12 +200,12 @@ impl_pasteText (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DRouteMethod methods[] = {
-  {impl_setTextContents, "setTextContents"},
-  {impl_insertText, "insertText"},
-  {impl_copyText, "copyText"},
-  {impl_cutText, "cutText"},
-  {impl_deleteText, "deleteText"},
-  {impl_pasteText, "pasteText"},
+  {impl_SetTextContents, "SetTextContents"},
+  {impl_InsertText, "InsertText"},
+  {impl_CopyText, "CopyText"},
+  {impl_CutText, "CutText"},
+  {impl_DeleteText, "DeleteText"},
+  {impl_PasteText, "PasteText"},
   {NULL, NULL}
 };
 

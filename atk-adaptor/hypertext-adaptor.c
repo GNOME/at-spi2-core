@@ -29,7 +29,7 @@
 #include "accessible-marshaller.h"
 
 static DBusMessage *
-impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
   gint rv;
@@ -48,7 +48,7 @@ impl_getNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
+impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
   DBusError error;
@@ -68,7 +68,7 @@ impl_getLink (DBusConnection * bus, DBusMessage * message, void *user_data)
 }
 
 static DBusMessage *
-impl_getLinkIndex (DBusConnection * bus, DBusMessage * message,
+impl_GetLinkIndex (DBusConnection * bus, DBusMessage * message,
                    void *user_data)
 {
   AtkHypertext *hypertext = (AtkHypertext *) user_data;
@@ -96,9 +96,9 @@ impl_getLinkIndex (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getNLinks, "getNLinks"},
-  {impl_getLink, "getLink"},
-  {impl_getLinkIndex, "getLinkIndex"},
+  {impl_GetNLinks, "GetNLinks"},
+  {impl_GetLink, "GetLink"},
+  {impl_GetLinkIndex, "GetLinkIndex"},
   {NULL, NULL}
 };
 

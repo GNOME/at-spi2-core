@@ -31,7 +31,7 @@
 #include "accessible-register.h"
 
 static dbus_bool_t
-impl_get_name (DBusMessageIter *iter, void *user_data)
+impl_get_Name (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -41,7 +41,7 @@ impl_get_name (DBusMessageIter *iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_set_name (DBusMessageIter *iter, void *user_data)
+impl_set_Name (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   const char *name = droute_get_v_string (iter);
@@ -53,7 +53,7 @@ impl_set_name (DBusMessageIter *iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_description (DBusMessageIter *iter, void *user_data)
+impl_get_Description (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -63,7 +63,7 @@ impl_get_description (DBusMessageIter *iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_set_description (DBusMessageIter *iter, void *user_data)
+impl_set_Description (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   const char *description = droute_get_v_string (iter);
@@ -75,7 +75,7 @@ impl_set_description (DBusMessageIter *iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_parent (DBusMessageIter *iter, void *user_data)
+impl_get_Parent (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -87,7 +87,7 @@ impl_get_parent (DBusMessageIter *iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_childCount (DBusMessageIter *iter, void *user_data)
+impl_get_ChildCount (DBusMessageIter *iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
 
@@ -99,7 +99,7 @@ impl_get_childCount (DBusMessageIter *iter, void *user_data)
 }
 
 static DBusMessage *
-impl_getChildAtIndex (DBusConnection *bus,
+impl_GetChildAtIndex (DBusConnection *bus,
                       DBusMessage *message,
                       void *user_data)
 {
@@ -118,7 +118,7 @@ impl_getChildAtIndex (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getChildren (DBusConnection *bus,
+impl_GetChildren (DBusConnection *bus,
                   DBusMessage *message,
                   void *user_data)
 {
@@ -159,7 +159,7 @@ oom:
 }
 
 static DBusMessage *
-impl_getIndexInParent (DBusConnection *bus,
+impl_GetIndexInParent (DBusConnection *bus,
                        DBusMessage *message,
                        void *user_data)
 {
@@ -224,7 +224,7 @@ spi_relation_type_from_atk_relation_type (AtkRelationType type)
 }
 
 static DBusMessage *
-impl_getRelationSet (DBusConnection *bus,
+impl_GetRelationSet (DBusConnection *bus,
                      DBusMessage *message,
                      void *user_data)
 {
@@ -415,7 +415,7 @@ spi_accessible_role_from_atk_role (AtkRole role)
 }
 
 static DBusMessage *
-impl_getRole (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetRole (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
   gint role;
@@ -445,7 +445,7 @@ impl_get_role_str (void *datum)
 }
 
 static DBusMessage *
-impl_getRoleName (DBusConnection *bus,
+impl_GetRoleName (DBusConnection *bus,
                   DBusMessage *message,
                   void *user_data)
 {
@@ -470,7 +470,7 @@ impl_getRoleName (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getLocalizedRoleName (DBusConnection *bus,
+impl_GetLocalizedRoleName (DBusConnection *bus,
                            DBusMessage *message,
                            void *user_data)
 {
@@ -495,7 +495,7 @@ impl_getLocalizedRoleName (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getState (DBusConnection *bus,
+impl_GetState (DBusConnection *bus,
                DBusMessage *message,
                void *user_data)
 {
@@ -517,7 +517,7 @@ impl_getState (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getAttributes (DBusConnection *bus,
+impl_GetAttributes (DBusConnection *bus,
                     DBusMessage *message,
                     void *user_data)
 {
@@ -543,7 +543,7 @@ impl_getAttributes (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getApplication (DBusConnection *bus,
+impl_GetApplication (DBusConnection *bus,
                      DBusMessage *message,
                      void *user_data)
 {
@@ -552,7 +552,7 @@ impl_getApplication (DBusConnection *bus,
 }
 
 static DBusMessage *
-impl_getInterfaces (DBusConnection *bus,
+impl_GetInterfaces (DBusConnection *bus,
                     DBusMessage *message,
                     void *user_data)
 {
@@ -576,25 +576,25 @@ impl_getInterfaces (DBusConnection *bus,
 }
 
 static DRouteMethod methods[] = {
-  {impl_getChildAtIndex, "getChildAtIndex"},
-  {impl_getChildren, "getChildren"},
-  {impl_getIndexInParent, "getIndexInParent"},
-  {impl_getRelationSet, "getRelationSet"},
-  {impl_getRole, "getRole"},
-  {impl_getRoleName, "getRoleName"},
-  {impl_getLocalizedRoleName, "getLocalizedRoleName"},
-  {impl_getState, "getState"},
-  {impl_getAttributes, "getAttributes"},
-  {impl_getApplication, "getApplication"},
-  {impl_getInterfaces, "getInterfaces"},
+  {impl_GetChildAtIndex, "GetChildAtIndex"},
+  {impl_GetChildren, "GetChildren"},
+  {impl_GetIndexInParent, "GetIndexInParent"},
+  {impl_GetRelationSet, "GetRelationSet"},
+  {impl_GetRole, "GetRole"},
+  {impl_GetRoleName, "GetRoleName"},
+  {impl_GetLocalizedRoleName, "GetLocalizedRoleName"},
+  {impl_GetState, "GetState"},
+  {impl_GetAttributes, "GetAttributes"},
+  {impl_GetApplication, "GetApplication"},
+  {impl_GetInterfaces, "GetInterfaces"},
   {NULL, NULL}
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_name, impl_set_name, "name"},
-  {impl_get_description, impl_set_description, "description"},
-  {impl_get_parent, NULL, "parent"},
-  {impl_get_childCount, NULL, "childCount"},
+  {impl_get_Name, impl_set_Name, "Name"},
+  {impl_get_Description, impl_set_Description, "Description"},
+  {impl_get_Parent, NULL, "Parent"},
+  {impl_get_ChildCount, NULL, "ChildCount"},
   {NULL, NULL, NULL}
 };
 

@@ -30,7 +30,7 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_minimumValue (DBusMessageIter * iter,
+impl_get_MinimumValue (DBusMessageIter * iter,
                        void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
@@ -55,7 +55,7 @@ impl_get_minimumValue (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_maximumValue (DBusMessageIter * iter,
+impl_get_MaximumValue (DBusMessageIter * iter,
                        void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
@@ -80,7 +80,7 @@ impl_get_maximumValue (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_minimumIncrement (DBusMessageIter * iter,
+impl_get_MinimumIncrement (DBusMessageIter * iter,
                            void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
@@ -105,7 +105,7 @@ impl_get_minimumIncrement (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_currentValue (DBusMessageIter * iter,
+impl_get_CurrentValue (DBusMessageIter * iter,
                        void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
@@ -165,10 +165,10 @@ impl_set_currentValue (DBusMessageIter * iter,
 }
 
 static DRouteProperty properties[] = {
-  {impl_get_minimumValue, NULL, "minimumValue"},
-  {impl_get_maximumValue, NULL, "maximumValue"},
-  {impl_get_minimumIncrement, NULL, "minimumIncrement"},
-  {impl_get_currentValue, impl_set_currentValue, "currentValue"},
+  {impl_get_MinimumValue, NULL, "MinimumValue"},
+  {impl_get_MaximumValue, NULL, "MaximumValue"},
+  {impl_get_MinimumIncrement, NULL, "MinimumIncrement"},
+  {impl_get_CurrentValue, impl_set_currentValue, "CurrentValue"},
   {NULL, NULL, NULL}
 };
 

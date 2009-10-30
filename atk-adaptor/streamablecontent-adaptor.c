@@ -265,7 +265,7 @@ impl_accessibility_streamable_get_stream (PortableServer_Servant servant,
 }
 
 /*
- * CORBA Accessibility::StreamableContent::getURI method implementation
+ * CORBA Accessibility::StreamableContent::GetURI method implementation
  */
 static CORBA_string
 impl_accessibility_streamable_get_uri (PortableServer_Servant servant,
@@ -291,7 +291,7 @@ spi_streamable_class_init (SpiStreamableClass *klass)
         epv->getContentTypes = impl_accessibility_streamable_get_content_types;
         epv->getContent = impl_accessibility_streamable_get_content;
 	epv->getStream = impl_accessibility_streamable_get_stream;
-	epv->getURI = impl_accessibility_streamable_get_uri;
+	epv->GetURI = impl_accessibility_streamable_get_uri;
 }
 
 static void
