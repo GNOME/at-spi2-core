@@ -291,7 +291,7 @@ adaptor_init (gint *argc, gchar **argv[])
   accpath = droute_add_many (atk_adaptor_app_data->droute,
                              "/org/freedesktop/atspi/accessible",
                              NULL,
-                             (DRouteGetDatumFunction) atk_dbus_path_to_object);
+                             (DRouteGetDatumFunction) atk_dbus_path_to_gobject);
 
   /* Register all interfaces with droute and set up application accessible db */
   spi_initialize_tree (treepath);
@@ -336,6 +336,29 @@ gtk_module_init (gint *argc, gchar **argv[])
     {
 	return adaptor_init (argc, argv);
     }
+  return 0;
 }
 
+void
+gnome_accessibility_module_init (void)
+{
+  const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
+
+  if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
+    {
+      adaptor_init (NULL, NULL);
+
+      if (g_getenv ("AT_SPI_DEBUG"))
+        {
+	    g_print("Atk Accessibility bridge initialized\n");
+        }
+    }
+}
+
+void
+gnome_accessibility_module_shutdown (void)
+{
+  spi_atk_deregister_event_listeners ();
+  exit_func ();
+}
 /*END------------------------------------------------------------------------*/
