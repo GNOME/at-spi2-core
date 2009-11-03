@@ -46,6 +46,7 @@ libatk_bridge_la_SOURCES =	\
 	tree-adaptor.h		\
 	value-adaptor.c
 
+if RELOCATE
 gtkpathdir = $(gtkmoduledir)/..
 gnomeautostartdir = $(datadir)/gnome/autostart
 gnomeautostart_DATA = atk-bridge.desktop
@@ -55,3 +56,4 @@ CLEANFILES = $(gnome_autostart_DATA)
 %.desktop: %.desktop.in Makefile.am
 	sed -e "s,\@gtkpathdir\@,$(gtkpathdir)," \
 	< $< > $@
+endif

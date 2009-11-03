@@ -82,6 +82,9 @@ AC_ARG_VAR([GTK_MODULE_DIR],
 	   [Where to place the atk-adaptor gtk module])
 if test -z "$GTK_MODULE_DIR"; then
 	  GTK_MODULE_DIR=gtk-2.0/modules
+          AM_CONDITIONAL(RELOCATE, false)
+else
+          AM_CONDITIONAL(RELOCATE, true)
 fi
 
 #libtool option to strip symbols starting with cspi
