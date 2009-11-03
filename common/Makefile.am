@@ -8,16 +8,16 @@ libspicommon_la_CFLAGS = $(DBUS_GLIB_CFLAGS)\
 
 libspicommon_la_LIBADD = $(DBUS_GLIB_LIBS)
 
-spicommonincludedir = $(includedir)/at-spi-1.0/libspi
-
-spicommoninclude_HEADERS =		\
-	bitarray.h \
-	event-types.h \
-	generated-types.h \
-	keymasks.h \
-	spi-dbus.h \
-	spi-stateset.h \
-	spi-types.h
+#spicommonincludedir = $(includedir)/at-spi-1.0/libspi
+#
+#spicommoninclude_HEADERS =		\
+#	bitarray.h \
+#	event-types.h \
+#	generated-types.h \
+#	keymasks.h \
+#	spi-dbus.h \
+#	spi-stateset.h \
+#	spi-types.h
 
 #BUILT_SOURCES = generated-types.h
 #CLEANFILES = generated-types.h
