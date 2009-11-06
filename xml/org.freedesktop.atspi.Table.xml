@@ -30,12 +30,12 @@
       viewport are included. </p>
   </tp:docstring>
   </tp:property>
-  <tp:property name="caption" type="o" access="read">
+  <tp:property name="caption" type="(so)" access="read">
   <tp:docstring>
     An Accessible which represents of a caption for a Table.
   </tp:docstring>
   </tp:property>
-  <tp:property name="summary" type="o" access="read">
+  <tp:property name="summary" type="(so)" access="read">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An accessible object which summarizes the contents of a Table.
       This object is frequently itself a Table instance, albeit a simplified one.</p>
@@ -71,7 +71,7 @@
       The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
-    <arg direction="out" type="o" tp:type="Accessible">
+    <arg direction="out" type="(so)" tp:type="Accessible">
     <tp:docstring>
       An Accessible object representing the specified table cell.
     </tp:docstring>
@@ -215,7 +215,7 @@
       The specified table row, zero-indexed.
     </tp:docstring>
     </arg>
-    <arg direction="out" type="o" tp:type="Accessible">
+    <arg direction="out" type="(so)" tp:type="Accessible">
     <tp:docstring>
       An Accessible representatin of the specified table row, if available.
     </tp:docstring>
@@ -232,7 +232,7 @@
       The specified table column, zero-indexed.
     </tp:docstring>
     </arg>
-    <arg direction="out" type="o" tp:type="Accessible">
+    <arg direction="out" type="(so)" tp:type="Accessible">
     <tp:docstring>
       An Accessible representatin of the specified table column, if available.
     </tp:docstring>

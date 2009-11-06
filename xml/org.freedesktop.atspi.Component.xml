@@ -107,7 +107,7 @@
     <arg direction="in" name="x" type="i"/>
     <arg direction="in" name="y" type="i"/>
     <arg direction="in" name="coord_type" type="u" tp:type="COORD_TYPE"/>
-    <arg direction="out" type="o" tp:type="Accessible">
+    <arg direction="out" type="(so)" tp:type="Accessible">
     <tp:docstring>
       The Accessible child whose bounding box contains the specified point. 
     </tp:docstring>

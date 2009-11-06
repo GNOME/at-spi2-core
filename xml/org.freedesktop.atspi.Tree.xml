@@ -11,13 +11,13 @@
 			</tp:docstring>
   		</tp:member>
 	
-		<tp:member type="o" tp:name="parent">
+		<tp:member type="(so)" tp:name="parent">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-				<p>D-Bus path of the parent accessible.</p>
+				<p>D-Bus name and path of the parent accessible.</p>
 			</tp:docstring>
   		</tp:member>
 		
-		<tp:member type="ao" tp:name="children">
+		<tp:member type="a(so)" tp:name="children">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 				<p>Array of all the child accessibles.</p>
 			</tp:docstring>
@@ -81,7 +81,7 @@
 				application. This should be used to create
 				a mirror of the tree of Accessibles within the AT.</p>
 			</tp:docstring>
-			<arg name="nodes" type="a(ooaoassusau)" direction="out" tp:type="AccessibleProxy[]">
+			<arg name="nodes" type="a(o(so)a(so)assusau)" direction="out" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures.</p>
 				</tp:docstring>
@@ -94,7 +94,7 @@
 				accessible objects that have changed since the last
 				updateTree signal was send</p>
 			</tp:docstring>
-			<arg name="nodesAdded" type="(ooaoassusau)" tp:type="AccessibleProxy[]">
+			<arg name="nodesAdded" type="((so)(so)a(so)assusau)" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures to be added.</p>
 				</tp:docstring>

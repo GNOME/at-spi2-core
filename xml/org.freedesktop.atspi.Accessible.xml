@@ -94,7 +94,7 @@
     A string describing the object in more detail than name.
   </tp:docstring>
   </tp:property>
-  <tp:property name="parent" type="o" access="read">
+  <tp:property name="parent" type="(so)" access="read">
   <tp:docstring>
     The Accessible object which is this object's containing object.
   </tp:docstring>
@@ -113,7 +113,7 @@
       an in parameter indicating which child is requested (zero-indexed).
     </tp:docstring>
     </arg>
-    <arg direction="out" type="o" tp:type="Accessible">
+    <arg direction="out" type="(so)" tp:type="Accessible">
     <tp:docstring>
       the 'nth' ::Accessible child of this object.
     </tp:docstring>
@@ -133,7 +133,7 @@
     <tp:docstring>
       Get a set defining this object's relationship to other accessible objects.
     </tp:docstring>
-    <arg direction="out" type="a(uao)" tp:type="RelationSet">
+    <arg direction="out" type="a(ua(so))" tp:type="RelationSet">
     <tp:docstring>
       A RelationSet defining this object's relationships.
     </tp:docstring>
@@ -228,7 +228,7 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Get the containing Application for this object.</p>
     </tp:docstring>
-    <arg direction="out" type="o" tp:type="Application">
+    <arg direction="out" type="(so)" tp:type="Application">
     <tp:docstring>
       The Application instance to which this object belongs.
     </tp:docstring>
