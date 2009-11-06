@@ -37,6 +37,7 @@ G_BEGIN_DECLS
  *@ATK_RELATION_LABELLED_BY: Indicates an object is labelled by one or more target objects.
  *@ATK_RELATION_MEMBER_OF: Indicates an object is a member of a group of one or more target objects.
  *@ATK_RELATION_NODE_CHILD_OF: Indicates an object is a cell in a treetable which is displayed because a cell in the same column is expanded and identifies that cell.
+ *@ATK_RELATION_NODE_PARENT_OF: Indicates an object is a cell in a treetable and is expanded to display other cells in the same column.
  *@ATK_RELATION_FLOWS_TO: Indicates that the object has content that flows logically to another
  *  AtkObject in a sequential way, (for instance text-flow).
  *@ATK_RELATION_FLOWS_FROM: Indicates that the object has content that flows logically from
@@ -64,6 +65,7 @@ typedef enum
   ATK_RELATION_LABELLED_BY,
   ATK_RELATION_MEMBER_OF,
   ATK_RELATION_NODE_CHILD_OF,
+  ATK_RELATION_NODE_PARENT_OF,
   ATK_RELATION_FLOWS_TO,
   ATK_RELATION_FLOWS_FROM,
   ATK_RELATION_SUBWINDOW_OF, 
