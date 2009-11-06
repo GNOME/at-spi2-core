@@ -241,7 +241,7 @@ impl_GetRelationSet (DBusConnection *bus,
   if (!reply) return NULL;
   set = atk_object_ref_relation_set (object);
   dbus_message_iter_init_append (reply, &iter);
-  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(uao)", &iter_array))
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ua(so))", &iter_array))
   {
     goto oom;
   }
@@ -261,7 +261,7 @@ impl_GetRelationSet (DBusConnection *bus,
       goto oom;
     }
     dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &type);
-    if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o", &iter_targets))
+    if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "(so)", &iter_targets))
     {
       goto oom;
     }
@@ -276,7 +276,7 @@ impl_GetRelationSet (DBusConnection *bus,
 	g_warning ("Unknown object in relation type %d\n", type);
 	continue;
       }
-      dbus_message_iter_append_basic (&iter_targets, DBUS_TYPE_OBJECT_PATH, &path);
+      spi_dbus_append_name_and_path_inner (&iter_targets, NULL, path);
     }
     dbus_message_iter_close_container (&iter_struct, &iter_targets);
     dbus_message_iter_close_container (&iter_array, &iter_struct);

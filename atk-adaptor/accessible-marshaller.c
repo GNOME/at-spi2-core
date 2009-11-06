@@ -27,10 +27,44 @@
 
 #include "accessible-register.h"
 #include "accessible-marshaller.h"
+#include "bridge.h"
 
 #include "adaptors.h"
 
 /*---------------------------------------------------------------------------*/
+
+void
+spi_dbus_append_name_and_path_inner (DBusMessageIter *iter, const char *bus_name, const char *path)
+{
+  DBusMessageIter iter_struct;
+
+  if (!bus_name)
+    bus_name = "";
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL, &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &bus_name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  dbus_message_iter_close_container (iter, &iter_struct);
+}
+
+void
+spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean unref)
+{
+  gchar *path;
+  DBusMessageIter iter_struct;
+  const char *bus_name = dbus_message_get_sender (message);
+
+  path = atk_dbus_object_to_path (obj, FALSE);
+
+  if (!path)
+    path = g_strdup (SPI_DBUS_PATH_NULL);
+
+  spi_dbus_append_name_and_path_inner (iter, bus_name, path);
+
+  g_free (path);
+  if (obj && unref)
+    g_object_unref (obj);
+}
 
 /*
  * Marshals the D-Bus path of an AtkObject into a D-Bus message.
@@ -41,24 +75,13 @@ DBusMessage *
 spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean do_register, gboolean unref)
 {
   DBusMessage *reply;
-  gchar *path;
-
-  path = atk_dbus_object_to_path (obj, do_register);
-
-  if (obj && unref)
-    g_object_unref (obj);
-
-  if (!path)
-    path = g_strdup (SPI_DBUS_PATH_NULL);
-
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path,
-                                DBUS_TYPE_INVALID);
+      DBusMessageIter iter;
+      dbus_message_iter_init_append (message, &iter);
+      spi_dbus_append_name_and_path (message, &iter, obj, unref);
     }
-
-  g_free (path);
 
   return reply;
 }
@@ -210,7 +233,7 @@ append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter)
  * Marshals the given AtkObject into the provided D-Bus iterator.
  *
  * The object is marshalled including all its client side cache data.
- * The format of the structure is (ooaoassusau).
+ * The format of the structure is (o(so)a(so)assusau).
  * This is used in the updateTree signal and the GetTree method
  * of the org.freedesktop.atspi.Tree interface.
  *
@@ -218,18 +241,16 @@ append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter)
  * be registered with D-Bus and have been given a D-Bus object path.
  */
 void
-spi_atk_append_accessible(AtkObject *obj, gpointer iter)
+spi_atk_append_accessible(AtkObject *obj, gpointer data)
 {
-  DBusMessageIter *iter_array;
   DBusMessageIter iter_struct, iter_sub_array;
   dbus_uint32_t states [2];
   int count;
   AtkStateSet *set;
+  DBusMessageIter *iter_array = (DBusMessageIter *)data;
 
   const char *name, *desc;
   dbus_uint32_t role;
-
-  iter_array = (DBusMessageIter *) iter;
 
   set = atk_object_ref_state_set (obj);
   dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
@@ -239,7 +260,6 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
 
       /* Marshall object path */
       path = atk_dbus_object_to_path (obj, FALSE);
-      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
 
       /* Marshall parent */
       parent = atk_object_get_parent(obj);
@@ -265,11 +285,13 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
               path_parent = atk_dbus_desktop_object_path ();
             }
         }
-      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path_parent);
+
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+      spi_dbus_append_name_and_path_inner (&iter_struct, NULL, path_parent);
       g_free(path_parent);
 
       /* Marshall children */
-      dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "o", &iter_sub_array);
+      dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "(so)", &iter_sub_array);
       if (!atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
         {
           gint childcount, i;
@@ -284,7 +306,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer iter)
               child_path = atk_dbus_object_to_path (child, FALSE);
               if (child_path)
                 {
-                  dbus_message_iter_append_basic (&iter_sub_array, DBUS_TYPE_OBJECT_PATH, &child_path);
+		  spi_dbus_append_name_and_path_inner (&iter_sub_array, NULL, child_path);
                   g_free (child_path);
                 }
               g_object_unref(G_OBJECT(child));

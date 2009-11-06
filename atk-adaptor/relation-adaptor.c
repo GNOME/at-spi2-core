@@ -46,6 +46,7 @@ spi_init_relation_type_table (Accessibility_RelationType *types)
   types[ATK_RELATION_LABELLED_BY] = Accessibility_RELATION_LABELLED_BY;
   types[ATK_RELATION_MEMBER_OF] = Accessibility_RELATION_MEMBER_OF;
   types[ATK_RELATION_NODE_CHILD_OF] = Accessibility_RELATION_NODE_CHILD_OF;
+  types[ATK_RELATION_NODE_PARENT_OF] = Accessibility_RELATION_NODE_PARENT_OF;
   types[ATK_RELATION_FLOWS_TO] = Accessibility_RELATION_FLOWS_TO;
   types[ATK_RELATION_FLOWS_FROM] = Accessibility_RELATION_FLOWS_FROM;
   types[ATK_RELATION_SUBWINDOW_OF] = Accessibility_RELATION_SUBWINDOW_OF;

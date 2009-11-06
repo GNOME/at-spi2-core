@@ -37,11 +37,11 @@
 
 /* For use as a GHFunc */
 static void
-append_accessible_hf (gpointer key, gpointer obj_data, gpointer iter)
+append_accessible_hf (gpointer key, gpointer obj_data, gpointer data)
 {
   /* Make sure it isn't a hyperlink */
   if (ATK_IS_OBJECT (obj_data))
-    spi_atk_append_accessible (ATK_OBJECT(obj_data), iter);
+    spi_atk_append_accessible (ATK_OBJECT(obj_data), data);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -128,7 +128,7 @@ impl_GetTree (DBusConnection *bus, DBusMessage *message, void *user_data)
   reply = dbus_message_new_method_return (message);
 
   dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(ooaoassusau)", &iter_array);
+  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(o(so)a(so)assusau)", &iter_array);
   atk_dbus_foreach_registered(append_accessible_hf, &iter_array);
   dbus_message_iter_close_container(&iter, &iter_array);
   return reply;

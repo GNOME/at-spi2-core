@@ -18,7 +18,6 @@
   Accessibility::Hypertext\n
   Accessibility::Image\n
   Accessibility::Selection\n
-  Accessibility::StreamableContent\n
   Accessibility::Table\n
   Accessibility::Text\n
   Accessibility::EditableText\n
@@ -95,6 +94,28 @@ typedef enum {
  * 1 higher than the highest valid value of #Accessibility_LOCALE_TYPE.
  */
 #define NUM_ACCESSIBILITY_LOCALE_TYPES (5+1)
+
+/**
+ *
+Accessibility_COORD_TYPE:
+ * @Accessibility_COORD_TYPE_SCREEN: <![CDATA[]]>
+ * @Accessibility_COORD_TYPE_WINDOW: <![CDATA[]]>
+ *
+ * <![CDATA[   Used by Component, Image, and Text interfaces to specify whether coordinates are relative to the window or the screen.   ]]>
+ *
+ * Bitfield/set of flags generated from the AT-SPI specification.
+ */
+typedef enum {
+    Accessibility_COORD_TYPE_SCREEN,
+    Accessibility_COORD_TYPE_WINDOW,
+} Accessibility_COORD_TYPE;
+
+/**
+ * NUM_ACCESSIBILITY_COORD_TYPES:
+ *
+ * 1 higher than the highest valid value of #Accessibility_COORD_TYPE.
+ */
+#define NUM_ACCESSIBILITY_COORD_TYPES (1+1)
 
 /**
  *
@@ -187,7 +208,7 @@ Accessibility_ComponentLayer:
  * @Accessibility_LAYER_BACKGROUND: <![CDATA[     The bottom-most layer, over which everything else is painted.        The 'desktop background' is generally in this layer.    ]]>
  * @Accessibility_LAYER_CANVAS: <![CDATA[     The 'background' layer for most content renderers and UI Component        containers.    ]]>
  * @Accessibility_LAYER_WIDGET: <![CDATA[     The layer in which the majority of ordinary 'foreground' widgets reside.   ]]>
- * @Accessibility_LAYER_MDI: <![CDATA[     A special layer between LAYER_CANVAS and LAYER_WIDGET, in which the       'pseudo windows' (e.g. the MDI frames) reside.        (See Component.getMDIZOrder)    ]]>
+ * @Accessibility_LAYER_MDI: <![CDATA[     A special layer between LAYER_CANVAS and LAYER_WIDGET, in which the       'pseudo windows' (e.g. the MDI frames) reside.        (See Component.GetMDIZOrder)    ]]>
  * @Accessibility_LAYER_POPUP: <![CDATA[     A layer for popup window content, above LAYER_WIDGET.    ]]>
  * @Accessibility_LAYER_OVERLAY: <![CDATA[     The topmost layer.    ]]>
  * @Accessibility_LAYER_WINDOW: <![CDATA[     The layer in which a toplevel window background usually resides.    ]]>
@@ -218,30 +239,6 @@ typedef enum {
 
 /**
  *
-Accessibility_SeekType:
- * @Accessibility_SEEK_SET: <![CDATA[     Seek from the start of the stream or data source.   ]]>
- * @Accessibility_SEEK_CURRENT: <![CDATA[     Seek relative to the current position.    ]]>
- * @Accessibility_SEEK_END: <![CDATA[     Seek from the end of the file, stream, or data source.    ]]>
- *
- * <![CDATA[     Specifies the meaning of a seek 'offset'.  Not all SeekTypes are        supported by all StreamableContent data sources, for instance        some streams may not support seeking from the beginning or other       types of 'backwards' seeks.   ]]>
- *
- * Bitfield/set of flags generated from the AT-SPI specification.
- */
-typedef enum {
-    Accessibility_SEEK_SET,
-    Accessibility_SEEK_CURRENT,
-    Accessibility_SEEK_END,
-} Accessibility_SeekType;
-
-/**
- * NUM_ACCESSIBILITY_SEEKTYPES:
- *
- * 1 higher than the highest valid value of #Accessibility_SeekType.
- */
-#define NUM_ACCESSIBILITY_SEEKTYPES (2+1)
-
-/**
- *
 Accessibility_TEXT_BOUNDARY_TYPE:
  * @Accessibility_TEXT_BOUNDARY_CHAR: <![CDATA[     Text is bounded by this character only.        Start and end offsets differ by one, by definition, for this value.    ]]>
  * @Accessibility_TEXT_BOUNDARY_WORD_START: <![CDATA[     Boundary condition is start of a word; i.e. range is from start of       one word to the start of another word.    ]]>
@@ -251,7 +248,7 @@ Accessibility_TEXT_BOUNDARY_TYPE:
  * @Accessibility_TEXT_BOUNDARY_LINE_START: <![CDATA[      Boundary condition is the start of a line; i.e. range is        from start of one line to the start of another.  This generally        means that an end-of-line character will appear at the end of the range.    ]]>
  * @Accessibility_TEXT_BOUNDARY_LINE_END: <![CDATA[      Boundary condition is the end of a line; i.e. range is       from start of one line to the start of another.  This generally        means that an end-of-line character will be the first character of the range.    ]]>
  *
- * <![CDATA[     Specifies the boundary conditions determining a run of text as returned from       getTextAtOffset, getTextAfterOffset, and getTextBeforeOffset.   ]]>
+ * <![CDATA[     Specifies the boundary conditions determining a run of text as returned from       GetTextAtOffset, GetTextAfterOffset, and GetTextBeforeOffset.   ]]>
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
  */
@@ -452,10 +449,10 @@ Accessibility_KeySynthType:
  * @Accessibility_KEY_PRESS: <![CDATA[     emulate the pressing of a hardware keyboard key.    ]]>
  * @Accessibility_KEY_RELEASE: <![CDATA[     emulate the release of a hardware keyboard key.    ]]>
  * @Accessibility_KEY_PRESSRELEASE: <![CDATA[     a hardware keyboard key is pressed and immediately released.    ]]>
- * @Accessibility_KEY_SYM: <![CDATA[     a symbolic key event is generated, without specifying a hardware key.        @note if the keysym is not present in the current keyboard map,       the DeviceEventController instance has a limited ability to generate       such keysyms on-the-fly.  Reliability of generateKeyboardEvent calls       using out-of-keymap keysyms will vary from system to system, and on the       number of different out-of-keymap being generated in quick succession.       In practice this is rarely significant, since the keysyms of interest to       AT clients and keyboard emulators are usually part of the current keymap, i.e.       present on the system keyboard for the current locale (even if a physical       hardware keyboard is not connected.   ]]>
+ * @Accessibility_KEY_SYM: <![CDATA[     a symbolic key event is generated, without specifying a hardware key.        @note if the keysym is not present in the current keyboard map,       the DeviceEventController instance has a limited ability to generate       such keysyms on-the-fly.  Reliability of GenerateKeyboardEvent calls       using out-of-keymap keysyms will vary from system to system, and on the       number of different out-of-keymap being generated in quick succession.       In practice this is rarely significant, since the keysyms of interest to       AT clients and keyboard emulators are usually part of the current keymap, i.e.       present on the system keyboard for the current locale (even if a physical       hardware keyboard is not connected.   ]]>
  * @Accessibility_KEY_STRING: <![CDATA[     a string is converted to its equivalent keyboard events and emitted.        If the string consists of complex character or composed characters       which are not in the current keymap, string emission is subject to the       out-of-keymap limitations described for KeySynthType::KEY_SYM.       In practice this limitation primarily effects Chinese and Japanese locales.   ]]>
  *
- * <![CDATA[     Used when synthesizing keyboard input via DeviceEventController:generateKeyboardEvent.   ]]>
+ * <![CDATA[     Used when synthesizing keyboard input via DeviceEventController:GenerateKeyboardEvent.   ]]>
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
  */
@@ -516,7 +513,8 @@ Accessibility_RelationType:
  * @Accessibility_RELATION_CONTROLLED_BY: <![CDATA[     Object state, position, etc. is modified/controlled by user interaction with one or        more other objects.   For instance a viewport or scroll pane may be CONTROLLED_BY scrollbars.    ]]>
  * @Accessibility_RELATION_MEMBER_OF: <![CDATA[     Object has a grouping relationship (e.g. 'same group as') to one or more other objects.     ]]>
  * @Accessibility_RELATION_TOOLTIP_FOR: <![CDATA[     Object is a tooltip associated with another object.    ]]>
- * @Accessibility_RELATION_NODE_CHILD_OF: <![CDATA[     Reserved for future use.    ]]>
+ * @Accessibility_RELATION_NODE_CHILD_OF: <![CDATA[     Object is a child of the target.   ]]>
+ * @Accessibility_RELATION_NODE_PARENT_OF: <![CDATA[     Object is a parent of the target.   ]]>
  * @Accessibility_RELATION_EXTENDED: <![CDATA[     Used to indicate that a relationship exists, but its type is not specified in the enumeration       and must be obtained via a call to getRelationTypeName.     ]]>
  * @Accessibility_RELATION_FLOWS_TO: <![CDATA[     Object renders content which flows logically to another object.         For instance, text in a paragraph may flow to another object which is not the        'next sibling' in the accessibility hierarchy.    ]]>
  * @Accessibility_RELATION_FLOWS_FROM: <![CDATA[     Reciprocal of RELATION_FLOWS_TO.    ]]>
@@ -542,6 +540,7 @@ typedef enum {
     Accessibility_RELATION_MEMBER_OF,
     Accessibility_RELATION_TOOLTIP_FOR,
     Accessibility_RELATION_NODE_CHILD_OF,
+    Accessibility_RELATION_NODE_PARENT_OF,
     Accessibility_RELATION_EXTENDED,
     Accessibility_RELATION_FLOWS_TO,
     Accessibility_RELATION_FLOWS_FROM,
@@ -560,7 +559,7 @@ typedef enum {
  *
  * 1 higher than the highest valid value of #Accessibility_RelationType.
  */
-#define NUM_ACCESSIBILITY_RELATIONTYPES (18+1)
+#define NUM_ACCESSIBILITY_RELATIONTYPES (19+1)
 
 /**
  *
@@ -759,74 +758,6 @@ typedef enum {
  * 1 higher than the highest valid value of #Accessibility_Role.
  */
 #define NUM_ACCESSIBILITY_ROLES (90+1)
-
-/**
- *
-Accessibility_LoginHelper_DeviceReq:
- * @Accessibility_LoginHelper_GUI_EVENTS: <![CDATA[        Needs access to the GUI event subsystem (e.g. Xserver)      ]]>
- * @Accessibility_LoginHelper_CORE_KEYBOARD: <![CDATA[       Needs access to the system keyboard events (read and write)      ]]>
- * @Accessibility_LoginHelper_CORE_POINTER: <![CDATA[       Needs access to the onscreen pointer (e.g. mouse pointer)      ]]>
- * @Accessibility_LoginHelper_EXT_INPUT: <![CDATA[       Reads XInput extended input devices      ]]>
- * @Accessibility_LoginHelper_POST_WINDOWS: <![CDATA[       Posts Windows, and needs for toplevel windows to be visible      ]]>
- * @Accessibility_LoginHelper_AUDIO_OUT: <![CDATA[       Writes to audio device      ]]>
- * @Accessibility_LoginHelper_AUDIO_IN: <![CDATA[       Reads from audio device      ]]>
- * @Accessibility_LoginHelper_NETWORK: <![CDATA[       Requires access to general network services, including remote access      ]]>
- * @Accessibility_LoginHelper_LOCALHOST: <![CDATA[       Requires network services hosted on LOCALHOST only      ]]>
- * @Accessibility_LoginHelper_SERIAL_OUT: <![CDATA[       Writes to a serial port      ]]>
- * @Accessibility_LoginHelper_SERIAL_IN: <![CDATA[       !<: Reads from a serial port      ]]>
- *
- * <![CDATA[       The system and device access and services which the LoginHelper-implementing          assistive technology requires in order to enable the user to use the system.         ]]>
- *
- * Bitfield/set of flags generated from the AT-SPI specification.
- */
-typedef enum {
-    Accessibility_LoginHelper_GUI_EVENTS,
-    Accessibility_LoginHelper_CORE_KEYBOARD,
-    Accessibility_LoginHelper_CORE_POINTER,
-    Accessibility_LoginHelper_EXT_INPUT,
-    Accessibility_LoginHelper_POST_WINDOWS,
-    Accessibility_LoginHelper_AUDIO_OUT,
-    Accessibility_LoginHelper_AUDIO_IN,
-    Accessibility_LoginHelper_NETWORK,
-    Accessibility_LoginHelper_LOCALHOST,
-    Accessibility_LoginHelper_SERIAL_OUT,
-    Accessibility_LoginHelper_SERIAL_IN,
-} Accessibility_LoginHelper_DeviceReq;
-
-/**
- * NUM_ACCESSIBILITY_DEVICEREQS:
- *
- * 1 higher than the highest valid value of #Accessibility_LoginHelper_DeviceReq.
- */
-#define NUM_ACCESSIBILITY_DEVICEREQS (10+1)
-
-/**
- *
-Accessibility_Selector_CommandResult:
- * @Accessibility_Selector_COMMAND_RESULT_INVALID: <![CDATA[       The command was invalid or ill-formed; usually indicates         an error condition.      ]]>
- * @Accessibility_Selector_COMMAND_RESULT_SUCCESS: <![CDATA[       The command was successfully activated.      ]]>
- * @Accessibility_Selector_COMMAND_RESULT_FAILED: <![CDATA[       The command was valid, but could not be activated.         This may be due to problems with permissions or error conditions.     ]]>
- * @Accessibility_Selector_COMMAND_RESULT_OBSOLETE: <![CDATA[       The command is no longer valid in the current program context.          This may mean that the application has changed state in such a         way that the specified command it no longer applicable, or         because changes to the application state have rendered it         ambiguous.  Commands should be re-fetched and a new selection         made.     ]]>
- * @Accessibility_Selector_COMMAND_RESULT_LAST_DEFINED: <![CDATA[       Defines size of enumeration;          do not use this value as a parameter.     ]]>
- *
- * <![CDATA[       A code returned by a call to activateCommand, indicating          the result of the activation request.     ]]>
- *
- * Bitfield/set of flags generated from the AT-SPI specification.
- */
-typedef enum {
-    Accessibility_Selector_COMMAND_RESULT_INVALID,
-    Accessibility_Selector_COMMAND_RESULT_SUCCESS,
-    Accessibility_Selector_COMMAND_RESULT_FAILED,
-    Accessibility_Selector_COMMAND_RESULT_OBSOLETE,
-    Accessibility_Selector_COMMAND_RESULT_LAST_DEFINED,
-} Accessibility_Selector_CommandResult;
-
-/**
- * NUM_ACCESSIBILITY_COMMANDRESULTS:
- *
- * 1 higher than the highest valid value of #Accessibility_Selector_CommandResult.
- */
-#define NUM_ACCESSIBILITY_COMMANDRESULTS (4+1)
 
 
 #ifdef __cplusplus
