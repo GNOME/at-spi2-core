@@ -1,4 +1,8 @@
-gtkmoduledir = $(libdir)/$(GTK_MODULE_DIR)
+if RELOCATE
+    gtkmoduledir = $(libdir)/gtk-2.0/modules/at-spi-dbus/modules
+else
+    gtkmoduledir = $(libdir)/gtk-2.0/modules
+endif
 gtkmodule_LTLIBRARIES = libatk-bridge.la
 
 libatk_bridge_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
