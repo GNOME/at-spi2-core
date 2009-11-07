@@ -27,7 +27,7 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#include <droute/droute.h>
+#include <dbus/dbus.h>
 
 typedef struct _SpiRegistry SpiRegistry;
 typedef struct _SpiRegistryClass SpiRegistryClass;
@@ -52,8 +52,7 @@ struct _SpiRegistryClass {
 };
 
 GType        spi_registry_get_type (void);
-SpiRegistry *spi_registry_new      (DBusConnection *bus,
-                                    DRouteContext  *droute);
+SpiRegistry *spi_registry_new      (DBusConnection *bus);
 
 G_END_DECLS
 

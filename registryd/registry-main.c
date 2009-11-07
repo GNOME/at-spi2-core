@@ -26,7 +26,7 @@
 #include <string.h>
 #include <glib.h>
 
-#include <droute/droute.h>
+#include <dbus/dbus.h>
 
 #include "paths.h"
 #include "registry.h"
@@ -49,7 +49,6 @@ main (int argc, char **argv)
 {
   SpiRegistry *registry;
   SpiDEController *dec;
-  DRouteContext *droute;
   gchar *introspection_directory;
 
   GMainLoop *mainloop;
@@ -101,11 +100,8 @@ main (int argc, char **argv)
   if (introspection_directory == NULL)
       introspection_directory = ATSPI_INTROSPECTION_PATH;
 
-  /* Set up D-Route for use by the dec */
-  droute = droute_new (bus, introspection_directory);
-
-  registry = spi_registry_new (bus, droute);
-  dec = spi_registry_dec_new (registry, bus, droute);
+  registry = spi_registry_new (bus);
+  dec = spi_registry_dec_new (registry, bus);
 
   g_main_loop_run (mainloop);
   return 0;

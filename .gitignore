@@ -8,3 +8,4 @@ config.h.in~
 config
 configure
 xml/introspection/org.freedesktop.atspi.*
+m4/*.m4
