@@ -244,6 +244,8 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 
 /*---------------------------------------------------------------------------*/
 
+#define _SPI_DEBUG(format, args...) g_print (format , ## args)
+
 static gchar *app_sig_match_name_owner =
        "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged'";
 
@@ -262,7 +264,7 @@ handle_registry_method (DBusConnection *bus, DBusMessage *message, void *user_da
       iface  == NULL)
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
-  if (!strcmp (iface, SPI_DBUS_INTERFACE_REGISTRY))
+  if (strcmp (iface, SPI_DBUS_INTERFACE_REGISTRY))
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
   if      (!strcmp (member, "getApplications"))

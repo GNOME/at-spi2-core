@@ -2792,7 +2792,7 @@ handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
       iface  == NULL)
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
-  if (!strcmp (iface, SPI_DBUS_INTERFACE_DEC))
+  if (strcmp (iface, SPI_DBUS_INTERFACE_DEC))
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
   if      (!strcmp (member, "registerKeystrokeListener"))
