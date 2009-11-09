@@ -211,6 +211,47 @@ exit_func (void)
 
 /*---------------------------------------------------------------------------*/
 
+#ifdef __ATK_PLUG_H__
+static AtkPlugClass *plug_class;
+static AtkSocketClass *socket_class;
+
+static gchar *
+get_plug_id (AtkPlug *plug)
+{
+  const char *uname = dbus_bus_get_unique_name(atk_adaptor_app_data->bus);
+  gchar *path;
+  GString *str = g_string_new (NULL);
+
+  path = atk_dbus_object_to_path (ATK_OBJECT(plug), TRUE);
+  g_string_printf (str, "%s:%s", uname, path);
+  g_free (path);
+  return g_string_free (str, FALSE);
+}
+
+static void
+socket_embed_hook (AtkSocket *socket, gchar *plug_id)
+{
+  AtkObject *accessible = ATK_OBJECT(socket);
+  /* Force registration */
+  gchar *path = atk_dbus_object_to_path (accessible, TRUE);
+  spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
+  g_free (path);
+}
+
+static void
+install_plug_hooks ()
+{
+  gpointer data;
+  
+  data = g_type_class_ref (ATK_TYPE_PLUG);
+  plug_class = ATK_PLUG_CLASS (data);
+  data = g_type_class_ref (ATK_TYPE_SOCKET);
+  socket_class = ATK_SOCKET_CLASS (data);
+  plug_class->get_object_id = get_plug_id;
+  socket_class->embed = socket_embed_hook;
+}
+#endif
+
 static gchar *atspi_dbus_name;
 static gboolean atspi_no_register;
 
@@ -322,6 +363,11 @@ adaptor_init (gint *argc, gchar **argv[])
 
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
+
+#ifdef __ATK_PLUG_H__
+  /* Hook our plug-and socket functions */
+  install_plug_hooks ();
+#endif
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   register_application (atk_adaptor_app_data);

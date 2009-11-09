@@ -20,6 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <string.h>
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
@@ -312,6 +313,22 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
               g_object_unref(G_OBJECT(child));
             }
         }
+#ifdef __ATK_PLUG_H__
+      if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET(obj)))
+        {
+          AtkSocket *socket = ATK_SOCKET(obj);
+          gchar *child_name, *child_path;
+          child_name = g_strdup (socket->embedded_plug_id);
+          child_path = strchr (child_name + 1, ':');
+          if (child_path)
+            {
+              *(child_path++) = '\0';
+              spi_dbus_append_name_and_path_inner (&iter_sub_array, child_name, child_path);
+            }
+          g_free (child_name);
+        }
+#endif
+
       dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
 
       /* Marshall interfaces */
