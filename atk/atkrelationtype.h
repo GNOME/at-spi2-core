@@ -37,7 +37,6 @@ G_BEGIN_DECLS
  *@ATK_RELATION_LABELLED_BY: Indicates an object is labelled by one or more target objects.
  *@ATK_RELATION_MEMBER_OF: Indicates an object is a member of a group of one or more target objects.
  *@ATK_RELATION_NODE_CHILD_OF: Indicates an object is a cell in a treetable which is displayed because a cell in the same column is expanded and identifies that cell.
- *@ATK_RELATION_NODE_PARENT_OF: Indicates an object is a cell in a treetable and is expanded to display other cells in the same column.
  *@ATK_RELATION_FLOWS_TO: Indicates that the object has content that flows logically to another
  *  AtkObject in a sequential way, (for instance text-flow).
  *@ATK_RELATION_FLOWS_FROM: Indicates that the object has content that flows logically from
@@ -52,6 +51,7 @@ G_BEGIN_DECLS
  *@ATK_RELATION_PARENT_WINDOW_OF: Indicates that an object is a parent window of another object.
  *@ATK_RELATION_DESCRIBED_BY: Indicates that another object provides descriptive information about this object; more verbose than ATK_RELATION_LABELLED_BY.
  *@ATK_RELATION_DESCRIPTION_FOR: Indicates that an object provides descriptive information about another object; more verbose than ATK_RELATION_LABEL_FOR.
+ *@ATK_RELATION_NODE_PARENT_OF: Indicates an object is a cell in a treetable and is expanded to display other cells in the same column.
  *@ATK_RELATION_LAST_DEFINED: Not used, this value indicates the end of the enumeration.
  * 
  *Describes the type of the relation
@@ -65,7 +65,6 @@ typedef enum
   ATK_RELATION_LABELLED_BY,
   ATK_RELATION_MEMBER_OF,
   ATK_RELATION_NODE_CHILD_OF,
-  ATK_RELATION_NODE_PARENT_OF,
   ATK_RELATION_FLOWS_TO,
   ATK_RELATION_FLOWS_FROM,
   ATK_RELATION_SUBWINDOW_OF, 
@@ -75,6 +74,7 @@ typedef enum
   ATK_RELATION_PARENT_WINDOW_OF, 
   ATK_RELATION_DESCRIBED_BY,
   ATK_RELATION_DESCRIPTION_FOR,
+  ATK_RELATION_NODE_PARENT_OF,
   ATK_RELATION_LAST_DEFINED
 } AtkRelationType;
 
