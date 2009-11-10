@@ -8,30 +8,19 @@ libspicommon_la_CFLAGS = $(DBUS_GLIB_CFLAGS)\
 
 libspicommon_la_LIBADD = $(DBUS_GLIB_LIBS)
 
-#spicommonincludedir = $(includedir)/at-spi-1.0/libspi
-#
-#spicommoninclude_HEADERS =		\
-#	bitarray.h \
-#	event-types.h \
-#	generated-types.h \
-#	keymasks.h \
-#	spi-dbus.h \
-#	spi-stateset.h \
-#	spi-types.h
-
-#BUILT_SOURCES = generated-types.h
-#CLEANFILES = generated-types.h
-
-nodist_libspicommon_la_SOURCES = generated-types.h
-
 libspicommon_la_SOURCES =	\
-	bitarray.h \
+	bitarray.h              \
+        keymasks.h              \
+        generated-types.h       \
 	event-types.h		\
 	spi-types.h		\
 	spi-dbus.h		\
-	spi-dbus.c \
-	spi-stateset.h \
+	spi-dbus.c              \
+	spi-stateset.h          \
 	spi-stateset.c
+
+#BUILT_SOURCES = generated-types.h
+#CLEANFILES = generated-types.h
 
 #generated-types.h: $(top_srcdir)/xml/spec.xml $(top_srcdir)/tools/c-constants-generator.xsl
 #	xsltproc --stringparam mixed-case-prefix Accessibility_ $(top_srcdir)/tools/c-constants-generator.xsl $< >$@

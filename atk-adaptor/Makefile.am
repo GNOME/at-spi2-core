@@ -21,6 +21,8 @@ libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
 		          $(ATK_LIBS)       \
 		          $(DBIND_LIBS)	    \
 		          $(DROUTE_LIBS)    \
+		          $(top_builddir)/droute/libdroute.la \
+		          $(top_builddir)/dbind/libdbind.la \
 		          $(top_builddir)/common/libspicommon.la
 
 libatk_bridge_la_SOURCES =	\

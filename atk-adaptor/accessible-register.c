@@ -70,7 +70,7 @@
  */
 
 #define SPI_ATK_OBJECT_PATH_PREFIX  "/org/freedesktop/atspi/accessible"
-#define SPI_ATK_OBJECT_PATH_DESKTOP "/root"
+#define SPI_ATK_OBJECT_PATH_DESKTOP "/desktop"
 
 #define SPI_ATK_PATH_PREFIX_LENGTH 33
 #define SPI_ATK_OBJECT_REFERENCE_TEMPLATE SPI_ATK_OBJECT_PATH_PREFIX "/%d"

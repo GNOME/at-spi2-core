@@ -33,14 +33,6 @@ PKG_CHECK_MODULES(DBUS, [dbus-1 >= 1.0])
 AC_SUBST(DBUS_LIBS)
 AC_SUBST(DBUS_CFLAGS)
 
-PKG_CHECK_MODULES(DROUTE, [droute-0.1 >= 0.1])
-AC_SUBST(DROUTE_LIBS)
-AC_SUBST(DROUTE_CFLAGS)
-
-PKG_CHECK_MODULES(DBIND, [dbind-0.1 >= 0.1])
-AC_SUBST(DBIND_LIBS)
-AC_SUBST(DBIND_CFLAGS)
-
 PKG_CHECK_MODULES(GLIB, [glib-2.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
@@ -98,7 +90,23 @@ else
 fi
 AC_SUBST(EXTRA_SOCKET_LIBS)
 
+dnl find sizes & alignments
+orig_CPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS $DBUS_CFLAGS"
+DBIND_CHECK_ALIGNOF(char)
+DBIND_CHECK_ALIGNOF(dbus_bool_t)
+DBIND_CHECK_ALIGNOF(dbus_int16_t)
+DBIND_CHECK_ALIGNOF(dbus_int32_t)
+DBIND_CHECK_ALIGNOF(dbus_int64_t)
+DBIND_CHECK_ALIGNOF(double)
+DBIND_CHECK_ALIGNOF(dbind_pointer)
+DBIND_CHECK_ALIGNOF(dbind_struct)
+CPPFLAGS=$orig_CPPFLAGS 
+
 AC_CONFIG_FILES([Makefile
+		 droute/Makefile
+		 dbind/Makefile
+		 dbind/dbind-config.h
 		 common/Makefile
 		 atk-adaptor/Makefile
 		 tests/Makefile
