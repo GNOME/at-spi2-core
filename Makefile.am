@@ -1,1 +1,1 @@
-SUBDIRS=common atk-adaptor tests
+SUBDIRS=droute dbind common atk-adaptor tests

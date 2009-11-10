@@ -500,19 +500,27 @@ impl_GetState (DBusConnection *bus,
                void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
-  dbus_uint32_t rv[2];
-  dbus_uint32_t *array = rv;
-  DBusMessage *reply;
+
+  DBusMessage    *reply = NULL;
+  DBusMessageIter iter, iter_array;
+
+  dbus_uint32_t  states [2];
+
+  guint count;
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
-  spi_atk_state_to_dbus_array (object, rv);
+
   reply = dbus_message_new_method_return (message);
-  if (reply)
+  dbus_message_iter_init_append (reply, &iter);
+
+  spi_atk_state_to_dbus_array (object, states);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "u", &iter_array);
+  for (count = 0; count < 2; count++)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_ARRAY, DBUS_TYPE_UINT32, &array,
-				2, DBUS_TYPE_INVALID);
+      dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_UINT32, &states[count]);
     }
+  dbus_message_iter_close_container (&iter, &iter_array);
   return reply;
 }
 
@@ -522,7 +530,7 @@ impl_GetAttributes (DBusConnection *bus,
                     void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
-  DBusMessage *reply;
+  DBusMessage *reply = NULL;
 
   AtkAttributeSet *attributes;
   DBusMessageIter iter;

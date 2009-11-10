@@ -44,4 +44,6 @@ libcspi_la_LIBADD =		        \
         $(X_LIBS)                       \
         $(DBUS_GLIB_LIBS)		\
         $(ATK_LIBS)                     \
+        $(top_builddir)/droute/libdbind.la \
+        $(top_builddir)/droute/libdroute.la \
         $(top_builddir)/common/libspicommon.la
