@@ -31,7 +31,7 @@ void
 spi_dbus_append_name_and_path_inner (DBusMessageIter *iter, const char *bus_name, const char *path);
 
 void
-spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean unref);
+spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean do_register, gboolean unref);
 
 DBusMessage *
 spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean do_register, gboolean unref);

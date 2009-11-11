@@ -114,7 +114,7 @@ impl_GetChildAtIndex (DBusConnection *bus,
   if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
       return spi_dbus_general_error (message);
   child = atk_object_ref_accessible_child (object, i);
-  return spi_dbus_return_object (message, child, FALSE, FALSE);
+  return spi_dbus_return_object (message, child, TRUE, TRUE);
 }
 
 static DBusMessage *
