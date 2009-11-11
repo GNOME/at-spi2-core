@@ -48,13 +48,13 @@ spi_dbus_append_name_and_path_inner (DBusMessageIter *iter, const char *bus_name
 }
 
 void
-spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean unref)
+spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean do_register, gboolean unref)
 {
   gchar *path;
   DBusMessageIter iter_struct;
-  const char *bus_name = dbus_message_get_sender (message);
+  const char *bus_name = dbus_bus_get_unique_name (atk_adaptor_app_data->bus);
 
-  path = atk_dbus_object_to_path (obj, FALSE);
+  path = atk_dbus_object_to_path (obj, do_register);
 
   if (!path)
     path = g_strdup (SPI_DBUS_PATH_NULL);
@@ -79,8 +79,8 @@ spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean do_regist
   if (reply)
     {
       DBusMessageIter iter;
-      dbus_message_iter_init_append (message, &iter);
-      spi_dbus_append_name_and_path (message, &iter, obj, unref);
+      dbus_message_iter_init_append (reply, &iter);
+      spi_dbus_append_name_and_path (message, &iter, obj, do_register, unref);
     }
 
   return reply;
@@ -129,6 +129,7 @@ spi_dbus_return_sub_object (DBusMessage *message, GObject *sub, GObject *contain
 dbus_bool_t
 spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
 {
+  DBusMessageIter iter_variant;
   char *path;
 
   path = atk_dbus_object_to_path (obj, FALSE);
@@ -139,7 +140,9 @@ spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
   if (unref)
     g_object_unref (obj);
 
-  return droute_return_v_object (iter, path);
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)", &iter_variant);
+  spi_dbus_append_name_and_path_inner (&iter_variant, NULL, path);
+  dbus_message_iter_close_container (iter, &iter_variant);
 }
 
 /*---------------------------------------------------------------------------*/
