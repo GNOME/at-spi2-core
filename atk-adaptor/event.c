@@ -679,12 +679,20 @@ generic_event_listener (GSignalInvocationHint *signal_hint,
   AtkObject *accessible;
   GSignalQuery signal_query;
   const gchar *name;
+  int detail1 = 0, detail2 = 0;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
 
   accessible = ATK_OBJECT(g_value_get_object(&param_values[0]));
-  emit(accessible, ITF_EVENT_OBJECT, name, "", 0, 0, DBUS_TYPE_INT32_AS_STRING, 0);
+
+  if (n_param_values > 1 && G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
+        detail1 = g_value_get_int (&param_values[1]);
+
+  if (n_param_values > 2 && G_VALUE_TYPE (&param_values[2]) == G_TYPE_INT)
+        detail2 = g_value_get_int (&param_values[2]);
+
+  emit(accessible, ITF_EVENT_OBJECT, name, "", detail1, detail2, DBUS_TYPE_INT32_AS_STRING, 0);
   return TRUE;
 }
 
