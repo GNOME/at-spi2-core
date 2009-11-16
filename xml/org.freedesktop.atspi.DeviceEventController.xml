@@ -41,7 +41,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deRegisterKeystrokeListener">
+  <method name="DeregisterKeystrokeListener">
     <tp:docstring>
       De-register a previously registered keyboard eventlistener.
     </tp:docstring>
@@ -88,7 +88,7 @@
     </tp:docstring>
     </arg>
   </method>
-  <method name="deRegisterDeviceEventListener">
+  <method name="DeregisterDeviceEventListener">
     <tp:docstring>
       De-register a previously registered keyboard eventlistener.
     </tp:docstring>

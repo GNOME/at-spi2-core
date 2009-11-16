@@ -2042,7 +2042,7 @@ spi_remove_device_listeners (SpiDEController *controller, const char *bus_name)
 }
 
 /*
- * DBus Accessibility::DEController::deRegisterKeystrokeListener
+ * DBus Accessibility::DEController::DeregisterKeystrokeListener
  *     method implementation
  */
 static DBusMessage *
@@ -2094,7 +2094,7 @@ impl_deregister_keystroke_listener (DBusConnection *bus,
 }
 
 /*
- * DBus Accessibility::DEController::deRegisterDeviceEventListener
+ * DBus Accessibility::DEController::DeregisterDeviceEventListener
  *     method implementation
  */
 static DBusMessage *
@@ -2763,8 +2763,8 @@ static DRouteMethod dev_methods[] =
 {
   { impl_register_keystroke_listener, "RegisterKeystrokeListener" },
   { impl_register_device_event_listener, "RegisterDeviceEventListener" },
-  { impl_deregister_keystroke_listener, "deRegisterKeystrokeListener" },
-  { impl_deregister_device_event_listener, "deRegisterDeviceEventListener" },
+  { impl_deregister_keystroke_listener, "DeregisterKeystrokeListener" },
+  { impl_deregister_device_event_listener, "DeregisterDeviceEventListener" },
   { impl_generate_keyboard_event, "GenerateKeyboardEvent" },
   { impl_generate_mouse_event, "GenerateMouseEvent" },
   { impl_notify_listeners_sync, "NotifyListenersSync" },
