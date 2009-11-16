@@ -144,6 +144,7 @@ spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref)
   dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)", &iter_variant);
   spi_dbus_append_name_and_path_inner (&iter_variant, NULL, path);
   dbus_message_iter_close_container (iter, &iter_variant);
+  return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
