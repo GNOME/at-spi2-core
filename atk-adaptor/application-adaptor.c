@@ -28,14 +28,14 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_toolkitName (DBusMessageIter * iter,
+impl_get_ToolkitName (DBusMessageIter * iter,
 		      void *user_data)
 {
   return droute_return_v_string (iter, atk_get_toolkit_name ());
 }
 
 static dbus_bool_t
-impl_get_version (DBusMessageIter * iter, void *user_data)
+impl_get_Version (DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_string (iter, atk_get_toolkit_version ());
 }
@@ -43,13 +43,13 @@ impl_get_version (DBusMessageIter * iter, void *user_data)
 static dbus_int32_t id;
 
 static dbus_bool_t
-impl_get_id (DBusMessageIter * iter, void *user_data)
+impl_get_Id (DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_int32 (iter, id);
 }
 
 static dbus_bool_t
-impl_set_id (DBusMessageIter * iter, void *user_data)
+impl_set_Id (DBusMessageIter * iter, void *user_data)
 {
   id = droute_get_v_int32 (iter);
   return TRUE;
@@ -97,9 +97,9 @@ static DRouteMethod methods[] = {
 };
 
 static DRouteProperty properties[] = {
-  {impl_get_toolkitName, NULL, "toolkitName"},
-  {impl_get_version, NULL, "version"},
-  {impl_get_id, impl_set_id, "id"},
+  {impl_get_ToolkitName, NULL, "ToolkitName"},
+  {impl_get_Version, NULL, "Version"},
+  {impl_get_Id, impl_set_Id, "Id"},
   {NULL, NULL, NULL}
 };
 
