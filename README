@@ -68,22 +68,6 @@ The directories within this package are arranged as follows:
         Miscellaneous tools. Mostly for converting protocol
         XML into D-Bus introspection, 'C' types and documentation.
 
-    droute
-
-        Contains a framework for registering objects
-        with a D-Bus connection and for routing messages to
-        the implementing object.
-
-        Used by the ATK adaptor.
-
-    dbind
-
-        Library to ease making D-Bus method calls, contains
-        marshalling code to convert function arguments
-        and a provided D-Bus signature into a D-Bus message.
-
-        Used by cspi.
-
     registryd
 
         The registry daemon code. The registry daemon
