@@ -804,6 +804,10 @@ tree_update_children_action (GSignalInvocationHint *signal_hint,
           register_subtree (child);
           update_accessible (accessible);
         }
+      else if (!strcmp (detail, "remove"))
+      {
+        update_accessible (accessible);
+      }
       return TRUE;
 }
 
