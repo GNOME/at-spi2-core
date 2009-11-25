@@ -20,7 +20,6 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <string.h>
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
@@ -258,19 +257,25 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
   dbus_uint32_t role;
 
   set = atk_object_ref_state_set (obj);
-  dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
     {
       AtkObject *parent;
-      gchar *path, *path_parent;
+      gchar *path;
+      gchar *bus_parent = NULL, *path_parent;
 
       /* Marshall object path */
       path = atk_dbus_object_to_path (obj, FALSE);
+
+      role = spi_accessible_role_from_atk_role (atk_object_get_role (obj));
 
       /* Marshall parent */
       parent = atk_object_get_parent(obj);
       if (parent == NULL)
         {
-          path_parent = atk_dbus_desktop_object_path ();
+          /* TODO: Support getting parent of an AtkPlug */
+          if (role != Accessibility_ROLE_APPLICATION && !ATK_IS_PLUG (obj))
+            path_parent = g_strdup (SPI_DBUS_PATH_NULL);
+          else
+            path_parent = atk_dbus_desktop_object_path ();
         }
       else
         {
@@ -291,9 +296,11 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
             }
         }
 
+      dbus_message_iter_open_container (iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-      spi_dbus_append_name_and_path_inner (&iter_struct, NULL, path_parent);
+      spi_dbus_append_name_and_path_inner (&iter_struct, bus_parent, path_parent);
       g_free(path_parent);
+      g_free (bus_parent);
 
       /* Marshall children */
       dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "(so)", &iter_sub_array);
@@ -323,7 +330,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
           AtkSocket *socket = ATK_SOCKET(obj);
           gchar *child_name, *child_path;
           child_name = g_strdup (socket->embedded_plug_id);
-          child_path = strchr (child_name + 1, ':');
+          child_path = g_utf8_strchr (child_name + 1, -1, ':');
           if (child_path)
             {
               *(child_path++) = '\0';
@@ -347,7 +354,6 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
 
       /* Marshall role */
-      role = spi_accessible_role_from_atk_role (atk_object_get_role (obj));
       dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_UINT32, &role);
 
       /* Marshall description */
