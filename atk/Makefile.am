@@ -37,10 +37,12 @@ libatk_1_0_la_SOURCES = 	\
 	atknoopobjectfactory.c	\
 	atkobject.c		\
 	atkobjectfactory.c	\
+	atkplug.c		\
 	atkregistry.c		\
 	atkrelation.c		\
 	atkrelationset.c	\
 	atkselection.c		\
+	atksocket.c		\
 	atkstate.c		\
 	atkstateset.c		\
 	atkstreamablecontent.c	\
@@ -67,12 +69,14 @@ atk_headers = \
         atknoopobjectfactory.h	\
         atkobject.h		\
 	atkobjectfactory.h	\
+        atkplug.h		\
         atkimage.h		\
         atkregistry.h		\
         atkrelation.h		\
         atkrelationtype.h	\
         atkrelationset.h	\
         atkselection.h		\
+        atksocket.h		\
         atkstate.h		\
         atkstateset.h		\
         atkstreamablecontent.h	\

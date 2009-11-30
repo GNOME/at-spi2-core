@@ -35,11 +35,13 @@
 #include <atk/atknoopobject.h>
 #include <atk/atknoopobjectfactory.h>
 #include <atk/atkobjectfactory.h>
+#include <atk/atkplug.h>
 #include <atk/atkregistry.h>
 #include <atk/atkrelation.h>
 #include <atk/atkrelationset.h>
 #include <atk/atkrelationtype.h>
 #include <atk/atkselection.h>
+#include <atk/atksocket.h>
 #include <atk/atkstate.h>
 #include <atk/atkstateset.h>
 #include <atk/atkstreamablecontent.h>
