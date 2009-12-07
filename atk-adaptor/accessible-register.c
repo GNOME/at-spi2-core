@@ -266,6 +266,8 @@ register_gobject (GObject *gobj, GObject *container)
     if (atk_state_set_contains_state (state, ATK_STATE_TRANSIENT))
     {
       g_object_ref (gobj);
+      /* We should only get here as the result of a query other than GetTree */
+      spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
     }
     g_object_unref (state);
   }
