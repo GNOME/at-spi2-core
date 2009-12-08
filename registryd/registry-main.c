@@ -170,6 +170,108 @@ register_client (void)
         return TRUE;
 }
 
+/*---------------------------------------------------------------------------*/
+
+/*
+ * Returns a 'canonicalized' value for DISPLAY,
+ * with the screen number stripped off if present.
+ *
+ */
+static const gchar*
+spi_display_name (void)
+{
+    static const char *canonical_display_name = NULL;
+    if (!canonical_display_name)
+      {
+        const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+        if (!display_env)
+          {
+            display_env = g_getenv ("DISPLAY");
+            if (!display_env || !display_env[0]) 
+                canonical_display_name = ":0";
+            else
+              {
+                gchar *display_p, *screen_p;
+                canonical_display_name = g_strdup (display_env);
+                display_p = strrchr (canonical_display_name, ':');
+                screen_p = strrchr (canonical_display_name, '.');
+                if (screen_p && display_p && (screen_p > display_p))
+                  {
+                    *screen_p = '\0';
+                  }
+              }
+          }
+        else
+          {
+            canonical_display_name = display_env;
+          }
+      }
+    return canonical_display_name;
+}
+
+/*---------------------------------------------------------------------------*/
+
+/*
+ * Gets the IOR from the XDisplay.
+ * Not currently used in D-Bus version, but something similar
+ * may be employed in the future for accessing the registry daemon
+ * bus name.
+ */
+
+static DBusConnection *
+spi_get_bus (void)
+{
+     Atom AT_SPI_BUS;
+     Atom actual_type;
+     Display *bridge_display;
+     int actual_format;
+     unsigned char *data = NULL;  
+     unsigned long nitems;
+     unsigned long leftover;
+
+     DBusConnection *bus = NULL;
+     DBusError       error;
+
+     bridge_display = XOpenDisplay (spi_display_name ());
+     if (!bridge_display)
+	g_error ("AT_SPI: Could not get the display");
+
+     AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", FALSE); 
+     XGetWindowProperty(bridge_display, 
+                        XDefaultRootWindow (bridge_display),
+                        AT_SPI_BUS, 0L,
+                        (long)BUFSIZ, False,
+                        (Atom) 31, &actual_type, &actual_format,
+                        &nitems, &leftover, &data);
+
+     dbus_error_init (&error);
+
+     if (data == NULL)
+     {
+         g_warning ("AT-SPI: Accessibility bus not found - Using session bus.");
+         bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+         if (!bus)
+             g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+     }
+     else
+     {
+	 bus = dbus_connection_open (data, &error);
+         if (!bus)
+         {
+             g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+         }
+	 else
+         {
+	     if (!dbus_bus_register (bus, &error))
+	         g_error ("AT-SPI: Couldn't register with bus: %s\n");
+         } 
+     }
+
+     return bus;
+}
+
+/*---------------------------------------------------------------------------*/
+
 int
 main (int argc, char **argv)
 {
@@ -177,7 +279,7 @@ main (int argc, char **argv)
   SpiDEController *dec;
   gchar *introspection_directory;
 
-  DBusConnection *bus;
+  DBusConnection *bus = NULL;
 
   GOptionContext *opt;
 
@@ -202,13 +304,14 @@ main (int argc, char **argv)
 
   dbus_error_init (&error);
   bus = dbus_bus_get(DBUS_BUS_SESSION, &error);
+  bus = spi_get_bus ();
   if (!bus)
   {
-    g_warning("Couldn't connect to dbus: %s\n", error.message);
+    return 0;
   }
 
   mainloop = g_main_loop_new (NULL, FALSE);
-  dbus_connection_setup_with_g_main(bus, g_main_context_default());
+  dbus_connection_setup_with_g_main(bus, NULL);
 
   ret = dbus_bus_request_name(bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
   if (ret == DBUS_REQUEST_NAME_REPLY_EXISTS)
