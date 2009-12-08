@@ -29,6 +29,7 @@
 #include <X11/Xatom.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdarg.h>
 #include <atk/atk.h>
 
@@ -62,10 +63,7 @@ static const AtkMisc *atk_misc = NULL;
  * Returns a 'canonicalized' value for DISPLAY,
  * with the screen number stripped off if present.
  *
- * Not currently used in D-Bus version but may be
- * useful in future if we make use of XAtom.
  */
-#if 0
 static const gchar*
 spi_display_name (void)
 {
@@ -97,7 +95,6 @@ spi_display_name (void)
       }
     return canonical_display_name;
 }
-#endif
 
 /*---------------------------------------------------------------------------*/
 
@@ -107,31 +104,58 @@ spi_display_name (void)
  * may be employed in the future for accessing the registry daemon
  * bus name.
  */
-#if 0
-static gchar *
-spi_atk_bridge_get_registry_ior (void)
+
+static DBusConnection *
+spi_atk_bridge_get_bus (void)
 {
-     Atom AT_SPI_IOR;
+     Atom AT_SPI_BUS;
      Atom actual_type;
+     Display *bridge_display;
      int actual_format;
      unsigned char *data = NULL;  
      unsigned long nitems;
      unsigned long leftover;
-     if (!bridge_display) 
-       bridge_display = XOpenDisplay (spi_display_name ());
 
-     AT_SPI_IOR = XInternAtom (bridge_display, "AT_SPI_IOR", False); 
+     DBusConnection *bus = NULL;
+     DBusError       error;
+
+     bridge_display = XOpenDisplay (spi_display_name ());
+     if (!bridge_display)
+	g_error ("AT_SPI: Could not get the display\n");
+
+     AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False); 
      XGetWindowProperty(bridge_display, 
                         XDefaultRootWindow (bridge_display),
-                        AT_SPI_IOR, 0L,
+                        AT_SPI_BUS, 0L,
                         (long)BUFSIZ, False,
                         (Atom) 31, &actual_type, &actual_format,
                         &nitems, &leftover, &data);
+
+     dbus_error_init (&error);
+
      if (data == NULL)
-         g_warning (_("AT_SPI_REGISTRY was not started at session startup."));
-     return (gchar *) data;
+     {
+         g_warning (_("AT-SPI: Accessibility bus bus not found - Using session bus.\n"));
+         bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+         if (!bus)
+             g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+     }
+     else
+     {
+	 bus = dbus_connection_open (data, &error);
+         if (!bus)
+         {
+             g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+         }
+	 else
+         {
+	     if (!dbus_bus_register (bus, &error))
+	         g_error ("AT-SPI: Couldn't register with bus: %s\n");
+         } 
+     }
+
+     return bus;
 }
-#endif
 
 /*---------------------------------------------------------------------------*/
 
@@ -141,7 +165,7 @@ register_application (SpiAppData *app)
   DBusMessage *message;
   DBusMessageIter iter;
   DBusError error;
-  const char *uname;
+  const char *uname = NULL;
 
   dbus_error_init (&error);
 
@@ -152,6 +176,10 @@ register_application (SpiAppData *app)
   dbus_message_set_no_reply (message, TRUE);
 
   uname = dbus_bus_get_unique_name(app->bus);
+  if (!uname)
+  {
+      g_error ("AT-SPI: Couldn't get unique name for this connection");
+  }
 
   dbus_message_iter_init_append(message, &iter);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &uname);
@@ -252,8 +280,8 @@ install_plug_hooks ()
 }
 #endif
 
-static gchar *atspi_dbus_name;
-static gboolean atspi_no_register;
+static gchar *atspi_dbus_name = NULL;
+static gboolean atspi_no_register = FALSE;
 
 static GOptionEntry atspi_option_entries[] =
 {
@@ -307,18 +335,24 @@ adaptor_init (gint *argc, gchar **argv[])
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
-  atk_adaptor_app_data->bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+  atk_adaptor_app_data->bus = spi_atk_bridge_get_bus ();
   if (!atk_adaptor_app_data->bus)
   {
-    g_warning ("AT-SPI Couldn't connect to D-Bus: %s\n", error.message);
     g_free(atk_adaptor_app_data);
     atk_adaptor_app_data = NULL;
     return 0;
   }
-  if (atspi_dbus_name != NULL &&
-      dbus_bus_request_name(atk_adaptor_app_data->bus, atspi_dbus_name, 0, &error))
+
+  if (atspi_dbus_name != NULL)
   {
-    g_print("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
+    if (dbus_bus_request_name(atk_adaptor_app_data->bus, atspi_dbus_name, 0, &error))
+    {
+      g_print("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
+    }
+    else
+    {
+      g_print("AT-SPI D-Bus name requested but could not be allocated - %s\n", atspi_dbus_name);
+    }
   }
 
   dbus_connection_setup_with_g_main(atk_adaptor_app_data->bus, g_main_context_default());
@@ -370,7 +404,8 @@ adaptor_init (gint *argc, gchar **argv[])
 #endif
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
-  register_application (atk_adaptor_app_data);
+  if (!atspi_no_register)
+    register_application (atk_adaptor_app_data);
 
   g_atexit (exit_func);
 

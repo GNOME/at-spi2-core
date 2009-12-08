@@ -63,6 +63,13 @@ AC_SUBST(GTK_CFLAGS)
 
 AC_PATH_XTRA
 
+if test x$no_x = xyes ; then
+	AC_MSG_ERROR([X development libraries not found])
+else
+	X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
+fi
+AC_SUBST(X_LIBS)
+
 AC_ARG_VAR([DEFAULT_ATSPI_INTROSPECTION_PATH],
 	   [Set the default path for the install ofDBus introspection XML
 	    relative to the pkgdatadir.])
