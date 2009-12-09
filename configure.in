@@ -42,6 +42,8 @@ AC_INIT(atk, [atk_version],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=atk])
 AC_CONFIG_SRCDIR([ChangeLog])
 
+AC_CONFIG_MACRO_DIR([m4])
+
 AM_CONFIG_HEADER(config.h)
 
 AM_INIT_AUTOMAKE
