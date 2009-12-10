@@ -39,17 +39,19 @@
 
 static GMainLoop *mainloop;
 static gchar *dbus_name = NULL;
+static gboolean use_gnome_session = FALSE;
+
+static GOptionEntry optentries[] =
+{
+  {"dbus-name", 0, 0, G_OPTION_ARG_STRING, &dbus_name, "Well-known name to register with D-Bus", NULL},
+  {"use-gnome-session", 0, 0, G_OPTION_ARG_NONE, &use_gnome_session, "Should register with gnome session manager", NULL},
+  {NULL}
+};
 
 static DBusGConnection *bus_connection = NULL;
 static DBusGProxy      *sm_proxy = NULL;
 static char            *client_id = NULL;
 static DBusGProxy      *client_proxy = NULL;
-
-static GOptionEntry optentries[] =
-{
-  {"dbus-name", 0, 0, G_OPTION_ARG_STRING, &dbus_name, "Well-known name to register with D-Bus", NULL},
-  {NULL}
-};
 
 #define SM_DBUS_NAME      "org.gnome.SessionManager"
 #define SM_DBUS_PATH      "/org/gnome/SessionManager"
@@ -248,7 +250,7 @@ spi_get_bus (void)
 
      if (data == NULL)
      {
-         g_warning ("AT-SPI: Accessibility bus not found - Using session bus.");
+         g_warning ("AT-SPI: Accessibility bus bus not found - Using session bus.\n");
          bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
          if (!bus)
              g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
@@ -331,14 +333,13 @@ main (int argc, char **argv)
   registry = spi_registry_new (bus);
   dec = spi_registry_dec_new (registry, bus);
 
-  if (!session_manager_connect ())
+  if (use_gnome_session)
     {
-      g_warning ("Unable to connect to session manager");
-    }     
+      if (!session_manager_connect ())
+          g_warning ("Unable to connect to session manager");
 
-  if (!register_client ())
-    {
-      g_warning ("Unable to register client with session manager");
+      if (!register_client ())
+          g_warning ("Unable to register client with session manager");
     }
 
   g_main_loop_run (mainloop);
