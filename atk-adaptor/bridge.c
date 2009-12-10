@@ -135,7 +135,7 @@ spi_atk_bridge_get_bus (void)
 
      if (data == NULL)
      {
-         g_warning (_("AT-SPI: Accessibility bus bus not found - Using session bus.\n"));
+         g_warning ("AT-SPI: Accessibility bus not found - Using session bus.\n");
          bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
          if (!bus)
              g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
