@@ -272,7 +272,11 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
       if (parent == NULL)
         {
           /* TODO: Support getting parent of an AtkPlug */
+#ifdef __ATK_PLUG_H__
           if (role != Accessibility_ROLE_APPLICATION && !ATK_IS_PLUG (obj))
+#else
+          if (role != Accessibility_ROLE_APPLICATION)
+#endif
             path_parent = g_strdup (SPI_DBUS_PATH_NULL);
           else
             path_parent = atk_dbus_desktop_object_path ();
