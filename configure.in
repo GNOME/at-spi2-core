@@ -46,7 +46,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([-Wno-portability])
 
 dnl ==========================================================================
 dnl
@@ -185,7 +185,7 @@ AM_GLIB_GNU_GETTEXT
 
 AC_CHECK_FUNCS(bind_textdomain_codeset)
 
-GOBJECT_INTROSPECTION_CHECK([0.6.4])
+GOBJECT_INTROSPECTION_CHECK([0.6.7])
 
 GTK_DOC_CHECK([1.0])
 

@@ -2,6 +2,9 @@
 # which are more like other make's VPATH.
 GPATH = $(srcdir)
 
+include $(INTROSPECTION_MAKEFILE)
+INTROSPECTION_GIRS =
+
 CLEANFILES =
 
 if PLATFORM_WIN32
@@ -140,32 +143,26 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 	&& rm -f tmp-atk-enum-types.c \
 	&& echo timestamp > $(@F)
 
+
 if HAVE_INTROSPECTION
-BUILT_GIRSOURCES =
+introspection_sources = \
+    $(libatkinclude_HEADERS) \
+    $(libatk_1_0_la_SOURCES)
 
-Atk-1.0.gir: $(INTROSPECTION_SCANNER) libatk-1.0.la Makefile
-	$(INTROSPECTION_SCANNER) -v \
-		--namespace Atk --nsversion=1.0 \
-		$(INCLUDES) \
-		--include=GObject-2.0 \
-		--library=libatk-1.0.la \
-		--libtool="$(LIBTOOL)" \
-	        --output $@ \
-		$(libatkinclude_HEADERS) \
-		$(libatk_1_0_la_SOURCES)
-BUILT_GIRSOURCES += Atk-1.0.gir
+Atk-1.0.gir: libatk-1.0.la
+Atk_1_0_gir_INCLUDES = GObject-2.0
+Atk_1_0_gir_CFLAGS = $(INCLUDES)
+Atk_1_0_gir_LIBS = libatk-1.0.la
+Atk_1_0_gir_FILES = $(addprefix $(srcdir)/, $(introspection_sources))
+INTROSPECTION_GIRS += Atk-1.0.gir
 
-girdir = $(datadir)/gir-1.0
-gir_DATA = $(BUILT_GIRSOURCES)
+girdir = $(INTROSPECTION_GIRDIR)
+dist_gir_DATA = $(INTROSPECTION_GIRS)
 
-typelibsdir = $(libdir)/girepository-1.0/
+typelibsdir = $(INTROSPECTION_TYPELIBDIR)
+typelibs_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
-typelibs_DATA = $(BUILT_GIRSOURCES:.gir=.typelib)
-
-%.typelib: %.gir $(INTROSPECTION_COMPILER)
-	$(DEBUG) $(INTROSPECTION_COMPILER) --includedir=$(srcdir) --includedir=. $(INTROSPECTION_COMPILER_OPTS) $< -o $(@F)
-
-CLEANFILES += $(BUILT_GIRSOURCES) $(typelibs_DATA)
+CLEANFILES += $(dist_gir_DATA) $(typelibs_DATA)
 endif
 
 # ---------- Win32 stuff ----------
