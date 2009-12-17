@@ -1,0 +1,7 @@
+#!/bin/sh
+
+prefix=@prefix@
+sysconfdir=@sysconfdir@
+
+address=`dbus-daemon --config-file=${sysconfdir}/at-spi2/accessibility.conf --print-address`
+xprop -root -f AT_SPI_BUS 8s -set AT_SPI_BUS ${address}
