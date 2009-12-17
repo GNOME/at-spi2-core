@@ -449,6 +449,7 @@ handle_introspection (DBusConnection *bus,
     for (i=0; i < path->interfaces->len; i++)
       {
         gchar *interface = (gchar *) g_ptr_array_index (path->interfaces, i);
+        _DROUTE_DEBUG ("DRoute (appending interface): %s\n", interface);
         append_interface(output, interface, path->cnx->introspect_dir);
       }
 

@@ -10,7 +10,7 @@ libatk_bridge_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		          $(DBIND_CFLAGS)     \
 		          $(DROUTE_CFLAGS)    \
 		          -I$(top_srcdir)     \
-		          -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
+		          -DATSPI_INTROSPECTION_PATH=\"$(datarootdir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 libatk_bridge_la_LDFLAGS = -no-undefined  \
 		           -module        \
