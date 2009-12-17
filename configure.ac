@@ -107,7 +107,7 @@ AC_ARG_VAR([DEFAULT_ATSPI_INTROSPECTION_PATH],
 	   [Set the default path for the install ofDBus introspection XML
 	    relative to the pkgdatadir.])
 if test -z "$DEFAULT_ATSPI_INTROSPECTION_PATH"; then
-	  DEFAULT_ATSPI_INTROSPECTION_PATH=dbus
+	  DEFAULT_ATSPI_INTROSPECTION_PATH=at-spi2/dbus
 fi
 
 AC_ARG_WITH(dbus-services,

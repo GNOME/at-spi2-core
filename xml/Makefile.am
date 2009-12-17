@@ -40,5 +40,5 @@ $(INTROSPECT_FILES): introspection/%: %.xml ../tools/spec-to-introspect.xsl
 	@mkdir -p introspection
 	xsltproc ../tools/spec-to-introspect.xsl $< |sed -e 's@xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec.extensions-v0"@@g' >$@
 
-introspectdir = $(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)
+introspectdir = $(datarootdir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)
 dist_introspect_DATA = $(INTROSPECT_FILES)
