@@ -1,5 +1,5 @@
-configdir=$(sysconfdir)/at-spi2
-config_DATA=\
+busconfigdir=$(sysconfdir)/at-spi2
+busconfig_DATA=\
 	accessibility.conf			
 
 atspidbusdir=$(bindir)
@@ -9,3 +9,6 @@ atspidbus_SCRIPTS=\
 default_sessiondir = $(sysconfdir)/xdg/autostart
 default_session_DATA = at-spi-dbus-bus.desktop
 
+EXTRA_DIST= \
+            accessibility.conf \
+            at-spi-dbus-bus.desktop
