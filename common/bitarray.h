@@ -29,7 +29,4 @@
 #define BITARRAY_SEQ_TERM 0xffffffff
 
 #define BITARRAY_SET(p, n) ((p)[n>>5] |= (1<<(n&31)))
-
-gint bitarray_to_seq(dbus_uint32_t *array, gint array_size, gint **out);
-dbus_uint32_t bitarray_from_seq(gint *seq, dbus_uint32_t **out);
 #endif	/* _BITARRAY_H */

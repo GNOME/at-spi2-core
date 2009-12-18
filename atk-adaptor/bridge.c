@@ -280,7 +280,7 @@ install_plug_hooks ()
 }
 #endif
 
-static gchar *atspi_dbus_name = NULL;
+gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
 
 static GOptionEntry atspi_option_entries[] =

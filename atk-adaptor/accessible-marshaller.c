@@ -47,19 +47,20 @@ spi_dbus_append_name_and_path_inner (DBusMessageIter *iter, const char *bus_name
   dbus_message_iter_close_container (iter, &iter_struct);
 }
 
+extern gchar *atspi_dbus_name;
+
 void
 spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean do_register, gboolean unref)
 {
   gchar *path;
   DBusMessageIter iter_struct;
-  const char *bus_name = dbus_bus_get_unique_name (atk_adaptor_app_data->bus);
 
   path = atk_dbus_object_to_path (obj, do_register);
 
   if (!path)
     path = g_strdup (SPI_DBUS_PATH_NULL);
 
-  spi_dbus_append_name_and_path_inner (iter, bus_name, path);
+  spi_dbus_append_name_and_path_inner (iter, atspi_dbus_name, path);
 
   g_free (path);
   if (obj && unref)

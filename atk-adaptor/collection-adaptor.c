@@ -182,8 +182,6 @@ static gboolean
 match_roles_all_p (AtkObject *child, 
                    gint *roles)
 {
-   Accessibility_Role role; 
-
      if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM) return TRUE;
      else if (roles[1] != BITARRAY_SEQ_TERM) return FALSE;
 
@@ -195,12 +193,12 @@ static gboolean
 match_roles_any_p (AtkObject *child, 
                    gint *roles)
 {
-     AtkRole role;
+     Accessibility_Role role;
      int i;
 
      if (roles == NULL || roles[0] == BITARRAY_SEQ_TERM) return TRUE;
 
-     role = atk_object_get_role(child);
+     role = spi_accessible_role_from_atk_role(atk_object_get_role(child));
 
      for (i = 0; roles[i] != BITARRAY_SEQ_TERM; i++)
 	  if (role  == roles[i])
@@ -590,6 +588,39 @@ query_exec (MatchRulePrivate *mrp,  Accessibility_Collection_SortOrder sortby,
      return kount;
 }
 
+static gboolean
+bitarray_to_seq (int *array, int array_count, int **ret)
+{
+  int out_size = 4;
+  int out_count = 0;
+  int i, j;
+  int *out = (int *)g_malloc(out_size * sizeof(int));
+
+  if (!out)
+    return FALSE;
+  for (i = 0; i < array_count; i++)
+  {
+    for (j = 0; j < 32; j++)
+    {
+      if (array[i] & (1 << j))
+      {
+	if (out_count == out_size - 2)
+	{
+	  out_size <<= 1;
+	  out = (int *)g_realloc(out, out_size * sizeof(int));
+	  if (!out)
+	    return FALSE;
+	}
+	out[out_count++] = i * 32 + j;
+      }
+    }
+  }
+  out[out_count] = BITARRAY_SEQ_TERM;
+  *ret = out;
+  return TRUE;
+}
+
+
 static dbus_bool_t
 read_mr(DBusMessageIter *iter, MatchRulePrivate *mrp)
 {
@@ -597,12 +628,11 @@ read_mr(DBusMessageIter *iter, MatchRulePrivate *mrp)
   dbus_uint32_t *array;
   dbus_int32_t matchType;
   int array_count;
-  char *str;
   AtkAttribute *attr;
   int i;
+  const char *str;
   char *interfaces = NULL;
 
-  // TODO: error checking
   dbus_message_iter_recurse(iter, &mrc);
   dbus_message_iter_recurse(&mrc, &arrayc);
   dbus_message_iter_get_fixed_array(&arrayc, &array, &array_count);
@@ -612,35 +642,64 @@ read_mr(DBusMessageIter *iter, MatchRulePrivate *mrp)
     mrp->states[i] = spi_atk_state_from_spi_state (mrp->states[i]);
   }
   dbus_message_iter_next(&mrc);
-  dbus_message_iter_read_basic(&mrc, &matchType);
+  dbus_message_iter_get_basic(&mrc, &matchType);
   dbus_message_iter_next(&mrc);
   mrp->statematchtype = matchType;;
   /* attributes */
-  dbus_message_iter_recurse(&mrc, &arrayc);
   mrp->attributes = NULL;
-  while (dbus_message_iter_get_arg_type(&arrayc) != DBUS_TYPE_INVALID)
+  if (dbus_message_iter_get_arg_type (&mrc) == DBUS_TYPE_STRING)
   {
-    dbus_message_iter_get_basic(&arrayc, &str);
-    // TODO: remove this print
-    g_print("Got attribute: %s\n", str);
-    attr = g_new (AtkAttribute, 1);
-    if (attr)
+    char *str;
+    gchar **attributes;
+    gchar **pp;
+    dbus_message_iter_get_basic(&mrc, &str);
+    attributes = g_strsplit(str, "\n", -1);
+    for (pp = attributes; *pp; pp++)
     {
-      int len = strcspn(str, ":");
-      attr->name = g_strndup(str, len);
-      if (str[len] == ':')
+      str = *pp;
+      attr = g_new (AtkAttribute, 1);
+      if (attr)
       {
-	len++;
-	if (str[len] == ' ') len++;
-	attr->value = g_strdup(str + len);
+	int len = strcspn(str, ":");
+	attr->name = g_strndup(str, len);
+	if (str[len] == ':')
+	{
+	  len++;
+	  if (str[len] == ' ') len++;
+	  attr->value = g_strdup(str + len);
+	}
+	else attr->value = NULL;
+	mrp->attributes = g_slist_prepend(mrp->attributes, attr);
       }
-      else attr->value = NULL;
-      mrp->attributes = g_slist_prepend(mrp->attributes, attr);
     }
-    dbus_message_iter_next(&arrayc);
+    g_strfreev (attributes);
+  } else
+  {
+    dbus_message_iter_recurse(&mrc, &arrayc);
+    while (dbus_message_iter_get_arg_type(&arrayc) != DBUS_TYPE_INVALID)
+    {
+      dbus_message_iter_get_basic(&arrayc, &str);
+      // TODO: remove this print
+      g_print("Got attribute: %s\n", str);
+      attr = g_new (AtkAttribute, 1);
+      if (attr)
+      {
+	int len = strcspn(str, ":");
+	attr->name = g_strndup(str, len);
+	if (str[len] == ':')
+	{
+	  len++;
+	  if (str[len] == ' ') len++;
+	  attr->value = g_strdup(str + len);
+	}
+	else attr->value = NULL;
+	mrp->attributes = g_slist_prepend(mrp->attributes, attr);
+      }
+      dbus_message_iter_next(&arrayc);
+    }
   }
   dbus_message_iter_next(&mrc);
-  dbus_message_iter_read_basic(&mrc, &matchType);
+  dbus_message_iter_get_basic(&mrc, &matchType);
   mrp->attributematchtype = matchType;;
   dbus_message_iter_next(&mrc);
   /* Get roles and role match */
@@ -648,18 +707,18 @@ read_mr(DBusMessageIter *iter, MatchRulePrivate *mrp)
   dbus_message_iter_get_fixed_array(&arrayc, &array, &array_count);
   bitarray_to_seq(array, array_count, &mrp->roles);
   dbus_message_iter_next(&mrc);
-  dbus_message_iter_read_basic(&mrc, &matchType);
+  dbus_message_iter_get_basic(&mrc, &matchType);
   mrp->rolematchtype = matchType;;
   dbus_message_iter_next(&mrc);
   /* Get interfaces and interface match */
-  dbus_message_iter_read_basic(&mrc, &interfaces);
+  dbus_message_iter_get_basic(&mrc, &interfaces);
   dbus_message_iter_next(&mrc);
   mrp->ifaces = g_strsplit(interfaces, ";", 0);
-  dbus_message_iter_read_basic(&mrc, &matchType);
+  dbus_message_iter_get_basic(&mrc, &matchType);
   mrp->interfacematchtype = matchType;;
   dbus_message_iter_next(&mrc);
   /* get invert */
-  dbus_message_iter_read_basic(&mrc, &mrp->invert);
+  dbus_message_iter_get_basic(&mrc, &mrp->invert);
   dbus_message_iter_next(iter);
   return TRUE;
 }
@@ -674,12 +733,10 @@ return_and_free_list(DBusMessage *message, GList *ls)
   reply = dbus_message_new_method_return(message);
   if (!reply) return NULL;
   dbus_message_iter_init_append(reply, &iter);
-  if (!dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "o", &iter_array)) goto oom;
+  if (!dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(so)", &iter_array)) goto oom;
   for (item = ls; item; item = g_list_next(item))
   {
-      char *path = (char *) spi_dbus_object_to_path ((AtkObject *)item->data);
-      dbus_message_iter_append_basic(&iter_array, DBUS_TYPE_OBJECT_PATH, &path);
-      g_free(path);
+      spi_dbus_append_name_and_path (message, &iter_array, ATK_OBJECT(item->data), TRUE, FALSE);
   }
   if (!dbus_message_iter_close_container(&iter, &iter_array)) goto oom;
   g_list_free (ls);
@@ -853,7 +910,6 @@ GetMatchesTo (DBusMessage *message,
   GList *ls = NULL;
   AtkObject *obj;
   gint kount = 0;
-
   ls = g_list_append (ls, current_object); 
     
   if (recurse){
@@ -884,14 +940,22 @@ impl_GetMatchesFrom (DBusConnection *bus, DBusMessage *message, void *user_data)
   AtkObject *current_object;
   DBusMessageIter iter;
   MatchRulePrivate rule;
-  dbus_uint16_t sortby;
-  dbus_uint16_t tree;
+  dbus_uint32_t sortby;
+  dbus_uint32_t tree;
   dbus_int32_t count;
   dbus_bool_t traverse;
   GList *ls = NULL;
+  const char *signature;
+
+  signature = dbus_message_get_signature(message);
+  if (strcmp (signature, "o(aiisiaiisib)uuib") != 0 &&
+    strcmp(signature, "o(aii(as)iaiisib)uuib") != 0)
+  {
+    return droute_invalid_arguments_error(message);
+  }
 
   dbus_message_iter_init(message, &iter);
-  dbus_message_iter_get_basic (&iter, current_object_path);
+  dbus_message_iter_get_basic (&iter, &current_object_path);
   current_object = atk_dbus_path_to_object (current_object_path);
   if (!current_object)
   {
@@ -936,15 +1000,23 @@ impl_GetMatchesTo (DBusConnection *bus, DBusMessage *message, void *user_data)
   AtkObject *current_object;
   DBusMessageIter iter;
   MatchRulePrivate rule;
-  dbus_uint16_t sortby;
-  dbus_uint16_t tree;
+  dbus_uint32_t sortby;
+  dbus_uint32_t tree;
   dbus_bool_t recurse;
   dbus_int32_t count;
   dbus_bool_t traverse;
   GList *ls = NULL;
+  const char *signature;
+
+  signature = dbus_message_get_signature(message);
+  if (strcmp (signature, "o(aiisiaiisib)uubib") != 0 &&
+    strcmp(signature, "o(aii(as)iaiisib)uubib") != 0)
+  {
+    return droute_invalid_arguments_error(message);
+  }
 
   dbus_message_iter_init(message, &iter);
-  dbus_message_iter_get_basic (&iter, current_object_path);
+  dbus_message_iter_get_basic (&iter, &current_object_path);
   current_object = atk_dbus_path_to_object (current_object_path);
   if (!current_object)
   {
@@ -990,10 +1062,18 @@ impl_GetMatches(DBusConnection *bus, DBusMessage *message, void *user_data)
   AtkObject *obj = atk_dbus_path_to_object (dbus_message_get_path (message));
   DBusMessageIter iter;
   MatchRulePrivate rule;
-  dbus_uint16_t sortby;
+  dbus_uint32_t sortby;
   dbus_int32_t count;
   dbus_bool_t traverse;
   GList *ls = NULL;
+  const char *signature;
+
+  signature = dbus_message_get_signature (message);
+  if (strcmp (signature, "(aiisiaiisib)uib") != 0 &&
+    strcmp(signature, "(aii(as)iaiisib)uib") != 0)
+  {
+    return droute_invalid_arguments_error(message);
+  }
 
   dbus_message_iter_init(message, &iter);
   if (!read_mr(&iter, &rule))
