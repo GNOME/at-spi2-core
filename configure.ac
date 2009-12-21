@@ -110,6 +110,16 @@ if test -z "$DEFAULT_ATSPI_INTROSPECTION_PATH"; then
 	  DEFAULT_ATSPI_INTROSPECTION_PATH=at-spi2/dbus
 fi
 
+AS_AC_EXPAND(EXPANDED_BINDIR, "$bindir")
+AC_ARG_WITH(dbus_daemondir, AS_HELP_STRING([--with-dbus-daemondir=[dirname]],[Directory where the DBUS daemon is installed]))
+if test -z "$with_dbus_daemondir" ; then
+    DBUS_DAEMONDIR=$EXPANDED_BINDIR
+else
+    DBUS_DAEMONDIR=$with_dbus_daemondir
+fi
+AC_SUBST(DBUS_DAEMONDIR)
+AC_DEFINE_UNQUOTED(DBUS_DAEMONDIR,"$DBUS_DAEMONDIR", [Directory for installing the DBUS daemon])
+
 AC_ARG_WITH(dbus-services,
            [AC_HELP_STRING([--with-dbus-services=<dir>],
            [where D-BUS services directory is])])
