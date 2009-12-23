@@ -144,7 +144,7 @@ impl_set_currentValue (DBusMessageIter * iter,
   dbus_message_iter_recurse (iter, &iter_variant);
   if (dbus_message_iter_get_arg_type (&iter_variant) != DBUS_TYPE_DOUBLE)
   {
-    G_WARNING ("TODO: Support setting value from a non-double");
+    g_warning ("TODO: Support setting value from a non-double");
     return FALSE;
   }
   dbus_message_iter_get_basic (&iter_variant, &dub);
