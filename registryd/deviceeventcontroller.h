@@ -25,7 +25,6 @@
 #define SPI_DEVICE_EVENT_CONTROLLER_H_
 
 #include <X11/Xlib.h>
-#include <gdk/gdk.h>
 #include <dbus/dbus.h>
 
 typedef struct _SpiDEController SpiDEController;

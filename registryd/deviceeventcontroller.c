@@ -48,9 +48,6 @@
 #endif /* HAVE_XEVIE */
 
 #include <glib.h>
-#include <gdk/gdk.h>
-#include <gdk/gdkx.h> /* TODO: hide dependency (wrap in single porting file) */
-#include <gdk/gdkkeysyms.h>
 
 #include <dbus/dbus.h>
 
@@ -58,6 +55,7 @@
 #include "keymasks.h"
 #include "de-types.h"
 #include "de-marshaller.h"
+#include "display.h"
 
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"
@@ -77,8 +75,13 @@ static void wait_for_release_event (XEvent *event, SpiDEController *controller);
 
 /* A pointer to our parent object class */
 static int spi_error_code = 0;
-static GdkPoint last_mouse_pos_static = {0, 0}; 
-static GdkPoint *last_mouse_pos = &last_mouse_pos_static;
+struct _SpiPoint {
+    gint x;
+    gint y;
+};
+typedef struct _SpiPoint SpiPoint;
+static SpiPoint last_mouse_pos_static = {0, 0}; 
+static SpiPoint *last_mouse_pos = &last_mouse_pos_static;
 static unsigned int mouse_mask_state = 0;
 static unsigned int mouse_button_mask =
   Button1Mask | Button2Mask | Button3Mask | Button4Mask | Button5Mask;
@@ -161,8 +164,6 @@ static gboolean spi_clear_error_state (void);
 static gboolean spi_dec_poll_mouse_moved (gpointer data);
 static gboolean spi_dec_poll_mouse_moving (gpointer data);
 static gboolean spi_dec_poll_mouse_idle (gpointer data);
-
-#define spi_get_display() GDK_DISPLAY()
 
 G_DEFINE_TYPE(SpiDEController, spi_device_event_controller, G_TYPE_OBJECT)
 
@@ -671,7 +672,7 @@ spi_dec_init_mouse_listener (SpiDEController *dec)
   if (display)
     {
       if (XGrabButton (display, AnyButton, AnyModifier,
-		       gdk_x11_get_default_root_xwindow (),
+		       spi_get_root_window (),
 		       True, ButtonPressMask | ButtonReleaseMask,
 		       GrabModeSync, GrabModeAsync, None, None) != Success) {
 #ifdef SPI_DEBUG
@@ -1180,10 +1181,9 @@ spi_device_event_controller_forward_mouse_event (SpiDEController *controller,
 		CurrentTime);
 }
 
-static GdkFilterReturn
-global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
+static void
+global_filter_fn (XEvent *xevent, void *data)
 {
-  XEvent *xevent = gdk_xevent;
   SpiDEController *controller;
   DEControllerPrivateData *priv;
   Display *display = spi_get_display ();
@@ -1233,7 +1233,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
             }
         }
 
-      return GDK_FILTER_CONTINUE;
+      return;
     }
   if (xevent->type == ButtonPress || xevent->type == ButtonRelease)
     {
@@ -1306,7 +1306,7 @@ global_filter_fn (GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
       XSynchronize (display, FALSE);
     }
   
-  return GDK_FILTER_CONTINUE;
+  return;
 }
 
 static int
@@ -1361,15 +1361,24 @@ spi_controller_register_with_devices (SpiDEController *controller)
 	      if (XKeycodeToKeysym (spi_get_display (), i, 0) != 0)
 	      {
 		  /* don't use this one if there's a grab client! */
-		  gdk_error_trap_push ();
+
+		  /* Runtime errors are generated from these functions,
+		   * that are then quashed. Equivalent to:
+		   * try
+		   *   {Blah}
+		   * except
+		   *   {;}
+		   */
+
+		  spi_x_error_trap ();
 		  XGrabKey (spi_get_display (), i, 0, 
-			    gdk_x11_get_default_root_xwindow (),
+			    spi_get_root_window (),
 			    TRUE,
 			    GrabModeSync, GrabModeSync);
 		  XSync (spi_get_display (), TRUE);
 		  XUngrabKey (spi_get_display (), i, 0, 
-			      gdk_x11_get_default_root_xwindow ());
-		  if (!gdk_error_trap_pop ())
+			      spi_get_root_window ());
+		  if (!spi_x_error_release ())
 		  {
 		      reserved = i;
 		      break;
@@ -1398,10 +1407,8 @@ spi_controller_register_with_devices (SpiDEController *controller)
 #endif
     }	
 
-  gdk_window_add_filter (NULL, global_filter_fn, controller);
-
-  gdk_window_set_events (gdk_get_default_root_window (),
-			 GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK);
+  spi_set_filter (global_filter_fn, controller);
+  spi_set_events (KeyPressMask | KeyReleaseMask);
 
   x_default_error_handler = XSetErrorHandler (_spi_controller_device_error_handler);
 }
@@ -1771,7 +1778,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
 	  XUngrabKey (spi_get_display (),
 		      grab_mask->key_val,
 		      grab_mask->mod_mask,
-		      gdk_x11_get_default_root_xwindow ());
+		      spi_get_root_window ());
 
           do_remove = TRUE;
 	}
@@ -1784,7 +1791,7 @@ spi_controller_update_key_grabs (SpiDEController           *controller,
           XGrabKey (spi_get_display (),
 		    grab_mask->key_val,
 		    grab_mask->mod_mask,
-		    gdk_x11_get_default_root_xwindow (),
+		    spi_get_root_window (),
 		    True,
 		    GrabModeSync,
 		    GrabModeSync);
@@ -2455,7 +2462,7 @@ static DBusMessage * impl_generate_keyboard_event (DBusConnection *bus, DBusMess
    * and fall back to XSendEvent() if XTest is not available.
    */
   
-  gdk_error_trap_push ();
+  spi_x_error_trap ();
 
   priv = (DEControllerPrivateData *) 
       g_object_get_qdata (G_OBJECT (controller), spi_dec_private_quark);
@@ -2675,6 +2682,7 @@ handle_io (GIOChannel *source,
 static void
 spi_device_event_controller_init (SpiDEController *device_event_controller)
 {
+  spi_events_init (spi_get_display());
 #ifdef HAVE_XEVIE
   GIOChannel *ioc;
   int fd;

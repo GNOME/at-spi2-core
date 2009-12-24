@@ -25,6 +25,7 @@
 #include <config.h>
 #include <string.h>
 #include <glib.h>
+#include <stdio.h>
 
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
@@ -290,9 +291,6 @@ main (int argc, char **argv)
   int ret;
 
   g_type_init();
-
-  /* We depend on GDK as well as XLib for device event processing */
-  gdk_init(&argc, &argv);
 
   /*Parse command options*/
   opt = g_option_context_new(NULL);
