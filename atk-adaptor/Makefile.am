@@ -27,6 +27,8 @@ libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
 			  $(top_builddir)/atk-adaptor/adaptors/libatk-bridge-adaptors.la
 
 libatk_bridge_la_SOURCES =	\
+        accessible-leasing.c    \
+        accessible-leasing.h    \
 	accessible-register.c	\
 	accessible-register.h	\
 	bridge.c		\
