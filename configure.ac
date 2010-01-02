@@ -116,6 +116,7 @@ AC_CONFIG_FILES([Makefile
 		 dbind/dbind-config.h
 		 common/Makefile
 		 atk-adaptor/Makefile
+		 atk-adaptor/adaptors/Makefile
 		 tests/Makefile
 		])
 

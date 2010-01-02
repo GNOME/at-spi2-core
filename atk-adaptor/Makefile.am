@@ -1,3 +1,5 @@
+SUBDIRS=adaptors
+
 if RELOCATE
     gtkmoduledir = $(libdir)/gtk-2.0/modules/at-spi-dbus/modules
 else
@@ -7,9 +9,8 @@ gtkmodule_LTLIBRARIES = libatk-bridge.la
 
 libatk_bridge_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		          $(ATK_CFLAGS)       \
-		          $(DBIND_CFLAGS)     \
-		          $(DROUTE_CFLAGS)    \
 		          -I$(top_srcdir)     \
+		          -I$(top_srcdir)/atk-adaptor/adaptors \
 		          -DATSPI_INTROSPECTION_PATH=\"$(datarootdir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 libatk_bridge_la_LDFLAGS = -no-undefined  \
@@ -19,39 +20,19 @@ libatk_bridge_la_LDFLAGS = -no-undefined  \
 
 libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
 		          $(ATK_LIBS)       \
-		          $(DBIND_LIBS)	    \
-		          $(DROUTE_LIBS)    \
 			  $(X_LIBS)         \
 		          $(top_builddir)/droute/libdroute.la \
 		          $(top_builddir)/dbind/libdbind.la \
-		          $(top_builddir)/common/libspicommon.la
+		          $(top_builddir)/common/libspicommon.la \
+			  $(top_builddir)/atk-adaptor/adaptors/libatk-bridge-adaptors.la
 
 libatk_bridge_la_SOURCES =	\
-	accessible-adaptor.c	\
-	accessible-marshaller.c	\
-	accessible-marshaller.h	\
 	accessible-register.c	\
 	accessible-register.h	\
-	action-adaptor.c	\
-	adaptors.h		\
-	application-adaptor.c	\
 	bridge.c		\
 	bridge.h		\
-	collection-adaptor.c	\
-	component-adaptor.c	\
-	document-adaptor.c	\
-	editabletext-adaptor.c	\
 	event.c			\
-	event.h			\
-	hyperlink-adaptor.c	\
-	hypertext-adaptor.c	\
-	image-adaptor.c		\
-	selection-adaptor.c	\
-	table-adaptor.c		\
-	text-adaptor.c		\
-	tree-adaptor.c		\
-	tree-adaptor.h		\
-	value-adaptor.c
+	event.h
 
 if RELOCATE
 gtkpathdir = $(gtkmoduledir)/..
