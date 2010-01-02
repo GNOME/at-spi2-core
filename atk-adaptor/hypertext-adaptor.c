@@ -64,7 +64,8 @@ impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   link = atk_hypertext_get_link (hypertext, linkIndex);
-  return spi_dbus_return_hyperlink (message, link, ATK_OBJECT(hypertext), TRUE);
+  return spi_dbus_return_hyperlink (message, link, ATK_OBJECT (hypertext),
+                                    TRUE);
 }
 
 static DBusMessage *
@@ -103,10 +104,8 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_hypertext (DRoutePath *path)
+spi_initialize_hypertext (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_HYPERTEXT,
-                             methods,
-                             NULL);
+                             SPI_DBUS_INTERFACE_HYPERTEXT, methods, NULL);
 };

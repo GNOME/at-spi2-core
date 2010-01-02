@@ -46,7 +46,7 @@
  * Provides the path for the introspection directory.
  */
 #if !defined ATSPI_INTROSPECTION_PATH
-    #error "No introspection XML directory defined"
+#error "No introspection XML directory defined"
 #endif
 
 /*---------------------------------------------------------------------------*/
@@ -64,36 +64,36 @@ static const AtkMisc *atk_misc = NULL;
  * with the screen number stripped off if present.
  *
  */
-static const gchar*
+static const gchar *
 spi_display_name (void)
 {
-    static const char *canonical_display_name = NULL;
-    if (!canonical_display_name)
-      {
-        const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
-        if (!display_env)
-          {
-            display_env = g_getenv ("DISPLAY");
-            if (!display_env || !display_env[0]) 
-                canonical_display_name = ":0";
-            else
-              {
-                gchar *display_p, *screen_p;
-                canonical_display_name = g_strdup (display_env);
-                display_p = strrchr (canonical_display_name, ':');
-                screen_p = strrchr (canonical_display_name, '.');
-                if (screen_p && display_p && (screen_p > display_p))
-                  {
-                    *screen_p = '\0';
-                  }
-              }
-          }
-        else
-          {
-            canonical_display_name = display_env;
-          }
-      }
-    return canonical_display_name;
+  static const char *canonical_display_name = NULL;
+  if (!canonical_display_name)
+    {
+      const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+      if (!display_env)
+        {
+          display_env = g_getenv ("DISPLAY");
+          if (!display_env || !display_env[0])
+            canonical_display_name = ":0";
+          else
+            {
+              gchar *display_p, *screen_p;
+              canonical_display_name = g_strdup (display_env);
+              display_p = strrchr (canonical_display_name, ':');
+              screen_p = strrchr (canonical_display_name, '.');
+              if (screen_p && display_p && (screen_p > display_p))
+                {
+                  *screen_p = '\0';
+                }
+            }
+        }
+      else
+        {
+          canonical_display_name = display_env;
+        }
+    }
+  return canonical_display_name;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -108,59 +108,60 @@ spi_display_name (void)
 static DBusConnection *
 spi_atk_bridge_get_bus (void)
 {
-     Atom AT_SPI_BUS;
-     Atom actual_type;
-     Display *bridge_display;
-     int actual_format;
-     unsigned char *data = NULL;  
-     unsigned long nitems;
-     unsigned long leftover;
+  Atom AT_SPI_BUS;
+  Atom actual_type;
+  Display *bridge_display;
+  int actual_format;
+  unsigned char *data = NULL;
+  unsigned long nitems;
+  unsigned long leftover;
 
-     DBusConnection *bus = NULL;
-     DBusError       error;
+  DBusConnection *bus = NULL;
+  DBusError error;
 
-     bridge_display = XOpenDisplay (spi_display_name ());
-     if (!bridge_display)
-	g_error ("AT_SPI: Could not get the display\n");
+  bridge_display = XOpenDisplay (spi_display_name ());
+  if (!bridge_display)
+    g_error ("AT_SPI: Could not get the display\n");
 
-     AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False); 
-     XGetWindowProperty(bridge_display, 
-                        XDefaultRootWindow (bridge_display),
-                        AT_SPI_BUS, 0L,
-                        (long)BUFSIZ, False,
-                        (Atom) 31, &actual_type, &actual_format,
-                        &nitems, &leftover, &data);
+  AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False);
+  XGetWindowProperty (bridge_display,
+                      XDefaultRootWindow (bridge_display),
+                      AT_SPI_BUS, 0L,
+                      (long) BUFSIZ, False,
+                      (Atom) 31, &actual_type, &actual_format,
+                      &nitems, &leftover, &data);
 
-     dbus_error_init (&error);
+  dbus_error_init (&error);
 
-     if (data == NULL)
-     {
-         g_warning ("AT-SPI: Accessibility bus not found - Using session bus.\n");
-         bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
-         if (!bus)
-             g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
-     }
-     else
-     {
-	 bus = dbus_connection_open (data, &error);
-         if (!bus)
-         {
-             g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
-         }
-	 else
-         {
-	     if (!dbus_bus_register (bus, &error))
-	         g_error ("AT-SPI: Couldn't register with bus: %s\n");
-         } 
-     }
+  if (data == NULL)
+    {
+      g_warning
+        ("AT-SPI: Accessibility bus not found - Using session bus.\n");
+      bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+      if (!bus)
+        g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+    }
+  else
+    {
+      bus = dbus_connection_open (data, &error);
+      if (!bus)
+        {
+          g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+        }
+      else
+        {
+          if (!dbus_bus_register (bus, &error))
+            g_error ("AT-SPI: Couldn't register with bus: %s\n");
+        }
+    }
 
-     return bus;
+  return bus;
 }
 
 /*---------------------------------------------------------------------------*/
 
 static void
-register_application (SpiAppData *app)
+register_application (SpiAppData * app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
@@ -175,22 +176,23 @@ register_application (SpiAppData *app)
                                           "RegisterApplication");
   dbus_message_set_no_reply (message, TRUE);
 
-  uname = dbus_bus_get_unique_name(app->bus);
+  uname = dbus_bus_get_unique_name (app->bus);
   if (!uname)
-  {
+    {
       g_error ("AT-SPI: Couldn't get unique name for this connection");
-  }
+    }
 
-  dbus_message_iter_init_append(message, &iter);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &uname);
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &uname);
   dbus_connection_send (app->bus, message, NULL);
-  if (message) dbus_message_unref (message);
+  if (message)
+    dbus_message_unref (message);
 }
 
 /*---------------------------------------------------------------------------*/
 
 static void
-deregister_application (SpiAppData *app)
+deregister_application (SpiAppData * app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
@@ -205,12 +207,13 @@ deregister_application (SpiAppData *app)
                                           "DeregisterApplication");
   dbus_message_set_no_reply (message, TRUE);
 
-  uname = dbus_bus_get_unique_name(app->bus);
+  uname = dbus_bus_get_unique_name (app->bus);
 
-  dbus_message_iter_init_append(message, &iter);
-  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &uname);
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &uname);
   dbus_connection_send (app->bus, message, NULL);
-  if (message) dbus_message_unref (message);
+  if (message)
+    dbus_message_unref (message);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -224,10 +227,10 @@ exit_func (void)
     }
 
   spi_atk_tidy_windows ();
-  spi_atk_deregister_event_listeners();
+  spi_atk_deregister_event_listeners ();
   deregister_application (atk_adaptor_app_data);
 
-  g_free(atk_adaptor_app_data);
+  g_free (atk_adaptor_app_data);
   atk_adaptor_app_data = NULL;
 
   /* Not currently creating an XDisplay */
@@ -244,20 +247,20 @@ static AtkPlugClass *plug_class;
 static AtkSocketClass *socket_class;
 
 static gchar *
-get_plug_id (AtkPlug *plug)
+get_plug_id (AtkPlug * plug)
 {
-  const char *uname = dbus_bus_get_unique_name(atk_adaptor_app_data->bus);
+  const char *uname = dbus_bus_get_unique_name (atk_adaptor_app_data->bus);
   gchar *path;
   GString *str = g_string_new (NULL);
 
-  path = atk_dbus_object_to_path (ATK_OBJECT(plug), TRUE);
+  path = atk_dbus_object_to_path (ATK_OBJECT (plug), TRUE);
   g_string_printf (str, "%s:%s", uname, path);
   g_free (path);
   return g_string_free (str, FALSE);
 }
 
 static void
-socket_embed_hook (AtkSocket *socket, gchar *plug_id)
+socket_embed_hook (AtkSocket * socket, gchar * plug_id)
 {
   AtkObject *accessible = ATK_OBJECT(socket);
   gchar *plug_name, *plug_path;
@@ -289,7 +292,7 @@ static void
 install_plug_hooks ()
 {
   gpointer data;
-  
+
   data = g_type_class_ref (ATK_TYPE_PLUG);
   plug_class = ATK_PLUG_CLASS (data);
   data = g_type_class_ref (ATK_TYPE_SOCKET);
@@ -302,10 +305,11 @@ install_plug_hooks ()
 gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
 
-static GOptionEntry atspi_option_entries[] =
-{
-  {"atspi-dbus-name", 0, 0, G_OPTION_ARG_STRING, &atspi_dbus_name, "D-Bus bus name to register as", NULL},
-  {"atspi-no-register", 0, 0, G_OPTION_ARG_NONE, &atspi_no_register, "Do not register with Registry Daemon", NULL},
+static GOptionEntry atspi_option_entries[] = {
+  {"atspi-dbus-name", 0, 0, G_OPTION_ARG_STRING, &atspi_dbus_name,
+   "D-Bus bus name to register as", NULL},
+  {"atspi-no-register", 0, 0, G_OPTION_ARG_NONE, &atspi_no_register,
+   "Do not register with Registry Daemon", NULL},
   {NULL}
 };
 
@@ -320,7 +324,7 @@ static GOptionEntry atspi_option_entries[] =
  *
  */
 static int
-adaptor_init (gint *argc, gchar **argv[])
+adaptor_init (gint * argc, gchar ** argv[])
 {
   GOptionContext *opt;
   GError *err = NULL;
@@ -341,11 +345,11 @@ adaptor_init (gint *argc, gchar **argv[])
   g_return_val_if_fail (root, 0);
 
   /* Parse command line options */
-  opt = g_option_context_new(NULL);
-  g_option_context_add_main_entries(opt, atspi_option_entries, NULL);
-  g_option_context_set_ignore_unknown_options(opt, TRUE);
-  if (!g_option_context_parse(opt, argc, argv, &err))
-      g_warning("AT-SPI Option parsing failed: %s\n", err->message);
+  opt = g_option_context_new (NULL);
+  g_option_context_add_main_entries (opt, atspi_option_entries, NULL);
+  g_option_context_set_ignore_unknown_options (opt, TRUE);
+  if (!g_option_context_parse (opt, argc, argv, &err))
+    g_warning ("AT-SPI Option parsing failed: %s\n", err->message);
 
   /* Allocate global data and do ATK initializations */
   atk_adaptor_app_data = g_new0 (SpiAppData, 1);
@@ -356,49 +360,54 @@ adaptor_init (gint *argc, gchar **argv[])
   dbus_error_init (&error);
   atk_adaptor_app_data->bus = spi_atk_bridge_get_bus ();
   if (!atk_adaptor_app_data->bus)
-  {
-    g_free(atk_adaptor_app_data);
-    atk_adaptor_app_data = NULL;
-    return 0;
-  }
+    {
+      g_free (atk_adaptor_app_data);
+      atk_adaptor_app_data = NULL;
+      return 0;
+    }
 
   if (atspi_dbus_name != NULL)
-  {
-    if (dbus_bus_request_name(atk_adaptor_app_data->bus, atspi_dbus_name, 0, &error))
     {
-      g_print("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
+      if (dbus_bus_request_name
+          (atk_adaptor_app_data->bus, atspi_dbus_name, 0, &error))
+        {
+          g_print ("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
+        }
+      else
+        {
+          g_print
+            ("AT-SPI D-Bus name requested but could not be allocated - %s\n",
+             atspi_dbus_name);
+        }
     }
-    else
-    {
-      g_print("AT-SPI D-Bus name requested but could not be allocated - %s\n", atspi_dbus_name);
-    }
-  }
 
-  dbus_connection_setup_with_g_main(atk_adaptor_app_data->bus, g_main_context_default());
+  dbus_connection_setup_with_g_main (atk_adaptor_app_data->bus,
+                                     g_main_context_default ());
 
   /* Get D-Bus introspection directory */
-  introspection_directory = (char *) g_getenv("ATSPI_INTROSPECTION_PATH");
+  introspection_directory = (char *) g_getenv ("ATSPI_INTROSPECTION_PATH");
   if (introspection_directory == NULL)
-      introspection_directory = ATSPI_INTROSPECTION_PATH;
+    introspection_directory = ATSPI_INTROSPECTION_PATH;
 
   /* Register droute for routing AT-SPI messages */
-  atk_adaptor_app_data->droute = droute_new (atk_adaptor_app_data->bus, introspection_directory);
+  atk_adaptor_app_data->droute =
+    droute_new (atk_adaptor_app_data->bus, introspection_directory);
 
   treepath = droute_add_one (atk_adaptor_app_data->droute,
-                             "/org/freedesktop/atspi/tree",
-                             NULL);
+                             "/org/freedesktop/atspi/tree", NULL);
 
   accpath = droute_add_many (atk_adaptor_app_data->droute,
                              "/org/freedesktop/atspi/accessible",
                              NULL,
-                             (DRouteGetDatumFunction) atk_dbus_path_to_gobject);
+                             (DRouteGetDatumFunction)
+                             atk_dbus_path_to_gobject);
 
   /* Register all interfaces with droute and set up application accessible db */
   spi_initialize_tree (treepath);
 
   spi_initialize_accessible (accpath);
   spi_initialize_application (accpath);
-  spi_initialize_action(accpath);
+  spi_initialize_action (accpath);
   spi_initialize_collection (accpath);
   spi_initialize_component (accpath);
   spi_initialize_document (accpath);
@@ -434,13 +443,13 @@ adaptor_init (gint *argc, gchar **argv[])
 /*---------------------------------------------------------------------------*/
 
 int
-gtk_module_init (gint *argc, gchar **argv[])
+gtk_module_init (gint * argc, gchar ** argv[])
 {
   const gchar *load_bridge = g_getenv ("NO_AT_BRIDGE");
 
   if (!load_bridge || g_ascii_strtod (load_bridge, NULL) == 0)
     {
-	return adaptor_init (argc, argv);
+      return adaptor_init (argc, argv);
     }
   return 0;
 }
@@ -456,7 +465,7 @@ gnome_accessibility_module_init (void)
 
       if (g_getenv ("AT_SPI_DEBUG"))
         {
-	    g_print("Atk Accessibility bridge initialized\n");
+          g_print ("Atk Accessibility bridge initialized\n");
         }
     }
 }
@@ -467,4 +476,5 @@ gnome_accessibility_module_shutdown (void)
   spi_atk_deregister_event_listeners ();
   exit_func ();
 }
+
 /*END------------------------------------------------------------------------*/

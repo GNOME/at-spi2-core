@@ -94,10 +94,10 @@ match_states_all_p (AtkObject * child, gint * set)
   for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
     {
       if (!atk_state_set_contains_state (chs, set[i]))
-	{
-	  ret = FALSE;
-	  break;
-	}
+        {
+          ret = FALSE;
+          break;
+        }
     }
 
   g_object_unref (chs);
@@ -119,10 +119,10 @@ match_states_any_p (AtkObject * child, gint * set)
   for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
     {
       if (!atk_state_set_contains_state (chs, set[i]))
-	{
-	  ret = TRUE;
-	  break;
-	}
+        {
+          ret = TRUE;
+          break;
+        }
     }
 
   g_object_unref (chs);
@@ -144,10 +144,10 @@ match_states_none_p (AtkObject * child, gint * set)
   for (i = 0; set[i] != BITARRAY_SEQ_TERM; i++)
     {
       if (atk_state_set_contains_state (chs, set[i]))
-	{
-	  ret = FALSE;
-	  break;
-	}
+        {
+          ret = FALSE;
+          break;
+        }
     }
 
   g_object_unref (chs);
@@ -162,17 +162,17 @@ match_states_lookup (AtkObject * child, MatchRulePrivate * mrp)
     {
     case Accessibility_Collection_MATCH_ALL:
       if (match_states_all_p (child, mrp->states))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_ANY:
       if (match_states_any_p (child, mrp->states))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_NONE:
       if (match_states_none_p (child, mrp->states))
-	return TRUE;
+        return TRUE;
       break;
 
     default:
@@ -241,17 +241,17 @@ match_roles_lookup (AtkObject * child, MatchRulePrivate * mrp)
     {
     case Accessibility_Collection_MATCH_ALL:
       if (match_roles_all_p (child, mrp->roles))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_ANY:
       if (match_roles_any_p (child, mrp->roles))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_NONE:
       if (match_roles_none_p (child, mrp->roles))
-	return TRUE;
+        return TRUE;
       break;
 
     default:
@@ -272,7 +272,7 @@ match_interfaces_all_p (AtkObject * obj, gchar ** ifaces)
   for (i = 0; ifaces[i]; i++)
     if (!child_interface_p (obj, ifaces[i]))
       {
-	return FALSE;
+        return FALSE;
       }
   return TRUE;
 }
@@ -289,7 +289,7 @@ match_interfaces_any_p (AtkObject * obj, gchar ** ifaces)
   for (i = 0; ifaces[i]; i++)
     if (child_interface_p (obj, ifaces[i]))
       {
-	return TRUE;
+        return TRUE;
       }
   return FALSE;
 }
@@ -314,17 +314,17 @@ match_interfaces_lookup (AtkObject * child, MatchRulePrivate * mrp)
 
     case Accessibility_Collection_MATCH_ALL:
       if (match_interfaces_all_p (child, mrp->ifaces))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_ANY:
       if (match_interfaces_any_p (child, mrp->ifaces))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_NONE:
       if (match_interfaces_none_p (child, mrp->ifaces))
-	return TRUE;
+        return TRUE;
       break;
 
     default:
@@ -355,22 +355,22 @@ match_attributes_all_p (AtkObject * child, AtkAttributeSet * attributes)
     {
       AtkAttribute *attr = g_slist_nth_data (attributes, i);
       for (k = 0; k < oa_length; k++)
-	{
-	  AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
-	  if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
-	      !g_ascii_strcasecmp (oa_attr->value, attr->value))
-	    {
-	      flag = TRUE;
-	      break;
-	    }
-	  else
-	    flag = FALSE;
-	}
+        {
+          AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
+          if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
+              !g_ascii_strcasecmp (oa_attr->value, attr->value))
+            {
+              flag = TRUE;
+              break;
+            }
+          else
+            flag = FALSE;
+        }
       if (!flag)
-	{
-	  atk_attribute_set_free (oa);
-	  return FALSE;
-	}
+        {
+          atk_attribute_set_free (oa);
+          return FALSE;
+        }
     }
   atk_attribute_set_free (oa);
   return TRUE;
@@ -395,15 +395,15 @@ match_attributes_any_p (AtkObject * child, AtkAttributeSet * attributes)
     {
       AtkAttribute *attr = g_slist_nth_data (attributes, i);
       for (k = 0; k < oa_length; k++)
-	{
-	  AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
-	  if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
-	      !g_ascii_strcasecmp (oa_attr->value, attr->value))
-	    {
-	      atk_attribute_set_free (oa);
-	      return TRUE;
-	    }
-	}
+        {
+          AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
+          if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
+              !g_ascii_strcasecmp (oa_attr->value, attr->value))
+            {
+              atk_attribute_set_free (oa);
+              return TRUE;
+            }
+        }
     }
   atk_attribute_set_free (oa);
   return FALSE;
@@ -428,15 +428,15 @@ match_attributes_none_p (AtkObject * child, AtkAttributeSet * attributes)
     {
       AtkAttribute *attr = g_slist_nth_data (attributes, i);
       for (k = 0; k < oa_length; k++)
-	{
-	  AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
-	  if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
-	      !g_ascii_strcasecmp (oa_attr->value, attr->value))
-	    {
-	      atk_attribute_set_free (oa);
-	      return FALSE;
-	    }
-	}
+        {
+          AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
+          if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
+              !g_ascii_strcasecmp (oa_attr->value, attr->value))
+            {
+              atk_attribute_set_free (oa);
+              return FALSE;
+            }
+        }
     }
   atk_attribute_set_free (oa);
   return TRUE;
@@ -450,17 +450,17 @@ match_attributes_lookup (AtkObject * child, MatchRulePrivate * mrp)
 
     case Accessibility_Collection_MATCH_ALL:
       if (match_attributes_all_p (child, mrp->attributes))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_ANY:
       if (match_attributes_any_p (child, mrp->attributes))
-	return TRUE;
+        return TRUE;
       break;
 
     case Accessibility_Collection_MATCH_NONE:
       if (match_attributes_none_p (child, mrp->attributes))
-	return TRUE;
+        return TRUE;
       break;
 
     default:
@@ -480,9 +480,9 @@ traverse_p (AtkObject * child, const gboolean traverse)
 
 static int
 sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
-		      gint kount, gint max,
-		      AtkObject * obj, glong index, gboolean flag,
-		      AtkObject * pobj, gboolean recurse, gboolean traverse)
+                      gint kount, gint max,
+                      AtkObject * obj, glong index, gboolean flag,
+                      AtkObject * pobj, gboolean recurse, gboolean traverse)
 {
   gint i = index;
   glong acount = atk_object_get_n_accessible_children (obj);
@@ -494,35 +494,35 @@ sort_order_canonical (MatchRulePrivate * mrp, GList * ls,
 
       g_object_unref (child);
       if (prev && child == pobj)
-	{
-	  return kount;
-	}
+        {
+          return kount;
+        }
 
       if (flag && match_interfaces_lookup (child, mrp)
-	  && match_states_lookup (child, mrp)
-	  && match_roles_lookup (child, mrp)
-	  && match_attributes_lookup (child, mrp))
-	{
+          && match_states_lookup (child, mrp)
+          && match_roles_lookup (child, mrp)
+          && match_attributes_lookup (child, mrp))
+        {
 
-	  ls = g_list_append (ls, child);
-	  kount++;
-	}
+          ls = g_list_append (ls, child);
+          kount++;
+        }
 
       if (!flag)
-	flag = TRUE;
+        flag = TRUE;
 
       if (recurse && traverse_p (child, traverse))
-	kount = sort_order_canonical (mrp, ls, kount,
-				      max, child, 0, TRUE,
-				      pobj, recurse, traverse);
+        kount = sort_order_canonical (mrp, ls, kount,
+                                      max, child, 0, TRUE,
+                                      pobj, recurse, traverse);
     }
   return kount;
 }
 
 static int
 sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
-			  gint kount, gint max,
-			  AtkObject * obj, gboolean flag, AtkObject * pobj)
+                          gint kount, gint max,
+                          AtkObject * obj, gboolean flag, AtkObject * pobj)
 {
   AtkObject *nextobj;
   AtkObject *parent;
@@ -560,21 +560,21 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
 
       /* Now, drill down the right side to the last descendant */
       while (atk_object_get_n_accessible_children (nextobj) > 0)
-	{
-	  nextobj = atk_object_ref_accessible_child (nextobj,
-						     atk_object_get_n_accessible_children
-						     (nextobj) - 1);
-	  g_object_unref (nextobj);
-	}
+        {
+          nextobj = atk_object_ref_accessible_child (nextobj,
+                                                     atk_object_get_n_accessible_children
+                                                     (nextobj) - 1);
+          g_object_unref (nextobj);
+        }
       /* recurse with the last descendant */
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
-					nextobj, TRUE, pobj);
+                                        nextobj, TRUE, pobj);
     }
   else
     {
       /* no more siblings so next node must be the parent */
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
-					parent, TRUE, pobj);
+                                        parent, TRUE, pobj);
 
     }
   return kount;
@@ -582,20 +582,20 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
 
 static int
 query_exec (MatchRulePrivate * mrp, Accessibility_Collection_SortOrder sortby,
-	    GList * ls, gint kount, gint max,
-	    AtkObject * obj, glong index,
-	    gboolean flag,
-	    AtkObject * pobj, gboolean recurse, gboolean traverse)
+            GList * ls, gint kount, gint max,
+            AtkObject * obj, glong index,
+            gboolean flag,
+            AtkObject * pobj, gboolean recurse, gboolean traverse)
 {
   switch (sortby)
     {
     case Accessibility_Collection_SORT_ORDER_CANONICAL:
       kount = sort_order_canonical (mrp, ls, 0, max, obj, index, flag,
-				    pobj, recurse, traverse);
+                                    pobj, recurse, traverse);
       break;
     case Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL:
       kount = sort_order_canonical (mrp, ls, 0, max, obj, index, flag,
-				    pobj, recurse, traverse);
+                                    pobj, recurse, traverse);
       break;
     default:
       kount = 0;
@@ -619,19 +619,19 @@ bitarray_to_seq (int *array, int array_count, int **ret)
   for (i = 0; i < array_count; i++)
     {
       for (j = 0; j < 32; j++)
-	{
-	  if (array[i] & (1 << j))
-	    {
-	      if (out_count == out_size - 2)
-		{
-		  out_size <<= 1;
-		  out = (int *) g_realloc (out, out_size * sizeof (int));
-		  if (!out)
-		    return FALSE;
-		}
-	      out[out_count++] = i * 32 + j;
-	    }
-	}
+        {
+          if (array[i] & (1 << j))
+            {
+              if (out_count == out_size - 2)
+                {
+                  out_size <<= 1;
+                  out = (int *) g_realloc (out, out_size * sizeof (int));
+                  if (!out)
+                    return FALSE;
+                }
+              out[out_count++] = i * 32 + j;
+            }
+        }
     }
   out[out_count] = BITARRAY_SEQ_TERM;
   *ret = out;
@@ -673,53 +673,53 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
       dbus_message_iter_get_basic (&mrc, &str);
       attributes = g_strsplit (str, "\n", -1);
       for (pp = attributes; *pp; pp++)
-	{
-	  str = *pp;
-	  attr = g_new (AtkAttribute, 1);
-	  if (attr)
-	    {
-	      int len = strcspn (str, ":");
-	      attr->name = g_strndup (str, len);
-	      if (str[len] == ':')
-		{
-		  len++;
-		  if (str[len] == ' ')
-		    len++;
-		  attr->value = g_strdup (str + len);
-		}
-	      else
-		attr->value = NULL;
-	      mrp->attributes = g_slist_prepend (mrp->attributes, attr);
-	    }
-	}
+        {
+          str = *pp;
+          attr = g_new (AtkAttribute, 1);
+          if (attr)
+            {
+              int len = strcspn (str, ":");
+              attr->name = g_strndup (str, len);
+              if (str[len] == ':')
+                {
+                  len++;
+                  if (str[len] == ' ')
+                    len++;
+                  attr->value = g_strdup (str + len);
+                }
+              else
+                attr->value = NULL;
+              mrp->attributes = g_slist_prepend (mrp->attributes, attr);
+            }
+        }
       g_strfreev (attributes);
     }
   else
     {
       dbus_message_iter_recurse (&mrc, &arrayc);
       while (dbus_message_iter_get_arg_type (&arrayc) != DBUS_TYPE_INVALID)
-	{
-	  dbus_message_iter_get_basic (&arrayc, &str);
-	  // TODO: remove this print
-	  g_print ("Got attribute: %s\n", str);
-	  attr = g_new (AtkAttribute, 1);
-	  if (attr)
-	    {
-	      int len = strcspn (str, ":");
-	      attr->name = g_strndup (str, len);
-	      if (str[len] == ':')
-		{
-		  len++;
-		  if (str[len] == ' ')
-		    len++;
-		  attr->value = g_strdup (str + len);
-		}
-	      else
-		attr->value = NULL;
-	      mrp->attributes = g_slist_prepend (mrp->attributes, attr);
-	    }
-	  dbus_message_iter_next (&arrayc);
-	}
+        {
+          dbus_message_iter_get_basic (&arrayc, &str);
+          // TODO: remove this print
+          g_print ("Got attribute: %s\n", str);
+          attr = g_new (AtkAttribute, 1);
+          if (attr)
+            {
+              int len = strcspn (str, ":");
+              attr->name = g_strndup (str, len);
+              if (str[len] == ':')
+                {
+                  len++;
+                  if (str[len] == ' ')
+                    len++;
+                  attr->value = g_strdup (str + len);
+                }
+              else
+                attr->value = NULL;
+              mrp->attributes = g_slist_prepend (mrp->attributes, attr);
+            }
+          dbus_message_iter_next (&arrayc);
+        }
     }
   dbus_message_iter_next (&mrc);
   dbus_message_iter_get_basic (&mrc, &matchType);
@@ -763,7 +763,7 @@ return_and_free_list (DBusMessage * message, GList * ls)
   for (item = ls; item; item = g_list_next (item))
     {
       spi_dbus_append_name_and_path (message, &iter_array,
-				     ATK_OBJECT (item->data), TRUE, FALSE);
+                                     ATK_OBJECT (item->data), TRUE, FALSE);
     }
   if (!dbus_message_iter_close_container (&iter, &iter_array))
     goto oom;
@@ -786,11 +786,11 @@ free_mrp_data (MatchRulePrivate * mrp)
 
 static DBusMessage *
 GetMatchesFrom (DBusMessage * message,
-		AtkObject * current_object,
-		MatchRulePrivate * mrp,
-		const Accessibility_Collection_SortOrder sortby,
-		const dbus_bool_t isrestrict,
-		dbus_int32_t count, const dbus_bool_t traverse)
+                AtkObject * current_object,
+                MatchRulePrivate * mrp,
+                const Accessibility_Collection_SortOrder sortby,
+                const dbus_bool_t isrestrict,
+                dbus_int32_t count, const dbus_bool_t traverse)
 {
   GList *ls = NULL;
   AtkObject *parent;
@@ -803,11 +803,11 @@ GetMatchesFrom (DBusMessage * message,
     {
       parent = atk_object_get_parent (current_object);
       kount = query_exec (mrp, sortby, ls, 0, count, parent, index,
-			  FALSE, NULL, TRUE, traverse);
+                          FALSE, NULL, TRUE, traverse);
     }
   else
     kount = query_exec (mrp, sortby, ls, 0, count,
-			current_object, 0, FALSE, NULL, TRUE, traverse);
+                        current_object, 0, FALSE, NULL, TRUE, traverse);
 
   ls = g_list_remove (ls, ls->data);
 
@@ -824,15 +824,15 @@ GetMatchesFrom (DBusMessage * message,
 
 static int
 inorder (AtkObject * collection, MatchRulePrivate * mrp,
-	 GList * ls, gint kount, gint max,
-	 AtkObject * obj,
-	 gboolean flag, AtkObject * pobj, dbus_bool_t traverse)
+         GList * ls, gint kount, gint max,
+         AtkObject * obj,
+         gboolean flag, AtkObject * pobj, dbus_bool_t traverse)
 {
   int i = 0;
 
   /* First, look through the children recursively. */
   kount = sort_order_canonical (mrp, ls, kount, max, obj, 0, TRUE,
-				NULL, TRUE, TRUE);
+                                NULL, TRUE, TRUE);
 
   /* Next, we look through the right subtree */
   while ((max == 0 || kount < max) && obj != collection)
@@ -840,14 +840,14 @@ inorder (AtkObject * collection, MatchRulePrivate * mrp,
       AtkObject *parent = atk_object_get_parent (obj);
       i = atk_object_get_index_in_parent (obj);
       kount = sort_order_canonical (mrp, ls, kount, max, parent,
-				    i + 1, TRUE, FALSE, TRUE, TRUE);
+                                    i + 1, TRUE, FALSE, TRUE, TRUE);
       obj = parent;
     }
 
   if (kount < max)
     {
       kount = sort_order_canonical (mrp, ls, kount, max,
-				    obj, i + 1, TRUE, FALSE, TRUE, TRUE);
+                                    obj, i + 1, TRUE, FALSE, TRUE, TRUE);
     }
 
   return kount;
@@ -859,11 +859,11 @@ inorder (AtkObject * collection, MatchRulePrivate * mrp,
 
 static DBusMessage *
 GetMatchesInOrder (DBusMessage * message,
-		   AtkObject * current_object,
-		   MatchRulePrivate * mrp,
-		   const Accessibility_Collection_SortOrder sortby,
-		   const dbus_bool_t recurse,
-		   dbus_int32_t count, const dbus_bool_t traverse)
+                   AtkObject * current_object,
+                   MatchRulePrivate * mrp,
+                   const Accessibility_Collection_SortOrder sortby,
+                   const dbus_bool_t recurse,
+                   dbus_int32_t count, const dbus_bool_t traverse)
 {
   GList *ls = NULL;
   AtkObject *obj;
@@ -874,7 +874,7 @@ GetMatchesInOrder (DBusMessage * message,
   obj = atk_dbus_path_to_object (dbus_message_get_path (message));
 
   kount = inorder (obj, mrp, ls, 0, count,
-		   current_object, TRUE, NULL, traverse);
+                   current_object, TRUE, NULL, traverse);
 
   ls = g_list_remove (ls, ls->data);
 
@@ -892,10 +892,10 @@ GetMatchesInOrder (DBusMessage * message,
 
 static DBusMessage *
 GetMatchesInBackOrder (DBusMessage * message,
-		       AtkObject * current_object,
-		       MatchRulePrivate * mrp,
-		       const Accessibility_Collection_SortOrder sortby,
-		       dbus_int32_t count)
+                       AtkObject * current_object,
+                       MatchRulePrivate * mrp,
+                       const Accessibility_Collection_SortOrder sortby,
+                       dbus_int32_t count)
 {
   GList *ls = NULL;
   AtkObject *collection;
@@ -906,7 +906,7 @@ GetMatchesInBackOrder (DBusMessage * message,
   collection = atk_dbus_path_to_object (dbus_message_get_path (message));
 
   kount = sort_order_rev_canonical (mrp, ls, 0, count, current_object,
-				    FALSE, collection);
+                                    FALSE, collection);
 
   ls = g_list_remove (ls, ls->data);
 
@@ -919,12 +919,12 @@ GetMatchesInBackOrder (DBusMessage * message,
 
 static DBusMessage *
 GetMatchesTo (DBusMessage * message,
-	      AtkObject * current_object,
-	      MatchRulePrivate * mrp,
-	      const Accessibility_Collection_SortOrder sortby,
-	      const dbus_bool_t recurse,
-	      const dbus_bool_t isrestrict,
-	      dbus_int32_t count, const dbus_bool_t traverse)
+              AtkObject * current_object,
+              MatchRulePrivate * mrp,
+              const Accessibility_Collection_SortOrder sortby,
+              const dbus_bool_t recurse,
+              const dbus_bool_t isrestrict,
+              dbus_int32_t count, const dbus_bool_t traverse)
 {
   GList *ls = NULL;
   AtkObject *obj;
@@ -935,13 +935,13 @@ GetMatchesTo (DBusMessage * message,
     {
       obj = atk_object_get_parent (current_object);
       kount = query_exec (mrp, sortby, ls, 0, count,
-			  obj, 0, TRUE, current_object, TRUE, traverse);
+                          obj, 0, TRUE, current_object, TRUE, traverse);
     }
   else
     {
       obj = atk_dbus_path_to_object (dbus_message_get_path (message));
       kount = query_exec (mrp, sortby, ls, 0, count,
-			  obj, 0, TRUE, current_object, TRUE, traverse);
+                          obj, 0, TRUE, current_object, TRUE, traverse);
 
     }
 
@@ -956,7 +956,7 @@ GetMatchesTo (DBusMessage * message,
 
 static DBusMessage *
 impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
-		     void *user_data)
+                     void *user_data)
 {
   char *current_object_path = NULL;
   AtkObject *current_object;
@@ -1002,15 +1002,15 @@ impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
     {
     case Accessibility_Collection_TREE_RESTRICT_CHILDREN:
       return GetMatchesFrom (message, current_object,
-			     &rule, sortby, TRUE, count, traverse);
+                             &rule, sortby, TRUE, count, traverse);
       break;
     case Accessibility_Collection_TREE_RESTRICT_SIBLING:
       return GetMatchesFrom (message, current_object,
-			     &rule, sortby, FALSE, count, traverse);
+                             &rule, sortby, FALSE, count, traverse);
       break;
     case Accessibility_Collection_TREE_INORDER:
       return GetMatchesInOrder (message, current_object,
-				&rule, sortby, TRUE, count, traverse);
+                                &rule, sortby, TRUE, count, traverse);
       break;
     default:
       return NULL;
@@ -1019,7 +1019,7 @@ impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
 
 static DBusMessage *
 impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
-		   void *user_data)
+                   void *user_data)
 {
   char *current_object_path = NULL;
   AtkObject *current_object;
@@ -1068,15 +1068,15 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
     {
     case Accessibility_Collection_TREE_RESTRICT_CHILDREN:
       return GetMatchesTo (message, current_object,
-			   &rule, sortby, recurse, TRUE, count, traverse);
+                           &rule, sortby, recurse, TRUE, count, traverse);
       break;
     case Accessibility_Collection_TREE_RESTRICT_SIBLING:
       return GetMatchesTo (message, current_object,
-			   &rule, sortby, recurse, FALSE, count, traverse);
+                           &rule, sortby, recurse, FALSE, count, traverse);
       break;
     case Accessibility_Collection_TREE_INORDER:
       return GetMatchesInBackOrder (message, current_object,
-				    &rule, sortby, count);
+                                    &rule, sortby, count);
       break;
     default:
       return NULL;
@@ -1115,7 +1115,7 @@ impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_message_iter_next (&iter);
   ls = g_list_prepend (ls, obj);
   count = query_exec (&rule, sortby, ls, 0, count,
-		      obj, 0, TRUE, NULL, TRUE, traverse);
+                      obj, 0, TRUE, NULL, TRUE, traverse);
   ls = g_list_remove (ls, ls->data);
 
   if (sortby == Accessibility_Collection_SORT_ORDER_REVERSE_CANONICAL)
@@ -1135,5 +1135,5 @@ void
 spi_initialize_collection (DRoutePath * path)
 {
   droute_path_add_interface (path,
-			     SPI_DBUS_INTERFACE_COLLECTION, methods, NULL);
+                             SPI_DBUS_INTERFACE_COLLECTION, methods, NULL);
 };

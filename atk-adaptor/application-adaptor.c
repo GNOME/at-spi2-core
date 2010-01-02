@@ -28,8 +28,7 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_ToolkitName (DBusMessageIter * iter,
-		      void *user_data)
+impl_get_ToolkitName (DBusMessageIter * iter, void *user_data)
 {
   return droute_return_v_string (iter, atk_get_toolkit_name ());
 }
@@ -57,14 +56,14 @@ impl_set_Id (DBusMessageIter * iter, void *user_data)
 
 static DBusMessage *
 impl_registerToolkitEventListener (DBusConnection * bus,
-				   DBusMessage * message, void *user_data)
+                                   DBusMessage * message, void *user_data)
 {
   return NULL;
 }
 
 static DBusMessage *
 impl_registerObjectEventListener (DBusConnection * bus, DBusMessage * message,
-				  void *user_data)
+                                  void *user_data)
 {
   return NULL;
 }
@@ -111,10 +110,9 @@ obj_is_root (const char *path, void *user_data)
 }*/
 
 void
-spi_initialize_application (DRoutePath *path)
+spi_initialize_application (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_APPLICATION,
-                             methods,
-                             properties);
+                             methods, properties);
 };

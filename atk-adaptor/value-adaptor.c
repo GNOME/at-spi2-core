@@ -30,12 +30,11 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_MinimumValue (DBusMessageIter * iter,
-                       void *user_data)
+impl_get_MinimumValue (DBusMessageIter * iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
-  GValue src = {0};
-  GValue dest = {0};
+  GValue src = { 0 };
+  GValue dest = { 0 };
   gdouble dub;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
@@ -55,12 +54,11 @@ impl_get_MinimumValue (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_MaximumValue (DBusMessageIter * iter,
-                       void *user_data)
+impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
-  GValue src = {0};
-  GValue dest = {0};
+  GValue src = { 0 };
+  GValue dest = { 0 };
   gdouble dub;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
@@ -80,12 +78,11 @@ impl_get_MaximumValue (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_MinimumIncrement (DBusMessageIter * iter,
-                           void *user_data)
+impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
-  GValue src = {0};
-  GValue dest = {0};
+  GValue src = { 0 };
+  GValue dest = { 0 };
   gdouble dub;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
@@ -105,12 +102,11 @@ impl_get_MinimumIncrement (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_CurrentValue (DBusMessageIter * iter,
-                       void *user_data)
+impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
-  GValue src = {0};
-  GValue dest = {0};
+  GValue src = { 0 };
+  GValue dest = { 0 };
   gdouble dub;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
@@ -130,12 +126,11 @@ impl_get_CurrentValue (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_set_currentValue (DBusMessageIter * iter,
-                       void *user_data)
+impl_set_currentValue (DBusMessageIter * iter, void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
-  GValue src = {0};
-  GValue dest = {0};
+  GValue src = { 0 };
+  GValue dest = { 0 };
   gdouble dub;
   DBusMessageIter iter_variant;
 
@@ -143,10 +138,10 @@ impl_set_currentValue (DBusMessageIter * iter,
 
   dbus_message_iter_recurse (iter, &iter_variant);
   if (dbus_message_iter_get_arg_type (&iter_variant) != DBUS_TYPE_DOUBLE)
-  {
-    g_warning ("TODO: Support setting value from a non-double");
-    return FALSE;
-  }
+    {
+      g_warning ("TODO: Support setting value from a non-double");
+      return FALSE;
+    }
   dbus_message_iter_get_basic (&iter_variant, &dub);
   g_value_init (&src, G_TYPE_DOUBLE);
   g_value_set_double (&src, dub);
@@ -173,10 +168,8 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_value (DRoutePath *path)
+spi_initialize_value (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_VALUE,
-                             NULL,
-                             properties);
+                             SPI_DBUS_INTERFACE_VALUE, NULL, properties);
 };

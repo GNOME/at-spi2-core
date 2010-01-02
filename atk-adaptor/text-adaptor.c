@@ -32,8 +32,7 @@
 #include "accessible-marshaller.h"
 
 static dbus_bool_t
-impl_get_CharacterCount (DBusMessageIter * iter,
-                         void *user_data)
+impl_get_CharacterCount (DBusMessageIter * iter, void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
   g_return_val_if_fail (ATK_IS_TEXT (user_data), FALSE);
@@ -41,8 +40,7 @@ impl_get_CharacterCount (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_CaretOffset (DBusMessageIter * iter,
-                      void *user_data)
+impl_get_CaretOffset (DBusMessageIter * iter, void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
   g_return_val_if_fail (ATK_IS_TEXT (user_data), FALSE);
@@ -140,8 +138,9 @@ impl_GetTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt, DBUS_TYPE_INT32,
-                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt,
+                                DBUS_TYPE_INT32, &startOffset,
+                                DBUS_TYPE_INT32, &endOffset,
                                 DBUS_TYPE_INVALID);
     }
   g_free (txt);
@@ -179,8 +178,9 @@ impl_GetTextAtOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt, DBUS_TYPE_INT32,
-                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt,
+                                DBUS_TYPE_INT32, &startOffset,
+                                DBUS_TYPE_INT32, &endOffset,
                                 DBUS_TYPE_INVALID);
     }
   g_free (txt);
@@ -219,8 +219,9 @@ impl_GetTextAfterOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt, DBUS_TYPE_INT32,
-                                &startOffset, DBUS_TYPE_INT32, &endOffset,
+      dbus_message_append_args (reply, DBUS_TYPE_STRING, &txt,
+                                DBUS_TYPE_INT32, &startOffset,
+                                DBUS_TYPE_INT32, &endOffset,
                                 DBUS_TYPE_INVALID);
     }
   g_free (txt);
@@ -229,7 +230,7 @@ impl_GetTextAfterOffset (DBusConnection * bus, DBusMessage * message,
 
 static DBusMessage *
 impl_GetCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
-                         void *user_data)
+                           void *user_data)
 {
   AtkText *text = (AtkText *) user_data;
   dbus_int32_t offset;
@@ -249,7 +250,8 @@ impl_GetCharacterAtOffset (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT32, &ch, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_INT32, &ch,
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -305,7 +307,8 @@ impl_GetAttributeValue (DBusConnection * bus, DBusMessage * message,
     {
       dbus_message_append_args (reply, DBUS_TYPE_STRING, &rv, DBUS_TYPE_INT32,
                                 &startOffset, DBUS_TYPE_INT32, &endOffset,
-                                DBUS_TYPE_BOOLEAN, &defined, DBUS_TYPE_INVALID);
+                                DBUS_TYPE_BOOLEAN, &defined,
+                                DBUS_TYPE_INVALID);
     }
   atk_attribute_set_free (set);
   return reply;
@@ -369,7 +372,8 @@ impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
       dbus_message_iter_init_append (reply, &iter);
       spi_atk_append_attribute_set (&iter, set);
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
-                                DBUS_TYPE_INT32, &endOffset, DBUS_TYPE_INVALID);
+                                DBUS_TYPE_INT32, &endOffset,
+                                DBUS_TYPE_INVALID);
     }
   atk_attribute_set_free (set);
   return reply;
@@ -416,8 +420,8 @@ impl_GetCharacterExtents (DBusConnection * bus, DBusMessage * message,
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
-      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32, &coordType,
-       DBUS_TYPE_INVALID))
+      (message, &error, DBUS_TYPE_INT32, &offset, DBUS_TYPE_UINT32,
+       &coordType, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
     }
@@ -754,7 +758,8 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
     return NULL;
 
   dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{ss}", &iterArray);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{ss}",
+                                    &iterArray);
   spi_atk_append_attribute_set_inner (&iterArray, attributes);
   if (includeDefaults)
     {
@@ -833,10 +838,8 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_text (DRoutePath *path)
+spi_initialize_text (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TEXT,
-                             methods,
-                             properties);
+                             SPI_DBUS_INTERFACE_TEXT, methods, properties);
 };

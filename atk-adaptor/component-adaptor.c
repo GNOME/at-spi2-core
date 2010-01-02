@@ -226,7 +226,8 @@ impl_GetMDIZOrder (DBusConnection * bus, DBusMessage * message,
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
-      dbus_message_append_args (reply, DBUS_TYPE_INT16, &rv, DBUS_TYPE_INVALID);
+      dbus_message_append_args (reply, DBUS_TYPE_INT16, &rv,
+                                DBUS_TYPE_INVALID);
     }
   return reply;
 }
@@ -301,10 +302,8 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_component (DRoutePath *path)
+spi_initialize_component (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COMPONENT,
-                             methods,
-                             NULL);
+                             SPI_DBUS_INTERFACE_COMPONENT, methods, NULL);
 };

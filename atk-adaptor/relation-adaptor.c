@@ -33,7 +33,7 @@
 #include "common/spi-dbus.h"
 
 static gboolean
-spi_init_relation_type_table (Accessibility_RelationType *types)
+spi_init_relation_type_table (Accessibility_RelationType * types)
 {
   gint i;
 
@@ -53,8 +53,10 @@ spi_init_relation_type_table (Accessibility_RelationType *types)
   types[ATK_RELATION_EMBEDS] = Accessibility_RELATION_EMBEDS;
   types[ATK_RELATION_EMBEDDED_BY] = Accessibility_RELATION_EMBEDDED_BY;
   types[ATK_RELATION_POPUP_FOR] = Accessibility_RELATION_POPUP_FOR;
-  types[ATK_RELATION_PARENT_WINDOW_OF] = Accessibility_RELATION_PARENT_WINDOW_OF;
-  types[ATK_RELATION_DESCRIPTION_FOR] = Accessibility_RELATION_DESCRIPTION_FOR;
+  types[ATK_RELATION_PARENT_WINDOW_OF] =
+    Accessibility_RELATION_PARENT_WINDOW_OF;
+  types[ATK_RELATION_DESCRIPTION_FOR] =
+    Accessibility_RELATION_DESCRIPTION_FOR;
   types[ATK_RELATION_DESCRIBED_BY] = Accessibility_RELATION_DESCRIBED_BY;
 
   return TRUE;
@@ -66,11 +68,12 @@ static Accessibility_RelationType
 spi_relation_type_from_atk_relation_type (AtkRelationType type)
 {
   static gboolean is_initialized = FALSE;
-  static Accessibility_RelationType spi_relation_type_table [ATK_RELATION_LAST_DEFINED];
+  static Accessibility_RelationType
+    spi_relation_type_table[ATK_RELATION_LAST_DEFINED];
   Accessibility_RelationType spi_type;
 
   if (!is_initialized)
-    is_initialized = spi_init_relation_type_table (spi_relation_type_table);	   
+    is_initialized = spi_init_relation_type_table (spi_relation_type_table);
 
   if (type > ATK_RELATION_NULL && type < ATK_RELATION_LAST_DEFINED)
     spi_type = spi_relation_type_table[type];
@@ -84,17 +87,16 @@ spi_relation_type_from_atk_relation_type (AtkRelationType type)
 static AtkRelation *
 get_relation_from_servant (PortableServer_Servant servant)
 {
-  SpiBase *base = SPI_BASE (bonobo_object_from_servant(servant));
+  SpiBase *base = SPI_BASE (bonobo_object_from_servant (servant));
 
   g_return_val_if_fail (base, NULL);
-  return  ATK_RELATION(base->gobj);
+  return ATK_RELATION (base->gobj);
 }
 
 
 
 static Accessibility_RelationType
-impl_getRelationType (PortableServer_Servant servant,
-		      CORBA_Environment * ev)
+impl_getRelationType (PortableServer_Servant servant, CORBA_Environment * ev)
 {
   AtkRelation *relation = get_relation_from_servant (servant);
   AtkRelationType type;
@@ -106,10 +108,9 @@ impl_getRelationType (PortableServer_Servant servant,
 
 
 static CORBA_short
-impl_getNTargets (PortableServer_Servant servant,
-		  CORBA_Environment * ev)
+impl_getNTargets (PortableServer_Servant servant, CORBA_Environment * ev)
 {
-  AtkRelation *relation = get_relation_from_servant(servant);
+  AtkRelation *relation = get_relation_from_servant (servant);
   g_return_val_if_fail (relation != NULL, 0);
 
   return relation->target ? relation->target->len : 0;
@@ -118,16 +119,13 @@ impl_getNTargets (PortableServer_Servant servant,
 
 static CORBA_Object
 impl_getTarget (PortableServer_Servant servant,
-		const CORBA_short index,
-		CORBA_Environment * ev)
+                const CORBA_short index, CORBA_Environment * ev)
 {
   AtkObject *atk_object;
   AtkRelation *relation = get_relation_from_servant (servant);
   g_return_val_if_fail (relation, NULL);
 
-  if (!relation->target ||
-      index < 0 ||
-      index >= relation->target->len)
+  if (!relation->target || index < 0 || index >= relation->target->len)
     return CORBA_OBJECT_NIL;
 
   atk_object = g_ptr_array_index (relation->target, index);
@@ -139,7 +137,7 @@ impl_getTarget (PortableServer_Servant servant,
 
 
 SpiRelation *
-spi_relation_new (AtkRelation *obj)
+spi_relation_new (AtkRelation * obj)
 {
   SpiRelation *new_relation = g_object_new (SPI_RELATION_TYPE, NULL);
   spi_base_construct (SPI_BASE (new_relation), G_OBJECT (obj));
@@ -148,23 +146,21 @@ spi_relation_new (AtkRelation *obj)
 
 
 static void
-spi_relation_class_init (SpiRelationClass *klass)
+spi_relation_class_init (SpiRelationClass * klass)
 {
   POA_Accessibility_Relation__epv *epv = &klass->epv;
 
-  epv->getRelationType  = impl_getRelationType;  
-  epv->getNTargets      = impl_getNTargets;
-  epv->getTarget        = impl_getTarget;
+  epv->getRelationType = impl_getRelationType;
+  epv->getNTargets = impl_getNTargets;
+  epv->getTarget = impl_getTarget;
 }
 
 
 static void
-spi_relation_init (SpiRelation *relation)
+spi_relation_init (SpiRelation * relation)
 {
 }
 
 
 BONOBO_TYPE_FUNC_FULL (SpiRelation,
-		       Accessibility_Relation,
-		       SPI_TYPE_BASE,
-		       spi_relation)
+                       Accessibility_Relation, SPI_TYPE_BASE, spi_relation)

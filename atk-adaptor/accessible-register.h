@@ -27,32 +27,25 @@
 #include <atk/atk.h>
 #include <glib.h>
 
-void
-atk_dbus_foreach_registered(GHFunc func, gpointer data);
+void atk_dbus_foreach_registered (GHFunc func, gpointer data);
 
 /*---------------------------------------------------------------------------*/
 
-GObject *
-atk_dbus_path_to_gobject (const char *path);
+GObject *atk_dbus_path_to_gobject (const char *path);
 
-AtkObject *
-atk_dbus_path_to_object (const char *path);
+AtkObject *atk_dbus_path_to_object (const char *path);
 
-gchar *
-atk_dbus_object_attempt_registration (AtkObject *accessible);
+gchar *atk_dbus_object_attempt_registration (AtkObject * accessible);
 
-gchar *
-atk_dbus_object_to_path (AtkObject *accessible, gboolean do_register);
+gchar *atk_dbus_object_to_path (AtkObject * accessible, gboolean do_register);
 
-gchar *
-atk_dbus_sub_object_to_path (GObject *accessible, GObject *container);
+gchar *atk_dbus_sub_object_to_path (GObject * accessible,
+                                    GObject * container);
 
-gchar *
-atk_dbus_hyperlink_to_path (AtkHyperlink *hyperlink, AtkObject *container);
+gchar *atk_dbus_hyperlink_to_path (AtkHyperlink * hyperlink,
+                                   AtkObject * container);
 
-gchar *
-atk_dbus_desktop_object_path ();
+gchar *atk_dbus_desktop_object_path ();
 
-gchar *
-atk_dbus_ref_to_path (guint ref);
+gchar *atk_dbus_ref_to_path (guint ref);
 #endif /* ACCESSIBLE_REGISTER */

@@ -30,9 +30,7 @@
 #include "accessible-marshaller.h"
 
 static DBusMessage *
-impl_GetLocale (DBusConnection *bus,
-                DBusMessage *message,
-                void *user_data)
+impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   AtkDocument *document = (AtkDocument *) user_data;
   const gchar *lc;
@@ -116,10 +114,8 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_document (DRoutePath *path)
+spi_initialize_document (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_DOCUMENT,
-                             methods,
-                             NULL);
+                             SPI_DBUS_INTERFACE_DOCUMENT, methods, NULL);
 };

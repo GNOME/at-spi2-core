@@ -29,8 +29,7 @@
 #include "accessible-marshaller.h"
 
 static dbus_bool_t
-impl_get_NSelectedChildren (DBusMessageIter * iter,
-                            void *user_data)
+impl_get_NSelectedChildren (DBusMessageIter * iter, void *user_data)
 {
   AtkSelection *selection = (AtkSelection *) user_data;
   g_return_val_if_fail (ATK_IS_SELECTION (user_data), FALSE);
@@ -252,10 +251,9 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_selection (DRoutePath *path)
+spi_initialize_selection (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_SELECTION,
-                             methods,
-                             properties);
+                             methods, properties);
 };

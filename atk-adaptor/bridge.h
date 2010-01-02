@@ -31,10 +31,10 @@
 typedef struct _SpiAppData SpiAppData;
 struct _SpiAppData
 {
-    AtkObject      *root;
+  AtkObject *root;
 
-    DBusConnection *bus;
-    DRouteContext  *droute;
+  DBusConnection *bus;
+  DRouteContext *droute;
 };
 
 extern SpiAppData *atk_adaptor_app_data;

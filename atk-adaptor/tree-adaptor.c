@@ -41,62 +41,64 @@ append_accessible_hf (gpointer key, gpointer obj_data, gpointer data)
 {
   /* Make sure it isn't a hyperlink */
   if (ATK_IS_OBJECT (obj_data))
-    spi_atk_append_accessible (ATK_OBJECT(obj_data), data);
+    spi_atk_append_accessible (ATK_OBJECT (obj_data), data);
 }
 
 /*---------------------------------------------------------------------------*/
 
 void
-spi_emit_cache_removal (guint ref,  DBusConnection *bus)
+spi_emit_cache_removal (guint ref, DBusConnection * bus)
 {
   DBusMessage *message;
 
   if ((message = dbus_message_new_signal ("/org/freedesktop/atspi/tree",
                                           SPI_DBUS_INTERFACE_TREE,
-                                          "RemoveAccessible"))) {
-    DBusMessageIter iter;
-    gchar *path;
+                                          "RemoveAccessible")))
+    {
+      DBusMessageIter iter;
+      gchar *path;
 
-    dbus_message_iter_init_append (message, &iter);
+      dbus_message_iter_init_append (message, &iter);
 
-    path = atk_dbus_ref_to_path (ref);
-    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &path);
+      path = atk_dbus_ref_to_path (ref);
+      dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &path);
 
-    dbus_connection_send(bus, message, NULL);
+      dbus_connection_send (bus, message, NULL);
 
-    dbus_message_unref (message);
-  }
+      dbus_message_unref (message);
+    }
 }
 
 void
-spi_emit_cache_update (AtkObject *accessible, DBusConnection *bus)
+spi_emit_cache_update (AtkObject * accessible, DBusConnection * bus)
 {
   DBusMessage *message;
 
   if ((message = dbus_message_new_signal ("/org/freedesktop/atspi/tree",
                                           SPI_DBUS_INTERFACE_TREE,
-                                          "UpdateAccessible"))) {
-    DBusMessageIter iter;
+                                          "UpdateAccessible")))
+    {
+      DBusMessageIter iter;
 
-    dbus_message_iter_init_append (message, &iter);
-    spi_atk_append_accessible (accessible, &iter);
+      dbus_message_iter_init_append (message, &iter);
+      spi_atk_append_accessible (accessible, &iter);
 
-    dbus_connection_send(bus, message, NULL);
+      dbus_connection_send (bus, message, NULL);
 
-    dbus_message_unref (message);
-  }
+      dbus_message_unref (message);
+    }
 }
 
 
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_GetRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetRoot (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkObject *root = atk_get_root();
+  AtkObject *root = atk_get_root ();
   char *path;
   DBusMessage *reply;
-  gchar       *errmsg;
+  gchar *errmsg;
 
   if (!root)
     {
@@ -112,7 +114,8 @@ impl_GetRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
                                       "No root accessible available");
     }
   reply = dbus_message_new_method_return (message);
-  dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path, DBUS_TYPE_INVALID);
+  dbus_message_append_args (reply, DBUS_TYPE_OBJECT_PATH, &path,
+                            DBUS_TYPE_INVALID);
   g_free (path);
   return reply;
 }
@@ -120,7 +123,7 @@ impl_GetRoot (DBusConnection *bus, DBusMessage *message, void *user_data)
 /*---------------------------------------------------------------------------*/
 
 static DBusMessage *
-impl_GetTree (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_GetTree (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
@@ -128,9 +131,10 @@ impl_GetTree (DBusConnection *bus, DBusMessage *message, void *user_data)
   reply = dbus_message_new_method_return (message);
 
   dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container(&iter, DBUS_TYPE_ARRAY, "(o(so)a(so)assusau)", &iter_array);
-  atk_dbus_foreach_registered(append_accessible_hf, &iter_array);
-  dbus_message_iter_close_container(&iter, &iter_array);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY,
+                                    "(o(so)a(so)assusau)", &iter_array);
+  atk_dbus_foreach_registered (append_accessible_hf, &iter_array);
+  dbus_message_iter_close_container (&iter, &iter_array);
   return reply;
 }
 
@@ -143,12 +147,9 @@ static DRouteMethod methods[] = {
 };
 
 void
-spi_initialize_tree (DRoutePath *path)
+spi_initialize_tree (DRoutePath * path)
 {
-  droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TREE,
-                             methods,
-                             NULL);
+  droute_path_add_interface (path, SPI_DBUS_INTERFACE_TREE, methods, NULL);
 };
 
 /*END------------------------------------------------------------------------*/

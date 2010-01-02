@@ -27,8 +27,8 @@
 
 #include <common/spi-types.h>
 
-void spi_atk_register_event_listeners   (void);
+void spi_atk_register_event_listeners (void);
 void spi_atk_deregister_event_listeners (void);
-void spi_atk_tidy_windows               (void);
+void spi_atk_tidy_windows (void);
 
 #endif /* EVENT_H */

@@ -28,8 +28,7 @@
 #include "common/spi-dbus.h"
 
 static dbus_bool_t
-impl_get_ImageDescription (DBusMessageIter * iter,
-                           void *user_data)
+impl_get_ImageDescription (DBusMessageIter * iter, void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   g_return_val_if_fail (ATK_IS_IMAGE (user_data), FALSE);
@@ -38,8 +37,7 @@ impl_get_ImageDescription (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_ImageLocale (DBusMessageIter * iter,
-                      void *user_data)
+impl_get_ImageLocale (DBusMessageIter * iter, void *user_data)
 {
   AtkImage *image = (AtkImage *) user_data;
   g_return_val_if_fail (ATK_IS_IMAGE (user_data), FALSE);
@@ -136,10 +134,8 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_image (DRoutePath *path)
+spi_initialize_image (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_IMAGE,
-                             methods,
-                             properties);
+                             SPI_DBUS_INTERFACE_IMAGE, methods, properties);
 };

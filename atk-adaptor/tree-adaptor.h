@@ -28,10 +28,8 @@
 #include <atk/atk.h>
 #include <dbus/dbus.h>
 
-void
-spi_emit_cache_update  (AtkObject *accessible, DBusConnection *bus);
+void spi_emit_cache_update (AtkObject * accessible, DBusConnection * bus);
 
-void
-spi_emit_cache_removal (guint ref, DBusConnection *bus);
+void spi_emit_cache_removal (guint ref, DBusConnection * bus);
 
 #endif /* TREE_ADAPTOR_H */

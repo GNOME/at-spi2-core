@@ -48,8 +48,7 @@ impl_get_NAnchors (DBusMessageIter * iter, void *user_data)
 
 
 static dbus_bool_t
-impl_get_StartIndex (DBusMessageIter * iter,
-                     void *user_data)
+impl_get_StartIndex (DBusMessageIter * iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
   g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
@@ -81,7 +80,8 @@ impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   atk_object = atk_hyperlink_get_object (link, i);
-  return spi_dbus_return_sub_object (message, G_OBJECT (atk_object), G_OBJECT (link), FALSE);
+  return spi_dbus_return_sub_object (message, G_OBJECT (atk_object),
+                                     G_OBJECT (link), FALSE);
 }
 
 static DBusMessage *
@@ -150,10 +150,9 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_hyperlink (DRoutePath *path)
+spi_initialize_hyperlink (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_HYPERLINK,
-                             methods,
-                             properties);
+                             methods, properties);
 };

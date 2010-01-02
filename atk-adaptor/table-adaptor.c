@@ -63,8 +63,7 @@ impl_get_Summary (DBusMessageIter * iter, void *user_data)
 }
 
 static dbus_bool_t
-impl_get_NSelectedRows (DBusMessageIter * iter,
-                        void *user_data)
+impl_get_NSelectedRows (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   gint *selected_rows = NULL;
@@ -77,8 +76,7 @@ impl_get_NSelectedRows (DBusMessageIter * iter,
 }
 
 static dbus_bool_t
-impl_get_NSelectedColumns (DBusMessageIter * iter,
-                           void *user_data)
+impl_get_NSelectedColumns (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   gint *selected_columns = NULL;
@@ -686,10 +684,8 @@ static DRouteProperty properties[] = {
 };
 
 void
-spi_initialize_table (DRoutePath *path)
+spi_initialize_table (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TABLE,
-                             methods,
-                             properties);
+                             SPI_DBUS_INTERFACE_TABLE, methods, properties);
 };

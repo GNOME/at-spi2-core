@@ -28,32 +28,37 @@
 #include <atk/atk.h>
 
 void
-spi_dbus_append_name_and_path_inner (DBusMessageIter *iter, const char *bus_name, const char *path);
+spi_dbus_append_name_and_path_inner (DBusMessageIter * iter,
+                                     const char *bus_name, const char *path);
 
 void
-spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkObject *obj, gboolean do_register, gboolean unref);
+spi_dbus_append_name_and_path (DBusMessage * message, DBusMessageIter * iter,
+                               AtkObject * obj, gboolean do_register,
+                               gboolean unref);
 
-DBusMessage *
-spi_dbus_return_object (DBusMessage *message, AtkObject *obj, gboolean do_register, gboolean unref);
+DBusMessage *spi_dbus_return_object (DBusMessage * message, AtkObject * obj,
+                                     gboolean do_register, gboolean unref);
 
-DBusMessage *
-spi_dbus_return_hyperlink (DBusMessage *message, AtkHyperlink *link, AtkObject *container, gboolean unref);
+DBusMessage *spi_dbus_return_hyperlink (DBusMessage * message,
+                                        AtkHyperlink * link,
+                                        AtkObject * container,
+                                        gboolean unref);
 
-DBusMessage *
-spi_dbus_return_sub_object (DBusMessage *message, GObject *sub, GObject *container, gboolean unref);
+DBusMessage *spi_dbus_return_sub_object (DBusMessage * message, GObject * sub,
+                                         GObject * container, gboolean unref);
 
 dbus_bool_t
-spi_dbus_return_v_object (DBusMessageIter *iter, AtkObject *obj, int unref);
+spi_dbus_return_v_object (DBusMessageIter * iter, AtkObject * obj, int unref);
+
+void spi_atk_append_accessible (AtkObject * obj, gpointer iter);
 
 void
-spi_atk_append_accessible(AtkObject *obj, gpointer iter);
+spi_atk_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr);
 
 void
-spi_atk_append_attribute_set (DBusMessageIter *iter, AtkAttributeSet *attr);
+spi_atk_append_attribute_set_inner (DBusMessageIter * iter,
+                                    AtkAttributeSet * attr);
 
 void
-spi_atk_append_attribute_set_inner (DBusMessageIter *iter, AtkAttributeSet *attr);
-
-void
-append_atk_object_interfaces (AtkObject *object, DBusMessageIter *iter);
+append_atk_object_interfaces (AtkObject * object, DBusMessageIter * iter);
 #endif /* ACCESSIBLE_MARSHALLER */
