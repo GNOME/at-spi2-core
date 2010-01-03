@@ -1,0 +1,12 @@
+/.deps
+/.libs
+
+/atk-enum-types.c
+/atk-enum-types.h
+/atk.rc
+/atkmarshal.c
+/atkmarshal.h
+/s-enum-types-c
+/s-enum-types-h
+/stamp-atkmarshal.c
+/stamp-atkmarshal.h
