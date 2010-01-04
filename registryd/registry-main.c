@@ -266,7 +266,7 @@ spi_get_bus (void)
 	 else
          {
 	     if (!dbus_bus_register (bus, &error))
-	         g_error ("AT-SPI: Couldn't register with bus: %s\n");
+	         g_error ("AT-SPI: Couldn't register with bus: %s\n", error.message);
          } 
      }
 

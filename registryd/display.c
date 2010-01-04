@@ -46,6 +46,7 @@ Display *spi_set_display (const char *display_name)
                 g_error ("AT-SPI: Cannot open default display");
                 return NULL;
         }
+ return default_display;
 }
 
 Display *spi_get_display ()
