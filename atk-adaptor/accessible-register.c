@@ -198,6 +198,10 @@ deregister_object (gpointer data, GObject * gobj)
                      0,
                      gobj);
       g_hash_table_remove (reg->ref2ptr, GINT_TO_POINTER (ref));
+
+#ifdef SPI_ATK_DEBUG
+      g_debug ("DEREG  - %d", ref);
+#endif
     }
 }
 
@@ -212,6 +216,10 @@ register_object (SpiRegister * reg, GObject * gobj)
   g_hash_table_insert (reg->ref2ptr, GINT_TO_POINTER (ref), gobj);
   g_object_set_data (G_OBJECT (gobj), SPI_DBUS_ID, GINT_TO_POINTER (ref));
   g_object_weak_ref (G_OBJECT (gobj), deregister_object, reg);
+
+#ifdef SPI_ATK_DEBUG
+  g_debug ("REG  - %d", ref);
+#endif
 
   g_signal_emit (reg, register_signals [OBJECT_REGISTERED], 0, gobj);
 }
@@ -267,6 +275,9 @@ gchar *
 spi_register_object_to_path (SpiRegister * reg, GObject * gobj)
 {
   guint ref;
+
+  if (gobj == NULL)
+    return NULL;
 
   ref = object_to_ref (gobj);
   if (!ref)

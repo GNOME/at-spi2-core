@@ -1,1 +1,1 @@
-SUBDIRS=droute common atk-adaptor
+SUBDIRS=dbind droute common atk-adaptor

@@ -246,7 +246,7 @@ exit_func (void)
 
 /*---------------------------------------------------------------------------*/
 
-#ifdef __ATK_PLUG_H__
+#ifdef SPI_ATK_PLUG_SOCKET
 static AtkPlugClass *plug_class;
 static AtkSocketClass *socket_class;
 
@@ -257,7 +257,7 @@ get_plug_id (AtkPlug * plug)
   gchar *path;
   GString *str = g_string_new (NULL);
 
-  path = atk_dbus_object_to_path (ATK_OBJECT (plug), TRUE);
+  path = spi_register_object_to_path (spi_global_register, G_OBJECT (plug));
   g_string_printf (str, "%s:%s", uname, path);
   g_free (path);
   return g_string_free (str, FALSE);
@@ -270,8 +270,7 @@ socket_embed_hook (AtkSocket * socket, gchar * plug_id)
   gchar *plug_name, *plug_path;
 
   /* Force registration */
-  gchar *path = atk_dbus_object_to_path (accessible, TRUE);
-  spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
+  gchar *path = spi_register_object_to_path (spi_global_register, G_OBJECT (accessible));
   /* Let the plug know that it has been embedded */
   plug_name = g_strdup (plug_id);
   if (!plug_name)
@@ -286,7 +285,7 @@ socket_embed_hook (AtkSocket * socket, gchar * plug_id)
       *(plug_path++) = '\0';
       message = dbus_message_new_method_call (plug_name, plug_path, "org.freedesktop.atspi.Accessible", "Embedded");
       dbus_message_append_args (message, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
-      dbus_connection_send (atk_adaptor_app_data->bus, message, NULL);
+      dbus_connection_send (spi_global_app_data->bus, message, NULL);
     }
   g_free (plug_name);
   g_free (path);
@@ -358,7 +357,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   /* Allocate global data and do ATK initializations */
   spi_global_app_data = g_new0 (SpiBridge, 1);
   atk_misc = atk_misc_get_instance ();
-  spi_global_app_data->root = root;
+  spi_global_app_data->root = g_object_ref (root);
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
@@ -388,6 +387,15 @@ adaptor_init (gint * argc, gchar ** argv[])
   dbus_connection_setup_with_g_main (spi_global_app_data->bus,
                                      g_main_context_default ());
 
+  /* 
+   * Create the leasing, register and cache objects.
+   * The order is important here, the cache depends on the
+   * register object.
+   */
+  spi_global_register = g_object_new (SPI_REGISTER_TYPE, NULL);
+  spi_global_leasing  = g_object_new (SPI_LEASING_TYPE, NULL);
+  spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
+
   /* Get D-Bus introspection directory */
   introspection_directory = (char *) g_getenv ("ATSPI_INTROSPECTION_PATH");
   if (introspection_directory == NULL)
@@ -398,7 +406,7 @@ adaptor_init (gint * argc, gchar ** argv[])
     droute_new (spi_global_app_data->bus, introspection_directory);
 
   treepath = droute_add_one (spi_global_app_data->droute,
-                             "/org/at_spi/cache", NULL);
+                             "/org/at_spi/cache", spi_global_cache);
 
   accpath = droute_add_many (spi_global_app_data->droute,
                              "/org/at_spi/accessible",
@@ -406,14 +414,6 @@ adaptor_init (gint * argc, gchar ** argv[])
                              (DRouteGetDatumFunction)
                              spi_global_register_path_to_object);
 
-  /* 
-   * Create the leasing, register and cache objects.
-   * The order is important here, the cache depends on the
-   * register object.
-   */
-  spi_global_register = g_object_new (SPI_REGISTER_TYPE, NULL);
-  spi_global_leasing  = g_object_new (SPI_LEASING_TYPE, NULL);
-  spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
 
   /* Register all interfaces with droute and set up application accessible db */
   spi_initialize_cache (treepath);
@@ -435,7 +435,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
 
-#ifdef __ATK_PLUG_H__
+#ifdef SPI_ATK_PLUG_SOCKET
   /* Hook our plug-and socket functions */
   install_plug_hooks ();
 #endif

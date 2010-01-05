@@ -38,7 +38,7 @@ toplevel_added_listener (AtkObject * accessible,
                          guint index, AtkObject * child);
 
 static void
-remove_object (gpointer data, GObject * gobj);
+remove_object (GObject * source, GObject * gobj, gpointer data);
 
 static void
 add_object (SpiCache * cache, GObject * gobj);
@@ -149,7 +149,7 @@ spi_cache_dispose (GObject * object)
 /*---------------------------------------------------------------------------*/
 
 static void
-remove_object (gpointer data, GObject * gobj)
+remove_object (GObject * source, GObject * gobj, gpointer data)
 {
   SpiCache *cache = SPI_CACHE (data);
   
@@ -166,6 +166,12 @@ add_object (SpiCache * cache, GObject * gobj)
   g_return_if_fail (G_IS_OBJECT (gobj));
 
   g_hash_table_insert (cache->objects, gobj, NULL);
+
+#ifdef SPI_ATK_DEBUG
+  g_debug ("CACHE  - %s - %d - %s", atk_object_get_name (ATK_OBJECT (gobj)),
+            atk_object_get_role (ATK_OBJECT (gobj)),
+            spi_register_object_to_path (spi_global_register, gobj));
+#endif
 
   g_signal_emit (cache, cache_signals [OBJECT_ADDED], 0, gobj);
 }
@@ -254,11 +260,6 @@ add_subtree (SpiCache *cache, AtkObject * accessible)
           if (!spi_cache_in (cache, G_OBJECT (current)) &&
               !atk_state_set_contains_state  (set, ATK_STATE_MANAGES_DESCENDANTS))
             {
-#ifdef SPI_ATK_DEBUG
-              g_debug ("REG  - %s - %d - %s", atk_object_get_name (current),
-                       atk_object_get_role (current),
-                       atk_dbus_object_to_path (current));
-#endif
               append_children (current, traversal);
             }
         }
@@ -385,5 +386,21 @@ spi_cache_in (SpiCache * cache, GObject * object)
   else
     return FALSE;
 }
+
+#ifdef SPI_ATK_DEBUG
+void
+spi_cache_print_info (GObject * obj)
+{
+  char * path = spi_register_object_to_path (spi_global_register, obj);
+ 
+  if (spi_cache_in (spi_global_cache, obj))
+      g_printf ("%s IC\n", path);
+  else
+      g_printf ("%s NC\n", path);
+
+  if (path)
+      g_free (path);
+}
+#endif
 
 /*END------------------------------------------------------------------------*/

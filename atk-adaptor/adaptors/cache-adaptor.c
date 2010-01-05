@@ -98,9 +98,30 @@ append_cache_item (AtkObject * obj, gpointer data)
     parent = atk_object_get_parent (obj);
     if (parent == NULL)
       {
-        /* TODO: Support getting parent of an AtkPlug */
-#ifdef __ATK_PLUG_H__
-        if (role != Accessibility_ROLE_APPLICATION && !ATK_IS_PLUG (obj))
+#ifdef SPI_ATK_PLUG_SOCKET
+        /* TODO, move in to a 'Plug' wrapper. */
+        if (ATK_IS_PLUG (obj))
+          {
+            char *id = g_object_get_data (G_OBJECT (obj), "dbus-plug-parent");
+            char *bus_parent;
+            char *path_parent;
+
+            if (id)
+              {
+                bus_parent = g_strdup (id);
+              if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
+                {
+                  DBusMessageIter iter_parent;
+                  *(path_parent++) = '\0';
+                  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL,
+                                                    &iter_parent);
+                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
+                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
+                  dbus_message_iter_close_container (&iter_struct, &iter_parent);
+                }
+              }
+          }
+        else if (role != Accessibility_ROLE_APPLICATION)
 #else
         if (role != Accessibility_ROLE_APPLICATION)
 #endif
@@ -131,7 +152,7 @@ append_cache_item (AtkObject * obj, gpointer data)
             g_object_unref (G_OBJECT (child));
           }
       }
-#ifdef __ATK_PLUG_H__
+#ifdef SPI_ATK_PLUG_SOCKET
     if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
       {
         AtkSocket *socket = ATK_SOCKET (obj);
@@ -144,8 +165,8 @@ append_cache_item (AtkObject * obj, gpointer data)
             *(child_path++) = '\0';
             dbus_message_iter_open_container (&iter_sub_array, DBUS_TYPE_STRUCT, NULL,
                                               &iter_socket);
-            dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_STRING, &name);
-            dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_OBJECT_PATH, &path);
+            dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_STRING, &child_name);
+            dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_OBJECT_PATH, &child_path);
             dbus_message_iter_close_container (&iter_sub_array, &iter_socket);
           }
         g_free (child_name);

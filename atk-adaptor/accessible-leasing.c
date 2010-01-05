@@ -26,6 +26,10 @@
 
 #include "accessible-leasing.h"
 
+#ifdef SPI_ATK_DEBUG
+#include "accessible-cache.h"
+#endif
+
 /*---------------------------------------------------------------------------*/
 
 SpiLeasing *spi_global_leasing;
@@ -107,6 +111,11 @@ expiry_func (gpointer data)
   while (head != NULL && head->expiry_s <= t.tv_sec)
     {
       current = g_queue_pop_head (leasing->expiry_queue);
+
+#ifdef SPI_ATK_DEBUG
+      g_debug ("REVOKE - ");
+      spi_cache_print_info (current->object);
+#endif
 
       g_object_unref (current->object);
       g_slice_free (ExpiryElement, current);
@@ -191,6 +200,11 @@ spi_leasing_take (SpiLeasing * leasing, GObject * object)
   g_queue_push_tail (leasing->expiry_queue, elem);
 
   add_expiry_timeout (leasing);
+
+#ifdef SPI_ATK_DEBUG
+  g_debug ("LEASE - ");
+  spi_cache_print_info (object);
+#endif
 
   return object;
 }

@@ -249,6 +249,8 @@ impl_prop_GetAll (DBusMessage *message,
     gchar *iface;
 
     void  *datum = path_get_datum (path, pathstr);
+    if (!datum)
+	return NULL;
 
     dbus_error_init (&error);
     if (!dbus_message_get_args
@@ -299,6 +301,7 @@ impl_prop_GetSet (DBusMessage *message,
     StrPair pair;
     PropertyPair *prop_funcs = NULL;
 
+    void *datum;
 
     dbus_error_init (&error);
     if (!dbus_message_get_args (message,
@@ -316,9 +319,13 @@ impl_prop_GetSet (DBusMessage *message,
     if (!prop_funcs)
         return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
 
+    datum = path_get_datum (path, pathstr);
+    if (!datum)
+	return NULL;
+
     if (get && prop_funcs->get)
       {
-        void *datum = path_get_datum (path, pathstr);
+        
         DBusMessageIter iter;
 
         _DROUTE_DEBUG ("DRoute (handle prop Get): %s|%s on %s\n", pair.one, pair.two, pathstr);
@@ -333,7 +340,6 @@ impl_prop_GetSet (DBusMessage *message,
       }
     else if (!get && prop_funcs->set)
       {
-        void *datum = path_get_datum (path, pathstr);
         DBusMessageIter iter;
 
         _DROUTE_DEBUG ("DRoute (handle prop Get): %s|%s on %s\n", pair.one, pair.two, pathstr);
@@ -484,15 +490,20 @@ handle_other (DBusConnection *bus,
     DRouteFunction func;
     DBusMessage *reply = NULL;
 
+    void *datum;
+
     pair.one = iface;
     pair.two = member;
 
     _DROUTE_DEBUG ("DRoute (handle other): %s|%s on %s\n", member, iface, pathstr);
 
+    datum = path_get_datum (path, pathstr);
+    if (!datum)
+	return result;
+
     func = (DRouteFunction) g_hash_table_lookup (path->methods, &pair);
     if (func != NULL)
       {
-        void *datum = path_get_datum (path, pathstr);
 
         reply = (func) (bus, message, datum);
 

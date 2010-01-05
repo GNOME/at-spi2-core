@@ -76,11 +76,59 @@ impl_set_Description (DBusMessageIter * iter, void *user_data)
 static dbus_bool_t
 impl_get_Parent (DBusMessageIter * iter, void *user_data)
 {
-  AtkObject *object = (AtkObject *) user_data;
+  AtkObject *obj = (AtkObject *) user_data;
+  AtkObject *parent;
+  DBusMessageIter iter_variant;
+  dbus_uint32_t role;
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
 
-  spi_object_append_v_reference (iter, atk_object_get_parent (object));
+  role = spi_accessible_role_from_atk_role (atk_object_get_role (obj));
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)",
+                                    &iter_variant);
+
+  parent = atk_object_get_parent (obj);
+  if (parent == NULL)
+    {
+#ifdef SPI_ATK_PLUG_SOCKET
+      /* TODO, move in to a 'Plug' wrapper. */
+      if (ATK_IS_PLUG (obj))
+        {
+          char *id = g_object_get_data (G_OBJECT (obj), "dbus-plug-parent");
+          char *bus_parent;
+          char *path_parent;
+
+          if (id)
+            {
+              bus_parent = g_strdup (id);
+            if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
+              {
+                DBusMessageIter iter_parent;
+                *(path_parent++) = '\0';
+                dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL,
+                                                  &iter_parent);
+                dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
+                dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
+                dbus_message_iter_close_container (&iter_variant, &iter_parent);
+              }
+            }
+        }
+      else if (role != Accessibility_ROLE_APPLICATION)
+#else
+      if (role != Accessibility_ROLE_APPLICATION)
+#endif
+         spi_object_append_null_reference (&iter_variant);
+      else
+         spi_object_append_desktop_reference (&iter_variant);
+      }
+  else
+    {
+      spi_object_append_reference (&iter_variant, parent);
+    }
+
+
+  dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
 
@@ -413,7 +461,7 @@ static DBusMessage *
 impl_GetApplication (DBusConnection * bus,
                      DBusMessage * message, void *user_data)
 {
-  AtkObject *root = atk_get_root ();
+  AtkObject *root = g_object_ref (atk_get_root ());
   return spi_object_return_reference (message, root);
 }
 

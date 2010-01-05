@@ -285,7 +285,7 @@ emit_event (AtkObject  *obj,
 
   gchar *cname, *t;
   DBusMessage *sig;
-  DBusMessageIter iter;
+  DBusMessageIter iter, iter_struct;
   
   if (!klass) klass = "";
   if (!major) major = "";
@@ -304,6 +304,7 @@ emit_event (AtkObject  *obj,
 
   dbus_message_iter_init_append(sig, &iter);
 
+  spi_object_append_reference (&iter, spi_global_app_data->root);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
