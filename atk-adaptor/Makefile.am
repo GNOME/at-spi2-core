@@ -22,17 +22,20 @@ libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
 		          $(ATK_LIBS)       \
 			  $(X_LIBS)         \
 		          $(top_builddir)/droute/libdroute.la \
-		          $(top_builddir)/dbind/libdbind.la \
 		          $(top_builddir)/common/libspicommon.la \
 			  $(top_builddir)/atk-adaptor/adaptors/libatk-bridge-adaptors.la
 
 libatk_bridge_la_SOURCES =	\
         accessible-leasing.c    \
         accessible-leasing.h    \
+        accessible-cache.c      \
+        accessible-cache.h      \
 	accessible-register.c	\
 	accessible-register.h	\
 	bridge.c		\
 	bridge.h		\
+	object.c		\
+	object.h		\
 	event.c			\
 	event.h
 

@@ -21,31 +21,57 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACCESSIBLE_REGISTER
-#define ACCESSIBLE_REGISTER
+#ifndef ACCESSIBLE_REGISTER_H
+#define ACCESSIBLE_REGISTER_H
 
-#include <atk/atk.h>
 #include <glib.h>
+#include <glib-object.h>
 
-void atk_dbus_foreach_registered (GHFunc func, gpointer data);
+typedef struct _SpiRegister SpiRegister;
+typedef struct _SpiRegisterClass SpiRegisterClass;
+
+G_BEGIN_DECLS
+
+#define SPI_REGISTER_TYPE        (spi_register_get_type ())
+#define SPI_REGISTER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_REGISTER_TYPE, SpiRegister))
+#define SPI_REGISTER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_REGISTER_TYPE, SpiRegisterClass))
+#define SPI_IS_REGISTER(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_REGISTER_TYPE))
+#define SPI_IS_REGISTER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_REGISTER_TYPE))
+
+struct _SpiRegister
+{
+  GObject parent;
+
+  GHashTable * ref2ptr;
+  guint reference_counter;
+};
+
+struct _SpiRegisterClass
+{
+  GObjectClass parent_class;
+};
+
+GType spi_register_get_type (void);
+
+extern SpiRegister *spi_global_register;
 
 /*---------------------------------------------------------------------------*/
 
-GObject *atk_dbus_path_to_gobject (const char *path);
+GObject *
+spi_register_path_to_object (SpiRegister * reg, const char *path);
 
-AtkObject *atk_dbus_path_to_object (const char *path);
+GObject *
+spi_global_register_path_to_object (const char * path);
 
-gchar *atk_dbus_object_attempt_registration (AtkObject * accessible);
+gchar *
+spi_register_object_to_path (SpiRegister * reg, GObject * gobj);
 
-gchar *atk_dbus_object_to_path (AtkObject * accessible, gboolean do_register);
+guint
+spi_register_object_to_ref (GObject * gobj);
+  
+gchar *
+spi_register_desktop_object_path ();
 
-gchar *atk_dbus_sub_object_to_path (GObject * accessible,
-                                    GObject * container);
+/*---------------------------------------------------------------------------*/
 
-gchar *atk_dbus_hyperlink_to_path (AtkHyperlink * hyperlink,
-                                   AtkObject * container);
-
-gchar *atk_dbus_desktop_object_path ();
-
-gchar *atk_dbus_ref_to_path (guint ref);
-#endif /* ACCESSIBLE_REGISTER */
+#endif /* ACCESSIBLE_REGISTER_H */

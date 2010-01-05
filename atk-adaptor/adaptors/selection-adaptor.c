@@ -26,7 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
-#include "accessible-marshaller.h"
+#include "object.h"
 
 static dbus_bool_t
 impl_get_NSelectedChildren (DBusMessageIter * iter, void *user_data)
@@ -66,7 +66,7 @@ impl_GetSelectedChild (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   atk_object = atk_selection_ref_selection (selection, selectedChildIndex);
-  return spi_dbus_return_object (message, atk_object, TRUE, TRUE);
+  return spi_object_return_reference (message, atk_object);
 }
 
 static DBusMessage *

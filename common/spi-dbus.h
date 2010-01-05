@@ -44,7 +44,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.DeviceEventController"
 #define SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER "org.freedesktop.atspi.DeviceEventListener"
 
-#define SPI_DBUS_INTERFACE_TREE "org.freedesktop.atspi.Tree"
+#define SPI_DBUS_INTERFACE_CACHE "org.freedesktop.atspi.Cache"
 #define SPI_DBUS_INTERFACE_ACCESSIBLE "org.freedesktop.atspi.Accessible"
 #define SPI_DBUS_INTERFACE_ACTION "org.freedesktop.atspi.Action"
 #define SPI_DBUS_INTERFACE_APPLICATION "org.freedesktop.atspi.Application"

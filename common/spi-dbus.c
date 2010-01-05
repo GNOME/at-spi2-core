@@ -172,6 +172,43 @@ provide_defaults(const gint type,
     }
 }
 
+/*
+ * Appends all the standard parameters to an AT-SPI event.
+ */
+void
+spi_dbus_signal_new (const char *path,
+                     const char *klass,
+                     const char *major,
+                     const char *minor,
+                     dbus_int32_t detail1,
+                     dbus_int32_t detail2)
+{
+  DBusMessage *sig;
+  DBusMessageIter iter, sub;
+  gchar *cname, *t;
+
+  if (!klass) klass = "";
+  if (!major) major = "";
+  if (!minor) minor = "";
+
+  /*
+   * This is very annoying, but as '-' isn't a legal signal
+   * name in D-Bus (Why not??!?) The names need converting
+   * on this side, and again on the client side.
+   */
+  cname = g_strdup(major);
+  while ((t = strchr(cname, '-')) != NULL) *t = '_';
+
+  sig = dbus_message_new_signal(path, klass, cname);
+  g_free(cname);
+
+  dbus_message_iter_init_append(sig, &iter);
+
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
+}
+
 void 
 spi_dbus_emit_signal(DBusConnection *bus, const char *path,
      const char *klass,
@@ -221,6 +258,7 @@ spi_dbus_emit_signal(DBusConnection *bus, const char *path,
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
 }
+
 
 /*
 dbus_bool_t spi_dbus_get_simple_property (DBusConnection *bus, const char *dest, const char *path, const char *interface, const char *prop, int *type, void *ptr, DBusError *error)

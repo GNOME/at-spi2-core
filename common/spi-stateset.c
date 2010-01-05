@@ -154,7 +154,7 @@ spi_atk_state_from_spi_state (Accessibility_StateType state)
 }
 
 AtkStateSet *
-spi_state_set_cache_from_sequence (const GArray *seq)
+spi_state_set_cache_from_sequence (GArray *seq)
 {
   int i;
   AtkStateSet *set;

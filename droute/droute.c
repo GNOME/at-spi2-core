@@ -525,6 +525,8 @@ handle_message (DBusConnection *bus, DBusMessage *message, void *user_data)
     const gint   type    = dbus_message_get_type (message);
     const gchar *pathstr = dbus_message_get_path (message);
 
+    _DROUTE_DEBUG ("DRoute (handle message): %s|%s of type %d on %s\n", member, iface, type, pathstr);
+
     /* Check for basic reasons not to handle */
     if (type   != DBUS_MESSAGE_TYPE_METHOD_CALL ||
         member == NULL ||

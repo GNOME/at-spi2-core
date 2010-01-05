@@ -2,9 +2,8 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
- * Copyright 2008, 2009 Codethink Ltd.
+ * Copyright 2008 Novell, Inc.
+ * Copyright 2008, 2009, 2010 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,14 +21,34 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef TREE_ADAPTOR_H
-#define TREE_ADAPTOR_H
+#ifndef ACCESSIBLE_OBJECT_H
+#define ACCESSIBLE_OBJECT_H
 
 #include <atk/atk.h>
 #include <dbus/dbus.h>
 
-void spi_emit_cache_update (AtkObject * accessible, DBusConnection * bus);
+void
+spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj);
 
-void spi_emit_cache_removal (guint ref, DBusConnection * bus);
+void
+spi_object_append_v_reference (DBusMessageIter * iter, AtkObject * obj);
 
-#endif /* TREE_ADAPTOR_H */
+void
+spi_object_append_desktop_reference (DBusMessageIter * iter);
+
+void
+spi_object_append_null_reference (DBusMessageIter * iter);
+
+DBusMessage *
+spi_object_return_reference (DBusMessage * msg, AtkObject * obj);
+
+void
+spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj);
+
+void
+spi_object_append_attribute_set (DBusMessageIter * iter, AtkAttributeSet * attr);
+
+Accessibility_Role
+spi_accessible_role_from_atk_role (AtkRole role);
+
+#endif /* ACCESSIBLE_OBJECT_H */

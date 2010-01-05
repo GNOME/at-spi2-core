@@ -2,8 +2,7 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2008 Novell, Inc.
- * Copyright 2008, 2009 Codethink Ltd.
+ * Copyright 2010 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,41 +20,44 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef ACCESSIBLE_LEASING_H
-#define ACCESSIBLE_LEASING_H
+#ifndef ACCESSIBLE_CACHE_H
+#define ACCESSIBLE_CACHE_H
 
 #include <glib.h>
 #include <glib-object.h>
 
-typedef struct _SpiLeasing SpiLeasing;
-typedef struct _SpiLeasingClass SpiLeasingClass;
+typedef struct _SpiCache SpiCache;
+typedef struct _SpiCacheClass SpiCacheClass;
 
 G_BEGIN_DECLS
 
-#define SPI_LEASING_TYPE        (spi_leasing_get_type ())
-#define SPI_LEASING(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_LEASING_TYPE, SpiLeasing))
-#define SPI_LEASING_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_LEASING_TYPE, SpiLeasingClass))
-#define SPI_IS_LEASING(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_LEASING_TYPE))
-#define SPI_IS_LEASING_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_LEASING_TYPE))
+#define SPI_CACHE_TYPE        (spi_cache_get_type ())
+#define SPI_CACHE(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), SPI_CACHE_TYPE, SpiCache))
+#define SPI_CACHE_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), SPI_CACHE_TYPE, SpiCacheClass))
+#define SPI_IS_CACHE(o)       (G_TYPE_CHECK__INSTANCE_TYPE ((o), SPI_CACHE_TYPE))
+#define SPI_IS_CACHE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), SPI_CACHE_TYPE))
 
-struct _SpiLeasing
+struct _SpiCache
 {
   GObject parent;
 
-  GQueue *expiry_queue;
-  guint expiry_func_id;
+  GHashTable * objects;
 };
 
-struct _SpiLeasingClass
+struct _SpiCacheClass
 {
   GObjectClass parent_class;
 };
 
-GType spi_leasing_get_type (void);
+GType spi_cache_get_type (void);
 
-extern SpiLeasing *spi_global_leasing;
+extern SpiCache *spi_global_cache;
 
-GObject *spi_leasing_take (SpiLeasing * leasing, GObject * object);
+void
+spi_cache_foreach (SpiCache * cache, GHFunc func, gpointer data);
+
+gboolean
+spi_cache_in (SpiCache * cache, GObject * object);
 
 G_END_DECLS
-#endif /* ACCESSIBLE_LEASING_H */
+#endif /* ACCESSIBLE_CACHE_H */

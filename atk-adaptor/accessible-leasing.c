@@ -24,9 +24,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <accessible-leasing.h>
+#include "accessible-leasing.h"
 
 /*---------------------------------------------------------------------------*/
+
+SpiLeasing *spi_global_leasing;
 
 typedef struct _ExpiryElement
 {

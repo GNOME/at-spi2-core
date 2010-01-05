@@ -25,8 +25,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "accessible-marshaller.h"
 #include "common/spi-dbus.h"
+#include "object.h"
 
 static AtkHyperlink *
 get_hyperlink (void *user_data)
@@ -80,8 +80,7 @@ impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   atk_object = atk_hyperlink_get_object (link, i);
-  return spi_dbus_return_sub_object (message, G_OBJECT (atk_object),
-                                     G_OBJECT (link), FALSE);
+  return spi_object_return_reference (message, atk_object);
 }
 
 static DBusMessage *

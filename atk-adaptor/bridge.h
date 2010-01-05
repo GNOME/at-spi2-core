@@ -4,7 +4,7 @@
  *
  * Copyright 2001, 2002, 2003 Sun Microsystems Inc.,
  * Copyright 2001, 2002, 2003 Ximian, Inc.
- * Copyright 2008, 2009 Codethink Ltd.
+ * Copyright 2008, 2009, 2010 Codethink Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -28,15 +28,29 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-typedef struct _SpiAppData SpiAppData;
-struct _SpiAppData
+typedef struct _SpiBridge SpiBridge;
+typedef struct _SpiBridgeClass SpiBridgeClass;
+
+G_BEGIN_DECLS
+
+struct _SpiBridge
 {
+  GObject parent;
+
   AtkObject *root;
 
   DBusConnection *bus;
-  DRouteContext *droute;
+  DRouteContext  *droute;
+
+/*
+  SpiRegister *reg;
+  SpiCache    *cache;
+  SpiLeasing  *leasing;
+*/
 };
 
-extern SpiAppData *atk_adaptor_app_data;
+extern SpiBridge *spi_global_app_data;
+
+G_END_DECLS
 
 #endif /* BRIDGE_H */

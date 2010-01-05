@@ -73,6 +73,14 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
   return reply;
 }
 
+/*---------------------------------------------------------------------------*/
+
+/*
+ * Functionality related to sending device events from the application.
+ *
+ * This is used for forwarding key events on to the registry daemon.
+ */
+
 static gboolean
 Accessibility_DeviceEventController_NotifyListenersSync (const
                                                          Accessibility_DeviceEvent
@@ -92,7 +100,7 @@ Accessibility_DeviceEventController_NotifyListenersSync (const
   if (spi_dbus_marshal_deviceEvent (message, key_event))
     {
       DBusMessage *reply =
-        send_and_allow_reentry (atk_adaptor_app_data->bus, message);
+        send_and_allow_reentry (spi_global_app_data->bus, message);
       if (reply)
         {
           DBusError error;
@@ -169,22 +177,10 @@ spi_atk_bridge_key_listener (AtkKeyEventStruct * event, gpointer data)
   return result;
 }
 
-
 /*---------------------------------------------------------------------------*/
 
-/*
- * Emits an AT-SPI event.
- * AT-SPI events names are split into three parts:
- * class:major:minor
- * This is mapped onto D-Bus events as:
- * D-Bus Interface:Signal Name:Detail argument
- *
- * Marshals a basic type into the 'any_data' attribute of
- * the AT-SPI event.
- */
-
 static gchar *
-DBusSignalName (const gchar * s)
+convert_signal_name (const gchar * s)
 {
   gchar *ret = g_strdup (s);
   gchar *t;
@@ -200,103 +196,122 @@ DBusSignalName (const gchar * s)
   return ret;
 }
 
-static void
-emit (AtkObject * accessible,
-      const char *klass,
-      const char *major,
-      const char *minor,
-      dbus_int32_t detail1,
-      dbus_int32_t detail2, const char *type, const void *val)
+static const void *
+replace_null (const gint type,
+              const void *val)
 {
-  gchar *path;
-  gchar *cname;
-
-  /* TODO this is a hack, used becuase child-added events are not guaranteed.
-   * On recieving an event from a non-registered object we check if it can be safely 
-   * registered before sending the event.
-   */
-  path = atk_dbus_object_attempt_registration (accessible);
-
-  /* Tough decision here
-   * We won't send events from accessible
-   * objects that have not yet been added to the accessible tree.
-   */
-  if (path == NULL)
+  switch (type)
     {
-#ifdef SPI_ATK_DEBUG
-      g_debug ("AT-SPI: Event recieved from non-registered object");
-#endif
-      return;
+      case DBUS_TYPE_STRING:
+      case DBUS_TYPE_OBJECT_PATH:
+	   if (!val)
+	      return "";
+	   else
+	      return val;
+      default:
+	   return val;
     }
-
-  cname = DBusSignalName (major);
-  spi_dbus_emit_signal (atk_adaptor_app_data->bus, path, klass, cname, minor,
-                        detail1, detail2, type, val);
-  g_free (cname);
-  g_free (path);
 }
 
-/*---------------------------------------------------------------------------*/
+static void
+append_basic (DBusMessageIter *iter,
+              const char *type,
+              const void *val)
+{
+  DBusMessageIter sub;
+
+  dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, type, &sub);
+
+    val = replace_null ((int) *type, val);
+    dbus_message_iter_append_basic(&sub, (int) *type, &val);
+
+  dbus_message_iter_close_container(iter, &sub);
+}
+
+static void
+append_rect (DBusMessageIter *iter,
+             const char *type,
+             const void *val)
+{
+  DBusMessageIter variant, sub;
+  const AtkRectangle *rect = (const AtkRectangle *) val;
+
+  dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, type, &variant);
+
+    dbus_message_iter_open_container (&variant, DBUS_TYPE_STRUCT, NULL, &sub);
+
+      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->x));
+      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->y));
+      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->width));
+      dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->height));
+
+    dbus_message_iter_close_container (&variant, &sub);
+
+  dbus_message_iter_close_container(iter, &variant);
+}
+
+static void
+append_object (DBusMessageIter *iter,
+               const char *type,
+               const void *val)
+{
+  spi_object_append_v_reference (iter, ATK_OBJECT (val));
+}
 
 /*
- * Emits an AT-SPI event, marshalling a BoundingBox structure into the 
- * 'any_data' variant of the event.
+ * Emits an AT-SPI event.
+ * AT-SPI events names are split into three parts:
+ * class:major:minor
+ * This is mapped onto D-Bus events as:
+ * D-Bus Interface:Signal Name:Detail argument
+ *
+ * Marshals a basic type into the 'any_data' attribute of
+ * the AT-SPI event.
  */
-static void
-emit_rect (AtkObject * accessible,
-           const char *klass,
-           const char *major, const char *minor, AtkRectangle * rect)
+static void 
+emit_event (AtkObject  *obj,
+            const char *klass,
+            const char *major,
+            const char *minor,
+            dbus_int32_t detail1,
+            dbus_int32_t detail2,
+            const char *type,
+            const void *val,
+            void (*append_variant) (DBusMessageIter *, const char *, const void *))
 {
+  DBusConnection *bus = spi_global_app_data->bus;
+  const char *path =  spi_register_object_to_path (spi_global_register,
+                                                   G_OBJECT (obj));
+
+  gchar *cname, *t;
   DBusMessage *sig;
-  DBusMessageIter iter, variant, sub;
-  gchar *path, *cname;
-  dbus_int32_t dummy = 0;
-
-  path = atk_dbus_object_to_path (accessible, FALSE);
-
-  /* Tough decision here
-   * We won't send events from accessible
-   * objects that have not yet been added to the accessible tree.
-   */
-  if (path == NULL)
-    return;
-
-  if (!klass)
-    klass = "";
-  if (!major)
-    major = "";
-  if (!minor)
-    minor = "";
+  DBusMessageIter iter;
+  
+  if (!klass) klass = "";
+  if (!major) major = "";
+  if (!minor) minor = "";
+  if (!type) type = "u";
 
   /*
    * This is very annoying, but as '-' isn't a legal signal
    * name in D-Bus (Why not??!?) The names need converting
    * on this side, and again on the client side.
    */
-  cname = DBusSignalName (major);
+  cname = g_strdup(major);
+  while ((t = strchr(cname, '-')) != NULL) *t = '_';
+  sig = dbus_message_new_signal(path, klass, cname);
+  g_free(cname);
 
-  sig = dbus_message_new_signal (path, klass, cname);
-  g_free (path);
-  g_free (cname);
+  dbus_message_iter_init_append(sig, &iter);
 
-  dbus_message_iter_init_append (sig, &iter);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &minor);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &dummy);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &dummy);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
+  dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
 
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "(iiii)",
-                                    &variant);
-  dbus_message_iter_open_container (&variant, DBUS_TYPE_STRUCT, NULL, &sub);
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->x));
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->y));
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->width));
-  dbus_message_iter_append_basic (&sub, DBUS_TYPE_INT32, &(rect->height));
-  dbus_message_iter_close_container (&variant, &sub);
-  dbus_message_iter_close_container (&iter, &variant);
+  append_variant (&iter, type, val);
 
-  dbus_connection_send (atk_adaptor_app_data->bus, sig, NULL);
-
-  dbus_message_unref (sig);
+  dbus_connection_send(bus, sig, NULL);
+  dbus_message_unref(sig);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -308,8 +323,8 @@ emit_rect (AtkObject * accessible,
 static void
 focus_tracker (AtkObject * accessible)
 {
-  emit (accessible, ITF_EVENT_FOCUS, "focus", "", 0, 0,
-        DBUS_TYPE_INT32_AS_STRING, 0);
+  emit_event (accessible, ITF_EVENT_FOCUS, "focus", "", 0, 0,
+              DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -335,75 +350,85 @@ property_event_listener (GSignalInvocationHint * signal_hint,
   const gchar *pname = NULL;
 
   AtkObject *otemp;
-  const gchar *stemp;
+  const gchar *s1, s2;
   gint i;
 
   accessible = g_value_get_object (&param_values[0]);
   values = (AtkPropertyValues *) g_value_get_pointer (&param_values[1]);
 
   pname = values[0].property_name;
-  if (strcmp (pname, "accessible-name") == 0 ||
-      strcmp (pname, "accessible-description") == 0 ||
-      strcmp (pname, "accessible-role") == 0 ||
-      strcmp (pname, "accessible-parent") == 0)
-    {
-      return TRUE;
-    }
 
   /* TODO Could improve this control statement by matching
    * on only the end of the signal names,
    */
+  if (strcmp (pname, "accessible-name") == 0)
+    {
+      s1 = atk_object_get_name (accessible);
+      if (s1 != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
+    }
+  if (strcmp (pname, "accessible-description") == 0)
+    {
+      s1 = atk_object_get_description (accessible);
+      if (s1 != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
+    }
+  if (strcmp (pname, "accessible-parent") == 0)
+    {
+      otemp = atk_object_get_parent (accessible);
+      if (otemp != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    "(so)", otemp, append_object);
+    }
   if (strcmp (pname, "accessible-table-summary") == 0)
     {
       otemp = atk_table_get_summary (ATK_TABLE (accessible));
-      stemp = atk_dbus_object_to_path (otemp, FALSE);
-      if (stemp != NULL)
-        emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-              DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
+      if (otemp != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    "(so)", otemp, append_object);
     }
   else if (strcmp (pname, "accessible-table-column-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_column_header (ATK_TABLE (accessible), i);
-      stemp = atk_dbus_object_to_path (otemp, FALSE);
-      if (stemp != NULL)
-        emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-              DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
+      if (otemp != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    "(so)", otemp, append_object);
     }
   else if (strcmp (pname, "accessible-table-row-header") == 0)
     {
       i = g_value_get_int (&(values->new_value));
       otemp = atk_table_get_row_header (ATK_TABLE (accessible), i);
-      stemp = atk_dbus_object_to_path (otemp, FALSE);
-      if (stemp != NULL)
-        emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-              DBUS_TYPE_OBJECT_PATH_AS_STRING, stemp);
+      if (otemp != NULL)
+        emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    "(so)", otemp, append_object);
     }
   else if (strcmp (pname, "accessible-table-row-description") == 0)
     {
       i = g_value_get_int (&(values->new_value));
-      stemp = atk_table_get_row_description (ATK_TABLE (accessible), i);
-      emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-            DBUS_TYPE_STRING_AS_STRING, stemp);
+      s1 = atk_table_get_row_description (ATK_TABLE (accessible), i);
+      emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                  DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
     }
   else if (strcmp (pname, "accessible-table-column-description") == 0)
     {
       i = g_value_get_int (&(values->new_value));
-      stemp = atk_table_get_column_description (ATK_TABLE (accessible), i);
-      emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-            DBUS_TYPE_STRING_AS_STRING, stemp);
+      s1 = atk_table_get_column_description (ATK_TABLE (accessible), i);
+      emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                  DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
     }
   else if (strcmp (pname, "accessible-table-caption-object") == 0)
     {
       otemp = atk_table_get_caption (ATK_TABLE (accessible));
-      stemp = atk_object_get_name (otemp);
-      emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-            DBUS_TYPE_STRING_AS_STRING, stemp);
+      emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                  "(so)", otemp, append_object);
     }
   else
     {
-      emit (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-            DBUS_TYPE_INT32_AS_STRING, 0);
+      emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+            DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
     }
   return TRUE;
 }
@@ -433,8 +458,8 @@ state_event_listener (GSignalInvocationHint * signal_hint,
    * This is because without reference counting defunct objects should be removed.
    */
   detail1 = (g_value_get_boolean (&param_values[2])) ? 1 : 0;
-  emit (accessible, ITF_EVENT_OBJECT, STATE_CHANGED, pname, detail1, 0,
-        DBUS_TYPE_INT32_AS_STRING, 0);
+  emit_event (accessible, ITF_EVENT_OBJECT, STATE_CHANGED, pname, detail1, 0,
+              DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
   g_free (pname);
   return TRUE;
 }
@@ -466,8 +491,8 @@ window_event_listener (GSignalInvocationHint * signal_hint,
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   s = atk_object_get_name (accessible);
-  emit (accessible, ITF_EVENT_WINDOW, name, "", 0, 0,
-        DBUS_TYPE_STRING_AS_STRING, s);
+  emit_event (accessible, ITF_EVENT_WINDOW, name, "", 0, 0,
+              DBUS_TYPE_STRING_AS_STRING, s, append_basic);
 
   return TRUE;
 }
@@ -496,8 +521,8 @@ document_event_listener (GSignalInvocationHint * signal_hint,
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   s = atk_object_get_name (accessible);
-  emit (accessible, ITF_EVENT_DOCUMENT, name, "", 0, 0,
-        DBUS_TYPE_STRING_AS_STRING, s);
+  emit_event (accessible, ITF_EVENT_DOCUMENT, name, "", 0, 0,
+              DBUS_TYPE_STRING_AS_STRING, s, append_basic);
 
   return TRUE;
 }
@@ -524,9 +549,12 @@ bounds_event_listener (GSignalInvocationHint * signal_hint,
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
 
   if (G_VALUE_HOLDS_BOXED (param_values + 1))
+  {
     atk_rect = g_value_get_boxed (param_values + 1);
 
-  emit_rect (accessible, ITF_EVENT_OBJECT, name, "", atk_rect);
+    emit_event (accessible, ITF_EVENT_OBJECT, name, "", 0, 0,
+                "(iiii)", atk_rect, append_rect);
+  }
   return TRUE;
 }
 
@@ -558,15 +586,9 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
   minor = g_quark_to_string (signal_hint->detail);
 
   detail1 = atk_object_get_index_in_parent (child);
-  s = atk_dbus_object_to_path (child, FALSE);
-  if (s == NULL)
-    {
-      g_free (s);
-      return TRUE;
-    }
 
-  emit (accessible, ITF_EVENT_OBJECT, name, "", detail1, 0,
-        DBUS_TYPE_OBJECT_PATH_AS_STRING, s);
+  emit_event (accessible, ITF_EVENT_OBJECT, name, "", detail1, 0,
+              "(so)", child, append_object);
   g_free (s);
   return TRUE;
 }
@@ -597,8 +619,8 @@ link_selected_event_listener (GSignalInvocationHint * signal_hint,
   if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
     detail1 = g_value_get_int (&param_values[1]);
 
-  emit (accessible, ITF_EVENT_OBJECT, name, minor, detail1, 0,
-        DBUS_TYPE_INT32_AS_STRING, 0);
+  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, 0,
+              DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
   return TRUE;
 }
 
@@ -635,8 +657,8 @@ text_changed_event_listener (GSignalInvocationHint * signal_hint,
   selected =
     atk_text_get_text (ATK_TEXT (accessible), detail1, detail1 + detail2);
 
-  emit (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
-        DBUS_TYPE_STRING_AS_STRING, selected);
+  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+              DBUS_TYPE_STRING_AS_STRING, selected, append_basic);
   return TRUE;
 }
 
@@ -670,8 +692,8 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
   if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_INT)
     detail2 = g_value_get_int (&param_values[2]);
 
-  emit (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
-        DBUS_TYPE_STRING_AS_STRING, "");
+  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+              DBUS_TYPE_STRING_AS_STRING, "", append_basic);
   return TRUE;
 }
 
@@ -708,8 +730,8 @@ generic_event_listener (GSignalInvocationHint * signal_hint,
   if (n_param_values > 2 && G_VALUE_TYPE (&param_values[2]) == G_TYPE_INT)
     detail2 = g_value_get_int (&param_values[2]);
 
-  emit (accessible, ITF_EVENT_OBJECT, name, "", detail1, detail2,
-        DBUS_TYPE_INT32_AS_STRING, 0);
+  emit_event (accessible, ITF_EVENT_OBJECT, name, "", detail1, detail2,
+              DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
   return TRUE;
 }
 
@@ -861,13 +883,13 @@ spi_atk_tidy_windows (void)
       name = atk_object_get_name (child);
       if (atk_state_set_contains_state (stateset, ATK_STATE_ACTIVE))
         {
-          emit (child, ITF_EVENT_WINDOW, "deactivate", NULL, 0, 0,
-                DBUS_TYPE_STRING_AS_STRING, name);
+          emit_event (child, ITF_EVENT_WINDOW, "deactivate", NULL, 0, 0,
+                      DBUS_TYPE_STRING_AS_STRING, name, append_basic);
         }
       g_object_unref (stateset);
 
-      emit (child, ITF_EVENT_WINDOW, "destroy", NULL, 0, 0,
-            DBUS_TYPE_STRING_AS_STRING, name);
+      emit_event (child, ITF_EVENT_WINDOW, "destroy", NULL, 0, 0,
+                  DBUS_TYPE_STRING_AS_STRING, name, append_basic);
       g_object_unref (child);
     }
 }

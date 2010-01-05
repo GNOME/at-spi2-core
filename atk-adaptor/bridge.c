@@ -31,14 +31,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 #include <atk/atk.h>
 
 #include <droute/droute.h>
 
 #include "bridge.h"
 #include "event.h"
-#include "accessible-register.h"
 #include "adaptors.h"
+
+#include "accessible-register.h"
+#include "accessible-leasing.h"
+#include "accessible-cache.h"
 
 #include "common/spi-dbus.h"
 
@@ -51,7 +55,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-SpiAppData *atk_adaptor_app_data = NULL;
+SpiBridge *spi_global_app_data = NULL;
 
 static const AtkMisc *atk_misc = NULL;
 
@@ -151,7 +155,7 @@ spi_atk_bridge_get_bus (void)
       else
         {
           if (!dbus_bus_register (bus, &error))
-            g_error ("AT-SPI: Couldn't register with bus: %s\n");
+            g_error ("AT-SPI: Couldn't register with bus: %s\n", error.message);
         }
     }
 
@@ -161,7 +165,7 @@ spi_atk_bridge_get_bus (void)
 /*---------------------------------------------------------------------------*/
 
 static void
-register_application (SpiAppData * app)
+register_application (SpiBridge * app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
@@ -192,7 +196,7 @@ register_application (SpiAppData * app)
 /*---------------------------------------------------------------------------*/
 
 static void
-deregister_application (SpiAppData * app)
+deregister_application (SpiBridge * app)
 {
   DBusMessage *message;
   DBusMessageIter iter;
@@ -221,17 +225,17 @@ deregister_application (SpiAppData * app)
 static void
 exit_func (void)
 {
-  if (!atk_adaptor_app_data)
+  if (!spi_global_app_data)
     {
       return;
     }
 
   spi_atk_tidy_windows ();
   spi_atk_deregister_event_listeners ();
-  deregister_application (atk_adaptor_app_data);
+  deregister_application (spi_global_app_data);
 
-  g_free (atk_adaptor_app_data);
-  atk_adaptor_app_data = NULL;
+  g_free (spi_global_app_data);
+  spi_global_app_data = NULL;
 
   /* Not currently creating an XDisplay */
 #if 0
@@ -249,7 +253,7 @@ static AtkSocketClass *socket_class;
 static gchar *
 get_plug_id (AtkPlug * plug)
 {
-  const char *uname = dbus_bus_get_unique_name (atk_adaptor_app_data->bus);
+  const char *uname = dbus_bus_get_unique_name (spi_global_app_data->bus);
   gchar *path;
   GString *str = g_string_new (NULL);
 
@@ -352,24 +356,24 @@ adaptor_init (gint * argc, gchar ** argv[])
     g_warning ("AT-SPI Option parsing failed: %s\n", err->message);
 
   /* Allocate global data and do ATK initializations */
-  atk_adaptor_app_data = g_new0 (SpiAppData, 1);
+  spi_global_app_data = g_new0 (SpiBridge, 1);
   atk_misc = atk_misc_get_instance ();
-  atk_adaptor_app_data->root = root;
+  spi_global_app_data->root = root;
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
-  atk_adaptor_app_data->bus = spi_atk_bridge_get_bus ();
-  if (!atk_adaptor_app_data->bus)
+  spi_global_app_data->bus = spi_atk_bridge_get_bus ();
+  if (!spi_global_app_data->bus)
     {
-      g_free (atk_adaptor_app_data);
-      atk_adaptor_app_data = NULL;
+      g_free (spi_global_app_data);
+      spi_global_app_data = NULL;
       return 0;
     }
 
   if (atspi_dbus_name != NULL)
     {
       if (dbus_bus_request_name
-          (atk_adaptor_app_data->bus, atspi_dbus_name, 0, &error))
+          (spi_global_app_data->bus, atspi_dbus_name, 0, &error))
         {
           g_print ("AT-SPI Recieved D-Bus name - %s\n", atspi_dbus_name);
         }
@@ -381,7 +385,7 @@ adaptor_init (gint * argc, gchar ** argv[])
         }
     }
 
-  dbus_connection_setup_with_g_main (atk_adaptor_app_data->bus,
+  dbus_connection_setup_with_g_main (spi_global_app_data->bus,
                                      g_main_context_default ());
 
   /* Get D-Bus introspection directory */
@@ -390,21 +394,29 @@ adaptor_init (gint * argc, gchar ** argv[])
     introspection_directory = ATSPI_INTROSPECTION_PATH;
 
   /* Register droute for routing AT-SPI messages */
-  atk_adaptor_app_data->droute =
-    droute_new (atk_adaptor_app_data->bus, introspection_directory);
+  spi_global_app_data->droute =
+    droute_new (spi_global_app_data->bus, introspection_directory);
 
-  treepath = droute_add_one (atk_adaptor_app_data->droute,
-                             "/org/freedesktop/atspi/tree", NULL);
+  treepath = droute_add_one (spi_global_app_data->droute,
+                             "/org/at_spi/cache", NULL);
 
-  accpath = droute_add_many (atk_adaptor_app_data->droute,
-                             "/org/freedesktop/atspi/accessible",
+  accpath = droute_add_many (spi_global_app_data->droute,
+                             "/org/at_spi/accessible",
                              NULL,
                              (DRouteGetDatumFunction)
-                             atk_dbus_path_to_gobject);
+                             spi_global_register_path_to_object);
+
+  /* 
+   * Create the leasing, register and cache objects.
+   * The order is important here, the cache depends on the
+   * register object.
+   */
+  spi_global_register = g_object_new (SPI_REGISTER_TYPE, NULL);
+  spi_global_leasing  = g_object_new (SPI_LEASING_TYPE, NULL);
+  spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
 
   /* Register all interfaces with droute and set up application accessible db */
-  spi_initialize_tree (treepath);
-
+  spi_initialize_cache (treepath);
   spi_initialize_accessible (accpath);
   spi_initialize_application (accpath);
   spi_initialize_action (accpath);
@@ -420,9 +432,6 @@ adaptor_init (gint * argc, gchar ** argv[])
   spi_initialize_text (accpath);
   spi_initialize_value (accpath);
 
-  /* Initialize the AtkObject registration */
-  atk_dbus_initialize (atk_adaptor_app_data->root);
-
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
 
@@ -433,7 +442,7 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   if (!atspi_no_register)
-    register_application (atk_adaptor_app_data);
+    register_application (spi_global_app_data);
 
   g_atexit (exit_func);
 

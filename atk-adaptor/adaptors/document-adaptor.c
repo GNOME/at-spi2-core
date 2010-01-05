@@ -26,8 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
-
-#include "accessible-marshaller.h"
+#include "object.h"
 
 static DBusMessage *
 impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)

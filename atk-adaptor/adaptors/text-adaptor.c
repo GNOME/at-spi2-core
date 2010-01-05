@@ -28,8 +28,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
-
-#include "accessible-marshaller.h"
+#include "object.h"
 
 static dbus_bool_t
 impl_get_CharacterCount (DBusMessageIter * iter, void *user_data)
@@ -735,7 +734,7 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
   dbus_int32_t startOffset, endOffset;
   gint intstart_offset = 0, intend_offset = 0;
   DBusMessage *reply;
-  AtkAttributeSet *attributes, *default_attributes = NULL;
+  AtkAttributeSet *attributes = NULL;
   AtkAttribute *attr = NULL;
   DBusMessageIter iter, iterArray;
 
@@ -753,20 +752,18 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
     atk_text_get_run_attributes (text, offset, &intstart_offset,
                                  &intend_offset);
 
+  if (includeDefaults)
+    {
+      attributes = g_slist_concat (attributes,
+                                   atk_text_get_default_attributes (text));
+    }
+
   reply = dbus_message_new_method_return (message);
   if (!reply)
     return NULL;
 
   dbus_message_iter_init_append (reply, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "{ss}",
-                                    &iterArray);
-  spi_atk_append_attribute_set_inner (&iterArray, attributes);
-  if (includeDefaults)
-    {
-      default_attributes = atk_text_get_default_attributes (text);
-      spi_atk_append_attribute_set_inner (&iterArray, default_attributes);
-    }
-  dbus_message_iter_close_container (&iter, &iterArray);
+  spi_object_append_attribute_set (&iter, attributes);
 
   startOffset = intstart_offset;
   endOffset = intend_offset;
@@ -774,8 +771,6 @@ impl_GetAttributeRun (DBusConnection * bus, DBusMessage * message,
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_INT32, &endOffset);
 
   atk_attribute_set_free (attributes);
-  if (default_attributes)
-    atk_attribute_set_free (default_attributes);
 
   return reply;
 }

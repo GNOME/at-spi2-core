@@ -25,8 +25,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "accessible-marshaller.h"
 #include "common/spi-dbus.h"
+#include "object.h"
 
 static dbus_bool_t
 impl_get_NRows (DBusMessageIter * iter, void *user_data)
@@ -49,8 +49,8 @@ impl_get_Caption (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
-  return spi_dbus_return_v_object (iter, atk_table_get_caption (table),
-                                   FALSE);
+  spi_object_append_v_reference (iter, atk_table_get_caption (table));
+  return TRUE;
 }
 
 static dbus_bool_t
@@ -58,8 +58,8 @@ impl_get_Summary (DBusMessageIter * iter, void *user_data)
 {
   AtkTable *table = (AtkTable *) user_data;
   g_return_val_if_fail (ATK_IS_TABLE (user_data), FALSE);
-  return spi_dbus_return_v_object (iter, atk_table_get_summary (table),
-                                   FALSE);
+  spi_object_append_v_reference (iter, atk_table_get_summary (table));
+  return TRUE;
 }
 
 static dbus_bool_t
@@ -107,7 +107,7 @@ impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_ref_at (table, row, column);
-  return spi_dbus_return_object (message, obj, TRUE, TRUE);
+  return spi_object_return_reference (message, obj);
 }
 
 static DBusMessage *
@@ -331,7 +331,7 @@ impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
     }
   obj = atk_table_get_row_header (table, row);
   obj = atk_table_get_row_header (table, row);
-  return spi_dbus_return_object (message, obj, TRUE, FALSE);
+  return spi_object_return_reference (message, obj);
 }
 
 static DBusMessage *
@@ -353,7 +353,7 @@ impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
     }
   obj = atk_table_get_column_header (table, column);
   obj = atk_table_get_column_header (table, column);
-  return spi_dbus_return_object (message, obj, TRUE, FALSE);
+  return spi_object_return_reference (message, obj);
 }
 
 static DBusMessage *

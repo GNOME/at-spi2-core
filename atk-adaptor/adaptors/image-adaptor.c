@@ -26,6 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "object.h"
 
 static dbus_bool_t
 impl_get_ImageDescription (DBusMessageIter * iter, void *user_data)

@@ -25,8 +25,8 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "accessible-marshaller.h"
 #include "common/spi-dbus.h"
+#include "object.h"
 
 static DBusMessage *
 impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
@@ -82,7 +82,7 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   child =
     atk_component_ref_accessible_at_point (component, x, y,
                                            (AtkCoordType) coord_type);
-  return spi_dbus_return_object (message, child, TRUE, TRUE);
+  return spi_object_return_reference (message, child);
 }
 
 static DBusMessage *

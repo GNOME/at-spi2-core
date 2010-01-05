@@ -14,11 +14,10 @@ libatk_bridge_adaptors_la_LIBADD =\
 
 libatk_bridge_adaptors_la_SOURCES =\
 	accessible-adaptor.c	\
-	accessible-marshaller.c	\
-	accessible-marshaller.h	\
 	action-adaptor.c	\
 	adaptors.h		\
 	application-adaptor.c	\
+	cache-adaptor.c		\
 	collection-adaptor.c	\
 	component-adaptor.c	\
 	document-adaptor.c	\
@@ -29,6 +28,4 @@ libatk_bridge_adaptors_la_SOURCES =\
 	selection-adaptor.c	\
 	table-adaptor.c		\
 	text-adaptor.c		\
-	tree-adaptor.c		\
-	tree-adaptor.h		\
 	value-adaptor.c

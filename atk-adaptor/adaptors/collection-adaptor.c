@@ -27,12 +27,12 @@
 #include <atk/atk.h>
 #include <droute/droute.h>
 
-#include "accessible-register.h"
-#include "accessible-marshaller.h"
-
 #include "common/bitarray.h"
 #include "common/spi-dbus.h"
 #include "common/spi-stateset.h"
+
+#include "accessible-register.h"
+#include "object.h"
 
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
@@ -762,8 +762,7 @@ return_and_free_list (DBusMessage * message, GList * ls)
     goto oom;
   for (item = ls; item; item = g_list_next (item))
     {
-      spi_dbus_append_name_and_path (message, &iter_array,
-                                     ATK_OBJECT (item->data), TRUE, FALSE);
+      spi_object_append_reference (&iter_array, ATK_OBJECT (item->data));
     }
   if (!dbus_message_iter_close_container (&iter, &iter_array))
     goto oom;
@@ -871,7 +870,7 @@ GetMatchesInOrder (DBusMessage * message,
 
   ls = g_list_append (ls, current_object);
 
-  obj = atk_dbus_path_to_object (dbus_message_get_path (message));
+  obj = ATK_OBJECT(spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
 
   kount = inorder (obj, mrp, ls, 0, count,
                    current_object, TRUE, NULL, traverse);
@@ -903,7 +902,7 @@ GetMatchesInBackOrder (DBusMessage * message,
 
   ls = g_list_append (ls, current_object);
 
-  collection = atk_dbus_path_to_object (dbus_message_get_path (message));
+  collection = ATK_OBJECT(spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
 
   kount = sort_order_rev_canonical (mrp, ls, 0, count, current_object,
                                     FALSE, collection);
@@ -933,13 +932,13 @@ GetMatchesTo (DBusMessage * message,
 
   if (recurse)
     {
-      obj = atk_object_get_parent (current_object);
+      obj = ATK_OBJECT (atk_object_get_parent (current_object));
       kount = query_exec (mrp, sortby, ls, 0, count,
                           obj, 0, TRUE, current_object, TRUE, traverse);
     }
   else
     {
-      obj = atk_dbus_path_to_object (dbus_message_get_path (message));
+      obj = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
       kount = query_exec (mrp, sortby, ls, 0, count,
                           obj, 0, TRUE, current_object, TRUE, traverse);
 
@@ -978,7 +977,7 @@ impl_GetMatchesFrom (DBusConnection * bus, DBusMessage * message,
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_get_basic (&iter, &current_object_path);
-  current_object = atk_dbus_path_to_object (current_object_path);
+  current_object = ATK_OBJECT (spi_register_path_to_object (spi_global_register, current_object_path));
   if (!current_object)
     {
       // TODO: object-not-found error
@@ -1042,7 +1041,7 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_get_basic (&iter, &current_object_path);
-  current_object = atk_dbus_path_to_object (current_object_path);
+  current_object = ATK_OBJECT (spi_register_path_to_object (spi_global_register, current_object_path));
   if (!current_object)
     {
       // TODO: object-not-found error
@@ -1086,7 +1085,7 @@ impl_GetMatchesTo (DBusConnection * bus, DBusMessage * message,
 static DBusMessage *
 impl_GetMatches (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
-  AtkObject *obj = atk_dbus_path_to_object (dbus_message_get_path (message));
+  AtkObject *obj = ATK_OBJECT (spi_register_path_to_object (spi_global_register, dbus_message_get_path (message)));
   DBusMessageIter iter;
   MatchRulePrivate rule;
   dbus_uint32_t sortby;
