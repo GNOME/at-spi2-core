@@ -330,7 +330,7 @@ focus_tracker (AtkObject * accessible)
 
 /*---------------------------------------------------------------------------*/
 
-#define PCHANGE "property-change"
+#define PCHANGE "property_change"
 
 /* 
  * This handler handles the following ATK signals and
@@ -701,6 +701,52 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
 /*---------------------------------------------------------------------------*/
 
 /*
+ * Children changed signal converter and forwarder.
+ *
+ * Klass (Interface) org.freedesktop.atspi.Event.Object
+ * Major is the signal name.
+ * Minor is 'add' or 'remove'
+ * detail1 is the index.
+ * detail2 is 0.
+ * any_data is the child reference.
+ */
+static gboolean
+children_changed_event_listener (GSignalInvocationHint * signal_hint,
+                                 guint n_param_values,
+                                 const GValue * param_values, gpointer data)
+{
+  AtkObject *accessible, *child;
+  GSignalQuery signal_query;
+  const gchar *name, *minor;
+  gint detail1, detail2;
+
+  g_signal_query (signal_hint->signal_id, &signal_query);
+  name = signal_query.signal_name;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  minor = g_quark_to_string (signal_hint->detail);
+
+  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
+    detail1 = g_value_get_int (&param_values[1]);
+
+  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_OBJECT)
+    {
+      child = ATK_OBJECT(g_value_get_pointer (&param_values[2]));
+      emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+                  "(so)", child, append_object);
+    }
+  else
+    {
+      emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+                  "s", "", append_basic);
+    }
+  return TRUE;
+}
+
+/*---------------------------------------------------------------------------*/
+
+
+/*
  * Generic signal converter and forwarder.
  *
  * Klass (Interface) org.freedesktop.atspi.Event.Object
@@ -819,6 +865,10 @@ spi_atk_register_event_listeners (void)
                        "Gtk:AtkTable:column-reordered");
   add_signal_listener (generic_event_listener, "Gtk:AtkTable:column-deleted");
   add_signal_listener (generic_event_listener, "Gtk:AtkTable:model-changed");
+
+  /* Children signal listeners */
+  atk_add_global_event_listener (children_changed_event_listener,
+                                 "Gtk:AtkObject:children-changed");
 
   /*
    * May add the following listeners to implement preemptive key listening for GTK+
