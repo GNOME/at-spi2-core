@@ -260,9 +260,28 @@ static void
 socket_embed_hook (AtkSocket *socket, gchar *plug_id)
 {
   AtkObject *accessible = ATK_OBJECT(socket);
+  gchar *plug_name, *plug_path;
+
   /* Force registration */
   gchar *path = atk_dbus_object_to_path (accessible, TRUE);
   spi_emit_cache_update (accessible, atk_adaptor_app_data->bus);
+  /* Let the plug know that it has been embedded */
+  plug_name = g_strdup (plug_id);
+  if (!plug_name)
+    {
+      g_free (path);
+      return;
+    }
+  plug_path = g_utf8_strchr (plug_name + 1, -1, ':');
+  if (plug_path)
+    {
+      DBusMessage *message;
+      *(plug_path++) = '\0';
+      message = dbus_message_new_method_call (plug_name, plug_path, "org.freedesktop.atspi.Accessible", "Embedded");
+      dbus_message_append_args (message, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
+      dbus_connection_send (atk_adaptor_app_data->bus, message, NULL);
+    }
+  g_free (plug_name);
   g_free (path);
 }
 

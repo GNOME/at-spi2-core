@@ -112,7 +112,9 @@ impl_GetChildAtIndex (DBusConnection *bus,
   g_return_val_if_fail (ATK_IS_OBJECT (user_data),
                         droute_not_yet_handled_error (message));
   if (!dbus_message_get_args (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
-      return spi_dbus_general_error (message);
+    {
+      return droute_invalid_arguments_error (message);
+    }
   child = atk_object_ref_accessible_child (object, i);
   return spi_dbus_return_object (message, child, TRUE, TRUE);
 }
@@ -583,6 +585,27 @@ impl_GetInterfaces (DBusConnection *bus,
   return reply;
 }
 
+static DBusMessage *
+impl_Embedded (DBusConnection *bus,
+                    DBusMessage *message,
+                    void *user_data)
+{
+  AtkObject *object = (AtkObject *) user_data;
+  char *path;
+  gchar *id;
+
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID))
+    {
+      return droute_invalid_arguments_error (message);
+    }
+  id = g_object_get_data (G_OBJECT (object), "dbus-plug-parent");
+  if (id)
+    g_free (id);
+  id = g_strconcat (dbus_message_get_sender (message), ":", path, NULL);
+  g_object_set_data (G_OBJECT (object), "dbus-plug-parent", id);
+  return dbus_message_new_method_return (message);
+}
+
 static DRouteMethod methods[] = {
   {impl_GetChildAtIndex, "GetChildAtIndex"},
   {impl_GetChildren, "GetChildren"},
@@ -595,6 +618,7 @@ static DRouteMethod methods[] = {
   {impl_GetAttributes, "GetAttributes"},
   {impl_GetApplication, "GetApplication"},
   {impl_GetInterfaces, "GetInterfaces"},
+  {impl_Embedded, "Embedded"},
   {NULL, NULL}
 };
 

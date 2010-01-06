@@ -40,6 +40,8 @@ spi_dbus_append_name_and_path_inner (DBusMessageIter *iter, const char *bus_name
 
   if (!bus_name)
     bus_name = "";
+  if (!path)
+    path = SPI_DBUS_PATH_NULL;
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL, &iter_struct);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &bus_name);
@@ -56,9 +58,6 @@ spi_dbus_append_name_and_path (DBusMessage *message, DBusMessageIter *iter, AtkO
   DBusMessageIter iter_struct;
 
   path = atk_dbus_object_to_path (obj, do_register);
-
-  if (!path)
-    path = g_strdup (SPI_DBUS_PATH_NULL);
 
   spi_dbus_append_name_and_path_inner (iter, atspi_dbus_name, path);
 
@@ -261,7 +260,7 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
     {
       AtkObject *parent;
       gchar *path;
-      gchar *bus_parent = NULL, *path_parent;
+      gchar *bus_parent = NULL, *path_parent = NULL;
 
       /* Marshall object path */
       path = atk_dbus_object_to_path (obj, FALSE);
@@ -274,7 +273,19 @@ spi_atk_append_accessible(AtkObject *obj, gpointer data)
         {
           /* TODO: Support getting parent of an AtkPlug */
 #ifdef __ATK_PLUG_H__
-          if (role != Accessibility_ROLE_APPLICATION && !ATK_IS_PLUG (obj))
+          if (ATK_IS_PLUG (obj))
+            {
+              char *id = g_object_get_data (G_OBJECT (obj), "dbus-plug-parent");
+              if (id)
+                bus_parent = g_strdup (id);
+              if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
+                {
+                  *(path_parent++) = '\0';
+                  /* path_parent is going to be freed, so dup it */
+                  path_parent = g_strdup (path_parent);
+                }
+            }
+          else if (role != Accessibility_ROLE_APPLICATION)
 #else
           if (role != Accessibility_ROLE_APPLICATION)
 #endif
