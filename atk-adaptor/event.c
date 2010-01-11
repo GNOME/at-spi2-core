@@ -715,10 +715,12 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
                                  guint n_param_values,
                                  const GValue * param_values, gpointer data)
 {
-  AtkObject *accessible, *child;
   GSignalQuery signal_query;
   const gchar *name, *minor;
-  gint detail1, detail2;
+  gint detail1, detail2 = 0;
+
+  AtkObject *accessible, *ao;
+  gpointer child;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
@@ -726,25 +728,50 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   minor = g_quark_to_string (signal_hint->detail);
 
-  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
-    detail1 = g_value_get_int (&param_values[1]);
+  detail1 = g_value_get_uint (param_values + 1);
+  child = g_value_get_pointer (param_values + 2);
 
-  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_OBJECT)
+  if (ATK_IS_OBJECT (child))
     {
-      child = ATK_OBJECT(g_value_get_pointer (&param_values[2]));
+      ao = ATK_OBJECT (child);
       emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
-                  "(so)", child, append_object);
+                  "(so)", ao, append_object);
+    }
+  else if ((minor != NULL) && (strcmp (minor, "add") == 0))
+    {
+      ao = atk_object_ref_accessible_child (accessible, 
+                                            detail1);
+      emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+                  "(so)", ao, append_object);
     }
   else
     {
       emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
-                  "s", "", append_basic);
+                  "(so)", ao, append_object);
     }
+ 
   return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
 
+static void
+toplevel_added_event_listener (AtkObject * accessible,
+                               guint index, AtkObject * child)
+{
+  emit_event (accessible, ITF_EVENT_OBJECT, "children-changed", "add", index, 0,
+              "(so)", child, append_object);
+}
+
+static void
+toplevel_removed_event_listener (AtkObject * accessible,
+                                 guint index, AtkObject * child)
+{
+  emit_event (accessible, ITF_EVENT_OBJECT, "children-changed", "remove", index, 0,
+              "(so)", child, append_object);
+}
+
+/*---------------------------------------------------------------------------*/
 
 /*
  * Generic signal converter and forwarder.
@@ -869,6 +896,16 @@ spi_atk_register_event_listeners (void)
   /* Children signal listeners */
   atk_add_global_event_listener (children_changed_event_listener,
                                  "Gtk:AtkObject:children-changed");
+
+#if 0
+  g_signal_connect (G_OBJECT (spi_global_app_data->root),
+                    "children-changed::add",
+                    (GCallback) toplevel_added_event_listener, NULL);
+
+  g_signal_connect (G_OBJECT (spi_global_app_data->root),
+                    "children-changed::remove",
+                    (GCallback) toplevel_removed_event_listener, NULL);
+#endif
 
   /*
    * May add the following listeners to implement preemptive key listening for GTK+
