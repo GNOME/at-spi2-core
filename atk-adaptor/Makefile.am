@@ -40,13 +40,14 @@ libatk_bridge_la_SOURCES =	\
 	event.h
 
 if RELOCATE
-gtkpathdir = $(gtkmoduledir)/..
 gnomeautostartdir = $(datadir)/gnome/autostart
 gnomeautostart_DATA = atk-bridge.desktop
+endif
+
+gtkpathdir = $(gtkmoduledir)/..
 EXTRA_DIST = atk-bridge.desktop.in
-CLEANFILES = $(gnome_autostart_DATA)
+CLEANFILES = atk-bridge.desktop
 
 %.desktop: %.desktop.in Makefile.am
 	sed -e "s,\@gtkpathdir\@,$(gtkpathdir)," \
 	< $< > $@
-endif
