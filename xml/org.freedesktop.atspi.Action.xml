@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/node">
 
-<interface name="org.freedesktop.atspi/Action">
+<interface name="org.freedesktop.atspi.Action">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>An interface through which a user-actionable user interface
       component can be manipulated.  Components which react to mouse or
