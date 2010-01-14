@@ -29,7 +29,6 @@
 
 #include "spi-types.h"
 
-/*
 DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
 {
@@ -37,8 +36,6 @@ spi_dbus_general_error (DBusMessage * message)
 				 "org.freedesktop.atspi.GeneralError",
 				 "General error");
 }
-*/
-
 
 DBusMessage *
 spi_dbus_return_rect (DBusMessage * message, gint ix, gint iy, gint iwidth,
