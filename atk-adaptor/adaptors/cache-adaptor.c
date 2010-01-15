@@ -44,7 +44,7 @@
                                        ")"
                                           
 #define SPI_CACHE_ITEM_SIGNATURE "(" \
-                                   DBUS_TYPE_OBJECT_PATH_AS_STRING \
+                                   SPI_OBJECT_REFERENCE_SIGNATURE \
                                    SPI_OBJECT_REFERENCE_SIGNATURE \
                                    SPI_OBJECT_REFERENCE_SIGNATURE \
                                    DBUS_TYPE_ARRAY_AS_STRING \
