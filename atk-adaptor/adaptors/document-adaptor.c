@@ -97,7 +97,7 @@ impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_iter_init_append (reply, &iter);
-      spi_atk_append_attribute_set (&iter, attributes);
+      spi_object_append_attribute_set (&iter, attributes);
     }
 
   if (attributes)

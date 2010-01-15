@@ -369,7 +369,7 @@ impl_GetAttributes (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_iter_init_append (reply, &iter);
-      spi_atk_append_attribute_set (&iter, set);
+      spi_object_append_attribute_set (&iter, set);
       dbus_message_append_args (reply, DBUS_TYPE_INT32, &startOffset,
                                 DBUS_TYPE_INT32, &endOffset,
                                 DBUS_TYPE_INVALID);
@@ -397,7 +397,7 @@ impl_GetDefaultAttributes (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_iter_init_append (reply, &iter);
-      spi_atk_append_attribute_set (&iter, set);
+      spi_object_append_attribute_set (&iter, set);
     }
   atk_attribute_set_free (set);
   return reply;
@@ -793,7 +793,7 @@ impl_GetDefaultAttributeSet (DBusConnection * bus, DBusMessage * message,
   if (reply)
     {
       dbus_message_iter_init_append (reply, &iter);
-      spi_atk_append_attribute_set (&iter, attributes);
+      spi_object_append_attribute_set (&iter, attributes);
     }
 
   if (attributes)
