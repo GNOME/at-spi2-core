@@ -52,27 +52,27 @@ static gboolean
 child_interface_p (AtkObject * child, gchar * repo_id)
 {
   if (!strcasecmp (repo_id, "action"))
-    return atk_is_action (child);
+    return ATK_IS_ACTION (child);
   if (!strcasecmp (repo_id, "component"))
-    return atk_is_component (child);
+    return ATK_IS_COMPONENT (child);
   if (!strcasecmp (repo_id, "editabletext"))
-    return atk_is_editable_text (child);
+    return ATK_IS_EDITABLE_TEXT (child);
   if (!strcasecmp (repo_id, "text"))
-    return atk_is_text (child);
+    return ATK_IS_TEXT (child);
   if (!strcasecmp (repo_id, "hypertext"))
-    return atk_is_hypertext (child);
+    return ATK_IS_HYPERTEXT (child);
   if (!strcasecmp (repo_id, "image"))
-    return atk_is_image (child);
+    return ATK_IS_IMAGE (child);
   if (!strcasecmp (repo_id, "selection"))
-    return atk_is_selection (child);
+    return ATK_IS_SELECTION (child);
   if (!strcasecmp (repo_id, "table"))
-    return atk_is_table (child);
+    return ATK_IS_TABLE (child);
   if (!strcasecmp (repo_id, "value"))
-    return atk_is_value (child);
+    return ATK_IS_VALUE (child);
   if (!strcasecmp (repo_id, "streamablecontent"))
-    return atk_is_streamable_content (child);
+    return ATK_IS_STREAMABLE_CONTENT (child);
   if (!strcasecmp (repo_id, "document"))
-    return atk_is_document (child);
+    return ATK_IS_DOCUMENT (child);
   return FALSE;
 }
 
