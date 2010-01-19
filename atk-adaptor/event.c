@@ -258,6 +258,23 @@ append_object (DBusMessageIter *iter,
   spi_object_append_v_reference (iter, ATK_OBJECT (val));
 }
 
+static gchar *
+signal_name_to_dbus (const gchar *s)
+{
+  gchar *ret = g_strdup (s);
+  gchar *t;
+
+  if (!ret)
+    return NULL;
+  ret [0] = toupper (ret [0]);
+  while ((t = strchr (ret, '-')) != NULL)
+  {
+    memmove (t, t + 1, strlen (t));
+    *t = toupper (*t);
+  }
+  return ret;
+}
+
 /*
  * Emits an AT-SPI event.
  * AT-SPI events names are split into three parts:
@@ -297,8 +314,7 @@ emit_event (AtkObject  *obj,
    * name in D-Bus (Why not??!?) The names need converting
    * on this side, and again on the client side.
    */
-  cname = g_strdup(major);
-  while ((t = strchr(cname, '-')) != NULL) *t = '_';
+  cname = signal_name_to_dbus (major);
   sig = dbus_message_new_signal(path, klass, cname);
   g_free(cname);
 

@@ -218,8 +218,8 @@ static void
 append_accessible_hf (gpointer key, gpointer obj_data, gpointer data)
 {
   /* Make sure it isn't a hyperlink */
-  if (ATK_IS_OBJECT (obj_data))
-    append_cache_item (ATK_OBJECT (obj_data), data);
+  if (ATK_IS_OBJECT (key))
+    append_cache_item (ATK_OBJECT (key), data);
 }
 
 /*---------------------------------------------------------------------------*/
