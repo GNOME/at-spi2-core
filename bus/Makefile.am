@@ -11,4 +11,10 @@ default_session_DATA = at-spi-dbus-bus.desktop
 
 EXTRA_DIST= \
             accessibility.conf \
-            at-spi-dbus-bus.desktop
+            at-spi-dbus-bus.desktop.in
+
+%.desktop: %.desktop.in Makefile.am
+	sed -e "s,\@bindir\@,$(EXPANDED_BINDIR)," < $< > $@
+
+CLEANFILES= \
+	at-spi-dbus-bus.desktop
