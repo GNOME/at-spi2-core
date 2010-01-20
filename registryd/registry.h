@@ -42,7 +42,7 @@ G_BEGIN_DECLS
 
 struct _SpiRegistry {
   GObject      parent;
-  GSequence   *apps;
+  GPtrArray   *apps;
 
   DBusConnection *bus;
 };
