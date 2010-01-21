@@ -70,7 +70,7 @@ guint
 spi_register_object_to_ref (GObject * gobj);
   
 gchar *
-spi_register_desktop_object_path ();
+spi_register_root_object_path ();
 
 /*---------------------------------------------------------------------------*/
 

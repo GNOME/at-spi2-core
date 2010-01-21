@@ -47,15 +47,17 @@
  *
  */
 
-#define SPI_ATK_PATH_PREFIX_LENGTH 22
-#define SPI_ATK_OBJECT_PATH_PREFIX  "/org/at_spi/accessible"
-#define SPI_ATK_OBJECT_PATH_DESKTOP SPI_ATK_OBJECT_PATH_PREFIX "/desktop"
+#define SPI_ATK_PATH_PREFIX_LENGTH 34
+#define SPI_ATK_OBJECT_PATH_PREFIX  "/org/freedesktop/atspi/accessible/"
+#define SPI_ATK_OBJECT_PATH_ROOT "root"
 
-#define SPI_ATK_OBJECT_REFERENCE_TEMPLATE SPI_ATK_OBJECT_PATH_PREFIX "/%d"
+#define SPI_ATK_OBJECT_REFERENCE_TEMPLATE SPI_ATK_OBJECT_PATH_PREFIX "%d"
 
 #define SPI_DBUS_ID "spi-dbus-id"
 
 SpiRegister *spi_global_register = NULL;
+
+static const gchar * spi_register_root_path = SPI_ATK_OBJECT_PATH_PREFIX SPI_ATK_OBJECT_PATH_ROOT;
 
 enum
 {
@@ -243,14 +245,12 @@ spi_register_path_to_object (SpiRegister * reg, const char *path)
       != 0)
     return NULL;
 
-  path += SPI_ATK_PATH_PREFIX_LENGTH;   /* Skip over the prefix */
+  path += SPI_ATK_PATH_PREFIX_LENGTH; /* Skip over the prefix */
 
-  if (!g_strcmp0 (SPI_ATK_OBJECT_PATH_DESKTOP, path))
-    return G_OBJECT (atk_get_root ());
-  if (path[0] != '/')
-    return NULL;
+  /* Map the root path to the root object. */
+  if (!g_strcmp0 (SPI_ATK_OBJECT_PATH_ROOT, path))
+    return G_OBJECT (spi_global_app_data->root);
 
-  path++;
   index = atoi (path);
   data = g_hash_table_lookup (reg->ref2ptr, GINT_TO_POINTER (index));
   if (data)
@@ -279,6 +279,10 @@ spi_register_object_to_path (SpiRegister * reg, GObject * gobj)
   if (gobj == NULL)
     return NULL;
 
+  /* Map the root object to the root path. */
+  if (gobj == spi_global_app_data->root)
+    return g_strdup (spi_register_root_path);
+
   ref = object_to_ref (gobj);
   if (!ref)
     {
@@ -304,9 +308,9 @@ spi_register_object_to_ref (GObject * gobj)
  * within any particular application.
  */
 gchar *
-spi_register_desktop_object_path ()
+spi_register_root_object_path ()
 {
-  return g_strdup (SPI_ATK_OBJECT_PATH_PREFIX SPI_ATK_OBJECT_PATH_DESKTOP);
+  return g_strdup (SPI_ATK_OBJECT_PATH_PREFIX SPI_ATK_OBJECT_PATH_ROOT);
 }
 
 /*END------------------------------------------------------------------------*/

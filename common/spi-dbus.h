@@ -35,12 +35,10 @@ extern int _dbg;
 #define SPI_DBUS_PATH_REGISTRY "/org/freedesktop/atspi/registry"
 #define SPI_DBUS_INTERFACE_REGISTRY "org.freedesktop.atspi.Registry"
 
-#define SPI_DBUS_PATH_DESKTOP "/org/freedesktop/atspi/accessible/desktop"
-#define SPI_DBUS_INTERFACE_DESKTOP "org.freedesktop.atspi.Desktop"
+#define SPI_DBUS_PATH_NULL "/org/freedesktop/atspi/null"
+#define SPI_DBUS_PATH_ROOT "/org/freedesktop/atspi/root"
 
 #define SPI_DBUS_PATH_DEC "/org/freedesktop/atspi/registry/deviceeventcontroller"
-#define SPI_DBUS_PATH_NULL "/org/freedesktop/atspi/accessible/null"
-
 #define SPI_DBUS_INTERFACE_DEC "org.freedesktop.atspi.DeviceEventController"
 #define SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER "org.freedesktop.atspi.DeviceEventListener"
 
@@ -50,6 +48,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_APPLICATION "org.freedesktop.atspi.Application"
 #define SPI_DBUS_INTERFACE_COLLECTION "org.freedesktop.atspi.Collection"
 #define SPI_DBUS_INTERFACE_COMPONENT "org.freedesktop.atspi.Component"
+#define SPI_DBUS_INTERFACE_DESKTOP "org.freedesktop.atspi.Desktop"
 #define SPI_DBUS_INTERFACE_DOCUMENT "org.freedesktop.atspi.Document"
 #define SPI_DBUS_INTERFACE_EDITABLE_TEXT "org.freedesktop.atspi.EditableText"
 #define SPI_DBUS_INTERFACE_EVENT_KEYBOARD "org.freedesktop.atspi.Event.Keyboard"
@@ -61,6 +60,7 @@ extern int _dbg;
 #define SPI_DBUS_INTERFACE_TABLE "org.freedesktop.atspi.Table"
 #define SPI_DBUS_INTERFACE_TEXT "org.freedesktop.atspi.Text"
 #define SPI_DBUS_INTERFACE_VALUE "org.freedesktop.atspi.Value"
+#define SPI_DBUS_INTERFACE_SOCKET "org.freedesktop.atspi.Socket"
 
 DBusMessage *spi_dbus_general_error(DBusMessage *message);
 DBusMessage *spi_dbus_return_rect(DBusMessage *message, gint ix, gint iy, gint iwidth, gint iheight);

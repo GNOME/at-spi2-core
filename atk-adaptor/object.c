@@ -113,7 +113,7 @@ spi_object_append_desktop_reference (DBusMessageIter * iter)
 {
   DBusMessageIter iter_struct;
   const char *name = SPI_DBUS_NAME_REGISTRY;
-  const char *path = SPI_DBUS_PATH_DESKTOP;
+  const char *path = SPI_DBUS_PATH_ROOT;
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
                                     &iter_struct);

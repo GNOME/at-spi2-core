@@ -39,6 +39,7 @@
 #include "bridge.h"
 #include "event.h"
 #include "adaptors.h"
+#include "object.h"
 
 #include "accessible-register.h"
 #include "accessible-leasing.h"
@@ -170,24 +171,17 @@ register_application (SpiBridge * app)
   DBusMessage *message;
   DBusMessageIter iter;
   DBusError error;
-  const char *uname = NULL;
 
   dbus_error_init (&error);
 
   message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                          SPI_DBUS_PATH_REGISTRY,
-                                          SPI_DBUS_INTERFACE_REGISTRY,
-                                          "RegisterApplication");
+                                          SPI_DBUS_PATH_ROOT,
+                                          SPI_DBUS_INTERFACE_SOCKET,
+                                          "Embed");
   dbus_message_set_no_reply (message, TRUE);
 
-  uname = dbus_bus_get_unique_name (app->bus);
-  if (!uname)
-    {
-      g_error ("AT-SPI: Couldn't get unique name for this connection");
-    }
-
   dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &uname);
+  spi_object_append_reference (&iter, app->root);
   dbus_connection_send (app->bus, message, NULL);
   if (message)
     dbus_message_unref (message);
@@ -409,7 +403,7 @@ adaptor_init (gint * argc, gchar ** argv[])
                              "/org/at_spi/cache", spi_global_cache);
 
   accpath = droute_add_many (spi_global_app_data->droute,
-                             "/org/at_spi/accessible",
+                             "/org/freedesktop/atspi/accessible",
                              NULL,
                              (DRouteGetDatumFunction)
                              spi_global_register_path_to_object);
