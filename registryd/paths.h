@@ -29,10 +29,9 @@
 #define SPI_DBUS_INTERFACE_PREFIX                "org.freedesktop.atspi."
 
 #define SPI_DBUS_PATH_NULL                       SPI_DBUS_PATH_PREFIX "null"
-#define SPI_DBUS_PATH_ROOT                       SPI_DBUS_PATH_PREFIX "root"
+#define SPI_DBUS_PATH_ROOT                       SPI_DBUS_PATH_PREFIX "accessible/root"
 
-#define SPI_DBUS_NAME_REGISTRY                   SPI_DBUS_NAME_PREFIX "org.freedesktop.atspi.Registry"
-#define SPI_DBUS_PATH_REGISTRY                   SPI_DBUS_PATH_PREFIX "registry"
+#define SPI_DBUS_NAME_REGISTRY                   SPI_DBUS_NAME_PREFIX "Registry"
 #define SPI_DBUS_INTERFACE_REGISTRY              SPI_DBUS_INTERFACE_PREFIX "Registry"
 
 #define SPI_DBUS_PATH_DEC                        SPI_DBUS_PATH_PREFIX "registry/deviceeventcontroller"
