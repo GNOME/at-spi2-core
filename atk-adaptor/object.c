@@ -219,11 +219,13 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
+#if 0
   if (ATK_IS_STREAMABLE_CONTENT (obj))
     {
       itf = "org.freedesktop.atspi.StreamableContent";
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
+#endif
 
   if (ATK_IS_DOCUMENT (obj))
     {
