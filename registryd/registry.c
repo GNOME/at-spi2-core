@@ -184,9 +184,8 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
               SpiReference *ref  = g_ptr_array_index (reg->apps, i);
               while (!g_strcmp0 (old, ref->name))
                 {
-                  const gchar *rname = "";
                   g_ptr_array_remove_index (reg->apps, i);
-                  children_removed_listener (bus, i, rname, SPI_DBUS_PATH_NULL);
+                  children_removed_listener (bus, i, old, SPI_DBUS_PATH_NULL);
                 }
             } 
         }
