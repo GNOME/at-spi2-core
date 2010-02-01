@@ -148,6 +148,7 @@ spi_atk_bridge_get_bus (void)
     }
   else
     {
+g_print("dbg: data=%s\n", data);
       bus = dbus_connection_open (data, &error);
       if (!bus)
         {

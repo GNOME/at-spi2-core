@@ -351,7 +351,7 @@ focus_tracker (AtkObject * accessible)
 
 /*---------------------------------------------------------------------------*/
 
-#define PCHANGE "property_change"
+#define PCHANGE "PropertyChange"
 
 /* 
  * This handler handles the following ATK signals and
@@ -390,21 +390,27 @@ property_event_listener (GSignalInvocationHint * signal_hint,
         emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
                     DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
     }
-  if (strcmp (pname, "accessible-description") == 0)
+  else if (strcmp (pname, "accessible-description") == 0)
     {
       s1 = atk_object_get_description (accessible);
       if (s1 != NULL)
         emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
                     DBUS_TYPE_STRING_AS_STRING, s1, append_basic);
     }
-  if (strcmp (pname, "accessible-parent") == 0)
+  else if (strcmp (pname, "accessible-parent") == 0)
     {
       otemp = atk_object_get_parent (accessible);
       if (otemp != NULL)
         emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
                     "(so)", otemp, append_object);
     }
-  if (strcmp (pname, "accessible-table-summary") == 0)
+  else if (strcmp (pname, "accessible-role") == 0)
+    {
+      dbus_uint32_t role = atk_object_get_role (accessible);
+      emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
+                    DBUS_TYPE_UINT32_AS_STRING, role, append_basic);
+    }
+  else if (strcmp (pname, "accessible-table-summary") == 0)
     {
       otemp = atk_table_get_summary (ATK_TABLE (accessible));
       if (otemp != NULL)
