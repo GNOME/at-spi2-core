@@ -77,7 +77,7 @@
 <xi:include href="org.freedesktop.atspi.Selection.xml"/>
 <xi:include href="org.freedesktop.atspi.Table.xml"/>
 <xi:include href="org.freedesktop.atspi.Text.xml"/>
-<xi:include href="org.freedesktop.atspi.Tree.xml"/>
+<xi:include href="org.freedesktop.atspi.Cache.xml"/>
 <xi:include href="org.freedesktop.atspi.Value.xml"/>
 
 <!-- Interfaces derived from Accessibility::Text -->

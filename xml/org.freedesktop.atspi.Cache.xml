@@ -54,55 +54,42 @@
   		</tp:member>
 	</tp:struct>
 
-	<interface name="org.freedesktop.atspi.Tree">
+	<interface name="org.freedesktop.atspi.Cache">
 		<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-			<p>The Tree interface provides access to all
-			of the Accessible objects that an application
-			has available. Information about the objects is 
-			transferred as a collection to reduce IPC usage.</p>
+			<p>The Cache interface provides access to all
+			of the non-transient Accessible objects that an
+			application has available. Information about the objects
+			is transferred as a collection to reduce IPC usage.</p>
 		</tp:docstring>
 
-		<method name="GetRoot">
-			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-				<p>Gets the D-Bus object path of the 
-				root accessible object of the application.</p>
-			</tp:docstring>
-			<arg name="root" type="o" direction="out">
-				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-					<p>Path of root Accessible object.</p>
-				</tp:docstring>
-			</arg>
-		</method>
-
-		<method name="GetTree">
+		<method name="GetItems">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 				<p>Transfers structures representing ALL
 				Accessible objects that currently exist in the
 				application. This should be used to create
 				a mirror of the tree of Accessibles within the AT.</p>
 			</tp:docstring>
-			<arg name="nodes" type="a(o(so)a(so)assusau)" direction="out" tp:type="AccessibleProxy[]">
+			<arg name="nodes" type="a((so)(so)a(so)assusau)" direction="out" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Array of Accessible Object proxy structures.</p>
 				</tp:docstring>
 			</arg>
 		</method>
 
-		<signal name="UpdateAccessible">
+		<signal name="AddAccessible">
 			<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-				<p>Updates all mirrors. Re-sends all all the 
-				accessible objects that have changed since the last
-				updateTree signal was send</p>
+				<p>Indicates that a new accessible should be
+				added to the cachel</p>
 			</tp:docstring>
-			<arg name="nodesAdded" type="((so)(so)a(so)assusau)" tp:type="AccessibleProxy[]">
+			<arg name="nodeAdded" type="((so)(so)a(so)assusau)" tp:type="AccessibleProxy[]">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-					<p>Array of Accessible Object proxy structures to be added.</p>
+					<p>Accessible Object proxy structure to be added.</p>
 				</tp:docstring>
 			</arg>
 		</signal>
 
 		<signal name="RemoveAccessible">
-			<arg name="nodeRemoved" type="o">
+			<arg name="nodeRemoved" type="(so)">
 				<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 					<p>Accessible Object proxy structure to be removed.</p>
 				</tp:docstring>

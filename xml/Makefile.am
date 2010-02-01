@@ -21,7 +21,7 @@ XML_SPEC= \
 	org.freedesktop.atspi.State.xml \
 	org.freedesktop.atspi.Table.xml \
 	org.freedesktop.atspi.Text.xml \
-	org.freedesktop.atspi.Tree.xml \
+	org.freedesktop.atspi.Cache.xml \
 	org.freedesktop.atspi.Value.xml
 
 spec.xml: $(XML_SPEC)
