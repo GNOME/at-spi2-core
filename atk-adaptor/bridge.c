@@ -148,7 +148,6 @@ spi_atk_bridge_get_bus (void)
     }
   else
     {
-g_print("dbg: data=%s\n", data);
       bus = dbus_connection_open (data, &error);
       if (!bus)
         {
@@ -267,7 +266,6 @@ exit_func (void)
 
 /*---------------------------------------------------------------------------*/
 
-#ifdef SPI_ATK_PLUG_SOCKET
 static AtkPlugClass *plug_class;
 static AtkSocketClass *socket_class;
 
@@ -324,7 +322,6 @@ install_plug_hooks ()
   plug_class->get_object_id = get_plug_id;
   socket_class->embed = socket_embed_hook;
 }
-#endif
 
 gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
@@ -456,10 +453,8 @@ adaptor_init (gint * argc, gchar ** argv[])
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
 
-#ifdef SPI_ATK_PLUG_SOCKET
   /* Hook our plug-and socket functions */
   install_plug_hooks ();
-#endif
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   if (!atspi_no_register)

@@ -91,7 +91,6 @@ impl_get_Parent (DBusMessageIter * iter, void *user_data)
   parent = atk_object_get_parent (obj);
   if (parent == NULL)
     {
-#ifdef SPI_ATK_PLUG_SOCKET
       /* TODO, move in to a 'Plug' wrapper. */
       if (ATK_IS_PLUG (obj))
         {
@@ -102,22 +101,27 @@ impl_get_Parent (DBusMessageIter * iter, void *user_data)
           if (id)
             {
               bus_parent = g_strdup (id);
-            if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
-              {
-                DBusMessageIter iter_parent;
-                *(path_parent++) = '\0';
-                dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL,
-                                                  &iter_parent);
-                dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
-                dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
-                dbus_message_iter_close_container (&iter_variant, &iter_parent);
-              }
+              if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
+                {
+                  DBusMessageIter iter_parent;
+                  *(path_parent++) = '\0';
+                  dbus_message_iter_open_container (&iter_variant, DBUS_TYPE_STRUCT, NULL,
+                                                    &iter_parent);
+                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
+                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
+                  dbus_message_iter_close_container (&iter_variant, &iter_parent);
+                }
+              else
+                {
+                  spi_object_append_null_reference (&iter_variant);
+                }
+            }
+          else
+            {
+              spi_object_append_null_reference (&iter_variant);
             }
         }
       else if (role != Accessibility_ROLE_APPLICATION)
-#else
-      if (role != Accessibility_ROLE_APPLICATION)
-#endif
          spi_object_append_null_reference (&iter_variant);
       else
          spi_object_append_desktop_reference (&iter_variant);

@@ -98,7 +98,6 @@ append_cache_item (AtkObject * obj, gpointer data)
     parent = atk_object_get_parent (obj);
     if (parent == NULL)
       {
-#ifdef SPI_ATK_PLUG_SOCKET
         /* TODO, move in to a 'Plug' wrapper. */
         if (ATK_IS_PLUG (obj))
           {
@@ -109,22 +108,27 @@ append_cache_item (AtkObject * obj, gpointer data)
             if (id)
               {
                 bus_parent = g_strdup (id);
-              if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
-                {
-                  DBusMessageIter iter_parent;
-                  *(path_parent++) = '\0';
-                  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL,
-                                                    &iter_parent);
-                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
-                  dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
-                  dbus_message_iter_close_container (&iter_struct, &iter_parent);
-                }
+                if (bus_parent && (path_parent = g_utf8_strchr (bus_parent + 1, -1, ':')))
+                  {
+                    DBusMessageIter iter_parent;
+                    *(path_parent++) = '\0';
+                    dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_STRUCT, NULL,
+                                                      &iter_parent);
+                    dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_STRING, &bus_parent);
+                    dbus_message_iter_append_basic (&iter_parent, DBUS_TYPE_OBJECT_PATH, &path_parent);
+                    dbus_message_iter_close_container (&iter_struct, &iter_parent);
+                  }
+                else
+                  {
+                    spi_object_append_null_reference (&iter_struct);
+                  }
+              }
+            else
+              {
+                spi_object_append_null_reference (&iter_struct);
               }
           }
         else if (role != Accessibility_ROLE_APPLICATION)
-#else
-        if (role != Accessibility_ROLE_APPLICATION)
-#endif
           spi_object_append_null_reference (&iter_struct);
         else
           spi_object_append_desktop_reference (&iter_struct);
@@ -152,7 +156,6 @@ append_cache_item (AtkObject * obj, gpointer data)
             g_object_unref (G_OBJECT (child));
           }
       }
-#ifdef SPI_ATK_PLUG_SOCKET
     if (ATK_IS_SOCKET (obj) && atk_socket_is_occupied (ATK_SOCKET (obj)))
       {
         AtkSocket *socket = ATK_SOCKET (obj);
@@ -171,7 +174,6 @@ append_cache_item (AtkObject * obj, gpointer data)
           }
         g_free (child_name);
       }
-#endif
 
     dbus_message_iter_close_container (&iter_struct, &iter_sub_array);
 
