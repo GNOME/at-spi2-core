@@ -421,9 +421,14 @@ static dbus_bool_t
 impl_get_Parent (DBusMessageIter * iter, void *user_data)
 {
   const gchar *name = "";
-  append_reference (iter, 
+  DBusMessageIter iter_variant;
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "(so)",
+                                    &iter_variant);
+  append_reference (&iter_variant, 
                     name,
                     SPI_DBUS_PATH_NULL);
+  dbus_message_iter_close_container (iter, &iter_variant);
   return TRUE;
 }
 
