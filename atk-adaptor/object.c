@@ -80,6 +80,9 @@ spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj)
   const gchar *name;
   gchar *path;
 
+  if (!obj)
+    return spi_object_append_null_reference (iter);
+
   maybe_lease (obj);
 
   name = dbus_bus_get_unique_name (spi_global_app_data->bus);

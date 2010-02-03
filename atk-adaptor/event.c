@@ -602,7 +602,6 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *child;
   GSignalQuery signal_query;
   const gchar *name, *minor;
-  gchar *s;
   gint detail1;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
@@ -617,7 +616,6 @@ active_descendant_event_listener (GSignalInvocationHint * signal_hint,
 
   emit_event (accessible, ITF_EVENT_OBJECT, name, "", detail1, 0,
               "(so)", child, append_object);
-  g_free (s);
   return TRUE;
 }
 
@@ -746,7 +744,7 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
   const gchar *name, *minor;
   gint detail1, detail2 = 0;
 
-  AtkObject *accessible, *ao;
+  AtkObject *accessible, *ao=NULL;
   gpointer child;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
