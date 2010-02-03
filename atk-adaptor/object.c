@@ -78,7 +78,7 @@ spi_object_append_null_reference (DBusMessageIter * iter)
 {
   DBusMessageIter iter_struct;
   const char *name;
-  const char *path = "/org/at_spi/null";
+  const char *path = SPI_DBUS_PATH_NULL;
 
   name = dbus_bus_get_unique_name (spi_global_app_data->bus);
 

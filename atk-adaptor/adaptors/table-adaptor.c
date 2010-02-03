@@ -319,7 +319,7 @@ impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
   AtkTable *table = (AtkTable *) user_data;
   dbus_int32_t row;
   DBusError error;
-  AtkObject *obj;
+  AtkObject *obj = NULL;
 
   g_return_val_if_fail (ATK_IS_TABLE (user_data),
                         droute_not_yet_handled_error (message));
@@ -329,7 +329,6 @@ impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
     {
       return droute_invalid_arguments_error (message);
     }
-  obj = atk_table_get_row_header (table, row);
   obj = atk_table_get_row_header (table, row);
   return spi_object_return_reference (message, obj);
 }
