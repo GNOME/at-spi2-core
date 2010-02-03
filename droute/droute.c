@@ -70,6 +70,9 @@ typedef struct PropertyPair
 static DBusHandlerResult
 handle_message (DBusConnection *bus, DBusMessage *message, void *user_data);
 
+static DBusMessage *
+droute_object_does_not_exist_error (DBusMessage *message);
+
 /*---------------------------------------------------------------------------*/
 
 static DRoutePath *
@@ -250,7 +253,7 @@ impl_prop_GetAll (DBusMessage *message,
 
     void  *datum = path_get_datum (path, pathstr);
     if (!datum)
-	return NULL;
+	return droute_object_does_not_exist_error (message);
 
     dbus_error_init (&error);
     if (!dbus_message_get_args
@@ -321,7 +324,7 @@ impl_prop_GetSet (DBusMessage *message,
 
     datum = path_get_datum (path, pathstr);
     if (!datum)
-	return NULL;
+	return droute_object_does_not_exist_error (message);
 
     if (get && prop_funcs->get)
       {
@@ -497,15 +500,14 @@ handle_other (DBusConnection *bus,
 
     _DROUTE_DEBUG ("DRoute (handle other): %s|%s on %s\n", member, iface, pathstr);
 
-    datum = path_get_datum (path, pathstr);
-    if (!datum)
-	return result;
-
     func = (DRouteFunction) g_hash_table_lookup (path->methods, &pair);
     if (func != NULL)
       {
-
-        reply = (func) (bus, message, datum);
+        datum = path_get_datum (path, pathstr);
+        if (!datum)
+	    reply = droute_object_does_not_exist_error (message);
+        else
+            reply = (func) (bus, message, datum);
 
         if (!reply)
           {
@@ -536,21 +538,49 @@ handle_message (DBusConnection *bus, DBusMessage *message, void *user_data)
     const gint   type    = dbus_message_get_type (message);
     const gchar *pathstr = dbus_message_get_path (message);
 
+    DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
     _DROUTE_DEBUG ("DRoute (handle message): %s|%s of type %d on %s\n", member, iface, type, pathstr);
 
     /* Check for basic reasons not to handle */
     if (type   != DBUS_MESSAGE_TYPE_METHOD_CALL ||
         member == NULL ||
         iface  == NULL)
-        return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+        return result;
 
     if (!strcmp (iface, "org.freedesktop.DBus.Properties"))
-        return handle_properties (bus, message, path, iface, member, pathstr);
+        result = handle_properties (bus, message, path, iface, member, pathstr);
+    else if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
+        result = handle_introspection (bus, message, path, iface, member, pathstr);
+    else
+        result = handle_other (bus, message, path, iface, member, pathstr);
+#if 0
+    if (result == DBUS_HANDLER_RESULT_NOT_YET_HANDLED)
+        g_print ("DRoute | Unhandled message: %s|%s of type %d on %s\n", member, iface, type, pathstr);
+#endif
+      
+    return result;
+}
 
-    if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
-        return handle_introspection (bus, message, path, iface, member, pathstr);
+/*---------------------------------------------------------------------------*/
 
-    return handle_other (bus, message, path, iface, member, pathstr);
+static DBusMessage *
+droute_object_does_not_exist_error (DBusMessage *message)
+{
+    DBusMessage *reply;
+    gchar       *errmsg;
+
+    errmsg= g_strdup_printf (
+            "Method \"%s\" with signature \"%s\" on interface \"%s\" could not be processed as object %s does not exist\n",
+            dbus_message_get_member (message),
+            dbus_message_get_signature (message),
+            dbus_message_get_interface (message),
+            dbus_message_get_path (message));
+    reply = dbus_message_new_error (message,
+                                    DBUS_ERROR_FAILED,
+                                    errmsg);
+    g_free (errmsg);
+    return reply;
 }
 
 /*---------------------------------------------------------------------------*/
