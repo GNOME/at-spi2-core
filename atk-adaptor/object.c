@@ -74,14 +74,32 @@ maybe_lease (AtkObject *obj)
  */
 
 void
+spi_object_append_null_reference (DBusMessageIter * iter)
+{
+  DBusMessageIter iter_struct;
+  const char *name;
+  const char *path = "/org/at_spi/null";
+
+  name = dbus_bus_get_unique_name (spi_global_app_data->bus);
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
+                                    &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  dbus_message_iter_close_container (iter, &iter_struct);
+}
+
+void
 spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj)
 {
   DBusMessageIter iter_struct;
   const gchar *name;
   gchar *path;
 
-  if (!obj)
-    return spi_object_append_null_reference (iter);
+  if (!obj) {
+    spi_object_append_null_reference (iter);
+    return;
+  }
 
   maybe_lease (obj);
 
@@ -117,22 +135,6 @@ spi_object_append_desktop_reference (DBusMessageIter * iter)
   DBusMessageIter iter_struct;
   const char *name = spi_global_app_data->desktop_name;
   const char *path = spi_global_app_data->desktop_path;
-
-  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
-                                    &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-  dbus_message_iter_close_container (iter, &iter_struct);
-}
-
-void
-spi_object_append_null_reference (DBusMessageIter * iter)
-{
-  DBusMessageIter iter_struct;
-  const char *name;
-  const char *path = "/org/at_spi/null";
-
-  name = dbus_bus_get_unique_name (spi_global_app_data->bus);
 
   dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
                                     &iter_struct);
