@@ -218,6 +218,9 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
   DBusMessageIter iter, iter_struct;
   gchar *app_name, *obj_path;
 
+  DBusMessage *reply = NULL;
+  DBusMessageIter reply_iter;
+
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
   if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
@@ -231,7 +234,13 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   add_application(reg, bus, app_name, obj_path);
 
-  return NULL;
+  reply = dbus_message_new_method_return (message);
+  dbus_message_iter_init_append (reply, &reply_iter);
+  append_reference (&reply_iter, 
+                    dbus_bus_get_unique_name (bus),
+                    SPI_DBUS_PATH_ROOT);
+
+  return reply;
 error:
   return dbus_message_new_error (message, DBUS_ERROR_FAILED, "Invalid arguments");
 }
