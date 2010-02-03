@@ -155,6 +155,11 @@ remove_object (GObject * source, GObject * gobj, gpointer data)
   
   if (spi_cache_in (cache, gobj))
     {
+#ifdef SPI_ATK_DEBUG
+  g_debug ("CACHE REM - %s - %d - %s\n", atk_object_get_name (ATK_OBJECT (gobj)),
+            atk_object_get_role (ATK_OBJECT (gobj)),
+            spi_register_object_to_path (spi_global_register, gobj));
+#endif
       g_signal_emit (cache, cache_signals [OBJECT_REMOVED], 0, gobj);
       g_hash_table_remove (cache->objects, gobj);
     }
@@ -168,7 +173,7 @@ add_object (SpiCache * cache, GObject * gobj)
   g_hash_table_insert (cache->objects, gobj, NULL);
 
 #ifdef SPI_ATK_DEBUG
-  g_debug ("CACHE  - %s - %d - %s", atk_object_get_name (ATK_OBJECT (gobj)),
+  g_debug ("CACHE ADD - %s - %d - %s\n", atk_object_get_name (ATK_OBJECT (gobj)),
             atk_object_get_role (ATK_OBJECT (gobj)),
             spi_register_object_to_path (spi_global_register, gobj));
 #endif

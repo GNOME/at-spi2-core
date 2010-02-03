@@ -168,7 +168,7 @@ spi_atk_bridge_get_bus (void)
 static void
 register_application (SpiBridge * app)
 {
-  DBusMessage *message;
+  DBusMessage *message, *reply;
   DBusMessageIter iter;
   DBusError error;
 
@@ -178,13 +178,39 @@ register_application (SpiBridge * app)
                                           SPI_DBUS_PATH_ROOT,
                                           SPI_DBUS_INTERFACE_SOCKET,
                                           "Embed");
-  dbus_message_set_no_reply (message, TRUE);
 
   dbus_message_iter_init_append (message, &iter);
   spi_object_append_reference (&iter, app->root);
-  dbus_connection_send (app->bus, message, NULL);
+
+  reply = dbus_connection_send_with_reply_and_block (app->bus, message, -1, &error);
+
   if (message)
     dbus_message_unref (message);
+
+  if (reply)
+    {
+      DBusMessageIter iter, iter_struct;
+      gchar *app_name, *obj_path;
+
+      dbus_message_iter_init (reply, &iter);
+      dbus_message_iter_recurse (&iter, &iter_struct);
+      if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
+            g_error ("AT-SPI: Could not obtain desktop path or name\n");
+      dbus_message_iter_get_basic (&iter_struct, &app_name);
+      if (!dbus_message_iter_next (&iter_struct))
+            g_error ("AT-SPI: Could not obtain desktop name");
+      if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))
+            g_error ("AT-SPI: Could not obtain desktop path");
+      dbus_message_iter_get_basic (&iter_struct, &obj_path);
+
+      app->desktop_name = g_strdup (app_name);
+      app->desktop_path = g_strdup (obj_path);
+    }
+  else
+    {
+      g_error ("AT-SPI: Could not embed inside desktop: %s\n", error.message);
+    }
+
 }
 
 /*---------------------------------------------------------------------------*/

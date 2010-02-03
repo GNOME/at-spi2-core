@@ -46,31 +46,36 @@ static gint atk_bridge_focus_tracker_id;
 
 /*---------------------------------------------------------------------------*/
 
+typedef struct _SpiReentrantCallClosure 
+{
+  GMainLoop   *loop;
+  DBusMessage *reply;
+} SpiReentrantCallClosure;
+
 static void
 set_reply (DBusPendingCall * pending, void *user_data)
 {
-  void **replyptr = (void **) user_data;
+  SpiReentrantCallClosure* closure = (SpiReentrantCallClosure *) user_data; 
 
-  *replyptr = dbus_pending_call_steal_reply (pending);
+  closure->reply = dbus_pending_call_steal_reply (pending);
+  g_main_loop_quit (closure->loop);
 }
 
 static DBusMessage *
 send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 {
   DBusPendingCall *pending;
-  DBusMessage *reply = NULL;
+  SpiReentrantCallClosure closure;
 
   if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
-    {
       return NULL;
-    }
-  dbus_pending_call_set_notify (pending, set_reply, (void *) &reply, NULL);
-  while (!reply)
-    {
-      if (!dbus_connection_read_write_dispatch (bus, -1))
-        return NULL;
-    }
-  return reply;
+  dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
+  closure.loop = g_main_loop_new (NULL, FALSE);
+
+  g_main_loop_run  (closure.loop);
+  
+  g_main_loop_unref (closure.loop);
+  return closure.reply;
 }
 
 /*---------------------------------------------------------------------------*/

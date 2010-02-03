@@ -47,6 +47,8 @@ struct _SpiBridge
   SpiCache    *cache;
   SpiLeasing  *leasing;
 */
+  gchar *desktop_name;
+  gchar *desktop_path;
 };
 
 extern SpiBridge *spi_global_app_data;
