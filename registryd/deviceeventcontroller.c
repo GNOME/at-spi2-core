@@ -405,18 +405,18 @@ static void emit(SpiDEController *controller, const char *interface, const char 
 
   dbus_message_iter_init_append (signal, &iter);
 
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL,
-                                    &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &bus_name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
-  dbus_message_iter_close_container (&iter, &iter_struct);
-  
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &minor);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &a1);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &a2);
   dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
       dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &nil);
   dbus_message_iter_close_container (&iter, &iter_variant);
+
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL,
+                                    &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &bus_name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  dbus_message_iter_close_container (&iter, &iter_struct);
 
   dbus_connection_send (controller->bus, signal, NULL);
 }

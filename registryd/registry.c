@@ -676,9 +676,6 @@ emit_event (DBusConnection *bus,
 
   dbus_message_iter_init_append(sig, &iter);
 
-  append_reference (&iter,
-                    dbus_bus_get_unique_name (bus),
-                    SPI_DBUS_PATH_ROOT);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
@@ -687,6 +684,10 @@ emit_event (DBusConnection *bus,
                                     &iter_variant);
     append_reference (&iter_variant, name, path);
   dbus_message_iter_close_container (&iter, &iter_variant);
+
+  append_reference (&iter,
+                    dbus_bus_get_unique_name (bus),
+                    SPI_DBUS_PATH_ROOT);
 
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
@@ -871,6 +872,12 @@ handle_method (DBusConnection *bus, DBusMessage *message, void *user_data)
       dbus_connection_send (bus, reply, NULL);
       dbus_message_unref (reply);
     }
+#if 0
+  else
+    {
+      g_print ("Registry | Unhandled message : %s|%s\n", iface, member);
+    }
+#endif
   
   return result;
 }
