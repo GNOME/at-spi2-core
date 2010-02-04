@@ -325,12 +325,11 @@ emit_event (AtkObject  *obj,
 
   dbus_message_iter_init_append(sig, &iter);
 
-  spi_object_append_reference (&iter, spi_global_app_data->root);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_STRING, &minor);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail1);
   dbus_message_iter_append_basic(&iter, DBUS_TYPE_INT32, &detail2);
-
   append_variant (&iter, type, val);
+  spi_object_append_reference (&iter, spi_global_app_data->root);
 
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
