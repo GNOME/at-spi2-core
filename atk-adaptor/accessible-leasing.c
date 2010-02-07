@@ -172,7 +172,7 @@ add_expiry_timeout (SpiLeasing * leasing)
   The lease time is going to be rounded up, as the lease time should be
   considered a MINIMUM that the object will be leased for.
 */
-#define LEASE_TIME_S 3
+#define LEASE_TIME_S 15
 #define EXPIRY_TIME_S (LEASE_TIME_S + 1)
 
 GObject *
