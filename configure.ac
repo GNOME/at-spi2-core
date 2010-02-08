@@ -131,8 +131,6 @@ AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 AC_CONFIG_FILES([Makefile
 		 xml/Makefile
 		 tools/Makefile
-		 bus/Makefile
-		 bus/at-spi-dbus-bus
 		 registryd/Makefile])
 
 AC_OUTPUT
