@@ -407,7 +407,7 @@ property_event_listener (GSignalInvocationHint * signal_hint,
     {
       i = atk_object_get_role (accessible);
       emit_event (accessible, ITF_EVENT_OBJECT, PCHANGE, pname, 0, 0,
-                    DBUS_TYPE_UINT32_AS_STRING, i, append_basic);
+                    DBUS_TYPE_UINT32_AS_STRING, GINT_TO_POINTER(i), append_basic);
     }
   else if (strcmp (pname, "accessible-table-summary") == 0)
     {
