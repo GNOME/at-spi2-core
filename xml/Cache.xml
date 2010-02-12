@@ -14,7 +14,7 @@
 
   <signal name="RemoveAccessible">
     <arg name="nodeRemoved" type="(so)"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiAccessibleObject"/>
   </signal>
 
 </interface>

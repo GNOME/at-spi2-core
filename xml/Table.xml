@@ -7,11 +7,11 @@
   <property name="nColumns" type="i" access="read"/>
 
   <property name="caption" type="(so)" access="read">
-    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiAccessibleObject"/>
   </property>
 
   <property name="summary" type="(so)" access="read">
-    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiAccessibleObject"/>
   </property>
 
   <property name="nSelectedRows" type="i" access="read"/>
@@ -22,7 +22,7 @@
     <arg direction="in" name="row" type="i"/>
     <arg direction="in" name="column" type="i"/>
     <arg direction="out" type="(so)"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAccessibleObject"/>
   </method>
 
   <method name="GetIndexAt">
@@ -66,13 +66,13 @@
   <method name="GetRowHeader">
     <arg direction="in" name="row" type="i"/>
     <arg direction="out" type="(so)"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAccessibleObject"/>
   </method>
 
   <method name="GetColumnHeader">
     <arg direction="in" name="column" type="i"/>
     <arg direction="out" type="(so)"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAccessibleObject"/>
   </method>
 
   <method name="GetSelectedRows">

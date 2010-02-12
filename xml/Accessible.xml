@@ -7,7 +7,7 @@
   <property name="description" type="s" access="read"/>
 
   <property name="parent" type="(so)" access="read">
-    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiAccessibleObject"/>
   </property>
 
   <property name="childCount" type="i" access="read"/>
@@ -15,7 +15,7 @@
   <method name="GetChildAtIndex">
     <arg direction="in" name="index" type="i"/>
     <arg direction="out" type="(so)"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAccessibleObject"/>
   </method>
 
   <method name="GetIndexInParent">
@@ -51,7 +51,7 @@
 
   <method name="GetApplication">
     <arg direction="out" type="(so)"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAccessibleObject"/>
   </method>
 
 </interface>
