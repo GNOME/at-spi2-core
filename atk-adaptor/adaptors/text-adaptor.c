@@ -837,5 +837,5 @@ void
 spi_initialize_text (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TEXT, spi_org_freedesktop_atspi_Text, methods, properties);
+                             SPI_DBUS_INTERFACE_TEXT, spi_org_a11y_atspi_Text, methods, properties);
 };

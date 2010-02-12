@@ -225,5 +225,5 @@ spi_initialize_action (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_ACTION,
-                             spi_org_freedesktop_atspi_Action, methods, properties);
+                             spi_org_a11y_atspi_Action, methods, properties);
 };

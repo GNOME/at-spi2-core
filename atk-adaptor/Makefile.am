@@ -10,8 +10,7 @@ gtkmodule_LTLIBRARIES = libatk-bridge.la
 libatk_bridge_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		          $(ATK_CFLAGS)       \
 		          -I$(top_srcdir)     \
-		          -I$(top_srcdir)/atk-adaptor/adaptors \
-		          -DATSPI_INTROSPECTION_PATH=\"$(datarootdir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
+		          -I$(top_srcdir)/atk-adaptor/adaptors
 
 libatk_bridge_la_LDFLAGS = -no-undefined  \
 		           -module        \

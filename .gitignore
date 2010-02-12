@@ -7,4 +7,3 @@ autom4te.cache
 config.h.in~
 config
 configure
-xml/introspection/org.freedesktop.atspi.*

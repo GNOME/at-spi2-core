@@ -108,5 +108,5 @@ void
 spi_initialize_hypertext (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_HYPERTEXT, spi_org_freedesktop_atspi_Hypertext, methods, NULL);
+                             SPI_DBUS_INTERFACE_HYPERTEXT, spi_org_a11y_atspi_Hypertext, methods, NULL);
 };

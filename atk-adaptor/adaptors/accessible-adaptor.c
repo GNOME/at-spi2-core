@@ -544,6 +544,6 @@ spi_initialize_accessible (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_ACCESSIBLE,
-                             spi_org_freedesktop_atspi_Accessible,	
+                             spi_org_a11y_atspi_Accessible,	
                              methods, properties);
 };

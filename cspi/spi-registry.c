@@ -418,5 +418,5 @@ SPI_generateMouseEvent (long x, long y, char *name)
 char *
 cspi_device_listener_get_path (CSpiDeviceListener *listener)
 {
-  return g_strdup_printf ("/org/freedesktop/atspi/listeners/%d", listener->id);
+  return g_strdup_printf ("/org/a11y/atspi/listeners/%d", listener->id);
 }

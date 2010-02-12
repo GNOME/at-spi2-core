@@ -100,9 +100,9 @@ static const char *interfaces[] =
   SPI_DBUS_INTERFACE_HYPERLINK,
   SPI_DBUS_INTERFACE_HYPERTEXT,
   SPI_DBUS_INTERFACE_IMAGE,
-  "org.freedesktop.atspi.LoginHelper",
+  "org.a11y.atspi.LoginHelper",
   SPI_DBUS_INTERFACE_SELECTION,
-  "org.freedesktop.atspi.Selector",
+  "org.a11y.atspi.Selector",
   SPI_DBUS_INTERFACE_TABLE,
   SPI_DBUS_INTERFACE_TEXT,
   SPI_DBUS_INTERFACE_VALUE,
@@ -258,7 +258,7 @@ ref_accessible (CSpiApplication *app, const char *path)
   int id;
   guint *id_val;
 
-  if (sscanf (path, "/org/freedesktop/atspi/accessible/%d", &id) != 1)
+  if (sscanf (path, "/org/a11y/atspi/accessible/%d", &id) != 1)
   {
     return NULL;
   }
@@ -426,7 +426,7 @@ add_app_to_desktop (Accessible *a, const char *bus_name)
   char *root_path;
 
   dbus_error_init (&error);
-  if (dbind_method_call_reentrant (bus, bus_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getRoot", &error, "=>o", &root_path))
+  if (dbind_method_call_reentrant (bus, bus_name, "/org/a11y/atspi/tree", spi_interface_tree, "getRoot", &error, "=>o", &root_path))
   {
     Accessible *obj = cspi_ref_accessible (bus_name, root_path);
     if (obj)
@@ -533,7 +533,7 @@ ref_accessible_desktop (CSpiApplication *app)
     CSpiApplication *app = cspi_get_application (app_name);
     additions = NULL;
     dbus_error_init (&error);
-    dbind_method_call_reentrant (bus, app_name, "/org/freedesktop/atspi/tree", spi_interface_tree, "getTree", &error, "=>a(ooaoassusau)", &additions);
+    dbind_method_call_reentrant (bus, app_name, "/org/a11y/atspi/tree", spi_interface_tree, "getTree", &error, "=>a(ooaoassusau)", &additions);
     if (error.message)
     {
       g_warning ("getTree (%s): %s", app_name, error.message);
@@ -637,7 +637,7 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   char *bus_name;
 
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
-      !strncmp (interface, "org.freedesktop.atspi.Event.", 28))
+      !strncmp (interface, "org.a11y.atspi.Event.", 28))
   {
     return cspi_dbus_handle_event (bus, message, data);
   }
@@ -666,12 +666,12 @@ cspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
 
 static const char *signal_interfaces[] =
 {
-  "org.freedesktop.atspi.Event.Object",
-  "org.freedesktop.atspi.Event.Window",
-  "org.freedesktop.atspi.Event.Mouse",
-  "org.freedesktop.atspi.Event.Terminal",
-  "org.freedesktop.atspi.Event.Document",
-  "org.freedesktop.atspi.Event.Focus",
+  "org.a11y.atspi.Event.Object",
+  "org.a11y.atspi.Event.Window",
+  "org.a11y.atspi.Event.Mouse",
+  "org.a11y.atspi.Event.Terminal",
+  "org.a11y.atspi.Event.Document",
+  "org.a11y.atspi.Event.Focus",
   NULL
 };
 
@@ -1037,7 +1037,7 @@ get_path (Accessible *obj)
   {
     return g_strdup_printf (SPI_DBUS_PATH_REGISTRY);
   }
-  return g_strdup_printf ("/org/freedesktop/atspi/accessible/%d", obj->v.id);
+  return g_strdup_printf ("/org/a11y/atspi/accessible/%d", obj->v.id);
 }
 
 dbus_bool_t

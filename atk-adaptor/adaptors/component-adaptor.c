@@ -306,5 +306,5 @@ void
 spi_initialize_component (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COMPONENT, spi_org_freedesktop_atspi_Component, methods, NULL);
+                             SPI_DBUS_INTERFACE_COMPONENT, spi_org_a11y_atspi_Component, methods, NULL);
 };

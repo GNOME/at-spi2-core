@@ -154,6 +154,6 @@ spi_initialize_hyperlink (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_HYPERLINK,
-                             spi_org_freedesktop_atspi_Hyperlink,
+                             spi_org_a11y_atspi_Hyperlink,
                              methods, properties);
 };

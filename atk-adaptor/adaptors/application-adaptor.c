@@ -115,6 +115,6 @@ spi_initialize_application (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_APPLICATION,
-                             spi_org_freedesktop_atspi_Application,
+                             spi_org_a11y_atspi_Application,
                              methods, properties);
 };

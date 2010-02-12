@@ -373,7 +373,7 @@ cspi_dbus_handle_deviceEvent (DBusConnection *bus, DBusMessage *message, void *d
   DBusMessage *reply;
   void *p = &event;
 
-  if (sscanf (path, "/org/freedesktop/atspi/listeners/%d", &id) != 1)
+  if (sscanf (path, "/org/a11y/atspi/listeners/%d", &id) != 1)
   {
     g_warning ("Bad listener path: %s\n", path);
     goto done;

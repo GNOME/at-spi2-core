@@ -172,5 +172,5 @@ void
 spi_initialize_value (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_VALUE, spi_org_freedesktop_atspi_Value, NULL, properties);
+                             SPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, NULL, properties);
 };

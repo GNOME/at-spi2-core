@@ -256,6 +256,6 @@ spi_initialize_selection (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_SELECTION,
-                             spi_org_freedesktop_atspi_Selection,
+                             spi_org_a11y_atspi_Selection,
                              methods, properties);
 };

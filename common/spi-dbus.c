@@ -33,7 +33,7 @@ DBusMessage *
 spi_dbus_general_error (DBusMessage * message)
 {
   return dbus_message_new_error (message,
-				 "org.freedesktop.atspi.GeneralError",
+				 "org.a11y.atspi.GeneralError",
 				 "General error");
 }
 

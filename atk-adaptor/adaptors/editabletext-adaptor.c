@@ -214,5 +214,5 @@ void
 spi_initialize_editabletext (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_freedesktop_atspi_EditableText, methods, NULL);
+                             SPI_DBUS_INTERFACE_EDITABLE_TEXT, spi_org_a11y_atspi_EditableText, methods, NULL);
 };

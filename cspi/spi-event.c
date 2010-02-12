@@ -911,7 +911,7 @@ parse_eventType (const char *eventType, char **categoryp, char **namep, char **d
   }
   if (matchrule)
   {
-    *matchrule = g_strdup_printf ("type='signal',interface='org.freedesktop.atspi.event.%c%s',member='%s'", toupper(category[0]), category + 1, name);
+    *matchrule = g_strdup_printf ("type='signal',interface='org.a11y.atspi.event.%c%s',member='%s'", toupper(category[0]), category + 1, name);
     if (!*matchrule) goto oom;
   }
   if (categoryp) *categoryp = category;

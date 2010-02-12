@@ -1135,5 +1135,5 @@ void
 spi_initialize_collection (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COLLECTION, spi_org_freedesktop_atspi_Collection, methods, NULL);
+                             SPI_DBUS_INTERFACE_COLLECTION, spi_org_a11y_atspi_Collection, methods, NULL);
 };

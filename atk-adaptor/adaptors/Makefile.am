@@ -4,8 +4,7 @@ libatk_bridge_adaptors_la_CFLAGS =\
 			  $(DBUS_GLIB_CFLAGS) \
 		          $(ATK_CFLAGS)       \
 		          -I$(top_srcdir)     \
-		          -I$(top_srcdir)/atk-adaptor\
-		          -DATSPI_INTROSPECTION_PATH=\"$(datarootdir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
+		          -I$(top_srcdir)/atk-adaptor
 
 libatk_bridge_adaptors_la_LIBADD =\
 			  $(DBUS_GLIB_LIBS) \

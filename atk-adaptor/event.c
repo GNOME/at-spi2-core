@@ -39,10 +39,10 @@ static gint atk_bridge_focus_tracker_id;
 
 /*---------------------------------------------------------------------------*/
 
-#define ITF_EVENT_OBJECT   "org.freedesktop.atspi.Event.Object"
-#define ITF_EVENT_WINDOW   "org.freedesktop.atspi.Event.Window"
-#define ITF_EVENT_DOCUMENT "org.freedesktop.atspi.Event.Document"
-#define ITF_EVENT_FOCUS    "org.freedesktop.atspi.Event.Focus"
+#define ITF_EVENT_OBJECT   "org.a11y.atspi.Event.Object"
+#define ITF_EVENT_WINDOW   "org.a11y.atspi.Event.Window"
+#define ITF_EVENT_DOCUMENT "org.a11y.atspi.Event.Document"
+#define ITF_EVENT_FOCUS    "org.a11y.atspi.Event.Focus"
 
 /*---------------------------------------------------------------------------*/
 
@@ -727,7 +727,7 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
 /*
  * Children changed signal converter and forwarder.
  *
- * Klass (Interface) org.freedesktop.atspi.Event.Object
+ * Klass (Interface) org.a11y.atspi.Event.Object
  * Major is the signal name.
  * Minor is 'add' or 'remove'
  * detail1 is the index.
@@ -800,7 +800,7 @@ toplevel_removed_event_listener (AtkObject * accessible,
 /*
  * Generic signal converter and forwarder.
  *
- * Klass (Interface) org.freedesktop.atspi.Event.Object
+ * Klass (Interface) org.a11y.atspi.Event.Object
  * Major is the signal name.
  * Minor is NULL.
  * detail1 is 0.

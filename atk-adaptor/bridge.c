@@ -295,7 +295,7 @@ socket_embed_hook (AtkSocket * socket, gchar * plug_id)
     {
       DBusMessage *message;
       *(plug_path++) = '\0';
-      message = dbus_message_new_method_call (plug_name, plug_path, "org.freedesktop.atspi.Accessible", "Embedded");
+      message = dbus_message_new_method_call (plug_name, plug_path, "org.a11y.atspi.Accessible", "Embedded");
       dbus_message_append_args (message, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
       dbus_connection_send (spi_global_app_data->bus, message, NULL);
     }
@@ -415,7 +415,7 @@ adaptor_init (gint * argc, gchar ** argv[])
                              "/org/at_spi/cache", spi_global_cache);
 
   accpath = droute_add_many (spi_global_app_data->droute,
-                             "/org/freedesktop/atspi/accessible",
+                             "/org/a11y/atspi/accessible",
                              NULL,
                              (DRouteGetDatumFunction)
                              spi_global_register_path_to_object);
