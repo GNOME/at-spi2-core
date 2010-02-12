@@ -28,6 +28,8 @@
 #include "common/spi-dbus.h"
 #include "object.h"
 
+#include "introspection.h"
+
 static DBusMessage *
 impl_GetNLinks (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
@@ -106,5 +108,5 @@ void
 spi_initialize_hypertext (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_HYPERTEXT, methods, NULL);
+                             SPI_DBUS_INTERFACE_HYPERTEXT, spi_org_freedesktop_atspi_Hypertext, methods, NULL);
 };

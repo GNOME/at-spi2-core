@@ -28,6 +28,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "introspection.h"
 
 static dbus_bool_t
 impl_get_MinimumValue (DBusMessageIter * iter, void *user_data)
@@ -171,5 +172,5 @@ void
 spi_initialize_value (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_VALUE, NULL, properties);
+                             SPI_DBUS_INTERFACE_VALUE, spi_org_freedesktop_atspi_Value, NULL, properties);
 };

@@ -27,6 +27,7 @@
 
 #include "common/spi-dbus.h"
 #include "object.h"
+#include "introspection.h"
 
 static dbus_bool_t
 impl_get_NRows (DBusMessageIter * iter, void *user_data)
@@ -686,5 +687,5 @@ void
 spi_initialize_table (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TABLE, methods, properties);
+                             SPI_DBUS_INTERFACE_TABLE, spi_org_freedesktop_atspi_Table, methods, properties);
 };

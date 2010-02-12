@@ -28,6 +28,7 @@
 #include "common/spi-dbus.h"
 #include "common/spi-stateset.h"
 #include "object.h"
+#include "introspection.h"
 
 static dbus_bool_t
 impl_get_Name (DBusMessageIter * iter, void *user_data)
@@ -543,5 +544,6 @@ spi_initialize_accessible (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_ACCESSIBLE,
+                             spi_org_freedesktop_atspi_Accessible,	
                              methods, properties);
 };

@@ -42,7 +42,7 @@ struct _DRouteContext
     DBusConnection       *bus;
     GPtrArray            *registered_paths;
 
-    gchar                *introspect_dir;
+    gchar                *introspect_string;
 };
 
 struct _DRoutePath
@@ -50,6 +50,7 @@ struct _DRoutePath
     DRouteContext        *cnx;
     GStringChunk         *chunks;
     GPtrArray            *interfaces;
+    GPtrArray            *introspection;
     GHashTable           *methods;
     GHashTable           *properties;
 
@@ -86,6 +87,7 @@ path_new (DRouteContext *cnx,
     new_path->cnx = cnx;
     new_path->chunks = g_string_chunk_new (CHUNKS_DEFAULT);
     new_path->interfaces = g_ptr_array_new ();
+    new_path->introspection = g_ptr_array_new ();
 
     new_path->methods = g_hash_table_new_full ((GHashFunc)str_pair_hash,
                                                str_pair_equal,
@@ -108,6 +110,7 @@ path_free (DRoutePath *path, gpointer user_data)
 {
     g_string_chunk_free  (path->chunks);
     g_ptr_array_free     (path->interfaces, TRUE);
+    g_ptr_array_free     (path->introspection, FALSE);
     g_hash_table_destroy (path->methods);
     g_hash_table_destroy (path->properties);
 }
@@ -124,14 +127,13 @@ path_get_datum (DRoutePath *path, const gchar *pathstr)
 /*---------------------------------------------------------------------------*/
 
 DRouteContext *
-droute_new (DBusConnection *bus, const char *introspect_dir)
+droute_new (DBusConnection *bus)
 {
     DRouteContext *cnx;
 
     cnx = g_new0 (DRouteContext, 1);
     cnx->bus = bus;
     cnx->registered_paths = g_ptr_array_new ();
-    cnx->introspect_dir = g_strdup(introspect_dir);
 
     return cnx;
 }
@@ -140,7 +142,6 @@ void
 droute_free (DRouteContext *cnx)
 {
     g_ptr_array_foreach (cnx->registered_paths, (GFunc) path_free, NULL);
-    g_free (cnx->introspect_dir);
     g_free (cnx);
 }
 
@@ -201,6 +202,7 @@ droute_add_many (DRouteContext *cnx,
 void
 droute_path_add_interface(DRoutePath *path,
                           const char *name,
+                          const char *introspect,
                           const DRouteMethod   *methods,
                           const DRouteProperty *properties)
 {
@@ -210,6 +212,7 @@ droute_path_add_interface(DRoutePath *path,
 
     itf = g_string_chunk_insert (path->chunks, name);
     g_ptr_array_add (path->interfaces, itf);
+    g_ptr_array_add (path->introspection, introspect);
 
     for (; methods != NULL && methods->name != NULL; methods++)
       {
@@ -403,35 +406,6 @@ static const char *introspection_node_element =
 static const char *introspection_footer =
 "</node>";
 
-static void
-append_interface (GString     *str,
-                  const gchar *interface,
-                  const gchar *directory)
-{
-    gchar *filename;
-    gchar *contents;
-    gsize len;
-
-    GError *err = NULL;
-
-    filename = g_build_filename (directory, interface, NULL);
-
-    if (g_file_get_contents (filename, &contents, &len, &err))
-      {
-        g_string_append_len (str, contents, len);
-      }
-    else
-      {
-        g_warning ("AT-SPI: Cannot find introspection XML file %s - %s",
-                   filename, err->message);
-        g_error_free (err);
-      }
-
-    g_string_append (str, "\n");
-    g_free (filename);
-    g_free (contents);
-}
-
 static DBusHandlerResult
 handle_introspection (DBusConnection *bus,
                       DBusMessage    *message,
@@ -455,11 +429,10 @@ handle_introspection (DBusConnection *bus,
 
     g_string_append_printf(output, introspection_node_element, pathstr);
 
-    for (i=0; i < path->interfaces->len; i++)
+    for (i=0; i < path->introspection->len; i++)
       {
-        gchar *interface = (gchar *) g_ptr_array_index (path->interfaces, i);
-        _DROUTE_DEBUG ("DRoute (appending interface): %s\n", interface);
-        append_interface(output, interface, path->cnx->introspect_dir);
+        gchar *introspect = (gchar *) g_ptr_array_index (path->introspection, i);
+        g_string_append (output, introspect);
       }
 
     g_string_append(output, introspection_footer);

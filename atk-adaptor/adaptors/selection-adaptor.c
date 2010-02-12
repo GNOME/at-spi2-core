@@ -27,6 +27,7 @@
 
 #include "common/spi-dbus.h"
 #include "object.h"
+#include "introspection.h"
 
 static dbus_bool_t
 impl_get_NSelectedChildren (DBusMessageIter * iter, void *user_data)
@@ -255,5 +256,6 @@ spi_initialize_selection (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_SELECTION,
+                             spi_org_freedesktop_atspi_Selection,
                              methods, properties);
 };

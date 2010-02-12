@@ -26,6 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "introspection.h"
 
 static dbus_bool_t
 impl_get_ToolkitName (DBusMessageIter * iter, void *user_data)
@@ -114,5 +115,6 @@ spi_initialize_application (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_APPLICATION,
+                             spi_org_freedesktop_atspi_Application,
                              methods, properties);
 };

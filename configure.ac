@@ -70,13 +70,6 @@ else
 fi
 AC_SUBST(X_LIBS)
 
-AC_ARG_VAR([DEFAULT_ATSPI_INTROSPECTION_PATH],
-	   [Set the default path for the install ofDBus introspection XML
-	    relative to the pkgdatadir.])
-if test -z "$DEFAULT_ATSPI_INTROSPECTION_PATH"; then
-	  DEFAULT_ATSPI_INTROSPECTION_PATH=at-spi2/dbus
-fi
-
 AC_ARG_ENABLE(relocate, [  --enable-relocate  Relocate to coexist with CORBA [default=yes]], enable_relocate="$enableval", enable_relocate=yes)
 if test x$enable_relocate = xyes ; then
 	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])

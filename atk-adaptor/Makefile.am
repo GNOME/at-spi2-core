@@ -32,6 +32,8 @@ libatk_bridge_la_SOURCES =	\
         accessible-cache.h      \
 	accessible-register.c	\
 	accessible-register.h	\
+	introspection.c         \
+	introspection.h         \
 	bridge.c		\
 	bridge.h		\
 	object.c		\

@@ -32,6 +32,7 @@
 #include "accessible-cache.h"
 #include "bridge.h"
 #include "object.h"
+#include "introspection.h"
 
 /* TODO - This should possibly be a common define */
 #define SPI_OBJECT_PREFIX "/org/at_spi"
@@ -308,7 +309,7 @@ static DRouteMethod methods[] = {
 void
 spi_initialize_cache (DRoutePath * path)
 {
-  droute_path_add_interface (path, SPI_DBUS_INTERFACE_CACHE, methods, NULL);
+  droute_path_add_interface (path, SPI_DBUS_INTERFACE_CACHE, spi_org_freedesktop_atspi_Cache, methods, NULL);
 
   g_signal_connect (spi_global_cache,
                     "object-added",

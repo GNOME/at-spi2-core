@@ -33,6 +33,7 @@
 
 #include "accessible-register.h"
 #include "object.h"
+#include "introspection.h"
 
 typedef struct _MatchRulePrivate MatchRulePrivate;
 struct _MatchRulePrivate
@@ -1134,5 +1135,5 @@ void
 spi_initialize_collection (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COLLECTION, methods, NULL);
+                             SPI_DBUS_INTERFACE_COLLECTION, spi_org_freedesktop_atspi_Collection, methods, NULL);
 };

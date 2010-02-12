@@ -27,6 +27,8 @@
 
 #include "common/spi-dbus.h"
 
+#include "introspection.h"
+
 static dbus_bool_t
 impl_get_NActions (DBusMessageIter * iter, void *user_data)
 {
@@ -222,5 +224,6 @@ void
 spi_initialize_action (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_ACTION, methods, properties);
+                             SPI_DBUS_INTERFACE_ACTION,
+                             spi_org_freedesktop_atspi_Action, methods, properties);
 };

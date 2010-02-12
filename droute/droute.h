@@ -58,8 +58,8 @@ typedef struct _DRoutePath    DRoutePath;
 /*---------------------------------------------------------------------------*/
 
 DRouteContext *
-droute_new      (DBusConnection *bus,
-                 const char *introspect_dir);
+droute_new      (DBusConnection *bus);
+
 void
 droute_free     (DRouteContext *cnx);
 
@@ -77,6 +77,7 @@ droute_add_many (DRouteContext *cnx,
 void
 droute_path_add_interface (DRoutePath *path,
                            const char *name,
+                           const char *introspect,
                            const DRouteMethod   *methods,
                            const DRouteProperty *properties);
 

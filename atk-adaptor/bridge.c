@@ -47,13 +47,6 @@
 
 #include "common/spi-dbus.h"
 
-/*
- * Provides the path for the introspection directory.
- */
-#if !defined ATSPI_INTROSPECTION_PATH
-#error "No introspection XML directory defined"
-#endif
-
 /*---------------------------------------------------------------------------*/
 
 SpiBridge *spi_global_app_data = NULL;
@@ -414,14 +407,9 @@ adaptor_init (gint * argc, gchar ** argv[])
   spi_global_leasing  = g_object_new (SPI_LEASING_TYPE, NULL);
   spi_global_cache    = g_object_new (SPI_CACHE_TYPE, NULL);
 
-  /* Get D-Bus introspection directory */
-  introspection_directory = (char *) g_getenv ("ATSPI_INTROSPECTION_PATH");
-  if (introspection_directory == NULL)
-    introspection_directory = ATSPI_INTROSPECTION_PATH;
-
   /* Register droute for routing AT-SPI messages */
   spi_global_app_data->droute =
-    droute_new (spi_global_app_data->bus, introspection_directory);
+    droute_new (spi_global_app_data->bus);
 
   treepath = droute_add_one (spi_global_app_data->droute,
                              "/org/at_spi/cache", spi_global_cache);

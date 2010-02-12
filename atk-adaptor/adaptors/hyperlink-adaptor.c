@@ -26,6 +26,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "introspection.h"
 #include "object.h"
 
 static AtkHyperlink *
@@ -153,5 +154,6 @@ spi_initialize_hyperlink (DRoutePath * path)
 {
   droute_path_add_interface (path,
                              SPI_DBUS_INTERFACE_HYPERLINK,
+                             spi_org_freedesktop_atspi_Hyperlink,
                              methods, properties);
 };

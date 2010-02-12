@@ -27,6 +27,7 @@
 
 #include "common/spi-dbus.h"
 #include "object.h"
+#include "introspection.h"
 
 static DBusMessage *
 impl_contains (DBusConnection * bus, DBusMessage * message, void *user_data)
@@ -305,5 +306,5 @@ void
 spi_initialize_component (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_COMPONENT, methods, NULL);
+                             SPI_DBUS_INTERFACE_COMPONENT, spi_org_freedesktop_atspi_Component, methods, NULL);
 };

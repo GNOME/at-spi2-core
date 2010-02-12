@@ -29,6 +29,7 @@
 
 #include "common/spi-dbus.h"
 #include "object.h"
+#include "introspection.h"
 
 static dbus_bool_t
 impl_get_CharacterCount (DBusMessageIter * iter, void *user_data)
@@ -836,5 +837,5 @@ void
 spi_initialize_text (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_TEXT, methods, properties);
+                             SPI_DBUS_INTERFACE_TEXT, spi_org_freedesktop_atspi_Text, methods, properties);
 };
