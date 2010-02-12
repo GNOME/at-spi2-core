@@ -47,7 +47,7 @@
  *
  */
 
-#define SPI_ATK_PATH_PREFIX_LENGTH 34
+#define SPI_ATK_PATH_PREFIX_LENGTH 27
 #define SPI_ATK_OBJECT_PATH_PREFIX  "/org/a11y/atspi/accessible/"
 #define SPI_ATK_OBJECT_PATH_ROOT "root"
 
