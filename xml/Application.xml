@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Application">
+<interface name="org.a11y.atspi.Application">
 
   <property name="toolkitName" type="s" access="read"/>
 

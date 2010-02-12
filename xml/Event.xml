@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
 
-<interface name="org.freedesktop.atspi.Event.Object">
+<interface name="org.a11y.atspi.Event.Object">
 	<signal name="PropertyChange"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
@@ -67,7 +67,7 @@
         </signal>
 </interface>
 
-<interface name="org.freedesktop.atspi.Event.Window">
+<interface name="org.a11y.atspi.Event.Window">
 	<signal name="PropertyChange"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
@@ -127,7 +127,7 @@
         </signal>
 </interface>
 
-<interface name="org.freedesktop.atspi.Event.Mouse">
+<interface name="org.a11y.atspi.Event.Mouse">
 	<signal name="Abs"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
@@ -139,13 +139,13 @@
         </signal>
 </interface>
 
-<interface name="org.freedesktop.atspi.Event.Keyboard">
+<interface name="org.a11y.atspi.Event.Keyboard">
 	<signal name="Modifiers"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
 </interface>
 
-<interface name="org.freedesktop.atspi.Event.Terminal">
+<interface name="org.a11y.atspi.Event.Terminal">
 	<signal name="LineChanged"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
@@ -163,7 +163,7 @@
         </signal>
 </interface>
 
-<interface name="org.freedesktop.atspi.Event.Document">
+<interface name="org.a11y.atspi.Event.Document">
 	<signal name="LoadComplete"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>
@@ -181,7 +181,7 @@
         </signal>
 </interface>
 
-<interface name="org.freedesktop.atspi.Event.Focus">
+<interface name="org.a11y.atspi.Event.Focus">
 	<signal name="Focus"><arg direction="in" type="(suuv)"/>
           <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiEvent"/>
         </signal>

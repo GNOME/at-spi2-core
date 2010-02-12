@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Hypertext">
+<interface name="org.a11y.atspi.Hypertext">
 
   <method name="GetNLinks">
     <arg direction="out" type="i"/>

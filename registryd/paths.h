@@ -24,9 +24,9 @@
 #ifndef SPI_PATHS_H_
 #define SPI_PATHS_H_
 
-#define SPI_DBUS_NAME_PREFIX                     "org.freedesktop.atspi."
-#define SPI_DBUS_PATH_PREFIX                     "/org/freedesktop/atspi/"
-#define SPI_DBUS_INTERFACE_PREFIX                "org.freedesktop.atspi."
+#define SPI_DBUS_NAME_PREFIX                     "org.a11y.atspi."
+#define SPI_DBUS_PATH_PREFIX                     "/org/a11y/atspi/"
+#define SPI_DBUS_INTERFACE_PREFIX                "org.a11y.atspi."
 
 #define SPI_DBUS_PATH_NULL                       SPI_DBUS_PATH_PREFIX "null"
 #define SPI_DBUS_PATH_ROOT                       SPI_DBUS_PATH_PREFIX "accessible/root"

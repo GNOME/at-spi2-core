@@ -675,8 +675,8 @@ impl_Introspect (DBusConnection * bus,
 
   g_string_append_printf(output, introspection_node_element, pathstr);
 
-  g_string_append (output, spi_org_freedesktop_atspi_Accessible);
-  g_string_append (output, spi_org_freedesktop_atspi_Component);
+  g_string_append (output, spi_org_a11y_atspi_Accessible);
+  g_string_append (output, spi_org_a11y_atspi_Component);
 
   g_string_append(output, introspection_footer);
   final = g_string_free(output, FALSE);
@@ -739,7 +739,7 @@ emit_event (DBusConnection *bus,
 /*
  * Children changed signal converter and forwarder.
  *
- * Klass (Interface) org.freedesktop.atspi.Event.Object
+ * Klass (Interface) org.a11y.atspi.Event.Object
  * Major is the signal name.
  * Minor is 'add' or 'remove'
  * detail1 is the index.

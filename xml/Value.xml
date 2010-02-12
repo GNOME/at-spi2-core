@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Value">
+<interface name="org.a11y.atspi.Value">
 
         <property name="minimumValue" type="d" access="read"/>
 

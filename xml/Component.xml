@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Component">
+<interface name="org.a11y.atspi.Component">
 
   <method name="Contains">
     <arg direction="in" name="x" type="i"/>

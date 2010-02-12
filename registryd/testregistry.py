@@ -22,10 +22,10 @@ class IdleStateM (object):
 		return True
 
 	def setup(self):
-		self.obj = self._bus.get_object("org.freedesktop.atspi.Registry",
-                                                "/org/freedesktop/atspi/registry",
+		self.obj = self._bus.get_object("org.a11y.atspi.Registry",
+                                                "/org/a11y/atspi/registry",
                                                 introspect=False)
-		self.itf = dbus.Interface(self.obj, dbus_interface="org.freedesktop.atspi.Registry")
+		self.itf = dbus.Interface(self.obj, dbus_interface="org.a11y.atspi.Registry")
 		return self.register_apps
 
 	def register_apps(self):

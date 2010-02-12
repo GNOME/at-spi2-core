@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.DeviceEventController">
+<interface name="org.a11y.atspi.DeviceEventController">
 
   <method name="RegisterKeystrokeListener">
     <arg direction="in" name="listener" type="o"/>

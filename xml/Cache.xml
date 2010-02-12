@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Cache">
+<interface name="org.a11y.atspi.Cache">
 
   <method name="GetItems">
     <arg name="nodes" type="a((so)(so)a(so)assusau)" direction="out"/>

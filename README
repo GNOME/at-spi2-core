@@ -21,8 +21,7 @@ bugzilla. The freedesktop project name is at-spi2.
 
 A git repository with the latest development code is available at:
 
-        git://anongit.freedesktop.org/git/at-spi2/at-spi2-core
-
+	git://git.gnome.org/at-spi2-core
 
 More information
 ----------------

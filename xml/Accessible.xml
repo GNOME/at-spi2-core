@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Accessible">
+<interface name="org.a11y.atspi.Accessible">
 
   <property name="name" type="s" access="read"/>
 

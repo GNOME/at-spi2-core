@@ -2819,7 +2819,7 @@ impl_Introspect (DBusConnection * bus,
 
   g_string_append_printf(output, introspection_node_element, pathstr);
 
-  g_string_append (output, spi_org_freedesktop_atspi_DeviceEventController);
+  g_string_append (output, spi_org_a11y_atspi_DeviceEventController);
 
   g_string_append(output, introspection_footer);
   final = g_string_free(output, FALSE);

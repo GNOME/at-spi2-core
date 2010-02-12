@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Image">
+<interface name="org.a11y.atspi.Image">
 
   <method name="Embed">
     <arg direction="in" name="plug" type="(so)">

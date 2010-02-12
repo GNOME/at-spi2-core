@@ -10,8 +10,8 @@
  */
 
 
-const char *spi_org_freedesktop_atspi_Accessible = 
-"<interface name=\"org.freedesktop.atspi.Accessible\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Accessible = 
+"<interface name=\"org.a11y.atspi.Accessible\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"name\" type=\"s\" />"
 ""
@@ -68,8 +68,8 @@ const char *spi_org_freedesktop_atspi_Accessible =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Action = 
-"<interface name=\"org.freedesktop.atspi.Action\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Action = 
+"<interface name=\"org.a11y.atspi.Action\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"nActions\" type=\"i\" />"
 ""
@@ -101,8 +101,8 @@ const char *spi_org_freedesktop_atspi_Action =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Application = 
-"<interface name=\"org.freedesktop.atspi.Application\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Application = 
+"<interface name=\"org.a11y.atspi.Application\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"toolkitName\" type=\"s\" />"
 ""
@@ -118,8 +118,8 @@ const char *spi_org_freedesktop_atspi_Application =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Collection = 
-"<interface name=\"org.freedesktop.atspi.Collection\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Collection = 
+"<interface name=\"org.a11y.atspi.Collection\" version=\"0.1.7\">"
 ""
 "  <method name=\"GetMatches\">"
 "    <arg direction=\"in\" name=\"rule\" type=\"(auuasuauusub)\" />"
@@ -166,8 +166,8 @@ const char *spi_org_freedesktop_atspi_Collection =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Component = 
-"<interface name=\"org.freedesktop.atspi.Component\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Component = 
+"<interface name=\"org.a11y.atspi.Component\" version=\"0.1.7\">"
 ""
 "  <method name=\"Contains\">"
 "    <arg direction=\"in\" name=\"x\" type=\"i\" />"
@@ -220,8 +220,8 @@ const char *spi_org_freedesktop_atspi_Component =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Document = 
-"<interface name=\"org.freedesktop.atspi.Document\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Document = 
+"<interface name=\"org.a11y.atspi.Document\" version=\"0.1.7\">"
 ""
 "  <method name=\"GetLocale\">"
 "    <arg direction=\"out\" type=\"s\" />"
@@ -240,8 +240,8 @@ const char *spi_org_freedesktop_atspi_Document =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Hypertext = 
-"<interface name=\"org.freedesktop.atspi.Hypertext\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Hypertext = 
+"<interface name=\"org.a11y.atspi.Hypertext\" version=\"0.1.7\">"
 ""
 "  <method name=\"GetNLinks\">"
 "    <arg direction=\"out\" type=\"i\" />"
@@ -261,8 +261,8 @@ const char *spi_org_freedesktop_atspi_Hypertext =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Hyperlink = 
-"<interface name=\"org.freedesktop.atspi.Hyperlink\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Hyperlink = 
+"<interface name=\"org.a11y.atspi.Hyperlink\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"nAnchors\" type=\"n\" />"
 ""
@@ -288,8 +288,8 @@ const char *spi_org_freedesktop_atspi_Hyperlink =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Image = 
-"<interface name=\"org.freedesktop.atspi.Image\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Image = 
+"<interface name=\"org.a11y.atspi.Image\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"imageDescription\" type=\"s\" />"
 ""
@@ -315,8 +315,8 @@ const char *spi_org_freedesktop_atspi_Image =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Selection = 
-"<interface name=\"org.freedesktop.atspi.Selection\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Selection = 
+"<interface name=\"org.a11y.atspi.Selection\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"nSelectedChildren\" type=\"i\" />"
 ""
@@ -357,8 +357,8 @@ const char *spi_org_freedesktop_atspi_Selection =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Table = 
-"<interface name=\"org.freedesktop.atspi.Table\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Table = 
+"<interface name=\"org.a11y.atspi.Table\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"nRows\" type=\"i\" />"
 ""
@@ -492,8 +492,8 @@ const char *spi_org_freedesktop_atspi_Table =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Text = 
-"<interface name=\"org.freedesktop.atspi.Text\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Text = 
+"<interface name=\"org.a11y.atspi.Text\" version=\"0.1.7\">"
 ""
 "  <property access=\"read\" name=\"characterCount\" type=\"i\" />"
 ""
@@ -643,8 +643,8 @@ const char *spi_org_freedesktop_atspi_Text =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_EditableText = 
-"<interface name=\"org.freedesktop.atspi.EditableText\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_EditableText = 
+"<interface name=\"org.a11y.atspi.EditableText\" version=\"0.1.7\">"
 ""
 "  <method name=\"SetTextContents\">"
 "    <arg direction=\"in\" name=\"newContents\" type=\"s\" />"
@@ -683,8 +683,8 @@ const char *spi_org_freedesktop_atspi_EditableText =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Cache = 
-"<interface name=\"org.freedesktop.atspi.Cache\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Cache = 
+"<interface name=\"org.a11y.atspi.Cache\" version=\"0.1.7\">"
 ""
 "  <method name=\"GetItems\">"
 "    <arg direction=\"out\" name=\"nodes\" type=\"a((so)(so)a(so)assusau)\" />"
@@ -704,8 +704,8 @@ const char *spi_org_freedesktop_atspi_Cache =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_Value = 
-"<interface name=\"org.freedesktop.atspi.Value\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_Value = 
+"<interface name=\"org.a11y.atspi.Value\" version=\"0.1.7\">"
 ""
 "        <property access=\"read\" name=\"minimumValue\" type=\"d\" />"
 ""
@@ -718,8 +718,8 @@ const char *spi_org_freedesktop_atspi_Value =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_DeviceEventController = 
-"<interface name=\"org.freedesktop.atspi.DeviceEventController\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_DeviceEventController = 
+"<interface name=\"org.a11y.atspi.DeviceEventController\" version=\"0.1.7\">"
 ""
 "  <method name=\"RegisterKeystrokeListener\">"
 "    <arg direction=\"in\" name=\"listener\" type=\"o\" />"
@@ -782,8 +782,8 @@ const char *spi_org_freedesktop_atspi_DeviceEventController =
 "</interface>"
 "";
 
-const char *spi_org_freedesktop_atspi_DeviceEventListener = 
-"<interface name=\"org.freedesktop.atspi.DeviceEventListener\" version=\"0.1.7\">"
+const char *spi_org_a11y_atspi_DeviceEventListener = 
+"<interface name=\"org.a11y.atspi.DeviceEventListener\" version=\"0.1.7\">"
 ""
 "  <method name=\"NotifyEvent\">"
 "    <arg direction=\"in\" name=\"event\" type=\"(uinnisb)\" />"

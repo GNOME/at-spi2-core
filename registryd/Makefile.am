@@ -36,11 +36,11 @@ at_spi2_registryd_SOURCES =	\
 	ucs2keysym.c
 
 servicedir       = $(DBUS_SERVICES_DIR)
-service_in_files = org.freedesktop.atspi.Registry.service.in
+service_in_files = org.a11y.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
 
 $(service_DATA): $(service_in_files) Makefile
 	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
 
-DISTCLEANFILES = org.freedesktop.atspi.Registry.service
-EXTRA_DIST = org.freedesktop.atspi.Registry.service.in
+DISTCLEANFILES = org.a11y.atspi.Registry.service
+EXTRA_DIST = org.a11y.atspi.Registry.service.in

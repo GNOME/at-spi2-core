@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.DeviceEventListener">
+<interface name="org.a11y.atspi.DeviceEventListener">
 
   <method name="NotifyEvent">
     <arg direction="in" name="event" type="(uinnisb)"/>

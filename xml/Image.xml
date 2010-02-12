@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node name="/node">
-<interface name="org.freedesktop.atspi.Image">
+<interface name="org.a11y.atspi.Image">
 
   <property name="imageDescription" type="s" access="read"/>
 
