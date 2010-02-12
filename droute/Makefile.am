@@ -1,7 +1,6 @@
 noinst_LTLIBRARIES = libdroute.la
 
 libdroute_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
-                      -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"\
                       -I$(top_builddir)\
                       -I$(top_srcdir)
 
@@ -20,8 +19,7 @@ check_PROGRAMS = droute-test
 droute_test_SOURCES  = droute-test.c
 droute_test_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		     -I$(top_builddir)\
-		     -I$(top_srcdir)\
-		     -DTEST_INTROSPECTION_DIRECTORY=\"$(top_srcdir)/droute\"
+		     -I$(top_srcdir)
 
 droute_test_LDFLAGS  = $(top_builddir)/dbind/libdbind.la\
 		       libdroute.la\

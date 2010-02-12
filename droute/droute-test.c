@@ -13,10 +13,6 @@
 #define OBJECT_ONE "ObjectOne";
 #define OBJECT_TWO "ObjectTwo";
 
-#if !defined TEST_INTROSPECTION_DIRECTORY
-    #error "No introspection XML directory defined"
-#endif
-
 #define STRING_ONE "StringOne"
 #define STRING_TWO "StringTwo"
 
@@ -24,6 +20,40 @@
 #define INT_TWO 456
 
 #define NONE_REPLY_STRING "NoneMethod"
+
+const gchar *test_interface_One = \
+"<interface name=\"test.interface.One\">"
+"  <method name=\"null\"/>"
+"  <method name=\"getInt\">"
+"    <arg direction=\"out\" type=\"o\"/>"
+"  </method>"
+"  <method name=\"setInt\">"
+"    <arg direction=\"in\" type=\"o\"/>"
+"  </method>"
+"  <method name=\"getString\">"
+"    <arg direction=\"out\" type=\"s\"/>"
+"  </method>"
+"  <method name=\"setString\">"
+"    <arg direction=\"in\" type=\"s\"/>"
+"  </method>"
+"</interface>";
+
+const gchar *test_interface_Two = \
+"<interface name=\"test.interface.One\">"
+"  <method name=\"null\"/>"
+"  <method name=\"getInt\">"
+"    <arg direction=\"out\" type=\"o\"/>"
+"  </method>"
+"  <method name=\"setInt\">"
+"    <arg direction=\"in\" type=\"o\"/>"
+"  </method>"
+"  <method name=\"getString\">"
+"    <arg direction=\"out\" type=\"s\"/>"
+"  </method>"
+"  <method name=\"setString\">"
+"    <arg direction=\"in\" type=\"s\"/>"
+"  </method>"
+"</interface>";
 
 typedef struct _AnObject
 {
@@ -221,16 +251,18 @@ int main (int argc, char **argv)
     bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
     dbus_connection_setup_with_g_main(bus, g_main_context_default());
 
-    cnx = droute_new (bus, TEST_INTROSPECTION_DIRECTORY);
+    cnx = droute_new (bus);
     path = droute_add_one (cnx, TEST_OBJECT_PATH, object);
 
     droute_path_add_interface (path,
                                TEST_INTERFACE_ONE,
+                               test_interface_One,
                                test_methods_one,
                                test_properties);
 
     droute_path_add_interface (path,
                                TEST_INTERFACE_TWO,
+                               test_interface_Two,
                                test_methods_two,
                                test_properties);
 
