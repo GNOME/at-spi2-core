@@ -1,0 +1,9 @@
+
+interface org.freestandards.atspi.DeviceEventListener {
+
+	method NotifyEvent {
+		DeviceEvent event;
+	} reply {
+		boolean success;
+	}
+}

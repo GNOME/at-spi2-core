@@ -1,0 +1,69 @@
+
+/* TODO - Need to define the 'MatchRule' struct. */
+
+namespace org.freestandards.atspi {
+	interface Collection {
+		enum <uint32> SortOrder {
+			SORT_ORDER_INVALID = 0,
+			SORT_ORDER_CANONICAL,
+			SORT_ORDER_FLOW,
+			SORT_ORDER_TAB,
+			SORT_ORDER_REVERSE_CANONICAL,
+			SORT_ORDER_REVERSE_FLOW,
+			SORT_ORDER_REVERSE_TAB,
+			SORT_ORDER_LAST_DEFINED
+		}
+
+		enum <uint32> MatchType {
+			MATCH_INVALID = 0,
+			MATCH_ALL,
+			MATCH_ANY,
+			MATCH_NONE,
+			MATCH_EMPTY,
+			MATCH_LAST_DEFINED
+		}
+
+		enum <uint32> TreeTraversalType {
+			TREE_RESTRICT_CHILDREN,
+			TREE_RESTRICT_SIBLING,
+			TREE_INORDER,
+			TREE_LAST_DEFINED
+		}
+
+		method GetMatches {
+			MatchRule rule;
+			SortOrder sort_by;
+			int32     count;
+			boolean   traverse;
+		} reply {
+			Reference matches [];
+		}
+
+		method GetMatchesTo {
+			object    current_object;
+			MatchRule rule;
+			SortOrder sort_by;
+			TreeTraversalType type;
+			boolean   recurse;
+			int32     count;
+			boolean   traverse;
+		} reply {
+			Reference matches [];
+		}
+
+		method GetMatchesFrom {
+			object    current_object;
+			MatchRule rule;
+			SortOrder sort_by;
+			TreeTraversalType type;
+			int32     count;
+			boolean   traverse;
+		} reply {
+			Reference matches [];	
+		}
+
+		method GetActiveDescendent reply {
+			Reference descendent;
+		}
+	}
+}

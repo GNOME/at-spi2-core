@@ -1,0 +1,26 @@
+
+interface org.freestandards.atspi.Cache {
+	
+	struct CacheItem {
+		object      path;
+		Reference   parent;
+		Reference[] children;
+		string[]    interfaces;
+		string      name;
+		Role        role;
+		string      description;
+		StateSet    states;
+	}
+
+	method GetItems reply {
+		CacheItem[] items;
+	}
+
+	signal AddAccessible {
+		CacheItem item;
+	}
+
+	signal RemoveAccessible {
+		Reference item;
+	}
+}	

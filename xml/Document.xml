@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node name="/node">
+<interface name="org.freedesktop.atspi.Document">
+
+  <method name="GetLocale">
+    <arg direction="out" type="s"/>
+  </method>
+
+  <method name="GetAttributeValue">
+    <arg direction="in" name="attributename" type="s"/>
+    <arg direction="out" type="s"/>
+  </method>
+
+  <method name="GetAttributes">
+    <arg direction="out" type="{ss}"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttrubutes"/>
+  </method>
+
+</interface>
+</node>

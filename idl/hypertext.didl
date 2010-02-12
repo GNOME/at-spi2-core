@@ -1,0 +1,82 @@
+
+namespace org.freestandards.atspi {
+	/*
+	  Instances of Hyperlink are returned by Hypertext object and
+	  are the means by which end users and clients interact with linked
+	  content.
+
+	  Hyperlink instances DO NOT neccessarily implement the Accessible interface.
+	 */
+	interface HyperLink {
+		/* The number of separate anchors associated with this Hyperlink. */
+		read property int32 NAnchors;
+
+		/* 
+		  The starting offset within the contianing Hypertext,
+		  with which this Hyperlink is associated.	
+		 */
+		read property int32 StartIndex;
+
+		/*
+		  The ending offset within the containing Hypertext with which
+		  this Hyperlink is associated.
+		 */
+		read property int32 EndIndex;
+
+		/*
+		  Gets the i'th object associated with a Hyperlink.
+		  Objects returned should implement the Action interface.
+		 */ 
+		method GetObject {
+			int32 index;
+		} reply {
+			Reference anchor;
+		}
+
+		/*
+		  Obtain a resource locator, URI, which can be used to access the content
+		  which this link points to.
+		 */
+		method GetUri {
+			int32 index;
+		} reply {
+			string uri;
+		}
+
+		/*
+		  Check the hyperlink to see if a connection to its backing content can be
+		  established or if its URI is valid.
+		 */
+		method IsValid reply {
+			boolean valid;
+		}
+	}
+
+	/*
+	  An interface used for objects which implement linking between multiple resource locations.
+	  A hypertext instance is associated with one or more hyperlinks which are associated with
+	  particular offests within the text.
+	 */
+	interface Hypertext {
+
+		method GetNLinks reply {
+			int32 n_links;
+		}
+
+		method GetLink {
+			int32 index;
+		} reply {
+			Reference hyperlink;
+		}
+
+		/*
+		  Get the hyperlink index, if any, associated with a particular text offset.
+		 */
+		method GetLinkIndex {
+			int32 offset;
+		} reply {
+			/* -1 if no hyperlink is associated. */
+			int32 index;
+		}	
+	}
+}

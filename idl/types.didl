@@ -1,0 +1,25 @@
+/*
+  Type definitions needed by multiple interfaces.
+*/
+
+namespace org.freestandards.atspi {
+
+	/*
+	  A connection independent reference to a D-Bus object. 
+
+	  The D-Bus object that is referenced will support at-least
+	  the org.freestandards.atspi.Accessible interface.
+	 */
+	struct Reference {
+		/* The D-Bus connection name where the object resides. */
+		string name;
+		/* The D-Bus path of the object. */
+		object path;
+	}
+
+	/*
+	  Attributes are weakly typed properties of an object  consisting of string-string
+          key-value pairs.
+         */
+	typedef Attributes dict <string, string>;
+}

@@ -1,0 +1,139 @@
+
+using org.freestandards.atspi.Accessible.Reference = Reference;
+
+/*
+  The Component interface is implemented by objects which occupy on-screen space, e.g. objects
+  which have onscreen visual representations. The methods in Component allow clients to identify
+  where the objects lie in the onscreen coordinate system, their relative size, stacking order, and
+  position.  It also provides a mechanism whereby keyboard focus may be transferred to specific
+  user interface elements programmatically.  This is a 2D API, coordinates of 3D objects are projected into the
+  2-dimensional screen view for purposes of this interface.
+*/
+interface org.freestandards.atspi.Component {
+
+	/* 
+           Used by Component, Image and Text interfaces to specify whether coordinates are
+           relative to the window or screen.
+        */
+	enum <uint32> CoordType {
+		COORD_TYPE_SCREEN = 0,
+		COORD_TYPE_WINDOW = 1
+	}
+
+	/*
+	  Used by Component and Text interfaces, a struct defining a bounding rectange.
+	  The coordinate system is determined by the context of the API call.
+	*/
+	struct BoundingBox {
+		int32 x;
+		int32 y;
+		int32 width;
+		int32 height;
+	}
+
+	/*
+	  Indicates the relative stacking order with respect to the onscreen visual representation.
+
+	  The order of layers, from bottom to top is:
+		LAYER_BACKGROUND
+		LAYER_WINDOW
+		LAYER_MDI
+		LAYER_CANVAS
+		LAYER_WIDGET
+		LAYER_POPUP
+		LAYER_OVERLAY
+	*/
+	enum <uint32> ComponentLayer {
+		LAYER_INVALID,
+		LAYER_BACKGROUND,
+		LAYER_CANVAS,
+		LAYER_WIDGET,
+		LAYER_MDI,
+		LAYER_POPUP,
+		LAYER_OVERLAY,
+		LAYER_WINDOW,
+		LAYER_LAST_DEFINED
+	}
+	
+	/*
+	  True if the specified point lies within the components bounding box.
+         */ 
+	method Contains {
+		int32 x;
+		int32 y;
+		CoordType coord_type;
+	} reply {
+		boolean within;
+	}
+
+	/*
+	  Return the accessible child whose bounding box contains the specified point.
+         */
+	method GetAccessibleAtPoint {
+		int32 x;
+		int32 y;
+		CoordType coord_type;
+	} reply {
+		Reference child;
+	}
+
+	/*
+	  Obtain the components bounding box, in pixels, relative to the specified coordinate system.
+	*/
+	method GetExtents {
+		CoordType cood_type;
+	} reply {
+		BoundingBox box;
+	}
+
+	/*
+	  Obtain the position of the current component in the specified coordinate system.
+	*/
+	method GetPosition {
+		CoordType coord_type;
+	} reply {
+		int32 x;
+		int32 y;
+	}
+
+	/*
+	  Obtain the size in the specified coordinate system.
+          Fully contains teh object's visual representation without accounting for viewport clipping.
+        */
+	method GetSize reply {
+		int32 width;
+		int32 height;
+	}
+
+	/*
+	  The component layer in which this object resides.
+        */
+	method GetLayer reply {
+		ComponentLayer layer;
+	}
+
+	/*
+          Obtain the relative stacking order (i.e 'Z' order) of an object.
+	  Larger values indicate that an object is on 'top' of the stack.
+	  Only relevenat for objects in LAYER_MDI or LAYER_WINDOW.
+	*/
+	method GetMDIZOrder reply {
+		int16 order;
+	}
+
+	/*
+	  Request that an object obtain keyboard focus.
+        */
+	method GrabFocus reply {
+		boolean success;
+	}
+
+	/*
+	  Obtain the alpha value of the component.
+	  Alpha values are used with Z-Order to determine whether an obeject obscures
+	  anothers visual representation.
+	*/
+	method GetAlpha reply {
+		double alpha;
+	}
+}

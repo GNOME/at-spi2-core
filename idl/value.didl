@@ -1,0 +1,15 @@
+
+/* 
+  An interface supporting a one-dimensional scalar quantity
+  to be modified, or which reflects a scalar value.
+ */
+interface org.freestandards.atspi.Value {
+	
+	read property double MinimumValue;
+	
+	read property double MaximumValue;
+
+	read property double MinimumIncrement;
+
+	read property double currentValue;
+}

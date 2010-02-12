@@ -1,0 +1,314 @@
+
+namespace org.freestandards.atspi {
+	/* 
+	   The text interface should be implemented by objects which place textual information onscreen
+	   as character strings or glyphs. The text interface allows access to textual content including
+	   display attributes and semantic hints associated with runs of text, and to bounding boc information
+	   for glyphs and substrings. It also alows portions of text to be selected, if the objects StateSet
+	   includes STATE_SELECTABLE_TEXT.
+         */
+	interface Text {
+		/*
+		  Specified the boundary conditions determining a run of text
+		  as returned from:
+		  	GetTextAtOffset
+			GetTextAfterOffset
+			GetTextBeforeOffset
+		 */ 
+		enum <uint32> TextBoundaryType {
+			TEXT_BOUNDARY_CHAR,
+			TEXT_BOUNDARY_WORD_START,
+			TEXT_BOUNDARY_WORD_END,
+			TEXT_BOUNDARY_SENTENCE_START,
+			TEXT_BOUNDARY_SENTENCE_END,
+			TEXT_BOUNDARY_LINE_START,
+			TEXT_BOUNDARY_LINE_END
+		}			
+
+		enum <uint32> TextClipType {
+			TEXT_CLIP_NONE,
+			TEXT_CLIP_MIN,
+			TEXT_CLIP_MAX,
+			TEXT_CLIP_BOTH
+		}
+
+		/*
+		  A structure used to define a contiguous range of text, including
+		  its (unattributed) textual content.
+		 */
+		struct Range {
+			int32   start_offset;
+			int32   end_offset;
+			int32   content;
+			variant data;				
+		}
+		
+		/* The total number of character in the text object including whitespace. */
+		read property int32 CharacterCount;
+
+		/* The current offset of the text caret in the Text object. */
+		read property int32 CaretOffset;
+
+		/* Move the text caret to a given position. */
+		method SetCaretOffset {
+			int32 offset;		
+		} reply {
+			boolean success;
+		}	
+		
+		/* 
+		  Obtain the subset of text content that entirely precedes the given offset,
+		  delimited by character word, line or sentente boundaries.
+		 */
+		method GetTextBeforeOffset {
+			int32 offset;
+			TextBoundaryType type;
+		} reply {
+			string s;
+			int32  start_offset;
+			int32  end_offset;
+		}
+
+		/* 
+		  Obtain the subset of text content that includes the given offset,
+		  delimited by character word, line or sentente boundaries.
+		 */
+		method GetTextAtOffset {
+			int32 offset;
+			TextBoundaryType type;
+		} reply {
+			string s;
+			int32  start_offset;
+			int32  end_offset;
+		}
+
+		/* 
+		  Obtain the subset of text content that entirely follows the given offset,
+		  delimited by character word, line or sentente boundaries.
+		 */
+		method GetTextAfterOffset {
+			int32 offset;
+			TextBoundaryType type;
+		} reply {
+			string s;
+			int32  start_offset;
+			int32  end_offset;
+		}
+
+		method GetCharacterAtOffset {
+			int32 offset;
+		} reply {
+			/* UCS-4 representation of the character or 0 if offset out-of-range. */
+			int32 c;
+		}
+
+		/*
+		  Get the value of a named attribute at a given offset.
+		 */
+		method GetAttributeValue {
+			int32   offset;
+			string  attribute_key;
+		} reply {
+			string  attribute_value;
+			int32   start_offset;
+			int32   end_offset;
+			boolean defined;
+		}	
+
+		/* Deprecated in favor of GetAttributeRun. */
+		method GetAttributes {
+			int32 offset;
+		} reply {
+			Attributes attributes;
+			int32 start_offset;
+			int32 end_offset;
+		}
+
+		/* Deprecated in facor of GetDefaultAttributeSet. */
+		method GetDefaultAttributes reply {
+			Attributes attributes;
+		}
+
+		/*
+		  Obtain a bounding box of the character glyph at a particular character offset,
+		  in the given coordinate system.
+		 */
+		method GetCharacterExtents {
+			int32     offset;
+			CoordType coord;
+		} reply {
+			int32 x;
+			int32 y;
+			int32 width;
+			int32 height;
+		}
+
+		/*
+		  Get the offset of the character at a given on-screen coordinate. The coordinate
+		  system used is determined by the give coordinate type.
+		 */
+		method GetOffsetAtPoint {
+			int32 x;
+			int32 y;
+			CoordType coord;
+		} reply {
+			/* -1 if the point is outside the bounds of any glyph. */
+			int32 offset;
+		}	
+
+		/*
+		  Obtain the number of separate, contiguous selections in the current Text object. 
+		 */
+		method GetNSelections reply {
+			int32 n_selections;
+		}
+
+		method GetSelection {
+			int32 selection_index;
+		} reply {
+			int32 start_offset;
+			int32 end_offset;
+		}
+
+		method AddSelection {
+			int32 start_offset;
+			int32 end_offset;
+		} reply {
+			boolean success;
+		}
+
+		method RemoveSelection {
+			int32 selection_index;
+		} reply {
+			boolean success;
+		}
+
+		method SetSelection {
+			int32 selection_index;
+			int32 start_offset;
+			int32 end_offset;
+		} reply {
+			boolean success;
+		}	
+
+		/*
+		  Obtain the bounding box which entirely contains the given text range.
+		  Negative values may be obtained in the event that part of the text range is
+		  off-screen.
+		 */
+		method GetRangeExtents {
+			int32 start_offset;
+			int32 end_offset;
+			CoordType coord;
+		} reply {
+			int32 x;
+			int32 y;
+			int32 width;
+			int32 height;
+		}
+
+		/*
+		  Return the text content within a bounding box.
+
+		  Depending on the clip type glyphs which are clipped by the bounding box
+		  may, or may not be inclide in the ranges returned.
+		 */
+		method GetBoundedRanges {
+			int32 x;
+			int32 y;
+			int32 width;
+			int32 height;
+			CoordType coord;
+			ClipType  x_clip;
+			ClipType  y_clip;
+		} reply {
+			RangeType ranges [];
+		}
+
+		/*
+		  Gets the attributes of a particular text objects defined at a given offset.
+		  The attributes are invariant over the offsets returned.
+		 */
+		method GetAttributeRun {
+			int32   offset;
+			boolean include_defaults;
+		} reply {
+			Attributes attributes;
+			int32 start_offset;
+			int32 end_offset;
+		}
+		
+		/*
+		  Gets the default attributes that apply to the entire text.
+		 */
+		method GetAttributeSet reply {
+			Attributes attributes'
+		}
+	}
+
+	/*
+	  All objects supporting EditableText should also support the
+	  Text interface.
+	
+	  Provides methods for modifying textual content of components which support editing.
+	  EditableText also interacts with the system clipboard.
+	 */
+	interface EditableText {
+		/*
+		  Replace the text contents with a new string, discarding the old contents.
+		 */
+		method SetTextContents {
+			string new_contents;
+		} reply {
+			boolean success;
+		}
+
+		/*
+		  Insert new text contents into a given location.
+		 */
+		method InsertText {
+			int32  position;
+			string text;
+			int32  length;
+		} reply {
+			boolean success;
+		}
+
+		/*
+		  Copy a range of text in to the system clipboard.
+		 */
+		method CopyText {
+			int32 start_pos;
+			int32 end_pos;
+		}
+
+		/*
+		  Excise a range of text, copying it to the system clipboard.
+		 */
+		method CutText {
+			int32 start_pos;
+			int32 end_pos;
+		} reply {
+			boolean success;
+		} 
+
+		/* 
+		  Excise a range of text from the object without copying to the system clipboard.
+		 */
+		method DeleteText {
+			int32 start_pos;
+			int32 end_pos;
+		} reply {
+			boolean success;
+		}
+
+		/*
+		  Copy the contents of the system clip-board in to the text object.
+		 */
+		method PasteText {
+			int32 position;
+		} reply {
+			boolean success;
+		}	
+	}
+}

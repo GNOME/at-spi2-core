@@ -1,0 +1,95 @@
+
+interface org.freestandards.atspi.DeviceEventController {
+
+	enum <uint32> KeySynthType {
+		KEY_PRESS=0,
+		KEY_RELEASE,
+		KEY_PRESSRELEASE,
+		KEY_SYM,
+		KEY_STRING
+	}
+
+        /*
+	  Consumption of events and syncronous event delivery is a sore-thumb.
+
+	  The client should really have no say over what the DeviceEventController
+          does with regards to event delivery as such the 'syncronous' flag is redundant.
+
+	  The 'global' flag is now useless as XEVIE is no longer maintained. As such
+	  the DeviceEventController will not recieve any device events from applications
+	  not participating.
+
+	  The only possibly useful flag is 'preemptive'. However all keyboard events are
+	  sent as pre-emptive from gail so its debateable whether even this flag is really
+	  in-use.
+	 */
+	struct EventListenerMode {
+		/* Controller should block while delivering this event. */
+		boolean syncronous;
+		/* Clients are allowed to consume this event. */
+		boolean preemptive;
+		/* 
+		 Event notifications should be sent regardless of whether 
+                 focused application participates in AT-SPI accessibility.
+                 */
+		boolean global;
+	}
+
+	struct KeyDefinition {
+		int32  keycode;
+		int32  keysym;
+		string keystring;
+		int32  unused;
+	}
+
+	method RegisterKeystrokeListener {
+		object            listener;
+		KeyDefinition[]   keys;
+		uint32            mask;
+		EventType[]       type;		
+		EventListenerMode mode;
+	} reply {
+		boolean           success;
+	}
+
+	method DeregisterKeystrokeListener {
+		object            listener;
+		KeyDefinition[]   keys;	
+		uint32            mask;
+		EventType[]       type;		
+	}
+
+	method RegisterDeviceEventListener {
+		object      listener;
+		EventType[] type;
+	} reply {
+		boolean     success;
+	}
+
+	method DeregisterDeviceEventListener {
+		object      listener;
+		EventType[] type;
+	}
+
+	method NotifyListenersSync {
+		DeviceEvent event;
+	} reply {
+		boolean     consumed;
+	}
+
+	method NotifyListenersAsync {
+		DeviceEvent event;
+	}
+
+	method GenerateKeyboardEvent {
+		int32        keycode;
+		string       keystring;
+		KeySynthType type;
+	}
+
+	method GenerateMouseEvent {
+		int32  x;
+		int32  y;
+		string event_name;
+	}
+}

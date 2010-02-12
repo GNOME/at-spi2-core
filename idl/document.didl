@@ -1,0 +1,25 @@
+
+/*
+  Indicates the start of a document.
+
+  Children are part of the document content.
+*/
+interface org.freestandards.atspi.Document {
+
+	/* Gets the locale associated with the documents content. */
+	method GetLocale reply {
+		string locale;
+	}
+
+	/* Gets the value of a single attribute. */
+	method GetAttributeValue {
+		string key;
+	} reply {
+		string value;
+	}
+
+	/* Gets all attributes for the document as a whole. These are constant for all elements within the document.*/
+	method GetAttributes reply {
+		Attributes attributes;
+	}
+}

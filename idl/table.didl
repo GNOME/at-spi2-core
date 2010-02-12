@@ -1,0 +1,186 @@
+
+namespace org.freestandards.atspi {
+
+	/*
+	  An interface used by containers whose data is arranged in a tabular form.
+	  Objects within tables are always children of the table object.
+	 */
+	interface Table {
+		read property int32 NRows;
+
+		read property int32 NColumns;
+		
+		read property Reference caption;
+
+		read property Reference summary;
+
+		/* Number of rows where all cells are selected. */
+		read property int32 NSelectedRows;
+
+		/* Number of columns where all cells are selected. */
+		read property int32 NSelectedColumns;
+
+		method GetAccessibleAt {
+			int32 row;
+			int32 column;
+		} reply {
+			Reference cell;
+		}
+
+		/*
+		  Cells in a table are also children of the table in the standard heirarchy.
+		  This method gets the child index of the given cell.
+		 */
+		method GetIndexAt {
+			int32 row;
+			int32 column;
+		} reply {
+			int32 index;
+		}
+
+		/*
+		  Indicates which row the child specified by index is on.
+		 */
+		method GetRowAtIndex {
+			int32 index;
+		} reply {
+			int32 row;
+		}	
+
+		/*
+		  Indicates which column the child specified by index is on.
+		 */
+		method GetColumnAtIndex {
+			int32 index;
+		} reply {
+			int32 column;
+		}
+
+		/*
+		  Get a textual description of a row.
+		 */ 
+		method GetRowDescription {
+			int32 row;
+		} reply {
+			string description;
+		}
+
+		/*
+		  Get a textual description of a particular column.
+		 */
+		method GetColumnDescription {
+			int32 column;
+		} reply {
+			string description;
+		}
+
+		/*
+		  Get the number of rows spanned by the table cell at the specific row and column.
+		method GetRowExtentAt {
+			int32 row;
+			int32 column;
+		} reply {
+			int32 rowspan;
+		}
+
+		/*
+		  Get the number of columns spanned by the table cell at the specific row and column.
+		 */
+		method GetColumnExtentAt {
+			int32 row;
+			int32 column;
+		} reply {
+			int32 column_span;
+		}
+
+		/*
+		  Get the header object associated with a particular table row.
+		 */
+		method GetRowHeader {	
+			int32 row;
+		} reply {
+			Reference header;
+		}
+
+		/*
+		  Get the header object associated with a particular table column.
+		 */
+		method GetColumnHeader {
+			int32 column;
+		} reply {
+			Reference header;
+		}
+
+		/*
+		  Obtain the indicies of all rows which are currently selected.
+		 */
+		method GetSelectedRows reply {
+			int32 indicies [];
+		}
+
+		/*
+		  Obtain the indicies of all columns which are currently selected.
+		 */
+		method GetSelectedColumns reply {
+			int32 indicies [];
+		}
+
+		method IsRowSelected {
+			int32 row;
+		} reply {
+			boolean selected;
+		}
+
+		method IsColumnSelected {
+			int32 column;
+		} reply {
+			boolean selected;
+		}
+
+		method IsSelected {
+			int32 row;
+			int32 column;
+		} reply {
+			boolean selected;
+		}
+
+		method AddRowSelection {
+			int32 row;
+		} reply {
+			boolean success;
+		}
+
+		method AddColumnSelection {
+			int32 column;
+		} reply {
+			boolean success;
+		}
+
+		method RemoveRowSelection {
+			int32 row;
+		} reply {
+			boolean success;
+		}
+
+		method RemoveColumnSelection {
+			int32 column;
+		} reply {
+			boolean success;
+		}
+
+		/*
+		  Given a child index determine the row and column indicies and extents
+		  and whether the cell is currently selected.
+		 */
+		method GetRowColumnExtentsAtIndex {
+			int32 index;
+		} reply {
+			boolean valid;
+			int32 row;
+			int32 column;
+			int32 row_span;
+			int32 column_span;
+			boolean selected;
+		}
+	}
+}

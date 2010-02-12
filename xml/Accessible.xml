@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node name="/node">
+<interface name="org.freedesktop.atspi.Accessible">
+
+  <property name="name" type="s" access="read"/>
+
+  <property name="description" type="s" access="read"/>
+
+  <property name="parent" type="(so)" access="read">
+    <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiObjectReference"/>
+  </property>
+
+  <property name="childCount" type="i" access="read"/>
+
+  <method name="GetChildAtIndex">
+    <arg direction="in" name="index" type="i"/>
+    <arg direction="out" type="(so)"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+  </method>
+
+  <method name="GetIndexInParent">
+    <arg direction="out" type="i"/>
+  </method>
+
+  <method name="GetRelationSet">
+    <arg direction="out" type="a(ua(so))"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiRelationArray"/>
+  </method>
+
+  <method name="GetRole">
+    <arg direction="out" type="u"/>
+  </method>
+
+  <method name="GetRoleName">
+    <arg direction="out" type="s"/>
+  </method>
+
+  <method name="GetLocalizedRoleName">
+    <arg direction="out" type="s"/>
+  </method>
+
+  <method name="GetState">
+    <arg direction="out" type="au"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiIntList"/>
+  </method>
+
+  <method name="GetAttributes">
+    <arg direction="out" type="a{ss}"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeArray"/>
+  </method>
+
+  <method name="GetApplication">
+    <arg direction="out" type="(so)"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
+  </method>
+
+</interface>
+</node>

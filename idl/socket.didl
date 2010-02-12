@@ -1,0 +1,31 @@
+
+namespace org.freestandards.atspi {
+        /*
+	  Accessible objects with the socket interface are capable of embeding other
+          accessible heirarchies as one of their children. This allows
+          applications to embed themselves in the heirarchy of the desktop object.
+         */
+	interface Socket {
+		method Embed {
+			Reference plug;
+		} reply {
+			Reference socket;
+		}
+
+		method Unembed {
+			Reference plug;
+		}
+
+		/*
+		  The available signal indicates that a socket has been
+		  made available, it is for discovering new sockets.
+                  This is used for when the process containing the desktop
+                  object is re-started.
+
+		  D-Bus bus name must have been granted by the D-Bus bus.
+                  It is used to identify the new socket.
+                 */
+		signal Available {
+			Reference socket;
+		}
+}

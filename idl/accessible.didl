@@ -1,0 +1,234 @@
+
+/*
+  The base interface which is implemented by all accessible objects.
+ */
+
+interface org.freestandards.atspi.Accessible {
+
+	enum <uint32> Role {
+		ROLE_INVALID = 0,
+		ROLE_ACCELERATOR_LABEL,
+		ROLE_ALERT,
+		ROLE_ANIMATION,
+		ROLE_ARROW,
+		ROLE_CALENDAR,
+		ROLE_CANVAS,
+		ROLE_CHECK_BOX,
+		ROLE_CHECK_MENU_ITEM,
+		ROLE_COLOR_CHOOSER,
+		ROLE_COLUMN_HEADER,
+		ROLE_COMBO_BOX,
+		ROLE_DATE_EDITOR,
+		ROLE_DESKTOP_ICON,
+		ROLE_DESKTOP_FRAME,
+		ROLE_DIAL,
+		ROLE_DIALOG,
+		ROLE_DIRECTORY_PANE,
+		ROLE_DRAWING_AREA,
+		ROLE_FILE_CHOOSER,
+		ROLE_FILLER,
+		ROLE_FOCUS_TRAVERSABLE,
+		ROLE_FONT_CHOOSER,
+		ROLE_FRAME,
+		ROLE_GLASS_PANE,
+		ROLE_HTML_CONTAINER,
+		ROLE_ICON,
+		ROLE_IMAGE,
+		ROLE_INTERNAL_FRAME,
+		ROLE_LABEL,
+		ROLE_LAYERED_PANE,
+		ROLE_LIST,
+		ROLE_LIST_ITEM,
+		ROLE_MENU,
+		ROLE_MENU_BAR,
+		ROLE_MENU_ITEM,
+		ROLE_OPTION_PANE,
+		ROLE_PAGE_TAB,
+		ROLE_PAGE_TAB_LIST,
+		ROLE_PANEL,
+		ROLE_PASSWORD_TEXT,
+		ROLE_POPUP_MENU,
+		ROLE_PROGRESS_BAR,
+		ROLE_PUSH_BUTTON,
+		ROLE_RADIO_BUTTON,
+		ROLE_RADIO_MENU_ITEM,
+		ROLE_ROOT_PANE,
+		ROLE_ROW_HEADER,
+		ROLE_SCROLL_BAR,
+		ROLE_SCROLL_PANE,
+		ROLE_SEPARATOR,
+		ROLE_SLIDER,
+		ROLE_SPIN_BUTTON,
+		ROLE_SPLIT_PANE,
+		ROLE_STATUS_BAR,
+		ROLE_TABLE,
+		ROLE_TABLE_CELL,
+		ROLE_TABLE_COLUMN_HEADER,
+		ROLE_TABLE_ROW_HEADER,
+		ROLE_TEAROFF_MENU_ITEM,
+		ROLE_TERMINAL,
+		ROLE_TEXT,
+		ROLE_TOGGLE_BUTTON,
+		ROLE_TOOL_BAR,
+		ROLE_TOOL_TIP,
+		ROLE_TREE,
+		ROLE_TREE_TABLE,
+		ROLE_UNKNOWN
+	}
+
+        /*
+          RelationType specifies a relationship between objects outside of the normal
+          parent/child hierarchical relationship. It allows better semantic
+          identification of how objects are associated with one another.
+         */
+        enum <uint32> RelationType {
+		RELATION_NULL = 0,
+		RELATION_LABEL_FOR,
+		RELATION_LABELLED_BY,
+		RELATION_CONTROLLER_FOR,
+		RELATION_CONTROLLED_BY,
+		RELATION_MEMBER_OF,
+		RELATION_TOOLTIP_FOR,
+		RELATION_NODE_CHILD_OF,
+		RELATION_NODE_PARENT_OF,
+		RELATION_EXTENDED,
+		RELATION_FLOWS_TO,
+		RELATION_FLOWS_FROM,
+		RELATION_SUBWINDOW_OF,
+		RELATION_EMBEDS,
+		RELATION_EMBEDDED_BY,
+		RELATION_POPUP_FOR,
+		RELATION_PARENT_WINDOW_OF,
+		RELATION_DESCRIPTION_FOR,
+		RELATION_DESCRIBED_BY,
+		RELATION_LAST_DEFINED
+	}
+
+	/*
+	  Describes a one-to-many relationship between accessible objects.
+         */
+	struct Relation {
+		RelationType type;
+		Reference    objects [];	
+	}
+
+	enum uint32 StateType {
+		STATE_INVALID = 0,
+		STATE_ACTIVE,
+		STATE_ARMED,
+		STATE_BUSY,
+		STATE_CHECKED,
+		STATE_COLLAPSED,
+		STATE_DEFUNCT,
+		STATE_EDITABLE,
+		STATE_ENABLED,
+		STATE_EXPANDABLE,
+		STATE_EXPANDED,
+		STATE_FOCUSABLE,
+		STATE_FOCUSED,
+		STATE_HAS_TOOLTIP,
+		STATE_HORIZONTAL,
+		STATE_ICONIFIED,
+		STATE_MODAL,
+		STATE_MULTI_LINE,
+		STATE_MULTISELECTABLE,
+		STATE_OPAQUE,
+		STATE_PRESSED,
+		STATE_RESIZABLE,
+		STATE_SELECTABLE,
+		STATE_SELECTED,
+		STATE_SENSITIVE,
+		STATE_SHOWING,
+		STATE_SINGLE_LINE,
+		STATE_STALE,
+		STATE_TRANSIENT,
+		STATE_VERTICAL,
+		STATE_VISIBLE,
+		STATE_MANAGES_DESCENDANTS,
+		STATE_INDETERMINATE,
+		STATE_REQUIRED,
+		STATE_TRUNCATED,
+		STATE_ANIMATED,
+		STATE_INVALID_ENTRY,
+		STATE_SUPPORTS_AUTOCOMPLETION,
+		STATE_SELECTABLE_TEXT,
+		STATE_IS_DEFAULT,
+		STATE_VISITED,
+		STATE_LAST_DEFINED
+	} 
+
+        /* 
+	  A two integer array representing a bit-field of currently held states.
+	 */
+	typedef State uint32 [];
+
+	/* A short string representing the object's name. */
+	read property string Name;
+
+	/* A string describing the object in more detail. */
+	read property string Description;
+
+	/* The accessible object which is this objects containing parent */
+	read property Reference Parent;
+
+	/* The number of children contained by this object */
+	read property int32 ChildCount;
+
+        /* Get the accessible child of this object at the given index */
+	method GetChildAtIndex {
+		int32 index;
+	} reply {
+		Reference child;
+	}
+
+	/* Get the index of this accessible object within its containing objects child list. */ 
+	method GetIndexInParent reply {
+		int32 index;
+	}
+
+	/* Access this objects non-hierarchical relationships to other accessible objects */
+	method GetRelationSet reply {
+		RelationSet relations;
+	}
+
+	/* Get the Role indicating the type of UI role played by this object. */
+	method GetRole reply {
+		Role role;
+	}
+
+	/* Get a string indicating the type of UI role played by this object */	
+	method GetRoleName reply {
+		string role;
+	}
+
+	/* 
+          Get a string indicating the type of UI role played by this object,
+          transalted to the current locale.
+         */
+	method GetLocalizedRoleName {
+		string role;
+	}
+
+	/* Access the states currently held by this object. */
+	method GetState reply {
+		State state;
+	}
+
+	/*
+	  Get a properties applied to this object as a whole, as an
+          set name-value pairs. As such these attributes may be considered
+          weakly-typed properties or annotations, as distinct
+          from the strongly-typed interface instance data.
+	*/
+	method GetAttributes reply {
+		Attributes attributes;
+	}
+
+	/*
+	  Get the containing Application for this object.
+	 */
+	method GetApplication reply {
+		Reference application;
+	}
+}
+

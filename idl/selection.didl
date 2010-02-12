@@ -1,0 +1,54 @@
+
+/*
+  An interface which indicates that an object exposes a 'selection' model,
+  allowing the 'selection' of one or more of its children.
+*/
+interface org.freestandards.atspi.Selection {
+	/* The number of children that are currently selected. */
+	read property int32 NSelectedChildren;
+
+	/* Gets the ith SELECTED child. This is different to the index of all children. */
+	method GetSelectedChild {
+		int32 index;
+	} reply {
+		Reference child;
+	}
+
+	/* Select the child, add it to the list of selected children. */ 
+	method SelectChild {
+		int32 index;
+	} reply {
+		boolean success;
+	}
+
+	/* Deselect a child. The index refers to the index into the list of selected children. */
+	method DeselectSelectedChild {
+		int32 index;
+	} reply {
+		boolean success;
+	}
+
+	/* Determine whether a particular child is currently selected. */
+	method IsChildSelected {
+		int32 index;
+	} reply {
+		boolean selected;
+	}
+
+	/* Apptemt to select all of the containers children. */
+	method SelectAll reply {
+		boolean success;
+	}
+
+	/* Attempt to deselect all selected children. */
+	method ClearSelection reply {
+		boolean success;
+	}
+
+	/* Deselect a child. The index refers to the index into the list of all children. */
+	method DeselectChild {
+		int32 index;
+	} reply {
+		boolean success;
+	}
+}

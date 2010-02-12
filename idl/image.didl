@@ -1,0 +1,33 @@
+
+/*
+  An interface implemented by objects which render image data or
+  pictoral information on to the screen.
+*/
+interface org.freestandards.atspi.Image {
+	/* A textual description of what is visually depicted on the screen. */
+	read property string ImageDescription;
+
+	/* A string corresponding to the local used by the image description. */
+	read property string ImageLocale;
+
+	/* Obtain a bounding box which entirely contains the image contents. */
+	method GetImageExtents {
+		CoordType coord_type;
+	} reply {
+		BoundingBox;
+	}
+
+	/* Get the coordinates of the image on the screen */
+	method GetImagePosition {
+		CoordType coord_type;
+	} reply {
+		int32 x;
+		int32 y;
+	}
+
+	/* Get the size of the current on-screen view of the image. */
+	method GetImageSize reply {
+		int32 width;
+		int32 height;
+	}
+}

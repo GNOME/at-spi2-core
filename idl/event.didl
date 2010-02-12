@@ -1,0 +1,79 @@
+
+namespace org.freestandards.atspi.Event {
+
+	struct Event {
+		string    minor;
+		int32     detail1;
+		int32     detail2;
+		variant   val;
+		Reference application;
+	}
+
+	interface Object {
+		signal PropertyChange {Event event;}
+		signal BoundsChanged {Event event;}
+		signal LinkSelected {Event event;}
+		signal StateChanged {Event event;}
+		signal ChildrenChanged {Event event;}
+		signal VisibleDataChanged {Event event;}
+		signal SelectionChanged {Event event;}
+		signal ModelChanged {Event event;}
+		signal ActiveDescendantChanged {Event event;}
+		signal RowInserted {Event event;}
+		signal RowDeleted {Event event;}
+		signal RowReordered {Event event;}
+		signal ColumnInserted {Event event;}
+		signal ColumnDeleted {Event event;}
+		signal ColumnReordered {Event event;}
+		signal TextBoundsChanged {Event event;}
+		signal TextSelectionChanged {Event event;}
+		signal TextChanged {Event event;}
+		signal TextAttributesChanged {Event event;}
+		signal TextCaretMoved {Event event;}
+		signal AttributesChanged {Event event;}
+	}
+
+	interface Window {
+		signal PropertyChange {Event event;}
+		signal Minimize {Event event;}
+		signal Maximize {Event event;}
+		signal Restore {Event event;}
+		signal Close {Event event;}
+		signal Create {Event event;}
+		signal Reparent {Event event;}
+		signal DesktopCreate {Event event;}
+		signal DesktopDestroy {Event event;}
+		signal Destroy {Event event;}
+		signal Activate {Event event;}
+		signal Deactivate {Event event;}
+		signal Raise {Event event;}
+		signal Lower {Event event;}
+		signal Move {Event event;}
+		signal Resize {Event event;}
+		signal Shade {Event event;}
+		signal Ushade {Event event;}
+		signal Restyle {Event event;}
+	}
+
+	interface Mouse {
+		signal Abs {Event event;}
+		signal Rel {Event event;}
+		signal Button {Event event;}
+	}
+
+	interface Keyboard {
+		signal Modifiers {Event event;}
+	}
+
+	interface Document {
+		signal LoadComplete {Event event;}
+		signal Reload {Event event;}
+		signal LoadStopped {Event event;}
+		signal ContentChanged {Event event;}
+		signal AttributesChanged {Event event;}
+	}
+
+	interface Focus {
+		signal Focus {Event event;}
+	}
+}

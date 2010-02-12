@@ -1,0 +1,33 @@
+
+namespace org.freestandards.atspi {
+
+	enum <uint32> EventType {
+		KEY_PRESSED_EVENT=0,
+		KEY_RELEASED_EVENT,
+		BUTTON_PRESSED_EVENT,
+		BUTTON_RELEASED_EVENT
+	}
+
+	enum <uint32> ModifierType {
+		MODIFIER_SHIFT=0,
+		MODIFIER_SHIFTLOCK,
+		MODIFIER_CONTROL,
+		MODIFIER_ALT,
+		MODIFIER_META,
+		MODIFIER_META2,
+		MODIFIER_META3,
+		MODIFIER_NUMLOCK
+	}
+
+	struct DeviceEvent {
+		EventType    type;
+		/* An identifier for the event, corresponds to XEvent serial number. */
+		int32        stream_id;
+		/* A numeric code identifying the hardware or button on which the event occured. */
+		int16        hw_code;	
+		ModifierType modifiers;
+		int32        timestamp;
+		string       event_string;
+		boolean      is_text;
+	}
+}
