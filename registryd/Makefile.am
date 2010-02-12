@@ -27,6 +27,8 @@ at_spi2_registryd_SOURCES =	\
 	registry-main.c		\
 	registry.c		\
 	registry.h		\
+	introspection.h         \
+	introspection.c         \
 	deviceeventcontroller.c	\
 	deviceeventcontroller.h	\
 	reentrant-list.c	\

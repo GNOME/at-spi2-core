@@ -28,6 +28,7 @@
 
 #include "paths.h"
 #include "registry.h"
+#include "introspection.h"
 
 static gboolean
 children_added_listener (DBusConnection * bus,
@@ -649,6 +650,46 @@ emit_Available (DBusConnection * bus)
 
 /*---------------------------------------------------------------------------*/
 
+static const char *introspection_header =
+"<?xml version=\"1.0\"?>\n";
+
+static const char *introspection_node_element =
+"<node name=\"%s\">\n";
+
+static const char *introspection_footer =
+"</node>";
+
+static DBusMessage *
+impl_Introspect (DBusConnection * bus,
+                 DBusMessage * message, void *user_data)
+{
+  GString *output;
+  gchar *final;
+  gint i;
+
+  const gchar *pathstr = SPI_DBUS_PATH_ROOT;
+
+  DBusMessage *reply;
+
+  output = g_string_new(introspection_header);
+
+  g_string_append_printf(output, introspection_node_element, pathstr);
+
+  g_string_append (output, spi_org_freedesktop_atspi_Accessible);
+  g_string_append (output, spi_org_freedesktop_atspi_Component);
+
+  g_string_append(output, introspection_footer);
+  final = g_string_free(output, FALSE);
+
+  reply = dbus_message_new_method_return (message);
+  dbus_message_append_args(reply, DBUS_TYPE_STRING, &final, DBUS_TYPE_INVALID);
+
+  g_free(final);
+  return reply;
+}
+
+/*---------------------------------------------------------------------------*/
+
 /*
  * Emits an AT-SPI event.
  * AT-SPI events names are split into three parts:
@@ -859,7 +900,16 @@ handle_method (DBusConnection *bus, DBusMessage *message, void *user_data)
       else if (!strcmp (member, "Unembed"))
           reply = impl_Unembed (bus, message, user_data);
       else
-         result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+
+  if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if      (!strcmp (member, "Introspect"))
+          reply = impl_Introspect (bus, message, user_data);
+      else
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
 
   if (result == DBUS_HANDLER_RESULT_HANDLED)

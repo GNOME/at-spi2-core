@@ -60,6 +60,8 @@
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"
 
+#include "introspection.h"
+
 KeySym ucs2keysym (long ucs);
 long keysym2ucs(KeySym keysym); 
 
@@ -2790,9 +2792,52 @@ static void wait_for_release_event (XEvent          *event,
   check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
 }
 
+/*---------------------------------------------------------------------------*/
+
+static const char *introspection_header =
+"<?xml version=\"1.0\"?>\n";
+
+static const char *introspection_node_element =
+"<node name=\"%s\">\n";
+
+static const char *introspection_footer =
+"</node>";
+
+static DBusMessage *
+impl_Introspect (DBusConnection * bus,
+                 DBusMessage * message, void *user_data)
+{
+  GString *output;
+  gchar *final;
+  gint i;
+
+  const gchar *pathstr = SPI_DBUS_PATH_DEC;
+
+  DBusMessage *reply;
+
+  output = g_string_new(introspection_header);
+
+  g_string_append_printf(output, introspection_node_element, pathstr);
+
+  g_string_append (output, spi_org_freedesktop_atspi_DeviceEventController);
+
+  g_string_append(output, introspection_footer);
+  final = g_string_free(output, FALSE);
+
+  reply = dbus_message_new_method_return (message);
+  dbus_message_append_args(reply, DBUS_TYPE_STRING, &final, DBUS_TYPE_INVALID);
+
+  g_free(final);
+  return reply;
+}
+
+/*---------------------------------------------------------------------------*/
+
 static DBusHandlerResult
 handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
+  DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
   const gchar *iface   = dbus_message_get_interface (message);
   const gchar *member  = dbus_message_get_member (message);
   const gint   type    = dbus_message_get_type (message);
@@ -2805,36 +2850,50 @@ handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
       iface  == NULL)
       return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
-  if (strcmp (iface, SPI_DBUS_INTERFACE_DEC))
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-
-  if      (!strcmp (member, "RegisterKeystrokeListener"))
-      reply = impl_register_keystroke_listener (bus, message, user_data);
-  else if (!strcmp (member, "RegisterDeviceEventListener"))
-      reply = impl_register_device_event_listener (bus, message, user_data);
-  else if (!strcmp (member, "DeregisterKeystrokeListener"))
-      reply = impl_deregister_keystroke_listener (bus, message, user_data);
-  else if (!strcmp (member, "DeregisterDeviceEventListener"))
-      reply = impl_deregister_device_event_listener (bus, message, user_data);
-  else if (!strcmp (member, "GenerateKeyboardEvent"))
-      reply = impl_generate_keyboard_event (bus, message, user_data);
-  else if (!strcmp (member, "GenerateMouseEvent"))
-      reply = impl_generate_mouse_event (bus, message, user_data);
-  else if (!strcmp (member, "NotifyListenersSync"))
-      reply = impl_notify_listeners_sync (bus, message, user_data);
-  else if (!strcmp (member, "NotifyListenersAsync"))
-      reply = impl_notify_listeners_async (bus, message, user_data);
-  else
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-
-  if (!reply)
+  if (!strcmp (iface, SPI_DBUS_INTERFACE_DEC))
     {
-      reply = dbus_message_new_method_return (message);
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if      (!strcmp (member, "RegisterKeystrokeListener"))
+          reply = impl_register_keystroke_listener (bus, message, user_data);
+      else if (!strcmp (member, "RegisterDeviceEventListener"))
+          reply = impl_register_device_event_listener (bus, message, user_data);
+      else if (!strcmp (member, "DeregisterKeystrokeListener"))
+          reply = impl_deregister_keystroke_listener (bus, message, user_data);
+      else if (!strcmp (member, "DeregisterDeviceEventListener"))
+          reply = impl_deregister_device_event_listener (bus, message, user_data);
+      else if (!strcmp (member, "GenerateKeyboardEvent"))
+          reply = impl_generate_keyboard_event (bus, message, user_data);
+      else if (!strcmp (member, "GenerateMouseEvent"))
+          reply = impl_generate_mouse_event (bus, message, user_data);
+      else if (!strcmp (member, "NotifyListenersSync"))
+          reply = impl_notify_listeners_sync (bus, message, user_data);
+      else if (!strcmp (member, "NotifyListenersAsync"))
+          reply = impl_notify_listeners_async (bus, message, user_data);
+      else
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
-  dbus_connection_send (bus, reply, NULL);
-  dbus_message_unref (reply);
+
+  if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if      (!strcmp (member, "Introspect"))
+          reply = impl_Introspect (bus, message, user_data);
+      else
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+
+  if (result == DBUS_HANDLER_RESULT_HANDLED)
+    {
+      if (!reply)
+        {
+          reply = dbus_message_new_method_return (message);
+        }
+
+      dbus_connection_send (bus, reply, NULL);
+      dbus_message_unref (reply);
+    }
   
-  return DBUS_HANDLER_RESULT_HANDLED;
+  return result;
 }
 
 static DBusObjectPathVTable dec_vtable =
