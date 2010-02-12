@@ -129,6 +129,7 @@ AC_SUBST(DBUS_SERVICES_DIR)
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_CONFIG_FILES([Makefile
+		 xml/Makefile
 		 registryd/Makefile])
 
 AC_OUTPUT

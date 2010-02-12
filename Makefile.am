@@ -1,3 +1,3 @@
-SUBDIRS=registryd
+SUBDIRS=registryd xml
 
 ACLOCAL_AMFLAGS=-I m4
