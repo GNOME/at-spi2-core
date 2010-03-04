@@ -176,6 +176,12 @@ spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj)
       dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
     }
 
+  if (atk_object_get_role (obj) == ATK_ROLE_APPLICATION)
+    {
+      itf = SPI_DBUS_INTERFACE_APPLICATION;
+      dbus_message_iter_append_basic (iter, DBUS_TYPE_STRING, &itf);
+    }
+
   if (ATK_IS_COMPONENT (obj))
     {
       itf = SPI_DBUS_INTERFACE_COMPONENT;
