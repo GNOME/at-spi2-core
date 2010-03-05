@@ -292,7 +292,9 @@ impl_GetRelationSet (DBusConnection * bus,
     {
       goto oom;
     }
-  count = atk_relation_set_get_n_relations (set);
+  count = 0;
+  if (set)
+    count = atk_relation_set_get_n_relations (set);
   for (i = 0; i < count; i++)
     {
       AtkRelation *r = atk_relation_set_get_relation (set, i);
