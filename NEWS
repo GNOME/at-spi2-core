@@ -1,3 +1,10 @@
+Changes in version 1.29.92:
+=========================
+*
+*Fixes: Bug #608399. Correct the link of accessibility page.
+*Fixes: Bug #606888. Link libatk against libintl.
+*Translation update.
+
 Changes in version 1.29.4:
 ==========================
 *
