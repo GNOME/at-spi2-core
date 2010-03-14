@@ -26,6 +26,7 @@
 #include <string.h>
 #include <glib.h>
 #include <stdio.h>
+#include <dlfcn.h>
 
 #include <dbus/dbus.h>
 #include <dbus/dbus-glib.h>
@@ -37,6 +38,14 @@
 #if !defined ATSPI_INTROSPECTION_PATH
     #error "No introspection XML directory defined"
 #endif
+
+#ifdef RELOCATE
+#define DBUS_GCONF_KEY  "/desktop/gnome/interface/at-spi-dbus"
+#else
+#define CORBA_GCONF_KEY  "/desktop/gnome/interface/at-spi-corba"
+#endif
+
+static gboolean need_to_quit ();
 
 static GMainLoop *mainloop;
 static gchar *dbus_name = NULL;
@@ -275,6 +284,9 @@ spi_get_bus (void)
 
 /*---------------------------------------------------------------------------*/
 
+typedef GObject *(*gconf_client_get_default_t) ();
+typedef gboolean (*gconf_client_get_bool_t)(GObject *, const char *, void *);
+
 int
 main (int argc, char **argv)
 {
@@ -289,6 +301,9 @@ main (int argc, char **argv)
   GError *err = NULL;
   DBusError error;
   int ret;
+
+  if (need_to_quit ())
+    return 0;
 
   g_type_init();
 
@@ -342,4 +357,42 @@ main (int argc, char **argv)
 
   g_main_loop_run (mainloop);
   return 0;
+}
+
+static gboolean
+need_to_quit ()
+{
+  void *gconf = NULL;
+  gconf_client_get_default_t gconf_client_get_default = NULL;
+  gconf_client_get_bool_t gconf_client_get_bool = NULL;
+  GObject *gconf_client;	/* really a GConfClient */
+  gboolean ret;
+
+  gconf = dlopen ("libgconf-2.so", RTLD_LAZY);
+  if (gconf)
+    {
+      gconf_client_get_default = dlsym (gconf, "gconf_client_get_default");
+      gconf_client_get_bool = dlsym (gconf, "gconf_client_get_bool");
+  }
+
+  if (!gconf_client || !gconf_client_get_bool)
+    {
+      if (gconf)
+        dlclose (gconf);
+      return FALSE;
+    }
+
+  /* If we've been relocated, we will exit if the at-spi-corba gconf key
+ * has been set.  If we have not been relocated, we will only run if the
+ * at-spi-dbus gconf key has been set.
+   */
+  gconf_client = gconf_client_get_default ();
+#ifdef RELOCATE
+  ret = !gconf_client_get_bool (gconf_client, DBUS_GCONF_KEY, NULL);
+#else
+  ret = gconf_client_get_bool (gconf_client, CORBA_GCONF_KEY, NULL);
+#endif
+  g_object_unref (gconf_client);
+
+  return ret;
 }

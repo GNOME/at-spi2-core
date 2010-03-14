@@ -128,6 +128,12 @@ AC_SUBST(DBUS_SERVICES_DIR)
 
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
+AC_ARG_ENABLE(relocate, [  --enable-relocate  Relocate to coexist with CORBA [default=yes]], enable_relocate="$enableval", enable_relocate=yes)
+if test x$enable_relocate = xyes ; then
+	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
+fi
+AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
+
 AC_CONFIG_FILES([Makefile
 		 xml/Makefile
 		 registryd/Makefile])
