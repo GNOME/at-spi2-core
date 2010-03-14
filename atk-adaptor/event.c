@@ -72,7 +72,19 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
   closure.loop = g_main_loop_new (NULL, FALSE);
 
-  g_main_loop_run  (closure.loop);
+  if (getenv ("AT_SPI_CLIENT"))
+    {
+      g_main_loop_run  (closure.loop);
+    }
+  else
+    {
+      closure.reply = NULL;
+      while (!closure.reply)
+        {
+          if (!dbus_connection_read_write_dispatch (spi_global_app_data->bus, 1000))
+            return NULL;
+        }
+    }
   
   g_main_loop_unref (closure.loop);
   return closure.reply;
