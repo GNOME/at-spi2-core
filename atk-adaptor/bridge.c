@@ -158,7 +158,7 @@ spi_atk_bridge_get_bus (void)
 
 /*---------------------------------------------------------------------------*/
 
-static void
+static gboolean
 register_application (SpiBridge * app)
 {
   DBusMessage *message, *reply;
@@ -188,12 +188,21 @@ register_application (SpiBridge * app)
       dbus_message_iter_init (reply, &iter);
       dbus_message_iter_recurse (&iter, &iter_struct);
       if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
-            g_error ("AT-SPI: Could not obtain desktop path or name\n");
+        {
+          g_warning ("AT-SPI: Could not obtain desktop path or name\n");
+          return FALSE;
+        }
       dbus_message_iter_get_basic (&iter_struct, &app_name);
       if (!dbus_message_iter_next (&iter_struct))
-            g_error ("AT-SPI: Could not obtain desktop name");
+        {
+          g_warning ("AT-SPI: Could not obtain desktop name");
+          return FALSE;
+        }
       if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))
-            g_error ("AT-SPI: Could not obtain desktop path");
+        {
+          g_warning ("AT-SPI: Could not obtain desktop path");
+          return FALSE;
+        }
       dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
       app->desktop_name = g_strdup (app_name);
@@ -201,9 +210,10 @@ register_application (SpiBridge * app)
     }
   else
     {
-      g_error ("AT-SPI: Could not embed inside desktop: %s\n", error.message);
+      g_warning ("AT-SPI: Could not embed inside desktop: %s\n", error.message);
+      return FALSE;
     }
-
+  return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -413,6 +423,12 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   treepath = droute_add_one (spi_global_app_data->droute,
                              "/org/at_spi/cache", spi_global_cache);
+
+  if (!treepath)
+    {
+      g_warning ("atk-bridge: Error in droute_add_one().  Already running?");
+      return 0;
+    }
 
   accpath = droute_add_many (spi_global_app_data->droute,
                              "/org/a11y/atspi/accessible",

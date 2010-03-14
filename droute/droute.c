@@ -174,7 +174,10 @@ droute_add_one (DRouteContext *cnx,
 
     registered = dbus_connection_register_object_path (cnx->bus, path, &droute_vtable, new_path);
     if (!registered)
-        oom();
+      {
+        path_free (new_path, NULL);
+        return NULL;
+      }
 
     g_ptr_array_add (cnx->registered_paths, new_path);
     return new_path;
