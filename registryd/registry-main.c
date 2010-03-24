@@ -368,6 +368,8 @@ need_to_quit ()
   GObject *gconf_client;	/* really a GConfClient */
   gboolean ret;
 
+  g_type_init ();
+
   gconf = dlopen ("libgconf-2.so", RTLD_LAZY);
   if (gconf)
     {
