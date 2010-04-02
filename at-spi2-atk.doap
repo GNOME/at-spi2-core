@@ -16,4 +16,11 @@
       <gnome:userid>markdoffman</gnome:userid>
     </foaf:Person>
   </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Mike Gorse</foaf:name>
+      <foaf:mbox rdf:resource="mailto:mgorse@novell.com" />
+      <gnome:userid>mgorse</gnome:userid>
+    </foaf:Person>
+  </maintainer>
 </Project>
