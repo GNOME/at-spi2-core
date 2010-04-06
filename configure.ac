@@ -117,6 +117,7 @@ AC_CONFIG_FILES([Makefile
 		 common/Makefile
 		 atk-adaptor/Makefile
 		 atk-adaptor/adaptors/Makefile
+		 po/Makefile.in
 		])
 
 AC_OUTPUT
