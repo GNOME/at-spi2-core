@@ -1,0 +1,61 @@
+# Romanian translation of at-spi
+# Copyright (C) 2003 - 2009 at-spi Free Software Foundation
+# This file is distributed under the same license as the at-spi package.
+# Mișu Moldovan dumol@gnome.ro, 2003 - 2009.
+# Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2010-02-10 18:52+0000\n"
+"PO-Revision-Date: 2010-02-11 23:27+0300\n"
+"Last-Translator: Lucian Adrian Grijincu <lucian.grijincu@gmail.com>\n"
+"Language-Team: Romanian GNOME Team <gnomero-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+"X-Generator: Virtaal 0.5.2\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Activează infrastructura AT-SPI bazată pe DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Module GTK+ pentru accesibilitate"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"În combinație cu /desktop/gnome/interface/accessibility, această cheie este "
+"necesară pentru a activa infrastructura AT-SPI bazată pe DBus dacă aceasta "
+"a fost relocată. Cheia este ignorată dacă infrastructura AT-SPI bazată pe "
+"DBus nu a fost relocată."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Această cheie desemnează modulele GTK+ de încărcat pentru accesibilitate"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Registru AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Registru de accesibilitate"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Registru AT SPI"
+
+#~ msgid "AT SPI Registry Wrapper"
+#~ msgstr "Încapsulare a registrului AT-SPI"

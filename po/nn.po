@@ -1,0 +1,69 @@
+# translation of nn.no.po to Norsk nynorsk
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
+# Åsmund Skjæveland <aasmunds@ulrik.uio.no>, 2003,2009.
+# Torstein Adolf Winterseth <kvikende@fsfe>, 2010.
+# Torstein Adolf Winterseth <kvikende@fsfe.org>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: nn.no\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2010-02-05 19:10+0000\n"
+"PO-Revision-Date: 2010-02-27 13:58+0100\n"
+"Last-Translator: Torstein Adolf Winterseth <kvikende@fsfe.org>\n"
+"Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Slå på DBus-basert AT-SPI-infrastruktur"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "GTK+-modular for tilgjengestøtte"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"I kombinasjon med /dekstop/gnome/interface/accessibility trenst denne "
+"nøkkelen for å slå på DBus-basert AT-SPI-infrastruktur om den DBus- "
+"baserte AT-SPI-infrastrukturen har vorte flytta. Han vert ignorert om "
+"den DBus-baserte AT-SPI-infrastrukturen ikkje har vorte flytta."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Denne nøkkelen avgjer kva GTK+-modular som skal lastast for "
+"tilgjengestøtte."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI-register"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Tilgjengeregister"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+#| msgid "AT-SPI Registry"
+msgid "AT SPI Registry"
+msgstr "AT-SPI-register"
+
+#~ msgid "AT SPI Registry Wrapper"
+#~ msgstr "AT-SPI register-innpakning"
+
+#~ msgid "failure: no device event controller found.\n"
+#~ msgstr "mislykka: fann ingen kontroller for einingshendingar.\n"
+
+#~ msgid "WARNING: NULL key event reported."
+#~ msgstr "ÅTVARING: NULL-tastehending rapportert."

@@ -1,0 +1,50 @@
+# translation of el.po to Greek
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Kostas Papadimas <pkst@gmx.net>, 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: el\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2010-02-05 19:10+0000\n"
+"PO-Revision-Date: 2010-03-16 23:05+0200\n"
+"Last-Translator: Nikos Bakaoukas <nikolaosx1@gmail.com>\n"
+"Language-Team: Greek <team@gnome.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Ενεργοποίηση της βασισμένη σε DBus υποδομή AT-SPI"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Αρθρώματα GTK+ για υποστήριξη προσιτότητας"
+
+#: ../at-spi2.schemas.in.h:3
+#| msgid ""
+#| "In combination with /desktop/gnome/interface/accessibility, this key is "
+#| "needed to enable the DBus-based AT-SPI infrastructure. Otherwise, the D-"
+#| "Bus AT-SPI infrastructure will be used."
+msgid "In combination with /desktop/gnome/interface/accessibility, this key is needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-SPI infrastructure has been relocated. It is ignored if the DBus-based AT-SPI infrastructure has not been relocated."
+msgstr "Σε συνδυασμό με το /desktop/gnome/interface/accessibility, αυτό το κλειδί είναι απαραίτητο για την ενεργοποίηση της , βασισμένης σε DBus, υποδομής AT-SPI εάν η βασισμένη σε DBus, υποδομή AT-SPI έχει μεταφερθεί σε νέα θέση. Θα αγνοηθεί εάν η βασισμένη σε DBus υποδομή AT-SPI δεν έχει μετακινηθεί."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr "Αυτό το κλειδί καθορίζει τα αρθρώματα GTK+ που θα φορτωθούν για την υποστήριξη προσιτότητας."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Μητρώο AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Μητρώο προσιτότητας"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+#| msgid "AT-SPI Registry"
+msgid "AT SPI Registry"
+msgstr "Μητρώο AT SPI"
+

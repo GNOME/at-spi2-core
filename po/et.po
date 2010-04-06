@@ -1,0 +1,53 @@
+# AT-SPI eesti keele tõlge.
+# Estonian translation for At-spi
+#
+# Copyright (C) 1999-2003 Free Software Foundation, Inc.
+# Copyright (C) 2008, 2009 The GNOME Project.
+# This file is distributed under the same license as the At-spi package.
+#
+# Priit Laes <amd tt ee>, 2003.
+# Ivar Smolin <okul linux ee>, 2008, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: At-spi MASTER\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2010-03-08 10:37+0000\n"
+"PO-Revision-Date: 2010-03-09 11:25+0300\n"
+"Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
+"Language-Team: Estonian <gnome-et@linux.ee>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "DBus-l põhineva AT-SPI infrastruktuuri lubamine"
+
+msgid "GTK+ modules for accessibility support"
+msgstr "Hõlbustuste toetamiseks määratud GTK+ moodulid"
+
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"Seda võtit on koos /desktop/gnome/interface/accessibility võtmega vaja DBus-"
+"l põhineva AT-SPI infrastruktuuri kasutamiseks, kui viimane on ümber "
+"paigutatud. Seda eiratakse, kui DBus-l põhinev AT-SPI infrastruktuuri ei "
+"ole ümberpaigutatud."
+
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Selle võtmega määratakse hõlbustuste toetamiseks laaditavaf GTK+ moodulid."
+
+msgid "AT-SPI Registry"
+msgstr "AT-SPI register"
+
+msgid "Accessibility Registry"
+msgstr "Hõlbustuste register"
+
+msgid "AT SPI Registry"
+msgstr "AT SPI register"

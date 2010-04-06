@@ -1,0 +1,60 @@
+# Brazilian Portuguese Translation for AT-SPI
+# Copyright (C) 2003, 2009 Gnome Foundation
+# This file is distributed under the same license as the at-spi package.
+# Gustavo Noronha Silva <kov@debian.org>, 2003.
+# Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2008.
+# Og Maciel <ogmaciel@gnome.org>, 2009.
+# Enrico Nicoletto <liverig@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-28 08:45-0300\n"
+"PO-Revision-Date: 2010-02-27 18:04-0300\n"
+"Last-Translator: Vladimir Melo <vmelo@gnome.org>\n"
+"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Ativar infra-estrutura AT-SPI baseada no DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Módulos de GTK+ para suporte a acessibilidade"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"Esta chave é necessária em combinação com /desktop/gnome/interface/"
+"accessibility para habilitar a infra-estrutura AT-SPI baseada no DBus se "
+"esta for realocada. Será ignorada se a infra-estrutura AT-SPI baseada no "
+"DBus não for realocada."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Esta chave determina quais módulos GTK+ carregar para dar suporte a "
+"acessibilidade."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Registro AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Registro de acessibilidade"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Registro AT-SPI"
+
+#~ msgid "AT SPI Registry Wrapper"
+#~ msgstr "Wrapper de registro AT SPI"

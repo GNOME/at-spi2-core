@@ -1,0 +1,56 @@
+# Slovak translation for at-spi.
+# Copyright (C) 2003, 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi package.
+# Marcel Telka <marcel@telka.sk>, 2003, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2010-02-22 00:51+0000\n"
+"PO-Revision-Date: 2010-02-23 00:36+0100\n"
+"Last-Translator: Marcel Telka <marcel@telka.sk>\n"
+"Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Povoliť infraštruktúru AT-SPI založenú na technológii DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Moduly GTK+ pre podporu prístupnosti"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"Tento kľúč, v kombinácii s /desktop/gnome/interface/accessibility, je "
+"potrebný na povolenie infraštruktúry AT-SPI založenej na technológii DBus, "
+"ak infraštruktúra AT-SPI založená na technológii DBus bola premiestnená. Je "
+"to ignorované, ak infraštruktúra AT-SPI založená na technológii DBus nebola "
+"premiestnená."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Tento kľúč určuje moduly GTK+, ktoré majú byť zavedené na podporu "
+"prístupnosti."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Register AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Register prístupnosti"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Register AT SPI"

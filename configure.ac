@@ -22,6 +22,9 @@ AC_SUBST(LT_AGE)
 
 AM_INIT_AUTOMAKE([-Wall foreign])
 
+dnl translation of any at-spi strings: used only for .server
+IT_PROG_INTLTOOL([0.40.0])
+
 AC_PROG_CC
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
@@ -60,6 +63,10 @@ AC_SUBST(ATK_CFLAGS)
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 >= 2.10.0])
 AC_SUBST(GTK_LIBS)
 AC_SUBST(GTK_CFLAGS)
+
+dnl GConf checks
+AC_PATH_PROG(GCONFTOOL, gconftool-2)
+AM_GCONF_SOURCE_2
 
 AC_PATH_XTRA
 

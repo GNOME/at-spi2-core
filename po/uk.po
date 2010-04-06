@@ -1,0 +1,52 @@
+# translation of at-spi.HEAD.po to ukrainian
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
+# Taras Boychuk <btr1@torba.com>, 2003
+# Maxim V. Dziumanenko <dziumanenko@gmail.com>, 2005-2010
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-04 15:29+0200\n"
+"PO-Revision-Date: 2010-01-04 09:33+0300\n"
+"Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Увімкнути основану на DBus інфраструктуру AT-SPI"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Підтримка модулів допоміжних можливостей GTK+"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure. Otherwise, the D-Bus "
+"AT-SPI infrastructure will be used."
+msgstr ""
+"У комбінації з /desktop/gnome/interface/accessibility, цей ключ "
+"потрібен для вмикання основаної на DBus інфраструктури AT-SPI. У іншому разі, використовується інфраструктура на базі D-Bus."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr "Цей ключ визначає модулі GTK+ для підтримки допоміжних можливостей."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Реєстр системи AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Реєстр системи спеціальних можливостей"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Реєстр AT SPI"
+
+

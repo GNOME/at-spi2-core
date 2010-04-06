@@ -1,0 +1,54 @@
+# translation of at-spi to Hungarian
+# This file is distributed under the same license as the at-spi package.
+# Copyright (C) 2005, 2008, 2009, 2010, Free Software Foundation, Inc.
+#
+# Szabolcs Varga <shirokuma at shirokuma dot hu>, 2005.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2005, 2008, 2009, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-25 21:49+0100\n"
+"PO-Revision-Date: 2010-02-25 21:52+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Language-Team: Hungarian <gnome at fsf dot hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "DBus-alapú AT-SPI infrastruktúra engedélyezése"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "GTK+ modulok az akadálymentesítés támogatásához"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr "A /desktop/gnome/interface/accessibility kulccsal együtt ez a kulcs a DBus-alapú AT-SPI infrastruktúra engedélyezéséhez szükséges, ha azt áthelyezték. Ellenkező esetben figyelmen kívül marad."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Ez a kulcs meghatározza az akadálymentesítés támogatásához betöltendő GTK+ "
+"modulokat."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI nyilvántartás"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Akadálymentesítési nyilvántartás"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "AT SPI nyilvántartás"
+

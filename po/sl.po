@@ -1,0 +1,60 @@
+# Slovenian translation file for at-spi.
+# Copyright (C) 2002 Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi package.
+#
+# Andraz Tori <andraz.tori1@guest.arnes.si>, 2002
+# Matej Urbančič <mateju@svn.gnome.org>, 2008 - 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2010-02-09 01:59+0000\n"
+"PO-Revision-Date: 2010-02-10 09:30+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"X-Launchpad-Export-Date: 2007-10-05 05:48+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Omogoči DBus AT-SPI infrastrukturo"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Moduli GTK+ za podporo dostopnosti"
+
+#: ../at-spi2.schemas.in.h:3
+msgid "In combination with /desktop/gnome/interface/accessibility, this key is needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-SPI infrastructure has been relocated. It is ignored if the DBus-based AT-SPI infrastructure has not been relocated."
+msgstr "V povezavi z /desktop/gnome/interface/accessibility je ključ namenjen omogočanju DBus AT-SPI infrastrukture, v kolikor je DBus AT-SPI infrastruktura premaknjena. Možnost bo prezrta, če DBus AT-SPI infrastruktura ni premaknjena."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr "Ključ določa module GTK+, ki se morajo naložiti pred uporabo podpore dostopnosti."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Vpisnik AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Vpisnik dostopnosti"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Vpisnik AT-SPI"
+
+#~ msgid "AT SPI Registry Wrapper"
+#~ msgstr "Ovijalnik vpisnika AT-SPI"
+#~ msgid "failure: no device event controller found.\n"
+#~ msgstr "napaka: ni mogoče najti ustreznega nadzornika dogodkov.\n"
+#~ msgid "WARNING: NULL key event reported."
+#~ msgstr "OPOZORILO: poslano sporočilo ključa NULL."
+

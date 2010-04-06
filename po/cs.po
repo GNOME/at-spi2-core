@@ -1,0 +1,54 @@
+# Czech translation of at-spi.
+# Copyright (C) 2008 the author(s) of at-spi.
+# This file is distributed under the same license as the at-spi package.
+# Miloslav Trmac <mitr@volny.cz>, 2003.
+# Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-01 19:14+0100\n"
+"PO-Revision-Date: 2010-01-21 21:23+0100\n"
+"Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Povolit infrastrukturu AT-SPI založenou na standardu DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Moduly GTK+ sloužící k podpoře přístupnosti"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"Tento klíč spolu s /desktop/gnome/interface/accessibility vám umožní použití "
+"infrastruktury AT-SPI založené na standardu DBus, pokud byla přemístěna. "
+"Pokud přemístěna nebyla, bude klíč ignorován."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Tento klíč způsobí, že budou nahrány moduly GTK+ sloužící k podpoře "
+"přístupnosti."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Registr AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Registr usnadnění"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Registr AT SPI"

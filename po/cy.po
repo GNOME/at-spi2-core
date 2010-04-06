@@ -1,0 +1,50 @@
+# at-spi yn Gymraeg.
+# Copyright (C) 2003 The Free Software Foundation
+# This file is distributed under the same license as the at-spi package.
+# Dafydd Harries <daf@parnassus.ath.cx>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-18 13:26+0000\n"
+"PO-Revision-Date: 2009-12-18 13:47+0100\n"
+"Last-Translator: Iestyn Pryce <dylunio@gmail.com>\n"
+"Language-Team: Cymraeg <gnome-cy@www.linux.org.uk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Galluogi'r strwythur mewnol AT-SPI sydd wedi'i seilio ar DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Modiwlau GTK+ sydd ar gyfer cymorth hygyrchedd"
+
+#: ../at-spi2.schemas.in.h:3
+msgid "In combination with /desktop/gnome/interface/accessibility, this key is needed to enable the DBus-based AT-SPI infrastructure. Otherwise, the D-Bus AT-SPI infrastructure will be used."
+msgstr "Yng hyd â /desktop/gnome/interface/accessibility, mae'r allwedd hon ei hangen er mwyn galluogi'r strwythur mewnol AT-SPI sydd wedi'i selio ar DBus. Fel arall mi fydd y strwythur mewnol D-BUS AT-SPI yn cael ei ddefnyddio."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr "Mae'r allwedd hon yn pennu pa modiwlau cymorth hygyrchedd GTK+ sydd am gael eu llwytho."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "Cofrestrfa AT-SPI"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Cofrestrfa Hygyrchedd"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "Cofrestrfa AT SPI"
+
+#~ msgid "failure: no device event controller found.\n"
+#~ msgstr "methiant: dim rheolwr digwyddiad dyfaid wedi ei ganfod.\n"
+#~ msgid "WARNING: NULL key event reported."
+#~ msgstr "RHYBUDD: adroddwyd digwyddiad allwedd NULL."
+

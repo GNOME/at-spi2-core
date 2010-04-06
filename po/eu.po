@@ -1,0 +1,57 @@
+# translation of eu.po to Basque
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+#
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2003, 2008, 2009, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: eu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-03-02 12:29+0100\n"
+"PO-Revision-Date: 2010-03-02 12:30+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Gaitu DBusn oinarritutako AT-SPI azpiegitura"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "GTK+ moduloak erabilgarritasunaren euskarriarentzako"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"Gako hau behar da, /desktop/gnome/interface/accessibility-rekin konbinatuta, "
+"DBusn oinarritutako AT-SPI azpiegitura gaitzeko (baldin eta DBusn oinarritutako "
+"AT-SPI azpiegitura lekuz aldatu bada). Ezikusi egingo zaio DBusn oinarritutako "
+"AT-SPI azpiegitura ez bada lekuz aldatu."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Gako honek kargatuko diren GTK+ moduluak zehazten ditu erabilgarritasunaren "
+"euskarriarentzako."
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:1
+msgid "AT-SPI Registry"
+msgstr "AT-SPI Erregistroa"
+
+#: ../registryd/Accessibility_Registry.server.in.in.h:2
+msgid "Accessibility Registry"
+msgstr "Erabilerraztasun Erregistroa"
+
+#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
+msgid "AT SPI Registry"
+msgstr "AT-SPI erregistroa"
+
