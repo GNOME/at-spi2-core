@@ -4,19 +4,19 @@
 # Yi Yang <yang_yi_cn@yahoo.com>, 2003.
 # 甘露(Gan Lu) <rhythm.gan@gmail.com>, 2009.
 # Aron Xu <happyaron.xu@gmail.com>, 2009.
-# Ray Wang <raywang@gnome.org>, 2009.
+# Ray Wang <raywang@gnome.org>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&component=general\n"
-"POT-Creation-Date: 2010-01-15 17:13+0000\n"
-"PO-Revision-Date: 2009-10-30 10:26+0800\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-08 10:11+0800\n"
+"PO-Revision-Date: 2010-04-08 10:10+0800\n"
 "Last-Translator: Ray Wang <raywang@gnome.org>\n"
 "Language-Team: Chinese (Simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: utf-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../at-spi2.schemas.in.h:1
 msgid "Enable DBus-based AT-SPI infrastructure"
@@ -29,27 +29,26 @@ msgstr "提供辅助功能支持的 GTK+ 模块"
 #: ../at-spi2.schemas.in.h:3
 msgid ""
 "In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure. Otherwise, the D-Bus "
-"AT-SPI infrastructure will be used."
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
 msgstr ""
-"由于与 /desktop/gnome/interface/accessibility 键进行了绑定，要打开基于 DBus "
-"的 AT-SPI，该键也是需要打开的。否则，基于 D-Bus 的 AT-SPI 将被使用。"
+"由于与 /desktop/gnome/interface/accessibility 键进行了绑定，如果要开启安装文"
+"件位置被重定位的基于 DBus 的 AT-SPI，则该键需要被勾选。如果基于 DBus 的 AT-"
+"SPI 安装文件位置未被重定位，则该键被忽略。"
 
 #: ../at-spi2.schemas.in.h:4
 msgid "This key determines the GTK+ modules to load for accessibility support."
 msgstr "该键值决定 GTK+ 模块是否载入辅助功能支持。"
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "AT-SPI 注册项"
+#~ msgid "AT-SPI Registry"
+#~ msgstr "AT-SPI 注册项"
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "辅助功能注册项"
+#~ msgid "Accessibility Registry"
+#~ msgstr "辅助功能注册项"
 
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "AT SPI 注册项"
+#~ msgid "AT SPI Registry"
+#~ msgstr "AT SPI 注册项"
 
 #~ msgid "AT SPI Registry Wrapper"
 #~ msgstr "AT-SPI 注册项封装器"
