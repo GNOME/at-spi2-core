@@ -60,7 +60,7 @@ str_pair_hash (gconstpointer key)
     if (*(pair->two) != '\0')
       {
         hash = *(pair->two);
-        hash = str_hash (hash, ++(pair->two));
+        hash = str_hash (hash, pair->two);
         hash = str_hash (hash, pair->one);
       }
 

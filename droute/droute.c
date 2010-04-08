@@ -286,7 +286,7 @@ impl_prop_GetAll (DBusMessage *message,
                         (&iter_dict, DBUS_TYPE_DICT_ENTRY, NULL, &iter_dict_entry))
               oom ();
            dbus_message_iter_append_basic (&iter_dict_entry, DBUS_TYPE_STRING,
-                                           key->two);
+                                           &key->two);
            (value->get) (&iter_dict_entry, datum);
            if (!dbus_message_iter_close_container (&iter_dict, &iter_dict_entry))
                oom ();
