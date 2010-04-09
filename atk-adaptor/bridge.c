@@ -305,7 +305,7 @@ socket_embed_hook (AtkSocket * socket, gchar * plug_id)
     {
       DBusMessage *message;
       *(plug_path++) = '\0';
-      message = dbus_message_new_method_call (plug_name, plug_path, "org.a11y.atspi.Accessible", "Embedded");
+      message = dbus_message_new_method_call (plug_name, plug_path, SPI_DBUS_INTERFACE_SOCKET, "Embedded");
       dbus_message_append_args (message, DBUS_TYPE_STRING, &path, DBUS_TYPE_INVALID);
       dbus_connection_send (spi_global_app_data->bus, message, NULL);
     }
@@ -450,6 +450,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   spi_initialize_hypertext (accpath);
   spi_initialize_image (accpath);
   spi_initialize_selection (accpath);
+  spi_initialize_socket (accpath);
   spi_initialize_table (accpath);
   spi_initialize_text (accpath);
   spi_initialize_value (accpath);
@@ -461,7 +462,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   install_plug_hooks ();
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
-  if (!atspi_no_register)
+  if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
     register_application (spi_global_app_data);
 
   g_atexit (exit_func);
