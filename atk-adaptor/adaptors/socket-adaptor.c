@@ -78,9 +78,9 @@ atspi_plug_component_get_extents (AtkComponent *component, gint *x, gint *y,
   if (!reply)
     return;
   signature = dbus_message_get_signature (reply);
-  if (strcmp (signature, "(iiii)") != 0)
+  if (g_strcmp0 (signature, "(iiii)") != 0)
   {
-    g_warning ("Got unexpected signature %s from GetExtents: %s\n", signature);
+    g_warning ("Got unexpected signature %s from GetExtents\n", signature);
     dbus_message_unref (reply);
     return;
   }
