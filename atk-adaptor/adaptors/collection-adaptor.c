@@ -538,7 +538,8 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
   /* Add to the list if it matches */
   if (flag && match_interfaces_lookup (obj, mrp)
       && match_states_lookup (obj, mrp)
-      && match_roles_lookup (obj, mrp) && match_attributes_lookup (obj, mrp))
+      && match_roles_lookup (obj, mrp) && match_attributes_lookup (obj, mrp)
+      && (max == 0 || kount < max))
     {
       ls = g_list_append (ls, obj);
       kount++;
@@ -551,7 +552,7 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
   indexinparent = atk_object_get_index_in_parent (obj);
   parent = atk_object_get_parent (obj);
 
-  if (indexinparent > 0)
+  if (indexinparent > 0 && (max == 0 || kount < max))
     {
       /* there are still some siblings to visit so get the previous sibling
          and get it's last descendant.
@@ -571,7 +572,7 @@ sort_order_rev_canonical (MatchRulePrivate * mrp, GList * ls,
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
                                         nextobj, TRUE, pobj);
     }
-  else
+  else if (max == 0 || kount < max)
     {
       /* no more siblings so next node must be the parent */
       kount = sort_order_rev_canonical (mrp, ls, kount, max,
@@ -844,7 +845,7 @@ inorder (AtkObject * collection, MatchRulePrivate * mrp,
       obj = parent;
     }
 
-  if (kount < max)
+  if (max == 0 || kount < max)
     {
       kount = sort_order_canonical (mrp, ls, kount, max,
                                     obj, i + 1, TRUE, FALSE, TRUE, TRUE);
