@@ -43,7 +43,7 @@ static dbus_bool_t
 impl_get_NAnchors (DBusMessageIter * iter, void *user_data)
 {
   AtkHyperlink *link = (AtkHyperlink *) user_data;
-  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_n_anchors (link));
 }
 
@@ -52,7 +52,7 @@ static dbus_bool_t
 impl_get_StartIndex (DBusMessageIter * iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
-  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_start_index (link));
 }
 
@@ -60,7 +60,7 @@ static dbus_bool_t
 impl_get_EndIndex (DBusMessageIter * iter, void *user_data)
 {
   AtkHyperlink *link = get_hyperlink (user_data);
-  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data), FALSE);
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link), FALSE);
   return droute_return_v_int32 (iter, atk_hyperlink_get_end_index (link));
 }
 
@@ -72,7 +72,7 @@ impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_int32_t i;
   AtkObject *atk_object;
 
-  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data),
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link),
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
@@ -93,7 +93,7 @@ impl_GetURI (DBusConnection * bus, DBusMessage * message, void *user_data)
   gchar *rv;
   DBusMessage *reply;
 
-  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data),
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link),
                         droute_not_yet_handled_error (message));
   dbus_error_init (&error);
   if (!dbus_message_get_args
@@ -122,7 +122,7 @@ impl_IsValid (DBusConnection * bus, DBusMessage * message, void *user_data)
   dbus_bool_t rv;
   DBusMessage *reply;
 
-  g_return_val_if_fail (ATK_IS_HYPERLINK (user_data),
+  g_return_val_if_fail (ATK_IS_HYPERLINK (link),
                         droute_not_yet_handled_error (message));
 
   rv = atk_hyperlink_is_valid (link);
