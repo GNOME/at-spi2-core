@@ -156,6 +156,31 @@ spi_atk_bridge_get_bus (void)
   return bus;
 }
 
+static void
+set_reply (DBusPendingCall *pending, void *user_data)
+{
+    void **replyptr = (void **)user_data;
+
+    *replyptr = dbus_pending_call_steal_reply (pending);
+}
+
+static DBusMessage *
+send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *error)
+{
+    DBusPendingCall *pending;
+    DBusMessage *reply = NULL;
+
+    if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
+    {
+        return NULL;
+    }
+    dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
+    while (!reply)
+    {
+      if (!dbus_connection_read_write_dispatch (bus, -1)) return NULL;
+    }
+    return reply;
+}
 /*---------------------------------------------------------------------------*/
 
 static gboolean
@@ -174,8 +199,8 @@ register_application (SpiBridge * app)
 
   dbus_message_iter_init_append (message, &iter);
   spi_object_append_reference (&iter, app->root);
-
-  reply = dbus_connection_send_with_reply_and_block (app->bus, message, -1, &error);
+  
+  reply = send_and_allow_reentry (app->bus, message, &error);
 
   if (message)
     dbus_message_unref (message);
