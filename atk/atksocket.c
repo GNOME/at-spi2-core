@@ -20,9 +20,12 @@
 #include "atk.h"
 #include "atksocket.h"
 
-G_DEFINE_TYPE (AtkSocket, atk_socket, ATK_TYPE_OBJECT);
-
 static void atk_socket_class_init (AtkSocketClass *klass);
+
+static void atk_component_interface_init (AtkComponentIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (AtkSocket, atk_socket, ATK_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init))
 
 static void
 atk_socket_init (AtkSocket* obj)
@@ -34,6 +37,10 @@ static void
 atk_socket_class_init (AtkSocketClass* klass)
 {
   klass->embed = NULL;
+}
+
+static void atk_component_interface_init (AtkComponentIface *iface)
+{
 }
 
 AtkObject*

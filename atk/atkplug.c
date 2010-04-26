@@ -20,9 +20,12 @@
 #include "atk.h"
 #include "atkplug.h"
 
-G_DEFINE_TYPE (AtkPlug, atk_plug, ATK_TYPE_OBJECT);
+static void atk_component_interface_init (AtkComponentIface *iface);
 
 static void atk_plug_class_init (AtkPlugClass *klass);
+
+G_DEFINE_TYPE_WITH_CODE (AtkPlug, atk_plug, ATK_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT, atk_component_interface_init))
 
 static void
 atk_plug_init (AtkPlug* obj)
@@ -33,6 +36,11 @@ static void
 atk_plug_class_init (AtkPlugClass* klass)
 {
   klass->get_object_id = NULL;
+}
+
+static void
+atk_component_interface_init (AtkComponentIface *iface)
+{
 }
 
 AtkObject*
