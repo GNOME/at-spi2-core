@@ -433,6 +433,9 @@ adaptor_init (gint * argc, gchar ** argv[])
   dbus_connection_setup_with_g_main (spi_global_app_data->bus,
                                      g_main_context_default ());
 
+  /* Hook our plug-and socket functions */
+  install_plug_hooks ();
+
   /* 
    * Create the leasing, register and cache objects.
    * The order is important here, the cache depends on the
@@ -482,9 +485,6 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
-
-  /* Hook our plug-and socket functions */
-  install_plug_hooks ();
 
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
