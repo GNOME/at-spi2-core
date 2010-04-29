@@ -210,24 +210,16 @@ register_application (SpiBridge * app)
       DBusMessageIter iter, iter_struct;
       gchar *app_name, *obj_path;
 
-      dbus_message_iter_init (reply, &iter);
-      dbus_message_iter_recurse (&iter, &iter_struct);
-      if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_STRING))
+      if (strcmp (dbus_message_get_signature (reply), "(so)") != 0)
         {
           g_warning ("AT-SPI: Could not obtain desktop path or name\n");
           return FALSE;
         }
+
+      dbus_message_iter_init (reply, &iter);
+      dbus_message_iter_recurse (&iter, &iter_struct);
       dbus_message_iter_get_basic (&iter_struct, &app_name);
-      if (!dbus_message_iter_next (&iter_struct))
-        {
-          g_warning ("AT-SPI: Could not obtain desktop name");
-          return FALSE;
-        }
-      if (!(dbus_message_iter_get_arg_type (&iter_struct) == DBUS_TYPE_OBJECT_PATH))
-        {
-          g_warning ("AT-SPI: Could not obtain desktop path");
-          return FALSE;
-        }
+      dbus_message_iter_next (&iter_struct);
       dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
       app->desktop_name = g_strdup (app_name);
