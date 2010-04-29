@@ -155,6 +155,32 @@ add_application (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const
   children_added_listener (bus, reg->apps->len - 1, name, path);
 }
 
+#include <stdio.h>	//tmp. for dbg.
+static void
+set_id (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
+{
+  DBusMessage *message;
+  DBusMessageIter iter, iter_variant;
+  const char *iface_application = "org.a11y.atspi.Application";
+  const char *id = "Id";
+
+FILE *fp=fopen("/home/mgorse/xx","r");if(!fp)return;fclose(fp);
+  message = dbus_message_new_method_call (name, path,
+                                          DBUS_INTERFACE_PROPERTIES, "Set");
+  if (!message)
+    return;
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &iface_application);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
+  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &reg->id);
+  /* TODO: This will cause problems if we cycle through 2^31 ids */
+  reg->id++;
+  dbus_message_iter_close_container (&iter, &iter_variant);
+  dbus_connection_send (bus, message, NULL);
+  dbus_message_unref (message);
+}
+
 static void
 remove_application (SpiRegistry *reg, DBusConnection *bus, guint index)
 {
@@ -234,6 +260,8 @@ impl_Embed (DBusConnection *bus, DBusMessage *message, void *user_data)
   dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
   add_application(reg, bus, app_name, obj_path);
+
+  set_id (reg, bus, app_name, obj_path);
 
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &reply_iter);
