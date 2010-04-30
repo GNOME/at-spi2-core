@@ -182,30 +182,6 @@ FILE *fp=fopen("/home/mgorse/xx","r");if(!fp)return;fclose(fp);
 }
 
 static void
-set_id (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
-{
-  DBusMessage *message;
-  DBusMessageIter iter, iter_variant;
-  const char *iface_application = "org.a11y.atspi.Application";
-  const char *id = "Id";
-
-  message = dbus_message_new_method_call (name, path,
-                                          DBUS_INTERFACE_PROPERTIES, "Set");
-  if (!message)
-    return;
-  dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &iface_application);
-  dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &id);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "i", &iter_variant);
-  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &reg->id);
-  /* TODO: This will cause problems if we cycle through 2^31 ids */
-  reg->id++;
-  dbus_message_iter_close_container (&iter, &iter_variant);
-  dbus_connection_send (bus, message, NULL);
-  dbus_message_unref (message);
-}
-
-static void
 remove_application (SpiRegistry *reg, DBusConnection *bus, guint index)
 {
   const gchar *name = "";
