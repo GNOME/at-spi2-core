@@ -155,7 +155,6 @@ add_application (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const
   children_added_listener (bus, reg->apps->len - 1, name, path);
 }
 
-#include <stdio.h>	//tmp. for dbg.
 static void
 set_id (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *path)
 {
@@ -164,7 +163,6 @@ set_id (SpiRegistry *reg, DBusConnection *bus, const gchar *name, const gchar *p
   const char *iface_application = "org.a11y.atspi.Application";
   const char *id = "Id";
 
-FILE *fp=fopen("/home/mgorse/xx","r");if(!fp)return;fclose(fp);
   message = dbus_message_new_method_call (name, path,
                                           DBUS_INTERFACE_PROPERTIES, "Set");
   if (!message)
