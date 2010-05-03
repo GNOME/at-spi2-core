@@ -20,4 +20,4 @@ EXTRA_DIST = \
 	$(schemas_in_files)
 
 CLEANFILES = \
-	$(schemas_data)
+	$(schemas_DATA)
