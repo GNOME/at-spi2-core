@@ -86,7 +86,7 @@ match_states_all_p (AtkObject * child, gint * set)
   gint i;
   gboolean ret = TRUE;
 
-  if (set == NULL)
+  if (set == NULL || set[0] == BITARRAY_SEQ_TERM)
     return TRUE;
 
   chs = atk_object_ref_state_set (child);
@@ -112,7 +112,7 @@ match_states_any_p (AtkObject * child, gint * set)
   gint i;
   gboolean ret = FALSE;
 
-  if (set == NULL)
+  if (set == NULL || set[0] == BITARRAY_SEQ_TERM)
     return TRUE;
 
   chs = atk_object_ref_state_set (child);
@@ -137,7 +137,7 @@ match_states_none_p (AtkObject * child, gint * set)
   gint i;
   gboolean ret = TRUE;
 
-  if (set == NULL)
+  if (set == NULL || set[0] == BITARRAY_SEQ_TERM)
     return TRUE;
 
   chs = atk_object_ref_state_set (child);
