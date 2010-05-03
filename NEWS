@@ -1,0 +1,5 @@
+What's new in at-spi2-core 0.3.1:
+
+* Set an application's Id when registering it.
+
+* Disabled relocation by default.
