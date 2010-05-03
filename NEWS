@@ -1,0 +1,26 @@
+What's new in at-spi2-atk 0.3.1:
+
+* Added a gconf schema.
+
+* org.freedesktop.DBus.Properties.GetAll now works rather then crashing.
+
+* The position, size, and extents of an AtkSocket are now fetched from the
+corresponding AtkPlug.
+
+* An application is no longer registered if its root is an AtkPlug.
+
+* Fix BGO#538680 - Count ignored in GetMatchesTo
+
+* Fix FDO#27626 - deadlock when registering an application.
+
+* Fix a problem with various hyperlink methods.
+
+* Fix for an AtkPlug sometimes not appearing in the hierarchy.
+
+* Fix a crash if the registry returns an unexpected message while embedding.
+
+* Remove libxml2 dependency since libxml2 is no longer used.
+
+* Fix handling of MATCH_ANY for a stateset in a collection match rule.
+
+* Disabled relocation by default.
