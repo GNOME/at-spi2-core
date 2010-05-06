@@ -30,7 +30,7 @@ libatk_1_0_la_LIBADD = \
        $(DEP_LIBS)     \
        $(INTLLIBS)
 
-libatk_1_0_la_SOURCES = 	\
+atk_sources = 	\
 	atkaction.c		\
 	atkcomponent.c		\
 	atkdocument.c		\
@@ -57,7 +57,10 @@ libatk_1_0_la_SOURCES = 	\
 	atktext.c		\
 	atkutil.c		\
 	atkmisc.c		\
-	atkvalue.c		\
+	atkvalue.c
+
+libatk_1_0_la_SOURCES = 	\
+	$(atk_sources)		\
 	atk-enum-types.c
 
 libatkincludedir=$(includedir)/atk-1.0/atk
@@ -148,14 +151,19 @@ s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
 
 if HAVE_INTROSPECTION
 introspection_sources = \
-    $(libatkinclude_HEADERS) \
-    $(libatk_1_0_la_SOURCES)
+    $(atk_headers)	\
+    $(atk_sources)
+introspection_generated_sources = \
+    atk-enum-types.c	\
+    atk-enum-types.h
 
 Atk-1.0.gir: libatk-1.0.la
 Atk_1_0_gir_INCLUDES = GObject-2.0
 Atk_1_0_gir_CFLAGS = $(INCLUDES)
 Atk_1_0_gir_LIBS = libatk-1.0.la
-Atk_1_0_gir_FILES = $(addprefix $(srcdir)/, $(introspection_sources))
+Atk_1_0_gir_FILES = \
+    $(addprefix $(srcdir)/, $(introspection_sources))	\
+    $(introspection_generated_sources)
 INTROSPECTION_GIRS += Atk-1.0.gir
 
 girdir = $(datadir)/gir-1.0
