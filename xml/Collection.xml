@@ -14,7 +14,7 @@
 
   <method name="GetMatchesTo">
     <arg direction="in" name="current_object" type="o"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiAccessibleObject"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiObjectReference"/>
     <arg direction="in" name="rule" type="(auuasuauusub)"/>
     <annotation name="com.trolltech.QtDBus.QtTypeName.In1" value="QSpiMatchRule"/>
     <arg direction="in" name="sortby" type="u"/>
@@ -28,7 +28,7 @@
 
   <method name="GetMatchesFrom">
     <arg direction="in" name="current_object" type="o"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiAccessibleObject"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.In0" value="QSpiObjectReference"/>
     <arg direction="in" name="rule" type="(auuasuauusub)"/>
     <annotation name="com.trolltech.QtDBus.QtTypeName.In1" value="QSpiMatchRule"/>
     <arg direction="in" name="sortby" type="u"/>

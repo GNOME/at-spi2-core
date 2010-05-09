@@ -60,12 +60,12 @@
     <arg direction="out" type="a{ss}"/>
     <arg direction="out" name="startOffset" type="i"/>
     <arg direction="out" name="endOffset" type="i"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeArray"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
   </method>
 
   <method name="GetDefaultAttributes">
     <arg direction="out" type="a{ss}"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeArray"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
   </method>
 
   <method name="GetCharacterExtents">
@@ -140,7 +140,7 @@
     <arg direction="out" type="a{ss}"/>
     <arg direction="out" name="startOffset" type="i"/>
     <arg direction="out" name="endOffset" type="i"/>
-    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeArray"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiAttributeSet"/>
   </method>
 
   <method name="GetDefaultAttributeSet">
