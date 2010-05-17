@@ -31,6 +31,9 @@ void
 spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj);
 
 void
+spi_hyperlink_append_reference (DBusMessageIter * iter, AtkObject * obj);
+
+void
 spi_object_append_v_reference (DBusMessageIter * iter, AtkObject * obj);
 
 void
@@ -41,6 +44,9 @@ spi_object_append_null_reference (DBusMessageIter * iter);
 
 DBusMessage *
 spi_object_return_reference (DBusMessage * msg, AtkObject * obj);
+
+DBusMessage *
+spi_hyperlink_return_reference (DBusMessage * msg, AtkHyperlink * obj);
 
 void
 spi_object_append_interfaces (DBusMessageIter * iter, AtkObject * obj);

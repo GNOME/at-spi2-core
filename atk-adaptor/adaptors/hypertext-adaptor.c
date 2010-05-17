@@ -66,7 +66,10 @@ impl_GetLink (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   link = atk_hypertext_get_link (hypertext, linkIndex);
-  return spi_object_return_reference (message, ATK_OBJECT (hypertext));
+  /*The above line doesn't ref the link, and the next call is going to unref*/
+  if (link)
+    g_object_ref (link);
+  return spi_hyperlink_return_reference (message, link);
 }
 
 static DBusMessage *

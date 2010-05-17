@@ -56,11 +56,11 @@
  * has not found and assume that they need to be leased.
  */
 static void
-maybe_lease (AtkObject *obj)
+maybe_lease (GObject *obj)
 {
-  if (!spi_cache_in (spi_global_cache, G_OBJECT (obj)))
+  if (!spi_cache_in (spi_global_cache, obj))
     {
-      spi_leasing_take (spi_global_leasing, G_OBJECT (obj));
+      spi_leasing_take (spi_global_leasing, obj);
     }
 }
 
@@ -101,7 +101,38 @@ spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj)
     return;
   }
 
-  maybe_lease (obj);
+  maybe_lease (G_OBJECT (obj));
+
+  name = dbus_bus_get_unique_name (spi_global_app_data->bus);
+  path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
+
+  if (!path)
+    path = g_strdup (SPI_DBUS_PATH_NULL);
+
+  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
+                                    &iter_struct);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
+  dbus_message_iter_close_container (iter, &iter_struct);
+  
+  g_free (path);
+}
+
+/* TODO: Perhaps combine with spi_object_append_reference.  Leaving separate
+ * for now in case we want to use a different path for hyperlinks. */
+void
+spi_hyperlink_append_reference (DBusMessageIter * iter, AtkHyperlink * obj)
+{
+  DBusMessageIter iter_struct;
+  const gchar *name;
+  gchar *path;
+
+  if (!obj) {
+    spi_object_append_null_reference (iter);
+    return;
+  }
+
+  maybe_lease (G_OBJECT (obj));
 
   name = dbus_bus_get_unique_name (spi_global_app_data->bus);
   path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
@@ -155,7 +186,26 @@ spi_object_return_reference (DBusMessage * msg, AtkObject * obj)
       dbus_message_iter_init_append (reply, &iter);
       spi_object_append_reference (&iter, obj);
     }
-  g_object_unref (G_OBJECT (obj));
+  if (obj)
+    g_object_unref (G_OBJECT (obj));
+
+  return reply;
+}
+
+DBusMessage *
+spi_hyperlink_return_reference (DBusMessage * msg, AtkHyperlink * obj)
+{
+  DBusMessage *reply;
+
+  reply = dbus_message_new_method_return (msg);
+  if (reply)
+    {
+      DBusMessageIter iter;
+      dbus_message_iter_init_append (reply, &iter);
+      spi_hyperlink_append_reference (&iter, obj);
+    }
+  if (obj)
+    g_object_unref (G_OBJECT (obj));
 
   return reply;
 }
