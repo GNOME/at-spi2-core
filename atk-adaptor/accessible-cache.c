@@ -46,6 +46,9 @@ add_object (SpiCache * cache, GObject * gobj);
 static void
 add_subtree (SpiCache *cache, AtkObject * accessible);
 
+static gboolean
+add_pending_items (gpointer data);
+
 /*---------------------------------------------------------------------------*/
 
 static void
@@ -106,6 +109,7 @@ static void
 spi_cache_init (SpiCache * cache)
 {
   cache->objects = g_hash_table_new (g_direct_hash, g_direct_equal);
+  cache->add_traversal = g_queue_new ();
 
 #ifdef SPI_ATK_DEBUG
   if (g_thread_supported ())
@@ -133,6 +137,9 @@ spi_cache_finalize (GObject * object)
 {
   SpiCache *cache = SPI_CACHE (object);
 
+  while (!g_queue_is_empty (cache->add_traversal))
+    g_object_unref (G_OBJECT (g_queue_pop_head (cache->add_traversal)));
+  g_queue_free (cache->add_traversal);
   g_free (cache->objects);
 
   G_OBJECT_CLASS (spi_cache_parent_class)->finalize (object);
@@ -240,23 +247,27 @@ append_children (AtkObject * accessible, GQueue * traversal)
 static void
 add_subtree (SpiCache *cache, AtkObject * accessible)
 {
-  AtkObject *current;
-  GQueue *traversal;
-  GQueue *to_add;
-
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
-  traversal = g_queue_new ();
+  g_object_ref (accessible);
+  g_queue_push_tail (cache->add_traversal, accessible);
+  add_pending_items (cache);
+}
+
+static gboolean
+add_pending_items (gpointer data)
+{
+  SpiCache *cache = SPI_CACHE (data);
+  AtkObject *current;
+  GQueue *to_add;
+
   to_add = g_queue_new ();
 
-  g_object_ref (accessible);
-  g_queue_push_tail (traversal, accessible);
-
-  while (!g_queue_is_empty (traversal))
+  while (!g_queue_is_empty (cache->add_traversal))
     {
       AtkStateSet *set;
       
-      current = g_queue_pop_head (traversal);
+      current = g_queue_pop_head (cache->add_traversal);
       set = atk_object_ref_state_set (current);
 
       if (!atk_state_set_contains_state (set, ATK_STATE_TRANSIENT))
@@ -265,7 +276,7 @@ add_subtree (SpiCache *cache, AtkObject * accessible)
           if (!spi_cache_in (cache, G_OBJECT (current)) &&
               !atk_state_set_contains_state  (set, ATK_STATE_MANAGES_DESCENDANTS))
             {
-              append_children (current, traversal);
+              append_children (current, cache->add_traversal);
             }
         }
 
@@ -279,8 +290,9 @@ add_subtree (SpiCache *cache, AtkObject * accessible)
       g_object_unref (G_OBJECT (current));
     }
 
-  g_queue_free (traversal);
   g_queue_free (to_add);
+  cache->add_pending_idle = 0;
+  return FALSE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -327,7 +339,11 @@ child_added_listener (GSignalInvocationHint * signal_hint,
            {
              child = atk_object_ref_accessible_child (accessible, index);
            }
-          add_subtree (cache, child);
+          g_object_ref (child);
+          g_queue_push_tail (cache->add_traversal, child);
+
+          if (cache->add_pending_idle == 0)
+            cache->add_pending_idle = g_idle_add (add_pending_items, cache);
         }
 #ifdef SPI_ATK_DEBUG
       recursion_check_unset ();
@@ -363,7 +379,13 @@ toplevel_added_listener (AtkObject * accessible,
         {
           child = atk_object_ref_accessible_child (accessible, index);
         }
-      add_subtree (cache, child);
+      else
+        g_object_ref (child);
+
+      g_queue_push_tail (cache->add_traversal, child);
+
+      if (cache->add_pending_idle == 0)
+        cache->add_pending_idle = g_idle_add (add_pending_items, cache);
 #ifdef SPI_ATK_DEBUG
       recursion_check_unset ();
 #endif
