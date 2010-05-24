@@ -442,7 +442,7 @@ adaptor_init (gint * argc, gchar ** argv[])
     droute_new (spi_global_app_data->bus);
 
   treepath = droute_add_one (spi_global_app_data->droute,
-                             "/org/at_spi/cache", spi_global_cache);
+                             "/org/a11y/atspi/cache", spi_global_cache);
 
   if (!treepath)
     {

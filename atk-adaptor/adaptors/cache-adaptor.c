@@ -35,7 +35,7 @@
 #include "introspection.h"
 
 /* TODO - This should possibly be a common define */
-#define SPI_OBJECT_PREFIX "/org/at_spi"
+#define SPI_OBJECT_PREFIX "/org/a11y/atspi"
 #define SPI_CACHE_OBJECT_SUFFIX "/cache"
 #define SPI_CACHE_OBJECT_PATH SPI_OBJECT_PREFIX SPI_CACHE_OBJECT_SUFFIX
 
