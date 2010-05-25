@@ -30,13 +30,13 @@
 #include "registry.h"
 #include "introspection.h"
 
-static gboolean
+static void
 children_added_listener (DBusConnection * bus,
                          gint             index,
                          const gchar    * name,
                          const gchar    * path);
 
-static gboolean
+static void
 children_removed_listener (DBusConnection * bus,
                            gint             index,
                            const gchar    * name,
@@ -95,22 +95,26 @@ return_v_string (DBusMessageIter * iter, const gchar * str)
 {
   DBusMessageIter variant;
 
-  dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "s",
-                                    &variant);
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "s",
+                                    &variant))
+    return FALSE;
     dbus_message_iter_append_basic (&variant, DBUS_TYPE_STRING, &str);
   dbus_message_iter_close_container (iter, &variant);
+  return TRUE;
 }
 
-static void
+static dbus_bool_t
 append_reference (DBusMessageIter * iter, const char * name, const char * path)
 {
   DBusMessageIter iter_struct;
 
-  dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
-                                    &iter_struct);
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
+                                    &iter_struct))
+    return FALSE;
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &name);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH, &path);
   dbus_message_iter_close_container (iter, &iter_struct);
+  return TRUE;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -466,7 +470,7 @@ impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   dbus_int32_t rv = reg->apps->len;
 
-  dbus_message_iter_append_basic (iter, DBUS_TYPE_INT32, &rv);
+  return dbus_message_iter_append_basic (iter, DBUS_TYPE_INT32, &rv);
 }
 
 static DBusMessage *
@@ -774,7 +778,7 @@ emit_event (DBusConnection *bus,
  * any_data is the child reference.
  */
 
-static gboolean
+static void
 children_added_listener (DBusConnection * bus,
                          gint             index,
                          const gchar    * name,
@@ -784,7 +788,7 @@ children_added_listener (DBusConnection * bus,
               name, path);
 }
 
-static gboolean
+static void
 children_removed_listener (DBusConnection * bus,
                            gint             index,
                            const gchar    * name,
