@@ -1,3 +1,13 @@
+What's new in at-spi2-atk 0.3.2:
+
+* Some hyperlink fixes.
+
+* Cache additions are now done in an idle call.  This prevents additions
+from being made when an object may not be fully initialized and prevents
+Firefox 3.6 from crashing.
+
+* The cache object has been placed into the org.a11y.atspi namespace.
+
 What's new in at-spi2-atk 0.3.1:
 
 * Added a gconf schema.
