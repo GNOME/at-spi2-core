@@ -1009,6 +1009,32 @@ spi_controller_register_device_listener (SpiDEController      *controller,
   return FALSE;
 }
 
+static void
+set_reply (DBusPendingCall *pending, void *user_data)
+{
+    void **replyptr = (void **)user_data;
+
+    *replyptr = dbus_pending_call_steal_reply (pending);
+}
+
+static DBusMessage *
+send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, DBusError *error)
+{
+    DBusPendingCall *pending;
+    DBusMessage *reply = NULL;
+
+    if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
+    {
+        return NULL;
+    }
+    dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
+    while (!reply)
+    {
+      if (!dbus_connection_read_write_dispatch (bus, timeout))
+        return NULL;
+    }
+    return reply;
+}
 static gboolean
 Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
                                               SpiRegistry *registry,
@@ -1025,9 +1051,7 @@ Accessibility_DeviceEventListener_NotifyEvent(SpiDEController *controller,
   dbus_error_init(&error);
   if (spi_dbus_marshal_deviceEvent(message, key_event))
   {
-    // TODO: Evaluate performance: perhaps rework this whole architecture
-    // to avoid blocking calls
-    DBusMessage *reply = dbus_connection_send_with_reply_and_block(controller->bus, message, 1000, &error);
+    DBusMessage *reply = send_and_allow_reentry (controller->bus, message, 1000, &error);
     if (reply)
     {
       DBusError error;
@@ -2732,6 +2756,8 @@ spi_device_event_controller_init (SpiDEController *device_event_controller)
 		      spi_dec_private_quark,
 		      private);
   spi_controller_register_with_devices (device_event_controller);
+  device_event_controller->message_queue = g_queue_new ();
+  saved_controller = device_event_controller;
 }
 
 static gboolean
@@ -2788,7 +2814,6 @@ static void wait_for_release_event (XEvent          *event,
                                     SpiDEController *controller)
 {
   pressed_event = spi_keystroke_from_x_key_event ((XKeyEvent *) event);
-  saved_controller = controller;
   check_release_handler = g_timeout_add (CHECK_RELEASE_DELAY, check_release, &pressed_event);
 }
 
@@ -2833,22 +2858,14 @@ impl_Introspect (DBusConnection * bus,
 
 /*---------------------------------------------------------------------------*/
 
-static DBusHandlerResult
-handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
+static void
+handle_dec_method_from_idle (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
-  DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-
   const gchar *iface   = dbus_message_get_interface (message);
   const gchar *member  = dbus_message_get_member (message);
   const gint   type    = dbus_message_get_type (message);
-
+  DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   DBusMessage *reply = NULL;
-
-  /* Check for basic reasons not to handle */
-  if (type   != DBUS_MESSAGE_TYPE_METHOD_CALL ||
-      member == NULL ||
-      iface  == NULL)
-      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
   if (!strcmp (iface, SPI_DBUS_INTERFACE_DEC))
     {
@@ -2892,8 +2909,41 @@ handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
       dbus_connection_send (bus, reply, NULL);
       dbus_message_unref (reply);
     }
-  
-  return result;
+}
+
+static gboolean
+message_queue_dispatch (gpointer data)
+{
+  saved_controller->message_queue_idle = 0;
+  while (!g_queue_is_empty (saved_controller->message_queue))
+    {
+      DBusMessage *message = g_queue_pop_head (saved_controller->message_queue);
+      data = g_queue_pop_head (saved_controller->message_queue);
+      handle_dec_method_from_idle (saved_controller->bus, message, data);
+      dbus_message_unref (message);
+    }
+  return FALSE;
+}
+
+static DBusHandlerResult
+handle_dec_method (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  const gchar *iface   = dbus_message_get_interface (message);
+  const gchar *member  = dbus_message_get_member (message);
+  const gint   type    = dbus_message_get_type (message);
+
+  /* Check for basic reasons not to handle */
+  if (type   != DBUS_MESSAGE_TYPE_METHOD_CALL ||
+      member == NULL ||
+      iface  == NULL)
+      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+  dbus_message_ref (message);
+  g_queue_push_tail (saved_controller->message_queue, message);
+  g_queue_push_tail (saved_controller->message_queue, user_data);
+  if (!saved_controller->message_queue_idle)
+    saved_controller->message_queue_idle = g_idle_add (message_queue_dispatch, NULL);
+  return DBUS_HANDLER_RESULT_HANDLED;
 }
 
 static DBusObjectPathVTable dec_vtable =
