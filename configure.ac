@@ -44,6 +44,8 @@ PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
 
+AC_CHECK_LIB(dl, dlopen)
+
 AC_PATH_XTRA
 
 if test x$no_x = xyes ; then
