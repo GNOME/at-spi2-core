@@ -1,569 +1,526 @@
 # Esperanto translation of atk.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the atk package.
+# Charles VOELGER <cvoelger@dweasel.com>, 2003.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.3.4\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 15:05+0800\n"
-"PO-Revision-Date: 2003-03-14 16:16+0500\n"
-"Last-Translator: Charles Voelger <cvoelger@dweasel.com>\n"
-"Language-Team: Esperanto <eo@li.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&component=general\n"
+"POT-Creation-Date: 2010-05-31 10:54+0000\n"
+"PO-Revision-Date: 2010-05-31 15:53+0100\n"
+"Last-Translator: Kristjan <kristjan.schmidt@googlemail.com>\n"
+"Language-Team: Esperanto <ubuntu-l10n-eo@lists.launchpad.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-05-31 13:52+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Language: Esperanto\n"
 
-#: atk/atkhyperlink.c:103
+#: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
-msgstr ""
+msgstr "Elektita ligilo"
 
-#: atk/atkhyperlink.c:104
+#: ../atk/atkhyperlink.c:104
 msgid "Specifies whether the AtkHyperlink object is selected"
-msgstr ""
+msgstr "Specifas ĉu la AtkHyperlink-objekto estas elektita"
 
-#: atk/atkhyperlink.c:110
+#: ../atk/atkhyperlink.c:110
 msgid "Number of Anchors"
-msgstr ""
+msgstr "Nombro da ankroj"
 
-#: atk/atkhyperlink.c:111
+#: ../atk/atkhyperlink.c:111
 msgid "The number of anchors associated with the AtkHyperlink object"
-msgstr ""
+msgstr "La nombro da ankroj asociita kun la AtkHyperlink-objekto"
 
-#: atk/atkhyperlink.c:119
+#: ../atk/atkhyperlink.c:119
 msgid "End index"
-msgstr ""
+msgstr "Finindekso"
 
-#: atk/atkhyperlink.c:120
+#: ../atk/atkhyperlink.c:120
 msgid "The end index of the AtkHyperlink object"
-msgstr ""
+msgstr "La finindekso de la AtkHyperlink-objekto"
 
-#: atk/atkhyperlink.c:128
+#: ../atk/atkhyperlink.c:128
 msgid "Start index"
-msgstr ""
+msgstr "Komencindekso"
 
-#: atk/atkhyperlink.c:129
+#: ../atk/atkhyperlink.c:129
 msgid "The start index of the AtkHyperlink object"
-msgstr ""
+msgstr "La komencindekso de la AtkHyperlink-objekto"
 
-#: atk/atkobject.c:74
+#: ../atk/atkobject.c:74
 msgid "invalid"
 msgstr "nevalida"
 
-#: atk/atkobject.c:75
-#, fuzzy
+#: ../atk/atkobject.c:75
 msgid "accelerator label"
 msgstr "rapidig-etikedo"
 
-#: atk/atkobject.c:76
+#: ../atk/atkobject.c:76
 msgid "alert"
 msgstr "atentigo"
 
-#: atk/atkobject.c:77
+#: ../atk/atkobject.c:77
 msgid "animation"
 msgstr "animacio"
 
-#: atk/atkobject.c:78
+#: ../atk/atkobject.c:78
 msgid "arrow"
 msgstr "sago"
 
-#: atk/atkobject.c:79
+#: ../atk/atkobject.c:79
 msgid "calendar"
 msgstr "kalendaro"
 
-#: atk/atkobject.c:80
+#: ../atk/atkobject.c:80
 msgid "canvas"
 msgstr "kanvaso"
 
-#: atk/atkobject.c:81
-#, fuzzy
+#: ../atk/atkobject.c:81
 msgid "check box"
 msgstr "markobutono"
 
-#: atk/atkobject.c:82
-#, fuzzy
+#: ../atk/atkobject.c:82
 msgid "check menu item"
 msgstr "mark-menuero"
 
-#: atk/atkobject.c:83
-#, fuzzy
+#: ../atk/atkobject.c:83
 msgid "color chooser"
 msgstr "kolor-elektilo"
 
-#: atk/atkobject.c:84
-#, fuzzy
+#: ../atk/atkobject.c:84
 msgid "column header"
 msgstr "kolumn-ĉapo"
 
-#: atk/atkobject.c:85
-#, fuzzy
+#: ../atk/atkobject.c:85
 msgid "combo box"
 msgstr "tekstlisto"
 
-#: atk/atkobject.c:86
-#, fuzzy
+#: ../atk/atkobject.c:86
 msgid "dateeditor"
 msgstr "dat-redaktilo"
 
-#: atk/atkobject.c:87
-#, fuzzy
+#: ../atk/atkobject.c:87
 msgid "desktop icon"
-msgstr "tabul-piktogramo"
+msgstr "labortabla piktogramo"
 
-#: atk/atkobject.c:88
-#, fuzzy
+#: ../atk/atkobject.c:88
 msgid "desktop frame"
-msgstr "tabul-kadro"
+msgstr "labortabla framo"
 
-#: atk/atkobject.c:89
+#: ../atk/atkobject.c:89
 msgid "dial"
 msgstr "diskelektilo"
 
-#: atk/atkobject.c:90
+#: ../atk/atkobject.c:90
 msgid "dialog"
 msgstr "dialogo"
 
-#: atk/atkobject.c:91
-#, fuzzy
+#: ../atk/atkobject.c:91
 msgid "directory pane"
-msgstr "dosieruj-vitraĵo"
+msgstr "dosieruja panelo"
 
-#: atk/atkobject.c:92
-#, fuzzy
+#: ../atk/atkobject.c:92
 msgid "drawing area"
-msgstr "desegnareo"
+msgstr "desegna areo"
 
-#: atk/atkobject.c:93
-#, fuzzy
+#: ../atk/atkobject.c:93
 msgid "file chooser"
-msgstr "dosier-elektilo"
+msgstr "dosierelektilo"
 
-#: atk/atkobject.c:94
+#: ../atk/atkobject.c:94
 msgid "filler"
 msgstr "plenigilo"
 
 #. I know it looks wrong but that is what Java returns
-#: atk/atkobject.c:96
-#, fuzzy
+#: ../atk/atkobject.c:96
 msgid "fontchooser"
 msgstr "font-elektilo"
 
-#: atk/atkobject.c:97
+#: ../atk/atkobject.c:97
 msgid "frame"
 msgstr "kadro"
 
-#: atk/atkobject.c:98
-#, fuzzy
+#: ../atk/atkobject.c:98
 msgid "glass pane"
-msgstr "vitraĵo"
+msgstr "vitra panelo"
 
-#: atk/atkobject.c:99
-#, fuzzy
+#: ../atk/atkobject.c:99
 msgid "html container"
 msgstr "HTMLujo"
 
-#: atk/atkobject.c:100
+#: ../atk/atkobject.c:100
 msgid "icon"
 msgstr "piktogramo"
 
-#: atk/atkobject.c:101
+#: ../atk/atkobject.c:101
 msgid "image"
 msgstr "bildo"
 
-#: atk/atkobject.c:102
-#, fuzzy
+#: ../atk/atkobject.c:102
 msgid "internal frame"
-msgstr "interna-kadro"
+msgstr "interna framo"
 
-#: atk/atkobject.c:103
+#: ../atk/atkobject.c:103
 msgid "label"
 msgstr "etikedo"
 
-#: atk/atkobject.c:104
-#, fuzzy
+#: ../atk/atkobject.c:104
 msgid "layered pane"
-msgstr "markota-vitraĵo"
+msgstr "tavola panelo"
 
-#: atk/atkobject.c:105
+#: ../atk/atkobject.c:105
 msgid "list"
 msgstr "listo"
 
-#: atk/atkobject.c:106
-#, fuzzy
+#: ../atk/atkobject.c:106
 msgid "list item"
 msgstr "listero"
 
-#: atk/atkobject.c:107
+#: ../atk/atkobject.c:107
 msgid "menu"
 msgstr "menuo"
 
-#: atk/atkobject.c:108
-#, fuzzy
+#: ../atk/atkobject.c:108
 msgid "menu bar"
-msgstr "menuskalo"
+msgstr "menuzono"
 
-#: atk/atkobject.c:109
-#, fuzzy
+#: ../atk/atkobject.c:109
 msgid "menu item"
 msgstr "menuero"
 
-#: atk/atkobject.c:110
-#, fuzzy
+#: ../atk/atkobject.c:110
 msgid "option pane"
-msgstr "opci-vitraĵo"
+msgstr "opcia panelo"
 
-#: atk/atkobject.c:111
-#, fuzzy
+#: ../atk/atkobject.c:111
 msgid "page tab"
-msgstr "paĝ-langeto"
+msgstr "paĝa langeto"
 
-#: atk/atkobject.c:112
-#, fuzzy
+#: ../atk/atkobject.c:112
 msgid "page tab list"
-msgstr "paĝ-langet-listo"
+msgstr "paĝa langetlisto"
 
-#: atk/atkobject.c:113
+#: ../atk/atkobject.c:113
 msgid "panel"
 msgstr "panelo"
 
-#: atk/atkobject.c:114
-#, fuzzy
+#: ../atk/atkobject.c:114
 msgid "password text"
-msgstr "pasvort-teksto"
+msgstr "pasvorta teksto"
 
-#: atk/atkobject.c:115
-#, fuzzy
+#: ../atk/atkobject.c:115
 msgid "popup menu"
-msgstr "ĉeloka-menuo"
+msgstr "ŝprucmenuo"
 
-#: atk/atkobject.c:116
-#, fuzzy
+#: ../atk/atkobject.c:116
 msgid "progress bar"
-msgstr "progresskalo"
+msgstr "plenumskalo"
 
-#: atk/atkobject.c:117
-#, fuzzy
+#: ../atk/atkobject.c:117
 msgid "push button"
 msgstr "prembutono"
 
-#: atk/atkobject.c:118
-#, fuzzy
+#: ../atk/atkobject.c:118
 msgid "radio button"
 msgstr "radiobutono"
 
-#: atk/atkobject.c:119
-#, fuzzy
+#: ../atk/atkobject.c:119
 msgid "radio menu item"
 msgstr "radiomenuero"
 
-#: atk/atkobject.c:120
-#, fuzzy
+#: ../atk/atkobject.c:120
 msgid "root pane"
-msgstr "radik-vitraĵo"
+msgstr "radika panelo"
 
-#: atk/atkobject.c:121
-#, fuzzy
+#: ../atk/atkobject.c:121
 msgid "row header"
-msgstr "liniĉapo"
+msgstr "vica ĉapo"
 
-#: atk/atkobject.c:122
-#, fuzzy
+#: ../atk/atkobject.c:122
 msgid "scroll bar"
 msgstr "rulumskalo"
 
-#: atk/atkobject.c:123
-#, fuzzy
+#: ../atk/atkobject.c:123
 msgid "scroll pane"
-msgstr "rulumvitraĵo"
+msgstr "ruluma panelo"
 
-#: atk/atkobject.c:124
+#: ../atk/atkobject.c:124
 msgid "separator"
 msgstr "disigilo"
 
-#: atk/atkobject.c:125
+#: ../atk/atkobject.c:125
 msgid "slider"
 msgstr "ŝovilo"
 
-#: atk/atkobject.c:126
-#, fuzzy
+#: ../atk/atkobject.c:126
 msgid "split pane"
-msgstr "divid-vitraĵo"
+msgstr "divida panelo"
 
-#: atk/atkobject.c:127
-#, fuzzy
+#: ../atk/atkobject.c:127
 msgid "spin button"
 msgstr "ŝpinbutono"
 
-#: atk/atkobject.c:128
+#: ../atk/atkobject.c:128
 msgid "statusbar"
 msgstr "statolistelo"
 
-#: atk/atkobject.c:129
+#: ../atk/atkobject.c:129
 msgid "table"
 msgstr "tabelo"
 
-#: atk/atkobject.c:130
-#, fuzzy
+#: ../atk/atkobject.c:130
 msgid "table cell"
-msgstr "tabel-ĉelo"
+msgstr "tabela ĉelo"
 
-#: atk/atkobject.c:131
-#, fuzzy
+#: ../atk/atkobject.c:131
 msgid "table column header"
-msgstr "tabel-kolumn-ĉapo"
+msgstr "tabela kolumna ĉapo"
 
-#: atk/atkobject.c:132
-#, fuzzy
+#: ../atk/atkobject.c:132
 msgid "table row header"
-msgstr "tabel-lini-ĉapo"
+msgstr "tabela vica ĉapo"
 
-#: atk/atkobject.c:133
-#, fuzzy
+#: ../atk/atkobject.c:133
 msgid "tear off menu item"
-msgstr "deŝiril-menuero"
+msgstr "deŝirebla menuero"
 
-#: atk/atkobject.c:134
+#: ../atk/atkobject.c:134
 msgid "terminal"
 msgstr "terminalo"
 
-#: atk/atkobject.c:135
+#: ../atk/atkobject.c:135
 msgid "text"
 msgstr "teksto"
 
-#: atk/atkobject.c:136
-#, fuzzy
+#: ../atk/atkobject.c:136
 msgid "toggle button"
-msgstr "baskulbutono"
+msgstr "baskula butono"
 
-#: atk/atkobject.c:137
-#, fuzzy
+#: ../atk/atkobject.c:137
 msgid "tool bar"
 msgstr "ilobreto"
 
-#: atk/atkobject.c:138
-#, fuzzy
+#: ../atk/atkobject.c:138
 msgid "tool tip"
 msgstr "ŝpruchelpilo"
 
-#: atk/atkobject.c:139
+#: ../atk/atkobject.c:139
 msgid "tree"
 msgstr "arbo"
 
-#: atk/atkobject.c:140
-#, fuzzy
+#: ../atk/atkobject.c:140
 msgid "tree table"
-msgstr "arb-tabelo"
+msgstr "arba tabelo"
 
-#: atk/atkobject.c:141
+#: ../atk/atkobject.c:141
 msgid "unknown"
 msgstr "nekonata"
 
-#: atk/atkobject.c:142
+#: ../atk/atkobject.c:142
 msgid "viewport"
 msgstr "vidpordego"
 
-#: atk/atkobject.c:143
+#: ../atk/atkobject.c:143
 msgid "window"
 msgstr "fenestro"
 
-#: atk/atkobject.c:144
+#: ../atk/atkobject.c:144
 msgid "header"
 msgstr "ĉapo"
 
-#: atk/atkobject.c:145
+#: ../atk/atkobject.c:145
 msgid "footer"
 msgstr "suba paĝotitolo"
 
-#: atk/atkobject.c:146
+#: ../atk/atkobject.c:146
 msgid "paragraph"
 msgstr "alineo"
 
-#: atk/atkobject.c:147
+#: ../atk/atkobject.c:147
 msgid "ruler"
 msgstr "liniilo"
 
-#: atk/atkobject.c:148
+#: ../atk/atkobject.c:148
 msgid "application"
 msgstr "aplikaĵo"
 
-#: atk/atkobject.c:149
+#: ../atk/atkobject.c:149
 msgid "autocomplete"
-msgstr ""
+msgstr "aŭtokompletigi"
 
-#: atk/atkobject.c:150
+#: ../atk/atkobject.c:150
 msgid "edit bar"
-msgstr ""
+msgstr "Redaktobreto"
 
-#: atk/atkobject.c:151
+#: ../atk/atkobject.c:151
 msgid "embedded component"
-msgstr ""
+msgstr "enkorpigita komponanto"
 
-#: atk/atkobject.c:152
+#: ../atk/atkobject.c:152
 msgid "entry"
-msgstr ""
+msgstr "ero"
 
-#: atk/atkobject.c:153
-#, fuzzy
+#: ../atk/atkobject.c:153
 msgid "chart"
-msgstr "atentigo"
+msgstr "diagramo"
 
-#: atk/atkobject.c:154
-#, fuzzy
+#: ../atk/atkobject.c:154
 msgid "caption"
-msgstr "aplikaĵo"
+msgstr "apudskribo"
 
-#: atk/atkobject.c:155
+#: ../atk/atkobject.c:155
 msgid "document frame"
-msgstr ""
+msgstr "dokumenta framo"
 
-#: atk/atkobject.c:156
-#, fuzzy
+#: ../atk/atkobject.c:156
 msgid "heading"
 msgstr "ĉapo"
 
-#: atk/atkobject.c:157
-#, fuzzy
+#: ../atk/atkobject.c:157
 msgid "page"
-msgstr "bildo"
+msgstr "paĝo"
 
-#: atk/atkobject.c:158
+#: ../atk/atkobject.c:158
 msgid "section"
-msgstr ""
+msgstr "sekcio"
 
-#: atk/atkobject.c:159
+#: ../atk/atkobject.c:159
 msgid "redundant object"
-msgstr ""
+msgstr "redunda objekto"
 
-#: atk/atkobject.c:160
-#, fuzzy
+#: ../atk/atkobject.c:160
 msgid "form"
-msgstr "kadro"
+msgstr "formularo"
 
-#: atk/atkobject.c:161
+#: ../atk/atkobject.c:161
 msgid "link"
-msgstr ""
+msgstr "ligilo"
 
-#: atk/atkobject.c:162
+#: ../atk/atkobject.c:162
 msgid "input method window"
-msgstr ""
+msgstr "enigmetodejo"
 
-#: atk/atkobject.c:488
+#: ../atk/atkobject.c:488
 msgid "Accessible Name"
-msgstr ""
+msgstr "Atingebla nomo"
 
-#: atk/atkobject.c:489
+#: ../atk/atkobject.c:489
 msgid "Object instance's name formatted for assistive technology access"
-msgstr ""
+msgstr "Nomo de objekta eksemplero formatita por asist-teknologia atingo"
 
-#: atk/atkobject.c:495
+#: ../atk/atkobject.c:495
 msgid "Accessible Description"
-msgstr ""
+msgstr "Atingebla Priskribo"
 
-#: atk/atkobject.c:496
+#: ../atk/atkobject.c:496
 msgid "Description of an object, formatted for assistive technology access"
-msgstr ""
+msgstr "Priskribo de objekto, formatita por formatita por asist-teknologia atingo"
 
-#: atk/atkobject.c:502
+#: ../atk/atkobject.c:502
 msgid "Accessible Parent"
-msgstr ""
+msgstr "Atingebla Patro"
 
-#: atk/atkobject.c:503
+#: ../atk/atkobject.c:503
 msgid "Is used to notify that the parent has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la patro ŝanĝiĝis"
 
-#: atk/atkobject.c:509
+#: ../atk/atkobject.c:509
 msgid "Accessible Value"
-msgstr ""
+msgstr "Atingebla Valoro"
 
-#: atk/atkobject.c:510
+#: ../atk/atkobject.c:510
 msgid "Is used to notify that the value has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la valororo ŝanĝiĝis"
 
-#: atk/atkobject.c:518
+#: ../atk/atkobject.c:518
 msgid "Accessible Role"
-msgstr ""
+msgstr "Atingebla Rolo"
 
-#: atk/atkobject.c:519
+#: ../atk/atkobject.c:519
 msgid "The accessible role of this object"
-msgstr ""
+msgstr "La atingebla rolo de ĉi tiu objekto"
 
-#: atk/atkobject.c:527
+#: ../atk/atkobject.c:527
 msgid "Accessible Layer"
-msgstr ""
+msgstr "Atingebla Tavolo"
 
-#: atk/atkobject.c:528
+#: ../atk/atkobject.c:528
 msgid "The accessible layer of this object"
-msgstr ""
+msgstr "La atingebla tavolo de ĉi tiu objekto"
 
-#: atk/atkobject.c:536
+#: ../atk/atkobject.c:536
 msgid "Accessible MDI Value"
-msgstr ""
+msgstr "Atingebla MDI-Valoro"
 
-#: atk/atkobject.c:537
+#: ../atk/atkobject.c:537
 msgid "The accessible MDI value of this object"
-msgstr ""
+msgstr "La atingebla MDI-valoro de ĉi tiu objekto"
 
-#: atk/atkobject.c:545
+#: ../atk/atkobject.c:545
 msgid "Accessible Table Caption"
-msgstr ""
+msgstr "Atingebla Tabela Apudskribo"
 
-#: atk/atkobject.c:546
-msgid ""
-"Is used to notify that the table caption has changed; this property should "
-"not be used. accessible-table-caption-object should be used instead"
-msgstr ""
+#: ../atk/atkobject.c:546
+msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
+msgstr "Uzita por avizi ke la tabela apudskribo ŝanĝiĝis; ĉi tiu eco ne devas esti uzita. accessible-table-caption-object devas esti anstataŭ uzita"
 
-#: atk/atkobject.c:552
+#: ../atk/atkobject.c:552
 msgid "Accessible Table Column Header"
-msgstr ""
+msgstr "Atingebla Tabela Kolumna Ĉapo"
 
-#: atk/atkobject.c:553
+#: ../atk/atkobject.c:553
 msgid "Is used to notify that the table column header has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la tabela kolumna ĉapo ŝanĝiĝis"
 
-#: atk/atkobject.c:559
+#: ../atk/atkobject.c:559
 msgid "Accessible Table Column Description"
-msgstr ""
+msgstr "Atingebla Tabela Kolumna Priskribo"
 
-#: atk/atkobject.c:560
+#: ../atk/atkobject.c:560
 msgid "Is used to notify that the table column description has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la tabela kolumna priskribo ŝanĝiĝis"
 
-#: atk/atkobject.c:566
+#: ../atk/atkobject.c:566
 msgid "Accessible Table Row Header"
-msgstr ""
+msgstr "Atingebla Tabela Vica Ĉapo"
 
-#: atk/atkobject.c:567
+#: ../atk/atkobject.c:567
 msgid "Is used to notify that the table row header has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la tabela vica ĉapo ŝanĝiĝis"
 
-#: atk/atkobject.c:573
+#: ../atk/atkobject.c:573
 msgid "Accessible Table Row Description"
-msgstr ""
+msgstr "Atingebla Tabela Vica Priskribo"
 
-#: atk/atkobject.c:574
+#: ../atk/atkobject.c:574
 msgid "Is used to notify that the table row description has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la tabela vica priskribo ŝanĝiĝis"
 
-#: atk/atkobject.c:580
+#: ../atk/atkobject.c:580
 msgid "Accessible Table Summary"
-msgstr ""
+msgstr "Atingebla Tabela Resumo"
 
-#: atk/atkobject.c:581
+#: ../atk/atkobject.c:581
 msgid "Is used to notify that the table summary has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la tabela resumo ŝanĝiĝis"
 
-#: atk/atkobject.c:587
+#: ../atk/atkobject.c:587
 msgid "Accessible Table Caption Object"
-msgstr ""
+msgstr "Atingebla Tabela Apudskriba Objekto"
 
-#: atk/atkobject.c:588
+#: ../atk/atkobject.c:588
 msgid "Is used to notify that the table caption has changed"
-msgstr ""
+msgstr "Uzita por avizi ke la tabela apudskribo ŝanĝiĝis"
 
-#: atk/atkobject.c:594
+#: ../atk/atkobject.c:594
 msgid "Number of Accessible Hypertext Links"
-msgstr ""
+msgstr "Nombro da Atingeblaj Hipertekstaj Ligiloj"
 
-#: atk/atkobject.c:595
+#: ../atk/atkobject.c:595
 msgid "The number of links which the current AtkHypertext has"
-msgstr ""
+msgstr "La nombro da ligiloj kiujn havas la aktuala AtkHypertext"
+
