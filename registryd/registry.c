@@ -494,8 +494,13 @@ impl_GetChildAtIndex (DBusConnection * bus,
   reply = dbus_message_new_method_return (message);
   dbus_message_iter_init_append (reply, &iter);
 
-  ref = g_ptr_array_index (reg->apps, i);
-  append_reference (&iter, ref->name, ref->path);
+  if (i < 0 || i >= reg->apps->len)
+    append_reference (&iter, SPI_DBUS_NAME_REGISTRY, SPI_DBUS_PATH_NULL);
+  else
+    {
+      ref = g_ptr_array_index (reg->apps, i);
+      append_reference (&iter, ref->name, ref->path);
+    }
 
   return reply;
 }
