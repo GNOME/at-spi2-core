@@ -3,37 +3,5 @@ if RELOCATE
 else
     gtkmoduledir = $(libdir)/gtk-3.0/modules
 endif
-gtkmodule_LTLIBRARIES = libatk-bridge.la
 
-libatk_bridge_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
-		          $(ATK_CFLAGS)       \
-		          -I$(top_srcdir)     \
-		          -I$(top_srcdir)/atk-adaptor/adaptors
-
-libatk_bridge_la_LDFLAGS = -no-undefined  \
-		           -module        \
-		           -avoid-version \
-		           -rpath $(gtkmoduledir)
-
-libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
-		          $(ATK_LIBS)       \
-			  $(X_LIBS)         \
-		          $(top_builddir)/droute/libdroute.la \
-		          $(top_builddir)/common/libspicommon.la \
-			  $(top_builddir)/atk-adaptor/adaptors/libatk-bridge-adaptors.la
-
-libatk_bridge_la_SOURCES =	\
-        $(top_builddir)/atk-adaptor/accessible-leasing.c    \
-        $(top_builddir)/atk-adaptor/accessible-leasing.h    \
-        $(top_builddir)/atk-adaptor/accessible-cache.c      \
-        $(top_builddir)/atk-adaptor/accessible-cache.h      \
-	$(top_builddir)/atk-adaptor/accessible-register.c	\
-	$(top_builddir)/atk-adaptor/accessible-register.h	\
-	$(top_builddir)/atk-adaptor/introspection.c         \
-	$(top_builddir)/atk-adaptor/introspection.h         \
-	$(top_builddir)/atk-adaptor/bridge.c		\
-	$(top_builddir)/atk-adaptor/bridge.h		\
-	$(top_builddir)/atk-adaptor/object.c		\
-	$(top_builddir)/atk-adaptor/object.h		\
-	$(top_builddir)/atk-adaptor/event.c			\
-	$(top_builddir)/atk-adaptor/event.h
+include $(top_srcdir)/atk-adaptor/Makefile.include
