@@ -21,6 +21,7 @@
  */
 
 #include <atk/atk.h>
+#include <string.h>
 
 #include "accessible-cache.h"
 #include "accessible-register.h"
@@ -329,7 +330,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
       if (signal_hint->detail)
         detail = g_quark_to_string (signal_hint->detail);
 
-      if (!g_strcmp0 (detail, "add"))
+      if (!strncmp (detail, "add", 3))
         {
           gpointer child;
           int index = g_value_get_uint (param_values + 1);
