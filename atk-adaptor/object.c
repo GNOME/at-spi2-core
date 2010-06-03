@@ -55,8 +55,8 @@
  * This function will simply look for all the accessibles that the cache object
  * has not found and assume that they need to be leased.
  */
-static void
-maybe_lease (GObject *obj)
+void
+spi_object_lease_if_needed (GObject *obj)
 {
   if (!spi_cache_in (spi_global_cache, obj))
     {
@@ -101,7 +101,7 @@ spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj)
     return;
   }
 
-  maybe_lease (G_OBJECT (obj));
+  spi_object_lease_if_needed (G_OBJECT (obj));
 
   name = dbus_bus_get_unique_name (spi_global_app_data->bus);
   path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
@@ -132,7 +132,7 @@ spi_hyperlink_append_reference (DBusMessageIter * iter, AtkHyperlink * obj)
     return;
   }
 
-  maybe_lease (G_OBJECT (obj));
+  spi_object_lease_if_needed (G_OBJECT (obj));
 
   name = dbus_bus_get_unique_name (spi_global_app_data->bus);
   path = spi_register_object_to_path (spi_global_register, G_OBJECT (obj));

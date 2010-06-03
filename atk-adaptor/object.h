@@ -28,6 +28,9 @@
 #include <dbus/dbus.h>
 
 void
+spi_object_lease_if_needed (GObject *obj);
+
+void
 spi_object_append_reference (DBusMessageIter * iter, AtkObject * obj);
 
 void

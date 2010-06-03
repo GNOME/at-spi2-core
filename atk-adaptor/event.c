@@ -345,6 +345,9 @@ emit_event (AtkObject  *obj,
 
   dbus_connection_send(bus, sig, NULL);
   dbus_message_unref(sig);
+
+  if (g_strcmp0 (cname, "ChildrenChanged") != 0)
+    spi_object_lease_if_needed (G_OBJECT (obj));
 }
 
 /*---------------------------------------------------------------------------*/
