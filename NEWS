@@ -1,3 +1,14 @@
+What's new in at-spi2-core 0.3.3:
+
+* Add return values to some functions that were missing them.
+
+* Make DeviceEventListener notifiers reentrant so that an application can
+query the desktop object while processing a device event.
+
+* Fix for FDO#28300: fails to link with pedantic linkers.
+
+* Fix crash if GetChildAtIndex is called with an invalid index.
+
 What's new in at-spi2-core 0.3.2:
 
 * Make sure that disconnecting applications send their root path in the
