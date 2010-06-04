@@ -1,3 +1,14 @@
+What's new in at-spi2-atk 0.3.3:
+
+* Remove unused gtk build dependency.
+
+* Install a copy of the module into the gtk-3.0 modules directory.
+
+* Correct handling of some children-changed events sent by Firefox.
+
+* Lease objects that send events if they are not cached; fixes some
+tracebacks when handling Firefox events.
+
 What's new in at-spi2-atk 0.3.2:
 
 * Some hyperlink fixes.
