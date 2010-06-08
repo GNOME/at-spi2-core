@@ -47,7 +47,7 @@ warn_braces ()
 /*---------------------------------------------------------------------------*/
 
 static unsigned int
-dbind_find_c_alignment_r (char **type)
+dbind_find_c_alignment_r (const char **type)
 {
     unsigned int retval = 1;
 
@@ -106,7 +106,7 @@ dbind_find_c_alignment_r (char **type)
 
 /* gather immediate allocation information for this type */
 static size_t
-dbind_gather_alloc_info_r (char **type)
+dbind_gather_alloc_info_r (const char **type)
 {
   char t = **type;
   (*type)++;
@@ -173,7 +173,7 @@ dbind_gather_alloc_info_r (char **type)
 }
 
 static size_t
-dbind_gather_alloc_info (char *type)
+dbind_gather_alloc_info (const char *type)
 {
   return dbind_gather_alloc_info_r (&type);
 }
@@ -181,7 +181,7 @@ dbind_gather_alloc_info (char *type)
 /*---------------------------------------------------------------------------*/
 
 static void
-dbind_any_free_r (char **type, void **data)
+dbind_any_free_r (const char **type, void **data)
 {
 #ifdef DEBUG
     fprintf (stderr, "any free '%c' to %p\n", **type, *data);
@@ -206,7 +206,7 @@ dbind_any_free_r (char **type, void **data)
         int i;
         GArray *vals = **(void ***)data;
         size_t elem_size, elem_align;
-        char *saved_child_type;
+        const char *saved_child_type;
 
         (*type)++;
         saved_child_type = *type;
@@ -232,7 +232,7 @@ dbind_any_free_r (char **type, void **data)
 
         offset = 0 ;
         while (**type != DBUS_STRUCT_END_CHAR) {
-            char *subt = *type;
+            const char *subt = *type;
                         offset = ALIGN_VALUE (offset, dbind_find_c_alignment (*type));
                         *data = PTR_PLUS (data0, offset);
             dbind_any_free_r (type, data);
@@ -258,7 +258,7 @@ dbind_any_free_r (char **type, void **data)
 
 void
 dbind_any_marshal (DBusMessageIter *iter,
-                   char           **type,
+                   const char           **type,
                    void           **data)
 {
     size_t len;
@@ -282,7 +282,8 @@ dbind_any_marshal (DBusMessageIter *iter,
         GArray *vals = **(void ***)data;
         size_t elem_size, elem_align;
         DBusMessageIter sub;
-        char *saved_child_type, *child_type_string;
+        const char *saved_child_type;
+        char *child_type_string;
 
         (*type)++;
         saved_child_type = *type;
@@ -319,7 +320,7 @@ dbind_any_marshal (DBusMessageIter *iter,
 
         offset = 0 ;
         while (**type != DBUS_STRUCT_END_CHAR) {
-            char *subt = *type;
+            const char *subt = *type;
                         offset = ALIGN_VALUE (offset, dbind_find_c_alignment (*type));
                         *data = PTR_PLUS (data0, offset);
             dbind_any_marshal (&sub, type, data);
@@ -347,10 +348,10 @@ dbind_any_marshal (DBusMessageIter *iter,
 
 void
 dbind_any_marshal_va (DBusMessageIter *iter,
-                      char           **arg_types,
+                      const char           **arg_types,
                       va_list          args)
 {
-    char *p = *arg_types;
+    const char *p = *arg_types;
 
     /* Guard against null arg types 
        Fix for - http://bugs.freedesktop.org/show_bug.cgi?id=23027
@@ -419,7 +420,7 @@ dbind_any_marshal_va (DBusMessageIter *iter,
 
 void
 dbind_any_demarshal (DBusMessageIter *iter,
-                     char           **type,
+                     const char           **type,
                      void           **data)
 {
     size_t len;
@@ -451,7 +452,7 @@ dbind_any_demarshal (DBusMessageIter *iter,
         GArray *vals;
         DBusMessageIter child;
         size_t elem_size, elem_align;
-        char *stored_child_type;
+        const char *stored_child_type;
         int i;
 
         (*type)++;
@@ -467,7 +468,7 @@ dbind_any_demarshal (DBusMessageIter *iter,
         dbus_message_iter_recurse (iter, &child);
         while (dbus_message_iter_get_arg_type (&child) != DBUS_TYPE_INVALID) {
             void *ptr;
-            char *subt = stored_child_type;
+            const char *subt = stored_child_type;
             g_array_set_size (vals, i + 1);
             ptr = vals->data + elem_size * i;
             ptr = ALIGN_ADDRESS (ptr, elem_align);
@@ -488,7 +489,7 @@ dbind_any_demarshal (DBusMessageIter *iter,
         dbus_message_iter_recurse (iter, &child);
 
         while (**type != DBUS_STRUCT_END_CHAR) {
-            char *subt = *type;
+            const char *subt = *type;
                         offset = ALIGN_VALUE (offset, dbind_find_c_alignment (*type));
                         *data = PTR_PLUS (data0, offset);
             dbind_any_demarshal (&child, type, data);
@@ -515,10 +516,10 @@ dbind_any_demarshal (DBusMessageIter *iter,
 
 void
 dbind_any_demarshal_va (DBusMessageIter *iter,
-                        char           **arg_types,
+                        const char           **arg_types,
                         va_list          args)
 {
-    char *p = *arg_types;
+    const char *p = *arg_types;
     for (;*p != '\0';) {
         void *arg = va_arg (args, void *);
         dbind_any_demarshal (iter, &p, &arg);
@@ -529,7 +530,7 @@ dbind_any_demarshal_va (DBusMessageIter *iter,
 
 /* nice deep free ... */
 void
-dbind_any_free (char *type,
+dbind_any_free (const char *type,
                 void *ptr)
 {
     dbind_any_free_r (&type, &ptr);
@@ -537,7 +538,7 @@ dbind_any_free (char *type,
 
 /* should this be the default normalization ? */
 void
-dbind_any_free_ptr (char *type, void *ptr)
+dbind_any_free_ptr (const char *type, void *ptr)
 {
     dbind_any_free (type, &ptr);
 }
@@ -545,7 +546,7 @@ dbind_any_free_ptr (char *type, void *ptr)
 /*---------------------------------------------------------------------------*/
 
 unsigned int
-dbind_find_c_alignment (char *type)
+dbind_find_c_alignment (const char *type)
 {
     return dbind_find_c_alignment_r (&type);
 }
