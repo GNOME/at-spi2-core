@@ -18,6 +18,11 @@
     <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReference"/>
   </method>
 
+  <method name="GetChildren">
+    <arg direction="out" type="a(so)"/>
+    <annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QSpiObjectReferenceArray"/>
+  </method>
+
   <method name="GetIndexInParent">
     <arg direction="out" type="i"/>
   </method>
