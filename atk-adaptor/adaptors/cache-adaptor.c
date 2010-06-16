@@ -79,6 +79,8 @@ append_cache_item (AtkObject * obj, gpointer data)
   const char *name, *desc;
   dbus_uint32_t role;
 
+  g_object_ref (G_OBJECT (obj));
+
   set = atk_object_ref_state_set (obj);
   {
     AtkObject *application, *parent;
@@ -212,6 +214,7 @@ append_cache_item (AtkObject * obj, gpointer data)
   }
   dbus_message_iter_close_container (iter_array, &iter_struct);
   g_object_unref (set);
+  g_object_unref (obj);
 }
 
 /*---------------------------------------------------------------------------*/
