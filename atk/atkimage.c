@@ -169,10 +169,6 @@ atk_image_get_image_position (AtkImage *image,
     real_y = y;
   else
     real_y = &local_y;
-  
-  iface = ATK_IMAGE_GET_IFACE (image);
-
-  g_return_if_fail (ATK_IS_IMAGE (image));
 
   iface = ATK_IMAGE_GET_IFACE (image);
 
