@@ -678,8 +678,8 @@ static DRouteProperty properties[] = {
   {impl_get_NColumns, NULL, "NColumns"},
   {impl_get_Caption, NULL, "Caption"},
   {impl_get_Summary, NULL, "Summary"},
-  {impl_get_NSelectedRows, NULL, "nSelectedRows"},
-  {impl_get_NSelectedColumns, NULL, "nSelectedColumns"},
+  {impl_get_NSelectedRows, NULL, "NSelectedRows"},
+  {impl_get_NSelectedColumns, NULL, "NSelectedColumns"},
   {NULL, NULL, NULL}
 };
 
