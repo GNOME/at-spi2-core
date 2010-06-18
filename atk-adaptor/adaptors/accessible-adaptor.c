@@ -141,12 +141,14 @@ static dbus_bool_t
 impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
+  int childCount;
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
 
-  return droute_return_v_int32 (iter,
-                                atk_object_get_n_accessible_children
-                                (object));
+  childCount = (ATK_IS_SOCKET (object) && atk_socket_is_occupied (object))
+               ? 1
+               : atk_object_get_n_accessible_children (object);
+  return droute_return_v_int32 (iter, childCount);
 }
 
 static DBusMessage *
@@ -165,6 +167,31 @@ impl_GetChildAtIndex (DBusConnection * bus,
        (message, &error, DBUS_TYPE_INT32, &i, DBUS_TYPE_INVALID))
     {
       return droute_invalid_arguments_error (message);
+    }
+
+  if (ATK_IS_SOCKET (object) && atk_socket_is_occupied (ATK_SOCKET (object)) && i == 0)
+    {
+      AtkSocket *socket = ATK_SOCKET (object);
+      gchar *child_name, *child_path;
+      child_name = g_strdup (socket->embedded_plug_id);
+      child_path = g_utf8_strchr (child_name + 1, -1, ':');
+      if (child_path)
+        {
+          DBusMessage *reply;
+          DBusMessageIter iter, iter_socket;
+          *(child_path++) = '\0';
+          reply = dbus_message_new_method_return (message);
+          if (!reply)
+            return NULL;
+          dbus_message_iter_init_append (reply, &iter);
+          dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL,
+                                            &iter_socket);
+          dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_STRING, &child_name);
+          dbus_message_iter_append_basic (&iter_socket, DBUS_TYPE_OBJECT_PATH, &child_path);
+          dbus_message_iter_close_container (&iter, &iter_socket);
+          return reply;
+        }
+      g_free (child_name);
     }
   child = atk_object_ref_accessible_child (object, i);
   return spi_object_return_reference (message, child);
