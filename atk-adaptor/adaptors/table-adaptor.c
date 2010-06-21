@@ -352,7 +352,6 @@ impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_get_column_header (table, column);
-  obj = atk_table_get_column_header (table, column);
   return spi_object_return_reference (message, obj);
 }
 
