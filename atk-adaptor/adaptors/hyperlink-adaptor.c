@@ -81,7 +81,7 @@ impl_GetObject (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   atk_object = atk_hyperlink_get_object (link, i);
-  return spi_object_return_reference (message, atk_object);
+  return spi_object_return_reference (message, atk_object, FALSE);
 }
 
 static DBusMessage *

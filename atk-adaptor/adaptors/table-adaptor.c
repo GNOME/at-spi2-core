@@ -108,7 +108,7 @@ impl_GetAccessibleAt (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_ref_at (table, row, column);
-  return spi_object_return_reference (message, obj);
+  return spi_object_return_reference (message, obj, TRUE);
 }
 
 static DBusMessage *
@@ -331,7 +331,7 @@ impl_GetRowHeader (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_get_row_header (table, row);
-  return spi_object_return_reference (message, obj);
+  return spi_object_return_reference (message, obj, FALSE);
 }
 
 static DBusMessage *
@@ -352,7 +352,7 @@ impl_GetColumnHeader (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   obj = atk_table_get_column_header (table, column);
-  return spi_object_return_reference (message, obj);
+  return spi_object_return_reference (message, obj, FALSE);
 }
 
 static DBusMessage *

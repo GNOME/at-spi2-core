@@ -194,7 +194,7 @@ impl_GetChildAtIndex (DBusConnection * bus,
       g_free (child_name);
     }
   child = atk_object_ref_accessible_child (object, i);
-  return spi_object_return_reference (message, child);
+  return spi_object_return_reference (message, child, TRUE);
 }
 
 static DBusMessage *
@@ -496,7 +496,7 @@ impl_GetApplication (DBusConnection * bus,
                      DBusMessage * message, void *user_data)
 {
   AtkObject *root = g_object_ref (atk_get_root ());
-  return spi_object_return_reference (message, root);
+  return spi_object_return_reference (message, root, TRUE);
 }
 
 static DBusMessage *

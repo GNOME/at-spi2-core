@@ -175,7 +175,7 @@ spi_object_append_desktop_reference (DBusMessageIter * iter)
 }
 
 DBusMessage *
-spi_object_return_reference (DBusMessage * msg, AtkObject * obj)
+spi_object_return_reference (DBusMessage * msg, AtkObject * obj, gboolean unref)
 {
   DBusMessage *reply;
 
@@ -186,7 +186,7 @@ spi_object_return_reference (DBusMessage * msg, AtkObject * obj)
       dbus_message_iter_init_append (reply, &iter);
       spi_object_append_reference (&iter, obj);
     }
-  if (obj)
+  if (unref && obj)
     g_object_unref (G_OBJECT (obj));
 
   return reply;

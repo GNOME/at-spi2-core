@@ -280,7 +280,8 @@ static DBusMessage *
 impl_GetRoot (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
   return spi_object_return_reference (message,
-                                      g_object_ref (G_OBJECT (spi_global_app_data->root)));
+                                      g_object_ref (G_OBJECT (spi_global_app_data->root)),
+                                      TRUE);
 }
 
 /*---------------------------------------------------------------------------*/

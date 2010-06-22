@@ -46,7 +46,7 @@ void
 spi_object_append_null_reference (DBusMessageIter * iter);
 
 DBusMessage *
-spi_object_return_reference (DBusMessage * msg, AtkObject * obj);
+spi_object_return_reference (DBusMessage * msg, AtkObject * obj, gboolean unref);
 
 DBusMessage *
 spi_hyperlink_return_reference (DBusMessage * msg, AtkHyperlink * obj);
