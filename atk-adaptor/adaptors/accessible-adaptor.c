@@ -145,7 +145,7 @@ impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
 
   g_return_val_if_fail (ATK_IS_OBJECT (user_data), FALSE);
 
-  childCount = (ATK_IS_SOCKET (object) && atk_socket_is_occupied (object))
+  childCount = (ATK_IS_SOCKET (object) && atk_socket_is_occupied (ATK_SOCKET (object)))
                ? 1
                : atk_object_get_n_accessible_children (object);
   return droute_return_v_int32 (iter, childCount);

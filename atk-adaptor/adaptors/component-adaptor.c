@@ -87,7 +87,7 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   reply = spi_object_return_reference (message, child);
   g_object_unref (child);
 
-  return child;
+  return reply;
 }
 
 static DBusMessage *

@@ -280,7 +280,7 @@ spi_register_object_to_path (SpiRegister * reg, GObject * gobj)
     return NULL;
 
   /* Map the root object to the root path. */
-  if (gobj == spi_global_app_data->root)
+  if ((void *)gobj == (void *)spi_global_app_data->root)
     return g_strdup (spi_register_root_path);
 
   ref = object_to_ref (gobj);
