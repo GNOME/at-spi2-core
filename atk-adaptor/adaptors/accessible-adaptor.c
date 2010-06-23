@@ -156,6 +156,7 @@ impl_GetChildAtIndex (DBusConnection * bus,
                       DBusMessage * message, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
+  DBusMessage *reply;
   DBusError error;
   dbus_int32_t i;
   AtkObject *child;
@@ -177,7 +178,6 @@ impl_GetChildAtIndex (DBusConnection * bus,
       child_path = g_utf8_strchr (child_name + 1, -1, ':');
       if (child_path)
         {
-          DBusMessage *reply;
           DBusMessageIter iter, iter_socket;
           *(child_path++) = '\0';
           reply = dbus_message_new_method_return (message);
@@ -194,7 +194,10 @@ impl_GetChildAtIndex (DBusConnection * bus,
       g_free (child_name);
     }
   child = atk_object_ref_accessible_child (object, i);
-  return spi_object_return_reference (message, child, TRUE);
+  reply = spi_object_return_reference (message, child);
+  g_object_unref (child);
+
+  return reply;
 }
 
 static DBusMessage *
@@ -495,8 +498,7 @@ static DBusMessage *
 impl_GetApplication (DBusConnection * bus,
                      DBusMessage * message, void *user_data)
 {
-  AtkObject *root = g_object_ref (atk_get_root ());
-  return spi_object_return_reference (message, root, TRUE);
+  return spi_object_return_reference (message, atk_get_root ());
 }
 
 static DBusMessage *

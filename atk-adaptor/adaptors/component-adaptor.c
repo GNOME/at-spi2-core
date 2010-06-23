@@ -67,6 +67,7 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   AtkComponent *component = (AtkComponent *) user_data;
   dbus_int32_t x, y;
   dbus_uint32_t coord_type;
+  DBusMessage *reply;
   DBusError error;
   AtkObject *child;
 
@@ -83,7 +84,10 @@ impl_GetAccessibleAtPoint (DBusConnection * bus, DBusMessage * message,
   child =
     atk_component_ref_accessible_at_point (component, x, y,
                                            (AtkCoordType) coord_type);
-  return spi_object_return_reference (message, child, TRUE);
+  reply = spi_object_return_reference (message, child);
+  g_object_unref (child);
+
+  return child;
 }
 
 static DBusMessage *
