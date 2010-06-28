@@ -1,3 +1,7 @@
+What's new in at-spi2-core 0.3.4:
+
+* Added GetChildren to the spec.
+
 What's new in at-spi2-core 0.3.3:
 
 * Add return values to some functions that were missing them.
