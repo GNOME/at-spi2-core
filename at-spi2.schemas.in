@@ -18,7 +18,7 @@ support.</long>
       <applyto>/desktop/gnome/interface/at-spi-dbus</applyto>
       <owner>gnome</owner>
       <type>bool</type>
-      <default>true</default>
+      <default>false</default>
       <locale name="C">
         <short>Enable DBus-based AT-SPI infrastructure</short>
         <long>In combination with /desktop/gnome/interface/accessibility, this key is needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-SPI infrastructure has been relocated.  It is ignored if the DBus-based AT-SPI infrastructure has not been relocated.</long>
