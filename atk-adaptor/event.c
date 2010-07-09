@@ -72,7 +72,8 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
   closure.loop = g_main_loop_new (NULL, FALSE);
 
-  if (getenv ("AT_SPI_CLIENT"))
+  /* TODO: Remove old AT_SPI_CLIENT name */
+  if (getenv ("AT_SPI_CLIENT") || getenv ("AT_SPI_REENTER_G_MAIN_LOOP"))
     {
       g_main_loop_run  (closure.loop);
     }
