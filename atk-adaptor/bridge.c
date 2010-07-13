@@ -302,11 +302,71 @@ get_plug_id (AtkPlug * plug)
   return g_string_free (str, FALSE);
 }
 
+AtkStateSet *
+socket_ref_state_set (AtkObject *accessible)
+{
+  char *child_name, *child_path;
+  AtkSocket *socket = ATK_SOCKET (accessible);
+  int count = 0;
+  int j;
+  int v;
+  DBusMessage *message, *reply;
+  DBusMessageIter iter, iter_array;
+  AtkStateSet *set;
+
+  if (!socket->embedded_plug_id)
+    return NULL;
+
+  child_name = g_strdup (socket->embedded_plug_id);
+  if (!child_name)
+    return NULL;
+  child_path = g_utf8_strchr (child_name + 1, -1, ':');
+  if (!child_path)
+    {
+      g_free (child_name);
+      return NULL;
+    }
+  *(child_path++) = '\0';
+  message = dbus_message_new_method_call (child_name, child_path, SPI_DBUS_INTERFACE_ACCESSIBLE, "GetState");
+  g_free (child_name);
+  reply = dbus_connection_send_with_reply_and_block (spi_global_app_data->bus, message, 1, NULL);
+  dbus_message_unref (message);
+  if (reply == NULL)
+    return NULL;
+  if (strcmp (dbus_message_get_signature (reply), "au") != 0)
+    {
+      dbus_message_unref (reply);
+      return NULL;
+    }
+  set = atk_state_set_new ();
+  if (!set)
+    return  NULL;
+  dbus_message_iter_init (reply, &iter);
+  dbus_message_iter_recurse (&iter, &iter_array);
+  do
+    {
+      dbus_message_iter_get_basic (&iter_array, &v);
+      for (j = 0; j < 32; j++)
+        {
+          if (v & (1 << j))
+            {
+              AtkState state = spi_atk_state_from_spi_state ((count << 5) + j);
+              atk_state_set_add_state (set, state);
+            }
+        }
+      count++;
+    }
+  while (dbus_message_iter_next (&iter_array));
+  dbus_message_unref (reply);
+  return set;
+}
+
 static void
 socket_embed_hook (AtkSocket * socket, gchar * plug_id)
 {
   AtkObject *accessible = ATK_OBJECT(socket);
   gchar *plug_name, *plug_path;
+  AtkObjectClass *klass;
 
   /* Force registration */
   gchar *path = spi_register_object_to_path (spi_global_register, G_OBJECT (accessible));
@@ -328,6 +388,9 @@ socket_embed_hook (AtkSocket * socket, gchar * plug_id)
     }
   g_free (plug_name);
   g_free (path);
+
+  klass = ATK_OBJECT_GET_CLASS (accessible);
+  klass->ref_state_set = socket_ref_state_set;
 }
 
 static void
