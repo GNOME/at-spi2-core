@@ -417,6 +417,17 @@ static GOptionEntry atspi_option_entries[] = {
   {NULL}
 };
 
+static gchar *
+introspect_children_cb (char *path, void *data)
+{
+  if (!strcmp (path, "/org/a11y/atspi/accessible"))
+    {
+      return g_strdup ("<node name=\"root\"/>\n");
+      /* TODO: Should we place the whole hierarchy here? */
+    }
+  return NULL;
+}
+
 /*
  * spi_app_init
  *
@@ -515,6 +526,8 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   accpath = droute_add_many (spi_global_app_data->droute,
                              "/org/a11y/atspi/accessible",
+                             NULL,
+                             introspect_children_cb,
                              NULL,
                              (DRouteGetDatumFunction)
                              spi_global_register_path_to_object);

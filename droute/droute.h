@@ -31,6 +31,7 @@
 
 typedef DBusMessage *(*DRouteFunction)         (DBusConnection *, DBusMessage *, void *);
 typedef dbus_bool_t  (*DRoutePropertyFunction) (DBusMessageIter *, void *);
+typedef gchar *(*DRouteIntrospectChildrenFunction) (const char *, void *);
 
 typedef void        *(*DRouteGetDatumFunction) (const char *, void *);
 
@@ -72,6 +73,8 @@ DRoutePath *
 droute_add_many (DRouteContext *cnx,
                  const char    *path,
                  const void    *data,
+                 DRouteIntrospectChildrenFunction introspect_children_cb,
+                 void *introspect_children_data,
                  const DRouteGetDatumFunction get_datum);
 
 void

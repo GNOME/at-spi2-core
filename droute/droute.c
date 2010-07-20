@@ -54,6 +54,8 @@ struct _DRoutePath
     GHashTable           *methods;
     GHashTable           *properties;
 
+    DRouteIntrospectChildrenFunction introspect_children_cb;
+    void *introspect_children_data;
     void                   *user_data;
     DRouteGetDatumFunction  get_datum;
 };
@@ -79,6 +81,8 @@ droute_object_does_not_exist_error (DBusMessage *message);
 static DRoutePath *
 path_new (DRouteContext *cnx,
           void    *user_data,
+          DRouteIntrospectChildrenFunction introspect_children_cb,
+          void *introspect_children_data,
           DRouteGetDatumFunction get_datum)
 {
     DRoutePath *new_path;
@@ -99,6 +103,8 @@ path_new (DRouteContext *cnx,
                                                   g_free,
                                                   NULL);
 
+    new_path->introspect_children_cb = introspect_children_cb;
+    new_path->introspect_children_data = introspect_children_data;
     new_path->user_data = user_data;
     new_path->get_datum = get_datum;
 
@@ -170,7 +176,7 @@ droute_add_one (DRouteContext *cnx,
     DRoutePath *new_path;
     gboolean registered;
 
-    new_path = path_new (cnx, (void *) data, NULL);
+    new_path = path_new (cnx, NULL, NULL, (void *) data, NULL);
 
     registered = dbus_connection_register_object_path (cnx->bus, path, &droute_vtable, new_path);
     if (!registered)
@@ -187,11 +193,13 @@ DRoutePath *
 droute_add_many (DRouteContext *cnx,
                  const char    *path,
                  const void    *data,
+                 DRouteIntrospectChildrenFunction introspect_children_cb,
+                 void *introspect_children_data,
                  const DRouteGetDatumFunction get_datum)
 {
     DRoutePath *new_path;
 
-    new_path = path_new (cnx, (void *) data, get_datum);
+    new_path = path_new (cnx, (void *) data, introspect_children_cb, introspect_children_data, get_datum);
 
     if (!dbus_connection_register_fallback (cnx->bus, path, &droute_vtable, new_path))
         oom();
@@ -432,10 +440,23 @@ handle_introspection (DBusConnection *bus,
 
     g_string_append_printf(output, introspection_node_element, pathstr);
 
-    for (i=0; i < path->introspection->len; i++)
+    if (!path->get_datum || path_get_datum (path, pathstr))
       {
-        gchar *introspect = (gchar *) g_ptr_array_index (path->introspection, i);
-        g_string_append (output, introspect);
+        for (i=0; i < path->introspection->len; i++)
+          {
+            gchar *introspect = (gchar *) g_ptr_array_index (path->introspection, i);
+            g_string_append (output, introspect);
+          }
+      }
+
+    if (path->introspect_children_cb)
+      {
+        gchar *children = (*path->introspect_children_cb) (pathstr, path->introspect_children_data);
+        if (children)
+          {
+            g_string_append (output, children);
+            g_free (children);
+          }
       }
 
     g_string_append(output, introspection_footer);
