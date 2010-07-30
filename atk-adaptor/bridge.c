@@ -183,28 +183,13 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *er
 }
 /*---------------------------------------------------------------------------*/
 
-static gboolean
-register_application (SpiBridge * app)
+static void
+register_reply (DBusPendingCall *pending, void *user_data)
 {
-  DBusMessage *message, *reply;
-  DBusMessageIter iter;
-  DBusError error;
+  DBusMessage *reply;
+  SpiBridge *app = user_data;
 
-  dbus_error_init (&error);
-
-  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
-                                          SPI_DBUS_PATH_ROOT,
-                                          SPI_DBUS_INTERFACE_SOCKET,
-                                          "Embed");
-
-  dbus_message_iter_init_append (message, &iter);
-  spi_object_append_reference (&iter, app->root);
-  
-  reply = send_and_allow_reentry (app->bus, message, &error);
-
-  if (message)
-    dbus_message_unref (message);
-
+    reply = dbus_pending_call_steal_reply (pending);
   if (reply)
     {
       DBusMessageIter iter, iter_struct;
@@ -213,7 +198,8 @@ register_application (SpiBridge * app)
       if (strcmp (dbus_message_get_signature (reply), "(so)") != 0)
         {
           g_warning ("AT-SPI: Could not obtain desktop path or name\n");
-          return FALSE;
+          dbus_message_unref (reply);
+          return;
         }
 
       dbus_message_iter_init (reply, &iter);
@@ -227,9 +213,45 @@ register_application (SpiBridge * app)
     }
   else
     {
-      g_warning ("AT-SPI: Could not embed inside desktop: %s\n", error.message);
-      return FALSE;
+      g_warning ("AT-SPI: Could not embed inside desktop");
+      return;
     }
+  dbus_message_unref (reply);
+}
+
+static gboolean
+register_application (SpiBridge * app)
+{
+  DBusMessage *message, *reply;
+  DBusMessageIter iter;
+  DBusError error;
+  DBusPendingCall *pending;
+
+  dbus_error_init (&error);
+
+  /* These will be overridden when we get a reply, but in practice these
+     defaults should always be correct */
+  app->desktop_name = SPI_DBUS_NAME_REGISTRY;
+  app->desktop_path = SPI_DBUS_PATH_ROOT;
+
+  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
+                                          SPI_DBUS_PATH_ROOT,
+                                          SPI_DBUS_INTERFACE_SOCKET,
+                                          "Embed");
+
+  dbus_message_iter_init_append (message, &iter);
+  spi_object_append_reference (&iter, app->root);
+  
+    if (!dbus_connection_send_with_reply (app->bus, message, &pending, -1))
+    {
+        return FALSE;
+    }
+
+    dbus_pending_call_set_notify (pending, register_reply, app, NULL);
+
+  if (message)
+    dbus_message_unref (message);
+
   return TRUE;
 }
 
@@ -418,7 +440,7 @@ static GOptionEntry atspi_option_entries[] = {
 };
 
 static gchar *
-introspect_children_cb (char *path, void *data)
+introspect_children_cb (const char *path, void *data)
 {
   if (!strcmp (path, "/org/a11y/atspi/accessible"))
     {
