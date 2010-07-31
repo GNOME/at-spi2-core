@@ -28,6 +28,9 @@
 #include "common/spi-dbus.h"
 #include "introspection.h"
 
+/* for spi_global_app_data  is there a better way? */
+#include "../bridge.h"
+
 static dbus_bool_t
 impl_get_ToolkitName (DBusMessageIter * iter, void *user_data)
 {
@@ -87,12 +90,24 @@ impl_GetLocale (DBusConnection * bus, DBusMessage * message, void *user_data)
   return NULL;
 }
 
+static DBusMessage *
+impl_get_app_bus(DBusConnection *bus, DBusMessage *msg, void *data)
+{
+DBusMessage *reply;
+
+reply = dbus_message_new_method_return(msg);
+if(reply) dbus_message_append_args(reply, DBUS_TYPE_STRING, &(spi_global_app_data->app_bus_addr), DBUS_TYPE_INVALID);
+
+return reply;
+}
+
 static DRouteMethod methods[] = {
   {impl_registerToolkitEventListener, "registerToolkitEventListener"},
   {impl_registerObjectEventListener, "registerObjectEventListener"},
   {impl_pause, "pause"},
   {impl_resume, "resume"},
   {impl_GetLocale, "GetLocale"},
+  {impl_get_app_bus, "getApplicationBusAddress"},
   {NULL, NULL}
 };
 

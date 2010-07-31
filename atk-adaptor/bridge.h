@@ -56,6 +56,7 @@ struct _SpiBridge
 */
   gchar *desktop_name;
   gchar *desktop_path;
+char *app_bus_addr;
   GList *events;
 };
 
