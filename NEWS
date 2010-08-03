@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 0.3.6:
+
+* Fixed a problem with dbus introspection.
+
+* Do not block waiting for a response when registering.
+
 What's new in at-spi2-atk 0.3.5:
 
 * Have a socket retrieve its state set from its embedded plug
