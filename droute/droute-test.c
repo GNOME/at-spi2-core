@@ -267,7 +267,7 @@ int main (int argc, char **argv)
                                test_properties);
 
     g_idle_add (do_tests_func, NULL);
-    g_main_run(main_loop);
+    g_main_loop_run(main_loop);
     if (success)
             return 0;
     else
