@@ -119,7 +119,10 @@ spi_atk_bridge_get_bus (void)
 
   bridge_display = XOpenDisplay (spi_display_name ());
   if (!bridge_display)
-    g_error ("AT_SPI: Could not get the display\n");
+    {
+      g_warning ("AT_SPI: Could not get the display\n");
+      return NULL;
+    }
 
   AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False);
   XGetWindowProperty (bridge_display,
@@ -137,19 +140,26 @@ spi_atk_bridge_get_bus (void)
         ("AT-SPI: Accessibility bus not found - Using session bus.\n");
       bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
       if (!bus)
-        g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+        {
+          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          return NULL;
+        }
     }
   else
     {
       bus = dbus_connection_open (data, &error);
       if (!bus)
         {
-          g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          return NULL;
         }
       else
         {
           if (!dbus_bus_register (bus, &error))
-            g_error ("AT-SPI: Couldn't register with bus: %s\n", error.message);
+            {
+              g_warning ("AT-SPI: Couldn't register with bus: %s\n", error.message);
+              return NULL;
+            }
         }
     }
 
