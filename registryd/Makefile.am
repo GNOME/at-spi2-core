@@ -1,18 +1,22 @@
 libexec_PROGRAMS = at-spi2-registryd
 
-at_spi2_registryd_CFLAGS = $(DBUS_GLIB_CFLAGS)	\
-			   $(GOBJ_CFLAGS)	\
-			   $(ATK_CFLAGS)	\
-			   -I$(top_srcdir)	\
-			   -DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
+at_spi2_registryd_CFLAGS =	\
+	$(GLIB_CFLAGS)		\
+	$(DBUS_GLIB_CFLAGS)	\
+	$(GOBJ_CFLAGS)		\
+	$(ATK_CFLAGS)		\
+	-I$(top_srcdir)		\
+	-DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
-at_spi2_registryd_LDADD = $(DBUS_GLIB_LIBS)	\
- 			  $(GOBJ_CFLAGS)	\
-			  $(ATK_LIBS)		\
-			  $(X_LIBS)		\
-			  $(SM_LIBS)		\
-			  $(XTST_LIBS)		\
-			  $(XEVIE_LIBS)
+at_spi2_registryd_LDADD =	\
+	$(GLIB_LIBS)		\
+	$(DBUS_GLIB_LIBS)	\
+	$(GOBJ_CFLAGS)		\
+	$(ATK_LIBS)		\
+	$(X_LIBS)		\
+	$(SM_LIBS)		\
+	$(XTST_LIBS)		\
+	$(XEVIE_LIBS)
 
 at_spi2_registryd_SOURCES =	\
 	de-marshaller.h         \
@@ -20,8 +24,8 @@ at_spi2_registryd_SOURCES =	\
 	de-types.h              \
 	display.h		\
 	display.c		\
-        event-source.h          \
-        event-source.c          \
+	event-source.h          \
+	event-source.c          \
 	keymasks.h              \
 	paths.h                 \
 	registry-main.c		\
@@ -40,7 +44,8 @@ service_in_files = org.a11y.atspi.Registry.service.in
 service_DATA     = $(service_in_files:.service.in=.service)
 
 $(service_DATA): $(service_in_files) Makefile
-	@sed -e "s|\@LIBEXECDIR\@|$(libexecdir)|" $< > $@
+	sed -e "s|[@]LIBEXECDIR[@]|$(libexecdir)|" $(srcdir)/$@.in > $@
+
 
 DISTCLEANFILES = org.a11y.atspi.Registry.service
 EXTRA_DIST = org.a11y.atspi.Registry.service.in

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=AT SPI D-Bus Bus
-Exec=@bindir@/at-spi-dbus-bus
+Exec=at-spi-dbus-bus
 OnlyShowIn=GNOME;
 NoDisplay=true
 AutostartCondition=GNOME /desktop/gnome/interface/accessibility

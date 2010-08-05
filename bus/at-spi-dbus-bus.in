@@ -1,8 +1,8 @@
 #!/bin/sh
 
-prefix=@prefix@
-sysconfdir=@sysconfdir@
-daemondir=@DBUS_DAEMONDIR@
+prefix="@prefix@"
+sysconfdir="@sysconfdir@"
+dbusdaemon="@DBUS_DAEMON@"
 
-address=`${daemondir}/dbus-daemon --config-file=${sysconfdir}/at-spi2/accessibility.conf --print-address`
+address=`${dbusdaemon} --config-file=${sysconfdir}/at-spi2/accessibility.conf --print-address`
 xprop -root -f AT_SPI_BUS 8s -set AT_SPI_BUS ${address}

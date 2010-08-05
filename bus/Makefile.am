@@ -1,20 +1,23 @@
-busconfigdir=$(sysconfdir)/at-spi2
-busconfig_DATA=\
-	accessibility.conf			
+busconfigdir = $(sysconfdir)/at-spi2
+busconfig_DATA = accessibility.conf			
 
-atspidbusdir=$(bindir)
-atspidbus_SCRIPTS=\
-	at-spi-dbus-bus
+atspidbusdir = $(bindir)
+atspidbus_SCRIPTS = at-spi-dbus-bus
 
 default_sessiondir = $(sysconfdir)/xdg/autostart
 default_session_DATA = at-spi-dbus-bus.desktop
 
-EXTRA_DIST= \
-            accessibility.conf \
-            at-spi-dbus-bus.desktop.in
+do_subst = sed -e 's,[@]prefix[@],${prefix},g' \
+               -e 's,[@]sysconfdir[@],${sysconfdir},g' \
+               -e 's,[@]DBUS_DAEMON[@],@DBUS_DAEMON@,g'
 
-%.desktop: %.desktop.in Makefile.am
-	sed -e "s,\@bindir\@,$(EXPANDED_BINDIR)," < $< > $@
+at-spi-dbus-bus:	at-spi-dbus-bus.in Makefile
+	$(do_subst) $(srcdir)/$@.in > $@
+
+EXTRA_DIST= \
+	accessibility.conf \
+	at-spi-dbus-bus.in \
+	at-spi-dbus-bus.desktop
 
 CLEANFILES= \
-	at-spi-dbus-bus.desktop
+	at-spi-dbus-bus

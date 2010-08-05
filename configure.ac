@@ -1,4 +1,5 @@
 AC_INIT([at-spi2-core], [0.3.90], [accessibility-atspi@lists.linux-foundation.org])
+AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -19,11 +20,10 @@ AC_SUBST(LT_CURRENT)
 AC_SUBST(LT_REVISION)
 AC_SUBST(LT_AGE)
 
-AM_INIT_AUTOMAKE([-Wall foreign])
+AM_INIT_AUTOMAKE([1.9 -Wall foreign])
 
 AC_PROG_CC
-AM_DISABLE_STATIC
-AM_PROG_LIBTOOL
+LT_INIT([disable-static])
 PKG_PROG_PKG_CONFIG
 
 AC_CONFIG_HEADERS([config.h])
@@ -35,6 +35,10 @@ AC_SUBST(DBUS_CFLAGS)
 PKG_CHECK_MODULES(GLIB, [glib-2.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
+AC_CHECK_LIB([glib-2.0], [g_ptr_array_new_with_free_func], [],
+	[AC_MSG_ERROR([The version of glib-2.0 found does not define ]
+		[g_ptr_array_new_with_free_func. Please upgrade glib.])],
+	[$GLIB_LIBS])
 
 PKG_CHECK_MODULES(DBUS_GLIB, [dbus-glib-1 >= 0.7.0])
 AC_SUBST(DBUS_GLIB_LIBS)
@@ -55,71 +59,97 @@ else
 fi
 AC_SUBST(X_LIBS)
 
-#LIBS="$LIBS $X_LIBS"
+save_LIBS="$LIBS"
+LIBS=""
+CPPFLAGS="$CPPFLAGS $X_CFLAGS"
 AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst,[
 	AC_MSG_ERROR([Couldn't find the Xtst library. Check config.log])],
-	-lX11 -lXext)
+	$X_LIBS)
 AC_SUBST(XTST_LIBS)
+LIBS="$LIBS $save_LIBS"
 
-have_xkb=
-AC_CHECK_LIB(X11, XkbQueryExtension, have_xkb="maybe")
+save_LIBS="$LIBS"
+LIBS=""
+AC_CHECK_LIB(X11, XkbQueryExtension, have_xkb="maybe", have_xkb="no", $X_LIBS)
 if test "x$have_xkb" = "xmaybe"; then 
-	AC_CHECK_HEADER(X11/XKBlib.h, have_xkb=yes)
+	AC_CHECK_HEADER([X11/XKBlib.h], have_xkb=yes)
 fi
 if test "x$have_xkb" = "xyes"; then
-	AC_MSG_RESULT(yes)
-	AC_DEFINE([HAVE_XKB], [], Xkb is present)
+	AC_DEFINE([HAVE_XKB], [], [Xkb is present])
 fi
+LIBS="$LIBS $save_LIBS"
 
-have_xinput=
-AC_CHECK_LIB(Xi, XOpenDevice, XINPUT_LIBS=-lXi,,-lXext)
-if test "x$XINPUT_LIBS" = x; then
-	AC_MSG_ERROR(Couldn't find the XInput library. Check config.log for details)
-fi			       
-AC_CHECK_HEADER(X11/extensions/XInput.h, have_xinput=yes)
+save_LIBS="$LIBS"
+LIBS=""
+AC_CHECK_LIB(Xi, XOpenDevice, have_xinput="maybe", have_xinput="no", $X_LIBS)
+if test "x$have_xinput" = "xmaybe"; then
+	save_LIBS="$LIBS"
+	LIBS="$LIBS $X_LIBS"
+	AC_CHECK_HEADER([X11/extensions/XInput.h], [have_xinput="yes"])
+	LIBS="$save_LIBS"
+fi
+if test "x$have_xinput" != "xyes"; then
+	AC_MSG_ERROR([Couldn't find the XInput library. Check config.log for details])
+fi
+XINPUT_LIBS="-lXi"
 AC_SUBST(XINPUT_LIBS)
+LIBS="$LIBS $save_LIBS"
 
-AC_ARG_ENABLE(xevie, [--enable-xevie  Build with XEViE support [default=yes]], enable_xevie="$enableval", enable_xevie=yes)
+save_LIBS="$LIBS"
+LIBS=""
+AC_ARG_ENABLE(xevie,
+	[AS_HELP_STRING([--enable-xevie],
+		[Build with XEViE support [default=yes]])],
+	enable_xevie="$enableval", enable_xevie=yes)
 
 if test x$enable_xevie = xyes ; then
 	have_xevie=
-	AC_CHECK_LIB(Xext, XevieStart, have_xevie="yes")
+	AC_CHECK_LIB(Xext, XevieStart, have_xevie="yes", have_xevie="no", $X_LIBS)
 
 	if test "x$have_xevie" = "xyes"; then
 		XEVIE_LIBS="-lXext"
-		AC_DEFINE([HAVE_XEVIE], [], Xevie is present)
+		AC_DEFINE([HAVE_XEVIE], [], [Xevie is present])
 	else
-	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,-lXevie -lXext)
+	   AC_CHECK_LIB(Xevie, XevieQueryVersion, have_xevie="maybe",,$X_LIBS)
 	   if test "x$have_xevie" = "xmaybe"; then
-	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xevie=yes, [], [#include <X11/Xlib.h>])
+	      AC_CHECK_HEADER(X11/extensions/Xevie.h, have_xevie=yes, [],
+	      [[#include <X11/Xlib.h>
+]])
 	      if test "x$have_xevie" = "xyes"; then
 	      	      XEVIE_LIBS="-lXext -lXevie"	       
-		      AC_DEFINE([HAVE_XEVIE], [], Xevie is present)
+		      AC_DEFINE([HAVE_XEVIE], [], [Xevie is present])
 	      fi
 	   fi	
 	fi
 	AC_SUBST(XEVIE_LIBS)
 fi
+LIBS="$LIBS $save_LIBS"
 
 AC_ARG_VAR([DEFAULT_ATSPI_INTROSPECTION_PATH],
-	   [Set the default path for the install ofDBus introspection XML
-	    relative to the pkgdatadir.])
+        [Set the default path for the install of DBus introspection XML ]
+        [relative to the pkgdatadir.])
 if test -z "$DEFAULT_ATSPI_INTROSPECTION_PATH"; then
 	  DEFAULT_ATSPI_INTROSPECTION_PATH=at-spi2/dbus
 fi
 
-AS_AC_EXPAND(EXPANDED_BINDIR, "$bindir")
-AC_ARG_WITH(dbus_daemondir, AS_HELP_STRING([--with-dbus-daemondir=[dirname]],[Directory where the DBUS daemon is installed]))
-if test -z "$with_dbus_daemondir" ; then
-    DBUS_DAEMONDIR=$EXPANDED_BINDIR
-else
-    DBUS_DAEMONDIR=$with_dbus_daemondir
+AC_ARG_WITH([dbus_daemondir],
+	[AS_HELP_STRING([--with-dbus-daemondir=<directory>],
+		[Directory where the DBUS daemon is installed])],
+    [DBUS_DAEMON="$with_dbus_daemondir/dbus-daemon"],
+    [AC_PATH_PROG([DBUS_DAEMON], [dbus-daemon], [XXXDBUSDAEMONNOTFOUND],
+		[$PATH$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR]dnl
+[/libexec$PATH_SEPARATOR/usr/libexec$PATH_SEPARATOR/usr/local/bin]dnl
+[$PATH_SEPARATOR/usr/pkg/bin])]
+	)
+if test "$DBUS_DAEMON" = "XXXDBUSDAEMONNOTFOUND"; then
+	DBUS_DAEMON = "$bindir/dbus-daemon"
+	AC_MSG_WARN([at-spi2 relies on dbus, and the dbus-daemon was not found])
+	AC_MSG_WARN([we assume that it will be installed in "$bindir"])
 fi
-AC_SUBST(DBUS_DAEMONDIR)
-AC_DEFINE_UNQUOTED(DBUS_DAEMONDIR,"$DBUS_DAEMONDIR", [Directory for installing the DBUS daemon])
+AC_SUBST(DBUS_DAEMON)
 
 AC_ARG_WITH(dbus-services,
-           [AC_HELP_STRING([--with-dbus-services=<dir>],
+           [AS_HELP_STRING([--with-dbus-services=<directory>],
            [where D-BUS services directory is])])
 if ! test -z "$with_dbus_services" ; then
            DBUS_SERVICES_DIR="$with_dbus_services"
@@ -130,14 +160,19 @@ AC_SUBST(DBUS_SERVICES_DIR)
 
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
-AC_ARG_ENABLE(relocate, [  --enable-relocate  Relocate to coexist with CORBA [default=no]], enable_relocate="$enableval", enable_relocate=no)
+AC_ARG_ENABLE([relocate],
+	[AS_HELP_STRING([--enable-relocate],
+		[Relocate to coexist with CORBA @<:@default=no@:>@])],
+	[enable_relocate="$enableval"],
+	[enable_relocate=no])
 if test x$enable_relocate = xyes ; then
 	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
 fi
 AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
 
 AC_CONFIG_FILES([Makefile
-		 xml/Makefile
-		 registryd/Makefile])
+	xml/Makefile
+	registryd/Makefile
+	bus/Makefile])
 
 AC_OUTPUT
