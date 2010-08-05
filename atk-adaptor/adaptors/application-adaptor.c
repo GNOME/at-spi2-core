@@ -107,7 +107,7 @@ static DRouteMethod methods[] = {
   {impl_pause, "pause"},
   {impl_resume, "resume"},
   {impl_GetLocale, "GetLocale"},
-  {impl_get_app_bus, "getApplicationBusAddress"},
+  {impl_get_app_bus, "GetApplicationBusAddress"},
   {NULL, NULL}
 };
 

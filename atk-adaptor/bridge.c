@@ -333,7 +333,7 @@ register_application (SpiBridge * app)
 /* could this be better, we accept some amount of race in getting the temp name*/
 /* make sure the directory exists */
 mkdir("/tmp/at-spi2/", 0);
-app->app_bus_addr = mktmp("/tmp/at-spi2/app-socket-xxxxxx");
+app->app_bus_addr = mktemp(file_template);
     }
   else
     {
@@ -516,7 +516,8 @@ install_plug_hooks ()
   socket_class->embed = socket_embed_hook;
 }
 
-static void new_connection_cb(DBusServer *server, DBusConnection *con, void *data)
+static void
+new_connection_cb(DBusServer *server, DBusConnection *con, void *data)
 {
 dbus_connection_ref(con);
 dbus_connection_setup_with_g_main(con, NULL);
