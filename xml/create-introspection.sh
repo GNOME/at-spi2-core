@@ -1,4 +1,4 @@
 #!/bin/sh
 
-xsltproc --xinclude remove-annotations.xsl Accessibility.xml -o Processed.xml
+xsltproc --xinclude remove-annotations.xsl Accessibility.xml >Processed.xml
 python versioned-introspection.py
