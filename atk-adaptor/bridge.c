@@ -489,7 +489,12 @@ adaptor_init (gint * argc, gchar ** argv[])
   DRoutePath *treepath, *accpath;
 
   root = atk_get_root ();
-  g_return_val_if_fail (root, 0);
+  g_warn_if_fail (root);
+  if (!root)
+    {
+      inited = FALSE;
+      return -1;
+    }
 
   /* Parse command line options */
   opt = g_option_context_new (NULL);
@@ -510,7 +515,8 @@ adaptor_init (gint * argc, gchar ** argv[])
     {
       g_free (spi_global_app_data);
       spi_global_app_data = NULL;
-      return 0;
+      inited = FALSE;
+      return -1;
     }
 
   if (atspi_dbus_name != NULL)
@@ -553,7 +559,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   if (!treepath)
     {
       g_warning ("atk-bridge: Error in droute_add_one().  Already running?");
-      return 0;
+      return -1;
     }
 
   accpath = droute_add_many (spi_global_app_data->droute,
