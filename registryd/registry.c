@@ -30,6 +30,13 @@
 #include "registry.h"
 #include "introspection.h"
 
+typedef struct event_data event_data;
+struct event_data
+{
+  gchar *bus_name;
+  gchar **data;
+};
+
 static void
 children_added_listener (DBusConnection * bus,
                          gint             index,
@@ -193,6 +200,69 @@ remove_application (SpiRegistry *reg, DBusConnection *bus, guint index)
   g_ptr_array_remove_index (reg->apps, index);
 }
 
+static gboolean
+event_is_subtype (gchar **needle, gchar **haystack)
+{
+  while (*haystack && **haystack)
+    {
+      if (g_strcmp0 (*needle, *haystack))
+        return FALSE;
+      needle++;
+      haystack++;
+    }
+  return TRUE;
+}
+
+static gboolean
+needs_mouse_poll (char **event)
+{
+  if (g_strcmp0 (event [0], "Mouse") != 0)
+    return FALSE;
+  if (!event [1] || !event [1][0])
+    return TRUE;
+  return (g_strcmp0 (event [1], "Abs") == 0);
+}
+
+static void
+remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
+{
+  event_data *evdata;
+  gchar **remove_data;
+  GList *list;
+  gboolean mouse_found = FALSE;
+
+  remove_data = g_strsplit (event, ":", 3);
+  if (!remove_data)
+    {
+      return;
+    }
+
+  for (list = registry->events; list;)
+    {
+      event_data *evdata = list->data;
+      if (!g_strcmp0 (evdata->bus_name, bus_name) &&
+          event_is_subtype (evdata->data, remove_data))
+        {
+          list = list->next;
+          g_strfreev (evdata->data);
+          g_free (evdata->bus_name);
+          g_free (evdata);
+          registry->events = g_list_remove (registry->events, evdata);
+        }
+      else
+        {
+          if (needs_mouse_poll (evdata->data))
+            mouse_found = TRUE;
+          list = list->next;
+        }
+    }
+
+  if (!mouse_found)
+    spi_device_event_controller_stop_poll_mouse ();
+
+  g_strfreev (remove_data);
+}
+
 static void
 handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
@@ -218,8 +288,44 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
                   g_ptr_array_remove_index (reg->apps, i);
                 }
             } 
+
+          remove_events (reg, old, "");
         }
     }
+}
+
+/*
+ * Converts names of th eform "active-descendant-changed" to
+ *"ActiveDesendantChanged"
+ */
+static gchar *
+ensure_proper_format (const char *name)
+{
+  gchar *ret = (gchar *) g_malloc (strlen (name) * 2 + 2);
+  gchar *p = ret;
+  gboolean need_upper = TRUE;
+
+  if (!ret)
+    return NULL;
+  while (*name)
+    {
+      if (need_upper)
+        {
+          *p++ = toupper (*name);
+          need_upper = FALSE;
+        }
+      else if (*name == '-')
+        need_upper = TRUE;
+      else if (*name == ':')
+        {
+          need_upper = TRUE;
+          *p++ = *name;
+        }
+      else
+        *p++ = *name;
+      name++;
+    }
+  return ret;
 }
 
 static DBusHandlerResult
@@ -227,10 +333,15 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   guint res = DBUS_HANDLER_RESULT_HANDLED;
+  const gint   type    = dbus_message_get_type (message);
   const char *iface = dbus_message_get_interface (message);
   const char *member = dbus_message_get_member (message);
 
-  if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) && !g_strcmp0(member, "NameOwnerChanged"))
+  if (type != DBUS_MESSAGE_TYPE_SIGNAL)
+    return;
+
+  if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) &&
+      !g_strcmp0(member, "NameOwnerChanged"))
       handle_disconnection (bus, message, user_data);
   else
       res = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
@@ -667,6 +778,70 @@ impl_GetInterfaces (DBusConnection * bus,
   return reply;
 }
 
+/* I would rather these two be signals, but I'm not sure that dbus-python
+ * supports emitting signals except for a service, so implementing as both
+ * a method call and signal for now.
+ */
+static DBusMessage *
+impl_register_event_listener (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  SpiRegistry *registry = SPI_REGISTRY (user_data);
+  const char *orig_name;
+  gchar *name;
+  event_data *evdata;
+  gchar **data;
+  GList *new_list;
+
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
+    DBUS_TYPE_INVALID))
+    return;
+
+  name = ensure_proper_format (orig_name);
+
+  evdata = (event_data *) g_malloc (sizeof (*evdata));
+  if (!evdata)
+    return;
+  data = g_strsplit (name, ":", 3);
+  if (!data)
+    {
+      g_free (evdata);
+      return;
+    }
+  evdata->bus_name = g_strdup (dbus_message_get_sender (message));
+  evdata->data = data;
+  new_list = g_list_append (registry->events, evdata);
+  if (new_list)
+    registry->events = new_list;
+
+  if (needs_mouse_poll (evdata->data))
+    {
+      spi_device_event_controller_start_poll_mouse (registry);
+    }
+
+  g_free (name);
+  /* TODO: Send a signal */
+  return dbus_message_new_method_return (message);
+}
+
+static DBusMessage *
+impl_deregister_event_listener (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  SpiRegistry *registry = SPI_REGISTRY (user_data);
+  const char *orig_name;
+  gchar *name;
+
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
+    DBUS_TYPE_INVALID))
+    return;
+  name = ensure_proper_format (orig_name);
+
+  remove_events (registry, dbus_message_get_sender (message), name);
+
+  /* TODO: Send a signal */
+  g_free (name);
+  return dbus_message_new_method_return (message);
+}
+
 /*---------------------------------------------------------------------------*/
 
 static void 
@@ -939,6 +1114,16 @@ handle_method (DBusConnection *bus, DBusMessage *message, void *user_data)
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
 
+  if (!strcmp (iface, SPI_DBUS_INTERFACE_APPLICATION))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if (!strcmp(member, "RegisterEventListener"))
+      reply = impl_register_event_listener (bus, message, user_data);
+      else if (!strcmp(member, "DeregisterEventListener"))
+        reply = impl_deregister_event_listener (bus, message, user_data);
+      else
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
   if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
@@ -993,6 +1178,8 @@ spi_registry_new (DBusConnection *bus)
   dbus_connection_register_object_path (bus, SPI_DBUS_PATH_ROOT, &registry_vtable, reg);
 
   emit_Available (bus);
+
+  reg->events = NULL;
 
   return reg;
 }

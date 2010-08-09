@@ -32,6 +32,8 @@
 typedef struct _SpiRegistry SpiRegistry;
 typedef struct _SpiRegistryClass SpiRegistryClass;
 
+#include "deviceeventcontroller.h"
+
 G_BEGIN_DECLS
 
 #define SPI_REGISTRY_TYPE        (spi_registry_get_type ())
@@ -42,10 +44,12 @@ G_BEGIN_DECLS
 
 struct _SpiRegistry {
   GObject      parent;
+  SpiDEController *dec;
   GPtrArray   *apps;
   dbus_int32_t id;
 
   DBusConnection *bus;
+  GList *events;
 };
 
 struct _SpiRegistryClass {

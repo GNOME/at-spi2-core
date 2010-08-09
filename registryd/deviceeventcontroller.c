@@ -999,7 +999,7 @@ spi_controller_register_device_listener (SpiDEController      *controller,
         {
           have_mouse_listener = TRUE;
           if (!have_mouse_event_listener)
-            g_timeout_add (100, spi_dec_poll_mouse_idle, controller->registry);
+            g_timeout_add (100, spi_dec_poll_mouse_idle, controller);
         }
       spi_dbus_add_disconnect_match (controller->bus, listener->bus_name);
       break;
@@ -2959,6 +2959,7 @@ spi_registry_dec_new (SpiRegistry *reg, DBusConnection *bus)
   SpiDEController *dec = g_object_new (SPI_DEVICE_EVENT_CONTROLLER_TYPE, NULL);
 
   dec->registry = g_object_ref (reg);
+  reg->dec = g_object_ref (dec);
   dec->bus = bus;
 
   dbus_connection_register_object_path (bus, SPI_DBUS_PATH_DEC, &dec_vtable, dec);
@@ -2975,7 +2976,7 @@ spi_device_event_controller_start_poll_mouse (SpiRegistry *registry)
     {
       have_mouse_event_listener = TRUE;
       if (!have_mouse_listener)
-      g_timeout_add (100, spi_dec_poll_mouse_idle, registry);
+      g_timeout_add (100, spi_dec_poll_mouse_idle, registry->dec);
     }
 }
 
