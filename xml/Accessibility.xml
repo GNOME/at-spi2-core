@@ -15,6 +15,7 @@
   <xi:include href="EditableText.xml" parse="xml"/>
   <xi:include href="Cache.xml" parse="xml"/>
   <xi:include href="Value.xml" parse="xml"/>
+  <xi:include href="Registry.xml" parse="xml"/>
   <xi:include href="DeviceEventController.xml" parse="xml"/>
   <xi:include href="DeviceEventListener.xml" parse="xml"/>
 </spec>

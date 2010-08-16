@@ -43,6 +43,8 @@ const char *spi_org_a11y_atspi_Cache;
 
 const char *spi_org_a11y_atspi_Value;
 
+const char *spi_org_a11y_atspi_Registry;
+
 const char *spi_org_a11y_atspi_DeviceEventController;
 
 const char *spi_org_a11y_atspi_DeviceEventListener;

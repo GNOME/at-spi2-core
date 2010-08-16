@@ -33,11 +33,11 @@
 
 #define SPI_DBUS_NAME_REGISTRY                   SPI_DBUS_NAME_PREFIX "Registry"
 #define SPI_DBUS_INTERFACE_REGISTRY              SPI_DBUS_INTERFACE_PREFIX "Registry"
+#define SPI_DBUS_PATH_REGISTRY                       SPI_DBUS_PATH_PREFIX "registry"
 
 #define SPI_DBUS_PATH_DEC                        SPI_DBUS_PATH_PREFIX "registry/deviceeventcontroller"
 #define SPI_DBUS_INTERFACE_DEC                   SPI_DBUS_INTERFACE_PREFIX "DeviceEventController"
 #define SPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER SPI_DBUS_INTERFACE_PREFIX "DeviceEventListener"
-#define SPI_DBUS_INTERFACE_APPLICATION                   SPI_DBUS_INTERFACE_PREFIX "Application"
 
 #define SPI_DBUS_INTERFACE_ACCESSIBLE            SPI_DBUS_INTERFACE_PREFIX "Accessible"
 #define SPI_DBUS_INTERFACE_COMPONENT             SPI_DBUS_INTERFACE_PREFIX "Component"

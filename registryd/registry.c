@@ -230,6 +230,7 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
   gchar **remove_data;
   GList *list;
   gboolean mouse_found = FALSE;
+  DBusMessage *signal;
 
   remove_data = g_strsplit (event, ":", 3);
   if (!remove_data)
@@ -261,6 +262,14 @@ remove_events (SpiRegistry *registry, const char *bus_name, const char *event)
     spi_device_event_controller_stop_poll_mouse ();
 
   g_strfreev (remove_data);
+
+  signal = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,
+                                    SPI_DBUS_INTERFACE_REGISTRY,
+                                    "EventListenerDeregistered");
+  dbus_message_append_args (signal, DBUS_TYPE_STRING, &bus_name,
+                            DBUS_TYPE_STRING, &event, DBUS_TYPE_INVALID);
+  dbus_connection_send (registry->bus, signal, NULL);
+  dbus_message_unref (signal);
 }
 
 static void
@@ -295,8 +304,8 @@ handle_disconnection (DBusConnection *bus, DBusMessage *message, void *user_data
 }
 
 /*
- * Converts names of th eform "active-descendant-changed" to
- *"ActiveDesendantChanged"
+ * Converts names of the form "active-descendant-changed" to
+ *" ActiveDescendantChanged"
  */
 static gchar *
 ensure_proper_format (const char *name)
@@ -325,6 +334,7 @@ ensure_proper_format (const char *name)
         *p++ = *name;
       name++;
     }
+  *p = '\0';
   return ret;
 }
 
@@ -783,7 +793,7 @@ impl_GetInterfaces (DBusConnection * bus,
  * a method call and signal for now.
  */
 static DBusMessage *
-impl_register_event_listener (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
@@ -791,6 +801,8 @@ impl_register_event_listener (DBusConnection *bus, DBusMessage *message, void *u
   event_data *evdata;
   gchar **data;
   GList *new_list;
+  DBusMessage *signal;
+  const char *sender = dbus_message_get_sender (message);
 
   if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
     DBUS_TYPE_INVALID))
@@ -807,7 +819,11 @@ impl_register_event_listener (DBusConnection *bus, DBusMessage *message, void *u
       g_free (evdata);
       return;
     }
-  evdata->bus_name = g_strdup (dbus_message_get_sender (message));
+  if (!data [0])
+    data [1] = NULL;
+  if (!data [1])
+    data [2] = NULL;
+  evdata->bus_name = g_strdup (sender);
   evdata->data = data;
   new_list = g_list_append (registry->events, evdata);
   if (new_list)
@@ -818,28 +834,67 @@ impl_register_event_listener (DBusConnection *bus, DBusMessage *message, void *u
       spi_device_event_controller_start_poll_mouse (registry);
     }
 
+  signal = dbus_message_new_signal (SPI_DBUS_PATH_REGISTRY,
+                                    SPI_DBUS_INTERFACE_REGISTRY,
+                                    "EventListenerRegistered");
+  dbus_message_append_args (signal, DBUS_TYPE_STRING, &sender,
+                            DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
+  dbus_connection_send (bus, signal, NULL);
+  dbus_message_unref (signal);
+
   g_free (name);
-  /* TODO: Send a signal */
   return dbus_message_new_method_return (message);
 }
 
 static DBusMessage *
-impl_deregister_event_listener (DBusConnection *bus, DBusMessage *message, void *user_data)
+impl_deregister_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   SpiRegistry *registry = SPI_REGISTRY (user_data);
   const char *orig_name;
   gchar *name;
+  const char *sender = dbus_message_get_sender (message);
 
   if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
     DBUS_TYPE_INVALID))
     return;
   name = ensure_proper_format (orig_name);
 
-  remove_events (registry, dbus_message_get_sender (message), name);
+  remove_events (registry, sender, name);
 
-  /* TODO: Send a signal */
   g_free (name);
   return dbus_message_new_method_return (message);
+}
+
+static DBusMessage *
+impl_get_registered_events (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  SpiRegistry *registry = SPI_REGISTRY (user_data);
+  event_data *evdata;
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_struct, iter_array;
+  GList *list;
+
+  reply = dbus_message_new_method_return (message);
+  if (!reply)
+    return NULL;
+
+  dbus_message_iter_init_append (reply, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_ARRAY, "(ss)", &iter_array);
+  for (list = registry->events; list; list = list->next)
+    {
+      gchar *str;
+      evdata = list->data;
+      str = g_strconcat (evdata->data [0],
+                         ":", (evdata->data [1]? evdata->data [1]: ""),
+                         ":", (evdata->data [2]? evdata->data [2]: ""), NULL);
+      dbus_message_iter_open_container (&iter_array, DBUS_TYPE_STRUCT, NULL, &iter_struct);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &evdata->bus_name);
+      dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING, &str);
+      dbus_message_iter_close_container (&iter_array, &iter_struct);
+      g_free (str);
+    }
+  dbus_message_iter_close_container (&iter, &iter_array);
+  return reply;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -871,7 +926,7 @@ static const char *introspection_footer =
 "</node>";
 
 static DBusMessage *
-impl_Introspect (DBusConnection * bus,
+impl_Introspect_root (DBusConnection * bus,
                  DBusMessage * message, void *user_data)
 {
   GString *output;
@@ -888,6 +943,34 @@ impl_Introspect (DBusConnection * bus,
 
   g_string_append (output, spi_org_a11y_atspi_Accessible);
   g_string_append (output, spi_org_a11y_atspi_Component);
+
+  g_string_append(output, introspection_footer);
+  final = g_string_free(output, FALSE);
+
+  reply = dbus_message_new_method_return (message);
+  dbus_message_append_args(reply, DBUS_TYPE_STRING, &final, DBUS_TYPE_INVALID);
+
+  g_free(final);
+  return reply;
+}
+
+static DBusMessage *
+impl_Introspect_registry (DBusConnection * bus,
+                 DBusMessage * message, void *user_data)
+{
+  GString *output;
+  gchar *final;
+  gint i;
+
+  const gchar *pathstr = SPI_DBUS_PATH_REGISTRY;
+
+  DBusMessage *reply;
+
+  output = g_string_new(introspection_header);
+
+  g_string_append_printf(output, introspection_node_element, pathstr);
+
+  g_string_append (output, spi_org_a11y_atspi_Registry);
 
   g_string_append(output, introspection_footer);
   final = g_string_free(output, FALSE);
@@ -981,7 +1064,7 @@ children_removed_listener (DBusConnection * bus,
 /*---------------------------------------------------------------------------*/
 
 static DBusHandlerResult
-handle_method (DBusConnection *bus, DBusMessage *message, void *user_data)
+handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
@@ -1114,21 +1197,70 @@ handle_method (DBusConnection *bus, DBusMessage *message, void *user_data)
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
 
-  if (!strcmp (iface, SPI_DBUS_INTERFACE_APPLICATION))
-    {
-      result = DBUS_HANDLER_RESULT_HANDLED;
-      if (!strcmp(member, "RegisterEventListener"))
-      reply = impl_register_event_listener (bus, message, user_data);
-      else if (!strcmp(member, "DeregisterEventListener"))
-        reply = impl_deregister_event_listener (bus, message, user_data);
-      else
-          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
-    }
   if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
     {
       result = DBUS_HANDLER_RESULT_HANDLED;
       if      (!strcmp (member, "Introspect"))
-          reply = impl_Introspect (bus, message, user_data);
+          reply = impl_Introspect_root (bus, message, user_data);
+      else
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+
+  if (result == DBUS_HANDLER_RESULT_HANDLED)
+    {
+      if (!reply)
+        {
+          reply = dbus_message_new_method_return (message);
+        }
+
+      dbus_connection_send (bus, reply, NULL);
+      dbus_message_unref (reply);
+    }
+#if 0
+  else
+    {
+      g_print ("Registry | Unhandled message : %s|%s\n", iface, member);
+    }
+#endif
+  
+  return result;
+}
+
+static DBusHandlerResult
+handle_method_registry (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+  const gchar *iface   = dbus_message_get_interface (message);
+  const gchar *member  = dbus_message_get_member (message);
+  const gint   type    = dbus_message_get_type (message);
+
+  DBusMessage *reply = NULL;
+
+  /* Check for basic reasons not to handle */
+  if (type   != DBUS_MESSAGE_TYPE_METHOD_CALL ||
+      member == NULL ||
+      iface  == NULL)
+      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+  if (!strcmp (iface, SPI_DBUS_INTERFACE_REGISTRY))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if (!strcmp(member, "RegisterEvent"))
+      reply = impl_register_event (bus, message, user_data);
+      else if (!strcmp(member, "DeregisterEvent"))
+        reply = impl_deregister_event (bus, message, user_data);
+      else if (!strcmp(member, "GetRegisteredEvents"))
+        reply = impl_get_registered_events (bus, message, user_data);
+      else
+          result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+
+  if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if      (!strcmp (member, "Introspect"))
+          reply = impl_Introspect_registry (bus, message, user_data);
       else
           result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
@@ -1155,10 +1287,17 @@ handle_method (DBusConnection *bus, DBusMessage *message, void *user_data)
 
 /*---------------------------------------------------------------------------*/
 
+static DBusObjectPathVTable root_vtable =
+{
+  NULL,
+  &handle_method_root,
+  NULL, NULL, NULL, NULL
+};
+
 static DBusObjectPathVTable registry_vtable =
 {
   NULL,
-  &handle_method,
+  &handle_method_registry,
   NULL, NULL, NULL, NULL
 };
 
@@ -1175,7 +1314,9 @@ spi_registry_new (DBusConnection *bus)
   dbus_bus_add_match (bus, app_sig_match_name_owner, NULL);
   dbus_connection_add_filter (bus, signal_filter, reg, NULL);
 
-  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_ROOT, &registry_vtable, reg);
+  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_ROOT, &root_vtable, reg);
+
+  dbus_connection_register_object_path (bus, SPI_DBUS_PATH_REGISTRY, &registry_vtable, reg);
 
   emit_Available (bus);
 

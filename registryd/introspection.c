@@ -731,6 +731,36 @@ const char *spi_org_a11y_atspi_Value =
 "</interface>"
 "";
 
+const char *spi_org_a11y_atspi_Registry = 
+"<interface name=\"org.a11y.atspi.Registry\" version=\"0.1.7\">"
+""
+"  <method name=\"RegisterEvent\">"
+"    <arg direction=\"in\" name=\"event\" type=\"s\">"
+"    </arg>"
+"  </method>"
+""
+"  <method name=\"DeregisterEvent\">"
+"    <arg direction=\"in\" name=\"event\" type=\"s\">"
+"    </arg>"
+"  </method>"
+""
+"  <method name=\"GetRegisteredEvents\">"
+"    <arg direction=\"out\" name=\"events\" type=\"a(ss)\">"
+"    </arg>"
+"  </method>"
+""
+"  <signal name=\"EventListenerRegistered\">"
+"    <arg direction=\"out\" name=\"bus\" type=\"s\" />"
+"    <arg direction=\"out\" name=\"path\" type=\"s\" />"
+"  </signal>"
+""
+"  <signal name=\"EventListenerDeregistered\">"
+"    <arg direction=\"out\" name=\"bus\" type=\"s\" />"
+"    <arg direction=\"out\" name=\"path\" type=\"s\" />"
+"  </signal>"
+"</interface>"
+"";
+
 const char *spi_org_a11y_atspi_DeviceEventController = 
 "<interface name=\"org.a11y.atspi.DeviceEventController\" version=\"0.1.7\">"
 ""

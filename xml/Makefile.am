@@ -15,6 +15,7 @@ EXTRA_DIST = \
 	Hyperlink.xml \
 	Hypertext.xml \
 	Image.xml \
+	Registry.xml \
 	remove-annotations.xsl \
 	Selection.xml \
 	Socket.xml \
