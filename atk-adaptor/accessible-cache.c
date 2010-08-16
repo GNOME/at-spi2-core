@@ -287,6 +287,11 @@ add_pending_items (gpointer data)
   while (!g_queue_is_empty (to_add))
     {
       current = g_queue_pop_head (to_add);
+
+      /* Make sure object is registerd so we are notified if it goes away */
+      g_free (spi_register_object_to_path (spi_global_register,
+              G_OBJECT (current)));
+
       add_object (cache, G_OBJECT(current));
       g_object_unref (G_OBJECT (current));
     }
