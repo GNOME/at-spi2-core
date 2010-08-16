@@ -1,3 +1,12 @@
+What's new in at-spi2-atk 0.3.90:
+
+* FDO#29365: Stop using a deprecated glib function.
+
+* Caching fixes--GetItems was completely broken in v0.3.6, and fixed a
+possible crash when it is called.
+
+* Only emit signals when AT-SPI clients are listening for them.
+
 What's new in at-spi2-atk 0.3.6:
 
 * Fixed a problem with dbus introspection.
