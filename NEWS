@@ -1,3 +1,10 @@
+What's new in at-spi2-core 0.3.90:
+
+* FDO#29427: Registering for mouse:abs now works.
+
+* Add methods/signals to allow an application to track the events that are
+being listened to to avoid unnecessarily emitting signals.
+
 What's new in at-spi2-core 0.3.4:
 
 * Added GetChildren to the spec.
