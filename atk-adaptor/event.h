@@ -31,4 +31,5 @@ void spi_atk_register_event_listeners (void);
 void spi_atk_deregister_event_listeners (void);
 void spi_atk_tidy_windows (void);
 
+gboolean spi_event_is_subtype (gchar **needle, gchar **haystack);
 #endif /* EVENT_H */

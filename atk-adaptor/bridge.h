@@ -33,6 +33,13 @@ typedef struct _SpiBridgeClass SpiBridgeClass;
 
 G_BEGIN_DECLS
 
+typedef struct _event_data event_data;
+struct _event_data
+{
+  gchar *bus_name;
+  gchar **data;
+};
+
 struct _SpiBridge
 {
   GObject parent;
@@ -49,6 +56,7 @@ struct _SpiBridge
 */
   gchar *desktop_name;
   gchar *desktop_path;
+  GList *events;
 };
 
 extern SpiBridge *spi_global_app_data;

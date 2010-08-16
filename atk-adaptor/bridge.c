@@ -194,32 +194,98 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *er
 /*---------------------------------------------------------------------------*/
 
 static void
+add_event (const char *bus_name, const char *event)
+{
+  event_data *evdata;
+  gchar **data;
+  GList *new_list;
+
+  evdata = (event_data *) g_malloc (sizeof (*evdata));
+  if (!evdata)
+    return;
+  data = g_strsplit (event, ":", 3);
+  if (!data)
+    {
+      g_free (evdata);
+      return;
+    }
+  evdata->bus_name = g_strdup (bus_name);
+  evdata->data = data;
+  new_list = g_list_append (spi_global_app_data->events, evdata);
+  if (new_list)
+    spi_global_app_data->events = new_list;
+}
+
+static void
+get_registered_event_listeners (SpiBridge *app)
+{
+  DBusMessage *message, *reply;
+  DBusMessageIter iter, iter_array, iter_struct;
+
+  message = dbus_message_new_method_call (SPI_DBUS_NAME_REGISTRY,
+                                         SPI_DBUS_PATH_REGISTRY,
+                                         SPI_DBUS_INTERFACE_REGISTRY,
+                                         "GetRegisteredEvents");
+  if (!message)
+    return;
+
+  reply = dbus_connection_send_with_reply_and_block (app->bus, message, 5000, NULL);
+  dbus_message_unref (message);
+  if (!reply)
+    return;
+  if (strcmp (dbus_message_get_signature (reply), "a(ss)") != 0)
+    {
+      /* TODO: Add a warning when it's okay to add strings */
+      dbus_message_unref (reply);
+      return;
+    }
+  dbus_message_iter_init (reply, &iter);
+  dbus_message_iter_recurse (&iter, &iter_array);
+  /* TODO: This is bad. Need to determine that the array is non-empty,
+     so that we don't initially read a value rom it in that case, but using
+     a deprecated function. */
+  if (dbus_message_iter_get_array_len (&iter_array) > 0) do
+    {
+      char *bus_name, *event;
+      dbus_message_iter_recurse (&iter_array, &iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &bus_name);
+      dbus_message_iter_next (&iter_struct);
+      dbus_message_iter_get_basic (&iter_struct, &event);
+      add_event (bus_name, event);
+    }
+  while (dbus_message_iter_next (&iter_array));
+  dbus_message_unref (reply);
+}
+
+static void
 register_reply (DBusPendingCall *pending, void *user_data)
 {
   DBusMessage *reply;
   SpiBridge *app = user_data;
+  DBusMessage *message;
 
     reply = dbus_pending_call_steal_reply (pending);
   if (reply)
     {
-      DBusMessageIter iter, iter_struct;
       gchar *app_name, *obj_path;
 
       if (strcmp (dbus_message_get_signature (reply), "(so)") != 0)
         {
           g_warning ("AT-SPI: Could not obtain desktop path or name\n");
-          dbus_message_unref (reply);
-          return;
+printf("sig: %s\n", dbus_message_get_signature(reply));
         }
+      else
+        {
+          DBusMessageIter iter, iter_struct;
+          dbus_message_iter_init (reply, &iter);
+          dbus_message_iter_recurse (&iter, &iter_struct);
+          dbus_message_iter_get_basic (&iter_struct, &app_name);
+          dbus_message_iter_next (&iter_struct);
+          dbus_message_iter_get_basic (&iter_struct, &obj_path);
 
-      dbus_message_iter_init (reply, &iter);
-      dbus_message_iter_recurse (&iter, &iter_struct);
-      dbus_message_iter_get_basic (&iter_struct, &app_name);
-      dbus_message_iter_next (&iter_struct);
-      dbus_message_iter_get_basic (&iter_struct, &obj_path);
-
-      app->desktop_name = g_strdup (app_name);
-      app->desktop_path = g_strdup (obj_path);
+          app->desktop_name = g_strdup (app_name);
+          app->desktop_path = g_strdup (obj_path);
+        }
     }
   else
     {
@@ -227,6 +293,8 @@ register_reply (DBusPendingCall *pending, void *user_data)
       return;
     }
   dbus_message_unref (reply);
+
+  get_registered_event_listeners (spi_global_app_data);
 }
 
 static gboolean
@@ -460,6 +528,91 @@ introspect_children_cb (const char *path, void *data)
   return NULL;
 }
 
+static void
+handle_event_listener_registered (DBusConnection *bus, DBusMessage *message,
+                                  void *user_data)
+{
+  const char *name;
+  char *sender;
+
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &sender,
+    DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID))
+    return;
+
+  add_event (sender, name);
+}
+
+static void
+remove_events (const char *bus_name, const char *event)
+{
+  event_data *evdata;
+  gchar **remove_data;
+  GList *list;
+
+  remove_data = g_strsplit (event, ":", 3);
+  if (!remove_data)
+    {
+      return;
+    }
+
+  for (list = spi_global_app_data->events; list;)
+    {
+      event_data *evdata = list->data;
+      if (!g_strcmp0 (evdata->bus_name, bus_name) &&
+          spi_event_is_subtype (evdata->data, remove_data))
+        {
+          GList *events = spi_global_app_data->events;
+          list = list->next;
+          g_strfreev (evdata->data);
+          g_free (evdata->bus_name);
+          g_free (evdata);
+          spi_global_app_data->events = g_list_remove (events, evdata);
+        }
+      else
+        {
+          list = list->next;
+        }
+    }
+}
+
+static void
+handle_event_listener_deregistered (DBusConnection *bus, DBusMessage *message,
+                                    void *user_data)
+{
+  const char *orig_name;
+  gchar *name;
+  char *sender;
+
+  if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &sender,
+                              DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID))
+    return;
+
+  remove_events (sender, name);
+}
+
+static DBusHandlerResult
+signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
+{
+  const char *interface = dbus_message_get_interface (message);
+  const char *member = dbus_message_get_member (message);
+  DBusHandlerResult result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+  if (dbus_message_get_type (message) != DBUS_MESSAGE_TYPE_SIGNAL)
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+  if (!strcmp (interface, SPI_DBUS_INTERFACE_REGISTRY))
+    {
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if (!strcmp (member, "EventListenerRegistered"))
+        handle_event_listener_registered (bus, message, user_data);
+      else if (!strcmp (member, "EventListenerDeregistered"))
+        handle_event_listener_deregistered (bus, message, user_data);
+      else
+        result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
+  return result;
+}
+
 /*
  * spi_app_init
  *
@@ -476,7 +629,6 @@ adaptor_init (gint * argc, gchar ** argv[])
   GOptionContext *opt;
   GError *err = NULL;
   DBusError error;
-  DBusConnection *bus;
   AtkObject *root;
   gchar *introspection_directory;
   static gboolean inited = FALSE;
@@ -592,9 +744,16 @@ adaptor_init (gint * argc, gchar ** argv[])
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
 
+  /* Set up filter and match rules to catch signals */
+  dbus_bus_add_match (spi_global_app_data->bus, "type='signal', interface='org.a11y.atspi.Registry', sender='org.a11y.atspi.Registry'", NULL);
+  dbus_connection_add_filter (spi_global_app_data->bus, signal_filter, NULL,
+                              NULL);
+
   /* Register this app by sending a signal out to AT-SPI registry daemon */
   if (!atspi_no_register && (!root || !ATK_IS_PLUG (root)))
     register_application (spi_global_app_data);
+  else
+    get_registered_event_listeners (spi_global_app_data);
 
   g_atexit (exit_func);
 
