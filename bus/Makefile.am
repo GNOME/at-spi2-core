@@ -1,5 +1,5 @@
 busconfigdir = $(sysconfdir)/at-spi2
-busconfig_DATA = accessibility.conf			
+busconfig_DATA = accessibility.conf
 
 atspidbusdir = $(bindir)
 atspidbus_SCRIPTS = at-spi-dbus-bus
