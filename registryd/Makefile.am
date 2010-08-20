@@ -16,7 +16,8 @@ at_spi2_registryd_LDADD =	\
 	$(X_LIBS)		\
 	$(SM_LIBS)		\
 	$(XTST_LIBS)		\
-	$(XEVIE_LIBS)
+	$(XEVIE_LIBS)		\
+	$(DL_LIBS)
 
 at_spi2_registryd_SOURCES =	\
 	de-marshaller.h         \
