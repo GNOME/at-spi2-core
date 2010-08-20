@@ -48,7 +48,16 @@ PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
 
-AC_CHECK_LIB(dl, dlopen)
+# --------------------------------------------------------------------
+# Find DL functionality
+
+AC_CHECK_LIB(c, dlopen, DL_LIBS="",
+        AC_CHECK_LIB(dl, dlopen, DL_LIBS="-ldl",
+                AC_MSG_ERROR([Could not find a library with the dlopen function])
+        )
+)
+
+AC_SUBST(DL_LIBS)
 
 AC_PATH_XTRA
 
