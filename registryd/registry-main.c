@@ -35,10 +35,6 @@
 #include "registry.h"
 #include "deviceeventcontroller.h"
 
-#if !defined ATSPI_INTROSPECTION_PATH
-    #error "No introspection XML directory defined"
-#endif
-
 #ifdef RELOCATE
 #define DBUS_GCONF_KEY  "/desktop/gnome/interface/at-spi-dbus"
 #else
@@ -292,7 +288,6 @@ main (int argc, char **argv)
 {
   SpiRegistry *registry;
   SpiDEController *dec;
-  gchar *introspection_directory;
 
   DBusConnection *bus = NULL;
 
@@ -337,11 +332,6 @@ main (int argc, char **argv)
     {
       g_print ("SpiRegistry daemon is running with well-known name - %s\n", dbus_name);
     }
-
-  /* Get D-Bus introspection directory */
-  introspection_directory = (char *) g_getenv("ATSPI_INTROSPECTION_PATH");
-  if (introspection_directory == NULL)
-      introspection_directory = ATSPI_INTROSPECTION_PATH;
 
   registry = spi_registry_new (bus);
   dec = spi_registry_dec_new (registry, bus);
