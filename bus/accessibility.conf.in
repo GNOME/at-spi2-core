@@ -7,7 +7,7 @@
 
   <standard_system_servicedirs/>
 
-  <servicehelper>/lib/dbus-1.0/dbus-daemon-launch-helper</servicehelper>
+  <servicehelper>@DBUS_DAEMON_LAUNCH_HELPER@</servicehelper>
 
   <auth>EXTERNAL</auth>
 

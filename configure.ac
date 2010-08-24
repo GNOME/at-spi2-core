@@ -150,6 +150,27 @@ if test "$DBUS_DAEMON" = "XXXDBUSDAEMONNOTFOUND"; then
 fi
 AC_SUBST(DBUS_DAEMON)
 
+AC_ARG_WITH([dbus_daemon_launch_helperdir],
+	[AS_HELP_STRING([--with-dbus-daemon-launch-helperdir=<directory>],
+		[Directory where dbus-daemon-launch-helper is installed])],
+    [DBUS_DAEMON_LAUNCH_HELPER="$with_dbus_daemon_launch_helperdir/dbus-daemon-launch-helper"]
+	)
+dnl Can't use AC_PATH_PROG since it will fail if we don't have read access
+if test "x$DBUS_DAEMON_LAUNCH_HELPER" == "x"; then
+	if test "-f /lib/dbus-1/dbus-daemon-launch-helper"; then
+		DBUS_DAEMON_LAUNCH_HELPER=/lib/dbus-1/dbus-daemon-launch-helper
+	elif test "-f /lib/dbus-1.0/dbus-daemon-launch-helper"; then
+		DBUS_DAEMON_LAUNCH_HELPER=/lib/dbus-1.0/dbus-daemon-launch-helper
+	elif test "-f $libexecdir/dbus-daemon-launch-helper"; then
+		DBUS_DAEMON_LAUNCH_HELPER=$libexecdir/dbus-daemon-launch-helper
+	else
+		DBUS_DAEMON_LAUNCH_HELPER="$libexecdir/dbus-daemon-launch-helper"
+		AC_MSG_WARN([at-spi2 relies on dbus, and dbus-daemon-launch-helper was not found])
+		AC_MSG_WARN([we assume that it will be installed in "$libexecdir"])
+	fi
+fi
+AC_SUBST(DBUS_DAEMON_LAUNCH_HELPER)
+
 AC_ARG_WITH(dbus-services,
            [AS_HELP_STRING([--with-dbus-services=<directory>],
            [where D-BUS services directory is])])
@@ -175,6 +196,7 @@ AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
 AC_CONFIG_FILES([Makefile
 	xml/Makefile
 	registryd/Makefile
+	bus/accessibility.conf
 	bus/Makefile])
 
 AC_OUTPUT
