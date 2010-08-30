@@ -164,9 +164,9 @@ AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_ARG_ENABLE([relocate],
 	[AS_HELP_STRING([--enable-relocate],
-		[Relocate to coexist with CORBA @<:@default=no@:>@])],
+		[Relocate to coexist with CORBA @<:@default=yes@:>@])],
 	[enable_relocate="$enableval"],
-	[enable_relocate=no])
+	[enable_relocate=yes])
 if test x$enable_relocate = xyes ; then
 	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
 fi
