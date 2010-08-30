@@ -1,3 +1,12 @@
+What's new in at-spi2-core 0.3.91:
+
+* Enabled the accessibility bus, so apps should be accessible, for instance,
+if an application becomes setuid root.
+
+* Several build fixes.
+
+* Default to --enable-relocate for now.
+
 What's new in at-spi2-core 0.3.90:
 
 * FDO#29427: Registering for mouse:abs now works.
