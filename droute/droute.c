@@ -39,7 +39,6 @@
 
 struct _DRouteContext
 {
-    DBusConnection       *bus;
     GPtrArray            *registered_paths;
 
     gchar                *introspect_string;
@@ -48,6 +47,8 @@ struct _DRouteContext
 struct _DRoutePath
 {
     DRouteContext        *cnx;
+    gchar *path;
+    gboolean prefix;
     GStringChunk         *chunks;
     GPtrArray            *interfaces;
     GPtrArray            *introspection;
@@ -80,6 +81,8 @@ droute_object_does_not_exist_error (DBusMessage *message);
 
 static DRoutePath *
 path_new (DRouteContext *cnx,
+          const char *path,
+          gboolean prefix,
           void    *user_data,
           DRouteIntrospectChildrenFunction introspect_children_cb,
           void *introspect_children_data,
@@ -89,6 +92,8 @@ path_new (DRouteContext *cnx,
 
     new_path = g_new0 (DRoutePath, 1);
     new_path->cnx = cnx;
+    new_path->path = g_strdup (path);
+    new_path->prefix = prefix;
     new_path->chunks = g_string_chunk_new (CHUNKS_DEFAULT);
     new_path->interfaces = g_ptr_array_new ();
     new_path->introspection = g_ptr_array_new ();
@@ -114,6 +119,7 @@ path_new (DRouteContext *cnx,
 static void
 path_free (DRoutePath *path, gpointer user_data)
 {
+    g_free (path->path);
     g_string_chunk_free  (path->chunks);
     g_ptr_array_free     (path->interfaces, TRUE);
     g_ptr_array_free     (path->introspection, FALSE);
@@ -133,12 +139,11 @@ path_get_datum (DRoutePath *path, const gchar *pathstr)
 /*---------------------------------------------------------------------------*/
 
 DRouteContext *
-droute_new (DBusConnection *bus)
+droute_new ()
 {
     DRouteContext *cnx;
 
     cnx = g_new0 (DRouteContext, 1);
-    cnx->bus = bus;
     cnx->registered_paths = g_ptr_array_new ();
 
     return cnx;
@@ -152,12 +157,6 @@ droute_free (DRouteContext *cnx)
 }
 
 /*---------------------------------------------------------------------------*/
-
-DBusConnection *
-droute_get_bus (DRouteContext *cnx)
-{
-    return cnx->bus;
-}
 
 /*---------------------------------------------------------------------------*/
 
@@ -176,14 +175,7 @@ droute_add_one (DRouteContext *cnx,
     DRoutePath *new_path;
     gboolean registered;
 
-    new_path = path_new (cnx, (void *)data, NULL, NULL, NULL);
-
-    registered = dbus_connection_register_object_path (cnx->bus, path, &droute_vtable, new_path);
-    if (!registered)
-      {
-        path_free (new_path, NULL);
-        return NULL;
-      }
+    new_path = path_new (cnx, path, FALSE, (void *)data, NULL, NULL, NULL);
 
     g_ptr_array_add (cnx->registered_paths, new_path);
     return new_path;
@@ -199,10 +191,9 @@ droute_add_many (DRouteContext *cnx,
 {
     DRoutePath *new_path;
 
-    new_path = path_new (cnx, (void *) data, introspect_children_cb, introspect_children_data, get_datum);
-
-    if (!dbus_connection_register_fallback (cnx->bus, path, &droute_vtable, new_path))
-        oom();
+    new_path = path_new (cnx, path, TRUE, (void *) data,
+                         introspect_children_cb, introspect_children_data,
+                         get_datum);
 
     g_ptr_array_add (cnx->registered_paths, new_path);
     return new_path;
@@ -378,6 +369,32 @@ impl_prop_GetSet (DBusMessage *message,
 }
 
 static DBusHandlerResult
+handle_dbus (DBusConnection *bus,
+                   DBusMessage    *message,
+                   const gchar    *iface,
+                   const gchar    *member,
+                   const gchar    *pathstr)
+{
+  static int id = 1;
+  char *id_str = (char *) g_malloc(40);
+  DBusMessage *reply;
+
+    if (strcmp (iface, DBUS_INTERFACE_DBUS) != 0 ||
+        strcmp (member, "Hello") != 0)
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+
+    /* TODO: Fix this hack (we don't handle wrap-around, for instance) */
+    sprintf (id_str, ":1.%d", id++);
+    reply = dbus_message_new_method_return (message);
+    dbus_message_append_args (reply, DBUS_TYPE_STRING, &id_str, DBUS_TYPE_INVALID);
+    dbus_connection_send (bus, reply, NULL);
+  dbus_connection_flush (bus);
+    dbus_message_unref (reply);
+  g_free (id_str);
+    return DBUS_HANDLER_RESULT_HANDLED;
+}
+
+static DBusHandlerResult
 handle_properties (DBusConnection *bus,
                    DBusMessage    *message,
                    DRoutePath     *path,
@@ -545,7 +562,9 @@ handle_message (DBusConnection *bus, DBusMessage *message, void *user_data)
         iface  == NULL)
         return result;
 
-    if (!strcmp (iface, "org.freedesktop.DBus.Properties"))
+    if (!strcmp (pathstr, DBUS_PATH_DBUS))
+        result = handle_dbus (bus, message, iface, member, pathstr);
+    else if (!strcmp (iface, "org.freedesktop.DBus.Properties"))
         result = handle_properties (bus, message, path, iface, member, pathstr);
     else if (!strcmp (iface, "org.freedesktop.DBus.Introspectable"))
         result = handle_introspection (bus, message, path, iface, member, pathstr);
@@ -636,4 +655,27 @@ droute_invalid_arguments_error (DBusMessage *message)
     return reply;
 }
 
+void
+droute_path_register (DRoutePath *path, DBusConnection *bus)
+{
+    if (path->prefix)
+      dbus_connection_register_fallback (bus, path->path, &droute_vtable, path);
+    else
+      dbus_connection_register_object_path (bus, path->path,
+                                            &droute_vtable, path);
+}
+
+void
+droute_context_register (DRouteContext *cnx, DBusConnection *bus)
+{
+    g_ptr_array_foreach (cnx->registered_paths, (GFunc) droute_path_register,
+                         bus);
+}
+
+void
+droute_intercept_dbus (DBusConnection *bus)
+{
+    dbus_connection_register_object_path (bus, DBUS_PATH_DBUS,
+                                          &droute_vtable, NULL);
+}
 /*END------------------------------------------------------------------------*/

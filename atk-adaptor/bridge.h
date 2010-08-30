@@ -48,6 +48,9 @@ struct _SpiBridge
 
   DBusConnection *bus;
   DRouteContext  *droute;
+  GMainContext *main_context;
+  DBusServer *server;
+  GList *direct_connections;
 
 /*
   SpiRegister *reg;
