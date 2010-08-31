@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 0.3.91:
+
+* Default to --enable-relocate for now.
+
+* Fix for FDO#29880: gtk module can't handle reloading.
+
 What's new in at-spi2-atk 0.3.90:
 
 * FDO#29365: Stop using a deprecated glib function.

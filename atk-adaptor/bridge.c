@@ -36,6 +36,7 @@
 #include <atk/atk.h>
 
 #include <droute/droute.h>
+#include <gmodule.h>
 
 #include "bridge.h"
 #include "event.h"
@@ -807,6 +808,14 @@ gtk_module_init (gint * argc, gchar ** argv[])
       return adaptor_init (argc, argv);
     }
   return 0;
+}
+
+gchar*
+g_module_check_init (GModule *module)
+{
+  g_module_make_resident (module);
+
+  return NULL;
 }
 
 void
