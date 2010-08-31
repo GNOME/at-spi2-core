@@ -1,23 +1,27 @@
 # Indonesia translation of atk HEAD.
 # Copyright (C) 2005 THE atk's COPYRIGHT HOLDER
 # This file is distributed under the same license as the atk package.
-# Ahmad Riza H Nst  <rizahnst@gnome.org>, 2006
+#
 # Mohammad DAMT <mdamt@bisnisweb.com>, 2005.
-#
-#
+# Ahmad Riza H Nst  <rizahnst@gnome.org>, 2006.
+# Andika Triwidada <andika@gmail.com>, 2010.
+# Dirgita <dirgitadevina@yahoo.co.id>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: atk master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&component=general\n"
-"POT-Creation-Date: 2010-03-29 23:00+0000\n"
-"PO-Revision-Date: 2010-04-17 18:26+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&component=general\n"
+"POT-Creation-Date: 2010-08-23 15:41+0000\n"
+"PO-Revision-Date: 2010-08-31 00:00+0700\n"
+"Last-Translator: Dirgita <dirgitadevina@yahoo.co.id>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Indonesian\n"
 "X-Poedit-Country: Indonesia\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -53,7 +57,7 @@ msgstr "Indeks awal objek AtkHyperlink"
 
 #: ../atk/atkobject.c:74
 msgid "invalid"
-msgstr "tidak valid"
+msgstr "tidak sah"
 
 #: ../atk/atkobject.c:75
 msgid "accelerator label"
@@ -81,11 +85,11 @@ msgstr "kanvas"
 
 #: ../atk/atkobject.c:81
 msgid "check box"
-msgstr "kotak centang"
+msgstr "kotak cek"
 
 #: ../atk/atkobject.c:82
 msgid "check menu item"
-msgstr "isi menu centang"
+msgstr "item menu cek"
 
 #: ../atk/atkobject.c:83
 msgid "color chooser"
@@ -93,7 +97,7 @@ msgstr "pemilih warna"
 
 #: ../atk/atkobject.c:84
 msgid "column header"
-msgstr "kepala kolom"
+msgstr "tajuk kolom"
 
 #: ../atk/atkobject.c:85
 msgid "combo box"
@@ -138,7 +142,7 @@ msgstr "isian"
 #. I know it looks wrong but that is what Java returns
 #: ../atk/atkobject.c:96
 msgid "fontchooser"
-msgstr "pemilih font"
+msgstr "pemilih fonta"
 
 #: ../atk/atkobject.c:97
 msgid "frame"
@@ -170,7 +174,7 @@ msgstr "label"
 
 #: ../atk/atkobject.c:104
 msgid "layered pane"
-msgstr "panel  berlayer"
+msgstr "panel  berlapis"
 
 #: ../atk/atkobject.c:105
 msgid "list"
@@ -186,15 +190,15 @@ msgstr "menu"
 
 #: ../atk/atkobject.c:108
 msgid "menu bar"
-msgstr "kotak menu"
+msgstr "baris menu"
 
 #: ../atk/atkobject.c:109
 msgid "menu item"
-msgstr "anggota menu"
+msgstr "objek menu"
 
 #: ../atk/atkobject.c:110
 msgid "option pane"
-msgstr "panel pilihan"
+msgstr "panel opsi"
 
 #: ../atk/atkobject.c:111
 msgid "page tab"
@@ -214,11 +218,11 @@ msgstr "teks sandi"
 
 #: ../atk/atkobject.c:115
 msgid "popup menu"
-msgstr "menu popup"
+msgstr "menu tongol"
 
 #: ../atk/atkobject.c:116
 msgid "progress bar"
-msgstr "indikator kemajuan"
+msgstr "indikator proses"
 
 #: ../atk/atkobject.c:117
 msgid "push button"
@@ -230,7 +234,7 @@ msgstr "tombol radio"
 
 #: ../atk/atkobject.c:119
 msgid "radio menu item"
-msgstr "anggota menu radio"
+msgstr "objek menu radio"
 
 #: ../atk/atkobject.c:120
 msgid "root pane"
@@ -238,15 +242,15 @@ msgstr "panel dasar"
 
 #: ../atk/atkobject.c:121
 msgid "row header"
-msgstr "kepala baris"
+msgstr "tajuk baris"
 
 #: ../atk/atkobject.c:122
 msgid "scroll bar"
-msgstr "batang penggeser"
+msgstr "batang penggulung"
 
 #: ../atk/atkobject.c:123
 msgid "scroll pane"
-msgstr "panel penggeser"
+msgstr "panel penggulung"
 
 #: ../atk/atkobject.c:124
 msgid "separator"
@@ -266,7 +270,7 @@ msgstr "tombol putar"
 
 #: ../atk/atkobject.c:128
 msgid "statusbar"
-msgstr "kolom status"
+msgstr "baris status"
 
 #: ../atk/atkobject.c:129
 msgid "table"
@@ -278,11 +282,11 @@ msgstr "sel tabel"
 
 #: ../atk/atkobject.c:131
 msgid "table column header"
-msgstr "kepala kolom pada tabel"
+msgstr "tajuk kolom pada tabel"
 
 #: ../atk/atkobject.c:132
 msgid "table row header"
-msgstr "kepala baris pada tabel"
+msgstr "tajuk baris pada tabel"
 
 #: ../atk/atkobject.c:133
 msgid "tear off menu item"
@@ -302,7 +306,7 @@ msgstr "tombol togel"
 
 #: ../atk/atkobject.c:137
 msgid "tool bar"
-msgstr "batang alat"
+msgstr "bilah alat"
 
 #: ../atk/atkobject.c:138
 msgid "tool tip"
@@ -330,7 +334,7 @@ msgstr "jendela"
 
 #: ../atk/atkobject.c:144
 msgid "header"
-msgstr "kepala"
+msgstr "tajuk"
 
 #: ../atk/atkobject.c:145
 msgid "footer"
@@ -354,7 +358,7 @@ msgstr "lengkap secara otomatis"
 
 #: ../atk/atkobject.c:150
 msgid "edit bar"
-msgstr "batang penyunting"
+msgstr "bilah sunting"
 
 #: ../atk/atkobject.c:151
 msgid "embedded component"
@@ -366,11 +370,11 @@ msgstr "entri"
 
 #: ../atk/atkobject.c:153
 msgid "chart"
-msgstr "diagram"
+msgstr "bagan"
 
 #: ../atk/atkobject.c:154
 msgid "caption"
-msgstr "keterangan gambar"
+msgstr "kapsi"
 
 #: ../atk/atkobject.c:155
 msgid "document frame"
@@ -378,7 +382,7 @@ msgstr "bingkai dokumen"
 
 #: ../atk/atkobject.c:156
 msgid "heading"
-msgstr "judul"
+msgstr "tajuk"
 
 #: ../atk/atkobject.c:157
 msgid "page"
@@ -465,8 +469,13 @@ msgid "Accessible Table Caption"
 msgstr "Judul Tabel Akses"
 
 #: ../atk/atkobject.c:546
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr "Digunakan untuk memberi peringatan bahwa judul tabel telah berubah,nilai ini sebaiknya tidak digunakan, silakan gunakan accessible-table-caption-object saja."
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Digunakan untuk memberi peringatan bahwa judul tabel telah berubah,nilai ini "
+"sebaiknya tidak digunakan, silakan gunakan accessible-table-caption-object "
+"saja."
 
 #: ../atk/atkobject.c:552
 msgid "Accessible Table Column Header"
@@ -523,4 +532,3 @@ msgstr "Jumlah Akses Taut Hiperteks"
 #: ../atk/atkobject.c:595
 msgid "The number of links which the current AtkHypertext has"
 msgstr "Jumlah taut yang dimiliki AtkHypertext saat ini"
-
