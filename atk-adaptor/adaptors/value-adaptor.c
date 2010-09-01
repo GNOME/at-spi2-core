@@ -60,7 +60,7 @@ impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
   GValue dest = { 0 };
-  gdouble dub;
+  gdouble dub = 0;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
@@ -70,12 +70,8 @@ impl_get_MaximumValue (DBusMessageIter * iter, void *user_data)
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      return droute_return_v_double (iter, dub);
     }
-  else
-    {
-      return FALSE;
-    }
+  return droute_return_v_double (iter, dub);
 }
 
 static dbus_bool_t
@@ -84,7 +80,7 @@ impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
   GValue dest = { 0 };
-  gdouble dub;
+  gdouble dub = 0;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
@@ -94,12 +90,8 @@ impl_get_MinimumIncrement (DBusMessageIter * iter, void *user_data)
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      return droute_return_v_double (iter, dub);
     }
-  else
-    {
-      return FALSE;
-    }
+  return droute_return_v_double (iter, dub);
 }
 
 static dbus_bool_t
@@ -108,7 +100,7 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
   AtkValue *value = (AtkValue *) user_data;
   GValue src = { 0 };
   GValue dest = { 0 };
-  gdouble dub;
+  gdouble dub = 0;
 
   g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
 
@@ -118,12 +110,8 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
   if (g_value_transform (&src, &dest))
     {
       dub = g_value_get_double (&dest);
-      return droute_return_v_double (iter, dub);
     }
-  else
-    {
-      return FALSE;
-    }
+  return droute_return_v_double (iter, dub);
 }
 
 static dbus_bool_t
