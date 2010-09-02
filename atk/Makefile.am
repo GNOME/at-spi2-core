@@ -157,10 +157,11 @@ introspection_generated_sources = \
     atk-enum-types.c	\
     atk-enum-types.h
 
-Atk-1.0.gir: libatk-1.0.la
+Atk-1.0.gir: libatk-1.0.la Makefile
 Atk_1_0_gir_INCLUDES = GObject-2.0
 Atk_1_0_gir_CFLAGS = $(INCLUDES)
 Atk_1_0_gir_LIBS = libatk-1.0.la
+Atk_1_0_gir_SCANNERFLAGS = --pkg-export atk
 Atk_1_0_gir_FILES = \
     $(addprefix $(srcdir)/, $(introspection_sources))	\
     $(introspection_generated_sources)
