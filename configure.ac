@@ -26,7 +26,7 @@ AC_PROG_CC
 LT_INIT([disable-static])
 PKG_PROG_PKG_CONFIG
 
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 PKG_CHECK_MODULES(DBUS, [dbus-1 >= 1.0])
 AC_SUBST(DBUS_LIBS)
