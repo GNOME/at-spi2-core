@@ -171,10 +171,12 @@ if test x$enable_relocate = xyes ; then
 	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
 fi
 AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
+AC_SUBST(enable_relocate)
 
 AC_CONFIG_FILES([Makefile
 	xml/Makefile
 	registryd/Makefile
+	bus/at-spi-dbus-bus
 	bus/Makefile])
 
 AC_OUTPUT
