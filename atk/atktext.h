@@ -43,7 +43,7 @@ G_BEGIN_DECLS
  *@ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP: Pixels of blank space to leave between wrapped lines inside the same newline-terminated line (paragraph).
  *@ATK_TEXT_ATTR_BG_FULL_HEIGHT: "true" or "false" whether to make the background color for each character the height of the highest font used on the current line, or the height of the font used for the current character.
  *@ATK_TEXT_ATTR_RISE: Number of pixels that the characters are risen above the baseline
- *@ATK_TEXT_ATTR_UNDERLINE: "none", "single", "double" or "low"
+ *@ATK_TEXT_ATTR_UNDERLINE: "none", "single", "double", "low", or "error"
  *@ATK_TEXT_ATTR_STRIKETHROUGH: "true" or "false" whether the text is strikethrough 
  *@ATK_TEXT_ATTR_SIZE: The size of the characters. 
  *@ATK_TEXT_ATTR_SCALE: The scale of the characters. The value is a string representation of a double 

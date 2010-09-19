@@ -99,9 +99,10 @@ static const char underline[] =
   "none\0"
   "single\0"
   "double\0"
-  "low";
+  "low\0"
+  "error";
 static const guint8 underline_offsets[] = {
-  0, 5, 12, 19
+  0, 5, 12, 19, 23
 };
 
 static void atk_text_base_init (AtkTextIface *class);
