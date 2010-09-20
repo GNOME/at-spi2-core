@@ -6,9 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: atk trunk\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-21 15:05+0800\n"
+"Project-Id-Version: atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&component=general\n"
+"POT-Creation-Date: 2010-09-15 09:52+0000\n"
 "PO-Revision-Date: 2009-02-07 00:02+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
@@ -467,7 +468,7 @@ msgid ""
 "not be used. accessible-table-caption-object should be used instead"
 msgstr ""
 "表のタイトルが変更されたことを通知するのに使用します (このプロパティを使用せ"
-"ずに  accessible-table-caption-object を使用して下さい)"
+"ずに  accessible-table-caption-object を使用してください)"
 
 #: atk/atkobject.c:552
 msgid "Accessible Table Column Header"
