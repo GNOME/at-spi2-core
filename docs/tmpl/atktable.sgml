@@ -36,6 +36,9 @@ implement other interfaces (#AtkText, #AtkImage, etc.) as appropriate.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkTable ##### -->
 <para>
 The AtkTable structure does not contain any fields.

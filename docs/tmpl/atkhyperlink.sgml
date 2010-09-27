@@ -21,6 +21,9 @@ and end offset within the host AtkHypertext object.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkHyperlink ##### -->
 <para>
 The AtkHyperlink structure should not be accessed directly.

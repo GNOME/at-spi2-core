@@ -22,6 +22,9 @@ appropriate GType for application custom widget classes.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkRegistry ##### -->
 <para>
 The AtkRegistry structure should not be accessed directly.
@@ -64,6 +67,7 @@ The AtkRegistry structure should not be accessed directly.
 
 </para>
 
+@void: 
 @Returns: 
 
 

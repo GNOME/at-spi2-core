@@ -24,6 +24,9 @@ indicate failure.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkValue ##### -->
 <para>
 The AtkValue structure does not contain any fields.

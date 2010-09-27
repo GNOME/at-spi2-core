@@ -22,6 +22,9 @@ components (for instance within a radio-button group), or share content which
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkRelationSet ##### -->
 <para>
 The AtkRelationSet structure should not be accessed directly.
@@ -34,6 +37,7 @@ The AtkRelationSet structure should not be accessed directly.
 
 </para>
 
+@void: 
 @Returns: 
 
 

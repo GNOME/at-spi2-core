@@ -32,6 +32,9 @@ a particular document, but may in some cases give access to the underlying model
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkStreamableContent ##### -->
 <para>
 The AtkStreamableContent structure does not contain any fields.

@@ -28,6 +28,9 @@ provided by #AtkText.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkComponent ##### -->
 <para>
 The AtkComponent structure does not contain any fields.

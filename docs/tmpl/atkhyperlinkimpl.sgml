@@ -31,6 +31,9 @@ followed by AtkHyperlink:getObject.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkHyperlinkImpl ##### -->
 <para>
 A queryable interface which allows AtkHyperlink instances associated with an 

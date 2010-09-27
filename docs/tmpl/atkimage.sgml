@@ -29,6 +29,9 @@ most significant information present in the image.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkImage ##### -->
 <para>
 The AtkImage structure does not contain any fields.

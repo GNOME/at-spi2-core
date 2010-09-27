@@ -19,6 +19,9 @@ information about the current ATK implementation and toolkit version.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkUtil ##### -->
 <para>
 The AtkUtil struct does not contain any fields.
@@ -79,6 +82,7 @@ The AtkUtil struct does not contain any fields.
 
 </para>
 
+@void: 
 
 
 <!-- ##### FUNCTION atk_add_global_event_listener ##### -->
@@ -154,6 +158,7 @@ The AtkUtil struct does not contain any fields.
 
 </para>
 
+@void: 
 @Returns: 
 
 
@@ -162,6 +167,7 @@ The AtkUtil struct does not contain any fields.
 
 </para>
 
+@void: 
 @Returns: 
 
 
@@ -170,6 +176,7 @@ The AtkUtil struct does not contain any fields.
 
 </para>
 
+@void: 
 @Returns: 
 
 
@@ -178,6 +185,7 @@ The AtkUtil struct does not contain any fields.
 
 </para>
 
+@void: 
 @Returns: 
 
 

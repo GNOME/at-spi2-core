@@ -21,6 +21,9 @@ AtkHyperlink
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkHypertext ##### -->
 <para>
 The AtkHypertext structure does not contain any fields.

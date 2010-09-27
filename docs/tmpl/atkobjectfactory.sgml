@@ -23,6 +23,9 @@ AtkRegistry
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkObjectFactory ##### -->
 <para>
 The AtkObjectFactory structure should not be accessed directly.

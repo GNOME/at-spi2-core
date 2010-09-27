@@ -22,6 +22,9 @@ are defined as an AtkRelationSet, which is a set of AtkRelations.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkRelation ##### -->
 <para>
 The AtkRelation structure should not be accessed directly.

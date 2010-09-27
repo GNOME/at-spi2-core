@@ -22,6 +22,9 @@ which can reasonably be considered a document in its own right.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkDocument ##### -->
 <para>
 The AtkDocument structure does not contain any fields.

@@ -34,6 +34,9 @@ glyph-to-offset mapping may be complex for languages which use ligatures.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkText ##### -->
 <para>
 The AtkText structure does not contain any fields.

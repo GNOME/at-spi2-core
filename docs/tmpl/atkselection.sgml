@@ -28,6 +28,9 @@ selection/deselection of children.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkSelection ##### -->
 <para>
 The AtkAction structure does not contain any fields.

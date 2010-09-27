@@ -19,6 +19,9 @@ create an accessible object of a particular type.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkNoOpObjectFactory ##### -->
 <para>
 The AtkNoOpObjectFactory structure should not be accessed directly.
@@ -31,6 +34,7 @@ The AtkNoOpObjectFactory structure should not be accessed directly.
 
 </para>
 
+@void: 
 @Returns: 
 
 

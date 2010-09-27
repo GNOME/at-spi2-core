@@ -18,6 +18,9 @@ of AtkStates.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### STRUCT AtkStateSet ##### -->
 <para>
 
@@ -29,6 +32,7 @@ of AtkStates.
 
 </para>
 
+@void: 
 @Returns: 
 
 

@@ -18,6 +18,9 @@ an component is described by its AtkStateSet, which is a set of AtkStates.
 <!-- ##### SECTION Stability_Level ##### -->
 
 
+<!-- ##### SECTION Image ##### -->
+
+
 <!-- ##### ENUM AtkStateType ##### -->
 <para>
 
