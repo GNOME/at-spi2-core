@@ -1,4 +1,4 @@
-AC_INIT([at-spi2-atk], [0.3.92], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-atk], [0.4.0], [accessibility-atspi@lists.linux-foundation.org])
 AC_CONFIG_AUX_DIR(config)
 
 AT_SPI_ATK_MAJOR_VERSION=0
