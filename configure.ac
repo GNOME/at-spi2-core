@@ -1,4 +1,4 @@
-AC_INIT([at-spi2-core], [0.4.0], [accessibility-atspi@lists.linux-foundation.org])
+AC_INIT([at-spi2-core], [0.5.1], [accessibility-atspi@lists.linux-foundation.org])
 AC_PREREQ([2.59])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_MACRO_DIR([m4])
@@ -164,9 +164,9 @@ AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_ARG_ENABLE([relocate],
 	[AS_HELP_STRING([--enable-relocate],
-		[Relocate to coexist with CORBA @<:@default=yes@:>@])],
+		[Relocate to coexist with CORBA @<:@default=no@:>@])],
 	[enable_relocate="$enableval"],
-	[enable_relocate=yes])
+	[enable_relocate=no])
 if test x$enable_relocate = xyes ; then
 	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
 fi
