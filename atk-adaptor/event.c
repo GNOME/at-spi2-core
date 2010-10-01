@@ -78,9 +78,12 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 {
   DBusPendingCall *pending;
   SpiReentrantCallClosure closure;
+  GMainContext *main_context;
 
-  closure.loop = g_main_loop_new (spi_global_app_data->main_context, FALSE);
-  switch_main_context (spi_global_app_data->main_context);
+  main_context = (g_getenv ("AT_SPI_CLIENT") ? NULL :
+                  spi_global_app_data->main_context);
+  closure.loop = g_main_loop_new (main_context, FALSE);
+  switch_main_context (main_context);
 
   if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
     {
