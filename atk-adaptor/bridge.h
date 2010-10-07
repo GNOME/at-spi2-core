@@ -61,6 +61,7 @@ struct _SpiBridge
   gchar *desktop_path;
 char *app_bus_addr;
   GList *events;
+  gboolean events_initialized;
 };
 
 extern SpiBridge *spi_global_app_data;
