@@ -337,6 +337,9 @@ signal_is_needed (const gchar *klass, const gchar *major, const gchar *minor)
   gboolean ret = FALSE;
   GList *list;
 
+  if (!spi_global_app_data->events_initialized)
+    return TRUE;
+
   data [0] = ensure_proper_format (klass + 21);
   data [1] = ensure_proper_format (major);
   data [2] = ensure_proper_format (minor);

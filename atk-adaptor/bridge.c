@@ -227,6 +227,7 @@ get_registered_event_listeners (SpiBridge *app)
                                          SPI_DBUS_PATH_REGISTRY,
                                          SPI_DBUS_INTERFACE_REGISTRY,
                                          "GetRegisteredEvents");
+  spi_global_app_data->events_initialized = TRUE;
   if (!message)
     return;
 
