@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 1.91.1:
+
+    * Fire all events until we receive a reply from GetRegisteredEvents
+
 What's new in at-spi2-atk 1.91.0:
 
 * --disable-relocate is the default again.
