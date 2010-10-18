@@ -28,3 +28,10 @@ CLEANFILES = \
 	introspection.c \
 	introspection.h \
 	Processed.xml
+
+BUILT_SOURCES = spec.xml
+CLEANFILES = spec.xml
+
+spec.xml: $(XML_SPEC)
+	xsltproc --xinclude $(top_srcdir)/tools/identity.xsl Accessibility.xml >spec.xml
+

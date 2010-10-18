@@ -175,6 +175,7 @@ AC_SUBST(enable_relocate)
 
 AC_CONFIG_FILES([Makefile
 	xml/Makefile
+libspi/Makefile
 	registryd/Makefile
 	bus/at-spi-dbus-bus
 	bus/Makefile])
