@@ -175,6 +175,19 @@ fi
 AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
 AC_SUBST(enable_relocate)
 
+dnl find sizes & alignments
+orig_CPPFLAGS=$CPPFLAGS
+CPPFLAGS="$CPPFLAGS $DBUS_CFLAGS"
+DBIND_CHECK_ALIGNOF(char)
+DBIND_CHECK_ALIGNOF(dbus_bool_t)
+DBIND_CHECK_ALIGNOF(dbus_int16_t)
+DBIND_CHECK_ALIGNOF(dbus_int32_t)
+DBIND_CHECK_ALIGNOF(dbus_int64_t)
+DBIND_CHECK_ALIGNOF(double)
+DBIND_CHECK_ALIGNOF(dbind_pointer)
+DBIND_CHECK_ALIGNOF(dbind_struct)
+
+CPPFLAGS=$orig_CPPFLAGS 
 AC_CONFIG_FILES([Makefile
 	xml/Makefile
 	dbind/Makefile
