@@ -67,6 +67,8 @@ struct _AtspiAccessibleClass
   GObjectClass parent_class;
 };
 
+GType atspi_accessible_get_type (void); 
+
 AtspiAccessible *
 atspi_accessible_new ();
 
