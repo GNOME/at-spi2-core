@@ -127,8 +127,10 @@ atspi_device_listener_remove_cb (AtspiDeviceListener  *listener,
 				AtspiDeviceListenerCB callback);
 
 /* private */
+#ifndef __GI_SCANNER__
 DBusHandlerResult
 atspi_dbus_handle_deviceEvent (DBusConnection *bus, DBusMessage *message, void *data);
+#endif
 
 gchar *
 _atspi_device_listener_get_path (AtspiDeviceListener *listener);
