@@ -160,6 +160,8 @@ else
 fi
 AC_SUBST(DBUS_SERVICES_DIR)
 
+GOBJECT_INTROSPECTION_CHECK([0.9.6])
+
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
 
 AC_ARG_ENABLE([relocate],
@@ -175,7 +177,9 @@ AC_SUBST(enable_relocate)
 
 AC_CONFIG_FILES([Makefile
 	xml/Makefile
-libspi/Makefile
+	dbind/Makefile
+dbind/dbind-config.h
+	atspi/Makefile
 	registryd/Makefile
 	bus/at-spi-dbus-bus
 	bus/Makefile])
