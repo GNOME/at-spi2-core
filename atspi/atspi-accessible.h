@@ -27,6 +27,7 @@
 
 #include "glib-object.h"
 
+#include "atspi-application.h"
 #include "atspi-constants.h"
 #include "atspi-stateset.h"
 
@@ -36,14 +37,6 @@
 #define ATSPI_IS_ACCESSIBLE(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_ACCESSIBLE))
 #define ATSPI_IS_ACCESSIBLE_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_ACCESSIBLE))
 #define ATSPI_ACCESSIBLE_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_ACCESSIBLE, AtspiAccessibleClass))
-
-typedef struct _AtspiApplication AtspiApplication;
-struct _AtspiApplication
-{
-  GHashTable *hash;
-  char *bus_name;
-  struct _AtspiAccessible *root;
-};
 
 typedef struct _AtspiAccessible AtspiAccessible;
 struct _AtspiAccessible
@@ -70,7 +63,7 @@ struct _AtspiAccessibleClass
 GType atspi_accessible_get_type (void); 
 
 AtspiAccessible *
-atspi_accessible_new ();
+atspi_accessible_new (AtspiApplication *app, const gchar *path);
 
 gchar * atspi_role_get_name (AtspiRole role);
 

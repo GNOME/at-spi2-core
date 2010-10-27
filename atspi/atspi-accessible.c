@@ -31,8 +31,20 @@ atspi_accessible_init (AtspiAccessible *accessible)
 }
 
 static void
+atspi_accessible_finalize (AtspiAccessible *accessible)
+{
+  if (accessible->app)
+    g_object_unref (accessible->app);
+
+  g_free (accessible->path);
+}
+
+static void
 atspi_accessible_class_init (AtspiAccessibleClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = atspi_accessible_finalize;
 }
 /* TODO: Generate following from spec? */
 static const char *role_names [] =
@@ -229,8 +241,8 @@ atspi_accessible_get_child_count (AtspiAccessible *obj, GError *error)
  *
  * Get the #AtspiAccessible child of an #AtspiAccessible object at a given index.
  *
- * Returns: a pointer to the #AtspiAccessible child object at index
- *          @child_index. or NULL on exception
+ * Returns: (transfer full): a pointer to the #AtspiAccessible child object at
+ * index @child_index. or NULL on exception
  **/
 AtspiAccessible *
 atspi_accessible_get_child_at_index (AtspiAccessible *obj,
@@ -392,7 +404,8 @@ atspi_accessible_get_state_set (AtspiAccessible *obj)
  * For typographic, textual, or textually-semantic attributes, see
  * atspi_text_get_attributes instead.
  *
- * Returns: The name-value-pair attributes assigned to this object.
+ * Returns: (transfer full): The name-value-pair attributes assigned to this
+ * object.
  */
 GHashTable *
 atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
@@ -1191,7 +1204,10 @@ cspi_object_destroyed (AtspiAccessible *accessible)
   e.type = "object:state-change:defunct";
   e.source = accessible;
   e.detail1 = 1;
+#if 0
+  g_warning ("atspi: TODO: Finish events");
   atspi_dispatch_event (&e);
+#endif
 
     g_free (accessible->path);
 
@@ -1202,12 +1218,15 @@ cspi_object_destroyed (AtspiAccessible *accessible)
 }
 
 AtspiAccessible *
-atspi_accessible_new ()
+atspi_accessible_new (AtspiApplication *app, const gchar *path)
 {
   AtspiAccessible *accessible;
   
   accessible = g_object_new (ATSPI_TYPE_ACCESSIBLE, NULL);
   g_return_val_if_fail (accessible != NULL, NULL);
+
+  accessible->app = g_object_ref (app);
+  accessible->path = g_strdup (path);
 
   return accessible;
 }

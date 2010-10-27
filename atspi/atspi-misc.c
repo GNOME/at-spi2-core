@@ -99,9 +99,12 @@ get_live_refs (void)
   return live_refs;
 }
 
+/* TODO: Add an application parameter */
 DBusConnection *
 _atspi_bus ()
 {
+  if (!bus)
+    atspi_init ();
   return bus;
 }
 
@@ -140,7 +143,7 @@ get_application (const char *bus_name)
   bus_name_dup = g_strdup (bus_name);
   if (!bus_name_dup) return NULL;
   // TODO: change below to something that will send state-change:defunct notification if necessary */
-  app = g_new (AtspiApplication, 1);
+  app = _atspi_application_new (bus_name);
   if (!app) return NULL;
   app->bus_name = bus_name_dup;
   if (APP_IS_REGISTRY (app))
@@ -158,37 +161,29 @@ get_application (const char *bus_name)
 static AtspiAccessible *
 ref_accessible (const char *app_name, const char *path)
 {
-  int id;
-  guint *id_val;
   AtspiApplication *app = get_application (app_name);
   AtspiAccessible *a;
 
   if (!strcmp (path, "/org/a11y/atspi/accessible/root"))
-    return g_object_ref (app->root);
-
-  if (sscanf (path, "/org/a11y/atspi/accessible/%d", &id) != 1)
   {
-    return NULL;
+    if (!app->root)
+    {
+      app->root = atspi_accessible_new (app, atspi_path_root);
+      app->root->accessible_parent = atspi_get_desktop (0);
+    }
+    return g_object_ref (app->root);
   }
 
-  a = g_hash_table_lookup (app->hash, &id);
+  a = g_hash_table_lookup (app->hash, path);
   if (a)
   {
     g_object_ref (a);
     return a;
   }
-  id_val = g_new (guint, 1);
-  if (!id_val) return NULL;
-  *id_val = id;
-  a = atspi_accessible_new ();
+  a = atspi_accessible_new (app, path);
   if (!a)
-  {
-    g_free (id_val);
     return NULL;
-  }
-  a->app = app;
-  a->path = g_strdup_printf ("/org/a11y/atspi/accessible/%d", id);
-  g_hash_table_insert (app->hash, id_val, a);
+  g_hash_table_insert (app->hash, a->path, a);
   g_object_ref (a);	/* for the hash */
   return a;
 }
@@ -233,13 +228,7 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_
     a->accessible_parent->children = g_list_remove (a->accessible_parent->children, a);
     g_object_unref (a);
   }
-  if (sscanf (a->path, "/org/a11y/atspi/accessible/%d", &id) == 1)
-  {
-    g_warning("atspi: FIX HASH REMOVE");
-    g_hash_table_remove (app->hash, id);
-  }
-  else
-    g_warning ("libspi: Strange path %s\n", a->path);
+  g_hash_table_remove (app->hash, app->bus_name);
   g_object_unref (a);	/* unref our own ref */
   return DBUS_HANDLER_RESULT_HANDLED;
 }
@@ -277,7 +266,10 @@ send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean
   e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
   e.detail1 = g_list_index (parent->children, child);
+#if 0
+  g_warning ("atspi: TODO: Finish events");
   atspi_dispatch_event (&e);
+#endif
 }
 
 static void
@@ -289,7 +281,7 @@ unref_object_and_descendants (AtspiAccessible *obj)
   {
     unref_object_and_descendants (l->data);
   }
-  g_object_unref_internal (obj, TRUE);
+  g_object_unref (obj);
 }
 
 static gboolean
@@ -322,8 +314,9 @@ get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const cha
   DBusMessageIter iter_struct;
 
   dbus_message_iter_recurse (iter, &iter_struct);
-  dbus_message_iter_get_basic (&iter_struct, &app_name);
-  dbus_message_iter_get_basic (&iter_struct, &path);
+  dbus_message_iter_get_basic (&iter_struct, app_name);
+  dbus_message_iter_next (&iter_struct);
+  dbus_message_iter_get_basic (&iter_struct, path);
   dbus_message_iter_next (iter);
 }
 
@@ -346,6 +339,9 @@ add_accessible_from_iter (DBusMessageIter *iter)
   /* get accessible */
   get_reference_from_iter (&iter_struct, &app_name, &path);
   accessible = ref_accessible (app_name, path);
+
+  /* Get application: TODO */
+  dbus_message_iter_next (&iter_struct);
 
   /* get parent */
   get_reference_from_iter (&iter_struct, &app_name, &path);
@@ -378,6 +374,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
       g_warning ("Unknown interface %s", iface);
     }
     else accessible->interfaces |= (1 << n);
+    dbus_message_iter_next (&iter_array);
   }
   dbus_message_iter_next (&iter_struct);
 
@@ -426,9 +423,9 @@ add_accessibles (const char *app_name)
   AtspiApplication *app = get_application (app_name);
   /* TODO: Move this functionality into app initializer? */
   dbus_error_init (&error);
-  message = dbus_message_new_method_call (app_name, "/org/a11y/atspi/accessible/cache", atspi_interface_cache, "GetItems");
+  message = dbus_message_new_method_call (app_name, "/org/a11y/atspi/cache", atspi_interface_cache, "GetItems");
   reply = _atspi_dbus_send_with_reply_and_block (message);
-  if (!reply || strcmp (dbus_message_get_signature (reply), "a((so)(so)a(so)assusau)") != 0)
+  if (!reply || strcmp (dbus_message_get_signature (reply), "a((so)(so)(so)a(so)assusau)") != 0)
   {
     g_warning ("at-spi: Error in GetItems");
     return;
@@ -461,13 +458,12 @@ ref_accessible_desktop (AtspiApplication *app)
     g_object_ref (desktop);
     return desktop;
   }
-  desktop = atspi_accessible_new ();
+  desktop = atspi_accessible_new (app, atspi_path_root);
   if (!desktop)
   {
     return NULL;
   }
-  g_hash_table_insert (app->hash, 0, desktop);
-  desktop->app = app;
+  g_hash_table_insert (app->hash, desktop->path, desktop);
   g_object_ref (desktop);	/* for the hash */
   desktop->name = g_strdup ("main");
   dbus_error_init (&error);
@@ -478,7 +474,7 @@ ref_accessible_desktop (AtspiApplication *app)
   if (!message)
     return;
   reply = _atspi_dbus_send_with_reply_and_block (message);
-  if (!reply || strcmp (dbus_message_get_signature (reply), "a(so") != 0)
+  if (!reply || strcmp (dbus_message_get_signature (reply), "a(so)") != 0)
   {
     g_error ("Couldn't get application list: %s", error.message);
     if (reply)

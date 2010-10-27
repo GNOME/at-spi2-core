@@ -15,6 +15,8 @@ libatspi_la_SOURCES =		\
 	atspi.h			\
 	atspi-accessible.c \
 	atspi-accessible.h \
+	atspi-application.c \
+	atspi-application.h \
 	atspi-constants.h \
 	atspi-event-types.h \
 	atspi-listener.c \

@@ -49,8 +49,8 @@ atspi_get_desktop_count ()
  * Get the virtual desktop indicated by index @i.
  * NOTE: currently multiple virtual desktops are not implemented.
  *
- * Returns: a pointer to the 'i-th' virtual desktop's #AtspiAccessible
- * representation.
+ * Returns: (transfer full): a pointer to the 'i-th' virtual desktop's
+ * #AtspiAccessible representation.
  **/
 AtspiAccessible*
 atspi_get_desktop (gint i)
@@ -61,7 +61,6 @@ atspi_get_desktop (gint i)
 
 /**
  * atspi_get_desktop_list:
- * @desktop_list: a pointer to an array of #Accessible references.
  *
  * Get the list of virtual desktops.  On return, @list will point
  *     to a newly-created, NULL terminated array of virtual desktop
@@ -72,10 +71,8 @@ atspi_get_desktop (gint i)
  * Not Yet Implemented : this implementation always returns a single
  * #Accessible desktop.
  *
- * Returns: an integer indicating how many virtual desktops have been
- *          placed in the list pointed to by parameter @list.
+ * Returns: (transfer full): a #GArray of desktops.
  **/
-/* TODO: Make this a garray */
 GArray *
 atspi_get_desktop_list ()
 {
