@@ -2,8 +2,9 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2002 Ximian, Inc.
+ *           2002 Sun Microsystems Inc.
+ *           
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,17 +22,21 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _ATSPI_H
-#define _ATSPI_H
+#ifndef _ATSPI_TYPES_H_
+#define _ATSPI_TYPES_H_
 
-#include "glib.h"
+#include "glib-object.h"
 
-#include "atspi-constants.h"
-#include "atspi-types.h"
-#include "atspi-accessible.h"
-#include "atspi-component.h"
-#include "atspi-listener.h"
-#include "atspi-misc.h"
-#include "atspi-registry.h"
+#include "atspi-event-types.h"
 
-#endif
+typedef struct _AtspiAccessible AtspiAction;
+typedef struct _AtspiAccessible AtspiCollection;
+typedef struct _AtspiAccessible AtspiComponent;
+typedef struct _AtspiAccessible AtspiDocument;
+typedef struct _AtspiAccessible AtspiEditableText;
+typedef struct _AtspiAccessible AtspiHypertext;
+typedef struct _AtspiAccessible AtspiSelection;
+typedef struct _AtspiAccessible AtspiTable;
+typedef struct _AtspiAccessible AtspiText;
+typedef struct _AtspiAccessible AtspiValue;
+#endif	/* _ATSPI_TYPES_H_ */

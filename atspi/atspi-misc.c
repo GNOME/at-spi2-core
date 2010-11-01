@@ -77,7 +77,8 @@ static const char *interfaces[] =
   NULL
 };
 
-static gint get_iface_num (const char *iface)
+gint
+_atspi_get_iface_num (const char *iface)
 {
   /* TODO: Use a binary search or hash to improve performance */
   int i;
@@ -368,7 +369,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
     gint n;
     dbus_message_iter_get_basic (&iter_array, &iface);
     if (!strcmp (iface, "org.freedesktop.DBus.Introspectable")) continue;
-    n = get_iface_num (iface);
+    n = _atspi_get_iface_num (iface);
     if (n == -1)
     {
       g_warning ("Unknown interface %s", iface);
@@ -506,6 +507,31 @@ _atspi_ref_accessible (const char *app, const char *path)
   return ref_accessible (app, path);
 }
 
+AtspiAccessible *
+_atspi_dbus_return_accessible_from_message (DBusMessage *message)
+{
+  DBusMessageIter iter;
+  const char *app_name, *path;
+  AtspiAccessible *retval = NULL;
+  const char *signature = dbus_message_get_signature (message);
+   
+  if (!strcmp (signature, "(so)"))
+  {
+    dbus_message_iter_init (message, &iter);
+    get_reference_from_iter (&iter, &app_name, &path);
+    retval = _atspi_ref_accessible (app_name, path);
+  }
+  else
+  {
+    g_warning ("Atspi: Called __atspi_dbus_return_accessible_from_message with strange signature %s", signature);
+  }
+  dbus_message_unref (message);
+  return retval;
+}
+
+/* TODO: Remove this function. We should not need it anymore.
+ * If we do, it's a bug.
+ */
 AtspiAccessible *
 _atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref)
 {
@@ -811,14 +837,51 @@ _atspi_dbus_hash_from_message (DBusMessage *message)
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
-  do
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
     const char *name, *value;
     dbus_message_iter_recurse (&iter_array, &iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &name);
     dbus_message_iter_get_basic (&iter_dict, &value);
     g_hash_table_insert (hash, g_strdup (name), g_strdup (value));
-  } while (dbus_message_iter_next (&iter_array));
+    dbus_message_iter_next (&iter_array);
+  }
   return hash;
+}
+
+GArray *
+_atspi_dbus_attribute_array_from_message (DBusMessage *message)
+{
+  GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
+  DBusMessageIter iter, iter_array, iter_dict;
+  const char *signature;
+  gint count = 0;
+
+  signature = dbus_message_get_signature (message);
+
+  if (strcmp (signature, "a{ss}") != 0)
+    {
+      g_warning ("Trying to get hash from message of unexpected type %s\n", signature);
+      return NULL;
+    }
+
+  dbus_message_iter_init (message, &iter);
+
+  dbus_message_iter_recurse (&iter, &iter_array);
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  {
+    const char *name, *value;
+    gchar *str;
+    GArray *new_array;
+    dbus_message_iter_recurse (&iter_array, &iter_dict);
+    dbus_message_iter_get_basic (&iter_dict, &name);
+    dbus_message_iter_get_basic (&iter_dict, &value);
+    str = g_strdup_printf ("%s:;%s", name, value);
+    new_array = g_array_append_val (array, str);
+    if (new_array)
+      array = new_array;
+    dbus_message_iter_next (&iter);;
+  }
+  return array;
 }
 

@@ -30,6 +30,7 @@
 #include "atspi-application.h"
 #include "atspi-constants.h"
 #include "atspi-stateset.h"
+#include "atspi-types.h"
 
 #define ATSPI_TYPE_ACCESSIBLE                        (atspi_accessible_get_type ())
 #define ATSPI_ACCESSIBLE(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_ACCESSIBLE, AtspiAccessible))
@@ -91,6 +92,9 @@ AtspiStateSet * atspi_accessible_get_state_set (AtspiAccessible *obj);
 
 GHashTable * atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error);
 
+GArray * atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error);
+
 AtspiApplication * atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error);
 
+AtspiComponent * atspi_accessible_get_component (AtspiAccessible *accessible);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */

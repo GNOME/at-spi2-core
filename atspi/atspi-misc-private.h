@@ -95,9 +95,14 @@ extern const char *atspi_interface_cache;
 extern const char *atspi_interface_value;
 
 /* function prototypes */
+gint _atspi_get_iface_num (const char *iface);
+
 DBusConnection * _atspi_bus ();
 
 AtspiAccessible * _atspi_ref_accessible (const char *app, const char *path);
+
+AtspiAccessible *
+_atspi_dbus_return_accessible_from_message (DBusMessage *message);
 
 AtspiAccessible * _atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref);
 
@@ -109,6 +114,7 @@ dbus_bool_t _atspi_dbus_get_property (AtspiAccessible *obj, const char *interfac
 
 DBusMessage * _atspi_dbus_send_with_reply_and_block (DBusMessage *message);
 
-GHashTable *
-_atspi_dbus_hash_from_message (DBusMessage *message);
+GHashTable *_atspi_dbus_hash_from_message (DBusMessage *message);
+
+GArray *_atspi_dbus_attribute_array_from_message (DBusMessage *message);
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

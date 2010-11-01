@@ -6,7 +6,7 @@ libatspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		    $(DBIND_CFLAGS)     \
                     -I$(top_srcdir)
 
-libatspi_LDADD = $(DBUS_GLIB_LIBS) \
+libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
 		    $(top_builddir)/dbind/libdbind.la
 
 libatspidir = $(includedir)/at-spi-1.0/atspi
@@ -17,6 +17,8 @@ libatspi_la_SOURCES =		\
 	atspi-accessible.h \
 	atspi-application.c \
 	atspi-application.h \
+	atspi-component.c \
+	atspi-component.h \
 	atspi-constants.h \
 	atspi-event-types.h \
 	atspi-listener.c \
@@ -29,13 +31,8 @@ libatspi_la_SOURCES =		\
 	atspi-registry.c \
 	atspi-registry.h \
 	atspi-stateset.c \
-	atspi-stateset.h
-
-libatspi_la_LIBADD =		        \
-	$(LIBATSPI_LIBS)                 \
-	$(DBIND_LIBS)			\
-	$(X_LIBS) \
-	$(DBUS_GLIB_LIBS)
+	atspi-stateset.h \
+	atspi-types.h
 
 #BUILT_SOURCES = atspi-constants.h
 
