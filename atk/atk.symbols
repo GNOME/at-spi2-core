@@ -70,6 +70,8 @@
 	atk_hypertext_get_n_links
 	atk_hypertext_get_type
 	atk_hyperlink_state_flags_get_type
+	atk_hyperlink_impl_get_type
+	atk_hyperlink_impl_get_hyperlink
 	atk_image_get_image_description
 	atk_image_get_image_locale
 	atk_image_get_image_position
