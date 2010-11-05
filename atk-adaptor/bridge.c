@@ -757,8 +757,6 @@ adaptor_init (gint * argc, gchar ** argv[])
   else
     get_registered_event_listeners (spi_global_app_data);
 
-  g_atexit (exit_func);
-
   return 0;
 }
 
