@@ -7,7 +7,8 @@ libatspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
                     -I$(top_srcdir)
 
 libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
-		    $(top_builddir)/dbind/libdbind.la
+	$(X_LIBS) \
+	$(top_builddir)/dbind/libdbind.la
 
 libatspidir = $(includedir)/at-spi-1.0/atspi
 
@@ -21,9 +22,12 @@ libatspi_la_SOURCES =		\
 	atspi-component.h \
 	atspi-constants.h \
 	atspi-event-types.h \
-	atspi-listener.c \
-	atspi-listener.h \
-	atspi-listener-private.h \
+	atspi-device-listener.c \
+	atspi-device-listener.h \
+	atspi-device-listener-private.h \
+	atspi-event-listener.c \
+	atspi-event-listener.h \
+	atspi-event-listener-private.h \
 	atspi-misc.c \
 	atspi-misc.h \
 	atspi-misc-private.h \

@@ -22,13 +22,31 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _ATSPI_PRIVATE_H_
-#define _ATSPI_PRIVATE_H_
+#ifndef _ATSPI_EVENT_LISTENER_H_
+#define _ATSPI_EVENT_LISTENER_H_
 
-#include "atspi-device-listener-private.h"
-#include "atspi-event-listener-private.h"
-#include "atspi-misc-private.h"
+#include "glib-object.h"
 
-#include "atspi.h"
+#include "atspi-event-types.h"
 
-#endif	/* _ATSPI_PRIVATE_H_ */
+/**
+ * AtspiEventListenerCB:
+ * @event: The event for which notification is sent.
+ * @user_data: User data which is passed to the callback each time a notification takes place.
+ *
+ * A function prototype for callbacks via which clients are notified of AT-SPI events.
+ * 
+ **/
+typedef void       (*AtspiEventListenerCB)     (const AtspiEvent     *event,
+						     void                      *user_data);
+
+gboolean
+atspi_event_listener_register (AtspiEventListenerCB callback,
+				 void *user_data,
+				 const gchar              *event_type);
+
+gboolean
+atspi_event_listener_deregister (AtspiEventListenerCB callback,
+				   void *user_data,
+				   const gchar              *event_type);
+#endif	/* _ATSPI_EVENT_LISTENER_H_ */

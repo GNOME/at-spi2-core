@@ -60,7 +60,7 @@ atspi_component_contains (AtspiComponent *obj,
 }
 
 /**
- * atspi_component_get_accessible_at_point:
+ * atspi_component_ref_accessible_at_point:
  * @obj: a pointer to the #AtspiComponent to query.
  * @x: a #gint specifying the x coordinate of the point in question.
  * @y: a #gint specifying the y coordinate of the point in question.
@@ -74,7 +74,7 @@ atspi_component_contains (AtspiComponent *obj,
  *         the point.
  **/
 AtspiAccessible *
-atspi_component_get_accessible_at_point (AtspiComponent *obj,
+atspi_component_ref_accessible_at_point (AtspiComponent *obj,
                                           gint x,
                                           gint y,
                                           AtspiCoordType ctype, GError **error)
@@ -105,7 +105,7 @@ atspi_component_get_accessible_at_point (AtspiComponent *obj,
  * Get the bounding box of the specified #AtspiComponent.
  *
  **/
-AtspiBoundingBox
+AtspiRect
 atspi_component_get_extents (AtspiComponent *obj,
                                 gint *x,
                                 gint *y,
@@ -114,7 +114,7 @@ atspi_component_get_extents (AtspiComponent *obj,
                                 AtspiCoordType ctype, GError **error)
 {
   dbus_int16_t d_ctype = ctype;
-  AtspiBoundingBox bbox;
+  AtspiRect bbox;
 
   g_return_if_fail (obj != NULL);
 
@@ -251,4 +251,45 @@ atspi_component_get_alpha    (AtspiComponent *obj, GError **error)
   _atspi_dbus_call (obj, atspi_interface_component, "GetAlpha", error, "=>d", &retval);
 
   return retval;
+}
+
+static void
+atspi_component_base_init (AtspiComponentIface *klass)
+{
+  static gboolean initialized = FALSE;
+
+  if (! initialized)
+    {
+      klass->contains = atspi_component_contains;
+      klass->ref_accessible_at_point = atspi_component_ref_accessible_at_point;
+  klass->get_extents = atspi_component_get_extents;
+      klass->get_position = atspi_component_get_position;
+      klass->get_size = atspi_component_get_size;
+      klass->get_layer = atspi_component_get_layer;
+      klass->get_mdi_z_order = atspi_component_get_mdi_z_order;
+      klass->grab_focus = atspi_component_grab_focus;
+      klass->get_alpha = atspi_component_get_alpha;
+
+      initialized = TRUE;
+    }
+}
+
+GType
+atspi_component_get_type (void)
+{
+  static GType type = 0;
+
+  if (!type) {
+    static const GTypeInfo tinfo =
+    {
+      sizeof (AtspiComponentIface),
+      (GBaseInitFunc) atspi_component_base_init,
+      (GBaseFinalizeFunc) NULL,
+
+    };
+
+    type = g_type_register_static (G_TYPE_INTERFACE, "AtspiComponent", &tinfo, 0);
+
+  }
+  return type;
 }

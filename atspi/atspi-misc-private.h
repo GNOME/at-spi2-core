@@ -33,6 +33,13 @@
 
 #include "dbind/dbind.h"
 
+#define ATSPI_CACHE_PARENT      0x0001
+#define ATSPI_CACHE_CHILDREN    0x0002
+#define ATSPI_CACHE_NAME        0x0004
+#define ATSPI_CACHE_DESCRIPTION 0x0008
+#define ATSPI_CACHE_STATES      0x0010
+#define ATSPI_CACHE_ROLE        0x0010
+
 typedef struct _AtspiReference AtspiReference;
 struct _AtspiReference
 {
@@ -62,6 +69,7 @@ struct _AtspiReference
 #define ATSPI_DBUS_INTERFACE_EDITABLE_TEXT "org.a11y.atspi.EditableText"
 #define ATSPI_DBUS_INTERFACE_EVENT_KEYBOARD "org.a11y.atspi.Event.Keyboard"
 #define ATSPI_DBUS_INTERFACE_EVENT_MOUSE "org.a11y.atspi.Event.Mouse"
+#define ATSPI_DBUS_INTERFACE_EVENT_OBJECT "org.a11y.atspi.Event.Object"
 #define ATSPI_DBUS_INTERFACE_HYPERLINK "org.a11y.atspi.Hyperlink"
 #define ATSPI_DBUS_INTERFACE_HYPERTEXT "org.a11y.atspi.Hypertext"
 #define ATSPI_DBUS_INTERFACE_IMAGE "org.a11y.atspi.Image"
@@ -103,6 +111,9 @@ AtspiAccessible * _atspi_ref_accessible (const char *app, const char *path);
 
 AtspiAccessible *
 _atspi_dbus_return_accessible_from_message (DBusMessage *message);
+
+AtspiAccessible *
+_atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter);
 
 AtspiAccessible * _atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref);
 

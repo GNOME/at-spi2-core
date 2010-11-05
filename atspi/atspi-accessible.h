@@ -53,6 +53,7 @@ struct _AtspiAccessible
   char *name;
   char *description;
   AtspiStateSet *states;
+  guint cached_properties;
 };
 
 typedef struct _AtspiAccessibleClass AtspiAccessibleClass;

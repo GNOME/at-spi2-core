@@ -27,7 +27,7 @@
 
 #include "atspi-accessible.h"
 #include "atspi-event-types.h"
-#include "atspi-listener.h"
+#include "atspi-device-listener.h"
 
 gint atspi_get_desktop_count ();
 
@@ -36,19 +36,21 @@ AtspiAccessible* atspi_get_desktop (gint i);
 GArray *atspi_get_desktop_list ();
 
 gboolean
-atspi_register_accessible_keystroke_listener (AtspiKeystrokeListener  *listener,
-					 AtspiKeySet             *keys,
+atspi_register_accessible_keystroke_listener (AtspiDeviceListener  *listener,
+					 GArray *key_set,
 					 AtspiKeyMaskType         modmask,
-					 AtspiKeyEventMask        event_mask,
+					 AtspiKeyEventMask        event_types,
 					 AtspiKeyListenerSyncType sync_type, GError **error);
 
 gboolean
-atspi_deregister_accessible_keystroke_listener (AtspiKeystrokeListener *listener,
-					   AtspiKeyMaskType        modmask, GError **error);
+atspi_deregister_accessible_keystroke_listener (AtspiDeviceListener *listener,
+					        AtspiKeyMaskType         modmask,
+					        AtspiKeyEventMask        event_types,
+					        GError **error);
 
 gboolean
 atspi_register_device_event_listener (AtspiDeviceListener  *listener,
-				 AtspiDeviceEventMask  eventmask,
+				 AtspiDeviceEventMask  event_types,
 				 void                      *filter, GError **error);
 
 gboolean

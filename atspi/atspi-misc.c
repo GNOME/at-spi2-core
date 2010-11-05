@@ -28,6 +28,8 @@
  */
 
 #include "atspi-private.h"
+#include "X11/Xlib.h"
+#include <stdio.h>
 
 static DBusConnection *bus = NULL;
 static GHashTable *apps = NULL;
@@ -47,6 +49,7 @@ const char *atspi_interface_dec = ATSPI_DBUS_INTERFACE_DEC;
 const char *atspi_interface_device_event_listener = ATSPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER;
 const char *atspi_interface_document = ATSPI_DBUS_INTERFACE_DOCUMENT;
 const char *atspi_interface_editable_text = ATSPI_DBUS_INTERFACE_EDITABLE_TEXT;
+const char *atspi_interface_event_object = ATSPI_DBUS_INTERFACE_EVENT_OBJECT;
 const char *atspi_interface_hyperlink = ATSPI_DBUS_INTERFACE_HYPERLINK;
 const char *atspi_interface_hypertext = ATSPI_DBUS_INTERFACE_HYPERTEXT;
 const char *atspi_interface_image = ATSPI_DBUS_INTERFACE_IMAGE;
@@ -267,10 +270,7 @@ send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean
   e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
   e.detail1 = g_list_index (parent->children, child);
-#if 0
-  g_warning ("atspi: TODO: Finish events");
-  atspi_dispatch_event (&e);
-#endif
+  _atspi_send_event (&e);
 }
 
 static void
@@ -309,7 +309,7 @@ remove_app_from_desktop (AtspiAccessible *a, const char *bus_name)
 
 static AtspiAccessible *desktop;
 
-static void
+void
 get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const char **path)
 {
   DBusMessageIter iter_struct;
@@ -399,13 +399,13 @@ add_accessible_from_iter (DBusMessageIter *iter)
   if (count != 2)
   {
     g_warning ("at-spi: expected 2 values in states array; got %d\n", count);
-    accessible->states = atspi_state_set_new (0);
+    accessible->states = atspi_state_set_new (accessible, 0);
   }
   else
   {
     guint64 val = ((guint64)states [1]) << 32;
     val += states [0];
-    accessible->states = atspi_state_set_new (val);
+    accessible->states = atspi_state_set_new (accessible, val);
   }
   dbus_message_iter_next (&iter_struct);
 
@@ -511,15 +511,13 @@ AtspiAccessible *
 _atspi_dbus_return_accessible_from_message (DBusMessage *message)
 {
   DBusMessageIter iter;
-  const char *app_name, *path;
   AtspiAccessible *retval = NULL;
   const char *signature = dbus_message_get_signature (message);
    
   if (!strcmp (signature, "(so)"))
   {
     dbus_message_iter_init (message, &iter);
-    get_reference_from_iter (&iter, &app_name, &path);
-    retval = _atspi_ref_accessible (app_name, path);
+    retval =  _atspi_dbus_return_accessible_from_iter (&iter);
   }
   else
   {
@@ -527,6 +525,15 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message)
   }
   dbus_message_unref (message);
   return retval;
+}
+
+AtspiAccessible *
+_atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter)
+{
+  const char *app_name, *path;
+
+  get_reference_from_iter (iter, &app_name, &path);
+  return ref_accessible (app_name, path);
 }
 
 /* TODO: Remove this function. We should not need it anymore.
@@ -539,7 +546,7 @@ _atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref)
   return ref_accessible (app, obj->path);
 }
 
-const char *cache_signal_type = "((so)(so)a(so)assusau)";
+const char *cache_signal_type = "((so)(so)(so)a(so)assusau)";
 
 static DBusHandlerResult
 handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
@@ -569,10 +576,9 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   char *bus_name;
 
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
-      !strncmp (interface, "org.a11y.atspi.Event.", 28))
+      !strncmp (interface, "org.a11y.atspi.Event.", 21))
   {
-    g_warning ("atspi: TODO: event");
-    //return handle_event (bus, message, data);
+    return atspi_dbus_handle_event (bus, message, data);
   }
   if (dbus_message_is_method_call (message, atspi_interface_device_event_listener, "notifyEvent"))
   {
@@ -602,6 +608,108 @@ static const char *signal_interfaces[] =
   NULL
 };
 
+/*
+ * Returns a 'canonicalized' value for DISPLAY,
+ * with the screen number stripped off if present.
+ *
+ * TODO: Avoid having duplicate functions for this here and in at-spi2-atk
+ */
+static const gchar *
+spi_display_name (void)
+{
+  static const char *canonical_display_name = NULL;
+  if (!canonical_display_name)
+    {
+      const gchar *display_env = g_getenv ("AT_SPI_DISPLAY");
+      if (!display_env)
+        {
+          display_env = g_getenv ("DISPLAY");
+          if (!display_env || !display_env[0])
+            canonical_display_name = ":0";
+          else
+            {
+              gchar *display_p, *screen_p;
+              canonical_display_name = g_strdup (display_env);
+              display_p = strrchr (canonical_display_name, ':');
+              screen_p = strrchr (canonical_display_name, '.');
+              if (screen_p && display_p && (screen_p > display_p))
+                {
+                  *screen_p = '\0';
+                }
+            }
+        }
+      else
+        {
+          canonical_display_name = display_env;
+        }
+    }
+  return canonical_display_name;
+}
+
+/* TODO: Avoid having duplicate functions for this here and in at-spi2-atk */
+static DBusConnection *
+get_accessibility_bus ()
+{
+  Atom AT_SPI_BUS;
+  Atom actual_type;
+  Display *bridge_display;
+  int actual_format;
+  unsigned char *data = NULL;
+  unsigned long nitems;
+  unsigned long leftover;
+
+  DBusConnection *bus = NULL;
+  DBusError error;
+
+  bridge_display = XOpenDisplay (spi_display_name ());
+  if (!bridge_display)
+    {
+      g_warning ("AT_SPI: Could not get the display\n");
+      return NULL;
+    }
+
+  AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False);
+  XGetWindowProperty (bridge_display,
+                      XDefaultRootWindow (bridge_display),
+                      AT_SPI_BUS, 0L,
+                      (long) BUFSIZ, False,
+                      (Atom) 31, &actual_type, &actual_format,
+                      &nitems, &leftover, &data);
+
+  dbus_error_init (&error);
+
+  if (data == NULL)
+    {
+      g_warning
+        ("AT-SPI: Accessibility bus not found - Using session bus.\n");
+      bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+      if (!bus)
+        {
+          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          return NULL;
+        }
+    }
+  else
+    {
+      bus = dbus_connection_open (data, &error);
+      if (!bus)
+        {
+          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          return NULL;
+        }
+      else
+        {
+          if (!dbus_bus_register (bus, &error))
+            {
+              g_warning ("AT-SPI: Couldn't register with bus: %s\n", error.message);
+              return NULL;
+            }
+        }
+    }
+
+  return bus;
+}
+
 /**
  * atspi_init:
  *
@@ -626,10 +734,9 @@ atspi_init (void)
   g_type_init ();
 
   get_live_refs();
-  g_atexit (cleanup);
 
   dbus_error_init (&error);
-  bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
+  bus = get_accessibility_bus ();
   if (!bus)
   {
     g_error ("Couldn't get session bus");
@@ -645,12 +752,15 @@ atspi_init (void)
   match = g_strdup_printf ("type='signal',interface='%s',member='RemoveAccessible'", atspi_interface_cache);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
-  for (i = 0; signal_interfaces[i]; i++)
-  {
-    match = g_strdup_printf ("type='signal',interface='%s'", signal_interfaces[i]);
-    dbus_bus_add_match (bus, match, &error);
-    g_free (match);
-  }
+  match = g_strdup_printf ("type='signal',interface='%s',member='ChildrenChanged'", atspi_interface_event_object);
+  dbus_bus_add_match (bus, match, &error);
+  g_free (match);
+  match = g_strdup_printf ("type='signal',interface='%s',member='PropertyChange'", atspi_interface_event_object);
+  dbus_bus_add_match (bus, match, &error);
+  g_free (match);
+  match = g_strdup_printf ("type='signal',interface='%s',member='StateChanged'", atspi_interface_event_object);
+  dbus_bus_add_match (bus, match, &error);
+  g_free (match);
   return 0;
 }
 

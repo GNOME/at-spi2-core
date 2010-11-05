@@ -177,6 +177,12 @@ gchar *
 atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
+  if (!obj->cached_properties & ATSPI_CACHE_NAME)
+  {
+    if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetName", NULL, "=>s", &obj->name))
+      return NULL;
+    obj->cached_properties |= ATSPI_CACHE_NAME;
+  }
   return g_strdup (obj->name);
 }
 
@@ -194,6 +200,12 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
 
+  if (!obj->cached_properties & ATSPI_CACHE_DESCRIPTION)
+  {
+    if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetDescription", NULL, "=>s", &obj->description))
+      return NULL;
+    obj->cached_properties |= ATSPI_CACHE_DESCRIPTION;
+  }
   return g_strdup (obj->description);
 }
 
@@ -255,6 +267,8 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
 
   /* TODO: ManagesDescendants */
   child = g_list_nth_data (obj->children, child_index);
+  if (!child)
+    return NULL;
   return g_object_ref (child);
 }
 
@@ -332,6 +346,15 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, ATSPI_ROLE_INVALID);
 
+  if (!obj->cached_properties & ATSPI_CACHE_ROLE)
+  {
+    dbus_uint32_t role;
+    if (_atspi_dbus_call (obj, atspi_interface_accessible, "GetRole", NULL, "=>u", &role))
+    {
+      obj->cached_properties |= ATSPI_CACHE_ROLE;
+      obj->role = role;
+    }
+  }
   return obj->role;
 }
 
@@ -1232,10 +1255,7 @@ cspi_object_destroyed (AtspiAccessible *accessible)
   e.type = "object:state-change:defunct";
   e.source = accessible;
   e.detail1 = 1;
-#if 0
-  g_warning ("atspi: TODO: Finish events");
-  atspi_dispatch_event (&e);
-#endif
+  _atspi_send_event (&e);
 
     g_free (accessible->path);
 

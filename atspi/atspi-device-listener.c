@@ -25,16 +25,10 @@
 
 typedef struct
 {
-  union
-    {
-      AtspiEventListenerCB     event;
-      AtspiDeviceListenerCB    device_event;
-      gpointer                      method;
-    } cb;
+  AtspiDeviceListenerCB    callback;
   gpointer user_data;
-} EventHandler;
+} DeviceEventHandler;
 
-GObjectClass *event_parent_class;
 GObjectClass *device_parent_class;
 
 static guint32 _e_id = 0;
@@ -43,28 +37,28 @@ static guint32 _e_id = 0;
  * Misc. helpers.
  */
 
-static EventHandler *
-atspi_event_handler_new (gpointer method, gpointer user_data)
+static DeviceEventHandler *
+device_event_handler_new (AtspiDeviceListenerCB callback, gpointer user_data)
 {
-  EventHandler *eh = g_new0 (EventHandler, 1);
+  DeviceEventHandler *eh = g_new0 (DeviceEventHandler, 1);
 
-  eh->cb.method = method;
+  eh->callback = callback;
   eh->user_data = user_data;
 
   return eh;
 }
 
 static GList *
-event_list_remove_by_cb (GList *list, gpointer callback)
+event_list_remove_by_cb (GList *list, AtspiDeviceListenerCB callback)
 {
   GList *l, *next;
 	
   for (l = list; l; l = next)
     {
-      EventHandler *eh = l->data;
+      DeviceEventHandler *eh = l->data;
       next = l->next;
 
-      if (eh->cb.method == callback)
+      if (eh->callback == callback)
       {
         list = g_list_delete_link (list, l);
 	g_free (eh);
@@ -77,24 +71,6 @@ event_list_remove_by_cb (GList *list, gpointer callback)
 /*
  * Standard event dispatcher
  */
-
-G_DEFINE_TYPE (AtspiEventListener, atspi_event_listener,
-			  G_TYPE_OBJECT)
-
-static void
-atspi_event_dispatch (AtspiEventListener    *listener,
-	    const AtspiEvent *event)
-{
-  GList *l;
-  
-  /* FIXME: re-entrancy hazard on this list */
-  for (l = listener->callbacks; l; l = l->next)
-    {
-      EventHandler *eh = l->data;
-      /* cast hides our private stuff from client handlers */
-      eh->cb.event (event, eh->user_data);
-    }
-}
 
 static guint listener_id = 0;
 static GList *device_listeners = NULL;
@@ -118,68 +94,6 @@ remove_listener (GObject *obj, gpointer data)
   device_listeners = g_list_remove (device_listeners, obj);
 }
 
-static void
-atspi_event_listener_init (AtspiEventListener *listener)
-{
-}
-
-static void
-atspi_event_listener_finalize (GObject *object)
-{
-  AtspiEventListener *listener = (AtspiEventListener *) object;
-  GList *l;
-  
-  for (l = listener->callbacks; l; l = l->next)
-    {
-      g_free (l->data);
-    }
-  
-  g_list_free (listener->callbacks);
-
-  event_parent_class->finalize (object);
-}
-
-static void
-atspi_event_listener_class_init (AtspiEventListenerClass *klass)
-{
-  GObjectClass *object_class = (GObjectClass *) klass;
-
-  event_parent_class = g_type_class_peek_parent (klass);
-  object_class->finalize = atspi_event_listener_finalize;
-
-  klass->event = atspi_event_dispatch;
-}
-
-AtspiEventListener *
-atspi_event_listener_new (void)
-{
-  AtspiEventListener *listener;
-
-  listener = g_object_new (atspi_event_listener_get_type (), NULL);
-
-  return listener;
-}
-
-void
-atspi_event_listener_add_cb (AtspiEventListener  *listener,
-			    AtspiEventListenerCB callback,
-			    void                     *user_data)
-{
-  g_return_if_fail (ATSPI_IS_EVENT_LISTENER (listener));
-
-  listener->callbacks = g_list_prepend (listener->callbacks,
-					atspi_event_handler_new ((void *) callback, user_data));
-}
-
-void
-atspi_event_listener_remove_cb (AtspiEventListener  *listener,
-			       AtspiEventListenerCB callback)
-{
-  g_return_if_fail (ATSPI_IS_EVENT_LISTENER (listener));
-
-  listener->callbacks = event_list_remove_by_cb (listener->callbacks, (void *) callback);
-}
-
 /* 
  * Device event handler
  */
@@ -194,9 +108,9 @@ atspi_device_event_dispatch (AtspiDeviceListener               *listener,
   /* FIXME: re-enterancy hazard on this list */
   for (l = listener->callbacks; l; l = l->next)
     {
-      EventHandler *eh = l->data;
+      DeviceEventHandler *eh = l->data;
 
-      if ((handled = eh->cb.device_event (&anevent, eh->user_data)))
+      if ((handled = eh->callback (&anevent, eh->user_data)))
         {
 	  break;
 	}
@@ -248,27 +162,61 @@ atspi_device_listener_class_init (AtspiDeviceListenerClass *klass)
 G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener,
 			  G_TYPE_OBJECT)
 
+/**
+ * atspi_device_listener_new:
+ * @callback: (scope call): an #AtspiDeviceListenerCB callback function,
+ *            or NULL.
+ * @user_data: (closure): a pointer to data which will be passed to the
+ * callback when invoked.
+ *
+ * Create a new #AtspiDeviceListener with a specified callback function.
+ *
+ * Returns: a pointer to a newly-created #AtspiDeviceListener.
+ *
+ **/
 AtspiDeviceListener *
-atspi_device_listener_new (void)
+atspi_device_listener_new (AtspiDeviceListenerCB callback)
 {
   AtspiDeviceListener *listener = g_object_new (atspi_device_listener_get_type (), NULL);
 
   return listener;
 }
 
+/**
+ * atspi_device_listener_add_callback:
+ * @listener: the #AtspiDeviceListener instance to modify.
+ * @callback: (scope call): an #AtspiDeviceListenerCB function pointer.
+ * @user_data: (closure): a pointer to data which will be passed to the
+ *             callback when invoked.
+ *
+ * Add an in-process callback function to an existing #AtspiDeviceListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
 void
-atspi_device_listener_add_cb (AtspiDeviceListener  *listener,
+atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
 			     AtspiDeviceListenerCB callback,
 			     void                      *user_data)
 {
   g_return_if_fail (ATSPI_IS_DEVICE_LISTENER (listener));
 
   listener->callbacks = g_list_prepend (listener->callbacks,
-					atspi_event_handler_new ((void *)callback, user_data));
+					device_event_handler_new ((void *)callback, user_data));
 }
 
+/**
+ * atspi_device_listener_remove_callback:
+ * @listener: the #AtspiDeviceListener instance to modify.
+ * @callback: (scope call): an #AtspiDeviceListenerCB function pointer.
+ *
+ * Remove an in-process callback function from an existing #AtspiDeviceListener.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ *
+ **/
 void
-atspi_device_listener_remove_cb (AtspiDeviceListener  *listener,
+atspi_device_listener_remove_callback (AtspiDeviceListener  *listener,
 				AtspiDeviceListenerCB callback)
 {
   g_return_if_fail (ATSPI_IS_DEVICE_LISTENER (listener));

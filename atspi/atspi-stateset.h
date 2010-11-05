@@ -12,6 +12,7 @@ typedef struct _AtspiStateSet AtspiStateSet;
 struct _AtspiStateSet
 {
   GObject parent;
+  struct _AtspiAccessible *accessible;
   gint64 states;
 };
 
@@ -24,6 +25,7 @@ struct _AtspiStateSetClass
 GType atspi_state_set_get_type (void);
 
 AtspiStateSet *
-atspi_state_set_new (gint64 states);
+atspi_state_set_new (struct _AtspiAccessible *accessible, gint64 states);
 
+gboolean atspi_state_set_contains (AtspiStateSet *set, AtspiStateType state);
 #endif	/* _ATSPI_STATE_SET_H_ */

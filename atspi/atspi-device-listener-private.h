@@ -2,8 +2,9 @@
  * AT-SPI - Assistive Technology Service Provider Interface
  * (Gnome Accessibility Project; http://developer.gnome.org/projects/gap)
  *
- * Copyright 2001, 2002 Sun Microsystems Inc.,
- * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2002 Ximian, Inc.
+ *           2002 Sun Microsystems Inc.
+ *           
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,18 +22,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _ATSPI_H
-#define _ATSPI_H
+#ifndef _ATSPI_DEVICE_LISTENER_PRIVATE_H_
+#define _ATSPI_DEVICE_LISTENER_PRIVATE_H_
 
-#include "glib.h"
-
-#include "atspi-constants.h"
-#include "atspi-types.h"
-#include "atspi-accessible.h"
-#include "atspi-component.h"
 #include "atspi-device-listener.h"
-#include "atspi-event-listener.h"
-#include "atspi-misc.h"
-#include "atspi-registry.h"
 
-#endif
+#include "dbus/dbus.h"
+
+DBusHandlerResult _atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *data);
+
+gchar *_atspi_device_listener_get_path (AtspiDeviceListener *listener);
+#endif	/* _ATSPI_DEVICE_LISTENER_H_ */
