@@ -558,7 +558,7 @@ _atspi_send_event (AtspiEvent *e)
         (entry->name == NULL || !strcmp (name, entry->name)) &&
         (entry->detail == NULL || !strcmp (detail, entry->detail)))
     {
-        entry->callback (entry->user_data, e);
+        entry->callback (e, entry->user_data);
     }
   }
   if (detail) g_free (detail);
@@ -579,6 +579,8 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   AtspiEvent e;
   dbus_int32_t detail1, detail2;
   char *p;
+
+  memset (&e, 0, sizeof (e));
 
   if (category)
   {
@@ -627,6 +629,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   }
   e.type = converted_type;
   e.source = _atspi_ref_accessible (dbus_message_get_sender(message), dbus_message_get_path(message));
+
   dbus_message_iter_recurse (&iter, &iter_variant);
   switch (dbus_message_iter_get_arg_type (&iter_variant))
   {
@@ -636,7 +639,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
       if (demarshal_rect (&iter_variant, &rect))
       {
 	g_value_init (&e.any, ATSPI_TYPE_RECT);
-	g_value_set_instance (&e.any, &rect);
+	g_value_set_boxed (&e.any, &rect);
       }
       else
       {
