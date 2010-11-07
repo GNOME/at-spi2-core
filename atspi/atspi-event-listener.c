@@ -276,7 +276,7 @@ listener_entry_free (EventListenerEntry *e)
  * @callback: (scope notified): the #AtspiEventListenerCB to be registered against
  *            an event type.
  * @user_data: (closure): User data to be passed to the callback.
- * @callback_freed: A #GDestroyNotify called when the callback is destroyed.
+ * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail
@@ -428,7 +428,7 @@ remove_datum (const AtspiEvent *event, void *user_data)
  * atspi_event_listener_register_no_data:
  * @callback: (scope notified): the #AtspiEventListenerSimpleCB to be
  *            registered against an event type.
- * @callback_freed: A #GDestroyNotify called when the callback is destroyed.
+ * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail

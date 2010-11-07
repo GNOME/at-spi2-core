@@ -217,8 +217,9 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
  *
  * Get an #AtspiAccessible object's parent container.
  *
- * Returns: a pointer tothe #AtspiAccessible object which contains the given
- *          #AtspiAccessible instance, or NULL if the @obj has no parent container.
+ * Returns: (transfer full): a pointer to the #AtspiAccessible object which
+ *          contains the given #AtspiAccessible instance, or NULL if the @obj
+ *          has no parent container.
  *
  **/
 AtspiAccessible *
@@ -412,7 +413,8 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
  *
  * Gets the current state of an object.
  *
- * Returns: a pointer to an #AtspiStateSet representing the object's current state.
+ * Returns: (transfer full): a pointer to an #AtspiStateSet representing the
+ *          object's current state.
  **/
 AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)

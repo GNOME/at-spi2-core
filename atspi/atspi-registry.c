@@ -95,7 +95,7 @@ atspi_get_desktop_list ()
  * atspi_register_accessible_keystroke_listener:
  * @listener:  a pointer to the #AccessibleKeystrokeListener for which
  *             keystroke events are requested.
- * @keys: (type: AtspiKeyDefinition): a pointer to the
+ * @key_set: (type: AtspiKeyDefinition): a pointer to the
  *        #AccessibleKeyDefinition array indicating which keystroke events are requested, or #ATSPI_KEYSET_ALL_KEYS
  *             to indicate that all keycodes and keyvals for the specified
  *             modifier set are to be included.
