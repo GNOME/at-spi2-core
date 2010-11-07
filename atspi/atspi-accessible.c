@@ -31,8 +31,10 @@ atspi_accessible_init (AtspiAccessible *accessible)
 }
 
 static void
-atspi_accessible_finalize (AtspiAccessible *accessible)
+atspi_accessible_finalize (GObject *obj)
 {
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
+
   if (accessible->app)
     g_object_unref (accessible->app);
 
@@ -460,7 +462,7 @@ GArray *
 atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
 {
   DBusMessage *message;
-  GHashTable *ret;
+  GArray *ret;
 
     g_return_val_if_fail (obj != NULL, NULL);
 
@@ -768,7 +770,7 @@ AtspiComponent *
 atspi_accessible_get_component (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_component) ?
-          accessible : NULL);  
+          ATSPI_COMPONENT (accessible) : NULL);  
 }
 
 #if 0
@@ -1251,10 +1253,11 @@ cspi_object_destroyed (AtspiAccessible *accessible)
   AtspiEvent e;
 
   /* TODO: Only fire if object not already marked defunct */
-  memset (&e, 0, sizeof(e));
   e.type = "object:state-change:defunct";
   e.source = accessible;
   e.detail1 = 1;
+  e.detail2 = 0;
+  g_value_unset (&e.any);
   _atspi_send_event (&e);
 
     g_free (accessible->path);

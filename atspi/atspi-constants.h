@@ -89,11 +89,11 @@ typedef enum {
 } AtspiLocaleType;
 
 /**
- * NUM_ATSPI_LOCALE_TYPES:
+ * ATSPI_LOCALE_TYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiLocaleType.
  */
-#define NUM_ATSPI_LOCALE_TYPES (5+1)
+#define ATSPI_LOCALE_TYPE _COUNT(5+1)
 
 /**
  *
@@ -111,11 +111,11 @@ typedef enum {
 } AtspiCoordType;
 
 /**
- * NUM_ATSPI_COORD_TYPES:
+ * ATSPI_COORD_TYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiCoordType.
  */
-#define NUM_ATSPI_COORD_TYPES (1+1)
+#define ATSPI_COORD_TYPE_COUNT (1+1)
 
 /**
  *
@@ -143,11 +143,11 @@ typedef enum {
 } AtspiCollectionSortOrder;
 
 /**
- * NUM_ATSPI_SORTORDERS:
+ * ATSPI_SORTORDER_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiCollectionSortOrder.
  */
-#define NUM_ATSPI_SORTORDERS (7+1)
+#define ATSPI_SORTORDER_COUNT (7+1)
 
 /**
  *
@@ -171,11 +171,11 @@ typedef enum {
 } AtspiCollectionMatchType;
 
 /**
- * NUM_ATSPI_MATCHTYPES:
+ * ATSPI_MATCHTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiCollection_MatchType.
  */
-#define NUM_ATSPI_MATCHTYPES (5+1)
+#define ATSPI_MATCHTYPES_COUNT (5+1)
 
 /**
  *
@@ -195,11 +195,11 @@ typedef enum {
 } AtspiCollectionTreeTraversalType;
 
 /**
- * NUM_ATSPI_TREETRAVERSALTYPES:
+ * ATSPI_TREETRAVERSALTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiCollection_TreeTraversalType.
  */
-#define NUM_ATSPI_TREETRAVERSALTYPES (3+1)
+#define ATSPI_TREETRAVERSALTYPE _COUNT(3+1)
 
 /**
  *
@@ -231,11 +231,11 @@ typedef enum {
 } AtspiComponentLayer;
 
 /**
- * NUM_ATSPI_COMPONENTLAYERS:
+ * ATSPI_COMPONENTLAYER:_COUNT
  *
  * 1 higher than the highest valid value of #AtspiComponentLayer.
  */
-#define NUM_ATSPI_COMPONENTLAYERS (8+1)
+#define ATSPI_COMPONENTLAYER_COUNT (8+1)
 
 /**
  *
@@ -263,11 +263,11 @@ typedef enum {
 } AtspiTextBoundaryType;
 
 /**
- * NUM_ATSPI_TEXT_BOUNDARY_TYPES:
+ * ATSPI_TEXT_BOUNDARY_TYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiTextBOundaryType.
  */
-#define NUM_ATSPI_TEXT_BOUNDARY_TYPES (6+1)
+#define ATSPI_TEXT_BOUNDARY_TYPE_COUNT (6+1)
 
 /**
  *
@@ -289,11 +289,11 @@ typedef enum {
 } AtspiTextClipType;
 
 /**
- * NUM_ATSPI_TEXT_CLIP_TYPES:
+ * ATSPI_TEXT_CLIP_TYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiTextClipType.
  */
-#define NUM_ATSPI_TEXT_CLIP_TYPES (3+1)
+#define ATSPI_TEXT_CLIP_TYPE_COUNT (3+1)
 
 /**
  *
@@ -389,11 +389,11 @@ typedef enum {
 } AtspiStateType;
 
 /**
- * NUM_ATSPI_STATETYPES:
+ * ATSPI_STATETYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiStateType.
  */
-#define NUM_ATSPI_STATETYPES (41+1)
+#define ATSPI_STATETYPE_COUNT (41+1)
 
 /**
  *
@@ -411,11 +411,11 @@ typedef enum {
 } AtspiKeyEventType;
 
 /**
- * NUM_ATSPI_KEYEVENTTYPES:
+ * ATSPI_KEYEVENTTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiKeyEventType.
  */
-#define NUM_ATSPI_KEYEVENTTYPES (1+1)
+#define ATSPI_KEYEVENTTYPE_COUNT (1+1)
 
 /**
  *
@@ -437,11 +437,11 @@ typedef enum {
 } AtspiEventType;
 
 /**
- * NUM_ATSPI_EVENTTYPES:
+ * ATSPI_EVENTTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiEventType.
  */
-#define NUM_ATSPI_EVENTTYPES (3+1)
+#define ATSPI_EVENTTYPE_COUNT (3+1)
 
 /**
  *
@@ -465,11 +465,11 @@ typedef enum {
 } AtspiKeySynthType;
 
 /**
- * NUM_ATSPI_KEYSYNTHTYPES:
+ * ATSPI_KEYSYNTHTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiKeySynthType.
  */
-#define NUM_ATSPI_KEYSYNTHTYPES (4+1)
+#define ATSPI_KEYSYNTHTYPE_COUNT (4+1)
 
 /**
  *
@@ -497,11 +497,11 @@ typedef enum {
 } AtspimodifierType;
 
 /**
- * NUM_ATSPI_MODIFIERTYPES:
+ * ATSPI_MODIFIERTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiModifierType.
  */
-#define NUM_ATSPI_MODIFIERTYPES (7+1)
+#define ATSPI_MODIFIERTYPE_COUNT (7+1)
 
 /**
  *
@@ -555,11 +555,11 @@ typedef enum {
 } AtspiRelationType;
 
 /**
- * NUM_ATSPI_RELATIONTYPES:
+ * ATSPI_RELATIONTYPE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiRelationType.
  */
-#define NUM_ATSPI_RELATIONTYPES (19+1)
+#define ATSPI_RELATIONTYPE_COUNT (19+1)
 
 /**
  *
@@ -753,11 +753,11 @@ typedef enum {
 } AtspiRole;
 
 /**
- * NUM_ATSPI_ROLES:
+ * ATSPI_ROLE_COUNT:
  *
  * 1 higher than the highest valid value of #AtspiRole.
  */
-#define NUM_ATSPI_ROLES (90+1)
+#define ATSPI_ROLE_COUNT (90+1)
 
 
 #ifdef __cplusplus

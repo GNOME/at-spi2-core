@@ -40,13 +40,32 @@
 typedef void       (*AtspiEventListenerCB)     (const AtspiEvent     *event,
 						     void                      *user_data);
 
+/**
+ * AtspiEventListenerSimpleCB:
+ * @event: The event for which notification is sent.
+ *
+ * Like #AtspiEventlistenerCB, but with no user_data.
+ * 
+ **/
+typedef void       (*AtspiEventListenerSimpleCB)     (const AtspiEvent     *event);
+
 gboolean
 atspi_event_listener_register (AtspiEventListenerCB callback,
 				 void *user_data,
+				 GDestroyNotify callback_destroyed,
+				 const gchar              *event_type);
+
+gboolean
+atspi_event_listener_register_no_data (AtspiEventListenerSimpleCB callback,
+				 GDestroyNotify callback_destroyed,
 				 const gchar              *event_type);
 
 gboolean
 atspi_event_listener_deregister (AtspiEventListenerCB callback,
 				   void *user_data,
+				   const gchar              *event_type);
+
+gboolean
+atspi_event_listener_deregister_no_data (AtspiEventListenerSimpleCB callback,
 				   const gchar              *event_type);
 #endif	/* _ATSPI_EVENT_LISTENER_H_ */

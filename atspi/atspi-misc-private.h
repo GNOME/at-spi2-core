@@ -117,9 +117,9 @@ _atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter);
 
 AtspiAccessible * _atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref);
 
-dbus_bool_t _atspi_dbus_call (AtspiAccessible *obj, const char *interface, const char *method, GError **error, const char *type, ...);
+dbus_bool_t _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...);
 
-DBusMessage *_atspi_dbus_call_partial (AtspiAccessible *obj, const char *interface, const char *method, GError **error, const char *type, ...);
+DBusMessage *_atspi_dbus_call_partial (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...);
 
 dbus_bool_t _atspi_dbus_get_property (AtspiAccessible *obj, const char *interface, const char *name, GError **error, const char *type, void *data);
 

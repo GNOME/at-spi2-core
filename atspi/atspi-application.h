@@ -30,7 +30,7 @@
 #include "atspi-accessible.h"
 
 #define ATSPI_TYPE_APPLICATION                        (atspi_application_get_type ())
-#define ATSPI_APPLICATION(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_APPLICATION, AtspiAccessible))
+#define ATSPI_APPLICATION(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_APPLICATION, AtspiApplication))
 #define ATSPI_APPLICATION_CLASS(klass)                (G_TYPE_CHECK_CLASS_CAST ((klass), ATSPI_TYPE_APPLICATION, AtspiAccessibleClass))
 #define ATSPI_IS_APPLICATION(obj)                     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_APPLICATION))
 #define ATSPI_IS_APPLICATION_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_APPLICATION))

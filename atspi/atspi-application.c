@@ -31,8 +31,10 @@ atspi_application_init (AtspiApplication *application)
 }
 
 static void
-atspi_application_finalize (AtspiApplication *application)
+atspi_application_finalize (GObject *obj)
 {
+  AtspiApplication *application = ATSPI_APPLICATION (obj);
+
   if (application->bus_name)
     g_free (application->bus_name);
 }

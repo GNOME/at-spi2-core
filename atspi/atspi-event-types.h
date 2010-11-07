@@ -66,28 +66,22 @@ struct _AtspiKeyDefinition
   gint unused;
 };
 
-typedef enum
-{
-  EVENT_DATA_STRING,
-  EVENT_DATA_OBJECT,
-  EVENT_DATA_RECT
-} EVENT_DATA_TYPE;
-
 typedef struct _AtspiEvent AtspiEvent;
 struct _AtspiEvent
 {
-  const gchar  *type;
+  gchar  *type;
   AtspiAccessible  *source;
   gint         detail1;
   gint         detail2;
-  union
-  {
-    gchar *text;
-    AtspiAccessible *accessible;
-    AtspiRect rect;
-  } v;
-  EVENT_DATA_TYPE v_type;
+  GValue any;
 };
+
+/**
+ * ATSPI_TYPE_RECT:
+ * 
+ * The #GType for a boxed type holding a #AtspiEvent.
+ */
+#define	ATSPI_TYPE_EVENT (atspi_event_get_type ())
 
 typedef void AtspiKeystrokeListener;
 

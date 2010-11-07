@@ -266,10 +266,11 @@ send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean
 {
   AtspiEvent e;
 
-  memset (&e, 0, sizeof(e));
   e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
   e.detail1 = g_list_index (parent->children, child);
+  e.detail2 = 0;
+  g_value_unset (&e.any);
   _atspi_send_event (&e);
 }
 
@@ -630,8 +631,8 @@ spi_display_name (void)
             {
               gchar *display_p, *screen_p;
               canonical_display_name = g_strdup (display_env);
-              display_p = strrchr (canonical_display_name, ':');
-              screen_p = strrchr (canonical_display_name, '.');
+              display_p = g_utf8_strrchr (canonical_display_name, -1, ':');
+              screen_p = g_utf8_strrchr (canonical_display_name, -1, '.');
               if (screen_p && display_p && (screen_p > display_p))
                 {
                   *screen_p = '\0';
@@ -829,15 +830,16 @@ atspi_exit (void)
 }
 
 dbus_bool_t
-_atspi_dbus_call (AtspiAccessible *obj, const char *interface, const char *method, GError **error, const char *type, ...)
+_atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
   va_list args;
   dbus_bool_t retval;
   DBusError err;
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
 
   dbus_error_init (&err);
   va_start (args, type);
-  retval = dbind_method_call_reentrant_va (_atspi_bus(), obj->app->bus_name, obj->path, interface, method, &err, type, args);
+  retval = dbind_method_call_reentrant_va (_atspi_bus(), accessible->app->bus_name, accessible->path, interface, method, &err, type, args);
   va_end (args);
   if (dbus_error_is_set (&err))
   {
@@ -848,8 +850,9 @@ _atspi_dbus_call (AtspiAccessible *obj, const char *interface, const char *metho
 }
 
 DBusMessage *
-_atspi_dbus_call_partial (AtspiAccessible *obj, const char *interface, const char *method, GError **error, const char *type, ...)
+_atspi_dbus_call_partial (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
   va_list args;
   dbus_bool_t retval;
   DBusError err;
@@ -860,7 +863,7 @@ _atspi_dbus_call_partial (AtspiAccessible *obj, const char *interface, const cha
   dbus_error_init (&err);
   va_start (args, type);
 
-    msg = dbus_message_new_method_call (obj->app->bus_name, obj->path, interface, method);
+    msg = dbus_message_new_method_call (accessible->app->bus_name, accessible->path, interface, method);
     if (!msg)
         goto out;
 
@@ -924,7 +927,7 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   DBusError err;
 
   dbus_error_init (&err);
-  g_warning ("TODO: Write _atspi_dbus_send_with_reply_and_block");
+  /* TODO: Write this function; allow reentrancy */
   reply = dbus_connection_send_with_reply_and_block (_atspi_bus(), message, 1000, &err);
   dbus_message_unref (message);
   return reply;

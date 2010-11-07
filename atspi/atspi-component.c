@@ -29,6 +29,28 @@
 
 #include "atspi-private.h"
 
+static AtspiRect *
+atspi_rect_copy (AtspiRect *src)
+{
+  AtspiRect *dst = g_new (AtspiRect, 1);
+  dst->x = src->x;
+  dst->y = src->y;
+  dst->height = src->height;
+  dst->width = src->width;
+}
+
+G_DEFINE_BOXED_TYPE (AtspiRect, atspi_rect, atspi_rect_copy, g_free)
+
+static AtspiPoint *
+atspi_point_copy (AtspiPoint *src)
+{
+  AtspiPoint *dst = g_new (AtspiPoint, 1);
+  dst->x = src->x;
+  dst->y = src->y;
+}
+
+G_DEFINE_BOXED_TYPE (AtspiPoint, atspi_point, atspi_point_copy, g_free)
+
 /**
  * atspi_component_contains:
  * @obj: a pointer to the #AtspiComponent to query.
@@ -254,7 +276,7 @@ atspi_component_get_alpha    (AtspiComponent *obj, GError **error)
 }
 
 static void
-atspi_component_base_init (AtspiComponentIface *klass)
+atspi_component_base_init (AtspiComponent *klass)
 {
   static gboolean initialized = FALSE;
 
@@ -282,7 +304,7 @@ atspi_component_get_type (void)
   if (!type) {
     static const GTypeInfo tinfo =
     {
-      sizeof (AtspiComponentIface),
+      sizeof (AtspiComponent),
       (GBaseInitFunc) atspi_component_base_init,
       (GBaseFinalizeFunc) NULL,
 

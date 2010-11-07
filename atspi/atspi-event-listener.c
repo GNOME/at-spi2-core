@@ -28,6 +28,7 @@ typedef struct
 {
   AtspiEventListenerCB callback;
   void *user_data;
+  GDestroyNotify callback_destroyed;
   char *category;
   char *name;
   char *detail;
@@ -72,20 +73,24 @@ convert_name_from_dbus (const char *name)
 static void
 cache_process_children_changed (AtspiEvent *event)
 {
-  if (event->v_type != EVENT_DATA_OBJECT ||
+  AtspiAccessible *child;
+
+  if (!G_VALUE_HOLDS (&event->any, ATSPI_TYPE_ACCESSIBLE) ||
       !event->source->children ||
       atspi_state_set_contains (event->source->states, ATSPI_STATE_MANAGES_DESCENDANTS))
     return;
 
+  child = g_value_get_object (&event->any);
+
   if (!strncmp (event->type, "object:children-changed:add", 27))
   {
-    GList *new_list = g_list_insert (event->source->children, g_object_ref (event->v.accessible), event->detail1);
+    GList *new_list = g_list_insert (event->source->children, g_object_ref (child), event->detail1);
     if (new_list)
       event->source->children = new_list;
   }
-  else if (g_list_find (event->source->children, event->v.accessible))
+  else if (g_list_find (event->source->children, child))
   {
-    event->source->children = g_list_remove (event->source->children, event->v.accessible);
+    event->source->children = g_list_remove (event->source->children, child);
   }
 }
 
@@ -96,9 +101,9 @@ cache_process_property_change (AtspiEvent *event)
   {
     if (event->source->accessible_parent)
       g_object_unref (event->source->accessible_parent);
-    if (event->v_type == EVENT_DATA_OBJECT)
+    if (G_VALUE_HOLDS (&event->any, ATSPI_TYPE_ACCESSIBLE))
     {
-      event->source->accessible_parent = g_object_ref (event->v.accessible);
+      event->source->accessible_parent = g_value_dup_object (&event->any);
       event->source->cached_properties |= ATSPI_CACHE_PARENT;
     }
     else
@@ -111,9 +116,9 @@ cache_process_property_change (AtspiEvent *event)
   {
     if (event->source->name)
       g_free (event->source->name);
-    if (event->v_type == EVENT_DATA_STRING)
+    if (G_VALUE_HOLDS_STRING (&event->any))
     {
-      event->source->name = g_strdup (event->v.text);
+      event->source->name = g_value_dup_string (&event->any);
       event->source->cached_properties |= ATSPI_CACHE_NAME;
     }
     else
@@ -126,9 +131,9 @@ cache_process_property_change (AtspiEvent *event)
   {
     if (event->source->description)
       g_free (event->source->description);
-    if (event->v_type == EVENT_DATA_STRING)
+    if (G_VALUE_HOLDS_STRING (&event->any))
     {
-      event->source->description = g_strdup (event->v.text);
+      event->source->description = g_value_dup_string (&event->any);
       event->source->cached_properties |= ATSPI_CACHE_DESCRIPTION;
     }
     else
@@ -261,14 +266,17 @@ listener_entry_free (EventListenerEntry *e)
   g_free (e->category);
   g_free (e->name);
   if (e->detail) g_free (e->detail);
+  if (e->callback_destroyed)
+    (*e->callback_destroyed) (e->callback);
   g_free (e);
 }
 
 /**
  * atspi_event_listener_register:
- * @callback: (scope call): the #AtspiEventListenerCB to be registered against
+ * @callback: (scope notified): the #AtspiEventListenerCB to be registered against
  *            an event type.
  * @user_data: (closure): User data to be passed to the callback.
+ * @callback_freed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail
@@ -357,6 +365,7 @@ listener_entry_free (EventListenerEntry *e)
 gboolean
 atspi_event_listener_register (AtspiEventListenerCB callback,
 				 void *user_data,
+				 GDestroyNotify callback_destroyed,
 				 const gchar              *event_type)
 {
   EventListenerEntry *e;
@@ -374,6 +383,7 @@ atspi_event_listener_register (AtspiEventListenerCB callback,
   if (!e) return FALSE;
   e->callback = callback;
   e->user_data = user_data;
+  e->callback_destroyed = callback_destroyed;
   if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, &matchrule))
   {
     g_free (e);
@@ -405,6 +415,36 @@ atspi_event_listener_register (AtspiEventListenerCB callback,
   dbus_message_unref (reply);
 
   return TRUE;
+}
+
+void
+remove_datum (const AtspiEvent *event, void *user_data)
+{
+  AtspiEventListenerSimpleCB cb = user_data;
+  cb (event);
+}
+
+/**
+ * atspi_event_listener_register_no_data:
+ * @callback: (scope notified): the #AtspiEventListenerSimpleCB to be
+ *            registered against an event type.
+ * @callback_freed: A #GDestroyNotify called when the callback is destroyed.
+ * @event_type: a character string indicating the type of events for which
+ *            notification is requested.  Format is
+ *            EventClass:major_type:minor_type:detail
+ *            where all subfields other than EventClass are optional.
+ *            EventClasses include "object", "window", "mouse",
+ *            and toolkit events (e.g. "Gtk", "AWT").
+ *            Examples: "focus:", "Gtk:GtkWidget:button_press_event".
+ *
+ * Like atspi_event_listener_register, but callback takes no user_data.
+ **/
+gboolean
+atspi_event_listener_register_no_data (AtspiEventListenerSimpleCB callback,
+				 GDestroyNotify callback_destroyed,
+				 const gchar              *event_type)
+{
+  return atspi_event_listener_register (remove_datum, callback, callback_destroyed, event_type);
 }
 
 static gboolean
@@ -479,6 +519,25 @@ atspi_event_listener_deregister (AtspiEventListenerCB callback,
   if (detail) g_free (detail);
   g_free (matchrule);
   return TRUE;
+}
+
+/**
+ * atspi_event_listener_deregister_no_data:
+ * @callback: (scope call): the #AtspiEventListenerSimpleCB registered against
+ *            an event type.
+ * @event_type: a string specifying the event type for which this
+ *             listener is to be deregistered.
+ *
+ * deregisters an #AtspiEventListenerSimpleCB from the registry, for a specific
+ *             event type.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ **/
+gboolean
+atspi_event_listener_deregister_no_data (AtspiEventListenerSimpleCB callback,
+				   const gchar              *event_type)
+{
+  return atspi_event_listener_deregister (remove_datum, callback, event_type);
 }
 
 void
@@ -573,22 +632,25 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   {
     case DBUS_TYPE_STRUCT:
     {
-      if (demarshal_rect (&iter_variant, &e.v.rect))
+      AtspiRect rect;
+      if (demarshal_rect (&iter_variant, &rect))
       {
-	e.v_type = EVENT_DATA_RECT;
+	g_value_init (&e.any, ATSPI_TYPE_RECT);
+	g_value_set_instance (&e.any, &rect);
       }
       else
       {
-        e.v_type = EVENT_DATA_OBJECT;
-        e.v.accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+        AtspiAccessible *accessible;
+	accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+	g_value_init (&e.any, ATSPI_TYPE_ACCESSIBLE);
+	g_value_set_instance (&e.any, accessible);
       }
       break;
     }
     case DBUS_TYPE_STRING:
     {
       dbus_message_iter_get_basic (&iter_variant, &p);
-      e.v_type = EVENT_DATA_STRING;
-      e.v.text = g_strdup (p);
+      g_value_set_string (&e.any, p);
       break;
     }
   default:
@@ -613,8 +675,27 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   g_free (name);
   g_free (detail);
   g_object_unref (e.source);
-  if (e.v_type == EVENT_DATA_OBJECT)
-    g_object_unref (e.v.accessible);
+  g_value_unset (&e.any);
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
+static AtspiEvent *
+atspi_event_copy (AtspiEvent *src)
+{
+  AtspiEvent *dst = g_new0 (AtspiEvent, 1);
+  dst->type = g_strdup (src->type);
+  dst->detail1 = src->detail1;
+  dst->detail2 = src->detail2;
+  g_value_copy (&dst->any, &src->any);
+}
+
+static void
+atspi_event_free (AtspiEvent *event)
+{
+  g_object_unref (event->source);
+  g_free (event->type);
+  g_value_unset (&event->any);
+  g_free (event);
+}
+
+G_DEFINE_BOXED_TYPE (AtspiEvent, atspi_event, atspi_event_copy, atspi_event_free)
