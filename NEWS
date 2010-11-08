@@ -1,3 +1,8 @@
+What's new in at-spi2-core 1.91.2:
+
+* The desktop object now returns ROLE_DESKTOP_FRAME rather than ROLE_UNKNOWN.
+
+
 What's new in at-spi2-core 1.91.0:
 
 * --disable-relocate is the default again.
