@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 1.91.2:
+
+* FIxed BGO#563546: Removed the g_atexit hook.
+
 What's new in at-spi2-atk 1.91.1:
 
     * Fire all events until we receive a reply from GetRegisteredEvents
