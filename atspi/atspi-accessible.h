@@ -95,7 +95,7 @@ GHashTable * atspi_accessible_get_attributes (AtspiAccessible *obj, GError **err
 
 GArray * atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error);
 
-AtspiApplication * atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error);
+AtspiAccessible * atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error);
 
 AtspiComponent * atspi_accessible_get_component (AtspiAccessible *accessible);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */

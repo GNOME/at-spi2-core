@@ -480,14 +480,15 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
  *
  * Get the containing #AtspiApplication for an object.
  *
- * Returns: the containing AtspiApplication instance for this object.
+ * Returns: (transfer full): the containing AtspiApplication instance for
+ *          this object.
  */
-AtspiApplication *
+AtspiAccessible *
 atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error)
 {
-  while (obj->accessible_parent) obj = obj->accessible_parent;
-  g_warning ("atspi: TODO: Application interface");
-  //return atspi_accessible_get_application (obj);
+  while (obj->accessible_parent && atspi_accessible_get_role (obj->accessible_parent, NULL) != ATSPI_ROLE_DESKTOP_FRAME)
+    obj = obj->accessible_parent;
+  return g_object_ref (obj);
 }
 
 #if 0	// TODO: interfaces */
