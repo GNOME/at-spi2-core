@@ -46,4 +46,5 @@ dbind_emit_signal (DBusConnection *cnx,
                    const char     *arg_types,
                    ...);
 
+void dbind_set_timeout (int timeout);
 #endif /* _DBIND_H_ */

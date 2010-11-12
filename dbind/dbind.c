@@ -7,6 +7,8 @@
 #include "config.h"
 #include "dbind/dbind.h"
 
+static int dbind_timeout = -1;
+
 /*
  * FIXME: compare types - to ensure they match &
  *        do dynamic padding of structures etc.
@@ -14,30 +16,53 @@
 
 /*---------------------------------------------------------------------------*/
 
-static void
-set_reply (DBusPendingCall *pending, void *user_data)
+typedef struct _SpiReentrantCallClosure 
 {
-    void **replyptr = (void **)user_data;
+  GMainLoop   *loop;
+  DBusMessage *reply;
+} SpiReentrantCallClosure;
 
-    *replyptr = dbus_pending_call_steal_reply (pending);
+static void
+set_reply (DBusPendingCall * pending, void *user_data)
+{
+  SpiReentrantCallClosure* closure = (SpiReentrantCallClosure *) user_data; 
+
+  closure->reply = dbus_pending_call_steal_reply (pending);
+  g_main_loop_quit (closure->loop);
 }
 
 DBusMessage *
-dbind_send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *error)
+dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusError *error)
 {
-    DBusPendingCall *pending;
-    DBusMessage *reply = NULL;
+  DBusPendingCall *pending;
+  SpiReentrantCallClosure closure;
 
-    if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
+  if (strcmp (dbus_message_get_destination (message),
+              dbus_bus_get_unique_name (bus)) != 0)
+    return dbus_connection_send_with_reply_and_block (bus, message, dbind_timeout, error);
+
+  if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout))
+      return NULL;
+  dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
+  closure.loop = g_main_loop_new (NULL, FALSE);
+  dbus_connection_setup_with_g_main(bus, NULL);
+
+  if (1)
     {
-        return NULL;
+      g_main_loop_run  (closure.loop);
     }
-    dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
-    while (!reply)
+  else
     {
-      if (!dbus_connection_read_write_dispatch (bus, -1)) return NULL;
+      closure.reply = NULL;
+      while (!closure.reply)
+        {
+          if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
+            return NULL;
+        }
     }
-    return reply;
+  
+  g_main_loop_unref (closure.loop);
+  return closure.reply;
 }
 
 dbus_bool_t
@@ -226,5 +251,11 @@ dbind_emit_signal (DBusConnection *cnx,
 
     return success;
 }
+void
+dbind_set_timeout (int timeout)
+{
+  dbind_timeout = timeout;
+}
+
 
 /*END------------------------------------------------------------------------*/

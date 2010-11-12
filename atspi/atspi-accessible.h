@@ -43,13 +43,12 @@ typedef struct _AtspiAccessible AtspiAccessible;
 struct _AtspiAccessible
 {
   GObject parent;
-  gint ref_count;
   AtspiAccessible *accessible_parent;
   GList *children;
   AtspiApplication *app;
   char *path;
-  gint role : 8;
-  gint interfaces : 24;
+  AtspiRole role;
+  gint interfaces;
   char *name;
   char *description;
   AtspiStateSet *states;

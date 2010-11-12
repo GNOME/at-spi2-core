@@ -75,12 +75,12 @@ cache_process_children_changed (AtspiEvent *event)
 {
   AtspiAccessible *child;
 
-  if (!G_VALUE_HOLDS (&event->any, ATSPI_TYPE_ACCESSIBLE) ||
+  if (!G_VALUE_HOLDS (&event->any_data, ATSPI_TYPE_ACCESSIBLE) ||
       !event->source->children ||
       atspi_state_set_contains (event->source->states, ATSPI_STATE_MANAGES_DESCENDANTS))
     return;
 
-  child = g_value_get_object (&event->any);
+  child = g_value_get_object (&event->any_data);
 
   if (!strncmp (event->type, "object:children-changed:add", 27))
   {
@@ -101,9 +101,9 @@ cache_process_property_change (AtspiEvent *event)
   {
     if (event->source->accessible_parent)
       g_object_unref (event->source->accessible_parent);
-    if (G_VALUE_HOLDS (&event->any, ATSPI_TYPE_ACCESSIBLE))
+    if (G_VALUE_HOLDS (&event->any_data, ATSPI_TYPE_ACCESSIBLE))
     {
-      event->source->accessible_parent = g_value_dup_object (&event->any);
+      event->source->accessible_parent = g_value_dup_object (&event->any_data);
       event->source->cached_properties |= ATSPI_CACHE_PARENT;
     }
     else
@@ -116,9 +116,9 @@ cache_process_property_change (AtspiEvent *event)
   {
     if (event->source->name)
       g_free (event->source->name);
-    if (G_VALUE_HOLDS_STRING (&event->any))
+    if (G_VALUE_HOLDS_STRING (&event->any_data))
     {
-      event->source->name = g_value_dup_string (&event->any);
+      event->source->name = g_value_dup_string (&event->any_data);
       event->source->cached_properties |= ATSPI_CACHE_NAME;
     }
     else
@@ -131,9 +131,9 @@ cache_process_property_change (AtspiEvent *event)
   {
     if (event->source->description)
       g_free (event->source->description);
-    if (G_VALUE_HOLDS_STRING (&event->any))
+    if (G_VALUE_HOLDS_STRING (&event->any_data))
     {
-      event->source->description = g_value_dup_string (&event->any);
+      event->source->description = g_value_dup_string (&event->any_data);
       event->source->cached_properties |= ATSPI_CACHE_DESCRIPTION;
     }
     else
@@ -546,6 +546,11 @@ _atspi_send_event (AtspiEvent *e)
   char *category, *name, *detail;
   GList *l;
 
+  /* Ensure that the value is set to avoid a Python exception */
+  /* TODO: Figure out how to do this without using a private field */
+  if (e->any_data.g_type == 0)
+    g_value_set_int (&e->any_data, 0);
+
   if (!convert_event_type_to_dbus (e->type, &category, &name, &detail, NULL))
   {
     g_warning ("Atspi: Couldn't parse event: %s\n", e->type);
@@ -638,22 +643,22 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
       AtspiRect rect;
       if (demarshal_rect (&iter_variant, &rect))
       {
-	g_value_init (&e.any, ATSPI_TYPE_RECT);
-	g_value_set_boxed (&e.any, &rect);
+	g_value_init (&e.any_data, ATSPI_TYPE_RECT);
+	g_value_set_boxed (&e.any_data, &rect);
       }
       else
       {
         AtspiAccessible *accessible;
 	accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
-	g_value_init (&e.any, ATSPI_TYPE_ACCESSIBLE);
-	g_value_set_instance (&e.any, accessible);
+	g_value_init (&e.any_data, ATSPI_TYPE_ACCESSIBLE);
+	g_value_set_instance (&e.any_data, accessible);
       }
       break;
     }
     case DBUS_TYPE_STRING:
     {
       dbus_message_iter_get_basic (&iter_variant, &p);
-      g_value_set_string (&e.any, p);
+      g_value_set_string (&e.any_data, p);
       break;
     }
   default:
@@ -678,7 +683,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   g_free (name);
   g_free (detail);
   g_object_unref (e.source);
-  g_value_unset (&e.any);
+  g_value_unset (&e.any_data);
   return DBUS_HANDLER_RESULT_HANDLED;
 }
 
@@ -689,7 +694,7 @@ atspi_event_copy (AtspiEvent *src)
   dst->type = g_strdup (src->type);
   dst->detail1 = src->detail1;
   dst->detail2 = src->detail2;
-  g_value_copy (&dst->any, &src->any);
+  g_value_copy (&dst->any_data, &src->any_data);
 }
 
 static void
@@ -697,7 +702,7 @@ atspi_event_free (AtspiEvent *event)
 {
   g_object_unref (event->source);
   g_free (event->type);
-  g_value_unset (&event->any);
+  g_value_unset (&event->any_data);
   g_free (event);
 }
 

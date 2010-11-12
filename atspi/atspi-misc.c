@@ -30,6 +30,7 @@
 #include "atspi-private.h"
 #include "X11/Xlib.h"
 #include <stdio.h>
+#include <string.h>
 
 static DBusConnection *bus = NULL;
 static GHashTable *apps = NULL;
@@ -150,14 +151,7 @@ get_application (const char *bus_name)
   app = _atspi_application_new (bus_name);
   if (!app) return NULL;
   app->bus_name = bus_name_dup;
-  if (APP_IS_REGISTRY (app))
-  {
-    app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
-  }
-  else
-  {
-    app->hash = g_hash_table_new_full (g_int_hash, g_int_equal, g_free, g_object_unref);
-  }
+  app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   g_hash_table_insert (app_hash, bus_name_dup, app);
   return app;
 }
@@ -167,6 +161,9 @@ ref_accessible (const char *app_name, const char *path)
 {
   AtspiApplication *app = get_application (app_name);
   AtspiAccessible *a;
+
+  if (!strcmp (path, ATSPI_DBUS_PATH_NULL))
+    return NULL;
 
   if (!strcmp (path, "/org/a11y/atspi/accessible/root"))
   {
@@ -181,8 +178,7 @@ ref_accessible (const char *app_name, const char *path)
   a = g_hash_table_lookup (app->hash, path);
   if (a)
   {
-    g_object_ref (a);
-    return a;
+    return g_object_ref (a);
   }
   a = atspi_accessible_new (app, path);
   if (!a)
@@ -227,6 +223,8 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_
   dbus_message_iter_get_basic (&iter_struct, &path);
   app = get_application (sender);
   a = ref_accessible (sender, path);
+  if (!a)
+    return DBUS_HANDLER_RESULT_HANDLED;
   if (a->accessible_parent && g_list_find (a->accessible_parent->children, a))
   {
     a->accessible_parent->children = g_list_remove (a->accessible_parent->children, a);
@@ -266,11 +264,11 @@ send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean
 {
   AtspiEvent e;
 
+  memset (&e, 0, sizeof (e));
   e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
   e.detail1 = g_list_index (parent->children, child);
   e.detail2 = 0;
-  g_value_unset (&e.any);
   _atspi_send_event (&e);
 }
 
@@ -341,6 +339,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
   /* get accessible */
   get_reference_from_iter (&iter_struct, &app_name, &path);
   accessible = ref_accessible (app_name, path);
+  if (!accessible)
+    return;
 
   /* Get application: TODO */
   dbus_message_iter_next (&iter_struct);
@@ -930,6 +930,8 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   /* TODO: Write this function; allow reentrancy */
   reply = dbus_connection_send_with_reply_and_block (_atspi_bus(), message, 1000, &err);
   dbus_message_unref (message);
+  if (err.message)
+    g_warning ("Atspi: Got error: %s\n", err.message);
   return reply;
 }
 

@@ -22,6 +22,7 @@
  */
 
 #include "atspi-private.h"
+#include <string.h>
 
 G_DEFINE_TYPE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT)
 
@@ -48,6 +49,7 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
 
   object_class->finalize = atspi_accessible_finalize;
 }
+
 /* TODO: Generate following from spec? */
 static const char *role_names [] =
 {
@@ -179,9 +181,9 @@ gchar *
 atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
-  if (!obj->cached_properties & ATSPI_CACHE_NAME)
+  if (!(obj->cached_properties & ATSPI_CACHE_NAME))
   {
-    if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetName", NULL, "=>s", &obj->name))
+    if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", NULL, "s", &obj->name))
       return NULL;
     obj->cached_properties |= ATSPI_CACHE_NAME;
   }
@@ -202,7 +204,7 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!obj->cached_properties & ATSPI_CACHE_DESCRIPTION)
+  if (!(obj->cached_properties & ATSPI_CACHE_DESCRIPTION))
   {
     if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetDescription", NULL, "=>s", &obj->description))
       return NULL;
@@ -210,6 +212,8 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
   }
   return g_strdup (obj->description);
 }
+
+const char *str_parent = "Parent";
 
 /**
  * atspi_accessible_get_parent:
@@ -227,6 +231,29 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
 
+  if (!(obj->cached_properties & ATSPI_CACHE_PARENT))
+  {
+    DBusMessage *message, *reply;
+    DBusMessageIter iter, iter_variant;
+    message = dbus_message_new_method_call (obj->app->bus_name, obj->path,
+                                            DBUS_INTERFACE_PROPERTIES, "Get");
+    if (!message)
+      return NULL;
+    dbus_message_append_args (message, DBUS_TYPE_STRING, &atspi_interface_accessible,
+                               DBUS_TYPE_STRING, &str_parent,
+                              DBUS_TYPE_INVALID);
+    reply = _atspi_dbus_send_with_reply_and_block (message);
+    if (!reply ||
+       (strcmp (dbus_message_get_signature (reply), "v") != 0))
+      return NULL;
+    dbus_message_iter_init (reply, &iter);
+    dbus_message_iter_recurse (&iter, &iter_variant);
+    obj->accessible_parent = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+    dbus_message_unref (reply);
+    obj->cached_properties |= ATSPI_CACHE_PARENT;
+  }
+  if (!obj->accessible_parent)
+    return NULL;
   return g_object_ref (obj->accessible_parent);
 }
 
@@ -349,9 +376,10 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, ATSPI_ROLE_INVALID);
 
-  if (!obj->cached_properties & ATSPI_CACHE_ROLE)
+  if (!(obj->cached_properties & ATSPI_CACHE_ROLE))
   {
     dbus_uint32_t role;
+    /* TODO: Make this a property */
     if (_atspi_dbus_call (obj, atspi_interface_accessible, "GetRole", NULL, "=>u", &role))
     {
       obj->cached_properties |= ATSPI_CACHE_ROLE;
@@ -486,9 +514,16 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
 AtspiAccessible *
 atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error)
 {
-  while (obj->accessible_parent && atspi_accessible_get_role (obj->accessible_parent, NULL) != ATSPI_ROLE_DESKTOP_FRAME)
-    obj = obj->accessible_parent;
-  return g_object_ref (obj);
+  AtspiAccessible *parent;
+
+  for (;;)
+  {
+    parent = atspi_accessible_get_parent (obj, NULL);
+    if (!parent || parent == obj ||
+        atspi_accessible_get_role (parent, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
+    return obj;
+    obj = parent;
+  }
 }
 
 #if 0	// TODO: interfaces */
@@ -1256,11 +1291,11 @@ cspi_object_destroyed (AtspiAccessible *accessible)
   AtspiEvent e;
 
   /* TODO: Only fire if object not already marked defunct */
+  memset (&e, 0, sizeof (e));
   e.type = "object:state-change:defunct";
   e.source = accessible;
   e.detail1 = 1;
   e.detail2 = 0;
-  g_value_unset (&e.any);
   _atspi_send_event (&e);
 
     g_free (accessible->path);
