@@ -679,7 +679,7 @@ static DBusMessage *
 impl_GetRole (DBusConnection * bus, DBusMessage * message, void * user_data)
 {
   DBusMessage *reply;
-  dbus_uint32_t rv = 0;
+  dbus_uint32_t rv = 14;	/* TODO: Get DESKTOP_FRAME from somewhere */
 
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_UINT32, &rv, DBUS_TYPE_INVALID);
@@ -691,7 +691,7 @@ impl_GetRoleName (DBusConnection * bus,
                   DBusMessage * message, void *user_data)
 {
   DBusMessage *reply;
-  const char *role_name = "unknown";
+  const char *role_name = "desktop frame";
 
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_STRING, &role_name,
@@ -705,7 +705,7 @@ impl_GetLocalizedRoleName (DBusConnection * bus,
 {
   /* TODO - Localize this */
   DBusMessage *reply;
-  const char *role_name = "unknown";
+  const char *role_name = "desktop frame";
 
   reply = dbus_message_new_method_return (message);
   dbus_message_append_args (reply, DBUS_TYPE_STRING, &role_name,
