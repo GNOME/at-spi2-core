@@ -24,7 +24,13 @@
 #include "atspi-private.h"
 #include <string.h>
 
-G_DEFINE_TYPE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT)
+static void
+atspi_component_interface_init (AtspiComponent *component)
+{
+}
+
+G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init))
 
 static void
 atspi_accessible_init (AtspiAccessible *accessible)
@@ -801,8 +807,8 @@ atspi_accessible_get_collection (AtspiAccessible *accessible)
  *
  * Get the #AtspiComponent interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiComponent interface instance, or
- *          NULL if @obj does not implement #AtspiComponent.
+ * Returns: (transfer full): a pointer to an #AtspiComponent interface
+ *          instance, or NULL if @obj does not implement #AtspiComponent.
  **/
 AtspiComponent *
 atspi_accessible_get_component (AtspiAccessible *accessible)

@@ -434,7 +434,7 @@ dbind_any_marshal (DBusMessageIter *iter,
 void
 dbind_any_marshal_va (DBusMessageIter *iter,
                       const char           **arg_types,
-                      va_list          args)
+                      va_list          *args)
 {
     const char *p = *arg_types;
 
@@ -460,16 +460,16 @@ dbind_any_marshal_va (DBusMessageIter *iter,
             case DBUS_TYPE_UINT16:
             case DBUS_TYPE_INT32:
             case DBUS_TYPE_UINT32:
-                intarg = va_arg (args, int);
+                intarg = va_arg (*args, int);
                 arg = &intarg;
                 break;
             case DBUS_TYPE_INT64:
             case DBUS_TYPE_UINT64:
-                int64arg = va_arg (args, dbus_int64_t);
+                int64arg = va_arg (*args, dbus_int64_t);
                 arg = &int64arg;
                 break;
             case DBUS_TYPE_DOUBLE:
-                doublearg = va_arg (args, double);
+                doublearg = va_arg (*args, double);
                 arg = &doublearg;
                 break;
             /* ptr types */
@@ -478,21 +478,21 @@ dbind_any_marshal_va (DBusMessageIter *iter,
             case DBUS_TYPE_SIGNATURE:
             case DBUS_TYPE_ARRAY:
             case DBUS_TYPE_DICT_ENTRY:
-                ptrarg = va_arg (args, void *);
+                ptrarg = va_arg (*args, void *);
                 arg = &ptrarg;
                 break;
             case DBUS_STRUCT_BEGIN_CHAR:
-                ptrarg = va_arg (args, void *);
+                ptrarg = va_arg (*args, void *);
                 arg = ptrarg;
                 break;
             case DBUS_DICT_ENTRY_BEGIN_CHAR:
-                ptrarg = va_arg (args, void *);
+                ptrarg = va_arg (*args, void *);
                 arg = ptrarg;
                 break;
 
             case DBUS_TYPE_VARIANT:
                 fprintf (stderr, "No variant support yet - very toolkit specific\n");
-                ptrarg = va_arg (args, void *);
+                ptrarg = va_arg (*args, void *);
                 arg = &ptrarg;
                 break;
             default:
@@ -502,6 +502,8 @@ dbind_any_marshal_va (DBusMessageIter *iter,
             if (arg != NULL)
                 dbind_any_marshal (iter, &p, &arg);
             }
+        if (*arg_types)
+          *arg_types = p;
     }
 }
 
@@ -633,11 +635,11 @@ dbind_any_demarshal (DBusMessageIter *iter,
 void
 dbind_any_demarshal_va (DBusMessageIter *iter,
                         const char           **arg_types,
-                        va_list          args)
+                        va_list          *args)
 {
     const char *p = *arg_types;
     for (;*p != '\0';) {
-        void *arg = va_arg (args, void *);
+        void *arg = va_arg (*args, void *);
         dbind_any_demarshal (iter, &p, &arg);
     }
 }

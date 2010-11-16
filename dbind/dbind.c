@@ -94,7 +94,7 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
 
     p = arg_types;
     dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
+    dbind_any_marshal_va (&iter, &p, &args);
 
     reply = dbind_send_and_allow_reentry (cnx, msg, err);
     if (!reply)
@@ -112,7 +112,7 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
         DBusMessageIter iter;
         p += 2;
         dbus_message_iter_init (reply, &iter);
-        dbind_any_demarshal_va (&iter, &p, args);
+        dbind_any_demarshal_va (&iter, &p, &args);
     }
 
     success = TRUE;
@@ -203,7 +203,7 @@ dbind_emit_signal_va (DBusConnection *cnx,
 
     p = arg_types;
     dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
+    dbind_any_marshal_va (&iter, &p, &args);
 
     if (!dbus_connection_send (cnx, msg, NULL))
        goto out;

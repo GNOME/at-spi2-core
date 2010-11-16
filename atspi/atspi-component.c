@@ -29,6 +29,12 @@
 
 #include "atspi-private.h"
 
+void
+atspi_rect_free (AtspiRect *rect)
+{
+  g_free (rect);
+}
+
 static AtspiRect *
 atspi_rect_copy (AtspiRect *src)
 {
@@ -39,7 +45,7 @@ atspi_rect_copy (AtspiRect *src)
   dst->width = src->width;
 }
 
-G_DEFINE_BOXED_TYPE (AtspiRect, atspi_rect, atspi_rect_copy, g_free)
+G_DEFINE_BOXED_TYPE (AtspiRect, atspi_rect, atspi_rect_copy, atspi_rect_free)
 
 static AtspiPoint *
 atspi_point_copy (AtspiPoint *src)
@@ -72,7 +78,7 @@ atspi_component_contains (AtspiComponent *obj,
 {
   dbus_bool_t retval = FALSE;
   dbus_int32_t d_x = x, d_y = y;
-  dbus_uint16_t d_ctype = ctype;
+  dbus_uint32_t d_ctype = ctype;
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
@@ -82,7 +88,7 @@ atspi_component_contains (AtspiComponent *obj,
 }
 
 /**
- * atspi_component_ref_accessible_at_point:
+ * atspi_component_get_accessible_at_point:
  * @obj: a pointer to the #AtspiComponent to query.
  * @x: a #gint specifying the x coordinate of the point in question.
  * @y: a #gint specifying the y coordinate of the point in question.
@@ -91,12 +97,12 @@ atspi_component_contains (AtspiComponent *obj,
  *
  * Get the accessible child at a given coordinate within an #AtspiComponent.
  *
- * Returns: a pointer to an #AtspiAccessible child of the specified component
- *          which contains the point (@x, @y), or NULL of no child contains
- *         the point.
+ * Returns: (transfer full): a pointer to an #AtspiAccessible child of the
+ *          specified component which contains the point (@x, @y), or NULL of
+ *         no child contains the point.
  **/
 AtspiAccessible *
-atspi_component_ref_accessible_at_point (AtspiComponent *obj,
+atspi_component_get_accessible_at_point (AtspiComponent *obj,
                                           gint x,
                                           gint y,
                                           AtspiCoordType ctype, GError **error)
@@ -117,31 +123,26 @@ atspi_component_ref_accessible_at_point (AtspiComponent *obj,
 /**
  * atspi_component_get_extents:
  * @obj: a pointer to the #AtspiComponent to query.
- * @x: a pointer to a #int into which the minimum x coordinate will be returned.
- * @y: a pointer to a #int into which the minimum y coordinate will be returned.
- * @width: a pointer to a #int into which the x extents (width) will be returned.
- * @height: a pointer to a #int into which the y extents (height) will be returned.
  * @ctype: the desired coordinate system into which to return the results,
  *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+ *
+ * Returns: A #AtspiRect giving the accessible's extents.
  *
  * Get the bounding box of the specified #AtspiComponent.
  *
  **/
-AtspiRect
+AtspiRect *
 atspi_component_get_extents (AtspiComponent *obj,
-                                gint *x,
-                                gint *y,
-                                gint *width,
-                                gint *height,
                                 AtspiCoordType ctype, GError **error)
 {
-  dbus_int16_t d_ctype = ctype;
+  dbus_uint32_t d_ctype = ctype;
   AtspiRect bbox;
 
-  g_return_if_fail (obj != NULL);
+  bbox.x = bbox.y = bbox.width = bbox.height = 0;
+  g_return_val_if_fail (obj != NULL, atspi_rect_copy (&bbox));
 
-  _atspi_dbus_call (obj, atspi_interface_component, "GetExtents", error, "n=>(iiii)", d_ctype, &bbox);
-  return bbox;
+  _atspi_dbus_call (obj, atspi_interface_component, "GetExtents", error, "u=>(iiii)", d_ctype, &bbox);
+  return atspi_rect_copy (&bbox);
 }
 
 /**
@@ -154,7 +155,7 @@ atspi_component_get_extents (AtspiComponent *obj,
  * Get the minimum x and y coordinates of the specified #AtspiComponent.
  *
  **/
-AtspiPoint
+AtspiPoint *
 atspi_component_get_position (AtspiComponent *obj,
                                  AtspiCoordType ctype, GError **error)
 {
@@ -165,24 +166,24 @@ atspi_component_get_position (AtspiComponent *obj,
   ret.x = ret.y = 0;
 
   if (!obj)
-    return ret;
+    return atspi_point_copy (&ret);
 
-  _atspi_dbus_call (obj, atspi_interface_component, "GetPosition", error, "n=>ii", d_ctype, &d_x, &d_y);
+  _atspi_dbus_call (obj, atspi_interface_component, "GetPosition", error, "u=>ii", d_ctype, &d_x, &d_y);
 
   ret.x = d_x;
   ret.y = d_y;
-  return ret;
+  return atspi_point_copy (&ret);
 }
 
 /**
  * atspi_component_get_size:
  * @obj: a pointer to the #AtspiComponent to query.
- * returns: A #AtspiPoint giving the siize.
+ * returns: A #AtspiPoint giving the size.
  *
  * Get the size of the specified #AtspiComponent.
  *
  **/
-AtspiPoint
+AtspiPoint *
 atspi_component_get_size (AtspiComponent *obj, GError **error)
 {
   dbus_int32_t d_w, d_h;
@@ -190,12 +191,12 @@ atspi_component_get_size (AtspiComponent *obj, GError **error)
 
   ret.x = ret.y = 0;
   if (!obj)
-    return ret;
+    return atspi_point_copy (&ret);
 
   _atspi_dbus_call (obj, atspi_interface_component, "GetSize", error, "=>ii", &d_w, &d_h);
   ret.x = d_w;
   ret.y = d_h;
-  return ret;
+  return atspi_point_copy (&ret);
 }
 
 /**
@@ -278,22 +279,6 @@ atspi_component_get_alpha    (AtspiComponent *obj, GError **error)
 static void
 atspi_component_base_init (AtspiComponent *klass)
 {
-  static gboolean initialized = FALSE;
-
-  if (! initialized)
-    {
-      klass->contains = atspi_component_contains;
-      klass->ref_accessible_at_point = atspi_component_ref_accessible_at_point;
-  klass->get_extents = atspi_component_get_extents;
-      klass->get_position = atspi_component_get_position;
-      klass->get_size = atspi_component_get_size;
-      klass->get_layer = atspi_component_get_layer;
-      klass->get_mdi_z_order = atspi_component_get_mdi_z_order;
-      klass->grab_focus = atspi_component_grab_focus;
-      klass->get_alpha = atspi_component_get_alpha;
-
-      initialized = TRUE;
-    }
 }
 
 GType
@@ -307,7 +292,6 @@ atspi_component_get_type (void)
       sizeof (AtspiComponent),
       (GBaseInitFunc) atspi_component_base_init,
       (GBaseFinalizeFunc) NULL,
-
     };
 
     type = g_type_register_static (G_TYPE_INTERFACE, "AtspiComponent", &tinfo, 0);

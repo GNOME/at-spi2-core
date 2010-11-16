@@ -21,7 +21,6 @@ libatspi_la_SOURCES =		\
 	atspi-component.c \
 	atspi-component.h \
 	atspi-constants.h \
-	atspi-event-types.h \
 	atspi-device-listener.c \
 	atspi-device-listener.h \
 	atspi-device-listener-private.h \

@@ -39,7 +39,6 @@
 #define ATSPI_IS_ACCESSIBLE_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_ACCESSIBLE))
 #define ATSPI_ACCESSIBLE_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_ACCESSIBLE, AtspiAccessibleClass))
 
-typedef struct _AtspiAccessible AtspiAccessible;
 struct _AtspiAccessible
 {
   GObject parent;

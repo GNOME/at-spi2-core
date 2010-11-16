@@ -26,7 +26,7 @@
 #define _ATSPI_REGISTRY_H_
 
 #include "atspi-accessible.h"
-#include "atspi-event-types.h"
+#include "atspi-types.h"
 #include "atspi-device-listener.h"
 
 gint atspi_get_desktop_count ();

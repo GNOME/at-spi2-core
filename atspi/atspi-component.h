@@ -27,8 +27,9 @@
 
 #include "glib-object.h"
 
-#include "atspi-accessible.h"
 #include "atspi-constants.h"
+
+#include "atspi-types.h"
 
 typedef struct _AtspiRect AtspiRect;
 struct _AtspiRect
@@ -46,6 +47,8 @@ struct _AtspiRect
  */
 #define	ATSPI_TYPE_RECT (atspi_rect_get_type ())
 
+GType atspi_rect_get_type ();
+
 typedef struct _AtspiPoint AtspiPoint;
 struct _AtspiPoint
 {
@@ -60,6 +63,8 @@ struct _AtspiPoint
  */
 #define	ATSPI_TYPE_POINT (atspi_point_get_type ())
 
+GType atspi_point_get_type ();
+
 #define ATSPI_TYPE_COMPONENT                    (atspi_component_get_type ())
 #define ATSPI_IS_COMPONENT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_COMPONENT)
 #define ATSPI_COMPONENT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_COMPONENT, AtspiComponent)
@@ -70,27 +75,17 @@ GType atspi_component_get_type ();
 struct _AtspiComponent
 {
   GTypeInterface parent;
-  gboolean (*contains) (AtspiComponent *component, gint x, gint y, AtspiCoordType ctype, GError **error);
-  AtspiAccessible *(*ref_accessible_at_point) (AtspiComponent *component, gint x, gint y, AtspiCoordType ctype, GError **error);
-  AtspiRect (*get_extents) (AtspiComponent *component, gint *x, gint *y, gint *width, gint *height, AtspiCoordType ctype, GError **error);
-  AtspiPoint (*get_position) (AtspiComponent *component, AtspiCoordType ctype, GError **error);
-  AtspiPoint (*get_size) (AtspiComponent *component, GError **error);
-  AtspiComponentLayer (*get_layer) (AtspiComponent *component, GError **error);
-
-  gshort (*get_mdi_z_order) (AtspiComponent *component, GError **error);
-  gboolean (*grab_focus) (AtspiComponent *component, GError **error);
-  gdouble (*get_alpha)    (AtspiComponent *component, GError **error);
 };
 
 gboolean atspi_component_contains (AtspiComponent *obj, gint x, gint y, AtspiCoordType ctype, GError **error);
 
-AtspiAccessible *atspi_component_ref_accessible_at_point (AtspiComponent *obj, gint x, gint y, AtspiCoordType ctype, GError **error);
+AtspiAccessible *atspi_component_get_accessible_at_point (AtspiComponent *obj, gint x, gint y, AtspiCoordType ctype, GError **error);
 
-AtspiRect atspi_component_get_extents (AtspiComponent *obj, gint *x, gint *y, gint *width, gint *height, AtspiCoordType ctype, GError **error);
+AtspiRect *atspi_component_get_extents (AtspiComponent *obj, AtspiCoordType ctype, GError **error);
 
-AtspiPoint atspi_component_get_position (AtspiComponent *obj, AtspiCoordType ctype, GError **error);
+AtspiPoint *atspi_component_get_position (AtspiComponent *obj, AtspiCoordType ctype, GError **error);
 
-AtspiPoint atspi_component_get_size (AtspiComponent *obj, GError **error);
+AtspiPoint *atspi_component_get_size (AtspiComponent *obj, GError **error);
 
 AtspiComponentLayer atspi_component_get_layer (AtspiComponent *obj, GError **error);
 

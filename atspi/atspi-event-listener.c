@@ -34,15 +34,106 @@ typedef struct
   char *detail;
 } EventListenerEntry;
 
-/*
- * Misc. helpers.
- */
+G_DEFINE_TYPE (AtspiEventListener, atspi_event_listener, G_TYPE_OBJECT)
 
-/*
- * Standard event dispatcher
- */
+void
+atspi_event_listener_init (AtspiEventListener *listener)
+{
+}
 
-static guint listener_id = 0;
+void
+atspi_event_listener_class_init (AtspiEventListenerClass *klass)
+{
+}
+
+static void
+remove_datum (const AtspiEvent *event, void *user_data)
+{
+  AtspiEventListenerSimpleCB cb = user_data;
+  cb (event);
+}
+
+typedef struct
+{
+  gpointer callback;
+  GDestroyNotify callback_destroyed;
+  gint ref_count;
+} CallbackInfo;
+static GHashTable *callbacks;
+
+void
+callback_ref (void *callback, GDestroyNotify *callback_destroyed)
+{
+  CallbackInfo *info;
+
+  if (!callbacks)
+  {
+    callbacks = g_hash_table_new (g_direct_hash, g_direct_equal);
+    if (!callbacks)
+      return;
+  }
+
+  info = g_hash_table_lookup (callbacks, callback);
+  if (!info)
+  {
+    info = g_new (CallbackInfo, 1);
+    if (!info)
+      return;
+    info->callback = callback;
+    info->callback_destroyed = callback_destroyed;
+    info->ref_count = 1;
+    g_hash_table_insert (callbacks, callback, info);
+  }
+  else
+    info->ref_count++;
+}
+
+void
+callback_unref (gpointer callback)
+{
+  CallbackInfo *info;
+
+  if (!callbacks)
+    return;
+  info = g_hash_table_lookup (callbacks, callback);
+  if (!info)
+  {
+    g_warning ("Atspi: Dereferencing invalid callback %p\n", callback);
+    return;
+  }
+  info->ref_count--;
+  if (info->ref_count == 0)
+  {
+#if 0
+    /* TODO: Figure out why this seg faults from Python */
+    if (info->callback_destroyed)
+      (*info->callback_destroyed) (info->callback);
+#endif
+    g_free (info);
+    g_hash_table_remove (callbacks, callback);
+  }
+}
+
+/**
+ * atspi_event_listener_new_simple:
+ * @callback: (scope notified): An #AtspiEventListenerSimpleCB to be called
+ * when an event is fired.
+ * @callback_destroyed: A #GDestroyNotify called when the listener is freed
+ * and data associated with the callback should be freed.  Can be NULL.
+ *
+ * Returns: (transfer full): A new #AtspiEventListener.
+ */
+AtspiEventListener *
+atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
+                                 GDestroyNotify callback_destroyed)
+{
+  AtspiEventListener *listener = g_object_new (ATSPI_TYPE_EVENT_LISTENER, NULL);
+  listener->callback = remove_datum;
+  callback_ref (remove_datum, callback_destroyed);
+  listener->user_data = callback;
+  listener->cb_destroyed = callback_destroyed;
+}
+
 static GList *event_listeners = NULL;
 
 static gchar *
@@ -263,18 +354,17 @@ oom:
 static void
 listener_entry_free (EventListenerEntry *e)
 {
+  gpointer callback = (e->callback = remove_datum ? e->user_data : e->callback);
   g_free (e->category);
   g_free (e->name);
   if (e->detail) g_free (e->detail);
-  if (e->callback_destroyed)
-    (*e->callback_destroyed) (e->callback);
+  callback_unref (callback);
   g_free (e);
 }
 
 /**
  * atspi_event_listener_register:
- * @callback: (scope notified): the #AtspiEventListenerCB to be registered against
- *            an event type.
+ * @listener: The #AtspiEventListener to register against an event type.
  * @user_data: (closure): User data to be passed to the callback.
  * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
@@ -363,10 +453,33 @@ listener_entry_free (EventListenerEntry *e)
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 gboolean
-atspi_event_listener_register (AtspiEventListenerCB callback,
-				 void *user_data,
-				 GDestroyNotify callback_destroyed,
-				 const gchar              *event_type)
+atspi_event_listener_register (AtspiEventListener *listener,
+				             const gchar              *event_type)
+{
+  /* TODO: Keep track of which events have been registered, so that we
+ * deregister all of them when the event listener is destroyed */
+
+  return atspi_event_listener_register_from_callback (listener->callback,
+                                                      listener->user_data,
+                                                      listener->cb_destroyed,
+                                                      event_type);
+}
+
+/**
+ * atspi_event_listener_register_from_callback:
+ * @callback: (scope notified): the #AtspiEventListenerCB to be registered against
+ *            an event type.
+ * @user_data: (closure): User data to be passed to the callback.
+ * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
+ * @event_type: a character string indicating the type of events for which
+ *            notification is requested.  See #atspi_event_listener_register
+ * for a description of the format.
+ */
+gboolean
+atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
+				             void *user_data,
+				             GDestroyNotify callback_destroyed,
+				             const gchar              *event_type)
 {
   EventListenerEntry *e;
   char *matchrule;
@@ -384,6 +497,8 @@ atspi_event_listener_register (AtspiEventListenerCB callback,
   e->callback = callback;
   e->user_data = user_data;
   e->callback_destroyed = callback_destroyed;
+  callback_ref (callback == remove_datum ? user_data : callback,
+                callback_destroyed);
   if (!convert_event_type_to_dbus (event_type, &e->category, &e->name, &e->detail, &matchrule))
   {
     g_free (e);
@@ -417,13 +532,6 @@ atspi_event_listener_register (AtspiEventListenerCB callback,
   return TRUE;
 }
 
-void
-remove_datum (const AtspiEvent *event, void *user_data)
-{
-  AtspiEventListenerSimpleCB cb = user_data;
-  cb (event);
-}
-
 /**
  * atspi_event_listener_register_no_data:
  * @callback: (scope notified): the #AtspiEventListenerSimpleCB to be
@@ -444,7 +552,7 @@ atspi_event_listener_register_no_data (AtspiEventListenerSimpleCB callback,
 				 GDestroyNotify callback_destroyed,
 				 const gchar              *event_type)
 {
-  return atspi_event_listener_register (remove_datum, callback, callback_destroyed, event_type);
+  return atspi_event_listener_register_from_callback (remove_datum, callback, callback_destroyed, event_type);
 }
 
 static gboolean
@@ -457,6 +565,24 @@ is_superset (const gchar *super, const gchar *sub)
 
 /**
  * atspi_event_listener_deregister:
+ * @listener: The #AtspiEventListener to deregister.
+ * @event_type: a string specifying the event type for which this
+ *             listener is to be deregistered.
+ *
+ * deregisters an #AtspiEventListener from the registry, for a specific
+ *             event type.
+ *
+ * Returns: #TRUE if successful, otherwise #FALSE.
+ **/
+gboolean
+atspi_event_listener_deregister (AtspiEventListener *listener,
+				               const gchar              *event_type)
+{
+  atspi_event_listener_deregister_from_callback (listener->callback, listener->user_data, event_type);
+}
+
+/**
+ * atspi_event_listener_deregister_from_callback:
  * @callback: (scope call): the #AtspiEventListenerCB registered against an
  *            event type.
  * @user_data: (closure): User data that was passed in for this callback.
@@ -469,9 +595,9 @@ is_superset (const gchar *super, const gchar *sub)
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 gboolean
-atspi_event_listener_deregister (AtspiEventListenerCB callback,
-				   void *user_data,
-				   const gchar              *event_type)
+atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
+				               void *user_data,
+				               const gchar              *event_type)
 {
   char *category, *name, *detail, *matchrule;
   GList *l;
@@ -537,7 +663,8 @@ gboolean
 atspi_event_listener_deregister_no_data (AtspiEventListenerSimpleCB callback,
 				   const gchar              *event_type)
 {
-  return atspi_event_listener_deregister (remove_datum, callback, event_type);
+  return atspi_event_listener_deregister_from_callback (remove_datum, callback,
+                                                        event_type);
 }
 
 void

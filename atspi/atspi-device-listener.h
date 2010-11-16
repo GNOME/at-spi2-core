@@ -27,7 +27,7 @@
 
 #include "glib-object.h"
 
-#include "atspi-event-types.h"
+#include "atspi-types.h"
 
 /**
  * AtspiDeviceListenerCB:
