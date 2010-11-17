@@ -300,7 +300,7 @@ atk_text_get_character_at_offset (AtkText      *text,
  * string is from the line start after the offset to the next line start.
  *
  * If the boundary_type is ATK_TEXT_BOUNDARY_LINE_END the returned string
- * is from the line end at or after the offset to the next line start.
+ * is from the line end at or after the offset to the next line end.
  *
  * Returns: the text after @offset bounded by the specified @boundary_type.
  **/
