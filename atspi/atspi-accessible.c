@@ -30,6 +30,11 @@ atspi_component_interface_init (AtspiComponent *component)
 }
 
 static void
+atspi_selection_interface_init (AtspiSelection *selection)
+{
+}
+
+static void
 atspi_table_interface_init (AtspiTable *table)
 {
 }
@@ -41,6 +46,7 @@ atspi_text_interface_init (AtspiText *text)
 
 G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_SELECTION, atspi_selection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TABLE, atspi_table_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TEXT, atspi_text_interface_init))
 
@@ -893,6 +899,7 @@ atspi_accessible_get_image (AtspiAccessible *accessible)
   return (_atspi_accessible_is_a (accessible, atspi_interface_image) ?
           accessible : NULL);  
 }
+#endif
 
 /**
  * atspi_accessible_get_selection:
@@ -900,16 +907,17 @@ atspi_accessible_get_image (AtspiAccessible *accessible)
  *
  * Get the #AtspiSelection interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiSelection interface instance, or
- *          NULL if @obj does not implement #AtspiSelection.
+ * Returns: (transfer full): a pointer to an #AtspiSelection interface
+ *          instance, or NULL if @obj does not implement #AtspiSelection.
  **/
 AtspiSelection *
 atspi_accessible_get_selection (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_selection) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_SELECTION (accessible)) : NULL);  
 }
 
+#if 0
 /**
  * atspi_accessible_get_streamable_content:
  * @obj: a pointer to the #AtspiAccessible instance to query.

@@ -33,6 +33,8 @@ libatspi_la_SOURCES =		\
 	atspi-private.h \
 	atspi-registry.c \
 	atspi-registry.h \
+	atspi-selection.c \
+	atspi-selection.h \
 	atspi-stateset.c \
 	atspi-stateset.h \
 	atspi-table.c \

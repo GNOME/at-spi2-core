@@ -97,6 +97,8 @@ AtspiAccessible * atspi_accessible_get_host_application (AtspiAccessible *obj, G
 
 AtspiComponent * atspi_accessible_get_component (AtspiAccessible *obj);
 
+AtspiSelection * atspi_accessible_get_selection (AtspiAccessible *obj);
+
 AtspiTable * atspi_accessible_get_table (AtspiAccessible *obj);
 
 AtspiText * atspi_accessible_get_text (AtspiAccessible *obj);
