@@ -95,11 +95,21 @@ GArray * atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError 
 
 AtspiAccessible * atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error);
 
+AtspiAction * atspi_accessible_get_action (AtspiAccessible *obj);
+
 AtspiComponent * atspi_accessible_get_component (AtspiAccessible *obj);
+
+AtspiDocument * atspi_accessible_get_document (AtspiAccessible *obj);
+
+AtspiEditableText * atspi_accessible_get_editable_text (AtspiAccessible *obj);
+
+AtspiImage * atspi_accessible_get_image (AtspiAccessible *obj);
 
 AtspiSelection * atspi_accessible_get_selection (AtspiAccessible *obj);
 
 AtspiTable * atspi_accessible_get_table (AtspiAccessible *obj);
 
 AtspiText * atspi_accessible_get_text (AtspiAccessible *obj);
+
+AtspiValue * atspi_accessible_get_value (AtspiAccessible *obj);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */

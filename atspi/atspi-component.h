@@ -67,6 +67,8 @@ struct _AtspiPoint
 
 GType atspi_point_get_type ();
 
+AtspiPoint *atspi_point_copy (AtspiPoint *src);
+
 #define ATSPI_TYPE_COMPONENT                    (atspi_component_get_type ())
 #define ATSPI_IS_COMPONENT(obj)                 G_TYPE_CHECK_INSTANCE_TYPE ((obj), ATSPI_TYPE_COMPONENT)
 #define ATSPI_COMPONENT(obj)                    G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_COMPONENT, AtspiComponent)

@@ -25,7 +25,21 @@
 #include <string.h>
 
 static void
+atspi_action_interface_init (AtspiAction *action)
+{
+}
+
+static void
 atspi_component_interface_init (AtspiComponent *component)
+{
+}
+
+atspi_editable_text_interface_init (AtspiEditableText *editable_text)
+{
+}
+
+static void
+atspi_image_interface_init (AtspiImage *image)
 {
 }
 
@@ -44,11 +58,20 @@ atspi_text_interface_init (AtspiText *text)
 {
 }
 
+static void
+atspi_value_interface_init (AtspiValue *value)
+{
+}
+
 G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_ACTION, atspi_action_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_EDITABLE_TEXT, atspi_editable_text_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_IMAGE, atspi_image_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_SELECTION, atspi_selection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TABLE, atspi_table_interface_init)
-                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TEXT, atspi_text_interface_init))
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TEXT, atspi_text_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_VALUE, atspi_value_interface_init))
 
 static void
 atspi_accessible_init (AtspiAccessible *accessible)
@@ -550,7 +573,6 @@ atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error)
   }
 }
 
-#if 0	// TODO: interfaces */
 /* Interface query methods */
 
 /**
@@ -783,17 +805,18 @@ AtspiApplication *
 atspi_accessible_get_application (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_application) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_ACTION (accessible)) : NULL);  
 }
 
+#if 0
 /**
  * atspi_accessible_get_action:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Get the #AtspiAction interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiAction interface instance, or
- *          NULL if @obj does not implement #AtspiAction.
+ * Returns: (transfer full): a pointer to an #AtspiAction interface
+ *          instance, or NULL if @obj does not implement #AtspiAction.
  **/
 AtspiAction *
 atspi_accessible_get_action (AtspiAccessible *accessible)
@@ -808,8 +831,8 @@ atspi_accessible_get_action (AtspiAccessible *accessible)
  *
  * Get the #AtspiCollection interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiCollection interface instance, or
- *          NULL if @obj does not implement #AtspiCollection.
+ * Returns: (transfer full): a pointer to an #AtspiCollection interface
+ *          instance, or NULL if @obj does not implement #AtspiCollection.
  **/
 AtspiCollection *
 atspi_accessible_get_collection (AtspiAccessible *accessible)
@@ -835,21 +858,20 @@ atspi_accessible_get_component (AtspiAccessible *obj)
           g_object_ref (ATSPI_COMPONENT (obj)) : NULL);
 }
 
-#if 0
 /**
  * atspi_accessible_get_document:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Get the #AtspiDocument interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiDocument interface instance, or
- *          NULL if @obj does not implement #AtspiDocument.
+ * Returns: (transfer full): a pointer to an #AtspiDocument interface
+ *          instance, or NULL if @obj does not implement #AtspiDocument.
  **/
 AtspiDocument *
 atspi_accessible_get_document (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_document) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_DOCUMENT (accessible)) : NULL);  
 }
 
 /**
@@ -858,24 +880,25 @@ atspi_accessible_get_document (AtspiAccessible *accessible)
  *
  * Get the #AtspiEditableText interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiEditableText interface instance, or
- *          NULL if @obj does not implement #AtspiEditableText.
+ * Returns: (transfer full): a pointer to an #AtspiEditableText interface
+ *          instance, or NULL if @obj does not implement #AtspiEditableText.
  **/
 AtspiEditableText *
 atspi_accessible_get_editable_text (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_editable_text) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_EDITABLE_TEXT (accessible)) : NULL);  
 }
 
+#if 0
 /**
  * atspi_accessible_get_hypertext:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Get the #AtspiHypertext interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiHypertext interface instance, or
- *          NULL if @obj does not implement #AtspiHypertext.
+ * Returns: (transfer full): a pointer to an #AtspiHypertext interface
+ *          instance, or NULL if @obj does not implement #AtspiHypertext.
  **/
 AtspiHypertext *
 atspi_accessible_get_hypertext (AtspiAccessible *accessible)
@@ -883,6 +906,7 @@ atspi_accessible_get_hypertext (AtspiAccessible *accessible)
   return (_atspi_accessible_is_a (accessible, atspi_interface_hypertext) ?
           accessible : NULL);  
 }
+#endif
 
 /**
  * atspi_accessible_get_image:
@@ -890,16 +914,15 @@ atspi_accessible_get_hypertext (AtspiAccessible *accessible)
  *
  * Get the #AtspiImage interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiImage interface instance, or
+ * Returns: (transfer full): a pointer to an #AtspiImage interface instance, or
  *          NULL if @obj does not implement #AtspiImage.
  **/
 AtspiImage *
 atspi_accessible_get_image (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_image) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_IMAGE (accessible)) : NULL);  
 }
-#endif
 
 /**
  * atspi_accessible_get_selection:
@@ -924,8 +947,8 @@ atspi_accessible_get_selection (AtspiAccessible *accessible)
  *
  * Get the #AtspiStreamableContent interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiStreamableContent interface instance, or
- *          NULL if @obj does not implement #AtspiStreamableContent.
+ * Returns: (transfer full): a pointer to an #AtspiStreamableContent interface
+ *          instance, or NULL if @obj does not implement #AtspiStreamableContent.
  **/
 AtspiStreamableContent *
 atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
@@ -967,23 +990,23 @@ atspi_accessible_get_text (AtspiAccessible *obj)
           g_object_ref (ATSPI_TEXT (obj)) : NULL);
 }
 
-#if 0
 /**
  * atspi_accessible_get_value:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
  * Get the #AtspiTable interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiTable interface instance, or
- *          NULL if @obj does not implement #AtspiTable.
+ * Returns: (transfer full): a pointer to an #AtspiValue interface instance, or
+ *          NULL if @obj does not implement #AtspiValue.
  **/
-AtspiTable *
+AtspiValue *
 atspi_accessible_get_value (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_value) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_VALUE (accessible)) : NULL);  
 }
 
+#if 0
 static gboolean
 cspi_init_relation_type_table (AccessibleRelationType *relation_type_table)
 {

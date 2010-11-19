@@ -104,7 +104,7 @@ AtspiRangedAttributeSet * atspi_text_get_attributes (AtspiText *obj, gint offset
 
 AtspiRangedAttributeSet * atspi_text_get_attribute_run (AtspiText *obj, gint offset, gboolean include_defaults, GError **error);
 
-gchar * atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_value, GError **error);
+gchar * atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
 
 GHashTable * atspi_text_get_default_attributes (AtspiAccessible *obj, GError **error);
 

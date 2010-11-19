@@ -16,6 +16,8 @@ libatspi_la_SOURCES =		\
 	atspi.h			\
 	atspi-accessible.c \
 	atspi-accessible.h \
+	atspi-action.c \
+	atspi-action.h \
 	atspi-application.c \
 	atspi-application.h \
 	atspi-component.c \
@@ -24,9 +26,15 @@ libatspi_la_SOURCES =		\
 	atspi-device-listener.c \
 	atspi-device-listener.h \
 	atspi-device-listener-private.h \
+	atspi-document.c \
+	atspi-document.h \
+	atspi-editabletext.c \
+	atspi-editabletext.h \
 	atspi-event-listener.c \
 	atspi-event-listener.h \
 	atspi-event-listener-private.h \
+	atspi-image.c \
+	atspi-image.h \
 	atspi-misc.c \
 	atspi-misc.h \
 	atspi-misc-private.h \
@@ -41,7 +49,9 @@ libatspi_la_SOURCES =		\
 	atspi-table.h \
 	atspi-text.c \
 	atspi-text.h \
-	atspi-types.h
+	atspi-types.h \
+	atspi-value.c \
+	atspi-value.h
 
 #BUILT_SOURCES = atspi-constants.h
 

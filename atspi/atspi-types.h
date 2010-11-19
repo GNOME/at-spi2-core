@@ -30,16 +30,17 @@
 #include "atspi-constants.h"
 
 typedef struct _AtspiAccessible AtspiAccessible;
-typedef struct _AtspiAccessible AtspiAction;
+typedef struct _AtspiAction AtspiAction;
 typedef struct _AtspiAccessible AtspiCollection;
 typedef struct _AtspiComponent AtspiComponent;
-typedef struct _AtspiAccessible AtspiDocument;
-typedef struct _AtspiAccessible AtspiEditableText;
+typedef struct _AtspiDocument AtspiDocument;
+typedef struct _AtspiEditableText AtspiEditableText;
 typedef struct _AtspiAccessible AtspiHypertext;
+typedef struct _AtspiImage AtspiImage;
 typedef struct _AtspiSelection AtspiSelection;
 typedef struct _AtspiTable AtspiTable;
 typedef struct _AtspiText AtspiText;
-typedef struct _AtspiAccessible AtspiValue;
+typedef struct _AtspiValue AtspiValue;
 
 typedef guint AtspiControllerEventMask;
 

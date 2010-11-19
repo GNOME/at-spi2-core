@@ -47,7 +47,7 @@ atspi_rect_copy (AtspiRect *src)
 
 G_DEFINE_BOXED_TYPE (AtspiRect, atspi_rect, atspi_rect_copy, atspi_rect_free)
 
-static AtspiPoint *
+AtspiPoint *
 atspi_point_copy (AtspiPoint *src)
 {
   AtspiPoint *dst = g_new (AtspiPoint, 1);
