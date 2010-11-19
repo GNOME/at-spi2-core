@@ -29,8 +29,20 @@ atspi_component_interface_init (AtspiComponent *component)
 {
 }
 
+static void
+atspi_table_interface_init (AtspiTable *table)
+{
+}
+
+static void
+atspi_text_interface_init (AtspiText *text)
+{
+}
+
 G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init))
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TABLE, atspi_table_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TEXT, atspi_text_interface_init))
 
 static void
 atspi_accessible_init (AtspiAccessible *accessible)
@@ -913,6 +925,7 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
   return (_atspi_accessible_is_a (accessible, atspi_interface_streamable_content) ?
           accessible : NULL);  
 }
+#endif
 
 /**
  * atspi_accessible_get_table:
@@ -920,16 +933,15 @@ atspi_accessible_get_streamable_content (AtspiAccessible *accessible)
  *
  * Get the #AtspiTable interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiTable interface instance, or
+ * Returns: (transfer full): a pointer to an #AtspiTable interface instance, or
  *          NULL if @obj does not implement #AtspiTable.
  **/
 AtspiTable *
-atspi_accessible_get_table (AtspiAccessible *accessible)
+atspi_accessible_get_table (AtspiAccessible *obj)
 {
-  return (_atspi_accessible_is_a (accessible, atspi_interface_table) ?
-          accessible : NULL);  
+  return (_atspi_accessible_is_a (obj, atspi_interface_table) ?
+          g_object_ref (ATSPI_TABLE (obj)) : NULL);  
 }
-#endif
 
 /**
  * atspi_accessible_get_text:

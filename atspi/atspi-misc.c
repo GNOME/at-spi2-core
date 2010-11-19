@@ -829,6 +829,23 @@ atspi_exit (void)
   return leaked;
 }
 
+static AtspiAccessible *
+_atspi_dbus_get_remote_object (gpointer obj,
+                               const char *interface,
+                               const char *method,
+                               GError **error,
+                               const char *type,
+                               va_list args)
+{
+  DBusMessage *reply;
+
+  reply = _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
+  if (!reply)
+    return NULL;
+
+  return _atspi_dbus_return_accessible_from_message (reply);
+}
+
 dbus_bool_t
 _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
@@ -837,8 +854,11 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   DBusError err;
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
 
-  dbus_error_init (&err);
   va_start (args, type);
+  if (!strcmp (type + strcspn (type, "="), "=>(so)"))
+    return _atspi_dbus_get_remote_object (obj, interface, method, error, type, args);
+
+  dbus_error_init (&err);
   retval = dbind_method_call_reentrant_va (_atspi_bus(), accessible->app->bus_name, accessible->path, interface, method, &err, type, args);
   va_end (args);
   if (dbus_error_is_set (&err))
@@ -850,10 +870,27 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
 }
 
 DBusMessage *
-_atspi_dbus_call_partial (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
+_atspi_dbus_call_partial (gpointer obj,
+                          const char *interface,
+                          const char *method,
+                          GError **error,
+                          const char *type, ...)
+{
+  va_list args;
+
+  va_start (args, type);
+  return _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
+}
+
+DBusMessage *
+_atspi_dbus_call_partial_va (gpointer obj,
+                          const char *interface,
+                          const char *method,
+                          GError **error,
+                          const char *type,
+                          va_list args)
 {
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
-  va_list args;
   dbus_bool_t retval;
   DBusError err;
     DBusMessage *msg = NULL, *reply = NULL;
@@ -861,7 +898,6 @@ _atspi_dbus_call_partial (gpointer obj, const char *interface, const char *metho
     const char *p;
 
   dbus_error_init (&err);
-  va_start (args, type);
 
     msg = dbus_message_new_method_call (accessible->app->bus_name, accessible->path, interface, method);
     if (!msg)
@@ -883,14 +919,21 @@ out:
 }
 
 dbus_bool_t
-_atspi_dbus_get_property (AtspiAccessible *obj, const char *interface, const char *name, GError **error, const char *type, void *data)
+_atspi_dbus_get_property (gpointer obj, const char *interface, const char *name, GError **error, const char *type, void *data)
 {
   DBusMessage *message, *reply;
   DBusMessageIter iter, iter_variant;
   DBusError err;
   dbus_bool_t retval = FALSE;
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
 
-  message = dbus_message_new_method_call (obj->app->bus_name, obj->path, "org.freedesktop.DBus.Properties", "Get");
+  if (!accessible)
+    return NULL;
+
+  message = dbus_message_new_method_call (accessible->app->bus_name,
+                                          accessible->path,
+                                          "org.freedesktop.DBus.Properties",
+                                          "Get");
   if (!message)
   {
     // TODO: throw exception
@@ -912,9 +955,17 @@ _atspi_dbus_get_property (AtspiAccessible *obj, const char *interface, const cha
     g_warning ("atspi_dbus_get_property: Wrong type: expected %s, got %c\n", type, dbus_message_iter_get_arg_type (&iter_variant));
     goto done;
   }
-  dbus_message_iter_get_basic (&iter_variant, data);
-  dbus_message_unref (reply);
-  if (type[0] == 's') *(char **)data = g_strdup (*(char **)data);
+  if (!strcmp (type, "(so)"))
+  {
+    *((AtspiAccessible **)data) = _atspi_dbus_return_accessible_from_iter (&iter_variant);
+  }
+  else
+  {
+    dbus_message_iter_get_basic (&iter_variant, data);
+    dbus_message_unref (reply);
+    if (type [0] == 's')
+      *(char **)data = g_strdup (*(char **)data);
+  }
   retval = TRUE;
 done:
   return retval;

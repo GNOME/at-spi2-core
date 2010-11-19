@@ -34,6 +34,7 @@
 #include "atspi-event-listener.h"
 #include "atspi-misc.h"
 #include "atspi-registry.h"
+#include "atspi-table.h"
 #include "atspi-text.h"
 
 #endif

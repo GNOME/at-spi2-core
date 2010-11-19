@@ -35,6 +35,8 @@ libatspi_la_SOURCES =		\
 	atspi-registry.h \
 	atspi-stateset.c \
 	atspi-stateset.h \
+	atspi-table.c \
+	atspi-table.h \
 	atspi-text.c \
 	atspi-text.h \
 	atspi-types.h

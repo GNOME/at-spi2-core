@@ -37,7 +37,7 @@ typedef struct _AtspiAccessible AtspiDocument;
 typedef struct _AtspiAccessible AtspiEditableText;
 typedef struct _AtspiAccessible AtspiHypertext;
 typedef struct _AtspiAccessible AtspiSelection;
-typedef struct _AtspiAccessible AtspiTable;
+typedef struct _AtspiTable AtspiTable;
 typedef struct _AtspiText AtspiText;
 typedef struct _AtspiAccessible AtspiValue;
 
