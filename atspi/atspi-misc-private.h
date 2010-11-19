@@ -127,5 +127,21 @@ DBusMessage * _atspi_dbus_send_with_reply_and_block (DBusMessage *message);
 
 GHashTable *_atspi_dbus_hash_from_message (DBusMessage *message);
 
+GHashTable *_atspi_dbus_hash_from_iter (DBusMessageIter *iter);
+
 GArray *_atspi_dbus_attribute_array_from_message (DBusMessage *message);
+
+GArray *_atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter);
+
+#define _ATSPI_DBUS_CHECK_SIG(message, type, ret) \
+  if (!message) { \
+    g_warning ("at-spi: Got no message at %s line %d\n", __FILE__, __LINE__); \
+    return (ret); \
+  } \
+  if (strcmp (dbus_message_get_signature (message), type) != 0) \
+  { \
+    g_warning ("at-spi: Expected message signature %s but got %s at %s line %d", type, dbus_message_get_signature (message), __FILE__, __LINE__); \
+    dbus_message_unref (message); \
+    return (ret); \
+  }
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

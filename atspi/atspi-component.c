@@ -35,7 +35,7 @@ atspi_rect_free (AtspiRect *rect)
   g_free (rect);
 }
 
-static AtspiRect *
+AtspiRect *
 atspi_rect_copy (AtspiRect *src)
 {
   AtspiRect *dst = g_new (AtspiRect, 1);

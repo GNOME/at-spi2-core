@@ -869,7 +869,7 @@ _atspi_dbus_call_partial (gpointer obj, const char *interface, const char *metho
 
     p = type;
     dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, args);
+    dbind_any_marshal_va (&iter, &p, &args);
 
     reply = dbind_send_and_allow_reentry (_atspi_bus(), msg, &err);
 out:
@@ -938,8 +938,7 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
 GHashTable *
 _atspi_dbus_hash_from_message (DBusMessage *message)
 {
-  GHashTable *hash = g_hash_table_new (g_str_hash, g_str_equal);
-  DBusMessageIter iter, iter_array, iter_dict;
+  DBusMessageIter iter;
   const char *signature;
 
   signature = dbus_message_get_signature (message);
@@ -951,7 +950,16 @@ _atspi_dbus_hash_from_message (DBusMessage *message)
     }
 
   dbus_message_iter_init (message, &iter);
-  dbus_message_iter_recurse (&iter, &iter_array);
+  return _atspi_dbus_hash_from_iter (&iter);
+}
+
+GHashTable *
+_atspi_dbus_hash_from_iter (DBusMessageIter *iter)
+{
+  GHashTable *hash = g_hash_table_new (g_str_hash, g_str_equal);
+  DBusMessageIter iter_array, iter_dict;
+
+  dbus_message_iter_recurse (iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
     const char *name, *value;
@@ -967,10 +975,8 @@ _atspi_dbus_hash_from_message (DBusMessage *message)
 GArray *
 _atspi_dbus_attribute_array_from_message (DBusMessage *message)
 {
-  GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
-  DBusMessageIter iter, iter_array, iter_dict;
+  DBusMessageIter iter;
   const char *signature;
-  gint count = 0;
 
   signature = dbus_message_get_signature (message);
 
@@ -980,9 +986,17 @@ _atspi_dbus_attribute_array_from_message (DBusMessage *message)
       return NULL;
     }
 
-  dbus_message_iter_init (message, &iter);
+  return _atspi_dbus_attribute_array_from_iter (&iter);
+}
 
-  dbus_message_iter_recurse (&iter, &iter_array);
+GArray *
+_atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter)
+{
+  DBusMessageIter iter_array, iter_dict;
+  GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
+  gint count = 0;
+
+  dbus_message_iter_recurse (iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
     const char *name, *value;
@@ -995,7 +1009,7 @@ _atspi_dbus_attribute_array_from_message (DBusMessage *message)
     new_array = g_array_append_val (array, str);
     if (new_array)
       array = new_array;
-    dbus_message_iter_next (&iter);;
+    dbus_message_iter_next (iter);;
   }
   return array;
 }

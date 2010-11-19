@@ -811,10 +811,10 @@ atspi_accessible_get_collection (AtspiAccessible *accessible)
  *          instance, or NULL if @obj does not implement #AtspiComponent.
  **/
 AtspiComponent *
-atspi_accessible_get_component (AtspiAccessible *accessible)
+atspi_accessible_get_component (AtspiAccessible *obj)
 {
-  return (_atspi_accessible_is_a (accessible, atspi_interface_component) ?
-          ATSPI_COMPONENT (accessible) : NULL);  
+  return (_atspi_accessible_is_a (obj, atspi_interface_component) ?
+          g_object_ref (ATSPI_COMPONENT (obj)) : NULL);
 }
 
 #if 0
@@ -929,6 +929,7 @@ atspi_accessible_get_table (AtspiAccessible *accessible)
   return (_atspi_accessible_is_a (accessible, atspi_interface_table) ?
           accessible : NULL);  
 }
+#endif
 
 /**
  * atspi_accessible_get_text:
@@ -936,16 +937,17 @@ atspi_accessible_get_table (AtspiAccessible *accessible)
  *
  * Get the #AtspiTable interface for an #AtspiAccessible.
  *
- * Returns: a pointer to an #AtspiTable interface instance, or
+ * Returns: (transfer full): a pointer to an #AtspiText interface instance, or
  *          NULL if @obj does not implement #AtspiTable.
  **/
-AtspiTable *
-atspi_accessible_get_text (AtspiAccessible *accessible)
+AtspiText *
+atspi_accessible_get_text (AtspiAccessible *obj)
 {
-  return (_atspi_accessible_is_a (accessible, atspi_interface_text) ?
-          accessible : NULL);  
+  return (_atspi_accessible_is_a (obj, atspi_interface_text) ?
+          g_object_ref (ATSPI_TEXT (obj)) : NULL);
 }
 
+#if 0
 /**
  * atspi_accessible_get_value:
  * @obj: a pointer to the #AtspiAccessible instance to query.

@@ -49,6 +49,8 @@ struct _AtspiRect
 
 GType atspi_rect_get_type ();
 
+AtspiRect *atspi_rect_copy (AtspiRect *src);
+
 typedef struct _AtspiPoint AtspiPoint;
 struct _AtspiPoint
 {

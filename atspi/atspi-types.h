@@ -38,7 +38,7 @@ typedef struct _AtspiAccessible AtspiEditableText;
 typedef struct _AtspiAccessible AtspiHypertext;
 typedef struct _AtspiAccessible AtspiSelection;
 typedef struct _AtspiAccessible AtspiTable;
-typedef struct _AtspiAccessible AtspiText;
+typedef struct _AtspiText AtspiText;
 typedef struct _AtspiAccessible AtspiValue;
 
 typedef guint AtspiControllerEventMask;

@@ -95,5 +95,7 @@ GArray * atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError 
 
 AtspiAccessible * atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error);
 
-AtspiComponent * atspi_accessible_get_component (AtspiAccessible *accessible);
+AtspiComponent * atspi_accessible_get_component (AtspiAccessible *obj);
+
+AtspiText * atspi_accessible_get_text (AtspiAccessible *obj);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */
