@@ -33,11 +33,17 @@ libatspi_la_SOURCES =		\
 	atspi-event-listener.c \
 	atspi-event-listener.h \
 	atspi-event-listener-private.h \
+	atspi-hyperlink.c \
+	atspi-hyperlink.h \
+	atspi-hypertext.c \
+	atspi-hypertext.h \
 	atspi-image.c \
 	atspi-image.h \
 	atspi-misc.c \
 	atspi-misc.h \
 	atspi-misc-private.h \
+	atspi-object.c \
+	atspi-object.h \
 	atspi-private.h \
 	atspi-registry.c \
 	atspi-registry.h \

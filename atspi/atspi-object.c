@@ -21,28 +21,30 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _ATSPI_H
-#define _ATSPI_H
+#include "atspi-private.h"
 
-#include "glib.h"
+G_DEFINE_TYPE (AtspiObject, atspi_object, G_TYPE_OBJECT)
 
-#include "atspi-constants.h"
-#include "atspi-types.h"
-#include "atspi-accessible.h"
-#include "atspi-action.h"
-#include "atspi-component.h"
-#include "atspi-device-listener.h"
-#include "atspi-document.h"
-#include "atspi-editabletext.h"
-#include "atspi-event-listener.h"
-#include "atspi-hyperlink.h"
-#include "atspi-hypertext.h"
-#include "atspi-image.h"
-#include "atspi-misc.h"
-#include "atspi-registry.h"
-#include "atspi-selection.h"
-#include "atspi-table.h"
-#include "atspi-text.h"
-#include "atspi-value.h"
+static void
+atspi_object_init (AtspiObject *obj)
+{
+}
 
-#endif
+static void
+atspi_object_finalize (GObject *obj)
+{
+  AtspiObject *aobj = ATSPI_OBJECT (obj);
+
+  if (aobj->app)
+    g_object_unref (aobj->app);
+
+  g_free (aobj->path);
+}
+
+static void
+atspi_object_class_init (AtspiObjectClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->finalize = atspi_object_finalize;
+}

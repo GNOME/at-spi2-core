@@ -29,6 +29,7 @@
 
 #include "atspi-application.h"
 #include "atspi-constants.h"
+#include "atspi-object.h"
 #include "atspi-stateset.h"
 #include "atspi-types.h"
 
@@ -41,11 +42,9 @@
 
 struct _AtspiAccessible
 {
-  GObject parent;
+  AtspiObject parent;
   AtspiAccessible *accessible_parent;
   GList *children;
-  AtspiApplication *app;
-  char *path;
   AtspiRole role;
   gint interfaces;
   char *name;
@@ -57,7 +56,7 @@ struct _AtspiAccessible
 typedef struct _AtspiAccessibleClass AtspiAccessibleClass;
 struct _AtspiAccessibleClass
 {
-  GObjectClass parent_class;
+  AtspiObjectClass parent_class;
 };
 
 GType atspi_accessible_get_type (void); 
@@ -102,6 +101,8 @@ AtspiComponent * atspi_accessible_get_component (AtspiAccessible *obj);
 AtspiDocument * atspi_accessible_get_document (AtspiAccessible *obj);
 
 AtspiEditableText * atspi_accessible_get_editable_text (AtspiAccessible *obj);
+
+AtspiHypertext * atspi_accessible_get_hypertext (AtspiAccessible *obj);
 
 AtspiImage * atspi_accessible_get_image (AtspiAccessible *obj);
 

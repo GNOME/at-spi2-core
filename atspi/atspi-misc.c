@@ -183,9 +183,32 @@ ref_accessible (const char *app_name, const char *path)
   a = atspi_accessible_new (app, path);
   if (!a)
     return NULL;
-  g_hash_table_insert (app->hash, a->path, a);
+  g_hash_table_insert (app->hash, a->parent.path, a);
   g_object_ref (a);	/* for the hash */
   return a;
+}
+
+static AtspiHyperlink *
+ref_hyperlink (const char *app_name, const char *path)
+{
+  AtspiApplication *app = get_application (app_name);
+  AtspiHyperlink *hyperlink;
+
+  if (!strcmp (path, ATSPI_DBUS_PATH_NULL))
+    return NULL;
+
+  hyperlink = g_hash_table_lookup (app->hash, path);
+  if (hyperlink)
+  {
+    return g_object_ref (hyperlink);
+  }
+  hyperlink = atspi_hyperlink_new (app, path);
+  if (!hyperlink)
+    return NULL;
+  g_hash_table_insert (app->hash, hyperlink->parent.path, hyperlink);
+  /* TODO: This should be a weak ref */
+  g_object_ref (hyperlink);	/* for the hash */
+  return hyperlink;
 }
 
 typedef struct
@@ -293,7 +316,7 @@ remove_app_from_desktop (AtspiAccessible *a, const char *bus_name)
   for (l = a->children; l; l = l->next)
   {
     child = l->data;
-    if (!strcmp (bus_name, child->app->bus_name)) break;
+    if (!strcmp (bus_name, child->parent.app->bus_name)) break;
   }
   if (!l)
   {
@@ -465,7 +488,7 @@ ref_accessible_desktop (AtspiApplication *app)
   {
     return NULL;
   }
-  g_hash_table_insert (app->hash, desktop->path, desktop);
+  g_hash_table_insert (app->hash, desktop->parent.path, desktop);
   g_object_ref (desktop);	/* for the hash */
   desktop->name = g_strdup ("main");
   dbus_error_init (&error);
@@ -522,7 +545,7 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message)
   }
   else
   {
-    g_warning ("Atspi: Called __atspi_dbus_return_accessible_from_message with strange signature %s", signature);
+    g_warning ("Atspi: Called _atspi_dbus_return_accessible_from_message with strange signature %s", signature);
   }
   dbus_message_unref (message);
   return retval;
@@ -537,14 +560,33 @@ _atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter)
   return ref_accessible (app_name, path);
 }
 
-/* TODO: Remove this function. We should not need it anymore.
- * If we do, it's a bug.
- */
-AtspiAccessible *
-_atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref)
+AtspiHyperlink *
+_atspi_dbus_return_hyperlink_from_message (DBusMessage *message)
 {
-  const char *app = (ref->name && ref->name[0]? ref->name: obj->app->bus_name);
-  return ref_accessible (app, obj->path);
+  DBusMessageIter iter;
+  AtspiHyperlink *retval = NULL;
+  const char *signature = dbus_message_get_signature (message);
+   
+  if (!strcmp (signature, "(so)"))
+  {
+    dbus_message_iter_init (message, &iter);
+    retval =  _atspi_dbus_return_hyperlink_from_iter (&iter);
+  }
+  else
+  {
+    g_warning ("Atspi: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s", signature);
+  }
+  dbus_message_unref (message);
+  return retval;
+}
+
+AtspiHyperlink *
+_atspi_dbus_return_hyperlink_from_iter (DBusMessageIter *iter)
+{
+  const char *app_name, *path;
+
+  get_reference_from_iter (iter, &app_name, &path);
+  return ref_hyperlink (app_name, path);
 }
 
 const char *cache_signal_type = "((so)(so)(so)a(so)assusau)";
@@ -829,37 +871,17 @@ atspi_exit (void)
   return leaked;
 }
 
-static AtspiAccessible *
-_atspi_dbus_get_remote_object (gpointer obj,
-                               const char *interface,
-                               const char *method,
-                               GError **error,
-                               const char *type,
-                               va_list args)
-{
-  DBusMessage *reply;
-
-  reply = _atspi_dbus_call_partial_va (obj, interface, method, error, type, args);
-  if (!reply)
-    return NULL;
-
-  return _atspi_dbus_return_accessible_from_message (reply);
-}
-
 dbus_bool_t
 _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...)
 {
   va_list args;
   dbus_bool_t retval;
   DBusError err;
-  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
+  AtspiObject *aobj = ATSPI_OBJECT (obj);
 
   va_start (args, type);
-  if (!strcmp (type + strcspn (type, "="), "=>(so)"))
-    return _atspi_dbus_get_remote_object (obj, interface, method, error, type, args);
-
   dbus_error_init (&err);
-  retval = dbind_method_call_reentrant_va (_atspi_bus(), accessible->app->bus_name, accessible->path, interface, method, &err, type, args);
+  retval = dbind_method_call_reentrant_va (_atspi_bus(), aobj->app->bus_name, aobj->path, interface, method, &err, type, args);
   va_end (args);
   if (dbus_error_is_set (&err))
   {
@@ -890,7 +912,7 @@ _atspi_dbus_call_partial_va (gpointer obj,
                           const char *type,
                           va_list args)
 {
-  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
+  AtspiObject *aobj = ATSPI_OBJECT (obj);
   dbus_bool_t retval;
   DBusError err;
     DBusMessage *msg = NULL, *reply = NULL;
@@ -899,7 +921,7 @@ _atspi_dbus_call_partial_va (gpointer obj,
 
   dbus_error_init (&err);
 
-    msg = dbus_message_new_method_call (accessible->app->bus_name, accessible->path, interface, method);
+    msg = dbus_message_new_method_call (aobj->app->bus_name, aobj->path, interface, method);
     if (!msg)
         goto out;
 
@@ -925,13 +947,13 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   DBusMessageIter iter, iter_variant;
   DBusError err;
   dbus_bool_t retval = FALSE;
-  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
+  AtspiObject *aobj = ATSPI_OBJECT (obj);
 
-  if (!accessible)
+  if (!aobj)
     return NULL;
 
-  message = dbus_message_new_method_call (accessible->app->bus_name,
-                                          accessible->path,
+  message = dbus_message_new_method_call (aobj->app->bus_name,
+                                          aobj->path,
                                           "org.freedesktop.DBus.Properties",
                                           "Get");
   if (!message)

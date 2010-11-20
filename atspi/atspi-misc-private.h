@@ -115,7 +115,11 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message);
 AtspiAccessible *
 _atspi_dbus_return_accessible_from_iter (DBusMessageIter *iter);
 
-AtspiAccessible * _atspi_ref_related_accessible (AtspiAccessible *obj, const AtspiReference *ref);
+AtspiHyperlink *
+_atspi_dbus_return_hyperlink_from_message (DBusMessage *message);
+
+AtspiHyperlink *
+_atspi_dbus_return_hyperlink_from_iter (DBusMessageIter *iter);
 
 dbus_bool_t _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GError **error, const char *type, ...);
 

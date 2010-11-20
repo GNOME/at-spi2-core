@@ -63,7 +63,7 @@ atspi_value_interface_init (AtspiValue *value)
 {
 }
 
-G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, G_TYPE_OBJECT,
+G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_ACTION, atspi_action_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_EDITABLE_TEXT, atspi_editable_text_interface_init)
@@ -81,12 +81,9 @@ atspi_accessible_init (AtspiAccessible *accessible)
 static void
 atspi_accessible_finalize (GObject *obj)
 {
-  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
+  /*AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj); */
 
-  if (accessible->app)
-    g_object_unref (accessible->app);
-
-  g_free (accessible->path);
+  /* TODO: Unref parent/children, etc. */
 }
 
 static void
@@ -282,7 +279,8 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
   {
     DBusMessage *message, *reply;
     DBusMessageIter iter, iter_variant;
-    message = dbus_message_new_method_call (obj->app->bus_name, obj->path,
+    message = dbus_message_new_method_call (obj->parent.app->bus_name,
+                                            obj->parent.path,
                                             DBUS_INTERFACE_PROPERTIES, "Get");
     if (!message)
       return NULL;
@@ -890,7 +888,6 @@ atspi_accessible_get_editable_text (AtspiAccessible *accessible)
           g_object_ref (ATSPI_EDITABLE_TEXT (accessible)) : NULL);  
 }
 
-#if 0
 /**
  * atspi_accessible_get_hypertext:
  * @obj: a pointer to the #AtspiAccessible instance to query.
@@ -904,9 +901,8 @@ AtspiHypertext *
 atspi_accessible_get_hypertext (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_hypertext) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_HYPERTEXT (accessible)) : NULL);  
 }
-#endif
 
 /**
  * atspi_accessible_get_image:
@@ -1349,7 +1345,7 @@ cspi_object_destroyed (AtspiAccessible *accessible)
   e.detail2 = 0;
   _atspi_send_event (&e);
 
-    g_free (accessible->path);
+    g_free (accessible->parent.path);
 
     if (accessible->states)
       g_object_unref (accessible->states);
@@ -1365,8 +1361,8 @@ atspi_accessible_new (AtspiApplication *app, const gchar *path)
   accessible = g_object_new (ATSPI_TYPE_ACCESSIBLE, NULL);
   g_return_val_if_fail (accessible != NULL, NULL);
 
-  accessible->app = g_object_ref (app);
-  accessible->path = g_strdup (path);
+  accessible->parent.app = g_object_ref (app);
+  accessible->parent.path = g_strdup (path);
 
   return accessible;
 }

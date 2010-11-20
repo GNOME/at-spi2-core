@@ -23,7 +23,7 @@
 
 #include "atspi-private.h"
 
-static AtspiRange *
+AtspiRange *
 atspi_range_copy (AtspiRange *src)
 {
   AtspiRange *dst = g_new (AtspiRange, 1);

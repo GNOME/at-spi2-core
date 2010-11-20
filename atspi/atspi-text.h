@@ -47,6 +47,9 @@ struct _AtspiRange
 
 GType atspi_range_get_type ();
 
+AtspiRange *
+atspi_range_copy (AtspiRange *src);
+
 typedef struct _AtspiRangedAttributeSet AtspiRangedAttributeSet;
 struct _AtspiRangedAttributeSet
 {
