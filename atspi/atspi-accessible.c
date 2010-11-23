@@ -836,7 +836,7 @@ AtspiCollection *
 atspi_accessible_get_collection (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_collection) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_COLLECTION (accessible)) : NULL);  
 }
 #endif
 

@@ -173,7 +173,7 @@ typedef enum {
 /**
  * ATSPI_MATCHTYPE_COUNT:
  *
- * 1 higher than the highest valid value of #AtspiCollection_MatchType.
+ * 1 higher than the highest valid value of #AtspiCollectionMatchType.
  */
 #define ATSPI_MATCHTYPES_COUNT (5+1)
 

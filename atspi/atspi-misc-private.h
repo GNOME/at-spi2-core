@@ -87,6 +87,7 @@ extern const char *atspi_bus_registry;
 extern const char *atspi_interface_accessible;
 extern const char *atspi_interface_action;
 extern const char *atspi_interface_application;
+extern const char *atspi_interface_collection;
 extern const char *atspi_interface_component;
 extern const char *atspi_interface_dec;
 extern const char *atspi_interface_device_event_listener;

@@ -31,7 +31,7 @@
 
 typedef struct _AtspiAccessible AtspiAccessible;
 typedef struct _AtspiAction AtspiAction;
-typedef struct _AtspiAccessible AtspiCollection;
+typedef struct _AtspiCollection AtspiCollection;
 typedef struct _AtspiComponent AtspiComponent;
 typedef struct _AtspiDocument AtspiDocument;
 typedef struct _AtspiEditableText AtspiEditableText;

@@ -20,6 +20,8 @@ libatspi_la_SOURCES =		\
 	atspi-action.h \
 	atspi-application.c \
 	atspi-application.h \
+	atspi-collection.c \
+	atspi-collection.h \
 	atspi-component.c \
 	atspi-component.h \
 	atspi-constants.h \
@@ -39,6 +41,8 @@ libatspi_la_SOURCES =		\
 	atspi-hypertext.h \
 	atspi-image.c \
 	atspi-image.h \
+	atspi-matchrule.c \
+	atspi-matchrule.h \
 	atspi-misc.c \
 	atspi-misc.h \
 	atspi-misc-private.h \

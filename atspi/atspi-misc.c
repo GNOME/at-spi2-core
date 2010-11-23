@@ -45,6 +45,7 @@ const char *atspi_bus_registry = ATSPI_DBUS_NAME_REGISTRY;
 const char *atspi_interface_accessible = ATSPI_DBUS_INTERFACE_ACCESSIBLE;
 const char *atspi_interface_action = ATSPI_DBUS_INTERFACE_ACTION;
 const char *atspi_interface_application = ATSPI_DBUS_INTERFACE_APPLICATION;
+const char *atspi_interface_collection = ATSPI_DBUS_INTERFACE_COLLECTION;
 const char *atspi_interface_component = ATSPI_DBUS_INTERFACE_COMPONENT;
 const char *atspi_interface_dec = ATSPI_DBUS_INTERFACE_DEC;
 const char *atspi_interface_device_event_listener = ATSPI_DBUS_INTERFACE_DEVICE_EVENT_LISTENER;
