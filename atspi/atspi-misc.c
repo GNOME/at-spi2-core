@@ -424,13 +424,13 @@ add_accessible_from_iter (DBusMessageIter *iter)
   if (count != 2)
   {
     g_warning ("at-spi: expected 2 values in states array; got %d\n", count);
-    accessible->states = atspi_state_set_new (accessible, 0);
+    accessible->states = _atspi_state_set_new_internal (accessible, 0);
   }
   else
   {
     guint64 val = ((guint64)states [1]) << 32;
     val += states [0];
-    accessible->states = atspi_state_set_new (accessible, val);
+    accessible->states = _atspi_state_set_new_internal (accessible, val);
   }
   dbus_message_iter_next (&iter_struct);
 

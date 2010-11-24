@@ -806,7 +806,6 @@ atspi_accessible_get_application (AtspiAccessible *accessible)
           g_object_ref (ATSPI_ACTION (accessible)) : NULL);  
 }
 
-#if 0
 /**
  * atspi_accessible_get_action:
  * @obj: a pointer to the #AtspiAccessible instance to query.
@@ -820,7 +819,7 @@ AtspiAction *
 atspi_accessible_get_action (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_action) ?
-          accessible : NULL);  
+          g_object_ref (ATSPI_ACTION (accessible)) : NULL);  
 }
 
 /**
@@ -838,7 +837,6 @@ atspi_accessible_get_collection (AtspiAccessible *accessible)
   return (_atspi_accessible_is_a (accessible, atspi_interface_collection) ?
           g_object_ref (ATSPI_COLLECTION (accessible)) : NULL);  
 }
-#endif
 
 /**
  * atspi_accessible_get_component:

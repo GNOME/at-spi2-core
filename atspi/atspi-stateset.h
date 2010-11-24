@@ -24,8 +24,24 @@ struct _AtspiStateSetClass
 
 GType atspi_state_set_get_type (void);
 
-AtspiStateSet *
-atspi_state_set_new (struct _AtspiAccessible *accessible, gint64 states);
+AtspiStateSet * atspi_state_set_new (GArray *states);
+
+void atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean enabled);
+
+void atspi_state_set_add (AtspiStateSet *set, AtspiStateType state);
+
+AtspiStateSet * atspi_state_set_compare (AtspiStateSet *set, AtspiStateSet *set2);
 
 gboolean atspi_state_set_contains (AtspiStateSet *set, AtspiStateType state);
+
+gboolean atspi_state_set_equals (AtspiStateSet *set, AtspiStateSet *set2);
+
+GArray * atspi_state_set_get_states (AtspiStateSet *set);
+
+gboolean atspi_state_set_is_empty (AtspiStateSet *set);
+
+void atspi_state_set_remove (AtspiStateSet *set, AtspiStateType state);
+
+AtspiStateSet * _atspi_state_set_new_internal (struct _AtspiAccessible *accessible, gint64 states);
+
 #endif	/* _ATSPI_STATE_SET_H_ */
