@@ -80,7 +80,9 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
     DBusMessageIter iter;
     DBusError *err, real_err;
     const char *p;
+  va_list args_demarshal;
 
+  va_copy (args_demarshal, args);
     if (opt_error)
         err = opt_error;
     else {
@@ -94,7 +96,7 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
 
     p = arg_types;
     dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, &args);
+    dbind_any_marshal_va (&iter, &p, args);
 
     reply = dbind_send_and_allow_reentry (cnx, msg, err);
     if (!reply)
@@ -110,9 +112,9 @@ dbind_method_call_reentrant_va (DBusConnection *cnx,
     if (p[0] == '=' && p[1] == '>')
     {
         DBusMessageIter iter;
-        p += 2;
         dbus_message_iter_init (reply, &iter);
-        dbind_any_demarshal_va (&iter, &p, &args);
+        p = arg_types;
+        dbind_any_demarshal_va (&iter, &p, args_demarshal);
     }
 
     success = TRUE;
@@ -126,6 +128,7 @@ out:
     if (err == &real_err)
         dbus_error_free (err);
 
+    va_end (args_demarshal);
     return success;
 }
 
@@ -203,7 +206,7 @@ dbind_emit_signal_va (DBusConnection *cnx,
 
     p = arg_types;
     dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, &args);
+    dbind_any_marshal_va (&iter, &p, args);
 
     if (!dbus_connection_send (cnx, msg, NULL))
        goto out;

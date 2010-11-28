@@ -434,7 +434,7 @@ dbind_any_marshal (DBusMessageIter *iter,
 void
 dbind_any_marshal_va (DBusMessageIter *iter,
                       const char           **arg_types,
-                      va_list          *args)
+                      va_list          args)
 {
     const char *p = *arg_types;
 
@@ -460,16 +460,16 @@ dbind_any_marshal_va (DBusMessageIter *iter,
             case DBUS_TYPE_UINT16:
             case DBUS_TYPE_INT32:
             case DBUS_TYPE_UINT32:
-                intarg = va_arg (*args, int);
+                intarg = va_arg (args, int);
                 arg = &intarg;
                 break;
             case DBUS_TYPE_INT64:
             case DBUS_TYPE_UINT64:
-                int64arg = va_arg (*args, dbus_int64_t);
+                int64arg = va_arg (args, dbus_int64_t);
                 arg = &int64arg;
                 break;
             case DBUS_TYPE_DOUBLE:
-                doublearg = va_arg (*args, double);
+                doublearg = va_arg (args, double);
                 arg = &doublearg;
                 break;
             /* ptr types */
@@ -478,21 +478,21 @@ dbind_any_marshal_va (DBusMessageIter *iter,
             case DBUS_TYPE_SIGNATURE:
             case DBUS_TYPE_ARRAY:
             case DBUS_TYPE_DICT_ENTRY:
-                ptrarg = va_arg (*args, void *);
+                ptrarg = va_arg (args, void *);
                 arg = &ptrarg;
                 break;
             case DBUS_STRUCT_BEGIN_CHAR:
-                ptrarg = va_arg (*args, void *);
+                ptrarg = va_arg (args, void *);
                 arg = ptrarg;
                 break;
             case DBUS_DICT_ENTRY_BEGIN_CHAR:
-                ptrarg = va_arg (*args, void *);
+                ptrarg = va_arg (args, void *);
                 arg = ptrarg;
                 break;
 
             case DBUS_TYPE_VARIANT:
                 fprintf (stderr, "No variant support yet - very toolkit specific\n");
-                ptrarg = va_arg (*args, void *);
+                ptrarg = va_arg (args, void *);
                 arg = &ptrarg;
                 break;
             default:
@@ -635,11 +635,65 @@ dbind_any_demarshal (DBusMessageIter *iter,
 void
 dbind_any_demarshal_va (DBusMessageIter *iter,
                         const char           **arg_types,
-                        va_list          *args)
+                        va_list          args)
 {
     const char *p = *arg_types;
+
+        /* Pass in args */
+    for (;*p != '\0' && *p != '=';) {
+        int intarg;
+        void *ptrarg;
+        double doublearg;
+        dbus_int64_t int64arg;
+        void *arg = NULL;
+
+        switch (*p) {
+        case DBUS_TYPE_BYTE:
+        case DBUS_TYPE_BOOLEAN:
+        case DBUS_TYPE_INT16:
+        case DBUS_TYPE_UINT16:
+        case DBUS_TYPE_INT32:
+        case DBUS_TYPE_UINT32:
+            intarg = va_arg (args, int);
+            break;
+        case DBUS_TYPE_INT64:
+        case DBUS_TYPE_UINT64:
+            int64arg = va_arg (args, dbus_int64_t);
+            break;
+        case DBUS_TYPE_DOUBLE:
+            doublearg = va_arg (args, double);
+            break;
+        /* ptr types */
+        case DBUS_TYPE_STRING:
+        case DBUS_TYPE_OBJECT_PATH:
+        case DBUS_TYPE_SIGNATURE:
+        case DBUS_TYPE_ARRAY:
+        case DBUS_TYPE_DICT_ENTRY:
+            ptrarg = va_arg (args, void *);
+            break;
+        case DBUS_STRUCT_BEGIN_CHAR:
+            ptrarg = va_arg (args, void *);
+            break;
+        case DBUS_DICT_ENTRY_BEGIN_CHAR:
+            ptrarg = va_arg (args, void *);
+            break;
+
+        case DBUS_TYPE_VARIANT:
+            fprintf (stderr, "No variant support yet - very toolkit specific\n");
+            ptrarg = va_arg (args, void *);
+            break;
+        default:
+            fprintf (stderr, "Unknown / invalid arg type %c\n", *p);
+            break;
+        }
+      p++;
+    }
+
+    if (p [0] == '=' && p[1] == '>')
+      p += 2;
+
     for (;*p != '\0';) {
-        void *arg = va_arg (*args, void *);
+        void *arg = va_arg (args, void *);
         dbind_any_demarshal (iter, &p, &arg);
     }
 }

@@ -11,8 +11,8 @@ void   dbind_any_marshal       (DBusMessageIter *iter,
                                 void           **val);
 
 void   dbind_any_marshal_va    (DBusMessageIter *iter,
-                                const const char           **arg_types,
-                                va_list          *args);
+                                const char           **arg_types,
+                                va_list          args);
 
 void   dbind_any_demarshal     (DBusMessageIter *iter,
                                 const char           **type,
@@ -20,7 +20,7 @@ void   dbind_any_demarshal     (DBusMessageIter *iter,
 
 void   dbind_any_demarshal_va  (DBusMessageIter *iter,
                                 const char           **arg_types,
-                                va_list          *args);
+                                va_list          args);
 
 void   dbind_any_free          (const char      *type,
                                 void            *ptr_to_ptr);

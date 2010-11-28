@@ -928,7 +928,7 @@ _atspi_dbus_call_partial_va (gpointer obj,
 
     p = type;
     dbus_message_iter_init_append (msg, &iter);
-    dbind_any_marshal_va (&iter, &p, &args);
+    dbind_any_marshal_va (&iter, &p, args);
 
     reply = dbind_send_and_allow_reentry (_atspi_bus(), msg, &err);
 out:
@@ -1013,15 +1013,8 @@ GHashTable *
 _atspi_dbus_hash_from_message (DBusMessage *message)
 {
   DBusMessageIter iter;
-  const char *signature;
 
-  signature = dbus_message_get_signature (message);
-
-  if (strcmp (signature, "a{ss}") != 0)
-    {
-      g_warning ("Trying to get hash from message of unexpected type %s\n", signature);
-      return NULL;
-    }
+  _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL);
 
   dbus_message_iter_init (message, &iter);
   return _atspi_dbus_hash_from_iter (&iter);
@@ -1039,6 +1032,7 @@ _atspi_dbus_hash_from_iter (DBusMessageIter *iter)
     const char *name, *value;
     dbus_message_iter_recurse (&iter_array, &iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &name);
+    dbus_message_iter_next (&iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &value);
     g_hash_table_insert (hash, g_strdup (name), g_strdup (value));
     dbus_message_iter_next (&iter_array);
@@ -1050,15 +1044,10 @@ GArray *
 _atspi_dbus_attribute_array_from_message (DBusMessage *message)
 {
   DBusMessageIter iter;
-  const char *signature;
 
-  signature = dbus_message_get_signature (message);
+  _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL);
 
-  if (strcmp (signature, "a{ss}") != 0)
-    {
-      g_warning ("Trying to get hash from message of unexpected type %s\n", signature);
-      return NULL;
-    }
+  dbus_message_iter_init (message, &iter);
 
   return _atspi_dbus_attribute_array_from_iter (&iter);
 }
@@ -1078,12 +1067,13 @@ _atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter)
     GArray *new_array;
     dbus_message_iter_recurse (&iter_array, &iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &name);
+    dbus_message_iter_next (&iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &value);
-    str = g_strdup_printf ("%s:;%s", name, value);
+    str = g_strdup_printf ("%s:%s", name, value);
     new_array = g_array_append_val (array, str);
     if (new_array)
       array = new_array;
-    dbus_message_iter_next (iter);;
+    dbus_message_iter_next (&iter_array);;
   }
   return array;
 }

@@ -41,14 +41,15 @@
 typedef struct _AtspiMatchRule AtspiMatchRule;
 struct _AtspiMatchRule
 {
+  GObject parent;
   AtspiStateSet *states;
   AtspiCollectionMatchType statematchtype;
   GHashTable *attributes;
   AtspiCollectionMatchType attributematchtype;
-  GArray *roles;
-  AtspiCollectionMatchType rolematchtype;
   GArray *interfaces;
   AtspiCollectionMatchType interfacematchtype;
+  gint roles [4];
+  AtspiCollectionMatchType rolematchtype;
   gboolean invert;
 };
 
@@ -58,6 +59,8 @@ struct _AtspiMatchRuleClass
   GObjectClass parent_class;
 };
 
+GType atspi_match_rule_get_type ();
+
 AtspiMatchRule *
 atspi_match_rule_new (AtspiStateSet *states,
                       AtspiCollectionMatchType statematchtype,
@@ -65,6 +68,8 @@ atspi_match_rule_new (AtspiStateSet *states,
                       AtspiCollectionMatchType attributematchtype,
                       GArray *roles,
                       AtspiCollectionMatchType rolematchtype,
+                      GArray *interfaces,
+                      AtspiCollectionMatchType interfacematchtype,
                       gboolean invert);
 
 gboolean

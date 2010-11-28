@@ -80,7 +80,7 @@ atspi_state_set_new (GArray *states)
 
   for (i = 0; i < states->len; i++)
     atspi_state_set_add (set, g_array_index (states, AtspiStateType, i));
-  return states;
+  return set;
 }
 
 AtspiStateSet *
@@ -154,7 +154,7 @@ void
 atspi_state_set_add (AtspiStateSet *set, AtspiStateType state)
 {
   g_return_if_fail (set != NULL);
-  set->states |= (1 << state);
+  set->states |= (((gint64)1) << state);
 }
 
 /**

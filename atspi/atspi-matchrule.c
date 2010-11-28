@@ -39,8 +39,6 @@ atspi_match_rule_finalize (GObject *obj)
     g_object_unref (rule->states);
   if (rule->attributes)
     g_hash_table_unref (rule->attributes);
-  if (rule->roles)
-    g_array_free (rule->roles, TRUE);
   /* TODO: Check that interfaces don't leak */
   if (rule->interfaces)
     g_array_free (rule->interfaces, TRUE);
@@ -64,14 +62,16 @@ atspi_match_rule_class_init (AtspiMatchRuleClass *klass)
  *              attributes to match.
  * @attributematchtype: An #AtspiCollectionMatchType specifying how to
  *                      interpret @attributes.
- * @roles: (element-type AtspiRole): A #GArray of roles to match, or NULL if
- *         not applicable.
  * @interfaces: (element-type gchar*): An array of interfaces to match, or
- *              NUL if not appliable.  Interface names should be specified
+ *              NUL if not applicable.  Interface names should be specified
  *              by their DBus names (org.a11y.Atspi.Accessible,
  *              org.a11y.Atspi.Component, etc).
  * @interfacematchtype: An #AtspiCollectionMatchType specifying how to
  *                      interpret @interfaces.
+ * @roles: (element-type AtspiRole): A #GArray of roles to match, or NULL if
+ *         not applicable.
+ * @rolematchtype: An #AtspiCollectionMatchType specifying how to
+ *                      interpret @roles.
  * @invert: Specifies whether results should be inverted.
  * TODO: Document this parameter better.
  *
@@ -84,9 +84,12 @@ atspi_match_rule_new (AtspiStateSet *states,
                       AtspiCollectionMatchType attributematchtype,
                       GArray *roles,
                       AtspiCollectionMatchType rolematchtype,
+                      GArray *interfaces,
+                      AtspiCollectionMatchType interfacematchtype,
                       gboolean invert)
 {
   AtspiMatchRule *rule = g_object_new (ATSPI_TYPE_MATCH_RULE, NULL);
+  int i;
 
   if (!rule)
     return NULL;
@@ -96,11 +99,26 @@ atspi_match_rule_new (AtspiStateSet *states,
   rule->statematchtype = statematchtype;
 
   if (attributes)
-    rule->attributes = g_object_ref (attributes);
+    rule->attributes = g_hash_table_ref (attributes);
     rule->attributematchtype = attributematchtype;
 
+  if (interfaces)
+    rule->interfaces = g_array_ref (interfaces);
+  rule->interfacematchtype = interfacematchtype;
+
   if (roles)
-    rule->roles = g_array_ref(roles);
+  {
+    for (i = 0; i < roles->len; i++)
+    {
+      AtspiRole role = g_array_index (roles, AtspiRole, i);
+      if (role < 128)
+        rule->roles [role / 32] |= (1 << (role % 32));
+      else
+        g_warning ("Atspi: unexpected role %d\n", role);
+    }
+  }
+  else
+    rule->roles [0] = rule->roles [1] = 0;
   rule->rolematchtype = rolematchtype;
 
   rule->invert = invert;
@@ -133,8 +151,9 @@ _atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter)
   dbus_uint32_t d_rolematchtype = rule->rolematchtype;
   dbus_bool_t d_invert = rule->invert;
   gint i;
+  dbus_int32_t d_role;
 
-  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, "(aiiasiaiisib)",
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_STRUCT, NULL,
                                          &iter_struct))
     return FALSE;
 
@@ -148,35 +167,49 @@ _atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter)
   {
     states [0] = states [1] = 0;
   }
-  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "u", &iter_array);
+  dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "i", &iter_array);
   dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &states [0]);
   dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &states [1]);
   dbus_message_iter_close_container (&iter_struct, &iter_array);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_statematchtype);
 
   /* attributes */
-  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_ARRAY, "{ss}",
+  if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "{ss}",
                                          &iter_dict))
     return FALSE;
   g_hash_table_foreach (rule->attributes, append_entry, &iter_dict);
-  dbus_message_iter_close_container (iter, &iter_dict);
+  dbus_message_iter_close_container (&iter_struct, &iter_dict);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_attributematchtype);
 
-  /* roles */
   if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "i",
       &iter_array))
     return FALSE;
-  if (rule->roles)
-  {
-    for (i = 0; i < rule->roles->len; i++)
-    {
-      dbus_int32_t d_role = g_array_index (rule->roles, AtspiRole, i);
-      dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
-    }
-  }
+  d_role = rule->roles [0];
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
+  d_role = rule->roles [1];
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
+  d_role = rule->roles [2];
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
+  d_role = rule->roles [3];
+  dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_INT32, &d_role);
   dbus_message_iter_close_container (&iter_struct, &iter_array);
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32,
                                   &d_rolematchtype);
+
+  /* interfaces */
+  if (!dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "s",
+      &iter_array))
+    return FALSE;
+  if (rule->interfaces)
+  {
+    for (i = 0; i < rule->interfaces->len; i++)
+    {
+      char *val = g_array_index (rule->interfaces, gchar *, i);
+      dbus_message_iter_append_basic (&iter_array, DBUS_TYPE_STRING, &val);
+    }
+  }
+  dbus_message_iter_close_container (&iter_struct, &iter_array);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_interfacematchtype);
 
   dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_BOOLEAN, &d_invert);
 

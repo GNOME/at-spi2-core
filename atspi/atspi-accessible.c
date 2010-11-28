@@ -30,6 +30,11 @@ atspi_action_interface_init (AtspiAction *action)
 }
 
 static void
+atspi_collection_interface_init (AtspiCollection *component)
+{
+}
+
+static void
 atspi_component_interface_init (AtspiComponent *component)
 {
 }
@@ -65,6 +70,7 @@ atspi_value_interface_init (AtspiValue *value)
 
 G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_ACTION, atspi_action_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COLLECTION, atspi_collection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_EDITABLE_TEXT, atspi_editable_text_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_IMAGE, atspi_image_interface_init)
@@ -388,22 +394,35 @@ typedef struct
  * Get the set of #AtspiRelation objects which describe this #AtspiAccessible object's
  *       relationships with other #AtspiAccessible objects.
  *
- * Returns: an array of #AtspiAccessibleRelation pointers. or NULL on exception
- * TODO:: Annotate array type
+ * Returns: (element-type AtspiAccessible*) (transfer full): an array of
+ *          #AtspiAccessibleRelation pointers. or NULL on exception
  **/
 GArray *
 atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
 {
-  int i;
-  int n_relations;
-  GArray *relation_set;
+  DBusMessage *reply;
+  DBusMessageIter iter, iter_array;
+  GArray *ret;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetRelationSet", error, "=>a(uao)", &relation_set))
-    return NULL;
+  reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetRelationSet", error, "");
+  _ATSPI_DBUS_CHECK_SIG (reply, "a(ua(so))", NULL);
 
-  return relation_set;
+  ret = g_array_new (TRUE, TRUE, sizeof (AtspiRelation *));
+  dbus_message_iter_init (reply, &iter);
+  dbus_message_iter_recurse (&iter, &iter_array);
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  {
+    GArray *new_array;
+    AtspiRelation *relation;
+    relation = _atspi_relation_new_from_iter (&iter_array);
+    new_array = g_array_append_val (ret, relation);
+    if (new_array)
+      ret = new_array;
+    dbus_message_iter_next (&iter_array);
+  }
+  return ret;
 }
 
 /**

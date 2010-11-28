@@ -64,19 +64,16 @@ append_match_rule (DBusMessage *message, AtspiMatchRule *rule)
   DBusMessageIter iter;
 
   dbus_message_iter_init_append (message, &iter);
-  return _atspi_match_rule_marshal (&iter, rule);
+  return _atspi_match_rule_marshal (rule, &iter);
 }
 
 static gboolean
 append_accessible (DBusMessage *message, AtspiAccessible *accessible)
 {
-  DBusMessageIter iter, iter_struct;
+  DBusMessageIter iter;
 
   dbus_message_iter_init_append (message, &iter);
-  dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL, &iter_struct);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_STRING,
-                                  &accessible->parent.app->bus_name);
-  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_OBJECT_PATH,
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_OBJECT_PATH,
                                   &accessible->parent.path);
 }
 
@@ -86,7 +83,7 @@ return_accessibles (DBusMessage *message)
   DBusMessageIter iter, iter_array;
   GArray *ret = g_array_new (TRUE, TRUE, sizeof (AtspiAccessible *));
 
-  _ATSPI_DBUS_CHECK_SIG (message, "(so)", NULL);
+  _ATSPI_DBUS_CHECK_SIG (message, "a(so)", NULL);
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
@@ -99,7 +96,7 @@ return_accessibles (DBusMessage *message)
     new_array = g_array_append_val (ret, accessible);
     if (new_array)
       ret = new_array;
-    dbus_message_iter_next (&iter_array);
+    /* Iter was moved already, so no need to call dbus_message_iter_next */
   }
   dbus_message_unref (message);
   return ret;
@@ -137,7 +134,7 @@ atspi_collection_get_matches (AtspiCollection *collection,
 
   if (!append_match_rule (message, rule))
     return NULL;
-  dbus_message_append_args (message, DBUS_TYPE_INT32, &d_sortby,
+  dbus_message_append_args (message, DBUS_TYPE_UINT32, &d_sortby,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
                             DBUS_TYPE_INVALID);
@@ -191,8 +188,8 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
     return NULL;
   if (!append_match_rule (message, rule))
     return NULL;
-  dbus_message_append_args (message, DBUS_TYPE_INT32, &d_sortby,
-                                     DBUS_TYPE_INT32, &d_tree,
+  dbus_message_append_args (message, DBUS_TYPE_UINT32, &d_sortby,
+                                     DBUS_TYPE_UINT32, &d_tree,
                             DBUS_TYPE_BOOLEAN, &d_recurse,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
@@ -244,8 +241,8 @@ atspi_collection_get_matches_from (AtspiCollection *collection,
     return NULL;
   if (!append_match_rule (message, rule))
     return NULL;
-  dbus_message_append_args (message, DBUS_TYPE_INT32, &d_sortby,
-                            DBUS_TYPE_INT32, &d_tree,
+  dbus_message_append_args (message, DBUS_TYPE_UINT32, &d_sortby,
+                            DBUS_TYPE_UINT32, &d_tree,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
                             DBUS_TYPE_INVALID);
