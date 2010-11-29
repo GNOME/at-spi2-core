@@ -29,6 +29,8 @@
 #include "atspi-types.h"
 #include "atspi-device-listener.h"
 
+GType atspi_key_definition_get_type ();
+
 gint atspi_get_desktop_count ();
 
 AtspiAccessible* atspi_get_desktop (gint i);
@@ -36,14 +38,14 @@ AtspiAccessible* atspi_get_desktop (gint i);
 GArray *atspi_get_desktop_list ();
 
 gboolean
-atspi_register_accessible_keystroke_listener (AtspiDeviceListener  *listener,
+atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
 					 GArray *key_set,
 					 AtspiKeyMaskType         modmask,
 					 AtspiKeyEventMask        event_types,
 					 AtspiKeyListenerSyncType sync_type, GError **error);
 
 gboolean
-atspi_deregister_accessible_keystroke_listener (AtspiDeviceListener *listener,
+atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
 					        AtspiKeyMaskType         modmask,
 					        AtspiKeyEventMask        event_types,
 					        GError **error);

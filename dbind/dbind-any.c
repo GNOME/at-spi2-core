@@ -630,6 +630,41 @@ dbind_any_demarshal (DBusMessageIter *iter,
     dbus_message_iter_next (iter);
 }
 
+static const char *
+pass_complex_arg (const char *p, char begin, char end)
+{
+  int level = 1;
+
+  p++;
+  while (*p && level > 0)
+  {
+    if (*p == begin)
+      level++;
+    else if (*p == end)
+      level--;
+    p++;
+  }
+  if (*p == end)
+    p++;
+  return p;
+}
+
+static const char *
+pass_arg (const char *p)
+{
+  switch (*p)
+  {
+  case '(':
+    return pass_complex_arg (p, '(', ')');
+  case '{':
+    return pass_complex_arg (p, '{', '}');
+  case 'a':
+    return pass_arg (p+1);
+  default:
+    return p + 1;
+  }
+}
+
 /*---------------------------------------------------------------------------*/
 
 void
@@ -686,7 +721,7 @@ dbind_any_demarshal_va (DBusMessageIter *iter,
             fprintf (stderr, "Unknown / invalid arg type %c\n", *p);
             break;
         }
-      p++;
+      p = pass_arg (p);
     }
 
     if (p [0] == '=' && p[1] == '>')

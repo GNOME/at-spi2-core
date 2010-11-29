@@ -20,6 +20,7 @@ typedef struct _SpiReentrantCallClosure
 {
   GMainLoop   *loop;
   DBusMessage *reply;
+  guint timeout;
 } SpiReentrantCallClosure;
 
 static void
@@ -29,6 +30,14 @@ set_reply (DBusPendingCall * pending, void *user_data)
 
   closure->reply = dbus_pending_call_steal_reply (pending);
   g_main_loop_quit (closure->loop);
+}
+
+gboolean
+main_loop_timeout (SpiReentrantCallClosure *closure)
+{
+  g_main_loop_quit (closure->loop);
+  /* Returning TRUE because caller will remove the timer */
+  return TRUE;
 }
 
 DBusMessage *
@@ -41,15 +50,20 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
               dbus_bus_get_unique_name (bus)) != 0)
     return dbus_connection_send_with_reply_and_block (bus, message, dbind_timeout, error);
 
+  /* TODO: Figure out why this isn't working */
+  return NULL;
   if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout))
       return NULL;
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
   closure.loop = g_main_loop_new (NULL, FALSE);
+  closure.reply = NULL;
   dbus_connection_setup_with_g_main(bus, NULL);
 
   if (1)
     {
+      closure.timeout = g_timeout_add_seconds (2, main_loop_timeout, &closure);
       g_main_loop_run  (closure.loop);
+      g_source_remove (closure.timeout);
     }
   else
     {

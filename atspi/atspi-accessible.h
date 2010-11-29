@@ -92,7 +92,11 @@ GHashTable * atspi_accessible_get_attributes (AtspiAccessible *obj, GError **err
 
 GArray * atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error);
 
-AtspiAccessible * atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error);
+gchar * atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error);
+
+gchar * atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error);
+
+AtspiAccessible * atspi_accessible_get_application (AtspiAccessible *obj, GError **error);
 
 AtspiAction * atspi_accessible_get_action (AtspiAccessible *obj);
 

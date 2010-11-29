@@ -27,6 +27,7 @@ typedef struct
 {
   AtspiDeviceListenerCB    callback;
   gpointer user_data;
+  GDestroyNotify callback_destroyed;
 } DeviceEventHandler;
 
 GObjectClass *device_parent_class;
@@ -38,14 +39,39 @@ static guint32 _e_id = 0;
  */
 
 static DeviceEventHandler *
-device_event_handler_new (AtspiDeviceListenerCB callback, gpointer user_data)
+device_event_handler_new (AtspiDeviceListenerCB callback,
+                          GDestroyNotify callback_destroyed,
+                          gpointer user_data)
 {
   DeviceEventHandler *eh = g_new0 (DeviceEventHandler, 1);
 
   eh->callback = callback;
+  eh->callback_destroyed = callback_destroyed;
   eh->user_data = user_data;
 
   return eh;
+}
+
+static gboolean
+device_remove_datum (const AtspiDeviceEvent *event, void *user_data)
+{
+  AtspiDeviceListenerSimpleCB cb = user_data;
+  return cb (event);
+}
+  
+static void
+device_event_handler_free (DeviceEventHandler *eh)
+{
+#if 0
+  /* TODO; Test this; it will probably crash with pyatspi for unknown reasons */
+  if (eh->callback_destroyed)
+  {
+    gpointer rea_callback = (eh->callback == device_remove_datum ?
+                            eh->user_data : eh->callback);
+    (*eh->callback_destroyed) (real_callback);
+  }
+#endif
+  g_free (eh);
 }
 
 static GList *
@@ -61,7 +87,7 @@ event_list_remove_by_cb (GList *list, AtspiDeviceListenerCB callback)
       if (eh->callback == callback)
       {
         list = g_list_delete_link (list, l);
-	g_free (eh);
+        device_event_handler_free (eh);
       }
     }
 
@@ -94,6 +120,31 @@ remove_listener (GObject *obj, gpointer data)
   device_listeners = g_list_remove (device_listeners, obj);
 }
 
+static AtspiDeviceEvent *
+atspi_device_event_copy (AtspiDeviceEvent *src)
+{
+  AtspiDeviceEvent *dst = g_new0 (AtspiDeviceEvent, 1);
+  if (!dst)
+    return NULL;
+  dst->type = src->type;
+  dst->id = src->id;
+  dst->hw_code = src->hw_code;
+  dst->modifiers = src->modifiers;
+  dst->timestamp = src->timestamp;
+  if (src->event_string)
+    dst->event_string = g_strdup (src->event_string);
+  dst->is_text = src->is_text;
+  return dst;
+}
+
+void
+atspi_device_event_free (AtspiDeviceEvent *event)
+{
+  if (event->event_string)
+    g_free (event->event_string);
+  g_free (event);
+}
+
 /* 
  * Device event handler
  */
@@ -102,7 +153,6 @@ atspi_device_event_dispatch (AtspiDeviceListener               *listener,
 		   const AtspiDeviceEvent *event)
 {
   GList *l;
-  AtspiDeviceEvent anevent;
   gboolean handled = FALSE;
 
   /* FIXME: re-enterancy hazard on this list */
@@ -110,7 +160,7 @@ atspi_device_event_dispatch (AtspiDeviceListener               *listener,
     {
       DeviceEventHandler *eh = l->data;
 
-      if ((handled = eh->callback (&anevent, eh->user_data)))
+      if ((handled = eh->callback (atspi_device_event_copy (event), eh->user_data)))
         {
 	  break;
 	}
@@ -140,7 +190,7 @@ atspi_device_listener_finalize (GObject *object)
   
   for (l = listener->callbacks; l; l = l->next)
     {
-      g_free (l->data);
+      device_event_handler_free (l->data);
     }
   
   g_list_free (listener->callbacks);
@@ -164,8 +214,10 @@ G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener,
 
 /**
  * atspi_device_listener_new:
- * @callback: (scope call): an #AtspiDeviceListenerCB callback function,
+ * @callback: (scope notify): an #AtspiDeviceListenerCB callback function,
  *            or NULL.
+ * @callback_destroyed: A #GDestroyNotify called when the listener is freed
+ * and data associated with the callback should be freed.  Can be NULL.
  * @user_data: (closure): a pointer to data which will be passed to the
  * callback when invoked.
  *
@@ -175,19 +227,46 @@ G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener,
  *
  **/
 AtspiDeviceListener *
-atspi_device_listener_new (AtspiDeviceListenerCB callback)
+atspi_device_listener_new (AtspiDeviceListenerCB callback,
+                           GDestroyNotify callback_destroyed,
+                           void *user_data)
 {
   AtspiDeviceListener *listener = g_object_new (atspi_device_listener_get_type (), NULL);
 
+  if (callback)
+    atspi_device_listener_add_callback (listener, callback, callback_destroyed,
+                                       user_data);
   return listener;
+}
+
+/**
+ * atspi_device_listener_new_simple:
+ * @callback: (scope notify): an #AtspiDeviceListenerCB callback function,
+ *            or NULL.
+ * @callback_destroyed: A #GDestroyNotify called when the listener is freed
+ * and data associated with the callback should be freed.  Can be NULL.
+ *
+ * Create a new #AtspiDeviceListener with a specified callback function.
+ * Like atspi_device_listener_new, but callback takes no user data.
+ *
+ * Returns: a pointer to a newly-created #AtspiDeviceListener.
+ *
+ **/
+AtspiDeviceListener *
+atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
+                           GDestroyNotify callback_destroyed)
+{
+  return atspi_device_listener_new (device_remove_datum, callback_destroyed, callback);
 }
 
 /**
  * atspi_device_listener_add_callback:
  * @listener: the #AtspiDeviceListener instance to modify.
- * @callback: (scope call): an #AtspiDeviceListenerCB function pointer.
+ * @callback: (scope notify): an #AtspiDeviceListenerCB function pointer.
  * @user_data: (closure): a pointer to data which will be passed to the
  *             callback when invoked.
+ * @callback_destroyed: A #GDestroyNotify called when the listener is freed
+ * and data associated with the callback should be freed.  Can be NULL.
  *
  * Add an in-process callback function to an existing #AtspiDeviceListener.
  *
@@ -197,12 +276,22 @@ atspi_device_listener_new (AtspiDeviceListenerCB callback)
 void
 atspi_device_listener_add_callback (AtspiDeviceListener  *listener,
 			     AtspiDeviceListenerCB callback,
+			     GDestroyNotify callback_destroyed,
 			     void                      *user_data)
 {
   g_return_if_fail (ATSPI_IS_DEVICE_LISTENER (listener));
+  DeviceEventHandler *new_handler;
 
-  listener->callbacks = g_list_prepend (listener->callbacks,
-					device_event_handler_new ((void *)callback, user_data));
+  new_handler = device_event_handler_new (callback,
+                                          callback_destroyed, user_data);
+
+  if (new_handler)
+  {
+    GList *new_list;
+    new_list = g_list_prepend (listener->callbacks, new_handler);
+    if (new_list)
+      listener->callbacks = new_list;
+  }
 }
 
 /**
@@ -329,3 +418,8 @@ _atspi_device_listener_get_path (AtspiDeviceListener *listener)
 {
   return g_strdup_printf ("/org/a11y/atspi/listeners/%d", listener->id);
 }
+
+G_DEFINE_BOXED_TYPE (AtspiDeviceEvent,
+                     atspi_device_event,
+                     atspi_device_event_copy,
+                     atspi_device_event_free)

@@ -72,7 +72,4 @@ atspi_match_rule_new (AtspiStateSet *states,
                       AtspiCollectionMatchType interfacematchtype,
                       gboolean invert);
 
-gboolean
-_atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter);
-
 #endif	/* _ATSPI_MATCH_RULE_H_ */

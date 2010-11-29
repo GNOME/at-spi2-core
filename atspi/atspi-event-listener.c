@@ -132,6 +132,7 @@ atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
   callback_ref (remove_datum, callback_destroyed);
   listener->user_data = callback;
   listener->cb_destroyed = callback_destroyed;
+  return listener;
 }
 
 static GList *event_listeners = NULL;
@@ -271,6 +272,7 @@ strdup_and_adjust_for_dbus (const char *s)
 {
   gchar *d = g_strdup (s);
   gchar *p;
+  int parts = 0;
 
   if (!d)
     return NULL;
@@ -284,6 +286,9 @@ strdup_and_adjust_for_dbus (const char *s)
     }
     else if (*p == ':')
     {
+      parts++;
+      if (parts == 2)
+        break;
       p [1] = toupper (p [1]);
     }
   }
@@ -667,6 +672,28 @@ atspi_event_listener_deregister_no_data (AtspiEventListenerSimpleCB callback,
                                                         event_type);
 }
 
+static AtspiEvent *
+atspi_event_copy (AtspiEvent *src)
+{
+  AtspiEvent *dst = g_new0 (AtspiEvent, 1);
+  dst->type = g_strdup (src->type);
+  dst->source = g_object_ref (src->source);
+  dst->detail1 = src->detail1;
+  dst->detail2 = src->detail2;
+  dst->any_data.g_type = src->any_data.g_type;
+  g_value_copy (&dst->any_data, &src->any_data);
+  return dst;
+}
+
+static void
+atspi_event_free (AtspiEvent *event)
+{
+  g_object_unref (event->source);
+  g_free (event->type);
+  g_value_unset (&event->any_data);
+  g_free (event);
+}
+
 void
 _atspi_send_event (AtspiEvent *e)
 {
@@ -676,7 +703,10 @@ _atspi_send_event (AtspiEvent *e)
   /* Ensure that the value is set to avoid a Python exception */
   /* TODO: Figure out how to do this without using a private field */
   if (e->any_data.g_type == 0)
+  {
+    g_value_init (&e->any_data, G_TYPE_INT);
     g_value_set_int (&e->any_data, 0);
+  }
 
   if (!convert_event_type_to_dbus (e->type, &category, &name, &detail, NULL))
   {
@@ -690,7 +720,7 @@ _atspi_send_event (AtspiEvent *e)
         (entry->name == NULL || !strcmp (name, entry->name)) &&
         (entry->detail == NULL || !strcmp (detail, entry->detail)))
     {
-        entry->callback (e, entry->user_data);
+        entry->callback (atspi_event_copy (e), entry->user_data);
     }
   }
   if (detail) g_free (detail);
@@ -785,6 +815,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     case DBUS_TYPE_STRING:
     {
       dbus_message_iter_get_basic (&iter_variant, &p);
+      g_value_init (&e.any_data, G_TYPE_STRING);
       g_value_set_string (&e.any_data, p);
       break;
     }
@@ -812,25 +843,6 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   g_object_unref (e.source);
   g_value_unset (&e.any_data);
   return DBUS_HANDLER_RESULT_HANDLED;
-}
-
-static AtspiEvent *
-atspi_event_copy (AtspiEvent *src)
-{
-  AtspiEvent *dst = g_new0 (AtspiEvent, 1);
-  dst->type = g_strdup (src->type);
-  dst->detail1 = src->detail1;
-  dst->detail2 = src->detail2;
-  g_value_copy (&dst->any_data, &src->any_data);
-}
-
-static void
-atspi_event_free (AtspiEvent *event)
-{
-  g_object_unref (event->source);
-  g_free (event->type);
-  g_value_unset (&event->any_data);
-  g_free (event);
 }
 
 G_DEFINE_BOXED_TYPE (AtspiEvent, atspi_event, atspi_event_copy, atspi_event_free)

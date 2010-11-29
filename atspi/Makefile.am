@@ -43,6 +43,7 @@ libatspi_la_SOURCES =		\
 	atspi-image.h \
 	atspi-matchrule.c \
 	atspi-matchrule.h \
+	atspi-matchrule-private.h \
 	atspi-misc.c \
 	atspi-misc.h \
 	atspi-misc-private.h \

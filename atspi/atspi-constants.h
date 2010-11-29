@@ -494,7 +494,7 @@ typedef enum {
     ATSPI_MODIFIER_META2,
     ATSPI_MODIFIER_META3,
     ATSPI_MODIFIER_NUMLOCK,
-} AtspimodifierType;
+} AtspiModifierType;
 
 /**
  * ATSPI_MODIFIERTYPE_COUNT:

@@ -22,14 +22,15 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef _ATSPI_PRIVATE_H_
-#define _ATSPI_PRIVATE_H_
+#ifndef _ATSPI_MATCH_RULE_PRIVATE_H_
+#define _ATSPI_MATCH_RULE_PRIVATE_H_
 
-#include "atspi-device-listener-private.h"
-#include "atspi-event-listener-private.h"
-#include "atspi-matchrule-private.h"
-#include "atspi-misc-private.h"
+#include "glib-object.h"
 
-#include "atspi.h"
+#include "atspi-matchrule.h"
+#include "dbus/dbus.h"
 
-#endif	/* _ATSPI_PRIVATE_H_ */
+gboolean
+_atspi_match_rule_marshal (AtspiMatchRule *rule, DBusMessageIter *iter);
+
+#endif	/* _ATSPI_MATCH_RULE_PRIVATE_H_ */

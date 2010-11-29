@@ -29,9 +29,11 @@
 
 #include "atspi-types.h"
 
+GType atspi_event_get_type (void);
+
 /**
  * AtspiEventListenerCB:
- * @event: The event for which notification is sent.
+ * @event: (transfer full): The event for which notification is sent.
  * @user_data: User data which is passed to the callback each time a notification takes place.
  *
  * A function prototype for callbacks via which clients are notified of AT-SPI events.
@@ -42,7 +44,7 @@ typedef void       (*AtspiEventListenerCB)     (const AtspiEvent     *event,
 
 /**
  * AtspiEventListenerSimpleCB:
- * @event: The event for which notification is sent.
+ * @event: (transfer full): The event for which notification is sent.
  *
  * Like #AtspiEventlistenerCB, but with no user_data.
  * 

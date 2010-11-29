@@ -624,10 +624,9 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   {
     return atspi_dbus_handle_event (bus, message, data);
   }
-  if (dbus_message_is_method_call (message, atspi_interface_device_event_listener, "notifyEvent"))
+  if (dbus_message_is_method_call (message, atspi_interface_device_event_listener, "NotifyEvent"))
   {
-    g_warning ("atspi: TODO: DeviceEvent");
-    //return handle_device_event (bus, message, data);
+    return atspi_dbus_handle_DeviceEvent (bus, message, data);
   }
   if (dbus_message_is_signal (message, atspi_interface_cache, "AddAccessible"))
   {

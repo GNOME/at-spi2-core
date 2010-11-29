@@ -87,16 +87,16 @@ atspi_get_desktop_list ()
 
 /**
  * ATSPI_KEYSET_ALL_KEYS:
- * @ATSPI_KEYSET_ALL_KEYS: A special value for an AccessibleKeySet type, which tacitly
+ * @ATSPI_KEYSET_ALL_KEYS: A special value for an AtspiKeySet type, which tacitly
  *                       includes all keycodes and keyvals for the specified modifier set.
  **/
 
 /**
- * atspi_register_accessible_keystroke_listener:
- * @listener:  a pointer to the #AccessibleKeystrokeListener for which
+ * atspi_register_keystroke_listener:
+ * @listener:  a pointer to the #AtspiDeviceListener for which
  *             keystroke events are requested.
- * @key_set: (type: AtspiKeyDefinition): a pointer to the
- *        #AccessibleKeyDefinition array indicating which keystroke events are requested, or #ATSPI_KEYSET_ALL_KEYS
+ * @key_set: (element-type AtspiKeyDefinition): a pointer to the
+ *        #AtspiKeyDefinition array indicating which keystroke events are requested, or #ATSPI_KEYSET_ALL_KEYS
  *             to indicate that all keycodes and keyvals for the specified
  *             modifier set are to be included.
  * @modmask:   an #AtspiKeyMaskType mask indicating which
@@ -104,7 +104,7 @@ atspi_get_desktop_list ()
  *             events will only be reported for key events for which all
  *             modifiers in @modmask are set.  If you wish to listen for
  *             events with multiple modifier combinations you must call
- *             register_accessible_keystroke_listener() once for each
+ *             register_keystroke_listener() once for each
  *             combination.
  * @eventmask: an #AtspiKeyMaskType mask indicating which
  *             types of key events are requested (#ATSPI_KEY_PRESSED, etc.).
@@ -122,7 +122,7 @@ atspi_get_desktop_list ()
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 gboolean
-atspi_register_accessible_keystroke_listener (AtspiDeviceListener  *listener,
+atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
 					 GArray             *key_set,
 					 AtspiKeyMaskType         modmask,
 					 AtspiKeyEventMask        event_types,
@@ -178,15 +178,15 @@ atspi_register_accessible_keystroke_listener (AtspiDeviceListener  *listener,
     dbus_error_init (&d_error);
     dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "RegisterKeystrokeListener", &d_error, "oa(iisi)uu(bbb)=>b", path, d_key_set, d_modmask, d_event_types, &listener_mode, &retval);
 
-  g_array_free (key_set, TRUE);
+  g_array_free (d_key_set, TRUE);
   g_free (path);
 
   return retval;
 }
 
 /**
- * atspi_deregister_accessible_keystroke_listener:
- * @listener: a pointer to the #AccessibleKeystrokeListener for which
+ * atspi_deregister_keystroke_listener:
+ * @listener: a pointer to the #AtspiDeviceListener for which
  *            keystroke events are requested.
  * @modmask:  the key modifier mask for which this listener is to be
  *            'deregistered' (of type #AtspiKeyMaskType).
@@ -197,7 +197,7 @@ atspi_register_accessible_keystroke_listener (AtspiDeviceListener  *listener,
  * Returns: #TRUE if successful, otherwise #FALSE.
  **/
 gboolean
-atspi_deregister_accessible_keystroke_listener (AtspiDeviceListener *listener,
+atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
 					   AtspiKeyMaskType        modmask, AtspiKeyEventMask event_types, GError **error)
 {
   gchar *path = _atspi_device_listener_get_path (listener);
@@ -295,7 +295,7 @@ atspi_deregister_device_event_listener (AtspiDeviceListener *listener,
  *           being synthesized; this type of keyboard event synthesis does
  *           not emulate hardware keypresses but injects the string 
  *           as though a composing input method (such as XIM) were used.
- * @synth_type: a #AccessibleKeySynthType flag indicating whether @keyval
+ * @synth_type: a #AtspiKeySynthType flag indicating whether @keyval
  *           is to be interpreted as a keysym rather than a keycode
  *           (ATSPI_KEYSYM), or whether to synthesize
  *           ATSPI_KEY_PRESS, ATSPI_KEY_RELEASE, or both (ATSPI_KEY_PRESSRELEASE).
@@ -347,3 +347,29 @@ atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
     dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "GenerateMouseEvent", &d_error, "iis", x, y, name);
   return TRUE;
 }
+
+AtspiKeyDefinition *
+atspi_key_definition_copy (AtspiKeyDefinition *src)
+{
+  AtspiKeyDefinition *dst;
+
+  dst = g_new0 (AtspiKeyDefinition, 1);
+  if (!dst)
+    return NULL;
+  dst->keycode = src->keycode;
+  dst->keysym = src->keysym;
+  if (src->keystring)
+    dst->keystring = g_strdup (src->keystring);
+  dst->unused = src->unused;
+  return dst;
+}
+
+void
+atspi_key_definition_free (AtspiKeyDefinition *kd)
+{
+  if (kd->keystring)
+    g_free (kd->keystring);
+  g_free (kd);
+}
+
+G_DEFINE_BOXED_TYPE (AtspiKeyDefinition, atspi_key_definition, atspi_key_definition_copy, atspi_key_definition_free)

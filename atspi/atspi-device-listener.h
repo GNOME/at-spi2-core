@@ -31,7 +31,8 @@
 
 /**
  * AtspiDeviceListenerCB:
- * @stroke: The #AtspiDeviceEvent for which notification is being received.
+ * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is
+ *          being received.
  * @user_data: Data which is passed to the client each time this callback is notified.
  *
  * A callback function prototype via which clients receive device event notifications.
@@ -41,6 +42,18 @@
  **/
 typedef gboolean (*AtspiDeviceListenerCB)    (const AtspiDeviceEvent *stroke,
 						     void                      *user_data);
+
+/**
+ * AtspiDeviceListenerSimpleCB:
+ * @stroke: (transfer full): The #AtspiDeviceEvent for which notification is
+ *          being received.
+ *
+ * Like #AtspiDeviceListenerCB but with no user data.
+ *
+ * Returns: %TRUE if the client wishes to consume/preempt the event, preventing it from being
+ * relayed to the currently focussed application, %FALSE if the event delivery should proceed as normal.
+ **/
+typedef gboolean (*AtspiDeviceListenerSimpleCB)    (const AtspiDeviceEvent *stroke);
 
 #define ATSPI_TYPE_DEVICE_LISTENER                        (atspi_device_listener_get_type ())
 #define ATSPI_DEVICE_LISTENER(obj)                        (G_TYPE_CHECK_INSTANCE_CAST ((obj), ATSPI_TYPE_DEVICE_LISTENER, AtspiDeviceListener))
@@ -66,9 +79,11 @@ struct _AtspiDeviceListenerClass
 
 GType atspi_device_listener_get_type (void);
 
-AtspiDeviceListener *atspi_device_listener_new (AtspiDeviceListenerCB callback);
+AtspiDeviceListener *atspi_device_listener_new (AtspiDeviceListenerCB callback, GDestroyNotify callback_destroyed, void *user_data);
 
-void atspi_device_listener_add_callback (AtspiDeviceListener  *listener, AtspiDeviceListenerCB callback, void                      *user_data);
+AtspiDeviceListener *atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback, GDestroyNotify callback_destroyed);
+
+void atspi_device_listener_add_callback (AtspiDeviceListener *listener, AtspiDeviceListenerCB callback, GDestroyNotify callback_destroyed, void *user_data);
 
 void atspi_device_listener_remove_callback (AtspiDeviceListener  *listener, AtspiDeviceListenerCB callback);
 #endif	/* _ATSPI_DEVICE_LISTENER_H_ */

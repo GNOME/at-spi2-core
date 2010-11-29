@@ -233,7 +233,8 @@ atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
   g_return_val_if_fail (obj != NULL, NULL);
   if (!(obj->cached_properties & ATSPI_CACHE_NAME))
   {
-    if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", NULL, "s", &obj->name))
+    if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", error,
+                                   "s", &obj->name))
       return NULL;
     obj->cached_properties |= ATSPI_CACHE_NAME;
   }
@@ -511,7 +512,7 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
 AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)
 {
-  return obj->states;
+  return g_object_ref (obj->states);
 }
 
 /**
@@ -562,12 +563,13 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
   ret = _atspi_dbus_attribute_array_from_message (message);
-  dbus_message_unref (message);
+  if (message)
+    dbus_message_unref (message);
   return ret;
 }
 
 /**
- * atspi_accessible_get_host_application:
+ * atspi_accessible_get_application:
  * @obj: The #AtspiAccessible being queried.
  *
  * Get the containing #AtspiApplication for an object.
@@ -576,7 +578,7 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
  *          this object.
  */
 AtspiAccessible *
-atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error)
+atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
 {
   AtspiAccessible *parent;
 
@@ -585,11 +587,56 @@ atspi_accessible_get_host_application (AtspiAccessible *obj, GError **error)
     parent = atspi_accessible_get_parent (obj, NULL);
     if (!parent || parent == obj ||
         atspi_accessible_get_role (parent, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
-    return obj;
+    return g_object_ref (obj);
     obj = parent;
   }
 }
 
+/* Applicatio-specific methods */
+
+/**
+ * atspi_accessible_get_toolkit_name:
+ * @obj: a pointer to the #AtspiAccessible object on which to operate.
+ *
+ * Get the toolkit for a #AtspiAccessible object.
+ * Only works on application root objects.
+ *
+ * Returns: a UTF-8 string indicating the toolkit name for the #AtspiAccessible object.
+ * or NULL on exception
+ **/
+gchar *
+atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
+{
+  gchar *ret = NULL;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitName", error, "s", &ret))
+      return NULL;
+  return g_strdup (ret);
+}
+
+/**
+ * atspi_accessible_get_toolkit_version:
+ * @obj: a pointer to the #AtspiAccessible object on which to operate.
+ *
+ * Get the toolkit version for a #AtspiAccessible object.
+ * Only works on application root objects.
+ *
+ * Returns: a UTF-8 string indicating the toolkit ersion for the #AtspiAccessible object.
+ * or NULL on exception
+ **/
+gchar *
+atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
+{
+  gchar *ret = NULL;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitVersion", error, "s", &ret))
+      return NULL;
+  return g_strdup (ret);
+}
 /* Interface query methods */
 
 /**
@@ -807,22 +854,6 @@ atspi_accessible_is_value (AtspiAccessible *obj)
 {
   return _atspi_accessible_is_a (obj,
 			      atspi_interface_value);
-}
-
-/**
- * atspi_accessible_get_application:
- * @obj: a pointer to the #AtspiAccessible instance to query.
- *
- * Get the #AtspiApplication interface for an #AtspiAccessible.
- *
- * Returns: a pointer to an #AtspiApplication interface instance, or
- *          NULL if @obj does not implement #AtspiApplication.
- **/
-AtspiApplication *
-atspi_accessible_get_application (AtspiAccessible *accessible)
-{
-  return (_atspi_accessible_is_a (accessible, atspi_interface_application) ?
-          g_object_ref (ATSPI_ACTION (accessible)) : NULL);  
 }
 
 /**
