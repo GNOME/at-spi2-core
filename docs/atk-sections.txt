@@ -262,6 +262,7 @@ atk_relation_new
 atk_relation_get_relation_type
 atk_relation_get_target
 atk_relation_add_target
+atk_relation_remove_target
 <SUBSECTION Standard>
 ATK_RELATION
 ATK_IS_RELATION
@@ -547,6 +548,12 @@ atk_get_root
 atk_get_focus_object
 atk_get_toolkit_name
 atk_get_toolkit_version
+atk_get_version
+ATK_DEFINE_TYPE
+ATK_DEFINE_TYPE_EXTENDED
+ATK_DEFINE_TYPE_WITH_CODE
+ATK_DEFINE_ABSTRACT_TYPE
+ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE
 <SUBSECTION Standard>
 ATK_UTIL
 ATK_IS_UTIL
@@ -577,6 +584,8 @@ ATK_MISC_CLASS
 ATK_IS_MISC_CLASS
 ATK_MISC_GET_CLASS
 AtkMiscClass
+atk_misc_get_type
+atk_misc_instance
 </SECTION>
 
 <SECTION>

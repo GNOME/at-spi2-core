@@ -389,8 +389,9 @@ atk_get_toolkit_version (void)
  * Gets the current version for ATK.
  *
  * Returns: version string for ATK
- **/
-
+ *
+ * Since: 1.20
+ */
 G_CONST_RETURN gchar *
 atk_get_version (void)
 {
