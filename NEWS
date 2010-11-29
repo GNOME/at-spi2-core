@@ -1,3 +1,8 @@
+What's new in at-spi2-atk 1.91.3:
+
+* Attributes in a collection match rule are now expected to be sent as a
+  dictionary.
+
 What's new in at-spi2-atk 1.91.2:
 
 * FIxed BGO#563546: Removed the g_atexit hook.
