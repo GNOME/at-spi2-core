@@ -108,7 +108,7 @@ BUILT_SOURCES = atkmarshal.h atkmarshal.c atk-enum-types.h atk-enum-types.c
 atkmarshal.h: stamp-atkmarshal.h
 	@true
 stamp-atkmarshal.h: @REBUILD@ atkmarshal.list
-	$(GLIB_GENMARSHAL) --prefix=atk_marshal $(srcdir)/atkmarshal.list --header >> xgen-gmh \
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=atk_marshal $(srcdir)/atkmarshal.list --header >> xgen-gmh \
 	&& (cmp -s xgen-gmh atkmarshal.h || cp xgen-gmh atkmarshal.h) \
 	&& rm -f xgen-gmh xgen-gmh~					\
 	&& echo timestamp > $(@F)
@@ -116,7 +116,7 @@ stamp-atkmarshal.h: @REBUILD@ atkmarshal.list
 atkmarshal.c: stamp-atkmarshal.c
 	@true
 stamp-atkmarshal.c: @REBUILD@ atkmarshal.list
-	$(GLIB_GENMARSHAL) --prefix=atk_marshal $(srcdir)/atkmarshal.list --body >> xgen-gmc \
+	$(AM_V_GEN) $(GLIB_GENMARSHAL) --prefix=atk_marshal $(srcdir)/atkmarshal.list --body >> xgen-gmc \
 	&& (cmp -s xgen-gmc atkmarshal.c || cp xgen-gmc atkmarshal.c) \
 	&& rm -f xgen-gmc xgen-gmc~					\
 	&& echo timestamp > $(@F)
@@ -124,7 +124,7 @@ stamp-atkmarshal.c: @REBUILD@ atkmarshal.list
 atk-enum-types.h: s-enum-types-h
 	@true
 s-enum-types-h: @REBUILD@ $(atk_headers) Makefile
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
+	$(AM_V_GEN) ( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#if defined(ATK_DISABLE_SINGLE_INCLUDES) && !defined (__ATK_H_INSIDE__) && !defined (ATK_COMPILATION)\n#error \"Only <atk/atk.h> can be included directly.\"\n#endif\n\n#ifndef __ATK_ENUM_TYPES_H__\n#define __ATK_ENUM_TYPES_H__\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n" \
 			--fprod "/* enumerations from \"@filename@\" */\n" \
 			--vhead "GType @enum_name@_get_type (void);\n#define ATK_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n"         \
@@ -137,7 +137,7 @@ s-enum-types-h: @REBUILD@ $(atk_headers) Makefile
 atk-enum-types.c: s-enum-types-c
 	@true
 s-enum-types-c: @REBUILD@ $(atk_headers) Makefile
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
+	$(AM_V_GEN) ( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#include <atk.h>" \
 			--fprod "\n/* enumerations from \"@filename@\" */" \
 			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {"     \
