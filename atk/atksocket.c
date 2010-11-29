@@ -64,6 +64,8 @@ atk_socket_new (void)
  *
  * Embeds the children of an #AtkPlug as the children of the #AtkSocket.  The
  * plug may be in the same process or in a different process.
+ *
+ * Since: 1.30
  **/
 void
 atk_socket_embed (AtkSocket* obj, gchar* plug_id)
@@ -90,6 +92,8 @@ atk_socket_embed (AtkSocket* obj, gchar* plug_id)
  * Determines whether or not the socket has an embedded plug.
  *
  * Returns: TRUE if a plug is embedded in the socket
+ *
+ * Since: 1.30
  **/
 gboolean
 atk_socket_is_occupied (AtkSocket* obj)

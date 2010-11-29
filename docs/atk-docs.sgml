@@ -12,12 +12,14 @@
   <!ENTITY atk-AtkImage SYSTEM "xml/atkimage.xml">
   <!ENTITY atk-AtkNoOpObject SYSTEM "xml/atknoopobject.xml">
   <!ENTITY atk-AtkNoOpObjectFactory SYSTEM "xml/atknoopobjectfactory.xml">
+  <!ENTITY atk-AtkPlug SYSTEM "xml/atkplug.xml">
   <!ENTITY atk-AtkObject SYSTEM "xml/atkobject.xml">
   <!ENTITY atk-AtkObjectFactory SYSTEM "xml/atkobjectfactory.xml">
   <!ENTITY atk-AtkRegistry SYSTEM "xml/atkregistry.xml">
   <!ENTITY atk-AtkRelation SYSTEM "xml/atkrelation.xml">
   <!ENTITY atk-AtkRelationSet SYSTEM "xml/atkrelationset.xml">
   <!ENTITY atk-AtkSelection SYSTEM "xml/atkselection.xml">
+  <!ENTITY atk-AtkSocket SYSTEM "xml/atksocket.xml">
   <!ENTITY atk-AtkState SYSTEM "xml/atkstate.xml">
   <!ENTITY atk-AtkStateSet SYSTEM "xml/atkstateset.xml">
   <!ENTITY atk-AtkStreamableContent SYSTEM "xml/atkstreamablecontent.xml">
@@ -50,10 +52,12 @@
     &atk-AtkNoOpObjectFactory;
     &atk-AtkObject;
     &atk-AtkObjectFactory;
+    &atk-AtkPlug;
     &atk-AtkRegistry;
     &atk-AtkRelation;
     &atk-AtkRelationSet;
     &atk-AtkSelection;
+    &atk-AtkSocket;
     &atk-AtkState;
     &atk-AtkStateSet;
     &atk-AtkStreamableContent;

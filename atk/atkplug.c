@@ -65,6 +65,8 @@ atk_plug_new (void)
  * of an #AtkSocket using atk_socket_embed().
  *
  * Returns: the unique ID for the plug
+ *
+ * Since: 1.30
  **/
 gchar*
 atk_plug_get_id (AtkPlug* obj)
