@@ -255,10 +255,77 @@ G_CONST_RETURN gchar *atk_get_version (void);
  *                                     G_IMPLEMENT_INTERFACE (ATK_TYPE_TABLE, gtk_gadget_accessible_table_iface_init))
  */
 
+/**
+ * ATK_DEFINE_TYPE:
+ * @TN: The name of the new type, in Camel case.
+ * @t_n: The name of the new type, in lowercase, with words separated by '_'.
+ * @T_P: The #GType of the parent type.
+ *
+ * A convenience macro for type ATK implementations, which declares a class
+ * initialization function, an instance initialization function (see #GTypeInfo
+ * for information about these) and a static variable named
+ * @t_n _parent_class pointing to the parent class. Furthermore, it
+ * defines a _get_type() function.
+ *
+ * Since: 1.22
+ */
 #define ATK_DEFINE_TYPE(TN, t_n, T_P)			       ATK_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, 0, {})
+
+/**
+ * ATK_DEFINE_TYPE_WITH_CODE:
+ * @TN: The name of the new type, in Camel case.
+ * @t_n: The name of the new type in lowercase, with words separated by '_'.
+ * @T_P: The #GType of the parent type.
+ * @_C_: Custom code that gets inserted in the _get_type() function.
+ *
+ * A convenience macro for ATK type implementations.
+ * Similar to ATK_DEFINE_TYPE(), but allows you to insert custom code into the
+ * _get_type() function, e.g. interface implementations via G_IMPLEMENT_INTERFACE().
+ *
+ * Since: 1.22
+ */
 #define ATK_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)	      _ATK_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, 0) {_C_;} _ATK_DEFINE_TYPE_EXTENDED_END()
+
+/**
+ * ATK_DEFINE_ABSTRACT_TYPE:
+ * @TN: The name of the new type, in Camel case.
+ * @t_n: The name of the new type, in lowercase, with words separated by '_'.
+ * @T_P: The #GType of the parent type.
+ *
+ * A convenience macro for ATK type implementations.
+ * Similar to ATK_DEFINE_TYPE(), but defines an abstract type.
+ *
+ * Since: 1.22
+ */
 #define ATK_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P)		       ATK_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, {})
+
+/**
+ * ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE:
+ * @TN: The name of the new type, in Camel case.
+ * @t_n: The name of the new type, in lowercase, with words separated by '_'.
+ * @T_P: The #GType of the parent type.
+ * @_C_: Custom code that gets inserted in the _get_type() function.
+ *
+ * A convenience macro for ATK type implementations.
+ * Similar to ATK_DEFINE_TYPE_WITH_CODE(), but defines an abstract type.
+ *
+ * Since: 1.22
+ */
 #define ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_) _ATK_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT) {_C_;} _ATK_DEFINE_TYPE_EXTENDED_END()
+
+/**
+ * ATK_DEFINE_TYPE_EXTENDED:
+ * @TN: The name of the new type, in Camel case.
+ * @t_n: The name of the new type, in lowercase, with words separated by '_'.
+ * @T_P: The #GType of the parent type.
+ * @_f_: #GTypeFlags to pass to g_type_register_static()
+ * @_C_: Custom code that gets inserted in the _get_type() function.
+ *
+ * The most general convenience macro for ATK type implementations, on which
+ * ATK_DEFINE_TYPE(), etc are based.
+ *
+ * Since: 1.22
+ */
 #define ATK_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)      _ATK_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, _f_) {_C_;} _ATK_DEFINE_TYPE_EXTENDED_END()
 
 #define _ATK_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE, flags) \
