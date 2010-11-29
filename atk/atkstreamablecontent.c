@@ -137,7 +137,7 @@ atk_streamable_content_get_stream (AtkStreamableContent *streamable,
  *
  * Since: 1.12
  **/
-gchar*
+const gchar*
 atk_streamable_content_get_uri (AtkStreamableContent *streamable,
 				const gchar          *mime_type)
 {
