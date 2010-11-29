@@ -1,3 +1,10 @@
+What's new in at-spi2-core 1.91.3:
+
+* Added a C-based AT-side binding (libatspi) which can be used in
+  conjunction with GObject introspection to generate bindings for other
+  languages.  However, this release has many bugs and is more of a development
+  snapshot than a usable release.
+
 What's new in at-spi2-core 1.91.2:
 
 * The desktop object now returns ROLE_DESKTOP_FRAME rather than ROLE_UNKNOWN.

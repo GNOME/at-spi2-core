@@ -13,7 +13,7 @@ libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
 libatspidir = $(includedir)/at-spi-1.0/atspi
 
 libatspi_la_SOURCES =		\
-	atspi.h			\
+	atspi.h	\
 	atspi-accessible.c \
 	atspi-accessible.h \
 	atspi-action.c \
