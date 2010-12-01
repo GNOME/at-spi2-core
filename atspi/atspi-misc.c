@@ -355,8 +355,6 @@ add_accessible_from_iter (DBusMessageIter *iter)
   AtspiAccessible *accessible;
   const char *name, *description;
   dbus_uint32_t role;
-  dbus_uint32_t *states;
-  int count;
 
   dbus_message_iter_recurse (iter, &iter_struct);
 
@@ -385,23 +383,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
   }
 
   /* interfaces */
-  accessible->interfaces = 0;
   dbus_message_iter_next (&iter_struct);
-  dbus_message_iter_recurse (&iter_struct, &iter_array);
-  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
-  {
-    const char *iface;
-    gint n;
-    dbus_message_iter_get_basic (&iter_array, &iface);
-    if (!strcmp (iface, "org.freedesktop.DBus.Introspectable")) continue;
-    n = _atspi_get_iface_num (iface);
-    if (n == -1)
-    {
-      g_warning ("Unknown interface %s", iface);
-    }
-    else accessible->interfaces |= (1 << n);
-    dbus_message_iter_next (&iter_array);
-  }
+  _atspi_dbus_set_interfaces (accessible, &iter_struct);
   dbus_message_iter_next (&iter_struct);
 
   /* name */
@@ -419,19 +402,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   accessible->description = g_strdup (description);
   dbus_message_iter_next (&iter_struct);
 
-  dbus_message_iter_recurse (&iter_struct, &iter_array);
-  dbus_message_iter_get_fixed_array (&iter_array, &states, &count);
-  if (count != 2)
-  {
-    g_warning ("at-spi: expected 2 values in states array; got %d\n", count);
-    accessible->states = _atspi_state_set_new_internal (accessible, 0);
-  }
-  else
-  {
-    guint64 val = ((guint64)states [1]) << 32;
-    val += states [0];
-    accessible->states = _atspi_state_set_new_internal (accessible, val);
-  }
+  _atspi_dbus_set_state (accessible, &iter_struct);
   dbus_message_iter_next (&iter_struct);
 
   /* This is a bit of a hack since the cache holds a ref, so we don't need
@@ -1165,3 +1136,54 @@ _atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter)
   return array;
 }
 
+void
+_atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter)
+{
+  DBusMessageIter iter_array;
+
+  accessible->interfaces = 0;
+  dbus_message_iter_recurse (iter, &iter_array);
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  {
+    const char *iface;
+    gint n;
+    dbus_message_iter_get_basic (&iter_array, &iface);
+    if (!strcmp (iface, "org.freedesktop.DBus.Introspectable")) continue;
+    n = _atspi_get_iface_num (iface);
+    if (n == -1)
+    {
+      g_warning ("at-spi: Unknown interface %s", iface);
+    }
+    else
+      accessible->interfaces |= (1 << n);
+    dbus_message_iter_next (&iter_array);
+  }
+  accessible->cached_properties |= ATSPI_CACHE_INTERFACES;
+}
+
+void
+_atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter)
+{
+  DBusMessageIter iter_array;
+  gint count;
+  dbus_uint32_t *states;
+
+  dbus_message_iter_recurse (iter, &iter_array);
+  dbus_message_iter_get_fixed_array (&iter_array, &states, &count);
+  if (count != 2)
+  {
+    g_warning ("at-spi: expected 2 values in states array; got %d\n", count);
+    if (!accessible->states)
+      accessible->states = _atspi_state_set_new_internal (accessible, 0);
+  }
+  else
+  {
+    guint64 val = ((guint64)states [1]) << 32;
+    val += states [0];
+    if (!accessible->states)
+      accessible->states = _atspi_state_set_new_internal (accessible, val);
+    else
+      accessible->states->states = val;
+  }
+  accessible->cached_properties |= ATSPI_CACHE_STATES;
+}

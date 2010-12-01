@@ -512,6 +512,18 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
 AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)
 {
+  if (!(obj->cached_properties & ATSPI_CACHE_STATES))
+  {
+    DBusMessage *reply;
+    DBusMessageIter iter;
+    reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
+                                      "GetState", NULL, "");
+    _ATSPI_DBUS_CHECK_SIG (reply, "au", NULL);
+    dbus_message_iter_init (reply, &iter);
+    _atspi_dbus_set_state (obj, &iter);
+    dbus_message_unref (reply);
+  }
+
   return g_object_ref (obj->states);
 }
 
@@ -1373,9 +1385,75 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
       return FALSE;
     }
 
+  if (!(accessible->cached_properties & ATSPI_CACHE_INTERFACES))
+  {
+    DBusMessage *reply;
+    DBusMessageIter iter;
+    reply = _atspi_dbus_call_partial (accessible, atspi_interface_accessible,
+                                      "GetInterfaces", NULL, "");
+    _ATSPI_DBUS_CHECK_SIG (reply, "as", FALSE);
+    dbus_message_iter_init (reply, &iter);
+    _atspi_dbus_set_interfaces (accessible, &iter);
+    dbus_message_unref (reply);
+  }
+
   n = _atspi_get_iface_num (interface_name);
   if (n == -1) return FALSE;
   return (gboolean) ((accessible->interfaces & (1 << n))? TRUE: FALSE);
+}
+
+static void
+append_const_val (GArray *array, const gchar *val)
+{
+  gchar *dup = g_strdup (val);
+
+  if (dup)
+    g_array_append_val (array, dup);
+}
+
+/**
+ * atspi_accessible_get_interfaces:
+ *
+ * #obj: The #AtspiAccessible to query.
+ *
+ * Returns: (element-type gchar*) (transfer full): A #GArray of strings
+ *          describing the interfaces supported by the object.  Interfaces are
+ *          denoted in short-hand (ie, "Component", "Text", etc.)
+ **/
+GArray *
+atspi_accessible_get_interfaces (AtspiAccessible *obj)
+{
+  GArray *ret = g_array_new (TRUE, TRUE, sizeof (gchar *));
+
+  if (!ret)
+    return NULL;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  if (atspi_accessible_is_action (obj))
+    append_const_val (ret, "Action");
+  if (atspi_accessible_is_collection (obj))
+    append_const_val (ret, "Collection");
+  if (atspi_accessible_is_component (obj))
+    append_const_val (ret, "Component");
+  if (atspi_accessible_is_document (obj))
+    append_const_val (ret, "Document");
+  if (atspi_accessible_is_editable_text (obj))
+    append_const_val (ret, "EditableText");
+  if (atspi_accessible_is_hypertext (obj))
+    append_const_val (ret, "Hypertext");
+  if (atspi_accessible_is_image (obj))
+    append_const_val (ret, "Image");
+  if (atspi_accessible_is_selection (obj))
+    append_const_val (ret, "Selection");
+  if (atspi_accessible_is_table (obj))
+    append_const_val (ret, "Table");
+  if (atspi_accessible_is_text (obj))
+    append_const_val (ret, "Text");
+  if (atspi_accessible_is_value (obj))
+    append_const_val (ret, "Value");
+
+  return ret;
 }
 
 /* TODO: Move to a finalizer */

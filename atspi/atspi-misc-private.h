@@ -38,7 +38,8 @@
 #define ATSPI_CACHE_NAME        0x0004
 #define ATSPI_CACHE_DESCRIPTION 0x0008
 #define ATSPI_CACHE_STATES      0x0010
-#define ATSPI_CACHE_ROLE        0x0010
+#define ATSPI_CACHE_ROLE        0x0020
+#define ATSPI_CACHE_INTERFACES  0x0040
 
 typedef struct _AtspiReference AtspiReference;
 struct _AtspiReference
@@ -141,6 +142,10 @@ GArray *_atspi_dbus_attribute_array_from_message (DBusMessage *message);
 GArray *_atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter);
 
 gboolean _atspi_process_deferred_messages (gpointer data);
+
+void _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter);
+
+void _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter);
 
 #define _ATSPI_DBUS_CHECK_SIG(message, type, ret) \
   if (!message) { \

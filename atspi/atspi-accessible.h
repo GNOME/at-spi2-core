@@ -119,4 +119,6 @@ AtspiTable * atspi_accessible_get_table (AtspiAccessible *obj);
 AtspiText * atspi_accessible_get_text (AtspiAccessible *obj);
 
 AtspiValue * atspi_accessible_get_value (AtspiAccessible *obj);
+
+GArray * atspi_accessible_get_interfaces (AtspiAccessible *obj);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */
