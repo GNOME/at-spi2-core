@@ -368,7 +368,7 @@ gint
 atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
 {
   GList *l;
-  gint i;
+  gint i = 0;
 
   g_return_val_if_fail (obj != NULL, -1);
   if (!obj->accessible_parent) return -1;
