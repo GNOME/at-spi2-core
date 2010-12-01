@@ -610,6 +610,91 @@ handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_dat
   add_accessible_from_iter (&iter);
 }
 
+typedef struct
+{
+  DBusConnection *bus;
+  DBusMessage *message;
+  void *data;
+} BusDataClosure;
+
+static guint process_deferred_messages_id = -1;
+
+static void
+process_deferred_message (BusDataClosure *closure)
+{
+  int type = dbus_message_get_type (closure->message);
+  const char *interface = dbus_message_get_interface (closure->message);
+  const char *member = dbus_message_get_member (closure->message); 
+  dbus_uint32_t v;
+  char *bus_name;
+
+  if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
+      !strncmp (interface, "org.a11y.atspi.Event.", 21))
+  {
+    atspi_dbus_handle_event (closure->bus, closure->message, closure->data);
+  }
+  if (dbus_message_is_method_call (closure->message, atspi_interface_device_event_listener, "NotifyEvent"))
+  {
+    atspi_dbus_handle_DeviceEvent (closure->bus,
+                                   closure->message, closure->data);
+  }
+  if (dbus_message_is_signal (closure->message, atspi_interface_cache, "AddAccessible"))
+  {
+    handle_add_accessible (closure->bus, closure->message, closure->data);
+  }
+  if (dbus_message_is_signal (closure->message, atspi_interface_cache, "RemoveAccessible"))
+  {
+    handle_remove_accessible (closure->bus, closure->message, closure->data);
+  }
+}
+
+static GList *deferred_messages = NULL;
+
+gboolean
+_atspi_process_deferred_messages (gpointer data)
+{
+  static int in_process_deferred_messages = 0;
+
+  if (in_process_deferred_messages)
+    return;
+  in_process_deferred_messages = 1;
+  while (deferred_messages != NULL)
+  {
+    BusDataClosure *closure = deferred_messages->data;
+    process_deferred_message (closure);
+    deferred_messages = g_list_remove (deferred_messages, closure);
+    dbus_message_unref (closure->message);
+    dbus_connection_unref (closure->bus);
+    g_free (closure);
+  }
+  /* If data is NULL, assume that we were called from GLib */
+  if (!data)
+    process_deferred_messages_id = -1;
+  in_process_deferred_messages = 0;
+  return FALSE;
+}
+
+static DBusHandlerResult
+defer_message (DBusConnection *connection, DBusMessage *message, void *user_data)
+{
+  BusDataClosure *closure = g_new (BusDataClosure, 1);
+  GList *new_list;
+
+  if (!closure)
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+  closure->bus = dbus_connection_ref (bus);
+  closure->message = dbus_message_ref (message);
+  closure->data = user_data;
+
+  new_list = g_list_append (deferred_messages, closure);
+  if (new_list)
+    deferred_messages = new_list;
+
+  if (process_deferred_messages_id == -1)
+    process_deferred_messages_id = g_idle_add (_atspi_process_deferred_messages, NULL);
+  return DBUS_HANDLER_RESULT_HANDLED;
+}
+
 static DBusHandlerResult
 atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
 {
@@ -622,21 +707,20 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
   {
-    return atspi_dbus_handle_event (bus, message, data);
+    return defer_message (bus, message, data);
   }
   if (dbus_message_is_method_call (message, atspi_interface_device_event_listener, "NotifyEvent"))
   {
-    return atspi_dbus_handle_DeviceEvent (bus, message, data);
+    return defer_message (bus, message, data);
   }
   if (dbus_message_is_signal (message, atspi_interface_cache, "AddAccessible"))
   {
-    return handle_add_accessible (bus, message, data);
+    return defer_message (bus, message, data);
   }
   if (dbus_message_is_signal (message, atspi_interface_cache, "RemoveAccessible"))
   {
-    return handle_remove_accessible (bus, message, data);
+    return defer_message (bus, message, data);
   }
-  /* TODO: Handle ChildrenChanged, StateChanged, PropertyChanged */
   return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 }
 
@@ -788,6 +872,7 @@ atspi_init (void)
   dbus_bus_register (bus, &error);
   dbus_connection_setup_with_g_main(bus, g_main_context_default());
   dbus_connection_add_filter (bus, atspi_dbus_filter, NULL, NULL);
+  dbind_set_timeout (1000);
   match = g_strdup_printf ("type='signal',interface='%s',member='AddAccessible'", atspi_interface_cache);
   dbus_error_init (&error);
   dbus_bus_add_match (bus, match, &error);
@@ -883,6 +968,7 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   dbus_error_init (&err);
   retval = dbind_method_call_reentrant_va (_atspi_bus(), aobj->app->bus_name, aobj->path, interface, method, &err, type, args);
   va_end (args);
+  _atspi_process_deferred_messages ((gpointer)TRUE);
   if (dbus_error_is_set (&err))
   {
     /* TODO: Set gerror */
@@ -932,6 +1018,7 @@ _atspi_dbus_call_partial_va (gpointer obj,
     reply = dbind_send_and_allow_reentry (_atspi_bus(), msg, &err);
 out:
   va_end (args);
+  _atspi_process_deferred_messages ((gpointer)TRUE);
   if (dbus_error_is_set (&err))
   {
     /* TODO: Set gerror */
@@ -950,7 +1037,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   AtspiObject *aobj = ATSPI_OBJECT (obj);
 
   if (!aobj)
-    return NULL;
+    return FALSE;
 
   message = dbus_message_new_method_call (aobj->app->bus_name,
                                           aobj->path,
@@ -963,8 +1050,9 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   }
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   dbus_error_init (&err);
-  reply = dbus_connection_send_with_reply_and_block (_atspi_bus(), message, 1000, &err);
+  reply = dbind_send_and_allow_reentry (_atspi_bus(), message, &err);
   dbus_message_unref (message);
+  _atspi_process_deferred_messages ((gpointer)TRUE);
   if (!reply)
   {
     // TODO: throw exception
@@ -1000,8 +1088,8 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   DBusError err;
 
   dbus_error_init (&err);
-  /* TODO: Write this function; allow reentrancy */
-  reply = dbus_connection_send_with_reply_and_block (_atspi_bus(), message, 1000, &err);
+  reply = dbind_send_and_allow_reentry (_atspi_bus(), message, &err);
+  _atspi_process_deferred_messages ((gpointer)TRUE);
   dbus_message_unref (message);
   if (err.message)
     g_warning ("Atspi: Got error: %s\n", err.message);

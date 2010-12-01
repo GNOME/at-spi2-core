@@ -140,6 +140,8 @@ GArray *_atspi_dbus_attribute_array_from_message (DBusMessage *message);
 
 GArray *_atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter);
 
+gboolean _atspi_process_deferred_messages (gpointer data);
+
 #define _ATSPI_DBUS_CHECK_SIG(message, type, ret) \
   if (!message) { \
     g_warning ("at-spi: Got no message at %s line %d\n", __FILE__, __LINE__); \
