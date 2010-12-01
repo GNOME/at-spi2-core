@@ -506,8 +506,6 @@ impl_GetInterfaces (DBusConnection * bus,
                     DBusMessage * message, void *user_data)
 {
   AtkObject *object = (AtkObject *) user_data;
-  gint role;
-  const char *role_name;
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
 
