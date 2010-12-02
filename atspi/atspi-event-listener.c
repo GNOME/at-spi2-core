@@ -682,8 +682,8 @@ atspi_event_copy (AtspiEvent *src)
   dst->source = g_object_ref (src->source);
   dst->detail1 = src->detail1;
   dst->detail2 = src->detail2;
-  dst->any_data.g_type = src->any_data.g_type;
-  g_value_copy (&dst->any_data, &src->any_data);
+  g_value_init (&dst->any_data, G_VALUE_TYPE (&src->any_data));
+  g_value_copy (&src->any_data, &dst->any_data);
   return dst;
 }
 
