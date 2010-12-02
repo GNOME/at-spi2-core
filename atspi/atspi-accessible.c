@@ -44,6 +44,11 @@ atspi_editable_text_interface_init (AtspiEditableText *editable_text)
 }
 
 static void
+atspi_hypertext_interface_init (AtspiHypertext *hypertext)
+{
+}
+
+static void
 atspi_image_interface_init (AtspiImage *image)
 {
 }
@@ -73,6 +78,7 @@ G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COLLECTION, atspi_collection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_EDITABLE_TEXT, atspi_editable_text_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_HYPERTEXT, atspi_hypertext_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_IMAGE, atspi_image_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_SELECTION, atspi_selection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TABLE, atspi_table_interface_init)
@@ -946,6 +952,23 @@ atspi_accessible_get_editable_text (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_editable_text) ?
           g_object_ref (ATSPI_EDITABLE_TEXT (accessible)) : NULL);  
+}
+
+/**
+ * atspi_accessible_get_hyperlink:
+ * @accessible: a pointer to the #AtspiAccessible object on which to operate.
+ *
+ * Get the #AtspiHyperlink associated with the given #AtspiAccessible, if
+ * supported.
+ *
+ * Returns: (transfer full): the #AtspiHyperlink object associated with
+ *          the given #AtspiAccessible, or NULL if not supported.
+ **/
+AtspiHyperlink *
+atspi_accessible_get_hyperlink (AtspiAccessible *accessible)
+{
+  return (_atspi_accessible_is_a (accessible, atspi_interface_hyperlink) ?
+          atspi_hyperlink_new (accessible->parent.app, accessible->parent.path) : NULL);
 }
 
 /**

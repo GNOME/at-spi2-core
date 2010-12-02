@@ -39,7 +39,6 @@
 #define ATSPI_IS_HYPERLINK_CLASS(klass)             (G_TYPE_CHECK_CLASS_TYPE ((klass), ATSPI_TYPE_HYPERLINK))
 #define ATSPI_HYPERLINK_GET_CLASS(obj)              (G_TYPE_INSTANCE_GET_CLASS ((obj), ATSPI_TYPE_HYPERLINK, AtspiHyperlinkClass))
 
-typedef struct _AtspiHyperlink AtspiHyperlink;
 struct _AtspiHyperlink
 {
   AtspiObject parent;

@@ -108,6 +108,8 @@ AtspiDocument * atspi_accessible_get_document (AtspiAccessible *obj);
 
 AtspiEditableText * atspi_accessible_get_editable_text (AtspiAccessible *obj);
 
+AtspiHyperlink * atspi_accessible_get_hyperlink (AtspiAccessible *obj);
+
 AtspiHypertext * atspi_accessible_get_hypertext (AtspiAccessible *obj);
 
 AtspiImage * atspi_accessible_get_image (AtspiAccessible *obj);
