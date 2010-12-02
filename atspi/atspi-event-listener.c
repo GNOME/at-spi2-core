@@ -176,6 +176,8 @@ cache_process_children_changed (AtspiEvent *event)
 
   if (!strncmp (event->type, "object:children-changed:add", 27))
   {
+    if (g_list_find (event->source->children, child))
+      return;
     GList *new_list = g_list_insert (event->source->children, g_object_ref (child), event->detail1);
     if (new_list)
       event->source->children = new_list;

@@ -369,9 +369,16 @@ add_accessible_from_iter (DBusMessageIter *iter)
 
   /* get parent */
   get_reference_from_iter (&iter_struct, &app_name, &path);
+  if (accessible->accessible_parent)
+    g_object_unref (accessible->accessible_parent);
   accessible->accessible_parent = ref_accessible (app_name, path);
 
   /* Get children */
+  while (accessible->children)
+  {
+    g_object_unref (accessible->children->data);
+    accessible->children = g_list_remove (accessible->children, accessible->children->data);
+  }
   dbus_message_iter_recurse (&iter_struct, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
@@ -388,6 +395,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (&iter_struct);
 
   /* name */
+  if (accessible->name)
+    g_free (accessible->name);
   dbus_message_iter_get_basic (&iter_struct, &name);
   accessible->name = g_strdup (name);
   dbus_message_iter_next (&iter_struct);
@@ -398,6 +407,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (&iter_struct);
 
   /* description */
+  if (accessible->description)
+    g_free (accessible->description);
   dbus_message_iter_get_basic (&iter_struct, &description);
   accessible->description = g_strdup (description);
   dbus_message_iter_next (&iter_struct);
