@@ -590,8 +590,15 @@ impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
 {
   SpiRegistry *reg = SPI_REGISTRY (user_data);
   dbus_int32_t rv = reg->apps->len;
+  dbus_bool_t result;
+  DBusMessageIter iter_variant;
 
-  return dbus_message_iter_append_basic (iter, DBUS_TYPE_INT32, &rv);
+  if (!dbus_message_iter_open_container (iter, DBUS_TYPE_VARIANT, "i",
+                                         &iter_variant))
+    return FALSE;
+  result = dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_INT32, &rv);
+  dbus_message_iter_close_container (iter, &iter_variant);
+  return result;
 }
 
 static DBusMessage *
