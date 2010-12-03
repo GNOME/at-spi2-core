@@ -242,12 +242,12 @@ atspi_role_get_name (AtspiRole role)
 gchar *
 atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 {
-  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (obj != NULL, g_strdup (""));
   if (!(obj->cached_properties & ATSPI_CACHE_NAME))
   {
     if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", error,
                                    "s", &obj->name))
-      return NULL;
+      return g_strdup ("");
     obj->cached_properties |= ATSPI_CACHE_NAME;
   }
   return g_strdup (obj->name);
@@ -265,12 +265,12 @@ atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
 {
-  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (obj != NULL, g_strdup (""));
 
   if (!(obj->cached_properties & ATSPI_CACHE_DESCRIPTION))
   {
     if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetDescription", NULL, "=>s", &obj->description))
-      return NULL;
+      return g_strdup ("");
     obj->cached_properties |= ATSPI_CACHE_DESCRIPTION;
   }
   return g_strdup (obj->description);
@@ -506,9 +506,12 @@ atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
 {
   char *retval = NULL;
 
-  g_return_val_if_fail (obj != NULL, g_strdup ("invalid"));
+  g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_call (obj, atspi_interface_accessible, "GetRoleName", error, "=>s", &retval);
+
+  if (!retval)
+    retval = g_strdup ("");
 
   return retval;
 }
@@ -529,9 +532,12 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
 {
   char *retval = NULL;
 
-  g_return_val_if_fail (obj != NULL, g_strdup ("invalid"));
+  g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_call (obj, atspi_interface_accessible, "GetLocalizedRoleName", error, "=>s", &retval);
+
+  if (!retval)
+    return g_strdup ("");
 
   return retval;
 }
