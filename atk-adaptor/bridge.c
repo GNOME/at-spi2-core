@@ -32,6 +32,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include<sys/stat.h>
 #include <atk/atk.h>
 
 #include <droute/droute.h>
@@ -175,23 +176,6 @@ set_reply (DBusPendingCall *pending, void *user_data)
     *replyptr = dbus_pending_call_steal_reply (pending);
 }
 
-static DBusMessage *
-send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, DBusError *error)
-{
-    DBusPendingCall *pending;
-    DBusMessage *reply = NULL;
-
-    if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
-    {
-        return NULL;
-    }
-    dbus_pending_call_set_notify (pending, set_reply, (void *)&reply, NULL);
-    while (!reply)
-    {
-      if (!dbus_connection_read_write_dispatch (bus, -1)) return NULL;
-    }
-    return reply;
-}
 /*---------------------------------------------------------------------------*/
 
 static void
@@ -274,7 +258,6 @@ register_reply (DBusPendingCall *pending, void *user_data)
       if (strcmp (dbus_message_get_signature (reply), "(so)") != 0)
         {
           g_warning ("AT-SPI: Could not obtain desktop path or name\n");
-printf("sig: %s\n", dbus_message_get_signature(reply));
         }
       else
         {
@@ -306,6 +289,7 @@ register_application (SpiBridge * app)
   DBusMessageIter iter;
   DBusError error;
   DBusPendingCall *pending;
+  const int max_addr_length = 128; /* should be long enough */
 
   dbus_error_init (&error);
 
@@ -331,6 +315,15 @@ register_application (SpiBridge * app)
 
   if (message)
     dbus_message_unref (message);
+
+/* could this be better, we accept some amount of race in getting the temp name*/
+/* make sure the directory exists */
+mkdir("/tmp/at-spi2/", S_IRWXU);
+app->app_bus_addr = g_malloc(max_addr_length * sizeof(char));
+#ifndef DISABLE_P2P
+sprintf(app->app_bus_addr, "unix:path=/tmp/at-spi2/socket-%d-%d", getpid(),
+rand());
+#endif
 
   return TRUE;
 }
@@ -508,6 +501,45 @@ install_plug_hooks ()
   socket_class->embed = socket_embed_hook;
 }
 
+static void
+new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
+{
+  GList *new_list;
+
+  dbus_connection_ref(con);
+  dbus_connection_setup_with_g_main(con, NULL);
+  droute_intercept_dbus (con);
+  droute_context_register (spi_global_app_data->droute, con);
+
+  new_list = g_list_append (spi_global_app_data->direct_connections, con);
+  if (new_list)
+    spi_global_app_data->direct_connections = new_list;
+}
+
+static int
+setup_bus (void)
+{
+#ifndef DISABLE_P2P
+  DBusServer *server;
+  DBusError err;
+
+  dbus_error_init(&err);
+  server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
+
+  /* is there a better way to handle this */
+  if (server == NULL)
+    return -1;
+
+  dbus_server_setup_with_g_main(server, NULL);
+  dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
+
+  spi_global_app_data->server = server;
+#endif
+
+  return 0;
+}
+
+
 gchar *atspi_dbus_name = NULL;
 static gboolean atspi_no_register = FALSE;
 
@@ -622,6 +654,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
  *
  * - DRoute for routing message to their accessible objects.
  * - Event handlers for emmitting signals on specific ATK events.
+ * - setup the bus for p2p communication
  * - Application registration with the AT-SPI registry.
  *
  */
@@ -688,8 +721,9 @@ adaptor_init (gint * argc, gchar ** argv[])
         }
     }
 
-  dbus_connection_setup_with_g_main (spi_global_app_data->bus,
-                                     g_main_context_default ());
+  spi_global_app_data->main_context = g_main_context_new ();
+
+  dbus_connection_setup_with_g_main (spi_global_app_data->bus, NULL);
 
   /* Hook our plug-and socket functions */
   install_plug_hooks ();
@@ -705,7 +739,7 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   /* Register droute for routing AT-SPI messages */
   spi_global_app_data->droute =
-    droute_new (spi_global_app_data->bus);
+    droute_new ();
 
   treepath = droute_add_one (spi_global_app_data->droute,
                              "/org/a11y/atspi/cache", spi_global_cache);
@@ -743,6 +777,9 @@ adaptor_init (gint * argc, gchar ** argv[])
   spi_initialize_text (accpath);
   spi_initialize_value (accpath);
 
+  droute_context_register (spi_global_app_data->droute,
+                           spi_global_app_data->bus);
+
   /* Register methods to send D-Bus signals on certain ATK events */
   spi_atk_register_event_listeners ();
 
@@ -756,6 +793,8 @@ adaptor_init (gint * argc, gchar ** argv[])
     register_application (spi_global_app_data);
   else
     get_registered_event_listeners (spi_global_app_data);
+
+  setup_bus();
 
   return 0;
 }

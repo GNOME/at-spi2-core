@@ -48,6 +48,9 @@ struct _SpiBridge
 
   DBusConnection *bus;
   DRouteContext  *droute;
+  GMainContext *main_context;
+  DBusServer *server;
+  GList *direct_connections;
 
 /*
   SpiRegister *reg;
@@ -56,6 +59,7 @@ struct _SpiBridge
 */
   gchar *desktop_name;
   gchar *desktop_path;
+char *app_bus_addr;
   GList *events;
   gboolean events_initialized;
 };

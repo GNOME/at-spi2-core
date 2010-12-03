@@ -59,7 +59,7 @@ typedef struct _DRoutePath    DRoutePath;
 /*---------------------------------------------------------------------------*/
 
 DRouteContext *
-droute_new      (DBusConnection *bus);
+droute_new      ();
 
 void
 droute_free     (DRouteContext *cnx);
@@ -93,7 +93,12 @@ droute_invalid_arguments_error (DBusMessage *message);
 DBusMessage *
 droute_out_of_memory_error     (DBusMessage *message);
 
-DBusConnection *
-droute_get_bus (DRouteContext *cnx);
+void
+droute_path_register (DRoutePath *path, DBusConnection *bus);
 
+void
+droute_context_register (DRouteContext *cnx, DBusConnection *bus);
+
+void
+droute_intercept_dbus (DBusConnection *connection);
 #endif /* _DROUTE_H */

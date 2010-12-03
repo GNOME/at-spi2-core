@@ -53,11 +53,26 @@ typedef struct _SpiReentrantCallClosure
 } SpiReentrantCallClosure;
 
 static void
+switch_main_context (GMainContext *cnx)
+{
+#ifndef DISABLE_P2P
+/* This code won't work on dbus-glib earlier than 0.9.0 because of FDO#30574 */
+  GList *list;
+
+  dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
+  dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
+  for (list = spi_global_app_data->direct_connections; list; list = list->next)
+    dbus_connection_setup_with_g_main (list->data, cnx);
+#endif
+}
+
+static void
 set_reply (DBusPendingCall * pending, void *user_data)
 {
   SpiReentrantCallClosure* closure = (SpiReentrantCallClosure *) user_data; 
 
   closure->reply = dbus_pending_call_steal_reply (pending);
+  switch_main_context (NULL);
   g_main_loop_quit (closure->loop);
 }
 
@@ -66,26 +81,20 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
 {
   DBusPendingCall *pending;
   SpiReentrantCallClosure closure;
+  GMainContext *main_context;
+
+  main_context = (g_getenv ("AT_SPI_CLIENT") ? NULL :
+                  spi_global_app_data->main_context);
+  closure.loop = g_main_loop_new (main_context, FALSE);
+  switch_main_context (main_context);
 
   if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
+    {
+      switch_main_context (NULL);
       return NULL;
+    }
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
-  closure.loop = g_main_loop_new (NULL, FALSE);
-
-  /* TODO: Remove old AT_SPI_CLIENT name */
-  if (getenv ("AT_SPI_CLIENT") || getenv ("AT_SPI_REENTER_G_MAIN_LOOP"))
-    {
-      g_main_loop_run  (closure.loop);
-    }
-  else
-    {
-      closure.reply = NULL;
-      while (!closure.reply)
-        {
-          if (!dbus_connection_read_write_dispatch (spi_global_app_data->bus, 1000))
-            return NULL;
-        }
-    }
+  g_main_loop_run  (closure.loop);
   
   g_main_loop_unref (closure.loop);
   return closure.reply;

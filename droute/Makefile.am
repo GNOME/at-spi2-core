@@ -2,8 +2,7 @@ noinst_LTLIBRARIES = libdroute.la
 
 libdroute_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
                       -I$(top_builddir)\
-                      -I$(top_srcdir) \
-                      -DG_DISABLE_DEPRECATED
+                      -I$(top_srcdir)
 
 libdroute_la_SOURCES =\
 		droute.c\
@@ -20,8 +19,7 @@ check_PROGRAMS = droute-test
 droute_test_SOURCES  = droute-test.c
 droute_test_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		     -I$(top_builddir)\
-		     -I$(top_srcdir) \
-	-DG_DISABLE_DEPRECATED
+		     -I$(top_srcdir)
 
 droute_test_LDFLAGS  = $(top_builddir)/dbind/libdbind.la\
 		       libdroute.la\
