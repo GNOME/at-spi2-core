@@ -72,7 +72,7 @@ gchar * atspi_accessible_get_description (AtspiAccessible *obj, GError **error);
 
 AtspiAccessible * atspi_accessible_get_parent (AtspiAccessible *obj, GError **error);
 
-gint atspi_accessible_get_child_count (AtspiAccessible *obj, GError *error);
+gint atspi_accessible_get_child_count (AtspiAccessible *obj, GError **error);
 
 AtspiAccessible * atspi_accessible_get_child_at_index (AtspiAccessible *obj, gint    child_index, GError **error);
 

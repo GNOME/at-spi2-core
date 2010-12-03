@@ -39,6 +39,11 @@ atspi_component_interface_init (AtspiComponent *component)
 {
 }
 
+static void
+atspi_document_interface_init (AtspiDocument *document)
+{
+}
+
 atspi_editable_text_interface_init (AtspiEditableText *editable_text)
 {
 }
@@ -77,6 +82,7 @@ G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_ACTION, atspi_action_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COLLECTION, atspi_collection_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_COMPONENT, atspi_component_interface_init)
+                         G_IMPLEMENT_INTERFACE (ATSPI_TYPE_DOCUMENT, atspi_document_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_EDITABLE_TEXT, atspi_editable_text_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_HYPERTEXT, atspi_hypertext_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_IMAGE, atspi_image_interface_init)
@@ -326,11 +332,19 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
  *
  **/
 gint
-atspi_accessible_get_child_count (AtspiAccessible *obj, GError *error)
+atspi_accessible_get_child_count (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, -1);
 
-  /* TODO: MANAGES_DESCENDANTS */
+  if (!(obj->cached_properties & ATSPI_CACHE_CHILDREN))
+  {
+    dbus_int32_t ret;
+    if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
+                                   "ChildCount", error, "i", &ret))
+      return -1;
+    return ret;
+  }
+
   return g_list_length (obj->children);
 }
 
@@ -353,7 +367,15 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  /* TODO: ManagesDescendants */
+  if (!(obj->cached_properties & ATSPI_CACHE_CHILDREN))
+  {
+    DBusMessage *reply;
+    reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
+                                     "GetChildAtIndex", error, "i",
+                                     child_index);
+    return _atspi_dbus_return_accessible_from_message (reply);
+  }
+
   child = g_list_nth_data (obj->children, child_index);
   if (!child)
     return NULL;
@@ -378,6 +400,14 @@ atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, -1);
   if (!obj->accessible_parent) return -1;
+  if (!(obj->accessible_parent->cached_properties & ATSPI_CACHE_CHILDREN))
+  {
+    dbus_uint32_t ret = -1;
+    _atspi_dbus_call (obj, atspi_interface_accessible,
+                      "GetIndexInParent", NULL, "=>u", &ret);
+    return ret;
+  }
+
   l = obj->accessible_parent->children;
   while (l)
   {

@@ -32,6 +32,8 @@
 #include <stdio.h>
 #include <string.h>
 
+static void handle_get_items (DBusPendingCall *pending, void *user_data);
+
 static DBusConnection *bus = NULL;
 static GHashTable *apps = NULL;
 static GHashTable *live_refs = NULL;
@@ -138,6 +140,9 @@ get_application (const char *bus_name)
 {
   AtspiApplication *app = NULL;
   char *bus_name_dup;
+  DBusMessage *message;
+  DBusError error;
+  DBusPendingCall *pending = NULL;
 
   if (!app_hash)
   {
@@ -154,17 +159,25 @@ get_application (const char *bus_name)
   app->bus_name = bus_name_dup;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   g_hash_table_insert (app_hash, bus_name_dup, app);
+  dbus_error_init (&error);
+  message = dbus_message_new_method_call (bus_name, "/org/a11y/atspi/cache",
+                                          atspi_interface_cache, "GetItems");
+
+   dbus_connection_send_with_reply (_atspi_bus (), message, &pending, 2000);
+  dbus_pending_call_set_notify (pending, handle_get_items, app, NULL);
   return app;
 }
 
 static AtspiAccessible *
 ref_accessible (const char *app_name, const char *path)
 {
-  AtspiApplication *app = get_application (app_name);
+  AtspiApplication *app;
   AtspiAccessible *a;
 
   if (!strcmp (path, ATSPI_DBUS_PATH_NULL))
     return NULL;
+
+  app = get_application (app_name);
 
   if (!strcmp (path, "/org/a11y/atspi/accessible/root"))
   {
@@ -416,30 +429,30 @@ add_accessible_from_iter (DBusMessageIter *iter)
   _atspi_dbus_set_state (accessible, &iter_struct);
   dbus_message_iter_next (&iter_struct);
 
+  accessible->cached_properties |= ATSPI_CACHE_NAME | ATSPI_CACHE_ROLE | ATSPI_CACHE_PARENT;
+  if (!atspi_state_set_contains (accessible->states,
+                                       ATSPI_STATE_MANAGES_DESCENDANTS))
+    accessible->cached_properties |= ATSPI_CACHE_CHILDREN;
+
   /* This is a bit of a hack since the cache holds a ref, so we don't need
    * the one provided for us anymore */
   g_object_unref (accessible);
 }
 
 static void
-add_accessibles (const char *app_name)
+handle_get_items (DBusPendingCall *pending, void *user_data)
 {
-  DBusError error;
-  DBusMessage *message, *reply;
+  AtspiApplication *app = user_data;
+  DBusMessage *reply = dbus_pending_call_steal_reply (pending);
   DBusMessageIter iter, iter_array;
 
-  AtspiApplication *app = get_application (app_name);
-  /* TODO: Move this functionality into app initializer? */
-  dbus_error_init (&error);
-  message = dbus_message_new_method_call (app_name, "/org/a11y/atspi/cache", atspi_interface_cache, "GetItems");
-  reply = _atspi_dbus_send_with_reply_and_block (message);
-  if (!reply || strcmp (dbus_message_get_signature (reply), "a((so)(so)(so)a(so)assusau)") != 0)
+  if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
   {
-    g_warning ("at-spi: Error in GetItems");
+    dbus_message_unref (reply);
+    g_warning ("Atspi: Error in GetItems");
     return;
-    if (reply)
-      dbus_message_unref (reply);
   }
+
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
@@ -495,7 +508,6 @@ ref_accessible_desktop (AtspiApplication *app)
   {
     const char *app_name, *path;
     get_reference_from_iter (&iter_array, &app_name, &path);
-    add_accessibles (app_name);
     add_app_to_desktop (desktop, app_name);
   }
   dbus_message_unref (reply);
@@ -1041,6 +1053,11 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
     goto done;
   }
   dbus_message_iter_init (reply, &iter);
+  if (dbus_message_iter_get_arg_type (&iter) != 'v')
+  {
+    g_warning ("at-spi: expected a variant when fetching %s from interface %s\n", name, interface);
+    goto done;
+  }
   dbus_message_iter_recurse (&iter, &iter_variant);
   if (dbus_message_iter_get_arg_type (&iter_variant) != type[0])
   {
