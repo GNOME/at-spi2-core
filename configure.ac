@@ -81,6 +81,8 @@ if test x$enable_relocate = xyes ; then
 fi
 AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
 
+AC_ARG_ENABLE(p2p, [  --enable-p2p  Allow peer-to-peer DBus connections [default=yes]], enable_p2p="$enableval", enable_p2p=yes)
+
 #libtool option to strip symbols starting with cspi
 LIBTOOL_EXPORT_OPTIONS='-export-symbols-regex "^[[^cspi]].*"'
 AC_SUBST(LIBTOOL_EXPORT_OPTIONS)
@@ -110,8 +112,12 @@ CPPFLAGS=$orig_CPPFLAGS
 
 if test "x$dbus_glib_old" = "xyes"; then
 	P2P_CFLAGS=-DDISABLE_P2P
-	AC_MSG_WARN([found dbus-glib older than 0.9.0; disabling peer-to-peer support])
 fi
+
+if test "x$enable_p2p" = "xno"; then
+	P2P_CFLAGS=-DDISABLE_P2P
+fi
+
 AC_SUBST(P2P_CFLAGS)
 
 AC_CONFIG_FILES([Makefile
@@ -127,3 +133,8 @@ AC_CONFIG_FILES([Makefile
 		])
 
 AC_OUTPUT
+
+if test "x$dbus_glib_old" = "xyes"; then
+	P2P_CFLAGS=-DDISABLE_P2P
+	AC_MSG_WARN([found dbus-glib older than 0.9.0; disabling peer-to-peer support])
+fi
