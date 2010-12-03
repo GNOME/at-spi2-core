@@ -55,12 +55,15 @@ typedef struct _SpiReentrantCallClosure
 static void
 switch_main_context (GMainContext *cnx)
 {
+#ifndef DISABLE_P2P
+/* This code won't work on dbus-glib earlier than 0.9.0 because of FDO#30574 */
   GList *list;
 
   dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
   dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
     dbus_connection_setup_with_g_main (list->data, cnx);
+#endif
 }
 
 static void

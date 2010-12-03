@@ -43,7 +43,10 @@ PKG_CHECK_MODULES(GLIB, [glib-2.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
 
-PKG_CHECK_MODULES(DBUS_GLIB, [dbus-glib-1 >= 0.7.0])
+PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.90, dbus_glib=yes, dbus_glib=no)
+if test "x$dbus_glib" = "xno"; then
+	PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.7.0, dbus_glib_old=yes)
+fi
 AC_SUBST(DBUS_GLIB_LIBS)
 AC_SUBST(DBUS_GLIB_CFLAGS)
 
@@ -104,6 +107,12 @@ DBIND_CHECK_ALIGNOF(double)
 DBIND_CHECK_ALIGNOF(dbind_pointer)
 DBIND_CHECK_ALIGNOF(dbind_struct)
 CPPFLAGS=$orig_CPPFLAGS 
+
+if test "x$dbus_glib_old" = "xyes"; then
+	P2P_CFLAGS=-DDISABLE_P2P
+	AC_MSG_WARN([found dbus-glib older than 0.9.0; disabling peer-to-peer support])
+fi
+AC_SUBST(P2P_CFLAGS)
 
 AC_CONFIG_FILES([Makefile
 		 dbind/dbind-config.h

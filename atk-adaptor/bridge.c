@@ -320,8 +320,10 @@ register_application (SpiBridge * app)
 /* make sure the directory exists */
 mkdir("/tmp/at-spi2/", S_IRWXU);
 app->app_bus_addr = g_malloc(max_addr_length * sizeof(char));
+#ifndef DISABLE_P2P
 sprintf(app->app_bus_addr, "unix:path=/tmp/at-spi2/socket-%d-%d", getpid(),
 rand());
+#endif
 
   return TRUE;
 }
@@ -517,6 +519,7 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 static int
 setup_bus (void)
 {
+#ifndef DISABLE_P2P
   DBusServer *server;
   DBusError err;
 
@@ -531,6 +534,7 @@ setup_bus (void)
   dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
 
   spi_global_app_data->server = server;
+#endif
 
   return 0;
 }
