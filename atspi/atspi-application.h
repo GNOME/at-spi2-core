@@ -42,6 +42,7 @@ struct _AtspiApplication
   GObject parent;
   GHashTable *hash;
   char *bus_name;
+  DBusConnection *bus;
   struct _AtspiAccessible *root;
 };
 

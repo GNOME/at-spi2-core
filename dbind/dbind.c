@@ -34,15 +34,18 @@ dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusE
 {
   DBusPendingCall *pending;
   SpiReentrantCallClosure closure;
+  const char *unique_name = dbus_bus_get_unique_name (bus);
 
-  if (strcmp (dbus_message_get_destination (message),
-              dbus_bus_get_unique_name (bus)) != 0)
+  if (unique_name &&
+      strcmp (dbus_message_get_destination (message), unique_name) != 0)
     return dbus_connection_send_with_reply_and_block (bus, message, dbind_timeout, error);
 
   closure.reply = NULL;
   dbus_connection_setup_with_g_main(bus, NULL);
   if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout))
       return NULL;
+  if (!pending)
+    return NULL;
   dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
 
   closure.reply = NULL;

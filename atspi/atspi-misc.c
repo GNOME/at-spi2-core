@@ -135,6 +135,40 @@ static gboolean atspi_inited = FALSE;
 
 static GHashTable *app_hash = NULL;
 
+static void
+handle_get_bus_address (DBusPendingCall *pending, void *user_data)
+{
+  AtspiApplication *app = user_data;
+  DBusMessage *reply = dbus_pending_call_steal_reply (pending);
+  DBusMessage *message;
+  const char *address;
+  DBusPendingCall *new_pending;
+
+  if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_METHOD_RETURN)
+  {
+    if (dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &address,
+                               DBUS_TYPE_INVALID))
+    {
+      DBusError error;
+      dbus_error_init (&error);
+      DBusConnection *bus = dbus_connection_open (address, &error);
+      if (bus)
+      {
+        if (app->bus)
+          dbus_connection_unref (app->bus);
+        app->bus = bus;
+      }
+    }
+  }
+
+  message = dbus_message_new_method_call (app->bus_name,
+                                          "/org/a11y/atspi/cache",
+                                          atspi_interface_cache, "GetItems");
+
+   dbus_connection_send_with_reply (app->bus, message, &new_pending, 2000);
+  dbus_pending_call_set_notify (new_pending, handle_get_items, app, NULL);
+}
+
 static AtspiApplication *
 get_application (const char *bus_name)
 {
@@ -158,13 +192,14 @@ get_application (const char *bus_name)
   if (!app) return NULL;
   app->bus_name = bus_name_dup;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+  app->bus = _atspi_bus ();
   g_hash_table_insert (app_hash, bus_name_dup, app);
   dbus_error_init (&error);
-  message = dbus_message_new_method_call (bus_name, "/org/a11y/atspi/cache",
-                                          atspi_interface_cache, "GetItems");
+  message = dbus_message_new_method_call (bus_name, atspi_path_root,
+                                          atspi_interface_application, "GetApplicationBusAddress");
 
-   dbus_connection_send_with_reply (_atspi_bus (), message, &pending, 2000);
-  dbus_pending_call_set_notify (pending, handle_get_items, app, NULL);
+   dbus_connection_send_with_reply (app->bus, message, &pending, 2000);
+  dbus_pending_call_set_notify (pending, handle_get_bus_address, app, NULL);
   return app;
 }
 
@@ -960,7 +995,9 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
 
   va_start (args, type);
   dbus_error_init (&err);
-  retval = dbind_method_call_reentrant_va (_atspi_bus(), aobj->app->bus_name, aobj->path, interface, method, &err, type, args);
+  retval = dbind_method_call_reentrant_va (aobj->app->bus, aobj->app->bus_name,
+                                           aobj->path, interface, method, &err,
+                                           type, args);
   va_end (args);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   if (dbus_error_is_set (&err))
@@ -1009,7 +1046,7 @@ _atspi_dbus_call_partial_va (gpointer obj,
     dbus_message_iter_init_append (msg, &iter);
     dbind_any_marshal_va (&iter, &p, args);
 
-    reply = dbind_send_and_allow_reentry (_atspi_bus(), msg, &err);
+    reply = dbind_send_and_allow_reentry (aobj->app->bus, msg, &err);
 out:
   va_end (args);
   _atspi_process_deferred_messages ((gpointer)TRUE);
@@ -1044,7 +1081,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   }
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   dbus_error_init (&err);
-  reply = dbind_send_and_allow_reentry (_atspi_bus(), message, &err);
+  reply = dbind_send_and_allow_reentry (aobj->app->bus, message, &err);
   dbus_message_unref (message);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   if (!reply)
@@ -1055,7 +1092,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   dbus_message_iter_init (reply, &iter);
   if (dbus_message_iter_get_arg_type (&iter) != 'v')
   {
-    g_warning ("at-spi: expected a variant when fetching %s from interface %s\n", name, interface);
+    g_warning ("at-spi: expected a variant when fetching %s from interface %s; got %s\n", name, interface, dbus_message_get_signature (reply));
     goto done;
   }
   dbus_message_iter_recurse (&iter, &iter_variant);
@@ -1085,9 +1122,13 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
 {
   DBusMessage *reply;
   DBusError err;
+  AtspiApplication *app;
+  DBusConnection *bus;
 
+  app = get_application (dbus_message_get_destination (message));
+  bus = (app ? app->bus : _atspi_bus());
   dbus_error_init (&err);
-  reply = dbind_send_and_allow_reentry (_atspi_bus(), message, &err);
+  reply = dbind_send_and_allow_reentry (bus, message, &err);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   dbus_message_unref (message);
   if (err.message)
