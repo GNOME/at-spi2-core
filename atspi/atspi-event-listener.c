@@ -241,7 +241,9 @@ cache_process_property_change (AtspiEvent *event)
 static void
 cache_process_state_changed (AtspiEvent *event)
 {
-  atspi_state_set_set_by_name (event->source->states, event->type + 21, event->detail1);
+  if (event->source->states)
+    atspi_state_set_set_by_name (event->source->states, event->type + 21,
+                                 event->detail1);
 }
 
 static dbus_bool_t
@@ -826,15 +828,15 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   }
   _atspi_send_event (&e);
 
-  if (!strcmp (e.type, "children-changed"))
+  if (!strncmp (e.type, "object:children-changed", 23))
   {
     cache_process_children_changed (&e);
   }
-  else if (!strcmp (e.type, "property-change"))
+  else if (!strncmp (e.type, "object:property-change", 22))
   {
     cache_process_property_change (&e);
   }
-  else if (!strcmp (e.type, "state-changed"))
+  else if (!strncmp (e.type, "object:state-changed", 20))
   {
     cache_process_state_changed (&e);
   }
