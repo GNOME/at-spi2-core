@@ -172,7 +172,8 @@ atspi_hyperlink_get_start_index (AtspiHyperlink *obj, GError **error)
   if (!obj)
     return -1;
 
-  _atspi_dbus_call (obj, atspi_interface_hyperlink, "GetStartIndex", error, "=>i", &d_start_offset);
+  _atspi_dbus_get_property (obj, atspi_interface_hyperlink, "StartIndex",
+                            error, "i", &d_start_offset);
 
   return d_start_offset;
 }
@@ -192,7 +193,8 @@ atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error)
   if (!obj)
     return -1;
 
-  _atspi_dbus_call (obj, atspi_interface_hyperlink, "GetEndIndex", error, "=>i", &d_end_offset);
+  _atspi_dbus_get_property (obj, atspi_interface_hyperlink, "EndIndex", error,
+                            "i", &d_end_offset);
 
   return d_end_offset;
 }
