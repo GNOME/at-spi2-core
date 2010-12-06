@@ -1096,7 +1096,7 @@ atspi_accessible_get_table (AtspiAccessible *obj)
  * Get the #AtspiTable interface for an #AtspiAccessible.
  *
  * Returns: (transfer full): a pointer to an #AtspiText interface instance, or
- *          NULL if @obj does not implement #AtspiTable.
+ *          NULL if @obj does not implement #AtspiText.
  **/
 AtspiText *
 atspi_accessible_get_text (AtspiAccessible *obj)

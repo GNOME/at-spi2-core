@@ -300,7 +300,7 @@ atspi_text_get_attribute_value (AtspiText *obj,
  *          (exclusive of explicitly-set attributes), encoded as UTF-8.
  **/
 GHashTable *
-atspi_text_get_default_attributes (AtspiAccessible *obj, GError **error)
+atspi_text_get_default_attributes (AtspiText *obj, GError **error)
 {
   DBusMessage *reply;
   GHashTable *ret;
