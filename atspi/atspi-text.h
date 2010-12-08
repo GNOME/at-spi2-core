@@ -72,7 +72,7 @@ struct _AtspiTextRange
 {
   gint start_offset;
   gint end_offset;
-  gchar *text;
+  gchar *content;
 };
 
 /**

@@ -70,7 +70,7 @@ atspi_text_range_copy (AtspiTextRange *src)
 
   if (dst)
   {
-    dst->text = g_strdup (src->text);
+    dst->content = g_strdup (src->content);
     dst->start_offset = src->start_offset;
     dst->end_offset = src->end_offset;
   }
@@ -80,7 +80,7 @@ atspi_text_range_copy (AtspiTextRange *src)
 static void
 atspi_text_range_free (AtspiTextRange *range)
 {
-  g_free (range->text);
+  g_free (range->content);
   g_free (range);
 }
 
@@ -370,7 +370,7 @@ atspi_text_get_text_before_offset (AtspiText *obj,
     return range;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetTextBeforeOffset", error,
-                    "iu=>sii", d_offset, d_type, &range->text,
+                    "iu=>sii", d_offset, d_type, &range->content,
                     &d_start_offset, &d_end_offset);
 
   range->start_offset = d_start_offset;
@@ -411,7 +411,7 @@ atspi_text_get_text_at_offset (AtspiText *obj,
     return range;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetTextAtOffset", error,
-                    "iu=>sii", d_offset, d_type, &range->text,
+                    "iu=>sii", d_offset, d_type, &range->content,
                     &d_start_offset, &d_end_offset);
 
   range->start_offset = d_start_offset;
@@ -453,7 +453,7 @@ atspi_text_get_text_after_offset (AtspiText *obj,
     return range;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetTextAfterOffset", error,
-                    "iu=>sii", d_offset, d_type, &range->text,
+                    "iu=>sii", d_offset, d_type, &range->content,
                     &d_start_offset, &d_end_offset);
 
   range->start_offset = d_start_offset;
