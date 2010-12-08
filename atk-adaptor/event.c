@@ -417,7 +417,6 @@ emit_event (AtkObject  *obj,
    */
   cname = signal_name_to_dbus (major);
   sig = dbus_message_new_signal(path, klass, cname);
-  g_free(cname);
 
   dbus_message_iter_init_append(sig, &iter);
 
@@ -432,6 +431,8 @@ emit_event (AtkObject  *obj,
 
   if (g_strcmp0 (cname, "ChildrenChanged") != 0)
     spi_object_lease_if_needed (G_OBJECT (obj));
+
+  g_free(cname);
 }
 
 /*---------------------------------------------------------------------------*/
