@@ -1141,14 +1141,17 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
 }
 
 GHashTable *
-_atspi_dbus_hash_from_message (DBusMessage *message)
+_atspi_dbus_return_hash_from_message (DBusMessage *message)
 {
   DBusMessageIter iter;
+  GHashTable *ret;
 
   _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL);
 
   dbus_message_iter_init (message, &iter);
-  return _atspi_dbus_hash_from_iter (&iter);
+  ret = _atspi_dbus_hash_from_iter (&iter);
+  dbus_message_unref (message);
+  return ret;
 }
 
 GHashTable *
@@ -1172,15 +1175,18 @@ _atspi_dbus_hash_from_iter (DBusMessageIter *iter)
 }
 
 GArray *
-_atspi_dbus_attribute_array_from_message (DBusMessage *message)
+_atspi_dbus_return_attribute_array_from_message (DBusMessage *message)
 {
   DBusMessageIter iter;
+  GArray *ret;
 
   _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL);
 
   dbus_message_iter_init (message, &iter);
 
-  return _atspi_dbus_attribute_array_from_iter (&iter);
+  ret = _atspi_dbus_attribute_array_from_iter (&iter);
+  dbus_message_unref (message);
+  return ret;
 }
 
 GArray *

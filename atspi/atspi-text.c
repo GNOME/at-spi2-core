@@ -38,31 +38,6 @@ atspi_range_copy (AtspiRange *src)
 
 G_DEFINE_BOXED_TYPE (AtspiRange, atspi_range, atspi_range_copy, g_free)
 
-static AtspiRangedAttributeSet *
-atspi_ranged_attribute_set_copy (AtspiRangedAttributeSet *src)
-{
-  AtspiRangedAttributeSet *dst = g_new (AtspiRangedAttributeSet, 1);
-
-  if (dst)
-  {
-    dst->attributes = g_object_ref (src->attributes);
-    dst->start_offset = src->start_offset;
-    dst->end_offset = src->end_offset;
-  }
-  return dst;
-}
-
-static void
-atspi_ranged_attribute_set_free (AtspiRangedAttributeSet *set)
-{
-  g_object_unref (set->attributes);
-  g_free (set);
-}
-
-G_DEFINE_BOXED_TYPE (AtspiRangedAttributeSet, atspi_ranged_attribute_set,
-                    atspi_ranged_attribute_set_copy,
-                    atspi_ranged_attribute_set_free)
-
 static AtspiTextRange *
 atspi_text_range_copy (AtspiTextRange *src)
 {
@@ -162,45 +137,49 @@ atspi_text_get_caret_offset (AtspiText *obj, GError **error)
  * @obj: a pointer to the #AtspiText object to query.
  * @offset: a long integer indicating the offset from which the attribute
  *        search is based.
+ * @start_offset: (out): a #gint indicating the start of the desired text
+ *                range.
+ * @end_offset: (out): a #gint indicating the first character past the desired
+ *              range.
  *
  * Get the attributes applied to a range of text from an #AtspiText
  *          object, and the bounds of the range.
  *          The text attributes correspond to CSS attributes where possible,
  *
- * Returns: an #AtspiRangedAttributeSet describing the attributes at the
- * given character offset
+ * Returns: (element-type gchar* gchar*) (transfer full): a #GHashTable
+ *          describing the attributes at the given character offset
  **/
-AtspiRangedAttributeSet *
+GHashTable *
 atspi_text_get_attributes (AtspiText *obj,
-			      gint offset,
-			      GError **error)
+			   gint offset,
+			   gint *start_offset,
+			   gint *end_offset,
+			   GError **error)
 {
   dbus_int32_t d_offset = offset;
   dbus_int32_t d_start_offset, d_end_offset;
   GHashTable *hash;
   DBusMessage *reply;
   DBusMessageIter iter;
-  AtspiRangedAttributeSet *ret = g_new0 (AtspiRangedAttributeSet, 1);
-
-  if (!ret)
-    return NULL;
-  ret->start_offset = ret->end_offset = -1;
+  GHashTable *ret;
 
   if (obj == NULL)
-   return ret;
+   return NULL;
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_text, "GetAttributes", error, "i", d_offset);
-  _ATSPI_DBUS_CHECK_SIG (reply, "{ss}ii", ret)
+  _ATSPI_DBUS_CHECK_SIG (reply, "a{ss}ii", ret)
 
   dbus_message_iter_init (reply, &iter);
-  ret->attributes = _atspi_dbus_hash_from_iter (&iter);
+  ret = _atspi_dbus_hash_from_iter (&iter);
   dbus_message_iter_next (&iter);
 
   dbus_message_iter_get_basic (&iter, &d_start_offset);
-  ret->start_offset = d_start_offset;
+  if (start_offset)
+    *start_offset = d_start_offset;
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &d_end_offset);
-  ret->end_offset = d_end_offset;
+  if (end_offset)
+    *end_offset = d_start_offset;
 
   dbus_message_unref (reply);
   return ret;
@@ -215,13 +194,20 @@ atspi_text_get_attributes (AtspiText *obj,
  *                 attributes which are explicitly set on the current attribute 
  *                 run, omitting any attributes which are inherited from the 
  *                 default values.
+ * @start_offset: (out): a #gint indicating the start of the desired text
+ *                range.
+ * @end_offset: (out): a #gint indicating the first character past the desired
+ *              range.
  *
- * Returns: the AttributeSet defined at offset, optionally including the 'default' attributes.
+ * Returns: (element-type gchar* gchar*) (transfer full): the AttributeSet
+ *          defined at offset, optionally including the 'default' attributes.
  **/
-AtspiRangedAttributeSet *
+GHashTable *
 atspi_text_get_attribute_run (AtspiText *obj,
 			      gint offset,
 			      gboolean include_defaults,
+			      gint *start_offset,
+			      gint *end_offset,
 			      GError **error)
 {
   dbus_int32_t d_offset = offset;
@@ -229,29 +215,27 @@ atspi_text_get_attribute_run (AtspiText *obj,
   GHashTable *hash;
   DBusMessage *reply;
   DBusMessageIter iter;
-  AtspiRangedAttributeSet *ret = g_new0 (AtspiRangedAttributeSet, 1);
-
-  if (!ret)
-    return NULL;
-  ret->start_offset = ret->end_offset = -1;
+  GHashTable *ret;
 
   if (obj == NULL)
-   return ret;
+   return NULL;
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_text,
                                     "GetAttributeRun", error, "ib", d_offset,
                                     include_defaults);
-  _ATSPI_DBUS_CHECK_SIG (reply, "{ss}ii", ret)
+  _ATSPI_DBUS_CHECK_SIG (reply, "a{ss}ii", ret)
 
   dbus_message_iter_init (reply, &iter);
-  ret->attributes = _atspi_dbus_hash_from_iter (&iter);
+  ret = _atspi_dbus_hash_from_iter (&iter);
   dbus_message_iter_next (&iter);
 
   dbus_message_iter_get_basic (&iter, &d_start_offset);
-  ret->start_offset = d_start_offset;
+  if (start_offset)
+    *start_offset = d_start_offset;
   dbus_message_iter_next (&iter);
   dbus_message_iter_get_basic (&iter, &d_end_offset);
-  ret->end_offset = d_end_offset;
+  if (end_offset)
+    *end_offset = d_end_offset;
 
   dbus_message_unref (reply);
   return ret;
@@ -303,14 +287,11 @@ GHashTable *
 atspi_text_get_default_attributes (AtspiText *obj, GError **error)
 {
   DBusMessage *reply;
-  GHashTable *ret;
 
     g_return_val_if_fail (obj != NULL, NULL);
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_text, "GetDefaultAttributes", error, "");
-  ret = _atspi_dbus_hash_from_message (reply);
-  dbus_message_unref (reply);
-  return ret;
+  return _atspi_dbus_return_hash_from_message (reply);
 }
 
 

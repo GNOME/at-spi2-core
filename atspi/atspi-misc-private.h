@@ -133,11 +133,11 @@ dbus_bool_t _atspi_dbus_get_property (gpointer obj, const char *interface, const
 
 DBusMessage * _atspi_dbus_send_with_reply_and_block (DBusMessage *message);
 
-GHashTable *_atspi_dbus_hash_from_message (DBusMessage *message);
+GHashTable *_atspi_dbus_return_hash_from_message (DBusMessage *message);
 
 GHashTable *_atspi_dbus_hash_from_iter (DBusMessageIter *iter);
 
-GArray *_atspi_dbus_attribute_array_from_message (DBusMessage *message);
+GArray *_atspi_dbus_return_attribute_array_from_message (DBusMessage *message);
 
 GArray *_atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter);
 

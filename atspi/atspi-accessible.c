@@ -585,14 +585,11 @@ GHashTable *
 atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
 {
   DBusMessage *message;
-  GHashTable *ret;
 
     g_return_val_if_fail (obj != NULL, NULL);
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
-  ret = _atspi_dbus_hash_from_message (message);
-  dbus_message_unref (message);
-  return ret;
+  return _atspi_dbus_return_hash_from_message (message);
 }
 
 /**
@@ -611,15 +608,11 @@ GArray *
 atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
 {
   DBusMessage *message;
-  GArray *ret;
 
     g_return_val_if_fail (obj != NULL, NULL);
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
-  ret = _atspi_dbus_attribute_array_from_message (message);
-  if (message)
-    dbus_message_unref (message);
-  return ret;
+  return _atspi_dbus_return_attribute_array_from_message (message);
 }
 
 /**
@@ -646,7 +639,7 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
   }
 }
 
-/* Applicatio-specific methods */
+/* Application-specific methods */
 
 /**
  * atspi_accessible_get_toolkit_name:

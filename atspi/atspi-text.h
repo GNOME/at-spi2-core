@@ -50,23 +50,6 @@ GType atspi_range_get_type ();
 AtspiRange *
 atspi_range_copy (AtspiRange *src);
 
-typedef struct _AtspiRangedAttributeSet AtspiRangedAttributeSet;
-struct _AtspiRangedAttributeSet
-{
-  GHashTable *attributes;
-  gint start_offset;
-  gint end_offset;
-};
-
-/**
- * ATSPI_TYPE_RANGED_ATTRIBUTE_SET:
- * 
- * The #GType for a boxed type holding an attribute set within a text block.
- */
-#define	ATSPI_TYPE_RANGED_ATTRIBUTE_SET atspi_ranged_attribute_set_get_type ()
-
-GType atspi_ranged_attribute_set_get_type ();
-
 typedef struct _AtspiTextRange AtspiTextRange;
 struct _AtspiTextRange
 {
@@ -103,9 +86,9 @@ gchar * atspi_text_get_text (AtspiText *obj, gint start_offset, gint end_offset,
 
 gint atspi_text_get_caret_offset (AtspiText *obj, GError **error);
 
-AtspiRangedAttributeSet * atspi_text_get_attributes (AtspiText *obj, gint offset, GError **error);
+GHashTable *atspi_text_get_attributes (AtspiText *obj, gint offset, gint *start_offset, gint *end_offset, GError **error);
 
-AtspiRangedAttributeSet * atspi_text_get_attribute_run (AtspiText *obj, gint offset, gboolean include_defaults, GError **error);
+GHashTable *atspi_text_get_attribute_run (AtspiText *obj, gint offset, gboolean include_defaults, gint *start_offset, gint *end_offset, GError **error);
 
 gchar * atspi_text_get_attribute_value (AtspiText *obj, gint offset, gchar *attribute_name, GError **error);
 

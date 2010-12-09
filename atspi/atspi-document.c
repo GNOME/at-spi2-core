@@ -90,14 +90,11 @@ GHashTable *
 atspi_document_get_attributes (AtspiDocument *obj, GError **error)
 {
   DBusMessage *message;
-  GHashTable *ret;
 
     g_return_val_if_fail (obj != NULL, NULL);
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_document, "GetAttributes", error, "");
-  ret = _atspi_dbus_hash_from_message (message);
-  dbus_message_unref (message);
-  return ret;
+  return _atspi_dbus_return_hash_from_message (message);
 }
 
 static void
