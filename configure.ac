@@ -136,5 +136,5 @@ AC_OUTPUT
 
 if test "x$dbus_glib_old" = "xyes"; then
 	P2P_CFLAGS=-DDISABLE_P2P
-	AC_MSG_WARN([found dbus-glib older than 0.9.0; disabling peer-to-peer support])
+	AC_MSG_WARN([found dbus-glib older than 0.90; disabling peer-to-peer support])
 fi
