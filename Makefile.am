@@ -5,6 +5,9 @@ schemas_in_files = at-spi2.schemas.in
 schemas_DATA     = $(schemas_in_files:.schemas.in=.schemas)
 @INTLTOOL_SCHEMAS_RULE@
 
+gtk_modulesdir = $(libdir)/gnome-settings-daemon-3.0/gtk-modules/
+gtk_modules_DATA = at-spi2-atk.desktop
+
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
 		if test -z "$(DESTDIR)" ; then \
