@@ -23,6 +23,7 @@
  */
 
 #include <string.h>
+#include <ctype.h>
 
 #include <atk/atk.h>
 #include <droute/droute.h>
