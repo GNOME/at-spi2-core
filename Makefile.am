@@ -1,9 +1,11 @@
-SUBDIRS=dbind droute common atk-adaptor po
+SUBDIRS=dbind droute common atk-adaptor po schemas
 
+if RELOCATE
 schemasdir       = $(GCONF_SCHEMA_FILE_DIR)
 schemas_in_files = at-spi2.schemas.in
 schemas_DATA     = $(schemas_in_files:.schemas.in=.schemas)
 @INTLTOOL_SCHEMAS_RULE@
+endif
 
 gtk_modulesdir = $(libdir)/gnome-settings-daemon-3.0/gtk-modules/
 gtk_modules_DATA = at-spi2-atk.desktop
@@ -20,7 +22,9 @@ install-data-local:
 endif
 
 EXTRA_DIST = \
-	$(schemas_in_files)
+	$(schemas_in_files) \
+	$(gtk_modules_DATA)
+
 
 CLEANFILES = \
 	$(schemas_DATA)

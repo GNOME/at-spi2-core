@@ -62,10 +62,6 @@ PKG_CHECK_MODULES(ATK, [atk >= 1.29.3])
 AC_SUBST(ATK_LIBS)
 AC_SUBST(ATK_CFLAGS)
 
-dnl GConf checks
-AC_PATH_PROG(GCONFTOOL, gconftool-2)
-AM_GCONF_SOURCE_2
-
 AC_PATH_XTRA
 
 if test x$no_x = xyes ; then
@@ -75,9 +71,14 @@ else
 fi
 AC_SUBST(X_LIBS)
 
+AM_GCONF_SOURCE_2
 AC_ARG_ENABLE(relocate, [  --enable-relocate  Relocate to coexist with CORBA [default=no]], enable_relocate="$enableval", enable_relocate=no)
 if test x$enable_relocate = xyes ; then
 	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
+	dnl GConf checks
+	AC_PATH_PROG(GCONFTOOL, gconftool-2)
+else
+	GLIB_GSETTINGS
 fi
 AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
 
@@ -130,6 +131,8 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/gtk-2.0/Makefile
 		 atk-adaptor/gtk-3.0/Makefile
 		 po/Makefile.in
+                 schemas/Makefile
+schemas/org.a11y.atspi.gschema.xml
 		])
 
 AC_OUTPUT
