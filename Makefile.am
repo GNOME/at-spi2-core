@@ -1,8 +1,8 @@
 SUBDIRS=dbind droute common atk-adaptor po schemas
 
+schemas_in_files = at-spi2.schemas.in
 if RELOCATE
 schemasdir       = $(GCONF_SCHEMA_FILE_DIR)
-schemas_in_files = at-spi2.schemas.in
 schemas_DATA     = $(schemas_in_files:.schemas.in=.schemas)
 @INTLTOOL_SCHEMAS_RULE@
 endif
