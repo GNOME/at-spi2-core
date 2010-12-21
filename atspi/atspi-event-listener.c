@@ -784,6 +784,16 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
       converted_type = p;
     }
   }
+  else if (detail [0] == '\0')
+  {
+    p = g_strconcat (converted_type, ":",  NULL);
+    if (p)
+    {
+      g_free (converted_type);
+      converted_type = p;
+    }
+  }
+
   if (detail[0] != '\0')
   {
     p = g_strconcat (converted_type, ":", detail, NULL);
