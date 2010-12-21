@@ -985,7 +985,7 @@ atspi_accessible_get_editable_text (AtspiAccessible *accessible)
 
 /**
  * atspi_accessible_get_hyperlink:
- * @accessible: a pointer to the #AtspiAccessible object on which to operate.
+ * @obj: a pointer to the #AtspiAccessible object on which to operate.
  *
  * Get the #AtspiHyperlink associated with the given #AtspiAccessible, if
  * supported.

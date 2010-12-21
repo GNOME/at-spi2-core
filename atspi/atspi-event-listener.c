@@ -62,7 +62,7 @@ typedef struct
 static GHashTable *callbacks;
 
 void
-callback_ref (void *callback, GDestroyNotify *callback_destroyed)
+callback_ref (void *callback, GDestroyNotify callback_destroyed)
 {
   CallbackInfo *info;
 
@@ -374,8 +374,6 @@ listener_entry_free (EventListenerEntry *e)
 /**
  * atspi_event_listener_register:
  * @listener: The #AtspiEventListener to register against an event type.
- * @user_data: (closure): User data to be passed to the callback.
- * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
  * @event_type: a character string indicating the type of events for which
  *            notification is requested.  Format is
  *            EventClass:major_type:minor_type:detail

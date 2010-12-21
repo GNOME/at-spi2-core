@@ -106,7 +106,7 @@ atspi_get_desktop_list ()
  *             events with multiple modifier combinations you must call
  *             register_keystroke_listener() once for each
  *             combination.
- * @eventmask: an #AtspiKeyMaskType mask indicating which
+ * @modmask: an #AtspiKeyMaskType mask indicating which
  *             types of key events are requested (#ATSPI_KEY_PRESSED, etc.).
  * @sync_type: a #AtspiKeyListenerSyncType parameter indicating
  *             the behavior of the notification/listener transaction.
