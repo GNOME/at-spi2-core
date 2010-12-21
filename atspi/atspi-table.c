@@ -348,7 +348,7 @@ atspi_table_get_row_header (AtspiTable *obj,
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  reply = _atspi_dbus_call (obj, atspi_interface_table, "GetRowHeader", error, "i", d_row);
+  reply = _atspi_dbus_call_partial (obj, atspi_interface_table, "GetRowHeader", error, "i", d_row);
 
   return _atspi_dbus_return_accessible_from_message (reply);
 }
@@ -374,7 +374,7 @@ atspi_table_get_column_header (AtspiTable *obj,
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  reply = _atspi_dbus_call (obj, atspi_interface_table, "GetCoumnHeader", error, "i", &d_column);
+  reply = _atspi_dbus_call_partial (obj, atspi_interface_table, "GetColumnHeader", error, "i", &d_column);
 
   return _atspi_dbus_return_accessible_from_message (reply);
 }
