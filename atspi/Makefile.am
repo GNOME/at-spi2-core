@@ -92,7 +92,7 @@ Atspi-2.0.gir: $(INTROSPECTION_SCANNER) \
 		--pkg dbus-glib-1 \
 		--warn-all \
 		--output $@ \
-		$(INTROSPECTION_FILES)
+		$(addprefix $(srcdir)/, $(INTROSPECTION_FILES))
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = Atspi-2.0.gir

@@ -20,3 +20,4 @@ TESTS = dbtest
 check_PROGRAMS = dbtest
 dbtest_SOURCES = dbtest.c
 dbtest_LDFLAGS = libdbind.la
+dbtest_LDADD = $(DBUS_GLIB_LIBS)
