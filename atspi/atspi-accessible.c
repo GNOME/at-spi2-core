@@ -269,7 +269,9 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
 
   if (!(obj->cached_properties & ATSPI_CACHE_DESCRIPTION))
   {
-    if (!_atspi_dbus_call (obj, atspi_interface_accessible, "GetDescription", NULL, "=>s", &obj->description))
+    if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
+                                   "Description", error, "s",
+                                   &obj->description))
       return g_strdup ("");
     obj->cached_properties |= ATSPI_CACHE_DESCRIPTION;
   }
