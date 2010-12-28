@@ -484,7 +484,7 @@ handle_get_items (DBusPendingCall *pending, void *user_data)
   if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
   {
     dbus_message_unref (reply);
-    g_warning ("Atspi: Error in GetItems");
+    g_warning ("Atspi: Error in GetItems, sender=%s", dbus_message_get_sender (reply));
     return;
   }
 
