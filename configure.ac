@@ -187,6 +187,8 @@ DBIND_CHECK_ALIGNOF(double)
 DBIND_CHECK_ALIGNOF(dbind_pointer)
 DBIND_CHECK_ALIGNOF(dbind_struct)
 
+GTK_DOC_CHECK([1.09])
+
 CPPFLAGS=$orig_CPPFLAGS 
 AC_CONFIG_FILES([Makefile
 	xml/Makefile
@@ -195,6 +197,9 @@ dbind/dbind-config.h
 	atspi/Makefile
 	registryd/Makefile
 	bus/at-spi-dbus-bus
-	bus/Makefile])
+	bus/Makefile
+doc/Makefile
+doc/libatspi/Makefile
+])
 
 AC_OUTPUT
