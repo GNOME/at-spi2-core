@@ -741,6 +741,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   char *detail = NULL;
   const char *category = dbus_message_get_interface (message);
   const char *member = dbus_message_get_member (message);
+  const char *signature = dbus_message_get_signature (message);
   gchar *name;
   gchar *converted_type;
   DBusMessageIter iter, iter_variant;
@@ -748,6 +749,12 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   AtspiEvent e;
   dbus_int32_t detail1, detail2;
   char *p;
+
+  if (strcmp (signature, "siiv(so)") != 0)
+  {
+    g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
+    return;
+  }
 
   memset (&e, 0, sizeof (e));
 
@@ -761,11 +768,8 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
     }
     category++;
   }
-  g_return_val_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_STRING, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   dbus_message_iter_get_basic (&iter, &detail);
   dbus_message_iter_next (&iter);
-  /* TODO: Return error indicating invalid arguments  in next line */
-  g_return_val_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_INT32, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   dbus_message_iter_get_basic (&iter, &detail1);
   e.detail1 = detail1;
   dbus_message_iter_next (&iter);
