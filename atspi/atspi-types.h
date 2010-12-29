@@ -54,7 +54,7 @@ typedef guint AtspiDeviceEventMask;
 typedef struct _AtspiDeviceEvent AtspiDeviceEvent;
 struct _AtspiDeviceEvent
 {
-  AtspiDeviceEventType type;
+  AtspiEventType type;
   guint id;
   gushort hw_code;
   gushort modifiers;
@@ -80,18 +80,10 @@ struct _AtspiKeyDefinition
   gint unused;
 };
 
-typedef struct _AtspiEventType AtspiEventType;
-struct _AtspiEventType
-{
-  gchar *klass;
-  gchar *major;
-  gchar *minor;
-};
-
 typedef struct _AtspiEvent AtspiEvent;
 struct _AtspiEvent
 {
-  AtspiEventType type;
+  gchar  *type;
   AtspiAccessible  *source;
   gint         detail1;
   gint         detail2;

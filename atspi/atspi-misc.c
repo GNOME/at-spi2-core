@@ -337,9 +337,7 @@ send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean
   AtspiEvent e;
 
   memset (&e, 0, sizeof (e));
-  e.type.klass = "object";
-  e.type.major = "chidren-changed";
-  e.type.minor = (add? "add": "remove");
+  e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
   e.detail1 = g_list_index (parent->children, child);
   e.detail2 = 0;
