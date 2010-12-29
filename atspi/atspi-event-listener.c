@@ -649,7 +649,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
   char *category, *name, *detail, *matchrule;
   GList *l;
 
-  if (!convert_event_string_to_dbus (event_type, &category, &name, &detail, &matchrule))
+  if (!convert_event_type_to_dbus (event_type, &category, &name, &detail, &matchrule))
   {
     return FALSE;
   }
