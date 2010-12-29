@@ -38,7 +38,7 @@ atspi_image_get_image_description (AtspiImage *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  _atspi_dbus_get_property (obj, atspi_interface_image, "Description", error, "s", &retval);
+  _atspi_dbus_get_property (obj, atspi_interface_image, "ImageDescription", error, "s", &retval);
 
   return retval;
 }
@@ -135,7 +135,7 @@ atspi_image_get_image_locale  (AtspiImage *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, g_strdup ("C"));
 
-  _atspi_dbus_call (obj, atspi_interface_image, "GetImageLocale", error, "=>s", &retval);
+  _atspi_dbus_get_property (obj, atspi_interface_image, "ImageLocale", error, "s", &retval);
 
   return retval;
 }
