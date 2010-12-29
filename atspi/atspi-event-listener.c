@@ -534,7 +534,8 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
     return;
   dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
   reply = _atspi_dbus_send_with_reply_and_block (message);
-  dbus_message_unref (reply);
+  if (reply)
+    dbus_message_unref (reply);
 
   return TRUE;
 }
@@ -627,9 +628,13 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
         is_superset (name, e->name) &&
         is_superset (detail, e->detail))
     {
+      gboolean need_replace;
       DBusError error;
       DBusMessage *message, *reply;
+      need_replace = (l == event_listeners);
       l = g_list_remove (l, e);
+      if (need_replace)
+        event_listeners = l;
       dbus_error_init (&error);
       dbus_bus_remove_match (_atspi_bus(), matchrule, &error);
       dbus_error_init (&error);
