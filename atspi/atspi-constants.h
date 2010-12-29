@@ -434,7 +434,7 @@ typedef enum {
     ATSPI_KEY_RELEASED_EVENT,
     ATSPI_BUTTON_PRESSED_EVENT,
     ATSPI_BUTTON_RELEASED_EVENT,
-} AtspiEventType;
+} AtspiDeviceEventType;
 
 /**
  * ATSPI_EVENTTYPE_COUNT:

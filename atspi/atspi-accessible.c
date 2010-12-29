@@ -1207,7 +1207,9 @@ cspi_object_destroyed (AtspiAccessible *accessible)
 
   /* TODO: Only fire if object not already marked defunct */
   memset (&e, 0, sizeof (e));
-  e.type = "object:state-change:defunct";
+  e.type.klass = "object";
+  e.type.major = "state-changed";
+  e.type.minor = "defunct";
   e.source = accessible;
   e.detail1 = 1;
   e.detail2 = 0;
