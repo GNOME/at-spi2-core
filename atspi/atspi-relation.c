@@ -116,14 +116,16 @@ atspi_relation_init (AtspiRelation *relation)
 }
 
 static void
-atspi_relation_finalize (GObject *obj)
+atspi_relation_finalize (GObject *object)
 {
-  AtspiRelation *relation = ATSPI_RELATION (obj);
+  AtspiRelation *relation = ATSPI_RELATION (object);
   gint i;
 
   for (i = 0; i < relation->targets->len; i++)
   g_object_unref (g_array_index (relation->targets, AtspiAccessible *, i));
   g_array_free (relation->targets, TRUE);
+
+  G_OBJECT_CLASS (atspi_relation_parent_class)->finalize (object);
 }
 
 static void

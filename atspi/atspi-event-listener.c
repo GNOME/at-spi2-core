@@ -185,6 +185,9 @@ cache_process_children_changed (AtspiEvent *event)
   else if (g_list_find (event->source->children, child))
   {
     event->source->children = g_list_remove (event->source->children, child);
+    if (child == child->parent.app->root)
+      g_object_run_dispose (child->parent.app);
+    g_object_unref (child);
   }
 }
 
@@ -752,7 +755,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
 
   if (strcmp (signature, "siiv(so)") != 0)
   {
-    g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
+    g_warning (_("Got invalid signature %s for signal %s from interface %s\n"), signature, member, category);
     return;
   }
 
@@ -773,7 +776,6 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   dbus_message_iter_get_basic (&iter, &detail1);
   e.detail1 = detail1;
   dbus_message_iter_next (&iter);
-  g_return_val_if_fail (dbus_message_iter_get_arg_type (&iter) == DBUS_TYPE_INT32, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
   dbus_message_iter_get_basic (&iter, &detail2);
   e.detail2 = detail2;
   dbus_message_iter_next (&iter);
@@ -830,6 +832,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
 	accessible = _atspi_dbus_return_accessible_from_iter (&iter_variant);
 	g_value_init (&e.any_data, ATSPI_TYPE_ACCESSIBLE);
 	g_value_set_instance (&e.any_data, accessible);
+	g_object_unref (accessible);	/* value now owns it */
       }
       break;
     }

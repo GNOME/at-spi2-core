@@ -30,6 +30,8 @@
 #include "atspi-matchrule-private.h"
 #include "atspi-misc-private.h"
 
+#include "glib/gi18n.h"
+
 #include "atspi.h"
 
 #endif	/* _ATSPI_PRIVATE_H_ */

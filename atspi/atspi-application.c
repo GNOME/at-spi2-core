@@ -31,12 +31,41 @@ atspi_application_init (AtspiApplication *application)
 }
 
 static void
-atspi_application_finalize (GObject *obj)
+dispose_accessible (gpointer key, gpointer obj_data, gpointer data)
 {
-  AtspiApplication *application = ATSPI_APPLICATION (obj);
+  g_object_run_dispose (obj_data);
+}
+
+static void
+atspi_application_dispose (GObject *object)
+{
+  AtspiApplication *application = ATSPI_APPLICATION (object);
+
+  if (application->bus)
+  {
+    dbus_connection_unref (application->bus);
+    application->bus = NULL;
+  }
+
+  if (application->hash)
+  {
+    g_hash_table_foreach (application->hash, dispose_accessible, NULL);
+    g_hash_table_unref (application->hash);
+    application->hash = NULL;
+  }
+
+  G_OBJECT_CLASS (atspi_application_parent_class)->dispose (object);
+}
+
+static void
+atspi_application_finalize (GObject *object)
+{
+  AtspiApplication *application = ATSPI_APPLICATION (object);
 
   if (application->bus_name)
     g_free (application->bus_name);
+
+  G_OBJECT_CLASS (atspi_application_parent_class)->finalize (object);
 }
 
 static void
@@ -44,6 +73,7 @@ atspi_application_class_init (AtspiApplicationClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->dispose = atspi_application_dispose;
   object_class->finalize = atspi_application_finalize;
 }
 

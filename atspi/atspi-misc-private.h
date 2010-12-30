@@ -158,4 +158,24 @@ void _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter);
     dbus_message_unref (message); \
     return (ret); \
   }
+
+
+/**
+ * ATSPI_ERROR:
+ *
+ * Error domain for AT-SPI IPC failures. Errors in this domain will
+ * be from the #ATSPIAtspiError enumeration. See #GError for information on
+ * error domains.
+ */
+#define ATSPI_ERROR atspi_error_quark()
+GQuark atspi_error_quark (void);
+
+/**
+ * AtspiError:
+ * @ATSPI_APPLICATION_NO_LONGER_EXISTS: The application has quit.
+ */
+typedef enum
+{
+  ATSPI_ERROR_APPLICATION_GONE
+} AtspiError;
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

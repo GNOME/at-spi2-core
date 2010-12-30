@@ -5,6 +5,6 @@ INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
-SUBDIRS=registryd xml bus dbind atspi doc
+SUBDIRS=po registryd xml bus dbind atspi doc
 
 ACLOCAL_AMFLAGS=-I m4

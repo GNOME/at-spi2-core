@@ -31,17 +31,35 @@ atspi_match_rule_init (AtspiMatchRule *match_rule)
 }
 
 static void
-atspi_match_rule_finalize (GObject *obj)
+atspi_match_rule_dispose (GObject *object)
 {
-  AtspiMatchRule *rule = ATSPI_MATCH_RULE (obj);
+  AtspiMatchRule *rule = ATSPI_MATCH_RULE (object);
 
   if (rule->states)
+  {
     g_object_unref (rule->states);
+    rule->states = NULL;
+  }
+
   if (rule->attributes)
+  {
     g_hash_table_unref (rule->attributes);
+    rule->attributes = NULL;
+  }
+
+  G_OBJECT_CLASS (atspi_match_rule_parent_class)->dispose (object);
+}
+
+static void
+atspi_match_rule_finalize (GObject *object)
+{
+  AtspiMatchRule *rule = ATSPI_MATCH_RULE (object);
+
   /* TODO: Check that interfaces don't leak */
   if (rule->interfaces)
     g_array_free (rule->interfaces, TRUE);
+
+  G_OBJECT_CLASS (atspi_match_rule_parent_class)->finalize (object);
 }
 
 static void
@@ -49,6 +67,7 @@ atspi_match_rule_class_init (AtspiMatchRuleClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->dispose = atspi_match_rule_dispose;
   object_class->finalize = atspi_match_rule_finalize;
 }
 

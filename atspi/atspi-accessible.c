@@ -91,17 +91,79 @@ G_DEFINE_TYPE_WITH_CODE (AtspiAccessible, atspi_accessible, ATSPI_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_TEXT, atspi_text_interface_init)
                          G_IMPLEMENT_INTERFACE (ATSPI_TYPE_VALUE, atspi_value_interface_init))
 
+#ifdef DEBUG_REF_COUNTS
+static gint accessible_count = 0;
+#endif
+
 static void
 atspi_accessible_init (AtspiAccessible *accessible)
 {
+#ifdef DEBUG_REF_COUNTS
+  accessible_count++;
+  printf("at-spi: init: %d objects\n", accessible_count);
+#endif
 }
 
 static void
-atspi_accessible_finalize (GObject *obj)
+atspi_accessible_dispose (GObject *object)
 {
-  /*AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj); */
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (object);
+  gboolean cached;
+  AtspiEvent e;
+  AtspiAccessible *parent;
 
-  /* TODO: Unref parent/children, etc. */
+  /* TODO: Only fire if object not already marked defunct */
+  memset (&e, 0, sizeof (e));
+  e.type = "object:state-change:defunct";
+  e.source = accessible;
+  e.detail1 = 1;
+  e.detail2 = 0;
+  _atspi_send_event (&e);
+
+  if (accessible->states)
+  {
+    g_object_unref (accessible->states);
+    accessible->states = NULL;
+  }
+
+  parent = accessible->accessible_parent;
+  if (parent && parent->children)
+  {
+    GList*ls = g_list_find (parent->children, accessible);
+    if(ls)
+    {
+      gboolean replace = (ls == parent->children);
+      ls = g_list_remove (ls, accessible);
+      if (replace)
+        parent->children = ls;
+      g_object_unref (object);
+    }
+  }
+
+  if (parent)
+  {
+    g_object_unref (parent);
+    accessible->accessible_parent = NULL;
+  }
+
+  G_OBJECT_CLASS (atspi_accessible_parent_class) ->dispose (object);
+}
+
+static void
+atspi_accessible_finalize (GObject *object)
+{
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (object);
+
+    g_free (accessible->description);
+    g_free (accessible->name);
+
+#ifdef DEBUG_REF_COUNTS
+  accessible_count--;
+  printf("at-spi: finalize: %d objects\n", accessible_count);
+#endif
+
+  G_OBJECT_CLASS (atspi_accessible_parent_class)
+    ->finalize (object);
 }
 
 static void
@@ -109,6 +171,7 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->dispose = atspi_accessible_dispose;
   object_class->finalize = atspi_accessible_finalize;
 }
 
@@ -631,12 +694,14 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
 {
   AtspiAccessible *parent;
 
+  g_object_ref (obj);
   for (;;)
   {
     parent = atspi_accessible_get_parent (obj, NULL);
     if (!parent || parent == obj ||
         atspi_accessible_get_role (parent, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
-    return g_object_ref (obj);
+    return obj;
+    g_object_unref (obj);
     obj = parent;
   }
 }
@@ -730,13 +795,8 @@ atspi_accessible_is_application (AtspiAccessible *obj)
 gboolean
 atspi_accessible_is_collection (AtspiAccessible *obj)
 {
-#if 0
-     g_warning ("Collections not implemented");
      return _atspi_accessible_is_a (obj,
 			      atspi_interface_collection);
-#else
-     return FALSE;
-#endif
 }
 
 /**
@@ -868,7 +928,7 @@ atspi_accessible_is_streamable_content (AtspiAccessible *obj)
   return _atspi_accessible_is_a (obj,
 			      atspi_interface_streamable_content);
 #else
-  g_warning ("Streamable content not implemented");
+  g_warning (_("Streamable content not implemented"));
   return FALSE;
 #endif
 }
@@ -1196,29 +1256,6 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
     append_const_val (ret, "Value");
 
   return ret;
-}
-
-/* TODO: Move to a finalizer */
-static void
-cspi_object_destroyed (AtspiAccessible *accessible)
-{
-  gboolean cached;
-  AtspiEvent e;
-
-  /* TODO: Only fire if object not already marked defunct */
-  memset (&e, 0, sizeof (e));
-  e.type = "object:state-change:defunct";
-  e.source = accessible;
-  e.detail1 = 1;
-  e.detail2 = 0;
-  _atspi_send_event (&e);
-
-    g_free (accessible->parent.path);
-
-    if (accessible->states)
-      g_object_unref (accessible->states);
-    g_free (accessible->description);
-    g_free (accessible->name);
 }
 
 AtspiAccessible *

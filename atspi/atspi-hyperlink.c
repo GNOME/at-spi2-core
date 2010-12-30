@@ -31,19 +31,8 @@ atspi_hyperlink_init (AtspiHyperlink *hyperlink)
 }
 
 static void
-atspi_hyperlink_finalize (GObject *obj)
-{
-  /*AtspiHyperlink *hyperlink = ATSPI_HYPERLINK (obj); */
-
-  /* TODO: Unref parent/children, etc. */
-}
-
-static void
 atspi_hyperlink_class_init (AtspiHyperlinkClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-  object_class->finalize = atspi_hyperlink_finalize;
 }
 
 AtspiHyperlink *

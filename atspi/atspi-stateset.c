@@ -197,6 +197,8 @@ gboolean
 atspi_state_set_contains (AtspiStateSet *set,
 			     AtspiStateType state)
 {
+  if (!set)
+    return FALSE;
   refresh_states (set);
   return (set->states & (1 << state)) ? TRUE : FALSE;
 }

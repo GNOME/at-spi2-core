@@ -31,14 +31,27 @@ atspi_object_init (AtspiObject *obj)
 }
 
 static void
-atspi_object_finalize (GObject *obj)
+atspi_object_dispose (GObject *object)
 {
-  AtspiObject *aobj = ATSPI_OBJECT (obj);
+  AtspiObject *aobj = ATSPI_OBJECT (object);
 
   if (aobj->app)
+  {
     g_object_unref (aobj->app);
+    aobj->app = NULL;
+  }
+
+  G_OBJECT_CLASS (atspi_object_parent_class)->dispose (object);
+}
+
+static void
+atspi_object_finalize (GObject *object)
+{
+  AtspiObject *aobj = ATSPI_OBJECT (object);
 
   g_free (aobj->path);
+
+  G_OBJECT_CLASS (atspi_object_parent_class)->finalize (object);
 }
 
 static void
@@ -46,5 +59,6 @@ atspi_object_class_init (AtspiObjectClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->dispose = atspi_object_dispose;
   object_class->finalize = atspi_object_finalize;
 }

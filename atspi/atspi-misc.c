@@ -232,7 +232,7 @@ ref_accessible (const char *app_name, const char *path)
   a = atspi_accessible_new (app, path);
   if (!a)
     return NULL;
-  g_hash_table_insert (app->hash, a->parent.path, a);
+  g_hash_table_insert (app->hash, g_strdup (a->parent.path), a);
   g_object_ref (a);	/* for the hash */
   return a;
 }
@@ -285,24 +285,21 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_
 
   if (strcmp (signature, "(so)") != 0)
   {
-    g_warning ("at-spi: Unknown signature %s for RemoveAccessible", signature);
+    g_warning (_("AT-SPI: Unknown signature %s for RemoveAccessible"), signature);
     return DBUS_HANDLER_RESULT_HANDLED;
   }
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &sender);
+  dbus_message_iter_next (&iter_struct);
   dbus_message_iter_get_basic (&iter_struct, &path);
   app = get_application (sender);
   a = ref_accessible (sender, path);
   if (!a)
     return DBUS_HANDLER_RESULT_HANDLED;
-  if (a->accessible_parent && g_list_find (a->accessible_parent->children, a))
-  {
-    a->accessible_parent->children = g_list_remove (a->accessible_parent->children, a);
-    g_object_unref (a);
-  }
-  g_hash_table_remove (app->hash, app->bus_name);
+  g_object_run_dispose (G_OBJECT (a));
+  g_hash_table_remove (app->hash, a->parent.path);
   g_object_unref (a);	/* unref our own ref */
   return DBUS_HANDLER_RESULT_HANDLED;
 }
@@ -326,7 +323,7 @@ add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
   }
   else
   {
-    g_warning ("Error calling getRoot for %s: %s", bus_name, error.message);
+    g_warning (_("AT-SPI: Error calling getRoot for %s: %s"), bus_name, error.message);
   }
   return FALSE;
 }
@@ -369,7 +366,6 @@ remove_app_from_desktop (AtspiAccessible *a, const char *bus_name)
   }
   if (!l)
   {
-    g_warning ("Removing unregistered app %s; doing nothing\n", bus_name);
     return FALSE;
   }
   send_children_changed (a, child, FALSE);
@@ -487,7 +483,7 @@ handle_get_items (DBusPendingCall *pending, void *user_data)
     const char *error = NULL;
     dbus_message_get_args (reply, NULL, DBUS_TYPE_STRING, &error,
                            DBUS_TYPE_INVALID);
-    g_warning ("Atspi: Error in GetItems, sender=%s, error=%s", sender, error);
+    g_warning (_("AT-SPI: Error in GetItems, sender=%s, error=%s"), sender, error);
     dbus_message_unref (reply);
     return;
   }
@@ -512,6 +508,7 @@ ref_accessible_desktop (AtspiApplication *app)
   gint i;
   DBusMessage *message, *reply;
   DBusMessageIter iter, iter_array;
+  gchar *bus_name_dup;
 
   if (desktop)
   {
@@ -550,6 +547,12 @@ ref_accessible_desktop (AtspiApplication *app)
     add_app_to_desktop (desktop, app_name);
   }
   dbus_message_unref (reply);
+
+  /* Record the alternate name as an alias for org.a11y.atspi.Registry */
+  bus_name_dup = g_strdup (dbus_message_get_sender (reply));
+  if (bus_name_dup)
+    g_hash_table_insert (app_hash, bus_name_dup, app);
+
   return desktop;
 }
 
@@ -583,7 +586,7 @@ _atspi_dbus_return_accessible_from_message (DBusMessage *message)
   }
   else
   {
-    g_warning ("Atspi: Called _atspi_dbus_return_accessible_from_message with strange signature %s", signature);
+    g_warning (_("AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange signature %s"), signature);
   }
   dbus_message_unref (message);
   return retval;
@@ -612,7 +615,7 @@ _atspi_dbus_return_hyperlink_from_message (DBusMessage *message)
   }
   else
   {
-    g_warning ("Atspi: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s", signature);
+    g_warning (_("AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s"), signature);
   }
   dbus_message_unref (message);
   return retval;
@@ -639,7 +642,8 @@ handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_dat
 
   if (strcmp (dbus_message_get_signature (message), cache_signal_type) != 0)
   {
-    g_warning ("atspi: AddAccessible with unknown signature %s\n", dbus_message_get_signature (message));
+    g_warning (_("AT-SPI: AddAccessible with unknown signature %s\n"),
+               dbus_message_get_signature (message));
     return;
   }
 
@@ -828,7 +832,7 @@ get_accessibility_bus ()
   bridge_display = XOpenDisplay (spi_display_name ());
   if (!bridge_display)
     {
-      g_warning ("AT_SPI: Could not get the display\n");
+      g_warning (_("AT-SPI: Could not get the display\n"));
       return NULL;
     }
 
@@ -845,11 +849,11 @@ get_accessibility_bus ()
   if (data == NULL)
     {
       g_warning
-        ("AT-SPI: Accessibility bus not found - Using session bus.\n");
+        (_("AT-SPI: Accessibility bus not found - Using session bus.\n"));
       bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
       if (!bus)
         {
-          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          g_warning (_("AT-SPI: Couldn't connect to bus: %s\n"), error.message);
           return NULL;
         }
     }
@@ -858,14 +862,14 @@ get_accessibility_bus ()
       bus = dbus_connection_open (data, &error);
       if (!bus)
         {
-          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
+          g_warning (_("AT-SPI: Couldn't connect to bus: %s\n"), error.message);
           return NULL;
         }
       else
         {
           if (!dbus_bus_register (bus, &error))
             {
-              g_warning ("AT-SPI: Couldn't register with bus: %s\n", error.message);
+              g_warning (_("AT-SPI: Couldn't register with bus: %s\n"), error.message);
               return NULL;
             }
         }
@@ -1046,6 +1050,13 @@ _atspi_dbus_call_partial_va (gpointer obj,
 
   dbus_error_init (&err);
 
+  if (!aobj->app || !aobj->app->bus)
+  {
+    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                          _("The application no longer exists"));
+    goto out;
+  }
+
     msg = dbus_message_new_method_call (aobj->app->bus_name, aobj->path, interface, method);
     if (!msg)
         goto out;
@@ -1100,13 +1111,13 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   dbus_message_iter_init (reply, &iter);
   if (dbus_message_iter_get_arg_type (&iter) != 'v')
   {
-    g_warning ("at-spi: expected a variant when fetching %s from interface %s; got %s\n", name, interface, dbus_message_get_signature (reply));
+    g_warning (_("AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"), name, interface, dbus_message_get_signature (reply));
     goto done;
   }
   dbus_message_iter_recurse (&iter, &iter_variant);
   if (dbus_message_iter_get_arg_type (&iter_variant) != type[0])
   {
-    g_warning ("atspi_dbus_get_property: Wrong type: expected %s, got %c\n", type, dbus_message_iter_get_arg_type (&iter_variant));
+    g_warning (_("atspi_dbus_get_property: Wrong type: expected %s, got %c\n"), type, dbus_message_iter_get_arg_type (&iter_variant));
     goto done;
   }
   if (!strcmp (type, "(so)"))
@@ -1140,7 +1151,7 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   _atspi_process_deferred_messages ((gpointer)TRUE);
   dbus_message_unref (message);
   if (err.message)
-    g_warning ("Atspi: Got error: %s\n", err.message);
+    g_warning (_("AT-SPI: Got error: %s\n"), err.message);
   return reply;
 }
 
@@ -1235,7 +1246,7 @@ _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter)
     n = _atspi_get_iface_num (iface);
     if (n == -1)
     {
-      g_warning ("at-spi: Unknown interface %s", iface);
+      g_warning (_("AT-SPI: Unknown interface %s"), iface);
     }
     else
       accessible->interfaces |= (1 << n);
@@ -1255,7 +1266,7 @@ _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter)
   dbus_message_iter_get_fixed_array (&iter_array, &states, &count);
   if (count != 2)
   {
-    g_warning ("at-spi: expected 2 values in states array; got %d\n", count);
+    g_warning (_("AT-SPI: expected 2 values in states array; got %d\n"), count);
     if (!accessible->states)
       accessible->states = _atspi_state_set_new_internal (accessible, 0);
   }
@@ -1270,3 +1281,10 @@ _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter)
   }
   accessible->cached_properties |= ATSPI_CACHE_STATES;
 }
+
+GQuark
+atspi_error_quark (void)
+{
+  return g_quark_from_static_string ("atspi_error");
+}
+
