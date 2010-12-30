@@ -227,10 +227,7 @@ get_registered_event_listeners (SpiBridge *app)
     }
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
-  /* TODO: This is bad. Need to determine that the array is non-empty,
-     so that we don't initially read a value rom it in that case, but using
-     a deprecated function. */
-  if (dbus_message_iter_get_array_len (&iter_array) > 0) do
+  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
     {
       char *bus_name, *event;
       dbus_message_iter_recurse (&iter_array, &iter_struct);
@@ -238,8 +235,8 @@ get_registered_event_listeners (SpiBridge *app)
       dbus_message_iter_next (&iter_struct);
       dbus_message_iter_get_basic (&iter_struct, &event);
       add_event (bus_name, event);
+      dbus_message_iter_next (&iter_array);
     }
-  while (dbus_message_iter_next (&iter_array));
   dbus_message_unref (reply);
 }
 
