@@ -39,10 +39,14 @@ AtspiRect *
 atspi_rect_copy (AtspiRect *src)
 {
   AtspiRect *dst = g_new (AtspiRect, 1);
-  dst->x = src->x;
-  dst->y = src->y;
-  dst->height = src->height;
-  dst->width = src->width;
+  if (dst)
+  {
+    dst->x = src->x;
+    dst->y = src->y;
+    dst->height = src->height;
+    dst->width = src->width;
+  }
+  return dst;
 }
 
 G_DEFINE_BOXED_TYPE (AtspiRect, atspi_rect, atspi_rect_copy, atspi_rect_free)
@@ -51,8 +55,12 @@ AtspiPoint *
 atspi_point_copy (AtspiPoint *src)
 {
   AtspiPoint *dst = g_new (AtspiPoint, 1);
-  dst->x = src->x;
-  dst->y = src->y;
+  if (dst)
+  {
+    dst->x = src->x;
+    dst->y = src->y;
+  }
+  return dst;
 }
 
 G_DEFINE_BOXED_TYPE (AtspiPoint, atspi_point, atspi_point_copy, g_free)
