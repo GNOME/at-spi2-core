@@ -1005,6 +1005,13 @@ _atspi_dbus_call (gpointer obj, const char *interface, const char *method, GErro
   DBusError err;
   AtspiObject *aobj = ATSPI_OBJECT (obj);
 
+  if (!aobj->app || !aobj->app->bus)
+  {
+    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                          _("The application no longer exists"));
+    return FALSE;
+  }
+
   va_start (args, type);
   dbus_error_init (&err);
   retval = dbind_method_call_reentrant_va (aobj->app->bus, aobj->app->bus_name,
