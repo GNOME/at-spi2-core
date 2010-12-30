@@ -102,12 +102,15 @@ atspi_text_get_text (AtspiText *obj,
                         gint end_offset,
                         GError **error)
 {
-  gchar *retval;
+  gchar *retval = NULL;
   dbus_int32_t d_start_offset = start_offset, d_end_offset = end_offset;
 
-  g_return_val_if_fail (obj != NULL, NULL);
+  g_return_val_if_fail (obj != NULL, g_strdup (""));
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetText", error, "ii=>s", start_offset, end_offset, &retval);
+
+  if (!retval)
+    retval = g_strdup ("");
 
   return retval;
 }
@@ -356,6 +359,8 @@ atspi_text_get_text_before_offset (AtspiText *obj,
 
   range->start_offset = d_start_offset;
   range->end_offset = d_end_offset;
+  if (!range->content)
+    range->content = g_strdup ("");
 
   return range;
 }
@@ -397,6 +402,8 @@ atspi_text_get_text_at_offset (AtspiText *obj,
 
   range->start_offset = d_start_offset;
   range->end_offset = d_end_offset;
+  if (!range->content)
+    range->content = g_strdup ("");
 
   return range;
 }
@@ -439,6 +446,8 @@ atspi_text_get_text_after_offset (AtspiText *obj,
 
   range->start_offset = d_start_offset;
   range->end_offset = d_end_offset;
+  if (!range->content)
+    range->content = g_strdup ("");
 
   return range;
 }

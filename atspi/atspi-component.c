@@ -146,7 +146,7 @@ atspi_component_get_extents (AtspiComponent *obj,
   dbus_uint32_t d_ctype = ctype;
   AtspiRect bbox;
 
-  bbox.x = bbox.y = bbox.width = bbox.height = 0;
+  bbox.x = bbox.y = bbox.width = bbox.height = -1;
   g_return_val_if_fail (obj != NULL, atspi_rect_copy (&bbox));
 
   _atspi_dbus_call (obj, atspi_interface_component, "GetExtents", error, "u=>(iiii)", d_ctype, &bbox);
@@ -171,7 +171,7 @@ atspi_component_get_position (AtspiComponent *obj,
   dbus_uint16_t d_ctype = ctype;
   AtspiPoint ret;
 
-  ret.x = ret.y = 0;
+  ret.x = ret.y = -1;
 
   if (!obj)
     return atspi_point_copy (&ret);
@@ -197,7 +197,7 @@ atspi_component_get_size (AtspiComponent *obj, GError **error)
   dbus_int32_t d_w, d_h;
   AtspiPoint ret;
 
-  ret.x = ret.y = 0;
+  ret.x = ret.y = -1;
   if (!obj)
     return atspi_point_copy (&ret);
 
@@ -219,7 +219,7 @@ atspi_component_get_size (AtspiComponent *obj, GError **error)
 AtspiComponentLayer
 atspi_component_get_layer (AtspiComponent *obj, GError **error)
 {
-  dbus_uint32_t zlayer = 0;
+  dbus_uint32_t zlayer = -1;
 
   _atspi_dbus_call (obj, atspi_interface_component, "GetLayer", error, "=>u", &zlayer);
 
