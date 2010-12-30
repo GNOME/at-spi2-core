@@ -619,6 +619,14 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
 AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)
 {
+  if (!obj->parent.app || !obj->parent.app->bus)
+  {
+    AtspiStateSet *set = atspi_state_set_new (NULL);
+    atspi_state_set_add (set, ATSPI_STATE_DEFUNCT);
+    return set;
+  }
+
+
   if (!(obj->cached_properties & ATSPI_CACHE_STATES))
   {
     DBusMessage *reply;
