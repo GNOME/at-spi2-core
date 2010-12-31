@@ -1096,6 +1096,13 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   if (!aobj)
     return FALSE;
 
+  if (!aobj->app || !aobj->app->bus)
+  {
+    g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_APPLICATION_GONE,
+                          _("The application no longer exists"));
+    return FALSE;
+  }
+
   message = dbus_message_new_method_call (aobj->app->bus_name,
                                           aobj->path,
                                           "org.freedesktop.DBus.Properties",

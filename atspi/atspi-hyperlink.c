@@ -86,11 +86,14 @@ gchar *
 atspi_hyperlink_get_uri (AtspiHyperlink *obj, int i, GError **error)
 {
   dbus_int32_t d_i = i;
-  char *retval;
+  char *retval = NULL;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
   _atspi_dbus_call (obj, atspi_interface_hyperlink, "GetURI", error, "i=>s", d_i, &retval);
+
+  if (!retval)
+    retval = g_strdup ("");
 
   return retval;
 }
