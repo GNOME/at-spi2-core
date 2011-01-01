@@ -254,7 +254,7 @@ ref_hyperlink (const char *app_name, const char *path)
   hyperlink = atspi_hyperlink_new (app, path);
   if (!hyperlink)
     return NULL;
-  g_hash_table_insert (app->hash, hyperlink->parent.path, hyperlink);
+  g_hash_table_insert (app->hash, g_strdup (hyperlink->parent.path), hyperlink);
   /* TODO: This should be a weak ref */
   g_object_ref (hyperlink);	/* for the hash */
   return hyperlink;

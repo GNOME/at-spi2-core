@@ -49,8 +49,7 @@ atspi_object_finalize (GObject *object)
 {
   AtspiObject *aobj = ATSPI_OBJECT (object);
 
-  /* TODO: Figure out why the next line sometimes crashes */
-  /*g_free (aobj->path); */
+  g_free (aobj->path);
 
   G_OBJECT_CLASS (atspi_object_parent_class)->finalize (object);
 }
