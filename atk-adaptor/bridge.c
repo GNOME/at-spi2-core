@@ -321,6 +321,8 @@ app->app_bus_addr = g_malloc(max_addr_length * sizeof(char));
 #ifndef DISABLE_P2P
 sprintf(app->app_bus_addr, "unix:path=/tmp/at-spi2/socket-%d-%d", getpid(),
 rand());
+#else
+  app->app_bus_addr [0] = '\0';
 #endif
 
   return TRUE;
