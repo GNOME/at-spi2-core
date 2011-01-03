@@ -1159,6 +1159,10 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   DBusConnection *bus;
 
   app = get_application (dbus_message_get_destination (message));
+
+  if (app && !app->bus)
+    return NULL;	/* will fail anyway; app has been disposed */
+
   bus = (app ? app->bus : _atspi_bus());
   dbus_error_init (&err);
   reply = dbind_send_and_allow_reentry (bus, message, &err);
