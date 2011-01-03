@@ -88,7 +88,7 @@ send_and_allow_reentry (DBusConnection * bus, DBusMessage * message)
   closure.loop = g_main_loop_new (main_context, FALSE);
   switch_main_context (main_context);
 
-  if (!dbus_connection_send_with_reply (bus, message, &pending, -1))
+  if (!dbus_connection_send_with_reply (bus, message, &pending, -1) || !pending)
     {
       switch_main_context (NULL);
       return NULL;

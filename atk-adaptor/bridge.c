@@ -303,7 +303,8 @@ register_application (SpiBridge * app)
   dbus_message_iter_init_append (message, &iter);
   spi_object_append_reference (&iter, app->root);
   
-    if (!dbus_connection_send_with_reply (app->bus, message, &pending, -1))
+    if (!dbus_connection_send_with_reply (app->bus, message, &pending, -1)
+        || !pending)
     {
         return FALSE;
     }
