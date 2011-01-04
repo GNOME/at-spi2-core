@@ -147,10 +147,19 @@ void _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *i
 
 void _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter);
 
-#define _ATSPI_DBUS_CHECK_SIG(message, type, ret) \
+#define _ATSPI_DBUS_CHECK_SIG(message, type, error, ret) \
   if (!message) { \
     g_warning ("at-spi: Got no message at %s line %d\n", __FILE__, __LINE__); \
     return (ret); \
+  } \
+  if (dbus_message_get_type (message) == DBUS_MESSAGE_TYPE_ERROR) \
+  { \
+    const char *err; \
+    dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &err, DBUS_TYPE_INVALID); \
+    if (err) \
+      g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_IPC, err); \
+    dbus_message_unref (message); \
+    return ret; \
   } \
   if (strcmp (dbus_message_get_signature (message), type) != 0) \
   { \
@@ -176,6 +185,7 @@ GQuark atspi_error_quark (void);
  */
 typedef enum
 {
-  ATSPI_ERROR_APPLICATION_GONE
+  ATSPI_ERROR_APPLICATION_GONE,
+  ATSPI_ERROR_IPC
 } AtspiError;
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

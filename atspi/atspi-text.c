@@ -170,7 +170,7 @@ atspi_text_get_attributes (AtspiText *obj,
    return NULL;
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_text, "GetAttributes", error, "i", d_offset);
-  _ATSPI_DBUS_CHECK_SIG (reply, "a{ss}ii", ret)
+  _ATSPI_DBUS_CHECK_SIG (reply, "a{ss}ii", error, ret)
 
   dbus_message_iter_init (reply, &iter);
   ret = _atspi_dbus_hash_from_iter (&iter);
@@ -226,7 +226,7 @@ atspi_text_get_attribute_run (AtspiText *obj,
   reply = _atspi_dbus_call_partial (obj, atspi_interface_text,
                                     "GetAttributeRun", error, "ib", d_offset,
                                     include_defaults);
-  _ATSPI_DBUS_CHECK_SIG (reply, "a{ss}ii", ret)
+  _ATSPI_DBUS_CHECK_SIG (reply, "a{ss}ii", error, ret)
 
   dbus_message_iter_init (reply, &iter);
   ret = _atspi_dbus_hash_from_iter (&iter);

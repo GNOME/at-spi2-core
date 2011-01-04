@@ -509,7 +509,9 @@ atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
   g_return_val_if_fail (obj != NULL, NULL);
 
   reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetRelationSet", error, "");
-  _ATSPI_DBUS_CHECK_SIG (reply, "a(ua(so))", NULL);
+  if (!reply)
+    return NULL;
+  _ATSPI_DBUS_CHECK_SIG (reply, "a(ua(so))", error, NULL);
 
   ret = g_array_new (TRUE, TRUE, sizeof (AtspiRelation *));
   dbus_message_iter_init (reply, &iter);
@@ -607,6 +609,14 @@ atspi_accessible_get_localized_role_name (AtspiAccessible *obj, GError **error)
   return retval;
 }
 
+static AtspiStateSet *
+defunct_set ()
+{
+  AtspiStateSet *set = atspi_state_set_new (NULL);
+  atspi_state_set_add (set, ATSPI_STATE_DEFUNCT);
+  return set;
+}
+
 /**
  * atspi_accessible_get_state_set:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
@@ -620,11 +630,7 @@ AtspiStateSet *
 atspi_accessible_get_state_set (AtspiAccessible *obj)
 {
   if (!obj->parent.app || !obj->parent.app->bus)
-  {
-    AtspiStateSet *set = atspi_state_set_new (NULL);
-    atspi_state_set_add (set, ATSPI_STATE_DEFUNCT);
-    return set;
-  }
+    return defunct_set ();
 
 
   if (!(obj->cached_properties & ATSPI_CACHE_STATES))
@@ -633,7 +639,7 @@ atspi_accessible_get_state_set (AtspiAccessible *obj)
     DBusMessageIter iter;
     reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
                                       "GetState", NULL, "");
-    _ATSPI_DBUS_CHECK_SIG (reply, "au", NULL);
+    _ATSPI_DBUS_CHECK_SIG (reply, "au", NULL, defunct_set ());
     dbus_message_iter_init (reply, &iter);
     _atspi_dbus_set_state (obj, &iter);
     dbus_message_unref (reply);
@@ -1201,7 +1207,7 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
     DBusMessageIter iter;
     reply = _atspi_dbus_call_partial (accessible, atspi_interface_accessible,
                                       "GetInterfaces", NULL, "");
-    _ATSPI_DBUS_CHECK_SIG (reply, "as", FALSE);
+    _ATSPI_DBUS_CHECK_SIG (reply, "as", NULL, FALSE);
     dbus_message_iter_init (reply, &iter);
     _atspi_dbus_set_interfaces (accessible, &iter);
     dbus_message_unref (reply);

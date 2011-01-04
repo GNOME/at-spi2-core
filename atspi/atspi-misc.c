@@ -1179,7 +1179,10 @@ _atspi_dbus_return_hash_from_message (DBusMessage *message)
   DBusMessageIter iter;
   GHashTable *ret;
 
-  _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL);
+  if (!message)
+    return NULL;
+
+  _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL, NULL);
 
   dbus_message_iter_init (message, &iter);
   ret = _atspi_dbus_hash_from_iter (&iter);
@@ -1213,7 +1216,10 @@ _atspi_dbus_return_attribute_array_from_message (DBusMessage *message)
   DBusMessageIter iter;
   GArray *ret;
 
-  _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL);
+  if (!message)
+    return NULL;
+
+  _ATSPI_DBUS_CHECK_SIG (message, "a{ss}", NULL, NULL);
 
   dbus_message_iter_init (message, &iter);
 

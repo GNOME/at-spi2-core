@@ -83,7 +83,7 @@ return_accessibles (DBusMessage *message)
   DBusMessageIter iter, iter_array;
   GArray *ret = g_array_new (TRUE, TRUE, sizeof (AtspiAccessible *));
 
-  _ATSPI_DBUS_CHECK_SIG (message, "a(so)", NULL);
+  _ATSPI_DBUS_CHECK_SIG (message, "a(so)", NULL, NULL);
 
   dbus_message_iter_init (message, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
