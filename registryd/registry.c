@@ -1158,6 +1158,16 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
                     impl_get_ToolkitName (&iter, user_data);
                   else if (!strcmp (prop_member, "ToolkitVersion"))
                     impl_get_ToolkitVersion (&iter, user_data);
+                  else
+                    {
+                      dbus_message_unref (reply); 
+                      reply = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
+                    }
+                }
+              else
+                {
+                  dbus_message_unref (reply); 
+                  reply = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
                 }
             }
           else
