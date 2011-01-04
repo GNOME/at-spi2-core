@@ -359,7 +359,7 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!(obj->cached_properties & ATSPI_CACHE_PARENT))
+  if (obj->parent.app && !(obj->cached_properties & ATSPI_CACHE_PARENT))
   {
     DBusMessage *message, *reply;
     DBusMessageIter iter, iter_variant;
