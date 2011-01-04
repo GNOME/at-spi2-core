@@ -601,6 +601,17 @@ impl_get_ChildCount (DBusMessageIter * iter, void *user_data)
   return result;
 }
 
+static dbus_bool_t
+impl_get_ToolkitName (DBusMessageIter * iter, void *user_data)
+{
+  return return_v_string (iter, "at-spi-registry");
+}
+
+impl_get_ToolkitVersion (DBusMessageIter * iter, void *user_data)
+{
+  return return_v_string (iter, "2.0");
+}
+
 static DBusMessage *
 impl_GetChildAtIndex (DBusConnection * bus,
                       DBusMessage * message, void *user_data)
@@ -1140,6 +1151,13 @@ handle_method_root (DBusConnection *bus, DBusMessage *message, void *user_data)
                       dbus_message_unref (reply); 
                       reply = dbus_message_new_error (message, DBUS_ERROR_FAILED, "Property unavailable");
                     }
+                }
+              else if (!strcmp (prop_iface, SPI_DBUS_INTERFACE_APPLICATION))
+                {
+                  if (!strcmp (prop_member, "ToolkitName"))
+                    impl_get_ToolkitName (&iter, user_data);
+                  else if (!strcmp (prop_member, "ToolkitVersion"))
+                    impl_get_ToolkitVersion (&iter, user_data);
                 }
             }
           else
