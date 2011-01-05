@@ -1,5 +1,5 @@
 # Process this file with automake to create Makefile.in.
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 SUBDIRS=atk tests docs po
 
