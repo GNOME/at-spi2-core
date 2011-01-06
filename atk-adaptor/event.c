@@ -72,6 +72,7 @@ set_reply (DBusPendingCall * pending, void *user_data)
   SpiReentrantCallClosure* closure = (SpiReentrantCallClosure *) user_data; 
 
   closure->reply = dbus_pending_call_steal_reply (pending);
+  dbus_pending_call_unref (pending);
   switch_main_context (NULL);
   g_main_loop_quit (closure->loop);
 }
