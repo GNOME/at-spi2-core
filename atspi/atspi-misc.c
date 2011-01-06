@@ -160,6 +160,8 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
       }
     }
   }
+  dbus_message_unref (reply);
+  dbus_pending_call_unref (pending);
 
   message = dbus_message_new_method_call (app->bus_name,
                                           "/org/a11y/atspi/cache",
@@ -167,6 +169,7 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
 
    dbus_connection_send_with_reply (app->bus, message, &new_pending, 2000);
   dbus_pending_call_set_notify (new_pending, handle_get_items, app, NULL);
+  dbus_message_unref (message);
 }
 
 static AtspiApplication *
@@ -192,7 +195,7 @@ get_application (const char *bus_name)
   if (!app) return NULL;
   app->bus_name = bus_name_dup;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
-  app->bus = _atspi_bus ();
+  app->bus = dbus_connection_ref (_atspi_bus ());
   g_hash_table_insert (app_hash, bus_name_dup, app);
   dbus_error_init (&error);
   message = dbus_message_new_method_call (bus_name, atspi_path_root,
@@ -200,6 +203,7 @@ get_application (const char *bus_name)
 
    dbus_connection_send_with_reply (app->bus, message, &pending, 2000);
   dbus_pending_call_set_notify (pending, handle_get_bus_address, app, NULL);
+  dbus_message_unref (message);
   return app;
 }
 
@@ -1078,6 +1082,8 @@ _atspi_dbus_call_partial_va (gpointer obj,
     reply = dbind_send_and_allow_reentry (aobj->app->bus, msg, &err);
 out:
   va_end (args);
+  if (msg)
+    dbus_message_unref (msg);
   _atspi_process_deferred_messages ((gpointer)TRUE);
   if (dbus_error_is_set (&err))
   {
