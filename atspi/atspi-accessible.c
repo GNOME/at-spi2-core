@@ -372,9 +372,13 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
                                DBUS_TYPE_STRING, &str_parent,
                               DBUS_TYPE_INVALID);
     reply = _atspi_dbus_send_with_reply_and_block (message);
-    if (!reply ||
-       (strcmp (dbus_message_get_signature (reply), "v") != 0))
+    if (!reply)
       return NULL;
+    if (strcmp (dbus_message_get_signature (reply), "v") != 0)
+    {
+      dbus_message_unref (reply);
+      return NULL;
+    }
     dbus_message_iter_init (reply, &iter);
     dbus_message_iter_recurse (&iter, &iter_variant);
     obj->accessible_parent = _atspi_dbus_return_accessible_from_iter (&iter_variant);
@@ -526,6 +530,7 @@ atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
       ret = new_array;
     dbus_message_iter_next (&iter_array);
   }
+  dbus_message_unref (reply);
   return ret;
 }
 
@@ -548,7 +553,7 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
   {
     dbus_uint32_t role;
     /* TODO: Make this a property */
-    if (_atspi_dbus_call (obj, atspi_interface_accessible, "GetRole", NULL, "=>u", &role))
+    if (_atspi_dbus_call (obj, atspi_interface_accessible, "GetRole", error, "=>u", &role))
     {
       obj->cached_properties |= ATSPI_CACHE_ROLE;
       obj->role = role;

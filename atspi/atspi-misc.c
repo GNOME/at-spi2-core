@@ -485,6 +485,7 @@ handle_get_items (DBusPendingCall *pending, void *user_data)
                            DBUS_TYPE_INVALID);
     g_warning (_("AT-SPI: Error in GetItems, sender=%s, error=%s"), sender, error);
     dbus_message_unref (reply);
+    dbus_pending_call_unref (pending);
     return;
   }
 
@@ -496,6 +497,7 @@ handle_get_items (DBusPendingCall *pending, void *user_data)
     dbus_message_iter_next (&iter_array);
   }
   dbus_message_unref (reply);
+  dbus_pending_call_unref (pending);
 }
 
 /* TODO: Do we stil need this function? */
@@ -843,6 +845,7 @@ get_accessibility_bus ()
                       (long) BUFSIZ, False,
                       (Atom) 31, &actual_type, &actual_format,
                       &nitems, &leftover, &data);
+  XCloseDisplay (bridge_display);
 
   dbus_error_init (&error);
 
@@ -1169,7 +1172,10 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   _atspi_process_deferred_messages ((gpointer)TRUE);
   dbus_message_unref (message);
   if (err.message)
+  {
     g_warning (_("AT-SPI: Got error: %s\n"), err.message);
+    dbus_error_free (&err);
+  }
   return reply;
 }
 
