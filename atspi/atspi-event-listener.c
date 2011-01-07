@@ -846,7 +846,6 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   default:
     break;
   }
-  _atspi_send_event (&e);
 
   if (!strncmp (e.type, "object:children-changed", 23))
   {
@@ -860,6 +859,8 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
   {
     cache_process_state_changed (&e);
   }
+
+  _atspi_send_event (&e);
 
   g_free (converted_type);
   g_free (name);
