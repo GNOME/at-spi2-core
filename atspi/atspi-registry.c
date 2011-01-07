@@ -96,9 +96,10 @@ atspi_get_desktop_list ()
  * @listener:  a pointer to the #AtspiDeviceListener for which
  *             keystroke events are requested.
  * @key_set: (element-type AtspiKeyDefinition): a pointer to the
- *        #AtspiKeyDefinition array indicating which keystroke events are requested, or #ATSPI_KEYSET_ALL_KEYS
- *             to indicate that all keycodes and keyvals for the specified
- *             modifier set are to be included.
+ *        #AtspiKeyDefinition array indicating which keystroke events are
+ *        requested, or #ATSPI_KEYSET_ALL_KEYS
+ *        to indicate that all keycodes and keyvals for the specified
+ *        modifier set are to be included.
  * @modmask:   an #AtspiKeyMaskType mask indicating which
  *             key event modifiers must be set in combination with @keys,
  *             events will only be reported for key events for which all
@@ -106,7 +107,7 @@ atspi_get_desktop_list ()
  *             events with multiple modifier combinations you must call
  *             register_keystroke_listener() once for each
  *             combination.
- * @modmask: an #AtspiKeyMaskType mask indicating which
+ * @event_types: an #AtspiKeyMaskType mask indicating which
  *             types of key events are requested (#ATSPI_KEY_PRESSED, etc.).
  * @sync_type: a #AtspiKeyListenerSyncType parameter indicating
  *             the behavior of the notification/listener transaction.
@@ -188,8 +189,15 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
  * atspi_deregister_keystroke_listener:
  * @listener: a pointer to the #AtspiDeviceListener for which
  *            keystroke events are requested.
+ * @key_set: (element-type AtspiKeyDefinition): a pointer to the
+ *        #AtspiKeyDefinition array indicating which keystroke events are
+ *        requested, or #ATSPI_KEYSET_ALL_KEYS
+ *        to indicate that all keycodes and keyvals for the specified
+ *        modifier set are to be included.
  * @modmask:  the key modifier mask for which this listener is to be
  *            'deregistered' (of type #AtspiKeyMaskType).
+ * @event_types: an #AtspiKeyMaskType mask indicating which
+ *             types of key events were requested (#ATSPI_KEY_PRESSED, etc.).
  *
  * Removes a keystroke event listener from the registry's listener queue,
  *            ceasing notification of events with modifiers matching @modmask.
@@ -198,10 +206,12 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
  **/
 gboolean
 atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
-					   AtspiKeyMaskType        modmask, AtspiKeyEventMask event_types, GError **error)
+                                     GArray              *key_set,
+                                     AtspiKeyMaskType     modmask,
+                                     AtspiKeyEventMask    event_types,
+                                     GError             **error)
 {
   gchar *path = _atspi_device_listener_get_path (listener);
-  GArray *key_set;
   dbus_uint32_t d_modmask = modmask;
   dbus_uint32_t d_event_types = event_types;
   DBusError d_error;
@@ -212,8 +222,11 @@ atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
       return FALSE;
     }
 
-      key_set = g_array_sized_new (FALSE, TRUE, sizeof (AtspiKeyDefinition), 0);
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "DeregisterKeystrokeListener", &d_error, "oa(iisi)uu", path, &key_set, d_modmask, d_event_types);
+  dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+                               atspi_path_dec, atspi_interface_dec,
+                               "DeregisterKeystrokeListener", &d_error,
+                               "oa(iisi)uu", path, &key_set, d_modmask,
+                               d_event_types);
   g_free (path);
   return TRUE;
 }

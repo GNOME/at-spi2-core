@@ -46,6 +46,7 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
 
 gboolean
 atspi_deregister_keystroke_listener (AtspiDeviceListener *listener,
+                            GArray              *key_set,
 					        AtspiKeyMaskType         modmask,
 					        AtspiKeyEventMask        event_types,
 					        GError **error);
