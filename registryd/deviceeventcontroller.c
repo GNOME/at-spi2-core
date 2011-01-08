@@ -421,6 +421,7 @@ static void emit(SpiDEController *controller, const char *interface, const char 
   dbus_message_iter_close_container (&iter, &iter_struct);
 
   dbus_connection_send (controller->bus, signal, NULL);
+  dbus_message_unref (signal);
 }
 
 static gboolean
