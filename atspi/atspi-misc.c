@@ -1119,7 +1119,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   if (!message)
   {
     // TODO: throw exception
-    goto done;
+    return FALSE;
   }
   dbus_message_append_args (message, DBUS_TYPE_STRING, &interface, DBUS_TYPE_STRING, &name, DBUS_TYPE_INVALID);
   dbus_error_init (&err);
@@ -1131,6 +1131,16 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
     // TODO: throw exception
     goto done;
   }
+
+  if (dbus_message_get_type (reply) == DBUS_MESSAGE_TYPE_ERROR)
+  {
+    const char *err;
+    dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &err, DBUS_TYPE_INVALID);
+    if (err)
+      g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_IPC, err);
+    goto done;
+  }
+
   dbus_message_iter_init (reply, &iter);
   if (dbus_message_iter_get_arg_type (&iter) != 'v')
   {
@@ -1150,12 +1160,13 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   else
   {
     dbus_message_iter_get_basic (&iter_variant, data);
-    dbus_message_unref (reply);
     if (type [0] == 's')
       *(char **)data = g_strdup (*(char **)data);
   }
   retval = TRUE;
 done:
+  if (reply)
+    dbus_message_unref (reply);
   return retval;
 }
 
