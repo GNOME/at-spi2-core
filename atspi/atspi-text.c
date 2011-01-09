@@ -540,12 +540,12 @@ atspi_text_get_offset_at_point (AtspiText *obj,
 				 GError **error)
 {
   dbus_int32_t d_x = x, d_y = y;
-  dbus_uint16_t d_type = type;
+  dbus_uint32_t d_type = type;
   dbus_int32_t retval = -1;
 
   g_return_val_if_fail (obj != NULL, -1);
 
-  _atspi_dbus_call (obj, atspi_interface_text, "GetOffsetAtPoint", error, "iin=>i", d_x, d_y, d_type, &retval);
+  _atspi_dbus_call (obj, atspi_interface_text, "GetOffsetAtPoint", error, "iiu=>i", d_x, d_y, d_type, &retval);
 
   return retval;
 }
@@ -573,7 +573,7 @@ atspi_text_get_range_extents (AtspiText *obj,
 				GError **error)
 {
   dbus_int32_t d_start_offset = start_offset, d_end_offset = end_offset;
-  dbus_int16_t d_type = type;
+  dbus_uint32_t d_type = type;
   dbus_int32_t d_x, d_y, d_width, d_height;
   AtspiRect ret;
 
@@ -582,7 +582,7 @@ atspi_text_get_range_extents (AtspiText *obj,
   if (obj == NULL)
     return atspi_rect_copy (&ret);
 
-  _atspi_dbus_call (obj, atspi_interface_text, "GetRangeExtents", error, "iin=>iiii", d_start_offset, d_end_offset, d_type, &d_x, &d_y, &d_width, &d_height);
+  _atspi_dbus_call (obj, atspi_interface_text, "GetRangeExtents", error, "iiu=>iiii", d_start_offset, d_end_offset, d_type, &d_x, &d_y, &d_width, &d_height);
 
   ret.x = d_x;
   ret.y = d_y;
@@ -629,7 +629,7 @@ atspi_text_get_bounded_ranges (AtspiText *obj,
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  _atspi_dbus_call (obj, atspi_interface_text, "GetBoundedRanges", error, "iiiinuu=>a(iisv)", d_x, d_y, d_width, d_height, d_type, d_clipTypeX, d_clipTypeY, &range_seq);
+  _atspi_dbus_call (obj, atspi_interface_text, "GetBoundedRanges", error, "iiiiuuu=>a(iisv)", d_x, d_y, d_width, d_height, d_type, d_clipTypeX, d_clipTypeY, &range_seq);
 
   return range_seq;
 }
