@@ -111,9 +111,9 @@ atspi_state_set_set_by_name (AtspiStateSet *set, const gchar *name, gboolean ena
     if (!strcmp (state_names [i], name))
     {
       if (enabled)
-        set->states |= (1 << i);
+        set->states |= ((gint64)1 << i);
       else
-        set->states &= ~(1 << i);
+        set->states &= ~((gint64)1 << i);
       return;
     }
   }
@@ -200,7 +200,7 @@ atspi_state_set_contains (AtspiStateSet *set,
   if (!set)
     return FALSE;
   refresh_states (set);
-  return (set->states & (1 << state)) ? TRUE : FALSE;
+  return (set->states & ((gint64)1 << state)) ? TRUE : FALSE;
 }
 
 /**
@@ -291,6 +291,6 @@ void
 atspi_state_set_remove (AtspiStateSet *set, AtspiStateType state)
 {
   g_return_if_fail (set != NULL);
-  set->states &= ~(1 << state);
+  set->states &= ~((gint64)1 << state);
 }
 
