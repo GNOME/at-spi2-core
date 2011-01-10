@@ -1,3 +1,21 @@
+What's new in at-spi2-atk 1.91.5:
+
+* Fixed some memory leaks.
+
+* Fixed a crash if peer-to-peer connections are disabled.
+
+* Fixed setting of GTK_PATH with --enable-relocate (was broken in 1.91.4).
+
+What's new in at-spi2-atk 1.91.4:
+
+* Support direct dbus connections to improve performance if dbus-glib
+  0.90 or greater is available.
+
+* Added a GSettings key to specify the location of libatk-bridge.so.
+
+* Added a desktop file to load gail and atk-bridge with the new
+  gnome-settings-daemon.
+
 What's new in at-spi2-atk 1.91.3:
 
 * Attributes in a collection match rule are now expected to be sent as a
