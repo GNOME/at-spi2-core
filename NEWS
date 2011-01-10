@@ -1,3 +1,61 @@
+What's new in at-spi2-core 1.91.5:
+
+* Fixed several memory leaks.
+
+* Fixed some text methods, methods that return points or rectangles,
+  image locale and description, atspi-accessible_get_description, and some
+  table methods.
+
+* Added a trailing colon for focus events.
+
+* Set the error parameter for dbus errors rather than displaying a warning.
+
+* Fixed the keystroke listener deregister method.
+
+* The cache is now updated before raising an event, not after, so that event
+  handlers that query for cached values will see the updated data.
+
+* The registry daemon now returns an error when a caller requests a property
+  that the desktop does not support.
+
+* Added disposal of objects, and fixed several associated bugs.
+
+* Added i18n.
+
+* Fixed mouse events.
+
+* Libatspi's documentation is now compiled with gtk-doc.
+
+* Fixed building from a separate build directory.
+
+
+What's new in at-spi2-core 1.91.4:
+
+* use peer-to-peer connections when available.
+
+* Fix uninitialized variable in get_index_in_parent.
+
+* Add timeout, and support inspecting our own app.
+
+* Add get_interfaces, and fetch interface and state set over the wire if needed.
+
+* Avoid adding data for an accessible twice if it is referenced prior to an
+  AddAccessible signal being received.
+
+* Fix copying of any_data for an event.
+
+* at-spi-registryd returns ChildCount as a variant, per the DBus spec.
+
+* Hypertext, hyperlink, and table fixes.
+
+* Several cache-related fixes.
+
+* Change some error return values to match AT-SPI-CORBA behavior.
+
+* Some attribute-related fixes.
+
+* Renamed 'text' to 'content' in AtspiTextRange to match original IDL.
+
 What's new in at-spi2-core 1.91.3:
 
 * Added a C-based AT-side binding (libatspi) which can be used in
