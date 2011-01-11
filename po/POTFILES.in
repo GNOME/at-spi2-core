@@ -1,3 +1,5 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 atspi/atspi-misc.c
+atspi/atspi-accessible.c
+atspi/atspi-event-listener.c
