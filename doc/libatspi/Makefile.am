@@ -44,8 +44,8 @@ FIXXREF_OPTIONS=
 # Used for dependencies. The docs will be rebuilt if any of these change.
 # e.g. HFILE_GLOB=$(top_srcdir)/gtk/*.h
 # e.g. CFILE_GLOB=$(top_srcdir)/gtk/*.c
-HFILE_GLOB=
-CFILE_GLOB=
+HFILE_GLOB=$(top_srcdir)/atspi/*.h
+CFILE_GLOB=$(top_srcdir)/atspi/*.c
 
 # Extra header to include when scanning, which are not under DOC_SOURCE_DIR
 # e.g. EXTRA_HFILES=$(top_srcdir}/contrib/extra.h
@@ -74,7 +74,7 @@ expand_content_files=
 # e.g. GTKDOC_CFLAGS=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
 # e.g. GTKDOC_LIBS=$(top_builddir)/gtk/$(gtktargetlib)
 GTKDOC_CFLAGS=$(GLIB_CFLAGS)
-GTKDOC_LIBS=$(GLIB_LIBS) $(DBUS_GLIB_LIBS) $(top_srcdir)/atspi/libatspi.la
+GTKDOC_LIBS=$(GLIB_LIBS) $(DBUS_GLIB_LIBS) $(top_builddir)/atspi/libatspi.la
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
 include $(top_srcdir)/gtk-doc.make
@@ -90,8 +90,8 @@ EXTRA_DIST +=
 
 # Comment this out if you want your docs-status tested during 'make check'
 if ENABLE_GTK_DOC
-TESTS_ENVIRONMENT = cd $(srcsrc) &&
-TESTS = $(GTKDOC_CHECK)
+#TESTS_ENVIRONMENT = cd $(srcdir) &&
+#TESTS = $(GTKDOC_CHECK)
 endif
 
 -include $(top_srcdir)/git.mk
