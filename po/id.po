@@ -1,0 +1,36 @@
+# Indonesian translation of at-spi2-atk
+# Copyright (C) 2011 THE at-spi2-atk'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-atk package.
+# Andika Triwidada <andika@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2011-01-16 21:06+0000\n"
+"PO-Revision-Date: 2011-01-17 10:43+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: GNOME Indonesian Translation Team <<gnome@i15n.org>>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Indonesian\n"
+"X-Poedit-Country: INDONESIA\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Mengaktifkan infrastruktur AT-SPI berbasis DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Modul GTK+ bagi dukungan aksesibilitas"
+
+#: ../at-spi2.schemas.in.h:3
+msgid "In combination with /desktop/gnome/interface/accessibility, this key is needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-SPI infrastructure has been relocated. It is ignored if the DBus-based AT-SPI infrastructure has not been relocated."
+msgstr "Dikombinasikan dengan /desktop/gnome/interface/accessibility, kunci ini diperlukan untuk mengaktifkan infrastruktur AT-SPI berbasis DBus bila infrastruktur AT-SPI berbasis DBus telah direlokasi. Ini diabaikan bila infrastruktur AT-SPI berbasis DBus belum direlokasi."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr "Kunci ini menentukan modul GTK+ yang dimuat untuk dukungan aksesibilitas."
+
