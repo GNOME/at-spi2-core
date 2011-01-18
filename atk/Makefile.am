@@ -214,7 +214,19 @@ atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
 	lib -machine:$(LIB_EXE_MACHINE_FLAG) -name:libatk-$(ATK_API_VERSION)-$(LT_CURRENT_MINUS_AGE).dll -def:atk.def -out:$@
 
 
-EXTRA_DIST = atk.symbols atk.rc.in atkmarshal.list atkintl.h
+EXTRA_DIST = atk.symbols atk.rc.in atkmarshal.list atkintl.h atk.rc
+
+dist-hook: ../build/win32/vs9/atk.vcproj
+
+../build/win32/vs9/atk.vcproj: ../build/win32/vs9/atk.vcprojin
+	for F in $(libatk_1_0_la_SOURCES); do \
+		case $$F in \
+		*.c) echo '   <File RelativePath="..\..\..\atk\'$$F'" />' \
+		     ;; \
+		esac; \
+	done >libatk.sourcefiles
+	$(CPP) -P - <$(top_srcdir)/build/win32/vs9/atk.vcprojin >$@
+	rm libatk.sourcefiles
 
 DISTCLEANFILES = \
   stamp-atkmarshal.h stamp-atkmarshal.c \

@@ -10,7 +10,8 @@ EXTRA_DIST = 			\
 	atk.spec.in		\
 	atk.spec		\
 	atk-zip.sh.in   \
-    m4/introspection.m4
+    m4/introspection.m4   \
+	config.h.win32
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atk.pc

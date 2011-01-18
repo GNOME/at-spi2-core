@@ -226,6 +226,7 @@ docs/Makefile
 docs/version.xml
 atk.spec
 atk-zip.sh
+config.h.win32
 ])
 
 AC_OUTPUT
