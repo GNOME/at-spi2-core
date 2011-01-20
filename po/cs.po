@@ -1,15 +1,16 @@
-# Czech translation for glib-networking.
-# Copyright (C) 2011 glib-networking's COPYRIGHT HOLDER
-# This file is distributed under the same license as the glib-networking package.
+# Czech translation for at-spi2-core.
+# Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-core package.
+#
 # Marek Černocký <marek@manet.cz>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: glib-networking master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=glib&component=network\n"
-"POT-Creation-Date: 2011-01-19 18:35+0000\n"
-"PO-Revision-Date: 2011-01-20 13:51+0100\n"
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2011-01-19 16:30+0000\n"
+"PO-Revision-Date: 2011-01-20 14:50+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,76 +19,97 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../proxy/libproxy/glibproxyresolver.c:142
-msgid "Proxy resolver internal error."
-msgstr "Interní chyba zjišťování adres přes proxy."
-
-#: ../tls/gnutls/gtlscertificate-gnutls.c:173
+#: ../atspi/atspi-misc.c:292
 #, c-format
-msgid "Could not parse DER certificate: %s"
-msgstr "Nelze zpracovat certifikát DER: %s"
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: Neznámý podpis %s pro RemoveAccessible"
 
-#: ../tls/gnutls/gtlscertificate-gnutls.c:194
+#: ../atspi/atspi-misc.c:330
 #, c-format
-msgid "Could not parse PEM certificate: %s"
-msgstr "Nelze zpracovat certifikát PEM: %s"
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: Chyba volání getRoot pro %s: %s"
 
-#: ../tls/gnutls/gtlscertificate-gnutls.c:214
+#: ../atspi/atspi-misc.c:490
 #, c-format
-msgid "Could not parse DER private key: %s"
-msgstr "Nelze zpracovat soukromý klíč DER: %s"
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI:Chyba v GetItems, odesilatel=%s, chyba=%s"
 
-#: ../tls/gnutls/gtlscertificate-gnutls.c:234
+#: ../atspi/atspi-misc.c:595
 #, c-format
-msgid "Could not parse PEM private key: %s"
-msgstr "Nelze zpracovat soukromý klíč PEM: %s"
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: _atspi_dbus_return_accessible_from_message voláno s cizím podpisem %s"
 
-#: ../tls/gnutls/gtlscertificate-gnutls.c:275
-msgid "No certificate data provided"
-msgstr "Nebyla poskytnuta žádná data certifikátu"
-
-#: ../tls/gnutls/gtlsclientconnection-gnutls.c:356
-msgid "Server required TLS certificate"
-msgstr "Server požaduje certifikát TLS"
-
-#: ../tls/gnutls/gtlsconnection-gnutls.c:241
+#: ../atspi/atspi-misc.c:624
 #, c-format
-msgid "Could not create TLS connection: %s"
-msgstr "Nelze vytvořit spojení TLS: %s"
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: _atspi_dbus_return_hyperlink_from_message voláno s cizím podpisem %s"
 
-#: ../tls/gnutls/gtlsconnection-gnutls.c:479
-msgid "Peer failed to perform TLS handshake"
-msgstr "Protějšek selhal při navazování spojení TLS"
-
-#: ../tls/gnutls/gtlsconnection-gnutls.c:497
-msgid "Peer requested illegal TLS rehandshake"
-msgstr "Protějšek požadoval neplatné znovunavázání spojení TLS"
-
-#: ../tls/gnutls/gtlsconnection-gnutls.c:511
-msgid "TLS connection closed unexpectedly"
-msgstr "Spojení TLS bylo neočekávaně zavřeno"
-
-#: ../tls/gnutls/gtlsconnection-gnutls.c:799
-#: ../tls/gnutls/gtlsconnection-gnutls.c:825
+#: ../atspi/atspi-misc.c:651
 #, c-format
-msgid "Error performing TLS handshake: %s"
-msgstr "Chyba při navazování spojení TLS: %s"
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI: AddAccessible s neznámým podpisem %s\n"
 
-#: ../tls/gnutls/gtlsconnection-gnutls.c:876
-msgid "Unacceptable TLS certificate"
-msgstr "Nepřijatelný certifikát TLS"
+#: ../atspi/atspi-misc.c:841
+msgid "AT-SPI: Could not get the display\n"
+msgstr "AT-SPI: Nelze získat displej\n"
 
-#: ../tls/gnutls/gtlsconnection-gnutls.c:1023
+#: ../atspi/atspi-misc.c:859
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr ""
+"AT-SPI: Sběrnice přístupnosti nebyla nalezena – použije se sběrnice sezení.\n"
+
+#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
 #, c-format
-msgid "Error reading data from TLS socket: %s"
-msgstr "Chyba čtení dat ze soketu TLS: %s"
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "AT-SPI: Nelze se připojit ke sběrnici: %s\n"
 
-#: ../tls/gnutls/gtlsconnection-gnutls.c:1049
+#: ../atspi/atspi-misc.c:879
 #, c-format
-msgid "Error writing data to TLS socket: %s"
-msgstr "Chyba zápisu dat do soketu TLS: %s"
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "AT-SPI: Nelze se registrovat ke sběrnici: %s\n"
 
-#: ../tls/gnutls/gtlsconnection-gnutls.c:1095
+#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
+#: ../atspi/atspi-misc.c:1111
+msgid "The application no longer exists"
+msgstr "Aplikace již neexistuje"
+
+#: ../atspi/atspi-misc.c:1147
 #, c-format
-msgid "Error performing TLS close: %s"
-msgstr "Chyba při zavírání TLS: %s"
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+"AT-SPI: Při získávání %s z rozhraní %s očekáván typ variant; obdržen %s\n"
+
+#: ../atspi/atspi-misc.c:1153
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property: Nesprávný typ: očekáván %s, obdržen %c\n"
+
+#: ../atspi/atspi-misc.c:1193
+#, c-format
+msgid "AT-SPI: Got error: %s\n"
+msgstr "AT-SPI: Obdržena chyba: %s\n"
+
+#: ../atspi/atspi-misc.c:1296
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: Neznámé rozhraní %s"
+
+#: ../atspi/atspi-misc.c:1316
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: Očekávány 2 hodnoty ve stavovém poli; obdrženo %d\n"
+
+#: ../atspi/atspi-accessible.c:950
+msgid "Streamable content not implemented"
+msgstr "Proudově přenositelný obsah není implementován"
+
+#: ../atspi/atspi-event-listener.c:758
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Obdržen neplatný podpis %s pro signál %s z rozhraní %s\n"
