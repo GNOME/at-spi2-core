@@ -1,0 +1,93 @@
+# Czech translation for glib-networking.
+# Copyright (C) 2011 glib-networking's COPYRIGHT HOLDER
+# This file is distributed under the same license as the glib-networking package.
+# Marek Černocký <marek@manet.cz>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: glib-networking master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=glib&component=network\n"
+"POT-Creation-Date: 2011-01-19 18:35+0000\n"
+"PO-Revision-Date: 2011-01-20 13:51+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../proxy/libproxy/glibproxyresolver.c:142
+msgid "Proxy resolver internal error."
+msgstr "Interní chyba zjišťování adres přes proxy."
+
+#: ../tls/gnutls/gtlscertificate-gnutls.c:173
+#, c-format
+msgid "Could not parse DER certificate: %s"
+msgstr "Nelze zpracovat certifikát DER: %s"
+
+#: ../tls/gnutls/gtlscertificate-gnutls.c:194
+#, c-format
+msgid "Could not parse PEM certificate: %s"
+msgstr "Nelze zpracovat certifikát PEM: %s"
+
+#: ../tls/gnutls/gtlscertificate-gnutls.c:214
+#, c-format
+msgid "Could not parse DER private key: %s"
+msgstr "Nelze zpracovat soukromý klíč DER: %s"
+
+#: ../tls/gnutls/gtlscertificate-gnutls.c:234
+#, c-format
+msgid "Could not parse PEM private key: %s"
+msgstr "Nelze zpracovat soukromý klíč PEM: %s"
+
+#: ../tls/gnutls/gtlscertificate-gnutls.c:275
+msgid "No certificate data provided"
+msgstr "Nebyla poskytnuta žádná data certifikátu"
+
+#: ../tls/gnutls/gtlsclientconnection-gnutls.c:356
+msgid "Server required TLS certificate"
+msgstr "Server požaduje certifikát TLS"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:241
+#, c-format
+msgid "Could not create TLS connection: %s"
+msgstr "Nelze vytvořit spojení TLS: %s"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:479
+msgid "Peer failed to perform TLS handshake"
+msgstr "Protějšek selhal při navazování spojení TLS"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:497
+msgid "Peer requested illegal TLS rehandshake"
+msgstr "Protějšek požadoval neplatné znovunavázání spojení TLS"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:511
+msgid "TLS connection closed unexpectedly"
+msgstr "Spojení TLS bylo neočekávaně zavřeno"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:799
+#: ../tls/gnutls/gtlsconnection-gnutls.c:825
+#, c-format
+msgid "Error performing TLS handshake: %s"
+msgstr "Chyba při navazování spojení TLS: %s"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:876
+msgid "Unacceptable TLS certificate"
+msgstr "Nepřijatelný certifikát TLS"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:1023
+#, c-format
+msgid "Error reading data from TLS socket: %s"
+msgstr "Chyba čtení dat ze soketu TLS: %s"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:1049
+#, c-format
+msgid "Error writing data to TLS socket: %s"
+msgstr "Chyba zápisu dat do soketu TLS: %s"
+
+#: ../tls/gnutls/gtlsconnection-gnutls.c:1095
+#, c-format
+msgid "Error performing TLS close: %s"
+msgstr "Chyba při zavírání TLS: %s"
