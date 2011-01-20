@@ -883,6 +883,22 @@ atspi_accessible_is_hypertext (AtspiAccessible *obj)
 }
 
 /**
+ * atspi_accessible_is_hyperlink:
+ * @obj: a pointer to the #AtspiAccessible instance to query.
+ *
+ * Query whether the specified #AtspiAccessible implements #AtspiHyperlink.
+ *
+ * Returns: #TRUE if @obj implements the #AtspiHypertext interface,
+ *          #FALSE otherwise.
+ **/
+gboolean
+atspi_accessible_is_hyperlink (AtspiAccessible *obj)
+{
+  return _atspi_accessible_is_a (obj,
+			      atspi_interface_hyperlink);
+}
+
+/**
  * atspi_accessible_is_image:
  * @obj: a pointer to the #AtspiAccessible instance to query.
  *
@@ -1263,6 +1279,8 @@ atspi_accessible_get_interfaces (AtspiAccessible *obj)
     append_const_val (ret, "EditableText");
   if (atspi_accessible_is_hypertext (obj))
     append_const_val (ret, "Hypertext");
+  if (atspi_accessible_is_hyperlink (obj))
+    append_const_val (ret, "Hyperlink");
   if (atspi_accessible_is_image (obj))
     append_const_val (ret, "Image");
   if (atspi_accessible_is_selection (obj))
