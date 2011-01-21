@@ -179,6 +179,7 @@
 	atk_streamable_content_get_n_mime_types
 	atk_streamable_content_get_stream
 	atk_streamable_content_get_type
+	atk_streamable_content_get_uri
 	atk_table_add_column_selection
 	atk_table_add_row_selection
 	atk_table_get_caption
