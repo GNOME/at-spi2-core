@@ -132,7 +132,6 @@ AC_CONFIG_FILES([Makefile
 		 atk-adaptor/gtk-3.0/Makefile
 		 po/Makefile.in
                  schemas/Makefile
-schemas/org.a11y.atspi.gschema.xml
 		])
 
 AC_OUTPUT
