@@ -34,7 +34,7 @@
 gchar *
 atspi_image_get_image_description (AtspiImage *obj, GError **error)
 {
-  char *retval;
+  char *retval = NULL;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
