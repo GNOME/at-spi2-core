@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core 2.9x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-18 12:43+0100\n"
-"PO-Revision-Date: 2011-01-18 12:45+0100\n"
+"POT-Creation-Date: 2011-01-23 11:29+0100\n"
+"PO-Revision-Date: 2011-01-23 11:33+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: \n"
@@ -19,54 +19,54 @@ msgstr ""
 #: ../atspi/atspi-misc.c:292
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
-msgstr ""
+msgstr "AT-SPI: Ukjent signatur %s for RemoveAccessible"
 
 #: ../atspi/atspi-misc.c:330
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
-msgstr ""
+msgstr "AT-SPI: Feil under kall til getRoot for %s: %s"
 
 #: ../atspi/atspi-misc.c:490
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr ""
+msgstr "AT-SPI: Feil i GetItems, sender=%s, feil=%s"
 
 #: ../atspi/atspi-misc.c:595
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
-msgstr ""
+msgstr "AT-SPI: Kalte _atspi_dbus_return_accessible_from_message med rar signatur %s"
 
 #: ../atspi/atspi-misc.c:624
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
 "signature %s"
-msgstr ""
+msgstr "AT-SPI: Kalte _atspi_dbus_return_hyperlink_from_message med rar signatur %s"
 
 #: ../atspi/atspi-misc.c:651
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr ""
+msgstr "AT-SPI: AddAccessible med ukjent signatur %s\n"
 
 #: ../atspi/atspi-misc.c:841
 msgid "AT-SPI: Could not get the display\n"
-msgstr ""
+msgstr "AT-SPI: Fant ikke skjerm\n"
 
 #: ../atspi/atspi-misc.c:859
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-msgstr ""
+msgstr "AT-SPI: Buss for tilgjengelighet ikke funnet - Bruker buss for økt.\n"
 
 #: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
 #, c-format
 msgid "AT-SPI: Couldn't connect to bus: %s\n"
-msgstr ""
+msgstr "AT-SPI: Klarte ikke å koble til bussen: %s\n"
 
 #: ../atspi/atspi-misc.c:879
 #, c-format
 msgid "AT-SPI: Couldn't register with bus: %s\n"
-msgstr ""
+msgstr "AT-SPI: Klarte ikke å registrere hos bussen: %s\n"
 
 #: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
 #: ../atspi/atspi-misc.c:1111
@@ -76,12 +76,12 @@ msgstr "Programmet eksisterer ikke lenger"
 #: ../atspi/atspi-misc.c:1147
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
+msgstr "AT-SPI: forventet en variant under henting av %s fra grensesnitt %s; fikk %s\n"
 
 #: ../atspi/atspi-misc.c:1153
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr ""
+msgstr "atspi_dbus_get_property: Feil type: forventet %s fikk %c\n"
 
 #: ../atspi/atspi-misc.c:1193
 #, c-format
@@ -96,13 +96,13 @@ msgstr "AT-SPI: Ukjent grensesnitt %s"
 #: ../atspi/atspi-misc.c:1316
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr ""
+msgstr "AT-SPI: forventet to verdier i tilstandsmatrisen; fikk %d\n"
 
-#: ../atspi/atspi-accessible.c:950
+#: ../atspi/atspi-accessible.c:966
 msgid "Streamable content not implemented"
-msgstr ""
+msgstr "Innhold i strøm ikke implementert"
 
 #: ../atspi/atspi-event-listener.c:758
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr ""
+msgstr "Fikk ugyldig signatur %s for signal %s fra grensesnitt %s\n"
