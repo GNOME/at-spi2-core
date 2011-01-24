@@ -1,0 +1,46 @@
+# Punjabi translation for at-spi2-atk.
+# Copyright (C) 2011 at-spi2-atk's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-atk package.
+#
+# A S Alam <aalam@users.sf.net>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2011-01-21 22:25+0000\n"
+"PO-Revision-Date: 2011-01-25 02:42+0530\n"
+"Last-Translator: A S Alam <aalam@users.sf.net>\n"
+"Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pa\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "DBus-ਅਧਾਰਿਤ AT-SPI ਢਾਂਚਾ ਚਾਲੂ"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "ਅਸੈਸਬਿਲਟੀ ਸਹਿਯੋਗ ਲਈ GTK+ ਮੋਡੀਊਲ"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"/desktop/gnome/interface/accessibility ਦੇ ਨਾਲ ਇਹ ਕੁੰਜੀ ਡੀਬਸ-ਅਧਾਰਿਤ AT-SPI "
+"ਢਾਂਚਾ ਯੋਗ ਕਰਨ ਲਈ ਚਾਹੀਦੀ ਹੈ, ਜੇ ਡੀਬਸ-ਅਧਾਰਿਤ AT-SPI ਢਾਂਚੇ ਨੂੰ ਬਦਲਿਆ ਗਿਆ ਹੋਵੇ। "
+"ਇਸ ਨੂੰ "
+"ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ, ਜੇ ਡੀਬਸ-ਅਧਾਰਿਤ AT-SPI ਢਾਂਚੇ ਨੂੰ ਬਦਲਿਆ ਨਾ ਗਿਆ ਹੋਵੇ।"
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"ਇਹ ਕੁੰਜੀ ਅਸੈਸਬਿਲਟੀ ਸਹਿਯੋਗ ਲਈ ਲੋਡ ਕੀਤੇ ਜਾਣ ਵਾਲੇ GTK+ ਮੋਡੀਊਲ ਤਹਿ ਕਰਦੀ ਹੈ।"
+
