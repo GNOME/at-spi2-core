@@ -222,6 +222,9 @@ atk-uninstalled.pc
 atk/Makefile
 atk/atk.rc
 tests/Makefile
+build/Makefile
+build/win32/Makefile
+build/win32/vs9/Makefile
 docs/Makefile
 docs/version.xml
 atk.spec
