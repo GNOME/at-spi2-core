@@ -138,7 +138,7 @@ atspi_collection_get_matches (AtspiCollection *collection,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
                             DBUS_TYPE_INVALID);
-  reply = _atspi_dbus_send_with_reply_and_block (message);
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
   if (!reply)
     return NULL;
   return return_accessibles (reply);
@@ -194,7 +194,7 @@ atspi_collection_get_matches_to (AtspiCollection *collection,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
                             DBUS_TYPE_INVALID);
-  reply = _atspi_dbus_send_with_reply_and_block (message);
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
   if (!reply)
     return NULL;
   return return_accessibles (reply);
@@ -246,7 +246,7 @@ atspi_collection_get_matches_from (AtspiCollection *collection,
                             DBUS_TYPE_INT32, &d_count,
                             DBUS_TYPE_BOOLEAN, &d_traverse,
                             DBUS_TYPE_INVALID);
-  reply = _atspi_dbus_send_with_reply_and_block (message);
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
   if (!reply)
     return NULL;
   return return_accessibles (reply);

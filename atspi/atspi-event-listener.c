@@ -464,7 +464,8 @@ listener_entry_free (EventListenerEntry *e)
  **/
 gboolean
 atspi_event_listener_register (AtspiEventListener *listener,
-				             const gchar              *event_type)
+				             const gchar              *event_type,
+				             GError **error)
 {
   /* TODO: Keep track of which events have been registered, so that we
  * deregister all of them when the event listener is destroyed */
@@ -472,7 +473,7 @@ atspi_event_listener_register (AtspiEventListener *listener,
   return atspi_event_listener_register_from_callback (listener->callback,
                                                       listener->user_data,
                                                       listener->cb_destroyed,
-                                                      event_type);
+                                                      event_type, error);
 }
 
 /**
@@ -489,11 +490,12 @@ gboolean
 atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 				             void *user_data,
 				             GDestroyNotify callback_destroyed,
-				             const gchar              *event_type)
+				             const gchar              *event_type,
+				             GError **error)
 {
   EventListenerEntry *e;
   char *matchrule;
-  DBusError error;
+  DBusError d_error;
   GList *new_list;
   DBusMessage *message, *reply;
 
@@ -521,11 +523,12 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
     return FALSE;
   }
   event_listeners = new_list;
-  dbus_error_init (&error);
-  dbus_bus_add_match (_atspi_bus(), matchrule, &error);
-  if (error.message)
+  dbus_error_init (&d_error);
+  dbus_bus_add_match (_atspi_bus(), matchrule, &d_error);
+  if (d_error.message)
   {
-    g_warning ("Atspi: Adding match: %s", error.message);
+    g_warning ("Atspi: Adding match: %s", d_error.message);
+    /* TODO: Set error */
   }
 
   dbus_error_init (&error);
@@ -536,7 +539,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
   if (!message)
     return;
   dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
-  reply = _atspi_dbus_send_with_reply_and_block (message);
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
   if (reply)
     dbus_message_unref (reply);
 
@@ -561,9 +564,12 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 gboolean
 atspi_event_listener_register_no_data (AtspiEventListenerSimpleCB callback,
 				 GDestroyNotify callback_destroyed,
-				 const gchar              *event_type)
+				 const gchar              *event_type,
+				 GError **error)
 {
-  return atspi_event_listener_register_from_callback (remove_datum, callback, callback_destroyed, event_type);
+  return atspi_event_listener_register_from_callback (remove_datum, callback,
+                                                      callback_destroyed,
+                                                      event_type, error);
 }
 
 static gboolean
@@ -587,9 +593,12 @@ is_superset (const gchar *super, const gchar *sub)
  **/
 gboolean
 atspi_event_listener_deregister (AtspiEventListener *listener,
-				               const gchar              *event_type)
+				               const gchar              *event_type,
+				               GError **error)
 {
-  atspi_event_listener_deregister_from_callback (listener->callback, listener->user_data, event_type);
+  atspi_event_listener_deregister_from_callback (listener->callback,
+                                                 listener->user_data,
+                                                 event_type, error);
 }
 
 /**
@@ -608,7 +617,8 @@ atspi_event_listener_deregister (AtspiEventListener *listener,
 gboolean
 atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
 				               void *user_data,
-				               const gchar              *event_type)
+				               const gchar              *event_type,
+				               GError **error)
 {
   char *category, *name, *detail, *matchrule;
   GList *l;
@@ -632,15 +642,15 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
         is_superset (detail, e->detail))
     {
       gboolean need_replace;
-      DBusError error;
+      DBusError d_error;
       DBusMessage *message, *reply;
       need_replace = (l == event_listeners);
       l = g_list_remove (l, e);
       if (need_replace)
         event_listeners = l;
-      dbus_error_init (&error);
-      dbus_bus_remove_match (_atspi_bus(), matchrule, &error);
-      dbus_error_init (&error);
+      dbus_error_init (&d_error);
+      dbus_bus_remove_match (_atspi_bus(), matchrule, &d_error);
+      dbus_error_init (&d_error);
       message = dbus_message_new_method_call (atspi_bus_registry,
 	    atspi_path_registry,
 	    atspi_interface_registry,
@@ -648,7 +658,7 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
       if (!message)
       return;
       dbus_message_append_args (message, DBUS_TYPE_STRING, &event_type, DBUS_TYPE_INVALID);
-      reply = _atspi_dbus_send_with_reply_and_block (message);
+      reply = _atspi_dbus_send_with_reply_and_block (message, error);
       dbus_message_unref (reply);
 
       listener_entry_free (e);
@@ -676,10 +686,12 @@ atspi_event_listener_deregister_from_callback (AtspiEventListenerCB callback,
  **/
 gboolean
 atspi_event_listener_deregister_no_data (AtspiEventListenerSimpleCB callback,
-				   const gchar              *event_type)
+				   const gchar              *event_type,
+				   GError **error)
 {
   return atspi_event_listener_deregister_from_callback (remove_datum, callback,
-                                                        event_type);
+                                                        event_type,
+                                                        error);
 }
 
 static AtspiEvent *

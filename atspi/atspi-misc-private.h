@@ -131,7 +131,7 @@ DBusMessage *_atspi_dbus_call_partial_va (gpointer obj, const char *interface, c
 
 dbus_bool_t _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name, GError **error, const char *type, void *data);
 
-DBusMessage * _atspi_dbus_send_with_reply_and_block (DBusMessage *message);
+DBusMessage * _atspi_dbus_send_with_reply_and_block (DBusMessage *message, GError **error);
 
 GHashTable *_atspi_dbus_return_hash_from_message (DBusMessage *message);
 

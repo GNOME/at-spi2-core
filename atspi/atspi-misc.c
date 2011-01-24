@@ -536,7 +536,7 @@ ref_accessible_desktop (AtspiApplication *app)
 	"GetChildren");
   if (!message)
     return;
-  reply = _atspi_dbus_send_with_reply_and_block (message);
+  reply = _atspi_dbus_send_with_reply_and_block (message, NULL);
   if (!reply || strcmp (dbus_message_get_signature (reply), "a(so)") != 0)
   {
     g_error ("Couldn't get application list: %s", error.message);
@@ -1171,7 +1171,7 @@ done:
 }
 
 DBusMessage *
-_atspi_dbus_send_with_reply_and_block (DBusMessage *message)
+_atspi_dbus_send_with_reply_and_block (DBusMessage *message, GError **error)
 {
   DBusMessage *reply;
   DBusError err;
@@ -1190,7 +1190,8 @@ _atspi_dbus_send_with_reply_and_block (DBusMessage *message)
   dbus_message_unref (message);
   if (err.message)
   {
-    g_warning (_("AT-SPI: Got error: %s\n"), err.message);
+    if (error)
+      g_set_error_literal (error, ATSPI_ERROR, ATSPI_ERROR_IPC, err.message);
     dbus_error_free (&err);
   }
   return reply;

@@ -371,7 +371,7 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
     dbus_message_append_args (message, DBUS_TYPE_STRING, &atspi_interface_accessible,
                                DBUS_TYPE_STRING, &str_parent,
                               DBUS_TYPE_INVALID);
-    reply = _atspi_dbus_send_with_reply_and_block (message);
+    reply = _atspi_dbus_send_with_reply_and_block (message, error);
     if (!reply)
       return NULL;
     if (strcmp (dbus_message_get_signature (reply), "v") != 0)
