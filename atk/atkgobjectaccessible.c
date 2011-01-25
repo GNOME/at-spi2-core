@@ -62,7 +62,8 @@ atk_gobject_accessible_get_type (void)
  *
  * Gets the accessible object for the specified @obj.
  *
- * Returns: a #AtkObject which is the accessible object for the @obj
+ * Returns: (transfer none): a #AtkObject which is the accessible object for
+ * the @obj
  **/
 AtkObject*
 atk_gobject_accessible_for_object (GObject *obj)
@@ -107,7 +108,8 @@ atk_gobject_accessible_for_object (GObject *obj)
  *
  * Gets the GObject for which @obj is the accessible object.
  *
- * Returns: a #GObject which is the object for which @obj is the accessible object
+ * Returns: (transfer none): a #GObject which is the object for which @obj is
+ * the accessible object
  **/
 GObject *
 atk_gobject_accessible_get_object (AtkGObjectAccessible *obj)

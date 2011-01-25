@@ -599,7 +599,7 @@ atk_text_get_character_extents (AtkText *text,
 }
 
 /**
- *atk_text_get_run_attributes:
+ * atk_text_get_run_attributes:
  *@text: an #AtkText
  *@offset: the offset at which to get the attributes, -1 means the offset of
  *the character to be inserted at the caret location.
@@ -614,9 +614,9 @@ atk_text_get_character_extents (AtkText *text,
  *attributes that can be returned. Note that other attributes may also be 
  *returned.
  *
- *Returns: an #AtkAttributeSet which contains the attributes explicitly set
- *at @offset. This #AtkAttributeSet should be freed by a call to
- *atk_attribute_set_free().
+ *Returns: (transfer full): an #AtkAttributeSet which contains the attributes
+ * explicitly set at @offset. This #AtkAttributeSet should be freed by a call
+ * to atk_attribute_set_free().
  **/
 AtkAttributeSet* 
 atk_text_get_run_attributes (AtkText          *text,
@@ -651,7 +651,7 @@ atk_text_get_run_attributes (AtkText          *text,
 }
 
 /**
- *atk_text_get_default_attributes:
+ * atk_text_get_default_attributes:
  *@text: an #AtkText
  *
  *Creates an #AtkAttributeSet which consists of the default values of
@@ -659,9 +659,9 @@ atk_text_get_run_attributes (AtkText          *text,
  *attributes that can be returned. Note that other attributes may also be 
  *returned.
  *
- *Returns: an #AtkAttributeSet which contains the default values of attributes.
- *at @offset. This #AtkAttributeSet should be freed by a call to
- *atk_attribute_set_free().
+ *Returns: (transfer full): an #AtkAttributeSet which contains the default
+ * values of attributes.  at @offset. this #atkattributeset should be freed by
+ * a call to atk_attribute_set_free().
  */
 AtkAttributeSet* 
 atk_text_get_default_attributes (AtkText          *text)

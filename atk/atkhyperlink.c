@@ -217,7 +217,8 @@ atk_hyperlink_get_uri (AtkHyperlink *link,
  * 
  * Multiple anchors are primarily used by client-side image maps.
  *
- * Returns: an #AtkObject associated with this hyperlinks i-th anchor
+ * Returns: (transfer none): an #AtkObject associated with this hyperlinks
+ * i-th anchor
  **/
 AtkObject*
 atk_hyperlink_get_object (AtkHyperlink *link,

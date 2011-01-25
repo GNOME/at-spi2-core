@@ -257,7 +257,8 @@ atk_state_set_remove_state (AtkStateSet  *set,
  * Constructs the intersection of the two sets, returning %NULL if the
  * intersection is empty.
  *
- * Returns: a new #AtkStateSet which is the intersection of the two sets.
+ * Returns: (transfer full): a new #AtkStateSet which is the intersection of
+ * the two sets.
  **/
 AtkStateSet*
 atk_state_set_and_sets (AtkStateSet  *set,
@@ -289,8 +290,8 @@ atk_state_set_and_sets (AtkStateSet  *set,
  *
  * Constructs the union of the two sets.
  *
- * Returns: a new #AtkStateSet which is the union of the two sets,
- * returning %NULL is empty.
+ * Returns: (transfer full): a new #AtkStateSet which is the union of the two
+ * sets, returning %NULL is empty.
  **/
 AtkStateSet*
 atk_state_set_or_sets (AtkStateSet  *set,
@@ -326,8 +327,8 @@ atk_state_set_or_sets (AtkStateSet  *set,
  * The set returned by this operation contains the states in exactly
  * one of the two sets.
  *
- * Returns: a new #AtkStateSet which contains the states which are 
- * in exactly one of the two sets.
+ * Returns: (transfer full): a new #AtkStateSet which contains the states
+ * which are in exactly one of the two sets.
  **/
 AtkStateSet*
 atk_state_set_xor_sets (AtkStateSet  *set,

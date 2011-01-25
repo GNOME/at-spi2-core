@@ -65,8 +65,8 @@ atk_object_factory_class_init (AtkObjectFactoryClass *klass)
  * Provides an #AtkObject that implements an accessibility interface 
  * on behalf of @obj
  *
- * Returns: an #AtkObject that implements an accessibility interface
- * on behalf of @obj
+ * Returns: (transfer full): an #AtkObject that implements an accessibility
+ * interface on behalf of @obj
  **/
 AtkObject* 
 atk_object_factory_create_accessible (AtkObjectFactory *factory,

@@ -189,3 +189,66 @@ The AtkUtil struct does not contain any fields.
 @Returns: 
 
 
+<!-- ##### FUNCTION atk_get_version ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### MACRO ATK_DEFINE_TYPE ##### -->
+<para>
+
+</para>
+
+@TN: 
+@t_n: 
+@T_P: 
+
+
+<!-- ##### MACRO ATK_DEFINE_TYPE_EXTENDED ##### -->
+<para>
+
+</para>
+
+@TN: 
+@t_n: 
+@T_P: 
+@_f_: 
+@_C_: 
+
+
+<!-- ##### MACRO ATK_DEFINE_TYPE_WITH_CODE ##### -->
+<para>
+
+</para>
+
+@TN: 
+@t_n: 
+@T_P: 
+@_C_: 
+
+
+<!-- ##### MACRO ATK_DEFINE_ABSTRACT_TYPE ##### -->
+<para>
+
+</para>
+
+@TN: 
+@t_n: 
+@T_P: 
+
+
+<!-- ##### MACRO ATK_DEFINE_ABSTRACT_TYPE_WITH_CODE ##### -->
+<para>
+
+</para>
+
+@TN: 
+@t_n: 
+@T_P: 
+@_C_: 
+
+

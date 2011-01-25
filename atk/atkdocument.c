@@ -120,7 +120,7 @@ atk_document_get_document_type (AtkDocument *document)
  * up to the caller to check atk_document_get_type to determine
  * how to cast this pointer.
  *
- * Returns: a %gpointer that points to an instance of the DOM.
+ * Returns: (transfer none): a %gpointer that points to an instance of the DOM.
  **/
 gpointer 
 atk_document_get_document (AtkDocument *document)
@@ -184,7 +184,7 @@ atk_document_get_locale (AtkDocument *document)
  *
  * Since: 1.12
  *
- * Returns: An AtkAttributeSet containing the explicitly
+ * Returns: (transfer none): An AtkAttributeSet containing the explicitly
  *          set name-value-pair attributes associated with this document
  *          as a whole.
  **/

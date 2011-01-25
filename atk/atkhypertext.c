@@ -78,7 +78,7 @@ atk_hypertext_base_init (AtkHypertextIface *class)
  * Gets the link in this hypertext document at index 
  * @link_index
  *
- * Returns: the link in this hypertext document at
+ * Returns: (transfer none): the link in this hypertext document at
  * index @link_index
  **/
 AtkHyperlink* 

@@ -736,7 +736,8 @@ atk_object_get_description (AtkObject *accessible)
  *
  * Gets the accessible parent of the accessible.
  *
- * Returns: a #AtkObject representing the accessible parent of the accessible
+ * Returns: (transfer none): a #AtkObject representing the accessible parent
+ * of the accessible
  **/
 AtkObject*
 atk_object_get_parent (AtkObject *accessible)
@@ -784,8 +785,8 @@ atk_object_get_n_accessible_children (AtkObject *accessible)
  * The accessible children are 0-based so the first accessible child is
  * at index 0, the second at index 1 and so on.
  *
- * Returns: an #AtkObject representing the specified accessible child
- * of the accessible.
+ * Returns: (transfer full): an #AtkObject representing the specified
+ * accessible child of the accessible.
  **/
 AtkObject*
 atk_object_ref_accessible_child (AtkObject   *accessible,
@@ -808,7 +809,8 @@ atk_object_ref_accessible_child (AtkObject   *accessible,
  *
  * Gets the #AtkRelationSet associated with the object.
  *
- * Returns: an #AtkRelationSet representing the relation set of the object.
+ * Returns: (transfer full): an #AtkRelationSet representing the relation set
+ * of the object.
  **/
 AtkRelationSet*
 atk_object_ref_relation_set (AtkObject *accessible)
@@ -923,7 +925,7 @@ atk_object_get_mdi_zorder (AtkObject *accessible)
  * Gets a reference to the state set of the accessible; the caller must
  * unreference it when it is no longer needed.
  *
- * Returns: a reference to an #AtkStateSet which is the state
+ * Returns: (transfer full): a reference to an #AtkStateSet which is the state
  * set of the accessible
  **/
 AtkStateSet*
@@ -990,7 +992,7 @@ atk_object_set_name (AtkObject    *accessible,
 /**
  * atk_object_set_description:
  * @accessible: an #AtkObject
- * @description : a character string to be set as the accessible description
+ * @description: a character string to be set as the accessible description
  *
  * Sets the accessible description of the accessible.
  **/
@@ -1014,7 +1016,7 @@ atk_object_set_description (AtkObject   *accessible,
 /**
  * atk_object_set_parent:
  * @accessible: an #AtkObject
- * @parent : an #AtkObject to be set as the accessible parent
+ * @parent: an #AtkObject to be set as the accessible parent
  *
  * Sets the accessible parent of the accessible.
  **/
@@ -1037,7 +1039,7 @@ atk_object_set_parent (AtkObject *accessible,
 /**
  * atk_object_set_role:
  * @accessible: an #AtkObject
- * @role : an #AtkRole to be set as the role
+ * @role: an #AtkRole to be set as the role
  *
  * Sets the role of the accessible.
  **/
@@ -1067,7 +1069,7 @@ atk_object_set_role (AtkObject *accessible,
 /**
  * atk_object_connect_property_change_handler:
  * @accessible: an #AtkObject
- * @handler : a function to be called when a property changes its value
+ * @handler: a function to be called when a property changes its value
  *
  * Specifies a function to be called when a property changes value.
  *
@@ -1093,7 +1095,7 @@ atk_object_connect_property_change_handler (AtkObject *accessible,
 /**
  * atk_object_remove_property_change_handler:
  * @accessible: an #AtkObject
- * @handler_id : a guint which identifies the handler to be removed.
+ * @handler_id: a guint which identifies the handler to be removed.
  * 
  * Removes a property change handler.
  **/
@@ -1114,7 +1116,7 @@ atk_object_remove_property_change_handler  (AtkObject *accessible,
  * atk_object_notify_state_change:
  * @accessible: an #AtkObject
  * @state: an #AtkState whose state is changed
- * @value : a gboolean which indicates whether the state is being set on or off
+ * @value: a gboolean which indicates whether the state is being set on or off
  * 
  * Emits a state-change signal for the specified state. 
  **/
@@ -1141,7 +1143,8 @@ atk_object_notify_state_change (AtkObject *accessible,
  * Gets a reference to an object's #AtkObject implementation, if
  * the object implements #AtkObjectIface
  *
- * Returns: a reference to an object's #AtkObject implementation
+ * Returns: (transfer full): a reference to an object's #AtkObject
+ * implementation
  */
 AtkObject *
 atk_implementor_ref_accessible (AtkImplementor *implementor)
@@ -1173,8 +1176,9 @@ atk_implementor_ref_accessible (AtkImplementor *implementor)
  *
  * Since: 1.12
  *
- * Returns: an #AtkAttributeSet consisting of all explicit properties/annotations applied to 
- * the object, or an empty set if the object has no name-value pair attributes assigned to it.
+ * Returns: (transfer none): an #AtkAttributeSet consisting of all explicit
+ * properties/annotations applied to the object, or an empty set if the object
+ * has no name-value pair attributes assigned to it.
  */
 AtkAttributeSet *
 atk_object_get_attributes (AtkObject                  *accessible)

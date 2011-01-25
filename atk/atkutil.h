@@ -54,7 +54,7 @@ typedef struct _AtkKeyEventStruct AtkKeyEventStruct;
  * supported are events of type "focus:".  Most clients of ATK will prefer to 
  * attach signal handlers for the various ATK signals instead.
  *
- * @see: atk_add_focus_tracker.
+ * see atk_add_focus_tracker.
  **/
 typedef void  (*AtkEventListener) (AtkObject* obj);
 /**
@@ -64,7 +64,7 @@ typedef void  (*AtkEventListener) (AtkObject* obj);
  * called in order to initialize the per-object event registration system
  * used by #AtkEventListener, if any preparation is required.  
  *
- * @see: atk_focus_tracker_init.
+ * see atk_focus_tracker_init.
  **/
 typedef void  (*AtkEventListenerInit) (void);
 /**
@@ -81,7 +81,7 @@ typedef void  (*AtkEventListenerInit) (void);
  * discarded without being passed to the normal GUI recipient; FALSE (zero) if the 
  * event dispatch to the client application should proceed as normal.
  *
- * @see: atk_add_key_event_listener.
+ * see atk_add_key_event_listener.
  **/
 typedef gint  (*AtkKeySnoopFunc)  (AtkKeyEventStruct *event,
 				   gpointer func_data);

@@ -206,8 +206,8 @@ atk_registry_get_factory_type (AtkRegistry *registry,
  * Gets an #AtkObjectFactory appropriate for creating #AtkObjects
  * appropriate for @type.
  *
- * Returns: an #AtkObjectFactory appropriate for creating #AtkObjects
- * appropriate for @type.
+ * Returns: (transfer none): an #AtkObjectFactory appropriate for creating
+ * #AtkObjects appropriate for @type.
  **/
 AtkObjectFactory*
 atk_registry_get_factory (AtkRegistry *registry,
@@ -247,7 +247,7 @@ atk_registry_get_factory (AtkRegistry *registry,
 }
 
 /**
- *atk_get_default_registry:
+ * atk_get_default_registry:
  *
  * Gets a default implementation of the #AtkObjectFactory/type
  * registry.
@@ -257,8 +257,8 @@ atk_registry_get_factory (AtkRegistry *registry,
  * to associate an #AtkObjectFactory subclass with the GType of objects
  * for whom accessibility information will be provided.
  *
- * Returns: a default implementation of the #AtkObjectFactory/type
- * registry
+ * Returns: (transfer full): a default implementation of the
+ * #AtkObjectFactory/type registry
  **/
 AtkRegistry*
 atk_get_default_registry (void)

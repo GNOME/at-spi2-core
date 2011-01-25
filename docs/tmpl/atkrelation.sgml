@@ -131,3 +131,13 @@ The AtkRelation structure should not be accessed directly.
 @target: 
 
 
+<!-- ##### FUNCTION atk_relation_remove_target ##### -->
+<para>
+
+</para>
+
+@relation: 
+@target: 
+@Returns: 
+
+

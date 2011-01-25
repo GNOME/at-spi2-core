@@ -282,7 +282,7 @@ atk_relation_get_relation_type (AtkRelation *relation)
  *
  * Gets the target list of @relation
  *
- * Returns: the target list of @relation
+ * Returns: (transfer none): the target list of @relation
  **/
 GPtrArray*
 atk_relation_get_target (AtkRelation *relation)

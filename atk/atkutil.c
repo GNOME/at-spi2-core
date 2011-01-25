@@ -298,7 +298,8 @@ atk_remove_key_event_listener (guint listener_id)
  *
  * Gets the root accessible container for the current application.
  *
- * Returns: the root accessible container for the current application
+ * Returns: (transfer none): the root accessible container for the current
+ * application
  **/
 AtkObject*
 atk_get_root (void)
@@ -325,7 +326,8 @@ atk_get_root (void)
  * 
  * Since: 1.6
  *
- * Returns: the currently focused object for the current application
+ * Returns: (transfer none): the currently focused object for the current
+ * application
  **/
 AtkObject*
 atk_get_focus_object (void)

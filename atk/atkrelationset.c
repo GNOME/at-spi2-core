@@ -216,13 +216,14 @@ atk_relation_set_get_n_relations (AtkRelationSet *set)
 }
 
 /**
- * atk_relation_set_get_relation
+ * atk_relation_set_get_relation:
  * @set: an #AtkRelationSet
  * @i: a gint representing a position in the set, starting from 0.
  *
  * Determines the relation at the specified position in the relation set.
  *
- * Returns: a #AtkRelation, which is the relation at position i in the set.
+ * Returns: (transfer none): a #AtkRelation, which is the relation at
+ * position i in the set.
  **/
 AtkRelation*
 atk_relation_set_get_relation (AtkRelationSet *set,
@@ -251,7 +252,8 @@ atk_relation_set_get_relation (AtkRelationSet *set,
  *
  * Finds a relation that matches the specified type.
  *
- * Returns: an #AtkRelation, which is a relation matching the specified type.
+ * Returns: (transfer none): an #AtkRelation, which is a relation matching the
+ * specified type.
  **/
 AtkRelation*
 atk_relation_set_get_relation_by_type (AtkRelationSet  *set,

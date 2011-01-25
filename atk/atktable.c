@@ -138,7 +138,8 @@ atk_table_base_init (gpointer *g_class)
  *
  * Get a reference to the table cell at @row, @column.
  *
- * Returns: a AtkObject* representing the referred to accessible
+ * Returns: (transfer full): a AtkObject* representing the referred to
+ * accessible
  **/
 AtkObject*
 atk_table_ref_at (AtkTable *table,
@@ -248,8 +249,8 @@ atk_table_get_column_at_index (AtkTable *table,
  *
  * Gets the caption for the @table.
  *
- * Returns: a AtkObject* representing the table caption, or %NULL
- * if value does not implement this interface.
+ * Returns: (transfer none): a AtkObject* representing the table caption, or
+ * %NULL if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_caption (AtkTable *table)
@@ -352,8 +353,8 @@ atk_table_get_column_extent_at (AtkTable *table,
  *
  * Gets the column header of a specified column in an accessible table.
  *
- * Returns: a AtkObject* representing the specified column header, or
- * %NULL if value does not implement this interface.
+ * Returns: (transfer none): a AtkObject* representing the specified column
+ * header, or %NULL if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_column_header (AtkTable *table, gint column)
@@ -456,8 +457,8 @@ atk_table_get_row_extent_at (AtkTable *table,
  *
  * Gets the row header of a specified row in an accessible table.
  *
- * Returns: a AtkObject* representing the specified row header, or
- * %NULL if value does not implement this interface.
+ * Returns: (transfer none): a AtkObject* representing the specified row
+ * header, or %NULL if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_row_header (AtkTable *table, gint row)
@@ -480,8 +481,8 @@ atk_table_get_row_header (AtkTable *table, gint row)
  *
  * Gets the summary description of the table.
  *
- * Returns: a AtkObject* representing a summary description of the table,
- * or zero if value does not implement this interface.
+ * Returns: (transfer full): a AtkObject* representing a summary description
+ * of the table, or zero if value does not implement this interface.
  **/
 AtkObject*
 atk_table_get_summary (AtkTable *table)

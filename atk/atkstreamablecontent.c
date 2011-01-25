@@ -97,8 +97,8 @@ atk_streamable_content_get_mime_type (AtkStreamableContent *streamable,
  *
  * Gets the content in the specified mime type.
  *
- * Returns: A #GIOChannel which contains the content in the specified mime
- * type.
+ * Returns: (transfer full): A #GIOChannel which contains the content in the
+ * specified mime type.
  **/
 GIOChannel*
 atk_streamable_content_get_stream (AtkStreamableContent *streamable,
