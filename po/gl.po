@@ -14,8 +14,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi-master-po-gl-48694\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 13:07+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2011-01-16 21:06+0000\n"
 "PO-Revision-Date: 2010-02-11 18:13+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Gallician <proxecto@trasno.net>\n"
@@ -52,17 +53,14 @@ msgstr ""
 "Esta chave determina que módulos GTK+ se cargarán para a asistencia de "
 "accesibilidade."
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "Rexistro de AT-SPI"
+#~ msgid "AT-SPI Registry"
+#~ msgstr "Rexistro de AT-SPI"
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Rexistro de accesibilidade"
+#~ msgid "Accessibility Registry"
+#~ msgstr "Rexistro de accesibilidade"
 
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "Rexistro de AT SPI"
+#~ msgid "AT SPI Registry"
+#~ msgstr "Rexistro de AT SPI"
 
 #~ msgid "AT SPI Registry Wrapper"
 #~ msgstr "Embalaxe de rexistro AT SPI "
