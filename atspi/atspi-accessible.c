@@ -44,6 +44,7 @@ atspi_document_interface_init (AtspiDocument *document)
 {
 }
 
+static void
 atspi_editable_text_interface_init (AtspiEditableText *editable_text)
 {
 }
@@ -108,7 +109,6 @@ static void
 atspi_accessible_dispose (GObject *object)
 {
   AtspiAccessible *accessible = ATSPI_ACCESSIBLE (object);
-  gboolean cached;
   AtspiEvent e;
   AtspiAccessible *parent;
 
@@ -772,6 +772,34 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
 }
 /* Interface query methods */
 
+static gboolean
+_atspi_accessible_is_a (AtspiAccessible *accessible,
+		      const char *interface_name)
+{
+  int n;
+
+  if (accessible == NULL)
+    {
+      return FALSE;
+    }
+
+  if (!(accessible->cached_properties & ATSPI_CACHE_INTERFACES))
+  {
+    DBusMessage *reply;
+    DBusMessageIter iter;
+    reply = _atspi_dbus_call_partial (accessible, atspi_interface_accessible,
+                                      "GetInterfaces", NULL, "");
+    _ATSPI_DBUS_CHECK_SIG (reply, "as", NULL, FALSE);
+    dbus_message_iter_init (reply, &iter);
+    _atspi_dbus_set_interfaces (accessible, &iter);
+    dbus_message_unref (reply);
+  }
+
+  n = _atspi_get_iface_num (interface_name);
+  if (n == -1) return FALSE;
+  return (gboolean) ((accessible->interfaces & (1 << n))? TRUE: FALSE);
+}
+
 /**
  * atspi_accessible_is_action:
  * @obj: a pointer to the #AtspiAccessible instance to query.
@@ -1209,34 +1237,6 @@ atspi_accessible_get_value (AtspiAccessible *accessible)
 {
   return (_atspi_accessible_is_a (accessible, atspi_interface_value) ?
           g_object_ref (ATSPI_VALUE (accessible)) : NULL);  
-}
-
-gboolean
-_atspi_accessible_is_a (AtspiAccessible *accessible,
-		      const char *interface_name)
-{
-  int n;
-
-  if (accessible == NULL)
-    {
-      return FALSE;
-    }
-
-  if (!(accessible->cached_properties & ATSPI_CACHE_INTERFACES))
-  {
-    DBusMessage *reply;
-    DBusMessageIter iter;
-    reply = _atspi_dbus_call_partial (accessible, atspi_interface_accessible,
-                                      "GetInterfaces", NULL, "");
-    _ATSPI_DBUS_CHECK_SIG (reply, "as", NULL, FALSE);
-    dbus_message_iter_init (reply, &iter);
-    _atspi_dbus_set_interfaces (accessible, &iter);
-    dbus_message_unref (reply);
-  }
-
-  n = _atspi_get_iface_num (interface_name);
-  if (n == -1) return FALSE;
-  return (gboolean) ((accessible->interfaces & (1 << n))? TRUE: FALSE);
 }
 
 static void

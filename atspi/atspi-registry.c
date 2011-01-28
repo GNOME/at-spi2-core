@@ -25,8 +25,6 @@
 
 #include "atspi-private.h"
 
-static GArray *desktops;
-
 /**
  * atspi_get_desktop_count:
  *
@@ -250,7 +248,6 @@ atspi_register_device_event_listener (AtspiDeviceListener  *listener,
 {
   gboolean                          retval = FALSE;
   dbus_uint32_t d_event_types = event_types;
-  gint                                i;
   gchar *path = _atspi_device_listener_get_path (listener);
   DBusError d_error;
 
@@ -353,11 +350,14 @@ atspi_generate_keyboard_event (glong keyval,
 gboolean
 atspi_generate_mouse_event (glong x, glong y, const gchar *name, GError **error)
 {
-  dbus_int32_t dbus_x = x, dbus__y = y;
+  dbus_int32_t d_x = x, d_y = y;
   DBusError d_error;
 
   dbus_error_init (&d_error);
-    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry, atspi_path_dec, atspi_interface_dec, "GenerateMouseEvent", &d_error, "iis", x, y, name);
+    dbind_method_call_reentrant (_atspi_bus(), atspi_bus_registry,
+                                 atspi_path_dec, atspi_interface_dec,
+                                 "GenerateMouseEvent", &d_error, "iis",
+                                 d_x, d_y, name);
   return TRUE;
 }
 

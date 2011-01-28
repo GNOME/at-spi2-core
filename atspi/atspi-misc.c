@@ -29,16 +29,14 @@
 
 #include "atspi-private.h"
 #include "X11/Xlib.h"
+#include "dbus/dbus-glib.h"
 #include <stdio.h>
 #include <string.h>
 
 static void handle_get_items (DBusPendingCall *pending, void *user_data);
 
 static DBusConnection *bus = NULL;
-static GHashTable *apps = NULL;
 static GHashTable *live_refs = NULL;
-static GQueue *exception_handlers = NULL;
-static DBusError exception;
 
 const char *atspi_path_dec = ATSPI_DBUS_PATH_DEC;
 const char *atspi_path_registry = ATSPI_DBUS_PATH_REGISTRY;
@@ -285,7 +283,6 @@ handle_remove_accessible (DBusConnection *bus, DBusMessage *message, void *user_
   DBusMessageIter iter, iter_struct;
   const char *signature = dbus_message_get_signature (message);
   AtspiAccessible *a;
-  int id;
 
   if (strcmp (signature, "(so)") != 0)
   {
@@ -312,7 +309,6 @@ static gboolean
 add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
 {
   DBusError error;
-  char *root_path;
 
   dbus_error_init (&error);
   AtspiAccessible *obj = ref_accessible (bus_name, atspi_path_root);
@@ -395,11 +391,9 @@ get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const cha
 static void
 add_accessible_from_iter (DBusMessageIter *iter)
 {
-  gint i;
   GList *new_list;
   DBusMessageIter iter_struct, iter_array;
   const char *app_name, *path;
-  AtspiApplication *app;
   AtspiAccessible *accessible;
   const char *name, *description;
   dbus_uint32_t role;
@@ -477,7 +471,6 @@ add_accessible_from_iter (DBusMessageIter *iter)
 static void
 handle_get_items (DBusPendingCall *pending, void *user_data)
 {
-  AtspiApplication *app = user_data;
   DBusMessage *reply = dbus_pending_call_steal_reply (pending);
   DBusMessageIter iter, iter_array;
 
@@ -509,9 +502,6 @@ static AtspiAccessible *
 ref_accessible_desktop (AtspiApplication *app)
 {
   DBusError error;
-  GArray *apps = NULL;
-  GArray *additions;
-  gint i;
   DBusMessage *message, *reply;
   DBusMessageIter iter, iter_array;
   gchar *bus_name_dup;
@@ -535,14 +525,14 @@ ref_accessible_desktop (AtspiApplication *app)
 	atspi_interface_accessible,
 	"GetChildren");
   if (!message)
-    return;
+    return NULL;
   reply = _atspi_dbus_send_with_reply_and_block (message, NULL);
   if (!reply || strcmp (dbus_message_get_signature (reply), "a(so)") != 0)
   {
     g_error ("Couldn't get application list: %s", error.message);
     if (reply)
       dbus_message_unref (reply);
-    return;
+    return NULL;
   }
   dbus_message_iter_init (reply, &iter);
   dbus_message_iter_recurse (&iter, &iter_array);
@@ -643,14 +633,12 @@ handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_dat
 {
   DBusMessageIter iter;
   const char *sender = dbus_message_get_sender (message);
-  AtspiApplication *app = get_application (sender);
-  const char *type = cache_signal_type;
 
   if (strcmp (dbus_message_get_signature (message), cache_signal_type) != 0)
   {
     g_warning (_("AT-SPI: AddAccessible with unknown signature %s\n"),
                dbus_message_get_signature (message));
-    return;
+    return DBUS_HANDLER_RESULT_HANDLED;
   }
 
   dbus_message_iter_init (message, &iter);
@@ -671,9 +659,6 @@ process_deferred_message (BusDataClosure *closure)
 {
   int type = dbus_message_get_type (closure->message);
   const char *interface = dbus_message_get_interface (closure->message);
-  const char *member = dbus_message_get_member (closure->message); 
-  dbus_uint32_t v;
-  char *bus_name;
 
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
@@ -703,7 +688,7 @@ _atspi_process_deferred_messages (gpointer data)
   static int in_process_deferred_messages = 0;
 
   if (in_process_deferred_messages)
-    return;
+    return TRUE;
   in_process_deferred_messages = 1;
   while (deferred_messages != NULL)
   {
@@ -747,9 +732,6 @@ atspi_dbus_filter (DBusConnection *bus, DBusMessage *message, void *data)
 {
   int type = dbus_message_get_type (message);
   const char *interface = dbus_message_get_interface (message);
-  const char *member = dbus_message_get_member (message); 
-  dbus_uint32_t v;
-  char *bus_name;
 
   if (type == DBUS_MESSAGE_TYPE_SIGNAL &&
       !strncmp (interface, "org.a11y.atspi.Event.", 21))
@@ -897,7 +879,6 @@ atspi_init (void)
 {
   DBusError error;
   char *match;
-  int i;
 
   if (atspi_inited)
     {
@@ -1056,7 +1037,6 @@ _atspi_dbus_call_partial_va (gpointer obj,
                           va_list args)
 {
   AtspiObject *aobj = ATSPI_OBJECT (obj);
-  dbus_bool_t retval;
   DBusError err;
     DBusMessage *msg = NULL, *reply = NULL;
     DBusMessageIter iter;
@@ -1257,7 +1237,6 @@ _atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter)
 {
   DBusMessageIter iter_array, iter_dict;
   GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
-  gint count = 0;
 
   dbus_message_iter_recurse (iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)

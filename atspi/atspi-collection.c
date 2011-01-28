@@ -75,6 +75,7 @@ append_accessible (DBusMessage *message, AtspiAccessible *accessible)
   dbus_message_iter_init_append (message, &iter);
   dbus_message_iter_append_basic (&iter, DBUS_TYPE_OBJECT_PATH,
                                   &accessible->parent.path);
+  return TRUE;	/* TODO: Check for out-of-memory */
 }
 
 static GArray *

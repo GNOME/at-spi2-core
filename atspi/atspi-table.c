@@ -36,7 +36,6 @@
 AtspiAccessible *
 atspi_table_get_caption (AtspiTable *obj, GError **error)
 {
-  char *path;
   AtspiAccessible *retval = NULL;
 
   g_return_val_if_fail (obj != NULL, NULL);
@@ -130,12 +129,11 @@ atspi_table_get_accessible_at (AtspiTable *obj,
                                  GError **error)
 {
   dbus_int32_t d_row = row, d_column = column;
-  AtspiAccessible *retval;
   DBusMessage *reply;
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  reply = _atspi_dbus_call_partial (obj, atspi_interface_table, "GetAccessibleAt", error, "ii", row, column);
+  reply = _atspi_dbus_call_partial (obj, atspi_interface_table, "GetAccessibleAt", error, "ii", d_row, d_column);
 
   return _atspi_dbus_return_accessible_from_message (reply);
 }

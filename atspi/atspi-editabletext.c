@@ -136,7 +136,7 @@ atspi_editable_text_copy_text (AtspiEditableText *obj,
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_editable_text, "CopyText", error, "ii", start_pos, end_pos);
+  _atspi_dbus_call (obj, atspi_interface_editable_text, "CopyText", error, "ii", d_start_pos, d_end_pos);
 
   return TRUE;
 }

@@ -118,8 +118,6 @@ atspi_component_get_accessible_at_point (AtspiComponent *obj,
   dbus_int32_t d_x = x, d_y = y;
   dbus_uint16_t d_ctype = ctype;
   DBusMessage *reply;
-  char *path = NULL;
-  AtspiAccessible *retval = NULL;
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
