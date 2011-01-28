@@ -504,6 +504,12 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
       return FALSE;
     }
 
+  if (!event_type)
+  {
+    g_warning (_("called atspi_event_listener_register_from_callback with a NULL event_type"));
+    return FALSE;
+  }
+
   e = g_new (EventListenerEntry, 1);
   if (!e) return FALSE;
   e->callback = callback;
