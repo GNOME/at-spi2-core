@@ -529,7 +529,7 @@ ref_accessible_desktop (AtspiApplication *app)
   reply = _atspi_dbus_send_with_reply_and_block (message, NULL);
   if (!reply || strcmp (dbus_message_get_signature (reply), "a(so)") != 0)
   {
-    g_error ("Couldn't get application list: %s", error.message);
+    g_warning ("Couldn't get application list: %s", error.message);
     if (reply)
       dbus_message_unref (reply);
     return NULL;
@@ -895,7 +895,7 @@ atspi_init (void)
   bus = get_accessibility_bus ();
   if (!bus)
   {
-    g_error ("Couldn't get session bus");
+    g_warning ("Couldn't get session bus");
     return 2;
   }
   dbus_bus_register (bus, &error);
