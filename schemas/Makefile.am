@@ -9,4 +9,4 @@ CLEANFILES = org.a11y.atspi.gschema.xml
 
 EXTRA_DIST = \
 	$(gsettings_SCHEMAS) \
-	$(patsubst %,%.in,$(GSETTINGS_SCHEMAS))
+	$(patsubst %,%.in,$(gsettings_SCHEMAS))

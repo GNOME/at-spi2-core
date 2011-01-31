@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 1.91.6:
+
+* Fixed the path in org.a11y.atspi.gschema.xml for lib64.
+
+* Implemented SetPosition, SetExtents, and SetSize for components.
+
 What's new in at-spi2-atk 1.91.5:
 
 * Fixed some memory leaks.
