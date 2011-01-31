@@ -10,9 +10,40 @@ libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
 	$(X_LIBS) \
 	$(top_builddir)/dbind/libdbind.la
 
-libatspidir = $(includedir)/at-spi-1.0/atspi
+libatspiincludedir = $(includedir)/at-spi-2.0/atspi
+
+libatspiinclude_HEADERS = \ 
+	atspi.h	\
+	atspi-accessible.h \
+	atspi-action.h \
+	atspi-application.h \
+	atspi-collection.h \
+	atspi-component.h \
+	atspi-constants.h \
+	atspi-device-listener.h \
+	atspi-device-listener-private.h \
+	atspi-document.h \
+	atspi-editabletext.h \
+	atspi-event-listener.h \
+	atspi-event-listener-private.h \
+	atspi-hyperlink.h \
+	atspi-hypertext.h \
+	atspi-image.h \
+	atspi-matchrule.h \
+	atspi-misc.h \
+	atspi-object.h \
+	atspi-private.h \
+	atspi-registry.h \
+	atspi-relation.h \
+	atspi-selection.h \
+	atspi-stateset.h \
+	atspi-table.h \
+	atspi-text.h \
+	atspi-types.h \
+	atspi-value.h
 
 libatspi_la_SOURCES =		\
+	$(libatspiinclude_HEADERS) \
 	atspi.h	\
 	atspi-accessible.c \
 	atspi-accessible.h \
