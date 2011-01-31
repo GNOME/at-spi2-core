@@ -761,6 +761,7 @@ typedef enum {
 
 typedef enum
 {
+     ATSPI_CACHE_NONE     = 0x0001,
      ATSPI_CACHE_PARENT   = 0x0001,
   ATSPI_CACHE_CHILDREN    = 0x0002,
   ATSPI_CACHE_NAME        = 0x0004,
