@@ -4,6 +4,7 @@
  *
  * Copyright 2001, 2002 Sun Microsystems Inc.,
  * Copyright 2001, 2002 Ximian, Inc.
+ * Copyright 2010, 2011 Novell, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
