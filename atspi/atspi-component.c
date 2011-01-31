@@ -166,7 +166,7 @@ atspi_component_get_position (AtspiComponent *obj,
                                  AtspiCoordType ctype, GError **error)
 {
   dbus_int32_t d_x, d_y;
-  dbus_uint16_t d_ctype = ctype;
+  dbus_uint32_t d_ctype = ctype;
   AtspiPoint ret;
 
   ret.x = ret.y = -1;
@@ -280,6 +280,122 @@ atspi_component_get_alpha    (AtspiComponent *obj, GError **error)
   _atspi_dbus_call (obj, atspi_interface_component, "GetAlpha", error, "=>d", &retval);
 
   return retval;
+}
+
+/**
+ * atspi_component_set_extents:
+ * @obj: a pointer to the #AtspiComponent to move.
+ * @x: the new vertical position to which the component should be moved.
+ * @y: the new horizontal position to which the component should be moved.
+ * @width: the width to which the component should be resized.
+ * @height: the height to which the component should be resized.
+ * @ctype: the coordinate system in which the position is specified.
+ *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+ *
+ * Returns: #TRUE if successful; #FALSE otherwise.
+ *
+ * Move and resize the specified component.
+ *
+ **/
+gboolean
+atspi_component_set_extents (AtspiComponent *obj,
+                             gint x,
+                             gint y,
+                             gint width,
+                             gint height,
+                             AtspiCoordType ctype,
+                             GError **error)
+{
+  dbus_int32_t d_x = x, d_y = y, d_width = width, d_height = height;
+  dbus_uint32_t d_ctype = ctype;
+  DBusMessageIter iter, iter_struct;
+  DBusMessage *message, *reply;
+  dbus_bool_t retval;
+  AtspiAccessible *aobj = ATSPI_ACCESSIBLE (obj);
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+
+  message = dbus_message_new_method_call (aobj->parent.app->bus_name,
+                                          aobj->parent.path,
+                                          atspi_interface_component,
+                                          "SetExtents");
+
+  dbus_message_iter_init_append (message, &iter);
+  if (!dbus_message_iter_open_container (&iter, DBUS_TYPE_STRUCT, NULL, &iter_struct))
+  {
+    dbus_message_unref (message);
+    return FALSE;
+  }
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_x);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_y);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_width);
+  dbus_message_iter_append_basic (&iter_struct, DBUS_TYPE_INT32, &d_height);
+  dbus_message_iter_close_container (&iter, &iter_struct);
+  dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &d_ctype);
+
+  reply = _atspi_dbus_send_with_reply_and_block (message, error);
+  dbus_message_get_args (reply, NULL, DBUS_TYPE_BOOLEAN, &retval,
+                              DBUS_TYPE_INVALID);
+  dbus_message_unref (reply);
+  return retval;
+}
+
+/**
+ * atspi_component_set_position:
+ * @obj: a pointer to the #AtspiComponent to move.
+ * @x: the new vertical position to which the component should be moved.
+ * @y: the new horizontal position to which the component should be moved.
+ * @ctype: the coordinate system in which the position is specified.
+ *         (e.g. ATSPI_COORD_TYPE_WINDOW, ATSPI_COORD_TYPE_SCREEN).
+ *
+ * Returns: #TRUE if successful; #FALSE otherwise.
+ *
+ * Moves the component to the specified position.
+ **/
+gboolean
+atspi_component_set_position (AtspiComponent *obj,
+                              gint x,
+                              gint y,
+                              AtspiCoordType ctype,
+                              GError **error)
+{
+  dbus_int32_t d_x = x, d_y = y;
+  dbus_uint32_t d_ctype = ctype;
+  dbus_bool_t ret = FALSE;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+
+  _atspi_dbus_call (obj, atspi_interface_component, "SetPosition", error,
+                    "iiu=>b", d_x, d_y, d_ctype, &ret);
+
+  return ret;
+}
+
+/**
+ * atspi_component_set_size:
+ * @obj: a pointer to the #AtspiComponent to query.
+ * @width: the width to which the component should be resized.
+ * @height: the height to which the component should be resized.
+ *
+ * Returns: #TRUE if successful; #FALSE otherwise.
+ *
+ * Resize the specified component to the given coordinates.
+ **/
+gboolean
+atspi_component_set_size (AtspiComponent *obj,
+                          gint width,
+                          gint height,
+                          GError **error)
+{
+  dbus_int32_t d_width = width, d_height = height;
+  dbus_bool_t ret = FALSE;
+
+  g_return_val_if_fail (obj != NULL, FALSE);
+
+  _atspi_dbus_call (obj, atspi_interface_component, "SetSize", error, "ii=>b",
+                    d_width, d_height, &ret);
+
+  return ret;
 }
 
 static void

@@ -50,5 +50,27 @@
     <arg direction="out" type="d"/>
   </method>
 
+  <method name="SetExtents">
+    <arg direction="in" name="x" type="i"/>
+    <arg direction="in" name="y" type="i"/>
+    <arg direction="in" name="width" type="i"/>
+    <arg direction="in" name="height" type="i"/>
+    <arg direction="in" name="coord_type" type="u"/>
+    <arg direction="out" type="b"/>
+  </method>
+
+  <method name="SetPosition">
+    <arg direction="in" name="x" type="i"/>
+    <arg direction="in" name="y" type="i"/>
+    <arg direction="in" name="coord_type" type="u"/>
+    <arg direction="out" type="b"/>
+  </method>
+
+  <method name="SetSize">
+    <arg direction="in" name="width" type="i"/>
+    <arg direction="in" name="height" type="i"/>
+    <arg direction="out" type="b"/>
+  </method>
+
 </interface>
 </node>

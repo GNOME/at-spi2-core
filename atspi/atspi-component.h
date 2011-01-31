@@ -98,4 +98,10 @@ gshort atspi_component_get_mdi_z_order (AtspiComponent *obj, GError **error);
 gboolean atspi_component_grab_focus (AtspiComponent *obj, GError **error);
 
 gdouble      atspi_component_get_alpha    (AtspiComponent *obj, GError **error);
+
+gboolean atspi_component_set_extents (AtspiComponent *obj, gint x, gint y, gint width, gint height, AtspiCoordType ctype, GError **error);
+
+gboolean atspi_component_set_position (AtspiComponent *obj, gint x, gint y, AtspiCoordType ctype, GError **error);
+
+gboolean atspi_component_set_size (AtspiComponent *obj, gint width, gint height, GError **error);
 #endif	/* _ATSPI_COMPONENT_H_ */
