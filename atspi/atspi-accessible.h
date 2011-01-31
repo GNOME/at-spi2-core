@@ -123,4 +123,9 @@ AtspiText * atspi_accessible_get_text (AtspiAccessible *obj);
 AtspiValue * atspi_accessible_get_value (AtspiAccessible *obj);
 
 GArray * atspi_accessible_get_interfaces (AtspiAccessible *obj);
+
+void atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask);
+
+/* private */
+void _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */

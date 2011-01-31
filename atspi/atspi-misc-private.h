@@ -33,14 +33,6 @@
 
 #include "dbind/dbind.h"
 
-#define ATSPI_CACHE_PARENT      0x0001
-#define ATSPI_CACHE_CHILDREN    0x0002
-#define ATSPI_CACHE_NAME        0x0004
-#define ATSPI_CACHE_DESCRIPTION 0x0008
-#define ATSPI_CACHE_STATES      0x0010
-#define ATSPI_CACHE_ROLE        0x0020
-#define ATSPI_CACHE_INTERFACES  0x0040
-
 typedef struct _AtspiReference AtspiReference;
 struct _AtspiReference
 {

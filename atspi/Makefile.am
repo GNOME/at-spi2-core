@@ -12,7 +12,7 @@ libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
 
 libatspiincludedir = $(includedir)/at-spi-2.0/atspi
 
-libatspiinclude_HEADERS = \ 
+libatspiinclude_HEADERS = \
 	atspi.h	\
 	atspi-accessible.h \
 	atspi-action.h \

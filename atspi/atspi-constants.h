@@ -759,6 +759,18 @@ typedef enum {
  */
 #define ATSPI_ROLE_COUNT (90+1)
 
+typedef enum
+{
+     ATSPI_CACHE_PARENT   = 0x0001,
+  ATSPI_CACHE_CHILDREN    = 0x0002,
+  ATSPI_CACHE_NAME        = 0x0004,
+  ATSPI_CACHE_DESCRIPTION = 0x0008,
+  ATSPI_CACHE_STATES      = 0x0010,
+  ATSPI_CACHE_ROLE        = 0x0020,
+  ATSPI_CACHE_INTERFACES  = 0x0040,
+  ATSPI_CACHE_ALL         = 0x7fffffff,
+  ATSPI_CACHE_UNDEFINED   = 0x80000000
+} AtspiCache;
 
 #ifdef __cplusplus
 }

@@ -202,7 +202,7 @@ cache_process_property_change (AtspiEvent *event)
     if (G_VALUE_HOLDS (&event->any_data, ATSPI_TYPE_ACCESSIBLE))
     {
       event->source->accessible_parent = g_value_dup_object (&event->any_data);
-      event->source->cached_properties |= ATSPI_CACHE_PARENT;
+      _atspi_accessible_add_cache (event->source, ATSPI_CACHE_PARENT);
     }
     else
     {
@@ -217,7 +217,7 @@ cache_process_property_change (AtspiEvent *event)
     if (G_VALUE_HOLDS_STRING (&event->any_data))
     {
       event->source->name = g_value_dup_string (&event->any_data);
-      event->source->cached_properties |= ATSPI_CACHE_NAME;
+      _atspi_accessible_add_cache (event->source, ATSPI_CACHE_NAME);
     }
     else
     {
@@ -232,7 +232,7 @@ cache_process_property_change (AtspiEvent *event)
     if (G_VALUE_HOLDS_STRING (&event->any_data))
     {
       event->source->description = g_value_dup_string (&event->any_data);
-      event->source->cached_properties |= ATSPI_CACHE_DESCRIPTION;
+      _atspi_accessible_add_cache (event->source, ATSPI_CACHE_DESCRIPTION);
     }
     else
     {

@@ -194,6 +194,7 @@ get_application (const char *bus_name)
   app->bus_name = bus_name_dup;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   app->bus = dbus_connection_ref (_atspi_bus ());
+  app->cache = ATSPI_CACHE_UNDEFINED;
   g_hash_table_insert (app_hash, bus_name_dup, app);
   dbus_error_init (&error);
   message = dbus_message_new_method_call (bus_name, atspi_path_root,
@@ -458,10 +459,11 @@ add_accessible_from_iter (DBusMessageIter *iter)
   _atspi_dbus_set_state (accessible, &iter_struct);
   dbus_message_iter_next (&iter_struct);
 
-  accessible->cached_properties |= ATSPI_CACHE_NAME | ATSPI_CACHE_ROLE | ATSPI_CACHE_PARENT;
+  _atspi_accessible_add_cache (accessible, ATSPI_CACHE_NAME | ATSPI_CACHE_ROLE |
+                               ATSPI_CACHE_PARENT | ATSPI_CACHE_DESCRIPTION);
   if (!atspi_state_set_contains (accessible->states,
                                        ATSPI_STATE_MANAGES_DESCENDANTS))
-    accessible->cached_properties |= ATSPI_CACHE_CHILDREN;
+    _atspi_accessible_add_cache (accessible, ATSPI_CACHE_CHILDREN);
 
   /* This is a bit of a hack since the cache holds a ref, so we don't need
    * the one provided for us anymore */
@@ -1279,7 +1281,7 @@ _atspi_dbus_set_interfaces (AtspiAccessible *accessible, DBusMessageIter *iter)
       accessible->interfaces |= (1 << n);
     dbus_message_iter_next (&iter_array);
   }
-  accessible->cached_properties |= ATSPI_CACHE_INTERFACES;
+  _atspi_accessible_add_cache (accessible, ATSPI_CACHE_INTERFACES);
 }
 
 void
@@ -1306,7 +1308,7 @@ _atspi_dbus_set_state (AtspiAccessible *accessible, DBusMessageIter *iter)
     else
       accessible->states->states = val;
   }
-  accessible->cached_properties |= ATSPI_CACHE_STATES;
+  _atspi_accessible_add_cache (accessible, ATSPI_CACHE_STATES);
 }
 
 GQuark

@@ -311,7 +311,7 @@ atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
     if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", error,
                                    "s", &obj->name))
       return g_strdup ("");
-    obj->cached_properties |= ATSPI_CACHE_NAME;
+    _atspi_accessible_add_cache (obj, ATSPI_CACHE_NAME);
   }
   return g_strdup (obj->name);
 }
@@ -336,7 +336,7 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
                                    "Description", error, "s",
                                    &obj->description))
       return g_strdup ("");
-    obj->cached_properties |= ATSPI_CACHE_DESCRIPTION;
+    _atspi_accessible_add_cache (obj, ATSPI_CACHE_DESCRIPTION);
   }
   return g_strdup (obj->description);
 }
@@ -383,7 +383,7 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
     dbus_message_iter_recurse (&iter, &iter_variant);
     obj->accessible_parent = _atspi_dbus_return_accessible_from_iter (&iter_variant);
     dbus_message_unref (reply);
-    obj->cached_properties |= ATSPI_CACHE_PARENT;
+    _atspi_accessible_add_cache (obj, ATSPI_CACHE_PARENT);
   }
   if (!obj->accessible_parent)
     return NULL;
@@ -555,8 +555,8 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
     /* TODO: Make this a property */
     if (_atspi_dbus_call (obj, atspi_interface_accessible, "GetRole", error, "=>u", &role))
     {
-      obj->cached_properties |= ATSPI_CACHE_ROLE;
       obj->role = role;
+    _atspi_accessible_add_cache (obj, ATSPI_CACHE_ROLE);
     }
   }
   return obj->role;
@@ -648,6 +648,7 @@ atspi_accessible_get_state_set (AtspiAccessible *obj)
     dbus_message_iter_init (reply, &iter);
     _atspi_dbus_set_state (obj, &iter);
     dbus_message_unref (reply);
+    _atspi_accessible_add_cache (obj, ATSPI_CACHE_STATES);
   }
 
   return g_object_ref (obj->states);
@@ -793,6 +794,7 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
     dbus_message_iter_init (reply, &iter);
     _atspi_dbus_set_interfaces (accessible, &iter);
     dbus_message_unref (reply);
+    _atspi_accessible_add_cache (accessible, ATSPI_CACHE_INTERFACES);
   }
 
   n = _atspi_get_iface_num (interface_name);
@@ -1307,4 +1309,49 @@ atspi_accessible_new (AtspiApplication *app, const gchar *path)
   accessible->parent.path = g_strdup (path);
 
   return accessible;
+}
+
+/**
+ * atspi_accessible_set_cache_mask:
+ *
+ * @accessible: The #AtspiAccessible to operate on.  Must be the desktop or
+ *             the root of an application.
+ * @mask: An #AtspiCache specifying a bit mask of the types of data to cache.
+ *
+ * Sets the type of data to cache for accessibles.
+ * If this is not set for an application or is reset to ATSPI_CACHE_UNDEFINED,
+ * then the desktop's cache flag will be used.
+ * If the desktop's cache flag is also undefined, then all possible data will
+ * be cached.
+ * This function is intended to work around bugs in toolkits where the proper
+ * events are not raised / to aid in testing for such bugs.
+ *
+ * Note: This function has no effect on data that has already been cached.
+ **/
+void
+atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
+{
+  g_return_if_fail (accessible != NULL);
+  g_return_if_fail (accessible->parent.app != NULL);
+  g_return_if_fail (accessible == accessible->parent.app->root);
+  accessible->parent.app->cache = mask;
+}
+
+void
+_atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag)
+{
+  AtspiCache mask = accessible->parent.app->cache;
+
+  if (mask == ATSPI_CACHE_UNDEFINED &&
+      accessible->parent.app->root->accessible_parent)
+  {
+    AtspiAccessible *desktop = atspi_get_desktop (0);
+    mask = desktop->parent.app->cache;
+    g_object_unref (desktop);
+  }
+
+  if (mask == ATSPI_CACHE_UNDEFINED)
+    mask = ATSPI_CACHE_ALL;
+
+  accessible->cached_properties |= flag & mask;
 }

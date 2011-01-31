@@ -44,6 +44,7 @@ struct _AtspiApplication
   char *bus_name;
   DBusConnection *bus;
   struct _AtspiAccessible *root;
+  AtspiCache cache;
 };
 
 typedef struct _AtspiApplicationClass AtspiApplicationClass;
