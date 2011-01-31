@@ -1,3 +1,25 @@
+What's new in at-spi2-core 1.91.6:
+
+* Some build fixes.
+
+ * Several updated translations.
+
+* Added a method to check whether an object implements the Hyperlink interface.
+
+* Fixed a crash in atspi_image_get_image_description.
+
+* Fixed atspi_editable_text_set_text_contents.
+
+* More error-handling fixes.
+
+* Fixed a crash in atspi_event_listener_register_from-callback.
+
+* Method calls now time out after 1 second.
+
+* Added setters for component extents/size/position.
+
+* Added atspi-accessible_set_cache_mask.
+
 What's new in at-spi2-core 1.91.5:
 
 * Fixed several memory leaks.
