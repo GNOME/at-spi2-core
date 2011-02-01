@@ -1344,6 +1344,7 @@ _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag)
   AtspiCache mask = accessible->parent.app->cache;
 
   if (mask == ATSPI_CACHE_UNDEFINED &&
+      accessible->parent.app->root &&
       accessible->parent.app->root->accessible_parent)
   {
     AtspiAccessible *desktop = atspi_get_desktop (0);
