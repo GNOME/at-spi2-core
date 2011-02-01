@@ -1,3 +1,15 @@
+Changes in version 1.33.6:
+=========================
+*
+*Returns FALSE on atk_object_add_relationship if it is already included
+*Bug 640574: gobject-introspection annotation and documentation fixes
+*Bug 637663: Added atk_streamable_content_get_uri to atk/atk.symbols
+*Add missing Makefiles to AC_CONFIG_FILES
+*Fixes for the MSVC Project Files
+*Update deprecated autoconf macros and use new libtool syntax
+*Documentation fixes
+*Translation updates
+
 Changes in version 1.32.0:
 =========================
 *
