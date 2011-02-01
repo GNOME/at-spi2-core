@@ -349,7 +349,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *member = dbus_message_get_member (message);
 
   if (type != DBUS_MESSAGE_TYPE_SIGNAL)
-    return;
+    return res;
 
   if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) &&
       !g_strcmp0(member, "NameOwnerChanged"))
@@ -840,18 +840,18 @@ impl_register_event (DBusConnection *bus, DBusMessage *message, void *user_data)
 
   if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
     DBUS_TYPE_INVALID))
-    return;
+    return NULL;
 
   name = ensure_proper_format (orig_name);
 
   evdata = (event_data *) g_malloc (sizeof (*evdata));
   if (!evdata)
-    return;
+    return NULL;
   data = g_strsplit (name, ":", 3);
   if (!data)
     {
       g_free (evdata);
-      return;
+      return NULL;
     }
   if (!data [0])
     data [1] = NULL;
@@ -890,7 +890,7 @@ impl_deregister_event (DBusConnection *bus, DBusMessage *message, void *user_dat
 
   if (!dbus_message_get_args (message, NULL, DBUS_TYPE_STRING, &orig_name,
     DBUS_TYPE_INVALID))
-    return;
+    return NULL;
   name = ensure_proper_format (orig_name);
 
   remove_events (registry, sender, name);
@@ -1313,6 +1313,7 @@ handle_method_cache (DBusConnection *bus, DBusMessage *message, void *user_data)
       dbus_connection_send (bus, reply, NULL);
       dbus_message_unref (reply);
     }
+  return result;
 }
 
 static DBusHandlerResult

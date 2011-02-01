@@ -646,6 +646,7 @@ handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_dat
 
   dbus_message_iter_init (message, &iter);
   add_accessible_from_iter (&iter);
+  return DBUS_HANDLER_RESULT_HANDLED;
 }
 
 typedef struct
