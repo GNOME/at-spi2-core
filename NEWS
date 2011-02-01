@@ -1,3 +1,10 @@
+What's new in at-spi2-core 1.91.6.1:
+
+* Fixed a crash introduced in 1.91.6.
+
+* atspi_accessible_get_interfaces will now explicitly return the Accessible
+  interface.
+
 What's new in at-spi2-core 1.91.6:
 
 * Some build fixes.
