@@ -367,7 +367,7 @@ need_to_quit ()
       gconf_client_get_bool = dlsym (gconf, "gconf_client_get_bool");
   }
 
-  if (!gconf_client || !gconf_client_get_bool)
+  if (!gconf_client_get_default || !gconf_client_get_bool)
     {
       if (gconf)
         dlclose (gconf);
