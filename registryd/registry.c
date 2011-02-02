@@ -349,7 +349,7 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
   const char *member = dbus_message_get_member (message);
 
   if (type != DBUS_MESSAGE_TYPE_SIGNAL)
-    return res;
+    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
 
   if (!g_strcmp0(iface, DBUS_INTERFACE_DBUS) &&
       !g_strcmp0(member, "NameOwnerChanged"))
