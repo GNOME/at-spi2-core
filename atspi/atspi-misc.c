@@ -182,7 +182,7 @@ get_application (const char *bus_name)
 
   if (!app_hash)
   {
-    app_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)g_hash_table_unref);
+    app_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)g_object_unref);
     if (!app_hash) return NULL;
   }
   app = g_hash_table_lookup (app_hash, bus_name);
@@ -192,7 +192,6 @@ get_application (const char *bus_name)
   // TODO: change below to something that will send state-change:defunct notification if necessary */
   app = _atspi_application_new (bus_name);
   if (!app) return NULL;
-  app->bus_name = bus_name_dup;
   app->hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
   app->bus = dbus_connection_ref (_atspi_bus ());
   app->cache = ATSPI_CACHE_UNDEFINED;
@@ -562,7 +561,7 @@ _atspi_ref_accessible (const char *app, const char *path)
   if (!a) return NULL;
   if ( APP_IS_REGISTRY(a))
   {
-    return ref_accessible_desktop (a);
+    return a->root = ref_accessible_desktop (a);
   }
   return ref_accessible (app, path);
 }
