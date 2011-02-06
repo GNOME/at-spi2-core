@@ -317,13 +317,14 @@ register_application (SpiBridge * app)
   if (message)
     dbus_message_unref (message);
 
-/* could this be better, we accept some amount of race in getting the temp name*/
-/* make sure the directory exists */
-mkdir("/tmp/at-spi2/", S_IRWXU);
-app->app_bus_addr = g_malloc(max_addr_length * sizeof(char));
+  /* could this be better, we accept some amount of race in getting the temp name*/
+  /* make sure the directory exists */
+  mkdir ("/tmp/at-spi2/", S_IRWXU|S_IRWXG|S_IRWXO|S_ISVTX);
+  chmod ("/tmp/at-spi2/", S_IRWXU|S_IRWXG|S_IRWXO|S_ISVTX);
+  app->app_bus_addr = g_malloc(max_addr_length * sizeof(char));
 #ifndef DISABLE_P2P
-sprintf(app->app_bus_addr, "unix:path=/tmp/at-spi2/socket-%d-%d", getpid(),
-rand());
+  sprintf (app->app_bus_addr, "unix:path=/tmp/at-spi2/socket-%d-%d", getpid(),
+           rand());
 #else
   app->app_bus_addr [0] = '\0';
 #endif
