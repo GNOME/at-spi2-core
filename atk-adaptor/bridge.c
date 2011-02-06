@@ -37,6 +37,7 @@
 
 #include <droute/droute.h>
 #include <gmodule.h>
+#include <glib/gi18n.h>
 
 #include "bridge.h"
 #include "event.h"
@@ -527,10 +528,15 @@ setup_bus (void)
 
   dbus_error_init(&err);
   server = dbus_server_listen(spi_global_app_data->app_bus_addr, &err);
-
-  /* is there a better way to handle this */
   if (server == NULL)
+  {
+    g_warning (_("atk-bridge: Couldn't listen on dbus server: %s"), err.message);
+    dbus_error_init (&err);
+    spi_global_app_data->app_bus_addr [0] = '\0';
+    g_main_context_unref (spi_global_app_data->main_context);
+    spi_global_app_data->main_context = NULL;
     return -1;
+  }
 
   dbus_server_setup_with_g_main(server, NULL);
   dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
