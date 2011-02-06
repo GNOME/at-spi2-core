@@ -20,17 +20,17 @@ libatk_bridge_la_LIBADD = $(DBUS_GLIB_LIBS) \
 			  $(top_builddir)/atk-adaptor/adaptors/libatk-bridge-adaptors.la
 
 libatk_bridge_la_SOURCES =	\
-        $(top_builddir)/atk-adaptor/accessible-leasing.c    \
-        $(top_builddir)/atk-adaptor/accessible-leasing.h    \
-        $(top_builddir)/atk-adaptor/accessible-cache.c      \
-        $(top_builddir)/atk-adaptor/accessible-cache.h      \
-	$(top_builddir)/atk-adaptor/accessible-register.c	\
-	$(top_builddir)/atk-adaptor/accessible-register.h	\
-	$(top_builddir)/atk-adaptor/introspection.c         \
-	$(top_builddir)/atk-adaptor/introspection.h         \
-	$(top_builddir)/atk-adaptor/bridge.c		\
-	$(top_builddir)/atk-adaptor/bridge.h		\
-	$(top_builddir)/atk-adaptor/object.c		\
-	$(top_builddir)/atk-adaptor/object.h		\
-	$(top_builddir)/atk-adaptor/event.c			\
-	$(top_builddir)/atk-adaptor/event.h
+        $(abs_top_srcdir)/atk-adaptor/accessible-leasing.c    \
+        $(abs_top_srcdir)/atk-adaptor/accessible-leasing.h    \
+        $(abs_top_srcdir)/atk-adaptor/accessible-cache.c      \
+        $(abs_top_srcdir)/atk-adaptor/accessible-cache.h      \
+	$(abs_top_srcdir)/atk-adaptor/accessible-register.c	\
+	$(abs_top_srcdir)/atk-adaptor/accessible-register.h	\
+	$(abs_top_srcdir)/atk-adaptor/introspection.c         \
+	$(abs_top_srcdir)/atk-adaptor/introspection.h         \
+	$(abs_top_srcdir)/atk-adaptor/bridge.c		\
+	$(abs_top_srcdir)/atk-adaptor/bridge.h		\
+	$(abs_top_srcdir)/atk-adaptor/object.c		\
+	$(abs_top_srcdir)/atk-adaptor/object.h		\
+	$(abs_top_srcdir)/atk-adaptor/event.c			\
+	$(abs_top_srcdir)/atk-adaptor/event.h
