@@ -4,7 +4,7 @@
 # Korostil Daniel <ted.korostiled@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.0\n"
+"Project-Id-Version: 1.1\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&component=general\n"
 "POT-Creation-Date: 2011-02-04 22:21+0000\n"
