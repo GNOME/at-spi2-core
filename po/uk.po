@@ -59,7 +59,7 @@ msgstr "AT-SPI: AddAccessible з невідомим підписом %s\n"
 
 #: ../atspi/atspi-misc.c:826
 msgid "AT-SPI: Could not get the display\n"
-msgstr "AT-SPI: Неможливо дістатись до екрану\n"
+msgstr "AT-SPI: неможливо перейти до показу\n"
 
 #: ../atspi/atspi-misc.c:844
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
