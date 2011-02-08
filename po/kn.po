@@ -54,7 +54,7 @@ msgstr ""
 #: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
-msgstr "AT-SPI: ಗೊತ್ತಿರದ ಸಹಿ %s ಯೊಂದಿಗೆ RemoveAccessible"
+msgstr "AT-SPI: ಗೊತ್ತಿರದ ಸಹಿ %s ಯೊಂದಿಗೆ RemoveAccessible \n"
 
 #: ../atspi/atspi-misc.c:826
 msgid "AT-SPI: Could not get the display\n"
