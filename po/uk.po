@@ -3,18 +3,22 @@
 # Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
 # Taras Boychuk <btr1@torba.com>, 2003
 # Maxim V. Dziumanenko <dziumanenko@gmail.com>, 2005-2010
-#
+# Korostil Daniel <ted.korostiled@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-04 15:29+0200\n"
-"PO-Revision-Date: 2010-01-04 09:33+0300\n"
-"Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
-"Language-Team: Ukrainian <uk@li.org>\n"
+"POT-Creation-Date: 2011-02-08 05:57+0200\n"
+"PO-Revision-Date: 2011-02-08 06:05+0300\n"
+"Last-Translator: Korostil Daniel <ted.korostiled@gmail.com>\n"
+"Language-Team: translation@linux.org.ua\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.6.1\n"
 
 #: ../at-spi2.schemas.in.h:1
 msgid "Enable DBus-based AT-SPI infrastructure"
@@ -27,26 +31,29 @@ msgstr "Підтримка модулів допоміжних можливос�
 #: ../at-spi2.schemas.in.h:3
 msgid ""
 "In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure. Otherwise, the D-Bus "
-"AT-SPI infrastructure will be used."
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
 msgstr ""
-"У комбінації з /desktop/gnome/interface/accessibility, цей ключ "
-"потрібен для вмикання основаної на DBus інфраструктури AT-SPI. У іншому разі, використовується інфраструктура на базі D-Bus."
+"У комбінації з /desktop/gnome/interface/accessibility, цей ключ потрібен для "
+"вмикання основаної на DBus інфраструктури AT-SPI, якщо основаної на DBus "
+"інфраструктури AT-SPI знайдено. Це буде ігноровано, якщо основана на DBus "
+"інфраструктурі AT-SPI не знайдено."
 
 #: ../at-spi2.schemas.in.h:4
 msgid "This key determines the GTK+ modules to load for accessibility support."
 msgstr "Цей ключ визначає модулі GTK+ для підтримки допоміжних можливостей."
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "Реєстр системи AT-SPI"
+#: ../atk-adaptor/bridge.c:534
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: неможливо прослухати сервері DBus: %s"
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Реєстр системи спеціальних можливостей"
+#~ msgid "AT-SPI Registry"
+#~ msgstr "Реєстр системи AT-SPI"
 
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "Реєстр AT SPI"
+#~ msgid "Accessibility Registry"
+#~ msgstr "Реєстр системи спеціальних можливостей"
 
-
+#~ msgid "AT SPI Registry"
+#~ msgstr "Реєстр AT SPI"
