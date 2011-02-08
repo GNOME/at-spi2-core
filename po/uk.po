@@ -32,7 +32,7 @@ msgstr "AT-SPI: помилка виклику getRoot для %s: %s"
 #: ../atspi/atspi-misc.c:485
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: Помилка в GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: помилка в GetItems, sender=%s, error=%s"
 
 #: ../atspi/atspi-misc.c:587
 #, c-format
