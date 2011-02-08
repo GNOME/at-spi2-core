@@ -1,0 +1,114 @@
+# Albanian translation for at-spi2-core.
+# Copyright (C) 2011 Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi2-core package.
+# Laurent Dhima <laurenti@alblinux.net>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-08 19:14+0100\n"
+"PO-Revision-Date: 2011-02-08 19:30+0200\n"
+"Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
+"Language-Team: gnome-albanian-perkthyesit@lists.sourceforge.net\n"
+"Language: sq\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: Firmë e panjohur %s për RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: Gabim gjatë thirjes getRoot për %s: %s"
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: Gabim në GetItems, sender=%s, error=%s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Është përdorur _atspi_dbus_return_accessible_from_message me firmë "
+"të dyshimtë %s"
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Është përdorur _atspi_dbus_return_hyperlink_from_message me firmë të "
+"dyshimtë %s"
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI: AddAccessible me firmë të panjohur %s\n"
+
+#: ../atspi/atspi-misc.c:826
+msgid "AT-SPI: Could not get the display\n"
+msgstr "AT-SPI: E pamundur marrja e ekranit\n"
+
+#: ../atspi/atspi-misc.c:844
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr "AT-SPI: Bus i açesibilitetit nuk u gjet - Po përdoret bus i seancës.\n"
+
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
+#, c-format
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "AT-SPI: E pamundur lidhja me bus: %s\n"
+
+#: ../atspi/atspi-misc.c:864
+#, c-format
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "AT-SPI: I pamundur regjistrimi me bus: %s\n"
+
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
+msgid "The application no longer exists"
+msgstr "Aplikativi nuk ekziston më"
+
+#: ../atspi/atspi-misc.c:1130
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr "AT-SPI: pritej një variant gjatë marrjes së %s nga interfaqja %s; u mor %s\n"
+
+#: ../atspi/atspi-misc.c:1136
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property: Lloj i gabuar: pritej %s, u mor %c\n"
+
+#: ../atspi/atspi-misc.c:1279
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: Interfaqe e panjohur %s"
+
+#: ../atspi/atspi-misc.c:1299
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: priteshin 2 vlera në matricën e gjëndjes; u mor %d\n"
+
+#: ../atspi/atspi-accessible.c:997
+msgid "Streamable content not implemented"
+msgstr "Përmbajtja streamable nuk është implementuar"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"është thirrur atspi_event_listener_register_from_callback me një event_type "
+"NULL"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "U mor firma e pavlefshme %s për sinjalin %s nga interfaqja %s\n"
