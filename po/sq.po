@@ -1,0 +1,48 @@
+# at-spi2-atk Albanian translation.
+# Copyright (C) 2011 The Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi2 package.
+# Laurent Dhima <laurenti@alblinux.net>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-08 18:53+0100\n"
+"PO-Revision-Date: 2011-02-08 19:03+0200\n"
+"Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
+"Language-Team: gnome-albanian-perkthyesit@lists.sourceforge.net\n"
+"Language: sq\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "Aktivizon infrastrukturën AT-SPI bazuar në DBus"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "Modulë GTK+ për suportin e açesibilitetit"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"Në kombinim me /desktop/gnome/interface/accessibility, ky kyç është i "
+"nevojshëm për aktivizimin e infrastrukturës AT-SPI të bazuar në DBus, nëse "
+"infrastruktura AT-SPI e bazuar në DBus të jetë transferuar. Shpërfillet nëse "
+"infrastruktura të mos jetë transferuar."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"Ky kyç përcakton modulët GTK+ që duhen ngarkuar për suportin e "
+"açesibilitetit."
+
+#: ../atk-adaptor/bridge.c:534
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: E pamundur vënia në pritje në serverin dbus: %s"
