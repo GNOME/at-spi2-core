@@ -1,0 +1,51 @@
+# Telugu translation for at-spi2-atk.
+# Copyright (C) 2011 at-spi2-atk's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-atk package.
+#
+# Krishnababu Krothapalli <kkrothap@redhat.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2011-02-08 18:12+0000\n"
+"PO-Revision-Date: 2011-02-09 15:40+0530\n"
+"Last-Translator: Krishnababu Krothapalli <kkrothap@redhat.com>\n"
+"Language-Team: Telugu <te@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: ../at-spi2.schemas.in.h:1
+msgid "Enable DBus-based AT-SPI infrastructure"
+msgstr "DBus-ఆధారిత AT-SPI నిర్మాణం చేతనముచేయి"
+
+#: ../at-spi2.schemas.in.h:2
+msgid "GTK+ modules for accessibility support"
+msgstr "అందుబాటు నిచ్చే తోడ్పాటు కొరకు GTK+ మాడ్యూళ్ళు"
+
+#: ../at-spi2.schemas.in.h:3
+msgid ""
+"In combination with /desktop/gnome/interface/accessibility, this key is "
+"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
+"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
+"SPI infrastructure has not been relocated."
+msgstr ""
+"DBus-ఆధారిత AT-SPI నిర్మాణం స్థలంమార్చబడితే DBus-ఆధారిత AT-SPI నిర్మాణంను "
+"చేతనము చేయుటకు "
+"/desktop/gnome/interface/accessibility తోకూడి, యీ కీకూడా అవసరం అగును. "
+"DBus-ఆధారిత "
+"AT-SPI స్థలం మార్చబడకపోతే యిది విస్మరించబడును."
+
+#: ../at-spi2.schemas.in.h:4
+msgid "This key determines the GTK+ modules to load for accessibility support."
+msgstr ""
+"అందుబాటు కొరకు తోడ్పాటు నిచ్చుటకు GTK+ మాడ్యూళ్ళను యీ కీ నిర్థారించి నింపును."
+
+#: ../atk-adaptor/bridge.c:534
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: dbus సేవికపై వినలేకపోవుచున్నది: %s"
+
