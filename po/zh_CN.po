@@ -1,0 +1,109 @@
+# Chinese (China) translation for at-spi2-core.
+# Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-core package.
+# Lele Long <schemacs@gmail.com>, 2011.
+# Aron Xu <aronxu@gnome.org>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2011-02-02 19:50+0000\n"
+"PO-Revision-Date: 2011-02-09 23:39+0800\n"
+"Last-Translator: Lele Long <schemacs@gmail.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI：RemoveAccessible 使用了未知签名 %s"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI：为 %1$s 调用 getRoot 出错：%2$s "
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: GetIterms 出错，sender=%1$s, error=%2$s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr "AT-SPI：使用未知签名 %s 调用 _atspi_dbus_return_accessible_from_message"
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr "AT-SPI：使用未知签名 %s 调用 _atspi_dbus_return_hyperlink_from_message"
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI：AddAccessible 使用了未知签名 %s\n"
+
+#: ../atspi/atspi-misc.c:826
+msgid "AT-SPI: Could not get the display\n"
+msgstr "AT-SPI：无法获取显示\n"
+
+#: ../atspi/atspi-misc.c:844
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr "AT-SPI：无法找到辅助功能总线 - 使用会话总线。\n"
+
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
+#, c-format
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "AT-SPI：无法连接到总线：%s\n"
+
+#: ../atspi/atspi-misc.c:864
+#, c-format
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "AT-SPI：无法在总线上注册：%s\n"
+
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
+msgid "The application no longer exists"
+msgstr "该应用程序已经不存在"
+
+#: ../atspi/atspi-misc.c:1130
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr "AT-SPI：期望从接口 %2$s 获取 %1$s 时得到一个变量，实际得到 %3$s\n"
+
+#: ../atspi/atspi-misc.c:1136
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property：错误类型：期望为 %s，实际得到 %c\n"
+
+#: ../atspi/atspi-misc.c:1279
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI：未知接口 %s"
+
+#: ../atspi/atspi-misc.c:1299
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI：期望为状态数组的两个值，而实际得到 %d 个\n"
+
+#: ../atspi/atspi-accessible.c:997
+msgid "Streamable content not implemented"
+msgstr "未实现的流式内容"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr "使用 NULL event_type 调用 atspi_event_listener_register_from_callback"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "信号 %2$s 从接口%3$s 得到错误签名 %1$s\n"
