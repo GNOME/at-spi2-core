@@ -2,21 +2,21 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Table">
 
-  <property name="nRows" type="i" access="read"/>
+  <property name="NRows" type="i" access="read"/>
 
-  <property name="nColumns" type="i" access="read"/>
+  <property name="NColumns" type="i" access="read"/>
 
-  <property name="caption" type="(so)" access="read">
+  <property name="Caption" type="(so)" access="read">
     <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiObjectReference"/>
   </property>
 
-  <property name="summary" type="(so)" access="read">
+  <property name="Summary" type="(so)" access="read">
     <annotation name="com.trolltech.QtDBus.QtTypeName" value="QSpiObjectReference"/>
   </property>
 
-  <property name="nSelectedRows" type="i" access="read"/>
+  <property name="NSelectedRows" type="i" access="read"/>
 
-  <property name="nSelectedColumns" type="i" access="read"/>
+  <property name="NSelectedColumns" type="i" access="read"/>
 
   <method name="GetAccessibleAt">
     <arg direction="in" name="row" type="i"/>

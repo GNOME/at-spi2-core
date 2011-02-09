@@ -2,7 +2,7 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Action">
 
-  <property name="nActions" type="i" access="read"/>
+  <property name="NActions" type="i" access="read"/>
 
   <method name="GetDescription">
     <arg type="i" name="index" direction="in"/>

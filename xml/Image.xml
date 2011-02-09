@@ -2,9 +2,9 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Image">
 
-  <property name="imageDescription" type="s" access="read"/>
+  <property name="ImageDescription" type="s" access="read"/>
 
-  <property name="imageLocale" type="s" access="read"/>
+  <property name="ImageLocale" type="s" access="read"/>
 
   <method name="GetImageExtents">
     <arg direction="in" name="coordType" type="u"/>

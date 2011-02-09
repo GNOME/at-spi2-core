@@ -2,13 +2,13 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Value">
 
-        <property name="minimumValue" type="d" access="read"/>
+        <property name="MinimumValue" type="d" access="read"/>
 
-        <property name="maximumValue" type="d" access="read"/>
+        <property name="MaximumValue" type="d" access="read"/>
 
-        <property name="minimumIncrement" type="d" access="read"/>
+        <property name="MinimumIncrement" type="d" access="read"/>
 
-        <property name="currentValue" type="d" access="readwrite"/>
+        <property name="CurrentValue" type="d" access="readwrite"/>
 
 </interface>
 </node>

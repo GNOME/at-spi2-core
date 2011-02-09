@@ -2,7 +2,7 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Selection">
 
-  <property name="nSelectedChildren" type="i" access="read"/>
+  <property name="NSelectedChildren" type="i" access="read"/>
 
   <method name="GetSelectedChild">
     <arg direction="in" name="selectedChildIndex" type="i"/>

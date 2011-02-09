@@ -2,9 +2,9 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Text">
 
-  <property name="characterCount" type="i" access="read"/>
+  <property name="CharacterCount" type="i" access="read"/>
 
-  <property name="caretOffset" type="i" access="read"/>
+  <property name="CaretOffset" type="i" access="read"/>
 
   <method name="GetText">
     <arg direction="in" name="startOffset" type="i"/>

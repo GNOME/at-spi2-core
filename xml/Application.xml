@@ -2,11 +2,11 @@
 <node name="/node">
 <interface name="org.a11y.atspi.Application">
 
-  <property name="toolkitName" type="s" access="read"/>
+  <property name="ToolkitName" type="s" access="read"/>
 
-  <property name="version" type="s" access="read"/>
+  <property name="Version" type="s" access="read"/>
 
-  <property name="id" type="i" access="read"/>
+  <property name="Id" type="i" access="read"/>
 
   <method name="GetLocale">
     <arg direction="in" name="lctype" type="u"/>
