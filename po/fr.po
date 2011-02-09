@@ -1,0 +1,116 @@
+# French translation for at-spi2-core.
+# Copyright (C) 2011 Listed translators
+# This file is distributed under the same license as the at-spi2-core package.
+# Claude Paroz <claude@2xlibre.net>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2011-02-09 15:47+0000\n"
+"PO-Revision-Date: 2011-02-09 21:47+0100\n"
+"Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI : signature %s inconnue pour RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI : erreur lors de l'appel à getRoot pour %s : %s"
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI : erreur dans GetItems, expéditeur=%s, erreur=%s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI : appel à _atspi_dbus_return_accessible_from_message avec une "
+"signature %s étrange"
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI : appel à _atspi_dbus_return_hyperlink_from_message avec une "
+"signature %s étrange"
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI : AddAccessible avec une signature %s inconnue\n"
+
+#: ../atspi/atspi-misc.c:826
+msgid "AT-SPI: Could not get the display\n"
+msgstr "AT-SPI : impossible d'accéder à l'affichage\n"
+
+#: ../atspi/atspi-misc.c:844
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr "AT-SPI : bus d'accessibilité introuvable, utilisation du bus de session.\n"
+
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
+#, c-format
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "AT-SPI : impossible de se connecter au bus : %s\n"
+
+#: ../atspi/atspi-misc.c:864
+#, c-format
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "AT-SPI : impossible de s'enregistrer sur le bus : %s\n"
+
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
+msgid "The application no longer exists"
+msgstr "L'application n'existe plus"
+
+#: ../atspi/atspi-misc.c:1130
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+"AT-SPI : un type variant était attendu lors de l'obtention de %s sur l'interface "
+"%s ; %s obtenu\n"
+
+#: ../atspi/atspi-misc.c:1136
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property : type erroné : %s attendu, %c obtenu\n"
+
+#: ../atspi/atspi-misc.c:1279
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI : interface %s inconnue"
+
+#: ../atspi/atspi-misc.c:1299
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI : 2 valeurs étaient attendues dans le tableau « states » ; %d obtenus\n"
+
+#: ../atspi/atspi-accessible.c:997
+msgid "Streamable content not implemented"
+msgstr "Contenu de type flux non implémenté"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"atspi_event_listener_register_from_callback appelé avec un event_type de valeur NULL"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Signature %s non valide obtenue pour le signal %s à partir de l'interface %s\n"
