@@ -144,7 +144,7 @@
   </method>
 
   <method name="GetDefaultAttributeSet">
-    <arg direction="out" type="as"/>
+    <arg direction="out" type="a{ss}"/>
   </method>
 
 </interface>

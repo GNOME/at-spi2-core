@@ -33,7 +33,7 @@
     <arg direction="out" type="b"/>
   </method>
 
-  <method name="deSelectChild">
+  <method name="DeselectChild">
     <arg direction="in" name="childIndex" type="i"/>
     <arg direction="out" type="b"/>
   </method>
