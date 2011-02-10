@@ -35,11 +35,7 @@
 #include "registry.h"
 #include "deviceeventcontroller.h"
 
-#ifdef RELOCATE
-#define DBUS_GCONF_KEY  "/desktop/gnome/interface/at-spi-dbus"
-#else
 #define CORBA_GCONF_KEY  "/desktop/gnome/interface/at-spi-corba"
-#endif
 
 static gboolean need_to_quit ();
 
@@ -379,11 +375,7 @@ need_to_quit ()
  * at-spi-dbus gconf key has been set.
    */
   gconf_client = gconf_client_get_default ();
-#ifdef RELOCATE
-  ret = !gconf_client_get_bool (gconf_client, DBUS_GCONF_KEY, NULL);
-#else
   ret = gconf_client_get_bool (gconf_client, CORBA_GCONF_KEY, NULL);
-#endif
   g_object_unref (gconf_client);
 
   return ret;
