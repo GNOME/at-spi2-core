@@ -71,16 +71,7 @@ else
 fi
 AC_SUBST(X_LIBS)
 
-AM_GCONF_SOURCE_2
-AC_ARG_ENABLE(relocate, [  --enable-relocate  Relocate to coexist with CORBA [default=no]], enable_relocate="$enableval", enable_relocate=no)
-if test x$enable_relocate = xyes ; then
-	AC_DEFINE(RELOCATE, , [Relocate to coexist with CORBA])
-	dnl GConf checks
-	AC_PATH_PROG(GCONFTOOL, gconftool-2)
-else
-	GLIB_GSETTINGS
-fi
-AM_CONDITIONAL(RELOCATE, test x$enable_relocate = xyes)
+GLIB_GSETTINGS
 
 AC_ARG_ENABLE(p2p, [  --enable-p2p  Allow peer-to-peer DBus connections [default=yes]], enable_p2p="$enableval", enable_p2p=yes)
 
