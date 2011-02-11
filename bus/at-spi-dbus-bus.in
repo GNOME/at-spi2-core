@@ -3,18 +3,10 @@
 prefix="@prefix@"
 sysconfdir="@sysconfdir@"
 dbusdaemon="@DBUS_DAEMON@"
-relocate=@enable_relocate@
 
-if [ "$relocate" == "yes" ]; then
-  var=`gconftool-2 --get /desktop/gnome/interface/at-spi-dbus`
-  if [ "$var" == "false" ]; then
-    exit 0
-  fi
-else
-  var=`gconftool-2 --get /desktop/gnome/interface/at-spi-corba`
-  if [ "$var" == "true" ]; then
-    exit 0
-  fi
+var=`gconftool-2 --get /desktop/gnome/interface/at-spi-corba`
+if [ "$var" == "true" ]; then
+  exit 0
 fi
 
 address=`${dbusdaemon} --config-file=${sysconfdir}/at-spi2/accessibility.conf --print-address`
