@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
 "POT-Creation-Date: 2011-02-12 10:11+0000\n"
-"PO-Revision-Date: 2011-02-13 04:31+0900\n"
+"PO-Revision-Date: 2011-02-13 04:34+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr "프로그램이 더 이상 없습니다"
 #: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
+msgstr "AT-SPI: %s 항목을 (인터페이스 %s) 받을 때 여러가지를 기대했지만 %s입니다.\n"
 
 #: ../atspi/atspi-misc.c:1136
 #, c-format
