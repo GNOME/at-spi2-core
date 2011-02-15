@@ -46,7 +46,7 @@ atspi_editable_text_set_attributes (AtspiEditableText *obj,
 				    GError **error
 {
   dbus_int32_t d_start_pos = start_pos, d_end_pos = end_pos;
-  dbus_bool_t retval;
+  dbus_bool_t retval = FALSE;
 
   cspi_return_val_if_fail (obj != NULL, FALSE);
 

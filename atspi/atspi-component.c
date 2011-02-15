@@ -310,7 +310,7 @@ atspi_component_set_extents (AtspiComponent *obj,
   dbus_uint32_t d_ctype = ctype;
   DBusMessageIter iter, iter_struct;
   DBusMessage *message, *reply;
-  dbus_bool_t retval;
+  dbus_bool_t retval = FALSE;
   AtspiAccessible *aobj = ATSPI_ACCESSIBLE (obj);
 
   g_return_val_if_fail (obj != NULL, FALSE);

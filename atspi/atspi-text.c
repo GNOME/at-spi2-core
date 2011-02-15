@@ -75,7 +75,7 @@ G_DEFINE_BOXED_TYPE (AtspiTextRange, atspi_text_range, atspi_text_range_copy,
 gint
 atspi_text_get_character_count (AtspiText *obj, GError **error)
 {
-  dbus_int32_t retval;
+  dbus_int32_t retval = 0;
 
   g_return_val_if_fail (obj != NULL, -1);
 
@@ -647,7 +647,7 @@ atspi_text_get_bounded_ranges (AtspiText *obj,
 gint
 atspi_text_get_n_selections (AtspiText *obj, GError **error)
 {
-  dbus_int32_t retval;
+  dbus_int32_t retval = 0;
 
   g_return_val_if_fail (obj != NULL, -1);
 

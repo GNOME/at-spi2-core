@@ -65,7 +65,7 @@ atspi_hyperlink_new (AtspiApplication *app, const gchar *path)
 gint
 atspi_hyperlink_get_n_anchors (AtspiHyperlink *obj, GError **error)
 {
-  dbus_int32_t retval;
+  dbus_int32_t retval = -1;
 
   g_return_val_if_fail (obj != NULL, -1);
 
@@ -206,7 +206,7 @@ atspi_hyperlink_get_end_index (AtspiHyperlink *obj, GError **error)
 gboolean
 atspi_hyperlink_is_valid (AtspiHyperlink *obj, GError **error)
 {
-  dbus_bool_t retval;
+  dbus_bool_t retval = FALSE;
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
