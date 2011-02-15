@@ -42,7 +42,7 @@ atspi_selection_get_n_selected_children (AtspiSelection *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, -1);
 
-  _atspi_dbus_get_property (obj, atspi_interface_selection, "nSelectedChildren", error, "i", &retval);
+  _atspi_dbus_get_property (obj, atspi_interface_selection, "NSelectedChildren", error, "i", &retval);
 
   return retval;
 }
