@@ -81,7 +81,7 @@ atspi_image_get_image_position (AtspiImage *obj,
                                 GError **error)
 {
   dbus_int32_t d_x, d_y;
-  dbus_uint16_t d_ctype = ctype;
+  dbus_uint32_t d_ctype = ctype;
   AtspiPoint ret;
 
   ret.x = ret.y = 0;
