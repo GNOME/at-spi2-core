@@ -4,6 +4,6 @@ Name=AT SPI D-Bus Bus
 Exec=at-spi-dbus-bus
 OnlyShowIn=GNOME;
 NoDisplay=true
-AutostartCondition=GNOME /desktop/gnome/interface/accessibility
+AutostartCondition=GSETTINGS org.gnome.desktop.interface toolkit-accessibility
 X-GNOME-AutoRestart=true
 #X-GNOME-Autostart-Phase=Initialization
