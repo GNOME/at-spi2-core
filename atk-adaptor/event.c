@@ -397,8 +397,7 @@ emit_event (AtkObject  *obj,
             void (*append_variant) (DBusMessageIter *, const char *, const void *))
 {
   DBusConnection *bus = spi_global_app_data->bus;
-  const char *path =  spi_register_object_to_path (spi_global_register,
-                                                   G_OBJECT (obj));
+  const char *path;
 
   gchar *cname, *t;
   DBusMessage *sig;
@@ -411,6 +410,8 @@ emit_event (AtkObject  *obj,
 
   if (!signal_is_needed (klass, major, minor))
     return;
+
+  path =  spi_register_object_to_path (spi_global_register, G_OBJECT (obj));
 
   /*
    * This is very annoying, but as '-' isn't a legal signal
@@ -435,6 +436,7 @@ emit_event (AtkObject  *obj,
     spi_object_lease_if_needed (G_OBJECT (obj));
 
   g_free(cname);
+  g_free (path);
 }
 
 /*---------------------------------------------------------------------------*/
