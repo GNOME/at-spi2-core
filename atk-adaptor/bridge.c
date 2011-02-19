@@ -699,6 +699,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   g_option_context_set_ignore_unknown_options (opt, TRUE);
   if (!g_option_context_parse (opt, argc, argv, &err))
     g_warning ("AT-SPI Option parsing failed: %s\n", err->message);
+  g_option_context_free (opt);
 
   /* Allocate global data and do ATK initializations */
   spi_global_app_data = g_new0 (SpiBridge, 1);
