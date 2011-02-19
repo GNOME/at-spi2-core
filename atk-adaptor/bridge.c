@@ -151,6 +151,7 @@ spi_atk_bridge_get_bus (void)
   else
     {
       bus = dbus_connection_open (data, &error);
+      XFree (data);
       if (!bus)
         {
           g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
