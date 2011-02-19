@@ -617,6 +617,8 @@ remove_events (const char *bus_name, const char *event)
           list = list->next;
         }
     }
+
+  g_strfreev (remove_data);
 }
 
 static void
