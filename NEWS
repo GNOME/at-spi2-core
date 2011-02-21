@@ -1,3 +1,17 @@
+What's new in at-spi2-atk 1.91.90:
+
+* Fix for BGO#641338: Avoid crashing when unable to listen for p2p connections.
+
+* Set /tmp/at-spi2 to be world-writable.
+
+* Fix for BGO#641869: Remove --enable-relocate option.
+
+* Changed accessibility key name as was done in gsettings-desktop-schemas.
+
+* Fixed several memory leaks.
+
+* Fixed some build errors.
+
 What's new in at-spi2-atk 1.91.6:
 
 * Fixed the path in org.a11y.atspi.gschema.xml for lib64.
