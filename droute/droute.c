@@ -380,9 +380,12 @@ handle_dbus (DBusConnection *bus,
   char *id_str = (char *) g_malloc(40);
   DBusMessage *reply;
 
-    if (strcmp (iface, DBUS_INTERFACE_DBUS) != 0 ||
-        strcmp (member, "Hello") != 0)
-    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+  if (strcmp (iface, DBUS_INTERFACE_DBUS) != 0 ||
+      strcmp (member, "Hello") != 0)
+    {
+      g_free (id_str);
+      return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
+    }
 
     /* TODO: Fix this hack (we don't handle wrap-around, for instance) */
     sprintf (id_str, ":1.%d", id++);
@@ -403,7 +406,7 @@ handle_properties (DBusConnection *bus,
                    const gchar    *member,
                    const gchar    *pathstr)
 {
-    DBusMessage *reply;
+    DBusMessage *reply = NULL;
     DBusHandlerResult result = DBUS_HANDLER_RESULT_HANDLED;
 
     if (!g_strcmp0(member, "GetAll"))

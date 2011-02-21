@@ -301,7 +301,11 @@ cspi_get_application (const char *bus_name)
   if (!bus_name_dup) return NULL;
   // TODO: change below to something that will send state-change:defunct notification if necessary */
   app = g_new (CSpiApplication, 1);
-  if (!app) return NULL;
+  if (!app)
+  {
+    g_free (bus_name_dup);
+    return NULL;
+  }
   app->bus_name = bus_name_dup;
   if (APP_IS_REGISTRY (app))
   {

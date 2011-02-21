@@ -151,7 +151,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
 					 AccessibleKeyEventMask        eventmask,
 					 AccessibleKeyListenerSyncType sync_type)
 {
-  gchar *path = cspi_device_listener_get_path (listener);
+  gchar *path;
   gint                                i;
   GArray *key_set;
   dbus_uint32_t key_events = 0;
@@ -164,6 +164,7 @@ SPI_registerAccessibleKeystrokeListener (AccessibleKeystrokeListener  *listener,
     {
       return retval;
     }
+  path = cspi_device_listener_get_path (listener);
 
   /* copy the keyval filter values from the C api into the DBind KeySet */
   if (keys)
@@ -234,7 +235,7 @@ SPIBoolean
 SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener,
 					   AccessibleKeyMaskType        modmask)
 {
-  gchar *path = cspi_device_listener_get_path (listener);
+  gchar *path;
   Accessibility_ControllerEventMask   controller_event_mask;
   GArray *key_set;
   dbus_uint32_t key_events = 0;
@@ -245,6 +246,7 @@ SPI_deregisterAccessibleKeystrokeListener (AccessibleKeystrokeListener *listener
       return FALSE;
     }
 
+  path = cspi_device_listener_get_path (listener);
 
   controller_event_mask = (dbus_uint32_t) modmask;
 
@@ -274,13 +276,15 @@ SPI_registerDeviceEventListener (AccessibleDeviceListener  *listener,
   SPIBoolean                          retval = FALSE;
   dbus_uint32_t event_types = 0;
   gint                                i;
-  gchar *path = cspi_device_listener_get_path (listener);
+  gchar *path;
   DBusError error;
 
   if (!listener)
     {
       return retval;
     }
+
+  path = cspi_device_listener_get_path (listener);
 
   /* copy the event filter values from the C api into the CORBA KeyEventTypeSeq */
   
@@ -315,13 +319,15 @@ SPI_deregisterDeviceEventListener (AccessibleDeviceListener *listener,
 				   void                     *filter)
 {
   dbus_uint32_t event_types = 0;
-  gchar *path = cspi_device_listener_get_path (listener);
+  gchar *path;
   DBusError error;
 
   if (!listener)
     {
       return FALSE;
     }
+
+  path = cspi_device_listener_get_path (listener);
 
   event_types |= (1 << Accessibility_BUTTON_PRESSED_EVENT);
   event_types |= (1 << Accessibility_BUTTON_RELEASED_EVENT);

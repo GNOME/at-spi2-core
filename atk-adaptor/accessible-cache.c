@@ -335,7 +335,7 @@ child_added_listener (GSignalInvocationHint * signal_hint,
       if (signal_hint->detail)
         detail = g_quark_to_string (signal_hint->detail);
 
-      if (!strncmp (detail, "add", 3))
+      if (detail && !strncmp (detail, "add", 3))
         {
           gpointer child;
           int index = g_value_get_uint (param_values + 1);
