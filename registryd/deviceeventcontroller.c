@@ -837,6 +837,8 @@ spi_key_listener_data_free (DEControllerKeyListener *key_listener)
 {
   keylist_free(key_listener->keys);
   if (key_listener->mode) g_free(key_listener->mode);
+  g_free (key_listener->listener.bus_name);
+  g_free (key_listener->listener.path);
   g_free (key_listener);
 }
 
@@ -1034,6 +1036,7 @@ send_and_allow_reentry (DBusConnection *bus, DBusMessage *message, int timeout, 
       if (!dbus_connection_read_write_dispatch (bus, timeout))
         return NULL;
     }
+    dbus_pending_call_unref (pending);
     return reply;
 }
 static gboolean
@@ -1905,6 +1908,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
   dbus_bool_t ret;
   DBusMessage *reply = NULL;
   char *keystring;
+  char *sig;
 
   dbus_message_iter_init(message, &iter);
   // TODO: verify type signature
@@ -1924,7 +1928,8 @@ impl_register_keystroke_listener (DBusConnection *bus,
   dbus_message_iter_next(&iter);
   dbus_message_iter_get_basic(&iter, &mask);
   dbus_message_iter_next(&iter);
-  if (!strcmp (dbus_message_iter_get_signature (&iter), "u"))
+  sig = dbus_message_iter_get_signature (&iter);
+  if (sig && !strcmp (sig, "u"))
     dbus_message_iter_get_basic(&iter, &type);
   else
   {
@@ -1938,6 +1943,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
     }
     dbus_message_iter_next (&iter_array);
   }
+  dbus_free (sig);
   dbus_message_iter_next(&iter);
   mode = (Accessibility_EventListenerMode *)g_malloc(sizeof(Accessibility_EventListenerMode));
   if (mode)
@@ -1949,6 +1955,7 @@ impl_register_keystroke_listener (DBusConnection *bus,
 	   dbus_message_get_sender(message), path, (unsigned long) mask);
 #endif
   dec_listener = spi_dec_key_listener_new (dbus_message_get_sender(message), path, keys, mask, type, mode);
+  g_free (mode);
   ret = spi_controller_register_device_listener (
 	  controller, (DEControllerListener *) dec_listener);
   reply = dbus_message_new_method_return (message);

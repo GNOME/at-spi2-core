@@ -260,6 +260,7 @@ spi_get_bus (void)
      else
      {
 	 bus = dbus_connection_open (data, &error);
+	 XFree (data);
          if (!bus)
          {
              g_error ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
@@ -271,6 +272,7 @@ spi_get_bus (void)
          } 
      }
 
+  XCloseDisplay (bridge_display);
      return bus;
 }
 
