@@ -196,7 +196,7 @@ remove_application (SpiRegistry *reg, DBusConnection *bus, guint index)
 {
   SpiReference *ref = g_ptr_array_index (reg->apps, index);
 
-  /*TODO spi_remove_device_listeners (registry->de_controller, old);*/
+  spi_remove_device_listeners (reg->dec, ref->name);
   children_removed_listener (bus, index, ref->name, ref->path);
   g_ptr_array_remove_index (reg->apps, index);
 }
