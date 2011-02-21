@@ -1,3 +1,23 @@
+What's new in at-spi2-core 1.91.90:
+
+* BGO#641164: Fixed several build errors.
+
+* Fixed some memory leaks and possible crashes.
+
+* Fixed atspi_selection_get_selected_child and
+  atspi_selection_get_n_selected_children.
+
+* Fixed wrong introspection information in some places.
+
+* BGO#641869: Removed the --enable-relocate option.
+
+* Avoid returning uninitialized data on error for some methods.
+
+* Use the GSettings rather than GConf key to test that accessibility is
+  enabled.
+
+* Change some enums from 16-bit to 32-bit to match spec.
+
 What's new in at-spi2-core 1.91.6.1:
 
 * Fixed a crash introduced in 1.91.6.
