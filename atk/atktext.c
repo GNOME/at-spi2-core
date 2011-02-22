@@ -966,7 +966,7 @@ atk_text_get_range_extents (AtkText          *text,
 /**
  * atk_text_get_bounded_ranges:
  * @text: an #AtkText
- * @rect: An AtkTextRectagle giving the dimensions of the bounding box.
+ * @rect: An AtkTextRectangle giving the dimensions of the bounding box.
  * @coord_type: Specify whether coordinates are relative to the screen or widget window.
  * @x_clip_type: Specify the horizontal clip type.
  * @y_clip_type: Specify the vertical clip type.
@@ -975,8 +975,8 @@ atk_text_get_range_extents (AtkText          *text,
  *
  * Since: 1.3
  *
- * Returns: Array of AtkTextRange. The last element of the array returned 
- *          by this function will be NULL.
+ * Returns: (array zero-terminated=1): Array of AtkTextRange. The last
+ *          element of the array returned by this function will be NULL.
  **/
 AtkTextRange**
 atk_text_get_bounded_ranges (AtkText          *text,
@@ -1365,10 +1365,32 @@ atk_text_free_ranges (AtkTextRange **ranges)
           AtkTextRange *range;
 
           range = *ranges;
-          *ranges++;
+          ranges++;
           g_free (range->content);
           g_free (range);
         }
       g_free (first);
     }
 }
+
+static AtkTextRange *
+atk_text_range_copy (AtkTextRange *src)
+{
+  AtkTextRange *dst = g_new0 (AtkTextRange, 1);
+  dst->bounds = src->bounds;
+  dst->start_offset = src->start_offset;
+  dst->end_offset = src->end_offset;
+  if (src->content)
+    dst->content = g_strdup (src->content);
+  return dst;
+}
+
+static void
+atk_text_range_free (AtkTextRange *range)
+{
+  g_free (range->content);
+  g_free (range);
+}
+
+G_DEFINE_BOXED_TYPE (AtkTextRange, atk_text_range, atk_text_range_copy,
+                     atk_text_range_free)

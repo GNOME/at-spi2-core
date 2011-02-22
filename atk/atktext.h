@@ -174,6 +174,8 @@ struct _AtkTextRange {
   gchar* content;
 };
 
+GType atk_text_range_get_type ();
+
 /**
  *AtkTextClipType
  *@ATK_TEXT_CLIP_NONE: No clipping to be done
