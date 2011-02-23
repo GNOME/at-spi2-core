@@ -216,7 +216,7 @@ atk-$(ATK_API_VERSION).lib: libatk-$(ATK_API_VERSION).la atk.def
 
 EXTRA_DIST = atk.symbols atk.rc.in atkmarshal.list atkintl.h atk.rc
 
-dist-hook: ../build/win32/vs9/atk.vcproj
+dist-hook: ../build/win32/vs9/atk.vcproj ../build/win32/vs10/atk.vcxproj ../build/win32/vs10/atk.vcxproj.filters
 
 ../build/win32/vs9/atk.vcproj: ../build/win32/vs9/atk.vcprojin
 	for F in $(libatk_1_0_la_SOURCES); do \
@@ -227,6 +227,26 @@ dist-hook: ../build/win32/vs9/atk.vcproj
 	done >libatk.sourcefiles
 	$(CPP) -P - <$(top_srcdir)/build/win32/vs9/atk.vcprojin >$@
 	rm libatk.sourcefiles
+	
+../build/win32/vs10/atk.vcxproj: ../build/win32/vs10/atk.vcxprojin
+	for F in $(libatk_1_0_la_SOURCES); do \
+		case $$F in \
+		*.c) echo '    <ClCompile Include="..\..\..\atk\'$$F'" />' \
+		     ;; \
+		esac; \
+	done >libatk.vs10.sourcefiles
+	$(CPP) -P - <$(top_srcdir)/build/win32/vs10/atk.vcxprojin >$@
+	rm libatk.vs10.sourcefiles
+	
+../build/win32/vs10/atk.vcxproj.filters: ../build/win32/vs10/atk.vcxproj.filtersin
+	for F in $(libatk_1_0_la_SOURCES); do \
+		case $$F in \
+		*.c) echo '    <ClCompile Include="..\..\..\atk\'$$F'"><Filter>Source Files</Filter></ClCompile>' \
+		     ;; \
+		esac; \
+	done >libatk.vs10.sourcefiles.filters
+	$(CPP) -P - <$(top_srcdir)/build/win32/vs10/atk.vcxproj.filtersin >$@
+	rm libatk.vs10.sourcefiles.filters
 
 DISTCLEANFILES = \
   stamp-atkmarshal.h stamp-atkmarshal.c \

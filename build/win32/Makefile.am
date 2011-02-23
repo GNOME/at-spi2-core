@@ -1,2 +1,3 @@
 SUBDIRS = 	\
-	vs9
+	vs9  \
+	vs10
