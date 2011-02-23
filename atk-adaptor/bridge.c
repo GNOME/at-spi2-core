@@ -43,6 +43,7 @@
 #include "event.h"
 #include "adaptors.h"
 #include "object.h"
+#include "common/spi-stateset.h"
 
 #include "accessible-register.h"
 #include "accessible-leasing.h"

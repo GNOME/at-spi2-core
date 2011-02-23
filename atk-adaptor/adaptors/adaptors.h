@@ -40,6 +40,7 @@ void spi_initialize_hyperlink (DRoutePath * path);
 void spi_initialize_hypertext (DRoutePath * path);
 void spi_initialize_image (DRoutePath * path);
 void spi_initialize_selection (DRoutePath * path);
+void spi_initialize_socket (DRoutePath * path);
 void spi_initialize_table (DRoutePath * path);
 void spi_initialize_text (DRoutePath * path);
 void spi_initialize_value (DRoutePath * path);

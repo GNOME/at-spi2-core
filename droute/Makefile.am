@@ -2,7 +2,8 @@ noinst_LTLIBRARIES = libdroute.la
 
 libdroute_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
                       -I$(top_builddir)\
-                      -I$(top_srcdir)
+                      -I$(top_srcdir) \
+	-Werror=implicit-function-declaration
 
 libdroute_la_SOURCES =\
 		droute.c\
