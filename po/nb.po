@@ -1,14 +1,14 @@
 # Norwegian translations for at-spi package.
 # Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Kjartan Maraas <kmaraas@gnome.org>, 2003-2010.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: AT-SPI 2.91.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-16 21:33+0200\n"
-"PO-Revision-Date: 2010-10-16 21:33+0200\n"
+"POT-Creation-Date: 2011-02-23 09:43+0100\n"
+"PO-Revision-Date: 2011-02-23 09:44+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian\n"
 "Language: \n"
@@ -17,35 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "Aktiver DBus-basert AT-SPI-infrastruktur"
-
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "GTK+-moduler for tilgjengelighet"
-
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"Denne nøkkelen kreves sammen med /desktop/gnome/interface/accessibility for "
-"å aktivere den DBus-baserte AT-SPI-infrastrukturen hvis har blitt "
-"omplassert. Ellers vil AT-SPI-infrastruktur basert på D-Bus bli brukt. "
-
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr ""
-"Denne nøkkelen bestemmer GTK+ moduler som skal lastes for tilgjengelighet."
-
-#~ msgid "AT-SPI Registry"
-#~ msgstr "AT-SPI-register"
-
-#~ msgid "Accessibility Registry"
-#~ msgstr "Register for hjelpefunksjoner"
-
-#~ msgid "AT SPI Registry"
-#~ msgstr "AT-SPI-register"
+#: ../atk-adaptor/bridge.c:535
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: Kunne ikke lytte på D-Bus tjener: %s"
