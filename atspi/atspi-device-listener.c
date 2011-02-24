@@ -312,8 +312,8 @@ read_device_event_from_iter (DBusMessageIter *iter, AtspiDeviceEvent *event)
 {
   dbus_uint32_t type;
   dbus_int32_t id;
-  dbus_int16_t hw_code;
-  dbus_int16_t modifiers;
+  dbus_int32_t hw_code;
+  dbus_int32_t modifiers;
   dbus_int32_t timestamp;
   dbus_bool_t is_text;
   DBusMessageIter iter_struct;
@@ -328,12 +328,13 @@ read_device_event_from_iter (DBusMessageIter *iter, AtspiDeviceEvent *event)
   event->id = id;
   dbus_message_iter_next (&iter_struct);
 
+  /* TODO: Remove cast from next two on ABI break */
   dbus_message_iter_get_basic (&iter_struct, &hw_code);
-  event->hw_code = hw_code;
+  event->hw_code = (gushort) hw_code;
   dbus_message_iter_next (&iter_struct);
 
   dbus_message_iter_get_basic (&iter_struct, &modifiers);
-  event->modifiers = modifiers;
+  event->modifiers = (gushort) modifiers;
   dbus_message_iter_next (&iter_struct);
 
   dbus_message_iter_get_basic (&iter_struct, &timestamp);
@@ -363,7 +364,7 @@ atspi_dbus_handle_DeviceEvent (DBusConnection *bus, DBusMessage *message, void *
   GList *l;
   DBusMessage *reply;
 
-  if (strcmp (dbus_message_get_signature (message), "(uinnisb)") != 0)
+  if (strcmp (dbus_message_get_signature (message), "(uiuuisb)") != 0)
   {
     g_warning ("Atspi: Unknown signature for an event");
     goto done;

@@ -54,8 +54,8 @@ struct _Accessibility_DeviceEvent
 {
   Accessibility_EventType type;
   dbus_uint32_t id;
-  dbus_uint16_t hw_code;
-  dbus_uint16_t modifiers;
+  dbus_uint32_t hw_code;
+  dbus_uint32_t modifiers;
   dbus_uint32_t timestamp;
   char * event_string;
   dbus_bool_t is_text;

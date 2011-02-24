@@ -81,7 +81,7 @@ dbus_bool_t spi_dbus_marshal_deviceEvent(DBusMessage *message, const Accessibili
 
   if (!message) return FALSE;
   dbus_message_iter_init_append(message, &iter);
-  return spi_dbus_message_iter_append_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
+  return spi_dbus_message_iter_append_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_UINT32, &e->hw_code, DBUS_TYPE_UINT32, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
 }
 
 dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_DeviceEvent *e)
@@ -89,7 +89,9 @@ dbus_bool_t spi_dbus_demarshal_deviceEvent(DBusMessage *message, Accessibility_D
   DBusMessageIter iter;
 
   dbus_message_iter_init(message, &iter);
-  return spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
+  /* TODO: Remove the || for 2.1 */
+  return spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT32, &e->hw_code, DBUS_TYPE_INT32, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID) ||
+         spi_dbus_message_iter_get_struct(&iter, DBUS_TYPE_UINT32, &e->type, DBUS_TYPE_INT32, &e->id, DBUS_TYPE_INT16, &e->hw_code, DBUS_TYPE_INT16, &e->modifiers, DBUS_TYPE_INT32, &e->timestamp, DBUS_TYPE_STRING, &e->event_string, DBUS_TYPE_BOOLEAN, &e->is_text, DBUS_TYPE_INVALID);
 }
 
 /*
