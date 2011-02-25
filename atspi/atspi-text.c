@@ -651,7 +651,7 @@ atspi_text_get_n_selections (AtspiText *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, -1);
 
-  _atspi_dbus_call (obj, atspi_interface_text, "GetNSelections", error, "i", &retval);
+  _atspi_dbus_call (obj, atspi_interface_text, "GetNSelections", error, "=>i", &retval);
 
   return retval;
 }
