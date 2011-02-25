@@ -7,47 +7,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi 1.29.90\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-15 11:04+0800\n"
-"PO-Revision-Date: 2010-02-12 22:48+0800\n"
+"POT-Creation-Date: 2011-02-26 07:40+0800\n"
+"PO-Revision-Date: 2011-02-26 07:37+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@lists.linuxhall.org.tw>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "啟用以 DBus 為基礎的 AT-SPI 基礎架構"
+#: ../atk-adaptor/bridge.c:536
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge：無法聽取 dbus 伺服器：%s"
 
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "無障礙支援的 GTK+ 模組"
+#~ msgid "Enable DBus-based AT-SPI infrastructure"
+#~ msgstr "啟用以 DBus 為基礎的 AT-SPI 基礎架構"
 
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"為了結合 /desktop/gnome/interface/accessibility，這個鍵值是在以 DBus 為基礎"
-"的 AT-SPI 基礎架構重新分配時要啟用它所需的。如果沒有重新分配則會忽略它。"
+#~ msgid "GTK+ modules for accessibility support"
+#~ msgstr "無障礙支援的 GTK+ 模組"
 
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr "這個鍵值決定 GTK+ 模組是否載入對無障礙功能的支援。"
+#~ msgid ""
+#~ "In combination with /desktop/gnome/interface/accessibility, this key is "
+#~ "needed to enable the DBus-based AT-SPI infrastructure if the DBus-based "
+#~ "AT-SPI infrastructure has been relocated. It is ignored if the DBus-based "
+#~ "AT-SPI infrastructure has not been relocated."
+#~ msgstr ""
+#~ "為了結合 /desktop/gnome/interface/accessibility，這個鍵值是在以 DBus 為基"
+#~ "礎的 AT-SPI 基礎架構重新分配時要啟用它所需的。如果沒有重新分配則會忽略它。"
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "AT-SPI 註冊表"
+#~ msgid ""
+#~ "This key determines the GTK+ modules to load for accessibility support."
+#~ msgstr "這個鍵值決定 GTK+ 模組是否載入對無障礙功能的支援。"
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "無障礙功能註冊表"
+#~ msgid "AT-SPI Registry"
+#~ msgstr "AT-SPI 註冊表"
 
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "AT SPI 註冊表"
+#~ msgid "Accessibility Registry"
+#~ msgstr "無障礙功能註冊表"
+
+#~ msgid "AT SPI Registry"
+#~ msgstr "AT SPI 註冊表"
 
 #~ msgid "AT SPI Registry Wrapper"
 #~ msgstr "AT SPI 註冊表包裹器"
