@@ -1,0 +1,118 @@
+# Italian translation for at-spi2-core.
+# Copyright (C) 2011 at-spi2-core's Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi2-core package.
+# Luca Ferretti <lferrett@gnome.org>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&component=general\n"
+"POT-Creation-Date: 2011-01-17 10:43+0000\n"
+"PO-Revision-Date: 2011-02-26 01:12+0100\n"
+"Last-Translator: Luca Ferretti <lferrett@gnome.org>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../atspi/atspi-misc.c:292
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: firma %s sconosciuta per RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:330
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: errore nel chiamare getRoot per %s: %s"
+
+#: ../atspi/atspi-misc.c:490
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: errore in GetItems, sender=%s, error=%s"
+
+#: ../atspi/atspi-misc.c:595
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+
+#: ../atspi/atspi-misc.c:624
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: chiamata _atspi_dbus_return_hyperlink_from_message con la strana "
+"firma %s"
+
+#: ../atspi/atspi-misc.c:651
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI: AddAccessible con la firma %s sconosciuta\n"
+
+#: ../atspi/atspi-misc.c:841
+msgid "AT-SPI: Could not get the display\n"
+msgstr "AT-SPI: impossibile ottenere il display\n"
+
+#: ../atspi/atspi-misc.c:859
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr "AT-SPI: bus di accessibilità non trovato, usato il bus di sessione.\n"
+
+#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
+#, c-format
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "AT-SPI: impossibile connettersi al bus: %s\n"
+
+#: ../atspi/atspi-misc.c:879
+#, c-format
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "AT-SPI: impossibile eseguire la registrazione sul bus: %s\n"
+
+#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
+#: ../atspi/atspi-misc.c:1111
+msgid "The application no longer exists"
+msgstr "L'applicazione non esiste più"
+
+#: ../atspi/atspi-misc.c:1147
+#, fuzzy, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+"AT-SPI: atteso un variant nel recupero di %s dall'interfaccia %s; ottenuto "
+"%s\n"
+
+#: ../atspi/atspi-misc.c:1153
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property: tipo errato: atteso %s, ottenuto %c\n"
+
+#: ../atspi/atspi-misc.c:1193
+#, c-format
+msgid "AT-SPI: Got error: %s\n"
+msgstr "AT-SPI: ricevuto un errore: %s\n"
+
+#: ../atspi/atspi-misc.c:1296
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: Interfaccia %s sconosciuta"
+
+# FIXME!!
+# NUM<>1
+#: ../atspi/atspi-misc.c:1316
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: attesi 2 valori nell'array degli statu, ricevuti %d\n"
+
+#: ../atspi/atspi-accessible.c:950
+#, fuzzy
+msgid "Streamable content not implemented"
+msgstr "Contenuto stramabile non implementato"
+
+#: ../atspi/atspi-event-listener.c:758
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Ricevuta firma %s non valida per il segnale %s dall'interfaccia %s\n"
