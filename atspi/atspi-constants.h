@@ -769,8 +769,8 @@ typedef enum
   ATSPI_CACHE_STATES      = 0x0010,
   ATSPI_CACHE_ROLE        = 0x0020,
   ATSPI_CACHE_INTERFACES  = 0x0040,
-  ATSPI_CACHE_ALL         = 0x7fffffff,
-  ATSPI_CACHE_UNDEFINED   = 0x80000000
+  ATSPI_CACHE_ALL         = 0x3fffffff,
+  ATSPI_CACHE_UNDEFINED   = 0x40000000
 } AtspiCache;
 
 #ifdef __cplusplus
