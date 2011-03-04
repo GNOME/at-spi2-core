@@ -135,6 +135,7 @@ spi_atk_bridge_get_bus (void)
                       (long) BUFSIZ, False,
                       (Atom) 31, &actual_type, &actual_format,
                       &nitems, &leftover, &data);
+  XCloseDisplay (bridge_display);
 
   dbus_error_init (&error);
 
