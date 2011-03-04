@@ -88,8 +88,36 @@ session_manager_connect (void)
 }
 
 static void
+kill_accessibility_bus ()
+{
+  FILE *fp;
+  const char *home;
+  char *name;
+  int pid;
+
+  home = getenv ("HOME");
+  if (!home)
+    return;
+  name = g_strconcat (home, "/", ".atspi-dbus-bus.pid");
+  if (!name)
+    return;
+
+  fp = fopen (name, "r");
+  if (fp)
+  {
+    if (fscanf (fp, "%d", &pid) == 1)
+    {
+      kill (&pid, SIGTERM);
+    }
+    fclose (fp);
+  }
+  g_free (name);
+}
+
+static void
 stop_cb (gpointer data)
 {
+        kill_accessibility_bus ();
         g_main_loop_quit (mainloop);
 }
 
@@ -123,6 +151,7 @@ query_end_session_cb (guint flags, gpointer data)
 static void
 end_session_cb (guint flags, gpointer data)
 {
+        kill_accessibility_bus ();
         end_session_response (TRUE, NULL);
         g_main_loop_quit (mainloop);
 }
