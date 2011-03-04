@@ -165,6 +165,7 @@ spi_atk_bridge_get_bus (void)
               g_warning ("AT-SPI: Couldn't register with bus: %s\n", error.message);
               return NULL;
             }
+          dbus_connection_set_exit_on_disconnect (bus, FALSE);
         }
     }
 
