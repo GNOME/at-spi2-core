@@ -1,0 +1,115 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=at-spi&component=general\n"
+"POT-Creation-Date: 2011-02-04 22:21+0000\n"
+"PO-Revision-Date: 2011-02-06 19:07+0200\n"
+"Last-Translator: Rudolfs <rudolfs.mazurs@gmail.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: Nezināms paraksts %s priekš RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: Kļūda, izsaucot getRoot priekš %s: %s"
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: GetItems kļūda, sūtītājs=%s, kļūda=%s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Izsaukts _atspi_dbus_return_accessible_from_message ar dīvainu "
+"parakstu %s"
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Izsaukts _atspi_dbus_return_hyperlink_from_message ar dīvainu "
+"parakstu %s"
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI: AddAccessible ar nezināmu parakstu %s\n"
+
+#: ../atspi/atspi-misc.c:826
+msgid "AT-SPI: Could not get the display\n"
+msgstr "AT-SPI: Neizdevās iegūt displeju\n"
+
+#: ../atspi/atspi-misc.c:844
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr "AT-SPI: Pieejamības kopne nav atrasta – izmanto sesijas kopni.\n"
+
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
+#, c-format
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "AT-SPI: Neizdevās savienoties ar kopni: %s\n"
+
+#: ../atspi/atspi-misc.c:864
+#, c-format
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "AT-SPI: Neizdevās reģistrēt ar kopni: %s\n"
+
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
+msgid "The application no longer exists"
+msgstr "Šī lietotne vairs neeksistē"
+
+#: ../atspi/atspi-misc.c:1130
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr "AT-SPI: gaidīja variantu, kad saņēma %s no saskarnes %s; saņēma %s\n"
+
+#: ../atspi/atspi-misc.c:1136
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property: Nepareizs tips: gaidīja %s, saņēma %c\n"
+
+#: ../atspi/atspi-misc.c:1279
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: Nezināma saskarne %s"
+
+#: ../atspi/atspi-misc.c:1299
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: stāvokļa masīvā gaidīja 2 vērtības; saņēma %d\n"
+
+#: ../atspi/atspi-accessible.c:997
+msgid "Streamable content not implemented"
+msgstr "Straumējams saturs nav realizēts"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr "izsauca atspi_event_listener_register_from_callback ar NULL event_type"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Saņēma nederīgu parakstu %s signālam %s no saskarnes %s\n"
+
