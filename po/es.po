@@ -2,46 +2,47 @@
 # Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
 # This file is distributed under the same license as the at-spi2-core package.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&component=general\n"
-"POT-Creation-Date: 2011-01-19 16:30+0000\n"
-"PO-Revision-Date: 2011-01-20 12:25+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2011-03-05 21:02+0000\n"
+"PO-Revision-Date: 2011-03-06 12:50+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../atspi/atspi-misc.c:292
+#: ../atspi/atspi-misc.c:290
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI: firma %s desconocida para RemoveAccessible"
 
-#: ../atspi/atspi-misc.c:330
+#: ../atspi/atspi-misc.c:327
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI: error al llamar a getRoot para %s: %s"
 
-#: ../atspi/atspi-misc.c:490
+#: ../atspi/atspi-misc.c:485
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
 msgstr "AT-SPI: error en GetItems, emisor=%s, error=%s"
 
-#: ../atspi/atspi-misc.c:595
+#: ../atspi/atspi-misc.c:587
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
 msgstr ""
-"AT-SPI: llamada a _atspi_dbus_return_accessible_from_message con una firma %"
-"s extraña"
+"AT-SPI: llamada a _atspi_dbus_return_accessible_from_message con una firma "
+"%s extraña"
 
-#: ../atspi/atspi-misc.c:624
+#: ../atspi/atspi-misc.c:616
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
@@ -50,68 +51,72 @@ msgstr ""
 "AT-SPI: llamada a _atspi_dbus_return_hyperlink_from_message con una firma %s "
 "extraña"
 
-#: ../atspi/atspi-misc.c:651
+#: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible con firma %s desconocida\n"
 
-#: ../atspi/atspi-misc.c:841
+#: ../atspi/atspi-misc.c:826
 msgid "AT-SPI: Could not get the display\n"
 msgstr "AT-SPI: no se pudo obtener la pantalla\n"
 
-#: ../atspi/atspi-misc.c:859
+#: ../atspi/atspi-misc.c:844
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
 msgstr ""
 "AT-SPI: no se encontró el bus de accesibilidad. Usando el bus de sesión.\n"
 
-#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
 #, c-format
 msgid "AT-SPI: Couldn't connect to bus: %s\n"
 msgstr "AT-SPI: no se pudo conectar al bus: %s\n"
 
-#: ../atspi/atspi-misc.c:879
+#: ../atspi/atspi-misc.c:864
 #, c-format
 msgid "AT-SPI: Couldn't register with bus: %s\n"
 msgstr "AT-SPI: no se pudo registrar en el bus: %s\n"
 
-#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
-#: ../atspi/atspi-misc.c:1111
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
 msgid "The application no longer exists"
 msgstr "La aplicación ya no existe"
 
-#: ../atspi/atspi-misc.c:1147
+#: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
-"AT-SPI: se esperaba una variante al buscar %s de la interfaz %s; se obtuvo %"
-"s\n"
+"AT-SPI: se esperaba una variante al buscar %s de la interfaz %s; se obtuvo "
+"%s\n"
 
-#: ../atspi/atspi-misc.c:1153
+#: ../atspi/atspi-misc.c:1136
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr ""
 "atspi_dbus_get_property: tipo incorrecto: se esperaba %s, se obtuvo %c\n"
 
-#: ../atspi/atspi-misc.c:1193
-#, c-format
-msgid "AT-SPI: Got error: %s\n"
-msgstr "AT-SPI: error obtenido: %s\n"
-
-#: ../atspi/atspi-misc.c:1296
+#: ../atspi/atspi-misc.c:1279
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI: interfaz %s desconocida"
 
-#: ../atspi/atspi-misc.c:1316
+#: ../atspi/atspi-misc.c:1299
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: se esperaban 2 valores en el array de estados; se obtuvo %d\n"
 
-#: ../atspi/atspi-accessible.c:950
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
 msgstr "El contenido de flujo distribuible no está implementado"
 
-#: ../atspi/atspi-event-listener.c:758
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"se llamó a atspi_event_listener_register_from_callback con un event_type nulo"
+
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "Se obtuvo una firma %s no válida para la señal %s de la interfaz %s\n"
+
+#~ msgid "AT-SPI: Got error: %s\n"
+#~ msgstr "AT-SPI: error obtenido: %s\n"
