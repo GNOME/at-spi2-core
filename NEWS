@@ -1,3 +1,19 @@
+What's new in at-spi2-core 1.91.91:
+
+* Changed device event IPC to use uint32 for hw_code and modifiers, to be
+    more consistent with the rest of the API.
+
+* GetNSelections has an out parameter, not an in.
+
+* Fix for BGO#643384: - atspi_register_keystroke_listener() should take a
+  bitmask, not AtspiKeyListenerSyncType.
+
+* Avoid setting enum values to 0x80000000, to prevent a pygi exception.
+    
+* Fix for BGO#643454: Kill the accessibility bus daemon with the GNOME session
+
+* Fix for BGO#643110: Do not allow all users to connect to the accessibility bus.
+
 What's new in at-spi2-core 1.91.90:
 
 * BGO#641164: Fixed several build errors.
