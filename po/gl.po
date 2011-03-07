@@ -10,48 +10,50 @@
 # Jesús Bravo Álvarez <suso@trasno.net>, 2004.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
-# Fran Diéguez <frandieguez@ubuntu.com>, 200, 2010.
+# Fran Diéguez <frandieguez@gnome.org>, 200, 2010, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi-master-po-gl-48694\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&component=general\n"
-"POT-Creation-Date: 2011-01-16 21:06+0000\n"
-"PO-Revision-Date: 2010-02-11 18:13+0100\n"
-"Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
-"Language-Team: Gallician <proxecto@trasno.net>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-07 19:32+0100\n"
+"PO-Revision-Date: 2011-03-07 19:33+0100\n"
+"Last-Translator: Fran Diéguez <frandieguez@gnome.org>\n"
+"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "Activar a infraestrutura AT-SPI baseada en DBus"
+#: ../atk-adaptor/bridge.c:538
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: non foi posíbel escoitar no servidor dbus: %s"
 
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "Módulos GTK+ para a asistencia de accesibilidade"
+#~ msgid "Enable DBus-based AT-SPI infrastructure"
+#~ msgstr "Activar a infraestrutura AT-SPI baseada en DBus"
 
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"En combinación con /desktop/gnome/interface/accessibility, esta chave "
-"necesítase para activar a infraestrutura AT-SPI baseada en DBus se o AT-SPI "
-"baseado en DBus fora movido de lugar. Isto ignórase no caso de que a "
-"infraestrutura AT-SPI baseada en DBus fora movida de lugar."
+#~ msgid "GTK+ modules for accessibility support"
+#~ msgstr "Módulos GTK+ para a asistencia de accesibilidade"
 
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr ""
-"Esta chave determina que módulos GTK+ se cargarán para a asistencia de "
-"accesibilidade."
+#~ msgid ""
+#~ "In combination with /desktop/gnome/interface/accessibility, this key is "
+#~ "needed to enable the DBus-based AT-SPI infrastructure if the DBus-based "
+#~ "AT-SPI infrastructure has been relocated. It is ignored if the DBus-based "
+#~ "AT-SPI infrastructure has not been relocated."
+#~ msgstr ""
+#~ "En combinación con /desktop/gnome/interface/accessibility, esta chave "
+#~ "necesítase para activar a infraestrutura AT-SPI baseada en DBus se o AT-"
+#~ "SPI baseado en DBus fora movido de lugar. Isto ignórase no caso de que a "
+#~ "infraestrutura AT-SPI baseada en DBus fora movida de lugar."
+
+#~ msgid ""
+#~ "This key determines the GTK+ modules to load for accessibility support."
+#~ msgstr ""
+#~ "Esta chave determina que módulos GTK+ se cargarán para a asistencia de "
+#~ "accesibilidade."
 
 #~ msgid "AT-SPI Registry"
 #~ msgstr "Rexistro de AT-SPI"
