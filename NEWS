@@ -1,3 +1,9 @@
+What's new in at-spi2-atk 1.91.91:
+
+* Fix some missing prototypes.
+
+* Do not exit if the accessibility bus disconnects.
+
 What's new in at-spi2-atk 1.91.90:
 
 * Fix for BGO#641338: Avoid crashing when unable to listen for p2p connections.
