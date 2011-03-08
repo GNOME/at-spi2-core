@@ -24,6 +24,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include <string.h>
 
 #include "common/spi-dbus.h"
 #include "object.h"
