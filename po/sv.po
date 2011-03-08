@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-08 00:22+0100\n"
+"POT-Creation-Date: 2011-03-08 08:30+0100\n"
 "PO-Revision-Date: 2011-03-08 08:29+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -33,13 +33,21 @@ msgstr "AT-SPI: Fel i GetItems, avsändare=%s, fel=%s"
 
 #: ../atspi/atspi-misc.c:587
 #, c-format
-msgid "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange signature %s"
-msgstr "AT-SPI: Anropade _atspi_dbus_return_accessible_from_message med konstig signatur %s"
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Anropade _atspi_dbus_return_accessible_from_message med konstig "
+"signatur %s"
 
 #: ../atspi/atspi-misc.c:616
 #, c-format
-msgid "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s"
-msgstr "AT-SPI: Anropade _atspi_dbus_return_hyperlink_from_message med konstig signatur %s"
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: Anropade _atspi_dbus_return_hyperlink_from_message med konstig "
+"signatur %s"
 
 #: ../atspi/atspi-misc.c:641
 #, c-format
@@ -54,8 +62,7 @@ msgstr "AT-SPI: Kunde inte få tag på displayen\n"
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
 msgstr "AT-SPI: Hjälpmedelsbussen hittades inte - Använder sessionsbussen.\n"
 
-#: ../atspi/atspi-misc.c:848
-#: ../atspi/atspi-misc.c:857
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
 #, c-format
 msgid "AT-SPI: Couldn't connect to bus: %s\n"
 msgstr "AT-SPI: Kunde inte ansluta till bussen: %s\n"
@@ -65,8 +72,7 @@ msgstr "AT-SPI: Kunde inte ansluta till bussen: %s\n"
 msgid "AT-SPI: Couldn't register with bus: %s\n"
 msgstr "AT-SPI: Kunde inte registrera mot bussen: %s\n"
 
-#: ../atspi/atspi-misc.c:1002
-#: ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
 #: ../atspi/atspi-misc.c:1094
 msgid "The application no longer exists"
 msgstr "Programmet finns inte längre"
@@ -74,7 +80,9 @@ msgstr "Programmet finns inte längre"
 #: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr "AT-SPI: förväntade en variant vid hämtning av %s från gränssnittet %s; fick %s\n"
+msgstr ""
+"AT-SPI: förväntade en variant vid hämtning av %s från gränssnittet %s; fick "
+"%s\n"
 
 #: ../atspi/atspi-misc.c:1136
 #, c-format
@@ -96,8 +104,10 @@ msgid "Streamable content not implemented"
 msgstr "Strömningsbart innehåll har inte implementerats"
 
 #: ../atspi/atspi-event-listener.c:510
-msgid "called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr "anropade atspi_event_listener_register_from_callback med en NULL event_type"
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"anropade atspi_event_listener_register_from_callback med en NULL event_type"
 
 #: ../atspi/atspi-event-listener.c:777
 #, c-format
@@ -106,4 +116,3 @@ msgstr "Fick ogiltig signatur %s för signal %s från gränssnittet %s\n"
 
 #~ msgid "AT-SPI: Got error: %s\n"
 #~ msgstr "AT-SPI: Fick fel: %s\n"
-
