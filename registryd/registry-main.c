@@ -98,7 +98,7 @@ kill_accessibility_bus ()
   home = getenv ("HOME");
   if (!home)
     return;
-  name = g_strconcat (home, "/", ".atspi-dbus-bus.pid");
+  name = g_strconcat (home, "/", ".atspi-dbus-bus.pid", NULL);
   if (!name)
     return;
 
