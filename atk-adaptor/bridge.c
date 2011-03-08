@@ -22,6 +22,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#define _GNU_SOURCE
 #include "config.h"
 #include "dbus/dbus-glib-lowlevel.h"
 
@@ -509,11 +510,54 @@ install_plug_hooks ()
   socket_class->embed = socket_embed_hook;
 }
 
+static uint
+get_ancestral_uid (uint pid)
+{
+  FILE *fp;
+  char buf [80];
+  int ppid = 0;
+  int uid = 0;
+  gboolean got_ppid = 0;
+  gboolean got_uid = 0;
+
+  sprintf (buf, "/proc/%d/status", pid);
+  fp = fopen (buf, "r");
+  if (!fp)
+    return 0;
+  while ((!got_ppid || !got_uid) && fgets (buf, sizeof (buf), fp))
+  {
+    if (sscanf (buf, "PPid:\t%d", &ppid) == 1)
+      got_ppid = TRUE;
+    else if (sscanf (buf, "Uid:\t%d", &uid) == 1)
+      got_uid = TRUE;
+  }
+  fclose (fp);
+
+  if (!got_ppid || !got_uid)
+    return 0;
+  if (uid != 0)
+    return uid;
+  if (ppid == 0 || ppid == 1)
+    return 0;
+  return get_ancestral_uid (ppid);
+}
+
+static dbus_bool_t
+user_check (DBusConnection *bus, unsigned long uid)
+{
+  if (uid == getuid () || uid == geteuid ())
+    return TRUE;
+  if (getuid () == 0)
+    return get_ancestral_uid (getpid ()) == uid;
+  return FALSE;
+}
+
 static void
 new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 {
   GList *new_list;
 
+  dbus_connection_set_unix_user_function (con, user_check, NULL, NULL);
   dbus_connection_ref(con);
   dbus_connection_setup_with_g_main(con, NULL);
   droute_intercept_dbus (con);
