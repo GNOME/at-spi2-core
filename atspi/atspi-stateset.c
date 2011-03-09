@@ -160,7 +160,7 @@ refresh_states (AtspiStateSet *set)
   states = (dbus_uint32_t *) state_array->data;
 
   set->states = ((gint64)states [1]) << 32;
-  set->states += states [0];
+  set->states |= (gint64) states [0];
   g_array_free (state_array, TRUE);
 }
 
