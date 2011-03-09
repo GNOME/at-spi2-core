@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
 "POT-Creation-Date: 2011-03-08 20:04+0000\n"
-"PO-Revision-Date: 2011-03-09 13:30+0100\n"
+"PO-Revision-Date: 2011-03-09 17:47+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -79,12 +79,12 @@ msgstr "Program ne obstaja več"
 #: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr ""
+msgstr "AT-SPI: pričakovana vrednost med pridobivanjem %s z vmesnika %s; pridobljeno %s\n"
 
 #: ../atspi/atspi-misc.c:1136
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
-msgstr ""
+msgstr "atspi_dbus_get_property: neveljavna vrsta: pričakovana je vrednost %s, pridobljena pa %c\n"
 
 #: ../atspi/atspi-misc.c:1279
 #, c-format
@@ -94,7 +94,7 @@ msgstr "AT-SPI: neznan vmesnik %s"
 #: ../atspi/atspi-misc.c:1299
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
-msgstr ""
+msgstr "AT-SPI: pričakovani sta 2 vrednosti v polju stanj; pridobljeno %d\n"
 
 #: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
@@ -102,12 +102,13 @@ msgstr "Ni podpore za pretočno vsebino"
 
 #: ../atspi/atspi-event-listener.c:510
 msgid "called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr ""
+msgstr "predmet atspi_event_listener_register_from_callback je klican s prazno vrednostjo možnosti event_type"
 
 #: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr ""
+msgstr "Pridobljen neveljaven podpis %s za signal %s z vmesnika %s\n"
 
 #~ msgid "AT-SPI: Got error: %s\n"
 #~ msgstr "AT-SPI: pridobljena napaka: %s\n"
+
