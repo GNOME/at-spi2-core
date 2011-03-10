@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-26 09:43+0100\n"
-"PO-Revision-Date: 2011-01-23 18:31+0100\n"
+"POT-Creation-Date: 2011-03-11 00:11+0100\n"
+"PO-Revision-Date: 2011-03-11 00:13+0100\n"
 "Last-Translator: David Planella <david.planella@gmail.com>\n"
 "Language-Team: Catalan <gnome-dl@llistes.softcatala.org>\n"
 "Language: ca\n"
@@ -16,22 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../atspi/atspi-misc.c:292
+#: ../atspi/atspi-misc.c:290
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI: es desconeix la signatura %s per RemoveAccessible"
 
-#: ../atspi/atspi-misc.c:330
+#: ../atspi/atspi-misc.c:327
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI: s'ha produït un error en cridar getRoot per %s: %s"
 
-#: ../atspi/atspi-misc.c:490
+#: ../atspi/atspi-misc.c:485
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
 msgstr "AT-SPI: s'ha produït un error a GetItems, remitent=%s, error=%s"
 
-#: ../atspi/atspi-misc.c:595
+#: ../atspi/atspi-misc.c:587
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
@@ -40,7 +40,7 @@ msgstr ""
 "AT-SPI: s'ha cridat _atspi_dbus_return_accessible_from_message amb una "
 "signatura estranya: %s"
 
-#: ../atspi/atspi-misc.c:624
+#: ../atspi/atspi-misc.c:616
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
@@ -49,67 +49,73 @@ msgstr ""
 "AT-SPI: s'ha cridat _atspi_dbus_return_hyperlink_from_message amb una "
 "signatura estranya: %s"
 
-#: ../atspi/atspi-misc.c:651
+#: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible té una signatura desconeguda: %s\n"
 
-#: ../atspi/atspi-misc.c:841
+#: ../atspi/atspi-misc.c:826
 msgid "AT-SPI: Could not get the display\n"
 msgstr "AT-SPI: no s'ha pogut obtenir la pantalla\n"
 
-#: ../atspi/atspi-misc.c:859
+#: ../atspi/atspi-misc.c:844
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
 msgstr ""
 "AT-SPI: no s'ha trobat el bus d'accessibilitat - s'utilitzarà el bus de la "
 "sessió.\n"
 
-#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
 #, c-format
 msgid "AT-SPI: Couldn't connect to bus: %s\n"
 msgstr "AT-SPI: no s'ha pogut connectar al bus: %s\n"
 
-#: ../atspi/atspi-misc.c:879
+#: ../atspi/atspi-misc.c:864
 #, c-format
 msgid "AT-SPI: Couldn't register with bus: %s\n"
 msgstr "AT-SPI: no s'ha pogut registrar al bus: %s\n"
 
-#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
-#: ../atspi/atspi-misc.c:1111
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
 msgid "The application no longer exists"
 msgstr "L'aplicació ja no existeix"
 
-#: ../atspi/atspi-misc.c:1147
+#: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
 "AT-SPI: s'esperava una variant en recollir %s a l'interfície %s, però s'ha "
 "obtingut %s\n"
 
-#: ../atspi/atspi-misc.c:1153
+#: ../atspi/atspi-misc.c:1136
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr ""
 "atspi_dbus_get_property: tipus incorrecte: s'esperava un %s, però s'ha "
 "obtingut un %c\n"
 
-#: ../atspi/atspi-misc.c:1297
+#: ../atspi/atspi-misc.c:1279
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI: interfície desconeguda %s"
 
-#: ../atspi/atspi-misc.c:1317
+#: ../atspi/atspi-misc.c:1299
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr ""
 "AT-SPI: s'esperaven 2 valors a la matriu d'estats, però se n'han obtingut "
 "%d\n"
 
-#: ../atspi/atspi-accessible.c:966
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
 msgstr "No s'ha implementat el contingut en flux"
 
-#: ../atspi/atspi-event-listener.c:770
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"s'ha cridat la funció «atspi_event_listener_register_from_callback» amb un «event_type» nul"
+
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr ""
