@@ -1,55 +1,23 @@
 # at-spi Italian translation.
-# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010 The Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 The Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi package.
 #
 # Alessio Frusciante <algol@firenze.linux.it>, 2003.
-# Luca Ferretti <lferrett@gnome.org>, 2009, 2010.
+# Luca Ferretti <lferrett@gnome.org>, 2009, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
-"POT-Creation-Date: 2010-02-05 19:10+0000\n"
-"PO-Revision-Date: 2010-03-06 00:54+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-11 02:06+0100\n"
+"PO-Revision-Date: 2011-03-11 02:07+0100\n"
 "Last-Translator: Luca Ferretti <lferrett@gnome.org>\n"
 "Language-Team: Italiano <tp@lists.linux.it>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "Abilita l'infrastruttura AT-SPI basata su DBus"
-
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "Moduli GTK+ per supporto accessibilità"
-
-#: ../at-spi2.schemas.in.h:3
-#| msgid ""
-#| "In combination with /desktop/gnome/interface/accessibility, this key is "
-#| "needed to enable the DBus-based AT-SPI infrastructure. Otherwise, the D-"
-#| "Bus AT-SPI infrastructure will be used."
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr "In combinazione con /desktop/gnome/interface/accessibility, questa chiave è necessaria per abilitare l'infrastruttura AT-SPI basata su DBus, qualora l'infrastruttura AT-SPI basata su DBus sia stata trasferita. Viene ignorata se tale infrastruttura non è stat trasferita."
-
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr ""
-"Questa chiave determina i moduli GTK+ da caricare per il supporto "
-"all'accessibilità."
-
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "Registro AT-SPI"
-
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Registro accessibilità"
-
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "Registro AT SPI"
+#: ../atk-adaptor/bridge.c:538
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: impossibile restare in ascolto sul server dbus: %s"
