@@ -1,56 +1,23 @@
-# French translation of at-spi.
-# Copyright (C) 2003-2010 Free Software Foundation, Inc.
-# This file is distributed under the same license as the at-spi package.
+# French translation of at-spi2-atk.
+# Copyright (C) 2011 Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi2-atk package.
 #
-# Christophe Merlet <redfox@redfoxcenter.org>, 2003.
-# Claude Paroz <claude@2xlibre.net>, 2008-2010.
+# Claude Paroz <claude@2xlibre.net>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: at-spi HEAD\n"
+"Project-Id-Version: at-spi2-atk HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&component=general\n"
-"POT-Creation-Date: 2010-02-05 19:10+0000\n"
-"PO-Revision-Date: 2010-02-27 11:08+0100\n"
+"POT-Creation-Date: 2011-02-21 23:16+0000\n"
+"PO-Revision-Date: 2011-03-12 11:25+0100\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "Activer l'infrastructure AT-SPI basée sur DBus"
-
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "Modules GTK+ pour la prise en charge de l'accessibilité"
-
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"En lien avec /desktop/gnome/interface/accessibility, cette clé est "
-"nécessaire pour activer l'infrastructure AT-SPI basée sur DBus dans le cas où "
-"celle-ci a été déplacée. Sinon, cette clé est ignorée."
-
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr ""
-"Cette clé indique les modules GTK+ à charger pour prendre en charge "
-"l'accessibilité."
-
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "Registre AT-SPI"
-
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Registre d'accessibilité"
-
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "Registre AT SPI"
+#: ../atk-adaptor/bridge.c:535
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge : impossible d'écouter le serveur dbus : %s"
