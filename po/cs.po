@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
 "spi&component=general\n"
-"POT-Creation-Date: 2011-01-19 16:30+0000\n"
-"PO-Revision-Date: 2011-01-20 14:50+0100\n"
+"POT-Creation-Date: 2011-03-05 21:02+0000\n"
+"PO-Revision-Date: 2011-03-14 23:06+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,22 +19,22 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../atspi/atspi-misc.c:292
+#: ../atspi/atspi-misc.c:290
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI: Neznámý podpis %s pro RemoveAccessible"
 
-#: ../atspi/atspi-misc.c:330
+#: ../atspi/atspi-misc.c:327
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI: Chyba volání getRoot pro %s: %s"
 
-#: ../atspi/atspi-misc.c:490
+#: ../atspi/atspi-misc.c:485
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
 msgstr "AT-SPI:Chyba v GetItems, odesilatel=%s, chyba=%s"
 
-#: ../atspi/atspi-misc.c:595
+#: ../atspi/atspi-misc.c:587
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
@@ -42,7 +42,7 @@ msgid ""
 msgstr ""
 "AT-SPI: _atspi_dbus_return_accessible_from_message voláno s cizím podpisem %s"
 
-#: ../atspi/atspi-misc.c:624
+#: ../atspi/atspi-misc.c:616
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
@@ -50,66 +50,70 @@ msgid ""
 msgstr ""
 "AT-SPI: _atspi_dbus_return_hyperlink_from_message voláno s cizím podpisem %s"
 
-#: ../atspi/atspi-misc.c:651
+#: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible s neznámým podpisem %s\n"
 
-#: ../atspi/atspi-misc.c:841
+#: ../atspi/atspi-misc.c:826
 msgid "AT-SPI: Could not get the display\n"
 msgstr "AT-SPI: Nelze získat displej\n"
 
-#: ../atspi/atspi-misc.c:859
+#: ../atspi/atspi-misc.c:844
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
 msgstr ""
 "AT-SPI: Sběrnice přístupnosti nebyla nalezena – použije se sběrnice sezení.\n"
 
-#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
 #, c-format
 msgid "AT-SPI: Couldn't connect to bus: %s\n"
 msgstr "AT-SPI: Nelze se připojit ke sběrnici: %s\n"
 
-#: ../atspi/atspi-misc.c:879
+#: ../atspi/atspi-misc.c:864
 #, c-format
 msgid "AT-SPI: Couldn't register with bus: %s\n"
 msgstr "AT-SPI: Nelze se registrovat ke sběrnici: %s\n"
 
-#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
-#: ../atspi/atspi-misc.c:1111
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
 msgid "The application no longer exists"
 msgstr "Aplikace již neexistuje"
 
-#: ../atspi/atspi-misc.c:1147
+#: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
 "AT-SPI: Při získávání %s z rozhraní %s očekáván typ variant; obdržen %s\n"
 
-#: ../atspi/atspi-misc.c:1153
+#: ../atspi/atspi-misc.c:1136
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr "atspi_dbus_get_property: Nesprávný typ: očekáván %s, obdržen %c\n"
 
-#: ../atspi/atspi-misc.c:1193
-#, c-format
-msgid "AT-SPI: Got error: %s\n"
-msgstr "AT-SPI: Obdržena chyba: %s\n"
-
-#: ../atspi/atspi-misc.c:1296
+#: ../atspi/atspi-misc.c:1279
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI: Neznámé rozhraní %s"
 
-#: ../atspi/atspi-misc.c:1316
+#: ../atspi/atspi-misc.c:1299
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: Očekávány 2 hodnoty ve stavovém poli; obdrženo %d\n"
 
-#: ../atspi/atspi-accessible.c:950
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
 msgstr "Proudově přenositelný obsah není implementován"
 
-#: ../atspi/atspi-event-listener.c:758
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"voláno atspi_event_listener_register_from_callback s prázdným event_type"
+
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "Obdržen neplatný podpis %s pro signál %s z rozhraní %s\n"
+
+#~ msgid "AT-SPI: Got error: %s\n"
+#~ msgstr "AT-SPI: Obdržena chyba: %s\n"
