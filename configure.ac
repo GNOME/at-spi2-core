@@ -55,6 +55,10 @@ PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
 
+PKG_CHECK_MODULES(GIO, [gio-2.0 >= 2.28])
+AC_SUBST(GIO_LIBS)
+AC_SUBST(GIO_CFLAGS)
+
 # --------------------------------------------------------------------
 # Find DL functionality
 
@@ -192,7 +196,6 @@ AC_CONFIG_FILES([Makefile po/Makefile.in
 dbind/dbind-config.h
 	atspi/Makefile
 	registryd/Makefile
-	bus/at-spi-dbus-bus
 	bus/Makefile
 doc/Makefile
 doc/libatspi/Makefile

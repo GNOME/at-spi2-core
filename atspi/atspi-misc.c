@@ -29,6 +29,7 @@
  */
 
 #include "atspi-private.h"
+#include "libregistry-internals.h"
 #include "X11/Xlib.h"
 #include "dbus/dbus-glib.h"
 #include <stdio.h>
@@ -805,71 +806,6 @@ spi_display_name (void)
   return canonical_display_name;
 }
 
-/* TODO: Avoid having duplicate functions for this here and in at-spi2-atk */
-static DBusConnection *
-get_accessibility_bus ()
-{
-  Atom AT_SPI_BUS;
-  Atom actual_type;
-  Display *bridge_display;
-  int actual_format;
-  unsigned char *data = NULL;
-  unsigned long nitems;
-  unsigned long leftover;
-
-  DBusConnection *bus = NULL;
-  DBusError error;
-
-  bridge_display = XOpenDisplay (spi_display_name ());
-  if (!bridge_display)
-    {
-      g_warning (_("AT-SPI: Could not get the display\n"));
-      return NULL;
-    }
-
-  AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False);
-  XGetWindowProperty (bridge_display,
-                      XDefaultRootWindow (bridge_display),
-                      AT_SPI_BUS, 0L,
-                      (long) BUFSIZ, False,
-                      (Atom) 31, &actual_type, &actual_format,
-                      &nitems, &leftover, &data);
-  XCloseDisplay (bridge_display);
-
-  dbus_error_init (&error);
-
-  if (data == NULL)
-    {
-      g_warning
-        (_("AT-SPI: Accessibility bus not found - Using session bus.\n"));
-      bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
-      if (!bus)
-        {
-          g_warning (_("AT-SPI: Couldn't connect to bus: %s\n"), error.message);
-          return NULL;
-        }
-    }
-  else
-    {
-      bus = dbus_connection_open (data, &error);
-      if (!bus)
-        {
-          g_warning (_("AT-SPI: Couldn't connect to bus: %s\n"), error.message);
-          return NULL;
-        }
-      else
-        {
-          if (!dbus_bus_register (bus, &error))
-            {
-              g_warning (_("AT-SPI: Couldn't register with bus: %s\n"), error.message);
-              return NULL;
-            }
-        }
-    }
-
-  return bus;
-}
-
 /**
  * atspi_init:
  *
@@ -895,12 +831,9 @@ atspi_init (void)
   get_live_refs();
 
   dbus_error_init (&error);
-  bus = get_accessibility_bus ();
+  bus = _libregistry_get_a11y_bus ();
   if (!bus)
-  {
-    g_warning ("Couldn't get session bus");
     return 2;
-  }
   dbus_bus_register (bus, &error);
   dbus_connection_setup_with_g_main(bus, g_main_context_default());
   dbus_connection_add_filter (bus, atspi_dbus_filter, NULL, NULL);

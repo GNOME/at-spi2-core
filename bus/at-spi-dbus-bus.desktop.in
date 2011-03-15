@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=AT SPI D-Bus Bus
-Exec=@libexecdir@/at-spi-dbus-bus
+Exec=@libexecdir@/at-spi-bus-launcher --launch-immediately
 OnlyShowIn=GNOME;
 NoDisplay=true
 AutostartCondition=GSETTINGS org.gnome.desktop.interface toolkit-accessibility

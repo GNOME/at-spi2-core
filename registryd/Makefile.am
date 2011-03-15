@@ -1,4 +1,5 @@
 libexec_PROGRAMS = at-spi2-registryd
+noinst_LTLIBRARIES = libregistry-internals.la
 
 at_spi2_registryd_CFLAGS =	\
 	$(GLIB_CFLAGS)		\
@@ -8,7 +9,16 @@ at_spi2_registryd_CFLAGS =	\
 	-I$(top_srcdir)		\
 	-DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
+libregistry_internals_la_SOURCES = \
+	libregistry-internals.h \
+	libregistry-internals.c
+
+libregistry_internals_la_CFLAGS = $(DBUS_GLIB_CFLAGS)
+libregistry_internals_la_LIBADD = $(DBUS_GLIB_LIBS) $(X_LIBS)
+
+
 at_spi2_registryd_LDADD =	\
+	libregistry-internals.la \
 	$(GLIB_LIBS)		\
 	$(DBUS_GLIB_LIBS)	\
 	$(GOBJ_CFLAGS)		\

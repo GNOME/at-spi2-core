@@ -4,10 +4,12 @@ libatspi_la_LDFLAGS = @LDFLAGS@ @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@ -no-u
 
 libatspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
 		    $(DBIND_CFLAGS)     \
+		    -I$(top_srcdir)/registryd \
                     -I$(top_srcdir)
 
 libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
 	$(X_LIBS) \
+	$(top_builddir)/registryd/libregistry-internals.la \
 	$(top_builddir)/dbind/libdbind.la
 
 libatspiincludedir = $(includedir)/at-spi-2.0/atspi
