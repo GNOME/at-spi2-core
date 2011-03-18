@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: at-spi2-core 1.91.5\n"
+"Project-Id-Version: at-spi2-core 1.91.91\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 19:02+0800\n"
-"PO-Revision-Date: 2011-01-25 19:02+0800\n"
+"POT-Creation-Date: 2011-03-18 15:07+0800\n"
+"PO-Revision-Date: 2011-03-18 15:07+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: \n"
@@ -16,88 +16,93 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../atspi/atspi-misc.c:292
+#: ../atspi/atspi-misc.c:290
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI： RemoveAccessible 有不明的簽署 %s"
 
-#: ../atspi/atspi-misc.c:330
+#: ../atspi/atspi-misc.c:327
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI：呼叫 %s 的 getRoot 時發生錯誤：%s"
 
-#: ../atspi/atspi-misc.c:490
+#: ../atspi/atspi-misc.c:485
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
 msgstr "AT-SPI： GetItems 中有錯誤，sender=%s，error=%s"
 
-#: ../atspi/atspi-misc.c:595
+#: ../atspi/atspi-misc.c:587
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
 msgstr "AT-SPI：以奇怪的簽署 %s 呼叫了 _atspi_dbus_return_accessible_from_message"
 
-#: ../atspi/atspi-misc.c:624
+#: ../atspi/atspi-misc.c:616
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
 "signature %s"
 msgstr "AT-SPI：以奇怪的簽署 %s 呼叫了 _atspi_dbus_return_hyperlink_from_message"
 
-#: ../atspi/atspi-misc.c:651
+#: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI：AddAccessible 有不明的簽署 %s\n"
 
-#: ../atspi/atspi-misc.c:841
+#: ../atspi/atspi-misc.c:826
 msgid "AT-SPI: Could not get the display\n"
 msgstr "AT-SPI：無法取回畫面\n"
 
-#: ../atspi/atspi-misc.c:859
+#: ../atspi/atspi-misc.c:844
 msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
 msgstr "AT-SPI：找不到無障礙匯流排 - 使用作業階段匯流排。\n"
 
-#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
 #, c-format
 msgid "AT-SPI: Couldn't connect to bus: %s\n"
 msgstr "AT-SPI：無法連線至匯流排：%s\n"
 
-#: ../atspi/atspi-misc.c:879
+#: ../atspi/atspi-misc.c:864
 #, c-format
 msgid "AT-SPI: Couldn't register with bus: %s\n"
 msgstr "AT-SPI：無法註冊匯流排：%s\n"
 
-#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
-#: ../atspi/atspi-misc.c:1111
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
 msgid "The application no longer exists"
 msgstr "應用程式已不存在"
 
-#: ../atspi/atspi-misc.c:1147
+#: ../atspi/atspi-misc.c:1130
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr "AT-SPI：當從介面 %2$s 取回 %1$s 時預期有一個變數；卻得到 %3$s\n"
 
-#: ../atspi/atspi-misc.c:1153
+#: ../atspi/atspi-misc.c:1136
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr "atspi_dbus_get_property：錯誤的類型：預期為 %s，卻得到 %c\n"
 
-#: ../atspi/atspi-misc.c:1297
+#: ../atspi/atspi-misc.c:1279
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI：不明的介面 %s"
 
-#: ../atspi/atspi-misc.c:1317
+#: ../atspi/atspi-misc.c:1299
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI：預期在狀態陣列中有 2 個數值，卻得到 %d\n"
 
-#: ../atspi/atspi-accessible.c:966
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
 msgstr "可串流內容沒有實作"
 
-#: ../atspi/atspi-event-listener.c:770
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr "以  NULL event_type 呼叫 atspi_event_listener_register_from_callback"
+
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "從介面 %3$s 取得信號 %2$s 的無效簽署 %1$s\n"
