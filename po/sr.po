@@ -1,0 +1,117 @@
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-10 23:14+0000\n"
+"PO-Revision-Date: 2011-03-07 22:55+0200\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: Serbian (sr)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "АТ-СПИ: Непознат потпис „%s“ за „Уклони доступног“"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "АТ-СПИ: Грешка позивајући „набави Корен“ за „%s“: %s"
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "АТ-СПИ: Грешка у „Набави ставку“, пошиљалац=„%s“, грешка=%s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"АТ-СПИ: Позван „_atspi_dbus_return_accessible_from_message“ са чудним "
+"потписом „%s“"
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"АТ-СПИ: Позван „_atspi_dbus_return_hyperlink_from_message“ са чудним "
+"потписом „%s“"
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "АТ-СПИ: „Додај доступног“ са непознатим потписом „%s“\n"
+
+#: ../atspi/atspi-misc.c:826
+msgid "AT-SPI: Could not get the display\n"
+msgstr "АТ-СПИ: Не могу да добијем приказ\n"
+
+#: ../atspi/atspi-misc.c:844
+msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+msgstr ""
+"АТ-СПИ: Није пронађена магистрала приступачности — Користим магистралу "
+"сесије.\n"
+
+#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
+#, c-format
+msgid "AT-SPI: Couldn't connect to bus: %s\n"
+msgstr "АТ-СПИ: Не могу да се повежем на магистралу: %s\n"
+
+#: ../atspi/atspi-misc.c:864
+#, c-format
+msgid "AT-SPI: Couldn't register with bus: %s\n"
+msgstr "АТ-СПИ: Не могу да се региструјем са магистралом: %s\n"
+
+#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
+#: ../atspi/atspi-misc.c:1094
+msgid "The application no longer exists"
+msgstr "Програм не постоји више"
+
+#: ../atspi/atspi-misc.c:1130
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+"АТ-СПИ: очекивана варијанта приликом добављања „%s“ са сучеља „%s“; добих „%"
+"s“\n"
+
+#: ../atspi/atspi-misc.c:1136
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr ""
+"„atspi_dbus_get_property“: Погрешна врста: очекивана „%s“, добијена „%c“\n"
+
+#: ../atspi/atspi-misc.c:1279
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "АТ-СПИ: Непознато сучеље „%s“"
+
+#: ../atspi/atspi-misc.c:1299
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "АТ-СПИ: очекиване су 2 вредности у низу стања; добивено је %d\n"
+
+#: ../atspi/atspi-accessible.c:997
+msgid "Streamable content not implemented"
+msgstr "Усмеравање садржаја није примењено"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"позван је „atspi_event_listener_register_from_callback“ са NULL „event_type“"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Добих неисправан потпис „%s“ за сигнал „%s“ са сучеља „%s“\n"
