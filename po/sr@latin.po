@@ -1,68 +1,54 @@
 # Serbian translation of at-spi
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2003, 2004.
-#
 # This file is distributed under the same license as the at-spi package.
-#
 # Maintainer: Danilo Šegan <dsegan@gmx.net>
 # Reviewed on 2004-02-12 by: Danilo Šegan <dsegan@gmx.net>
-#
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&component=general\n"
-"POT-Creation-Date: 2010-02-05 19:10+0000\n"
-"PO-Revision-Date: 2010-03-06 13:19+0100\n"
-"Last-Translator: Goran Rakić <grakic@devbase.net>\n"
-"Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-11 01:08+0000\n"
+"PO-Revision-Date: 2011-03-05 22:23+0200\n"
+"Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: Serbian (sr)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "Uključi AT-SPI strukturu baziranu na KORBI"
+#: ../atk-adaptor/bridge.c:582
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: Ne mogu da slušam na dbus serveru: %s"
 
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "GTK+ moduli podrške za pristupačnost"
+#~ msgid "Enable DBus-based AT-SPI infrastructure"
+#~ msgstr "Uključi AT-SPI strukturu baziranu na KORBI"
 
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"U kombinaciji sa /desktop/gnome/interface/accessibility, ovaj ključ uključuje "
-"AT-SPI strukturu baziranu na KORBI, ukoliko je ona premeštena. U suprotnom, "
-"ovo se zanemaruje."
+#~ msgid "GTK+ modules for accessibility support"
+#~ msgstr "GTK+ moduli podrške za pristupačnost"
 
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr ""
-"Ovaj ključ određuje GTK+ module koji se učitavaju radi podrške za "
-"pristupačnost."
+#~ msgid ""
+#~ "In combination with /desktop/gnome/interface/accessibility, this key is "
+#~ "needed to enable the DBus-based AT-SPI infrastructure if the DBus-based "
+#~ "AT-SPI infrastructure has been relocated. It is ignored if the DBus-based "
+#~ "AT-SPI infrastructure has not been relocated."
+#~ msgstr ""
+#~ "U kombinaciji sa /desktop/gnome/interface/accessibility, ovaj ključ "
+#~ "uključuje AT-SPI strukturu baziranu na KORBI, ukoliko je ona premeštena. U "
+#~ "suprotnom, ovo se zanemaruje."
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "AT-SPI registar"
+#~ msgid ""
+#~ "This key determines the GTK+ modules to load for accessibility support."
+#~ msgstr ""
+#~ "Ovaj ključ određuje GTK+ module koji se učitavaju radi podrške za "
+#~ "pristupačnost."
 
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Registar za pristupačnost"
+#~ msgid "AT-SPI Registry"
+#~ msgstr "AT-SPI registar"
 
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-#| msgid "AT-SPI Registry"
-msgid "AT SPI Registry"
-msgstr "AT-SPI registar"
-
-#~| msgid "AT-SPI Registry"
-#~ msgid "AT SPI Registry Wrapper"
-#~ msgstr "omotač AT-SPI registra"
-
-#~ msgid "failure: no device event controller found.\n"
-#~ msgstr "greška: nije nađen upravljač za događaje na uređaju.\n"
-
-#~ msgid "WARNING: NULL key event reported."
-#~ msgstr "UPOZORENJE: Primio je NULL taster."
+#~ msgid "Accessibility Registry"
+#~ msgstr "Registar za pristupačnost"
