@@ -1,0 +1,103 @@
+# Dutch translation for at-spi2-core
+#
+# This file is distributed under the same license as the at-spi2-core package.
+#
+# Wouter Bolsterlee <wbolster@gnome.org>, 2011
+#
+# Dit is echt een verschrikkelijke module: alleen maar technische termen die
+# totaal onbegrijpelijk zijn. — Wouter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-19 16:41+0100\n"
+"PO-Revision-Date: 2011-03-19 16:33+0100\n"
+"Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../atspi/atspi-misc.c:291
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: onbekende signature ‘%s’ voor RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:328
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: Fout bij aanroep van getRoot voor %s: %s"
+
+#: ../atspi/atspi-misc.c:486
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: Fout in GetItems, sender=%s, error=%s"
+
+#: ../atspi/atspi-misc.c:588
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: _atspi_dbus_return_accessible_from_message aangeroepen met vreemde "
+"signature %s"
+
+#: ../atspi/atspi-misc.c:617
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: _atspi_dbus_return_hyperlink_from_message aangeroepen met vreemde "
+"signature %s"
+
+#: ../atspi/atspi-misc.c:642
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI: AddAccessible met onbekende signature %s\n"
+
+#: ../atspi/atspi-misc.c:935 ../atspi/atspi-misc.c:986
+#: ../atspi/atspi-misc.c:1027
+msgid "The application no longer exists"
+msgstr "De toepassing bestaat niet meer"
+
+#: ../atspi/atspi-misc.c:1063
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+"AT-SPI: een variant verwacht bij opvragen van %s van interface %s; %s "
+"verkregen\n"
+
+#: ../atspi/atspi-misc.c:1069
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property: Verkeerde type: %s verwacht, %c verkregen\n"
+
+#: ../atspi/atspi-misc.c:1212
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: Onbekende interface %s"
+
+#: ../atspi/atspi-misc.c:1232
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: 2 waardes verwacht in ‘states array’, %d verkregen\n"
+
+#: ../atspi/atspi-accessible.c:997
+msgid "Streamable content not implemented"
+msgstr "‘Streamable content’ niet geïmplementeerd"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"atspi_event_listener_register_from_callback aangeroepn met een NULL "
+"event_type"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Ongeldige signature %s ontvangen voor signaal %s van interface %s\n"
