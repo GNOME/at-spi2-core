@@ -1,56 +1,24 @@
-# Dutch translation for at-spi
+# Dutch translation for at-spi2-atk
 #
-# This file is distributed under the same license as the at-spi package.
+# This file is distributed under the same license as the at-spi2-atk package.
 #
-# Vincent van Adrighem <adrighem@gnome.org>, 2003
-# Wouter Bolsterlee <wbolster@gnome.org>, 2008–2010
+# Wouter Bolsterlee <wbolster@gnome.org>, 2011
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: at-spi\n"
+"Project-Id-Version: at-spi2-atk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-16 23:21+0100\n"
+"POT-Creation-Date: 2011-03-19 16:35+0100\n"
 "PO-Revision-Date: 2010-03-16 23:21+0100\n"
 "Last-Translator: Wouter Bolsterlee <wbolster@gnome.org>\n"
 "Language-Team: Dutch\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../at-spi2.schemas.in.h:1
-msgid "Enable DBus-based AT-SPI infrastructure"
-msgstr "DBus-gebaseerd AT-SPI-infrastructuur inschakelen"
-
-#: ../at-spi2.schemas.in.h:2
-msgid "GTK+ modules for accessibility support"
-msgstr "GTK+-modules voor toegankelijkheidsondersteuning"
-
-#: ../at-spi2.schemas.in.h:3
-msgid ""
-"In combination with /desktop/gnome/interface/accessibility, this key is "
-"needed to enable the DBus-based AT-SPI infrastructure if the DBus-based AT-"
-"SPI infrastructure has been relocated. It is ignored if the DBus-based AT-"
-"SPI infrastructure has not been relocated."
-msgstr ""
-"In combinatie met ‘/desktop/gnome/interface/accessibility’ is deze sleutel "
-"nodig om de DBus-gebaseerde AT-SPI-infrastructuur in te schakelen indien de "
-"DBus-gebaseerde AT-SPI-infrastructuur is verplaatst. Deze sleutel wordt "
-"genegeerd als de DBus-gebaseerde AT-SPI-infrastructuur niet verplaatst is."
-
-#: ../at-spi2.schemas.in.h:4
-msgid "This key determines the GTK+ modules to load for accessibility support."
-msgstr ""
-"Deze sleutel bepaalt de te laden GTK+-modules voor "
-"toegankelijkheidsondersteuning."
-
-#: ../registryd/Accessibility_Registry.server.in.in.h:1
-msgid "AT-SPI Registry"
-msgstr "AT-SPI-register"
-
-#: ../registryd/Accessibility_Registry.server.in.in.h:2
-msgid "Accessibility Registry"
-msgstr "Toegankelijkheidsregister"
-
-#: ../registryd/at-spi-registryd.desktop.in.in.in.h:1
-msgid "AT SPI Registry"
-msgstr "AT-SPI-register"
+#: ../atk-adaptor/bridge.c:582
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: kon niet luisteren op dbus-server: %s"
