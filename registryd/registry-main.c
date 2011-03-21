@@ -25,6 +25,7 @@
 #include <config.h>
 #include <string.h>
 #include <glib.h>
+#include <gio/gio.h>
 #include <stdio.h>
 #include <dlfcn.h>
 
@@ -51,10 +52,10 @@ static GOptionEntry optentries[] =
   {NULL}
 };
 
-static DBusGConnection *bus_connection = NULL;
-static DBusGProxy      *sm_proxy = NULL;
+static GDBusConnection *bus_connection = NULL;
+static GDBusProxy      *sm_proxy = NULL;
 static char            *client_id = NULL;
-static DBusGProxy      *client_proxy = NULL;
+static GDBusProxy      *client_proxy = NULL;
 
 #define SM_DBUS_NAME      "org.gnome.SessionManager"
 #define SM_DBUS_PATH      "/org/gnome/SessionManager"
@@ -64,27 +65,30 @@ static DBusGProxy      *client_proxy = NULL;
 
 static void registry_session_init (const char *previous_client_id, const char *exe);
 
+static void
+on_session_over (GDBusProxy *proxy,
+                 gchar      *sender_name,
+                 gchar      *signal_name,
+                 GVariant   *parameters,
+                 gpointer    user_data)
+{
+        if (g_strcmp0 (signal_name, "SessionOver") == 0) {
+                g_main_loop_quit (mainloop);
+        }
+}
+
 static gboolean
 session_manager_connect (void)
 {
 
-        if (bus_connection == NULL) {
-                GError *error;
-
-                error = NULL;
-                bus_connection = dbus_g_bus_get (DBUS_BUS_SESSION, &error);
-                if (bus_connection == NULL) {
-                        g_message ("Failed to connect to the session bus: %s",
-                                   error->message);
-                        g_error_free (error);
-                        exit (1);
-                }
-        }
-
-        sm_proxy = dbus_g_proxy_new_for_name (bus_connection,
+        sm_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION, 0, NULL,
                                               SM_DBUS_NAME,
                                               SM_DBUS_PATH,
-                                              SM_DBUS_INTERFACE);
+                                              SM_DBUS_INTERFACE, NULL, NULL);
+
+        g_signal_connect (G_OBJECT (sm_proxy), "g-signal",
+                          G_CALLBACK (on_session_over), NULL);
+
         return (sm_proxy != NULL);
 }
 
@@ -97,78 +101,82 @@ stop_cb (gpointer data)
 static gboolean
 end_session_response (gboolean is_okay, const gchar *reason)
 {
-        gboolean ret;
+  GVariant *ret;
         GError *error = NULL;
 
-        ret = dbus_g_proxy_call (client_proxy, "EndSessionResponse",
-                                 &error,
-                                 G_TYPE_BOOLEAN, is_okay,
-                                 G_TYPE_STRING, reason,
-                                 G_TYPE_INVALID,
-                                 G_TYPE_INVALID);
+        if (!reason)
+                reason = "";
+
+        ret = g_dbus_proxy_call_sync (client_proxy, "EndSessionResponse",
+                                      g_variant_new ("(us)", is_okay, reason),
+                                      0, 1000, NULL, &error);
 
         if (!ret) {
                 g_warning ("Failed to send session response %s", error->message);
                 g_error_free (error);
+                return FALSE;
         }
+        else
+                g_variant_unref (ret);
 
-        return ret;
+        return TRUE;
 }
 
 static void
-query_end_session_cb (guint flags, gpointer data)
+client_proxy_signal_cb (GDBusProxy *proxy,
+                        gchar *sender_name,
+                        gchar *signal_name,
+                        GVariant *parameters,
+                        gpointer user_data)
 {
-        end_session_response (TRUE, NULL);
+        if (g_strcmp0 (signal_name, "QueryEndSession") == 0) {
+                g_debug ("Got QueryEndSession signal");
+                end_session_response (TRUE, NULL);
+        } else if (g_strcmp0 (signal_name, "EndSession") == 0) {
+                g_debug ("Got EndSession signal");
+                end_session_response (TRUE, NULL);
+                g_main_loop_quit (mainloop);
+        } else if (g_strcmp0 (signal_name, "Stop") == 0) {
+                g_debug ("Got Stop signal");
+                g_main_loop_quit (mainloop);
+        }
 }
 
-static void
-end_session_cb (guint flags, gpointer data)
-{
-        end_session_response (TRUE, NULL);
-        g_main_loop_quit (mainloop);
-}
 static gboolean
 register_client (void)
 {
         GError     *error;
-        gboolean    res;
+  GVariant *res;
         const char *startup_id;
         const char *app_id;
 
         startup_id = g_getenv ("DESKTOP_AUTOSTART_ID");
+        if (!startup_id)
+                startup_id = "";
         app_id = "at-spi-registryd.desktop";
 
         error = NULL;
-        res = dbus_g_proxy_call (sm_proxy,
+        res = g_dbus_proxy_call_sync (sm_proxy,
                                  "RegisterClient",
-                                 &error,
-                                 G_TYPE_STRING, app_id,
-                                 G_TYPE_STRING, startup_id,
-                                 G_TYPE_INVALID,
-                                 DBUS_TYPE_G_OBJECT_PATH, &client_id,
-                                 G_TYPE_INVALID);
+                                      g_variant_new ("(ss)", app_id,
+                                                     startup_id),
+                                      0, 1000, NULL, &error);
         if (! res) {
                 g_warning ("Failed to register client: %s", error->message);
                 g_error_free (error);
                 return FALSE;
         }
+        g_variant_get (res, "(o)", &client_id);
+        g_variant_unref (res);
 
-        client_proxy = dbus_g_proxy_new_for_name (bus_connection,
+        client_proxy = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION, 0, NULL,
                                                   SM_DBUS_NAME,
                                                   client_id,
-                                                  SM_CLIENT_DBUS_INTERFACE);
+                                                  SM_CLIENT_DBUS_INTERFACE,
+                                                  NULL, NULL);
 
-        dbus_g_proxy_add_signal (client_proxy, "Stop", G_TYPE_INVALID);
-        dbus_g_proxy_connect_signal (client_proxy, "Stop",
-                                     G_CALLBACK (stop_cb), NULL, NULL);
-
-        dbus_g_proxy_add_signal (client_proxy, "QueryEndSession", G_TYPE_UINT, G_TYPE_INVALID);
-        dbus_g_proxy_connect_signal (client_proxy, "QueryEndSession",
-                                     G_CALLBACK (query_end_session_cb), NULL, NULL);
-
-        dbus_g_proxy_add_signal (client_proxy, "EndSession", G_TYPE_UINT, G_TYPE_INVALID);
-        dbus_g_proxy_connect_signal (client_proxy, "EndSession",
-                                     G_CALLBACK (end_session_cb), NULL, NULL);
+        g_signal_connect (client_proxy, "g-signal",
+                          G_CALLBACK (client_proxy_signal_cb), NULL);
 
         g_unsetenv ("DESKTOP_AUTOSTART_ID");
 

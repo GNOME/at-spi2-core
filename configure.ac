@@ -47,6 +47,10 @@ AC_CHECK_LIB([glib-2.0], [g_ptr_array_new_with_free_func], [],
 		[g_ptr_array_new_with_free_func. Please upgrade glib.])],
 	[$GLIB_LIBS])
 
+PKG_CHECK_MODULES(GIO, [gio-2.0 >= 2.26.0])
+AC_SUBST(GIO_LIBS)
+AC_SUBST(GIO_CFLAGS)
+
 PKG_CHECK_MODULES(DBUS_GLIB, [dbus-glib-1 >= 0.7.0])
 AC_SUBST(DBUS_GLIB_LIBS)
 AC_SUBST(DBUS_GLIB_CFLAGS)

@@ -3,6 +3,7 @@ noinst_LTLIBRARIES = libregistry-internals.la
 
 at_spi2_registryd_CFLAGS =	\
 	$(GLIB_CFLAGS)		\
+	$(GIO_CFLAGS)		\
 	$(DBUS_GLIB_CFLAGS)	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_CFLAGS)		\
@@ -20,6 +21,7 @@ libregistry_internals_la_LIBADD = $(DBUS_GLIB_LIBS) $(X_LIBS)
 at_spi2_registryd_LDADD =	\
 	libregistry-internals.la \
 	$(GLIB_LIBS)		\
+	$(GIO_LIBS)		\
 	$(DBUS_GLIB_LIBS)	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_LIBS)		\
