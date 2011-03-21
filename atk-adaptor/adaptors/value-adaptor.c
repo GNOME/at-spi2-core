@@ -114,45 +114,50 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
   return droute_return_v_double (iter, dub);
 }
 
-static dbus_bool_t
-impl_set_currentValue (DBusMessageIter * iter, void *user_data)
+static DBusMessage *
+impl_set_CurrentValue (DBusConnection * bus, DBusMessage * message,
+                       void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
-  GValue src = { 0 };
-  GValue dest = { 0 };
-  gdouble dub;
-  DBusMessageIter iter_variant;
+  dbus_bool_t rv;
+  DBusError error;
+  DBusMessage *reply;
+  gdouble dub = 0;
+  GValue new_value = { 0 };
 
-  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
+  g_return_val_if_fail (ATK_IS_VALUE (value),
+                        droute_not_yet_handled_error (message));
 
-  dbus_message_iter_recurse (iter, &iter_variant);
-  if (dbus_message_iter_get_arg_type (&iter_variant) != DBUS_TYPE_DOUBLE)
+  dbus_error_init (&error);
+  if (!dbus_message_get_args
+      (message, &error, DBUS_TYPE_DOUBLE, &dub, DBUS_TYPE_INVALID))
     {
-      g_warning ("TODO: Support setting value from a non-double");
-      return FALSE;
+      return droute_invalid_arguments_error (message);
     }
-  dbus_message_iter_get_basic (&iter_variant, &dub);
-  g_value_init (&src, G_TYPE_DOUBLE);
-  g_value_set_double (&src, dub);
 
-  atk_value_get_current_value (value, &dest);
+  g_value_init (&new_value, G_TYPE_DOUBLE);
+  g_value_set_double (&new_value, dub);
+  rv = atk_value_set_current_value (value, &new_value);
 
-  if (g_value_transform (&src, &dest))
+  reply = dbus_message_new_method_return (message);
+  if (reply)
     {
-      atk_value_set_current_value (value, &dest);
-      return TRUE;
+      dbus_message_append_args (reply, DBUS_TYPE_BOOLEAN, &rv,
+                                DBUS_TYPE_INVALID);
     }
-  else
-    {
-      return FALSE;
-    }
+  return reply;
 }
+
+static DRouteMethod methods[] = {
+  {impl_set_CurrentValue, "SetCurrentValue"},
+  {NULL, NULL}
+};
 
 static DRouteProperty properties[] = {
   {impl_get_MinimumValue, NULL, "MinimumValue"},
   {impl_get_MaximumValue, NULL, "MaximumValue"},
   {impl_get_MinimumIncrement, NULL, "MinimumIncrement"},
-  {impl_get_CurrentValue, impl_set_currentValue, "CurrentValue"},
+  {impl_get_CurrentValue, NULL, "CurrentValue"},
   {NULL, NULL, NULL}
 };
 
@@ -160,5 +165,5 @@ void
 spi_initialize_value (DRoutePath * path)
 {
   droute_path_add_interface (path,
-                             SPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, NULL, properties);
+                             SPI_DBUS_INTERFACE_VALUE, spi_org_a11y_atspi_Value, methods, properties);
 };
