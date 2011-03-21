@@ -30,6 +30,9 @@ enum {
   TEXT_CARET_MOVED,
   TEXT_SELECTION_CHANGED,
   TEXT_ATTRIBUTES_CHANGED,
+  TEXT_INSERT,
+  TEXT_REMOVE,
+  TEXT_UPDATE,
   LAST_SIGNAL
 };
 
@@ -168,7 +171,37 @@ atk_text_base_init (AtkTextIface *class)
 		      atk_marshal_VOID__INT_INT,
 		      G_TYPE_NONE,
 		      2, G_TYPE_INT, G_TYPE_INT);
-      
+
+      atk_text_signals[TEXT_INSERT] =
+	g_signal_new ("text_insert",
+		      ATK_TYPE_TEXT,
+		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      0,
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT_STRING,
+		      G_TYPE_NONE,
+		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+
+      atk_text_signals[TEXT_REMOVE] =
+	g_signal_new ("text_remove",
+		      ATK_TYPE_TEXT,
+		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      0,
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT_STRING,
+		      G_TYPE_NONE,
+		      3, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+
+      atk_text_signals[TEXT_UPDATE] =
+	g_signal_new ("text_update",
+		      ATK_TYPE_TEXT,
+		      G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
+		      0,
+		      (GSignalAccumulator) NULL, NULL,
+		      atk_marshal_VOID__INT_INT_INT_STRING,
+		      G_TYPE_NONE,
+		      4, G_TYPE_INT, G_TYPE_INT, G_TYPE_INT, G_TYPE_STRING);
+
       atk_text_signals[TEXT_CARET_MOVED] =
 	g_signal_new ("text_caret_moved",
 		      ATK_TYPE_TEXT,
