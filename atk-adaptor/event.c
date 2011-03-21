@@ -763,6 +763,8 @@ link_selected_event_listener (GSignalInvocationHint * signal_hint,
 /* 
  * Handles the ATK signal 'Gtk:AtkText:text-changed' and
  * converts it to the AT-SPI signal - 'object:text-changed'
+ * This signal is deprecated by Gtk:AtkText:text-insert
+ * and Gtk:AtkText:text-remove
  *
  */
 static gboolean
@@ -795,6 +797,104 @@ text_changed_event_listener (GSignalInvocationHint * signal_hint,
               DBUS_TYPE_STRING_AS_STRING, selected, append_basic);
   return TRUE;
 }
+
+/* 
+ * Handles the ATK signal 'Gtk:AtkText:text-insert' and
+ * converts it to the AT-SPI signal - 'object:text-changed'
+ *
+ */
+static gboolean
+text_insert_event_listener (GSignalInvocationHint * signal_hint,
+                            guint n_param_values,
+                            const GValue * param_values, gpointer data)
+{
+  AtkObject *accessible;
+  guint text_changed_signal_id;
+  GSignalQuery signal_query;
+  const gchar *name;
+  gchar *minor, *text;
+  gint detail1, detail2;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  /* Get signal name for 'Gtk:AtkText:text-changed' so
+   * we convert it to the AT-SPI signal - 'object:text-changed'
+   */
+  text_changed_signal_id = g_signal_lookup ("text-changed", G_OBJECT_TYPE (accessible));
+  g_signal_query (text_changed_signal_id, &signal_query);
+  name = signal_query.signal_name;
+
+
+  /* Add the insert and keep any detail coming from atk */
+  minor = g_quark_to_string (signal_hint->detail);
+  if (minor)
+    minor = g_strconcat ("insert:", minor, NULL);
+  else
+    minor = g_strdup ("insert");
+
+  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
+    detail1 = g_value_get_int (&param_values[1]);
+
+  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_INT)
+    detail2 = g_value_get_int (&param_values[2]);
+
+  if (G_VALUE_TYPE (&param_values[3]) == G_TYPE_STRING)
+    text = g_value_get_string (&param_values[3]);
+
+  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+              DBUS_TYPE_STRING_AS_STRING, text, append_basic);
+  g_free (minor);
+  return TRUE;
+}
+
+/* 
+ * Handles the ATK signal 'Gtk:AtkText:text-remove' and
+ * converts it to the AT-SPI signal - 'object:text-changed'
+ *
+ */
+static gboolean
+text_remove_event_listener (GSignalInvocationHint * signal_hint,
+                            guint n_param_values,
+                            const GValue * param_values, gpointer data)
+{
+  AtkObject *accessible;
+  guint text_changed_signal_id;
+  GSignalQuery signal_query;
+  const gchar *name;
+  gchar *minor, *text;
+  gint detail1, detail2;
+
+  accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
+  /* Get signal name for 'Gtk:AtkText:text-changed' so
+   * we convert it to the AT-SPI signal - 'object:text-changed'
+   */
+  text_changed_signal_id = g_signal_lookup ("text-changed", G_OBJECT_TYPE (accessible));
+  g_signal_query (text_changed_signal_id, &signal_query);
+  name = signal_query.signal_name;
+
+  minor = g_quark_to_string (signal_hint->detail);
+
+  /* Add the delete and keep any detail coming from atk */
+  minor = g_quark_to_string (signal_hint->detail);
+  if (minor)
+    minor = g_strconcat ("delete:", minor, NULL);
+  else
+    minor = g_strdup ("delete");
+
+  if (G_VALUE_TYPE (&param_values[1]) == G_TYPE_INT)
+    detail1 = g_value_get_int (&param_values[1]);
+
+  if (G_VALUE_TYPE (&param_values[2]) == G_TYPE_INT)
+    detail2 = g_value_get_int (&param_values[2]);
+
+  if (G_VALUE_TYPE (&param_values[3]) == G_TYPE_STRING)
+    text = g_value_get_string (&param_values[3]);
+
+  emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
+              DBUS_TYPE_STRING_AS_STRING, text, append_basic);
+  g_free (minor);
+  return TRUE;
+}
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -1006,6 +1106,10 @@ spi_atk_register_event_listeners (void)
                        "Gtk:AtkText:text-selection-changed");
   add_signal_listener (text_changed_event_listener,
                        "Gtk:AtkText:text-changed");
+  add_signal_listener (text_insert_event_listener,
+                       "Gtk:AtkText:text-insert");
+  add_signal_listener (text_remove_event_listener,
+                       "Gtk:AtkText:text-remove");
   add_signal_listener (link_selected_event_listener,
                        "Gtk:AtkHypertext:link-selected");
   add_signal_listener (generic_event_listener,
