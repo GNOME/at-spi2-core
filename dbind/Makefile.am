@@ -5,7 +5,8 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	$(WARN_CFLAGS) \
 	$(DBUS_CFLAGS) \
-	$(GLIB_CFLAGS)
+	$(GLIB_CFLAGS) \
+	-Werror=implicit-function-declaration
 
 libdbind_la_SOURCES = \
         dbind-config.h \

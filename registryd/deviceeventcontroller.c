@@ -35,6 +35,7 @@
 #include <sys/time.h>
 
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #include <X11/extensions/XTest.h>
 #include <X11/XKBlib.h>
 #define XK_MISCELLANY
@@ -56,6 +57,7 @@
 #include "de-types.h"
 #include "de-marshaller.h"
 #include "display.h"
+#include "event-source.h"
 
 #include "deviceeventcontroller.h"
 #include "reentrant-list.h"

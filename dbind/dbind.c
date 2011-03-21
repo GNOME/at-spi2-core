@@ -25,6 +25,7 @@
 
 #include "config.h"
 #include "dbind/dbind.h"
+#include "atspi/atspi.h"
 
 static int dbind_timeout = -1;
 

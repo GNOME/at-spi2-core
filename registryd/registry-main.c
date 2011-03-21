@@ -35,7 +35,7 @@
 #include "paths.h"
 #include "registry.h"
 #include "deviceeventcontroller.h"
-#include "atspi/atspi-misc.h"
+#include "atspi/atspi.h"
 
 #define CORBA_GCONF_KEY  "/desktop/gnome/interface/at-spi-corba"
 
