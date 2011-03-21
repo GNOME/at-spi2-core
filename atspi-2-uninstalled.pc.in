@@ -1,0 +1,6 @@
+Name: atspi
+Description: Accessibility Technology software library
+Requires: dbus-1
+Version: @VERSION@
+Libs: ${pc_top_builddir}/${pcfiledir}/atspi/libatspi.la
+Cflags: -I${pc_top_builddir}/${pcfiledir}

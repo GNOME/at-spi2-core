@@ -3,7 +3,7 @@ libexec_PROGRAMS = at-spi2-registryd
 at_spi2_registryd_CFLAGS =	\
 	$(GLIB_CFLAGS)		\
 	$(GIO_CFLAGS)		\
-	$(DBUS_GLIB_CFLAGS)	\
+	$(DBUS_CFLAGS)	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_CFLAGS)		\
 	-I$(top_srcdir)		\
@@ -13,7 +13,7 @@ at_spi2_registryd_LDADD =	\
 	../atspi/libatspi.la \
 	$(GLIB_LIBS)		\
 	$(GIO_LIBS)		\
-	$(DBUS_GLIB_LIBS)	\
+	$(DBUS_LIBS)	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_LIBS)		\
 	$(X_LIBS)		\

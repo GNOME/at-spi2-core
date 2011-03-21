@@ -5,6 +5,17 @@ INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
-SUBDIRS=po registryd xml bus dbind atspi doc
+SUBDIRS=po dbind xml atspi bus registryd doc
 
 ACLOCAL_AMFLAGS=-I m4
+
+EXTRA_DIST = \
+	atspi-2.0-uninstalled.pc.in \
+	atspi-2.pc.in
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = atspi-2.pc
+
+DISTCLEANFILES = \
+	atspi-2.0-uninstalled.pc \
+	atspi-2.pc

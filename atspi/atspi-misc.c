@@ -30,7 +30,7 @@
 
 #include "atspi-private.h"
 #include "X11/Xlib.h"
-#include "dbus/dbus-glib.h"
+#include "atspi-gmain.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -834,7 +834,7 @@ atspi_init (void)
   if (!bus)
     return 2;
   dbus_bus_register (bus, &error);
-  dbus_connection_setup_with_g_main(bus, g_main_context_default());
+  atspi_dbus_connection_setup_with_g_main(bus, g_main_context_default());
   dbus_connection_add_filter (bus, atspi_dbus_filter, NULL, NULL);
   dbind_set_timeout (1000);
   match = g_strdup_printf ("type='signal',interface='%s',member='AddAccessible'", atspi_interface_cache);

@@ -228,7 +228,7 @@ main (int argc, char **argv)
   }
 
   mainloop = g_main_loop_new (NULL, FALSE);
-  dbus_connection_setup_with_g_main(bus, NULL);
+  atspi_dbus_connection_setup_with_g_main(bus, NULL);
 
   ret = dbus_bus_request_name(bus, dbus_name, DBUS_NAME_FLAG_DO_NOT_QUEUE, &error);
   if (ret == DBUS_REQUEST_NAME_REPLY_EXISTS)

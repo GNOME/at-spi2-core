@@ -2,12 +2,14 @@ lib_LTLIBRARIES = libatspi.la
 
 libatspi_la_LDFLAGS = @LDFLAGS@ @LT_VERSION_INFO@ @LIBTOOL_EXPORT_OPTIONS@ -no-undefined
 
-libatspi_la_CFLAGS = $(DBUS_GLIB_CFLAGS) \
+libatspi_la_CFLAGS = $(DBUS_CFLAGS) \
 		    $(DBIND_CFLAGS)     \
+		    $(GLIB_CFLAGS)     \
 		    -I$(top_srcdir)/registryd \
                     -I$(top_srcdir)
 
-libatspi_la_LIBADD = $(DBUS_GLIB_LIBS) \
+libatspi_la_LIBADD = $(DBUS_LIBS) \
+	$(GOBJ_LIBS) \
 	$(X_LIBS) \
 	$(top_builddir)/dbind/libdbind.la
 
@@ -27,6 +29,8 @@ libatspiinclude_HEADERS = \
 	atspi-editabletext.h \
 	atspi-event-listener.h \
 	atspi-event-listener-private.h \
+atspi-gmain.c \
+atspi-gmain.h \
 	atspi-hyperlink.h \
 	atspi-hypertext.h \
 	atspi-image.h \

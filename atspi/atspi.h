@@ -49,4 +49,5 @@
 #include "atspi-text.h"
 #include "atspi-value.h"
 
+#include "atspi-gmain.h"
 #endif

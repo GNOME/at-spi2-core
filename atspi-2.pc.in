@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: atspi
+Description: Accessibility Technology software library
+Requires: dbus-1
+Version: @VERSION@
+Libs: -L${libdir} -latspi
+Cflags: -I${includedir}/at-spi-2.0
