@@ -101,7 +101,7 @@ atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **erro
 
   g_return_val_if_fail (obj != NULL, FALSE);
 
-  _atspi_dbus_call (obj, atspi_interface_value, "SetCurrentValue", error, "d", &d_new_value);
+  _atspi_dbus_call (obj, atspi_interface_value, "SetCurrentValue", error, "d", d_new_value);
 
   return TRUE;
 }
