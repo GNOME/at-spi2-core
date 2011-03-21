@@ -35,7 +35,7 @@
 #include "paths.h"
 #include "registry.h"
 #include "deviceeventcontroller.h"
-#include "libregistry-internals.h"
+#include "atspi/atspi-misc.h"
 
 #define CORBA_GCONF_KEY  "/desktop/gnome/interface/at-spi-corba"
 
@@ -221,7 +221,7 @@ main (int argc, char **argv)
       dbus_name = SPI_DBUS_NAME_REGISTRY;
 
   dbus_error_init (&error);
-  bus = _libregistry_get_a11y_bus ();
+  bus = atspi_get_a11y_bus ();
   if (!bus)
   {
     return 0;

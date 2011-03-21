@@ -34,4 +34,6 @@ void atspi_event_quit ();
 
 int atspi_exit ();
 
+DBusConnection *
+atspi_get_a11y_bus ();
 #endif	/* _ATSPI_MISC_H_ */
