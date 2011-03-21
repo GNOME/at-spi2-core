@@ -43,13 +43,6 @@ PKG_CHECK_MODULES(GLIB, [glib-2.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
 
-PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.90, dbus_glib=yes, dbus_glib=no)
-if test "x$dbus_glib" = "xno"; then
-	PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.7.0, dbus_glib_old=yes)
-fi
-AC_SUBST(DBUS_GLIB_LIBS)
-AC_SUBST(DBUS_GLIB_CFLAGS)
-
 PKG_CHECK_MODULES(GOBJ, [gobject-2.0 >= 2.0.0])
 AC_SUBST(GOBJ_LIBS)
 AC_SUBST(GOBJ_CFLAGS)
@@ -61,6 +54,10 @@ AC_SUBST(GMODULE_CFLAGS)
 PKG_CHECK_MODULES(ATK, [atk >= 1.29.3])
 AC_SUBST(ATK_LIBS)
 AC_SUBST(ATK_CFLAGS)
+
+PKG_CHECK_MODULES(ATSPI, [atspi-2 >= 1.91.92])
+AC_SUBST(ATSPI_LIBS)
+AC_SUBST(ATSPI_CFLAGS)
 
 AC_PATH_XTRA
 
@@ -102,10 +99,6 @@ DBIND_CHECK_ALIGNOF(dbind_pointer)
 DBIND_CHECK_ALIGNOF(dbind_struct)
 CPPFLAGS=$orig_CPPFLAGS 
 
-if test "x$dbus_glib_old" = "xyes"; then
-	P2P_CFLAGS=-DDISABLE_P2P
-fi
-
 if test "x$enable_p2p" = "xno"; then
 	P2P_CFLAGS=-DDISABLE_P2P
 fi
@@ -126,8 +119,3 @@ AC_CONFIG_FILES([Makefile
 		])
 
 AC_OUTPUT
-
-if test "x$dbus_glib_old" = "xyes"; then
-	P2P_CFLAGS=-DDISABLE_P2P
-	AC_MSG_WARN([found dbus-glib older than 0.90; disabling peer-to-peer support])
-fi

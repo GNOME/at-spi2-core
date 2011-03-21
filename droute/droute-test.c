@@ -249,7 +249,7 @@ int main (int argc, char **argv)
     dbus_error_init (&error);
     main_loop = g_main_loop_new(NULL, FALSE);
     bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
-    dbus_connection_setup_with_g_main(bus, g_main_context_default());
+    atspi_dbus_connection_setup_with_g_main(bus, g_main_context_default());
 
     cnx = droute_new (bus);
     path = droute_add_one (cnx, TEST_OBJECT_PATH, object);

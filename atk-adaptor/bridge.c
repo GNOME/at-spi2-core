@@ -39,6 +39,7 @@
 #include <droute/droute.h>
 #include <gmodule.h>
 #include <glib/gi18n.h>
+#include <atspi/atspi.h>
 
 #include "bridge.h"
 #include "event.h"
@@ -100,79 +101,6 @@ spi_display_name (void)
 }
 
 /*---------------------------------------------------------------------------*/
-
-/*
- * Gets the IOR from the XDisplay.
- * Not currently used in D-Bus version, but something similar
- * may be employed in the future for accessing the registry daemon
- * bus name.
- */
-
-static DBusConnection *
-spi_atk_bridge_get_bus (void)
-{
-  Atom AT_SPI_BUS;
-  Atom actual_type;
-  Display *bridge_display;
-  int actual_format;
-  unsigned char *data = NULL;
-  unsigned long nitems;
-  unsigned long leftover;
-
-  DBusConnection *bus = NULL;
-  DBusError error;
-
-  bridge_display = XOpenDisplay (spi_display_name ());
-  if (!bridge_display)
-    {
-      g_warning ("AT_SPI: Could not get the display\n");
-      return NULL;
-    }
-
-  AT_SPI_BUS = XInternAtom (bridge_display, "AT_SPI_BUS", False);
-  XGetWindowProperty (bridge_display,
-                      XDefaultRootWindow (bridge_display),
-                      AT_SPI_BUS, 0L,
-                      (long) BUFSIZ, False,
-                      (Atom) 31, &actual_type, &actual_format,
-                      &nitems, &leftover, &data);
-  XCloseDisplay (bridge_display);
-
-  dbus_error_init (&error);
-
-  if (data == NULL)
-    {
-      g_warning
-        ("AT-SPI: Accessibility bus not found - Using session bus.\n");
-      bus = dbus_bus_get (DBUS_BUS_SESSION, &error);
-      if (!bus)
-        {
-          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
-          return NULL;
-        }
-    }
-  else
-    {
-      bus = dbus_connection_open (data, &error);
-      XFree (data);
-      if (!bus)
-        {
-          g_warning ("AT-SPI: Couldn't connect to bus: %s\n", error.message);
-          return NULL;
-        }
-      else
-        {
-          if (!dbus_bus_register (bus, &error))
-            {
-              g_warning ("AT-SPI: Couldn't register with bus: %s\n", error.message);
-              return NULL;
-            }
-          dbus_connection_set_exit_on_disconnect (bus, FALSE);
-        }
-    }
-
-  return bus;
-}
 
 static void
 set_reply (DBusPendingCall *pending, void *user_data)
@@ -559,7 +487,7 @@ new_connection_cb (DBusServer *server, DBusConnection *con, void *data)
 
   dbus_connection_set_unix_user_function (con, user_check, NULL, NULL);
   dbus_connection_ref(con);
-  dbus_connection_setup_with_g_main(con, NULL);
+  atspi_dbus_connection_setup_with_g_main(con, NULL);
   droute_intercept_dbus (con);
   droute_context_register (spi_global_app_data->droute, con);
 
@@ -587,7 +515,7 @@ setup_bus (void)
     return -1;
   }
 
-  dbus_server_setup_with_g_main(server, NULL);
+  atspi_dbus_server_setup_with_g_main(server, NULL);
   dbus_server_set_new_connection_function(server, new_connection_cb, NULL, NULL);
 
   spi_global_app_data->server = server;
@@ -757,7 +685,7 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   /* Set up D-Bus connection and register bus name */
   dbus_error_init (&error);
-  spi_global_app_data->bus = spi_atk_bridge_get_bus ();
+  spi_global_app_data->bus = atspi_get_a11y_bus ();
   if (!spi_global_app_data->bus)
     {
       g_free (spi_global_app_data);
@@ -787,7 +715,7 @@ adaptor_init (gint * argc, gchar ** argv[])
   spi_global_app_data->main_context = NULL;
 #endif
 
-  dbus_connection_setup_with_g_main (spi_global_app_data->bus, NULL);
+  atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, NULL);
 
   /* Hook our plug-and socket functions */
   install_plug_hooks ();

@@ -27,6 +27,7 @@
 
 #include <atk/atk.h>
 #include <droute/droute.h>
+#include <atspi/atspi.h>
 
 #include "bridge.h"
 #include "accessible-register.h"
@@ -65,10 +66,10 @@ switch_main_context (GMainContext *cnx)
 
   GList *list;
 
-  dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
-  dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
+  atspi_dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
+  atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
-    dbus_connection_setup_with_g_main (list->data, cnx);
+    atspi_dbus_connection_setup_with_g_main (list->data, cnx);
 }
 
 static void
