@@ -21,9 +21,11 @@ check_PROGRAMS = droute-test
 droute_test_SOURCES  = droute-test.c
 droute_test_CFLAGS = $(DBUS_CFLAGS) \
 		     -I$(top_builddir)\
+		     $(GLIB_CFLAGS) \
 		     -I$(top_srcdir)
 
 droute_test_LDFLAGS  = $(top_builddir)/dbind/libdbind.la\
 		       libdroute.la\
 		       $(DBUS_LIBS) \
+		       $(GLIB_LIBS) \
 		       $(ATSPI_LIBS)
