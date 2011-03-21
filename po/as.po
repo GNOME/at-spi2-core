@@ -115,5 +115,5 @@ msgstr ""
 #: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
-msgstr "সংকেত %s -ৰ কাৰণে আন্তঃপৃষ্ট %s -ৰ পৰা অবৈধ স্বাক্ষৰ %s পোৱা গল"
+msgstr "সংকেত %s -ৰ কাৰণে আন্তঃপৃষ্ট %s -ৰ পৰা অবৈধ স্বাক্ষৰ %s পোৱা গল\n"
 
