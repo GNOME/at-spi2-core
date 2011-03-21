@@ -1,3 +1,17 @@
+What's new in at-spi2-core 1.91.92:
+
+* Fixed atspi_table_get_column_header and atspi_value_set_current_value.
+
+* Removed dbus-glib dependency; libatspi now includes a copy of dbus-gmain.c
+  modified to fix a crash (FDO#35115).  Session management code has been
+  ported to gdbus.
+
+* Fixed a crash when deregistering a keystroke listener.
+
+* Reworked accessibility bus management (BGO#644851).
+
+* Fixed a possible sign issue with state sets.
+
 What's new in at-spi2-core 1.91.91:
 
 * Changed device event IPC to use uint32 for hw_code and modifiers, to be

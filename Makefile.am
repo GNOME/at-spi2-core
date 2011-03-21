@@ -10,12 +10,12 @@ SUBDIRS=po dbind xml atspi bus registryd doc
 ACLOCAL_AMFLAGS=-I m4
 
 EXTRA_DIST = \
-	atspi-2.0-uninstalled.pc.in \
+	atspi-2-uninstalled.pc.in \
 	atspi-2.pc.in
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = atspi-2.pc
 
 DISTCLEANFILES = \
-	atspi-2.0-uninstalled.pc \
+	atspi-2-uninstalled.pc \
 	atspi-2.pc
