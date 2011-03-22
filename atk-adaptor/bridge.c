@@ -24,7 +24,6 @@
 
 #define _GNU_SOURCE
 #include "config.h"
-#include "dbus/dbus-glib-lowlevel.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>

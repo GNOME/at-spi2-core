@@ -35,7 +35,6 @@
 #include "common/spi-dbus.h"
 #include "event.h"
 #include "object.h"
-#include "dbus/dbus-glib-lowlevel.h"
 
 static GArray *listener_ids = NULL;
 
