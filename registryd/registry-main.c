@@ -30,7 +30,6 @@
 #include <dlfcn.h>
 
 #include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
 
 #include "paths.h"
 #include "registry.h"

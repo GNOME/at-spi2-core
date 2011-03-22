@@ -25,7 +25,6 @@
 #include <config.h>
 #include <string.h>
 #include <ctype.h>
-#include <dbus/dbus-glib-lowlevel.h>
 
 #include "paths.h"
 #include "registry.h"
