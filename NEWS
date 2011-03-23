@@ -1,3 +1,12 @@
+Changes in version 1.91.92:
+=========================
+*
+*BGO#638377: Add text_insert, text_remove, and text_update signals
+*Reviewed Serbian Translation
+*Fix introspection for atk_text_get_bounded_ranges
+*Visual C++ 2010 Project Files
+*Updated Spanish translation
+
 Changes in version 1.33.6:
 =========================
 *

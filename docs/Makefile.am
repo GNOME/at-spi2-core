@@ -25,7 +25,8 @@ INCLUDES = 			\
 	-I$(top_builddir)	\
 	$(DEP_CFLAGS)
 
-GTKDOC_LIBS = $(top_builddir)/atk/libatk-$(ATK_API_VERSION).la
+GTKDOC_LIBS = $(top_builddir)/atk/libatk-$(ATK_API_VERSION).la \
+              $(DEP_LIBS)
 
 # gtkdoc-mkdb related varaibles
 MKDB_OPTIONS =
