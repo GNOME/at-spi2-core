@@ -6,33 +6,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&component=general\n"
-"POT-Creation-Date: 2011-01-17 10:43+0000\n"
-"PO-Revision-Date: 2011-02-26 01:12+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-23 19:19+0100\n"
+"PO-Revision-Date: 2011-03-23 11:49+0100\n"
 "Last-Translator: Luca Ferretti <lferrett@gnome.org>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../atspi/atspi-misc.c:292
+#: ../atspi/atspi-misc.c:290
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI: firma %s sconosciuta per RemoveAccessible"
 
-#: ../atspi/atspi-misc.c:330
+#: ../atspi/atspi-misc.c:327
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI: errore nel chiamare getRoot per %s: %s"
 
-#: ../atspi/atspi-misc.c:490
+#: ../atspi/atspi-misc.c:485
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
 msgstr "AT-SPI: errore in GetItems, sender=%s, error=%s"
 
-#: ../atspi/atspi-misc.c:595
+#: ../atspi/atspi-misc.c:587
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
@@ -41,7 +41,7 @@ msgstr ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
 
-#: ../atspi/atspi-misc.c:624
+#: ../atspi/atspi-misc.c:616
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
@@ -50,69 +50,68 @@ msgstr ""
 "AT-SPI: chiamata _atspi_dbus_return_hyperlink_from_message con la strana "
 "firma %s"
 
-#: ../atspi/atspi-misc.c:651
+#: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible con la firma %s sconosciuta\n"
 
-#: ../atspi/atspi-misc.c:841
-msgid "AT-SPI: Could not get the display\n"
-msgstr "AT-SPI: impossibile ottenere il display\n"
-
-#: ../atspi/atspi-misc.c:859
-msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-msgstr "AT-SPI: bus di accessibilità non trovato, usato il bus di sessione.\n"
-
-#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
-#, c-format
-msgid "AT-SPI: Couldn't connect to bus: %s\n"
-msgstr "AT-SPI: impossibile connettersi al bus: %s\n"
-
-#: ../atspi/atspi-misc.c:879
-#, c-format
-msgid "AT-SPI: Couldn't register with bus: %s\n"
-msgstr "AT-SPI: impossibile eseguire la registrazione sul bus: %s\n"
-
-#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
-#: ../atspi/atspi-misc.c:1111
+#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-misc.c:1026
 msgid "The application no longer exists"
 msgstr "L'applicazione non esiste più"
 
-#: ../atspi/atspi-misc.c:1147
-#, fuzzy, c-format
+#: ../atspi/atspi-misc.c:1062
+#, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
 "AT-SPI: atteso un variant nel recupero di %s dall'interfaccia %s; ottenuto "
 "%s\n"
 
-#: ../atspi/atspi-misc.c:1153
+#: ../atspi/atspi-misc.c:1068
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr "atspi_dbus_get_property: tipo errato: atteso %s, ottenuto %c\n"
 
-#: ../atspi/atspi-misc.c:1193
-#, c-format
-msgid "AT-SPI: Got error: %s\n"
-msgstr "AT-SPI: ricevuto un errore: %s\n"
-
-#: ../atspi/atspi-misc.c:1296
+#: ../atspi/atspi-misc.c:1211
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI: Interfaccia %s sconosciuta"
 
 # FIXME!!
 # NUM<>1
-#: ../atspi/atspi-misc.c:1316
+#: ../atspi/atspi-misc.c:1231
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: attesi 2 valori nell'array degli statu, ricevuti %d\n"
 
-#: ../atspi/atspi-accessible.c:950
-#, fuzzy
+# visto che non so cosa sia questo streamable, lascio non tradotto il termine
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
-msgstr "Contenuto stramabile non implementato"
+msgstr "Contenuto streamable non implementato"
 
-#: ../atspi/atspi-event-listener.c:758
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"chiamata atspi_event_listener_register_from_callback con un event_type NULL"
+
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "Ricevuta firma %s non valida per il segnale %s dall'interfaccia %s\n"
+
+#~ msgid "AT-SPI: Could not get the display\n"
+#~ msgstr "AT-SPI: impossibile ottenere il display\n"
+
+#~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+#~ msgstr ""
+#~ "AT-SPI: bus di accessibilità non trovato, usato il bus di sessione.\n"
+
+#~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
+#~ msgstr "AT-SPI: impossibile connettersi al bus: %s\n"
+
+#~ msgid "AT-SPI: Couldn't register with bus: %s\n"
+#~ msgstr "AT-SPI: impossibile eseguire la registrazione sul bus: %s\n"
+
+#~ msgid "AT-SPI: Got error: %s\n"
+#~ msgstr "AT-SPI: ricevuto un errore: %s\n"
