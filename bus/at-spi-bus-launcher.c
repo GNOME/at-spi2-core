@@ -385,6 +385,23 @@ main (int    argc,
 
   if (_global_app->a11y_bus_pid > 0)
     kill (_global_app->a11y_bus_pid, SIGTERM);
+
+  /* Clear the X property if our bus is gone; in the case where e.g. 
+   * GDM is launching a login on an X server it was using before,
+   * we don't want early login processes to pick up the stale address.
+   */
+  {
+    Display *display = XOpenDisplay (NULL);
+    if (display)
+      {
+        Atom bus_address_atom = XInternAtom (display, "AT_SPI_BUS", False);
+        XDeleteProperty (display,
+                         XDefaultRootWindow (display),
+                         bus_address_atom);
+      }
+    XFlush (display);
+    XCloseDisplay (display);
+  }
     
   if (_global_app->a11y_launch_error_message)
     {
