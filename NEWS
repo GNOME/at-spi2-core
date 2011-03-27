@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 1.91.93:
+
+* Removed dbus-glib-related includes, as they are no longer required.
+
 What's new in at-spi2-atk 1.91.92:
 
 * Handle text-insert and text-removed signals from ATK (BGO#638377).
