@@ -2,12 +2,12 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret Kenji <gheyret@yahoo.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&component=general\n"
-"POT-Creation-Date: 2011-01-28 23:50+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-18 16:31+0000\n"
 "PO-Revision-Date: 2011-01-31 15:04+0000\n"
 "Last-Translator: Gheyret Kenji <gheyret@yahoo.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -15,93 +15,89 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../atspi/atspi-misc.c:289
+#: ../atspi/atspi-misc.c:291
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI: RemoveAccessible نىڭ ئىمزاسى %s نامەلۇم"
 
-#: ../atspi/atspi-misc.c:326
+#: ../atspi/atspi-misc.c:328
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI: %s ئۈچۈن getRoot نى چاقىرغاندا خاتالىق كۆرۈلدى: %s"
 
-#: ../atspi/atspi-misc.c:483
+#: ../atspi/atspi-misc.c:486
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
-msgstr "AT-SPI: GetItems نىڭدا خاتالىق بار. ئەۋەتكۈچى=%s، خاتالىق=%s"
+msgstr "AT-SPI: GetItems دا خاتالىق بار. ئەۋەتكۈچى=%s، خاتالىق=%s"
 
-#: ../atspi/atspi-misc.c:585
+#: ../atspi/atspi-misc.c:588
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
 msgstr "AT-SPI: _atspi_dbus_return_accessible_from_message نى غەلىتە ئىمزا %s بىلەن چاقىردى"
 
-#: ../atspi/atspi-misc.c:614
+#: ../atspi/atspi-misc.c:617
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
 "signature %s"
 msgstr "AT-SPI: _atspi_dbus_return_hyperlink_from_message نى غەلىتە ئىمزا %s بىلەن چاقىردى"
 
-#: ../atspi/atspi-misc.c:639
+#: ../atspi/atspi-misc.c:642
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible غەلىتە ئىمزا %s بىلەن بىرگە\n"
 
-#: ../atspi/atspi-misc.c:823
-msgid "AT-SPI: Could not get the display\n"
-msgstr "AT-SPI: ئېكرانغا ئېرىشەلمىدى\n"
-
-#: ../atspi/atspi-misc.c:841
-msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-msgstr "AT-SPI: Accessibility باش لىنىيىسى تېپىلمىدى، شۇڭا ئەڭگىمە باش لىنىيىسى ئىشلىتىلىدۇ.\n"
-
-#: ../atspi/atspi-misc.c:845 ../atspi/atspi-misc.c:854
-#, c-format
-msgid "AT-SPI: Couldn't connect to bus: %s\n"
-msgstr "AT-SPI:باش لىنىيىسىگە باغلىنالمىدى: %s\n"
-
-#: ../atspi/atspi-misc.c:861
-#, c-format
-msgid "AT-SPI: Couldn't register with bus: %s\n"
-msgstr "AT-SPI:باش لىنىيىسىگە خەتلىتەلمىدى: %s\n"
-
-#: ../atspi/atspi-misc.c:999 ../atspi/atspi-misc.c:1050
-#: ../atspi/atspi-misc.c:1091
+#: ../atspi/atspi-misc.c:935 ../atspi/atspi-misc.c:986
+#: ../atspi/atspi-misc.c:1027
 msgid "The application no longer exists"
 msgstr "بۇ پروگرامما مەۋجۇت ئەمەس"
 
-#: ../atspi/atspi-misc.c:1127
+#: ../atspi/atspi-misc.c:1063
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr "AT-SPI: %s نى ئارايۈز %s دىن ئالغاندا بىر variant كېلىشى كېرەك ئىدى؛ %s غا ئېرىشتى\n"
 
-#: ../atspi/atspi-misc.c:1133
+#: ../atspi/atspi-misc.c:1069
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr "atspi_dbus_get_property: تىپى خاتا: %s بولۇشى كېرەك ئىدى، %c غا ئېرىشتى\n"
 
-#: ../atspi/atspi-misc.c:1276
+#: ../atspi/atspi-misc.c:1212
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI:ئارايۈز %s نامەلۇم"
 
-#: ../atspi/atspi-misc.c:1296
+#: ../atspi/atspi-misc.c:1232
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: ھالەت تىزىقىدا ئىككى قىممەت بولۇشى كېرەك ئىدى؛ %d غا ئېرىشتى\n"
 
-#: ../atspi/atspi-accessible.c:994
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
 msgstr "ئېقىنلاشتۇرغىلى بولىدىغان مەزمۇننى تېخى ئىشلەتكىلى بولمايدۇ"
 
-#: ../atspi/atspi-event-listener.c:509
+#: ../atspi/atspi-event-listener.c:510
 msgid ""
 "called atspi_event_listener_register_from_callback with a NULL event_type"
 msgstr "atspi_event_listener_register_from_callback نى  نۆل(NULL event_type) بىلەن چاقىردى"
 
-#: ../atspi/atspi-event-listener.c:776
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "خاتا ئىمزا %s ئېرىشتى. بۇ سىگنال %s ئۈچۈن كېرەك ئىدى. بۇ سىگنال %s ئارايۈزدىن كەلگەن\n"
+
+#~ msgid "AT-SPI: Could not get the display\n"
+#~ msgstr "AT-SPI: ئېكرانغا ئېرىشەلمىدى\n"
+
+#~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+#~ msgstr ""
+#~ "AT-SPI: Accessibility باش لىنىيىسى تېپىلمىدى، شۇڭا ئەڭگىمە باش لىنىيىسى "
+#~ "ئىشلىتىلىدۇ.\n"
+
+#~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
+#~ msgstr "AT-SPI:باش لىنىيىسىگە باغلىنالمىدى: %s\n"
+
+#~ msgid "AT-SPI: Couldn't register with bus: %s\n"
+#~ msgstr "AT-SPI:باش لىنىيىسىگە خەتلىتەلمىدى: %s\n"
