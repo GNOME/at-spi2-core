@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=at-spi&component=general\n"
-"POT-Creation-Date: 2011-01-24 22:17+0000\n"
-"PO-Revision-Date: 2011-01-25 02:47+0530\n"
+"cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-18 16:31+0000\n"
+"PO-Revision-Date: 2011-03-27 09:47+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
@@ -19,94 +19,91 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../atspi/atspi-misc.c:292
+#: ../atspi/atspi-misc.c:291
 #, c-format
 msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
 msgstr "AT-SPI: RemoveAccessible ਲਈ ਅਣਜਾਣ %s ਦਸਤਖਤ"
 
-#: ../atspi/atspi-misc.c:330
+#: ../atspi/atspi-misc.c:328
 #, c-format
 msgid "AT-SPI: Error calling getRoot for %s: %s"
 msgstr "AT-SPI: %s ਲਈ getRoot ਦੌਰਾਨ ਗਲਤੀ: %s"
 
-#: ../atspi/atspi-misc.c:490
+#: ../atspi/atspi-misc.c:486
 #, c-format
 msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
 msgstr "AT-SPI: GetItems ਵਿੱਚ ਗਲਤੀਆਂ, sender=%s, ਗਲਤੀ=%s"
 
-#: ../atspi/atspi-misc.c:595
+#: ../atspi/atspi-misc.c:588
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
 "signature %s"
 msgstr ""
-"AT-SPI: Called _atspi_dbus_return_accessible_from_message ਅਜੀਬ ਦਸਤਖਤ %s "
-"ਨਾਲ"
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message ਅਜੀਬ ਦਸਤਖਤ %s ਨਾਲ"
 
-#: ../atspi/atspi-misc.c:624
+#: ../atspi/atspi-misc.c:617
 #, c-format
 msgid ""
 "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
 "signature %s"
 msgstr ""
-"AT-SPI: _atspi_dbus_return_hyperlink_from_message ਅਜੀਬ ਦਸਤਖਤ %s ਨਾਲ "
-"ਕਾਲ ਕੀਤਾ"
+"AT-SPI: _atspi_dbus_return_hyperlink_from_message ਅਜੀਬ ਦਸਤਖਤ %s ਨਾਲ ਕਾਲ ਕੀਤਾ"
 
-#: ../atspi/atspi-misc.c:651
+#: ../atspi/atspi-misc.c:642
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: ਅਣਜਾਣ ਦਸਤਖਤ %s ਨਾਲ AddAccessible\n"
 
-#: ../atspi/atspi-misc.c:841
-msgid "AT-SPI: Could not get the display\n"
-msgstr "AT-SPI: ਡਿਸਪਲੇਅ ਨਹੀਂ ਮਿਲਿਆ\n"
-
-#: ../atspi/atspi-misc.c:859
-msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-msgstr "AT-SPI: ਅਸੈਸਬਿਲਟੀ ਬਸ ਨਹੀਂ ਲੱਭੀ - ਸ਼ੈਸ਼ਨ ਬਸ ਦੀ ਵਰਤੋਂ।\n"
-
-#: ../atspi/atspi-misc.c:863 ../atspi/atspi-misc.c:872
-#, c-format
-msgid "AT-SPI: Couldn't connect to bus: %s\n"
-msgstr "AT-SPI: ਬਸ ਨਾਲ ਕੁਨੈਕਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s\n"
-
-#: ../atspi/atspi-misc.c:879
-#, c-format
-msgid "AT-SPI: Couldn't register with bus: %s\n"
-msgstr "AT-SPI: ਬਸ ਨਾਲ ਰਜਿਸਟਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s\n"
-
-#: ../atspi/atspi-misc.c:1018 ../atspi/atspi-misc.c:1070
-#: ../atspi/atspi-misc.c:1111
+#: ../atspi/atspi-misc.c:935 ../atspi/atspi-misc.c:986
+#: ../atspi/atspi-misc.c:1027
 msgid "The application no longer exists"
 msgstr "ਐਪਲੀਕੇਸ਼ਨ ਹੁਣ ਮੌਜੂਦ ਨਹੀਂ ਹੈ"
 
-#: ../atspi/atspi-misc.c:1147
+#: ../atspi/atspi-misc.c:1063
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
 "AT-SPI: ਵੇਰੀਏਟ ਦੀ ਲੋੜ ਸੀ, ਜੋ ਕਿ %2$s ਇੰਟਰਫੇਸ ਤੋਂ %1$s ਲੈ ਸਕਦਾ; ਮਿਲਿਆ %3$s\n"
 
-#: ../atspi/atspi-misc.c:1153
+#: ../atspi/atspi-misc.c:1069
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr "atspi_dbus_get_property: ਗਲਤ ਕਿਸਮ: ਲੋੜ ਸੀ %s, ਮਿਲਿਆ %c\n"
 
-#: ../atspi/atspi-misc.c:1297
+#: ../atspi/atspi-misc.c:1212
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI: ਅਣਜਾਣ ਇੰਟਰਫੇਸ %s"
 
-#: ../atspi/atspi-misc.c:1317
+#: ../atspi/atspi-misc.c:1232
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: states ਅਰੇ 'ਚ 2 ਮੁੱਲ ਚਾਹੀਦੇ ਸਨ; ਮਿਲੇ %d\n"
 
-#: ../atspi/atspi-accessible.c:966
+#: ../atspi/atspi-accessible.c:997
 msgid "Streamable content not implemented"
 msgstr "ਸਟਰੀਮ-ਯੋਗ ਸਮੱਗਰੀ ਹਾਲੇ ਸਥਾਪਤ ਨਹੀਂ"
 
-#: ../atspi/atspi-event-listener.c:770
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"atspi_event_listener_register_from_callback NULL event_type ਨਾਲ ਕਾਲ ਕੀਤਾ"
+
+#: ../atspi/atspi-event-listener.c:777
 #, c-format
 msgid "Got invalid signature %s for signal %s from interface %s\n"
 msgstr "ਇੰਟਰਫੇਸ %3$s ਤੋਂ %2$s ਸਿਗਨਲ ਲਈ ਗਲਤ ਦਸਤਖਤ %1$s ਮਿਲਿਆ\n"
 
+#~ msgid "AT-SPI: Could not get the display\n"
+#~ msgstr "AT-SPI: ਡਿਸਪਲੇਅ ਨਹੀਂ ਮਿਲਿਆ\n"
+
+#~ msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
+#~ msgstr "AT-SPI: ਅਸੈਸਬਿਲਟੀ ਬਸ ਨਹੀਂ ਲੱਭੀ - ਸ਼ੈਸ਼ਨ ਬਸ ਦੀ ਵਰਤੋਂ।\n"
+
+#~ msgid "AT-SPI: Couldn't connect to bus: %s\n"
+#~ msgstr "AT-SPI: ਬਸ ਨਾਲ ਕੁਨੈਕਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s\n"
+
+#~ msgid "AT-SPI: Couldn't register with bus: %s\n"
+#~ msgstr "AT-SPI: ਬਸ ਨਾਲ ਰਜਿਸਟਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ: %s\n"
