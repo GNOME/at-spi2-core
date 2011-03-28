@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-03-09 19:08+0100\n"
-"PO-Revision-Date: 2011-03-09 19:09+0100\n"
+"POT-Creation-Date: 2011-03-28 20:51+0200\n"
+"PO-Revision-Date: 2011-03-28 20:52+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -59,49 +59,29 @@ msgstr ""
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible z nieznanym podpisem %s\n"
 
-#: ../atspi/atspi-misc.c:826
-msgid "AT-SPI: Could not get the display\n"
-msgstr "AT-SPI: nie można uzyskać ekranu\n"
-
-#: ../atspi/atspi-misc.c:844
-msgid "AT-SPI: Accessibility bus not found - Using session bus.\n"
-msgstr ""
-"AT-SPI: nie odnaleziono magistrali dostępności - używanie magistrali sesji.\n"
-
-#: ../atspi/atspi-misc.c:848 ../atspi/atspi-misc.c:857
-#, c-format
-msgid "AT-SPI: Couldn't connect to bus: %s\n"
-msgstr "AT-SPI: nie można połączyć się z magistralą: %s\n"
-
-# rev: w magistrali
-#: ../atspi/atspi-misc.c:864
-#, c-format
-msgid "AT-SPI: Couldn't register with bus: %s\n"
-msgstr "AT-SPI: nie można zarejestrować się w magistrali: %s\n"
-
-#: ../atspi/atspi-misc.c:1002 ../atspi/atspi-misc.c:1053
-#: ../atspi/atspi-misc.c:1094
+#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-misc.c:1026
 msgid "The application no longer exists"
 msgstr "Program już nie istnieje"
 
-#: ../atspi/atspi-misc.c:1130
+#: ../atspi/atspi-misc.c:1062
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
 msgstr ""
 "AT-SPI: oczekiwano wariantu podczas przechwytywania %s z interfejsu %s; "
 "otrzymano %s\n"
 
-#: ../atspi/atspi-misc.c:1136
+#: ../atspi/atspi-misc.c:1068
 #, c-format
 msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
 msgstr "atspi_dbus_get_property: błędny typ: oczekiwano %s, otrzymano %c\n"
 
-#: ../atspi/atspi-misc.c:1279
+#: ../atspi/atspi-misc.c:1211
 #, c-format
 msgid "AT-SPI: Unknown interface %s"
 msgstr "AT-SPI: nieznany interfejs %s"
 
-#: ../atspi/atspi-misc.c:1299
+#: ../atspi/atspi-misc.c:1231
 #, c-format
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: oczekiwano dwóch wartości w macierzy stanów; otrzymano %d\n"
