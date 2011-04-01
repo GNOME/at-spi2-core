@@ -107,7 +107,7 @@ end_session_response (gboolean is_okay, const gchar *reason)
                 reason = "";
 
         ret = g_dbus_proxy_call_sync (client_proxy, "EndSessionResponse",
-                                      g_variant_new ("(us)", is_okay, reason),
+                                      g_variant_new ("(bs)", is_okay, reason),
                                       0, 1000, NULL, &error);
 
         if (!ret) {
