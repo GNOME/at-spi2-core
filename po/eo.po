@@ -1,5 +1,5 @@
 # Esperanto translation for at-spi2-atk.
-# Copyright (C) 2011 at-spi2-atk's COPYRIGHT HOLDER
+# Copyright (C) 2011 Free Software Foundation, Inc.
 # This file is distributed under the same license as the at-spi2-atk package.
 # Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011.
 #
