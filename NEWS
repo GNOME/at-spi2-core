@@ -1,3 +1,10 @@
+What's new in at-spi2-core 2.0.0:
+
+* Fix for BGO#646403: Use correct signature in at-spi2-registryd for
+  EndSessionResponse.
+
+* Remove a Makefile reference to dbus-glib.
+
 What's new in at-spi2-core 1.91.93:
 
 * Removed dbus-glib-related includes, as they are no longer required.
