@@ -73,6 +73,26 @@ change was an insertion or a deletion
 @arg1: The position (character offset) of the insertion or deletion.
 @arg2: The length (in characters) of text inserted or deleted.
 
+<!-- ##### SIGNAL AtkText::text-insert ##### -->
+<para>
+
+</para>
+
+@atktext: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
+<!-- ##### SIGNAL AtkText::text-remove ##### -->
+<para>
+
+</para>
+
+@atktext: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
 <!-- ##### SIGNAL AtkText::text-selection-changed ##### -->
 <para>
 The "text-selection-changed" signal is emitted when the selected text of 
@@ -81,6 +101,17 @@ an object which implements AtkText changes.
 </para>
 
 @atktext: the object which received the signal.
+
+<!-- ##### SIGNAL AtkText::text-update ##### -->
+<para>
+
+</para>
+
+@atktext: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+@arg4: 
 
 <!-- ##### ENUM AtkTextBoundary ##### -->
 <para>
