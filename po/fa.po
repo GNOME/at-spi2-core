@@ -1,0 +1,49 @@
+# Persian translation for at-spi2-atk.
+# Copyright (C) 2010-2011 Iranian Free Software Users Group (IFSUG.org)translation team.
+# This file is distributed under the same license as the at-spi2-atk package.
+# Arash Mousavi <mousavi.arash@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-03-22 16:45+0000\n"
+"PO-Revision-Date: 2011-01-25 15:42+0330\n"
+"Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
+"Language-Team: Persian <translate@ifsug.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Persian\n"
+"X-Poedit-Country: IRAN, ISLAMIC REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../atk-adaptor/bridge.c:509
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr ""
+
+#~ msgid "Enable DBus-based AT-SPI infrastructure"
+#~ msgstr "فعال‌سازی زیربنا AT-SPI مبتنی بر DBus"
+
+#~ msgid "GTK+ modules for accessibility support"
+#~ msgstr "ماژول‌های +GTK برای پشتیبانی از امکانات دسترسی‌پذیری"
+
+#~ msgid ""
+#~ "In combination with /desktop/gnome/interface/accessibility, this key is "
+#~ "needed to enable the DBus-based AT-SPI infrastructure if the DBus-based "
+#~ "AT-SPI infrastructure has been relocated. It is ignored if the DBus-based "
+#~ "AT-SPI infrastructure has not been relocated."
+#~ msgstr ""
+#~ "در ترکیب با desktop/gnome/interface/accessibility/، چناچه زیربنا AT-SPI "
+#~ "مبتنی بر DBus جابجا شده باشد، این کلید برای فعال‌سازی زیربنا AT-SPI مبتنی "
+#~ "بر DBus لازم است. اگر زیر بنا AT-SPI مبتنی بر DBus جابجا نشده باشد، این "
+#~ "مورد نادیده گرفته می‌شود."
+
+#~ msgid ""
+#~ "This key determines the GTK+ modules to load for accessibility support."
+#~ msgstr ""
+#~ "این کلید ماژول‌های +GTK را برای بار کردن پشتیبانی از امکانات دسترسی‌پذیری "
+#~ "تعریف می‌کند."
