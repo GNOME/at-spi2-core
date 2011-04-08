@@ -794,6 +794,8 @@ text_changed_event_listener (GSignalInvocationHint * signal_hint,
 
   emit_event (accessible, ITF_EVENT_OBJECT, name, minor, detail1, detail2,
               DBUS_TYPE_STRING_AS_STRING, selected, append_basic);
+  g_free (selected);
+
   return TRUE;
 }
 
