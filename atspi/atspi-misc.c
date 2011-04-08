@@ -1342,6 +1342,8 @@ atspi_get_a11y_bus (void)
 
   dbus_error_init (&error);
   bus = dbus_connection_open (address, &error);
+  g_free (address);
+
   if (!bus)
     {
       g_warning ("Couldn't connect to accessibility bus: %s", error.message);
