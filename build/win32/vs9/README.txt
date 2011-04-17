@@ -8,7 +8,7 @@ You will also need to expand atk.vcprojin here into
 atk.vcproj.
 
 The dependencies for this package are gettext-runtime (libintl), GLib*
-(inclusive of GLib, GModule, GThread, GObject) and ZLib.
+and ZLib.
 
 a) look for all of the dependencies (except GLib*) under
 
@@ -16,7 +16,7 @@ a) look for all of the dependencies (except GLib*) under
    http://ftp.gnome.org/pub/GNOME/binaries/win64/dependencies/ (64-bit)
 
    Please use the latest versions of these libraries that are available there,
-   these are packaged by Tor Lillqvist, which are built with MinGW/GCC AFAIK.
+   these are packaged by Tor Lillqvist, which are built with MinGW/GCC.
    Please see b) below regarding the build of  GLib*
 
 -OR-
@@ -75,9 +75,9 @@ After the build of ATK, the "install" project will copy build results
 and headers into their appropriate location under <root>\vs9\<PlatformName>.
 For instance, built DLLs go into <root>\vs9\<PlatformName>\bin, built LIBs into
 <root>\vs9\<PlatformName>\lib and atk headers into
-<root>\vs9\<PlatformName>\include\atk-1.0. This is then from where
+<root>\vs9\<PlatformName>\include\atk-2.0. This is then from where
 project files higher in the stack are supposed to look for them, not
 from a specific ATK source tree.
 
---Chun-wei Fan <fanc999 --at-- yahoo _dot_ com _dot_ tw>
+--Chun-wei Fan <fanc999@yahoo.com.tw>
 --(adapted from the GLib VS9 README.txt file originally written by Tor Lillqvist)

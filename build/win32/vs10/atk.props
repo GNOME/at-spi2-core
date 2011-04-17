@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
-    <AtkApiVersion>1.0</AtkApiVersion>
+    <AtkApiVersion>2.0</AtkApiVersion>
     <AtkDummyPrefix>\"/dummy\"</AtkDummyPrefix>
     <AtkEtcInstallRoot>..\..\..\..\..\vs10\$(Platform)</AtkEtcInstallRoot>
     <CopyDir>$(AtkEtcInstallRoot)</CopyDir>
@@ -82,9 +82,9 @@ copy $(SolutionDir)$(Configuration)\$(Platform)\bin\*-$(AtkApiVersion).lib $(Cop
     <GenerateAtkDef>echo EXPORTS &gt;"..\..\..\atk\atk.def" &amp;&amp; cl /EP ..\..\..\atk\atk.symbols &gt;&gt;"..\..\..\atk\atk.def"</GenerateAtkDef>
     <AtkDefines>ATK_LOCALEDIR="\"$(AtkDummyPrefix)/share/locale\""</AtkDefines>
     <AtkLibtoolCompatibleDllPrefix>lib</AtkLibtoolCompatibleDllPrefix>
-    <AtkLibtoolCompatibleDllSuffix>-1.0-0</AtkLibtoolCompatibleDllSuffix>
+    <AtkLibtoolCompatibleDllSuffix>-2.0-0</AtkLibtoolCompatibleDllSuffix>
     <AtkSeparateVS10DllPrefix />
-    <AtkSeparateVS10DllSuffix>-1-vs10</AtkSeparateVS10DllSuffix>
+    <AtkSeparateVS10DllSuffix>-2-vs10</AtkSeparateVS10DllSuffix>
     <AtkDllPrefix>$(AtkSeparateVS10DllPrefix)</AtkDllPrefix>
     <AtkDllSuffix>$(AtkSeparateVS10DllSuffix)</AtkDllSuffix>
   </PropertyGroup>
@@ -114,13 +114,13 @@ copy ..\..\..\config.h.win32 ..\..\..\config.h
 
 if exist ..\..\..\atk\atkmarshal.h goto GEN_MARS_C
 
-glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --header &gt;..\..\..\atk\atkmarshal.h
+$(AtkEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --header &gt;..\..\..\atk\atkmarshal.h
 
 :GEN_MARS_C
 
 if exist ..\..\..\atk\atkmarshal.c goto END
 
-glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --body &gt;..\..\..\atk\atkmarshal.c
+$(AtkEtcInstallRoot)\bin\glib-genmarshal --prefix=atk_marshal ..\..\..\atk\atkmarshal.list --body &gt;..\..\..\atk\atkmarshal.c
 
 :END
 
