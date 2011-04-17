@@ -7,7 +7,7 @@ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
 
 SUBDIRS=po dbind xml atspi bus registryd doc
 
-ACLOCAL_AMFLAGS=-I m4
+ACLOCAL_AMFLAGS=-I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST = \
 	atspi-2-uninstalled.pc.in \
