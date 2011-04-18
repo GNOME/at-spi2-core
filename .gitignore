@@ -7,3 +7,5 @@ config.h.in~
 config
 configure
 m4/*.m4
+/po/Makefile.in
+/po/Makefile.in.in
