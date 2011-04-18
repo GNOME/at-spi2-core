@@ -787,6 +787,29 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
       return NULL;
   return g_strdup (ret);
 }
+/**
+ * atspi_accessible_get_toolkit_version:
+ * @obj: a pointer to the #AtspiAccessible object on which to operate.
+ *
+ * Get the application id for a #AtspiAccessible object.
+ * Only works on application root objects.
+ *
+ * Returns: a gint indicating the id for the #AtspiAccessible object.
+ * or -1 on exception
+ **/
+gint
+atspi_accessible_get_id (AtspiAccessible *obj, GError **error)
+{
+  gint ret = -1;
+
+  g_return_val_if_fail (obj != NULL, -1);
+
+  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "Id", error, "i", &ret))
+      return -1;
+  return ret;
+}
+
+
 /* Interface query methods */
 
 static gboolean

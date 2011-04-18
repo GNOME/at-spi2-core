@@ -97,6 +97,8 @@ gchar * atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
 
 gchar * atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error);
 
+gint atspi_accessible_get_id (AtspiAccessible *obj, GError **error);
+
 AtspiAccessible * atspi_accessible_get_application (AtspiAccessible *obj, GError **error);
 
 AtspiAction * atspi_accessible_get_action (AtspiAccessible *obj);
