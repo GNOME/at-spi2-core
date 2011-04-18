@@ -719,7 +719,7 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
   for (;;)
   {
     parent = atspi_accessible_get_parent (obj, NULL);
-    if (!parent &&
+    if (!parent && obj->parent.app &&
         atspi_accessible_get_role (obj, NULL) != ATSPI_ROLE_APPLICATION)
     {
       AtspiAccessible *root = g_object_ref (obj->parent.app->root);
