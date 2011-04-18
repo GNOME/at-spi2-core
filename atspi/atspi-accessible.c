@@ -726,6 +726,11 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
       if (root)
       {
         g_object_unref (obj);
+        if (atspi_accessible_get_role (root, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
+        {
+          g_object_unref (root);
+          return NULL;
+        }
         return root;
       }
     }
