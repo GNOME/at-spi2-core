@@ -719,6 +719,16 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
   for (;;)
   {
     parent = atspi_accessible_get_parent (obj, NULL);
+    if (!parent &&
+        atspi_accessible_get_role (obj, NULL) != ATSPI_ROLE_APPLICATION)
+    {
+      AtspiAccessible *root = g_object_ref (obj->parent.app->root);
+      if (root)
+      {
+        g_object_unref (obj);
+        return root;
+      }
+    }
     if (!parent || parent == obj ||
         atspi_accessible_get_role (parent, NULL) == ATSPI_ROLE_DESKTOP_FRAME)
     return obj;
