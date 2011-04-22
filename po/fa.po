@@ -6,10 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-atk master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
-"spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-03-22 16:45+0000\n"
-"PO-Revision-Date: 2011-01-25 15:42+0330\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-08 18:30+0000\n"
+"PO-Revision-Date: 2011-04-23 00:23+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian <translate@ifsug.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +22,7 @@ msgstr ""
 #: ../atk-adaptor/bridge.c:509
 #, c-format
 msgid "atk-bridge: Couldn't listen on dbus server: %s"
-msgstr ""
+msgstr "atk-bridge: نمی‌توان به کارگزار dbus گوش سپرد: %s"
 
 #~ msgid "Enable DBus-based AT-SPI infrastructure"
 #~ msgstr "فعال‌سازی زیربنا AT-SPI مبتنی بر DBus"
