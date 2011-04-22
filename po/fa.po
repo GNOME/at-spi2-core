@@ -6,11 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: at-spi2-core master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-spi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-04-05 14:17+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-19 08:42+0000\n"
 "PO-Revision-Date: 2011-04-23 00:31+0330\n"
 "Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
 "Language-Team: Persian <translate@ifsug.org>\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,21 +38,27 @@ msgstr "AT-SPI: خطا در GetItems، فرستنده=%s، خطا=%s"
 
 #: ../atspi/atspi-misc.c:587
 #, c-format
-msgid "AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange signature %s"
-msgstr "AT-SPI: فراخوانی _atspi_dbus_return_accessible_from_message همراه با امضا عجیب %s"
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: فراخوانی _atspi_dbus_return_accessible_from_message همراه با امضا "
+"عجیب %s"
 
 #: ../atspi/atspi-misc.c:616
 #, c-format
-msgid "AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange signature %s"
-msgstr "AT-SPI: فراخوانی _atspi_dbus_return_hyperlink_from_message همراه با امضا %s"
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: فراخوانی _atspi_dbus_return_hyperlink_from_message همراه با امضا %s"
 
 #: ../atspi/atspi-misc.c:641
 #, c-format
 msgid "AT-SPI: AddAccessible with unknown signature %s\n"
 msgstr "AT-SPI: AddAccessible همراه با امضا ناشناس %s\n"
 
-#: ../atspi/atspi-misc.c:934
-#: ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
 #: ../atspi/atspi-misc.c:1026
 msgid "The application no longer exists"
 msgstr "برنامه دیگر وجود ندارد"
@@ -58,7 +66,8 @@ msgstr "برنامه دیگر وجود ندارد"
 #: ../atspi/atspi-misc.c:1062
 #, c-format
 msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
-msgstr "AT-SPI: انتظار نوع دیگری در هنگام آوردن %s از رابط %s بود؛ اما %s دریافت شد\n"
+msgstr ""
+"AT-SPI: انتظار نوع دیگری در هنگام آوردن %s از رابط %s بود؛ اما %s دریافت شد\n"
 
 #: ../atspi/atspi-misc.c:1068
 #, c-format
@@ -75,13 +84,16 @@ msgstr "AT-SPI: رابط ناشناس %s"
 msgid "AT-SPI: expected 2 values in states array; got %d\n"
 msgstr "AT-SPI: در انتظار ۲ مقدار در حالات آریه بود؛ %Id دریافت شد\n"
 
-#: ../atspi/atspi-accessible.c:997
+#: ../atspi/atspi-accessible.c:1035
 msgid "Streamable content not implemented"
 msgstr "محتویات جریان‌پذیر پیاده نشده است"
 
 #: ../atspi/atspi-event-listener.c:510
-msgid "called atspi_event_listener_register_from_callback with a NULL event_type"
-msgstr "مورد atspi_event_listener_register_from_callback با یک event_type نوع NULL فراخوانده شد"
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"مورد atspi_event_listener_register_from_callback با یک event_type نوع NULL "
+"فراخوانده شد"
 
 #: ../atspi/atspi-event-listener.c:777
 #, c-format
