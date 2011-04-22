@@ -1,0 +1,92 @@
+# Turkish translation for at-spi2-core.
+# Copyright (C) 2011 the Free Software Foundation, Inc.
+# This file is distributed under the same license as the at-spi2-core package.
+# Muhammed EKEN <gnome@m-eken.com>, 2011.
+# Muhammet Kara <muhammet.k@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-18 20:38+0000\n"
+"PO-Revision-Date: 2011-04-23 00:03+0300\n"
+"Last-Translator: Muhammet Kara <muhammet.k@gmail.com>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: Bilinmeyen RemoveAccesible imzası %s"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: %s için getRoot çağırma hatası: %s"
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: GetItems'te hata, gönderen=%s, hata=%s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr ""
+
+#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-misc.c:1026
+msgid "The application no longer exists"
+msgstr "Artık böyle bir uygulama bulunmuyor"
+
+#: ../atspi/atspi-misc.c:1062
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr ""
+
+#: ../atspi/atspi-misc.c:1068
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr ""
+
+#: ../atspi/atspi-misc.c:1211
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: Bilinmeyen arayüz %s"
+
+#: ../atspi/atspi-misc.c:1231
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: durumlar dizisinde 2 değer beklenirken %d değer alındı\n"
+
+#: ../atspi/atspi-accessible.c:1035
+msgid "Streamable content not implemented"
+msgstr "Akıcı içerik uygulanmamış"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "%3$s arayüzünden %2$s sinyali için geçersiz imza %1$s alındı\n"
