@@ -1,3 +1,19 @@
+What's new in at-spi2-core 2.0.1:
+
+* Fix a memory leak when sending events.
+
+* Fix for BGO#648059: get_application should return something w/ROLE_APPLICATION
+    
+* Fix for BGO#648013: Honor aclocal flags
+
+* FIx for BGO#648014: Add intltoolize to autogen.sh
+
+* Fix for BGO#648130: event host_application should return NULL for the desktop
+
+* Added atspi_accessible_get_id to retrieve the id of an application.
+
+* Remove doc about non-existent ATSPI_KEYSET_ALL_KEYS.
+
 What's new in at-spi2-core 2.0.0:
 
 * Fix for BGO#646403: Use correct signature in at-spi2-registryd for
