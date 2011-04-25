@@ -1,0 +1,97 @@
+# Asturian translation for at-spi2-core.
+# Copyright (C) 2011 at-spi2-core's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-core package.
+# Xandru Armesto <xandru@softastur.org>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-core master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-22 21:34+0000\n"
+"PO-Revision-Date: 2011-04-25 08:22+0200\n"
+"Last-Translator: Xandru Armesto <xandru@softastur.org>\n"
+"Language-Team: Softastur alministradores@softastur.org\n"
+"Language: ast\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Virtaal 0.5.2\n"
+
+#: ../atspi/atspi-misc.c:290
+#, c-format
+msgid "AT-SPI: Unknown signature %s for RemoveAccessible"
+msgstr "AT-SPI: robla %s desconocida pa RemoveAccessible"
+
+#: ../atspi/atspi-misc.c:327
+#, c-format
+msgid "AT-SPI: Error calling getRoot for %s: %s"
+msgstr "AT-SPI: fallu al llamar a getRoot pa %s: %s"
+
+#: ../atspi/atspi-misc.c:485
+#, c-format
+msgid "AT-SPI: Error in GetItems, sender=%s, error=%s"
+msgstr "AT-SPI: fallu en GetItems, emisor=%s, error=%s"
+
+#: ../atspi/atspi-misc.c:587
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_accessible_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: llamada a _atspi_dbus_return_accessible_from_message con una robla %"
+"s estraña"
+
+#: ../atspi/atspi-misc.c:616
+#, c-format
+msgid ""
+"AT-SPI: Called _atspi_dbus_return_hyperlink_from_message with strange "
+"signature %s"
+msgstr ""
+"AT-SPI: llamada a _atspi_dbus_return_hyperlink_from_message con una robla %s "
+"estraña"
+
+#: ../atspi/atspi-misc.c:641
+#, c-format
+msgid "AT-SPI: AddAccessible with unknown signature %s\n"
+msgstr "AT-SPI: AddAccessible con robla %s desconocida\n"
+
+#: ../atspi/atspi-misc.c:934 ../atspi/atspi-misc.c:985
+#: ../atspi/atspi-misc.c:1026
+msgid "The application no longer exists"
+msgstr "L'aplicación yá nun esiste"
+
+#: ../atspi/atspi-misc.c:1062
+#, c-format
+msgid "AT-SPI: expected a variant when fetching %s from interface %s; got %s\n"
+msgstr "AT-SPI: esperábase una variante al guetar %s de la interfaz %s; obtúvose %s\n"
+
+#: ../atspi/atspi-misc.c:1068
+#, c-format
+msgid "atspi_dbus_get_property: Wrong type: expected %s, got %c\n"
+msgstr "atspi_dbus_get_property: tipu incorreutu: esperábase %s, obtúvose %c\n"
+
+#: ../atspi/atspi-misc.c:1211
+#, c-format
+msgid "AT-SPI: Unknown interface %s"
+msgstr "AT-SPI: interfaz %s desconocida"
+
+#: ../atspi/atspi-misc.c:1231
+#, c-format
+msgid "AT-SPI: expected 2 values in states array; got %d\n"
+msgstr "AT-SPI: esperábense 2 valores nel array d'estaos; obtúvose %d\n"
+
+#: ../atspi/atspi-accessible.c:1035
+msgid "Streamable content not implemented"
+msgstr "El conteníu de fluxu distribuyible nun ta implementáu"
+
+#: ../atspi/atspi-event-listener.c:510
+msgid ""
+"called atspi_event_listener_register_from_callback with a NULL event_type"
+msgstr ""
+"llamóse a atspi_event_listener_register_from_callback con un event_type nulu"
+
+#: ../atspi/atspi-event-listener.c:777
+#, c-format
+msgid "Got invalid signature %s for signal %s from interface %s\n"
+msgstr "Obtúvose una robla %s non válida pa la señal %s de la interfaz %s\n"
