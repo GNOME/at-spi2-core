@@ -84,18 +84,12 @@ atspi_get_desktop_list ()
 }
 
 /**
- * ATSPI_KEYSET_ALL_KEYS:
- * @ATSPI_KEYSET_ALL_KEYS: A special value for an AtspiKeySet type, which tacitly
- *                       includes all keycodes and keyvals for the specified modifier set.
- **/
-
-/**
  * atspi_register_keystroke_listener:
  * @listener:  a pointer to the #AtspiDeviceListener for which
  *             keystroke events are requested.
- * @key_set: (element-type AtspiKeyDefinition): a pointer to the
+ * @key_set: (element-type AtspiKeyDefinition) (allow-none): a pointer to the
  *        #AtspiKeyDefinition array indicating which keystroke events are
- *        requested, or #ATSPI_KEYSET_ALL_KEYS
+ *        requested, or %NULL
  *        to indicate that all keycodes and keyvals for the specified
  *        modifier set are to be included.
  * @modmask:   an #AtspiKeyMaskType mask indicating which
@@ -187,9 +181,9 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
  * atspi_deregister_keystroke_listener:
  * @listener: a pointer to the #AtspiDeviceListener for which
  *            keystroke events are requested.
- * @key_set: (element-type AtspiKeyDefinition): a pointer to the
+ * @key_set: (element-type AtspiKeyDefinition) (allow-none): a pointer to the
  *        #AtspiKeyDefinition array indicating which keystroke events are
- *        requested, or #ATSPI_KEYSET_ALL_KEYS
+ *        requested, or %NULL
  *        to indicate that all keycodes and keyvals for the specified
  *        modifier set are to be included.
  * @modmask:  the key modifier mask for which this listener is to be
