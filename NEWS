@@ -1,3 +1,7 @@
+What's new in at-spi2-atk 2.0.1:
+
+* Fix a memory leak in impl_GetText
+
 What's new in at-spi2-atk 1.91.93:
 
 * Removed dbus-glib-related includes, as they are no longer required.
