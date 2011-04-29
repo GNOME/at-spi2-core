@@ -398,11 +398,12 @@ main (int    argc,
         XDeleteProperty (display,
                          XDefaultRootWindow (display),
                          bus_address_atom);
+
+        XFlush (display);
+        XCloseDisplay (display);
       }
-    XFlush (display);
-    XCloseDisplay (display);
   }
-    
+
   if (_global_app->a11y_launch_error_message)
     {
       g_printerr ("Failed to launch bus: %s", _global_app->a11y_launch_error_message);
