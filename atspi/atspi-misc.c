@@ -162,6 +162,9 @@ handle_get_bus_address (DBusPendingCall *pending, void *user_data)
   dbus_message_unref (reply);
   dbus_pending_call_unref (pending);
 
+  if (!app->bus)
+    return; /* application has gone away / been disposed */
+
   message = dbus_message_new_method_call (app->bus_name,
                                           "/org/a11y/atspi/cache",
                                           atspi_interface_cache, "GetItems");
