@@ -523,12 +523,9 @@ atspi_accessible_get_relation_set (AtspiAccessible *obj, GError **error)
   dbus_message_iter_recurse (&iter, &iter_array);
   while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
   {
-    GArray *new_array;
     AtspiRelation *relation;
     relation = _atspi_relation_new_from_iter (&iter_array);
-    new_array = g_array_append_val (ret, relation);
-    if (new_array)
-      ret = new_array;
+    ret = g_array_append_val (ret, relation);
     dbus_message_iter_next (&iter_array);
   }
   dbus_message_unref (reply);
@@ -787,6 +784,7 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
       return NULL;
   return g_strdup (ret);
 }
+
 /**
  * atspi_accessible_get_toolkit_version:
  * @obj: a pointer to the #AtspiAccessible object on which to operate.
@@ -1302,9 +1300,6 @@ GArray *
 atspi_accessible_get_interfaces (AtspiAccessible *obj)
 {
   GArray *ret = g_array_new (TRUE, TRUE, sizeof (gchar *));
-
-  if (!ret)
-    return NULL;
 
   g_return_val_if_fail (obj != NULL, NULL);
 

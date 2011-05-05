@@ -39,13 +39,10 @@ AtspiRect *
 atspi_rect_copy (AtspiRect *src)
 {
   AtspiRect *dst = g_new (AtspiRect, 1);
-  if (dst)
-  {
-    dst->x = src->x;
-    dst->y = src->y;
-    dst->height = src->height;
-    dst->width = src->width;
-  }
+  dst->x = src->x;
+  dst->y = src->y;
+  dst->height = src->height;
+  dst->width = src->width;
   return dst;
 }
 
@@ -55,11 +52,8 @@ AtspiPoint *
 atspi_point_copy (AtspiPoint *src)
 {
   AtspiPoint *dst = g_new (AtspiPoint, 1);
-  if (dst)
-  {
-    dst->x = src->x;
-    dst->y = src->y;
-  }
+  dst->x = src->x;
+  dst->y = src->y;
   return dst;
 }
 

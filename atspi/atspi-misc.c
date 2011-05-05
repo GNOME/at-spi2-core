@@ -718,8 +718,6 @@ defer_message (DBusConnection *connection, DBusMessage *message, void *user_data
   BusDataClosure *closure = g_new (BusDataClosure, 1);
   GList *new_list;
 
-  if (!closure)
-    return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
   closure->bus = dbus_connection_ref (bus);
   closure->message = dbus_message_ref (message);
   closure->data = user_data;

@@ -118,8 +118,6 @@ static AtspiDeviceEvent *
 atspi_device_event_copy (AtspiDeviceEvent *src)
 {
   AtspiDeviceEvent *dst = g_new0 (AtspiDeviceEvent, 1);
-  if (!dst)
-    return NULL;
   dst->type = src->type;
   dst->id = src->id;
   dst->hw_code = src->hw_code;

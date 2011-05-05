@@ -29,11 +29,8 @@ atspi_range_copy (AtspiRange *src)
 {
   AtspiRange *dst = g_new (AtspiRange, 1);
 
-  if (dst)
-  {
-    dst->start_offset = src->start_offset;
-    dst->end_offset = src->end_offset;
-  }
+  dst->start_offset = src->start_offset;
+  dst->end_offset = src->end_offset;
   return dst;
 }
 
@@ -44,12 +41,9 @@ atspi_text_range_copy (AtspiTextRange *src)
 {
   AtspiTextRange *dst = g_new (AtspiTextRange, 1);
 
-  if (dst)
-  {
-    dst->content = g_strdup (src->content);
-    dst->start_offset = src->start_offset;
-    dst->end_offset = src->end_offset;
-  }
+  dst->content = g_strdup (src->content);
+  dst->start_offset = src->start_offset;
+  dst->end_offset = src->end_offset;
   return dst;
 }
 
@@ -347,9 +341,8 @@ atspi_text_get_text_before_offset (AtspiText *obj,
   dbus_int32_t d_start_offset = -1, d_end_offset = -1;
   AtspiTextRange *range = g_new0 (AtspiTextRange, 1);
 
-  if (range)
-    range->start_offset = range->end_offset = -1;
-  if (!obj || !range)
+  range->start_offset = range->end_offset = -1;
+  if (!obj)
     return range;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetTextBeforeOffset", error,
@@ -390,9 +383,8 @@ atspi_text_get_text_at_offset (AtspiText *obj,
   dbus_int32_t d_start_offset = -1, d_end_offset = -1;
   AtspiTextRange *range = g_new0 (AtspiTextRange, 1);
 
-  if (range)
-    range->start_offset = range->end_offset = -1;
-  if (!obj || !range)
+  range->start_offset = range->end_offset = -1;
+  if (!obj)
     return range;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetTextAtOffset", error,
@@ -434,9 +426,8 @@ atspi_text_get_text_after_offset (AtspiText *obj,
   dbus_int32_t d_start_offset = -1, d_end_offset = -1;
   AtspiTextRange *range = g_new0 (AtspiTextRange, 1);
 
-  if (range)
-    range->start_offset = range->end_offset = -1;
-  if (!obj || !range)
+  range->start_offset = range->end_offset = -1;
+  if (!obj)
     return range;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetTextAfterOffset", error,
@@ -677,10 +668,9 @@ atspi_text_get_selection (AtspiText *obj,
   dbus_int32_t d_start_offset, d_end_offset;
   AtspiRange *ret = g_new (AtspiRange, 1);
 
-  if (ret)
-    ret->start_offset = ret->end_offset = -1;
+  ret->start_offset = ret->end_offset = -1;
 
-  if (!obj || !ret)
+  if (!obj)
     return ret;
 
   _atspi_dbus_call (obj, atspi_interface_text, "GetSelection", error, "i=>ii", d_selection_num, &d_start_offset, &d_end_offset);
