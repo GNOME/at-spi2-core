@@ -28,6 +28,8 @@
 
 /* Private internal implementation details of at-spi. */
 
+#include <string.h>
+
 #include "atspi.h"
 
 #include "dbus/dbus.h"

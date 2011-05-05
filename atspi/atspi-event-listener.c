@@ -507,7 +507,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 
   if (!event_type)
   {
-    g_warning (_("called atspi_event_listener_register_from_callback with a NULL event_type"));
+    g_warning ("called atspi_event_listener_register_from_callback with a NULL event_type");
     return FALSE;
   }
 
@@ -774,7 +774,7 @@ atspi_dbus_handle_event (DBusConnection *bus, DBusMessage *message, void *data)
 
   if (strcmp (signature, "siiv(so)") != 0)
   {
-    g_warning (_("Got invalid signature %s for signal %s from interface %s\n"), signature, member, category);
+    g_warning ("Got invalid signature %s for signal %s from interface %s\n", signature, member, category);
     return DBUS_HANDLER_RESULT_HANDLED;
   }
 

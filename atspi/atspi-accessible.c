@@ -1032,7 +1032,7 @@ atspi_accessible_is_streamable_content (AtspiAccessible *obj)
   return _atspi_accessible_is_a (obj,
 			      atspi_interface_streamable_content);
 #else
-  g_warning (_("Streamable content not implemented"));
+  g_warning ("Streamable content not implemented");
   return FALSE;
 #endif
 }
