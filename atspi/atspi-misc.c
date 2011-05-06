@@ -112,6 +112,8 @@ _atspi_bus ()
 {
   if (!bus)
     atspi_init ();
+  if (!bus)
+    g_error ("AT-SPI: COuldn't connect to accessibility bus. Is at-spi-bus-launcher running?");
   return bus;
 }
 
@@ -1290,6 +1292,7 @@ get_accessibility_bus_address_dbus (void)
   DBusConnection *session_bus = NULL;
   DBusMessage *message;
   DBusMessage *reply;
+  DBusError error;
   char *address = NULL;
 
   session_bus = dbus_bus_get (DBUS_BUS_SESSION, NULL);
@@ -1301,14 +1304,20 @@ get_accessibility_bus_address_dbus (void)
 					  "org.a11y.Bus",
 					  "GetAddress");
 
+  dbus_error_init (&error);
   reply = dbus_connection_send_with_reply_and_block (session_bus,
 						     message,
 						     -1,
-						     NULL);
+						     &error);
   dbus_message_unref (message);
 
   if (!reply)
+  {
+    g_warning ("Error retrieving accessibility bus address: %s: %s",
+               error.name, error.message);
+    dbus_error_init (&error);
     return NULL;
+  }
   
   {
     const char *tmp_address;
