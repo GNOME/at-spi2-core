@@ -760,7 +760,7 @@ atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
 
   if (!_atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitName", error, "s", &ret))
       return NULL;
-  return g_strdup (ret);
+  return ret;
 }
 
 /**
@@ -782,7 +782,7 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
 
   if (!_atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitVersion", error, "s", &ret))
       return NULL;
-  return g_strdup (ret);
+  return ret;
 }
 
 /**
