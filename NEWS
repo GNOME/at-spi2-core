@@ -1,3 +1,14 @@
+What's new in at-spi2-core 2.1.1:
+
+* Fixed a seg fault in at-spi-bus-launcher when ending a session (BGO#648942).
+
+* Fixed a possible crash when an application is short-lived.
+
+* FIxed memory leaks in atspi_accessible_get_toolkit_(name|version).
+
+* AT-SPI will now call g_error if it is unable to find the accessibility bus.
+  This results in aborting but with a somewhat less cryptic error than before.
+
 What's new in at-spi2-core 2.0.1:
 
 * Fix a memory leak when sending events.
