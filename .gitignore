@@ -6,6 +6,8 @@
 *.bak
 *.tmp
 *.swp
+*.gir
+*.typelib
 .tm*
 ~*
 
@@ -22,6 +24,7 @@ Makefile.in
 /config.guess
 /config.h
 /config.h.in
+/config.h.win32
 /config.log
 /config.status
 /config.sub
