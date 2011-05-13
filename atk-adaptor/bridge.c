@@ -708,11 +708,7 @@ adaptor_init (gint * argc, gchar ** argv[])
         }
     }
 
-#ifndef DISABLE_P2P
   spi_global_app_data->main_context = g_main_context_new ();
-#else
-  spi_global_app_data->main_context = NULL;
-#endif
 
   atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, NULL);
 

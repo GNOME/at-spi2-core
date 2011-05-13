@@ -59,13 +59,11 @@ typedef struct _SpiReentrantCallClosure
 static void
 switch_main_context (GMainContext *cnx)
 {
-/* This code won't work on dbus-glib earlier than 0.9.0 because of FDO#30574 */
-  if (spi_global_app_data->app_bus_addr [0] == '\0')
-    return;
-
   GList *list;
 
+#ifndef DISABLE_P2P
   atspi_dbus_server_setup_with_g_main (spi_global_app_data->server, cnx);
+#endif
   atspi_dbus_connection_setup_with_g_main (spi_global_app_data->bus, cnx);
   for (list = spi_global_app_data->direct_connections; list; list = list->next)
     atspi_dbus_connection_setup_with_g_main (list->data, cnx);
@@ -373,6 +371,7 @@ signal_is_needed (const gchar *klass, const gchar *major, const gchar *minor)
         }
     }
 
+//printf("event: %s %s %s: %d\n", data[0], data[1], data[2], ret);
   g_free (data [2]);
   g_free (data [1]);
   g_free (data [0]);
