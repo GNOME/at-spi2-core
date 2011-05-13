@@ -64,6 +64,11 @@ atk_socket_new (void)
  *
  * Embeds the children of an #AtkPlug as the children of the #AtkSocket.  The
  * plug may be in the same process or in a different process.
+ * THe class item used by this function should be filled in by the IPC layer
+ * (ie, at-spi2-atk).  The implementor of the AtkSocket should call this
+ * function and pass the id for the plug as returned by atk_plug_get_id.
+ * It is the responsibility of the application to pass the plug id on to
+ * the process implementing the AtkSocket as needed.
  *
  * Since: 1.30
  **/
