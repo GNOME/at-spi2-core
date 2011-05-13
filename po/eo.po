@@ -2,22 +2,27 @@
 # Copyright (C) 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the atk package.
 # Charles VOELGER <cvoelger@dweasel.com>, 2003.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2010.
+# Brian CROOM < >, 2008.
+# Michael MORONI < >, 2011.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk 1.3.4\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=atk&component=general\n"
-"POT-Creation-Date: 2010-05-31 10:54+0000\n"
-"PO-Revision-Date: 2010-05-31 15:53+0100\n"
-"Last-Translator: Kristjan <kristjan.schmidt@googlemail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-05-13 16:40+0000\n"
+"PO-Revision-Date: 2011-05-14 01:14+0200\n"
+"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
 "Language-Team: Esperanto <ubuntu-l10n-eo@lists.launchpad.net>\n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-05-31 13:52+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-05-13 23:12+0000\n"
+"X-Generator: Launchpad (build 13037)\n"
 "X-Poedit-Language: Esperanto\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -53,7 +58,7 @@ msgstr "La komencindekso de la AtkHyperlink-objekto"
 
 #: ../atk/atkobject.c:74
 msgid "invalid"
-msgstr "nevalida"
+msgstr "nevalide"
 
 #: ../atk/atkobject.c:75
 msgid "accelerator label"
@@ -61,7 +66,7 @@ msgstr "rapidig-etikedo"
 
 #: ../atk/atkobject.c:76
 msgid "alert"
-msgstr "atentigo"
+msgstr "averto"
 
 #: ../atk/atkobject.c:77
 msgid "animation"
@@ -97,7 +102,7 @@ msgstr "kolumn-ĉapo"
 
 #: ../atk/atkobject.c:85
 msgid "combo box"
-msgstr "tekstlisto"
+msgstr "fallisto"
 
 #: ../atk/atkobject.c:86
 msgid "dateeditor"
@@ -186,7 +191,7 @@ msgstr "menuo"
 
 #: ../atk/atkobject.c:108
 msgid "menu bar"
-msgstr "menuzono"
+msgstr "menubreto"
 
 #: ../atk/atkobject.c:109
 msgid "menu item"
@@ -194,7 +199,7 @@ msgstr "menuero"
 
 #: ../atk/atkobject.c:110
 msgid "option pane"
-msgstr "opcia panelo"
+msgstr "opcio-panelo"
 
 #: ../atk/atkobject.c:111
 msgid "page tab"
@@ -246,7 +251,7 @@ msgstr "rulumskalo"
 
 #: ../atk/atkobject.c:123
 msgid "scroll pane"
-msgstr "ruluma panelo"
+msgstr "rulumpanelo"
 
 #: ../atk/atkobject.c:124
 msgid "separator"
@@ -266,7 +271,7 @@ msgstr "ŝpinbutono"
 
 #: ../atk/atkobject.c:128
 msgid "statusbar"
-msgstr "statolistelo"
+msgstr "statobreto"
 
 #: ../atk/atkobject.c:129
 msgid "table"
@@ -318,11 +323,11 @@ msgstr "arba tabelo"
 
 #: ../atk/atkobject.c:141
 msgid "unknown"
-msgstr "nekonata"
+msgstr "nekonate"
 
 #: ../atk/atkobject.c:142
 msgid "viewport"
-msgstr "vidpordego"
+msgstr "vidujo"
 
 #: ../atk/atkobject.c:143
 msgid "window"
@@ -334,7 +339,7 @@ msgstr "ĉapo"
 
 #: ../atk/atkobject.c:145
 msgid "footer"
-msgstr "suba paĝotitolo"
+msgstr "paĝopiedo"
 
 #: ../atk/atkobject.c:146
 msgid "paragraph"
@@ -342,7 +347,7 @@ msgstr "alineo"
 
 #: ../atk/atkobject.c:147
 msgid "ruler"
-msgstr "liniilo"
+msgstr "mezurilo"
 
 #: ../atk/atkobject.c:148
 msgid "application"
@@ -350,11 +355,11 @@ msgstr "aplikaĵo"
 
 #: ../atk/atkobject.c:149
 msgid "autocomplete"
-msgstr "aŭtokompletigi"
+msgstr "aŭtomate kompletigi"
 
 #: ../atk/atkobject.c:150
 msgid "edit bar"
-msgstr "Redaktobreto"
+msgstr "redaktobreto"
 
 #: ../atk/atkobject.c:151
 msgid "embedded component"
@@ -414,23 +419,24 @@ msgstr "Nomo de objekta eksemplero formatita por asist-teknologia atingo"
 
 #: ../atk/atkobject.c:495
 msgid "Accessible Description"
-msgstr "Atingebla Priskribo"
+msgstr "Atingebla priskribo"
 
 #: ../atk/atkobject.c:496
 msgid "Description of an object, formatted for assistive technology access"
-msgstr "Priskribo de objekto, formatita por formatita por asist-teknologia atingo"
+msgstr ""
+"Priskribo de objekto, formatita por formatita por asist-teknologia atingo"
 
 #: ../atk/atkobject.c:502
 msgid "Accessible Parent"
-msgstr "Atingebla Patro"
+msgstr "Atingebla gepatro"
 
 #: ../atk/atkobject.c:503
 msgid "Is used to notify that the parent has changed"
-msgstr "Uzita por avizi ke la patro ŝanĝiĝis"
+msgstr "Uzita por avizi ke la gepatro ŝanĝiĝis"
 
 #: ../atk/atkobject.c:509
 msgid "Accessible Value"
-msgstr "Atingebla Valoro"
+msgstr "Atingebla valoro"
 
 #: ../atk/atkobject.c:510
 msgid "Is used to notify that the value has changed"
@@ -438,7 +444,7 @@ msgstr "Uzita por avizi ke la valororo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:518
 msgid "Accessible Role"
-msgstr "Atingebla Rolo"
+msgstr "Atingebla rolo"
 
 #: ../atk/atkobject.c:519
 msgid "The accessible role of this object"
@@ -446,7 +452,7 @@ msgstr "La atingebla rolo de ĉi tiu objekto"
 
 #: ../atk/atkobject.c:527
 msgid "Accessible Layer"
-msgstr "Atingebla Tavolo"
+msgstr "Atingebla tavolo"
 
 #: ../atk/atkobject.c:528
 msgid "The accessible layer of this object"
@@ -454,7 +460,7 @@ msgstr "La atingebla tavolo de ĉi tiu objekto"
 
 #: ../atk/atkobject.c:536
 msgid "Accessible MDI Value"
-msgstr "Atingebla MDI-Valoro"
+msgstr "Atingebla MDI-valoro"
 
 #: ../atk/atkobject.c:537
 msgid "The accessible MDI value of this object"
@@ -462,15 +468,19 @@ msgstr "La atingebla MDI-valoro de ĉi tiu objekto"
 
 #: ../atk/atkobject.c:545
 msgid "Accessible Table Caption"
-msgstr "Atingebla Tabela Apudskribo"
+msgstr "Atingebla tabela apudskribo"
 
 #: ../atk/atkobject.c:546
-msgid "Is used to notify that the table caption has changed; this property should not be used. accessible-table-caption-object should be used instead"
-msgstr "Uzita por avizi ke la tabela apudskribo ŝanĝiĝis; ĉi tiu eco ne devas esti uzita. accessible-table-caption-object devas esti anstataŭ uzita"
+msgid ""
+"Is used to notify that the table caption has changed; this property should "
+"not be used. accessible-table-caption-object should be used instead"
+msgstr ""
+"Uzita por avizi ke la tabela apudskribo ŝanĝiĝis; ĉi tiu eco ne devas esti "
+"uzita. la \"accessible-table-caption\"-objekto devas esti anstataŭ uzita"
 
 #: ../atk/atkobject.c:552
 msgid "Accessible Table Column Header"
-msgstr "Atingebla Tabela Kolumna Ĉapo"
+msgstr "Atingebla tabela kolumna ĉapo"
 
 #: ../atk/atkobject.c:553
 msgid "Is used to notify that the table column header has changed"
@@ -478,7 +488,7 @@ msgstr "Uzita por avizi ke la tabela kolumna ĉapo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:559
 msgid "Accessible Table Column Description"
-msgstr "Atingebla Tabela Kolumna Priskribo"
+msgstr "Atingebla tabela kolumna priskribo"
 
 #: ../atk/atkobject.c:560
 msgid "Is used to notify that the table column description has changed"
@@ -486,7 +496,7 @@ msgstr "Uzita por avizi ke la tabela kolumna priskribo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:566
 msgid "Accessible Table Row Header"
-msgstr "Atingebla Tabela Vica Ĉapo"
+msgstr "Atingebla tabela vica ĉapo"
 
 #: ../atk/atkobject.c:567
 msgid "Is used to notify that the table row header has changed"
@@ -494,7 +504,7 @@ msgstr "Uzita por avizi ke la tabela vica ĉapo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:573
 msgid "Accessible Table Row Description"
-msgstr "Atingebla Tabela Vica Priskribo"
+msgstr "Atingebla tabela vica priskribo"
 
 #: ../atk/atkobject.c:574
 msgid "Is used to notify that the table row description has changed"
@@ -502,7 +512,7 @@ msgstr "Uzita por avizi ke la tabela vica priskribo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:580
 msgid "Accessible Table Summary"
-msgstr "Atingebla Tabela Resumo"
+msgstr "Atingebla tabela resumo"
 
 #: ../atk/atkobject.c:581
 msgid "Is used to notify that the table summary has changed"
@@ -510,7 +520,7 @@ msgstr "Uzita por avizi ke la tabela resumo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:587
 msgid "Accessible Table Caption Object"
-msgstr "Atingebla Tabela Apudskriba Objekto"
+msgstr "Atingebla tabela apudskriba objekto"
 
 #: ../atk/atkobject.c:588
 msgid "Is used to notify that the table caption has changed"
@@ -518,9 +528,8 @@ msgstr "Uzita por avizi ke la tabela apudskribo ŝanĝiĝis"
 
 #: ../atk/atkobject.c:594
 msgid "Number of Accessible Hypertext Links"
-msgstr "Nombro da Atingeblaj Hipertekstaj Ligiloj"
+msgstr "Nombro da atingeblaj hipertekstaj ligiloj"
 
 #: ../atk/atkobject.c:595
 msgid "The number of links which the current AtkHypertext has"
-msgstr "La nombro da ligiloj kiujn havas la aktuala AtkHypertext"
-
+msgstr "La nombro da ligiloj kiujn havas la aktuala \"AtkHypertext\""
