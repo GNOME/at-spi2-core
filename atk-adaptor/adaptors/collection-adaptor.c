@@ -397,7 +397,7 @@ match_attributes_any_p (AtkObject * child, AtkAttributeSet * attributes)
       AtkAttribute *attr = g_slist_nth_data (attributes, i);
       for (k = 0; k < oa_length; k++)
         {
-          AtkAttribute *oa_attr = g_slist_nth_data (attributes, i);
+          AtkAttribute *oa_attr = g_slist_nth_data (oa, k);
           if (!g_ascii_strcasecmp (oa_attr->name, attr->name) &&
               !g_ascii_strcasecmp (oa_attr->value, attr->value))
             {
@@ -676,14 +676,12 @@ read_mr (DBusMessageIter * iter, MatchRulePrivate * mrp)
       const char *key, *val;
       dbus_message_iter_recurse (&iter_dict, &iter_dict_entry);
       dbus_message_iter_get_basic (&iter_dict_entry, &key);
+      dbus_message_iter_next (&iter_dict_entry);
       dbus_message_iter_get_basic (&iter_dict_entry, &val);
       attr = g_new (AtkAttribute, 1);
-      if (attr)
-        {
-          attr->name = g_strdup (key);
-          attr->value = g_strdup (val);
-          mrp->attributes = g_slist_prepend (mrp->attributes, attr);
-        }
+      attr->name = g_strdup (key);
+      attr->value = g_strdup (val);
+      mrp->attributes = g_slist_prepend (mrp->attributes, attr);
       dbus_message_iter_next (&iter_dict);
     }
   dbus_message_iter_next (&iter_struct);
