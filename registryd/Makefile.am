@@ -7,8 +7,7 @@ at_spi2_registryd_CFLAGS =	\
 	$(GOBJ_CFLAGS)		\
 	$(ATK_CFLAGS)		\
 	-I$(top_srcdir)		\
-	-DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\" \
-	-Werror=implicit-function-declaration
+	-DATSPI_INTROSPECTION_PATH=\"$(pkgdatadir)/$(DEFAULT_ATSPI_INTROSPECTION_PATH)\"
 
 at_spi2_registryd_LDADD =	\
 	../atspi/libatspi.la \

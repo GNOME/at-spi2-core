@@ -6,8 +6,7 @@ libatspi_la_CFLAGS = $(DBUS_CFLAGS) \
 		    $(DBIND_CFLAGS)     \
 		    $(GLIB_CFLAGS)     \
 		    -I$(top_srcdir)/registryd \
-                    -I$(top_srcdir) \
-	-Werror=implicit-function-declaration
+                    -I$(top_srcdir)
 
 libatspi_la_LIBADD = $(DBUS_LIBS) \
 	$(GOBJ_LIBS) \

@@ -42,7 +42,7 @@ AC_SUBST(DBUS_CFLAGS)
 PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.26.0])
 AC_SUBST(GLIB_LIBS)
 AC_SUBST(GLIB_CFLAGS)
-AC_CHECK_LIB([glib-2.0], [g_ptr_array_new_with_free_func], [],
+AC_CHECK_LIB([glib-2.0], [g_ptr_array_new_with_free_func], [:],
 	[AC_MSG_ERROR([The version of glib-2.0 found does not define ]
 		[g_ptr_array_new_with_free_func. Please upgrade glib.])],
 	[$GLIB_LIBS])
@@ -189,6 +189,9 @@ DBIND_CHECK_ALIGNOF(dbind_struct)
 
 GTK_DOC_CHECK([1.09])
 
+if test "x$GCC" = xyes; then
+	CFLAGS="$CFLAGS -Werror-implicit-function-declaration"
+fi
 CPPFLAGS=$orig_CPPFLAGS 
 AC_CONFIG_FILES([Makefile po/Makefile.in
 	xml/Makefile

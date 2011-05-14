@@ -25,7 +25,7 @@
 #ifndef _ATSPI_APPLICATION_H_
 #define _ATSPI_APPLICATION_H_
 
-#include "glib-object.h"
+#include <dbus/dbus.h>
 
 #include "atspi-accessible.h"
 
