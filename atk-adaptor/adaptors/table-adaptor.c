@@ -199,6 +199,19 @@ impl_GetColumnAtIndex (DBusConnection * bus, DBusMessage * message,
   return reply;
 }
 
+static gchar *
+validate_unallocated_string (gchar *str)
+{
+  if (!str)
+    return "";
+  if (!g_utf8_validate (str, -1, NULL))
+    {
+      g_warning ("atk-bridge: received bad UTF-8 string from a table function");
+      return "";
+    }
+  return str;
+}
+
 static DBusMessage *
 impl_GetRowDescription (DBusConnection * bus, DBusMessage * message,
                         void *user_data)
@@ -218,8 +231,7 @@ impl_GetRowDescription (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   description = atk_table_get_row_description (table, row);
-  if (!description)
-    description = "";
+  description = validate_unallocated_string (description);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
@@ -248,8 +260,7 @@ impl_GetColumnDescription (DBusConnection * bus, DBusMessage * message,
       return droute_invalid_arguments_error (message);
     }
   description = atk_table_get_column_description (table, column);
-  if (!description)
-    description = "";
+  description = validate_unallocated_string (description);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
