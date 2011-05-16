@@ -22,6 +22,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "glib.h"
 
 #include "droute-variant.h"
 
@@ -64,6 +65,12 @@ droute_return_v_string (DBusMessageIter *iter, const char *val)
 
     if (!val)
       val = "";
+    if (!g_utf8_validate (val, -1, NULL))
+      {
+        g_warning ("droute: Received bad UTF-8 string");
+        val = "";
+      }
+
     if (!dbus_message_iter_open_container
         (iter, DBUS_TYPE_VARIANT, DBUS_TYPE_STRING_AS_STRING, &sub))
       {

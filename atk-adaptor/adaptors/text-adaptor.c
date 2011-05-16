@@ -47,6 +47,20 @@ impl_get_CaretOffset (DBusMessageIter * iter, void *user_data)
   return droute_return_v_int32 (iter, atk_text_get_caret_offset (text));
 }
 
+static gchar *
+validate_allocated_string (gchar *str)
+{
+  if (!str)
+    return g_strdup ("");
+  if (!g_utf8_validate (str, -1, NULL))
+    {
+      g_warning ("atk-bridge: received bad UTF-8 string from a get_text function");
+      g_free (str);
+      return g_strdup ("");
+    }
+  return str;
+}
+
 static DBusMessage *
 impl_GetText (DBusConnection * bus, DBusMessage * message, void *user_data)
 {
@@ -66,8 +80,7 @@ impl_GetText (DBusConnection * bus, DBusMessage * message, void *user_data)
       return droute_invalid_arguments_error (message);
     }
   txt = atk_text_get_text (text, startOffset, endOffset);
-  if (!txt)
-    txt = g_strdup ("");
+  txt = validate_allocated_string (txt);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
@@ -133,8 +146,7 @@ impl_GetTextBeforeOffset (DBusConnection * bus, DBusMessage * message,
                                      &intstart_offset, &intend_offset);
   startOffset = intstart_offset;
   endOffset = intend_offset;
-  if (!txt)
-    txt = g_strdup ("");
+  txt = validate_allocated_string (txt);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
@@ -173,8 +185,7 @@ impl_GetTextAtOffset (DBusConnection * bus, DBusMessage * message,
                                  &intstart_offset, &intend_offset);
   startOffset = intstart_offset;
   endOffset = intend_offset;
-  if (!txt)
-    txt = g_strdup ("");
+  txt = validate_allocated_string (txt);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {
@@ -214,8 +225,7 @@ impl_GetTextAfterOffset (DBusConnection * bus, DBusMessage * message,
                                     &intstart_offset, &intend_offset);
   startOffset = intstart_offset;
   endOffset = intend_offset;
-  if (!txt)
-    txt = g_strdup ("");
+  txt = validate_allocated_string (txt);
   reply = dbus_message_new_method_return (message);
   if (reply)
     {

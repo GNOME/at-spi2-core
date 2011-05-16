@@ -228,7 +228,7 @@ convert_signal_name (const gchar * s)
 }
 
 static const void *
-replace_null (const gint type,
+validate_for_dbus (const gint type,
               const void *val)
 {
   switch (type)
@@ -237,6 +237,11 @@ replace_null (const gint type,
       case DBUS_TYPE_OBJECT_PATH:
 	   if (!val)
 	      return "";
+	   else if (!g_utf8_validate (val, -1, NULL))
+             {
+	       g_warning ("atk-bridge: Received bad UTF-8 string when emitting event");
+	       return "";
+               }
 	   else
 	      return val;
       default:
@@ -253,7 +258,7 @@ append_basic (DBusMessageIter *iter,
 
   dbus_message_iter_open_container(iter, DBUS_TYPE_VARIANT, type, &sub);
 
-    val = replace_null ((int) *type, val);
+    val = validate_for_dbus ((int) *type, val);
     dbus_message_iter_append_basic(&sub, (int) *type, &val);
 
   dbus_message_iter_close_container(iter, &sub);
