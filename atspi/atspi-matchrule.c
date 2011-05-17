@@ -60,6 +60,9 @@ atspi_match_rule_finalize (GObject *object)
   if (rule->interfaces)
     g_array_free (rule->interfaces, TRUE);
 
+  if (rule->attributes)
+    g_hash_table_unref (rule->attributes);
+
   G_OBJECT_CLASS (atspi_match_rule_parent_class)->finalize (object);
 }
 
@@ -119,8 +122,19 @@ atspi_match_rule_new (AtspiStateSet *states,
   rule->statematchtype = statematchtype;
 
   if (attributes)
-    rule->attributes = g_hash_table_ref (attributes);
-    rule->attributematchtype = attributematchtype;
+  {
+    GHashTableIter hash_table_iter;
+    gchar *key, *value;
+    rule->attributes = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                              (GDestroyNotify) g_free,
+                                              (GDestroyNotify) g_free);
+    g_hash_table_iter_init (&hash_table_iter, attributes);
+            while (g_hash_table_iter_next (&hash_table_iter, (gpointer *)&key,
+                   (gpointer *)&value))
+      g_hash_table_insert (rule->attributes, g_strdup (key), g_strdup (value));
+  } else
+    rule->attributes = NULL;
+  rule->attributematchtype = attributematchtype;
 
   if (interfaces)
     rule->interfaces = g_array_ref (interfaces);
@@ -147,7 +161,7 @@ atspi_match_rule_new (AtspiStateSet *states,
 }
 
 static void
-append_entry (gpointer *key, gpointer *val, gpointer data)
+append_entry (gpointer key, gpointer val, gpointer data)
 {
   DBusMessageIter *iter = data;
   DBusMessageIter iter_entry;
