@@ -1019,6 +1019,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
   DBusError err;
   dbus_bool_t retval = FALSE;
   AtspiObject *aobj = ATSPI_OBJECT (obj);
+  char expected_type = (type [0] == '(' ? 'r' : type [0]);
 
   if (!aobj)
     return FALSE;
@@ -1066,7 +1067,7 @@ _atspi_dbus_get_property (gpointer obj, const char *interface, const char *name,
     goto done;
   }
   dbus_message_iter_recurse (&iter, &iter_variant);
-  if (dbus_message_iter_get_arg_type (&iter_variant) != type[0])
+  if (dbus_message_iter_get_arg_type (&iter_variant) != expected_type)
   {
     g_warning (_("atspi_dbus_get_property: Wrong type: expected %s, got %c\n"), type, dbus_message_iter_get_arg_type (&iter_variant));
     goto done;
