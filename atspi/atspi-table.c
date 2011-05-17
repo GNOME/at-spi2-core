@@ -618,15 +618,15 @@ atspi_table_remove_column_selection (AtspiTable *obj,
  * @obj: a pointer to the #AtspiTable implementor on which to operate.
  * @index: the index of the Table child whose row/column 
  * extents are requested.
- * @row: back-filled with the first table row associated with
+ * @row: (out): back-filled with the first table row associated with
  * the cell with child index \c index.
- * @col: back-filled with the first table column associated 
+ * @col: (out): back-filled with the first table column associated 
  * with the cell with child index \c index.
- * @row_extents: back-filled with the number of table rows 
+ * @row_extents: (out): back-filled with the number of table rows 
  * across which child \c i extends.
- * @col_extents: back-filled with the number of table columns
+ * @col_extents: (out): back-filled with the number of table columns
  * across which child \c i extends.
- * @is_selected: a boolean which is back-filled with \c True
+ * @is_selected: (out): a boolean which is back-filled with \c True
  * if the child at index \c i corresponds to a selected table cell,
  * \c False otherwise.
  *
