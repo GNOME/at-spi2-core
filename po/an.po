@@ -1,0 +1,23 @@
+# Aragonese translation for at-spi2-atk.
+# Copyright (C) 2011 at-spi2-atk's COPYRIGHT HOLDER
+# This file is distributed under the same license as the at-spi2-atk package.
+# Daniel Martinez Cucalon <entaltoaragon@gmail.com>, 2011.
+# FULL NAME <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: at-spi2-atk master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=at-"
+"spi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-05-16 20:56+0000\n"
+"PO-Revision-Date: 2011-05-19 10:42+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Aragonese <softaragones@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../atk-adaptor/bridge.c:509
+#, c-format
+msgid "atk-bridge: Couldn't listen on dbus server: %s"
+msgstr "atk-bridge: no s'ha puesto sentir en lo servidor dbus: %s"
