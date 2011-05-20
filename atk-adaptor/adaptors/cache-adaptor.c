@@ -29,6 +29,7 @@
 #include <droute/droute.h>
 
 #include "common/spi-dbus.h"
+#include "common/spi-stateset.h"
 #include "accessible-cache.h"
 #include "bridge.h"
 #include "object.h"

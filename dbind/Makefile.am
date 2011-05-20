@@ -1,11 +1,8 @@
 noinst_LTLIBRARIES = libdbind.la
 
-WARN_CFLAGS=-Werror=implicit-function-declaration
-
 AM_CPPFLAGS = \
 	-DG_LOG_DOMAIN=\"dbind\" \
 	-I$(top_srcdir) \
-	$(WARN_CFLAGS) \
 	$(DBUS_CFLAGS) \
 	$(GLIB_CFLAGS)
 

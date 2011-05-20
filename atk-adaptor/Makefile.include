@@ -1,12 +1,13 @@
 gtkmodule_LTLIBRARIES = libatk-bridge.la
 
-libatk_bridge_la_CFLAGS = $(DBUS_CFLAGS) \
-		          $(ATK_CFLAGS)       \
-		          $(ATSPI_CFLAGS)       \
-		          -I$(top_srcdir)     \
-		          -I$(top_srcdir)/atk-adaptor/adaptors \
-	$(P2P_CFLAGS) \
-	-Werror=implicit-function-declaration
+libatk_bridge_la_CFLAGS = \
+	$(DBUS_CFLAGS)    \
+	$(ATK_CFLAGS)     \
+	$(ATSPI_CFLAGS)   \
+	-I$(top_srcdir)   \
+	-I$(top_srcdir)/atk-adaptor/adaptors \
+	$(P2P_CFLAGS)     \
+	$(X_CFLAGS)
 
 libatk_bridge_la_LDFLAGS = -no-undefined  \
 		           -module        \

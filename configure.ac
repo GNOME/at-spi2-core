@@ -99,6 +99,10 @@ DBIND_CHECK_ALIGNOF(dbind_pointer)
 DBIND_CHECK_ALIGNOF(dbind_struct)
 CPPFLAGS=$orig_CPPFLAGS 
 
+if test "x$GCC" = xyes; then
+	CFLAGS="$CFLAGS -Werror-implicit-function-declaration"
+fi
+
 if test "x$enable_p2p" = "xno"; then
 	P2P_CFLAGS=-DDISABLE_P2P
 fi
