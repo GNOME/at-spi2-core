@@ -307,7 +307,7 @@ gchar *
 atspi_accessible_get_name (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, g_strdup (""));
-  if (!(obj->cached_properties & ATSPI_CACHE_NAME))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_NAME))
   {
     if (!_atspi_dbus_get_property (obj, atspi_interface_accessible, "Name", error,
                                    "s", &obj->name))
@@ -331,7 +331,7 @@ atspi_accessible_get_description (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, g_strdup (""));
 
-  if (!(obj->cached_properties & ATSPI_CACHE_DESCRIPTION))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_DESCRIPTION))
   {
     if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
                                    "Description", error, "s",
@@ -360,7 +360,8 @@ atspi_accessible_get_parent (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (obj->parent.app && !(obj->cached_properties & ATSPI_CACHE_PARENT))
+  if (obj->parent.app &&
+      !_atspi_accessible_test_cache (obj, ATSPI_CACHE_PARENT))
   {
     DBusMessage *message, *reply;
     DBusMessageIter iter, iter_variant;
@@ -406,7 +407,7 @@ atspi_accessible_get_child_count (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, -1);
 
-  if (!(obj->cached_properties & ATSPI_CACHE_CHILDREN))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
   {
     dbus_int32_t ret;
     if (!_atspi_dbus_get_property (obj, atspi_interface_accessible,
@@ -437,7 +438,7 @@ atspi_accessible_get_child_at_index (AtspiAccessible *obj,
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!(obj->cached_properties & ATSPI_CACHE_CHILDREN))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_CHILDREN))
   {
     DBusMessage *reply;
     reply = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
@@ -470,7 +471,8 @@ atspi_accessible_get_index_in_parent (AtspiAccessible *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, -1);
   if (!obj->accessible_parent) return -1;
-  if (!(obj->accessible_parent->cached_properties & ATSPI_CACHE_CHILDREN))
+  if (!_atspi_accessible_test_cache (obj->accessible_parent,
+                                     ATSPI_CACHE_CHILDREN))
   {
     dbus_uint32_t ret = -1;
     _atspi_dbus_call (obj, atspi_interface_accessible,
@@ -550,7 +552,7 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
 {
   g_return_val_if_fail (obj != NULL, ATSPI_ROLE_INVALID);
 
-  if (!(obj->cached_properties & ATSPI_CACHE_ROLE))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_ROLE))
   {
     dbus_uint32_t role;
     /* TODO: Make this a property */
@@ -639,7 +641,7 @@ atspi_accessible_get_state_set (AtspiAccessible *obj)
     return defunct_set ();
 
 
-  if (!(obj->cached_properties & ATSPI_CACHE_STATES))
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_STATES))
   {
     DBusMessage *reply;
     DBusMessageIter iter;
@@ -823,7 +825,7 @@ _atspi_accessible_is_a (AtspiAccessible *accessible,
       return FALSE;
     }
 
-  if (!(accessible->cached_properties & ATSPI_CACHE_INTERFACES))
+  if (!_atspi_accessible_test_cache (accessible, ATSPI_CACHE_INTERFACES))
   {
     DBusMessage *reply;
     DBusMessageIter iter;
@@ -1356,7 +1358,7 @@ atspi_accessible_new (AtspiApplication *app, const gchar *path)
  *
  * @accessible: The #AtspiAccessible to operate on.  Must be the desktop or
  *             the root of an application.
- * @mask: An #AtspiCache specifying a bit mask of the types of data to cache.
+ * @mask: (type int): An #AtspiCache specifying a bit mask of the types of data to cache.
  *
  * Sets the type of data to cache for accessibles.
  * If this is not set for an application or is reset to ATSPI_CACHE_UNDEFINED,
@@ -1365,8 +1367,6 @@ atspi_accessible_new (AtspiApplication *app, const gchar *path)
  * be cached.
  * This function is intended to work around bugs in toolkits where the proper
  * events are not raised / to aid in testing for such bugs.
- *
- * Note: This function has no effect on data that has already been cached.
  **/
 void
 atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
@@ -1377,11 +1377,15 @@ atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
   accessible->parent.app->cache = mask;
 }
 
-void
-_atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag)
+static AtspiCache
+_atspi_accessible_get_cache_mask (AtspiAccessible *accessible)
 {
-  AtspiCache mask = accessible->parent.app->cache;
+  AtspiCache mask;
 
+  if (!accessible->parent.app)
+    return ATSPI_CACHE_NONE;
+
+ mask = accessible->parent.app->cache;
   if (mask == ATSPI_CACHE_UNDEFINED &&
       accessible->parent.app->root &&
       accessible->parent.app->root->accessible_parent)
@@ -1393,6 +1397,22 @@ _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag)
 
   if (mask == ATSPI_CACHE_UNDEFINED)
     mask = ATSPI_CACHE_ALL;
+
+  return mask;
+}
+
+gboolean
+_atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag)
+{
+  AtspiCache mask = _atspi_accessible_get_cache_mask (accessible);
+  AtspiCache result = accessible->cached_properties & mask & flag;
+  return (result != 0);
+}
+
+void
+_atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag)
+{
+  AtspiCache mask = _atspi_accessible_get_cache_mask (accessible);
 
   accessible->cached_properties |= flag & mask;
 }

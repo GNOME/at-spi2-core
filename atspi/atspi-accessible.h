@@ -131,4 +131,5 @@ void atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache ma
 
 /* private */
 void _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag);
+gboolean _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */
