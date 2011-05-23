@@ -181,4 +181,6 @@ typedef enum
   ATSPI_ERROR_APPLICATION_GONE,
   ATSPI_ERROR_IPC
 } AtspiError;
+
+extern GMainLoop *atspi_main_loop;
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */

@@ -39,6 +39,8 @@ static void handle_get_items (DBusPendingCall *pending, void *user_data);
 static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
 
+GMainLoop *atspi_main_loop;
+
 const char *atspi_path_dec = ATSPI_DBUS_PATH_DEC;
 const char *atspi_path_registry = ATSPI_DBUS_PATH_REGISTRY;
 const char *atspi_path_root = ATSPI_DBUS_PATH_ROOT;
@@ -859,8 +861,6 @@ atspi_init (void)
   return 0;
 }
 
-  static GMainLoop *mainloop;
-
 /**
  * atspi_event_main:
  *
@@ -873,8 +873,9 @@ atspi_init (void)
 void
 atspi_event_main (void)
 {
-  mainloop = g_main_loop_new (NULL, FALSE);
-  g_main_loop_run (mainloop);
+  atspi_main_loop = g_main_loop_new (NULL, FALSE);
+  g_main_loop_run (atspi_main_loop);
+  atspi_main_loop = NULL;
 }
 
 /**
@@ -886,7 +887,7 @@ atspi_event_main (void)
 void
 atspi_event_quit (void)
 {
-  g_main_loop_quit (mainloop);
+  g_main_loop_quit (atspi_main_loop);
 }
 
 /**
