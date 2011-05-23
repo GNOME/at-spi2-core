@@ -1401,7 +1401,7 @@ _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag)
 {
   AtspiCache mask = _atspi_accessible_get_cache_mask (accessible);
   AtspiCache result = accessible->cached_properties & mask & flag;
-  return (result != 0);
+  return (result != 0 && atspi_main_loop);
 }
 
 void
