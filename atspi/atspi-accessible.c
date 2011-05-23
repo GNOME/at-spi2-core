@@ -782,7 +782,30 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
 
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitVersion", error, "s", &ret))
+  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "Version", error, "s", &ret))
+      return NULL;
+  return ret;
+}
+
+/**
+ * atspi_accessible_get_atspi_version:
+ * @obj: a pointer to the #AtspiAccessible object on which to operate.
+ *
+ * Get the AT-SPI IPC specification version supported by the application
+ * pointed to by the #AtspiAccessible object.
+ * Only works on application root objects.
+ *
+ * Returns: a UTF-8 string indicating the AT-SPI ersion for the #AtspiAccessible object.
+ * or NULL on exception
+ **/
+gchar *
+atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
+{
+  gchar *ret = NULL;
+
+  g_return_val_if_fail (obj != NULL, NULL);
+
+  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "AtspiVersion", error, "s", &ret))
       return NULL;
   return ret;
 }
