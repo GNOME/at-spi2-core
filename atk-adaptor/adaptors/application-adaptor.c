@@ -43,6 +43,12 @@ impl_get_Version (DBusMessageIter * iter, void *user_data)
   return droute_return_v_string (iter, atk_get_toolkit_version ());
 }
 
+static dbus_bool_t
+impl_get_AtspiVersion (DBusMessageIter * iter, void *user_data)
+{
+  return droute_return_v_string (iter, "2.0");
+}
+
 static dbus_int32_t id;
 
 static dbus_bool_t
@@ -120,6 +126,7 @@ static DRouteMethod methods[] = {
 static DRouteProperty properties[] = {
   {impl_get_ToolkitName, NULL, "ToolkitName"},
   {impl_get_Version, NULL, "Version"},
+  {impl_get_AtspiVersion, NULL, "AtspiVersion"},
   {impl_get_Id, impl_set_Id, "Id"},
   {NULL, NULL, NULL}
 };
