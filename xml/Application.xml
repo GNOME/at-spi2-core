@@ -6,6 +6,7 @@
 
   <property name="Version" type="s" access="read"/>
 
+  <property name="AtspiVersion" type="s" access="read"/>
   <property name="Id" type="i" access="read"/>
 
   <method name="GetLocale">
