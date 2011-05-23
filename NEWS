@@ -1,3 +1,32 @@
+What's new in at-spi2-core 2.0.2:
+
+* Fixed a seg fault in at-spi-bus-launcher when ending a session (BGO#648942).
+
+* Fixed a possible crash when an application is short-lived.
+
+* FIxed memory leaks in atspi_accessible_get_toolkit_(name|version).
+
+* AT-SPI will now call g_error if it is unable to find the accessibility bus.
+  This results in aborting but with a somewhat less cryptic error than before.
+
+* Fix atspi_table_get_caption|summary.
+
+* Fix introspection for atspi_table_get_row_column_at_index.
+
+* Copy match rule attributes, rather than just ref counting the hash, for
+  compatibility with pygi.
+
+* Rework atspi_accessible_set_cache_mask to make it usable.
+
+* Fix a crash that might happen if a method call times out.
+
+* Disable caching if atspi_event_main has not been called to run the main loop.
+
+* Fix atspi_accessible_get_toolkit_version.
+
+* Add atspi_accessible_get_atspi_version to fetch the version of the AT-SPI
+  specification provided by an application.
+
 What's new in at-spi2-core 2.0.1:
 
 * Fix a memory leak when sending events.
