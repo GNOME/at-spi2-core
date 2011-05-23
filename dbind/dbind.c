@@ -63,34 +63,41 @@ DBusMessage *
 dbind_send_and_allow_reentry (DBusConnection * bus, DBusMessage * message, DBusError *error)
 {
   DBusPendingCall *pending;
-  SpiReentrantCallClosure closure;
+  SpiReentrantCallClosure *closure;
   const char *unique_name = dbus_bus_get_unique_name (bus);
   const char *destination = dbus_message_get_destination (message);
   struct timeval tv;
+  DBusMessage *ret;
 
   if (unique_name && destination &&
       strcmp (destination, unique_name) != 0)
     return dbus_connection_send_with_reply_and_block (bus, message, dbind_timeout, error);
 
-  closure.reply = NULL;
+  closure = g_new0 (SpiReentrantCallClosure, 1);
+  closure->reply = NULL;
   atspi_dbus_connection_setup_with_g_main(bus, NULL);
   if (!dbus_connection_send_with_reply (bus, message, &pending, dbind_timeout))
       return NULL;
   if (!pending)
     return NULL;
-  dbus_pending_call_set_notify (pending, set_reply, (void *) &closure, NULL);
+  dbus_pending_call_set_notify (pending, set_reply, (void *) closure, g_free);
 
-  closure.reply = NULL;
+  closure->reply = NULL;
   gettimeofday (&tv, NULL);
-  while (!closure.reply)
+  dbus_pending_call_ref (pending);
+  while (!closure->reply)
     {
-      if (!dbus_connection_read_write_dispatch (bus, dbind_timeout))
-        return NULL;
-if (time_elapsed (&tv) > dbind_timeout)
-        return NULL;
+      if (!dbus_connection_read_write_dispatch (bus, dbind_timeout) ||
+          time_elapsed (&tv) > dbind_timeout)
+        {
+          dbus_pending_call_unref (pending);
+          return NULL;
+        }
     }
   
-  return closure.reply;
+  ret = closure->reply;
+  dbus_pending_call_unref (pending);
+  return ret;
 }
 
 dbus_bool_t
