@@ -40,6 +40,7 @@ static DBusConnection *bus = NULL;
 static GHashTable *live_refs = NULL;
 
 GMainLoop *atspi_main_loop;
+gboolean atspi_no_cache;
 
 const char *atspi_path_dec = ATSPI_DBUS_PATH_DEC;
 const char *atspi_path_registry = ATSPI_DBUS_PATH_REGISTRY;
@@ -822,6 +823,7 @@ atspi_init (void)
 {
   DBusError error;
   char *match;
+  const gchar *no_cache;
 
   if (atspi_inited)
     {
@@ -858,6 +860,10 @@ atspi_init (void)
   match = g_strdup_printf ("type='signal',interface='%s',member='StateChanged'", atspi_interface_event_object);
   dbus_bus_add_match (bus, match, &error);
   g_free (match);
+
+  no_cache = g_getenv ("ATSPI_NO_CACHE");
+  if (no_cache && g_strcmp0 (no_cache, "0") != 0)
+    atspi_no_cache = TRUE;
   return 0;
 }
 

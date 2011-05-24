@@ -185,4 +185,5 @@ typedef enum
 } AtspiError;
 
 extern GMainLoop *atspi_main_loop;
+extern gboolean atspi_no_cache;
 #endif	/* _ATSPI_MISC_PRIVATE_H_ */
