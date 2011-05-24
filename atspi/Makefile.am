@@ -48,6 +48,7 @@ atspi-gmain.h \
 	atspi-value.h
 
 libatspi_la_SOURCES =		\
+	$(BUILT_SOURCES) \
 	$(libatspiinclude_HEADERS) \
 	atspi.h	\
 	atspi-accessible.c \
@@ -102,12 +103,24 @@ libatspi_la_SOURCES =		\
 	atspi-value.c \
 	atspi-value.h
 
-#BUILT_SOURCES = atspi-constants.h
+BUILT_SOURCES = \
+	atspi-enum-types.c \
+	atspi-enum-types.h
 
 #CLEANFILES = atspi-constants.h
 
 #atspi-constants.h: $(top_srcdir)/xml/spec.xml $(top_srcdir)/tools/c-constants-gen.py
 #	python $(top_srcdir)/tools/c-constants-gen.py Atspi $(top_srcdir)/xml/spec.xml atspi-constants
+
+ENUM_TYPES = \
+	atspi-constants.h \
+	atspi-types.h
+
+atspi-enum-types.h: atspi-enum-types.h.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template atspi-enum-types.h.template $(ENUM_TYPES)) > $@
+
+atspi-enum-types.c: atspi-enum-types.c.template $(ENUM_TYPES) $(GLIB_MKENUMS)
+	$(AM_V_GEN) (cd $(srcdir) && $(GLIB_MKENUMS) --template atspi-enum-types.c.template $(ENUM_TYPES)) > $@
 
 if HAVE_INTROSPECTION
 INTROSPECTION_FILES = $(libatspi_la_SOURCES)

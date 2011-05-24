@@ -119,7 +119,8 @@ atspi_register_keystroke_listener (AtspiDeviceListener  *listener,
 					 GArray             *key_set,
 					 AtspiKeyMaskType         modmask,
 					 AtspiKeyEventMask        event_types,
-					 gint sync_type, GError **error)
+					 AtspiKeyListenerSyncType sync_type,
+                                         GError **error)
 {
   GArray *d_key_set;
   gchar *path = _atspi_device_listener_get_path (listener);
