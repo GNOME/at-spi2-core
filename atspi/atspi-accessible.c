@@ -1395,6 +1395,26 @@ atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask)
   accessible->parent.app->cache = mask;
 }
 
+/**
+ * atspi_accessible_clear_cache:
+ * @accessible: The #AtspiAccessible whose cache to clear.
+ *
+ * Clears the cached information for the given accessible and all of its
+ * descendants.
+ */
+void
+atspi_accessible_clear_cache (AtspiAccessible *accessible)
+{
+  GList *l;
+
+  if (accessible)
+  {
+    accessible->cached_properties = ATSPI_CACHE_NONE;
+    for (l = accessible->children; l; l = l->next)
+      atspi_accessible_clear_cache (l->data);
+  }
+}
+
 static AtspiCache
 _atspi_accessible_get_cache_mask (AtspiAccessible *accessible)
 {
