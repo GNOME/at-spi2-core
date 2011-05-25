@@ -62,8 +62,10 @@ atspi_application_finalize (GObject *object)
 {
   AtspiApplication *application = ATSPI_APPLICATION (object);
 
-  if (application->bus_name)
-    g_free (application->bus_name);
+  g_free (application->bus_name);
+  g_free (application->toolkit_name);
+  g_free (application->toolkit_version);
+  g_free (application->atspi_version);
 
   G_OBJECT_CLASS (atspi_application_parent_class)->finalize (object);
 }

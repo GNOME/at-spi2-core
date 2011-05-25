@@ -756,13 +756,16 @@ atspi_accessible_get_application (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
 {
-  gchar *ret = NULL;
-
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitName", error, "s", &ret))
-      return NULL;
-  return ret;
+  if (!obj->parent.app)
+    return NULL;
+
+  if (!obj->parent.app->toolkit_name)
+    _atspi_dbus_get_property (obj, atspi_interface_application, "ToolkitName",
+                              error, "s", &obj->parent.app->toolkit_name);
+
+  return g_strdup (obj->parent.app->toolkit_name);
 }
 
 /**
@@ -778,13 +781,16 @@ atspi_accessible_get_toolkit_name (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
 {
-  gchar *ret = NULL;
-
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "Version", error, "s", &ret))
-      return NULL;
-  return ret;
+  if (!obj->parent.app)
+    return NULL;
+
+  if (!obj->parent.app->toolkit_version)
+    _atspi_dbus_get_property (obj, atspi_interface_application, "Version",
+                              error, "s", &obj->parent.app->toolkit_version);
+
+  return g_strdup (obj->parent.app->toolkit_version);
 }
 
 /**
@@ -801,13 +807,16 @@ atspi_accessible_get_toolkit_version (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_atspi_version (AtspiAccessible *obj, GError **error)
 {
-  gchar *ret = NULL;
-
   g_return_val_if_fail (obj != NULL, NULL);
 
-  if (!_atspi_dbus_get_property (obj, atspi_interface_application, "AtspiVersion", error, "s", &ret))
-      return NULL;
-  return ret;
+  if (!obj->parent.app)
+    return NULL;
+
+  if (!obj->parent.app->atspi_version)
+    _atspi_dbus_get_property (obj, atspi_interface_application, "AtspiVersion",
+                              error, "s", &obj->parent.app->atspi_version);
+
+  return g_strdup (obj->parent.app->atspi_version);
 }
 
 /**
