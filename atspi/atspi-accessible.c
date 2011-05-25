@@ -576,7 +576,24 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
 {
+  AtspiRole role = atspi_accessible_get_role (obj, error);
   char *retval = NULL;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  const gchar *name = NULL;
+
+  type_class = g_type_class_ref (ATSPI_TYPE_ROLE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
+
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), role);
+
+  if (value)
+    {
+      retval = value->value_nick;
+    }
+
+  if (retval)
+    return g_strdup (retval);
 
   g_return_val_if_fail (obj != NULL, NULL);
 

@@ -27,6 +27,7 @@ libatspiinclude_HEADERS = \
 	atspi-device-listener-private.h \
 	atspi-document.h \
 	atspi-editabletext.h \
+	atspi-enum-types.h \
 	atspi-event-listener.h \
 	atspi-event-listener-private.h \
 atspi-gmain.c \
