@@ -157,10 +157,12 @@ atspi_accessible_finalize (GObject *object)
 
     g_free (accessible->description);
     g_free (accessible->name);
+  if (accessible->attributes)
+    g_hash_table_unref (accessible->attributes);
 
 #ifdef DEBUG_REF_COUNTS
   accessible_count--;
-  printf("at-spi: finalize: %d objects\n", accessible_count);
+  g_print ("at-spi: finalize: %d objects\n", accessible_count);
 #endif
 
   G_OBJECT_CLASS (atspi_accessible_parent_class)
@@ -573,8 +575,25 @@ atspi_accessible_get_attributes (AtspiAccessible *obj, GError **error)
 
     g_return_val_if_fail (obj != NULL, NULL);
 
-  message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
-  return _atspi_dbus_return_hash_from_message (message);
+  if (!_atspi_accessible_test_cache (obj, ATSPI_CACHE_ATTRIBUTES))
+  {
+    message = _atspi_dbus_call_partial (obj, atspi_interface_accessible,
+                                        "GetAttributes", error, "");
+    obj->attributes = _atspi_dbus_return_hash_from_message (message);
+    _atspi_accessible_add_cache (obj, ATSPI_CACHE_ATTRIBUTES);
+  }
+
+  if (!obj->attributes)
+    return NULL;
+  return g_hash_table_ref (obj->attributes);
+}
+
+static void
+add_to_attribute_array (gpointer key, gpointer value, gpointer data)
+{
+  GArray **array = (GArray **)data;
+  gchar *str = g_strconcat (key, ":", value, NULL);
+  *array = g_array_append_val (*array, str);
 }
 
 /**
@@ -595,6 +614,17 @@ atspi_accessible_get_attributes_as_array (AtspiAccessible *obj, GError **error)
   DBusMessage *message;
 
     g_return_val_if_fail (obj != NULL, NULL);
+
+  if (_atspi_accessible_get_cache_mask (obj) & ATSPI_CACHE_ATTRIBUTES)
+  {
+    GArray *array = g_array_new (TRUE, TRUE, sizeof (gchar *));
+    GHashTable *attributes = atspi_accessible_get_attributes (obj, error);
+    if (!attributes)
+      return NULL;
+    g_hash_table_foreach (attributes, add_to_attribute_array, &array);
+    g_hash_table_unref (attributes);
+    return array;
+  }
 
   message = _atspi_dbus_call_partial (obj, atspi_interface_accessible, "GetAttributes", error, "");
   return _atspi_dbus_return_attribute_array_from_message (message);
@@ -1324,7 +1354,7 @@ atspi_accessible_clear_cache (AtspiAccessible *accessible)
   }
 }
 
-static AtspiCache
+AtspiCache
 _atspi_accessible_get_cache_mask (AtspiAccessible *accessible)
 {
   AtspiCache mask;
@@ -1343,7 +1373,7 @@ _atspi_accessible_get_cache_mask (AtspiAccessible *accessible)
   }
 
   if (mask == ATSPI_CACHE_UNDEFINED)
-    mask = ATSPI_CACHE_ALL;
+    mask = ATSPI_CACHE_DEFAULT;
 
   return mask;
 }

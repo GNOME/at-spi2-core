@@ -769,8 +769,13 @@ typedef enum
   ATSPI_CACHE_STATES      = 1 << 4,
   ATSPI_CACHE_ROLE        = 1 << 5,
   ATSPI_CACHE_INTERFACES  = 1 << 6,
+  ATSPI_CACHE_ATTRIBUTES = 1 << 7,
   ATSPI_CACHE_ALL         = 0x3fffffff,
-  ATSPI_CACHE_UNDEFINED   = 0x40000000
+  ATSPI_CACHE_DEFAULT = ATSPI_CACHE_PARENT | ATSPI_CACHE_CHILDREN |
+                        ATSPI_CACHE_NAME | ATSPI_CACHE_DESCRIPTION |
+                        ATSPI_CACHE_STATES | ATSPI_CACHE_ROLE |
+                        ATSPI_CACHE_INTERFACES,
+  ATSPI_CACHE_UNDEFINED   = 0x40000000,
 } AtspiCache;
 
 #ifdef __cplusplus

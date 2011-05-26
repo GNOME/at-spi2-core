@@ -1143,7 +1143,9 @@ _atspi_dbus_return_hash_from_message (DBusMessage *message)
 GHashTable *
 _atspi_dbus_hash_from_iter (DBusMessageIter *iter)
 {
-  GHashTable *hash = g_hash_table_new (g_str_hash, g_str_equal);
+  GHashTable *hash = g_hash_table_new_full (g_str_hash, g_str_equal,
+                                            (GDestroyNotify) g_free,
+                                            (GDestroyNotify) g_free);
   DBusMessageIter iter_array, iter_dict;
 
   dbus_message_iter_recurse (iter, &iter_array);
@@ -1189,15 +1191,12 @@ _atspi_dbus_attribute_array_from_iter (DBusMessageIter *iter)
   {
     const char *name, *value;
     gchar *str;
-    GArray *new_array;
     dbus_message_iter_recurse (&iter_array, &iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &name);
     dbus_message_iter_next (&iter_dict);
     dbus_message_iter_get_basic (&iter_dict, &value);
     str = g_strdup_printf ("%s:%s", name, value);
-    new_array = g_array_append_val (array, str);
-    if (new_array)
-      array = new_array;
+    array = g_array_append_val (array, str);
     dbus_message_iter_next (&iter_array);;
   }
   return array;

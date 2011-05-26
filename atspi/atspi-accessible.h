@@ -51,6 +51,7 @@ struct _AtspiAccessible
   char *name;
   char *description;
   AtspiStateSet *states;
+  GHashTable *attributes;
   guint cached_properties;
 };
 
@@ -133,5 +134,6 @@ void atspi_accessible_clear_cache (AtspiAccessible *accessible);
 
 /* private */
 void _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag);
+AtspiCache _atspi_accessible_get_cache_mask (AtspiAccessible *accessible);
 gboolean _atspi_accessible_test_cache (AtspiAccessible *accessible, AtspiCache flag);
 #endif	/* _ATSPI_ACCESSIBLE_H_ */
