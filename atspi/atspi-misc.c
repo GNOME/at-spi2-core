@@ -691,21 +691,20 @@ process_deferred_message (BusDataClosure *closure)
   }
 }
 
-static GList *deferred_messages = NULL;
+static GQueue *deferred_messages = NULL;
 
 gboolean
 _atspi_process_deferred_messages (gpointer data)
 {
   static int in_process_deferred_messages = 0;
+  BusDataClosure *closure;
 
   if (in_process_deferred_messages)
     return TRUE;
   in_process_deferred_messages = 1;
-  while (deferred_messages != NULL)
+  while (closure = g_queue_pop_head (deferred_messages))
   {
-    BusDataClosure *closure = deferred_messages->data;
     process_deferred_message (closure);
-    deferred_messages = g_list_remove (deferred_messages, closure);
     dbus_message_unref (closure->message);
     dbus_connection_unref (closure->bus);
     g_free (closure);
@@ -721,15 +720,12 @@ static DBusHandlerResult
 defer_message (DBusConnection *connection, DBusMessage *message, void *user_data)
 {
   BusDataClosure *closure = g_new (BusDataClosure, 1);
-  GList *new_list;
 
   closure->bus = dbus_connection_ref (bus);
   closure->message = dbus_message_ref (message);
   closure->data = user_data;
 
-  new_list = g_list_append (deferred_messages, closure);
-  if (new_list)
-    deferred_messages = new_list;
+  g_queue_push_tail (deferred_messages, closure);
 
   if (process_deferred_messages_id == -1)
     process_deferred_messages_id = g_idle_add (_atspi_process_deferred_messages, NULL);
@@ -864,6 +860,9 @@ atspi_init (void)
   no_cache = g_getenv ("ATSPI_NO_CACHE");
   if (no_cache && g_strcmp0 (no_cache, "0") != 0)
     atspi_no_cache = TRUE;
+
+  deferred_messages = g_queue_new ();
+
   return 0;
 }
 
