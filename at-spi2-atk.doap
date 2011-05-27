@@ -23,4 +23,11 @@
       <gnome:userid>mgorse</gnome:userid>
     </foaf:Person>
   </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Li Yuan</foaf:name>
+      <foaf:mbox rdf:resource="mailto:lee.yuan@oracle.com" />
+      <gnome:userid>liyuan</gnome:userid>
+    </foaf:Person>
+  </maintainer>
 </Project>
