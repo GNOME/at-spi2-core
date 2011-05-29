@@ -66,6 +66,8 @@ GType atspi_accessible_get_type (void);
 AtspiAccessible *
 atspi_accessible_new (AtspiApplication *app, const gchar *path);
 
+gchar * atspi_role_get_name (AtspiRole role);
+
 gchar * atspi_accessible_get_name (AtspiAccessible *obj, GError **error);
 
 gchar * atspi_accessible_get_description (AtspiAccessible *obj, GError **error);

@@ -178,6 +178,123 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
   object_class->finalize = atspi_accessible_finalize;
 }
 
+/* TODO: Generate following from spec? */
+static const char *role_names [] =
+{
+  "invalid",
+  "accel-label",
+  "alert",
+  "animation",
+  "arrow",
+  "calendar",
+  "canvas",
+  "check-box",
+  "check-menu-item",
+  "color-chooser",
+  "column-header",
+  "combo-box",
+  "date-editor",
+  "desktop-icon",
+  "desktop-frame",
+  "dial",
+  "dialog",
+  "directory-pane",
+  "drawing-area",
+  "file-chooser",
+  "filler",
+  "font-chooser",
+  "frame",
+  "glass-pane",
+  "html-container",
+  "icon",
+  "image",
+  "internalframe",
+  "label",
+  "layered-pane",
+  "list",
+  "list-item",
+  "menu",
+  "menu-bar",
+  "menu-item",
+  "option-pane",
+  "page-tab",
+  "page-tab-list",
+  "panel",
+  "password-text",
+  "popup-menu",
+  "progress-bar",
+  "push-button",
+  "radio-button",
+  "radio-menu-item",
+  "root-pane",
+  "row-header",
+  "scroll-bar",
+  "scroll-pane",
+  "separator",
+  "slider",
+  "spin-button",
+  "split-pane",
+  "statusbar",
+  "table",
+  "table-cell",
+  "table-column-header",
+  "table-row-header",
+  "tear-off-menu-item",
+  "terminal",
+  "text",
+  "toggle-button",
+  "tool-bar",
+  "tool-tip",
+  "tree",
+  "tree-table",
+  "unknown",
+  "viewport",
+  "window",
+  NULL,
+  "header",
+  "fooler",
+  "paragraph",
+  "ruler",
+  "application",
+  "autocomplete",
+  "editbar",
+  "embedded",
+  "entry",
+  "chart",
+  "caption",
+  "document_frame",
+  "heading",
+  "page",
+  "section",
+  "form",
+  "redundant object",
+  "link",
+  "input method window"
+};
+
+#define MAX_ROLES (sizeof (role_names) / sizeof (char *))
+
+/**
+ * atspi_role_get_name
+ * @role: an #AtspiAccessibleRole object to query.
+ *
+ * Get a localizeable string that indicates the name of an #AtspiAccessibleRole.
+ * <em>DEPRECATED.</em>
+ *
+ * Returns: a localizable string name for an #AtspiAccessibleRole enumerated type.
+ **/
+gchar *
+atspi_role_get_name (AtspiRole role)
+{
+  if (role < MAX_ROLES && role_names [(int) role])
+    {
+      return g_strdup (role_names [(int) role]);
+    }
+  else
+    {
+      return g_strdup ("");
+    }
+}
 
 /**
  * atspi_accessible_get_name:
