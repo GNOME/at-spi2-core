@@ -50,4 +50,6 @@
 #include "atspi-value.h"
 
 #include "atspi-gmain.h"
+
+#include "atspi-enum-types.h"
 #endif

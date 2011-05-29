@@ -178,123 +178,6 @@ atspi_accessible_class_init (AtspiAccessibleClass *klass)
   object_class->finalize = atspi_accessible_finalize;
 }
 
-/* TODO: Generate following from spec? */
-static const char *role_names [] =
-{
-  "invalid",
-  "accel-label",
-  "alert",
-  "animation",
-  "arrow",
-  "calendar",
-  "canvas",
-  "check-box",
-  "check-menu-item",
-  "color-chooser",
-  "column-header",
-  "combo-box",
-  "date-editor",
-  "desktop-icon",
-  "desktop-frame",
-  "dial",
-  "dialog",
-  "directory-pane",
-  "drawing-area",
-  "file-chooser",
-  "filler",
-  "font-chooser",
-  "frame",
-  "glass-pane",
-  "html-container",
-  "icon",
-  "image",
-  "internalframe",
-  "label",
-  "layered-pane",
-  "list",
-  "list-item",
-  "menu",
-  "menu-bar",
-  "menu-item",
-  "option-pane",
-  "page-tab",
-  "page-tab-list",
-  "panel",
-  "password-text",
-  "popup-menu",
-  "progress-bar",
-  "push-button",
-  "radio-button",
-  "radio-menu-item",
-  "root-pane",
-  "row-header",
-  "scroll-bar",
-  "scroll-pane",
-  "separator",
-  "slider",
-  "spin-button",
-  "split-pane",
-  "statusbar",
-  "table",
-  "table-cell",
-  "table-column-header",
-  "table-row-header",
-  "tear-off-menu-item",
-  "terminal",
-  "text",
-  "toggle-button",
-  "tool-bar",
-  "tool-tip",
-  "tree",
-  "tree-table",
-  "unknown",
-  "viewport",
-  "window",
-  NULL,
-  "header",
-  "fooler",
-  "paragraph",
-  "ruler",
-  "application",
-  "autocomplete",
-  "editbar",
-  "embedded",
-  "entry",
-  "chart",
-  "caption",
-  "document_frame",
-  "heading",
-  "page",
-  "section",
-  "form",
-  "redundant object",
-  "link",
-  "input method window"
-};
-
-#define MAX_ROLES (sizeof (role_names) / sizeof (char *))
-
-/**
- * atspi_role_get_name
- * @role: an #AtspiAccessibleRole object to query.
- *
- * Get a localizeable string that indicates the name of an #AtspiAccessibleRole.
- * <em>DEPRECATED.</em>
- *
- * Returns: a localizable string name for an #AtspiAccessibleRole enumerated type.
- **/
-gchar *
-atspi_role_get_name (AtspiRole role)
-{
-  if (role < MAX_ROLES && role_names [(int) role])
-    {
-      return g_strdup (role_names [(int) role]);
-    }
-  else
-    {
-      return g_strdup ("");
-    }
-}
 
 /**
  * atspi_accessible_get_name:
@@ -578,7 +461,24 @@ atspi_accessible_get_role (AtspiAccessible *obj, GError **error)
 gchar *
 atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
 {
+  AtspiRole role = atspi_accessible_get_role (obj, error);
   char *retval = NULL;
+  GTypeClass *type_class;
+  GEnumValue *value;
+  const gchar *name = NULL;
+
+  type_class = g_type_class_ref (ATSPI_TYPE_ROLE);
+  g_return_val_if_fail (G_IS_ENUM_CLASS (type_class), NULL);
+
+  value = g_enum_get_value (G_ENUM_CLASS (type_class), role);
+
+  if (value)
+    {
+      retval = value->value_nick;
+    }
+
+  if (retval)
+    return g_strdup (retval);
 
   g_return_val_if_fail (obj != NULL, NULL);
 
@@ -1415,7 +1315,7 @@ atspi_accessible_new (AtspiApplication *app, const gchar *path)
  *
  * @accessible: The #AtspiAccessible to operate on.  Must be the desktop or
  *             the root of an application.
- * @mask: (type int): An #AtspiCache specifying a bit mask of the types of data to cache.
+ * @mask: An #AtspiCache specifying a bit mask of the types of data to cache.
  *
  * Sets the type of data to cache for accessibles.
  * If this is not set for an application or is reset to ATSPI_CACHE_UNDEFINED,
