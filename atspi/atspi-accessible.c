@@ -1415,7 +1415,7 @@ atspi_accessible_new (AtspiApplication *app, const gchar *path)
  *
  * @accessible: The #AtspiAccessible to operate on.  Must be the desktop or
  *             the root of an application.
- * @mask: An #AtspiCache specifying a bit mask of the types of data to cache.
+ * @mask: (type int): An #AtspiCache specifying a bit mask of the types of data to cache.
  *
  * Sets the type of data to cache for accessibles.
  * If this is not set for an application or is reset to ATSPI_CACHE_UNDEFINED,
