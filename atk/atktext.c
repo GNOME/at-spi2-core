@@ -471,16 +471,16 @@ atk_text_get_text_at_offset (AtkText          *text,
  * offset is returned.
  *
  * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
- * is from the word start before the word start before the offset to 
- * the word start before the offset.
+ * is from the word start before the word start before or at the offset to 
+ * the word start before or at the offset.
  *
  * The returned string will contain the word before the offset if the offset
  * is inside a word and will contain the word before the word before the 
  * offset if the offset is not inside a word.
  *
  * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_END the returned string
- * is from the word end before the word end at or before the offset to the 
- * word end at or before the offset.
+ * is from the word end before the word end before the offset to the word
+ * end before the offset.
  *
  * The returned string will contain the word before the offset if the offset
  * is inside a word or if the offset is not inside a word.
