@@ -241,7 +241,8 @@ atk_text_base_init (AtkTextIface *class)
  *
  * Gets the specified text.
  *
- * Returns: the text from @start_offset up to, but not including @end_offset.
+ * Returns: a newly allocated string containing the text from @start_offset up
+ *   to, but not including @end_offset. Use g_free() to free the returned string.
  **/
 gchar*
 atk_text_get_text (AtkText      *text,
@@ -335,7 +336,8 @@ atk_text_get_character_at_offset (AtkText      *text,
  * If the boundary_type is ATK_TEXT_BOUNDARY_LINE_END the returned string
  * is from the line end at or after the offset to the next line end.
  *
- * Returns: the text after @offset bounded by the specified @boundary_type.
+ * Returns: a newly allocated string containing the text after @offset bounded
+ *   by the specified @boundary_type. Use g_free() to free the returned string.
  **/
 gchar*
 atk_text_get_text_after_offset (AtkText          *text,
@@ -424,7 +426,8 @@ atk_text_get_text_after_offset (AtkText          *text,
  * is from the line end before the offset to the line end at or after
  * the offset.
  *
- * Returns: the text at @offset bounded by the specified @boundary_type.
+ * Returns: a newly allocated string containing the text at @offset bounded by
+ *   the specified @boundary_type. Use g_free() to free the returned string.
  **/
 gchar*
 atk_text_get_text_at_offset (AtkText          *text,
@@ -508,7 +511,8 @@ atk_text_get_text_at_offset (AtkText          *text,
  * is from the line end before the line end before the offset to the 
  * line end before the offset.
  *
- * Returns: the text before @offset bounded by the specified @boundary_type.
+ * Returns: a newly allocated string containing the text before @offset bounded
+ *   by the specified @boundary_type. Use g_free() to free the returned string.
  **/
 gchar*
 atk_text_get_text_before_offset (AtkText          *text,
@@ -805,7 +809,8 @@ atk_text_get_n_selections (AtkText *text)
  *
  * Gets the text from the specified selection.
  *
- * Returns: the selected text.
+ * Returns: a newly allocated string containing the selected text. Use g_free()
+ *   to free the returned string.
  **/
 gchar*
 atk_text_get_selection (AtkText *text, 
