@@ -28,7 +28,7 @@ static gboolean
 test_relation (void)
 {
   AtkRelationType type1, type2;
-  G_CONST_RETURN gchar *name;
+  const gchar *name;
   AtkObject *obj;
   gboolean ret_value;
   AtkRelationSet *set;
@@ -169,7 +169,7 @@ static gboolean
 test_role (void)
 {
   AtkRole role1, role2;
-  G_CONST_RETURN gchar *name;
+  const gchar *name;
 
   name = atk_role_get_name (ATK_ROLE_PAGE_TAB);
   g_return_val_if_fail (name, FALSE);
@@ -230,7 +230,7 @@ static gboolean
 test_text_attr (void)
 {
   AtkTextAttribute attr1, attr2;
-  G_CONST_RETURN gchar *name;
+  const gchar *name;
 
   name = atk_text_attribute_get_name (ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP);
   g_return_val_if_fail (name, FALSE);

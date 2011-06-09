@@ -208,7 +208,7 @@ static gboolean
 test_state (void)
 {
   AtkStateType type1, type2;
-  G_CONST_RETURN gchar *name;
+  const gchar *name;
 
   name = atk_state_type_get_name (ATK_STATE_VISIBLE);
   g_return_val_if_fail (name, FALSE);
