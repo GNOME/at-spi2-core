@@ -130,7 +130,7 @@ atk_relation_type_register (const gchar *name)
  *
  * Returns: the string describing the AtkRelationType
  */
-G_CONST_RETURN gchar*
+const gchar*
 atk_relation_type_get_name (AtkRelationType type)
 {
   GTypeClass *type_class;

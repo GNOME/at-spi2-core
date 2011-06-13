@@ -73,7 +73,7 @@ atk_streamable_content_get_n_mime_types (AtkStreamableContent *streamable)
  * Returns : a gchar* representing the specified mime type; the caller
  * should not free the character string.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_streamable_content_get_mime_type (AtkStreamableContent *streamable,
                                       gint                 i)
 {

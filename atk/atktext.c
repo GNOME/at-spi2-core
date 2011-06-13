@@ -1092,7 +1092,7 @@ atk_text_attribute_register (const gchar *name)
  *
  * Returns: a string containing the name; this string should not be freed
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_text_attribute_get_name (AtkTextAttribute attr)
 {
   GTypeClass *type_class;
@@ -1188,7 +1188,7 @@ atk_text_attribute_for_name (const gchar *name)
  * Returns: a string containing the value; this string should not be freed;
  * NULL is returned if there are no values maintained for the attr value. 
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_text_attribute_get_value (AtkTextAttribute attr,
                               gint             index)
 {

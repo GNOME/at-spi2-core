@@ -101,7 +101,7 @@ atk_action_get_n_actions  (AtkAction *obj)
  * Returns a description string, or %NULL
  * if @action does not implement this interface.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_action_get_description (AtkAction *obj,
                             gint      i)
 {
@@ -140,7 +140,7 @@ atk_action_get_description (AtkAction *obj,
  * Returns a name string, or %NULL
  * if @action does not implement this interface.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_action_get_name (AtkAction *obj,
                      gint      i)
 {
@@ -166,7 +166,7 @@ atk_action_get_name (AtkAction *obj,
  * Returns a name string, or %NULL
  * if @action does not implement this interface.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_action_get_localized_name (AtkAction *obj,
                                gint      i)
 {
@@ -203,7 +203,7 @@ atk_action_get_localized_name (AtkAction *obj,
  * if there is no keybinding for this action.
  *
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_action_get_keybinding (AtkAction *obj,
                            gint      i)
 {

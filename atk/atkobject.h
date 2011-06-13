@@ -381,11 +381,11 @@ struct _AtkObjectClass
   /*
    * Gets the accessible name of the object
    */
-  G_CONST_RETURN gchar*    (* get_name)            (AtkObject                *accessible);
+  const gchar*             (* get_name)            (AtkObject                *accessible);
   /*
    * Gets the accessible description of the object
    */
-  G_CONST_RETURN gchar*    (* get_description)     (AtkObject                *accessible);
+  const gchar*             (* get_description)     (AtkObject                *accessible);
   /*
    * Gets the accessible parent of the object
    */
@@ -535,8 +535,8 @@ AtkObject*              atk_implementor_ref_accessible            (AtkImplemento
  * Properties directly supported by AtkObject
  */
 
-G_CONST_RETURN gchar*   atk_object_get_name                       (AtkObject *accessible);
-G_CONST_RETURN gchar*   atk_object_get_description                (AtkObject *accessible);
+const gchar*            atk_object_get_name                       (AtkObject *accessible);
+const gchar*            atk_object_get_description                (AtkObject *accessible);
 AtkObject*              atk_object_get_parent                     (AtkObject *accessible);
 gint                    atk_object_get_n_accessible_children      (AtkObject *accessible);
 AtkObject*              atk_object_ref_accessible_child           (AtkObject *accessible,
@@ -571,7 +571,7 @@ void                 atk_object_notify_state_change              (AtkObject     
 void                 atk_object_initialize                       (AtkObject                     *accessible,
                                                                   gpointer                      data);
                                     
-G_CONST_RETURN gchar* atk_role_get_name      (AtkRole         role);
+const gchar*          atk_role_get_name      (AtkRole         role);
 AtkRole               atk_role_for_name      (const gchar     *name);
 
 
@@ -582,7 +582,7 @@ gboolean              atk_object_add_relationship              (AtkObject      *
 gboolean              atk_object_remove_relationship           (AtkObject      *object,
 								AtkRelationType relationship,
 								AtkObject      *target);
-G_CONST_RETURN gchar* atk_role_get_localized_name              (AtkRole     role);
+const gchar*          atk_role_get_localized_name              (AtkRole     role);
 
 /* */
 

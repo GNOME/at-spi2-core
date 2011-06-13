@@ -285,10 +285,8 @@ static void            atk_object_real_get_property (GObject         *object,
                                                      GValue          *value,
                                                      GParamSpec      *pspec);
 static void            atk_object_finalize          (GObject         *object);
-static G_CONST_RETURN gchar*
-                       atk_object_real_get_name     (AtkObject       *object);
-static G_CONST_RETURN gchar*
-                       atk_object_real_get_description    
+static const gchar*    atk_object_real_get_name     (AtkObject       *object);
+static const gchar*    atk_object_real_get_description
                                                    (AtkObject       *object);
 static AtkObject*      atk_object_real_get_parent  (AtkObject       *object);
 static AtkRole         atk_object_real_get_role    (AtkObject       *object);
@@ -692,7 +690,7 @@ atk_implementor_get_type (void)
  *
  * Returns: a character string representing the accessible name of the object.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_object_get_name (AtkObject *accessible)
 {
   AtkObjectClass *klass;
@@ -716,7 +714,7 @@ atk_object_get_name (AtkObject *accessible)
  * of the accessible.
  *
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_object_get_description (AtkObject *accessible)
 {
   AtkObjectClass *klass;
@@ -1125,7 +1123,7 @@ atk_object_notify_state_change (AtkObject *accessible,
                                 AtkState  state,
                                 gboolean  value)
 {
-  G_CONST_RETURN gchar* name;
+  const gchar* name;
 
   g_return_if_fail (ATK_IS_OBJECT (accessible));
 
@@ -1323,13 +1321,13 @@ atk_object_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-static G_CONST_RETURN gchar*
+static const gchar*
 atk_object_real_get_name (AtkObject *object)
 {
   return object->name;
 }
 
-static G_CONST_RETURN gchar*
+static const gchar*
 atk_object_real_get_description (AtkObject *object)
 {
   return object->description;
@@ -1491,7 +1489,7 @@ atk_object_notify (GObject     *obj,
  *
  * Returns: the string describing the AtkRole
  */
-G_CONST_RETURN gchar*
+const gchar*
 atk_role_get_name (AtkRole role)
 {
   if (role >= 0 && role < ATK_ROLE_LAST_DEFINED)
@@ -1518,7 +1516,7 @@ atk_role_get_name (AtkRole role)
  *
  * Returns: the localized string describing the AtkRole
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_role_get_localized_name (AtkRole role)
 {
   gettext_initialization ();

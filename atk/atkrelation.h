@@ -61,7 +61,7 @@ struct _AtkRelationClass
 GType atk_relation_get_type (void);
 
 AtkRelationType       atk_relation_type_register      (const gchar     *name);
-G_CONST_RETURN gchar* atk_relation_type_get_name      (AtkRelationType type);
+const gchar*          atk_relation_type_get_name      (AtkRelationType type);
 AtkRelationType       atk_relation_type_for_name      (const gchar     *name);
 
 /*

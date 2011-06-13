@@ -57,7 +57,7 @@ atk_state_type_register (const gchar *name)
  *
  * Returns: the string describing the AtkStateType
  */
-G_CONST_RETURN gchar*
+const gchar*
 atk_state_type_get_name (AtkStateType type)
 {
   GTypeClass *type_class;

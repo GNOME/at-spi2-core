@@ -342,7 +342,7 @@ atk_get_focus_object (void)
  *
  * Returns: name string for the GUI toolkit implementing ATK for this application
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_get_toolkit_name (void)
 {
   const gchar *retval;
@@ -367,7 +367,7 @@ atk_get_toolkit_name (void)
  *
  * Returns: version string for the GUI toolkit implementing ATK for this application
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_get_toolkit_version (void)
 {
   const gchar *retval;
@@ -394,7 +394,7 @@ atk_get_toolkit_version (void)
  *
  * Since: 1.20
  */
-G_CONST_RETURN gchar *
+const gchar *
 atk_get_version (void)
 {
   return VERSION;

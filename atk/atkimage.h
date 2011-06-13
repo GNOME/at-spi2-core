@@ -53,13 +53,13 @@ struct _AtkImageIface
                                                    gint                  *x,
 				                   gint	                 *y,
     			                           AtkCoordType	         coord_type);
-  G_CONST_RETURN gchar* ( *get_image_description) (AtkImage              *image);
+  const gchar*          ( *get_image_description) (AtkImage              *image);
   void                  ( *get_image_size)        (AtkImage              *image,
                                                    gint                  *width,
                                                    gint                  *height);
   gboolean              ( *set_image_description) (AtkImage              *image,
                                                    const gchar           *description);
-  G_CONST_RETURN gchar* ( *get_image_locale)      (AtkImage              *image);
+  const gchar*          ( *get_image_locale)      (AtkImage              *image);
 
   AtkFunction           pad1;
 	
@@ -67,7 +67,7 @@ struct _AtkImageIface
 
 GType  atk_image_get_type             (void);
 
-G_CONST_RETURN gchar* atk_image_get_image_description (AtkImage   *image);
+const gchar* atk_image_get_image_description (AtkImage   *image);
 
 void     atk_image_get_image_size        (AtkImage           *image,
                                           gint               *width,
@@ -80,7 +80,7 @@ void     atk_image_get_image_position    (AtkImage	     *image,
 					  gint	             *y,
     					  AtkCoordType	     coord_type);
 
-G_CONST_RETURN gchar* atk_image_get_image_locale (AtkImage   *image);
+const gchar* atk_image_get_image_locale (AtkImage   *image);
 
 G_END_DECLS
 

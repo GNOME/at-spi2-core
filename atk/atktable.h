@@ -69,13 +69,11 @@ struct _AtkTableIface
                                                   gint          column);
   AtkObject*
                     (* get_caption)              (AtkTable      *table);
-  G_CONST_RETURN gchar*
-                    (* get_column_description)   (AtkTable      *table,
+  const gchar*      (* get_column_description)   (AtkTable      *table,
                                                   gint          column);
   AtkObject*        (* get_column_header)        (AtkTable      *table,
 						  gint		column);
-  G_CONST_RETURN gchar*
-                    (* get_row_description)      (AtkTable      *table,
+  const gchar*      (* get_row_description)      (AtkTable      *table,
                                                   gint          row);
   AtkObject*        (* get_row_header)           (AtkTable      *table,
 						  gint		row);
@@ -163,13 +161,12 @@ gint              atk_table_get_row_extent_at    (AtkTable         *table,
                                                   gint             column);
 AtkObject*
                   atk_table_get_caption          (AtkTable         *table);
-G_CONST_RETURN gchar*
-                  atk_table_get_column_description (AtkTable         *table,
+const gchar*      atk_table_get_column_description
+                                                 (AtkTable         *table,
                                                   gint             column);
 AtkObject*        atk_table_get_column_header    (AtkTable         *table,
 						  gint		   column);
-G_CONST_RETURN gchar*
-                  atk_table_get_row_description  (AtkTable         *table,
+const gchar*      atk_table_get_row_description  (AtkTable         *table,
                                                   gint             row);
 AtkObject*        atk_table_get_row_header       (AtkTable         *table,
 						  gint		   row);

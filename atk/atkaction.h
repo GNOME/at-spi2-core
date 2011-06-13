@@ -55,16 +55,16 @@ struct _AtkActionIface
   gboolean                (*do_action)         (AtkAction         *action,
                                                 gint              i);
   gint                    (*get_n_actions)     (AtkAction         *action);
-  G_CONST_RETURN gchar*   (*get_description)   (AtkAction         *action,
+  const gchar*            (*get_description)   (AtkAction         *action,
                                                 gint              i);
-  G_CONST_RETURN gchar*   (*get_name)          (AtkAction         *action,
+  const gchar*            (*get_name)          (AtkAction         *action,
                                                 gint              i);
-  G_CONST_RETURN gchar*   (*get_keybinding)    (AtkAction         *action,
+  const gchar*            (*get_keybinding)    (AtkAction         *action,
                                                 gint              i);
   gboolean                (*set_description)   (AtkAction         *action,
                                                 gint              i,
                                                 const gchar       *desc);
-  G_CONST_RETURN gchar*   (*get_localized_name)(AtkAction         *action,
+  const gchar*            (*get_localized_name)(AtkAction         *action,
 						gint              i);
   AtkFunction             pad2;
 };
@@ -85,11 +85,11 @@ GType atk_action_get_type (void);
 gboolean   atk_action_do_action                (AtkAction         *action,
                                             gint              i);
 gint   atk_action_get_n_actions            (AtkAction *action);
-G_CONST_RETURN gchar* atk_action_get_description  (AtkAction         *action,
+const gchar*          atk_action_get_description  (AtkAction         *action,
                                                    gint              i);
-G_CONST_RETURN gchar* atk_action_get_name         (AtkAction         *action,
+const gchar*          atk_action_get_name         (AtkAction         *action,
                                                    gint              i);
-G_CONST_RETURN gchar* atk_action_get_keybinding   (AtkAction         *action,
+const gchar*          atk_action_get_keybinding   (AtkAction         *action,
                                                    gint              i);
 gboolean              atk_action_set_description  (AtkAction         *action,
                                                    gint              i,
@@ -97,7 +97,7 @@ gboolean              atk_action_set_description  (AtkAction         *action,
 
 /* NEW in ATK 1.1: */
 
-G_CONST_RETURN gchar* atk_action_get_localized_name (AtkAction       *action,
+const gchar* atk_action_get_localized_name (AtkAction       *action,
 						     gint            i);
 
 /*

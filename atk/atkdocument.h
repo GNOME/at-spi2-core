@@ -49,12 +49,12 @@ typedef struct _AtkDocumentIface AtkDocumentIface;
 struct _AtkDocumentIface
 {
   GTypeInterface parent;
-  G_CONST_RETURN gchar* ( *get_document_type) (AtkDocument              *document);
+  const gchar*          ( *get_document_type) (AtkDocument              *document);
   gpointer              ( *get_document)      (AtkDocument              *document);
 
-  G_CONST_RETURN gchar* ( *get_document_locale) (AtkDocument              *document);
+  const gchar*          ( *get_document_locale) (AtkDocument              *document);
   AtkAttributeSet *     ( *get_document_attributes) (AtkDocument        *document);
-  G_CONST_RETURN gchar* ( *get_document_attribute_value) (AtkDocument   *document,
+  const gchar*          ( *get_document_attribute_value) (AtkDocument   *document,
                                                           const gchar   *attribute_name);
   gboolean              ( *set_document_attribute) (AtkDocument         *document,
                                                     const gchar         *attribute_name,
@@ -68,11 +68,11 @@ struct _AtkDocumentIface
 
 GType  atk_document_get_type             (void);
 
-G_CONST_RETURN gchar* atk_document_get_document_type (AtkDocument   *document);
+const gchar*          atk_document_get_document_type (AtkDocument   *document);
 gpointer atk_document_get_document (AtkDocument   *document);
-G_CONST_RETURN gchar* atk_document_get_locale (AtkDocument *document);
+const gchar*          atk_document_get_locale (AtkDocument *document);
 AtkAttributeSet*      atk_document_get_attributes (AtkDocument *document);
-G_CONST_RETURN gchar* atk_document_get_attribute_value (AtkDocument *document, 
+const gchar*          atk_document_get_attribute_value (AtkDocument *document,
                                                         const gchar *attribute_name);
 gboolean              atk_document_set_attribute_value (AtkDocument *document,
                                                         const gchar *attribute_name,

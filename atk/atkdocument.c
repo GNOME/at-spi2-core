@@ -93,7 +93,7 @@ atk_document_base_init (AtkDocumentIface *class)
  *
  * Returns: a string indicating the document type
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_document_get_document_type (AtkDocument *document)
 {
   AtkDocumentIface *iface;
@@ -155,7 +155,7 @@ atk_document_get_document (AtkDocument *document)
  *          locale of the document content as a whole, or NULL if
  *          the document content does not specify a locale.
  **/
-G_CONST_RETURN gchar *
+const gchar *
 atk_document_get_locale (AtkDocument *document)
 {
   AtkDocumentIface *iface;
@@ -219,7 +219,7 @@ atk_document_get_attributes (AtkDocument *document)
  *    document, or NULL if a value for #attribute_name has not been specified
  *    for this document.
  */
-G_CONST_RETURN gchar *
+const gchar *
 atk_document_get_attribute_value (AtkDocument *document, 
 				  const gchar *attribute_name)
 {

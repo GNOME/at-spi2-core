@@ -147,8 +147,8 @@ struct _AtkUtilClass
 						  gpointer data);
    void         (* remove_key_event_listener)    (guint               listener_id);
    AtkObject*   (* get_root)                     (void);
-   G_CONST_RETURN gchar* (* get_toolkit_name)    (void);
-   G_CONST_RETURN gchar* (* get_toolkit_version) (void);
+   const gchar* (* get_toolkit_name)             (void);
+   const gchar* (* get_toolkit_version)          (void);
 };
 GType atk_util_get_type (void);
 
@@ -229,17 +229,17 @@ AtkObject* atk_get_focus_object (void);
 /*
  * Returns name string for the GUI toolkit.
  */
-G_CONST_RETURN gchar *atk_get_toolkit_name (void);
+const gchar *atk_get_toolkit_name (void);
 
 /*
  * Returns version string for the GUI toolkit.
  */
-G_CONST_RETURN gchar *atk_get_toolkit_version (void);
+const gchar *atk_get_toolkit_version (void);
 
 /*
  * Gets the current version of ATK
  */
-G_CONST_RETURN gchar *atk_get_version (void);
+const gchar *atk_get_version (void);
 
 /* --- GType boilerplate --- */
 /* convenience macros for atk type implementations, which for a type GtkGadgetAccessible will:

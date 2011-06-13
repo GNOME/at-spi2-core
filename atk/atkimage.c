@@ -46,7 +46,7 @@ atk_image_get_type (void)
  *
  * Returns: a string representing the image description
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_image_get_image_description (AtkImage *image)
 {
   AtkImageIface *iface;
@@ -192,7 +192,7 @@ atk_image_get_image_position (AtkImage *image,
  * Returns a string corresponding to the POSIX LC_MESSAGES locale used by the image description, or NULL if the image does not specify a locale. 
  *
  */
-G_CONST_RETURN gchar* 
+const gchar*
 atk_image_get_image_locale (AtkImage   *image)
 {
 	

@@ -301,7 +301,7 @@ atk_table_get_n_columns (AtkTable *table)
  * Returns: a gchar* representing the column description, or %NULL
  * if value does not implement this interface.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_table_get_column_description (AtkTable *table,
                                   gint     column)
 {
@@ -405,7 +405,7 @@ atk_table_get_n_rows (AtkTable *table)
  * Returns: a gchar* representing the row description, or %NULL
  * if value does not implement this interface.
  **/
-G_CONST_RETURN gchar*
+const gchar*
 atk_table_get_row_description (AtkTable *table,
                                gint      row)
 {

@@ -54,11 +54,11 @@ struct _AtkStreamableContentIface
    * at index 0 should be considered the "default" data type for the stream.
    *
    * This assumes that the strings for the mime types are stored in the
-   * AtkStreamableContent. Alternatively the G_CONST_RETURN could be removed
+   * AtkStreamableContent. Alternatively the const could be removed
    * and the caller would be responsible for calling g_free() on the
    * returned value.
    */
-  G_CONST_RETURN gchar*     (* get_mime_type)     (AtkStreamableContent     *streamable,
+  const gchar*              (* get_mime_type)     (AtkStreamableContent     *streamable,
                                                    gint                     i);
   /*
    * One possible implementation for this method is that it constructs the
@@ -80,7 +80,7 @@ struct _AtkStreamableContentIface
  * constructed.  Note that it is possible for get_uri to return NULL but for
  * get_stream to work nonetheless, since not all GIOChannels connect to URIs.
  */
-    G_CONST_RETURN  gchar*  (* get_uri)           (AtkStreamableContent     *streamable,
+    const  gchar*           (* get_uri)           (AtkStreamableContent     *streamable,
                                                    const gchar              *mime_type);
 
 
@@ -92,12 +92,12 @@ GType                  atk_streamable_content_get_type (void);
 
 gint                   atk_streamable_content_get_n_mime_types (AtkStreamableContent     *streamable);
                                                        
-G_CONST_RETURN gchar*  atk_streamable_content_get_mime_type    (AtkStreamableContent     *streamable,
+const gchar*           atk_streamable_content_get_mime_type    (AtkStreamableContent     *streamable,
                                                                 gint                     i);
 GIOChannel*             atk_streamable_content_get_stream       (AtkStreamableContent     *streamable,
                                                                  const gchar              *mime_type);
 
-G_CONST_RETURN gchar*  atk_streamable_content_get_uri          (AtkStreamableContent     *streamable,
+const gchar*           atk_streamable_content_get_uri          (AtkStreamableContent     *streamable,
                                                                 const gchar              *mime_type);
 
 G_END_DECLS

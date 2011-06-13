@@ -170,7 +170,7 @@ typedef guint64      AtkState;
 
 AtkStateType atk_state_type_register            (const gchar *name);
 
-G_CONST_RETURN gchar* atk_state_type_get_name   (AtkStateType type);
+const gchar*          atk_state_type_get_name   (AtkStateType type);
 AtkStateType          atk_state_type_for_name   (const gchar  *name);
 
 G_END_DECLS
