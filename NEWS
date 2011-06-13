@@ -1,3 +1,15 @@
+Changes in version 2.0.1:
+=========================
+*
+* Bug 652205: Use const instead G_CONST_RETURN
+* Bug 649307: Clarify AtkPlug and AtkSocket docs
+* Bug 551489: Fix doc of atk_text_get_text_before_offset
+* Bug 588083: Information about return value of some AtkText methods can be clearer
+* Added Alejandro Piñeiro Iglesias as maintainer
+* Updated .gitignore
+* VS 2008/2010 support update
+* New Zulu translation added, Esperanto and Catalan updated
+
 Changes in version 2.0.0:
 =========================
 *
