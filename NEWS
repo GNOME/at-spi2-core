@@ -1,3 +1,32 @@
+What's new in at-spi2-core 2.1.2:
+
+* Fix atspi_table_get_caption|summary.
+
+* Fix introspection for atspi_table_get_row_column_at_index.
+
+* Copy match rule attributes, rather than just ref counting the hash, for
+  compatibility with pygi.
+
+* Rework atspi_accessible_set_cache_mask to make it usable.
+
+* Fix a crash that might happen if a method call times out.
+
+* Disable caching if atspi_event_main has not been called to run the main loop.
+
+* Fix atspi_accessible_get_toolkit_version.
+
+* Add atspi_accessible_get_atspi_version to fetch the version of the AT-SPI
+  specification provided by an application.
+
+* Cache application-wide toolkit name and version.
+
+* Allow caching of attributes, but not enabling by default, as there is no
+  event yet (BGO#649771).
+
+* Make deferred_messages a GQueue rather than a GList for performance reasons.
+
+* Fix accessibility bus breakage when a user runs an administrative app.
+
 What's new in at-spi2-core 2.1.1:
 
 * Fixed a seg fault in at-spi-bus-launcher when ending a session (BGO#648942).
