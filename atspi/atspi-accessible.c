@@ -202,6 +202,7 @@ static const char *role_names [] =
   "drawing-area",
   "file-chooser",
   "filler",
+  "focus traversable",
   "font-chooser",
   "frame",
   "glass-pane",
@@ -252,7 +253,7 @@ static const char *role_names [] =
   "window",
   NULL,
   "header",
-  "fooler",
+  "footer",
   "paragraph",
   "ruler",
   "application",
@@ -266,8 +267,8 @@ static const char *role_names [] =
   "heading",
   "page",
   "section",
-  "form",
   "redundant object",
+  "form",
   "link",
   "input method window"
 };
@@ -579,8 +580,13 @@ gchar *
 atspi_accessible_get_role_name (AtspiAccessible *obj, GError **error)
 {
   char *retval = NULL;
+  AtspiRole role;
 
   g_return_val_if_fail (obj != NULL, NULL);
+
+  role = atspi_accessible_get_role (obj, error);
+  if (role >= 0 && role < MAX_ROLES && role != ATSPI_ROLE_EXTENDED)
+    return g_strdup (role_names [role]);
 
   _atspi_dbus_call (obj, atspi_interface_accessible, "GetRoleName", error, "=>s", &retval);
 
