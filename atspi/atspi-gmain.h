@@ -21,8 +21,6 @@
  * and unnecessary code removed.
  */
 
-#include <config.h>
-
 #ifndef _ATSPI_GMAIN_H
 #define _ATSPI_GMAIN_H
 
