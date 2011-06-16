@@ -199,8 +199,8 @@ impl_GetColumnAtIndex (DBusConnection * bus, DBusMessage * message,
   return reply;
 }
 
-static gchar *
-validate_unallocated_string (gchar *str)
+static const gchar *
+validate_unallocated_string (const gchar *str)
 {
   if (!str)
     return "";
