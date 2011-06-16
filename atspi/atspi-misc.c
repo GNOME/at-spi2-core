@@ -323,12 +323,9 @@ add_app_to_desktop (AtspiAccessible *a, const char *bus_name)
   AtspiAccessible *obj = ref_accessible (bus_name, atspi_path_root);
   if (obj)
   {
-    GList *new_list = g_list_append (a->children, obj);
-    if (new_list)
-    {
-      a->children = new_list;
-      return TRUE;
-    }
+    g_ptr_array_remove (a->children, obj);
+    g_ptr_array_add (a->children, obj);
+    return TRUE;
   }
   else
   {
@@ -345,41 +342,42 @@ send_children_changed (AtspiAccessible *parent, AtspiAccessible *child, gboolean
   memset (&e, 0, sizeof (e));
   e.type = (add? "object:children-changed:add": "object:children-changed:remove");
   e.source = parent;
-  e.detail1 = g_list_index (parent->children, child);
+  e.detail1 = atspi_accessible_get_index_in_parent (child, NULL);
   e.detail2 = 0;
   _atspi_send_event (&e);
 }
 
 static void
-unref_object_and_descendants (AtspiAccessible *obj)
+dispose_object_and_descendants (AtspiAccessible *obj)
 {
-  GList *l;
+  gint i;
 
-  for (l = obj->children; l; l = l->next)
+  for (i = 0; i < obj->children->len; i++)
   {
-    unref_object_and_descendants (l->data);
+    AtspiAccessible *child = g_ptr_array_index (obj->children, i);
+    if (child)
+      dispose_object_and_descendants (child);
   }
-  g_object_unref (obj);
+  g_object_run_dispose (G_OBJECT (obj));
 }
 
 static gboolean
 remove_app_from_desktop (AtspiAccessible *a, const char *bus_name)
 {
-  GList *l;
+  gint i;
   AtspiAccessible *child;
 
-  for (l = a->children; l; l = l->next)
+  for (i = 0; i < a->children->len; i++)
   {
-    child = l->data;
-    if (!strcmp (bus_name, child->parent.app->bus_name)) break;
+    child = g_ptr_array_index (a->children, i);
+    if (child && !strcmp (bus_name, child->parent.app->bus_name))
+      break;
   }
-  if (!l)
-  {
+  if (i == a->children->len)
     return FALSE;
-  }
   send_children_changed (a, child, FALSE);
-  a->children = g_list_remove (a->children, child);
-  unref_object_and_descendants (child);
+  dispose_object_and_descendants (child);
+  g_ptr_array_remove (a->children, child);
   return TRUE;
 }
 
@@ -400,12 +398,13 @@ get_reference_from_iter (DBusMessageIter *iter, const char **app_name, const cha
 static void
 add_accessible_from_iter (DBusMessageIter *iter)
 {
-  GList *new_list;
+  dbus_int32_t index, count;
   DBusMessageIter iter_struct, iter_array;
   const char *app_name, *path;
   AtspiAccessible *accessible;
   const char *name, *description;
   dbus_uint32_t role;
+  gboolean children_cached = FALSE;
 
   dbus_message_iter_recurse (iter, &iter_struct);
 
@@ -424,20 +423,40 @@ add_accessible_from_iter (DBusMessageIter *iter)
     g_object_unref (accessible->accessible_parent);
   accessible->accessible_parent = ref_accessible (app_name, path);
 
-  /* Get children */
-  while (accessible->children)
+  if (dbus_message_iter_get_arg_type (&iter_struct) == 'i')
   {
-    g_object_unref (accessible->children->data);
-    accessible->children = g_list_remove (accessible->children, accessible->children->data);
+    /* Get index in parent */
+    dbus_message_iter_get_basic (&iter_struct, &index);
+    if (index >= 0 && accessible->accessible_parent)
+    {
+      if (index >= accessible->accessible_parent->children->len)
+        g_ptr_array_set_size (accessible->accessible_parent->children, index + 1);
+      g_ptr_array_index (accessible->accessible_parent->children, index) = g_object_ref (accessible);      
+    }
+
+    /* get child count */
+    dbus_message_iter_next (&iter_struct);
+    dbus_message_iter_get_basic (&iter_struct, &count);
+    if (count >= 0)
+    {
+      g_ptr_array_set_size (accessible->children, count);
+      children_cached = TRUE;
+    }
   }
-  dbus_message_iter_recurse (&iter_struct, &iter_array);
-  while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+  else if (dbus_message_iter_get_arg_type (&iter_struct) == 'a')
   {
-    AtspiAccessible *child;
-    get_reference_from_iter (&iter_array, &app_name, &path);
-    child = ref_accessible (app_name, path);
-    new_list = g_list_append (accessible->children, child);
-    if (new_list) accessible->children = new_list;
+    /* It's the old API with a list of children */
+    /* TODO: Perhaps remove this code eventually */
+    dbus_message_iter_recurse (&iter_struct, &iter_array);
+    while (dbus_message_iter_get_arg_type (&iter_array) != DBUS_TYPE_INVALID)
+    {
+      AtspiAccessible *child;
+      get_reference_from_iter (&iter_array, &app_name, &path);
+      child = ref_accessible (app_name, path);
+      g_ptr_array_remove (accessible->children, child);
+      g_ptr_array_add (accessible->children, child);
+    }
+    children_cached = TRUE;
   }
 
   /* interfaces */
@@ -446,8 +465,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (&iter_struct);
 
   /* name */
-  if (accessible->name)
-    g_free (accessible->name);
+  g_free (accessible->name);
   dbus_message_iter_get_basic (&iter_struct, &name);
   accessible->name = g_strdup (name);
   dbus_message_iter_next (&iter_struct);
@@ -458,8 +476,7 @@ add_accessible_from_iter (DBusMessageIter *iter)
   dbus_message_iter_next (&iter_struct);
 
   /* description */
-  if (accessible->description)
-    g_free (accessible->description);
+  g_free (accessible->description);
   dbus_message_iter_get_basic (&iter_struct, &description);
   accessible->description = g_strdup (description);
   dbus_message_iter_next (&iter_struct);
@@ -470,7 +487,8 @@ add_accessible_from_iter (DBusMessageIter *iter)
   _atspi_accessible_add_cache (accessible, ATSPI_CACHE_NAME | ATSPI_CACHE_ROLE |
                                ATSPI_CACHE_PARENT | ATSPI_CACHE_DESCRIPTION);
   if (!atspi_state_set_contains (accessible->states,
-                                       ATSPI_STATE_MANAGES_DESCENDANTS))
+                                       ATSPI_STATE_MANAGES_DESCENDANTS) &&
+      children_cached)
     _atspi_accessible_add_cache (accessible, ATSPI_CACHE_CHILDREN);
 
   /* This is a bit of a hack since the cache holds a ref, so we don't need
@@ -636,15 +654,18 @@ _atspi_dbus_return_hyperlink_from_iter (DBusMessageIter *iter)
   return ref_hyperlink (app_name, path);
 }
 
-const char *cache_signal_type = "((so)(so)(so)a(so)assusau)";
+const char *cache_signal_type = "((so)(so)(so)iiassusau)";
+const char *old_cache_signal_type = "((so)(so)(so)a(so)assusau)";
 
 static DBusHandlerResult
 handle_add_accessible (DBusConnection *bus, DBusMessage *message, void *user_data)
 {
   DBusMessageIter iter;
   const char *sender = dbus_message_get_sender (message);
+  const char *signature = dbus_message_get_signature (message);
 
-  if (strcmp (dbus_message_get_signature (message), cache_signal_type) != 0)
+  if (strcmp (signature, cache_signal_type) != 0 &&
+      strcmp (signature, old_cache_signal_type) != 0)
   {
     g_warning ("AT-SPI: AddAccessible with unknown signature %s\n",
                dbus_message_get_signature (message));

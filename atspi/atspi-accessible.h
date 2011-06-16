@@ -45,7 +45,7 @@ struct _AtspiAccessible
 {
   AtspiObject parent;
   AtspiAccessible *accessible_parent;
-  GList *children;
+  GPtrArray *children;
   AtspiRole role;
   gint interfaces;
   char *name;
@@ -132,7 +132,7 @@ GArray * atspi_accessible_get_interfaces (AtspiAccessible *obj);
 
 void atspi_accessible_set_cache_mask (AtspiAccessible *accessible, AtspiCache mask);
 
-void atspi_accessible_clear_cache (AtspiAccessible *accessible);
+void atspi_accessible_clear_cache (AtspiAccessible *obj);
 
 /* private */
 void _atspi_accessible_add_cache (AtspiAccessible *accessible, AtspiCache flag);

@@ -176,18 +176,24 @@ cache_process_children_changed (AtspiEvent *event)
 
   if (!strncmp (event->type, "object:children-changed:add", 27))
   {
-    if (g_list_find (event->source->children, child))
+    g_ptr_array_remove (event->source->children, child); /* just to be safe */
+    if (event->detail1 < 0 || event->detail1 > event->source->children->len)
+    {
+      event->source->cached_properties &= ~ATSPI_CACHE_CHILDREN;
       return;
-    GList *new_list = g_list_insert (event->source->children, g_object_ref (child), event->detail1);
-    if (new_list)
-      event->source->children = new_list;
+    }
+    /* there's no g_ptr_array_insert or similar :( */
+    g_ptr_array_add (event->source->children, NULL);
+    memmove (event->source->children->pdata + event->detail1 + 1,
+             event->source->children->pdata + event->detail1,
+             (event->source->children->len - event->detail1 - 1) * sizeof (gpointer));
+    g_ptr_array_index (event->source->children, event->detail1) = g_object_ref (child);
   }
-  else if (g_list_find (event->source->children, child))
+  else
   {
-    event->source->children = g_list_remove (event->source->children, child);
+    g_ptr_array_remove (event->source->children, child);
     if (child == child->parent.app->root)
       g_object_run_dispose (G_OBJECT (child->parent.app));
-    g_object_unref (child);
   }
 }
 
