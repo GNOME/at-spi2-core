@@ -56,8 +56,6 @@
 
 SpiBridge *spi_global_app_data = NULL;
 
-static const AtkMisc *atk_misc = NULL;
-
 /*static Display *bridge_display = NULL;*/
 
 /*---------------------------------------------------------------------------*/
@@ -679,7 +677,6 @@ adaptor_init (gint * argc, gchar ** argv[])
 
   /* Allocate global data and do ATK initializations */
   spi_global_app_data = g_new0 (SpiBridge, 1);
-  atk_misc = atk_misc_get_instance ();
   spi_global_app_data->root = g_object_ref (root);
 
   /* Set up D-Bus connection and register bus name */
