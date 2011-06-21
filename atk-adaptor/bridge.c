@@ -117,6 +117,7 @@ add_event (const char *bus_name, const char *event)
   gchar **data;
   GList *new_list;
 
+  spi_atk_add_client (bus_name);
   evdata = (event_data *) g_malloc (sizeof (*evdata));
   if (!evdata)
     return;
@@ -133,6 +134,8 @@ add_event (const char *bus_name, const char *event)
     spi_global_app_data->events = new_list;
 }
 
+static GSList *clients = NULL;
+
 static void
 get_registered_event_listeners (SpiBridge *app)
 {
@@ -143,18 +146,21 @@ get_registered_event_listeners (SpiBridge *app)
                                          SPI_DBUS_PATH_REGISTRY,
                                          SPI_DBUS_INTERFACE_REGISTRY,
                                          "GetRegisteredEvents");
-  spi_global_app_data->events_initialized = TRUE;
   if (!message)
     return;
 
   reply = dbus_connection_send_with_reply_and_block (app->bus, message, 5000, NULL);
   dbus_message_unref (message);
   if (!reply)
-    return;
+    {
+      spi_global_app_data->events_initialized = TRUE;
+      return;
+    }
   if (strcmp (dbus_message_get_signature (reply), "a(ss)") != 0)
     {
-      /* TODO: Add a warning when it's okay to add strings */
+      g_warning ("atk-bridge: GetRegisteredEvents returned message with unknown signature");
       dbus_message_unref (reply);
+      spi_global_app_data->events_initialized = TRUE;
       return;
     }
   dbus_message_iter_init (reply, &iter);
@@ -170,6 +176,10 @@ get_registered_event_listeners (SpiBridge *app)
       dbus_message_iter_next (&iter_array);
     }
   dbus_message_unref (reply);
+
+  if (!clients)
+    spi_atk_deregister_event_listeners ();
+  spi_global_app_data->events_initialized = TRUE;
 }
 
 static void
@@ -628,6 +638,23 @@ signal_filter (DBusConnection *bus, DBusMessage *message, void *user_data)
       else
         result = DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
     }
+
+  if (!g_strcmp0(interface, DBUS_INTERFACE_DBUS) &&
+      !g_strcmp0(member, "NameOwnerChanged"))
+    {
+      char *name, *old, *new;
+      result = DBUS_HANDLER_RESULT_HANDLED;
+      if (dbus_message_get_args (message, NULL,
+                                 DBUS_TYPE_STRING, &name,
+                                 DBUS_TYPE_STRING, &old,
+                                 DBUS_TYPE_STRING, &new,
+                                 DBUS_TYPE_INVALID))
+        {
+          if (*old != '\0' && *new == '\0')
+              spi_atk_remove_client (old);
+        }
+    }
+
   return result;
 }
 
@@ -826,6 +853,48 @@ gnome_accessibility_module_shutdown (void)
 {
   spi_atk_deregister_event_listeners ();
   exit_func ();
+}
+
+static gchar *name_match_tmpl =
+       "type='signal', interface='org.freedesktop.DBus', member='NameOwnerChanged', arg0='%s'";
+
+void
+spi_atk_add_client (const char *bus_name)
+{
+  GSList *l;
+  gchar *match;
+
+  for (l = clients; l; l = l->next)
+  {
+    if (!g_strcmp0 (l->data, bus_name))
+      return;
+  }
+  if (!clients && spi_global_app_data->events_initialized)
+    spi_atk_register_event_listeners ();
+  clients = g_slist_append (clients, g_strdup (bus_name));
+  match = g_strdup_printf (name_match_tmpl, bus_name);
+  dbus_bus_add_match (spi_global_app_data->bus, match, NULL);
+  g_free (match);
+}
+
+void
+spi_atk_remove_client (const char *bus_name)
+{
+  GSList *l;
+
+  for (l = clients; l; l = l->next)
+  {
+    if (!g_strcmp0 (l->data, bus_name))
+    {
+      gchar *match = g_strdup_printf (name_match_tmpl, l->data);
+      dbus_bus_remove_match (spi_global_app_data->bus, match, NULL);
+  g_free (match);
+      g_free (l->data);
+      clients = g_slist_remove_link (clients, l);
+      if (!clients)
+        spi_atk_deregister_event_listeners ();
+    }
+  }
 }
 
 /*END------------------------------------------------------------------------*/

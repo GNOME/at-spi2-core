@@ -66,6 +66,9 @@ char *app_bus_addr;
 
 extern SpiBridge *spi_global_app_data;
 
+void spi_atk_add_client (const char *bus_name);
+void spi_atk_remove_client (const char *bus_name);
+
 G_END_DECLS
 
 #endif /* BRIDGE_H */

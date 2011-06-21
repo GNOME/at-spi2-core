@@ -1096,6 +1096,12 @@ spi_atk_register_event_listeners (void)
   g_object_unref (G_OBJECT (bo));
   g_object_unref (ao);
 
+  if (listener_ids)
+  {
+    g_warning ("atk_bridge: spi_atk-register_event_listeners called multiple times");
+    return;
+  }
+
   /* Register for focus event notifications, and register app with central registry  */
   listener_ids = g_array_sized_new (FALSE, TRUE, sizeof (guint), 16);
 
@@ -1149,10 +1155,7 @@ spi_atk_register_event_listeners (void)
                        "Gtk:AtkTable:column-reordered");
   add_signal_listener (generic_event_listener, "Gtk:AtkTable:column-deleted");
   add_signal_listener (generic_event_listener, "Gtk:AtkTable:model-changed");
-
-  /* Children signal listeners */
-  atk_add_global_event_listener (children_changed_event_listener,
-                                 "Gtk:AtkObject:children-changed");
+  add_signal_listener (children_changed_event_listener, "Gtk:AtkObject:children-changed");
 
 #if 0
   g_signal_connect (G_OBJECT (spi_global_app_data->root),
@@ -1187,15 +1190,22 @@ spi_atk_deregister_event_listeners (void)
   listener_ids = NULL;
 
   if (atk_bridge_focus_tracker_id)
+  {
     atk_remove_focus_tracker (atk_bridge_focus_tracker_id);
+    atk_bridge_focus_tracker_id = 0;
+  }
 
   for (i = 0; ids && i < ids->len; i++)
     {
       atk_remove_global_event_listener (g_array_index (ids, guint, i));
     }
+  g_array_free (ids, TRUE);
 
   if (atk_bridge_key_event_listener_id)
+  {
     atk_remove_key_event_listener (atk_bridge_key_event_listener_id);
+    atk_bridge_key_event_listener_id = 0;
+  }
 }
 
 /*---------------------------------------------------------------------------*/

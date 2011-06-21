@@ -101,6 +101,9 @@ impl_get_app_bus(DBusConnection *bus, DBusMessage *msg, void *data)
 {
 DBusMessage *reply;
 
+  if (bus == spi_global_app_data->bus)
+    spi_atk_add_client (dbus_message_get_sender (msg));
+
 reply = dbus_message_new_method_return(msg);
 if (reply)
     {

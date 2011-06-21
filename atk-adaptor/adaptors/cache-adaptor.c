@@ -291,6 +291,9 @@ impl_GetItems (DBusConnection * bus, DBusMessage * message, void *user_data)
   DBusMessage *reply;
   DBusMessageIter iter, iter_array;
 
+  if (bus == spi_global_app_data->bus)
+    spi_atk_add_client (dbus_message_get_sender (message));
+
   reply = dbus_message_new_method_return (message);
 
   dbus_message_iter_init_append (reply, &iter);
