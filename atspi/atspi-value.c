@@ -98,10 +98,26 @@ gboolean
 atspi_value_set_current_value (AtspiValue *obj, gdouble new_value, GError **error)
 {
   double d_new_value = new_value;
+  DBusMessage *message, *reply;
+  DBusMessageIter iter, iter_variant;
+  static const char *str_curval = "CurrentValue";
+  AtspiAccessible *accessible = ATSPI_ACCESSIBLE (obj);
 
-  g_return_val_if_fail (obj != NULL, FALSE);
-
-  _atspi_dbus_call (obj, atspi_interface_value, "SetCurrentValue", error, "d", d_new_value);
+  g_return_val_if_fail (accessible != NULL, FALSE);
+    message = dbus_message_new_method_call (accessible->parent.app->bus_name,
+                                            accessible->parent.path,
+                                            DBUS_INTERFACE_PROPERTIES, "Set");
+    if (!message)
+      return NULL;
+    dbus_message_append_args (message, DBUS_TYPE_STRING, &atspi_interface_value,
+                               DBUS_TYPE_STRING, &str_curval,
+                              DBUS_TYPE_INVALID);
+  dbus_message_iter_init_append (message, &iter);
+  dbus_message_iter_open_container (&iter, DBUS_TYPE_VARIANT, "d", &iter_variant);
+  dbus_message_iter_append_basic (&iter_variant, DBUS_TYPE_DOUBLE, &d_new_value);
+  dbus_message_iter_close_container (&iter, &iter_variant);
+    reply = _atspi_dbus_send_with_reply_and_block (message, error);
+  dbus_message_unref (reply);
 
   return TRUE;
 }
