@@ -114,8 +114,44 @@ impl_get_CurrentValue (DBusMessageIter * iter, void *user_data)
   return droute_return_v_double (iter, dub);
 }
 
+static dbus_bool_t
+impl_set_CurrentValue (DBusMessageIter * iter, void *user_data)
+{
+  AtkValue *value = (AtkValue *) user_data;
+  GValue src = { 0 };
+  GValue dest = { 0 };
+  gdouble dub;
+  DBusMessageIter iter_variant;
+
+  g_return_val_if_fail (ATK_IS_VALUE (user_data), FALSE);
+
+  dbus_message_iter_recurse (iter, &iter_variant);
+  if (dbus_message_iter_get_arg_type (&iter_variant) != DBUS_TYPE_DOUBLE)
+    {
+      g_warning ("TODO: Support setting value from a non-double");
+      return FALSE;
+    }
+  dbus_message_iter_get_basic (&iter_variant, &dub);
+  g_value_init (&src, G_TYPE_DOUBLE);
+  g_value_set_double (&src, dub);
+
+  atk_value_get_current_value (value, &dest);
+
+  if (g_value_transform (&src, &dest))
+    {
+      atk_value_set_current_value (value, &dest);
+      return TRUE;
+    }
+  else
+    {
+      return FALSE;
+    }
+}
+
+/* keeping this method around for backwards-compatibility for now; see
+ *  * BGO#652596 */
 static DBusMessage *
-impl_set_CurrentValue (DBusConnection * bus, DBusMessage * message,
+impl_SetCurrentValue (DBusConnection * bus, DBusMessage * message,
                        void *user_data)
 {
   AtkValue *value = (AtkValue *) user_data;
@@ -149,7 +185,7 @@ impl_set_CurrentValue (DBusConnection * bus, DBusMessage * message,
 }
 
 static DRouteMethod methods[] = {
-  {impl_set_CurrentValue, "SetCurrentValue"},
+  {impl_SetCurrentValue, "SetCurrentValue"},
   {NULL, NULL}
 };
 
@@ -157,7 +193,7 @@ static DRouteProperty properties[] = {
   {impl_get_MinimumValue, NULL, "MinimumValue"},
   {impl_get_MaximumValue, NULL, "MaximumValue"},
   {impl_get_MinimumIncrement, NULL, "MinimumIncrement"},
-  {impl_get_CurrentValue, NULL, "CurrentValue"},
+  {impl_get_CurrentValue, impl_set_CurrentValue, "CurrentValue"},
   {NULL, NULL, NULL}
 };
 
