@@ -29,4 +29,12 @@
       <gnome:userid>apinheiro</gnome:userid>
     </foaf:Person>
   </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Leon Fan</foaf:name>
+      <foaf:mbox rdf:resource="mailto:leon.fan@oracle.com" />
+      <gnome:userid>leonfan</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+
 </Project>
