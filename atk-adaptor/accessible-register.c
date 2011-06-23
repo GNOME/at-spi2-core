@@ -190,6 +190,13 @@ static void
 deregister_object (gpointer data, GObject * gobj)
 {
   SpiRegister *reg = SPI_REGISTER (data);
+
+  spi_register_deregister_object (reg, gobj);
+}
+
+void
+spi_register_deregister_object (SpiRegister *reg, GObject *gobj)
+{
   guint ref;
 
   ref = object_to_ref (gobj);

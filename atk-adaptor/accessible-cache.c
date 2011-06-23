@@ -275,7 +275,8 @@ add_pending_items (gpointer data)
         {
 	  g_queue_push_tail (to_add, current);
           if (!spi_cache_in (cache, G_OBJECT (current)) &&
-              !atk_state_set_contains_state  (set, ATK_STATE_MANAGES_DESCENDANTS))
+              !atk_state_set_contains_state  (set, ATK_STATE_MANAGES_DESCENDANTS) &&
+              !atk_state_set_contains_state  (set, ATK_STATE_DEFUNCT))
             {
               append_children (current, cache->add_traversal);
             }

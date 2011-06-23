@@ -606,15 +606,14 @@ state_event_listener (GSignalInvocationHint * signal_hint,
   guint detail1;
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
-  pname = g_strdup (g_value_get_string (&param_values[1]));
+  pname = g_value_get_string (&param_values[1]);
 
-  /* TODO - Possibly ignore a change to the 'defunct' state.
-   * This is because without reference counting defunct objects should be removed.
-   */
   detail1 = (g_value_get_boolean (&param_values[2])) ? 1 : 0;
   emit_event (accessible, ITF_EVENT_OBJECT, STATE_CHANGED, pname, detail1, 0,
               DBUS_TYPE_INT32_AS_STRING, 0, append_basic);
-  g_free (pname);
+
+  if (!g_strcmp0 (pname, "defunct"))
+    spi_register_deregister_object (spi_global_register, G_OBJECT (accessible));
   return TRUE;
 }
 

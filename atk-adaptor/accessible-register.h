@@ -72,6 +72,9 @@ spi_register_object_to_ref (GObject * gobj);
 gchar *
 spi_register_root_object_path ();
 
+void
+spi_register_deregister_object (SpiRegister *reg, GObject *gobj);
+
 /*---------------------------------------------------------------------------*/
 
 #endif /* ACCESSIBLE_REGISTER_H */

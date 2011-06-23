@@ -145,7 +145,8 @@ append_cache_item (AtkObject * obj, gpointer data)
     /* Marshall children */
     dbus_message_iter_open_container (&iter_struct, DBUS_TYPE_ARRAY, "(so)",
                                       &iter_sub_array);
-    if (!atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS))
+    if (!atk_state_set_contains_state (set, ATK_STATE_MANAGES_DESCENDANTS) &&
+        !atk_state_set_contains_state (set, ATK_STATE_DEFUNCT))
       {
         gint childcount, i;
 
