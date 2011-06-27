@@ -1460,6 +1460,43 @@ atspi_accessible_clear_cache (AtspiAccessible *accessible)
   }
 }
 
+/**
+ * atspi_accessible_get_process_id:
+ * @accessible: The #AtspiAccessible to query.
+ *
+ * Returns the process id associated with the given accessible.  Mainly
+ * added for debugging; it is a shortcut to explicitly querying the
+ * accessible's app->bus_name and then calling GetConnectionUnixProcessID.
+ *
+ * Returns: The process ID, or -1 if defunct.
+ **/
+guint
+atspi_accessible_get_process_id (AtspiAccessible *accessible, GError **error)
+{
+  DBusMessage *message, *reply;
+  DBusConnection *bus = _atspi_bus ();
+  dbus_uint32_t pid = -1;
+  DBusError d_error;
+
+  if (!accessible->parent.app || !accessible->parent.app->bus_name)
+    return -1;
+
+  message = dbus_message_new_method_call ("org.freedesktop.DBus",
+                                          "/org/freedesktop/DBus",
+                                          "org.freedesktop.DBus",
+                                          "GetConnectionUnixProcessID");
+  dbus_message_append_args (message, DBUS_TYPE_STRING,
+                            &accessible->parent.app->bus_name,
+                            DBUS_TYPE_INVALID);
+  dbus_error_init (&d_error);
+  reply = dbus_connection_send_with_reply_and_block (bus, message, -1, &d_error);
+  dbus_message_unref (message);
+  dbus_message_get_args (reply, NULL, DBUS_TYPE_UINT32, &pid, DBUS_TYPE_INVALID);
+  dbus_message_unref (reply);
+  dbus_error_init (&error);
+  return pid;
+}
+
 AtspiCache
 _atspi_accessible_get_cache_mask (AtspiAccessible *accessible)
 {
