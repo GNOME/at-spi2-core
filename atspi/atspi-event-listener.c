@@ -168,7 +168,7 @@ cache_process_children_changed (AtspiEvent *event)
   AtspiAccessible *child;
 
   if (!G_VALUE_HOLDS (&event->any_data, ATSPI_TYPE_ACCESSIBLE) ||
-      !event->source->children ||
+      !(event->source->cached_properties & ATSPI_CACHE_CHILDREN) ||
       atspi_state_set_contains (event->source->states, ATSPI_STATE_MANAGES_DESCENDANTS))
     return;
 
