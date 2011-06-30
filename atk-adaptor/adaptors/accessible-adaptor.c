@@ -277,6 +277,7 @@ spi_init_relation_type_table (Accessibility_RelationType * types)
   types[ATK_RELATION_DESCRIPTION_FOR] =
     Accessibility_RELATION_DESCRIPTION_FOR;
   types[ATK_RELATION_DESCRIBED_BY] = Accessibility_RELATION_DESCRIBED_BY;
+  types[ATK_RELATION_NODE_PARENT_OF] = Accessibility_RELATION_NODE_PARENT_OF;
 
   return TRUE;
 }
