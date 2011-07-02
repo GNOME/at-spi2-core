@@ -160,6 +160,19 @@ enum {
   N_("form")
   N_("link")
   N_("input method window")
+  N_("table row")
+  N_("tree item")
+  N_("document spreadsheet")
+  N_("document presentation")
+  N_("document text")
+  N_("document web")
+  N_("document email")
+  N_("comment")
+  N_("list box")
+  N_("grouping")
+  N_("image map")
+  N_("notification")
+  N_("info bar")
 #endif /* 0 */
 
 static const char roles[] =
@@ -250,7 +263,20 @@ static const char roles[] =
   "redundant object\0"
   "form\0"
   "link\0"
-  "input method window";
+  "input method window\0"
+  "table row\0"
+  "tree item\0"
+  "document spreadsheet\0"
+  "document presentation\0"
+  "document text\0"
+  "document web\0"
+  "document email\0"
+  "comment\0"
+  "list box\0"
+  "grouping\0"
+  "image map\0"
+  "notification\0"
+  "info bar\0";
 
 static const guint16 roles_offsets[] = {
   0, 8, 26, 32, 42, 48, 57, 64, 
@@ -263,7 +289,9 @@ static const guint16 roles_offsets[] = {
   585, 605, 622, 641, 650, 655, 669, 678, 
   687, 692, 703, 711, 720, 727, 734, 741, 
   751, 757, 769, 782, 791, 810, 816, 822, 
-  830, 845, 853, 858, 866, 883, 888, 893
+  830, 845, 853, 858, 866, 883, 888, 893,
+  913, 923, 933, 954, 976, 990, 1003, 1018,
+  1026, 1035, 1044, 1054, 1067
 };
 
 /* This is a static assertion */
