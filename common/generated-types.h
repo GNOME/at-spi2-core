@@ -654,6 +654,19 @@ Accessibility_Role:
  * @Accessibility_ROLE_FORM: <![CDATA[     The object is a containing instance of document content which       has within it components with which the user can interact in order to       input information; i.e. the object is a container for pushbuttons,       comboboxes, text input fields, and other 'GUI' components.       ROLE_FORM should not, in general, be used for toplevel GUI containers       or dialogs, but should be reserved for 'GUI' containers which occur within       document content, for instance within Web documents, presentations, or        text documents.  Unlike other GUI containers and dialogs which occur inside       application instances, ROLE_FORM containers' components are associated with       the current document, rather than the current foreground application or       viewer instance.     ]]>
  * @Accessibility_ROLE_LINK: <![CDATA[     The object is a hypertext anchor, i.e. a "link" in a       hypertext document.  Such objects are distinct from 'inline'       content which may also use the Hypertext/Hyperlink interfaces       to indicate the range/location within a text object where       an inline or embedded object lies.     ]]>
  * @Accessibility_ROLE_INPUT_METHOD_WINDOW: <![CDATA[     The object is a window or similar viewport which is used       to allow composition or input of a 'complex character',       in other words it is an "input method window."     ]]>
+ * @Accessibility_ROLE_TABLE_ROW: <![CDATA[A row in a table.]]>
+ * @Accessibility_ROLE_TREE_ITEM: <![CDATA[An object that represents an element of a tree.]]>
+ * @Accessibility_ROLE_DOCUMENT_SPREADSHEET: <![CDATA[A document frame which contains a spreadsheet.]]>
+ * @Accessibility_ROLE_DOCUMENT_PRESENTATION: <![CDATA[A document frame which contains a presentation or slide content.]]>
+ * @Accessibility_ROLE_DOCUMENT_TEXT: <![CDATA[A document frame which contains textual content, such as found in a word processing application.]]>
+ * @Accessibility_ROLE_DOCUMENT_WEB: <![CDATA[A document frame which contains HTML or other markup suitable for display in a web browser.]]>
+ * @Accessibility_ROLE_DOCUMENT_EMAIL: <![CDATA[A document frame which contains email content to be displayed or composed either in plain text or HTML.]]>
+ * @Accessibility_ROLE_COMMENT: <![CDATA[An object found within a document and designed to present a comment, note, or other annotation. In some cases, this object might not be visible until activated.]]>
+ * @Accessibility_ROLE_LIST_BOX: <![CDATA[A non-collapsible list of choices the user can select from.]]>
+ * @Accessibility_ROLE_GROUPING: <![CDATA[A group of related widgets. This group typically has a label.]]>
+ * @Accessibility_ROLE_IMAGE_MAP: <![CDATA[An image map object. Usually a graphic with multiple hotspots, where each hotspot can be activated resulting in the loading of another document or section of a document.]]>
+ * @Accessibility_ROLE_NOTIFICATION: <![CDATA[A transitory object designed to present a message to the user, typically at the desktop level rather than inside a particular application.]]>
+ * @Accessibility_ROLE_INFO_BAR: <![CDATA[An object designed to present a message to the user within an existing window.]]>
  * @Accessibility_ROLE_LAST_DEFINED: <![CDATA[     Not a valid role, used for finding end of enumeration.    ]]>
  *
  * Bitfield/set of flags generated from the AT-SPI specification.
@@ -749,6 +762,19 @@ typedef enum {
     Accessibility_ROLE_FORM,
     Accessibility_ROLE_LINK,
     Accessibility_ROLE_INPUT_METHOD_WINDOW,
+    Accessibility_ROLE_TABLE_ROW,
+    Accessibility_ROLE_TREE_ITEM,
+    Accessibility_ROLE_DOCUMENT_SPREADSHEET,
+    Accessibility_ROLE_DOCUMENT_PRESENTATION,
+    Accessibility_ROLE_DOCUMENT_TEXT,
+    Accessibility_ROLE_DOCUMENT_WEB,
+    Accessibility_ROLE_DOCUMENT_EMAIL,
+    Accessibility_ROLE_COMMENT,
+    Accessibility_ROLE_LIST_BOX,
+    Accessibility_ROLE_GROUPING,
+    Accessibility_ROLE_IMAGE_MAP,
+    Accessibility_ROLE_NOTIFICATION,
+    Accessibility_ROLE_INFO_BAR,
     Accessibility_ROLE_LAST_DEFINED,
 } Accessibility_Role;
 
@@ -757,7 +783,7 @@ typedef enum {
  *
  * 1 higher than the highest valid value of #Accessibility_Role.
  */
-#define NUM_ACCESSIBILITY_ROLES (90+1)
+#define NUM_ACCESSIBILITY_ROLES (103+1)
 
 
 #ifdef __cplusplus

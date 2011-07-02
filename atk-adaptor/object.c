@@ -436,6 +436,21 @@ init_role_lookup_table (Accessibility_Role * role_table)
   role_table[ATK_ROLE_LINK] = Accessibility_ROLE_LINK;
   role_table[ATK_ROLE_INPUT_METHOD_WINDOW] =
     Accessibility_ROLE_INPUT_METHOD_WINDOW;
+  role_table[ATK_ROLE_TABLE_ROW] = Accessibility_ROLE_TABLE_ROW;
+  role_table[ATK_ROLE_TREE_ITEM] = Accessibility_ROLE_TREE_ITEM;
+  role_table[ATK_ROLE_DOCUMENT_SPREADSHEET] =
+    Accessibility_ROLE_DOCUMENT_SPREADSHEET;
+  role_table[ATK_ROLE_DOCUMENT_PRESENTATION] =
+    Accessibility_ROLE_DOCUMENT_PRESENTATION;
+  role_table[ATK_ROLE_DOCUMENT_TEXT] = Accessibility_ROLE_DOCUMENT_TEXT;
+  role_table[ATK_ROLE_DOCUMENT_WEB] = Accessibility_ROLE_DOCUMENT_WEB;
+  role_table[ATK_ROLE_DOCUMENT_EMAIL] = Accessibility_ROLE_DOCUMENT_EMAIL;
+  role_table[ATK_ROLE_COMMENT] = Accessibility_ROLE_COMMENT;
+  role_table[ATK_ROLE_LIST_BOX] = Accessibility_ROLE_LIST_BOX;
+  role_table[ATK_ROLE_GROUPING] = Accessibility_ROLE_GROUPING;
+  role_table[ATK_ROLE_IMAGE_MAP] = Accessibility_ROLE_IMAGE_MAP;
+  role_table[ATK_ROLE_NOTIFICATION] = Accessibility_ROLE_NOTIFICATION;
+  role_table[ATK_ROLE_INFO_BAR] = Accessibility_ROLE_INFO_BAR;
   return TRUE;
 }
 
