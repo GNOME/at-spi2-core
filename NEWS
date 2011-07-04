@@ -1,3 +1,21 @@
+What's new in at-spi2-core 2.1.3:
+
+* use stored values for AT-SPI role names where possible.
+
+* Fix for BGO#652596: Use DBus property to set value.
+
+
+* Fix gtk-doc build cflags/libraries.
+
+* Set error for some DBus errors where this was not being done.
+
+
+* Add atspi_accessible_get_process_id (as a short-cut to help debugging).
+
+* Fix failure to update cache in response to children-changed events in some
+  cases.
+
+
 What's new in at-spi2-core 2.1.2:
 
 * Fix atspi_table_get_caption|summary.
