@@ -4,7 +4,7 @@
 #include <droute/droute.h>
 #include <dbind/dbind.h>
 
-#include "dbus/dbus-glib-lowlevel.h"
+#include "atspi/atspi.h"
 
 #define TEST_OBJECT_PATH    "/test/object"
 #define TEST_INTERFACE_ONE  "test.interface.One"
