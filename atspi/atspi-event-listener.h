@@ -77,6 +77,11 @@ struct _AtspiEventListenerClass
 GType atspi_event_listener_get_type (void);
 
 AtspiEventListener *
+atspi_event_listener_new (AtspiEventListenerCB callback,
+                                 gpointer user_data,
+                                 GDestroyNotify callback_destroyed);
+
+AtspiEventListener *
 atspi_event_listener_new_simple (AtspiEventListenerSimpleCB callback,
                                  GDestroyNotify callback_destroyed);
 

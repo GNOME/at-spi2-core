@@ -80,7 +80,7 @@ struct _AtspiDeviceListenerClass
 
 GType atspi_device_listener_get_type (void);
 
-AtspiDeviceListener *atspi_device_listener_new (AtspiDeviceListenerCB callback, GDestroyNotify callback_destroyed, void *user_data);
+AtspiDeviceListener *atspi_device_listener_new (AtspiDeviceListenerCB callback, void *user_data, GDestroyNotify callback_destroyed);
 
 AtspiDeviceListener *atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback, GDestroyNotify callback_destroyed);
 

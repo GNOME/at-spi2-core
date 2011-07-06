@@ -206,22 +206,22 @@ G_DEFINE_TYPE (AtspiDeviceListener, atspi_device_listener,
 
 /**
  * atspi_device_listener_new:
- * @callback: (scope notify): an #AtspiDeviceListenerCB callback function,
+ * @callback: (scope notified): an #AtspiDeviceListenerCB callback function,
  *            or NULL.
- * @callback_destroyed: A #GDestroyNotify called when the listener is freed
- * and data associated with the callback should be freed.  Can be NULL.
  * @user_data: (closure): a pointer to data which will be passed to the
  * callback when invoked.
+ * @callback_destroyed: A #GDestroyNotify called when the listener is freed
+ * and data associated with the callback should be freed.  Can be NULL.
  *
  * Create a new #AtspiDeviceListener with a specified callback function.
  *
- * Returns: a pointer to a newly-created #AtspiDeviceListener.
+ * Returns: (transfer full): a pointer to a newly-created #AtspiDeviceListener.
  *
  **/
 AtspiDeviceListener *
 atspi_device_listener_new (AtspiDeviceListenerCB callback,
-                           GDestroyNotify callback_destroyed,
-                           void *user_data)
+                           void *user_data,
+                           GDestroyNotify callback_destroyed)
 {
   AtspiDeviceListener *listener = g_object_new (atspi_device_listener_get_type (), NULL);
 
@@ -232,8 +232,8 @@ atspi_device_listener_new (AtspiDeviceListenerCB callback,
 }
 
 /**
- * atspi_device_listener_new_simple:
- * @callback: (scope notify): an #AtspiDeviceListenerCB callback function,
+ * atspi_device_listener_new_simple: (skip):
+ * @callback: (scope notified): an #AtspiDeviceListenerCB callback function,
  *            or NULL.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
  * and data associated with the callback should be freed.  Can be NULL.
@@ -254,7 +254,7 @@ atspi_device_listener_new_simple (AtspiDeviceListenerSimpleCB callback,
 /**
  * atspi_device_listener_add_callback:
  * @listener: the #AtspiDeviceListener instance to modify.
- * @callback: (scope notify): an #AtspiDeviceListenerCB function pointer.
+ * @callback: (scope notified): an #AtspiDeviceListenerCB function pointer.
  * @user_data: (closure): a pointer to data which will be passed to the
  *             callback when invoked.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed

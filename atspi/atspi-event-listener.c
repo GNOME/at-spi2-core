@@ -115,7 +115,30 @@ callback_unref (gpointer callback)
 }
 
 /**
- * atspi_event_listener_new_simple:
+ * atspi_event_listener_new:
+ * @callback: (scope notified): An #AtspiEventListenerSimpleCB to be called
+ * when an event is fired.
+ * @user_data: (closure): data to pass to the callback.
+ * @callback_destroyed: A #GDestroyNotify called when the listener is freed
+ * and data associated with the callback should be freed.  Can be NULL.
+ *
+ * Returns: (transfer full): A new #AtspiEventListener.
+ */
+AtspiEventListener *
+atspi_event_listener_new (AtspiEventListenerCB callback,
+                                 gpointer user_data,
+                                 GDestroyNotify callback_destroyed)
+{
+  AtspiEventListener *listener = g_object_new (ATSPI_TYPE_EVENT_LISTENER, NULL);
+  listener->callback = callback;
+  callback_ref (callback, callback_destroyed);
+  listener->user_data = user_data;
+  listener->cb_destroyed = callback_destroyed;
+  return listener;
+}
+
+/**
+ * atspi_event_listener_new_simple: (skip)
  * @callback: (scope notified): An #AtspiEventListenerSimpleCB to be called
  * when an event is fired.
  * @callback_destroyed: A #GDestroyNotify called when the listener is freed
@@ -545,7 +568,7 @@ atspi_event_listener_register_from_callback (AtspiEventListenerCB callback,
 }
 
 /**
- * atspi_event_listener_register_no_data:
+ * atspi_event_listener_register_no_data: (skip)
  * @callback: (scope notified): the #AtspiEventListenerSimpleCB to be
  *            registered against an event type.
  * @callback_destroyed: A #GDestroyNotify called when the callback is destroyed.
