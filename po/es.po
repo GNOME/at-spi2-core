@@ -7,20 +7,22 @@
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004.
 # Jorge González <jorgegonz@svn.gnome.org>, 2008.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=atk&component=general\n"
-"POT-Creation-Date: 2010-04-17 11:27+0000\n"
-"PO-Revision-Date: 2008-11-27 21:01+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"product=atk&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-07-07 17:40+0000\n"
+"PO-Revision-Date: 2011-07-10 10:37+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -407,69 +409,138 @@ msgstr "enlace"
 msgid "input method window"
 msgstr "ventana de entrada de método"
 
-#: ../atk/atkobject.c:488
+#: ../atk/atkobject.c:163
+#| msgid "table row header"
+msgid "table row"
+msgstr "fila de tabla"
+
+#: ../atk/atkobject.c:164
+#| msgid "tree table"
+msgid "tree item"
+msgstr "elemento de árbol"
+
+#: ../atk/atkobject.c:165
+#, fuzzy
+#| msgid "document frame"
+msgid "document spreadsheet"
+msgstr "marco de documento"
+
+#: ../atk/atkobject.c:166
+#, fuzzy
+#| msgid "document frame"
+msgid "document presentation"
+msgstr "marco de documento"
+
+#: ../atk/atkobject.c:167
+#, fuzzy
+#| msgid "document frame"
+msgid "document text"
+msgstr "marco de documento"
+
+#: ../atk/atkobject.c:168
+#, fuzzy
+#| msgid "document frame"
+msgid "document web"
+msgstr "marco de documento"
+
+#: ../atk/atkobject.c:169
+#, fuzzy
+#| msgid "document frame"
+msgid "document email"
+msgstr "marco de documento"
+
+#: ../atk/atkobject.c:170
+msgid "comment"
+msgstr "comentario"
+
+#: ../atk/atkobject.c:171
+#, fuzzy
+#| msgid "list"
+msgid "list box"
+msgstr "lista"
+
+#: ../atk/atkobject.c:172
+msgid "grouping"
+msgstr "agrupación"
+
+#: ../atk/atkobject.c:173
+#| msgid "image"
+msgid "image map"
+msgstr "mapa de imagen"
+
+#: ../atk/atkobject.c:174
+#| msgid "animation"
+msgid "notification"
+msgstr "notificación"
+
+#: ../atk/atkobject.c:175
+#| msgid "menu bar"
+msgid "info bar"
+msgstr "barra de información"
+
+#: ../atk/atkobject.c:514
 msgid "Accessible Name"
 msgstr "Nombre accesible"
 
-#: ../atk/atkobject.c:489
+#: ../atk/atkobject.c:515
 msgid "Object instance's name formatted for assistive technology access"
 msgstr ""
 "El nombre de la instancia del objeto formateado para acceso para "
 "discapacitados"
 
-#: ../atk/atkobject.c:495
+#: ../atk/atkobject.c:521
 msgid "Accessible Description"
 msgstr "Descripción accesible"
 
-#: ../atk/atkobject.c:496
+#: ../atk/atkobject.c:522
 msgid "Description of an object, formatted for assistive technology access"
 msgstr "Descripción de un objeto, formateado para acceso para discapacitados"
 
-#: ../atk/atkobject.c:502
+#: ../atk/atkobject.c:528
 msgid "Accessible Parent"
 msgstr "Antecesor accesible"
 
-#: ../atk/atkobject.c:503
+#: ../atk/atkobject.c:529
 msgid "Is used to notify that the parent has changed"
 msgstr "Se usa para notificar que el antecesor ha cambiado"
 
-#: ../atk/atkobject.c:509
+#: ../atk/atkobject.c:535
 msgid "Accessible Value"
 msgstr "Valor accesible"
 
-#: ../atk/atkobject.c:510
+#: ../atk/atkobject.c:536
 msgid "Is used to notify that the value has changed"
 msgstr "Se usa para notificar que el valor ha cambiado"
 
-#: ../atk/atkobject.c:518
+#: ../atk/atkobject.c:544
 msgid "Accessible Role"
 msgstr "Rol accesible"
 
-#: ../atk/atkobject.c:519
+#: ../atk/atkobject.c:545
 msgid "The accessible role of this object"
 msgstr "El rol de accesibilidad de este objeto"
 
-#: ../atk/atkobject.c:527
+#: ../atk/atkobject.c:553
 msgid "Accessible Layer"
 msgstr "Capa accesible"
 
-#: ../atk/atkobject.c:528
+#: ../atk/atkobject.c:554
 msgid "The accessible layer of this object"
 msgstr "La capa de accesibilidad de este objeto"
 
-#: ../atk/atkobject.c:536
+#: ../atk/atkobject.c:562
 msgid "Accessible MDI Value"
 msgstr "Valor MDI accesible"
 
-#: ../atk/atkobject.c:537
+#: ../atk/atkobject.c:563
 msgid "The accessible MDI value of this object"
 msgstr "El valor accesible MDI de este objeto"
 
-#: ../atk/atkobject.c:545
+#: ../atk/atkobject.c:571
 msgid "Accessible Table Caption"
 msgstr "Descripción accesible de la tabla"
 
-#: ../atk/atkobject.c:546
+#: ../atk/atkobject.c:572
 msgid ""
 "Is used to notify that the table caption has changed; this property should "
 "not be used. accessible-table-caption-object should be used instead"
@@ -478,62 +549,62 @@ msgstr ""
 "propiedad no debería ser usada. Debe usarse accesible-table-caption-object "
 "en su lugar"
 
-#: ../atk/atkobject.c:552
+#: ../atk/atkobject.c:578
 msgid "Accessible Table Column Header"
 msgstr "Cabecera de columna accesible de la tabla"
 
-#: ../atk/atkobject.c:553
+#: ../atk/atkobject.c:579
 msgid "Is used to notify that the table column header has changed"
 msgstr ""
 "Se usa para notificar que la cabecera de columna de la tabla ha cambiado"
 
-#: ../atk/atkobject.c:559
+#: ../atk/atkobject.c:585
 msgid "Accessible Table Column Description"
 msgstr "Descripción accesible de la columna de la tabla"
 
-#: ../atk/atkobject.c:560
+#: ../atk/atkobject.c:586
 msgid "Is used to notify that the table column description has changed"
 msgstr ""
 "Se usa para notificar que la descripción de la columna de la tabla ha "
 "cambiado"
 
-#: ../atk/atkobject.c:566
+#: ../atk/atkobject.c:592
 msgid "Accessible Table Row Header"
 msgstr "Cabecera accesible de la fila de la tabla"
 
-#: ../atk/atkobject.c:567
+#: ../atk/atkobject.c:593
 msgid "Is used to notify that the table row header has changed"
 msgstr ""
 "Se usa para notificar que la fila de la cabecera de la tabla ha cambiado"
 
-#: ../atk/atkobject.c:573
+#: ../atk/atkobject.c:599
 msgid "Accessible Table Row Description"
 msgstr "Descripción accesible de la fila de la tabla"
 
-#: ../atk/atkobject.c:574
+#: ../atk/atkobject.c:600
 msgid "Is used to notify that the table row description has changed"
 msgstr "Se usa para notificar que la fila de la descripción ha cambiado"
 
-#: ../atk/atkobject.c:580
+#: ../atk/atkobject.c:606
 msgid "Accessible Table Summary"
 msgstr "Resumen accesible de la tabla"
 
-#: ../atk/atkobject.c:581
+#: ../atk/atkobject.c:607
 msgid "Is used to notify that the table summary has changed"
 msgstr "Se usa para notificar que el resumen de la tabla ha cambiado"
 
-#: ../atk/atkobject.c:587
+#: ../atk/atkobject.c:613
 msgid "Accessible Table Caption Object"
 msgstr "Objeto de título de la tabla accesible"
 
-#: ../atk/atkobject.c:588
+#: ../atk/atkobject.c:614
 msgid "Is used to notify that the table caption has changed"
 msgstr "Se usa para notificar que el título de la tabla ha cambiado"
 
-#: ../atk/atkobject.c:594
+#: ../atk/atkobject.c:620
 msgid "Number of Accessible Hypertext Links"
 msgstr "Número de enlaces de hipertexto accesibles"
 
-#: ../atk/atkobject.c:595
+#: ../atk/atkobject.c:621
 msgid "The number of links which the current AtkHypertext has"
 msgstr "El número de enlaces que el AtkHypertext actual tiene"
