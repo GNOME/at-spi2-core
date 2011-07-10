@@ -6,23 +6,23 @@
 # Pablo Gonzalo del Campo <pablodc@bigfoot.com>, 2002.
 # Francisco Javier F. Serrador <serrador@arrakis.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004.
-# Jorge González <jorgegonz@svn.gnome.org>, 2008.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
+# Jorge González <jorgegonz@svn.gnome.org>, 2008, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: atk.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=atk&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-07-07 17:40+0000\n"
-"PO-Revision-Date: 2011-07-10 10:37+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2011-07-10 08:53+0000\n"
+"PO-Revision-Date: 2011-07-10 12:55+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bits\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../atk/atkhyperlink.c:103
 msgid "Selected Link"
@@ -410,71 +410,60 @@ msgid "input method window"
 msgstr "ventana de entrada de método"
 
 #: ../atk/atkobject.c:163
-#| msgid "table row header"
 msgid "table row"
 msgstr "fila de tabla"
 
 #: ../atk/atkobject.c:164
-#| msgid "tree table"
 msgid "tree item"
 msgstr "elemento de árbol"
 
 #: ../atk/atkobject.c:165
-#, fuzzy
 #| msgid "document frame"
 msgid "document spreadsheet"
-msgstr "marco de documento"
+msgstr "documento de hoja de cálculo"
 
 #: ../atk/atkobject.c:166
-#, fuzzy
 #| msgid "document frame"
 msgid "document presentation"
-msgstr "marco de documento"
+msgstr "documento de presentación"
 
 #: ../atk/atkobject.c:167
-#, fuzzy
 #| msgid "document frame"
 msgid "document text"
-msgstr "marco de documento"
+msgstr "documento de texto"
 
 #: ../atk/atkobject.c:168
-#, fuzzy
 #| msgid "document frame"
 msgid "document web"
-msgstr "marco de documento"
+msgstr "documento web"
 
 #: ../atk/atkobject.c:169
-#, fuzzy
 #| msgid "document frame"
 msgid "document email"
-msgstr "marco de documento"
+msgstr "documento de correo electrónico"
 
 #: ../atk/atkobject.c:170
 msgid "comment"
 msgstr "comentario"
 
 #: ../atk/atkobject.c:171
-#, fuzzy
 #| msgid "list"
 msgid "list box"
-msgstr "lista"
+msgstr "caja de lista"
 
 #: ../atk/atkobject.c:172
 msgid "grouping"
 msgstr "agrupación"
 
 #: ../atk/atkobject.c:173
-#| msgid "image"
 msgid "image map"
 msgstr "mapa de imagen"
 
 #: ../atk/atkobject.c:174
-#| msgid "animation"
 msgid "notification"
 msgstr "notificación"
 
 #: ../atk/atkobject.c:175
-#| msgid "menu bar"
 msgid "info bar"
 msgstr "barra de información"
 
