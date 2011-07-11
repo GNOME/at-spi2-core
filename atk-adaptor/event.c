@@ -759,7 +759,7 @@ link_selected_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *accessible;
   GSignalQuery signal_query;
   const gchar *name, *minor;
-  gint detail1;
+  gint detail1 = 0;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
@@ -793,7 +793,7 @@ text_changed_event_listener (GSignalInvocationHint * signal_hint,
   GSignalQuery signal_query;
   const gchar *name, *minor;
   gchar *selected;
-  gint detail1, detail2;
+  gint detail1 = 0, detail2 = 0;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
@@ -832,7 +832,7 @@ text_insert_event_listener (GSignalInvocationHint * signal_hint,
   GSignalQuery signal_query;
   const gchar *name;
   gchar *minor, *text;
-  gint detail1, detail2;
+  gint detail1 = 0, detail2 = 0;
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   /* Get signal name for 'Gtk:AtkText:text-changed' so
@@ -880,7 +880,7 @@ text_remove_event_listener (GSignalInvocationHint * signal_hint,
   GSignalQuery signal_query;
   const gchar *name;
   gchar *minor, *text;
-  gint detail1, detail2;
+  gint detail1 = 0, detail2 = 0;
 
   accessible = ATK_OBJECT (g_value_get_object (&param_values[0]));
   /* Get signal name for 'Gtk:AtkText:text-changed' so
@@ -931,7 +931,7 @@ text_selection_changed_event_listener (GSignalInvocationHint * signal_hint,
   AtkObject *accessible;
   GSignalQuery signal_query;
   const gchar *name, *minor;
-  gint detail1, detail2;
+  gint detail1 = 0, detail2 = 0;
 
   g_signal_query (signal_hint->signal_id, &signal_query);
   name = signal_query.signal_name;
@@ -969,7 +969,7 @@ children_changed_event_listener (GSignalInvocationHint * signal_hint,
 {
   GSignalQuery signal_query;
   const gchar *name, *minor;
-  gint detail1, detail2 = 0;
+  gint detail1 = 0, detail2 = 0;
 
   AtkObject *accessible, *ao=NULL;
   gpointer child;
