@@ -1,6 +1,6 @@
 # Norwegian (bomål) translation of ATK.
 # Copyright (C) 2003 Free Software Foundation, Inc.
-# Kjartan Maraas <kmaraas@gnome.org>, 2003-2008.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003-2011.
 #
 msgid ""
 msgstr ""
