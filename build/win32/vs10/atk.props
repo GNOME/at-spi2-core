@@ -80,7 +80,7 @@ copy $(SolutionDir)$(Configuration)\$(Platform)\bin\*-$(AtkApiVersion).lib $(Cop
 
 </AtkDoInstall>
     <GenerateAtkDef>echo EXPORTS &gt;"..\..\..\atk\atk.def" &amp;&amp; cl /EP ..\..\..\atk\atk.symbols &gt;&gt;"..\..\..\atk\atk.def"</GenerateAtkDef>
-    <AtkDefines>ATK_LOCALEDIR="\"$(AtkDummyPrefix)/share/locale\""</AtkDefines>
+    <AtkDefines>ATK_COMPILATION;DLL_EXPORT;ATK_LOCALEDIR="$(AtkDummyPrefix)/share/locale"</AtkDefines>
     <AtkLibtoolCompatibleDllPrefix>lib</AtkLibtoolCompatibleDllPrefix>
     <AtkLibtoolCompatibleDllSuffix>-2.0-0</AtkLibtoolCompatibleDllSuffix>
     <AtkSeparateVS10DllPrefix />

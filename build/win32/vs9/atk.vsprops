@@ -4,7 +4,7 @@
 	Version="8.00"
 	Name="atkprops"
 	OutputDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin"
-	IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj\$(ProjectName)\"
+	IntermediateDirectory="$(SolutionDir)$(ConfigurationName)\$(PlatformName)\obj\$(ProjectName)"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
@@ -88,7 +88,7 @@ copy $(SolutionDir)$(ConfigurationName)\$(PlatformName)\bin\*-$(AtkApiVersion).l
 	/>
 	<UserMacro
 		Name="AtkDefines"
-		Value="ATK_LOCALEDIR=&quot;\&quot;$(AtkDummyPrefix)/share/locale\&quot;&quot;"
+		Value="ATK_COMPILATION;DLL_EXPORT;ATK_LOCALEDIR=\&quot;$(AtkDummyPrefix)/share/locale\&quot;"
 	/>
 	<UserMacro
 		Name="AtkLibtoolCompatibleDllPrefix"
