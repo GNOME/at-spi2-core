@@ -26,6 +26,29 @@
 
 #include <glib-object.h>
 
+/* We prefix variable declarations so they can
+ * properly get exported in Windows DLLs.
+ */
+#ifndef ATK_VAR
+#  ifdef G_PLATFORM_WIN32
+#    ifdef ATK_STATIC_COMPILATION
+#      define ATK_VAR extern
+#    else /* !ATK_STATIC_COMPILATION */
+#      ifdef ATK_COMPILATION
+#        ifdef DLL_EXPORT
+#          define ATK_VAR __declspec(dllexport)
+#        else /* !DLL_EXPORT */
+#          define ATK_VAR extern
+#        endif /* !DLL_EXPORT */
+#      else /* !ATK_COMPILATION */
+#        define ATK_VAR extern __declspec(dllimport)
+#      endif /* !ATK_COMPILATION */
+#    endif /* !ATK_STATIC_COMPILATION */
+#  else /* !G_PLATFORM_WIN32 */
+#    define ATK_VAR extern
+#  endif /* !G_PLATFORM_WIN32 */
+#endif /* ATK_VAR */
+
 G_BEGIN_DECLS
 
 #define ATK_TYPE_MISC                   (atk_misc_get_type ())
@@ -52,7 +75,7 @@ struct _AtkMisc
  * a given GUI toolkit/application instance should touch this
  * symbol directly.
  */
-extern AtkMisc *atk_misc_instance;
+ATK_VAR AtkMisc *atk_misc_instance;
 
 struct _AtkMiscClass
 {
